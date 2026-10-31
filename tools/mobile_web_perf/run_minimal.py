@@ -66,13 +66,13 @@ def digest(path: Path) -> str:
 def build_bundle(folder: Path, original: Path) -> dict:
     assert digest(original) == PACK_SHA, "Wrong baseline PCK"
     source_audio = subprocess.check_output([
-        "git", "show", "1b29932c5333a9dad50759afc635762163ed79f5:scripts/audio/game_audio.gd"
+        "git", "show", "1b29932c5333a9dad50759afc635762163ed79f5:game/presentation/audio/game_audio.gd"
     ], cwd=ROOT)
     assert hashlib.sha256(source_audio).hexdigest() == GAME_AUDIO_SHA
     pack = Pack(original)
     folder.mkdir(parents=True)
     replacements = {
-        "scenes/demo/demo.tscn": SCENE,
+        "game/application/demo.tscn": SCENE,
         "scenes/demo/demo.tscn.remap": b'[remap]\n\npath="res://minimal_audio_repro.tscn"\n',
         "minimal_audio_repro.tscn": SCENE,
         "minimal_audio_repro.gd": (ROOT / "tools/mobile_web_perf/minimal_audio_repro.gd").read_bytes(),

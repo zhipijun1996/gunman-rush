@@ -97,11 +97,11 @@ def current_free_profile(data):
     require(schema in (1,2) and data['final_capability']['schema_version']==schema,'Unknown/mixed capability schema')
     if schema==1:
         # Frozen historical captures retain their original exact v1 authority.
-        require(cap['config_hashes']['shot_energy']==sha(ROOT/'resources/player/plains_shot_energy.tres'),'Historical energy authority mismatch')
+        require(cap['config_hashes']['shot_energy']==sha(ROOT/'game/player/resources/plains_shot_energy.tres'),'Historical energy authority mismatch')
         return False
     energy=cap['shot_energy'];path=energy['definition_path'];flag=energy['shooting_consumes_energy']
     require(type(flag) is bool,'Nonboolean energy profile')
-    expected='res://resources/player/plains_shot_energy.tres' if flag else 'res://resources/player/demo_ui_01/time_energy_v2.tres'
+    expected='res://game/player/resources/plains_shot_energy.tres' if flag else 'res://game/player/resources/demo_ui_01/time_energy_v2.tres'
     require(path==expected and energy['definition_version']==(1 if flag else 2),'Unknown energy Definition/profile')
     for c in (cap,data['final_capability']):
         e=c['shot_energy']
@@ -153,7 +153,7 @@ def strict_semantics(data, inactive_ticks=frozenset()):
     require({e['id'] for e in initial_actors}==set(ids)=={e['id'] for e in final_actors},'Runtime/Manifest actor inventories differ')
     observed=[e for e in initial_actors if e['id']==identity];require(len(observed)==1 and observed[0]['behavior']=='root_bell' and _near(observed[0]['home'],home) and _near(observed[0]['body_size'],body),'Actual actor Definition/home mismatch')
     require(observed[0]['health']==_number('resources/enemies/patrol_health.tres','max_health'),'Initial root HP not actual Definition')
-    tuning=json.loads((ROOT/'config/player_tuning.json').read_text());cap=data['initial_capability'];final=data['final_capability'];energy_script='scripts/resources/definitions/shot_energy_definition.gd';energy_resource='resources/player/demo_ui_01/time_energy_v2.tres' if current_free_profile(data) else 'resources/player/plains_shot_energy.tres'
+    tuning=json.loads((ROOT/'config/player_tuning.json').read_text());cap=data['initial_capability'];final=data['final_capability'];energy_script='game/combat/resources/definitions/shot_energy_definition.gd';energy_resource='game/player/resources/demo_ui_01/time_energy_v2.tres' if current_free_profile(data) else 'game/player/resources/plains_shot_energy.tres'
     free_policy=current_free_profile(data)
     capacity=_number(energy_resource,'capacity');initial=_number(energy_resource,'initial_current');cost=_number(energy_resource,'shot_energy_cost',energy_script);hit_recovery=_number(energy_resource,'hit_energy_recovery',energy_script);rate=_number(energy_resource,'ground_recovery',energy_script);delay=_number(energy_resource,'recovery_delay',energy_script);max_hp=_number('resources/actors/prototype_health.tres','max_health')
     hz=tuning['physics_hz'];dt=1/hz;session=cap['session_id'];epoch=frames[0]['resource_epoch']
@@ -243,7 +243,7 @@ def strict_semantics(data, inactive_ticks=frozenset()):
     edge_id=admission['physical_facts']['edge'];edges=[e for e in m['connections'] if e['id']==edge_id];require(len(edges)==1,'No unique actual Manifest target connection');edge=edges[0];areas={a['id']:a for a in m['areas']};a=areas[edge['a']]['position'];b=areas[edge['b']]['position']
     require(edge['bidirectional'] is True and edge['condition']=='open' and edge['path']==[a,b],'Required target connection not actual open two-way area path')
     steps=[s for s in data['edges'] if s['id']==edge_id];require(len(steps)==2 and [s['forward'] for s in steps]==[True,False],'Missing actual directed connection intervals')
-    player_size=_vec((ROOT/'scenes/player/player.tscn').read_text(),'size');tol=player_size[0]/2+1
+    player_size=_vec((ROOT/'game/player/player.tscn').read_text(),'size');tol=player_size[0]/2+1
     require(steps[0]['end_tick']+1==steps[1]['start_tick'] and steps[1]['end_tick']==len(frames),'Final native return interval incomplete')
     for step,start,end in [(steps[0],a,b),(steps[1],b,a)]:
         require(1<=step['start_tick']<step['end_tick']<=len(frames),'Invalid directed traversal range');fs=frames[step['start_tick']-1:step['end_tick']]

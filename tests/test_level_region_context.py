@@ -9,10 +9,30 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from level_region_context import ContextError, REGIONS, WORLD, build_region_context, parse_gate, resolve_region_id, region_registry
+from level_region_context import ContextError, REGIONS, WORLD, build_region_context, parse_gate, resolve_region_id, region_registry, region_write_scope
 
 
 class RegionContextTests(unittest.TestCase):
+    def test_migrated_regional_scopes_keep_ownership_and_unknown_shared_refusal(self):
+        for paths, expected in [
+            (["game/world/generation/thorn_forest_new.gd"], ["thorn_forest"]),
+            (["experiments/generation/forest_new.gd"], ["thorn_forest"]),
+            (["game/presentation/world/plains_surface.gd"], ["windchime_plains"]),
+        ]:
+            with self.subTest(paths=paths):
+                self.assertEqual(region_write_scope(paths), {"region_ids": expected, "unresolved_production_paths": []})
+        unknown = ["game/world/generation/new_region.gd", "game/application/demo_app.gd",
+                   "experiments/terrain/entries/new_study.tscn", "experiments/motion/action_studio.gd"]
+        self.assertEqual(region_write_scope(unknown), {"region_ids": [], "unresolved_production_paths": unknown})
+        shared = ["game/player/player_motor.gd", "game/platform/persistence/save_store.gd",
+                  "game/loadout/inventory/run_inventory.gd", "experiments/audio/neutral_signal.gd"]
+        self.assertEqual(region_write_scope(shared), {"region_ids": [], "unresolved_production_paths": []})
+        with tempfile.TemporaryDirectory() as folder:
+            missing_catalog = Path(folder)
+            self.assertEqual(region_write_scope(["game/world/generation/new_region.gd"], missing_catalog)["unresolved_production_paths"],
+                             ["game/world/generation/new_region.gd"])
+            self.assertEqual(region_write_scope(["game/presentation/actors/shared.gd"], missing_catalog)["unresolved_production_paths"], [])
+
     def test_request_resolution_is_derived_and_never_defaults_unknown_to_plains(self):
         self.assertEqual(resolve_region_id("优化风铃平原"), "windchime_plains")
         self.assertEqual(resolve_region_id("制作荆棘森林"), "thorn_forest")

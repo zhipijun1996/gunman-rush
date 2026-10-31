@@ -168,14 +168,14 @@ func make_case() -> void:
 		if id=="thorn_queen_v2": player_spawn = Vector2(450,342)
 		boss_spawn = point(geometry.boss_position)
 	elif wind:
-		module = preload("res://scenes/generation/modules/plains_boss_arena.tscn").instantiate() as PlatformingModule
+		module = preload("res://game/world/generation/scenes/modules/plains_boss_arena.tscn").instantiate() as PlatformingModule
 		fixture.add_child(module)
 		wind_module = module
 		player_spawn = Vector2(350,452)
 		if id=="windkeeper_storm": player_spawn = Vector2(870,452)
 		boss_spawn = Vector2(735,535)
 		arena_rect = Rect2(220,70,820,530)
-		geometry = {"source":"res://scenes/generation/modules/plains_boss_arena.tscn","platforms":module.definition.platforms}
+		geometry = {"source":"res://game/world/generation/scenes/modules/plains_boss_arena.tscn","platforms":module.definition.platforms}
 	else:
 		slab({"id":"floor","rect":[160,600,960,40],"one_way":false})
 		slab({"id":"left_branch","rect":[300,470,180,20],"one_way":true})
@@ -185,7 +185,7 @@ func make_case() -> void:
 	camera.position = arena_rect.get_center()+Vector2(0,15)
 	var fit := minf(1.25,1100.0/maxf(1,arena_rect.size.x))
 	camera.zoom = Vector2(fit,fit)
-	var player: PlayerMotor = preload("res://scenes/player/player.tscn").instantiate()
+	var player: PlayerMotor = preload("res://game/player/player.tscn").instantiate()
 	player.position = player_spawn
 	fixture.add_child(player)
 	controller = player.get_node("Controller") as PlayerController

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Development fixture in the actual formal App. MovieMaker owns the soundtrack.
-const APP := preload("res://scenes/demo/demo.tscn")
+const APP := preload("res://game/application/demo.tscn")
 const VERSION := "audio-feedback-capture-v1"
 var folder := "res://build/audio_feedback_05/capture"
 var smoke := false

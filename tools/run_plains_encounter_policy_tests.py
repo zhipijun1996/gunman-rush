@@ -37,7 +37,7 @@ HISTORICAL_CORE_BOUNDARY = {
     "res://project.godot": (
         "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
         "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"),
-    "res://scripts/run/run_manifest.gd": (
+    "res://game/application/run_manifest.gd": (
         "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
         "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"),
 }
@@ -86,7 +86,7 @@ def restore_historical_endpoint(project, base_manifest, basis=None):
                 for n, h in manifest["members"].items()), "historical complete endpoint inventory differs")
     core = {"res://" + n: h for n, h in manifest["members"].items()
             if n in {"project.godot", "assets/characters/courier/courier_visual.gd"} or
-            (n.startswith(formal.CORE_FOLDERS) and Path(n).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})}
+            (n.startswith(formal.LEGACY_CORE_FOLDERS) and Path(n).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})}
     old_core = {n: base_manifest["members"].get(n.removeprefix("res://")) for n in core}
     # courier_visual.gd is an exact asset blob, not a source archive member.
     for n in old_core:
@@ -221,7 +221,7 @@ def historical_checks(folder, env):
     for project in (before_project,after_project):
         runtime = {p:formal.file_hash(project/p) for p in
                    (set(base["members"]) | set(base["asset_blobs"]) if project == before_project else set(endpoint["members"]))
-                   if p.startswith(("scripts/","scenes/","resources/","config/","shaders/","assets/")) or p=="project.godot"}
+                   if p.startswith(("scripts/","game/","experiments/","scenes/","resources/","config/","shaders/","assets/")) or p=="project.godot"}
         write(project / "historical_runtime_inventory.json",runtime)
         for name in driver | verifier_paths:
             destination = project/name
@@ -292,7 +292,7 @@ def validate_native(data, recovery=False, reward_resource=""):
         ids={s.get("event_id") for s in shots}
         require(len(ids)==len(shots) and all(e.get("event_id") in ids for e in committed),"damage not bound to actual accepted projectile")
         policy=row.get("shot_policy",{})
-        free=policy.get("path")=="res://resources/player/demo_ui_01/time_energy_v2.tres"
+        free=policy.get("path")=="res://game/player/resources/demo_ui_01/time_energy_v2.tres"
         if free:
             require(policy.get("sha256")==formal.file_hash(ROOT/policy["path"][6:]) and policy.get("shooting_consumes_energy") is False and type(policy.get("max_air_shots")) is int and policy.get("max_air_shots")==read(ROOT/"config/player_tuning.json")["max_air_shots"] and policy.get("initial_energy")==read(ROOT/"config/player_tuning.json")["focus_stamina_capacity"],"wrong current free-policy provenance")
             require(not any(r["event_id"].startswith("shot/") for r in receipts),"free shot created paid energy receipt")
@@ -347,7 +347,7 @@ def validate_reward_entry(data, sources):
     require(all(e["tick"]==f["tick"] for f in frames for e in f["accepted_events"]),"wrong event frame")
     require(not any(e["kind"] in ["segment_returned","died","run_ended"] for e in events),"failure/teleport cannot sign reward completion")
     cap=row["initial_capability"];energy=cap["shot_energy"];previous=energy["current"]
-    free=energy.get("definition_path")=="res://resources/player/demo_ui_01/time_energy_v2.tres"
+    free=energy.get("definition_path")=="res://game/player/resources/demo_ui_01/time_energy_v2.tres"
     if free:
         require(energy.get("shooting_consumes_energy") is False and energy.get("definition_sha256")==formal.file_hash(ROOT/energy["definition_path"][6:]) and cap["config_hashes"]["player_tuning"]==formal.file_hash(ROOT/"config/player_tuning.json"),"reward current policy/config identity missing")
     expected_air=read(ROOT/"config/player_tuning.json")["max_air_shots"] if free else 2
@@ -481,7 +481,7 @@ def validate_reward_entry(data, sources):
     if row["natural_low"]:
         low=state.get("low_tick",0);require(state["entry_tick"]<low<=state["trial_start_tick"] and frames[low-1]["shot_energy"]==state["low_energy"]<energy["shot_energy_cost"],"low-resource boundary fabricated")
         if state.get("focus_setup"):
-            setup=state["focus_setup"];path="res://resources/player/demo_ui_01/time_energy_v2.tres"
+            setup=state["focus_setup"];path="res://game/player/resources/demo_ui_01/time_energy_v2.tres"
             require(setup.get("policy_path")==path and setup.get("policy_sha256")==formal.file_hash(ROOT/path[6:]) and setup.get("input")=="actual_router_jumpheld_and_airborne_aim" and setup.get("released") is True,"low-focus actual policy/input/release evidence missing")
             balance=setup["initial"];consumes=[]
             for tx in setup.get("transactions",[]):
@@ -785,7 +785,7 @@ def policy_tamper_checks(capture):
                "missing_shot_event":lambda d:d.update(events=[e for e in d["events"] if e["kind"]!="shot_accepted"]),
                "forged_damage_event":lambda d:next(e for e in d["events"] if e["kind"]=="damage_committed" and str(e.get("source","")).startswith("player_projectile:")).update(event_id="fake"),
                "missing_driver_dependency":lambda d:d["policy_basis"]["driver_sources"].pop(next(iter(d["policy_basis"]["driver_sources"]))),
-               "missing_core_dependency":lambda d:d["policy_basis"]["core_invariants"].pop("res://scripts/player/player_motor.gd"),
+               "missing_core_dependency":lambda d:d["policy_basis"]["core_invariants"].pop("res://game/player/player_motor.gd"),
                "unknown_mode":lambda d:d.update(encounter_policy="all_fun_pass")}
     if capture["initial_capability"]["shot_energy"].get("shooting_consumes_energy") is False:
         def forged_paid_receipt(data):

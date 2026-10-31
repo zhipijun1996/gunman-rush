@@ -98,7 +98,7 @@ def main():
             (folder / 'import.log').write_text(imported)
             if re.search(r'(^|\n)ERROR:', imported):
                 raise RuntimeError('Native import emitted an error')
-            baseline_bytes = subprocess.check_output(['git', 'show', '148d9251da2a457944213ba73b082525edf5e729:scripts/generation/plains_region_generator.gd'], cwd=ROOT)
+            baseline_bytes = subprocess.check_output(['git', 'show', '148d9251da2a457944213ba73b082525edf5e729:game/world/generation/plains_region_generator.gd'], cwd=ROOT)
             original = folder / 'pr85_generator_original.gd'
             original.write_bytes(baseline_bytes)
             baseline = folder / 'pr85_generator_loadable.gd'

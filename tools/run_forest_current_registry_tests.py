@@ -15,7 +15,7 @@ from run_tests import run_engine
 ROOT = Path(__file__).resolve().parents[1]
 SCOPE = 'Current V15 registry, current App refusal and current-state reload; no frozen historical replay'
 SOURCES = ('tests/forest_current_registry_runner.gd', 'tools/run_forest_current_registry_tests.py',
-           'scripts/generation/thorn_forest_region_generator.gd', 'scripts/demo/demo_app.gd')
+           'game/world/generation/thorn_forest_region_generator.gd', 'game/application/demo_app.gd')
 
 
 def hashes():

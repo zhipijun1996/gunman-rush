@@ -278,6 +278,17 @@ class BundleTests(unittest.TestCase):
                 (self.repo / name).unlink()
         self.assertEqual(self.check()['excluded_evidence_families'], list(bundle.EVIDENCE_ONLY_FAMILIES))
 
+
+    def test_experiment_consumers_cannot_reference_excluded_evidence_families(self):
+        for suffix in ('.gd', '.tscn', '.tres', '.json', '.gdshader'):
+            name = 'experiments/presentation/consumer' + suffix
+            with self.subTest(path=name):
+                self.local(name, ('res://' + bundle.EVIDENCE_ONLY_FAMILIES[0] + 'source.png').encode())
+                with self.assertRaisesRegex(ValueError, 'Runtime consumer references excluded'):
+                    self.check()
+                (self.repo / name).unlink()
+        self.assertEqual(self.check()['excluded_evidence_families'], list(bundle.EVIDENCE_ONLY_FAMILIES))
+
     def test_missing_each_runtime_json_is_rejected(self):
         for name in [n for n in self.entries if n.endswith('.json')]:
             with self.subTest(path=name):
@@ -347,6 +358,57 @@ class BundleTests(unittest.TestCase):
         self.local(bundle.LANDSCAPE, b'const PILOT_FAMILIES := compute_families()')
         with self.assertRaisesRegex(ValueError, 'declaration changed'):
             self.check()
+
+    def recorded_enemy_fixture(self):
+        name = 'resources/enemies/legacy/plains_charger_v2.tres'
+        raw = b'[gd_resource type="Resource" format=3]\n[resource]\ncollision_damage = 32.0\n'
+        digest = hashlib.sha256(raw).hexdigest()
+        self.local(name, raw)
+        self.local('game/enemies/enemy_behavior_registry.gd',
+                   ('const OLD_REVISION := "' + digest + '"\nconst BEHAVIORS := {\n'
+                    '\t&"charger": {"revisions":{OLD_REVISION:"res://' + name + '"}},\n'
+                    '}\nconst CANDIDATES := {}\n').encode())
+        target = '.godot/exported/fixture/plains_charger_v2.res'
+        self.entries[name] = raw
+        self.entries[name + '.remap'] = ('[remap]\npath="res://' + target + '"\n').encode()
+        self.entries[target] = b'Synthetic converted resource; actual ResourceLoader is tested in PCK runner'
+        return name, target
+
+    def test_recorded_enemy_requires_both_original_raw_bytes_and_normal_resource_remap(self):
+        name, target = self.recorded_enemy_fixture()
+        write_pack(self.pack, list(self.entries.items()))
+        result = bundle.check_runtime_closure(self.pack, self.repo)
+        self.assertEqual(result['recorded_enemy_definitions'], [name])
+        for missing in (name, name + '.remap', target):
+            with self.subTest(missing=missing):
+                write_pack(self.pack, [(key, value) for key, value in self.entries.items() if key != missing])
+                with self.assertRaises(ValueError):
+                    bundle.check_runtime_closure(self.pack, self.repo)
+
+    def test_recorded_enemy_changed_source_or_pack_and_unsafe_registry_are_rejected(self):
+        name, target = self.recorded_enemy_fixture()
+        original = self.entries[name]
+        self.entries[name] = original + b'changed raw'
+        write_pack(self.pack, list(self.entries.items()))
+        with self.assertRaisesRegex(ValueError, 'PCK raw enemy Definition differs'):
+            bundle.check_runtime_closure(self.pack, self.repo)
+        self.entries[name] = original
+        self.local(name, original + b'changed source')
+        with self.assertRaisesRegex(ValueError, 'Recorded enemy source SHA changed'):
+            bundle.recorded_enemy_contract(self.repo)
+        self.local(name, original)
+        registry = self.repo / 'game/enemies/enemy_behavior_registry.gd'
+        source = registry.read_text()
+        for invalid in ('res://resources/../escaped.tres', 'res://resources/missing.tres'):
+            registry.write_text(source.replace('res://' + name, invalid))
+            with self.assertRaises(ValueError):
+                bundle.recorded_enemy_contract(self.repo)
+        registry.write_text(source.replace('OLD_REVISION:"res://', 'UNKNOWN_REVISION:"res://'))
+        with self.assertRaisesRegex(ValueError, 'Unknown/duplicate'):
+            bundle.recorded_enemy_contract(self.repo)
+        registry.write_text(source.replace('{OLD_REVISION:', 'build_revisions({OLD_REVISION:'))
+        with self.assertRaisesRegex(ValueError, 'finite literal'):
+            bundle.recorded_enemy_contract(self.repo)
 
     def test_pack_rejects_duplicate_paths(self):
         rows = list(self.entries.items()); rows.append(rows[0]); write_pack(self.pack, rows)
@@ -422,6 +484,13 @@ class BundleTests(unittest.TestCase):
         folder, _ = self.web_fixture()
         self.local('game/presentation/retired.gd', b'var bad := "res://assets/painterly_v2/retired.png"')
         with self.assertRaisesRegex(AssertionError, 'game/presentation/retired.gd'):
+            bundle.check(folder, self.repo)
+
+
+    def test_bundle_entrypoint_rejects_retired_painterly_consumer_in_experiment(self):
+        folder, _ = self.web_fixture()
+        self.local('experiments/presentation/retired.gd', b'var bad := "res://assets/painterly_v2/retired.png"')
+        with self.assertRaisesRegex(AssertionError, 'experiments/presentation/retired.gd'):
             bundle.check(folder, self.repo)
 
     def test_all_shipping_presets_preserve_finite_runtime_closure(self):

@@ -1709,7 +1709,7 @@ class SpatialLeaseBoundaryTests(unittest.TestCase):
                 _, binding=level_design.load_spatial_experiment('experiment.json',direction['region_id'],root)
                 task={**copy.deepcopy(MISSION['tasks'][0]), 'read_only':False, 'completion':'stage', 'required_gates':['G0'],
                     'creative_direction':direction, 'region_bible':fixture_bible(direction, root), 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
-                if case=='core_quality_record':task['quality_record']='scripts/player/player_motor.gd'
+                if case=='core_quality_record':task['quality_record']='game/player/player_motor.gd'
                 task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/tasks.md']
                 if case=='valid':
                     self.assertEqual(loop.spatial_experiment_input(task)['content'],experiment)

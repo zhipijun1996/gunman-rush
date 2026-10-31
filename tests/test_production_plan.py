@@ -35,7 +35,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertNotIn("passed", json.dumps(plan))
 
     def test_shared_player_has_short_feedback_then_full_integration(self):
-        paths = ["scripts/art/avatar_presentation.gd"]
+        paths = ["game/presentation/actors/art/avatar_presentation.gd"]
         development = self.plan(paths)
         self.assertIn("underworld-player-animation", development["checks"])
         self.assertIn("actor-actions", development["checks"])
@@ -52,7 +52,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(plan["escalations"][0]["path"], "scripts/art/new_global_controller.gd")
 
     def test_formal_player_body_retains_style_binding_and_full_integration(self):
-        for path in ("scripts/underworld_plains/underworld_player.gd",
+        for path in ("game/presentation/actors/underworld_plains/underworld_player.gd",
                      "assets/characters/courier/courier_visual.gd"):
             with self.subTest(path=path):
                 development = self.plan([path])
@@ -62,14 +62,14 @@ class ProductionPlanTests(unittest.TestCase):
                 self.assertEqual(self.plan([path], "integration")["selection"], "full")
 
     def test_formal_enemy_mapping_does_not_admit_unreviewed_components(self):
-        path = "scripts/underworld_plains/underworld_enemy.gd"
+        path = "game/presentation/actors/underworld_plains/underworld_enemy.gd"
         self.assertIn("underworld-damage-feedback", self.plan([path])["checks"])
         self.assertEqual(self.plan([path])["selection"], "affected_checks")
         self.assertEqual(self.plan([path], "integration")["selection"], "full")
         self.assertEqual(self.plan(["scripts/underworld_plains/new_enemy.gd"])["selection"], "full")
 
     def test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes(self):
-        for path in ("config/player_tuning.json", "config/input_profile.json", "scripts/player/player_motor.gd", "scripts/generation/new_rng.gd", "scripts/save/new_save.gd", "scenes/player.tscn", "resources/foo.tres", "project.godot", ".github/workflows/new.yml"):
+        for path in ("config/player_tuning.json", "config/input_profile.json", "game/player/player_motor.gd", "scripts/generation/new_rng.gd", "scripts/save/new_save.gd", "scenes/player.tscn", "resources/foo.tres", "project.godot", ".github/workflows/new.yml"):
             with self.subTest(path=path):
                 plan = self.plan(["docs/handoff.md", path])
                 self.assertEqual(plan["selection"], "full")
@@ -161,7 +161,7 @@ class ProductionPlanTests(unittest.TestCase):
             self.assertEqual(self.plan(["config/level_pilot_candidates.json"], policy=policy)["selection"], "full")
 
     def test_shared_runtime_change_with_pilot_catalogue_escalates_full(self):
-        paths = ["config/level_pilot_candidates.json", "scripts/generation/platforming_module.gd"]
+        paths = ["config/level_pilot_candidates.json", "game/world/components/platforming_module.gd"]
         self.assertEqual(self.plan(paths)["selection"], "full")
         self.assertTrue(set(self.manifest["profiles"]["full"]).issubset(self.plan(paths)["checks"]))
 
@@ -218,7 +218,7 @@ class ProductionPlanTests(unittest.TestCase):
     def test_early_boundary_is_only_selected_with_its_real_parent(self):
         docs = self.plan(["docs/handoff.md"])
         self.assertEqual(docs["precheck_commands"], [])
-        full = self.plan(["scripts/demo/demo_app.gd"], "integration")
+        full = self.plan(["game/application/demo_app.gd"], "integration")
         self.assertEqual(full["precheck_commands"], [["python3", "-S", "tests/test_plains_encounter_policy_boundary.py", "-v"]])
         self.assertIn("plains-encounter-policy", full["checks"])
         policy = copy.deepcopy(self.policy)
@@ -227,7 +227,7 @@ class ProductionPlanTests(unittest.TestCase):
             self.plan(["docs/handoff.md"], policy=policy)
 
     def test_physical_lanes_require_the_exact_original_full_set(self):
-        full = self.plan(["scripts/demo/demo_app.gd"], "integration")
+        full = self.plan(["game/application/demo_app.gd"], "integration")
         self.assertEqual(full["ci_route"], "full_lanes")
         self.assertEqual(set(full["checks"]), set(self.manifest["profiles"]["full"]))
         parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
@@ -342,14 +342,14 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (180,95,85))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
-        for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
+        for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["game/application/demo_app.gd"], "development")]:
             scoped = self.plan(paths,stage)
             self.assertEqual(scoped["ci_route"], "selected_commands")
             self.assertEqual(scoped["ci_lane_checks"], {})
         manifest = copy.deepcopy(self.manifest)
         manifest["profiles"]["docs"].append("not-in-full")
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
-        with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
+        with_extra = make_plan(["game/application/demo_app.gd"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
 
     def test_real_refactor_runners_keep_direct_strict_native_contracts(self):
@@ -399,6 +399,17 @@ class ProductionPlanTests(unittest.TestCase):
                       self.manifest["checks"]["plains-revision-deform-equivalence"]["inputs"])
         self.assertIn("tests/fixtures/audio_lifecycle_2ce4ffa6",
                       self.manifest["checks"]["entry-audio-lifecycle-comparison"]["inputs"])
+
+    def test_moved_lab_sources_keep_the_original_shared_script_cache_coverage(self):
+        import harness
+        for name, check in self.manifest["checks"].items():
+            if "scripts" not in check.get("inputs", []):
+                continue
+            for path in ("experiments/terrain/art_foundation/blob47_lab.gd",
+                         "experiments/terrain/style_exploration/style_lab.gd"):
+                self.assertTrue((ROOT / path).is_file())
+                self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "a" * 64}),
+                                    harness.input_digest(check, [path], {}, {path: "b" * 64}), name + ":" + path)
 
     def test_finite_bible_inputs_include_the_shared_frozen_source_adapter(self):
         import harness
@@ -495,7 +506,7 @@ class ProductionPlanTests(unittest.TestCase):
             self.assertTrue((ROOT / path).is_file())
             self.assertTrue(any(path == item or path.startswith(item.rstrip("/") + "/")
                                 for item in check["inputs"]))
-        integration = self.plan(["scripts/demo/demo_app.gd"], "integration")
+        integration = self.plan(["game/application/demo_app.gd"], "integration")
         self.assertIn(name, integration["checks"])
         self.assertIn(name, integration["ci_lane_checks"]["parallel"])
         self.assertNotIn(name, integration["ci_lane_checks"]["serial"])
@@ -513,7 +524,7 @@ class ProductionPlanTests(unittest.TestCase):
         def metadata():
             return {"working_files":{"source.txt":hashlib.sha256((root/"source.txt").read_bytes()).hexdigest()}}
         harness=types.SimpleNamespace(load_manifest=lambda:self.manifest,
-                    changed_paths=lambda base:["scripts/demo/demo_app.gd"],git_metadata=metadata,
+                    changed_paths=lambda base:["game/application/demo_app.gd"],git_metadata=metadata,
                     MANIFEST=ROOT/"tools/harness/profiles.json")
         stdout=io.StringIO(); output=root/"build/plan.json"
         with patch.object(production_plan,"ROOT",root), patch.object(production_plan,"POLICY",policy_path), patch.object(production_plan,"git",return_value="frozen-source"), patch.dict(sys.modules,{"harness":harness}), contextlib.redirect_stdout(stdout):

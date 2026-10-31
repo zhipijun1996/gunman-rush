@@ -18,7 +18,7 @@ def main():
     folder = Path(tempfile.mkdtemp(prefix="run_", dir=base))
     project = REPO
     frozen_basis = None
-    if 'plains-region-v10' in (REPO / "scripts/generation/plains_region_generator.gd").read_text():
+    if 'plains-region-v10' in (REPO / "game/world/generation/plains_region_generator.gd").read_text():
         project, frozen_basis = frozen_project(folder / "frozen_v9")
         # Add only the current post-observation wrapper; frozen runner/runtime stay exact.
         for relative in ("tests/plains_autonomy_teardown_runner.gd", "tools/observed_audio_teardown.gd"):

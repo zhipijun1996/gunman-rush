@@ -8,8 +8,8 @@ from run_tests import run_engine
 ROOT = Path(__file__).resolve().parent.parent
 
 def inventory():
-    sources = sorted([*ROOT.glob('scripts/enemies/forest_*.gd'), *ROOT.glob('scripts/bosses/thorn_*.gd'), *ROOT.glob('resources/enemies/forest_*.tres'), *ROOT.glob('resources/bosses/thorn_*.tres'), ROOT/'scripts/enemies/enemy_actor.gd', ROOT/'scripts/enemies/enemy_definition.gd', ROOT/'tests/forest_ecology_runner.gd',
-                      *(p for p in (ROOT/'game').rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')])
+    sources = sorted([*ROOT.glob('scripts/enemies/forest_*.gd'), *ROOT.glob('scripts/bosses/thorn_*.gd'), *ROOT.glob('resources/enemies/forest_*.tres'), *ROOT.glob('resources/bosses/thorn_*.tres'), ROOT/'game/enemies/enemy_actor.gd', ROOT/'scripts/enemies/enemy_definition.gd', ROOT/'tests/forest_ecology_runner.gd',
+                      *(p for directory in ('game','experiments') for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')])
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
 
 def main():

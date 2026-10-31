@@ -108,7 +108,7 @@ def _properties(source):
 
 
 def _weapon_inventory(root, sources):
-    catalog = Source(root, "scripts/combat/weapon_catalog.gd")
+    catalog = Source(root, "game/combat/weapons/weapon_catalog.gd")
     definition = Source(root, "scripts/combat/weapon_definition.gd")
     sources.extend([catalog.ref(), definition.ref()])
     ids_match = re.search(r"const IDS: Array\[String\] = \[([^\]]+)\]", catalog.text)
@@ -177,7 +177,20 @@ def region_write_scope(paths, root=ROOT):
         families.setdefault(region, set()).update(names)
     production = ("scripts/generation/", "scripts/demo/", "scripts/art/", "scripts/enemies/",
                   "scripts/bosses/", "scripts/world/", "scenes/", "resources/generation/",
-                  "resources/art/", "resources/enemies/", "resources/bosses/", "assets/", "shaders/")
+                  "resources/art/", "resources/enemies/", "resources/bosses/", "assets/", "shaders/",
+                  # Current homes of the same regional content and scene entry
+                  # scopes. Shared player physics, persistence and loadout are
+                  # deliberately not blanket regional write permissions.
+                  "game/world/generation/", "game/world/components/", "game/world/levels/",
+                  "game/presentation/actors/", "game/presentation/effects/", "game/presentation/world/",
+                  "game/enemies/", "game/bosses/", "game/progression/home/",
+                  "experiments/generation/", "experiments/terrain/art/",
+                  "experiments/audio/entries/", "experiments/motion/entries/", "experiments/terrain/entries/", "experiments/platform/entries/",
+                  "experiments/audio/audio_ambience_lab.gd", "experiments/audio/audio_home_lab.gd",
+                  "experiments/motion/action_studio.gd", "game/application/demo.tscn",
+                  "game/application/demo_app.gd", "game/player/player.tscn",
+                  "game/player/presentation/demo_aim_guide.gd",
+                  "game/world/state/world_context.gd", "game/world/state/world_definition.gd")
     regions, unresolved = set(), []
     for raw in paths:
         relative = Path(raw)
@@ -187,7 +200,7 @@ def region_write_scope(paths, root=ROOT):
         # Ownership is checked across *all* runtime domains before the
         # shared/unknown production-prefix fallback. Regional presentation,
         # item Definitions or a new consumer directory cannot escape this map.
-        runtime = name.startswith(("scripts/", "resources/", "scenes/", "assets/", "shaders/", "config/"))
+        runtime = name.startswith(("scripts/", "game/", "experiments/", "resources/", "scenes/", "assets/", "shaders/", "config/"))
         parts = [*relative.parts[:-1], relative.stem]
         owners = ({region for region, aliases in families.items()
                    if any(part == alias or part.startswith(alias + "_") for part in parts for alias in aliases)}
@@ -197,7 +210,7 @@ def region_write_scope(paths, root=ROOT):
             continue  # Exact shared Player/physics files are not region content.
         # Controller-only asset fixtures without a world catalog have no game
         # consumer identity. Known regional families and generation still bind.
-        if not owners and not catalog_path.is_file() and "scripts/generation/" not in relevant:
+        if not owners and not catalog_path.is_file() and not {"scripts/generation/", "game/world/generation/"}.intersection(relevant):
             continue
         target = root / relative
         if any(p.is_symlink() for p in [target, *target.parents] if p == root or p.is_relative_to(root)):
@@ -268,10 +281,10 @@ def build_region_context(region_id, root=ROOT):
             override["linked_sources"].append(revised.ref())
             sources.append(revised.ref())
     inventory = _weapon_inventory(root, sources)
-    traversal = Source(root, "scripts/player/traversal_ability.gd")
-    studio = Source(root, "scripts/demo/action_studio.gd")
-    app = Source(root, "scripts/demo/demo_app.gd")
-    profile = Source(root, "scripts/run/run_profile.gd")
+    traversal = Source(root, "game/player/actions/traversal_ability.gd")
+    studio = Source(root, "experiments/motion/action_studio.gd")
+    app = Source(root, "game/application/demo_app.gd")
+    profile = Source(root, "game/world/state/run_profile.gd")
     current = Source(root, "docs/current_state.md")
     sources.extend(s.ref() for s in (traversal, studio, app, profile, current))
     ability_observations = {}
@@ -283,10 +296,10 @@ def build_region_context(region_id, root=ROOT):
             "studio_grant_call_present": studio_grant, "formal_grant": "not_inferred",
             "source": traversal.ref(), "studio_source": studio.ref()}
     resources = []
-    for path in ("scripts/resources/definitions/shot_energy_definition.gd", "scripts/resources/definitions/combat_energy_definition.gd",
-                 "scripts/resources/state/combat_energy_state.gd", "scripts/combat/shot_energy_policy.gd",
-                 "scripts/player/jump_ability.gd", "scripts/builds/build_state.gd", "resources/player/plains_shot_energy.tres",
-                 "resources/player/combat_energy.tres", "resources/player/traversal.tres", "resources/weapons/motion.tres"):
+    for path in ("game/combat/resources/definitions/shot_energy_definition.gd", "game/combat/resources/definitions/combat_energy_definition.gd",
+                 "game/combat/resources/state/combat_energy_state.gd", "game/combat/resources/shot_energy_policy.gd",
+                 "game/player/actions/jump_ability.gd", "game/loadout/stats/build_state.gd", "game/player/resources/plains_shot_energy.tres",
+                 "game/player/resources/combat_energy.tres", "resources/player/traversal.tres", "resources/weapons/motion.tres"):
         source = Source(root, path)
         resources.append({"status": "source_present_not_actor_snapshot", "source": source.ref()})
         sources.append(source.ref())
@@ -295,9 +308,9 @@ def build_region_context(region_id, root=ROOT):
                        and 'profile_id == &"formal_plains_region"' in profile.text)
     if region_id == "thorn_forest":
         chain = [Source(root, path) for path in (
-            "scripts/generation/thorn_forest_region_generator.gd",
-            "scripts/demo/thorn_forest_region_stage.gd",
-            "scripts/generation/thorn_forest_region_assembler.gd")]
+            "game/world/generation/thorn_forest_region_generator.gd",
+            "game/world/levels/providers/thorn_forest_region_stage.gd",
+            "game/world/generation/thorn_forest_region_assembler.gd")]
         consumer_sources.extend(source.ref() for source in chain)
         sources.extend(source.ref() for source in chain)
         formal_observed = ("func _select_next_region(" in app.text and "func start_debug_region(" in app.text and "ThornForestRegionGenerator.new().generate(" in app.text

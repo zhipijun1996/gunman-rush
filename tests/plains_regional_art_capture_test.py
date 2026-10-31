@@ -52,10 +52,10 @@ class RegionalEvidenceCounterexamples(unittest.TestCase):
     def test_regional_own_catalog_and_avatar_replace_only_unused_legacy_metadata(self):
         data=copy.deepcopy(self.data)
         report={'request':{'capture_script':vd.REGIONAL_CAPTURE,'visual_sample':'','visual_layout':''},
-                'source_before':{'resources/visual_development/p1_regional_assets.json':'a'*64,
+                'source_before':{'game/presentation/world/resources/visual_development/p1_regional_assets.json':'a'*64,
                                  'assets/fixture.png':'b'*64,'assets/hero.json':'c'*64,'assets/hero.png':'d'*64}}
         for key in ('regional_art_initial','regional_art_final'):
-            data[key]['art'].update(catalog_path='res://resources/visual_development/p1_regional_assets.json',catalog_sha256='a'*64)
+            data[key]['art'].update(catalog_path='res://game/presentation/world/resources/visual_development/p1_regional_assets.json',catalog_sha256='a'*64)
             data[key]['art']['terrain']=[{'source':'res://assets/fixture.png','source_sha256':'b'*64}]
         for key in ('regional_avatar_initial','regional_avatar_final'):
             data[key]={'selected_id':'p1_girl','painted_owner_count':1,'hero_states':['idle'],
@@ -69,7 +69,7 @@ class RegionalEvidenceCounterexamples(unittest.TestCase):
             elif fault=='layout':bound['request']['visual_layout']='open-meadow'
             elif fault=='catalog_path':broken['regional_art_final']['art']['catalog_path']='res://wrong.json'
             elif fault=='catalog_hash':broken['regional_art_final']['art']['catalog_sha256']='0'*64
-            elif fault=='catalog_missing':del bound['source_before']['resources/visual_development/p1_regional_assets.json']
+            elif fault=='catalog_missing':del bound['source_before']['game/presentation/world/resources/visual_development/p1_regional_assets.json']
             elif fault=='paint_hash':broken['regional_art_final']['art']['terrain'][0]['source_sha256']='0'*64
             elif fault=='avatar':broken['regional_avatar_final']['painted_owner_count']=2
             elif fault=='avatar_hash':broken['regional_avatar_final']['texture_sha256']='0'*64

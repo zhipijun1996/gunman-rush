@@ -29,14 +29,15 @@ def source_files(extra_paths=()):
         if path.is_absolute() or ".." in path.parts:
             raise ValueError("Extra source must be repository relative")
         paths.append(ROOT / path)
-    for folder in ("scripts", "game", "scenes", "resources", "config", "shaders", "assets"):
+    for folder in ("scripts", "game", "experiments", "scenes", "resources", "config", "shaders", "assets"):
         paths.extend(p for p in (ROOT / folder).rglob("*") if p.is_file() and p.suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})
     paths.extend((ROOT / "tests").glob("*.gd"))
     return {p.relative_to(ROOT).as_posix(): file_hash(p) for p in sorted(set(paths))}
 
 
 ENCOUNTER_POLICIES = ("blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1")
-CORE_FOLDERS = ("scripts/player/", "scripts/input/", "scripts/combat/", "scripts/damage/", "scripts/resources/", "scripts/actors/", "scripts/builds/", "scripts/meta/", "scripts/rewards/", "scripts/shops/", "scripts/save/", "scripts/run/", "resources/player/", "resources/actors/", "resources/items/", "resources/weapons/", "config/", "scenes/player/")
+LEGACY_CORE_FOLDERS = ("scripts/player/", "scripts/input/", "scripts/combat/", "scripts/damage/", "scripts/resources/", "scripts/actors/", "scripts/builds/", "scripts/meta/", "scripts/rewards/", "scripts/shops/", "scripts/save/", "scripts/run/", "resources/player/", "resources/actors/", "resources/items/", "resources/weapons/", "config/", "scenes/player/")
+CORE_FOLDERS = ('config/', 'game/combat/projectiles/', 'game/combat/resources/', 'game/combat/respawn/', 'game/economy/shops/', 'game/loadout/equipment/', 'game/loadout/inventory/', 'game/loadout/stats/', 'game/platform/input/', 'game/platform/persistence/', 'game/player/actions/', 'game/player/resources/', 'game/rewards/drops/', 'game/rewards/offers/', 'resources/actors/', 'resources/items/', 'resources/player/', 'resources/weapons/', 'scripts/builds/', 'scripts/combat/', 'scripts/player/', 'scripts/resources/definitions/', 'experiments/motion/graybox.gd', 'game/application/demo_run_director.gd', 'game/application/demo_run_result.gd', 'game/application/run_campaign_progression.gd', 'game/application/run_composition.gd', 'game/application/run_manifest.gd', 'game/application/run_session.gd', 'game/combat/damage/damage_boundary.gd', 'game/combat/damage/damage_feedback_definition.gd', 'game/combat/damage/damage_request.gd', 'game/combat/damage/damage_result.gd', 'game/combat/damage/damageable.gd', 'game/combat/damage/demo_contact_emitter.gd', 'game/combat/damage/frame_damage_policy.gd', 'game/combat/weapons/recoil_ability.gd', 'game/combat/weapons/shoot_ability.gd', 'game/combat/weapons/weapon_action_runtime.gd', 'game/combat/weapons/weapon_catalog.gd', 'game/combat/weapons/weapon_entity.gd', 'game/loadout/effects/item_effect_component.gd', 'game/player/player.tscn', 'game/player/player_controller.gd', 'game/player/player_motor.gd', 'game/player/player_tuning.gd', 'game/presentation/effects/damage_return_echo.gd', 'game/progression/home_item_catalog.gd', 'game/progression/meta_progression.gd', 'game/rewards/grants/bellstrider_rewards.gd', 'game/rewards/grants/economy_receipt.gd', 'game/rewards/grants/max_health_effect.gd', 'game/rewards/grants/reward_claim_request.gd', 'game/rewards/grants/reward_service.gd', 'game/rewards/grants/simple_reward_result.gd', 'game/rewards/grants/simple_room_reward.gd', 'game/rewards/grants/supply_heal_effect.gd', 'game/rewards/grants/windkeeper_pressure_rewards.gd', 'game/world/state/biome_definition.gd', 'game/world/state/demo_lifetime.gd', 'game/world/state/demo_token.gd', 'game/world/state/exit_offer.gd', 'game/world/state/plains_region_campaign.gd', 'game/world/state/plains_region_state.gd', 'game/world/state/route_planner.gd', 'game/world/state/run_profile.gd', 'game/world/state/run_random_stream.gd', 'game/world/state/stage_completion_rule.gd', 'game/world/state/stage_type_definition.gd')
 
 
 def driver_source_paths():
@@ -74,11 +75,11 @@ def validate_policy_basis(data, sources):
     # Keep the full per-side runtime inventory. It must not be replaced by the
     # small policy projection or lose scenery/DemoApp merely to make a compare pass.
     observers=data.get("capture_source_hashes")
-    required_observers={"res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://scripts/art/plains_region_scenery.gd"}
+    required_observers={"res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://game/presentation/world/art/plains_region_scenery.gd"}
     if not isinstance(observers,dict) or not required_observers<=observers.keys():errors.append("incomplete full capture observer inventory")
-    runtime = {"res://"+k:v for k,v in sources.items() if k == "project.godot" or k.startswith(("scripts/", "scenes/", "resources/", "config/", "shaders/", "assets/"))}
+    runtime = {"res://"+k:v for k,v in sources.items() if k == "project.godot" or k.startswith(("scripts/", "game/", "experiments/", "scenes/", "resources/", "config/", "shaders/", "assets/"))}
     if not runtime or data.get("runtime_source_hashes") != runtime: errors.append("incomplete/changed independently observed runtime source inventory")
-    required = {"project.godot", "scripts/demo/demo_app.gd", "scripts/art/plains_region_scenery.gd", "scripts/generation/plains_region_generator.gd"}
+    required = {"project.godot", "game/application/demo_app.gd", "game/presentation/world/art/plains_region_scenery.gd", "game/world/generation/plains_region_generator.gd"}
     if not required <= sources.keys(): errors.append("incomplete full runtime source inventory")
     if not isinstance(data.get("resource_receipts"), list) or not isinstance(data.get("policy_observations"), list): errors.append("missing policy observations/receipts")
     return errors
@@ -250,7 +251,7 @@ def _frozen_sources(commit, paths):
         source = subprocess.check_output(["git", "show", commit + ":" + name], cwd=ROOT, text=True, timeout=30)
         pending.extend(re.findall(r"res://((?:tests|tools)/[a-zA-Z0-9_/]+[.]gd)", source))
     expected = {name for name in tree_paths if name in fixed or
-                (name.split("/")[0] in ("scripts", "scenes", "resources", "config", "shaders", "assets") and Path(name).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"}) or
+                (name.split("/")[0] in ("scripts", "game", "experiments", "scenes", "resources", "config", "shaders", "assets") and Path(name).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"}) or
                 (Path(name).parent.as_posix() == "tests" and name.endswith(".gd"))}
     if set(paths) != expected: raise ValueError("incomplete frozen source inventory")
     raw = subprocess.check_output(["git", "archive", "--format=tar", commit, "--", *paths], cwd=ROOT)

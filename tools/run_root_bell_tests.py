@@ -23,12 +23,12 @@ BASE = ROOT / 'build/root_bell'
 OUT = BASE
 LOCK = '/workspace/gunman-rush/build/region_production_v3/engine.lock'
 SOURCES = [
-    'scripts/enemies/enemy_actor.gd', 'scripts/enemies/enemy_definition.gd',
-    'scripts/enemies/root_bell_behavior.gd', 'scripts/enemies/root_bell_presentation.gd',
-    'scripts/generation/plains_encounter_planner.gd',
-    'scripts/generation/plains_region_generator.gd',
-    'scripts/generation/plains_root_bell_placement.gd',
-    'scripts/demo/generated_demo_stage.gd',
+    'game/enemies/enemy_actor.gd', 'scripts/enemies/enemy_definition.gd',
+    'game/enemies/behaviors/root_bell_behavior.gd', 'game/enemies/presentation/root_bell_presentation.gd',
+    'game/world/generation/plains_encounter_planner.gd',
+    'game/world/generation/plains_region_generator.gd',
+    'game/world/generation/plains_root_bell_placement.gd',
+    'game/world/levels/providers/generated_demo_stage.gd',
     'resources/enemies/plains_root_bell.tres',
     'assets/region_production_v3/enemies/root_bell/source/master.png',
     'assets/region_production_v3/enemies/root_bell/manifest.json',
@@ -84,7 +84,7 @@ def _events(case, kind):
     return [e for e in case['events'] if e['kind'] == kind]
 
 
-DAMAGE_FEEDBACK_PATHS = ('resources/damage/feedback.tres', 'scripts/damage/damage_feedback_definition.gd')
+DAMAGE_FEEDBACK_PATHS = ('game/combat/damage/feedback.tres', 'game/combat/damage/damage_feedback_definition.gd')
 
 
 def damage_feedback_sources():

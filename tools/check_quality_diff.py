@@ -11,22 +11,22 @@ import zlib
 from quality import ROOT, read_json, validate_record, validate_asset
 from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT, LANDSCAPE
 
-PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/', 'game/')
+PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/', 'game/', 'experiments/')
 # Exact reviewed finite loader. Any source change requires adapter review;
 # the hash does not replace runtime_contract's manifest/path/PNG/SHA checks.
 CONNECTED_CONSUMER_SHA256 = {
     CONNECTED: '2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d',
-    'scripts/art/plains_region_composition.gd': '0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745',
-    'scripts/art/plains_landscape_observer.gd': '19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e',
+    'game/presentation/world/art/plains_region_composition.gd': '0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745',
+    'game/presentation/world/art/plains_landscape_observer.gd': '19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e',
 }
 
 
 # PR93 dynamic loading is bound to exact reviewed sources, independently of the
 # existing connected adapter. A changed loader requires finite-adapter review.
 STYLE_CONSUMER_SHA256 = {
-    'scripts/style_exploration/style_terrain.gd': 'cb7d47f17554e91e0decfcbd0c143d3234a0aa302e3fe6a61f78ce659ff25b64',
-    'scripts/style_exploration/style_actor_visual.gd': '1f3806605ef56a9ef473f8d54002ea0688d811cd07e0a7bdbcf80a2aff8a0f16',
-    'scripts/style_exploration/style_scenery.gd': '55cbdfd22ac193162cae6ab6a14b27e8c6a88aad9de0d4e5991744fd97a365b7',
+    'game/presentation/world/style_exploration/style_terrain.gd': 'cb7d47f17554e91e0decfcbd0c143d3234a0aa302e3fe6a61f78ce659ff25b64',
+    'game/presentation/actors/style_exploration/style_actor_visual.gd': '1f3806605ef56a9ef473f8d54002ea0688d811cd07e0a7bdbcf80a2aff8a0f16',
+    'game/presentation/world/style_exploration/style_scenery.gd': 'c22a5f5174e255f7a460f56e32ed971f26d2719be9851de437bf1d6450543f07',
 }
 STYLE_ROOT = 'assets/style_exploration/'
 STYLE_IDS = ('retro', 'basic', 'scribble', 'underworld', 'cavern')
@@ -84,7 +84,7 @@ def style_asset_consumers(root):
 
 
 # Exact reviewed loader; registry contents may grow without admitting siblings.
-ITEM_ART_LOADER = 'scripts/items/v5/item_art_library.gd'
+ITEM_ART_LOADER = 'game/loadout/effects/item_art_library.gd'
 ITEM_ART_LOADER_SHA256 = '14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d'
 ITEM_ART_ROOT = 'assets/items/v5/'
 
@@ -219,7 +219,7 @@ def item_art_consumers(root):
 
 # AUDIO-AMBIENCE-01: finite reviewed loader and the eight authored outputs only.
 # This is an asset-identity adapter, not an audio decoder or quality verdict.
-AMBIENCE_LOADER = 'scripts/audio/game_ambience.gd'
+AMBIENCE_LOADER = 'game/presentation/audio/game_ambience.gd'
 # MOBILE-WEB-PERF-01: reviewed pause-state-only fix. Asset loading, authored
 # paths, manifest parsing and source selection remain unchanged. Keep an exact
 # binding so any future loader edit still requires a finite-adapter review.
@@ -370,17 +370,17 @@ def known_asset_consumers(root):
     manifests, textures, _absent_adapters = runtime_contract(root)
     known = set(manifests) | set(textures) | style_asset_consumers(root) | item_art_consumers(root) | ambience_asset_consumers(root)
     legacy = {
-        ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/manifest.json'): 'assets/plains_v3/',
-        ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/%s'): 'assets/plains_v3/',
-        ('scripts/art/plains_v3_assets.gd', 'res://assets/plains_v3/'): 'assets/plains_v3/',
-        ('scripts/art/plains_v3_assets.gd', 'res://assets/plains_v3/ui/%s.png'): 'assets/plains_v3/ui/',
-        ('scripts/art/plains_background.gd', 'res://assets/plains_v3/background_layers/'): 'assets/plains_v3/background_layers/',
-        ('scripts/audio/game_audio.gd', 'res://assets/audio/kenney/%s.ogg'): 'assets/audio/kenney/',
-        ('scripts/enemies/enemy_presentation.gd', 'res://assets/plains_v3/enemies/meadow_actions/'): 'assets/plains_v3/enemies/meadow_actions/',
+        ('game/presentation/actors/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/manifest.json'): 'assets/plains_v3/',
+        ('game/presentation/actors/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/%s'): 'assets/plains_v3/',
+        ('game/presentation/world/art/plains_v3_assets.gd', 'res://assets/plains_v3/'): 'assets/plains_v3/',
+        ('game/presentation/world/art/plains_v3_assets.gd', 'res://assets/plains_v3/ui/%s.png'): 'assets/plains_v3/ui/',
+        ('game/presentation/world/art/plains_background.gd', 'res://assets/plains_v3/background_layers/'): 'assets/plains_v3/background_layers/',
+        ('game/presentation/audio/game_audio.gd', 'res://assets/audio/kenney/%s.ogg'): 'assets/audio/kenney/',
+        ('game/enemies/presentation/enemy_presentation.gd', 'res://assets/plains_v3/enemies/meadow_actions/'): 'assets/plains_v3/enemies/meadow_actions/',
     }
     suffixes = {'.gd', '.tscn', '.tres', '.json', '.cfg', '.gdshader', '.gdshaderinc'}
     quoted = re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\#[^\n]*''')
-    for directory in ('scripts', 'scenes', 'resources', 'config', 'assets', 'game'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'assets', 'game', 'experiments'):
         folder = root / directory
         if not folder.is_dir():
             continue
@@ -422,7 +422,7 @@ def known_asset_consumers(root):
                     }:
                         # Hash-bound loader resolved to exact finite files above.
                         continue
-                    if relative == 'scripts/art/plains_semantic_landscape.gd' and value == 'res://assets/region_production_v3/spaces/':
+                    if relative == 'game/presentation/world/art/plains_semantic_landscape.gd' and value == 'res://assets/region_production_v3/spaces/':
                         continue # Exact dynamic families were validated by runtime_contract.
                     if relative == CONNECTED and value == 'res://' + CONNECTED_ROOT:
                         # This exact directory literal was resolved to the

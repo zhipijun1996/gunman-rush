@@ -18,7 +18,7 @@ from level_design_contracts import validate_forest_h_slice
 from level_region_context import build_region_context
 
 ROOT = Path(__file__).resolve().parents[1]
-DEV_UIDS = ("scripts/demo/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid")
+DEV_UIDS = ("game/world/levels/providers/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid")
 
 
 def sha(path):

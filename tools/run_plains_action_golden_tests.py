@@ -90,9 +90,9 @@ def main():
     base.mkdir(parents=True, exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix="run_", dir=base))
     before = level_formal.source_files()
-    recipe = REPO / "scripts/generation/plains_route_recipes.gd"
+    recipe = REPO / "game/world/generation/plains_route_recipes.gd"
     source = recipe.read_text()
-    generator = REPO / "scripts/generation/plains_region_generator.gd"
+    generator = REPO / "game/world/generation/plains_region_generator.gd"
     generator_source = generator.read_text()
     historical = REPO / "docs/evidence/level_autonomy/action_baseline_capture.json"
     if not historical.is_file():
@@ -113,15 +113,15 @@ def main():
                 raise RuntimeError("Candidate must start from the exact original thorn_gap recipe")
             project = folder / "project"
             project.mkdir()
-            for name in ("scripts", "scenes", "resources", "assets", "shaders", "config", "tests", ".godot"):
+            for name in ("scripts", "game", "experiments", "scenes", "resources", "assets", "shaders", "config", "tests", ".godot"):
                 shutil.copytree(REPO / name, project / name)
             shutil.copy2(REPO / "project.godot", project / "project.godot")
-            (project / "scripts/generation/plains_route_recipes.gd").write_text(source.replace(OLD, NEW))
+            (project / "game/world/generation/plains_route_recipes.gd").write_text(source.replace(OLD, NEW))
             if generator_source.count(OLD_VERSION) != 1:
                 raise RuntimeError("Candidate must start from the exact original generation version")
             if generator_source.count(OLD_JOIN) != 1 or generator_source.count(OLD_HYDRATE) != 1:
                 raise RuntimeError("Candidate must start from the original horizontal join")
-            (project / "scripts/generation/plains_region_generator.gd").write_text(generator_source.replace(OLD_VERSION, NEW_VERSION).replace(OLD_JOIN, NEW_JOIN).replace(OLD_HYDRATE, NEW_HYDRATE))
+            (project / "game/world/generation/plains_region_generator.gd").write_text(generator_source.replace(OLD_VERSION, NEW_VERSION).replace(OLD_JOIN, NEW_JOIN).replace(OLD_HYDRATE, NEW_HYDRATE))
         elif not frozen and source.count(NEW) != 1:
             raise RuntimeError("Formal recipe must contain the exact golden candidate")
         command = ["bash", str(REPO / "tools/godot.sh"), "--headless", "--path", str(project), "--editor", "--quit"]

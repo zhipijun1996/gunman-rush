@@ -55,9 +55,9 @@ def main() -> None:
             for biome in biomes:
                 for sample in range(4):
                     image = output / f'{style}_{biome}_sample{sample}.png'
-                    run(f'capture_{style}_{biome}_{sample}', ['--audio-driver', 'Dummy', '--path', '.', '--resolution', '1280x720', 'res://scenes/style_exploration/style_lab.tscn', '--', f'--style={style}', f'--biome={biome}', f'--sample={sample}', f'--capture={image}'], 60, r'^STYLE_CAPTURE .* error=0$')
+                    run(f'capture_{style}_{biome}_{sample}', ['--audio-driver', 'Dummy', '--path', '.', '--resolution', '1280x720', 'res://experiments/terrain/entries/style_lab.tscn', '--', f'--style={style}', f'--biome={biome}', f'--sample={sample}', f'--capture={image}'], 60, r'^STYLE_CAPTURE .* error=0$')
                 image = output / f'{style}_{biome}_tileset.png'
-                run(f'catalog_{style}_{biome}', ['--audio-driver', 'Dummy', '--path', '.', '--resolution', '1280x720', 'res://scenes/style_exploration/style_lab.tscn', '--', f'--style={style}', f'--biome={biome}', '--sample=0', '--catalog', f'--capture={image}'], 60, r'^STYLE_CAPTURE .* error=0$')
+                run(f'catalog_{style}_{biome}', ['--audio-driver', 'Dummy', '--path', '.', '--resolution', '1280x720', 'res://experiments/terrain/entries/style_lab.tscn', '--', f'--style={style}', f'--biome={biome}', '--sample=0', '--catalog', f'--capture={image}'], 60, r'^STYLE_CAPTURE .* error=0$')
     print(f'Validated runtime evidence: {output}')
 
 

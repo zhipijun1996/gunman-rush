@@ -99,7 +99,7 @@ def validate_receipt(source, data, receipt, log, current_sources):
 def source_files(root=ROOT):
     """Include new/untracked sources too; no build/cache or evidence dependency."""
     paths = [root / "project.godot"]
-    for folder in ("scripts", "game", "scenes", "resources", "config", "tools", "tests"):
+    for folder in ("scripts", "game", "experiments", "scenes", "resources", "config", "tools", "tests"):
         paths.extend(p for p in (root / folder).rglob("*") if p.is_file()
                      and p.suffix in {".gd", ".py", ".tres", ".tscn", ".json", ".sh"})
     return {p.relative_to(root).as_posix(): file_hash(p) for p in sorted(paths)}
@@ -250,7 +250,7 @@ def content_plan(request, mode=None, phase="auto"):
             allowed += ["scripts/generation/", "scripts/art/", "scripts/enemies/", "scripts/demo/",
                         "scripts/bosses/", "scripts/world/", "scripts/audio/", "scenes/",
                         "resources/generation/", "resources/enemies/", "resources/bosses/",
-                        "resources/art/", "assets/"]
+                        "resources/art/", "assets/", "game/world/", "game/enemies/", "game/bosses/", "game/presentation/", "experiments/"]
         task_id = f"level-{mode}-{name}"
         dependencies = previous
         if mode == "new_region":
@@ -310,12 +310,12 @@ def content_plan(request, mode=None, phase="auto"):
             "使用本地区实际入口能力和真实Motor/Router/资源验证连续动作、落地和返回；保留实际删目标/无能力反例。"
             "无现成地区producer时先实现对应真实消费者/runner，不拿平原或Foundry证明本地区。技术灰盒不签正式开放或美术。",
             "skills": ["region-generator", "level-module-creator", "challenge-choreographer"], "checks": checks,
-            "depends_on": [], "read_only": False, "allowed_paths": ["docs/", "tests/", "tools/", "scripts/demo/"],
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/", "tests/", "tools/", "scripts/demo/", "game/world/levels/providers/", "game/application/"],
             "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0", "G1"],
             "region_proof": {"region_id": region_id, "kind": "golden", "scope": "prototype", "capability_gate": gate,
                              **({"allowed_capabilities": ["H"]} if implemented_slice else {})}}]
         if implemented_slice:
-            mission["tasks"][0]["allowed_paths"] += ["scripts/demo/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid"]
+            mission["tasks"][0]["allowed_paths"] += ["game/world/levels/providers/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid"]
         mission["max_calls"] = 4
         mission["max_rounds"] = 2
         mission["preparation"]["task_registration"]["phase"] = "prototype"
@@ -345,8 +345,8 @@ def load_spatial_experiment(path, region_id, root=ROOT):
     for name in paths:
         entry = Path(name)
         permitted = (name.startswith(('scripts/generation/', 'scripts/art/', 'resources/generation/', 'resources/art/',
-                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/'))
-                     or name == 'scripts/demo/demo_app.gd')
+                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/', 'game/world/', 'game/presentation/world/', 'experiments/'))
+                     or name == 'game/application/demo_app.gd')
         if (entry.is_absolute() or '..' in entry.parts or name.endswith('/') or any(c in name for c in '*?[')
                 or not entry.suffix or not permitted or (Path(root)/name).is_dir()
                 or re.search(r'(?:motor|rng|save|ability|weapon|resource)', entry.stem, re.I)
@@ -426,7 +426,7 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
                 task["checks"] = ["forest-current-slice" if c == "forest-h-slice" else c for c in task["checks"]]
                 task["region_proof"]["kind"] = "technical_sample"
                 task["goal"] += "；使用当前默认短钩索与真实反冲/落地恢复/返回，原历史长钩索仅用于复现；严格退出未过必须blocked。"
-                task["allowed_paths"] += ["scripts/demo/thorn_forest_current_slice.gd", "scripts/demo/thorn_forest_current_slice.gd.uid", "tests/forest_current_slice_runner.gd", "tests/forest_current_slice_runner.gd.uid", "tools/run_forest_current_slice_tests.py"]
+                task["allowed_paths"] += ["game/world/levels/providers/thorn_forest_current_slice.gd", "game/world/levels/providers/thorn_forest_current_slice.gd.uid", "tests/forest_current_slice_runner.gd", "tests/forest_current_slice_runner.gd.uid", "tools/run_forest_current_slice_tests.py"]
         for task in plan["tasks"]:
             task["region_id"] = region_id
             task["region_bible"] = bible_binding.copy()

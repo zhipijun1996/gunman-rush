@@ -35,8 +35,8 @@ def _resource_errors(frames,events,tuning):
     enemy/committed-hit source. Future combat layouts must serialize genuine hit
     receipts before admitting hit refunds; an arbitrary positive delta is not one.
     """
-    resource=(ROOT/'resources/player/plains_shot_energy.tres').read_text()
-    definition=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
+    resource=(ROOT/'game/player/resources/plains_shot_energy.tres').read_text()
+    definition=(ROOT/'game/combat/resources/definitions/shot_energy_definition.gd').read_text()
     def number(name):
         found=re.search(r'(?m)^'+name+r'\s*=\s*([\d.]+)',resource) or re.search(r'var '+name+r'\s*:=\s*([\d.]+)',definition)
         return float(found.group(1))

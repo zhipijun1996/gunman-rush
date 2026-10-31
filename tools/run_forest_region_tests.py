@@ -140,7 +140,7 @@ def validate_region_capture(data: dict) -> list[str]:
 
 def runtime_fingerprint() -> dict:
     paths = set()
-    for directory in ("scripts","scenes","resources","config"):
+    for directory in ("scripts","game","experiments","scenes","resources","config"):
         paths.update(p for p in (ROOT/directory).rglob("*") if p.is_file() and p.suffix in {".gd",".tscn",".tres",".json"})
     paths.update((ROOT/"assets").rglob("*.gd"))
     paths.update(ROOT/p for p in ("project.godot","tests/forest_region_trace.gd","tests/forest_region_runner.gd","tools/run_forest_region_tests.py","tests/test_forest_vine_gate.gd"))

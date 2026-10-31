@@ -141,12 +141,12 @@
     {
       "id": "player-presentation",
       "paths": [
-        "scripts/art/avatar_presentation.gd",
-        "scripts/art/avatar_presentation.gd.uid",
-        "scripts/art/player_visual_adapter.gd",
-        "scripts/art/player_visual_adapter.gd.uid",
-        "scripts/underworld_plains/underworld_player.gd",
-        "scripts/underworld_plains/underworld_player.gd.uid",
+        "game/presentation/actors/art/avatar_presentation.gd",
+        "game/presentation/actors/art/avatar_presentation.gd.uid",
+        "game/presentation/actors/art/player_visual_adapter.gd",
+        "game/presentation/actors/art/player_visual_adapter.gd.uid",
+        "game/presentation/actors/underworld_plains/underworld_player.gd",
+        "game/presentation/actors/underworld_plains/underworld_player.gd.uid",
         "assets/characters/courier/courier_visual.gd",
         "assets/characters/courier/courier_visual.gd.uid"
       ],
@@ -156,14 +156,14 @@
     {
       "id": "damage-presentation",
       "paths": [
-        "scripts/art/player_feedback.gd",
-        "scripts/art/player_feedback.gd.uid",
-        "scripts/art/defeat_burst.gd",
-        "scripts/art/defeat_burst.gd.uid",
-        "scripts/enemies/enemy_presentation.gd",
-        "scripts/enemies/enemy_presentation.gd.uid",
-        "scripts/underworld_plains/underworld_enemy.gd",
-        "scripts/underworld_plains/underworld_enemy.gd.uid"
+        "game/presentation/actors/art/player_feedback.gd",
+        "game/presentation/actors/art/player_feedback.gd.uid",
+        "game/presentation/effects/art/defeat_burst.gd",
+        "game/presentation/effects/art/defeat_burst.gd.uid",
+        "game/enemies/presentation/enemy_presentation.gd",
+        "game/enemies/presentation/enemy_presentation.gd.uid",
+        "game/presentation/actors/underworld_plains/underworld_enemy.gd",
+        "game/presentation/actors/underworld_plains/underworld_enemy.gd.uid"
       ],
       "domain": "damage_presentation",
       "reason": "Formal Underworld enemy and original EnemyPresentation use distinct rendering chains; accepted-damage Development regression and full Integration are required."
@@ -171,10 +171,10 @@
     {
       "id": "ui-presentation",
       "paths": [
-        "scripts/ui/underworld_ui.gd",
-        "scripts/ui/underworld_ui.gd.uid",
-        "scripts/ui/focus_vignette.gd",
-        "scripts/ui/focus_vignette.gd.uid"
+        "game/presentation/ui/underworld_ui.gd",
+        "game/presentation/ui/underworld_ui.gd.uid",
+        "game/presentation/ui/focus_vignette.gd",
+        "game/presentation/ui/focus_vignette.gd.uid"
       ],
       "domain": "ui_presentation",
       "reason": "Known UI presentation consumers; shared interaction/interface changes retain conservative integration."

@@ -44,8 +44,8 @@ def prepare_historical_authority(out, archive, capture):
         require_historical_tuning(raw,inventory,capture)
         required={'config/player_tuning.json','resources/enemies/plains_root_bell.tres',
                   'resources/enemies/patrol_health.tres','resources/actors/prototype_health.tres',
-                  'resources/weapons/pulse_gun.tres','resources/player/plains_shot_energy.tres',
-                  'scripts/resources/definitions/shot_energy_definition.gd','scenes/player/player.tscn'}
+                  'resources/weapons/pulse_gun.tres','game/player/resources/plains_shot_energy.tres',
+                  'game/combat/resources/definitions/shot_energy_definition.gd','game/player/player.tscn'}
         target_edge=capture['manifest']['root_bell_admission']['physical_facts']['edge']
         edge=next(e for e in capture['manifest']['connections'] if e['id']==target_edge)
         for index in edge['modules']:
@@ -130,7 +130,7 @@ def variants(base):
     x=copy.deepcopy(base);removed=next(r for r in x['resource_receipts'] if r['event_id']=='hit/3/25');tick=removed['tick'];x['resource_receipts'].remove(removed)
     x['events']=[e for e in x['events'] if not(e['kind']=='energy_recovered' and e['tick']==tick)]
     for frame in x['frames']:frame['accepted_events']=[e for e in frame['accepted_events'] if not(e['kind']=='energy_recovered' and e['tick']==tick)]
-    resource='resources/player/plains_shot_energy.tres';script='scripts/resources/definitions/shot_energy_definition.gd';capacity=rf._number(resource,'capacity');rate=rf._number(resource,'ground_recovery',script);delay=rf._number(resource,'recovery_delay',script);current=rf._number(resource,'initial_current');remaining=x['initial_capability']['shot_energy']['_delay'];grounded=x['initial_capability']['grounded'];dt=1/x['physics_hz'];by_tick={}
+    resource='game/player/resources/plains_shot_energy.tres';script='game/combat/resources/definitions/shot_energy_definition.gd';capacity=rf._number(resource,'capacity');rate=rf._number(resource,'ground_recovery',script);delay=rf._number(resource,'recovery_delay',script);current=rf._number(resource,'initial_current');remaining=x['initial_capability']['shot_energy']['_delay'];grounded=x['initial_capability']['grounded'];dt=1/x['physics_hz'];by_tick={}
     for r in x['resource_receipts']:by_tick.setdefault(r['tick'],[]).append(r)
     for frame in x['frames']:
         gain=max(0,dt-remaining);remaining=max(0,remaining-dt)

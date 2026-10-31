@@ -1,7 +1,7 @@
 extends "res://tools/level_formal_capture.gd"
 ## Experimental consumer adapter; all engine/media/teardown work stays shared.
-const VISUAL_SAMPLE_CATALOG := "res://resources/visual_development/candidate.json"
-const VISUAL_SAMPLE_CATALOGS := [VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"]
+const VISUAL_SAMPLE_CATALOG := "res://game/presentation/world/resources/visual_development/candidate.json"
+const VISUAL_SAMPLE_CATALOGS := [VISUAL_SAMPLE_CATALOG, "res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json", "res://game/presentation/world/resources/visual_development/p1_candidate.json"]
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():

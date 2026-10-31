@@ -93,7 +93,7 @@ func _next_chapter() -> void:
 	chapter+=1
 	if chapter>=selected_behaviors.size():
 		finish.call_deferred();return
-	app=load("res://scripts/demo/demo_app.gd").new() as Node2D;app.meta_persistence_enabled=false
+	app=load("res://game/application/demo_app.gd").new() as Node2D;app.meta_persistence_enabled=false
 	root.add_child(app)
 	if not app.start_plains(seed_label):
 		failures.append("Actual App refused plains start");finish.call_deferred();return
@@ -131,13 +131,13 @@ func _next_chapter() -> void:
 	stage.add_child(sample_motor)
 	stage.enemies.append(sample_motor);stage.enemy=sample_motor
 	stage.enemy_manifest.append({"id":sample_id,"behavior_id":String(behavior),"fixture":"explicit_review_sample"})
-	if not load("res://scripts/presentation/enemy_presentation_binding.gd").call("replace",sample_actor,&"underworld"):
+	if not load("res://game/presentation/actors/presentation/enemy_presentation_binding.gd").call("replace",sample_actor,&"underworld"):
 		failures.append("Formal Underworld renderer refused sample");finish.call_deferred();return
 	if not app.policy.bind_damageable(StringName(sample_id),sample_actor.damageable,sample_actor.health):
 		failures.append("Actual DamagePolicy refused sample receiver");finish.call_deferred();return
 	var protected_points:Array[Vector2]=[]
 	sample_actor.bind_encounter(app.controller,app.policy,app.lifetime,StringName(sample_id),protected_points)
-	sample_contact=load("res://scripts/damage/demo_contact_emitter.gd").new() as Node2D;sample_contact.policy=app.policy;sample_contact.controller=app.controller
+	sample_contact=load("res://game/combat/damage/demo_contact_emitter.gd").new() as Node2D;sample_contact.policy=app.policy;sample_contact.controller=app.controller
 	sample_contact.source_id=StringName(sample_id+"/body_contact");sample_contact.half_size=sample_actor.definition.collision_size*.5
 	sample_motor.add_child(sample_contact);app._enemy_contacts.append(sample_contact)
 	app.player.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
@@ -149,12 +149,12 @@ func _next_chapter() -> void:
 	app._run_camera.global_position=Vector2(stand.x,floor_y-65.0)
 	app._run_camera.force_update_scroll()
 	sample_audio=root.get_tree().get_first_node_in_group(&"game_audio") as Node
-	if not is_instance_valid(sample_audio) or sample_audio.get_script().resource_path!="res://scripts/dev/player_presentation_01/weapon_audio_v2.gd" or not app.is_ancestor_of(sample_audio):
+	if not is_instance_valid(sample_audio) or sample_audio.get_script().resource_path!="res://game/combat/weapons/presentation/weapon_audio_v2.gd" or not app.is_ancestor_of(sample_audio):
 		failures.append("Actual App-owned PlayerWeaponFeelAudioV2 service is unavailable");finish.call_deferred();return
 	chapter_frame=0;death_at=-1;hurt_at=-1;shot_at=-1000;injury_submitted=false
 	chapter_start_wallet=int(app.wallet.balance);chapter_start_hp=app.controller.actor_resources.health.current
 	sample_actor.set_physics_process(false);sample_motor.stop()
-	var entry:={"case":chapter,"id":String(sample_actor.definition.stable_id),"behavior":String(behavior),"definition":String(sample_actor.definition.stable_id),"definition_path":str(_factory(&"definition_path_for_behavior",[behavior])),"scene":str(_factory(&"scene_path_for_behavior",[behavior])),"chain":"actual_App_review_shore","renderer":"res://scripts/underworld_plains/underworld_enemy.gd","start_frame":active_frame_count+1,"start_seconds":float(Engine.get_process_frames()+1)/60.0,"movie_start_process_frame":Engine.get_process_frames()+1,"fixture":{"entry":"DemoApp.start_plains","production_AI_enabled":true,"initial_idle_movement_hold_frames":IDLE_HOLD_FRAMES,"actor_factory_override":{"patrol_half_width":18.0},"original_generated_enemies_removed":original_count,"authored_pickups_removed":true,"connected_region_false_for_review_settlement":true,"original_manifest_sha256":current_manifest_text.sha256_text(),"floor":support,"initial_player_position":_vec(app.player.global_position),"initial_enemy_position":_vec(sample_motor.global_position),"original_camera_zoom":_vec(original_camera_zoom),"differences":["seven Factory samples replace original encounters/pickups only for review","initial .8s Actor physics held while body clocks continue; then original AI enabled","initial player reset_at and automated gamepad adapter","18wu review patrol lane; original speed/HP/attack timing unchanged","root bell source identity preselected by unchanged real bonus roll; at most one disclosed initial DamagePolicy injury","no natural route or unchanged-roster claim"]},"events":[],"player_events":[],"shots":[],"inputs":[],"deaths":0,"coverage":{},"coverage_gaps":[],"initial_wallet":chapter_start_wallet,"initial_player_HP":chapter_start_hp,"receipt_source_id":sample_id}
+	var entry:={"case":chapter,"id":String(sample_actor.definition.stable_id),"behavior":String(behavior),"definition":String(sample_actor.definition.stable_id),"definition_path":str(_factory(&"definition_path_for_behavior",[behavior])),"scene":str(_factory(&"scene_path_for_behavior",[behavior])),"chain":"actual_App_review_shore","renderer":"res://game/presentation/actors/underworld_plains/underworld_enemy.gd","start_frame":active_frame_count+1,"start_seconds":float(Engine.get_process_frames()+1)/60.0,"movie_start_process_frame":Engine.get_process_frames()+1,"fixture":{"entry":"DemoApp.start_plains","production_AI_enabled":true,"initial_idle_movement_hold_frames":IDLE_HOLD_FRAMES,"actor_factory_override":{"patrol_half_width":18.0},"original_generated_enemies_removed":original_count,"authored_pickups_removed":true,"connected_region_false_for_review_settlement":true,"original_manifest_sha256":current_manifest_text.sha256_text(),"floor":support,"initial_player_position":_vec(app.player.global_position),"initial_enemy_position":_vec(sample_motor.global_position),"original_camera_zoom":_vec(original_camera_zoom),"differences":["seven Factory samples replace original encounters/pickups only for review","initial .8s Actor physics held while body clocks continue; then original AI enabled","initial player reset_at and automated gamepad adapter","18wu review patrol lane; original speed/HP/attack timing unchanged","root bell source identity preselected by unchanged real bonus roll; at most one disclosed initial DamagePolicy injury","no natural route or unchanged-roster claim"]},"events":[],"player_events":[],"shots":[],"inputs":[],"deaths":0,"coverage":{},"coverage_gaps":[],"initial_wallet":chapter_start_wallet,"initial_player_HP":chapter_start_hp,"receipt_source_id":sample_id}
 	chapter_rows.append(entry)
 	var pool:Variant=sample_audio.get("_voices")
 	entry.fixture["app_audio"]={"script":sample_audio.get_script().resource_path,"owned_by_actual_App":app.is_ancestor_of(sample_audio),"voice_pool_size":pool.size() if pool is Array else -1}
@@ -174,7 +174,7 @@ func _next_chapter() -> void:
 	ready=true;busy=false
 
 func _choose_identity(behavior:StringName,bonus:String)->String:
-	var probe:RefCounted=load("res://scripts/rewards/enemy_drop_service.gd").new()
+	var probe:RefCounted=load("res://game/rewards/drops/enemy_drop_service.gd").new()
 	probe.configure(app._enemy_drops.root_seed,app._enemy_drops.stage_id)
 	for index:int in 256:
 		var candidate:="review/plains-motion-loot-02/%s/%s"%[String(behavior),index]
@@ -189,7 +189,7 @@ func _request(action:StringName,direction:Vector2)->void:
 func _injure_once()->void:
 	injury_submitted=true
 	if app.controller.actor_resources.health.current<app.controller.actor_resources.health.capacity:return
-	var request:RefCounted=load("res://scripts/damage/damage_request.gd").new()
+	var request:RefCounted=load("res://game/combat/damage/damage_request.gd").new()
 	request.token=app.lifetime.token();request.actor_epoch=app.lifetime.actor_epoch
 	request.health_epoch=app.controller.actor_resources.health.epoch
 	request.target_id=&"player";request.source_id=&"disclosed_initial_review_injury"
@@ -279,7 +279,7 @@ func _end_chapter()->void:
 	var actual_material_events:Variant=sample_audio.get("material_events") if is_instance_valid(sample_audio) else null
 	record["material_events"]=actual_material_events.duplicate(true) if actual_material_events is Array else []
 	record["final_units"]=[]
-	for pickup:Dictionary in units:record.final_units.append(load("res://scripts/rewards/plains_loot_motion.gd").call("snapshot",pickup))
+	for pickup:Dictionary in units:record.final_units.append(load("res://game/rewards/drops/plains_loot_motion.gd").call("snapshot",pickup))
 	record["original_manifest_unchanged"]=current_manifest_text==JSON.stringify(app.stage.generated.manifest)
 	var observed:Array[Dictionary]=[]
 	var idle_clocks:Array[float]=[]
@@ -314,7 +314,7 @@ func _end_chapter()->void:
 	else:_next_chapter.call_deferred()
 
 func _source_hashes()->Dictionary:
-	var paths:Array[String]=["res://tools/plains_motion_loot_02_capture.gd","res://tools/plains_revision_01_comparison.gd","res://scripts/demo/demo_app.gd","res://scripts/demo/generated_demo_stage.gd","res://scripts/art/plains_stage_visual.gd","res://scripts/art/player_feedback.gd","res://scripts/rewards/enemy_drop_service.gd","res://scripts/rewards/plains_loot_motion.gd","res://scripts/audio/game_audio.gd","res://scripts/audio/plains_enemy_audio.gd","res://scripts/enemies/plains_motion_02.gd","res://scripts/enemies/plains_revision_visual.gd","res://scripts/enemies/plains_revision_ground.gd","res://scripts/enemies/plains_revision_flora.gd","res://scripts/enemies/plains_revision_remains.gd","res://scripts/enemies/enemy_feedback_01_remains.gd","res://scripts/enemies/enemy_feedback_01_particles.gd","res://shaders/plains_loot_02.gdshader","res://assets/plains_loot_02/life_orb.png","res://assets/audio/plains_feedback_02/manifest.json","res://config/enemy_drops.json","res://resources/damage/feedback.tres"]
+	var paths:Array[String]=["res://tools/plains_motion_loot_02_capture.gd","res://tools/plains_revision_01_comparison.gd","res://game/application/demo_app.gd","res://game/world/levels/providers/generated_demo_stage.gd","res://game/presentation/world/art/plains_stage_visual.gd","res://game/presentation/actors/art/player_feedback.gd","res://game/rewards/drops/enemy_drop_service.gd","res://game/rewards/drops/plains_loot_motion.gd","res://game/presentation/audio/game_audio.gd","res://game/presentation/audio/plains_enemy_audio.gd","res://game/enemies/presentation/plains_motion_02.gd","res://game/enemies/presentation/plains_revision_visual.gd","res://game/enemies/presentation/plains_revision_ground.gd","res://game/enemies/presentation/plains_revision_flora.gd","res://game/enemies/presentation/plains_revision_remains.gd","res://game/enemies/presentation/enemy_feedback_01_remains.gd","res://game/enemies/presentation/enemy_feedback_01_particles.gd","res://shaders/plains_loot_02.gdshader","res://assets/plains_loot_02/life_orb.png","res://assets/audio/plains_feedback_02/manifest.json","res://config/enemy_drops.json","res://game/combat/damage/feedback.tres"]
 	for behavior:StringName in CHAPTER_BEHAVIORS:paths.append("res://resources/enemies/"+("patrol_drone" if behavior==&"patrol" else "plains_"+String(behavior))+".tres")
 	var result:Dictionary={}
 	for path:String in paths:result[path]=FileAccess.get_sha256(path) if FileAccess.file_exists(path) else "missing"
@@ -355,7 +355,7 @@ func _label(text_value: String, at: Vector2, font_size: int) -> Label:
 	return label
 
 func _stage_ready() -> bool:
-	return is_instance_valid(app) and not app._stage_pending and is_instance_valid(app.stage) and app.stage.get_script().resource_path=="res://scripts/demo/plains_region_stage.gd" and bool(app.stage.get("assembly_ok")) and is_instance_valid(app.player) and is_instance_valid(app.controller) and app._can_interact() and is_instance_valid(app._run_camera)
+	return is_instance_valid(app) and not app._stage_pending and is_instance_valid(app.stage) and app.stage.get_script().resource_path=="res://game/world/levels/providers/plains_region_stage.gd" and bool(app.stage.get("assembly_ok")) and is_instance_valid(app.player) and is_instance_valid(app.controller) and app._can_interact() and is_instance_valid(app._run_camera)
 
 func _ray(x: float, from_y: float, to_y: float) -> Dictionary:
 	var query := PhysicsRayQueryParameters2D.create(Vector2(x,from_y),Vector2(x,to_y),1,[app.player.get_rid()])
@@ -507,7 +507,7 @@ func _git_source() -> Dictionary:
 	return {"head":String(head_output[0]).strip_edges() if head_exit==0 and not head_output.is_empty() else "unavailable","status":String(status_output[0]) if status_exit==0 and not status_output.is_empty() else "unavailable","head_exit_code":head_exit,"status_exit_code":status_exit}
 
 func _factory(method: StringName, arguments: Array) -> Variant:
-	var source: Script = load("res://scripts/enemies/enemy_factory.gd") as Script
+	var source: Script = load("res://game/enemies/enemy_factory.gd") as Script
 	return source.callv(method, arguments)
 
 func _applied(result: Object) -> bool:

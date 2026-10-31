@@ -1,7 +1,7 @@
 extends "res://tools/level_formal_capture.gd"
 ## Opt-in observer of an existing formal stage; never requests golden geometry.
 var _candidate: Node2D
-const CATALOG := "res://resources/visual_development/painted_terrain_candidate.json"
+const CATALOG := "res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json"
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -30,7 +30,7 @@ func make_driver() -> RefCounted:
 	# is the baseline for temporal A/E on identical formal geometry.
 	var sample := CATALOG if "--visual-sample="+CATALOG in OS.get_cmdline_user_args() else ""
 	if not sample.is_empty():
-		_candidate=load("res://scripts/art/painted_formal_terrain_sample.gd").new()
+		_candidate=load("res://experiments/terrain/art/painted_formal_terrain_sample.gd").new()
 		app.stage.add_child(_candidate)
 		_candidate.call("install",app.stage)
 		report["painted_formal_treatment"]=_candidate.call("measured_nodes")

@@ -7,12 +7,12 @@ from run_underworld_home_tests import Tee
 ROOT=Path(__file__).resolve().parents[1]
 FIXTURE='tests/underworld_plains/capture_revision2_experience.gd'
 SELF='tools/capture_underworld_revision2_experience.py'
-RUNTIME=['project.godot','scripts','scenes','resources','config','shaders','assets',FIXTURE,SELF,'tools/run_underworld_home_tests.py','tools/run_tests.py','tests/audio_teardown.gd']
+RUNTIME=['project.godot','scripts','game','experiments','scenes','resources','config','shaders','assets',FIXTURE,SELF,'tools/run_underworld_home_tests.py','tools/run_tests.py','tests/audio_teardown.gd']
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def inventory():
     suffixes={'.gd','.tscn','.tres','.json','.gdshader','.png','.ogg','.wav','.ttf','.otf'}
     paths=[ROOT/'project.godot',ROOT/FIXTURE,Path(__file__).resolve(),ROOT/'tools/godot.sh',ROOT/'tools/run_tests.py',ROOT/'tools/run_underworld_home_tests.py',ROOT/'tests/audio_teardown.gd']
-    for folder in ['scripts','scenes','resources','config','shaders','assets']:
+    for folder in ['scripts','game','experiments','scenes','resources','config','shaders','assets']:
         paths.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix in suffixes)
     return {str(p.relative_to(ROOT)):sha(p) for p in sorted(set(paths))}
 def main():

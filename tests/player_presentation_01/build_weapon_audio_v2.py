@@ -173,7 +173,7 @@ def main() -> None:
             files.append(record)
             paths.append('preload("res://' + record["path"] + '")')
         preloads.append('\t&"' + cue + '": [' + ",".join(paths) + "],")
-    resource = ROOT / "resources/player_presentation_01/weapon_sound_data_v2.gd"
+    resource = ROOT / "game/combat/weapons/presentation/resources/weapon_sound_data_v2.gd"
     resource.write_text("extends RefCounted\n## BSD-3-Clause Freedoom PCM edits;loop metadata is in the WAV smpl chunk.\nconst CLIPS := {\n" + "\n".join(preloads) + "\n}\n")
     provenance_path = ROOT / "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json"
     provenance = {"task": "PLAYER-PRESENTATION-01", "version": "weapon-audio-v2",
@@ -200,7 +200,7 @@ def main() -> None:
                   "processing": "Actual BSD Freedoom game PCM;exact offline layers/rates/filter/envelopes in provenance;no generated oscillator",
                   "usage_scope": "Task-only accepted weapon feedback;not production or listening acceptance",
                   "license_source": "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc;BSD-3-Clause Freedoom Contributors;full CREDITS retained",
-                  "license_status": "verified", "runtime_paths": ["resources/player_presentation_01/weapon_sound_data_v2.gd", "scripts/dev/player_presentation_01/weapon_audio.gd"],
+                  "license_status": "verified", "runtime_paths": ["game/combat/weapons/presentation/resources/weapon_sound_data_v2.gd", "game/combat/weapons/presentation/weapon_audio.gd"],
                   "user_acceptance_evidence": [], "visual_status": "unverified", "disposition": "limited_preview",
                   "associated_files": [{"path": str(provenance_path.relative_to(ROOT)), "sha256": provenance_sha, "role": "processing_record"},
                                        {"path": str((SOURCES / "freedoom-originals.zip").relative_to(ROOT)), "sha256": sha(raw_archive), "role": "reference"}]}

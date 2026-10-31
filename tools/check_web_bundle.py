@@ -10,11 +10,11 @@ import sys
 
 REPO = Path(__file__).resolve().parents[1]
 SPACES = 'assets/region_production_v3/spaces/'
-LANDSCAPE = 'scripts/art/plains_semantic_landscape.gd'
-ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
-TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
-BACKGROUND = 'scripts/art/plains_background.gd'
-CONNECTED = 'scripts/art/plains_connected_landscape.gd'
+LANDSCAPE = 'game/presentation/world/art/plains_semantic_landscape.gd'
+ROOT_BELL = 'game/enemies/presentation/root_bell_presentation.gd'
+TERRAIN = 'game/presentation/world/art/plains_terrain_family_sampler.gd'
+BACKGROUND = 'game/presentation/world/art/plains_background.gd'
+CONNECTED = 'game/presentation/world/art/plains_connected_landscape.gd'
 CONNECTED_ROOT = 'assets/production_repair/'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
@@ -64,7 +64,7 @@ def check_excluded_consumers(repo):
     families = excluded_evidence_families(repo)
     suffixes = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc', '.cfg',
                 '.gdextension', '.cs', '.glsl', '.shader', '.res', '.scn'}
-    for directory in ('scripts', 'scenes', 'resources', 'config', 'game'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'game', 'experiments'):
         for source in (Path(repo) / directory).rglob('*'):
             if source.is_file() and source.suffix in suffixes:
                 data = source.read_bytes()
@@ -293,6 +293,69 @@ def texture_import_targets(text):
     return targets
 
 
+def recorded_enemy_contract(repo):
+    """Read only the finite revision maps in the actual construction registry.
+
+    Resource paths/hashes remain owned by BEHAVIORS, shared with the raw-export
+    addon. Unsupported expressions fail closed instead of omitting a revision.
+    """
+    registry = Path(repo) / 'game/enemies/enemy_behavior_registry.gd'
+    if not registry.is_file():
+        return {}  # Small unrelated asset fixtures have no enemy consumer.
+    source = registry.read_text()
+    # Strip comments without treating a hash inside a quoted string as one.
+    source = re.sub(r'"(?:\\.|[^"\\])*"|\#[^\n]*',
+                    lambda match: '' if match.group().startswith('#') else match.group(), source)
+    body = re.search(r'(?ms)^const BEHAVIORS\s*:?=\s*({.*?})\s*^const CANDIDATES\b', source)
+    if not body:
+        raise ValueError('Recorded enemy registry needs finite BEHAVIORS dictionary')
+    constants = dict(re.findall(r'(?m)^const ([A-Z][A-Z0-9_]*)\s*:?=\s*"([0-9a-f]{64})"\s*$', source))
+    mappings = re.findall(r'"revisions"\s*:\s*{([^{}]*)}', body.group(1))
+    if len(mappings) != len(re.findall(r'"revisions"\s*:', body.group(1))):
+        raise ValueError('Recorded enemy revision map must be a finite literal')
+    result = {}
+    row = re.compile(r'\s*(?:([A-Z][A-Z0-9_]*)|"([0-9a-f]{64})")\s*:\s*"(res://[^"\n]+)"\s*(?:,|$)')
+    for mapping in mappings:
+        offset = 0
+        seen = set()
+        while mapping[offset:].strip():
+            match = row.match(mapping, offset)
+            if not match:
+                raise ValueError('Recorded enemy revision needs literal path and registered SHA')
+            key, literal, path = match.groups()
+            digest = constants.get(key) if key else literal
+            if digest is None or digest in seen:
+                raise ValueError('Unknown/duplicate recorded enemy revision SHA')
+            seen.add(digest)
+            name = resource_path(path)
+            if not name.endswith('.tres') or (name in result and result[name] != digest):
+                raise ValueError('Invalid/conflicting recorded enemy resource')
+            local = Path(repo) / name
+            if not local.resolve().is_relative_to(Path(repo).resolve()) or not local.is_file():
+                raise ValueError('Missing/unsafe recorded enemy source: ' + name)
+            if hashlib.sha256(local.read_bytes()).hexdigest() != digest:
+                raise ValueError('Recorded enemy source SHA changed: ' + name)
+            result[name] = digest
+            offset = match.end()
+    return result
+
+
+def check_recorded_enemy_resources(pack, repo):
+    contract = recorded_enemy_contract(repo)
+    for name, digest in contract.items():
+        raw = pack.read(name)
+        if raw != (Path(repo) / name).read_bytes() or hashlib.sha256(raw).hexdigest() != digest:
+            raise ValueError('PCK raw enemy Definition differs from registered revision: ' + name)
+        mapping = pack.read(name + '.remap').decode('utf-8')
+        matches = re.findall(r'^path="(res://[^"\n]+)"$', mapping, re.MULTILINE)
+        if len(matches) != 1:
+            raise ValueError('Recorded enemy Definition needs normal ResourceLoader remap: ' + name)
+        target = resource_path(matches[0])
+        if not target.endswith('.res') or not pack.read(target):
+            raise ValueError('Recorded enemy Definition lacks converted resource: ' + name)
+    return sorted(contract)
+
+
 def check_runtime_closure(path, repo=REPO):
     excluded = check_excluded_consumers(repo)
     pack = Pack(path)
@@ -306,6 +369,7 @@ def check_runtime_closure(path, repo=REPO):
                                  source.read_text(), re.MULTILINE)
             if any(target in pack.entries for target in targets):
                 raise ValueError('PCK contains excluded evidence-only imported texture: ' + str(source))
+    recorded_definitions = check_recorded_enemy_resources(pack, repo)
     manifests, textures, pending = runtime_contract(repo)
     for name, expected in manifests.items():
         data = pack.read(name)
@@ -335,6 +399,7 @@ def check_runtime_closure(path, repo=REPO):
                 raise ValueError('PCK imported texture bytes differ from local target: ' + name)
     return {'json': sorted(manifests), 'raw_png': sorted(n for n, t in textures.items() if t['raw']),
             'textures': sorted(textures), 'pending_consumers': pending,
+            'recorded_enemy_definitions': recorded_definitions,
             'excluded_evidence_families': list(excluded),
             'scope': 'Actual PCK closure for integrated consumers only; no rendering/device/content acceptance'}
 
@@ -363,7 +428,7 @@ def check(root, repo=REPO):
     assert metadata['build_id'] == hashlib.sha256((root / metadata['pack']).read_bytes()).hexdigest()[:12]
     closure = check_runtime_closure(root / metadata['pack'], repo)
     # Excluded candidates have no runtime consumer. New consumers must revisit this export policy.
-    for directory in ('scripts', 'scenes', 'resources', 'config', 'game'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'game', 'experiments'):
         for source in (repo / directory).rglob('*'):
             if source.suffix in ('.gd', '.tscn', '.tres', '.json'):
                 assert 'assets/painterly_v2/' not in source.read_text(), str(source)

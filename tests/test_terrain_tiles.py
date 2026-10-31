@@ -16,7 +16,7 @@ class TerrainTests(unittest.TestCase):
             self.assertEqual(m&15,n&15)
             self.assertEqual(len(tiles.quadrants(n)),4)
     def test_catalog_is_complete_and_current(self):
-        actual=json.loads(Path('resources/art/plains_tile_catalog.json').read_text())
+        actual=json.loads(Path('game/presentation/world/resources/art/plains_tile_catalog.json').read_text())
         self.assertEqual(actual,tiles.manifest())
     def test_polyominoes_and_holes_are_exactly_covered(self):
         shapes=tiles.polyominoes()

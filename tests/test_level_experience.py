@@ -147,7 +147,7 @@ class ExplicitPolicyComparisonTests(unittest.TestCase):
     def report_pair(self):
         from unittest.mock import patch
         source={"res://tests/driver.gd":"a"*64}
-        core={"res://scripts/player/player_motor.gd":"b"*64}
+        core={"res://game/player/player_motor.gd":"b"*64}
         case={"case":{"root_seed":"synthetic-compare","map_index":1,"strategy":"fast","phase_wait_ticks":0},"capture_contract_version":2,
               "policy_basis":{"encounter_policy":"kill_from_bank_v1","driver_sources":source,"core_invariants":core},
               "observer_basis":source,"capability_basis":{},"physics_hz":60,"captured_scope":{},"source_commit":"a"*40,"manifest_hash":"b"*64,
@@ -156,7 +156,7 @@ class ExplicitPolicyComparisonTests(unittest.TestCase):
         return report,copy.deepcopy(report)
     def test_compare_rejects_motor_and_transitive_driver_changes(self):
         from unittest.mock import patch
-        for field,key in (("core_invariants","res://scripts/player/player_motor.gd"),("driver_sources","res://tests/driver.gd")):
+        for field,key in (("core_invariants","res://game/player/player_motor.gd"),("driver_sources","res://tests/driver.gd")):
             left,right=self.report_pair();right["cases"][0]["policy_basis"][field][key]="0"*64
             with patch.object(experience,"validate_report",return_value=None):
                 with self.assertRaisesRegex(ValueError,"core implementation"):experience.compare(left,right)

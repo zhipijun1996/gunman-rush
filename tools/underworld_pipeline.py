@@ -18,9 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = 'assets/underworld_plains/production_manifest.json'
 BITS = {'N': 1, 'NE': 2, 'E': 4, 'SE': 8, 'S': 16, 'SW': 32, 'W': 64, 'NW': 128}
 SELECTED_DERIVATIVES = {
-    'hazards': ('scripts/underworld_plains/underworld_hazard_tiles.gd',
+    'hazards': ('game/presentation/world/underworld_plains/underworld_hazard_tiles.gd',
                 'assets/underworld_plains/hazards/hazard_fine_build.json'),
-    'mechanisms': ('scripts/underworld_plains/underworld_terrain.gd',
+    'mechanisms': ('game/presentation/world/underworld_plains/underworld_terrain.gd',
                    'assets/underworld_plains/mechanisms/mechanisms_fine_build.json'),
 }
 
@@ -625,7 +625,7 @@ def legacy_chest_alpha_isolated(stage: str) -> bool:
     return re.search(r'\.\s*modulate\s*\.\s*a\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', stage.replace(block, '', 1)) is None
 
 
-CHEST_LIBRARY = 'scripts/art/chest_art_library.gd'
+CHEST_LIBRARY = 'game/presentation/effects/art/chest_art_library.gd'
 # Reviewed finite config/AtlasTexture/WHITE/source-foot implementation. New
 # loader forms require review, not a directory or substring-based admission.
 CHEST_LIBRARY_SHA256 = '6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e'
@@ -777,8 +777,8 @@ def audit_objects(a: Audit, spec: dict):
         a.check(list(runtime.size)==size and abs((crop[2]-crop[0])/(crop[3]-crop[1])-runtime.width/runtime.height)<.025,'objects.uniform_aspect','Proportional nearest resize; no padded-box distortion')
         reconstructed=source.crop(crop).resize(runtime.size,Image.Resampling.NEAREST)
         a.check(reconstructed.tobytes()==runtime.tobytes(),'objects.exact_source_recipe','Runtime pixels exactly reconstruct from the retained generated original')
-    text=a.script('scripts/underworld_plains/underworld_objects.gd','objects.consumer')
-    stage=a.script('scripts/demo/plains_region_stage.gd','objects.stage')
+    text=a.script('game/presentation/world/underworld_plains/underworld_objects.gd','objects.consumer')
+    stage=a.script('game/world/levels/providers/plains_region_stage.gd','objects.stage')
     library=a.script(CHEST_LIBRARY,'objects.tier_library')
     a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture'))),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
     a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher')
@@ -841,8 +841,8 @@ def audit_home(a: Audit, home: dict):
     direct = 'sprite.position=root-Vector2(foot[0],foot[1])*factor' in place
     grounded = False
     if 'sprite.position=CONTACT.origin(root,Vector2(foot[0],foot[1]),factor,contact_depth)' in place:
-        contact = a.script('scripts/underworld_plains/grounded_contact.gd', 'home.grounded_contact')
-        grounded = ('constCONTACT:=preload("res://scripts/underworld_plains/grounded_contact.gd")' in compact(world) and
+        contact = a.script('game/presentation/world/underworld_plains/grounded_contact.gd', 'home.grounded_contact')
+        grounded = ('constCONTACT:=preload("res://game/presentation/world/underworld_plains/grounded_contact.gd")' in compact(world) and
                     'return(foot+Vector2(0,inset)-source_foot*scale_value).round()' in compact(gd_function(contact, 'origin')))
     building_call = '_place(str(entry.id)+"_building",str(building.image),building.region,building.foot,root,float(entry.building_height),-7,float(building.get("opaque_height",building.foot[1])),_grounding_depth("structure"))'
     actual_building_call = re.search(r'(?<![A-Za-z0-9_.])' + re.escape(building_call), slot) is not None
@@ -897,7 +897,7 @@ def audit_ui(a: Audit, ui: dict):
     roots=ui.get('production_roots',[])
     a.check(isinstance(roots,list) and len(roots)>=13 and len(set(roots))==len(roots),'ui.real_root_inventory','Explicit actual UI consumer inventory')
     classes={}
-    for path in (p for directory in ('scripts','game') for p in (a.root/directory).rglob('*.gd')):
+    for path in (p for directory in ('scripts','game', 'experiments') for p in (a.root/directory).rglob('*.gd')):
         content=a.text_overrides.get(str(path.relative_to(a.root)),path.read_text())
         match=re.search(r'^class_name\s+(\w+)',content,re.MULTILINE)
         if match:classes[match.group(1)]=(path,content)

@@ -62,7 +62,7 @@ def build():
     atlas_bytes = buffer.getvalue()
     metadata = {
         'schema_version': 1,
-        'consumer_script': 'scripts/underworld_plains/underworld_hazard_tiles.gd',
+        'consumer_script': 'game/presentation/world/underworld_plains/underworld_hazard_tiles.gd',
         'source_image': {'path': str(SOURCE.relative_to(ROOT)), 'sha256': sha(SOURCE),
                          'license': 'custom publisher permission; not CC0', 'publisher': 'Asouris'},
         'generated_reference': {'path': str(REFERENCE.relative_to(ROOT)), 'sha256': sha(REFERENCE),

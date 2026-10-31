@@ -194,7 +194,7 @@ class ContentContractTests(unittest.TestCase):
                       "audio_released": True, "midroute_injection": False, "resource_override": False,
                       "manual_motor_step": False, "manual_controller_tick": True, "production_pool": False,
                       "source_fingerprint": "b" * 64, "scope": contract.PILOT_SCOPE,
-                      "runtime_consumer": "scripts/generation/platforming_module.gd", "frames": [frame],
+                      "runtime_consumer": "game/world/components/platforming_module.gd", "frames": [frame],
                       "catalog_path": "config/custom-pilot.json", "catalog_sha256": sha(catalog_file),
                       "source_hash": sha(producer), "tuning": {"source_sha256": sha(tuning_file)},
                       "routes": {"main": [0]}, "anchors": [[10, 0]]}
@@ -252,7 +252,7 @@ class ContentContractTests(unittest.TestCase):
             native.write_text('{"format_test_only":true}')
             ledger = root / 'receipt.json'
             request = {'candidate': 'a', 'strategy': 'main', 'variant': 0}
-            source = {'scripts/player/player_controller.gd': 'a' * 64, 'tools/godot.sh': 'b' * 64}
+            source = {'game/player/player_controller.gd': 'a' * 64, 'tools/godot.sh': 'b' * 64}
             receipt = {'runtime_source': source, 'request': request,
                        'source_fingerprint': digest(source), 'raw_path': 'native.json',
                        'raw_sha256': hashlib.sha256(native.read_bytes()).hexdigest(), 'technical_pass': True}
@@ -262,7 +262,7 @@ class ContentContractTests(unittest.TestCase):
                 self.assertTrue(contract._current_ledger(native, [native, ledger], root))
             with patch.object(pilot, 'snapshot', return_value={**source, 'scripts/new_dependency.gd': 'c' * 64}), patch.object(pilot, 'cached_valid', return_value=True):
                 self.assertFalse(contract._current_ledger(native, [native, ledger], root))
-            with patch.object(pilot, 'snapshot', return_value={**source, 'scripts/player/player_controller.gd': 'c' * 64}), patch.object(pilot, 'cached_valid', return_value=True):
+            with patch.object(pilot, 'snapshot', return_value={**source, 'game/player/player_controller.gd': 'c' * 64}), patch.object(pilot, 'cached_valid', return_value=True):
                 self.assertFalse(contract._current_ledger(native, [native, ledger], root))
 
 

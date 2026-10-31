@@ -157,7 +157,7 @@ class Edits:
 
 
 def treatments(edit: Edits):
-    if edit.path == 'scripts/audio/game_audio.gd':
+    if edit.path == 'game/presentation/audio/game_audio.gd':
         # Original append/name/send path remains intact for every other case.
         original = '\t\tAudioServer.add_bus()\n'
         branch = ('\t\tif ' + CASE_GET + ' == "bus_only":\n'
@@ -167,7 +167,7 @@ def treatments(edit: Edits):
                   '\t\t\tAudioServer.set_bus_send(appended_index, &"Master")\n'
                   '\t\t\tcontinue\n')
         edit.replace(original, branch + original, 'case:bus_only:append-count-before-original-add')
-    elif edit.path == 'scripts/audio/game_ambience.gd':
+    elif edit.path == 'game/presentation/audio/game_ambience.gd':
         edit.append('\nvar _perf_formal_pause_only := false\n', 'case:pause_only:cached-startup-flag')
         edit.replace('func _ready() -> void:\n',
                      'func _ready() -> void:\n\t_perf_formal_pause_only = ' + CASE_GET + ' == "pause_only"\n',
@@ -193,7 +193,7 @@ def treatments(edit: Edits):
             ('\t\tvoice.volume_db = linear_to_db(maxf(0.00001, session_volume * attenuation * db_to_linear(float(voice.get_meta("gain_db", 0.0)))))\n', 'detail')]:
             edit.replace(prefix + line, prefix + '\t\tif not _perf_formal_pause_only: voice.stream_paused = session_volume <= 0.0\n',
                          'case:pause_only:remove-later-' + label + '-duplicate')
-    elif edit.path == 'scripts/audio/selected_ambience_runtime.gd':
+    elif edit.path == 'game/presentation/audio/selected_ambience_runtime.gd':
         edit.replace('func _ready() -> void:\n',
                      'func _ready() -> void:\n\tif ' + CASE_GET + ' == "ambience_off":\n\t\tset_process(false)\n\t\treturn\n',
                      'case:ambience_off:return-before-any-attachment')
@@ -214,7 +214,7 @@ def observe(edit: Edits, methods: list[str]):
                     f'\t{implementation}({", ".join(params)})\n'
                     f'\t_perf_record("res://{edit.path}:{method}",Time.get_ticks_usec()-_perf_start)\n',
                     'observe:wrapper:' + method)
-    if edit.path == 'scripts/audio/game_audio.gd':
+    if edit.path == 'game/presentation/audio/game_audio.gd':
         edit.replace('func _play_original(', 'func _perf_impl_play_original(', 'observe:rename-audio-acceptance')
         # Reuse the observer without its separate all-audio knockout feature.
         audio = AUDIO
@@ -389,7 +389,7 @@ def build(args, out: Path, receipt: dict):
     for path in ['project.binary', 'scenes/demo/demo.tscn.remap', compiled_scene]:
         if result.read(path) != pack.read(path):
             raise ValueError('Original main scene/settings modified: ' + path)
-    if b'scenes/demo/demo.tscn' not in project and b'uid://' not in project:
+    if b'game/application/demo.tscn' not in project and b'uid://' not in project:
         raise ValueError('Project main entry cannot be statically identified')
     engine_records = {}
     template = args.template.resolve()
@@ -424,7 +424,7 @@ def build(args, out: Path, receipt: dict):
     (out / 'production-source.diff').write_text(diff)
     static = {'scope': 'Pack directory/payload identity and reversible allowlisted source edits; not engine parse/runtime acceptance',
               'original_entry_main_preserved': True, 'original_project_sha256': digest(project),
-              'formal_scene_source_sha256': digest(git_source('scenes/demo/demo.tscn')),
+              'formal_scene_source_sha256': digest(git_source('game/application/demo.tscn')),
               'formal_scene_remap_sha256': digest(scene_remap), 'compiled_formal_scene': compiled_scene,
               'compiled_formal_scene_sha256': digest(scene_data),
               'unchanged_entries_exact_offset_size_md5': len(unchanged), 'replaced_bytes_verified': len(replacement),
@@ -443,7 +443,7 @@ def build(args, out: Path, receipt: dict):
     (out / 'static-source-comparison.json').write_text(json.dumps(static, indent=2) + '\n')
     (out / 'source-edits.json').write_text(json.dumps(all_edits, indent=2) + '\n')
     receipt.update(status='static_pass_runtime_unverified', source_commit=COMMIT, cases=CASES,
-                   original_entry_main='unchanged project.binary and scenes/demo/demo.tscn remap/compiled scene',
+                   original_entry_main='unchanged project.binary and game/application/demo.tscn remap/compiled scene',
                    diagnostic_pack={'path': 'diagnostic.pck', 'bytes': target.stat().st_size, 'sha256': digest(target.read_bytes())},
                    replaced=list(replacement), removed_remaps=sorted(skip), source_sha256=original_sources,
                    instrumented_source_sha256=instrumented_sources, measure=MEASURE,

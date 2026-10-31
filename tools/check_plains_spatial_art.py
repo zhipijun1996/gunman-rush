@@ -17,9 +17,9 @@ for source in m['sources']:
         for key,(x,y,w,h) in m['regions'].items():
             assert x>=0 and y>=0 and w>0 and h>0 and x+w<=im.width and y+h<=im.height,key
             assert im.getchannel('A').crop((x,y,x+w,y+h)).getextrema()[1]>0,key
-assert 'spatial/chassis.png' in (ROOT/'scripts/bosses/bellstrider_presentation.gd').read_text()
-assert 'chassis.svg' not in (ROOT/'scripts/bosses/bellstrider_presentation.gd').read_text()
-assert 'spatial/actors.png' in (ROOT/'scripts/combat/player_projectile.gd').read_text()
-assert 'spatial/actors.png' in (ROOT/'scripts/enemies/enemy_presentation.gd').read_text()
-assert 'smoothstep' in (ROOT/'scripts/art/plains_depth.gdshader').read_text()
+assert 'spatial/chassis.png' in (ROOT/'game/bosses/bellstrider/bellstrider_presentation.gd').read_text()
+assert 'chassis.svg' not in (ROOT/'game/bosses/bellstrider/bellstrider_presentation.gd').read_text()
+assert 'spatial/actors.png' in (ROOT/'game/combat/projectiles/player_projectile.gd').read_text()
+assert 'spatial/actors.png' in (ROOT/'game/enemies/presentation/enemy_presentation.gd').read_text()
+assert 'smoothstep' in (ROOT/'game/presentation/world/art/plains_depth.gdshader').read_text()
 print('PASS: AI original hashes, alpha, 4 measured regions and actual player/mini/drone consumers; subjective style awaiting player review.')
