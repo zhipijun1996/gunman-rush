@@ -2,40 +2,42 @@ class_name PlainsRegionAssembler
 extends RandomStageAssembler
 ## Explicit current-region assembler using the shared module consumer.
 var region_state: PlainsRegionState
+var level_plan: LevelPlan
 var shortcut_bodies: Dictionary = {}
 var shortcut_shapes: Dictionary = {}
 var attack_shortcuts: Array[BacksideShotLatch] = []
 signal attack_shortcut_opened(id: String)
 
 func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if not is_inside_tree() or not modules.is_empty() or not PlainsRegionGenerator.new().validate(recorded, tuning):
-		return {"ok": false, "error": "Invalid connected region manifest"}
-	manifest = recorded.duplicate(true)
-	var r: Array = manifest.world_bounds
-	bounds = Rect2(r[0],r[1],r[2],r[3])
-	for n: Dictionary in manifest.nodes:
-		var module := PlatformingModule.new()
-		module.name = str(n.id).replace("/", "_")
-		module.definition = PlainsRegionGenerator.definition(n)
-		module.position = Vector2(n.offset[0],n.offset[1])
-		module.authoring_debug = false
-		modules.append(module)
-		if region_state != null: module.clock = float(region_state.clocks.get(n.id, 0.0))
-		add_child(module)
-	# All original modules exist before explicit cross-module ownership transfer.
-	for index: int in manifest.nodes.size():
-		var recorded_node: Dictionary=manifest.nodes[index]
-		if recorded_node.has("joint_recoil") and not _install_joint_banks(modules[index],recorded_node.joint_recoil):
+	# Existing tools keep this entry; format validation belongs to the provider.
+	if not is_inside_tree() or not modules.is_empty():
+		return {"ok":false,"error":"Invalid connected region manifest"}
+	var converted := LegacyRegionPlanAdapter.geometry(recorded,tuning,false)
+	if not converted.accepted(): return {"ok":false,"error":converted.error}
+	return build_plan(converted.plan,recorded)
+
+func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
+	if not is_inside_tree() or not modules.is_empty() or plan==null:
+		return {"ok":false,"error":"Invalid level plan or occupied assembler"}
+	var error := plan.validation_error()
+	if not error.is_empty(): return {"ok":false,"error":error}
+	level_plan=plan
+	# The original view may still inspect its source data. Geometry below uses
+	# only the resolved plan, never a generator or a Manifest reconstruction.
+	manifest=presentation.duplicate(true)
+	bounds=plan.bounds
+	modules=LevelRuntime.install_modules(self,plan,region_state)
+	for index: int in plan.modules.size():
+		var ownership := plan.modules[index].terrain_ownership
+		if not ownership.is_empty() and not _install_joint_banks(modules[index],ownership):
 			return {"ok":false,"error":"Joint recoil physical bank installation failed"}
-	if not manifest.ground_supports.is_empty():
+	if not plan.ground_supports.is_empty():
 		ground_supports=PlainsGroundSupports.new()
 		add_child(ground_supports)
-		var columns: Array[Rect2]=[]
-		for support: Array in manifest.ground_supports: columns.append(Rect2(support[0],support[1],support[2],support[3]))
-		ground_supports.install(columns)
+		ground_supports.install(plan.ground_supports)
 	if is_instance_valid(ground_supports):ground_supports.configure_edges(modules)
 	PlainsTerrainSkin.configure_ground_edges(modules,ground_supports.columns if is_instance_valid(ground_supports) else [])
-	for e: Dictionary in manifest.connections:
+	for e: Dictionary in connection_records():
 		if e.condition != "backside": continue
 		var gate: Array = e.gate
 		var body := StaticBody2D.new()
@@ -54,7 +56,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 
 func install_attack_shortcuts(player: PlayerController, lifetime: DemoLifetime) -> void:
 	if not attack_shortcuts.is_empty(): return
-	for edge: Dictionary in manifest.connections:
+	for edge: Dictionary in connection_records():
 		if edge.condition != "backside": continue
 		var latch := BacksideShotLatch.new()
 		latch.shortcut_id = edge.id
@@ -86,7 +88,7 @@ func cancel_attack_shortcuts(permanent: bool = false) -> void:
 		else: latch.cancel_pending()
 
 func open_shortcut(id: String, location: Vector2) -> bool:
-	for e: Dictionary in manifest.connections:
+	for e: Dictionary in connection_records():
 		if e.id != id or e.condition != "backside" or region_state.opened.has(id): continue
 		if location.distance_to(Vector2(e.control[0],e.control[1])) > 90: return false
 		region_state.opened[id] = true
@@ -95,12 +97,16 @@ func open_shortcut(id: String, location: Vector2) -> bool:
 		return true
 	return false
 
+func connection_records() -> Array:
+	return level_plan.connections if level_plan!=null else manifest.get("connections",[])
+
 func world_entry() -> Vector2:
-	return Vector2(manifest.spawn[0],manifest.spawn[1])
+	return level_plan.spawn if level_plan!=null else Vector2(manifest.spawn[0],manifest.spawn[1])
 
 func world_exits() -> Array[Dictionary]: return []
 
 func world_anchors() -> Array[Vector2]:
+	if level_plan!=null: return level_plan.anchors.duplicate()
 	var result: Array[Vector2] = [world_entry()]
 	for a: Dictionary in manifest.areas:
 		if a.role == "boss": continue

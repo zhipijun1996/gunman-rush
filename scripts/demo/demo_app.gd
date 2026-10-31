@@ -456,58 +456,31 @@ func _load_stage() -> void:
 		(stage as PlainsRegionStage).map_index = director.stage_index
 		(stage as GeneratedDemoStage).configure_generated(golden,controller.motor.tuning)
 	elif generated_plains:
-		var region_generator := PlainsRegionGenerator.new()
-		region_generator.root_bell_mode = _root_bell_run_mode
-		var actual_seed := _region_seed()
-		var difficulty := "intro" if director.region_map_index==1 else "advanced"
-		var forest_capability := {"grapple":controller.traversal.hook_enabled,"weapon_id":String(controller.shoot_ability.weapon.id),"abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
-		var generated := ThornForestRegionGenerator.new().generate(actual_seed,controller.motor.tuning,director.region_map_index,forest_capability) if active_region_id == &"thorn_forest" else region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
-		# A pre-existing map owns its content version. Match the actual old hash;
-		# never overwrite old actors/claims with a new layout or silently clear it.
-		if active_region_id == &"thorn_forest" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
-			var recorded_version := ""
-			for recorded: Dictionary in ThornForestRegionGenerator.recorded_variants():
-				var prior_capability := forest_capability.duplicate(true)
-				prior_capability.forest_layout_version = recorded.layout
-				prior_capability.forest_v9_north_return = recorded.get("north_return",true)
-				var prior := ThornForestRegionGenerator.new().generate_version(recorded.version,actual_seed,controller.motor.tuning,director.region_map_index,prior_capability)
-				if prior.ok and prior.manifest.manifest_hash == region_state.manifest_hash:
-					generated = prior
-					recorded_version = recorded.version
-					_forest_layout_version = str(prior.manifest.get("layout_version",ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT))
-					_forest_v9_north_return = bool(prior_capability.forest_v9_north_return)
-					forest_capability.forest_layout_version = _forest_layout_version
-					forest_capability.forest_v9_north_return = _forest_v9_north_return
-					break
-			if recorded_version.is_empty():
-				generated = {"ok":false,"error":"Recorded forest hash does not match a supported content version"}
-			else:
-				forest_content_version = recorded_version
-				forest_capability.forest_content_version = recorded_version
-		# Hash-bound replay of both prior admitted versions; no save rewrite.
-		if active_region_id == &"plains" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
-			var matched_saved_map := false
-			for prior_mode: String in [_root_bell_run_mode,"v2", "legacy_v10"]:
-				region_generator.root_bell_mode = prior_mode
-				for historical_focus: bool in [false,true]:
-					var prior_generated := region_generator.generate_before_focus_15(actual_seed,controller.motor.tuning,false,"",difficulty) if historical_focus else region_generator.generate(actual_seed,controller.motor.tuning,false,"",difficulty)
-					if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
-						generated = prior_generated
-						matched_saved_map = true
-						break
-				if matched_saved_map: break
-			if not matched_saved_map:
-				generated = {"ok":false,"error":"Recorded plains hash does not match a supported content/tuning version"}
-		if not generated.ok:
-			_status = "GENERATION FAILED / " + str(generated.error)
+		var request := LevelRequest.new()
+		request.root_seed=director.seed
+		request.region_id=active_region_id
+		request.map_index=director.region_map_index
+		request.tuning=controller.motor.tuning
+		request.expected_hash=region_state.manifest_hash if region_state!=null else ""
+		request.root_bell_mode=_root_bell_run_mode
+		request.capabilities={"grapple":controller.traversal.hook_enabled,"weapon_id":String(controller.shoot_ability.weapon.id),"abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
+		var loaded := ForestLevelProvider.load_level(request) if active_region_id==&"thorn_forest" else PlainsLevelProvider.load_level(request)
+		if not loaded.accepted():
+			_status="GENERATION FAILED / "+loaded.error
 			abandon_run()
 			return
+		if active_region_id==&"thorn_forest":
+			forest_content_version=str(loaded.resolved_capabilities.forest_content_version)
+			_forest_layout_version=str(loaded.resolved_capabilities.forest_layout_version)
+			_forest_v9_north_return=bool(loaded.resolved_capabilities.forest_v9_north_return)
 		stage = ThornForestRegionStage.new() if active_region_id == &"thorn_forest" else PlainsRegionStage.new()
 		if connected_region:
 			(stage as PlainsRegionStage).region_state = region_state
 			(stage as PlainsRegionStage).map_index=director.region_map_index
-		(stage as GeneratedDemoStage).configure_generated(generated, controller.motor.tuning)
-		if connected_region: print("PLAINS REGION: family=%s areas=%d fallback=%s" % [generated.manifest.family,generated.manifest.areas.size(),generated.manifest.fallback_id])
+		(stage as GeneratedDemoStage).configure_level(loaded.plan,loaded.legacy_generated,controller.motor.tuning)
+		if connected_region:
+			var recorded: Dictionary=loaded.legacy_generated.manifest
+			print("PLAINS REGION: family=%s areas=%d fallback=%s" % [recorded.family,recorded.areas.size(),recorded.fallback_id])
 	else:
 		stage = DemoStage.new()
 	stage.configure(director.stage_index, director.stage_type_id, director.offers)
@@ -557,6 +530,7 @@ func _load_stage() -> void:
 			for definition: ItemDefinition in ItemCatalogV5.all_items():
 				content_definitions.append({"id":String(definition.stable_id),"version":definition.definition_version,"catalog_version":definition.catalog_version,"fingerprint":definition.fingerprint()})
 		director.manifest.record_configuration(content_definitions, config_hashes, initial_character)
+	stage.bind_player(controller)
 	add_child(stage)
 	_sync_region_presentation()
 	if stage is PlainsRegionStage and active_region_id == &"plains" and not _explicit_plains_candidate() and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
@@ -719,20 +693,10 @@ func _load_stage() -> void:
 					return
 			if connected_region and region_state.actors.has(String(id)) and actor.attack_behavior!=null:
 				var saved: Dictionary=region_state.actors[String(id)]
-				if not actor.attack_behavior is ForestCrossbranchBehavior:
-					actor.attack_behavior.state=StringName(saved.get("state","idle"))
-					actor.attack_behavior.state_time=float(saved.get("state_time",0.0))
-					actor.attack_behavior.cooldown=float(saved.get("cooldown",0.0))
-					actor.attack_behavior._serial=int(saved.get("serial",0))
-					if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
-					for field: String in ["locked_direction","attack_goal","attack_origin"]:
-						if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
-					actor.brain.direction=int(saved.get("direction",1))
-				if saved.has("depth_state") and actor.attack_behavior.has_method("restore_depth_state"):
-					if not actor.attack_behavior.call("restore_depth_state",saved.depth_state):
-						push_error("Recorded forest actor state rejected")
-						abandon_run()
-						return
+				if not actor.attack_behavior.restore_region_state(saved):
+					push_error("Recorded forest actor state rejected")
+					abandon_run()
+					return
 			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.region_map_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
 			EnemyPresentationBinding.synchronize(actor)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))

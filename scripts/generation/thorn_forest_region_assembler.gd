@@ -1,7 +1,8 @@
 class_name ThornForestRegionAssembler
 extends PlainsRegionAssembler
-## Consumes the forest manifest verbatim. No RNG, player motion or resource grants here.
+## Consumes resolved forest geometry. No RNG, player motion or resource grants here.
 var forest_platforms: Array[Dictionary] = []
+var forest_geometry: ForestLevelGeometry
 var hook_targets: Dictionary = {}
 var support_bodies: Dictionary = {}
 var vine_shape: CollisionShape2D
@@ -10,13 +11,23 @@ var _target_host_presentation: Dictionary = {}
 var _reward_shortcut_shapes: Dictionary = {}
 
 func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if not is_inside_tree() or not forest_platforms.is_empty() or not ThornForestRegionGenerator.new().validate(recorded,tuning):
+	if not is_inside_tree() or not forest_platforms.is_empty():
 		return {"ok":false,"error":"Invalid forest manifest or occupied assembler"}
-	manifest = recorded.duplicate(true)
-	if manifest.get("layout_version") in [ForestTargetHosts.LAYOUT,"forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"]:
-		_target_host_presentation=ForestTargetHosts.build(manifest)
-	bounds = ThornForestRegionGenerator._rect(manifest.world_bounds)
-	for row: Dictionary in manifest.platforms: forest_platforms.append(row.duplicate(true))
+	var converted := LegacyRegionPlanAdapter.geometry(recorded,tuning,true)
+	if not converted.accepted(): return {"ok":false,"error":converted.error}
+	return build_plan(converted.plan,recorded)
+
+func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
+	if not is_inside_tree() or not forest_platforms.is_empty() or plan==null or plan.forest==null:
+		return {"ok":false,"error":"Invalid forest plan or occupied assembler"}
+	var error := plan.validation_error()
+	if not error.is_empty(): return {"ok":false,"error":error}
+	level_plan=plan
+	forest_geometry=plan.forest
+	manifest=presentation.duplicate(true)
+	_target_host_presentation=forest_geometry.target_hosts.duplicate(true)
+	bounds=plan.bounds
+	for row: Dictionary in forest_geometry.platforms: forest_platforms.append(row.duplicate(true))
 	for group: Dictionary in _support_groups():
 		var body := StaticBody2D.new()
 		var members: Array = group.members
@@ -31,7 +42,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		members.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return float(a.rect[3]) > float(b.rect[3]))
 		for index: int in members.size():
 			var row: Dictionary = members[index]
-			var original := ThornForestRegionGenerator._rect(row.rect)
+			var original := LevelRuntime.rect(row.rect)
 			var shape := CollisionShape2D.new()
 			shape.name = "CollisionShape2D" if index == 0 else "SupportShape_%s" % index
 			var rectangle := RectangleShape2D.new()
@@ -46,15 +57,15 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		body.set_meta("support_ids", ids)
 		body.set_meta("support_world_rect", rect)
 		add_child(body)
-	for row: Dictionary in manifest.hook_anchors:
+	for row: Dictionary in forest_geometry.hook_anchors:
 		var target: GrappleAnchor
 		var mount := ForestTargetHosts.mount_for(_target_host_presentation,str(row.id))
 		var runtime_fruit: bool = bool(mount.get("resolved",false)) and mount.get("presentation")=="runtime_rooted_fruit"
-		var is_fruit: bool = manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"] and (row.get("fruit_presentation") == "rooted_fruit" or runtime_fruit)
+		var is_fruit: bool = forest_geometry.fruit_presentation and (row.get("fruit_presentation") == "rooted_fruit" or runtime_fruit)
 		if is_fruit:
 			var fruit := ForestFruitAnchor.new()
 			fruit.fruit_role = str(row.fruit_role)
-			if ForestBiblePresentation.enabled(manifest): fruit.set("bible_presentation", true)
+			if forest_geometry.bible_presentation: fruit.set("bible_presentation", true)
 			var stem: Array = mount.stem_root if runtime_fruit else row.fruit_stem_root
 			fruit.stem_root = Vector2(stem[0],stem[1]) - Vector2(row.position[0],row.position[1])
 			target = fruit
@@ -63,11 +74,11 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		target.name = row.id
 		target.position = Vector2(row.position[0],row.position[1])
 		target.hang_enabled = bool(row.get("hang_enabled",false))
-		if manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"] and row.get("fruit_role") == "optional" and not is_fruit:
+		if forest_geometry.fruit_presentation and row.get("fruit_role") == "optional" and not is_fruit:
 			target.modulate = Color(0.72,0.76,0.67,0.78)
 		add_child(target)
 		hook_targets[row.id] = target
-	for row: Dictionary in manifest.get("training_bells", []):
+	for row: Dictionary in forest_geometry.training_bells:
 		var bell := ForestPracticeBell.new()
 		bell.name = str(row.id)
 		if not bell.configure(row):
@@ -81,7 +92,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 				return {"ok":false,"error":"Recorded forest practice bell rejected"}
 		add_child(bell)
 		hook_targets[row.id] = bell
-	var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
+	var gate := LevelRuntime.rect(forest_geometry.vine_gate.rect)
 	vine_body = StaticBody2D.new()
 	vine_body.name = "CrownVineGate"
 	vine_body.position = gate.get_center()
@@ -93,11 +104,11 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	vine_shape.disabled = region_state != null and region_state.opened.has("crown_vine")
 	vine_body.add_child(vine_shape)
 	add_child(vine_body)
-	for row: Dictionary in manifest.get("forest_shortcuts", []):
+	for row: Dictionary in forest_geometry.reward_shortcuts:
 		var body := StaticBody2D.new()
 		body.name = str(row.id)
 		body.collision_layer = 1
-		var rect := ThornForestRegionGenerator._rect(row.rect)
+		var rect := LevelRuntime.rect(row.rect)
 		body.position = rect.get_center()
 		var shape := CollisionShape2D.new()
 		var rectangle := RectangleShape2D.new()
@@ -114,10 +125,10 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 func _support_groups() -> Array[Dictionary]:
 	var groups: Array[Dictionary] = []
 	for row: Dictionary in forest_platforms:
-		var rect := ThornForestRegionGenerator._rect(row.rect)
+		var rect := LevelRuntime.rect(row.rect)
 		var current := {"rect":rect,"one_way":bool(row.one_way),"members":[row]}
 		var changed := true
-		while changed and (bool(current.one_way) or manifest.get("scene_language_version")==ForestSceneLanguage.VERSION):
+		while changed and (bool(current.one_way) or forest_geometry.merge_solid_supports):
 			changed = false
 			for i: int in range(groups.size()-1,-1,-1):
 				var other: Dictionary = groups[i]
@@ -134,7 +145,7 @@ func _support_groups() -> Array[Dictionary]:
 
 func resolve_hook_action(traversal: TraversalAbility) -> bool:
 	if region_state == null or region_state.opened.has("crown_vine") or traversal.state != &"hook_kick": return false
-	var key := str(manifest.vine_gate.key_anchor)
+	var key := str(forest_geometry.vine_gate.key_anchor)
 	if traversal.hook_target != hook_targets.get(key) or not is_instance_valid(traversal.hook_target): return false
 	region_state.opened["crown_vine"] = true
 	vine_shape.set_deferred("disabled", true)
@@ -147,12 +158,12 @@ func resolve_hook_action(traversal: TraversalAbility) -> bool:
 func resolve_reward_shortcuts() -> int:
 	if region_state == null: return 0
 	var opened := 0
-	for row: Dictionary in manifest.get("forest_shortcuts", []):
+	for row: Dictionary in forest_geometry.reward_shortcuts:
 		var key := str(row.opened_key)
 		if region_state.opened.has(key): continue
 		var accepted := false
 		if row.has("unlock_reward_id"):
-			var source := "thorn_forest/map_%s/%s" % [manifest.map_index, row.unlock_reward_id]
+			var source := str(row.reward_source_id)
 			accepted = region_state.claimed.get(source, false) == true
 		elif row.has("unlock_discovery_id"):
 			accepted = region_state.claimed.get(str(row.unlock_discovery_id), false) == true
@@ -171,15 +182,10 @@ func setup_damage(_controller: PlayerController, _policy: FrameDamagePolicy, _li
 	pass
 
 func world_anchors() -> Array[Vector2]:
-	var output: Array[Vector2] = [world_entry()]
-	for area: Dictionary in manifest.areas:
-		if area.role not in ["boss", "challenge_reward"]: output.append(Vector2(area.position[0],area.position[1]))
-	return output
+	return level_plan.anchors.duplicate()
 
 func world_static_dangers() -> Array[Rect2]:
-	var output: Array[Rect2] = []
-	for r: Array in manifest.dangers: output.append(ThornForestRegionGenerator._rect(r))
-	return output
+	return forest_geometry.dangers.duplicate()
 
 func world_static_hazard_records() -> Array[Dictionary]:
 	# Forest builds real rectangles directly, not PlatformingModules. Keep
@@ -187,11 +193,11 @@ func world_static_hazard_records() -> Array[Dictionary]:
 	# These are authored forest thorns; the plains pit-plane heuristic does
 	# not apply to a large recovery-root hazard or a thin hanging thorn band.
 	var output: Array[Dictionary] = []
-	var presentations: Array = manifest.get("danger_presentations", [])
-	for index: int in manifest.dangers.size():
+	var presentations: Array = forest_geometry.danger_presentations
+	for index: int in forest_geometry.dangers.size():
 		var presentation: Dictionary = presentations[index] if index < presentations.size() and presentations[index] is Dictionary else {}
 		output.append({
-			"rect": ThornForestRegionGenerator._rect(manifest.dangers[index]),
+			"rect": forest_geometry.dangers[index],
 			"role": "surface",
 			"module_id": str(presentation.get("host_structure_id", "thorn_forest")),
 			"authored_id": "forest_thorn_%s" % index,
@@ -207,10 +213,11 @@ func presentation_host_audit() -> Dictionary:
 
 func module_index_at(point: Vector2) -> int:
 	for i: int in forest_platforms.size():
-		if ThornForestRegionGenerator._rect(forest_platforms[i].rect).grow(80).has_point(point): return i
+		if LevelRuntime.rect(forest_platforms[i].rect).grow(80).has_point(point): return i
 	return -1
 
 func _draw() -> void:
+	if manifest.is_empty(): return # New providers install their own presentation.
 	for anchor: Dictionary in manifest.get("hook_anchors",[]):
 		var mount := ForestTargetHosts.mount_for(_target_host_presentation,str(anchor.id))
 		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin") and not (manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"] and (anchor.get("fruit_presentation") == "rooted_fruit" or bool(mount.get("resolved",false)))):
@@ -225,7 +232,7 @@ func _draw() -> void:
 			else: ForestFruitBough.draw(self,bough)
 		ForestTargetHosts.draw(self,_target_host_presentation)
 	if is_instance_valid(vine_shape) and not vine_shape.disabled:
-		var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
+		var gate := LevelRuntime.rect(manifest.vine_gate.rect)
 		if ForestBiblePresentation.enabled(manifest): ForestBiblePresentation.draw_gate(self, gate)
 		else:
 			draw_rect(gate,Color("5c5542"))
@@ -234,7 +241,7 @@ func _draw() -> void:
 				draw_line(at+Vector2(-15,0),at+Vector2(15,18),Color("ca9670"),5,true)
 	for shortcut: Dictionary in manifest.get("forest_shortcuts", []):
 		if region_state != null and region_state.opened.has(str(shortcut.opened_key)): continue
-		var rect := ThornForestRegionGenerator._rect(shortcut.rect)
+		var rect := LevelRuntime.rect(shortcut.rect)
 		ForestBiblePresentation.draw_gate(self, rect)
 	if ForestBiblePresentation.enabled(manifest):
 		ForestBiblePresentation.draw_surfaces(self, manifest)
@@ -243,7 +250,7 @@ func _draw() -> void:
 		if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION and row.has("scene_kind"):
 			ForestSceneLanguage.draw_surface(self, row)
 			continue
-		var rect := ThornForestRegionGenerator._rect(row.rect)
+		var rect := LevelRuntime.rect(row.rect)
 		var one_way: bool = row.one_way
 		draw_rect(rect, Color("586544") if one_way else Color("394e38"))
 		draw_line(rect.position,Vector2(rect.end.x,rect.position.y),Color("c9cd89"),3,true)

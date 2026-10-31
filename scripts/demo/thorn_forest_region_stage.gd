@@ -27,15 +27,14 @@ func forest_boss_entry_position() -> Vector2:
 	return _canopy_point("safe_return") if _has_canopy_boss() else Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
 
 func _ready() -> void:
+	if not _prepare_level_plan(true): return
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if region_state == null: region_state = PlainsRegionState.new()
-	if not region_state.bind_map(str(generated.manifest.manifest_hash)):
+	if not region_state.bind_map(level_plan.map_hash):
 		push_error("Forest map state belongs to another manifest")
 		return
-	assembler = ThornForestRegionAssembler.new()
-	(assembler as ThornForestRegionAssembler).region_state = region_state
-	add_child(assembler)
-	var built := assembler.build(generated.manifest,tuning)
+	var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)
+	assembler=built.assembler as RandomStageAssembler
 	if not built.ok:
 		push_error(str(built.error))
 		return
@@ -61,22 +60,17 @@ func _ready() -> void:
 	spawn = assembler.world_entry()
 	anchors = assembler.world_anchors()
 	anchor_position = spawn
-	boss_arena = generated.boss_arena
+	boss_arena = level_plan.boss_arena
 	exits.clear()
 	exit_positions.clear()
-	merchant_position = Vector2(generated.manifest.merchant_position[0],generated.manifest.merchant_position[1])
+	merchant_position = level_plan.merchant_position
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
-	for row: Dictionary in encounter_plan.enemies:
-		var overrides := {&"patrol_half_width":float(row.patrol_radius)}
-		if row.behavior_id=="forest_bark_beetle" and row.has("initial_direction"):
-			if not row.initial_direction is int or row.initial_direction not in [-1,1]:
-				assembly_ok=false;push_error("Recorded bark facing rejected");return
-			overrides[&"initial_direction"] = int(row.initial_direction)
-		var creature := EnemyFactory.create_for_behavior(StringName(row.behavior_id), overrides)
+	for index: int in level_plan.actors.size():
+		var row: Dictionary=encounter_plan.enemies[index]
+		var creature := LevelRuntime.create_actor(level_plan.actors[index])
 		if creature == null:
 			assembly_ok=false;push_error("Recorded forest enemy construction rejected");return
-		creature.position = Vector2(row.position[0],row.position[1])
 		var actor := creature.get_node("Actor") as EnemyActor
 		add_child(creature)
 		if region_state.actors.has(row.id):
@@ -106,14 +100,9 @@ func _ready() -> void:
 	var forest_version: String = generated.manifest.version
 	if _has_canopy_boss() and (not _canopy_point("safe_return").is_finite() or not _canopy_point("reward_position").is_finite()):
 		assembly_ok=false;push_error("Recorded canopy entry or reward point rejected");return
-	var boss_path := ThornForestRegionGenerator.boss_scene_path(forest_version,map_index,generated.manifest)
-	if boss_path.is_empty():
-		assembly_ok=false;push_error("Recorded forest Boss content is not in the version whitelist");return
-	boss = BossFactory.create_recorded(boss_path, "")
+	boss = LevelRuntime.create_boss(level_plan.boss)
 	if boss == null:
 		assembly_ok=false;push_error("Recorded forest Boss construction rejected");return
-	var boss_point: Array = generated.manifest.get("boss_geometry",{}).get("boss_position",[boss_arena.get_center().x,boss_arena.end.y-100])
-	boss.position = Vector2(boss_point[0],boss_point[1])
 	add_child(boss)
 	var encounter := boss.get_node("Encounter") as ThornForestEncounter
 	if not region_state.boss_state.is_empty():
@@ -129,17 +118,11 @@ func _ready() -> void:
 	if bool(restored_boss.get("seal_closed",false)) and encounter.health.current > 0:
 		spawn = forest_boss_entry_position()
 	reward_position = _canopy_point("reward_position") if _has_canopy_boss() else Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
-	for row: Dictionary in generated.manifest.pickups:
-		pickups.append({"id":row.id,"kind":row.kind,"amount":int(row.amount),"position":Vector2(row.position[0],row.position[1]),"claimed":region_state.claimed.has(row.id)})
+	pickups.append_array(LevelRuntime.restore_pickups(level_plan.pickups,region_state.claimed))
 	for id: String in region_state.drops:
 		var drop: Dictionary = region_state.drops[id]
 		restore_drop_pickups(drop,id,region_state.claimed)
-	for row: Dictionary in generated.manifest.rewards:
-		var chest := row.duplicate(true)
-		chest.id = "thorn_forest/map_%s/" % map_index+str(row.id)
-		chest.position = Vector2(row.position[0],row.position[1])
-		chest.claimed = region_state.claimed.has(chest.id)
-		chests.append(chest)
+	chests.append_array(LevelRuntime.restore_caches(level_plan.caches,region_state.claimed))
 	chest_art_layer = ChestArtLayer.new()
 	chest_art_layer.name = "ChestArtLayer"
 	chest_art_layer.configure(chests)
@@ -163,9 +146,8 @@ func _ready() -> void:
 	# covers the upper thorn boundary; the cache has its own real prompt/map icon.
 	if forest_version == ThornForestRegionGenerator.LEGACY_VERSION:
 		_context_sign(Vector2(generated.manifest.areas[1].position[0]-100,generated.manifest.areas[1].position[1]-85),"TWO BOUGHS / CROWN CACHE IS OPTIONAL",200)
-	var app := get_parent() as DemoApp
-	if app != null and is_instance_valid(app.controller):
-		app.controller.traversal.action_changed.connect(_accepted_forest_action)
+	if is_instance_valid(bound_player):
+		bound_player.traversal.action_changed.connect(_accepted_forest_action)
 	var ring: Dictionary = generated.manifest.hook_anchors.filter(func(row: Dictionary) -> bool: return row.id == generated.manifest.vine_gate.key_anchor)[0]
 	var gate_target: Node2D = (assembler as ThornForestRegionAssembler).hook_targets.get(str(ring.id))
 	var target_name := "RIPE FRUIT" if gate_target is ForestFruitAnchor else "BRASS RING"
@@ -174,13 +156,12 @@ func _ready() -> void:
 	queue_redraw()
 
 func _accepted_forest_action(action: StringName) -> void:
-	var app := get_parent() as DemoApp
-	if action != &"hook_kick" or app == null or not is_instance_valid(app.controller) or not app.controller.active or app.controller.actor_resources.health.terminal: return
-	if app.controller.traversal.hook_target is ForestPracticeBell:
-		(app.controller.traversal.hook_target as ForestPracticeBell).accepted_contact()
-	if is_instance_valid(ambience) and app.controller.traversal.hook_target is ForestFruitAnchor:
-		ambience.notify_fruit(app.controller.traversal.hook_target.global_position)
-	(assembler as ThornForestRegionAssembler).resolve_hook_action(app.controller.traversal)
+	if action != &"hook_kick" or not is_instance_valid(bound_player) or not bound_player.active or bound_player.actor_resources.health.terminal: return
+	if bound_player.traversal.hook_target is ForestPracticeBell:
+		(bound_player.traversal.hook_target as ForestPracticeBell).accepted_contact()
+	if is_instance_valid(ambience) and bound_player.traversal.hook_target is ForestFruitAnchor:
+		ambience.notify_fruit(bound_player.traversal.hook_target.global_position)
+	(assembler as ThornForestRegionAssembler).resolve_hook_action(bound_player.traversal)
 
 func _physics_process(delta: float) -> void:
 	clock += delta
@@ -215,11 +196,7 @@ func capture_state() -> void:
 		if pickup.claimed: region_state.claimed[pickup.id] = true
 	for i: int in enemies.size():
 		var actor := enemies[i].get_node("Actor") as EnemyActor
-		var attack := actor.attack_behavior
-		var at := enemies[i].position
-		region_state.actors[enemy_manifest[i].id] = {"health":actor.health.current,"position":[at.x,at.y],"state":String(attack.state) if attack else "idle","state_time":attack.state_time if attack else 0.0,"cooldown":attack.cooldown if attack else 0.0,"serial":attack._serial if attack else 0,"home":[attack.home.x,attack.home.y] if attack else [at.x,at.y],"direction":actor.brain.direction}
-		if attack != null and attack.has_method("depth_snapshot"):
-			region_state.actors[enemy_manifest[i].id].depth_state = attack.call("depth_snapshot")
+		region_state.actors[enemy_manifest[i].id] = actor.region_snapshot(false,true)
 	if is_instance_valid(boss):
 		var encounter := boss.get_node("Encounter") as ThornForestEncounter
 		region_state.boss_state = encounter.combat_snapshot()

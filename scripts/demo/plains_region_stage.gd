@@ -12,17 +12,26 @@ var context_signs: Array[Dictionary] = []
 var boss_seal:BossArenaSeal
 var regional_art_renderer: Node2D
 
+func _prepare_level_plan(forest_region: bool) -> bool:
+	if level_plan!=null: return true
+	# Existing standalone/experimental callers keep configure_generated().
+	var converted := LegacyRegionPlanAdapter.generated(generated,tuning,map_index,forest_region)
+	if not converted.accepted():
+		push_error(converted.error)
+		return false
+	level_plan=converted.plan
+	return true
+
 func _ready() -> void:
+	if not _prepare_level_plan(false): return
 	set_meta("pixel_formal_style",not generated.has("regional_art_plan"))
 	set_meta("underworld_formal_style",not generated.has("regional_art_plan"))
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if region_state == null: region_state = PlainsRegionState.new()
-	if not region_state.bind_map(str(generated.manifest.manifest_hash)): return
-	assembler = PlainsRegionAssembler.new()
-	(assembler as PlainsRegionAssembler).region_state = region_state
-	add_child(assembler)
-	var assembled := assembler.build(generated.manifest,tuning)
+	if not region_state.bind_map(level_plan.map_hash): return
+	var assembled := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)
+	assembler=assembled.assembler as RandomStageAssembler
 	if not assembled.ok:
 		push_error("Region assembly failed: " + str(assembled.get("error")))
 		return
@@ -31,10 +40,10 @@ func _ready() -> void:
 	spawn = assembler.world_entry()
 	anchors = assembler.world_anchors()
 	anchor_position = spawn
-	boss_arena = generated.boss_arena
+	boss_arena = level_plan.boss_arena
 	exits.clear()
 	exit_positions.clear()
-	merchant_position = Vector2(generated.manifest.merchant_position[0],generated.manifest.merchant_position[1])
+	merchant_position = level_plan.merchant_position
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	_spawn_enemies_from_plan()
@@ -50,8 +59,7 @@ func _ready() -> void:
 			if saved.has("position"): enemies[index].position=Vector2(saved.position[0],saved.position[1])
 			# Terminal actors keep their drop receipt and stay terminal on reload.
 			if float(saved.health) <= 0: enemies[index].hide()
-	boss = BossFactory.create(&"bellstrider" if map_index == 1 else &"windkeeper_storm")
-	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-65)
+	boss = LevelRuntime.create_boss(level_plan.boss)
 	add_child(boss)
 	if not region_state.boss_state.is_empty():
 		restored_boss=region_state.boss_state.duplicate(true)
@@ -70,18 +78,12 @@ func _ready() -> void:
 		if encounter is BellstriderEncounter: encounter.pattern_index=int(data.get("pattern_index",0))
 	if restored_boss.get("seal_closed",false) and float(restored_boss.get("health",0))>0:spawn=Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
 	reward_position = boss.position
-	for p: Dictionary in generated.manifest.pickups:
-		pickups.append({"id": p.id, "kind": p.kind, "amount": int(p.amount), "position": Vector2(p.position[0],p.position[1]), "claimed": region_state.claimed.has(p.id)})
+	pickups.append_array(LevelRuntime.restore_pickups(level_plan.pickups,region_state.claimed))
 	for id: String in region_state.drops:
 		var p: Dictionary=region_state.drops[id]
 		restore_drop_pickups(p,id,region_state.claimed)
 		if id == BellstriderRewards.source_id(self): BellstriderRewards.restore_pickup_lock(self,p)
-	for c: Dictionary in generated.manifest.rewards:
-		var chest := c.duplicate(true)
-		chest.id=PlainsRegionCampaign.prefix(map_index)+c.id
-		chest.position = Vector2(c.position[0],c.position[1])
-		chest.claimed = region_state.claimed.has(chest.id)
-		chests.append(chest)
+	chests.append_array(LevelRuntime.restore_caches(level_plan.caches,region_state.claimed))
 	install_visual_layer(VISUAL_LAYER.new())
 	var scenery: UnderworldScenery
 	if not generated.has("regional_art_plan"):
@@ -237,13 +239,13 @@ func _context_sign(at: Vector2, text: String, radius: float) -> void:
 	context_signs.append({"label": label, "radius": radius, "origin": at + Vector2(100,75)})
 
 func _update_context_signs() -> void:
-	var app := get_parent() as DemoApp
-	if app == null or not is_instance_valid(app.player): return
+	if not is_instance_valid(bound_player) or not is_instance_valid(bound_player.motor): return
+	var player := bound_player.motor
 	for row: Dictionary in context_signs:
 		var label: Label = row.label
-		label.visible = app.player.is_on_floor() and app.player.global_position.distance_to(row.origin) < float(row.radius)
+		label.visible = player.is_on_floor() and player.global_position.distance_to(row.origin) < float(row.radius)
 		if label.visible:
-			var actor_rect := Rect2(app.player.global_position-Vector2(25,50),Vector2(50,65))
+			var actor_rect := Rect2(player.global_position-Vector2(25,50),Vector2(50,65))
 			if Rect2(label.global_position,label.size).intersects(actor_rect): label.hide()
 
 func composition_focus() -> Vector2:
@@ -279,12 +281,10 @@ func capture_state() -> void:
 	for p: Dictionary in pickups:
 		if p.claimed: region_state.claimed[p.id] = true
 	for index: int in assembler.modules.size():
-		region_state.clocks[generated.manifest.nodes[index].id] = assembler.modules[index].clock
+		region_state.clocks[level_plan.modules[index].instance_id] = assembler.modules[index].clock
 	for index: int in enemies.size():
 		var actor := enemies[index].get_node("Actor") as EnemyActor
-		var attack := actor.attack_behavior
-		var pos := enemies[index].position
-		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"locked_direction":[attack.locked_direction.x,attack.locked_direction.y] if attack!=null else [1,0],"attack_goal":[attack.attack_goal.x,attack.attack_goal.y] if attack!=null else [pos.x,pos.y],"attack_origin":[attack.attack_origin.x,attack.attack_origin.y] if attack!=null else [pos.x,pos.y],"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
+		region_state.actors[enemy_manifest[index].id] = actor.region_snapshot()
 		var remains := _enemy_remains(enemies[index])
 		if actor.health.terminal and is_instance_valid(remains):
 			var pose := remains.presentation_snapshot(_remains_support_identity(remains.support_node()))
@@ -300,8 +300,7 @@ func capture_state() -> void:
 			region_state.opened[generated.manifest.shot_latch_plan.latches[i].id] = true
 
 func global_player_position() -> Vector2:
-	var app := get_parent()
-	return app.player.global_position if app is DemoApp and is_instance_valid(app.player) else Vector2.INF
+	return bound_player.motor.global_position if is_instance_valid(bound_player) and is_instance_valid(bound_player.motor) else Vector2.INF
 
 func area_label(area: Dictionary) -> String:
 	if map_index==1 and area.role=="boss": return "BELLSTRIDER / MINI BOSS"

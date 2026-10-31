@@ -5,6 +5,7 @@ const VISUAL_LAYER := preload("res://scripts/art/plains_stage_visual.gd")
 var visual_layer: Node2D
 var assembler: RandomStageAssembler
 var generated: Dictionary = {}
+var level_plan: LevelPlan
 var tuning: PlayerTuning
 var bounds := Rect2()
 var anchors: Array[Vector2] = []
@@ -23,6 +24,12 @@ var shot_latches: Array[ShotLatch] = []
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	generated = data
 	tuning = player_tuning
+
+func configure_level(plan: LevelPlan, source_view: Dictionary, player_tuning: PlayerTuning) -> void:
+	level_plan=plan
+	# The existing region adapters retain their own view/recording source. The
+	# shared LevelRuntime only sees the plan and never requires this dictionary.
+	configure_generated(source_view,player_tuning)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -194,15 +201,21 @@ func show_boss_reward_portal() -> void:
 
 
 func _spawn_enemies_from_plan() -> void:
-	for data: Dictionary in encounter_plan.enemies:
-		var overrides := {&"patrol_half_width":data.patrol_radius,&"aerial":data.aerial}
-		if data.has("dive_depth"): overrides[&"dive_depth"] = float(data.dive_depth)
-		var drone := EnemyFactory.create_for_behavior(StringName(data.behavior_id),overrides)
+	for index: int in encounter_plan.enemies.size():
+		var data: Dictionary=encounter_plan.enemies[index]
+		var drone: EnemyMotor
+		if level_plan!=null:
+			drone=LevelRuntime.create_actor(level_plan.actors[index])
+		else:
+			# Explicit old non-region previews continue through the same factory.
+			var overrides := {&"patrol_half_width":data.patrol_radius,&"aerial":data.aerial}
+			if data.has("dive_depth"): overrides[&"dive_depth"] = float(data.dive_depth)
+			drone=EnemyFactory.create_for_behavior(StringName(data.behavior_id),overrides)
+			if drone!=null: drone.position=Vector2(data.position[0],data.position[1])
 		if drone == null:
 			assembly_ok = false
 			push_error("Recorded enemy behavior/instance overrides rejected: " + String(data.behavior_id))
 			return
-		drone.position = Vector2(data.position[0],data.position[1])
 		var actor := drone.get_node("Actor") as EnemyActor
 		if actor.definition.behavior_id == &"root_bell":
 			var old := drone.get_node("Presentation")

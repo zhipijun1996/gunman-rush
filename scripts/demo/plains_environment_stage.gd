@@ -82,9 +82,7 @@ func capture_state() -> void:
 		region_state.clocks[generated.manifest.nodes[index].id] = assembler.modules[index].clock
 	for index: int in enemies.size():
 		var actor := enemies[index].get_node("Actor") as EnemyActor
-		var attack := actor.attack_behavior
-		var pos := enemies[index].position
-		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"locked_direction":[attack.locked_direction.x,attack.locked_direction.y] if attack!=null else [1,0],"attack_goal":[attack.attack_goal.x,attack.attack_goal.y] if attack!=null else [pos.x,pos.y],"attack_origin":[attack.attack_origin.x,attack.attack_origin.y] if attack!=null else [pos.x,pos.y],"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
+		region_state.actors[enemy_manifest[index].id] = actor.region_snapshot()
 
 func composition_focus() -> Vector2: return Vector2.INF
 

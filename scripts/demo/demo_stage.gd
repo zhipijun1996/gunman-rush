@@ -27,6 +27,11 @@ var hazard_position := Vector2(820, 580)
 var exit_positions: Array[Vector2] = [Vector2(1130, 465), Vector2(1130, 565)]
 var _exit_labels: Array[Label] = []
 var _supply_label: Label
+# The host supplies only the existing player collaborator, never itself or a run.
+var bound_player: PlayerController
+
+func bind_player(controller: PlayerController) -> void:
+	bound_player=controller
 
 func configure(index: int, type_id: StringName, offers: Array) -> void:
 	stage_index = index
