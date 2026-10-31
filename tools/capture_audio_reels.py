@@ -23,7 +23,7 @@ def sha(path):
 def sources():
     paths = [Path(v) for v in subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()]
     paths += [Path(v) for v in subprocess.check_output(['git','ls-files','--others','--exclude-standard'],cwd=ROOT,text=True).splitlines()]
-    return {str(p):sha(ROOT/p) for p in sorted(set(paths)) if str(p).startswith(('scripts/','scenes/','resources/','assets/','config/','tools/audio_reels_capture','tools/capture_audio_reels','tests/audio_director_reels')) and (ROOT/p).is_file()} | {p:sha(ROOT/p) for p in ('project.godot','tools/godot.sh','tools/audio_reels_validation.py')}
+    return {str(p):sha(ROOT/p) for p in sorted(set(paths)) if str(p).startswith(('scripts/','game/','experiments/','scenes/','resources/','assets/','config/','tools/audio_reels_capture','tools/capture_audio_reels','tests/audio_director_reels')) and (ROOT/p).is_file()} | {p:sha(ROOT/p) for p in ('project.godot','tools/godot.sh','tools/audio_reels_validation.py')}
 
 EXPECTED_EVENTS = {id:[id] for id in REELS}
 EXPECTED_EVENTS.update(ui=['click','confirm','denied'], weapons=['shot_pulse','shot_shuriken','shot_bomb','bomb_explode'], mix=['coin','heal','enemy_hit','hurt'])

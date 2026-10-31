@@ -79,7 +79,7 @@ func run() -> void:
 		for underworld: bool in [false, true]:
 			await real_death_case(path, underworld)
 	var hashes: Dictionary = {}
-	for path: String in [get_script().resource_path, "res://scripts/audio/game_audio.gd", "res://scripts/enemies/enemy_actor.gd", DEFAULT_DEFEAT]:
+	for path: String in [get_script().resource_path, "res://game/presentation/audio/game_audio.gd", "res://game/enemies/enemy_actor.gd", DEFAULT_DEFEAT]:
 		hashes[path] = FileAccess.get_sha256(path)
 	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v8")
 	var file := FileAccess.open("res://build/enemy_feedback_01/v8/death_audio_runtime.json", FileAccess.WRITE)

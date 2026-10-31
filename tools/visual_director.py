@@ -31,8 +31,8 @@ REGIONAL_CAPTURE = "tools/plains_regional_art_capture.gd"
 JOINT_RECOIL_CAPTURE = "tools/plains_joint_recoil_capture.gd"
 ENVIRONMENT_CAPTURES = (ENVIRONMENT_CAPTURE, PLACES_CAPTURE)
 CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", REGIONAL_CAPTURE, JOINT_RECOIL_CAPTURE, *ENVIRONMENT_CAPTURES}
-VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
-VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
+VISUAL_SAMPLE_CATALOG = "res://game/presentation/world/resources/visual_development/candidate.json"
+VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json", "res://game/presentation/world/resources/visual_development/p1_candidate.json")
 
 def valid_visual_sample(script, sample):
     return ((script == 'tools/spatial_golden_capture.gd' and sample in VISUAL_SAMPLE_CATALOGS)
@@ -612,7 +612,7 @@ def validate_joint_recoil_observations(data, report):
         if (snap.get('joint_ready') is not True or snap.get('production_pool') is not False
                 or len(modules) != 1 or len(collisions) != 2 or len(banks) != 2 or art.get('omitted') != []):
             errors.append('joint actual complete banks/collision consumer missing/' + phase)
-        catalog = 'resources/visual_development/p1_joint_recoil_assets.json'
+        catalog = 'game/presentation/world/resources/visual_development/p1_joint_recoil_assets.json'
         if not report.get('source_before', {}).get(catalog) or art.get('joint_catalog_sha256') != report.get('source_before', {}).get(catalog):
             errors.append('joint actual catalog not source-bound/' + phase)
         planned = modules[0].get('terrain_bodies', []) if len(modules) == 1 else []
@@ -661,7 +661,7 @@ def validate_landform_consumers(snap, report, phase):
     bodies = program.get('terrain_bodies', [])
     physical = snap.get('joint_collisions', [])
     painted = art.get('joint_terrain', [])
-    catalog = 'resources/visual_development/p1_landform_assets.json'
+    catalog = 'game/presentation/world/resources/visual_development/p1_landform_assets.json'
     bound = report.get('source_before', {})
     if (snap.get('joint_ready') is not True or snap.get('production_pool') is not False
             or not bodies or len(physical) != len(bodies) or len(painted) != len(bodies) or art.get('omitted') != []):
@@ -823,7 +823,7 @@ def validate_regional_bindings(data, report):
     if request.get('visual_sample', '') or request.get('visual_layout', ''):
         errors.append('regional entry does not support legacy visual sample/layout flags')
     sources_before = report.get('source_before', {})
-    catalog = 'resources/visual_development/p1_regional_assets.json'
+    catalog = 'game/presentation/world/resources/visual_development/p1_regional_assets.json'
     for key in ('regional_art_initial', 'regional_art_final'):
         art = data.get(key, {}).get('art', {})
         if (art.get('catalog_path') != 'res://' + catalog or not sources_before.get(catalog)
@@ -1225,8 +1225,8 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
     language_request = art_language_request(request, region_id)
     joint_request = joint_landform_request(request, region_id)
     if world_rebuild_request(request, region_id):
-        paths = ['scripts/generation/plains_world_rebuild.gd', 'resources/generation/plains_world_rebuild.json',
-                 'scripts/art/plains_world_rebuild_composer.gd', 'scripts/demo/plains_world_rebuild_stage.gd',
+        paths = ['game/world/generation/plains_world_rebuild.gd', 'resources/generation/plains_world_rebuild.json',
+                 'game/presentation/world/art/plains_world_rebuild_composer.gd', 'game/world/levels/providers/plains_world_rebuild_stage.gd',
                  'tools/plains_world_rebuild_preview.gd', 'tools/run_plains_world_rebuild_tests.py',
                  'docs/evidence/plains_world_rebuild/recipe.md']
         m['constraints'][0] = ('Explicit isolated source-painting reconstruction. Derive actual collision, trusted contacts and painting frame from complete source forms; keep equal-scale Sprite/physics alignment. Preserve Motor, combat, inputs, resources, saves, enemy contracts and forest. This is a limited construct, not arbitrary geometry wrapping or complete procedural-region production.')
@@ -1234,7 +1234,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
             'status': 'first_construct_ACCEPT_SCOPED_not_user_or_region_gold',
             'scope': 'Source-form continuous terrain pilot; only evidenced layouts/routes are admitted',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths if (ROOT / path).is_file()],
-            'profile': 'scripts/art/plains_world_rebuild_composer.gd',
+            'profile': 'game/presentation/world/art/plains_world_rebuild_composer.gd',
             'generation_profile': 'plains-world-rebuild-v3',
             'recipe': 'docs/evidence/plains_world_rebuild/recipe.md',
             'quality_record': 'docs/quality/records/PLAINS-WORLD-REBUILD-01.json',
@@ -1255,16 +1255,16 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
                 task['quality_task_id'] = 'PLAINS-WORLD-REBUILD-01'
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-world-rebuild-contract']))
     elif language_request:
-        paths = ['scripts/generation/plains_art_language.gd', 'resources/generation/plains_art_language.json',
-                 'scripts/generation/plains_region_generator.gd', 'scripts/generation/plains_region_art_plan.gd',
-                 'scripts/art/plains_regional_composer.gd', 'tools/plains_art_language_preview.gd',
+        paths = ['game/world/generation/plains_art_language.gd', 'resources/generation/plains_art_language.json',
+                 'game/world/generation/plains_region_generator.gd', 'game/world/generation/plains_region_art_plan.gd',
+                 'game/presentation/world/art/plains_regional_composer.gd', 'tools/plains_art_language_preview.gd',
                  'docs/evidence/plains_art_language/recipe.md']
         m['constraints'][0] = ('Module and topology art intent precedes coordinates and instances. Candidate embedding consumes finite family sizes, shoulders and quiet arrivals. Preserve original module mechanics, Motor, resources, weapons, abilities, RNG implementation, saves and forest. Missing painted families and unconverted inline geometry are explicit; parameter/consumer proof is not artistic admission.')
         m['preparation']['visual_recipe'] = {
             'status': 'candidate_structure_only_not_art_admitted',
             'scope': 'Pre-embedding module/world art-language interface; foreground family assets and complete artistic region remain unverified',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths if (ROOT / path).is_file()],
-            'profile': 'scripts/art/plains_regional_composer.gd', 'generation_profile': 'bounded_plains_v1',
+            'profile': 'game/presentation/world/art/plains_regional_composer.gd', 'generation_profile': 'bounded_plains_v1',
             'recipe': 'docs/evidence/plains_art_language/recipe.md',
             'quality_record': 'docs/quality/records/PLAINS-ART-LANGUAGE-01.json',
             'preview_script': 'tools/plains_art_language_preview.gd',
@@ -1277,9 +1277,9 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
             if not task['read_only']:
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain','visual-director-space')] + ['plains-art-language-contract']))
     elif joint_request:
-        paths = ['scripts/generation/plains_joint_recoil_plan.gd', 'scripts/generation/plains_region_generator.gd',
-                 'scripts/generation/plains_region_art_plan.gd', 'scripts/art/plains_joint_recoil_composer.gd',
-                 'shaders/plains_landform_material.gdshader', 'resources/visual_development/p1_landform_assets.json',
+        paths = ['game/world/generation/plains_joint_recoil_plan.gd', 'game/world/generation/plains_region_generator.gd',
+                 'game/world/generation/plains_region_art_plan.gd', 'game/presentation/world/art/plains_joint_recoil_composer.gd',
+                 'shaders/plains_landform_material.gdshader', 'game/presentation/world/resources/visual_development/p1_landform_assets.json',
                  'docs/evidence/plains_landform/recipe.md', 'docs/evidence/plains_landform/independent-art-03.md']
         m['workflow'] = 'visual_golden'
         m['constraints'][0] = ('Joint candidate: environment purpose, support, exposed faces, voids and painted-family interfaces precede span embedding and platform Definition. Authorized isolated geometry redesign must be versioned and replay actual Motor, unchanged mechanisms and original negative cases. Freeze Motor, weapons, abilities, resources, RNG implementation, saves and forest. Pure surface tasks still freeze actual collision geometry/route.')
@@ -1287,7 +1287,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
             'status': 'candidate_not_automatic_admission',
             'scope': 'One source-owned ridge/creek program inside the formal region; legacy remainder, not full-region art success',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
-            'profile': 'scripts/art/plains_joint_recoil_composer.gd',
+            'profile': 'game/presentation/world/art/plains_joint_recoil_composer.gd',
             'recipe': 'docs/evidence/plains_landform/recipe.md',
             'quality_record': 'docs/quality/records/PLAINS-LANDFORM-01.json',
             'capture_script': 'tools/plains_joint_recoil_capture.gd',
@@ -1300,9 +1300,9 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
             if not task['read_only']:
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-landform-contract']))
     elif regional_request:
-        paths = ['scripts/generation/plains_region_art_plan.gd', 'scripts/generation/plains_region_generator.gd',
-                 'scripts/art/plains_regional_composer.gd', 'shaders/plains_regional_ground.gdshader',
-                 'resources/visual_development/p1_regional_assets.json', REGIONAL_CAPTURE,
+        paths = ['game/world/generation/plains_region_art_plan.gd', 'game/world/generation/plains_region_generator.gd',
+                 'game/presentation/world/art/plains_regional_composer.gd', 'shaders/plains_regional_ground.gdshader',
+                 'game/presentation/world/resources/visual_development/p1_regional_assets.json', REGIONAL_CAPTURE,
                  'tools/plains_regional_art_preview.gd', 'tools/run_plains_regional_art_tests.py',
                  'tools/plains_regional_art_map.py', 'docs/evidence/plains_regional/recipe.md',
                  'docs/quality/records/PLAINS-REGIONAL-01.json',
@@ -1310,7 +1310,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
         recipe = {'status': 'candidate_not_automatic_admission',
                   'scope': 'Actual complete formal randomized-region candidate; not automatic acceptance, golden, user, commercial or device approval',
                   'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
-                  'profile': 'scripts/art/plains_regional_composer.gd',
+                  'profile': 'game/presentation/world/art/plains_regional_composer.gd',
                   'method': 'RETHINK: both collision-union painting and deep mass-minus-void prototypes failed actual whole-region art. Reuse full topology, actual shared plan/consumer and evidence tools; next art experiment must jointly embed landforms and routes rather than extrude the old row/column layout or resume place permutations.',
                   'recipe': 'docs/evidence/plains_regional/recipe.md',
                   'quality_record': 'docs/quality/records/PLAINS-REGIONAL-01.json',
@@ -1327,13 +1327,13 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-regional-art-contract', 'plains-regional-art-counterexamples', 'plains-regional-art-graph-counterexamples']))
             task['goal'] += ' Before a long movie, execute this same MovieWriter adapter with max_ticks=60; require capture integrity and label frame_budget_exhausted as a bounded preflight, never route acceptance. Read the current full-region recipe and actual independent rejection first. Use the formal complete map, not fixed place reordering. Structural checks cannot sign art. Show whole-world terrain/routes/layers plus normal-camera actual full-route footage; preserve failed Seeds. Do not repeat the two rejected landmass methods or silently change collision in an art-only task.'
     elif region_id == 'windchime_plains':
-        catalog_path = 'resources/visual_development/p1_places_assets.json'
+        catalog_path = 'game/presentation/world/resources/visual_development/p1_places_assets.json'
         catalog = read(ROOT / catalog_path)
         paths = [catalog_path, catalog['master'],
                  'resources/generation/environment_grammar/places_v1.json',
-                 'scripts/art/plains_place_composer.gd', 'scripts/generation/plains_place_plan.gd',
+                 'game/presentation/world/art/plains_place_composer.gd', 'game/world/generation/plains_place_plan.gd',
                  PLACES_CAPTURE, 'tools/plains_places_preview.gd', 'tests/plains_places_trace.gd',
-                 'resources/art/avatars.json', 'docs/evidence/plains_places/recipe.md',
+                 'game/presentation/actors/resources/art/avatars.json', 'docs/evidence/plains_places/recipe.md',
                  'docs/quality/records/PLAINS-PLACES-01.json',
                  'docs/evidence/plains_places/independent-01.md']
         def source_textures(value):
@@ -1355,7 +1355,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
             'status': 'candidate_not_automatic_admission',
             'scope': 'P1 three-place whole-volume development candidate; not automatic acceptance, no user, device, commercial or formal-production admission',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
-            'profile': 'scripts/art/plains_place_composer.gd',
+            'profile': 'game/presentation/world/art/plains_place_composer.gd',
             'method': 'STOP the PR82 shoulder-band/turned-end method after REWORK. Whole painted volumes use equal axis scale with measured interfaces; one resolved plan drives actual surfaces, place order and depth layers. Interface rejection and seeded structural execution provide limited technical evidence; actual whole-screen art remains pending independent native review.',
             'recipe': 'docs/evidence/plains_places/recipe.md',
             'quality_record': 'docs/quality/records/PLAINS-PLACES-01.json',

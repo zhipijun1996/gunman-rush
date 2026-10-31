@@ -30,7 +30,7 @@ class VisualDirectorTests(unittest.TestCase):
             manifest={'manifest_hash':'d'*64},manifest_hash='d'*64,formal_run_manifest_initial={'seed':'SYNTHETIC'},
             initial_capability={'fixture_not_runtime':True},initial_scenery_inventory=[{'path':'/fixture','descendants':[]}],
             engine='4.7.2-stable (official)',resource_receipts=[],policy_observations=[],policy_basis=basis,runtime_source_hashes=runtime,
-            capture_source_hashes={'res://'+k:self.source[k] for k in ('tools/level_formal_capture.gd','tests/level_formal_trace.gd','scripts/art/plains_region_scenery.gd')})
+            capture_source_hashes={'res://'+k:self.source[k] for k in ('tools/level_formal_capture.gd','tests/level_formal_trace.gd','game/presentation/world/art/plains_region_scenery.gd')})
         self.data['captured_scope']={k:True for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled')}
         self.data['captured_scope'].update({k:False for k in ('controller_manual_step','actor_teleport_by_driver','resource_injection','enemy_disable')})
         self.log='Godot Engine v4.7.2.stable.official.abc123\nLEVEL FORMAL CAPTURE: 1 frames, 1 edges, outcome=route_policy_failed, capture_errors=0\n'
@@ -160,12 +160,12 @@ class VisualDirectorTests(unittest.TestCase):
     def test_full_bitmap_guard_is_separate_from_original_formal_projection(self):
         # Original GDScript observer never lists PNG: keep that contract while retaining bitmap provenance.
         self.assertNotIn('assets/fixture-bitmap.png',vd.formal_source_projection(self.source))
-        self.assertIn('scripts/art/plains_region_scenery.gd',vd.formal_source_projection(self.source))
+        self.assertIn('game/presentation/world/art/plains_region_scenery.gd',vd.formal_source_projection(self.source))
         self.assertEqual(vd.validate_native(self.data,self.report,self.log),[])
         self.report['source_after']['assets/fixture-bitmap.png']='f'*64
         self.assertIn('source drift/incomplete inventory',vd.validate_native(self.data,self.report,self.log))
         self.report['source_after']=copy.deepcopy(self.source)
-        self.data['runtime_source_hashes'].pop('res://scripts/art/plains_region_scenery.gd')
+        self.data['runtime_source_hashes'].pop('res://game/presentation/world/art/plains_region_scenery.gd')
         self.assertIn('incomplete/changed independently observed runtime source inventory',vd.validate_native(self.data,self.report,self.log))
 
     def test_finalize_cannot_rescue_failed_engine_or_rewrite_old_receipt(self):
@@ -337,7 +337,7 @@ class VisualDirectorTests(unittest.TestCase):
         report['request']['visual_layout'] = ''
         with self.assertRaisesRegex(ValueError, 'requires explicit open-meadow'):
             vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
-        for unsafe in ('res://scripts/arbitrary.gd', '../candidate.json', '/tmp/candidate.json', 'res://resources/visual_development/other.json', 'res://resources/visual_development/../visual_development/painted_terrain_candidate.json'):
+        for unsafe in ('res://scripts/arbitrary.gd', '../candidate.json', '/tmp/candidate.json', 'res://game/presentation/world/resources/visual_development/other.json', 'res://game/presentation/world/resources/visual_development/../visual_development/painted_terrain_candidate.json'):
             report = copy.deepcopy(self.report)
             report['request']['visual_sample'] = unsafe
             with self.subTest(unsafe=unsafe), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
@@ -368,7 +368,7 @@ class VisualDirectorTests(unittest.TestCase):
             self.assertEqual(command[command.index('--script') + 1], script)
             self.assertNotIn('--visual-layout=open-meadow', command)
             if catalog: self.assertIn('--visual-sample=' + catalog, command)
-        for catalog in (*vd.VISUAL_SAMPLE_CATALOGS[:2], 'res://resources/visual_development/../p1_candidate.json', 'res://scripts/arbitrary.gd'):
+        for catalog in (*vd.VISUAL_SAMPLE_CATALOGS[:2], 'res://game/presentation/world/resources/visual_development/../p1_candidate.json', 'res://scripts/arbitrary.gd'):
             report = copy.deepcopy(self.report)
             report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
             with self.subTest(catalog=catalog), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
@@ -407,7 +407,7 @@ class VisualDirectorTests(unittest.TestCase):
     def test_baseline_painted_and_p1_bind_distinct_catalog_treatments(self):
         # All three use the same observer; only the explicitly bound skin treatment differs.
         self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS[0], vd.VISUAL_SAMPLE_CATALOG)
-        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS, (vd.VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"))
+        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS, (vd.VISUAL_SAMPLE_CATALOG, "res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json", "res://game/presentation/world/resources/visual_development/p1_candidate.json"))
         self.assertFalse(vd.valid_visual_sample("tools/painted_formal_capture.gd", vd.VISUAL_SAMPLE_CATALOGS[2]))
         for catalog in vd.VISUAL_SAMPLE_CATALOGS:
             with self.subTest(catalog=catalog):
@@ -453,7 +453,7 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertNotIn('first_space_evidence',recipe)
         self.assertTrue(any('old B scoped acceptance does not admit P1' in item for item in mission['constraints']))
         self.assertFalse(any('b1_master' in source['path'] or '/failed/' in source['path'] or '/revisions/' in source['path'] for source in recipe['sources']))
-        self.assertEqual(recipe['profile'],'scripts/art/plains_place_composer.gd')
+        self.assertEqual(recipe['profile'],'game/presentation/world/art/plains_place_composer.gd')
         self.assertIn('STOP the PR82',recipe['method'])
         self.assertEqual(recipe['quality_record'],'docs/quality/records/PLAINS-PLACES-01.json')
         self.assertIn('grants no new collision edits',recipe['geometry_authority'])

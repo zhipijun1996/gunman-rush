@@ -217,7 +217,7 @@ static func _diver(tree: SceneTree, style: StringName, report: Dictionary) -> vo
 	actor.set_physics_process(false)
 	actor.brain.enabled=false
 	if style==&"underworld":
-		var installer: Script=load("res://scripts/underworld_plains/underworld_actor_installer.gd")
+		var installer: Script=load("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 		var installed: Dictionary=installer.call("install",world)
 		_check(report,int(installed.get("enemies",0))==1,"diver uses actual formal Underworld installer")
 	var host := motor.get_node("Presentation") as Node2D

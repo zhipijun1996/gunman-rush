@@ -45,7 +45,7 @@ func moving_support()->void:
 	platform.definition.travel_duration=1.5;platform.definition.dwell_duration=.5
 	platform.bell_controlled=true
 	world.add_child(platform)
-	var player:PlayerMotor=preload("res://scenes/player/player.tscn").instantiate()
+	var player:PlayerMotor=preload("res://game/player/player.tscn").instantiate()
 	player.position=Vector2(0,170);world.add_child(player)
 	var camera:=StageCameraRig.new();world.add_child(camera)
 	camera.configure(player,Rect2(-3000,-3000,6000,6000))

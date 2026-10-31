@@ -1,6 +1,6 @@
 extends SceneTree
 ## MovieMaker soundtrack, never a post-produced replacement audio track.
-const LAB := preload("res://scenes/dev/audio_ambience_lab.tscn")
+const LAB := preload("res://experiments/audio/entries/audio_ambience_lab.tscn")
 const FPS := 60
 const SEGMENT_FRAMES := 1560
 var folder := "res://build/audio_ambience_01/capture"

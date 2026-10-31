@@ -4,7 +4,7 @@ extends SceneTree
 const CASE_FRAMES := 300
 const TOTAL_FRAMES := CASE_FRAMES * 4
 const DEFINITIONS := ["res://resources/enemies/plains_charger.tres", "res://resources/enemies/plains_diver.tres"]
-const INSTALLER := preload("res://scripts/underworld_plains/underworld_actor_installer.gd")
+const INSTALLER := preload("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 var frame := 0
 var trace_path := ""
 var variant := "after"
@@ -77,14 +77,14 @@ func make_case(index: int) -> void:
 	world.add_child(fixture)
 	solid(Vector2(600, 520), Vector2(800, 40), Color("53634e"))
 	solid(Vector2(345, 430), Vector2(20, 140), Color("364942"))
-	var player: PlayerMotor = preload("res://scenes/player/player.tscn").instantiate()
+	var player: PlayerMotor = preload("res://game/player/player.tscn").instantiate()
 	player.position = Vector2(480, 482)
 	fixture.add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	player.get_node("KeyboardMouseAdapter").process_mode = Node.PROCESS_MODE_DISABLED
 	controller.router.activate_device(&"gamepad")
 	controller.air_focus_ability.enabled = false
-	enemy = preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
+	enemy = preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate()
 	enemy.position = Vector2(640, 430 if index % 2 == 1 else 484)
 	actor = enemy.get_node("Actor") as EnemyActor
 	actor.definition = load(DEFINITIONS[index % 2]) as EnemyDefinition

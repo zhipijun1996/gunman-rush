@@ -6,11 +6,11 @@ func run(tree: SceneTree, check: Callable) -> Array[Dictionary]:
 	var dt := 1.0/60
 	# Original moving-target hook contract, with real HP and receiver events.
 	var world := Node2D.new();world.position=Vector2(11000,0);tree.root.add_child(world)
-	var player: PlayerMotor=load("res://scenes/player/player.tscn").instantiate();player.position=Vector2(100,100);world.add_child(player)
+	var player: PlayerMotor=load("res://game/player/player.tscn").instantiate();player.position=Vector2(100,100);world.add_child(player)
 	var controller := player.get_node("Controller") as PlayerController
 	controller.set_physics_process(false);player.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	controller.air_focus_ability.enabled=false;controller.traversal.grant(&"grapple")
-	var enemy: EnemyMotor=load("res://scenes/enemies/patrol_drone.tscn").instantiate();enemy.position=Vector2(280,100)
+	var enemy: EnemyMotor=load("res://game/enemies/scenes/patrol_drone.tscn").instantiate();enemy.position=Vector2(280,100)
 	var actor := enemy.get_node("Actor") as EnemyActor
 	actor.definition=load("res://resources/enemies/patrol_drone.tres").duplicate(true)
 	actor.definition.health_definition.max_health=100;actor.definition.health_definition.initial_current=100;actor.definition.patrol_half_width=1000
@@ -41,9 +41,9 @@ func run(tree: SceneTree, check: Callable) -> Array[Dictionary]:
 		world=Node2D.new();world.position=Vector2(11000,0);tree.root.add_child(world)
 		var floor_body:=StaticBody2D.new();floor_body.position=Vector2(300,720)
 		var collision:=CollisionShape2D.new();var box:=RectangleShape2D.new();box.size=Vector2(2000,40);collision.shape=box;floor_body.add_child(collision);world.add_child(floor_body)
-		player=load("res://scenes/player/player.tscn").instantiate();player.position=Vector2(100,682);world.add_child(player)
+		player=load("res://game/player/player.tscn").instantiate();player.position=Vector2(100,682);world.add_child(player)
 		controller=player.get_node("Controller");controller.set_physics_process(false);player.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED;controller.air_focus_ability.enabled=false
-		enemy=load("res://scenes/enemies/patrol_drone.tscn").instantiate();enemy.position=Vector2(250,684)
+		enemy=load("res://game/enemies/scenes/patrol_drone.tscn").instantiate();enemy.position=Vector2(250,684)
 		actor=enemy.get_node("Actor");actor.definition=load("res://resources/enemies/plains_sentry.tres").duplicate(true);actor.definition.health_definition.max_health=100;actor.definition.health_definition.initial_current=100
 		world.add_child(enemy);actor.set_physics_process(false)
 		var policy:=FrameDamagePolicy.new();policy.lifetime=DemoLifetime.new();world.add_child(policy);policy.set_physics_process(false)

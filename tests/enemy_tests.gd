@@ -1,6 +1,6 @@
 extends RefCounted
 
-const ENEMY := preload("res://scenes/enemies/patrol_drone.tscn")
+const ENEMY := preload("res://game/enemies/scenes/patrol_drone.tscn")
 const DT := 1.0 / 60.0
 
 func spawn(world: Node, location: Vector2) -> EnemyActor:

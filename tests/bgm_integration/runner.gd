@@ -271,7 +271,7 @@ func run() -> void:
 	var directory := "res://build/verification/bgm-integration"
 	DirAccess.make_dir_recursive_absolute(directory)
 	var file := FileAccess.open(directory + "/report.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify({"checks": checks, "failures": failures, "observations": observations,"loop_observations":loop_observations,"runner_sha256":FileAccess.get_sha256(get_script().resource_path),"music_sha256":FileAccess.get_sha256("res://scripts/audio/game_music.gd"),"audio_driver":AudioServer.get_driver_name(), "scope": "Actual native App/MP3 playback and two generated regions/four Boss instances; explicit position/lethal damage fixtures, native deferred-input fixture; not natural play, listening, browser activation, GPU or physical device acceptance."}, "  "))
+	file.store_string(JSON.stringify({"checks": checks, "failures": failures, "observations": observations,"loop_observations":loop_observations,"runner_sha256":FileAccess.get_sha256(get_script().resource_path),"music_sha256":FileAccess.get_sha256("res://game/presentation/audio/game_music.gd"),"audio_driver":AudioServer.get_driver_name(), "scope": "Actual native App/MP3 playback and two generated regions/four Boss instances; explicit position/lethal damage fixtures, native deferred-input fixture; not natural play, listening, browser activation, GPU or physical device acceptance."}, "  "))
 	file.close()
 	print("BGM INTEGRATION: %s checks, %s failures" % [checks, failures])
 	quit(1 if failures else 0)

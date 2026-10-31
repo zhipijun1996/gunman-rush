@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets/art_foundation_v1"
-RULES = (ROOT / 'scripts/art_foundation/blob47_rules.gd').read_text()
+RULES = (ROOT / 'game/presentation/world/art_foundation/blob47_rules.gd').read_text()
 
 
 def rule_int(name):
@@ -114,7 +114,7 @@ def outputs():
         'version': 'blob47-v1', 'status': 'candidate; user visual acceptance unverified',
         'authoring': 'Original editable SVG geometry authored in tools/build_blob47_art.py; no historical art input; no image model used.',
         'license': 'Project-authored source; follows repository license (no new third-party license claim).',
-        'configuration_source': 'scripts/art_foundation/blob47_rules.gd',
+        'configuration_source': 'game/presentation/world/art_foundation/blob47_rules.gd',
         'tile_world_size': CELL, 'tile_source_size': SIZE, 'gutter': PAD, 'pitch': PITCH, 'columns': COLS,
         'rows_per_variant': 6, 'variants': VARIANTS, 'material': 'sandstone',
         'bit_order': ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],

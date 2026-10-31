@@ -5,7 +5,7 @@ func spawn(entry_id: StringName, exit_id: StringName, jump_count: int) -> void:
 		world.free()
 	world = Node2D.new()
 	tree.root.add_child(world)
-	module = preload("res://scenes/generation/modules/route_junction.tscn").instantiate()
+	module = preload("res://game/world/generation/scenes/modules/route_junction.tscn").instantiate()
 	module.definition = module.definition.duplicate(true)
 	for port: PlatformingModulePort in module.definition.get_entry_ports():
 		if port.port_id == entry_id:

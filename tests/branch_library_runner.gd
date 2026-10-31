@@ -1,6 +1,6 @@
 extends SceneTree
 ## Actual translated and reflected Motor fixtures; never relocate after spawn.
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const IDS := ["plains_recoil_span", "plains_ferry_gears", "plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]
 const DYNAMIC := ["plains_ferry_gears", "plains_ferry_one", "plains_ferry_two", "plains_gear_brook", "plains_gear_glade"]
 var assertions := 0
@@ -29,7 +29,7 @@ func fixture(id: String, mirrored: bool, phase: float) -> void:
 	if is_instance_valid(world): world.free()
 	world = Node2D.new()
 	root.add_child(world)
-	module = load("res://scenes/generation/modules/%s.tscn" % id).instantiate() as PlatformingModule
+	module = load("res://game/world/generation/scenes/modules/%s.tscn" % id).instantiate() as PlatformingModule
 	module.definition = ModuleReflection.reflected_definition(module.definition) if mirrored else module.definition.duplicate(true)
 	for saw: ModuleSawDefinition in module.definition.saws: saw.initial_phase = phase
 	for ferry: ModuleMovingPlatformDefinition in module.definition.ferries: ferry.initial_phase = phase

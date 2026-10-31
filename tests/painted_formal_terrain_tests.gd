@@ -2,7 +2,7 @@ extends SceneTree
 ## Geometry/mesh checks only. No artistic or formal-pool acceptance.
 func _initialize() -> void:run.call_deferred()
 func run() -> void:
-	var adapter := load("res://scripts/art/painted_formal_terrain_sample.gd").new() as Node2D
+	var adapter := load("res://experiments/terrain/art/painted_formal_terrain_sample.gd").new() as Node2D
 	assert(not adapter.call("candidate_complete",{},2),"Missing source produces no completed banks; baseline must remain")
 	assert(not adapter.call("candidate_complete",{"banks":[{"coverage":{"all_samples_match_actual_solid":true}}]},2),"One exhausted bank cannot commit a two-bank replacement")
 	assert(not adapter.call("candidate_complete",{"banks":[{"coverage":{"all_samples_match_actual_solid":false}}]},1),"Coverage failure cannot hide baseline")
@@ -18,11 +18,11 @@ func run() -> void:
 	var separated := faces.duplicate()
 	separated.append_array(PlainsTerrainFamilySampler.boundary([Rect2(600,0,100,100)]))
 	assert((adapter.call("_outline",separated) as Array).is_empty(),"Disconnected contour must refuse")
-	var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://resources/visual_development/painted_terrain_candidate.json"))
+	var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json"))
 	var spec: Dictionary=catalog.terrain.grammar.duplicate(true)
 	spec.source_x_offsets={"probe_shore":40};spec.face_patches=[]
 	spec.visible_underside=catalog.formal_second_space.visible_underside.duplicate(true)
-	var grammar := load("res://scripts/art/painted_terrain_grammar.gd").new() as Node2D
+	var grammar := load("res://game/presentation/world/art/painted_terrain_grammar.gd").new() as Node2D
 	grammar.call("configure",{"solid_polygons":[{"id":"probe_shore","points":outline}],"top_polylines":[{"id":"probe_grass","points":[[0,0],[485,0]]}]},spec)
 	root.add_child(grammar)
 	var facts: Dictionary=grammar.call("measured_nodes")

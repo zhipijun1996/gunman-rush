@@ -3,7 +3,7 @@ extends SceneTree
 ## playback until the voice is freed. Keep that original limitation separate
 ## from production extraction. Every compared drain uses the original1000ms.
 const Original = preload("res://tests/fixtures/audio_lifecycle_2ce4ffa6/audio_teardown.gd")
-const Current = preload("res://scripts/audio/world_audio_lifecycle.gd")
+const Current = preload("res://game/presentation/audio/world_audio_lifecycle.gd")
 const STREAMS = {
 	"mp3": preload("res://assets/audio/bgm/the_kindred_hearth.mp3"),
 	"ogg": preload("res://assets/audio/kenney/land.ogg")

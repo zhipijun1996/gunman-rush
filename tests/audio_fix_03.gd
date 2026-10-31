@@ -2,7 +2,7 @@ extends SceneTree
 ## Accepted formal focus/weapon events plus a bounded real-collision bell fixture.
 ## No natural campaign, audible mix, browser or physical-device acceptance claim.
 const TEARDOWN := preload("res://tests/audio_teardown.gd")
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 var checks := 0
 var failures: Array[String] = []
 
@@ -24,7 +24,7 @@ func local_audio(app: DemoApp) -> Variant:
 	for child: Node in app.get_children():
 		var source := child.get_script() as Script
 		while source != null:
-			if source.resource_path == "res://scripts/audio/game_audio.gd": return child
+			if source.resource_path == "res://game/presentation/audio/game_audio.gd": return child
 			source = source.get_base_script()
 	return null
 
@@ -47,7 +47,7 @@ func run() -> void:
 
 func exercise() -> void:
 	root.size = Vector2i(1280, 720)
-	var packed := load("res://scenes/demo/demo.tscn") as PackedScene
+	var packed := load("res://game/application/demo.tscn") as PackedScene
 	var app := packed.instantiate() as DemoApp
 	packed = null
 	app.meta_persistence_enabled = false

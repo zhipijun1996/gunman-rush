@@ -113,7 +113,7 @@ func fixture(ablate_bell: bool = false, ablate_counter: bool = false) -> void:
 		var anchor := GrappleAnchor.new()
 		anchor.position = Vector2(row.position[0],row.position[1])
 		world.add_child(anchor)
-	player = load("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	player = load("res://game/player/player.tscn").instantiate() as PlayerMotor
 	var spawn: Array = geometry.safe_return
 	player.position = Vector2(spawn[0],spawn[1]) # Initial spawn only.
 	world.add_child(player)

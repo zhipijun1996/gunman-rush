@@ -1,11 +1,11 @@
 extends SceneTree
 ## Frozen historical H-only route, not coverage of the default short grapple.
 ## Real normal physics; negative cases change actual nodes/capabilities.
-const CONSUMER := preload("res://scripts/demo/thorn_forest_h_slice.gd")
+const CONSUMER := preload("res://game/world/levels/providers/thorn_forest_h_slice.gd")
 const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
 const HISTORICAL_TRAVERSAL := preload("res://tests/fixtures/forest_h_legacy_traversal.tres")
 
-class HistoricalConsumer extends "res://scripts/demo/thorn_forest_h_slice.gd":
+class HistoricalConsumer extends "res://game/world/levels/providers/thorn_forest_h_slice.gd":
 	func _ready() -> void:
 		super._ready()
 		# Before the first physics tick only; preserve the original route geometry,
@@ -84,7 +84,7 @@ func run() -> void:
 	if "wall_climb" in start.granted_actions: abilities.append("W")
 	if "double_jump" in start.granted_actions: abilities.append("D")
 	var data := {"schema_version": 1, "artifact_kind": "region_production_capture", "region_id": "thorn_forest",
-		"proof_kind": "golden", "scope": "actual_region_prototype", "consumer": "scripts/demo/thorn_forest_h_slice.gd",
+		"proof_kind": "golden", "scope": "actual_region_prototype", "consumer": "game/world/levels/providers/thorn_forest_h_slice.gd",
 		"source_commit": source_commit, "engine": Engine.get_version_info().string,
 		"case": variant, "assertions": assertions, "failures": failures,
 		"body_size": SNAPSHOT.pair(world.body_size),

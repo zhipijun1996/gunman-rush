@@ -37,7 +37,7 @@ func fixture(mini: bool, phase: int = 1, at := Vector2(350,582)) -> void:
 	world=Node2D.new();world.set_meta("underworld_formal_style",true);root.add_child(world)
 	var ground:=StaticBody2D.new();ground.position=Vector2(600,650)
 	var ground_shape:=CollisionShape2D.new();var rect:=RectangleShape2D.new();rect.size=Vector2(20000,100);ground_shape.shape=rect;ground.add_child(ground_shape);world.add_child(ground)
-	player=preload("res://scenes/player/player.tscn").instantiate();player.position=at;world.add_child(player)
+	player=preload("res://game/player/player.tscn").instantiate();player.position=at;world.add_child(player)
 	controller=player.get_node("Controller")
 	lifetime=DemoLifetime.new();policy=FrameDamagePolicy.new();policy.lifetime=lifetime;world.add_child(policy)
 	policy.register_target(&"player",controller.actor_resources.health,true)

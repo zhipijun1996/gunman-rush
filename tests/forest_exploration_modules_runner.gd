@@ -1,7 +1,7 @@
 extends SceneTree
 ## Structural/input contract only. A pass is not real Motor or art admission.
 const LIBRARY := preload("res://scripts/generation/forest_exploration_modules.gd")
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 var assertions := 0
 var failures := 0
 var results: Array[Dictionary] = []
@@ -246,7 +246,7 @@ func _run() -> void:
 		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output.get_base_dir()))
 	var file := FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"scope":"finite module structural, full-body static corridor and risk/reward contract; airborne trajectories/Motor/visual/player/device unverified","body_shape_source":"res://scenes/player/player.tscn#CollisionShape2D","body_size":[body_size.x,body_size.y],"assertions":assertions,"failures":failures,"checks":results},"  "))
+	file.store_string(JSON.stringify({"scope":"finite module structural, full-body static corridor and risk/reward contract; airborne trajectories/Motor/visual/player/device unverified","body_shape_source":"res://game/player/player.tscn#CollisionShape2D","body_size":[body_size.x,body_size.y],"assertions":assertions,"failures":failures,"checks":results},"  "))
 	file.close()
 	print("FOREST EXPLORATION MODULES: %s assertions, %s failures" % [assertions,failures])
 	quit(0 if failures == 0 else 1)

@@ -67,7 +67,7 @@ func _initialize() -> void:
 func start() -> void:
 	source_before = _source_hashes()
 	git_before = _git_source()
-	app = load("res://scripts/demo/demo_app.gd").new() as Node2D
+	app = load("res://game/application/demo_app.gd").new() as Node2D
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_debug_region(&"plains", 2, seed_label):
@@ -86,7 +86,7 @@ func start() -> void:
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	encounter = app.stage.boss.get_node("Encounter")
-	if encounter.get_script().resource_path != "res://scripts/bosses/windkeeper_pressure_encounter.gd":
+	if encounter.get_script().resource_path != "res://game/bosses/windkeeper/windkeeper_pressure_encounter.gd":
 		_fail("Formal map2 did not instantiate actual WindkeeperPressureEncounter")
 		return
 	if app._boss_started or bool(encounter.active):
@@ -412,7 +412,7 @@ func finish() -> void:
 
 
 func _stage_ready() -> bool:
-	return is_instance_valid(app) and not app._stage_pending and is_instance_valid(app.stage) and app.stage.get_script().resource_path == "res://scripts/demo/plains_region_stage.gd" and bool(app.stage.get("assembly_ok")) and is_instance_valid(app.player) and is_instance_valid(app.controller) and is_instance_valid(app.stage.boss) and app._can_interact() and is_instance_valid(app._run_camera) and int(app.stage.map_index) == 2 and app.director.region_map_index == 2
+	return is_instance_valid(app) and not app._stage_pending and is_instance_valid(app.stage) and app.stage.get_script().resource_path == "res://game/world/levels/providers/plains_region_stage.gd" and bool(app.stage.get("assembly_ok")) and is_instance_valid(app.player) and is_instance_valid(app.controller) and is_instance_valid(app.stage.boss) and app._can_interact() and is_instance_valid(app._run_camera) and int(app.stage.map_index) == 2 and app.director.region_map_index == 2
 
 
 func _live_world() -> bool:
@@ -481,7 +481,7 @@ func _source_hashes() -> Dictionary:
 	var result: Dictionary = {}
 	# This independent native guard names critical capture/runtime leaves only.
 	# The Python wrapper separately records the COMPLETE source inventory.
-	for path: String in ["tools/windkeeper_pressure_01_capture.gd", "tools/windkeeper_pressure_01/legal_input_pilot.gd", "scripts/demo/demo_app.gd", "scripts/demo/plains_region_stage.gd", "scripts/bosses/windkeeper_pressure_encounter.gd", "scripts/bosses/windkeeper_pressure_definition.gd", "scripts/bosses/windkeeper_pressure_rig.gd", "scripts/bosses/windkeeper_pressure_presentation.gd", "scripts/bosses/windkeeper_pressure_projectile.gd", "scripts/bosses/windkeeper_pressure_strike.gd", "scenes/bosses/windkeeper_pressure.tscn", "scripts/input/input_router.gd", "scripts/input/keyboard_mouse_adapter.gd", "scripts/combat/shoot_ability.gd", "scripts/player/player_controller.gd", "scripts/player/player_motor.gd", "resources/bosses/windkeeper_storm.tres", "resources/bosses/windkeeper_storm_health.tres", "scripts/rewards/plains_loot_motion.gd", "scripts/audio/windkeeper_pressure_audio.gd"]:
+	for path: String in ["tools/windkeeper_pressure_01_capture.gd", "tools/windkeeper_pressure_01/legal_input_pilot.gd", "game/application/demo_app.gd", "game/world/levels/providers/plains_region_stage.gd", "game/bosses/windkeeper/windkeeper_pressure_encounter.gd", "scripts/bosses/windkeeper_pressure_definition.gd", "game/bosses/windkeeper/windkeeper_pressure_rig.gd", "game/bosses/windkeeper/windkeeper_pressure_presentation.gd", "game/bosses/windkeeper/windkeeper_pressure_projectile.gd", "game/bosses/windkeeper/windkeeper_pressure_strike.gd", "scenes/bosses/windkeeper_pressure.tscn", "game/platform/input/input_router.gd", "game/platform/input/keyboard_mouse_adapter.gd", "game/combat/weapons/shoot_ability.gd", "game/player/player_controller.gd", "game/player/player_motor.gd", "resources/bosses/windkeeper_storm.tres", "resources/bosses/windkeeper_storm_health.tres", "game/rewards/drops/plains_loot_motion.gd", "game/presentation/audio/windkeeper_pressure_audio.gd"]:
 		result[path] = FileAccess.get_sha256("res://" + path) if FileAccess.file_exists("res://" + path) else "missing"
 	return result
 

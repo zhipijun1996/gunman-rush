@@ -1,6 +1,6 @@
 extends SceneTree
 ## Explicit local review entry. No automatic gameplay driver or save writes.
-const VISUAL_SAMPLE_CATALOGS := ["res://resources/visual_development/candidate.json", "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"]
+const VISUAL_SAMPLE_CATALOGS := ["res://game/presentation/world/resources/visual_development/candidate.json", "res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json", "res://game/presentation/world/resources/visual_development/p1_candidate.json"]
 var app: DemoApp
 var closing := false
 var review_seed := "against-wind-golden-v1"
@@ -30,10 +30,10 @@ func _initialize() -> void:
 				quit(2)
 				return
 	if formal_painted:
-		if open_meadow or visual_sample not in ["","res://resources/visual_development/painted_terrain_candidate.json"]:
+		if open_meadow or visual_sample not in ["","res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json"]:
 			push_error("Formal painted review preserves formal geometry and uses only its admitted candidate catalog")
 			quit(2);return
-		visual_sample="res://resources/visual_development/painted_terrain_candidate.json"
+		visual_sample="res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json"
 		if not explicit_seed:review_seed="level-design-v2-baseline/08"
 	run.call_deferred()
 
@@ -56,7 +56,7 @@ func run() -> void:
 		await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage:
 			if formal_painted:
-				var painted := load("res://scripts/art/painted_formal_terrain_sample.gd").new() as Node2D
+				var painted := load("res://experiments/terrain/art/painted_formal_terrain_sample.gd").new() as Node2D
 				app.stage.add_child(painted);painted.call("install",app.stage)
 				var actual: Dictionary=painted.call("measured_nodes")
 				if actual.get("status","")!="candidate_installed_not_art_admitted" or actual.get("selected",[]).size()!=2 or actual.get("actors",{}).get("hero_states",[]).size()<1 or not actual.get("actors",{}).get("saw",false):

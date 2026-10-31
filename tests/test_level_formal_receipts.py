@@ -28,7 +28,7 @@ class FormalSourceInventoryTests(unittest.TestCase):
             root = Path(folder)
             required = ['project.godot', 'tools/godot.sh', 'tools/level_formal.py', 'tools/level_design.py',
                         'tools/level_formal_capture.gd', 'tools/level_capability_snapshot.gd',
-                        'scripts/legacy.gd', 'game/application/run_session.gd']
+                        'scripts/legacy.gd', 'game/application/run_session.gd', 'experiments/terrain/probe.gd']
             for name in required + ['build/old.gd', 'docs/evidence/frozen.gd']:
                 path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text('fixture bytes')
             with patch.object(formal, 'ROOT', root), patch.object(formal, '__file__', str(root/'tools/level_formal.py')), \
@@ -41,6 +41,13 @@ class FormalSourceInventoryTests(unittest.TestCase):
                 self.assertIn('game/application/new_untracked.gd', formal.source_files())
                 path.unlink()
                 self.assertNotIn('game/application/new_untracked.gd', formal.source_files())
+                current = formal.source_files()
+                (root/'experiments/terrain/probe.gd').write_text('changed experiment')
+                self.assertNotEqual(current, formal.source_files())
+                path = root/'experiments/terrain/new_untracked.gd'; path.write_text('new preview')
+                self.assertIn('experiments/terrain/new_untracked.gd', formal.source_files())
+                path.unlink()
+                self.assertNotIn('experiments/terrain/new_untracked.gd', formal.source_files())
 
 
 class FormalReceiptTests(unittest.TestCase):
@@ -178,7 +185,7 @@ class ExplicitPolicyBasisTests(unittest.TestCase):
     """Source identity counterexamples only, never actual physics evidence."""
     def setUp(self):
         self.sources=formal.source_files()
-        self.data={"runtime_source_hashes":{"res://"+k:v for k,v in self.sources.items() if k == "project.godot" or k.startswith(("scripts/","scenes/","resources/","config/","shaders/","assets/"))},"capture_source_hashes":{"res://"+k:self.sources[k] for k in ["tools/level_formal_capture.gd","tests/level_formal_trace.gd","scripts/art/plains_region_scenery.gd"]},"capture_contract_version":2,"encounter_policy":"kill_from_bank_v1","resource_receipts":[],"policy_observations":[],
+        self.data={"runtime_source_hashes":{"res://"+k:v for k,v in self.sources.items() if k == "project.godot" or k.startswith(("scripts/","game/","experiments/","scenes/","resources/","config/","shaders/","assets/"))},"capture_source_hashes":{"res://"+k:self.sources[k] for k in ["tools/level_formal_capture.gd","tests/level_formal_trace.gd","game/presentation/world/art/plains_region_scenery.gd"]},"capture_contract_version":2,"encounter_policy":"kill_from_bank_v1","resource_receipts":[],"policy_observations":[],
                    "policy_basis":{"schema_version":1,"encounter_policy":"kill_from_bank_v1","reward_policy":"two_actual_medium_and_camp_v1",
                                    "driver_sources":{"res://"+p:self.sources[p] for p in formal.driver_source_paths()},
                                    "core_invariants":{"res://"+p:self.sources[p] for p in formal.core_source_paths()}}}
@@ -191,19 +198,19 @@ class ExplicitPolicyBasisTests(unittest.TestCase):
                 if mutation=="delete":del data["policy_basis"][section][key]
                 else:data["policy_basis"][section][key]="0"*64
                 self.assertTrue(formal.validate_policy_basis(data,self.sources))
-        data=copy.deepcopy(self.data);data["policy_basis"]["core_invariants"]["res://scripts/player/player_motor.gd"]="0"*64
+        data=copy.deepcopy(self.data);data["policy_basis"]["core_invariants"]["res://game/player/player_motor.gd"]="0"*64
         self.assertTrue(formal.validate_policy_basis(data,self.sources))
         self.assertTrue(formal.validate_policy_basis(self.data,{}))
-        reduced=dict(self.sources);del reduced["scripts/art/plains_region_scenery.gd"]
+        reduced=dict(self.sources);del reduced["game/presentation/world/art/plains_region_scenery.gd"]
         self.assertTrue(formal.validate_policy_basis(self.data,reduced))
     def test_legitimate_scenery_difference_preserves_full_binding(self):
-        changed=dict(self.sources);changed["scripts/art/plains_region_scenery.gd"]="f"*64
-        data=copy.deepcopy(self.data);data["runtime_source_hashes"]["res://scripts/art/plains_region_scenery.gd"]="f"*64
+        changed=dict(self.sources);changed["game/presentation/world/art/plains_region_scenery.gd"]="f"*64
+        data=copy.deepcopy(self.data);data["runtime_source_hashes"]["res://game/presentation/world/art/plains_region_scenery.gd"]="f"*64
         self.assertEqual(formal.validate_policy_basis(data,changed),[])
         self.assertTrue(formal.validate_policy_basis(self.data,changed))
     def test_unknown_version_and_missing_independent_runtime_rejected(self):
         self.assertTrue(formal.validate_policy_basis({"capture_contract_version":99},self.sources))
-        data=copy.deepcopy(self.data);data["runtime_source_hashes"].pop("res://scripts/player/player_motor.gd")
+        data=copy.deepcopy(self.data);data["runtime_source_hashes"].pop("res://game/player/player_motor.gd")
         self.assertTrue(formal.validate_policy_basis(data,self.sources))
     def test_explicit_command_and_unknown_policy(self):
         request=dict(source_commit="a"*40,root_seed="unit",map_index=1,strategy="fast",phase_wait_ticks=0,max_ticks=100)

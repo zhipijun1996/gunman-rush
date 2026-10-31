@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def inventory():
     sources = sorted({*ROOT.glob('scripts/**/*.gd'), *ROOT.glob('resources/**/*.tres'), *ROOT.glob('scenes/**/*.tscn'), *ROOT.glob('config/*.json'), ROOT / 'tests/forest_campaign_combat_runner.gd', ROOT / 'tests/forest_region_trace.gd', Path(__file__).resolve(),
-                      *(p for p in (ROOT/'game').rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')})
+                      *(p for directory in ('game','experiments') for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')})
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
 
 def main():

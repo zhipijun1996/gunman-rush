@@ -14,16 +14,16 @@ from run_tests import run_engine
 
 ROOT = Path(__file__).resolve().parents[1]
 OWNED = (
-    'scripts/demo/home_scene.gd',
-    'scripts/underworld_plains/underworld_home_world.gd',
+    'game/progression/home/home_scene.gd',
+    'game/presentation/world/underworld_plains/underworld_home_world.gd',
     'assets/underworld_plains/home/home_build.json',
     'tests/underworld_plains/home_terrace_driver.gd',
     'tests/underworld_plains/test_underworld_home_terraces.gd',
     'tools/run_underworld_home_terrace_tests.py',
-    'scripts/demo/demo_app.gd',
-    'scripts/ui/home_item_codex.gd',
-    'scripts/meta/meta_progression.gd',
-    'scripts/meta/home_item_catalog.gd',
+    'game/application/demo_app.gd',
+    'game/presentation/ui/home_item_codex.gd',
+    'game/progression/meta_progression.gd',
+    'game/progression/home_item_catalog.gd',
     'config/home_items.json',
     # Preserve every dependency from the R2 component guard, then add actual
     # raw provenance inputs and the new default/immutable legacy fixtures.
@@ -32,9 +32,9 @@ OWNED = (
     'assets/underworld_plains/home/sources/home_props_original.png',
     'assets/underworld_plains/decor/identity_props.png',
     'assets/underworld_plains/decor/chime_props.png',
-    'scripts/underworld_plains/underworld_player.gd',
-    'scripts/underworld_plains/underworld_actors.gd',
-    'scripts/ui/underworld_ui.gd',
+    'game/presentation/actors/underworld_plains/underworld_player.gd',
+    'game/presentation/actors/underworld_plains/underworld_actors.gd',
+    'game/presentation/ui/underworld_ui.gd',
     'tests/underworld_plains/test_underworld_home.gd',
     'tools/run_underworld_home_tests.py',
     'tests/home_ui_tests.gd',

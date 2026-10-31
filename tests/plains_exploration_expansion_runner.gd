@@ -65,9 +65,9 @@ func run() -> void:
 func item_effects() -> void:
 	# Explicit D079 item-policy fixture; preserve its original numerical checks.
 	# Current one-round/AirFocus items are exercised separately below.
-	var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	root.add_child(player)
-	var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres"))
+	var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy(preload("res://game/player/resources/plains_shot_energy.tres"))
 	var build:=BuildState.new();build.configure(actor)
 	var base_recoil:=player.tuning.ground_recoil_multiplier
 	var base_burst:=player.tuning.shot_burst_speed
@@ -94,7 +94,7 @@ func current_focus_items() -> void:
 	# The exhausted-resource boundary below is explicit; no shadow policy/state.
 	for cooling_enabled: bool in [false,true]:
 		var world:=Node2D.new();root.add_child(world)
-		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+		var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 		player.position=Vector2(200,-1000);world.add_child(player)
 		var actor:=player.get_node("Controller") as PlayerController
 		actor.set_physics_process(false)
@@ -160,7 +160,7 @@ func current_focus_items() -> void:
 		check(await load("res://tests/audio_teardown.gd").drain_world(world),"current item fixture observes bounded actual audio release")
 		world.free();await physics_frame
 func cache_app(kind: String):
-	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("cache-kind-"+kind),"formal cache fixture starts")
 	# Let actual spawn protection expire before damage-race fixtures.
 	await frames(64)
@@ -223,7 +223,7 @@ func save_failure_cache() -> void:
 	app.free();await frames(2)
 	for suffix: String in ["",".backup",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path+suffix))
 func eligible_item_cache() -> void:
-	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
+	var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
 	var chest: Dictionary=(app.stage as PlainsRegionStage).chests.filter(func(c: Dictionary): return c.tier=="medium")[0]
 	# Explicit two-definition fixture through the existing V5 provider seam.
 	# Generate the actual frozen cache first, then advance one owned item to its
@@ -278,7 +278,7 @@ func mini_rays() -> void:
 	for source: Vector2 in [Vector2(350,452),Vector2(770,452),Vector2(450,400),Vector2(670,400),Vector2(440,530),Vector2(680,530),Vector2(540,570),Vector2(580,570)]:
 		var world:=Node2D.new();root.add_child(world)
 		var module:=PlatformingModule.new();module.definition=preload("res://resources/generation/modules/plains_bellstrider_arena.tres");world.add_child(module)
-		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor;player.position=source;world.add_child(player)
+		var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor;player.position=source;world.add_child(player)
 		var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy()
 		var boss:=load("res://scenes/bosses/bellstrider.tscn").instantiate() as BossMotor;boss.position=Vector2(560,535);world.add_child(boss)
 		var encounter=boss.get_node("Encounter");encounter.set_physics_process(false);encounter.configure_arena(300,1220,player);encounter.activate();encounter._enter(&"neck",10)
@@ -291,7 +291,7 @@ func mini_rays() -> void:
 		check(encounter.health.current==15,"mini core accepts actual visible shot from "+str(source))
 		world.free()
 	# Names use actual definition, including in the development encounter.
-	var lab=load("res://scripts/demo/module_lab.gd").new();root.add_child(lab);lab.request_module(&"bellstrider_trial");await frames(7)
+	var lab=load("res://experiments/generation/module_lab.gd").new();root.add_child(lab);lab.request_module(&"bellstrider_trial");await frames(7)
 	check(lab.module.definition.module_id==&"plains_bellstrider_arena","mini practice consumes its independent arena")
 	var intro=lab.boss_trial.encounter;intro.activate()
 	var hud: Array[Node]=lab.boss_trial.find_children("*","WindkeeperHud",true,false)
@@ -304,9 +304,9 @@ func enemy_behaviors() -> void:
 	for id: String in ["fan_sentry","hopper"]:
 		var world:=Node2D.new();root.add_child(world)
 		var floor_body:=StaticBody2D.new();var shape:=CollisionShape2D.new();var rect:=RectangleShape2D.new();rect.size=Vector2(1000,32);shape.shape=rect;floor_body.position=Vector2(300,618);floor_body.add_child(shape);world.add_child(floor_body)
-		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor;player.position=Vector2(350,582);world.add_child(player)
+		var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor;player.position=Vector2(350,582);world.add_child(player)
 		var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false)
-		var enemy:=preload("res://scenes/enemies/patrol_drone.tscn").instantiate() as EnemyMotor
+		var enemy:=preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate() as EnemyMotor
 		(enemy.get_node("Actor") as EnemyActor).definition=PlainsEncounterPlanner.definition_for_behavior(id);enemy.position=Vector2(200,470 if id=="fan_sentry" else 582);world.add_child(enemy)
 		var owner:=enemy.get_node("Actor") as EnemyActor;owner.set_physics_process(false)
 		var life:=DemoLifetime.new();var policy:=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy);policy.register_target(&"player",actor.actor_resources.health,true)
@@ -328,7 +328,7 @@ func enemy_behaviors() -> void:
 func formal_consumers() -> void:
 	var seen: Dictionary={};var hopper_checked:=false;var fan_checked:=false
 	for i: int in 12:
-		var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("formal-consumer/%s" % i);await frames(5)
+		var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("formal-consumer/%s" % i);await frames(5)
 		app.set_physics_process(false);app.controller.set_physics_process(false)
 		for contact: DemoContactEmitter in app._enemy_contacts: contact.enabled=false
 		for enemy: EnemyMotor in app.stage.enemies: (enemy.get_node("Actor") as EnemyActor).set_physics_process(false)

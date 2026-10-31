@@ -20,7 +20,7 @@ bindings = {
     "ROOT = Path(__file__).resolve().parents[2]": "ROOT = Path(__file__).resolve().parents[1]",
     'tools/plains_environment_preview.gd': 'tools/plains_regional_art_preview.gd',
     'tools/plains_environment_capture.gd': 'tools/plains_regional_art_capture.gd',
-    'resources/visual_development/p1_environment_assets.json': 'resources/visual_development/p1_regional_assets.json',
+    'resources/visual_development/p1_environment_assets.json': 'game/presentation/world/resources/visual_development/p1_regional_assets.json',
     'PLAINS ENVIRONMENT REVIEW READY: ': 'PLAINS REGIONAL ART REVIEW READY: ',
     'PLAINS ENVIRONMENT AVATAR READY: ': 'PLAINS REGIONAL ART AVATAR READY: ',
     'build/plains_environment': 'build/plains_regional_art',

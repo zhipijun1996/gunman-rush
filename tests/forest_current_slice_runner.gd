@@ -1,7 +1,7 @@
 extends SceneTree
 ## Actual current-default short H + recoil and landing recovery, development only.
 ## Real normal physics; negative cases change actual nodes/capabilities.
-const CONSUMER_PATH := "res://scripts/demo/thorn_forest_current_slice.gd"
+const CONSUMER_PATH := "res://game/world/levels/providers/thorn_forest_current_slice.gd"
 const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
 
 var assertions := 0
@@ -72,7 +72,7 @@ func run() -> void:
 	if "wall_climb" in start.granted_actions: abilities.append("W")
 	if "double_jump" in start.granted_actions: abilities.append("D")
 	var data := {"schema_version": 1, "artifact_kind": "region_production_capture", "region_id": "thorn_forest",
-		"proof_kind": "technical_sample", "scope": "actual_region_prototype", "consumer": "scripts/demo/thorn_forest_current_slice.gd",
+		"proof_kind": "technical_sample", "scope": "actual_region_prototype", "consumer": "game/world/levels/providers/thorn_forest_current_slice.gd",
 		"source_commit": source_commit, "engine": Engine.get_version_info().string,
 		"case": variant, "assertions": assertions, "failures": failures,
 		"body_size": SNAPSHOT.pair(world.body_size),

@@ -168,7 +168,7 @@ class AnalysisTests(unittest.TestCase):
         m["areas"][0]["landmark"] = "ivy"
         self.assertNotIn("scenery_identity_fold", self.codes())
         m.update(region="plains", version="plains-region-v8")
-        self.data["capture_source_hashes"] = {"res://scripts/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
+        self.data["capture_source_hashes"] = {"res://game/presentation/world/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
         self.assertIn("scenery_identity_fold", self.codes())
         m["areas"][0]["landmark"] = "windmill"
         self.assertNotIn("scenery_identity_fold", self.codes())
@@ -182,7 +182,7 @@ class AnalysisTests(unittest.TestCase):
 
     def test_plains_versions_are_explicit_without_old_projection_on_v9(self):
         manifest = self.data["manifests"][0]
-        self.data["capture_source_hashes"] = {"res://scripts/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
+        self.data["capture_source_hashes"] = {"res://game/presentation/world/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
         manifest["areas"][0]["landmark"] = "ivy"
         for version in ("plains-region-v8", "plains-region-v9", "plains-region-v10"):
             manifest.update(region="plains", version=version)
@@ -198,16 +198,16 @@ class AnalysisTests(unittest.TestCase):
         manifest=self.data["manifests"][0]
         manifest.update(region="plains",version="plains-region-v8")
         manifest["areas"][0]["landmark"]="ivy"
-        for hashes in ({}, {"res://scripts/art/plains_region_scenery.gd":"f"*64},
+        for hashes in ({}, {"res://game/presentation/world/art/plains_region_scenery.gd":"f"*64},
                        {"res://another_consumer.gd":LEGACY_PLAINS_SCENERY_SHA256}):
             with self.subTest(hashes=hashes):
                 self.data["capture_source_hashes"]=hashes
                 report=analyze_capture(self.data)
                 self.assertNotIn("scenery_projection",report["maps"][0])
                 self.assertNotIn("scenery_identity_fold",{f["code"] for f in report["findings"]})
-                if "res://scripts/art/plains_region_scenery.gd" not in hashes:
+                if "res://game/presentation/world/art/plains_region_scenery.gd" not in hashes:
                     self.assertIn("scenery_consumer_identity_unknown",{f["code"] for f in report["findings"]})
-        self.data["capture_source_hashes"]={"scripts/art/plains_region_scenery.gd":LEGACY_PLAINS_SCENERY_SHA256}
+        self.data["capture_source_hashes"]={"game/presentation/world/art/plains_region_scenery.gd":LEGACY_PLAINS_SCENERY_SHA256}
         self.assertIn("scenery_identity_fold",self.codes())
         manifest.update(region="forest_fixture")
         self.assertNotIn("scenery_identity_fold",self.codes())
@@ -385,9 +385,9 @@ class AnalysisTests(unittest.TestCase):
         import level_design_analysis as analysis
         root = Path(__file__).resolve().parents[1]
         known = set()
-        for name, constant in [('scripts/generation/plains_region_generator.gd', 'VERSION'),
-                               ('scripts/generation/plains_root_bell_encounter_v2.gd', 'CONTENT_VERSION'),
-                               ('scripts/generation/plains_root_bell_encounter_v3.gd', 'CONTENT_VERSION')]:
+        for name, constant in [('game/world/generation/plains_region_generator.gd', 'VERSION'),
+                               ('game/world/generation/plains_root_bell_encounter_v2.gd', 'CONTENT_VERSION'),
+                               ('game/world/generation/plains_root_bell_encounter_v3.gd', 'CONTENT_VERSION')]:
             match = re.search(r'^const ' + constant + r'\s*:?=\s*"([^"\n]+)"', (root / name).read_text(), re.M)
             self.assertIsNotNone(match, 'Current implemented version must remain an explicit audited literal')
             known.add(match.group(1))

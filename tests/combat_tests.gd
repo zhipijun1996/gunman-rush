@@ -1,6 +1,6 @@
 extends RefCounted
 
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var tree: SceneTree
 var check: Callable

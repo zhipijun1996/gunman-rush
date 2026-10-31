@@ -2,7 +2,7 @@ extends SceneTree
 ## Real physics-volume and FrameDamagePolicy regression fixtures. Initial
 ## placements and direct entered-attack callbacks isolate muzzle clearance;
 ## this is not an AI/combat/visual acceptance recording.
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const ORIGIN := Vector2(100,120)
 var checks := 0
 var failures: Array[String] = []

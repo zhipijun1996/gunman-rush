@@ -77,7 +77,7 @@ def check_parallax_hashes(console):
 def underworld_script_consumers():
     """Include the UI/Home/actor adapters outside the art script directory."""
     paths = []
-    for path in sorted(p for directory in ("scripts", "game") for p in (ROOT / directory).rglob("*.gd")):
+    for path in sorted(p for directory in ("scripts", "game", "experiments") for p in (ROOT / directory).rglob("*.gd")):
         source = path.read_text()
         if "underworld_plains" in path.parts or "Underworld" in source or "res://assets/underworld_plains/" in source:
             paths.append(path)
@@ -113,7 +113,7 @@ def closure(args):
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     if head != args.source:
         raise ValueError("Checkout HEAD differs from frozen source")
-    runtime_paths = ["scripts", "scenes", "shaders", "assets", "config", "resources", "project.godot", "export_presets.cfg", "game"]
+    runtime_paths = ["scripts", "scenes", "shaders", "assets", "config", "resources", "project.godot", "export_presets.cfg", "game", "experiments"]
     changed = subprocess.check_output(["git", "diff", "--name-only", args.source, "--", *runtime_paths], cwd=ROOT, text=True)
     unknown = subprocess.check_output(["git", "ls-files", "--others", "--exclude-standard", "--", *runtime_paths], cwd=ROOT, text=True)
     if changed.strip() or unknown.strip():
@@ -156,7 +156,7 @@ def closure(args):
             checked["resources"].append(name)
     if not checked["textures"] or not checked["resources"]:
         raise ValueError("No actual Underworld texture/TileSet closure checked")
-    for directory in ("scripts/underworld_plains", "game"):
+    for directory in ("scripts/underworld_plains", "game", "experiments"):
         for path in sorted((ROOT / directory).rglob("*")):
             if path.suffix in {".gd", ".gdshader"}:
                 name = path.relative_to(ROOT).as_posix()

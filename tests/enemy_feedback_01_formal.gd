@@ -35,7 +35,7 @@ func actual_final_body(art: UnderworldEnemy) -> bool:
 	var visual: Variant = art.get("revision_visual")
 	if visual != null:
 		var rig: RefCounted = visual.get("rig") as RefCounted
-		return remains.get_script().resource_path=="res://scripts/enemies/plains_revision_remains.gd" and remains.frame_index==7 and bool(remains.get("_finished_death")) and remains.get("_rig")==rig and remains.source==rig.get("texture") and remains.bounds==rig.get("bounds")
+		return remains.get_script().resource_path=="res://game/enemies/presentation/plains_revision_remains.gd" and remains.frame_index==7 and bool(remains.get("_finished_death")) and remains.get("_rig")==rig and remains.source==rig.get("texture") and remains.bounds==rig.get("bounds")
 	var frames: RefCounted = art.get("feedback_frames") as RefCounted
 	return frames!=null and remains.frame_index==7 and remains.source==frames.call("texture",7) and remains.bounds==frames.call("bounds",7)
 

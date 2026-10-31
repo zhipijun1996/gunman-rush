@@ -129,7 +129,7 @@ def validate_upper_noH(data):
     check(len(jumps)==1 and len(release)==1 and len(takeoff)==1 and release[0]['tick']==jumps[0]['tick']+6 and release[0].get('held_ticks')==6,'control_exact_single_six_tick_jump')
     if shots:
         tick=shots[0]['tick'];by={f['tick']:f for f in frames}
-        cost_source=(ROOT/'resources/player/plains_shot_energy.tres').read_text()
+        cost_source=(ROOT/'game/player/resources/plains_shot_energy.tres').read_text()
         override=re.search(r'(?m)^shot_energy_cost\s*=\s*([\d.]+)',cost_source)
         declared=re.search(r'path="res://([^"]*shot_energy_definition\.gd)"',cost_source)
         if override:cost=float(override.group(1))
@@ -150,7 +150,7 @@ def validate_upper_noH(data):
 
 def current_free_policy(data):
     policy=data.get('initial_snapshot',{}).get('shot_policy',{})
-    path='resources/player/demo_ui_01/time_energy_v2.tres'
+    path='game/player/resources/demo_ui_01/time_energy_v2.tres'
     return (policy.get('definition_path')=='res://'+path and policy.get('definition_sha256')==sha(ROOT/path)
             and policy.get('shooting_consumes_energy') is False
             and policy.get('max_air_shots')==json.loads((ROOT/'config/player_tuning.json').read_text())['max_air_shots']==1
@@ -226,7 +226,7 @@ def validate_current_air_chain_resources(data,leg,completion,frames,events,tunin
     by={f['tick']:f for f in frames};start,end=completion['start_tick'],completion['tick'];previous=by.get(start-1)
     if not previous:return ['current_air_chain_initial_frame_missing']
     capacity=tuning['focus_stamina_capacity'];recover=tuning['focus_stamina_recovery'];dt=1/tuning['physics_hz']
-    gain_source=(ROOT/'resources/player/combat_energy.tres').read_text();gain_def=(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text()
+    gain_source=(ROOT/'game/player/resources/combat_energy.tres').read_text();gain_def=(ROOT/'game/combat/resources/definitions/combat_energy_definition.gd').read_text()
     found=re.search(r'(?m)^target_gain\s*=\s*([\d.]+)',gain_source) or re.search(r'@export var target_gain\s*:?=\s*([\d.]+)',gain_def)
     if not found:return ['current_combat_gain_authority_missing']
     gain=float(found.group(1));energy=previous['energy'];charges=previous['shots'];hook_used=previous['hook_used']
@@ -374,10 +374,10 @@ def validate_cavity_leg(data,leg,completion,frames,events,requests,platforms,ful
     # Replay actual shot economy from the preceding real frame, never assume E100.
     previous=by.get(start-1)
     if not previous or 'shot_energy_delay' not in previous:return errors+['cavity_actual_initial_resource_phase_missing']
-    src=(ROOT/'resources/player/plains_shot_energy.tres').read_text();defs=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
+    src=(ROOT/'game/player/resources/plains_shot_energy.tres').read_text();defs=(ROOT/'game/combat/resources/definitions/shot_energy_definition.gd').read_text()
     capacity=number('capacity',src,defs);cost=number('shot_energy_cost',src,defs);recover=number('ground_recovery',src,defs);delay_limit=number('recovery_delay',src,defs)
     hit_recovery=number('hit_energy_recovery',src,defs)
-    target_gain=number('target_gain',(ROOT/'resources/player/combat_energy.tres').read_text(),(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text())
+    target_gain=number('target_gain',(ROOT/'game/player/resources/combat_energy.tres').read_text(),(ROOT/'game/combat/resources/definitions/combat_energy_definition.gd').read_text())
     energy=previous['energy'];delay=previous['shot_energy_delay'];charges=previous['shots'];grounded=previous['grounded'];dt=1/tuning['physics_hz']
     for f in path:
         step_recovery=max(0,dt-delay);delay=max(0,delay-dt)
@@ -447,7 +447,7 @@ def validate_cavity_elbow_leg(data,leg,completion,frames,events,requests,platfor
             need(all(f.get('grounded')is False for f in path if second['tick']<=f['tick']<contacts[0]['tick']),'elbow_landed_before_second_contact')
             resource=(ROOT/'resources/player/traversal.tres').read_text();definition=(ROOT/'scripts/player/traversal_definition.gd').read_text();match=re.search(r'(?m)^hook_stop_distance\s*=\s*([\d.]+)',resource)or re.search(r'var hook_stop_distance\s*:?=\s*([\d.]+)',definition)
             contact_frame=by.get(contacts[0]['tick']);tip=contact_frame.get('hook_tip',[]) if contact_frame else []
-            anchor_source=(ROOT/'scripts/world/grapple_anchor.gd').read_text();radius_match=re.search(r'circle.radius\s*=\s*([\d.]+)',anchor_source)
+            anchor_source=(ROOT/'game/world/components/grapple_anchor.gd').read_text();radius_match=re.search(r'circle.radius\s*=\s*([\d.]+)',anchor_source)
             need(bool(contact_frame and len(tip)==2 and match is not None and math.dist(contacts[0]['position'],contact_frame['position'])<.001 and math.dist(contact_frame['position'],tip)<=float(match.group(1))+.051),'elbow_second_contact_not_actual_motor_arrival_at_sampled_tip')
             need(len(tip)==2 and radius_match is not None and abs(math.dist(tip,target)-float(radius_match.group(1)))<.15,'elbow_sampled_tip_not_on_actual_target_ring')
     for f in path:
@@ -1123,7 +1123,7 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
                 # Existing airborne projectile-hit receipts can restore H while
                 # its head is in flight. Verify the same concrete receipt/target
                 # ledger, rather than treating an arbitrary boolean as a reset.
-                gain=number('target_gain',(ROOT/'resources/player/combat_energy.tres').read_text(),(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text())
+                gain=number('target_gain',(ROOT/'game/player/resources/combat_energy.tres').read_text(),(ROOT/'game/combat/resources/definitions/combat_energy_definition.gd').read_text())
                 for t in range(c['tick'],contact['tick']+1):
                     credits,credit_errors=actual_projectile_energy_credits(data,by.get(t,{}),by.get(t-1,{}),events,1/tuning['physics_hz'],gain)
                     errors.extend(credit_errors)
@@ -1145,9 +1145,9 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         need(full(previous,entry) and not any(e['tick']==previous['tick'] and e.get('kind') in ('shot_fired','hook_cast') for e in actual),'air_chain_initial_resource_observation')
     else:replay=path
     if 'shot_energy_delay' not in previous:return errors+['air_chain_initial_resource_phase_missing']
-    src=(ROOT/'resources/player/plains_shot_energy.tres').read_text();defs=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
+    src=(ROOT/'game/player/resources/plains_shot_energy.tres').read_text();defs=(ROOT/'game/combat/resources/definitions/shot_energy_definition.gd').read_text()
     capacity=number('capacity',src,defs);cost=number('shot_energy_cost',src,defs);recover=number('ground_recovery',src,defs);delay_limit=number('recovery_delay',src,defs);hit_recovery=number('hit_energy_recovery',src,defs)
-    target_gain=number('target_gain',(ROOT/'resources/player/combat_energy.tres').read_text(),(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text())
+    target_gain=number('target_gain',(ROOT/'game/player/resources/combat_energy.tres').read_text(),(ROOT/'game/combat/resources/definitions/combat_energy_definition.gd').read_text())
     energy=previous['energy'];delay=previous['shot_energy_delay'];charges=previous['shots'];grounded=previous['grounded'];hook_used=previous['hook_used'];dt=1/tuning['physics_hz']
     if previous is path[0]:
         first_credits,credit_errors=actual_projectile_energy_credits(data,previous,by.get(previous['tick']-1,{}),events,dt,target_gain);errors.extend(credit_errors)
@@ -1248,8 +1248,8 @@ def completed_forest_encounter_jump_ticks(data):
             if not hits or len({e.get('event_id') for e in hits}) != len(hits) or not any(e.get('lethal') is True and e.get('health_after') == 0 for e in hits):
                 continue
             tuning = json.loads((ROOT/'config/player_tuning.json').read_text())
-            resource = (ROOT/'resources/player/combat_energy.tres').read_text()
-            definition = (ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text()
+            resource = (ROOT/'game/player/resources/combat_energy.tres').read_text()
+            definition = (ROOT/'game/combat/resources/definitions/combat_energy_definition.gd').read_text()
             gain = re.search(r'(?m)^target_gain\s*=\s*([\d.]+)', resource) or re.search(r'var target_gain\s*:?=\s*([\d.]+)', definition)
             if not gain:
                 continue

@@ -8,22 +8,22 @@ import argparse, hashlib, json, re, struct, sys
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools'))
 from check_web_bundle import Pack
 MEASURE={
- 'scripts/underworld_plains/underworld_foreground.gd':['_refresh','_protection','_sync_residents','_render_receipt'],
- 'scripts/underworld_plains/underworld_presentation.gd':['refresh'],
- 'scripts/underworld_plains/underworld_parallax.gd':['_update'],
- 'scripts/underworld_plains/underworld_home_world.gd':['update_focus'],
- 'scripts/demo/generated_demo_stage.gd':['_physics_process'],
- 'scripts/demo/plains_region_stage.gd':['_physics_process','capture_state','_update_context_signs'],
- 'scripts/enemies/enemy_actor.gd':['_physics_process'],
- 'scripts/demo/home_scene.gd':['_physics_process','_process'],
- 'scripts/player/player_controller.gd':['_physics_process'],
- 'scripts/demo/demo_app.gd':['_process','_physics_process','_layout_region_hud','_sync_music'],
- 'scripts/ui/demo_ui_01/game_hud.gd':['_process','_refresh','present_context'],
- 'scripts/audio/game_audio.gd':['_process'],
- 'scripts/audio/game_music.gd':['_process'],
- 'scripts/audio/game_ambience.gd':['_process'],
- 'scripts/audio/selected_ambience_runtime.gd':['_process'],
- 'scripts/audio/home_ambience_audition.gd':['_process'],
+ 'game/presentation/world/underworld_plains/underworld_foreground.gd':['_refresh','_protection','_sync_residents','_render_receipt'],
+ 'game/presentation/world/underworld_plains/underworld_presentation.gd':['refresh'],
+ 'game/presentation/world/underworld_plains/underworld_parallax.gd':['_update'],
+ 'game/presentation/world/underworld_plains/underworld_home_world.gd':['update_focus'],
+ 'game/world/levels/providers/generated_demo_stage.gd':['_physics_process'],
+ 'game/world/levels/providers/plains_region_stage.gd':['_physics_process','capture_state','_update_context_signs'],
+ 'game/enemies/enemy_actor.gd':['_physics_process'],
+ 'game/progression/home/home_scene.gd':['_physics_process','_process'],
+ 'game/player/player_controller.gd':['_physics_process'],
+ 'game/application/demo_app.gd':['_process','_physics_process','_layout_region_hud','_sync_music'],
+ 'game/presentation/ui/demo_ui_01/game_hud.gd':['_process','_refresh','present_context'],
+ 'game/presentation/audio/game_audio.gd':['_process'],
+ 'game/presentation/audio/game_music.gd':['_process'],
+ 'game/presentation/audio/game_ambience.gd':['_process'],
+ 'game/presentation/audio/selected_ambience_runtime.gd':['_process'],
+ 'game/presentation/audio/home_ambience_audition.gd':['_process'],
 }
 HELPER='''
 func _perf_record(method: String, elapsed: int) -> void:

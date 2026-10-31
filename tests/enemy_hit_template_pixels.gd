@@ -31,7 +31,7 @@ func context(receiver: Damageable, id: String, at: Vector2) -> Dictionary:
 	return {"event_id":id,"amount":1.0,"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"source_actor_id":-1,"source_faction":&"player","hit_point":at,"hit_direction":Vector2.DOWN}
 
 func ordinary() -> void:
-	var motor := (load("res://scenes/enemies/patrol_drone.tscn") as PackedScene).instantiate() as EnemyMotor
+	var motor := (load("res://game/enemies/scenes/patrol_drone.tscn") as PackedScene).instantiate() as EnemyMotor
 	var actor := motor.get_node("Actor") as EnemyActor
 	actor.definition = load("res://resources/enemies/plains_sentry.tres") as EnemyDefinition
 	motor.get_node("Presentation").free()

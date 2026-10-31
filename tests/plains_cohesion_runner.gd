@@ -25,7 +25,7 @@ func run()->void:
 				for f:ModuleMovingPlatformDefinition in module.definition.ferries:f.initial_phase=phase
 				for saw:ModuleSawDefinition in module.definition.saws:saw.initial_phase=phase
 				trace.stage.add_child(module);trace.stage.modules.append(module)
-				trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor)
+				trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor)
 				trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 				trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
 				var manifest:Dictionary={"layout_id":"connected_region","nodes":[{"id":"probe","module_id":id,"offset":[0,0],"mirrored":false,"reverse_traversal":false}]};manifest.shot_latch_plan=PlainsShotLatchPlanner.recorded_plan(manifest)

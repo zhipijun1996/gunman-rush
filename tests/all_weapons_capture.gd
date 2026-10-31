@@ -11,7 +11,7 @@ func _initialize() -> void:call_deferred("start")
 func start() -> void:
 	DirAccess.make_dir_recursive_absolute("res://build/weapons")
 	root.size=Vector2i(1280,720);root.add_child(GameAudio.new())
-	studio=preload("res://scenes/demo/action_studio.tscn").instantiate();root.add_child(studio)
+	studio=preload("res://experiments/motion/entries/action_studio.tscn").instantiate();root.add_child(studio)
 	# Explicit stationary-target demonstration; public practice defaults to patrol.
 	studio.set_training_static(true)
 	studio.controller.air_focus_ability.enabled=false

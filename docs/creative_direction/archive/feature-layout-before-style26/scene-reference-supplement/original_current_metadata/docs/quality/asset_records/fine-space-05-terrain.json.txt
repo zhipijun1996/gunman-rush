@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-terrain",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/authored_terrain_study/master_original.png",
+  "source_sha256": "51333d751d910966bee1cc23184206f075b79fa7c6634bbe0cea51f8f4c31ad9",
+  "runtime_paths": [
+    "assets/underworld_plains/terrain/fine_32/source.png",
+    "assets/underworld_plains/terrain/fine_32/terrain.png",
+    "assets/underworld_plains/terrain/fine_32/terrain.tres",
+    "assets/underworld_plains/terrain/fine_32/terrain_build.json"
+  ],
+  "runtime_file_sha256": {
+    "assets/underworld_plains/terrain/fine_32/source.png": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431",
+    "assets/underworld_plains/terrain/fine_32/terrain.png": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+    "assets/underworld_plains/terrain/fine_32/terrain.tres": "bb2b0b8bbb967144f338f06852817c25088cb4697a3719898de168fef28f34b9",
+    "assets/underworld_plains/terrain/fine_32/terrain_build.json": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 2,
+  "prompt_or_reference": "assets/authored_terrain_study/provenance.json",
+  "processing": "Byte-identical promotion of user-selected authored fine source and 47-mask/3-bank atlas into production paths; 32px/32wu. Original source_regions, exact-union geometry, physics and RNG retained. Fine source coordinates are actual authored material, not a 2x enlargement of old16px source.",
+  "usage_scope": "Formal shared terrain entry for Home/Plains. Forest overrides material with separate fine living-bark family. Wind moves only upper3wu green tips, root/body fixed. Visual acceptance pending.",
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_terrain.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/authored_terrain_study/provenance.json",
+      "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/authored_terrain_study/source_fine.png",
+      "sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431",
+      "role": "reference"
+    },
+    {
+      "path": "assets/authored_terrain_study/fine_atlas.png",
+      "sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+      "role": "reference"
+    },
+    {
+      "path": "assets/authored_terrain_study/build.json",
+      "sha256": "534146ae30cd2577f7cdb7691cd6ef451140e93c08cfd342c9c0966c9601151c",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_formal_fine.gd",
+      "sha256": "2c09d44843ddabc7e4c47929398ba78b8292926d5b1964be6d6dbad4503e5ead",
+      "role": "processing_record"
+    }
+  ]
+}

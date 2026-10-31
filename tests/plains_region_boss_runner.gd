@@ -17,7 +17,7 @@ func fixture() -> void:
 			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 		app.free()
 	paused = false
-	app = preload("res://scenes/demo/demo.tscn").instantiate()
+	app = preload("res://game/application/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)

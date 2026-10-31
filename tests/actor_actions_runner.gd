@@ -22,7 +22,7 @@ func fixture(at: Vector2 = Vector2(100,500)) -> void:
 	world = Node2D.new()
 	root.add_child(world)
 	body(Rect2(-500,700,2000,100))
-	motor = preload("res://scenes/player/player.tscn").instantiate()
+	motor = preload("res://game/player/player.tscn").instantiate()
 	motor.position = at
 	world.add_child(motor)
 	controller = motor.get_node("Controller")
@@ -31,7 +31,7 @@ func fixture(at: Vector2 = Vector2(100,500)) -> void:
 	# energy is separately exercised by demo-ui-time-energy in this Harness.
 	motor.tuning.max_air_shots = 2
 	controller.action_resources.reset()
-	controller.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres"))
+	controller.enable_shot_energy(preload("res://game/player/resources/plains_shot_energy.tres"))
 	controller.air_focus_ability.enabled = false
 	events.clear()
 	controller.shoot_ability.shot_fired.connect(func(direction: Vector2, serial: int) -> void: events.append({"direction":direction,"serial":serial,"position":motor.position}))
@@ -266,13 +266,13 @@ func run() -> void:
 			check(visual.body.texture.get_image().get_pixel(0,0).a<.1,"new animation cell transparent margin")
 	world.free()
 	await process_frame
-	var studio := preload("res://scenes/demo/action_studio.tscn").instantiate() as ActionStudio
+	var studio := preload("res://experiments/motion/entries/action_studio.tscn").instantiate() as ActionStudio
 	root.add_child(studio)
 	await physics_frame
 	check(studio.actors.size()==8 and studio.bosses.size()==3,"actual inventory covers eight enemy variants and three Boss consumers")
-	var inventory: Array = [{"id":"Courier","scene":"res://scenes/player/player.tscn","consumer":str(studio.player.get_path())}]
+	var inventory: Array = [{"id":"Courier","scene":"res://game/player/player.tscn","consumer":str(studio.player.get_path())}]
 	for actor: EnemyActor in studio.actors:
-		inventory.append({"id":str(actor.definition.stable_id),"scene":"res://scenes/enemies/patrol_drone.tscn","consumer":str(actor.motor.get_path()),"presentation":actor.motor.get_node("Presentation").get_script().resource_path})
+		inventory.append({"id":str(actor.definition.stable_id),"scene":"res://game/enemies/scenes/patrol_drone.tscn","consumer":str(actor.motor.get_path()),"presentation":actor.motor.get_node("Presentation").get_script().resource_path})
 	for boss: BossEncounter in studio.bosses:
 		inventory.append({"id":str(boss.definition.stable_id),"consumer":str(boss.motor.get_path()),"presentation":boss.motor.get_node("Presentation").get_script().resource_path})
 	var file := FileAccess.open("res://build/actor_actions/runtime_inventory.json",FileAccess.WRITE)

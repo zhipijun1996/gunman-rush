@@ -1,6 +1,6 @@
 extends SceneTree
 ## Three identical real Home walks; native MovieMaker soundtrack only.
-const LAB := preload("res://scenes/dev/audio_home_lab.tscn")
+const LAB := preload("res://experiments/audio/entries/audio_home_lab.tscn")
 const FRAMES := 1560
 var folder := "res://build/audio_home_01/capture"
 var movie_frame := 0

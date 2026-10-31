@@ -34,7 +34,7 @@ func run() -> void:
 		printerr("MOTION TRACE requires unique new --output path")
 		quit(1)
 		return
-	app = preload("res://scenes/dev/player_presentation_01/motion_candidate.tscn").instantiate()
+	app = preload("res://experiments/motion/entries/motion_candidate.tscn").instantiate()
 	app.motion_enabled = enabled_candidate
 	root.add_child(app)
 	for unused: int in 160:

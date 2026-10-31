@@ -55,7 +55,7 @@ func _key(code: Key) -> void:
 
 func _run() -> void:
 	root.size = Vector2i(1280, 720)
-	var lab := preload("res://scenes/style_exploration/style_lab.tscn").instantiate() as StyleLab
+	var lab := preload("res://experiments/terrain/entries/style_lab.tscn").instantiate() as StyleLab
 	root.add_child(lab)
 	for adapter: String in ["KeyboardMouseAdapter", "GamepadAdapter"]:
 		lab.player.get_node(adapter).process_mode = Node.PROCESS_MODE_DISABLED

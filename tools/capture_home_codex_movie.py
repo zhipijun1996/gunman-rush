@@ -131,11 +131,11 @@ def main():
     os.environ.setdefault("LP_NUM_THREADS","1")
     before=inventory()
     required={DRIVER,"tools/capture_home_codex_movie.py","tests/item_v5_movie.gd",
-              "scripts/demo/demo_app.gd","scripts/demo/home_scene.gd","scripts/ui/home_item_codex.gd",
-              "scripts/meta/meta_progression.gd","scripts/meta/home_item_catalog.gd","config/home_items.json",
-              "scripts/rewards/reward_service.gd","scripts/builds/equipment_service.gd",
-              "scripts/ui/demo_menu.gd","scripts/ui/item_card.gd","scripts/ui/item_presentation.gd",
-              "scripts/input/input_router.gd","scripts/input/keyboard_mouse_adapter.gd"}
+              "game/application/demo_app.gd","game/progression/home/home_scene.gd","game/presentation/ui/home_item_codex.gd",
+              "game/progression/meta_progression.gd","game/progression/home_item_catalog.gd","config/home_items.json",
+              "game/rewards/grants/reward_service.gd","game/loadout/equipment/equipment_service.gd",
+              "game/presentation/ui/demo_menu.gd","game/presentation/ui/item_card.gd","game/presentation/ui/item_presentation.gd",
+              "game/platform/input/input_router.gd","game/platform/input/keyboard_mouse_adapter.gd"}
     if not required.issubset(before): raise RuntimeError("Original full source guard misses a real Home producer/runtime/UI dependency")
     report={"schema":"home-codex-native-capture-v1","status":"failed","source_commit":commit,"head":git("rev-parse","HEAD"),
             "development":args.development,"dirty_paths":dirty+untracked,"scope":SCOPE,"source_before":before,

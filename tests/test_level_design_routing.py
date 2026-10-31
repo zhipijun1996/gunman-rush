@@ -16,18 +16,25 @@ class RoutingTests(unittest.TestCase):
     def test_runtime_snapshot_tracks_new_game_sources_but_not_build_or_evidence(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
-            paths = ['project.godot', 'scripts/legacy.gd', 'game/application/run_session.gd',
+            paths = ['project.godot', 'scripts/legacy.gd', 'game/application/run_session.gd', 'experiments/terrain/probe.gd',
                      'build/output.gd', 'docs/evidence/frozen.gd']
             for name in paths:
                 path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text('original')
             before = level_design.source_files(root)
-            self.assertEqual(set(before), {'project.godot', 'scripts/legacy.gd', 'game/application/run_session.gd'})
+            self.assertEqual(set(before), {'project.godot', 'scripts/legacy.gd', 'game/application/run_session.gd', 'experiments/terrain/probe.gd'})
             (root / 'game/application/run_session.gd').write_text('changed owner')
             self.assertNotEqual(before, level_design.source_files(root))
             added = root / 'game/application/new_untracked.gd'; added.write_text('new consumer')
             self.assertIn('game/application/new_untracked.gd', level_design.source_files(root))
             added.unlink()
             self.assertNotIn('game/application/new_untracked.gd', level_design.source_files(root))
+            current = level_design.source_files(root)
+            (root / 'experiments/terrain/probe.gd').write_text('changed experiment')
+            self.assertNotEqual(current, level_design.source_files(root))
+            extra = root / 'experiments/terrain/new_untracked.gd'; extra.write_text('new preview')
+            self.assertIn('experiments/terrain/new_untracked.gd', level_design.source_files(root))
+            extra.unlink()
+            self.assertNotIn('experiments/terrain/new_untracked.gd', level_design.source_files(root))
 
 
     def test_source_painting_rebuild_is_explicit_limited_real_consumer_route(self):
@@ -89,7 +96,7 @@ class RoutingTests(unittest.TestCase):
             with self.subTest(request=request):
                 historical = vd.historical_recipe_plan(request, 'historical-landform', 'docs/quality/records/historical-landform.json', ['scripts/art/'])
                 recipe = historical['preparation']['visual_recipe']
-                self.assertEqual(recipe['profile'], 'scripts/art/plains_joint_recoil_composer.gd')
+                self.assertEqual(recipe['profile'], 'game/presentation/world/art/plains_joint_recoil_composer.gd')
                 self.assertEqual(recipe['recipe'], 'docs/evidence/plains_landform/recipe.md')
                 self.assertEqual(recipe['capture_script'], 'tools/plains_joint_recoil_capture.gd')
                 self.assertEqual(recipe['expansion'], 'blocked_until_actual_art_and_operation_admission')
@@ -128,7 +135,7 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(task['required_gates'],['G0','G1'])
         self.assertEqual(task['region_proof']['allowed_capabilities'],['H'])
         self.assertEqual(task['region_proof']['scope'],'prototype')
-        self.assertIn('scripts/demo/thorn_forest_h_slice.gd.uid',task['allowed_paths'])
+        self.assertIn('game/world/levels/providers/thorn_forest_h_slice.gd.uid',task['allowed_paths'])
         self.assertIn('tests/forest_h_slice_runner.gd.uid',task['allowed_paths'])
         self.assertEqual(task['region_proof']['capability_gate']['alternatives'],[['H']])
         self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])
@@ -164,13 +171,29 @@ class RoutingTests(unittest.TestCase):
                     'authorization_basis': 'SIMULATED explicit bounded geometry/camera authorization',
                     'design': {'space': 'One playable against-wind room'},
                     'validation': ['Actual Motor traversal and whole-screen normal-speed independent review'],
-                    'allowed_paths': ['scripts/generation/plains_spatial_golden.gd', 'scripts/generation/stage_camera_rig.gd', 'scripts/demo/demo_app.gd']}
+                    'allowed_paths': ['game/world/generation/plains_spatial_golden.gd', 'game/world/generation/stage_camera_rig.gd', 'game/application/demo_app.gd']}
             level_design.write(path, data)
             _, binding = level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)
             self.assertEqual(binding['allowed_paths'], data['allowed_paths'])
+            for allowed in ('scripts/demo/demo_app.gd', 'game/application/demo_app.gd',
+                            'game/world/components/module_moving_platform.gd',
+                            'game/world/components/module_moving_platform.gd.uid',
+                            'game/world/components/scenes/checkpoint.tscn',
+                            'game/presentation/effects/art/defeat_burst.gd',
+                            'experiments/terrain/art/light_study.gd',
+                            'experiments/motion/entries/graybox.tscn'):
+                data['allowed_paths'] = [allowed]; level_design.write(path, data)
+                self.assertEqual(level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)[1]['allowed_paths'], [allowed])
             for bad in ('scripts/generation/', 'assets/spatial_golden/*', 'scripts/actors/player_motor.gd',
-                        'scripts/combat/weapon_catalog.gd', 'scripts/save/meta_save_service.gd',
-                        'config/player_tuning.json', 'scripts/generation/movement_capability_envelope.gd', '../outside.gd'):
+                        'game/combat/weapons/weapon_catalog.gd', 'game/platform/persistence/meta_save_service.gd',
+                        'config/player_tuning.json', 'game/world/generation/movement_capability_envelope.gd', '../outside.gd',
+                        'scripts/run/demo_lifetime.gd', 'game/world/state/demo_lifetime.gd',
+                        'scripts/run/run_profile.gd', 'game/world/state/run_profile.gd',
+                        'scripts/run/route_planner.gd', 'game/world/state/route_planner.gd',
+                        'scripts/player/graybox.gd', 'experiments/motion/graybox.gd',
+                        'scripts/world/checkpoint.gd', 'game/world/components/checkpoint.gd',
+                        'scripts/damage/damage_return_echo.gd', 'game/presentation/effects/damage_return_echo.gd',
+                        'scripts/style_exploration/style_scenery.gd', 'game/presentation/world/style_exploration/style_scenery.gd'):
                 data['allowed_paths'] = [bad]; level_design.write(path, data)
                 with self.subTest(path=bad), self.assertRaises(ValueError):
                     level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)
@@ -179,8 +202,8 @@ class RoutingTests(unittest.TestCase):
         (level_design.ROOT/'build').mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=level_design.ROOT/'build') as tmp:
             folder = Path(tmp); path = folder/'experiment.json'; output = folder/'mission.json'
-            allowed = ['scripts/generation/plains_spatial_golden.gd', 'scripts/demo/demo_app.gd',
-                       'scripts/art/plains_spatial_golden_art.gd', 'assets/spatial_golden/foreground.png']
+            allowed = ['game/world/generation/plains_spatial_golden.gd', 'game/application/demo_app.gd',
+                       'game/presentation/world/art/plains_spatial_golden_art.gd', 'assets/spatial_golden/foreground.png']
             level_design.write(path, {'schema_version': 1, 'region_id': 'windchime_plains',
                 'authorization_basis': 'SIMULATED explicit experiment', 'design': {'one_space': True,
                     'direction_path': 'docs/creative_direction/windchime_plains.json',

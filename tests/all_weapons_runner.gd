@@ -172,7 +172,7 @@ func launch_clearance_and_skill_impact() -> void:
 	controller.router.request_action(&"weapon_context");await tick(3)
 	check(blocked_target.health==100,"ground blast cannot cross intervening wall")
 	await fixture(Vector2(100,682));await tick(3)
-	var motor_enemy: EnemyMotor=preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
+	var motor_enemy: EnemyMotor=preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate()
 	var actor: EnemyActor=motor_enemy.get_node("Actor")
 	actor.definition=preload("res://resources/enemies/patrol_drone.tres").duplicate(true)
 	actor.definition.health_definition.max_health=100;actor.definition.health_definition.initial_current=100

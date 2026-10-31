@@ -161,7 +161,7 @@ func font_checks() -> void:
 	var menu_font := app.menu._root.theme.default_font
 	check(menu_font.get_font_name() == family and named("BeginAdventure").get_theme_font("font").get_font_name() == family and UnderworldUI.FONT.get_font_name() == family, "real title and legacy UI resolve one pixel family")
 	var characters: Dictionary = {}
-	for path: String in source_files("res://scripts/ui") + source_files("res://resources/items") + source_files("res://resources/bosses") + ["res://scripts/demo/home_scene.gd"]:
+	for path: String in source_files("res://scripts/ui") + source_files("res://resources/items") + source_files("res://resources/bosses") + ["res://game/progression/home/home_scene.gd"]:
 		collect_quoted_cjk(FileAccess.get_file_as_string(path), characters)
 	var missing := PackedStringArray()
 	for character: String in characters:
@@ -252,7 +252,7 @@ func title_layout(size: Vector2i) -> void:
 func run() -> void:
 	check(DirAccess.make_dir_recursive_absolute(out) == OK, "fresh R2 evidence directory is writable")
 	root.size = Vector2i(1280, 720)
-	app = preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(9)

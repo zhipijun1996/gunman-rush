@@ -65,7 +65,7 @@ def validate(data):
 
 def actual_shot_cost(snapshot):
     policy=snapshot['shot_policy']
-    path='res://resources/player/demo_ui_01/time_energy_v2.tres'
+    path='res://game/player/resources/demo_ui_01/time_energy_v2.tres'
     tuning=json.loads((ROOT/'config/player_tuning.json').read_text())
     if policy['definition_path']!=path or policy['definition_sha256']!=hashlib.sha256((ROOT/path.removeprefix('res://')).read_bytes()).hexdigest() or policy['shooting_consumes_energy'] is not False or policy['max_air_shots']!=tuning['max_air_shots']:
         raise ValueError('Current shot policy must bind the actual free Definition and native action cap')

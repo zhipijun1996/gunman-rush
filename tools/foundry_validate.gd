@@ -1,7 +1,7 @@
 extends SceneTree
 ## Real Motor input traces, swept hazards, deterministic input replay and bounded repair.
 signal fixture_created(ok: bool)
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var world: Node2D
 var stage: FoundryWorld

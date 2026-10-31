@@ -85,8 +85,8 @@ def build(output:Path,game_url='game/'):
 
 def stage(bundle:Path,output:Path):
  from cloud_delivery import validate_bundle,inject_entry
- info,receipt=validate_bundle(bundle,ROOT,'res://scenes/dev/audio_director_lab_v2.tscn');build(output,'game/')
- game=output/'game';shutil.copytree(bundle,game);page=(game/'index.html').read_text();original=sha(game/'index.html');page=inject_entry(page,'AUDIO-DIRECTOR-02','audio-director-v2/context-01','scene','res://scenes/dev/audio_director_lab_v2.tscn')
+ info,receipt=validate_bundle(bundle,ROOT,'res://experiments/audio/entries/audio_director_lab_v2.tscn');build(output,'game/')
+ game=output/'game';shutil.copytree(bundle,game);page=(game/'index.html').read_text();original=sha(game/'index.html');page=inject_entry(page,'AUDIO-DIRECTOR-02','audio-director-v2/context-01','scene','res://experiments/audio/entries/audio_director_lab_v2.tscn')
  old='window.PLAYTEST_CACHE_READY.then(() => engine.startGame({'
  new="window.PLAYTEST_CACHE_READY.then(ready => { if (!ready || typeof DecompressionStream === 'undefined') throw new Error('真实场景需要支持 Service Worker 与 DecompressionStream 的现代浏览器；可先用单声试听。'); return engine.startGame({"
  if page.count(old)!=1:raise ValueError('Original loader changed; refuse unverified patch')

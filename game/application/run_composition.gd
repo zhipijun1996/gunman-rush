@@ -1,7 +1,7 @@
 class_name RunComposition
 extends RefCounted
 ## Explicit scene assembly. No App lookup, flow state or gameplay rules here.
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 
 static func create_player(parent: Node, session: RunSession, selection: HomeWeaponSelection) -> bool:
 	# Publish the same references before entering the tree, as the original App

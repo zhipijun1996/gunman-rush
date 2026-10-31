@@ -182,7 +182,7 @@ def validate_policy_capture(capture):
     energy=capture["initial_capability"]["shot_energy"]
     free=energy.get("shooting_consumes_energy") is False
     if free:
-        policy="res://resources/player/demo_ui_01/time_energy_v2.tres"
+        policy="res://game/player/resources/demo_ui_01/time_energy_v2.tres"
         cap=capture["initial_capability"]
         if energy.get("definition_path")!=policy or energy.get("definition_version")!=2 or energy.get("definition_sha256")!=sha(ROOT/policy[6:]) or cap.get("config_hashes",{}).get("shot_energy")!=energy["definition_sha256"] or cap.get("config_hashes",{}).get("player_tuning")!=sha(ROOT/"config/player_tuning.json"):
             raise ValueError("Current free-shot policy/config provenance differs from actual source")

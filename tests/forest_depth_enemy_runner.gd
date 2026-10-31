@@ -1,7 +1,7 @@
 extends SceneTree
 ## Independent local goldens, not complete formal forest route admission.
 const AUDIO := preload("res://tests/audio_teardown.gd")
-const ECOLOGY_GEOMETRY := preload("res://scripts/generation/forest_ecology_geometry.gd")
+const ECOLOGY_GEOMETRY := preload("res://game/world/generation/forest_ecology_geometry.gd")
 var assertions := 0
 var failures := 0
 var tick := 0
@@ -75,7 +75,7 @@ func fixture(at: Vector2 = Vector2(-30,282), geometry: Dictionary = {}) -> void:
 		for row: Dictionary in geometry.platforms:
 			var rect: Array=row.rect
 			slab(Rect2(rect[0],rect[1],rect[2],rect[3]),bool(row.one_way),str(row.role))
-	player=load("res://scenes/player/player.tscn").instantiate()
+	player=load("res://game/player/player.tscn").instantiate()
 	player.position=at
 	world.add_child(player)
 	controller=player.get_node("Controller")
@@ -97,7 +97,7 @@ func _damage(results: Array[DamageResult]) -> void:
 	for result: DamageResult in results:
 		events.append({"kind":"policy_result","tick":tick,"event_id":String(result.request.event_id),"source":String(result.request.source_id),"target":String(result.request.target_id),"hp":result.health.current})
 func enemy(id: String, at: Vector2, instance_id: String = "") -> EnemyActor:
-	var scene: PackedScene=load("res://scenes/enemies/patrol_drone.tscn" if id=="plains_charger" else "res://scenes/enemies/"+id+".tscn")
+	var scene: PackedScene=load("res://game/enemies/scenes/patrol_drone.tscn" if id=="plains_charger" else "res://scenes/enemies/"+id+".tscn")
 	var body := scene.instantiate() as EnemyMotor
 	if id=="plains_charger":
 		(body.get_node("Actor") as EnemyActor).definition=load("res://resources/enemies/plains_charger.tres")

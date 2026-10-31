@@ -32,7 +32,7 @@ class ProjectDependenciesTests(unittest.TestCase):
         self.assertIn("Duplicate runtime class Health", "\n".join(inspect(self.root)["errors"]))
 
     def test_implicit_class_and_scene_dependencies_respect_boundary(self):
-        self.source("scripts/demo/demo_app.gd", "class_name DemoApp\n")
+        self.source("game/application/demo_app.gd", "class_name DemoApp\n")
         self.source("game/world/level.gd", "var app: DemoApp\n")
         self.source("game/enemies/enemy.tscn", '[ext_resource path="res://experiments/fixture.gd" type="Script" id="1"]\n')
         errors = inspect(self.root)["errors"]

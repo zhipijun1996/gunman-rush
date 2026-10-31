@@ -1,7 +1,7 @@
 extends "res://tests/branch_library_runner.gd"
 ## Uses the production latch installer; fixture placement is only the initial spawn.
 func _run() -> void:
-	var installer_script: Script = load("res://scripts/world/generated_shot_latch_encounter.gd")
+	var installer_script: Script = load("res://game/world/components/generated_shot_latch_encounter.gd")
 	check(installer_script != null and installer_script.can_instantiate(), "production generated latch installer compiles")
 	if installer_script == null or not installer_script.can_instantiate():
 		quit(1)

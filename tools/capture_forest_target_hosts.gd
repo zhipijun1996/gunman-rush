@@ -113,7 +113,7 @@ func run() -> void:
 			var radius := -1.0
 			for child: Node in target.get_children():
 				if child is CollisionShape2D and child.shape is CircleShape2D:radius=child.shape.radius
-			var expected_script := "res://scripts/world/forest_fruit_anchor.gd" if mount.get("presentation")=="runtime_rooted_fruit" else "res://scripts/world/grapple_anchor.gd"
+			var expected_script := "res://game/world/components/forest_fruit_anchor.gd" if mount.get("presentation")=="runtime_rooted_fruit" else "res://game/world/components/grapple_anchor.gd"
 			var authored: Dictionary = {}
 			for row: Dictionary in manifest.hook_anchors:
 				if str(row.id)==str(mount.target_id):authored=row;break

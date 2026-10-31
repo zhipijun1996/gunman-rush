@@ -15,7 +15,7 @@ func run(_tree: SceneTree, check: Callable) -> void:
 		obsolete.boss_stage = obsolete.stages_per_biome
 		check.call(not obsolete.is_valid() and not DemoRunDirector.new().start("retired", obsolete).accepted(), "retired profiles cannot start a run")
 		check.call(RunManifest.from_snapshot(RunManifest.new("retired", obsolete).snapshot()) == null, "retired manifests are rejected explicitly")
-	var short_resource := load("res://resources/run/development_three.tres") as RunProfile
+	var short_resource := load("res://game/application/resources/development_three.tres") as RunProfile
 	check.call(short_resource != null and short_resource.is_valid() and not short_resource.is_valid(true), "development resource stays isolated")
 	var definitions := StageTypeDefinition.registry()
 	check.call(definitions.size() == 6, "six independent stage type definitions registered")

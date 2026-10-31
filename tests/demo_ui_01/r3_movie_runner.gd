@@ -35,7 +35,7 @@ func key(pressed: bool) -> void:
 	var event := InputEventKey.new();event.physical_keycode=KEY_SPACE;event.keycode=KEY_SPACE;event.pressed=pressed;Input.parse_input_event(event)
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	app = load("res://scenes/demo/demo.tscn").instantiate()
+	app = load("res://game/application/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(120)

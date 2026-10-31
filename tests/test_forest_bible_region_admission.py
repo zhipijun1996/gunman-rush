@@ -296,7 +296,7 @@ class BibleAdmissionTests(unittest.TestCase):
         self.assertIn('incomplete_actual_route', errors)
 
     def test_bible_default_preserves_original_unpinned_budget_protocol(self):
-        source = (ROOT / 'scripts/generation/thorn_forest_region_generator.gd').read_text()
+        source = (ROOT / 'game/world/generation/thorn_forest_region_generator.gd').read_text()
         self.assertIn('const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE', source)
         profile = json.loads((ROOT / 'tools/harness/profiles.json').read_text())['checks']['forest-depth-region']
         self.assertEqual(profile['timeout_seconds'], 600)

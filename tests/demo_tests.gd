@@ -1,7 +1,7 @@
 extends RefCounted
 
 const GEAR := preload("res://tests/gear_inventory_support.gd")
-const DEMO := preload("res://scenes/demo/demo.tscn")
+const DEMO := preload("res://game/application/demo.tscn")
 var tree: SceneTree
 var check: Callable
 

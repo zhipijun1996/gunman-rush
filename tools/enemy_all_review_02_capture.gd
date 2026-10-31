@@ -4,7 +4,7 @@ extends SceneTree
 const PLAINS: Array[String] = ["patrol_drone", "plains_charger", "plains_diver", "plains_hopper", "plains_sentry", "plains_fan_sentry", "plains_root_bell"]
 const FOREST: Array[String] = ["forest_bark_beetle", "forest_swing_pod", "forest_lantern", "forest_seed_sentry", "forest_thread_spider", "forest_crossbranch", "forest_bible_weaver"]
 const PROTOTYPES: Array[String] = ["candidate_lure_guard", "candidate_crosswind_moth"]
-const INSTALLER := preload("res://scripts/underworld_plains/underworld_actor_installer.gd")
+const INSTALLER := preload("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 const MAX_CASE_FRAMES := 1200
 const HOLD_FRAMES := 210
 var trace_path := ""
@@ -149,7 +149,7 @@ func make_case() -> void:
 		solid(Rect2(365,440,180,30),Color("657257"),"player_ledge")
 		geometry.append({"id":"player_ledge","rect":[365,440,180,30]})
 		player_spawn = Vector2(470,422)
-	var player: PlayerMotor = preload("res://scenes/player/player.tscn").instantiate()
+	var player: PlayerMotor = preload("res://game/player/player.tscn").instantiate()
 	player.position = player_spawn
 	fixture.add_child(player)
 	controller = player.get_node("Controller") as PlayerController

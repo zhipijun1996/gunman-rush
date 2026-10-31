@@ -49,7 +49,7 @@ func _run() -> void:
 	var bad := StyleLayout.generate(0)
 	bad.one_way.append(Rect2(0, 608, 32, 8))
 	expect(not StyleLayout.validate(bad).is_empty(), "solid/one-way semantic overlap is rejected")
-	var lab := preload("res://scenes/style_exploration/style_lab.tscn").instantiate() as StyleLab
+	var lab := preload("res://experiments/terrain/entries/style_lab.tscn").instantiate() as StyleLab
 	root.add_child(lab)
 	for adapter: String in ["KeyboardMouseAdapter", "GamepadAdapter"]:
 		lab.player.get_node(adapter).process_mode = Node.PROCESS_MODE_DISABLED

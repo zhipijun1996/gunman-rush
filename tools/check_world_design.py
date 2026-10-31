@@ -27,7 +27,7 @@ def validate_framework(data, contract):
     if runtime_version == 2:
         if formal.get("campaign_policy") != "TWO_REGION_CAMPAIGN_v1":
             errors.append("Two-region runtime requires its actual versioned campaign policy")
-        for name in ["scripts/demo/thorn_forest_region_stage.gd", "scripts/generation/thorn_forest_region_generator.gd", "scripts/run/run_campaign_progression.gd"]:
+        for name in ["game/world/levels/providers/thorn_forest_region_stage.gd", "game/world/generation/thorn_forest_region_generator.gd", "game/application/run_campaign_progression.gd"]:
             if not (ROOT / name).is_file(): errors.append("Declared forest runtime consumer missing: " + name)
     if "biome_count" in formal or "formal_region_count" in data:
         errors.append("Ambiguous legacy total-region fields must stay in historical provenance only")

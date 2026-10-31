@@ -1,6 +1,6 @@
 extends RefCounted
 ## Position changes below are encounter-state fixtures, not reachability proof.
-const DEMO := preload("res://scenes/demo/demo.tscn")
+const DEMO := preload("res://game/application/demo.tscn")
 var tree: SceneTree
 var check: Callable
 func run(scene_tree: SceneTree, assertion: Callable) -> void:

@@ -1,7 +1,7 @@
 extends RefCounted
 
-const COINS := preload("res://resources/rewards/demo_coins.tres")
-const HEAL := preload("res://resources/rewards/demo_heal.tres")
+const COINS := preload("res://game/rewards/grants/resources/demo_coins.tres")
+const HEAL := preload("res://game/rewards/grants/resources/demo_heal.tres")
 
 func ids(items: Array[ItemDefinition]) -> Array[StringName]:
 	var result: Array[StringName] = []

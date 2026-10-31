@@ -35,7 +35,7 @@ func _initialize() -> void:
 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
 	run.call_deferred()
 func run() -> void:
-	room=load("res://scripts/demo/forest_directional_golden.gd").new()
+	room=load("res://experiments/generation/forest_directional_golden.gd").new()
 	room.layout=layout
 	room.grant_hook=variant not in ["noH","naivejump","onlyR"]
 	root.add_child(room)

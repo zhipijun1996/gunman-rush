@@ -23,13 +23,13 @@ func frames(n: int) -> void:
 func fixture(automatic: bool=false) -> void:
 	if is_instance_valid(world): world.free()
 	world=Node2D.new();root.add_child(world)
-	player=preload("res://scenes/player/player.tscn").instantiate();player.position=Vector2(200,100);world.add_child(player)
+	player=preload("res://game/player/player.tscn").instantiate();player.position=Vector2(200,100);world.add_child(player)
 	actor=player.get_node("Controller");actor.set_physics_process(automatic)
 	player.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 	# Historical D079 explicitly had two air rounds and shot energy costs.
 	player.tuning.max_air_shots = 2
 	actor.action_resources.reset()
-	check(actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres")),"explicit D079 historical shot policy configures")
+	check(actor.enable_shot_energy(preload("res://game/player/resources/plains_shot_energy.tres")),"explicit D079 historical shot policy configures")
 	life=DemoLifetime.new();policy=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy)
 	policy.register_target(&"player",actor.actor_resources.health,true)
 	target=StaticBody2D.new();target.position=Vector2(200,550);target.collision_layer=4;world.add_child(target)

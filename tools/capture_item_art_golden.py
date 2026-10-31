@@ -190,18 +190,18 @@ def main():
     # runtime configs, modals, resources and actual presentation consumers.
     # Build outputs are excluded; a changed source rejects the whole attempt.
     before = inventory()
-    required = {DRIVER, "tools/capture_item_art_golden.py", "scripts/demo/demo_app.gd",
-                "scripts/items/v5/item_runtime.gd", "scripts/items/v5/item_active_effects.gd", "tests/item_v5_movie.gd",
-                "scripts/items/v5/item_art_library.gd", "scripts/items/v5/item_effect_view.gd",
-                "scripts/items/v5/item_v5_entity.gd", "config/item_v5_art.json",
+    required = {DRIVER, "tools/capture_item_art_golden.py", "game/application/demo_app.gd",
+                "game/loadout/effects/item_runtime.gd", "game/loadout/effects/item_active_effects.gd", "tests/item_v5_movie.gd",
+                "game/loadout/effects/item_art_library.gd", "game/loadout/effects/item_effect_view.gd",
+                "game/loadout/effects/item_v5_entity.gd", "config/item_v5_art.json",
                 "config/item_v5_authoring.json", "assets/items/v5/manifest.json",
-                "scripts/items/v5/item_companion_effects.gd", "scripts/items/v5/item_v5_entity.gd",
+                "game/loadout/effects/item_companion_effects.gd", "game/loadout/effects/item_v5_entity.gd",
                 "config/items_v5.json", "config/item_v5_runtime.json", "config/item_v5_entities.json",
-                "scripts/ui/demo_menu.gd", "scripts/ui/stage_reward_modal.gd",
-                "scripts/ui/item_shop_modal.gd", "scripts/items/v5/item_v5_shop_presenter.gd",
-                "scripts/player/player_controller.gd", "scripts/combat/player_projectile.gd",
-                "scripts/damage/frame_damage_policy.gd", "scripts/input/input_router.gd",
-                "scripts/input/keyboard_mouse_adapter.gd"}
+                "game/presentation/ui/demo_menu.gd", "game/presentation/ui/stage_reward_modal.gd",
+                "game/presentation/ui/item_shop_modal.gd", "game/presentation/ui/item_v5_shop_presenter.gd",
+                "game/player/player_controller.gd", "game/combat/projectiles/player_projectile.gd",
+                "game/combat/damage/frame_damage_policy.gd", "game/platform/input/input_router.gd",
+                "game/platform/input/keyboard_mouse_adapter.gd"}
     if not required.issubset(before):
         raise RuntimeError("Original source guard does not cover all real producer/runtime/UI dependencies")
     report = {"schema": "item-art-golden-capture-v1", "source_commit": commit,

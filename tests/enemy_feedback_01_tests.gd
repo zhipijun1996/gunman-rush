@@ -5,9 +5,9 @@ extends SceneTree
 ## collision -> Damageable -> FrameDamagePolicy -> HealthState consumers.
 ## Explicit supported arena spawns; this is not a natural campaign traversal,
 ## GPU/readability assessment, full DemoApp drop flow, or device measurement.
-const INSTALLER = preload("res://scripts/underworld_plains/underworld_actor_installer.gd")
-const ENEMY = preload("res://scenes/enemies/patrol_drone.tscn")
-const PLAYER = preload("res://scenes/player/player.tscn")
+const INSTALLER = preload("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
+const ENEMY = preload("res://game/enemies/scenes/patrol_drone.tscn")
+const PLAYER = preload("res://game/player/player.tscn")
 const SOURCES := ["res://resources/enemies/plains_charger.tres", "res://resources/enemies/plains_diver.tres"]
 var checks := 0
 var failures: Array[String] = []
@@ -34,8 +34,8 @@ var rig_hurt_samples: Array[Dictionary] = []
 const SHARED_SOURCE_PATHS := [
 	"res://assets/underworld_plains/actors/charger.png",
 	"res://assets/underworld_plains/actors/aerial.png",
-	"res://scripts/art_foundation/pixel_plains_enemy.gd",
-	"res://scripts/art_foundation/windchime_enemy_visual.gd",
+	"res://game/presentation/actors/art_foundation/pixel_plains_enemy.gd",
+	"res://game/presentation/actors/art_foundation/windchime_enemy_visual.gd",
 	"res://shaders/plains_tile_material.gdshader",
 	"res://shaders/pixel_formal_terrain.gdshader",
 ]

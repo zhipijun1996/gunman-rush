@@ -16,14 +16,14 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE_PATHS = tuple(dict.fromkeys((*INTEGRATION_SOURCES,
     "tests/forest_bible_app_discoveries_runner.gd",
     "tools/run_forest_bible_app_discoveries.py",
-    "scripts/world/forest_bible_discoveries.gd",
-    "scripts/world/forest_bible_discovery_catalog.gd",
+    "game/world/components/forest_bible_discoveries.gd",
+    "game/world/components/forest_bible_discovery_catalog.gd",
     "resources/items/forest_old_badge.tres",
-    "scripts/ui/stage_reward_modal.gd",
-    "scripts/ui/item_card.gd",
-    "scripts/rewards/reward_service.gd",
-    "scripts/shops/run_wallet.gd",
-    "scripts/input/keyboard_mouse_adapter.gd",
+    "game/presentation/ui/stage_reward_modal.gd",
+    "game/presentation/ui/item_card.gd",
+    "game/rewards/grants/reward_service.gd",
+    "game/economy/shops/run_wallet.gd",
+    "game/platform/input/keyboard_mouse_adapter.gd",
 )))
 
 

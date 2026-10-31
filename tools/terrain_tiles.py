@@ -68,7 +68,7 @@ def manifest():
 
 
 if __name__=='__main__':
-    output=Path('resources/art/plains_tile_catalog.json')
+    output=Path('game/presentation/world/resources/art/plains_tile_catalog.json')
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(manifest(),ensure_ascii=False,indent=2)+'\n')
     print('PASS: generated 47 canonical neighbourhood definitions; no artwork acceptance claim')

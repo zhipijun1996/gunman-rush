@@ -22,7 +22,7 @@ func run() -> void:
 	fixture.tree = self
 	await fixture.fixture(Vector2(80, -1000))
 	var actor: PlayerController = fixture.controller
-	check(actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres")), "explicit historical D079 split focus/shot fixture enabled")
+	check(actor.enable_shot_energy(preload("res://game/player/resources/plains_shot_energy.tres")), "explicit historical D079 split focus/shot fixture enabled")
 	check(actor.traversal.grant(&"grapple"), "H granted through real traversal ability")
 	actor.set_physics_process(true)
 	await frames()
@@ -111,7 +111,7 @@ func run() -> void:
 	evidence.store_string(JSON.stringify({"checks": checks, "failures": failures, "ledger": ledger,
 		"scope": "real input focus/HUD fixture; not regional or device acceptance",
 		"sources": {get_script().resource_path: FileAccess.get_sha256(get_script().resource_path),
-			"res://scripts/ui/actor_resources_hud.gd": FileAccess.get_sha256("res://scripts/ui/actor_resources_hud.gd")}}))
+			"res://game/presentation/ui/actor_resources_hud.gd": FileAccess.get_sha256("res://game/presentation/ui/actor_resources_hud.gd")}}))
 	evidence.close()
 	print("GRAPPLE FOCUS HUD: %s checks / %s failures" % [checks, failures])
 	quit(1 if failures else 0)

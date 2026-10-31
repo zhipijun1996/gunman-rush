@@ -1,7 +1,7 @@
 extends SceneTree
 ## Deliberate behavior-change regression: nearest ownership replaces global-first
 ## routing, and a closing owner never redirects into another world's service.
-const Lifecycle = preload("res://scripts/audio/world_audio_lifecycle.gd")
+const Lifecycle = preload("res://game/presentation/audio/world_audio_lifecycle.gd")
 var assertions := 0
 var failures := 0
 
@@ -167,7 +167,7 @@ func _cloud_case(path: String, expects_app: bool) -> void:
 		var app := preview.custom_scene as DemoApp
 		_check(app != null and not app.meta_persistence_enabled and preview.custom_audio == null, path+" owns audio and keeps save isolation without duplicate generic service")
 		_check(audio.get_parent() == app and audio._voices.size() == 12, path+" retains one owned twelve-voice service")
-		if path == "res://scenes/demo/demo.tscn":
+		if path == "res://game/application/demo.tscn":
 			_check(audio is PlayerWeaponFeelAudioV2 and audio.audio_profile == "selected", "formal scene retains its exact selected audio assembly")
 			app._show_home()
 			var actor := app.home_scene.player
@@ -189,8 +189,8 @@ func _cloud_case(path: String, expects_app: bool) -> void:
 func _run() -> void:
 	await _ownership_case()
 	await _unowned_fallback()
-	await _cloud_case("res://scenes/demo/demo.tscn",true)
-	await _cloud_case("res://scenes/demo/action_studio.tscn",false)
+	await _cloud_case("res://game/application/demo.tscn",true)
+	await _cloud_case("res://experiments/motion/entries/action_studio.tscn",false)
 	if "--auditions" in OS.get_cmdline_user_args():
 		for path: String in ["audio_home_lab", "audio_ambience_lab", "audio_director_lab", "audio_director_lab_v2", "audio_director_reels", "player_presentation_01/motion_candidate", "player_presentation_01/landing_feel", "player_presentation_01/weapon_feel", "player_presentation_01/weapon_feel_v2"]:
 			await _cloud_case("res://scenes/dev/"+path+".tscn",true)

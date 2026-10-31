@@ -71,7 +71,7 @@ func run() -> void:
 				var fruit: bool = row.get("fruit_presentation")=="rooted_fruit" or (bool(mount.get("resolved",false)) and mount.get("presentation")=="runtime_rooted_fruit")
 				var target: GrappleAnchor = assembler.hook_targets.get(id)
 				if not is_instance_valid(target):check(false,context+"/missing_target/"+id);continue
-				var script_path := "res://scripts/world/forest_fruit_anchor.gd" if fruit else "res://scripts/world/grapple_anchor.gd"
+				var script_path := "res://game/world/components/forest_fruit_anchor.gd" if fruit else "res://game/world/components/grapple_anchor.gd"
 				var radius := -1.0
 				var shape_count := 0
 				for child: Node in target.get_children():
