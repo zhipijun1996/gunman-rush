@@ -44,7 +44,7 @@ func open_place(value: String) -> void:
 	busy = true
 	if is_instance_valid(app):
 		app.abandon_run()
-		await load("res://tests/audio_teardown.gd").drain_world(app)
+		await WorldAudioLifecycle.drain_world(app)
 		app.free()
 		await get_tree().process_frame
 	originals.clear(); nodes.clear(); backdrops.clear()
@@ -202,7 +202,7 @@ func capture_all() -> void:
 	FileAccess.open(output+"/capture.json",FileAccess.WRITE).store_string(JSON.stringify({"task":"LIGHT-STUDY-01","presets":PRESETS,"captures":evidence,"scope":"Real Godot App; positioned frozen stills, no traversal or full QA claim"},"  "))
 	print("LIGHT_STUDY_DONE screenshots=%d"%evidence.size())
 	app.abandon_run()
-	await load("res://tests/audio_teardown.gd").drain_world(app)
+	await WorldAudioLifecycle.drain_world(app)
 	get_tree().quit()
 
 func make_panel() -> void:

@@ -166,7 +166,7 @@ func capture_all() -> void:
 	print("HIGH_DENSITY_DONE screenshots=%d"%evidence.size())
 	busy=true;restore_world_labels();clear_overlays()
 	app.abandon_run()
-	await load("res://tests/audio_teardown.gd").drain_world(app)
+	await WorldAudioLifecycle.drain_world(app)
 	get_tree().quit()
 
 func make_panel() -> void:

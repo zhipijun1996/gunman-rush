@@ -286,7 +286,7 @@ func capture_all() -> void:
 	busy = true
 	restore_world_labels()
 	app.abandon_run()
-	await load("res://tests/audio_teardown.gd").drain_world(app)
+	await WorldAudioLifecycle.drain_world(app)
 	get_tree().quit()
 
 func make_panel() -> void:

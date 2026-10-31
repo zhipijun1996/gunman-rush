@@ -1,0 +1,37 @@
+{
+  "id": "audio_2d_pending_playback_immediate_stop",
+  "classification": "pre-existing engine/lifecycle limitation; not repaired in equivalent extraction",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "engine": "Godot 4.7.2.stable.official.ed1daf0bf",
+  "trigger": "AudioStreamPlayer2D.play followed by stop and stream=null before its first internal physics notification",
+  "mechanism": "play retains setplayback. Internal physics starts playback and unreferences setplayback. stop sets pending position to -1 and clears internal active playback, but does not unreference setplayback. The pending reference remains until owner destruction.",
+  "source_evidence": [
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/scene/2d/audio_stream_player_2d.cpp#L67",
+      "scope": "pending start and setplayback.unref at lines 67-71"
+    },
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/scene/2d/audio_stream_player_2d.cpp#L240",
+      "scope": "play stores setplayback at line245; stop at262-265 does not clear it"
+    }
+  ],
+  "regression": "tests/entry_audio_lifecycle_comparison_runner.gd",
+  "original_fixture": "tests/fixtures/audio_lifecycle_2ce4ffa6/audio_teardown.gd",
+  "observed_matrix": {
+    "cases": 16,
+    "assertions": 80,
+    "failures": 0,
+    "dimensions": [
+      "original2ce vs extracted helper",
+      "Node vs Node2D parent",
+      "MP3 vs Ogg",
+      "same-frame stop vs two physics-start signals"
+    ],
+    "same_frame": "both helpers return false within original1000ms budget; WeakRef remains live",
+    "started": "both helpers return true; WeakRef releases",
+    "owner_freed": "all16 release the same observed playback"
+  },
+  "evidence": "/workspace/refactor-evidence/entry-baseline-comparison.log",
+  "test_fixture_correction": "Success cases allow the pending2D play to start before testing drain. All original weak-reference, failure and budget assertions remain. Same-frame case remains separately asserted by the baseline comparison runner.",
+  "production_change": "none to drain algorithms or timeout; this limitation is not concealed as a behavior-preserving fix"
+}
