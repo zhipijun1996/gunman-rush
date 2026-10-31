@@ -313,6 +313,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	if active_region_id == &"thorn_forest": controller.traversal.grant(&"grapple")
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
+	controller.shoot_ability.packet_changed.connect(_record_bellstrider_packet)
 	controller.router.reconfigure(_session_input)
 	(get_meta("avatar_presentation") as Node).call("bind_player",player)
 	overlay = InputSetup.attach(player, controller.router)
@@ -766,7 +767,13 @@ func _load_stage() -> void:
 						push_error("Recorded forest duel state rejected after physical target binding")
 						abandon_run()
 						return
-				else: stage.boss.position=Vector2(saved.position[0],saved.position[1])
+				else:
+					stage.boss.position=Vector2(saved.position[0],saved.position[1])
+					# Terminal actors cannot activate again. Restore their actual
+					# articulated wreck/death clock without replaying the encounter.
+					if encounter is BellstriderEncounter and float(saved.get("health",1)) <= 0:
+						encounter.restore_combat_state(saved)
+						EnemyPresentationBinding.synchronize(encounter)
 		else:
 			encounter.configure_arena(890.0, 1240.0, player)
 		if generated_plains and encounter is WindkeeperEncounter:
@@ -780,7 +787,7 @@ func _load_stage() -> void:
 		if connected_region:
 			var region:=stage as PlainsRegionStage
 			region.boss_seal=BossArenaSeal.new()
-			if region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT:
+			if encounter is BellstriderEncounter or (region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT):
 				region.boss_seal.world_status_text_enabled=false
 			region.add_child(region.boss_seal)
 			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
@@ -796,6 +803,8 @@ func _load_stage() -> void:
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER,boss_contact_half)
 		if encounter is WindkeeperEncounter:
 			_boss_contact.contact_rect_provider = encounter.body_contact_rect
+		if encounter is BellstriderEncounter:
+			_boss_contact.contact_test_provider = encounter.body_contact_sweep
 		if encounter is WindkeeperPressureEncounter:
 			_boss_contact.contact_test_provider = encounter.body_contact_sweep
 			_bind_windkeeper_pressure_rewards(encounter)
@@ -978,18 +987,19 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 			stage.reward_position = stage.boss.global_position
 			var defeated_encounter := stage.boss.get_node("Encounter")
 			if defeated_encounter.has_method("reward_stand_position"): stage.reward_position = defeated_encounter.call("reward_stand_position")
-			stage.reward_available = true
+			var bellstrider_reward := defeated_encounter is BellstriderEncounter and connected_region
+			stage.reward_available = not bellstrider_reward
 			if connected_region:
 				var region:=stage as PlainsRegionStage
 				var animate:bool=not region.restored_boss.has("health") or float(region.restored_boss.health)>0
-				region.reward_ready_at=region.clock+(.9 if animate else 0)
+				region.reward_ready_at=region.clock+((defeated_encounter.definition as BellstriderDefinition).death_seconds if bellstrider_reward and animate else .9 if animate else 0)
 				if defeated_encounter is WindkeeperPressureEncounter:
 					region.reward_ready_at = region.clock + (defeated_encounter.definition as WindkeeperPressureDefinition).death_seconds if animate else region.clock
 				region.boss_seal.release()
 				if active_region_id == &"plains" and not defeated_encounter is WindkeeperPressureEncounter: (region.visual_layer as PlainsStageVisual).play_boss_defeat(stage.boss.global_position,director.region_map_index==1,animate)
 
 			if current_reward!=null: _record_reward()
-			if generated_plains:
+			if generated_plains and not bellstrider_reward:
 				(stage as GeneratedDemoStage).show_boss_reward_portal()
 			_status = "Boss defeated. Approach the GOLD gate and confirm to claim." if generated_plains else "Boss defeated. Claim the guaranteed GOLD item to finish."
 			if connected_region and director.region_map_index==1: _status="MINI BOSS CLEAR / approach MAP 2 gate / build and coins carry over"
@@ -997,6 +1007,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	# door policy. Opening an ordinary room must not grant entry-time money.
 	if not generated_plains and stage.enemy != null and (stage.enemy.get_node("Actor") as EnemyActor).health.terminal:
 		wallet.grant(10, _stage_id("combat_coins"))
+	_settle_bellstrider_rewards()
 	_settle_enemy_drops()
 	_flush_actions()
 	# Contact is observed only after this frame's damage batch and queued intents.
@@ -1006,7 +1017,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 			_commit_exit(stage.exits[exit_index].exit_id)
 		elif current_reward != null and current_reward.gold and player.global_position.distance_to(stage.reward_position) < 100:
 			_offer_generated_exit(&"boss_home")
-		elif connected_region and director.region_map_index==1 and stage.reward_available and player.global_position.distance_to(stage.reward_position)<100:
+		elif connected_region and director.region_map_index==1 and stage.reward_available and player.global_position.distance_to(stage.reward_position)<100 and not _bellstrider_coins_pending():
 			_offer_generated_exit(&"boss_home")
 		_rearm_exit_prompts()
 
@@ -2253,6 +2264,23 @@ func _record_boss_shot(_direction: Vector2, shot_id: int) -> void:
 	if generated_plains and _boss_started and _in_boss_core() and lifetime.active:
 		_boss_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = lifetime.actor_epoch
 
+func _record_bellstrider_packet(reason: StringName, packet: int) -> void:
+	# Reserved beam/melee packets have the same resource/provenance contract as
+	# emitted bullets. Admission remains scoped to this live Bellstrider duel.
+	if reason != &"started" or not _live_bellstrider() or not _boss_started or not _in_boss_core() or not lifetime.active:
+		return
+	_boss_eligible_shots["%s:%s" % [controller.session_id, packet]] = lifetime.actor_epoch
+
+func _live_bellstrider() -> bool:
+	return generated_plains and is_instance_valid(stage) and is_instance_valid(stage.boss) and stage.boss.get_node("Encounter") is BellstriderEncounter
+
+func _bellstrider_hook_admitted(context: Dictionary, receiver: Damageable) -> bool:
+	if not _live_bellstrider() or context.get("damage_type", &"") != &"grapple": return false
+	var traversal: TraversalAbility = controller.traversal
+	if traversal.state != &"hook_pull" or not is_instance_valid(traversal.hook_target): return false
+	var spatial := traversal.hook_target.get_node_or_null("Damageable") as Damageable
+	return spatial != null and spatial != receiver and spatial.can_receive_effects() and spatial.damage_policy_owner() == receiver and int(context.get("session_id",-1)) == controller.session_id and int(context.get("attack_id",-1)) == traversal._serial and int(context.get("source_actor_id",0)) == player.get_instance_id() and int(context.get("target_actor_id",-1)) == receiver.actor_id and int(context.get("target_epoch",-1)) == receiver.damage_epoch
+
 func _restore_forest_duel(encounter: BossEncounter, data: Dictionary) -> bool:
 	if not encounter.has_method("valid_duel_snapshot") or not encounter.call("valid_duel_snapshot",data): return false
 	var saved_health: Variant = data.get("health")
@@ -2281,7 +2309,10 @@ func _start_generated_boss() -> void:
 	receiver.damage_sink = func(context: Dictionary) -> bool:
 		var key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
 		var authorized_item := _item_runtime != null and bool(context.get("item_effect_damage", false)) and _item_runtime.authorizes_effect(context, receiver)
-		return _boss_started and _in_boss_core() and lifetime.active and (_boss_eligible_shots.get(key, -1) == lifetime.actor_epoch or authorized_item) and sink.call(context) == true
+		var admitted_packet: bool = _boss_eligible_shots.get(key, -1) == lifetime.actor_epoch
+		if encounter is BellstriderEncounter:
+			admitted_packet = admitted_packet and int(context.get("source_actor_id",0)) == player.get_instance_id() and context.get("source_faction",&"") == &"player" and int(context.get("session_id",-1)) == controller.session_id
+		return _boss_started and _in_boss_core() and lifetime.active and (admitted_packet or authorized_item or _bellstrider_hook_admitted(context, receiver)) and sink.call(context) == true
 	if encounter is WindkeeperEncounter: encounter.intro_seen = _boss_intros_seen.has(encounter.definition.stable_id)
 	_boss_started = encounter.activate()
 	if connected_region and _boss_started:
@@ -2334,7 +2365,8 @@ func _offer_generated_exit(id: StringName) -> bool:
 	_queued_actions.clear()
 	_clear_actions()
 	var summary := "Reward: exploration pickups already collected"
-	if connected_region and director.region_map_index==1: summary="Mini Boss: +12 coins, +1 HP / keep your build / no major ability yet"
+	if connected_region and director.region_map_index==1:
+		summary="Mini Boss: coins from wreck, +1 HP / keep your build / no major ability yet" if _live_bellstrider() else "Mini Boss: +12 coins, +1 HP / keep your build / no major ability yet"
 	if current_reward != null:
 		summary = "Reward: guaranteed GOLD item" if current_reward.gold else "Reward: choose ONE of TWO items"
 	elif simple_reward != null:
@@ -2420,15 +2452,38 @@ func _enter_generated_exit(id: StringName) -> bool:
 		return true
 	return _finish_generated_exit()
 
+func _settle_bellstrider_rewards() -> void:
+	# Called only from the live, epoch-validated frame resolution above. A player
+	# death wins the terminal race before any boss entitlement is materialized.
+	if not connected_region or not _live_bellstrider() or not director.stage_complete or controller.actor_resources.health.terminal: return
+	var encounter := stage.boss.get_node("Encounter") as BellstriderEncounter
+	if not encounter.reward_impact_ready(): return
+	var receipt := BellstriderRewards.settle(stage as PlainsRegionStage, encounter)
+	if receipt.is_empty(): return
+	if not stage.reward_available:
+		stage.reward_available = true
+		(stage as GeneratedDemoStage).show_boss_reward_portal()
+		director.manifest.record_output(director.stage_index, &"bellstrider_reward_spray", receipt)
+
+func _bellstrider_coins_pending() -> bool:
+	if not connected_region or not _live_bellstrider(): return false
+	var source := BellstriderRewards.source_id(stage as PlainsRegionStage)
+	for pickup: Dictionary in stage.pickups:
+		if str(pickup.get("source", "")) == source and not bool(pickup.get("claimed", false)): return true
+	return false
+
 func _advance_region_map() -> bool:
 	if not connected_region or director.region_map_index!=1 or not lifetime.accepts(_reward_token) or controller.actor_resources.health.terminal or not director.stage_complete: return false
 	var encounter:=stage.boss.get_node("Encounter") as BossEncounter
 	if not encounter.health.terminal: return false
 	var id:=StringName(_region_prefix()+"mini_boss/reward")
-	if not wallet.grant(12,id): return false
+	var physical_coins := encounter is BellstriderEncounter
+	if physical_coins:
+		if not encounter.reward_impact_ready() or BellstriderRewards.settle(stage as PlainsRegionStage, encounter).is_empty(): return false
+	elif not wallet.grant(12,id): return false
 	if controller.actor_resources.health.current<controller.actor_resources.health.capacity:
 		SupplyHealEffect.apply(controller.actor_resources.health,1.0,id)
-	director.manifest.record_output(director.stage_index,&"mini_boss_reward",{"coins":12,"heal":1,"major_ability":false})
+	director.manifest.record_output(director.stage_index,&"mini_boss_reward",{"coins":(encounter.definition as BellstriderDefinition).reward_coin_total if physical_coins else 12,"coin_delivery":"physical_pickups" if physical_coins else "portal_grant","heal":1,"major_ability":false})
 	(stage as PlainsRegionStage).capture_state()
 	stage.reward_available=false
 	return director.advance_region_map(_reward_token,StringName(_region_prefix()+"enter_map_2")).accepted()

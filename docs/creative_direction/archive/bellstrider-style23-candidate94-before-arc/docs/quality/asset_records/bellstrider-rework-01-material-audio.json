@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "task_id": "BELLSTRIDER-REWORK-01",
+  "asset_id": "BELLSTRIDER-REWORK-01-MATERIAL-AUDIO",
+  "content_version": "bellstrider-material-01-v1-candidate",
+  "source_path": "assets/audio/bellstrider_01/manifest.json",
+  "source_sha256": "1ce2af2452c4d3c00b59650a3959cb4a13804b8a6e96316134b4c02350148029",
+  "runtime_paths": [
+    "assets/audio/bellstrider_01/armour_hit.wav",
+    "assets/audio/bellstrider_01/weak_hit.wav",
+    "assets/audio/bellstrider_01/roll_warn.wav",
+    "assets/audio/bellstrider_01/roll_warn_double.wav",
+    "assets/audio/bellstrider_01/roll_start.wav",
+    "assets/audio/bellstrider_01/brake.wav",
+    "assets/audio/bellstrider_01/turn.wav",
+    "assets/audio/bellstrider_01/ring_strike.wav",
+    "assets/audio/bellstrider_01/lob_aim.wav",
+    "assets/audio/bellstrider_01/lob_lock.wav",
+    "assets/audio/bellstrider_01/lob_release.wav",
+    "assets/audio/bellstrider_01/lob_impact.wav",
+    "assets/audio/bellstrider_01/phase.wav",
+    "assets/audio/bellstrider_01/death.wav",
+    "assets/audio/bellstrider_01/death_jam.wav",
+    "assets/audio/bellstrider_01/death_impact.wav",
+    "assets/audio/bellstrider_01/death_final.wav"
+  ],
+  "consumer_scripts": [
+    "scripts/audio/bellstrider_audio.gd"
+  ],
+  "tool": "tools/build_bellstrider_01_audio.py; declared ffmpeg filters/trim/layer/peak normalization",
+  "model": "not_applicable: deterministic processing of preserved licensed recordings; no oscillator/noise synthesis",
+  "prompt_or_reference": "assets/audio/bellstrider_01/sources.json; assets/audio/bellstrider_01/recipes.json; original CC0 source pages/licenses and parent derivative recipe/manifest remain explicitly fingerprinted.",
+  "processing": "17 mono48kHz PCM16 WAV derivatives. Exact source/layer/filter/timing/output hashes are retained in the actual manifest. Literal runtime preload set equals the finite17 manifest outputs; every actual WAV is independently hashed. No music/source recordings were replaced.",
+  "usage_scope": "Bellstrider candidate accepted-event battle/impact/death audio only; source registration does not sign listening, mix, natural combat, user/device or G5 acceptance.",
+  "license_status": "verified",
+  "license_source": "Existing CC0-1.0 originals/source pages/licenses retained by the parent source records and associated exact files. This is a derivative-processing custody claim, not a new license instrument.",
+  "visual_status": "unverified",
+  "audio_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/audio/bellstrider_01/armour_hit.wav",
+      "sha256": "fca0119122750b0a165beb455260211c7dd24c2e0318c1e7089e4a97d9a92640",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/weak_hit.wav",
+      "sha256": "ce5c98844469947bb3db099adc99b38147150121440088f016355b33512b7cc7",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/roll_warn.wav",
+      "sha256": "b6c337a0c34fff9fb5679486415a3effc26ff9bc1b9ad1346389a8c9e57bd7e1",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/roll_warn_double.wav",
+      "sha256": "e3dd253d8824558f3169e2bf41b95733861069164ab888704a94802e397038c1",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/roll_start.wav",
+      "sha256": "6ceb38e0988b1fc8aa033c56185a11f6ca3431fb4ab0ef7f2545ef193a0aa984",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/brake.wav",
+      "sha256": "846a47590986af54e698d4e035d30c2477643fb5352434c5381381ce5413eb49",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/turn.wav",
+      "sha256": "b1a918eca7c96e86b72ec1d563d3eddaf71581e262847e472ad844810024450c",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/ring_strike.wav",
+      "sha256": "8aca989567a3831a71decbcac49c54e78a42c607789508572d6750831620d0a0",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/lob_aim.wav",
+      "sha256": "2a2eccc16014bea909d751dcfb2f87d0df8780c421e28537d406880d5a384c98",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/lob_lock.wav",
+      "sha256": "372652931bbfd459ec824682c62164dd9e0189c1c486efd84a4c80ffb9df7bd5",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/lob_release.wav",
+      "sha256": "930fb4f6ee7dee5200001bc206b948dcd9a751bb25a81872069ee3a9ff88b424",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/lob_impact.wav",
+      "sha256": "76e3598ebd5783097edf58c307ddd7250d41328539f6d5453f97c0256d4d2922",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/phase.wav",
+      "sha256": "319fd02aa45bf6e2f83dd83a89f2acd7b1e175fb17e48a7fd7291f327f1749d0",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/death.wav",
+      "sha256": "852355e0c5b266584dec67edca475a0f4281f33183afb5c4dfb0b2a17b7b60fa",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/death_jam.wav",
+      "sha256": "2efab9f93d3d61f10bbcc52e284707ae48c2819af4656aa20e855618cd8649d1",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/death_impact.wav",
+      "sha256": "5831b385e25153cd16ba59af3aa1a67f42a376b7b8cbb14a453206c1137c01e6",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/death_final.wav",
+      "sha256": "99ffd4bfe740166ddd9a366ce25ab53b1d1f29e46f88f68a22fbb99d9b2ac101",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/sources.json",
+      "sha256": "5fd7adffeff44cb84485ee41a9f7585ad2bef23f15f78557aa5bfc6098f43763",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/recipes.json",
+      "sha256": "8e95a2f74e960b748bb2f556aaaa982fa91940e768681ce584ab59618072c4e9",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/bellstrider_01/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "source_contract"
+    },
+    {
+      "path": "tools/build_bellstrider_01_audio.py",
+      "sha256": "90ef411d76e8e31edcdd30849806ba938df16ef35f55fef2c393c5ec49b7104e",
+      "role": "processing_record"
+    },
+    {
+      "path": "scripts/audio/bellstrider_audio.gd",
+      "sha256": "0b4177f6ecd6e59e1fae9aacbd3c2a078d178e2aca8a448c19b9394ba311cb05",
+      "role": "source_contract"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "sha256": "3bc284e497a8796a185f842070160b4184d1b7cb69965acc52344f83b5ac244f",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/hit/bfh1_hit_03.ogg",
+      "sha256": "91ef5562417a631bdb306d3c70ec7d33a2d418f5266c1488695a993877af21f9",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/hit/source-page.html",
+      "sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/material/metal_hit_01.ogg",
+      "sha256": "f5fd185fce454947c1d91ce6757e219c4d7c6c139d4aa9d419cd7a79c7f6df3b",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/material/source-page.html",
+      "sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/material/metal_hit_02.ogg",
+      "sha256": "9074c0828727bd00834cabcaaf5b8cbff2cfad7b45676b95d86c0919e444f8b1",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/material/wood_hit_01.ogg",
+      "sha256": "cf3211d80094cd363e8e56906ad42a8baf10f31ef9e197f3f63464a957bade3a",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_breaking_01.ogg",
+      "sha256": "a714412c46a3409b0de3f10c681f780f534eb81b4b95522ab1f666ec3cbcf900",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/hit/source-page.html",
+      "sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_breaking_03.ogg",
+      "sha256": "3ad487a133b2d9641c92f8d7041c23f4e342eb6e5f89cdf35348c2486c25f1f1",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/plains_chime_a.wav",
+      "sha256": "1a7d4d8818d1cbd04c3d87aa1294cc2e5a53298fd9ece0e8929981e4296f15fc",
+      "role": "reference"
+    },
+    {
+      "path": "config/audio_director/ambience/recipes.json",
+      "sha256": "bb8e68c940fd89c8e8496e4e02d2bc06d03d35b7c0973d6c26189b4b1027ee34",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/manifest.json",
+      "sha256": "70ec7a2ade5ab5c5a514598a182a31eaca37f56d61a7d1693595399f080ab918",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/bell-dingschimes.html",
+      "sha256": "080cd6cfd39aa7dab540fed97f6d052b59adc7780f19f176be3e232c7dcac14f",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "source_contract"
+    }
+  ]
+}

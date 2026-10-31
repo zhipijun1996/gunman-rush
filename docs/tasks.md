@@ -16,6 +16,12 @@
 
 # 开发任务
 
+## 2026-10-30 BELLSTRIDER-REWORK-01 · 鸣铃巡游机完整迭代
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| BELLSTRIDER-REWORK-01 | 40HP上端唯一弱点、三招与回冲、机械失效/实体奖励、正式原声实战与工坊审核 | — | review | [制作卡](worklines/bellstrider_rework_01/spec.md) · [证据](evidence/bellstrider_rework_01/README.md) · [质量记录](quality/records/BELLSTRIDER-REWORK-01.json) |
+
 ## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入
 
 | 任务 | 目标 | 依赖 | 状态 | 证据 |
@@ -709,3 +715,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | MONSTER-LEGACY-SCOPE-01 | 冻结历史森林回放保留manual，同时真实当前registry/App守门默认一换一 | PLAINS-MONSTER-REVISION-01 | review | 精确d431独审＋reader48／0；当前registry88／0已实际通过，完整903 CI166 fresh；旧280／2manual延期不记通过，原检查/预算保留 |
 | MONSTER-PLANNER-SCOPE-01 | planner清单守门适配：保原四摘要与两lane | PLAINS-MONSTER-REVISION-01 | review | 精确a72a独审，原21suite＋18反例通过；四旧SHA与literal74/85保留，完整903 CI166 fresh与汇总通过 |
+
+| MAIN-UNIFY-20261031 | 整合122与107到含124/125的main，排除123，冻结架构底座 | CI-CURRENT-01 | in_progress | [范围](worklines/main_unify_20261031/scope.md)；不夹带旧架构候选，已知CI失败保留 |

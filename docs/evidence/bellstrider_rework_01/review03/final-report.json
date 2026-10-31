@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T135815.691088Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "bellstrider-rework-01",
+      "argv": [
+        "python3",
+        "tools/run_bellstrider_rework_01_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "ae7916a65dc1a13174357e2b60e273b0973d1888a1d438c3103f5b58b59878d8",
+      "log": "bellstrider-rework-01.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793368701.7220907,
+      "ended_at_unix": 1793368853.817931,
+      "duration_seconds": 152.096,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_bellstrider_rework_01_tests.py"
+      ],
+      "check_token": "408b1764c4af4277a1f82674c99d824c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T135815.691088Z/artifacts/bellstrider-rework-01",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "39e9caf79ce579061b9418b7605de5980fc65e9f126052650262c84143f63b37",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793368857.5462885,
+      "ended_at_unix": 1793368873.9485319,
+      "duration_seconds": 16.402,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "a1f2ec1905af4f198fec18176ae0a8ad",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T135815.691088Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "0b0d89c2f31472d1d012087345a9ca33f4f0d1789510fd85d9f128696eee79f5",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793368875.4285877,
+      "ended_at_unix": 1793368875.7590332,
+      "duration_seconds": 0.33,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "66368f7f4a8e40de9664c7393fb09522",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T135815.691088Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "55231667a2d7e215c1c30c1766069b0b19bac4a1d3060c2a052aae2e0d8e0960",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793368876.6005235,
+      "ended_at_unix": 1793368876.934496,
+      "duration_seconds": 0.334,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "686aba005d574a5499398c8485f90789",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T135815.691088Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c97cfcf96768c0f57f37cf50c31a0a94288fa60407cd8955c895d9e6aeec73d7",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793368877.7971249,
+      "ended_at_unix": 1793368881.3966892,
+      "duration_seconds": 3.6,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "0822325cb1db4527911bdb3be34dae20",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T135815.691088Z/artifacts/creative-direction-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "55f32950f8d67ce42bdd5066c285ef3ecfcfd4f19293ad895792db3aa4dfa7c1",
+  "working_files": {
+    "docs/evidence/bellstrider_rework_01/review03/before-overlap.png": "d4b25c021df17923f4191c8c0e2fe47f676f071716d1013820242eee60d2de1d",
+    "docs/evidence/bellstrider_rework_01/review03/before.log": "0e94cd8573c1508400ebaff1be06f9e8f18556c064075405faa6fcbd77d37a09",
+    "docs/evidence/bellstrider_rework_01/review03/binding-delta.json": "cc414fe90820e9e71d3e5e6614747ab7aebfa15e918d2900c40e3ea886baf05e",
+    "docs/evidence/bellstrider_rework_01/review03/contact-01.log": "a8709fc321865cf2a81d9ed1eb36e34247a8b913fb2a2a65af24378ea9f74908",
+    "docs/evidence/bellstrider_rework_01/review03/development-probe.gd.txt": "74786e4fb0ab971797dc7c5c3df0b70effe9d35dfcc128bbfb0d6c4778f65ddb",
+    "docs/evidence/bellstrider_rework_01/review03/initial-independent-audit.md": "4767b56f47d98128b88885fef55a2c4ed7e3de08621f9be1b9bbbba5953ea41c",
+    "docs/evidence/bellstrider_rework_01/review03/thrown-probe-01.log": "f482d3efeaa132d727cef808401b3ba997b4c0844f52844a5b4cc1667e68541a",
+    "docs/evidence/bellstrider_rework_01/review03/thrown-probe-02.log": "41c2a27e04963089d7b97b30734f115622fff249afa44150dd4ea4be30fa33ab",
+    "docs/evidence/bellstrider_rework_01/review03/thrown-probe-03.log": "b8c996468d156589f970e857e1ff1eb731de5debb83bb0be13f12b829207e428",
+    "docs/evidence/bellstrider_rework_01/review03/thrown-probe-04.log": "90a4bd4ef491c1e897f4cc909469d54b57b6fc837907b3b426148f335c780e4c",
+    "docs/evidence/bellstrider_rework_01/review03/thrown-probe-05.log": "25275546b49202f815051b8f23b79363fc0db8ab52f164171a464131c3853e46",
+    "docs/worklines/bellstrider_rework_01/review_03.md": "e759a66a773a3e997e698b57ab8d18ff3532df787629707c48bad7ec96b28cb5"
+  },
+  "commit": "d0b0272f7d654e76a87539ee48db3b93db2f40db",
+  "git_status": "?? docs/evidence/bellstrider_rework_01/review03/\n?? docs/worklines/bellstrider_rework_01/review_03.md",
+  "diff": "",
+  "untracked": "docs/evidence/bellstrider_rework_01/review03/before-overlap.png\ndocs/evidence/bellstrider_rework_01/review03/before.log\ndocs/evidence/bellstrider_rework_01/review03/binding-delta.json\ndocs/evidence/bellstrider_rework_01/review03/contact-01.log\ndocs/evidence/bellstrider_rework_01/review03/development-probe.gd.txt\ndocs/evidence/bellstrider_rework_01/review03/initial-independent-audit.md\ndocs/evidence/bellstrider_rework_01/review03/thrown-probe-01.log\ndocs/evidence/bellstrider_rework_01/review03/thrown-probe-02.log\ndocs/evidence/bellstrider_rework_01/review03/thrown-probe-03.log\ndocs/evidence/bellstrider_rework_01/review03/thrown-probe-04.log\ndocs/evidence/bellstrider_rework_01/review03/thrown-probe-05.log\ndocs/worklines/bellstrider_rework_01/review_03.md",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 189.319,
+  "jobs": 1,
+  "release": false
+}

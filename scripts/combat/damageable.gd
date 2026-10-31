@@ -32,6 +32,18 @@ func reset() -> void:
 func impact_style() -> StringName:
 	return &"ordinary"
 
+## Physical armour can block shots without occupying an area-effect cooldown.
+func can_receive_effects() -> bool:
+	return active
+
+## Keep spatial receiver and the single frame-policy/HP owner distinct.
+func damage_policy_owner() -> Damageable:
+	return self
+
+## Cosmetic contact is separate from damage authorization and effect budgets.
+func physical_impact(_point: Vector2) -> void:
+	pass
+
 func receive_damage(context: Dictionary) -> bool:
 	var event_id: String = str(context.get("event_id", ""))
 	var amount: float = float(context.get("amount", 0.0))

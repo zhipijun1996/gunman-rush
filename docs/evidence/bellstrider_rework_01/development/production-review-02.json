@@ -1,0 +1,351 @@
+{
+  "task_id": "BELLSTRIDER-REWORK-01",
+  "reviewer": "/root/guard_review_recovery",
+  "independent_production_review": true,
+  "production_authors": [
+    "/root",
+    "/root/bellstrider_combat",
+    "/root/bellstrider_art",
+    "/root/bellstrider_audio"
+  ],
+  "new_weapon_routes_author": "/root/boss_motion",
+  "excluded_own_test": "tests/bellstrider_rework_01/damage_policy.gd; reviewer authored it, no independent pass signed",
+  "source_commit_base": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "source_status": "Dirty development working snapshots, exact leaves bound; not a clean frozen build and not full CI",
+  "source_sha256": {
+    "scripts/bosses/bellstrider_encounter.gd": "0bd3149c1e41b880817c386bc098dab11ca206e1b1fc3f744cf854dbfb8af6e0",
+    "scripts/bosses/bellstrider_rig_pose.gd": "b2a1528a4ab6e053a46beaf4085c81889af165a98f95de2d6f157f8dd40d7eae",
+    "scripts/bosses/bellstrider_presentation.gd": "3bc284e497a8796a185f842070160b4184d1b7cb69965acc52344f83b5ac244f",
+    "scripts/bosses/boss_arrival_presentation.gd": "a43c0ae1570c6a5899f1f9c1f5c6c28ec4993c2a8f7d534f4283ec741fa238e7",
+    "scripts/bosses/windkeeper_damageable.gd": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+    "scripts/demo/demo_app.gd": "ee7afe5e51a1109ac6a93966aba05c14d61aa6f4a163a6d2b6560cf54b361d8d",
+    "scripts/demo/plains_region_stage.gd": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0",
+    "scripts/combat/damageable.gd": "6818f7d9744459eada05175b84aedb6c5f3a880d68dfb701c03b4c30ac27c31c",
+    "scripts/combat/weapon_action_runtime.gd": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6",
+    "scripts/items/v5/item_runtime.gd": "633b7cb86ae3fcf23c659cc29eb8951a501ff4c91f30cebac9ba0001b08993cb",
+    "scripts/items/v5/item_active_effects.gd": "c3298d223742f53d28aeb815d3e301fbf654a183063aa15f35087e45bcda9299",
+    "scripts/items/v5/item_combat_effects.gd": "14f4f00199d21da1caf60277b44136cc748243c7f93597231397bfaef07920db",
+    "scripts/items/v5/item_companion_effects.gd": "2cf6a64ab8f78533030d1fc528a18d387f849dc838d77197b72a8e5072ab6c98",
+    "scripts/player/traversal_ability.gd": "36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369",
+    "scripts/audio/game_audio.gd": "ee0f19f1e813a04810972dd9d19607f91c81ba427495b7dc1182d51245da0f73",
+    "tests/bellstrider_rework_01/weapon_routes.gd": "751d813549325630ae5af3c3004f928b7ec6090d3aef52347ab71172e37d9a5b",
+    "tests/bellstrider_rework_01/rewards_runner.gd": "2f770021fa6c06ea11ea01803719d1822dbdfd08bf03dc7b8b9d2ce27bbdb801",
+    "tests/bellstrider_rework_01/audio_pool.gd": "fdd29d6b69f09df5952c3ecccf2a043e332f277b5d426b50c5a3a76e2247cf94"
+  },
+  "capture_source_comparison": {
+    "scripts/bosses/bellstrider_encounter.gd": {
+      "capture_sha256": "0bd3149c1e41b880817c386bc098dab11ca206e1b1fc3f744cf854dbfb8af6e0",
+      "review_sha256": "0bd3149c1e41b880817c386bc098dab11ca206e1b1fc3f744cf854dbfb8af6e0",
+      "equal": true
+    },
+    "scripts/bosses/bellstrider_rig_pose.gd": {
+      "capture_sha256": "b2a1528a4ab6e053a46beaf4085c81889af165a98f95de2d6f157f8dd40d7eae",
+      "review_sha256": "b2a1528a4ab6e053a46beaf4085c81889af165a98f95de2d6f157f8dd40d7eae",
+      "equal": true
+    },
+    "scripts/bosses/bellstrider_presentation.gd": {
+      "capture_sha256": "cd6d762ebc04496fd6019fc74e0c049eee9c44ca5123cc249a3be1018a7d4dc9",
+      "review_sha256": "3bc284e497a8796a185f842070160b4184d1b7cb69965acc52344f83b5ac244f",
+      "equal": false
+    },
+    "scripts/bosses/boss_arrival_presentation.gd": {
+      "capture_sha256": "a43c0ae1570c6a5899f1f9c1f5c6c28ec4993c2a8f7d534f4283ec741fa238e7",
+      "review_sha256": "a43c0ae1570c6a5899f1f9c1f5c6c28ec4993c2a8f7d534f4283ec741fa238e7",
+      "equal": true
+    },
+    "scripts/bosses/windkeeper_damageable.gd": {
+      "capture_sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+      "review_sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+      "equal": true
+    },
+    "scripts/demo/demo_app.gd": {
+      "capture_sha256": "d8b0a05884f2cbb35fc1a7b87f3e4532767832221a85a9d214e57eb72867be75",
+      "review_sha256": "ee7afe5e51a1109ac6a93966aba05c14d61aa6f4a163a6d2b6560cf54b361d8d",
+      "equal": false
+    },
+    "scripts/demo/plains_region_stage.gd": {
+      "capture_sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0",
+      "review_sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0",
+      "equal": true
+    },
+    "scripts/combat/damageable.gd": {
+      "capture_sha256": "6818f7d9744459eada05175b84aedb6c5f3a880d68dfb701c03b4c30ac27c31c",
+      "review_sha256": "6818f7d9744459eada05175b84aedb6c5f3a880d68dfb701c03b4c30ac27c31c",
+      "equal": true
+    },
+    "scripts/combat/weapon_action_runtime.gd": {
+      "capture_sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6",
+      "review_sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6",
+      "equal": true
+    },
+    "scripts/items/v5/item_runtime.gd": {
+      "capture_sha256": "633b7cb86ae3fcf23c659cc29eb8951a501ff4c91f30cebac9ba0001b08993cb",
+      "review_sha256": "633b7cb86ae3fcf23c659cc29eb8951a501ff4c91f30cebac9ba0001b08993cb",
+      "equal": true
+    },
+    "scripts/items/v5/item_active_effects.gd": {
+      "capture_sha256": "c3298d223742f53d28aeb815d3e301fbf654a183063aa15f35087e45bcda9299",
+      "review_sha256": "c3298d223742f53d28aeb815d3e301fbf654a183063aa15f35087e45bcda9299",
+      "equal": true
+    },
+    "scripts/items/v5/item_combat_effects.gd": {
+      "capture_sha256": "14f4f00199d21da1caf60277b44136cc748243c7f93597231397bfaef07920db",
+      "review_sha256": "14f4f00199d21da1caf60277b44136cc748243c7f93597231397bfaef07920db",
+      "equal": true
+    },
+    "scripts/items/v5/item_companion_effects.gd": {
+      "capture_sha256": "2cf6a64ab8f78533030d1fc528a18d387f849dc838d77197b72a8e5072ab6c98",
+      "review_sha256": "2cf6a64ab8f78533030d1fc528a18d387f849dc838d77197b72a8e5072ab6c98",
+      "equal": true
+    },
+    "scripts/player/traversal_ability.gd": {
+      "capture_sha256": "36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369",
+      "review_sha256": "36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369",
+      "equal": true
+    },
+    "scripts/audio/game_audio.gd": {
+      "capture_sha256": "ee0f19f1e813a04810972dd9d19607f91c81ba427495b7dc1182d51245da0f73",
+      "review_sha256": "ee0f19f1e813a04810972dd9d19607f91c81ba427495b7dc1182d51245da0f73",
+      "equal": true
+    }
+  },
+  "checks": [
+    {
+      "id": "failed_capture_retained",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_MP4_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_AVI_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "external_inventory_equal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "external_git_meta_equal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "driver_trace_missing_not_source_pass",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_GPU_movie_format",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "observed_native_marker/native-weapon-routes-02.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "observed_native_strict_clean/native-weapon-routes-02.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "observed_native_marker/native-rewards-03.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "observed_native_strict_clean/native-rewards-03.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "observed_native_marker/native-audio-pool-04.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "observed_native_strict_clean/native-audio-pool-04.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_routes_report_88",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_core_hook_40to39",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_armour_hook_40to40",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_bomb_40to38_oneburst",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_live_boomerang_40to38",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "real_context/18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "real_context/19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "real_context/20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "route_observer_preserves_sink_result",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "honest_fixture_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "route_uncovered_all15_explicit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terminal_prepare_before_health_configure",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terminal_prepare_no_death_event",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terminal_restore_guard_no_replay",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terminal_restore_flags_recovered",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "Bell_scoped_arrival_exit_source_reset",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "checks_passed": 29,
+  "checks_failed": 0,
+  "native_evidence_observed_not_rerun": {
+    "native-weapon-routes-02.log": {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/native-weapon-routes-02.log",
+      "sha256": "8bb6b17fc118c8ed85d1ba8b5d3871658e6e806d2d46f6066f56df4c84ce66cf",
+      "marker": "BELLSTRIDER WEAPON ROUTES: 88 checks, 0 failures",
+      "executed_by_reviewer": false
+    },
+    "native-rewards-03.log": {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/native-rewards-03.log",
+      "sha256": "caafdc7ae90804685d9fbee42a4ccee14c30c0cc8a568888cbdd4954187ccd19",
+      "marker": "BELLSTRIDER_REWARDS checks=37 failures=0",
+      "executed_by_reviewer": false
+    },
+    "native-audio-pool-04.log": {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/native-audio-pool-04.log",
+      "sha256": "6aa0cac4d453ae6a32a87a66dbb9d40818af7c120cb925c009c4472c23ad959e",
+      "marker": "BELLSTRIDER_AUDIO_POOL assertions=85 failures=0",
+      "executed_by_reviewer": false
+    }
+  },
+  "capture": {
+    "path": "/workspace/gunman-rush/build/bellstrider_rework_01/capture-01/review.mp4",
+    "sha256": "704369549fb67719d84b613defd6ab3b90b670569361cd64a366c25dfb1e0dd2",
+    "status": "failed_attempt_retained",
+    "duration": "70.766667",
+    "frames": "4246",
+    "external_inventory_count": 32025,
+    "external_inventory_and_git_equal": true,
+    "driver_trace_count": 0,
+    "driver_and_player_failure": true,
+    "strict_final_acceptance": false
+  },
+  "viewed_actual_GPU_frames": [
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/capture-01/probe-04.png",
+      "sha256": "ccf88c37722bb28e786e9b3a5e3b8f04a8a400883fdb3845e3e9a778d70db034"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/capture-01/probe-15.png",
+      "sha256": "994e21f575e85a36492780b1b9a83fb5a4a50c9982d8631c84e9e406e065c110"
+    },
+    {
+      "path": "/tmp/bellstrider-review-02-frame07.png",
+      "sha256": "585d9ff740a8d5c8912c6cdaa5cdbc18a318563d657be087b7d9a1033c0507bb"
+    },
+    {
+      "path": "/tmp/bellstrider-review-02-frame11.png",
+      "sha256": "e1c7207b3cd56ad46cd977f1238625263dfad8def8f16397ab0a45d6658ca2b2"
+    },
+    {
+      "path": "/tmp/bellstrider-review-02-frame19.png",
+      "sha256": "6b6e8dd25e08855b1a31c8bfc18c94368bfd0d1023c382b456ccc25015fd093d"
+    }
+  ],
+  "arrival_anchor": {
+    "bell_scoped_exit_reset_implemented": true,
+    "reviewed_source_has_independent_subject_offset": true,
+    "skip_enters_observe_immediately": true,
+    "max_intro_x_world_units": 18.0,
+    "residual_after_one_60hz_decay_tick_world_units": 8.0,
+    "verdict": "ACCEPT_SCOPED_SOURCE_FIX_NATIVE_PENDING",
+    "note": "Original generic arrival can leave a rendered offset after skip. Current Bell-specific objective_changed callback resets position synchronously before subsequent shape update; source correction accepted. Need actual skip/pause/firsthittick exact world proof."
+  },
+  "verdicts": {
+    "canonical_damage_hook_packet_routing": "ACCEPT_BOUNDED_SOURCE_AND_OTHER_AUTHOR_NATIVE_EVIDENCE",
+    "terminal_restore": "ACCEPT_BOUNDED_SOURCE_AND_OBSERVED37_TEST_EVIDENCE",
+    "paused_audio_origin_release": "ACCEPT_BOUNDED_SOURCE_AND_OBSERVED85_TEST_EVIDENCE",
+    "visual_readability": "PROMISING_PROTOTYPE_ONLY_REQUIRES_CURRENT_CONTINUOUS_GOLDEN",
+    "shared_visual_geometry_after_skip": "SOURCE_FIX_ACCEPTED_NATIVE_EXACT_WORLD_PROOF_PENDING",
+    "G4": "UNVERIFIED_current_complete_fight_missing"
+  },
+  "visual_findings": [
+    "Upper main bell is the brightest singular focal point and is separated from chassis; actual warning/recovery frames show visible bell/mast/chassis articulation and no old central-core overlay.",
+    "Nearest filtering and one-world-unit local drawing preserve broadly compatible grain; flat hull plate shading is more graphic/matte than patinated bell and textured region, so a material pass should be judged in a current golden rather than signed from reused PNG hashes.",
+    "Normal ground-sized player versus raised bell remains visually legible, but sparse failed-capture frames do not prove precise collider correspondence or fair two-shot ground access.",
+    "Historical capture HUD crowding/overlap has a known subsequent source fix; current render must verify it, not relabel historical frame as current.",
+    "Capture01 does not show a successful full fight/phase2/death/drop review and cannot pass current G4."
+  ],
+  "coverage_limits": [
+    "Not all15 weapons/Lv3 skills; route fixtures cover grapple,bomb,boomerang; own pulse/beam test acceptance excluded.",
+    "Hook source fixture demonstrates real policy admission/protection scope, but not naturally emitted attack or identical-pose unprotected body overlap.",
+    "Airborne position fixtures can preserve first-tick _was_grounded cache; no natural air-resource/recoil budget inferred.",
+    "No listening, device, economics, user or G1-G5 pass from this review."
+  ],
+  "commands": [
+    "python3 /tmp/review_bellstrider_02.py > /tmp/bellstrider-review-02-pure.log",
+    "ffmpeg -hide_banner -loglevel error -ss 7 -i build/bellstrider_rework_01/capture-01/review.mp4 -frames:v 1 /tmp/bellstrider-review-02-frame07.png",
+    "ffmpeg -hide_banner -loglevel error -ss 11 -i build/bellstrider_rework_01/capture-01/review.mp4 -frames:v 1 /tmp/bellstrider-review-02-frame11.png",
+    "ffmpeg -hide_banner -loglevel error -ss 19 -i build/bellstrider_rework_01/capture-01/review.mp4 -frames:v 1 /tmp/bellstrider-review-02-frame19.png"
+  ]
+}

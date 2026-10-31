@@ -1,0 +1,374 @@
+{
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root",
+    "/root/bellstrider_combat",
+    "/root/boss_motion",
+    "audio/binding implementation agents"
+  ],
+  "independence": "No reviewed production authored by reviewer. Reviewer-authored damage_policy.gd and86/0 explicitly excluded.",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "source_state": "Uncommitted working tree; leaf SHA bound, not Git-clean/native-current receipt.",
+  "verdict": "BOUNDED_SOURCE_PREFLIGHT_ACCEPT",
+  "checks": [
+    {
+      "check": "HEAD is declared pre-iteration main baseline; current review is dirty leaf-bound",
+      "passed": true
+    },
+    {
+      "check": "real hull consumes shared painted polygon",
+      "passed": true
+    },
+    {
+      "check": "eight hull vertices",
+      "passed": true
+    },
+    {
+      "check": "wheel siblings deferred until parent is ready",
+      "passed": true
+    },
+    {
+      "check": "hull and contact follow body transform",
+      "passed": true
+    },
+    {
+      "check": "both physical wheels follow rig transforms",
+      "passed": true
+    },
+    {
+      "check": "actual upper core follows rendered bell transform",
+      "passed": true
+    },
+    {
+      "check": "physical geometry is disabled outside admitted combat",
+      "passed": true
+    },
+    {
+      "check": "far prelude exits before RNG and group commit",
+      "passed": true
+    },
+    {
+      "check": "half health in empty approach immediately enters phase transition",
+      "passed": true
+    },
+    {
+      "check": "phase threshold based only on actual health",
+      "passed": true
+    },
+    {
+      "check": "selected plan freezes phase, count and return selection before warning",
+      "passed": true
+    },
+    {
+      "check": "roll speed uses selected group phase",
+      "passed": true
+    },
+    {
+      "check": "half threshold never modifies selected attack before its completion",
+      "passed": true
+    },
+    {
+      "check": "metrics not used as action conditions",
+      "passed": true
+    },
+    {
+      "check": "accepted hit callback cannot restart action timers",
+      "passed": true
+    },
+    {
+      "check": "physics rejects invalid and zero delta",
+      "passed": true
+    },
+    {
+      "check": "launcher tracks only aim phase then locks",
+      "passed": true
+    },
+    {
+      "check": "actual launch uses sampled muzzle tip",
+      "passed": true
+    },
+    {
+      "check": "terrain lookup uses player foot without Boss-centre clamp",
+      "passed": true
+    },
+    {
+      "check": "lob duration has raised and lower-platform branches",
+      "passed": true
+    },
+    {
+      "check": "projectile is bound before scene insertion",
+      "passed": true
+    },
+    {
+      "check": "impact closure captures epoch and validates lifetime",
+      "passed": true
+    },
+    {
+      "check": "scripts/bosses/bellstrider_bell_projectile.gd: actual attack ownership includes weakref, active, terminal and epoch",
+      "passed": true
+    },
+    {
+      "check": "scripts/bosses/bellstrider_bell_projectile.gd: frozen contacts obey epoch",
+      "passed": true
+    },
+    {
+      "check": "scripts/bosses/bellstrider_ring_projectile.gd: actual attack ownership includes weakref, active, terminal and epoch",
+      "passed": true
+    },
+    {
+      "check": "scripts/bosses/bellstrider_ring_projectile.gd: frozen contacts obey epoch",
+      "passed": true
+    },
+    {
+      "check": "local shock actual and visible extents both14 high",
+      "passed": true
+    },
+    {
+      "check": "lob physical first contact and one impact",
+      "passed": true
+    },
+    {
+      "check": "death immediately clears attacks/contact/movement",
+      "passed": true
+    },
+    {
+      "check": "three bounded death layers emitted once",
+      "passed": true
+    },
+    {
+      "check": "restore clears old attack epoch, restores group and no attack closures",
+      "passed": true
+    },
+    {
+      "check": "presentation restores old motion + audio current epoch without cue replay",
+      "passed": true
+    },
+    {
+      "check": "audio restored terminal keeps future death layers only",
+      "passed": true
+    },
+    {
+      "check": "terminal restore disables encounter before Health rebuild",
+      "passed": true
+    },
+    {
+      "check": "armour root refuses damage; core delegates canonical sink",
+      "passed": true
+    },
+    {
+      "check": "live Bell packet proof requires actual actor faction session",
+      "passed": true
+    },
+    {
+      "check": "hook proof requires actual pull target + canonical ownership",
+      "passed": true
+    },
+    {
+      "check": "reward lifecycle owns terminal priority and impact gate",
+      "passed": true
+    },
+    {
+      "check": "physical rewards idempotent and body-centred",
+      "passed": true
+    },
+    {
+      "check": "portal cannot double-grant old12 coins for Bell",
+      "passed": true
+    },
+    {
+      "check": "new native helper rejects all anchored engine errors",
+      "passed": true
+    },
+    {
+      "check": "strict parent run_engine rejects script shader errors",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: scripts/player/player_motor.gd",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: scripts/player/jump_ability.gd",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: scripts/player/player_controller.gd",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: scripts/player/player_tuning.gd",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: resources/player/plains_shot_energy.tres",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: resources/player/combat_energy.tres",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: resources/player/traversal.tres",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: assets/underworld_plains/actors/bellstrider.png",
+      "passed": true
+    },
+    {
+      "check": "original bytes preserved: assets/underworld_plains/actors/bell.png",
+      "passed": true
+    },
+    {
+      "check": "observed clean prior native log: build/bellstrider_rework_01/native-combat-final-01.log",
+      "passed": true
+    },
+    {
+      "check": "observed clean prior native log: build/bellstrider_rework_01/native-audio-pool-07.log",
+      "passed": true
+    },
+    {
+      "check": "failed parent-busy/leak run retained without reclassification",
+      "passed": true
+    }
+  ],
+  "passed": 55,
+  "failed": 0,
+  "reviewed_files": [
+    {
+      "path": "docs/worklines/bellstrider_rework_01/spec.md",
+      "sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_encounter.gd",
+      "sha256": "0e0af6e291289cab6b865cb1500905a8c07ba42418714a06f2ed65b5e9bba521"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_definition.gd",
+      "sha256": "10d6c8c521f0dba98724b52ede9a4d731cf9a3e294296eba15442c3c429a3a58"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_rig_pose.gd",
+      "sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_bell_projectile.gd",
+      "sha256": "b6705efc52ddd3a9f2baf5a2e3e0818a847c0756f9cdd437f2e10dcd41a310d2"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_ring_projectile.gd",
+      "sha256": "f7a0f7e1635a17f01ec808833ac460406c836858f28102a9d6c960693d4796d2"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_damageable.gd",
+      "sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_encounter.gd",
+      "sha256": "432d6cb2441ef740e6ed5b16241494b58ca74bec3464051e21d2bec813cf9e24"
+    },
+    {
+      "path": "scripts/combat/damageable.gd",
+      "sha256": "6818f7d9744459eada05175b84aedb6c5f3a880d68dfb701c03b4c30ac27c31c"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6"
+    },
+    {
+      "path": "scripts/items/v5/item_runtime.gd",
+      "sha256": "633b7cb86ae3fcf23c659cc29eb8951a501ff4c91f30cebac9ba0001b08993cb"
+    },
+    {
+      "path": "scripts/items/v5/item_active_effects.gd",
+      "sha256": "c3298d223742f53d28aeb815d3e301fbf654a183063aa15f35087e45bcda9299"
+    },
+    {
+      "path": "scripts/items/v5/item_combat_effects.gd",
+      "sha256": "14f4f00199d21da1caf60277b44136cc748243c7f93597231397bfaef07920db"
+    },
+    {
+      "path": "scripts/items/v5/item_companion_effects.gd",
+      "sha256": "2cf6a64ab8f78533030d1fc528a18d387f849dc838d77197b72a8e5072ab6c98"
+    },
+    {
+      "path": "scripts/player/traversal_ability.gd",
+      "sha256": "36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "sha256": "ee0f19f1e813a04810972dd9d19607f91c81ba427495b7dc1182d51245da0f73"
+    },
+    {
+      "path": "scripts/audio/bellstrider_audio.gd",
+      "sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "21a322e3a89ef0be4b4a445dd3bc431e026814f25a3f072ced0442707219b6ae"
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0"
+    },
+    {
+      "path": "scripts/rewards/bellstrider_rewards.gd",
+      "sha256": "1319091e7a12fd1277b4033aa786d64b77aefb496c50616d85a36937ccaf3261"
+    },
+    {
+      "path": "scripts/ui/windkeeper_hud.gd",
+      "sha256": "ce67bcf73a69d0d62b1ef18cec98a33247fa17486fe0a54369ce077579252332"
+    },
+    {
+      "path": "scripts/art/plains_stage_visual.gd",
+      "sha256": "3297c21997fe0cddc54502474df4cc4259d17b5c350f84cd07ced71ae850d5a9"
+    },
+    {
+      "path": "resources/bosses/bellstrider.tres",
+      "sha256": "ddeed0868df8c84fb421eacfeb98c7940dd0b8ab5d60780f9a5f16769c9e8de1"
+    },
+    {
+      "path": "resources/bosses/bellstrider_health.tres",
+      "sha256": "e05ffe6644c3a1100a03bc64349d8701c46fff096672237e23ea997789abf78b"
+    },
+    {
+      "path": "tools/run_bellstrider_rework_01_tests.py",
+      "sha256": "9af5ef9995463a976da118a18df891de5c5e9f5cfc7aa0f93613ffdb1f68d79a"
+    }
+  ],
+  "observed_native_evidence": [
+    {
+      "path": "build/bellstrider_rework_01/native-combat-final-01.log",
+      "sha256": "4cac376e6ae81ad74d266d12d6c3b85cee4c6d803ff1a0c783ecb0fe96ac7644",
+      "marker": "BELLSTRIDER_REWORK_COMBAT assertions=263 failures=0",
+      "executed_by_reviewer": false,
+      "exact_current_source_inventory_binding": false
+    },
+    {
+      "path": "build/bellstrider_rework_01/native-audio-pool-07.log",
+      "sha256": "929dc57d2ddb70851197375b47938ce2f4080628818e5dca658142772e508bc6",
+      "marker": "BELLSTRIDER_AUDIO_POOL assertions=110 failures=0",
+      "executed_by_reviewer": false,
+      "exact_current_source_inventory_binding": false
+    }
+  ],
+  "preserved_failure": {
+    "path": "build/bellstrider_rework_01/native-combat-current-01.log",
+    "sha256": "30bc349da33b316d7dcd41cf09098405832c0f4a7e27e2fb49c3dab6b44be9c2"
+  },
+  "limits": [
+    "No engine/Godot run by reviewer.",
+    "No current full-seven or latest R3-full native result signed.",
+    "New3 half-health chase assertions pending execution.",
+    "No final GUI/audio film, natural20group/third-shot fairness, subjective art/listening/device/user or G1-G5 acceptance.",
+    "Metadata96 binding handled separately; prior94 review not silently extended."
+  ],
+  "actual_command": "python3 /tmp/review_bellstrider_production_final_preflight.py",
+  "script_sha256": "317ec7df471ea2ed173c1d08c3abca3b93231edb594487ea0847edec7a1d1bbb",
+  "report_sha256": "779f34d23862b4a773d32bdcd5ddf08d6cf258e5dfe2256948fa2a3b8adc0303",
+  "proof_log_sha256": "c485f6f86c73e66685642a0e2a2e9f193af049842dc9acbdc8c6b6497ea5ddef"
+}

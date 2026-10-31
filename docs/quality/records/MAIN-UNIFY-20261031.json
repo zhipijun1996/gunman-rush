@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "task_id": "MAIN-UNIFY-20261031",
+  "task_type": "boss",
+  "workflow": "in_progress",
+  "baseline_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323",
+  "reviewed_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "整合两条Boss内容及离线关卡工具，为已规划架构迁移固定底座",
+  "player_experience": "保留两Boss与现有玩法，不切换正式地图",
+  "constraints": [
+    "排除PR123，不应用旧架构候选",
+    "不改玩法数值/图声字节；保留两侧失败与验证边界"
+  ],
+  "affected_paths": [
+    "assets/audio/bellstrider_01/CC0-1.0.txt",
+    "assets/audio/bellstrider_01/README.md",
+    "assets/audio/bellstrider_01/armour_hit.wav",
+    "assets/audio/bellstrider_01/armour_hit.wav.import",
+    "assets/audio/bellstrider_01/brake.wav",
+    "assets/audio/bellstrider_01/brake.wav.import",
+    "assets/audio/bellstrider_01/death.wav",
+    "assets/audio/bellstrider_01/death.wav.import",
+    "assets/audio/bellstrider_01/death_final.wav",
+    "assets/audio/bellstrider_01/death_final.wav.import",
+    "assets/audio/bellstrider_01/death_impact.wav",
+    "assets/audio/bellstrider_01/death_impact.wav.import",
+    "assets/audio/bellstrider_01/death_jam.wav",
+    "assets/audio/bellstrider_01/death_jam.wav.import",
+    "assets/audio/bellstrider_01/lob_aim.wav",
+    "assets/audio/bellstrider_01/lob_aim.wav.import",
+    "assets/audio/bellstrider_01/lob_impact.wav",
+    "assets/audio/bellstrider_01/lob_impact.wav.import",
+    "assets/audio/bellstrider_01/lob_lock.wav",
+    "assets/audio/bellstrider_01/lob_lock.wav.import",
+    "assets/audio/bellstrider_01/lob_release.wav",
+    "assets/audio/bellstrider_01/lob_release.wav.import",
+    "assets/audio/bellstrider_01/manifest.json",
+    "assets/audio/bellstrider_01/phase.wav",
+    "assets/audio/bellstrider_01/phase.wav.import",
+    "assets/audio/bellstrider_01/recipes.json",
+    "assets/audio/bellstrider_01/ring_strike.wav",
+    "assets/audio/bellstrider_01/ring_strike.wav.import",
+    "assets/audio/bellstrider_01/roll_start.wav",
+    "assets/audio/bellstrider_01/roll_start.wav.import",
+    "assets/audio/bellstrider_01/roll_warn.wav",
+    "assets/audio/bellstrider_01/roll_warn.wav.import",
+    "assets/audio/bellstrider_01/roll_warn_double.wav",
+    "assets/audio/bellstrider_01/roll_warn_double.wav.import",
+    "assets/audio/bellstrider_01/sources.json",
+    "assets/audio/bellstrider_01/turn.wav",
+    "assets/audio/bellstrider_01/turn.wav.import",
+    "assets/audio/bellstrider_01/weak_hit.wav",
+    "assets/audio/bellstrider_01/weak_hit.wav.import",
+    "resources/bosses/bellstrider.tres",
+    "resources/bosses/bellstrider_health.tres",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/audio/bellstrider_audio.gd",
+    "scripts/audio/bellstrider_audio.gd.uid",
+    "scripts/audio/game_audio.gd",
+    "scripts/bosses/bellstrider_bell_projectile.gd",
+    "scripts/bosses/bellstrider_definition.gd",
+    "scripts/bosses/bellstrider_definition.gd.uid",
+    "scripts/bosses/bellstrider_encounter.gd",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/bellstrider_rig_pose.gd",
+    "scripts/bosses/bellstrider_rig_pose.gd.uid",
+    "scripts/bosses/bellstrider_ring_projectile.gd",
+    "scripts/bosses/bellstrider_ring_projectile.gd.uid",
+    "scripts/bosses/windkeeper_damageable.gd",
+    "scripts/combat/damageable.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/items/v5/item_active_effects.gd",
+    "scripts/items/v5/item_combat_effects.gd",
+    "scripts/items/v5/item_companion_effects.gd",
+    "scripts/items/v5/item_runtime.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/rewards/bellstrider_rewards.gd",
+    "scripts/rewards/bellstrider_rewards.gd.uid",
+    "scripts/ui/windkeeper_hud.gd",
+    "tests/bellstrider_01_audio.gd",
+    "tests/bellstrider_01_audio.gd.uid",
+    "tests/bellstrider_rework_01/audio_pool.gd",
+    "tests/bellstrider_rework_01/audio_pool.gd.uid",
+    "tests/bellstrider_rework_01/combat_runner.gd",
+    "tests/bellstrider_rework_01/combat_runner.gd.uid",
+    "tests/bellstrider_rework_01/contact_edges.gd",
+    "tests/bellstrider_rework_01/contact_edges.gd.uid",
+    "tests/bellstrider_rework_01/damage_policy.gd",
+    "tests/bellstrider_rework_01/damage_policy.gd.uid",
+    "tests/bellstrider_rework_01/effect_targets.gd",
+    "tests/bellstrider_rework_01/effect_targets.gd.uid",
+    "tests/bellstrider_rework_01/intro_pose.gd",
+    "tests/bellstrider_rework_01/intro_pose.gd.uid",
+    "tests/bellstrider_rework_01/rewards_runner.gd",
+    "tests/bellstrider_rework_01/rewards_runner.gd.uid",
+    "tests/bellstrider_rework_01/weapon_routes.gd",
+    "tests/bellstrider_rework_01/weapon_routes.gd.uid",
+    "tests/test_production_plan.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "tests/underworld_plains/test_underworld_r3_boss.gd",
+    "tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd",
+    "tools/bellstrider_01/contact_review.gd",
+    "tools/bellstrider_01/contact_review.gd.uid",
+    "tools/bellstrider_01/legal_input_pilot.gd",
+    "tools/bellstrider_01/legal_input_pilot.gd.uid",
+    "tools/bellstrider_rework_01_capture.gd",
+    "tools/bellstrider_rework_01_capture.gd.uid",
+    "tools/build_bellstrider_01_audio.py",
+    "tools/capture_bellstrider_rework_01.py",
+    "tools/harness/profiles.json",
+    "tools/run_bellstrider_rework_01_tests.py"
+  ],
+  "deliverables": [
+    "两条Boss内容语义并集与技术绑定",
+    "实际专项验证和精确提交记录"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Bounded static conflict/test merge reviews only; not full runtime/art/device approval. Initial prefix omission and correction explicitly recorded.",
+      "evidence": [
+        "runtime-plan-review",
+        "binding-tests-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "runtime-plan-review",
+      "kind": "review",
+      "path": "docs/evidence/main_unify_20261031/runtime-and-plan-review.md",
+      "sha256": "305962f75920482d9a53d7382522df0473473bbd133e609bc74050c87294f470",
+      "source_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+      "content_version": "candidate-v1",
+      "producer": "/root/structure_audit",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root",
+        "/root/runtime_audit",
+        "/root/ci_audit"
+      ],
+      "independent": true,
+      "verdict": "ACCEPT",
+      "method": "Read-only comparison against both exact parent commits, frozen source hashes and supplemental input-prefix fix",
+      "observed": "ACCEPT limited to the files and static assertions described in the linked review; no runtime/fullCI/art/device approval",
+      "independence_basis": "Reviewer did not implement or edit the files covered by this review; production-plan author reviewed only binding tests, separate reviewer reviewed production-plan."
+    },
+    {
+      "id": "binding-tests-review",
+      "kind": "review",
+      "path": "docs/evidence/main_unify_20261031/binding-tests-review.md",
+      "sha256": "a1dd0254e728f2272f4a7df28ac868c6fc2bc1806a9b399497cbb53b7d7dbf33",
+      "source_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+      "content_version": "candidate-v1",
+      "producer": "/root/ci_audit",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root",
+        "/root/asset_audit"
+      ],
+      "independent": true,
+      "verdict": "ACCEPT",
+      "method": "Read-only comparison against both exact parent commits, frozen source hashes and supplemental input-prefix fix",
+      "observed": "ACCEPT limited to the files and static assertions described in the linked review; no runtime/fullCI/art/device approval",
+      "independence_basis": "Reviewer did not implement or edit the files covered by this review; production-plan author reviewed only binding tests, separate reviewer reviewed production-plan."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "合成两Boss原生专项已通过；完整CI仍未签",
+    "原森林超时未修复",
+    "不签艺术/听感/设备或用户接受",
+    "本记录表示Boss内容整合，不能标process掩盖生产路径变化"
+  ],
+  "test_change_justification": "Preserve both original Boss suites and 169-prefix then append Bell; historical version tests use exact archived parent bytes and current153 binding. Independent reviews cover changed test guards. Original input-prefix failure fixed by restoring inputs, not weakening assertions."
+}

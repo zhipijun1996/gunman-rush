@@ -306,6 +306,12 @@ func _set_state(next: StringName) -> void:
 func protects_contact(source: Node) -> bool:
 	if _session != controller.session_id or not controller.active or not is_instance_valid(_contact_target): return false
 	if state not in [&"hook_pull",&"hook_contact_kick",&"hook_kick"] and _contact_remaining <= 0.0: return false
+	var receiver := _contact_target.get_node_or_null("Damageable") as Damageable
+	if receiver != null and receiver.damage_policy_owner() != receiver:
+		# The real upper bell is the anchor; protection covers only its own
+		# mechanical body contact, never projectiles or unrelated actors.
+		var owner_body := receiver.damage_policy_owner().get_parent()
+		if source == owner_body: return true
 	return source == _contact_target or _contact_target.is_ancestor_of(source)
 
 func on_weapon_fired() -> void:

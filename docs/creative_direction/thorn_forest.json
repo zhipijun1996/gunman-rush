@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v27",
+  "version": "creative-v28",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
-    "supplemental_authority_sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+    "supplemental_authority_sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "6ec93f86c4d22761cb4ccb6372f9573d5b87ae63d8187686224569f1572f9622",
+    "registry_sha256": "cd5a988a1c0e2ddf6e4e4e2a4852029ee9b64d005a35a3603b133ffeabeefbe4",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -219,8 +219,16 @@
       "sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188"
     },
     {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "sha256": "49cff7edde3f22e8880dd2b3ee0f1d502423509c8713eb30efaa9e1544f93cfe"
+    },
+    {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
       "sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+      "sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25"
     }
   ],
   "historical_direction": {
@@ -229,14 +237,49 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "WINDKEEPER-PRESSURE-01",
-    "scope": "Formal Windkeeper-specific authorized combat/body/audio binding; no regional/global art rewrite. Forest direction/content is unchanged and only shares updated actual runtime reference identity.",
-    "previous_direction": "docs/creative_direction/archive/windkeeper-pressure-before-style24/thorn_forest.json",
-    "previous_sha256": "49e05c7268abf1b2e63f5aedab195d046699df757968888ea252cf11604b1d49",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
-    "shared_style_sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183",
+    "task_id": "MAIN-INTEGRATION-122-124-125",
+    "scope": "Combined technical identity for Bellstrider and Windkeeper Pressure. Original selected regional content remains; forest only shares source identity.",
+    "parent_directions": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/docs/creative_direction/thorn_forest.json",
+        "sha256": "a71bff752aabba0e3ae855557523ce5fe0c0f3a120108d1b6639e7cb30c27d09"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/docs/creative_direction/thorn_forest.json",
+        "sha256": "8e25ea66e3ec5383b5b6b41e18a8834971e00f1c770a582f435e2feff327301e"
+      }
+    ],
+    "parent_manifests": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/manifest.json",
+        "sha256": "c6e8c5ccc283900a84d3d5f8078ce599e9e9ef35acc9a1cdf8ae38cfacb43159",
+        "source_commit": "66c6c41d1a77e6b2f034999b6111c272a11f2d76"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/manifest.json",
+        "sha256": "bebfb3cd755699bd66deda0ed3d7a9969bb461c177aad4da89c9fd509129132b",
+        "source_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323"
+      }
+    ],
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+    "shared_style_sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
     "affected_consumers": [
+      "scripts/demo/plains_region_stage.gd",
       "scripts/demo/demo_app.gd",
+      "scripts/combat/weapon_action_runtime.gd",
+      "scripts/bosses/bellstrider_presentation.gd",
+      "scripts/bosses/bellstrider_rig_pose.gd",
+      "scripts/bosses/bellstrider_encounter.gd",
+      "scripts/bosses/bellstrider_definition.gd",
+      "resources/bosses/bellstrider.tres",
+      "assets/underworld_plains/actors/bellstrider.png",
+      "assets/underworld_plains/actors/bell.png",
+      "scripts/audio/bellstrider_audio.gd",
+      "assets/audio/bellstrider_01/manifest.json",
+      "assets/audio/bellstrider_01/sources.json",
+      "assets/audio/bellstrider_01/recipes.json",
+      "scripts/bosses/bellstrider_ring_projectile.gd",
+      "scripts/bosses/bellstrider_bell_projectile.gd",
       "scripts/bosses/boss_factory.gd",
       "scenes/bosses/windkeeper_pressure.tscn",
       "scripts/bosses/windkeeper_pressure_definition.gd",
@@ -295,6 +338,6 @@
       "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
       "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav"
     ],
-    "validation": "Current complete region_bible/authority_sources pointers require fresh exact source tests. All historical bindings reject current registry; no prior PASS or human/device/listening approval inherited."
+    "validation": "Fresh combination checks required. Original user confirmation remains direction-only; no previous technical PASS, independent ACCEPT, gameplay/art/audio/device/user acceptance inherited."
   }
 }

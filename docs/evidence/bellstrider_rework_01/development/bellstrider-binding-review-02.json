@@ -1,0 +1,4978 @@
+{
+  "verdict": "ACCEPT_SCOPED_BINDING_AND_ASSET_CUSTODY_ONLY",
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root/binding_plan",
+    "/root/bellstrider_audio",
+    "/root"
+  ],
+  "independent": true,
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "source_status": "Dirty development candidate, no clean commit invented; full169 append is separate owner increment, original168 retained",
+  "engine_executed_by_reviewer": false,
+  "own_damage_policy_test_excluded": true,
+  "checks_passed": 946,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "id": "archive_exact_baseline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/style22.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/style22.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/README.md.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/README.md.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/revision_creative_v25.md.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/revision_creative_v25.md.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/test_region_bible.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/test_region_bible.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/test_region_creative_direction.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/test_region_creative_direction.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/sources/scripts/demo/demo_app.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/sources/scripts/demo/demo_app.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/sources/scripts/combat/weapon_action_runtime.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/sources/scripts/combat/weapon_action_runtime.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/harness-region-checks.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "frozen_full_manifest_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "frozen_four_real_checks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_bytes/sources/scripts/demo/plains_region_stage.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "archive_actual_Git_blob/sources/scripts/demo/plains_region_stage.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_count83_prefix",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/6",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/6",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/7",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/7",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/9",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/9",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/21",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/21",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/22",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/22",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/23",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/23",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/24",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/24",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/25",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/25",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/26",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/26",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/27",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/27",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/28",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/28",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/29",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/29",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/30",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/30",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/31",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/31",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/32",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/32",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/33",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/33",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/34",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/34",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/35",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/35",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/36",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/36",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/37",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/37",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/38",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/38",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/39",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/39",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/40",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/40",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/41",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/41",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/42",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/42",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/43",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/43",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/44",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/44",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/45",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/45",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/46",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/46",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/47",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/47",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/48",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/48",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/49",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/49",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/50",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/50",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/51",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/51",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/52",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/52",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/53",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/53",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/54",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/54",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/55",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/55",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/56",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/56",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/57",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/57",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/58",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/58",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/59",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/59",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/60",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/60",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/61",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/61",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/62",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/62",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/63",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/63",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/64",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/64",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/66",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/66",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/67",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/67",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/68",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/68",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/69",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/69",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/70",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/70",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/71",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/71",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/72",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/72",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/73",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/73",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/74",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/74",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/75",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/75",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/76",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/76",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/77",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/77",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/78",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/78",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/79",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/79",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/80",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/80",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/81",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/81",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_role_no_metadata_change/82",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_reference_bound_real_BASE/82",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/formal_entry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/terrain_consumer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/terrain_renderer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/material_shader",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/tile_build",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/tileset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/atlas",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/source_pixels",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/adjacency",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/boundary",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/boundary_sides",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/license",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/player_style_reference",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/player_animation_build",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/player_run_pixels",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/player_state_pixels",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/core_material",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/world_presentation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/sprite_grid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/fine_source_provenance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_6",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_7",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_9",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/default_player_16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_feedback_view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_feedback_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_entity_view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_entity_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_defense_glyphs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_defense_visual_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_resource_hud",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_pause_menu",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_description",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_card",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_toast",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_shop_modal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_reward_modal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_touch_control",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_shop_presenter",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_weapon_runtime",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_weapon_feel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_weapon_vfx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_art_library",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_art_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_icon_metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_icon_atlas_first8",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_vfx_p24_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_vfx_p14_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_vfx_g16_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_icon_atlas_catalog01",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_icon_atlas_catalog02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_icon_atlas_catalog03",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_icon_atlas_catalog04",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_vfx_static_entities_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_vfx_static_procs_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/item_world_sampler_shader",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/home_codex_ui",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/home_codex_world",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/home_item_catalog_policy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/home_item_policy_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/home_item_profile_presenter",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_art_library",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_art_layer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_formal_dispatch",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_forest_presentation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_forest_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_cosmetic_boundary",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_art_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/chest_source04_atlas",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/plains_loot_life_orb",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/plains_loot_world_sampler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_presentation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_shared_rig",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_accepted_pose_owner",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_config",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_source_body",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_source_bell",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_audio_consumer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_audio_manifest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_audio_sources",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_audio_recipes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_local_ring_vfx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_actual_current_bytes/bellstrider_lob_bell_vfx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "only3_declared_changed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "13_finite_added_refs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "style_nonbinding_contract_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_selected_Bibles_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_registry_actualstyle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "direction_other_content_unchanged/windchime_plains",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "Plains_old_boss_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "one_Bell_only_override",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_user_spec_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_authority_prefix/windchime_plains",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "direction_other_content_unchanged/thorn_forest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "Forest_boss_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_authority_prefix/thorn_forest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "scope_provenance_not_fake_transcript",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "spec_actualSHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_acceptance_in_authorization",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_original_methods/tests/test_region_bible.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "only5_mechanical_methods/tests/test_region_bible.py",
+      "passed": true,
+      "detail": [
+        "test_actual_player_body_closure_is_required_and_superseded_binding_refused",
+        "test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history",
+        "test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale"
+      ]
+    },
+    {
+      "id": "all_old_SHA_literals/tests/test_region_bible.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_cli_and_original_selected_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_missing_bible_is_distinct_from_invalid_bible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_wrong_region_partial_binding_and_wrong_version_fail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_unannounced_original_drift_never_refreshes_binding",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_registry_drift_invalidates_existing_binding_even_if_bible_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_duplicate_json_and_duplicate_regions_rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_path_escape_absolute_and_symlink_ancestors_rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_selection_needs_raw_original_user_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_hash_refresh_cannot_turn_another_attachment_into_forest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_selected_direction_cannot_forge_raw_quote_or_player_approval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_cross_attachment_bytes_cannot_be_relabelled_with_refreshed_registry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_original_staged_basename_mismatch_and_duplicate_identity_refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_latest_shared_style_quotes_and_actual_family_bind_all_region_production",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_future_proposed_worker_gets_shared_style_without_visual_gate",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_shared_reference_or_quote_drift_blocks_calls_and_restore",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_global_physics_actions_and_plain_docs_have_no_shared_art_gate",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_actual_player_body_closure_is_required_and_superseded_binding_refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_default_current_bibles_skip_election",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_no_bible_proposal_only_and_explicit_production_rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_anonymous_production_write_paths_block_all_original_adversarial_probes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_exact_known_catalog_paths_require_matching_single_region_binding",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_all_runtime_domains_detect_registered_region_families_before_prefix_filter",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_anonymous_multi_region_task_and_ambiguous_mission_return_blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_broad_bound_scope_cannot_write_another_actual_region_consumer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_handwritten_partial_binding_and_source_inputs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_worker_prompt_contains_full_original_and_audio_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_source_drift_during_worker_blocks_after_call",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_source_drift_before_worker_and_restored_completion_block",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_visual_director_uses_current_bible_and_exact_caller_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_merged20_preserves_both_parent19_contracts_and_refuses_both_pointers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18_audio_history",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_audio_feedback_v20_preserves81_and_refuses_stale19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_audio_feedback06_v21_rebinds_only_original_title_and_refuses_stale20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_bible.py/test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_original_methods/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "only5_mechanical_methods/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": [
+        "test_merged25_preserves_both_parent24_directions_and_authority_union",
+        "test_selected_direction_binds_every_specialist_and_retains_stage_gates"
+      ]
+    },
+    {
+      "id": "all_old_SHA_literals/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_actual_recommendations_are_valid_but_never_player_or_runtime_acceptance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_historical_v2_bytes_keep_identity_and_reject_current_authority",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_missing_theme_or_whole_screen_coverage_is_refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_candidate_comparison_cannot_be_empty_or_single_color_variant",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_authority_changes_and_region_mismatch_fail_closed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_short_prompt_starts_creative_work_before_assets_or_terrain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_selected_direction_binds_every_specialist_and_retains_stage_gates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_engineering_prototype_stays_explicit_and_does_not_claim_region",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_direction_cannot_bind_another_region_or_unregistered_request",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_merged23_preserves_both_parent22_content_and_rejects_both_bindings",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_plains_motion_loot24_preserves23_and_refuses_old_binding",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer_audio_history",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_audio_feedback_creative23_preserves22_and_refuses_previous_pointer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_audio_feedback06_creative24_preserves23_and_refuses_previous_pointer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_old_negatives/tests/test_region_creative_direction.py/test_merged25_preserves_both_parent24_directions_and_authority_union",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "four_guard_noninputs_exact/region-bible-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_ordered_input_prefix/region-bible-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "newinputs_explicit_finite/region-bible-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "four_guard_noninputs_exact/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_ordered_input_prefix/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "newinputs_explicit_finite/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "four_guard_noninputs_exact/creative-direction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_new_inputs_on_implicit_guard/creative-direction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "four_guard_noninputs_exact/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_new_inputs_on_implicit_guard/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/docs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/world",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/structure",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/harness-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/environment",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/core",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/region",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-painterly_pack",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-plains_v3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-meadow_enemy_art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-plains_ground_art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-windkeeper_art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-plains_spatial_art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/art-plains_item_art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/web-cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/web-build",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/web-bundle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/quality",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/quality-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/quality-drills",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/production-loop-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/quality-review-engine",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/terrain-tile-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/terrain-production",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/consumer-coverage-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/wood-platforms",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/actor-actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/all-weapons",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/studio-input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/weapon-feel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/action-budget",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/generated-consumers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/capture-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-design-contracts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-design-analysis",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-design-routing",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-design-golden-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-design-runtime",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-design-golden",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-region-context",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-experience",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/world-design-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-formal-receipts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/level-formal-runtime",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-autonomy-golden",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-action-golden",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-redesign-golden",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-redesign-spatial",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-experience-golden",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-encounter-policy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-redesign-scene",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/visual-director-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/visual-director-space",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/directed-space-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/root-bell-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-h-slice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/terrain-family-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/web-resource-contract-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/runtime-raw-export-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/asset-family-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/root-bell-spaces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/root-bell-ecology",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/connected-family-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-ecology",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-progression",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-campaign",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-debug",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-traversal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-formal-combat",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-region-matrix",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/mechanism-comparisons",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-guardian",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-guardian-tolerance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-enemies",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-versions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-restore",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-queen",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-cavity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-cavity-controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-region",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-campaign-guardian",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-campaign-queen",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-ecology-expedition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-root-entry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-crossbranch-lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-queen-canopy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-depth-campaign-canopy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-air-chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/grapple-feel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/aim-save-compat",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-vertical-shortcut",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/blob47-foundation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/windchime-plains",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/pixel-plains",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/pixel-formal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-current-slice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/visual-director-terrain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-places-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-places-capture-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-regional-art-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-regional-art-counterexamples",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-regional-art-graph-counterexamples",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-landform-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-art-language-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-world-rebuild-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/parallel-region-presentation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/style-exploration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-pipeline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-scenery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-hazards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-terrain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-formal-terrain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-formal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-raw-export",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-player-animation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-mechanisms",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-home",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-ui",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-region-scheduler-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-interwoven-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-player-aim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-damage-feedback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-projectile-vfx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-world-objects",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-continuous-bosses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/underworld-home-guard-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-camera-stability",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-hazard-records",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-fruit-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-weaver-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-discoveries-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-integration-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-world-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-world-connection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-world-backbranch",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-sfx-source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-ambience",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-app-discoveries",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-practice-bell-restore",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-world-connection-map1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-world-backbranch-map1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-world-spiral",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-versions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-reader-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-bible-av-reader-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/harness-artifact-archive-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-exploration-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-exploration-body-reader",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-exploration-exchange-reader",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-exploration-wrapper-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-varied-feedback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-places-feedback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-library-feedback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/cloud-production-planner-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/cloud-delivery-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/cloud-preview-runtime",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/cloud-inputs-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/portable-frozen-assets",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/demo-ui-time-energy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/enemy-feedback-native",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/enemy-feedback-formal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/enemy-feedback-support",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/enemy-corpse-save",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/enemy-corpse-snapshot",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/bgm-integration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/player-default-integration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/root-bell-current",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/region-with-legacy-fixtures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-encounter-policy-with-legacy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/gear-inventory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/gear-ui",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-data",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-catalog",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-pool",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-inventory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-combat",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-actives",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-economy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-defense",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-ui",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-formal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-review",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-boss-time",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-core-effects",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-synergy-economy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-pause-escape",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-random-context",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-manifest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-authoring",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-authoring-tools",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/item-v5-art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/home-codex",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/enemy-structure-native",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/forest-current-registry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/plains-motion-loot-02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "other_check_unchanged/audio-feedback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_profile_original_order_prefixes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "only_real_Bell_check_append",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "new_check_seven_actual_guarded_consumers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "record_candidate_not_acceptance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "literal17_manifest_record_recipe_closure",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "record_manifest_actualbytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/armour_hit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/armour_hit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/armour_hit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/weak_hit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/weak_hit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/weak_hit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/roll_warn",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/roll_warn",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/roll_warn",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/roll_warn_double",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/roll_warn_double",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/roll_warn_double",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/roll_start",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/roll_start",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/roll_start",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/brake",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/brake",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/brake",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/turn",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/turn",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/turn",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/ring_strike",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/ring_strike",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/ring_strike",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/lob_aim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/lob_aim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/lob_aim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/lob_lock",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/lob_lock",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/lob_lock",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/lob_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/lob_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/lob_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/lob_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/lob_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/lob_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/phase",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/phase",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/phase",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/death",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/death",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/death",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/death_jam",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/death_jam",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/death_jam",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/death_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/death_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/death_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_actualSHA/death_final",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_real_PCM/death_final",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "WAV_recipe_declared_sources/death_final",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/armour_hit.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/weak_hit.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/roll_warn.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/roll_warn_double.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/roll_start.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/brake.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/turn.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/ring_strike.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/lob_aim.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/lob_lock.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/lob_release.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/lob_impact.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/phase.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/death.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/death_jam.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/death_impact.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/death_final.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/sources.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/bellstrider_01/CC0-1.0.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/tools/build_bellstrider_01_audio.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/scripts/audio/bellstrider_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/scripts/bosses/bellstrider_presentation.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/hit/bfh1_hit_03.ogg",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/hit/source-page.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/CC0-1.0.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/material/metal_hit_01.ogg",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/material/source-page.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/material/metal_hit_02.ogg",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v2/_sources/material/wood_hit_01.ogg",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v3/_sources/hit/bfh1_breaking_01.ogg",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v3/_sources/hit/source-page.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/director_v3/_sources/hit/bfh1_breaking_03.ogg",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/ambience_v1/plains_chime_a.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/config/audio_director/ambience/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/ambience_v1/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/ambience_v1/_sources/bell-dingschimes.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "associated_actualSHA/assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/hit3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/hit3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/hit3/source_page_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/hit3/license_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/metal1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/metal1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/metal1/source_page_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/metal1/license_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/metal2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/metal2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/metal2/source_page_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/metal2/license_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/wood1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/wood1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/wood1/source_page_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/wood1/license_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/break1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/break1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/break1/source_page_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/break1/license_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/break3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/break3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/break3/source_page_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/break3/license_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actual_existing_source/bell",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_CC0_scope/bell",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/bell/parent_recipe_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "source_custody/bell/parent_manifest_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bell_original_page_license",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bell_original_cache_honest_missing",
+      "passed": true,
+      "detail": "build/audio_ambience_01/source-cache/bell_ding1.wav"
+    },
+    {
+      "id": "no_old_audio_assets_modified",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_PNG_actualbytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "latest_report_four_exact_fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "latest_report_manifest_exact_current",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "exact_requested_style_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "exact_requested_registry_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_original_contract/region-bible-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_artifact_same/region-bible-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_no_errors/region-bible-contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_original_contract/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_artifact_same/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_no_errors/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_actual_method_counts/region-bible-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_original_contract/creative-direction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_artifact_same/creative-direction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_no_errors/creative-direction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_original_contract/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_artifact_same/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_raw_no_errors/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_actual_method_counts/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report158_same_two_declared_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "old_helper_reconstructed_exact_receiptSHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "helper_delta_only_strict_editor_import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/CC0-1.0.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/armour_hit.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/armour_hit.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/brake.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/brake.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death_final.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death_final.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death_impact.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death_impact.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death_jam.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/death_jam.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_aim.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_aim.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_impact.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_impact.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_lock.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_lock.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_release.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/lob_release.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/phase.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/phase.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/ring_strike.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/ring_strike.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/roll_start.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/roll_start.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/roll_warn.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/roll_warn.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/roll_warn_double.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/roll_warn_double.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/sources.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/turn.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/turn.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/weak_hit.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/assets/audio/bellstrider_01/weak_hit.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/assets/audio/bellstrider_01/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/assets/audio/bellstrider_01/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/assets/audio/bellstrider_01/sources.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/creative_direction/bibles/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/creative_direction/revision_creative_v26.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/creative_direction/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/creative_direction/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/evidence/bellstrider_rework_01/development/binding-review-01.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/evidence/bellstrider_rework_01/development/binding-review-01.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/docs/quality/asset_records/bellstrider-rework-01-material-audio.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/tests/test_region_bible.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/bellstrider-style23-candidate94-before-arc/tools/harness/profiles.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/README.md.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/harness-region-checks.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/revision_creative_v25.md.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/sources/scripts/combat/weapon_action_runtime.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/sources/scripts/demo/demo_app.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/sources/scripts/demo/plains_region_stage.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/style22.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/test_region_bible.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/test_region_creative_direction.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/archive/creative-v25-before-bellstrider-rework/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/bibles/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/revision_creative_v26.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/creative_direction/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/enemies_and_bosses.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/binding-review-01.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/binding-review-01.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/g0-review.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/g0-review.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/g0-source-model.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/g0-source-model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/production-review-02.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/production-review-02.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-independent-01.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-independent-01.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/HEAD/tests/underworld_plains/capture_underworld_r3_boss_fight.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/HEAD/tests/underworld_plains/test_underworld_r3_boss.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/HEAD/tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/HEAD/tools/run_underworld_r3_boss_tests.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/failed-run-01/continuous_combat.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/failed-run-01/existing-continuous-bosses-01.log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/working/tests/underworld_plains/capture_underworld_r3_boss_fight.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/working/tests/underworld_plains/test_underworld_r3_boss.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/working/tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/evidence/bellstrider_rework_01/development/r3-migration-baseline-01/working/tools/run_underworld_r3_boss_tests.py.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/quality/asset_records/bellstrider-rework-01-material-audio.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/quality/records/BELLSTRIDER-REWORK-01.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/worklines/bellstrider_rework_01/art_animation.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/worklines/bellstrider_rework_01/implementation.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/docs/worklines/bellstrider_rework_01/spec.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/resources/bosses/bellstrider.tres",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/resources/bosses/bellstrider_health.tres",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/art/plains_stage_visual.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/audio/bellstrider_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/audio/bellstrider_audio.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/audio/game_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_bell_projectile.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_definition.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_definition.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_encounter.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_presentation.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_rig_pose.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_rig_pose.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_ring_projectile.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/bellstrider_ring_projectile.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/bosses/windkeeper_damageable.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/combat/damageable.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/combat/weapon_action_runtime.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/demo/demo_app.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/demo/plains_region_stage.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/items/v5/item_active_effects.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/items/v5/item_combat_effects.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/items/v5/item_companion_effects.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/items/v5/item_runtime.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/player/traversal_ability.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/rewards/bellstrider_rewards.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/rewards/bellstrider_rewards.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/scripts/ui/windkeeper_hud.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_01_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_01_audio.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/audio_pool.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/audio_pool.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/combat_runner.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/combat_runner.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/damage_policy.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/damage_policy.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/effect_targets.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/intro_pose.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/intro_pose.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/rewards_runner.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/rewards_runner.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/weapon_routes.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/bellstrider_rework_01/weapon_routes.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/test_production_plan.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/test_region_bible.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/underworld_plains/test_underworld_r3_boss.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/bellstrider_01/legal_input_pilot.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/bellstrider_01/legal_input_pilot.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/bellstrider_rework_01_capture.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/bellstrider_rework_01_capture.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/build_bellstrider_01_audio.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/capture_bellstrider_rework_01.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "fresh_report_working_file_exact_current/tools/harness/profiles.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "explicit_Bible_closure_excludes_changed_leaf/region-bible-tests/tests/bellstrider_rework_01/effect_targets.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "explicit_Bible_closure_excludes_changed_leaf/region-bible-tests/tools/run_bellstrider_rework_01_tests.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "explicit_Bible_closure_excludes_changed_leaf/region-bible-contract/tests/bellstrider_rework_01/effect_targets.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "explicit_Bible_closure_excludes_changed_leaf/region-bible-contract/tools/run_bellstrider_rework_01_tests.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "implicit_creative_closure_not_current_receipt/creative-direction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "implicit_creative_closure_not_current_receipt/creative-direction-tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_exact_previous_review_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_preserves94_role_path_order",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/tests/test_region_bible.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/tests/test_region_bible.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/tests/test_region_creative_direction.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/tools/harness/profiles.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/tools/harness/profiles.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/creative_direction/bibles/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/creative_direction/bibles/registry.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/creative_direction/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/creative_direction/windchime_plains.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/creative_direction/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/creative_direction/thorn_forest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/quality/asset_records/bellstrider-rework-01-material-audio.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/quality/asset_records/bellstrider-rework-01-material-audio.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/assets/audio/bellstrider_01/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/assets/audio/bellstrider_01/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/assets/audio/bellstrider_01/sources.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/assets/audio/bellstrider_01/sources.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/assets/audio/bellstrider_01/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/assets/audio/bellstrider_01/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/evidence/bellstrider_rework_01/development/binding-review-01.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/evidence/bellstrider_rework_01/development/binding-review-01.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/evidence/bellstrider_rework_01/development/binding-review-01.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/evidence/bellstrider_rework_01/development/binding-review-01.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_archive_actualbytes/docs/creative_direction/revision_creative_v26.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "reviewed94_exact_old_review_file/docs/creative_direction/revision_creative_v26.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "96_only_two_additional_real_projectile_refs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/docs/worklines/bellstrider_rework_01/spec.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/bellstrider_encounter.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/bellstrider_definition.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/bellstrider_rig_pose.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/bellstrider_presentation.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/bellstrider_bell_projectile.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/bellstrider_ring_projectile.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/windkeeper_damageable.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/bosses/windkeeper_encounter.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/combat/damageable.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/combat/weapon_action_runtime.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/items/v5/item_runtime.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/items/v5/item_active_effects.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/items/v5/item_combat_effects.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/items/v5/item_companion_effects.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/player/traversal_ability.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/audio/game_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/audio/bellstrider_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/demo/demo_app.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/demo/plains_region_stage.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/rewards/bellstrider_rewards.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/ui/windkeeper_hud.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/scripts/art/plains_stage_visual.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/resources/bosses/bellstrider.tres",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/resources/bosses/bellstrider_health.tres",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "current_production_same_reviewed_preflight/tools/run_bellstrider_rework_01_tests.py",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "new_check_append": {
+    "id": "bellstrider-rework-01",
+    "full_count": 169,
+    "gameplay_count": 154,
+    "helper_sha256": "9af5ef9995463a976da118a18df891de5c5e9f5cfc7aa0f93613ffdb1f68d79a",
+    "native_executed_by_reviewer": false
+  },
+  "test_method_counts": {
+    "tests/test_region_bible.py": {
+      "original": 40,
+      "current": 43
+    },
+    "tests/test_region_creative_direction.py": {
+      "original": 17,
+      "current": 18
+    }
+  },
+  "guard_inputs": {
+    "region-bible-contract": {
+      "old": 24,
+      "new": 176
+    },
+    "region-bible-tests": {
+      "old": 422,
+      "new": 504
+    }
+  },
+  "observed_fresh_harness_runs": {
+    "region-bible-contract": {
+      "path": "/workspace/gunman-rush/build/verification/harness/20261030T112317.585573Z/region-bible-contract.log",
+      "sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "native": false,
+      "executed_by_reviewer": false,
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "budget": 30,
+      "duration": 0.334,
+      "check_token": "ac704ddd3e28466a9dd4ad3e72814c23",
+      "input_digest_reported": "1c4c392a3a903933f6c6c6ac393dcbb70cac76cdcfbf05eb7f4c25c2b4f1f687"
+    },
+    "region-bible-tests": {
+      "path": "/workspace/gunman-rush/build/verification/harness/20261030T112317.585573Z/region-bible-tests.log",
+      "sha256": "fa48ff48d3355c6bd5d61d7b582f5d130ae21a7aefc6c29531c7bf0ba49371e4",
+      "native": false,
+      "executed_by_reviewer": false,
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "budget": 30,
+      "duration": 16.748,
+      "check_token": "821da491737d47d29abc8cd161f4396b",
+      "input_digest_reported": "c89e4c17abdfce38d0cf6898d3f69d85c7f2aeac9d5f80f47f3a2304fd01bb09"
+    },
+    "creative-direction": {
+      "path": "/workspace/gunman-rush/build/verification/harness/20261030T112317.585573Z/creative-direction.log",
+      "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+      "native": false,
+      "executed_by_reviewer": false,
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "budget": 30,
+      "duration": 0.347,
+      "check_token": "97d78ef899b0471caa77e465d07a6d68",
+      "input_digest_reported": "cc9e79452aadc0134abf39e1fd68512a22649d47d3198bf3cd7c5236a8f33d5f"
+    },
+    "creative-direction-tests": {
+      "path": "/workspace/gunman-rush/build/verification/harness/20261030T112317.585573Z/creative-direction-tests.log",
+      "sha256": "d708828c5110ecdf9c325e52f45182d095c1f1e0eb0611dd72963fe90a390140",
+      "native": false,
+      "executed_by_reviewer": false,
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "budget": 60,
+      "duration": 3.863,
+      "check_token": "fd7f1d4ec8184a208898aa45f06fed76",
+      "input_digest_reported": "f65f321abb23391f8f78fb6f6d7563baae9340c91633bc32e573f71658434f99"
+    }
+  },
+  "changed_three_references": [
+    {
+      "role": "formal_entry",
+      "path": "scripts/demo/plains_region_stage.gd",
+      "old_sha256": "c4d37d6211854ee021181f57e2081f4981b6cc176ae0e3a5c7efdb580e604e61",
+      "new_sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0"
+    },
+    {
+      "role": "default_player_4",
+      "path": "scripts/demo/demo_app.gd",
+      "old_sha256": "f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a",
+      "new_sha256": "21a322e3a89ef0be4b4a445dd3bc431e026814f25a3f072ced0442707219b6ae"
+    },
+    {
+      "role": "item_weapon_runtime",
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "old_sha256": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160",
+      "new_sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6"
+    }
+  ],
+  "added_thirteen_references": [
+    {
+      "role": "bellstrider_presentation",
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee"
+    },
+    {
+      "role": "bellstrider_shared_rig",
+      "path": "scripts/bosses/bellstrider_rig_pose.gd",
+      "sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366"
+    },
+    {
+      "role": "bellstrider_accepted_pose_owner",
+      "path": "scripts/bosses/bellstrider_encounter.gd",
+      "sha256": "0e0af6e291289cab6b865cb1500905a8c07ba42418714a06f2ed65b5e9bba521"
+    },
+    {
+      "role": "bellstrider_definition",
+      "path": "scripts/bosses/bellstrider_definition.gd",
+      "sha256": "10d6c8c521f0dba98724b52ede9a4d731cf9a3e294296eba15442c3c429a3a58"
+    },
+    {
+      "role": "bellstrider_config",
+      "path": "resources/bosses/bellstrider.tres",
+      "sha256": "ddeed0868df8c84fb421eacfeb98c7940dd0b8ab5d60780f9a5f16769c9e8de1"
+    },
+    {
+      "role": "bellstrider_source_body",
+      "path": "assets/underworld_plains/actors/bellstrider.png",
+      "sha256": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5"
+    },
+    {
+      "role": "bellstrider_source_bell",
+      "path": "assets/underworld_plains/actors/bell.png",
+      "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2"
+    },
+    {
+      "role": "bellstrider_audio_consumer",
+      "path": "scripts/audio/bellstrider_audio.gd",
+      "sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207"
+    },
+    {
+      "role": "bellstrider_audio_manifest",
+      "path": "assets/audio/bellstrider_01/manifest.json",
+      "sha256": "1ce2af2452c4d3c00b59650a3959cb4a13804b8a6e96316134b4c02350148029"
+    },
+    {
+      "role": "bellstrider_audio_sources",
+      "path": "assets/audio/bellstrider_01/sources.json",
+      "sha256": "5fd7adffeff44cb84485ee41a9f7585ad2bef23f15f78557aa5bfc6098f43763"
+    },
+    {
+      "role": "bellstrider_audio_recipes",
+      "path": "assets/audio/bellstrider_01/recipes.json",
+      "sha256": "8e95a2f74e960b748bb2f556aaaa982fa91940e768681ce584ab59618072c4e9"
+    },
+    {
+      "role": "bellstrider_local_ring_vfx",
+      "path": "scripts/bosses/bellstrider_ring_projectile.gd",
+      "sha256": "f7a0f7e1635a17f01ec808833ac460406c836858f28102a9d6c960693d4796d2"
+    },
+    {
+      "role": "bellstrider_lob_bell_vfx",
+      "path": "scripts/bosses/bellstrider_bell_projectile.gd",
+      "sha256": "b6705efc52ddd3a9f2baf5a2e3e0818a847c0756f9cdd437f2e10dcd41a310d2"
+    }
+  ],
+  "asset_counts": {
+    "WAVs": 17,
+    "source_rows": 7,
+    "associated_files": 38
+  },
+  "audio_original_cache_boundary": "Original bell_ding1.wav ignored cache not materialized; verified tracked derivative, original page/license, parent manifest/recipe exact existing bytes, not a newly fetched original or fresh legal opinion.",
+  "source_SHA": {
+    "tests/test_region_bible.py": "46850c93de180b0be1b0f2f1d24e165d3fa7bf1b6d019255917610fcfef09a33",
+    "tests/test_region_creative_direction.py": "933ec6a09d873136d9497a2ce719650ef533a51e37b69e488593cd373ff8ecd1",
+    "tools/harness/profiles.json": "315e44c86d7ffb3c31cbf384dd2b0d79995789ff5098c8a01ac3796b230f3412",
+    "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json": "03a9b283265d0f9ccfa406adb21856cebbab5e71f996b6c7a8834e40ed02723f",
+    "docs/creative_direction/bibles/registry.json": "2ef561598f0fba3400dba9d39c26b35e23e9de7ef857c667c38785ac613c98be",
+    "docs/creative_direction/windchime_plains.json": "2fb93e34da12d0207a64a497e77abc0fe89f58511ff46dc4aae8546aa0e1962a",
+    "docs/creative_direction/thorn_forest.json": "2300bacddc2f028d941cc3ed7b393140187a3a2842ab246aa0701ced523c1bad",
+    "docs/creative_direction/bibles/bellstrider-rework-20261030.json": "db750e527f083912ac25f41288369af0164158caab5b5c40a1d08a19d44e81b4",
+    "docs/quality/asset_records/bellstrider-rework-01-material-audio.json": "d49cb30e664f1d5c22e45784dd769716bd48ea33d28d427a0a290855e77eb9f4",
+    "assets/audio/bellstrider_01/manifest.json": "1ce2af2452c4d3c00b59650a3959cb4a13804b8a6e96316134b4c02350148029",
+    "assets/audio/bellstrider_01/sources.json": "5fd7adffeff44cb84485ee41a9f7585ad2bef23f15f78557aa5bfc6098f43763",
+    "assets/audio/bellstrider_01/recipes.json": "8e95a2f74e960b748bb2f556aaaa982fa91940e768681ce584ab59618072c4e9"
+  },
+  "commands": [
+    "python3 /tmp/review_bellstrider_binding_02.py > /tmp/bellstrider-binding-review-02-proof.log"
+  ],
+  "harness_report": {
+    "path": "/workspace/gunman-rush/build/verification/harness/20261030T112317.585573Z/report.json",
+    "sha256": "ff88a2ade16373170dd80bb5b46a40f925d458eb8e0ad200a99365df9469e8f1",
+    "source_guard": "Original non-lane harness passed internal before/after guards, dirty development checkout.158/160 working_files independently current. Later helper editor-import and effect_targets authorized fixture migration differ. Two Bible explicit closures exclude both changed leaves; two creative implicit all-source receipts are prior-source. Owner will rerun after freeze. Classic receipt does not store toolchain, so input_digest not independently reconstructed.",
+    "postrun_working_file_changes": {
+      "tests/bellstrider_rework_01/effect_targets.gd": {
+        "reported": "968960325b9a516510dd3eccf8fc71c38dc09a12d7653887e8fe219d3e7de602",
+        "current": "64af744a7174b91d4b3705ade0a6b86adabe24e0e44d1711240756e867871b48"
+      },
+      "tools/run_bellstrider_rework_01_tests.py": {
+        "reported": "192d514e8a9fd5926e6374b19b3a6dba91f88c98a861e253b305da25c24ed805",
+        "current": "9af5ef9995463a976da118a18df891de5c5e9f5cfc7aa0f93613ffdb1f68d79a"
+      }
+    }
+  },
+  "not_accepted": [
+    "Four-row Harness as whole-current-source after helper/effect_targets changes; owner rerun pending",
+    "Current full GUI/natural fight/two-shot or greed timing",
+    "Audio listening/mix/art quality/user/device/G1-G5",
+    "Headless03 gameplay numbers as source-clean formal pass",
+    "PriorPR119 merge waiver as future bypass authorization"
+  ],
+  "audit_script_sha256": "4b5840b36e0a27d003b60203fa132bf22093c328991232d3a52eeb74c313fcd3",
+  "proof_log_sha256": "fd276fe6f872e13c4a2d8b92b3075d652df24daa90b700c36cbe42dee027bbc6",
+  "report_sha256": "530088077069dcb3ea56b4a8be9ff615c1ef19778ab13a793881fdd6f50ecfe5"
+}

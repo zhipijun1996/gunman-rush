@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T114806.053403Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "970104a398b503dcbae8ceb2a3ff9ba9e1942f165d940685dd9c5102ade92269",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793360891.8445575,
+      "ended_at_unix": 1793360892.2799134,
+      "duration_seconds": 0.435,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "9fe3a20c023b408cbece42a3738f070e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T114806.053403Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "8184a0b604ef293394b8697ddf7fa062fc5c8eea7b5aeb049e650ff3fce53339",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793360896.2480724,
+      "ended_at_unix": 1793360916.2882328,
+      "duration_seconds": 20.04,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "decd21d9cb5c424f9013258f7a8c1252",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T114806.053403Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "92da1c4d2a268e53675364980605e2458c5ead46b538cdc2cb2d91f518571719",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793360917.3871508,
+      "ended_at_unix": 1793360917.8000395,
+      "duration_seconds": 0.413,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "ba74e349ee3645edb5f65f32587dcbd6",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T114806.053403Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "99f66d83f77944327a15eec40d0a149bdb5b3eab1a761b394b4aafbdb997085d",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793360918.8980641,
+      "ended_at_unix": 1793360923.4483957,
+      "duration_seconds": 4.55,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "e08f3d274fa14b28abbfaa90612dc96c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T114806.053403Z/artifacts/creative-direction-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "4c4d226372e1b98c2eb848922b2563c3fa475d08a21f787fd45b6c9e4b4d4f7e",
+  "working_files": {
+    "docs/creative_direction/bibles/registry.json": "1ddcfc93a3ccfd2ed86e10a31594ae48740bb5bef649218e9ba8f1b9dd6fe539",
+    "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json": "029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281",
+    "docs/creative_direction/thorn_forest.json": "5b1aa3e5bfdd3277d44c78ec8a546d86ef375dec0b977f001f9d43f1da6d0624",
+    "docs/creative_direction/windchime_plains.json": "8a65d754aaf98f185a318e87cbafb6c3940e31d416a386d4902d218dc89ab7ac",
+    "scripts/demo/demo_app.gd": "1fd825dc935a527e260d03e418c5dd12762bfe3ced3de9832a0c2505e7812d07"
+  },
+  "commit": "ad51f746521d2984316e755d95339ff9e0220517",
+  "git_status": "M docs/creative_direction/bibles/registry.json\n M docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\n M docs/creative_direction/thorn_forest.json\n M docs/creative_direction/windchime_plains.json\n M scripts/demo/demo_app.gd",
+  "diff": "diff --git a/docs/creative_direction/bibles/registry.json b/docs/creative_direction/bibles/registry.json\nindex 8d8c6ce8..6e3a05ab 100644\n--- a/docs/creative_direction/bibles/registry.json\n+++ b/docs/creative_direction/bibles/registry.json\n@@ -101,6 +101,6 @@\n   ],\n   \"shared_style_authority\": {\n     \"path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-    \"sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\"\n+    \"sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\"\n   }\n }\ndiff --git a/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json b/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\nindex cf49ee6e..fd27f236 100644\n--- a/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\n+++ b/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\n@@ -145,7 +145,7 @@\n       {\n         \"role\": \"default_player_4\",\n         \"path\": \"scripts/demo/demo_app.gd\",\n-        \"sha256\": \"21a322e3a89ef0be4b4a445dd3bc431e026814f25a3f072ced0442707219b6ae\"\n+        \"sha256\": \"1fd825dc935a527e260d03e418c5dd12762bfe3ced3de9832a0c2505e7812d07\"\n       },\n       {\n         \"role\": \"default_player_5\",\n@@ -543,7 +543,7 @@\n         \"role\": \"default_player_4\",\n         \"path\": \"scripts/demo/demo_app.gd\",\n         \"old_sha256\": \"f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a\",\n-        \"new_sha256\": \"21a322e3a89ef0be4b4a445dd3bc431e026814f25a3f072ced0442707219b6ae\"\n+        \"new_sha256\": \"1fd825dc935a527e260d03e418c5dd12762bfe3ced3de9832a0c2505e7812d07\"\n       },\n       {\n         \"role\": \"item_weapon_runtime\",\ndiff --git a/docs/creative_direction/thorn_forest.json b/docs/creative_direction/thorn_forest.json\nindex 1e387410..04694232 100644\n--- a/docs/creative_direction/thorn_forest.json\n+++ b/docs/creative_direction/thorn_forest.json\n@@ -16,10 +16,10 @@\n     \"version\": \"2.0\",\n     \"status\": \"user_selected_direction_only\",\n     \"supplemental_authority_path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-    \"supplemental_authority_sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\",\n+    \"supplemental_authority_sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\",\n     \"region_id\": \"thorn_forest\",\n     \"registry_path\": \"docs/creative_direction/bibles/registry.json\",\n-    \"registry_sha256\": \"af520a84ca27522c5e0536513afb510f7c58094abfc694805a14f62bd96ff054\",\n+    \"registry_sha256\": \"1ddcfc93a3ccfd2ed86e10a31594ae48740bb5bef649218e9ba8f1b9dd6fe539\",\n     \"selection_evidence_path\": \"docs/creative_direction/bibles/user-request.json\",\n     \"selection_evidence_sha256\": \"a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc\"\n   },\n@@ -220,7 +220,7 @@\n     },\n     {\n       \"path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-      \"sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\"\n+      \"sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\"\n     }\n   ],\n   \"historical_direction\": {\n@@ -234,7 +234,7 @@\n     \"previous_direction\": \"docs/creative_direction/archive/creative-v25-before-bellstrider-rework/thorn_forest.json\",\n     \"previous_sha256\": \"49e05c7268abf1b2e63f5aedab195d046699df757968888ea252cf11604b1d49\",\n     \"shared_style_path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-    \"shared_style_sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\",\n+    \"shared_style_sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\",\n     \"affected_consumers\": [\n       \"scripts/demo/plains_region_stage.gd\",\n       \"scripts/demo/demo_app.gd\",\ndiff --git a/docs/creative_direction/windchime_plains.json b/docs/creative_direction/windchime_plains.json\nindex fa518f4c..877feca3 100644\n--- a/docs/creative_direction/windchime_plains.json\n+++ b/docs/creative_direction/windchime_plains.json\n@@ -16,10 +16,10 @@\n     \"version\": \"2.0\",\n     \"status\": \"user_selected_direction_only\",\n     \"supplemental_authority_path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-    \"supplemental_authority_sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\",\n+    \"supplemental_authority_sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\",\n     \"region_id\": \"windchime_plains\",\n     \"registry_path\": \"docs/creative_direction/bibles/registry.json\",\n-    \"registry_sha256\": \"af520a84ca27522c5e0536513afb510f7c58094abfc694805a14f62bd96ff054\",\n+    \"registry_sha256\": \"1ddcfc93a3ccfd2ed86e10a31594ae48740bb5bef649218e9ba8f1b9dd6fe539\",\n     \"selection_evidence_path\": \"docs/creative_direction/bibles/user-request.json\",\n     \"selection_evidence_sha256\": \"a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc\"\n   },\n@@ -213,7 +213,7 @@\n     },\n     {\n       \"path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-      \"sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\"\n+      \"sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\"\n     },\n     {\n       \"path\": \"docs/worklines/bellstrider_rework_01/spec.md\",\n@@ -235,7 +235,7 @@\n     \"previous_direction\": \"docs/creative_direction/archive/creative-v25-before-bellstrider-rework/windchime_plains.json\",\n     \"previous_sha256\": \"d8207d0c95cd0823a1b94e2f404a3bd281458ad52e4246fb3b4af5a1e887373a\",\n     \"shared_style_path\": \"docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json\",\n-    \"shared_style_sha256\": \"2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba\",\n+    \"shared_style_sha256\": \"029b661f9cd3fb3f66c4f33dea37a987ab8ff9972dc96924c02b893c170f2281\",\n     \"affected_consumers\": [\n       \"scripts/demo/plains_region_stage.gd\",\n       \"scripts/demo/demo_app.gd\",\ndiff --git a/scripts/demo/demo_app.gd b/scripts/demo/demo_app.gd\nindex 9714ff31..440f68f5 100644\n--- a/scripts/demo/demo_app.gd\n+++ b/scripts/demo/demo_app.gd\n@@ -784,7 +784,7 @@ func _load_stage() -> void:\n \t\tif connected_region:\n \t\t\tvar region:=stage as PlainsRegionStage\n \t\t\tregion.boss_seal=BossArenaSeal.new()\n-\t\t\tif region is ThornForestRegionStage and region.generated.manifest.get(\"layout_version\")==ForestTargetHosts.LAYOUT:\n+\t\t\tif encounter is BellstriderEncounter or (region is ThornForestRegionStage and region.generated.manifest.get(\"layout_version\")==ForestTargetHosts.LAYOUT):\n \t\t\t\tregion.boss_seal.world_status_text_enabled=false\n \t\t\tregion.add_child(region.boss_seal)\n \t\t\tregion.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 41.07,
+  "jobs": 1,
+  "release": true
+}

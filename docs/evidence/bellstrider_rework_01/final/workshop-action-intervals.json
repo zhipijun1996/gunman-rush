@@ -1,0 +1,3983 @@
+{
+  "task": "BELLSTRIDER-REWORK-01",
+  "scope_zh": "两段均为正式DemoApp平原场地的完整连续自然Boss战斗，Boss自主时钟/选招，玩家为明示的脚本合法输入；保留原引擎PCM，不是人工试玩认可，也不是剪辑蒙太奇。稳健02死亡左缘部分出画，不能标完整死亡视觉验收；完整死亡/喷币章节优先采用配对greed影片，root已实际看过整机落位与喷币全入画。此文件仅为工坊采用建议，未写入工坊。",
+  "frozen_source": "c10dab0f4d16c26d9bf06632958853274f025793",
+  "timing_basis": "实际trace的movie_process_frame/60，mm:ss.mmm为此有理数的毫秒显示；每点保留原event/frame和JSON指针。区间边界均取实际状态/射击/事件/帧样本，不填预定招式时长。",
+  "ready_for_workshop_review": true,
+  "gaps": [],
+  "actions": [
+    {
+      "label_zh": "滚轮冲锋：整组预警、执行与真实收招",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "00:03.750–00:06.717",
+      "start": {
+        "mm_ss": "00:03.750",
+        "seconds": 3.75,
+        "exact_time": "225/60s",
+        "movie_process_frame": 225,
+        "active_frame": 219,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/7",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 219,
+          "group": 1,
+          "movie_frame": 225,
+          "movie_seconds": 3.75,
+          "phase": 1,
+          "state": "roll_warning"
+        }
+      },
+      "end": {
+        "mm_ss": "00:06.717",
+        "seconds": 6.716666666666667,
+        "exact_time": "403/60s",
+        "movie_process_frame": 403,
+        "active_frame": 397,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/14",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 397,
+          "group": 1,
+          "movie_frame": 403,
+          "movie_seconds": 6.71666666666667,
+          "phase": 1,
+          "state": "observe"
+        }
+      },
+      "duration_seconds": 2.966666666666667,
+      "group": 1,
+      "selected_plan": {
+        "mm_ss": "00:03.750",
+        "seconds": 3.75,
+        "exact_time": "225/60s",
+        "movie_process_frame": 225,
+        "active_frame": 219,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/5",
+        "event": "bellstrider_group",
+        "actual": {
+          "actual_event": {
+            "age": 3.48333333333333,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 1,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 3.48333333333333,
+              "weights": {
+                "lob": 1.0,
+                "ring": 1.0,
+                "roll": 3.6
+              }
+            },
+            "position": [
+              6420.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_group",
+          "frame": 219,
+          "movie_frame": 225,
+          "movie_seconds": 3.75
+        }
+      },
+      "actual_plan": {
+        "count": 1,
+        "direction": -1,
+        "kind": "roll",
+        "phase": 1,
+        "return_roll": false,
+        "roll_index": 0,
+        "selected_at": 3.48333333333333,
+        "weights": {
+          "lob": 1.0,
+          "ring": 1.0,
+          "roll": 3.6
+        }
+      },
+      "phases": [
+        {
+          "label_zh": "滚轮蓄力预警",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:03.750–00:04.600",
+          "start": {
+            "mm_ss": "00:03.750",
+            "seconds": 3.75,
+            "exact_time": "225/60s",
+            "movie_process_frame": 225,
+            "active_frame": 219,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/7",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 219,
+              "group": 1,
+              "movie_frame": 225,
+              "movie_seconds": 3.75,
+              "phase": 1,
+              "state": "roll_warning"
+            }
+          },
+          "end": {
+            "mm_ss": "00:04.600",
+            "seconds": 4.6,
+            "exact_time": "276/60s",
+            "movie_process_frame": 276,
+            "active_frame": 270,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/9",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 270,
+              "group": 1,
+              "movie_frame": 276,
+              "movie_seconds": 4.6,
+              "phase": 1,
+              "state": "roll"
+            }
+          },
+          "duration_seconds": 0.85
+        },
+        {
+          "label_zh": "实际滚轮冲锋",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:04.600–00:05.667",
+          "start": {
+            "mm_ss": "00:04.600",
+            "seconds": 4.6,
+            "exact_time": "276/60s",
+            "movie_process_frame": 276,
+            "active_frame": 270,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/9",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 270,
+              "group": 1,
+              "movie_frame": 276,
+              "movie_seconds": 4.6,
+              "phase": 1,
+              "state": "roll"
+            }
+          },
+          "end": {
+            "mm_ss": "00:05.667",
+            "seconds": 5.666666666666667,
+            "exact_time": "340/60s",
+            "movie_process_frame": 340,
+            "active_frame": 334,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/11",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 334,
+              "group": 1,
+              "movie_frame": 340,
+              "movie_seconds": 5.66666666666667,
+              "phase": 1,
+              "state": "neck"
+            }
+          },
+          "duration_seconds": 1.0666666666666667
+        },
+        {
+          "label_zh": "真实收招/反击",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:05.667–00:06.717",
+          "start": {
+            "mm_ss": "00:05.667",
+            "seconds": 5.666666666666667,
+            "exact_time": "340/60s",
+            "movie_process_frame": 340,
+            "active_frame": 334,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/11",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 334,
+              "group": 1,
+              "movie_frame": 340,
+              "movie_seconds": 5.66666666666667,
+              "phase": 1,
+              "state": "neck"
+            }
+          },
+          "end": {
+            "mm_ss": "00:06.717",
+            "seconds": 6.716666666666667,
+            "exact_time": "403/60s",
+            "movie_process_frame": 403,
+            "active_frame": 397,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/14",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 397,
+              "group": 1,
+              "movie_frame": 403,
+              "movie_seconds": 6.71666666666667,
+              "phase": 1,
+              "state": "observe"
+            }
+          },
+          "duration_seconds": 1.05
+        }
+      ],
+      "hp_loss_events": []
+    },
+    {
+      "label_zh": "地面铃波：整组撑轮/敲击、实际波与收招",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "00:11.717–00:13.683",
+      "start": {
+        "mm_ss": "00:11.717",
+        "seconds": 11.716666666666667,
+        "exact_time": "703/60s",
+        "movie_process_frame": 703,
+        "active_frame": 697,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/30",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 697,
+          "group": 3,
+          "movie_frame": 703,
+          "movie_seconds": 11.7166666666667,
+          "phase": 1,
+          "state": "ring_warning"
+        }
+      },
+      "end": {
+        "mm_ss": "00:13.683",
+        "seconds": 13.683333333333334,
+        "exact_time": "821/60s",
+        "movie_process_frame": 821,
+        "active_frame": 815,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/36",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 815,
+          "group": 3,
+          "movie_frame": 821,
+          "movie_seconds": 13.6833333333333,
+          "phase": 1,
+          "state": "observe"
+        }
+      },
+      "duration_seconds": 1.9666666666666666,
+      "group": 3,
+      "selected_plan": {
+        "mm_ss": "00:11.717",
+        "seconds": 11.716666666666667,
+        "exact_time": "703/60s",
+        "movie_process_frame": 703,
+        "active_frame": 697,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/29",
+        "event": "bellstrider_group",
+        "actual": {
+          "actual_event": {
+            "age": 11.4500000000001,
+            "direction": 1,
+            "event": "bellstrider_group",
+            "group": 3,
+            "mode": "approach",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": 1,
+              "kind": "ring",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 11.4500000000001,
+              "weights": {
+                "lob": 0.48,
+                "ring": 1.0,
+                "roll": 2.49415316289918
+              }
+            },
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_group",
+          "frame": 697,
+          "movie_frame": 703,
+          "movie_seconds": 11.7166666666667
+        }
+      },
+      "actual_plan": {
+        "count": 1,
+        "direction": 1,
+        "kind": "ring",
+        "phase": 1,
+        "return_roll": false,
+        "roll_index": 0,
+        "selected_at": 11.4500000000001,
+        "weights": {
+          "lob": 0.48,
+          "ring": 1.0,
+          "roll": 2.49415316289918
+        }
+      },
+      "phases": [
+        {
+          "label_zh": "撑轮摆铃预警",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:11.717–00:12.417",
+          "start": {
+            "mm_ss": "00:11.717",
+            "seconds": 11.716666666666667,
+            "exact_time": "703/60s",
+            "movie_process_frame": 703,
+            "active_frame": 697,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/30",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 697,
+              "group": 3,
+              "movie_frame": 703,
+              "movie_seconds": 11.7166666666667,
+              "phase": 1,
+              "state": "ring_warning"
+            }
+          },
+          "end": {
+            "mm_ss": "00:12.417",
+            "seconds": 12.416666666666666,
+            "exact_time": "745/60s",
+            "movie_process_frame": 745,
+            "active_frame": 739,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/32",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 739,
+              "group": 3,
+              "movie_frame": 745,
+              "movie_seconds": 12.4166666666667,
+              "phase": 1,
+              "state": "rings"
+            }
+          },
+          "duration_seconds": 0.7
+        },
+        {
+          "label_zh": "实际敲击/地面铃波",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:12.417–00:12.633",
+          "start": {
+            "mm_ss": "00:12.417",
+            "seconds": 12.416666666666666,
+            "exact_time": "745/60s",
+            "movie_process_frame": 745,
+            "active_frame": 739,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/32",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 739,
+              "group": 3,
+              "movie_frame": 745,
+              "movie_seconds": 12.4166666666667,
+              "phase": 1,
+              "state": "rings"
+            }
+          },
+          "end": {
+            "mm_ss": "00:12.633",
+            "seconds": 12.633333333333333,
+            "exact_time": "758/60s",
+            "movie_process_frame": 758,
+            "active_frame": 752,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/34",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 752,
+              "group": 3,
+              "movie_frame": 758,
+              "movie_seconds": 12.6333333333333,
+              "phase": 1,
+              "state": "neck"
+            }
+          },
+          "duration_seconds": 0.21666666666666667
+        },
+        {
+          "label_zh": "真实收招/反击",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:12.633–00:13.683",
+          "start": {
+            "mm_ss": "00:12.633",
+            "seconds": 12.633333333333333,
+            "exact_time": "758/60s",
+            "movie_process_frame": 758,
+            "active_frame": 752,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/34",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 752,
+              "group": 3,
+              "movie_frame": 758,
+              "movie_seconds": 12.6333333333333,
+              "phase": 1,
+              "state": "neck"
+            }
+          },
+          "end": {
+            "mm_ss": "00:13.683",
+            "seconds": 13.683333333333334,
+            "exact_time": "821/60s",
+            "movie_process_frame": 821,
+            "active_frame": 815,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/36",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 815,
+              "group": 3,
+              "movie_frame": 821,
+              "movie_seconds": 13.6833333333333,
+              "phase": 1,
+              "state": "observe"
+            }
+          },
+          "duration_seconds": 1.05
+        }
+      ],
+      "hp_loss_events": []
+    },
+    {
+      "label_zh": "高抛铜铃：跟瞄、锁定、实际飞行/承接与收招",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "00:06.983–00:11.217",
+      "start": {
+        "mm_ss": "00:06.983",
+        "seconds": 6.983333333333333,
+        "exact_time": "419/60s",
+        "movie_process_frame": 419,
+        "active_frame": 413,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/17",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 413,
+          "group": 2,
+          "movie_frame": 419,
+          "movie_seconds": 6.98333333333333,
+          "phase": 1,
+          "state": "lob_aim"
+        }
+      },
+      "end": {
+        "mm_ss": "00:11.217",
+        "seconds": 11.216666666666667,
+        "exact_time": "673/60s",
+        "movie_process_frame": 673,
+        "active_frame": 667,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/27",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 667,
+          "group": 2,
+          "movie_frame": 673,
+          "movie_seconds": 11.2166666666667,
+          "phase": 1,
+          "state": "observe"
+        }
+      },
+      "duration_seconds": 4.233333333333333,
+      "group": 2,
+      "selected_plan": {
+        "mm_ss": "00:06.983",
+        "seconds": 6.983333333333333,
+        "exact_time": "419/60s",
+        "movie_process_frame": 419,
+        "active_frame": 413,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/15",
+        "event": "bellstrider_group",
+        "actual": {
+          "actual_event": {
+            "age": 6.71666666666665,
+            "direction": 1,
+            "event": "bellstrider_group",
+            "group": 2,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": 1,
+              "kind": "lob",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 6.71666666666665,
+              "weights": {
+                "lob": 1.0,
+                "ring": 1.0,
+                "roll": 1.728
+              }
+            },
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_group",
+          "frame": 413,
+          "movie_frame": 419,
+          "movie_seconds": 6.98333333333333
+        }
+      },
+      "actual_plan": {
+        "count": 1,
+        "direction": 1,
+        "kind": "lob",
+        "phase": 1,
+        "return_roll": false,
+        "roll_index": 0,
+        "selected_at": 6.71666666666665,
+        "weights": {
+          "lob": 1.0,
+          "ring": 1.0,
+          "roll": 1.728
+        }
+      },
+      "phases": [
+        {
+          "label_zh": "发射器跟瞄预警",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:06.983–00:07.633",
+          "start": {
+            "mm_ss": "00:06.983",
+            "seconds": 6.983333333333333,
+            "exact_time": "419/60s",
+            "movie_process_frame": 419,
+            "active_frame": 413,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/17",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 413,
+              "group": 2,
+              "movie_frame": 419,
+              "movie_seconds": 6.98333333333333,
+              "phase": 1,
+              "state": "lob_aim"
+            }
+          },
+          "end": {
+            "mm_ss": "00:07.633",
+            "seconds": 7.633333333333334,
+            "exact_time": "458/60s",
+            "movie_process_frame": 458,
+            "active_frame": 452,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/19",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 452,
+              "group": 2,
+              "movie_frame": 458,
+              "movie_seconds": 7.63333333333333,
+              "phase": 1,
+              "state": "lob_lock"
+            }
+          },
+          "duration_seconds": 0.65
+        },
+        {
+          "label_zh": "末段实际锁定",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:07.633–00:08.000",
+          "start": {
+            "mm_ss": "00:07.633",
+            "seconds": 7.633333333333334,
+            "exact_time": "458/60s",
+            "movie_process_frame": 458,
+            "active_frame": 452,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/19",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 452,
+              "group": 2,
+              "movie_frame": 458,
+              "movie_seconds": 7.63333333333333,
+              "phase": 1,
+              "state": "lob_lock"
+            }
+          },
+          "end": {
+            "mm_ss": "00:08.000",
+            "seconds": 8.0,
+            "exact_time": "480/60s",
+            "movie_process_frame": 480,
+            "active_frame": 474,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/21",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 474,
+              "group": 2,
+              "movie_frame": 480,
+              "movie_seconds": 8.0,
+              "phase": 1,
+              "state": "lob"
+            }
+          },
+          "duration_seconds": 0.36666666666666664
+        },
+        {
+          "label_zh": "实体抛铃飞行",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:08.000–00:10.167",
+          "start": {
+            "mm_ss": "00:08.000",
+            "seconds": 8.0,
+            "exact_time": "480/60s",
+            "movie_process_frame": 480,
+            "active_frame": 474,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/21",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 474,
+              "group": 2,
+              "movie_frame": 480,
+              "movie_seconds": 8.0,
+              "phase": 1,
+              "state": "lob"
+            }
+          },
+          "end": {
+            "mm_ss": "00:10.167",
+            "seconds": 10.166666666666666,
+            "exact_time": "610/60s",
+            "movie_process_frame": 610,
+            "active_frame": 604,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/24",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 604,
+              "group": 2,
+              "movie_frame": 610,
+              "movie_seconds": 10.1666666666667,
+              "phase": 1,
+              "state": "neck"
+            }
+          },
+          "duration_seconds": 2.1666666666666665
+        },
+        {
+          "label_zh": "真实收招/反击",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "00:10.167–00:11.217",
+          "start": {
+            "mm_ss": "00:10.167",
+            "seconds": 10.166666666666666,
+            "exact_time": "610/60s",
+            "movie_process_frame": 610,
+            "active_frame": 604,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/24",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 604,
+              "group": 2,
+              "movie_frame": 610,
+              "movie_seconds": 10.1666666666667,
+              "phase": 1,
+              "state": "neck"
+            }
+          },
+          "end": {
+            "mm_ss": "00:11.217",
+            "seconds": 11.216666666666667,
+            "exact_time": "673/60s",
+            "movie_process_frame": 673,
+            "active_frame": 667,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/27",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 667,
+              "group": 2,
+              "movie_frame": 673,
+              "movie_seconds": 11.2166666666667,
+              "phase": 1,
+              "state": "observe"
+            }
+          },
+          "duration_seconds": 1.05
+        }
+      ],
+      "hp_loss_events": []
+    },
+    {
+      "label_zh": "半血后预选回冲：首冲→刹停→转身→再蓄力→回冲→最终收招",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "01:12.550–01:18.117",
+      "start": {
+        "mm_ss": "01:12.550",
+        "seconds": 72.55,
+        "exact_time": "4353/60s",
+        "movie_process_frame": 4353,
+        "active_frame": 4347,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/213",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 4347,
+          "group": 19,
+          "movie_frame": 4353,
+          "movie_seconds": 72.55,
+          "phase": 2,
+          "state": "roll_warning"
+        }
+      },
+      "end": {
+        "mm_ss": "01:18.117",
+        "seconds": 78.11666666666666,
+        "exact_time": "4687/60s",
+        "movie_process_frame": 4687,
+        "active_frame": 4681,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/229",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 4681,
+          "group": 19,
+          "movie_frame": 4687,
+          "movie_seconds": 78.1166666666667,
+          "phase": 2,
+          "state": "observe"
+        }
+      },
+      "duration_seconds": 5.566666666666666,
+      "group": 19,
+      "selected_plan": {
+        "mm_ss": "01:12.550",
+        "seconds": 72.55,
+        "exact_time": "4353/60s",
+        "movie_process_frame": 4353,
+        "active_frame": 4347,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/211",
+        "event": "bellstrider_group",
+        "actual": {
+          "actual_event": {
+            "age": 72.2833333333305,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 19,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 2,
+              "return_roll": true,
+              "roll_index": 0,
+              "selected_at": 72.2833333333305,
+              "weights": {
+                "lob": 0.832358290057563,
+                "ring": 0.332553755053224,
+                "roll": 2.07602906181243
+              }
+            },
+            "position": [
+              6602.93896484375,
+              653.0
+            ]
+          },
+          "event": "bellstrider_group",
+          "frame": 4347,
+          "movie_frame": 4353,
+          "movie_seconds": 72.55
+        }
+      },
+      "actual_plan": {
+        "count": 1,
+        "direction": -1,
+        "kind": "roll",
+        "phase": 2,
+        "return_roll": true,
+        "roll_index": 0,
+        "selected_at": 72.2833333333305,
+        "weights": {
+          "lob": 0.832358290057563,
+          "ring": 0.332553755053224,
+          "roll": 2.07602906181243
+        }
+      },
+      "phases": [
+        {
+          "label_zh": "滚轮蓄力预警",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:12.550–01:13.400",
+          "start": {
+            "mm_ss": "01:12.550",
+            "seconds": 72.55,
+            "exact_time": "4353/60s",
+            "movie_process_frame": 4353,
+            "active_frame": 4347,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/213",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4347,
+              "group": 19,
+              "movie_frame": 4353,
+              "movie_seconds": 72.55,
+              "phase": 2,
+              "state": "roll_warning"
+            }
+          },
+          "end": {
+            "mm_ss": "01:13.400",
+            "seconds": 73.4,
+            "exact_time": "4404/60s",
+            "movie_process_frame": 4404,
+            "active_frame": 4398,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/216",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4398,
+              "group": 19,
+              "movie_frame": 4404,
+              "movie_seconds": 73.4,
+              "phase": 2,
+              "state": "roll"
+            }
+          },
+          "duration_seconds": 0.85
+        },
+        {
+          "label_zh": "实际滚轮冲锋",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:13.400–01:14.750",
+          "start": {
+            "mm_ss": "01:13.400",
+            "seconds": 73.4,
+            "exact_time": "4404/60s",
+            "movie_process_frame": 4404,
+            "active_frame": 4398,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/216",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4398,
+              "group": 19,
+              "movie_frame": 4404,
+              "movie_seconds": 73.4,
+              "phase": 2,
+              "state": "roll"
+            }
+          },
+          "end": {
+            "mm_ss": "01:14.750",
+            "seconds": 74.75,
+            "exact_time": "4485/60s",
+            "movie_process_frame": 4485,
+            "active_frame": 4479,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/218",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4479,
+              "group": 19,
+              "movie_frame": 4485,
+              "movie_seconds": 74.75,
+              "phase": 2,
+              "state": "combo_brake"
+            }
+          },
+          "duration_seconds": 1.35
+        },
+        {
+          "label_zh": "回冲中途刹停",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:14.750–01:15.000",
+          "start": {
+            "mm_ss": "01:14.750",
+            "seconds": 74.75,
+            "exact_time": "4485/60s",
+            "movie_process_frame": 4485,
+            "active_frame": 4479,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/218",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4479,
+              "group": 19,
+              "movie_frame": 4485,
+              "movie_seconds": 74.75,
+              "phase": 2,
+              "state": "combo_brake"
+            }
+          },
+          "end": {
+            "mm_ss": "01:15.000",
+            "seconds": 75.0,
+            "exact_time": "4500/60s",
+            "movie_process_frame": 4500,
+            "active_frame": 4494,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/220",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4494,
+              "group": 19,
+              "movie_frame": 4500,
+              "movie_seconds": 75.0,
+              "phase": 2,
+              "state": "combo_turn"
+            }
+          },
+          "duration_seconds": 0.25
+        },
+        {
+          "label_zh": "实际转身",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:15.000–01:15.233",
+          "start": {
+            "mm_ss": "01:15.000",
+            "seconds": 75.0,
+            "exact_time": "4500/60s",
+            "movie_process_frame": 4500,
+            "active_frame": 4494,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/220",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4494,
+              "group": 19,
+              "movie_frame": 4500,
+              "movie_seconds": 75.0,
+              "phase": 2,
+              "state": "combo_turn"
+            }
+          },
+          "end": {
+            "mm_ss": "01:15.233",
+            "seconds": 75.23333333333333,
+            "exact_time": "4514/60s",
+            "movie_process_frame": 4514,
+            "active_frame": 4508,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/222",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4508,
+              "group": 19,
+              "movie_frame": 4514,
+              "movie_seconds": 75.2333333333333,
+              "phase": 2,
+              "state": "combo_warning"
+            }
+          },
+          "duration_seconds": 0.23333333333333334
+        },
+        {
+          "label_zh": "回冲再蓄力",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:15.233–01:15.717",
+          "start": {
+            "mm_ss": "01:15.233",
+            "seconds": 75.23333333333333,
+            "exact_time": "4514/60s",
+            "movie_process_frame": 4514,
+            "active_frame": 4508,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/222",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4508,
+              "group": 19,
+              "movie_frame": 4514,
+              "movie_seconds": 75.2333333333333,
+              "phase": 2,
+              "state": "combo_warning"
+            }
+          },
+          "end": {
+            "mm_ss": "01:15.717",
+            "seconds": 75.71666666666667,
+            "exact_time": "4543/60s",
+            "movie_process_frame": 4543,
+            "active_frame": 4537,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/224",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4537,
+              "group": 19,
+              "movie_frame": 4543,
+              "movie_seconds": 75.7166666666667,
+              "phase": 2,
+              "state": "roll"
+            }
+          },
+          "duration_seconds": 0.48333333333333334
+        },
+        {
+          "label_zh": "实际滚轮冲锋",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:15.717–01:17.067",
+          "start": {
+            "mm_ss": "01:15.717",
+            "seconds": 75.71666666666667,
+            "exact_time": "4543/60s",
+            "movie_process_frame": 4543,
+            "active_frame": 4537,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/224",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4537,
+              "group": 19,
+              "movie_frame": 4543,
+              "movie_seconds": 75.7166666666667,
+              "phase": 2,
+              "state": "roll"
+            }
+          },
+          "end": {
+            "mm_ss": "01:17.067",
+            "seconds": 77.06666666666666,
+            "exact_time": "4624/60s",
+            "movie_process_frame": 4624,
+            "active_frame": 4618,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/226",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4618,
+              "group": 19,
+              "movie_frame": 4624,
+              "movie_seconds": 77.0666666666667,
+              "phase": 2,
+              "state": "neck"
+            }
+          },
+          "duration_seconds": 1.35
+        },
+        {
+          "label_zh": "真实收招/反击",
+          "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "pilot": "cautious2",
+          "range": "01:17.067–01:18.117",
+          "start": {
+            "mm_ss": "01:17.067",
+            "seconds": 77.06666666666666,
+            "exact_time": "4624/60s",
+            "movie_process_frame": 4624,
+            "active_frame": 4618,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/226",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4618,
+              "group": 19,
+              "movie_frame": 4624,
+              "movie_seconds": 77.0666666666667,
+              "phase": 2,
+              "state": "neck"
+            }
+          },
+          "end": {
+            "mm_ss": "01:18.117",
+            "seconds": 78.11666666666666,
+            "exact_time": "4687/60s",
+            "movie_process_frame": 4687,
+            "active_frame": 4681,
+            "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+            "json_pointer": "/events/229",
+            "event": "state",
+            "actual": {
+              "event": "state",
+              "frame": 4681,
+              "group": 19,
+              "movie_frame": 4687,
+              "movie_seconds": 78.1166666666667,
+              "phase": 2,
+              "state": "observe"
+            }
+          },
+          "duration_seconds": 1.05
+        }
+      ],
+      "hp_loss_events": []
+    },
+    {
+      "label_zh": "实际20HP命中与整组结束后的半血升压",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "00:40.150–00:41.817",
+      "start": {
+        "mm_ss": "00:40.150",
+        "seconds": 40.15,
+        "exact_time": "2409/60s",
+        "movie_process_frame": 2409,
+        "active_frame": 2403,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/116",
+        "event": "bellstrider_bell_hit",
+        "actual": {
+          "actual_event": {
+            "age": 39.8833333333324,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "301402688740:2:21",
+            "group": 10,
+            "health": 20.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": [
+              6518.99365234375,
+              578.640747070312
+            ],
+            "position": [
+              6529.33984375,
+              653.0
+            ]
+          },
+          "event": "bellstrider_bell_hit",
+          "frame": 2403,
+          "movie_frame": 2409,
+          "movie_seconds": 40.15
+        }
+      },
+      "end": {
+        "mm_ss": "00:41.817",
+        "seconds": 41.81666666666667,
+        "exact_time": "2509/60s",
+        "movie_process_frame": 2509,
+        "active_frame": 2503,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/120",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 2503,
+          "group": 10,
+          "movie_frame": 2509,
+          "movie_seconds": 41.8166666666667,
+          "phase": 2,
+          "state": "observe"
+        }
+      },
+      "duration_seconds": 1.6666666666666667,
+      "phase_cue": {
+        "mm_ss": "00:40.717",
+        "seconds": 40.71666666666667,
+        "exact_time": "2443/60s",
+        "movie_process_frame": 2443,
+        "active_frame": 2437,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/119",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 2437,
+          "group": 10,
+          "movie_frame": 2443,
+          "movie_seconds": 40.7166666666667,
+          "phase": 2,
+          "state": "phase_transition"
+        }
+      }
+    },
+    {
+      "label_zh": "稳健两枪：找射角、两次真实反冲、撤离至下一招执行",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "00:05.667–00:08.000",
+      "start": {
+        "mm_ss": "00:05.667",
+        "seconds": 5.666666666666667,
+        "exact_time": "340/60s",
+        "movie_process_frame": 340,
+        "active_frame": 334,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/11",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 334,
+          "group": 1,
+          "movie_frame": 340,
+          "movie_seconds": 5.66666666666667,
+          "phase": 1,
+          "state": "neck"
+        }
+      },
+      "end": {
+        "mm_ss": "00:08.000",
+        "seconds": 8.0,
+        "exact_time": "480/60s",
+        "movie_process_frame": 480,
+        "active_frame": 474,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/21",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 474,
+          "group": 2,
+          "movie_frame": 480,
+          "movie_seconds": 8.0,
+          "phase": 1,
+          "state": "lob"
+        }
+      },
+      "duration_seconds": 2.3333333333333335,
+      "group": 1,
+      "shots": [
+        {
+          "mm_ss": "00:05.767",
+          "seconds": 5.766666666666667,
+          "exact_time": "346/60s",
+          "movie_process_frame": 346,
+          "active_frame": 340,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/shots/1",
+          "event": "neck",
+          "actual": {
+            "boss_health": 40.0,
+            "direction": [
+              -0.904892027378082,
+              -0.425641268491745
+            ],
+            "frame": 340,
+            "grounded": true,
+            "group": 1,
+            "id": 2,
+            "movie_frame": 346,
+            "muzzle": [
+              6321.705078125,
+              695.182922363281
+            ],
+            "ordinal": 1,
+            "player": [
+              6335.91357421875,
+              699.925231933594
+            ],
+            "state": "neck"
+          }
+        },
+        {
+          "mm_ss": "00:06.050",
+          "seconds": 6.05,
+          "exact_time": "363/60s",
+          "movie_process_frame": 363,
+          "active_frame": 357,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/shots/2",
+          "event": "neck",
+          "actual": {
+            "boss_health": 39.0,
+            "direction": [
+              -0.939671397209167,
+              -0.342078566551208
+            ],
+            "frame": 357,
+            "grounded": true,
+            "group": 1,
+            "id": 3,
+            "movie_frame": 363,
+            "muzzle": [
+              6362.98828125,
+              696.404418945312
+            ],
+            "ordinal": 2,
+            "player": [
+              6377.89111328125,
+              699.925231933594
+            ],
+            "state": "neck"
+          }
+        }
+      ],
+      "accepted_hits": [
+        {
+          "mm_ss": "00:06.017",
+          "seconds": 6.016666666666667,
+          "exact_time": "361/60s",
+          "movie_process_frame": 361,
+          "active_frame": 355,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/12",
+          "event": "bellstrider_bell_hit",
+          "actual": {
+            "actual_event": {
+              "age": 5.74999999999998,
+              "amount": 1.0,
+              "direction": -1,
+              "event": "bellstrider_bell_hit",
+              "event_id": "301402688740:2:2",
+              "group": 1,
+              "health": 39.0,
+              "mode": "neck",
+              "phase": 1,
+              "point": [
+                6039.2890625,
+                579.47705078125
+              ],
+              "position": [
+                6055.0,
+                653.0
+              ]
+            },
+            "event": "bellstrider_bell_hit",
+            "frame": 355,
+            "movie_frame": 361,
+            "movie_seconds": 6.01666666666667
+          }
+        },
+        {
+          "mm_ss": "00:06.333",
+          "seconds": 6.333333333333333,
+          "exact_time": "380/60s",
+          "movie_process_frame": 380,
+          "active_frame": 374,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/13",
+          "event": "bellstrider_bell_hit",
+          "actual": {
+            "actual_event": {
+              "age": 6.06666666666665,
+              "amount": 1.0,
+              "direction": -1,
+              "event": "bellstrider_bell_hit",
+              "event_id": "301402688740:2:3",
+              "group": 1,
+              "health": 38.0,
+              "mode": "neck",
+              "phase": 1,
+              "point": [
+                6045.06298828125,
+                578.5244140625
+              ],
+              "position": [
+                6055.0,
+                653.0
+              ]
+            },
+            "event": "bellstrider_bell_hit",
+            "frame": 374,
+            "movie_frame": 380,
+            "movie_seconds": 6.33333333333333
+          }
+        }
+      ],
+      "note": "区间来自实际状态/射击/HP提交；完整轨迹、撤离与剩余威胁仍可逐帧复核。"
+    },
+    {
+      "label_zh": "装甲试射：真实弹体、局部甲壳反馈及HP对照",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "00:03.500–00:03.750",
+      "start": {
+        "mm_ss": "00:03.500",
+        "seconds": 3.5,
+        "exact_time": "210/60s",
+        "movie_process_frame": 210,
+        "active_frame": 204,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/shots/0",
+        "event": "observe",
+        "actual": {
+          "boss_health": 40.0,
+          "direction": [
+            0.996909618377686,
+            -0.0785575062036514
+          ],
+          "frame": 204,
+          "grounded": true,
+          "group": 0,
+          "id": 1,
+          "movie_frame": 210,
+          "muzzle": [
+            6133.2744140625,
+            694.9423828125
+          ],
+          "ordinal": 0,
+          "player": [
+            6117.00732421875,
+            699.925231933594
+          ],
+          "state": "observe"
+        }
+      },
+      "end": {
+        "mm_ss": "00:03.750",
+        "seconds": 3.75,
+        "exact_time": "225/60s",
+        "movie_process_frame": 225,
+        "active_frame": 219,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/7",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 219,
+          "group": 1,
+          "movie_frame": 225,
+          "movie_seconds": 3.75,
+          "phase": 1,
+          "state": "roll_warning"
+        }
+      },
+      "duration_seconds": 0.25,
+      "impact": {
+        "mm_ss": "00:03.683",
+        "seconds": 3.683333333333333,
+        "exact_time": "221/60s",
+        "movie_process_frame": 221,
+        "active_frame": 215,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/4",
+        "event": "bellstrider_armour_hit",
+        "actual": {
+          "actual_event": {
+            "age": 3.41666666666666,
+            "direction": -1,
+            "event": "bellstrider_armour_hit",
+            "group": 0,
+            "mode": "observe",
+            "phase": 1,
+            "point": [
+              6347.5322265625,
+              678.058349609375
+            ],
+            "position": [
+              6420.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_armour_hit",
+          "frame": 215,
+          "movie_frame": 221,
+          "movie_seconds": 3.68333333333333
+        }
+      },
+      "hp_samples": [
+        {
+          "mm_ss": "00:03.500",
+          "seconds": 3.5,
+          "exact_time": "210/60s",
+          "movie_process_frame": 210,
+          "active_frame": 204,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/frames/203",
+          "event": "observe",
+          "actual": {
+            "accepted_damage": 0.0,
+            "accepted_hits": 0,
+            "active_threats": [],
+            "bell_world": [
+              6426.611328125,
+              568.356384277344
+            ],
+            "boss_HP": 40.0,
+            "boss_clock": 0.233333333333333,
+            "boss_position": [
+              6420.0,
+              653.0
+            ],
+            "boss_started": true,
+            "camera_zoom": [
+              1.60000002384186,
+              1.60000002384186
+            ],
+            "controller_active": true,
+            "cooldown": 0.25,
+            "damage_motion_remaining": 0.0,
+            "energy": 100.0,
+            "epoch": {
+              "actor": 3,
+              "boss_attack": 0,
+              "player_session": 2,
+              "run": 3,
+              "stage": 3
+            },
+            "exit_modal_opened": false,
+            "fight_seconds": 3.23333333333333,
+            "frame": 204,
+            "grounded": true,
+            "group": 0,
+            "group_plan": {},
+            "groups_completed": 0,
+            "late_visible_reaction": {
+              "armed": false,
+              "consumed": false,
+              "elapsed_seconds": 0.0,
+              "kind": "",
+              "source_third_group": -1,
+              "status": "not_armed",
+              "threat_group": -1
+            },
+            "late_withdraw_remaining": 0.0,
+            "movie_process_frame": 210,
+            "movie_seconds": 3.5,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "phase": 1,
+            "pilot_intent": "reposition with normal run input",
+            "pilot_recovery_shots": 0,
+            "player_HP": 5.0,
+            "player_position": [
+              6106.955078125,
+              699.925231933594
+            ],
+            "recoil_remaining": 0.123333333333333,
+            "recoil_velocity": [
+              -603.130310058594,
+              0.0
+            ],
+            "rendered_movie_process_frame": 210,
+            "reward_modal_opened": false,
+            "rounds": 1,
+            "router_aim": [
+              0.996909618377686,
+              -0.0785575062036514
+            ],
+            "router_axis": 1.0,
+            "router_epoch": 5,
+            "router_sequence": 1,
+            "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+            "seal_closed": true,
+            "shots_fired": 1,
+            "slide_collisions": [
+              {
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+                "point": [
+                  6128.02587890625,
+                  718.0
+                ]
+              },
+              {
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+                "point": [
+                  6127.0859375,
+                  718.0
+                ]
+              },
+              {
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+                "point": [
+                  6118.955078125,
+                  718.0
+                ]
+              }
+            ],
+            "state": "observe",
+            "time_scale": 1.0,
+            "tree_paused": false,
+            "units": [],
+            "wallet": 0,
+            "wallet_delta": 0
+          }
+        },
+        {
+          "mm_ss": "00:03.700",
+          "seconds": 3.7,
+          "exact_time": "222/60s",
+          "movie_process_frame": 222,
+          "active_frame": 216,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/frames/215",
+          "event": "observe",
+          "actual": {
+            "accepted_damage": 0.0,
+            "accepted_hits": 0,
+            "active_threats": [],
+            "bell_world": [
+              6426.17431640625,
+              568.626892089844
+            ],
+            "boss_HP": 40.0,
+            "boss_clock": 0.0333333333333334,
+            "boss_position": [
+              6420.0,
+              653.0
+            ],
+            "boss_started": true,
+            "camera_zoom": [
+              1.60000002384186,
+              1.60000002384186
+            ],
+            "controller_active": true,
+            "cooldown": 0.05,
+            "damage_motion_remaining": 0.0,
+            "energy": 100.0,
+            "epoch": {
+              "actor": 3,
+              "boss_attack": 0,
+              "player_session": 2,
+              "run": 3,
+              "stage": 3
+            },
+            "exit_modal_opened": false,
+            "fight_seconds": 3.43333333333333,
+            "frame": 216,
+            "grounded": true,
+            "group": 0,
+            "group_plan": {},
+            "groups_completed": 0,
+            "late_visible_reaction": {
+              "armed": false,
+              "consumed": false,
+              "elapsed_seconds": 0.0,
+              "kind": "",
+              "source_third_group": -1,
+              "status": "not_armed",
+              "threat_group": -1
+            },
+            "late_withdraw_remaining": 0.0,
+            "movie_process_frame": 222,
+            "movie_seconds": 3.7,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "phase": 1,
+            "pilot_intent": "reposition with normal run input",
+            "pilot_recovery_shots": 0,
+            "player_HP": 5.0,
+            "player_position": [
+              6049.90234375,
+              699.925231933594
+            ],
+            "recoil_remaining": 0.0,
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "rendered_movie_process_frame": 222,
+            "reward_modal_opened": false,
+            "rounds": 1,
+            "router_aim": [
+              0.943809568881989,
+              -0.330489784479141
+            ],
+            "router_axis": 1.0,
+            "router_epoch": 5,
+            "router_sequence": 1,
+            "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+            "seal_closed": true,
+            "shots_fired": 1,
+            "slide_collisions": [
+              {
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+                "point": [
+                  6058.04296875,
+                  718.0
+                ]
+              },
+              {
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+                "point": [
+                  6058.4873046875,
+                  718.0
+                ]
+              },
+              {
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+                "point": [
+                  6061.90234375,
+                  718.0
+                ]
+              }
+            ],
+            "state": "observe",
+            "time_scale": 1.0,
+            "tree_paused": false,
+            "units": [],
+            "wallet": 0,
+            "wallet_delta": 0
+          }
+        }
+      ],
+      "hp_unchanged": true
+    },
+    {
+      "label_zh": "第三枪后晚读招/晚撤对照：真实预警、距离截止、正常躲避尝试与实际受伤",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/review.mp4",
+      "pilot": "greed3_late",
+      "range": "00:06.583–00:09.867",
+      "start": {
+        "mm_ss": "00:06.583",
+        "seconds": 6.583333333333333,
+        "exact_time": "395/60s",
+        "movie_process_frame": 395,
+        "active_frame": 389,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/shots/2",
+        "event": "neck",
+        "actual": {
+          "boss_health": 38.0,
+          "direction": [
+            -0.943380296230316,
+            -0.331713289022446
+          ],
+          "frame": 389,
+          "grounded": true,
+          "group": 1,
+          "id": 3,
+          "movie_frame": 395,
+          "muzzle": [
+            6389.66259765625,
+            696.552307128906
+          ],
+          "ordinal": 3,
+          "player": [
+            6404.6494140625,
+            699.925231933594
+          ],
+          "state": "neck"
+        }
+      },
+      "end": {
+        "mm_ss": "00:09.867",
+        "seconds": 9.866666666666667,
+        "exact_time": "592/60s",
+        "movie_process_frame": 592,
+        "active_frame": 586,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/frames/585",
+        "event": "lob",
+        "actual": {
+          "accepted_damage": 3.0,
+          "accepted_hits": 3,
+          "active_threats": [],
+          "bell_world": [
+            6042.462890625,
+            573.307312011719
+          ],
+          "boss_HP": 37.0,
+          "boss_clock": 0.283333333333336,
+          "boss_position": [
+            6055.0,
+            653.0
+          ],
+          "boss_started": true,
+          "camera_zoom": [
+            1.60000002384186,
+            1.60000002384186
+          ],
+          "controller_active": true,
+          "cooldown": 0.0,
+          "damage_motion_remaining": 0.163333333333333,
+          "energy": 100.0,
+          "epoch": {
+            "actor": 3,
+            "boss_attack": 0,
+            "player_session": 2,
+            "run": 3,
+            "stage": 3
+          },
+          "exit_modal_opened": false,
+          "fight_seconds": 9.60000000000006,
+          "frame": 586,
+          "grounded": false,
+          "group": 2,
+          "group_plan": {
+            "count": 1,
+            "direction": 1,
+            "kind": "lob",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 6.71666666666665,
+            "weights": {
+              "lob": 1.0,
+              "ring": 1.0,
+              "roll": 1.728
+            }
+          },
+          "groups_completed": 1,
+          "late_visible_reaction": {
+            "armed": true,
+            "consumed": true,
+            "elapsed_seconds": 2.88333333333333,
+            "kind": "lob",
+            "source_third_group": 1,
+            "status": "actual_distance_deadline_evade_attempted_normal_reactions_restored",
+            "threat_group": 2
+          },
+          "late_withdraw_remaining": 0.0,
+          "movie_process_frame": 592,
+          "movie_seconds": 9.86666666666667,
+          "normal_velocity": [
+            -260.0,
+            43.3333320617676
+          ],
+          "phase": 1,
+          "pilot_intent": "track actual lob lock; run out of landing zone",
+          "pilot_recovery_shots": 0,
+          "player_HP": 3.0,
+          "player_position": [
+            6492.72021484375,
+            687.851928710938
+          ],
+          "recoil_remaining": 0.0,
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "rendered_movie_process_frame": 592,
+          "reward_modal_opened": false,
+          "rounds": 1,
+          "router_aim": [
+            -0.967202663421631,
+            -0.254005759954453
+          ],
+          "router_axis": -1.0,
+          "router_epoch": 5,
+          "router_sequence": 6,
+          "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+          "seal_closed": true,
+          "shots_fired": 3,
+          "slide_collisions": [],
+          "state": "lob",
+          "time_scale": 1.0,
+          "tree_paused": false,
+          "units": [],
+          "wallet": 0,
+          "wallet_delta": 0
+        }
+      },
+      "duration_seconds": 3.283333333333333,
+      "third_shot": {
+        "mm_ss": "00:06.583",
+        "seconds": 6.583333333333333,
+        "exact_time": "395/60s",
+        "movie_process_frame": 395,
+        "active_frame": 389,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/shots/2",
+        "event": "neck",
+        "actual": {
+          "boss_health": 38.0,
+          "direction": [
+            -0.943380296230316,
+            -0.331713289022446
+          ],
+          "frame": 389,
+          "grounded": true,
+          "group": 1,
+          "id": 3,
+          "movie_frame": 395,
+          "muzzle": [
+            6389.66259765625,
+            696.552307128906
+          ],
+          "ordinal": 3,
+          "player": [
+            6404.6494140625,
+            699.925231933594
+          ],
+          "state": "neck"
+        }
+      },
+      "actual_third_hit": [
+        {
+          "mm_ss": "00:06.867",
+          "seconds": 6.866666666666666,
+          "exact_time": "412/60s",
+          "movie_process_frame": 412,
+          "active_frame": 406,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/15",
+          "event": "bellstrider_bell_hit",
+          "actual": {
+            "actual_event": {
+              "age": 6.59999999999998,
+              "amount": 1.0,
+              "direction": -1,
+              "event": "bellstrider_bell_hit",
+              "event_id": "301402688740:2:3",
+              "group": 1,
+              "health": 37.0,
+              "mode": "observe",
+              "phase": 1,
+              "point": [
+                6064.20654296875,
+                568.570922851562
+              ],
+              "position": [
+                6055.0,
+                653.0
+              ]
+            },
+            "event": "bellstrider_bell_hit",
+            "frame": 406,
+            "movie_frame": 412,
+            "movie_seconds": 6.86666666666667
+          }
+        }
+      ],
+      "player_delay_intent": {
+        "mm_ss": "00:06.583",
+        "seconds": 6.583333333333333,
+        "exact_time": "395/60s",
+        "movie_process_frame": 395,
+        "active_frame": 388,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/inputs/5",
+        "event": "intentional_late_withdraw",
+        "actual": {
+          "action": "intentional_late_withdraw",
+          "after_actual_shot_id": 3,
+          "causality": "intentional player reaction delay after third shot; no claim third shot alone causes injury",
+          "frame": 388,
+          "group": 1,
+          "label": "第三枪后晚读招/晚撤对照",
+          "movie_frame": 395,
+          "scope": "ONE next visible threat; then normal reactive evades resume",
+          "thresholds_wu": {
+            "descending_bell_distance": 45.0,
+            "incoming_ground_wave_horizontal_gap": 35.0,
+            "incoming_roll_horizontal_gap": 100.0
+          }
+        }
+      },
+      "visible_threat_detected": {
+        "mm_ss": "00:06.983",
+        "seconds": 6.983333333333333,
+        "exact_time": "419/60s",
+        "movie_process_frame": 419,
+        "active_frame": 413,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/inputs/6",
+        "event": "late_visible_threat_detected",
+        "actual": {
+          "action": "late_visible_threat_detected",
+          "actual_state": "lob_aim",
+          "boss": [
+            6055.0,
+            653.0
+          ],
+          "frame": 413,
+          "group": 2,
+          "kind": "lob",
+          "label": "第三枪后晚读招/晚撤对照",
+          "movie_frame": 419,
+          "player": [
+            6484.552734375,
+            699.925170898438
+          ],
+          "source_third_shot_group": 1
+        }
+      },
+      "actual_distance_attempt": {
+        "mm_ss": "00:09.833",
+        "seconds": 9.833333333333334,
+        "exact_time": "590/60s",
+        "movie_process_frame": 590,
+        "active_frame": 584,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/inputs/7",
+        "event": "late_distance_deadline_evade_attempt",
+        "actual": {
+          "action": "late_distance_deadline_evade_attempt",
+          "actual_state": "lob",
+          "axis": 1.0,
+          "causality": "legal player input attempt triggered by actual visible threat distance, never by HP changes",
+          "frame": 584,
+          "grounded": true,
+          "group": 2,
+          "jump_requested": true,
+          "kind": "lob",
+          "measured_gap_wu": 39.7294845581055,
+          "movie_frame": 590,
+          "player": [
+            6484.552734375,
+            699.925170898438
+          ],
+          "threat": [
+            6471.12939453125,
+            662.532043457031
+          ],
+          "threshold_wu": 45.0,
+          "visible_reaction_delay_seconds": 2.85
+        }
+      },
+      "injury": {
+        "mm_ss": "00:09.850",
+        "seconds": 9.85,
+        "exact_time": "591/60s",
+        "movie_process_frame": 591,
+        "active_frame": 585,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/23",
+        "event": "actual_player_injury",
+        "actual": {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "bellstrider_lob-0-1",
+          "frame": 585,
+          "group": 2,
+          "health": 3.0,
+          "last_shot_frame": 389,
+          "movie_frame": 591,
+          "movie_seconds": 9.85,
+          "state": "lob"
+        }
+      },
+      "causality": "实际比较第三枪后的晚读招/晚撤输入；这是时序与真实伤害证据，不把第三枪单独归因于受伤。"
+    },
+    {
+      "label_zh": "成功第三枪对照：实际命中至下一整招真实收招，本段未观察到HP损失",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/review.mp4",
+      "pilot": "greed3_late",
+      "range": "00:11.383–00:12.400",
+      "start": {
+        "mm_ss": "00:11.383",
+        "seconds": 11.383333333333333,
+        "exact_time": "683/60s",
+        "movie_process_frame": 683,
+        "active_frame": 677,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/shots/5",
+        "event": "observe",
+        "actual": {
+          "boss_health": 35.0,
+          "direction": [
+            -0.949633002281189,
+            -0.313364326953888
+          ],
+          "frame": 677,
+          "grounded": true,
+          "group": 2,
+          "id": 6,
+          "movie_frame": 683,
+          "muzzle": [
+            6407.78857421875,
+            696.822326660156
+          ],
+          "ordinal": 3,
+          "player": [
+            6422.908203125,
+            699.925231933594
+          ],
+          "state": "observe"
+        }
+      },
+      "end": {
+        "mm_ss": "00:12.400",
+        "seconds": 12.4,
+        "exact_time": "744/60s",
+        "movie_process_frame": 744,
+        "active_frame": 738,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/35",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 738,
+          "group": 3,
+          "movie_frame": 744,
+          "movie_seconds": 12.4,
+          "phase": 1,
+          "state": "neck"
+        }
+      },
+      "duration_seconds": 1.0166666666666666,
+      "accepted_hit": [
+        {
+          "mm_ss": "00:11.683",
+          "seconds": 11.683333333333334,
+          "exact_time": "701/60s",
+          "movie_process_frame": 701,
+          "active_frame": 695,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/31",
+          "event": "bellstrider_bell_hit",
+          "actual": {
+            "actual_event": {
+              "age": 11.4166666666668,
+              "amount": 1.0,
+              "direction": 1,
+              "event": "bellstrider_bell_hit",
+              "event_id": "301402688740:2:6",
+              "group": 3,
+              "health": 34.0,
+              "mode": "ring_warning",
+              "phase": 1,
+              "point": [
+                6049.40869140625,
+                570.48046875
+              ],
+              "position": [
+                6055.0,
+                653.0
+              ]
+            },
+            "event": "bellstrider_bell_hit",
+            "frame": 695,
+            "movie_frame": 701,
+            "movie_seconds": 11.6833333333333
+          }
+        }
+      ],
+      "next_actual_attack": {
+        "mm_ss": "00:12.183",
+        "seconds": 12.183333333333334,
+        "exact_time": "731/60s",
+        "movie_process_frame": 731,
+        "active_frame": 725,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/33",
+        "event": "state",
+        "actual": {
+          "event": "state",
+          "frame": 725,
+          "group": 3,
+          "movie_frame": 731,
+          "movie_seconds": 12.1833333333333,
+          "phase": 1,
+          "state": "rings"
+        }
+      }
+    },
+    {
+      "label_zh": "稳健完整战斗：真实致死与完整失效演出",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "01:21.283–01:23.100",
+      "start": {
+        "mm_ss": "01:21.283",
+        "seconds": 81.28333333333333,
+        "exact_time": "4877/60s",
+        "movie_process_frame": 4877,
+        "active_frame": 4871,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/239",
+        "event": "bellstrider_death",
+        "actual": {
+          "actual_event": {
+            "age": 81.0166666666634,
+            "direction": -1,
+            "event": "bellstrider_death",
+            "group": 20,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death",
+          "frame": 4871,
+          "movie_frame": 4877,
+          "movie_seconds": 81.2833333333333
+        }
+      },
+      "end": {
+        "mm_ss": "01:23.100",
+        "seconds": 83.1,
+        "exact_time": "4986/60s",
+        "movie_process_frame": 4986,
+        "active_frame": 4980,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/245",
+        "event": "bellstrider_death_final",
+        "actual": {
+          "actual_event": {
+            "age": 82.8166666666633,
+            "direction": -1,
+            "event": "bellstrider_death_final",
+            "group": 20,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_final",
+          "frame": 4980,
+          "movie_frame": 4986,
+          "movie_seconds": 83.1
+        }
+      },
+      "duration_seconds": 1.8166666666666667,
+      "lethal_hit": {
+        "mm_ss": "01:21.283",
+        "seconds": 81.28333333333333,
+        "exact_time": "4877/60s",
+        "movie_process_frame": 4877,
+        "active_frame": 4871,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/240",
+        "event": "bellstrider_bell_hit",
+        "actual": {
+          "actual_event": {
+            "age": 81.0166666666634,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "301402688740:2:41",
+            "group": 20,
+            "health": 0.0,
+            "mode": "dead",
+            "phase": 2,
+            "point": [
+              6066.0771484375,
+              579.145202636719
+            ],
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_bell_hit",
+          "frame": 4871,
+          "movie_frame": 4877,
+          "movie_seconds": 81.2833333333333
+        }
+      },
+      "impact": {
+        "mm_ss": "01:22.333",
+        "seconds": 82.33333333333333,
+        "exact_time": "4940/60s",
+        "movie_process_frame": 4940,
+        "active_frame": 4934,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/244",
+        "event": "bellstrider_death_impact",
+        "actual": {
+          "actual_event": {
+            "age": 82.0666666666633,
+            "direction": -1,
+            "event": "bellstrider_death_impact",
+            "group": 20,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_impact",
+          "frame": 4934,
+          "movie_frame": 4940,
+          "movie_seconds": 82.3333333333333
+        }
+      },
+      "observed_death_seconds": 1.8166666666666667,
+      "visibility_scope": "稳健02死亡左缘部分出画，保留真实死亡事件，不标完整死亡视觉验收；需要另一角度，配对greed影片已覆盖完整整机死亡。",
+      "preferred_for_full_death_visual_review": false
+    },
+    {
+      "label_zh": "稳健完整战斗：主要撞击喷币→真实拾取四枚币",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "pilot": "cautious2",
+      "range": "01:22.333–01:24.700",
+      "start": {
+        "mm_ss": "01:22.333",
+        "seconds": 82.33333333333333,
+        "exact_time": "4940/60s",
+        "movie_process_frame": 4940,
+        "active_frame": 4934,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/244",
+        "event": "bellstrider_death_impact",
+        "actual": {
+          "actual_event": {
+            "age": 82.0666666666633,
+            "direction": -1,
+            "event": "bellstrider_death_impact",
+            "group": 20,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_impact",
+          "frame": 4934,
+          "movie_frame": 4940,
+          "movie_seconds": 82.3333333333333
+        }
+      },
+      "end": {
+        "mm_ss": "01:24.700",
+        "seconds": 84.7,
+        "exact_time": "5082/60s",
+        "movie_process_frame": 5082,
+        "active_frame": 5077,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/250",
+        "event": "all_actual_boss_coins_claimed",
+        "actual": {
+          "event": "all_actual_boss_coins_claimed",
+          "frame": 5077,
+          "movie_frame": 5082,
+          "movie_seconds": 84.7
+        }
+      },
+      "duration_seconds": 2.3666666666666667,
+      "first_four_unit_frame": {
+        "mm_ss": "01:22.333",
+        "seconds": 82.33333333333333,
+        "exact_time": "4940/60s",
+        "movie_process_frame": 4940,
+        "active_frame": 4934,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/frames/4933",
+        "event": "dead",
+        "actual": {
+          "accepted_damage": 40.0,
+          "accepted_hits": 40,
+          "active_threats": [],
+          "bell_world": [
+            6033.4091796875,
+            641.430114746094
+          ],
+          "boss_HP": 0.0,
+          "boss_clock": 0.749999999999999,
+          "boss_position": [
+            6078.681640625,
+            653.0
+          ],
+          "boss_started": true,
+          "camera_zoom": [
+            1.60000002384186,
+            1.60000002384186
+          ],
+          "controller_active": true,
+          "cooldown": 0.0,
+          "damage_motion_remaining": 0.0,
+          "energy": 100.0,
+          "epoch": {
+            "actor": 3,
+            "boss_attack": 1,
+            "player_session": 2,
+            "run": 3,
+            "stage": 3
+          },
+          "exit_modal_opened": false,
+          "fight_seconds": 82.0666666666633,
+          "frame": 4934,
+          "grounded": true,
+          "group": 20,
+          "group_plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 2,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 78.1166666666635,
+            "weights": {
+              "lob": 1.0,
+              "ring": 0.48,
+              "roll": 1.19719351819161
+            }
+          },
+          "groups_completed": 19,
+          "late_visible_reaction": {
+            "armed": false,
+            "consumed": false,
+            "elapsed_seconds": 0.0,
+            "kind": "",
+            "source_third_group": -1,
+            "status": "not_armed",
+            "threat_group": -1
+          },
+          "late_withdraw_remaining": 0.0,
+          "movie_process_frame": 4940,
+          "movie_seconds": 82.3333333333333,
+          "normal_velocity": [
+            0.0,
+            0.0
+          ],
+          "phase": 2,
+          "pilot_intent": "observe actual death, then collect real coins",
+          "pilot_recovery_shots": 2,
+          "player_HP": 5.0,
+          "player_position": [
+            6508.9736328125,
+            699.925170898438
+          ],
+          "recoil_remaining": 0.0,
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "rendered_movie_process_frame": 4940,
+          "reward_modal_opened": false,
+          "rounds": 1,
+          "router_aim": [
+            -0.991028070449829,
+            -0.1336540132761
+          ],
+          "router_axis": 0.0,
+          "router_epoch": 5,
+          "router_sequence": 87,
+          "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+          "seal_closed": false,
+          "shots_fired": 41,
+          "slide_collisions": [
+            {
+              "normal": [
+                0.0,
+                -1.0
+              ],
+              "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+              "point": [
+                6520.9736328125,
+                718.0
+              ]
+            }
+          ],
+          "state": "dead",
+          "time_scale": 1.0,
+          "tree_paused": false,
+          "units": [
+            {
+              "amount": 5,
+              "born_at": 82.3333333333299,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6086.8291015625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                -31.0799999237061,
+                -123.299995422363
+              ],
+              "position": [
+                6086.8291015625,
+                678.933959960938
+              ],
+              "ready_at": 82.6833333333299,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6086.8291015625,
+                678.933959960938
+              ]
+            },
+            {
+              "amount": 5,
+              "born_at": 82.3333333333299,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider/unit_1",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6086.8291015625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                34.439998626709,
+                -141.300003051758
+              ],
+              "position": [
+                6086.8291015625,
+                678.933959960938
+              ],
+              "ready_at": 82.6833333333299,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6086.8291015625,
+                678.933959960938
+              ]
+            },
+            {
+              "amount": 1,
+              "born_at": 82.3333333333299,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider/unit_2",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6086.8291015625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                -46.0,
+                -161.0
+              ],
+              "position": [
+                6086.8291015625,
+                678.933959960938
+              ],
+              "ready_at": 82.6833333333299,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6086.8291015625,
+                678.933959960938
+              ]
+            },
+            {
+              "amount": 1,
+              "born_at": 82.3333333333299,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider/unit_3",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6086.8291015625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                56.0,
+                -151.0
+              ],
+              "position": [
+                6086.8291015625,
+                678.933959960938
+              ],
+              "ready_at": 82.6833333333299,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6086.8291015625,
+                678.933959960938
+              ]
+            }
+          ],
+          "wallet": 0,
+          "wallet_delta": 0
+        }
+      },
+      "death_final": {
+        "mm_ss": "01:23.100",
+        "seconds": 83.1,
+        "exact_time": "4986/60s",
+        "movie_process_frame": 4986,
+        "active_frame": 4980,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+        "json_pointer": "/events/245",
+        "event": "bellstrider_death_final",
+        "actual": {
+          "actual_event": {
+            "age": 82.8166666666633,
+            "direction": -1,
+            "event": "bellstrider_death_final",
+            "group": 20,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6078.681640625,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_final",
+          "frame": 4980,
+          "movie_frame": 4986,
+          "movie_seconds": 83.1
+        }
+      },
+      "wallet_changes": [
+        {
+          "mm_ss": "01:24.383",
+          "seconds": 84.38333333333334,
+          "exact_time": "5063/60s",
+          "movie_process_frame": 5063,
+          "active_frame": 5057,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/246",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 1,
+            "before": 0,
+            "event": "actual_wallet_change",
+            "frame": 5057,
+            "movie_frame": 5063,
+            "movie_seconds": 84.3833333333333
+          }
+        },
+        {
+          "mm_ss": "01:24.467",
+          "seconds": 84.46666666666667,
+          "exact_time": "5068/60s",
+          "movie_process_frame": 5068,
+          "active_frame": 5062,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/247",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 6,
+            "before": 1,
+            "event": "actual_wallet_change",
+            "frame": 5062,
+            "movie_frame": 5068,
+            "movie_seconds": 84.4666666666667
+          }
+        },
+        {
+          "mm_ss": "01:24.633",
+          "seconds": 84.63333333333334,
+          "exact_time": "5078/60s",
+          "movie_process_frame": 5078,
+          "active_frame": 5072,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/248",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 11,
+            "before": 6,
+            "event": "actual_wallet_change",
+            "frame": 5072,
+            "movie_frame": 5078,
+            "movie_seconds": 84.6333333333333
+          }
+        },
+        {
+          "mm_ss": "01:24.700",
+          "seconds": 84.7,
+          "exact_time": "5082/60s",
+          "movie_process_frame": 5082,
+          "active_frame": 5076,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/249",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 12,
+            "before": 11,
+            "event": "actual_wallet_change",
+            "frame": 5076,
+            "movie_frame": 5082,
+            "movie_seconds": 84.7
+          }
+        }
+      ],
+      "denominations": [
+        5,
+        5,
+        1,
+        1
+      ],
+      "actual_wallet_delta": 12,
+      "visibility_scope": "主片死亡左缘部分出画；喷币/完整死亡章节优先采用配对greed影片。"
+    },
+    {
+      "label_zh": "第三枪/一次晚撤完整战斗：单次实际受伤（逐次列出，不合并归因）",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/review.mp4",
+      "pilot": "greed3_late",
+      "range": "00:04.800–00:04.817",
+      "start": {
+        "mm_ss": "00:04.800",
+        "seconds": 4.8,
+        "exact_time": "288/60s",
+        "movie_process_frame": 288,
+        "active_frame": 282,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/9",
+        "event": "actual_player_injury",
+        "actual": {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 282,
+          "group": 1,
+          "health": 4.0,
+          "last_shot_frame": -1,
+          "movie_frame": 288,
+          "movie_seconds": 4.8,
+          "state": "roll"
+        }
+      },
+      "end": {
+        "mm_ss": "00:04.817",
+        "seconds": 4.816666666666666,
+        "exact_time": "289/60s",
+        "movie_process_frame": 289,
+        "active_frame": 283,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/frames/282",
+        "event": "roll",
+        "actual": {
+          "accepted_damage": 0.0,
+          "accepted_hits": 0,
+          "active_threats": [],
+          "bell_world": [
+            6383.9619140625,
+            566.679931640625
+          ],
+          "boss_HP": 40.0,
+          "boss_clock": 1.13333333333333,
+          "boss_position": [
+            6376.337890625,
+            653.0
+          ],
+          "boss_started": true,
+          "camera_zoom": [
+            1.60000002384186,
+            1.60000002384186
+          ],
+          "controller_active": true,
+          "cooldown": 0.0,
+          "damage_motion_remaining": 0.163333333333333,
+          "energy": 100.0,
+          "epoch": {
+            "actor": 3,
+            "boss_attack": 0,
+            "player_session": 2,
+            "run": 3,
+            "stage": 3
+          },
+          "exit_modal_opened": false,
+          "fight_seconds": 4.54999999999999,
+          "frame": 283,
+          "grounded": false,
+          "group": 1,
+          "group_plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 3.48333333333333,
+            "weights": {
+              "lob": 1.0,
+              "ring": 1.0,
+              "roll": 3.6
+            }
+          },
+          "groups_completed": 0,
+          "late_visible_reaction": {
+            "armed": false,
+            "consumed": false,
+            "elapsed_seconds": 0.0,
+            "kind": "",
+            "source_third_group": -1,
+            "status": "not_armed",
+            "threat_group": -1
+          },
+          "late_withdraw_remaining": 0.0,
+          "movie_process_frame": 289,
+          "movie_seconds": 4.81666666666667,
+          "normal_velocity": [
+            260.0,
+            43.3333320617676
+          ],
+          "phase": 1,
+          "pilot_intent": "approach and plant during charge warning; jump and cross",
+          "pilot_recovery_shots": 0,
+          "player_HP": 4.0,
+          "player_position": [
+            6308.1806640625,
+            698.230590820312
+          ],
+          "recoil_remaining": 0.0,
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "rendered_movie_process_frame": 289,
+          "reward_modal_opened": false,
+          "rounds": 1,
+          "router_aim": [
+            0.519267737865448,
+            -0.85461163520813
+          ],
+          "router_axis": 1.0,
+          "router_epoch": 5,
+          "router_sequence": 1,
+          "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+          "seal_closed": true,
+          "shots_fired": 0,
+          "slide_collisions": [],
+          "state": "roll",
+          "time_scale": 1.0,
+          "tree_paused": false,
+          "units": [],
+          "wallet": 0,
+          "wallet_delta": 0
+        }
+      },
+      "duration_seconds": 0.016666666666666666,
+      "injury_source": {
+        "mm_ss": "00:04.800",
+        "seconds": 4.8,
+        "exact_time": "288/60s",
+        "movie_process_frame": 288,
+        "active_frame": 282,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/9",
+        "event": "actual_player_injury",
+        "actual": {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 282,
+          "group": 1,
+          "health": 4.0,
+          "last_shot_frame": -1,
+          "movie_frame": 288,
+          "movie_seconds": 4.8,
+          "state": "roll"
+        }
+      },
+      "note": "依实际伤害event_id、group和影片时序判断；不会把此前冲锋受伤归因于后来的第三枪/晚撤。"
+    },
+    {
+      "label_zh": "第三枪/一次晚撤完整战斗：单次实际受伤（逐次列出，不合并归因）",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/review.mp4",
+      "pilot": "greed3_late",
+      "range": "00:09.850–00:09.867",
+      "start": {
+        "mm_ss": "00:09.850",
+        "seconds": 9.85,
+        "exact_time": "591/60s",
+        "movie_process_frame": 591,
+        "active_frame": 585,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/23",
+        "event": "actual_player_injury",
+        "actual": {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "bellstrider_lob-0-1",
+          "frame": 585,
+          "group": 2,
+          "health": 3.0,
+          "last_shot_frame": 389,
+          "movie_frame": 591,
+          "movie_seconds": 9.85,
+          "state": "lob"
+        }
+      },
+      "end": {
+        "mm_ss": "00:09.867",
+        "seconds": 9.866666666666667,
+        "exact_time": "592/60s",
+        "movie_process_frame": 592,
+        "active_frame": 586,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/frames/585",
+        "event": "lob",
+        "actual": {
+          "accepted_damage": 3.0,
+          "accepted_hits": 3,
+          "active_threats": [],
+          "bell_world": [
+            6042.462890625,
+            573.307312011719
+          ],
+          "boss_HP": 37.0,
+          "boss_clock": 0.283333333333336,
+          "boss_position": [
+            6055.0,
+            653.0
+          ],
+          "boss_started": true,
+          "camera_zoom": [
+            1.60000002384186,
+            1.60000002384186
+          ],
+          "controller_active": true,
+          "cooldown": 0.0,
+          "damage_motion_remaining": 0.163333333333333,
+          "energy": 100.0,
+          "epoch": {
+            "actor": 3,
+            "boss_attack": 0,
+            "player_session": 2,
+            "run": 3,
+            "stage": 3
+          },
+          "exit_modal_opened": false,
+          "fight_seconds": 9.60000000000006,
+          "frame": 586,
+          "grounded": false,
+          "group": 2,
+          "group_plan": {
+            "count": 1,
+            "direction": 1,
+            "kind": "lob",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 6.71666666666665,
+            "weights": {
+              "lob": 1.0,
+              "ring": 1.0,
+              "roll": 1.728
+            }
+          },
+          "groups_completed": 1,
+          "late_visible_reaction": {
+            "armed": true,
+            "consumed": true,
+            "elapsed_seconds": 2.88333333333333,
+            "kind": "lob",
+            "source_third_group": 1,
+            "status": "actual_distance_deadline_evade_attempted_normal_reactions_restored",
+            "threat_group": 2
+          },
+          "late_withdraw_remaining": 0.0,
+          "movie_process_frame": 592,
+          "movie_seconds": 9.86666666666667,
+          "normal_velocity": [
+            -260.0,
+            43.3333320617676
+          ],
+          "phase": 1,
+          "pilot_intent": "track actual lob lock; run out of landing zone",
+          "pilot_recovery_shots": 0,
+          "player_HP": 3.0,
+          "player_position": [
+            6492.72021484375,
+            687.851928710938
+          ],
+          "recoil_remaining": 0.0,
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "rendered_movie_process_frame": 592,
+          "reward_modal_opened": false,
+          "rounds": 1,
+          "router_aim": [
+            -0.967202663421631,
+            -0.254005759954453
+          ],
+          "router_axis": -1.0,
+          "router_epoch": 5,
+          "router_sequence": 6,
+          "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+          "seal_closed": true,
+          "shots_fired": 3,
+          "slide_collisions": [],
+          "state": "lob",
+          "time_scale": 1.0,
+          "tree_paused": false,
+          "units": [],
+          "wallet": 0,
+          "wallet_delta": 0
+        }
+      },
+      "duration_seconds": 0.016666666666666666,
+      "injury_source": {
+        "mm_ss": "00:09.850",
+        "seconds": 9.85,
+        "exact_time": "591/60s",
+        "movie_process_frame": 591,
+        "active_frame": 585,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/23",
+        "event": "actual_player_injury",
+        "actual": {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "bellstrider_lob-0-1",
+          "frame": 585,
+          "group": 2,
+          "health": 3.0,
+          "last_shot_frame": 389,
+          "movie_frame": 591,
+          "movie_seconds": 9.85,
+          "state": "lob"
+        }
+      },
+      "note": "依实际伤害event_id、group和影片时序判断；不会把此前冲锋受伤归因于后来的第三枪/晚撤。"
+    },
+    {
+      "label_zh": "第三枪/一次晚撤完整战斗：真实致死与完整失效演出",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/review.mp4",
+      "pilot": "greed3_late",
+      "range": "01:07.900–01:09.717",
+      "start": {
+        "mm_ss": "01:07.900",
+        "seconds": 67.9,
+        "exact_time": "4074/60s",
+        "movie_process_frame": 4074,
+        "active_frame": 4068,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/206",
+        "event": "bellstrider_death",
+        "actual": {
+          "actual_event": {
+            "age": 67.6333333333308,
+            "direction": 1,
+            "event": "bellstrider_death",
+            "group": 15,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death",
+          "frame": 4068,
+          "movie_frame": 4074,
+          "movie_seconds": 67.9
+        }
+      },
+      "end": {
+        "mm_ss": "01:09.717",
+        "seconds": 69.71666666666667,
+        "exact_time": "4183/60s",
+        "movie_process_frame": 4183,
+        "active_frame": 4177,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/212",
+        "event": "bellstrider_death_final",
+        "actual": {
+          "actual_event": {
+            "age": 69.4333333333307,
+            "direction": 1,
+            "event": "bellstrider_death_final",
+            "group": 15,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_final",
+          "frame": 4177,
+          "movie_frame": 4183,
+          "movie_seconds": 69.7166666666667
+        }
+      },
+      "duration_seconds": 1.8166666666666667,
+      "lethal_hit": {
+        "mm_ss": "01:07.900",
+        "seconds": 67.9,
+        "exact_time": "4074/60s",
+        "movie_process_frame": 4074,
+        "active_frame": 4068,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/207",
+        "event": "bellstrider_bell_hit",
+        "actual": {
+          "actual_event": {
+            "age": 67.6333333333308,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "301402688740:2:40",
+            "group": 15,
+            "health": 0.0,
+            "mode": "dead",
+            "phase": 2,
+            "point": [
+              6067.80126953125,
+              579.178466796875
+            ],
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_bell_hit",
+          "frame": 4068,
+          "movie_frame": 4074,
+          "movie_seconds": 67.9
+        }
+      },
+      "impact": {
+        "mm_ss": "01:08.950",
+        "seconds": 68.95,
+        "exact_time": "4137/60s",
+        "movie_process_frame": 4137,
+        "active_frame": 4131,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/211",
+        "event": "bellstrider_death_impact",
+        "actual": {
+          "actual_event": {
+            "age": 68.6833333333307,
+            "direction": 1,
+            "event": "bellstrider_death_impact",
+            "group": 15,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_impact",
+          "frame": 4131,
+          "movie_frame": 4137,
+          "movie_seconds": 68.95
+        }
+      },
+      "observed_death_seconds": 1.8166666666666667,
+      "visibility_scope": "优先采用本段：root已实际查看death-contact-sheet，完整整机落位及喷币全入画；本索引不代签整体美术/听感认可。",
+      "preferred_for_full_death_visual_review": true
+    },
+    {
+      "label_zh": "第三枪/一次晚撤完整战斗：主要撞击喷币→真实拾取四枚币",
+      "movie": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/review.mp4",
+      "pilot": "greed3_late",
+      "range": "01:08.950–01:10.867",
+      "start": {
+        "mm_ss": "01:08.950",
+        "seconds": 68.95,
+        "exact_time": "4137/60s",
+        "movie_process_frame": 4137,
+        "active_frame": 4131,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/211",
+        "event": "bellstrider_death_impact",
+        "actual": {
+          "actual_event": {
+            "age": 68.6833333333307,
+            "direction": 1,
+            "event": "bellstrider_death_impact",
+            "group": 15,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_impact",
+          "frame": 4131,
+          "movie_frame": 4137,
+          "movie_seconds": 68.95
+        }
+      },
+      "end": {
+        "mm_ss": "01:10.867",
+        "seconds": 70.86666666666666,
+        "exact_time": "4252/60s",
+        "movie_process_frame": 4252,
+        "active_frame": 4247,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/217",
+        "event": "all_actual_boss_coins_claimed",
+        "actual": {
+          "event": "all_actual_boss_coins_claimed",
+          "frame": 4247,
+          "movie_frame": 4252,
+          "movie_seconds": 70.8666666666667
+        }
+      },
+      "duration_seconds": 1.9166666666666667,
+      "first_four_unit_frame": {
+        "mm_ss": "01:08.950",
+        "seconds": 68.95,
+        "exact_time": "4137/60s",
+        "movie_process_frame": 4137,
+        "active_frame": 4131,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/frames/4130",
+        "event": "dead",
+        "actual": {
+          "accepted_damage": 40.0,
+          "accepted_hits": 40,
+          "active_threats": [],
+          "bell_world": [
+            6100.3662109375,
+            641.516235351562
+          ],
+          "boss_HP": 0.0,
+          "boss_clock": 0.749999999999999,
+          "boss_position": [
+            6055.0,
+            653.0
+          ],
+          "boss_started": true,
+          "camera_zoom": [
+            1.60000002384186,
+            1.60000002384186
+          ],
+          "controller_active": true,
+          "cooldown": 0.0,
+          "damage_motion_remaining": 0.0,
+          "energy": 100.0,
+          "epoch": {
+            "actor": 3,
+            "boss_attack": 1,
+            "player_session": 2,
+            "run": 3,
+            "stage": 3
+          },
+          "exit_modal_opened": false,
+          "fight_seconds": 68.6833333333307,
+          "frame": 4131,
+          "grounded": true,
+          "group": 15,
+          "group_plan": {
+            "count": 2,
+            "direction": 1,
+            "kind": "ring",
+            "phase": 2,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 65.3499999999976,
+            "weights": {
+              "lob": 0.39953197922763,
+              "ring": 1.0,
+              "roll": 1.43831512521947
+            }
+          },
+          "groups_completed": 14,
+          "late_visible_reaction": {
+            "armed": true,
+            "consumed": true,
+            "elapsed_seconds": 61.9666666666667,
+            "kind": "lob",
+            "source_third_group": 1,
+            "status": "actual_distance_deadline_evade_attempted_normal_reactions_restored",
+            "threat_group": 2
+          },
+          "late_withdraw_remaining": 0.0,
+          "movie_process_frame": 4137,
+          "movie_seconds": 68.95,
+          "normal_velocity": [
+            0.0,
+            0.0
+          ],
+          "phase": 2,
+          "pilot_intent": "observe actual death, then collect real coins",
+          "pilot_recovery_shots": 1,
+          "player_HP": 3.0,
+          "player_position": [
+            6352.33349609375,
+            699.997741699219
+          ],
+          "recoil_remaining": 0.0,
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "rendered_movie_process_frame": 4137,
+          "reward_modal_opened": false,
+          "rounds": 1,
+          "router_aim": [
+            -0.969491302967072,
+            -0.24512580037117
+          ],
+          "router_axis": 0.0,
+          "router_epoch": 5,
+          "router_sequence": 76,
+          "sampling_phase": "read-only frame_post_draw confirms preceding process sample",
+          "seal_closed": false,
+          "shots_fired": 40,
+          "slide_collisions": [
+            {
+              "normal": [
+                0.0,
+                -1.0
+              ],
+              "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform0",
+              "point": [
+                6364.33349609375,
+                718.0
+              ]
+            }
+          ],
+          "state": "dead",
+          "time_scale": 1.0,
+          "tree_paused": false,
+          "units": [
+            {
+              "amount": 5,
+              "born_at": 68.9499999999974,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6046.8525390625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                -31.0799999237061,
+                -123.299995422363
+              ],
+              "position": [
+                6046.8525390625,
+                678.933959960938
+              ],
+              "ready_at": 69.2999999999974,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6046.8525390625,
+                678.933959960938
+              ]
+            },
+            {
+              "amount": 5,
+              "born_at": 68.9499999999974,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider/unit_1",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6046.8525390625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                34.439998626709,
+                -141.300003051758
+              ],
+              "position": [
+                6046.8525390625,
+                678.933959960938
+              ],
+              "ready_at": 69.2999999999974,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6046.8525390625,
+                678.933959960938
+              ]
+            },
+            {
+              "amount": 1,
+              "born_at": 68.9499999999974,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider/unit_2",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6046.8525390625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                -46.0,
+                -161.0
+              ],
+              "position": [
+                6046.8525390625,
+                678.933959960938
+              ],
+              "ready_at": 69.2999999999974,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6046.8525390625,
+                678.933959960938
+              ]
+            },
+            {
+              "amount": 1,
+              "born_at": 68.9499999999974,
+              "claimed": false,
+              "id": "drop_plains/map_1/boss/plains_bellstrider/unit_3",
+              "kind": "coin",
+              "loot_age": 0.0,
+              "loot_bounces": 0,
+              "loot_motion": true,
+              "loot_rotation": 0.0,
+              "loot_safe": [
+                6046.8525390625,
+                718.0
+              ],
+              "loot_settled": false,
+              "loot_velocity": [
+                56.0,
+                -151.0
+              ],
+              "position": [
+                6046.8525390625,
+                678.933959960938
+              ],
+              "ready_at": 69.2999999999974,
+              "source": "plains/map_1/boss/plains_bellstrider",
+              "spawn_origin": [
+                6046.8525390625,
+                678.933959960938
+              ]
+            }
+          ],
+          "wallet": 0,
+          "wallet_delta": 0
+        }
+      },
+      "death_final": {
+        "mm_ss": "01:09.717",
+        "seconds": 69.71666666666667,
+        "exact_time": "4183/60s",
+        "movie_process_frame": 4183,
+        "active_frame": 4177,
+        "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+        "json_pointer": "/events/212",
+        "event": "bellstrider_death_final",
+        "actual": {
+          "actual_event": {
+            "age": 69.4333333333307,
+            "direction": 1,
+            "event": "bellstrider_death_final",
+            "group": 15,
+            "mode": "dead",
+            "phase": 2,
+            "position": [
+              6055.0,
+              653.0
+            ]
+          },
+          "event": "bellstrider_death_final",
+          "frame": 4177,
+          "movie_frame": 4183,
+          "movie_seconds": 69.7166666666667
+        }
+      },
+      "wallet_changes": [
+        {
+          "mm_ss": "01:10.550",
+          "seconds": 70.55,
+          "exact_time": "4233/60s",
+          "movie_process_frame": 4233,
+          "active_frame": 4227,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/213",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 1,
+            "before": 0,
+            "event": "actual_wallet_change",
+            "frame": 4227,
+            "movie_frame": 4233,
+            "movie_seconds": 70.55
+          }
+        },
+        {
+          "mm_ss": "01:10.633",
+          "seconds": 70.63333333333334,
+          "exact_time": "4238/60s",
+          "movie_process_frame": 4238,
+          "active_frame": 4232,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/214",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 6,
+            "before": 1,
+            "event": "actual_wallet_change",
+            "frame": 4232,
+            "movie_frame": 4238,
+            "movie_seconds": 70.6333333333333
+          }
+        },
+        {
+          "mm_ss": "01:10.800",
+          "seconds": 70.8,
+          "exact_time": "4248/60s",
+          "movie_process_frame": 4248,
+          "active_frame": 4242,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/215",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 11,
+            "before": 6,
+            "event": "actual_wallet_change",
+            "frame": 4242,
+            "movie_frame": 4248,
+            "movie_seconds": 70.8
+          }
+        },
+        {
+          "mm_ss": "01:10.867",
+          "seconds": 70.86666666666666,
+          "exact_time": "4252/60s",
+          "movie_process_frame": 4252,
+          "active_frame": 4246,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/216",
+          "event": "actual_wallet_change",
+          "actual": {
+            "after": 12,
+            "before": 11,
+            "event": "actual_wallet_change",
+            "frame": 4246,
+            "movie_frame": 4252,
+            "movie_seconds": 70.8666666666667
+          }
+        }
+      ],
+      "denominations": [
+        5,
+        5,
+        1,
+        1
+      ],
+      "actual_wallet_delta": 12,
+      "visibility_scope": "优先采用本段喷币/拾币；root已实际查看喷币全入画。"
+    }
+  ],
+  "captures": [
+    {
+      "folder": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02",
+      "report_sha256": "221938412fe26846793e61e178909dddfd32b85ffa7260c6af199f63ab355478",
+      "trace_sha256": "16c41b67ed1f4560a9786c816289a79fc53fc92134e25ed6a2cef0ce8642b590",
+      "mp4_sha256": "697c2b3001b6983da544c4ac6c547a35e254446318cc93b890ab9549d0020847",
+      "original_pcm_sha256": "e3e54624e27b0f85a1118beffba7b65d5ddf3655ff2e467a219f5cb106677940",
+      "checks": {
+        "final GUI media report": true,
+        "report has no errors": true,
+        "actual driver complete": true,
+        "no headless substitution": true,
+        "external source stable": true,
+        "both source guards stable": true,
+        "exact frozen source": true,
+        "driver frozen source before": true,
+        "driver frozen source after": true,
+        "trace bytes match receipt": true,
+        "40 actual effective hits": true,
+        "40 actual effective damage": true,
+        "12 actual collected coins": true,
+        "real four denomination units": true,
+        "all four units claimed": true,
+        "actual audio teardown": true,
+        "actual MP4 hash": true,
+        "original PCM hash": true,
+        "native log clean": true,
+        "actual native 1280x720/60 stereo": true
+      },
+      "timing_receipt": {
+        "terminal_encounter_clock_seconds": 81.0166666666634,
+        "terminal_encounter_clock_source": {
+          "mm_ss": "01:21.283",
+          "seconds": 81.28333333333333,
+          "exact_time": "4877/60s",
+          "movie_process_frame": 4877,
+          "active_frame": 4871,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/239",
+          "event": "bellstrider_death",
+          "actual": {
+            "actual_event": {
+              "age": 81.0166666666634,
+              "direction": -1,
+              "event": "bellstrider_death",
+              "group": 20,
+              "mode": "dead",
+              "phase": 2,
+              "position": [
+                6078.681640625,
+                653.0
+              ]
+            },
+            "event": "bellstrider_death",
+            "frame": 4871,
+            "movie_frame": 4877,
+            "movie_seconds": 81.2833333333333
+          }
+        },
+        "activation_to_terminal_movie_seconds": 81.01666666666667,
+        "actual_activation_source": {
+          "mm_ss": "00:00.267",
+          "seconds": 0.26666666666666666,
+          "exact_time": "16/60s",
+          "movie_process_frame": 16,
+          "active_frame": 10,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/1",
+          "event": "actual_entry_activation",
+          "actual": {
+            "epoch": {
+              "actor": 3,
+              "boss_attack": 0,
+              "player_session": 2,
+              "run": 3,
+              "stage": 3
+            },
+            "event": "actual_entry_activation",
+            "frame": 10,
+            "movie_frame": 16,
+            "movie_seconds": 0.266666666666667
+          }
+        },
+        "death_animation_observed_movie_seconds": 1.8166666666666667,
+        "actual_death_final_source": {
+          "mm_ss": "01:23.100",
+          "seconds": 83.1,
+          "exact_time": "4986/60s",
+          "movie_process_frame": 4986,
+          "active_frame": 4980,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+          "json_pointer": "/events/245",
+          "event": "bellstrider_death_final",
+          "actual": {
+            "actual_event": {
+              "age": 82.8166666666633,
+              "direction": -1,
+              "event": "bellstrider_death_final",
+              "group": 20,
+              "mode": "dead",
+              "phase": 2,
+              "position": [
+                6078.681640625,
+                653.0
+              ]
+            },
+            "event": "bellstrider_death_final",
+            "frame": 4980,
+            "movie_frame": 4986,
+            "movie_seconds": 83.1
+          }
+        },
+        "complete_original_movie_seconds": 85.583333,
+        "raw_final_fight_seconds_including_death": 82.8166666666633,
+        "interpretation_zh": "致死时遭遇时钟、入场触发至致死的影片时差、死亡演出实际帧差与原片总长分别列出；最终combat_metrics.fight_seconds还包含死亡阶段推进，原样保留，不当作击杀战斗用时。"
+      },
+      "combat_metrics": {
+        "accepted_damage": 40.0,
+        "accepted_hits": 40,
+        "camping_seconds": 0.2,
+        "cancelled_callbacks": 0,
+        "death_age": 1.8,
+        "fight_seconds": 82.8166666666633,
+        "group_plan": {
+          "count": 1,
+          "direction": -1,
+          "kind": "roll",
+          "phase": 2,
+          "return_roll": false,
+          "roll_index": 0,
+          "selected_at": 78.1166666666635,
+          "weights": {
+            "lob": 1.0,
+            "ring": 0.48,
+            "roll": 1.19719351819161
+          }
+        },
+        "groups_completed": 19,
+        "groups_started": 20
+      },
+      "actual_shots": 41,
+      "wallet_delta": 12,
+      "final_player_HP": 5.0,
+      "actual_player_injuries": [],
+      "injury_interpretation_zh": "逐次实际伤害保留；最终HP不能全部归因于第三枪/晚撤，之前的首冲受伤与之后的晚撤投铃受伤必须分别列示。"
+    },
+    {
+      "folder": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01",
+      "report_sha256": "62f7d43501707a46fb6073ea5275775e810a3206344d8d9923b8b4340b65a4a7",
+      "trace_sha256": "4bb9f4d8cd9b66e1383a139e18f4cb8e328c207c1fa15ebbfb53002c71e4e7a7",
+      "mp4_sha256": "3d8f188a214d595b522379a2b45b514872d983c8450def4ce19a9fa19b319170",
+      "original_pcm_sha256": "74a976f4b4b499388fe011465ca81154dea7b673ed0d47500c777e1bb9cb70c2",
+      "checks": {
+        "final GUI media report": true,
+        "report has no errors": true,
+        "actual driver complete": true,
+        "no headless substitution": true,
+        "external source stable": true,
+        "both source guards stable": true,
+        "exact frozen source": true,
+        "driver frozen source before": true,
+        "driver frozen source after": true,
+        "trace bytes match receipt": true,
+        "40 actual effective hits": true,
+        "40 actual effective damage": true,
+        "12 actual collected coins": true,
+        "real four denomination units": true,
+        "all four units claimed": true,
+        "actual audio teardown": true,
+        "actual MP4 hash": true,
+        "original PCM hash": true,
+        "native log clean": true,
+        "actual native 1280x720/60 stereo": true
+      },
+      "timing_receipt": {
+        "terminal_encounter_clock_seconds": 67.6333333333308,
+        "terminal_encounter_clock_source": {
+          "mm_ss": "01:07.900",
+          "seconds": 67.9,
+          "exact_time": "4074/60s",
+          "movie_process_frame": 4074,
+          "active_frame": 4068,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/206",
+          "event": "bellstrider_death",
+          "actual": {
+            "actual_event": {
+              "age": 67.6333333333308,
+              "direction": 1,
+              "event": "bellstrider_death",
+              "group": 15,
+              "mode": "dead",
+              "phase": 2,
+              "position": [
+                6055.0,
+                653.0
+              ]
+            },
+            "event": "bellstrider_death",
+            "frame": 4068,
+            "movie_frame": 4074,
+            "movie_seconds": 67.9
+          }
+        },
+        "activation_to_terminal_movie_seconds": 67.63333333333334,
+        "actual_activation_source": {
+          "mm_ss": "00:00.267",
+          "seconds": 0.26666666666666666,
+          "exact_time": "16/60s",
+          "movie_process_frame": 16,
+          "active_frame": 10,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/1",
+          "event": "actual_entry_activation",
+          "actual": {
+            "epoch": {
+              "actor": 3,
+              "boss_attack": 0,
+              "player_session": 2,
+              "run": 3,
+              "stage": 3
+            },
+            "event": "actual_entry_activation",
+            "frame": 10,
+            "movie_frame": 16,
+            "movie_seconds": 0.266666666666667
+          }
+        },
+        "death_animation_observed_movie_seconds": 1.8166666666666667,
+        "actual_death_final_source": {
+          "mm_ss": "01:09.717",
+          "seconds": 69.71666666666667,
+          "exact_time": "4183/60s",
+          "movie_process_frame": 4183,
+          "active_frame": 4177,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/212",
+          "event": "bellstrider_death_final",
+          "actual": {
+            "actual_event": {
+              "age": 69.4333333333307,
+              "direction": 1,
+              "event": "bellstrider_death_final",
+              "group": 15,
+              "mode": "dead",
+              "phase": 2,
+              "position": [
+                6055.0,
+                653.0
+              ]
+            },
+            "event": "bellstrider_death_final",
+            "frame": 4177,
+            "movie_frame": 4183,
+            "movie_seconds": 69.7166666666667
+          }
+        },
+        "complete_original_movie_seconds": 71.75,
+        "raw_final_fight_seconds_including_death": 69.4333333333307,
+        "interpretation_zh": "致死时遭遇时钟、入场触发至致死的影片时差、死亡演出实际帧差与原片总长分别列出；最终combat_metrics.fight_seconds还包含死亡阶段推进，原样保留，不当作击杀战斗用时。"
+      },
+      "combat_metrics": {
+        "accepted_damage": 40.0,
+        "accepted_hits": 40,
+        "camping_seconds": 0.0833333333333333,
+        "cancelled_callbacks": 0,
+        "death_age": 1.8,
+        "fight_seconds": 69.4333333333307,
+        "group_plan": {
+          "count": 2,
+          "direction": 1,
+          "kind": "ring",
+          "phase": 2,
+          "return_roll": false,
+          "roll_index": 0,
+          "selected_at": 65.3499999999976,
+          "weights": {
+            "lob": 0.39953197922763,
+            "ring": 1.0,
+            "roll": 1.43831512521947
+          }
+        },
+        "groups_completed": 14,
+        "groups_started": 15
+      },
+      "actual_shots": 40,
+      "wallet_delta": 12,
+      "final_player_HP": 3.0,
+      "actual_player_injuries": [
+        {
+          "mm_ss": "00:04.800",
+          "seconds": 4.8,
+          "exact_time": "288/60s",
+          "movie_process_frame": 288,
+          "active_frame": 282,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/9",
+          "event": "actual_player_injury",
+          "actual": {
+            "amount": 1.0,
+            "event": "actual_player_injury",
+            "event_id": "boss_contact:3:1:1",
+            "frame": 282,
+            "group": 1,
+            "health": 4.0,
+            "last_shot_frame": -1,
+            "movie_frame": 288,
+            "movie_seconds": 4.8,
+            "state": "roll"
+          }
+        },
+        {
+          "mm_ss": "00:09.850",
+          "seconds": 9.85,
+          "exact_time": "591/60s",
+          "movie_process_frame": 591,
+          "active_frame": 585,
+          "trace_json": "/workspace/gunman-rush/build/bellstrider_rework_01/final-greed-late-01/trace.json",
+          "json_pointer": "/events/23",
+          "event": "actual_player_injury",
+          "actual": {
+            "amount": 1.0,
+            "event": "actual_player_injury",
+            "event_id": "bellstrider_lob-0-1",
+            "frame": 585,
+            "group": 2,
+            "health": 3.0,
+            "last_shot_frame": 389,
+            "movie_frame": 591,
+            "movie_seconds": 9.85,
+            "state": "lob"
+          }
+        }
+      ],
+      "injury_interpretation_zh": "逐次实际伤害保留；最终HP不能全部归因于第三枪/晚撤，之前的首冲受伤与之后的晚撤投铃受伤必须分别列示。"
+    }
+  ]
+}

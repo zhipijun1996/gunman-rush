@@ -59,7 +59,7 @@ func _packet_key(packet: int) -> StringName:
 	return StringName("%s/%s" % [_actor().session_id, packet])
 
 func _eligible(receiver: Damageable) -> bool:
-	return is_instance_valid(receiver) and receiver.faction == &"enemy"
+	return is_instance_valid(receiver) and receiver.faction == &"enemy" and receiver.can_receive_effects()
 
 func _cooldown(id: StringName, seconds: float, key: StringName = &"global") -> bool:
 	var cooldowns: Dictionary = _state(id).get("combat_cooldowns", {}).duplicate(true)

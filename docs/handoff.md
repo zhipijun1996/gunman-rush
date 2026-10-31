@@ -1,3 +1,7 @@
+## 2026-10-31 架构底座整合恢复（最新）
+
+用户已要求开始既定分批重构，明确旧地图算法/关卡单元最终由统一新模块库和算法替代；先迁移接口，不提前切换正式地图。main已含PR124/125，PR122本地正常合并处理中，PR107离线工具随后整合；PR123排除。以下旧“保持draft/不合main”阶段说明被本轮明确授权覆盖，原失败和验收边界仍有效。见[整合范围](worklines/main_unify_20261031/scope.md)与[架构/地图合同](worklines/game_architecture_01/target_architecture.md)。完整CI与公开部署未签。
+
 ## 2026-10-31 PR124 已按用户顺序合入，开始 CI-CURRENT-01
 
 PR124 普通 merge 已完成，main 为 `bd86237456c7ce12a352b040857b208bdede7f66`。用户明确先合入再重构修复，原 generated-consumers 的 VisualFixture 缺 boss 字段与 forest-depth-region 超时失败保留，不签完整 CI。PR122 未自动合入；旧架构候选留在 `/workspace/gunman-rush`，新 main 修复工作区为 `/workspace/gunman-rush-ci`，分支 `fix/current-ci-01`。
@@ -13,6 +17,24 @@ PR124 普通 merge 已完成，main 为 `bd86237456c7ce12a352b040857b208bdede7f6
 实际专项1637/0；原共享core5686/0、enemy-structure733/0、boss-time1182/0；原R3完整wrapper在46e源已通过100/16/54及map1 459帧/map2 5053帧，实际Gold/钩索选择/进入森林。旧失败与所有原断言/预算保留；四Bible绑定fresh通过、原168前缀加专项为169，不代表完整169CI已通过。工坊已更新私密第8版，主片与第三枪失败对照按动作可审；媒体完整HTTP200/SHA和实际Range206已核。直接影片见[实际证据](evidence/windkeeper_pressure_01/README.md)；听感、正常速度整体动作、手机实机和用户认可仍待审，不记done。
 
 # 最新交接 · 2026-10-29
+
+## 2026-10-30 鸣铃巡游机review03：修复主风铃接触漏伤（最新）
+
+用户指出旧片铃铛碰撞无伤属实：review02的4.9167秒主铃中心进入玩家框，HP仍5。现在加入真实上端铃体接触，保唯一可伤弱点/装甲、车轮/车壳接触、钩索保护、空隙和死亡无伤；修正原roof误判空隙测试。运行源d0b0272f、媒体79671a07，原943/0含246接触，五项选定Harness fresh通过，原预算/169清单不改；不是完整CI。
+
+[当前原声短片和证据](evidence/bellstrider_rework_01/review03/README.md)9.8秒：3.47秒主铃5→4，8.93秒飞行铜铃5→4；受控初始站位/静止Boss明示，不称自然完整战斗。工坊私密版本7/站点fff6470已发布，原24怪/意见/受众不变；旧全战斗片标历史漏伤。PR122保持draft，不合main。后继只文档/质量收口；当前自然战斗节奏、用户/设备/听感与full169仍未签。
+
+## 2026-10-30 鸣铃巡游机反馈review02（最新）
+
+用户反馈投铃慢/触Boss应受伤：已调快跟瞄和飞行、保0.35秒锁定；精确碰伤真实车壳/轮组，含升压，保钟架空隙/尸体无伤。运行源a97334e4、媒体919d06ad，PR122继续review不合main。891原生/194接触/四绑定43与18通过，源守门独审278和当前影片49限定接受；[证据及限制](evidence/bellstrider_rework_01/review02/README.md)。工坊私密版本6已更新当前片，其他24怪和旧意见保留。新片40命中20组74.87秒、HP5/12币，未触发接触伤害镜头；边界由受控原生证明，死亡部分出画仍明确，用户/设备/完整CI未签。
+
+## 2026-10-30 鸣铃巡游机审核候选（当前）
+
+BELLSTRIDER-REWORK-01运行源c10dab0f，媒体8f35f146，feature/bellstrider-rework-01／草稿[PR122](https://github.com/zhipijun1996/gunman-rush/pull/122)，不自动合main。40HP／上端唯一持续弱点／自主加权三招与预选回冲／共姿态装甲／1.8秒失效与12元实体奖励已接正式App。最终原生689/0、原四绑定fresh43/18，先前R3两完整App战斗通过，原断言/预算/失败保留。
+
+[原怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)版本5已私密发布，同源两片：稳健40命中20组81.02秒／满血；对照40命中15组67.63秒／两次各1损血。稳健死亡左缘出画，完整失效和喷币采用对照片67.9秒起；第三枪后的故意晚反应不是第三枪单独致伤证明。其他24怪与旧意见身份保留，实际视频Range206/原媒体完整下载SHA通过。
+
+[证据及完整章节](evidence/bellstrider_rework_01/README.md)；质量保持review，人工听感/玩法/艺术、设备与完整CI未签。docs有3条基线已有archive链接失败；不外推旧PR119快速合入豁免。恢复先核git状态/PR122实际head和checks；不要重生成资产或把旧片当新片。下一步由用户在工坊按动作和时点反馈，再据实际反馈调第三枪余量/重量/声音。
 
 ## 2026-10-30 七怪工作线获准快速合main（当前）
 

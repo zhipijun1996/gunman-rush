@@ -318,6 +318,7 @@ func deal_active(receiver: Damageable, amount: float, key: StringName, origin: S
 
 func _deal(receiver: Damageable, amount: float, key: StringName, origin: StringName, packet: StringName, after_commit: Callable = Callable()) -> bool:
 	if not is_live() or not is_instance_valid(receiver) or not receiver.active or receiver.faction != &"enemy" or key.is_empty() or not has(origin) or not _source_current(origin) or not is_finite(amount) or amount <= 0: return false
+	if not receiver.can_receive_effects(): return false
 	var player := actor()
 	var expected_session := player.session_id
 	var expected_stage := _lifetime.stage_epoch
@@ -333,7 +334,7 @@ func _deal(receiver: Damageable, amount: float, key: StringName, origin: StringN
 	var point := (receiver.get_parent() as Node2D).global_position
 	var context := {"session_id":expected_session,"event_id":event,"source_actor_id":player.motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":amount,"damage_type":&"item_effect","skill_attack":true,"item_effect_damage":true,"item_origin":origin,"hit_point":point,"hit_direction":(point-player.motor.global_position).normalized()}
 	var hit_direction: Vector2 = context.hit_direction
-	_authorized[event] = {"receiver":receiver.get_instance_id(),"epoch":receiver.damage_epoch,"amount":amount,"session":expected_session,"stage":expected_stage,"weapon":expected_weapon,"origin":origin,"equipment_revision":int(build().equipment.snapshot().revision)}
+	_authorized[event] = {"receiver":receiver.damage_policy_owner().get_instance_id(),"epoch":receiver.damage_epoch,"amount":amount,"session":expected_session,"stage":expected_stage,"weapon":expected_weapon,"origin":origin,"equipment_revision":int(build().equipment.snapshot().revision)}
 	var current_packet := 0
 	if not packet.is_empty():
 		if not _packets.has(packet):
@@ -365,7 +366,7 @@ func authorizes_effect(context: Dictionary, receiver: Damageable) -> bool:
 	# deferred. Read the authoritative revision so immediate resume/resolve is
 	# safe, including unload/reload before either notification is delivered.
 	if int(proof.equipment_revision) != int(build().equipment.snapshot().revision): return false
-	return has(StringName(proof.origin)) and proof.receiver == receiver.get_instance_id() and proof.epoch == receiver.damage_epoch and is_equal_approx(float(proof.amount), float(context.get("amount", -1))) and proof.session == actor().session_id and proof.stage == _lifetime.stage_epoch and proof.weapon == actor().shoot_ability.weapon_epoch and proof.origin == StringName(context.get("item_origin", &""))
+	return has(StringName(proof.origin)) and proof.receiver == receiver.damage_policy_owner().get_instance_id() and proof.epoch == receiver.damage_epoch and is_equal_approx(float(proof.amount), float(context.get("amount", -1))) and proof.session == actor().session_id and proof.stage == _lifetime.stage_epoch and proof.weapon == actor().shoot_ability.weapon_epoch and proof.origin == StringName(context.get("item_origin", &""))
 
 func _source_current(origin: StringName) -> bool:
 	var owned := instance(origin)

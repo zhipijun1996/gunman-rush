@@ -148,8 +148,12 @@ func _process(delta: float) -> void:
 		_boss_door.position = stage.reward_position + Vector2(0, -22)
 
 func play_boss_defeat(origin:Vector2,mini:bool,animate:bool=true)->void:
-	if animate:
+	# Bellstrider's articulated failure and persistent wreck own its death art.
+	# Other Bosses retain the existing generic burst and reward presentation.
+	var mechanical_remains := mini and is_instance_valid(stage.boss) and stage.boss.get_node_or_null("Encounter") is BellstriderEncounter
+	if animate and not mechanical_remains:
 		var burst:=DefeatBurst.new();burst.mini=mini;burst.set_meta("pixel_style",pixel_style);burst.position=origin;stage.add_child(burst)
+	if mechanical_remains: return # Physical coins are the actual map1 reward.
 	if is_instance_valid(_boss_loot):return
 	_boss_origin=origin;_boss_born=stage.clock if animate else stage.clock-.85
 	_boss_loot=Sprite2D.new();_boss_loot.texture=UnderworldActors.icon_texture(&"chest") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")

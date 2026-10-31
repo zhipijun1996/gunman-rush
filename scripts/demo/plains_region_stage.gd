@@ -57,6 +57,8 @@ func _ready() -> void:
 		restored_boss=region_state.boss_state.duplicate(true)
 		var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 		var data: Dictionary = region_state.boss_state
+		if encounter is BellstriderEncounter and float(data.health) <= 0:
+			encounter.prepare_terminal_restore()
 		var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
 		restored.initial_current=float(data.health)
 		encounter.health.configure(restored)
@@ -73,6 +75,7 @@ func _ready() -> void:
 	for id: String in region_state.drops:
 		var p: Dictionary=region_state.drops[id]
 		restore_drop_pickups(p,id,region_state.claimed)
+		if id == BellstriderRewards.source_id(self): BellstriderRewards.restore_pickup_lock(self,p)
 	for c: Dictionary in generated.manifest.rewards:
 		var chest := c.duplicate(true)
 		chest.id=PlainsRegionCampaign.prefix(map_index)+c.id

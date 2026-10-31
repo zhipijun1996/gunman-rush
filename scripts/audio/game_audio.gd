@@ -212,7 +212,9 @@ func _process(delta: float) -> void:
 	for voice: AudioStreamPlayer in _voices:
 		if not voice.has_meta("director_origin"): continue
 		var owner_ref: Variant = voice.get_meta("director_origin")
-		if not voice.playing or not owner_ref is WeakRef: continue
+		# Paused AudioStreamPlayer.playing is false while its playback and stream
+		# remain owned. Unloading during pause must release those tails too.
+		if not owner_ref is WeakRef: continue
 		var origin := (owner_ref as WeakRef).get_ref() as Node
 		if not is_instance_valid(origin) or not origin.is_inside_tree():
 			voice.stop()
@@ -285,6 +287,51 @@ func play_enemy_material(kind: StringName, stream: AudioStream, origin: Node, sp
 	played[legacy] = int(played.get(legacy, 0)) + 1
 	material_events.append({"event": String(event), "species": String(species), "origin_id": origin.get_instance_id(), "clock": _clock, "stream": stream.resource_path})
 	if material_events.size() > 128: material_events.pop_front()
+	return true
+
+## Bellstrider's event producer supplies authored streams; the shared service
+## retains voice ownership, priorities, pause and origin teardown.
+func play_boss_cue(event_id: StringName, stream: AudioStream, origin: Node, priority: int = 90, attenuation_db: float = 7.0) -> bool:
+	if _shutting_down or stream == null or volume <= 0 or not is_instance_valid(origin) or not origin.is_inside_tree() or get_tree().paused: return false
+	if not String(event_id).begins_with("bellstrider_") or not is_finite(attenuation_db): return false
+	priority = clampi(priority,0,90)
+	var selected: AudioStreamPlayer
+	var replaceable: AudioStreamPlayer
+	var lowest := priority
+	var event_count := 0
+	for voice: AudioStreamPlayer in _voices:
+		if not voice.playing:
+			if selected == null: selected = voice
+			continue
+		if voice.get_meta("director_event",&"") == event_id: event_count += 1
+		var current := int(voice.get_meta("audio_priority",100))
+		if current < lowest:
+			lowest = current
+			replaceable = voice
+	if event_count >= 2: return false
+	if selected == null:
+		selected = replaceable
+		if selected == null: return false
+		selected.stop()
+		selected.stream = null
+		director_preemptions += 1
+	_clear_director_metadata(selected)
+	selected.process_mode = Node.PROCESS_MODE_PAUSABLE
+	selected.set_meta("director_event",event_id)
+	selected.set_meta("director_family",&"bellstrider")
+	selected.set_meta("director_origin",weakref(origin))
+	selected.set_meta("director_sustained",false)
+	selected.set_meta("audio_priority",priority)
+	selected.set_meta("cue_id",event_id)
+	selected.set_meta("attenuation",clampf(attenuation_db,0.0,24.0))
+	selected.bus = &"SFX"
+	selected.stream = stream
+	selected.volume_db = linear_to_db(volume)-clampf(attenuation_db,0.0,24.0)
+	selected.play()
+	if selected.has_stream_playback(): _playbacks.append(weakref(selected.get_stream_playback()))
+	played[event_id] = int(played.get(event_id,0))+1
+	director_events.append({"id":event_id,"candidate":"bellstrider_01","variant":0,"path":stream.resource_path,"tick":Engine.get_physics_frames(),"bus":&"SFX","priority":priority})
+	if director_events.size()>256: director_events.pop_front()
 	return true
 
 func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null) -> bool:

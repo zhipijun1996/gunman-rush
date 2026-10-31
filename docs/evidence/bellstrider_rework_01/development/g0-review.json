@@ -1,0 +1,197 @@
+{
+  "task_id": "BELLSTRIDER-REWORK-01",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "spec_path": "docs/worklines/bellstrider_rework_01/spec.md",
+  "spec_sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea",
+  "verdict": "ACCEPT_G0_DESIGN_DIRECTION_ONLY",
+  "baseline_implementation_verdict": "REWORK",
+  "source_snapshot_status": "Immutable baseline source audit; evolving dirty developer drafts are observations only, not frozen accepted implementation.",
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root",
+    "/root/bellstrider_combat",
+    "/root/bellstrider_art",
+    "/root/bellstrider_audio"
+  ],
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "production_or_test_edits_by_reviewer": false,
+  "skill": {
+    "path": ".agents/skills/boss-creator/SKILL.md",
+    "sha256": "879f05a3d16cc910cb7e78036c3d71684a13b39d1fc33f68b289f054c9ab6960",
+    "application": "User explicitly requests this Boss redesign; historic validation-only restriction does not prohibit this authorized iteration. G1-G5 and professional golden comparison remain pending."
+  },
+  "professional_decision": "Proceed with the upper-bell vulnerability + telegraphed conditional return design. Reject speed/randomness alone as sufficient phase-two novelty. No gold/art/player approval is inferred.",
+  "player_damage_producers": [
+    "scripts/combat/player_projectile.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/items/v5/item_runtime.gd",
+    "scripts/player/traversal_ability.gd"
+  ],
+  "canonical_hook_assessment": "Conceptually sound only if spatial receiver remains core and canonical owner is limited to transaction authorization. Defaults for every other Boss/enemy must preserve existing behavior. Root has not yet supplied frozen implemented hooks/native proof.",
+  "risks_and_counterexamples": [
+    {
+      "id": "W1",
+      "severity": "blocking_before_runtime_acceptance",
+      "finding": "Old continuous WindkeeperDamageable accepts main body; this violates upper-bell-only. Core delegation and ItemRuntime specific-receiver authorization conflict if only target enumeration changes.",
+      "required": "Scoped capability hook; body always armour-only; canonical policy identity while preserving actual spatial core receiver/point and full authenticated epochs/equipment.",
+      "counterexamples": [
+        "Body direct bullet cannot lose HP, create hit refunds, marks, kill receipts or reset attack plan.",
+        "Core direct and authenticated effect both lose the same Health through one FrameDamagePolicy root.",
+        "AoE overlaps body then core vs core then body: identical one correct payout of damage; no body-only damage.",
+        "Fake body proof / stale source / changed equipment / canceled stage cannot bypass."
+      ]
+    },
+    {
+      "id": "W2",
+      "severity": "blocking_before_runtime_acceptance",
+      "finding": "Central receivers()+ItemCombatEffects._eligible do not cover every independently selected or cached target.",
+      "required": "Audit physical G14/P24 contacts and cached companion locks; spatial blasts may only affect core when its actual shape/point is in range and clear of terrain. Preserve physical armour blocking for bullets/beam/entities.",
+      "counterexamples": [
+        "G14 hits armour, blast includes core: core receives intended valid blast/main/chain allocation rather than disappearing into body-first primary.",
+        "P12 and B23 all-target ordering body/core cannot spend a cooldown or target allowance on ineligible body.",
+        "Core left range/deactivated/epoch changed invalidates cached companion target before the next actual shot.",
+        "Blast reaches chassis only, not core: zero damage; canonical identity must not teleport damage upward."
+      ]
+    },
+    {
+      "id": "W3",
+      "severity": "blocking_for_all_type_claim",
+      "finding": "Existing Bellstrider scene/Motor/core do not enter grapple_target; TraversalAbility rejects direct hook before damage is attempted.",
+      "required": "If the new all-damage-types contract includes grapple, explicitly make the actual bell a legal hook target with correct moving attachment and scoped contact protection. Do not make all armour hook damageable.",
+      "counterexamples": [
+        "Legal hook to moving main bell commits hook damage and marks once, any direction; armour hook cannot damage.",
+        "Hook contact protection only suppresses the intended body and interval, not unrelated waves/lobs or global damage."
+      ]
+    },
+    {
+      "id": "J1",
+      "severity": "blocking_for_physics_claim",
+      "finding": "Simple ballistic85wu apex excludes the actual variable-jump hold. Source model tap62.27/full hold150.31; new54-high hull alone does not prove a full safe crossing.",
+      "required": "Actual InputRouter short tap/full hold, lateral movement, one real recoil and platform routes; normal collision and attack speed unchanged.",
+      "counterexamples": [
+        "Nearest legal roll start, both directions; stationary hop vs moving cross distinguished.",
+        "Back to wall and platform lip, without extra jump or free shots.",
+        "No short-hop proof is inferred from merely lowering the rectangle."
+      ]
+    },
+    {
+      "id": "T1",
+      "severity": "blocking_for_two_shot_claim",
+      "finding": "Two nominal ground recoils total169.4wu, last recoil earliest.39s; third.64s. Aim/approach, collision clipping and real next threat arrival dominate the remaining safety. Capacity1 preserves committed-hit round refunds.",
+      "required": "Measure actual completed dodge, aim/position access, each legal trigger+projectile/core hit+recoil and retreat through next real threat. Do not advance Boss by hits/groups or disable legitimate hit refunds.",
+      "counterexamples": [
+        "Plain basic1damage loadout two shots then safe retreat across each attack group.",
+        "Good-position third shot succeeds; late third withdrawal actually risks hit, not artificial lockout.",
+        "Damage/fire-rate improvement and legal attack-state hits shorten the battle naturally."
+      ]
+    },
+    {
+      "id": "P2",
+      "severity": "blocking_for_phase_value_claim",
+      "finding": "Speed increase and unannounced random return alone add difficulty without a fair new decision.",
+      "required": "Freeze each group phase/count/direction/return before first warning; first single/double beat and body pose reliably distinguish return. Intermediate stop cannot read as final recovery.",
+      "counterexamples": [
+        "Half-health crossed in first warning/roll/first ring/lob: current plan remains identical, then visible phase transition.",
+        "Same first charge response, two readably different plans require different post-pass positioning.",
+        "No hit or attack counter determines next state time."
+      ]
+    },
+    {
+      "id": "F1",
+      "severity": "blocking_for_fairness_claim",
+      "finding": "Distance/repeat weights alone do not prove corner escapes. Draft landing clamps to Boss center travel bounds (already inset by half width), possibly moving the aim away from the legal player corner.",
+      "required": "Use actual support and player arena bounds for projectile landing, and record reachable escape routes at corners/ledges with residual hazards. The locked indicator must describe the true first receiving surface.",
+      "counterexamples": [
+        "Player at legal edge outside Boss center bounds and stationary for camping threshold.",
+        "Boss adjacent, player back-wall, short available charge travel: choose a legal alternative with enough warning.",
+        "Lob fired below high platform / under ceiling / platform edge, including old moving wave.",
+        "Second bell receives its own complete aim/lock warning and one bounded local impact."
+      ]
+    },
+    {
+      "id": "L1",
+      "severity": "blocking_before_delivery",
+      "finding": "Old presenter own clock/fade and generic defeat chain do not establish shared pose or1.8s wreck/drop continuity.",
+      "required": "Shared Encounter pose controls collision and drawing; death immediately disables actual attacks/contact/warnings, then bounded physical terminal, delayed reward uses the original epoch/death-priority gate.",
+      "counterexamples": [
+        "Real left/right/oblique shots at moving/flipped/warning/attack/recovery bell match rendered shape.",
+        "Delta0/pause/deactivation/restore and same-frame player fatal preserve one outcome.",
+        "Repeated death/reload/leave during impact produces one original reward and exact denomination total; wreck never damages or blocks."
+      ]
+    }
+  ],
+  "planning_model": {
+    "script": "/tmp/bellstrider_g0_source_model.py",
+    "proof": "/tmp/bellstrider_g0_source_model.json",
+    "stdout": "/tmp/bellstrider_g0_source_model.log",
+    "command": "python3 /tmp/bellstrider_g0_source_model.py > /tmp/bellstrider_g0_source_model.log",
+    "scope": "Pure source-derived planning, no engine/actual movement or timing acceptance",
+    "summary": {
+      "tap_release_next_frame": {
+        "release_at": 0.016666666666666666,
+        "apex": 62.266666666666666,
+        "flight_seconds": 0.31666666666666665,
+        "above_54_frames": 5,
+        "above_110_frames": 0
+      },
+      "hold_full": {
+        "release_at": null,
+        "apex": 150.3111111111111,
+        "flight_seconds": 0.7166666666666667,
+        "above_54_frames": 33,
+        "above_110_frames": 21
+      }
+    }
+  },
+  "audited_source_sha256": {
+    "scripts/bosses/bellstrider_encounter.gd": "c793ad064249730f1aaa1b8521cc8c49cc5eef5a99455600341c57797b017189",
+    "scripts/bosses/windkeeper_encounter.gd": "432d6cb2441ef740e6ed5b16241494b58ca74bec3464051e21d2bec813cf9e24",
+    "scripts/bosses/windkeeper_damageable.gd": "75fea5d059e04dfc82f264d47dff28d0302a1529248a3f4a882565db760a7e1a",
+    "scripts/bosses/boss_arena.gd": "ff49f8e217eb6326ba3383e71d6e71d3df630dc9ebeb0f29df40157e1304972f",
+    "scripts/bosses/boss_motor.gd": "35215febee9b663d6b7478c2b92faac83e85a6d729bca4b9c8407653f0f91cbc",
+    "scripts/bosses/boss_encounter.gd": "dd30fb04de7445bc9eead27f7e315194bc9a8f9bf016761bb3c2072c4aff7e48",
+    "scripts/bosses/boss_projectile.gd": "c10559af14f5c61eaa652cf047fc2380e7dc8d676d6a4e9ce0b050d87160e2ae",
+    "scripts/bosses/bellstrider_bell_projectile.gd": "e66beb13cb0ccda757a32e61b99a123fdc3ab4a34081a5e5095b4fe465a77e35",
+    "scripts/bosses/bellstrider_presentation.gd": "e3a7970cb30e2bf066dc5f6b3c042d79dd288e68b2c217d023cbac21f9da1faf",
+    "scripts/combat/damageable.gd": "bd7e16e0d90d5df0853277fd5c292770d9660f40b31a936b72ed1c079df53a48",
+    "scripts/damage/frame_damage_policy.gd": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+    "scripts/combat/player_projectile.gd": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+    "scripts/combat/weapon_action_runtime.gd": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160",
+    "scripts/combat/weapon_entity.gd": "92100532822257979e5d8d24533d36a6e59dc559395164838418eb9e5508442b",
+    "scripts/combat/weapon_definition.gd": "5c4d8be2021279e1eb4f6e981116ba80e49811a8318681c15e6e241b2c70ec1b",
+    "scripts/combat/shoot_ability.gd": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+    "scripts/combat/shot_energy_policy.gd": "d1abb19e0441cda5dc58ca6dd2d46ad2ca3dee6cab0b666dd69039ea681b9990",
+    "scripts/combat/recoil_ability.gd": "6563b48450568c7ebcf37d6f0bc003cb1040795ec5c6f4bd43df0d1d1616b0dc",
+    "scripts/combat/action_resources.gd": "47749c70034612333d6f6270494ff16107c23c1754cf5d02342272e61f664252",
+    "scripts/player/player_motor.gd": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+    "scripts/player/player_controller.gd": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+    "scripts/player/jump_ability.gd": "0214cea7035d855185b74ebae81e43a3cfb0e14568616eede9d05aa3b327cd6a",
+    "scripts/player/traversal_ability.gd": "b044d98e92ee82d04ef630f8de4f6d0c87c9970560a62107ef54785cb33c665e",
+    "scripts/items/v5/item_runtime.gd": "0ac74ee30808f0ed6d4b5d8e7a11f88ce87e28f6846ecfd12fc13708c7534af8",
+    "scripts/items/v5/item_active_effects.gd": "198daa3272a7d28ace53efb5731b51cfcd84b972db2e4a08f9c49fbf60e4d2ac",
+    "scripts/items/v5/item_combat_effects.gd": "52e634967f8cbb5d21890d19991d27e9249845ab1b8b4f3b4ab635517fb9c8aa",
+    "scripts/items/v5/item_companion_effects.gd": "f25994bc39ed02e0d99428ef8f4504057b7ed602230752e94f3e1946c7de512d",
+    "scripts/items/v5/item_defense_effects.gd": "3d3619d85220d87fab738f084ad3a4a549d7b460f71d3a6e4e94702fe7088c9c",
+    "scripts/items/v5/item_economy_effects.gd": "7dde6ae97039c62ca95d47ef490baaf8be1b234f847f8833856141855e03cc9d",
+    "scripts/items/v5/item_time_effects.gd": "9a106aecfa914f193221cfd59e4ef7a6bae9a1b3c66cab99221b2dd6603c7166",
+    "config/player_tuning.json": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+    "scenes/player/player.tscn": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8",
+    "scenes/bosses/bellstrider.tscn": "8b89b9b4ee457adbc7120288b5d4990b5130aa73520a77ec075c47ff6b5c0230",
+    "resources/bosses/bellstrider.tres": "882af5e59b5999d1bb71213d1332ecc3bcd8f6019fa49cb7373312015f8f4c05"
+  },
+  "user_authorization_boundary": "Only Boss iteration authorized now. Prior PR119 accepted-red merge waiver does not authorize bypass for this task.",
+  "gates_not_accepted": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "native",
+    "full CI",
+    "art/audio listening",
+    "device",
+    "player acceptance"
+  ],
+  "corrections": "Reviewer corrected an initial suggestion that modify_direct_damage consumed P04: it is read-only; actual pre-consumption hazards are seen/target_hits/cooldowns. Also rejected85wu-only jump simplification because update_hold is real production behavior."
+}

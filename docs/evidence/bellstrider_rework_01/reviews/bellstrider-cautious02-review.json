@@ -1,0 +1,703 @@
+{
+  "reviewer": "/root/guard_review_recovery",
+  "independence": "Production/capture authored by root/other agents; reviewer-authored damage_policy86 excluded. No engine/repo mutation.",
+  "source_commit": "c10dab0f4d16c26d9bf06632958853274f025793",
+  "verdict": "TECHNICAL_CAPTURE_ACCEPT_WITH_DEATH_VISIBILITY_REWORK",
+  "passed": 51,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "complete_owner_capture_no_errors",
+      "passed": true
+    },
+    {
+      "check": "exact_clean_source_metadata_c10",
+      "passed": true
+    },
+    {
+      "check": "full_source_before_after_equal32127",
+      "passed": true
+    },
+    {
+      "check": "inventory_exact_tracked_current_names",
+      "passed": true
+    },
+    {
+      "check": "all32127_inventory_SHA_match_current_files",
+      "passed": true
+    },
+    {
+      "check": "current_c10_runtime_sources_unchanged_allow_postcapture_evidence",
+      "passed": true
+    },
+    {
+      "check": "driver19_specific_source_guard",
+      "passed": true
+    },
+    {
+      "check": "actual_GUI_no_headless",
+      "passed": true
+    },
+    {
+      "check": "declared_automated_legal_input_not_human_acceptance",
+      "passed": true
+    },
+    {
+      "check": "actual_movie_hash",
+      "passed": true
+    },
+    {
+      "check": "actual_trace_hash",
+      "passed": true
+    },
+    {
+      "check": "video1280x720_60fps5135frames",
+      "passed": true
+    },
+    {
+      "check": "all5135_PTS_uniform_no_gap",
+      "passed": true
+    },
+    {
+      "check": "full_video_audio_decode_no_error",
+      "passed": true
+    },
+    {
+      "check": "media_audio48000_stereo",
+      "passed": true
+    },
+    {
+      "check": "continuous5121_trace_rows",
+      "passed": true
+    },
+    {
+      "check": "trace5120_postdraw_matches_movies",
+      "passed": true
+    },
+    {
+      "check": "all_trace_movie_frames_consecutive",
+      "passed": true
+    },
+    {
+      "check": "no_pause_timescale_or_modal",
+      "passed": true
+    },
+    {
+      "check": "all_trace_times_within_media",
+      "passed": true
+    },
+    {
+      "check": "40_actual_committed_hits_damage",
+      "passed": true
+    },
+    {
+      "check": "all40_hit_health_decrement_real",
+      "passed": true
+    },
+    {
+      "check": "actual41shots_unique_onearmour_plus40",
+      "passed": true
+    },
+    {
+      "check": "armour_did_not_change_HP",
+      "passed": true
+    },
+    {
+      "check": "20_started_19_completed_before_terminal",
+      "passed": true
+    },
+    {
+      "check": "actual_three_group_types",
+      "passed": true
+    },
+    {
+      "check": "20_actual_two_shot_groups",
+      "passed": true
+    },
+    {
+      "check": "all40_real_shots_have_opposite_recoil",
+      "passed": true
+    },
+    {
+      "check": "all_sampled_player_health5",
+      "passed": true
+    },
+    {
+      "check": "one_halfhealth_phase2",
+      "passed": true
+    },
+    {
+      "check": "one_preannounced_phase2_return",
+      "passed": true
+    },
+    {
+      "check": "actual_return_warning_brake_turn_warning_roll_sequence",
+      "passed": true
+    },
+    {
+      "check": "six_actual_lock_release_impact",
+      "passed": true
+    },
+    {
+      "check": "lob_lock_stops_following_for_22frames",
+      "passed": true
+    },
+    {
+      "check": "actual_highplatform_standing90frames_and2_real_corner_impacts",
+      "passed": true
+    },
+    {
+      "check": "single_terminal_and_three_death_layers",
+      "passed": true
+    },
+    {
+      "check": "actual_death_clock1_8_impact1_05",
+      "passed": true
+    },
+    {
+      "check": "no_attack_or_threats_after_death",
+      "passed": true
+    },
+    {
+      "check": "exact4_units_born_on_major_impact",
+      "passed": true
+    },
+    {
+      "check": "units_begin_inside_body_upward_left_right",
+      "passed": true
+    },
+    {
+      "check": "units_identity_value_stable",
+      "passed": true
+    },
+    {
+      "check": "units_pickup_lock035",
+      "passed": true
+    },
+    {
+      "check": "all_units_bounce_and_settle_before_claim",
+      "passed": true
+    },
+    {
+      "check": "large_coin_less_bounce_and_lower_launch_speed",
+      "passed": true
+    },
+    {
+      "check": "four_real_claim_amounts_total12",
+      "passed": true
+    },
+    {
+      "check": "no_premature_or_repeated_claim",
+      "passed": true
+    },
+    {
+      "check": "actual_original_PCM_format_duration",
+      "passed": true
+    },
+    {
+      "check": "retained_PCM_WAV_file_exact_reportSHA",
+      "passed": true
+    },
+    {
+      "check": "nonzero_PCM_no_clipping",
+      "passed": true
+    },
+    {
+      "check": "mp4_encoded_audio_matches_original_signal",
+      "passed": true
+    },
+    {
+      "check": "capture_log_no_errors",
+      "passed": true
+    }
+  ],
+  "source_inventory": {
+    "paths": 32127,
+    "before_equals_after": true,
+    "current_SHA_or_deleted_mismatches": [],
+    "materialized_files": 10138,
+    "expected_deleted_paths": 21989,
+    "boundary": "Captured before/after full indexed path SHA-or-deleted inventory. Expected sparse missing historical documentation is not materialized byte proof. Later untracked archive evidence is not capture-time drift."
+  },
+  "media": {
+    "duration_seconds": 85.583333,
+    "video_frames": 5135,
+    "trace_frames": 5121,
+    "source_PCM_frames": 4108000,
+    "PCM_payload_sha256": "345788b69ddc0d9340f9e0137981ad46eb765f7a088be426e72e2bd3f3a8c9a6",
+    "source_PCM_peak": 14934,
+    "source_PCM_rms": 0.03894143044024503,
+    "AAC_PCM_correlation": 0.9977015856087282,
+    "full_decode_error_log": "/tmp/bellstrider-cautious02-decode.log",
+    "listening_performed": false,
+    "original_AVI_retained": false,
+    "raw_AVI_provenance_limit": "Source wrapper/report/log encode+extract original AVI; removed original AVI cannot be independently rehashed now. Retained PCM and MP4 independently verified."
+  },
+  "timeline": {
+    "phase2_seconds": 40.7166666666667,
+    "return_plan_seconds": 72.55,
+    "return_states": [
+      [
+        "roll_warning",
+        72.55
+      ],
+      [
+        "roll",
+        73.4
+      ],
+      [
+        "combo_brake",
+        74.75
+      ],
+      [
+        "combo_turn",
+        75.0
+      ],
+      [
+        "combo_warning",
+        75.2333333333333
+      ],
+      [
+        "roll",
+        75.7166666666667
+      ],
+      [
+        "neck",
+        77.0666666666667
+      ],
+      [
+        "observe",
+        78.1166666666667
+      ]
+    ],
+    "death_seconds": 81.2833333333333,
+    "impact_seconds": 82.3333333333333,
+    "final_seconds": 83.1,
+    "claimed_seconds": [
+      84.3833333333333,
+      84.4666666666667,
+      84.6333333333333,
+      84.7
+    ],
+    "fight_seconds_including_death": 82.8166666666633,
+    "hits": 40,
+    "started_groups": 20,
+    "completed_groups": 19,
+    "shots": 41,
+    "armour_hits": 1,
+    "player_HP_final": 5,
+    "coin_total": 12,
+    "high_platform_standing_frames": 90,
+    "high_physical_impacts": [
+      [
+        9.73333333333333,
+        [
+          6270.0,
+          588.0
+        ],
+        [
+          0.95718652009964,
+          -0.289471745491028
+        ]
+      ],
+      [
+        38.9833333333333,
+        [
+          6270.0,
+          589.556518554688
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    ]
+  },
+  "visual_review": {
+    "full_resolution_frames_actually_viewed": [
+      {
+        "seconds": 4.9,
+        "path": "/tmp/bellstrider-cautious02-frames/03-4.900s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "4.9",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/03-4.900s.png"
+        ],
+        "sha256": "1b6bbd23b2c09ba00b091edf02a2032a4d9c6b574d20f2e520b89a51415a8ee2"
+      },
+      {
+        "seconds": 6.083333,
+        "path": "/tmp/bellstrider-cautious02-frames/05-6.083s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "6.083333",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/05-6.083s.png"
+        ],
+        "sha256": "1174084763cde79eefc171c17aa93b5bab64b334b14a72097c38df0082a3d277"
+      },
+      {
+        "seconds": 9.733333,
+        "path": "/tmp/bellstrider-cautious02-frames/08-9.733s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "9.733333",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/08-9.733s.png"
+        ],
+        "sha256": "7c59c2860a0a48d6c828576f16b5ed7ed2b6922fb17a84154f21a28e73c7d5d8"
+      },
+      {
+        "seconds": 18.483333,
+        "path": "/tmp/bellstrider-cautious02-frames/10-18.483s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "18.483333",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/10-18.483s.png"
+        ],
+        "sha256": "b4d72f20937db73859da3bd6f7808cebc9fdce01bf651bd7ed8d7c7f004fc19f"
+      },
+      {
+        "seconds": 43.5,
+        "path": "/tmp/bellstrider-cautious02-frames/12-43.500s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "43.5",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/12-43.500s.png"
+        ],
+        "sha256": "a627c90e223492fcda43fcf580d9e0d7e93cf1cf2875793802ac0bc7f3735fbc"
+      },
+      {
+        "seconds": 73.5,
+        "path": "/tmp/bellstrider-cautious02-frames/14-73.500s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "73.5",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/14-73.500s.png"
+        ],
+        "sha256": "86b324853ceeb6c5b0c022032aa1dd89469e841f69560ed5c98665b042a98771"
+      },
+      {
+        "seconds": 75.4,
+        "path": "/tmp/bellstrider-cautious02-frames/16-75.400s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "75.4",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/16-75.400s.png"
+        ],
+        "sha256": "644a1d3a4c98660f202ffae46174c4c29bc78cc94802952eb56c7234ce03cf93"
+      },
+      {
+        "seconds": 75.9,
+        "path": "/tmp/bellstrider-cautious02-frames/17-75.900s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "75.9",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/17-75.900s.png"
+        ],
+        "sha256": "ceed4e9989e90ed771f98a6a80bb0b184d2aa40335c5e68c468c27a56e467556"
+      },
+      {
+        "seconds": 81.283333,
+        "path": "/tmp/bellstrider-cautious02-frames/18-81.283s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "81.283333",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/18-81.283s.png"
+        ],
+        "sha256": "f9b746c4e62fcda9cea5c0840ffeb9cb615c5fbd2ba4552236a30546501f9fb2"
+      },
+      {
+        "seconds": 81.666667,
+        "path": "/tmp/bellstrider-cautious02-frames/19-81.667s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "81.666667",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/19-81.667s.png"
+        ],
+        "sha256": "322e175463d9ec32566de9266cbca99798e17b2b0532d34130c4435a20d8c297"
+      },
+      {
+        "seconds": 82.333333,
+        "path": "/tmp/bellstrider-cautious02-frames/20-82.333s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "82.333333",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/20-82.333s.png"
+        ],
+        "sha256": "65405874ff0213ce0119c9cc070afc3cc4d33d153ec4265aa23550d86424e1c6"
+      },
+      {
+        "seconds": 82.6,
+        "path": "/tmp/bellstrider-cautious02-frames/21-82.600s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "82.6",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/21-82.600s.png"
+        ],
+        "sha256": "8723bc3a84d79928e169941377f4fc827b47f597910a599a01cb78ee84d672de"
+      },
+      {
+        "seconds": 83.1,
+        "path": "/tmp/bellstrider-cautious02-frames/22-83.100s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "83.1",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/22-83.100s.png"
+        ],
+        "sha256": "955894f6c36894653cdf02c79ab6fa3da9bdb4f8f02358704e74dc497b5e5ba8"
+      },
+      {
+        "seconds": 84.466667,
+        "path": "/tmp/bellstrider-cautious02-frames/23-84.467s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "84.466667",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/23-84.467s.png"
+        ],
+        "sha256": "8c68978a92930e079a951426f0b114a16ffdeeb6bc95cf6a6f1402c526e24175"
+      },
+      {
+        "seconds": 85.3,
+        "path": "/tmp/bellstrider-cautious02-frames/24-85.300s.png",
+        "argv": [
+          "ffmpeg",
+          "-v",
+          "error",
+          "-ss",
+          "85.3",
+          "-i",
+          "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+          "-frames:v",
+          "1",
+          "-update",
+          "1",
+          "-y",
+          "/tmp/bellstrider-cautious02-frames/24-85.300s.png"
+        ],
+        "sha256": "c4dcc2ad9178109d2a4efe0c07882ff372f9cddf59699326151a5868205ce76a"
+      }
+    ],
+    "not_claimed": "Not watched all5135 frames; checked fullPTS/decode/trace plus listed15 actual frames. Fixed-fps movie is not physical-device60fps evidence.",
+    "observations": [
+      "Upper bell remains clear bright focal part with open frame and broad dark wheels/old brass body.",
+      "Whole parts differ through charge/recovery/return; visible body lean and bell lag.",
+      "No sampled enemy aim/path helper lines; cyan line is player aim. Gold shallow wall effect at9.733 is actual local surface shock.",
+      "Top Boss name/HP remains readable; previous BOSS ARENA SEALED label absent in sampled current combat.",
+      "Low broken carriage/static remains and different coin sizes visible after camera returns."
+    ]
+  },
+  "issues": [
+    {
+      "id": "death_camera_clipping",
+      "severity": "REWORK_REVIEW_FOOTAGE_VISIBILITY",
+      "seconds": [
+        81.666667,
+        83.1
+      ],
+      "evidence_frames": [
+        "/tmp/bellstrider-cautious02-frames/19-81.667s.png",
+        "/tmp/bellstrider-cautious02-frames/20-82.333s.png",
+        "/tmp/bellstrider-cautious02-frames/21-82.600s.png",
+        "/tmp/bellstrider-cautious02-frames/22-83.100s.png"
+      ],
+      "finding": "Boss moves partly outside left frame during death/main impact/spray because ordinary player camera stays on distant player. Trace confirms mechanics, but complete fall/spray is not visually inspectable in this continuous clip. Wreck fully visible again by84.467s. No production death-logic failure inferred."
+    },
+    {
+      "id": "high_target_scope",
+      "severity": "BOUNDARY",
+      "finding": "Player actually stands on high platform and two lob impacts hit physical high-platform corner/edge at y588/589.6. All six locked target points remain floor718; do not claim this one clip proves supported upper-platform target landings or every corner escape."
+    },
+    {
+      "id": "listening_not_performed",
+      "severity": "BOUNDARY",
+      "finding": "Original PCM exists and AAC correlates; signal checks do not identify every cue or judge timbre, loudness, mix, taste. No manual listening performed."
+    }
+  ],
+  "files": [
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/report.json",
+      "sha256": "221938412fe26846793e61e178909dddfd32b85ffa7260c6af199f63ab355478"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/trace.json",
+      "sha256": "16c41b67ed1f4560a9786c816289a79fc53fc92134e25ed6a2cef0ce8642b590"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/chapters.json",
+      "sha256": "60c6e843a4a44547775ac4215816023eee1b00cf54b91b57959c8f075b2d89d1"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/review.mp4",
+      "sha256": "697c2b3001b6983da544c4ac6c547a35e254446318cc93b890ab9549d0020847"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/original_engine_pcm.wav",
+      "sha256": "e3e54624e27b0f85a1118beffba7b65d5ddf3655ff2e467a219f5cb106677940"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/capture.log",
+      "sha256": "dc9befd00f9788ea1a0b18c14e2fc4dd81c8b480a969ae82a8f75b0977ecbb4d"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_rework_01/final-cautious-02/original_avi_ffprobe.json",
+      "sha256": "0bcd3d4fac010642ec298da2a6ba777895f5773a2f9e710843b46fc245ef32e5"
+    }
+  ],
+  "actual_commands": [
+    "python3 /tmp/extract_bellstrider_cautious02_frames.py",
+    "ffprobe -v error -show_streams -show_format -of json .../review.mp4 > /tmp/bellstrider-cautious02-ffprobe.json",
+    "ffprobe -v error -select_streams v:0 -show_entries frame=best_effort_timestamp_time,pkt_duration_time -of json .../review.mp4 > /tmp/bellstrider-cautious02-frame-times.json",
+    "ffmpeg -v error -i .../review.mp4 -f null -",
+    "ffmpeg -v error -i .../review.mp4 -vn -acodec pcm_s16le -y /tmp/bellstrider-cautious02-decoded-aac.wav",
+    "python3 /tmp/review_bellstrider_cautious02.py > /tmp/bellstrider-cautious02-review-proof.log"
+  ],
+  "audit_script_sha256": "e1e87f92afecf2d06f829852509660894a2011d9750d94b3e017c3982b131a76",
+  "not_accepted": [
+    "Complete death-art showcase in this clip",
+    "Greed or third-shot injury pending separate run",
+    "Human play/fairness universal claim",
+    "Audio listening/timbre/mix",
+    "Physical device performance/user/G1-G5"
+  ],
+  "report_sha256": "f4831c48f8c724a739c95571e5ea2cc1c30dcc8d6a543026d80322c417d955aa",
+  "proof_log_sha256": "692e440aab39ba9256722ed790ba48a3a95f6d7fa7a0a2873324d0615c09a80f"
+}

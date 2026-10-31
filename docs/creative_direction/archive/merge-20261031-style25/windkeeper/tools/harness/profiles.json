@@ -1,0 +1,5373 @@
+{
+  "schema_version": 1,
+  "checks": {
+    "docs": {
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.934
+    },
+    "world": {
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.076
+    },
+    "structure": {
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: project structure",
+      "weight_seconds": 0.075
+    },
+    "harness-tests": {
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1.98
+    },
+    "environment": {
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "\"missing_or_failed\": \\[\\]",
+      "weight_seconds": 0.125,
+      "serial": true
+    },
+    "core": {
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^ALL TESTS: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 55.537,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "region": {
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "success_pattern": "^PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27$",
+      "weight_seconds": 269.363,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "art-art": {
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.124
+    },
+    "art-painterly_pack": {
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.126
+    },
+    "art-plains_v3": {
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.124
+    },
+    "art-meadow_enemy_art": {
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.225
+    },
+    "art-plains_ground_art": {
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.125
+    },
+    "art-windkeeper_art": {
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.225
+    },
+    "art-plains_spatial_art": {
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.176
+    },
+    "art-plains_item_art": {
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.226
+    },
+    "web-cache": {
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "\"failed\":\\s*0",
+      "weight_seconds": 1
+    },
+    "web-build": {
+      "argv": [
+        "python3",
+        "tools/build.py",
+        "web"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "\"export_exit_code\": 0",
+      "weight_seconds": 1,
+      "serial": true
+    },
+    "web-bundle": {
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "\"failed\":\\s*0",
+      "weight_seconds": 1,
+      "serial": true
+    },
+    "quality": {
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.175
+    },
+    "quality-tests": {
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.225
+    },
+    "quality-drills": {
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: 3",
+      "weight_seconds": 0.075
+    },
+    "production-loop-tests": {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^OK$",
+      "weight_seconds": 50,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/region_production_v3/forest_h_slice/"
+      ]
+    },
+    "quality-review-engine": {
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: quality review engine regression",
+      "weight_seconds": 8.95
+    },
+    "terrain-tile-tests": {
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.126
+    },
+    "terrain-production": {
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: terrain production regression",
+      "weight_seconds": 8.546,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "consumer-coverage-tests": {
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.074
+    },
+    "wood-platforms": {
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: wood platform consumers",
+      "weight_seconds": 9.2,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "actor-actions": {
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: actor actions runtime and input",
+      "weight_seconds": 38.77,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "all-weapons": {
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 43.782,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "studio-input": {
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 9.198,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "weapon-feel": {
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 25.391,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "action-budget": {
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ACTION BUDGET: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 90.661,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "generated-consumers": {
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "success_pattern": "^GENERATED CONSUMER SUITES: [1-9]\\d* suites passed$",
+      "weight_seconds": 639.06,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "capture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-contracts": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "cacheable": false,
+      "inputs": [
+        "tools/level_design_contracts.py",
+        "tests/test_level_design_contracts.py",
+        "tools/level_design.py",
+        "tools/production_loop.py",
+        "tools/harness.py",
+        "tools/quality.py",
+        "docs/quality/policy.json",
+        "docs/quality/region_production_v3/forest_h_slice.md",
+        "tests/fixtures/level_design_v2/",
+        "docs/evidence/region_production_v3/forest_h_slice/"
+      ]
+    },
+    "level-design-analysis": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-routing": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_landform/recipe.md",
+        "docs/evidence/plains_landform/independent-art-03.md",
+        "docs/evidence/plains_world_rebuild/recipe.md",
+        "docs/evidence/plains_art_language/recipe.md"
+      ]
+    },
+    "level-design-golden-tests": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^PASS: level design runtime",
+      "artifact_paths": [
+        "build/level_design_v2"
+      ],
+      "weight_seconds": 60,
+      "serial": true
+    },
+    "level-design-golden": {
+      "argv": [
+        "python3",
+        "tools/foundry.py",
+        "experience",
+        "--output",
+        "build/level_design_v2/golden"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^GOLDEN EXPERIENCE: [1-9]\\d* phrases, [1-9]\\d* continuous itineraries;",
+      "weight_seconds": 60,
+      "serial": true
+    },
+    "level-region-context": {
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-experience": {
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "world-design-tests": {
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-formal-receipts": {
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-formal-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_level_formal_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^FORMAL HARNESS: real live capture",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "plains-autonomy-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_autonomy_tests.py"
+      ],
+      "timeout_seconds": 480,
+      "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
+      "weight_seconds": 30,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9"
+      ]
+    },
+    "plains-action-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_action_golden_tests.py"
+      ],
+      "timeout_seconds": 420,
+      "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
+      "weight_seconds": 15.0,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9",
+        "docs/evidence/level_autonomy/action_baseline_capture.json"
+      ]
+    },
+    "plains-redesign-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_golden_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$",
+      "artifact_paths": [
+        "build/plains_redesign/golden"
+      ]
+    },
+    "plains-redesign-spatial": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS REDESIGN SPATIAL: actual default semantic maps and physical counterexamples validated$",
+      "serial": true
+    },
+    "plains-experience-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated$",
+      "artifact_paths": [
+        "build/plains_redesign/experience"
+      ],
+      "serial": true
+    },
+    "plains-encounter-policy": {
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "plains-redesign-scene": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated$",
+      "serial": true,
+      "artifact_paths": [
+        "build/plains_redesign/scene"
+      ]
+    },
+    "visual-director-tests": {
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2.0,
+      "inputs": [
+        "tools/visual_director.py",
+        "tests/test_visual_director.py",
+        "tools/level_formal.py",
+        "tools/level_formal_capture.gd",
+        "tools/production_loop.py",
+        "tools/harness/profiles.json",
+        "docs/evidence/plains_places/recipe.md",
+        "docs/evidence/plains_places/independent-01.md",
+        "docs/evidence/plains_regional/recipe.md",
+        "docs/evidence/plains_regional/independent-native-02.md"
+      ]
+    },
+    "visual-director-space": {
+      "argv": [
+        "python3",
+        "tools/run_visual_director_space_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^VISUAL SPACE SUITE: passed ",
+      "weight_seconds": 20,
+      "inputs": [
+        "project.godot",
+        "tools/run_visual_director_space_tests.py",
+        "tests/visual_director_space_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
+    },
+    "directed-space-tests": {
+      "argv": [
+        "python3",
+        "tools/run_plains_directed_space_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^DIRECTED SPACE SUITE: passed",
+      "weight_seconds": 15,
+      "inputs": [
+        "project.godot",
+        "tools/run_plains_directed_space_tests.py",
+        "tests/plains_directed_space_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
+    },
+    "root-bell-tests": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--g1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/root_bell/formal_v2"
+      ],
+      "inputs": [
+        "project.godot",
+        "tools/run_root_bell_tests.py",
+        "tests/root_bell*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "tools/run_root_bell_formal.py",
+        "tools/test_root_bell_formal_verifier.py",
+        "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
+      ]
+    },
+    "forest-h-slice": {
+      "argv": [
+        "python3",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: frozen historical H-only route positive and actual removed-anchor/no-H negatives; default short hook not covered$",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "terrain-family-tests": {
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+      "weight_seconds": 35,
+      "serial": true,
+      "inputs": [
+        "project.godot",
+        "tools/run_plains_terrain_family_tests.py",
+        "tools/production_loop.py",
+        "tests/plains_terrain_family*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
+      ]
+    },
+    "web-resource-contract-tests": {
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "runtime-raw-export-tests": {
+      "argv": [
+        "python3",
+        "tests/test_runtime_raw_export.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "asset-family-tests": {
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "inputs": [
+        "tools/asset_family.py",
+        "tests/test_asset_family.py"
+      ]
+    },
+    "root-bell-spaces": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_spaces.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL SPACES VERIFIED:",
+      "weight_seconds": 35,
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools/run_root_bell_formal.py",
+        "tools/run_root_bell_ecology.py",
+        "tools/run_root_bell_spaces.py",
+        "tools/root_bell_ecology_capture.gd",
+        "tests/root_bell_ecology_trace.gd",
+        "tests/root_bell_spaces_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/production_repair/ecology"
+      ]
+    },
+    "root-bell-ecology": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "timeout_seconds": 420,
+      "success_pattern": "^ROOT BELL ECOLOGY:",
+      "weight_seconds": 45,
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools/run_root_bell_formal.py",
+        "tools/run_root_bell_ecology.py",
+        "tools/run_root_bell_spaces.py",
+        "tools/root_bell_ecology_capture.gd",
+        "tests/root_bell_ecology_trace.gd",
+        "tests/root_bell_spaces_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/production_repair/ecology"
+      ]
+    },
+    "connected-family-tests": {
+      "argv": [
+        "python3",
+        "tools/run_connected_family_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^CONNECTED FAMILY CHECK: passed",
+      "weight_seconds": 8,
+      "inputs": [
+        "project.godot",
+        "scripts/art/",
+        "tests/plains_connected_family_contract_runner.gd",
+        "tools/run_connected_family_tests.py",
+        "assets/production_repair/rooted_plants_v1/",
+        "scripts/demo/",
+        "scripts/generation/",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/production_repair/art"
+      ]
+    },
+    "forest-ecology": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_ecology_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^FOREST ECOLOGY: [1-9]\\d* assertions, 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-progression": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^FOREST PROGRESSION: [1-9]\\d* assertions / 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-campaign": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^FOREST CAMPAIGN: [1-9]\\d* assertions / 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-debug": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^FOREST DEBUG: [1-9]\\d* assertions / 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-traversal": {
+      "argv": [
+        "python3",
+        "tools/run_forest_region_tests.py",
+        "--skip-import"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASSED: real_short_H_golden_not_whole_region$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets",
+        "tools/run_forest_region_tests.py"
+      ],
+      "cacheable": true
+    },
+    "forest-formal-combat": {
+      "argv": [
+        "python3",
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-formal-combat",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-formal-combat-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-formal-combat-{check_token}"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASSED: historical forest v1 selected original checks; current forest v2 NOT covered$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets",
+        "tools/run_forest_campaign_combat_tests.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/forest_legacy_fixture.py",
+        "docs/evidence/forest_depth_v2/legacy_v1"
+      ],
+      "cacheable": true,
+      "artifact_paths": [
+        "build/forest_depth/legacy-evidence"
+      ]
+    },
+    "forest-region-matrix": {
+      "argv": [
+        "python3",
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-region-matrix",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-region-matrix-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-region-matrix-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASSED: historical forest v1 selected original checks; current forest v2 NOT covered$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets",
+        "tools/run_forest_region_tests.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/forest_legacy_fixture.py",
+        "docs/evidence/forest_depth_v2/legacy_v1"
+      ],
+      "cacheable": true,
+      "weight_seconds": 180,
+      "artifact_paths": [
+        "build/forest_depth/legacy-evidence"
+      ]
+    },
+    "mechanism-comparisons": {
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "forest-depth-guardian": {
+      "argv": [
+        "python3",
+        "tools/run_forest_boss_depth.py",
+        "--output-dir",
+        "build/forest_depth/boss/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/boss"
+      ]
+    },
+    "forest-depth-guardian-tolerance": {
+      "argv": [
+        "python3",
+        "tools/run_forest_boss_depth.py",
+        "--scenario",
+        "tolerance",
+        "--output-dir",
+        "build/forest_depth/boss/tolerance/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/boss/tolerance"
+      ]
+    },
+    "forest-depth-enemies": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--output-dir",
+        "build/forest_depth/ecology/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 13,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-versions": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_versions.py",
+        "--output-dir",
+        "build/forest_depth/versions/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/versions"
+      ]
+    },
+    "forest-depth-restore": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_restore.py",
+        "--output-dir",
+        "build/forest_depth/restore/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 25,
+      "artifact_paths": [
+        "build/forest_depth/restore"
+      ]
+    },
+    "forest-depth-queen": {
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_sweep.py",
+        "--output-dir",
+        "build/forest_depth/queen/harness/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/queen"
+      ]
+    },
+    "forest-depth-cavity": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hollow_upper.py",
+        "--cavity",
+        "--standing-hook",
+        "--variants",
+        "cavity_HR",
+        "--output-dir",
+        "build/forest_depth/cavity/harness-purpose/harness-{check_token}"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 15,
+      "artifact_paths": [
+        "build/forest_depth/cavity"
+      ]
+    },
+    "forest-depth-cavity-controls": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hollow_upper.py",
+        "--cavity",
+        "--variants",
+        "noH_cavity_twoR",
+        "noH_cavity_outer",
+        "cavity_wrongR",
+        "--output-dir",
+        "build/forest_depth/cavity/harness-controls/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/cavity"
+      ]
+    },
+    "forest-depth-region": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^FOREST DEPTH REGION: passed",
+      "weight_seconds": 120,
+      "artifact_paths": [
+        "build/forest_depth/region"
+      ],
+      "serial": true
+    },
+    "forest-depth-campaign-guardian": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "guardian",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-guardian/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-depth-campaign-queen": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "queen",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-queen/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-depth-ecology-expedition": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "expedition",
+        "--include-map2-expedition",
+        "--expedition-strategies",
+        "alive_lift",
+        "jump_two_R",
+        "--output-dir",
+        "build/forest_depth/ecology/expedition/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-root-entry": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "root_entry",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-08",
+        "--output-dir",
+        "build/forest_depth/ecology/root-entry/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: actual R root entry",
+      "weight_seconds": 13,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-crossbranch-lifecycle": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "crossbranch",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--formal-route",
+        "growth",
+        "--crossbranch-strategies",
+        "lifecycle",
+        "--output-dir",
+        "build/forest_depth/ecology/crossbranch-lifecycle/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-queen-canopy": {
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_canopy.py",
+        "--case",
+        "all",
+        "--output-dir",
+        "build/forest_depth/queen/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 40,
+      "artifact_paths": [
+        "build/forest_depth/queen"
+      ]
+    },
+    "forest-depth-campaign-canopy": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "canopy",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-air-chain": {
+      "argv": [
+        "python3",
+        "tools/run_forest_air_chain.py",
+        "--suite",
+        "--output-dir",
+        "build/forest_feedback/air/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^FOREST AIR CHAIN SUITE: passed / 18 cases$",
+      "weight_seconds": 60,
+      "artifact_paths": [
+        "build/forest_feedback/air"
+      ]
+    },
+    "grapple-feel": {
+      "argv": [
+        "python3",
+        "tools/run_grapple_feel_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: grapple feel, hanging lifecycle and dual aim input$",
+      "weight_seconds": 15,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/grapple_feel.json",
+        "build/verification/grapple_focus_hud.json",
+        "build/verification/grapple_chain_input.json"
+      ]
+    },
+    "aim-save-compat": {
+      "argv": [
+        "python3",
+        "tools/run_aim_save_compat_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: historical aim tuning and actual saved-map compatibility$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+      ],
+      "artifact_paths": [
+        "build/verification/aim_save_compat.json"
+      ]
+    },
+    "forest-vertical-shortcut": {
+      "argv": [
+        "python3",
+        "tools/run_forest_vertical_shortcut.py",
+        "--scenario",
+        "all",
+        "--output",
+        "build/verification/forest-vertical-shortcut/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^FOREST VERTICAL SHORTCUT: passed$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/forest-vertical-shortcut"
+      ]
+    },
+    "blob47-foundation": {
+      "argv": [
+        "python3",
+        "tools/run_blob47_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: blob47 foundation",
+      "weight_seconds": 12
+    },
+    "windchime-plains": {
+      "argv": [
+        "python3",
+        "tools/run_windchime_tests.py"
+      ],
+      "timeout_seconds": 200,
+      "success_pattern": "^PASS: windchime tiles",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "pixel-plains": {
+      "argv": [
+        "python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: pixel plains actual",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "pixel-formal": {
+      "argv": [
+        "python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: current formal pixel",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "creative-direction": {
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.1
+    },
+    "creative-direction-tests": {
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "forest-current-slice": {
+      "argv": [
+        "python3",
+        "tools/run_forest_current_slice_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: current default H \\+ recoil / landing recovery / return and actual node-capability negatives$",
+      "serial": true,
+      "weight_seconds": 5
+    },
+    "visual-director-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_visual_director_space_tests.py",
+        "--painted-terrain"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^VISUAL TERRAIN MESH: passed",
+      "weight_seconds": 3,
+      "inputs": [
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_visual_director_space_tests.py",
+        "tools/level_formal.py",
+        "tests/painted_formal_terrain_tests.gd",
+        "scripts/art/painted_*.gd",
+        "scripts/art/painted_*.gdshader",
+        "scripts/art/plains_terrain_family_sampler.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "scripts/art/plains_tile_composer.gd",
+        "resources/visual_development/painted_terrain_candidate.json",
+        "assets/visual_development/painted_terrain/**"
+      ]
+    },
+    "plains-places-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_places_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PLAINS PLACES SUITE: passed",
+      "serial": true,
+      "weight_seconds": 25,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "assets",
+        "config",
+        "tests/plains_places_plan_runner.gd",
+        "project.godot",
+        "tools"
+      ]
+    },
+    "plains-places-capture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_plains_places_capture.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 3
+    },
+    "plains-regional-art-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_regional_art_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS REGIONAL ART SUITE: passed ",
+      "weight_seconds": 14,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "tests/plains_regional_art_plan_runner.gd",
+        "tools"
+      ],
+      "artifact_paths": [
+        "build/plains_regional_art/contract"
+      ]
+    },
+    "plains-regional-art-counterexamples": {
+      "argv": [
+        "python3",
+        "tests/plains_regional_art_capture_test.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.1
+    },
+    "plains-regional-art-graph-counterexamples": {
+      "argv": [
+        "python3",
+        "tests/plains_regional_art_graph_test.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.1
+    },
+    "plains-landform-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_joint_recoil_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS JOINT RECOIL CONTRACT: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "tests/plains_joint_recoil_runner.gd",
+        "tools"
+      ],
+      "artifact_paths": [
+        "build/plains_joint_recoil/contracts"
+      ]
+    },
+    "plains-art-language-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_art_language_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS ART LANGUAGE: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false
+    },
+    "plains-world-rebuild-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_world_rebuild_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS WORLD REBUILD: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false
+    },
+    "parallel-region-presentation": {
+      "argv": [
+        "python3",
+        "tools/run_parallel_region_presentation_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: parallel region presentation lifecycle and existing campaign UI fixture$",
+      "weight_seconds": 15
+    },
+    "style-exploration": {
+      "argv": [
+        "python3",
+        "tools/run_style_exploration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^Validated runtime evidence:",
+      "weight_seconds": 8,
+      "serial": true
+    },
+    "underworld-pipeline": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^OK$",
+      "weight_seconds": 80,
+      "cacheable": false,
+      "inputs": [
+        "tools/underworld_pipeline.py",
+        "tests/test_underworld_pipeline.py",
+        "assets/underworld_plains",
+        "assets/style_exploration/anchors.json",
+        "assets/style_exploration/underworld/source",
+        "scripts/underworld_plains",
+        "scripts/ui",
+        "scripts/demo",
+        "scripts/generation/module_moving_platform.gd",
+        "scripts/world/shot_latch.gd",
+        "assets/fonts",
+        "assets/manifest.json",
+        "tests/fixtures/chest_dispatch_before_tiers",
+        "scripts/art/chest_art_library.gd"
+      ]
+    },
+    "underworld-scenery": {
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "scenery"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld scenery runtime; strict engine teardown$",
+      "weight_seconds": 2,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts/underworld_plains",
+        "tests/underworld_plains/test_underworld_scenery.gd",
+        "project.godot",
+        "tools/underworld_pipeline.py",
+        "tools/run_tests.py",
+        "tests/underworld_plains/test_underworld_identity_population.gd"
+      ]
+    },
+    "underworld-hazards": {
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "hazards"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld hazards runtime; strict engine teardown$",
+      "weight_seconds": 3,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts/underworld_plains",
+        "scripts/generation/platforming_module.gd",
+        "scripts/demo/plains_region_stage.gd",
+        "tests/underworld_plains/test_underworld_hazards.gd",
+        "project.godot",
+        "tools/underworld_pipeline.py",
+        "tools/run_tests.py"
+      ]
+    },
+    "underworld-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_terrain_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld source-native exact terrain geometry$",
+      "weight_seconds": 2,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_terrain_tests.py"
+      ]
+    },
+    "underworld-formal-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "timeout_seconds": 270,
+      "success_pattern": "^PASS: Underworld 20 formal Stage geometries and actual Boss-break refresh$",
+      "weight_seconds": 40,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ]
+    },
+    "underworld-formal": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld default formal actor/UI consumers and lifecycle$",
+      "weight_seconds": 3,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_formal_tests.py"
+      ]
+    },
+    "underworld-raw-export": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^OK$",
+      "weight_seconds": 5,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "addons/runtime_raw_export",
+        "export_presets.cfg",
+        "assets/underworld_plains",
+        "assets/manifest.json",
+        "tests/test_underworld_raw_export.py",
+        "tests/underworld_raw_export_runner.gd",
+        "tools/underworld_delivery.py",
+        "tools/run_tests.py"
+      ]
+    },
+    "underworld-player-animation": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: Underworld generated player body frames, actual left/right Motor, anchors and accepted lifecycle$",
+      "weight_seconds": 15,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_player_animation"
+      ]
+    },
+    "underworld-mechanisms": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Underworld mechanisms",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_plains/mechanisms"
+      ]
+    },
+    "underworld-home": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^UNDERWORLD HOME TERRACE CHECK: [1-9][0-9]* assertions,0 failures; twelve actual stations, original App business and basic input route$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_home_tests.py",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/home"
+      ]
+    },
+    "underworld-ui": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: Underworld UI actual native mouse paths",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_ui_tests.py",
+        "assets/fonts",
+        "assets/underworld_plains/terrain/source.png",
+        "assets/underworld_plains/actors/bell.png"
+      ],
+      "artifact_paths": [
+        "build/underworld_plains/ui_rework"
+      ]
+    },
+    "forest-region-scheduler-tests": {
+      "argv": [
+        "python3",
+        "tests/test_forest_region_scheduler.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2,
+      "cacheable": false,
+      "inputs": [
+        "tools/run_forest_depth_region.py",
+        "tests/test_forest_region_scheduler.py",
+        "tools/harness/profiles.json"
+      ]
+    },
+    "forest-interwoven-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_interwoven_contract.py",
+        "--output",
+        "build/forest_revision03/contracts/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: actual20 interwoven producer contracts, not Motor or experience approval$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/forest_revision03/contracts"
+      ]
+    },
+    "forest-player-aim": {
+      "argv": [
+        "python3",
+        "tools/run_forest_player_aim.py",
+        "--output",
+        "build/forest_revision03/aim/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: real-adapter forest prefix and observed grounded focus recovery$",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/forest_revision03/aim"
+      ]
+    },
+    "underworld-damage-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: accepted R3 hurt/feedback",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/damage"
+      ]
+    },
+    "underworld-projectile-vfx": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: all 15 equipped weapon variants",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/projectiles"
+      ]
+    },
+    "underworld-world-objects": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_object_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Underworld R3 objects actual consumers",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_r3_object_tests.py",
+        "scripts/art/chest_art_library.gd",
+        "scripts/art/chest_art_library.gd.uid",
+        "scripts/art/chest_art_layer.gd",
+        "scripts/art/chest_art_layer.gd.uid",
+        "config/chest_art.json",
+        "assets/objects/chests/chest-tiers-v1.source.png",
+        "assets/objects/chests/chest-tiers-v1.source.png.import",
+        "scripts/demo/plains_region_stage.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/presentation/forest_bible_presentation.gd",
+        "scripts/art/p1_unity_props.gd",
+        "shaders/item_v5_world_sprite.gdshader",
+        "shaders/item_v5_world_sprite.gdshader.uid",
+        "tests/chest_art_runner.gd",
+        "tests/chest_art_runner.gd.uid"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/objects"
+      ]
+    },
+    "underworld-continuous-bosses": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_boss_tests.py",
+        "--full-fights"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: Underworld R3 Boss continuous damage, actual contact, lifecycle and two full actual-App battles$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_r3_boss_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/boss"
+      ]
+    },
+    "underworld-home-guard-tests": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2,
+      "serial": false,
+      "cacheable": false,
+      "inputs": [
+        "tools/run_underworld_home_terrace_tests.py",
+        "tests/test_underworld_home_terrace_wrapper.py",
+        "tests/fixtures/underworld_home_r2",
+        "assets/underworld_plains/home"
+      ],
+      "artifact_paths": []
+    },
+    "forest-camera-stability": {
+      "argv": [
+        "python3",
+        "tools/run_forest_camera_stability.py"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^FOREST CAMERA STABILITY: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 6,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts/generation/stage_camera_rig.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/player",
+        "scripts/input",
+        "scenes/player",
+        "config",
+        "tests/forest_camera_stability_runner.gd",
+        "tools/run_forest_camera_stability.py",
+        "tools/run_tests.py"
+      ],
+      "artifact_paths": [
+        "build/forest_revision04/camera"
+      ]
+    },
+    "forest-hazard-records": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hazard_records_tests.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^FOREST HAZARD RECORDS: [1-9]\\d* checks / 0 failures$",
+      "weight_seconds": 6,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts/generation",
+        "scenes",
+        "resources",
+        "config",
+        "tests/forest_hazard_records_runner.gd",
+        "tools/run_forest_hazard_records_tests.py",
+        "tools/run_tests.py"
+      ],
+      "artifact_paths": [
+        "build/forest_revision04/hazard-records.json"
+      ]
+    },
+    "forest-fruit-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_fruit_contract.py",
+        "--output",
+        "build/forest_fruit_routes04/harness-{check_token}"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: v14 candidate contracts; no Motor or visual acceptance claim$",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests/forest_fruit_contract_runner.gd",
+        "tools/run_forest_fruit_contract.py",
+        "tools/run_tests.py"
+      ],
+      "artifact_paths": [
+        "build/forest_fruit_routes04"
+      ]
+    },
+    "region-bible-contract": {
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^PASS: Bible registry",
+      "inputs": [
+        "tools/region_creative_direction.py",
+        "docs/world_regions.json",
+        "docs/creative_direction/bibles/registry.json",
+        "docs/creative_direction/bibles/user-request.json",
+        "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "docs/creative_direction/bibles/style-continuity-20261021.json",
+        "scripts/demo/plains_region_stage.gd",
+        "scripts/art/plains_terrain_study.gd",
+        "scripts/underworld_plains/underworld_terrain.gd",
+        "scripts/underworld_plains/underworld_terrain.gdshader",
+        "assets/underworld_plains/terrain/terrain_build.json",
+        "assets/underworld_plains/terrain/terrain.tres",
+        "assets/underworld_plains/terrain/terrain.png",
+        "assets/underworld_plains/terrain/source.png",
+        "scripts/art_foundation/blob47_rules.gd",
+        "scripts/art_foundation/pixel_formal_terrain.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "scripts/underworld_plains/underworld_player.gd",
+        "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+        "assets/underworld_plains/player_animation/animation_build.json",
+        "assets/underworld_plains/player_animation/run_sheet.png",
+        "assets/underworld_plains/player_animation/states_sheet.png"
+      ],
+      "weight_seconds": 0.1
+    },
+    "region-bible-tests": {
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        ".agents/skills/gameplay-reviewer/SKILL.md",
+        ".agents/skills/region-generator/SKILL.md",
+        "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "docs/creative_direction/bibles/registry.json",
+        "docs/creative_direction/bibles/user-request.json",
+        "docs/creative_direction/thorn_forest.json",
+        "docs/creative_direction/windchime_plains.json",
+        "docs/current_state.md",
+        "docs/design/player_actions/README.md",
+        "docs/design/player_actions/regions_v0.3.md",
+        "docs/design/player_actions/weapons_v0.8.md",
+        "docs/evidence/level_autonomy/action_control_comparison.json",
+        "docs/evidence/level_autonomy/baseline_summary.json",
+        "docs/evidence/level_autonomy/final_validation/review.json",
+        "docs/evidence/plains_redesign/design_midreview/report.md",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+        "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+        "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+        "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+        "docs/evidence/plains_redesign/reward_entry/README.md",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+        "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+        "docs/evidence/region_production_v3/art/clock_regulator_court_v1/independent/review.json",
+        "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+        "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+        "docs/evidence/region_production_v3/check_preflight/independent/review.final.json",
+        "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+        "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+        "docs/evidence/region_production_v3/enemy_parent_integration/strict_review/review_report.md",
+        "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+        "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+        "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+        "docs/evidence/region_production_v3/root_bell_run_replay_independent/review.json",
+        "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+        "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+        "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/capture.log",
+        "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/visual_capture.json",
+        "docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.json",
+        "docs/evidence/region_production_v3/supported_bank_failed_02/candidate_family/production/formal_manifest_solids_inventory.json",
+        "docs/evidence/region_production_v3/terrain_parent_integration/independent/review.json",
+        "docs/evidence/region_production_v3/v11_analysis_consumer_independent/fresh_current_r3_acceptance.json",
+        "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+        "docs/evidence/visual_director/recovery_checkpoint/static_v4_fixed_review.json",
+        "docs/quality/action_budget_spec.md",
+        "docs/quality/all_weapons_spec.md",
+        "docs/quality/level_lessons.json",
+        "docs/quality/plains_redesign_experience.md",
+        "docs/quality/plains_redesign_spatial.md",
+        "docs/quality/policy.json",
+        "docs/quality/weapon_feel_spec.md",
+        "docs/world_regions.json",
+        "resources/player/combat_energy.tres",
+        "resources/player/plains_shot_energy.tres",
+        "resources/player/traversal.tres",
+        "resources/weapons/blade_bloom.tres",
+        "resources/weapons/collapse_singularity.tres",
+        "resources/weapons/fan_shuriken.tres",
+        "resources/weapons/laser_cannon.tres",
+        "resources/weapons/machine_storm.tres",
+        "resources/weapons/magnetic_mine.tres",
+        "resources/weapons/magnetic_storm.tres",
+        "resources/weapons/moon_boomerang.tres",
+        "resources/weapons/motion.tres",
+        "resources/weapons/pulse_gun.tres",
+        "resources/weapons/recoil_bomb.tres",
+        "resources/weapons/remote_boomerang.tres",
+        "resources/weapons/shadow_shuriken.tres",
+        "resources/weapons/star_collapse.tres",
+        "resources/weapons/sustained_laser.tres",
+        "resources/weapons/triple_machine_gun.tres",
+        "scripts/builds/build_state.gd",
+        "scripts/combat/shot_energy_policy.gd",
+        "scripts/combat/weapon_catalog.gd",
+        "scripts/combat/weapon_definition.gd",
+        "scripts/demo/action_studio.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/player/jump_ability.gd",
+        "scripts/player/traversal_ability.gd",
+        "scripts/resources/definitions/combat_energy_definition.gd",
+        "scripts/resources/definitions/shot_energy_definition.gd",
+        "scripts/resources/state/combat_energy_state.gd",
+        "scripts/run/run_profile.gd",
+        "tests/test_region_bible.py",
+        "tools/harness.py",
+        "tools/harness/profiles.json",
+        "tools/level_design.py",
+        "tools/level_experience.py",
+        "tools/level_formal.py",
+        "tools/level_region_context.py",
+        "tools/production_loop.py",
+        "tools/quality.py",
+        "tools/region_creative_direction.py",
+        "tools/visual_director.py",
+        "docs/creative_direction/bibles/style-continuity-20261021.json",
+        "scripts/demo/plains_region_stage.gd",
+        "scripts/art/plains_terrain_study.gd",
+        "scripts/underworld_plains/underworld_terrain.gd",
+        "scripts/underworld_plains/underworld_terrain.gdshader",
+        "assets/underworld_plains/terrain/terrain_build.json",
+        "assets/underworld_plains/terrain/terrain.tres",
+        "assets/underworld_plains/terrain/terrain.png",
+        "assets/underworld_plains/terrain/source.png",
+        "scripts/art_foundation/blob47_rules.gd",
+        "scripts/art_foundation/pixel_formal_terrain.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "scripts/underworld_plains/underworld_player.gd",
+        "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+        "assets/underworld_plains/player_animation/animation_build.json",
+        "assets/underworld_plains/player_animation/run_sheet.png",
+        "assets/underworld_plains/player_animation/states_sheet.png",
+        "docs/creative_direction/archive/creative-v5/thorn_forest.json",
+        "docs/creative_direction/bibles/style-continuity-20261021-v3.json",
+        "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+        "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+        "docs/creative_direction/bibles/style-continuity-20261023-v6.json",
+        "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+        "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+        "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+        "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+        "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+        "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
+        "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+        "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+        "docs/controls_contract.md",
+        "config/player_tuning.json",
+        "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+        "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+        "shaders/formal_fine_boundary.gdshader",
+        "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "assets/underworld_plains/terrain/fine_32/terrain.tres",
+        "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "assets/underworld_plains/terrain/fine_32/source.png",
+        "shaders/formal_fine_lit.gdshader",
+        "scripts/underworld_plains/underworld_presentation.gd",
+        "shaders/underworld_fine_sprite.gdshader",
+        "assets/authored_terrain_study/provenance.json",
+        "scripts/art/player_presentation_runtime.gd",
+        "scripts/art/avatar_presentation.gd",
+        "resources/art/avatars.json",
+        "scripts/demo/home_scene.gd",
+        "scripts/dev/player_presentation_01/motion_visual.gd",
+        "scripts/dev/player_presentation_01/motion_profile.gd",
+        "scripts/dev/player_presentation_01/motion_feel.gd",
+        "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+        "resources/player_presentation_01/motion_v1.tres",
+        "resources/player_presentation_01/motion_clip_data.gd",
+        "resources/player_presentation_01/landing_screen.gdshader",
+        "resources/player_presentation_01/weapon_feel_v1.tres",
+        "scripts/dev/player_presentation_01/weapon_profile.gd",
+        "assets/player_presentation_01/motion_v1/motion_source.png",
+        "assets/player_presentation_01/motion_v1/idle_fall.json",
+        "scripts/items/v5/item_effect_view.gd",
+        "config/item_v5_feedback.json",
+        "scripts/items/v5/item_v5_entity.gd",
+        "config/item_v5_entities.json",
+        "scripts/items/v5/item_defense_effects.gd",
+        "config/item_v5_defense.json",
+        "scripts/ui/actor_resources_hud.gd",
+        "scripts/ui/demo_menu.gd",
+        "scripts/ui/item_presentation.gd",
+        "scripts/ui/item_card.gd",
+        "scripts/ui/item_acquired_toast.gd",
+        "scripts/ui/item_shop_modal.gd",
+        "scripts/ui/stage_reward_modal.gd",
+        "scripts/ui/touch_overlay.gd",
+        "scripts/items/v5/item_v5_shop_presenter.gd",
+        "scripts/combat/weapon_action_runtime.gd",
+        "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+        "docs/.gdignore",
+        "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+        "docs/creative_direction/archive/creative-v18/registry.json",
+        "docs/creative_direction/archive/creative-v18/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v18/thorn_forest.json",
+        "scripts/items/v5/item_art_library.gd",
+        "config/item_v5_art.json",
+        "config/item_v5_authoring.json",
+        "assets/items/v5/icons/golden-02.source.png",
+        "assets/items/v5/vfx/p24-01.source.png",
+        "assets/items/v5/vfx/p14-01.source.png",
+        "assets/items/v5/vfx/g16-01.source.png",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/thorn_forest.json",
+        "assets/items/v5/icons/catalog-01.source.png",
+        "assets/items/v5/icons/catalog-02.source.png",
+        "assets/items/v5/icons/catalog-03.source.png",
+        "assets/items/v5/icons/catalog-04.source.png",
+        "assets/items/v5/vfx/static-entities.source.png",
+        "assets/items/v5/vfx/static-procs.source.png",
+        "shaders/item_v5_world_sprite.gdshader",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/bibles/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/thorn_forest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/thorn_forest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/item_v5_art.json",
+        "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/thorn_forest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/item_effect_view.gd.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/item_defense_effects.gd.txt",
+        "docs/evidence/item_authoring_01/source-bindings/before-v16/manifest.json",
+        "docs/evidence/item_authoring_01/source-bindings/before-v16/manifest.before-markdown-relocation.json.txt",
+        "docs/evidence/item_authoring_01/source-bindings/before-v16/revision_creative_v18.md.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.before-markdown-relocation.json.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/revision_creative_v19.md.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.before-markdown-relocation.json.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/revision_creative_v19.md.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/README.md.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/thorn_forest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/item_defense_effects.gd.txt",
+        "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/thorn_forest.json",
+        "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/weapon_feel.gd.txt",
+        "docs/creative_direction/archive/creative-v2/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v2/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v3/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v17/registry.json",
+        "docs/creative_direction/archive/creative-v17/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v17/thorn_forest.json",
+        "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+        "docs/creative_direction/archive/creative-v19/registry.json",
+        "docs/creative_direction/archive/creative-v19/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v19/thorn_forest.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/manifest.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/registry.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/windchime_plains.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/thorn_forest.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/demo_app.gd.txt",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/home_scene.gd.txt",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/underworld_home_world.gd.txt",
+        "scripts/ui/home_item_codex.gd",
+        "scripts/underworld_plains/underworld_home_world.gd",
+        "scripts/meta/home_item_catalog.gd",
+        "config/home_items.json",
+        "scripts/meta/meta_progression.gd",
+        "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+        "docs/creative_direction/archive/creative-v20/registry.json",
+        "docs/creative_direction/archive/creative-v20/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v20/thorn_forest.json",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/manifest.json",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/style-continuity-20261028-v17-home-codex.json",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/registry.json",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/windchime_plains.json",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/thorn_forest.json",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/plains_region_stage.gd.txt",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/thorn_forest_region_stage.gd.txt",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/underworld_objects.gd.txt",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/forest_bible_presentation.gd.txt",
+        "docs/evidence/chest_art_01/source-bindings/before-style18/p1_unity_props.gd.txt",
+        "scripts/art/chest_art_library.gd",
+        "scripts/art/chest_art_layer.gd",
+        "scripts/underworld_plains/underworld_objects.gd",
+        "scripts/presentation/forest_bible_presentation.gd",
+        "scripts/art/p1_unity_props.gd",
+        "config/chest_art.json",
+        "assets/objects/chests/chest-tiers-v1.source.png",
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/manifest.json",
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/style-continuity-20261028-v18-chest-art.json",
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/registry.json",
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/windchime_plains.json",
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/thorn_forest.json",
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/demo_app.gd.txt",
+        "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
+        "docs/creative_direction/archive/creative-v21/manifest.json",
+        "docs/creative_direction/archive/creative-v21/registry.json",
+        "docs/creative_direction/archive/creative-v21/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v21/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v21/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/creative-v21/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v21/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/manifest.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/style19.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/registry.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/demo_app.gd.txt",
+        "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/demo_menu.gd.txt",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/home_item_codex.gd.txt",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/home_scene.gd.txt",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/manifest.json",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/registry.json",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/stage_reward_modal.gd.txt",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/style-continuity-20261028-v18-chest-art.json",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/test_region_bible.py.txt",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/test_region_creative_direction.py.txt",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/thorn_forest.json",
+        "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v21/registry.json",
+        "docs/creative_direction/archive/creative-v21/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v21/windchime_plains.json",
+        ".agents/skills/region-creative-director/SKILL.md",
+        ".agents/skills/level-module-creator/SKILL.md",
+        ".agents/skills/challenge-choreographer/SKILL.md",
+        ".agents/skills/encounter-director/SKILL.md",
+        ".agents/skills/scene-composer/SKILL.md",
+        ".agents/skills/visual-director/SKILL.md",
+        ".agents/skills/animation-vfx/SKILL.md",
+        ".agents/skills/art-director/SKILL.md",
+        ".agents/skills/enemy-creator/SKILL.md",
+        ".agents/skills/boss-creator/SKILL.md",
+        "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json",
+        "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+        "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v10-before-hud-layout.json",
+        "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/manifest.json",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/registry.json",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/revision_creative_v22.md.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/demo_menu.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/home_item_codex.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/home_scene.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/stage_reward_modal.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/style19.json",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/test_region_bible.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/thorn_forest.json",
+        "docs/creative_direction/archive/merge-20261030-style19/mobile/windchime_plains.json",
+        "docs/creative_direction/archive/merge-20261030-style19/program/manifest.json",
+        "docs/creative_direction/archive/merge-20261030-style19/program/registry.json",
+        "docs/creative_direction/archive/merge-20261030-style19/program/revision_creative_v22.md.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/demo_menu.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/home_item_codex.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/home_scene.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/stage_reward_modal.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/style19.json",
+        "docs/creative_direction/archive/merge-20261030-style19/program/test_region_bible.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style19/program/thorn_forest.json",
+        "docs/creative_direction/archive/merge-20261030-style19/program/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/manifest.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/region-bible-inputs.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/registry.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/revision_creative_v23.md.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/style20.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/test_region_bible.py.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+        "docs/creative_direction/archive/creative-v22/manifest.json",
+        "docs/creative_direction/archive/creative-v22/registry.json",
+        "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_app.gd.txt",
+        "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_menu.gd.txt",
+        "docs/creative_direction/archive/creative-v22/runtime_inputs/item_v5_shop_presenter.gd.txt",
+        "docs/creative_direction/archive/creative-v22/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v22/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
+        "docs/creative_direction/archive/creative-v23/manifest.json",
+        "docs/creative_direction/archive/creative-v23/registry.json",
+        "docs/creative_direction/archive/creative-v23/runtime_inputs/demo_menu.gd.txt",
+        "docs/creative_direction/archive/creative-v23/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v23/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+        "docs/creative_direction/revision_creative_v25.md",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/registry.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/style21.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+        "docs/creative_direction/archive/merge-20261030-style21/test-retention.json",
+        "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
+        "assets/audio/windkeeper_pressure_01/README.md",
+        "assets/audio/windkeeper_pressure_01/death.wav",
+        "assets/audio/windkeeper_pressure_01/death_final.wav",
+        "assets/audio/windkeeper_pressure_01/death_impact.wav",
+        "assets/audio/windkeeper_pressure_01/gust_release.wav",
+        "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+        "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+        "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+        "assets/audio/windkeeper_pressure_01/hit.wav",
+        "assets/audio/windkeeper_pressure_01/link.wav",
+        "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+        "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+        "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+        "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+        "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+        "assets/audio/windkeeper_pressure_01/manifest.json",
+        "assets/audio/windkeeper_pressure_01/phase.wav",
+        "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+        "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+        "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+        "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+        "assets/audio/windkeeper_pressure_01/recover.wav",
+        "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+        "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+        "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+        "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+        "assets/audio/windkeeper_pressure_01/sources.json",
+        "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+        "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+        "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+        "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+        "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+        "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+        "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+        "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav",
+        "assets/plains_loot_02/life_orb.png",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/harness-profiles.json",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/manifest.json",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/region-bible-inputs.json",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/registry.json",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/sources/scripts/demo/demo_app.gd.txt",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/style22.json",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/test_region_bible.py.txt",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/thorn_forest.json",
+        "docs/creative_direction/archive/windkeeper-pressure-before-style24/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+        "docs/creative_direction/bibles/windkeeper-pressure-20261030.json",
+        "resources/bosses/windkeeper_pressure_health.tres",
+        "resources/bosses/windkeeper_storm.tres",
+        "scenes/bosses/windkeeper_pressure.tscn",
+        "scripts/art/plains_stage_visual.gd",
+        "scripts/art_foundation/pixel_formal_style_installer.gd",
+        "scripts/audio/windkeeper_pressure_audio.gd",
+        "scripts/bosses/boss_factory.gd",
+        "scripts/bosses/windkeeper_pressure_definition.gd",
+        "scripts/bosses/windkeeper_pressure_encounter.gd",
+        "scripts/bosses/windkeeper_pressure_presentation.gd",
+        "scripts/bosses/windkeeper_pressure_projectile.gd",
+        "scripts/bosses/windkeeper_pressure_rig.gd",
+        "scripts/bosses/windkeeper_pressure_strike.gd",
+        "scripts/bosses/windkeeper_pressure_wind.gd",
+        "scripts/damage/demo_contact_emitter.gd",
+        "scripts/demo/module_lab.gd",
+        "scripts/rewards/windkeeper_pressure_rewards.gd",
+        "scripts/run/run_manifest.gd",
+        "scripts/ui/windkeeper_hud.gd",
+        "scripts/underworld_plains/underworld_actor_installer.gd",
+        "shaders/plains_loot_02.gdshader",
+        "shaders/windkeeper_pressure_foreground.gdshader"
+      ],
+      "weight_seconds": 0.5
+    },
+    "forest-bible-weaver-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_weaver.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0",
+      "serial": true,
+      "inputs": [
+        "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "scripts/enemies/forest_bible_weaver_definition.gd",
+        "resources/enemies/forest_bible_weaver.tres",
+        "scenes/enemies/forest_bible_weaver.tscn",
+        "tests/forest_bible_weaver_runner.gd",
+        "tools/run_forest_bible_weaver.py",
+        "scripts/enemies/forest_thread_spider_behavior.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "resources/enemies/forest_thread_spider.tres",
+        "scenes/enemies/forest_thread_spider.tscn",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_motor.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/damage/frame_damage_policy.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/ecology/native"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-bible-discoveries-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_discoveries.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Forest Bible optional reader",
+      "serial": true,
+      "inputs": [
+        "tools/run_forest_bible_discoveries.py",
+        "tests/forest_bible_discoveries_tests.gd",
+        "scripts/world/forest_bible_discoveries.gd",
+        "scripts/world/forest_bible_discovery_catalog.gd",
+        "resources/items/forest_old_badge.tres",
+        "resources/items/forest_spiral_core.tres",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/demo/demo_app.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "scripts/run/plains_region_state.gd",
+        "scripts/run/demo_lifetime.gd",
+        "scripts/run/demo_token.gd",
+        "scripts/resources/state/health_state.gd",
+        "scripts/shops/run_wallet.gd",
+        "scripts/rewards/reward_service.gd",
+        "scripts/builds/build_state.gd"
+      ],
+      "weight_seconds": 10
+    },
+    "forest-bible-integration-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_integration.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "scripts/enemies/forest_bible_weaver_definition.gd",
+        "resources/enemies/forest_bible_weaver.tres",
+        "scenes/enemies/forest_bible_weaver.tscn",
+        "tests/forest_bible_weaver_runner.gd",
+        "tools/run_forest_bible_weaver.py",
+        "scripts/enemies/forest_thread_spider_behavior.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "resources/enemies/forest_thread_spider.tres",
+        "scenes/enemies/forest_thread_spider.tscn",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_motor.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/damage/frame_damage_policy.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tests/forest_bible_integration_runner.gd",
+        "tools/run_forest_bible_integration.py",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/generation/thorn_forest_region_v2_v15.gd",
+        "scripts/generation/forest_bible_v2_layout.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/run/plains_region_state.gd",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/ecology/integration"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-bible-world-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_contract.py",
+        "--output",
+        "build/region_bible_v2/world-contract/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS: actual20 v15 producer/replay contracts",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_contract.py",
+        "tests/forest_bible_world_contract_runner.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/world-contract"
+      ],
+      "weight_seconds": 20
+    },
+    "forest-bible-world-connection": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection/{check_token}",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-connection"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-world-backbranch": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch/{check_token}",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-backbranch"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-sfx-source": {
+      "argv": [
+        "python3",
+        "tools/generate_forest_bible_sfx.py",
+        "--check"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "\"check\": \"forest_bible_sfx_reproducibility\", \"passed\": true, \"failures\": \\[\\]",
+      "inputs": [
+        "tools/generate_forest_bible_sfx.py",
+        "assets/forest_bible_v2/audio/forest_wind.wav",
+        "assets/forest_bible_v2/audio/forest_fruit.wav",
+        "assets/forest_bible_v2/audio/forest_web.wav",
+        "assets/forest_bible_v2/audio/provenance.json",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md"
+      ],
+      "weight_seconds": 0.3
+    },
+    "forest-bible-ambience": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_ambience.py",
+        "--output-dir",
+        "build/region_bible_v2/ambience/harness/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "tests/forest_bible_ambience_runner.gd",
+        "tools/run_forest_bible_ambience.py",
+        "scripts/presentation/forest_bible_ambience.gd",
+        "scripts/audio/game_audio.gd",
+        "tools/generate_forest_bible_sfx.py",
+        "assets/forest_bible_v2/audio/provenance.json",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "assets/forest_bible_v2/audio/forest_fruit.wav",
+        "assets/forest_bible_v2/audio/forest_web.wav",
+        "assets/forest_bible_v2/audio/forest_wind.wav",
+        "assets/audio/kenney/armour.ogg",
+        "assets/audio/kenney/bell.ogg",
+        "assets/audio/kenney/boss_impact.ogg",
+        "assets/audio/kenney/click.ogg",
+        "assets/audio/kenney/coin.ogg",
+        "assets/audio/kenney/confirm.ogg",
+        "assets/audio/kenney/core.ogg",
+        "assets/audio/kenney/death.ogg",
+        "assets/audio/kenney/denied.ogg",
+        "assets/audio/kenney/door.ogg",
+        "assets/audio/kenney/enemy_defeat.ogg",
+        "assets/audio/kenney/enemy_shot.ogg",
+        "assets/audio/kenney/focus_end.ogg",
+        "assets/audio/kenney/focus_start.ogg",
+        "assets/audio/kenney/heal.ogg",
+        "assets/audio/kenney/hurt.ogg",
+        "assets/audio/kenney/impact.ogg",
+        "assets/audio/kenney/jump.ogg",
+        "assets/audio/kenney/land.ogg",
+        "assets/audio/kenney/note.ogg",
+        "assets/audio/kenney/roar.ogg",
+        "assets/audio/kenney/shot.ogg",
+        "assets/audio/kenney/step.ogg",
+        "assets/audio/kenney/victory.ogg",
+        "assets/audio/kenney/warning.ogg"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/ambience/harness"
+      ],
+      "weight_seconds": 5
+    },
+    "forest-bible-app-discoveries": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_app_discoveries.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "scripts/enemies/forest_bible_weaver_definition.gd",
+        "resources/enemies/forest_bible_weaver.tres",
+        "scenes/enemies/forest_bible_weaver.tscn",
+        "tests/forest_bible_weaver_runner.gd",
+        "tools/run_forest_bible_weaver.py",
+        "scripts/enemies/forest_thread_spider_behavior.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "resources/enemies/forest_thread_spider.tres",
+        "scenes/enemies/forest_thread_spider.tscn",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_motor.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/damage/frame_damage_policy.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tests/forest_bible_integration_runner.gd",
+        "tools/run_forest_bible_integration.py",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/generation/thorn_forest_region_v2_v15.gd",
+        "scripts/generation/forest_bible_v2_layout.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/run/plains_region_state.gd",
+        "tests/forest_bible_app_discoveries_runner.gd",
+        "tools/run_forest_bible_app_discoveries.py",
+        "scripts/world/forest_bible_discoveries.gd",
+        "scripts/world/forest_bible_discovery_catalog.gd",
+        "resources/items/forest_old_badge.tres",
+        "scripts/ui/stage_reward_modal.gd",
+        "scripts/ui/item_card.gd",
+        "scripts/rewards/reward_service.gd",
+        "scripts/shops/run_wallet.gd",
+        "scripts/input/keyboard_mouse_adapter.gd",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/discoveries/app"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-practice-bell-restore": {
+      "argv": [
+        "python3",
+        "tools/run_forest_practice_bell_restore.py",
+        "--output-dir",
+        "build/region_bible_v2/practice-bell/harness/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/practice-bell/harness"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-bible-world-connection-map1": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection-map1/{check_token}",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-connection-map1"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-world-backbranch-map1": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch-map1/{check_token}",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-backbranch-map1"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-world-spiral": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_spiral_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-spiral/{check_token}",
+        "--mode",
+        "full",
+        "--seed",
+        "forest-depth-hollow-00"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: full_formal_spawn_F08_reader_and_other_exit",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py",
+        "tools/run_forest_bible_spiral_motor.py",
+        "tests/forest_bible_spiral_motor_runner.gd",
+        "tests/forest_bible_spiral_trace.gd"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-spiral"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-versions": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_versions.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-bible-versions/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^FOREST BIBLE VERSIONS: 56 assertions, 0 failures",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py",
+        "tests/forest_depth_trace_strategy.gd",
+        "tests/forest_bible_versions_runner.gd",
+        "tools/run_forest_bible_versions.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-versions"
+      ],
+      "weight_seconds": 20
+    },
+    "forest-bible-reader-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_reader_tests.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools"
+      ],
+      "weight_seconds": 2
+    },
+    "forest-bible-av-reader-tests": {
+      "argv": [
+        "python3",
+        "tests/test_capture_forest_bible_route.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools"
+      ],
+      "weight_seconds": 3
+    },
+    "harness-artifact-archive-tests": {
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2.5
+    },
+    "forest-exploration-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_exploration_contract.py",
+        "--output-dir",
+        "build/region_bible_v2/exploration-contract/{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest exploration contracts$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/exploration-contract"
+      ],
+      "weight_seconds": 25
+    },
+    "forest-exploration-body-reader": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_body_reader.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_motor.py",
+        "tests/test_forest_exploration_body_reader.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-exploration-exchange-reader": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_exchange_reader.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_motor.py",
+        "tests/test_forest_exploration_exchange_reader.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-exploration-wrapper-tests": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_contract_wrapper.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_contract.py",
+        "tests/test_forest_exploration_contract_wrapper.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-varied-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_varied_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-varied-feedback/{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest varied development feedback$",
+      "weight_seconds": 130,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-varied-feedback"
+      ]
+    },
+    "forest-places-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_places_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-places-feedback/{check_token}",
+        "--suite",
+        "core"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest places development feedback / core$",
+      "weight_seconds": 525,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-places-feedback"
+      ]
+    },
+    "forest-library-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_places_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-library-feedback/{check_token}",
+        "--suite",
+        "library"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest places development feedback / library$",
+      "weight_seconds": 300,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-library-feedback"
+      ]
+    },
+    "cloud-production-planner-tests": {
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^Ran [1-9]\\d* tests in ",
+      "cacheable": true,
+      "inputs": [
+        "tools/production_plan.py",
+        "config/production_impact.json",
+        "tools/harness.py",
+        "tools/harness/profiles.json",
+        "tests/test_production_plan.py"
+      ]
+    },
+    "cloud-delivery-tests": {
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^Ran [1-9]\\d* tests in ",
+      "cacheable": true,
+      "inputs": [
+        "tools/cloud_delivery.py",
+        "tools/preview_host_workflow.yml",
+        "tools/style_exploration_delivery.py",
+        "tools/check_web_bundle.py",
+        "tools/harness/profiles.json",
+        "tests/test_cloud_delivery.py"
+      ]
+    },
+    "cloud-preview-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "\"status\": \"passed\"",
+      "serial": true,
+      "artifact_paths": [
+        "build/cloud_preview"
+      ]
+    },
+    "cloud-inputs-tests": {
+      "argv": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2
+    },
+    "portable-frozen-assets": {
+      "argv": [
+        "python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "inputs": [
+        "docs/evidence/plains_redesign/frozen_v9/"
+      ]
+    },
+    "demo-ui-time-energy": {
+      "argv": [
+        "python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: current time energy, one-round baseline and actor-following HUD$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/demo-ui-r3/energy.json"
+      ]
+    },
+    "enemy-feedback-native": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-native"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01 checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 40,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-feedback-formal": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-feedback-support": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-support"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ENEMY_FEEDBACK_01_SUPPORT checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 35,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-corpse-save": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-save"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-corpse-snapshot": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ENEMY_CORPSE_SNAPSHOT checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 35,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "bgm-integration": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "success_pattern": "^BGM INTEGRATION: [1-9]\\d* checks, 0 failures$",
+      "weight_seconds": 60,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/bgm-integration"
+      ]
+    },
+    "player-default-integration": {
+      "argv": [
+        "python3",
+        "tools/run_player_default_integration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Formal default player, Timeweaver selection and feedback lifecycle$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/player-default-integration"
+      ]
+    },
+    "root-bell-current": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--current-g1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL CURRENT G1 VERIFIED: maps=40 eligible=1 failures=0 admission_refusals=11$",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/root_bell/formal_v2"
+      ],
+      "inputs": [
+        "project.godot",
+        "tests/root_bell*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "tools/run_root_bell_formal.py",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
+      ]
+    },
+    "region-with-legacy-fixtures": {
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py",
+        "--with-legacy-fixtures"
+      ],
+      "timeout_seconds": 1500,
+      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "weight_seconds": 269.363,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "plains-encounter-policy-with-legacy": {
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py",
+        "--with-legacy"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+      ]
+    },
+    "gear-inventory": {
+      "argv": [
+        "python3",
+        "tools/run_gear_inventory_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^GEAR INVENTORY: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 15,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "gear-ui": {
+      "argv": [
+        "python3",
+        "tools/run_gear_ui_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^GEAR UI: [1-9]\\d* checks, 0 failures$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/run_gear/ui"
+      ]
+    },
+    "item-v5-data": {
+      "argv": [
+        "python3",
+        "tests/test_item_v5_catalog.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 3,
+      "inputs": [
+        "tools/import_items_v5.py",
+        "tests/test_item_v5_catalog.py",
+        "config/items_v5.json",
+        "config/item_v5_synergies.json",
+        "docs/evidence/item_v5_01/source/items-v5-original.xlsx",
+        "docs/evidence/item_v5_01/source/workbook-snapshot.json"
+      ]
+    },
+    "item-v5-catalog": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "catalog"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-catalog original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-pool": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "pool"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-pool original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-inventory": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "inventory"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-inventory original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-combat": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "combat"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-combat original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-actives": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "actives"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-actives original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-economy": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "economy"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-economy original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-defense": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "defense"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-defense original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-ui": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "ui"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-ui original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-formal": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "formal"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-formal original native fixture and clean teardown$",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/formal"
+      ]
+    },
+    "item-v5-review": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "review"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-review original native fixture and clean teardown$",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/review"
+      ]
+    },
+    "item-v5-boss-time": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "boss-time"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-boss-time original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-core-effects": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "core-effects"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-core-effects original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-synergy-economy": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "synergy-economy"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-synergy-economy original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-pause-escape": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "pause-escape"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-pause-escape original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-random-context": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "random-context"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-random-context original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-manifest": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "manifest"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-manifest original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-authoring": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "authoring"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-authoring original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-authoring-tools": {
+      "argv": [
+        "python3",
+        "tests/test_edit_item_catalog.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "cacheable": true,
+      "inputs": [
+        "tools/edit_item_catalog.py",
+        "tools/import_items_v5.py",
+        "tests/test_edit_item_catalog.py",
+        "config/items_v5.json",
+        "config/item_v5_authoring.json"
+      ]
+    },
+    "item-v5-art": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "art"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-art original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**",
+        "shaders/underworld_fine_sprite.gdshader",
+        "shaders/item_v5_world_sprite.gdshader"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "home-codex": {
+      "argv": [
+        "python3",
+        "tools/run_home_codex_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^HOME CODEX CHECK: persistence, UI and formal App completed with 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/home_codex_01"
+      ]
+    },
+    "enemy-structure-native": {
+      "argv": [
+        "python3",
+        "tools/run_enemy_structure_tests.py",
+        "--output-dir",
+        "build/enemy_structure/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: enemy structure native contracts \\(not visual acceptance\\)$",
+      "serial": true,
+      "cacheable": false,
+      "weight_seconds": 90,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "project.godot",
+        "tools/run_enemy_structure_tests.py",
+        "tools/run_tests.py",
+        "tools/harness.py",
+        "tools/harness",
+        "tests/enemy_structure_runner.gd",
+        "tests/audio_teardown.gd",
+        "tests/enemy_forest_cache_contract.gd"
+      ],
+      "artifact_paths": [
+        "build/enemy_structure"
+      ]
+    },
+    "forest-current-registry": {
+      "argv": [
+        "python3",
+        "tools/run_forest_current_registry_tests.py",
+        "--output-dir",
+        "build/forest_current_registry/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_current_registry"
+      ]
+    },
+    "plains-motion-loot-02": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "plains-motion-loot-02"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS MOTION LOOT02: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 40,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/plains_motion_loot_02/native.json"
+      ]
+    },
+    "audio-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^AUDIO FEEDBACK CHECK: four actual native consumers completed with 0 failures$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/creative_direction"
+      ],
+      "artifact_paths": [
+        "build/audio_feedback_05"
+      ]
+    },
+    "windkeeper-pressure-01": {
+      "argv": [
+        "python3",
+        "tools/run_windkeeper_pressure_01_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^WINDKEEPER PRESSURE REGRESSION: six native consumers, 0 failures$",
+      "weight_seconds": 100,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets/underworld_plains",
+        "assets/audio/windkeeper_pressure_01",
+        "tests/windkeeper_pressure_01",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/run_windkeeper_pressure_01_tests.py",
+        "project.godot",
+        "tools/windkeeper_pressure_01"
+      ],
+      "artifact_paths": [
+        "build/windkeeper_pressure_01/regression",
+        "build/windkeeper_pressure_01/attack_geometry.json",
+        "build/windkeeper_pressure_01/component_clock.json",
+        "build/windkeeper_pressure_01/formal_app.json",
+        "build/windkeeper_pressure_01/rewards.json",
+        "build/windkeeper_pressure_01/support_app.json"
+      ]
+    }
+  },
+  "profiles": {
+    "docs": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "visual-director-tests",
+      "asset-family-tests",
+      "creative-direction",
+      "creative-direction-tests",
+      "underworld-pipeline",
+      "underworld-home-guard-tests",
+      "region-bible-contract",
+      "region-bible-tests",
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "core": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "environment",
+      "core",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "creative-direction",
+      "creative-direction-tests",
+      "forest-region-scheduler-tests",
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "gameplay": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "environment",
+      "core",
+      "generated-consumers",
+      "region",
+      "production-loop-tests",
+      "quality-review-engine",
+      "terrain-tile-tests",
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "grapple-feel",
+      "forest-interwoven-contract",
+      "forest-player-aim",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-design-runtime",
+      "level-design-golden",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "level-formal-runtime",
+      "plains-redesign-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy",
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "terrain-family-tests",
+      "root-bell-current",
+      "root-bell-spaces",
+      "root-bell-ecology",
+      "forest-h-slice",
+      "connected-family-tests",
+      "forest-ecology",
+      "forest-progression",
+      "forest-campaign",
+      "forest-debug",
+      "forest-traversal",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-current-registry",
+      "forest-depth-restore",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy",
+      "forest-vertical-shortcut",
+      "blob47-foundation",
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal",
+      "creative-direction",
+      "creative-direction-tests",
+      "parallel-region-presentation",
+      "style-exploration",
+      "underworld-pipeline",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "forest-region-scheduler-tests",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-preview-runtime",
+      "cloud-inputs-tests",
+      "portable-frozen-assets",
+      "demo-ui-time-energy",
+      "enemy-feedback-native",
+      "enemy-feedback-formal",
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration",
+      "gear-inventory",
+      "gear-ui",
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-authoring-tools",
+      "item-v5-art",
+      "home-codex",
+      "enemy-structure-native",
+      "plains-motion-loot-02",
+      "audio-feedback",
+      "windkeeper-pressure-01"
+    ],
+    "art": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "art-art",
+      "art-painterly_pack",
+      "art-plains_v3",
+      "art-meadow_enemy_art",
+      "art-plains_ground_art",
+      "art-windkeeper_art",
+      "art-plains_spatial_art",
+      "art-plains_item_art",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "grapple-feel",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "terrain-family-tests",
+      "root-bell-current",
+      "root-bell-spaces",
+      "root-bell-ecology",
+      "forest-h-slice",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests",
+      "asset-family-tests",
+      "connected-family-tests",
+      "blob47-foundation",
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal",
+      "creative-direction",
+      "creative-direction-tests",
+      "visual-director-terrain",
+      "style-exploration",
+      "underworld-pipeline",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "forest-region-scheduler-tests",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-preview-runtime",
+      "cloud-inputs-tests",
+      "portable-frozen-assets",
+      "home-codex",
+      "enemy-structure-native",
+      "plains-motion-loot-02",
+      "audio-feedback",
+      "windkeeper-pressure-01"
+    ],
+    "web": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "web-cache",
+      "web-build",
+      "web-bundle",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "visual-director-tests",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests",
+      "creative-direction",
+      "creative-direction-tests",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets",
+      "home-codex",
+      "audio-feedback"
+    ],
+    "full": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "environment",
+      "core",
+      "generated-consumers",
+      "region",
+      "art-art",
+      "art-painterly_pack",
+      "art-plains_v3",
+      "art-meadow_enemy_art",
+      "art-plains_ground_art",
+      "art-windkeeper_art",
+      "art-plains_spatial_art",
+      "art-plains_item_art",
+      "web-cache",
+      "web-build",
+      "web-bundle",
+      "production-loop-tests",
+      "quality-review-engine",
+      "terrain-tile-tests",
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "grapple-feel",
+      "forest-interwoven-contract",
+      "forest-player-aim",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-design-runtime",
+      "level-design-golden",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "level-formal-runtime",
+      "plains-redesign-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy",
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "terrain-family-tests",
+      "root-bell-current",
+      "root-bell-spaces",
+      "root-bell-ecology",
+      "forest-h-slice",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests",
+      "asset-family-tests",
+      "connected-family-tests",
+      "forest-ecology",
+      "forest-progression",
+      "forest-campaign",
+      "forest-debug",
+      "forest-traversal",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-current-registry",
+      "forest-depth-restore",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy",
+      "forest-vertical-shortcut",
+      "blob47-foundation",
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal",
+      "creative-direction",
+      "creative-direction-tests",
+      "visual-director-terrain",
+      "parallel-region-presentation",
+      "style-exploration",
+      "underworld-pipeline",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "forest-region-scheduler-tests",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-preview-runtime",
+      "cloud-inputs-tests",
+      "portable-frozen-assets",
+      "demo-ui-time-energy",
+      "enemy-feedback-native",
+      "enemy-feedback-formal",
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration",
+      "gear-inventory",
+      "gear-ui",
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-authoring-tools",
+      "item-v5-art",
+      "home-codex",
+      "enemy-structure-native",
+      "plains-motion-loot-02",
+      "audio-feedback",
+      "windkeeper-pressure-01"
+    ],
+    "creative-feedback": [
+      "docs",
+      "creative-direction",
+      "creative-direction-tests",
+      "level-design-routing",
+      "production-loop-tests",
+      "region-bible-contract",
+      "region-bible-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "history": [
+      "docs",
+      "generated-consumers",
+      "forest-h-slice",
+      "visual-director-space",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "creative-prototype": [
+      "docs",
+      "creative-direction",
+      "creative-direction-tests",
+      "forest-current-slice",
+      "region-bible-contract",
+      "region-bible-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "regional-art-feedback": [
+      "docs",
+      "plains-regional-art-counterexamples",
+      "plains-regional-art-graph-counterexamples",
+      "plains-regional-art-contract",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "region-bible-feedback": [
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-sfx-source",
+      "generated-consumers",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "forest-exploration-feedback": [
+      "docs",
+      "forest-exploration-body-reader",
+      "forest-exploration-exchange-reader",
+      "forest-exploration-wrapper-tests",
+      "forest-exploration-contract",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "forest-varied-feedback": [
+      "docs",
+      "forest-varied-feedback",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "forest-places-feedback": [
+      "docs",
+      "forest-places-feedback",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "forest-library-feedback": [
+      "docs",
+      "forest-library-feedback",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
+    ],
+    "legacy-compat": [
+      "aim-save-compat",
+      "root-bell-tests",
+      "forest-region-matrix",
+      "forest-formal-combat",
+      "plains-action-golden",
+      "forest-depth-queen",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-air-chain",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "region-with-legacy-fixtures",
+      "plains-autonomy-golden",
+      "plains-encounter-policy-with-legacy",
+      "forest-depth-versions"
+    ],
+    "item-v5": [
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-authoring-tools",
+      "item-v5-art"
+    ]
+  }
+}
