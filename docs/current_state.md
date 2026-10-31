@@ -1,10 +1,10 @@
-## 2026-10-31 已恢复：R3共享流程已接入，原完整回归待验
+## 2026-10-31 R3原完整回归已收口，进入完整185与导出验收
 
-重构分支仍为refactor/game-architecture-02，本批基于e564aeae；精确保存提交以Git为准。远端main再次核为2ce4ffa6，PR122/124已合入、PR123关闭未合入。本重构尚未合main或更新公开游戏。
+当前重构实现源为760e0cda93a3e14533bab945eb9bd3cb53a8d59c，分支refactor/game-architecture-02；后继保存提交以Git为准。main再次核为2ce4ffa6，PR122/124已合入、PR123关闭未合入。尚未合main或更新公开游戏。
 
-正式map1平台流程已实测4954帧/0失败，玩家全程5HP、40发射对应40实际1伤、两组真实二阶段回冲与12金币/下一map2成立。旧归因失败完整保留；只读observer修正后，前后全轨迹与输入逐字相同。现已把唯一pilot、平台观测和真实命中关联交给两个实际测试消费者共用；当前Bell默认入口接all，组件正例接first，原平地晚跳保留为真实body接触反例。六文件没有生产规则或图声变更。
+R3两个真实消费者已共用唯一pilot、平台观察和四源命中关联。原registered检查同源fresh通过：组件313、方向16、生命周期65均0失败，默认map1 4954/0、map2 5053/0，检查134.931秒/原360，源与Git前后相同。独审确认Bell40真实1伤/玩家5HP/两组回冲/12金币，Pressure60真实命中/玩家3HP/20金币及原森林结算。原278/1与历次失败保持原状态，没有重绑旧证据签当前PASS。
 
-原roll-only43/0已独审，完整组件、默认两张战斗及原360秒Harness回归仍待执行；完整185、最终同源导出/PCK/GUI/影片未验。新地图模块库与算法仍属后续，现接口继续适配原算法。详见[本批合同迁移](worklines/game_architecture_01/r3_current_content_contract_01.md)及[质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)。下方暂停记录为历史快照。
+当前尚待：将三份旧acb审计索引更新到实际冻结源，执行同源完整185、最终导出/PCK、真实GUI及连续影片。新地图模块库/算法仍属后续，现接口适配旧算法。详见[本批共享消费者与回退](worklines/game_architecture_01/r3_current_content_contract_01.md)及[该原检查的质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)。下方暂停与阶段结果为历史快照。
 
 ## 2026-10-31 按用户要求再次暂停：从此处恢复
 

@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "R3-CURRENT-CONTENT-CONTRACT-01",
   "task_type": "process",
-  "workflow": "in_progress",
+  "workflow": "done",
   "baseline_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
-  "reviewed_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "reviewed_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
   "content_version": "candidate-v1",
   "owner": "/root",
   "purpose": "将R3旧固定平地输入合同迁至已采用Bell内容的真实平台正例，并让两个实际测试消费者共享既有合法输入、装配与只读观察；生产规则不变。",
@@ -34,9 +34,11 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Currenttestscope/realconsumer mapping fixed; no productioncontent or creativechange.",
+      "evidence": [
+        "current-shared-contract-spec"
+      ]
     },
     "G1": {
       "status": "unverified",
@@ -54,9 +56,11 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "OriginalfreshR3wholecheck passed withinoriginalbudget.",
+      "evidence": [
+        "current-original-command"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -66,14 +70,18 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Narrow explicitcurrenttest contract and sharedrealconsumers accepted.",
+      "evidence": [
+        "current-shared-contract-spec"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "OriginalregisteredwholeR3check fresh at760e, not full185.",
+      "evidence": [
+        "current-original-command"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -106,9 +114,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "SeparateCIagent reviewed exactsource and independently rebuilt all actualcase evidence.",
+      "evidence": [
+        "current-wrapper-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -123,38 +133,66 @@
   },
   "criteria": [
     {
-      "id": "pre-migration-full-platform-diagnostic",
-      "gate": "G4",
-      "dimension": "technical",
-      "scenario": "正式当前map1同seed基础能力平台应对的完整诊断",
-      "method": "原native180/7200、真实四源identity/event、非作者独审及前后4954逐字对照",
-      "expected": "0fail/exit0、40真实唯一1伤、玩家HP5、实际回冲/支撑与12实体金币/过门结算，未改输入",
-      "failure": "改物理/伤害/资源/RNG或缺重复身份、把impactgroup当firegroup、以局部成功签full185",
-      "status": "unverified",
-      "reason": "先前限定诊断/预检已通过，但其technical source version与当前共享迁移源分开保留；本质量卡等待当前源原完整wrapper，不将旧候选证据重绑成当前PASS。已独审接受44.997秒4954帧/0fail/164checks；13腿含2回冲，全部轨迹与前轮失败收据同字节；仅应用前诊断。",
+      "id": "current-contract-design",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "当前内容合同与两个实际消费者的共享职责",
+      "method": "已提交六源码冻结、原独审与原完整wrapper",
+      "expected": "无伤义务有真实正例，旧flat动作/失败保留，只有一份pilot/平台观测/四源join",
+      "failure": "反转旧断言而无正例、复制碰撞/地图/匹配机制或隐去失败",
+      "status": "passed",
+      "reason": "Committed760e source and independent actualwrapper confirm both consumers share the same current mechanism.",
       "evidence": [
-        "native-summary",
-        "native-log",
-        "full-original-receipt",
-        "native-independent-review",
-        "actual-input-invariance",
-        "candidate-source-bindings"
+        "current-shared-contract-spec"
       ]
     },
     {
-      "id": "shared-first-group-preflight",
+      "id": "current-shared-real-platform-positive",
       "gate": "G4",
       "dimension": "technical",
-      "scenario": "原roll-only两flat动作及真实App first正例",
-      "method": "原180秒/原生43断言与独立四源/296旧轨迹/384新轨迹复核",
-      "expected": "原动作保持，真实body负例与无伤基础平台正例并存，2真实命中40到38、正常清理",
-      "failure": "仅反转无伤断言、伪造支撑/伤害或弱化原动作与预算",
-      "status": "unverified",
-      "reason": "先前限定诊断/预检已通过，但其technical source version与当前共享迁移源分开保留；本质量卡等待当前源原完整wrapper，不将旧候选证据重绑成当前PASS。Stage1abd20实际43/0、9.764s；当前仅追加两flat原始事件快照，后继完整wrapper待验证。",
+      "scenario": "原完整组件中的两flat反例与真实App first正例",
+      "method": "同源原component313/0和原始policy/first四源证据独审",
+      "expected": "两原flat输入不变，实际body各1伤，first真实支撑起跳跨越落台、全程HP5、2命中40到38",
+      "failure": "来源缺失、伪造支撑、改能力/位置/输入或用旧43结果替代",
+      "status": "passed",
+      "reason": "Freshcurrentcomponent313/0 includes two separate immutableflat policy snapshots and accepted realfirstgroup proof.",
       "evidence": [
-        "roll-summary",
-        "roll-original-receipt",
-        "roll-independent-review"
+        "current-original-command",
+        "current-component-raw",
+        "current-wrapper-review"
+      ]
+    },
+    {
+      "id": "current-shared-platform-full-fight",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "默认Bellall与原Pressure完整实际消费者",
+      "method": "原两个map命令、7200/各180、完整registeredwrapper和非作者重建",
+      "expected": "Bell40真实唯一1伤/两组回冲/HP5/12物理币，Pressure60真实命中/20物理币/原森林结算",
+      "failure": "仅局部通过、猜shot归属、改物理资源伤害随机或减少原25谓词",
+      "status": "passed",
+      "reason": "Freshsource760e map1 4954/0 and map2 5053/0; all originalsettlement predicates and164Bellchecks accepted.",
+      "evidence": [
+        "current-original-command",
+        "current-map1-raw",
+        "current-map2-raw",
+        "current-wrapper-review"
+      ]
+    },
+    {
+      "id": "original-registered-r3-wrapper",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原registered R3 wholecheck同源fresh运行",
+      "method": "原Harnessrelease/360，原wrapper含import/component/direction/lifecycle/两fullfight",
+      "expected": "完整check退出0，source/Git不漂移、原marker无错误、退出无资源泄漏",
+      "failure": "拼接不同源、旧cache冒充fresh、扩预算或漏跑子消费者",
+      "status": "passed",
+      "reason": "One freshcheck134.931/360, outer150.206, all actualsubconsumers passed; no full185claim.",
+      "evidence": [
+        "current-original-command",
+        "current-wrapper-summary",
+        "current-wrapper-review"
       ]
     }
   ],
@@ -272,13 +310,101 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Non-author independently rebuilt actual four-source two-shot join and support/movement/HP/cleanup, with exact source vector."
+    },
+    {
+      "id": "current-original-command",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/original-wrapper/report.json.gz",
+      "sha256": "8cf10dd4b62db2b3d893a77f994ca0c37ec10b3ead459d5f52f86d3ce0763a83",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Original registered freshcheck, source760e exactbefore/after, original360 and innerbudgets unchanged.",
+      "observed": "313/16/65 and two actual fullfights4954/5053 all0fail; only thisone registeredcheck.",
+      "command": "python3 tools/harness.py --check underworld-continuous-bosses --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux headless fixed-upstream Godot4.7.2-gunman-sd1, binarySHAeeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638; freshrelease/reused=false"
+    },
+    {
+      "id": "current-wrapper-review",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/original-wrapper/independent-review.json",
+      "sha256": "48dc2a93fe71035cd28c08c08fbdfd6a99b2570c31d4bb7355289182488585c7",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Original registered freshcheck, source760e exactbefore/after, original360 and innerbudgets unchanged.",
+      "observed": "313/16/65 and two actual fullfights4954/5053 all0fail; only thisone registeredcheck.",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root",
+        "/root/structure_audit",
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author rebuilt actual four-source identity joins, two rawflat policy traces, realfirst/fullfights, rewards, cleanup and complete Git/source vector."
+    },
+    {
+      "id": "current-component-raw",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/original-wrapper/results/continuous_combat.json.gz",
+      "sha256": "31576df148526a878847595dcec4f16270a00a9b1bc9835bf2a4a370d31c3556",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Original registered freshcheck, source760e exactbefore/after, original360 and innerbudgets unchanged.",
+      "observed": "313/16/65 and two actual fullfights4954/5053 all0fail; only thisone registeredcheck."
+    },
+    {
+      "id": "current-map1-raw",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/original-wrapper/results/full_fight_map1.json.gz",
+      "sha256": "7cfb09b434d532e65e6f0377233d455561fe091c3d5bf516c619412c4436cc56",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Original registered freshcheck, source760e exactbefore/after, original360 and innerbudgets unchanged.",
+      "observed": "313/16/65 and two actual fullfights4954/5053 all0fail; only thisone registeredcheck."
+    },
+    {
+      "id": "current-map2-raw",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/original-wrapper/results/full_fight_map2.json.gz",
+      "sha256": "67f9044ad017c25cf988bddcd31c3b8612a4891784199d5478f24aa492d98db8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Original registered freshcheck, source760e exactbefore/after, original360 and innerbudgets unchanged.",
+      "observed": "313/16/65 and two actual fullfights4954/5053 all0fail; only thisone registeredcheck."
+    },
+    {
+      "id": "current-wrapper-summary",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/original-wrapper/summary.json",
+      "sha256": "f094fa5967ab599fdea53fd876fa3a025f95bef044decc4eef8288aea9616348",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Original registered freshcheck, source760e exactbefore/after, original360 and innerbudgets unchanged.",
+      "observed": "313/16/65 and two actual fullfights4954/5053 all0fail; only thisone registeredcheck."
+    },
+    {
+      "id": "current-shared-contract-spec",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/implementation/applied-source-bindings.json",
+      "sha256": "3d647dbf03a34560c3bb32e950233618339bc83d8b9c3d861b7627c9a38dee60",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "content_version": "candidate-v1",
+      "method": "Committed760e sixfile sourceSHA mapping plus reviewed readonlysnapshot delta, design and independent sourceaudit retained beside it.",
+      "observed": "Explicit sharedhelper API/realconsumer mapping; production paths unchanged."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "当前六文件共享实现已应用；最终三行收据快照尚待原完整wrapper验证",
-    "原完整组件、默认map1及map2/完整wrapper尚未完成迁移后验收",
-    "完整185、最终导出/PCK/真实GUI尚未验收",
-    "单seed合法pilot成功不签用户手感或实体设备认可"
+    "该卡只收口原R3检查；完整185与最终导出/PCK/GUI/影片由整体架构验收继续执行",
+    "不代签用户手感、设备或普遍单seed之外的Boss平衡",
+    "原278/1、1608/3、1811/3、4954/3失败和独立历史directional23/4不追签PASS"
   ]
 }

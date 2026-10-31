@@ -24,6 +24,18 @@ first正例与full使用同一关联实现；first验证真实两发/两命中�
 
 ## 验证与回退
 
-共享夹具与两个真实消费者迁移已限定静审接受并应用；原roll-only43/0、9.764秒已独审，原两flat轨迹与旧失败除全局tick偏移外相同。随后仅为保存各flat来源增加三行只读收据快照。原完整组件/默认两图/完整wrapper尚待同源验证；原native180秒与Harness360秒不扩。完整185、最终同源导出、PCK、真实GUI及连续影片另行验收，未验内容保持未验。
+共享夹具与两个真实消费者已在代码提交 `760e0cda93a3e14533bab945eb9bd3cb53a8d59c` 同源通过原registered检查：
 
-迁移前回退源为 `e564aeae849311a9c1847de24ad579be2a010aeb` 的真实Git文件；应用后的具体提交与原检查结果由后续收口追加。本任务不合main或发布游戏，也不实施新地图模块库/新生成算法。
+| 原检查 | 实际结果 |
+| --- | --- |
+| component | 313/0；包含两原flat动作/各真实body1伤、新App平台first全程HP5/真实2命中40→38 |
+| directions / lifecycle | 16/0、65/0 |
+| 默认Bell map1 | 4954帧/0；40唯一四源base1，11roll组13腿含2回冲，玩家5HP/12实体金币/一次过门 |
+| 原Pressure map2 | 5053帧/0；60实际Boss伤害、玩家3HP、20实体金币及原Gold/core/grapple/同玩家森林/旧token拒绝 |
+| 整个registeredcheck | fresh/reused=false，134.931秒/原360，source/Git前后一致，严格退出0 |
+
+原editor的Android build-tools目录提示保留，不将它当Android导出通过。map2胜后定位fixture仍披露。完整185、最终同源导出/PCK、真实GUI与连续影片继续由整体架构验收处理，不由这一个原检查代签。
+
+[完整当前原件与独审](../../evidence/game_architecture_02/r3-current-contract-01/original-wrapper/README.md)；所有先前失败保持原状态与精确源版本，不重标content/source以冒签当前PASS。
+
+迁移前回退源为 `e564aeae849311a9c1847de24ad579be2a010aeb` 的真实Git文件；本批真实代码提交为760e0cda；撤回该批以e564作为前置基点，后继证据/索引提交单独处理。本任务不合main或发布游戏，也不实施新地图模块库/新生成算法。

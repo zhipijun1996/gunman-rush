@@ -760,6 +760,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | CI-FOUNDRY-CONSUMERS-01 | Android同源Foundry消费者、开发池刷新与三入口统一CI覆盖 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/CI-FOUNDRY-CONSUMERS-01.json)；63文件WIP限定独审通过，原91/37及3selected fresh过；185已注册未全跑，旧失败/未构成反例保留 |
 
 | ASSET-METADATA-LAYOUT-01 | 功能目录迁移后的三条当前资产登记SHA修复 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/ASSET-METADATA-LAYOUT-01.json)；实际三SHA已应用，原art-art310及独审限定过；同batchv3失败保留，full185/GUI未验 |
-| CI-CONSUMER-PATHS-01 | 既有18消费者装配、输入闭包与真实失败收据 | GAME-ARCH-LAYOUT-01 | blocked | [质量记录](quality/records/CI-CONSUMER-PATHS-01.json)；五原检查/audio四case通过，R3仍278/1且map1真实1608帧/3失败；原157诊断与全部失败保留，不签full185 |
+| CI-CONSUMER-PATHS-01 | 既有18消费者装配、输入闭包与真实失败收据 | GAME-ARCH-LAYOUT-01 | in_progress | [原质量记录](quality/records/CI-CONSUMER-PATHS-01.json)；旧278/1历史不覆写，当前R3合同迁移已单列并在760e原完整检查通过；完整185待验 |
 | ROOT-BELL-PAUSED-RESTORE-01 | 暂停恢复新epoch时同步清RootBell旧命中颗粒 | CI-CONSUMER-PATHS-01 | in_progress | [独立原缺陷质量记录](quality/records/ROOT-BELL-PAUSED-RESTORE-01.json)；原393/1保留；独审后hit393/0、lifecycle112/0与原RootBell/deform均通过，整体未验；不改玩法/素材，R3另行阻断 |
-| R3-CURRENT-CONTENT-CONTRACT-01 | 当前Bell真实平台正例、共享夹具与默认完整战斗消费者迁移 | CI-CONSUMER-PATHS-01 | in_progress | [独立质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)；单seed完整诊断4954/0、原roll-only43/0，旧278/1及4954/3保留；原完整wrapper/185仍待 |
+| R3-CURRENT-CONTENT-CONTRACT-01 | 当前Bell真实平台正例、共享夹具与默认完整战斗消费者迁移 | CI-CONSUMER-PATHS-01 | done | [独立质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)；760e同源原registeredcheck313/16/65与两图4954/5053全0，旧失败不改签；仅该原检查，非full185 |

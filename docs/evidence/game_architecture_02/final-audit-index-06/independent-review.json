@@ -1,0 +1,43 @@
+{
+  "reviewer": "structure_audit",
+  "scope": "Static-only comparison against saved generator05; generator was not imported/executed, no main changes or engine use.",
+  "status": "LIMITED_STATIC_ACCEPT",
+  "reviewed_sha256": "125114845329cc223b99c3e53186072b44661701a7ad8c74de5f63040c802725",
+  "baseline05_sha256": "d53403bd79638bd44964716e4e5a3d6508d62dbf2c8cd82f90ea7d7a84f97e6a",
+  "otherwise_verified": [
+    "existing index extractor and git wrapper AST identical",
+    "original three repo index outputs unchanged",
+    "migration_report.md remains read-only plus post-write byte equality assertion",
+    "expected HEAD and tracked-source/narrative dirty guards retained",
+    "new R3 ref resolved with ^{commit} and checked ancestor before extraction/writes",
+    "R3 batch uses actual first-parent Git changed files and separate metadata pointer",
+    "latest production depends only on RootBell parameter, never R3",
+    "Underworld historical a671 and generated development becd constants unchanged",
+    "four specific new purposes do not overwrite old 45 manual purposes"
+  ],
+  "actual_refs": {
+    "r3": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+    "root_bell": "61c4fac9e3f5674787cecc963a8ac1d9b675480d",
+    "underworld": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+    "generated_development": "becd0099b161f57cd919e7492f9f99752d377935"
+  },
+  "all_actual_refs_are_current_HEAD_ancestors": true,
+  "r3_only_test_tool_profile_and_docs_changes": true,
+  "limitations": [
+    "Not a generated artifact review or CI pass",
+    "latest production61c4 requires supplying the actual RootBell parameter; omission intentionally retains prior fallback a671",
+    "No native evidence accepted by this generator review"
+  ],
+  "prior_rejected_source_sha256": "e135d08e3d5d70929b103c266c27f1a3ea8a9311965615ba0523c9219fd4aca9",
+  "prior_rejected_source_path": "/workspace/refactor-evidence/persist-main-layout-report-06-rejected-summary-overwrite.py.source",
+  "resolved_blocker": "Final external receipt still targets main-file-index-report-summary-05.json and would overwrite the preserved 05 receipt. Must target summary-06.json.",
+  "resolution": "The only delta to the initially reviewed source changes external receipt suffix05 to06. Original05 and rejected06 are preserved.",
+  "blockers": [],
+  "required_actual_invocation": {
+    "r3_current_contract": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+    "root_bell_paused_fix": "61c4fac9e3f5674787cecc963a8ac1d9b675480d",
+    "expected_head": "the actual committed clean source HEAD at generation time"
+  },
+  "generator_executed": false,
+  "main_written": false
+}

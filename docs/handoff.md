@@ -1,12 +1,14 @@
-## 2026-10-31 恢复执行：R3真实消费者迁移
+## 2026-10-31 R3整项通过，下一步索引冻结与完整185
 
-当前工作树/worktree为/workspace/gunman-rush-refactor，分支refactor/game-architecture-02；本批前提交e564aeae849311a9c1847de24ad579be2a010aeb，实际HEAD请用Git核实。main再次核实2ce4ffa6，122/124已merge，123closed/unmerged；本重构未合main或发布游戏。root独占本地Godot租约；不要与另一原生进程并行。
+工作树/worktree /workspace/gunman-rush-refactor，分支refactor/game-architecture-02。最新已测代码提交760e0cda93a3e14533bab945eb9bd3cb53a8d59c，后继仅保存证据/指导，实际HEAD用Git核实。main仍2ce4ffa6；122/124已merge，123closed/unmerged。未合main/发布游戏。root独占本地Godot租约；当前原R3运行已退出，无引擎在跑。
 
-已完成：单seed正式map1原预算44.997秒4954帧/0失败，164新增检查与原25谓词通过；40实际枪/唯一1伤、玩家HP5、两组回冲13腿、12实体金币及下一map2成立。原4954/3错误归因保留；新真实四源join与旧全轨迹/输入逐字相同。六文件共享夹具/默认all/first正例已限定静审接受；原roll-only43/0、9.764秒独审接受。末尾又仅添加两flat原policy快照，尚待原完整回归覆盖。
+原Harness `--check underworld-continuous-bosses --release --jobs 1` 在760e fresh通过（reused=false）：313/16/65与两图4954/5053全0，检查134.931/360、含清单外层150.206秒，source/Git前后一致。原全25谓词及164Bell检查、2原flat的真实body事件和新无伤正例均独审接受。Pressure原78实际发射中60次有效命中，玩家3HP，4枚5币/Gold/core/grapple/同玩家森林及旧token拒绝通过；原胜后定位fixture继续披露。不是full185。
 
-下一命令：`python3 tools/harness.py --check underworld-continuous-bosses --release --jobs 1`，原360秒，内部import90/component180/direction120/lifecycle180/两图各180不变。先冻结完整源、保存所有原失败和原收据，执行后核source前后、原marker/真实Health/币/过门。不得把此前诊断当此新wrapper通过。该原检查通过后再冻结源更新三份旧acb索引，运行docs/quality与同源完整185、导出/PCK/真实GUI/原声影片；无需重建已完成的固定引擎。
+下一步：先提交本次证据收口，再用已静审generator06更新原3索引（必须clean expectedHEAD、consumer=dce43112、RootBell=61c4、R3=760e；technical-closeout取实际证据收口提交）。生成器只写file_inventory.csv/runtime_inventory.json/dependency_graph.json，不改人工报告；运行后核摘要/原文保护，再更新人工来源说明。原05与06静审原件保留，无需重建固定工具链。
 
-[本批实施/回退与证据](worklines/game_architecture_01/r3_current_content_contract_01.md)；[精选原件](evidence/game_architecture_02/r3-current-contract-01/)；旧暂停包继续保留。新模块库/新算法尚未实施，不承诺任意新地图零适配。
+然后docs/quality检查、冻结/推送精确源，启动原environment.yml workflow_dispatch的完整185与Web/Windows/Android导出。不要把该原R3单项与旧151预检拼成full185。再验证原始API-digest ZIP、PCK隔离v11、真实浏览器三消费者及原声连续影片、公开metadata/完整PCK。新模块库/新算法仍未实现。
+
+[本批细节/回退](worklines/game_architecture_01/r3_current_content_contract_01.md)；[原wholecheck证据](evidence/game_architecture_02/r3-current-contract-01/original-wrapper/README.md)。
 
 ## 2026-10-31 按用户要求再次暂停：从此处恢复
 
