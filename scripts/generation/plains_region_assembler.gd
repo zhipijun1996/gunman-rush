@@ -26,7 +26,7 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 	# only the resolved plan, never a generator or a Manifest reconstruction.
 	manifest=presentation.duplicate(true)
 	bounds=plan.bounds
-	modules=LevelRuntime.install_modules(self,plan,region_state)
+	modules=_install_plan_modules(plan)
 	for index: int in plan.modules.size():
 		var ownership := plan.modules[index].terrain_ownership
 		if not ownership.is_empty() and not _install_joint_banks(modules[index],ownership):
@@ -56,6 +56,19 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 		shortcut_bodies[e.id] = body
 		shortcut_shapes[e.id] = shape
 	return {"ok": true}
+
+func _install_plan_modules(plan: LevelPlan) -> Array[PlatformingModule]:
+	var installed: Array[PlatformingModule] = []
+	for placement: LevelModulePlacement in plan.modules:
+		var module := PlatformingModule.new()
+		module.name=placement.instance_id.replace("/","_")
+		module.definition=placement.definition.duplicate(true) as PlatformingModuleDefinition
+		module.position=placement.position
+		module.authoring_debug=false
+		if region_state!=null: module.clock=float(region_state.clocks.get(placement.instance_id,0.0))
+		installed.append(module)
+		add_child(module)
+	return installed
 
 func install_attack_shortcuts(player: PlayerController, lifetime: DemoLifetime) -> void:
 	if not attack_shortcuts.is_empty(): return

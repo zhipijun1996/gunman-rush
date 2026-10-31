@@ -14,7 +14,7 @@ static func geometry(recorded: Dictionary, tuning: PlayerTuning, forest_region: 
 	plan.source_version=str(recorded.version)
 	plan.seed=str(recorded.seed)
 	plan.map_hash=str(recorded.manifest_hash)
-	plan.bounds=LevelRuntime.rect(recorded.world_bounds)
+	plan.bounds=LevelContentValidation.rect(recorded.world_bounds)
 	plan.spawn=Vector2(recorded.spawn[0],recorded.spawn[1])
 	plan.anchors.append(plan.spawn)
 	for area: Dictionary in recorded.areas:
@@ -31,7 +31,7 @@ static func geometry(recorded: Dictionary, tuning: PlayerTuning, forest_region: 
 		for shortcut: Dictionary in forest.reward_shortcuts:
 			if shortcut.has("unlock_reward_id"):
 				shortcut.reward_source_id="thorn_forest/map_%s/%s" % [recorded.map_index,shortcut.unlock_reward_id]
-		for row: Array in recorded.dangers: forest.dangers.append(LevelRuntime.rect(row))
+		for row: Array in recorded.dangers: forest.dangers.append(LevelContentValidation.rect(row))
 		forest.danger_presentations=recorded.get("danger_presentations",[]).duplicate(true)
 		if recorded.get("layout_version") in [ForestTargetHosts.LAYOUT,"forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"]:
 			forest.target_hosts=ForestTargetHosts.build(recorded)
@@ -48,7 +48,7 @@ static func geometry(recorded: Dictionary, tuning: PlayerTuning, forest_region: 
 			placement.position=Vector2(node.offset[0],node.offset[1])
 			placement.terrain_ownership=node.get("joint_recoil",{}).duplicate(true)
 			plan.modules.append(placement)
-		for row: Array in recorded.ground_supports: plan.ground_supports.append(LevelRuntime.rect(row))
+		for row: Array in recorded.ground_supports: plan.ground_supports.append(LevelContentValidation.rect(row))
 		plan.connections.assign(recorded.connections.duplicate(true))
 	result.plan=plan
 	return result

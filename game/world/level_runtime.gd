@@ -14,19 +14,6 @@ static func assemble(parent: Node2D, plan: LevelPlan, state: PlainsRegionState, 
 	result.assembler=assembler
 	return result
 
-static func install_modules(parent: Node2D, plan: LevelPlan, state: PlainsRegionState) -> Array[PlatformingModule]:
-	var modules: Array[PlatformingModule] = []
-	for placement: LevelModulePlacement in plan.modules:
-		var module := PlatformingModule.new()
-		module.name=placement.instance_id.replace("/","_")
-		module.definition=placement.definition.duplicate(true) as PlatformingModuleDefinition
-		module.position=placement.position
-		module.authoring_debug=false
-		if state!=null: module.clock=float(state.clocks.get(placement.instance_id,0.0))
-		modules.append(module)
-		parent.add_child(module)
-	return modules
-
 static func create_actor(placement: Dictionary) -> EnemyMotor:
 	var revision: Variant=placement.get("definition_revision","")
 	if not revision is String: return null
@@ -53,6 +40,3 @@ static func restore_caches(records: Array[Dictionary], claims: Dictionary) -> Ar
 		chest.claimed=claims.has(chest.id)
 		result.append(chest)
 	return result
-
-static func rect(row: Array) -> Rect2:
-	return Rect2(row[0],row[1],row[2],row[3])

@@ -42,7 +42,7 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 		members.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return float(a.rect[3]) > float(b.rect[3]))
 		for index: int in members.size():
 			var row: Dictionary = members[index]
-			var original := LevelRuntime.rect(row.rect)
+			var original := LevelContentValidation.rect(row.rect)
 			var shape := CollisionShape2D.new()
 			shape.name = "CollisionShape2D" if index == 0 else "SupportShape_%s" % index
 			var rectangle := RectangleShape2D.new()
@@ -92,7 +92,7 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 				return {"ok":false,"error":"Recorded forest practice bell rejected"}
 		add_child(bell)
 		hook_targets[row.id] = bell
-	var gate := LevelRuntime.rect(forest_geometry.vine_gate.rect)
+	var gate := LevelContentValidation.rect(forest_geometry.vine_gate.rect)
 	vine_body = StaticBody2D.new()
 	vine_body.name = "CrownVineGate"
 	vine_body.position = gate.get_center()
@@ -108,7 +108,7 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 		var body := StaticBody2D.new()
 		body.name = str(row.id)
 		body.collision_layer = 1
-		var rect := LevelRuntime.rect(row.rect)
+		var rect := LevelContentValidation.rect(row.rect)
 		body.position = rect.get_center()
 		var shape := CollisionShape2D.new()
 		var rectangle := RectangleShape2D.new()
@@ -125,7 +125,7 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 func _support_groups() -> Array[Dictionary]:
 	var groups: Array[Dictionary] = []
 	for row: Dictionary in forest_platforms:
-		var rect := LevelRuntime.rect(row.rect)
+		var rect := LevelContentValidation.rect(row.rect)
 		var current := {"rect":rect,"one_way":bool(row.one_way),"members":[row]}
 		var changed := true
 		while changed and (bool(current.one_way) or forest_geometry.merge_solid_supports):
@@ -213,7 +213,7 @@ func presentation_host_audit() -> Dictionary:
 
 func module_index_at(point: Vector2) -> int:
 	for i: int in forest_platforms.size():
-		if LevelRuntime.rect(forest_platforms[i].rect).grow(80).has_point(point): return i
+		if LevelContentValidation.rect(forest_platforms[i].rect).grow(80).has_point(point): return i
 	return -1
 
 func _draw() -> void:
@@ -232,7 +232,7 @@ func _draw() -> void:
 			else: ForestFruitBough.draw(self,bough)
 		ForestTargetHosts.draw(self,_target_host_presentation)
 	if is_instance_valid(vine_shape) and not vine_shape.disabled:
-		var gate := LevelRuntime.rect(manifest.vine_gate.rect)
+		var gate := LevelContentValidation.rect(manifest.vine_gate.rect)
 		if ForestBiblePresentation.enabled(manifest): ForestBiblePresentation.draw_gate(self, gate)
 		else:
 			draw_rect(gate,Color("5c5542"))
@@ -241,7 +241,7 @@ func _draw() -> void:
 				draw_line(at+Vector2(-15,0),at+Vector2(15,18),Color("ca9670"),5,true)
 	for shortcut: Dictionary in manifest.get("forest_shortcuts", []):
 		if region_state != null and region_state.opened.has(str(shortcut.opened_key)): continue
-		var rect := LevelRuntime.rect(shortcut.rect)
+		var rect := LevelContentValidation.rect(shortcut.rect)
 		ForestBiblePresentation.draw_gate(self, rect)
 	if ForestBiblePresentation.enabled(manifest):
 		ForestBiblePresentation.draw_surfaces(self, manifest)
@@ -250,7 +250,7 @@ func _draw() -> void:
 		if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION and row.has("scene_kind"):
 			ForestSceneLanguage.draw_surface(self, row)
 			continue
-		var rect := LevelRuntime.rect(row.rect)
+		var rect := LevelContentValidation.rect(row.rect)
 		var one_way: bool = row.one_way
 		draw_rect(rect, Color("586544") if one_way else Color("394e38"))
 		draw_line(rect.position,Vector2(rect.end.x,rect.position.y),Color("c9cd89"),3,true)
