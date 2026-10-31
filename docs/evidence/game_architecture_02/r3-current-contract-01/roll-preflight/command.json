@@ -1,0 +1,20 @@
+{
+  "scope": "Original roll-only entry, original180 budget; not component full wrapper or full185",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "patch_sha256": "24528f48e066e8109875b9f0501adfe431b94135278e5e442c9e564aea86e1e0",
+  "engine_args": [
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/underworld_plains/test_underworld_r3_boss.gd",
+    "--",
+    "--roll-only"
+  ],
+  "native_budget_seconds": 180,
+  "status": "failed"
+}

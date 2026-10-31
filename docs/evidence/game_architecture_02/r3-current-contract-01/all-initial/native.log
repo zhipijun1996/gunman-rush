@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=296 setup_ms=46
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"00ca33a8e622314d1ca9adeca1a5815a51eee0f6eac63e154ce712644259451a","map_index":1,"region":"plains","seed":"underworld-r3-continuous-boss"}
+PLAINS REGION: family=woven_layers areas=23 fallback=
+TERRAIN STUDY: solids=75 pieces=283 setup_ms=35
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/windkeeper_storm.tres","boss_scene":"res://scenes/bosses/windkeeper_pressure.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"b2fcc5665c98abf06df24faf864dad17ed0cfb31bcfc114bcef0ec0942594834","map_index":2,"region":"plains","seed":"underworld-r3-continuous-boss/plains/map_2"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2/@Node@3","played":{"bellstrider_brake":22,"bellstrider_death":1,"bellstrider_death_final":1,"bellstrider_death_impact":1,"bellstrider_death_jam":1,"bellstrider_lob_aim":8,"bellstrider_lob_impact":8,"bellstrider_lob_lock":8,"bellstrider_lob_release":8,"bellstrider_phase":1,"bellstrider_ring_strike":6,"bellstrider_roll_start":13,"bellstrider_roll_warn":13,"bellstrider_turn":2,"boss_impact":2,"coin":4,"death":1,"door":1,"hurt":37,"motion_jump":31,"motion_land":44,"step":59,"warning":1,"weapon_hit":40,"weapon_pulse":40},"service":"GameAudio"},{"node":"/root/@Node2D@2/@Node@16","service":"GameMusic","starts":{"home":2,"plains":2,"plains_boss":1},"track":"home"}],"released":true,"seconds":0.186}
+UNDERWORLD R3 FULL BOSS MAP1: 4954 frames, 3 failures
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/resume-platform-all-rolls-diagnostic-01.py", line 46, in <module>
+    output=run_engine(args,180)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-refactor/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

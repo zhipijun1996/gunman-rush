@@ -1,0 +1,43 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_FINAL_SHARED_ALL_ROLL_DIAGNOSTIC_NATIVE_PENDING",
+  "files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "c6a5a8008171d7e9ca4234c4bdfc09020eb548844759af920653dc374ffc63ed"
+    }
+  ],
+  "patch_sha256": "07c637c16745845adcda390071304335e94ccbdbd6d1f54c7da77b2247bb9720",
+  "checks": {
+    "reverse_patch_entire_two_originals_exact": true,
+    "main_two_files_still_original": true,
+    "original25_failure_predicates_exact": true,
+    "original_waits_placements_steps_7200_and300_loops_exact": true,
+    "original_pilot_step_body_exact_except_optin_block_and_declarations": true,
+    "fresh_actual_platform_observation_before_all3_original_Bell_step_calls": true,
+    "both_receipts_use_shared_strict_verdict": true
+  },
+  "resolved_blockers": [
+    "Completed current group returns before re-admission; all mode no longer immediately rejects its completed roll in observe state.",
+    "Return warning records original first warning tick; prior leg may genuinely land within unchanged warning, then same support admits leg1. Actual return roll before admission fails; no time extension/retry/new jump grant.",
+    "All three existing Bell step callers refresh actual installed support observations, including terminal closure; no current grounded/oldcontact mixture."
+  ],
+  "scope_and_authority": [
+    "One shared group owner and leg action/observation procedure for first/all; all selects real committed roll groups only. Non-roll and original recovery shooting retain original pilot.",
+    "Current encounter.direction supplies return direction; frozen initial plan.return_roll and actual roll_index/combo_warning govern leg admission. Samebody/path/rect and native floor contact guard real support; max/effective jump1 and nohook retained.",
+    "Opt-in action is inserted before unchanged wave_jump priority; helper defers new action ifwavejump. Original shot blocks/cooldowns/ammo/energy checks and seed untouched.",
+    "Capture observes real presentation_event group/hit/death stream; copied event dictionaries cannot mutate source. Stream escapes production256-history rollover without changing production retention.",
+    "Final verdict requires every eligible actual committed group exactly once, all actual leg chains, inclusive group HP/events and original2request/2baseonehit policy. Missing terminal evidence or failure never becomes win; realhealth+defeated+deathevent still required."
+  ],
+  "complexity": "Per-frame/event projection copies bounded current state/platform observations, never all historical trials. Full ledger/event stream duplicated once at final receipt. Final validator still scans damage_events pertrial O(T*E); root explicitly accepted this bounded final-only cost. Existing input_rows.filter remains original, so no claim of globally linear entire capture.",
+  "validation_limits": [
+    "Read-only source/API/byte review; no GDScript compiler orengine executed, syntax/native still root-owned. No static unsupported API/member was identified in finalsource.",
+    "Original180-second native cap and7200frame cap remain; previous firstgroup success/fullbattle failure and rejected candidates not retroactively accepted.",
+    "Single diagnostic candidate only: no production behavior/physics/RNG/resource mutation, no fullbattle strategy/native/full185 success signed."
+  ]
+}

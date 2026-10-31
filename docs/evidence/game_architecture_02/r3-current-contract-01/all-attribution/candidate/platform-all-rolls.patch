@@ -1,0 +1,607 @@
+--- a/tools/bellstrider_01/legal_input_pilot.gd
++++ b/tools/bellstrider_01/legal_input_pilot.gd
+@@ -2,6 +2,12 @@
+ ## Disclosed automated player. Observations are read-only; all writes are normal
+ ## Router inputs or actual mouse-motion events. Never advances Encounter clocks.
+ var mode := "cautious2"
++# Empty keeps original navigation. first/all select the same diagnostic procedure.
++var platform_scope := ""
++var platform_observation: Dictionary = {}
++var platform_trial: Dictionary = {}
++var platform_trials: Array[Dictionary] = []
++var platform_failure := ""
+ var input_rows: Array[Dictionary] = []
+ var frame := 0
+ var group := -1
+@@ -195,6 +201,12 @@
+ 			if player.is_on_floor() and absf(dx) > 180.0:
+ 				jump = true
+ 				intent = "legal jump toward existing platform; selection remains autonomous"
++	if not platform_scope.is_empty():
++		var platform_input := _platform_counterplay_input(app, encounter, metrics, wave_jump)
++		if bool(platform_input.get("override", false)):
++			axis = float(platform_input.axis)
++			jump = bool(platform_input.jump)
++			intent = "actual platform counterplay / " + str(platform_snapshot().get("leg_phase", "waiting"))
+ 	if wave_jump:
+ 		jump = true
+ 		intent = "actual approaching wave takes priority across every state"
+@@ -348,3 +360,245 @@
+ 	query.motion = target - muzzle
+ 	var travel: PackedFloat32Array = space.cast_motion(query)
+ 	return travel.size() == 2 and float(travel[0]) >= .999
++
++
++func _platform_counterplay_input(app: Node, encounter: Node, metrics: Dictionary, wave_jump: bool) -> Dictionary:
++	# One group owner and one leg procedure serve both diagnostic scopes.
++	var player: PlayerMotor = app.player
++	var current_group := int(metrics.get("groups_started", 0))
++	var plan: Dictionary = metrics.get("group_plan", {})
++	var state := str(encounter.mode)
++	if not platform_failure.is_empty():
++		return {}
++	if str(platform_trial.get("phase", "")) == "active":
++		platform_trial.HP_min = minf(float(platform_trial.HP_min), app.controller.actor_resources.health.current)
++		if float(platform_trial.HP_min) < float(platform_trial.HP_start):
++			return _platform_fail("actual HP decreased during a committed roll group")
++		if not _platform_base_observation_valid():
++			return _platform_fail("actual installed support or base-only ability observation unavailable")
++		if not platform_trial.legs.is_empty():
++			_observe_platform_leg(app, encounter)
++			if not platform_failure.is_empty():
++				return {}
++		if encounter.health.terminal or int(metrics.get("groups_completed", 0)) >= int(platform_trial.group):
++			_finish_platform_group(encounter.health.terminal)
++			if not platform_failure.is_empty():
++				return {}
++	if str(platform_trial.get("phase", "")) == "complete" and current_group == int(platform_trial.group):
++		return {} # Never re-admit a completed group, even if its plan is still exposed.
++	if encounter.health.terminal:
++		return {}
++	if platform_scope == "first" and not platform_trials.is_empty() and str(platform_trial.phase) == "complete":
++		return {}
++	if current_group <= 0:
++		return {}
++	if str(platform_trial.get("phase", "")) != "active":
++		if str(plan.get("kind", "")) != "roll":
++			if platform_scope == "first" and platform_trials.is_empty():
++				return _platform_fail("first autonomous group was not the specified phase1 roll")
++			return {}
++		if state != "roll_warning" or int(plan.get("roll_index", -1)) != 0:
++			return _platform_fail("missed actual initial roll warning; no inferred or replayed leg")
++		if platform_scope == "first" and (current_group != 1 or int(plan.get("phase", -1)) != 1):
++			return _platform_fail("first scope requires the original first phase1 group")
++		if not _platform_base_observation_valid():
++			return _platform_fail("roll warning has no valid actual support/base capability observation")
++		var hp: float = app.controller.actor_resources.health.current
++		platform_trial = {"phase": "active", "group": current_group, "plan": plan.duplicate(true), "first_tick": Engine.get_physics_frames(), "HP_start": hp, "HP_min": hp, "legs": [], "failure": ""}
++		platform_trials.append(platform_trial)
++	if int(platform_trial.group) != current_group:
++		return _platform_fail("new group arrived before actual preceding roll group closure")
++	var index := int(plan.get("roll_index", -1))
++	if platform_trial.legs.is_empty():
++		_begin_platform_leg(app, encounter, 0)
++	elif index == 1 and platform_trial.legs.size() == 1:
++		if not bool(platform_trial.plan.get("return_roll", false)):
++			return _platform_fail("return warning lacks its frozen return commitment")
++		if state == "combo_warning":
++			if not platform_trial.has("return_warning_tick"):
++				platform_trial.return_warning_tick = Engine.get_physics_frames()
++			if bool(platform_trial.legs[0].landed):
++				_begin_platform_leg(app, encounter, 1)
++		elif state == "roll":
++			return _platform_fail("return warning ended before actual previous landing and new leg admission")
++	if not platform_failure.is_empty():
++		return {}
++	# Keep the existing wave decision higher priority than any new action or
++	# board/evade-request state change. Losing support afterwards fails honestly.
++	if wave_jump:
++		_platform_event("actual_wave_priority_platform_action_deferred")
++		return {}
++	return _advance_platform_leg(app, encounter)
++
++
++func _platform_base_observation_valid() -> bool:
++	return bool(platform_observation.get("valid", false)) and int(platform_observation.get("max_jumps", 0)) == 1 and int(platform_observation.get("effective_max_jumps", 0)) == 1 and not bool(platform_observation.get("hook_enabled", true))
++
++
++func _platform_supported(player: PlayerMotor, target: Dictionary) -> bool:
++	if not player.is_on_floor():
++		return false
++	for support: Dictionary in platform_observation.floor_contacts:
++		if support.body_id == target.body_id and support.path == target.path:
++			return true
++	return false
++
++
++func _begin_platform_leg(app: Node, encounter: Node, index: int) -> void:
++	var player: PlayerMotor = app.player
++	var state := str(encounter.mode)
++	var expected := "roll_warning" if index == 0 else "combo_warning"
++	if state != expected:
++		_platform_fail("leg admission requires its actual warning mode")
++		return
++	var selected: Dictionary = {}
++	if index == 1:
++		# Reuse the same installed support after the actual previous landing.
++		selected = platform_trial.legs[0].target.duplicate(true)
++	else:
++		for candidate: Dictionary in platform_observation.platforms:
++			var rect: Rect2 = candidate.rect
++			if selected.is_empty() or rect.position.y > (selected.rect as Rect2).position.y or (is_equal_approx(rect.position.y, (selected.rect as Rect2).position.y) and absf(rect.get_center().x - player.global_position.x) < absf((selected.rect as Rect2).get_center().x - player.global_position.x)):
++				selected = candidate.duplicate(true)
++	if selected.is_empty():
++		_platform_fail("no existing low support; no synthetic or alternate platform")
++		return
++	var supported := _platform_supported(player, selected)
++	var leg: Dictionary = {"index": index, "phase": "supported" if supported else "boarding", "warning": expected, "warning_tick": int(platform_trial.get("return_warning_tick", Engine.get_physics_frames())) if index == 1 else Engine.get_physics_frames(), "target": selected, "support_source": "already_supported" if supported else "pending", "support_tick": Engine.get_physics_frames() if supported else -1, "board_jump_requested": false, "board_airborne": not player.is_on_floor(), "evade_requested": false, "evade_airborne": false, "crossed_airborne": false, "landed": false, "previous_grounded": player.is_on_floor(), "initial_side": signf(app.stage.boss.global_position.x - player.global_position.x)}
++	platform_trial.legs.append(leg)
++	_platform_event("leg_actual_warning_admitted")
++
++
++func _observe_platform_leg(app: Node, encounter: Node) -> void:
++	# Observations never grant a jump or infer a landing from an input label.
++	var player: PlayerMotor = app.player
++	var leg: Dictionary = platform_trial.legs.back()
++	var target: Dictionary = leg.target
++	var installed := false
++	for candidate: Dictionary in platform_observation.platforms:
++		if candidate.body_id == target.body_id and candidate.path == target.path and candidate.rect == target.rect:
++			installed = true
++	if not installed:
++		_platform_fail("selected installed support changed or disappeared")
++		return
++	var grounded := player.is_on_floor()
++	var supported := _platform_supported(player, target)
++	if str(leg.phase) == "boarding":
++		if not grounded:
++			leg.board_airborne = true
++			if bool(leg.previous_grounded):
++				_platform_event("actual_boarding_takeoff")
++		if supported:
++			if str(encounter.mode) != str(leg.warning):
++				_platform_fail("did not actually reach support inside this leg warning")
++				return
++			leg.phase = "supported"
++			leg.support_source = "boarded" if bool(leg.board_jump_requested) else "arrived_from_existing_motion"
++			leg.support_tick = Engine.get_physics_frames()
++			jump_until = frame # Release only the ordinary held input after real landing.
++			_platform_event("actual_platform_landing")
++		elif grounded and bool(leg.board_jump_requested) and bool(leg.board_airborne):
++			_platform_fail("one boarding jump landed elsewhere; no retry")
++			return
++	elif str(leg.phase) == "evading":
++		if not grounded:
++			if not bool(leg.evade_airborne):
++				leg.evade_airborne = true
++				leg.takeoff_tick = Engine.get_physics_frames()
++				_platform_event("actual_evade_takeoff")
++			var side := signf(app.stage.boss.global_position.x - player.global_position.x)
++			if side != 0 and side != float(leg.initial_side) and str(encounter.mode) == "roll" and not bool(leg.crossed_airborne):
++				leg.crossed_airborne = true
++				leg.crossing_tick = Engine.get_physics_frames()
++				_platform_event("actual_airborne_side_crossing")
++		elif bool(leg.evade_airborne) and not bool(leg.previous_grounded):
++			if not supported:
++				_platform_fail("vertical evade did not actually land back on the selected support")
++				return
++			leg.landed = true
++			leg.phase = "landed"
++			leg.landing_tick = Engine.get_physics_frames()
++			_platform_event("actual_evade_landing")
++	leg.previous_grounded = grounded
++
++
++func _advance_platform_leg(app: Node, encounter: Node) -> Dictionary:
++	# The sole action procedure, shared by first/all, every group and both legs.
++	var player: PlayerMotor = app.player
++	var leg: Dictionary = platform_trial.legs.back()
++	var state := str(encounter.mode)
++	var target: Dictionary = leg.target
++	var rect: Rect2 = target.rect
++	var axis := 0.0
++	var jump := false
++	match str(leg.phase):
++		"boarding":
++			if state != str(leg.warning):
++				return _platform_fail("warning ended before actual support; no clock extension")
++			axis = _toward(player.global_position.x, rect.get_center().x, 7.0)
++			if player.is_on_floor() and not bool(leg.board_jump_requested):
++				jump = true
++				leg.board_jump_requested = true
++				_platform_event("boarding_jump_requested")
++		"supported":
++			if not _platform_supported(player, target):
++				return _platform_fail("lost actual support before ordinary evade jump")
++			var bounds: Rect2 = platform_observation.rig_bounds
++			var direction: float = encounter.direction # Current direction reverses for leg1.
++			var incoming: bool = (app.stage.boss.global_position.x - player.global_position.x) * direction < 0.0
++			var front := bounds.position.x if direction < 0 else bounds.end.x
++			if state == "roll" and incoming and front >= rect.position.x and front <= rect.end.x:
++				if not is_zero_approx(player.normal_velocity.x):
++					return _platform_fail("rig arrived before actual horizontal motion stopped")
++				jump = true
++				leg.phase = "evading"
++				leg.evade_requested = true
++				leg.trigger_tick = Engine.get_physics_frames()
++				leg.trigger_front = front
++				_platform_event("incoming_front_jump_requested")
++			elif state not in [str(leg.warning), "roll"]:
++				return _platform_fail("incoming rig event not observed during this actual leg")
++		"evading":
++			pass # Keep original jump hold and zero axis; observe actual transitions.
++		"landed":
++			if state in ["neck", "observe"]:
++				return {} # Original two-shot recovery and repositioning stay unchanged.
++			if not _platform_supported(player, target):
++				return _platform_fail("lost actual support while waiting through combo states")
++			# Hold the same real support through roll/combo_brake/turn/warning.
++			# Never fall back to the old chase axis before a return leg.
++	return {"override": true, "axis": axis, "jump": jump}
++
++
++func _finish_platform_group(terminal: bool) -> void:
++	var expected := 2 if bool(platform_trial.plan.get("return_roll", false)) else 1
++	if platform_trial.legs.size() != expected:
++		_platform_fail("group ended without every committed actual roll leg")
++		return
++	for leg: Dictionary in platform_trial.legs:
++		if not bool(leg.evade_requested) or not bool(leg.evade_airborne) or not bool(leg.crossed_airborne) or not bool(leg.landed):
++			_platform_fail("group ended without each actual takeoff/crossing/landing")
++			return
++	platform_trial.phase = "complete"
++	platform_trial.complete_tick = Engine.get_physics_frames()
++	platform_trial.completion_reason = "actual_terminal_pending_receipt_proof" if terminal else "actual_groups_completed"
++	_platform_event("group_motion_complete_NOT_full_fight_acceptance")
++
++
++func _platform_fail(reason: String) -> Dictionary:
++	platform_failure = reason
++	if not platform_trial.is_empty():
++		platform_trial.phase = "failed"
++		platform_trial.failure = reason
++	_platform_event("platform_hypothesis_failed_NO_retry")
++	return {}
++
++
++func platform_snapshot() -> Dictionary:
++	# Bounded current-state projection; never duplicate the historical ledger here.
++	var leg: Dictionary = platform_trial.legs.back() if not platform_trial.get("legs", []).is_empty() else {}
++	return {"scope": platform_scope, "failure": platform_failure, "group": platform_trial.get("group", -1), "group_phase": platform_trial.get("phase", "waiting"), "HP_start": platform_trial.get("HP_start", -1), "HP_min": platform_trial.get("HP_min", -1), "leg": leg.get("index", -1), "leg_phase": leg.get("phase", "waiting"), "support_tick": leg.get("support_tick", -1), "target": leg.get("target", {}), "evade_requested": leg.get("evade_requested", false), "evade_airborne": leg.get("evade_airborne", false), "crossed_airborne": leg.get("crossed_airborne", false), "landed": leg.get("landed", false)}
++
++
++func _platform_event(action: String) -> void:
++	input_rows.append({"frame": frame, "physics_tick": Engine.get_physics_frames(), "action": action, "group": group, "trial": platform_snapshot(), "actual_support_observation": platform_observation.duplicate(true)})
+--- a/tests/underworld_plains/capture_underworld_r3_boss_fight.gd
++++ b/tests/underworld_plains/capture_underworld_r3_boss_fight.gd
+@@ -17,6 +17,10 @@
+ var visited:Dictionary={}
+ var start_meta:Dictionary
+ var bell_pilot: RefCounted
++var platform_scope := ""
++var platform_bell_events: Array[Dictionary] = []
++var platform_fired_shots: Array[Dictionary] = []
++var platform_damage_commits: Array[Dictionary] = []
+ var terminal_trace: Array[Dictionary] = []
+ var final_bell_metrics: Dictionary = {}
+ var final_bell_units: Array[Dictionary] = []
+@@ -46,6 +50,12 @@
+ func run()->void:
+ 	for arg:String in OS.get_cmdline_user_args():
+ 		if arg.begins_with("--map="):map_index=int(arg.trim_prefix("--map="))
++		if arg == "--platform-counterplay":platform_scope="first"
++		if arg.begins_with("--platform-counterplay="):platform_scope=arg.trim_prefix("--platform-counterplay=")
++	if not platform_scope.is_empty() and (map_index != 1 or platform_scope not in ["first", "all"]):
++		printerr("Platform diagnostic requires map1 and first/all scope")
++		quit(1)
++		return
+ 	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+ 	app.start_plains("underworld-r3-continuous-boss")
+ 	await frames(8)
+@@ -68,6 +78,8 @@
+ 	encounter.defeated.connect(func(_owner:BossEncounter)->void:lifecycle_events.append({"tick":Engine.get_physics_frames(),"event":"boss_defeated","health":battle_boss_health.current,"terminal":battle_boss_health.terminal}))
+ 	app.controller.shoot_ability.shot_fired.connect(func(_aim:Vector2,_id:int)->void:
+ 		accepted_shots+=1
++		if not platform_scope.is_empty() and bell_pilot != null:
++			_observe_platform_actual_shot(_id, encounter as BellstriderEncounter)
+ 		if pressure_pilot!=null:pressure_pilot.observe_actual_shot(_id))
+ 	if encounter is WindkeeperPressureEncounter:
+ 		pressure_pilot=load("res://tools/windkeeper_pressure_01/legal_input_pilot.gd").new()
+@@ -89,6 +101,10 @@
+ 		if not is_equal_approx(app.controller.shoot_ability.weapon.damage,1.0): failure.append("current Bell full fight must use actual base-one weapon damage")
+ 		bell_pilot = BELL_PILOT.new()
+ 		bell_pilot.mode = "cautious2"
++		bell_pilot.platform_scope = platform_scope
++		if not platform_scope.is_empty():
++			encounter.presentation_event.connect(_observe_platform_bell_event)
++			encounter.damageable.damaged.connect(_observe_platform_boss_damage)
+ 	var previous_side := 0
+ 	var start_tick:=Engine.get_physics_frames()
+ 	for tick:int in 7200:
+@@ -115,6 +131,8 @@
+ 			await frames(1)
+ 			continue
+ 		if map_index==1:
++			if not platform_scope.is_empty():
++				bell_pilot.platform_observation = _bell_platform_observation(stage,app.player as PlayerMotor,encounter as BellstriderEncounter)
+ 			bell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),bell_units(stage))
+ 			final_bell_metrics=(encounter as BellstriderEncounter).combat_metrics()
+ 			axis = controller.router.axis
+@@ -146,6 +164,8 @@
+ 				var aim_point:=boss.global_position+Vector2(0,-20 if player.global_position.y>boss.global_position.y else -95)
+ 				if controller.router.request_action(&"shoot_release",(aim_point-player.global_position).normalized()):shots+=1
+ 		trace.append({"tick":Engine.get_physics_frames(),"movie_seconds":float(Engine.get_physics_frames()-start_tick)/60,"player":[player.global_position.x,player.global_position.y],"boss":[boss.global_position.x,boss.global_position.y],"player_hp":controller.actor_resources.health.current,"boss_hp":encounter.health.current,"stamina":controller.actor_resources.stamina.current,"phase":encounter.stage_phase,"mode":String(encounter.mode),"clock":encounter.clock,"axis":axis,"cross":cross_axis,"grounded":grounded,"requested_shots":shots})
++		if not platform_scope.is_empty() and map_index == 1:
++			trace.back()["platform_counterplay"] = {"trial": bell_pilot.platform_snapshot(), "observation": bell_pilot.platform_observation.duplicate(true), "used_jumps": controller.jump_ability.used_jumps, "normal_velocity": [player.normal_velocity.x,player.normal_velocity.y], "actual_input_axis": controller.router.axis}
+ 		battle_last_live=trace.back().duplicate(true)
+ 		await frames(1)
+ 	if not _battle_available(encounter,stage,boss):
+@@ -156,6 +176,8 @@
+ 	if not encounter.health.terminal:failure.append("actual continuous full fight did not defeat Boss")
+ 	if actor_hp<=0 or not app.lifetime.active:failure.append("player failed actual continuous battle")
+ 	if map_index==1 and encounter.health.terminal:
++		if not platform_scope.is_empty():
++			bell_pilot.platform_observation = _bell_platform_observation(stage,app.player as PlayerMotor,encounter as BellstriderEncounter)
+ 		bell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),bell_units(stage))
+ 	var pressure_settlement:Dictionary={}
+ 	if encounter is WindkeeperPressureEncounter and encounter.health.terminal and actor_hp>0 and app.lifetime.active:
+@@ -176,6 +198,8 @@
+ 			final_bell_units = bell_units(stage)
+ 			terminal_trace.append({"tick":Engine.get_physics_frames(),"death_age":final_bell_metrics.get("death_age",0),"wallet":app.wallet.balance,"player":[app.player.global_position.x,app.player.global_position.y],"units":final_bell_units.duplicate(true)})
+ 			if float(final_bell_metrics.get("death_age",0))>=1.8 and final_bell_units.size()==4 and final_bell_units.all(func(unit: Dictionary) -> bool: return bool(unit.claimed)): break
++			if not platform_scope.is_empty():
++				bell_pilot.platform_observation = _bell_platform_observation(stage,app.player as PlayerMotor,encounter as BellstriderEncounter)
+ 			bell_pilot.step(app,encounter,final_bell_metrics,final_bell_units)
+ 			await frames(1)
+ 		if not _battle_available(encounter,stage,boss):
+@@ -260,6 +284,7 @@
+ 		if not settlement.forest_entered or settlement.forest_version!="thorn-forest-region-v2" or settlement.forest_layout!="forest-bible-world-v15" or not settlement.same_player_with_grapple or not settlement.previous_region_token_rejected:failure.append("actual post-Boss region selection must assemble the default forest with retained Gold, one grapple and a fresh stage token")
+ 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
+ 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
++	_record_platform_trial_verdict()
+ 	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"terminal_trace":terminal_trace,"bell_metrics":final_bell_metrics,"bell_units":final_bell_units,"automated_player":"read-only legal_input_pilot cautious2 for current Bell" if bell_pilot!=null else "canonical active_assault legal-input pilot for current Pressure" if pressure_pilot!=null else "classic original R3","bell_inputs":bell_pilot.input_rows if bell_pilot!=null else [],"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "classic original R3","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else []},"\t"));file.close()
+ 	app.abandon_run();await load("res://tests/audio_teardown.gd").drain_world(app);app.free();await frames(5)
+ 	print("UNDERWORLD R3 FULL BOSS MAP%d: %d frames, %d failures"%[map_index,trace.size(),failure.size()]);quit(1 if not failure.is_empty() else 0)
+@@ -376,6 +401,7 @@
+ 	var settlement:Dictionary={"claim_skipped_because_failed_battle":true,"arena_released_before_settlement":true,"pressure_physical_coins":coin_settlement}
+ 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
+ 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
++	_record_platform_trial_verdict()
+ 	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":identity.map_index,"manifest_seed":identity.manifest_seed,"manifest_hash":identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "not used","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else [],"arena_released":true,"last_live_snapshot":battle_last_live,"combat_frame_limit":7200,"terminal_trace":terminal_trace,"bell_metrics":final_bell_metrics,"bell_units":final_bell_units,"bell_inputs":bell_pilot.input_rows if bell_pilot!=null else [],"automated_player":"read-only legal_input_pilot cautious2 for current Bell" if bell_pilot!=null else "canonical active_assault legal-input pilot for current Pressure","boss_terminal_observed":battle_boss_health.terminal if battle_boss_health!=null else null,"player_terminal_observed":battle_player_health.terminal if battle_player_health!=null else null,"lifecycle_events":lifecycle_events,"app_lifecycle":app_state},"\t"));file.close()
+ 	if is_instance_valid(app):
+ 		if is_instance_valid(app.controller):app.abandon_run()
+@@ -407,3 +433,234 @@
+ 		result["stage_index"]=app.director.stage_index
+ 		result["region_map_index"]=app.director.region_map_index
+ 	return result
++
++
++func _bell_platform_observation(stage: PlainsRegionStage, player: PlayerMotor, encounter: BellstriderEncounter) -> Dictionary:
++	# Observe the already installed Module shapes and native Motor collisions.
++	# This never creates shapes, raycasts a replacement floor or predicts physics.
++	var result: Dictionary = {"valid": false, "platforms": [], "floor_contacts": [], "max_jumps": player.tuning.max_jumps, "effective_max_jumps": app.controller.jump_ability.maximum_jumps(), "hook_enabled": app.controller.traversal.hook_enabled, "rig_bounds": encounter.body_contact_rect()}
++	var selected: PlatformingModule = null
++	for module: PlatformingModule in stage.assembler.modules:
++		if module.definition.module_id == &"plains_bellstrider_arena":
++			if selected != null:
++				return result
++			selected = module
++	if selected == null:
++		return result
++	for index: int in selected.definition.one_way_platform_indices:
++		var body := selected.get_node_or_null("Platform%d" % index) as StaticBody2D
++		var shape: CollisionShape2D = body.get_node_or_null("CollisionShape2D") as CollisionShape2D if body != null else null
++		if shape == null or not shape.shape is RectangleShape2D or not shape.one_way_collision or shape.disabled or not body.is_in_group("one_way_platform"):
++			return result
++		var authored: Rect2 = selected.global_transform * selected.definition.platforms[index]
++		var installed: Rect2 = shape.global_transform * shape.shape.get_rect()
++		if not authored.is_equal_approx(installed):
++			return result
++		result.platforms.append({"path": str(body.get_path()), "body_id": body.get_instance_id(), "rect_xywh": [installed.position.x,installed.position.y,installed.size.x,installed.size.y], "module": str(selected.definition.module_id), "platform_index": index, "rect": installed})
++	for index: int in player.get_slide_collision_count():
++		var collision := player.get_slide_collision(index)
++		var body := collision.get_collider() as PhysicsBody2D
++		if body != null and collision.get_normal().dot(player.up_direction) > .7:
++			result.floor_contacts.append({"path": str(body.get_path()), "body_id": body.get_instance_id(), "normal": [collision.get_normal().x,collision.get_normal().y], "point": [collision.get_position().x,collision.get_position().y]})
++	var rig: Rect2 = result.rig_bounds
++	result["rig_xywh"] = [rig.position.x,rig.position.y,rig.size.x,rig.size.y]
++	result.valid = not result.platforms.is_empty()
++	return result
++
++
++func _observe_platform_bell_event(value: Dictionary) -> void:
++	# Observe the real signal before its production 256-row history can roll off.
++	# No authority, callback mutation, replay or replacement of damage processing.
++	if value.get("event", &"") in [&"bellstrider_group", &"bellstrider_bell_hit", &"bellstrider_death"]:
++		platform_bell_events.append({"tick": Engine.get_physics_frames(), "actual": value.duplicate(true)})
++
++
++func _record_platform_trial_verdict() -> void:
++	if platform_scope.is_empty():
++		return
++	var checks: Dictionary = {"actual_Bell_pilot_observed": bell_pilot != null}
++	var ledger: Array = bell_pilot.platform_trials if bell_pilot != null else []
++	checks["no_platform_strategy_failure"] = bell_pilot != null and str(bell_pilot.platform_failure).is_empty()
++	var committed: Dictionary = {}
++	var impact_hits: Array[Dictionary] = []
++	var death: Dictionary = {}
++	for row: Dictionary in platform_bell_events:
++		var event: Dictionary = row.actual
++		var group_id := int(event.get("group", -1))
++		if event.get("event", &"") == &"bellstrider_group":
++			committed[group_id] = event.get("plan", {}).duplicate(true)
++		elif event.get("event", &"") == &"bellstrider_bell_hit":
++			impact_hits.append(row)
++		elif event.get("event", &"") == &"bellstrider_death":
++			death = row
++	var attribution := _join_platform_shot_hits(impact_hits)
++	checks.merge(attribution.checks, true)
++	var hits: Dictionary = attribution.hits_by_fire_group
++	var fired_counts: Dictionary = attribution.fired_counts
++	var submitted: Dictionary = {}
++	if bell_pilot != null:
++		for row: Dictionary in bell_pilot.input_rows:
++			if row.get("action", "") == "shoot_release" and bool(row.get("submitted", false)):
++				var group_id := int(row.get("group", -1))
++				submitted[group_id] = int(submitted.get(group_id, 0)) + 1
++	for group_id: int in submitted:
++		checks["group_%d_original_two_shot_cap" % group_id] = int(submitted[group_id]) <= 2
++	for group_id: int in committed:
++		var group_hits: Array = hits.get(group_id, [])
++		checks["fire_group_%d_two_actual_shots_two_base_one_hits" % group_id] = int(fired_counts.get(group_id, 0)) == 2 and group_hits.size() == 2 and group_hits.all(func(row: Dictionary) -> bool: return is_equal_approx(float(row.actual.get("amount", 0)), 1.0))
++	var expected: Array[int] = []
++	for group_id: int in committed:
++		if str(committed[group_id].get("kind", "")) == "roll" and (platform_scope == "all" or group_id == 1):
++			expected.append(group_id)
++	checks["at_least_one_actual_eligible_roll"] = not expected.is_empty()
++	var observed: Array[int] = []
++	for trial: Dictionary in ledger:
++		var group_id := int(trial.group)
++		observed.append(group_id)
++		var prefix := "group_%d_" % group_id
++		checks[prefix + "actual_committed_plan"] = committed.has(group_id) and trial.plan == committed[group_id]
++		checks[prefix + "completed_actual_observation"] = str(trial.phase) == "complete"
++		checks[prefix + "HP_unchanged"] = is_equal_approx(float(trial.HP_start), float(trial.HP_min))
++		var first_tick := int(trial.get("first_tick", -1))
++		var complete_tick := int(trial.get("complete_tick", -1))
++		var player_events := 0
++		for event: Dictionary in damage_events:
++			if event.target == "player" and int(event.tick) >= first_tick and int(event.tick) <= complete_tick:
++				player_events += 1
++		checks[prefix + "whole_group_no_player_settlement_inclusive"] = first_tick >= 0 and complete_tick >= first_tick and player_events == 0
++		var expected_legs := 2 if bool(trial.plan.get("return_roll", false)) else 1
++		checks[prefix + "every_committed_leg_observed"] = trial.legs.size() == expected_legs
++		for index: int in trial.legs.size():
++			var leg: Dictionary = trial.legs[index]
++			var key := prefix + "leg_%d_" % index
++			checks[key + "actual_warning_identity"] = int(leg.index) == index and str(leg.warning) == ("roll_warning" if index == 0 else "combo_warning")
++			checks[key + "actual_support_before_request"] = int(leg.get("support_tick", -1)) >= int(leg.warning_tick) and int(leg.get("trigger_tick", -1)) > int(leg.get("support_tick", -1))
++			checks[key + "actual_evade_chain"] = bool(leg.evade_requested) and bool(leg.evade_airborne) and bool(leg.crossed_airborne) and bool(leg.landed) and int(leg.get("trigger_tick", -1)) < int(leg.get("takeoff_tick", -1)) and int(leg.get("takeoff_tick", -1)) <= int(leg.get("crossing_tick", -1)) and int(leg.get("crossing_tick", -1)) < int(leg.get("landing_tick", -1))
++			if index == 1:
++				var previous: Dictionary = trial.legs[0]
++				checks[key + "previous_real_landing_same_support"] = int(previous.get("landing_tick", -1)) <= int(leg.get("support_tick", -1)) and previous.target.body_id == leg.target.body_id
++		var actual_hits: Array = hits.get(group_id, [])
++		checks[prefix + "two_requests_two_actual_base_one_hits"] = int(submitted.get(group_id, 0)) == 2 and int(fired_counts.get(group_id, 0)) == 2 and actual_hits.size() == 2 and actual_hits.all(func(row: Dictionary) -> bool: return is_equal_approx(float(row.actual.get("amount", 0)), 1.0))
++		if str(trial.get("completion_reason", "")) == "actual_terminal_pending_receipt_proof":
++			checks[prefix + "terminal_has_real_death_event"] = not death.is_empty() and int(death.actual.get("group", -1)) == group_id and int(death.tick) <= complete_tick
++	observed.sort()
++	expected.sort()
++	checks["every_eligible_roll_group_exactly_once"] = observed == expected
++	# Terminal is never inferred from invalid scene objects. The original real
++	# HealthState owners and defeated observer survive arena teardown independently.
++	if not death.is_empty() or (battle_boss_health != null and battle_boss_health.terminal):
++		var group_id := int(death.get("actual", {}).get("group", -1))
++		var final_hits: Array = hits.get(group_id, [])
++		checks["terminal_actual_health_death_and_defeated"] = not death.is_empty() and battle_boss_health != null and battle_boss_health.terminal and is_zero_approx(battle_boss_health.current) and lifecycle_events.any(func(row: Dictionary) -> bool: return row.get("event", "") == "boss_defeated" and bool(row.get("terminal", false)) and is_zero_approx(float(row.get("health", -1))))
++		checks["terminal_group_two_real_hits_not_extra_shots"] = int(submitted.get(group_id, 0)) == 2 and int(fired_counts.get(group_id, 0)) == 2 and final_hits.size() == 2 and final_hits.all(func(row: Dictionary) -> bool: return is_equal_approx(float(row.actual.get("amount", 0)), 1.0))
++	for key: String in checks:
++		if not bool(checks[key]):
++			failure.append("platform diagnostic failed: " + key)
++	if bell_pilot != null:
++		# Full history is emitted once here, not nested into every frame/event.
++		bell_pilot.input_rows.append({"action": "platform_trial_receipt_verdict", "scope": platform_scope, "checks": checks, "ledger": ledger.duplicate(true), "actual_bell_event_stream": platform_bell_events.duplicate(true), "actual_fired_shots": platform_fired_shots.duplicate(true), "actual_damage_contexts": platform_damage_commits.duplicate(true), "shot_hit_attribution": attribution.joined, "note": "diagnostic prerequisites plus all original full-fight predicates; no CI contract migration"})
++
++
++func _observe_platform_actual_shot(shot_id: int, encounter: BellstriderEncounter) -> void:
++	# Actual ShootAbility signal, not a request ordinal or impact-time label.
++	platform_fired_shots.append({"tick": Engine.get_physics_frames(), "shot_id": shot_id, "fire_group": int(encounter.combat_metrics().get("groups_started", -1)), "owner_id": app.controller.motor.get_instance_id(), "session_id": app.controller.session_id})
++
++
++func _observe_platform_boss_damage(context: Dictionary) -> void:
++	# The existing policy-bound receiver emits only after actual HP loss. Copy
++	# primitive evidence only; never retain its Callable or receiver/controller.
++	var row: Dictionary = {"tick": Engine.get_physics_frames()}
++	for key: String in ["shot_id", "session_id", "source_actor_id", "target_actor_id", "target_epoch"]:
++		if context.get(key) is int:
++			row[key] = context[key]
++	for key: String in ["event_id", "damage_type", "source_faction"]:
++		if context.get(key) is String or context.get(key) is StringName:
++			row[key] = str(context[key])
++	if context.get("amount") is float or context.get("amount") is int:
++		row.amount = float(context.amount)
++	if context.get("skill_attack") is bool:
++		row.skill_attack = context.skill_attack
++	platform_damage_commits.append(row)
++
++
++func _join_platform_shot_hits(impact_hits: Array) -> Dictionary:
++	# Finite receipt join of three existing signal sources. Event IDs stay opaque;
++	# their formatting and request/impact group are never used to infer a shot.
++	var checks: Dictionary = {"forty_actual_shots_and_committed_hits": platform_fired_shots.size() == 40 and platform_damage_commits.size() == 40 and impact_hits.size() == 40, "actual_shot_identity_unique": true, "actual_owner_session_consistent": true, "committed_projectile_identity_complete": true, "opaque_event_join_unique": true, "real_shot_context_owner_session_match": true, "each_actual_shot_hits_once": true, "all_actual_hits_base_one": true, "actual_HP_chain_forty_to_zero": true}
++	var fired: Dictionary = {}
++	var fired_counts: Dictionary = {}
++	var owner := -1
++	var session := -1
++	for row: Dictionary in platform_fired_shots:
++		var id := int(row.shot_id)
++		if id <= 0 or int(row.owner_id) <= 0 or int(row.session_id) <= 0 or int(row.fire_group) <= 0 or fired.has(id):
++			checks.actual_shot_identity_unique = false
++			continue
++		if owner < 0:
++			owner = int(row.owner_id)
++			session = int(row.session_id)
++		if int(row.owner_id) != owner or int(row.session_id) != session:
++			checks.actual_owner_session_consistent = false
++		fired[id] = row
++		var group_id := int(row.fire_group)
++		fired_counts[group_id] = int(fired_counts.get(group_id, 0)) + 1
++	var bell_by_event: Dictionary = {}
++	var previous_hp: float = battle_boss_health.capacity if battle_boss_health != null else -1.0
++	for row: Dictionary in impact_hits:
++		var event: Dictionary = row.actual
++		var id := str(event.get("event_id", ""))
++		if id.is_empty() or bell_by_event.has(id):
++			checks.opaque_event_join_unique = false
++			continue
++		bell_by_event[id] = row
++		if not is_equal_approx(float(event.get("amount", 0)), 1.0):
++			checks.all_actual_hits_base_one = false
++		if not is_equal_approx(previous_hp - float(event.get("health", -1)), 1.0):
++			checks.actual_HP_chain_forty_to_zero = false
++		previous_hp = float(event.get("health", -1))
++	checks.actual_HP_chain_forty_to_zero = bool(checks.actual_HP_chain_forty_to_zero) and battle_boss_health != null and is_equal_approx(battle_boss_health.capacity, 40.0) and is_zero_approx(previous_hp)
++	var batch_by_event: Dictionary = {}
++	for row: Dictionary in damage_events:
++		if row.target != "boss":
++			continue
++		var id := str(row.event)
++		if id.is_empty() or batch_by_event.has(id):
++			checks.opaque_event_join_unique = false
++			continue
++		batch_by_event[id] = row
++	var seen_context_events: Dictionary = {}
++	var hit_shots: Dictionary = {}
++	var hits_by_fire_group: Dictionary = {}
++	var joined: Array[Dictionary] = []
++	for context: Dictionary in platform_damage_commits:
++		if not context.has_all(["shot_id", "session_id", "source_actor_id", "event_id", "amount", "damage_type", "source_faction", "skill_attack"]) or context.get("damage_type", "") != "projectile" or context.get("source_faction", "") != "player" or bool(context.get("skill_attack", true)):
++			checks.committed_projectile_identity_complete = false
++			continue
++		var event_id := str(context.event_id)
++		var shot_id := int(context.shot_id)
++		if event_id.is_empty() or seen_context_events.has(event_id) or not bell_by_event.has(event_id) or not batch_by_event.has(event_id):
++			checks.opaque_event_join_unique = false
++			continue
++		seen_context_events[event_id] = true
++		if not fired.has(shot_id):
++			checks.real_shot_context_owner_session_match = false
++			continue
++		var shot: Dictionary = fired[shot_id]
++		if int(context.source_actor_id) != int(shot.owner_id) or int(context.session_id) != int(shot.session_id) or int(shot.tick) > int(context.tick):
++			checks.real_shot_context_owner_session_match = false
++			continue
++		if hit_shots.has(shot_id):
++			checks.each_actual_shot_hits_once = false
++			continue
++		hit_shots[shot_id] = true
++		var bell: Dictionary = bell_by_event[event_id]
++		var batch: Dictionary = batch_by_event[event_id]
++		if not is_equal_approx(float(context.amount), 1.0) or not is_equal_approx(float(batch.amount), 1.0) or not is_equal_approx(float(batch.health), float(bell.actual.health)):
++			checks.all_actual_hits_base_one = false
++		var group_id := int(shot.fire_group)
++		var row: Dictionary = {"tick": bell.tick, "actual": bell.actual, "fire": shot, "committed_context": context, "policy_batch": batch, "fire_group": group_id, "impact_group": int(bell.actual.group)}
++		if not hits_by_fire_group.has(group_id): hits_by_fire_group[group_id] = []
++		hits_by_fire_group[group_id].append(row)
++		joined.append(row)
++	checks["all_four_sources_one_to_one_forty"] = fired.size() == 40 and hit_shots.size() == 40 and seen_context_events.size() == 40 and bell_by_event.size() == 40 and batch_by_event.size() == 40 and joined.size() == 40
++	return {"checks": checks, "hits_by_fire_group": hits_by_fire_group, "fired_counts": fired_counts, "joined": joined}

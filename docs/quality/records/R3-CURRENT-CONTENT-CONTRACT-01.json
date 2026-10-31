@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "task_id": "R3-CURRENT-CONTENT-CONTRACT-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "reviewed_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "将R3旧固定平地输入合同迁至已采用Bell内容的真实平台正例，并让两个实际测试消费者共享既有合法输入、装配与只读观察；生产规则不变。",
+  "player_experience": "保持当前游戏玩法；测试按实际场景和能力检验无伤应对与完整战斗，恢复可信回归。",
+  "constraints": [
+    "不修改生产代码、物理、碰撞、HP、伤害、弹药、奖励、随机、存档或图声。",
+    "原站立150与晚跳68+78输入完整保留，旧无伤失败不追签PASS；新正例保无伤跨越义务。",
+    "默认原wrapper必须使用同一已验证all流程，组件正例复用first；显式off保留旧诊断。",
+    "7200帧、原180秒native及360秒Harness不变；原25完整战斗谓词与map2不变。",
+    "发射与延迟命中以真实信号和不解析的event_id关联；不以命中时group猜发射归属。",
+    "原诊断与预检的content/source版本原样保留；当前共享迁移只接受新冻结源的原完整wrapper，不重标旧证据以绕过版本检查。"
+  ],
+  "affected_paths": [
+    "tools/bellstrider_01/legal_input_pilot.gd",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "tests/underworld_plains/test_underworld_r3_boss.gd",
+    "tests/underworld_plains/bell_platform_fixture.gd",
+    "tests/underworld_plains/bell_platform_fixture.gd.uid",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "同一pilot与薄测试fixture供两个实际消费者复用",
+    "旧平地反例与当前实际Module无伤正例逐项映射",
+    "原完整R3回归、真实失败及同源独审；后续full185单独验收"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "pre-migration-full-platform-diagnostic",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "正式当前map1同seed基础能力平台应对的完整诊断",
+      "method": "原native180/7200、真实四源identity/event、非作者独审及前后4954逐字对照",
+      "expected": "0fail/exit0、40真实唯一1伤、玩家HP5、实际回冲/支撑与12实体金币/过门结算，未改输入",
+      "failure": "改物理/伤害/资源/RNG或缺重复身份、把impactgroup当firegroup、以局部成功签full185",
+      "status": "unverified",
+      "reason": "先前限定诊断/预检已通过，但其technical source version与当前共享迁移源分开保留；本质量卡等待当前源原完整wrapper，不将旧候选证据重绑成当前PASS。已独审接受44.997秒4954帧/0fail/164checks；13腿含2回冲，全部轨迹与前轮失败收据同字节；仅应用前诊断。",
+      "evidence": [
+        "native-summary",
+        "native-log",
+        "full-original-receipt",
+        "native-independent-review",
+        "actual-input-invariance",
+        "candidate-source-bindings"
+      ]
+    },
+    {
+      "id": "shared-first-group-preflight",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原roll-only两flat动作及真实App first正例",
+      "method": "原180秒/原生43断言与独立四源/296旧轨迹/384新轨迹复核",
+      "expected": "原动作保持，真实body负例与无伤基础平台正例并存，2真实命中40到38、正常清理",
+      "failure": "仅反转无伤断言、伪造支撑/伤害或弱化原动作与预算",
+      "status": "unverified",
+      "reason": "先前限定诊断/预检已通过，但其technical source version与当前共享迁移源分开保留；本质量卡等待当前源原完整wrapper，不将旧候选证据重绑成当前PASS。Stage1abd20实际43/0、9.764s；当前仅追加两flat原始事件快照，后继完整wrapper待验证。",
+      "evidence": [
+        "roll-summary",
+        "roll-original-receipt",
+        "roll-independent-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "native-summary",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/all-attribution/summary.json",
+      "sha256": "8c7823e305503b30a6912e1652f036f2c039d1976fb8853712f91ae92b8b5043",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-25546be1-diagnostic",
+      "method": "临时应用精确25546工具补丁，原180/7200；source前后与恢复逐字核验。不是已应用共享fixture源。",
+      "observed": "4954frames/0fail/exit0、164checks；仅该单seed optin map1。"
+    },
+    {
+      "id": "native-log",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/all-attribution/native.log",
+      "sha256": "03d00b8e95b29cd1f54b9bf803267cc0625be12c2fced36353efe3ac7f034e0f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-25546be1-diagnostic",
+      "method": "临时应用精确25546工具补丁，原180/7200；source前后与恢复逐字核验。不是已应用共享fixture源。",
+      "observed": "4954frames/0fail/exit0、164checks；仅该单seed optin map1。"
+    },
+    {
+      "id": "full-original-receipt",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/all-attribution/full_fight_map1.json.gz",
+      "sha256": "393ee78c3463f6fb7f731f1f325f8b474735fb8781bc873cbf4a6a600c5f95db",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-25546be1-diagnostic",
+      "method": "临时应用精确25546工具补丁，原180/7200；source前后与恢复逐字核验。不是已应用共享fixture源。",
+      "observed": "4954frames/0fail/exit0、164checks；仅该单seed optin map1。"
+    },
+    {
+      "id": "native-independent-review",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/all-attribution/reviews/resume-platform-all-rolls-attribution-native-independent-review.json",
+      "sha256": "09d83edbfc220b4e5a7e09de4bbe8874d011d5cba54484de6a5c0760e03cf032",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-25546be1-diagnostic",
+      "method": "临时应用精确25546工具补丁，原180/7200；source前后与恢复逐字核验。不是已应用共享fixture源。",
+      "observed": "4954frames/0fail/exit0、164checks；仅该单seed optin map1。",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "非作者独立重建四源真实identity/event关联、实际轨迹/输入与恢复清单。限定本次diagnostic，不签后继源码。"
+    },
+    {
+      "id": "actual-input-invariance",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/all-attribution/reviews/platform-observer-actual-input-invariance-01.json",
+      "sha256": "5aae15e5fc2ee2cda4e2f5ed13e31105fe4b5a3c220812ac0d46abe0f3235a27",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-25546be1-diagnostic",
+      "method": "临时应用精确25546工具补丁，原180/7200；source前后与恢复逐字核验。不是已应用共享fixture源。",
+      "observed": "4954frames/0fail/exit0、164checks；仅该单seed optin map1。"
+    },
+    {
+      "id": "candidate-source-bindings",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/all-attribution/candidate/candidate.json",
+      "sha256": "08e31fe9b37fe7d5455bc6d80fde9df98775b5c2da3fa0737ad7e20ac1a73987",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-25546be1-diagnostic",
+      "method": "临时应用精确25546工具补丁，原180/7200；source前后与恢复逐字核验。不是已应用共享fixture源。",
+      "observed": "4954frames/0fail/exit0、164checks；仅该单seed optin map1。"
+    },
+    {
+      "id": "roll-summary",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/roll-preflight/summary.json",
+      "sha256": "e7121ff8f218143c19e207451d267f9537d9e9432b3e36536f8cca4491c11331",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-24528-stage1-abd20",
+      "method": "Original roll-only180s, stage1sixfile SHA freeze; later serialized-snapshot delta not covered by this result.",
+      "observed": "43/0 in9.764s, realfirstgroup positive accepted; not completewrapper."
+    },
+    {
+      "id": "roll-original-receipt",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/roll-preflight/continuous_combat.json.gz",
+      "sha256": "e51ea2d99f43be3cd3ac80448d4c9609dc4ed7b5bfafaa1b80d1eed12b958af9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-24528-stage1-abd20",
+      "method": "Original roll-only180s, stage1sixfile SHA freeze; later serialized-snapshot delta not covered by this result.",
+      "observed": "43/0 in9.764s, realfirstgroup positive accepted; not completewrapper."
+    },
+    {
+      "id": "roll-independent-review",
+      "path": "docs/evidence/game_architecture_02/r3-current-contract-01/roll-preflight/independent-review.json",
+      "sha256": "31a8962f827370783e8778efa678c4d95d9ed1c59c17e448beccf28130eb9374",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "content_version": "e564-plus-24528-stage1-abd20",
+      "method": "Original roll-only180s, stage1sixfile SHA freeze; later serialized-snapshot delta not covered by this result.",
+      "observed": "43/0 in9.764s, realfirstgroup positive accepted; not completewrapper.",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root/structure_audit",
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author independently rebuilt actual four-source two-shot join and support/movement/HP/cleanup, with exact source vector."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "当前六文件共享实现已应用；最终三行收据快照尚待原完整wrapper验证",
+    "原完整组件、默认map1及map2/完整wrapper尚未完成迁移后验收",
+    "完整185、最终导出/PCK/真实GUI尚未验收",
+    "单seed合法pilot成功不签用户手感或实体设备认可"
+  ]
+}

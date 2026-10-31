@@ -1,0 +1,27 @@
+--- a/tests/underworld_plains/test_underworld_r3_boss.gd
++++ b/tests/underworld_plains/test_underworld_r3_boss.gd
+@@ -19,6 +19,7 @@
+ var trace_roll := false
+ var roll_frames:Array[Dictionary]=[]
+ var fixture_damage_events: Array[Dictionary] = []
++var flat_roll_trials: Array[Dictionary] = []
+ var platform_positive: Dictionary = {}
+ 
+ func _initialize() -> void: run.call_deferred()
+@@ -189,6 +190,7 @@
+ 		if jump:
+ 			check(fixture_damage_events.any(func(row: Dictionary) -> bool: return row.target == "player" and row.source == "r3_actual_boss_body" and int(row.tick) >= observed_from and float(row.amount) > 0.0), "late-jump negative observes a real player policy settlement")
+ 		check(encounter.mode in [&"neck",&"observe",&"ring_warning"],"roll has bounded travel then recovery")
++		flat_roll_trials.append({"trial": "late_jump" if jump else "standing", "first_tick": observed_from, "last_tick": Engine.get_physics_frames(), "player_hp_before": before, "player_hp_after": controller.actor_resources.health.current, "actual_policy_events": fixture_damage_events.duplicate(true)})
+ 		controller.router.set_jump_held(&"r3_roll_jump",false)
+ 		trace_roll=false
+ 	await platform_roll_positive()
+@@ -197,7 +199,7 @@
+ 	await clear_fixture()
+ 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
+ 	var f:=FileAccess.open("res://build/underworld_r3/boss/continuous_combat.json",FileAccess.WRITE)
+-	f.store_string(JSON.stringify({"checks":checks,"failures":failures,"observations":observations,"roll_frames":roll_frames,"platform_positive":platform_positive,"scope":"actual formal resources and real Router/ShootAbility/body/core physics; state entries explicit fixtures; not complete user normal battle acceptance"},"\t"));f.close()
++	f.store_string(JSON.stringify({"checks":checks,"failures":failures,"observations":observations,"roll_frames":roll_frames,"flat_roll_trials":flat_roll_trials,"platform_positive":platform_positive,"scope":"actual formal resources and real Router/ShootAbility/body/core physics; state entries explicit fixtures; not complete user normal battle acceptance"},"\t"));f.close()
+ 	print("UNDERWORLD R3 BOSS: %d checks, %d failures"%[checks,failures.size()]);quit(1 if not failures.is_empty() else 0)
+ 
+ func platform_roll_positive() -> void:

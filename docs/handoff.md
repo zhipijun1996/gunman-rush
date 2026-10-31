@@ -1,3 +1,13 @@
+## 2026-10-31 恢复执行：R3真实消费者迁移
+
+当前工作树/worktree为/workspace/gunman-rush-refactor，分支refactor/game-architecture-02；本批前提交e564aeae849311a9c1847de24ad579be2a010aeb，实际HEAD请用Git核实。main再次核实2ce4ffa6，122/124已merge，123closed/unmerged；本重构未合main或发布游戏。root独占本地Godot租约；不要与另一原生进程并行。
+
+已完成：单seed正式map1原预算44.997秒4954帧/0失败，164新增检查与原25谓词通过；40实际枪/唯一1伤、玩家HP5、两组回冲13腿、12实体金币及下一map2成立。原4954/3错误归因保留；新真实四源join与旧全轨迹/输入逐字相同。六文件共享夹具/默认all/first正例已限定静审接受；原roll-only43/0、9.764秒独审接受。末尾又仅添加两flat原policy快照，尚待原完整回归覆盖。
+
+下一命令：`python3 tools/harness.py --check underworld-continuous-bosses --release --jobs 1`，原360秒，内部import90/component180/direction120/lifecycle180/两图各180不变。先冻结完整源、保存所有原失败和原收据，执行后核source前后、原marker/真实Health/币/过门。不得把此前诊断当此新wrapper通过。该原检查通过后再冻结源更新三份旧acb索引，运行docs/quality与同源完整185、导出/PCK/真实GUI/原声影片；无需重建已完成的固定引擎。
+
+[本批实施/回退与证据](worklines/game_architecture_01/r3_current_content_contract_01.md)；[精选原件](evidence/game_architecture_02/r3-current-contract-01/)；旧暂停包继续保留。新模块库/新算法尚未实施，不承诺任意新地图零适配。
+
 ## 2026-10-31 按用户要求再次暂停：从此处恢复
 
 已停止全部子代理、引擎和验证任务。本次只保存已审代码与交接，没有运行待验平台策略、启动新完整CI、合main或发布游戏。

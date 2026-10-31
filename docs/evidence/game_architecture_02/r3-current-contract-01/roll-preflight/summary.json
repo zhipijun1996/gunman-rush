@@ -1,0 +1,30 @@
+{
+  "scope": "Original roll-only entry, original180 budget; not component full wrapper or full185",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "patch_sha256": "24528f48e066e8109875b9f0501adfe431b94135278e5e442c9e564aea86e1e0",
+  "engine_args": [
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/underworld_plains/test_underworld_r3_boss.gd",
+    "--",
+    "--roll-only"
+  ],
+  "native_budget_seconds": 180,
+  "status": "passed_roll_preflight_requires_independent_review",
+  "native_exit": 0,
+  "success_marker": true,
+  "wall_seconds": 9.764,
+  "source_unchanged": true,
+  "receipt_sha256": "bcb1a7117411352eb66a18e5c73f0c4e453a7a2c476c121967592a8d462e2d9a",
+  "checks": 43,
+  "failures": [],
+  "platform_positive_passed": true,
+  "platform_positive_end_reason": "actual_first_group_completed",
+  "reviewed_six_file_implementation_left_applied": true
+}

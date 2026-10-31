@@ -2,6 +2,7 @@ extends SceneTree
 ## One complete actual formal encounter. Only the initial room placement is a
 ## fixture; no HP/phase/resource injection, mid-fight teleport or stopped AI.
 ## Optional Godot --write-movie captures this same normal-clock driver.
+const BELL_PLATFORM := preload("res://tests/underworld_plains/bell_platform_fixture.gd")
 const BELL_PILOT := preload("res://tools/bellstrider_01/legal_input_pilot.gd")
 var app:DemoApp
 var map_index:=1
@@ -17,6 +18,8 @@ var previous_mode:StringName
 var visited:Dictionary={}
 var start_meta:Dictionary
 var bell_pilot: RefCounted
+var platform_scope := ""
+var platform_observer: RefCounted
 var terminal_trace: Array[Dictionary] = []
 var final_bell_metrics: Dictionary = {}
 var final_bell_units: Array[Dictionary] = []
@@ -34,21 +37,27 @@ var lifecycle_events:Array[Dictionary]=[]
 func _initialize()->void:run.call_deferred()
 func frames(n:int)->void:
 	for i:int in n:await physics_frame
-func bell_units(stage: PlainsRegionStage) -> Array[Dictionary]:
-	var result: Array[Dictionary] = []
-	var source := BellstriderRewards.source_id(stage)
-	for pickup: Dictionary in stage.pickups:
-		if str(pickup.get("source",""))==source and pickup.get("kind","")=="coin": result.append(pickup.duplicate(true))
-	return result
 func stop_bell_inputs() -> void:
 	app.controller.router.set_source_axis(&"keyboard_mouse",0.0)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
 func run()->void:
+	var platform_requested := ""
 	for arg:String in OS.get_cmdline_user_args():
 		if arg.begins_with("--map="):map_index=int(arg.trim_prefix("--map="))
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
-	app.start_plains("underworld-r3-continuous-boss")
-	await frames(8)
+		if arg == "--platform-counterplay":platform_requested="first"
+		if arg.begins_with("--platform-counterplay="):platform_requested=arg.trim_prefix("--platform-counterplay=")
+	if (not platform_requested.is_empty() and platform_requested not in ["first", "all", "off"]) or (map_index != 1 and not platform_requested.is_empty()):
+		printerr("Platform navigation requires map1 and first/all/off scope")
+		quit(1)
+		return
+	# Current Bell's actual consumer uses the verified shared strategy by default.
+	# off is an explicit old-navigation diagnostic; its old failures stay failed.
+	platform_scope = ("all" if platform_requested.is_empty() else platform_requested) if map_index == 1 else ""
+	if platform_scope == "off": platform_scope = ""
+	if not platform_scope.is_empty():
+		platform_observer = BELL_PLATFORM.new()
+		platform_observer.platform_scope = platform_scope
+	app = await BELL_PLATFORM.create_formal_app(self)
 	var first_map_hash := str((app.stage as PlainsRegionStage).generated.manifest.manifest_hash)
 	if map_index==2:
 		app.director.stage_index=2;app.director.region_map_index=2;app._load_stage();await frames(8)
@@ -62,12 +71,15 @@ func run()->void:
 	start_meta=app.meta.snapshot()
 	# Cache only actual RefCounted resource owners; never retain scene nodes.
 	battle_boss_health=encounter.health
+	if platform_observer != null: platform_observer.battle_boss_health = battle_boss_health
 	battle_player_health=app.controller.actor_resources.health
 	app.director.run_ended.connect(_observe_run_ended)
 	app.policy.player_fatal.connect(func()->void:lifecycle_events.append({"tick":Engine.get_physics_frames(),"event":"player_fatal"}))
 	encounter.defeated.connect(func(_owner:BossEncounter)->void:lifecycle_events.append({"tick":Engine.get_physics_frames(),"event":"boss_defeated","health":battle_boss_health.current,"terminal":battle_boss_health.terminal}))
 	app.controller.shoot_ability.shot_fired.connect(func(_aim:Vector2,_id:int)->void:
 		accepted_shots+=1
+		if not platform_scope.is_empty() and bell_pilot != null:
+			platform_observer.observe_actual_shot(_id, encounter as BellstriderEncounter, app.controller)
 		if pressure_pilot!=null:pressure_pilot.observe_actual_shot(_id))
 	if encounter is WindkeeperPressureEncounter:
 		pressure_pilot=load("res://tools/windkeeper_pressure_01/legal_input_pilot.gd").new()
@@ -76,8 +88,7 @@ func run()->void:
 		for result:DamageResult in results:
 			damage_events.append({"tick":Engine.get_physics_frames(),"target":String(result.request.target_id),"event":String(result.request.event_id),"amount":result.request.amount,"health":result.health.current}))
 	# Explicit room-entry fixture. All later movement is the actual Router/Motor.
-	app.player.reset_at(boss.global_position+Vector2(-250,47))
-	await frames(5)
+	await BELL_PLATFORM.place_initial_entry(self, app, boss)
 	if not _battle_available(encounter,stage,boss):
 		await _finish_released_receipt(actual_map_identity)
 		return
@@ -89,6 +100,10 @@ func run()->void:
 		if not is_equal_approx(app.controller.shoot_ability.weapon.damage,1.0): failure.append("current Bell full fight must use actual base-one weapon damage")
 		bell_pilot = BELL_PILOT.new()
 		bell_pilot.mode = "cautious2"
+		bell_pilot.platform_scope = platform_scope
+		if not platform_scope.is_empty():
+			encounter.presentation_event.connect(platform_observer.observe_bell_event)
+			encounter.damageable.damaged.connect(platform_observer.observe_boss_damage)
 	var previous_side := 0
 	var start_tick:=Engine.get_physics_frames()
 	for tick:int in 7200:
@@ -115,7 +130,9 @@ func run()->void:
 			await frames(1)
 			continue
 		if map_index==1:
-			bell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),bell_units(stage))
+			if not platform_scope.is_empty():
+				bell_pilot.platform_observation = BELL_PLATFORM.platform_observation(stage,app.player as PlayerMotor,app.controller,encounter as BellstriderEncounter)
+			bell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),BELL_PLATFORM.reward_units(stage))
 			final_bell_metrics=(encounter as BellstriderEncounter).combat_metrics()
 			axis = controller.router.axis
 			shots = bell_pilot.input_rows.filter(func(row: Dictionary) -> bool: return row.get("action","")=="shoot_release" and bool(row.get("submitted",false))).size()
@@ -146,6 +163,8 @@ func run()->void:
 				var aim_point:=boss.global_position+Vector2(0,-20 if player.global_position.y>boss.global_position.y else -95)
 				if controller.router.request_action(&"shoot_release",(aim_point-player.global_position).normalized()):shots+=1
 		trace.append({"tick":Engine.get_physics_frames(),"movie_seconds":float(Engine.get_physics_frames()-start_tick)/60,"player":[player.global_position.x,player.global_position.y],"boss":[boss.global_position.x,boss.global_position.y],"player_hp":controller.actor_resources.health.current,"boss_hp":encounter.health.current,"stamina":controller.actor_resources.stamina.current,"phase":encounter.stage_phase,"mode":String(encounter.mode),"clock":encounter.clock,"axis":axis,"cross":cross_axis,"grounded":grounded,"requested_shots":shots})
+		if not platform_scope.is_empty() and map_index == 1:
+			trace.back()["platform_counterplay"] = {"trial": bell_pilot.platform_snapshot(), "observation": bell_pilot.platform_observation.duplicate(true), "used_jumps": controller.jump_ability.used_jumps, "normal_velocity": [player.normal_velocity.x,player.normal_velocity.y], "actual_input_axis": controller.router.axis}
 		battle_last_live=trace.back().duplicate(true)
 		await frames(1)
 	if not _battle_available(encounter,stage,boss):
@@ -156,7 +175,9 @@ func run()->void:
 	if not encounter.health.terminal:failure.append("actual continuous full fight did not defeat Boss")
 	if actor_hp<=0 or not app.lifetime.active:failure.append("player failed actual continuous battle")
 	if map_index==1 and encounter.health.terminal:
-		bell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),bell_units(stage))
+		if not platform_scope.is_empty():
+			bell_pilot.platform_observation = BELL_PLATFORM.platform_observation(stage,app.player as PlayerMotor,app.controller,encounter as BellstriderEncounter)
+		bell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),BELL_PLATFORM.reward_units(stage))
 	var pressure_settlement:Dictionary={}
 	if encounter is WindkeeperPressureEncounter and encounter.health.terminal and actor_hp>0 and app.lifetime.active:
 		pressure_settlement=await _collect_pressure_coins(stage,encounter as WindkeeperPressureEncounter)
@@ -173,9 +194,11 @@ func run()->void:
 				await _finish_released_receipt(actual_map_identity)
 				return
 			final_bell_metrics = (encounter as BellstriderEncounter).combat_metrics()
-			final_bell_units = bell_units(stage)
+			final_bell_units = BELL_PLATFORM.reward_units(stage)
 			terminal_trace.append({"tick":Engine.get_physics_frames(),"death_age":final_bell_metrics.get("death_age",0),"wallet":app.wallet.balance,"player":[app.player.global_position.x,app.player.global_position.y],"units":final_bell_units.duplicate(true)})
 			if float(final_bell_metrics.get("death_age",0))>=1.8 and final_bell_units.size()==4 and final_bell_units.all(func(unit: Dictionary) -> bool: return bool(unit.claimed)): break
+			if not platform_scope.is_empty():
+				bell_pilot.platform_observation = BELL_PLATFORM.platform_observation(stage,app.player as PlayerMotor,app.controller,encounter as BellstriderEncounter)
 			bell_pilot.step(app,encounter,final_bell_metrics,final_bell_units)
 			await frames(1)
 		if not _battle_available(encounter,stage,boss):
@@ -260,7 +283,9 @@ func run()->void:
 		if not settlement.forest_entered or settlement.forest_version!="thorn-forest-region-v2" or settlement.forest_layout!="forest-bible-world-v15" or not settlement.same_player_with_grapple or not settlement.previous_region_token_rejected:failure.append("actual post-Boss region selection must assemble the default forest with retained Gold, one grapple and a fresh stage token")
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"terminal_trace":terminal_trace,"bell_metrics":final_bell_metrics,"bell_units":final_bell_units,"automated_player":"read-only legal_input_pilot cautious2 for current Bell" if bell_pilot!=null else "canonical active_assault legal-input pilot for current Pressure" if pressure_pilot!=null else "classic original R3","bell_inputs":bell_pilot.input_rows if bell_pilot!=null else [],"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "classic original R3","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else []},"\t"));file.close()
+	if platform_observer != null:
+		platform_observer.validate_full_fight(bell_pilot, damage_events, lifecycle_events, failure)
+	file.store_string(JSON.stringify({"platform_navigation_scope":platform_scope,"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"terminal_trace":terminal_trace,"bell_metrics":final_bell_metrics,"bell_units":final_bell_units,"automated_player":"read-only legal_input_pilot cautious2 for current Bell" if bell_pilot!=null else "canonical active_assault legal-input pilot for current Pressure" if pressure_pilot!=null else "classic original R3","bell_inputs":bell_pilot.input_rows if bell_pilot!=null else [],"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "classic original R3","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else []},"\t"));file.close()
 	app.abandon_run();await load("res://tests/audio_teardown.gd").drain_world(app);app.free();await frames(5)
 	print("UNDERWORLD R3 FULL BOSS MAP%d: %d frames, %d failures"%[map_index,trace.size(),failure.size()]);quit(1 if not failure.is_empty() else 0)
 
@@ -376,7 +401,9 @@ func _finish_released_receipt(identity:Dictionary,coin_settlement:Dictionary={})
 	var settlement:Dictionary={"claim_skipped_because_failed_battle":true,"arena_released_before_settlement":true,"pressure_physical_coins":coin_settlement}
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":identity.map_index,"manifest_seed":identity.manifest_seed,"manifest_hash":identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "not used","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else [],"arena_released":true,"last_live_snapshot":battle_last_live,"combat_frame_limit":7200,"terminal_trace":terminal_trace,"bell_metrics":final_bell_metrics,"bell_units":final_bell_units,"bell_inputs":bell_pilot.input_rows if bell_pilot!=null else [],"automated_player":"read-only legal_input_pilot cautious2 for current Bell" if bell_pilot!=null else "canonical active_assault legal-input pilot for current Pressure","boss_terminal_observed":battle_boss_health.terminal if battle_boss_health!=null else null,"player_terminal_observed":battle_player_health.terminal if battle_player_health!=null else null,"lifecycle_events":lifecycle_events,"app_lifecycle":app_state},"\t"));file.close()
+	if platform_observer != null:
+		platform_observer.validate_full_fight(bell_pilot, damage_events, lifecycle_events, failure)
+	file.store_string(JSON.stringify({"platform_navigation_scope":platform_scope,"map":map_index,"actual_map_index":identity.map_index,"manifest_seed":identity.manifest_seed,"manifest_hash":identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "not used","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else [],"arena_released":true,"last_live_snapshot":battle_last_live,"combat_frame_limit":7200,"terminal_trace":terminal_trace,"bell_metrics":final_bell_metrics,"bell_units":final_bell_units,"bell_inputs":bell_pilot.input_rows if bell_pilot!=null else [],"automated_player":"read-only legal_input_pilot cautious2 for current Bell" if bell_pilot!=null else "canonical active_assault legal-input pilot for current Pressure","boss_terminal_observed":battle_boss_health.terminal if battle_boss_health!=null else null,"player_terminal_observed":battle_player_health.terminal if battle_player_health!=null else null,"lifecycle_events":lifecycle_events,"app_lifecycle":app_state},"\t"));file.close()
 	if is_instance_valid(app):
 		if is_instance_valid(app.controller):app.abandon_run()
 		await load("res://tests/audio_teardown.gd").drain_world(app)

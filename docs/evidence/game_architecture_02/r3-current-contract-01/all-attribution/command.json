@@ -1,0 +1,22 @@
+{
+  "scope": "one reviewed all-rolls diagnostic; not full185 or CI contract migration",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "engine_args": [
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "--",
+    "--map=1",
+    "--platform-counterplay=all"
+  ],
+  "original_native_budget_seconds": 180,
+  "original_combat_frame_budget": 7200,
+  "patch_sha256": "25546be17bcea7670876f7319f6571ad2a489273317c5cb53b1b79b239568068",
+  "status": "failed"
+}

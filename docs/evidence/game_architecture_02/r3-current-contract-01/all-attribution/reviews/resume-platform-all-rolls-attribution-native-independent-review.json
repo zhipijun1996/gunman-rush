@@ -1,0 +1,212 @@
+{
+  "decision": "ACCEPT_SINGLE_ACTUAL_MAP1_ALL_ROLLS_DIAGNOSTIC_CASE",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "patch_sha256": "25546be17bcea7670876f7319f6571ad2a489273317c5cb53b1b79b239568068",
+  "evidence_sha256": {
+    "summary.json": "8c7823e305503b30a6912e1652f036f2c039d1976fb8853712f91ae92b8b5043",
+    "native.log": "03d00b8e95b29cd1f54b9bf803267cc0625be12c2fced36353efe3ac7f034e0f",
+    "full_fight_map1.json": "cf095722ed5c94c15e4908fe79c4ceff937e13ab65b74dc9ccb1c161b2076ee3",
+    "source-original.json.gz": "ae24e11847a48dc50e8822965da6d5034d0bb77bd48d3b12c87fd27474f06e99",
+    "source-candidate-before.json.gz": "2b8ef28443762a08bc8057cc553e3822587b4a61ea6fe3aeda2666f3046b476e",
+    "source-candidate-after.json.gz": "2b8ef28443762a08bc8057cc553e3822587b4a61ea6fe3aeda2666f3046b476e",
+    "source-restored.json.gz": "ae24e11847a48dc50e8822965da6d5034d0bb77bd48d3b12c87fd27474f06e99"
+  },
+  "execution": {
+    "native_wrapper_exit": 0,
+    "frames": 4954,
+    "failures": 0,
+    "wall_seconds": 44.997,
+    "native_budget_seconds": 180,
+    "combat_frame_budget": 7200,
+    "boss_hp": 0,
+    "player_hp": 5,
+    "script_or_leak_diagnostics": false,
+    "original25_predicates": "Preserved source, no original failures",
+    "additional_verdict_checks": 164
+  },
+  "four_source_join": {
+    "actual_firings": 40,
+    "actual_damage_contexts": 40,
+    "actual_Bell_base_one_hits": 40,
+    "actual_boss_policy_batch_results": 40,
+    "unique_owner_session_shot_identities": 40,
+    "opaque_event_sets_exact": true,
+    "independently_rebuilt_join_exactly_equals_receipt": true,
+    "every20_firegroups_exactly2_requests_2actualfires_2actualhits": true,
+    "health_chain": "40\u219239\u2192...\u21920",
+    "cross_group_impacts": [
+      {
+        "shot_id": 30,
+        "fire_group": 15,
+        "impact_group": 16,
+        "fire_tick": 3541,
+        "impact_tick": 3557,
+        "opaque_event_id": "322139327891:2:30"
+      },
+      {
+        "shot_id": 38,
+        "fire_group": 19,
+        "impact_group": 20,
+        "fire_tick": 4778,
+        "impact_tick": 4794,
+        "opaque_event_id": "322139327891:2:38"
+      }
+    ],
+    "no_ordinal_or_eventID_parsing_used": true
+  },
+  "physical_trace_invariance": {
+    "all4954_trace_rows_exact_without_normalization": true,
+    "all_terminal_trace_rows_exact": true,
+    "all_original_damage_results_exact": true,
+    "all_settlement_fields_exact": true,
+    "all_shoot_release_jump_hold_inputs_exact": true,
+    "every_pilot_row_except_final_verdict_exact": true,
+    "prior_failed_receipt_sha256": "7419348c8ccda6522697d7f8dccd4ed0b157b1a31b3aeb45c9414710aab81807",
+    "conclusion": "Actual observer correction changed accounting evidence; measured inputs andphysical/gameplay outputs are byte-for-byte equivalent at parsedJSON level to precedingexit1run."
+  },
+  "platform_legs_independently_verified": [
+    {
+      "group": 1,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 249,
+      "takeoff_tick": 289,
+      "crossing_tick": 311,
+      "landing_tick": 331
+    },
+    {
+      "group": 2,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 443,
+      "takeoff_tick": 473,
+      "crossing_tick": 496,
+      "landing_tick": 515
+    },
+    {
+      "group": 4,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 788,
+      "takeoff_tick": 846,
+      "crossing_tick": 867,
+      "landing_tick": 888
+    },
+    {
+      "group": 5,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 983,
+      "takeoff_tick": 1029,
+      "crossing_tick": 1061,
+      "landing_tick": 1071
+    },
+    {
+      "group": 8,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 1582,
+      "takeoff_tick": 1632,
+      "crossing_tick": 1653,
+      "landing_tick": 1674
+    },
+    {
+      "group": 9,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 1769,
+      "takeoff_tick": 1815,
+      "crossing_tick": 1847,
+      "landing_tick": 1857
+    },
+    {
+      "group": 12,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 2667,
+      "takeoff_tick": 2715,
+      "crossing_tick": 2734,
+      "landing_tick": 2757
+    },
+    {
+      "group": 13,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 2848,
+      "takeoff_tick": 2894,
+      "crossing_tick": 2923,
+      "landing_tick": 2936
+    },
+    {
+      "group": 16,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 3587,
+      "takeoff_tick": 3649,
+      "crossing_tick": 3668,
+      "landing_tick": 3691
+    },
+    {
+      "group": 16,
+      "phase": 2,
+      "leg": 1,
+      "support_tick": 3718,
+      "takeoff_tick": 3756,
+      "crossing_tick": 3775,
+      "landing_tick": 3798
+    },
+    {
+      "group": 18,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 4291,
+      "takeoff_tick": 4350,
+      "crossing_tick": 4369,
+      "landing_tick": 4392
+    },
+    {
+      "group": 18,
+      "phase": 2,
+      "leg": 1,
+      "support_tick": 4419,
+      "takeoff_tick": 4457,
+      "crossing_tick": 4476,
+      "landing_tick": 4499
+    },
+    {
+      "group": 20,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 4824,
+      "takeoff_tick": 4883,
+      "crossing_tick": 4901,
+      "landing_tick": 4925
+    }
+  ],
+  "settlement": {
+    "unique_physical_coins": [
+      1,
+      1,
+      5,
+      5
+    ],
+    "all_claimed_after_ready": true,
+    "wallet_before_portal_delta": 12,
+    "portal_additional_coins": 0,
+    "advance_once_repeat_rejected": true,
+    "next_map": 2,
+    "fullhealth_heal_clamp": true
+  },
+  "source_identity": {
+    "candidate_before_after_vectors_exact": true,
+    "original_restored_vector_exact": true,
+    "only2_reviewed_leaves_changed": true,
+    "current_leaves_and_git_source_original_exact": true
+  },
+  "limits": [
+    "Single seededmap1case with explicit initialplacement andoptindiagnostic; not full185, completeR3wrapper, isolated278rollfix, allplatform/user/device/generalstrategy approval.",
+    "Previous4954/3exit1remains failed historical evidence; not overwritten orretroactively passed.",
+    "Newsource compiles/runs as evidenced here; reviewer performed readonly JSON/hash/source checks only, noengine/main writes.",
+    "Crossportal sameplayerID was not independently logged bythiscase; nextmap2andsettlement validated, no extra identityclaim."
+  ]
+}

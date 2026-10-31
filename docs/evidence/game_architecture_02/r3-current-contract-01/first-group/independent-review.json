@@ -1,0 +1,76 @@
+{
+  "decision": "ACCEPT_ACTUAL_DIAGNOSTIC_EVIDENCE_FULL_CASE_FAILED",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "patch_sha256": "4715b69e51932d74f163b3f2b598509a40821fd8d4fcdb83265a6843cbd72665",
+  "source_files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "d8e29025a9544884d90367639cb78b280dab73044d00a0525da943a8b3c5d62a"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "94ea65362019f5dfcab522e92e611de74d58ba841ea41a63615feacaa953cac9"
+    }
+  ],
+  "evidence_sha256": {
+    "summary.json": "1e6e2a3a10f8a8badc497f3b44769fd65800930388a3e54db16de148c7045a6b",
+    "native.log": "c9aca8cac791a35a79d1b118557ac34ad32690727319efd2b7a0410d406402f2",
+    "full_fight_map1.json": "c8b92fb16edf9f21a6f7d3ca4c110a70204cebbfaa2b0a3586950d006d3e037a",
+    "source-original.json.gz": "ae24e11847a48dc50e8822965da6d5034d0bb77bd48d3b12c87fd27474f06e99",
+    "source-candidate-before.json.gz": "b2bc7d975772ca2330fc1db0b63487e4d41c9838841476840bc2636ba4f7a7a0",
+    "source-candidate-after.json.gz": "b2bc7d975772ca2330fc1db0b63487e4d41c9838841476840bc2636ba4f7a7a0",
+    "source-restored.json.gz": "ae24e11847a48dc50e8822965da6d5034d0bb77bd48d3b12c87fd27474f06e99"
+  },
+  "source_review": {
+    "candidate_before_after_exact": true,
+    "original_restored_vector_exact": true,
+    "only_two_reviewed_candidate_leaves_changed": true,
+    "actual_current_leaves_equal_original_and_source_commit_git_blobs": true,
+    "original25_predicates": "Inherited exact frozen candidate code review; no subsequent source drift.",
+    "full_source_vectors_compared_not_entire_live_tree_rehashed": true
+  },
+  "execution": {
+    "classification": "Actual completed native trial with gameplay failure; not parse/script failure",
+    "frames": 1811,
+    "failures": [
+      "actual continuous full fight did not defeat Boss",
+      "player failed actual continuous battle",
+      "actual Bell full battle released its arena before successful settlement"
+    ],
+    "native_wrapper_exit": 1,
+    "wall_seconds": 22.233,
+    "budget_seconds": 180,
+    "frame_budget": 7200,
+    "boss_hp": 24,
+    "player_hp": 0,
+    "player_terminal": true,
+    "script_or_leak_diagnostics_present": false
+  },
+  "first_group_independent_checks": {
+    "window_inclusive": [
+      219,
+      397
+    ],
+    "HP_all179_rows": 5,
+    "player_batch_events_in_window": 0,
+    "boarding_takeoff": 220,
+    "actual_target_platform_landing": 249,
+    "incoming_front_on_support_jump_request": 288,
+    "real_second_takeoff": 289,
+    "airborne_side_crossing": 311,
+    "actual_target_platform_relanding": 331,
+    "base_and_effective_max_jumps": 1,
+    "hook_enabled": false,
+    "original_group1_submitted_shots": 2,
+    "actual_group1_base_one_bell_hits": 2,
+    "eight_optin_checks_supported_by_underlying_observations": true
+  },
+  "conclusion": "One observed phase1 first-group platform response succeeded without HP loss and retained two real hits; the unchanged later full-fight strategy still failed with Boss24/player0 at tick1824. Neither a full-fight solution nor full185/CI pass. Trial code restored; do not carry this result into a production strategy or test rule without separate authorization/review.",
+  "limits": [
+    "Single seeded run and first group only; no general platform-strategy reliability or visual/device acceptance.",
+    "No engine invocation or main write by independent reviewer.",
+    "PreviousR3 failures remain valid; this does not resolve the original isolated base-jump assertion."
+  ]
+}

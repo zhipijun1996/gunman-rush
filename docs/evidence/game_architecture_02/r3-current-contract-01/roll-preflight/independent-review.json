@@ -1,0 +1,96 @@
+{
+  "status": "LIMITED_NATIVE_ACCEPT_ROLL_ONLY",
+  "scope": "Original --roll-only entry: old two flat-floor actions plus actual App first-group positive. Not complete component, two-map wrapper or full185.",
+  "source_base": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "patch_sha256": "24528f48e066e8109875b9f0501adfe431b94135278e5e442c9e564aea86e1e0",
+  "receipt_sha256": "bcb1a7117411352eb66a18e5c73f0c4e453a7a2c476c121967592a8d462e2d9a",
+  "native_log_sha256": "e3807ff5b9cd7e61fd54a1fde010ce5cc7ff1912f90e3105efeef4342e5dba28",
+  "summary_sha256": "e7121ff8f218143c19e207451d267f9537d9e9432b3e36536f8cca4491c11331",
+  "native_exit": 0,
+  "native_budget_seconds": 180,
+  "wall_seconds": 9.764,
+  "checks": 43,
+  "failures": 0,
+  "source_before_after_exact": true,
+  "source_change_set_exact_six": {
+    "tools/bellstrider_01/legal_input_pilot.gd": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "c519d16772922e818224a9de71d010a50e58ec7c5e1665a3d37ed8f6d0dacf84",
+    "tests/underworld_plains/test_underworld_r3_boss.gd": "abd20b7a7668495d996c91492fbd2240ab41c5ab7e7dc7aa51fdba16c4420479",
+    "tests/underworld_plains/bell_platform_fixture.gd": "c4c109849014954073f7913626f2d5c350e2929d464ed48b7e4e439f2bd569fe",
+    "tests/underworld_plains/bell_platform_fixture.gd.uid": "0180753e0901dc6c93170378f8e8581166081378277de67f839083eea0d311c5",
+    "tools/harness/profiles.json": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c"
+  },
+  "six_applied_main_files_match_at_review": true,
+  "flat_negative": {
+    "rows": 296,
+    "prior_failure_preserved": [
+      "held base jump clears actual full body roll"
+    ],
+    "all_non_tick_fields_exact_to_prior_failed_full_run": true,
+    "prior_minus_current_tick": 6759,
+    "standing_rows": 150,
+    "late_jump_rows": 146,
+    "hp_each": {
+      "start": 5,
+      "end": 4
+    },
+    "actual_body_policy_evidence": "The reviewed, executed candidate requires body-source player policy settlement during the late-jump window AND actual HP decrease; its check passes in the clean43/0 run. Flat policy rows are not serialized into this receipt, so raw event attribution is not independently reconstructed here."
+  },
+  "positive": {
+    "trace_rows": 384,
+    "all_player_hp": 5,
+    "boss_chain": [
+      40,
+      39,
+      38
+    ],
+    "complete_tick": 709,
+    "checks_true": 26,
+    "two_real_submissions": true,
+    "four_source_join_recomputed": [
+      {
+        "shot_identity": [
+          351163911615,
+          2,
+          1
+        ],
+        "fire_tick": 651,
+        "event_id": "351163911615:2:1",
+        "impact_tick": 658,
+        "health": 39.0
+      },
+      {
+        "shot_identity": [
+          351163911615,
+          2,
+          2
+        ],
+        "fire_tick": 688,
+        "event_id": "351163911615:2:2",
+        "impact_tick": 699,
+        "health": 38.0
+      }
+    ],
+    "health_event_rows_actual_boss_damage": 2,
+    "player_policy_or_health_events": 0,
+    "same_actual_support_body_id": 769856115507,
+    "support_tick": 561,
+    "trigger_tick": 600,
+    "takeoff_tick": 601,
+    "air_crossing_tick": 623,
+    "landing_tick": 643,
+    "native_ground_normal_body_and_crossing_recomputed": true,
+    "base_one_jump_no_hook_all_rows": true
+  },
+  "cleanup": {
+    "audio_drains": 3,
+    "all_released": true,
+    "error_or_leak_lines": false
+  },
+  "evidence_note": "command.json retains pre-execution status=failed placeholder; actual final summary exit0, native43/0 marker and receipt are consistent. The original command file has not been edited.",
+  "limits": [
+    "No new native execution by reviewer.",
+    "No claim that old278/1 was a pass; this is the explicitly accepted current-content contract migration.",
+    "No full fight, full component, map2, wrapper360 or full185 acceptance."
+  ]
+}

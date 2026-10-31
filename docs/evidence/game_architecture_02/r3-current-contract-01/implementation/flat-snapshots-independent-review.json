@@ -1,0 +1,28 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_TWO_FLAT_RECEIPT_SNAPSHOTS_NATIVE_PENDING",
+  "reviewed_patch_sha256": "5630e0dc2b89a5dca5b0f3960c558a2af14edb86bb3c4c320bfad4f9a456e87c",
+  "stage1_component_sha256": "abd20b7a7668495d996c91492fbd2240ab41c5ab7e7dc7aa51fdba16c4420479",
+  "new_component_sha256": "225fc2ebc7fe4c54d96f478bb0419acac285a7d6339beed5220e158019902866",
+  "six_source_sha256s": {
+    "tools/bellstrider_01/legal_input_pilot.gd": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "c519d16772922e818224a9de71d010a50e58ec7c5e1665a3d37ed8f6d0dacf84",
+    "tests/underworld_plains/test_underworld_r3_boss.gd": "225fc2ebc7fe4c54d96f478bb0419acac285a7d6339beed5220e158019902866",
+    "tests/underworld_plains/bell_platform_fixture.gd": "c4c109849014954073f7913626f2d5c350e2929d464ed48b7e4e439f2bd569fe",
+    "tests/underworld_plains/bell_platform_fixture.gd.uid": "0180753e0901dc6c93170378f8e8581166081378277de67f839083eea0d311c5",
+    "tools/harness/profiles.json": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c"
+  },
+  "exact_inverse_three_additions_restores_stage1": true,
+  "timing": "Append after the original recovery-mode check and before original jump release, without await. Existing observed_from is taken after the original68-frame late-jump wait, so first/last tick delimit the monitored78-frame late-jump window (standing window150). Array snapshot may contain earlier events from that same fixture, to be filtered by these ticks.",
+  "retention": "Deep copies retain independent standing/late-jump policy arrays before later edge and lethal fixtures clear/repopulate fixture_damage_events. Names, before/after HP and tick window identify each original flat trial.",
+  "unchanged": [
+    "Every original action, assertion, wait, budget and RNG input",
+    "All other five reviewed source files",
+    "Real App positive separate event arrays",
+    "Production and save data"
+  ],
+  "correction_of_prior_review": "Previous single-field report described final-array=late-jump only for roll-only. In the full component edge/lethal fixtures follow roll_trials; the single-field implementation was insufficient for that consumer. This superseding receipt-only candidate resolves retention without changing test behavior. Prior report and candidate remain preserved.",
+  "limits": [
+    "Previous43/0 native remains bound to abd20. New225f requires the next original complete wrapper native.",
+    "Only static source review was performed; no engine/main writes by reviewer."
+  ]
+}

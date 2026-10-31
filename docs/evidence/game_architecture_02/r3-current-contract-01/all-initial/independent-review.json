@@ -1,0 +1,245 @@
+{
+  "decision": "ACCEPT_EVIDENCE_ORIGINAL_FORMAL_CRITERIA_SATISFIED_DIAGNOSTIC_ATTRIBUTION_FAILED_NOT_PASS",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "patch_sha256": "07c637c16745845adcda390071304335e94ccbdbd6d1f54c7da77b2247bb9720",
+  "evidence_sha256": {
+    "summary.json": "ac16249bf6a2b1d3473f4e08d1dcadd42587f4005c7d1ec23443442a120a5378",
+    "native.log": "ec543e0ac9d8ee2683b8e32e51a26582b224c63210f0f720367611294a8d8825",
+    "full_fight_map1.json": "7419348c8ccda6522697d7f8dccd4ed0b157b1a31b3aeb45c9414710aab81807",
+    "source-original.json.gz": "ae24e11847a48dc50e8822965da6d5034d0bb77bd48d3b12c87fd27474f06e99",
+    "source-candidate-before.json.gz": "95f77f977b4491ca50d63cebe76a1aa669440a329f48e8b4cad185889efd5bc5",
+    "source-candidate-after.json.gz": "95f77f977b4491ca50d63cebe76a1aa669440a329f48e8b4cad185889efd5bc5",
+    "source-restored.json.gz": "ae24e11847a48dc50e8822965da6d5034d0bb77bd48d3b12c87fd27474f06e99"
+  },
+  "execution": {
+    "wall_seconds": 45.11,
+    "native_budget": 180,
+    "frame_budget": 7200,
+    "frames": 4954,
+    "native_wrapper_exit": 1,
+    "failures": [
+      "platform diagnostic failed: group_16_two_requests_two_actual_base_one_hits",
+      "platform diagnostic failed: group_20_two_requests_two_actual_base_one_hits",
+      "platform diagnostic failed: terminal_group_two_real_hits_not_extra_shots"
+    ],
+    "script_or_leak_error": false,
+    "boss_hp": 0,
+    "player_hp": 5,
+    "all_trace_hp_5": true,
+    "player_damage_events": 0
+  },
+  "source": {
+    "during_native_vectors_exact": true,
+    "restored_vectors_exact": true,
+    "only_reviewed_two_leaves_changed": true,
+    "current_two_leaves_original_and_git_samebytes": true
+  },
+  "shots": {
+    "submitted": 40,
+    "actual_shot_fired_counter": 40,
+    "actual_unique_base_one_hits": 40,
+    "serials": "1..40 complete, sameowner/session prefix, no gaps/replays",
+    "requests_each_group": "2 in all20 groups",
+    "cross_boundary_hits": [
+      {
+        "shot_serial": 30,
+        "request_group": 15,
+        "input_frame": 3528,
+        "request_physics_tick_reconstructed": 3541,
+        "impact_group": 16,
+        "impact_tick": 3557,
+        "actual_event_id": "322139327891:2:30",
+        "health_after": 10.0
+      },
+      {
+        "shot_serial": 38,
+        "request_group": 19,
+        "input_frame": 4765,
+        "request_physics_tick_reconstructed": 4778,
+        "impact_group": 20,
+        "impact_tick": 4794,
+        "actual_event_id": "322139327891:2:38",
+        "health_after": 2.0
+      }
+    ],
+    "impact_group_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 2,
+      "10": 2,
+      "11": 2,
+      "12": 2,
+      "13": 2,
+      "14": 2,
+      "15": 1,
+      "16": 3,
+      "17": 2,
+      "18": 2,
+      "19": 1,
+      "20": 3
+    },
+    "ordinal_reconstruction_boundary": "Existing receipt records submitted group/frame and aggregate shot_fired count, not a direct per-shot-fired group row. Mapping serial1..40 to ordered40 requests is supported by existing single-round ShootAbility monotonicserial and PlayerProjectile event_id contract, complete40emit/40hit totals and no competinginputsource; future verifier should record actual shot_fired ID\u2192origin group rather than depend on ordinal inference."
+  },
+  "attribution_finding": "New validator wrongly equates impact-time encounter group with originating shot group. IDs30 and38 were second requests fromgroups15/19; impact one tick aftergroups16/20 began. Thus impact bins15/19 have1 and16/20 have3. Own group16 IDs31/32 andgroup20 IDs39/40 bothhit. No observed miss/extra third request. Diagnostic3fail remain original failure evidence, not rewritten asPASS.",
+  "platform_legs": [
+    {
+      "group": 1,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 249,
+      "takeoff_tick": 289,
+      "crossing_tick": 311,
+      "landing_tick": 331,
+      "body_id": 741301293840
+    },
+    {
+      "group": 2,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 443,
+      "takeoff_tick": 473,
+      "crossing_tick": 496,
+      "landing_tick": 515,
+      "body_id": 741301293840
+    },
+    {
+      "group": 4,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 788,
+      "takeoff_tick": 846,
+      "crossing_tick": 867,
+      "landing_tick": 888,
+      "body_id": 741301293840
+    },
+    {
+      "group": 5,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 983,
+      "takeoff_tick": 1029,
+      "crossing_tick": 1061,
+      "landing_tick": 1071,
+      "body_id": 741301293840
+    },
+    {
+      "group": 8,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 1582,
+      "takeoff_tick": 1632,
+      "crossing_tick": 1653,
+      "landing_tick": 1674,
+      "body_id": 741301293840
+    },
+    {
+      "group": 9,
+      "phase": 1,
+      "leg": 0,
+      "support_tick": 1769,
+      "takeoff_tick": 1815,
+      "crossing_tick": 1847,
+      "landing_tick": 1857,
+      "body_id": 741301293840
+    },
+    {
+      "group": 12,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 2667,
+      "takeoff_tick": 2715,
+      "crossing_tick": 2734,
+      "landing_tick": 2757,
+      "body_id": 741301293840
+    },
+    {
+      "group": 13,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 2848,
+      "takeoff_tick": 2894,
+      "crossing_tick": 2923,
+      "landing_tick": 2936,
+      "body_id": 741301293840
+    },
+    {
+      "group": 16,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 3587,
+      "takeoff_tick": 3649,
+      "crossing_tick": 3668,
+      "landing_tick": 3691,
+      "body_id": 741301293840
+    },
+    {
+      "group": 16,
+      "phase": 2,
+      "leg": 1,
+      "support_tick": 3718,
+      "takeoff_tick": 3756,
+      "crossing_tick": 3775,
+      "landing_tick": 3798,
+      "body_id": 741301293840
+    },
+    {
+      "group": 18,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 4291,
+      "takeoff_tick": 4350,
+      "crossing_tick": 4369,
+      "landing_tick": 4392,
+      "body_id": 741301293840
+    },
+    {
+      "group": 18,
+      "phase": 2,
+      "leg": 1,
+      "support_tick": 4419,
+      "takeoff_tick": 4457,
+      "crossing_tick": 4476,
+      "landing_tick": 4499,
+      "body_id": 741301293840
+    },
+    {
+      "group": 20,
+      "phase": 2,
+      "leg": 0,
+      "support_tick": 4824,
+      "takeoff_tick": 4883,
+      "crossing_tick": 4901,
+      "landing_tick": 4925,
+      "body_id": 741301293840
+    }
+  ],
+  "platform_scope": "11 roll groups,13 actual legs including phase2 return legs in16/18; support collider identity/upnormal, currentgrounded, realtakeoff/crossing/relanding independently validated; entire4954 battletrace HP5.",
+  "settlement": {
+    "four_unique_physical_units": [
+      1,
+      1,
+      5,
+      5
+    ],
+    "all_claimed_after_ready": true,
+    "wallet_delta_before_portal": 12,
+    "portal_duplicate_delta": 0,
+    "advance_once_repeat_rejected": true,
+    "next_map": 2,
+    "oneheart_award_clamped_at_full": true,
+    "death_age": 1.8
+  },
+  "original_criteria": "No original25 failure labels emitted; all3 are added diagnostic hit-attribution predicates. Nativeoverallstillfailed.",
+  "limits": [
+    "No Godot ormain writes by reviewer.",
+    "Sameplayer identity acrossportal is not explicitly stored in this map1 receipt; stable shotowner proves battle identity, and actualnextmap2 recorded, but do not claim independent before/afterportal IDmeasurement.",
+    "Single seed/run; not full185, completeR3wrapper, isolated278roll fix, allplatform/general strategy oruseracceptance."
+  ],
+  "minimum_followup": "If authorized, only observer accounting: capture actual shot_fired serial+source group/request lineage, associate realbell_hit.event_id to thatshot, retain impact_group separately and reject unknown/duplicate IDs. Preserve actual40/2shots,health/physics/budgets andthisfailedrun; no strategy/input change justified by these3fail."
+}

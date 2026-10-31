@@ -1,0 +1,101 @@
+{
+  "scope": "one reviewed diagnostic; not full185 or CI contract migration",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "engine_args": [
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "--",
+    "--map=1",
+    "--platform-counterplay"
+  ],
+  "original_native_budget_seconds": 180,
+  "original_combat_frame_budget": 7200,
+  "patch_sha256": "4715b69e51932d74f163b3f2b598509a40821fd8d4fcdb83265a6843cbd72665",
+  "status": "failed",
+  "native_wrapper_exit_code": 1,
+  "error": "Godot returned 1",
+  "error_type": "RuntimeError",
+  "wall_seconds": 22.233,
+  "source_unchanged_during_native": true,
+  "receipt_sha256": "c8b92fb16edf9f21a6f7d3ca4c110a70204cebbfaa2b0a3586950d006d3e037a",
+  "frames": 1811,
+  "failures": [
+    "actual continuous full fight did not defeat Boss",
+    "player failed actual continuous battle",
+    "actual Bell full battle released its arena before successful settlement"
+  ],
+  "boss_hp": 24.0,
+  "player_hp": 0.0,
+  "platform_verdicts": [
+    {
+      "action": "platform_trial_receipt_verdict",
+      "actual_base_one_bell_hits": 2,
+      "checks": {
+        "HP_unchanged": true,
+        "actual_airborne_crossing": true,
+        "actual_board_airborne": true,
+        "actual_evade_airborne": true,
+        "actual_landing": true,
+        "first_group_completed": true,
+        "original_two_requested_shots_and_two_actual_base_one_hits": true,
+        "whole_group_no_committed_player_damage_inclusive": true
+      },
+      "committed_player_damage_count": 0,
+      "group_submitted_shots": 2,
+      "scope": "first autonomous phase1 group only; original full-fight checks still required",
+      "trial": {
+        "HP_min": 5.0,
+        "HP_start": 5.0,
+        "board_airborne": true,
+        "complete_tick": 397,
+        "crossed_airborne": true,
+        "evade_airborne": true,
+        "failure": "",
+        "first_tick": 219,
+        "group": 1,
+        "initial_side": 1.0,
+        "landed": true,
+        "phase": "complete",
+        "plan": {
+          "count": 1,
+          "direction": -1,
+          "kind": "roll",
+          "phase": 1,
+          "return_roll": false,
+          "roll_index": 0,
+          "selected_at": 3.48333333333333,
+          "weights": {
+            "lob": 3.6,
+            "ring": 1.0,
+            "roll": 3.6
+          }
+        },
+        "support_tick": 249,
+        "target": {
+          "body_id": 741301293840,
+          "module": "plains_bellstrider_arena",
+          "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+          "platform_index": 1,
+          "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+          "rect_xywh": [
+            6330.0,
+            1288.0,
+            120.0,
+            20.0
+          ]
+        },
+        "trigger_front": 6447.6708984375,
+        "trigger_tick": 288
+      }
+    }
+  ],
+  "original_source_restored": true,
+  "git_metadata_restored": true
+}

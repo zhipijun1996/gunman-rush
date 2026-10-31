@@ -1,0 +1,4717 @@
+{
+  "scope": "one reviewed all-rolls diagnostic; not full185 or CI contract migration",
+  "source_commit": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "engine_args": [
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "--",
+    "--map=1",
+    "--platform-counterplay=all"
+  ],
+  "original_native_budget_seconds": 180,
+  "original_combat_frame_budget": 7200,
+  "patch_sha256": "25546be17bcea7670876f7319f6571ad2a489273317c5cb53b1b79b239568068",
+  "status": "passed_native_full_case_requires_independent_review",
+  "native_wrapper_exit_code": 0,
+  "wall_seconds": 44.997,
+  "source_unchanged_during_native": true,
+  "receipt_sha256": "cf095722ed5c94c15e4908fe79c4ceff937e13ab65b74dc9ccb1c161b2076ee3",
+  "frames": 4954,
+  "failures": [],
+  "boss_hp": 0.0,
+  "player_hp": 5.0,
+  "platform_verdicts": [
+    {
+      "action": "platform_trial_receipt_verdict",
+      "actual_bell_event_stream": [
+        {
+          "actual": {
+            "age": 3.48333333333333,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 1,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 3.48333333333333,
+              "weights": {
+                "lob": 3.6,
+                "ring": 1.0,
+                "roll": 3.6
+              }
+            },
+            "position": "(6600.0, 1353.0)"
+          },
+          "tick": 218
+        },
+        {
+          "actual": {
+            "age": 5.61666666666665,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:1",
+            "group": 1,
+            "health": 39.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 346
+        },
+        {
+          "actual": {
+            "age": 6.29999999999998,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:2",
+            "group": 1,
+            "health": 38.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6229.118, 1275.623)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 387
+        },
+        {
+          "actual": {
+            "age": 6.71666666666665,
+            "direction": 1,
+            "event": "bellstrider_group",
+            "group": 2,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": 1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 6.71666666666665,
+              "weights": {
+                "lob": 1.0,
+                "ring": 1.0,
+                "roll": 1.728
+              }
+            },
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 412
+        },
+        {
+          "actual": {
+            "age": 9.26666666666671,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:3",
+            "group": 2,
+            "health": 37.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6725.051, 1279.477)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 565
+        },
+        {
+          "actual": {
+            "age": 9.75000000000006,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:4",
+            "group": 2,
+            "health": 36.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6720.29, 1278.715)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 594
+        },
+        {
+          "actual": {
+            "age": 10.2333333333334,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 3,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "ring",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 10.2333333333334,
+              "weights": {
+                "lob": 1.0,
+                "ring": 1.0,
+                "roll": 0.0
+              }
+            },
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 623
+        },
+        {
+          "actual": {
+            "age": 12.0666666666668,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:5",
+            "group": 3,
+            "health": 35.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6705.554, 1274.511)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 733
+        },
+        {
+          "actual": {
+            "age": 12.4000000000002,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:6",
+            "group": 3,
+            "health": 34.0,
+            "mode": "observe",
+            "phase": 1,
+            "point": "(6718.451, 1268.252)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 753
+        },
+        {
+          "actual": {
+            "age": 12.4666666666669,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 4,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 12.4666666666669,
+              "weights": {
+                "lob": 1.0,
+                "ring": 0.48,
+                "roll": 1.728
+              }
+            },
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 757
+        },
+        {
+          "actual": {
+            "age": 14.8833333333337,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:7",
+            "group": 4,
+            "health": 33.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 902
+        },
+        {
+          "actual": {
+            "age": 15.416666666667,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:8",
+            "group": 4,
+            "health": 32.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6224.654, 1278.641)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 934
+        },
+        {
+          "actual": {
+            "age": 15.9833333333337,
+            "direction": 1,
+            "event": "bellstrider_group",
+            "group": 5,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": 1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 15.9833333333337,
+              "weights": {
+                "lob": 4.0,
+                "ring": 0.576674739392341,
+                "roll": 0.996493949669965
+              }
+            },
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 968
+        },
+        {
+          "actual": {
+            "age": 18.4833333333336,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:9",
+            "group": 5,
+            "health": 31.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6726.454, 1279.494)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1118
+        },
+        {
+          "actual": {
+            "age": 18.8166666666669,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:10",
+            "group": 5,
+            "health": 30.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6719.309, 1278.534)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1138
+        },
+        {
+          "actual": {
+            "age": 19.5000000000002,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 6,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "ring",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 19.5000000000002,
+              "weights": {
+                "lob": 1.0,
+                "ring": 0.692820323027551,
+                "roll": 0.0
+              }
+            },
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1179
+        },
+        {
+          "actual": {
+            "age": 21.3333333333334,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:11",
+            "group": 6,
+            "health": 29.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6705.554, 1274.511)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1289
+        },
+        {
+          "actual": {
+            "age": 21.6666666666667,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:12",
+            "group": 6,
+            "health": 28.0,
+            "mode": "observe",
+            "phase": 1,
+            "point": "(6718.085, 1268.122)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1309
+        },
+        {
+          "actual": {
+            "age": 21.7333333333334,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 7,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "lob",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 21.7333333333334,
+              "weights": {
+                "lob": 1.0,
+                "ring": 0.39953197922763,
+                "roll": 1.43831512521947
+              }
+            },
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1313
+        },
+        {
+          "actual": {
+            "age": 24.4499999999999,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:13",
+            "group": 7,
+            "health": 27.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6696.572, 1279.173)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1476
+        },
+        {
+          "actual": {
+            "age": 24.7666666666665,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:14",
+            "group": 7,
+            "health": 26.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6698.85, 1278.68)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1495
+        },
+        {
+          "actual": {
+            "age": 25.6999999999998,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 8,
+            "mode": "approach",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 25.6999999999998,
+              "weights": {
+                "lob": 0.48,
+                "ring": 0.576674739392341,
+                "roll": 2.07602906181243
+              }
+            },
+            "position": "(6658.658, 1353.0)"
+          },
+          "tick": 1551
+        },
+        {
+          "actual": {
+            "age": 27.983333333333,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:15",
+            "group": 8,
+            "health": 25.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 1688
+        },
+        {
+          "actual": {
+            "age": 28.5166666666663,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:16",
+            "group": 8,
+            "health": 24.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6224.654, 1278.641)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 1720
+        },
+        {
+          "actual": {
+            "age": 29.083333333333,
+            "direction": 1,
+            "event": "bellstrider_group",
+            "group": 9,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": 1,
+              "kind": "roll",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 29.083333333333,
+              "weights": {
+                "lob": 2.30669895756936,
+                "ring": 0.692820323027551,
+                "roll": 1.43831512521947
+              }
+            },
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 1754
+        },
+        {
+          "actual": {
+            "age": 31.5833333333328,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:17",
+            "group": 9,
+            "health": 23.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6726.454, 1279.494)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1904
+        },
+        {
+          "actual": {
+            "age": 31.9166666666661,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:18",
+            "group": 9,
+            "health": 22.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6719.309, 1278.534)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1924
+        },
+        {
+          "actual": {
+            "age": 32.5999999999994,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 10,
+            "mode": "observe",
+            "phase": 1,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "lob",
+              "phase": 1,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 32.5999999999994,
+              "weights": {
+                "lob": 0.692820323027551,
+                "ring": 0.832358290057563,
+                "roll": 0.0
+              }
+            },
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 1965
+        },
+        {
+          "actual": {
+            "age": 35.3166666666659,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:19",
+            "group": 10,
+            "health": 21.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6696.572, 1279.173)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 2128
+        },
+        {
+          "actual": {
+            "age": 35.6333333333326,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:20",
+            "group": 10,
+            "health": 20.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6698.85, 1278.68)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 2147
+        },
+        {
+          "actual": {
+            "age": 37.5499999999992,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 11,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 2,
+              "direction": -1,
+              "kind": "lob",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 37.5499999999992,
+              "weights": {
+                "lob": 0.39953197922763,
+                "ring": 1.0,
+                "roll": 1.43831512521947
+              }
+            },
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 2262
+        },
+        {
+          "actual": {
+            "age": 42.5333333333322,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:21",
+            "group": 11,
+            "health": 19.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6696.572, 1279.173)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 2561
+        },
+        {
+          "actual": {
+            "age": 42.8499999999989,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:22",
+            "group": 11,
+            "health": 18.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6698.85, 1278.68)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "tick": 2580
+        },
+        {
+          "actual": {
+            "age": 43.7833333333321,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 12,
+            "mode": "approach",
+            "phase": 2,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 43.7833333333321,
+              "weights": {
+                "lob": 0.0,
+                "ring": 1.0,
+                "roll": 2.07602906181243
+              }
+            },
+            "position": "(6658.658, 1353.0)"
+          },
+          "tick": 2636
+        },
+        {
+          "actual": {
+            "age": 45.9666666666653,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:23",
+            "group": 12,
+            "health": 17.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 2767
+        },
+        {
+          "actual": {
+            "age": 46.4999999999986,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:24",
+            "group": 12,
+            "health": 16.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6224.654, 1278.641)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 2799
+        },
+        {
+          "actual": {
+            "age": 47.0666666666653,
+            "direction": 1,
+            "event": "bellstrider_group",
+            "group": 13,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 1,
+              "direction": 1,
+              "kind": "roll",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 47.0666666666653,
+              "weights": {
+                "lob": 1.59812791691052,
+                "ring": 1.0,
+                "roll": 1.43831512521947
+              }
+            },
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 2833
+        },
+        {
+          "actual": {
+            "age": 49.6166666666651,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:25",
+            "group": 13,
+            "health": 15.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6774.968, 1279.477)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 2986
+        },
+        {
+          "actual": {
+            "age": 49.9333333333318,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:26",
+            "group": 13,
+            "health": 14.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6769.194, 1278.524)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3005
+        },
+        {
+          "actual": {
+            "age": 50.5833333333317,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 14,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 2,
+              "direction": -1,
+              "kind": "lob",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 50.5833333333317,
+              "weights": {
+                "lob": 2.30669895756936,
+                "ring": 1.0,
+                "roll": 0.0
+              }
+            },
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3044
+        },
+        {
+          "actual": {
+            "age": 55.2833333333315,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:27",
+            "group": 14,
+            "health": 13.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6743.546, 1279.477)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3326
+        },
+        {
+          "actual": {
+            "age": 55.6166666666648,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:28",
+            "group": 14,
+            "health": 12.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6749.29, 1278.534)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3346
+        },
+        {
+          "actual": {
+            "age": 56.2499999999981,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 15,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 2,
+              "direction": -1,
+              "kind": "ring",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 56.2499999999981,
+              "weights": {
+                "lob": 0.39953197922763,
+                "ring": 1.0,
+                "roll": 1.43831512521947
+              }
+            },
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3384
+        },
+        {
+          "actual": {
+            "age": 58.8166666666646,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:29",
+            "group": 15,
+            "health": 11.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6767.616, 1269.297)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3538
+        },
+        {
+          "actual": {
+            "age": 59.1166666666646,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 16,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 2,
+              "return_roll": true,
+              "roll_index": 0,
+              "selected_at": 59.1166666666646,
+              "weights": {
+                "lob": 0.576674739392341,
+                "ring": 0.48,
+                "roll": 2.07602906181243
+              }
+            },
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3556
+        },
+        {
+          "actual": {
+            "age": 59.1333333333313,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:30",
+            "group": 16,
+            "health": 10.0,
+            "mode": "roll_warning",
+            "phase": 2,
+            "point": "(6766.982, 1268.965)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3557
+        },
+        {
+          "actual": {
+            "age": 64.0166666666643,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:31",
+            "group": 16,
+            "health": 9.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6773.959, 1279.414)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3850
+        },
+        {
+          "actual": {
+            "age": 64.3499999999976,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:32",
+            "group": 16,
+            "health": 8.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6769.369, 1278.575)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 3870
+        },
+        {
+          "actual": {
+            "age": 65.1833333333309,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 17,
+            "mode": "approach",
+            "phase": 2,
+            "plan": {
+              "count": 2,
+              "direction": -1,
+              "kind": "lob",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 65.1833333333309,
+              "weights": {
+                "lob": 2.7712812921102,
+                "ring": 0.576674739392341,
+                "roll": 1.43831512521947
+              }
+            },
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 3920
+        },
+        {
+          "actual": {
+            "age": 69.7999999999973,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:33",
+            "group": 17,
+            "health": 7.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6717.697, 1279.469)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4197
+        },
+        {
+          "actual": {
+            "age": 70.1499999999973,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:34",
+            "group": 17,
+            "health": 6.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6725.54, 1278.553)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4218
+        },
+        {
+          "actual": {
+            "age": 70.8499999999973,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 18,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 2,
+              "return_roll": true,
+              "roll_index": 0,
+              "selected_at": 70.8499999999973,
+              "weights": {
+                "lob": 0.39953197922763,
+                "ring": 0.692820323027551,
+                "roll": 2.07602906181243
+              }
+            },
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4260
+        },
+        {
+          "actual": {
+            "age": 75.699999999997,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:35",
+            "group": 18,
+            "health": 5.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6773.959, 1279.414)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 4551
+        },
+        {
+          "actual": {
+            "age": 76.0333333333303,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:36",
+            "group": 18,
+            "health": 4.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6769.369, 1278.575)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "tick": 4571
+        },
+        {
+          "actual": {
+            "age": 76.8666666666636,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 19,
+            "mode": "approach",
+            "phase": 2,
+            "plan": {
+              "count": 2,
+              "direction": -1,
+              "kind": "ring",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 76.8666666666636,
+              "weights": {
+                "lob": 0.576674739392341,
+                "ring": 0.832358290057563,
+                "roll": 1.19719351819161
+              }
+            },
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4621
+        },
+        {
+          "actual": {
+            "age": 79.4333333333301,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:37",
+            "group": 19,
+            "health": 3.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6743.935, 1269.297)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4775
+        },
+        {
+          "actual": {
+            "age": 79.7333333333301,
+            "direction": -1,
+            "event": "bellstrider_group",
+            "group": 20,
+            "mode": "observe",
+            "phase": 2,
+            "plan": {
+              "count": 1,
+              "direction": -1,
+              "kind": "roll",
+              "phase": 2,
+              "return_roll": false,
+              "roll_index": 0,
+              "selected_at": 79.7333333333301,
+              "weights": {
+                "lob": 0.692820323027551,
+                "ring": 0.48,
+                "roll": 1.728
+              }
+            },
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4793
+        },
+        {
+          "actual": {
+            "age": 79.7499999999968,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:38",
+            "group": 20,
+            "health": 2.0,
+            "mode": "roll_warning",
+            "phase": 2,
+            "point": "(6743.551, 1269.522)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "tick": 4794
+        },
+        {
+          "actual": {
+            "age": 82.0999999999966,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:39",
+            "group": 20,
+            "health": 1.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 4935
+        },
+        {
+          "actual": {
+            "age": 82.6333333333299,
+            "direction": -1,
+            "event": "bellstrider_death",
+            "group": 20,
+            "mode": "dead",
+            "phase": 2,
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 4967
+        },
+        {
+          "actual": {
+            "age": 82.6333333333299,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:40",
+            "group": 20,
+            "health": 0.0,
+            "mode": "dead",
+            "phase": 2,
+            "point": "(6222.068, 1279.2)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "tick": 4967
+        }
+      ],
+      "actual_damage_contexts": [
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:1",
+          "session_id": 2,
+          "shot_id": 1,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 346
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:2",
+          "session_id": 2,
+          "shot_id": 2,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 387
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:3",
+          "session_id": 2,
+          "shot_id": 3,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 565
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:4",
+          "session_id": 2,
+          "shot_id": 4,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 594
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:5",
+          "session_id": 2,
+          "shot_id": 5,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 733
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:6",
+          "session_id": 2,
+          "shot_id": 6,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 753
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:7",
+          "session_id": 2,
+          "shot_id": 7,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 902
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:8",
+          "session_id": 2,
+          "shot_id": 8,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 934
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:9",
+          "session_id": 2,
+          "shot_id": 9,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1118
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:10",
+          "session_id": 2,
+          "shot_id": 10,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1138
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:11",
+          "session_id": 2,
+          "shot_id": 11,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1289
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:12",
+          "session_id": 2,
+          "shot_id": 12,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1309
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:13",
+          "session_id": 2,
+          "shot_id": 13,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1476
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:14",
+          "session_id": 2,
+          "shot_id": 14,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1495
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:15",
+          "session_id": 2,
+          "shot_id": 15,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1688
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:16",
+          "session_id": 2,
+          "shot_id": 16,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1720
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:17",
+          "session_id": 2,
+          "shot_id": 17,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1904
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:18",
+          "session_id": 2,
+          "shot_id": 18,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 1924
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:19",
+          "session_id": 2,
+          "shot_id": 19,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2128
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:20",
+          "session_id": 2,
+          "shot_id": 20,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2147
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:21",
+          "session_id": 2,
+          "shot_id": 21,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2561
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:22",
+          "session_id": 2,
+          "shot_id": 22,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2580
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:23",
+          "session_id": 2,
+          "shot_id": 23,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2767
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:24",
+          "session_id": 2,
+          "shot_id": 24,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2799
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:25",
+          "session_id": 2,
+          "shot_id": 25,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 2986
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:26",
+          "session_id": 2,
+          "shot_id": 26,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3005
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:27",
+          "session_id": 2,
+          "shot_id": 27,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3326
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:28",
+          "session_id": 2,
+          "shot_id": 28,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3346
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:29",
+          "session_id": 2,
+          "shot_id": 29,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3538
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:30",
+          "session_id": 2,
+          "shot_id": 30,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3557
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:31",
+          "session_id": 2,
+          "shot_id": 31,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3850
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:32",
+          "session_id": 2,
+          "shot_id": 32,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 3870
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:33",
+          "session_id": 2,
+          "shot_id": 33,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4197
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:34",
+          "session_id": 2,
+          "shot_id": 34,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4218
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:35",
+          "session_id": 2,
+          "shot_id": 35,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4551
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:36",
+          "session_id": 2,
+          "shot_id": 36,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4571
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:37",
+          "session_id": 2,
+          "shot_id": 37,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4775
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:38",
+          "session_id": 2,
+          "shot_id": 38,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4794
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:39",
+          "session_id": 2,
+          "shot_id": 39,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4935
+        },
+        {
+          "amount": 1.0,
+          "damage_type": "projectile",
+          "event_id": "322139327891:2:40",
+          "session_id": 2,
+          "shot_id": 40,
+          "skill_attack": false,
+          "source_actor_id": 322139327891,
+          "source_faction": "player",
+          "target_actor_id": 756853773712,
+          "target_epoch": 1,
+          "tick": 4967
+        }
+      ],
+      "actual_fired_shots": [
+        {
+          "fire_group": 1,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 1,
+          "tick": 339
+        },
+        {
+          "fire_group": 1,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 2,
+          "tick": 376
+        },
+        {
+          "fire_group": 2,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 3,
+          "tick": 550
+        },
+        {
+          "fire_group": 2,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 4,
+          "tick": 578
+        },
+        {
+          "fire_group": 3,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 5,
+          "tick": 721
+        },
+        {
+          "fire_group": 3,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 6,
+          "tick": 737
+        },
+        {
+          "fire_group": 4,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 7,
+          "tick": 895
+        },
+        {
+          "fire_group": 4,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 8,
+          "tick": 923
+        },
+        {
+          "fire_group": 5,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 9,
+          "tick": 1106
+        },
+        {
+          "fire_group": 5,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 10,
+          "tick": 1123
+        },
+        {
+          "fire_group": 6,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 11,
+          "tick": 1277
+        },
+        {
+          "fire_group": 6,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 12,
+          "tick": 1293
+        },
+        {
+          "fire_group": 7,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 13,
+          "tick": 1455
+        },
+        {
+          "fire_group": 7,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 14,
+          "tick": 1472
+        },
+        {
+          "fire_group": 8,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 15,
+          "tick": 1681
+        },
+        {
+          "fire_group": 8,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 16,
+          "tick": 1709
+        },
+        {
+          "fire_group": 9,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 17,
+          "tick": 1892
+        },
+        {
+          "fire_group": 9,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 18,
+          "tick": 1909
+        },
+        {
+          "fire_group": 10,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 19,
+          "tick": 2107
+        },
+        {
+          "fire_group": 10,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 20,
+          "tick": 2124
+        },
+        {
+          "fire_group": 11,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 21,
+          "tick": 2540
+        },
+        {
+          "fire_group": 11,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 22,
+          "tick": 2557
+        },
+        {
+          "fire_group": 12,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 23,
+          "tick": 2760
+        },
+        {
+          "fire_group": 12,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 24,
+          "tick": 2788
+        },
+        {
+          "fire_group": 13,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 25,
+          "tick": 2971
+        },
+        {
+          "fire_group": 13,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 26,
+          "tick": 2988
+        },
+        {
+          "fire_group": 14,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 27,
+          "tick": 3311
+        },
+        {
+          "fire_group": 14,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 28,
+          "tick": 3328
+        },
+        {
+          "fire_group": 15,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 29,
+          "tick": 3525
+        },
+        {
+          "fire_group": 15,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 30,
+          "tick": 3541
+        },
+        {
+          "fire_group": 16,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 31,
+          "tick": 3833
+        },
+        {
+          "fire_group": 16,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 32,
+          "tick": 3850
+        },
+        {
+          "fire_group": 17,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 33,
+          "tick": 4187
+        },
+        {
+          "fire_group": 17,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 34,
+          "tick": 4204
+        },
+        {
+          "fire_group": 18,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 35,
+          "tick": 4534
+        },
+        {
+          "fire_group": 18,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 36,
+          "tick": 4551
+        },
+        {
+          "fire_group": 19,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 37,
+          "tick": 4762
+        },
+        {
+          "fire_group": 19,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 38,
+          "tick": 4778
+        },
+        {
+          "fire_group": 20,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 39,
+          "tick": 4928
+        },
+        {
+          "fire_group": 20,
+          "owner_id": 322139327891,
+          "session_id": 2,
+          "shot_id": 40,
+          "tick": 4956
+        }
+      ],
+      "checks": {
+        "actual_Bell_pilot_observed": true,
+        "actual_HP_chain_forty_to_zero": true,
+        "actual_owner_session_consistent": true,
+        "actual_shot_identity_unique": true,
+        "all_actual_hits_base_one": true,
+        "all_four_sources_one_to_one_forty": true,
+        "at_least_one_actual_eligible_roll": true,
+        "committed_projectile_identity_complete": true,
+        "each_actual_shot_hits_once": true,
+        "every_eligible_roll_group_exactly_once": true,
+        "fire_group_10_two_actual_shots_two_base_one_hits": true,
+        "fire_group_11_two_actual_shots_two_base_one_hits": true,
+        "fire_group_12_two_actual_shots_two_base_one_hits": true,
+        "fire_group_13_two_actual_shots_two_base_one_hits": true,
+        "fire_group_14_two_actual_shots_two_base_one_hits": true,
+        "fire_group_15_two_actual_shots_two_base_one_hits": true,
+        "fire_group_16_two_actual_shots_two_base_one_hits": true,
+        "fire_group_17_two_actual_shots_two_base_one_hits": true,
+        "fire_group_18_two_actual_shots_two_base_one_hits": true,
+        "fire_group_19_two_actual_shots_two_base_one_hits": true,
+        "fire_group_1_two_actual_shots_two_base_one_hits": true,
+        "fire_group_20_two_actual_shots_two_base_one_hits": true,
+        "fire_group_2_two_actual_shots_two_base_one_hits": true,
+        "fire_group_3_two_actual_shots_two_base_one_hits": true,
+        "fire_group_4_two_actual_shots_two_base_one_hits": true,
+        "fire_group_5_two_actual_shots_two_base_one_hits": true,
+        "fire_group_6_two_actual_shots_two_base_one_hits": true,
+        "fire_group_7_two_actual_shots_two_base_one_hits": true,
+        "fire_group_8_two_actual_shots_two_base_one_hits": true,
+        "fire_group_9_two_actual_shots_two_base_one_hits": true,
+        "forty_actual_shots_and_committed_hits": true,
+        "group_10_original_two_shot_cap": true,
+        "group_11_original_two_shot_cap": true,
+        "group_12_HP_unchanged": true,
+        "group_12_actual_committed_plan": true,
+        "group_12_completed_actual_observation": true,
+        "group_12_every_committed_leg_observed": true,
+        "group_12_leg_0_actual_evade_chain": true,
+        "group_12_leg_0_actual_support_before_request": true,
+        "group_12_leg_0_actual_warning_identity": true,
+        "group_12_original_two_shot_cap": true,
+        "group_12_two_requests_two_actual_base_one_hits": true,
+        "group_12_whole_group_no_player_settlement_inclusive": true,
+        "group_13_HP_unchanged": true,
+        "group_13_actual_committed_plan": true,
+        "group_13_completed_actual_observation": true,
+        "group_13_every_committed_leg_observed": true,
+        "group_13_leg_0_actual_evade_chain": true,
+        "group_13_leg_0_actual_support_before_request": true,
+        "group_13_leg_0_actual_warning_identity": true,
+        "group_13_original_two_shot_cap": true,
+        "group_13_two_requests_two_actual_base_one_hits": true,
+        "group_13_whole_group_no_player_settlement_inclusive": true,
+        "group_14_original_two_shot_cap": true,
+        "group_15_original_two_shot_cap": true,
+        "group_16_HP_unchanged": true,
+        "group_16_actual_committed_plan": true,
+        "group_16_completed_actual_observation": true,
+        "group_16_every_committed_leg_observed": true,
+        "group_16_leg_0_actual_evade_chain": true,
+        "group_16_leg_0_actual_support_before_request": true,
+        "group_16_leg_0_actual_warning_identity": true,
+        "group_16_leg_1_actual_evade_chain": true,
+        "group_16_leg_1_actual_support_before_request": true,
+        "group_16_leg_1_actual_warning_identity": true,
+        "group_16_leg_1_previous_real_landing_same_support": true,
+        "group_16_original_two_shot_cap": true,
+        "group_16_two_requests_two_actual_base_one_hits": true,
+        "group_16_whole_group_no_player_settlement_inclusive": true,
+        "group_17_original_two_shot_cap": true,
+        "group_18_HP_unchanged": true,
+        "group_18_actual_committed_plan": true,
+        "group_18_completed_actual_observation": true,
+        "group_18_every_committed_leg_observed": true,
+        "group_18_leg_0_actual_evade_chain": true,
+        "group_18_leg_0_actual_support_before_request": true,
+        "group_18_leg_0_actual_warning_identity": true,
+        "group_18_leg_1_actual_evade_chain": true,
+        "group_18_leg_1_actual_support_before_request": true,
+        "group_18_leg_1_actual_warning_identity": true,
+        "group_18_leg_1_previous_real_landing_same_support": true,
+        "group_18_original_two_shot_cap": true,
+        "group_18_two_requests_two_actual_base_one_hits": true,
+        "group_18_whole_group_no_player_settlement_inclusive": true,
+        "group_19_original_two_shot_cap": true,
+        "group_1_HP_unchanged": true,
+        "group_1_actual_committed_plan": true,
+        "group_1_completed_actual_observation": true,
+        "group_1_every_committed_leg_observed": true,
+        "group_1_leg_0_actual_evade_chain": true,
+        "group_1_leg_0_actual_support_before_request": true,
+        "group_1_leg_0_actual_warning_identity": true,
+        "group_1_original_two_shot_cap": true,
+        "group_1_two_requests_two_actual_base_one_hits": true,
+        "group_1_whole_group_no_player_settlement_inclusive": true,
+        "group_20_HP_unchanged": true,
+        "group_20_actual_committed_plan": true,
+        "group_20_completed_actual_observation": true,
+        "group_20_every_committed_leg_observed": true,
+        "group_20_leg_0_actual_evade_chain": true,
+        "group_20_leg_0_actual_support_before_request": true,
+        "group_20_leg_0_actual_warning_identity": true,
+        "group_20_original_two_shot_cap": true,
+        "group_20_terminal_has_real_death_event": true,
+        "group_20_two_requests_two_actual_base_one_hits": true,
+        "group_20_whole_group_no_player_settlement_inclusive": true,
+        "group_2_HP_unchanged": true,
+        "group_2_actual_committed_plan": true,
+        "group_2_completed_actual_observation": true,
+        "group_2_every_committed_leg_observed": true,
+        "group_2_leg_0_actual_evade_chain": true,
+        "group_2_leg_0_actual_support_before_request": true,
+        "group_2_leg_0_actual_warning_identity": true,
+        "group_2_original_two_shot_cap": true,
+        "group_2_two_requests_two_actual_base_one_hits": true,
+        "group_2_whole_group_no_player_settlement_inclusive": true,
+        "group_3_original_two_shot_cap": true,
+        "group_4_HP_unchanged": true,
+        "group_4_actual_committed_plan": true,
+        "group_4_completed_actual_observation": true,
+        "group_4_every_committed_leg_observed": true,
+        "group_4_leg_0_actual_evade_chain": true,
+        "group_4_leg_0_actual_support_before_request": true,
+        "group_4_leg_0_actual_warning_identity": true,
+        "group_4_original_two_shot_cap": true,
+        "group_4_two_requests_two_actual_base_one_hits": true,
+        "group_4_whole_group_no_player_settlement_inclusive": true,
+        "group_5_HP_unchanged": true,
+        "group_5_actual_committed_plan": true,
+        "group_5_completed_actual_observation": true,
+        "group_5_every_committed_leg_observed": true,
+        "group_5_leg_0_actual_evade_chain": true,
+        "group_5_leg_0_actual_support_before_request": true,
+        "group_5_leg_0_actual_warning_identity": true,
+        "group_5_original_two_shot_cap": true,
+        "group_5_two_requests_two_actual_base_one_hits": true,
+        "group_5_whole_group_no_player_settlement_inclusive": true,
+        "group_6_original_two_shot_cap": true,
+        "group_7_original_two_shot_cap": true,
+        "group_8_HP_unchanged": true,
+        "group_8_actual_committed_plan": true,
+        "group_8_completed_actual_observation": true,
+        "group_8_every_committed_leg_observed": true,
+        "group_8_leg_0_actual_evade_chain": true,
+        "group_8_leg_0_actual_support_before_request": true,
+        "group_8_leg_0_actual_warning_identity": true,
+        "group_8_original_two_shot_cap": true,
+        "group_8_two_requests_two_actual_base_one_hits": true,
+        "group_8_whole_group_no_player_settlement_inclusive": true,
+        "group_9_HP_unchanged": true,
+        "group_9_actual_committed_plan": true,
+        "group_9_completed_actual_observation": true,
+        "group_9_every_committed_leg_observed": true,
+        "group_9_leg_0_actual_evade_chain": true,
+        "group_9_leg_0_actual_support_before_request": true,
+        "group_9_leg_0_actual_warning_identity": true,
+        "group_9_original_two_shot_cap": true,
+        "group_9_two_requests_two_actual_base_one_hits": true,
+        "group_9_whole_group_no_player_settlement_inclusive": true,
+        "no_platform_strategy_failure": true,
+        "opaque_event_join_unique": true,
+        "real_shot_context_owner_session_match": true,
+        "terminal_actual_health_death_and_defeated": true,
+        "terminal_group_two_real_hits_not_extra_shots": true
+      },
+      "ledger": [
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 397,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 219,
+          "group": 1,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 311,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 331,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 249,
+              "takeoff_tick": 289,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6447.6708984375,
+              "trigger_tick": 288,
+              "warning": "roll_warning",
+              "warning_tick": 219
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 3.48333333333333,
+            "weights": {
+              "lob": 3.6,
+              "ring": 1.0,
+              "roll": 3.6
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 608,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 413,
+          "group": 2,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 496,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": -1.0,
+              "landed": true,
+              "landing_tick": 515,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 443,
+              "takeoff_tick": 473,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6330.90869140625,
+              "trigger_tick": 472,
+              "warning": "roll_warning",
+              "warning_tick": 413
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": 1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 6.71666666666665,
+            "weights": {
+              "lob": 1.0,
+              "ring": 1.0,
+              "roll": 1.728
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 953,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 758,
+          "group": 4,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 867,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 888,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 788,
+              "takeoff_tick": 846,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6441.5146484375,
+              "trigger_tick": 845,
+              "warning": "roll_warning",
+              "warning_tick": 758
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 12.4666666666669,
+            "weights": {
+              "lob": 1.0,
+              "ring": 0.48,
+              "roll": 1.728
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 1164,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 969,
+          "group": 5,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": false,
+              "crossed_airborne": true,
+              "crossing_tick": 1061,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": -1.0,
+              "landed": true,
+              "landing_tick": 1071,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "arrived_from_existing_motion",
+              "support_tick": 983,
+              "takeoff_tick": 1029,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6330.90869140625,
+              "trigger_tick": 1028,
+              "warning": "roll_warning",
+              "warning_tick": 969
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": 1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 15.9833333333337,
+            "weights": {
+              "lob": 4.0,
+              "ring": 0.576674739392341,
+              "roll": 0.996493949669965
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 1739,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 1552,
+          "group": 8,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 1653,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 1674,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 1582,
+              "takeoff_tick": 1632,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6441.49853515625,
+              "trigger_tick": 1631,
+              "warning": "roll_warning",
+              "warning_tick": 1552
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 25.6999999999998,
+            "weights": {
+              "lob": 0.48,
+              "ring": 0.576674739392341,
+              "roll": 2.07602906181243
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 1950,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 1755,
+          "group": 9,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": false,
+              "crossed_airborne": true,
+              "crossing_tick": 1847,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": -1.0,
+              "landed": true,
+              "landing_tick": 1857,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "arrived_from_existing_motion",
+              "support_tick": 1769,
+              "takeoff_tick": 1815,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6330.90869140625,
+              "trigger_tick": 1814,
+              "warning": "roll_warning",
+              "warning_tick": 1755
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": 1,
+            "kind": "roll",
+            "phase": 1,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 29.083333333333,
+            "weights": {
+              "lob": 2.30669895756936,
+              "ring": 0.692820323027551,
+              "roll": 1.43831512521947
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 2818,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 2637,
+          "group": 12,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 2734,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 2757,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 2667,
+              "takeoff_tick": 2715,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6440.81982421875,
+              "trigger_tick": 2714,
+              "warning": "roll_warning",
+              "warning_tick": 2637
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 2,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 43.7833333333321,
+            "weights": {
+              "lob": 0.0,
+              "ring": 1.0,
+              "roll": 2.07602906181243
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 3029,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 2834,
+          "group": 13,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": false,
+              "crossed_airborne": true,
+              "crossing_tick": 2923,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": -1.0,
+              "landed": true,
+              "landing_tick": 2936,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "arrived_from_existing_motion",
+              "support_tick": 2848,
+              "takeoff_tick": 2894,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6332.78173828125,
+              "trigger_tick": 2893,
+              "warning": "roll_warning",
+              "warning_tick": 2834
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": 1,
+            "kind": "roll",
+            "phase": 2,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 47.0666666666653,
+            "weights": {
+              "lob": 1.59812791691052,
+              "ring": 1.0,
+              "roll": 1.43831512521947
+            }
+          }
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 3891,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 3557,
+          "group": 16,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 3668,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 3691,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 3587,
+              "takeoff_tick": 3649,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6443.970703125,
+              "trigger_tick": 3648,
+              "warning": "roll_warning",
+              "warning_tick": 3557
+            },
+            {
+              "board_airborne": false,
+              "board_jump_requested": false,
+              "crossed_airborne": true,
+              "crossing_tick": 3775,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 1,
+              "initial_side": -1.0,
+              "landed": true,
+              "landing_tick": 3798,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "already_supported",
+              "support_tick": 3718,
+              "takeoff_tick": 3756,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6332.78173828125,
+              "trigger_tick": 3755,
+              "warning": "combo_warning",
+              "warning_tick": 3718
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 2,
+            "return_roll": true,
+            "roll_index": 0,
+            "selected_at": 59.1166666666646,
+            "weights": {
+              "lob": 0.576674739392341,
+              "ring": 0.48,
+              "roll": 2.07602906181243
+            }
+          },
+          "return_warning_tick": 3718
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 4592,
+          "completion_reason": "actual_groups_completed",
+          "failure": "",
+          "first_tick": 4261,
+          "group": 18,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 4369,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 4392,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 4291,
+              "takeoff_tick": 4350,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6440.72705078125,
+              "trigger_tick": 4349,
+              "warning": "roll_warning",
+              "warning_tick": 4261
+            },
+            {
+              "board_airborne": false,
+              "board_jump_requested": false,
+              "crossed_airborne": true,
+              "crossing_tick": 4476,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 1,
+              "initial_side": -1.0,
+              "landed": true,
+              "landing_tick": 4499,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "already_supported",
+              "support_tick": 4419,
+              "takeoff_tick": 4457,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6332.78173828125,
+              "trigger_tick": 4456,
+              "warning": "combo_warning",
+              "warning_tick": 4419
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 2,
+            "return_roll": true,
+            "roll_index": 0,
+            "selected_at": 70.8499999999973,
+            "weights": {
+              "lob": 0.39953197922763,
+              "ring": 0.692820323027551,
+              "roll": 2.07602906181243
+            }
+          },
+          "return_warning_tick": 4419
+        },
+        {
+          "HP_min": 5.0,
+          "HP_start": 5.0,
+          "complete_tick": 4968,
+          "completion_reason": "actual_terminal_pending_receipt_proof",
+          "failure": "",
+          "first_tick": 4794,
+          "group": 20,
+          "legs": [
+            {
+              "board_airborne": true,
+              "board_jump_requested": true,
+              "crossed_airborne": true,
+              "crossing_tick": 4901,
+              "evade_airborne": true,
+              "evade_requested": true,
+              "index": 0,
+              "initial_side": 1.0,
+              "landed": true,
+              "landing_tick": 4925,
+              "phase": "landed",
+              "previous_grounded": true,
+              "support_source": "boarded",
+              "support_tick": 4824,
+              "takeoff_tick": 4883,
+              "target": {
+                "body_id": 741301293840,
+                "module": "plains_bellstrider_arena",
+                "path": "/root/@Node2D@2/@Node2D@121/@Node2D@122/windkeeper_arena/Platform1",
+                "platform_index": 1,
+                "rect": "[P: (6330.0, 1288.0), S: (120.0, 20.0)]",
+                "rect_xywh": [
+                  6330.0,
+                  1288.0,
+                  120.0,
+                  20.0
+                ]
+              },
+              "trigger_front": 6440.72705078125,
+              "trigger_tick": 4882,
+              "warning": "roll_warning",
+              "warning_tick": 4794
+            }
+          ],
+          "phase": "complete",
+          "plan": {
+            "count": 1,
+            "direction": -1,
+            "kind": "roll",
+            "phase": 2,
+            "return_roll": false,
+            "roll_index": 0,
+            "selected_at": 79.7333333333301,
+            "weights": {
+              "lob": 0.692820323027551,
+              "ring": 0.48,
+              "roll": 1.728
+            }
+          }
+        }
+      ],
+      "note": "diagnostic prerequisites plus all original full-fight predicates; no CI contract migration",
+      "scope": "all",
+      "shot_hit_attribution": [
+        {
+          "actual": {
+            "age": 5.61666666666665,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:1",
+            "group": 1,
+            "health": 39.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:1",
+            "session_id": 2,
+            "shot_id": 1,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 346
+          },
+          "fire": {
+            "fire_group": 1,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 1,
+            "tick": 339
+          },
+          "fire_group": 1,
+          "impact_group": 1,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:1",
+            "health": 39.0,
+            "target": "boss",
+            "tick": 346
+          },
+          "tick": 346
+        },
+        {
+          "actual": {
+            "age": 6.29999999999998,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:2",
+            "group": 1,
+            "health": 38.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6229.118, 1275.623)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:2",
+            "session_id": 2,
+            "shot_id": 2,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 387
+          },
+          "fire": {
+            "fire_group": 1,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 2,
+            "tick": 376
+          },
+          "fire_group": 1,
+          "impact_group": 1,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:2",
+            "health": 38.0,
+            "target": "boss",
+            "tick": 387
+          },
+          "tick": 387
+        },
+        {
+          "actual": {
+            "age": 9.26666666666671,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:3",
+            "group": 2,
+            "health": 37.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6725.051, 1279.477)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:3",
+            "session_id": 2,
+            "shot_id": 3,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 565
+          },
+          "fire": {
+            "fire_group": 2,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 3,
+            "tick": 550
+          },
+          "fire_group": 2,
+          "impact_group": 2,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:3",
+            "health": 37.0,
+            "target": "boss",
+            "tick": 565
+          },
+          "tick": 565
+        },
+        {
+          "actual": {
+            "age": 9.75000000000006,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:4",
+            "group": 2,
+            "health": 36.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6720.29, 1278.715)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:4",
+            "session_id": 2,
+            "shot_id": 4,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 594
+          },
+          "fire": {
+            "fire_group": 2,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 4,
+            "tick": 578
+          },
+          "fire_group": 2,
+          "impact_group": 2,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:4",
+            "health": 36.0,
+            "target": "boss",
+            "tick": 594
+          },
+          "tick": 594
+        },
+        {
+          "actual": {
+            "age": 12.0666666666668,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:5",
+            "group": 3,
+            "health": 35.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6705.554, 1274.511)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:5",
+            "session_id": 2,
+            "shot_id": 5,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 733
+          },
+          "fire": {
+            "fire_group": 3,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 5,
+            "tick": 721
+          },
+          "fire_group": 3,
+          "impact_group": 3,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:5",
+            "health": 35.0,
+            "target": "boss",
+            "tick": 733
+          },
+          "tick": 733
+        },
+        {
+          "actual": {
+            "age": 12.4000000000002,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:6",
+            "group": 3,
+            "health": 34.0,
+            "mode": "observe",
+            "phase": 1,
+            "point": "(6718.451, 1268.252)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:6",
+            "session_id": 2,
+            "shot_id": 6,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 753
+          },
+          "fire": {
+            "fire_group": 3,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 6,
+            "tick": 737
+          },
+          "fire_group": 3,
+          "impact_group": 3,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:6",
+            "health": 34.0,
+            "target": "boss",
+            "tick": 753
+          },
+          "tick": 753
+        },
+        {
+          "actual": {
+            "age": 14.8833333333337,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:7",
+            "group": 4,
+            "health": 33.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:7",
+            "session_id": 2,
+            "shot_id": 7,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 902
+          },
+          "fire": {
+            "fire_group": 4,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 7,
+            "tick": 895
+          },
+          "fire_group": 4,
+          "impact_group": 4,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:7",
+            "health": 33.0,
+            "target": "boss",
+            "tick": 902
+          },
+          "tick": 902
+        },
+        {
+          "actual": {
+            "age": 15.416666666667,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:8",
+            "group": 4,
+            "health": 32.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6224.654, 1278.641)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:8",
+            "session_id": 2,
+            "shot_id": 8,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 934
+          },
+          "fire": {
+            "fire_group": 4,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 8,
+            "tick": 923
+          },
+          "fire_group": 4,
+          "impact_group": 4,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:8",
+            "health": 32.0,
+            "target": "boss",
+            "tick": 934
+          },
+          "tick": 934
+        },
+        {
+          "actual": {
+            "age": 18.4833333333336,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:9",
+            "group": 5,
+            "health": 31.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6726.454, 1279.494)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:9",
+            "session_id": 2,
+            "shot_id": 9,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1118
+          },
+          "fire": {
+            "fire_group": 5,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 9,
+            "tick": 1106
+          },
+          "fire_group": 5,
+          "impact_group": 5,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:9",
+            "health": 31.0,
+            "target": "boss",
+            "tick": 1118
+          },
+          "tick": 1118
+        },
+        {
+          "actual": {
+            "age": 18.8166666666669,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:10",
+            "group": 5,
+            "health": 30.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6719.309, 1278.534)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:10",
+            "session_id": 2,
+            "shot_id": 10,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1138
+          },
+          "fire": {
+            "fire_group": 5,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 10,
+            "tick": 1123
+          },
+          "fire_group": 5,
+          "impact_group": 5,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:10",
+            "health": 30.0,
+            "target": "boss",
+            "tick": 1138
+          },
+          "tick": 1138
+        },
+        {
+          "actual": {
+            "age": 21.3333333333334,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:11",
+            "group": 6,
+            "health": 29.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6705.554, 1274.511)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:11",
+            "session_id": 2,
+            "shot_id": 11,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1289
+          },
+          "fire": {
+            "fire_group": 6,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 11,
+            "tick": 1277
+          },
+          "fire_group": 6,
+          "impact_group": 6,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:11",
+            "health": 29.0,
+            "target": "boss",
+            "tick": 1289
+          },
+          "tick": 1289
+        },
+        {
+          "actual": {
+            "age": 21.6666666666667,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:12",
+            "group": 6,
+            "health": 28.0,
+            "mode": "observe",
+            "phase": 1,
+            "point": "(6718.085, 1268.122)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:12",
+            "session_id": 2,
+            "shot_id": 12,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1309
+          },
+          "fire": {
+            "fire_group": 6,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 12,
+            "tick": 1293
+          },
+          "fire_group": 6,
+          "impact_group": 6,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:12",
+            "health": 28.0,
+            "target": "boss",
+            "tick": 1309
+          },
+          "tick": 1309
+        },
+        {
+          "actual": {
+            "age": 24.4499999999999,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:13",
+            "group": 7,
+            "health": 27.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6696.572, 1279.173)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:13",
+            "session_id": 2,
+            "shot_id": 13,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1476
+          },
+          "fire": {
+            "fire_group": 7,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 13,
+            "tick": 1455
+          },
+          "fire_group": 7,
+          "impact_group": 7,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:13",
+            "health": 27.0,
+            "target": "boss",
+            "tick": 1476
+          },
+          "tick": 1476
+        },
+        {
+          "actual": {
+            "age": 24.7666666666665,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:14",
+            "group": 7,
+            "health": 26.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6698.85, 1278.68)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:14",
+            "session_id": 2,
+            "shot_id": 14,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1495
+          },
+          "fire": {
+            "fire_group": 7,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 14,
+            "tick": 1472
+          },
+          "fire_group": 7,
+          "impact_group": 7,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:14",
+            "health": 26.0,
+            "target": "boss",
+            "tick": 1495
+          },
+          "tick": 1495
+        },
+        {
+          "actual": {
+            "age": 27.983333333333,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:15",
+            "group": 8,
+            "health": 25.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:15",
+            "session_id": 2,
+            "shot_id": 15,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1688
+          },
+          "fire": {
+            "fire_group": 8,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 15,
+            "tick": 1681
+          },
+          "fire_group": 8,
+          "impact_group": 8,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:15",
+            "health": 25.0,
+            "target": "boss",
+            "tick": 1688
+          },
+          "tick": 1688
+        },
+        {
+          "actual": {
+            "age": 28.5166666666663,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:16",
+            "group": 8,
+            "health": 24.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6224.654, 1278.641)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:16",
+            "session_id": 2,
+            "shot_id": 16,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1720
+          },
+          "fire": {
+            "fire_group": 8,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 16,
+            "tick": 1709
+          },
+          "fire_group": 8,
+          "impact_group": 8,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:16",
+            "health": 24.0,
+            "target": "boss",
+            "tick": 1720
+          },
+          "tick": 1720
+        },
+        {
+          "actual": {
+            "age": 31.5833333333328,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:17",
+            "group": 9,
+            "health": 23.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6726.454, 1279.494)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:17",
+            "session_id": 2,
+            "shot_id": 17,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1904
+          },
+          "fire": {
+            "fire_group": 9,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 17,
+            "tick": 1892
+          },
+          "fire_group": 9,
+          "impact_group": 9,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:17",
+            "health": 23.0,
+            "target": "boss",
+            "tick": 1904
+          },
+          "tick": 1904
+        },
+        {
+          "actual": {
+            "age": 31.9166666666661,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:18",
+            "group": 9,
+            "health": 22.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6719.309, 1278.534)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:18",
+            "session_id": 2,
+            "shot_id": 18,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 1924
+          },
+          "fire": {
+            "fire_group": 9,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 18,
+            "tick": 1909
+          },
+          "fire_group": 9,
+          "impact_group": 9,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:18",
+            "health": 22.0,
+            "target": "boss",
+            "tick": 1924
+          },
+          "tick": 1924
+        },
+        {
+          "actual": {
+            "age": 35.3166666666659,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:19",
+            "group": 10,
+            "health": 21.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6696.572, 1279.173)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:19",
+            "session_id": 2,
+            "shot_id": 19,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2128
+          },
+          "fire": {
+            "fire_group": 10,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 19,
+            "tick": 2107
+          },
+          "fire_group": 10,
+          "impact_group": 10,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:19",
+            "health": 21.0,
+            "target": "boss",
+            "tick": 2128
+          },
+          "tick": 2128
+        },
+        {
+          "actual": {
+            "age": 35.6333333333326,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:20",
+            "group": 10,
+            "health": 20.0,
+            "mode": "neck",
+            "phase": 1,
+            "point": "(6698.85, 1278.68)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:20",
+            "session_id": 2,
+            "shot_id": 20,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2147
+          },
+          "fire": {
+            "fire_group": 10,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 20,
+            "tick": 2124
+          },
+          "fire_group": 10,
+          "impact_group": 10,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:20",
+            "health": 20.0,
+            "target": "boss",
+            "tick": 2147
+          },
+          "tick": 2147
+        },
+        {
+          "actual": {
+            "age": 42.5333333333322,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:21",
+            "group": 11,
+            "health": 19.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6696.572, 1279.173)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:21",
+            "session_id": 2,
+            "shot_id": 21,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2561
+          },
+          "fire": {
+            "fire_group": 11,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 21,
+            "tick": 2540
+          },
+          "fire_group": 11,
+          "impact_group": 11,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:21",
+            "health": 19.0,
+            "target": "boss",
+            "tick": 2561
+          },
+          "tick": 2561
+        },
+        {
+          "actual": {
+            "age": 42.8499999999989,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:22",
+            "group": 11,
+            "health": 18.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6698.85, 1278.68)",
+            "position": "(6709.34, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:22",
+            "session_id": 2,
+            "shot_id": 22,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2580
+          },
+          "fire": {
+            "fire_group": 11,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 22,
+            "tick": 2557
+          },
+          "fire_group": 11,
+          "impact_group": 11,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:22",
+            "health": 18.0,
+            "target": "boss",
+            "tick": 2580
+          },
+          "tick": 2580
+        },
+        {
+          "actual": {
+            "age": 45.9666666666653,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:23",
+            "group": 12,
+            "health": 17.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:23",
+            "session_id": 2,
+            "shot_id": 23,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2767
+          },
+          "fire": {
+            "fire_group": 12,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 23,
+            "tick": 2760
+          },
+          "fire_group": 12,
+          "impact_group": 12,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:23",
+            "health": 17.0,
+            "target": "boss",
+            "tick": 2767
+          },
+          "tick": 2767
+        },
+        {
+          "actual": {
+            "age": 46.4999999999986,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:24",
+            "group": 12,
+            "health": 16.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6224.654, 1278.641)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:24",
+            "session_id": 2,
+            "shot_id": 24,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2799
+          },
+          "fire": {
+            "fire_group": 12,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 24,
+            "tick": 2788
+          },
+          "fire_group": 12,
+          "impact_group": 12,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:24",
+            "health": 16.0,
+            "target": "boss",
+            "tick": 2799
+          },
+          "tick": 2799
+        },
+        {
+          "actual": {
+            "age": 49.6166666666651,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:25",
+            "group": 13,
+            "health": 15.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6774.968, 1279.477)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:25",
+            "session_id": 2,
+            "shot_id": 25,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 2986
+          },
+          "fire": {
+            "fire_group": 13,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 25,
+            "tick": 2971
+          },
+          "fire_group": 13,
+          "impact_group": 13,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:25",
+            "health": 15.0,
+            "target": "boss",
+            "tick": 2986
+          },
+          "tick": 2986
+        },
+        {
+          "actual": {
+            "age": 49.9333333333318,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:26",
+            "group": 13,
+            "health": 14.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6769.194, 1278.524)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:26",
+            "session_id": 2,
+            "shot_id": 26,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3005
+          },
+          "fire": {
+            "fire_group": 13,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 26,
+            "tick": 2988
+          },
+          "fire_group": 13,
+          "impact_group": 13,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:26",
+            "health": 14.0,
+            "target": "boss",
+            "tick": 3005
+          },
+          "tick": 3005
+        },
+        {
+          "actual": {
+            "age": 55.2833333333315,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:27",
+            "group": 14,
+            "health": 13.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6743.546, 1279.477)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:27",
+            "session_id": 2,
+            "shot_id": 27,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3326
+          },
+          "fire": {
+            "fire_group": 14,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 27,
+            "tick": 3311
+          },
+          "fire_group": 14,
+          "impact_group": 14,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:27",
+            "health": 13.0,
+            "target": "boss",
+            "tick": 3326
+          },
+          "tick": 3326
+        },
+        {
+          "actual": {
+            "age": 55.6166666666648,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:28",
+            "group": 14,
+            "health": 12.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6749.29, 1278.534)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:28",
+            "session_id": 2,
+            "shot_id": 28,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3346
+          },
+          "fire": {
+            "fire_group": 14,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 28,
+            "tick": 3328
+          },
+          "fire_group": 14,
+          "impact_group": 14,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:28",
+            "health": 12.0,
+            "target": "boss",
+            "tick": 3346
+          },
+          "tick": 3346
+        },
+        {
+          "actual": {
+            "age": 58.8166666666646,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:29",
+            "group": 15,
+            "health": 11.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6767.616, 1269.297)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:29",
+            "session_id": 2,
+            "shot_id": 29,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3538
+          },
+          "fire": {
+            "fire_group": 15,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 29,
+            "tick": 3525
+          },
+          "fire_group": 15,
+          "impact_group": 15,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:29",
+            "health": 11.0,
+            "target": "boss",
+            "tick": 3538
+          },
+          "tick": 3538
+        },
+        {
+          "actual": {
+            "age": 59.1333333333313,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:30",
+            "group": 16,
+            "health": 10.0,
+            "mode": "roll_warning",
+            "phase": 2,
+            "point": "(6766.982, 1268.965)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:30",
+            "session_id": 2,
+            "shot_id": 30,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3557
+          },
+          "fire": {
+            "fire_group": 15,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 30,
+            "tick": 3541
+          },
+          "fire_group": 15,
+          "impact_group": 16,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:30",
+            "health": 10.0,
+            "target": "boss",
+            "tick": 3557
+          },
+          "tick": 3557
+        },
+        {
+          "actual": {
+            "age": 64.0166666666643,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:31",
+            "group": 16,
+            "health": 9.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6773.959, 1279.414)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:31",
+            "session_id": 2,
+            "shot_id": 31,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3850
+          },
+          "fire": {
+            "fire_group": 16,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 31,
+            "tick": 3833
+          },
+          "fire_group": 16,
+          "impact_group": 16,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:31",
+            "health": 9.0,
+            "target": "boss",
+            "tick": 3850
+          },
+          "tick": 3850
+        },
+        {
+          "actual": {
+            "age": 64.3499999999976,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:32",
+            "group": 16,
+            "health": 8.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6769.369, 1278.575)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:32",
+            "session_id": 2,
+            "shot_id": 32,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 3870
+          },
+          "fire": {
+            "fire_group": 16,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 32,
+            "tick": 3850
+          },
+          "fire_group": 16,
+          "impact_group": 16,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:32",
+            "health": 8.0,
+            "target": "boss",
+            "tick": 3870
+          },
+          "tick": 3870
+        },
+        {
+          "actual": {
+            "age": 69.7999999999973,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:33",
+            "group": 17,
+            "health": 7.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6717.697, 1279.469)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:33",
+            "session_id": 2,
+            "shot_id": 33,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4197
+          },
+          "fire": {
+            "fire_group": 17,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 33,
+            "tick": 4187
+          },
+          "fire_group": 17,
+          "impact_group": 17,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:33",
+            "health": 7.0,
+            "target": "boss",
+            "tick": 4197
+          },
+          "tick": 4197
+        },
+        {
+          "actual": {
+            "age": 70.1499999999973,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:34",
+            "group": 17,
+            "health": 6.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6725.54, 1278.553)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:34",
+            "session_id": 2,
+            "shot_id": 34,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4218
+          },
+          "fire": {
+            "fire_group": 17,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 34,
+            "tick": 4204
+          },
+          "fire_group": 17,
+          "impact_group": 17,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:34",
+            "health": 6.0,
+            "target": "boss",
+            "tick": 4218
+          },
+          "tick": 4218
+        },
+        {
+          "actual": {
+            "age": 75.699999999997,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:35",
+            "group": 18,
+            "health": 5.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6773.959, 1279.414)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:35",
+            "session_id": 2,
+            "shot_id": 35,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4551
+          },
+          "fire": {
+            "fire_group": 18,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 35,
+            "tick": 4534
+          },
+          "fire_group": 18,
+          "impact_group": 18,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:35",
+            "health": 5.0,
+            "target": "boss",
+            "tick": 4551
+          },
+          "tick": 4551
+        },
+        {
+          "actual": {
+            "age": 76.0333333333303,
+            "amount": 1.0,
+            "direction": 1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:36",
+            "group": 18,
+            "health": 4.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6769.369, 1278.575)",
+            "position": "(6759.257, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:36",
+            "session_id": 2,
+            "shot_id": 36,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4571
+          },
+          "fire": {
+            "fire_group": 18,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 36,
+            "tick": 4551
+          },
+          "fire_group": 18,
+          "impact_group": 18,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:36",
+            "health": 4.0,
+            "target": "boss",
+            "tick": 4571
+          },
+          "tick": 4571
+        },
+        {
+          "actual": {
+            "age": 79.4333333333301,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:37",
+            "group": 19,
+            "health": 3.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6743.935, 1269.297)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:37",
+            "session_id": 2,
+            "shot_id": 37,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4775
+          },
+          "fire": {
+            "fire_group": 19,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 37,
+            "tick": 4762
+          },
+          "fire_group": 19,
+          "impact_group": 19,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:37",
+            "health": 3.0,
+            "target": "boss",
+            "tick": 4775
+          },
+          "tick": 4775
+        },
+        {
+          "actual": {
+            "age": 79.7499999999968,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:38",
+            "group": 20,
+            "health": 2.0,
+            "mode": "roll_warning",
+            "phase": 2,
+            "point": "(6743.551, 1269.522)",
+            "position": "(6735.576, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:38",
+            "session_id": 2,
+            "shot_id": 38,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4794
+          },
+          "fire": {
+            "fire_group": 19,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 38,
+            "tick": 4778
+          },
+          "fire_group": 19,
+          "impact_group": 20,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:38",
+            "health": 2.0,
+            "target": "boss",
+            "tick": 4794
+          },
+          "tick": 4794
+        },
+        {
+          "actual": {
+            "age": 82.0999999999966,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:39",
+            "group": 20,
+            "health": 1.0,
+            "mode": "neck",
+            "phase": 2,
+            "point": "(6216.397, 1279.422)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:39",
+            "session_id": 2,
+            "shot_id": 39,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4935
+          },
+          "fire": {
+            "fire_group": 20,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 39,
+            "tick": 4928
+          },
+          "fire_group": 20,
+          "impact_group": 20,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:39",
+            "health": 1.0,
+            "target": "boss",
+            "tick": 4935
+          },
+          "tick": 4935
+        },
+        {
+          "actual": {
+            "age": 82.6333333333299,
+            "amount": 1.0,
+            "direction": -1,
+            "event": "bellstrider_bell_hit",
+            "event_id": "322139327891:2:40",
+            "group": 20,
+            "health": 0.0,
+            "mode": "dead",
+            "phase": 2,
+            "point": "(6222.068, 1279.2)",
+            "position": "(6235.0, 1353.0)"
+          },
+          "committed_context": {
+            "amount": 1.0,
+            "damage_type": "projectile",
+            "event_id": "322139327891:2:40",
+            "session_id": 2,
+            "shot_id": 40,
+            "skill_attack": false,
+            "source_actor_id": 322139327891,
+            "source_faction": "player",
+            "target_actor_id": 756853773712,
+            "target_epoch": 1,
+            "tick": 4967
+          },
+          "fire": {
+            "fire_group": 20,
+            "owner_id": 322139327891,
+            "session_id": 2,
+            "shot_id": 40,
+            "tick": 4956
+          },
+          "fire_group": 20,
+          "impact_group": 20,
+          "policy_batch": {
+            "amount": 1.0,
+            "event": "322139327891:2:40",
+            "health": 0.0,
+            "target": "boss",
+            "tick": 4967
+          },
+          "tick": 4967
+        }
+      ]
+    }
+  ],
+  "original_source_restored": true,
+  "git_metadata_restored": true
+}
