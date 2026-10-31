@@ -82,7 +82,7 @@ func _run() -> void:
 	host.player.combat_energy.spent.disconnect(host.on_spent)
 	host.player.free()
 	host.world.free()
-	var weak := weakref(host)
+	var weak: WeakRef = weakref(host)
 	var call_scope := time_context.scoped()
 	host = null
 	check(weak.get_ref() != null and call_scope.effect(&"B06").fixture, "local time call scope retains its owner across synchronous callbacks without exposing it")
