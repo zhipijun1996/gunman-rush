@@ -9,6 +9,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import region_creative_direction as creative
+import region_style_history as history
 import level_design
 import production_loop
 
@@ -20,16 +21,9 @@ MERGED_BOSSES_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-
 
 
 def boss_parent_source(parent, path):
-    """Only explicit changed parent leaves use frozen bytes; others stay live."""
-    base = creative.ROOT / MERGED_BOSSES_ARCHIVE / parent
-    manifest = json.loads((base/'manifest.json').read_bytes())
-    row = next((r for r in manifest['sources'] if r['path']==path), None)
-    if row is None:
-        return (creative.ROOT/path).read_bytes()
-    raw = (base/row['archive_path']).read_bytes()
-    if hashlib.sha256(raw).hexdigest()!=row['sha256']:
-        raise AssertionError('Frozen combination parent source changed: '+path)
-    return raw
+    """Keep each parent leaf first, then the finite pre-layout shared source."""
+    raw = history.archived_source(creative.ROOT, MERGED_BOSSES_ARCHIVE.rstrip('/') + '/' + parent, path)
+    return history.style25_source(creative.ROOT, path) if raw is None else raw
 
 
 def boss_parent_registry(parent):
@@ -71,7 +65,7 @@ def windkeeper22_source(path):
         return content
     if path in {'scripts/demo/plains_region_stage.gd','scripts/combat/weapon_action_runtime.gd'}:
         return (creative.ROOT/('docs/creative_direction/archive/creative-v25-before-bellstrider-rework/sources/'+path+'.txt')).read_bytes()
-    return (creative.ROOT/path).read_bytes()
+    return history.style25_source(creative.ROOT, path)
 
 def frozen25_direction(region):
     archived = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+region+'.json')).read_bytes())
@@ -90,7 +84,7 @@ def frozen25_direction(region):
             elif path in {'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/combat/weapon_action_runtime.gd'}:
                 content = windkeeper22_source(path)
             else:
-                content = (creative.ROOT/path).read_bytes()
+                content = history.style25_source(creative.ROOT, path)
             target = fixture/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(content)
         direction = 'docs/creative_direction/'+region+'.json'
         target = fixture/direction;target.parent.mkdir(parents=True,exist_ok=True)

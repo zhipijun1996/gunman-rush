@@ -1,0 +1,151 @@
+@static_unload
+class_name ChestArtLibrary
+extends RefCounted
+## Six presentation recipes only. No reward, claim, RNG, actor or save ownership.
+const ATLAS := preload("res://assets/objects/chests/chest-tiers-v1.source.png")
+const CONFIG_PATH := "res://config/chest_art.json"
+const WORLD_SHADER := preload("res://shaders/item_v5_world_sprite.gdshader")
+const MAX_TEXTURE_RGBA_BYTES := 8*1024*1024
+const TIERS := [&"medium", &"high", &"region_top"]
+static var _loaded := false
+static var _data: Dictionary = {}
+static var _textures: Dictionary = {}
+static var _material: ShaderMaterial
+static var _last_error := ""
+
+static func clear_cache() -> void:
+	_loaded = false
+	_data.clear()
+	_textures.clear()
+	_material = null
+	_last_error = ""
+
+static func _diagnose(message: String) -> void:
+	if _last_error == message: return
+	_last_error = message
+	push_warning("Chest art: "+message)
+
+static func _numeric_pair(value: Variant) -> bool:
+	if not value is Array or value.size() != 2: return false
+	for number: Variant in value:
+		if not (number is int or number is float) or not is_finite(float(number)): return false
+	return true
+
+static func validate_config(value: Variant) -> String:
+	if not value is Dictionary or value.get("schema_version") != 1: return "Expected chest-art schema_version 1"
+	if not value.get("tiers") is Dictionary or value.tiers.size() != 3: return "Expected exactly three explicit chest tiers"
+	if value.get("aliases") != {"hard_optional":"region_top"}: return "Only explicit legacy resource alias hard_optional->region_top is admitted"
+	if ATLAS.get_width()*ATLAS.get_height()*4 > MAX_TEXTURE_RGBA_BYTES: return "Original chest atlas exceeds separate 8MiB RGBA8 budget"
+	var bounds := Rect2(Vector2.ZERO,ATLAS.get_size())
+	for tier: StringName in TIERS:
+		var row: Variant = value.tiers.get(String(tier))
+		if not row is Dictionary or not row.get("states") is Dictionary or row.states.size() != 2: return "Missing exactly closed/open recipes for "+String(tier)
+		var factor := -1.0
+		for state: String in ["closed","open"]:
+			var pose: Variant = row.states.get(state)
+			if not pose is Dictionary: return "Missing pose "+String(tier)+"/"+state
+			var region: Variant = pose.get("region")
+			if not region is Array or region.size() != 4: return "Expected integer pixel ROI"
+			for coordinate: Variant in region:
+				if not (coordinate is int or coordinate is float) or not is_finite(float(coordinate)) or float(coordinate) != floorf(float(coordinate)): return "ROI must use finite integer source coordinates"
+			var rect := Rect2(float(region[0]),float(region[1]),float(region[2]),float(region[3]))
+			if not rect.has_area() or not bounds.encloses(rect): return "ROI outside immutable original atlas"
+			if not _numeric_pair(pose.get("world_size")) or not _numeric_pair(pose.get("foot_pivot_source_px")): return "Expected finite world_size and source-pixel foot pivot"
+			var world := Vector2(float(pose.world_size[0]),float(pose.world_size[1]))
+			var pivot := Vector2(float(pose.foot_pivot_source_px[0]),float(pose.foot_pivot_source_px[1]))
+			if world.x <= 0 or world.y <= 0: return "World canvas must be positive"
+			if pivot.x < 0 or pivot.y < 0 or pivot.x > rect.size.x or pivot.y > rect.size.y: return "Foot pivot outside complete source ROI"
+			var scale_xy := world / rect.size
+			if not is_equal_approx(scale_xy.x,scale_xy.y): return "Chest art cannot stretch source aspect"
+			if factor >= 0 and not is_equal_approx(factor,scale_xy.x): return "Closed/open must share one isotropic tier scale"
+			factor = scale_xy.x
+	return ""
+
+static func _load() -> void:
+	if _loaded: return
+	_loaded = true
+	if not FileAccess.file_exists(CONFIG_PATH):
+		_diagnose("Missing chest art configuration: "+CONFIG_PATH)
+		return
+	var parser := JSON.new()
+	var parse_status := parser.parse(FileAccess.get_file_as_string(CONFIG_PATH))
+	if parse_status != OK:
+		_diagnose("Invalid chest art JSON: "+parser.get_error_message())
+		return
+	var value: Variant = parser.data
+	var error := validate_config(value)
+	if not error.is_empty():
+		_diagnose(error)
+		return
+	_data = value
+
+static func canonical_tier(tier: StringName) -> StringName:
+	_load()
+	if _data.is_empty(): return &""
+	if tier in TIERS: return tier
+	if _data.aliases.has(String(tier)): return StringName(_data.aliases[String(tier)])
+	_diagnose("Unknown explicit chest tier: "+String(tier))
+	return &""
+
+static func pose(tier: StringName, claimed: bool) -> Dictionary:
+	var resolved := canonical_tier(tier)
+	if resolved.is_empty(): return {}
+	var state := "open" if claimed else "closed"
+	return _data.tiers[String(resolved)].states[state].duplicate(true)
+
+static func texture(tier: StringName, claimed: bool) -> AtlasTexture:
+	var resolved := canonical_tier(tier)
+	if resolved.is_empty(): return null
+	var key := String(resolved)+("/open" if claimed else "/closed")
+	if _textures.has(key): return _textures[key] as AtlasTexture
+	var row := pose(resolved,claimed)
+	var region: Array = row.region
+	var result := AtlasTexture.new()
+	result.atlas = ATLAS
+	result.region = Rect2(float(region[0]),float(region[1]),float(region[2]),float(region[3]))
+	result.filter_clip = true
+	_textures[key] = result
+	return result
+
+static func world_material() -> ShaderMaterial:
+	if _material == null:
+		_material = ShaderMaterial.new()
+		_material.shader = WORLD_SHADER
+	return _material
+
+static func place_sprite(sprite: Sprite2D, foot: Vector2, tier: StringName, claimed: bool) -> bool:
+	# Explicit-tier ownership is recorded even on failure, so legacy cosmetic
+	# opt-ins cannot silently replace a rejected recipe with unrelated art.
+	sprite.set_meta("chest_art_managed",true)
+	sprite.set_meta("chest_art_tier",tier)
+	sprite.set_meta("underworld_chest_open",claimed)
+	sprite.modulate = Color.WHITE
+	var row := pose(tier,claimed)
+	if row.is_empty():
+		sprite.texture = null
+		return false
+	var canvas := Vector2(float(row.world_size[0]),float(row.world_size[1]))
+	var source_region: Array = row.region
+	var factor := canvas.x/float(source_region[2])
+	sprite.texture = texture(tier,claimed)
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	sprite.material = world_material()
+	sprite.centered = false
+	sprite.offset = -Vector2(float(row.foot_pivot_source_px[0]),float(row.foot_pivot_source_px[1]))
+	sprite.scale = Vector2.ONE*factor
+	sprite.position = foot
+	return true
+
+static func draw_chest(canvas: CanvasItem, foot: Vector2, tier: StringName, claimed: bool) -> bool:
+	var row := pose(tier,claimed)
+	if row.is_empty(): return false
+	var size := Vector2(float(row.world_size[0]),float(row.world_size[1]))
+	var source_region: Array = row.region
+	var factor := size.x/float(source_region[2])
+	var pivot := Vector2(float(row.foot_pivot_source_px[0]),float(row.foot_pivot_source_px[1]))*factor
+	canvas.draw_texture_rect(texture(tier,claimed),Rect2(foot-pivot,size),false,Color.WHITE)
+	return true
+
+static func diagnostics() -> Dictionary:
+	_load()
+	return {"valid":not _data.is_empty(),"last_error":_last_error,"atlas":ATLAS.resource_path,"rgba8_bytes":ATLAS.get_width()*ATLAS.get_height()*4,"budget_bytes":MAX_TEXTURE_RGBA_BYTES,"cached_atlas_regions":_textures.size(),"world_shader":WORLD_SHADER.resource_path}

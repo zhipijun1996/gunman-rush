@@ -1,0 +1,939 @@
+{
+  "schema_version": 1,
+  "parent": "merged-style25-creative28",
+  "source_commit": "4bb7aa962cb9477b6fc931b221b3a38132cad1f2",
+  "scope": "Exact original pre-feature-layout bytes for finite historical validators only. No current binding, art/gameplay/audio/user/device acceptance is inherited or refreshed.",
+  "selection": {
+    "style25_moving_reference_count": 72,
+    "retained_earlier_style_source_count": 1,
+    "held_protocol_references": [
+      "resources/bosses/bellstrider.tres",
+      "resources/bosses/windkeeper_pressure_health.tres",
+      "resources/bosses/windkeeper_storm.tres",
+      "scenes/bosses/windkeeper_pressure.tscn"
+    ],
+    "media_copied": false,
+    "runtime_uid_copied": false,
+    "policy": "Only moving/modified sources referenced by preserved Bible consumers; unchanged media/config/Bibles/selection provenance remain in their existing authority locations. Exact old tests and profile documents retain their original bytes."
+  },
+  "sources": [
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "archive_path": "sources/scripts/demo/plains_region_stage.gd.txt",
+      "sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0",
+      "role": "formal_entry",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/plains_terrain_study.gd",
+      "archive_path": "sources/scripts/art/plains_terrain_study.gd.txt",
+      "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+      "role": "terrain_consumer",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_terrain.gd",
+      "archive_path": "sources/scripts/underworld_plains/underworld_terrain.gd.txt",
+      "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f",
+      "role": "terrain_renderer",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art_foundation/blob47_rules.gd",
+      "archive_path": "sources/scripts/art_foundation/blob47_rules.gd.txt",
+      "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6",
+      "role": "adjacency",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+      "archive_path": "sources/scripts/art_foundation/pixel_formal_terrain.gd.txt",
+      "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225",
+      "role": "boundary",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/plains_terrain_borders.gd",
+      "archive_path": "sources/scripts/art/plains_terrain_borders.gd.txt",
+      "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34",
+      "role": "boundary_sides",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "archive_path": "sources/scripts/underworld_plains/underworld_player.gd.txt",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "role": "player_style_reference",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_presentation.gd",
+      "archive_path": "sources/scripts/underworld_plains/underworld_presentation.gd.txt",
+      "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+      "role": "world_presentation",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/player_presentation_runtime.gd",
+      "archive_path": "sources/scripts/art/player_presentation_runtime.gd.txt",
+      "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91",
+      "role": "default_player_1",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/avatar_presentation.gd",
+      "archive_path": "sources/scripts/art/avatar_presentation.gd.txt",
+      "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437",
+      "role": "default_player_2",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "resources/art/avatars.json",
+      "archive_path": "sources/resources/art/avatars.json.txt",
+      "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65",
+      "role": "default_player_3",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "archive_path": "sources/scripts/demo/demo_app.gd.txt",
+      "sha256": "bebe53660e26b820275d70faea9e16ad8443da383b219a20e886d4e0242b7c96",
+      "role": "default_player_4",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "archive_path": "sources/scripts/demo/home_scene.gd.txt",
+      "sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+      "role": "default_player_5",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/motion_visual.gd.txt",
+      "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f",
+      "role": "default_player_6",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/motion_profile.gd.txt",
+      "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77",
+      "role": "default_player_7",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/motion_feel.gd.txt",
+      "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327",
+      "role": "default_player_8",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/weapon_feel_v2.gd.txt",
+      "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138",
+      "role": "default_player_9",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "resources/player_presentation_01/motion_v1.tres",
+      "archive_path": "sources/resources/player_presentation_01/motion_v1.tres.txt",
+      "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688",
+      "role": "default_player_10",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "resources/player_presentation_01/motion_clip_data.gd",
+      "archive_path": "sources/resources/player_presentation_01/motion_clip_data.gd.txt",
+      "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154",
+      "role": "default_player_11",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "resources/player_presentation_01/landing_screen.gdshader",
+      "archive_path": "sources/resources/player_presentation_01/landing_screen.gdshader.txt",
+      "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c",
+      "role": "default_player_12",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+      "archive_path": "sources/resources/player_presentation_01/weapon_feel_v1.tres.txt",
+      "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1",
+      "role": "default_player_13",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/weapon_profile.gd.txt",
+      "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50",
+      "role": "default_player_14",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/items/v5/item_effect_view.gd",
+      "archive_path": "sources/scripts/items/v5/item_effect_view.gd.txt",
+      "sha256": "09ddea3f0ad634f62f6d7d8e11f6f50e48d5d394a019015cba4c9d8569921ced",
+      "role": "item_feedback_view",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/items/v5/item_v5_entity.gd",
+      "archive_path": "sources/scripts/items/v5/item_v5_entity.gd.txt",
+      "sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd",
+      "role": "item_entity_view",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/items/v5/item_defense_effects.gd",
+      "archive_path": "sources/scripts/items/v5/item_defense_effects.gd.txt",
+      "sha256": "3d3619d85220d87fab738f084ad3a4a549d7b460f71d3a6e4e94702fe7088c9c",
+      "role": "item_defense_glyphs",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/actor_resources_hud.gd",
+      "archive_path": "sources/scripts/ui/actor_resources_hud.gd.txt",
+      "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721",
+      "role": "item_resource_hud",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "archive_path": "sources/scripts/ui/demo_menu.gd.txt",
+      "sha256": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f",
+      "role": "item_pause_menu",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/item_presentation.gd",
+      "archive_path": "sources/scripts/ui/item_presentation.gd.txt",
+      "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae",
+      "role": "item_description",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/item_card.gd",
+      "archive_path": "sources/scripts/ui/item_card.gd.txt",
+      "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8",
+      "role": "item_card",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/item_acquired_toast.gd",
+      "archive_path": "sources/scripts/ui/item_acquired_toast.gd.txt",
+      "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b",
+      "role": "item_toast",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/item_shop_modal.gd",
+      "archive_path": "sources/scripts/ui/item_shop_modal.gd.txt",
+      "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4",
+      "role": "item_shop_modal",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/stage_reward_modal.gd",
+      "archive_path": "sources/scripts/ui/stage_reward_modal.gd.txt",
+      "sha256": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5",
+      "role": "item_reward_modal",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/touch_overlay.gd",
+      "archive_path": "sources/scripts/ui/touch_overlay.gd.txt",
+      "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f",
+      "role": "item_touch_control",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+      "archive_path": "sources/scripts/items/v5/item_v5_shop_presenter.gd.txt",
+      "sha256": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b",
+      "role": "item_shop_presenter",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "archive_path": "sources/scripts/combat/weapon_action_runtime.gd.txt",
+      "sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6",
+      "role": "item_weapon_runtime",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/weapon_feel.gd.txt",
+      "sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b",
+      "role": "item_weapon_feel",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+      "archive_path": "sources/scripts/dev/player_presentation_01/weapon_vfx_v2.gd.txt",
+      "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676",
+      "role": "item_weapon_vfx",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/items/v5/item_art_library.gd",
+      "archive_path": "sources/scripts/items/v5/item_art_library.gd.txt",
+      "sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+      "role": "item_art_library",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/home_item_codex.gd",
+      "archive_path": "sources/scripts/ui/home_item_codex.gd.txt",
+      "sha256": "18d3e61a40e681afc029596a15e005eb2aaa23f4638930b7127f91b75def75d1",
+      "role": "home_codex_ui",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "archive_path": "sources/scripts/underworld_plains/underworld_home_world.gd.txt",
+      "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "role": "home_codex_world",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/meta/home_item_catalog.gd",
+      "archive_path": "sources/scripts/meta/home_item_catalog.gd.txt",
+      "sha256": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e",
+      "role": "home_item_catalog_policy",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/meta/meta_progression.gd",
+      "archive_path": "sources/scripts/meta/meta_progression.gd.txt",
+      "sha256": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403",
+      "role": "home_item_profile_presenter",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/chest_art_library.gd",
+      "archive_path": "sources/scripts/art/chest_art_library.gd.txt",
+      "sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e",
+      "role": "chest_art_library",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/chest_art_layer.gd",
+      "archive_path": "sources/scripts/art/chest_art_layer.gd.txt",
+      "sha256": "4def1212d2a3e4369ba4d202cc42178829d1c0d3c11c306626d72a31ca226719",
+      "role": "chest_art_layer",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_objects.gd",
+      "archive_path": "sources/scripts/underworld_plains/underworld_objects.gd.txt",
+      "sha256": "a1b4681f8d527fa51ac06fadbecf4d4a0d53b112c31f77487bed2b686763da91",
+      "role": "chest_formal_dispatch",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_presentation.gd",
+      "archive_path": "sources/scripts/presentation/forest_bible_presentation.gd.txt",
+      "sha256": "4e00cfc7d232b25ccfac81ac1a47a9a23743689c5b4815d85cb762c1d5130a44",
+      "role": "chest_forest_presentation",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "archive_path": "sources/scripts/demo/thorn_forest_region_stage.gd.txt",
+      "sha256": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8",
+      "role": "chest_forest_stage",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/p1_unity_props.gd",
+      "archive_path": "sources/scripts/art/p1_unity_props.gd.txt",
+      "sha256": "0a7d5976ae68146902efbc12aeee2d7656a76a0e9abe5ecdaca96b60bac70263",
+      "role": "chest_cosmetic_boundary",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "archive_path": "sources/scripts/bosses/bellstrider_presentation.gd.txt",
+      "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee",
+      "role": "bellstrider_presentation",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_rig_pose.gd",
+      "archive_path": "sources/scripts/bosses/bellstrider_rig_pose.gd.txt",
+      "sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366",
+      "role": "bellstrider_shared_rig",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_encounter.gd",
+      "archive_path": "sources/scripts/bosses/bellstrider_encounter.gd.txt",
+      "sha256": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d",
+      "role": "bellstrider_accepted_pose_owner",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_definition.gd",
+      "archive_path": "sources/scripts/bosses/bellstrider_definition.gd.txt",
+      "sha256": "67c2f93c85660dc0d89a2c3fb9f66bb932a4c281de9620f08be7e41cc728f49a",
+      "role": "bellstrider_definition",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/audio/bellstrider_audio.gd",
+      "archive_path": "sources/scripts/audio/bellstrider_audio.gd.txt",
+      "sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207",
+      "role": "bellstrider_audio_consumer",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_ring_projectile.gd",
+      "archive_path": "sources/scripts/bosses/bellstrider_ring_projectile.gd.txt",
+      "sha256": "f7a0f7e1635a17f01ec808833ac460406c836858f28102a9d6c960693d4796d2",
+      "role": "bellstrider_local_ring_vfx",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_bell_projectile.gd",
+      "archive_path": "sources/scripts/bosses/bellstrider_bell_projectile.gd.txt",
+      "sha256": "0093e043bcde8f5858b1828aa37927e0f2057fddbd2596232e886b4cffca33df",
+      "role": "bellstrider_lob_bell_vfx",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/boss_factory.gd",
+      "archive_path": "sources/scripts/bosses/boss_factory.gd.txt",
+      "sha256": "ebbbf1064557eba90ee789234d2e7638fac71a450c39c7929f87fe48a3c52d7a",
+      "role": "windkeeper_pressure_factory",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_definition.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_definition.gd.txt",
+      "sha256": "afaf0fb90b8b3ac2e87e11c550eb2bb154892f1bf837bd5d8f74dd9263c4ecb2",
+      "role": "windkeeper_pressure_definition",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_encounter.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_encounter.gd.txt",
+      "sha256": "cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef",
+      "role": "windkeeper_pressure_pose_owner",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_rig.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_rig.gd.txt",
+      "sha256": "37a9f92078742dd5d0845ecf43aef1e9addbed031dc0be52461f6dd5445e475f",
+      "role": "windkeeper_pressure_rig",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_presentation.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_presentation.gd.txt",
+      "sha256": "86ac2ccac624b53b97d0c1e769a2b48bc50a6e03e14627c9bfebaa3ff7b8fae4",
+      "role": "windkeeper_pressure_presentation",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_projectile.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_projectile.gd.txt",
+      "sha256": "ee748f5d8420d9d41861de02a6e066982b67884579d900e4586bde2cfe5d4689",
+      "role": "windkeeper_pressure_projectile",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_strike.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_strike.gd.txt",
+      "sha256": "c9ab3f99510f34bd40168b931ea2b1a73f22b7fdfbcf89f454b97bf4c6c0cb9c",
+      "role": "windkeeper_pressure_strike",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/audio/windkeeper_pressure_audio.gd",
+      "archive_path": "sources/scripts/audio/windkeeper_pressure_audio.gd.txt",
+      "sha256": "f7bbcc4810ab978f639adc4acf659b2639d5373f9b3bb1fa0d4a4052ec821ff2",
+      "role": "windkeeper_pressure_audio",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/rewards/windkeeper_pressure_rewards.gd",
+      "archive_path": "sources/scripts/rewards/windkeeper_pressure_rewards.gd.txt",
+      "sha256": "c679f22db00aca09b034521b4000d18f413cd88ecbf47ca59c09ea2ade301df7",
+      "role": "windkeeper_pressure_rewards",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/ui/windkeeper_hud.gd",
+      "archive_path": "sources/scripts/ui/windkeeper_hud.gd.txt",
+      "sha256": "2560641b9db7a79e4e91fe2f5d8027dfafa5495900125c27ffebd69e33af95e0",
+      "role": "windkeeper_pressure_hud",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/damage/demo_contact_emitter.gd",
+      "archive_path": "sources/scripts/damage/demo_contact_emitter.gd.txt",
+      "sha256": "cc7d6ca0a67b984a32c56fe5db945dd37168f5fabc43ddb3a34b1cfdba6930b6",
+      "role": "windkeeper_pressure_contact",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art_foundation/pixel_formal_style_installer.gd",
+      "archive_path": "sources/scripts/art_foundation/pixel_formal_style_installer.gd.txt",
+      "sha256": "28bac61b655690762b240020e8d91773fbeb78c7c47838a7ab7d87927bb8cc69",
+      "role": "windkeeper_pressure_style_installer",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "archive_path": "sources/scripts/underworld_plains/underworld_actor_installer.gd.txt",
+      "sha256": "13f1b3e1f6e27cf9a71024a88ef04db3dfb3457c65efedaa7b514ed8efc87fb0",
+      "role": "windkeeper_pressure_actor_installer",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/demo/module_lab.gd",
+      "archive_path": "sources/scripts/demo/module_lab.gd.txt",
+      "sha256": "0da13b9d89012227acfacca33754041bf89558f8fba74853b9c4a66f002d9b0d",
+      "role": "windkeeper_pressure_lab",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/run/run_manifest.gd",
+      "archive_path": "sources/scripts/run/run_manifest.gd.txt",
+      "sha256": "b88e1e6d42fc9b3ed0ed0697c3ebbcc47a06aaaea7abd05ce867310fe6e855cd",
+      "role": "windkeeper_pressure_manifest",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/art/plains_stage_visual.gd",
+      "archive_path": "sources/scripts/art/plains_stage_visual.gd.txt",
+      "sha256": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8",
+      "role": "windkeeper_pressure_stage_visual",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_pressure_wind.gd",
+      "archive_path": "sources/scripts/bosses/windkeeper_pressure_wind.gd.txt",
+      "sha256": "d1039ea821d93c6ad61c7b0e4a4c3f7519a4f11dea3033651b3666196fdc4f4c",
+      "role": "windkeeper_pressure_wind",
+      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_terrain.gdshader",
+      "archive_path": "sources/scripts/underworld_plains/underworld_terrain.gdshader.txt",
+      "sha256": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+      "consumer": [
+        "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+        "docs/creative_direction/bibles/style-continuity-20261021-v3.json",
+        "docs/creative_direction/bibles/style-continuity-20261021.json",
+        "docs/creative_direction/bibles/style-continuity-20261022-v4.json"
+      ],
+      "reason": "Retained style1-4 historical validators still read this moved shader path."
+    }
+  ],
+  "files": [
+    {
+      "path": "sources/scripts/demo/plains_region_stage.gd.txt",
+      "sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0",
+      "bytes": 19886
+    },
+    {
+      "path": "sources/scripts/art/plains_terrain_study.gd.txt",
+      "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+      "bytes": 2555
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_terrain.gd.txt",
+      "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f",
+      "bytes": 12575
+    },
+    {
+      "path": "sources/scripts/art_foundation/blob47_rules.gd.txt",
+      "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6",
+      "bytes": 1956
+    },
+    {
+      "path": "sources/scripts/art_foundation/pixel_formal_terrain.gd.txt",
+      "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225",
+      "bytes": 7630
+    },
+    {
+      "path": "sources/scripts/art/plains_terrain_borders.gd.txt",
+      "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34",
+      "bytes": 3859
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_player.gd.txt",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "bytes": 8019
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_presentation.gd.txt",
+      "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+      "bytes": 8617
+    },
+    {
+      "path": "sources/scripts/art/player_presentation_runtime.gd.txt",
+      "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91",
+      "bytes": 3917
+    },
+    {
+      "path": "sources/scripts/art/avatar_presentation.gd.txt",
+      "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437",
+      "bytes": 12057
+    },
+    {
+      "path": "sources/resources/art/avatars.json.txt",
+      "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65",
+      "bytes": 841
+    },
+    {
+      "path": "sources/scripts/demo/demo_app.gd.txt",
+      "sha256": "bebe53660e26b820275d70faea9e16ad8443da383b219a20e886d4e0242b7c96",
+      "bytes": 166875
+    },
+    {
+      "path": "sources/scripts/demo/home_scene.gd.txt",
+      "sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+      "bytes": 12794
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/motion_visual.gd.txt",
+      "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f",
+      "bytes": 9273
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/motion_profile.gd.txt",
+      "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77",
+      "bytes": 2340
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/motion_feel.gd.txt",
+      "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327",
+      "bytes": 3445
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/weapon_feel_v2.gd.txt",
+      "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138",
+      "bytes": 7259
+    },
+    {
+      "path": "sources/resources/player_presentation_01/motion_v1.tres.txt",
+      "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688",
+      "bytes": 237
+    },
+    {
+      "path": "sources/resources/player_presentation_01/motion_clip_data.gd.txt",
+      "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154",
+      "bytes": 3815
+    },
+    {
+      "path": "sources/resources/player_presentation_01/landing_screen.gdshader.txt",
+      "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c",
+      "bytes": 358
+    },
+    {
+      "path": "sources/resources/player_presentation_01/weapon_feel_v1.tres.txt",
+      "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1",
+      "bytes": 232
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/weapon_profile.gd.txt",
+      "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50",
+      "bytes": 816
+    },
+    {
+      "path": "sources/scripts/items/v5/item_effect_view.gd.txt",
+      "sha256": "09ddea3f0ad634f62f6d7d8e11f6f50e48d5d394a019015cba4c9d8569921ced",
+      "bytes": 22498
+    },
+    {
+      "path": "sources/scripts/items/v5/item_v5_entity.gd.txt",
+      "sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd",
+      "bytes": 7232
+    },
+    {
+      "path": "sources/scripts/items/v5/item_defense_effects.gd.txt",
+      "sha256": "3d3619d85220d87fab738f084ad3a4a549d7b460f71d3a6e4e94702fe7088c9c",
+      "bytes": 24178
+    },
+    {
+      "path": "sources/scripts/ui/actor_resources_hud.gd.txt",
+      "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721",
+      "bytes": 10889
+    },
+    {
+      "path": "sources/scripts/ui/demo_menu.gd.txt",
+      "sha256": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f",
+      "bytes": 73187
+    },
+    {
+      "path": "sources/scripts/ui/item_presentation.gd.txt",
+      "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae",
+      "bytes": 16335
+    },
+    {
+      "path": "sources/scripts/ui/item_card.gd.txt",
+      "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8",
+      "bytes": 4459
+    },
+    {
+      "path": "sources/scripts/ui/item_acquired_toast.gd.txt",
+      "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b",
+      "bytes": 1841
+    },
+    {
+      "path": "sources/scripts/ui/item_shop_modal.gd.txt",
+      "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4",
+      "bytes": 6062
+    },
+    {
+      "path": "sources/scripts/ui/stage_reward_modal.gd.txt",
+      "sha256": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5",
+      "bytes": 2868
+    },
+    {
+      "path": "sources/scripts/ui/touch_overlay.gd.txt",
+      "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f",
+      "bytes": 16663
+    },
+    {
+      "path": "sources/scripts/items/v5/item_v5_shop_presenter.gd.txt",
+      "sha256": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b",
+      "bytes": 18298
+    },
+    {
+      "path": "sources/scripts/combat/weapon_action_runtime.gd.txt",
+      "sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6",
+      "bytes": 32608
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/weapon_feel.gd.txt",
+      "sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b",
+      "bytes": 10310
+    },
+    {
+      "path": "sources/scripts/dev/player_presentation_01/weapon_vfx_v2.gd.txt",
+      "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676",
+      "bytes": 10694
+    },
+    {
+      "path": "sources/scripts/items/v5/item_art_library.gd.txt",
+      "sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+      "bytes": 16060
+    },
+    {
+      "path": "sources/scripts/ui/home_item_codex.gd.txt",
+      "sha256": "18d3e61a40e681afc029596a15e005eb2aaa23f4638930b7127f91b75def75d1",
+      "bytes": 17160
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_home_world.gd.txt",
+      "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "bytes": 7695
+    },
+    {
+      "path": "sources/scripts/meta/home_item_catalog.gd.txt",
+      "sha256": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e",
+      "bytes": 4901
+    },
+    {
+      "path": "sources/scripts/meta/meta_progression.gd.txt",
+      "sha256": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403",
+      "bytes": 16547
+    },
+    {
+      "path": "sources/scripts/art/chest_art_library.gd.txt",
+      "sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e",
+      "bytes": 7169
+    },
+    {
+      "path": "sources/scripts/art/chest_art_layer.gd.txt",
+      "sha256": "4def1212d2a3e4369ba4d202cc42178829d1c0d3c11c306626d72a31ca226719",
+      "bytes": 509
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_objects.gd.txt",
+      "sha256": "a1b4681f8d527fa51ac06fadbecf4d4a0d53b112c31f77487bed2b686763da91",
+      "bytes": 2496
+    },
+    {
+      "path": "sources/scripts/presentation/forest_bible_presentation.gd.txt",
+      "sha256": "4e00cfc7d232b25ccfac81ac1a47a9a23743689c5b4815d85cb762c1d5130a44",
+      "bytes": 9218
+    },
+    {
+      "path": "sources/scripts/demo/thorn_forest_region_stage.gd.txt",
+      "sha256": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8",
+      "bytes": 18029
+    },
+    {
+      "path": "sources/scripts/art/p1_unity_props.gd.txt",
+      "sha256": "0a7d5976ae68146902efbc12aeee2d7656a76a0e9abe5ecdaca96b60bac70263",
+      "bytes": 7508
+    },
+    {
+      "path": "sources/scripts/bosses/bellstrider_presentation.gd.txt",
+      "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee",
+      "bytes": 14739
+    },
+    {
+      "path": "sources/scripts/bosses/bellstrider_rig_pose.gd.txt",
+      "sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366",
+      "bytes": 11031
+    },
+    {
+      "path": "sources/scripts/bosses/bellstrider_encounter.gd.txt",
+      "sha256": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d",
+      "bytes": 33016
+    },
+    {
+      "path": "sources/scripts/bosses/bellstrider_definition.gd.txt",
+      "sha256": "67c2f93c85660dc0d89a2c3fb9f66bb932a4c281de9620f08be7e41cc728f49a",
+      "bytes": 3089
+    },
+    {
+      "path": "sources/scripts/audio/bellstrider_audio.gd.txt",
+      "sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207",
+      "bytes": 6950
+    },
+    {
+      "path": "sources/scripts/bosses/bellstrider_ring_projectile.gd.txt",
+      "sha256": "f7a0f7e1635a17f01ec808833ac460406c836858f28102a9d6c960693d4796d2",
+      "bytes": 3989
+    },
+    {
+      "path": "sources/scripts/bosses/bellstrider_bell_projectile.gd.txt",
+      "sha256": "0093e043bcde8f5858b1828aa37927e0f2057fddbd2596232e886b4cffca33df",
+      "bytes": 5123
+    },
+    {
+      "path": "sources/scripts/bosses/boss_factory.gd.txt",
+      "sha256": "ebbbf1064557eba90ee789234d2e7638fac71a450c39c7929f87fe48a3c52d7a",
+      "bytes": 2555
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_definition.gd.txt",
+      "sha256": "afaf0fb90b8b3ac2e87e11c550eb2bb154892f1bf837bd5d8f74dd9263c4ecb2",
+      "bytes": 2473
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_encounter.gd.txt",
+      "sha256": "cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef",
+      "bytes": 47869
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_rig.gd.txt",
+      "sha256": "37a9f92078742dd5d0845ecf43aef1e9addbed031dc0be52461f6dd5445e475f",
+      "bytes": 13570
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_presentation.gd.txt",
+      "sha256": "86ac2ccac624b53b97d0c1e769a2b48bc50a6e03e14627c9bfebaa3ff7b8fae4",
+      "bytes": 16594
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_projectile.gd.txt",
+      "sha256": "ee748f5d8420d9d41861de02a6e066982b67884579d900e4586bde2cfe5d4689",
+      "bytes": 1977
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_strike.gd.txt",
+      "sha256": "c9ab3f99510f34bd40168b931ea2b1a73f22b7fdfbcf89f454b97bf4c6c0cb9c",
+      "bytes": 3237
+    },
+    {
+      "path": "sources/scripts/audio/windkeeper_pressure_audio.gd.txt",
+      "sha256": "f7bbcc4810ab978f639adc4acf659b2639d5373f9b3bb1fa0d4a4052ec821ff2",
+      "bytes": 12590
+    },
+    {
+      "path": "sources/scripts/rewards/windkeeper_pressure_rewards.gd.txt",
+      "sha256": "c679f22db00aca09b034521b4000d18f413cd88ecbf47ca59c09ea2ade301df7",
+      "bytes": 1885
+    },
+    {
+      "path": "sources/scripts/ui/windkeeper_hud.gd.txt",
+      "sha256": "2560641b9db7a79e4e91fe2f5d8027dfafa5495900125c27ffebd69e33af95e0",
+      "bytes": 11634
+    },
+    {
+      "path": "sources/scripts/damage/demo_contact_emitter.gd.txt",
+      "sha256": "cc7d6ca0a67b984a32c56fe5db945dd37168f5fabc43ddb3a34b1cfdba6930b6",
+      "bytes": 5245
+    },
+    {
+      "path": "sources/scripts/art_foundation/pixel_formal_style_installer.gd.txt",
+      "sha256": "28bac61b655690762b240020e8d91773fbeb78c7c47838a7ab7d87927bb8cc69",
+      "bytes": 1147
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_actor_installer.gd.txt",
+      "sha256": "13f1b3e1f6e27cf9a71024a88ef04db3dfb3457c65efedaa7b514ed8efc87fb0",
+      "bytes": 743
+    },
+    {
+      "path": "sources/scripts/demo/module_lab.gd.txt",
+      "sha256": "0da13b9d89012227acfacca33754041bf89558f8fba74853b9c4a66f002d9b0d",
+      "bytes": 20760
+    },
+    {
+      "path": "sources/scripts/run/run_manifest.gd.txt",
+      "sha256": "b88e1e6d42fc9b3ed0ed0697c3ebbcc47a06aaaea7abd05ce867310fe6e855cd",
+      "bytes": 23810
+    },
+    {
+      "path": "sources/scripts/art/plains_stage_visual.gd.txt",
+      "sha256": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8",
+      "bytes": 9796
+    },
+    {
+      "path": "sources/scripts/bosses/windkeeper_pressure_wind.gd.txt",
+      "sha256": "d1039ea821d93c6ad61c7b0e4a4c3f7519a4f11dea3033651b3666196fdc4f4c",
+      "bytes": 9293
+    },
+    {
+      "path": "sources/scripts/underworld_plains/underworld_terrain.gdshader.txt",
+      "sha256": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+      "bytes": 2359
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "cd5a988a1c0e2ddf6e4e4e2a4852029ee9b64d005a35a3603b133ffeabeefbe4",
+      "bytes": 2953
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+      "sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
+      "bytes": 41013
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "3eb8f692de5d16e3f8a3bd1a14ef3540f1cc1907f19c59a0f48a561cfa89ac20",
+      "bytes": 19953
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "b24538a1a472db3c8a2ba5854bd9dd58fb886ccae0d893dbd3fa2b3e3efb8fcb",
+      "bytes": 20253
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "sha256": "449ec2db4fd4505fa44384202846776601020832e57d929a89edb92d5764b9a8",
+      "bytes": 165462
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "sha256": "025f33a2ecac68ff2741e38c63e8484af11c29979e3a6e8814ca52719ca4c6db",
+      "bytes": 59244
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "sha256": "c0cd86f8da257b1291d47389ca0c848f541fad7e4da51f7396ba127254c1a712",
+      "bytes": 194224
+    }
+  ]
+}
