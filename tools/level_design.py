@@ -36,12 +36,22 @@ def file_hash(path):
 
 def engine_log_matches(engine, text):
     """Godot's dictionary string and startup banner use different separators."""
+    from godot_identity import expected_version
+    selected = expected_version()
+    core, _commit = selected.rsplit('.', 1)
+    major, minor, patch, status, build = core.split('.', 4)
+    selected_string = f"{major}.{minor}.{patch}-{status} ({build})"
+    banners = re.findall(r"^Godot Engine v([^\s]+)(?:\s|$)", text, re.M)
+    if str(engine) == selected_string:
+        return bool(banners) and all(banner == selected for banner in banners)
+    # Historical receipts retain their original single-component build format.
     version = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)-([a-zA-Z0-9]+) \(([a-zA-Z0-9_]+)\)", str(engine))
     if not version:
         return False
     expected = version.groups()
-    banners = re.findall(r"^Godot Engine v(\d+)\.(\d+)\.(\d+)\.([a-zA-Z0-9]+)\.([a-zA-Z0-9_]+)\.[a-fA-F0-9]+(?:\s|$)", text, re.M)
-    return bool(banners) and all(banner == expected for banner in banners)
+    parsed = [re.fullmatch(r"(\d+)\.(\d+)\.(\d+)\.([a-zA-Z0-9]+)\.([a-zA-Z0-9_]+)\.[a-fA-F0-9]+", banner)
+              for banner in banners]
+    return bool(parsed) and all(banner and banner.groups() == expected for banner in parsed)
 
 
 def validate_receipt(source, data, receipt, log, current_sources):
