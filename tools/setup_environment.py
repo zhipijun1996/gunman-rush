@@ -200,6 +200,7 @@ def main():
         if not shutil.which(command):
             raise RuntimeError(f"Missing prerequisite {command}; install using the environment's supported package manager")
     lock = godot_identity.validate_lock(CONFIG, REPO)
+    template_dir = godot_identity.verify_template_install_destination(CONFIG, REPO)
     engine_dir = godot_identity.engine_directory(CONFIG, REPO)
     engine = godot_identity.engine_path(CONFIG, REPO)
     provenance = download(lock["provenance"], lock["build_id"] + "-provenance.json")
@@ -222,7 +223,6 @@ def main():
     engine_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(provenance, engine_dir / "build-provenance.json")
     print(godot_identity.verified_engine(CONFIG, REPO)["version"])
-    template_dir = godot_identity.templates_directory(CONFIG, REPO)
     try:
         godot_identity.verify_templates(CONFIG, REPO)
     except (OSError, RuntimeError, KeyError, ValueError):

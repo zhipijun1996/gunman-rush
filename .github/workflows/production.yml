@@ -57,7 +57,16 @@ jobs:
         with:
           node-version: '22'
       - name: Select the existing external toolchain location
-        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+        run: |
+          export GUNMAN_TOOLCHAIN_ROOT="$RUNNER_TEMP/gunman-toolchains"
+          echo "GUNMAN_TOOLCHAIN_ROOT=$GUNMAN_TOOLCHAIN_ROOT" >> "$GITHUB_ENV"
+          python3 - <<'PY_CACHE' >> "$GITHUB_ENV"
+          import sys
+          sys.path.insert(0, 'tools')
+          from godot_identity import templates_directory, validate_lock
+          validate_lock()
+          print('GUNMAN_TEMPLATE_CACHE=' + str(templates_directory()))
+          PY_CACHE
       - name: Exercise selection positive and negative cases
         run: |
           mkdir -p build/verification/production-ci
@@ -118,8 +127,8 @@ jobs:
         with:
           path: |
             ${{ runner.temp }}/gunman-toolchains/godot
-            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+            ${{ env.GUNMAN_TEMPLATE_CACHE }}
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'config/godot_build.json', 'tools/setup_environment.py', 'tools/godot_identity.py') }}
       - name: Install and verify the repository locked Standard engine and templates
         if: steps.impact.outputs.needs_engine == 'true'
         timeout-minutes: 15
@@ -137,8 +146,8 @@ jobs:
         with:
           path: |
             ${{ runner.temp }}/gunman-toolchains/godot
-            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+            ${{ env.GUNMAN_TEMPLATE_CACHE }}
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'config/godot_build.json', 'tools/setup_environment.py', 'tools/godot_identity.py') }}
       - name: Prepare the existing validated Foundry export dependency when needed
         if: steps.impact.outputs.needs_web == 'true'
         timeout-minutes: 15
@@ -252,7 +261,16 @@ jobs:
         with:
           node-version: '22'
       - name: Select the existing external toolchain location
-        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+        run: |
+          export GUNMAN_TOOLCHAIN_ROOT="$RUNNER_TEMP/gunman-toolchains"
+          echo "GUNMAN_TOOLCHAIN_ROOT=$GUNMAN_TOOLCHAIN_ROOT" >> "$GITHUB_ENV"
+          python3 - <<'PY_CACHE' >> "$GITHUB_ENV"
+          import sys
+          sys.path.insert(0, 'tools')
+          from godot_identity import templates_directory, validate_lock
+          validate_lock()
+          print('GUNMAN_TEMPLATE_CACHE=' + str(templates_directory()))
+          PY_CACHE
       - uses: actions/download-artifact@v4
         with:
           name: production-context-${{ github.run_id }}
@@ -294,8 +312,8 @@ jobs:
         with:
           path: |
             ${{ runner.temp }}/gunman-toolchains/godot
-            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+            ${{ env.GUNMAN_TEMPLATE_CACHE }}
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'config/godot_build.json', 'tools/setup_environment.py', 'tools/godot_identity.py') }}
       - name: Install and verify the repository locked Standard engine and templates
         timeout-minutes: 15
         run: |

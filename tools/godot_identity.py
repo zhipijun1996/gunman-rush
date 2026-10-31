@@ -53,9 +53,12 @@ def validate_lock(config=None,repo=REPO):
     recipe_path=repo/'config/godot_build.json';recipe=json.loads(recipe_path.read_text())
     comparisons={'build_id':recipe['id'],'version_exact':recipe['expected_version'],
                  'version':recipe['version'],'edition':'Standard','recipe_sha256':sha256(recipe_path),
-                 'source':recipe['source'],'patches':recipe['patches']}
+                 'source':recipe['source'],'patches':recipe['patches'],
+                 'data_subdirectory':'user-data/'+recipe['id']}
     for key,expected in comparisons.items():
         if spec.get(key)!=expected:raise RuntimeError('Toolchain build/source lock mismatch: '+key)
+    if spec['linux_x86_64'].get('binary')!='godot-linux-x86_64':
+        raise RuntimeError('Toolchain binary installation path mismatch')
     for patch in recipe['patches']:
         if sha256(repo/patch['file'])!=patch['sha256']:raise RuntimeError('Locked engine patch changed: '+patch['file'])
     if spec['templates']['version']!=recipe['template_version']:
@@ -139,6 +142,24 @@ def verify_templates(config=None,repo=REPO,directory=None):
     identity=json.loads((folder/'engine-identity.json').read_text())
     if identity.get('id')!=spec['build_id'] or identity.get('recipe_sha256')!=spec['recipe_sha256']:
         raise RuntimeError('Template source identity mismatch')
+    return folder
+
+
+def verify_template_install_destination(config=None,repo=REPO):
+    """Never replace a pre-existing foreign template install, including aliases."""
+    config=config or read_config(repo);spec=validate_lock(config,repo)
+    folder=templates_directory(config,repo)
+    resolved=folder.resolve()
+    official=(toolchain_root(repo)/'user-data/godot/export_templates').resolve()
+    if resolved.is_relative_to(official):
+        raise RuntimeError('Refusing to install into the official control template directory')
+    if folder.exists() and any(folder.iterdir()):
+        marker=folder/'engine-identity.json'
+        try:owner=json.loads(marker.read_text())
+        except (OSError,ValueError) as error:
+            raise RuntimeError('Refusing to replace templates without this build ownership') from error
+        if owner.get('id')!=spec['build_id'] or owner.get('recipe_sha256')!=spec['recipe_sha256']:
+            raise RuntimeError('Refusing to replace templates owned by another build')
     return folder
 
 

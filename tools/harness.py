@@ -20,6 +20,8 @@ import zlib
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = Path(__file__).resolve().parents[1]
+# This module is also loaded directly by file path by the original test entry.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 MANIFEST = ROOT / "tools/harness/profiles.json"
 
 

@@ -109,6 +109,13 @@ class GodotIdentityTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError,'not been activated'):identity.validate_lock(bad)
         bad=copy.deepcopy(config);del bad['godot']['templates']['files']['web_debug.zip']
         with self.assertRaisesRegex(RuntimeError,'complete selected'):identity.validate_lock(bad)
+        for value in (None,'user-data','../official-control'):
+            bad=copy.deepcopy(config)
+            if value is None:del bad['godot']['data_subdirectory']
+            else:bad['godot']['data_subdirectory']=value
+            with self.assertRaisesRegex(RuntimeError,'data_subdirectory'):identity.validate_lock(bad)
+        bad=copy.deepcopy(config);bad['godot']['linux_x86_64']['binary']='../other-engine'
+        with self.assertRaisesRegex(RuntimeError,'binary installation path'):identity.validate_lock(bad)
 
     def test_actual_cli_export_rejects_bad_templates_before_exec(self):
         for flag in ('--export-debug','--export-release','--export-pack','--export-patch'):
@@ -174,6 +181,52 @@ class GodotIdentityTests(unittest.TestCase):
             self.assertEqual(setup.main(),0)
             self.assertEqual(downloads.call_count,1) # Provenance only; no engine/template reinstall.
             check.assert_called_once_with(['python3',str(ROOT/'tools/check_environment.py'),'--godot-only'])
+
+    def test_installer_environment_cannot_replace_official_foreign_or_symlinked_templates(self):
+        import setup_environment as setup
+        for mode in ('official','foreign','symlinked-official'):
+            with self.subTest(mode=mode):
+                root=self.isolated();config=self.fixture(root)
+                official=root/'toolchains/user-data/godot/export_templates'/pack.RECIPE['template_version']
+                official.mkdir(parents=True);control=official/'version.txt';control.write_text('official control')
+                selected=root/'toolchains/user-data' if mode=='official' else root/mode
+                if mode=='foreign':
+                    folder=selected/'godot/export_templates'/pack.RECIPE['template_version']
+                    folder.mkdir(parents=True);(folder/'version.txt').write_text('foreign control')
+                elif mode=='symlinked-official':
+                    (selected/'godot').mkdir(parents=True)
+                    (selected/'godot/export_templates').symlink_to(official.parent,target_is_directory=True)
+                with patch.dict(os.environ,{'GUNMAN_DATA_HOME':str(selected)}), \
+                        patch.object(setup,'CONFIG',config),patch.object(setup,'ROOT',root/'toolchains'), \
+                        patch.object(sys,'argv',['setup_environment.py','--godot-only']), \
+                        patch.object(setup,'download') as download,patch.object(setup,'run') as execute:
+                    with self.assertRaisesRegex(RuntimeError,'Refusing to'):
+                        setup.main()
+                    download.assert_not_called();execute.assert_not_called()
+                self.assertEqual(control.read_text(),'official control')
+                self.assertFalse(list(official.parent.glob('*.rejected-*')))
+                if mode=='foreign':self.assertEqual((folder/'version.txt').read_text(),'foreign control')
+
+    def test_installer_accepts_empty_isolated_data_and_reuses_same_build_symlink(self):
+        import setup_environment as setup
+        root=self.isolated();config=self.fixture(root)
+        artifacts={identity.sha256(path):path for path in (root/'out').iterdir() if path.is_file()}
+        selected=root/'empty-isolated-data'
+        with patch.dict(os.environ,{'GUNMAN_DATA_HOME':str(selected)}), \
+                patch.object(setup,'CONFIG',config),patch.object(setup,'ROOT',root/'toolchains'), \
+                patch.object(sys,'argv',['setup_environment.py','--godot-only']), \
+                patch.object(setup,'download',side_effect=lambda spec,name:artifacts[spec['sha256']]) as downloads, \
+                patch.object(setup,'run'):
+            self.assertEqual(setup.main(),0)
+            self.assertEqual(downloads.call_count,2) # Proof plus templates in the new empty data directory.
+            installed=identity.verify_templates(config)
+            alias=root/'lane-data';(alias/'godot').mkdir(parents=True)
+            (alias/'godot/export_templates').symlink_to(installed.parent,target_is_directory=True)
+            with patch.dict(os.environ,{'GUNMAN_DATA_HOME':str(alias)}):
+                downloads.reset_mock()
+                self.assertEqual(setup.main(),0)
+                self.assertEqual(downloads.call_count,1)
+                self.assertEqual(identity.verify_templates(config).resolve(),installed)
 
 
 if __name__=='__main__':unittest.main()
