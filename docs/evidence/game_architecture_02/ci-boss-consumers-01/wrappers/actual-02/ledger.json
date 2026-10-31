@@ -1,0 +1,260 @@
+{
+  "scope": "current15 suites and original corpus/actual App baseline; old standalone v10 itineraries deferred",
+  "expected_full_fixture_ids": [
+    "baseline",
+    "sample/tour",
+    "sample/tutorial_return",
+    "intro-fallback/tour",
+    "intro-fallback/adventure",
+    "advanced-fallback/tour",
+    "advanced-fallback/adventure",
+    "intro/woven_layers/fast",
+    "intro/woven_layers/tour",
+    "intro/woven_layers/adventure",
+    "advanced/woven_layers/fast",
+    "advanced/woven_layers/growth",
+    "advanced/woven_layers/tour",
+    "advanced/woven_layers/adventure",
+    "intro/linked_rings/fast",
+    "intro/linked_rings/tour",
+    "intro/linked_rings/adventure",
+    "advanced/linked_rings/fast",
+    "advanced/linked_rings/growth",
+    "advanced/linked_rings/tour",
+    "advanced/linked_rings/adventure",
+    "intro/crossroads/fast",
+    "intro/crossroads/tour",
+    "intro/crossroads/adventure",
+    "advanced/crossroads/fast",
+    "advanced/crossroads/growth",
+    "advanced/crossroads/tour",
+    "advanced/crossroads/adventure"
+  ],
+  "not_run_fixture_ids": [
+    "sample/tour",
+    "sample/tutorial_return",
+    "intro-fallback/tour",
+    "intro-fallback/adventure",
+    "advanced-fallback/tour",
+    "advanced-fallback/adventure",
+    "intro/woven_layers/fast",
+    "intro/woven_layers/tour",
+    "intro/woven_layers/adventure",
+    "advanced/woven_layers/fast",
+    "advanced/woven_layers/growth",
+    "advanced/woven_layers/tour",
+    "advanced/woven_layers/adventure",
+    "intro/linked_rings/fast",
+    "intro/linked_rings/tour",
+    "intro/linked_rings/adventure",
+    "advanced/linked_rings/fast",
+    "advanced/linked_rings/growth",
+    "advanced/linked_rings/tour",
+    "advanced/linked_rings/adventure",
+    "intro/crossroads/fast",
+    "intro/crossroads/tour",
+    "intro/crossroads/adventure",
+    "advanced/crossroads/fast",
+    "advanced/crossroads/growth",
+    "advanced/crossroads/tour",
+    "advanced/crossroads/adventure"
+  ],
+  "requested_fixture_ids": [
+    "baseline"
+  ],
+  "completed_fixture_ids": [],
+  "unfinished_fixture_ids": [
+    "baseline"
+  ],
+  "runs": [
+    {
+      "id": "import",
+      "command": [
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "timeout_seconds": 90,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 7.638,
+      "log": "import.log"
+    },
+    {
+      "id": "plains_cohesion_drops_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_cohesion_drops_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 6.874,
+      "log": "plains_cohesion_drops_runner.log"
+    },
+    {
+      "id": "plains_cohesion_lifecycle_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_cohesion_lifecycle_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 9.205,
+      "log": "plains_cohesion_lifecycle_runner.log"
+    },
+    {
+      "id": "plains_cohesion_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_cohesion_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 3.134,
+      "log": "plains_cohesion_runner.log"
+    },
+    {
+      "id": "plains_interactive_platforms_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_interactive_platforms_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 5.553,
+      "log": "plains_interactive_platforms_runner.log"
+    },
+    {
+      "id": "plains_interactive_lifecycle_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_interactive_lifecycle_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 6.397,
+      "log": "plains_interactive_lifecycle_runner.log"
+    },
+    {
+      "id": "plains_platform_boss_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_platform_boss_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.0,
+      "log": "plains_platform_boss_runner.log"
+    },
+    {
+      "id": "plains_exploration_pressure_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_exploration_pressure_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 4.978,
+      "log": "plains_exploration_pressure_runner.log"
+    },
+    {
+      "id": "plains_exploration_module_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_exploration_module_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 8.62,
+      "log": "plains_exploration_module_runner.log"
+    },
+    {
+      "id": "plains_exploration_expansion_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_exploration_expansion_runner.gd"
+      ],
+      "timeout_seconds": 150,
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 38.44,
+      "log": "plains_exploration_expansion_runner.log"
+    },
+    {
+      "id": "plains_experience_energy_runner",
+      "command": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_experience_energy_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "status": "failed",
+      "exit_code": 1,
+      "error": "Godot returned 1",
+      "elapsed_seconds": 10.331,
+      "log": "plains_experience_energy_runner.log"
+    }
+  ],
+  "status": "failed",
+  "total_timeout_seconds": 1500,
+  "elapsed_seconds": 103.178
+}

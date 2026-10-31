@@ -1,0 +1,59 @@
+{
+  "base_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "scope": "Direct native preflight only; original wrapper identity/whole182/GUI not signed",
+  "frozen_files": {
+    "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+    "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+    "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+    "tests/plains_exploration_expansion_runner.gd": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+    "tests/plains_region_boss_runner.gd": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086"
+  },
+  "source_unchanged": true,
+  "results": [
+    {
+      "case": "expansion",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_exploration_expansion_runner.gd"
+      ],
+      "timeout_seconds": 150,
+      "seconds": 39.03452241800187,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "64e4e4cfe8538598efce32935d79320e670d149e84af1ca6b08daa87b42ae569",
+      "completion": [
+        "PLAINS EXPLORATION EXPANSION: 2959 assertions, 0 failures"
+      ]
+    },
+    {
+      "case": "region-boss",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_region_boss_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 11.250055911001255,
+      "exit_code": 1,
+      "errors": [
+        "exit=1",
+        "native/script/resource/exit error",
+        "original complete marker missing"
+      ],
+      "log_sha256": "2de51d4ef99820c6b18a4af1c030aeb71dfcf59eb11d840b548e94e915f3834a",
+      "completion": []
+    }
+  ],
+  "passed": false
+}

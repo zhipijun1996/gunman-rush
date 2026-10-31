@@ -1,0 +1,31 @@
+{
+  "kind": "CI-BOSS-CONSUMERS-01 V4 single-leaf real intro prerequisite",
+  "source_head": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "file": "tests/plains_region_boss_runner.gd",
+  "before_v3_sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+  "candidate_v4_sha256": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+  "patch_sha256": "8eac1ac5559bcb4274bdb51e9cd19d4b774ebfe24a9003e12673c0105a442ec7",
+  "corrected_diagnosis": "Threshold conjecture rejected: phase_three_health=.34 and old20HP<=20.4. Pressure waits actual intro before committing pending phase, whereas old Windkeeper checked wanted phase before intro dispatch. Change only intro prerequisite, no threshold/amount change.",
+  "preserved": [
+    "originalhealth.apply_damage ActorResourceRequest line byte-identical",
+    "original await frames(3) and formal phaseIII assertion byte-identical",
+    "all other29 original executed assertion intents retained",
+    "one added readiness assertion executes in each of2fixtures",
+    "7second_map consumers unchanged",
+    "V3expansion and other3candidate leaves unchanged",
+    "original90s suite budget unchanged"
+  ],
+  "prior_archive": "/workspace/refactor-evidence/current-boss-consumers-candidate-review-v3",
+  "proof_sha256": {
+    "scripts/bosses/windkeeper_definition.gd": "1a02f38f0044ff1a0954fb4d3f3ea952400445953c2e6df9298cc948086f2274",
+    "scripts/bosses/windkeeper_pressure_definition.gd": "afaf0fb90b8b3ac2e87e11c550eb2bb154892f1bf837bd5d8f74dd9263c4ecb2",
+    "resources/bosses/windkeeper_storm.tres": "c6ae603a2fc5c8fc2dddbf1dd4d8a044b3e0bab136ef765a75261cc3460a47e8",
+    "game/bosses/windkeeper/windkeeper_encounter.gd": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+    "game/bosses/windkeeper/windkeeper_pressure_encounter.gd": "792753e7f9db6a7b8c6359ed06d609bf305d97492bdaf1734b9527dcc36f4a26",
+    "tests/windkeeper_pressure_01/formal_app.gd": "e66d818d7203a51c100a1f1dda720c13569a403afe5d5c4cdbea86b6d4cf6ea4"
+  },
+  "main_written": false,
+  "godot_run": false,
+  "status": "FROZEN_PENDING_INDEPENDENT_REVIEW_AND_NATIVE",
+  "remaining_native_scope": "root continues remaining7; root_bell_current original120s not signed passed"
+}

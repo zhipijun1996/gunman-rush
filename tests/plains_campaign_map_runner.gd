@@ -80,7 +80,7 @@ func run() -> void:
 	var first:=app.stage as PlainsRegionStage
 	var health:=app.controller.actor_resources.health
 	var mini:=first.boss.get_node("Encounter") as WindkeeperEncounter
-	check(first.generated.manifest.difficulty=="intro" and mini.health.capacity==16 and mini is BellstriderEncounter,"first whole map is simpler with independent sixteen-HP Bellstrider")
+	check(first.generated.manifest.difficulty=="intro" and mini is BellstriderEncounter and mini.definition.resource_path=="res://resources/bosses/bellstrider.tres" and mini.health.capacity==40 and mini.health.capacity==mini.definition.health_definition.max_health,"first whole map uses the current authoritative forty-HP Bellstrider and intro difficulty")
 	check(app.director.profile.stages_per_biome==2 and app.director.offers.is_empty(),"two worlds do not restore room-exit chains")
 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"first map manifest is replayable")
 	check(not first.region_state.explored.is_empty(),"ordinary spawn observation reveals local fog")

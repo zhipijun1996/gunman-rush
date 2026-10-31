@@ -63,11 +63,14 @@ func run() -> void:
 	check(actor.actor_resources.stamina.current==80 and actor.received_resource_grants.is_empty() and actor.shoot_ability.get_projectiles().is_empty(),"wall contact grants neither energy nor an air round")
 	await fixture()
 	target.free()
-	var armour_boss:=load("res://scenes/bosses/bellstrider.tscn").instantiate() as BossMotor
-	# Explicit historical armoured target; current continuous Bosses are shootable during attacks.
-	(armour_boss.get_node("Encounter") as BossEncounter).definition=preload("res://resources/bosses/legacy/bellstrider_window_v1.tres")
+	var armour_boss:=load("res://scenes/bosses/windkeeper.tscn").instantiate() as BossMotor
+	# Explicit D079 aperture target on the existing generic encounter. Freeze
+	# historical Health too: the live Bellstrider Health resource is now 40 HP.
+	var historical_armour:=preload("res://resources/bosses/legacy/bellstrider_window_v1.tres").duplicate(true) as WindkeeperDefinition
+	historical_armour.health_definition=preload("res://tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres")
+	(armour_boss.get_node("Encounter") as BossEncounter).definition=historical_armour
 	armour_boss.position=Vector2(200,550);world.add_child(armour_boss)
-	var encounter:=armour_boss.get_node("Encounter") as BellstriderEncounter
+	var encounter:=armour_boss.get_node("Encounter") as WindkeeperEncounter
 	encounter.configure_arena(0,800,player);encounter.activate();encounter._enter(&"observe",5);encounter.set_physics_process(false)
 	var armour_contacts: Array[int]=[0]
 	encounter.armour_hit.connect(func(_point: Vector2): armour_contacts[0]+=1)

@@ -1,0 +1,47 @@
+{
+  "source_head": "59537400af06a26046037840e28989f75933a265",
+  "source_is_wip": true,
+  "frozen_files": {
+    "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+    "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+    "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+    "tests/plains_exploration_expansion_runner.gd": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+    "tests/plains_region_boss_runner.gd": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6"
+  },
+  "scope": "Two remaining unchanged existing current wrapper consumers of the shared campaign fixture; original profile command/budget/pattern",
+  "runs": [
+    {
+      "id": "root-bell-spaces",
+      "command": [
+        "python3",
+        "tools/run_root_bell_spaces.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL SPACES VERIFIED:",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 50.208,
+      "log_sha256": "0b139da82250c9dfb5c20353f5d782d97d88e2e9e8585241d8ce45d0bd5403d1",
+      "completion_found": true,
+      "strict_errors": false
+    },
+    {
+      "id": "terrain-production",
+      "command": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: terrain production regression",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 15.306,
+      "log_sha256": "6adb45bdce7a9252feafc00f2bc52b6a9979e233f42d3bedeefa3905560d7de0",
+      "completion_found": true,
+      "strict_errors": false
+    }
+  ],
+  "status": "passed",
+  "elapsed_seconds": 65.515,
+  "source_unchanged": true
+}

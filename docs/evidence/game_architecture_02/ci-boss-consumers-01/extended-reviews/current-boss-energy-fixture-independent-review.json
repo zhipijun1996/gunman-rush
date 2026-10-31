@@ -1,0 +1,36 @@
+{
+  "verdict": "LIMITED_STATIC_ACCEPT_HISTORICAL_ENERGY_FIXTURE_NATIVE_PENDING",
+  "files": [
+    {
+      "path": "tests/plains_experience_energy_runner.gd",
+      "before_sha256": "0483b498a76b93fb8e641ccb851355bafa251f2daaac0f6d61073ceb81c014ec",
+      "candidate_sha256": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b"
+    },
+    {
+      "path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres",
+      "before_sha256": null,
+      "candidate_sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2"
+    },
+    {
+      "path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json",
+      "before_sha256": null,
+      "candidate_sha256": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7"
+    }
+  ],
+  "patch_sha256": "565d7afcba76ef5c71bbaa9f7ddbcfd239d4443ca5b8ae302108e22fc16feb22",
+  "whole_original_restore_verified": true,
+  "historical_health_git_blob_verified": "4dfa930601d3c54a3c1c41cac0de4997a3de77a7",
+  "registered_input_covers_three_files": {
+    "region": true,
+    "region-with-legacy-fixtures": true
+  },
+  "semantics": [
+    "Use already existing Windkeeper scene/Encounter compatible with the old WindkeeperDefinition; no historical production implementation is recreated.",
+    "Duplicate legacy definition before setting test-only historical Health: shared current40HP resource and live scene/definition are unchanged.",
+    "Generic body WindkeeperDamageable in active noncontinuous observe emits armour_hit and rejects damage. Original real shot/FrameDamagePolicy/refund assertions and all loops remain unchanged.",
+    "Current formal Bell armour is a different weakpoint-only policy. This fixture proves the retained explicit historical/no-refund contract, not a replacement for current Bell8/Pressure6 or natural fights."
+  ],
+  "required_native": "Original energy runner all540 checks, strict clean exit, original90s budget. No engine run by independent reviewer.",
+  "prior_failure": "ed95 optimized editor energy540/1 remains valid, report/raw SHA independently verified in legacy-boss-ci-classification-independent-advice.json",
+  "test_change_justification": "Fixture compatibility and complete frozen historical dependency; no assertion or budget change. Test-only 16HP source matches existing D079 history authority exactly."
+}

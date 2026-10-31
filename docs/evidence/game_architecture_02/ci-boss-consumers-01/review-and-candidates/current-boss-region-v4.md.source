@@ -1,0 +1,17 @@
+# CI-BOSS-CONSUMERS-01 V4：真实开场前置，非阈值修复
+
+仅外部 `tests/plains_region_boss_runner.gd` 单叶。完整候选在 `current-boss-consumers-candidate-v4/tests/`；patch/json同前缀。未改 main，未运行 Godot。当前五文件 V3 与原29/2失败日志已逐字保存在 `current-boss-consumers-candidate-review-v3/`。
+
+## 归因更正
+
+最初“cap*2/3未进入当前phase3阈值”的猜测被源码否定：Pressure继承 `WindkeeperDefinition.phase_three_health=.34`，正式 `.tres` 没有覆盖，60HP阈值为20.4；原事务留下20HP已在phase3带内。因此最终V4没有改伤害比例、阈值或HP目标，先前授权的阈值草案未应用到main，也不是本补丁内容。
+
+实际差异：普通 `WindkeeperEncounter.physics_tick` 在分派intro之前先检查wanted phase；当前 `WindkeeperPressureEncounter.physics_tick` 仅先算 `_pending_phase`，intro分支只倒计时，进入observe后才 `_start_phase_transition()`。`WindkeeperDefinition.intro_seconds=3.2`（repeat1.0），原fixture只在激活后约2frames施伤、再3frames断言phase3，与当前开场政策不符。
+
+## 最小改动
+
+在原 `fixture()` 取得真实Encounter后、原施伤事务之前，复用现有 `tests/windkeeper_pressure_01/formal_app.gd::setup` 的360 physics-frame上界，等待实际mode退出intro；追加 `mode != intro && accepts_combat_damage()` 前置断言。没有手动推进clock、设置phase、跳过intro、冻结Boss或更改站位。
+
+原 `health.apply_damage(ActorResourceRequest(... capacity*2/3 ...))`、紧接的 `await frames(3)`、`formal phaseIII lifecycle executes` 原断言全部逐字保留。其余现有29条运行断言意图不变，新前置断言在原两次fixture各执行一次。Bell/Pressure物理币、1.8/1.9死亡和落地、gold、能力/森林转场、死亡tie逻辑无改动。共享second_map及7消费者不增加统一延时。
+
+原90秒预算不变；已过字节相同的cohesion、campaign、V3 expansion无需因本单叶重跑。`git apply --check`通过仅为静态补丁可应用证据，最终由root在原90秒预算运行该runner并继续剩余7 native。`root_bell_current`应使用原120秒，尚未执行不能签通过；182/导出/GUI状态也不由此更新。

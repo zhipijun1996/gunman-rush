@@ -1,0 +1,41 @@
+# 第六项测试：D079 能量夹具的有限修复候选
+
+范围修订：在此前五个当前消费者测试迁移之外，单独处理 `tests/plains_experience_energy_runner.gd` 的明确历史装甲夹具。候选只写外部目录，未改 main、未运行 Godot；当前默认 Bellstrider 的 40 HP 不变。
+
+根因有两层：
+
+1. 测试实例化当前 Bellstrider 场景，却给 Encounter 设置旧 `WindkeeperDefinition`。当前 Bellstrider 明确要求 `BellstriderDefinition`，因此 `_ready` 报错，`configure_arena` 和 `activate` 拒绝。
+2. `legacy/bellstrider_window_v1.tres` 虽然标为历史，却继续引用正式 `bellstrider_health.tres`，该资源如今是 40 HP；单独换场景仍不能满足原来的 16 HP 合同。
+
+root 已在精确 `ed95d67d8c19988ab6af3b720aa07a17fd1f59cf`、同优化编辑器下真实复现：Energy 540/1，Pressure 原90秒内10条FAIL及运行错误后超时124，无完成marker。证据为 `/workspace/refactor-evidence/legacy-boss-fixture-baseline-01/report.json`。这两处不是本次所有权重构引入的新规则，不以当前40HP替换历史16HP来消除失败。
+
+Energy 候选复用已有通用 Windkeeper 场景、Encounter 和真实 `WindkeeperDamageable`，只在测试实例上复制旧 Bell Definition，并加载精确历史16HP资源。旧 `observe` 关闭装甲时，真实扫掠弹体到达同一受伤接收器，触发 `armour_hit` 后拒绝伤害，原能量/弹药消费者因没有伤害提交而不给退款。测试没有依赖旧 Bell 的 lob/ring/roll 专属攻击，所以无需恢复旧生产实现。
+
+新 test-only `bellstrider_health_d079.tres` 从原 `tests/fixtures/demo_ui_01_r3/history.json` 所列 D079 提交 `2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62` 提取，字节完全不变，SHA `1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2`。单独 provenance 记录 Git blob，不改原冻结 history.json。没有新增生产注册或历史攻击实现。
+
+`candidate.patch` 涉及一个既有测试、一个精确历史测试资源及其 provenance。四处夹具编辑可反向还原整个原测试；全部540断言、固定16/80/无grant判定、循环、输入和帧数逐字不变。原90秒预算和严格退出必须照旧通过；本作者没有运行引擎，因此候选仍待独审和实际540回归。
+
+# Pressure 另案：不能把完整旧 Boss 测试换成当前40HP
+
+`tests/plains_pressure_boss_runner.gd` 是混合测试：
+
+| 原检查范围 | 当前事实 | 有限处理建议 |
+| --- | --- | --- |
+| 16HP旧Bell，闭甲/颈窗、按旧phase推进、ring_warning/roll_warning/lob_warning、`volley/locked_point` 恢复、旧 `Presentation.wheel_angle` | 已被新Bell状态/身体/动画合同替换；当前类名相同不代表仍执行旧规则 | 原文件/断言完整保留并明确为旧历史合同未验证；不要复制旧Boss生产逻辑来让默认测试强行变绿，也不改为40HP/弱OR |
+| 36HP旧Windkeeper aperture/fan/pier/wind与方向核心检查 | 现有通用Windkeeper及36HP旧资源仍在；与当前60HP Pressure不是同一合同 | 保留历史定义和原检查，不把当前60HP专项当旧36HP等价证明；需单独分类真实可运行旧合同 |
+| `check_legacy_shared_background`（190起）与 `check_current_formal_background`（254起） | 尽管测试旧双平面/三平面renderer，实际使用当前App/Manifest/Camera/Underworld所有者；末尾还检查Run→Home及Run对象释放 | 必须继续进入默认真实消费者测试。可用薄runner调用现有共享两个函数，保持原90秒slot和新准确marker；不整叶跳过，也不复制两套背景算法 |
+
+已检索55项已跟踪 `tests/fixtures` 文件及其中zip内容，没有可复用的旧 Bell/Windkeeper完整冻结装配或16HP测试资源；结果见 `existing-legacy-fixture-search.json`。`tests/demo_ui_01/r3_d079_original.gd` 是归档脚本，仍引用漂移的场景/Health，不能当可运行的精确历史环境。旧生产实现可在Git看到，但这不构成把它重新接入默认运行的理由。
+
+当前强断言的业务覆盖已由独立注册的既有套件承担，不能额外重复运行来充抵旧断言数量：
+
+| 当前需要验证的合同 | 已有实际消费者与位置 | 与旧合同差异 |
+| --- | --- | --- |
+| 正式40HP、上铃可伤/装甲拒伤及真实App证明 | `bellstrider_rework_01/damage_policy.gd:120,189–228`；`weapon_routes.gd:107,134,181–182,270–287` | 保持40HP和独立上铃，不宣称复现旧16HP颈窗 |
+| 实际运动与轮旋转、半血转阶段、分组选择及JSON/RNG恢复 | `combat_runner.gd:302–310,357–416,618–628` | 当前分组/追逐规则，不是旧pattern_index/lob状态机 |
+| 实际抛物弹、地形落点、取消epoch | `combat_runner.gd:99–237,630–702` | 当前高抛/分组政策；不等于旧35帧/固定ring次数合同 |
+| 起场、暂停及统一姿态、接触边缘 | `intro_pose.gd`、`contact_edges.gd` | 当前rig/碰撞合同；不复活旧Presentation字段 |
+| 正式奖励和声音生命周期 | `rewards_runner.gd`、`audio_pool.gd` | 当前延迟落位奖励及素材合同 |
+| 当前60HP Windkeeper、支撑/地形/攻击/奖励/声音 | `tests/windkeeper_pressure_01` 六套，原 `run_windkeeper_pressure_01_tests.py` | 独立当前合同；不能替代旧36HP窗口证明 |
+
+现有 `tools/run_bellstrider_rework_01_tests.py` 已注册八套，`tools/run_windkeeper_pressure_01_tests.py` 已注册六套并在full profile中。Pressure默认slot若改为只执行上述共享背景消费者，属于明确CI分类修订，必须由root及独审确认、保留原失败/预算/历史入口，并说明原Boss历史覆盖未验证；不是行为等价的简单测试修复。本报告没有修改任何Pressure脚本或wrapper。

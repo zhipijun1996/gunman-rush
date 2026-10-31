@@ -1,0 +1,2227 @@
+{
+  "schema_version": 1,
+  "task_id": "CI-BOSS-CONSUMERS-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "reviewed_commit": "59537400af06a26046037840e28989f75933a265",
+  "content_version": "eight-consumers-current15-native-passed",
+  "owner": "/root",
+  "purpose": "修复当前Boss测试消费者的旧内容假设；明确保留原件与逐断言迁移理由，不修改生产规则。",
+  "player_experience": "使回归真实覆盖当前Bell/Pressure内容；不调整玩家/伤害/资源/奖励/随机/存档或正式图声。",
+  "constraints": [
+    "仅tests/质量记录；不得修改生产GD、资源、碰撞、伤害或正式内容选择",
+    "这不是旧断言逐字等价重构：单loot/通用爆炸/八来源均伤害等旧假设有显式替换映射",
+    "保八发射位置/真实try_fire/原45帧；固定两壳甲0提交强负例、六上铃精确原伤害",
+    "Pressure V4只自然intro准入；原cap*2/3事务、await3frames和phase3断言保持，阈值猜测已否定",
+    "原seven second_map调用者全部保留；cohesion新复用等待/收币使整个helper八消费者，不能说删了原入口",
+    "原15注册槽位/命令/预算保持，但Pressure默认覆盖显式分类为原两生命周期/renderer函数；旧D077完整run只手动诊断，不能称旧默认覆盖等价。style27独立inputs变化不等于profiles全文件原字节",
+    "本次不新增手动_process或Boss时钟推进，不伪造领奖/余额。Energy沿既有generic Windkeeper宿主与冻结D07916HP保原540规则；Pressure保旧D077完整手动组合并明确default分类，原renderer投影检查保留。"
+  ],
+  "affected_paths": [
+    "tests/plains_cohesion_lifecycle_runner.gd",
+    "tests/plains_campaign_fixture.gd",
+    "tests/plains_campaign_map_runner.gd",
+    "tests/plains_exploration_expansion_runner.gd",
+    "tests/plains_region_boss_runner.gd",
+    "tests/plains_experience_energy_runner.gd",
+    "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json",
+    "tests/plains_pressure_boss_runner.gd",
+    "tests/quality_review_runner.gd"
+  ],
+  "deliverables": [
+    "八测试脚本与两test-only fixtures精确WIP源向量",
+    "各阶段旧断言/候选/基线/失败及独审完整留存",
+    "current15+import完整通过和五共享消费者分次覆盖，显式保27legacy与旧D077未验边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "原current15+import完整224.151/1500秒通过；原baseline75.042/120、regionBoss31/0在13.026/90；Energy540/0与Pressure限定default444。五共享消费者分次原wrapper通过；不签27legacy、旧D077、full182或全局正式验收。",
+      "evidence": [
+        "actual-03-full-stdout"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "本项仅第8quality当前Bell接触fixture与原1046/0日志的非作者限定接受；前五/后两各阶段原独审分别归档，不将该收据冒称重审全部八文件或全量。",
+      "evidence": [
+        "eighth-final-independent-json"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "current15有限原生已过；全局formal/G4/full182/出口/GUI/设备及最终commit身份仍未签。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "当前Boss假设与历史场景界限",
+      "method": "逐条原断言映射/源码/静态审查",
+      "expected": "当前40HP物理币具象死亡真实观察，显式legacy16/36保留",
+      "failure": "把语义更换冒充旧断言等价、改生产过测",
+      "status": "unverified",
+      "evidence": [],
+      "reason": "待冻结新增范围和最终实际证据。"
+    },
+    {
+      "id": "five-native",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "当前五测试及全部共享helper消费者",
+      "method": "原wrapper/预算，实际源SHA绑定",
+      "expected": "当前五及真实消费者完整完成",
+      "failure": "缺消费者、时钟/领奖模拟、预算放宽或提前退出",
+      "status": "unverified",
+      "evidence": [
+        "actual-03-ledger-json"
+      ],
+      "reason": "当前五测试在actual03已完成；五共享wrapper分别实际pass，但前四先于独立生命周期生产修复，不冒签一次最终源完整共同回归。"
+    },
+    {
+      "id": "actual-region-wrapper",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原current15默认wrapper",
+      "method": "完整真实ledger，不忽略失败或未运行项",
+      "expected": "current15完整通过",
+      "failure": "任一失败或漏跑",
+      "status": "passed",
+      "evidence": [
+        "actual-03-full-stdout"
+      ],
+      "reason": "actual03全部current15与import完成；原actual01/02失败原件保留。27legacy未运行；Pressure槽位只current lifecycle444。"
+    },
+    {
+      "id": "deferred-boundary",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Energy原540与Pressure旧D077/当前后半分离",
+      "method": "独立最小候选+完整旧断言意图审查+原预算运行",
+      "expected": "只修装配，当前生命周期/Camera/Underworld继续default覆盖",
+      "failure": "因旧D077失败把后半当前覆盖一起defer或削弱原540",
+      "status": "passed",
+      "evidence": [
+        "actual-03-full-stdout"
+      ],
+      "reason": "actual03 Energy540/0与Pressure显式分类后default444/0完成；旧D077完整run手动deferred，不属于legacy27。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "original-plains_cohesion_lifecycle_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/originals/tests/plains_cohesion_lifecycle_runner.gd.source",
+      "sha256": "9ef870bc07d07610d132af01df99868544133e208656ec355121d5d56d4d106c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact ed95 original test bytes; original current-content assumptions are not retroactively declared passed."
+    },
+    {
+      "id": "original-plains_campaign_fixture",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/originals/tests/plains_campaign_fixture.gd.source",
+      "sha256": "9107e736969af1cfa9b8d44b6b27963fc02590307d6da0d1b33389f7bf2a7db6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact ed95 original test bytes; original current-content assumptions are not retroactively declared passed."
+    },
+    {
+      "id": "original-plains_campaign_map_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/originals/tests/plains_campaign_map_runner.gd.source",
+      "sha256": "c388108eec5d0c1bf878759d35ec0b3148eaabeae0491227476bfb570c9f19e0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact ed95 original test bytes; original current-content assumptions are not retroactively declared passed."
+    },
+    {
+      "id": "original-plains_exploration_expansion_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/originals/tests/plains_exploration_expansion_runner.gd.source",
+      "sha256": "c760b5a59f664824a8885d828807d08b0d744f56126a81acfc1db983ce1c4824",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact ed95 original test bytes; original current-content assumptions are not retroactively declared passed."
+    },
+    {
+      "id": "original-plains_region_boss_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/originals/tests/plains_region_boss_runner.gd.source",
+      "sha256": "0d2411d24832f94bfac8319345db5e9a22eb5d6e86d3c2e480f30173e34a0459",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact ed95 original test bytes; original current-content assumptions are not retroactively declared passed."
+    },
+    {
+      "id": "original-receipt",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/originals/receipt.json",
+      "sha256": "318df95755cc8fb91579cddca5d5079f9c6268548d199df16427246c5e28453a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "历史或候选原件，不代签最终原生/完整15/full182。"
+    },
+    {
+      "id": "rejected-v1-current-boss-consumers-candidate-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/current-boss-consumers-candidate.json",
+      "sha256": "4598ea4c97fc7b6729872cd97e3f40f02aa520e7b932020450edd8554e517980",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-current-boss-consumers-candidate-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/current-boss-consumers-candidate.md.source",
+      "sha256": "e21a0e73cb772345a672aa9fb6b3b9367f11ad9cd4c071cdaace5576d08030c0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-current-boss-consumers-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/current-boss-consumers-candidate.patch",
+      "sha256": "2debe19a2c981420d74eb65cffae5fac429d8b42f5df43c67021c8577807876b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-tests-plains_campaign_fixture-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/tests/plains_campaign_fixture.gd.source",
+      "sha256": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-tests-plains_campaign_map_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/tests/plains_campaign_map_runner.gd.source",
+      "sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-tests-plains_cohesion_lifecycle_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/tests/plains_cohesion_lifecycle_runner.gd.source",
+      "sha256": "12019a78f85ed49afc5df54e2f21148278e2e6111168de0c251054720d79c751",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-tests-plains_exploration_expansion_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/tests/plains_exploration_expansion_runner.gd.source",
+      "sha256": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v1-tests-plains_region_boss_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v1/tests/plains_region_boss_runner.gd.source",
+      "sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V1 manually called visual._process(0), rejected; exact candidate retained."
+    },
+    {
+      "id": "rejected-v2-current-boss-consumers-candidate-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/current-boss-consumers-candidate.json",
+      "sha256": "212896688f60d036b00cc5df1e03d0811091768bfb6d3e1a47c53b02808af06d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-current-boss-consumers-candidate-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/current-boss-consumers-candidate.md.source",
+      "sha256": "62e4763749a95559f49056d97cedbcb00c5f782c6dbaf02b1e86cb933afb2c9b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-current-boss-consumers-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/current-boss-consumers-candidate.patch",
+      "sha256": "462cade8b900c72e1ab78826ad011dcd058f1d20a4755049998e14b9150f7e6c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-expansion-failed-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/expansion-failed-native.log",
+      "sha256": "dd4e36d9af60303dfa850f0f8c4dc76651186dcedc60271b2e97242d5b846ee8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-tests-plains_campaign_fixture-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/tests/plains_campaign_fixture.gd.source",
+      "sha256": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-tests-plains_campaign_map_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/tests/plains_campaign_map_runner.gd.source",
+      "sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-tests-plains_cohesion_lifecycle_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/tests/plains_cohesion_lifecycle_runner.gd.source",
+      "sha256": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-tests-plains_exploration_expansion_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/tests/plains_exploration_expansion_runner.gd.source",
+      "sha256": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v2-tests-plains_region_boss_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v2/tests/plains_region_boss_runner.gd.source",
+      "sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 expansion actual2919/2 failed at fixed two lower origins; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-current-boss-expansion-v3-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/current-boss-expansion-v3.json",
+      "sha256": "99f9f6adb3dca65457fb9d71937311e469021d606ee0ff266bd0ddb7bd07fb33",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-current-boss-expansion-v3-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/current-boss-expansion-v3.md.source",
+      "sha256": "115640bad2ddb2a3e887a95c5df0d6ad1909a3bf9cb01069e24c66cb89416c84",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-current-boss-expansion-v3-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/current-boss-expansion-v3.patch",
+      "sha256": "ff92a8b1505fee86918320fdfc074df3665df50c2da35ac85695c6ba507226f6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-receipt-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/receipt.json",
+      "sha256": "f872ef14f0eb205ed614fc8e36d83767bbdb83787775cdd92f157a850c1ec769",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-region-boss-failed-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/region-boss-failed-native.log",
+      "sha256": "2de51d4ef99820c6b18a4af1c030aeb71dfcf59eb11d840b548e94e915f3834a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-tests-plains_campaign_fixture-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/tests/plains_campaign_fixture.gd.source",
+      "sha256": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-tests-plains_campaign_map_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/tests/plains_campaign_map_runner.gd.source",
+      "sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-tests-plains_cohesion_lifecycle_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/tests/plains_cohesion_lifecycle_runner.gd.source",
+      "sha256": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-tests-plains_exploration_expansion_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/tests/plains_exploration_expansion_runner.gd.source",
+      "sha256": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "rejected-v3-tests-plains_region_boss_runner-gd",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/rejected-v3/tests/plains_region_boss_runner.gd.source",
+      "sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 region Boss actual29/2 failed before Pressure intro completion; superseded single leaf retained."
+    },
+    {
+      "id": "current-boss-consumers-candidate-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-consumers-candidate.json",
+      "sha256": "212896688f60d036b00cc5df1e03d0811091768bfb6d3e1a47c53b02808af06d",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-consumers-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-consumers-candidate.patch",
+      "sha256": "462cade8b900c72e1ab78826ad011dcd058f1d20a4755049998e14b9150f7e6c",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-consumers-candidate-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-consumers-candidate.md.source",
+      "sha256": "62e4763749a95559f49056d97cedbcb00c5f782c6dbaf02b1e86cb933afb2c9b",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-consumers-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-consumers-independent-review.json",
+      "sha256": "84e2cf4b0dc5e23acaa0d4cb30328a3e353790bf0ac5b7fd662f9f81613cd659",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-consumers-independent-review-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-consumers-independent-review.md.source",
+      "sha256": "d9f7b7c72171c9d6c3b9b512a22fe837ae30d6018083eaea9b8484e3967efb96",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-consumers-test-change-justification-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-consumers-test-change-justification.json",
+      "sha256": "0ea08213025a203544d3e069565350e254be9aa65963082796d2c5daa39076ac",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+      "content_version": "historical-source-2e1c06a1",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-expansion-v3-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-expansion-v3.json",
+      "sha256": "99f9f6adb3dca65457fb9d71937311e469021d606ee0ff266bd0ddb7bd07fb33",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-expansion-v3-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-expansion-v3.patch",
+      "sha256": "ff92a8b1505fee86918320fdfc074df3665df50c2da35ac85695c6ba507226f6",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-expansion-v3-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-expansion-v3.md.source",
+      "sha256": "115640bad2ddb2a3e887a95c5df0d6ad1909a3bf9cb01069e24c66cb89416c84",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-expansion-v3-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-expansion-v3-independent-review.json",
+      "sha256": "9763a2d5723d07af2e1be2e6c4e9d424f93787b747cbb5b59a595ea1a5768e7b",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-expansion-v3-test-change-justification-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-expansion-v3-test-change-justification.json",
+      "sha256": "df7f604418c380e2445d6b5b6d310613fe8db827d89293dabeb074311fbf7421",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-region-v4-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-region-v4.json",
+      "sha256": "cc90ee31bc8b0c8c098daada6069614ffef894b8f19ab7752d3143c87e43fe0e",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-region-v4-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-region-v4.patch",
+      "sha256": "8eac1ac5559bcb4274bdb51e9cd19d4b774ebfe24a9003e12673c0105a442ec7",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-region-v4-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-region-v4.md.source",
+      "sha256": "004b697e539771d0efeaa02cc8762454d0fe6b98eaf41930816535b7ff411f2e",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-region-v4-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-region-v4-independent-review.json",
+      "sha256": "1ffe91f6f6ad1224baee8a5831a77a5b9f5356906a56a30502d8dc45fce63e10",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-region-v4-test-change-justification-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-region-v4-test-change-justification.json",
+      "sha256": "e8694ff3a43e820fbe6d1dea98d8ef46268098a20616e11b2fc68bb3be5a3dbf",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Finite static review/candidate; original native-pending scope retained, not a full-suite result."
+    },
+    {
+      "id": "current-boss-five-final-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/current-boss-five-final-independent-review.json",
+      "sha256": "0b86a0fe11a0fdd55bcbf7644ca4fa606f42e4546dab3c90a3d75351f9b388a1",
+      "kind": "runtime_trace",
+      "producer": "preview_audit author application check",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Author readonly application/semantic mapping; not independent approval. Separate structure V2/V3/V4 receipts are the independent basis; final native unbound."
+    },
+    {
+      "id": "current-five-plains_cohesion_lifecycle_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-five/tests/plains_cohesion_lifecycle_runner.gd.source",
+      "sha256": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Current five applied WIP exact bytes on595374 toolchain merge; neither4e91 nor595374 alone contains these test changes."
+    },
+    {
+      "id": "current-five-plains_campaign_fixture",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-five/tests/plains_campaign_fixture.gd.source",
+      "sha256": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Current five applied WIP exact bytes on595374 toolchain merge; neither4e91 nor595374 alone contains these test changes."
+    },
+    {
+      "id": "current-five-plains_campaign_map_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-five/tests/plains_campaign_map_runner.gd.source",
+      "sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Current five applied WIP exact bytes on595374 toolchain merge; neither4e91 nor595374 alone contains these test changes."
+    },
+    {
+      "id": "current-five-plains_exploration_expansion_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-five/tests/plains_exploration_expansion_runner.gd.source",
+      "sha256": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Current five applied WIP exact bytes on595374 toolchain merge; neither4e91 nor595374 alone contains these test changes."
+    },
+    {
+      "id": "current-five-plains_region_boss_runner",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-five/tests/plains_region_boss_runner.gd.source",
+      "sha256": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Current five applied WIP exact bytes on595374 toolchain merge; neither4e91 nor595374 alone contains these test changes."
+    },
+    {
+      "id": "baseline-01-before-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/before.json",
+      "sha256": "573ef6e3ab9885e1d344b87dacddcc3d992a77c282d134a4d46d9d8f91326253",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-01-checkout-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/checkout.log",
+      "sha256": "3139635dc421a658e6522f004353228463f21c2dfd9aae53fa675dcbce175576",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-01-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/import.log",
+      "sha256": "bd88601110a595af1055fd4292a1ef826472050abd2cbd35e2ffe717e2476bba",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-01-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/report.json",
+      "sha256": "b4452bad7b619aab57f7e6189ec1418363fb08142d9f75f8b561b2ae6901499f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-01-restore-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/restore.log",
+      "sha256": "416c1dd8afcc284076b90348a128d9dd5f05d36ea98b5303bea5a00cf94c5608",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-01-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/run.py",
+      "sha256": "453d071db8930bdba5f5e53e286dfde4abff62617dcd51539182b84c2248ea25",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-01-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-01/runner.log",
+      "sha256": "3cac958e7f7112bca67c5c634898e3c9062d39c4b89177d86be4d8c1d0d0c4f6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Old UID/autoload import error; no cohesion test executed; not a historical native result."
+    },
+    {
+      "id": "baseline-02-before-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/before.json",
+      "sha256": "490c973874629772688f9df00d9d536c2c77b9f8f592698db0dff229416b86ac",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-checkout-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/checkout.log",
+      "sha256": "3139635dc421a658e6522f004353228463f21c2dfd9aae53fa675dcbce175576",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-cohesion-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/cohesion.log",
+      "sha256": "7ed3d13a515edd424411748cf3db5399d5fe337efb7137727df76a3409303570",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/import.log",
+      "sha256": "374e597e776e81405172a2d27ce60dcfe2adb0df0f3ebb76c520a68b59eaafb6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/report.json",
+      "sha256": "897086a057e73e31c3b14d2d75099a0ed426b4ee726a19e906501ea3512364f3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-restore-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/restore.log",
+      "sha256": "416c1dd8afcc284076b90348a128d9dd5f05d36ea98b5303bea5a00cf94c5608",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/run.py",
+      "sha256": "453d071db8930bdba5f5e53e286dfde4abff62617dcd51539182b84c2248ea25",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "baseline-02-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/baseline-02/runner.log",
+      "sha256": "d13a76a0a3e98fff0e2548331e1a899f666defc55a233e974b2766d2a06292a5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "historical-source-ed95d67d",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact pre-P9 ed95 same optimized editor actual cohesion19/5; same five failures and clean restored source."
+    },
+    {
+      "id": "direct-native-01-campaign-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/campaign.log",
+      "sha256": "1c910b3ed4f1e43cec83f27d9ba874be7d44589025364df256b485df9b644c94",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-01-cohesion-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/cohesion.log",
+      "sha256": "f4a32dfc6cb141bff105996206396161bc1315f90b78d866becdb056bdba6305",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-01-expansion-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/expansion.log",
+      "sha256": "dd4e36d9af60303dfa850f0f8c4dc76651186dcedc60271b2e97242d5b846ee8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-01-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/import.log",
+      "sha256": "dfcd18d877b603456eda4a89e1f0ac92ebe9c425004882b4259783eb040a9c32",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-01-plan-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/plan.json",
+      "sha256": "cca94e8eea5ed32464a16272330746421f22908f181c4155642f836c8a93d10a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-01-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/report.json",
+      "sha256": "72a059b3dabbe0ed8711aa750031716871bd319c79ad0d3ab99c21056aafe511",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-01-results-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-01/results.json",
+      "sha256": "e808f7e963332815eae1a8d3315a3e81fd8a617b317d3c45c82ada15d22ad7c3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V2 direct preflight: cohesion28/0,campaign3721/0,then expansion2919/2; not final five/source wrapper acceptance."
+    },
+    {
+      "id": "direct-native-02-expansion-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-02/expansion.log",
+      "sha256": "64e4e4cfe8538598efce32935d79320e670d149e84af1ca6b08daa87b42ae569",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 direct preflight: expansion2959/0,then old region29/2; V4 intro correction not validated by this earlier run."
+    },
+    {
+      "id": "direct-native-02-plan-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-02/plan.json",
+      "sha256": "a1981034c5d72f50b0cbfa47b44011e23753cb00dd6594c505aea27444cf3310",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 direct preflight: expansion2959/0,then old region29/2; V4 intro correction not validated by this earlier run."
+    },
+    {
+      "id": "direct-native-02-region-boss-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-02/region-boss.log",
+      "sha256": "2de51d4ef99820c6b18a4af1c030aeb71dfcf59eb11d840b548e94e915f3834a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 direct preflight: expansion2959/0,then old region29/2; V4 intro correction not validated by this earlier run."
+    },
+    {
+      "id": "direct-native-02-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-02/report.json",
+      "sha256": "4cfc26c97fe74b7f7b9d71a8254b6581d7624138fd8979426e6f3de8259268e3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 direct preflight: expansion2959/0,then old region29/2; V4 intro correction not validated by this earlier run."
+    },
+    {
+      "id": "direct-native-02-results-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/direct-native-02/results.json",
+      "sha256": "0559297fb716091d6606b4d95a4507560ff89d8adbf0e59e6eedd0e19b596de4",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "historical-source-4e91a0dd",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "V3 direct preflight: expansion2959/0,then old region29/2; V4 intro correction not validated by this earlier run."
+    },
+    {
+      "id": "actual-01-full-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-01/full.log",
+      "sha256": "e5f6c28c76fdf273b23a6ad2513833f4b7c8bdd32750d4d6dbbcddf0651de820",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Sparse missing gdignore caused duplicate ShotEnergyDefinition parse failure, before actual test assertions; not a gameplay19/5 result."
+    },
+    {
+      "id": "actual-01-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-01/import.log",
+      "sha256": "c92b985a95b82c20b251c811328d8244b7ba141d9ccab2b1fab0e225d7a47eb8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-01-ledger-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-01/ledger.json",
+      "sha256": "62ebcba7cf8774503ab4ceea659e81bf4ef27994ce7600388a5d1bc345342d4d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-01-plains_cohesion_drops_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-01/plains_cohesion_drops_runner.log",
+      "sha256": "028394c34ae379e8e2438914e4fd85551087218f9816aca3d64f93e862b6043d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-full-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/full.log",
+      "sha256": "6d76967d3cc398b2de11792e1093a474a15ad7eb564a876516308dee6a9a025f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "First9 current suites passed, tenth energy540/1 and BellstriderDefinition type error halted; current15 not complete."
+    },
+    {
+      "id": "actual-02-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/import.log",
+      "sha256": "95cf262c872ff0f27020da281a1c840ce5b2d72fa8b243c1dc96cfad20f55c6b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-ledger-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/ledger.json",
+      "sha256": "548a782d3748f649efe484b1f7ffb014a4a7870f87cadd4c901933afad63967d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_cohesion_drops_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_cohesion_drops_runner.log",
+      "sha256": "d13de7fd6e083844314e2f56ba07a9f74ea9b117086bd71586f50efbc5ba6263",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_cohesion_lifecycle_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_cohesion_lifecycle_runner.log",
+      "sha256": "01352eca1859a4c2aba47c49fe76ccfb5f1071a788625a0429601df524f7ea99",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_cohesion_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_cohesion_runner.log",
+      "sha256": "6e477c08996f5ca11f94bd7ec8b765fdcb3d75269af3bf6233589dff8e087f73",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_experience_energy_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_experience_energy_runner.log",
+      "sha256": "4efe949bb74c929c397e04fee978890615764fb68e29e7b3817e41e9fd8b1c3b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_exploration_expansion_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_exploration_expansion_runner.log",
+      "sha256": "14596618094d3e360c91fa3e0a42181c4cb56e1151086246d257339bdc814b44",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_exploration_module_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_exploration_module_runner.log",
+      "sha256": "e9cc6616d693cb54ba7c2e28b98daf45644e02946d9b89b1fe68e83d684ac81f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_exploration_pressure_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_exploration_pressure_runner.log",
+      "sha256": "23f2fd0f256a9fc6b7ae91a28815faac49babbdb7185cdc1f9719af48457e154",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_interactive_lifecycle_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_interactive_lifecycle_runner.log",
+      "sha256": "49b4afb0a89543306ac376c15d784585b02c3ba4008455ef3b835cdea00ee844",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_interactive_platforms_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_interactive_platforms_runner.log",
+      "sha256": "82ea5ee4669e2e226f99aa18f010d1a6298afdcb7c002c65afc022b7237a9718",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "actual-02-plains_platform_boss_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-02/plains_platform_boss_runner.log",
+      "sha256": "ccaeb3cda52d4841f8485cae3b9fcd436e6b8cf2ef5e296f5fdc15000089bbeb",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "five-consumers-v4-unverified",
+      "method": "按真实原件字节归档，历史来源/失败/静态pending文字不追改。",
+      "observed": "Exact original wrapper ledger/per-case log; status failed, no unexecuted cases signed passed."
+    },
+    {
+      "id": "current-scope",
+      "path": "docs/worklines/game_architecture_01/ci_boss_consumers_01.md",
+      "sha256": "7ae8e8ee337495857f319884ee379661bc16a29e7e37a13199d2a74a2c58b095",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "分阶段五/七文件及第8 pending范围、真实失败与有限通过说明。",
+      "observed": "No production mutation or final full-suite acceptance."
+    },
+    {
+      "id": "seven-energy-native-01-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/native-01/report.json",
+      "sha256": "100de97aabef99ae1608b3736fd5d8a9930281f705dcd8affb3ad87b2bb917ec",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-native-01-run-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/native-01/run.log",
+      "sha256": "dbb33e8cc3e1a34444b5c4ff143c72d6d85adb0b90e67f3b7d7962eff8cd1bce",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-native-01-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/native-01/report.json",
+      "sha256": "6b362aee4392f6063871015a81b8e4ddd9565b3ca10429771229d5d4a25e4fe0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-native-01-run-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/native-01/run.log",
+      "sha256": "e9bb1f9cbf85ce59270518823dfa70967145d213d886318c6690f71624396509",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-01-quality-review-engine-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-01/quality-review-engine.log",
+      "sha256": "1c30c741cad9a139d8fd0d33927b8dfdcdf471885fc590fd19812fdfcf5c1aff",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-01-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-01/report.json",
+      "sha256": "00a9b6b648a5250b52c8b8eee2f118dab4769c38a16097067541b436a85d2e52",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-01-root-bell-current-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-01/root-bell-current.log",
+      "sha256": "ebf9e1a6205ae6f6d1eba0b9e74d3faa732c4fc7c36ff8c45e5370d4c8fb5929",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-01-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-01/run.py",
+      "sha256": "116ea1d70fe9f159b9d811c0e8ae3aac08a79d0bf60b9ab59dc5fff243108904",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-01-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-01/runner.log",
+      "sha256": "97711d93d9a8c997b75012ba5540087846248e3c7e2a99b644751d8a6b6e664a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-01-wood-platforms-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-01/wood-platforms.log",
+      "sha256": "2bd3f9ee657fc3287dda70eb308d79af6c3e772cb7353a6428bbb9558cb62da3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-02-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-02/report.json",
+      "sha256": "7c2731619cb34112d8ceb5ac91ad6075b9bc87b78de64205875d42829f940ff0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-02-root-bell-spaces-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-02/root-bell-spaces.log",
+      "sha256": "0b139da82250c9dfb5c20353f5d782d97d88e2e9e8585241d8ce45d0bd5403d1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-02-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-02/run.py",
+      "sha256": "60fdfc116dd72b400adbc2e04e82f92392a1110965fcf323a5d7ce757e41fdc0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-02-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-02/runner.log",
+      "sha256": "22644d593a941f2dd53f9b406ee66551dd88ab47348ba30b7f3c7dbeb9637a66",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-shared-actual-02-terrain-production-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/shared/actual-02/terrain-production.log",
+      "sha256": "6adb45bdce7a9252feafc00f2bc52b6a9979e233f42d3bedeefa3905560d7de0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-before-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/before.json",
+      "sha256": "573ef6e3ab9885e1d344b87dacddcc3d992a77c282d134a4d46d9d8f91326253",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-checkout-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/checkout.log",
+      "sha256": "3139635dc421a658e6522f004353228463f21c2dfd9aae53fa675dcbce175576",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-energy-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/energy.log",
+      "sha256": "b99111f500e86f50937471ffae28fd147e6ca9a8c94a578469f3e8001bbd191f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/import.log",
+      "sha256": "ffc9f18b2ae66752ebe2cbb89b73807a216c7f6c583ba972a3711e0ab283bda5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-pressure-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/pressure.log",
+      "sha256": "13b0b2492d7e620e76b8bd3473e1734fa5ae28be2f19788f5fb90d0d78cb543e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/report.json",
+      "sha256": "e7427c7f2988c79b894e9b2a751e07427e1a35dac42b44c92e2c185d1a1b1177",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-restore-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/restore.log",
+      "sha256": "416c1dd8afcc284076b90348a128d9dd5f05d36ea98b5303bea5a00cf94c5608",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/run.py",
+      "sha256": "07ca416618f085bc1024b6ecaa395c4e860264c25f3ba0b10a1975cf91ee4019",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-legacy-baseline-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/legacy-baseline/runner.log",
+      "sha256": "88b4e490d40690b93c5c05044bd9248c1b7b5742207675d3ae41f84692aa4c6e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-extended-reviews-current-boss-energy-fixture-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/extended-reviews/current-boss-energy-fixture-independent-review.json",
+      "sha256": "3d853ac87a2f2ec8aabc20411a26b5db445b335e3171d53c96872eb54dbb0286",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-extended-reviews-current-boss-energy-fixture-ci-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/extended-reviews/current-boss-energy-fixture-ci-independent-review.json",
+      "sha256": "298c026427a8846609fea7dbd4be89344e1b29d1fa14b4a2ce9a3194317a5e50",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-extended-reviews-pressure-ci-classification-structure-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/extended-reviews/pressure-ci-classification-structure-independent-review.json",
+      "sha256": "112978128b690273cca7ed8ce16e02a21fc9f247e508baf5253e06e06f38f6e0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-extended-reviews-quality-review-underworld-readonly-diagnosis-01-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/extended-reviews/quality-review-underworld-readonly-diagnosis-01.json",
+      "sha256": "2499fe8f3bc600677c3ef968ccc81d1769655d535a910874a86223bde44ef5f5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-before-tests-plains_experience_energy_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/before/tests/plains_experience_energy_runner.gd.source",
+      "sha256": "0483b498a76b93fb8e641ccb851355bafa251f2daaac0f6d61073ceb81c014ec",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-candidate-tests-fixtures-demo_ui_01_r3-bellstrider_health_d079-provenance-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/candidate/tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json",
+      "sha256": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-candidate-tests-fixtures-demo_ui_01_r3-bellstrider_health_d079-tres-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/candidate/tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres.source",
+      "sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-candidate-tests-plains_experience_energy_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/candidate/tests/plains_experience_energy_runner.gd.source",
+      "sha256": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-candidate-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/candidate.json",
+      "sha256": "1fbf12c8057c01620d47a4397993eadef7caba8ee2dca41f5bbca6eb759d295c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/candidate.patch",
+      "sha256": "565d7afcba76ef5c71bbaa9f7ddbcfd239d4443ca5b8ae302108e22fc16feb22",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-existing-legacy-fixture-search-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/existing-legacy-fixture-search.json",
+      "sha256": "1a517bf98bd5ff3e42f8f7c42a200ad36d267466e6360c2832c4ac3d53e928e0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-prepare-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/prepare.py",
+      "sha256": "8d3cf57760fe11051d179667dc9189b55aca514d17f01ffaf571b33ca42ffa94",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-pressure-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/pressure-review.json",
+      "sha256": "6bd5ec6dfca0134f3c9ba6a0ba25a61c3b665983294f195e18c7c963a873f193",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-energy-candidate-review-md-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/energy/candidate/review.md.source",
+      "sha256": "c4a4bc886f4a2bb75cc3e249c488dbf1ae0e4bcc6bc5ac4681e13145eb8762bb",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-README-md-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/README.md.source",
+      "sha256": "517e55ff5087bb2e3e950a7d9a2f4d1236059b49218ba2aff251f2a27a1844d9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/candidate.patch",
+      "sha256": "0a63ad4b49521bf04bf968236e9ac51303c53a7f03587c3e265d92f480aee6b7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-originals-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/originals/import.log",
+      "sha256": "ffc9f18b2ae66752ebe2cbb89b73807a216c7f6c583ba972a3711e0ab283bda5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-originals-pressure-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/originals/pressure.log",
+      "sha256": "13b0b2492d7e620e76b8bd3473e1734fa5ae28be2f19788f5fb90d0d78cb543e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-originals-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/originals/report.json",
+      "sha256": "e7427c7f2988c79b894e9b2a751e07427e1a35dac42b44c92e2c185d1a1b1177",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-originals-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/originals/run.py",
+      "sha256": "07ca416618f085bc1024b6ecaa395c4e860264c25f3ba0b10a1975cf91ee4019",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-originals-tests-plains_pressure_boss_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/originals/tests/plains_pressure_boss_runner.gd.source",
+      "sha256": "a1c8f070351005483cc2c6892a7e1b5ce75ca3e6d8139030b76a53c4c5b2aa91",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/report.json",
+      "sha256": "e8c51e338a1d953f4ff6ef56765ddb032eae3fbf70756dce0573ae85f246a8b2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-pressure-candidate-tests-plains_pressure_boss_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/pressure/candidate/tests/plains_pressure_boss_runner.gd.source",
+      "sha256": "8c0c40c2471824e82a67a792dd0bd6040bd061d5b2712ac543beb91197f7f8c8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-current-seven-tests-plains_experience_energy_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-seven/tests/plains_experience_energy_runner.gd.source",
+      "sha256": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-current-seven-tests-fixtures-demo_ui_01_r3-bellstrider_health_d079-tres-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-seven/tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres.source",
+      "sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-current-seven-tests-fixtures-demo_ui_01_r3-bellstrider_health_d079-provenance-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-seven/tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json",
+      "sha256": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "seven-current-seven-tests-plains_pressure_boss_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/current-seven/tests/plains_pressure_boss_runner.gd.source",
+      "sha256": "8c0c40c2471824e82a67a792dd0bd6040bd061d5b2712ac543beb91197f7f8c8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "seven-consumers-wip-eighth-pending",
+      "method": "真实原件逐字归档；原静态pending/失败文字保留，不追改历史结论。",
+      "observed": "有限范围证据；不代表完整current15/full182或历史D077通过。"
+    },
+    {
+      "id": "lifetime-native-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/native-01/report.json",
+      "sha256": "8e15a529d9035c2f0bc8059c794474703ccf9fed00065c7fad98de1347c98239",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-wip-region-pending",
+      "method": "原wrapper原预算，实际冻结源未变；两任务各自限定范围。",
+      "observed": "quality-review-engine passed, clean strict log; not full182 or GUI/device acceptance."
+    },
+    {
+      "id": "lifetime-native-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/native-01/run.py",
+      "sha256": "31ba8aa7636124bb7c3ed2760d9d780dd4c57c76a150e8513b0d37094ba34470",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-wip-region-pending",
+      "method": "原wrapper原预算，实际冻结源未变；两任务各自限定范围。",
+      "observed": "quality-review-engine passed, clean strict log; not full182 or GUI/device acceptance."
+    },
+    {
+      "id": "lifetime-native-quality-review-engine-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/native-01/quality-review-engine.log",
+      "sha256": "0808b0f7a02f97e731efa4cfb934c66378c42fbef01f0584786196fe9e662209",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-wip-region-pending",
+      "method": "原wrapper原预算，实际冻结源未变；两任务各自限定范围。",
+      "observed": "quality-review-engine passed, clean strict log; not full182 or GUI/device acceptance.",
+      "command": "python3 tools/run_quality_review_tests.py",
+      "exit_code": 0,
+      "environment": "Installed optimized Godot4.7.2 gunman_sd1 editor eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638; actual original wrapper; timeout 240s"
+    },
+    {
+      "id": "eighth-quality-current-boss-fixture-patch",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/native-01/quality-current-boss-fixture.patch",
+      "sha256": "a730fb5251f0273b63788ede6bbd942889a4aa59461feee227bc48bc6238d0fa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-wip-region-pending",
+      "method": "第8当前Bell接触fixture单独patch与实际源；生产生命周期修复在独立任务。",
+      "observed": "Six original modes retained; current Bell transition solid copper contact, explicit dead negative, original neck inactive check restored; native1046/0."
+    },
+    {
+      "id": "eighth-quality_review_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/native-01/quality_review_runner.gd.source",
+      "sha256": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-wip-region-pending",
+      "method": "第8当前Bell接触fixture单独patch与实际源；生产生命周期修复在独立任务。",
+      "observed": "Six original modes retained; current Bell transition solid copper contact, explicit dead negative, original neck inactive check restored; native1046/0."
+    },
+    {
+      "id": "actual-03-fixture__baseline-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/fixture__baseline.log",
+      "sha256": "7600e71fd16ca2e94be8fe6adde2ef00602fdd88097bb3d11da2ff4ff34f1b47",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-import-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/import.log",
+      "sha256": "95cf262c872ff0f27020da281a1c840ce5b2d72fa8b243c1dc96cfad20f55c6b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-ledger-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/ledger.json",
+      "sha256": "a76f1efdf28bbbeeb2af2bac2797f294b1733efa9f70c4cb55afa74aeda71072",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_campaign_map_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_campaign_map_runner.log",
+      "sha256": "e29f200a67b35331529e9a808244c6f5083cfde626be25186796f4cf6e269996",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_cohesion_drops_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_cohesion_drops_runner.log",
+      "sha256": "510b715820a8ea0fe9697df472fe1f1a3ad3fb70bbaff17436ee8a06abd671df",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_cohesion_lifecycle_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_cohesion_lifecycle_runner.log",
+      "sha256": "ea717d3185376ac2d904687853805d822e61d73268d2032772f252fc544c5aa6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_cohesion_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_cohesion_runner.log",
+      "sha256": "585dc58cd61c75c51d5ee0e903a9685de2550972dcfd061a225cc8167edfc34f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_experience_energy_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_experience_energy_runner.log",
+      "sha256": "1086541cee7df3ecf130368a63b42ff6e1c2fe04d0ad8bff7d5f36bd6eaf1b2e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_exploration_expansion_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_exploration_expansion_runner.log",
+      "sha256": "c10b6a5e6136b3ed044c3debc1df7babd96daf896137172847e037ea736dbcba",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_exploration_module_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_exploration_module_runner.log",
+      "sha256": "cd248b39b02072d6a701e3f73be06f5fafd6194a29e9e602b2d133f3749cbf44",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_exploration_pressure_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_exploration_pressure_runner.log",
+      "sha256": "23f2fd0f256a9fc6b7ae91a28815faac49babbdb7185cdc1f9719af48457e154",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_interactive_lifecycle_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_interactive_lifecycle_runner.log",
+      "sha256": "ddfd4247dcaa7f2b23549345c7d5c3dfc0896597122a20d2b69ee065c5e1ffc2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_interactive_platforms_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_interactive_platforms_runner.log",
+      "sha256": "d7af02b5f52d6fd6b523078bd455550a72b5819377ed7c253f6b0fa2431ebc9d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_platform_boss_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_platform_boss_runner.log",
+      "sha256": "ccaeb3cda52d4841f8485cae3b9fcd436e6b8cf2ef5e296f5fdc15000089bbeb",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_pressure_boss_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_pressure_boss_runner.log",
+      "sha256": "5405224a745ded75029d78fe5f865e3a04484faf9a6cb56cec4ee0511d6a1cc8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_region_boss_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_region_boss_runner.log",
+      "sha256": "f3a978656263c24e6a4e483f8453461f90723a2f3f539240fda5b04ffb944a94",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-plains_region_lifecycle_runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/plains_region_lifecycle_runner.log",
+      "sha256": "19ea1d18b8f8fd27786f60b2e0e9e2cd2cda45febc237d68cc122cbd0af50bbf",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "actual-03-full-stdout",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/full.log",
+      "sha256": "b02a0fdfc3e917b3d4c644ff3f5fff7f56b9d55bdf14885704fec2fe91639c51",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "PASS current15+import;27legacy not run; Pressure default444 lifecycle scope, not old D077 contract.",
+      "command": "python3 tools/run_plains_region_tests.py",
+      "exit_code": 0,
+      "environment": "Actual original wrapper, total1500s and original per-case budgets; optimized Godot4.7.2 gunman_sd1 editor eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638; elapsed224.151s"
+    },
+    {
+      "id": "actual-03-post-run-comparison",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/post-run-source-comparison.json",
+      "sha256": "53669cf2b812f7ab4eec6756703f161b8c67660aa6beffba4e413e3fa951d031",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited current scope; full182, oldD077,27legacy routes,GUI/device not certified."
+    },
+    {
+      "id": "eighth-final-independent-json",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/underworld-deferred-lifecycle-independent-review.json",
+      "sha256": "9aa1f783dba234dd06ca62d6a758628a1520c2f2d10e5d49295671e3b41fcbd5",
+      "kind": "review",
+      "producer": "items_refactor",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited acceptance for eighth quality test migration/native1046; original other patch Underworld production separately tracked.",
+      "reviewer": "items_refactor",
+      "implementers": [
+        "runtime_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Independent non-author read-only source/test exact-transform and root-run native review; CI card applies only its separate quality test patch."
+    },
+    {
+      "id": "eighth-final-independent-md",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/review-and-candidates/underworld-deferred-lifecycle-independent-review.md.source",
+      "sha256": "18a696d612cb2dd4ad590b951baec0dbbf3ad150d58fe1dc82ce31c6c7c8db36",
+      "kind": "review",
+      "producer": "items_refactor",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "原件逐字归档；595374基点实际WIP测试，后继a671只提交独立生命周期修复。",
+      "observed": "Limited acceptance for eighth quality test migration/native1046; original other patch Underworld production separately tracked.",
+      "reviewer": "items_refactor",
+      "implementers": [
+        "runtime_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Independent non-author read-only source/test exact-transform and root-run native review; CI card applies only its separate quality test patch."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "全局formal/G4/full182、实际Web/Windows/Android导出、GUI/设备未验。",
+    "current15是分类后15槽位；Pressure仅current App/Home/Camera/Underworld及renderer两函数444，旧D077需--legacy-d077-boss且不属于legacy27。",
+    "27条旧standalone itineraries本次未运行，ledger逐项保留。",
+    "五共享消费者均有原预算实际pass，前四在独立Underworld修复前运行，不能称同一最终源整套覆盖。",
+    "595374为WIP候选基点，a671只提交独立生命周期修复；八测试最终提交尚待。",
+    "本次只有post-run实际源对既有冻结收据的比较，不编造actual03 run前snapshot；原ledger/rawlog身份保持。"
+  ],
+  "candidate_source": {
+    "base_commit": "59537400af06a26046037840e28989f75933a265",
+    "original_candidate_base": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+    "state": "Frozen eight test scripts plus two test-only fixture data files, applied WIP at595374; current HEADa671 independently commits lifecycle fix; current15 passed, final CI commit pending",
+    "files_sha256": {
+      "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "tests/plains_exploration_expansion_runner.gd": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "tests/plains_region_boss_runner.gd": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+      "tests/plains_experience_energy_runner.gd": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b",
+      "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2",
+      "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7",
+      "tests/plains_pressure_boss_runner.gd": "8c0c40c2471824e82a67a792dd0bd6040bd061d5b2712ac543beb91197f7f8c8",
+      "tests/quality_review_runner.gd": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
+    },
+    "five_phase_files_sha256": {
+      "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "tests/plains_exploration_expansion_runner.gd": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "tests/plains_region_boss_runner.gd": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6"
+    },
+    "observed_head_after_native": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+    "post_run_identity_evidence": "actual-03-post-run-comparison"
+  },
+  "pending_scope_extension": [],
+  "shared_consumer_coverage": {
+    "status": "ALL_FIVE_HAVE_ACTUAL_PASS_ACROSS_RUNS_NOT_A_SINGLE_FULL_RUN",
+    "runs": [
+      {
+        "id": "root-bell-current",
+        "report": "shared/actual-01/report.json",
+        "seconds": 42.937
+      },
+      {
+        "id": "wood-platforms",
+        "report": "shared/actual-01/report.json",
+        "seconds": 15.82
+      },
+      {
+        "id": "root-bell-spaces",
+        "report": "shared/actual-02/report.json",
+        "seconds": 50.208
+      },
+      {
+        "id": "terrain-production",
+        "report": "shared/actual-02/report.json",
+        "seconds": 15.306
+      },
+      {
+        "id": "quality-review-engine",
+        "report": "native-01/report.json",
+        "seconds": 14.714
+      }
+    ],
+    "limitation": "Earlier4 runs preceded independent Underworld production fix; only final quality run binds that fix. Original1044/1 and317 errors remain archived."
+  }
+}

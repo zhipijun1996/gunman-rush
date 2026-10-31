@@ -1,0 +1,141 @@
+{
+  "task_id": "CI-BOSS-CONSUMERS-01",
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_CURRENT_CONTENT_TEST_MIGRATION_V2_NATIVE_PENDING",
+  "baseline": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "candidate_files": [
+    {
+      "path": "tests/plains_cohesion_lifecycle_runner.gd",
+      "original_sha256": "9ef870bc07d07610d132af01df99868544133e208656ec355121d5d56d4d106c",
+      "candidate_sha256": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "original_git_and_archive_exact": true,
+      "replaced_check_lines": [
+        " check(stage.reward_available and not seal.closed,\"defeat opens actual walls and guarantees reward\")",
+        " check(is_instance_valid((stage.visual_layer as PlainsStageVisual)._boss_loot),\"mini defeat has a visible guaranteed loot object\")",
+        " check(stage.get_children().any(func(n):return n is DefeatBurst and n.mini),\"mini defeat uses finite AI explosion object\")",
+        " check(app.exit_modal.opened,\"settled loot opens actual reward confirmation\")",
+        " check(app.director.stage_index==2 and app.wallet.balance==before+12,\"mini loot settles existing guaranteed 12 coins exactly once\")"
+      ]
+    },
+    {
+      "path": "tests/plains_campaign_fixture.gd",
+      "original_sha256": "9107e736969af1cfa9b8d44b6b27963fc02590307d6da0d1b33389f7bf2a7db6",
+      "candidate_sha256": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "original_git_and_archive_exact": true,
+      "replaced_check_lines": []
+    },
+    {
+      "path": "tests/plains_campaign_map_runner.gd",
+      "original_sha256": "c388108eec5d0c1bf878759d35ec0b3148eaabeae0491227476bfb570c9f19e0",
+      "candidate_sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "original_git_and_archive_exact": true,
+      "replaced_check_lines": [
+        "\tcheck(first.generated.manifest.difficulty==\"intro\" and mini.health.capacity==16 and mini is BellstriderEncounter,\"first whole map is simpler with independent sixteen-HP Bellstrider\")"
+      ]
+    },
+    {
+      "path": "tests/plains_exploration_expansion_runner.gd",
+      "original_sha256": "c760b5a59f664824a8885d828807d08b0d744f56126a81acfc1db983ce1c4824",
+      "candidate_sha256": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+      "original_git_and_archive_exact": true,
+      "replaced_check_lines": [
+        "\t\tcheck(encounter.health.current==15,\"mini core accepts actual visible shot from \"+str(source))"
+      ]
+    },
+    {
+      "path": "tests/plains_region_boss_runner.gd",
+      "original_sha256": "0d2411d24832f94bfac8319345db5e9a22eb5d6e86d3c2e480f30173e34a0459",
+      "candidate_sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+      "original_git_and_archive_exact": true,
+      "replaced_check_lines": []
+    }
+  ],
+  "candidate_patch_sha256": "462cade8b900c72e1ab78826ad011dcd058f1d20a4755049998e14b9150f7e6c",
+  "candidate_receipt_sha256": "212896688f60d036b00cc5df1e03d0811091768bfb6d3e1a47c53b02808af06d",
+  "main_five_test_files_still_original": true,
+  "P9_frozen11_files_unchanged": true,
+  "baseline_evidence": {
+    "report_sha256": "897086a057e73e31c3b14d2d75099a0ed426b4ee726a19e906501ea3512364f3",
+    "raw_log_sha256": "7ed3d13a515edd424411748cf3db5399d5fe337efb7137727df76a3409303570",
+    "original_script_sha256": "9ef870bc07d07610d132af01df99868544133e208656ec355121d5d56d4d106c",
+    "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "actual_result": "19 assertions /5 failures,exit1,8.445/120 seconds; original ed95 on same optimized editor",
+    "first_attempt_limit": "baseline01 import/UID-cache failure did not execute case; retained separately"
+  },
+  "closed_review_finding": {
+    "id": "BOSS-VISUAL-PROCESS-01",
+    "original": "CandidateV1 manually called visual._process(0), able to mask an unprocessed production presentation",
+    "corrected": "CandidateV2 awaits natural process_frame plus zero-duration SceneTreeTimer after Node._process, then observes existing live Sprites; no direct update call or object manufacture",
+    "rejected_candidate_retained": "current-boss-consumers-candidate-review-v1/"
+  },
+  "migration_mapping": [
+    {
+      "original": "3-frame reward_available+seal release",
+      "current": "Retain immediate accepted terminal/complete/seal release; additionally assert no pre-impact reward/ledger, then require real impact/physical entitlement",
+      "nature": "Explicit two-timepoint current content migration"
+    },
+    {
+      "original": "Guaranteed _boss_loot positive",
+      "current": "Real four[5,5,1,1] physical units, visible textured Sprites at current positions, real originalApp pickup and claimledger with per-unit duplicate rejection",
+      "nature": "Old object contract replaced, not claimed unchanged"
+    },
+    {
+      "original": "Finite DefeatBurst mini positive",
+      "current": "Real bound visible BellstriderPresentation, exact Definition death duration/progress1, impact/final eachonce, stopped death clock with retained wreck; no duplicate generic mini burst/loot",
+      "nature": "Changed current visual contract; does not test retained generic historical component"
+    },
+    {
+      "original": "60-frame portal confirmation and12 coin payout",
+      "current": "Actual death/impact readiness, live12 physical coins collected before portal, balance remains12 after original confirmation; original early manual-exit rejection kept",
+      "nature": "Payment source follows current adopted content, no portal fakegrant"
+    },
+    {
+      "original": "Current mini16 capacity / one projectile leaves15",
+      "current": "Explicit current resource path+40HP+Definition equality; original8 projectile positions/fire/wait retained, actual single tuned1 damage measured as beforeHP-1",
+      "nature": "Current content update only; explicit legacy16/36 unchanged"
+    },
+    {
+      "original": "Map260-frame gold offer / abilities / forest / death tie",
+      "current": "Original60-frame gold and all later UI/claim/ability/transition/tie assertions retained; insert Pressure physical landing+death readiness and20 actual coin collection before old door flow",
+      "nature": "Required current preconditions added without replacing valid original assertions"
+    }
+  ],
+  "helper": {
+    "owner": "Existing tests/plains_campaign_fixture.gd only; no parallel framework",
+    "second_map_actual_consumers": [
+      "tests/plains_campaign_map_runner.gd",
+      "tests/plains_region_boss_runner.gd",
+      "tests/quality_review_runner.gd",
+      "tests/root_bell_formal_tests.gd",
+      "tests/root_bell_spaces_runner.gd",
+      "tests/terrain_production_runner.gd",
+      "tests/wood_platform_runner.gd"
+    ],
+    "Bell_wait": "Own Definition death_seconds plus5s bounded ticks; real reward_impact_ready/drop ledger; complete branch also real death_age and reward_ready_at",
+    "Pressure_wait": "Own Definition death_seconds plus5s bounded ticks; actual terminal+death_age after its landing+drop ledger, not Bell phase/duration approximation",
+    "collection": "Actual stage units only, uniqueIDs/coin kinds/total,existing ready_at,reset_at real unit position then originalApp _commit_pickup,exact per-unit wallet delta,claimed ledger and repeated original call rejection",
+    "already_claimed_branch": "Require real claim ledger and duplicate rejection; do not fabricate state",
+    "scope": "Disclosed position/outcome fixture, not natural movement or fullfight"
+  },
+  "preserved_contracts": [
+    "Original wall/seal/anchor/pause-rebuild/high-jump/shoot-eligibility checks remain",
+    "Local high_jump restores captured original physics-processing flag before actual death lifecycle",
+    "Original gold/duplicateclaim/abilitychoice/forestretention/death-priority checks remain",
+    "Current resource definitions/media/production unchanged; P9 separate equivalence claim unaffected",
+    "Original15-region scheduler,182profiles and timeouts unchanged; finite waits consume same total budgets",
+    "Other explicit legacy/window16/36 fixtures unchanged"
+  ],
+  "required_validation": [
+    "Actual candidate GDScript parsing and original4 relevant runners under unchanged budgets",
+    "All7 real second_map consumers through their existing checks, not only2 modified runners",
+    "Original15 region suites/28route ledger and related current Bell8/Pressure6 regression",
+    "Final full182 and actual export/GUI remain outstanding"
+  ],
+  "limits": [
+    "No engine or runtime test run by independent reviewer; static acceptance is not greenCI/native acceptance",
+    "Two obsolete MiniFX/singleloot positives intentionally replaced by current content assertions; original19 cannot be described as unchanged passing",
+    "Native Sprite cadence,terminal waits,physical pickup interaction and total runtime budgets still require actual execution",
+    "No new claim that death-finished but uncollected Bell manualexit must reject; only original early rejection and automatic pending gate tested",
+    "Current absence of genericMiniFX layer does not verify all retained generic/legacy rendering consumers"
+  ]
+}

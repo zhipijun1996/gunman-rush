@@ -1,0 +1,11 @@
+{
+  "id": "CI-BOSS-CONSUMERS-01-V4",
+  "file": "tests/plains_region_boss_runner.gd",
+  "sha256": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+  "review": "current-boss-region-v4-independent-review.json",
+  "classification": "current-content fixture prerequisite migration, not production behavior change",
+  "original_failure": "Actual V3 29/2; exactly two phaseIII assertions before Pressure intro completes.",
+  "preserved": "Entire V3 source restored by removing only seven inserted lines, including original cap*2/3 transaction, three physics-frame transition window, gold/physical coin/ability/forest/death-tie assertions.",
+  "added": "Bounded real intro completion plus actual combat readiness assertion for each of two fixtures. No phase, clock, threshold, position, or shared campaign helper mutation.",
+  "status": "STATIC_ACCEPT_NATIVE_PENDING"
+}

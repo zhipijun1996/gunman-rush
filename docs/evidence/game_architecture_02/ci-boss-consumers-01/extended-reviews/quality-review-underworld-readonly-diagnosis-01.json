@@ -1,0 +1,43 @@
+{
+  "status": "read_only_static_diagnosis_pending_root_baseline_native",
+  "source_head": "59537400af06a26046037840e28989f75933a265",
+  "baseline": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "no_engine_run": true,
+  "no_repository_edits": true,
+  "log": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/quality-review-engine.log",
+  "log_sha256": "1c30c741cad9a139d8fd0d33927b8dfdcdf471885fc590fd19812fdfcf5c1aff",
+  "assertions": 1044,
+  "failures": 1,
+  "deferred_parameter_errors": 317,
+  "source_sha256": {
+    "tests/quality_review_runner.gd": "b4cf9170d5131c6a8e41acff89bc987bb902366efccc2537fe1db62a64e20d1a",
+    "game/presentation/world/underworld_plains/underworld_presentation.gd": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
+    "game/presentation/world/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+    "game/bosses/bellstrider/bellstrider_encounter.gd": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+    "tests/bellstrider_rework_01/contact_edges.gd": "26315989c35f9491406b46615cb70fd751f277fb729e33a8673f5d09ec333387"
+  },
+  "same_as_ed95": [
+    "tests/quality_review_runner.gd",
+    "game/presentation/world/underworld_plains/underworld_presentation.gd"
+  ],
+  "classification": [
+    {
+      "id": "QUALITY-CONTACT-FIXTURE",
+      "finding": "Map1 actual Bellstrider transition contact is intentional; original generic fixture uses old Windkeeper window. Baseline2ce already has the conflicting rules.",
+      "production_change_recommended": false,
+      "preserve": "Original current Bellstrider contact_edges ground_side(phase=true) proves actual HP loss; retain old Windkeeper window checks on explicit legacy instance and current-family checks on real formal instance."
+    },
+    {
+      "id": "UNDERWORLD-DEFERRED-LIFETIME",
+      "finding": "Typed Node argument can expire in deferred queue; validation fails before install_item internal validity guard. Study observer test adds then immediately frees 317 queued world descendants.",
+      "certainty": "Static chain and error count consistent; no instrumented NodeID runtime trace performed. Await root exact-baseline reproduction.",
+      "minimal_candidate": "Defer WeakRef to a narrow handler; resolve/check valid Node and current world membership before existing typed install_item. Keep live-node deferred order and synchronous setup.",
+      "negative_tests": [
+        "same-frame added then freed subtree drains without engine error",
+        "live late Sprite gets original material after deferred turn",
+        "node moved outside original world before deferred turn remains untouched",
+        "host or world removed before flush safely releases; no retained strong Node"
+      ]
+    }
+  ]
+}

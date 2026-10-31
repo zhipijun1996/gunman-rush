@@ -1,0 +1,32 @@
+# CI-BOSS-CONSUMERS-01 V3：八来源射线的当前壳甲合同
+
+这是外部单叶候选，仅 `tests/plains_exploration_expansion_runner.gd`。没有修改 main、生产/碰撞/玩家/健康值或运行 Godot。V2 的五文件、补丁、SHA和文档已完整保留在 `current-boss-consumers-candidate-review-v2/`，包括原 `expansion-failed-native.log`。root 已执行 V2 expansion 2919断言/2失败，恰为两底部来源；cohesion28/0、campaign3721/0字节未改，不要求因本单叶重跑。
+
+## 在查看实际命中结果前确定的预期
+
+Boss原点仍 `(560,535)`。原两底部来源 `(540,570)`、`(580,570)` 是 Boss-local `(-20,35)`、`(20,35)`；配置的低身凸包 HULL_POINTS 下沿在y43，上沿约y-5，二者处于壳体内部。当前 neck 姿态保持低身壳，顶部铃是独立 Area2D。候选另外用真实已装配物理 point query 验证这两个实际站位确实 overlap Boss 本体；用真实 first-hit ray 验证各路径，不凭静态坐标直接签物理通过。
+
+来源证据：
+
+- `BellstriderRigPose.HULL_POINTS`（8点凸包）、WHEEL_RADIUS与WEAK_SIZE，是原生产几何，无新测试算法。
+- `BellstriderEncounter._ready():52–70` 安装真实凸壳/双轮；`_update_combat_shapes():191–212` 同一rig驱动壳与上铃；`weakpoint_only():103–104` 恒true。
+- `WindkeeperDamageable.receive_damage():26–35` 对 `primary==null` 壳体发实际 armour_hit 并拒绝；只有上铃转主owner提交。
+- `PlayerProjectile.advance():117–123` 在扫 barrel 之前先检查原发射点 initial overlap。因此位于壳内向上瞄准，并不允许穿壳抵达上铃；这种0伤是物理拦截而非未发射/漏命中。
+- 既有 PR122 `damage_policy.gd:185–195,234–242` 已区分上铃伤害/壳0伤及唯一primary；本case复用相同真实事件观察方式，未另造伤害机制。
+
+本候选的 `armour_expected` 只由固定两来源列表声明，不依赖 ray结果、armour事件或HP结果来选择期望；其余六来源预先声明为上铃通路。不使用 `命中或未命中皆可` 的OR。
+
+## 逐断言迁移
+
+1. 保留八个原站位、Boss/玩家创建、当前Definition40、原单发伤害1、原try_fire、原45物理帧；无改变体型、删除碰撞或调整来源。
+2. 新增所有八case的当前合约前置：weakpoint_only、上铃可收效果/壳不可、上铃primary指向同一Health owner。
+3. 发射前的独立真实ray（mask4同时包含body/area、hit_from_inside、只排除玩家）必须先中预先指定目标：底部两条Boss本体，其余六条真实 `_core`。底部额外真实point overlap必须命中Boss，验证当前站位处于壳内。
+4. 底部两条旧“必须减1HP”改为更具体的负例：真实 try_fire 成功后，HP精确保持原值；实际 armour_hit **恰1次**且impact有限；主damageable的 damaged提交**0次**；实际弹体已被消费。不能仅凭HP未变就通过。
+5. 六条上铃保留“射前HP−原单发1”的原断言，追加主damageable damaged **恰1次**、armour_hit **0次**；context必须是实际玩家的projectile且amount等于原伤害；弹体消费。没有降低原上铃有效命中要求。
+6. 其余 expansion 内容原样、另外四文件原样，明确legacy16/36/window测试不动。原15 suite/182注册和150秒预算不变。
+
+## 证据与待验证
+
+单叶补丁 `current-boss-expansion-v3.patch` 已对 main V2 `git apply --check` 通过。V3完整文件在 `current-boss-consumers-candidate-v3/tests/`，前后SHA及7个生产/既有测试证据SHA见同名JSON。静态几何推导与候选断言尚不等于实际physics通过，需structure独审后由root用原150秒 expansion wrapper执行。
+
+剩余7个native消费者尚未由本收据验收；其中 `root_bell_current` 必须按原120秒，早先手工计划300秒不作为通过证据。本V3不要求重跑字节相同且已过的cohesion/campaign，也不宣称full182/export/GUI完成。

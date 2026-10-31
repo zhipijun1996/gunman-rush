@@ -30,6 +30,13 @@ func fixture() -> void:
 	await frames(2)
 	check(app._boss_started, "formal core entry activates actual sheep")
 	var encounter := stage.boss.get_node("Encounter") as WindkeeperEncounter
+	# Current Pressure defers phase changes until its real intro has ended.
+	# Reuse the existing formal_app setup bound; retain the original health
+	# transaction and its separate three-frame phase-transition assertion below.
+	for _intro_frame: int in 360:
+		if encounter.mode != &"intro": break
+		await frames(1)
+	check(encounter.mode != &"intro" and encounter.accepts_combat_damage(), "actual current Boss intro completes before the original phase fixture transaction")
 	encounter.health.apply_damage(ActorResourceRequest.new(&"fixture_phase3",encounter.health.epoch,encounter.health.capacity*2/3,encounter.health.get_instance_id()))
 	await frames(3)
 	check(encounter.stage_phase == 3, "formal phaseIII lifecycle executes")
@@ -47,9 +54,16 @@ func run() -> void:
 	await fixture()
 	var stage := app.stage as GeneratedDemoStage
 	var encounter := stage.boss.get_node("Encounter") as WindkeeperEncounter
+	var wallet_before := app.wallet.balance
 	submit(&"boss",encounter.health.current,encounter.health,&"fixture_defeat")
 	await frames(60)
 	check(app.current_reward != null and app.current_reward.gold, "III defeat produces guaranteed gold offer once")
+	check(encounter is WindkeeperPressureEncounter,"formal map2 outcome consumes the current Pressure Boss")
+	var physical_reward_ready: bool = await load("res://tests/plains_campaign_fixture.gd").wait_pressure_reward(app,self)
+	check(physical_reward_ready,"current Pressure finishes its actual landing and bounded death clock before reward collection")
+	var coin_total := (encounter.definition as WindkeeperPressureDefinition).reward_coin_total
+	check(physical_reward_ready and load("res://tests/plains_campaign_fixture.gd").collect_boss_coins(app,WindkeeperPressureRewards.SOURCE,coin_total),"actual App claims every physical major-Boss coin with duplicate-receipt rejection")
+	check(app.wallet.balance==wallet_before+coin_total and not app._windkeeper_pressure_rewards_pending(),"current major-Boss physical reward is credited exactly once before the original gold door")
 	check(app.segment.is_safe(stage.reward_position), "III gold exit is actually supported safe bridge standing point")
 	var offer := app.current_reward
 	app.player.reset_at(stage.reward_position)

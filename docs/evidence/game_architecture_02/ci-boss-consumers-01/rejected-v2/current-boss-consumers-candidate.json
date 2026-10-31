@@ -1,0 +1,81 @@
+{
+  "kind": "CI-BOSS-CONSUMERS-01 external candidate",
+  "source_head": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+  "main_unchanged_for_all_5_files": true,
+  "native": "NOT_RUN",
+  "status": "FROZEN_PENDING_INDEPENDENT_REVIEW",
+  "files": {
+    "tests/plains_cohesion_lifecycle_runner.gd": {
+      "original_sha256": "9ef870bc07d07610d132af01df99868544133e208656ec355121d5d56d4d106c",
+      "candidate_sha256": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "old_check_calls": 20,
+      "new_check_calls": 29
+    },
+    "tests/plains_campaign_fixture.gd": {
+      "original_sha256": "9107e736969af1cfa9b8d44b6b27963fc02590307d6da0d1b33389f7bf2a7db6",
+      "candidate_sha256": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "old_check_calls": 0,
+      "new_check_calls": 0
+    },
+    "tests/plains_campaign_map_runner.gd": {
+      "original_sha256": "c388108eec5d0c1bf878759d35ec0b3148eaabeae0491227476bfb570c9f19e0",
+      "candidate_sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "old_check_calls": 68,
+      "new_check_calls": 68
+    },
+    "tests/plains_exploration_expansion_runner.gd": {
+      "original_sha256": "c760b5a59f664824a8885d828807d08b0d744f56126a81acfc1db983ce1c4824",
+      "candidate_sha256": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+      "old_check_calls": 85,
+      "new_check_calls": 86
+    },
+    "tests/plains_region_boss_runner.gd": {
+      "original_sha256": "0d2411d24832f94bfac8319345db5e9a22eb5d6e86d3c2e480f30173e34a0459",
+      "candidate_sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+      "old_check_calls": 20,
+      "new_check_calls": 24
+    }
+  },
+  "original_archive": "/workspace/refactor-evidence/current-boss-consumers-originals",
+  "baseline": {
+    "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+    "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "script_sha256": "9ef870bc07d07610d132af01df99868544133e208656ec355121d5d56d4d106c",
+    "source_clean_after": true,
+    "scope": "Exact pre-P9 ed95, same optimized editor, original unchanged lifecycle script and budgets",
+    "results": [
+      {
+        "case": "import",
+        "exit_code": 0,
+        "seconds": 9.9473944090023,
+        "timeout_seconds": 90,
+        "log_sha256": "374e597e776e81405172a2d27ce60dcfe2adb0df0f3ebb76c520a68b59eaafb6",
+        "failures": [],
+        "marker": []
+      },
+      {
+        "case": "cohesion",
+        "exit_code": 1,
+        "seconds": 8.445068460001494,
+        "timeout_seconds": 120,
+        "log_sha256": "7ed3d13a515edd424411748cf3db5399d5fe337efb7137727df76a3409303570",
+        "failures": [
+          "FAIL defeat opens actual walls and guarantees reward",
+          "FAIL mini defeat has a visible guaranteed loot object",
+          "FAIL mini defeat uses finite AI explosion object",
+          "FAIL settled loot opens actual reward confirmation",
+          "FAIL mini loot settles existing guaranteed 12 coins exactly once"
+        ],
+        "marker": [
+          "PLAINS COHESION LIFECYCLE: 19 assertions, 5 failures"
+        ]
+      }
+    ]
+  },
+  "patch_sha256": "462cade8b900c72e1ab78826ad011dcd058f1d20a4755049998e14b9150f7e6c",
+  "production_modified": false,
+  "suite_registry_or_budgets_modified": false,
+  "scope": "5 existing tests; formal current semantics migration, not P9 equivalence; all other explicit historical definitions untouched",
+  "revision": 2,
+  "review_correction": "Remove manual visual._process(0); observe natural process_frame then zero SceneTree timer timeout after Node._process. Earlier candidate retained in current-boss-consumers-candidate-review-v1."
+}

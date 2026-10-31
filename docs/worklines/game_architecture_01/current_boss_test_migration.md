@@ -1,3 +1,5 @@
+> 后续实际范围已扩为八个测试与两份测试专用历史资源依赖，并完成 current15 有限验证；详见 [实际迁移、分类和验证](ci_boss_consumers_01.md)。下文是五测试阶段原计划，保留为来源，不能替代后续范围。正式 Boss 物理、伤害、奖励及资源版本没有随测试迁移改变。
+
 # CI-BOSS-CONSUMERS-01：测试跟随当前 Boss 消费者
 
 独立于 GAME-ARCH-OWNERSHIP-02。原始只读定位见 `/workspace/refactor-evidence/region-boss-fixture-migration-review.md/json`；迁移前原测试及失败日志必须逐字归档。目标是让现有 CI 验证已合入的 PR122/124 内容，不改生产 Boss、生命、死亡/掉落/钱包/随机政策，不通过弱化断言取得绿灯。

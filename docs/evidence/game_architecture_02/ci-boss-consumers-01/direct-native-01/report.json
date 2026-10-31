@@ -1,0 +1,96 @@
+{
+  "base_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "scope": "Direct native preflight only; original wrapper identity/whole182/GUI not signed",
+  "frozen_files": {
+    "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+    "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+    "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+    "tests/plains_exploration_expansion_runner.gd": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+    "tests/plains_region_boss_runner.gd": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086"
+  },
+  "source_unchanged": true,
+  "results": [
+    {
+      "case": "import",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 7.98844326499966,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "dfcd18d877b603456eda4a89e1f0ac92ebe9c425004882b4259783eb040a9c32",
+      "completion": []
+    },
+    {
+      "case": "cohesion",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_cohesion_lifecycle_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "seconds": 9.340917837998859,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "f4a32dfc6cb141bff105996206396161bc1315f90b78d866becdb056bdba6305",
+      "completion": [
+        "PLAINS COHESION LIFECYCLE: 28 assertions, 0 failures"
+      ]
+    },
+    {
+      "case": "campaign",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_campaign_map_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 23.88979941800062,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "1c910b3ed4f1e43cec83f27d9ba874be7d44589025364df256b485df9b644c94",
+      "completion": [
+        "PLAINS CAMPAIGN MAP: 3721 assertions, 0 failures"
+      ]
+    },
+    {
+      "case": "expansion",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_exploration_expansion_runner.gd"
+      ],
+      "timeout_seconds": 150,
+      "seconds": 38.879071797000506,
+      "exit_code": 1,
+      "errors": [
+        "exit=1",
+        "original complete marker missing"
+      ],
+      "log_sha256": "dd4e36d9af60303dfa850f0f8c4dc76651186dcedc60271b2e97242d5b846ee8",
+      "completion": []
+    }
+  ],
+  "passed": false
+}

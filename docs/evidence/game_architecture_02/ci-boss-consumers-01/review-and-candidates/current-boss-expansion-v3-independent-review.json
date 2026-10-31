@@ -1,0 +1,49 @@
+{
+  "task_id": "CI-BOSS-CONSUMERS-01",
+  "sub_batch": "V3 current eight-source Bell armour/weakpoint contract",
+  "verdict": "LIMITED_STATIC_ACCEPT_V3_SINGLE_TEST_LEAF_NATIVE_PENDING",
+  "reviewer": "structure_audit",
+  "path": "tests/plains_exploration_expansion_runner.gd",
+  "before_v2_sha256": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+  "candidate_v3_sha256": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+  "patch_sha256": "ff92a8b1505fee86918320fdfc074df3665df50c2da35ac85695c6ba507226f6",
+  "production_evidence_sha256": {
+    "game/bosses/bellstrider/bellstrider_encounter.gd": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+    "game/bosses/bellstrider/bellstrider_rig_pose.gd": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366",
+    "game/bosses/windkeeper/windkeeper_damageable.gd": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+    "game/combat/projectiles/player_projectile.gd": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+    "game/combat/weapons/shoot_ability.gd": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+    "tests/bellstrider_rework_01/damage_policy.gd": "759b400a9ac8207f6f09a31b9d17847e5a4cb21695e5ab101d789c0b3478a5a4",
+    "tests/bellstrider_rework_01/weapon_routes.gd": "ae29b758ebd3040d22751df43612a76dae3ac22c90216f9795a4b84c8f9359f1"
+  },
+  "preserved_v2_failure": {
+    "directory": "/workspace/refactor-evidence/current-boss-consumers-candidate-review-v2",
+    "raw_log_sha256": "dd4e36d9af60303dfa850f0f8c4dc76651186dcedc60271b2e97242d5b846ee8",
+    "result": "2919 assertions/2 failures at the two bottom sources; retained, not converted to pass"
+  },
+  "rationale": {
+    "distinction": "Revision was motivated by V2 observed failures, then independently justified against existing production geometry/admission. Fixed V3 expectations are declared before its own observations; this is not a claim authors predicted the failures before V2 ran.",
+    "geometry": "Boss-local(-20,35) and(20,35) lie strictly inside original8-vertex HULL_POINTS; current neck pose remains low hull. Actual candidate ray/point queries are additional preconditions, not outcome-derived selectors.",
+    "production_contract": "Bell weakpoint_only always true. Motor body primary rejects effects/HP and emits armour_hit; upperArea routes to same primary Health owner. ShootAbility starts projectile at Player global_position; PlayerProjectile resolves stationary initial overlap before swept barrel travel.",
+    "expectation": "Exactly2 fixed bottom sources are armour negatives; other6 are predetermined upper-bell positives. No OR accepting either outcome, no dynamic expected-value branch based on ray/HP/events.",
+    "negative_strength": "True firing succeeds; first physical ray contact must be Boss body and actual point overlap must confirm it; HP unchanged, exactly1 armour event with finite impact,0 committed primary damage events,projectile consumed.",
+    "positive_strength": "Keep exactly1 original tuned HP loss; require first ray contact actual upperArea,exactly1 primary damaged event,no armour event,actual player projectile source/type/amount,and projectile consumed."
+  },
+  "preservation": {
+    "all8_original_positions": true,
+    "original_try_fire_and45_physics_frames": true,
+    "current_resource40_and_original_projectile_damage1": true,
+    "all_other_expansion_bytes": true,
+    "other4_candidates_unchanged_by_single_leaf": true,
+    "no_production_or_historical16_36_change": true,
+    "original15_suites_182_registry_and150s_budget_unchanged": true
+  },
+  "limits": [
+    "No Godot/physics/native execution by reviewer; actual V3 parse/ray/overlap/contact assertions require root original150s run",
+    "Static polygon inclusion supports current source contract but does not substitute for actual transformed physics queries",
+    "This intentionally changes obsolete8-all-hit expectation into6positive+2strongnegative current-content coverage; not assertion-equivalent prior test pass",
+    "Previous cohesion28/0/campaign3721/0 are root results outside this incremental signature; no demand to rerun unchanged bytes here",
+    "Remaining7 consumers not signed; root_bell_current must use original120s, earlier unexecuted300s manual plan is not acceptance evidence",
+    "No full182/PCK/GUI/complete template activation acceptance"
+  ]
+}

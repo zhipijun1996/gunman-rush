@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scope": "Exact D079 test-only HealthDefinition dependency; does not replace the current 40 HP production Bellstrider resource. No historical encounter implementation is copied.",
+  "source_commit": "2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62",
+  "original_path": "resources/bosses/bellstrider_health.tres",
+  "source_git_blob": "4dfa930601d3c54a3c1c41cac0de4997a3de77a7",
+  "preserved_path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres",
+  "sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2",
+  "transformations": [],
+  "reason": "The existing legacy Bell window Definition still follows the shared live health path, which now supplies 40 HP. The historical energy/no-refund fixture asserts 16 HP and must pin its actual dependency.",
+  "existing_history_authority": "tests/fixtures/demo_ui_01_r3/history.json",
+  "runtime_registration": "none; loaded only by the explicit historical energy fixture"
+}
