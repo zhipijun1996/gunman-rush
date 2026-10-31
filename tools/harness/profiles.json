@@ -2518,7 +2518,9 @@
         "docs/creative_direction/archive/merge-20261031-style25/windkeeper/sources/scripts/ui/windkeeper_hud.gd.txt",
         "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tests/test_region_bible.py",
         "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tests/test_region_creative_direction.py",
-        "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tools/harness/profiles.json"
+        "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tools/harness/profiles.json",
+        "tools/region_style_history.py",
+        "docs/creative_direction/archive/feature-layout-before-style26"
       ],
       "weight_seconds": 0.1
     },
@@ -3127,7 +3129,9 @@
         "docs/creative_direction/archive/merge-20261031-style25/windkeeper/sources/scripts/ui/windkeeper_hud.gd.txt",
         "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tests/test_region_bible.py",
         "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tests/test_region_creative_direction.py",
-        "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tools/harness/profiles.json"
+        "docs/creative_direction/archive/merge-20261031-style25/windkeeper/tools/harness/profiles.json",
+        "tools/region_style_history.py",
+        "docs/creative_direction/archive/feature-layout-before-style26"
       ],
       "weight_seconds": 0.5
     },
@@ -5206,6 +5210,213 @@
         "project.godot",
         "export_presets.cfg"
       ]
+    },
+    "architecture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_project_dependencies.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "cacheable": true,
+      "inputs": [
+        "tools/project_dependencies.py",
+        "tests/test_project_dependencies.py"
+      ]
+    },
+    "level-plan": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/level_plan_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^LEVEL PLAN TESTS: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/level_plan_runner.gd",
+        "tests/audio_teardown.gd"
+      ]
+    },
+    "enemy-region-state": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_region_state_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^ENEMY REGION STATE: [1-9][0-9]* checks, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/enemy_region_state_runner.gd",
+        "tests/audio_teardown.gd"
+      ]
+    },
+    "game-architecture-effects": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/game_architecture_effects_runner.gd"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^GAME ARCHITECTURE EFFECTS: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/game_architecture_effects_runner.gd"
+      ]
+    },
+    "plains-revision-deform-equivalence": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_revision_deform_equivalence_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PLAINS DEFORM EQUIVALENCE: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/plains_revision_deform_equivalence_runner.gd",
+        "tests/fixtures/plains_revision_deform_2ce4ffa6"
+      ]
+    },
+    "entry-audio-lifecycle": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_lifecycle_runner.gd",
+        "--",
+        "--studies"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^ENTRY AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/entry_audio_lifecycle_runner.gd",
+        "tests/audio_teardown.gd"
+      ]
+    },
+    "entry-audio-lifecycle-comparison": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_lifecycle_comparison_runner.gd"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^ENTRY AUDIO BASELINE COMPARISON: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/entry_audio_lifecycle_comparison_runner.gd",
+        "tests/fixtures/audio_lifecycle_2ce4ffa6"
+      ]
     }
   },
   "profiles": {
@@ -5277,7 +5488,14 @@
       "portable-frozen-assets",
       "ai-level-content",
       "ai-level-pilot",
-      "run-session"
+      "run-session",
+      "architecture-tests",
+      "level-plan",
+      "enemy-region-state",
+      "game-architecture-effects",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle",
+      "entry-audio-lifecycle-comparison"
     ],
     "gameplay": [
       "docs",
@@ -5437,7 +5655,14 @@
       "bellstrider-rework-01",
       "ai-level-content",
       "ai-level-pilot",
-      "run-session"
+      "run-session",
+      "architecture-tests",
+      "level-plan",
+      "enemy-region-state",
+      "game-architecture-effects",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle",
+      "entry-audio-lifecycle-comparison"
     ],
     "art": [
       "docs",
@@ -5539,7 +5764,9 @@
       "enemy-structure-native",
       "plains-motion-loot-02",
       "audio-feedback",
-      "windkeeper-pressure-01"
+      "windkeeper-pressure-01",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle"
     ],
     "web": [
       "docs",
@@ -5764,7 +5991,14 @@
       "bellstrider-rework-01",
       "ai-level-content",
       "ai-level-pilot",
-      "run-session"
+      "run-session",
+      "architecture-tests",
+      "level-plan",
+      "enemy-region-state",
+      "game-architecture-effects",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle",
+      "entry-audio-lifecycle-comparison"
     ],
     "creative-feedback": [
       "docs",

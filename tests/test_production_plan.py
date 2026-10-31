@@ -284,7 +284,11 @@ class ProductionPlanTests(unittest.TestCase):
         boss_additions = pressure_additions + bell_additions
         ai_additions = ["ai-level-content", "ai-level-pilot"]
         session_additions = ["run-session"]
-        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions
+        architecture_additions = ["architecture-tests"]
+        native_additions = ["level-plan", "enemy-region-state", "game-architecture-effects",
+                            "plains-revision-deform-equivalence", "entry-audio-lifecycle",
+                            "entry-audio-lifecycle-comparison"]
+        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:170], baseline_additions + boss_additions)
         self.assertEqual(full["checks"][144:170], baseline_additions + boss_additions)
         self.assertEqual(self.manifest["profiles"]["full"][170:172], ai_additions)
@@ -307,25 +311,35 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(audio["argv"], ["python3", "tools/run_audio_feedback_tests.py"])
         self.assertEqual(audio["timeout_seconds"], 240)
         self.assertTrue(audio["serial"])
-        added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions + bell_additions + ["ai-level-content"]
+        added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions + bell_additions + ["ai-level-content"] + architecture_additions
         self.assertEqual(self.manifest["profiles"]["full"][169:170], bell_additions)
         self.assertEqual(full["checks"][169:170], bell_additions)
         self.assertEqual([name for name in parallel if name not in original], added_parallel)
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
         # Keep the complete reviewed168 and its92/76 split, then append both
         # actual native Boss contracts without replacing any original case.
-        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions]
+        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, baseline_lanes)), (168,92,76))
-        boss_lanes = [[name for name in names if name not in ai_additions + session_additions]
+        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions]
                       for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, boss_lanes)), (170,93,77))
-        existing_lanes = [[name for name in names if name not in session_additions]
+        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, existing_lanes)), (172,94,78))
-        self.assertEqual(self.manifest["profiles"]["full"][172:], session_additions)
-        self.assertEqual(full["checks"][172:], session_additions)
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (173,94,79))
+        self.assertEqual(self.manifest["profiles"]["full"][172:173], session_additions)
+        self.assertEqual(full["checks"][172:173], session_additions)
+        session_lanes = [[name for name in names if name not in architecture_additions + native_additions]
+                         for names in (full["checks"], parallel, serial)]
+        self.assertEqual(tuple(map(len, session_lanes)), (173,94,79))
+        self.assertEqual(self.manifest["profiles"]["full"][173:174], architecture_additions)
+        self.assertEqual(full["checks"][173:174], architecture_additions)
+        architecture_lanes = [[name for name in names if name not in native_additions]
+                              for names in (full["checks"], parallel, serial)]
+        self.assertEqual(tuple(map(len, architecture_lanes)), (174,95,79))
+        self.assertEqual(self.manifest["profiles"]["full"][174:], native_additions)
+        self.assertEqual(full["checks"][174:], native_additions)
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (180,95,85))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
@@ -337,6 +351,86 @@ class ProductionPlanTests(unittest.TestCase):
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
         with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
+
+    def test_real_refactor_runners_keep_direct_strict_native_contracts(self):
+        rows = [
+            ("level-plan", "level_plan_runner", "LEVEL PLAN TESTS", 180, "assertions"),
+            ("enemy-region-state", "enemy_region_state_runner", "ENEMY REGION STATE", 180, "checks"),
+            ("game-architecture-effects", "game_architecture_effects_runner", "GAME ARCHITECTURE EFFECTS", 120, "assertions"),
+            ("plains-revision-deform-equivalence", "plains_revision_deform_equivalence_runner", "PLAINS DEFORM EQUIVALENCE", 180, "assertions"),
+            ("entry-audio-lifecycle", "entry_audio_lifecycle_runner", "ENTRY AUDIO LIFECYCLE", 180, "assertions"),
+            ("entry-audio-lifecycle-comparison", "entry_audio_lifecycle_comparison_runner", "ENTRY AUDIO BASELINE COMPARISON", 60, "assertions"),
+        ]
+        import re
+        import harness
+        for name, stem, marker, budget, noun in rows:
+            with self.subTest(check=name):
+                runner = "tests/" + stem + ".gd"
+                check = self.manifest["checks"][name]
+                argv = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", runner]
+                if name == "entry-audio-lifecycle":
+                    argv += ["--", "--studies"]
+                self.assertEqual(check["argv"], argv)
+                self.assertEqual(check["timeout_seconds"], budget)
+                self.assertTrue(check["serial"])
+                self.assertEqual(check["success_pattern"], "^" + marker + ": [1-9][0-9]* " + noun + ", 0 failures$")
+                self.assertIsNotNone(re.fullmatch(check["success_pattern"], marker + ": 1 " + noun + ", 0 failures"))
+                for bad in (marker + ": 0 " + noun + ", 0 failures", marker + ": 1 " + noun + ", 1 failures", "incomplete"):
+                    self.assertIsNone(re.fullmatch(check["success_pattern"], bad))
+                source = (ROOT / runner).read_text()
+                self.assertIn(marker + ": %", source)
+                self.assertIn("quit(", source)
+                self.assertIn(runner, check["inputs"])
+                for root in ("game", "scripts", "scenes", "resources", "config", "assets", "shaders"):
+                    self.assertIn(root, check["inputs"])
+                for path in check["inputs"]:
+                    self.assertTrue((ROOT / path).exists(), path)
+                profiles = {"core", "gameplay", "full"}
+                if name in ("plains-revision-deform-equivalence", "entry-audio-lifecycle"):
+                    profiles.add("art")
+                self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names}, profiles)
+                plan = self.plan([runner], "integration")
+                self.assertEqual(plan["selection"], "full")
+                self.assertIn(name, plan["ci_lane_checks"]["serial"])
+                path = "game/application/run_session.gd"
+                self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "a" * 64}),
+                                    harness.input_digest(check, [path], {}, {path: "b" * 64}))
+        self.assertIn("tests/fixtures/plains_revision_deform_2ce4ffa6",
+                      self.manifest["checks"]["plains-revision-deform-equivalence"]["inputs"])
+        self.assertIn("tests/fixtures/audio_lifecycle_2ce4ffa6",
+                      self.manifest["checks"]["entry-audio-lifecycle-comparison"]["inputs"])
+
+    def test_finite_bible_inputs_include_the_shared_frozen_source_adapter(self):
+        import harness
+        paths = ("tools/region_style_history.py",
+                 "docs/creative_direction/archive/feature-layout-before-style26")
+        for name in ("region-bible-contract", "region-bible-tests"):
+            check = self.manifest["checks"][name]
+            for path in paths:
+                self.assertIn(path, check["inputs"])
+                self.assertTrue((ROOT / path).exists())
+                leaf = path + "/manifest.json" if (ROOT / path).is_dir() else path
+                self.assertNotEqual(harness.input_digest(check, [leaf], {}, {leaf: "a" * 64}),
+                                    harness.input_digest(check, [leaf], {}, {leaf: "b" * 64}))
+        # Its existing all-source contract already includes both additions.
+        self.assertNotIn("inputs", self.manifest["checks"]["creative-direction-tests"])
+
+    def test_architecture_guard_has_real_narrow_harness_registration(self):
+        name = "architecture-tests"
+        check = self.manifest["checks"][name]
+        self.assertEqual(check["argv"], ["python3", "tests/test_project_dependencies.py"])
+        self.assertEqual(check["success_pattern"], "^OK$")
+        self.assertEqual(check["timeout_seconds"], 60)
+        self.assertFalse(check.get("serial", False))
+        self.assertEqual(check["inputs"], ["tools/project_dependencies.py", "tests/test_project_dependencies.py"])
+        self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names},
+                         {"core", "gameplay", "full"})
+        for path in check["inputs"]:
+            self.assertTrue((ROOT / path).is_file())
+            plan = self.plan([path], "integration")
+            self.assertEqual(plan["selection"], "full")
+            self.assertIn(name, plan["ci_lane_checks"]["parallel"])
+            self.assertNotIn(name, plan["ci_lane_checks"]["serial"])
 
     def test_run_session_registers_actual_app_consumer_with_existing_strict_harness(self):
         name = "run-session"
