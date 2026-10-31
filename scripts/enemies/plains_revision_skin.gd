@@ -19,6 +19,8 @@ var kind: StringName
 var _mesh := ArrayMesh.new()
 var _points := PackedVector2Array()
 var _units := PackedVector2Array()
+var _weights: Array[PlainsRevisionWeights] = []
+var _weights_kind: StringName
 # A settled body's local vertices are independent of its continuing corpse age.
 # Keep every draw/shader/tint and world-support transform with its existing host.
 var _rest_cached := false
@@ -55,18 +57,21 @@ func _init(behavior: StringName = &"patrol") -> void:
 	_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES|Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
 
 func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
+	return deform_prepared(point, uv, PlainsRevisionPose.prepare(pose), PlainsRevisionWeights.new(uv, kind))
+
+func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
 	var master := point
 	if kind==&"fan_sentry":
 		# The new broad fan source devotes more area to wings. Fit its copper
 		# abdomen to the previous body's ~13wu mass (+about 7.5%), independently
 		# of the wing envelope's +15%. Stretching the entire source made it small.
-		var body := (1.0-smoothstep(.12,.27,absf(uv.x-.42)))*smoothstep(.43,.59,uv.y)*(1.0-smoothstep(.87,.99,uv.y))
+		var body := weights.fan_body_fit
 		var center := Vector2((.42-.5)*bounds.size.x,(.70-1.0)*bounds.size.y)
 		master = point.lerp(center+(point-center)*1.55,body)
-	var p := PlainsRevisionGround.deform(master,uv,bounds.size,pose,kind) if kind in [&"patrol",&"charger",&"hopper"] else PlainsRevisionFlora.deform(master,uv,bounds.size,pose,kind)
+	var p := PlainsRevisionGround.deform_prepared(master,uv,bounds.size,pose,kind,weights) if kind in [&"patrol",&"charger",&"hopper"] else PlainsRevisionFlora.deform_prepared(master,uv,bounds.size,pose,kind,weights)
 	# Contact impulse moves the mass, while the supporting feet retain the floor.
-	if bool(pose.get("dead",false)):
-		p.y -= float(pose.get("landing",0.0))*bounds.size.y*.025*(1.0-smoothstep(.77,1.0,uv.y))
+	if pose.dead:
+		p.y -= pose.landing*bounds.size.y*.025*weights.landing
 	return p
 
 func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> void:
@@ -78,7 +83,14 @@ func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> v
 	if not (at_rest and _rest_cached and _rest_kind == kind and _rest_bounds == bounds and _rest_texture == texture and _rest_pose == rest_pose):
 		var vertices := PackedVector2Array()
 		vertices.resize(_points.size())
-		for i: int in _points.size(): vertices[i] = deform(_points[i],_units[i],pose)
+		# Only UV and kind determine these masks. Bounds and texture remain live
+		# inputs to the unchanged kernel and existing settled-mesh invalidation.
+		if _weights.size() != _units.size() or _weights_kind != kind:
+			_weights.clear()
+			for uv: Vector2 in _units: _weights.append(PlainsRevisionWeights.new(uv, kind))
+			_weights_kind = kind
+		var prepared := PlainsRevisionPose.prepare(pose)
+		for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
 		_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
 		_rest_cached = at_rest
 		_rest_pose = rest_pose

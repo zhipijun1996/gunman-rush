@@ -5,21 +5,23 @@ extends RefCounted
 ## the same neutral skin; it never draws an intent marker or moves an Actor.
 
 static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary, kind: StringName) -> Vector2:
+	return deform_prepared(point, uv, size, PlainsRevisionPose.prepare(pose), kind, PlainsRevisionWeights.new(uv, kind))
+
+static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, kind: StringName, weights: PlainsRevisionWeights) -> Vector2:
 	if not size.is_finite() or size.x <= 0.0 or size.y <= 0.0: return point
 	var p := point
 	match kind:
-		&"sentry": p = _sentry(point, uv, size, pose)
-		&"fan_sentry": p = _fan(point, uv, size, pose)
-		&"root_bell": p = _root_bell(point, uv, size, pose)
-	if kind != &"fan_sentry" and bool(pose.get("dead",false)) and float(pose.get("death",0.0))<.16:
+		&"sentry": p = _sentry(point, uv, size, pose, weights)
+		&"fan_sentry": p = _fan(point, uv, size, pose, weights)
+		&"root_bell": p = _root_bell(point, uv, size, pose, weights)
+	if kind != &"fan_sentry" and pose.dead and pose.raw_death<.16:
 		# Lethal handoff keeps the captured loaded or hurt joints intact.
-		var live := pose.duplicate()
-		live["dead"] = false
-		var current := deform(point,uv,size,live,kind)
-		p = current.lerp(p,smoothstep(0.0,.16,float(pose.get("death",0.0))))
+		var live := pose.live
+		var current := deform_prepared(point,uv,size,live,kind,weights)
+		p = current.lerp(p,smoothstep(0.0,.16,pose.raw_death))
 	# Cosmetic joints may approach the floor, but never fold pixels through it.
 	# The host supplies a separate falling/contact transform for aerial deaths.
-	if not bool(pose.get("air", false)) or (bool(pose.get("dead", false)) and float(pose.get("death", 0.0)) > 0.0):
+	if not pose.air or (pose.dead and pose.raw_death > 0.0):
 		p.y = minf(p.y, 0.0)
 	return p
 
@@ -40,16 +42,16 @@ static func _scale_part(point: Vector2, unit_pivot: Vector2, size: Vector2, fact
 static func _window(start: float, end: float, value: float) -> float:
 	return smoothstep(start, end, value)
 
-static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -> Vector2:
-	var upper := 1.0 - _window(0.67, 0.91, uv.y)
-	var muzzle := _window(0.69, 0.81, uv.x) * (1.0 - _window(0.44, 0.56, uv.y))
-	var sac := (1.0 - _window(0.48, 0.65, uv.x)) * _window(0.18, 0.34, uv.y) * (1.0 - _window(0.68, 0.84, uv.y))
-	var leaves := (1.0 - _window(0.64, 0.78, uv.x)) * (1.0 - _window(0.64, 0.84, uv.y)) * (1.0 - sac * 0.85)
-	var legs := _window(0.70, 0.91, uv.y)
-	var front := _window(0.49, 0.70, uv.x)
+static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	var upper := weights.upper
+	var muzzle := weights.muzzle
+	var sac := weights.sac
+	var leaves := weights.leaves
+	var legs := weights.legs
+	var front := weights.front
 	var p := point
-	if bool(pose.get("dead", false)):
-		var d := clampf(float(pose.get("death", 0.0)), 0.0, 1.0)
+	if pose.dead:
+		var d := pose.death
 		var deflate := _window(0.00, 0.32, d)
 		var topple := _window(0.28, 0.78, d)
 		var leaf_drop := _window(0.65, 1.00, d)
@@ -85,19 +87,19 @@ static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary
 		var folded_leg := moved_hip+(point-hip).rotated(leg_angle*fold)
 		return carried.lerp(folded_leg,legs)
 
-	var clock := float(pose.get("clock", 0.0))
-	var load := clampf(float(pose.get("load", 0.0)), 0.0, 1.0)
-	var strike := clampf(float(pose.get("strike", 0.0)), 0.0, 1.0)
-	var recovery := clampf(float(pose.get("recovery", 0.0)), 0.0, 1.0)
-	var hurt := clampf(float(pose.get("hurt", 0.0)), 0.0, 1.0)
-	var turn := float(pose.get("turn", 0.0))
+	var clock := pose.clock
+	var load := pose.load
+	var strike := pose.strike
+	var recovery := pose.recovery
+	var hurt := pose.hurt
+	var turn := pose.raw_turn
 	var quiet := 1.0-clampf(load+strike,0.0,1.0)*.8
-	var drive := clampf(float(pose.get("drive",0.0)),-1.0,1.0)
+	var drive := pose.drive
 	var breath := sin(clock * 3.1) * 0.026 * (1.0 - load)
 	var inflation := 0.18 * load - 0.13 * strike - 0.13 * hurt + breath
 	p = _scale_part(p, Vector2(0.30, 0.53), size, Vector2(1.0 + inflation, 1.0 + inflation * 0.65), sac)
 	# The nozzle aims independently of the planted support, then retracts.
-	p = _joint(p, Vector2(0.70, 0.34), size, float(pose.get("aim",0.0))*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt +.028*sin(clock*2.2-.55)*quiet-.035*drive, muzzle)
+	p = _joint(p, Vector2(0.70, 0.34), size, pose.aim*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt +.028*sin(clock*2.2-.55)*quiet-.035*drive, muzzle)
 	p.x -= size.x * (0.075 * strike + 0.035 * hurt) * muzzle
 	var chamber_angle := -0.035*load-0.15*strike+0.04*recovery+.021*sin(clock*2.2)*quiet-.043*drive
 	p = _joint(p, Vector2(0.45, 0.81), size, chamber_angle, upper)
@@ -109,19 +111,19 @@ static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary
 	var leaf_idle := .060*sin(clock*2.2-.9)*quiet+.035*drive
 	p = _joint_at(p,leaf_root,(1.0 if uv.x > 0.48 else -1.0)*(-.12*load+.17*strike+leaf_spring+.10*hurt+leaf_idle),leaves)
 	# The leg tops answer the chamber's weight shift; toes retain their root.
-	var knee := legs*(1.0-_window(.90,1.0,uv.y))
+	var knee := weights.sentry_knee
 	p.x += size.x*.012*sin(clock*2.2)*quiet*(front*2.0-1.0)*knee
 	return p
 
-static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -> Vector2:
-	var wing_height := 1.0 - _window(0.52, 0.74, uv.y)
-	var left_wing := (1.0 - _window(0.32, 0.47, uv.x)) * wing_height
-	var right_wing := _window(0.53, 0.68, uv.x) * wing_height
-	var body := (1.0 - _window(0.16, 0.34, absf(uv.x - 0.44))) * _window(0.35, 0.52, uv.y)
-	var feet := _window(0.76, 0.94, uv.y)
+static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	var wing_height := weights.wing_height
+	var left_wing := weights.left_wing
+	var right_wing := weights.right_wing
+	var body := weights.body
+	var feet := weights.feet
 	var p := point
-	if bool(pose.get("dead", false)):
-		var d := clampf(float(pose.get("death", 0.0)), 0.0, 1.0)
+	if pose.dead:
+		var d := pose.death
 		var left_drop := maxf(_window(0.00, 0.37, d), 0.82 * _window(0.00, 0.18, d))
 		var right_drop := maxf(_window(0.21, 0.69, d), 0.58 * _window(0.01, 0.22, d))
 		var roll := maxf(_window(0.31, 0.80, d), 0.55 * _window(0.00, 0.16, d))
@@ -142,10 +144,9 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -
 		# Once grounded collapse is complete, return before reading a running
 		# clock: the settled fan is exactly static on every following draw.
 		if d >= 1.0: return p
-		var death_age := maxf(0.0, float(pose.get("death_clock", 0.0)))
-		var captured := pose.duplicate()
-		captured["dead"] = false
-		var live := _fan(point, uv, size, captured)
+		var death_age := maxf(0.0, pose.death_clock)
+		var captured := pose.live
+		var live := _fan(point, uv, size, captured, weights)
 		# The lethal handoff starts at the exact captured load/hurt/wing pose.
 		# Airborne loss uses the corpse owner's advancing age, never the frozen
 		# live locomotion clock, and remains present through first contact.
@@ -163,13 +164,13 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -
 		# on either side of landing. A short contact blend then carries it into
 		# the folded ground pose without resetting to the captured live fan.
 		return falling.lerp(p, _window(0.00, 0.20, d))
-	var clock := float(pose.get("clock", 0.0))
-	var load := clampf(float(pose.get("load", 0.0)), 0.0, 1.0)
-	var strike := clampf(float(pose.get("strike", 0.0)), 0.0, 1.0)
-	var recovery := clampf(float(pose.get("recovery", 0.0)), 0.0, 1.0)
-	var hurt := clampf(float(pose.get("hurt", 0.0)), 0.0, 1.0)
+	var clock := pose.clock
+	var load := pose.load
+	var strike := pose.strike
+	var recovery := pose.recovery
+	var hurt := pose.hurt
 	var beat := clock*12.5
-	var drive := clampf(float(pose.get("drive",0.0)),-1.0,1.0)
+	var drive := pose.drive
 	var flight_beat := sin(beat) * 0.14 * (1.0 - 0.90 * load)
 	var fan_open := 0.37 * load + 0.14 * strike - 0.12 * recovery
 	p = _joint(p, Vector2(0.45, 0.43), size, -fan_open - flight_beat + 0.10 * hurt, left_wing)
@@ -187,14 +188,14 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -
 	p = _joint(p, Vector2(0.56, 0.79), size, 0.10 * strike + sin(beat-1.1) * 0.065 * (1.0 - load)-.065*drive, feet)
 	return p
 
-static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -> Vector2:
-	var main_stem := 1.0 - _window(0.80, 0.97, uv.y)
-	var upper_stem := 1.0 - _window(0.45, 0.72, uv.y)
-	var bell := _window(0.60, 0.71, uv.x) * (1.0 - _window(0.46, 0.61, uv.y))
-	var leaf := _window(0.16, 0.34, absf(uv.x - 0.5)) * (1.0 - _window(0.66, 0.88, uv.y))
+static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	var main_stem := weights.main_stem
+	var upper_stem := weights.upper_stem
+	var bell := weights.bell
+	var leaf := weights.leaf
 	var p := point
-	if bool(pose.get("dead", false)):
-		var d := clampf(float(pose.get("death", 0.0)), 0.0, 1.0)
+	if pose.dead:
+		var d := pose.death
 		var fold := _window(0.03,0.72,d)
 		var droop := _window(0.58,1.00,d)
 		var root := _pivot(Vector2(0.43,0.90),size)
@@ -209,7 +210,7 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 		var upper_angle := (destination-bent).angle()-(crown-elbow).angle()
 		var crown_angle := upper_angle*(1.0-fold)
 		var crown_body := destination+(point-crown).rotated(crown_angle)
-		var upper_weight := 1.0-_window(0.32,0.48,uv.y)
+		var upper_weight := weights.upper_weight
 		p = stem.lerp(crown_body,upper_weight)
 		# Bell orientation remains hanging under gravity while its hanger is
 		# transported down. Its actual clapper/rim reaches the floor at d=.72.
@@ -220,14 +221,14 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 		var bell_pose := moved_hanger+(point-hanger).rotated(swing)
 		# Include the copper mouth and clapper down to their actual alpha rim.
 		# The live crown mask fades at y=.46 and cannot carry these lower pixels.
-		var dead_bell := _window(0.64,0.70,uv.x)*_window(0.12,0.18,uv.y)*(1.0-_window(0.62,0.67,uv.y))
+		var dead_bell := weights.dead_bell
 		p = p.lerp(bell_pose,dead_bell)
 		# Leaf attachments follow the appropriate stem segment, then their
 		# blades yield independently. They no longer hold a raised canopy.
 		var hinge_uv := Vector2(0.43,0.40) if uv.y<0.47 else Vector2(0.46,0.62)
 		if uv.y<0.17: hinge_uv=Vector2(0.62,0.17)
-		var top_left := (1.0-_window(0.48,0.56,uv.x))*_window(0.20,0.29,uv.x)*(1.0-_window(0.30,0.38,uv.y))
-		var top_right := _window(0.52,0.61,uv.x)*(1.0-_window(0.13,0.22,uv.y))
+		var top_left := weights.top_left
+		var top_right := weights.top_right
 		if top_left>0.3: hinge_uv=Vector2(0.43,0.34)
 		elif top_right>0.3: hinge_uv=Vector2(0.62,0.17)
 		var hinge := _pivot(hinge_uv,size)
@@ -241,11 +242,11 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 		var leaf_mask := maxf(leaf,maxf(top_left,top_right))*(1.0-dead_bell)
 		return p.lerp(leaf_pose,leaf_mask)
 
-	var clock := float(pose.get("clock", 0.0))
-	var load := clampf(float(pose.get("load", 0.0)), 0.0, 1.0)
-	var strike := clampf(float(pose.get("strike", 0.0)), 0.0, 1.0)
-	var recovery := clampf(float(pose.get("recovery", 0.0)), 0.0, 1.0)
-	var hurt := clampf(float(pose.get("hurt", 0.0)), 0.0, 1.0)
+	var clock := pose.clock
+	var load := pose.load
+	var strike := pose.strike
+	var recovery := pose.recovery
+	var hurt := pose.hurt
 	var breath := sin(clock * 2.6) * 0.018
 	var hurt_rebound := sin((1.0 - hurt) * PI * 1.5) * hurt * 0.17
 	# Load bends the stalk rearward and lifts the heavy bell; release brings
