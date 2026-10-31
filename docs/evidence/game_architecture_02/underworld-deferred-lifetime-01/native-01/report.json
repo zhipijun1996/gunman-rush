@@ -1,0 +1,50 @@
+{
+  "source_head": "59537400af06a26046037840e28989f75933a265",
+  "source_is_wip": true,
+  "frozen_files": {
+    "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+    "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+    "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+    "tests/plains_exploration_expansion_runner.gd": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+    "tests/plains_region_boss_runner.gd": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+    "game/presentation/world/underworld_plains/underworld_presentation.gd": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+    "tests/underworld_plains/test_underworld_formal.gd": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a",
+    "tests/quality_review_runner.gd": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
+  },
+  "scope": "Two original wrappers for independent deferred lifecycle defect and current Boss contact fixture; original commands, full contents and budgets",
+  "runs": [
+    {
+      "id": "underworld-formal",
+      "command": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld default formal actor/UI consumers and lifecycle$",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 11.549,
+      "log_sha256": "eb063c4a7d33b363d0e9498caa1a8db0496bb485bc62ede6a04baf859bac4550",
+      "completion_found": true,
+      "strict_errors": false
+    },
+    {
+      "id": "quality-review-engine",
+      "command": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: quality review engine regression",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 14.714,
+      "log_sha256": "0808b0f7a02f97e731efa4cfb934c66378c42fbef01f0584786196fe9e662209",
+      "completion_found": true,
+      "strict_errors": false
+    }
+  ],
+  "status": "passed",
+  "elapsed_seconds": 26.265,
+  "source_unchanged": true
+}

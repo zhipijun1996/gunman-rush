@@ -752,3 +752,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | GAME-ARCH-OWNERSHIP-02 | Latch、terminal reentry 与 Boss Arena 状态恢复所有权有限收口 | GAME-ARCH-BOSS-STATE-01 | in_progress | [质量记录](quality/records/GAME-ARCH-OWNERSHIP-02.json)；7生产/4测试候选实现，11原生+Bell8限定通过；region第三19/5与ed95相同，CI-BOSS-CONSUMERS-01独立处理，完整验收待验 |
 
 | GAME-ARCH-ENGINE-01 | 固定上游Godot回补构建、八文件推广与严格工具链安装整合 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENGINE-01.json)；build184/public84522与安装、原26+91限定通过；完整游戏/平台/设备未验 |
+
+| UNDERWORLD-DEFERRED-LIFETIME-01 | Underworld延迟节点释放与world归属缺陷修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)；原main2ce319 ERROR保留；两文件原formal104/0与cache444/0有限通过，独审限定接受；全量未验 |

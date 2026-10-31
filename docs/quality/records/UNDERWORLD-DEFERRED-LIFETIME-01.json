@@ -1,0 +1,527 @@
+{
+  "schema_version": 1,
+  "task_id": "UNDERWORLD-DEFERRED-LIFETIME-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "59537400af06a26046037840e28989f75933a265",
+  "content_version": "candidate-v1-native104-cache444",
+  "owner": "/root",
+  "purpose": "独立修复原有Underworld节点在延迟队列执行前释放导致typed Node参数转换错误的生命周期缺陷。",
+  "player_experience": "地图或表现子树同帧移除时安全释放；仍存活的当前world节点继续在原延迟时机安装既有材质。",
+  "constraints": [
+    "独立原缺陷修复，不作为保持行为不变目录迁移；不改图声/碰撞/伤害/资源/奖励/RNG/存档。",
+    "只收口UnderworldPresentation现有deferred入口；沿WeakRef解析后调用原typed installer，不建新注册表。",
+    "保同步setup与存活节点延迟顺序，旧world排队事项不得污染新world。",
+    "保原underworld-formal测试及预算，追加8项生命周期检查；Bell phase_transition测试迁移由CI-BOSS-CONSUMERS-01独立记录。",
+    "exit0不能覆盖ERROR；历史失败/导入未达/候选未验分别记录。"
+  ],
+  "affected_paths": [
+    "game/presentation/world/underworld_plains/underworld_presentation.gd",
+    "tests/underworld_plains/test_underworld_formal.gd"
+  ],
+  "deliverables": [
+    "单一现有表现入口的WeakRef/context准入候选",
+    "原formal检查保留及释放/移动/换world负例",
+    "精确main2ce基线、候选及待独审/原生证据分开归档"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "仅两文件生命周期修复：原formal96+新增8=104/0、原cache444/0，原150/120预算内11.549秒且strict clean；不签完整集成/全量。",
+      "evidence": [
+        "lifetime-native-underworld-formal-log"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "仅两文件生命周期补丁及其原formal104/cache444实际日志的非作者限定ACCEPT；全局formal/full182/G4、GUI/设备未验。",
+      "evidence": [
+        "final-independent-review-json"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "原2ce缺陷已真实复现；外部候选待独审和严格原生验证，未签修复通过。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "现有deferred入口与world归属",
+      "method": "最终diff/真实调用链独审",
+      "expected": "仅WeakRef准入收口，保原同步setup/安装顺序",
+      "failure": "创建平行机制或混入Bell规则修改",
+      "status": "unverified",
+      "reason": "候选与实际验证尚待冻结。",
+      "evidence": []
+    },
+    {
+      "id": "native-lifetime",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "同帧释放/移动/换world与存活late节点",
+      "method": "原underworld-formal150/120预算，真实formal新增8项",
+      "expected": "原检查和新增8项通过，clean log且无ERROR",
+      "failure": "即使exit0仍有typed参数错误或丢存活节点安装",
+      "status": "passed",
+      "reason": "原formal104/0及cache444/0，实际包含释放/换world负例、无ERROR，11.549秒；原基线probe单独重跑未据此声明。",
+      "evidence": [
+        "lifetime-native-underworld-formal-log"
+      ]
+    },
+    {
+      "id": "formal",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "scenario": "正式两区原表现和缓存行为",
+      "method": "原formal与cache消费者回归",
+      "expected": "正式材质、资源、owner和Manifest行为不变",
+      "failure": "漏真实消费者或改变资源选择",
+      "status": "unverified",
+      "reason": "候选与实际验证尚待冻结。",
+      "evidence": []
+    },
+    {
+      "id": "review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "候选最终两个文件及测试原断言",
+      "method": "非作者独立审查",
+      "expected": "候选与原缺陷相符，无放宽预算/减少断言",
+      "failure": "未经独审或替换断言掩盖原失败",
+      "status": "passed",
+      "reason": "仅两文件生命周期补丁及其原formal104/cache444实际日志的非作者限定ACCEPT；全局formal/full182/G4、GUI/设备未验。",
+      "evidence": [
+        "final-independent-review-json"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "baseline-01-before-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/before.json",
+      "sha256": "313ff03fa8313cbd535cac7fbdc7591974ba56f61ad96b1688f6b8811871c91f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-checkout-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/checkout.log",
+      "sha256": "414a7c5951202407b73a947e536a991e50d9be584734f093c644bc02235d3d27",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-import-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/import.log",
+      "sha256": "27b1f8da24d8a106ddca8e9f533d9cca36e1a0bc50021fbdbc7ee79d5ef57ee9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-probe-gd",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/probe.gd.source",
+      "sha256": "71a613adedaf1247d993e4094decae91c3a9a15600b05d608cbb72e93cda27de",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-report-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/report.json",
+      "sha256": "b4a0dd6f1821ae6af640c0d26c50b8e7223e07e587ed4aedf0727bbea91d14b0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-restore-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/restore.log",
+      "sha256": "0732a20d5a066dca0be9fb99fbea7391a9f79e3403b05a24012242acc9fe7ab3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-run-py",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/run.py",
+      "sha256": "9ee9f7b8504c0a4e097b5f4ad236e193233c0ab79aa8e0173c88d7b8ba7e2380",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-01-runner-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-01/runner.log",
+      "sha256": "438e51109297cf1df8b5ff33d6a7b483388256e79ef6afe417d22a064247004e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt01 only import/autoload errors, no probe execution."
+    },
+    {
+      "id": "baseline-02-before-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/before.json",
+      "sha256": "313ff03fa8313cbd535cac7fbdc7591974ba56f61ad96b1688f6b8811871c91f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-checkout-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/checkout.log",
+      "sha256": "414a7c5951202407b73a947e536a991e50d9be584734f093c644bc02235d3d27",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-freed-node-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/freed-node.log",
+      "sha256": "be4f7052be338c22573a9d89a8750b24e80afae117841a38552e39e2194122a8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-import-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/import.log",
+      "sha256": "8dcbf67bc3830df841b1106abbbbc06f0960b7f3a9fdcb4800179bea5d7e5218",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-probe-gd",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/probe.gd.source",
+      "sha256": "71a613adedaf1247d993e4094decae91c3a9a15600b05d608cbb72e93cda27de",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-report-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/report.json",
+      "sha256": "03d219d626401e1c203fcc4112f56914cb24b21a6c864f7da1a1330c118cf6df",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-restore-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/restore.log",
+      "sha256": "0732a20d5a066dca0be9fb99fbea7391a9f79e3403b05a24012242acc9fe7ab3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-run-py",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/run.py",
+      "sha256": "9ee9f7b8504c0a4e097b5f4ad236e193233c0ab79aa8e0173c88d7b8ba7e2380",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "baseline-02-runner-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/baseline-02/runner.log",
+      "sha256": "10ea7e43a3e7dc4bc3118fe5f962c134688375e32100f3a4676d12ebcab6c5b1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Attempt02 exact original2ce production, new actual App/TerrainStudy probe: exit0 but319 deferred ERROR lines, FAILED; source_clean_after=true."
+    },
+    {
+      "id": "candidate-candidate-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/candidate/candidate.json",
+      "sha256": "7ed22bf5c140eae4b0f06b0750b7b3fea8a482da7601213749ad94d2ceee0de7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "External unverified candidate. Combined author candidate.json retains separate Bell test metadata; this task only covers the two lifecycle files and dedicated patch."
+    },
+    {
+      "id": "candidate-underworld-deferred-lifecycle-patch",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/candidate/underworld-deferred-lifecycle.patch",
+      "sha256": "666ea4df18537d8c08c8659aba9fa3f5ef901e2f0dd559ea0773d6d5829bbfd4",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "External unverified candidate. Combined author candidate.json retains separate Bell test metadata; this task only covers the two lifecycle files and dedicated patch."
+    },
+    {
+      "id": "candidate-game-presentation-world-underworld_plains-underworld_presentation-gd",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/candidate/game/presentation/world/underworld_plains/underworld_presentation.gd.source",
+      "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Unverified lifecycle candidate source; no runtime pass inferred."
+    },
+    {
+      "id": "candidate-tests-underworld_plains-test_underworld_formal-gd",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/candidate/tests/underworld_plains/test_underworld_formal.gd.source",
+      "sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Unverified lifecycle candidate source; no runtime pass inferred."
+    },
+    {
+      "id": "scope-md-source",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/scope.md.source",
+      "sha256": "2bf9c66e39648460de08b8465c2f24fdbe0ee6364b591876d8af4d18269b2a69",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-unverified",
+      "method": "真实小原件逐字归档，候选与基线分别标识；不复制cache/userdata。",
+      "observed": "Pending scope; all candidate acceptance unverified."
+    },
+    {
+      "id": "lifetime-native-report-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/native-01/report.json",
+      "sha256": "8e15a529d9035c2f0bc8059c794474703ccf9fed00065c7fad98de1347c98239",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "原wrapper原预算，实际冻结源未变；两任务各自限定范围。",
+      "observed": "underworld-formal passed, clean strict log; not full182 or GUI/device acceptance."
+    },
+    {
+      "id": "lifetime-native-run-py",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/native-01/run.py",
+      "sha256": "31ba8aa7636124bb7c3ed2760d9d780dd4c57c76a150e8513b0d37094ba34470",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "原wrapper原预算，实际冻结源未变；两任务各自限定范围。",
+      "observed": "underworld-formal passed, clean strict log; not full182 or GUI/device acceptance."
+    },
+    {
+      "id": "lifetime-native-underworld-formal-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/native-01/underworld-formal.log",
+      "sha256": "eb063c4a7d33b363d0e9498caa1a8db0496bb485bc62ede6a04baf859bac4550",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "原wrapper原预算，实际冻结源未变；两任务各自限定范围。",
+      "observed": "underworld-formal passed, clean strict log; not full182 or GUI/device acceptance.",
+      "command": "python3 tools/run_underworld_formal_tests.py",
+      "exit_code": 0,
+      "environment": "Installed optimized Godot4.7.2 gunman_sd1 editor eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638; actual original wrapper; timeout 150s"
+    },
+    {
+      "id": "final-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/review/underworld-deferred-lifecycle-independent-review.json",
+      "sha256": "9aa1f783dba234dd06ca62d6a758628a1520c2f2d10e5d49295671e3b41fcbd5",
+      "kind": "review",
+      "producer": "items_refactor",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "独立两patch语义/全文件逆变换及实际原wrapper报告核对；本卡只签两文件生命周期patch。",
+      "observed": "限定ACCEPT：原formal104/cache444与两文件SHA绑定，不签CI Bell patch整体任务/full182/GUI/设备。",
+      "reviewer": "items_refactor",
+      "implementers": [
+        "runtime_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "items_refactor非候选作者，只读源码、精确变换及root原生日志；未运行engine或改作者文件。"
+    },
+    {
+      "id": "final-independent-review-md",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/review/underworld-deferred-lifecycle-independent-review.md.source",
+      "sha256": "18a696d612cb2dd4ad590b951baec0dbbf3ad150d58fe1dc82ce31c6c7c8db36",
+      "kind": "review",
+      "producer": "items_refactor",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "独立两patch语义/全文件逆变换及实际原wrapper报告核对；本卡只签两文件生命周期patch。",
+      "observed": "限定ACCEPT：原formal104/cache444与两文件SHA绑定，不签CI Bell patch整体任务/full182/GUI/设备。",
+      "reviewer": "items_refactor",
+      "implementers": [
+        "runtime_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "items_refactor非候选作者，只读源码、精确变换及root原生日志；未运行engine或改作者文件。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "实现依赖GAME-ARCH-CI-01；CI-BOSS仅为发现路径，两patch分开提交与记录。",
+    "两文件原formal104/cache444及独审有限通过；全局formal/G4/full182/实际导出/GUI/设备未验。",
+    "原main2ce319错误与旧shared317错误/1044失败保留原件；候选通过不追改其来源。",
+    "最终commit归属后补同字节绑定，不伪称当前HEAD已包含WIP。"
+  ],
+  "candidate_source": {
+    "base_commit": "59537400af06a26046037840e28989f75933a265",
+    "state": "Applied WIP exact two-file candidate, original wrapper104/cache444 passed and independent limited acceptance; pending separate commit binding and full CI",
+    "files_sha256": {
+      "game/presentation/world/underworld_plains/underworld_presentation.gd": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+      "tests/underworld_plains/test_underworld_formal.gd": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a"
+    },
+    "source_sha256": {
+      "game/presentation/world/underworld_plains/underworld_presentation.gd": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
+      "tests/underworld_plains/test_underworld_formal.gd": "b59c854c8a42644af3e70cbd9992aa7f994eb7e99a0ed899ff5bd5fc980d3567"
+    }
+  },
+  "baseline_observation": {
+    "status": "failed",
+    "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+    "probe_is_new": true,
+    "attempt01": "import failed before probe;3 errors",
+    "attempt02": "probe exit0 but319 deferred typed Object errors; source clean after",
+    "evidence": [
+      "baseline-02-report-json",
+      "baseline-02-freed-node-log"
+    ]
+  },
+  "implementation_dependency": "GAME-ARCH-CI-01",
+  "discovered_by": "CI-BOSS-CONSUMERS-01 shared quality wrapper failure; discovery relationship only, no dependency on its test migration code"
+}

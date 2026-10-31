@@ -1,0 +1,23 @@
+extends SceneTree
+func _initialize() -> void: run.call_deferred()
+func run() -> void:
+ var app:=DemoApp.new()
+ app.meta_persistence_enabled=false
+ root.add_child(app)
+ for i in 3: await physics_frame
+ if not app.start_plains("underworld-freed-node-baseline"):
+  push_error("probe could not start original App");quit(2);return
+ for i in 3: await physics_frame
+ var restored:=PlainsTerrainStudy.new()
+ restored.stage=app.stage
+ app.stage.add_child(restored)
+ restored.free()
+ await process_frame
+ await process_frame
+ app.abandon_run()
+ if not await load("res://tests/audio_teardown.gd").drain_world(app):
+  push_error("probe audio did not release");quit(3);return
+ app.free()
+ await process_frame
+ print("UNDERWORLD FREED NODE PROBE: actual App and TerrainStudy freed before deferred queue; errors remain failures")
+ quit(0)

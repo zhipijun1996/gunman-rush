@@ -42,9 +42,18 @@ func _ready() -> void:
 	refresh()
 
 func _node_added(node: Node) -> void:
-	if node==self or is_ancestor_of(node): return
+	if not is_instance_valid(world) or node==self or is_ancestor_of(node): return
 	if world.is_ancestor_of(node) or (is_instance_valid(actor) and actor.is_ancestor_of(node)):
-		install_item.call_deferred(node)
+		_install_deferred_item.call_deferred(weakref(node),weakref(world))
+
+func _install_deferred_item(reference: WeakRef, context: WeakRef) -> void:
+	# Nodes may leave or be freed before this queue drains. Resolve before the
+	# typed installer call, and never carry an old context into a new world.
+	var node: Node=reference.get_ref() as Node
+	if not is_inside_tree() or not is_instance_valid(world) or context.get_ref()!=world: return
+	if not is_instance_valid(node) or not node.is_inside_tree() or node==self or is_ancestor_of(node): return
+	if world.is_ancestor_of(node) or (is_instance_valid(actor) and actor.is_ancestor_of(node)):
+		install_item(node)
 
 func install_item(node: Node) -> void:
 	if not is_instance_valid(node) or node==self or node is CanvasLayer or node is Control: return
