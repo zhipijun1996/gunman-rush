@@ -2,7 +2,6 @@ class_name DemoApp
 extends Node2D
 
 const EXIT_MODAL := preload("res://scripts/ui/stage_exit_modal.gd")
-const PLAYER := preload("res://scenes/player/player.tscn")
 const JUMP_ITEM := preload("res://resources/items/jump_blue.tres")
 const SHOT_ITEM := preload("res://resources/items/shot_purple.tres")
 const COIN_REWARD := preload("res://resources/rewards/demo_coins.tres")
@@ -13,12 +12,17 @@ const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
 const FOREST_GOLD_ITEM := preload("res://resources/items/forest_heart_gold.tres")
 const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
+# Existing public properties below are compatibility views of one owner, not
+# duplicate mutable state. DemoRunDirector remains the sole flow/Manifest owner.
+var run_session := RunSession.new()
 var meta_persistence_enabled := true
 var generated_plains := false
 var home_scene: HomeScene
 var home_weapons := preload("res://scripts/demo/home_weapon_selection.gd").new()
 var debug_hud := false
-var _run_receipt_prefix := ""
+var _run_receipt_prefix: String:
+	get: return run_session.receipt_prefix
+	set(value): run_session.receipt_prefix = value
 var _meta_purchase_sequence := 0
 var _home_codex: HomeItemCodex
 var _home_carry_granted_run := ""
@@ -34,18 +38,38 @@ var _pixel_plains: PixelPlainsPreview
 var _style_lab: Node
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
-var lifetime := DemoLifetime.new()
-var director := DemoRunDirector.new(lifetime)
+var lifetime: DemoLifetime:
+	get: return run_session.flow.lifetime
+	set(value): run_session.flow.lifetime = value
+var director: DemoRunDirector:
+	get: return run_session.flow
+	set(value): run_session.flow = value
 var meta := MetaProgression.new()
-var build: BuildState
-var wallet: RunWallet
-var rewards: RewardService
-var shop: ShopService
-var _item_runtime: ItemRuntime
-var _item_v5_pool: ItemV5Pool
+var build: BuildState:
+	get: return run_session.build
+	set(value): run_session.build = value
+var wallet: RunWallet:
+	get: return run_session.wallet
+	set(value): run_session.wallet = value
+var rewards: RewardService:
+	get: return run_session.rewards
+	set(value): run_session.rewards = value
+var shop: ShopService:
+	get: return run_session.shop
+	set(value): run_session.shop = value
+var _item_runtime: ItemRuntime:
+	get: return run_session.item_runtime
+	set(value): run_session.item_runtime = value
+var _item_v5_pool: ItemV5Pool:
+	get: return run_session.item_pool
+	set(value): run_session.item_pool = value
 var _v5_shop_presenter: ItemV5ShopPresenter
-var player: PlayerMotor
-var controller: PlayerController
+var player: PlayerMotor:
+	get: return run_session.player
+	set(value): run_session.player = value
+var controller: PlayerController:
+	get: return run_session.controller
+	set(value): run_session.controller = value
 var stage: DemoStage
 var policy: FrameDamagePolicy
 var segment: SegmentRespawn
@@ -74,7 +98,9 @@ var _debug_button: Button
 var _canvas: CanvasLayer
 var menu: DemoMenu
 var simple_reward: SimpleRoomReward
-var catalog := DemoRewardCatalog.new()
+var catalog: DemoRewardCatalog:
+	get: return run_session.catalog
+	set(value): run_session.catalog = value
 var _session_input := InputProfile.load_default().values.duplicate(true)
 var _title: Label
 var _status_label: Label
@@ -178,7 +204,9 @@ func _ready() -> void:
 		add_child(inspector)
 
 var active_region_id: StringName = &"plains"
-var campaign := RunCampaignProgression.new()
+var campaign: RunCampaignProgression:
+	get: return run_session.campaign
+	set(value): run_session.campaign = value
 var progression_modal: RegionProgressionModal
 var _progression_token: DemoToken
 var _debug_region: StringName = &""
@@ -206,9 +234,15 @@ var _forest_layout_version := ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT
 var _forest_v9_north_return := true
 var _requested_forest_version := ""
 var _requested_forest_layout := ""
-var region_state: PlainsRegionState
-var region_states: Dictionary = {}
-var _region_loaded_map := 0
+var region_state: PlainsRegionState:
+	get: return run_session.region_state
+	set(value): run_session.region_state = value
+var region_states: Dictionary:
+	get: return run_session.region_states
+	set(value): run_session.region_states = value
+var _region_loaded_map: int:
+	get: return run_session.loaded_map
+	set(value): run_session.loaded_map = value
 var map_modal: PlainsRegionMapModal
 var _region_pending_claim := false
 var _region_chest := -1
@@ -281,36 +315,23 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_forest_v9_north_return = true
 	_requested_forest_version = ""
 	_requested_forest_layout = ""
-	campaign = RunCampaignProgression.new()
-	campaign.debug_entry = region_map and not _debug_region.is_empty()
-	if active_region_id == &"thorn_forest": campaign.abilities.append(&"grapple")
+	run_session.reset_campaign(region_map and not _debug_region.is_empty(), active_region_id == &"thorn_forest")
 	_progression_token = null
 	_root_bell_run_mode = "v3" if root_bell_space_pilot_requested else "v2" if root_bell_pilot_requested else "v3" if PlainsRootBellEncounterV3.PRODUCTION_ADMITTED else "v2" if PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
 	generated_plains = region_map
 	connected_region = region_map
-	region_state = PlainsRegionState.new() if connected_region else null
-	region_states.clear()
-	_region_loaded_map = 0
+	run_session.reset_maps(connected_region)
 	_region_chest = -1
 	_region_offer = null
 	_boss_intros_seen.clear()
 	_run_receipt_prefix = meta.new_run_receipt_prefix()
 	director.biome_id = active_region_id if generated_plains else &"demo_ruins"
 	get_tree().paused = false
-	player = PLAYER.instantiate()
-	player.process_mode = Node.PROCESS_MODE_PAUSABLE
-	add_child(player)
-	controller = player.get_node("Controller") as PlayerController
-	if not home_weapons.apply(controller):
-		remove_child(player)
-		player.queue_free()
-		player = null
-		controller = null
+	if not RunComposition.create_player(self, run_session, home_weapons):
 		_show_home()
 		return false
 	controller.shoot_ability.shot_fired.connect(_pixel_projectiles)
-	if connected_region and not controller.enable_shot_energy(): return false
-	if active_region_id == &"thorn_forest": controller.traversal.grant(&"grapple")
+	if not RunComposition.configure_capabilities(controller, connected_region, active_region_id == &"thorn_forest"): return false
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.shoot_ability.packet_changed.connect(_record_bellstrider_packet)
@@ -321,38 +342,19 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	overlay.pause_label = "MENU"
 	overlay.pause_requested.connect(toggle_pause)
 	overlay.reset_requested.connect(toggle_pause)
-	var vignette := FocusVignette.new()
-	vignette.name = "FocusVignette"
-	vignette.ability = controller.air_focus_ability
-	player.add_child(vignette)
-	var aim_guide := DemoAimGuide.new()
-	aim_guide.controller = controller
-	player.add_child(aim_guide)
+	RunComposition.attach_player_guides(player, controller)
 	if generated_plains:
 		controller.actor_resources.health_definition = meta.fresh_health_definition(controller.actor_resources.health_definition)
 		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
-	build = BuildState.new()
-	build.configure(controller, lifetime, StringName(_run_receipt_prefix))
-	catalog.configure(build, &"plains" if connected_region else director.biome_id, connected_region)
-	wallet = RunWallet.new()
-	rewards = RewardService.new()
-	rewards.configure(lifetime, build)
-	shop = ShopService.new()
-	shop.configure(lifetime, build, wallet)
+	run_session.create_run_services(&"plains" if connected_region else director.biome_id, connected_region)
 	var discovery_run := _run_receipt_prefix
 	rewards.claimed.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, false))
 	rewards.claimed.connect(_committed_item_audio)
 	shop.purchased.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, true))
+	run_session.create_item_services(connected_region)
 	if connected_region:
-		_item_runtime = ItemRuntime.new()
-		_item_runtime.configure(controller, build, lifetime, wallet)
-		_item_v5_pool = ItemV5Pool.new()
-		_item_v5_pool.configure(build)
 		if _v5_shop_presenter == null: _v5_shop_presenter = ItemV5ShopPresenter.new()
 		_v5_shop_presenter.configure(self, _item_v5_pool)
-	else:
-		_item_runtime = null
-		_item_v5_pool = null
 	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability, controller)
 	_demo_hud.bind(controller)
 	_resources_hud.set_region_compact(connected_region)
@@ -399,9 +401,7 @@ func _load_stage() -> void:
 		remove_child(stage)
 		stage.queue_free()
 	if connected_region and _region_loaded_map != director.stage_index:
-		_region_loaded_map=director.stage_index
-		region_state=region_states.get(_region_loaded_map,PlainsRegionState.new())
-		region_states[_region_loaded_map]=region_state
+		run_session.select_map_state(director.stage_index)
 		_region_chest=-1
 		_region_offer=null
 		_gold_claimed=false
@@ -1428,7 +1428,7 @@ func _run_ended(result: DemoRunResult) -> void:
 	if is_instance_valid(reward_modal):
 		reward_modal.close()
 	_queued_actions.clear()
-	var summary := {"stage": director.stage_index, "items": build.inventory.item_ids(), "equipped_items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": director.seed}
+	var summary := run_session.end_summary()
 	var settlement_id := StringName("%s/run_%s_%s" % [_run_receipt_prefix, result.run_epoch, result.event_id])
 	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, result.reason == &"success", summary)
 	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
@@ -1449,8 +1449,7 @@ func _cleanup_run() -> void:
 	get_tree().paused = false
 	_resources_hud.unbind()
 	_demo_hud.unbind()
-	build.clear()
-	wallet.balance = 0
+	run_session.clear_run_services()
 	for object: Node in [stage, policy, player, _run_camera]:
 		if is_instance_valid(object):
 			if object.get_parent() == self:
@@ -1458,12 +1457,11 @@ func _cleanup_run() -> void:
 			object.queue_free()
 	_run_camera = null
 	stage = null
-	player = null
-	controller = null
+	run_session.release_player_references()
 	policy = null
 	segment = null
 	director.return_home()
-	campaign = RunCampaignProgression.new()
+	run_session.reset_campaign()
 	_show_home()
 	if not _ui_run_report.is_empty():
 		home_scene.set_input_blocked(true)
@@ -2756,9 +2754,7 @@ func _select_next_region(id: StringName) -> void:
 	progression_modal.close()
 	controller.router.clear("region_transition")
 	active_region_id = id
-	region_states.clear()
-	region_state = PlainsRegionState.new()
-	_region_loaded_map = 0
+	run_session.reset_maps(true)
 	catalog.configure(build,&"plains",connected_region)
 	get_tree().paused = false
 	director.continue_region(_progression_token,id,_next_id("enter_thorn_forest"),campaign.abilities)
