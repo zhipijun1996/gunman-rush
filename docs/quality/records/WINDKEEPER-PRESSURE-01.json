@@ -1,0 +1,710 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDKEEPER-PRESSURE-01",
+  "task_type": "boss",
+  "workflow": "review",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "reviewed_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+  "content_version": "windkeeper-pressure-01-candidate",
+  "owner": "root / Windkeeper pressure workline",
+  "purpose": "按用户明确要求把牧风者改为60HP三阶段主动接敌与六招冻结组合，并以正式连续原声战斗验证两枪反击。",
+  "player_experience": "通过四足、风帆、风叶与铃声读懂连续追压，整组末尾稳健两枪后撤离，第三枪考验站位和时机。",
+  "constraints": [
+    "玩家Motor/基础跳跃/武器反冲与资源、保存和奖励账本继续既有合同。",
+    "正式map2使用新Pressure子类；历史Windkeeper与鸣铃巡游机不改核心机制。",
+    "原Bible和1wu/nearest/现有身体PNG/旧黄铜苔绿褪帆及用户BGM保留。",
+    "实际伤害/位移/动画由同一Encounter姿态锚驱动；表现不决定玩法结果。",
+    "当前仅授权制作与交付，不合main；技术不代签用户/设备/趣味认可。"
+  ],
+  "affected_paths": [
+    "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
+    "assets/audio/windkeeper_pressure_01/README.md",
+    "assets/audio/windkeeper_pressure_01/_sources/.gdignore",
+    "assets/audio/windkeeper_pressure_01/_sources/bell-source-page.html",
+    "assets/audio/windkeeper_pressure_01/_sources/bell.wav",
+    "assets/audio/windkeeper_pressure_01/_sources/blade.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/chain.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/cloth-source-page.html",
+    "assets/audio/windkeeper_pressure_01/_sources/cloth.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/core.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/kenney-LICENSE.txt",
+    "assets/audio/windkeeper_pressure_01/_sources/leaves-source-page.html",
+    "assets/audio/windkeeper_pressure_01/_sources/leaves.wav",
+    "assets/audio/windkeeper_pressure_01/_sources/metal-wood-source-page.html",
+    "assets/audio/windkeeper_pressure_01/_sources/metal.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/rpg-source-page.html",
+    "assets/audio/windkeeper_pressure_01/_sources/spring.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/stone.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/wind-source-page.html",
+    "assets/audio/windkeeper_pressure_01/_sources/wind.ogg",
+    "assets/audio/windkeeper_pressure_01/_sources/wood.ogg",
+    "assets/audio/windkeeper_pressure_01/death.wav",
+    "assets/audio/windkeeper_pressure_01/death.wav.import",
+    "assets/audio/windkeeper_pressure_01/death_final.wav",
+    "assets/audio/windkeeper_pressure_01/death_final.wav.import",
+    "assets/audio/windkeeper_pressure_01/death_impact.wav",
+    "assets/audio/windkeeper_pressure_01/death_impact.wav.import",
+    "assets/audio/windkeeper_pressure_01/gust_release.wav",
+    "assets/audio/windkeeper_pressure_01/gust_release.wav.import",
+    "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+    "assets/audio/windkeeper_pressure_01/gust_warning.wav.import",
+    "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav.import",
+    "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav.import",
+    "assets/audio/windkeeper_pressure_01/hit.wav",
+    "assets/audio/windkeeper_pressure_01/hit.wav.import",
+    "assets/audio/windkeeper_pressure_01/link.wav",
+    "assets/audio/windkeeper_pressure_01/link.wav.import",
+    "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_land.wav.import",
+    "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_start.wav.import",
+    "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_warning.wav.import",
+    "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav.import",
+    "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav.import",
+    "assets/audio/windkeeper_pressure_01/manifest.json",
+    "assets/audio/windkeeper_pressure_01/phase.wav",
+    "assets/audio/windkeeper_pressure_01/phase.wav.import",
+    "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+    "assets/audio/windkeeper_pressure_01/platform_impact.wav.import",
+    "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+    "assets/audio/windkeeper_pressure_01/platform_warning.wav.import",
+    "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav.import",
+    "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav.import",
+    "assets/audio/windkeeper_pressure_01/recover.wav",
+    "assets/audio/windkeeper_pressure_01/recover.wav.import",
+    "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_release.wav.import",
+    "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_warning.wav.import",
+    "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav.import",
+    "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav.import",
+    "assets/audio/windkeeper_pressure_01/sources.json",
+    "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_strike.wav.import",
+    "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_warning.wav.import",
+    "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav.import",
+    "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav.import",
+    "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_release.wav.import",
+    "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_warning.wav.import",
+    "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav.import",
+    "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav.import",
+    "resources/bosses/legacy/windkeeper_storm_continuous_v5.tres",
+    "resources/bosses/windkeeper_pressure_health.tres",
+    "resources/bosses/windkeeper_storm.tres",
+    "scenes/bosses/windkeeper_pressure.tscn",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/art_foundation/pixel_formal_style_installer.gd",
+    "scripts/audio/windkeeper_pressure_audio.gd",
+    "scripts/audio/windkeeper_pressure_audio.gd.uid",
+    "scripts/bosses/boss_factory.gd",
+    "scripts/bosses/windkeeper_pressure_definition.gd",
+    "scripts/bosses/windkeeper_pressure_definition.gd.uid",
+    "scripts/bosses/windkeeper_pressure_encounter.gd",
+    "scripts/bosses/windkeeper_pressure_encounter.gd.uid",
+    "scripts/bosses/windkeeper_pressure_presentation.gd",
+    "scripts/bosses/windkeeper_pressure_presentation.gd.uid",
+    "scripts/bosses/windkeeper_pressure_projectile.gd",
+    "scripts/bosses/windkeeper_pressure_projectile.gd.uid",
+    "scripts/bosses/windkeeper_pressure_rig.gd",
+    "scripts/bosses/windkeeper_pressure_rig.gd.uid",
+    "scripts/bosses/windkeeper_pressure_strike.gd",
+    "scripts/bosses/windkeeper_pressure_strike.gd.uid",
+    "scripts/bosses/windkeeper_pressure_wind.gd",
+    "scripts/bosses/windkeeper_pressure_wind.gd.uid",
+    "scripts/damage/demo_contact_emitter.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/module_lab.gd",
+    "scripts/rewards/windkeeper_pressure_rewards.gd",
+    "scripts/rewards/windkeeper_pressure_rewards.gd.uid",
+    "scripts/run/run_manifest.gd",
+    "scripts/ui/windkeeper_hud.gd",
+    "scripts/underworld_plains/underworld_actor_installer.gd",
+    "shaders/windkeeper_pressure_foreground.gdshader",
+    "shaders/windkeeper_pressure_foreground.gdshader.uid",
+    "tests/plains_campaign_map_runner.gd",
+    "tests/test_production_plan.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "tests/underworld_plains/test_underworld_r3_boss.gd",
+    "tests/windkeeper_pressure_01/attack_geometry.gd",
+    "tests/windkeeper_pressure_01/attack_geometry.gd.uid",
+    "tests/windkeeper_pressure_01/audio.gd",
+    "tests/windkeeper_pressure_01/audio.gd.uid",
+    "tests/windkeeper_pressure_01/component_clock.gd",
+    "tests/windkeeper_pressure_01/component_clock.gd.uid",
+    "tests/windkeeper_pressure_01/formal_app.gd",
+    "tests/windkeeper_pressure_01/formal_app.gd.uid",
+    "tests/windkeeper_pressure_01/rewards.gd",
+    "tests/windkeeper_pressure_01/rewards.gd.uid",
+    "tests/windkeeper_pressure_01/support_app.gd",
+    "tests/windkeeper_pressure_01/support_app.gd.uid",
+    "tools/build_windkeeper_pressure_01_audio.py",
+    "tools/capture_windkeeper_pressure_01.py",
+    "tools/capture_windkeeper_pressure_01_poses.py",
+    "tools/harness/profiles.json",
+    "tools/run_item_v5_tests.py",
+    "tools/run_windkeeper_pressure_01_tests.py",
+    "tools/windkeeper_pressure_01/legal_input_pilot.gd",
+    "tools/windkeeper_pressure_01/legal_input_pilot.gd.uid",
+    "tools/windkeeper_pressure_01/pose_review.gd",
+    "tools/windkeeper_pressure_01/pose_review.gd.uid",
+    "tools/windkeeper_pressure_01_capture.gd",
+    "tools/windkeeper_pressure_01_capture.gd.uid"
+  ],
+  "deliverables": [
+    "六招三阶段正式Boss候选",
+    "同源连续正常速度原声完整战斗与动作章节",
+    "真实躲避/两枪反冲/撤离及第三枪风险对照",
+    "怪物工坊当前版本与旧意见保留",
+    "相关原生回归、独立实景审查与未验边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Direct user fullspec and bounded independent designreview; no runtime approval inferred.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "User gave clear target and independent preproduction review accepted concrete design with falsifiers.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "当前同一轮六原生消费者97/1198/63/72/77/130共1637项0失败；限实际组件与显式受控App场景，不签完整自然战斗或完整受影响CI。",
+      "evidence": [
+        "native_six"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "正式主片及原R3两图完整消费者已实际通过；全消费者库存/完整169CI与发布后GUI独立未验。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "正常速度原声完整片已提供；实际抽帧仅限定核短扑起落，整体动作和手机尺度待用户审看。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "原声轨及130声音事件技术检查已有；听感、关键读招/命中混音和连续草叶响应待审。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "已实际完整击败60HP并取得奖励，含攻击期额外射击；两枪命中/后续无伤仅所列样本，第三枪失败不自动证明因果，等待玩家审核。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "仅限独立源/旧guard版本迁移、140实际绑定和限定返工闭环的审查已完成；完整战斗影片审查R1、G4及整怪品质仍未验证。",
+      "evidence": [
+        "binding_source_review",
+        "guard_migration_review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "D0",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "正式map2的60HP三阶段六招追压",
+      "method": "用户完整要求与独立设计反例审查",
+      "expected": "冻结1–3主攻组合、动作读招、整组末尾两枪及撤离",
+      "failure": "以伤害次数控制Boss时钟或用无预告追加伪造压力",
+      "status": "passed",
+      "reason": "用户明确设计与独立G0仅接受设计范围",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "T1",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "六招真实伤害和姿态锚",
+      "method": "原生真实碰撞/弹道/FramePolicy与双向/边角反例",
+      "expected": "可见攻击部位与伤害几何、真实短扑位移一致",
+      "failure": "AABB空角伤害、反向不同步、冻结时重放旧扫掠",
+      "status": "passed",
+      "reason": "同一轮97几何与1198组件检查覆盖共享Rig/方向/真实扫掠/冻结接触；此项仅技术几何，不签正常速度画面或整场公平。",
+      "evidence": [
+        "native_six"
+      ]
+    },
+    {
+      "id": "T2",
+      "gate": "G1",
+      "dimension": "gameplay",
+      "scenario": "整组末尾两枪与贪第三枪",
+      "method": "正常输入完整战斗及同合法射速第三枪对照",
+      "expected": "两枪后有实测撤离空间；第三枪少一个射击间隔的余量",
+      "failure": "依赖悬空连射、故意拖延第三枪或抹除尚未到达弹体",
+      "status": "unverified",
+      "reason": "实际GPU九组两枪均有效命中，group9随后接触受伤；八组第二枪至下次出手前无伤。第三枪另录真实失败，因果/普遍稳定与玩家操作仍需审核，不以开火数或一次胜利代签。",
+      "evidence": [
+        "full_movie",
+        "main_gpu_chapters",
+        "third_movie",
+        "third_movie_report",
+        "third_shot_review"
+      ]
+    },
+    {
+      "id": "T3",
+      "gate": "G1",
+      "dimension": "gameplay",
+      "scenario": "断桥后真实四足支撑和追台",
+      "method": "正式Arena真实支撑射线、锁定跳跃与普通跳跃撤离",
+      "expected": "Boss先跃上现存平台再断桥；平台间真实起落；玩家有退路",
+      "failure": "Boss普通足悬空、隐形地板、临落地突然换锁定目标",
+      "status": "passed",
+      "reason": "同一轮正式受控support72检查真实四足支撑、锁定跨台/快照/空中致死落位、原中央站位普通水平+单次跳跃撤离。保留原竖直跳失败；不签自然完整三阶段战斗。",
+      "evidence": [
+        "native_six"
+      ]
+    },
+    {
+      "id": "A1",
+      "gate": "G2",
+      "dimension": "animation",
+      "scenario": "正常尺寸六种全身动作/待机/移动/收招",
+      "method": "正式GPU姿态对照与正常速度连续影片逐段审查",
+      "expected": "四足承重、胸背/风帆/铃滞后清楚，组中张力与终结卸力不同",
+      "failure": "只动脚或整图漂浮、手机尺度辨不出招式、假落地",
+      "status": "unverified",
+      "reason": "主片已包含六招/三阶段与失效；实际8fps短扑抽帧可见压低、升空、落地承重，但不能代签正常速度整体动作或手机尺度艺术认可。",
+      "evidence": [
+        "full_movie",
+        "main_gpu_chapters"
+      ]
+    },
+    {
+      "id": "S1",
+      "gate": "G2",
+      "dimension": "audio_vfx",
+      "scenario": "实际动作事件/连段声节奏/风向",
+      "method": "原声影片、实际音频voice收据及现场草叶",
+      "expected": "出手/落地/预警同步，命中不盖关键读招，真实草叶同向响应",
+      "failure": "用离线WAV通过代签整场听感、风向和草叶相反",
+      "status": "unverified",
+      "reason": "实际原MovieMaker stereoPCM→AAC且有声音，130事件专项通过；没有以音轨存在或离线WAV代签混音/读招听感及连续草叶风向。",
+      "evidence": [
+        "full_movie",
+        "native_six"
+      ]
+    },
+    {
+      "id": "I1",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "正式Factory/App保存/暂停/取消/死亡一次结算",
+      "method": "原入口/原账本/epoch专项与完整实机消费者",
+      "expected": "致死即止伤止风，真实落位和金币逐枚领取合计20，一次结算",
+      "failure": "旧尸体重放死亡/奖励、物理金币未拾取却结算钱包、残骸阻路",
+      "status": "unverified",
+      "reason": "当前正式App完整主片与R3原消费者均完成实际死亡/20物理金币/一次账本和奖励续关；完整169CI、全消费者库存和整体验收仍独立未签。",
+      "evidence": [
+        "full_movie",
+        "r3_full_02"
+      ]
+    },
+    {
+      "id": "R1",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "正式当前源反例与完整影片",
+      "method": "独立审查生产源、原生原件、实际GPU像素及完整章节",
+      "expected": "结论限定有证据范围，原失败保留并有明确修复复验",
+      "failure": "用组件通过冒充完整战斗或审查者未看实际画面",
+      "status": "unverified",
+      "reason": "独立当前GPU实际轨迹/逐枪命中与守门已审；整体正常速度艺术/声音/公平和设备/玩家仍未签。",
+      "evidence": [
+        "main_gpu_chapters",
+        "third_shot_review"
+      ]
+    },
+    {
+      "id": "U1",
+      "gate": "G5",
+      "dimension": "player_acceptance",
+      "scenario": "用户审核与实体操作",
+      "method": "怪物工坊原声完整片/用户意见/后续真实设备试玩",
+      "expected": "按用户实际意见记录认可或返工",
+      "failure": "AI代签用户审美、手感或真机性能",
+      "status": "unverified",
+      "reason": "工坊私密第8版和两条原声片已发布，六招/两枪/第三枪/死亡掉落有实际章节；等待用户真实意见与实体操作，不代签。",
+      "evidence": [
+        "workshop_publication",
+        "workshop_live_http",
+        "full_movie",
+        "third_movie"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/windkeeper_pressure_01/spec-original-01.md",
+      "sha256": "b7f9c3ab2868b36fd2f11ad93af54231315ef3b5c171d5028b881a1d775d68ff",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Direct user specification retained as production requirements.",
+      "observed": "60HP, three stages, six authored fullbody moves, frozen1–3attackgroups and realtwo-shotcounter."
+    },
+    {
+      "id": "g0",
+      "path": "docs/worklines/windkeeper_pressure_01/g0-review.md",
+      "sha256": "fbdbaee0c5230d26ec9cf0eb67cd30bbd93fcfabe4bc15ffda66f3313d52c3c8",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent read-only preproduction mechanic/fairness/consumer review.",
+      "observed": "ACCEPT scoped design; actualbridgeescape, gust retreat, remainingprojectiles and truecounterwindow still require runtime.",
+      "reviewer": "/root/windkeeper_binding_review",
+      "implementers": [
+        "root",
+        "/root/windkeeper_combat",
+        "/root/windkeeper_art",
+        "/root/windkeeper_audio"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer writes no production/geometry/audio/art/capture implementation. Metadata versionbinding distinct from gameplay review."
+    },
+    {
+      "id": "native_six",
+      "path": "docs/evidence/windkeeper_pressure_01/native-six/report.json",
+      "sha256": "7eee1e39babbf8dc5f7aaa84f31d09a4819de1d727458903f95d3b7fffac03da",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Root-run original six-case native wrapper; original logs retained next to this report.",
+      "observed": "Geometry97/components1198/formal63/support72/rewards77/audio130,1637checks0failures. Actual components and controlled formal App only; no natural fight approval.",
+      "command": "python3 tools/run_windkeeper_pressure_01_tests.py",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud, Godot4.7.2 native headless, fixed60Hz consumers; run at ff517243."
+    },
+    {
+      "id": "binding_source_review",
+      "path": "docs/evidence/windkeeper_pressure_01/independent-review.md",
+      "sha256": "cffcfb7fc548f3580907d46f3925054af9b506cd1c197eba120e3ed5b9467884",
+      "kind": "review",
+      "producer": "/root/windkeeper_integration_review",
+      "source_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent read-only current source, exact baseline archive, native receipt and actual matched GPU pose inspection; accept is strictly scoped to final live140 guard/source migration.",
+      "observed": "Latest section accepts style24/creative27 metadata migration/sourcebinding and original-guard preservation. Whole user contract remains UNVERIFIED; original ART09 reject and actual later bounded pose02 repair acceptance retained.",
+      "reviewer": "/root/windkeeper_integration_review",
+      "implementers": [
+        "root",
+        "/root/windkeeper_combat",
+        "/root/windkeeper_art",
+        "/root/windkeeper_audio"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct reviewer writes no production, geometry, audio, art or capture/test implementation. Metadata/source acceptance does not sign fullfilm."
+    },
+    {
+      "id": "guard_migration_review",
+      "path": "docs/evidence/windkeeper_pressure_01/guard-migration-review.json",
+      "sha256": "572e1390e94bdb01310154ff9f1da18484cde27951e9e65f6d1cb43946934b2d",
+      "kind": "review",
+      "producer": "/root/windkeeper_delivery_audit",
+      "source_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent fresh comparison of exact9 archive entries, AST oldmethod sets, originalHarness order/budgets/inputprefix and all140actual hashes.",
+      "observed": "Exactold40/17 methods preserved43/18; original168prefix+Pressure;422inputprefix;30/30/30/60;140actual leaves/82oldunchanged. Current exact planner patch independently read/finite-compared against base; old168prefix/audio167:168/digests preserved, mandatoryPressure168:argv300serial,169/92/77; coordinator actual22/0 receipt read, not independently executed. Dirty testsource SHA is recorded explicitly.",
+      "reviewer": "/root/windkeeper_delivery_audit",
+      "implementers": [
+        "root",
+        "/root/windkeeper_binding_review"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Deliveryauditor only readsource/reports and prepared this metadata updater in /tmp; made no runtime/test/guard changes and ran noengine."
+    },
+    {
+      "id": "binding_four_original",
+      "path": "docs/evidence/windkeeper_pressure_01/binding-four/report.json",
+      "sha256": "a6a5855b1203714e4c8e9066300d6f80a89e2f7c04ef50b8bfa5746275d499c2",
+      "kind": "runtime_trace",
+      "producer": "/root/windkeeper_delivery_audit",
+      "source_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Original unmodified fourBibleHarness report; actual dirty base/source status preserved within report.",
+      "observed": "Fourfresh passes with exact current140runtime bytes independently matched. Original receipt ran dirtybase840108da, not Git-clean candidate, and is not relabeled as a rerun."
+    },
+    {
+      "id": "pose02_sourceguard",
+      "path": "docs/evidence/windkeeper_pressure_01/pose02/source-report.json",
+      "sha256": "bbdd30bd6e2a89d74e2fd64f36ac6d22bc8a71d16ebafe7064962fa3c086f239",
+      "kind": "runtime_trace",
+      "producer": "/root/windkeeper_delivery_audit",
+      "source_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "ActualGL paused pose fixture technical receipt, silentDummy driver.",
+      "observed": "source_stabletrue/native_engine_errors[];60PNGs not proof of normal-speed motion/audio/natural battle."
+    },
+    {
+      "id": "planner_22_actual",
+      "path": "docs/evidence/windkeeper_pressure_01/planner/production-plan-tests-02.log",
+      "sha256": "d04021edd999cf8692a51d6d86142b40716cc5d9950bb9741dc1a67d36f4f221",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Coordinator-run original planner22 tests, exact reviewed finite migration; old failing receipt retained alongside.",
+      "observed": "22tests,0failures; this is a pure planner regression, not169checks executed. Actual dirty test bytes bound by guard-migration-review SHA.",
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud Python3; current dirty planner test patch at ff517243 anchor, exact SHA archived in guard review."
+    },
+    {
+      "id": "full_movie",
+      "path": "docs/evidence/windkeeper_pressure_01/media/windkeeper-60hp-complete.mp4",
+      "sha256": "e8b89682f632e7ddad4ab47ca9394bae3494830baa3f14f280642caeadde96dc",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "b684b76e71143df6fdbcdf70307cc2b4e8f124d7",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Original uncut Godot MovieMaker with normal60Hz clock and stereo enginePCM converted toAAC.",
+      "observed": "88.866667seconds,1280x720,60fps,all6moves/3phases,60effectivehits,17groups/16complete,player3HP,death/20coins. Debug map2 entry disclosed; active_assault also fires legally during preparation, not cautious2 proof."
+    },
+    {
+      "id": "full_movie_report",
+      "path": "docs/evidence/windkeeper_pressure_01/main-movie-summary.json",
+      "sha256": "bf123a9fa675201a659445452502a226b4e61be0e474b3b06650724d15db51f1",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "b684b76e71143df6fdbcdf70307cc2b4e8f124d7",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual original complete movie report summary; original full trace/source guard archived separately.",
+      "observed": "recorded_complete_coverage,source_stabletrue,errors[]; no fullcampaign/user/device/audio taste acceptance."
+    },
+    {
+      "id": "main_gpu_chapters",
+      "path": "docs/evidence/windkeeper_pressure_01/main-gpu-review-chapters.json",
+      "sha256": "53c3731f63592057c303dfcd83f4595b26d8ad0419d699d766d8f2e383ac2265",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "b684b76e71143df6fdbcdf70307cc2b4e8f124d7",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent exact GPU trace shotID to actual BossHP event joins and actual timestamp sections.",
+      "observed": "15recovery double-shot groups,9double-effectivehitgroups,8withoutinjury fromsecondshottonextexecution; group9warningbodycontact excluded fromsafeexamples. Selectedgroup6/15; no thirdshot causality orhumanacceptance."
+    },
+    {
+      "id": "third_movie",
+      "path": "docs/evidence/windkeeper_pressure_01/media/windkeeper-60hp-third-shot-failed.mp4",
+      "sha256": "8d947272e0e9e49dea1f5e95a48ef5b4908229244375b1a1bfc15c879ee50784",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Matched assault_greed3 profile; same runtime/seed, final recovery cap3; original normal-speed stereo audio.",
+      "observed": "FAILED attempt retained:68.433333seconds,48effectivehits/14groups,actualplayerdeath,Boss12HP. No Bossdeath/rewards; do not use as acceptedfullfight."
+    },
+    {
+      "id": "third_movie_report",
+      "path": "docs/evidence/windkeeper_pressure_01/greedy-movie-summary.json",
+      "sha256": "69ab7782953df8800d6bf5d240caf7d1351b73687d27aff1eb0091f418e82042",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual failed GPU wrapper report and immutable source guard.",
+      "observed": "failed_attempt_retained,source_stabletrue,8actualerrors kept inclstationarycoveragegap; separate headlesswrapperinterruption archived withoutinventedPASS."
+    },
+    {
+      "id": "r3_full_02",
+      "path": "docs/evidence/windkeeper_pressure_01/original-consumers/original-r3-full-02.log",
+      "sha256": "a79e4b5cbd6d07b3e57e61f27f7faf6c75b4a7d52dace26091c1b15360c3b2be",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Original unchanged fullR3 wrapper; migrated canonical normal-input adapter, old assertions/budgets preserved.",
+      "observed": "100component/16direction/54lifecyclechecks0failures; map1 459frames/map2 5053frames0failures; current60HPboss defeated/player3HP; originalGold/physicalcoins/grapple/forestcontinuation complete. Explicitinitialroomandpostvictorycoinapproachfixtures remain, not naturalmovie.",
+      "command": "python3 tools/run_underworld_r3_boss_tests.py --full-fights",
+      "exit_code": 0,
+      "environment": "ManagedLinux cloud,Godot4.7.2 nativeheadless,fixed60Hz,clean46e00839."
+    },
+    {
+      "id": "third_shot_review",
+      "path": "docs/evidence/windkeeper_pressure_01/third-shot-independent-review.md",
+      "sha256": "9be172fb47a454cdc361d6943e048ee28e0926d858d7543b8ebf8c8794765c8b",
+      "kind": "review",
+      "producer": "/root/windkeeper_evasion_probe",
+      "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent read-only current source, actual GPU trace/receipts and original regression outputs; no reviewer engine run.",
+      "observed": "ACCEPT bounded actual GPU attribution/shotID timing and unchanged R3 guards; 8 actual thirdshots/6damage, successful extra shot examples and failedfullgreedy retained. NOT causal death, universal fair windows, overall normal-speed viewing/listening, user ordevice acceptance.",
+      "reviewer": "/root/windkeeper_evasion_probe",
+      "implementers": [
+        "root",
+        "/root/windkeeper_combat",
+        "/root/windkeeper_art",
+        "/root/windkeeper_audio",
+        "/root/windkeeper_pilot_review"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer implemented no production runtime or final pilot/adapter and made no repository edits; own controlled escape diagnostics explicitly separate. Acceptance is bounded to listed technical/source observations."
+    },
+    {
+      "id": "third_gpu_chapters",
+      "path": "docs/evidence/windkeeper_pressure_01/greedy-gpu-review-chapters.json",
+      "sha256": "74104cbf2d62e4034027b577da7731b3bf624822f1376f4a414ce7a1d60147b4",
+      "kind": "runtime_trace",
+      "producer": "/root/windkeeper_evasion_probe",
+      "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent read-only current source, actual GPU trace/receipts and original regression outputs; no reviewer engine run.",
+      "observed": "Actual failed GPU movie timestamps: group4 success with nearzero recoveryleft; group8success.5left; group9riskobservationnotcausalA/B."
+    },
+    {
+      "id": "final_guard_audit",
+      "path": "docs/evidence/windkeeper_pressure_01/final-delivery-audit.md",
+      "sha256": "5602640cf51baedc37d43a4d538b624b623b153a780b389858e661a5b42c8e08",
+      "kind": "review",
+      "producer": "/root/windkeeper_delivery_audit",
+      "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent read-only current source, actual GPU trace/receipts and original regression outputs; no reviewer engine run.",
+      "observed": "Current source/guard migrations and complete movie technical attribution ACCEPT; remote full169 and overall subjective criteria remain separate.",
+      "reviewer": "/root/windkeeper_delivery_audit",
+      "implementers": [
+        "root",
+        "/root/windkeeper_combat",
+        "/root/windkeeper_art",
+        "/root/windkeeper_audio",
+        "/root/windkeeper_pilot_review"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer implemented no production runtime or final pilot/adapter and made no repository edits; own controlled escape diagnostics explicitly separate. Acceptance is bounded to listed technical/source observations."
+    },
+    {
+      "id": "workshop_publication",
+      "path": "docs/evidence/windkeeper_pressure_01/workshop-publication.json",
+      "sha256": "010f3f10c5e7dbcc7ee2718df97605a4a46f08f55d238267c36c4fe538ad80ed",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "41a53e5ee527216afa37969b71ac4594bb273b95",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual native Sites publication/sourceversion and/or actual HTTP data receipt; secrets hidden stdin,never persisted.",
+      "observed": "Native owner-private publication terminal succeeded,Site version8/source38b74376,originalaudiencerevision1unchanged; only WindkeeperStorm newmedia andcontextcaption,25creatures/oldreviews preserved."
+    },
+    {
+      "id": "workshop_live_http",
+      "path": "docs/evidence/windkeeper_pressure_01/site-http-01.json",
+      "sha256": "eaaa1d89af0ee7bf5ea5c3d644b3a60f5b0f8bad39a7dc98a991dc1309ef6839",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "41a53e5ee527216afa37969b71ac4594bb273b95",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual native Sites publication/sourceversion and/or actual HTTP data receipt; secrets hidden stdin,never persisted.",
+      "observed": "Actual live HTML200,both MP4Range206 payloads byteequal localoriginal segments,posters200; no databasewrites orbrowserGUI simulation."
+    },
+    {
+      "id": "raw_media_download",
+      "path": "docs/evidence/windkeeper_pressure_01/raw-media-http-01.json",
+      "sha256": "5eef2b1b0b958180f89ffbc7bb75b4a989dd7272f5f80380e6af22ab25d46cf3",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "41a53e5ee527216afa37969b71ac4594bb273b95",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual native Sites publication/sourceversion and/or actual HTTP data receipt; secrets hidden stdin,never persisted.",
+      "observed": "Both immutable Git MP4URLs actual fullHTTP200 downloads; 84845572/66370811bytes and exact expected complete SHA256,not HEAD-only."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "主片88.867秒1280×720/60fps、原声、60有效命中、17组起手/16组完成、3HP存活与20金币技术覆盖实际完成；正式地图2调试入口，不是自然整关。",
+    "实际GPU九组双枪均命中，其中八组第二枪至下次执行前无伤；group9有接触受伤。第三枪68.433秒真实死亡/48hits失败保留，仍需审核操作余量与公平。",
+    "实际声音、正常速度整体动作、连续风向/草叶、手机设备性能和用户认可仍未验。",
+    "原R3新wrapper已实际通过100/16/54与两图459/5053frames，原map2余21HP失败仍保留；最新head完整169CI未通过，不借PR119旧授权合main。",
+    "工坊私密第8版实际发布成功，完整媒体HTTP200/SHA和Range206载荷已核；未实际操作浏览器GUI，旧36HP意见/版本和其他24怪保持。",
+    "旧v5terminal第三阶段地形兼容依用户授权延期；当前v6支撑/死亡/金币快照已有72项受控检查，不豁免。",
+    "T2所选g9第三枪在冷却首次为0/有弹且落地时即时请求；g4迟发来自真实空中弹药限制，未见第三枪专属造险延迟。g8二/三枪各有统一节拍约4帧余等，不能称极限最早合法射速或严格单变量A/B。"
+  ],
+  "test_change_justification": "版本化迁移原style22/creative25的现行绑定到style24/creative27：两个旧live版本断言改为当前24/27；旧22/25的40/17全部命名场景与原字面历史断言保留，原style22/registry/两区creative25/旧测试/App及Harness按精确main840108da字节归档。旧App当前哈希访问仅在历史22测试中使用固定SHA f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a的旧源；其他82原引用仍读当前原件。新测试逐个核140当前引用、83原有序前缀和仅App变化，并对每个新leaf实际篡改临时副本拒绝及旧22绑定拒绝。原full168检查有序前缀完整保留，末尾只追加真实mandatory windkeeper-pressure-01（serial=true，原300总/90子进程），故生产计划摘要168/92/76须迁移为169/92/77；旧audio断言保留在167:168，Pressure独立168:169，全部旧digest与拒绝/分流断言保留，不能删除旧检查或放预算。四Bible预算30/30/30/60及原422输入前缀保留；独审仅接受以上具体迁移和实际源绑定，整场电影/手感/听感/设备/完整169CI未签。 原boss-time测试固定等待32个physics_frame但同时await process_frame，在变帧率追赶时可能多推进导致预算及无敌帧级联失败；原测试完全不改，以固定60Hz实跑1182/0后，只把已有pause-escape的--fixed-fps60适配复用于boss-time。保留全部1182断言、120秒子进程、240秒Harness和原失败，实际wrapper重跑1182/0。此修订不改变玩家/Boss时钟或伤害。 原R3完整map2消费者迁移到已实际完成60HP/17组/84.583秒/3HP/20金币的canonical active_assault正常输入，关闭重复外部追加射击以保持实测跳跃输入序列。原14失败字符串、经典Boss分支、7200帧120秒战斗、180子进程和360总预算、金币逐枚/Gold/核心能力/森林续关断言保持；原失败原件保留，实际新wrapper在干净46e源完整执行通过100/16/54项与map1 459帧/map2 5053帧，0失败；Gold、20金币、钩索选择和森林续关均实际完成。",
+  "production_snapshot": "6a4179ac26e13c07d9b04bc362a0f27cb020d98160eb250f505037cb9b42c6f8"
+}

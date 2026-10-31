@@ -1,0 +1,187 @@
+{
+  "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+  "mp4_sha256": "8d947272e0e9e49dea1f5e95a48ef5b4908229244375b1a1bfc15c879ee50784",
+  "duration": 68.433333,
+  "recording_status": "failed_attempt_retained",
+  "full_battle_success": false,
+  "actual_Boss_hits": 48,
+  "actual_player_terminal": true,
+  "original_errors": [
+    "Godot encounter capture failed; original attempt retained",
+    "Actual player death; failed continuous attempt retained",
+    "Coverage gap: full_base_60HP_damage",
+    "Coverage gap: full_death",
+    "Coverage gap: configured_coin_total",
+    "Coverage gap: actual_configured_wallet_delta",
+    "Coverage gap: all_units_claimed",
+    "Stationary observation did not show meaningful active Boss approach"
+  ],
+  "chapters": [
+    {
+      "id": "greedy-third-group2",
+      "group": 2,
+      "start": 6.78333333333333,
+      "end": 11.9,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 10.1,
+      "actual_third_hits": true,
+      "all_three_shots_hit": false,
+      "second_to_third_seconds": 0.35,
+      "recovery_remaining_after_third": 0.4333333333332998,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group4",
+      "group": 4,
+      "start": 14.5333333333333,
+      "end": 18.05,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 17.266666666666666,
+      "actual_third_hits": true,
+      "all_three_shots_hit": true,
+      "second_to_third_seconds": 0.36666666666666664,
+      "recovery_remaining_after_third": 3.552713678800501e-14,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group6",
+      "group": 6,
+      "start": 19.4666666666667,
+      "end": 24.65,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 23.216666666666665,
+      "actual_third_hits": true,
+      "all_three_shots_hit": false,
+      "second_to_third_seconds": 0.3333333333333333,
+      "recovery_remaining_after_third": 3.552713678800501e-14,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group8",
+      "group": 8,
+      "start": 28.6166666666667,
+      "end": 35.6,
+      "phase": 2,
+      "plan": {
+        "attacks": [
+          "gust",
+          "sweep"
+        ],
+        "double_stomp": false,
+        "phase": 2,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 33.9,
+      "actual_third_hits": true,
+      "all_three_shots_hit": true,
+      "second_to_third_seconds": 0.3333333333333333,
+      "recovery_remaining_after_third": 0.5,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group9",
+      "group": 9,
+      "start": 34.4166666666667,
+      "end": 38.7,
+      "phase": 2,
+      "plan": {
+        "attacks": [
+          "sweep",
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 2,
+        "sweep_high": false
+      },
+      "label": "第三枪后跟随接触受伤（不作单一因果归因）",
+      "actual_third_shot_seconds": 37.71666666666667,
+      "actual_third_hits": true,
+      "all_three_shots_hit": true,
+      "second_to_third_seconds": 0.26666666666666666,
+      "recovery_remaining_after_third": 0.2500000000000284,
+      "injuries_within3seconds": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 2280,
+          "group": 10,
+          "health": 4.0,
+          "last_shot_frame": 2257,
+          "movie_frame": 2286,
+          "movie_seconds": 38.1,
+          "state": "lunge_warning"
+        }
+      ],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    }
+  ],
+  "first_divergence_from_main": {
+    "compared_physical_fields": [
+      "state",
+      "phase",
+      "group",
+      "boss_clock",
+      "boss_position",
+      "boss_HP",
+      "player_position",
+      "player_HP",
+      "grounded",
+      "normal_velocity",
+      "recoil_velocity",
+      "recoil_remaining",
+      "router_axis",
+      "router_aim",
+      "shots_fired"
+    ],
+    "first_difference": {
+      "frame": 383,
+      "main_movie_seconds": 6.48333333333333,
+      "greed_movie_seconds": 6.48333333333333,
+      "differences": {
+        "router_axis": [
+          -1.0,
+          1.0
+        ]
+      }
+    },
+    "exact_prefix_end_inclusive_frame": 382,
+    "first_actual_third_shot_frame": 600,
+    "causality": "Same seed/setup and physical prefix through382; from383, keeping open the attempt at a third changes retreat axis after second shot. Position differs392, Bossstate401. Therefore runs are not matched until the first actual third shot600."
+  },
+  "scope": "Directly extracted from actual GPU movie-greedy-01; not the interrupted headless attempt."
+}

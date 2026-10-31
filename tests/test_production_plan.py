@@ -224,29 +224,40 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(full["checks"][165:166], structure_additions)
         motion_loot_additions = ["plains-motion-loot-02"]
         audio_additions = ["audio-feedback"]
-        expected_additions = additions + structure_additions + motion_loot_additions + audio_additions
-        self.assertEqual(self.manifest["profiles"]["full"][144:168], expected_additions)
-        self.assertEqual(full["checks"][144:168], expected_additions)
+        pressure_additions = ["windkeeper-pressure-01"]
+        bell_additions = ["bellstrider-rework-01"]
+        baseline_additions = additions + structure_additions + motion_loot_additions + audio_additions
+        boss_additions = pressure_additions + bell_additions
+        expected_additions = baseline_additions + boss_additions
+        self.assertEqual(self.manifest["profiles"]["full"][144:168], baseline_additions)
+        self.assertEqual(full["checks"][144:168], baseline_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
+        self.assertEqual(full["checks"][144:], expected_additions)
         self.assertEqual(self.manifest["profiles"]["full"][166:167], motion_loot_additions)
         self.assertEqual(full["checks"][166:167], motion_loot_additions)
         self.assertEqual(self.manifest["profiles"]["full"][167:168], audio_additions)
         self.assertEqual(full["checks"][167:168], audio_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][168:169], pressure_additions)
+        self.assertEqual(full["checks"][168:169], pressure_additions)
+        pressure = self.manifest["checks"]["windkeeper-pressure-01"]
+        self.assertEqual(pressure["argv"], ["python3", "tools/run_windkeeper_pressure_01_tests.py"])
+        self.assertEqual(pressure["timeout_seconds"], 300)
+        self.assertTrue(pressure["serial"])
         audio = self.manifest["checks"]["audio-feedback"]
         self.assertEqual(audio["argv"], ["python3", "tools/run_audio_feedback_tests.py"])
         self.assertEqual(audio["timeout_seconds"], 240)
         self.assertTrue(audio["serial"])
-        added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions
-        bell_additions = ["bellstrider-rework-01"]
-        self.assertEqual(self.manifest["profiles"]["full"][168:], bell_additions)
-        self.assertEqual(full["checks"][168:], bell_additions)
-        self.assertEqual([name for name in parallel if name not in original], added_parallel + bell_additions)
+        added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions + bell_additions
+        self.assertEqual(self.manifest["profiles"]["full"][169:], bell_additions)
+        self.assertEqual(full["checks"][169:], bell_additions)
+        self.assertEqual([name for name in parallel if name not in original], added_parallel)
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
-        # Keep the complete reviewed168 and its92/76 split, then append the
-        # new actual native Boss contract without replacing any original case.
-        baseline_lanes = [[name for name in names if name not in bell_additions]
+        # Keep the complete reviewed168 and its92/76 split, then append both
+        # actual native Boss contracts without replacing any original case.
+        baseline_lanes = [[name for name in names if name not in boss_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, baseline_lanes)), (168,92,76))
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (169,93,76))
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (170,93,77))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:

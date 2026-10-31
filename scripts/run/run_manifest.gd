@@ -148,6 +148,7 @@ static func _plains_boss_output_compatible(output: Dictionary, index: int) -> bo
 	# Replay that metadata unchanged; runtime still loads current definitions.
 	var layout: Dictionary = output.get("generated_layout",{})
 	if layout.get("version") not in [PlainsRegionGenerator.VERSION,PlainsRootBellEncounterV2.CONTENT_VERSION,PlainsRootBellEncounterV3.CONTENT_VERSION]: return false
+	if index == 2 and checker._same_data(output.get("boss_layout",{}), {"id":"plains_windkeeper","version":5,"health":36.0}): return true
 	var historical := {"id":"plains_bellstrider","version":1,"health":16.0} if index==1 else {"id":"plains_windkeeper","version":4,"health":36.0}
 	return checker._same_data(output.get("boss_layout",{}),historical)
 

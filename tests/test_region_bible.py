@@ -20,6 +20,47 @@ import production_loop as loop
 import visual_director
 
 
+
+
+BOSS_PARENT_MANIFESTS = {'bellstrider': 'c6e8c5ccc283900a84d3d5f8078ce599e9e9ef35acc9a1cdf8ae38cfacb43159', 'windkeeper': 'bebfb3cd755699bd66deda0ed3d7a9969bb461c177aad4da89c9fd509129132b'}
+
+MERGED_BOSSES_ARCHIVE = 'docs/creative_direction/archive/merge-20261031-style25/'
+MERGED_BOSSES_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
+
+
+def boss_parent_source(parent, path):
+    """Only explicit changed parent leaves use frozen bytes; others stay live."""
+    base = creative.ROOT / MERGED_BOSSES_ARCHIVE / parent
+    manifest = json.loads((base/'manifest.json').read_bytes())
+    row = next((r for r in manifest['sources'] if r['path']==path), None)
+    if row is None:
+        return (creative.ROOT/path).read_bytes()
+    raw = (base/row['archive_path']).read_bytes()
+    if hashlib.sha256(raw).hexdigest()!=row['sha256']:
+        raise AssertionError('Frozen combination parent source changed: '+path)
+    return raw
+
+
+def boss_parent_registry(parent):
+    return json.loads((creative.ROOT/MERGED_BOSSES_ARCHIVE/parent/creative.BIBLE_REGISTRY).read_bytes())
+
+WINDKEEPER24_ARCHIVE = 'docs/creative_direction/archive/windkeeper-pressure-before-style24/'
+WINDKEEPER24_STYLE = 'docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json'
+WINDKEEPER22_APP_SHA = 'f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a'
+WINDKEEPER22_STYLE_SHA = '4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188'
+
+
+def windkeeper22_source(path):
+    # Only the genuinely changed registered leaf is replaced by exact old
+    # bytes. No arbitrary file-based fallback may hide another changed input.
+    if path == 'scripts/demo/demo_app.gd':
+        content = (ROOT/(WINDKEEPER24_ARCHIVE+'sources/'+path+'.txt')).read_bytes()
+        if hashlib.sha256(content).hexdigest() != WINDKEEPER22_APP_SHA:
+            raise AssertionError('Frozen pre-pressure App source changed')
+        return content
+    return before_bellstrider_source(path)
+
+
 MERGE21_MANIFESTS = {'program': '74dce20a314ba573c15f24bbe17b6faee7cdf0a65728f403663057a7b49e9742', 'audio': 'f31f059792aea55b3a973cd9803e7c5b9d91497da593466b12a84bcc536fbe49'}
 MERGE21_ARCHIVE = 'docs/creative_direction/archive/merge-20261030-style21/'
 
@@ -366,7 +407,7 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'23')
+        self.assertEqual(style['content']['version'],'25')
         self.assertEqual(json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())['version'],'22')
         style = {**style,'content':json.loads((ROOT/(MERGE21_ARCHIVE+'program/style21.json')).read_bytes())}
         self.assertEqual(style['content']['version'],'21')
@@ -1290,7 +1331,7 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'23')
+        self.assertEqual(style['content']['version'],'25')
         self.assertEqual(json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())['version'],'22')
         style = {**style,'content':json.loads((ROOT/(MERGE21_ARCHIVE+'audio/style21.json')).read_bytes())}
         self.assertEqual(style['content']['version'],'21')
@@ -1889,7 +1930,7 @@ class BibleTests(unittest.TestCase):
 
     def test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale(self):
         live = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
-        self.assertEqual(live['version'],'23')
+        self.assertEqual(live['version'],'25')
         current = json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())
         self.assertEqual(current['version'],'22')
         actual = current['runtime_reference']['references']
@@ -1936,7 +1977,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
 
     def test_bellstrider23_has_exact83_prefix_and_finite_real_body_audio_closure(self):
-        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        current = json.loads((ROOT/BELLSTRIDER_STYLE23).read_bytes())
         self.assertEqual(current['version'],'23')
         prior = json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())
         before = prior['runtime_reference']['references']
@@ -1947,7 +1988,7 @@ class BibleTests(unittest.TestCase):
         for old,new in zip(before,actual[:83]):
             self.assertEqual({k:v for k,v in old.items() if k!='sha256'},{k:v for k,v in new.items() if k!='sha256'})
             self.assertEqual(old['sha256'],hashlib.sha256(before_bellstrider_source(old['path'])).hexdigest())
-            self.assertEqual(new['sha256'],hashlib.sha256((ROOT/new['path']).read_bytes()).hexdigest())
+            self.assertEqual(new['sha256'],hashlib.sha256(boss_parent_source('bellstrider',new['path'])).hexdigest())
             if old != new:changed.append({'role':new['role'],'path':new['path'],'old_sha256':old['sha256'],'new_sha256':new['sha256']})
         self.assertEqual({r['path'] for r in changed},BELLSTRIDER_OLD_LEAVES)
         self.assertEqual(current['revision_impact']['changed_references'],changed)
@@ -2030,7 +2071,7 @@ class BibleTests(unittest.TestCase):
             'test_region_bible.py':{'test_actual_player_body_closure_is_required_and_superseded_binding_refused','test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history','test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale'},
             'test_region_creative_direction.py':{'test_selected_direction_binds_every_specialist_and_retains_stage_gates','test_merged25_preserves_both_parent24_directions_and_authority_union'}}
         for filename,allowed in modified.items():
-            original = (ROOT/BELLSTRIDER_ARCHIVE/(filename+'.txt')).read_text();live = (ROOT/'tests'/filename).read_text()
+            original = (ROOT/BELLSTRIDER_ARCHIVE/(filename+'.txt')).read_text();live = (ROOT/MERGED_BOSSES_ARCHIVE/'bellstrider'/'tests'/filename).read_text()
             def methods(text):return {n.name:ast.get_source_segment(text,n) for n in ast.walk(ast.parse(text)) if isinstance(n,ast.FunctionDef) and n.name.startswith('test_')}
             before,after = methods(original),methods(live)
             self.assertEqual(len(before),40 if filename=='test_region_bible.py' else 17)
@@ -2038,12 +2079,190 @@ class BibleTests(unittest.TestCase):
             self.assertEqual({name for name in before if before[name]!=after[name]},allowed)
             self.assertTrue(set(re.findall(r'[a-f0-9]{64}',original))<=set(re.findall(r'[a-f0-9]{64}',live)))
         frozen = json.loads((ROOT/BELLSTRIDER_ARCHIVE/'harness-region-checks.json').read_bytes())['checks']
-        live = json.loads((ROOT/'tools/harness/profiles.json').read_bytes())['checks']
+        live = json.loads((ROOT/MERGED_BOSSES_ARCHIVE/'bellstrider'/'tools/harness/profiles.json').read_bytes())['checks']
         for name,prior in frozen.items():
             for field in ('argv','timeout_seconds','success_pattern'):self.assertEqual(live[name][field],prior[field])
             if 'inputs' in prior:self.assertEqual(live[name]['inputs'][:len(prior['inputs'])],prior['inputs'])
             else:self.assertNotIn('inputs',live[name])
         self.assertEqual((len(frozen['region-bible-tests']['inputs']),len(frozen['region-bible-contract']['inputs'])),(422,24))
+
+    def test_windkeeper24_keeps83_prefix_and_binds_actual_pressure_consumers(self):
+        current = json.loads((ROOT/WINDKEEPER24_STYLE).read_bytes())
+        self.assertEqual(current['version'],'24')
+        before_raw = (ROOT/(WINDKEEPER24_ARCHIVE+'style22.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(before_raw).hexdigest(),WINDKEEPER22_STYLE_SHA)
+        before = json.loads(before_raw)
+        old_refs = before['runtime_reference']['references']
+        actual = current['runtime_reference']['references']
+        self.assertEqual(len(old_refs),83)
+        self.assertGreater(len(actual),83)
+        self.assertEqual([(r['role'],r['path']) for r in actual[:83]],
+                         [(r['role'],r['path']) for r in old_refs])
+        changed = []
+        for old,new in zip(old_refs,actual[:83]):
+            self.assertEqual({k:v for k,v in old.items() if k!='sha256'},
+                             {k:v for k,v in new.items() if k!='sha256'})
+            self.assertEqual(old['sha256'],hashlib.sha256(windkeeper22_source(old['path'])).hexdigest())
+            self.assertEqual(new['sha256'],hashlib.sha256(boss_parent_source('windkeeper',new['path'])).hexdigest())
+            if old != new:
+                changed.append(dict(role=new['role'],path=new['path'],old_sha256=old['sha256'],new_sha256=new['sha256']))
+        self.assertEqual({row['path'] for row in changed},{'scripts/demo/demo_app.gd'})
+        self.assertEqual(sum(old==new for old,new in zip(old_refs,actual[:83])),82)
+        self.assertEqual(current['revision_impact']['changed_references'],changed)
+        self.assertEqual(current['revision_impact']['added_references'],actual[83:])
+        self.assertEqual(current['supersedes'],json.loads((ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())['shared_style_authority'])
+        self.assertEqual(current['revision_impact']['task_id'],'WINDKEEPER-PRESSURE-01')
+        for key in before.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(current[key],before[key])
+        expected = [
+            ('windkeeper_pressure_factory','scripts/bosses/boss_factory.gd'),
+            ('windkeeper_pressure_scene','scenes/bosses/windkeeper_pressure.tscn'),
+            ('windkeeper_pressure_definition','scripts/bosses/windkeeper_pressure_definition.gd'),
+            ('windkeeper_pressure_config','resources/bosses/windkeeper_storm.tres'),
+            ('windkeeper_pressure_health','resources/bosses/windkeeper_pressure_health.tres'),
+            ('windkeeper_pressure_pose_owner','scripts/bosses/windkeeper_pressure_encounter.gd'),
+            ('windkeeper_pressure_rig','scripts/bosses/windkeeper_pressure_rig.gd'),
+            ('windkeeper_pressure_presentation','scripts/bosses/windkeeper_pressure_presentation.gd'),
+            ('windkeeper_pressure_projectile','scripts/bosses/windkeeper_pressure_projectile.gd'),
+            ('windkeeper_pressure_strike','scripts/bosses/windkeeper_pressure_strike.gd'),
+            ('windkeeper_pressure_audio','scripts/audio/windkeeper_pressure_audio.gd'),
+            ('windkeeper_pressure_rewards','scripts/rewards/windkeeper_pressure_rewards.gd'),
+            ('windkeeper_pressure_hud','scripts/ui/windkeeper_hud.gd'),
+            ('windkeeper_pressure_contact','scripts/damage/demo_contact_emitter.gd'),
+            ('windkeeper_pressure_style_installer','scripts/art_foundation/pixel_formal_style_installer.gd'),
+            ('windkeeper_pressure_actor_installer','scripts/underworld_plains/underworld_actor_installer.gd'),
+            ('windkeeper_pressure_lab','scripts/demo/module_lab.gd'),
+            ('windkeeper_pressure_manifest','scripts/run/run_manifest.gd'),
+            ('windkeeper_pressure_stage_visual','scripts/art/plains_stage_visual.gd'),
+            ('windkeeper_pressure_wind','scripts/bosses/windkeeper_pressure_wind.gd'),
+            ('windkeeper_pressure_foreground_shader','shaders/windkeeper_pressure_foreground.gdshader'),
+        ]
+        self.assertEqual([(r['role'],r['path']) for r in actual[83:104]],expected)
+        audio_manifest = json.loads((ROOT/'assets/audio/windkeeper_pressure_01/manifest.json').read_bytes())
+        audio_paths = {row['path'].removeprefix('res://') for row in audio_manifest['cues'].values()}
+        self.assertEqual(len(audio_paths),32)
+        audio_source = (ROOT/'scripts/audio/windkeeper_pressure_audio.gd').read_text()
+        for path in audio_paths:
+            self.assertIn('preload("res://'+path+'")',audio_source)
+        audio_paths |= {'assets/audio/windkeeper_pressure_01/'+name for name in ('CC0-1.0.txt','README.md','manifest.json','sources.json')}
+        self.assertEqual([r['path'] for r in actual[104:]],sorted(audio_paths))
+        self.assertEqual(len(actual),140)
+        for row in actual[83:]:
+            self.assertEqual(row['sha256'],hashlib.sha256(boss_parent_source('windkeeper',row['path'])).hexdigest())
+        scene = (ROOT/'scenes/bosses/windkeeper_pressure.tscn').read_text()
+        for path in ['scripts/bosses/windkeeper_pressure_encounter.gd',
+                     'scripts/bosses/windkeeper_pressure_presentation.gd',
+                     'scripts/audio/windkeeper_pressure_audio.gd']:
+            self.assertIn('res://'+path,scene)
+        self.assertIn('res://scripts/bosses/windkeeper_pressure_definition.gd',
+                      (ROOT/'resources/bosses/windkeeper_storm.tres').read_text())
+        self.assertIn('res://resources/bosses/windkeeper_pressure_health.tres',
+                      (ROOT/'resources/bosses/windkeeper_storm.tres').read_text())
+        self.assertIn('max_health = 60.0',(ROOT/'resources/bosses/windkeeper_pressure_health.tres').read_text())
+        self.assertIn('res://scripts/bosses/windkeeper_pressure_wind.gd',scene)
+        wind_source = (ROOT/'scripts/bosses/windkeeper_pressure_wind.gd').read_text()
+        self.assertIn('res://shaders/windkeeper_pressure_foreground.gdshader',wind_source)
+        live_inputs = json.loads((ROOT/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
+        self.assertLessEqual({r['path'] for r in actual},set(live_inputs))
+
+
+    def test_windkeeper24_rejects_prior22_and_new_consumer_drift(self):
+        prior_registry = json.loads((ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())
+        stale = copy.deepcopy(self.ref)
+        stale.update(supplemental_authority_path=prior_registry['shared_style_authority']['path'],
+                     supplemental_authority_sha256=prior_registry['shared_style_authority']['sha256'])
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale,root=self.root)
+        # Every new actual source/asset is independently protected, not just
+        # the old App leaf. Mutate temp copies; never the production checkout.
+        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        for row in current['runtime_reference']['references'][83:]:
+            path = self.root/row['path'];original = path.read_bytes()
+            path.write_bytes(original+b'\npressure source drift\n')
+            with self.subTest(path=row['path']):
+                with self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest',self.root)
+            path.write_bytes(original)
+        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
+
+
+    def test_windkeeper24_archive_and_original_harness_guards_remain(self):
+        base = ROOT/WINDKEEPER24_ARCHIVE
+        manifest = json.loads((base/'manifest.json').read_bytes())
+        self.assertEqual(manifest['baseline_commit'],'840108da9ae91e412dc9f1d8a38ccdad0229bb11')
+        for row in manifest['files']:
+            content = (base/row['path']).read_bytes()
+            self.assertEqual((len(content),hashlib.sha256(content).hexdigest()),(row['bytes'],row['sha256']))
+        archived = json.loads((base/'harness-profiles.json').read_bytes())
+        live = json.loads((ROOT/MERGED_BOSSES_ARCHIVE/'windkeeper'/'tools/harness/profiles.json').read_bytes())
+        self.assertEqual(len(archived['profiles']['full']),168)
+        self.assertEqual(live['profiles']['full'][:168],archived['profiles']['full'])
+        self.assertEqual(live['profiles']['full'][168:],['windkeeper-pressure-01'])
+        original_inputs = json.loads((base/'region-bible-inputs.json').read_bytes())
+        self.assertEqual(len(original_inputs),422)
+        self.assertEqual(live['checks']['region-bible-tests']['inputs'][:422],original_inputs)
+        for name, budget in [('region-bible-tests',30),('region-bible-contract',30),
+                             ('creative-direction',30),('creative-direction-tests',60)]:
+            self.assertEqual(live['checks'][name]['timeout_seconds'],budget)
+            self.assertEqual({k:v for k,v in live['checks'][name].items() if k!='inputs'},
+                             {k:v for k,v in archived['checks'][name].items() if k!='inputs'})
+        original22 = json.loads((base/'style22.json').read_bytes())
+        self.assertEqual(hashlib.sha256((ROOT/'docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json').read_bytes()).hexdigest(),WINDKEEPER22_STYLE_SHA)
+        self.assertEqual(len(original22['runtime_reference']['references']),83)
+        # All preexisting named scenarios remain, even when their current
+        # identity checks or historical source selectors are migrated.
+        import ast
+        for filename in ('test_region_bible.py','test_region_creative_direction.py'):
+            before = ast.parse((base/(filename+'.txt')).read_text())
+            after = ast.parse((ROOT/'tests'/filename).read_text())
+            methods = lambda tree: {n.name for n in ast.walk(tree) if isinstance(n,ast.FunctionDef) and n.name.startswith('test_')}
+            self.assertLessEqual(methods(before),methods(after))
+
+
+    def test_merged25_preserves_both_frozen_parents_and_real153_union(self):
+        import ast
+        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        self.assertEqual(current['version'],'25')
+        self.assertEqual(current['revision_impact']['task_id'],'MAIN-INTEGRATION-122-124-125')
+        parents = {}
+        expected_changes = []
+        for parent, digest in BOSS_PARENT_MANIFESTS.items():
+            base = ROOT/MERGED_BOSSES_ARCHIVE/parent
+            raw = (base/'manifest.json').read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            manifest = json.loads(raw)
+            for row in manifest['files']:
+                content = (base/row['path']).read_bytes()
+                self.assertEqual((len(content),hashlib.sha256(content).hexdigest()),(row['bytes'],row['sha256']))
+            registry = boss_parent_registry(parent)
+            ref = registry['shared_style_authority']
+            parents[parent] = json.loads((base/ref['path']).read_bytes())
+            self.assertEqual((base/ref['path']).read_bytes(),(ROOT/ref['path']).read_bytes())
+            self.assertEqual(hashlib.sha256((ROOT/ref['path']).read_bytes()).hexdigest(),ref['sha256'])
+            self.assertIn(ref,current['supersedes'])
+            for filename in ('test_region_bible.py','test_region_creative_direction.py'):
+                before = ast.parse((base/'tests'/filename).read_text())
+                after = ast.parse((ROOT/'tests'/filename).read_text())
+                names = lambda tree:{n.name for n in ast.walk(tree) if isinstance(n,ast.FunctionDef) and n.name.startswith('test_')}
+                self.assertLessEqual(names(before),names(after))
+            prior = json.loads((base/'docs/creative_direction/thorn_forest.json').read_bytes())
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.validate_bible_binding(prior['region_bible'],root=self.root)
+        refs = current['runtime_reference']['references']
+        left,right = [parents[p]['runtime_reference']['references'] for p in ('bellstrider','windkeeper')]
+        self.assertEqual((len(left),len(right),len(refs)),(96,140,153))
+        expected = [(r['role'],r['path']) for r in left]
+        expected.extend((r['role'],r['path']) for r in right if r['role'] not in {x['role'] for x in left})
+        self.assertEqual([(r['role'],r['path']) for r in refs],expected)
+        self.assertEqual(len({r['path'] for r in refs}),153)
+        for row in refs:
+            digest=hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest()
+            self.assertEqual(row['sha256'],digest)
+            parent_hashes=[dict(parent=p,sha256=r['sha256']) for p,s in parents.items() for r in s['runtime_reference']['references'] if r['role']==row['role']]
+            if any(r['sha256']!=digest for r in parent_hashes):
+                expected_changes.append(dict(role=row['role'],path=row['path'],parent_hashes=parent_hashes,merged_sha256=digest))
+        self.assertEqual(current['revision_impact']['changed_references'],expected_changes)
+        self.assertEqual({r['path'] for r in expected_changes},{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/combat/weapon_action_runtime.gd','scripts/ui/windkeeper_hud.gd','scripts/art/plains_stage_visual.gd'})
 
 if __name__ == '__main__':
     unittest.main()

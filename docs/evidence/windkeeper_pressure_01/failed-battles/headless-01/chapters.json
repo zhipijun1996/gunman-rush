@@ -1,0 +1,974 @@
+{
+  "chapters": [
+    {
+      "label": "formal map2 entry and autonomous intro",
+      "frame": 10,
+      "movie_frame": 16,
+      "seconds": 0.266666666666667,
+      "event": {
+        "epoch": {
+          "actor": 3,
+          "boss_attack": 0,
+          "player_session": 2,
+          "run": 3,
+          "stage": 3
+        },
+        "event": "actual_entry_activation",
+        "frame": 10,
+        "movie_frame": 16,
+        "movie_seconds": 0.266666666666667
+      }
+    },
+    {
+      "label": "actual accepted player injury",
+      "frame": 398,
+      "movie_frame": 404,
+      "seconds": 6.73333333333333,
+      "event": {
+        "amount": 1.0,
+        "event": "actual_player_injury",
+        "event_id": "windkeeper_seed-0-4",
+        "frame": 398,
+        "group": 1,
+        "health": 4.0,
+        "last_shot_frame": 389,
+        "movie_frame": 404,
+        "movie_seconds": 6.73333333333333,
+        "state": "recover"
+      }
+    },
+    {
+      "label": "actual accepted player injury",
+      "frame": 522,
+      "movie_frame": 528,
+      "seconds": 8.8,
+      "event": {
+        "amount": 1.0,
+        "event": "actual_player_injury",
+        "event_id": "boss_contact:3:1:1",
+        "frame": 522,
+        "group": 2,
+        "health": 3.0,
+        "last_shot_frame": 389,
+        "movie_frame": 528,
+        "movie_seconds": 8.8,
+        "state": "link"
+      }
+    },
+    {
+      "label": "actual accepted player injury",
+      "frame": 578,
+      "movie_frame": 584,
+      "seconds": 9.73333333333333,
+      "event": {
+        "amount": 1.0,
+        "event": "actual_player_injury",
+        "event_id": "boss_contact:3:2:1",
+        "frame": 578,
+        "group": 2,
+        "health": 2.0,
+        "last_shot_frame": 389,
+        "movie_frame": 584,
+        "movie_seconds": 9.73333333333333,
+        "state": "recover"
+      }
+    },
+    {
+      "label": "actual accepted player injury",
+      "frame": 703,
+      "movie_frame": 709,
+      "seconds": 11.8166666666667,
+      "event": {
+        "amount": 1.0,
+        "event": "actual_player_injury",
+        "event_id": "windkeeper_wave-0-8",
+        "frame": 703,
+        "group": 3,
+        "health": 1.0,
+        "last_shot_frame": 612,
+        "movie_frame": 709,
+        "movie_seconds": 11.8166666666667,
+        "state": "stomp"
+      }
+    },
+    {
+      "label": "actual accepted player injury",
+      "frame": 778,
+      "movie_frame": 784,
+      "seconds": 13.0666666666667,
+      "event": {
+        "amount": 1.0,
+        "event": "actual_player_injury",
+        "event_id": "boss_contact:3:3:1",
+        "frame": 778,
+        "group": 3,
+        "health": 0.0,
+        "last_shot_frame": 612,
+        "movie_frame": 784,
+        "movie_seconds": 13.0666666666667,
+        "state": "recover"
+      }
+    },
+    {
+      "label": "actual stomp / preparation and execution",
+      "seconds": 4.15,
+      "end_seconds": 5.03333333333333,
+      "group": 1,
+      "frame": 279,
+      "movie_frame": 285
+    },
+    {
+      "label": "actual lunge / preparation and execution",
+      "seconds": 7.43333333333333,
+      "end_seconds": 8.58333333333333,
+      "group": 2,
+      "frame": 476,
+      "movie_frame": 482
+    },
+    {
+      "label": "actual seeds / preparation and execution",
+      "seconds": 5.3,
+      "end_seconds": 6.13333333333333,
+      "group": 1,
+      "frame": 348,
+      "movie_frame": 354
+    },
+    {
+      "label": "actual complete 2-attack group / final recovery",
+      "seconds": 3.5,
+      "end_seconds": 7.41666666666667,
+      "group": 1,
+      "phase": 1
+    },
+    {
+      "label": "actual complete 2-attack group / final recovery",
+      "seconds": 7.43333333333333,
+      "end_seconds": 11.0166666666667,
+      "group": 2,
+      "phase": 1
+    },
+    {
+      "label": "initial stationary player / actual active Boss approach",
+      "seconds": 3.48333333333333,
+      "end_seconds": 4.15
+    }
+  ],
+  "moves": {
+    "stomp": {
+      "observed": true,
+      "first_movie_frame": 285,
+      "actual_frames": 68
+    },
+    "lunge": {
+      "observed": true,
+      "first_movie_frame": 482,
+      "actual_frames": 33
+    },
+    "sweep": {
+      "observed": false,
+      "first_movie_frame": null,
+      "actual_frames": 0
+    },
+    "gust": {
+      "observed": false,
+      "first_movie_frame": null,
+      "actual_frames": 0
+    },
+    "seeds": {
+      "observed": true,
+      "first_movie_frame": 354,
+      "actual_frames": 14
+    },
+    "platform": {
+      "observed": false,
+      "first_movie_frame": null,
+      "actual_frames": 0
+    }
+  },
+  "all_six_attacks_observed": false,
+  "actual_phases": [
+    1
+  ],
+  "all_three_phases_observed": false,
+  "group_observations": [
+    {
+      "group": 1,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "stomp",
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "approach",
+        "stomp_warning",
+        "stomp",
+        "link",
+        "seeds_warning",
+        "seeds",
+        "recover"
+      ],
+      "start_seconds": 3.5,
+      "recovery_start_seconds": 6.13333333333333,
+      "recovery_end_seconds": 7.41666666666667,
+      "actual_countershots": [
+        {
+          "boss_health": 60.0,
+          "direction": [
+            0.911988139152527,
+            -0.410216629505157
+          ],
+          "frame": 369,
+          "grounded": true,
+          "group": 1,
+          "id": 1,
+          "movie_frame": 375,
+          "muzzle": [
+            5880.3076171875,
+            690.006286621094
+          ],
+          "ordinal": 1,
+          "player": [
+            5866.00439453125,
+            699.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 59.0,
+          "direction": [
+            0.934367597103119,
+            -0.356310665607452
+          ],
+          "frame": 389,
+          "grounded": true,
+          "group": 1,
+          "id": 2,
+          "movie_frame": 395,
+          "muzzle": [
+            5826.84716796875,
+            696.193176269531
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.05078125,
+            699.925048828125
+          ],
+          "state": "recover"
+        }
+      ],
+      "next_attack_state_onset_seconds": 8.03333333333333,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "windkeeper_seed-0-4",
+          "frame": 398,
+          "group": 1,
+          "health": 4.0,
+          "last_shot_frame": 389,
+          "movie_frame": 404,
+          "movie_seconds": 6.73333333333333,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    },
+    {
+      "group": 2,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "lunge_warning",
+        "lunge",
+        "link",
+        "stomp_warning",
+        "stomp",
+        "recover"
+      ],
+      "start_seconds": 7.43333333333333,
+      "recovery_start_seconds": 9.73333333333333,
+      "recovery_end_seconds": 11.0166666666667,
+      "actual_countershots": [
+        {
+          "boss_health": 58.0,
+          "direction": [
+            0.740493059158325,
+            -0.672064065933228
+          ],
+          "frame": 596,
+          "grounded": true,
+          "group": 2,
+          "id": 3,
+          "movie_frame": 602,
+          "muzzle": [
+            5823.283203125,
+            687.534973144531
+          ],
+          "ordinal": 1,
+          "player": [
+            5812.07470703125,
+            699.9892578125
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 57.0,
+          "direction": [
+            0.721374154090881,
+            -0.692545533180237
+          ],
+          "frame": 612,
+          "grounded": true,
+          "group": 2,
+          "id": 4,
+          "movie_frame": 618,
+          "muzzle": [
+            5822.923828125,
+            691.514465332031
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.07470703125,
+            699.9892578125
+          ],
+          "state": "recover"
+        }
+      ],
+      "next_attack_state_onset_seconds": 11.6333333333333,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 522,
+          "group": 2,
+          "health": 3.0,
+          "last_shot_frame": 389,
+          "movie_frame": 528,
+          "movie_seconds": 8.8,
+          "state": "link"
+        },
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:2:1",
+          "frame": 578,
+          "group": 2,
+          "health": 2.0,
+          "last_shot_frame": 389,
+          "movie_frame": 584,
+          "movie_seconds": 9.73333333333333,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    },
+    {
+      "group": 3,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "stomp",
+          "stomp"
+        ],
+        "double_stomp": true,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "stomp_warning",
+        "stomp",
+        "link"
+      ],
+      "start_seconds": 11.0333333333333,
+      "recovery_start_seconds": null,
+      "recovery_end_seconds": null,
+      "actual_countershots": [],
+      "next_attack_state_onset_seconds": null,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "windkeeper_wave-0-8",
+          "frame": 703,
+          "group": 3,
+          "health": 1.0,
+          "last_shot_frame": 612,
+          "movie_frame": 709,
+          "movie_seconds": 11.8166666666667,
+          "state": "stomp"
+        },
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:3:1",
+          "frame": 778,
+          "group": 3,
+          "health": 0.0,
+          "last_shot_frame": 612,
+          "movie_frame": 784,
+          "movie_seconds": 13.0666666666667,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    }
+  ],
+  "two_attack_groups": [
+    {
+      "group": 1,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "stomp",
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "approach",
+        "stomp_warning",
+        "stomp",
+        "link",
+        "seeds_warning",
+        "seeds",
+        "recover"
+      ],
+      "start_seconds": 3.5,
+      "recovery_start_seconds": 6.13333333333333,
+      "recovery_end_seconds": 7.41666666666667,
+      "actual_countershots": [
+        {
+          "boss_health": 60.0,
+          "direction": [
+            0.911988139152527,
+            -0.410216629505157
+          ],
+          "frame": 369,
+          "grounded": true,
+          "group": 1,
+          "id": 1,
+          "movie_frame": 375,
+          "muzzle": [
+            5880.3076171875,
+            690.006286621094
+          ],
+          "ordinal": 1,
+          "player": [
+            5866.00439453125,
+            699.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 59.0,
+          "direction": [
+            0.934367597103119,
+            -0.356310665607452
+          ],
+          "frame": 389,
+          "grounded": true,
+          "group": 1,
+          "id": 2,
+          "movie_frame": 395,
+          "muzzle": [
+            5826.84716796875,
+            696.193176269531
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.05078125,
+            699.925048828125
+          ],
+          "state": "recover"
+        }
+      ],
+      "next_attack_state_onset_seconds": 8.03333333333333,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "windkeeper_seed-0-4",
+          "frame": 398,
+          "group": 1,
+          "health": 4.0,
+          "last_shot_frame": 389,
+          "movie_frame": 404,
+          "movie_seconds": 6.73333333333333,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    },
+    {
+      "group": 2,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "lunge_warning",
+        "lunge",
+        "link",
+        "stomp_warning",
+        "stomp",
+        "recover"
+      ],
+      "start_seconds": 7.43333333333333,
+      "recovery_start_seconds": 9.73333333333333,
+      "recovery_end_seconds": 11.0166666666667,
+      "actual_countershots": [
+        {
+          "boss_health": 58.0,
+          "direction": [
+            0.740493059158325,
+            -0.672064065933228
+          ],
+          "frame": 596,
+          "grounded": true,
+          "group": 2,
+          "id": 3,
+          "movie_frame": 602,
+          "muzzle": [
+            5823.283203125,
+            687.534973144531
+          ],
+          "ordinal": 1,
+          "player": [
+            5812.07470703125,
+            699.9892578125
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 57.0,
+          "direction": [
+            0.721374154090881,
+            -0.692545533180237
+          ],
+          "frame": 612,
+          "grounded": true,
+          "group": 2,
+          "id": 4,
+          "movie_frame": 618,
+          "muzzle": [
+            5822.923828125,
+            691.514465332031
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.07470703125,
+            699.9892578125
+          ],
+          "state": "recover"
+        }
+      ],
+      "next_attack_state_onset_seconds": 11.6333333333333,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 522,
+          "group": 2,
+          "health": 3.0,
+          "last_shot_frame": 389,
+          "movie_frame": 528,
+          "movie_seconds": 8.8,
+          "state": "link"
+        },
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:2:1",
+          "frame": 578,
+          "group": 2,
+          "health": 2.0,
+          "last_shot_frame": 389,
+          "movie_frame": 584,
+          "movie_seconds": 9.73333333333333,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    },
+    {
+      "group": 3,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "stomp",
+          "stomp"
+        ],
+        "double_stomp": true,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "stomp_warning",
+        "stomp",
+        "link"
+      ],
+      "start_seconds": 11.0333333333333,
+      "recovery_start_seconds": null,
+      "recovery_end_seconds": null,
+      "actual_countershots": [],
+      "next_attack_state_onset_seconds": null,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "windkeeper_wave-0-8",
+          "frame": 703,
+          "group": 3,
+          "health": 1.0,
+          "last_shot_frame": 612,
+          "movie_frame": 709,
+          "movie_seconds": 11.8166666666667,
+          "state": "stomp"
+        },
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:3:1",
+          "frame": 778,
+          "group": 3,
+          "health": 0.0,
+          "last_shot_frame": 612,
+          "movie_frame": 784,
+          "movie_seconds": 13.0666666666667,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    }
+  ],
+  "three_attack_groups": [],
+  "two_shot_groups": [
+    {
+      "group": 1,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "stomp",
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "approach",
+        "stomp_warning",
+        "stomp",
+        "link",
+        "seeds_warning",
+        "seeds",
+        "recover"
+      ],
+      "start_seconds": 3.5,
+      "recovery_start_seconds": 6.13333333333333,
+      "recovery_end_seconds": 7.41666666666667,
+      "actual_countershots": [
+        {
+          "boss_health": 60.0,
+          "direction": [
+            0.911988139152527,
+            -0.410216629505157
+          ],
+          "frame": 369,
+          "grounded": true,
+          "group": 1,
+          "id": 1,
+          "movie_frame": 375,
+          "muzzle": [
+            5880.3076171875,
+            690.006286621094
+          ],
+          "ordinal": 1,
+          "player": [
+            5866.00439453125,
+            699.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 59.0,
+          "direction": [
+            0.934367597103119,
+            -0.356310665607452
+          ],
+          "frame": 389,
+          "grounded": true,
+          "group": 1,
+          "id": 2,
+          "movie_frame": 395,
+          "muzzle": [
+            5826.84716796875,
+            696.193176269531
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.05078125,
+            699.925048828125
+          ],
+          "state": "recover"
+        }
+      ],
+      "next_attack_state_onset_seconds": 8.03333333333333,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "windkeeper_seed-0-4",
+          "frame": 398,
+          "group": 1,
+          "health": 4.0,
+          "last_shot_frame": 389,
+          "movie_frame": 404,
+          "movie_seconds": 6.73333333333333,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    },
+    {
+      "group": 2,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": false
+      },
+      "attacks_in_frozen_plan": 2,
+      "observed_states": [
+        "lunge_warning",
+        "lunge",
+        "link",
+        "stomp_warning",
+        "stomp",
+        "recover"
+      ],
+      "start_seconds": 7.43333333333333,
+      "recovery_start_seconds": 9.73333333333333,
+      "recovery_end_seconds": 11.0166666666667,
+      "actual_countershots": [
+        {
+          "boss_health": 58.0,
+          "direction": [
+            0.740493059158325,
+            -0.672064065933228
+          ],
+          "frame": 596,
+          "grounded": true,
+          "group": 2,
+          "id": 3,
+          "movie_frame": 602,
+          "muzzle": [
+            5823.283203125,
+            687.534973144531
+          ],
+          "ordinal": 1,
+          "player": [
+            5812.07470703125,
+            699.9892578125
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 57.0,
+          "direction": [
+            0.721374154090881,
+            -0.692545533180237
+          ],
+          "frame": 612,
+          "grounded": true,
+          "group": 2,
+          "id": 4,
+          "movie_frame": 618,
+          "muzzle": [
+            5822.923828125,
+            691.514465332031
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.07470703125,
+            699.9892578125
+          ],
+          "state": "recover"
+        }
+      ],
+      "next_attack_state_onset_seconds": 11.6333333333333,
+      "injuries": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 522,
+          "group": 2,
+          "health": 3.0,
+          "last_shot_frame": 389,
+          "movie_frame": 528,
+          "movie_seconds": 8.8,
+          "state": "link"
+        },
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:2:1",
+          "frame": 578,
+          "group": 2,
+          "health": 2.0,
+          "last_shot_frame": 389,
+          "movie_frame": 584,
+          "movie_seconds": 9.73333333333333,
+          "state": "recover"
+        }
+      ],
+      "interpretation": "Attack-state onset is an observation, not exact threat arrival. Evasion and retreat must be assessed from the full frame positions and actual hit results."
+    }
+  ],
+  "third_shot_observations": [],
+  "stationary_pressure": [
+    {
+      "hold": {
+        "action": "stationary_observation_end",
+        "actual_state": "stomp_warning",
+        "boss": [
+          6108.0,
+          653.0
+        ],
+        "frame": 243,
+        "group": 1,
+        "held_seconds": 0.666666666666667,
+        "movie_frame": 249,
+        "player": [
+          5801.00146484375,
+          699.925231933594
+        ]
+      },
+      "actual_player_x_displacement": 0.0,
+      "actual_boss_x_displacement": -152.0,
+      "initial_gap": 458.99853515625,
+      "final_gap": 306.99853515625,
+      "seconds": 3.48333333333333,
+      "end_seconds": 4.15
+    }
+  ],
+  "injuries": [
+    {
+      "amount": 1.0,
+      "event": "actual_player_injury",
+      "event_id": "windkeeper_seed-0-4",
+      "frame": 398,
+      "group": 1,
+      "health": 4.0,
+      "last_shot_frame": 389,
+      "movie_frame": 404,
+      "movie_seconds": 6.73333333333333,
+      "state": "recover"
+    },
+    {
+      "amount": 1.0,
+      "event": "actual_player_injury",
+      "event_id": "boss_contact:3:1:1",
+      "frame": 522,
+      "group": 2,
+      "health": 3.0,
+      "last_shot_frame": 389,
+      "movie_frame": 528,
+      "movie_seconds": 8.8,
+      "state": "link"
+    },
+    {
+      "amount": 1.0,
+      "event": "actual_player_injury",
+      "event_id": "boss_contact:3:2:1",
+      "frame": 578,
+      "group": 2,
+      "health": 2.0,
+      "last_shot_frame": 389,
+      "movie_frame": 584,
+      "movie_seconds": 9.73333333333333,
+      "state": "recover"
+    },
+    {
+      "amount": 1.0,
+      "event": "actual_player_injury",
+      "event_id": "windkeeper_wave-0-8",
+      "frame": 703,
+      "group": 3,
+      "health": 1.0,
+      "last_shot_frame": 612,
+      "movie_frame": 709,
+      "movie_seconds": 11.8166666666667,
+      "state": "stomp"
+    },
+    {
+      "amount": 1.0,
+      "event": "actual_player_injury",
+      "event_id": "boss_contact:3:3:1",
+      "frame": 778,
+      "group": 3,
+      "health": 0.0,
+      "last_shot_frame": 612,
+      "movie_frame": 784,
+      "movie_seconds": 13.0666666666667,
+      "state": "recover"
+    }
+  ],
+  "final_metrics": {
+    "accepted_damage": 4.0,
+    "accepted_hits": 4,
+    "attack_index": 2,
+    "camp_age": 0.05,
+    "death_age": 0.0,
+    "effective_hits": 4,
+    "fight_seconds": 12.8000000000002,
+    "group_plan": {},
+    "groups_completed": 2,
+    "groups_started": 3,
+    "locked_direction": -1,
+    "locked_target": [
+      5846.4443359375,
+      699.925231933594
+    ],
+    "state_age": 0.0,
+    "state_duration": 0.0,
+    "sweep_high": false
+  },
+  "player_hp_final": 1.0,
+  "wallet_delta": 0
+}

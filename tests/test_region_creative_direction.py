@@ -13,6 +13,93 @@ import level_design
 import production_loop
 
 
+
+
+MERGED_BOSSES_ARCHIVE = 'docs/creative_direction/archive/merge-20261031-style25/'
+MERGED_BOSSES_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
+
+
+def boss_parent_source(parent, path):
+    """Only explicit changed parent leaves use frozen bytes; others stay live."""
+    base = creative.ROOT / MERGED_BOSSES_ARCHIVE / parent
+    manifest = json.loads((base/'manifest.json').read_bytes())
+    row = next((r for r in manifest['sources'] if r['path']==path), None)
+    if row is None:
+        return (creative.ROOT/path).read_bytes()
+    raw = (base/row['archive_path']).read_bytes()
+    if hashlib.sha256(raw).hexdigest()!=row['sha256']:
+        raise AssertionError('Frozen combination parent source changed: '+path)
+    return raw
+
+
+def boss_parent_registry(parent):
+    return json.loads((creative.ROOT/MERGED_BOSSES_ARCHIVE/parent/creative.BIBLE_REGISTRY).read_bytes())
+
+
+def frozen_boss_direction(parent, region):
+    base = creative.ROOT/MERGED_BOSSES_ARCHIVE/parent
+    registry = boss_parent_registry(parent)
+    direction = 'docs/creative_direction/'+region+'.json'
+    archived = json.loads((base/direction).read_bytes())
+    style = json.loads((creative.ROOT/registry['shared_style_authority']['path']).read_bytes())
+    selected = next(row['current_bible'] for row in registry['regions'] if row['region_id']==region)
+    paths = {'docs/world_regions.json', creative.BIBLE_REGISTRY, direction,
+             registry['shared_style_authority']['path'],selected['path'],selected['selection_evidence']['path'],
+             *[r['path'] for r in style['runtime_reference']['references']],
+             *[r['path'] for r in archived['authority_sources']]}
+    with tempfile.TemporaryDirectory() as folder:
+        fixture=Path(folder)
+        for path in paths:
+            raw=(base/path).read_bytes() if path in {creative.BIBLE_REGISTRY,direction} else boss_parent_source(parent,path)
+            target=fixture/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+        data,binding=creative.load_direction(direction,region,root=fixture)
+        return data,binding,creative.bind_region_bible(region,fixture)[1]
+
+WINDKEEPER24_ARCHIVE = 'docs/creative_direction/archive/windkeeper-pressure-before-style24/'
+WINDKEEPER24_STYLE = 'docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json'
+WINDKEEPER22_APP_SHA = 'f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a'
+WINDKEEPER22_STYLE_SHA = '4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188'
+
+
+def windkeeper22_source(path):
+    # Only the genuinely changed registered leaf is replaced by exact old
+    # bytes. No arbitrary file-based fallback may hide another changed input.
+    if path == 'scripts/demo/demo_app.gd':
+        content = (creative.ROOT/(WINDKEEPER24_ARCHIVE+'sources/'+path+'.txt')).read_bytes()
+        if hashlib.sha256(content).hexdigest() != WINDKEEPER22_APP_SHA:
+            raise AssertionError('Frozen pre-pressure App source changed')
+        return content
+    if path in {'scripts/demo/plains_region_stage.gd','scripts/combat/weapon_action_runtime.gd'}:
+        return (creative.ROOT/('docs/creative_direction/archive/creative-v25-before-bellstrider-rework/sources/'+path+'.txt')).read_bytes()
+    return (creative.ROOT/path).read_bytes()
+
+def frozen25_direction(region):
+    archived = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+region+'.json')).read_bytes())
+    registry = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())
+    style = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+'style22.json')).read_bytes())
+    with tempfile.TemporaryDirectory() as folder:
+        fixture = Path(folder)
+        selected = next(row['current_bible'] for row in registry['regions'] if row['region_id']==region)
+        originals = {'docs/world_regions.json',creative.BIBLE_REGISTRY,registry['shared_style_authority']['path'],
+                     selected['path'],selected['selection_evidence']['path'],
+                     *[row['path'] for row in style['runtime_reference']['references']],
+                     *[row['path'] for row in archived['authority_sources']]}
+        for path in originals:
+            if path==creative.BIBLE_REGISTRY:
+                content = (creative.ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes()
+            elif path in {'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/combat/weapon_action_runtime.gd'}:
+                content = windkeeper22_source(path)
+            else:
+                content = (creative.ROOT/path).read_bytes()
+            target = fixture/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(content)
+        direction = 'docs/creative_direction/'+region+'.json'
+        target = fixture/direction;target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes((creative.ROOT/(WINDKEEPER24_ARCHIVE+region+'.json')).read_bytes())
+        data, _ = creative.load_direction(direction,region,root=fixture)
+        return data,creative.bind_region_bible(region,fixture)[1]
+
+
+
 class CreativeTests(unittest.TestCase):
     def setUp(self):
         self.path = 'docs/creative_direction/thorn_forest.json'
@@ -455,7 +542,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v26')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v28')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -644,10 +731,8 @@ class CreativeTests(unittest.TestCase):
     def test_merged25_preserves_both_parent24_directions_and_authority_union(self):
         base = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21'
         for region in ('windchime_plains','thorn_forest'):
-            live, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
-            self.assertEqual(live['version'],'creative-v26')
-            archive = creative.ROOT/'docs/creative_direction/archive/creative-v25-before-bellstrider-rework'
-            current = json.loads((archive/(region+'.json')).read_bytes())
+            # Preserve the old25 merge contract via its complete real frozen loader.
+            current, binding = frozen25_direction(region)
             self.assertEqual(current['version'],'creative-v25')
             parents = []
             for parent in ('program','audio'):
@@ -665,24 +750,21 @@ class CreativeTests(unittest.TestCase):
             authority = list(parents[0]['authority_sources'])
             for row in parents[1]['authority_sources']:
                 if row not in authority: authority.append(row)
-            frozen_registry = json.loads((archive/'registry.json').read_bytes())
-            authority.append(frozen_registry['shared_style_authority'])
+            authority.append(json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())['shared_style_authority'])
             self.assertEqual(current['authority_sources'],authority)
-            historical_expected = dict(creative.bind_region_bible(region)[1])
-            historical_expected.update(registry_sha256=hashlib.sha256((archive/'registry.json').read_bytes()).hexdigest(), supplemental_authority_path=frozen_registry['shared_style_authority']['path'], supplemental_authority_sha256=frozen_registry['shared_style_authority']['sha256'])
-            self.assertEqual(current['region_bible'],historical_expected)
+            self.assertEqual(current['region_bible'],binding)
             self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
 
     def test_bellstrider26_only_overrides_this_boss_and_binds_real_current_spec(self):
         archive = creative.ROOT/'docs/creative_direction/archive/creative-v25-before-bellstrider-rework'
-        style = creative.load_bible_registry()['shared_style_authority']
+        style = boss_parent_registry('bellstrider')['shared_style_authority']
         spec = 'docs/worklines/bellstrider_rework_01/spec.md'
         provenance = 'docs/creative_direction/bibles/bellstrider-rework-20261030.json'
         for region in ('windchime_plains','thorn_forest'):
-            current,binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            current,binding,bible_binding = frozen_boss_direction('bellstrider',region)
             old = json.loads((archive/(region+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v26')
-            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['region_bible'],bible_binding)
             self.assertEqual(current['user_acceptance'],'direction_only_not_art_gameplay_or_device')
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact','boss'}:self.assertEqual(current[key],old[key])
             expected = [style]
@@ -703,6 +785,72 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual((origin['boss_id'],origin['region_id']),('bellstrider','windchime_plains'))
         self.assertEqual(origin['source']['sha256'],hashlib.sha256((creative.ROOT/spec).read_bytes()).hexdigest())
         self.assertEqual(origin['g0']['user_acceptance'],'unverified')
+
+    def test_windkeeper27_preserves_selected_content_and_complete_current_bindings(self):
+        current_style = boss_parent_registry('windkeeper')['shared_style_authority']
+        self.assertEqual(current_style['path'],WINDKEEPER24_STYLE)
+        for region in ('windchime_plains','thorn_forest'):
+            current, binding, bible_binding = frozen_boss_direction('windkeeper',region)
+            old_path = WINDKEEPER24_ARCHIVE+region+'.json'
+            old_raw = (creative.ROOT/old_path).read_bytes()
+            old = json.loads(old_raw)
+            self.assertEqual(old['version'],'creative-v25')
+            self.assertEqual(current['version'],'creative-v27')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['region_bible'],bible_binding)
+            self.assertEqual(current['region_bible']['supplemental_authority_path'],WINDKEEPER24_STYLE)
+            self.assertEqual(current['region_bible']['supplemental_authority_sha256'],current_style['sha256'])
+            self.assertEqual(current['authority_sources'][:len(old['authority_sources'])],old['authority_sources'])
+            expected = old['authority_sources']+[current_style]
+            if region=='windchime_plains':
+                request_path = 'docs/creative_direction/bibles/windkeeper-pressure-20261030.json'
+                request_raw = (creative.ROOT/request_path).read_bytes()
+                request = json.loads(request_raw)
+                self.assertEqual(request['task_id'],'WINDKEEPER-PRESSURE-01')
+                self.assertIn('not_art_gameplay_audio_or_device_acceptance',request['status'])
+                self.assertEqual(request['requirements']['health'],60)
+                self.assertEqual(request['requirements']['main_attacks_per_group_max'],3)
+                expected.append({'path':request_path,'sha256':hashlib.sha256(request_raw).hexdigest()})
+            self.assertEqual(current['authority_sources'],expected)
+            self.assertEqual(current['revision_impact']['task_id'],'WINDKEEPER-PRESSURE-01')
+            self.assertEqual(current['revision_impact']['previous_direction'],old_path)
+            self.assertEqual(current['revision_impact']['previous_sha256'],hashlib.sha256(old_raw).hexdigest())
+            self.assertEqual(current['revision_impact']['shared_style_sha256'],current_style['sha256'])
+            self.assertEqual(binding['version'],'creative-v27')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(old_path,region)
+
+
+    def test_merged28_combines_both_sources_without_inheriting_acceptance(self):
+        style = creative.load_bible_registry()['shared_style_authority']
+        self.assertEqual(style['path'],MERGED_BOSSES_STYLE)
+        for region in ('windchime_plains','thorn_forest'):
+            current,binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            self.assertEqual((current['version'],binding['version']),('creative-v28','creative-v28'))
+            self.assertEqual(current['user_acceptance'],'direction_only_not_art_gameplay_or_device')
+            parents=[]
+            for parent in ('bellstrider','windkeeper'):
+                prior,_,_=frozen_boss_direction(parent,region)
+                parents.append(prior)
+                path=MERGED_BOSSES_ARCHIVE+parent+'/docs/creative_direction/'+region+'.json'
+                self.assertIn({'path':path,'sha256':hashlib.sha256((creative.ROOT/path).read_bytes()).hexdigest()},current['revision_impact']['parent_directions'])
+                for key in prior.keys()-{'version','region_bible','authority_sources','revision_impact','boss'}:
+                    self.assertEqual(current[key],prior[key])
+                with self.assertRaisesRegex(ValueError,'binding changed'):
+                    creative.validate_bible_binding(prior['region_bible'])
+            self.assertEqual(current['boss'],parents[0]['boss'])
+            if region=='windchime_plains':
+                self.assertEqual({k:v for k,v in current['boss'].items() if k!='current_overrides'},parents[1]['boss'])
+                self.assertEqual([r['boss_id'] for r in current['boss']['current_overrides']],['bellstrider'])
+            else:self.assertEqual(current['boss'],parents[1]['boss'])
+            expected=list(parents[0]['authority_sources'])
+            for row in parents[1]['authority_sources']:
+                if row not in expected:expected.append(row)
+            expected.append(style)
+            self.assertEqual(current['authority_sources'],expected)
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['revision_impact']['task_id'],'MAIN-INTEGRATION-122-124-125')
 
 if __name__ == '__main__':
     unittest.main()

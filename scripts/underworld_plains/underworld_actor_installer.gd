@@ -10,7 +10,7 @@ static func install(stage: Node2D) -> Dictionary:
 			if EnemyPresentationBinding.replace(actor, &"underworld"):
 				counts.enemies += 1
 		for presentation: Node in child.get_children():
-			if presentation is BellstriderPresentation or presentation is WindkeeperPresentation:
+			if presentation is BellstriderPresentation or presentation is WindkeeperPresentation or presentation is WindkeeperPressurePresentation:
 				presentation.queue_redraw()
 				counts.bosses += 1
 	return counts

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDKEEPER-PRESSURE-01",
+  "source": "Direct user message in this root conversation, 2026-10-30; manually retained, not API export",
+  "status": "user_confirmed_direction_only_not_art_gameplay_audio_or_device_acceptance",
+  "quotes": [
+    "牧风者：加强压迫感、节奏与动作丰富度",
+    "本轮将牧风者调整为主动接近、连续出招、持续压迫落脚点的四足风之守护者。",
+    "保留三阶段结构。关键反击节奏是：完整攻击组结束后，稳健可以连续射两枪；贪第三枪会明显挤占撤离余量。",
+    "血量改成60，通过行动频率、组合和空间压力调整战斗强度。",
+    "体型保持当前尺度，沿用旧黄铜、低饱和苔绿、褪色风帆和暖色钟芯。阶段变化重点体现帆面展开、叶片张开及结构状态。"
+  ],
+  "scope": "Formal map2 Windkeeper only: six bodily attacks, frozen distance/height/history-weighted groups, phase1 single/double,phase2double,phase3two/three platform pressure; unchanged selected global style and player rules.",
+  "requirements": {
+    "attacks": [
+      "stomp",
+      "lunge",
+      "sweep",
+      "gust",
+      "seeds",
+      "platform"
+    ],
+    "first_pass_speeds": {
+      "approach": 240,
+      "lunge_peak": 420,
+      "phase3_tracking": 260,
+      "ground_wave": 300
+    },
+    "first_pass_warning_seconds": [
+      0.5,
+      0.7
+    ],
+    "first_pass_link_seconds": [
+      0.2,
+      0.35
+    ],
+    "main_attacks_per_group_max": 3,
+    "health": 60,
+    "fairness": [
+      "lunge heading fixed before takeoff",
+      "platform support fixed in preparation",
+      "base movement reachable escape",
+      "recovery cannot spawn unannounced followup",
+      "death immediately cancels all damage and active wind",
+      "physical coins land on reachable support and settle once"
+    ]
+  },
+  "production_spec": {
+    "path": "docs/worklines/windkeeper_pressure_01/spec.md",
+    "sha256": "b7f9c3ab2868b36fd2f11ad93af54231315ef3b5c171d5028b881a1d775d68ff"
+  },
+  "preserved": "Original region Bible texts/1wu nearest/assets provenance/player physics/weapon resources/BGM/old failures. No user acceptance of new implementation is inferred."
+}

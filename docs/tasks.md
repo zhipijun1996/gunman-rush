@@ -1,3 +1,19 @@
+# CI-CURRENT-01 · PR124 合入后的当前测试契约
+
+用户明确先合 PR124，再重构修复。PR124 已合入 main `bd862374`，原 CI 红灯保留；本批从新 main 独立修复旧视觉测试宿主缺少 nullable boss 字段，并审计历史/当前检查范围。
+
+| ID | 任务 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| CI-CURRENT-01 | 当前消费者测试契约与历史CI分类 | WINDKEEPER-PRESSURE-01 | in_progress | [范围](worklines/ci_current_01/scope.md) · [质量记录](quality/records/CI-CURRENT-01.json) |
+
+# WINDKEEPER-PRESSURE-01 · 牧风者主动追压
+
+用户2026-10-30授权60HP/六招/三阶段冻结招组、两枪反击与原声完整片。状态review，分支feature/windkeeper-pressure-01，基于main840108da；[制作卡](worklines/windkeeper_pressure_01/spec.md) · [实际证据](evidence/windkeeper_pressure_01/README.md) · [质量记录](quality/records/WINDKEEPER-PRESSURE-01.json) · [PR124](https://github.com/zhipijun1996/gunman-rush/pull/124)。原生1637/0，完整主片88.867秒已通过技术覆盖，原R3两图完整消费者通过；另有第三枪玩家死亡对照片。工坊私密第8版已发布，媒体完整HTTP200/SHA与Range206已核；等待用户实片意见和设备/完整CI，不自动合main。
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| WINDKEEPER-PRESSURE-01 | 60HP牧风者六招三阶段主动追压与连续原声审核 | — | review | [制作卡](worklines/windkeeper_pressure_01/spec.md) · [实际证据](evidence/windkeeper_pressure_01/README.md) · [记录](quality/records/WINDKEEPER-PRESSURE-01.json) |
+
 # 开发任务
 
 ## 2026-10-30 BELLSTRIDER-REWORK-01 · 鸣铃巡游机完整迭代
@@ -699,3 +715,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | MONSTER-LEGACY-SCOPE-01 | 冻结历史森林回放保留manual，同时真实当前registry/App守门默认一换一 | PLAINS-MONSTER-REVISION-01 | review | 精确d431独审＋reader48／0；当前registry88／0已实际通过，完整903 CI166 fresh；旧280／2manual延期不记通过，原检查/预算保留 |
 | MONSTER-PLANNER-SCOPE-01 | planner清单守门适配：保原四摘要与两lane | PLAINS-MONSTER-REVISION-01 | review | 精确a72a独审，原21suite＋18反例通过；四旧SHA与literal74/85保留，完整903 CI166 fresh与汇总通过 |
+
+| MAIN-UNIFY-20261031 | 整合122与107到含124/125的main，排除123，冻结架构底座 | CI-CURRENT-01 | in_progress | [范围](worklines/main_unify_20261031/scope.md)；不夹带旧架构候选，已知CI失败保留 |
