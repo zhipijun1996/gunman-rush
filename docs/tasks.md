@@ -720,3 +720,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | AI-LEVEL-DESIGN-01 | 四层契约、来源审计、离线AI评价与有界生成验证闭环 | CLOUD-EFFICIENCY-01 | review | [设计体系v1](ai_level_design_v1/README.md)；Macro可选，复用原Godot/Harness，技术证据与真人认可分轨 |
 | AI-LEVEL-PILOT-01 | 平原/森林小样、强替代、几何对照及失败回流 | AI-LEVEL-DESIGN-01 | review | [小样与失败](ai_level_design_v1/pilot_design.md)；无正式准入，高路编舞被直取奖励反证，真人/设备未验 |
+
+| LEVEL-TOOLS-INTEGRATION-01 | PR107离线工具与两Boss主线并集 | MAIN-UNIFY-20261031 | in_progress | [组合证据](evidence/main_unify_20261031/level-tools/README.md)；28/41通过，native pilot/full172未签，不切正式地图 |

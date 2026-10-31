@@ -1,3 +1,7 @@
+## 2026-10-31 PR122已合入，PR107离线工具组合完成（最新）
+
+PR122已普通合入main `a22b8f76f784da044bf2e4fa018ec274f12eab3f`，此前124/125保留；Bell八组、Pressure六组及四绑定分别通过，原输入顺序失败已修且保留。PR107本分支已与该main整合，原正式scripts/scenes/resources/assets无差异；Python28/28及41/41通过，原九条件native pilot/完整172未签。远端合并状态以PR为准；PR123排除。之后从统一main修CI基线，再按既定架构批次迁移。地图目标是统一新库/新算法，接口先行，旧算法只是过渡，当前未切换正式地图。见[组合证据](evidence/main_unify_20261031/level-tools/README.md)。
+
 ## 2026-10-31 架构底座整合恢复（最新）
 
 用户已要求开始既定分批重构，明确旧地图算法/关卡单元最终由统一新模块库和算法替代；先迁移接口，不提前切换正式地图。main已含PR124/125，PR122本地正常合并处理中，PR107离线工具随后整合；PR123排除。以下旧“保持draft/不合main”阶段说明被本轮明确授权覆盖，原失败和验收边界仍有效。见[整合范围](worklines/main_unify_20261031/scope.md)与[架构/地图合同](worklines/game_architecture_01/target_architecture.md)。完整CI与公开部署未签。
@@ -456,4 +460,3 @@ producer为`a074a709ffa64c1382d73d2dab6dcff673222728`，build为`d38c8a407473`�
 `feature/ai-level-design-v1` 从main e9ab0e0独立开发，另在最新开发 a074a70 真实验证单发/时间能量，未改正式入口或模块池。[体系与可复现命令](ai_level_design_v1/README.md)。177参考来源已核，能力138 partial/39 unspecified；AI初审9份深入、168份有限，不能签177趣味认可。
 
 四层统一sidecar已实现，Macro为可选跨模块体验合同。离线有限关系基因搜索、真实Motor、多策略反证、同关系8wu对照及缓存/失败回流已接原Harness。新样本不冒称优秀：高台/上冠可先走近再一跳取同奖位，根盆存在冗余回原岸，回望候选停止待重构。完整Map邻接/新H机制/正式领奖/最终美术/真人设备仍未验；完整历史文档守门受稀疏缺件阻塞，不能按专项通过重签全Release。早期v1/v2缺完整源字节的限制明确保留。
-
