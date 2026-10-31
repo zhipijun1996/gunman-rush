@@ -1,3 +1,11 @@
+## 2026-10-31 状态恢复所有权补批已实现，CI旧Boss夹具单列迁移
+
+在ed95音频修复之后，按已提交范围2e1c完成7生产/4测试有限迁移：Stage通过ShotLatch保存/恢复原7字段并复用平台restore_motion；App通过Director复位terminal重入完成标记；普通Windkeeper与Pressure分别通过Encounter/Arena恢复断桥，两个Pressure调用者都迁移。原政策、字段、顺序和旧测试均保留，见[范围与结果](worklines/game_architecture_01/ownership_closeout_02.md)。
+
+实际优化editor下11次原生预检（含Session54、机关重载26、Windkeeper175、Pressure6、core5686）及Bell8套均通过且11冻结源码未漂移；不是Harness完整182。扩大region在第3套旧cohesion19/5停止，同优化editor上的精确迁移前ed95也19/5，原失败和第一次UID缓存阻塞均归档；后续按[独立测试迁移](worklines/game_architecture_01/current_boss_test_migration.md)修当前Boss消费者，不能归咎新owner迁移或删除失败。
+
+引擎41180438395的10构建+package已全部成功，完整分发8文件与重包逐字一致并独审。Release草稿429822541、tag固定184已创建，但本地uploads域名401，尚未发布；正准备原engine workflow中受限Actions推广候选，独审后才执行。主工具链仍官方，禁止提前半套激活；完整182/最终PCK/GUI仍待完成。下方记录按时间保留。
+
 ## 2026-10-31 已恢复工作：原音频试听缺陷已修，完整工具链仍待齐备
 
 用户换模型后要求继续。候选基点59a6上，精确main2ce同诊断C原测试复现126/3，独立确认旧材质路由绕过ABC试听。最小修复只允许显式enemy_hurt focus的非original候选；原126保留并新增28边界检查。C154/0、实际优化编辑器154/0及source一致均有独审，见[独立修复](worklines/game_architecture_01/audio_lab_material_fix.md)。当前修改已进入独立提交收口，不扩大成玩法或资源更换。

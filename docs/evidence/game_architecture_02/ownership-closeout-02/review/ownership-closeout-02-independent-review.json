@@ -1,0 +1,144 @@
+{
+  "task_id": "GAME-ARCH-OWNERSHIP-02",
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_EXACT11_CANDIDATE_FILES_PENDING_NATIVE_RELOAD_REGRESSION",
+  "baseline_and_rollback": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "plan_head": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+  "candidate_files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "77674db1b78a94b2ab25ffa679282e9bf7ba9da396165fc84fa095f69bb34f85",
+      "candidate_sha256": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "game/application/demo_run_director.gd",
+      "before_sha256": "ae4c25fa9805d1d6ebf428f41139cc2fac093e11ee0314925016dc07b30ff6aa",
+      "candidate_sha256": "09a902df1839a0156150a703025f88aa92c027729d721b185a107607f168151c",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "game/bosses/windkeeper/windkeeper_encounter.gd",
+      "before_sha256": "b6bad0306339152167dade9458c0d8547d9154a3c377c767865a81c392127566",
+      "candidate_sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "game/bosses/windkeeper/windkeeper_pressure_encounter.gd",
+      "before_sha256": "cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef",
+      "candidate_sha256": "792753e7f9db6a7b8c6359ed06d609bf305d97492bdaf1734b9527dcc36f4a26",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "game/bosses/windkeeper/windkeeper_arena.gd",
+      "before_sha256": "cee2dcaa54879b86f76f1646dac0038797d065f8443f5f502dfde54f7a5c13f4",
+      "candidate_sha256": "39b113af8f2a8976fd5bfbbc5df96f38c23db5e0546ce9f8b6cdebf5d6d058c1",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "tests/run_session_runner.gd",
+      "before_sha256": "a0061e72717b0c02e9be14dd6e462026c8233720c4e56b972942197bd5d40868",
+      "candidate_sha256": "1bb1f260f2bc964fe781d28f1ba498f6d40a746196545302f3fa406c245bab9f",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "tests/windkeeper_runner.gd",
+      "before_sha256": "79f7f1b8677c848ceffee134e6f083b715b98d4ffef8f27aa001dda0cef38111",
+      "candidate_sha256": "939aba08b29a66d7b0209097a78acde0c38a8c3c9afa97b558c9eff1b3944322",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "tests/windkeeper_pressure_01/rewards.gd",
+      "before_sha256": "68ec162b62f3e78254e654cc002493cd7158e1cf73378dc7cd6dd55fab3da66d",
+      "candidate_sha256": "cd47b964ac69fe1962cbe201b75d9f5cc532f13707c70e8051bf49669b31147c",
+      "removed_assertion_lines": []
+    },
+    {
+      "path": "game/world/components/shot_latch.gd",
+      "before_sha256": "df12cfb9c62fd6711b4e0af5a7f3147dbf1a97b5d4c7830da50c6880882b4cb9",
+      "candidate_sha256": "741ab54b15e452f80b8c19fef74113fa06d391da50a973fe9e9991f6ff7a04d7"
+    },
+    {
+      "path": "game/world/levels/providers/plains_region_stage.gd",
+      "before_sha256": "a98521042831129c796cd03b497b977efe95546c43a8960735623993867c93ba",
+      "candidate_sha256": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275"
+    },
+    {
+      "path": "tests/plains_interactive_lifecycle_runner.gd",
+      "before_sha256": "f2cf441779dbfff9cfcfd899f9b1f0c6575cdc681a351be39bf1892bbad8f628",
+      "candidate_sha256": "4886a4955041ee0dd4861aeb1cc53258061e9967a37c640cb156c4881e9bcdd8"
+    }
+  ],
+  "test_preservation": [
+    {
+      "path": "tests/run_session_runner.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    },
+    {
+      "path": "tests/windkeeper_runner.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    },
+    {
+      "path": "tests/windkeeper_pressure_01/rewards.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    },
+    {
+      "path": "tests/plains_interactive_lifecycle_runner.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    }
+  ],
+  "latch": {
+    "schema_keys": [
+      "clock",
+      "opened_at",
+      "is_open",
+      "sequence_step",
+      "open_count",
+      "motion_clock",
+      "motion_running"
+    ],
+    "schema_count": 7,
+    "prior_report_count8_was_documentation_error": true,
+    "literal_exact_after_removing_receiver_prefix": true,
+    "key_type": "Original String literal keys, no extra StringName writes",
+    "stage_capture_real_consumer_migrated": true,
+    "stage_setup_real_consumer_migrated": true,
+    "presence": "Original has(id) plus typed Dictionary extraction unchanged; present empty dictionary still reaches required-field reads, missing entry skips restore",
+    "restore_order": "clock,opened_at,sequence_step,restore_sequence_gate,open_count,is_open,optional motion; then opened ledger has(id) evaluated and original OR-is_open deferred gate disable",
+    "platform": "Existing restore_motion reused; only two redundant plain-field writes omitted; source file unchanged/no setters; clock->running->sync false->position->sync true intact",
+    "side_effects": "No new redraw/sound/reward/shot request or validation/normalization; pending request state not replayed",
+    "tests": "5 added checks on actual paused App ferry unload/rebuild, String key/order/scalar/value equality, deferred gate, missing optional motion defaults and restored physical position"
+  },
+  "flow": {
+    "real_consumer": "DemoApp._load_stage terminal connected-region health<=0 branch remains at original point",
+    "owner_operation": "Unconditional stage_complete=false only; no added token/state/health guard,epochs,receipts,Manifest or signal",
+    "tests": "Original run-session retained; added direct owner completion/token/Manifest/receipt invariant checks and actual terminal App reward reload via Pressure test"
+  },
+  "arena": {
+    "ordinary_policy": "Connected non-Pressure encounter calls owner after existing bind; owner only acts when stage_phase==3, matching old App predicate",
+    "pressure_policy": "Actual bridge_break_ready flag remains independent of stage_phase; same all-child WindkeeperArena enumeration",
+    "two_real_consumers": [
+      "DemoApp._load_stage after terminal restore_combat_state",
+      "DemoApp._start_generated_boss after active restore and before restored_boss.clear / presentation synchronize"
+    ],
+    "deferred_policy": "Arena phase callback delegates to same not-broken check and deferred _break_ground; no early broken assignment/new idempotence/additional deferral; original break/support/anchor implementation untouched",
+    "boss_differences": "No shared phase3 approximation; inherited ordinary entry remains excluded from Pressure App branch; Bell subclass follows old ordinary conditional behavior",
+    "tests": "Original Windkeeper/Pressure assertion text and loop bytes retained; added ordinary deferred ground restore, unreleased phase3 rejection, earned terminal coin preservation and second active App restore consumer"
+  },
+  "validation_limits": [
+    "No Godot/parser/native/test execution by reviewer; added asynchronous tests still require actual root execution within original budgets",
+    "New Latch assertions cover actual moving ferry; they do not independently demonstrate timed-gate halfway/sequence-step/permanent-ledger-only reload variants. Retain original plains/core suites and disclose exact coverage",
+    "Added terminal Pressure reload follows settled/collected reward fixture; it is not by itself airborne death-clock reload validation. Existing Pressure support/death suites must remain in required regression",
+    "Ordinary Windkeeper restore uses explicit phase fixture; Pressure trigger uses declared authoritative Boss HP transaction and explicit paused activation, not natural fullfight/approach acceptance",
+    "Static source equivalence does not sign full182,PCK/GUI/118dynamic or overall architecture completion"
+  ],
+  "audio_fix_exact_sha_unchanged": true,
+  "evidence": {
+    "flow_candidate_patch_sha256": "6c872e1136c3bc0ff15e4f243e607ac1cab1296b66bcff27fa674bd29f19132a",
+    "latch_candidate_patch_sha256": "cae6470957740cb575a932c808788951aa7a8276a09b7ae8b72c7f260a7396c5"
+  }
+}

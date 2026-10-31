@@ -35,7 +35,10 @@ func setup(owner_module: PlatformingModule, boss_encounter: WindkeeperEncounter,
 		segment.add_anchor(StringName("windkeeper_bridge_%s" % index),module.to_global([Vector2(350,452),Vector2(640,452),Vector2(870,452)][index]))
 
 func _phase_changed(phase: int) -> void:
-	if phase == 3 and not broken: _break_ground.call_deferred()
+	if phase == 3: restore_broken_bridge()
+
+func restore_broken_bridge() -> void:
+	if not broken: _break_ground.call_deferred()
 
 func _break_ground() -> void:
 	if not is_instance_valid(module) or not lifetime.active: return

@@ -283,7 +283,7 @@ func capture_state() -> void:
 	region_state.boss_state.seal_closed=is_instance_valid(boss_seal) and boss_seal.closed
 	for i: int in shot_latches.size():
 		var latch := shot_latches[i]
-		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]={"clock":latch._clock,"opened_at":latch._opened_at,"is_open":latch.is_open,"sequence_step":latch.sequence_step,"open_count":latch.open_count,"motion_clock":latch.motion_target.motion_clock if latch.motion_mode else 0.0,"motion_running":latch.motion_target.motion_running if latch.motion_mode else false}
+		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]=latch.region_snapshot()
 		if shot_latches[i].is_open and shot_latches[i].open_seconds == 0 and not shot_latches[i].motion_mode:
 			region_state.opened[generated.manifest.shot_latch_plan.latches[i].id] = true
 
@@ -303,19 +303,8 @@ func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) ->
 		var id: String=generated.manifest.shot_latch_plan.latches[i].id
 		if region_state.mechanisms.has(id):
 			var data: Dictionary=region_state.mechanisms[id]
-			shot_latches[i]._clock=float(data.clock)
-			shot_latches[i]._opened_at=float(data.opened_at)
-			shot_latches[i].sequence_step=int(data.sequence_step)
-			shot_latches[i].restore_sequence_gate()
-			shot_latches[i].open_count=int(data.open_count)
-			shot_latches[i].is_open=bool(data.is_open)
-			if shot_latches[i].motion_mode:
-				shot_latches[i].motion_target.motion_clock=float(data.get("motion_clock",0))
-				shot_latches[i].motion_target.motion_running=bool(data.get("motion_running",false))
-				shot_latches[i].motion_target.restore_motion(shot_latches[i].motion_target.motion_clock,shot_latches[i].motion_target.motion_running)
-		if region_state.opened.has(id) or shot_latches[i].is_open:
-			shot_latches[i].is_open = true
-			shot_latches[i].gate_shape.set_deferred("disabled",true)
+			shot_latches[i].restore_region_state(data)
+		shot_latches[i].restore_region_opened(region_state.opened.has(id))
 	return true
 
 func nearby_chest(location: Vector2) -> int:

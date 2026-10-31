@@ -52,6 +52,7 @@ func reload_ferry()->void:
  print('DELTA phase=',latch.motion_target.motion_clock-before,' position=',latch.motion_target.position-pos)
  check(is_equal_approx(latch.motion_target.motion_clock,before) and latch.motion_target.position.distance_to(pos)<.001,'paused real unload and rebuild retains phase and position within 0.001px float tolerance')
  check(latch._pending.is_empty() and latch._eligible_shots.is_empty(),'reload restores no old accepted requests or shot eligibility')
+ check_latch_region_state(latch,data)
  paused=false;await frames(8)
  check(latch.motion_target.motion_clock>before,'restored ferry advances from saved phase')
  print('RELOAD assertions=',assertions,' failures=',failures,' before=',before,' after=',latch.motion_target.motion_clock,' snapshot=',data)
@@ -102,3 +103,17 @@ func run()->void:
  await pending_death()
  print("PLAINS INTERACTIVE LIFECYCLE: %s assertions, %s failures"%[assertions,failures])
  quit(1 if failures else 0)
+
+func check_latch_region_state(latch:ShotLatch,recorded:Dictionary)->void:
+ # The caller is the actual paused App unload/rebuild fixture above.
+ var saved:Dictionary=latch.region_snapshot()
+ check(saved.keys()==["clock","opened_at","is_open","sequence_step","open_count","motion_clock","motion_running"] and saved.keys().all(func(key:Variant)->bool:return key is String),'actual mechanism snapshot keeps seven String keys in original insertion order')
+ check(saved==recorded and saved.clock is float and saved.opened_at is float and saved.is_open is bool and saved.sequence_step is int and saved.open_count is int and saved.motion_clock is float and saved.motion_running is bool,'actual Stage reload preserves complete recorded values and scalar types')
+ check(latch.is_open and latch.gate_shape.disabled,'actual Stage reload reapplies saved open state with deferred gate disable')
+ var position_before:Vector2=latch.motion_target.position
+ var legacy:Dictionary=saved.duplicate(true)
+ legacy.erase("motion_clock");legacy.erase("motion_running")
+ latch.restore_region_state(legacy)
+ check(latch.motion_target.motion_clock==0.0 and not latch.motion_target.motion_running and latch.motion_target.position.distance_to(latch.motion_target.definition.at_time(0.0))<.001,'missing optional motion fields retain zero stopped defaults and immediately restore platform position')
+ latch.restore_region_state(saved)
+ check(latch.region_snapshot()==saved and latch.motion_target.position.distance_to(position_before)<.001,'entity restore returns the real paused ferry to its exact recorded state and phase')

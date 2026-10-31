@@ -1,0 +1,188 @@
+{
+  "scope": "Actual optimized editor184 and frozen P9 candidate, original8 related Bell native consumers; main lock/full182/GUI pending",
+  "frozen_files": {
+    "game/application/demo_app.gd": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f",
+    "game/application/demo_run_director.gd": "09a902df1839a0156150a703025f88aa92c027729d721b185a107607f168151c",
+    "game/bosses/windkeeper/windkeeper_encounter.gd": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+    "game/bosses/windkeeper/windkeeper_pressure_encounter.gd": "792753e7f9db6a7b8c6359ed06d609bf305d97492bdaf1734b9527dcc36f4a26",
+    "game/bosses/windkeeper/windkeeper_arena.gd": "39b113af8f2a8976fd5bfbbc5df96f38c23db5e0546ce9f8b6cdebf5d6d058c1",
+    "tests/run_session_runner.gd": "1bb1f260f2bc964fe781d28f1ba498f6d40a746196545302f3fa406c245bab9f",
+    "tests/windkeeper_runner.gd": "939aba08b29a66d7b0209097a78acde0c38a8c3c9afa97b558c9eff1b3944322",
+    "tests/windkeeper_pressure_01/rewards.gd": "cd47b964ac69fe1962cbe201b75d9f5cc532f13707c70e8051bf49669b31147c",
+    "game/world/components/shot_latch.gd": "741ab54b15e452f80b8c19fef74113fa06d391da50a973fe9e9991f6ff7a04d7",
+    "game/world/levels/providers/plains_region_stage.gd": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275",
+    "tests/plains_interactive_lifecycle_runner.gd": "4886a4955041ee0dd4861aeb1cc53258061e9967a37c640cb156c4881e9bcdd8"
+  },
+  "source_unchanged": true,
+  "results": [
+    {
+      "case": "bell-combat",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/combat_runner.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 12.304218277997279,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "d82dd76244e68df4880847f34dc8eef83b00be17180b243c4a8a120d48201bed",
+      "completion": [
+        "BELLSTRIDER_REWORK_COMBAT assertions=276 failures=0"
+      ]
+    },
+    {
+      "case": "bell-effects",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/effect_targets.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 2.4213809249995393,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "ef02cc030a69d4c902621cd417eb9496699cdabe84314beb23a3d1b85b3d119b",
+      "completion": [
+        "BELLSTRIDER_EFFECT_TARGETS assertions=35 failures=0"
+      ]
+    },
+    {
+      "case": "bell-policy",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/damage_policy.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 14.55985740899996,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "209c5b30d18bc943f3496c677606e74c127f5c7f4b2be45a3feea63b2b5ac657",
+      "completion": [
+        "BELLSTRIDER DAMAGE POLICY: 86 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "bell-weapons",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/weapon_routes.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 22.24242364300153,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "cc509cf2cd83f4e2468b88bb9080218d7054341f7c004ad95019f2a1fdf884a9",
+      "completion": [
+        "BELLSTRIDER WEAPON ROUTES: 88 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "bell-intro",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/intro_pose.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 2.0717735920006817,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "060be02ff32c0b6d81e0924839f7bd9827ff3b65cdcdc08c6350a0216e3dd4aa",
+      "completion": [
+        "BELLSTRIDER_INTRO_POSE assertions=65 failures=0"
+      ]
+    },
+    {
+      "case": "bell-rewards",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/rewards_runner.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 4.781049357003212,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "5437961ad48aa911b6e4caa7d26b5ddd2bea3f5a08b401173ba178e3a1e603fa",
+      "completion": [
+        "BELLSTRIDER_REWARDS checks=37 failures=0"
+      ]
+    },
+    {
+      "case": "bell-audio",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/audio_pool.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 5.1318983849996584,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "6eff51de778789f0f4513d3850fae5b2aa418580c7c6440071e225eba5696941",
+      "completion": [
+        "BELLSTRIDER_AUDIO_POOL assertions=110 failures=0"
+      ]
+    },
+    {
+      "case": "bell-contact",
+      "group": "bell",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/bellstrider_rework_01/contact_edges.gd"
+      ],
+      "original_case_timeout_seconds": 90,
+      "effective_timeout_seconds": 90,
+      "seconds": 78.24680811799772,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "470204f29bc427c4031188e8a6ceb30d214412a24c95c41f92bbaa1d80464dd1",
+      "completion": [
+        "BELLSTRIDER_CONTACT_EDGES assertions=246 failures=0"
+      ]
+    }
+  ],
+  "passed": true
+}

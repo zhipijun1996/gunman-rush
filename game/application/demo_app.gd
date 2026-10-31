@@ -624,7 +624,7 @@ func _load_stage() -> void:
 	policy.protect_player()
 	current_reward = null
 	if connected_region and not region_state.boss_state.is_empty() and float(region_state.boss_state.health)<=0:
-		director.stage_complete=false
+		director.prepare_terminal_stage_reentry()
 	simple_reward = null
 	_pending_exit = &""
 	_reward_token = null
@@ -741,10 +741,10 @@ func _load_stage() -> void:
 			for arena_module: PlatformingModule in (stage as GeneratedDemoStage).assembler.modules:
 				if arena_module.definition.module_id == &"plains_boss_arena":
 					var arena_consumer: WindkeeperArena = encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,(stage as GeneratedDemoStage).assembler.ground_supports)
-					if connected_region and encounter.stage_phase==3 and not encounter is WindkeeperPressureEncounter: arena_consumer._phase_changed(3)
+					if connected_region and not encounter is WindkeeperPressureEncounter: encounter.restore_stage_geometry(arena_consumer)
 			if encounter is WindkeeperPressureEncounter and encounter.health.terminal and not (stage as PlainsRegionStage).restored_boss.is_empty():
 				encounter.restore_combat_state((stage as PlainsRegionStage).restored_boss)
-				_restore_windkeeper_pressure_bridge(encounter)
+				encounter.restore_bridge_geometry()
 		if connected_region:
 			var region:=stage as PlainsRegionStage
 			region.boss_seal=BossArenaSeal.new()
@@ -2264,7 +2264,7 @@ func _start_generated_boss() -> void:
 					abandon_run()
 					return
 			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
-			if encounter is WindkeeperPressureEncounter: _restore_windkeeper_pressure_bridge(encounter)
+			if encounter is WindkeeperPressureEncounter: encounter.restore_bridge_geometry()
 		(stage as PlainsRegionStage).restored_boss.clear()
 	EnemyPresentationBinding.synchronize(encounter)
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
@@ -2904,14 +2904,6 @@ func _select_equipment_active(instance_id: StringName, revision: int, session: i
 func _repair_equipment_item(_instance_id: StringName, _quote_version: int, _revision: int, _session: int) -> void:
 	# Repairs belong to the merchant's transaction UI, never a remote pause menu.
 	_refresh_equipment_view("请前往商店修理破损道具。")
-
-
-func _restore_windkeeper_pressure_bridge(encounter: WindkeeperPressureEncounter) -> void:
-	# A saved transition may still be landing on its first real shelf. Restore
-	# the actual break flag, independently of the requested health phase.
-	if not encounter.bridge_break_ready(): return
-	for child: Node in encounter.get_children():
-		if child is WindkeeperArena: (child as WindkeeperArena)._phase_changed(3)
 
 
 func _bind_windkeeper_pressure_rewards(encounter: WindkeeperPressureEncounter) -> void:

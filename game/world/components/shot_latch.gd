@@ -45,6 +45,25 @@ var _eligible_shots: Dictionary = {}
 var _cancelled := false
 var _request_epoch := 0
 
+func region_snapshot() -> Dictionary:
+	return {"clock":_clock,"opened_at":_opened_at,"is_open":is_open,"sequence_step":sequence_step,"open_count":open_count,"motion_clock":motion_target.motion_clock if motion_mode else 0.0,"motion_running":motion_target.motion_running if motion_mode else false}
+
+func restore_region_state(data: Dictionary) -> void:
+	_clock=float(data.clock)
+	_opened_at=float(data.opened_at)
+	sequence_step=int(data.sequence_step)
+	restore_sequence_gate()
+	open_count=int(data.open_count)
+	is_open=bool(data.is_open)
+	if motion_mode:
+		motion_target.restore_motion(float(data.get("motion_clock",0)),bool(data.get("motion_running",false)))
+
+func restore_region_opened(recorded_open: bool) -> void:
+	# The region's permanent-open ledger is applied after optional saved state.
+	if recorded_open or is_open:
+		is_open = true
+		gate_shape.set_deferred("disabled",true)
+
 func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: Rect2) -> void:
 	controller = player
 	lifetime = scope

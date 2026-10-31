@@ -357,6 +357,11 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
 	reward_stands.assign([owner_module.to_global(Vector2(350,452)),owner_module.to_global(Vector2(640,452)),owner_module.to_global(Vector2(870,452))])
 	return consumer
 
+# The ordinary encounter restores its phase-three bridge after stage binding.
+# Pressure has a separate grounded release flag and restore timing.
+func restore_stage_geometry(consumer: WindkeeperArena) -> void:
+	if stage_phase == 3: consumer.restore_broken_bridge()
+
 func reward_stand_position() -> Vector2:
 	var x := _home_x
 	if stage_phase == 3 and reward_stands.size() == 3: return reward_stands[clampi(chase_segment,0,2)]

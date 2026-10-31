@@ -50,6 +50,11 @@ func start(root_seed: String, selected_profile: RunProfile = null) -> DemoRunRes
 	stage_entered.emit(result.copy())
 	return result
 
+# Rebuilding a terminal Boss stage re-evaluates completion on the next damage
+# batch. The App retains the existing terminal-region condition and load order.
+func prepare_terminal_stage_reentry() -> void:
+	stage_complete = false
+
 func complete_stage(token: DemoToken) -> bool:
 	if state != State.IN_STAGE or not lifetime.accepts(token):
 		return false

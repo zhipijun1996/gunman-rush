@@ -48,7 +48,22 @@ func clear_run(label: String) -> void:
 	check(player_ref.get_ref()==null and stage_ref.get_ref()==null and policy_ref.get_ref()==null, label+": old scene nodes are freed")
 	check(app.wallet==old_wallet and old_wallet.balance==0 and app.build==old_build and old_build.inventory.instances().is_empty() and old_build.item_ids().is_empty(), label+": cleared wallet and inventory remain observable")
 
+func flow_reentry_boundary() -> void:
+	var owner := DemoRunDirector.new()
+	check(owner.start("completion-owner-reentry").accepted(), "flow reentry fixture starts through original flow")
+	check(owner.complete_stage(owner.lifetime.token()), "flow reentry fixture completes through original owner")
+	var manifest_before := owner.manifest.canonical_json()
+	var token := owner.lifetime.token()
+	var receipts := owner._receipts.duplicate(true)
+	var stage_index := owner.stage_index
+	var state := owner.state
+	owner.prepare_terminal_stage_reentry()
+	check(not owner.stage_complete and owner.state==state and owner.stage_index==stage_index, "terminal reentry operation only reopens the completion flag")
+	check(owner.lifetime.accepts(token) and owner.manifest.canonical_json()==manifest_before and owner._receipts==receipts, "terminal reentry does not advance epochs or rewrite Manifest/flow receipts")
+	check(owner.complete_stage(token) and owner.stage_complete, "original completion owner can recompute the reopened stage")
+
 func run() -> void:
+	flow_reentry_boundary()
 	app = DemoApp.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)

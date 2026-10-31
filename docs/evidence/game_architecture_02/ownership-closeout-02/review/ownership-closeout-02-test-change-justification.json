@@ -1,0 +1,34 @@
+{
+  "task_id": "GAME-ARCH-OWNERSHIP-02",
+  "verdict": "STATIC_TEST_PRESERVATION_ACCEPT_NATIVE_PENDING",
+  "tests": [
+    {
+      "path": "tests/run_session_runner.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    },
+    {
+      "path": "tests/windkeeper_runner.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    },
+    {
+      "path": "tests/windkeeper_pressure_01/rewards.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    },
+    {
+      "path": "tests/plains_interactive_lifecycle_runner.gd",
+      "all_original_bytes_in_order": true,
+      "only_insertions": true
+    }
+  ],
+  "reason": "Original tests/loops/assertions remain exact ordered bytes; only narrow owner-boundary checks and actual reload scenarios appended. No timeout/check-list/fixture expectation weakening.",
+  "coverage_limits": [
+    "No Godot/parser/native/test execution by reviewer; added asynchronous tests still require actual root execution within original budgets",
+    "New Latch assertions cover actual moving ferry; they do not independently demonstrate timed-gate halfway/sequence-step/permanent-ledger-only reload variants. Retain original plains/core suites and disclose exact coverage",
+    "Added terminal Pressure reload follows settled/collected reward fixture; it is not by itself airborne death-clock reload validation. Existing Pressure support/death suites must remain in required regression",
+    "Ordinary Windkeeper restore uses explicit phase fixture; Pressure trigger uses declared authoritative Boss HP transaction and explicit paused activation, not natural fullfight/approach acceptance"
+  ],
+  "source_review": "ownership-closeout-02-independent-review.json"
+}

@@ -1,0 +1,68 @@
+{
+  "task_id": "GAME-ARCH-OWNERSHIP-02",
+  "sub_batch": "Latch",
+  "baseline": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "plan_head": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+  "read_head": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+  "files": [
+    {
+      "path": "game/world/components/shot_latch.gd",
+      "before_sha256": "df12cfb9c62fd6711b4e0af5a7f3147dbf1a97b5d4c7830da50c6880882b4cb9",
+      "candidate_sha256": "741ab54b15e452f80b8c19fef74113fa06d391da50a973fe9e9991f6ff7a04d7"
+    },
+    {
+      "path": "game/world/levels/providers/plains_region_stage.gd",
+      "before_sha256": "a98521042831129c796cd03b497b977efe95546c43a8960735623993867c93ba",
+      "candidate_sha256": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275"
+    },
+    {
+      "path": "tests/plains_interactive_lifecycle_runner.gd",
+      "before_sha256": "f2cf441779dbfff9cfcfd899f9b1f0c6575cdc681a351be39bf1892bbad8f628",
+      "candidate_sha256": "4886a4955041ee0dd4861aeb1cc53258061e9967a37c640cb156c4881e9bcdd8"
+    }
+  ],
+  "source_equivalence": {
+    "original_shot_latch_entire_file_retained": true,
+    "original_snapshot_literal_exact_after_removing_latch_qualifier": true,
+    "keys": [
+      "clock",
+      "opened_at",
+      "is_open",
+      "sequence_step",
+      "open_count",
+      "motion_clock",
+      "motion_running"
+    ],
+    "key_types": "String literal keys; no StringName/dot-write insertion",
+    "restore_statements_exact_after_receiver_move_except_redundant_platform_preassignment": true,
+    "ledger_open_condition_body_exact_after_receiver_move": true,
+    "platform_source_unchanged": true,
+    "platform_motion_fields_plain_no_setters": true,
+    "platform_restore_motion_ownership": "Already assigns clock then running, toggles sync_to_physics false, computes position from definition.at_time(clock), toggles true; caller no longer writes plain fields before calling this same algorithm.",
+    "record_presence": "Stage retains original mechanisms.has(id) and typed var data assignment. Missing record skips state restore; present empty Dictionary is still sent to original required field accesses. No fallback/null/empty normalization.",
+    "restore_sequence": "clock → opened_at → sequence_step → restore_sequence_gate → open_count → is_open → optional platform restore; then original opened ledger has(id) evaluated and OR restored is_open applied via deferred gate disable.",
+    "redraw": "No new or removed redraw calls; original set_region_presentation and restore_sequence_gate/collision deferred timing preserved."
+  },
+  "tests": {
+    "path": "tests/plains_interactive_lifecycle_runner.gd",
+    "original_full_file_restored_after_removing_single_call_and_appended_function": true,
+    "added_checks": 5,
+    "original_calls_assertions_loops_frame_budgets_unchanged": true,
+    "scope": "Actual paused App unload/rebuild ferry: 7-key String order, scalar types and values, deferred opened gate, old missing-motion defaults, immediate platform position and return to captured phase.",
+    "engine_execution": "not run by author; root exclusive lease"
+  },
+  "static_checks": {
+    "diff_check_exit": 0,
+    "cross_owner_clock_and_motion_writes_removed": true
+  },
+  "required_native": [
+    "bash tools/godot.sh --headless --fixed-fps 60 --path . --script res://tests/plains_interactive_lifecycle_runner.gd (existing 90s limit and strict clean-exit validation)",
+    "python3 tools/run_plains_region_tests.py (existing 15-suite wrapper/budgets)",
+    "python3 tools/run_tests.py (existing core/shot_latch assertions and 720s wrapper)"
+  ],
+  "limits": [
+    "Native/GUI unverified until root runs; no runtime success claimed.",
+    "No production/tests beyond the three named files edited, no engine run, stage or commit.",
+    "No schema/physics/switch/random/resource or map-open policy changes intended."
+  ]
+}

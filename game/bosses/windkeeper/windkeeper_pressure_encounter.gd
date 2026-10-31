@@ -904,6 +904,13 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
 	_support_rects.sort_custom(func(a: Rect2, b: Rect2) -> bool: return a.position.x < b.position.x)
 	return consumer
 
+# Restored phase three can still be landing on its first real shelf. Restore
+# the actual release flag, after terminal binding or active combat restoration.
+func restore_bridge_geometry() -> void:
+	if not bridge_break_ready(): return
+	for child: Node in get_children():
+		if child is WindkeeperArena: (child as WindkeeperArena).restore_broken_bridge()
+
 func bridge_break_ready() -> bool:
 	return _bridge_released
 

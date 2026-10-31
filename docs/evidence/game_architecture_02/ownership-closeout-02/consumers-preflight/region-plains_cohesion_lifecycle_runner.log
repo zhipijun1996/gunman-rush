@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=82 pieces=291 setup_ms=46
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"3ba1afad0f862b75ba4ec64e443b75b0d9b7bd321a382d8383d887cbb38fbc18","map_index":1,"region":"plains","seed":"d082-seal-lifecycle"}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=82 pieces=291 setup_ms=40
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"3ba1afad0f862b75ba4ec64e443b75b0d9b7bd321a382d8383d887cbb38fbc18","map_index":1,"region":"plains","seed":"d082-seal-lifecycle"}
+FAIL defeat opens actual walls and guarantees reward
+FAIL mini defeat has a visible guaranteed loot object
+FAIL mini defeat uses finite AI explosion object
+FAIL settled loot opens actual reward confirmation
+FAIL mini loot settles existing guaranteed 12 coins exactly once
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2/@Node@3","played":{"bellstrider_death":1,"bellstrider_lob_aim":1,"bellstrider_lob_lock":1,"boss_impact":3,"motion_jump":2,"motion_land":2,"step":1,"warning":2,"weapon_pulse":1},"service":"GameAudio"},{"node":"/root/@Node2D@2/@Node@16","service":"GameMusic","starts":{"home":1,"plains":3,"plains_boss":1},"track":"plains"}],"released":true,"seconds":0.101}
+PLAINS COHESION LIFECYCLE: 19 assertions, 5 failures
