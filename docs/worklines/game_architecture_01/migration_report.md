@@ -1,6 +1,6 @@
 ## 最新恢复：R3共享消费者已通过原完整检查
 
-本批代码760e0cda93a3e14533bab945eb9bd3cb53a8d59c只改6个测试/工具/输入闭包文件，原生产规则与图声保持。唯一pilot、平台观察和真实四源关联供原完整capture与组件正例共用。原registered R3同源fresh通过：313/16/65、默认map1 4954/0、map2 5053/0，134.931秒/原360，已独审；原278/1与4954/3等历史失败不改签。见[具体文件、证据与回退](r3_current_content_contract_01.md)。完整185/导出/PCK/GUI仍待，三份索引当前仍明确旧acb快照，后续用06在干净源更新。下方暂停为历史。
+本批代码760e0cda93a3e14533bab945eb9bd3cb53a8d59c只改6个测试/工具/输入闭包文件，原生产规则与图声保持。唯一pilot、平台观察和真实四源关联供原完整capture与组件正例共用。原registered R3同源fresh通过：313/16/65、默认map1 4954/0、map2 5053/0，134.931秒/原360，已独审；原278/1与4954/3等历史失败不改签。见[具体文件、证据与回退](r3_current_content_contract_01.md)。完整185/导出/PCK/GUI仍待；三份索引已按干净2fa2daac刷新并独审，明确区分运行生产/测试工具及各批回退。下方暂停为历史。
 
 ## 最新保存与暂停
 
@@ -23,13 +23,15 @@ RootBell原暂停恢复视觉粒子遗漏独立修1生产leaf(e68c5015)，不属
 
 ## 可检索文件与实际图
 
-- [file_inventory.csv](file_inventory.csv)：33,768 个文件条目，覆盖技术收口acb7c7c7读取时全部 Git tracked 文件。每行有路径、原路径、职责、具体用途、批次与来源/manifest 候选；未物化稀疏文件大小留空，不为索引下载媒体。
-- [runtime_inventory.json](runtime_inventory.json)：1,554 个运行相关文件：1,486 个功能/协议目录文件，另含 assets 中 18 个可执行/定义文件及配对 UID、50 个 shader/include/UID。逐文件列出用途、实际归属、原路径、静态消费者、可能入口与身份持有原因；另列每批精确提交、父提交及完整当前写集。
-- [dependency_graph.json](dependency_graph.json)：复用现有 `tools/project_dependencies.py:inspect`，842 个源、510 个类、3,447 条实际静态边、118 个未静态解析的动态加载表达式。没有另造运行注册表或第二套依赖算法。
+- [file_inventory.csv](file_inventory.csv)：冻结源2fa2daac的34,200个Git tracked路径，逐行列职责、具体用途、原路径、批次和来源/manifest候选；独审确认无漏、无重复。稀疏未物化文件大小留空，不为索引下载历史媒体。
+- [runtime_inventory.json](runtime_inventory.json)：1,554个运行文件（1,486个功能/协议目录文件、assets18个可执行/定义及UID、50个shader/include/UID），列实际归属、用途、静态消费者、入口与身份保留原因；每批精确提交/父提交/回退及实际写集。
+- [dependency_graph.json](dependency_graph.json)：复用现有project_dependencies.inspect，842源、510类、3,447静态边、118动态未解析表达式、errors=[]。这是实际审计快照，不是新增运行注册表。
 
-三份索引已由原提取流程更新至技术收口 `acb7c7c7cc7c195e6773817bb60f7c7f27baabfb`，33,768路径、1,554运行文件、842源/510类/3,447静态边/118动态未解析点。索引是该已提交源的快照，后继索引及说明提交不追改其来源；原6f快照保留在Git历史。
+三索引来源为 `2fa2daac907b1d84a00ed8dc2846c73bbe223300`；技术证据收口同2fa2，消费者dce43112，最新生产leaf来源61c4fac9，R3测试合同760e0cda，生成开发内容仍becd0099，Underworld原缺陷a671保持独立。R3新增职责为测试/工具，不计生产运行文件。原acb/6f快照留在Git历史，后继索引/说明提交不追改本次来源。生成期间人工报告SHA未变，随后本段手工更新来源和结果。
 
-可视调用关系见[当前运行架构](../../architecture.md)，功能导航见[模块导航](../../module_map.md)。这三份数据是审计快照。静态可达入口包含 App 显式打开实验的路径，不能解释成“启动正式游戏会加载全部实验”；提取器覆盖 GDScript、scene、resource 的类/类型及资源边；shader include 内部、元数据驱动选择不冒称已被它解析。动态路径、条件分支、延迟加载和导出 remap 必须由原有专用检查、原生与 PCK 验证。完整外部临时 JSONL 不重复提交；仓库保留一份 CSV、运行时详单和图即可。
+可视调用关系见[当前运行架构](../../architecture.md)，功能入口见[模块导航](../../module_map.md)。静态入口可达性包含App显式打开实验，不能解释成正式启动加载全部实验；shader include内部、配置选择、条件/延迟加载及118处动态表达式仍需原生/PCK检查。本轮不因索引errors=[]冒签完整185或GUI。原全部CSV/运行详单/图各保一份，不提交第二套巨大JSONL。
+
+生成源码、源清单摘要与实际独审见[索引06证据](../../evidence/game_architecture_02/final-audit-index-06/README.md)。
 
 ```text
 game/

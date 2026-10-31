@@ -4,7 +4,7 @@
 
 R3两个真实消费者已共用唯一pilot、平台观察和四源命中关联。原registered检查同源fresh通过：组件313、方向16、生命周期65均0失败，默认map1 4954/0、map2 5053/0，检查134.931秒/原360，源与Git前后相同。独审确认Bell40真实1伤/玩家5HP/两组回冲/12金币，Pressure60真实命中/玩家3HP/20金币及原森林结算。原278/1与历次失败保持原状态，没有重绑旧证据签当前PASS。
 
-当前尚待：将三份旧acb审计索引更新到实际冻结源，执行同源完整185、最终导出/PCK、真实GUI及连续影片。新地图模块库/算法仍属后续，现接口适配旧算法。详见[本批共享消费者与回退](worklines/game_architecture_01/r3_current_content_contract_01.md)及[该原检查的质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)。下方暂停与阶段结果为历史快照。
+三份审计索引已在2fa2daac冻结源更新并独审，覆盖34,200文件、1,554运行文件、3,447静态边及118处动态未解析。下一步执行同源完整185、最终三平台导出、真实GUI/PCK与连续影片；单次现有工作流按门槛发布试玩。新地图模块库/算法仍属后续，现接口适配旧算法。详见[本批共享消费者与回退](worklines/game_architecture_01/r3_current_content_contract_01.md)及[该原检查的质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)。下方暂停与阶段结果为历史快照。
 
 ## 2026-10-31 按用户要求再次暂停：从此处恢复
 

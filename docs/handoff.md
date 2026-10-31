@@ -4,9 +4,11 @@
 
 原Harness `--check underworld-continuous-bosses --release --jobs 1` 在760e fresh通过（reused=false）：313/16/65与两图4954/5053全0，检查134.931/360、含清单外层150.206秒，source/Git前后一致。原全25谓词及164Bell检查、2原flat的真实body事件和新无伤正例均独审接受。Pressure原78实际发射中60次有效命中，玩家3HP，4枚5币/Gold/core/grapple/同玩家森林及旧token拒绝通过；原胜后定位fixture继续披露。不是full185。
 
-下一步：先提交本次证据收口，再用已静审generator06更新原3索引（必须clean expectedHEAD、consumer=dce43112、RootBell=61c4、R3=760e；technical-closeout取实际证据收口提交）。生成器只写file_inventory.csv/runtime_inventory.json/dependency_graph.json，不改人工报告；运行后核摘要/原文保护，再更新人工来源说明。原05与06静审原件保留，无需重建固定工具链。
+索引06已在干净2fa2daac执行并独审：34200路径与该源tracked全等、仅原三索引改变、人工报告生成期间未改；生产仍61c4，生成内容becd，独立R3批760e。结果/生成器见docs/evidence/game_architecture_02/final-audit-index-06，不重复生成或覆盖05证据。
 
-然后docs/quality检查、冻结/推送精确源，启动原environment.yml workflow_dispatch的完整185与Web/Windows/Android导出。不要把该原R3单项与旧151预检拼成full185。再验证原始API-digest ZIP、PCK隔离v11、真实浏览器三消费者及原声连续影片、公开metadata/完整PCK。新模块库/新算法仍未实现。
+下一步：完成本次索引/说明保存，docs/quality/qualitydiff及精确最终HEAD release-evidence后推送同分支。按现有environment.yml一次workflow_dispatch，deploy_playtest=true、build_android=true，完整185+三平台；不要用无run-id的publisher再派发一轮。采用已有run时给publish_playtest.py --ref同分支 --expected-commit精确最终HEAD --run-id实际ID --attempt实际attempt --checkpoint新path，超时仅--resume。
+
+试玩发布已有授权，现行project-integration允许CI门槛后部署，再补最终交付的实际CI ZIP API digest/PCK/三个浏览器消费者、同源原生连续影片及公开完整PCK64hex。Android非deploy前置，若其失败整run仍不能PASS。不要把旧151预检/本单项拼成full185；不要重复编译固定引擎。新模块库/新算法未实施。
 
 [本批细节/回退](worklines/game_architecture_01/r3_current_content_contract_01.md)；[原wholecheck证据](evidence/game_architecture_02/r3-current-contract-01/original-wrapper/README.md)。
 
