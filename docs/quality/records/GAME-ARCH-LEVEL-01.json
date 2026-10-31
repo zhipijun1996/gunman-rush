@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "task_id": "GAME-ARCH-LEVEL-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "ca8b99160efa6f075c2ea8b2b7fab743196250f8",
+  "content_version": "candidate-v1",
+  "owner": "/root/runtime_audit",
+  "purpose": "纯值地图请求、已解析Plan与实际运行装配；四正式地图接入并保留旧格式适配",
+  "player_experience": "保留现有入口、玩法、随机、保存及已采用图声；音频宿主缺陷独立标记",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "game/world/content/level_module_catalog.gd",
+    "game/world/content/level_module_catalog.gd.uid",
+    "game/world/forest_level_geometry.gd",
+    "game/world/forest_level_geometry.gd.uid",
+    "game/world/level_build_result.gd",
+    "game/world/level_build_result.gd.uid",
+    "game/world/level_content_validation.gd",
+    "game/world/level_content_validation.gd.uid",
+    "game/world/level_module_placement.gd",
+    "game/world/level_module_placement.gd.uid",
+    "game/world/level_plan.gd",
+    "game/world/level_plan.gd.uid",
+    "game/world/level_request.gd",
+    "game/world/level_request.gd.uid",
+    "game/world/level_runtime.gd",
+    "game/world/level_runtime.gd.uid",
+    "game/world/providers/forest_level_provider.gd",
+    "game/world/providers/forest_level_provider.gd.uid",
+    "game/world/providers/legacy_region_plan_adapter.gd",
+    "game/world/providers/legacy_region_plan_adapter.gd.uid",
+    "game/world/providers/plains_level_provider.gd",
+    "game/world/providers/plains_level_provider.gd.uid",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/demo_stage.gd",
+    "scripts/demo/generated_demo_stage.gd",
+    "scripts/demo/plains_environment_stage.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "scripts/generation/plains_region_assembler.gd",
+    "scripts/generation/random_stage_generator.gd",
+    "scripts/generation/thorn_forest_region_assembler.gd",
+    "scripts/world/forest_practice_bell.gd",
+    "tests/forest_hazard_records_runner.gd",
+    "tests/level_plan_runner.gd",
+    "tests/level_plan_runner.gd.uid"
+  ],
+  "deliverables": [
+    "纯值地图请求、已解析Plan与实际运行装配；四正式地图接入并保留旧格式适配",
+    "真实消费者迁移、独立审查及原回归"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "整合后的原完整回归和导出尚未全部执行",
+    "不签用户设备、听感或新艺术认可"
+  ]
+}

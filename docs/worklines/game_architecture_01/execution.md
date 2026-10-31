@@ -1,18 +1,29 @@
 # 架构迁移执行记录
 
-统一内容底座：`2ce4ffa64ef65dd5fba892776eea019c9e2841d4`，含PR122/124/125/107，排除PR123。用户要求持续完成，并强调调用关系与公共实现，不以目录搬迁或新旧逻辑并存当作完成。
+内容底座：`2ce4ffa64ef65dd5fba892776eea019c9e2841d4`（PR122/124/125/107，排除PR123）。主工作树 `/workspace/gunman-rush-refactor`，分支 `refactor/game-architecture-02`。用户要求持续完成且再次明确可用subagent并行；采用6个隔离实现/审查代理，root统一引擎验证。
 
-## 当前批次
+## 已整合的实际调用关系
 
-- P1 CI调度：完整172在原双lane执行一次，Web接收同源已验包并核完整目录指纹；自动docs由full承担，手动入口保留。旧计划250次→172次，仅为静态计划计数，不冒称实测提速。预算/检查注册/旧断言不删。
-- P1迁移守门：生产识别、源码清单、UI主题与实际导出脚本/shader检查覆盖game；depth/golden复用现有inventory，删除重复扫描。其他独特清单继续保留明确范围。
-- P1森林超时：原80路线/600秒仍未修完。实际首路线2154帧，原生21.3秒；诊断显示敌人网格与前景计算占显著时间。disable-render-loop未提速，已拒绝，不改生产与CI参数。逐顶点等价优化另批验证。
-- P2局状态：独立候选bcdc28d4已把App的创建/清理迁到唯一RunSession和RunComposition；49项真实会话断言完成，测试包装器marker错误保留，原回归执行中；未作为已验收整合提交。
-- P3地图：等待P2完整验证后迁移旧生成器依赖和真实两区消费者；接口必须支持未来新统一模块库，不用旧StageFactory包装冒充完成。
-- P4/P5配装与效果、P6实体、P7入口/音频、P8目录/资源、P9完整验收：依既定设计继续，不标完成。
+- `DemoApp → RunSession / RunComposition`：真实创建/清理迁移，一个Flow/Lifetime/Wallet/Build；Session不暴露给地图、敌人、道具。
+- `DemoApp → LevelRequest → 两区Provider → LevelPlan → LevelRuntime → 现有Assembler/模块/EnemyFactory/BossFactory`：原算法与旧Manifest回退仍在旧Provider；裸Plan不需旧Manifest即可装配。旧Stage的表现/记录仍有Manifest适配层，不宣称整个旧入口已无此依赖。
+- 三个Stage快照/一个App恢复点 → Actor/Behavior的共同状态协议；保平原11字段、森林8字段+专属depth及原String/StringName键类型。候选身份只由现有Registry定义。
+- Shop修复 → Build → Inventory受限提交/回滚；Shop扣款/退款/Session清空 → Wallet；收益效果 → Runtime收益命令；两个主动族 → 同一ItemActiveCast。Time仅接窄能力上下文。
+- 四Study + tests shim → 唯一生产WorldAudioLifecycle。音频nearest owner/Cloud重复服务/按钮重复响是独立旧缺陷修复，不混称等价。
+- 绘制 → 一次姿态预处理 + UV权重 → 唯一顶点计算；旧deform入口仅委托同核。
 
-## 验收约束
+## 实际验证与失败保留
 
-一个状态只由一个模块拥有；实际消费者必须迁移，共同规则只留一个实现。需要保留的策略差异显式参数化，不复制整套流程。每批记录旧→新调用关系、删除的重复逻辑、实际检查和回退父SHA。旧资源清理需真实消费者闭包证明，不换已选图声、不改玩法/RNG/保存格式。
+P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通过；集成P2/P4会话49/0。新地图146/0、实体61/0、共享施放13/0、四Study完整切换65/0。原森林80/80路线473.659秒，在原600秒内通过（源6b3df3f7，仅性能批+内容底座，不代签后来整合）。顶点367640逐字节等价5796/0，原motion481/0。
 
-P1纯Python已验Harness91、Web47、quality59、inventory7、reader57、pilot26、raw-export9、Underworld162、frozen fixture24。原legacy全文件缺历史manifest仍未通过。完整172、远端CI、实际导出、设备/听感未签；独立静态审查不替代这些结果。
+原/新音频释放16case对照80/0：同帧play→stop均保留待启动引用，物理启动后停止均释放；旧限制单列。先前失败包装marker、WeakRef推断、错误测试同帧假设、快照键类型差异、裸Plan空数组类型错误日志全部保留；修复后数据不覆盖失败原件。
+
+现有Harness完整检查由172增到180，原172及预算保持。原自动跨job计划重复78次移除，实际Web仍在full生产并由消费者核同源完整指纹。architecture guard复用原structure，另有12项反例；动态加载仅披露，不冒称已静态解决。
+
+## 尚未完成
+
+- 整合后的原core/生成消费者/森林保存与实体/道具/Boss/音频回归正在排队，完整180/GUI/实际导出待最终源冻结。
+- P8.1已冻结旧style25/creative28有限原源（精确4bb7aa96）；当前live绑定仍失配，必须在全部调用者迁移后一次升技术style26/creative29，不重签旧SHA、不换图声。
+- P8.2按功能路径迁移、动态与协议路径审核、35入口逐项盘点、全文件用途清单与最终依赖图仍待完成，不能以目前新目录或新增接口冒称全仓重构完成。
+- 原能量初始化失败无回滚、Inventory patch失败后效果拒绝的原事务局限、同帧音频停止限制单独保留，不混改玩法。
+
+每批回退父提交由Git历史真实记录；重构整体回退底座为2ce4ffa6。原dirty `/workspace/gunman-rush` 从未套用/覆盖。

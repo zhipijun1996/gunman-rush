@@ -724,3 +724,17 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | LEVEL-TOOLS-INTEGRATION-01 | PR107离线工具与两Boss主线并集 | MAIN-UNIFY-20261031 | in_progress | [组合证据](evidence/main_unify_20261031/level-tools/README.md)；28/41通过，native pilot/full172未签，不切正式地图 |
 
 | GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原172/预算保持，森林超时分开修复 |
+
+| GAME-ARCH-SESSION-01 | mechanic | GAME-ARCH-CI-01 | in_progress | RunSession owns actual App services; bounded original regressions pass; full integration pending |
+
+| GAME-ARCH-LEVEL-01 | 纯值地图请求、已解析Plan与实际运行装配；四正式地图接入并保留旧格式适配 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LEVEL-01.json) |
+
+| GAME-ARCH-ENTITY-01 | 三个地图消费者共用敌人快照与恢复，候选行为归现有Registry | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENTITY-01.json) |
+
+| GAME-ARCH-LOADOUT-01 | 库存修复及回滚、钱包余额、道具收益和主动施放的真实消费者收敛 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LOADOUT-01.json) |
+
+| GAME-ARCH-ENTRY-01 | 正式预览与测试共用生产音频生命周期，保留同帧停止既有限制 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENTRY-01.json) |
+
+| GAME-ARCH-AUDIO-01 | 单独修复已知音频宿主串用与按钮重复触发；不改音频资源 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-AUDIO-01.json) |
+
+| GAME-ARCH-MESH-01 | 同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-MESH-01.json) |

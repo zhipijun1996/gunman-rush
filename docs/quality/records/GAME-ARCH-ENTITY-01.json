@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "task_id": "GAME-ARCH-ENTITY-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "ca8b99160efa6f075c2ea8b2b7fab743196250f8",
+  "content_version": "candidate-v1",
+  "owner": "/root/structure_audit",
+  "purpose": "三个地图消费者共用敌人快照与恢复，候选行为归现有Registry",
+  "player_experience": "保留现有入口、玩法、随机、保存及已采用图声；音频宿主缺陷独立标记",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_attack_behavior.gd",
+    "scripts/enemies/enemy_behavior_registry.gd",
+    "scripts/enemies/enemy_factory.gd",
+    "scripts/enemies/forest_crossbranch_behavior.gd",
+    "tests/enemy_region_state_runner.gd",
+    "tests/enemy_region_state_runner.gd.uid"
+  ],
+  "deliverables": [
+    "三个地图消费者共用敌人快照与恢复，候选行为归现有Registry",
+    "真实消费者迁移、独立审查及原回归"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "整合后的原完整回归和导出尚未全部执行",
+    "不签用户设备、听感或新艺术认可"
+  ]
+}
