@@ -904,5 +904,6 @@
     "main_integration_base": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
     "public_lock_sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
     "local_installer_merge_parent": "63afcb1ba43c7d16c85745478cd3617037f20848"
-  }
+  },
+  "test_change_justification": "tools/run_plains_action_golden_tests.py将已不匹配用户批准fixed distribution的旧official banner正则迁至同一godot_identity.banner_pattern；实际Godot wrapper先校固定binary SHA及精确source/version，未放宽120秒import预算、非零退出或原ERROR守门。35源码/锁与59537400的逐字绑定和独立接受已归档；该变更是身份迁移，不是接受任意custom/official版本。原26安装/拒绝测试与91Harness通过不代签该native完整流程，后者仍由full执行。"
 }

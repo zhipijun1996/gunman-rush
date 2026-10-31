@@ -6,11 +6,11 @@
 
 ## 可检索文件与实际图
 
-- [file_inventory.csv](file_inventory.csv)：32,923 行，覆盖读取时全部 Git tracked 文件，加本报告四份交付文件。每行有路径、原路径、职责、具体用途、批次与来源/manifest 候选；未物化稀疏文件大小留空，不为索引下载媒体。
+- [file_inventory.csv](file_inventory.csv)：33,692 个文件条目，覆盖技术收口ad3bcda7读取时全部 Git tracked 文件。每行有路径、原路径、职责、具体用途、批次与来源/manifest 候选；未物化稀疏文件大小留空，不为索引下载媒体。
 - [runtime_inventory.json](runtime_inventory.json)：1,554 个运行相关文件：1,486 个功能/协议目录文件，另含 assets 中 18 个可执行/定义文件及配对 UID、50 个 shader/include/UID。逐文件列出用途、实际归属、原路径、静态消费者、可能入口与身份持有原因；另列每批精确提交、父提交及完整当前写集。
 - [dependency_graph.json](dependency_graph.json)：复用现有 `tools/project_dependencies.py:inspect`，842 个源、510 个类、3,447 条实际静态边、118 个未静态解析的动态加载表达式。没有另造运行注册表或第二套依赖算法。
 
-三份索引当前仍标注技术快照源 `6f743953d6c70c63d4d366a3e84cbe2a571b29d7`；以下数量属于该快照，尚未重生，不能把它们改称 a671 或当前测试 WIP 的精确图。最终源冻结后再由原工具重生。
+三份索引已由原提取流程更新至技术收口 `ad3bcda77d7040b786d613497be3b8bc47ee241e`，33,692路径、1,554运行文件、842源/510类/3,447静态边/118动态未解析点。索引是该已提交源的快照，后继索引及说明提交不追改其来源；原6f快照保留在Git历史。
 
 可视调用关系见[当前运行架构](../../architecture.md)，功能导航见[模块导航](../../module_map.md)。这三份数据是审计快照。静态可达入口包含 App 显式打开实验的路径，不能解释成“启动正式游戏会加载全部实验”；提取器覆盖 GDScript、scene、resource 的类/类型及资源边；shader include 内部、元数据驱动选择不冒称已被它解析。动态路径、条件分支、延迟加载和导出 remap 必须由原有专用检查、原生与 PCK 验证。完整外部临时 JSONL 不重复提交；仓库保留一份 CSV、运行时详单和图即可。
 
