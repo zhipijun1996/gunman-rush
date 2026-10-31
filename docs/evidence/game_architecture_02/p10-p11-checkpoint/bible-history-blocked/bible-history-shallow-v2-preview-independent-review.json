@@ -1,0 +1,23 @@
+{
+  "decision": "LIMITED_ACCEPT_V2_INCREMENT_ONLY",
+  "reviewer": "preview_audit (not candidate author)",
+  "candidate_patch_sha256": "36a5632be1639dbd609ade3c804ae3b3b2eaa7c36e81a03425cc6bb8fa075b20",
+  "incremental_patch_sha256": "b3d7558013fa0a948f183431027d362deaf5152f87bcd03f7270c6aca456ad10",
+  "test_sha256": "0bc9f4c5ecbdfb9a012910135154a5aade2b3f056a44864e92798c0209b68afa",
+  "verified": {
+    "other17files_byte_identical_to_v1": true,
+    "entire_module_ast_except_single_new_test_method_identical_to_v1": true,
+    "unchanged_guard_uses_method_name_and_complete_method_ast_only": true,
+    "actual_extracted_candidate_full_archive_positive_checks": 2,
+    "actual_extracted_candidate_targeted_mutation_negative_checks": 12,
+    "attacks": "2 archives x 2 real methods x early return/dead branch/empty loop",
+    "no_source_root_or_hash_cache_added": true
+  },
+  "prior_unchanged_scope_receipt": "/workspace/refactor-evidence/bible-history-shallow-preview-independent-review.json",
+  "limits": [
+    "Only finite pure Python extracted guard executed; no full Bible suite or Godot.",
+    "Full 30-second acceptance remains pending author original-command execution.",
+    "Prior failed/timeout receipts remain failures; no performance threshold inferred."
+  ],
+  "main_modified": false
+}
