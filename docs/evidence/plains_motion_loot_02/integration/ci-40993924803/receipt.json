@@ -1,0 +1,86 @@
+{
+  "run_id": 40993924803,
+  "source_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "status": "failed",
+  "parallel": {
+    "passed": 48,
+    "failed": 1,
+    "not_executed": 43,
+    "failure": "root-bell-spaces/non_ecology_content_drift/plains-redesign-8/plains/map_2"
+  },
+  "serial": {
+    "passed": 17,
+    "timeout": 1,
+    "not_executed": 57,
+    "failure": "forest-depth-region outer600.226seconds",
+    "completed_matrix_cases": 53,
+    "matrix_status": "running interrupted by outer timeout; not a completed80 run"
+  },
+  "artifacts": [
+    {
+      "id": 12952602433,
+      "name": "production-phase-proof-serial",
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-phase-original.zip",
+      "bytes": 2380157,
+      "sha256": "6a2aefe46eafd8f8be00b36fabf88fd3207e6bb8c66d700fe56967f45c529216",
+      "github_api_digest_matched": true
+    },
+    {
+      "id": 12952232575,
+      "name": "production-lane-parallel-40993924803-1",
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-full-original.zip",
+      "bytes": 12639075,
+      "sha256": "4fe458a85efef4ff886bfe0aff9e5019ed513c3c24e2cc3fad3352a99af5f951",
+      "github_api_digest_matched": true
+    },
+    {
+      "id": 12951564758,
+      "name": "production-phase-proof-parallel",
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-phase-original.zip",
+      "bytes": 2317002,
+      "sha256": "622040493cdbcbadf3594c0150280ad60eb2eda9bc8efa2fa64796bc887e8f1c",
+      "github_api_digest_matched": true
+    },
+    {
+      "id": 12950967357,
+      "name": "production-context-40993924803",
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/context-original.zip",
+      "bytes": 25838,
+      "sha256": "ba42201956270982f5e66d43c14475d5c5ea099a5dee4394695b0e6619c2b0c6",
+      "github_api_digest_matched": true
+    },
+    {
+      "id": 12950753375,
+      "name": "production-impact-40993924803-1",
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/prepare-original.zip",
+      "bytes": 1356177,
+      "sha256": "b49da45216e7b0ea80ea2734a83576c6d9f45c412d55fe0148e3224202c696b6",
+      "github_api_digest_matched": true
+    }
+  ],
+  "serial_full_local_original": {
+    "path": "build/plains-ci-40993924803/serial-full-failed.zip",
+    "bytes": 73708446,
+    "sha256": "7f69cca6daa24e00c671874e4e9445d1a68cf2b5b5e21cb500533f845c323869",
+    "github_api_digest_matched": true,
+    "selected_member": "harness/20261030T031318.766762Z/artifacts/forest-depth-region/build/forest_depth/region/harness-matrix/harness-4ac41dc978b9405198983707bd45a6bf/receipt.json",
+    "selected_member_sha256": "c95f064bce0fb262be5995969331325710d8534992fb46b95f9dcd25d40584f3"
+  },
+  "scope": "Failure originals; no full167 PASS, no budget reduction, no production performance fix claim.",
+  "decoded_original_job_logs": [
+    {
+      "job_id": 123866313418,
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-job-original.log",
+      "bytes": 144766,
+      "sha256": "bfbfdc9754fe6eba542316a44c5837cdf0a8b7c8d904726bca5139432fbf3003",
+      "source": "GitHub native decoded job-log response, exact text including trailing blanks; not a binary job ZIP digest"
+    },
+    {
+      "job_id": 123866313516,
+      "path": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-job-original.log",
+      "bytes": 180010,
+      "sha256": "4e8e8df5b6c7c358101b101ed4aa62621b5cb25f818d2caa0668e06a65f2d8ad",
+      "source": "GitHub native decoded job-log response, exact text including trailing blanks; not a binary job ZIP digest"
+    }
+  ]
+}

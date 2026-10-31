@@ -1,0 +1,2170 @@
+{
+  "scope": "Fresh read-only audit: 7 forest species plus 2 development candidates; not the old roster copied as acceptance",
+  "head": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+  "captured_at_utc": "2026-10-29T06:37:58.510329+00:00",
+  "repository_write": false,
+  "engine_executed": false,
+  "method": {
+    "sparse_checkout_handling": "Enumerated HEAD with git ls-tree -r --name-only; read local hydrated files, with git show HEAD:path fallback for sparse files. Local absence is not treated as repository absence.",
+    "absence_scope": "Tracked species/name paths, group design/Bible/asset records/manifests and actual script literals examined; not an assertion that all anonymous image pixels in repository were semantically classified.",
+    "quality_boundary": "No visual quality verdict. User rejection of prior overall quality remains the latest acceptance fact. Mesh deformation is an implementation method, not automatically good or bad."
+  },
+  "shared_feedback": {
+    "runtime": [
+      "scripts/enemies/enemy_hit_template.gd",
+      "scripts/enemies/enemy_feedback_01.gd",
+      "scripts/enemies/enemy_feedback_01_particles.gd",
+      "scripts/enemies/enemy_actor.gd"
+    ],
+    "facts": [
+      "All 9 actual stable IDs take the generic accepted EnemyHitTemplate branch, not the authored charger/diver H/D frame profile.",
+      "Shared contact fan/chips are procedural polygons/rects/lines. Shared body flash/pose sample is not a species-specific hurt sprite sequence.",
+      "Current forest actions and death use the same one-body image; prototype posed art is retained but only canonical neutral crops are live."
+    ],
+    "evidence": [
+      {
+        "path": "scripts/enemies/enemy_feedback_01.gd",
+        "line": 6,
+        "excerpt": "const PROFILES := {"
+      },
+      {
+        "path": "scripts/enemies/enemy_feedback_01.gd",
+        "line": 31,
+        "excerpt": "return definition != null and PROFILES.has(definition.stable_id)"
+      },
+      {
+        "path": "scripts/enemies/enemy_hit_template.gd",
+        "line": 33,
+        "excerpt": "template.sample = EnemyFeedback01.new(owner_health, definition)"
+      },
+      {
+        "path": "scripts/enemies/enemy_feedback_01_particles.gd",
+        "line": 69,
+        "excerpt": "draw_colored_polygon(points, Color(CREAM, contact * .95))"
+      }
+    ]
+  },
+  "shared_audio": {
+    "binding_evidence": [
+      {
+        "path": "scripts/enemies/enemy_actor.gd",
+        "line": 122,
+        "excerpt": "GameAudio.cue_event(self, &\"enemy_hurt\", &\"hurt\")"
+      },
+      {
+        "path": "scripts/enemies/enemy_actor.gd",
+        "line": 75,
+        "excerpt": "if not _restoring_instance: GameAudio.cue(self, &\"enemy_defeat\")"
+      },
+      {
+        "path": "scripts/presentation/forest_bible_ambience.gd",
+        "line": 69,
+        "excerpt": "func notify_web(world_position: Vector2) -> void:"
+      },
+      {
+        "path": "scripts/demo/thorn_forest_region_stage.gd",
+        "line": 200,
+        "excerpt": "if phase == \"extend\": ambience.notify_web(body.global_position)"
+      },
+      {
+        "path": "scripts/enemies/enemy_attack_behavior.gd",
+        "line": 134,
+        "excerpt": "if next == &\"telegraph\": GameAudio.cue(self, &\"warning\")"
+      }
+    ],
+    "default_and_selection": "GameAudio starts original; actual audio-director selection/overrides are dynamic. No listening or player-specific saved selection measured.",
+    "resources": [
+      "assets/audio/kenney/hurt.ogg",
+      "assets/audio/kenney/enemy_defeat.ogg",
+      "assets/audio/kenney/enemy_shot.ogg",
+      "assets/audio/kenney/armour.ogg",
+      "assets/forest_bible_v2/audio/forest_web.wav",
+      "assets/audio/kenney/warning.ogg"
+    ],
+    "dedicated_banks": "No separate hurt/death voice bank per these 9 species found in their actual consumers. forest_web is shared regional state-entry sound; Seed bell/shoot and prototype armour use shared cues. Bark shield_contact has a visual-only presentation subscriber; no direct shield_contact audio subscriber found in tracked scripts.",
+    "facts": [
+      "EnemyAttackBehavior._set_state telegraph uses the shared warning cue, including forest/candidate subclasses that enter telegraph.",
+      "No unique species hurt/death recording was found through the nine actual consumer branches; this does not classify every anonymous audio file in the repository."
+    ]
+  },
+  "family_manifest_historical_claims": [
+    {
+      "id": "forest_bible_v2.ecology_v2",
+      "path": "assets/forest_bible_v2/source/ecology_v2.original.png",
+      "status": "withdrawn_from_runtime; retained_source_only; byte_identical_active_duplicate_removed",
+      "runtime_direct_sampling": false
+    },
+    {
+      "id": "forest_bible_v2.native.weaver_silk_bell_v4",
+      "path": "assets/forest_bible_v2/native/weaver_silk_bell_v4.png",
+      "status": "retained_v4_actual9frame_REWORK_leg_contrast; superseded_by_v5_candidate_not_finally_accepted",
+      "runtime_direct_sampling": false
+    },
+    {
+      "id": "forest_bible_v2.native.weaver_silk_bell_v5",
+      "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+      "status": "one_dark_leg_REWORK_refinement_candidate; actual_Godot_and_independent_review_pending; not_finally_accepted",
+      "runtime_direct_sampling": true
+    },
+    {
+      "id": "forest_bible_v2.native.bark_beetle_v1",
+      "path": "assets/forest_bible_v2/native/bark_beetle_v1.png",
+      "status": "CANDIDATE_actual_Godot_parse_and_composition_UNVERIFIED",
+      "runtime_direct_sampling": true
+    },
+    {
+      "id": "forest_bible_v2.native.forest_lantern_v1",
+      "path": "assets/forest_bible_v2/native/forest_lantern_v1.png",
+      "status": "CANDIDATE_actual_parse_Godot_HUD_and_independent_review_UNVERIFIED",
+      "runtime_direct_sampling": true
+    },
+    {
+      "id": "forest_bible_v2.native.forest_swing_pod_v1",
+      "path": "assets/forest_bible_v2/native/forest_swing_pod_v1.png",
+      "status": "CANDIDATE_actual_parse_Godot_HUD_and_independent_review_UNVERIFIED",
+      "runtime_direct_sampling": true
+    },
+    {
+      "id": "forest_bible_v2.native.forest_seed_sentry_v1",
+      "path": "assets/forest_bible_v2/native/forest_seed_sentry_v1.png",
+      "status": "CANDIDATE_actual_parse_Godot_HUD_and_independent_review_UNVERIFIED",
+      "runtime_direct_sampling": true
+    },
+    {
+      "id": "forest_bible_v2.native.forest_crossbranch_v1",
+      "path": "assets/forest_bible_v2/native/forest_crossbranch_v1.png",
+      "status": "CANDIDATE_actual_parse_Godot_HUD_and_independent_review_UNVERIFIED",
+      "runtime_direct_sampling": true
+    }
+  ],
+  "manifest_warning": "family manifest native v1 direct_sampling=true is retained metadata, while current ForestBibleActors directly preloads fine_32 for five bodies. Do not equate manifest registration/status with current executed texture or user approval.",
+  "species": [
+    {
+      "id": "forest_lantern",
+      "display_name": "铃囊萤",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/design/forest_enemy_ecology_v2.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/design/forest_enemy_ecology_v2.md",
+            "line": 3,
+            "excerpt": "当前基底是铃囊萤、棘籽哨、旧 charger 森林配方与织棘蛛。新版 v9 在地图2的一个共享庭院分支加入真实跨枝移动体与同一宝箱的异路回程；它提供可选运动表达，**不主张比普通强解更快、更省，或已经完成整区生态丰富度**。折枝獾、旧同轴停驻者、上层 Seed＋Lamp 和侧环 HR 均已淘汰，不能用新 ID 或技术通过给它们翻案。"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 13,
+            "excerpt": "| forest_lantern | fine_32/lantern.png；dwell→telegraph→travel→dwell | 胸部/灯腹/双翼分别铰接；停驻14rad/s翼摆，移动19rad/s翼摆；蓄势拢翼、移动灯腹反摆、受伤翼收、致死翼下垂 | 原36×30身体和24×24碰撞；灯腹中心不搬Actor；0.38s后保原暗色终态 |"
+          }
+        },
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "kind": "regional_appearance_and_ecology_brief",
+          "evidence": {
+            "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "line": 213,
+            "excerpt": "| **铃囊萤** | 透明囊腹、微亮铜铃状甲壳、短翅 | 在两枝间缓行，身体接触伤害；可击杀也可作为移动钩点，改变一次跨枝路线的落点和时机 | 外枝、林冠、横跨空谷 |"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_lantern.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "6858b90b00a1b2d04e33bb1784e42ad1e8617f40be4500d6d0fae0d5c6c789ae"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_lantern.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "29dcd4c86b913094e6d82209b75b12841f8cb8e26e957feb349798f07286a30e"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_lantern_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "a86e6eeba1d40cb19058779382aef02f52c61d2d7376751bfda90ae3ffe972c4"
+      },
+      "presenter": "scripts/enemies/forest_enemy_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/fine_32/lantern.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "9e07b6364e693bfb60a48e4bf994b9bd041aa7c5efa75648df586c8621d42e33",
+        "size": [
+          48,
+          40
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 22,
+        "excerpt": "&\"forest_lantern\": {\"texture\": preload(\"res://assets/forest_bible_v2/native/fine_32/lantern.png\"), \"bounds\": Rect2(-18.0, -15.0, 36.0, 30.0), \"collision\": Vector2(24.0, 24.0), \"mirror\": true},"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_enemy_presentation.gd",
+            "line": 29,
+            "excerpt": "var bible_body := ForestBibleActors.draw_enemy_body(self, actor, age)"
+          },
+          {
+            "path": "scripts/enemies/forest_enemy_presentation.gd",
+            "line": 9,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 104,
+            "excerpt": "var body_facing := _facing if facing != 1.0 or actor.definition.behavior_id in [&\"forest_lantern\", &\"forest_crossbranch\", &\"forest_bark_beetle\"] else 1.0"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_master_original.png",
+          "role": "multi-species image_gen original, one body per species",
+          "usage": "raw master of current derivative",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8cdccb76ca6ba3df90f783a20b57f50c0803b7c797fb2ed2957e7809f6c205e7",
+          "size": [
+            1312,
+            1199
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_generation.json",
+          "role": "image generation prompt/references/processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "a60cbc803325b0556fc1e36b7aa29c9f17d96d975057793a024984e81c66c448"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_build.json",
+          "role": "integer crops + nearest derivative dimensions",
+          "usage": "build manifest, not per-action clips",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "d075670edc815e4a5ba292b3e3e924ee98c8cc46a520de647c342ca67b451baf"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/forest_lantern_v1.png",
+          "role": "prior native single static body",
+          "usage": "retained, superseded in current helper by fine_32",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "363ba3cab7edc0bf6bbc9525e46639b208f85112b53d055bc64204bce416fadc",
+          "size": [
+            24,
+            20
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/lantern.native.png",
+          "role": "original indexed-pixel body",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "363ba3cab7edc0bf6bbc9525e46639b208f85112b53d055bc64204bce416fadc",
+          "size": [
+            24,
+            20
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/provenance.json",
+          "role": "native original body authoring history",
+          "usage": "source record",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8e2d9d0c9cc2ac31568d92bb301fc4a49d7a368f4c048190eae8f3df4cbdb2fe"
+        }
+      ],
+      "shared_historical_atlases": [
+        "assets/forest_bible_v2/source/ecology_v1.original.png",
+        "assets/forest_bible_v2/source/ecology_v2.original.png"
+      ],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "assets/forest_bible_v2/native/fine_32/ecology_build.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "same-body procedural death deformation; retained dark-tinted body in this presenter; no separate corpse texture/Stage sibling corpse created"
+      },
+      "species_presentation": "telegraph direction line; lantern wing/body motion is procedural; no attack projectile",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "forest_seed_sentry",
+      "display_name": "棘籽哨",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/design/forest_enemy_ecology_v2.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/design/forest_enemy_ecology_v2.md",
+            "line": 3,
+            "excerpt": "当前基底是铃囊萤、棘籽哨、旧 charger 森林配方与织棘蛛。新版 v9 在地图2的一个共享庭院分支加入真实跨枝移动体与同一宝箱的异路回程；它提供可选运动表达，**不主张比普通强解更快、更省，或已经完成整区生态丰富度**。折枝獾、旧同轴停驻者、上层 Seed＋Lamp 和侧环 HR 均已淘汰，不能用新 ID 或技术通过给它们翻案。"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 14,
+            "excerpt": "| forest_seed_sentry | fine_32/seed_sentry.png；idle→telegraph→attack→recovery | 根座固定；冠/种腔分别蓄势和反向释放；恢复向当前相位收回；受伤关节折回，死亡冠/腔枯折 | 原33×39/30×36；根座及真实弹体origin/落点保持；保原暗色终态 |"
+          }
+        },
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "kind": "regional_appearance_and_ecology_brief",
+          "evidence": {
+            "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "line": 214,
+            "excerpt": "| **棘籽哨** | 根茎支架上生长的针果与眼状铃蕊 | 锁定玩家当前支撑面，抛射弧形棘籽并形成短暂落区；玩家通过换层、遮挡或抢先突破应对 | 根盘、开阔庭院、狭窗前 |"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_seed_sentry.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "8c48ab8a873de121569d9b67419005f58dd3719c525162c7d1ddd8da22789a28"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_seed_sentry.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "ddbafdc702f0150790ac174e511ed7cdcf7799a26493b4a67a57861a29ebb5f5"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_seed_sentry_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "9351a00f6c2cd3d8a86b7f6996e15e53ce2c7144f7539bf5935d3e9d32a5224e"
+      },
+      "presenter": "scripts/enemies/forest_enemy_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/fine_32/seed_sentry.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "af931307394854be2d51da5efa05d574b4dacd6bf0c5a58d710ad1abf989534a",
+        "size": [
+          44,
+          52
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 24,
+        "excerpt": "&\"forest_seed_sentry\": {\"texture\": preload(\"res://assets/forest_bible_v2/native/fine_32/seed_sentry.png\"), \"bounds\": Rect2(-16.5, -19.5, 33.0, 39.0), \"collision\": Vector2(30.0, 36.0), \"mirror\": false},"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_enemy_presentation.gd",
+            "line": 29,
+            "excerpt": "var bible_body := ForestBibleActors.draw_enemy_body(self, actor, age)"
+          },
+          {
+            "path": "scripts/enemies/forest_enemy_presentation.gd",
+            "line": 9,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 123,
+            "excerpt": "&\"forest_seed_sentry\":"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_master_original.png",
+          "role": "multi-species image_gen original, one body per species",
+          "usage": "raw master of current derivative",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8cdccb76ca6ba3df90f783a20b57f50c0803b7c797fb2ed2957e7809f6c205e7",
+          "size": [
+            1312,
+            1199
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_generation.json",
+          "role": "image generation prompt/references/processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "a60cbc803325b0556fc1e36b7aa29c9f17d96d975057793a024984e81c66c448"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_build.json",
+          "role": "integer crops + nearest derivative dimensions",
+          "usage": "build manifest, not per-action clips",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "d075670edc815e4a5ba292b3e3e924ee98c8cc46a520de647c342ca67b451baf"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/forest_seed_sentry_v1.png",
+          "role": "prior native single static body",
+          "usage": "retained, superseded in current helper by fine_32",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "29624d4f49d0b09e41c7e4be38be1c6e3e4ec52800244efc4fbef886114ab361",
+          "size": [
+            22,
+            26
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/seed_sentry.native.png",
+          "role": "original indexed-pixel body",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "29624d4f49d0b09e41c7e4be38be1c6e3e4ec52800244efc4fbef886114ab361",
+          "size": [
+            22,
+            26
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/provenance.json",
+          "role": "native original body authoring history",
+          "usage": "source record",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8e2d9d0c9cc2ac31568d92bb301fc4a49d7a368f4c048190eae8f3df4cbdb2fe"
+        }
+      ],
+      "shared_historical_atlases": [
+        "assets/forest_bible_v2/source/ecology_v1.original.png",
+        "assets/forest_bible_v2/source/ecology_v2.original.png"
+      ],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "assets/forest_bible_v2/native/fine_32/ecology_build.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "same-body procedural death deformation; retained dark-tinted body in this presenter; no separate corpse texture/Stage sibling corpse created"
+      },
+      "species_presentation": "locked support landing rectangle/arc; ForestSeedProjectile flight circle/line and landed danger rectangle/stripes are procedural",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue",
+        "ForestSeedSentryBehavior enemy_shot cue",
+        "ForestSeedProjectile landed bell cue (shared cue, not species-specific recording)",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "forest_bark_beetle",
+      "display_name": "树皮甲虫",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/design/forest_feedback_ecology.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/design/forest_feedback_ecology.md",
+            "line": 7,
+            "excerpt": "## 树皮甲虫：根盘上的方向材质"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 15,
+            "excerpt": "| forest_bark_beetle | fine_32/beetle.png；idle patrol→telegraph→attack→recovery | 三组原图腿条按Motor真实位移交替；甲壳与头部独立小角度承压/出击；受伤头缩、死亡腿卷 | 原36×24；盾接触仍唯一ForestBarkDamageable事件；0.38s收束后原隐藏终态 |"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_bark_beetle.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "8154ef5c1e857f52e17343024626205e9115fb26fc77ea942effae61b48e803d"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_bark_beetle.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "79351c2151891138789c869897c8cc1e57bd18c1dcb95e767fe5f857f655ba56"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_bark_beetle_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "9bd01db121126c02794afae22227f33a71426cce07fdb8247522df3dfbe68be2"
+      },
+      "presenter": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/fine_32/beetle.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "5b4916917b3519b4e935939001e5ee252e3046b5aea97b05130a02682fa00e5a",
+        "size": [
+          48,
+          32
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 17,
+        "excerpt": "const BEETLE_BODY: Texture2D = preload(\"res://assets/forest_bible_v2/native/fine_32/beetle.png\")"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+            "line": 33,
+            "excerpt": "var bible_body := ForestBibleActors.draw_enemy_body(self, actor)"
+          },
+          {
+            "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+            "line": 9,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 104,
+            "excerpt": "var body_facing := _facing if facing != 1.0 or actor.definition.behavior_id in [&\"forest_lantern\", &\"forest_crossbranch\", &\"forest_bark_beetle\"] else 1.0"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+          "role": "multi-species image_gen original, one body per species",
+          "usage": "raw master of current derivative",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+          "size": [
+            2056,
+            765
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+          "role": "image generation prompt/references/processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+          "role": "integer crops + nearest derivative dimensions",
+          "usage": "build manifest, not per-action clips",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/bark_beetle_v1.png",
+          "role": "prior native single static body",
+          "usage": "retained, superseded in current helper by fine_32",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "30eaae8869edbc6e4f44d4e4bd1f14008e4e15e60ebcf48438d3999610333c2c",
+          "size": [
+            24,
+            16
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_beetle_v1/beetle.native.png",
+          "role": "original indexed-pixel body",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "30eaae8869edbc6e4f44d4e4bd1f14008e4e15e60ebcf48438d3999610333c2c",
+          "size": [
+            24,
+            16
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_beetle_v1/provenance.json",
+          "role": "native original body authoring history",
+          "usage": "source record",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "4a21cc22d2262e5655e5541a1e5a25f14a5dfaf5b6373b953fbe34b3bcf5f14c"
+        }
+      ],
+      "shared_historical_atlases": [
+        "assets/forest_bible_v2/source/ecology_v1.original.png",
+        "assets/forest_bible_v2/source/ecology_v2.original.png"
+      ],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "0.38s same-body procedural settle, then presenter returns without body (no retained corpse resource)"
+      },
+      "species_presentation": "shield_contact drives .12s shield_flash line; committed ground path arrow; refused front shot does not start accepted hurt",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "forest_swing_pod",
+      "display_name": "吊荚摆锚",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/design/forest_feedback_ecology.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/design/forest_feedback_ecology.md",
+            "line": 22,
+            "excerpt": "## 吊荚摆锚：树冠悬根的相位工具"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 16,
+            "excerpt": "| forest_swing_pod | fine_32/swing_pod.png；swing↔turn；blocked | 顶盖固定，下面荚体按真实x速度滞后；转端收紧，受伤围绕顶点，死亡荚身弯垂 | 原27×33/26×30；HitPose围绕tether(0,-13)，真实host/root metadata与绳端不搬；0.38s后原隐藏 |"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_swing_pod.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "55803c44fd97c04c681a2462d57ced90bdfc6d0c575365787eea6833372f3a67"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_swing_pod.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "f8d9574e8681efb31db7095a4913b5f623d9f498346cbdff83e512e7eb8d71e2"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_swing_pod_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "2fb2acf2ad56a553ddc70438cd87ba844b436a27a52d4af79f10255d97a14358"
+      },
+      "presenter": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/fine_32/swing_pod.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "203e9899c30ce2020831a8b1bce70e59860757f54ad74ff75b21197168d1c5d8",
+        "size": [
+          36,
+          44
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 23,
+        "excerpt": "&\"forest_swing_pod\": {\"texture\": preload(\"res://assets/forest_bible_v2/native/fine_32/swing_pod.png\"), \"bounds\": Rect2(-13.5, -16.5, 27.0, 33.0), \"collision\": Vector2(26.0, 30.0), \"mirror\": false},"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+            "line": 33,
+            "excerpt": "var bible_body := ForestBibleActors.draw_enemy_body(self, actor)"
+          },
+          {
+            "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+            "line": 9,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 101,
+            "excerpt": "if actor.definition.behavior_id == &\"forest_swing_pod\":"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_master_original.png",
+          "role": "multi-species image_gen original, one body per species",
+          "usage": "raw master of current derivative",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8cdccb76ca6ba3df90f783a20b57f50c0803b7c797fb2ed2957e7809f6c205e7",
+          "size": [
+            1312,
+            1199
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_generation.json",
+          "role": "image generation prompt/references/processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "a60cbc803325b0556fc1e36b7aa29c9f17d96d975057793a024984e81c66c448"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_build.json",
+          "role": "integer crops + nearest derivative dimensions",
+          "usage": "build manifest, not per-action clips",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "d075670edc815e4a5ba292b3e3e924ee98c8cc46a520de647c342ca67b451baf"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/forest_swing_pod_v1.png",
+          "role": "prior native single static body",
+          "usage": "retained, superseded in current helper by fine_32",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "929132739bc22e87864b9723c5cae076cfb52bf329ece69c93f8046ee8c769ea",
+          "size": [
+            18,
+            22
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/swing_pod.native.png",
+          "role": "original indexed-pixel body",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "929132739bc22e87864b9723c5cae076cfb52bf329ece69c93f8046ee8c769ea",
+          "size": [
+            18,
+            22
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/provenance.json",
+          "role": "native original body authoring history",
+          "usage": "source record",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8e2d9d0c9cc2ac31568d92bb301fc4a49d7a368f4c048190eae8f3df4cbdb2fe"
+        }
+      ],
+      "shared_historical_atlases": [],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "assets/forest_bible_v2/native/fine_32/ecology_build.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "0.38s same-body procedural settle, then presenter returns without body (no retained corpse resource)"
+      },
+      "species_presentation": "real tether root/host metadata, procedural tether line and turn arc; no independent attack projectile",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "forest_crossbranch",
+      "display_name": "跨枝移动体",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/design/forest_enemy_ecology_v2.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/design/forest_enemy_ecology_v2.md",
+            "line": 3,
+            "excerpt": "当前基底是铃囊萤、棘籽哨、旧 charger 森林配方与织棘蛛。新版 v9 在地图2的一个共享庭院分支加入真实跨枝移动体与同一宝箱的异路回程；它提供可选运动表达，**不主张比普通强解更快、更省，或已经完成整区生态丰富度**。折枝獾、旧同轴停驻者、上层 Seed＋Lamp 和侧环 HR 均已淘汰，不能用新 ID 或技术通过给它们翻案。"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 17,
+            "excerpt": "| forest_crossbranch | fine_32/crossbranch.png；rest→telegraph→flight→settle→rest及真实失败跌落 | 两侧枝肢蓄势/飞行收肢、中央头节独立，落地后随真实phase展开；受伤枝肢收，死亡折枝 | 原36×36/28×32；中央根脚固定，落点/flight/支撑不改；0.38s后原隐藏 |"
+          }
+        },
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "kind": "regional_appearance_and_ecology_brief",
+          "evidence": {
+            "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "line": 217,
+            "excerpt": "| **跨枝跃行兽** | 长节后足、苔甲、盘卷尾部 | 在不同高度枝岸间以可预告的抛物线移动；其真实飞行可成为临时钩索机会 | 北庭、高枝奖励环 |"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_crossbranch.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "01a836c7bacbd1900391f9fdafb167d008e40dbd158aa1af3369b4eab03a3d56"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_crossbranch.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "b433acf4134b300182e273dbe56dc743559ebb4ffa427756cdc431319ac43426"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_crossbranch_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "60e592bbf02bc76107cecd59bc2b1f922ce07aa581ac0df7bc4d407f894f8e31"
+      },
+      "presenter": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/fine_32/crossbranch.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "61572653091d2452c61c4d343b22f41c69fa31ab3bd362cdbb3a616efe733b0c",
+        "size": [
+          48,
+          48
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 25,
+        "excerpt": "&\"forest_crossbranch\": {\"texture\": preload(\"res://assets/forest_bible_v2/native/fine_32/crossbranch.png\"), \"bounds\": Rect2(-18.0, -18.5, 36.0, 36.0), \"collision\": Vector2(28.0, 32.0), \"mirror\": true}"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+            "line": 30,
+            "excerpt": "if not ForestBibleActors.draw_enemy_body(self, actor):"
+          },
+          {
+            "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+            "line": 8,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 104,
+            "excerpt": "var body_facing := _facing if facing != 1.0 or actor.definition.behavior_id in [&\"forest_lantern\", &\"forest_crossbranch\", &\"forest_bark_beetle\"] else 1.0"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_master_original.png",
+          "role": "multi-species image_gen original, one body per species",
+          "usage": "raw master of current derivative",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8cdccb76ca6ba3df90f783a20b57f50c0803b7c797fb2ed2957e7809f6c205e7",
+          "size": [
+            1312,
+            1199
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_generation.json",
+          "role": "image generation prompt/references/processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "a60cbc803325b0556fc1e36b7aa29c9f17d96d975057793a024984e81c66c448"
+        },
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/ecology_build.json",
+          "role": "integer crops + nearest derivative dimensions",
+          "usage": "build manifest, not per-action clips",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "d075670edc815e4a5ba292b3e3e924ee98c8cc46a520de647c342ca67b451baf"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/forest_crossbranch_v1.png",
+          "role": "prior native single static body",
+          "usage": "retained, superseded in current helper by fine_32",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "768fb230af5095c2fe402898866ed2586684fe42ec3345917756ed2c28dd7616",
+          "size": [
+            24,
+            24
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/crossbranch.native.png",
+          "role": "original indexed-pixel body",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "768fb230af5095c2fe402898866ed2586684fe42ec3345917756ed2c28dd7616",
+          "size": [
+            24,
+            24
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_ecology_v1/provenance.json",
+          "role": "native original body authoring history",
+          "usage": "source record",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "8e2d9d0c9cc2ac31568d92bb301fc4a49d7a368f4c048190eae8f3df4cbdb2fe"
+        }
+      ],
+      "shared_historical_atlases": [
+        "assets/forest_bible_v2/source/ecology_v1.original.png",
+        "assets/forest_bible_v2/source/ecology_v2.original.png"
+      ],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "assets/forest_bible_v2/native/fine_32/ecology_build.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "0.38s same-body procedural settle, then presenter returns without body (no retained corpse resource)"
+      },
+      "species_presentation": "committed shore trajectory/landing arc; mesh limb fold follows flight/settle; no separate effect texture",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "forest_thread_spider",
+      "display_name": "织棘蛛/单有限线",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/design/forest_enemy_ecology_v2.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/design/forest_enemy_ecology_v2.md",
+            "line": 3,
+            "excerpt": "当前基底是铃囊萤、棘籽哨、旧 charger 森林配方与织棘蛛。新版 v9 在地图2的一个共享庭院分支加入真实跨枝移动体与同一宝箱的异路回程；它提供可选运动表达，**不主张比普通强解更快、更省，或已经完成整区生态丰富度**。折枝獾、旧同轴停驻者、上层 Seed＋Lamp 和侧环 HR 均已淘汰，不能用新 ID 或技术通过给它们翻案。"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 18,
+            "excerpt": "| forest_thread_spider | native/weaver_silk_bell_v5.png；idle→telegraph→extend→hold→retract→recovery | 原身体中央腹与左右腿扇分开；蓄丝外撑、extend收送、hold保持张力、retract/recovery退回；受伤收腿、死亡卷腿 | 原32×32/26×28；真实有限线的端点/宽度/激活时钟保持；保原暗色终态 |"
+          }
+        },
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "kind": "regional_appearance_and_ecology_brief",
+          "evidence": {
+            "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "line": 216,
+            "excerpt": "| **织棘蛛** | 黑褐细足、银白丝囊、悬铃形腹部 | 周期伸出丝线，短暂分隔两条路线；能等待收线、从旁枝绕过或直接击杀 | 树腹、双孔、窄枝 |"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_thread_spider.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "1726c3629fa6fa7c57d55f2b806e14f9e4580c998fab557ce145c7e7a275a928"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_thread_spider.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "e1c7900d23b0f9de4395322ca98534d7c5de914ed9d9dc0027a4917490d66620"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_thread_spider_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "9c855bb2797ddbe6da2a0fa47818a0c05e93562b627df73c55cf59d1a7c01c11"
+      },
+      "presenter": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+        "size": [
+          32,
+          32
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 9,
+        "excerpt": "const WEAVER_BODY: Texture2D = preload(\"res://assets/forest_bible_v2/native/weaver_silk_bell_v5.png\")"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+            "line": 32,
+            "excerpt": "if not ForestBibleActors.draw_enemy_body(self, actor, age):"
+          },
+          {
+            "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+            "line": 9,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 147,
+            "excerpt": "&\"forest_thread_spider\", &\"forest_bible_weaver\":"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v5/spider.native.png",
+          "role": "literal32 original body",
+          "usage": "source of current body",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+          "size": [
+            32,
+            32
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v5/spider-authored.rows",
+          "role": "authored pixel rows",
+          "usage": "source-authoring input",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "7dd42d712af6d2290eb6803c822a19ddc3341b9cf2784682de3172573242aac7"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v5/provenance.json",
+          "role": "v5 leg-only refinement history",
+          "usage": "provenance, not animation manifest",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "6d18215c057937f7bee647f293562c88f867cb447a41427f20f5d8b0eab4c3c5"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/weaver_silk_bell_v4.png",
+          "role": "prior single static body",
+          "usage": "historical, not selected by current helper",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+          "size": [
+            32,
+            32
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v4/spider.native.png",
+          "role": "original literal32 bitmap",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+          "size": [
+            32,
+            32
+          ],
+          "mode": "RGBA"
+        }
+      ],
+      "shared_historical_atlases": [
+        "assets/forest_bible_v2/source/ecology_v1.original.png",
+        "assets/forest_bible_v2/source/ecology_v2.original.png"
+      ],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "resources/forest_bible_v2/weaver_native_body_v5_integration.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "same-body procedural death deformation; retained dark-tinted body in this presenter; no separate corpse texture/Stage sibling corpse created"
+      },
+      "species_presentation": "procedural finite line/end circles; telegraph/extend/hold/retract follow actual line state",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue",
+        "Stage extend-phase -> ForestBibleAmbience.notify_web -> shared regional forest_web.wav; not a per-spider hurt/death recording",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "forest_bible_weaver",
+      "display_name": "织棘蛛/双入口织线变体",
+      "audit_status": "inventory_only; previous overall quality rejected by user; no visual pass claimed",
+      "design_documents": [
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "kind": "grouped_design_chapter",
+          "evidence": {
+            "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "line": 216,
+            "excerpt": "| **织棘蛛** | 黑褐细足、银白丝囊、悬铃形腹部 | 周期伸出丝线，短暂分隔两条路线；能等待收线、从旁枝绕过或直接击杀 | 树腹、双孔、窄枝 |"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late_implementation_card_not_original_art_design",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 19,
+            "excerpt": "| forest_bible_weaver | 同一当前正式silk-bell源；同样有限线相位，交替双入口 | 腿扇张力幅度与腹反摆区分旧单线蛛；读真实当前strand的既有相位，未复制玩法 | 原体积/双入口线锚不改；保原暗色终态 |"
+          }
+        },
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "kind": "regional_appearance_and_ecology_brief",
+          "evidence": {
+            "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "line": 216,
+            "excerpt": "| **织棘蛛** | 黑褐细足、银白丝囊、悬铃形腹部 | 周期伸出丝线，短暂分隔两条路线；能等待收线、从旁枝绕过或直接击杀 | 树腹、双孔、窄枝 |"
+          }
+        },
+        {
+          "path": "scripts/enemies/forest_bible_weaver_behavior.gd",
+          "kind": "behavior identity differentiator",
+          "evidence": {
+            "path": "scripts/enemies/forest_bible_weaver_behavior.gd",
+            "line": 3,
+            "excerpt": "## v15 only: one rooted spider alternates two authored entrances. The original"
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "Not located as an individual per-species file in inspected tracked docs; grouped ecology/Bible sections and implementation card exist",
+      "definition": {
+        "path": "resources/enemies/forest_bible_weaver.tres",
+        "role": "authoritative parameters",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "24e30294f4ab322116119d8165d0056c1d6eb02d16e11fd284904fc0ff415f6d"
+      },
+      "scene": {
+        "path": "scenes/enemies/forest_bible_weaver.tscn",
+        "role": "composition and actual presenter binding",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "2fd965713cd606173d4b665af43c55e6cabae449e81b1817ed73f79e446ce490"
+      },
+      "behavior": {
+        "path": "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "role": "actual behavior consumer",
+        "usage": "live",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "f5414fed8e9814db74b74266317606d803e8cd97428ca71098f865ccd5a9bfde"
+      },
+      "presenter": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "current_body": {
+        "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+        "role": "single current body PNG",
+        "usage": "selected only in Bible-art branch",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+        "size": [
+          32,
+          32
+        ],
+        "mode": "RGBA"
+      },
+      "current_body_binding_evidence": {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "line": 9,
+        "excerpt": "const WEAVER_BODY: Texture2D = preload(\"res://assets/forest_bible_v2/native/weaver_silk_bell_v5.png\")"
+      },
+      "runtime_branch": {
+        "bible_art": "ForestBibleActors.active requires ancestor forest_bible_actor_art metadata; stable_id/behavior/collision/direction guards apply for ecology/beetle; helper selects PNG -> ForestMotion02 installed on the presenter",
+        "fallback": "Without Bible-art metadata/identity guard, the same forest presenter draws procedural graybox geometry; scene existence alone does not imply PNG branch",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+            "line": 32,
+            "excerpt": "if not ForestBibleActors.draw_enemy_body(self, actor, age):"
+          },
+          {
+            "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+            "line": 9,
+            "excerpt": "motion = ForestMotion02.install(self)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+            "line": 81,
+            "excerpt": "if not active(canvas) or not is_instance_valid(actor): return"
+          },
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "line": 2743,
+            "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+          },
+          {
+            "path": "scripts/presentation/forest_bible_presentation.gd",
+            "line": 25,
+            "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+          }
+        ]
+      },
+      "live_animation": {
+        "method": "one PNG, 16x16 connected UV-lattice / programmatic per-species joints; real actor position and behavior state drive pose",
+        "frame_sequence": "no per-state sprite sequence consumed",
+        "animation_manifest": "none for forest action clips; build manifests describe one-body crop derivation",
+        "evidence": [
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 7,
+            "excerpt": "const GRID := 16"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 216,
+            "excerpt": "func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:"
+          },
+          {
+            "path": "scripts/enemies/forest_motion_02.gd",
+            "line": 147,
+            "excerpt": "&\"forest_thread_spider\", &\"forest_bible_weaver\":"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v5/spider.native.png",
+          "role": "literal32 original body",
+          "usage": "source of current body",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+          "size": [
+            32,
+            32
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v5/spider-authored.rows",
+          "role": "authored pixel rows",
+          "usage": "source-authoring input",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "7dd42d712af6d2290eb6803c822a19ddc3341b9cf2784682de3172573242aac7"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v5/provenance.json",
+          "role": "v5 leg-only refinement history",
+          "usage": "provenance, not animation manifest",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "6d18215c057937f7bee647f293562c88f867cb447a41427f20f5d8b0eab4c3c5"
+        }
+      ],
+      "historical_body_assets": [
+        {
+          "path": "assets/forest_bible_v2/native/weaver_silk_bell_v4.png",
+          "role": "prior single static body",
+          "usage": "historical, not selected by current helper",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+          "size": [
+            32,
+            32
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_weaver_v4/spider.native.png",
+          "role": "original literal32 bitmap",
+          "usage": "historical raw source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+          "size": [
+            32,
+            32
+          ],
+          "mode": "RGBA"
+        }
+      ],
+      "shared_historical_atlases": [
+        "assets/forest_bible_v2/source/ecology_v1.original.png",
+        "assets/forest_bible_v2/source/ecology_v2.original.png"
+      ],
+      "manifests": [
+        "assets/forest_bible_v2/manifest.json",
+        "resources/forest_bible_v2/weaver_native_body_v5_integration.json"
+      ],
+      "hurt_and_death_assets": {
+        "dedicated_live_hurt_sequence": "not found in inspected tracked species sources/manifests; current consumer uses accepted-hit sample + same-body deformation/tint",
+        "dedicated_live_death_sequence": "not found in inspected tracked species sources/manifests; current consumer uses same body",
+        "shared_charger_diver_frames": "assets/enemy_feedback_01/frames_v8 exists, but EnemyFeedback01.PROFILES only plains_charger/plains_diver; not this species",
+        "terminal": "same-body procedural death deformation; retained dark-tinted body in this presenter; no separate corpse texture/Stage sibling corpse created"
+      },
+      "species_presentation": "same current body as single-line spider; alternate two real authored strands; procedural finite line/end circles",
+      "audio": [
+        "EnemyActor accepted enemy_hurt semantic event (legacy hurt cue)",
+        "EnemyActor enemy_defeat -> shared enemy_death/legacy enemy_defeat cue",
+        "Stage extend-phase -> ForestBibleAmbience.notify_web -> shared regional forest_web.wav; not a per-spider hurt/death recording",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No dedicated per-state action/hurt/death asset sequence located in searched tracked species paths and actual manifest dependencies (scoped finding, not a claim that anonymous unrelated art cannot exist).",
+        "Art quality, identity adherence to Bible, transition feel and audio listening were not graded in this inventory.",
+        "Family manifest native v1 runtime_direct_sampling fields can conflict with current fine_32 helper selections; actual code binding is authoritative for this audit."
+      ]
+    },
+    {
+      "id": "candidate_lure_guard",
+      "display_name": "诱突护盾甲虫候选",
+      "audit_status": "development candidate; inventory only; no final pool/save admission or visual pass",
+      "design_documents": [
+        {
+          "path": "docs/quality/actor_inventory.md",
+          "kind": "shared actor coverage/inventory",
+          "evidence": {
+            "path": "docs/quality/actor_inventory.md",
+            "line": 14,
+            "excerpt": "| candidate_lure_guard/crosswind_moth | 开发ModuleEnemyPrototypes/Studio | 原有独立AI/手绘图集，预警/攻击/恢复/受伤/死亡，动画转换在process而非draw推进 |"
+          }
+        },
+        {
+          "path": "docs/quality/asset_generation_notes.md",
+          "kind": "old six-pose-per-species art generation brief",
+          "evidence": {
+            "path": "docs/quality/asset_generation_notes.md",
+            "line": 7,
+            "excerpt": "- enemies/guard_moth：新创作 1536×1024、6列2行透明母版；第一行右向苔石护盾甲虫的待机/举盾预警/前突/疲劳/受伤/蜷伏，第二行柳籽蛾的翼上/翼下/预警/射籽/恢复/坠落。软水粉童话材质、苔绿/琥珀/乳白、左上暖光、每姿势身份一致。输出 exec-806ed7ee-8772-45d6-85c6-068ccb5efdb8。运行时用短过渡拼接真实行为；不声称六静态姿势本身已证明动画完整自然。"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late implementation card",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 30,
+            "excerpt": "## 两开发候选"
+          }
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "kind": "actual encounter/player-pressure labels and definition overrides",
+          "evidence": {
+            "path": "scripts/demo/module_enemy_prototypes.gd",
+            "line": 35,
+            "excerpt": "label.text=\"CANDIDATES / not in formal pool\\nGUARD: bait lunge then shoot open recovery, or recoil behind.\\nMOTH: read two locked lanes; change height between volleys.\\nNo final art / balance / player approval claimed.\""
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "No individual standalone sheet located in inspected tracked docs; pressure/parameters are in ModuleEnemyPrototypes/ActionStudio code and shared inventory/art notes",
+      "definition": "No dedicated candidate .tres: factories duplicate plains_charger (guard) or plains_sentry (moth), change stable_id/collision/timings",
+      "factory_evidence": [
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 9,
+          "excerpt": "actor.definition=load(\"res://resources/enemies/plains_sentry.tres\" if index else \"res://resources/enemies/plains_charger.tres\").duplicate(true)"
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 10,
+          "excerpt": "actor.definition.stable_id=&\"candidate_crosswind_moth\" if index else &\"candidate_lure_guard\""
+        },
+        {
+          "path": "scripts/demo/action_studio.gd",
+          "line": 274,
+          "excerpt": "actor.definition.stable_id = &\"candidate_crosswind_moth\" if index else &\"candidate_lure_guard\""
+        }
+      ],
+      "presenter": "scripts/enemies/prototype_enemy_presentation.gd",
+      "behavior": "scripts/enemies/enemy_attack_behavior.gd",
+      "current_body": {
+        "path": "assets/enemy_all_02/prototype_sheet.png",
+        "role": "current transparent shared source sheet",
+        "usage": "only this species canonical neutral crop used",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+        "size": [
+          2172,
+          724
+        ],
+        "mode": "RGBA"
+      },
+      "current_crop": {
+        "region": [
+          0,
+          0,
+          362,
+          373
+        ],
+        "alpha_bounds": [
+          39,
+          58,
+          286,
+          306
+        ],
+        "anchor": [
+          182.0,
+          364
+        ],
+        "basis_px": [
+          286,
+          306
+        ],
+        "role": "One canonical same-body master; joint articulation generates phases. Other generated poses intentionally unused."
+      },
+      "current_body_binding_evidence": [
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 4,
+          "excerpt": "const ATLAS: Texture2D = preload(\"res://assets/enemy_all_02/prototype_sheet.png\")"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 32,
+          "excerpt": "var frame: Dictionary = manifest.frames.get(\"moth\" if moth else \"guard\", {})"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 42,
+          "excerpt": "_master_factor = (47.0 if moth else 45.0)/float(basis[1])"
+        }
+      ],
+      "live_animation": {
+        "method": "one canonical neutral crop per species, connected 6x8 UV grid / programmatic legs-shell-shield or wing-abdomen-antenna joints",
+        "frame_sequence": "none; no per-phase body image swap",
+        "manifest": "assets/enemy_all_02/prototype_manifest.json contains 2 canonical crops, not 12 animation clips",
+        "evidence": [
+          {
+            "path": "scripts/enemies/prototype_enemy_presentation.gd",
+            "line": 6,
+            "excerpt": "const GRID_COLUMNS := 6"
+          },
+          {
+            "path": "scripts/enemies/prototype_enemy_presentation.gd",
+            "line": 141,
+            "excerpt": "func _deform_master(point: Vector2) -> Vector2:"
+          },
+          {
+            "path": "scripts/enemies/prototype_enemy_presentation.gd",
+            "line": 131,
+            "excerpt": "draw_mesh(_mesh,ATLAS,Transform2D.IDENTITY,tint)"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/enemy_all_02/prototype.provenance.json",
+          "role": "two actual imagegen rounds / source / unchanged PNG processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "60d2bcf208a6d27e335d8f1852f4cb0d2b302c0b753847036e81a331b3ecd946"
+        },
+        {
+          "path": "assets/enemy_all_02/prototype_manifest.json",
+          "role": "2 neutral crops and fixed anchors/basis",
+          "usage": "live",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "c39643f690e0f87ca84b73666a8cb84b340117b189a87407a6a3173bebd7dde5"
+        },
+        {
+          "path": "docs/quality/asset_records/enemy-all-02-prototype-master-v1.json",
+          "role": "asset registration",
+          "usage": "metadata",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "308d7af0ea2ccc5179aae62f61892fca86e37bcb38f29b2966f610ec1a3a1928"
+        }
+      ],
+      "unused_pose_art": [
+        {
+          "path": "assets/plains_v7/enemies/guard_moth.png",
+          "role": "historical 1536x1024 6-column x2-row posed sheet incl intended hurt/death states",
+          "usage": "retained; not preloaded by current presenter",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "5fc27354bdf6c358929cd639f7aea524e82b7bf937a7fccd8c3a6eefac897960",
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/enemy_all_02/prototype_sheet.png",
+          "role": "current 2172x724 source also contains other generated poses",
+          "usage": "other 10 poses are not selected by current manifest",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+          "size": [
+            2172,
+            724
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "docs/evidence/enemy_all_02/generation/prototype-round2-rejected.png",
+          "role": "second generated 12-pose correction attempt",
+          "usage": "retained rejected round, not runtime source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "c18053b30fa361cd2026d8467a131ed344cc21b0691d80861c9059c8c0c46693",
+          "size": [
+            1774,
+            887
+          ],
+          "mode": "RGBA"
+        }
+      ],
+      "hurt_and_death_assets": {
+        "posed_art_exists_but_unused": true,
+        "intended_pose_labels": "Old generation notes and new provenance prompts describe hurt/recoil and death/folded poses; current code consumes only the neutral crop",
+        "dedicated_live_hurt_sequence": "none consumed; accepted-hit sample drives same-body joint response/tint",
+        "dedicated_live_death_sequence": "none consumed; same canonical body deforms and fades over .6s; no persistent corpse component installed because feedback profile does not support this stable_id"
+      },
+      "species_presentation": "Guard has front-shot refusal outside recovery and procedural warning; moth has two locked angle lanes and second accepted volley; these are behavior/code, not separate VFX clip textures",
+      "audio": [
+        "EnemyActor shared accepted enemy_hurt and enemy_defeat cues",
+        "PrototypeEnemyDamageable rejected guard front hit -> shared armour cue",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No standalone candidate EnemyDefinition resource or individual design sheet located; factories carry the current parameters.",
+        "Unused posed sheet art exists; it has not been classified as an accepted coherent action set by this inventory.",
+        "Current source provenance license/model fields are unknown/not_exposed; no new rights conclusion made."
+      ]
+    },
+    {
+      "id": "candidate_crosswind_moth",
+      "display_name": "双通道蛾候选",
+      "audit_status": "development candidate; inventory only; no final pool/save admission or visual pass",
+      "design_documents": [
+        {
+          "path": "docs/quality/actor_inventory.md",
+          "kind": "shared actor coverage/inventory",
+          "evidence": {
+            "path": "docs/quality/actor_inventory.md",
+            "line": 14,
+            "excerpt": "| candidate_lure_guard/crosswind_moth | 开发ModuleEnemyPrototypes/Studio | 原有独立AI/手绘图集，预警/攻击/恢复/受伤/死亡，动画转换在process而非draw推进 |"
+          }
+        },
+        {
+          "path": "docs/quality/asset_generation_notes.md",
+          "kind": "old six-pose-per-species art generation brief",
+          "evidence": {
+            "path": "docs/quality/asset_generation_notes.md",
+            "line": 7,
+            "excerpt": "- enemies/guard_moth：新创作 1536×1024、6列2行透明母版；第一行右向苔石护盾甲虫的待机/举盾预警/前突/疲劳/受伤/蜷伏，第二行柳籽蛾的翼上/翼下/预警/射籽/恢复/坠落。软水粉童话材质、苔绿/琥珀/乳白、左上暖光、每姿势身份一致。输出 exec-806ed7ee-8772-45d6-85c6-068ccb5efdb8。运行时用短过渡拼接真实行为；不声称六静态姿势本身已证明动画完整自然。"
+          }
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+          "kind": "late implementation card",
+          "evidence": {
+            "path": "docs/worklines/enemy_all_02/forest-production-cards.md",
+            "line": 30,
+            "excerpt": "## 两开发候选"
+          }
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "kind": "actual encounter/player-pressure labels and definition overrides",
+          "evidence": {
+            "path": "scripts/demo/module_enemy_prototypes.gd",
+            "line": 35,
+            "excerpt": "label.text=\"CANDIDATES / not in formal pool\\nGUARD: bait lunge then shoot open recovery, or recoil behind.\\nMOTH: read two locked lanes; change height between volleys.\\nNo final art / balance / player approval claimed.\""
+          }
+        }
+      ],
+      "standalone_enemy_design_sheet": "No individual standalone sheet located in inspected tracked docs; pressure/parameters are in ModuleEnemyPrototypes/ActionStudio code and shared inventory/art notes",
+      "definition": "No dedicated candidate .tres: factories duplicate plains_charger (guard) or plains_sentry (moth), change stable_id/collision/timings",
+      "factory_evidence": [
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 9,
+          "excerpt": "actor.definition=load(\"res://resources/enemies/plains_sentry.tres\" if index else \"res://resources/enemies/plains_charger.tres\").duplicate(true)"
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 10,
+          "excerpt": "actor.definition.stable_id=&\"candidate_crosswind_moth\" if index else &\"candidate_lure_guard\""
+        },
+        {
+          "path": "scripts/demo/action_studio.gd",
+          "line": 274,
+          "excerpt": "actor.definition.stable_id = &\"candidate_crosswind_moth\" if index else &\"candidate_lure_guard\""
+        }
+      ],
+      "presenter": "scripts/enemies/prototype_enemy_presentation.gd",
+      "behavior": "scripts/enemies/prototype_moth_behavior.gd",
+      "current_body": {
+        "path": "assets/enemy_all_02/prototype_sheet.png",
+        "role": "current transparent shared source sheet",
+        "usage": "only this species canonical neutral crop used",
+        "git_tracked": true,
+        "local_available": true,
+        "sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+        "size": [
+          2172,
+          724
+        ],
+        "mode": "RGBA"
+      },
+      "current_crop": {
+        "region": [
+          0,
+          373,
+          362,
+          351
+        ],
+        "alpha_bounds": [
+          62,
+          3,
+          263,
+          323
+        ],
+        "anchor": [
+          193.5,
+          326
+        ],
+        "basis_px": [
+          263,
+          323
+        ],
+        "role": "One canonical same-body master; joint articulation generates phases. Other generated poses intentionally unused."
+      },
+      "current_body_binding_evidence": [
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 4,
+          "excerpt": "const ATLAS: Texture2D = preload(\"res://assets/enemy_all_02/prototype_sheet.png\")"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 32,
+          "excerpt": "var frame: Dictionary = manifest.frames.get(\"moth\" if moth else \"guard\", {})"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 42,
+          "excerpt": "_master_factor = (47.0 if moth else 45.0)/float(basis[1])"
+        }
+      ],
+      "live_animation": {
+        "method": "one canonical neutral crop per species, connected 6x8 UV grid / programmatic legs-shell-shield or wing-abdomen-antenna joints",
+        "frame_sequence": "none; no per-phase body image swap",
+        "manifest": "assets/enemy_all_02/prototype_manifest.json contains 2 canonical crops, not 12 animation clips",
+        "evidence": [
+          {
+            "path": "scripts/enemies/prototype_enemy_presentation.gd",
+            "line": 6,
+            "excerpt": "const GRID_COLUMNS := 6"
+          },
+          {
+            "path": "scripts/enemies/prototype_enemy_presentation.gd",
+            "line": 141,
+            "excerpt": "func _deform_master(point: Vector2) -> Vector2:"
+          },
+          {
+            "path": "scripts/enemies/prototype_enemy_presentation.gd",
+            "line": 131,
+            "excerpt": "draw_mesh(_mesh,ATLAS,Transform2D.IDENTITY,tint)"
+          }
+        ]
+      },
+      "raw_and_build_sources": [
+        {
+          "path": "assets/enemy_all_02/prototype.provenance.json",
+          "role": "two actual imagegen rounds / source / unchanged PNG processing",
+          "usage": "provenance",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "60d2bcf208a6d27e335d8f1852f4cb0d2b302c0b753847036e81a331b3ecd946"
+        },
+        {
+          "path": "assets/enemy_all_02/prototype_manifest.json",
+          "role": "2 neutral crops and fixed anchors/basis",
+          "usage": "live",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "c39643f690e0f87ca84b73666a8cb84b340117b189a87407a6a3173bebd7dde5"
+        },
+        {
+          "path": "docs/quality/asset_records/enemy-all-02-prototype-master-v1.json",
+          "role": "asset registration",
+          "usage": "metadata",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "308d7af0ea2ccc5179aae62f61892fca86e37bcb38f29b2966f610ec1a3a1928"
+        }
+      ],
+      "unused_pose_art": [
+        {
+          "path": "assets/plains_v7/enemies/guard_moth.png",
+          "role": "historical 1536x1024 6-column x2-row posed sheet incl intended hurt/death states",
+          "usage": "retained; not preloaded by current presenter",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "5fc27354bdf6c358929cd639f7aea524e82b7bf937a7fccd8c3a6eefac897960",
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "assets/enemy_all_02/prototype_sheet.png",
+          "role": "current 2172x724 source also contains other generated poses",
+          "usage": "other 10 poses are not selected by current manifest",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+          "size": [
+            2172,
+            724
+          ],
+          "mode": "RGBA"
+        },
+        {
+          "path": "docs/evidence/enemy_all_02/generation/prototype-round2-rejected.png",
+          "role": "second generated 12-pose correction attempt",
+          "usage": "retained rejected round, not runtime source",
+          "git_tracked": true,
+          "local_available": true,
+          "sha256": "c18053b30fa361cd2026d8467a131ed344cc21b0691d80861c9059c8c0c46693",
+          "size": [
+            1774,
+            887
+          ],
+          "mode": "RGBA"
+        }
+      ],
+      "hurt_and_death_assets": {
+        "posed_art_exists_but_unused": true,
+        "intended_pose_labels": "Old generation notes and new provenance prompts describe hurt/recoil and death/folded poses; current code consumes only the neutral crop",
+        "dedicated_live_hurt_sequence": "none consumed; accepted-hit sample drives same-body joint response/tint",
+        "dedicated_live_death_sequence": "none consumed; same canonical body deforms and fades over .6s; no persistent corpse component installed because feedback profile does not support this stable_id"
+      },
+      "species_presentation": "Guard has front-shot refusal outside recovery and procedural warning; moth has two locked angle lanes and second accepted volley; these are behavior/code, not separate VFX clip textures",
+      "audio": [
+        "EnemyActor shared accepted enemy_hurt and enemy_defeat cues",
+        "PrototypeMothBehavior uses inherited EnemyAttackBehavior._fire -> shared enemy_shot cue",
+        "Inherited _set_state(telegraph) uses the shared warning cue"
+      ],
+      "missing_or_unknown": [
+        "No standalone candidate EnemyDefinition resource or individual design sheet located; factories carry the current parameters.",
+        "Unused posed sheet art exists; it has not been classified as an accepted coherent action set by this inventory.",
+        "Current source provenance license/model fields are unknown/not_exposed; no new rights conclusion made."
+      ]
+    }
+  ],
+  "additional_historical_sources": [
+    {
+      "path": "assets/forest_bible_v2/source/ecology_v1.original.png",
+      "role": "8 different entity concept bodies, not animation frames",
+      "usage": "historical raw sheet",
+      "git_tracked": true,
+      "local_available": true,
+      "sha256": "79b544108cb2d3bc1c4658e459db9230df638202cf49099792dde8de1d7e4e18",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/ecology_v2.original.png",
+      "role": "8 different entity concept bodies, not animation frames",
+      "usage": "withdrawn runtime source",
+      "git_tracked": true,
+      "local_available": true,
+      "sha256": "36070a97ed1dd7f09432997d1f11206ccd8e2728d305f532266cd58eb6b36f64",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/ecology_v1.prompt.txt",
+      "role": "one character/object per cell declaration",
+      "usage": "historical source intent",
+      "git_tracked": true,
+      "local_available": true,
+      "sha256": "c4bd2aef5bed0b846a3bfc2cd8e181f2e5c4b0f40421f7b66119d24c31621936"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/ecology_v2.prompt.txt",
+      "role": "eight entity semantic/style repair",
+      "usage": "historical source intent",
+      "git_tracked": true,
+      "local_available": true,
+      "sha256": "5ecc12914e6930177d3d86c912b89f1bb5e5daa0dbf39012669c155c4f1ebedd"
+    }
+  ],
+  "historical_weaver_v1_v3": "native_weaver_v4/provenance.json describes earlier v1-v3 bitmap drafts and rejected highres generation. HEAD tree includes native_weaver_v4/v5 sources, not separately named native_weaver_v1/v2/v3 folders; those described earlier drafts are references, not newly verified available clip resources."
+}

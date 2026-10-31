@@ -21,6 +21,59 @@ func fixture(seed_value: String) -> void:
 	root.add_child(app)
 	check(app.start_plains(seed_value),"two-map formal departure starts")
 	await frames(8)
+func inventory_state() -> Dictionary:
+	var result: Dictionary={}
+	for owned: RunItemInstance in app.build.inventory.instances():
+		result[String(owned.instance_id)]={"definition_id":String(owned.definition_id),"level":owned.level,"source_id":String(owned.source_id)}
+	return result
+func buy_v5_slot(funding: StringName) -> Dictionary:
+	app._open_region_shop()
+	var presenter:=app._v5_shop_presenter
+	check(presenter.is_open() and app.shop_modal.opened and paused,"actual formal merchant opens its V5 catalog")
+	if not presenter.is_open(): return {}
+	var shop_id: StringName=presenter._shop_id
+	var map_key: StringName=app._item_runtime.map_key()
+	var snapshot: Dictionary=app.shop.catalog_shop_snapshot(shop_id,map_key)
+	check(snapshot.get("offers",[]).size()==3,"formal V5 merchant has three finite catalog slots")
+	var quote: ShopOffer
+	for row: Dictionary in snapshot.get("offers",[]):
+		var candidate: ShopOffer=app.shop.quote(StringName(row.offer_id))
+		if candidate!=null and candidate.stock==1 and ItemV5Eligibility.offer_reason(candidate.item,app.build,true).is_empty(): quote=candidate;break
+	check(quote!=null,"original catalog contains an eligible slot after cache ownership")
+	if quote==null: app._close_region_shop();return {}
+	# Explicit fixture income follows the actual quote, never an old fixed price.
+	check(app.wallet.grant(quote.price,funding),"quoted-price fixture income uses the real run-wallet ledger")
+	presenter.refresh()
+	var buy:=app.shop_modal.find_child("CatalogBuy_"+String(quote.offer_id).validate_node_name(),true,false) as Button
+	check(buy!=null and not buy.disabled,"real quoted slot exposes an affordable V5 purchase control")
+	if buy==null or buy.disabled: app._close_region_shop();return {}
+	var before_balance: int=app.wallet.balance
+	var before_build: Array[StringName]=app.build.item_ids()
+	var before_owned: RunItemInstance=app.build.inventory.instance_for_definition(quote.item.stable_id)
+	var before_level: int=before_owned.level if before_owned!=null else 0
+	var before_count: int=app.build.inventory.instances().size()
+	var receipts: Array[EconomyReceipt]=[]
+	var observe: Callable=func(receipt: EconomyReceipt) -> void: receipts.append(receipt)
+	app.shop.purchased.connect(observe)
+	# Original presenter constructs ShopPurchaseRequest from this immutable slot.
+	buy.pressed.emit()
+	app.shop.purchased.disconnect(observe)
+	check(receipts.size()==1 and receipts[0].accepted(),"actual merchant purchase succeeds")
+	if receipts.is_empty(): app._close_region_shop();return {}
+	var receipt: EconomyReceipt=receipts[0]
+	var owned: RunItemInstance=app.build.inventory.get_instance(receipt.instance_id)
+	check(app.wallet.balance==before_balance-quote.price and receipt.coins==-quote.price,"original wallet debits the exact slot quote once")
+	check(owned!=null and owned.definition_id==quote.item.stable_id and owned.level==before_level+1 and app.build.inventory.instances().size()==before_count+(1 if before_owned==null else 0),"V5 purchase commits backpack ownership or same-instance growth")
+	check(app.build.item_ids()==before_build,"merchant acquisition never automatically equips the item")
+	var after_balance: int=app.wallet.balance
+	buy.pressed.emit()
+	check(app.wallet.balance==after_balance and app.shop.quote(quote.offer_id).stock==0,"finite stock cannot be refreshed by another interaction")
+	check(app.shop.get_receipt(receipt.event_id)!=null and app.shop.get_receipt(receipt.event_id).instance_id==receipt.instance_id,"original purchase receipt binds the stable backpack instance")
+	var after: Dictionary=app.shop.catalog_shop_snapshot(shop_id,map_key)
+	check(after.offers.all(func(row: Dictionary) -> bool: return int(row.stock)==(0 if StringName(row.offer_id)==quote.offer_id else 1)),"only the purchased slot is exhausted; other original slots remain unchanged")
+	app._close_region_shop()
+	return {"shop_id":shop_id,"map_key":map_key,"offer_id":quote.offer_id,"receipt_id":receipt.event_id,"instance_id":receipt.instance_id,"snapshot":after}
+
 func run() -> void:
 	corpus()
 	await fixture("two-map-ledger")
@@ -75,25 +128,40 @@ func run() -> void:
 	app._commit_interact()
 	var item: StringName=app._region_offer.candidates[0].stable_id
 	check(app._claim_modal_item(item),"actual first-map cache is claimed")
-	app.wallet.grant(10,&"campaign_purchase_fixture")
+	await frames(3) # The original damage-first queue owns the actual claim commit.
+	check(first.chests[0].claimed,"queued first-map cache selection actually reaches its claimed ledger")
 	app.player.reset_at(first.merchant_position)
 	await frames(2)
-	check(app._region_purchase(),"first merchant accepts finite purchase")
-	var first_shop:=app._region_shop_id()
+	var purchase: Dictionary=buy_v5_slot(&"campaign_purchase_fixture")
+	check(not purchase.is_empty(),"first merchant accepts finite purchase")
+	if purchase.is_empty():
+		app.abandon_run();check(await load("res://tests/audio_teardown.gd").drain_world(app),"failed catalog fixture drains audio");app.free();quit(1);return
+	var first_shop: StringName=purchase.shop_id
+	var inventory_before:=inventory_state()
+	var wallet_grants_before: Dictionary=app.wallet._grants.duplicate(true)
 	var first_chest_id: String=first.chests[0].id
 	var first_hash: String=first.region_state.manifest_hash
 	var build_before:=app.build.item_ids().duplicate()
 	var coins_before:=app.wallet.balance
 	var player_id:=app.player.get_instance_id()
+	var default_tuning:=PlayerTuning.load_default()
+	var action_budget_before:=Vector2i(app.controller.motor.tuning.max_jumps,app.controller.motor.tuning.max_air_shots)
 	check(await load("res://tests/plains_campaign_fixture.gd").second_map(app,self),"mini victory confirmation enters second random whole map")
 	var second:=app.stage as PlainsRegionStage
 	var boss:=second.boss.get_node("Encounter") as WindkeeperEncounter
 	check(second.generated.manifest.seed==PlainsRegionCampaign.seed_for(app.director.seed,2) and second.generated.manifest.manifest_hash!=first_hash,"second map has independently reproducible generation")
-	check(second.generated.manifest.difficulty=="advanced" and boss.health.capacity==36 and (boss.definition as WindkeeperDefinition).storm_profile,"second map retains full three-phase region Boss")
+	# Current map2 uses the user-requested60HP Pressure implementation. The
+	# historical36HP direct-scene contract remains in its frozen v5 consumer.
+	check(second.generated.manifest.difficulty=="advanced" and boss is WindkeeperPressureEncounter and boss.health.capacity==60 and (boss.definition as WindkeeperDefinition).storm_profile,"second map retains full three-phase region Boss")
 	check(app.player.get_instance_id()==player_id and app.build.item_ids()==build_before and app.wallet.balance>=coins_before+12,"map transition keeps actor/build/coins and pays mini reward once")
-	check(app.controller.actor_resources.health==health and app.controller.motor.tuning.max_jumps==1 and app.controller.motor.tuning.max_air_shots==2,"health identity and action resources survive transition")
+	check(app.controller.actor_resources.health==health and default_tuning.max_jumps==1 and default_tuning.max_air_shots==1 and action_budget_before==Vector2i(default_tuning.max_jumps,default_tuning.max_air_shots) and Vector2i(app.controller.motor.tuning.max_jumps,app.controller.motor.tuning.max_air_shots)==action_budget_before and not app.controller.shot_energy.definition.shooting_consumes_energy,"health identity and action resources survive transition")
 	check(app.meta.snapshot().completed_biomes==0 and not app._gold_claimed,"mini Boss neither completes region nor awards gold/major ability")
-	check(app._region_shop_id()!=first_shop and app.shop.quote(first_shop).stock==0 and app.shop.quote(app._region_shop_id()).stock==1,"map 2 merchant is a new bounded instance; old stock stays exhausted")
+	var second_shop: StringName=app._v5_shop_presenter._shop_id
+	var second_catalog: Dictionary=app.shop.catalog_shop_snapshot(second_shop,app._item_runtime.map_key())
+	check(second_shop!=first_shop and app.shop.quote(StringName(purchase.offer_id)).stock==0 and second_catalog.get("offers",[]).size()==3 and second_catalog.offers.all(func(row: Dictionary) -> bool: return int(row.stock)==1),"map 2 merchant is a new bounded instance; old stock stays exhausted")
+	check(app.shop.catalog_shop_snapshot(first_shop,StringName(purchase.map_key))==purchase.snapshot and inventory_state()==inventory_before,"map transition retains old catalog stock and all backpack instances and levels")
+	check(app.shop.get_receipt(StringName(purchase.receipt_id))!=null and app.shop.get_receipt(StringName(purchase.receipt_id)).instance_id==purchase.instance_id,"map transition retains the original merchant transaction receipt")
+	check(wallet_grants_before.keys().all(func(id: Variant) -> bool: return app.wallet._grants.get(id)==wallet_grants_before[id]),"map transition retains existing run-wallet grant identities")
 	check(second.chests[0].id!=first_chest_id and not second.chests[0].claimed,"map 2 cache does not reuse first-map reward-service IDs")
 	check(app.region_states.size()==2 and app.region_states[1].claimed.has(first_chest_id),"first map ledger retained independently")
 	check(second.map_view.visible_areas().all(func(a: Dictionary): return a.role not in ["boss","merchant","challenge_reward"]),"second map starts with its own local fog")

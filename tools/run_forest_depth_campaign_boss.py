@@ -11,6 +11,7 @@ import math
 from pathlib import Path
 import re
 import subprocess
+import sys
 import time
 import level_formal
 from run_tests import run_engine
@@ -289,6 +290,60 @@ def validate_canopy_policy_ledger(data):
             expected=max(0,start-sum(row['amount'] for row in rows if row['physics_frame']<=frame['physics_frame']))
             require(close(frame[final_key],expected),'Every '+target+' frame must reconcile actual commit time')
 
+
+def validate_canopy_gold(data):
+    """Current V5 transaction/effect contract; legacy Queen +2 remains above."""
+    gold=data['gold_definition'];before=data['before_gold'];after=data['after_gold']
+    declaration=json.loads(gold['fingerprint'])
+    require(isinstance(declaration,list) and len(declaration)==20 and declaration[0]==gold['id'] and declaration[2]==gold['rarity']==2 and declaration[15]==gold['catalog_version']==5 and gold['level']==1,'Actual selected canonical V5 GOLD identity/rarity/level required')
+    parameters={key.removesuffix('_by_level'):(value[0] if key.endswith('_by_level') else value) for key,value in declaration[18].items()}
+    require(gold['parameters']==parameters,'Lv1 parameters must resolve the actual selected definition fingerprint')
+    modifiers=[{'stat':m[0],'operation':m[1],'value':m[2],'priority':m[3]} for m in declaration[14]]
+    mappings={'max_hp_add':('max_health',1),'max_hp_multiplier':('max_health',2),'ground_recoil_multiplier':('ground_recoil_multiplier',2),'coyote_time_add_s':('coyote_time',1),'focus_stamina_drain_multiplier':('focus_stamina_drain',2),'focus_stamina_recovery_multiplier':('focus_stamina_recovery',2)}
+    modifiers += [{'stat':stat,'operation':operation,'value':parameters[key],'priority':0} for key,(stat,operation) in mappings.items() if key in parameters]
+    require(gold['modifiers']==modifiers,'Actual equipped modifiers must match all declared static components and Lv1 parameter mappings')
+    expected=before['capacity'];priority=-2147483648
+    for m in modifiers:
+        require(m['operation'] in [0,1,2] and finite(m['value']) and type(m['priority']) is int,'Typed actual static modifier required')
+        if m['stat']=='max_health' and m['operation']==0 and m['priority']>=priority: expected=m['value'];priority=m['priority']
+    expected += sum(m['value'] for m in modifiers if m['stat']=='max_health' and m['operation']==1)
+    for m in modifiers:
+        if m['stat']=='max_health' and m['operation']==2: expected*=m['value']
+    require(before['count']==0 and after['count']==1 and after['hp']==before['hp'] and after['wallet']==before['wallet'],'Actual GOLD claim unique, with no invented coin/heal settlement')
+    require(close(after['capacity'],before['capacity']) and after['equipped']==before['equipped'],'Actual GOLD acquisition is backpack-only, with no automatic maxHP/equipment change')
+    instances=after['instances'];fixture=data['gold_equipment_fixture'];equipped=fixture['after']
+    require(len(instances)==1 and instances[0]['instance_id'] and instances[0]['definition_id']==gold['id'] and instances[0]['definition_version']==declaration[1] and instances[0]['level']==1 and instances[0]['fingerprint']==gold['fingerprint'] and instances[0]['source_id']==fixture['source_id'] and fixture['source_id'].startswith('reward:'),'Exactly one stable versioned Lv1 instance from the real selected reward source required')
+    require(fixture['scope']=='Explicit paused EquipmentService fixture while real core-choice modal remains open; not natural menu operation' and fixture['accepted'] is True and fixture['before']==after and fixture['progression_open'] is True,'Explicit equipment-fixture identity must not be presented as natural menu evidence')
+    require(close(fixture['expected_hp_capacity'],expected) and close(equipped['capacity'],expected) and equipped['hp']==before['hp'] and equipped['wallet']==before['wallet'] and equipped['count']==1 and equipped['instances']==instances and equipped['equipped'].count(gold['id'])==1,'Actual item-declared maxHP modifiers required after explicit equipment, without healing, payment or duplicate ownership')
+    require(fixture['core_before']==fixture['core_after'],'Random-item equipment must not grant a core ability')
+    require(data.get('position_health_phase_resource_injection_scope')=='Original route/combat/reload only; postcombat debit fixture separately disclosed','Original no-injection claim applies to untouched route/combat/reload; disclose separate postcombat resource fixture')
+    probe=data['gold_effect_probe']
+    require(gold['id']=='G07' and probe['supported'] is True and probe['kind']=='G07_idle_recovery' and probe['scope']=='Explicit real-frame passive probe with core-choice modal retained; optional CombatEnergyState debit is disclosed fixture, not a natural skill or resource grant','Current seeded G07 requires its bounded real passive consumer proof, not merely effect-source presence')
+    require(probe['parameters']==parameters and all(finite(parameters.get(k)) and parameters[k]>0 for k in ['idle_delay_s','resonance_per_s','max_recovery_per_map']),'Actual G07 delay/rate/map budget must come from its declared parameters')
+    start=probe['start'];end=probe['after'];debit=probe['debit_fixture'];rows=probe['frames']
+    require(data.get('postcombat_resource_debit_fixture')==debit,'Postcombat debit must be disclosed in the outer capture, not hidden in the legacy no-injection flag')
+    require(debit['accepted'] is True and debit['method']=='CombatEnergyState.consume; no direct assignment or grant' and finite(debit['amount']) and debit['amount']>=0 and close(debit['before']-debit['amount'],debit['after']) and close(debit['after'],start['resonance']),'Any full-bar headroom debit must be disclosed and reconcile through real consume')
+    require(rows and end['paused'] is True and start['paused'] is True and end['core_modal_open'] is True and close(end['clock'],rows[-1]['clock']) and end['clock']-start['clock']>=parameters['idle_delay_s']+1.0,'Actual bounded normal-frame passive window and restored core-modal pause required')
+    require({key:value for key,value in end.items() if key!='paused'}=={key:value for key,value in rows[-1].items() if key!='paused'},'Final passive snapshot must equal the last real observed frame except the restored pause flag')
+    eligible_start=max(0,start['clock']-start['last_combat']-parameters['idle_delay_s'])
+    budget=parameters['max_recovery_per_map']-start['recovered'];headroom=start['capacity']-start['resonance']
+    previous=start
+    for frame in rows:
+        require(frame['physics_frame']==previous['physics_frame']+1 and frame['motor_steps']==previous['motor_steps']+1 and frame['clock']>previous['clock'],'Every passive observation requires one real Motor/physics step and advancing production runtime clock')
+        require(frame['paused'] is False and frame['core_modal_open'] is True and frame['parameters']==parameters and frame['instance']==instances[0]['instance_id'] and frame['map']==start['map'] and all(frame[k]==start[k] for k in ['actor_instance','session','actor_epoch','capacity','last_combat','campaign_phase','abilities']),'Every passive frame must retain actual actor/map/source/parameters and no invented combat resets')
+        eligible=max(0,frame['clock']-start['last_combat']-parameters['idle_delay_s'])-eligible_start
+        gain=min(max(0,budget),max(0,headroom),parameters['resonance_per_s']*eligible)
+        require(close(frame['resonance'],start['resonance']+gain) and close(frame['recovered'],start['recovered']+gain),'Every G07 frame must obey actual idle gate, configured rate, remaining per-map budget and real bar capacity')
+        require(frame['hp']==before['hp'] and close(frame['hp_capacity'],expected),'Passive proof cannot invent healing or HP capacity changes')
+        previous=frame
+    gain=end['resonance']-start['resonance'];grants=probe['grants']
+    require(gain>0 and close(end['recovered']-start['recovered'],gain) and grants and len(grants)==end['serial']-start['serial'],'G07 must actually grant resonance and commit the same positive map-ledger amount')
+    require(close(sum(g['amount'] for g in grants),gain) and all(finite(g['amount']) and g['amount']>0 and g['receipt']=='item/G07/%s/%s/recovery/%s'%(instances[0]['instance_id'],start['map'],start['serial']+index+1) for index,g in enumerate(grants)),'Every G07 gain requires its unique instance/map/serial resource grant receipt')
+    boundary=data['before_boundary']
+    require(boundary['item_effect']==parameters and any(row['definition_id']==gold['id'] and row['instance_id']==instances[0]['instance_id'] and row['level']==1 and row['parameters']==parameters and row['source_id'] for row in boundary['item_sources']),'Real D/boundary flow must retain the same instance-bound runtime source and parameters')
+    outputs=boundary['manifest']['stages'][-1]['outputs']
+    require(outputs['reward_claim']['item']==gold['id'] and outputs['core_ability_reward']['ability']=='double_jump','Real selected reward/core manifest receipts required')
+
 def validate_canopy(data):
     """Current default canopy only; independent of both frozen legacy consumers."""
     require(data.get('scope')=='actual_current_default_canopy_App_route_pause_freshload_fullfight_pointer_boundary','Actual default canopy App scope required')
@@ -364,16 +419,13 @@ def validate_canopy(data):
         require(a['pressed'] is True and b['pressed'] is False and a['point']==b['point'] and a['actual_button_rect']==b['actual_button_rect'],'Matched actual pointer press/release required')
         r=a['actual_button_rect'];p=a['point']
         require(vector(p) and len(r)==4 and all(finite(v) for v in r) and r[2]>0 and r[3]>0 and r[0]<=p[0]<r[0]+r[2] and r[1]<=p[1]<r[1]+r[3],'Pointer must hit actual finite Button rectangle')
-    gold=data['gold_definition'];before_gold=data['before_gold'];after_gold=data['after_gold']
-    require(gold['id']=='forest_heart_gold' and before_gold['count']==0 and after_gold['count']==1 and after_gold['hp']==before_gold['hp'] and after_gold['wallet']==before_gold['wallet'],'Actual GOLD claim unique, with no invented coin/heal settlement')
-    declaration=json.loads(gold['fingerprint']);additions=[effect[2] for effect in declaration[-1] if effect[0]=='max_health' and effect[1]==1]
-    require(len(additions)==1 and close(after_gold['capacity'],before_gold['capacity']+additions[0]),'Actual item-declared maxHP delta required')
+    validate_canopy_gold(data)
+    after_equipment=data['gold_equipment_fixture']['after']
     boundary=data['before_boundary'];home=data['after_boundary']
     require(boundary['double'] is True and 'double_jump' in boundary['abilities'] and boundary['phase']==3 and boundary['map']==2 and boundary['manifest_compatible'] is True,'Real D ability/compatible run boundary required')
-    require(any('Next regions are in development' in row for row in data['boundary_ui_text']),'Truthful current development boundary text required')
-    outputs=boundary['manifest']['stages'][-1]['outputs']
-    require(outputs['reward_claim']['item']=='forest_heart_gold' and outputs['core_ability_reward']['ability']=='double_jump','Real reward/core manifest receipts required')
-    require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['abilities']==[],'Actual HOME clears run')
+    require(boundary['loadout']==after_equipment,'Actual core D choice preserves the distinct random-item inventory and equipment')
+    require(any(all(meaning in row for meaning in ('后续地区尚在制作','返回家园结束本局','清除本局能力、金币和道具','已存入的音符保留')) for row in data['boundary_ui_text']),'Truthful current development boundary text required')
+    require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['equipped']==[] and home['abilities']==[],'Actual HOME clears both owned/equipped items and core abilities')
     require(data['teardown']['observed_actors_alive']==[],'Actually observed actor/source WeakRefs must clear after teardown')
 
 def main():
@@ -386,13 +438,24 @@ def main():
     if not out.is_relative_to(ROOT/'build/forest_depth/campaign') or out.exists(): parser.error('Fresh output below build/forest_depth/campaign required')
     out.mkdir(parents=True)
     before=level_formal.source_files()
-    paths=[Path(__file__).resolve(),ROOT/'tests/forest_depth_campaign_boss_runner.gd',ROOT/'tests/forest_depth_guardian_pilot.gd',ROOT/'tests/forest_depth_guardian_campaign_case.gd',ROOT/'tests/support/forest_queen_gameplay_fixture.gd',ROOT/'tests/forest_depth_canopy_campaign_case.gd',ROOT/'tests/forest_depth_canopy_campaign_pilot.gd']
+    paths=[Path(__file__).resolve(),ROOT/'tests/forest_depth_campaign_boss_runner.gd',ROOT/'tests/forest_depth_guardian_pilot.gd',ROOT/'tests/forest_depth_guardian_campaign_case.gd',ROOT/'tests/support/forest_queen_gameplay_fixture.gd',ROOT/'tests/forest_depth_canopy_campaign_case.gd',ROOT/'tests/forest_depth_canopy_campaign_pilot.gd',ROOT/'tests/forest_depth_canopy_gold_probe.gd',ROOT/'tests/test_forest_canopy_gold_contract.py']
     verifier={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     receipt={'native_verbose':args.verbose,'scope':__doc__,'source_before':before,'verifier_before':verifier,'passed':False,'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'native_budget_seconds':180,'import_budget_seconds':90,'boss_scenario':args.boss}
     snapshot=ROOT/'build/snapshot-receipt.json'
     if snapshot.is_file():receipt['runtime_snapshot_receipt_sha256']=hashlib.sha256(snapshot.read_bytes()).hexdigest()
     start=time.monotonic()
     try:
+        if args.boss=='canopy':
+            unit_start=time.monotonic()
+            unit_log=out/'gold-contract-counterexamples.log'
+            # Included in this check's original300s Harness budget, before the
+            # unchanged90s editor and180s native budgets. No additional check ID.
+            with unit_log.open('w') as log:
+                unit=subprocess.run([sys.executable,str(ROOT/'tests/test_forest_canopy_gold_contract.py')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=10)
+            unit_text=unit_log.read_text()
+            unit_count=re.search(r'^Ran ([1-9]\d*) tests? in ',unit_text,re.M)
+            require(unit.returncode==0 and unit_count is not None and int(unit_count.group(1))>=8,'All current canopy GOLD reader counterexamples must execute successfully before native')
+            receipt['gold_contract_counterexamples']={'tests':int(unit_count.group(1)),'exit_code':unit.returncode,'timeout_seconds':10,'elapsed_seconds':time.monotonic()-unit_start,'scope':'Pure synthetic reader refusals, not extra native combat evidence'}
         with (out/'import.log').open('w') as log,contextlib.redirect_stdout(log):
             text=run_engine(['--headless','--path','.','--editor','--quit'],90)
         if ERRORS.search(text):raise RuntimeError('Native import ERROR')

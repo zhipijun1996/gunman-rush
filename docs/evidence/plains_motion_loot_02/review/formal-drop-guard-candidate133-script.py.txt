@@ -1,0 +1,64 @@
+from pathlib import Path
+import json,re,subprocess,hashlib,collections,math
+R=Path('/workspace/gunman-rush');candidate=Path('/tmp/enemy_feedback_01_formal.candidate.gd');s=candidate.read_text();BASE='96bf4410f3118936ba78faddacc717974ffd39b9';old=subprocess.check_output(['git','show',BASE+':tests/enemy_feedback_01_formal.gd'],cwd=R,text=True);checks=[]
+def ck(n,v,d=None):checks.append({'id':n,'passed':bool(v),'detail':d})
+def sha(b):return hashlib.sha256(b).hexdigest()
+ck('candidate_exact133c',sha(candidate.read_bytes())=='133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067')
+labels=lambda x:re.findall(r'\bcheck\([^\n]*,\s*"([^"\n]*)"\)',x)
+a,b=labels(old),labels(s);i=0
+for v in b:
+ if i<len(a) and v==a[i]:i+=1
+ck('original35literal_labels_ordered',len(a)==35 and i==35)
+def label_expressions(source):
+ out=[]
+ for line in source.splitlines():
+  x=line.strip()
+  if not x.startswith('check('):continue
+  depth=0;quoted=False;escape=False
+  for k,c in enumerate(x):
+   if quoted:
+    if escape:escape=False
+    elif c=='\\':escape=True
+    elif c=='"':quoted=False
+   elif c=='"':quoted=True
+   elif c=='(':depth+=1
+   elif c==')':depth-=1
+   elif c==',' and depth==1:
+    out.append(x[k+1:x.rfind(')')].strip());break
+ return out
+old_expr,new_expr=label_expressions(old),label_expressions(s);j=0
+for v in new_expr:
+ if j<len(old_expr) and v==old_expr[j]:j+=1
+ck('original39_all_label_expressions_ordered',len(old_expr)==39 and j==39)
+
+waits=lambda x:re.findall(r'^\s*await ticks\([^\n]*',x,re.M)
+ck('original_all_waits_exact',waits(old)==waits(s));ck('original_byte_reload_guard','check(JSON.stringify(app.region_state.drops) == drops_before, "actual reload preserves drop receipt byte representation")' in s)
+ck('original_primary_instance_checks',all(x in s for x in ['"formal terminal drop has exactly one pickup instance or configured none"','"repeated ticks and replay never add another pickup"','"official rebuild restores one existing drop instance"']))
+ck('only_actual7_motion_fields','const FORMAL_UNIT_MOTION_FIELDS := ["position", "velocity", "age", "bounces", "rotation", "settled", "returning"]' in s)
+ck('whole_claimed_exact','if not formal_exact(before.claimed, after.claimed): errors.append("claimed_ledger_changed")' in s)
+ck('whole_grants_exact','if not formal_exact(before.wallet_grants, after.wallet_grants): errors.append("wallet_grants_changed")' in s)
+ck('wallet_balance_exact','if before.wallet_balance != after.wallet_balance: errors.append("wallet_delta")' in s)
+ck('no_invalid_absolute_age_stageclock','age_exceeds_stage_clock' not in s and 'float(unit.age) > float(state.stage_clock)' not in s)
+ck('same_instance_and_actor_scope','before.stage_instance_id != after.stage_instance_id or before.actor_epoch != after.actor_epoch' in s)
+ck('true_clock_frame_observation',all(x in s for x in ['"stage_clock": (app.stage as PlainsRegionStage).clock','"physics_frame": Engine.get_physics_frames()','"physics_ticks_per_second": Engine.physics_ticks_per_second']))
+for field in ['age_progress','bounce_progress','horizontal_speed_progress','vertical_speed_progress','horizontal_position_progress','vertical_position_progress','rotation_progress']:
+ ck('relative_finite_bound/'+field,('errors.append("'+field+'/') in s and ('"'+field+'/"') in s)
+ck('ghost_claim_negative','invalid.claimed["guard_ghost_claim"] = true' in s and '"new ghost claim with no actual owner", "claimed_ledger_changed"' in s)
+for label in ['nonempty historical grant clone model preserves old receipt and balance','removed historical grant in clone model','changed historical amount in clone model','added historical replay receipt in clone model','old historical receipt paid twice in clone model']:ck('history_model/'+label,label in s)
+ck('independent_raw_pickup_observation','var row := pickup.duplicate(true)' in s and 'PlainsLootMotion.snapshot(' not in s)
+ck('all_units_from_reward_entitlement','formal_expected_units(drop, source, errors)' in s and 'unit_count/' in s and 'unit_identity/' in s and 'extra_source_unit/' in s and 'source_count_or_sum/' in s)
+# Diagnostic did not capture actual clocks; this is a nominal-wait mathematical envelope check only.
+obs=json.loads((R/'build/plains-ci-41001060607/instrumented-formal/observations.json').read_text());groups=collections.defaultdict(dict)
+for row in obs:groups[row['target']][row['phase']]=row['state']
+envelopes=[]
+for target,phases in groups.items():
+ for phase,frames in [('after45',45),('after175',175)]:
+  dt=frames/60
+  for source,d in phases['before']['drops'].items():
+   for before,after in zip(d['units'],phases[phase]['drops'][source]['units']):
+    vx=abs(before['velocity'][0]);vy=abs(before['velocity'][1]);eps=.001
+    envelope={'age':0<=after['age']-before['age']<=dt+eps,'bounce':0<=after['bounces']-before['bounces']<=frames,'vx':abs(after['velocity'][0])<=vx+eps,'vy':abs(after['velocity'][1])<=vy+620*dt+eps,'x':abs(after['position'][0]-before['position'][0])<=(vx+260)*dt+3*frames+eps,'y':abs(after['position'][1]-before['position'][1])<=(vy+620*dt+260)*dt+3*frames+eps,'rotation':abs(after['rotation']-before['rotation'])<=vx*dt*.022+eps}
+    for k,v in envelope.items():ck('NOMINAL_NOT_CLOCK_TEST/'+target+'/'+phase+'/'+before['id']+'/'+k,v)
+    envelopes.append({'target':target,'phase':phase,'unit':before['id'],'nominal_frames':frames,'nominal_seconds':dt,'all_envelopes_hold':all(envelope.values())})
+proof={'verdict':'ACCEPT_SOURCE_CANDIDATE_PENDING_ROOT_NATIVE_EXECUTION','candidate_sha256':sha(candidate.read_bytes()),'base_source_commit':BASE,'reviewer':'/root/guard_review_recovery','implementer':'/root/corpse_contact_audit','independent':True,'engine_executed_by_reviewer':False,'candidate_modified_by_reviewer':False,'actual_command':'python3 /tmp/review_formal_guard_candidate_v3.py > /tmp/plains_formal_guard_candidate_v3_pure.log','checks':checks,'passed':sum(c['passed'] for c in checks),'failed':sum(not c['passed'] for c in checks),'nominal_envelope_models':envelopes,'clock_limit':'Old six-row observations omit true clock/frame fields. Nominal45/175 frames check is explicitly a model; no new real-clock/runtime positive result is claimed.','root_required_next':['Apply exact reviewed candidate only, preserve source hash, run original wrapper under unchanged budget','Confirm real clock/frame positive observations, all original66 runtime checks and new specific mutation refusals including reload','Freeze exact new commit/input inventory before process record acceptance'],'prior_findings':{'F1':'Addressed by same-stage real clock/frame and relative physical envelope plus synchronized negative examples','F2':'Addressed by exact complete claimed/grants/balance preservation and ghost-claim negative','F3':'Addressed by explicitly labeled retained/deleted/changed/replayed old-grant clone models','F4_v2_regression':'Addressed: removed absolute age≤fresh stage.clock; reload retains original bytes and validates snapshot without comparing old/new stage scope'},'limits':['No engine parse/native pass','No whole feature/gameplay/performance/fullCI/art/audio/device/user/main G1-G5 acceptance','A conservative envelope is not proof of exact collision trajectory; dedicated native motion tests remain necessary']}
+Path('/tmp/plains_formal_guard_candidate_v3_proof.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n');print(proof['verdict'],proof['passed'],proof['failed']);print('failures',[x for x in checks if not x['passed']])

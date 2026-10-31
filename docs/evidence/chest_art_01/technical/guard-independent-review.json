@@ -1,0 +1,87 @@
+{
+  "task_id": "CHEST-ART-01",
+  "kind": "independent read-only finite-guard migration review",
+  "reviewer": "/root/final_review",
+  "observed_utc": "2026-10-28T10:50:44.036392+00:00",
+  "verdict": "REVISE_STATIC_FUNCTION_CONTEXT_GAP",
+  "status": "interim pending permitted narrow counterexample or author fix",
+  "scope": "Only pipeline gate/tests/historical fixtures. User-adopted source04 is authorized for implementation; original art geometry failures stay historical and this report does not request user confirmation.",
+  "preserved_baseline": {
+    "original_test_methods": 152,
+    "removed": [],
+    "unchanged_original_method_AST": 143,
+    "changed_original_methods": 9,
+    "new_methods": 7,
+    "changed_scope": "Only original9 legacy alpha mutations now use frozen actual pre-tier bytes. Their mutation literals/expected errors retained.",
+    "legacy_helper_AST_identical_except_name": true,
+    "both_complete_fixtures_byte_identical_to_git_base": true,
+    "source_base": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+    "old_generation_recipe_crop_aspect_reconstruction_and_3arg_dispatch_mutation_tests_retained": true
+  },
+  "observed_existing_author_evidence": {
+    "tests": 159,
+    "failures": 0,
+    "seconds": 89.505,
+    "original_budget_seconds": 180,
+    "actual_audit_checks": 1025,
+    "actual_audit_failures": 0,
+    "original_failed_first_test_log_preserved": true,
+    "reviewer_reran_full_suite": false,
+    "engine_started": false
+  },
+  "positive_new_guard_coverage": [
+    "Exact current dispatch body includes tiered path and original3arg fallback.",
+    "Unique real ready/capture header checks, initialization/ready/capture finite loop shape, actual tier/claimed and original+21 foot.",
+    "Library exact SHA binds actual config validation/AtlasTexture/WHITE/source-foot implementation; not a hash-only substitute for Stage call checks.",
+    "Wrong tier/state/foot, extra dispatcher/alias/reflection, loop-only dead strings, gray/alpha/position overrides and manual claimed writes have new controls."
+  ],
+  "finding": {
+    "id": "FAKE_FUNCTION_HEADER_LITERAL_CONTEXT",
+    "severity": "finite-gate bypass risk; must resolve before declaring dead-string guard complete",
+    "execution_status": "Static counterexample, not executed because parent requested only source/existing logs; narrow helper-only execution permission requested.",
+    "code_path": "formal_chest_alpha_isolated checks unique headers using full chest_executable(stage), then gd_function(stage,name) chooses first unmasked original function header. gd_function loses any opening triple-string context before that header; chest_loop_matches masks the extracted substring as if it were standalone code. current_chest_dispatch similarly extracts objects.place_chest from unmasked source.",
+    "counterexample_shape": [
+      "Add a valid top-level triple-quoted variable immediately before the actual first function. Its literal contains fake func _ready with exact CHEST_INITIALIZATION+CHEST_READY and fake func capture_state with exact CHEST_CAPTURE.",
+      "Keep unique actual _ready/capture function definitions and two actual place_chest calls, but remove actual initialization and change actual tier argument.",
+      "Full-source mask sees one actual function each/two actual calls; subsequent gd_function may select fake functions inside the string, making finite-loop comparisons inspect inactive text. No real claimed assignment remains outside fake initialization removal."
+    ],
+    "why_existing_test_is_insufficient": "Current dead-string negative moves a loop into a literal within a real function and appends unrelated function. It does not place a fake function header inside an earlier literal while distinct actual functions exist.",
+    "bounded_fix_recommendation": "Locate both chest function starts and ends in a mask of the WHOLE original source with preserved offsets, then slice original source by those offsets. Prefer chest-specific extraction to avoid changing all old gd_function users. Add fake-header-literal-before-real-functions controls for both Stage and Objects."
+  },
+  "source_evidence": [
+    {
+      "path": "tools/underworld_pipeline.py",
+      "sha256": "20af1d76489499efeafad4d1df593c54c35f51345059ccf78942d513664da26e"
+    },
+    {
+      "path": "tests/test_underworld_pipeline.py",
+      "sha256": "2564a38ff2ea5227f302ae875de1bcdffe4ab7e75e31c166035b4917f5a84bee"
+    },
+    {
+      "path": "tests/fixtures/chest_dispatch_before_tiers/manifest.json",
+      "sha256": "f12197f1c176b303b532b6583b85af3d68877055920280a73bb822178bc20c6c"
+    },
+    {
+      "path": "tests/fixtures/chest_dispatch_before_tiers/scripts__demo__plains_region_stage.gd.source",
+      "sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6"
+    },
+    {
+      "path": "tests/fixtures/chest_dispatch_before_tiers/scripts__underworld_plains__underworld_objects.gd.source",
+      "sha256": "7048a69a7b7d944ea532b6379cf202cf545c545e2d1ebebbba9292f5fb87993e"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/migration-result.json",
+      "sha256": "add35ec09729f39bb66085a7d83797ea38962acb469b4a3b74fa598e19d169da"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/test-native-free-02.log",
+      "sha256": "00fdb05bcbc09098e81025ef6e08fc1c427250398fd2c37bd9abeead5c998456"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/actual-audit-02.json",
+      "sha256": "c48804a0d2b733c5cab16ee595652fab5727358b4590d5bc78e2151bfa268a77"
+    }
+  ],
+  "final_acceptance": false,
+  "production_or_test_changes_by_reviewer": false
+}

@@ -30,12 +30,15 @@ func run(tree: SceneTree, check: Callable) -> void:
 	button(menu, "3 rooms   /   A quick taste").pressed.emit()
 	check.call(starts == ["rush-demo"], "blank seed uses explicit demo fallback without changing mode")
 	menu.show_pause("Double Jump")
-	button(menu, "RETURN TO HOME").pressed.emit()
+	check.call(menu.visible_panel == &"build", "pause entry opens backpack directly")
+	menu.show_journey()
+	button(menu, "LeaveAdventure").pressed.emit()
 	check.call(menu.visible_panel == &"confirm_home" and homes.is_empty(), "return home first opens confirmation without ending the run")
 	button(menu, "KEEP PLAYING").pressed.emit()
 	check.call(resumes.size() == 1 and homes.is_empty() and menu.visible_panel == &"", "cancel leave resumes the same run without a home request")
 	menu.show_pause()
-	button(menu, "RETURN TO HOME").pressed.emit()
+	menu.show_journey()
+	button(menu, "LeaveAdventure").pressed.emit()
 	button(menu, "LEAVE RUN").pressed.emit()
 	check.call(homes.size() == 1 and menu.visible_panel == &"", "confirmed leave emits one home request and hides the blocking menu")
 	menu._seed = ""
@@ -64,7 +67,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	button(menu, "APPLY").pressed.emit()
 	check.call(patches.size() == 2 and menu._values.right_sensitivity == menu._defaults.right_sensitivity, "restored defaults validate and apply from the authoritative input config")
 	button(menu, "BACK").pressed.emit()
-	check.call(menu.visible_panel == &"pause" and resumes.size() == 1, "back from run settings stays paused instead of leaking resume")
+	check.call(menu.visible_panel == &"build" and resumes.size() == 1, "back from run settings returns to backpack without leaking resume")
 	menu.close_panel()
 	check.call(menu.visible_panel == &"" and resumes.size() == 2, "closing pause emits explicit resume request")
 	menu.show_help(false)
@@ -77,6 +80,6 @@ func run(tree: SceneTree, check: Callable) -> void:
 
 func button(menu: DemoMenu, text: String) -> Button:
 	for node: Node in menu._content.find_children("*", "Button", true, false):
-		if (node as Button).text == text:
+		if node.name == text or (node as Button).text == text:
 			return node as Button
 	return null

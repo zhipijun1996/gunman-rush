@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-WEB-PERF-01",
+  "reviewer": "independent subagent /root/review_mobile_ui",
+  "reviewed_at_utc": "2026-10-29T14:54:32.239601+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Limited pre-deployment review of exact before/after bundle transport, URL/worker separation, branch-dispatched Pages reconstruction and browser-only observer design. No deployment/public fetch/device/music-continuity certification.",
+  "execution": {
+    "production_files_modified": 0,
+    "engine_or_browser_started": 0,
+    "only_written_file": "docs/evidence/mobile_web_perf_01/delivery-review.json",
+    "independent_checks": [
+      "streamed decompression/SHA verification of399+399original compressed chunks without writing full PCKs",
+      "inspected both actual prepared HTML/config/worker maps/metadata",
+      "read-only GitHub API workflow/branch/environment queries and remote workflow byte comparison",
+      "read verifier/recorder/observer source and both attempt receipts/logs"
+    ]
+  },
+  "frozen_production_review_sha256_unchanged": "45fcece8db66df2fe8e11308f19abd3c86d0c0e46f32fa26d8bc758d1ad0b6f5",
+  "prepared_bundles": [
+    {
+      "relative_directory": ".",
+      "build_id": "3866985a1e8b",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "pack_sha256": "3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21",
+      "pack_bytes": 208691528,
+      "chunks": 399,
+      "loader_id": "0829280c25b8",
+      "raw_pack_removed": true,
+      "index_html_sha256": "7d0b9715bf450e2df5cb772a1167c66a5e13ce0f64a4bcd01aed403392697a17",
+      "worker_sha256": "4582b2bd715f2c35ab769216151979354e0a0ce3886231753c9d842f52450798",
+      "metadata_sha256": "30570662527f9334eb7921f194a7d4214adfdd0ef4ad6f8e76172cecb7350306"
+    },
+    {
+      "relative_directory": "audio-before",
+      "build_id": "2caa023125bd",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "pack_sha256": "2caa023125bd6fcf2b960dcdf5ac60a6a7abdbfeb643ef0b661f80f6a15d5a31",
+      "pack_bytes": 208691576,
+      "chunks": 399,
+      "loader_id": "21b92b1443fb",
+      "raw_pack_removed": true,
+      "index_html_sha256": "89f3480b30a13a333c0044f217bf88fa861e0f57149bef6194180aa5524f2315",
+      "worker_sha256": "8bee1fd286f3d594ad55c88377805bd30eb20be3ae69113831ca6f07c262660c",
+      "metadata_sha256": "1f95adcc49f7c40a18bd7142da36c8e463c8b6b5fffdb51a11020a9957be9f12"
+    }
+  ],
+  "exact_transport_validation": {
+    "all798chunk_compressed_sizes_plain_sizes_sha256_passed": true,
+    "independent_complete_pack_sha256_matches_maps_and_build_prefixes": true,
+    "transport_bytes_without_raw_PCK": 508236439,
+    "complete_site_current_bytes_after_two_reconstructions": 925619543,
+    "less_than_1GiB": true,
+    "original_comparison_receipt_bytes": 925617568,
+    "receipt_size_note": "Original size was computed before comparison HTML/JSON were added; current complete estimate adds1975bytes and remains safely below1GiB. No failing size threshold was changed."
+  },
+  "url_and_cache_scope": [
+    "audio-compare.html AFTER href=./?audio_compare=after opens root HTML with fixed mainPack index.3866985a1e8b.pck; BEFORE href=audio-before/?audio_compare=before opens separate HTML with fixed index.2caa023125bd.pck. Query parameters label the comparison, not substitute versions.",
+    "Each folder carries its own original worker, resource/chunk map, build-info, HTML and complete matching engine/worklets. Actual metadata proves before source4707 and after sourceccc11; no?v-only version fiction.",
+    "Both pages register index.cache-sw.js relatively with no base tag or widened scope. Before worker scope is/audio-before/ and its fetch guard rejects URLs outside that origin/scope; it cannot intercept root after resources.",
+    "Root worker computes names relative to root scope, so audio-before/index... does not match the root RESOURCE_MAP or index-prefix fallback regex. Initial root control of a child page does not rewrite its child URLs; child registration/controller handoff is supported by existing handshake.",
+    "Worker handshake checks both worker ID and expected PCK name; update lookup uses build-info.json relative to each page. Both remain tied to their own build after reload.",
+    "CacheStorage namespace strings are shared by the existing worker design, but keys are full URLs including directories and content-addressed filenames, and hashes/sizes are verified. Cache eviction can affect download reuse, not switch a bundle into the other version. This review does not claim storage/save isolation."
+  ],
+  "workflow_and_dispatch": {
+    "path": ".github/workflows/deploy-prepared-playtest.yml",
+    "github_workflow_id": 386563474,
+    "github_state_at_read": "active",
+    "registered_on_default_branch": true,
+    "source_branch_ref": "refs/heads/fix/mobile-web-performance-20261029",
+    "remote_branch_head_at_read": "4c9c23d9e603b759951c57a491aeba52febda0d2",
+    "remote_workflow_sha256": "dd21b97d85ee468286a7caff8a419fa3261714dc58deae403ad231a8ea7ea32f",
+    "remote_workflow_matches_local": true,
+    "pages_environment": {
+      "deployment_branch_policy": null,
+      "protection_rules": []
+    },
+    "findings": [
+      "workflow_dispatch already exists onmain, so workflow discovery is available. Dispatch with --ref fix/mobile-web-performance-20261029 selects the branch workflow carrying audio-before reconstruction; dispatching defaultmain would run its older definition.",
+      "Checkout of helper uses github.sha for the selected run revision, then checks out inputs.prepared_ref into prepared-web. The fixed optional path has no user-controlled shell interpolation.",
+      "Root reconstruct-pack is mandatory; existing audio-before/build-info.json triggers the exact same helper against the child directory before upload-pages-artifact. Both full PCKs are reconstructed and checked by bytes, chunk hashes and full SHA.",
+      "Reconstruction helper uses standard library in this command path, matching sparse checkout of its one file. No hidden repository import/dependency is needed for reconstruct-pack.",
+      "Observed github-pages environment allows this branch with no deployment protection rules. Actual dispatch authorization/run completion and final Pages publication remain pending; read-only review did not initiate any run."
+    ]
+  },
+  "standard_production_audio_observer": {
+    "tool": "tools/mobile_web_perf/verify_production_audio.py",
+    "design_findings": [
+      "Opens ordinary exported HTML and reads expected build/source metadata; no GDScript/PCK patch, alternate scene, playback override, Master-routing repair or engine/worklet replacement is introduced.",
+      "One ordered init script installs recorder interception, then a Blob URL holding observer-only formal_pcm_worklet.js, then graph observer and audio observer. Blob avoids service-worker-controlled external module fetch bypassing Playwright route interception.",
+      "The separate mobile-web-perf-pcm node receives a fan-out of observed destination branches and feeds a gain0sink. Original destination edges/gains/playback native calls remain; samples are copied to a bounded recorder and original Godot read/chunk messages are not rewritten.",
+      "Graph/source wrappers call original native operations, retain their return values/exceptions, and add metadata/observation only. No special Root/Master destination hook is loaded. Standard engine JS/WASM/worklets remain official hashes.",
+      "Input is ordinary touch at fitted-screen coordinates plus real Home menu Explore; report label separates audio output observation from any graphics/device acceptance.",
+      "Observers add some CPU/audio-graph overhead. They are browser-only instrumentation, not zero-cost or physical-speaker evidence. Closest-native-start proximity alone is not asset identity; template/variant evidence must accompany it."
+    ],
+    "first_attempt": "production-browser-audio-01 remains incomplete/failed; original report/title/log/stdout TimeoutError retained. The first module-route404 issue is not relabelled as success after the Blob fix.",
+    "second_attempt": {
+      "path": "build/mobile_web_perf_01/production-browser-audio-02/report.json",
+      "status": "captured_review_matches_separately",
+      "build": "3866985a1e8b",
+      "source": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "scenes": [
+        "home",
+        "plains"
+      ],
+      "observed_best_matches": [
+        {
+          "scene": "home",
+          "best": {
+            "jump": {
+              "variant": 0,
+              "rho": 0.9971252659252389,
+              "closest_native_start_delta_ms": 0.04535147392203953,
+              "source_sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b"
+            },
+            "pulse": {
+              "variant": 0,
+              "rho": 0.9998331107899573,
+              "closest_native_start_delta_ms": 0.04535147392203953,
+              "source_sha256": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba"
+            }
+          }
+        },
+        {
+          "scene": "plains",
+          "best": {
+            "jump": {
+              "variant": 1,
+              "rho": 0.8913018209413743,
+              "closest_native_start_delta_ms": 0.04535147392914496,
+              "source_sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865"
+            },
+            "pulse": {
+              "variant": 1,
+              "rho": 0.9940428624101452,
+              "closest_native_start_delta_ms": 0.045351473914934104,
+              "source_sha256": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec"
+            }
+          }
+        }
+      ]
+    },
+    "boundary": "Reviewed existing root-produced PCM/match receipts, did not rerun or independently listen/analyze waveforms. These Home/Plains jump/pulse observations do not prove all cues, phone behavior or complete music/bed continuity."
+  },
+  "unresolved_blocking_delivery_findings": [],
+  "unverified": [
+    "No workflow dispatched or Pages deployment performed by reviewer.",
+    "Post-deploymentroot/audio-before HTTP200, metadata, full reconstructed PCK SHA and fresh actual GUI remain root release checks.",
+    "Physical Honor/Huawei Chrome and subjective listening remain awaiting-device.",
+    "Complete BGM/environment-bed continuity, all cues and FPS improvement are not certified."
+  ],
+  "evidence": [
+    {
+      "path": ".github/workflows/deploy-prepared-playtest.yml",
+      "sha256": "dd21b97d85ee468286a7caff8a419fa3261714dc58deae403ad231a8ea7ea32f",
+      "bytes": 1531
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_comparison.py",
+      "sha256": "2671500d392aac1645f350b4eaa1504a025f4b3c5d047cc5d1444b1a16e41804",
+      "bytes": 3220
+    },
+    {
+      "path": "tools/style_exploration_delivery.py",
+      "sha256": "582a88b0438753b04d771a479aa4d13f923b4387938252f09428773375391a43",
+      "bytes": 10272
+    },
+    {
+      "path": "tools/mobile_web_perf/verify_production_audio.py",
+      "sha256": "730c593c5036cb31259b8b6f1b41a5daf6fae26b216913b0cf00014bef91f45f",
+      "bytes": 8673
+    },
+    {
+      "path": "tools/mobile_web_perf/audio_graph_probe.js",
+      "sha256": "ac6be233bc05d21e1753cc05fcbfd14b14d4aa9ec714173b6c2ef77066ddca72",
+      "bytes": 20431
+    },
+    {
+      "path": "tools/mobile_web_perf/audio_probe.js",
+      "sha256": "8e8b8b0a50077f20f26c8ae7bef70d6940db9ff38f1d6368966afd224102bed4",
+      "bytes": 15536
+    },
+    {
+      "path": "tools/mobile_web_perf/formal_pcm_worklet.js",
+      "sha256": "5cd5acb8676ff9e81b4f0081f70f51f210d4ec61ebb06e776b14e194b1fbd2c7",
+      "bytes": 2905
+    },
+    {
+      "path": "/workspace/gunman-rush-prepared-mobile-audio/audio-comparison.json",
+      "sha256": "88fc6718a4bfe9b7ca20345fa697fe0317a4b89a3e9ca14a99e8aeaf3a5ec54a",
+      "bytes": 1013
+    },
+    {
+      "path": "/workspace/gunman-rush-prepared-mobile-audio/audio-compare.html",
+      "sha256": "031c4b483c08ad8e9e78c4698f7a604736beb576e6cad23dd536aef69cf68144",
+      "bytes": 962
+    },
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-01/report.json",
+      "sha256": "0da318a95161b9e1441e536e4bbc05ff17fdbbec34cb5335b04db2f0b6731a27",
+      "bytes": 670
+    },
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-01.log",
+      "sha256": "b4b0d570ef98ba42a520ff0f4801be14528508cd63816122f6bbd69b7c9be4c2",
+      "bytes": 2456
+    },
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-02/report.json",
+      "sha256": "07e5ea98fd13bff34e853a64667ffeaaf2f60ca15b26e9637c0cc2f4ce43f09b",
+      "bytes": 835448
+    },
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-02.log",
+      "sha256": "417e8d6a563e4208af6073f8dd2926c2b66cd5d70802958f12ab93213d363e72",
+      "bytes": 1895
+    }
+  ]
+}

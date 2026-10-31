@@ -1,0 +1,53 @@
+{
+  "task": "MERGE-WEB-01",
+  "reviewer": "/root/final_review",
+  "kind": "One stale shared-chest formalconsumer assertion migrated to actual tiered renderer",
+  "created_utc": "2026-10-28T13:32:09.685179+00:00",
+  "verdict": "SCOPED_TECHNICAL_ACCEPT",
+  "base": "91545e4bea256ebff641167e04c310f3df4db0e9",
+  "scope": "Only test_underworld_formal.gd stale chest texture assertion; no production or wrappers changed by migration.",
+  "static_verified": {
+    "exact_single_old_assertion_replacement_only": true,
+    "all_other_bytes_identical": true,
+    "same96dynamic_assertions_and_twoactual_maps_retained": true,
+    "new_condition": "Expected AtlasTexture for actual tier/claimed must be nonnull and exact actualsprite.texture; open-state metadata must exist andmatchclaimed; spriteWHITE and originalrow+21foot required.",
+    "not_SHA_or_deadstring_only": "Reads actual spawned Stage chest Sprite2D in both real formal maps, not dummyrenderer or hash-only assertion.",
+    "preserved": "Actual derivedseed/uniqueManifest, terrain/player/merchantstandingheight/feet/background/enemy/pickup/pause/lifecycle/tuning/teardown assertions untouched.",
+    "legacy_oldshared_resource": "No longer treated as exact currentformal texture. Original3argument fallback/oldcrop/alpha negatives remain separately guarded by other unchanged tests.",
+    "wrapper_unchanged": true,
+    "Harness_budget_seconds": 150,
+    "native_budget_seconds": 120
+  },
+  "existing_root_native_evidence": {
+    "path": "build/merge_web_01/formal-validation-01.log",
+    "actual_marker": "UNDERWORLD_FORMAL checks=96 failures=0 maps=2",
+    "success_marker_present": true,
+    "strict_engine_failure_or_leak_markers_absent": true,
+    "reviewer_did_not_run_engine": true
+  },
+  "evidence": [
+    {
+      "path": "tests/underworld_plains/test_underworld_formal.gd",
+      "sha256": "b59c854c8a42644af3e70cbd9992aa7f994eb7e99a0ed899ff5bd5fc980d3567"
+    },
+    {
+      "path": "tools/run_underworld_formal_tests.py",
+      "sha256": "004cfc12bfedc9afef64ec45c0b0410f0a4a3bb1378e357ee94d5f39e398a673"
+    },
+    {
+      "path": "build/merge_web_01/formal-validation-01.log",
+      "sha256": "baabbfca90bb36e571bd00f6cdda50078c7a9fb6fcf894ac336d64e940cf4ddc"
+    },
+    {
+      "path": "build/merge_web_01/underworld-formal-migration/manifest.json",
+      "sha256": "4368a628ed60528df212e2e5dc9eb548ad130755a111f358593e31ea7559e981"
+    },
+    {
+      "path": "build/merge_web_01/ci-original/serial/underworld-formal.log",
+      "sha256": "8fe61b99d08a4daa2ccfb84337285b443f2fad70877e8506dc5dd8d948c1e9c9"
+    }
+  ],
+  "merge_gate": "Original fullCI remains failed until fresh complete same-source165checks succeed; this scoped localpass does not approve merge or skip remaining75.",
+  "reviewer_production_tests_docs_modified": false,
+  "remaining_blockers_in_this_migration_scope": []
+}

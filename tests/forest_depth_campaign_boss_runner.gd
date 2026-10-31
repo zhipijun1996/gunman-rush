@@ -360,6 +360,6 @@ func run_queen() -> void:
 	check(data.before_boundary.manifest_compatible,"actual Queen completion and ability receipts retain compatible current RunManifest")
 	check(await _queen_pointer(_q_app.progression_modal,"END THIS RUN","finish"),"actual pointer confirms truthful end boundary")
 	for unused: int in 6: await process_frame
-	data.after_boundary={"state":int(_q_app.director.state),"wallet":_q_app.wallet.balance,"items":_q_app.build.item_ids(),"abilities":Array(_q_app.campaign.abilities)}
-	check(_q_app.director.state==DemoRunDirector.State.HOME and _q_app.wallet.balance==0 and _q_app.build.item_ids().is_empty() and _q_app.campaign.abilities.is_empty(),"boundary returns home and clears run items coins and abilities")
+	data.after_boundary={"state":int(_q_app.director.state),"wallet":_q_app.wallet.balance,"items":_q_app.build.inventory.item_ids(),"equipped":_q_app.build.item_ids(),"abilities":Array(_q_app.campaign.abilities)}
+	check(_q_app.director.state==DemoRunDirector.State.HOME and _q_app.wallet.balance==0 and _q_app.build.item_ids().is_empty() and _q_app.build.inventory.item_ids().is_empty() and _q_app.campaign.abilities.is_empty(),"boundary returns home and clears run items coins and abilities")
 	await finish(trace)

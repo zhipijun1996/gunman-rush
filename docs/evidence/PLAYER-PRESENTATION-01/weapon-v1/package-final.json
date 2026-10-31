@@ -1,0 +1,57 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "source_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+  "content_version": "weapon-feel-v1",
+  "build_id": "b01ee2694450",
+  "status": "passed",
+  "scope": "Local delivered actual exported ZIP/PCK/Chromium keyboard/pointer/DOM touch only;not public deploy,hearing,physical device or user acceptance",
+  "archive": "player-weapon-preview-b01ee2694450.zip",
+  "archive_sha256": "714d63ee1e3bfebcf4232e739a983a7add0f91766f5105803152a5b46484d8d5",
+  "archive_bytes": 167046194,
+  "canonical_pack_sha256": "b01ee2694450dded9795039c1563d8a35b10603e6291a827e232429f7e633a4d",
+  "package_receipt_sha256": "8189ebba857201c01c38e1aed4eeb211d94a0361b3bc6455a5c7a06a679f0f0a",
+  "browser_report_sha256": "dbd5d7d1f7e557b86454a44c32fd3a22d603144272cc066139efdbd9bb91166e",
+  "audio_context_states_after_real_space_key": [
+    "running"
+  ],
+  "pointer_ids": [
+    "WEAPON SAMPLE: selected triple_machine_gun",
+    "WEAPON SAMPLE: selected sustained_laser",
+    "WEAPON SAMPLE: selected shadow_shuriken",
+    "WEAPON SAMPLE: selected fan_shuriken",
+    "WEAPON SAMPLE: selected remote_boomerang",
+    "WEAPON SAMPLE: selected recoil_bomb",
+    "WEAPON SAMPLE: selected magnetic_mine",
+    "WEAPON SAMPLE: selected collapse_singularity",
+    "WEAPON SAMPLE: selected machine_storm",
+    "WEAPON SAMPLE: selected laser_cannon",
+    "WEAPON SAMPLE: selected blade_bloom",
+    "WEAPON SAMPLE: selected moon_boomerang",
+    "WEAPON SAMPLE: selected magnetic_storm",
+    "WEAPON SAMPLE: selected star_collapse",
+    "WEAPON SAMPLE: selected pulse_gun",
+    "WEAPON SAMPLE: selected remote_boomerang"
+  ],
+  "real_touch_movement_pixel_measurement": {
+    "before": {
+      "pixels": 609,
+      "mean_x": 161.3152709359606
+    },
+    "after": {
+      "pixels": 611,
+      "mean_x": 115.56792144026187
+    }
+  },
+  "browser_driver_sha256": "29df4625659917cdc1776831191f302fe43b7ae657e99e0ac27b020b67a9dcbb",
+  "prior_failures_retained": [
+    "browser-first/report.json",
+    "browser-font/report.json"
+  ],
+  "deployment": {
+    "status": "blocked",
+    "reason": "Cloud delivery failed: Preview site would exceed 900MiB after PCK reconstruction",
+    "log_sha256": "f31aef5c58ef92062209976cee93fdec2a2dd314a66e817a51f047ad051eceac"
+  },
+  "native_source_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+  "native_not_relabelled": "Only six-line task-preview UI diff after frozen5a;audio/consumer/projectile/profile unchanged"
+}

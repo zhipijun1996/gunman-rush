@@ -1,5 +1,9 @@
 # 当前执行：Underworld正式平原与可复用Tile流程
 
+## 2026-10-22 粒度更新
+
+用户已明确选择细粒度，当前共享标准为[style-v5](creative_direction/bibles/style-continuity-20261022-v5.json)：原生32px/32wu、世界表现1wu采样；保留47邻接与精确边界合同。以下旧16px数值只作历史/旧消费者说明，不能当作新生产目标。正式接入与限制见[FINE-SPACE-05](evidence/fine_space_05/README.md)。
+
 用户已从五套真实TileSet样本中选择Underworld，授权整体修改正式风铃平原并整理Harness/Skills；伤害Tile须与平台材料融合。当前规范见[Underworld Tile生产流程](underworld_tile_production.md)，真实清单为 `assets/underworld_plains/production_manifest.json`。16px原生参考按32wu格消费，不沿用历史64px素材规格。整格核心使用永久TileSet与TileMapLayer，非整格边界仍精确适配而非改变碰撞。三独立PNG按真实限位后相机中心分速；装饰根/净空/独立seed、四向危险材料与真实hurt band分别验证。其他地区统一画法而不固定配色或复制岩石材质。
 
 以下是历史生产方向，不覆盖本节。

@@ -1,0 +1,2818 @@
+{
+  "schema_version": 1,
+  "stage": "integration",
+  "status": "planned",
+  "approval_scope": "plan_only",
+  "changed_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/player-creator/SKILL.md",
+    ".agents/skills/project-integration/SKILL.md",
+    ".github/workflows/docs.yml",
+    ".github/workflows/environment.yml",
+    ".github/workflows/production.yml",
+    "AGENTS.md",
+    "config/production_impact.json",
+    "docs/cloud_efficiency_audit.md",
+    "docs/cloud_production.md",
+    "docs/current_state.md",
+    "docs/demo_wave_01.md",
+    "docs/evidence/cloud_efficiency_01/README.md",
+    "docs/evidence/cloud_efficiency_01/closure-v2-review.json",
+    "docs/evidence/cloud_efficiency_01/cloud-inputs-preflight-followup.log",
+    "docs/evidence/cloud_efficiency_01/docs-inputs-postcommit.json",
+    "docs/evidence/cloud_efficiency_01/docs-inputs-summary.json",
+    "docs/evidence/cloud_efficiency_01/docs-inputs.json.gz",
+    "docs/evidence/cloud_efficiency_01/docs-v2/asset-family-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/capture-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/cloud-delivery-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/cloud-inputs-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/cloud-production-planner-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/consumer-coverage-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/creative-direction-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/creative-direction.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/docs.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/harness-artifact-archive-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/harness-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/lane-0-setup.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/lane-1-setup.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-design-analysis.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-design-contracts.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-design-golden-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-design-routing.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-experience.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-formal-receipts.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/level-region-context.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/mechanism-comparisons.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/portable-frozen-assets.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/production-loop-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/quality-drills.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/quality-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/quality.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/region-bible-contract.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/region-bible-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/report.json",
+    "docs/evidence/cloud_efficiency_01/docs-v2/structure.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/terrain-tile-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/underworld-home-guard-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/underworld-pipeline.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/visual-director-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/world-design-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v2/world.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/asset-family-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/capture-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/cloud-delivery-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/cloud-inputs-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/cloud-production-planner-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/consumer-coverage-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/creative-direction-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/creative-direction.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/docs.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/harness-artifact-archive-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/harness-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/lane-0-setup.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/lane-1-setup.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-analysis.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-contracts.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-golden-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-routing.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-experience.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-formal-receipts.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-region-context.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/mechanism-comparisons.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/portable-frozen-assets.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/production-loop-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/quality-drills.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/quality-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/quality.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/region-bible-contract.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/region-bible-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/report.json",
+    "docs/evidence/cloud_efficiency_01/docs-v3/structure.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/terrain-tile-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/underworld-home-guard-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/underworld-pipeline.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/visual-director-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/world-design-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/world.log",
+    "docs/evidence/cloud_efficiency_01/efficiency-docs-inputs-closure-v2.json",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/aim-save-compat.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data-receipt.json",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data.log",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/receipt.json",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/report.json.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/docs.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/lane-0-setup.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/lane-1-setup.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/quality-drills.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/quality-tests.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/quality.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/report.json.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/world-design-tests.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/world.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/partial-clone-lane-0-setup.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/partial-clone-setup-report.json.gz",
+    "docs/evidence/cloud_efficiency_01/failures/partial-clone-setup.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/production-loop-closure-v1.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/provider-batch-before-noop.json.gz",
+    "docs/evidence/cloud_efficiency_01/frozen-test-results.json",
+    "docs/evidence/cloud_efficiency_01/github-first32.json",
+    "docs/evidence/cloud_efficiency_01/isolated-history/execution.log",
+    "docs/evidence/cloud_efficiency_01/isolated-history/forest-formal-combat.log",
+    "docs/evidence/cloud_efficiency_01/isolated-history/receipt.json",
+    "docs/evidence/cloud_efficiency_01/isolated-history/report.json",
+    "docs/evidence/cloud_efficiency_01/isolated-history/setup.log",
+    "docs/evidence/cloud_efficiency_01/local-v2-review.json",
+    "docs/evidence/cloud_efficiency_01/metadata-v3-review.json",
+    "docs/evidence/cloud_efficiency_01/native-fixture-inputs.json",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/aim-save-compat.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/lane-0-setup.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/lane-1-setup.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-action-golden.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-autonomy-golden.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-encounter-policy.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/report.json",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/root-bell-tests.log",
+    "docs/evidence/cloud_efficiency_01/native-input-audit.json",
+    "docs/evidence/cloud_efficiency_01/native-inputs-review.json",
+    "docs/evidence/cloud_efficiency_01/native/cloud-delivery-tests.log",
+    "docs/evidence/cloud_efficiency_01/native/cloud-inputs-tests.log",
+    "docs/evidence/cloud_efficiency_01/native/cloud-preview-runtime.log",
+    "docs/evidence/cloud_efficiency_01/native/cloud-production-planner-tests.log",
+    "docs/evidence/cloud_efficiency_01/native/core.log",
+    "docs/evidence/cloud_efficiency_01/native/forest-formal-combat.log",
+    "docs/evidence/cloud_efficiency_01/native/harness-tests.log",
+    "docs/evidence/cloud_efficiency_01/native/lane-0-setup.log",
+    "docs/evidence/cloud_efficiency_01/native/lane-1-setup.log",
+    "docs/evidence/cloud_efficiency_01/native/report.json",
+    "docs/evidence/cloud_efficiency_01/production-loop-preflight-after-hydration.log",
+    "docs/evidence/cloud_efficiency_01/promisor-summary.json",
+    "docs/evidence/cloud_efficiency_01/python-input-audit.json",
+    "docs/evidence/cloud_efficiency_01/python-input-audit.txt",
+    "docs/evidence/cloud_efficiency_01/real-root-summary.json",
+    "docs/evidence/cloud_efficiency_01/review-final-local.json",
+    "docs/evidence/cloud_efficiency_01/review-v1.json",
+    "docs/evidence/cloud_efficiency_01/review.json",
+    "docs/evidence/cloud_efficiency_01/supplement-partial-source-isolation.json",
+    "docs/evidence/cloud_efficiency_01/supplement-portable-frozen-assets.json",
+    "docs/evidence/cloud_efficiency_01/supplement-provider-transport.json",
+    "docs/evidence/cloud_efficiency_01/supplement-routing-ci.json",
+    "docs/evidence/cloud_efficiency_01/unit-sparse-summary-v1.json",
+    "docs/evidence/cloud_production_01/README.md",
+    "docs/evidence/cloud_production_01/after-trace.json",
+    "docs/evidence/cloud_production_01/before-trace.json",
+    "docs/evidence/cloud_production_01/browser_driver.py",
+    "docs/evidence/cloud_production_01/capture-report.json",
+    "docs/evidence/cloud_production_01/ci-order-review.json",
+    "docs/evidence/cloud_production_01/entry.png",
+    "docs/evidence/cloud_production_01/failures/docs-sparse-original.log",
+    "docs/evidence/cloud_production_01/failures/docs-sparse-summary.log",
+    "docs/evidence/cloud_production_01/failures/integration-ci01-ffmpeg-order.log",
+    "docs/evidence/cloud_production_01/failures/release-upload-401.log",
+    "docs/evidence/cloud_production_01/failures/web-path-overrides.json",
+    "docs/evidence/cloud_production_01/full-menu.png",
+    "docs/evidence/cloud_production_01/guard-preservation.json",
+    "docs/evidence/cloud_production_01/harness/cloud-delivery-tests.log",
+    "docs/evidence/cloud_production_01/harness/cloud-preview-runtime.log",
+    "docs/evidence/cloud_production_01/harness/cloud-production-planner-tests.log",
+    "docs/evidence/cloud_production_01/harness/report.json",
+    "docs/evidence/cloud_production_01/host-verification.json",
+    "docs/evidence/cloud_production_01/media.json",
+    "docs/evidence/cloud_production_01/native/native.log",
+    "docs/evidence/cloud_production_01/native/report.json",
+    "docs/evidence/cloud_production_01/preview.json",
+    "docs/evidence/cloud_production_01/public-bytes.json",
+    "docs/evidence/cloud_production_01/public-gui.json",
+    "docs/evidence/cloud_production_01/review.json",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/quality/production_loop.md",
+    "docs/quality/records/CLOUD-EFFICIENCY-01.json",
+    "docs/quality/records/CLOUD-PREVIEW-01.json",
+    "docs/quality/records/CLOUD-PRODUCTION-01.json",
+    "docs/tasks.md",
+    "docs/templates/cloud_workline.md",
+    "scenes/dev/cloud_preview.tscn",
+    "scripts/demo/demo_app.gd",
+    "scripts/dev/cloud_preview.gd",
+    "scripts/dev/cloud_preview.gd.uid",
+    "tests/cloud_preview_runner.gd",
+    "tests/cloud_preview_runner.gd.uid",
+    "tests/test_cloud_delivery.py",
+    "tests/test_cloud_inputs.py",
+    "tests/test_harness.py",
+    "tests/test_production_loop.py",
+    "tests/test_production_plan.py",
+    "tools/capture_slice.py",
+    "tools/cloud_delivery.py",
+    "tools/cloud_inputs.py",
+    "tools/cloud_slice_capture.gd",
+    "tools/cloud_slice_capture.gd.uid",
+    "tools/harness.py",
+    "tools/harness/profiles.json",
+    "tools/preview_host_workflow.yml",
+    "tools/production_loop.py",
+    "tools/production_plan.py"
+  ],
+  "path_reasons": [
+    {
+      "path": ".agents/skills/animation-vfx/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/enemy-creator/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/game-quality-gate/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/player-creator/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/project-integration/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".github/workflows/docs.yml",
+      "rules": [],
+      "reason": "Shared runtime/configuration/build boundary",
+      "scope": "full"
+    },
+    {
+      "path": ".github/workflows/environment.yml",
+      "rules": [],
+      "reason": "Shared runtime/configuration/build boundary",
+      "scope": "full"
+    },
+    {
+      "path": ".github/workflows/production.yml",
+      "rules": [],
+      "reason": "Shared runtime/configuration/build boundary",
+      "scope": "full"
+    },
+    {
+      "path": "AGENTS.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "config/production_impact.json",
+      "rules": [
+        "planner"
+      ],
+      "reason": [
+        "Impact planner requires its fail-closed regression suite in addition to Harness regression."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/cloud_efficiency_audit.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/cloud_production.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/current_state.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/demo_wave_01.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/closure-v2-review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/cloud-inputs-preflight-followup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-inputs-postcommit.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-inputs-summary.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-inputs.json.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/asset-family-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/capture-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/cloud-delivery-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/cloud-inputs-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/cloud-production-planner-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/consumer-coverage-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/creative-direction-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/creative-direction.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/docs.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/harness-artifact-archive-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/harness-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/lane-0-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/lane-1-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-design-analysis.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-design-contracts.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-design-golden-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-design-routing.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-experience.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-formal-receipts.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/level-region-context.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/mechanism-comparisons.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/portable-frozen-assets.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/production-loop-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/quality-drills.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/quality-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/quality.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/region-bible-contract.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/region-bible-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/structure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/terrain-tile-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/underworld-home-guard-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/underworld-pipeline.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/visual-director-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/world-design-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v2/world.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/asset-family-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/capture-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/cloud-delivery-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/cloud-inputs-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/cloud-production-planner-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/consumer-coverage-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/creative-direction-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/creative-direction.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/docs.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/harness-artifact-archive-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/harness-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/lane-0-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/lane-1-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-design-analysis.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-design-contracts.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-design-golden-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-design-routing.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-experience.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-formal-receipts.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/level-region-context.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/mechanism-comparisons.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/portable-frozen-assets.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/production-loop-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/quality-drills.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/quality-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/quality.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/region-bible-contract.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/region-bible-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/structure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/terrain-tile-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/underworld-home-guard-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/underworld-pipeline.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/visual-director-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/world-design-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/world.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/efficiency-docs-inputs-closure-v2.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/aim-save-compat.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/report.json.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/docs.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/lane-0-setup.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/lane-1-setup.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/quality-drills.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/quality-tests.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/quality.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/report.json.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/world-design-tests.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/world.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/partial-clone-lane-0-setup.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/partial-clone-setup-report.json.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/partial-clone-setup.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/production-loop-closure-v1.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/failures/provider-batch-before-noop.json.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/frozen-test-results.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/github-first32.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/isolated-history/execution.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/isolated-history/forest-formal-combat.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/isolated-history/receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/isolated-history/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/isolated-history/setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/local-v2-review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/metadata-v3-review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixture-inputs.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/aim-save-compat.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/lane-0-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/lane-1-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-action-golden.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-autonomy-golden.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-encounter-policy.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-fixtures-v2/root-bell-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-input-audit.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native-inputs-review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/cloud-delivery-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/cloud-inputs-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/cloud-preview-runtime.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/cloud-production-planner-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/core.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/forest-formal-combat.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/harness-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/lane-0-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/lane-1-setup.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/native/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/production-loop-preflight-after-hydration.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/promisor-summary.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/python-input-audit.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/python-input-audit.txt",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/real-root-summary.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/review-final-local.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/review-v1.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/supplement-partial-source-isolation.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/supplement-portable-frozen-assets.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/supplement-provider-transport.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/supplement-routing-ci.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_efficiency_01/unit-sparse-summary-v1.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/after-trace.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/before-trace.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/browser_driver.py",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/capture-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/ci-order-review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/entry.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/failures/docs-sparse-original.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/failures/docs-sparse-summary.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/failures/integration-ci01-ffmpeg-order.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/failures/release-upload-401.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/failures/web-path-overrides.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/full-menu.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/guard-preservation.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/harness/cloud-delivery-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/harness/cloud-preview-runtime.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/harness/cloud-production-planner-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/harness/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/host-verification.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/media.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/native/native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/native/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/preview.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/public-bytes.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/public-gui.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/cloud_production_01/review.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/handoff.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/harness.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/production_loop.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/records/CLOUD-EFFICIENCY-01.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/records/CLOUD-PREVIEW-01.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/records/CLOUD-PRODUCTION-01.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/tasks.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/templates/cloud_workline.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "scenes/dev/cloud_preview.tscn",
+      "rules": [],
+      "reason": "Shared runtime/configuration/build boundary",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/dev/cloud_preview.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/dev/cloud_preview.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/cloud_preview_runner.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/cloud_preview_runner.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/test_cloud_delivery.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/test_cloud_inputs.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/test_harness.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "rules": [
+        "planner"
+      ],
+      "reason": [
+        "Impact planner requires its fail-closed regression suite in addition to Harness regression."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "tools/capture_slice.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/cloud_delivery.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/cloud_inputs.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/cloud_slice_capture.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/cloud_slice_capture.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/harness.py",
+      "rules": [],
+      "reason": "Shared runtime/configuration/build boundary",
+      "scope": "full"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "rules": [],
+      "reason": "Shared runtime/configuration/build boundary",
+      "scope": "full"
+    },
+    {
+      "path": "tools/preview_host_workflow.yml",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/production_loop.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/production_plan.py",
+      "rules": [
+        "planner"
+      ],
+      "reason": [
+        "Impact planner requires its fail-closed regression suite in addition to Harness regression."
+      ],
+      "scope": "mapped"
+    }
+  ],
+  "domains": [
+    "process",
+    "planner"
+  ],
+  "escalations": [
+    {
+      "path": ".github/workflows/docs.yml",
+      "reason": "Shared runtime/configuration/build boundary",
+      "to": "full"
+    },
+    {
+      "path": ".github/workflows/environment.yml",
+      "reason": "Shared runtime/configuration/build boundary",
+      "to": "full"
+    },
+    {
+      "path": ".github/workflows/production.yml",
+      "reason": "Shared runtime/configuration/build boundary",
+      "to": "full"
+    },
+    {
+      "path": "scenes/dev/cloud_preview.tscn",
+      "reason": "Shared runtime/configuration/build boundary",
+      "to": "full"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/dev/cloud_preview.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/dev/cloud_preview.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/cloud_preview_runner.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/cloud_preview_runner.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/test_cloud_delivery.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/test_cloud_inputs.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/test_harness.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/capture_slice.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/cloud_delivery.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/cloud_inputs.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/cloud_slice_capture.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/cloud_slice_capture.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/harness.py",
+      "reason": "Shared runtime/configuration/build boundary",
+      "to": "full"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "reason": "Shared runtime/configuration/build boundary",
+      "to": "full"
+    },
+    {
+      "path": "tools/preview_host_workflow.yml",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/production_loop.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    }
+  ],
+  "selection": "full",
+  "checks": [
+    "docs",
+    "world",
+    "world-design-tests",
+    "structure",
+    "harness-tests",
+    "quality-drills",
+    "quality-tests",
+    "quality",
+    "production-loop-tests",
+    "terrain-tile-tests",
+    "consumer-coverage-tests",
+    "capture-tests",
+    "level-design-contracts",
+    "mechanism-comparisons",
+    "level-design-analysis",
+    "level-design-routing",
+    "level-design-golden-tests",
+    "level-region-context",
+    "level-experience",
+    "level-formal-receipts",
+    "visual-director-tests",
+    "asset-family-tests",
+    "creative-direction",
+    "creative-direction-tests",
+    "underworld-pipeline",
+    "underworld-home-guard-tests",
+    "region-bible-contract",
+    "region-bible-tests",
+    "harness-artifact-archive-tests",
+    "cloud-production-planner-tests",
+    "cloud-delivery-tests",
+    "cloud-inputs-tests",
+    "portable-frozen-assets",
+    "environment",
+    "core",
+    "generated-consumers",
+    "region",
+    "art-art",
+    "art-painterly_pack",
+    "art-plains_v3",
+    "art-meadow_enemy_art",
+    "art-plains_ground_art",
+    "art-windkeeper_art",
+    "art-plains_spatial_art",
+    "art-plains_item_art",
+    "web-cache",
+    "web-build",
+    "web-bundle",
+    "quality-review-engine",
+    "terrain-production",
+    "wood-platforms",
+    "actor-actions",
+    "grapple-feel",
+    "forest-interwoven-contract",
+    "forest-player-aim",
+    "aim-save-compat",
+    "all-weapons",
+    "studio-input",
+    "weapon-feel",
+    "action-budget",
+    "level-design-runtime",
+    "level-design-golden",
+    "level-formal-runtime",
+    "plains-autonomy-golden",
+    "plains-action-golden",
+    "plains-redesign-golden",
+    "plains-redesign-spatial",
+    "plains-experience-golden",
+    "plains-encounter-policy",
+    "plains-redesign-scene",
+    "visual-director-space",
+    "directed-space-tests",
+    "terrain-family-tests",
+    "root-bell-tests",
+    "root-bell-spaces",
+    "root-bell-ecology",
+    "forest-h-slice",
+    "web-resource-contract-tests",
+    "runtime-raw-export-tests",
+    "connected-family-tests",
+    "forest-ecology",
+    "forest-progression",
+    "forest-campaign",
+    "forest-debug",
+    "forest-traversal",
+    "forest-region-matrix",
+    "forest-formal-combat",
+    "forest-depth-guardian",
+    "forest-depth-guardian-tolerance",
+    "forest-depth-enemies",
+    "forest-depth-versions",
+    "forest-depth-restore",
+    "forest-depth-queen",
+    "forest-depth-cavity",
+    "forest-depth-cavity-controls",
+    "forest-depth-region",
+    "forest-depth-campaign-guardian",
+    "forest-depth-campaign-queen",
+    "forest-depth-ecology-expedition",
+    "forest-depth-root-entry",
+    "forest-depth-crossbranch-lifecycle",
+    "forest-depth-queen-canopy",
+    "forest-depth-campaign-canopy",
+    "forest-air-chain",
+    "forest-vertical-shortcut",
+    "blob47-foundation",
+    "windchime-plains",
+    "pixel-plains",
+    "pixel-formal",
+    "visual-director-terrain",
+    "parallel-region-presentation",
+    "style-exploration",
+    "underworld-scenery",
+    "underworld-hazards",
+    "underworld-terrain",
+    "underworld-formal-terrain",
+    "underworld-formal",
+    "underworld-raw-export",
+    "underworld-player-animation",
+    "underworld-mechanisms",
+    "underworld-home",
+    "underworld-ui",
+    "forest-region-scheduler-tests",
+    "underworld-damage-feedback",
+    "underworld-projectile-vfx",
+    "underworld-world-objects",
+    "underworld-continuous-bosses",
+    "forest-camera-stability",
+    "forest-hazard-records",
+    "forest-fruit-contract",
+    "forest-bible-weaver-tests",
+    "forest-bible-discoveries-tests",
+    "forest-bible-integration-tests",
+    "forest-bible-world-contract",
+    "forest-bible-world-connection",
+    "forest-bible-world-backbranch",
+    "forest-bible-ambience",
+    "forest-bible-app-discoveries",
+    "forest-practice-bell-restore",
+    "forest-bible-world-connection-map1",
+    "forest-bible-world-backbranch-map1",
+    "forest-bible-world-spiral",
+    "forest-bible-versions",
+    "forest-bible-reader-tests",
+    "forest-bible-av-reader-tests",
+    "cloud-preview-runtime"
+  ],
+  "commands": [
+    [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "docs",
+      "--check",
+      "world",
+      "--check",
+      "world-design-tests",
+      "--check",
+      "structure",
+      "--check",
+      "harness-tests",
+      "--check",
+      "quality-drills",
+      "--check",
+      "quality-tests",
+      "--check",
+      "quality",
+      "--check",
+      "production-loop-tests",
+      "--check",
+      "terrain-tile-tests",
+      "--check",
+      "consumer-coverage-tests",
+      "--check",
+      "capture-tests",
+      "--check",
+      "level-design-contracts",
+      "--check",
+      "mechanism-comparisons",
+      "--check",
+      "level-design-analysis",
+      "--check",
+      "level-design-routing",
+      "--check",
+      "level-design-golden-tests",
+      "--check",
+      "level-region-context",
+      "--check",
+      "level-experience",
+      "--check",
+      "level-formal-receipts",
+      "--check",
+      "visual-director-tests",
+      "--check",
+      "asset-family-tests",
+      "--check",
+      "creative-direction",
+      "--check",
+      "creative-direction-tests",
+      "--check",
+      "underworld-pipeline",
+      "--check",
+      "underworld-home-guard-tests",
+      "--check",
+      "region-bible-contract",
+      "--check",
+      "region-bible-tests",
+      "--check",
+      "harness-artifact-archive-tests",
+      "--check",
+      "cloud-production-planner-tests",
+      "--check",
+      "cloud-delivery-tests",
+      "--check",
+      "cloud-inputs-tests",
+      "--check",
+      "portable-frozen-assets",
+      "--check",
+      "environment",
+      "--check",
+      "core",
+      "--check",
+      "generated-consumers",
+      "--check",
+      "region",
+      "--check",
+      "art-art",
+      "--check",
+      "art-painterly_pack",
+      "--check",
+      "art-plains_v3",
+      "--check",
+      "art-meadow_enemy_art",
+      "--check",
+      "art-plains_ground_art",
+      "--check",
+      "art-windkeeper_art",
+      "--check",
+      "art-plains_spatial_art",
+      "--check",
+      "art-plains_item_art",
+      "--check",
+      "web-cache",
+      "--check",
+      "web-build",
+      "--check",
+      "web-bundle",
+      "--check",
+      "quality-review-engine",
+      "--check",
+      "terrain-production",
+      "--check",
+      "wood-platforms",
+      "--check",
+      "actor-actions",
+      "--check",
+      "grapple-feel",
+      "--check",
+      "forest-interwoven-contract",
+      "--check",
+      "forest-player-aim",
+      "--check",
+      "aim-save-compat",
+      "--check",
+      "all-weapons",
+      "--check",
+      "studio-input",
+      "--check",
+      "weapon-feel",
+      "--check",
+      "action-budget",
+      "--check",
+      "level-design-runtime",
+      "--check",
+      "level-design-golden",
+      "--check",
+      "level-formal-runtime",
+      "--check",
+      "plains-autonomy-golden",
+      "--check",
+      "plains-action-golden",
+      "--check",
+      "plains-redesign-golden",
+      "--check",
+      "plains-redesign-spatial",
+      "--check",
+      "plains-experience-golden",
+      "--check",
+      "plains-encounter-policy",
+      "--check",
+      "plains-redesign-scene",
+      "--check",
+      "visual-director-space",
+      "--check",
+      "directed-space-tests",
+      "--check",
+      "terrain-family-tests",
+      "--check",
+      "root-bell-tests",
+      "--check",
+      "root-bell-spaces",
+      "--check",
+      "root-bell-ecology",
+      "--check",
+      "forest-h-slice",
+      "--check",
+      "web-resource-contract-tests",
+      "--check",
+      "runtime-raw-export-tests",
+      "--check",
+      "connected-family-tests",
+      "--check",
+      "forest-ecology",
+      "--check",
+      "forest-progression",
+      "--check",
+      "forest-campaign",
+      "--check",
+      "forest-debug",
+      "--check",
+      "forest-traversal",
+      "--check",
+      "forest-region-matrix",
+      "--check",
+      "forest-formal-combat",
+      "--check",
+      "forest-depth-guardian",
+      "--check",
+      "forest-depth-guardian-tolerance",
+      "--check",
+      "forest-depth-enemies",
+      "--check",
+      "forest-depth-versions",
+      "--check",
+      "forest-depth-restore",
+      "--check",
+      "forest-depth-queen",
+      "--check",
+      "forest-depth-cavity",
+      "--check",
+      "forest-depth-cavity-controls",
+      "--check",
+      "forest-depth-region",
+      "--check",
+      "forest-depth-campaign-guardian",
+      "--check",
+      "forest-depth-campaign-queen",
+      "--check",
+      "forest-depth-ecology-expedition",
+      "--check",
+      "forest-depth-root-entry",
+      "--check",
+      "forest-depth-crossbranch-lifecycle",
+      "--check",
+      "forest-depth-queen-canopy",
+      "--check",
+      "forest-depth-campaign-canopy",
+      "--check",
+      "forest-air-chain",
+      "--check",
+      "forest-vertical-shortcut",
+      "--check",
+      "blob47-foundation",
+      "--check",
+      "windchime-plains",
+      "--check",
+      "pixel-plains",
+      "--check",
+      "pixel-formal",
+      "--check",
+      "visual-director-terrain",
+      "--check",
+      "parallel-region-presentation",
+      "--check",
+      "style-exploration",
+      "--check",
+      "underworld-scenery",
+      "--check",
+      "underworld-hazards",
+      "--check",
+      "underworld-terrain",
+      "--check",
+      "underworld-formal-terrain",
+      "--check",
+      "underworld-formal",
+      "--check",
+      "underworld-raw-export",
+      "--check",
+      "underworld-player-animation",
+      "--check",
+      "underworld-mechanisms",
+      "--check",
+      "underworld-home",
+      "--check",
+      "underworld-ui",
+      "--check",
+      "forest-region-scheduler-tests",
+      "--check",
+      "underworld-damage-feedback",
+      "--check",
+      "underworld-projectile-vfx",
+      "--check",
+      "underworld-world-objects",
+      "--check",
+      "underworld-continuous-bosses",
+      "--check",
+      "forest-camera-stability",
+      "--check",
+      "forest-hazard-records",
+      "--check",
+      "forest-fruit-contract",
+      "--check",
+      "forest-bible-weaver-tests",
+      "--check",
+      "forest-bible-discoveries-tests",
+      "--check",
+      "forest-bible-integration-tests",
+      "--check",
+      "forest-bible-world-contract",
+      "--check",
+      "forest-bible-world-connection",
+      "--check",
+      "forest-bible-world-backbranch",
+      "--check",
+      "forest-bible-ambience",
+      "--check",
+      "forest-bible-app-discoveries",
+      "--check",
+      "forest-practice-bell-restore",
+      "--check",
+      "forest-bible-world-connection-map1",
+      "--check",
+      "forest-bible-world-backbranch-map1",
+      "--check",
+      "forest-bible-world-spiral",
+      "--check",
+      "forest-bible-versions",
+      "--check",
+      "forest-bible-reader-tests",
+      "--check",
+      "forest-bible-av-reader-tests",
+      "--check",
+      "cloud-preview-runtime",
+      "--jobs",
+      "2",
+      "--release"
+    ]
+  ],
+  "additional_commands": [
+    [
+      "python3",
+      "tests/test_production_plan.py"
+    ]
+  ],
+  "release_follow_up": [],
+  "manual_checks": [
+    "GUI and real device/player acceptance remain unverified unless separately exercised.",
+    "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.",
+    "Check inputs are cache invalidation inventories, not complete test dependency graphs."
+  ],
+  "device_acceptance": "unverified",
+  "player_acceptance": "unverified",
+  "base_commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+  "source_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+  "git_status": "",
+  "working_files": {},
+  "policy_sha256": "df7bc31b31997b595e1adced27da45dd177e8ddf170b74f2513f85ea083c111c",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434"
+}

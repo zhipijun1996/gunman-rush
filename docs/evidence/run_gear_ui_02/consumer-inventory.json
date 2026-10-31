@@ -1,0 +1,27 @@
+{
+  "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+  "scope": "Two bounded actual formal UI and main-game-entry families; not all routes/devices",
+  "consumers": [
+    {
+      "id": "formal-pause-inventory",
+      "runtime": "DemoApp / PlainsRegionStage / DemoMenu / EquipmentService",
+      "observed": "Default pause, icon details, true pause, state changes, cog8/10/14, mouse/touch/gamepad, stale callbacks and map/death",
+      "evidence": [
+        "ui-report.json",
+        "ui-receipt.json"
+      ],
+      "fixture": "Explicit original-cache position, backlog48/income100 and map completion fixture; not natural full route"
+    },
+    {
+      "id": "formal-title-home-entry",
+      "runtime": "Real scenes/demo/demo.tscn / playable Home / native departure / formal PlainsRegionStage",
+      "observed": "Title Start, natural Home locomotion and native departure; real pause/pages/item acquisition/equip/unequip",
+      "evidence": [
+        "movie-trace.json",
+        "movie-receipt.json",
+        "formal-game.mp4"
+      ],
+      "fixture": "Exactly one visible original-cache-position fixture after natural Home departure; no coins/items/HP/kill/settlement injection"
+    }
+  ]
+}

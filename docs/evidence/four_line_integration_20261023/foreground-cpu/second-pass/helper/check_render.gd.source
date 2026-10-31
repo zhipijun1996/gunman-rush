@@ -1,0 +1,79 @@
+extends SceneTree
+var checks: int=0
+var failures: Array[String]=[]
+var output: String="/workspace/scratch/foreground-second-helper-independent/render-result.json"
+var old: CanvasLayer
+var fresh: CanvasLayer
+var sprites: Array[Sprite2D]=[]
+func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
+	run.call_deferred()
+func need(ok: bool,label: String) -> void:
+	checks+=1
+	if not ok:failures.append(label)
+func fixture(phase: int) -> Dictionary:
+	var residents: Dictionary={}
+	for i: int in sprites.size():
+		var at:=Vector2(-40+i*230+phase*.125,50+i*45)
+		var asset:={"id":"branch_left" if i%2 else "grass","raw_crop":[i,0,200,300]}
+		residents["resident%d"%i]={"id":"resident%d"%i,"kind":"branch" if i%2 else "grass","sprite":sprites[i],"instance_id":sprites[i].get_instance_id(),"asset":asset,"bounds":Rect2(at,Vector2(300,280)),"position":at,"attachment":at+Vector2(150,280),"anchor_world":Vector2(500+i*300,700),"alpha":0.0 if i==2 else .4+phase*.001,"target_alpha":.9,"safe_time":phase*.1,"admitted":i!=3,"entered_view":true,"root_clearance":80.0,"root_gate":0.0 if i==1 else 1.0,"protection_clearance":65.0,"unmasked_bounds_area":12345.0,"mask_rect_count":0,"display_scale":.5,"wind_phase":float(i)}
+	return residents
+func render_phase(phase: int) -> void:
+	var protection: Array[Rect2]=[]
+	var dynamic: Array[Rect2]=[]
+	var count: int=70 if phase==3 else phase%8
+	for i: int in count:
+		var rect:=Rect2(10+i*8,30+i*3,40,25);protection.append(rect)
+		if i%2==0:dynamic.append(rect)
+	var data:=fixture(phase)
+	old.call("configure",data.duplicate(true),protection,dynamic,phase)
+	fresh.call("configure",data.duplicate(true),protection,dynamic,phase)
+	var center:=Vector2(640+phase,310-phase)
+	var size:=Vector2(1280,720) if phase%2 else Vector2(800,500)
+	old.call("_render_receipt",center,size)
+	var before: Array=old.call("rendered_state")
+	fresh.call("_render_receipt",center,size)
+	need(before==fresh.call("rendered_state"),"actual sprite and shader params phase%d"%phase)
+func compare_receipts(label: String) -> Dictionary:
+	var frame: int=int(fresh.get("_advance_frame"));var count: int=int(fresh.get("_advance_count"));var wind: float=float(fresh.get("_wind_time"))
+	var a: Dictionary=old.call("receipt");var b: Dictionary=fresh.call("receipt")
+	need(a==b,"full diagnostic dictionary "+label)
+	need(int(fresh.get("_advance_frame"))==frame and int(fresh.get("_advance_count"))==count and float(fresh.get("_wind_time"))==wind,"receipt never advances time "+label)
+	return a
+func run() -> void:
+	root.size=Vector2i(1280,720)
+	var old_script: Script=load("/workspace/scratch/foreground-second-helper-independent/old_render_helper.gd")
+	var new_script: Script=load("/workspace/scratch/foreground-second-helper-independent/new_render_helper.gd")
+	old=old_script.new();fresh=new_script.new();root.add_child(old);root.add_child(fresh);old.layer=1;fresh.layer=1
+	var group:=Node2D.new();root.add_child(group)
+	for i: int in 4:
+		var sprite:=Sprite2D.new();var material:=ShaderMaterial.new();material.shader=load("res://shaders/underworld_foreground.gdshader");sprite.material=material;group.add_child(sprite);sprites.append(sprite)
+	need(old.call("receipt")==fresh.call("receipt"),"before first render empty diagnostic")
+	# Multiple true renders without ever materializing a diagnostic in between.
+	for phase: int in range(1,8):render_phase(phase)
+	compare_receipts("latest completed render only")
+	var copied:=compare_receipts("repeat read")
+	copied["residents"][0]["bounds"][0]=999999.0;copied["protection_rectangles"].clear()
+	compare_receipts("returned deep duplicate cannot mutate future receipt")
+	for phase: int in [3,8,9]:
+		render_phase(phase);compare_receipts("overflow and independent next render%d"%phase)
+	# No refresh: external render-node/camera-like viewport/layer changes must not
+	# leak into the diagnostic snapshot of the prior completed pass.
+	render_phase(10);old.set_process(false);fresh.set_process(false)
+	old.layer=7;fresh.layer=7;root.canvas_transform=Transform2D(0.2,Vector2(99,88))
+	for sprite: Sprite2D in sprites:sprite.visible=not sprite.visible;sprite.position+=Vector2(1000,1000)
+	compare_receipts("stopped process before pending read, saved drawn camera size layer")
+	old.layer=11;fresh.layer=11
+	compare_receipts("layer changed again after materialized receipt")
+	paused=true
+	compare_receipts("paused read does not advance")
+	paused=false
+	# A subsequent explicit completed render must update diagnostics and uniforms.
+	render_phase(11);compare_receipts("next manual render updates saved state")
+	var report:={"checks":checks,"failures":failures,"scope":"Actual old/new render and receipt helper bodies with synthetic resident state and real shared Sprite2D/ShaderMaterial. Shader uniforms and complete dictionaries compared. Full public _refresh/process/gameplay is not simulated; original FG suite remains required.","extraction":JSON.parse_string(FileAccess.get_file_as_string("/workspace/scratch/foreground-second-helper-independent/render-extraction.json"))}
+	FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	old.free();fresh.free();group.free();sprites.clear();old_script=null;new_script=null
+	print("FOREGROUND_RENDER_LAZY_DIFFERENTIAL checks=%d failures=%d"%[checks,failures.size()])
+	finish.call_deferred()
+func finish() -> void:quit(0 if failures.is_empty() else 1)

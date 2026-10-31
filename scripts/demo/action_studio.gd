@@ -201,7 +201,7 @@ func _process(delta: float) -> void:
 	elapsed += delta
 	camera.position = camera.position.lerp(player.position+Vector2(130,-100),1-exp(-delta*5))
 	_hud.text = "动作练习 · %s · 二跳 %d / 钩索 %d / 爬墙
-精力 %.0f · 空中攻击 %d · %s" % [controller.shoot_ability.weapon.display_name,mini(1,maxi(0,controller.jump_ability.maximum_jumps()-controller.jump_ability.used_jumps)),0 if controller.traversal.hook_used else 1,controller.actor_resources.stamina.current,controller.action_resources.shot_charges,"已倒下，点击重试" if not controller.active else "A/D移动 · Space跳跃 · 松开左键射击 · 按住右键/E瞄准，松开发钩"]
+时间能量 %.0f · 空中攻击 %d · %s" % [controller.shoot_ability.weapon.display_name,mini(1,maxi(0,controller.jump_ability.maximum_jumps()-controller.jump_ability.used_jumps)),0 if controller.traversal.hook_used else 1,controller.actor_resources.stamina.current,controller.action_resources.shot_charges,"已倒下，点击重试" if not controller.active else "A/D移动 · Space跳跃 · 松开左键射击 · 按住右键/E瞄准，松开发钩"]
 	if _events.size() > 4096: _events.pop_front()
 	var signature := ""
 	var entity_states: Array[Dictionary]=[]
@@ -268,22 +268,13 @@ func _exit_tree() -> void:
 
 func _spawn_candidates() -> void:
 	for index: int in 2:
-		var motor: EnemyMotor = preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
-		var actor: EnemyActor = motor.get_node("Actor")
-		actor.definition = load("res://resources/enemies/plains_sentry.tres" if index else "res://resources/enemies/plains_charger.tres").duplicate(true)
-		actor.definition.stable_id = &"candidate_crosswind_moth" if index else &"candidate_lure_guard"
-		actor.definition.aerial = index==1
-		actor.definition.collision_size = Vector2(32,36)
-		actor.definition.patrol_half_width = 100
-		actor.definition.telegraph_duration = .8
-		actor.definition.attack_duration = 1.1 if index else .65
-		actor.definition.recovery_duration = 1.1
-		var receiver := PrototypeEnemyDamageable.new()
-		receiver.guard = index==0
-		motor.get_node("Damageable").free()
-		receiver.name = "Damageable"
-		motor.add_child(receiver)
-		actor.damageable = receiver
+		var identity := &"candidate_crosswind_moth" if index else &"candidate_lure_guard"
+		var motor := EnemyFactory.create_candidate(identity,&"studio")
+		if motor == null:
+			push_error("Registered Studio enemy candidate could not be created")
+			return
+		var actor := motor.get_node("Actor") as EnemyActor
+		var receiver := actor.damageable
 		motor.get_node("Presentation").free()
 		var art := PrototypeEnemyPresentation.new()
 		art.actor = actor
@@ -294,15 +285,13 @@ func _spawn_candidates() -> void:
 		add_child(motor)
 		var id := StringName("studio_candidate_%s" % index)
 		policy.bind_damageable(id,receiver,actor.health)
-		actor.attack_behavior = PrototypeMothBehavior.new() if index else EnemyAttackBehavior.new()
-		actor.add_child(actor.attack_behavior)
-		actor.attack_behavior.configure(actor,controller,policy,lifetime,id,[])
+		actor.bind_encounter(controller,policy,lifetime,id,[])
 		actors.append(actor)
 
 func _spawn_bosses() -> void:
 	for index: int in 3:
-		var scene: PackedScene = [preload("res://scenes/bosses/clockwork_guardian.tscn"),preload("res://scenes/bosses/bellstrider.tscn"),preload("res://scenes/bosses/windkeeper.tscn")][index]
-		var motor: BossMotor = scene.instantiate()
+		var identity: StringName = [&"clockwork_guardian", &"bellstrider", &"windkeeper"][index]
+		var motor := BossFactory.create(identity)
 		motor.position = Vector2(5800+index*1050,555)
 		add_child(motor)
 		var boss: BossEncounter = motor.get_node("Encounter")

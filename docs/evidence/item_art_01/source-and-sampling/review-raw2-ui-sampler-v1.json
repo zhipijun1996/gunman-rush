@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "task_id": "ITEM-ART-01",
+  "reviewer": "/root/final_review",
+  "status": "passed_scoped_actual_gpu_sampling",
+  "verdict": "ACCEPT bounded raw2 high-resolution nonuniform icon recipe for first8 golden integration only",
+  "approval_scope": "Allow exact raw2/source hash and recorded eight340x340regions to enter candidate asset registry and real golden Menu integration; no general72expansion, formal-gameplay/art/G2-G5 completion, VFX approval or native64/source-padding compliance.",
+  "golden_integration_allowed": true,
+  "mass72_expansion_allowed": false,
+  "source_sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15",
+  "source_dimensions": [
+    1774,
+    887
+  ],
+  "recipe": "raw2-nonuniform-ui-sampler-v1",
+  "regions": [
+    [
+      51,
+      51,
+      340,
+      340
+    ],
+    [
+      495,
+      51,
+      340,
+      340
+    ],
+    [
+      938,
+      51,
+      340,
+      340
+    ],
+    [
+      1382,
+      51,
+      340,
+      340
+    ],
+    [
+      51,
+      495,
+      340,
+      340
+    ],
+    [
+      495,
+      495,
+      340,
+      340
+    ],
+    [
+      938,
+      495,
+      340,
+      340
+    ],
+    [
+      1382,
+      495,
+      340,
+      340
+    ]
+  ],
+  "icon_ids": [
+    "B01",
+    "B03",
+    "B11",
+    "P24",
+    "P14",
+    "G14",
+    "G16",
+    "N01"
+  ],
+  "actual_evidence": [
+    {
+      "path": "build/item_art_01/raw2-ui-sampling.png",
+      "sha256": "d1d00f0d54f50f5421dcb7e5999045eff3eeef9f19abfbfcb5bb2006c4125189",
+      "bytes": 192827
+    },
+    {
+      "path": "build/item_art_01/raw2-ui-noart.png",
+      "sha256": "4133a2163934ac90999e36a1e1b9f181ddcdfa93e20ddef4fc35081534dd751a",
+      "bytes": 33816
+    },
+    {
+      "path": "build/item_art_01/raw2-ui-sampling.json",
+      "sha256": "2286f02527f5f02f3733f3c113b68db66c67dc6fd51deab9f6402757f82f5e52",
+      "bytes": 1098
+    },
+    {
+      "path": "build/item_art_01/raw2-ui-sampling.log",
+      "sha256": "7dccc291bc78da17c573cbb360c5e069d8a5c7f176e4eecc4523878ac677d23a",
+      "bytes": 1089
+    },
+    {
+      "path": "build/item_art_01/image_inspection/sample.gd",
+      "sha256": "08dbb9ae656c9a9c71b22e336b85bf4784a81bc8c8e22addcdfb77019d907aa8",
+      "bytes": 3725
+    }
+  ],
+  "actual_environment": "Producer log Godot4.7.2.stable.official.ed1daf0bf, OpenGL4.5/Mesa25.0.7 llvmpipeLLVM19.1.7,1280x720. This reviewer did not launch the sampler.",
+  "method": [
+    "Actually opened and viewed both1280x720 raw2-ui-sampling.png and raw2-ui-noart.png through image viewer. Read actual current samplingJSON, sourcePNG SHA, exact script and nativeGLlog.",
+    "Verified script directly loads unmodified originalPNG into ImageTexture without alpha threshold/resize/mipmap generation; eight recorded integer AtlasTexture regions use filter_clip=true and CanvasItemnearest, drawn at52 and90 on dark/light backgrounds.",
+    "Compared visible positive samples to no-art background/outline/text baseline; observed deliberately incorrect840x340ROI renders two distinct neighbor objects in the separate bottom control. This calibrates actual consumer against neighbor pollution."
+  ],
+  "actually_seen": [
+    {
+      "scope": "52px dark and light rows",
+      "observation": "Eight shapes remain visibly different: magnet U/ring with inner bell, horizontal barrel, wood box, tri-blade rotor, three-drone cluster, cyan pear-flask, upright fork with three hanging teeth and asymmetric pendulum stand. Small material/heart-lock detail is reduced but shape identification remains. B01 andG16 are distinguishable through wide ring versus tall fork/dangling three branches in this sample."
+    },
+    {
+      "scope": "90px dark and light rows",
+      "observation": "Brass/steel/teal highlights and major negative spaces are clearer. Complete rotor blades, box corners, drone wings, fork hanging teeth and pendulum base remain inside positive sample windows; no neighbor fragment or obvious cut edge is visible."
+    },
+    {
+      "scope": "Positive region boundary/background",
+      "observation": "No visible white/colored rectangular halo or neighbor fragment appears in the viewed positive samples on either background. This is a bounded actual rendering observation, not a mathematical zero-alpha or all-settings guarantee."
+    },
+    {
+      "scope": "Bad ROI bottom control",
+      "observation": "Separate magnet and barrel both appear in the deliberately wrong wide crop. The image pipeline can reveal obvious multi-object pollution; it does not silently erase or threshold it."
+    }
+  ],
+  "source_failures_not_overridden": [
+    "Both original generated sheets keep failed requested1024x512/equal256grid and zero-source-padding results. Second source is an independent high-resolution, measured-region candidate use, not a new PASS of the original source specification.",
+    "Raw2 alpha1 tails remain original pixels. Actual rendered absence of a visible halo in these samples does not prove rawoutside-object alpha is0 or permit relabeling source as native64.",
+    "Producer image difference48461 pixels is correspondence metadata, not an aesthetic/readability score."
+  ],
+  "golden_integration_conditions": [
+    "Copy exact original raw2 bytes to declared candidate source path and preserve original raw sources/requests/failed measurements/provenance. No unrecorded cleanup, rescale or crop reconstruction.",
+    "Freeze actual sourceSHA/regions/filter_clip/nearest/no-mipmaps in candidate art registry and record any source pixels outside consumed regions. Do not silently use different bounds.",
+    "Test actual imported Texture2D/AtlasTexture path in real ItemCard, DemoMenu grid/detail, reward andshop at1280x720 and960x540. The isolated ImageTexture sampler does not prove Godot import settings or actual UI layout.",
+    "Keep pure data item/ownership/equipment/modifier semantics and old nonV5fallback intact. Modified actual consumers/asset manifests require current technical source binding.",
+    "Actual UI/world golden plus continuous VFX motion/acceptedHP/lifecycle review remains required before72 expansion; source/native64 failure statuses remain distinct."
+  ],
+  "unverified": [
+    "Actual DemoMenu/Card/reward/shop integration and960small-screen display",
+    "Texture import/compression/mipmap/resource export behavior",
+    "VFX generated sheets, animation timing/hit or miss semantics and true lifecycle cleanup",
+    "All72uniqueicons, low-end/Android/controller/performance/audio and user/G2-G5 acceptance"
+  ],
+  "reviewer_changes": "Only this ignored reviewJSON; no sourcePNG/runtime/assets/recipe/quality authority edits."
+}

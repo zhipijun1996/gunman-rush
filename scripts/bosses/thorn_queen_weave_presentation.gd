@@ -1,17 +1,30 @@
 extends Node2D
 @export var encounter: ThornQueenV2
-func _process(_delta: float) -> void: queue_redraw()
+const QUEEN_BODY := preload("res://assets/forest_bible_v2/native/fine_32/queen.png")
+# Same 1x branch/crown body and hover foot as the existing canopy consumer.
+# Painted source heart (36,37) maps to (0,-2), inside the unchanged UI heart.
+const QUEEN_BOUNDS := Rect2(-36,-39,72,68)
+var hit_template: EnemyHitTemplate
+var motion := BossMotionPresentation.new()
+func _ready() -> void:
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
+	motion.bind(encounter)
+func _process(delta: float) -> void:
+	motion.sample(encounter,delta)
+	queue_redraw()
 func _draw() -> void:
 	if encounter==null: return
-	var size := encounter.definition.collision_size
-	draw_colored_polygon(PackedVector2Array([Vector2(-size.x*.5,0),Vector2(-16,-size.y*.5),Vector2(0,-size.y*.5-18),Vector2(16,-size.y*.5),Vector2(size.x*.5,0),Vector2(0,size.y*.5)]),Color("9c677e") if not encounter.health.terminal else Color("635866"))
-	draw_circle(Vector2.ZERO,10,Color("efc591"))
-	draw_arc(Vector2.ZERO,15,0,TAU,24,Color("fae4b4"),2)
-	for side: int in [-1,1]:
-		draw_line(Vector2(side*18,-3),Vector2(side*38,18),Color("b68ca3"),5)
+	var body_tint := hit_template.tint(Color.WHITE.lerp(Color("8e7d86"),motion.death))
+	motion.draw_body(self,QUEEN_BODY,QUEEN_BOUNDS,&"queen",body_tint)
+	# Keep one visible central core; native heart is an unlit source detail.
+	var native_heart := Rect2(32,34,9,10)
+	draw_texture_rect_region(QUEEN_BODY,Rect2(QUEEN_BOUNDS.position+native_heart.position,native_heart.size),native_heart,Color(.20,.30,.22)*body_tint)
+	draw_circle(Vector2.ZERO,7,Color("efc591") if not encounter.health.terminal else Color("8d7b6d"))
+	draw_arc(Vector2.ZERO,11,0,TAU,24,Color("fae4b4") if not encounter.health.terminal else Color("837363"),1)
 
-	if encounter._weave_bound and encounter.motion_mode in ["migration_preview","phase_preview"]:
-		var path := encounter.motion_path()
-		for index: int in path.size()-1:
-			draw_dashed_line(to_local(path[index]),to_local(path[index+1]),Color("dfb684"),2,10,true,true)
-			draw_circle(to_local(path[index+1]),7,Color("efc591"))
+
+func _exit_tree() -> void:
+	motion.dispose(encounter)
+
+func synchronize_presentation() -> void:
+	motion.synchronize(encounter)

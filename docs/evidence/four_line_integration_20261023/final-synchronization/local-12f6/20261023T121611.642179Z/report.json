@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T121611.642179Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "681dea8e95d53e5011eef9031ea0f1f64d49fdf69b683a8f0d8623b99d78ba4d",
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757774.622339,
+      "ended_at_unix": 1792757774.7227452,
+      "duration_seconds": 0.1,
+      "expanded_argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "check_token": "8156477537114723acee539a5c6107f3",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/environment",
+      "reused": false
+    },
+    {
+      "id": "level-design-runtime",
+      "argv": [
+        "python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "d3543b8dd947078faadc1e9e5dfc5f5fd2b1d0fb33f9d33fe2c301306eb61952",
+      "log": "level-design-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757775.4998565,
+      "ended_at_unix": 1792757796.818401,
+      "duration_seconds": 21.319,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "check_token": "889da9a1512a47039d6b5d2518c2bfa3",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/level-design-runtime",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden",
+      "argv": [
+        "python3",
+        "tools/foundry.py",
+        "experience",
+        "--output",
+        "build/level_design_v2/golden"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "5554453f942e8e2a6e14d2f2bacef6150d63d712f21df72d87d730c8bb8b29d9",
+      "log": "level-design-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757797.5437565,
+      "ended_at_unix": 1792757811.4218655,
+      "duration_seconds": 13.878,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/foundry.py",
+        "experience",
+        "--output",
+        "build/level_design_v2/golden"
+      ],
+      "check_token": "91e83ecc196a46a4990c325d648fd36c",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/level-design-golden",
+      "reused": false
+    },
+    {
+      "id": "level-formal-runtime",
+      "argv": [
+        "python3",
+        "tools/run_level_formal_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "285852f6a8d9fa4467ba0a2eff500a5692af7fbf995cee71804b237a5519b249",
+      "log": "level-formal-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757811.9482138,
+      "ended_at_unix": 1792757832.891409,
+      "duration_seconds": 20.943,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_level_formal_tests.py"
+      ],
+      "check_token": "4f1e49c9ac5c47f5998ab48afde2b9e0",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/level-formal-runtime",
+      "reused": false
+    },
+    {
+      "id": "plains-redesign-spatial",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "input_digest": "ea1f4db31b5e4d2212b02e1cf8c1c6d85b7c7e82d89f4547e0915b089a1cdcaf",
+      "log": "plains-redesign-spatial.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757833.330762,
+      "ended_at_unix": 1792757921.9656482,
+      "duration_seconds": 88.635,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "check_token": "73ca1638f547416f8b8b2b8501c25261",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/plains-redesign-spatial",
+      "reused": false
+    },
+    {
+      "id": "plains-experience-golden",
+      "argv": [
+        "python3",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "input_digest": "9e67880a8ffe3cd1842de64be746fdf03027784ee008c603cec9fecbcd7d8888",
+      "log": "plains-experience-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757922.707424,
+      "ended_at_unix": 1792757975.918963,
+      "duration_seconds": 53.212,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "check_token": "8db0ef4788744560991ba61648256ab9",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/plains-experience-golden",
+      "reused": false
+    },
+    {
+      "id": "plains-encounter-policy",
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "c1dbb9232ef796eb6ff73cdf17ae256c04711f1b0fed6b118d2df50c475f88ca",
+      "log": "plains-encounter-policy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792757976.6910439,
+      "ended_at_unix": 1792758355.0135684,
+      "duration_seconds": 378.323,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "check_token": "60839b7d7a89416db53f57d97f6d13a2",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/plains-encounter-policy",
+      "reused": false
+    },
+    {
+      "id": "plains-redesign-scene",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "input_digest": "237b3f1a6571554fb7ab933ddb7e5ccc356b8832f3c420bb727cc8a12ef75cb1",
+      "log": "plains-redesign-scene.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758355.872876,
+      "ended_at_unix": 1792758581.4278462,
+      "duration_seconds": 225.555,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "check_token": "f3e9f19bc71e48e187609b099173f6f7",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/plains-redesign-scene",
+      "reused": false
+    },
+    {
+      "id": "terrain-family-tests",
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "ca1135468a46fbe2f4e10677ffa941408533b87c8c83b4198e0914ecaaa5513d",
+      "log": "terrain-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758582.6240833,
+      "ended_at_unix": 1792758611.685408,
+      "duration_seconds": 29.061,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "check_token": "13e3e22702c94dcabd1c3344d54e72f2",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/terrain-family-tests",
+      "reused": false
+    },
+    {
+      "id": "forest-h-slice",
+      "argv": [
+        "python3",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "aa5120f73ac79f555c5f1e804c4a9a010b067ca963b00b0eb8e8585a4e3d7831",
+      "log": "forest-h-slice.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758612.1365428,
+      "ended_at_unix": 1792758620.4508588,
+      "duration_seconds": 8.314,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "check_token": "166e6760f0f0410093eae72d348024c2",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/forest-h-slice",
+      "reused": false
+    },
+    {
+      "id": "forest-ecology",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_ecology_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "e34282174f1b9980634898e195d98ea91508213eec237e532b26bbf7ff01b4ee",
+      "log": "forest-ecology.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758621.2210412,
+      "ended_at_unix": 1792758623.2223144,
+      "duration_seconds": 2.001,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_ecology_runner.gd"
+      ],
+      "check_token": "96336f61c0a642a581e9c14bc28734e6",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/forest-ecology",
+      "reused": false
+    },
+    {
+      "id": "forest-progression",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "b128bcc0e46778c7e22960505ee5d5f36086b24af780059a61dd2cac87756415",
+      "log": "forest-progression.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758624.3070326,
+      "ended_at_unix": 1792758625.256104,
+      "duration_seconds": 0.949,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_runner.gd"
+      ],
+      "check_token": "f333233c85a84b919aec7a6b41a25357",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/forest-progression",
+      "reused": false
+    },
+    {
+      "id": "forest-campaign",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "30278cef3844a1dba7b2a008319c8bc0117dd4bd51084803da7b12cfdcad2f2d",
+      "log": "forest-campaign.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758626.3365889,
+      "ended_at_unix": 1792758634.0998015,
+      "duration_seconds": 7.763,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "check_token": "ee2f17cd425e4733bcc2faca4bd87626",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/forest-campaign",
+      "reused": false
+    },
+    {
+      "id": "forest-debug",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "8dde8cdf4a2b66d4bdf0ca296f941d9ccc9a0d2f0cc3167f60f8f83bcf7d1db2",
+      "log": "forest-debug.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758635.1815379,
+      "ended_at_unix": 1792758641.760546,
+      "duration_seconds": 6.579,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "check_token": "9556539739c547f5aa82d39521550a63",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/forest-debug",
+      "reused": false
+    },
+    {
+      "id": "forest-traversal",
+      "argv": [
+        "python3",
+        "tools/run_forest_region_tests.py",
+        "--skip-import"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "b21984a8b9b62ffc09ae20c127b1a004fdf8b498589378f132cb880db26f1619",
+      "log": "forest-traversal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758642.895343,
+      "ended_at_unix": 1792758648.0601096,
+      "duration_seconds": 5.165,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_region_tests.py",
+        "--skip-import"
+      ],
+      "check_token": "1138af0a1a4e4aa58c76d52788314ca2",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/forest-traversal",
+      "reused": false
+    },
+    {
+      "id": "windchime-plains",
+      "argv": [
+        "python3",
+        "tools/run_windchime_tests.py"
+      ],
+      "timeout_seconds": 200,
+      "input_digest": "61f6f41c632129978e6a6f5277c30725da797e6c3cebbfc6beb1e8900f1d1a9c",
+      "log": "windchime-plains.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758648.8581765,
+      "ended_at_unix": 1792758651.4108155,
+      "duration_seconds": 2.553,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_windchime_tests.py"
+      ],
+      "check_token": "8ac9db6d1e54494ea3d04ef049296536",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/windchime-plains",
+      "reused": false
+    },
+    {
+      "id": "pixel-plains",
+      "argv": [
+        "python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "671bb48ca61bb7fb348e7edb30bf65b16b9e5fd43730f0a9cbbbcbaf59774d4a",
+      "log": "pixel-plains.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758651.8571324,
+      "ended_at_unix": 1792758653.7112217,
+      "duration_seconds": 1.854,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "check_token": "4cc9a82bb25c4fcaa8f8020baf7f104f",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/pixel-plains",
+      "reused": false
+    },
+    {
+      "id": "pixel-formal",
+      "argv": [
+        "python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "53d9312398c6c98b57c531367515ce30dfaee614d7529f0b88f6bd2c98ccd009",
+      "log": "pixel-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758654.1512299,
+      "ended_at_unix": 1792758654.9551744,
+      "duration_seconds": 0.804,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "check_token": "404dd42c42ef4ea7b3a103159a5b533b",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/pixel-formal",
+      "reused": false
+    },
+    {
+      "id": "style-exploration",
+      "argv": [
+        "python3",
+        "tools/run_style_exploration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "e0cdf1813411faba4d96956905e88be21830a8daf156a796502a34b332bc7d0f",
+      "log": "style-exploration.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758655.396826,
+      "ended_at_unix": 1792758678.0485544,
+      "duration_seconds": 22.652,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_style_exploration_tests.py"
+      ],
+      "check_token": "2dbe4a6a1f6749c4b793c6b975b6af77",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/style-exploration",
+      "reused": false
+    },
+    {
+      "id": "underworld-scenery",
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "scenery"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "269532b40a5088d90a809604dbb9896ae6435ebbb04e032fb4c5aa387f6b2c13",
+      "log": "underworld-scenery.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758678.4862304,
+      "ended_at_unix": 1792758701.7378724,
+      "duration_seconds": 23.252,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "scenery"
+      ],
+      "check_token": "d519232ec21a461bbc4a07f3c632840d",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-scenery",
+      "reused": false
+    },
+    {
+      "id": "underworld-hazards",
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "hazards"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "25795f3c298766045b04af7c6c0ae7d2acf30e6914b17d76db8eed1688b3cc29",
+      "log": "underworld-hazards.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758702.186224,
+      "ended_at_unix": 1792758707.742923,
+      "duration_seconds": 5.557,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "hazards"
+      ],
+      "check_token": "22c251ad15824d6c9923455a2e0d64e7",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-hazards",
+      "reused": false
+    },
+    {
+      "id": "underworld-terrain",
+      "argv": [
+        "python3",
+        "tools/run_underworld_terrain_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "3fb40df4efaaedaddb7e043a4120eb0f5ce63e827af20e7b604457fba5e5f7f6",
+      "log": "underworld-terrain.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758708.1738043,
+      "ended_at_unix": 1792758709.7788935,
+      "duration_seconds": 1.605,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_terrain_tests.py"
+      ],
+      "check_token": "5f996e208ffa41a08f9408ef1be8d0e9",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-terrain",
+      "reused": false
+    },
+    {
+      "id": "underworld-formal-terrain",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "timeout_seconds": 270,
+      "input_digest": "7205490501884e2ce53b28df12a97f603f664a7a3fe6304f04e2f8a2eba15558",
+      "log": "underworld-formal-terrain.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758710.234914,
+      "ended_at_unix": 1792758725.117745,
+      "duration_seconds": 14.883,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "check_token": "a43b28d5f03643ac8aa2a0330f439e93",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-formal-terrain",
+      "reused": false
+    },
+    {
+      "id": "underworld-formal",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "943e86825ce69a6acd7067a2f61fe3a96bcc9283ed196428fa68b1376f69a1f5",
+      "log": "underworld-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758725.5707345,
+      "ended_at_unix": 1792758729.6365423,
+      "duration_seconds": 4.066,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "check_token": "ca1793d33bfb496c8bb9d28c02b6f5d1",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-formal",
+      "reused": false
+    },
+    {
+      "id": "underworld-raw-export",
+      "argv": [
+        "python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "8c1011be1468321590f222479966034bac1e73243eddadd0be13bb25205d57fd",
+      "log": "underworld-raw-export.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758730.0918558,
+      "ended_at_unix": 1792758730.2470741,
+      "duration_seconds": 0.155,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "check_token": "1a271153f42d48409c50aad4ddf1d863",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-raw-export",
+      "reused": false
+    },
+    {
+      "id": "underworld-player-animation",
+      "argv": [
+        "python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "311f45b97692ebf7085e09ff17c4f3ebef8f0bbb447c8120d3bada1119252f16",
+      "log": "underworld-player-animation.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758731.1265202,
+      "ended_at_unix": 1792758731.9335606,
+      "duration_seconds": 0.807,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "check_token": "31c9698b5a614d9a972dc0a0113bf5ae",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-player-animation",
+      "reused": false
+    },
+    {
+      "id": "underworld-mechanisms",
+      "argv": [
+        "python3",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "5af72306284b236a1dabaa9493ffb0e6f6efac6e9d696dcdb4e161435557dc2f",
+      "log": "underworld-mechanisms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792758733.0789196,
+      "ended_at_unix": 1792758744.10316,
+      "duration_seconds": 11.024,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "check_token": "463dabe2925a4249bcb6835099394eaa",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-mechanisms",
+      "reused": false
+    },
+    {
+      "id": "underworld-home",
+      "argv": [
+        "python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "8e695f4fe0e0f4a1b1ec258d5b89ffe0d33301f94c74b02e75e17549211464f1",
+      "log": "underworld-home.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792758745.278806,
+      "ended_at_unix": 1792758748.1862576,
+      "duration_seconds": 2.907,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "check_token": "2c31152699b24554ab9571aa3031d099",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T121611.642179Z/artifacts/underworld-home",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "working_files": {},
+  "commit": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 979.328,
+  "jobs": 1,
+  "release": true
+}

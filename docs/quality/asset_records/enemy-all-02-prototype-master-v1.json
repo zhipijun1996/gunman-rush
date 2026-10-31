@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-ALL-02",
+  "content_version": "enemy-all-02-prototype-transparent-master-v1-20261029",
+  "license_status": "unknown",
+  "license_source": "Project image generation; tool output exposes no separate generated-output license instrument. Reference-source provenance/rights remain unchanged. No CC0 or verified output-license claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/enemies/prototype_enemy_presentation.gd"
+  ],
+  "asset_id": "ENEMY-ALL-02-PROTOTYPE-TRANSPARENT-MASTER-V1",
+  "source_path": "assets/enemy_all_02/prototype_sheet.png",
+  "source_sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+  "runtime_paths": [
+    "assets/enemy_all_02/prototype_sheet.png"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "prompt_or_reference": "Exact round1 prompt and original output_hint retained in assets/enemy_all_02/prototype.provenance.json. Reference assets/plains_v7/enemies/guard_moth.png; output /workspace/generated_images/exec-420cb8d1-823a-4706-b75e-759b3b7677b6.png. Copied runtime PNG SHA matches the retained generated original byte-for-byte.",
+  "processing": "Original 2172x724 RGBA PNG bytes retained unchanged. Integer AtlasTexture-equivalent UV regions only: guard [0,0,362,373] and moth [0,373,362,351]. Each uses one canonical neutral body; continuous UV joint motion supplies phases. No raster editing, pose-wise resizing, generated12-frame animation, full-sheet anatomical consistency or discarded round2 adoption claim.",
+  "usage_scope": "Two development candidates only: candidate_lure_guard and candidate_crosswind_moth through PrototypeEnemyPresentation literal preload. Excluded from formal random pool and save schema. Only neutral guard/moth master crops are consumed; runtime/source registration does not establish visual, motion, audio, gameplay, device or user approval.",
+  "associated_files": [
+    {
+      "path": "assets/enemy_all_02/prototype.provenance.json",
+      "sha256": "60d2bcf208a6d27e335d8f1852f4cb0d2b302c0b753847036e81a331b3ecd946",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_v7/enemies/guard_moth.png",
+      "sha256": "5fc27354bdf6c358929cd639f7aea524e82b7bf937a7fccd8c3a6eefac897960",
+      "role": "reference"
+    }
+  ],
+  "source_registration_limitations": {
+    "model": "not_exposed",
+    "verbatim_prompt": "retained in associated generation_record rounds[0].prompt",
+    "generated_original_sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+    "round2": "rejected; retained in generation_record with original output_hint; not consumed by runtime",
+    "adopted_frames": 2,
+    "full_sheet_pose_family_accepted": false
+  }
+}

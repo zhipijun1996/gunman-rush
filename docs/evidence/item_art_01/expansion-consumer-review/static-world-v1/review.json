@@ -1,0 +1,353 @@
+{
+  "reviewer": "independent /root/final_review",
+  "decision": "BOUNDED_SOURCE_ROI_ADMISSION_FOR_INTEGRATION_QA",
+  "runtime_integration_qa_allowed": true,
+  "runtime_or_full72_release_acceptance": false,
+  "scope": "Exactly2 unmodified1254square source boards /32 single-frame semantic resources and measured extraction ROIs; source extraction diagnostic only. No production semantic binding, final body/pivot/opacity/geometry acceptance.",
+  "recipe": "static-measured-rows-world-v1",
+  "regions": {
+    "static-entities.source.png": [
+      {
+        "key": "g05.large_guard",
+        "roi": [
+          0,
+          0,
+          313,
+          340
+        ]
+      },
+      {
+        "key": "p15.temporary_drone",
+        "roi": [
+          313,
+          0,
+          314,
+          340
+        ]
+      },
+      {
+        "key": "g19.body.0",
+        "roi": [
+          627,
+          0,
+          313,
+          340
+        ]
+      },
+      {
+        "key": "g19.body.1",
+        "roi": [
+          940,
+          0,
+          314,
+          340
+        ]
+      },
+      {
+        "key": "g19.body.2",
+        "roi": [
+          0,
+          340,
+          313,
+          306
+        ]
+      },
+      {
+        "key": "g14.urn_flight",
+        "roi": [
+          313,
+          340,
+          314,
+          306
+        ]
+      },
+      {
+        "key": "p25.needle_trap",
+        "roi": [
+          627,
+          340,
+          313,
+          306
+        ]
+      },
+      {
+        "key": "p20.crystal",
+        "roi": [
+          940,
+          340,
+          314,
+          306
+        ]
+      },
+      {
+        "key": "p16.orbit_guard",
+        "roi": [
+          0,
+          646,
+          313,
+          276
+        ]
+      },
+      {
+        "key": "b33.touch_blast",
+        "roi": [
+          313,
+          646,
+          314,
+          276
+        ]
+      },
+      {
+        "key": "g14.urn_burst",
+        "roi": [
+          627,
+          646,
+          313,
+          276
+        ]
+      },
+      {
+        "key": "p25.needle_burst",
+        "roi": [
+          940,
+          646,
+          314,
+          276
+        ]
+      },
+      {
+        "key": "b23.tail_ring",
+        "roi": [
+          0,
+          922,
+          313,
+          332
+        ]
+      },
+      {
+        "key": "p34.third_round_shock",
+        "roi": [
+          313,
+          922,
+          314,
+          332
+        ]
+      },
+      {
+        "key": "p09.relay_blast",
+        "roi": [
+          627,
+          922,
+          313,
+          332
+        ]
+      },
+      {
+        "key": "p12.motion_blade",
+        "roi": [
+          940,
+          922,
+          314,
+          332
+        ]
+      }
+    ],
+    "static-procs.source.png": [
+      {
+        "key": "p13.eye_mark",
+        "roi": [
+          0,
+          0,
+          313,
+          313
+        ]
+      },
+      {
+        "key": "b19.dream_mark",
+        "roi": [
+          313,
+          0,
+          314,
+          313
+        ]
+      },
+      {
+        "key": "g01.echo_seed",
+        "roi": [
+          627,
+          0,
+          313,
+          313
+        ]
+      },
+      {
+        "key": "g01.echo_detonation",
+        "roi": [
+          940,
+          0,
+          314,
+          313
+        ]
+      },
+      {
+        "key": "p29.wire_lightning",
+        "roi": [
+          0,
+          313,
+          313,
+          314
+        ]
+      },
+      {
+        "key": "g06.crown_lightning",
+        "roi": [
+          313,
+          313,
+          314,
+          314
+        ]
+      },
+      {
+        "key": "p10.corrosion",
+        "roi": [
+          627,
+          313,
+          313,
+          314
+        ]
+      },
+      {
+        "key": "b24.ember_tick",
+        "roi": [
+          940,
+          313,
+          314,
+          314
+        ]
+      },
+      {
+        "key": "shared.barrier",
+        "roi": [
+          0,
+          627,
+          313,
+          313
+        ]
+      },
+      {
+        "key": "p26.echo_guard",
+        "roi": [
+          313,
+          627,
+          314,
+          313
+        ]
+      },
+      {
+        "key": "shared.heal",
+        "roi": [
+          627,
+          627,
+          313,
+          313
+        ]
+      },
+      {
+        "key": "g04.rescue",
+        "roi": [
+          940,
+          627,
+          314,
+          313
+        ]
+      },
+      {
+        "key": "b06.time_refund",
+        "roi": [
+          0,
+          940,
+          313,
+          314
+        ]
+      },
+      {
+        "key": "s15.break_bell",
+        "roi": [
+          313,
+          940,
+          314,
+          314
+        ]
+      },
+      {
+        "key": "shared.coin_gain",
+        "roi": [
+          627,
+          940,
+          313,
+          314
+        ]
+      },
+      {
+        "key": "s10.skill_credit",
+        "roi": [
+          940,
+          940,
+          314,
+          314
+        ]
+      }
+    ]
+  },
+  "actual_pixels_viewed": {
+    "raw_sources": 2,
+    "actual_GL_pages": 4,
+    "eachpage": "8resources at12/24/36/60px longest side in dark and light; raw alpha/no pixel edits; source-specific aspect retained"
+  },
+  "observations": [
+    "32 individually authored static resources match their source subjects; G19three variants are deliberately related, not32 frame animations.",
+    "Measured nonuniform entity rows contain full drawn silhouettes and no visibly foreign adjacent object in sampled pages; procs equal-quarter rows are clean under same bounded consumer.",
+    "Bad wide ROI visibly shows two subjects and reused ROI repeats one subject, retained calibration.",
+    "At12px these are compact feedback marks; fine detail and precise resource identification are limited.24–60px reveal distinct forms; this does not establish battle readability or area bounds."
+  ],
+  "source_conformance": {
+    "original20percentalpha0margins": "FAIL; sources fill more than requested central60percent, raw faint tails remain. Originalgate not relaxed.",
+    "native64": "not met/not claimed",
+    "pixel_edits": false,
+    "texture_memory": "Read source dimensions only; parent aggregate10-sourceRGBA62,908,904bytes requires all production consumer validation, no cap increase."
+  },
+  "blocking_before_final_runtime_promotion": [
+    {
+      "id": "IART-EXP-02",
+      "subject": "G19 tiers/body pivot",
+      "finding": "Actual equal-canvas36/60px diagnostic shows tier2 visibly larger/higher than tier0/1. Rawfullcellcenter and identicalcanvasworldsize do not prove same18wu body or stable center.",
+      "required": "Measure actual body-core/pivot pixels, configure per-source world scale and anchor or measured ROI/size mapping; compare tiers at same real entity position in actual renderer. Keep original evolution mechanics unchanged."
+    },
+    {
+      "id": "IART-EXP-03",
+      "subject": "Mechanical geometry and source acceptance are separate",
+      "required": "G05 full occupied art within approved60x32 envelope; trap foot sits on actual support; crystal within declared18x26 candidate; G14flight aligns real trajectory. Marks follow actual target/revocation. Arc endpoints, cloudopacity<=.16 and radius, coinpath, transientlifetimes must retain original consumers. Actualcommitted hooks and HP/wallet/heal/guard/rescue authority required. Sampled60pxsquare does not approve a60x60 body."
+    }
+  ],
+  "runtime_unverified": [
+    "ActualGameworld execution/draw/no stale events for32 sources",
+    "Actualboundanchors/envelopes/statevariants/opacity/lifetimes",
+    "Full72 menu/pool/harness/sourcebinding",
+    "PhysicalAndroid/controller/liveplayback/listening/globalG2-G5"
+  ],
+  "engine": "4.7.2.stable.official.ed1daf0bf; actual X11 softwareGL llvmpipe; nativeexit0, noERROR/leaks; VSyncdriverwarning retained",
+  "source_hash_stable": true,
+  "artifacts": {
+    "measurement.json": "4091960f631ce736f57c36632a97231cf437a94434359e31251ddfc0bb7fbd02",
+    "native-gl.log": "fb37dbc64f5b607a35cf47b97f9f831660318aa011baa5fbadc681d4eab94845",
+    "recipe-before.json": "e1b84e3fa2df3f1f91cf0dd8675ada9c650748f77b142d377b5bcd5bb0717043",
+    "static-entities-page1-noart.png": "017bb561bf85b48a1442560684c1d26b711ff7ca4e8e3d67d103fa4312565fa1",
+    "static-entities-page1.png": "f013a12d875d1aadc77eac02fa1b9db069bb094dbb4e35f6a35473b4f8d7b85b",
+    "static-entities-page2-noart.png": "358701544b8959885ef2b13698eb59c47b6db3622aabaf254789cc24e2c2a00c",
+    "static-entities-page2.png": "fcf22d2d28dc957e4d46b490c8d2fed137458dbf9caf522fc816f87a53275a1d",
+    "static-procs-page1-noart.png": "61930f4e56267a02f4b8b915eb46f6b93da0ad82e574492ab431a1de342545e4",
+    "static-procs-page1.png": "8c164c9b90e7e2fc0c7f47f93464a9077f0b9f7ddc1eae903ba8c69325bae2c4",
+    "static-procs-page2-noart.png": "412abac081ca16f25852cdbf34f7ee01ae03816310302c285c5ebabc86befb52",
+    "static-procs-page2.png": "682a1d609b525c9304f6aef4953a7fb0f7d02835881b6d06122197a991a741ab"
+  }
+}

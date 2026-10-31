@@ -1,0 +1,42 @@
+{
+  "status": "ACCEPT",
+  "reviewed_commit": "a861406e699e95553b56a7f1a53edbafe4da7cfd",
+  "base_commit": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+  "scope": "Bounded adoption/composition of exactly4previously independently reviewed current test fixes; no complete CI/Release/player approval.",
+  "actual_source_sha256": {
+    "tests/bgm_integration/runner.gd": "35e5a5fa661dccb44c8b254e1c332a5ce37f7a9b79c9e193d0dba134953a3256",
+    "tests/underworld_plains/test_underworld_home_terraces.gd": "5df0c059eea10f0d1dd244ba164a3e4aaece95a7478ea3eccd3b803e70d62623",
+    "tools/run_underworld_home_terrace_tests.py": "a5b492235a3cfd0fe25c1f15a731c8c5885779d596b03835dfd69f99cd9ebcd9",
+    "tests/forest_bible_world_air_case.gd": "eaad4b8a3a4dfd6e75250e919610c0442dfd83ce40278d9900fd7009a48dfabd"
+  },
+  "source_checks": [
+    "Exact git delta12f6→a861 is these4files only; committed and actual worktree bytes match each frozen candidate.",
+    "No production scripts/scenes/assets/MP3/config/profile or general Harness change.",
+    "Independent candidate changes do not overlap: BGM wallclock200ms, Home entry/default-body predicates and count+1, Bible-specific legal held-jump input. Original budgets and core guards preserved."
+  ],
+  "inherited_reviews": {
+    "BGM": {
+      "path": "/workspace/scratch/bgm-seek-current-20261023/independent-review.json",
+      "sha256": "75535efdfa82634089c75f9bea7eeb271582f0c5a611775918bd53c79aeaebaa"
+    },
+    "Home": {
+      "path": "/workspace/scratch/integration-four-20261023/home-terraces-current/independent-review.json",
+      "sha256": "609f1a8dc32e0848cd2ac2c9907b57aed1f33203d03b2bd0f75b92686329ffd2"
+    },
+    "Bible": {
+      "path": "/workspace/scratch/forest-bible-current-20261023/independent-review.json",
+      "sha256": "ceb180d9076ea7503b3b4813ffe52e9e7260a8602ca070b490593abddfdb942c"
+    }
+  },
+  "evidence_boundaries": {
+    "BGM": "Original89/0 plus15freshbackend controls on12f6 runtime and externalcandidate; only output directory override; fullCI/musical listening unverified.",
+    "Home": "Original complete directed wrapper181/0 and exactsourcebeforeafter on12f6 runtime; adapter externalpaths/digestmapping explicit; capture190notrun.",
+    "Bible": "Four original overlay wrappers24/24+32/32+35/35+43/43, currentcandidate source stable; no engine reviewer rerun; dual584supports and actualprogram recorded.",
+    "a861_fresh": "Parent running newsourceBGM/Home Harness checks at review time; their unfinished results are not signed here. No old evidence relabeled as a861fresh."
+  },
+  "unverified": [
+    "Fresh finalsubmitted-head complete Integration CI/Release/main deployment.",
+    "Rendered Web/device/user/art/FUN/G5 acceptance."
+  ],
+  "reviewer_actions": "Read-only exact gitdelta and4source hashes, inheritedreview identities; no source edits, engine or repeated broad audit."
+}

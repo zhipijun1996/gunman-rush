@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: explicit V1 empty equipment reconstructs without an inventory owner in Manifest
+FAIL: current empty-loadout Manifest completes its actual generator/content roundtrip
+FAIL: fully absent new metadata preserves historical empty-resource reconstruction
+FAIL: shared resolver reconstructs actual Lv1 focus drain rather than assuming Lv1
+FAIL: current complete content Manifest JSON roundtrips real equipped Lv1
+FAIL: shared resolver reconstructs actual Lv2 focus drain rather than assuming Lv1
+FAIL: current complete content Manifest JSON roundtrips real equipped Lv2
+FAIL: shared resolver reconstructs actual Lv3 focus drain rather than assuming Lv1
+FAIL: current complete content Manifest JSON roundtrips real equipped Lv3
+FAIL: broken equipped item survives actual current content roundtrip with its effects removed
+FAIL: repair reconstructs HP capacity without granting current healing
+FAIL: versioned canonical legacy modifiers reconstruct without losing definition version
+FAIL: old canonical legacy path preserves its original modifier and stack checks
+ITEM V5 MANIFEST: 75 checks, 13 failures
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/workspace/gunman-rush/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

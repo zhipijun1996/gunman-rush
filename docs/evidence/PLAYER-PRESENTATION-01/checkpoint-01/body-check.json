@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T132447.448762Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-player-animation",
+      "argv": [
+        "python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "89dda50b81630b6f1b391924614702c4a73240dfca3f7973dfa3cb224809d633",
+      "log": "underworld-player-animation.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792675491.4070497,
+      "ended_at_unix": 1792675495.2061117,
+      "duration_seconds": 3.799,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "check_token": "2895ad2b6e2a4348a1db4f77faef9d52",
+      "artifact_directory": "/workspace/player-presentation/build/verification/harness/20261022T132447.448762Z/artifacts/underworld-player-animation",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/quality/records/PLAYER-PRESENTATION-01.json": "22330779e214117c97fc59dcd8c3d39d0dec747486da2150e2f98bf6302106b1",
+    "tests/player_presentation_01/baseline_audit.gd": "9f855fb3a442f82de07c90a0e9fab2dfe9d033476710e48b106650ac45864fb3"
+  },
+  "commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "git_status": "?? docs/quality/records/PLAYER-PRESENTATION-01.json\n?? tests/player_presentation_01/",
+  "diff": "",
+  "untracked": "docs/quality/records/PLAYER-PRESENTATION-01.json\ntests/player_presentation_01/baseline_audit.gd",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 10.667,
+  "jobs": 1,
+  "release": false
+}

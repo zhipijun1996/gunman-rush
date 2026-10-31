@@ -1,0 +1,31 @@
+{
+  "source": "original-harness-report.json.gz",
+  "source_original_sha256": "b4e91d1b7eb3c5940d2e56ac43b8f6026e034df0f4f18f842bbcf1f89e9029b5",
+  "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+  "scope": "Exact region check object extracted from original eleven-check failed parallel report; no other lane or post-repair pass implied.",
+  "check": {
+    "id": "region",
+    "argv": [
+      "python3",
+      "tools/run_plains_region_tests.py"
+    ],
+    "timeout_seconds": 1500,
+    "input_digest": "3e8f88e3b16191f1139b6879a32b53c13c327fadbb813852e3e1122d6a0d05a7",
+    "log": "region.log",
+    "status": "failed",
+    "exit_code": 1,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1793183874.2415464,
+    "ended_at_unix": 1793183949.1259284,
+    "duration_seconds": 74.884,
+    "expanded_argv": [
+      "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python3",
+      "tools/run_plains_region_tests.py"
+    ],
+    "check_token": "43f7d496b9de49f4b987a2534f6ee619",
+    "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261028T103354.203637Z/artifacts/region",
+    "reused": false,
+    "success_pattern": "^PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27$",
+    "log_sha256": "dbeb5723a63b32f5f220c1e702e22bb8005f92cde54cacf8e1545393a3346338"
+  }
+}

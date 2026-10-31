@@ -1,0 +1,327 @@
+{
+  "input_report": "/workspace/scratch/ci-pr106-a074/raw/gunman-rush/gunman-rush/build/verification/production-ci/inputs.json",
+  "input_report_sha256": "8f4d06b975807e2dea9c452efa09ade5ad280bb9e8b2fbaebdd6cdc651e4e363",
+  "commit": "a074a709ffa64c1382d73d2dab6dcff673222728",
+  "seconds": 341.816,
+  "rounds": 2,
+  "prefetch_batches": 93,
+  "metrics": {
+    "all": {
+      "files": 3062,
+      "bytes": 3293896939,
+      "unique_blobs": 2980,
+      "unique_blob_bytes": 3281105716
+    },
+    "markdown_link_any": {
+      "files": 1190,
+      "bytes": 2015911271,
+      "unique_blobs": 1179,
+      "unique_blob_bytes": 2012787655
+    },
+    "sole_markdown_existence": {
+      "files": 893,
+      "bytes": 1876183641,
+      "unique_blobs": 883,
+      "unique_blob_bytes": 1874523061
+    },
+    "sole_markdown_existence_media_archive": {
+      "files": 233,
+      "bytes": 1807034121,
+      "unique_blobs": 232,
+      "unique_blob_bytes": 1805489128
+    },
+    "quality_sha_any": {
+      "files": 1190,
+      "bytes": 1395518932,
+      "unique_blobs": 1169,
+      "unique_blob_bytes": 1395264868
+    },
+    "quality_sha_media_archive": {
+      "files": 309,
+      "bytes": 1284336488,
+      "unique_blobs": 309,
+      "unique_blob_bytes": 1284336488
+    },
+    "markdown_quality_sha_intersection": {
+      "files": 108,
+      "bytes": 138783673,
+      "unique_blobs": 108,
+      "unique_blob_bytes": 138783673
+    },
+    "markdown_quality_sha_intersection_media_archive": {
+      "files": 19,
+      "bytes": 122759550,
+      "unique_blobs": 19,
+      "unique_blob_bytes": 122759550
+    },
+    "markdown_content_read": {
+      "files": 987,
+      "bytes": 3528538,
+      "unique_blobs": 963,
+      "unique_blob_bytes": 3478976
+    },
+    "other": {
+      "files": 979,
+      "bytes": 22194366,
+      "unique_blobs": 940,
+      "unique_blob_bytes": 21712724
+    },
+    "check_docs_only_candidate": {
+      "files": 890,
+      "bytes": 1876175485
+    },
+    "check_docs_only_exclusive_oids": {
+      "unique_blobs": 871,
+      "uncompressed_blob_bytes": 1864133451,
+      "initially_missing_blobs": 869,
+      "initially_missing_blob_bytes": 1864128011
+    }
+  },
+  "quality_records_read": 416,
+  "top5": {
+    "all": [
+      {
+        "path": "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_gameplay.mp4",
+        "size": 89006276,
+        "required_by": [
+          "docs/quality/records/V3-ENCOUNTER-V2-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/V3-ENCOUNTER-V2-01.json",
+            "field": "evidence",
+            "sha256": "3de8ee4d58d61ae7dad788b5331fe6ee632c2b8793a869398fa32caa39323b12"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/parallel_integration_01/ci07/original-diagnostics.zip",
+        "size": 80604499,
+        "required_by": [
+          "docs/evidence/parallel_integration_01/ci07/README.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/matched_movies/before/creek_growth/gameplay.mp4",
+        "size": 79202326,
+        "required_by": [
+          "docs/plains_redesign_delivery.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/gameplay.mp4",
+        "size": 75450468,
+        "required_by": [
+          "docs/plains_redesign_delivery.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/forest_playable/final/browser_gui_and_retained_failures.tar.gz",
+        "size": 69218460,
+        "required_by": [
+          "docs/evidence/forest_playable/README.md"
+        ],
+        "quality_sha_refs": []
+      }
+    ],
+    "sole_markdown_existence": [
+      {
+        "path": "docs/evidence/parallel_integration_01/ci07/original-diagnostics.zip",
+        "size": 80604499,
+        "required_by": [
+          "docs/evidence/parallel_integration_01/ci07/README.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/matched_movies/before/creek_growth/gameplay.mp4",
+        "size": 79202326,
+        "required_by": [
+          "docs/plains_redesign_delivery.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/gameplay.mp4",
+        "size": 75450468,
+        "required_by": [
+          "docs/plains_redesign_delivery.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/forest_playable/final/browser_gui_and_retained_failures.tar.gz",
+        "size": 69218460,
+        "required_by": [
+          "docs/evidence/forest_playable/README.md"
+        ],
+        "quality_sha_refs": []
+      },
+      {
+        "path": "docs/evidence/creative_system/media/previous-visual-85s.mp4",
+        "size": 63797099,
+        "required_by": [
+          "docs/quality/creative_system/README.md"
+        ],
+        "quality_sha_refs": []
+      }
+    ],
+    "quality_sha_any": [
+      {
+        "path": "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_gameplay.mp4",
+        "size": 89006276,
+        "required_by": [
+          "docs/quality/records/V3-ENCOUNTER-V2-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/V3-ENCOUNTER-V2-01.json",
+            "field": "evidence",
+            "sha256": "3de8ee4d58d61ae7dad788b5331fe6ee632c2b8793a869398fa32caa39323b12"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/forest_focus_routes03/final_validation/fixed80-and-three-failures.zip",
+        "size": 62772154,
+        "required_by": [
+          "docs/quality/records/FOREST-FOCUS-ROUTES-03.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/FOREST-FOCUS-ROUTES-03.json",
+            "field": "evidence",
+            "sha256": "db379b8b0fabf0f07513a970d2778d4c55b2d4291b0bcfcb64bbe516015cfbfa"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/visual_director/quality_carriers/build/visual_director/creek_static_v4_observer_fixed/gameplay.mp4",
+        "size": 53828015,
+        "required_by": [
+          "docs/quality/records/VISUAL-DIRECTOR-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/VISUAL-DIRECTOR-01.json",
+            "field": "evidence",
+            "sha256": "73e44c6e1364d505be2c4f7dd7579cb26418851c17df754035aac0909fdcba68"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/weapon-v2-evidence.zip",
+        "size": 47141467,
+        "required_by": [
+          "docs/quality/records/PLAYER-PRESENTATION-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/PLAYER-PRESENTATION-01.json",
+            "field": "evidence",
+            "sha256": "35581adc6b78972eca7cea0620e76637932989d3aede21240b6b1293713c874c"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/gameplay.mp4",
+        "size": 43746217,
+        "required_by": [
+          "docs/quality/records/V3-TERRAIN-FAMILY-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/V3-TERRAIN-FAMILY-01.json",
+            "field": "evidence",
+            "sha256": "3e5c1ebdcf13d25535043046d6338eb2c6ebdff246f1e684d98f3cf0fd0c6bae"
+          }
+        ]
+      }
+    ],
+    "markdown_quality_sha_intersection": [
+      {
+        "path": "docs/evidence/p1_environment/media/full03.mp4",
+        "size": 34934112,
+        "required_by": [
+          "docs/quality/p1_environment.md",
+          "docs/quality/records/P1-ENV-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/P1-ENV-01.json",
+            "field": "evidence",
+            "sha256": "10596a1fd814ababedbab9c734836b82dd618f233dfc511a2bd1f3fe14de93d8"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/p1_random/records/unity_01/gameplay.mp4",
+        "size": 27697757,
+        "required_by": [
+          "docs/quality/p1_random.md",
+          "docs/quality/records/P1-RANDOM-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/P1-RANDOM-01.json",
+            "field": "evidence",
+            "sha256": "b249641424bb684981dba8d4a083018fae20fe15592db96a3de5ae7a6fc3c8f9"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/p1_native/second_01/gameplay.mp4",
+        "size": 13520987,
+        "required_by": [
+          "docs/quality/p1_native.md",
+          "docs/quality/records/P1-NATIVE-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/P1-NATIVE-01.json",
+            "field": "evidence",
+            "sha256": "7daabe54bee8e7164a47d2286df3850acdc519931ea10ace65c09a9819e218e8"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/actor_actions/actions.mp4",
+        "size": 12876766,
+        "required_by": [
+          "docs/quality/actor_actions_report.md",
+          "docs/quality/records/ACTOR-ACTIONS-01.json"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/ACTOR-ACTIONS-01.json",
+            "field": "evidence",
+            "sha256": "c10be9957443004c0bc9a6bee2381a49399cfa6c05cfc5ea5feac5dcbb173e2a"
+          }
+        ]
+      },
+      {
+        "path": "docs/evidence/spatial_golden/media/spatial-v2-current.mp4",
+        "size": 12841495,
+        "required_by": [
+          "docs/quality/records/SPATIAL-GOLDEN-01.json",
+          "docs/quality/spatial_golden.md"
+        ],
+        "quality_sha_refs": [
+          {
+            "record": "docs/quality/records/SPATIAL-GOLDEN-01.json",
+            "field": "evidence",
+            "sha256": "7bf75b143e4afa59a44ab1f2b19fa0d01b89d678b8f524afe88eb6b0c0c3625e"
+          }
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Required-by classification is the real existing preflight contract, not a new complete dependency graph.",
+    "Exact a074 quality record SHA requirements were read from local Git objects without lazyfetch; media bytes were not reread or revalidated in this audit.",
+    "Three additional sole Markdown refs are skill is_file consumers and remain hydrated unless that consumer is adapted separately."
+  ]
+}

@@ -1,0 +1,14 @@
+setUpClass (__main__.UnderworldPipelineTest) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.UnderworldPipelineTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_underworld_pipeline.py", line 29, in setUpClass
+    raise AssertionError('Actual runtime production inputs fail baseline: ' + json.dumps(failures, ensure_ascii=False))
+AssertionError: Actual runtime production inputs fail baseline: [{"code": "objects.actual_dispatch", "passed": false, "detail": "Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned"}]
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.616s
+
+FAILED (errors=1)

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T074343.439798Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "forest-depth-enemies",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--output-dir",
+        "build/forest_depth/ecology/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "568af1cb858b8ca9a893d405d57d041e75189382bc741989ac2e622972e981c2",
+      "log": "forest-depth-enemies.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792741426.5599492,
+      "ended_at_unix": 1792741436.1726997,
+      "duration_seconds": 9.613,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_depth_enemies.py",
+        "--output-dir",
+        "build/forest_depth/ecology/native/harness-244f5dd825a047f7b9913f2f061ca22b"
+      ],
+      "check_token": "244f5dd825a047f7b9913f2f061ca22b",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T074343.439798Z/artifacts/forest-depth-enemies",
+      "reused": false
+    },
+    {
+      "id": "forest-depth-region",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "1a58be612aac8a4315206b1e2c028e89137d088b60d955ac7d5d54f40c709d5a",
+      "log": "forest-depth-region.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792741437.102182,
+      "ended_at_unix": 1792741534.7762775,
+      "duration_seconds": 97.674,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-e69b9359081144279076421d9a7061fe"
+      ],
+      "check_token": "e69b9359081144279076421d9a7061fe",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T074343.439798Z/artifacts/forest-depth-region",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "576d20c2feaf3a673f17d25b93696f425cd92da361ce878767c76afac9a304f5",
+  "working_files": {},
+  "commit": "cbce53f145a128bd8ecd328e4c60a7b1f449b27d",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 114.352,
+  "jobs": 1,
+  "release": true
+}

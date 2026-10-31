@@ -1,0 +1,50 @@
+{
+  "scope": "Author original42 and four original Harness on current App Manifestrepair binding; not native/visual/device or independent acceptance",
+  "source_commit": "dbf3a1543d007b4b62b5bad10812d55e7bcc6783",
+  "worktree_modified": true,
+  "style_sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0",
+  "app_sha256": "f75f32cc918d3368d6aa55be94206465163ed7706eb31b19690811da6d009119",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 4.595818902998872
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 1.2581548739999562
+    },
+    {
+      "label": "harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "region-bible-tests",
+        "--check",
+        "creative-direction-tests",
+        "--check",
+        "region-bible-contract",
+        "--check",
+        "creative-direction",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "seconds": 10.846015875999
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "asset_id": "DEMO-UI-01-R2-registry",
+  "content_version": "clockwork-ui-r2+four-line-rebind-v1-20261023+registry-correction-v2",
+  "source_path": "assets/manifest.json",
+  "source_sha256": "538a9e1e40b252b219398dde4b38c7e3a9ff73b5b62a22997e1475920f54055d",
+  "runtime_paths": [],
+  "disposition": "production_record_only",
+  "non_runtime_reason": "Build-time asset registry; only two task UI image entries appended, other records unchanged.",
+  "tool": "Native JSON registry append",
+  "model": "not_applicable",
+  "prompt_or_reference": "docs/worklines/demo_ui_01/asset_sources.json; original image assets have their own records",
+  "processing": "Append original PNG identifiers, dimensions, sourceSHA and actual title consumer. No image transformation.",
+  "usage_scope": "Task asset provenance registry, not artwork or gameplay.",
+  "license_status": "unknown",
+  "license_source": "Registry is project-authored metadata; licenses belong to each actual asset record.",
+  "visual_status": "not_applicable",
+  "user_acceptance_evidence": [],
+  "revision_impact": {
+    "revision": "four-line-scenery-registry-correction-v2",
+    "prepared_source_commit": "b165a6268c451e249728d399935e8e9edba78e40",
+    "previous_content_version": "clockwork-ui-r2+four-line-rebind-v1-20261023",
+    "previous_record_path": "docs/evidence/four_line_integration_20261023/registry-correction-b165/demo_ui_01_r2_registry.json",
+    "previous_record_sha256": "5b0709937f164cc0d413c6d06606425f132573299e32723f5af8ba5367f8c4a1",
+    "source_changes": [
+      {
+        "field": "source_sha256",
+        "path": "assets/manifest.json",
+        "old_sha256": "a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b",
+        "new_sha256": "538a9e1e40b252b219398dde4b38c7e3a9ff73b5b62a22997e1475920f54055d"
+      }
+    ],
+    "actual_change": "Correct exactly three stale digest fields for the already-adopted and previously reviewed scenery_build.json (scenery sha/source and Home source). All281 entries and remaining metadata unchanged; no image, world geometry, provenance origin, license or visual acceptance changed. Prior merged registry and record bytes retained.",
+    "review_status": "independent review required; no art/player/device acceptance"
+  }
+}

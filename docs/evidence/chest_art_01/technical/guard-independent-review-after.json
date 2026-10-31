@@ -1,0 +1,101 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "kind": "follow-up independent finite-guard migration review after confirmed counterexample repair",
+  "observed_utc": "2026-10-28T10:57:38.731958+00:00",
+  "verdict": "SCOPED_TECHNICAL_ACCEPT",
+  "approved_scope": "Current chest finite source gate/test/fixture migration only, not whole GDScript parser, dynamic reachability proof, runtime gameplay or final art acceptance.",
+  "prior_REVISE_preserved": true,
+  "actual_defect": {
+    "independent_stage_decoy_false_acceptance_confirmed": true,
+    "independent_objects_decoy_false_acceptance_confirmed": true,
+    "before_proof": "guard-independent-probe/confirmed-before.json",
+    "fix": "New chest_function locates unique real function start/end in whole-original-source literal/comment mask preserving offsets, then slices original source. Three chest extraction calls use it.",
+    "changed_existing_functions_since_independent_before": [
+      "formal_chest_alpha_isolated",
+      "current_chest_dispatch"
+    ],
+    "added_function": "chest_function",
+    "global_gd_function_unchanged": true,
+    "old_legacy_helper_unchanged": true,
+    "author_actual_replay_of_both_exact_reviewer_saved_sources": "Both now reject; baseline still true. Evidence reviewer-probe-after.json.",
+    "regression_controls": "Stage fake_ready/capture + Objects fake place_chest/terminatingfunc, both single/double triplequotes, no-decoy negative, extraction equality to actual real function."
+  },
+  "baseline_preservation": {
+    "original_methods": 152,
+    "removed": [],
+    "unchanged_original_method_AST": 143,
+    "changed_original_alpha_historical_methods": 9,
+    "new_methods": 9,
+    "all_other143_original_methods_AST_unchanged": true,
+    "fixtures": "Complete pre-tier Stage/Objects exact original b2f92dce bytes and original9alpha negatives retained; verified earlier and unchanged.",
+    "legacy_fallback_and_recipe": "Original3arg OPEN/CLOSED fallback remains real code alongside tiered4arg dispatch. Old source/crop/generation/hash/aspect/reconstruction checks remain live."
+  },
+  "current_adapter_assessment": "Checks exact initialization, real current ready/capture loops, actual tier+claimed, original+21 foot, unique calls, no gray/position/manualclaim writes, real dispatcher body and exact known librarySHA. Actual dispatcher checks are substantive and cannot be replaced merely by a trusted library hash or preserved dead strings in the two confirmed paths.",
+  "existing_fresh_author_results_read": {
+    "tests": 161,
+    "failures": 0,
+    "seconds": 94.476,
+    "original_timeout_seconds": 180,
+    "actual_source_audit_checks": 1025,
+    "actual_source_audit_failures": 0,
+    "author_logs_hash_bound": true,
+    "reviewer_reran_full_suite": false
+  },
+  "source_sha_verified_against_final_author_receipt": {
+    "tools/underworld_pipeline.py": "1264b594b3b0d8c9249387f7b5539f7609a8b679f20bcdc629ef8b4cbe224cce",
+    "tests/test_underworld_pipeline.py": "8fe0983ffd1e5abf19b3da36875f5a1642b0609c4b33eaa7ecf2675baf143d77",
+    "scripts/art/chest_art_library.gd": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e"
+  },
+  "evidence": [
+    {
+      "path": "tools/underworld_pipeline.py",
+      "sha256": "1264b594b3b0d8c9249387f7b5539f7609a8b679f20bcdc629ef8b4cbe224cce"
+    },
+    {
+      "path": "tests/test_underworld_pipeline.py",
+      "sha256": "8fe0983ffd1e5abf19b3da36875f5a1642b0609c4b33eaa7ecf2675baf143d77"
+    },
+    {
+      "path": "tests/fixtures/chest_dispatch_before_tiers/manifest.json",
+      "sha256": "f12197f1c176b303b532b6583b85af3d68877055920280a73bb822178bc20c6c"
+    },
+    {
+      "path": "build/chest_art_01/guard-independent-review.json",
+      "sha256": "99cd91e272174b17dcfdb0c4f2087aaaf3f68f963ad47504e669b74e2c89e1d0"
+    },
+    {
+      "path": "build/chest_art_01/guard-independent-probe/confirmed-before.json",
+      "sha256": "44e52fb8e797ba41c5e7ec6988ccdeecfde8de3dd5cd06c78d2cddd9bc7aa40b"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/migration-result-final.json",
+      "sha256": "3a4ae25daba06b44815a7519c65627be342924bfe78ac97db3e9e2fd00056ef3"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/reviewer-probe-after.json",
+      "sha256": "2ad5918f36f88d57a485fb15288075635b3007fb2bc85b4bf191ec67c5d16dff"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/test-native-free-03.log",
+      "sha256": "07cacfde35227ac80230f11bd5b870882d20f6b0e10e0e2b56b09ca6d40a2c99"
+    },
+    {
+      "path": "build/chest_art_01/guard-proposal/actual-audit-03.json",
+      "sha256": "e270bacd8ff57450df7ff5a6970794ce782574623ed6e38c1a204d5308a9a7e7"
+    }
+  ],
+  "reviewer_actions": {
+    "independent_before_probe": "Only tiny pure helper calls, explicitly authorized by root; no161-suite rerun.",
+    "after_review": "Static diff/AST/sourceSHA and existing exact-replay/test/audit logs only.",
+    "engine_started": false,
+    "production_tests_docs_modified": false
+  },
+  "limitations": [
+    "Finite adapter is not arbitrary dynamic-reflection/alias/callgraph proof for all GDScript forms.",
+    "Forest/current live consumers and reward/lifecycle require separate runtime checks.",
+    "User adopted source04 under v8; old geometry failures remain historical and are not turned into source successes by this gate.",
+    "No current-head full CI, G5, device or aesthetic acceptance implied."
+  ],
+  "remaining_blockers_within_this_scope": []
+}

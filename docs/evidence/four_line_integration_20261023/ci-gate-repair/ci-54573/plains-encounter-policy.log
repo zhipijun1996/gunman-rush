@@ -1,0 +1,111 @@
+test_actual_second_map_seed_difficulty_and_stage_required (__main__.ActualMapIdentityTests.test_actual_second_map_seed_difficulty_and_stage_required) ... ok
+test_control_or_observation_change_rejected (__main__.BoundaryTests.test_control_or_observation_change_rejected) ... ok
+test_driver_change_rejected (__main__.BoundaryTests.test_driver_change_rejected) ... ok
+test_exact_transition_is_not_comparable (__main__.BoundaryTests.test_exact_transition_is_not_comparable) ... ok
+test_missing_core_rejected (__main__.BoundaryTests.test_missing_core_rejected) ... ok
+test_partial_matrix_rejected (__main__.BoundaryTests.test_partial_matrix_rejected) ... ok
+test_report_validation_failure_preserved (__main__.BoundaryTests.test_report_validation_failure_preserved) ... ok
+test_unexpected_comparator_error_not_swallowed (__main__.BoundaryTests.test_unexpected_comparator_error_not_swallowed) ... ok
+test_unexpected_strict_acceptance_rejected (__main__.BoundaryTests.test_unexpected_strict_acceptance_rejected) ... ok
+test_unknown_core_change_rejected (__main__.BoundaryTests.test_unknown_core_change_rejected) ... ok
+test_wrong_known_pair_rejected (__main__.BoundaryTests.test_wrong_known_pair_rejected) ... ok
+test_empty_live_or_wrong_entry_observation_rejected (__main__.DeadLowEntranceTests.test_empty_live_or_wrong_entry_observation_rejected) ... ok
+test_late_lethal_and_shot_after_hit_rejected (__main__.DeadLowEntranceTests.test_late_lethal_and_shot_after_hit_rejected) ... ok
+test_manifest_bound_projectile_lethal_before_entry (__main__.DeadLowEntranceTests.test_manifest_bound_projectile_lethal_before_entry) ... ok
+test_missing_and_ambiguous_manifest_actor_rejected (__main__.DeadLowEntranceTests.test_missing_and_ambiguous_manifest_actor_rejected) ... ok
+test_missing_real_shot_and_foreign_lethal_rejected (__main__.DeadLowEntranceTests.test_missing_real_shot_and_foreign_lethal_rejected) ... ok
+test_wrong_and_empty_identity_rejected (__main__.DeadLowEntranceTests.test_wrong_and_empty_identity_rejected) ... ok
+test_exact_declared_contact_interrupts_actual_entry_ascent (__main__.EarlyEntryContactTests.test_exact_declared_contact_interrupts_actual_entry_ascent) ... ok
+test_unbound_or_forged_contact_counterexamples_rejected (__main__.EarlyEntryContactTests.test_unbound_or_forged_contact_counterexamples_rejected) ... ok
+test_changed_endpoint_manifest_and_missing_delta_refused (__main__.FrozenEndpointTests.test_changed_endpoint_manifest_and_missing_delta_refused) ... ERROR
+test_current_policy_contract_requires_both_forest_core_members (__main__.FrozenEndpointTests.test_current_policy_contract_requires_both_forest_core_members) ... ok
+test_missing_current_shared_asset_is_not_borrowed_or_synthesized (__main__.FrozenEndpointTests.test_missing_current_shared_asset_is_not_borrowed_or_synthesized) ... ERROR
+test_real_endpoint_restores_without_git_history (__main__.FrozenEndpointTests.test_real_endpoint_restores_without_git_history) ... ERROR
+test_wrong_base_and_incomplete_base_refused (__main__.FrozenEndpointTests.test_wrong_base_and_incomplete_base_refused) ... ERROR
+
+======================================================================
+ERROR: test_changed_endpoint_manifest_and_missing_delta_refused (__main__.FrozenEndpointTests.test_changed_endpoint_manifest_and_missing_delta_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/tests/test_plains_encounter_policy_boundary.py", line 139, in test_changed_endpoint_manifest_and_missing_delta_refused
+    shutil.copytree(self.basis,basis / "basis")
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/gunman-rush/gunman-rush/docs/evidence/plains_redesign/encounter/frozen_50fb10c'
+
+======================================================================
+ERROR: test_missing_current_shared_asset_is_not_borrowed_or_synthesized (__main__.FrozenEndpointTests.test_missing_current_shared_asset_is_not_borrowed_or_synthesized)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/tests/test_plains_encounter_policy_boundary.py", line 164, in test_missing_current_shared_asset_is_not_borrowed_or_synthesized
+    runner.restore_historical_endpoint(project,self.base,self.basis)
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 53, in restore_historical_endpoint
+    require(formal.file_hash(basis / "manifest.json") == HISTORICAL_MANIFEST_SHA256,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/level_design.py", line 34, in file_hash
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/gunman-rush/gunman-rush/docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json'
+
+======================================================================
+ERROR: test_real_endpoint_restores_without_git_history (__main__.FrozenEndpointTests.test_real_endpoint_restores_without_git_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/tests/test_plains_encounter_policy_boundary.py", line 129, in test_real_endpoint_restores_without_git_history
+    result=runner.restore_historical_endpoint(project,self.base)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 53, in restore_historical_endpoint
+    require(formal.file_hash(basis / "manifest.json") == HISTORICAL_MANIFEST_SHA256,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/level_design.py", line 34, in file_hash
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/gunman-rush/gunman-rush/docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json'
+
+======================================================================
+ERROR: test_wrong_base_and_incomplete_base_refused (__main__.FrozenEndpointTests.test_wrong_base_and_incomplete_base_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/tests/test_plains_encounter_policy_boundary.py", line 154, in test_wrong_base_and_incomplete_base_refused
+    runner.restore_historical_endpoint(self.seed,changed)
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 53, in restore_historical_endpoint
+    require(formal.file_hash(basis / "manifest.json") == HISTORICAL_MANIFEST_SHA256,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/level_design.py", line 34, in file_hash
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/gunman-rush/gunman-rush/docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json'
+
+----------------------------------------------------------------------
+Ran 24 tests in 1.973s
+
+FAILED (errors=4)
+PLAINS ENCOUNTER RECEIPT: build/verification/plains-encounter/run_izub5knf/receipt.json
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 917, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 844, in main
+    subprocess.run([sys.executable,str(ROOT/"tests/test_plains_encounter_policy_boundary.py"),"-v"],cwd=ROOT,check=True)
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/hostedtoolcache/Python/3.12.15/x64/bin/python3', '/home/runner/work/gunman-rush/gunman-rush/tests/test_plains_encounter_policy_boundary.py', '-v']' returned non-zero exit status 1.

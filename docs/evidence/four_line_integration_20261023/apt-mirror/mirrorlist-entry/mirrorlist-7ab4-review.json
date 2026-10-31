@@ -1,0 +1,33 @@
+{
+  "status": "ACCEPT",
+  "reviewed_commit": "7ab4a1bc82be5ff86d5ec94f5784332556d54c47",
+  "source_commit": "7ab4a1bc82be5ff86d5ec94f5784332556d54c47",
+  "parent_commit": "f57a358c9635295513641aba74f94b191be88814",
+  "scope": "Exact two-workflow six-line mirrorlist-entry extension; not real APT/CI switch verification.",
+  "actual_source_sha256": {
+    ".github/workflows/production.yml": "e49e83ffc150f0f73990de27e33c2a1bbec6c0955e93925d85f9f1c5ebcf055e",
+    ".github/workflows/environment.yml": "7b112e8cdafe7774d3eb081db48bcd9fd53b0a191ec08ae8ac002f546fe703c3"
+  },
+  "source_checks": [
+    "Actual Git delta is only2workflows, six target-list edits; removing only /etc/apt/apt-mirrors.txt from the6newfor lists reproduces exactf57parent bytes.",
+    "Original exactAzure→officialHTTPS sed,APTcommands/flags/retries/keyring/GPG/TLS/suites/components/timeouts/profiles/assertions/CIgates unchanged. No other source changes.",
+    "The newly observed mirror+file entry is now included explicitly; originalsource-reference files need not contain Azure literals."
+  ],
+  "independent_temporary_shell_checks": {
+    "actual_emitted_three_path_loop_executed": true,
+    "source_list_and_deb822_references_byte_unchanged": true,
+    "third_mirrorlist_exact_Azure_rows_replaced": true,
+    "trailing_slash_priority_arch_preserved": true,
+    "official_fallback_unknown_and_lookalike_rows_unchanged": true,
+    "repeat_idempotent": true,
+    "sudo_or_apt_executed": false,
+    "real_etc_modified": false
+  },
+  "reported_trigger": "Parent observedf57prepare job120520157762 Get:1file:/etc/apt/apt-mirrors.txt Mirrorlist144B thenHTTPAzure. Prior2source-file rewrite did not cover that actual entry; successful installation alone did not establish a mirror switch, and that claim was corrected.",
+  "reported_lint": "Parent reports officialactionlint1.7.7bothactualworkflows exit0; reviewer did not rerun.",
+  "unverified": [
+    "Actual nextGitHubAPTGetHTTPS/officialmirror switch, availability/download performance.",
+    "NewcompleteCI/Release/publishing/G5/player/device approval."
+  ],
+  "reviewer_actions": "Readexactgitparent/6lineadoption/hash/reconstruction and frozenproducerfixture report; independently ran actual emittedloop twice with3temporaryfiles and no sudo. No root changes, apt, native or CI."
+}

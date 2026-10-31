@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "reviewed_commit": "1d013d7047b62a9cfe06e9fe8471a44d30796512",
+  "source_commit": "1d013d7047b62a9cfe06e9fe8471a44d30796512",
+  "parent_runtime_commit": "a5c5bcd72eef7b387e23d3b292da59dd6221fe82",
+  "reviewer": "/root/independent_review",
+  "implementers": [
+    "/root"
+  ],
+  "scope": "Independent bounded review of actual versioned style/direction metadata adoption and preservation of strict current fixtures. No new runtime approval.",
+  "findings": [],
+  "actual_git_scope": {
+    "33_changed_paths": 33,
+    "runtime_delta_from_a5c5": [],
+    "Harness_profiles_validators_and_budgets": "unchanged"
+  },
+  "style_binding": {
+    "old_path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+    "old_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
+    "old_original_exact_parent_bytes": true,
+    "new_path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+    "new_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
+    "old_version": "9",
+    "new_version": "10",
+    "references": 36,
+    "only_changed_reference": {
+      "before": {
+        "role": "world_presentation",
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "sha256": "f12f7687ff971ae054396f4ad76afc8878f36e9d8d19ceae005fd8a503a7b367"
+      },
+      "after": {
+        "role": "world_presentation",
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+      }
+    },
+    "remaining_35_references_and_order_exact": true,
+    "all36_reference_hashes_actual_files_match": true,
+    "quotes_pixel_specs_and_all_other_style_contract_fields": "exact prior values; only version/runtime_reference/supersedes/revision_impact differ",
+    "registry_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
+    "registry_only_shared_style_binding_changed": true
+  },
+  "directions": {
+    "windchime_plains": {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "a5e00e2cc3893deb65ac530c9055526e0847495d2571929435882859e50bfce0",
+      "snapshot": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+      "snapshot_sha256": "88b0b6fff129087952d4215d0a3e554171a8fd482234cacfb2e54a4359764ad3",
+      "complete_snapshot_exact_parent_bytes": true
+    },
+    "thorn_forest": {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "80666404cbdfcb5d86341d36ab9663c0786c2b840d7691b7659a7e1c0d50ea28",
+      "snapshot": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json",
+      "snapshot_sha256": "3fe9f26a2eaba441f2fd7eee6900969cb6cbbb1a058c64b2aae732b2233b71ca",
+      "complete_snapshot_exact_parent_bytes": true
+    }
+  },
+  "direction_preservation": "Both complete creative-v12 parent files preserved as byte-exact snapshots; creative-v13 changes only version, explicit shared-style/registry bindings, appended style authority and revision-impact. Original Bible/source quotes/selection/other authorities unchanged.",
+  "tests": {
+    "tests/test_region_bible.py": {
+      "sha256": "24fc7840e5b2ca5098a7cd94944379d688b9675e0defc8b9e96bb90fc1bb63a2",
+      "original_method_count": 32,
+      "current_method_count": 32,
+      "unchanged_method_AST_count": 30,
+      "all_original_method_names_retained": true
+    },
+    "tests/test_region_creative_direction.py": {
+      "sha256": "15227fb672471ddf30f3cf044cb796d35fb45667090e5e9b489b6e105aef08df",
+      "original_method_count": 10,
+      "current_method_count": 10,
+      "unchanged_method_AST_count": 8,
+      "all_original_method_names_retained": true
+    }
+  },
+  "fixture_review": "Original32 Bible and10 creative methods retained. Adds Presentation current drift case, exact35+1 comparison, v9 stale-binding rejection and full pinned v12 snapshot refusal; earlier v2/v3/v4/v5/v6/v7 refusal and current consumer closure remain. Expected current versions advance to10/v13; original validator/phase/call/restore logic not loosened.",
+  "reported_actual_checks": {
+    "source": "Parent reported original32/10/full directions/docs/quality/diff/release-evidence passed at this frozen source. Reviewer inspected source/fixtures without rerunning suites.",
+    "reviewer_reran_tests": false
+  },
+  "evidence_archive": {
+    "proof_index": "docs/evidence/four_line_integration_20261023/foreground-cpu/proof-index.json",
+    "sha256": "1d52c584709c3614ef11412b4d475839aa4ae87eb00e69a9ebff6d465cffebdb",
+    "entries_verified": 18,
+    "all_stored_hashes_and_lossless_gzip_original_hashes_and_bytes_match": true,
+    "runtime_independent_review_exact_sha256": "5167d5f62d1a4aa1eee1dccec939f253da38fb9d6d06a5f5f33e9284b5a87c3c",
+    "quality_card_reviewed_commit": "a5c5bcd72eef7b387e23d3b292da59dd6221fe82",
+    "quality_card_runtime_review_identity": "Remains actual a5c5 two-runtime-file review; not relabeled metadata or future80/CI evidence."
+  },
+  "semantic_boundaries": "Metadata expressly records early sticky admission timing can change, does not declare frame-population equivalence or expand user visual approval. Existing a074 Preview is identified as its older source. Prior failed CI and pending80/finalCI remain stated.",
+  "unverified": [
+    "Canonical forest80 result currently running on1d013d70",
+    "Final GitHub Actions/complete Integration and Release",
+    "New Web/GUI build and physical devices",
+    "Full region art, game feel and G5/player acceptance"
+  ],
+  "reviewer_actions": "Read-only actual Git and explicit reference/archive checks; no source edits, hydration, native or suite rerun."
+}

@@ -1,0 +1,61 @@
+from pathlib import Path
+import sys,struct,hashlib,json,re
+ROOT=Path('/workspace/gunman-rush-main');sys.path.insert(0,str(ROOT/'tools'));from check_web_bundle import Pack
+OUT=Path('/workspace/scratch/mobile-ui-mask-probe');OUT.mkdir(exist_ok=True); info=json.loads((ROOT/'build/web/build-info.json').read_text());pack=Pack(ROOT/'build/web'/info['pack'])
+script='''extends Node2D
+func _ready() -> void:
+ var bg := ColorRect.new()
+ bg.color=Color("2233cc")
+ bg.size=Vector2(1280,720)
+ add_child(bg)
+ var actor := PlayerMotor.new()
+ var fg := UnderworldForeground.new()
+ fg._world=self
+ fg._actor=actor
+ add_child(fg)
+ fg.set_process(false)
+ var pic := Image.create(1024,512,false,Image.FORMAT_RGBA8)
+ pic.fill(Color.WHITE)
+ var sprite := Sprite2D.new()
+ sprite.centered=false
+ sprite.texture=ImageTexture.create_from_image(pic)
+ var mat := ShaderMaterial.new()
+ mat.shader=UnderworldForeground.ART_SHADER
+ mat.set_shader_parameter("art_size",Vector2(1024,512))
+ sprite.material=mat
+ fg.add_child(sprite)
+ fg._protect=[Rect2(320,180,200,160)]
+ fg._residents={"fixture":{"sprite":sprite,"bounds":Rect2(64,64,1024,512),"position":Vector2(64,64),"alpha":1.0,"root_gate":1.0,"admitted":true}}
+ fg._render_receipt(Vector2.ZERO,Vector2(1280,720))
+ for i: int in 3: await RenderingServer.frame_post_draw
+ var image := get_viewport().get_texture().get_image()
+ var scale := Vector2(image.get_size())/Vector2(1280,720)
+ var samples: Dictionary={}
+ for key: String in ["inside","left","right"]:
+  var point: Vector2={"inside":Vector2(400,250),"left":Vector2(200,250),"right":Vector2(640,250)}[key]*scale
+  samples[key]=image.get_pixelv(Vector2i(point)).to_html(false)
+ var result := {"scope":"isolated GPU fixture, actual production _render_receipt and unchanged shader; not gameplay","render_target":[image.get_width(),image.get_height()],"samples":samples,"screen_origin":[get_viewport().get_screen_transform().origin.x,get_viewport().get_screen_transform().origin.y],"stretch_scale":[get_viewport().get_stretch_transform().get_scale().x,get_viewport().get_stretch_transform().get_scale().y],"pass":samples.inside=="2233cc" and samples.left!="2233cc" and samples.right!="2233cc"}
+ JavaScriptBridge.eval("window.PROBE_RESULT="+JSON.stringify(result))
+ actor.free()
+'''
+script=re.sub(r'(?m)^ +',lambda m:'\t'*len(m.group()),script)
+repl={'scripts/mobile_ui_mask_probe.gd':script.encode(),'scenes/demo/demo.tscn':b'[gd_scene load_steps=2 format=3]\n[ext_resource type="Script" path="res://scripts/mobile_ui_mask_probe.gd" id="1"]\n[node name="MaskProbe" type="Node2D"]\nscript = ExtResource("1")\n'}
+skip={'scenes/demo/demo.tscn.remap'}; entries=[]
+with (OUT/'diagnostic.pck').open('wb') as f:
+ f.write(bytes(112))
+ for name in pack.entries:
+  if name in skip or name in repl:continue
+  data=pack.read(name);pos=f.tell();f.write(data);f.write(bytes((-f.tell())%16));entries.append((name,pos-112,len(data),hashlib.md5(data).digest()))
+ for name,data in repl.items():
+  pos=f.tell();f.write(data);f.write(bytes((-f.tell())%16));entries.append((name,pos-112,len(data),hashlib.md5(data).digest()))
+ directory=f.tell();f.write(struct.pack('<I',len(entries)))
+ for name,pos,size,md5 in entries:
+  b=name.encode();b+=bytes((-len(b))%4);f.write(struct.pack('<I',len(b)));f.write(b);f.write(struct.pack('<QQ',pos,size));f.write(md5);f.write(struct.pack('<I',0))
+ f.seek(0);f.write(struct.pack('<4sIIIIIQQ',b'GDPC',4,4,7,2,2,112,directory));f.write(bytes(72))
+for p in (ROOT/'build/web').glob('*.engine.*'):
+ dst=OUT/p.name
+ if not dst.exists():dst.symlink_to(p)
+html=Path('/workspace/scratch/gunman-audio-diagnosis/index.html').read_text();(OUT/'index.html').write_text(html)
+(OUT/'probe.gd').write_text(script)
+(OUT/'source.json').write_text(json.dumps({'source_commit':info['source_commit'],'original_pack_sha256':hashlib.sha256((ROOT/'build/web'/info['pack']).read_bytes()).hexdigest(),'diagnostic_pack_sha256':hashlib.sha256((OUT/'diagnostic.pck').read_bytes()).hexdigest(),'removed':list(skip),'added':list(repl)},indent=2))
+print('Built isolated mask fixture')

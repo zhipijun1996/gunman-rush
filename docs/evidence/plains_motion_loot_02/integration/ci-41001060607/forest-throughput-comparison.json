@@ -1,0 +1,138 @@
+{
+  "scope": "Original failed-run CPU/throughput observations; no profiling/root-cause conclusion",
+  "source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "forest_comparison": [
+    {
+      "run_id": 40993924803,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 43.11417172799975,
+      "median_native_seconds": 41.99450333100003,
+      "sum_case_seconds": 2272.819810472003
+    },
+    {
+      "run_id": 41001060607,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 42.41380652299995,
+      "median_native_seconds": 41.57762351600013,
+      "sum_case_seconds": 2225.0495962800014
+    }
+  ],
+  "other_serial_check_ratios": [
+    {
+      "id": "environment",
+      "old_seconds": 0.163,
+      "new_seconds": 0.159,
+      "new_over_old": 0.9754601226993865
+    },
+    {
+      "id": "web-build",
+      "old_seconds": 103.641,
+      "new_seconds": 100.37,
+      "new_over_old": 0.9684391312318484
+    },
+    {
+      "id": "web-bundle",
+      "old_seconds": 2.006,
+      "new_seconds": 2.004,
+      "new_over_old": 0.9990029910269194
+    },
+    {
+      "id": "level-design-runtime",
+      "old_seconds": 31.483,
+      "new_seconds": 31.129,
+      "new_over_old": 0.9887558364831814
+    },
+    {
+      "id": "level-design-golden",
+      "old_seconds": 25.566,
+      "new_seconds": 25.001,
+      "new_over_old": 0.9779003363842604
+    },
+    {
+      "id": "level-formal-runtime",
+      "old_seconds": 31.631,
+      "new_seconds": 29.316,
+      "new_over_old": 0.9268123043849388
+    },
+    {
+      "id": "plains-redesign-spatial",
+      "old_seconds": 136.909,
+      "new_seconds": 133.232,
+      "new_over_old": 0.9731427444506936
+    },
+    {
+      "id": "plains-experience-golden",
+      "old_seconds": 72.5,
+      "new_seconds": 71.744,
+      "new_over_old": 0.9895724137931035
+    },
+    {
+      "id": "plains-encounter-policy",
+      "old_seconds": 517.173,
+      "new_seconds": 509.363,
+      "new_over_old": 0.9848986702708765
+    },
+    {
+      "id": "plains-redesign-scene",
+      "old_seconds": 291.363,
+      "new_seconds": 290.573,
+      "new_over_old": 0.9972886056225395
+    },
+    {
+      "id": "terrain-family-tests",
+      "old_seconds": 45.821,
+      "new_seconds": 45.877,
+      "new_over_old": 1.0012221470504792
+    },
+    {
+      "id": "forest-h-slice",
+      "old_seconds": 13.08,
+      "new_seconds": 12.827,
+      "new_over_old": 0.9806574923547401
+    },
+    {
+      "id": "forest-ecology",
+      "old_seconds": 4.159,
+      "new_seconds": 4.158,
+      "new_over_old": 0.9997595575859582
+    },
+    {
+      "id": "forest-progression",
+      "old_seconds": 1.454,
+      "new_seconds": 1.451,
+      "new_over_old": 0.9979367262723522
+    },
+    {
+      "id": "forest-campaign",
+      "old_seconds": 11.881,
+      "new_seconds": 11.878,
+      "new_over_old": 0.9997474960020201
+    },
+    {
+      "id": "forest-debug",
+      "old_seconds": 9.976,
+      "new_seconds": 9.972,
+      "new_over_old": 0.999599037690457
+    },
+    {
+      "id": "forest-traversal",
+      "old_seconds": 9.022,
+      "new_seconds": 8.917,
+      "new_over_old": 0.988361782309909
+    }
+  ],
+  "median_other_check_new_over_old": 0.9887558364831814,
+  "new_matrix_original": "/workspace/gunman-rush/build/plains-ci-41001060607/serial-forest-matrix-original.json",
+  "old_matrix_original": "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-matrix-original.json",
+  "limits": "Both matrices were interrupted, still running,53/80 completed. No80-case pass, no budget change or retry. Controlled same-machine A/B profiling is owner-directed separate work."
+}

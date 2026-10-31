@@ -1,0 +1,49 @@
+{
+  "scope": "Final R12 author original42/four original Harness current68-reference source with original spend proof and exact historical Markdown/manifest relocation guards; no native/visual/user/device/fullCI approval",
+  "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+  "worktree_modified": true,
+  "style_sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 9.453489649000403
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 2.248010998002428
+    },
+    {
+      "label": "harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "region-bible-tests",
+        "--check",
+        "creative-direction-tests",
+        "--check",
+        "region-bible-contract",
+        "--check",
+        "creative-direction",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "seconds": 22.871307302004425
+    }
+  ]
+}

@@ -279,6 +279,53 @@ func _event(kind: String, data: Dictionary) -> void:
 	row["mode"] = String(mode)
 	row["attack_epoch"] = attack_epoch
 	duel_event.emit(row)
+	presentation_event.emit(row.duplicate(true))
 func _exit_tree() -> void:
 	_cancel_bell()
 	super._exit_tree()
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	values.merge({"phase":stage_phase,"phase_axes":{"combat":stage_phase},"damage_model":&"duel_body","core_hint_visible":core_open},true)
+	var config := definition as BossDuelDefinition
+	var duration := config.bell_warning_seconds if mode == &"bell_warning" else config.telegraph_duration
+	return _presentation_countdown(values,mode,clock,duration,mode in [&"bell_warning",&"pursuit_warning"],mode == &"bell_watch",mode == &"pursuit_flight",mode in [&"landing_recovery",&"bell_stagger"])
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["rootbell_duel","bell_weapon","pursuit_warning","combat_state"])
+
+func presentation_bell() -> Dictionary:
+	if not is_instance_valid(_bell): return {}
+	return {"position":_bell.global_position,"radius":(definition as BossDuelDefinition).bell_radius,"state":_bell.state}
+
+func presentation_bell_warning() -> Dictionary:
+	if mode != &"bell_warning" or not is_instance_valid(_bell): return {}
+	var config := definition as BossDuelDefinition
+	var start := _bell.global_position
+	var duration := config.bell_outbound_seconds
+	var initial := (attack_goal-start)/duration-Vector2(0,config.bell_gravity*duration*.5)
+	var points := PackedVector2Array()
+	for index: int in 12:
+		var time := duration*float(index)/12.0
+		points.append(start+initial*time+Vector2(0,.5*config.bell_gravity*time*time))
+	return {"origin":start,"radius":config.bell_radius,"points":points}
+
+func presentation_pursuit_warning() -> Dictionary:
+	if not has_ground_mark or mode != &"pursuit_warning": return {}
+	var config := definition as BossDuelDefinition
+	var size := definition.collision_size
+	var start := motor.global_position
+	var target := attack_goal-Vector2(0,size.y*.5)
+	var duration := config.pursuit_flight_seconds
+	var velocity := (target-start)/duration-Vector2(0,config.pursuit_gravity*duration*.5)
+	var position := start
+	var step := 1.0/60.0
+	var ticks := ceili(duration/step)
+	var centers := PackedVector2Array()
+	# Preserve the existing 60Hz preview integration and every-fourth sample.
+	# This is projected geometry, not a second Motor or damage simulation.
+	for index: int in range(ticks+1):
+		if index % 4 == 0 or index == ticks: centers.append(position)
+		velocity.y += config.pursuit_gravity*step
+		position += velocity*step
+	return {"origin":start,"centers":centers,"body_size":size,"landing":attack_goal}

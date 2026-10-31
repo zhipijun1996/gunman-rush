@@ -1,0 +1,71 @@
+{
+  "projection_fields": [
+    "frame",
+    "case",
+    "local_frame",
+    "paused",
+    "player_position",
+    "player_velocity",
+    "enemy_position",
+    "enemy_velocity",
+    "HP",
+    "state"
+  ],
+  "same_1560_gameplay_frames": true,
+  "cases": [
+    {
+      "definition": "plains_charger",
+      "same_inputs": true,
+      "same_shots": true,
+      "same_events_including_event_id": false,
+      "before_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "114319951720:1:1",
+        "frame": 59,
+        "terminal": false
+      },
+      "same_events_after_removing_process_actor_prefix": true,
+      "normalization": "event_id split on colon: only process-local actor prefix omitted; remaining fields and session/shot suffix kept",
+      "after_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "114739382121:1:1",
+        "frame": 59,
+        "terminal": false
+      }
+    },
+    {
+      "definition": "plains_diver",
+      "same_inputs": true,
+      "same_shots": true,
+      "same_events_including_event_id": false,
+      "before_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "174617266022:1:1",
+        "frame": 839,
+        "terminal": false
+      },
+      "same_events_after_removing_process_actor_prefix": true,
+      "normalization": "event_id split on colon: only process-local actor prefix omitted; remaining fields and session/shot suffix kept",
+      "after_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "175456126823:1:1",
+        "frame": 839,
+        "terminal": false
+      }
+    }
+  ],
+  "artifact_hashes": {
+    "before.mp4": "236bec9e41636ad8d72f72d6793a9c988acd3ade646594e4892febb2b34e6aef",
+    "after.mp4": "823206c1814d11077b4e836a9e205513234225d67afbeb4259e00b0895af00c5",
+    "before.json": "079dcf2c97a20bb86dee540205ba2a716941091ec08caf8a166e10d097c8ea27",
+    "after.json": "4f54a8c35fb30800ec8972c3938803c8a5f1a53ff77110d75dd67c2544039dc3"
+  }
+}

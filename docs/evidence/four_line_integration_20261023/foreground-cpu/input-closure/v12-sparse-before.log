@@ -1,0 +1,15 @@
+F
+======================================================================
+FAIL: test_direction_refusal_snapshots_hydrate_without_unrelated_evidence (test_cloud_inputs.CloudInputsTests.test_direction_refusal_snapshots_hydrate_without_unrelated_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/integration-four/tests/test_cloud_inputs.py", line 132, in test_direction_refusal_snapshots_hydrate_without_unrelated_evidence
+    self.assertEqual({row['path'] for row in plan['inputs']}, set(snapshots))
+AssertionError: Items in the second set but not the first:
+'docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json'
+'docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.052s
+
+FAILED (failures=1)

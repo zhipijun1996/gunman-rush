@@ -1,0 +1,82 @@
+{
+  "source": "cd4989a68613e0b457cdfd5e252634dd57008505",
+  "build": "72c47d59bc4f",
+  "scope": "Actual old public build, same Chromium154 session and formal Plains seed, software SwiftShader; not player hardware FPS. HiDPI candidate not yet exported.",
+  "measured_conditions": [
+    {
+      "condition": "baseline",
+      "gpu": {
+        "dpr": 1,
+        "client": [
+          1280,
+          720
+        ],
+        "buffer": [
+          1280,
+          720
+        ]
+      },
+      "frames": 119,
+      "fps": 23.960535588442564,
+      "p50_frame_ms": 33.40000000000873,
+      "p95_frame_ms": 66.60000000000582
+    },
+    {
+      "condition": "hidpi2",
+      "gpu": {
+        "dpr": 2,
+        "client": [
+          1280,
+          720
+        ],
+        "buffer": [
+          2560,
+          1440
+        ]
+      },
+      "frames": 38,
+      "fps": 7.782101167315175,
+      "p50_frame_ms": 124.95000000000437,
+      "p95_frame_ms": 166.70000000001164
+    },
+    {
+      "condition": "large",
+      "gpu": {
+        "dpr": 1,
+        "client": [
+          1920,
+          1080
+        ],
+        "buffer": [
+          1920,
+          1080
+        ]
+      },
+      "frames": 63,
+      "fps": 12.727786981292166,
+      "p50_frame_ms": 83.30000000000291,
+      "p95_frame_ms": 83.40000000000873
+    },
+    {
+      "condition": "restored",
+      "gpu": {
+        "dpr": 1,
+        "client": [
+          1280,
+          720
+        ],
+        "buffer": [
+          1280,
+          720
+        ]
+      },
+      "frames": 113,
+      "fps": 22.676647067086726,
+      "p50_frame_ms": 49.89999999999418,
+      "p95_frame_ms": 66.69999999999709
+    }
+  ],
+  "production_change": "project.godot display/window/dpi/allow_hidpi.web=false only; preserving native highDPI default, CSS dimensions, logical1280x720, physics and input settings",
+  "not_adopted": "Foreground alpha-zero early-discard GPU difference~1.8% in native softwareGL; no production shader change",
+  "next_validation": "Export candidate Web and run actual DPR1/DPR2 drawingBuffer, formal Home/Plains input and HUD clipping checks; old public baseline is not new-source proof."
+}

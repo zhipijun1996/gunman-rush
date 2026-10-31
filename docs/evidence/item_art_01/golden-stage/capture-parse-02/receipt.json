@@ -1,0 +1,15 @@
+{
+  "scope": "Check-only parse after alternating native charge targets; no gameplay or movie capture",
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--path",
+    ".",
+    "--script",
+    "tests/item_art_golden_movie.gd",
+    "--check-only"
+  ],
+  "timeout_seconds": 30,
+  "status": "passed"
+}

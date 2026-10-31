@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T022218.272651Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "88eac703d5fd72a93e2c80ce40207d0d047d058f45315a31ef3b3705f5c8525f",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793326952.7779763,
+      "ended_at_unix": 1793326953.1552417,
+      "duration_seconds": 0.377,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "cadb4264444c4c6eb932b7da47ff5438",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T022218.272651Z/artifacts/docs",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "3555c03c73187143177b401bbb2b0f6db5e3d27a0749e3bc90ecd730ff506482",
+  "working_files": {
+    "docs/quality/records/MOBILE-WEB-FPS-04.json": "a6da00b1b6fac212821b70eb0e598fbee6ac04693740afbe2752eba9ee8326bd",
+    "tests/underworld_plains/test_foreground_fixed_cache.gd.uid": "272430c77fff2c9cafb8edb7599e10d0c5f81642fb885ff190faeffd8cb68638"
+  },
+  "commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+  "git_status": "M docs/quality/records/MOBILE-WEB-FPS-04.json\n?? tests/underworld_plains/test_foreground_fixed_cache.gd.uid",
+  "diff": "diff --git a/docs/quality/records/MOBILE-WEB-FPS-04.json b/docs/quality/records/MOBILE-WEB-FPS-04.json\nindex 4bcdd41b..29942878 100644\n--- a/docs/quality/records/MOBILE-WEB-FPS-04.json\n+++ b/docs/quality/records/MOBILE-WEB-FPS-04.json\n@@ -4,7 +4,7 @@\n   \"task_type\": \"small_fix\",\n   \"workflow\": \"in_progress\",\n   \"baseline_commit\": \"5f55716a838a754a938997920ff18cb3b17452b5\",\n-  \"reviewed_commit\": \"5f55716a838a754a938997920ff18cb3b17452b5\",\n+  \"reviewed_commit\": \"5caf4d4f3b619b8413fd416743614edf3f1ea7af\",\n   \"content_version\": \"candidate-v1\",\n   \"owner\": \"root\",\n   \"purpose\": \"Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements\",\n@@ -25,7 +25,11 @@\n     \"tools/run_underworld_formal_tests.py\",\n     \".github/workflows/deploy-prepared-playtest.yml\"\n   ],\n-  \"deliverables\": [],\n+  \"deliverables\": [\n+    \"docs/evidence/mobile_web_fps_04/README.md\",\n+    \"Draft PR120\",\n+    \"Isolated perf-04 preview; ordinary main unchanged\"\n+  ],\n   \"creative_decisions\": [],\n   \"formal_impact\": true,\n   \"gates\": {\n@@ -67,9 +71,11 @@\n       \"evidence\": []\n     },\n     \"technical\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"相关原生消费者与等价检查通过，保留原预算与严格退出；完整CI和手机另列。\",\n+      \"evidence\": [\n+        \"formal-cache\"\n+      ]\n     },\n     \"formal_integration\": {\n       \"status\": \"unverified\",\n@@ -103,8 +109,10 @@\n     },\n     \"independent_review\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"生产缓存/计时/runner/tests已有独立限定审查；pair helper由root另审。本卡不以局部review签整项性能/设备接受。\",\n+      \"evidence\": [\n+        \"review\"\n+      ]\n     },\n     \"device\": {\n       \"status\": \"unverified\",\n@@ -118,12 +126,44 @@\n     }\n   },\n   \"criteria\": [],\n-  \"evidence\": [],\n+  \"evidence\": [\n+    {\n+      \"id\": \"formal-cache\",\n+      \"path\": \"docs/evidence/mobile_web_fps_04/formal-harness/report.json\",\n+      \"sha256\": \"d24e367fddb6ab5743f10dc3c39d16c1024dd48ee5d0832776f9d77491168a3d\",\n+      \"kind\": \"command\",\n+      \"producer\": \"root\",\n+      \"source_commit\": \"5caf4d4f3b619b8413fd416743614edf3f1ea7af\",\n+      \"content_version\": \"candidate-v1\",\n+      \"method\": \"Fresh selected Harness; unchanged runtime/test bytes committed in source SHA; original shared timeout and strict exit\",\n+      \"observed\": \"Original formal96/0 and cache equivalence383/0; not full165\",\n+      \"command\": \"python3 tools/harness.py --check underworld-formal --jobs 1\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux Godot4.7.2 headless; no phone acceptance\"\n+    },\n+    {\n+      \"id\": \"review\",\n+      \"path\": \"docs/worklines/mobile_web_fps_04/review.md\",\n+      \"sha256\": \"d760fa0b02260866be6f9b544d9eff79b8fa12e7c495da88d3e78e1240c385ee\",\n+      \"kind\": \"review\",\n+      \"producer\": \"/root/perf_release_pair\",\n+      \"source_commit\": \"5caf4d4f3b619b8413fd416743614edf3f1ea7af\",\n+      \"content_version\": \"candidate-v1\",\n+      \"method\": \"Independent static review of root runtime/probe and other agent runner/tests; own pair helper explicitly excluded\",\n+      \"observed\": \"No blocking correctness issue in reviewed scope; no phone or FPS acceptance\",\n+      \"reviewer\": \"/root/perf_release_pair\",\n+      \"implementers\": [\n+        \"root\",\n+        \"/root/perf_browser_runner\"\n+      ],\n+      \"verdict\": \"ACCEPT\"\n+    }\n+  ],\n   \"consumer_coverage\": null,\n   \"unverified_items\": [\n-    \"Current physical Honor60Pro FPS/P95 unknown\",\n-    \"Engine-only release comparison is not complete release-export validation\",\n-    \"No production optimization adopted before measurements\",\n-    \"Final formal visual/audio regression and independent review pending\"\n+    \"荣耀60Pro当前FPS/P95与移动场景收益\",\n+    \"整体Web稳定提速尚未成立\",\n+    \"完整165项最新候选CI\",\n+    \"公开候选GUI与音频正在收口\"\n   ]\n }",
+  "untracked": "tests/underworld_plains/test_foreground_fixed_cache.gd.uid",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 17.719,
+  "jobs": 1,
+  "release": false
+}

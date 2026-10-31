@@ -1,0 +1,31 @@
+# Build-only future production proposal
+
+**NOT APPLIED, NOT ENGINE-TESTED, NO SOURCE ADMISSION.** The third source remains rejected. The fourth source is measured independently; source/GL/whole-game admission must precede promotion. Do not copy the null-valued config template into a running game. No fifth image generation is authorized.
+
+`scripts/` and `tests/` mirror proposed future repository paths. `consumers.patch` contains only six existing-file changes; `source-baselines.json` records the exact original bytes used to prepare them. Recheck these SHA values before applying; do not overwrite concurrent Home changes. New class UIDs are preassigned proposal identifiers, not editor-validated output.
+
+## Responsibility and routing
+
+- `ChestArtLibrary`: one real literal PNG preload, one config, exactly six cached AtlasTextures and one shared actor-free material. Its separate raw-RGBA8 atlas budget is 8MiB; existing item 64MiB budget is untouched and this is not a whole-game GPU budget. Reuses `shaders/item_v5_world_sprite.gdshader`; does not load ItemRuntime or edit the canonical global shader. Metadata chooses region, world canvas, and source-pixel foot pivot. Source aspect and common pair factor are validated, never repaired. Unknown explicit tier clears texture and reports why.
+- `UnderworldObjects.place_chest(sprite, foot, claimed, tier=&"")`: a supplied tier delegates only presentation. The original three-argument block remains byte-for-byte after the dispatcher. Default historical calls retain old textures, centering, foot calculation, width58 and WHITE; no silent new-tier default is added.
+- Both Plains `_ready` and `capture_state` use the same four-argument dispatcher for all `regional_art_plan` branches, unchanged `c.position+(0,21)` and actual `bool(c.claimed)`. The obsolete tinted/alpha35 branch and rectangle fallback disappear. Missing/invalid art fails closed; no alternate gold rectangle hides it.
+- Forest creates exactly one `ChestArtLayer` after existing reward rows. Its draw invokes existing `ForestBiblePresentation.draw_chests`, which delegates each actual tier/claimed row to the same Library with unchanged `row.position+(0,18)`. The separate layer owns the world shader; the whole forest stage/background/signals never inherit it. Both Bible-enabled and fallback backgrounds use this layer. Parent-stage shared-chest and fallback rectangles are removed to prevent duplicate draws. `capture_state` only queues a redraw; no claimed or ledger writes are added.
+- `hard_optional->region_top` is the sole explicit alias. Actual origin is `ForestExplorationNetwork` resource reward (6 coins OR 2 notes), matching the existing gold resource UI category. It does not create an item, new reward tier, reward mode, or guaranteed equipment drop. Every other unknown explicit tier is rejected.
+
+## P1 opt-in audit
+
+Current `DemoApp` installs `P1RandomPlainsSample` only when stage is Plains, active region is plains, no explicit Plains candidate is active, and `p1_random_plains_requested` OR `--p1-random-plains` is set. `P1RandomPlainsSample.install` then loads P1UnityProps, which otherwise overwrites every chest Sprite2D once with its old atlas/foot+18. It is not the default formal route. The proposed one-line finite guard skips only `chest_art_managed` sprites; old unmanaged P1 cosmetic fixtures stay unchanged. That opt-in must be included in native verification, since cosmetic overwrite after formal ready is a real consumer.
+
+## Source configuration
+
+`config/chest_art.json.template` intentionally contains null recipes until actual admitted source measurements exist. For each state fill `region=[x,y,w,h]`, `world_size=[w*pair_factor,h*pair_factor]`, `foot_pivot_source_px=[local_x,local_y]`; region and pivot come from actual measured original PNG. Same tier closed/open must infer the same isotropic factor. All source alpha must remain in the complete measured region. No pixel edits, source resizes, alpha cutoffs, per-state scaling, or guessed fixed grid are permitted. Runtime dimensions are presentation metadata, not reward/gameplay defaults.
+
+The compact fourth gold design uses width target60±1, closed target42 with explicit maximum44, open maximum58. Blue52±1/purple58±1 and paired lower-body tolerance≤1 remain unchanged. These design target values belong to source admission/native evidence, not duplicated mechanic defaults in Library. Raw bounds and actual 1wu shader sampling must be reported separately.
+
+## Tests and guards
+
+Existing R3 migration changes only the three formal consumer texture assertions to compare `ChestArtLibrary.texture(actual tier, actual claimed)`. All original ShotLatch acceptance/rejection, interaction refusal, true denied/accepted claim, actual ledger/reload, WHITE and 3-argument legacy-foot/aspect tests remain. No original test is deleted or skipped. The proposed new runner covers all six Sprite2D poses/repeated swaps, pair-scale rejection, unknown-tier fail-closed, finite alias, material/foot, and actual Plains/Forest offer→rejection→claim→reload. This runner is a draft and has never been parsed or run; real engine fixtures may reveal setup defects that must be retained and corrected before claiming results.
+
+Still required after source admission: original check-only/native budgets; true GL Sprite2D vs draw_texture_rect appearance at equal feet including fractional camera positions, high-ratio Atlas border positive/negative controls, actual Forest fallback branch and explicit Plains regional_art_plan branch, P1 opt-in cannot overwrite, formal six-state whole-game composites with player/terrain/HUD/dangers, one actual accepted-claim movie. Record complete raw alpha and actual shader raster geometry; native/source metadata alone does not sign visuals.
+
+`tools/underworld_pipeline.py` finite guard migration belongs to authoring_catalog, not this proposal. Its original dispatcher/capture exact blocks and historical eleven counterexamples must be retained/versioned. Forest manifest/binding SHA archives, style/creative binding and asset registration belong to root. Do not refresh frozen hashes merely to regain green tests. No engine command was run to prepare this folder.

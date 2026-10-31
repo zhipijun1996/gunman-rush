@@ -151,7 +151,7 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	var end := PlainsRegionGenerator.new()._point(PlainsRegionGenerator.new()._area(stage.manifest,edge.b if forward else edge.a).position)
 	if not motor.is_on_floor() or motor.global_position.distance_to(end)>=2: print("EDGE FAILED ",edge.id," forward=",forward," actual=",motor.global_position," end=",end)
 	check.call(motor.is_on_floor() and motor.global_position.distance_to(end)<2,"actual directed connection ends grounded " + edge.id + (" forward" if forward else " reverse"))
-	check.call(controller.jump_ability.used_jumps==0 and controller.action_resources.shot_charges==2,"connection restores resources only by real landing")
+	check.call(controller.jump_ability.used_jumps==0 and controller.action_resources.shot_charges==controller.motor.tuning.max_air_shots,"connection restores resources only by real landing")
 	return motor.is_on_floor() and motor.global_position.distance_to(end)<2
 
 func reverse_module(module: PlatformingModule) -> bool:

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "asset_id": "FOUR-LINE-AUTHORED-TERRAIN-LAB",
+  "task_id": "FOUR-LINE-INTEGRATION-01",
+  "content_version": "four-line-asset-registration-20261023",
+  "source_path": "assets/authored_terrain_study/master_original.png",
+  "source_sha256": "51333d751d910966bee1cc23184206f075b79fa7c6634bbe0cea51f8f4c31ad9",
+  "runtime_paths": [
+    "assets/authored_terrain_study/coarse.tres",
+    "assets/authored_terrain_study/fine.tres",
+    "assets/authored_terrain_study/source_coarse.png",
+    "assets/authored_terrain_study/source_fine.png",
+    "assets/authored_terrain_study/coarse_atlas.png",
+    "assets/authored_terrain_study/fine_atlas.png"
+  ],
+  "runtime_file_sha256": {
+    "assets/authored_terrain_study/coarse.tres": "0d5c958c8b4337dec3eef1f0490062b03f997a6d9ef0cf86a4134d5e291e604f",
+    "assets/authored_terrain_study/fine.tres": "6084d6457cf24ef800d2d1cc991d762a4d59b36383c7be7dba3f06d5271b80dd",
+    "assets/authored_terrain_study/source_coarse.png": "4003d8f451abe36e791c9bc5713f00906909cc712e8fb7cd850e5199c913aebd",
+    "assets/authored_terrain_study/source_fine.png": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431",
+    "assets/authored_terrain_study/coarse_atlas.png": "78b486c33ca98e96e2e927bc12dc40bd00be1c95a5400d6243af681e64df2d5b",
+    "assets/authored_terrain_study/fine_atlas.png": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de"
+  },
+  "license_status": "unknown",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "limited_preview",
+  "tool": "image_gen.imagegen for original master; repository Godot builder for derived source/TileSets",
+  "model": "not_exposed",
+  "prompt_or_reference": "assets/authored_terrain_study/provenance.json retains the two original master prompts and reference lineage; no new generation by this registration",
+  "processing": "Existing whole authored construction master is cropped using the retained build recipe into 47-mask/three-bank fine source and atlas. Coarse source/atlas are nearest downsampled from the same source, not a new style generation. Both TileSets have literal ext_resource references to the corresponding PNG atlas; no asset bytes changed.",
+  "usage_scope": "Actual explicit authored_terrain_study dev Lab preloads fine/coarse TileSets and sources and inherits the earlier density Lab. This is dormant/opt-in experimental runtime, not a new formal default or whole-region acceptance.",
+  "license_source": "Existing generated-edit provenance references repository Underworld art and retains original source rights. Separate generated-output licensing/model information is not_exposed; no new third-party authorization or blanket CC0 claim.",
+  "consumer_scripts": [
+    "scripts/art/authored_terrain_study.gd",
+    "scripts/art/high_density_terrain_study.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/authored_terrain_study/provenance.json",
+      "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/authored_terrain_study/build.json",
+      "sha256": "534146ae30cd2577f7cdb7691cd6ef451140e93c08cfd342c9c0966c9601151c",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_authored_terrain.gd",
+      "sha256": "f3b7c8837bd11010b145f91823dcf50fd14fa3a747198b809bb92142a99488ff",
+      "role": "processing_record"
+    }
+  ],
+  "runtime_reference_basis": {
+    "assets/authored_terrain_study/coarse.tres": "Literal preload in scripts/art/authored_terrain_study.gd",
+    "assets/authored_terrain_study/fine.tres": "Literal preload in scripts/art/authored_terrain_study.gd",
+    "assets/authored_terrain_study/source_coarse.png": "Literal preload in scripts/art/authored_terrain_study.gd",
+    "assets/authored_terrain_study/source_fine.png": "Literal preload in scripts/art/authored_terrain_study.gd",
+    "assets/authored_terrain_study/coarse_atlas.png": "Literal TileSet ext_resource PNG dependency of assets/authored_terrain_study/coarse.tres",
+    "assets/authored_terrain_study/fine_atlas.png": "Literal TileSet ext_resource PNG dependency of assets/authored_terrain_study/fine.tres"
+  }
+}

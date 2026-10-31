@@ -1,0 +1,26 @@
+{
+  "source_commit": "a074a709ffa64c1382d73d2dab6dcff673222728",
+  "run_id": 39941212514,
+  "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39941212514",
+  "artifact_id": 12496299724,
+  "artifact_zip_sha256": "c89fe767328b3b2d6540a8135fc3c43f5bc8184efa26fb2c9f1b53e48b08ac40",
+  "actual_executed": 71,
+  "passed": 70,
+  "failed": 1,
+  "wall_seconds": 1082.25,
+  "report_raw_sha256": "b6150dfcdc7323b916a2677ce2b22329e605c93ae9d246e98d4c1b0ab98674a6",
+  "report_raw_bytes": 10459810,
+  "reason": "creative-direction-tests dynamically opens two preserved direction-history snapshots; sparse input preflight had not declared these edges. Other checks stopped by existing fail-fast semantics are not_run, never passed.",
+  "fix_scope": "Declare only the two original snapshots for the selected original direction runner; preserve input digest, assertions, budgets, runtime and all historical bytes.",
+  "local_validation": {
+    "direction_original_methods": 10,
+    "cloud_inputs_including_actual_sparse_git_regression": 22,
+    "production_loop": 115
+  },
+  "review": {
+    "path": "docs/evidence/four_line_integration_20261023/ci-a074/input-fix-review.json",
+    "sha256": "9084e8c9b0609e666f5f65f3832cfcf267ca521ff9fa7d260f3c3569bf1c1706",
+    "verdict": "ACCEPT",
+    "scope": "a074 plus two explicit candidate source hashes; original CI failure attribution and sparse input repair only; not final CI"
+  }
+}

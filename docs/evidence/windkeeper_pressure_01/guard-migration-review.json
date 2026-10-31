@@ -1,0 +1,63 @@
+{
+  "verdict": "ACCEPT",
+  "scope": "Exact frozen old guards and live140 source binding only; no complete encounter acceptance",
+  "reviewer": "/root/windkeeper_delivery_audit",
+  "independent": true,
+  "original_method_sets": {
+    "test_region_bible.py": {
+      "original": 40,
+      "current": 43,
+      "old_names_preserved": true
+    },
+    "test_region_creative_direction.py": {
+      "original": 17,
+      "current": 18,
+      "old_names_preserved": true
+    }
+  },
+  "archive_manifest_entries": 9,
+  "original_full_ordered_prefix": 168,
+  "appended_full_checks": [
+    "windkeeper-pressure-01"
+  ],
+  "original_bible_input_prefix": 422,
+  "binding_budgets_seconds": [
+    30,
+    30,
+    30,
+    60
+  ],
+  "live_references": 140,
+  "unchanged_original_references": 82,
+  "changed_original_paths": [
+    "scripts/demo/demo_app.gd"
+  ],
+  "actual_review_source_commit": "a3d55536000a1d882e6b5a0b5d391ea2550676dc",
+  "equivalent_tested_runtime_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
+  "reviewed_test_sources": {
+    "tests/test_region_bible.py": "ba34741dec529c592afddc497b721bbb71227cc78ff143280c088a631fbf45c7",
+    "tests/test_region_creative_direction.py": "d02cac25f8888ee572e04ceea66ee1da2fc93daae3e4f39651d2b813ecbfa873"
+  },
+  "production_plan_reviewed_migration": {
+    "verdict": "ACCEPT",
+    "old": [
+      168,
+      92,
+      76
+    ],
+    "new": [
+      169,
+      92,
+      77
+    ],
+    "test_source_path": "tests/test_production_plan.py",
+    "test_source_sha256": "a8d2781f751faab933c20f3ded2afe19730d6f76995efa149b99472541065aa4",
+    "coordinator_run_receipt_path": "build/windkeeper_pressure_01/production-plan-tests-02.log",
+    "coordinator_run_receipt_sha256": "d04021edd999cf8692a51d6d86142b40716cc5d9950bb9741dc1a67d36f4f221",
+    "coordinator_actual_tests": 22,
+    "coordinator_actual_failures": 0,
+    "reviewer_executed_tests": false,
+    "source_scope": "Exact reviewed dirty test patch at current Git anchor; actual SHA records bytes, not a claim that ff517243 contains the uncommitted patch.",
+    "scope": "Append serial Pressure native case; all22 original methods and old digests preserved; oldaudio167:168 remains exact, Pressure gets168: tail/argv300serial; original168prefix/order and lane92+77 retained."
+  }
+}

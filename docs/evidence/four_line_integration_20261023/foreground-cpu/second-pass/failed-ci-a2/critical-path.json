@@ -1,0 +1,194 @@
+{
+  "source": "/workspace/scratch/ci-a2f7ad44-40011980788/jobs-2026-10-23T20-19-48.016Z.json",
+  "scope": "actual single a2f7 Actions attempt; step wall includes own IO/setup, native only as specifically logged; failure retained",
+  "jobs": [
+    {
+      "id": 120614603645,
+      "name": "prepare",
+      "conclusion": "success",
+      "started": "2026-10-23T19:31:15Z",
+      "ended": "2026-10-23T19:41:52Z",
+      "steps": [
+        {
+          "name": "Materialize selected original inputs without checking out all historical media",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:31:40Z",
+          "ended": "2026-10-23T19:37:57Z",
+          "seconds": 377.0
+        },
+        {
+          "name": "Fail fast on selected portable Python subchecks before engine or Foundry work",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:37:57Z",
+          "ended": "2026-10-23T19:38:14Z",
+          "seconds": 17.0
+        },
+        {
+          "name": "Install media dependencies required by existing docs and readers",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:38:27Z",
+          "ended": "2026-10-23T19:39:09Z",
+          "seconds": 42.0
+        },
+        {
+          "name": "Install and verify the repository locked Standard engine and templates",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:39:23Z",
+          "ended": "2026-10-23T19:39:24Z",
+          "seconds": 1.0
+        },
+        {
+          "name": "Prepare the existing validated Foundry export dependency when needed",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:39:24Z",
+          "ended": "2026-10-23T19:41:41Z",
+          "seconds": 137.0
+        },
+        {
+          "name": "Execute affected checks without upgrading them to full or Web",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started": "2026-10-23T19:41:46Z",
+          "ended": "2026-10-23T19:41:46Z",
+          "seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": 120619357264,
+      "name": "full_checks (parallel)",
+      "conclusion": "success",
+      "started": "2026-10-23T19:41:54Z",
+      "ended": "2026-10-23T20:17:32Z",
+      "steps": [
+        {
+          "name": "Restore the exact selected prepared input closure",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:42:18Z",
+          "ended": "2026-10-23T19:48:36Z",
+          "seconds": 378.0
+        },
+        {
+          "name": "Install media dependencies required by existing docs and readers",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:48:36Z",
+          "ended": "2026-10-23T19:49:18Z",
+          "seconds": 42.0
+        },
+        {
+          "name": "Install and verify the repository locked Standard engine and templates",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:49:31Z",
+          "ended": "2026-10-23T19:49:32Z",
+          "seconds": 1.0
+        },
+        {
+          "name": "Execute one original fresh full-profile lane",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:49:32Z",
+          "ended": "2026-10-23T20:17:25Z",
+          "seconds": 1673.0
+        },
+        {
+          "name": "Collect the unique original phase report and check stdout logs",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T20:17:25Z",
+          "ended": "2026-10-23T20:17:25Z",
+          "seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": 120619357358,
+      "name": "full_checks (serial)",
+      "conclusion": "failure",
+      "started": "2026-10-23T19:41:54Z",
+      "ended": "2026-10-23T20:19:14Z",
+      "steps": [
+        {
+          "name": "Restore the exact selected prepared input closure",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:42:11Z",
+          "ended": "2026-10-23T19:48:39Z",
+          "seconds": 388.0
+        },
+        {
+          "name": "Install media dependencies required by existing docs and readers",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:48:39Z",
+          "ended": "2026-10-23T19:49:01Z",
+          "seconds": 22.0
+        },
+        {
+          "name": "Install and verify the repository locked Standard engine and templates",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T19:49:10Z",
+          "ended": "2026-10-23T19:49:11Z",
+          "seconds": 1.0
+        },
+        {
+          "name": "Execute one original fresh full-profile lane",
+          "status": "completed",
+          "conclusion": "failure",
+          "started": "2026-10-23T19:49:11Z",
+          "ended": "2026-10-23T20:19:05Z",
+          "seconds": 1794.0
+        },
+        {
+          "name": "Collect the unique original phase report and check stdout logs",
+          "status": "completed",
+          "conclusion": "success",
+          "started": "2026-10-23T20:19:05Z",
+          "ended": "2026-10-23T20:19:05Z",
+          "seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": 120635949001,
+      "name": "affected",
+      "conclusion": "failure",
+      "started": "2026-10-23T20:19:17Z",
+      "ended": "2026-10-23T20:19:23Z",
+      "steps": [
+        {
+          "name": "Require prepare and any selected full lanes to have succeeded",
+          "status": "completed",
+          "conclusion": "failure",
+          "started": "2026-10-23T20:19:20Z",
+          "ended": "2026-10-23T20:19:20Z",
+          "seconds": 0.0
+        },
+        {
+          "name": "Restore the exact selected prepared input closure",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started": "2026-10-23T20:19:20Z",
+          "ended": "2026-10-23T20:19:20Z",
+          "seconds": 0.0
+        },
+        {
+          "name": "Verify exact same-source complete fresh check coverage and original logs",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started": "2026-10-23T20:19:20Z",
+          "ended": "2026-10-23T20:19:20Z",
+          "seconds": 0.0
+        }
+      ]
+    }
+  ]
+}

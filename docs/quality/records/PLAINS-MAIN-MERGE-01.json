@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-MAIN-MERGE-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+  "reviewed_commit": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
+  "content_version": "plains-main-integration-v1",
+  "owner": "/root",
+  "purpose": "用户授权七怪工作线合main，保双方内容并验证冲突整合",
+  "player_experience": "七怪身体与死亡掉落接入主线，同时保留已选hurt A及主线性能修复",
+  "constraints": [
+    "用户快速合入授权；原完整两通道/affected仍须通过",
+    "保两父历史/原失败/全部断言与预算，正常merge不强推",
+    "原167前缀再追加主线audio为168，保83引用技术新版本",
+    "不以合入替代艺术/设备/用户G5",
+    "GameAudio运行冲突明确记在scope/独审与原enemy/audio内容任务，本process只拥有Git/绑定/检查流程，不覆盖运行源"
+  ],
+  "affected_paths": [
+    "docs/worklines/plains_motion_loot_02/main_merge.md",
+    "docs/quality/records/PLAINS-MAIN-MERGE-01.json",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "tests/test_production_plan.py",
+    "tools/harness/profiles.json",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+    "docs/creative_direction/revision_creative_v25.md",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/registry.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/style21.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+    "docs/creative_direction/archive/merge-20261030-style21/test-retention.json"
+  ],
+  "deliverables": [
+    "docs/worklines/plains_motion_loot_02/main_merge.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户授权、两父来源、冲突/检查保留范围与旧红灯已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯集成任务；相关游戏内容由原enemy/audio任务单独审阅",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯集成任务；相关游戏内容由原enemy/audio任务单独审阅",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯集成任务；相关游戏内容由原enemy/audio任务单独审阅",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯集成任务；相关游戏内容由原enemy/audio任务单独审阅",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "具体冲突/历史版本与不改原门槛范围已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立726/0与原pure22/40/17、8拒绝反例限定接受C冲突及门禁迁移",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯集成记录不签游戏内容品质或设备",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "MERGE-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "主线性能/已选音色与七怪程序/掉落共同接入",
+      "method": "精确两父正常merge，明确实际冲突与既有失败",
+      "expected": "不丢任何父分支内容/断言/预算，合入须原完整门槛",
+      "failure": "覆盖主线或以本地专项代完整绿灯",
+      "status": "passed",
+      "reason": "来源与有限冲突范围明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "MERGE-GUARD-REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "两父接口/检查集/绑定同号冲突整合",
+      "method": "原方法集逐字比、原checkdict/前缀/预算、83叶、档案与lane反例",
+      "expected": "保原逻辑/门禁，拒绝缺失重复与串lane/超预算",
+      "failure": "丢一父内容或放宽检查以追绿",
+      "status": "passed",
+      "reason": "精确C限定独审726/0，未代签native/full168",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/plains_motion_loot_02/main_merge.md",
+      "sha256": "23efb10c35a7d9fdee516bfb72a3b3f3a0b6564896a2cabe67b101a4517da173",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+      "content_version": "plains-main-integration-v1",
+      "method": "用户合入授权后的active merge规格，不冒称旧头已包含集成",
+      "observed": "保双方功能/历史，168原检查与600时限，不跳红灯"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/plains_motion_loot_02/main-merge-01/review/source-review.md",
+      "sha256": "c0b87566bf659114d00578da610e96e898abab067767b6d184ce53693964726f",
+      "kind": "review",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
+      "content_version": "plains-main-integration-v1",
+      "method": "实际两父/合并C源码、方法集、原检查与83绑定、档案字节、纯测试与8lane反例；无engine",
+      "observed": "限定ACCEPT冲突源码及检查迁移，726只读核对0失败；实际pure22/40/17，不签full168或艺术",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "/root",
+        "/root/corpse_contact_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer authored none of production, bindings, tests or manifest changes; actual read-only Git/source comparison, pure tests and clone counterexamples.",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "合并C三个原Harness专项已fresh通过：plains481/0、formal150/0、原audio四消费者；完整168/affected仍待精确新头执行",
+    "内容艺术/听感/经济/实体设备/用户G5继续分开"
+  ],
+  "test_change_justification": "只将原167清单按有序前缀保留并追加main原audio-feedback；原144/165摘要、166/167序列、全部旧方法与预算保留。Bible两分支同号异源，归档各父原件并新版本绑定；独审待精确源码完成。 C独审726/0限定接受，pure22/40/17与8原lane反例实跑；只签具体迁移。"
+}

@@ -5,7 +5,11 @@ extends RefCounted
 const OPEN_CHEST := preload("res://assets/underworld_plains/objects/opened_chest.png")
 const CLOSED_CHEST := preload("res://assets/underworld_plains/actors/chest.png")
 
-static func place_chest(sprite: Sprite2D, foot: Vector2, claimed: bool) -> void:
+static func place_chest(sprite: Sprite2D, foot: Vector2, claimed: bool, tier: StringName = &"") -> void:
+	if not tier.is_empty():
+		ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)
+		return
+	# Historical three-argument callers retain their exact original recipe.
 	sprite.texture = OPEN_CHEST if claimed else CLOSED_CHEST
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	sprite.scale = Vector2.ONE * 58.0 / sprite.texture.get_width()

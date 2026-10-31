@@ -1,0 +1,1803 @@
+{
+  "task": "read_only_existing_Boss_asset_audit",
+  "snapshot_commit": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+  "scope": {
+    "scene_count": 8,
+    "definition_combinations": 9,
+    "not_nine_species": true,
+    "no_Godot": true,
+    "no_repo_writes": true,
+    "no_generation": true,
+    "quality_assessment": "none; inventory/path/consumer facts only, not endorsement of rejected production quality",
+    "search_limit": "当前工作树资产/设计/消费者静态盘点，相关历史文档与留存原图；未穷尽所有Git历史删除文件、归档压缩包内部、远端或未上传原稿。未找到一律标未找到/未知，不作全宇宙不存在断言。"
+  },
+  "summary": {
+    "primary_body_image_files": [
+      "assets/plains_v3/enemies/clockwork_atlas.png",
+      "assets/underworld_plains/actors/bellstrider.png",
+      "assets/underworld_plains/actors/windkeeper.png",
+      "assets/forest_bible_v2/native/fine_32/guardian.png",
+      "assets/forest_bible_v2/native/fine_32/queen.png"
+    ],
+    "primary_file_count": 5,
+    "shared_images": [
+      {
+        "path": "assets/underworld_plains/actors/windkeeper.png",
+        "combinations": [
+          "windkeeper",
+          "windkeeper_storm"
+        ],
+        "difference": "同场景不同Definition，完全同主身体PNG，行为/phase显示有差异"
+      },
+      {
+        "path": "assets/forest_bible_v2/native/fine_32/guardian.png",
+        "scenes": [
+          "thorn_guardian",
+          "rootbell_guardian_v2"
+        ],
+        "difference": "同主图与1x基准，旧seed窗口和V2投铃/扑落机制不同"
+      },
+      {
+        "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+        "scenes": [
+          "thorn_queen",
+          "thorn_queen_v2",
+          "thorn_queen_canopy"
+        ],
+        "difference": "旧Queen2x接地；Weave/Canopy同1x悬浮bounds；不构成三套原画"
+      }
+    ],
+    "dedicated_complete_action_sequence": "所查当前主图均静态；Clockwork有3状态键，旧Windkeeper另有6关键姿态但非完整逐帧且被正式Underworld分支绕过。"
+  },
+  "shared_vfx_and_motion": {
+    "classification": "shared_code_not_character_exclusive_assets",
+    "scripts": [
+      "scripts/bosses/boss_motion_presentation.gd",
+      "scripts/enemies/enemy_hit_template.gd",
+      "scripts/enemies/enemy_feedback_01.gd",
+      "scripts/enemies/enemy_feedback_01_particles.gd"
+    ],
+    "facts": [
+      "BossMotionPresentation读取真实状态并变形同张纹理；不是每Boss独有原画或动作序列。",
+      "accepted-hit tint/contact fan是共享程序VFX；未据此推定Boss独有受伤特效资产。"
+    ]
+  },
+  "global_audio": {
+    "runtime_service": "scripts/audio/game_audio.gd",
+    "runtime_music": "scripts/audio/game_music.gd",
+    "selection": [
+      "config/audio_director/selected/selected.json",
+      "config/audio_director/selected/user-20261028.json",
+      "config/audio_director/v3/sources.json"
+    ],
+    "documents": [
+      {
+        "path": "docs/audio_director/event_catalog.md",
+        "section": "§事件映射 / §缺失或折叠的语义",
+        "exists": true
+      },
+      {
+        "path": "docs/audio_director/style_bible_v3.md",
+        "section": "§功能卡 / §事件时点与后续缺口",
+        "exists": true
+      },
+      {
+        "path": "docs/audio_director/inventory.md",
+        "section": "源文件与使用位置",
+        "exists": true
+      },
+      {
+        "path": "docs/audio_director/pipeline.md",
+        "section": "全文件",
+        "exists": true
+      }
+    ],
+    "facts": [
+      "Boss cue由共享GameAudio及用户选声配置解析，cue名字不等于该Boss独有声音录制。",
+      "两地区Boss BGM各一首，未发现按这8场景分别独立的8首战斗曲；不从文件名推定阶段配乐已实现。"
+    ],
+    "regional_music": {
+      "plains": "assets/audio/bgm/across_the_wooden_sails.mp3",
+      "forest": "assets/audio/bgm/beyond_the_knotted_vines.mp3"
+    },
+    "historical_named_files": [
+      "assets/audio/windkeeper_roar.wav",
+      "assets/audio/plains_armour.wav",
+      "assets/audio/plains_core.wav"
+    ],
+    "historical_named_files_note": "文件存在于音频inventory；当前Boss脚本cue到GameAudio映射，不直接加载上述wav；其当前实际选中范围未逐音试听核验。"
+  },
+  "bosses": [
+    {
+      "id": "clockwork_guardian",
+      "scene": "scenes/bosses/clockwork_guardian.tscn",
+      "definition": "resources/bosses/clockwork_guardian.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "legacy_fixed_demo_and_boss_lab",
+        "evidence": [
+          "docs/windkeeper_runtime.md:5",
+          "scripts/demo/demo_app.gd:825"
+        ],
+        "note": "固定demo/旧Boss Lab/旧回归场景；非当前平原两张正式地图Boss，未找到独立产品准入卡。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/enemies_and_bosses.md",
+          "section": "§BossEncounter分层",
+          "exists": true
+        },
+        {
+          "path": "assets/plains_v3/enemies/README.md",
+          "section": "Boss phase_1/phase_2/dead说明",
+          "exists": true
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": false,
+      "runtime": {
+        "presenter": "scripts/bosses/boss_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/boss_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/plains_v3/enemies/clockwork_atlas.png",
+          "exists": true,
+          "sha256": "0f1fd8840f5bfffc8e7eab18a0419d888851a40fef1529ef62ef972ec03a2510",
+          "bytes": 1663515,
+          "size": [
+            1774,
+            887
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "独立atlas中的3个Boss静态键；与普通巡逻机同张总图集，但不是guardian.png的缩放版。",
+        "body_bounds_world": null,
+        "drawing_mechanism": {
+          "type": "three_static_state_keys_plus_code_motion",
+          "static_keys": [
+            "boss_phase_1",
+            "boss_phase_2",
+            "boss_dead"
+          ],
+          "dedicated_attack_hurt_death_sequence_found": false,
+          "fact": "manifest明确animation_complete=false；当前活体用共享网格，死体切独立dead静态键。"
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/plains_v3/enemies/clockwork_atlas.png",
+            "exists": true,
+            "sha256": "0f1fd8840f5bfffc8e7eab18a0419d888851a40fef1529ef62ef972ec03a2510",
+            "bytes": 1663515,
+            "size": [
+              1774,
+              887
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/plains_v3/enemies/manifest.json",
+            "exists": true,
+            "sha256": "e62cf1d6b1bbac5ec82596aa89b55962b58156929ff3dd4a4b307cb93a5e3769",
+            "bytes": 3345
+          },
+          {
+            "path": "assets/plains_v3/enemies/README.md",
+            "exists": true,
+            "sha256": "05ab3a4cdc6f4f333a2c38d984fdb0a01576715634c2f5884c25ff38c19b1f02",
+            "bytes": 1182
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/plains_v3/enemies/manifest.json",
+          "status": "当前atlas索引，原generation_source仅文件名exec-0837...；未找到该名称单独文件。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/boss_projectile.gd",
+          "scripts/bosses/boss_presentation.gd"
+        ],
+        "facts": [
+          "warning_progress环、HP条及通用Boss投射物；没有专属VFX序列文件证据。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [],
+        "music_family": "plains",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "单Boss专用设计Sheet未在docs/design及顶层文档检索到；概念/动作细节只见泛用Boss契约和atlas说明。",
+        "没有找到专属移动、前摇、攻击、受伤、连续死亡帧序列；当前是3静态状态键+代码。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"demo_clockwork_guardian\""
+      },
+      "dedicated_design_documents": [],
+      "design_document_form": "未在本次检索找到该scene独立专题卡；已列通用/地区/本轮集合卡"
+    },
+    {
+      "id": "bellstrider",
+      "scene": "scenes/bosses/bellstrider.tscn",
+      "definition": "resources/bosses/bellstrider.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "current_plains_map1_runtime_consumer",
+        "evidence": [
+          "scripts/demo/plains_region_stage.gd:53"
+        ],
+        "note": "当前App平原图1实例化该scene；其资产登记仍有limited_preview/unverified字段，不能把运行入口等同用户美术准入。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+          "section": "§6.1鸣铃巡游机 / §9音频",
+          "exists": true
+        },
+        {
+          "path": "docs/plains_pressure_boss.md",
+          "section": "§独立小Boss：鸣铃巡游机",
+          "exists": true
+        },
+        {
+          "path": "docs/evidence/underworld_feedback_03/boss/preflight/design.md",
+          "section": "连续战斗/车底接触与完整fight来源",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": true,
+      "runtime": {
+        "presenter": "scripts/bosses/bellstrider_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/bellstrider_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/underworld_plains/actors/bellstrider.png",
+          "exists": true,
+          "sha256": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5",
+          "bytes": 22594,
+          "size": [
+            128,
+            114
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "Bellstrider独立裁图；与Windkeeper同次双Boss原图生成，不是同图缩放。",
+        "body_bounds_world": [
+          -80,
+          -91,
+          160,
+          157
+        ],
+        "drawing_mechanism": {
+          "type": "single_static_body_plus_code_wheels_suspension_mesh",
+          "primary_condition": "UnderworldActors.enabled(metadata underworld_formal_style)",
+          "alternate_branches": [
+            "pixel_style: PixelFormalActors.draw_bellstrider程序绘制",
+            "else: spatial/chassis.png + actors.png wheel + Windkeeper parts.png braces/core"
+          ],
+          "dedicated_attack_hurt_death_sequence_found": false
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/underworld_plains/actors/source_bosses.png",
+            "exists": true,
+            "sha256": "9f71623fe5a210f107d226e3af6584a5c29ebbe8ea84a2b40d13efd6cd85fd32",
+            "bytes": 1065580,
+            "size": [
+              1774,
+              887
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/underworld_plains/actors/generation_calls.json",
+            "exists": true,
+            "sha256": "02b619510d6bbb060df7c68e7af3561283f9ec762f32107598861ca8ff13f256",
+            "bytes": 9944
+          },
+          {
+            "path": "assets/underworld_plains/actors/actors_build.json",
+            "exists": true,
+            "sha256": "0c056629dbef661555321268940eed02e3694a488757db76f2e276cc473f1c4a",
+            "bytes": 6334
+          },
+          {
+            "path": "docs/quality/asset_records/underworld-production-actors.json",
+            "exists": true,
+            "sha256": "43771b31c9745f50bc89b6e032093df90c0f22031707128c1da95640c9e90664",
+            "bytes": 3411
+          },
+          {
+            "path": "assets/plains_v4/bellstrider/manifest.json",
+            "exists": true,
+            "sha256": "a1af2f32fd246640ef2ee2ae6e0bbb049468d0f32d67872eb7c2c172ef94fdee",
+            "bytes": 875
+          },
+          {
+            "path": "assets/plains_v4/spatial/manifest.json",
+            "exists": true,
+            "sha256": "43b92f2eab1329e4de841c869b08413519d44173734f9f9b00f0ccc79a0ae568",
+            "bytes": 1913
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/plains_v4/bellstrider/chassis.svg",
+          "status": "旧原创SVG候选；当前BellstriderPresentation的CHASSIS常量实际指spatial/chassis.png，未见该SVG被当前叶直接绘制。"
+        },
+        {
+          "path": "assets/plains_v4/spatial/chassis.png",
+          "status": "当前else分支仍可达；正式Underworld分支不画它。"
+        },
+        {
+          "path": "assets/underworld_plains/actors/source_windkeeper_edit.png",
+          "status": "其左车体因生成编辑改变了两图，generation_calls说明左侧不用；当前车体仍从source_bosses原左图裁。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/boss_arrival_presentation.gd",
+          "scripts/bosses/boss_projectile.gd",
+          "scripts/underworld_plains/underworld_projectile_visual.gd"
+        ],
+        "assets": [
+          "assets/underworld_plains/actors/bell.png",
+          "assets/plains_v6/cohesion_atlas.png"
+        ],
+        "facts": [
+          "入场尘叶、波纹/弹体/轨迹为程序或共享图集；没有据此认定专属完整VFX序列。"
+        ],
+        "additional_scripts": [
+          "scripts/bosses/bellstrider_bell_projectile.gd"
+        ],
+        "additional_assets": [
+          "assets/plains_v4/windkeeper/parts.png"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [
+          "core",
+          "armour",
+          "warning",
+          "boss_impact"
+        ],
+        "music_family": "plains",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "没有找到当前128×114身体的独有状态动作序列或转面表。",
+        "原Bible外观/招式描述、D077轮式铜木SVG和当前Underworld车体是不同层资料，不能视作同一已批准原画包。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"plains_bellstrider\"",
+        "definition_version": "2",
+        "continuous_combat": "true",
+        "collision_size": "Vector2(140, 144)",
+        "collision_offset": "Vector2(0, -6)"
+      },
+      "dedicated_design_documents": [
+        "docs/plains_pressure_boss.md"
+      ],
+      "design_document_form": "专题设计/运行文档或Boss设计记录；未据此认定完整美术设定转面/动作制作包"
+    },
+    {
+      "id": "windkeeper",
+      "scene": "scenes/bosses/windkeeper.tscn",
+      "definition": "resources/bosses/windkeeper.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "legacy_aperture_scene_default",
+        "evidence": [
+          "scenes/bosses/windkeeper.tscn",
+          "scripts/demo/plains_region_stage.gd:53-55"
+        ],
+        "note": "同一scene的两种Definition/机制组合，非两个独立Boss物种。默认scene为旧12HP窗口配置；当前平原map2覆写storm资源36HP/continuous，不能只按scene默认判断正式版本。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+          "section": "§6.2牧风者 / §9.3牧风者战斗",
+          "exists": true
+        },
+        {
+          "path": "docs/windkeeper_plains_iteration.md",
+          "section": "§牧风者：用户确认内容 / §实现边界",
+          "exists": true
+        },
+        {
+          "path": "docs/windkeeper_runtime.md",
+          "section": "§分离契约 / §实际验证范围",
+          "exists": true
+        },
+        {
+          "path": "docs/plains_pressure_boss.md",
+          "section": "§大Boss：强化牧风者",
+          "exists": true
+        },
+        {
+          "path": "docs/evidence/underworld_feedback_03/boss/preflight/design.md",
+          "section": "连续战斗与三平台策略",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": true,
+      "runtime": {
+        "presenter": "scripts/bosses/windkeeper_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/windkeeper_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/underworld_plains/actors/windkeeper.png",
+          "exists": true,
+          "sha256": "9566e7cca7b763af2d3f2d93f9eea6cdba0383fe726c541371cc3b6c50049446",
+          "bytes": 23877,
+          "size": [
+            128,
+            119
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "默认与storm均精确复用同一windkeeper.png；storm没有独立原画母版，只在代码中的阶段尺寸/行为和资源不同。",
+        "body_bounds_world": [
+          -92,
+          "65-height",
+          184,
+          "198或phase3 236(raised)"
+        ],
+        "drawing_mechanism": {
+          "type": "single_static_underworld_body_plus_code_mesh_rotor",
+          "primary_condition": "underworld_formal_style祖先metadata",
+          "alternate_branches": [
+            "pixel_style: PixelFormalActors程序身体",
+            "else: 六关键姿态body_actions或interactive_atlas三form，再由代码过渡/腿切片/rotor旋转"
+          ],
+          "dedicated_full_sequence_in_primary_branch_found": false,
+          "alternate_six_keys_are_not_full_animation": true
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/underworld_plains/actors/source_bosses.png",
+            "exists": true,
+            "sha256": "9f71623fe5a210f107d226e3af6584a5c29ebbe8ea84a2b40d13efd6cd85fd32",
+            "bytes": 1065580,
+            "size": [
+              1774,
+              887
+            ],
+            "mode": "RGBA"
+          },
+          {
+            "path": "assets/underworld_plains/actors/source_windkeeper_edit.png",
+            "exists": true,
+            "sha256": "58975b9a3bf18a5503929968c9156b29dccef104b1fa9905ab3cceb7ea1560ff",
+            "bytes": 1091576,
+            "size": [
+              1774,
+              887
+            ],
+            "mode": "RGBA"
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/body_actions.png",
+            "exists": true,
+            "sha256": "cae013243a94eb2e79a4e27e7efed75883ea92398942525ba97fdefa42dfb231",
+            "bytes": 2770096,
+            "size": [
+              1536,
+              1024
+            ],
+            "mode": "RGBA"
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/parts.png",
+            "exists": true,
+            "sha256": "baabf6fb22fd10f5402d2b73517bf8c5c8c08b605703673c7ac8c5e296ff86c1",
+            "bytes": 1770141,
+            "size": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/underworld_plains/actors/generation_calls.json",
+            "exists": true,
+            "sha256": "02b619510d6bbb060df7c68e7af3561283f9ec762f32107598861ca8ff13f256",
+            "bytes": 9944
+          },
+          {
+            "path": "assets/underworld_plains/actors/actors_build.json",
+            "exists": true,
+            "sha256": "0c056629dbef661555321268940eed02e3694a488757db76f2e276cc473f1c4a",
+            "bytes": 6334
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/manifest.json",
+            "exists": true,
+            "sha256": "49470a5efb04e21efe96ba0841fcb1da14dbf76513ec9aeeee0fb8f5f798196c",
+            "bytes": 5320
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/README.md",
+            "exists": true,
+            "sha256": "63291d28918cc5b2b8e67a36071512119ac29e96f1d77f35387cef4c26748395",
+            "bytes": 1632
+          },
+          {
+            "path": "docs/quality/asset_records/underworld-production-actors.json",
+            "exists": true,
+            "sha256": "43771b31c9745f50bc89b6e032093df90c0f22031707128c1da95640c9e90664",
+            "bytes": 3411
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/plains_v4/windkeeper/body_actions.png",
+          "status": "六关键姿态：idle/stomp/charge/exposed/blades/dead；当前presentation else分支仍读取，正式Underworld分支绕过此页；不是逐帧完整序列。"
+        },
+        {
+          "path": "assets/plains_v4/windkeeper/parts.png",
+          "status": "独立rotor/bell/mast/broken_bell图块；raw分支转子/核心、Bellstrider lob仍消费。"
+        },
+        {
+          "path": "assets/plains_v5/interactive_atlas.png",
+          "status": "platform_trials的原painted form/符文/瞄准资产，原else分支用；不是Underworld身体动作页。"
+        },
+        {
+          "path": "assets/underworld_plains/actors/source_bosses.png",
+          "status": "旧未封闭胸心的右Boss保留；当前右身体从source_windkeeper_edit裁，原右图不作为当前主身体。"
+        },
+        {
+          "path": "resources/bosses/legacy/windkeeper_storm_window_v4.tres",
+          "status": "历史窗口Definition，未作为第10个现有Boss组合计数。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/boss_arrival_presentation.gd",
+          "scripts/bosses/boss_projectile.gd",
+          "scripts/underworld_plains/underworld_projectile_visual.gd"
+        ],
+        "assets": [
+          "assets/underworld_plains/actors/bell.png",
+          "assets/plains_v6/cohesion_atlas.png"
+        ],
+        "facts": [
+          "入场尘叶、波纹/弹体/轨迹为程序或共享图集；没有据此认定专属完整VFX序列。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [
+          "armour",
+          "core",
+          "roar",
+          "warning",
+          "boss_impact"
+        ],
+        "music_family": "plains",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "当前Underworld主身体仅单张128×119静图；未找到其专属走动/攻击/受伤/终结逐帧序列。",
+        "v4六姿态确实存在，但不能记成当前Underworld正式body已消费的逐帧动作。",
+        "Bible终结演出风叶坠落/铜铃依次失声的独立分镜与对应专素材未在本次范围找到。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"plains_windkeeper\"",
+        "definition_version": "1",
+        "collision_size": "Vector2(150, 130)"
+      },
+      "dedicated_design_documents": [
+        "docs/windkeeper_plains_iteration.md",
+        "docs/windkeeper_runtime.md"
+      ],
+      "design_document_form": "专题设计/运行文档或Boss设计记录；未据此认定完整美术设定转面/动作制作包"
+    },
+    {
+      "id": "windkeeper_storm",
+      "scene": "scenes/bosses/windkeeper.tscn",
+      "definition": "resources/bosses/windkeeper_storm.tres",
+      "same_scene_not_new_boss": true,
+      "admission": {
+        "class": "current_plains_map2_definition_override",
+        "evidence": [
+          "scenes/bosses/windkeeper.tscn",
+          "scripts/demo/plains_region_stage.gd:53-55"
+        ],
+        "note": "同一scene的两种Definition/机制组合，非两个独立Boss物种。默认scene为旧12HP窗口配置；当前平原map2覆写storm资源36HP/continuous，不能只按scene默认判断正式版本。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+          "section": "§6.2牧风者 / §9.3牧风者战斗",
+          "exists": true
+        },
+        {
+          "path": "docs/windkeeper_plains_iteration.md",
+          "section": "§牧风者：用户确认内容 / §实现边界",
+          "exists": true
+        },
+        {
+          "path": "docs/windkeeper_runtime.md",
+          "section": "§分离契约 / §实际验证范围",
+          "exists": true
+        },
+        {
+          "path": "docs/plains_pressure_boss.md",
+          "section": "§大Boss：强化牧风者",
+          "exists": true
+        },
+        {
+          "path": "docs/evidence/underworld_feedback_03/boss/preflight/design.md",
+          "section": "连续战斗与三平台策略",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": true,
+      "runtime": {
+        "presenter": "scripts/bosses/windkeeper_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/windkeeper_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/underworld_plains/actors/windkeeper.png",
+          "exists": true,
+          "sha256": "9566e7cca7b763af2d3f2d93f9eea6cdba0383fe726c541371cc3b6c50049446",
+          "bytes": 23877,
+          "size": [
+            128,
+            119
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "默认与storm均精确复用同一windkeeper.png；storm没有独立原画母版，只在代码中的阶段尺寸/行为和资源不同。",
+        "body_bounds_world": [
+          -92,
+          "65-height",
+          184,
+          "198或phase3 236(raised)"
+        ],
+        "drawing_mechanism": {
+          "type": "single_static_underworld_body_plus_code_mesh_rotor",
+          "primary_condition": "underworld_formal_style祖先metadata",
+          "alternate_branches": [
+            "pixel_style: PixelFormalActors程序身体",
+            "else: 六关键姿态body_actions或interactive_atlas三form，再由代码过渡/腿切片/rotor旋转"
+          ],
+          "dedicated_full_sequence_in_primary_branch_found": false,
+          "alternate_six_keys_are_not_full_animation": true
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/underworld_plains/actors/source_bosses.png",
+            "exists": true,
+            "sha256": "9f71623fe5a210f107d226e3af6584a5c29ebbe8ea84a2b40d13efd6cd85fd32",
+            "bytes": 1065580,
+            "size": [
+              1774,
+              887
+            ],
+            "mode": "RGBA"
+          },
+          {
+            "path": "assets/underworld_plains/actors/source_windkeeper_edit.png",
+            "exists": true,
+            "sha256": "58975b9a3bf18a5503929968c9156b29dccef104b1fa9905ab3cceb7ea1560ff",
+            "bytes": 1091576,
+            "size": [
+              1774,
+              887
+            ],
+            "mode": "RGBA"
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/body_actions.png",
+            "exists": true,
+            "sha256": "cae013243a94eb2e79a4e27e7efed75883ea92398942525ba97fdefa42dfb231",
+            "bytes": 2770096,
+            "size": [
+              1536,
+              1024
+            ],
+            "mode": "RGBA"
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/parts.png",
+            "exists": true,
+            "sha256": "baabf6fb22fd10f5402d2b73517bf8c5c8c08b605703673c7ac8c5e296ff86c1",
+            "bytes": 1770141,
+            "size": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/underworld_plains/actors/generation_calls.json",
+            "exists": true,
+            "sha256": "02b619510d6bbb060df7c68e7af3561283f9ec762f32107598861ca8ff13f256",
+            "bytes": 9944
+          },
+          {
+            "path": "assets/underworld_plains/actors/actors_build.json",
+            "exists": true,
+            "sha256": "0c056629dbef661555321268940eed02e3694a488757db76f2e276cc473f1c4a",
+            "bytes": 6334
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/manifest.json",
+            "exists": true,
+            "sha256": "49470a5efb04e21efe96ba0841fcb1da14dbf76513ec9aeeee0fb8f5f798196c",
+            "bytes": 5320
+          },
+          {
+            "path": "assets/plains_v4/windkeeper/README.md",
+            "exists": true,
+            "sha256": "63291d28918cc5b2b8e67a36071512119ac29e96f1d77f35387cef4c26748395",
+            "bytes": 1632
+          },
+          {
+            "path": "docs/quality/asset_records/underworld-production-actors.json",
+            "exists": true,
+            "sha256": "43771b31c9745f50bc89b6e032093df90c0f22031707128c1da95640c9e90664",
+            "bytes": 3411
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/plains_v4/windkeeper/body_actions.png",
+          "status": "六关键姿态：idle/stomp/charge/exposed/blades/dead；当前presentation else分支仍读取，正式Underworld分支绕过此页；不是逐帧完整序列。"
+        },
+        {
+          "path": "assets/plains_v4/windkeeper/parts.png",
+          "status": "独立rotor/bell/mast/broken_bell图块；raw分支转子/核心、Bellstrider lob仍消费。"
+        },
+        {
+          "path": "assets/plains_v5/interactive_atlas.png",
+          "status": "platform_trials的原painted form/符文/瞄准资产，原else分支用；不是Underworld身体动作页。"
+        },
+        {
+          "path": "assets/underworld_plains/actors/source_bosses.png",
+          "status": "旧未封闭胸心的右Boss保留；当前右身体从source_windkeeper_edit裁，原右图不作为当前主身体。"
+        },
+        {
+          "path": "resources/bosses/legacy/windkeeper_storm_window_v4.tres",
+          "status": "历史窗口Definition，未作为第10个现有Boss组合计数。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/boss_arrival_presentation.gd",
+          "scripts/bosses/boss_projectile.gd",
+          "scripts/underworld_plains/underworld_projectile_visual.gd"
+        ],
+        "assets": [
+          "assets/underworld_plains/actors/bell.png",
+          "assets/plains_v6/cohesion_atlas.png"
+        ],
+        "facts": [
+          "入场尘叶、波纹/弹体/轨迹为程序或共享图集；没有据此认定专属完整VFX序列。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [
+          "armour",
+          "core",
+          "roar",
+          "warning",
+          "boss_impact"
+        ],
+        "music_family": "plains",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "当前Underworld主身体仅单张128×119静图；未找到其专属走动/攻击/受伤/终结逐帧序列。",
+        "v4六姿态确实存在，但不能记成当前Underworld正式body已消费的逐帧动作。",
+        "Bible终结演出风叶坠落/铜铃依次失声的独立分镜与对应专素材未在本次范围找到。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"plains_windkeeper\"",
+        "definition_version": "5",
+        "continuous_combat": "true",
+        "collision_size": "Vector2(150, 190)",
+        "collision_offset": "Vector2(0, -30)"
+      },
+      "dedicated_design_documents": [
+        "docs/plains_pressure_boss.md",
+        "docs/windkeeper_runtime.md"
+      ],
+      "design_document_form": "专题设计/运行文档或Boss设计记录；未据此认定完整美术设定转面/动作制作包"
+    },
+    {
+      "id": "thorn_guardian",
+      "scene": "scenes/bosses/thorn_guardian.tscn",
+      "definition": "resources/bosses/thorn_guardian.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "legacy_forest_v1_explicit_replay",
+        "evidence": [
+          "scripts/generation/thorn_forest_region_generator.gd:_boss_paths LEGACY_VERSION"
+        ],
+        "note": "仍受支持的旧森林v1 scene；不是默认v2/v15地图的Boss，不因本轮换图获得新版本准入。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "section": "§8根铃守卫",
+          "exists": true,
+          "note": "区域Bible当前机制分别描述V2/Canopy，不能直接当旧seed/heart_window场景的专设计卡"
+        },
+        {
+          "path": "docs/enemies_and_bosses.md",
+          "section": "Boss契约",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": false,
+      "runtime": {
+        "presenter": "scripts/bosses/thorn_forest_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/thorn_forest_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/forest_bible_v2/native/fine_32/guardian.png",
+          "exists": true,
+          "sha256": "c87c170060610a1626715379cfd9293e8085a45d4bb1fef66da20640de0427d8",
+          "bytes": 9073,
+          "size": [
+            72,
+            96
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "与rootbell_guardian_v2精确同guardian.png，1×同基准。",
+        "body_bounds_world": [
+          -36,
+          -46,
+          72,
+          96
+        ],
+        "drawing_mechanism": {
+          "type": "one_reused_static_fine_body_plus_shared_code_mesh",
+          "dedicated_attack_hurt_death_sequence_found": false,
+          "replacement_fact": "本轮两叶从程序树干/枝冠改为复用fine32母版；此前程序形体是历史代码，不是另一份原画。"
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+            "exists": true,
+            "sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+            "bytes": 611951,
+            "size": [
+              2056,
+              765
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+            "exists": true,
+            "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7",
+            "bytes": 3874
+          },
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+            "exists": true,
+            "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1",
+            "bytes": 1698
+          },
+          {
+            "path": "docs/quality/asset_records/fine-space-05-forest-boss-beetle.json",
+            "exists": true,
+            "sha256": "0866c9fccbe2ae0dab36b4be945fbb335e0401dbf76a4c37d31a1e45ce04eac3",
+            "bytes": 3371
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/forest_bible_v2/native/rootbell_guardian_v1.png",
+          "status": "fine重绘前的单张native身体；保留原字面像素源，不是另一专动作页。"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_guardian_v1/guardian.native.png",
+          "status": "原native母版；palette/rows/encoder/provenance同目录。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/thorn_seed_projectile.gd",
+          "scripts/bosses/thorn_forest_presentation.gd"
+        ],
+        "assets": [],
+        "facts": [
+          "种子/落区/荆棘标记为程序几何，画心与弱侧环也是程序叠层。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [
+          "enemy_shot",
+          "warning",
+          "armour",
+          "bell"
+        ],
+        "music_family": "forest",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "未找到仅针对该旧scene的独立设计Sheet、独有母版或逐帧动作资产。",
+        "与V2/Canopy不同的旧窗口/弱侧/seed机制，不能只因图相同混作同一准入版本。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"thorn_guardian\"",
+        "collision_size": "Vector2(72, 96)",
+        "queen": "false"
+      },
+      "dedicated_design_documents": [],
+      "design_document_form": "未在本次检索找到该scene独立专题卡；已列通用/地区/本轮集合卡"
+    },
+    {
+      "id": "thorn_queen",
+      "scene": "scenes/bosses/thorn_queen.tscn",
+      "definition": "resources/bosses/thorn_queen.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "legacy_forest_v1_explicit_replay",
+        "evidence": [
+          "scripts/generation/thorn_forest_region_generator.gd:_boss_paths LEGACY_VERSION"
+        ],
+        "note": "仍受支持的旧森林v1 scene；不是默认v2/v15地图的Boss，不因本轮换图获得新版本准入。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "section": "§9棘冠女王",
+          "exists": true,
+          "note": "区域Bible当前机制分别描述V2/Canopy，不能直接当旧seed/heart_window场景的专设计卡"
+        },
+        {
+          "path": "docs/enemies_and_bosses.md",
+          "section": "Boss契约",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": false,
+      "runtime": {
+        "presenter": "scripts/bosses/thorn_forest_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/thorn_forest_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+          "exists": true,
+          "sha256": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12",
+          "bytes": 6218,
+          "size": [
+            72,
+            68
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "与Weave/Canopy精确同queen.png；旧Queen仅2×整数显示与接地基准不同，没有独立旧Queen专画。",
+        "body_bounds_world": [
+          -72,
+          -84,
+          144,
+          136
+        ],
+        "drawing_mechanism": {
+          "type": "one_reused_static_fine_body_plus_shared_code_mesh",
+          "dedicated_attack_hurt_death_sequence_found": false,
+          "replacement_fact": "本轮两叶从程序树干/枝冠改为复用fine32母版；此前程序形体是历史代码，不是另一份原画。"
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+            "exists": true,
+            "sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+            "bytes": 611951,
+            "size": [
+              2056,
+              765
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+            "exists": true,
+            "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7",
+            "bytes": 3874
+          },
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+            "exists": true,
+            "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1",
+            "bytes": 1698
+          },
+          {
+            "path": "docs/quality/asset_records/fine-space-05-forest-boss-beetle.json",
+            "exists": true,
+            "sha256": "0866c9fccbe2ae0dab36b4be945fbb335e0401dbf76a4c37d31a1e45ce04eac3",
+            "bytes": 3371
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/forest_bible_v2/native/thorn_queen_v1.png",
+          "status": "fine重绘前单张native身体；原Canopy专属类型绑定历史保留。"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_queen_v1/queen.native.png",
+          "status": "原native母版；palette/rows/encoder/provenance同目录。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/thorn_seed_projectile.gd",
+          "scripts/bosses/thorn_forest_presentation.gd"
+        ],
+        "assets": [],
+        "facts": [
+          "种子/落区/荆棘标记为程序几何，画心与弱侧环也是程序叠层。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [
+          "enemy_shot",
+          "warning",
+          "armour",
+          "bell"
+        ],
+        "music_family": "forest",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "未找到仅针对该旧scene的独立设计Sheet、独有母版或逐帧动作资产。",
+        "与V2/Canopy不同的旧窗口/弱侧/seed机制，不能只因图相同混作同一准入版本。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"thorn_queen\"",
+        "collision_size": "Vector2(72, 96)",
+        "queen": "true"
+      },
+      "dedicated_design_documents": [],
+      "design_document_form": "未在本次检索找到该scene独立专题卡；已列通用/地区/本轮集合卡"
+    },
+    {
+      "id": "rootbell_guardian_v2",
+      "scene": "scenes/bosses/rootbell_guardian_v2.tscn",
+      "definition": "resources/bosses/rootbell_guardian_v2.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "current_forest_v2_map1_candidate_default",
+        "evidence": [
+          "scripts/generation/thorn_forest_region_generator.gd:VERSION/_boss_paths",
+          "docs/design/rootbell_guardian_v2.md:3/58"
+        ],
+        "note": "当前森林v2/v15 map1运行入口；设计页明确局部限定接受及非商业/全Boss/设备准入，不能抹平为8个同等成品。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "section": "§8.1外观 / §8.2借铃返击 / §12音频",
+          "exists": true
+        },
+        {
+          "path": "docs/design/rootbell_guardian_v2.md",
+          "section": "§状态承诺阶段 / §灰盒表现与接受范围 / §历史索引",
+          "exists": true
+        },
+        {
+          "path": "docs/evidence/forest_guardian26_delta/prior_design_chronology.md.txt",
+          "section": "历史全记录",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": true,
+      "runtime": {
+        "presenter": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+        "encounter_scripts": [
+          "scripts/bosses/rootbell_guardian_v2.gd"
+        ],
+        "primary_body": {
+          "path": "assets/forest_bible_v2/native/fine_32/guardian.png",
+          "exists": true,
+          "sha256": "c87c170060610a1626715379cfd9293e8085a45d4bb1fef66da20640de0427d8",
+          "bytes": 9073,
+          "size": [
+            72,
+            96
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "与旧thorn_guardian同一guardian.png、相同72×96绘制bounds；独有机制在独立Bell Node，未找到单独V2身体动作页。",
+        "body_bounds_world": [
+          -36,
+          -46,
+          72,
+          96
+        ],
+        "drawing_mechanism": {
+          "type": "single_static_fine_body_plus_shared_code_mesh",
+          "primary_condition": "forest_bible_actor_art + RootbellGuardianV2 + stable_id=rootbell_guardian_v2 + collision72×96",
+          "fallback": "条件不满足时仍为程序矩形/树臂，不把fallback当独立素材",
+          "dedicated_attack_hurt_death_sequence_found": false
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+            "exists": true,
+            "sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+            "bytes": 611951,
+            "size": [
+              2056,
+              765
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+            "exists": true,
+            "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7",
+            "bytes": 3874
+          },
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+            "exists": true,
+            "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1",
+            "bytes": 1698
+          },
+          {
+            "path": "docs/quality/asset_records/fine-space-05-forest-boss-beetle.json",
+            "exists": true,
+            "sha256": "0866c9fccbe2ae0dab36b4be945fbb335e0401dbf76a4c37d31a1e45ce04eac3",
+            "bytes": 3371
+          },
+          {
+            "path": "assets/forest_bible_v2/source/native_guardian_v1/provenance.json",
+            "exists": true,
+            "sha256": "20d5db0c07c2fac36c1ad9f804ce807e278069a235385079184a07a7d3ec21bf",
+            "bytes": 2857
+          },
+          {
+            "path": "docs/quality/asset_records/forest-bible-v2-rootbell-guardian-v1.json",
+            "exists": true,
+            "sha256": "7b1ad0858c20e096fb429d1b5cf9bb75920d1c537e6c0d065eb00362673c0043",
+            "bytes": 2778
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/forest_bible_v2/native/rootbell_guardian_v1.png",
+          "status": "fine重绘前的单张native身体；保留原字面像素源，不是另一专动作页。"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_guardian_v1/guardian.native.png",
+          "status": "原native母版；palette/rows/encoder/provenance同目录。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+          "scripts/bosses/guardian_root_bell_v2.gd",
+          "scripts/presentation/forest_bible_actor_presentation.gd"
+        ],
+        "facts": [
+          "扑落轨迹/返击圈/标签为程序绘制。",
+          "移动Bell由ForestBibleActors.draw_mobile_bell委托UnderworldTerrain.mechanism_bell_texture（共享机关铃母版）；不是V2专属铃序列。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [
+          "warning"
+        ],
+        "music_family": "forest",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "专卡与机制历史存在；独立身体原画/逐动作分镜/专属动作序列未找到。",
+        "绘制Bell共享机关素材，不能由可抛掷/可返击行为推导有独立VFX素材包。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"rootbell_guardian_v2\"",
+        "definition_version": "2",
+        "collision_size": "Vector2(72, 96)"
+      },
+      "dedicated_design_documents": [
+        "docs/design/rootbell_guardian_v2.md"
+      ],
+      "design_document_form": "专题设计/运行文档或Boss设计记录；未据此认定完整美术设定转面/动作制作包"
+    },
+    {
+      "id": "thorn_queen_v2",
+      "scene": "scenes/bosses/thorn_queen_v2.tscn",
+      "definition": "resources/bosses/thorn_queen_v2.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "historical_weave_candidate_pin_not_current_map2",
+        "evidence": [
+          "docs/design/thorn_queen_v2.md:1-9/86",
+          "scripts/generation/thorn_forest_region_generator.gd:_boss_paths"
+        ],
+        "note": "旧迁巢织场/Def6/schema13；整体设计页写未通过，保留历史pin/旧layout replay；当前v15 map2用Canopy，不能当新增第9物种或同等正式准入。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "section": "§9棘冠女王",
+          "exists": true,
+          "note": "同地区角色资料，当前Bible机制更接近Canopy"
+        },
+        {
+          "path": "docs/design/thorn_queen_v2.md",
+          "section": "§历史/核心交互/几何/持续网络/入口保存",
+          "exists": true
+        },
+        {
+          "path": "docs/evidence/forest_depth_v2/queen_design_history/design-through30.md.txt",
+          "section": "历史设计归档",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": true,
+      "runtime": {
+        "presenter": "scripts/bosses/thorn_queen_weave_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/thorn_queen_v2.gd"
+        ],
+        "primary_body": {
+          "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+          "exists": true,
+          "sha256": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12",
+          "bytes": 6218,
+          "size": [
+            72,
+            68
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "与Canopy使用完全同一queen.png与相同(-36,-39,72,68)bounds；无Weave独有当前身体母版。",
+        "body_bounds_world": [
+          -36,
+          -39,
+          72,
+          68
+        ],
+        "drawing_mechanism": {
+          "type": "single_reused_static_fine_body_plus_shared_code_mesh",
+          "dedicated_attack_hurt_death_sequence_found": false,
+          "replacement_fact": "此前菱形/枝臂为代码；现复用Canopy同族静态图，非新增动作序列。"
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+            "exists": true,
+            "sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+            "bytes": 611951,
+            "size": [
+              2056,
+              765
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+            "exists": true,
+            "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7",
+            "bytes": 3874
+          },
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+            "exists": true,
+            "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1",
+            "bytes": 1698
+          },
+          {
+            "path": "docs/quality/asset_records/fine-space-05-forest-boss-beetle.json",
+            "exists": true,
+            "sha256": "0866c9fccbe2ae0dab36b4be945fbb335e0401dbf76a4c37d31a1e45ce04eac3",
+            "bytes": 3371
+          },
+          {
+            "path": "assets/forest_bible_v2/source/native_queen_v1/provenance.json",
+            "exists": true,
+            "sha256": "3677e813ce0fa887a718a5dce76d66afcaa7b469801e003aac8e8818c0dafcca",
+            "bytes": 2070
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/forest_bible_v2/native/thorn_queen_v1.png",
+          "status": "fine重绘前单张native身体；原Canopy专属类型绑定历史保留。"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_queen_v1/queen.native.png",
+          "status": "原native母版；palette/rows/encoder/provenance同目录。"
+        },
+        {
+          "path": "docs/evidence/forest_depth_v2/queen_legacy_producers/README.md",
+          "status": "历史验证producer索引；不是新可用美术素材。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/thorn_queen_weave_knot.gd",
+          "scripts/bosses/thorn_queen_weave_band.gd"
+        ],
+        "assets": [],
+        "facts": [
+          "活结、HP点、生长网带与路径预告为原程序绘制；Weave与Canopy共用Knot/Band实现，不是各有独立动画图集。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [],
+        "music_family": "forest",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "有机制设计专卡和大量历史版本，但未找到Weave独有身体原画/完整动作资产或声效套件。",
+        "共享Knot/Band的3网机制与Canopy两网机制不同；共用实现或图不能代替独立内容资料。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"thorn_queen_weave_v2\"",
+        "definition_version": "6",
+        "queen": "true",
+        "collision_size": "Vector2(48, 54)"
+      },
+      "dedicated_design_documents": [
+        "docs/design/thorn_queen_v2.md"
+      ],
+      "design_document_form": "专题设计/运行文档或Boss设计记录；未据此认定完整美术设定转面/动作制作包"
+    },
+    {
+      "id": "thorn_queen_canopy",
+      "scene": "scenes/bosses/thorn_queen_canopy.tscn",
+      "definition": "resources/bosses/thorn_queen_canopy.tres",
+      "same_scene_not_new_boss": false,
+      "admission": {
+        "class": "current_forest_v2_v15_map2_candidate_default",
+        "evidence": [
+          "scripts/generation/thorn_forest_region_generator.gd:CURRENT_DEPTH_LAYOUT/_boss_paths",
+          "docs/design/thorn_queen_canopy_v3.md:3-5"
+        ],
+        "note": "当前森林v2/v15 map2运行入口；专卡允许有限产品整合并明确整体品质/H核心仍REVISE，不能等同用户制作质量认可。"
+      },
+      "design_sources": [
+        {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "section": "§9.1视觉角色 / §9.2三阶段 / §12音频",
+          "exists": true
+        },
+        {
+          "path": "docs/design/thorn_queen_canopy_v3.md",
+          "section": "§身份 / §身体四段闭环 / §受伤恢复 / §证据边界",
+          "exists": true
+        },
+        {
+          "path": "docs/evidence/forest_depth_v2/queen_canopy_movies/README.md",
+          "section": "历史两影片",
+          "exists": true
+        },
+        {
+          "path": "docs/design/story/boss_narratives.md",
+          "section": "§16区主Boss与第一图定位",
+          "exists": true,
+          "note": "G0叙事提案；森林条目写冠枝鹿/护巢兽，与当前Guardian/Queen场景命名不同，不计作已实现新Boss"
+        },
+        {
+          "path": "docs/worklines/enemy_all_02/boss-production-cards.md",
+          "section": "§场景制作卡 / §实际绑定与不变接口",
+          "exists": true,
+          "note": "本轮连续性制作卡，非每Boss独立设定集、原画批准或独有动作素材"
+        }
+      ],
+      "dedicated_design_card_found": true,
+      "runtime": {
+        "presenter": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+        "encounter_scripts": [
+          "scripts/bosses/thorn_queen_canopy_encounter.gd"
+        ],
+        "primary_body": {
+          "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+          "exists": true,
+          "sha256": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12",
+          "bytes": 6218,
+          "size": [
+            72,
+            68
+          ],
+          "mode": "RGBA"
+        },
+        "body_relation": "与旧Queen、Weave共享queen.png；与Weave同尺寸基准，旧Queen仅2×/接地基准不同。",
+        "body_bounds_world": [
+          -36,
+          -39,
+          72,
+          68
+        ],
+        "drawing_mechanism": {
+          "type": "single_static_fine_body_plus_shared_code_mesh",
+          "primary_condition": "forest_bible_actor_art + stable_id=thorn_queen_canopy_v3 + collision48×54",
+          "fallback": "非正式metadata/identity时仍为程序冠形身体",
+          "dedicated_attack_hurt_death_sequence_found": false
+        },
+        "branch_observation": "静态代码追踪，未启动Godot；metadata/稳定ID分支如该项所述。"
+      },
+      "source_art_and_master": {
+        "master_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+            "exists": true,
+            "sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+            "bytes": 611951,
+            "size": [
+              2056,
+              765
+            ],
+            "mode": "RGBA"
+          }
+        ],
+        "provenance_paths": [
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+            "exists": true,
+            "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7",
+            "bytes": 3874
+          },
+          {
+            "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+            "exists": true,
+            "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1",
+            "bytes": 1698
+          },
+          {
+            "path": "docs/quality/asset_records/fine-space-05-forest-boss-beetle.json",
+            "exists": true,
+            "sha256": "0866c9fccbe2ae0dab36b4be945fbb335e0401dbf76a4c37d31a1e45ce04eac3",
+            "bytes": 3371
+          },
+          {
+            "path": "assets/forest_bible_v2/source/native_queen_v1/provenance.json",
+            "exists": true,
+            "sha256": "3677e813ce0fa887a718a5dce76d66afcaa7b469801e003aac8e8818c0dafcca",
+            "bytes": 2070
+          },
+          {
+            "path": "docs/quality/asset_records/forest-bible-v2-thorn-queen-v1.json",
+            "exists": true,
+            "sha256": "f887404bc45474ab5439ab720f1b0f27c0cf11a0335b0d46fba50e597398181b",
+            "bytes": 2718
+          }
+        ],
+        "turnaround_or_multiview_model_sheet": "searched manifests/docs未找到专门多视图转面表；master图不自动等于设定转面表"
+      },
+      "history_or_alternates": [
+        {
+          "path": "assets/forest_bible_v2/native/thorn_queen_v1.png",
+          "status": "fine重绘前单张native身体；原Canopy专属类型绑定历史保留。"
+        },
+        {
+          "path": "assets/forest_bible_v2/source/native_queen_v1/queen.native.png",
+          "status": "原native母版；palette/rows/encoder/provenance同目录。"
+        }
+      ],
+      "vfx": {
+        "specific_code": [
+          "scripts/bosses/thorn_queen_weave_knot.gd",
+          "scripts/bosses/thorn_queen_weave_band.gd"
+        ],
+        "assets": [],
+        "facts": [
+          "活结、HP点、生长网带与路径预告为原程序绘制；Weave与Canopy共用Knot/Band实现，不是各有独立动画图集。"
+        ]
+      },
+      "audio": {
+        "cue_names_observed_in_Boss_sources": [],
+        "music_family": "forest",
+        "exclusive_recorded_Boss_sound_set_found": false,
+        "note": "没有在此次检索中找到按该场景独立打包的完整声效套件；共享cue/配乐另见global_audio，不代表未检索范围绝无素材。"
+      },
+      "missing_or_unknown": [
+        "设计有视觉文字/机制专卡；当前72×68身体无独立巡游/蓄势/受伤/冠刺终结逐帧页。",
+        "未找到终结冠刺缓落/林间和声的独立制作分镜与专属完整素材包；不据文字设计推定实现。"
+      ],
+      "definition_facts": {
+        "stable_id": "&\"thorn_queen_canopy_v3\"",
+        "definition_version": "1",
+        "queen": "true",
+        "collision_size": "Vector2(48, 54)"
+      },
+      "dedicated_design_documents": [
+        "docs/design/thorn_queen_canopy_v3.md"
+      ],
+      "design_document_form": "专题设计/运行文档或Boss设计记录；未据此认定完整美术设定转面/动作制作包"
+    }
+  ],
+  "other_definition_files_not_added_as_Bosses": [
+    {
+      "path": "resources/bosses/legacy/windkeeper_storm_window_v4.tres",
+      "role": "历史窗口Def"
+    },
+    {
+      "path": "resources/bosses/legacy/bellstrider_window_v1.tres",
+      "role": "历史窗口Def"
+    },
+    {
+      "path": "resources/bosses/plains_bell_warden.tres",
+      "role": "资源存在；前次有限消费者检索未发现正式脚本加载，不能当额外Boss/新图"
+    }
+  ],
+  "related_asset_inventory": [
+    {
+      "path": "assets/plains_v4/spatial/actors.png",
+      "exists": true,
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+      "bytes": 2693554,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/plains_v4/spatial/chassis.png",
+      "exists": true,
+      "sha256": "42ed6ed092c4d21915bc80c644f320d4baace454930f4177f58b4a7697702aec",
+      "bytes": 2945609,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/plains_v4/bellstrider/chassis.svg",
+      "exists": true,
+      "sha256": "ad67b126cb492df30238a924eaed39e3869866a0cfc348008ba1cf6e8fdec045",
+      "bytes": 2224
+    },
+    {
+      "path": "assets/plains_v5/interactive_atlas.png",
+      "exists": true,
+      "sha256": "36d0e70f4b965e519caab3a2a4e7e3ff88b8c434f1978ca28f11ef90632cea83",
+      "bytes": 2941000,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/plains_v6/cohesion_atlas.png",
+      "exists": true,
+      "sha256": "7e4b9ad7eb31cb9aa56832c65a9ae7573c277836adf0d3bfed58e8f6f2156eeb",
+      "bytes": 2494377,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/underworld_plains/actors/bell.png",
+      "exists": true,
+      "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2",
+      "bytes": 2520,
+      "size": [
+        28,
+        48
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/rootbell_guardian_v1.png",
+      "exists": true,
+      "sha256": "eaa19f7639019e9abc7aff668eb9f57394c000f5c1498088079b798e5bf8602c",
+      "bytes": 1091,
+      "size": [
+        36,
+        48
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/thorn_queen_v1.png",
+      "exists": true,
+      "sha256": "38b02f6931302f78a7a621492aacdf1d3c8e7ac372d140ba4b26112849a386af",
+      "bytes": 684,
+      "size": [
+        36,
+        34
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/native_guardian_v1/guardian.native.png",
+      "exists": true,
+      "sha256": "eaa19f7639019e9abc7aff668eb9f57394c000f5c1498088079b798e5bf8602c",
+      "bytes": 1091,
+      "size": [
+        36,
+        48
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/native_queen_v1/queen.native.png",
+      "exists": true,
+      "sha256": "38b02f6931302f78a7a621492aacdf1d3c8e7ac372d140ba4b26112849a386af",
+      "bytes": 684,
+      "size": [
+        36,
+        34
+      ],
+      "mode": "RGBA"
+    }
+  ],
+  "global_unknowns": [
+    "未找到8个各自独立且包含轮廓/转面/结构拆件/动作分镜/特效时点/音频明细的完整专用美术制作包。",
+    "历史叙事提案和现有实际Boss身份存在不同命名层；已逐项标注，未据此创建新物种。",
+    "资产登记中的unverified/limited_preview/runtime_candidate是文件原字段；本审计不授予或撤销准入。"
+  ],
+  "root_crosscheck_audio_scope": {
+    "scope": "Source files and selected configuration exist; do not infer current default playback from prior shared-cue+user-selection wording.",
+    "selected_setup_search": "HEAD production sources: GameAudio method plus dev/audio_director_reels only; no current production installer located in inspected tree; runtime dynamic injection not newly tested.",
+    "death_burst_setup_search": "HEAD scripts/scenes/resources references found only in EnemyFeedback01DeathAudio itself; no external production configure caller located.",
+    "details": "shared-feedback-audio.md"
+  }
+}

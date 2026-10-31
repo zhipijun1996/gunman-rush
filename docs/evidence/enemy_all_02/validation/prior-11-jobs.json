@@ -1,0 +1,167 @@
+{
+  "source": {
+    "working_files": {},
+    "commit": "b71a87864d3843f8d4e898046224778890349dac",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "checks": [
+    {
+      "id": "terrain-family",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "terrain-family-tests",
+        "--release",
+        "--jobs",
+        "1"
+      ],
+      "exit_code": 0,
+      "seconds": 48.97184229300001
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "core",
+        "--release",
+        "--jobs",
+        "1"
+      ],
+      "exit_code": 0,
+      "seconds": 40.13030820900167
+    },
+    {
+      "id": "enemy-feedback-native",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-native"
+      ],
+      "exit_code": 0,
+      "seconds": 9.92948090199934
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "exit_code": 0,
+      "seconds": 16.824362585999552
+    },
+    {
+      "id": "enemy-feedback-support",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-support"
+      ],
+      "exit_code": 0,
+      "seconds": 9.831449400000565
+    },
+    {
+      "id": "enemy-corpse-save",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-save"
+      ],
+      "exit_code": 0,
+      "seconds": 17.110898041999462
+    },
+    {
+      "id": "enemy-corpse-snapshot",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "exit_code": 0,
+      "seconds": 9.552105566999671
+    },
+    {
+      "id": "plains-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_plains_lifecycle.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.7649571410001954
+    },
+    {
+      "id": "forest-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_motion_lifecycle.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.7769019150000531
+    },
+    {
+      "id": "boss-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_boss_motion_lifecycle.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.851015283000379
+    },
+    {
+      "id": "hit-template",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_hit_template_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2312153029997717
+    }
+  ]
+}

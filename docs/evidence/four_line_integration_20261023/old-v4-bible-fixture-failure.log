@@ -1,0 +1,50 @@
+F...............F........E......
+======================================================================
+ERROR: test_shared_reference_or_quote_drift_blocks_calls_and_restore (__main__.BibleTests.test_shared_reference_or_quote_drift_blocks_calls_and_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/integration-four/tests/test_region_bible.py", line 211, in test_shared_reference_or_quote_drift_blocks_calls_and_restore
+    path=self.root/name;raw=path.read_bytes();path.write_bytes(raw+b'changed')
+                            ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpq6bivg1v/scripts/underworld_plains/underworld_terrain.gdshader'
+
+======================================================================
+FAIL: test_actual_player_body_closure_is_required_and_superseded_binding_refused (__main__.BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/integration-four/tests/test_region_bible.py", line 235, in test_actual_player_body_closure_is_required_and_superseded_binding_refused
+    self.assertEqual(style['content']['version'],'4')
+AssertionError: '7' != '4'
+- 7
++ 4
+
+
+======================================================================
+FAIL: test_latest_shared_style_quotes_and_actual_family_bind_all_region_production (__main__.BibleTests.test_latest_shared_style_quotes_and_actual_family_bind_all_region_production)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/integration-four/tests/test_region_bible.py", line 171, in test_latest_shared_style_quotes_and_actual_family_bind_all_region_production
+    self.assertEqual([data['runtime_reference'][k] for k in ('tile_px','world_tile_wu')],[16,32])
+AssertionError: Lists differ: [32, 32] != [16, 32]
+
+First differing element 0:
+32
+16
+
+- [32, 32]
+?  ^^
+
++ [16, 32]
+?  ^^
+
+
+----------------------------------------------------------------------
+Ran 32 tests in 1.635s
+
+FAILED (failures=2, errors=1)

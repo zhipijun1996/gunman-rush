@@ -190,8 +190,11 @@ func _process(delta: float) -> void:
 	if combat_bar!=null:
 		combat_bar.visible=is_instance_valid(_actor);combat_label.visible=combat_bar.visible
 		if combat_bar.visible:
-			combat_bar.max_value=_actor.combat_energy.definition.capacity;combat_bar.value=_actor.combat_energy.current
-			combat_label.text="共鸣 %.0f/%.0f" % [_actor.combat_energy.current,_actor.combat_energy.definition.capacity]
+			combat_bar.max_value=_actor.combat_energy.capacity();combat_bar.value=_actor.combat_energy.current
+			combat_label.text="共鸣 %.0f/%.0f" % [_actor.combat_energy.current,_actor.combat_energy.capacity()]
+			if _actor.item_runtime != null:
+				var barrier := int(_actor.item_runtime.call("barrier_count"))
+				if barrier > 0: combat_label.text += " · 盾%s" % barrier
 	_shot_hint = maxf(0, _shot_hint - delta)
 	_energy_hint=maxf(0,_energy_hint-delta)
 	_recovery_glow=maxf(0,_recovery_glow-delta)
@@ -214,6 +217,8 @@ func _process(delta: float) -> void:
 		stamina_label.text = "ENERGY %.0f/%.0f" % [_resources.stamina.current, _resources.stamina.capacity]
 		if _energy_hint > 0: stamina_label.text = "LAND TO RECOVER"
 		_shots_label.text = "JUMP %d/%d   SHOTS %d/%d" % [maxi(0, _actor.motor.tuning.max_jumps - _actor.jump_ability.used_jumps), _actor.motor.tuning.max_jumps, _actor.action_resources.shot_charges, _actor.motor.tuning.max_air_shots]
+	if is_instance_valid(_actor) and _actor.shot_energy != null and not _actor.shot_energy.definition.shooting_consumes_energy:
+		stamina_label.text = "时间能量 %.0f/%.0f" % [_resources.stamina.current, _resources.stamina.capacity]
 
 func _exit_tree() -> void:
 	unbind()

@@ -1,0 +1,443 @@
+#!/usr/bin/env python3
+"""Stage one immutable plains motion/impact/loot movie as seven review versions.
+
+Default is local preparation outside the Site. No API, DB, credential, deployment
+or Git write occurs. --apply-to-opened-site is an explicit owner-only final copy
+gate after the owner has used the native Sites source-opening workflow.
+"""
+from __future__ import annotations
+
+import argparse
+import copy
+from fractions import Fraction
+import hashlib
+import json
+import math
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import tempfile
+
+GAME = Path('/workspace/gunman-rush')
+SITE = Path('/workspace/sites/monster-workshop')
+PROJECT = 'appgprj_6ae33e53ec308191a0198fbda47d2df0'
+BEHAVIORS = ('patrol', 'charger', 'diver', 'hopper', 'sentry', 'fan_sentry', 'root_bell')
+SPECIES = ('patrol_drone', 'plains_charger', 'plains_diver', 'plains_hopper',
+           'plains_sentry', 'plains_fan_sentry', 'plains_root_bell')
+IDS = dict(zip(BEHAVIORS, SPECIES))
+# The actual registry patrol definition retains its historical graybox stable ID.
+CAPTURE_SPECIES = ('graybox_patrol_drone', *SPECIES[1:])
+OLD_BANNER = '本轮更新：平原七怪的动作与像素粒度。森林、首领及候选条目保留上轮实录。'
+NEW_BANNER = '本轮更新：平原七怪的身体动作、受伤、死亡与掉落拾取。森林、首领及候选条目保留上轮实录。'
+
+
+def require(ok, reason):
+    if not ok:
+        raise ValueError(reason)
+
+
+def sha(path):
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def read(path):
+    return json.loads(Path(path).read_text())
+
+
+def write(path, value):
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+
+
+def finite(value):
+    return type(value) in (int, float) and math.isfinite(value)
+
+
+def integer(value):
+    return type(value) is int and value >= 0
+
+
+def commit(value):
+    require(isinstance(value, str) and re.fullmatch('[0-9a-f]{40}', value),
+            'Exact40-character Git commit required')
+    subprocess.run(['git', '-C', str(GAME), 'cat-file', '-e', value + '^{commit}'],
+                   check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+
+
+def catalog_counts(catalog):
+    require(catalog.get('schema_version') == 1 and len(catalog.get('monsters', [])) == 25,
+            'Expected exact retained25-monster catalog')
+    monster_ids, variant_ids, revisions, media = set(), set(), set(), {}
+    for monster in catalog['monsters']:
+        require(monster['id'] not in monster_ids, 'Duplicate monster ID')
+        monster_ids.add(monster['id'])
+        require(any(v.get('is_current') is True for v in monster['variants']),
+                'Every monster requires a current version')
+        for v in monster['variants']:
+            require(v['id'] not in variant_ids and v['revision'] not in revisions,
+                    'Duplicate immutable variant/revision')
+            variant_ids.add(v['id']); revisions.add(v['revision'])
+            require(v['video_url'] == '/media/' + v['media_id'], 'Wrong proxy mapping')
+            identity = [v['source_video_url'], v['media_sha256'], v['duration']]
+            require(v['media_id'] not in media or media[v['media_id']] == identity,
+                    'Ambiguous media identity')
+            media[v['media_id']] = identity
+            require(all(finite(v[k]) for k in ('in', 'out', 'duration')) and
+                    0 <= v['in'] < v['out'] <= v['duration'] + 1 / 60,
+                    'Invalid original movie interval')
+            actions = set()
+            for action in v['actions']:
+                require(action['id'] not in actions, 'Duplicate action ID')
+                actions.add(action['id'])
+                require(action['status'] in ('recorded', 'missing', 'not_applicable'),
+                        'Unknown action recording status')
+                if action['status'] == 'recorded':
+                    require(finite(action['start']) and finite(action['end']) and
+                            v['in'] <= action['start'] < action['end'] <= v['out'],
+                            'Action escaped its exact original chapter')
+                else:
+                    require(action.get('start') is None and action.get('end') is None,
+                            'Missing/not-applicable action cannot have fake times')
+    require(set(SPECIES) <= monster_ids, 'Existing plains IDs missing')
+    return {'monsters': len(monster_ids), 'variants': len(variant_ids), 'media': len(media)}
+
+
+def probe(movie):
+    data = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams',
+                                               '-show_format', '-of', 'json', str(movie)], timeout=30))
+    video = next(s for s in data['streams'] if s['codec_type'] == 'video')
+    audio = next(s for s in data['streams'] if s['codec_type'] == 'audio')
+    duration, frames = float(data['format']['duration']), int(video['nb_frames'])
+    require(Fraction(video['avg_frame_rate']) == 60 and duration > 0 and
+            (video['width'], video['height'], audio['sample_rate'], audio['channels']) ==
+            (1280, 720, '48000', 2) and abs(frames / 60 - duration) <= 1 / 60 + 1e-6,
+            'Original normal-speed1280x720/60fps/stereo movie required')
+    return {'duration': duration, 'frames': frames, 'fps': 60}
+
+
+def media_identity(args):
+    for value in (args.game_commit, args.media_commit):
+        commit(value)
+    rel = Path(args.media_path)
+    require(not rel.is_absolute() and '..' not in rel.parts and
+            args.media_path.startswith('docs/evidence/') and rel.suffix == '.mp4',
+            'Unsafe repository MP4 path')
+    process = subprocess.Popen(['git', '-C', str(GAME), 'show', args.media_commit + ':' + args.media_path],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    digest, size = hashlib.sha256(), 0
+    while chunk := process.stdout.read(1024 * 1024):
+        digest.update(chunk); size += len(chunk)
+    error = process.stderr.read()
+    require(process.wait(timeout=30) == 0, 'Media absent from exact publication commit: ' + error.decode()[:100])
+    require(size == args.movie.stat().st_size and digest.hexdigest() == sha(args.movie),
+            'Published Git blob differs from local original movie')
+    result = probe(args.movie)
+    result.update(game_commit=args.game_commit, media_commit=args.media_commit,
+                  media_sha256=sha(args.movie), media_id='plains-motion-loot-' + sha(args.movie)[:12],
+                  source_video_url='https://raw.githubusercontent.com/zhipijun1996/gunman-rush/' +
+                  args.media_commit + '/' + args.media_path)
+    result['video_url'] = '/media/' + result['media_id']
+    return result
+
+
+def validate_capture(report, trace, args, info):
+    require(report.get('status') == 'recorded_complete_coverage' and
+            report.get('source_stable') is True and report.get('whole_roster') is True and
+            report.get('selected_behaviors') == list(BEHAVIORS), 'Complete seven-chapter wrapper report required')
+    source = report.get('source', {})
+    require(source.get('commit') == args.game_commit and not source.get('git_status') and
+            not source.get('working_files') and not source.get('untracked') and
+            source == report.get('source_after') and
+            report.get('source_files_before') == report.get('source_files_after'),
+            'Clean unchanged original recording source required')
+    execution = report.get('execution', {})
+    require(execution.get('status') == 'passed' and execution.get('exit_code') == 0 and
+            execution.get('failure_reason') is None, 'Original engine execution failed')
+    require(report.get('mp4_sha256') == sha(args.movie) and
+            report.get('trace_sha256') == sha(args.trace), 'Original wrapper MP4/trace SHA mismatch')
+    require(trace.get('task') == 'PLAINS-MOTION-LOOT-02' and
+            trace.get('kind') == 'actual_App_staged_review' and trace.get('complete') is True and
+            trace.get('whole_roster') is True and trace.get('selected_behaviors') == list(BEHAVIORS) and
+            trace.get('source_stable') is True and trace.get('failures') == [] and
+            trace.get('coverage_gap_count') == 0, 'Complete disclosed actual-App trace required')
+    require(trace.get('source_before') == trace.get('source_after') and
+            isinstance(trace.get('source_before'), dict) and
+            trace['source_before'] and 'missing' not in trace['source_before'].values(),
+            'Trace runtime-source inventory changed or lacks input')
+    before = trace.get('git_before', {})
+    require(before == trace.get('git_after') and before.get('head') == args.game_commit and
+            before.get('status') == '' and before.get('head_exit_code') == 0 and
+            before.get('status_exit_code') == 0, 'Trace source commit/cleanliness mismatch')
+    rows, cases = trace.get('frames', []), trace.get('cases', [])
+    require(isinstance(rows, list) and rows and all(isinstance(r, dict) for r in rows) and
+            [r.get('frame') for r in rows] == list(range(1, len(rows) + 1)),
+            'Original active-frame ledger is not continuous')
+    require(len(cases) == 7 and [c.get('behavior') for c in cases] == list(BEHAVIORS) and
+            [c.get('id') for c in cases] == list(CAPTURE_SPECIES) and
+            [c.get('case') for c in cases] == list(range(7)), 'Exact seven original chapters required')
+    require(trace.get('actual_heal_observed') is True and trace.get('root_7_equals_5_1_1') is True,
+            'Actual healing and7=5+1+1 proof required')
+    require(isinstance(trace.get('audio_teardown'), list) and len(trace['audio_teardown']) == 7 and
+            all(r.get('released') is True for r in trace['audio_teardown']), 'Actual per-chapter release required')
+    for c in cases:
+        require(c.get('coverage_gaps') == [] and c.get('original_manifest_unchanged') is True and
+                isinstance(c.get('coverage'), dict) and c['coverage'] and
+                all(value is True for value in c['coverage'].values()), 'Missing chapter gameplay coverage')
+        require(type(c.get('configured_coin_total')) is int and c['configured_coin_total'] > 0 and
+                type(c.get('actual_wallet_delta')) is int and
+                c['configured_coin_total'] == c['actual_wallet_delta'], 'Configured/actual coin total mismatch')
+        events = c.get('events', [])
+        require(any(e.get('terminal') is False and finite(e.get('amount')) and e['amount'] < 0 for e in events) and
+                sum(e.get('terminal') is True for e in events) == 1 and c.get('deaths') == 1 and
+                c.get('shots') and c.get('inputs'), 'Actual nonlethal/single lethal/Router evidence missing')
+        coins = [u for u in c.get('final_units', []) if u.get('kind') == 'coin']
+        require(coins and all(type(u.get('amount')) is int and u['amount'] in (1, 5) for u in coins) and
+                sum(u['amount'] for u in coins) == c['configured_coin_total'] and
+                all(u.get('claimed') is True for u in c.get('final_units', [])), 'Physical denominations/claim total mismatch')
+        if c['behavior'] == 'root_bell':
+            require([u['amount'] for u in coins] == [5, 1, 1], 'Root exact denomination proof differs')
+        require(finite(c.get('start_seconds')) and finite(c.get('end_seconds')) and
+                0 <= c['start_seconds'] < c['end_seconds'] <= info['duration'] + 1 / 60,
+                'Chapter outside original movie')
+    return cases, rows
+
+
+def drawn_time(row):
+    frame = row.get('rendered_movie_process_frame')
+    require(integer(frame) and row.get('sampling_phase') ==
+            'read-only frame_post_draw confirms preceding process sample',
+            'Actual postdraw movie timestamp required')
+    return frame / 60
+
+
+def segment(rows, predicate):
+    selected = [r for r in rows if predicate(r)]
+    return (drawn_time(selected[0]), drawn_time(selected[-1]) + 1 / 60) if selected else None
+
+
+def action(key, label, bounds, interval=None, note='', na=False):
+    clipped = (max(bounds[0], interval[0]), min(bounds[1], interval[1])) if interval else None
+    if clipped and clipped[0] >= clipped[1]:
+        clipped = None
+    return {'id': key, 'label': label,
+            'status': 'not_applicable' if na else 'recorded' if clipped else 'missing',
+            'start': clipped[0] if clipped and not na else None,
+            'end': clipped[1] if clipped and not na else None,
+            'note': note}
+
+
+def make_actions(case, rows, bounds):
+    hit = next(e for e in case['events'] if e.get('terminal') is False and e.get('amount', 0) < 0)
+    lethal = next(e for e in case['events'] if e.get('terminal') is True)
+    post_hit = next((r for r in rows if r['frame'] >= hit['frame'] and r.get('HP', 0) > 0), None)
+    post_lethal = next((r for r in rows if r['frame'] >= lethal['frame'] and r.get('HP', 1) <= 0), None)
+    require(post_hit is not None and post_lethal is not None, 'Accepted events lack actual following draw')
+    death_start = drawn_time(post_lethal)
+    hurt = (drawn_time(post_hit), min(death_start, drawn_time(post_hit) + .4))
+    alive = [r for r in rows if r.get('HP', 0) > 0]
+    coin_changes, previous = [], 0
+    for row in rows:
+        total = row.get('collected_coin_total', 0)
+        require(type(total) is int and total >= previous, 'Coin collection ledger regressed')
+        if total > previous:
+            coin_changes.append(row)
+        previous = total
+    coin_range = (drawn_time(coin_changes[0]), drawn_time(coin_changes[-1]) + .3) if coin_changes else None
+    heal_events = [e for e in case.get('player_events', []) if finite(e.get('amount')) and e['amount'] > 0 and e.get('movie_frame')]
+    heart_rows = [r for r in rows if any(u.get('kind') == 'heart' for u in r.get('units', []))]
+    heal_range = (heal_events[0]['movie_frame'] / 60, heal_events[-1]['movie_frame'] / 60 + .4) if heal_events and heart_rows else None
+    stationary = case['behavior'] in ('sentry', 'root_bell')
+    note = '真实接收非致死事件后的0.4秒观察窗；身体与听感供审核，不把窗口末尾当成已证明的受伤退出时刻。'
+    return [
+        action('idle_body', '待机／呼吸', bounds, segment(alive, lambda r: r.get('idle_hold') is True),
+               '初始0.8秒明确暂停Actor位移，身体时钟继续；这是观察展位，不是自然遭遇。'),
+        action('locomotion', '移动／整体跟随', bounds,
+               segment(alive, lambda r: r.get('AI_enabled') is True and finite(r.get('drive')) and r['drive'] > .15),
+               '扎根／定点物种不要求平移；身体、喷口、茎叶弹性可在待机和死亡片段审看。' if stationary else
+               '真实Factory AI启用后的位移驱动窗口；身体承重、飞行滞后与转身供正常速度审核。', na=stationary),
+        action('nonlethal_hurt', '普通受伤', bounds, hurt, note),
+        action('hurt_recovery', '受伤恢复时刻', bounds, None,
+               '本trace未独立记录hurt_remaining归零时刻，不由固定延时伪签恢复边界；可对连续原片提意见。'),
+        action('death', '致死反馈／死亡动作', bounds, (death_start, bounds[1]),
+               '一次真实致死提交后的完整本章余段；材质起音、落位、局部停格和终态供审核，不由账本代签动作质量。'),
+        action('loot_ejection', '金币／奖励喷出', bounds,
+               segment(rows, lambda r: any(not u.get('claimed') and u.get('bounces') == 0 and not u.get('settled') for u in r.get('units', []))),
+               '实际物理unit出现后的未弹跳窗口；每个金额单位保留原稳定ID。'),
+        action('loot_bounce', '落地／弹跳／停稳', bounds,
+               segment(rows, lambda r: any(not u.get('claimed') and int(u.get('bounces', 0)) > 0 for u in r.get('units', []))),
+               '实际unit弹跳计数后的未拾取窗口；支撑与重量感由画面复审。'),
+        action('coin_collection', '金币收取／金额', bounds, coin_range,
+               '实际claimed金额单调增加并与App钱包增量、配置总额相等；本段不自动认可经济平衡。'),
+        action('heal_ejection', '生命球喷出', bounds,
+               segment(heart_rows, lambda r: any(u.get('kind') == 'heart' and not u.get('claimed') for u in r.get('units', []))),
+               '概率回血只标本章实际出现的球；本章未触发则保留待观察。'),
+        action('heal_collection', '生命球收取／实际回血', bounds, heal_range,
+               '真实生命球unit与玩家正HP接受事件同章；root章明示一次初始受伤fixture，不是自然损血取得。'),
+        action('note_drop', '概率音符掉落', bounds,
+               segment(rows, lambda r: any(u.get('kind') == 'note' for u in r.get('units', []))),
+               '只标本章实际出现的音符；没有触发不等于实现不存在，也不伪签已录到。')]
+
+
+def variants_from_trace(cases, all_rows, info):
+    variants, selections, proofs = {}, [], []
+    previous_end = -1.0
+    for c in cases:
+        raw = [r for r in all_rows if r.get('case') == c['case']]
+        rows = [r for r in raw if 'rendered_movie_process_frame' in r]
+        require(rows, 'Chapter lacks actual drawn observations')
+        times = [drawn_time(r) for r in rows]
+        require(times == sorted(times) and len(set(times)) == len(times), 'Repeated/reversed movie postdraw frames')
+        bounds = (max(c['start_seconds'], times[0]), min(c['end_seconds'], times[-1] + 1 / 60, info['duration']))
+        require(0 <= bounds[0] < bounds[1] and bounds[0] >= previous_end - 1 / 60,
+                'Overlapping or empty original chapter')
+        previous_end = bounds[1]
+        variant_id = f"{c['id']}-motion-loot-{info['game_commit'][:12]}-{info['media_sha256'][:12]}-{c['case']}"
+        context = ('本轮身体／受伤／死亡／掉落候选，待用户审片。原DemoApp平原地形，七个Factory样本替换原遇敌和拾取物；'
+                   '初始0.8秒固定Actor移动供待机观察，随后真实AI、InputRouter和弹体；不是自然完整路线。'
+                   'root章预选真实概率结果并明示一次初始伤害请求，实际回血仍由App收取。原引擎音轨未替换；'
+                   '此录片不自动通过整怪视觉、听感、设备或经济平衡。')
+        actions = make_actions(c, rows, bounds)
+        require(all(next(a for a in actions if a['id'] == k)['status'] == 'recorded'
+                    for k in ('idle_body', 'nonlethal_hurt', 'death', 'loot_ejection', 'loot_bounce', 'coin_collection')),
+                'A required visible event window was not observed')
+        v = dict(id=variant_id, label='当前候选 · 身体／受伤／死亡与掉落',
+                 revision=f"{info['game_commit']}:{info['media_sha256']}:motion_loot_case={c['case']}:entry={c['id']}",
+                 game_commit=info['game_commit'], is_current=True, review_status='review',
+                 capture_status='recorded', media_id=info['media_id'], media_sha256=info['media_sha256'],
+                 source_video_url=info['source_video_url'], video_url=info['video_url'],
+                 poster_url='/posters/' + variant_id + '.jpg',
+                 **{'in': bounds[0], 'out': bounds[1]}, duration=info['duration'], fps=60,
+                 context=context, actions=actions)
+        variants[IDS[c['behavior']]] = v
+        poster_row = next(r for r in rows if bounds[0] <= drawn_time(r) < bounds[1])
+        frame = int(poster_row['rendered_movie_process_frame'])
+        require(0 <= frame < info['frames'], 'Poster frame outside original decoded movie')
+        selections.append({'variant': variant_id, 'frame': frame})
+        proofs.append({'case': c['case'], 'monster_id': IDS[c['behavior']], 'recorded_monster_id': c['id'], 'original_start_seconds': c['start_seconds'],
+                       'original_end_seconds': c['end_seconds'], 'playable_in': bounds[0], 'playable_out': bounds[1],
+                       'omitted_unconfirmed_observations': len(raw) - len(rows),
+                       'configured_coin_total': c['configured_coin_total'], 'actual_wallet_delta': c['actual_wallet_delta'],
+                       'actions_recorded': [a['id'] for a in actions if a['status'] == 'recorded'],
+                       'actions_missing': [a['id'] for a in actions if a['status'] == 'missing']})
+    return variants, selections, proofs
+
+
+def merge_catalog(original, variants, game_commit):
+    require(catalog_counts(original) == {'monsters': 25, 'variants': 88, 'media': 14},
+            'Expected reviewed original25/88/14 catalog; refuse changed baseline or duplicate update')
+    updated = copy.deepcopy(original)
+    old_by_id = {v['id']: v for m in original['monsters'] for v in m['variants']}
+    require(set(variants) == set(SPECIES), 'Exact same seven monster IDs required')
+    require(not set(old_by_id).intersection(v['id'] for v in variants.values()), 'Immutable version already exists')
+    for m in updated['monsters']:
+        if m['id'] not in SPECIES:
+            continue
+        for v in m['variants']:
+            if v.get('is_current'):
+                v['is_current'] = False
+                v['label'] = v['label'].replace('当前', '历史 ' + v['game_commit'][:8], 1)
+        m['variants'].insert(0, variants[m['id']])
+    updated['game_commit'] = game_commit
+    after = {v['id']: v for m in updated['monsters'] for v in m['variants']}
+    strip = lambda v: {k: x for k, x in v.items() if k not in ('is_current', 'label')}
+    require(all(key in after and strip(before) == strip(after[key]) for key, before in old_by_id.items()),
+            'Existing ID/revision/actions/media provenance would change')
+    require([m for m in original['monsters'] if m['id'] not in SPECIES] ==
+            [m for m in updated['monsters'] if m['id'] not in SPECIES], 'Other18 creature records changed')
+    require(catalog_counts(updated) == {'monsters': 25, 'variants': 95, 'media': 15}, 'Unexpected new catalog counts')
+    return updated
+
+
+def posters(movie, selections, folder):
+    folder.mkdir()
+    frames = sorted({r['frame'] for r in selections})
+    with tempfile.TemporaryDirectory(prefix='plains-motion-loot-posters-') as temporary:
+        expression = '+'.join('eq(n\\,' + str(frame) + ')' for frame in frames)
+        pattern = Path(temporary) / 'frame-%04d.jpg'
+        subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(movie),
+                        '-vf', 'select=' + expression, '-vsync', '0', '-frames:v', str(len(frames)),
+                        '-q:v', '3', str(pattern)], check=True, timeout=180,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        extracted = sorted(Path(temporary).glob('frame-*.jpg'))
+        require(len(extracted) == len(frames), 'Could not decode every actual original poster frame')
+        index = dict(zip(frames, extracted)); result = []
+        for item in selections:
+            out = folder / (item['variant'] + '.jpg'); shutil.copyfile(index[item['frame']], out)
+            result.append({**item, 'path': str(out), 'sha256': sha(out),
+                           'processing': 'One actual decoded original movie frame, JPEG only; no crop/resize/composite'})
+    return result
+
+
+def apply_to_opened_site(site, prepared, source_catalog, opened_source_commit):
+    require(re.fullmatch('[0-9a-f]{40}', opened_source_commit or ''),
+            'Owner must supply exact opened Site source commit after native opening')
+    actual = subprocess.check_output(['git', '-C', str(site), 'rev-parse', 'HEAD'], text=True).strip()
+    require(actual == opened_source_commit and not subprocess.check_output(
+        ['git', '-C', str(site), 'status', '--porcelain'], text=True), 'Opened Site is no longer the unchanged clean source')
+    require(read(site / '.openai/hosting.json').get('project_id') == PROJECT, 'Wrong existing Site identity')
+    require(sha(site / 'data/catalog.json') == sha(source_catalog), 'Live checkout catalog changed since preparation')
+    ui = site / 'ui/index.html'; text = ui.read_text()
+    require(text.count(OLD_BANNER) == 1, 'Scope banner changed; refuse broad page replacement')
+    planned_posters = list((prepared / 'posters').iterdir())
+    require(len(planned_posters) == 7 and all(p.is_file() for p in planned_posters),
+            'Exact seven staged original-frame posters required')
+    require(all(not (site / 'data/posters' / p.name).exists() for p in planned_posters),
+            'Poster identity would be overwritten')
+    # Complete validations precede these three bounded data/banner writes.
+    shutil.copyfile(prepared / 'catalog.json', site / 'data/catalog.json')
+    for p in planned_posters:
+        shutil.copyfile(p, site / 'data/posters' / p.name)
+    ui.write_text(text.replace(OLD_BANNER, NEW_BANNER))
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--movie', type=Path, required=True); p.add_argument('--trace', type=Path, required=True)
+    p.add_argument('--report', type=Path); p.add_argument('--game-commit', required=True)
+    p.add_argument('--media-commit', required=True); p.add_argument('--media-path', required=True)
+    p.add_argument('--source-catalog', type=Path, default=SITE / 'data/catalog.json')
+    p.add_argument('--output-dir', type=Path, required=True)
+    p.add_argument('--site-root', type=Path, default=SITE)
+    p.add_argument('--apply-to-opened-site', action='store_true')
+    p.add_argument('--opened-source-commit')
+    args = p.parse_args()
+    out, site = args.output_dir.resolve(), args.site_root.resolve()
+    require(not out.is_relative_to(site), 'Preparation output must stay outside the Site checkout')
+    require(not out.exists(), 'Choose a new output directory; never overwrite prior evidence')
+    require(args.source_catalog.resolve() != out / 'catalog.json', 'Source catalog must be read-only')
+    info = media_identity(args)
+    report_path = args.report or args.trace.with_name('report.json')
+    cases, rows = validate_capture(read(report_path), read(args.trace), args, info)
+    variants, selections, cases_proof = variants_from_trace(cases, rows, info)
+    original = read(args.source_catalog)
+    updated = merge_catalog(original, variants, args.game_commit)
+    out.mkdir(parents=True)
+    write(out / 'catalog.json', updated)
+    poster_proof = posters(args.movie, selections, out / 'posters')
+    # Exercise the existing Site's exact catalog validator without touching Site source.
+    js = "import fs from 'node:fs';import{pathToFileURL}from'node:url';const{validateCatalog}=await import(pathToFileURL(process.argv[2]));console.log(JSON.stringify(validateCatalog(JSON.parse(fs.readFileSync(process.argv[1],'utf8')))));"
+    validation = subprocess.check_output(['node', '--input-type=module', '-e', js,
+                                          str(out / 'catalog.json'), str(site / 'worker/index.js')], text=True)
+    audit = {'task': 'PLAINS-MOTION-LOOT-02', 'scope': 'Catalog/poster/banner data only; no API/DB/native/deployment/user acceptance claim',
+             'source_catalog_sha256': sha(args.source_catalog), 'output_catalog_sha256': sha(out / 'catalog.json'),
+             'trace_sha256': sha(args.trace), 'report_sha256': sha(report_path), 'media': info,
+             'original_variants_preserved': 88, 'new_variants': 7, 'new_media': 1,
+             'counts': catalog_counts(updated), 'existing_site_validator': json.loads(validation),
+             'cases': cases_proof, 'posters': poster_proof, 'production_database_accessed': False,
+             'api_or_schema_changed': False, 'applied_to_opened_site': False,
+             'limits': ['No GUI, listening, device, economic-balance or user acceptance inferred',
+                        'Hurt recovery moment remains missing without actual hurt_remaining trace',
+                        'Chance note/heal observations remain missing in chapters without actual units/events',
+                        'Disclosed seven-sample shore and initial movement/injury fixtures; not a natural route']}
+    write(out / 'audit.json', audit)
+    if args.apply_to_opened_site:
+        apply_to_opened_site(site, out, args.source_catalog, args.opened_source_commit)
+        audit['applied_to_opened_site'] = True
+        write(out / 'audit.json', audit)
+    print(json.dumps({'status': 'prepared' if not args.apply_to_opened_site else 'applied_to_opened_source',
+                      'output_dir': str(out), **audit['counts'], 'database_accessed': False}, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    main()

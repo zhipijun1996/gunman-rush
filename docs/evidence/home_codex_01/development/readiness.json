@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "task": "HOME-CODEX-01 readiness only",
+  "status": "proposed_not_implemented",
+  "inspected_git_head": "0f25921dd41949f220999293013f065ce758189d",
+  "scope": {
+    "writes": "Only this ignored build/home_codex_01/readiness.json report",
+    "repository_files_changed": false,
+    "engine_or_tests_executed": false,
+    "implementation_start_gate": "Wait for root grant after CHEST-ART-01 is complete. Do not implement during chest work.",
+    "user_question_pending": "Obtained at least once before permanent unlock (recommended) versus unlock even before obtaining. No answer assumed."
+  },
+  "recommended_architecture": {
+    "database": "Existing ItemCatalogV5 + config/items_v5.json + config/item_v5_authoring.json already form a local read-only, versioned definition database. Cached JSON composes validated independent ItemDefinition Resources. No SQLite, external plugin, network service or second copy of Definitions is needed.",
+    "definition_owner": "ItemCatalogV5 owns current definition data, IDs, versions, fingerprint, levels, art keys and roles. Codex reads all_items once per refresh and builds an in-memory id index; avoid repeating disk-hash lookup per card.",
+    "profile_owner": "MetaProgression owns per-save discovered IDs, permanent unlock IDs, selected starting ID and notes ledger. Do not put progress in ItemCatalogV5 static caches, art resources, HomeScene or RunInventory.",
+    "run_owner": "RunInventory still owns transient instances and grant-source receipts; EquipmentService/BuildState still own equipment and effects. Home unlock/selection never grants core abilities or auto-equips an item.",
+    "ui_owner": "Use one small HomeItemCodexPresenter/view model for masked/discovered rows and session-scoped requests, attached by DemoApp. DemoMenu renders requests only; do not introduce a generic event bus or new permanent wallet.",
+    "policy_data": "One proposed config/home_item_unlocks.json keyed by definition ID declares positive integer unlock_notes, unlock_enabled and starter_enabled, policy version, and the answered discovery prerequisite. Missing policy row is unavailable with an explicit reason, never a free-code-default unlock. Prices are adjustable experiment data, not a new economy balance claim."
+  },
+  "existing_interfaces": [
+    {
+      "path": "scripts/items/v5/item_catalog_v5.gd",
+      "symbols": [
+        "all_items",
+        "get_item",
+        "compose_catalog",
+        "from_payload"
+      ],
+      "finding": "Independent Definitions, data authoring, disabled appearance_weight=0 and retained canonical definitions already support read-only database lookup. No meta ownership fields exist here."
+    },
+    {
+      "path": "scripts/meta/meta_progression.gd",
+      "symbols": [
+        "grant_notes",
+        "purchase_upgrade",
+        "upgrade_quote",
+        "_transaction",
+        "_payload",
+        "_restore",
+        "_valid_payload",
+        "_commit",
+        "snapshot",
+        "new_run_receipt_prefix"
+      ],
+      "finding": "Current authoritative notes/upgrades/receipts/settlement owner. There is no standalone MetaState class in this path. _transaction currently treats every non-notes request as an upgrade: add explicit request kinds instead of smuggling item unlocks through upgrade IDs."
+    },
+    {
+      "path": "scripts/save/meta_save_service.gd",
+      "symbols": [
+        "configure",
+        "load_profile",
+        "commit",
+        "_decode",
+        "canonical_json"
+      ],
+      "finding": "Current schema2/content plains_meta_1, native user://plains_meta.json and Web gunman_rush.plains_meta.v2 key; profile_id is fixed local. Atomic native temp+readback+backup+rename and Web write/readback are reusable. Blocked/future saves must not be overwritten."
+    },
+    {
+      "path": "scripts/builds/run_inventory.gd",
+      "symbols": [
+        "add_item",
+        "source_receipt",
+        "instance_for_source",
+        "revision",
+        "_transaction_snapshot",
+        "_restore_transaction",
+        "clear"
+      ],
+      "finding": "New grants record source/definition/version/origin/fingerprint/level/upgraded; same source replays without revision increase. New growth source increments level on the same instance. changed is deferred presentation notification, not a committed ownership event."
+    },
+    {
+      "path": "scripts/builds/build_state.gd",
+      "symbols": [
+        "add_item",
+        "refresh_equipped"
+      ],
+      "finding": "Actual ownership boundary wraps inventory with a savepoint and rolls back if equipped effects cannot refresh. Discovery must occur only after the whole successful add/upgrade, not inside raw inventory.add_item before rollback can occur."
+    },
+    {
+      "path": "scripts/rewards/reward_service.gd",
+      "symbols": [
+        "claim",
+        "claimed"
+      ],
+      "finding": "Committed item reward source is reward:<offer.source_id>, origin reward; EconomyReceipt exposes item_id/instance_id/event_id. Replays return REPLAY before claimed is emitted."
+    },
+    {
+      "path": "scripts/shops/shop_service.gd",
+      "symbols": [
+        "purchase",
+        "purchased"
+      ],
+      "finding": "Committed purchase source is shop:<transaction_id>, origin shop; purse/stock rollback if build.add_item fails. Existing item purchase and reroll/repair receipt identities remain separate."
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "symbols": [
+        "start_plains",
+        "start_demo",
+        "_run_ended",
+        "_cleanup_run",
+        "_open_home_function",
+        "_close_home_panel",
+        "_purchase_meta_upgrade",
+        "_refresh_home_meta"
+      ],
+      "finding": "start_demo checks HOME then creates a new run prefix/actor/build/wallet/services and finally director.start. Cleanup clears run inventory and wallet only. Meta owner survives normal run end; existing permanent upgrade UI already spends through it."
+    }
+  ],
+  "proposed_profile_fields": {
+    "item_progress_version": 1,
+    "discovered_item_ids": [],
+    "unlocked_start_item_ids": [],
+    "selected_start_item_id": "",
+    "field_rules": [
+      "Store sorted unique stable-ID sets; do not save Definitions, icons, current item levels, effect_state, cooldowns or run receipts as permanent item ownership.",
+      "Discovery is a boolean set, not an acquisition counter. No per-acquisition discovery receipt growth.",
+      "Selected starting ID is zero or one string. Persisting the last choice is a reasonable candidate convenience, not a confirmed requirement.",
+      "Unlocked IDs and discovered IDs remain distinct. Do not infer discovery merely from unlocking; only actual successful acquisition reveals the item.",
+      "Do not enforce unlocked subset of discovered when loading old data: a later change of unlock policy must not erase legitimate historical unlocks. Apply the current discovered prerequisite to new purchases only.",
+      "Retain disabled/retired/orphan historical IDs without granting invalid content; current quotes/start validation reject missing or disabled definitions with a reason.",
+      "Per-save state belongs to the current MetaProgression/save adapter. Current product has one local profile per native path/browser origin, not a multi-slot UI. Native configurable profile paths can be tested independently; Web path strings alone do not isolate profiles because the current WEB_KEY is fixed. Do not claim multi-slot Web support."
+    ]
+  },
+  "save_evolution": {
+    "proposal": "Use an explicit schema3 migration for the current v2 profile, preserving notes, vitality upgrades, receipts, settlements and revision; add empty item-progress fields as defaults. Do not silently rely on optional unknown payload fields under schema2: older code would discard them on its next save.",
+    "storage_key": "Keep the current physical native path and Web storage key as stable storage locations for the local profile, or explicitly migrate them. Simply switching WEB_KEY to a fresh v3 key would make the existing save appear empty. Envelope version is the format boundary.",
+    "older_client_protection": "A v3 envelope at the existing key makes the current v2 loader reject future_schema before backup fallback/write, preserving the newer profile. Retain that guard and per-schema content/checksum rules.",
+    "current_history_recovery_candidate": "Validated existing settled[*].summary.items and last_summary.items may contain actual V5-owned IDs from prior ended runs. A pure migration may union only valid, evidenced item IDs into discovered (not unlock them). Do not infer from reward candidates, equipment capability declarations, or guess legacy-to-V5 ID aliases. Missing evidence stays unknown.",
+    "failure": "Invalid/malformed/future saves remain blocked/recoverable under existing semantics; never reset to a blank profile as a convenience. Tests must keep native backup/corrupt preservation and Web storage rejection behavior."
+  },
+  "proposed_methods": [
+    {
+      "owner": "MetaProgression",
+      "method": "record_discovered_item(item_id)",
+      "behavior": "Validated acquisition caller adds the ID to a set and commits once; known ID is an idempotent no-op. No unbounded discovery receipt ledger."
+    },
+    {
+      "owner": "MetaProgression",
+      "method": "item_unlock_quote(item_id)",
+      "behavior": "Return available/reason, positive notes price, policy/version fingerprint and profile revision, discovered/unlocked/current-content state. Disabled/missing/unpriced content is unavailable."
+    },
+    {
+      "owner": "MetaProgression",
+      "method": "purchase_item_unlock(item_id, transaction_id, expected_revision, quote_fingerprint)",
+      "behavior": "Explicit item_unlock transaction kind. Validate caller/session in App, request identity/replay, current quote and requirements, then deduct notes and add unlock in one detached candidate and one _commit. Save failure leaves both notes and unlock unchanged. Existing receipt ID+different request conflicts; exact replay never spends twice."
+    },
+    {
+      "owner": "MetaProgression",
+      "method": "select_start_item(item_id_or_empty, expected_revision)",
+      "behavior": "Validate unlocked/current/starter-enabled ID or explicit empty choice. Update only the selected field; no notes cost, no ownership grant, no ability/stat changes. Same selection is a no-op."
+    },
+    {
+      "owner": "DemoApp / small HomeItemCodexPresenter",
+      "method": "request guard",
+      "behavior": "Only current HOME, current Home instance, blocked Home walk input and current relics/departure-picker panel/session may submit. Closing, changing page, focus loss, entering a run or replacing Home invalidates session/old buttons. No reliance on run EquipmentService pause sessions while in Home."
+    }
+  ],
+  "discovery_trigger": {
+    "recommended": "Add a narrow committed ownership signal/result at BuildState.add_item after inventory add+equipped refresh succeeds, only when a new source changed inventory.revision. Emit an immutable source receipt. Alternatively use the committed reward/shop receipts plus an explicit Home starter grant callback, but do not fork the grant rules across every UI.",
+    "must_not_use": "RunInventory.changed alone: it is intentionally presentation-only, also fires for state changes, and can be queued before an owning transaction restores a savepoint. Do not count repair, equip, inventory load, open/view or source replay as obtaining.",
+    "app_validation": "Current run/build identity, actual source_receipt/item/instance match, origin and live ownership after full commit. Connect only the real formal save consumer; diagnostics/previews use isolated or memory-only profiles.",
+    "failure_ordering": "Run acquisition and disk-backed permanent discovery are separate resources. Candidate default: do not remove an already accepted run item when discovery persistence fails. Keep a bounded in-memory dirty discovered-ID set, retry with the next successful profile commit/Home entry, and expose unsaved status. Do not claim crash durability while storage rejects writes. Unlock/notes transactions remain all-or-none."
+  },
+  "starting_item_flow": {
+    "candidates_confirmed_by_root": [
+      "At most one selected unlocked item, Lv1, first enters this run backpack, never automatically equips.",
+      "Unlock once with permanent notes; future runs may select/reuse it without spending notes again.",
+      "Backpack capacity/load and present equipment prerequisites are not carry prerequisites. Applicable weapon/core restrictions may be described; real equipping still uses original equipment validation.",
+      "A permanent Home item unlock does not grant any core major ability.",
+      "Disabled content retains discovery/unlock history but blocks new unlocking/carry with a reason."
+    ],
+    "sequence": [
+      "While still in Home, validate selected ID and profile state before destroying Home. Freeze one current Definition snapshot plus policy fingerprint, or accept explicit none.",
+      "Create the fresh run namespace/actor/build/services using the existing start_demo path; validate inventory ownership only, not offer/equip suitability.",
+      "Grant exactly once with source <run_receipt_prefix>/home_starter/slot_0, origin home_starter, through BuildState.add_item. Fresh inventory makes its level1; do not copy last-run level/effect_state.",
+      "Record a versioned starting-loadout output in the run Manifest before first reward/shop pool generation. Include ID, level1, definition version/fingerprint and source receipt for reproducibility; this is not a mid-run save.",
+      "If start construction/director.start fails, clean up the new run attempt and return Home with selection/unlock/notes unchanged. A rejected attempt must not leave a partial actor or consumed permanent item.",
+      "Cross maps/regions/environment fallback keeps the same owned instance; do not grant in _load_stage, _stage_entered or return-to-home paths.",
+      "True run end clears transient inventory under existing cleanup. A later distinct run gets one fresh Lv1 instance with a distinct run prefix; the permanent unlock and chosen ID remain."
+    ],
+    "rejections": [
+      "Unknown/deleted item, disabled or starter-disabled content, missing policy/definition, not unlocked, wrong type, multiple IDs, level other than1, stale profile/quote/UI session, non-Home entry or terminal/pending invalid run context.",
+      "Do not use ItemV5Eligibility.offer_reason as a starter-carry filter; it enforces weapon/grapple/random-offer rules that are not backpack ownership requirements.",
+      "If a previously selected ID becomes disabled or unavailable, show a clear reason and let the user clear/change it; do not silently replace it or charge again."
+    ]
+  },
+  "real_home_entry": {
+    "slot": "relics",
+    "position": [
+      1550,
+      240
+    ],
+    "current_state": {
+      "label": "遗物鉴定",
+      "active": false,
+      "building": "shelter",
+      "keeper": "",
+      "building_height": 62
+    },
+    "activation_proposal": "After chest work, activate the existing relics slot without moving platforms/physics. An existing archivist keeper asset can serve this function; final naming/art is separate. Add HomeScene.FUNCTION_NAMES entry before making the slot active, so the grounded interaction prompt has a valid label.",
+    "route": "Actual Home walking/jumping to the existing tier -> nearest_candidate current90/115x hysteresis and32wu vertical gate -> W/left-stick-up/INTERACT -> HomeScene.requested_interaction(relics) -> DemoApp._open_home_function -> DemoMenu.show_home_panel(relics).",
+    "do_not_repurpose": "Keep the active achievements / 钟之档案 placeholder independent. It is at x920/y240 and has its own function ID; relics is the actual reserved location matching this request.",
+    "menu": "One responsive scroll grid with unknown question-mark rows and discovered cards using current ItemPresentation/art. Known cards show actual effects, unlocked/selected badges, explicit permanent notes cost and separate unlock/select actions. Unknown cards must not leak names/icons/effects via tooltip/accessibility/action labels. No purchase on open/hover.",
+    "departure": "Extend the existing departure panel with one slot preview and a reusable filtered unlocked-item picker (or return to relics to choose). Selected action only persists one choice; BEGIN grants it once. Support explicit none; refresh does not spend or grant.",
+    "input": "Reuse current Home input block/router clear/neutral re-arm and UI focus/touch scrolling; UI uses always processing as current menus do. Closing must not replay jump/shoot/interact or auto-confirm BEGIN. No global time-scale writes from the grid."
+  },
+  "pending_unlock_rule_branches": {
+    "obtained_first": "Unknown entries remain question marks and cannot unlock. After actual saved discovery, details and a priced unlock button become available. This is recommended but not yet answered.",
+    "unlock_before_obtaining": "Do not automatically reveal merely because unlocked: user still required unobtained entries to be question marks. Selection from an unlocked unknown entry and its information/price disclosure must be clearly designed; first real Home-starter grant can create discovery. Wait for root/user answer before dependent implementation."
+  },
+  "necessary_checks": [
+    {
+      "family": "Profile/save",
+      "cases": [
+        "Currentv2->newversion preserves notes/upgrades/receipts/settled/revision and adds item fields; available prior settled.item evidence only becomes discovered, never unlocked.",
+        "Native two profile paths remain isolated; no static catalogue discovery leaks. Web current local profile retains existing key and normal refresh state. If a multi-profile adapter is introduced, distinct profile IDs/keys must isolate it explicitly.",
+        "Corrupt/truncated/backup/future version/write rejection behavior remains; save failure cannot spend notes without unlock or unlock without durable spend."
+      ]
+    },
+    {
+      "family": "Discovery",
+      "cases": [
+        "Real cache/Boss reward, shop purchase and same-instance level growth record the actual ID; first acquisition reveals, later acquisitions do not grow counters or discovery receipts.",
+        "Same source replay, inventory reload, equipment toggle, repair, view/open/close, declined or rolled-back grant do not add discoveries.",
+        "Death-priority rejected reward does not discover; actual acquisition followed by later death keeps the discovery. Failed persistence is displayed/retried, never reported saved."
+      ]
+    },
+    {
+      "family": "Permanent unlock",
+      "cases": [
+        "Correct notes debit+flag atomic commit; insufficient notes, unknown/deleted/disabled/unpriced content, discovered requirement branch, stale quote/profile/session and malformed requests reject.",
+        "Same transaction request replays without charge; changed payload with same ID conflicts; concurrent/double-click unlock intents never charge twice.",
+        "Already-unlocked selection/reuse is free; coin wallet, vitality upgrades, weapons and major abilities are unaffected."
+      ]
+    },
+    {
+      "family": "Starter/lifecycle",
+      "cases": [
+        "Zero or one unlocked Lv1 definition goes to fresh backpack; no auto-equip, no stat/HP/ammo/ability benefit before real equipment.",
+        "A5gear item or temporarily unmet weapon/core/equipment-tag requirement still may be carried; actual equipment validation remains.",
+        "Start button replay and map entry do not regrant. Cross-map/region/environment fallback retains same instance/source; true end clears only run item; next run fresh level1 once.",
+        "Stale/disabled/unlocked-state change rejects before Home teardown; rejected startup leaves no partial run or permanent spend.",
+        "Same seed/starting choice/weapon yields stable recorded offer manifest independent of random run receipt prefix; changed starting ownership legitimately changes eligibility and must be recorded."
+      ]
+    },
+    {
+      "family": "Real Home UI",
+      "cases": [
+        "Native actual movement to relics, same-tier grounded interaction, panel close/back and departure selection; other reserved slots and achievements stay independent.",
+        "Question-mark masking includes tooltip/focus text; discovered details/current note balance/explicit price/errors/selection update after commit.",
+        "1280x720 and960x540 scrolling plus actual mouse/gamepad/touch requests; no stale callbacks or first gameplay action leak after close/focus loss."
+      ]
+    },
+    {
+      "family": "Existing Harness consumers",
+      "checks": [
+        "core",
+        "underworld-home",
+        "underworld-home-guard-tests",
+        "gear-inventory",
+        "gear-ui",
+        "item-v5-catalog",
+        "item-v5-authoring",
+        "item-authoring-tools",
+        "item-v5-pool",
+        "item-v5-formal",
+        "item-v5-manifest",
+        "item-v5-random-context",
+        "forest-campaign"
+      ],
+      "note": "These are proposed affected checks, not executed results. New focused HomeCodex/profile tests should be registered additively. Existing core/home suites carry meta_notes_save_tests and Home app/UI/weapon contracts; do not invent nonexistent standalone Harness IDs or remove their current guards."
+    }
+  ],
+  "implementation_order_after_grant": [
+    "Freeze answered unlock prerequisite and data policy/schema migration contract.",
+    "Add MetaProgression discovery/unlock/selection fields and pure save migration with existing notes commit tests.",
+    "Connect one authoritative committed-ownership boundary and once-per-run starter admission; add lifecycle/manifest/cross-profile tests before UI.",
+    "Activate actual relics slot and render masked codex/unlock/select/departure UI with existing art; test real input/scroll paths.",
+    "Run selected original Harness plus dedicated native and Web persistence refresh checks; archive exact source/evidence. Never reuse prior unrelated CI as this feature acceptance."
+  ],
+  "inspected_files": [
+    {
+      "path": "scripts/items/v5/item_catalog_v5.gd",
+      "sha256_at_report": "dbf00757ac6278bc95e1e85ca956307327c68a391782b2791d6213d6987f8b57"
+    },
+    {
+      "path": "scripts/meta/meta_progression.gd",
+      "sha256_at_report": "e29d9cbb2a2717103a1743874e41b799e2e623ef4df68bd5aa4cd638c358ab2b"
+    },
+    {
+      "path": "scripts/save/meta_save_service.gd",
+      "sha256_at_report": "01bbe17950566cfbbc140db8daed875f3371502a3f55a312be68bf52901f34c4"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256_at_report": "f75f32cc918d3368d6aa55be94206465163ed7706eb31b19690811da6d009119"
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256_at_report": "1d4b1aed7b479258268e23bd095f45092d708259e34293aadc0dbc0448a8d5e1"
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "sha256_at_report": "327e17778ce960ea2cd3d4cca53f78472f51c7ee1030528b6497aaddfb3de990"
+    },
+    {
+      "path": "scripts/builds/run_inventory.gd",
+      "sha256_at_report": "53ded4745b39d85718d31d5d4bdc55fc7fb3749c35ca8edaa841fc18f09132b5"
+    },
+    {
+      "path": "scripts/builds/build_state.gd",
+      "sha256_at_report": "5b9130a22e9b925a53949dd956c3359e60c9dba1a95d0716326b8431b7f3c10a"
+    },
+    {
+      "path": "scripts/rewards/reward_service.gd",
+      "sha256_at_report": "ff16abef0e835537f4bc2fa3945f2de0efa9fcb1da9136a81263b9c063790a7d"
+    },
+    {
+      "path": "scripts/shops/shop_service.gd",
+      "sha256_at_report": "a8f0055b3fe5471e5ada481fad65b68bf7925c6abe39876f441e19664b8d9823"
+    },
+    {
+      "path": "assets/underworld_plains/home/home_build.json",
+      "sha256_at_report": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159"
+    },
+    {
+      "path": "config/meta_upgrades.json",
+      "sha256_at_report": "410f056740a033c929fea372c45a0aeb6c94c792d5def94cd3bb026ef11a0089"
+    }
+  ],
+  "remaining_uncertainty": [
+    "User answer for discovery-before-unlock is pending.",
+    "Final notes prices/content policy not chosen; store adjustable experiment values in data and do not rebalance vitality/notes systems here.",
+    "Selection persistence across refresh is a candidate convenience; current Home weapon selection remains a separate session-only system.",
+    "Current product has one local save, no cloud sync or multi-slot UI.",
+    "No implementation or verification is performed by this readiness report."
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "assertions": 54,
+  "cases": [
+    {
+      "behavior": "forest_bible_weaver",
+      "configured": true,
+      "id": "app_configure",
+      "layout": "forest-bible-world-v15",
+      "scene": "res://scenes/enemies/forest_bible_weaver.tscn",
+      "strands": [
+        {
+          "end": [
+            1480.0,
+            1060.0
+          ],
+          "id": "upper",
+          "start": [
+            1360.0,
+            1060.0
+          ]
+        },
+        {
+          "end": [
+            1480.0,
+            1180.0
+          ],
+          "id": "lower",
+          "start": [
+            1360.0,
+            1180.0
+          ]
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "id": "outer_positive_control",
+      "manifest_hash": "77094d14951d2151ee245cd652f05e7640e8a493637063e709fb4ea1aeadbd87"
+    },
+    {
+      "expected_error": "Recorded migration actor number rejected",
+      "id": "missing_health",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded migration actor shape rejected",
+      "id": "missing_position",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase rejected",
+      "id": "missing_state",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase number rejected",
+      "id": "missing_state_time",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase number rejected",
+      "id": "missing_cooldown",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase rejected",
+      "id": "missing_serial",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase rejected",
+      "id": "missing_home",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase rejected",
+      "id": "missing_direction",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded migration actor shape rejected",
+      "id": "missing_depth_state",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase rejected",
+      "id": "serial_fraction",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase rejected",
+      "id": "serial_string",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase number rejected",
+      "id": "state_time_string",
+      "rejected": true
+    },
+    {
+      "expected_error": "Recorded rooted actor phase number rejected",
+      "id": "cooldown_string",
+      "rejected": true
+    },
+    {
+      "id": "app_reload",
+      "retained": true
+    }
+  ],
+  "checks": [
+    {
+      "label": "actual debug entry explicitly pins v15",
+      "passed": true
+    },
+    {
+      "label": "actual DemoApp assembles v15 stage",
+      "passed": true
+    },
+    {
+      "label": "actual scene lookup and shared EnemyActor dispatch instantiate new behavior",
+      "passed": true
+    },
+    {
+      "label": "actual manifest remains v15",
+      "passed": true
+    },
+    {
+      "label": "actual scene and definition identity agree",
+      "passed": true
+    },
+    {
+      "label": "type-first App configure uses both authored strands without legacy line fallback",
+      "passed": true
+    },
+    {
+      "label": "actual stage capture binds outer record to new depth state",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "unmodified outer record passes same actual assembler and stage guards",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_health before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_position before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_state before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_state_time before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_cooldown before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_serial before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_home before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_direction before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer missing_depth_state before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer serial_fraction before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer serial_string before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer state_time_string before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "detached region envelope restored for actual stage consumer",
+      "passed": true
+    },
+    {
+      "label": "actual stage refuses outer cooldown_string before App coercion",
+      "passed": true
+    },
+    {
+      "label": "temporary actual stage releases owned audio",
+      "passed": true
+    },
+    {
+      "label": "real App unload and reload creates another assembled v15 stage",
+      "passed": true
+    },
+    {
+      "label": "real reload redispatches new behavior",
+      "passed": true
+    },
+    {
+      "label": "real App reload retains geometry selection clocks serial and dedup exactly",
+      "passed": true
+    },
+    {
+      "label": "integration cleanup returns real App HOME",
+      "passed": true
+    },
+    {
+      "label": "integration App audio actually drained",
+      "passed": true
+    }
+  ],
+  "failures": 0,
+  "scope": "actual v15 App dispatch/configure/reload and stage outer-field refusal; no traversal or empty-actors integrity claim"
+}

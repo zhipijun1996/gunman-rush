@@ -1,0 +1,945 @@
+{
+  "verdict": "ACCEPT_DIAGNOSIS_AND_SEVEN_FIELD_ALLOWLIST_ONLY",
+  "source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "reviewer": "/root/guard_review_recovery",
+  "implementer": "/root",
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "command": "python3 /tmp/review_formal_drop_diagnostic.py > /tmp/plains_formal_drop_diagnostic_review.log",
+  "inputs": {
+    "observations.json": "9b0f7816ea334b833d5abb83fc615ca3c5905713fe8bf3eed4909c91783fb11e",
+    "runner.gd": "3e66500696cdaf0d6e030cb080e1bcef11473df994aed68a586d4ae970035a10",
+    "runtime.log": "053cf729bf6ce29c4fdd81fc79ee006d0b84334496b5e65d60bedec884e2e202",
+    "formal_runtime.json": "2fbd53484442ae9df70ff086d0767405acfd9e449f00f4f9d45aaadb174b3ab3"
+  },
+  "observed_dynamic_allowlist": [
+    "age",
+    "bounces",
+    "position",
+    "returning",
+    "rotation",
+    "settled",
+    "velocity"
+  ],
+  "not_in_allowlist": "claimed did not change and is false for every saved/live unit; balance0, grants{}, region.claimed{} in all six observations. No blanket claim mutation is justified by this diagnosis. Any separately generalized claim transition needs its own exact ledger/claim proof.",
+  "changes": [
+    {
+      "target_window": "plains/enemy/tutorial",
+      "drop_source": "plains/enemy/tutorial",
+      "phase": "after45",
+      "unit_id": "drop_plains/enemy/tutorial",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/tutorial",
+      "drop_source": "plains/enemy/tutorial",
+      "phase": "after45",
+      "unit_id": "drop_plains/enemy/tutorial/unit_1",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/tutorial",
+      "drop_source": "plains/enemy/tutorial",
+      "phase": "after175",
+      "unit_id": "drop_plains/enemy/tutorial",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/tutorial",
+      "drop_source": "plains/enemy/tutorial",
+      "phase": "after175",
+      "unit_id": "drop_plains/enemy/tutorial/unit_1",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "drop_source": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "phase": "after45",
+      "unit_id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "rotation",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "drop_source": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "phase": "after45",
+      "unit_id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1",
+      "changed_fields": [
+        "age",
+        "position",
+        "rotation",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "drop_source": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "phase": "after175",
+      "unit_id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "returning",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    },
+    {
+      "target_window": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "drop_source": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+      "phase": "after175",
+      "unit_id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1",
+      "changed_fields": [
+        "age",
+        "bounces",
+        "position",
+        "returning",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "observations_exact_actual_log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "instrumentation_only_reads_and_output_path",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original66_4_reproduced",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_script_parse_leak_errors",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "two_targets_three_phases",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/same_drop_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/no_claims_or_grants",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/same_run_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/all_live_ids_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/same_drop_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/no_claims_or_grants",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/same_run_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/all_live_ids_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/same_drop_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/no_claims_or_grants",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/same_run_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/all_live_ids_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45_to175_complete_equality",
+      "passed": true,
+      "detail": "Informational: equality expected only for grounded charger; diver legitimately continues moving"
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/same_drop_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/no_claims_or_grants",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/same_run_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/all_live_ids_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/same_drop_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/no_claims_or_grants",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/same_run_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/all_live_ids_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/same_drop_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/no_claims_or_grants",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/same_run_stage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/all_live_ids_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/live_snapshot_projection_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/entire_non_units_metadata_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/unit_order_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/exact_keyset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/immutable_unit_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/unclaimed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/finite",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/nonnegative_monotonic_age_bounces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "exact_observed_dynamic_field_union",
+      "passed": true,
+      "detail": [
+        "age",
+        "bounces",
+        "position",
+        "returning",
+        "rotation",
+        "settled",
+        "velocity"
+      ]
+    }
+  ],
+  "passed": 157,
+  "failed": 0,
+  "semantic_limits": [
+    "Seven allowed keys are only inside unit snapshots. Drop-level position, birth/origin and every other payout/unknown field remain exact.",
+    "Unit keysets/order/count/id/kind/amount/source/safe/claimed remain exact in this fixture.",
+    "No ignoring whole units collection: require full live/saved IDs and per-kind totals/receipt consistency.",
+    "Observed diver bounce4 forbids hard maximum3; observed settled=true and returning=true forbids treating flags as mutually exclusive.",
+    "Original byte-exact reload assertion must remain.",
+    "No approval of candidate helper/test code, new native pass or full CI."
+  ],
+  "script_sha256": "58bd69bd166b8885ddf900ee1f38cc666bbba9f10f2af11287c51f3643399c03",
+  "stdout_sha256": "4de2c4c97875c68be15d628f40ec876ab5bf291d0dabfd9b36c872c6bc31bb71"
+}

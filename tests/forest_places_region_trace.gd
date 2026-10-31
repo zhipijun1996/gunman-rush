@@ -53,7 +53,7 @@ var _reward_before: Dictionary = {}
 var _duplicate_before_full: Dictionary = {}
 
 func reward_snapshot() -> Dictionary:
-	return {"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.item_ids(),"coins":app.wallet.balance,"notes":app.meta.snapshot().get("notes",0)}
+	return {"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.inventory.item_ids(),"coins":app.wallet.balance,"notes":app.meta.snapshot().get("notes",0)}
 
 func drive_cache() -> void:
 	if not cache_pending: _reward_before = reward_snapshot()

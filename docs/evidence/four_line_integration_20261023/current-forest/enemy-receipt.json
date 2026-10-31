@@ -1,0 +1,64 @@
+{
+  "scope": "one actual current local golden; not formal forest route, crossbranch traversal or retired v10 expedition/root entry",
+  "native_run": {
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      "/workspace/integration-four",
+      "--script",
+      "/workspace/scratch/integration-four-20261023/forest-enemy-current/candidate/tests/forest_depth_enemy_runner.gd",
+      "--",
+      "--output-dir=/workspace/scratch/integration-four-20261023/forest-enemy-current/native01"
+    ],
+    "timeout_seconds": 180,
+    "exit_code": 0,
+    "seconds": 3.075222780000331
+  },
+  "positive": {
+    "assertions": 45,
+    "failures": 0,
+    "actor_cases": 4,
+    "comparisons": 7,
+    "stress_controls": 20
+  },
+  "low_setup": {
+    "start_stamina": 26.0,
+    "capacity": 100.0,
+    "policy": {
+      "definition_path": "res://resources/player/demo_ui_01/time_energy_v2.tres",
+      "definition_sha256": "77787e12f0ab042e955ed962fd9d5fdbd0d9e1d656cea548429fc3a0f67bb2d7",
+      "max_air_shots": 1,
+      "shooting_consumes_energy": false
+    },
+    "focus_consumes": 100,
+    "setup_shots": 0
+  },
+  "negative_refusals": {
+    "erase_focus_receipts": "Low-time-energy setup requires real airborne focus changes without shooting",
+    "coherent_missing_aim": "Time drain requires actual airborne held aim",
+    "fake_policy": "Current shot policy must bind the actual free Definition and native action cap",
+    "fake_policy_sha": "Current shot policy must bind the actual free Definition and native action cap",
+    "foreign_clock": "Time energy change lacks native frame, shared state, epoch or actual clock",
+    "replace_with_missed_shot": "Low-time-energy setup requires real airborne focus changes without shooting"
+  },
+  "source_sha256": {
+    "tests/forest_depth_enemy_runner.gd": "cbc6c638e5dc1d643df320cf8b5d1950716c644ccc240677508202f8516b93d6",
+    "tools/run_forest_depth_enemies.py": "af60e7955f236afe9b7bfe31a0b97fbd6c1cefd9cf71d93126f788bcc67d9b84"
+  },
+  "candidate_sha256": {
+    "tests/forest_depth_enemy_runner.gd": "e40ad03a5b939765618bf6693420f8f6b4e79d4bd8bcd95fcc9fd6c0e4f2c9bb",
+    "tools/run_forest_depth_enemies.py": "c2e65fe86fded7df734527e89bbcc7a19ca30bb76d450e21d88b07bf7da9eb0c"
+  },
+  "artifact_sha256": {
+    "forest-enemy.patch": "16db6019a985cb058d1f9f607d2393dfa1103c1c743c92700cfc5b3beaaf722f",
+    "native01.log": "5cb33fad42a74314ee483462651e150f3cb407989512dc28399e13c59669602e",
+    "native01/capture.json": "d4119b993a329957fe9ee70df13ed939950b2a8513eb9cc5769d28e18825a837"
+  },
+  "root_head": "521a1bf1832ca2cc34cca9b5732c3a7a0c047476",
+  "no_root_source_write": true,
+  "no_budget_change": true
+}

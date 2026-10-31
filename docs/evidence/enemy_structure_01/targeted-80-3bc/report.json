@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "started_at": "20261029T102028.518369Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "forest-depth-region",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "5f4f6ff0b8578ab1bd4e21a58bc8c3046ffd0f6e7581416a9f9e9f1802b3ee22",
+      "log": "forest-depth-region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793269236.9648144,
+      "ended_at_unix": 1793269742.516849,
+      "duration_seconds": 505.552,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-cd72dc9392034abcabed1aaf8f79a301"
+      ],
+      "check_token": "cd72dc9392034abcabed1aaf8f79a301",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T102028.518369Z/artifacts/forest-depth-region",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "aaf74f9286b275455ab0f7e967f1d4d51fc0fe2c036223431a05418144cad6f3",
+  "working_files": {},
+  "commit": "3bc1759b17a0d06be94ef43f85f2116631437aef",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 524.939,
+  "jobs": 1,
+  "release": true
+}

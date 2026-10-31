@@ -1,6 +1,7 @@
 class_name ThornForestRegionStage
 extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
+var chest_art_layer: ChestArtLayer
 var _forest_draw_clock := 0.0
 var _gate_hint: Label
 var discoveries: ForestBibleDiscoveries
@@ -67,21 +68,16 @@ func _ready() -> void:
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	for row: Dictionary in encounter_plan.enemies:
-		var sources := {"forest_bark_beetle":"res://scenes/enemies/forest_bark_beetle.tscn","forest_swing_pod":"res://scenes/enemies/forest_swing_pod.tscn","forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","forest_bible_weaver":"res://scenes/enemies/forest_bible_weaver.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
-		if not sources.has(row.behavior_id):
-			assembly_ok = false
-			push_error("Unknown recorded forest enemy behavior")
-			return
-		var scene: PackedScene = load(sources[row.behavior_id])
-		var creature := scene.instantiate() as EnemyMotor
-		creature.position = Vector2(row.position[0],row.position[1])
-		var actor := creature.get_node("Actor") as EnemyActor
-		actor.definition = preload("res://resources/enemies/plains_charger.tres").duplicate(true) if row.behavior_id == "charger" else actor.definition.duplicate(true)
+		var overrides := {&"patrol_half_width":float(row.patrol_radius)}
 		if row.behavior_id=="forest_bark_beetle" and row.has("initial_direction"):
 			if not row.initial_direction is int or row.initial_direction not in [-1,1]:
 				assembly_ok=false;push_error("Recorded bark facing rejected");return
-			actor.definition.initial_direction=int(row.initial_direction)
-		actor.definition.patrol_half_width = float(row.patrol_radius)
+			overrides[&"initial_direction"] = int(row.initial_direction)
+		var creature := EnemyFactory.create_for_behavior(StringName(row.behavior_id), overrides)
+		if creature == null:
+			assembly_ok=false;push_error("Recorded forest enemy construction rejected");return
+		creature.position = Vector2(row.position[0],row.position[1])
+		var actor := creature.get_node("Actor") as EnemyActor
 		add_child(creature)
 		if region_state.actors.has(row.id):
 			if row.behavior_id in ["forest_crossbranch","forest_bark_beetle","forest_swing_pod","forest_bible_weaver"]:
@@ -113,8 +109,9 @@ func _ready() -> void:
 	var boss_path := ThornForestRegionGenerator.boss_scene_path(forest_version,map_index,generated.manifest)
 	if boss_path.is_empty():
 		assembly_ok=false;push_error("Recorded forest Boss content is not in the version whitelist");return
-	var boss_scene: PackedScene = load(boss_path)
-	boss = boss_scene.instantiate()
+	boss = BossFactory.create_recorded(boss_path, "")
+	if boss == null:
+		assembly_ok=false;push_error("Recorded forest Boss construction rejected");return
 	var boss_point: Array = generated.manifest.get("boss_geometry",{}).get("boss_position",[boss_arena.get_center().x,boss_arena.end.y-100])
 	boss.position = Vector2(boss_point[0],boss_point[1])
 	add_child(boss)
@@ -136,14 +133,17 @@ func _ready() -> void:
 		pickups.append({"id":row.id,"kind":row.kind,"amount":int(row.amount),"position":Vector2(row.position[0],row.position[1]),"claimed":region_state.claimed.has(row.id)})
 	for id: String in region_state.drops:
 		var drop: Dictionary = region_state.drops[id]
-		if drop.kind == "none": continue
-		pickups.append({"id":"drop_"+id,"kind":drop.kind,"amount":int(drop.amount),"position":Vector2(drop.position[0],drop.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
+		restore_drop_pickups(drop,id,region_state.claimed)
 	for row: Dictionary in generated.manifest.rewards:
 		var chest := row.duplicate(true)
 		chest.id = "thorn_forest/map_%s/" % map_index+str(row.id)
 		chest.position = Vector2(row.position[0],row.position[1])
 		chest.claimed = region_state.claimed.has(chest.id)
 		chests.append(chest)
+	chest_art_layer = ChestArtLayer.new()
+	chest_art_layer.name = "ChestArtLayer"
+	chest_art_layer.configure(chests)
+	add_child(chest_art_layer)
 	var map_layer := CanvasLayer.new()
 	map_layer.layer = 1
 	add_child(map_layer)
@@ -184,6 +184,7 @@ func _accepted_forest_action(action: StringName) -> void:
 
 func _physics_process(delta: float) -> void:
 	clock += delta
+	_advance_pickup_motion(delta)
 	_forest_draw_clock += delta
 	if is_instance_valid(ambience):
 		for body: EnemyMotor in enemies:
@@ -199,6 +200,7 @@ func _physics_process(delta: float) -> void:
 
 func capture_state() -> void:
 	if not assembly_ok: return
+	if is_instance_valid(chest_art_layer): chest_art_layer.queue_redraw()
 	var forest_assembler := assembler as ThornForestRegionAssembler
 	for target: Node2D in forest_assembler.hook_targets.values():
 		if target is ForestPracticeBell:
@@ -308,13 +310,8 @@ func _draw() -> void:
 			draw_circle(at+Vector2(20,-35),6,Color("e8c97a"))
 	if ForestBiblePresentation.enabled(generated.manifest):
 		ForestBiblePresentation.draw_discoveries(self, generated.manifest, region_state, _forest_draw_clock)
-	if ForestBiblePresentation.enabled(generated.manifest):
-		ForestBiblePresentation.draw_chests(self, chests)
-	for chest: Dictionary in chests:
-		if ForestBiblePresentation.enabled(generated.manifest): continue
-		var color := Color("67745a") if chest.claimed else Color("e5c778")
-		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,24)),color)
-		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,8)),color.lightened(0.18))
+	# Chests in both Bible and legacy backgrounds use the same dedicated layer.
+	# Parent-stage draws never duplicate or grey the admitted tier recipe.
 	for pickup: Dictionary in pickups:
 		if pickup.claimed: continue
 		var color := Color("e9c985") if pickup.kind == "coin" else Color("b8dc9a") if pickup.kind == "heart" else Color("ccb7ed")

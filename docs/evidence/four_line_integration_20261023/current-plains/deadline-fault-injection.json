@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "verification_kind": "Offline execution of actual partition function with retained real native outputs; child process outcome/clock fault injection only; NOT fresh native",
+  "implementation_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
+  "reader_sha256": "c82ce11693987540193711ce5eb08599ce4e11b5a9d6a23e5fd90a3118fd617f",
+  "original_native_partition_proof_sha256": "d1b070f7b581446c1bf32ce406d5b0194875fe5ca76a2900e0836e094f0f7054",
+  "actual_original_aggregate_seconds": 133.3856937620003,
+  "native_reexecuted": false,
+  "cases": [
+    {
+      "case": "aggregate_overrun",
+      "reader": "old-S",
+      "status": "passed",
+      "injected_clock_seconds": 181.0,
+      "expected": "passed",
+      "correct": true
+    },
+    {
+      "case": "normal",
+      "reader": "final-S2",
+      "status": "passed",
+      "injected_clock_seconds": 120.0,
+      "expected": "passed",
+      "correct": true
+    },
+    {
+      "case": "aggregate_overrun",
+      "reader": "final-S2",
+      "status": "failed",
+      "injected_clock_seconds": 181.0,
+      "expected": "failed",
+      "correct": true
+    },
+    {
+      "case": "nonzero_child",
+      "reader": "final-S2",
+      "status": "failed",
+      "injected_clock_seconds": 120.0,
+      "expected": "failed",
+      "correct": true
+    },
+    {
+      "case": "missing_marker",
+      "reader": "final-S2",
+      "status": "failed",
+      "injected_clock_seconds": 120.0,
+      "expected": "failed",
+      "correct": true
+    },
+    {
+      "case": "timeout_child",
+      "reader": "final-S2",
+      "status": "failed",
+      "injected_clock_seconds": 120.0,
+      "expected": "failed",
+      "correct": true
+    },
+    {
+      "case": "missing_coverage",
+      "reader": "final-S2",
+      "status": "failed",
+      "injected_clock_seconds": 120.0,
+      "expected": "failed",
+      "correct": true
+    }
+  ]
+}

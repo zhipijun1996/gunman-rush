@@ -1,0 +1,27 @@
+{
+  "scope": "Original10tests in isolated actual read/skill/Harness-entry bootstrap copy. Historical120-input contract positive/negative and fixed original-full-source digest comparison; not native gameplay or an outer cache acceptance.",
+  "historical_inputs": 120,
+  "positive": {
+    "phase": "positive",
+    "exit_code": 0,
+    "seconds": 1.4733656879998307,
+    "log": "build/item_v5/guard-audit/finite-counterexample-r2-positive.log"
+  },
+  "negative": {
+    "phase": "missing-context",
+    "exit_code": 1,
+    "seconds": 0.8816897529995913,
+    "log": "build/item_v5/guard-audit/finite-counterexample-r2-missing-context.log"
+  },
+  "removed_file": "docs/quality/action_budget_spec.md",
+  "removed_sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
+  "historical_finite_digest_before": "b1466d91bd1eeda8f88e327aa5cc5c7969d21d936de494135573af1db13c2c4a",
+  "historical_finite_digest_after": "b1466d91bd1eeda8f88e327aa5cc5c7969d21d936de494135573af1db13c2c4a",
+  "fixed_full_source_digest_before": "edb1c61bcaaa864c9d15ab87b4b55a5f7b806cf2d37b40f8f9a190c81566d410",
+  "fixed_full_source_digest_after": "43d7b2b1134860df4365f70acbd29c4adc9ee325fce9d076da9b7a1e4bdbcb2a",
+  "current_check_exactly_base_contract": true,
+  "current_check_has_inputs": false,
+  "counterexample_succeeded": true,
+  "fix_detects_change": true,
+  "first_failed_probe": "finite-counterexample.json; positive lacked implicit specialist-SKILL existence bootstrap, so that first pair was not a passing-positive dependency proof"
+}

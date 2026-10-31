@@ -93,11 +93,18 @@ class BibleTraceConsumerTests(unittest.TestCase):
             reader.assert_called_once_with({})
             router.assert_not_called()
 
-    def test_original_ecology_and_lift_strategies_stay_byte_identical(self):
-        expected = {'forest_depth_ecology_trace.gd': 'ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016',
-                    'forest_depth_lift_trace.gd': 'd973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762'}
-        for name, digest in expected.items():
-            self.assertEqual(hashlib.sha256((ROOT / 'tests' / name).read_bytes()).hexdigest(), digest)
+    def test_ecology_and_lift_only_migrate_owned_item_observations(self):
+        expected = {'forest_depth_ecology_trace.gd': ('ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016', 1),
+                    'forest_depth_lift_trace.gd': ('d973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762', 3)}
+        # Ownership telemetry now reads the inventory. Reverse only these exact
+        # 1/3 observations; every other strategy byte keeps its original SHA.
+        owned = b'app.build.inventory.item_ids()'
+        previous = b'app.build.item_ids()'
+        for name, (digest, count) in expected.items():
+            source = (ROOT / 'tests' / name).read_bytes()
+            self.assertEqual(source.count(owned), count)
+            self.assertNotIn(previous, source)
+            self.assertEqual(hashlib.sha256(source.replace(owned, previous)).hexdigest(), digest)
 
     def test_three_thin_traces_share_real_support_without_physics_override(self):
         allowed = {'canopy_layout', 'interwoven_layout', 'woven_layout', 'begin', 'observe_actual_projectile', '_process', 'admission_evidence'}

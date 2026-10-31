@@ -1,0 +1,184 @@
+# WINDKEEPER-PRESSURE-01 independent review — interim source audit
+
+## Latest bounded status (read this before historical findings)
+
+- Complete user contract: **UNVERIFIED**, awaiting complete natural fight, original-audio continuous media, POSE10 motion and matched-cadence third-shot comparison, final affected/full-check evidence. Current style24/creative27 binding has bounded technical acceptance below. No human/device acceptance.
+- SAVE01 legacy mode/reward-entitlement defect: repaired in source/native component scope. Historical terminal3 terrain compatibility explicitly deferred under AGENTS user instruction; no full legacy terrain PASS.
+- WIND02: actual scoped consumer/derived shader added; source reviewed including corrected arena registration cap. Continuous actual grass response still not visually reviewed.
+- WAVE03: actual-radius draw envelope repaired; source/native geometry scope only.
+- EVIDENCE04: coordinator accepted matched .10/.43/.76 cadence; no delayed.96 general risk claim. Actual greed comparison pending.
+- SUPPORT05: physical root/shelf/transit/death/snapshot and App gates repaired; actual controlled formal72/0 including independent support rays, locked traversal/same-instance snapshot, airborne death and original central-start normal escape inspected.
+- COINS06: original73/0 safe-return limitation retained; current77/0 actual phaseI/III units have2bounces/settledtrue/returningfalse, controlled scope accepted.
+- AUDIO08: restored unfinished terminal sound-layer repair reviewed; native130/0 preserves98 and covers4 declared snapshot states. Original soundtrack listening unverified.
+- ART09: original pose01 material REJECT retained. Current pose02 **bounded ACCEPT** for actual07/16/22/30 matching PNGs at1280 and960 (8 new frames), sourceguard passed/native errors0; silent fixtures do not prove natural battle/support/audio.
+- POSE10: lunge load→push→landing and group flow await normal-speed sequence review. No frozen Rig rewrite requested solely from static frames.
+- Runner now has6 mandatory consumers including support4th, timestamp-isolated receipts and preserved300/90 budgets. Current140-reference style24/creative27 binding independently reviewed and accepted in technical migration scope; complete affected/full-check evidence remains separate.
+
+The sections below retain original defects, refusals, failed pilots and the exact later scope of repair; later acceptance never retroactively turns old failures into passes.
+
+Reviewer: `/root/windkeeper_integration_review`, independently assigned by implementation coordinator `/root`; reviewer has made no production or test changes and has not run Godot. Read-only review used the actual working tree of `feature/windkeeper-pressure-01`, based on main `840108da9ae91e412dc9f1d8a38ccdad0229bb11`. Working tree is not frozen. Instructions: `.agents/skills/gameplay-reviewer/SKILL.md`; contract: workline `spec.md` and `g0-review.md`.
+
+## Verdict and scope
+
+**UNVERIFIED for the complete user acceptance contract.** Source integration and exact consumers were independently read; existing native receipts are coordinator-run evidence, not independent execution. No complete successful natural fight, GPU movie, original-audio listening or physical-device test has been inspected by this reviewer. Controlled component/phase/death fixtures do not demonstrate natural whole-fight pressure, six visual moves or the two-shot/third-shot timing contract. Static review does not grant art or user approval.
+
+## Findings and rework history
+
+### WPR-SAVE01 — legacy v5 encounter restore could strand the new state machine and reward gate
+
+**Initial finding: required rework, confirmed by coordinator.** The old v5 snapshot has no `pressure` payload and may retain old-only modes such as `charge`, `blades`, `chase`, `pier_warning`. Original subclass restore kept that mode, but its physics match has no corresponding transition. New RunManifest explicitly accepts the old v5/36HP Boss identity, making this a reachable compatibility defect. Old terminal v5 snapshots also lack the physical death-coins source; the new pending gate would wait forever for a reward to which that old completed fight was never entitled.
+
+**Current source re-review:** `_restore_legacy_combat_state()` now cancels old transient attacks, preserves externally restored authoritative absolute HP/stage/position, normalizes active fights to readable observe/preparation, and makes old terminal fights settled/harmless without replaying death or minting new coins. `physical_reward_expected=false` is persisted and honored in reward spawning and the App pending gate. New component fixtures cover active charge/blades/chase and terminal re-save/reload. Fresh current-source execution receipt remains required; `regression-02` predates this addition.
+
+### WPR-WIND02 — gust has no consumer in planted-grass wind response
+
+**Original source-confirmed contract gap, reported to coordinator; author rework now present.** Boss gust currently drives PlayerMotor local velocity, its own sail/bell rig and transient wind strokes. Searches of the actual grass/foreground shader parameters and installers find only independent clock/phase sine motion; no Boss-gust direction/strength consumer. The user explicitly requires wind direction, sails, grass and bells to agree. Scope of finding is missing production connection; reviewer has not inferred exact visual ugliness without GPU footage. Author has now added `WindkeeperPressureWind` in the actual Pressure scene plus a scoped foreground shader, preserving original shared shader bytes. Source re-review finds the same locked gust range/direction used for planted scenery shear and foreground grass override, original materials and all64 masks copied/restored, root attachment preserved, bounded2.8wu tip envelope within original3wu mask margin, no actor/terrain mutation. Native actual-root/visible-consumer receipt and GPU review are still pending. Registration initially capped first32 planted grass sprites across the whole map; reviewer flagged the potential upstream-only cache. Current source now filters actual root positions to the Boss arena grown by gust range before applying32 cap. Coordinator checkpoint reports one actual planted-grass consumer observed; this is coordinator evidence, not reviewer-run native or GPU approval.
+
+### WPR-WAVE03 — ground-wave drawn silhouette covered only half the damage circle
+
+**Initial finding: required local rework.** Upper semicircle was offset down by radius*.6 while real damage used a centered radius9 circle, leaving an unseen upper damage band. **Current source re-review:** projectile now paints a faint complete actual-radius circle plus both centered semicircles. This removes the computed envelope mismatch without weakening collision or jumping. Pixel readability still requires actual normal-size footage.
+
+## Independent interpretation of the first natural pilot failure
+
+Read `build/windkeeper_pressure_01/headless-01/trace.json`. The 13.07s failure has four effective Boss hits and five actual damage events: seed at6.73s, body contacts at8.8/9.73s, wave at11.82s, body at13.07s. The legal-input pilot repeatedly preferred retreating left even when player center was at5812 against the sealed left wall. First group stomp→seeds: pilot landed by frame360 and shot at369/389 while an already-released seed was still approaching; first recoil pushed into the wall and frame398 took that seed. This establishes an unhandled-projectile/corner pilot failure, **not** unavoidable Boss pressure. It does not establish a safe two-shot window either. Coordinator/capture author was advised to improve legal threat awareness and side switching, preserving Boss and player tuning.
+
+## Positive source observations, bounded to static scope
+
+- Formal factory `windkeeper_storm` now selects the new Pressure scene/Definition60HP; old Windkeeper and Bellstrider paths remain separate. New attacks execute on real actor position and the original damage/pickup/receipt systems.
+- Groups are selected by distance/elevation/camping/recent weighted randomness, frozen before warning, one/two attacks in phaseI, pairs in phaseII, pairs/triples in phaseIII; phase changes defer until group completion. Current attacks do not restart on ordinary hit. Statistics observe combat rather than scheduling attacks.
+- Lunge heading is fixed before flight; real body displacement, rig limbs and offensive geometry are shared. Foot/leaf strikes use the rig pose and actual target shape; frozen-contact path checks current held geometry rather than replaying previous sweep.
+- Platform targeting ray-tests actual surviving support, excludes old phaseIII bridge floor even before deferred bridge removal, and rejects invented floating targets. Full fair retreat routes remain gameplay-evidence scope.
+- Recovery releases no new attacks and leaves already advertised finite projectiles alive. This is honest, but means recovery entry alone does not prove two safe shots after actual dodge completion.
+- Defeat clears attacks/wind and contact immediately, uses a1.9s mechanical death clock and once-only impact/final events. Physical coins are configured20 and split by original1/5-unit motion, original pickups and persisted source ledger. Reward binding follows run/stage epoch rather than actor epoch. Actual phaseIII death and accessible pickup remain to be observed.
+- Audio uses the existing12 voices with local cap4, distinguishes initial combination beat count, protects critical warnings from hit reactions and does not replace existing BGM. Lifecycle and original sound quality require fresh execution/listening evidence.
+
+## Historical guard migration — preliminary independent semantic review
+
+Old style22 has83 registered source paths. Read-only hash comparison found82 unchanged in current production and only registered App changed; historical App snapshot retains literal SHA `f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a`. Old40 Bible test methods and17 creative-direction methods remain; new counts43/18 append guards rather than removing methods. Only live version selection and exact old source access changed in old methods. Historical style22/creative25 are read from the explicit before-style24 archive; historical App helper asserts exact old SHA, other old source reads remain current. New live guard demands old83 prefix/role/path order, exactly one App leaf changed, explicit19 new source consumers and32 real WAVs plus4 provenance files, totaling138. New stale22 rejection and per-new-leaf drift checks are explicit. Original full168 harness checks,422 input prefix and30/30/30/60 budgets are expected preserved with one appended Pressure native consumer. **Final metadata and pure test results were not frozen/reviewed yet; this is not acceptance of pending live24/creative27.**
+
+## Evidence still required before broad acceptance
+
+1. Fresh native five-consumer receipt after all source changes, including legacy active/terminal save fixtures and original full harness/R3 guards.
+2. Frozen source/version binding for live24/creative27, exact old archive and actual138 leaf hashes, pure guard outputs; preserve original failures and budgets.
+3. Successful uncut normal-speed original-audio formal map2 battle, all three phases, six moves, frozen two/three chains, camping response, actual two-shot then withdrawal and a separate real third-shot risk comparison, death→safe coins→all20 collected.
+4. Actual GPU frame/sequence inspection and original audio audition. Real human/device/user acceptance stays distinct.
+
+## Interim source fingerprints
+
+- `scripts/bosses/windkeeper_pressure_encounter.gd`: `8fab63040e81da588ad6aff3ca5f1709743bf09d4e619b6e26e4209686882693`
+- `scripts/bosses/windkeeper_pressure_projectile.gd`: `ee748f5d8420d9d41861de02a6e066982b67884579d900e4586bde2cfe5d4689`
+- `scripts/demo/demo_app.gd`: `d746c2e078c84b8a959466af2e883bf0fed21ebcd274b61ccac45c801293d47c`
+- `scripts/audio/windkeeper_pressure_audio.gd`: `3f6549990787b84a704f853dffa4b36d37972ed1e223a5ae57e61a97294542cd`
+- `scripts/rewards/windkeeper_pressure_rewards.gd`: `c679f22db00aca09b034521b4000d18f413cd88ecbf47ca59c09ea2ade301df7`
+- `tests/test_region_bible.py`: `e3ec1682551c5737f4be1bf991dae31b684afbb3224d8f19932378e0385f36d3`
+- `tests/test_region_creative_direction.py`: `d02cac25f8888ee572e04ceea66ee1da2fc93daae3e4f39651d2b813ecbfa873`
+
+## Subsequent observed receipts (not independently executed)
+
+`legacy-components-03.log` reports1186 component checks,0 failures after migration fixtures. `headless-02` remains a failed79.37s/23-hit phaseII attempt. `headless-03` was read only as an incomplete periodic checkpoint at109.83s/28hits, phaseII; neither is successful whole-fight or media proof. These observations do not change the interim whole-contract UNVERIFIED verdict.
+
+## Finalized headless03 failure read-only follow-up
+
+The previously incomplete headless03 subsequently finalized as a **failed** legal-input attempt at236.18s,35 accepted hits/65groups, Boss25HP, phaseII. It never demonstrates phaseIII/platform move/death/reward. Late groups45–56 generally have no actual shots although pilot intent says counter; repeated airborne/shelf cycles are visible in trace coordinates, so non-progress is not proof that the Boss forbids counterplay. Group62 gust→sweep has two real grounded shots at frames13522/13542, Boss27→25, followed by withdrawal. This is an actual bounded two-hit example, not proof that every group is fair or third-shot risk has been shown. Original failed attempt remains failed.
+
+A fresh exact-baseline byte comparison confirms `resources/bosses/legacy/windkeeper_storm_continuous_v5.tres` equals main840108da's original storm Definition byte for byte, SHA723d24df7ad2c55c163b589557bab720dc1b37dc3bd318db591e069296a055b5. AST comparison again confirms no old40/17 test methods removed; only the already-listed live binding version accesses/historical22/25 loading methods changed. Final new wind runtime leaves increase dependency inventory beyond the earlier138/19 planning count; exact final binding is still to be checked.
+
+Group62 counter timing (headless03, coordinator-run failed attempt): recover entry frame13515/movie225.350s; actual shot1 frame13522/225.467s and shot2 frame13542/225.800s, both grounded, each creates real horizontal recoil; accepted impacts13530/13554 reduce27→26→25HP. Recoil displacement moves player x6215→6057 by13550,0.583s into recovery, with HP1 unchanged and no active projectiles during this sample. Recovery ends after13592/226.633s; nextgroup begins approach. This independently verifies **one actual natural two-hit/recoil/withdrawal sample** in trace only. It also leaves substantial time in this sample; no third-shot risk can be asserted without its actual comparison. No movie/GPU acceptance is derived from this trace.
+
+## WPR-EVIDENCE04 — third-shot comparison must control pilot cadence
+
+Current legal pilot schedules recovery attempts at .10/.43/.96s. The third interval .53s includes .20s more programmed delay than the first .33s interval, while base cooldown is.25s. Any injury/margin reduction from this late third cannot alone establish the intrinsic cost of a third otherwise equally timed shot. Coordinator has been asked to use matched earliest legal cadence/aim/recoil conditions or clearly disclose and scope this as deliberately late greed. This is an evidence-design concern, not a proven production defect. Whole-contract third-shot risk remains UNVERIFIED until actual comparison.
+
+## Headless04 follow-up (failed natural pilot, no GPU)
+
+Failed at111.13s,43effective hits,28groups, Boss17HP, phaseIII. PhaseIII began at frame6298 with player[6698,699]; existing bridge transition escape produced no environment damage in this attempt. Final death is bodycontact during first `platform_warning`, age.533s, player[6528,541], Boss[6501,653], following a leftward jump from target[6653,588] toward/over the Boss; completed platform strike has not been observed. This is evidence of failed pilot crossing/landing, not forced bridge damage. Full six-move/death/reward media acceptance remains missing.
+
+Coordinator agreed WPR-EVIDENCE04 and will use .10/.43/~.76 matched earliest legal cadence for the greed comparison, rather than interpreting old delayed.96 variant as general third-shot risk. No requirement that every successful third be punished was introduced; actual position/time retreat margin must be measured.
+
+## WPR-PHASE3-SUPPORT05 — actual unsupported stance coordinates need pixel/ray review
+
+Source+headless04 trace candidate: phaseIII Boss at[6501,653] is inside removed middle bridge span; normal support feet remain near worldy718, while surviving shelf surfaces arey588. PressureMotor preserves original ground-rootY and mask0, and the rig's other three feet retain their ordinary low positions even during raised-forefoot platform preparation. The known old bridge removal therefore does not establish new four-foot support, real lunge landing or final wreck grounding. User asks four-foot support/weight, foot-led movement and real landing. Coordinator has been asked to inspect actual rays/pixels for this phaseIII stance and eventual death. Coordinate/support absence is source-derived; exact visual severity and whether an authored wind-supported stance exists remain UNVERIFIED without current actual pixels. Do not use original Arena compatibility as a positive grounding proof.
+
+Support05 requested static follow-up: actual authored `plains_boss_arena.tres` shelves1/2/3 are all one_way20wu-thick boxes. `PlatformingModule` instantiates those exact boxes; `PlainsGroundSupports.plan`, `region_plan`, and candidate `_regional_landmass_supports` all skip one-way surfaces, with formal region_plan also excluding thickness<24. They therefore do not create shelf pillars. Even an unrelated surviving column containing a foot position would not establish a top-facing supporting surface; actual rays must show collider path+normal from above. For headless04 arena rectangle[5800,368,920,350], module offset is[5700,118], broken intervalx5990..6700, shelf slabs worldy588..608. Boss6501 feet ordinaryworldy~718 are in broken interval and below those boxes. Neighboring-module overlap cannot be exhaustively excluded from source alone without the actual generated Manifest; requested actual ray/pixel producer should establish this.
+
+Minimal production fix recommended to coordinator: Pressure-only phaseIII support/transit consuming the existing real shelves. During transition visibly move the actual Motor onto a verified shelf before ground breaks; derive landing from real sole/surface geometry. Plant support feet only over the current shelf; locked actual hops/lunges cross the80wu gaps rather than walking across void. Death in transit completes a real reachable landing before settled wreck. Do not add an invisible Boss-only floor, fill the removed bridge, teleport the root, or move only drawn feet to fake support. Verify top-normal supporting rays, committed paths, shared pose/harm geometry, bridge timing, death landing and counter window after changes. This retains authored player terrain/routes and is smaller in scope than new physical bridge pillars, but requires real stageIII gameplay/visual re-review.
+
+## WPR-COINS06 — phaseIII reward73/0 proves receipts, not the required landing/bounce animation
+
+Read actual coordinator-run `rewards-phase3-03.log` (73/0) and `rewards.json`. The last phaseIII sample's four5-unit coins all finish claimed with `bounces=0`, `settled=false`, `returning=true`, age~2.62–2.70s. Existing low Boss body releases into the broken void and original PlainsLootMotion's safe-return fallback then carries them up toward the real shelf, where player collects them in transit. This does establish actual20 total, per-unit original claims and accessibility under the disclosed lethal fixture, but does not establish required spray→physical landing→light bounce→settled animation. Coordinator notified. Real phaseIII body support/landing repair should allow coin origin above the actual shelf; rerun and inspect actual landing/bounce sequence. Preserve73/0 as bounded old receipt proof, never retroactively claim complete animation.
+
+## Frozen production step2 static re-review — support/prepare/snapshot/death/App
+
+Coordinator declared Encounter1073-line production freeze (combat stopped). Reviewer re-read complete new support ascent/transit/preparation, current snapshot/restore, defeat/death clock and actual App/StageVisual gates. **No new source-confirmed blocker in the current60HP support lifecycle was found.** This is bounded static acceptance of the inspected data/ownership flow, not G1/G2/G5 or GPU acceptance.
+
+- Real one-way shelf rectangles are bound from the actual module, sorted deterministically, validated by three short surface rays with up normals and exact locations. Root physically ascends during phase transition, continues until verified landing, then emits phase3/break readiness. No terrain is fabricated.
+- Approach on shelves performs locked warned actual root hops; maximum endpoint derivative bounds duration from actual displacement and height. Finite pursuit prepares the same chosen attack; current-platform guard avoids infinite chase or inventing blade reach. Supported stride-foot clamps and knees feed the same rig/collision/draw pose and occur only after actual root support. Main lunge prepared target remains fixed through flight.
+- Snapshot now persists complete support index/active/prepared/baseline/start/target/target_index/age/duration/height/resume/preparation counters/guard, plus bridge_released. Restore clears only old transient attacks, restores these fields, and preserves fixed flight ownership and current group. Pre-support candidate/legacy active3 normalizes into visible mounting; baseline ground lunges retain original trajectory fallback. Execution restore does not replay already-released sweep/platform.
+- Death clears attacks, wind, contact and prepared takeoff immediately. An already-active locked flight completes, keeping collapse death_age0; only then mechanical collapse, impact and final events advance. Active-flight saved terminal state has the necessary fields to resume this path. Actual normal/airborne restore execution still needs expanded native evidence.
+- App invokes restored Pressure bridge removal only after actual combat-state restoration and bridge_break_ready; other Windkeeper keeps old path. configure_arena reads original initial floor before saved raised position is applied, preserving original floor_y. App pending exit and actual chest/door visibility additionally require true death_age, so the original defeat-tick timer cannot reveal/exit during airborne settlement. Gold and coin receipts remain original chains.
+
+Coordinator-run current receipts: editor clean, components1198/0, support first slice28/0, formal63/0, rewards77/0 including added actual bounce>=1+settled&&!returning. These were not independently executed by this reviewer. Support first slice explicitly discloses phase-trigger/initial-position/recovered-stance fixtures and pending locked traversal/airborne death, so no broad lifecycle coverage is inferred. Original central vertical-only jump fixture collided with the newly occupied Boss landing shelf and environmental return; failed original `support-formal-fixture-02.json` is preserved. Moving the fixture to a far existing shelf proves the stated far-shelf strategy only. The same old central position with an actual horizontal+held-jump/recoil escape remains a separate fair-route follow-up, not a claim that the old failed vertical-only strategy is unavoidable.
+
+Legacy terminal3 terrain difference: legacy restore leaves bridge_releasedfalse, so an old v5 already-dead phaseIII reload retains ground rather than reconstructing its old broken bridge. Reported independently. Coordinator explicitly applied AGENTS2026-10-23 user instruction **“暂时可以不考虑旧存档旧特性兼容”** (AGENTS124–126) and deferred this historical terrain compatibility. This does not block current60HP media or authorize old terrain-compatibility PASS. Old no-extra-coin terminal entitlement remains protected. Current production snapshots/support/bridge/death are still mandatory, not exempt.
+
+Fresh step2 source fingerprints:
+- `scripts/bosses/windkeeper_pressure_encounter.gd`: `cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef`
+- `scripts/bosses/windkeeper_pressure_definition.gd`: `afaf0fb90b8b3ac2e87e11c550eb2bb154892f1bf837bd5d8f74dd9263c4ecb2`
+- `scripts/bosses/windkeeper_pressure_rig.gd`: `37a9f92078742dd5d0845ecf43aef1e9addbed031dc0be52461f6dd5445e475f`
+- `scripts/demo/demo_app.gd`: `6b64a18be2893591df90ab3e90b3edc7629339dae1cdac8e9d4fd5e032008862`
+- `scripts/art/plains_stage_visual.gd`: `2a81088f207defae2c0370ad2f32a93840f8be77484f653899f745db50cabb15`
+- `scripts/rewards/windkeeper_pressure_rewards.gd`: `c679f22db00aca09b034521b4000d18f413cd88ecbf47ca59c09ea2ade301df7`
+
+## WPR-AUDIO08 — current in-progress terminal restore suppresses remaining death sound layers
+
+Fresh current-source finding after step2 static review: App `_bind_windkeeper_pressure_rewards()` passes `encounter.health.terminal` as Audio.bind's restored_terminal flag. Audio then sets `_restored_terminal=true` and returns before every future presentation event. A current60HP save during airborne death/before impact therefore resumes real locked landing/impact/final/rewards, but its remaining genuine impact/final audio layers are silently dropped as though loading an already-settled corpse. Coordinator notified. Distinguish settled-terminal silence from in-progress dying state: do not replay initial death, allow only genuinely future unsent impact/final events, keep `_dying=true` so inactive-owner process does not stop their voices. Existing saved event flags already prevent replay. Native98 settled-corpse tests do not prove this new current-snapshot branch. Bounded implementation rework pending; no new sound assets or unrelated history compatibility requested.
+
+Fresh runner/profile recheck confirms all6 native cases registered, support4th, exact six-case marker, timestamp-isolated receipts, original300 total/90 per-engine limits preserved. Previous planning references to5 cases/138 source leaves are historical, not final current acceptance claims.
+
+## Current complete-support/audio re-review and actual GPU pose01 material verdict
+
+Read coordinator current clean receipts `complete-support_app-01.log`72/0 and `complete-audio-01.log`130/0, and actual support_app.json. Current support consumer includes locked actual traversal and same-instance midair snapshot, real lunge airborne terminal→locked landing→one impact/final, four independent stance foot surface rays, and the original central-start rightward normal-axis+one-held-jump escape with no player damage. It explicitly retains original vertical-only failure and uses no post-initial actor/terrain injection. This closes that controlled central-route counterexample follow-up; it still does not establish whole natural fight or fresh-App/UI save reload coverage. Current rewards77/0 units now all have2 real bounces,settledtrue,returningfalse in both phaseI/III declared lethal fixtures, closing COINS06's controlled physical landing sequence. Original safe-return73/0 is not retroactively relabeled.
+
+AUDIO08 source repair inspected: bind reads actual current Pressure snapshot once flags. All terminal restores stay `_dying`; unfinished collapse opens only still-pending impact/final, suppresses initial death and already-emitted layers, consumes pending flags once even for distinct late event clocks; settled corpse remains fully silent. Four explicit audio fixtures cover airborne fatal, pre-impact ground collapse, after saved impact and settled corpse, preserving original98 assertions and adding32. **AUDIO08 closed in current source plus coordinator-run native130/0 scope; listening and full actual App reload remain unverified.** No new WAV/BGM edits.
+
+### GPU observation identity and exact viewed scope
+
+Actual native GL files under `build/windkeeper_pressure_01/pose-review-01/`, opened with view_image at original resolutions: **15 unique PNGs**. 1280x720:01-stomp-single-warning,07-lunge-warning,08-lunge-execute,10-sweep-low-warning,16-gust-warning,19-seeds-warning,22-platform-warning,23-platform-execute,25-phase-1-rest,28-death-250-ms,29-death-1050-ms,30-death-1900-ms. 960x540:07-lunge-warning,10-sweep-low-warning,13-sweep-high-warning. This corrects the initial message's accidental '14' count; listed/viewed unique total15. All are actual paused formal-App pose/actor/camera fixtures, not continuous gameplay, bridge support or audio proof. No actual original soundtrack was listened to. No physical device or user aesthetic approval.
+
+### ART09 — material/pixel language split: **REJECT / local REWORK for current G2 material coherence**
+
+Observed in 1280 rest25/lunge07 and still obvious at960: original torso/head are dense weathered copper/moss clusters with local light/occlusion, while new four legs aroundx530–810,y350–518 are uniform double-line rods with flat circular joints, and sails aroundx500–735,y180–300 are broad two-tone polygons. The resulting current image reads as a textured body attached to a separate flat vector skeleton.1wu nearest rendering does not establish equal grain, material depth or art coherence. This is independent expert visual judgment based on actual pixels, not a fabricated user opinion.
+
+Bounded minimum rework for art-director/animation-vfx: leave existing textured torso/head, silhouette scale, live rig anchors and all mechanics intact. Give new limb plates three weathered brass planes and socket/hip/knee/hoof occlusion; reduce continuous uniform bright stripes; add a few grouped2–3pixel wear/chip clusters and authored seams at appropriate scale. Cloth needs shadow folds following its real rig tension, muted worn patch and frayed hem. Fine uniform hatch or random speckle alone does not solve flat material depth. Draw within the same transforms/endpoints; no collider, Motor, attack-clock or player-physics changes to rescue art. Re-run same source/seed/camera fixture capture and inspect both sizes after actual rework. Do not mark material ACCEPT based only on added helper/line count or60PNG count.
+
+### POSE10 — lunge load remains a bounded normal-speed follow-up
+
+Observed rest25→lungeWarning07 does have measurable-looking forward/down shift and stance difference, but rear legs remain long near-straight rods and chest/head height change is restrained. The airborne execute08 proves real displacement silhouette, not that the lead-in sells deep rear-foot loading and a readable powerful push. Need normal-speed warning→launch→land footage before concluding this user requirement is sufficient. This is currently an expert pose-readability candidate/UNVERIFIED motion judgment, not a claim that still frames prove a broken continuous animation.
+
+Positive actual static silhouette observations: single stomp visibly raises one forefoot; seeds raises the head/chest; low/high sweeps use distinct leaf angles at960; platform reaches an actual extended limb; death250→1050→1900 lowers body and folds knees into a low terminal silhouette. These are bounded key-pose observations only. StageIII fixture's unbroken grass floor must not be reused as proof of the native repaired physical shelf support.
+
+Latest scoped verdict: **current material cohesion requires REWORK; complete natural fight, continuous warning/landing/recovery motion, matched-cadence third-shot comparison, original-audio listening and final frozen binding remain UNVERIFIED.** Source/support/audio receipt acceptance does not override this pixel finding.
+
+GPU source presentation SHA observed: `83b73600c7311e6cceba51da225a00542fa90b5f37b020214ea662cb7c7b5721`
+
+## ART09 pose02 independent actual matching before/after — bounded ACCEPT
+
+After root-authorized Presentation-only material rework (+53/-2; originalPNG/Rig/shape/clock unchanged), actually opened **8 pose02 PNGs**:07-lunge-warning,16-gust-warning,22-platform-warning,30-death-1900-ms, each at1280x720 and960x540. Additionally opened original pose01's960 versions16/22/30 to complete same-size/same-pose before/after comparisons (pose01 unique viewed total now18; original15-view record is retained as the earlier review).
+
+**ART09 ACCEPT, scoped only to current four-pose/two-size static material integration.** Actual new limb highlight width is less visually dominant and no longer reads as uninterrupted luminous rods. Three-plane plate shading, transverse seams and worn clusters connect these legs to the old copper body; socket inner rings give hip/knee contact depth. Improvement remains readable at960. Sail fold-tone regions and subdued wear break the previous empty planes without turning them into noise, preserving head/hoof/attack silhouette clarity. This is a substantive visible local improvement; it does not require copying torso density onto every plate. The original pose01 material REJECT remains valid for that original version.
+
+Producer technical boundary: root disclosed that original pose01 has actual ALSA driver ERROR and retains its failed original; reviewer never accepted its native cleanliness. Pose02 explicitly uses Dummy audio for a **silent paused pose fixture**, so it is not original-soundtrack or natural-video evidence. Final producer sourceguard/native terminal receipt is still pending from root at this review moment. Material acceptance does not override engineering failure if final receipt fails, nor sign natural continuous motion/support/fairness, POSE10 deep-load readability, human taste or device performance.
+
+Material rework source SHA: `86ac2ccac624b53b97d0c1e769a2b48bc50a6e03e14627c9bfebaa3ff7b8fae4`
+
+Pose02 technical terminal receipt independently read: `pose-wrapper-02.log` statuspassed/source_stabletrue/native_engine_errors0; `pose-review-02-source-report.json` statuspassed/source_stabletrue/native_engine_errors[]. This closes the producer-engine/sourceguard condition for the bounded8-frame material acceptance. It does not make the silent fixture an original-audio or natural fight artifact.
+
+## Current live24/creative27 independent semantic binding review — bounded ACCEPT
+
+Independently executed read-only comparisons against exact main840108da and actual current files (no native or repository mutations). All9 archive manifest entries match exact baseline bytes, except the declared region-bible-inputs JSON fragment which matches the exact original logical422-item array; every manifest bytes/hash field matches. Exact old style22/registry/two creative25 files/old40+17 test source files/harness profile/App source are retained. No archive is a refreshed-current counterfeit.
+
+Current style24 has140 refs: original83 role/path/order/non-SHA dictionaries retained; **exactly one original App source SHA changes**, other82 retain old hashes. Actual current bytes match every140 SHA. New21 runtime leaves include real WindResponse and derived foreground shader; remaining36 are32 actual preloaded WAVs and4 provenance files. Changed style top-level keys are only version/runtime_reference/supersedes/revision_impact. Both regions change only version/region_bible/authority_sources/revision_impact and preserve their complete old authority prefixes; forest selected content/art is retained. The user requirement attachment correctly states direction-only, not future art/gameplay/audio/device acceptance.
+
+Original full168 check sequence is an exact prefix of current169. Four binding checks retain30/30/30/60 budgets and entire original input prefixes. Earlier independent AST/method review preserved all original40/17 methods and literal historical assertions;43/18 append current drift/stale/consumer guards. Read current actual `binding-harness-02.log`: region-bible-tests,region-bible-contract,creative-direction,creative-direction-tests all fresh passed; this receipt is coordinator-run, not reviewer-run. Combined with independently recomputed140 source hashes and baseline comparisons, **ACCEPT bounded metadata migration/source binding and original-guard preservation**. No blanket SHA refresh, deleted assertion, relaxed old budget, or removed full check found. This acceptance is not complete169 CI, natural battle, subjective/art or user/device approval.
+
+Current style24 bytes SHA: `b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183`

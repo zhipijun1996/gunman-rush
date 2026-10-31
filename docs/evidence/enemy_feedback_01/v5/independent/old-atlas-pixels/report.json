@@ -1,0 +1,153 @@
+{
+	"checks": 32,
+	"failures": [],
+	"observations": [
+		{
+			"HP": 0.0,
+			"accepted_contexts": 3,
+			"effect": {
+				"active": true,
+				"age": 0.0,
+				"phase": "flash",
+				"position": "(383.5, 364.0)",
+				"restored": false,
+				"rotation": 3.14159274101257,
+				"scale": "(1.000001, -1.000266)",
+				"settled": false,
+				"starts": 1,
+				"visible": true
+			},
+			"fragment_texture_path": "res://assets/plains_v3/enemies/meadow_actions/beetle.png",
+			"fragment_texture_size": "(1536.0, 1024.0)",
+			"phase": "plains_charger-early",
+			"scope": "actual death leaf isolated by render channel; unchanged other scene effects",
+			"source_is_atlas": true,
+			"source_region": "[P: (56.0, 111.0), S: (413.0, 323.0)]",
+			"uv_origin": "(56.0, 111.0)",
+			"visible_pixels": 1429
+		},
+		{
+			"HP": 0.0,
+			"accepted_contexts": 3,
+			"effect": {
+				"active": true,
+				"age": 0.116666666666667,
+				"phase": "burst",
+				"position": "(383.5, 364.0)",
+				"restored": false,
+				"rotation": 3.14159274101257,
+				"scale": "(1.000001, -1.000266)",
+				"settled": false,
+				"starts": 1,
+				"visible": true
+			},
+			"fragment_texture_path": "res://assets/plains_v3/enemies/meadow_actions/beetle.png",
+			"fragment_texture_size": "(1536.0, 1024.0)",
+			"phase": "plains_charger-fragments",
+			"scope": "actual death leaf isolated by render channel; unchanged other scene effects",
+			"source_is_atlas": true,
+			"source_region": "[P: (56.0, 111.0), S: (413.0, 323.0)]",
+			"uv_origin": "(56.0, 111.0)",
+			"visible_pixels": 468
+		},
+		{
+			"HP": 0.0,
+			"accepted_contexts": 3,
+			"effect": {
+				"active": false,
+				"age": 0.55,
+				"phase": "spent",
+				"position": "(383.5, 364.0)",
+				"restored": false,
+				"rotation": 3.14159274101257,
+				"scale": "(1.000001, -1.000266)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"fragment_texture_path": "res://assets/plains_v3/enemies/meadow_actions/beetle.png",
+			"fragment_texture_size": "(1536.0, 1024.0)",
+			"phase": "plains_charger-ended",
+			"scope": "actual death leaf isolated by render channel; unchanged other scene effects",
+			"source_is_atlas": true,
+			"source_region": "[P: (56.0, 111.0), S: (413.0, 323.0)]",
+			"uv_origin": "(56.0, 111.0)",
+			"visible_pixels": 0
+		},
+		{
+			"HP": 0.0,
+			"accepted_contexts": 3,
+			"effect": {
+				"active": true,
+				"age": 0.0,
+				"phase": "flash",
+				"position": "(404.3924, 357.4641)",
+				"restored": false,
+				"rotation": -0.017957316711545,
+				"scale": "(1.0, 1.0)",
+				"settled": false,
+				"starts": 1,
+				"visible": true
+			},
+			"fragment_texture_path": "res://assets/plains_v4/spatial/actors.png",
+			"fragment_texture_size": "(1536.0, 1024.0)",
+			"phase": "plains_diver-early",
+			"scope": "actual death leaf isolated by render channel; unchanged other scene effects",
+			"source_is_atlas": true,
+			"source_region": "[P: (935.0, 570.0), S: (580.0, 445.0)]",
+			"uv_origin": "(935.0, 570.0)",
+			"visible_pixels": 1342
+		},
+		{
+			"HP": 0.0,
+			"accepted_contexts": 3,
+			"effect": {
+				"active": true,
+				"age": 0.116666666666667,
+				"phase": "burst",
+				"position": "(404.3924, 357.4641)",
+				"restored": false,
+				"rotation": -0.017957316711545,
+				"scale": "(1.0, 1.0)",
+				"settled": false,
+				"starts": 1,
+				"visible": true
+			},
+			"fragment_texture_path": "res://assets/plains_v4/spatial/actors.png",
+			"fragment_texture_size": "(1536.0, 1024.0)",
+			"phase": "plains_diver-fragments",
+			"scope": "actual death leaf isolated by render channel; unchanged other scene effects",
+			"source_is_atlas": true,
+			"source_region": "[P: (935.0, 570.0), S: (580.0, 445.0)]",
+			"uv_origin": "(935.0, 570.0)",
+			"visible_pixels": 437
+		},
+		{
+			"HP": 0.0,
+			"accepted_contexts": 3,
+			"effect": {
+				"active": false,
+				"age": 0.55,
+				"phase": "spent",
+				"position": "(404.3924, 357.4641)",
+				"restored": false,
+				"rotation": -0.017957316711545,
+				"scale": "(1.0, 1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"fragment_texture_path": "res://assets/plains_v4/spatial/actors.png",
+			"fragment_texture_size": "(1536.0, 1024.0)",
+			"phase": "plains_diver-ended",
+			"scope": "actual death leaf isolated by render channel; unchanged other scene effects",
+			"source_is_atlas": true,
+			"source_region": "[P: (935.0, 570.0), S: (580.0, 445.0)]",
+			"uv_origin": "(935.0, 570.0)",
+			"visible_pixels": 0
+		}
+	],
+	"reviewed_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+	"scope": "two original EnemyPresentation Atlas consumers, actual Router/projectile lethal events, early/fragment/spent pixels; independent temporary review driver, no production/test edits",
+	"task": "ENEMY-FEEDBACK-01"
+}

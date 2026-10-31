@@ -1,0 +1,49 @@
+{
+  "reel": "heal",
+  "method": "FFT search with meaningful energy mask; direct-dot bounded correlation. Shared-tick bomb verified by positive joint fit, no isolated launch onset claim.",
+  "tool_sha256": "8b395d5da9cf3bc8c800eec81ec5a38bd51e7df7cc259dbec256ac002fac8144",
+  "scope": "Technical source-waveform evidence only; not a sound-quality, physical-device or perceptual-sync approval",
+  "profiles": [
+    {
+      "profile": "original",
+      "rms": 0.055661388585253276,
+      "candidate_matches": []
+    },
+    {
+      "profile": "A",
+      "rms": 0.011447522949971657,
+      "candidate_matches": [
+        {
+          "candidate_id": "heal_a",
+          "status": "waveform_verified",
+          "correlation": 0.9979136705215522,
+          "offset_ms": 8.041666666666666
+        }
+      ]
+    },
+    {
+      "profile": "B",
+      "rms": 0.0063450017713565805,
+      "candidate_matches": [
+        {
+          "candidate_id": "heal_b",
+          "status": "waveform_verified",
+          "correlation": 0.9455785597715008,
+          "offset_ms": 8.708333333333334
+        }
+      ]
+    },
+    {
+      "profile": "C",
+      "rms": 0.009758296709475393,
+      "candidate_matches": [
+        {
+          "candidate_id": "heal_c",
+          "status": "waveform_verified",
+          "correlation": 0.9972290434532521,
+          "offset_ms": 9.375
+        }
+      ]
+    }
+  ]
+}

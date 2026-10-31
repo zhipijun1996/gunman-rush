@@ -1,0 +1,321 @@
+{
+  "status": "passed",
+  "source_base": "521a1bf1832ca2cc34cca9b5732c3a7a0c047476",
+  "source_stable": true,
+  "scope": "Two actual default v15 native routes, forest-depth-hollow-00/map1 fast and growth only. No matrix/corpus/old-micro/full-CI claim. Production gameplay/geometry untouched.",
+  "changed_files": {
+    "tests/forest_depth_air_chain_case.gd": "a41e86763518faac9d8a9b17f87af0379f02761b72cca62c6906f39a61164d77",
+    "tests/forest_depth_region_trace.gd": "c361d4d94c2337393dc1f74f7f1b67340db887974a7643fb3dcf2f88baa70098",
+    "tools/run_forest_depth_region.py": "e1fa39ba8694b192c25f0153a37cf4e64b33cbf71f7d522729c838a81bfdf374"
+  },
+  "candidate_patch_sha256": "88c6be8e75cd540b2976e5608fed1bf326066ee3688a21be47d24aed7fe758a1",
+  "native_budget_seconds_unchanged": 240,
+  "global_tick_budget_unchanged": 18000,
+  "phase_tick_budget_unchanged": 400,
+  "original_predicate_call_AST_count_preserved": 288,
+  "runs": [
+    {
+      "route": "fast",
+      "status": "passed",
+      "native_exit": 0,
+      "native_seconds": 17.013962406997962,
+      "legs": [
+        28,
+        28
+      ],
+      "frames": 2154,
+      "failures": [],
+      "capture_sha256": "b058e58e37be0098c544b48979589cae5dfe4827b0ac3d3188648ead78e409f7",
+      "substitutions": [],
+      "actual_pointer": [],
+      "cache_claimed": false,
+      "duplicate_checked": false
+    },
+    {
+      "route": "growth",
+      "status": "passed",
+      "native_exit": 0,
+      "native_seconds": 14.57230017299662,
+      "legs": [
+        23,
+        23
+      ],
+      "frames": 1766,
+      "failures": [],
+      "capture_sha256": "c1a8b16d6a8194c3b009b101c1f1c4e3b314d0c3da8edf99692ffc0116b2c180",
+      "substitutions": [
+        {
+          "tick": 418,
+          "leg": 6,
+          "step": 2,
+          "source_action": "R",
+          "executed_action": "J",
+          "shots": 0,
+          "anchor_jump": true,
+          "can_air_jump": false,
+          "source_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "J"
+            }
+          ]
+        },
+        {
+          "tick": 1139,
+          "leg": 13,
+          "step": 4,
+          "source_action": "R",
+          "executed_action": "H",
+          "shots": 0,
+          "anchor_jump": false,
+          "can_air_jump": false,
+          "source_program": [
+            {
+              "action": "H",
+              "anchor": "a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "b"
+            },
+            {
+              "action": "H",
+              "anchor": "c"
+            },
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "H",
+              "anchor": "a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "b"
+            },
+            {
+              "action": "H",
+              "anchor": "c"
+            },
+            {
+              "action": "H",
+              "anchor": "c",
+              "current_receiver_side": 1.0
+            }
+          ]
+        }
+      ],
+      "actual_pointer": [
+        {
+          "button_text": "选择 / PICK 铃木心匣 / Purple Vessel",
+          "canvas_origin": [
+            0.0,
+            0.0
+          ],
+          "canvas_scale": [
+            1.0,
+            1.0
+          ],
+          "kind": "mouse_button_press",
+          "position": [
+            465.5,
+            539.0
+          ],
+          "raw_canvas_rect": [
+            314.0,
+            503.0,
+            303.0,
+            72.0
+          ],
+          "rect": [
+            314.0,
+            503.0,
+            303.0,
+            72.0
+          ],
+          "screen_scale": [
+            1.0,
+            1.0
+          ],
+          "viewport_size": [
+            1280.0,
+            720.0
+          ],
+          "window_size": [
+            1280.0,
+            720.0
+          ]
+        },
+        {
+          "button_text": "选择 / PICK 铃木心匣 / Purple Vessel",
+          "canvas_origin": [
+            0.0,
+            0.0
+          ],
+          "canvas_scale": [
+            1.0,
+            1.0
+          ],
+          "kind": "mouse_button_release",
+          "position": [
+            465.5,
+            539.0
+          ],
+          "raw_canvas_rect": [
+            314.0,
+            503.0,
+            303.0,
+            72.0
+          ],
+          "rect": [
+            314.0,
+            503.0,
+            303.0,
+            72.0
+          ],
+          "screen_scale": [
+            1.0,
+            1.0
+          ],
+          "viewport_size": [
+            1280.0,
+            720.0
+          ],
+          "window_size": [
+            1280.0,
+            720.0
+          ]
+        }
+      ],
+      "cache_claimed": true,
+      "duplicate_checked": true
+    }
+  ],
+  "refusals": {
+    "scope": "Offline mutations of the two final native captures; no additional native runs",
+    "results": [
+      {
+        "mode": "wrong_actual_policy",
+        "rejected": true,
+        "errors": [
+          "current_actual_free_base_policy_missing_or_changed",
+          "leg_6_air_chain_real_energy_cost_delay_and_recovery",
+          "leg_9_air_chain_real_energy_cost_delay_and_recovery",
+          "leg_11_air_chain_real_energy_cost_delay_and_recovery",
+          "leg_13_air_chain_real_energy_cost_delay_and_recovery",
+          "leg_15_cavity_actual_projectile_credit_evidence",
+          "leg_15_air_chain_H_actual_contact_restoration",
+          "leg_15_air_chain_real_energy_cost_delay_and_recovery",
+          "leg_15_air_chain_real_queued_round_grant_phase",
+          "leg_15_air_chain_H_token_without_real_cause",
+          "leg_17_air_chain_real_energy_cost_delay_and_recovery"
+        ]
+      },
+      {
+        "mode": "invented_shot_energy_debit",
+        "rejected": true,
+        "errors": [
+          "leg_6_current_air_chain_free_shot_and_ground_focus_energy"
+        ]
+      },
+      {
+        "mode": "missing_actual_projectile_HP_receipt",
+        "rejected": true,
+        "errors": [
+          "leg_15_current_actual_projectile_round_evidence",
+          "leg_15_air_chain_H_actual_contact_restoration",
+          "leg_15_current_air_chain_actual_damage_queued_round_phase",
+          "leg_15_current_air_chain_H_token_requires_real_cause"
+        ]
+      },
+      {
+        "mode": "unqualified_anchor_jump",
+        "rejected": true,
+        "errors": [
+          "leg_6_current_air_chain_substitution_not_real_qualified_input"
+        ]
+      },
+      {
+        "mode": "wrong_receiver_side_rehook",
+        "rejected": true,
+        "errors": [
+          "leg_13_current_air_chain_real_receiver_side_rehook_origin"
+        ]
+      },
+      {
+        "mode": "missing_real_reward_pointer",
+        "rejected": true,
+        "errors": [
+          "actual_reward_pointer_missing"
+        ]
+      }
+    ]
+  },
+  "native_receipt": "/workspace/scratch/forest-current-audit-20261023/overlay/build/forest_depth/current_candidate_final/receipt.json",
+  "native_log": "/workspace/scratch/forest-current-audit-20261023/final-two-current-routes.log",
+  "prior_failures_retained": true,
+  "root_write_incident": {
+    "cause": "copy2 followed an overlay observer symlink",
+    "backup": "/workspace/scratch/forest-current-audit-20261023/root-observer-leak-backup.gd",
+    "diff": "/workspace/scratch/forest-current-audit-20261023/root-observer-leak.patch",
+    "restored_exactly_to_521": true,
+    "root_status_after_final_tests": "clean",
+    "all_three_candidate_targets_regular_files": true
+  },
+  "not_run": [
+    "matrix/corpus",
+    "historical fixture compatibility",
+    "standalone geometry micro suites",
+    "full Harness/CI"
+  ]
+}

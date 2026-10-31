@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/hud_integration_review",
+  "verdict": "ACCEPT_TWO_PY_PATCHES",
+  "scope": "Read-only wrapper/count/business-ID alignment plus narrowly traced modified-native→current wrapper/Harness dependency audit; no engine/CI execution by reviewer.",
+  "baseline_commit": "f6570eb5d7eb8ff53094433d277066a50ee1a3b8",
+  "reviewed_working_source_sha256": {
+    "tools/run_underworld_home_terrace_tests.py": "bac59e8e330310cf39591e7e99eb3c9f0683d6081e86cabbc8a4bed2ced59641",
+    "tests/test_underworld_home_terrace_wrapper.py": "370ff3d1032d511ea5fb0717e9d2a0c1f7020eb90cbe43e0111f97a01b2539d2"
+  },
+  "changes_reviewed": [
+    "Exact native184 and capture194; no timeout/success strictness reduction",
+    "Runtime active identity adds existing arms; authored raw provenance stays original four",
+    "Original36 parser/provenance controls retained; arms omission and consistently underreported count are actual rejected controls, mode/capture synthetic positive explicitly not engine evidence"
+  ],
+  "independent_validation": {
+    "scope": "Read-only pure verifier controls, no engine/GPU/CI execution",
+    "tests": 39,
+    "failures": 0,
+    "errors": 0,
+    "passed": true,
+    "sources_before": {
+      "tools/run_underworld_home_terrace_tests.py": "bac59e8e330310cf39591e7e99eb3c9f0683d6081e86cabbc8a4bed2ced59641",
+      "tests/test_underworld_home_terrace_wrapper.py": "370ff3d1032d511ea5fb0717e9d2a0c1f7020eb90cbe43e0111f97a01b2539d2"
+    },
+    "sources_after": {
+      "tools/run_underworld_home_terrace_tests.py": "bac59e8e330310cf39591e7e99eb3c9f0683d6081e86cabbc8a4bed2ced59641",
+      "tests/test_underworld_home_terrace_wrapper.py": "370ff3d1032d511ea5fb0717e9d2a0c1f7020eb90cbe43e0111f97a01b2539d2"
+    },
+    "source_stable": true,
+    "expected_headless": 184,
+    "expected_capture": 194
+  },
+  "author_engine_proofs_independently_inspected": {
+    "headless": {
+      "path": "build/underworld_r3/home/headless_binding.json",
+      "checks": 184,
+      "source_stable": true,
+      "status": "passed"
+    },
+    "gpu": {
+      "path": "build/underworld_r3/home/gpu_binding.json",
+      "checks": 194,
+      "source_stable": true,
+      "status": "passed",
+      "seconds": 141.1623261509958,
+      "source_wrapper_sha256": "bac59e8e330310cf39591e7e99eb3c9f0683d6081e86cabbc8a4bed2ced59641",
+      "capture_count_derivation": "Five active panel captures + four fixed station captures + returned-west =10, each adds one original save_png assertion;184+10=194"
+    }
+  },
+  "default_chain_audit": [
+    {
+      "native": "tests/underworld_plains/test_underworld_home_terraces.gd",
+      "wrapper": "tools/run_underworld_home_terrace_tests.py",
+      "harness": "underworld-home",
+      "result": "Fixed184/194; Harness marker is nonzero-count wildcard and matches wrapper output"
+    },
+    {
+      "native": "tests/underworld_plains/test_underworld_ui.gd",
+      "wrapper": "tools/run_underworld_ui_tests.py",
+      "harness": "underworld-ui",
+      "result": "Positive-count wildcard, no obsolete count lock"
+    },
+    {
+      "native": "tests/home_ui_tests.gd + tests/home_app_runner.gd",
+      "wrapper": "tools/run_generated_consumer_tests.py",
+      "harness": "generated-consumers",
+      "result": "Both original suite markers use positive-count wildcard; no original four-service-ID set lock"
+    },
+    {
+      "native": "tests/player_default_integration.gd",
+      "wrapper": "tools/run_player_default_integration_tests.py",
+      "harness": "player-default-integration",
+      "result": "Exact235 retained; native source unchanged and loops fixed two appearances×two regions, no active-station loop found"
+    },
+    {
+      "native": "tests/plains_redesign_scene_runner.gd",
+      "wrapper": "tools/run_plains_redesign_scene_tests.py",
+      "harness": "plains-redesign-scene",
+      "result": "Positive count/zero-failure native marker, original8/10/15 semantic validation preserved"
+    },
+    {
+      "native": "tests/demo_ui_01/contract_runner.gd + tests/underworld_plains/test_fine_hud_bounds.gd",
+      "wrapper": null,
+      "harness": null,
+      "result": "Not automatically registered in current tools/Harness; separately executed139/61 evidence must remain distinct from full142"
+    },
+    {
+      "native": "new enemy_hit_template / home_weapon / web_pixel_density standalone runners",
+      "wrapper": null,
+      "harness": null,
+      "result": "No automatic tools/Harness literal entry found in scoped traversal; existing direct-run evidence does not become automatic full-CI coverage"
+    }
+  ],
+  "remaining_capture_consumer_finding": {
+    "path": "tools/capture_underworld_revision3.py",
+    "case": "home",
+    "status": "pending_root_fix",
+    "failure": "Still expected native/receipt180 while calling current Home terrace runner without--capture; current expectation must184",
+    "required_fix": "Use wrapper.expected_assertions(False) once for both marker and receipt; append dependency to FIXTURES so existing[0..3] indices remain and inventory/SCOPES bind actual helper source"
+  },
+  "intentional_legacy_exclusion": {
+    "path": "tools/run_underworld_home_tests.py",
+    "counts": [
+      97,
+      101
+    ],
+    "reason": "Explicit frozen R2 consumer; not current default underworld-home Harness. Existing user legacy deferral applies."
+  },
+  "raw_assets_preflight": {
+    "path": "tools/underworld_pipeline.py:681 and Home wrapper preflight",
+    "expected_active": 4,
+    "reason": "Checks authored home_build.json bytes, not current Home runtime copy; correctly unchanged."
+  },
+  "limitations": [
+    "Not a global all-history/repository audit. Scoped actual changed native/known wrapper/Harness traversal only.",
+    "No engine, GPU or CI operations by this reviewer for this follow-up; native184/GPU194 are root-produced actual receipts independently inspected.",
+    "Earlier b761 UI technical ACCEPT remains its original scope and identity.",
+    "Home MovieMaker follow-up not yet reviewed/validated; no MP4 or decode acceptance asserted."
+  ]
+}

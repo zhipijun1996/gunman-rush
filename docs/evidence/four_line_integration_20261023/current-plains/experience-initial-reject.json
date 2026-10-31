@@ -1,0 +1,47 @@
+{
+  "status": "REJECT",
+  "review_type": "independent bounded current-policy candidate review",
+  "observed_root_commit": "cab958912e222337a8d4260bb5111324fc9f1f5d",
+  "candidate_patch_sha256": "09a95fe5652d46b610e5b4d3e19883b682f2216ef6c81bcc7658cb62a6e5b645",
+  "candidate_files": {
+    "tools/run_plains_experience_golden_tests.py": "c98c77f88823381eec73a128a29d980fc11d3acdb5e2c58723c9e316b07d2f2a",
+    "tests/plains_experience_golden_runner.gd": "c10708274f33d1c14606bdedd4729ab396995385219fafde475691c04fb57b84"
+  },
+  "scope": [
+    "Two candidate files only; no production runtime, geometry or budget implementation.",
+    "Source-bound acceptance requires the single current manual-fixture resource guard below."
+  ],
+  "finding": {
+    "id": "CURRENT_MANUAL_FIXTURE_FORGED_GRANT",
+    "severity": "blocking bounded validator correctness",
+    "file": "tools/run_plains_experience_golden_tests.py",
+    "function": "actor_causality",
+    "description": "The free/manual-tick branch states that AirFocus is not advanced and has no recovery owner, but still accepts positive grant receipts through the old paid recovery predicate. A coherent forged grant is accepted by the complete valid() predicate.",
+    "reproduction": "On actual low-energy remote observation, insert tick 2 grant amount 0.1/status 0/empty event_id at previous position; raise all subsequent frame energies and accepted-shot energies by 0.1. Baseline valid=True and fabricated proof valid=True.",
+    "proof": "/workspace/scratch/integration-four-20261023/plains-experience-coherent-grant-probe.json",
+    "minimal_fix": "Reject all energy_transaction events in the free manual-tick fixture; retain paid branch predicates and add the coherent forged-grant refusal using existing capture. No engine rerun required for this Python-only correction."
+  },
+  "otherwise_bounded_findings": [
+    "Actual configured resource path/SHA selects free policy; current max_air_shots is checked against source configuration and equals one.",
+    "Original geometry, collision, directed routes, latch count/motion, actual projectile emission/impact, actor/session, damage receipt and charge predicates remain present. Paid ledger assertions remain conditional; changed tick alias is equivalent.",
+    "Native observer adds real live projectile signal evidence and preserves manual-tick execution; no focus recovery/drain coverage is claimed."
+  ],
+  "observed_evidence": {
+    "receipt": "/workspace/scratch/plains-experience-current-20261023/overlay/build/plains_redesign/experience/run_e5ndonlg/receipt.json",
+    "status": "passed",
+    "source_before_equals_after": true,
+    "positive_native": "332 assertions / 0 failures; source-preserved original292 plus40 emitted-projectile checks",
+    "negative_native": "deleted-island exit1 expected,11 assertions/2 failures, wrapper valid=True",
+    "refusals": {
+      "count": 48,
+      "all_refused": true
+    },
+    "identity_boundary": "External overlay run and explicit candidate hashes; not a fresh run on observed root commit."
+  },
+  "unverified": [
+    "Combined root implementation and final Integration/Release CI.",
+    "Actual AirFocus recovery or drain, intentionally outside this manually ticked fixture.",
+    "Player experience, visual/art quality, devices and user approval."
+  ],
+  "reviewer_actions": "Read only candidate/source/evidence plus one in-memory Python proof mutation; no engine, source writes, hydration or historical compatibility runs."
+}

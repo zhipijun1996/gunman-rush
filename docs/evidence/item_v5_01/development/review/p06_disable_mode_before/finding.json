@@ -1,0 +1,10 @@
+{
+  "id": "IV5-R05",
+  "status": "REJECT static property-restoration contradiction; native case not independently run",
+  "path": "scripts/items/v5/world_freeze_scope.gd",
+  "source_sha256": "c88b6ed842f16586d480d6c11cc9ee7a5e7f403f8657e6d30cda14150824f06f",
+  "capture": "saves row.disable_mode and writes DISABLE_MODE_KEEP_ACTIVE",
+  "release": "restores process_mode and movement fields but omits disable_mode",
+  "contract": "Every changed property is restored",
+  "requested_control": "default REMOVE -> frozen KEEP_ACTIVE -> release original REMOVE"
+}

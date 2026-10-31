@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-0",
+  "content_version": "feel-candidate-v1",
+  "source_path": "assets/player_presentation_01/feel_audio_v1/heavy_0.wav",
+  "source_sha256": "03ffc708153cc1806883a94b7be51aa0ab52f713d2540eafbc6a05eea45b7b30",
+  "tool": "tests/player_presentation_01/build_feel_audio.py; ffmpeg decoder + Python deterministic PCM processing",
+  "model": "not applicable",
+  "prompt_or_reference": "Existing Kenney CC0 movement/soft-impact sources; exact originals/recipes/hashes in feel-audio-provenance.json",
+  "processing": "Trimmed layered 48k mono short one-shots; deterministic offline pitch variants, attack/release envelopes and bounded peak; original sources unchanged",
+  "usage_scope": "Task-only inherited GameAudio consumer; same twelve voices; no production adoption",
+  "license_source": "assets/audio/kenney/sources.json and retained Kenney source license; CC0",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/dev/player_presentation_01/motion_audio.gd",
+    "scripts/dev/player_presentation_01/motion_feel.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "disposition": "limited_preview",
+  "associated_files": [
+    {
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json",
+      "sha256": "0bcc25d3d0b261fa98fc58fb8980ff75a15f30b8840e1ddd761ff371cc5eceaf",
+      "role": "processing_record"
+    }
+  ],
+  "source_family": "PLAYER-PRESENTATION-01-FEEL-AUDIO-V1"
+}

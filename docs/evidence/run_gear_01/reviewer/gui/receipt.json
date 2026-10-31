@@ -1,0 +1,68 @@
+{
+  "reviewer": "/root/inventory_review",
+  "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+  "source_stable_before_after_git_clean": true,
+  "git_status_after": "",
+  "runs": [
+    {
+      "command": [
+        "python3",
+        "-u",
+        "tools/run_gear_ui_tests.py",
+        "--capture"
+      ],
+      "exit_code": 0,
+      "seconds": 29.284629821777344,
+      "completion": [
+        "GEAR UI: 67 checks, 0 failures",
+        "PASS: formal equipment native UI and lifecycle with rendered captures"
+      ]
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--resolution",
+        "1280x720",
+        "--path",
+        ".",
+        "--script",
+        "tests/menu_scroll_touch_tests.gd"
+      ],
+      "timeout_seconds": 90,
+      "exit_code": 0,
+      "seconds": 4.862656116485596,
+      "completion": [
+        "MENU SCROLL TOUCH: 44 checks / 0 failures; native GUI lifecycle only, Web scrolling separate"
+      ]
+    }
+  ],
+  "files": {
+    "desktop-equipped.png": {
+      "sha256": "8271b12e1cfc7b8bc1a0735e3a5f189cb503887a03e8496ea9683a8f004491d7",
+      "bytes": 238507
+    },
+    "desktop-backpack.png": {
+      "sha256": "33e5c8f7f8d8b7c31286fb49195b32ad14f7f6dfd3f704ac7f91e78be2cd81dd",
+      "bytes": 226981
+    },
+    "menu-touch.log": {
+      "sha256": "84f881e08b841b6480d1b8a904d6754e6367ced6b5822a5a469a8878ef4df4e5",
+      "bytes": 517
+    },
+    "gl.log": {
+      "sha256": "a3b569b0d27a538b0537ee49497602527e79b0885beb6760532119d15bad328c",
+      "bytes": 6868
+    },
+    "ui-report.json": {
+      "sha256": "512e296eadb6550a91bd88753ccc5c79a1d093e30955ee265460f3ed768923b0",
+      "bytes": 7381
+    },
+    "touch-equipped.png": {
+      "sha256": "7d31d244805558ce83ff6a62e8b897115fb3d72dd0f8b4d081e5696d88ee3aa3",
+      "bytes": 71547
+    }
+  },
+  "scope": "Independent native Window GUI mouse/touch/gamepad, software GL pixels and original menu touch adapter controls; physical Android/browser/player/listening/performance acceptance excluded"
+}

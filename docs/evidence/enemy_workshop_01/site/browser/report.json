@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checks": [
+    "all25 roster cards rendered",
+    "desktop no horizontal overflow",
+    "real native movie decoded",
+    "real D1 annotation persisted exact action/time/revision",
+    "user text is inert",
+    "zoom pans original video without changing timestamp",
+    "delayed actual API saved201",
+    "late ACK cannot overwrite edited draft after switch/reload",
+    "explicit new submission resolves conflict without overwriting original",
+    "idea saved in real D1 as proposal",
+    "actual UI export contains own saved reviews and idea",
+    "mobile no horizontal overflow",
+    "mobile feedback is modal",
+    "separate browser context reads durable records",
+    "no JavaScript runtime errors"
+  ],
+  "count": 15,
+  "errors": [],
+  "scope": "Actual Chromium desktop+mobile viewport with real local Wrangler D1. Only video transport replaced by byte-exact local original MP4 Range responses; no API/storage mocks or production writes. Mobile viewport is not a physical-device claim.",
+  "owner_fixture": "qa-browser-b41120f13b97"
+}

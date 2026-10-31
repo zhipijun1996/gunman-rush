@@ -1,0 +1,380 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "kind": "Final targeted verification/public delivery follow-up; no rerun",
+  "created_utc": "2026-10-28T11:59:39.408069+00:00",
+  "verdict": "SCOPED_TECHNICAL_ACCEPT",
+  "source_commit": "6d02fe700ee57491b4d58ce6c856a43276d577f7",
+  "report_scope": "Ten explicitly selected fresh Harness checks on clean6d02fe70. This is targeted_checks=true, not fullprofile/fullremoteCI approval. Current docs-only delivery completion after the run is outside this exact-source result.",
+  "harness": {
+    "path": "build/verification/harness/20261028T114556.901303Z/report.json",
+    "sha256": "6d33dd90a17c211f998a3f26f2797989f483298594a491014b58e4092d16033b",
+    "status": "passed",
+    "checks_count": 10,
+    "reused_count": 0,
+    "jobs": 1,
+    "release": true,
+    "targeted_checks": true,
+    "wall_seconds": 532.302,
+    "working_files": {},
+    "git_status_at_snapshot": "",
+    "diff_at_snapshot": "",
+    "untracked_at_snapshot": "",
+    "manifest_sha256_matches_current": true,
+    "source_stability_evidence": "The ordinary jobs1 report does not serialize source_files_after. Its unchanged execute_checks implementation fingerprints every source before/after eachcheck and performs a final full-byte digest comparison before returning. Successful finalreport plus empty startingworking_files/clean git establishes the originalguard passed; working_files={} alone is not misrepresented as a full serialized source inventory.",
+    "checks": [
+      {
+        "id": "docs",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/check_docs.py"
+        ],
+        "timeout_seconds": 60,
+        "actual_seconds": 0.318,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "383c3e846ccd799d72d84014080a6b86464257228eb2aae8afd43cc760216072"
+      },
+      {
+        "id": "quality",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/check_quality.py"
+        ],
+        "timeout_seconds": 60,
+        "actual_seconds": 2.824,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1"
+      },
+      {
+        "id": "core",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/run_tests.py"
+        ],
+        "timeout_seconds": 720,
+        "actual_seconds": 43.228,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "2bc45037d0bbf9c102f25eea1bbbc8a6f560ef3b57364c0e495b7b8ad3da45d3"
+      },
+      {
+        "id": "underworld-world-objects",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/run_underworld_r3_object_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "actual_seconds": 28.387,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "ad07ffab4618e4a6e999ce2c482244e90a51c16aa73f0d7dfb3604d478a49568"
+      },
+      {
+        "id": "region",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/run_plains_region_tests.py"
+        ],
+        "timeout_seconds": 1500,
+        "actual_seconds": 281.866,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "f0787d201568323229f844a95b78cbbfc8ae17b4e9348bc2d91b3180e89c1c50"
+      },
+      {
+        "id": "home-codex",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/run_home_codex_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "actual_seconds": 24.303,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "4184ee1517c3dd1da6c578102dc29014e616a451d7c9e33191c680cfea3f63af"
+      },
+      {
+        "id": "item-v5-formal",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tools/run_item_v5_tests.py",
+          "--suite",
+          "formal"
+        ],
+        "timeout_seconds": 240,
+        "actual_seconds": 19.224,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "94b45f150c9d2eb77eceb19d34b2472ddbb9dbe281f0f469e70db3f3a25f3c48"
+      },
+      {
+        "id": "underworld-pipeline",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tests/test_underworld_pipeline.py"
+        ],
+        "timeout_seconds": 180,
+        "actual_seconds": 99.834,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "f7c3053281c21f50568ac31994b62988cc678799638d46cc24ef37bf504542ee"
+      },
+      {
+        "id": "harness-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tests/test_harness.py"
+        ],
+        "timeout_seconds": 60,
+        "actual_seconds": 11.01,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "585ec8488133f0efcd3bee7d563a266bf8d3ccfa91a51a90a174a4d62d0aff84"
+      },
+      {
+        "id": "cloud-production-planner-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "argv": [
+          "python3",
+          "tests/test_production_plan.py"
+        ],
+        "timeout_seconds": 60,
+        "actual_seconds": 0.311,
+        "original_argv_budget_success_pattern_preserved": true,
+        "log_sha256": "f309d198ec78d2cbf4c58086c217512b6ee96924e4fa21b73316df832cf10040"
+      }
+    ]
+  },
+  "actual_markers_verified": {
+    "core": [
+      "ALL TESTS: 5686 assertions, 0 failures"
+    ],
+    "underworld-world-objects": [
+      "UNDERWORLD R3 OBJECTS: 87 assertions, 0 failures",
+      "CHEST ART: 210 checks, 0 failures",
+      "PASS: Underworld R3 objects actual consumers; GPU pixels separate"
+    ],
+    "region": [
+      "PLAINS EXPLORATION EXPANSION: 2911 assertions, 0 failures",
+      "PLAINS CAMPAIGN MAP: 3721 assertions, 0 failures",
+      "REGION ASSERTIONS: 1274 FAILED: 0",
+      "REGION FIXTURE: baseline ASSERTIONS: 1274 FAILED: 0",
+      "REGION LIFECYCLE: 39 assertions, 0 failures",
+      "REGION BOSS: 25 assertions, 0 failures",
+      "PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27"
+    ],
+    "home-codex": [
+      "HOME ITEM CODEX: 92 assertions, 0 failures",
+      "HOME ITEM CODEX UI: 72 assertions, 0 failures",
+      "HOME CODEX APP: 91 assertions, 0 failures",
+      "HOME CODEX CHECK: persistence, UI and formal App completed with 0 failures"
+    ],
+    "item-v5-formal": [
+      "ITEM V5 FORMAL: 191 assertions, 0 failures",
+      "PASS: item-v5-formal original native fixture and clean teardown"
+    ]
+  },
+  "pure_test_markers": {
+    "underworld-pipeline": 161,
+    "harness-tests": 84,
+    "cloud-production-planner-tests": 21
+  },
+  "region_scope": {
+    "current_original_suite_count": 15,
+    "all_current_15_completed": true,
+    "original_fixture_inventory_count": 28,
+    "executed_physical_fixture": "baseline",
+    "old_physical_itineraries_not_run": 27,
+    "old_itineraries_not_reported_as_passed": true,
+    "overall_budget_seconds": 1500,
+    "campaign_and_lifecycle_each_budget_seconds": 90,
+    "all_budgets_and_success_patterns_unchanged": true
+  },
+  "shop_fixture_followup": {
+    "previous_static_review": "build/chest_art_01/region-shop-fixtures-independent-source-review.json",
+    "previous_native_pending_now_resolved": true,
+    "root_actual_narrow_runs": [
+      {
+        "script": "plains_campaign_map_runner",
+        "timeout_seconds": 90,
+        "assertions": 3721,
+        "exit_code": 0,
+        "seconds": 28.714133727000444
+      },
+      {
+        "script": "plains_region_lifecycle_runner",
+        "timeout_seconds": 90,
+        "assertions": 39,
+        "exit_code": 0,
+        "seconds": 8.322255339997355
+      }
+    ],
+    "current_complete_region_repeated_both_markers": true,
+    "original_Nil_failure_preserved": "docs/evidence/chest_art_01/region-shop-repair/failure-01/",
+    "test_only_change_no_production_rollback": true,
+    "fresh_GUI_physical_mouse_or_arbitrary_transaction_replay_not_claimed": true
+  },
+  "media_and_public_delivery": {
+    "media_commit": "6d02fe700ee57491b4d58ce6c856a43276d577f7",
+    "root_method": "Unauthenticated actual HTTP GET with complete body SHA comparison to committed local bytes; not HEAD-only or old artifact link",
+    "public_HTTP_GET_receipt_reviewed": true,
+    "reviewer_reissued_network_GET": false,
+    "all4recorded_full_SHA_match_actual_immutable_git_blobs": true,
+    "records": [
+      {
+        "url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush/6d02fe700ee57491b4d58ce6c856a43276d577f7/docs/evidence/chest_art_01/live/main/movie.mp4",
+        "actual_GET_receipt_status": 200,
+        "bytes": 5966737,
+        "sha256": "dbce46801f5d9362221ab19b80c63fc561ac53601c085eee633e62906245a9be",
+        "exact_committed_local_bytes_verified_by_reviewer": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush/6d02fe700ee57491b4d58ce6c856a43276d577f7/docs/evidence/chest_art_01/live/forest/movie.mp4",
+        "actual_GET_receipt_status": 200,
+        "bytes": 1185421,
+        "sha256": "9c43907ec4ef02497c754bb9222f33d4f3cf14fa2ab627d6d6e4733f1ec04380",
+        "exact_committed_local_bytes_verified_by_reviewer": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush/6d02fe700ee57491b4d58ce6c856a43276d577f7/docs/evidence/chest_art_01/live/gallery-plains/six-poses-960x540.png",
+        "actual_GET_receipt_status": 200,
+        "bytes": 344724,
+        "sha256": "5b283ece4e8b81b460911ad0a7521860d0de878785b5da7031438ac58646d6e7",
+        "exact_committed_local_bytes_verified_by_reviewer": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush/6d02fe700ee57491b4d58ce6c856a43276d577f7/docs/evidence/chest_art_01/live/gallery-forest/six-poses-960x540.png",
+        "actual_GET_receipt_status": 200,
+        "bytes": 549829,
+        "sha256": "a294147fbb42081ff4666dea65025886d4203445a63f4486fcb04f52ed54a25b",
+        "exact_committed_local_bytes_verified_by_reviewer": true
+      }
+    ],
+    "existing_actual_pixel_review": "build/chest_art_01/final-independent-visual-review.json",
+    "pixel_review_sha256": "3c85d020eac8769af076aa10f89d46d7ca517b44ab38a964a1c7e3274f4ff7e8",
+    "that_original_visual_report_unchanged": true,
+    "production_diff_from_N2_movies_to6d02fe70": [],
+    "original_capture_source_identities_preserved": true
+  },
+  "packed_resource_check": {
+    "source_commit": "5722ca742115ba9316ff4c1a5e2c38694c87081d",
+    "actual_root_report": "build/chest_art_01/pack-receipt.json",
+    "probe_source_SHA_and_15zero_fail_native_marker_reviewed": true,
+    "actual_scope": "Isolated external-CWD native --main-pack loads exactchestJSON/all6PNGregions/materialandalias. Production from packsource5722ca74 to6d02 is byte-identical.",
+    "not_browser_runtime": true,
+    "reviewer_reran_export_or_engine": false
+  },
+  "post_run_document_boundary": "Root is now completing AGENTS/current_state/handoff/quality/evidence documentation. Those later docs edits are not silently attributed to the clean6d02run; final docs/quality checks and finalcommit remain root-owned. Reviewer writes only thisbuild report.",
+  "remaining_unverified": [
+    "FullremoteCI/fullprofile status on eventual finalPRhead",
+    "Browser/Web play through currentbuild",
+    "PhysicalAndroid/controller devices and performance",
+    "Continuousreal-time playback/listening",
+    "FulluseraestheticG5 approval; source adoption does not replace that",
+    "All27legacy physicalitineraries or every map/phase footprint"
+  ],
+  "source04_historical_art_boundary": "Old source04 rawgeometry/grid/gutter failures and prior failed movies/galleries remain preserved. V8 user adoption and bounded actual current-world pixel review do not rewrite oldfailures.",
+  "evidence": [
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/report.json",
+      "sha256": "6d33dd90a17c211f998a3f26f2797989f483298594a491014b58e4092d16033b"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/docs.log",
+      "sha256": "383c3e846ccd799d72d84014080a6b86464257228eb2aae8afd43cc760216072"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/quality.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/core.log",
+      "sha256": "2bc45037d0bbf9c102f25eea1bbbc8a6f560ef3b57364c0e495b7b8ad3da45d3"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/underworld-world-objects.log",
+      "sha256": "ad07ffab4618e4a6e999ce2c482244e90a51c16aa73f0d7dfb3604d478a49568"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/region.log",
+      "sha256": "f0787d201568323229f844a95b78cbbfc8ae17b4e9348bc2d91b3180e89c1c50"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/home-codex.log",
+      "sha256": "4184ee1517c3dd1da6c578102dc29014e616a451d7c9e33191c680cfea3f63af"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/item-v5-formal.log",
+      "sha256": "94b45f150c9d2eb77eceb19d34b2472ddbb9dbe281f0f469e70db3f3a25f3c48"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/underworld-pipeline.log",
+      "sha256": "f7c3053281c21f50568ac31994b62988cc678799638d46cc24ef37bf504542ee"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/harness-tests.log",
+      "sha256": "585ec8488133f0efcd3bee7d563a266bf8d3ccfa91a51a90a174a4d62d0aff84"
+    },
+    {
+      "path": "build/verification/harness/20261028T114556.901303Z/cloud-production-planner-tests.log",
+      "sha256": "f309d198ec78d2cbf4c58086c217512b6ee96924e4fa21b73316df832cf10040"
+    },
+    {
+      "path": "build/chest_art_01/public-download-check/receipt.json",
+      "sha256": "966fe61baaa5f884bd0445020e2a4b2f286be465f229fca37929a592f0e651ee"
+    },
+    {
+      "path": "build/chest_art_01/pack-receipt.json",
+      "sha256": "3dfe26c8e8425a5f0595593ec22da774394ef23198861f709f6e2a2cc8dc07d4"
+    },
+    {
+      "path": "build/chest_art_01/shop-fixture-validation-01/summary.json",
+      "sha256": "b18d68398352da8da4b727452f8b80ca9e8e00a4fe187097d3998cbbba762a7d"
+    },
+    {
+      "path": "build/chest_art_01/shop-fixture-validation-01/plains_campaign_map_runner-native.log",
+      "sha256": "a8168ffb1ebedcdff4b7db022e90d49ef3f69f800a1dd08453cc82cd3dd8517e"
+    },
+    {
+      "path": "build/chest_art_01/shop-fixture-validation-01/plains_region_lifecycle_runner-native.log",
+      "sha256": "52affef722d36848b2135008b6e77e899b78bd9c49793f99fe5a4d243e33b521"
+    },
+    {
+      "path": "build/chest_art_01/final-independent-visual-review.json",
+      "sha256": "3c85d020eac8769af076aa10f89d46d7ca517b44ab38a964a1c7e3274f4ff7e8"
+    },
+    {
+      "path": "build/chest_art_01/region-shop-fixtures-independent-source-review.json",
+      "sha256": "0fbf3f0bc86582882cdb7efeb0efed0e6b3ca45d3f29c180fddeb4d2789f2392"
+    },
+    {
+      "path": "build/chest_art_01/pack-native-01.log",
+      "sha256": "1e8267204a9511f37503dceb27a9c20712504dfd36bac184c19364c37d387914"
+    }
+  ],
+  "engine_or_Harness_rerun_by_reviewer": false,
+  "production_tests_tools_docs_modified_by_reviewer": false,
+  "remaining_identified_blockers_within_this_targeted_scope": []
+}

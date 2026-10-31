@@ -1,0 +1,316 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "review": "feel-v1 frozen GPU recording and sampled pixel review",
+  "reviewer": {
+    "identity": "/root/audit_review",
+    "role": "independent child agent; not implementation author",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md"
+  },
+  "reviewed_at_utc": "2026-10-22T16:34:19.402246+00:00",
+  "source_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+  "verdict": "UNVERIFIED",
+  "verdict_reason": "Limited engineering and sampled world-displacement/recovery observations accepted below. Full-speed audiovisual quality, player approval, device and production integration remain unverified; this does not clear prior hand/weapon pixel REWORK.",
+  "accepted_scope": [
+    "Frozen-source recorded gameplay/input/anchor parity for this actual Home route",
+    "Bounded recovery expiration and immediate accepted jump cancellation in actual final-source trace",
+    "No gross shader seams, black borders, HUD displacement or landing-point obstruction in the sixteen actually viewed original-size frames"
+  ],
+  "method": {
+    "reviewer_engine_execution": false,
+    "recording_execution": "Author Godot MovieMaker runs; reviewer read their raw traces/report/logs and viewed extracted frames.",
+    "images_actually_viewed": "All sixteen listed PNGs using view_image(detail=original),1280x720; no contact sheet substituted.",
+    "full_speed_playback": false,
+    "audio_listening": false,
+    "read_only_checks": "Independent raw row/event comparison; source inventory equality; prior engineering-review source SHA equality; actual MP4/trace SHA checks. Only this review record written."
+  },
+  "engineering_review": {
+    "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/engineering-review.json",
+    "sha256": "f7808635d005ae6e03947eb9d84a1d851e3773d3a3cc8388859ec48682dd5f45",
+    "all_eleven_reviewed_source_files_still_match": true,
+    "previous_FEEL_ENG_01_and_02": "Remain closed in final frozen source; final footage does not exercise Home-return teardown itself. That path remains supported by separately scoped lifecycle-home-second author evidence."
+  },
+  "capture": {
+    "report_path": "build/player_presentation_01/feel-v1/native-final/report.json",
+    "report_sha256": "71c4b943580a19227533688674379839efe3b96e1ae22fa06075ab7f7d17b3a5",
+    "source_before_equals_source_after": true,
+    "source_stable_reported": true,
+    "source_commit_reported": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+    "conditions": {
+      "seed": "player-presentation-01/motion-01",
+      "fps": 60,
+      "resolution": [
+        1280,
+        720
+      ],
+      "requested_samples": 780
+    },
+    "source_before_after_inventory": "Reviewer compared complete parsed source inventories for equality; report embeds exact per-file SHA.",
+    "movies": [
+      {
+        "path": "build/player_presentation_01/feel-v1/native-final/before.mp4",
+        "sha256": "dcd830d08b88b67e507ddc74fb787a8a8d764b2b050318aa260324f15e497ae9",
+        "matches_report_hash": true,
+        "video": "1280x720,60fps,788frames,13.133333s per capture media metadata",
+        "audio": "48kHz stereo audio stream exists per capture metadata; not listened to"
+      },
+      {
+        "path": "build/player_presentation_01/feel-v1/native-final/after.mp4",
+        "sha256": "107e6d325f654e04dbebdb7e239b7350915f2abd34257eb990907315ec20bc4d",
+        "matches_report_hash": true,
+        "video": "1280x720,60fps,788frames,13.133333s per capture media metadata",
+        "audio": "48kHz stereo audio stream exists per capture metadata; not listened to"
+      }
+    ]
+  },
+  "independent_trace_comparison": {
+    "samples": [
+      780,
+      780
+    ],
+    "fields": [
+      "sample",
+      "tick",
+      "position",
+      "velocity",
+      "normal",
+      "recoil",
+      "motion_steps",
+      "hp",
+      "stamina",
+      "muzzle",
+      "aim",
+      "canvas",
+      "camera_offset",
+      "body"
+    ],
+    "field_count": 14,
+    "differences": [],
+    "accepted_events_equal_excluding_heavy": true,
+    "exclusion": "Only heavy is ON-only cosmetic classification. Event/sample/drop/speed/airborne compared exactly.",
+    "accepted_event_count_each": 14,
+    "author_checks_errors_each": {
+      "before": {
+        "checks": 1583,
+        "errors": []
+      },
+      "after": {
+        "checks": 1583,
+        "errors": []
+      }
+    },
+    "actual_landing_and_cancellation": [
+      {
+        "sample": 386,
+        "observation": "Actual192.055618wu high landing,previous airborne speed800; recovery .2233333,shake .1233333 after initial processing; rendered land."
+      },
+      {
+        "samples": [
+          395,
+          396,
+          397,
+          398,
+          399
+        ],
+        "observation": "Gameplay renderer body state has returned idle; task render_body remains land while positive recovery expires. Cosmetic held land pose only; no gameplay delay inferred."
+      },
+      {
+        "sample": 400,
+        "observation": "recovery0 and render_body idle; no persistent first-landing pose."
+      },
+      {
+        "sample": 586,
+        "observation": "Second192.055618wu high landing; same bounded recovery starts."
+      },
+      {
+        "sample": 589,
+        "observation": "Accepted next jump; recovery0,shake0,body and render_body rise in this same recorded sample. Media frame594 visibly shows airborne rise."
+      }
+    ],
+    "audio_event_scope": "Trace has two heavy cue admissions and six jump cue admissions; this proves scheduling/admission records, not audible quality or perceptual synchronization."
+  },
+  "original_size_frames_viewed": [
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-386.png",
+      "sha256": "e91f192e9c24b700a83b017bf944effb1ad38e7cf33d95c6ba9073bd3aec863d",
+      "media_frame": 386,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-386.png",
+      "sha256": "11db6d23b7f687da72a6bfd3efe4de80d08062240bffcf49e432c5466980d4be",
+      "media_frame": 386,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-391.png",
+      "sha256": "9abff7ba18199155ef6d820f2059ecd10c07d63e184340846c8913a0c6a584e4",
+      "media_frame": 391,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-391.png",
+      "sha256": "77fed9bb56107dd76552487dcaab88559023829df893e67ee27d7a349675016a",
+      "media_frame": 391,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-393.png",
+      "sha256": "3efe22886acabdbb891a11cab9ca70dac43ea6338a4a25d1bf5a6332e27f6cf2",
+      "media_frame": 393,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-393.png",
+      "sha256": "a9e10536a45162cb425d2153424005a48ce14fb8a21b55fdc7c7f05a49d5dfde",
+      "media_frame": 393,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-397.png",
+      "sha256": "9ce3d8c996d6fdcdf382110f6be3eab23fc7c226e487ea86e0c8a7331482b5c8",
+      "media_frame": 397,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-397.png",
+      "sha256": "d5b5957fd506a41d389d0a1358524266452f0ecc870d26b8c2953f2cb1738e95",
+      "media_frame": 397,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-403.png",
+      "sha256": "4c9188d23bfafcd7c294838420b228ca0bc3f75bc334c4bc551739a2600d69aa",
+      "media_frame": 403,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-403.png",
+      "sha256": "fbb2b67ca18b05549e8e5422c1caf0116f38e3ce7c0651b7e9515d386138b309",
+      "media_frame": 403,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-409.png",
+      "sha256": "48addbdcec1f872a66fb0bf306c493f8c3f01458f712f0e23d3bf399f68704df",
+      "media_frame": 409,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-409.png",
+      "sha256": "4df7f41591d11a914c1479f9483db71e76d74d0893aca2fee65831ca8e67e216",
+      "media_frame": 409,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-589.png",
+      "sha256": "afdbd1d1fef3d26ff2038bf262139cf67ca6d4e61cf9a3bfe65480e71c2bce2e",
+      "media_frame": 589,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-589.png",
+      "sha256": "c2f0f0a85ad117e8b08ab906564dfc18bacd6a818730c38a031fa3bb737f147f",
+      "media_frame": 589,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/before-594.png",
+      "sha256": "bd0649fb67dbf2e6a9415db29ad8401faa1d70e0726e813e1447551f713d662f",
+      "media_frame": 594,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/native-final/frames/after-594.png",
+      "sha256": "08926e7c52d1deac20b00278ee6d547470b1b42cfa9b85b6c99d42d5dffc733d",
+      "media_frame": 594,
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "pixel_findings": [
+    {
+      "id": "FEEL-PIX-01",
+      "verdict": "ACCEPT",
+      "scope": "Sampled world-only screen displacement",
+      "observation": "after391 visibly moves the world/ground slightly vertically against the stationary HP panel,menu and appearance selector. By the later sampled frames the scene is steady. No gross black strip,obvious double-world seam or masked landing support is visible in these samples.",
+      "limits": "Sparse frames do not cover every oscillation,viewport size,backend,screen edge or refresh rate. Tutorial/world text follows the displaced world; this is not evidence that every UI canvas is unaffected."
+    },
+    {
+      "id": "FEEL-PIX-02",
+      "verdict": "ACCEPT",
+      "scope": "Local bounded pose and legal cancellation",
+      "observation": "The first landing remains foot-supported. Raw trace confirms the extra land render interval beyond original body idle and its bounded end. before/after594 both show the subsequent legal airborne rise; there is no held land pose blocking that action.",
+      "limits": "The second half of the reused land clip is close to standing in sampled pixels. No claim of new detailed heavy-impact animation or visibly superior full-speed weight."
+    },
+    {
+      "id": "FEEL-PIX-03",
+      "verdict": "UNVERIFIED",
+      "scope": "Silhouette continuity and hand/weapon connection",
+      "observation": "At after409 the new idle has a rounder/broader silhouette than the preceding reused original land poses. The fixed upper-body/weapon connection issue documented in motion-v1 remains unresolved; the screen effect does not resolve it.",
+      "limits": "Endpoint frames do not establish seamless full-speed transition. Prior motion-v1/pixel-review.json REWORK is preserved and not upgraded."
+    },
+    {
+      "id": "FEEL-PIX-04",
+      "verdict": "UNVERIFIED",
+      "scope": "Dust visibility and sound quality",
+      "observation": "This frame selection is centered on shader/recovery timing and is insufficient to re-sign dust peak visibility or audiovisual balance. Earlier vfx-second sampled acceptance has its own source/scope. Audio stream metadata alone does not establish listening quality."
+    }
+  ],
+  "remaining_unverified": [
+    "Full-speed movie playback,oscillation comfort,transition smoothness and audiovisual timing",
+    "Actual hearing,layer balance,variation quality and device output",
+    "Different viewport sizes,backend/refresh-rate/low-FPS GPU and shader edge behavior",
+    "Final-source death/return/full affected production integration beyond the recorded Home route and scoped author lifecycle evidence",
+    "All weapons and all selectable character consumers",
+    "Existing run-art rejection and hand/weapon REWORK",
+    "Player taste,feel and physical-device acceptance"
+  ],
+  "completion_boundary": "Task-only candidate evidence suitable for coordinator/player review; not a complete workline,production merge,full-body art acceptance or user/device signature."
+}

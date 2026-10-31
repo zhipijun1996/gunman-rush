@@ -2,6 +2,8 @@ class_name PlayerProjectile
 extends Node2D
 
 signal impacted(point: Vector2, direction: Vector2)
+## A wall/solid contact, distinct from an enemy damage receipt.
+signal terrain_impacted(point: Vector2, direction: Vector2)
 
 var weapon_epoch := -1
 var energy_receipt_id := 0
@@ -14,10 +16,21 @@ var speed := 1200.0
 var radius := 3.0
 var damage := 1.0
 var lifetime := 2.0
+## Range modifiers stay attached to their live equipment source. Existing
+## legacy fixtures without an item runtime retain their directly set lifetime.
+var base_lifetime := 0.0
 var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var art_kind: StringName = &"bullet"
 var skill_attack := false
+var weapon_id: StringName
+var weapon_tier := 1
+var weapon_mode := WeaponDefinition.Mode.PULSE
+var shot_index := 1
+var extra_enemy_pierces := 0
+var pierced_damage_ratio := 1.0
+var _pierced := 0
+var _hit_targets: Dictionary = {}
 var spent := false
 var fired_airborne := false
 var _age := 0.0
@@ -68,6 +81,15 @@ func advance(delta: float) -> void:
 	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id or (weapon_epoch>=0 and weapon_epoch!=owner_controller.shoot_ability.weapon_epoch):
 		dispose()
 		return
+	var items := owner_controller.get("item_runtime") as RefCounted
+	if items != null and not skill_attack and art_kind == &"bullet":
+		var pierce: Dictionary = items.call("extra_pierce")
+		extra_enemy_pierces = int(pierce.get("count", 0))
+		pierced_damage_ratio = float(pierce.get("damage_ratio", 1.0))
+		if _pierced > extra_enemy_pierces:
+			dispose()
+			return
+		if base_lifetime > 0.0: lifetime = base_lifetime * float(items.call("projectile_range_multiplier"))
 	_age += delta
 	if _age >= lifetime:
 		dispose()
@@ -126,12 +148,31 @@ func advance(delta: float) -> void:
 			excluded.append(hit.rid)
 			query.transform.origin = global_position
 			continue
+		if receiver != null and _hit_targets.has(receiver.get_instance_id()):
+			excluded.append(hit.rid)
+			query.transform.origin = global_position
+			continue
+		var can_pierce := false
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "skill_attack": skill_attack, "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_weapon_damage.bind(session_id,energy_receipt_id if energy_receipt_id > 0 else shot_id,shot_id,fired_airborne,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,skill_attack,receiver,weapon_epoch)})
+			var packet := energy_receipt_id if energy_receipt_id > 0 else shot_id
+			var amount := damage * (pierced_damage_ratio if _pierced > 0 else 1.0)
+			if items != null: amount = float(items.call("modify_direct_damage", amount, receiver, skill_attack, packet))
+			var event := {"session":session_id,"packet":packet,"shot":shot_id,"shot_index":shot_index,"airborne":fired_airborne,"skill":skill_attack,"receiver":receiver,"target_id":(receiver.actor_id if receiver.actor_id != 0 else receiver.get_instance_id()) if receiver.faction == &"enemy" else 0,"point":query.transform.origin,"direction":direction,"amount":amount,"weapon_id":weapon_id,"tier":weapon_tier,"weapon_mode":weapon_mode,"weapon_epoch":weapon_epoch}
+			var context := {"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": amount, "damage_type": &"projectile", "skill_attack": skill_attack, "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.shoot_ability.item_hit_committed.bind(event)}
+			context.item_stagger_multiplier = float(items.call("enemy_stagger_multiplier")) if items != null and not skill_attack else 1.0
+			var accepted := receiver.receive_damage(context)
+			_hit_targets[receiver.get_instance_id()] = true
+			can_pierce = accepted and receiver.faction == &"enemy" and not skill_attack and art_kind == &"bullet" and _pierced < extra_enemy_pierces
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
 		if receiver == null or receiver.impact_style() != &"boss":
 			UnderworldProjectileVisual.emit(self,query.transform.origin,direction,true,true)
 			impacted.emit(query.transform.origin, direction)
+		if receiver == null: terrain_impacted.emit(query.transform.origin,direction)
+		if can_pierce:
+			_pierced += 1
+			excluded.append(hit.rid)
+			query.transform.origin = global_position
+			continue
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.

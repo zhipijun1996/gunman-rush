@@ -1,4 +1,6 @@
 extends SceneTree
+
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 var assertions:=0
 var failures:=0
 func _initialize() -> void: run.call_deferred()
@@ -50,6 +52,7 @@ func run() -> void:
 	check(summary.shop_items.size()==7 and summary.resource_modes.size()==2,"shops and cache types vary independently")
 	var file:=FileAccess.open("res://build/verification/generated/plains_cohesion/operation_corpus.json",FileAccess.WRITE);file.store_string(JSON.stringify(summary,"  ",true));file.close()
 	await item_effects()
+	await current_focus_items()
 	for kind: String in ["coin","heart","note"]: await resource_cache(kind)
 	await save_failure_cache()
 	await eligible_item_cache()
@@ -60,30 +63,102 @@ func run() -> void:
 	print("PLAINS EXPLORATION EXPANSION: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
 func item_effects() -> void:
+	# Explicit D079 item-policy fixture; preserve its original numerical checks.
+	# Current one-round/AirFocus items are exercised separately below.
 	var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
 	root.add_child(player)
-	var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy()
+	var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres"))
 	var build:=BuildState.new();build.configure(actor)
 	var base_recoil:=player.tuning.ground_recoil_multiplier
 	var base_burst:=player.tuning.shot_burst_speed
-	check(build.add_item(&"stability",preload("res://resources/items/stability_blue.tres")),"stability installs a real modifier")
+	check(GEAR.add_and_equip(build, &"stability",preload("res://resources/items/stability_blue.tres")),"stability installs a real modifier")
 	check(is_equal_approx(player.tuning.ground_recoil_multiplier,base_recoil*.5) and player.tuning.shot_burst_speed==base_burst,"stability reduces ground recoil while preserving airborne burst")
-	check(build.remove_source(&"stability") and player.tuning.ground_recoil_multiplier==base_recoil,"stability removal recomputes the exact baseline")
-	check(build.add_item(&"braid",preload("res://resources/items/braided_cord.tres")),"ground recovery modifier accepted")
+	check(GEAR.unequip_source(build, &"stability") and player.tuning.ground_recoil_multiplier==base_recoil,"stability removal recomputes the exact baseline")
+	check(GEAR.add_and_equip(build, &"braid",preload("res://tests/fixtures/demo_ui_01_r3/braided_cord_d079.tres")),"ground recovery modifier accepted")
 	actor.shot_energy.consume(1001);actor.shot_energy.advance(1.35,true)
 	check(is_equal_approx(actor.actor_resources.stamina.current,100),"braid's actual policy recovers 40.5 energy per grounded second, capped at capacity")
 	actor.shot_energy.consume(1002);actor.shot_energy.advance(1.35,false)
 	check(is_equal_approx(actor.actor_resources.stamina.current,80),"braid never recovers energy in air")
-	check(build.add_item(&"cooling",preload("res://resources/items/cooling_fin.tres")),"cooling accepts actual recovery delay modifier")
+	check(GEAR.add_and_equip(build, &"cooling",preload("res://tests/fixtures/demo_ui_01_r3/cooling_fin_d079.tres")),"cooling accepts actual recovery delay modifier")
 	actor.shot_energy.consume(1003);actor.shot_energy.advance(.25,true)
 	check(actor.actor_resources.stamina.current>60,"cooling allows ground recovery after shorter delay")
 	var cooldown:=player.tuning.shot_cooldown
 	var braking:=player.tuning.ground_deceleration
-	check(build.add_item(&"hammer",preload("res://resources/items/quick_hammer.tres")) and is_equal_approx(player.tuning.shot_cooldown,cooldown*.85),"hammer changes real shoot cooldown")
-	check(build.add_item(&"brakes",preload("res://resources/items/brake_boots.tres")) and is_equal_approx(player.tuning.ground_deceleration,braking*1.3),"boots change real ground braking")
+	check(GEAR.add_and_equip(build, &"hammer",preload("res://resources/items/quick_hammer.tres")) and is_equal_approx(player.tuning.shot_cooldown,cooldown*.85),"hammer changes real shoot cooldown")
+	check(GEAR.add_and_equip(build, &"brakes",preload("res://resources/items/brake_boots.tres")) and is_equal_approx(player.tuning.ground_deceleration,braking*1.3),"boots change real ground braking")
 	var resource:=ResourceRewardChoice.make(&"test/coins","coin",16,ItemDefinition.Rarity.BLUE)
 	check(resource.is_valid() and not build.can_add(resource) and ItemPresentation.icon(resource.icon_key)!=null,"resource card renders real AI icon but cannot become a fake item")
 	player.free()
+func current_focus_items() -> void:
+	# Current defaults: real Controller, Router, Motor floor contact and AirFocus.
+	# The exhausted-resource boundary below is explicit; no shadow policy/state.
+	for cooling_enabled: bool in [false,true]:
+		var world:=Node2D.new();root.add_child(world)
+		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+		player.position=Vector2(200,-1000);world.add_child(player)
+		var actor:=player.get_node("Controller") as PlayerController
+		actor.set_physics_process(false)
+		player.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
+		var gamepad:=player.get_node_or_null("GamepadAdapter")
+		if gamepad!=null: gamepad.set_physics_process(false)
+		check(actor.enable_shot_energy() and not actor.shot_energy.definition.shooting_consumes_energy,"current item fixture keeps formal v2 shot/time separation")
+		check(player.tuning.max_air_shots==1 and actor.action_resources.shot_charges==1,"current item fixture preserves default one airborne round")
+		var state:=actor.actor_resources.stamina
+		var focus:=actor.air_focus_ability
+		check(focus.stamina_state==state,"current items use the actual shared AirFocus resource")
+		var base_rate:=player.tuning.focus_stamina_recovery
+		var base_rearm:=player.tuning.focus_rearm_stamina
+		var build:=BuildState.new();build.configure(actor)
+		check(GEAR.add_and_equip(build, &"current_braid",preload("res://resources/items/braided_cord.tres")),"current braid installs its formal focus recovery effect")
+		if cooling_enabled: check(GEAR.add_and_equip(build, &"current_cooling",preload("res://resources/items/cooling_fin.tres")),"current cooling installs its formal focus rearm effect")
+		var no_op_before:=state.current
+		actor.shot_energy.consume(1002)
+		var no_op_after_shot:=state.current
+		actor.shot_energy.advance(1.35,false)
+		check(state.current==no_op_before and no_op_after_shot==no_op_before,"formal shot consume/air advance leave time energy unchanged")
+		print("R3_ITEM_AIR_NOOP cooling=",cooling_enabled," before=",no_op_before," after_shot=",no_op_after_shot," after_air=",state.current)
+		actor.router.set_aim(&"keyboard_mouse",Vector2.RIGHT,true)
+		actor._physics_process(.1*Engine.time_scale)
+		check(focus.active and is_equal_approx(state.current,no_op_before-player.tuning.focus_stamina_drain*.1),"current held airborne aim consumes actual time energy once")
+		actor.router.set_aim(&"keyboard_mouse",Vector2.RIGHT,false)
+		var airborne_before:=state.current
+		await physics_frame
+		actor._physics_process(.2*Engine.time_scale)
+		check(not focus.active and state.current==airborne_before and Engine.time_scale==1.0,"current braid/cooling never passively recover time energy in air")
+		# Explicit near-empty resource fixture, then real held aim exhausts it.
+		state.consume_continuous(state.current-player.tuning.focus_stamina_drain*.05,state.epoch)
+		actor.router.set_aim(&"keyboard_mouse",Vector2.RIGHT,true)
+		await physics_frame
+		actor._physics_process(.1*Engine.time_scale)
+		check(state.current==0 and focus.exhausted,"real AirFocus consumption reaches exhausted gate")
+		actor.router.clear("current_item_landing")
+		var floor_body:=StaticBody2D.new();floor_body.position=player.position+Vector2(0,100)
+		var shape:=CollisionShape2D.new();var rect:=RectangleShape2D.new();rect.size=Vector2(900,24);shape.shape=rect;floor_body.add_child(shape);world.add_child(floor_body)
+		await physics_frame;await physics_frame
+		for frame: int in 60:
+			actor._physics_process((1.0/60)*Engine.time_scale)
+			if actor._was_grounded: break
+			await physics_frame
+		check(player.is_on_floor() and actor._was_grounded,"current item fixture lands through real Motor collision")
+		# Compare both actual policies at identical energy between old/new gates.
+		state.consume_continuous(state.current,state.epoch)
+		var between_gates:=base_rearm*(1.0+.65)*.5
+		var seconds:=between_gates/(base_rate*1.35)
+		await physics_frame
+		actor._physics_process(seconds*Engine.time_scale)
+		check(is_equal_approx(state.current,base_rate*1.35*seconds),"current braid actually restores 40.5 time energy per grounded second")
+		check(focus.exhausted!=cooling_enabled,"current cooling rearms at its lower gate while no-cooling control stays exhausted")
+		print("R3_ITEM_GROUND cooling=",cooling_enabled," energy=",state.current," rate=",player.tuning.focus_stamina_recovery," rearm=",player.tuning.focus_rearm_stamina," exhausted=",focus.exhausted)
+		actor.router.set_jump_held(&"current_cooling_jump",true)
+		actor.router.set_aim(&"keyboard_mouse",Vector2.RIGHT,true)
+		var before_jump:=state.current
+		await physics_frame
+		actor._physics_process((1.0/60)*Engine.time_scale)
+		check(not actor._was_grounded and focus.active==cooling_enabled,"actual Router jump re-enters slow aim only after the current cooling gate rearmed")
+		check(state.current<before_jump if cooling_enabled else state.current==before_jump,"rearmed actual aim consumes energy; exhausted control neither consumes nor recovers")
+		actor.router.clear("current_item_cleanup")
+		check(await load("res://tests/audio_teardown.gd").drain_world(world),"current item fixture observes bounded actual audio release")
+		world.free();await physics_frame
 func cache_app(kind: String):
 	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("cache-kind-"+kind),"formal cache fixture starts")
@@ -150,14 +225,37 @@ func save_failure_cache() -> void:
 func eligible_item_cache() -> void:
 	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
 	var chest: Dictionary=(app.stage as PlainsRegionStage).chests.filter(func(c: Dictionary): return c.tier=="medium")[0]
-	var damage:=preload("res://resources/items/damage_blue.tres")
-	for i: int in damage.stack_limit: app.build.add_item(StringName("owned/%s" % i),damage)
-	chest.items=["stability_blue","damage_blue"];chest.reward_mode="item_resource";chest.resources=[{"kind":"coin","amount":16},{"kind":"note","amount":1}]
+	# Explicit two-definition fixture through the existing V5 provider seam.
+	# Generate the actual frozen cache first, then advance one owned item to its
+	# real maximum level; re-entering filters that frozen result without rerolls.
+	var damage:=ItemCatalogV5.get_item(&"B03")
+	var health_item:=ItemCatalogV5.get_item(&"B11")
+	app._item_v5_pool.configure(app.build,func() -> Array[ItemDefinition]: return [damage,health_item])
+	var initial: Array[ItemDefinition]=app._v5_cache_items(chest)
+	check(initial.size()==2,"controlled actual V5 cache freezes both initially eligible definitions")
+	var cache_key:=StringName(app._run_receipt_prefix+"/"+str(chest.id))
+	var manifest: Dictionary=app._item_v5_pool.manifest_for(cache_key)
+	for i: int in damage.max_level: check(app.build.add_item(StringName("owned/%s" % i),damage),"real V5 ownership advances excluded item to its level cap")
+	check(ItemV5Eligibility.offer_reason(damage,app.build)==&"maximum_level" and ItemV5Eligibility.offer_reason(health_item,app.build).is_empty(),"actual V5 level cap leaves exactly one eligible cache item")
+	chest.reward_mode="item_resource";chest.resources=[{"kind":"coin","amount":16},{"kind":"note","amount":1}]
+	var health: HealthState=app.controller.actor_resources.health
+	var before_capacity: float=health.capacity;var before_hp: float=health.current
 	app.player.position=chest.position;app._region_interact()
-	check(app.reward_modal.opened and app._region_offer.candidates[0].stable_id==&"stability_blue","one eligible item stays available beside a real resource")
-	check(app._claim_modal_item(&"stability_blue"),"one-item cache selects through actual reward service")
+	check(app.reward_modal.opened and app._region_offer!=null and app._region_offer.candidates.size()==2 and app._region_offer.candidates[0].stable_id==&"B11","one eligible V5 item stays available beside a real resource")
+	if app._region_offer!=null and app._region_offer.candidates.size()==2:
+		var resource:=app._region_offer.candidates[1] as ResourceRewardChoice
+		check(resource!=null and resource.resource_kind=="coin" and resource.amount==16,"single eligible item retains the original real coin alternative")
+	check(app._item_v5_pool.manifest_for(cache_key)==manifest,"ownership filtering preserves the original cache Manifest and RNG draw")
+	check(app._claim_modal_item(&"B11"),"one-item cache selects through actual reward service")
 	await frames(3)
-	check(app.build.count_item(&"stability_blue")==1,"retained eligible item applies its actual effect")
+	var owned: RunItemInstance=app.build.inventory.instance_for_definition(&"B11")
+	check(owned!=null and app.build.count_item(&"B11")==1 and chest.claimed and app.region_state.claimed.has(chest.id),"retained eligible item commits once to inventory and actual claimed ledger")
+	check(health.capacity==before_capacity and health.current==before_hp and app.build.item_ids().is_empty(),"owned cache item has no effect until explicitly equipped")
+	if owned!=null:
+		var capacity_add: float=float(health_item.effect_parameters.max_hp_add_by_level[0])
+		check(GEAR.equip_ids(app.build,[owned.instance_id]) and health.capacity==before_capacity+capacity_add and health.current==before_hp,"retained eligible item applies its actual configured effect only after equipment")
+		check(GEAR.equip_ids(app.build,[]) and health.capacity==before_capacity and health.current==before_hp,"unequipping the claimed item removes its actual effect without free healing")
+	check(not app._claim_modal_item(&"B11") and app.build.count_item(&"B11")==1,"late repeated selection cannot grant the retained item twice")
 	app.abandon_run()
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):
 		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return

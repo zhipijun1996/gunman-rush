@@ -1,0 +1,68 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+  "consumers": [
+    {
+      "id": "original_charger",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "original_diver",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "underworld_installer_charger",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "underworld_installer_diver",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "default_plains_app",
+      "discovery": "actual start_plains runtime inventory, kills/drop/reload",
+      "output": "behavior"
+    },
+    {
+      "id": "forest_retained_charger",
+      "discovery": "source installer inventory; affected Integration required",
+      "output": "behavior"
+    },
+    {
+      "id": "action_studio_selected",
+      "discovery": "source ordinary actor consumer; existing actor-actions regression",
+      "output": "behavior"
+    }
+  ],
+  "runtime_inventory_source": "Independent exact-source native458/0/support199/0/default-audio278/0/GPU258/0; formal66/1 current persistent-body reload failure;4fresh original Harness pass. Both clean-source chains separately recorded,1560 projections and real input/events equal. Exact full formal visual consumers/full Integration not signed.",
+  "observed_cases": [
+    {
+      "chain": "EnemyPresentation",
+      "definition": "res://resources/enemies/plains_charger.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    },
+    {
+      "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual",
+      "definition": "res://resources/enemies/plains_charger.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    },
+    {
+      "chain": "EnemyPresentation",
+      "definition": "res://resources/enemies/plains_diver.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    },
+    {
+      "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual",
+      "definition": "res://resources/enemies/plains_diver.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    }
+  ]
+}

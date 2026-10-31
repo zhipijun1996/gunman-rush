@@ -6,6 +6,8 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import struct
+import zlib
 from quality import ROOT, read_json, validate_record, validate_asset
 from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT, LANDSCAPE
 
@@ -81,6 +83,282 @@ def style_asset_consumers(root):
     return found
 
 
+# Exact reviewed loader; registry contents may grow without admitting siblings.
+ITEM_ART_LOADER = 'scripts/items/v5/item_art_library.gd'
+ITEM_ART_LOADER_SHA256 = '14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d'
+ITEM_ART_ROOT = 'assets/items/v5/'
+
+
+def item_art_png_size(data):
+    """Validate the PNG container/CRCs without an optional imaging dependency."""
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise ValueError('Invalid item-art PNG signature')
+    offset, dimensions, has_data, ended = 8, None, False, False
+    while offset < len(data):
+        if len(data) - offset < 12:
+            raise ValueError('Truncated item-art PNG chunk')
+        length = struct.unpack_from('>I', data, offset)[0]
+        kind = data[offset+4:offset+8]
+        finish = offset + 12 + length
+        if finish > len(data) or zlib.crc32(data[offset+4:finish-4]) & 0xffffffff != struct.unpack_from('>I', data, finish-4)[0]:
+            raise ValueError('Invalid item-art PNG chunk/CRC')
+        payload = data[offset+8:finish-4]
+        if dimensions is None:
+            if kind != b'IHDR' or length != 13:
+                raise ValueError('Missing item-art PNG IHDR')
+            width, height, depth, color, compression, filtering, interlace = struct.unpack('>IIBBBBB', payload)
+            legal = {0: (1, 2, 4, 8, 16), 2: (8, 16), 3: (1, 2, 4, 8), 4: (8, 16), 6: (8, 16)}
+            if not 0 < width <= 0x7fffffff or not 0 < height <= 0x7fffffff or depth not in legal.get(color, ()) or compression or filtering or interlace not in (0, 1):
+                raise ValueError('Invalid item-art PNG IHDR')
+            dimensions = (width, height)
+        elif kind == b'IHDR':
+            raise ValueError('Duplicate item-art PNG IHDR')
+        if kind == b'IDAT':
+            has_data = has_data or length > 0
+        if kind == b'IEND':
+            if length or finish != len(data) or not has_data:
+                raise ValueError('Invalid item-art PNG end')
+            ended = True
+            break
+        offset = finish
+    if not ended:
+        raise ValueError('Incomplete item-art PNG')
+    return dimensions
+
+
+def item_art_consumers(root):
+    """Enumerate registered PNGs only, checked against their source-family manifest."""
+    root = Path(root).resolve()
+    loader = root / ITEM_ART_LOADER
+    if not loader.is_file():
+        return set()
+    if hashlib.sha256(loader.read_bytes()).hexdigest() != ITEM_ART_LOADER_SHA256:
+        raise ValueError('Item-art loader changed; review finite adapter')
+
+    def local(name):
+        path = (root / resource_path(name)).resolve()
+        if not path.is_relative_to(root) or not path.is_file():
+            raise ValueError('Item-art resource missing or escapes project: ' + name)
+        return path
+
+    def source_name(value):
+        if not isinstance(value, str) or not value.startswith('res://' + ITEM_ART_ROOT) or not value.endswith('.png') or '%' in value:
+            raise ValueError('Invalid item-art PNG reference')
+        return resource_path(value)
+
+    config_name = 'config/item_v5_art.json'
+    manifest_name = ITEM_ART_ROOT + 'manifest.json'
+    config = json.loads(local(config_name).read_text())
+    manifest = json.loads(local(manifest_name).read_text())
+    if not isinstance(config, dict) or type(config.get('schema_version')) not in (int, float) or config['schema_version'] != 1:
+        raise ValueError('Invalid item-art registry schema')
+    if any(not isinstance(config.get(key), dict) for key in ('icons', 'clips', 'entities', 'cues')):
+        raise ValueError('Invalid item-art registry dictionaries')
+    if not isinstance(manifest, dict) or manifest.get('schema_version') != 1 or not isinstance(manifest.get('assets'), list):
+        raise ValueError('Invalid item-art source-family manifest')
+    family = {}
+    for entry in manifest['assets']:
+        if not isinstance(entry, dict):
+            raise ValueError('Invalid item-art source-family entry')
+        name = source_name('res://' + entry.get('path', '') if isinstance(entry.get('path'), str) else None)
+        if name in family or not re.fullmatch('[0-9a-f]{64}', str(entry.get('sha256'))):
+            raise ValueError('Duplicate/invalid item-art source-family identity')
+        family[name] = entry['sha256']
+    # Provenance manifest is checker input, never loaded by the Godot consumer.
+    known, sizes = set(), {}
+    for group in ('icons', 'clips'):
+        for key, row in config[group].items():
+            if not isinstance(key, str) or not key or not isinstance(row, dict):
+                raise ValueError('Invalid item-art recipe')
+            if group == 'clips':
+                def pair(value, maximum, zero=False):
+                    return isinstance(value, list) and len(value) == 2 and all(type(n) in (int, float) and (0 <= n if zero else 0 < n) and n <= maximum for n in value)
+                fps = row.get('fps')
+                if type(fps) not in (int, float) or not 0 < fps <= 120 or type(row.get('loop')) is not bool or not pair(row.get('world_size'), 640) or not pair(row.get('pivot'), 1, True):
+                    raise ValueError('Invalid item-art clip timing/geometry')
+                if row.get('timing', 'clip') not in ('clip', 'event') or row.get('orientation', 'fixed') not in ('fixed', 'aim', 'travel') or row.get('geometry', 'fixed') not in ('fixed', 'radius', 'segment'):
+                    raise ValueError('Invalid item-art clip pose')
+                if row.get('geometry', 'fixed') == 'radius' or 'reference_radius' in row:
+                    radius = row.get('reference_radius')
+                    if row.get('geometry', 'fixed') not in ('radius', 'segment') or type(radius) not in (int, float) or not 0 < radius <= 640:
+                        raise ValueError('Invalid item-art reference radius')
+            name = source_name(row.get('texture'))
+            if name not in family:
+                raise ValueError('Item-art texture missing from source-family manifest: ' + name)
+            if name not in sizes:
+                path = local(name)
+                if hashlib.sha256(path.read_bytes()).hexdigest() != family[name]:
+                    raise ValueError('Item-art PNG differs from source-family SHA: ' + name)
+                sizes[name] = item_art_png_size(path.read_bytes())
+                known.add(name)
+            regions = [row.get('region')] if group == 'icons' else row.get('regions')
+            if not isinstance(regions, list) or not 1 <= len(regions) <= 128:
+                raise ValueError('Invalid item-art regions')
+            for region in regions:
+                if not isinstance(region, list) or len(region) != 4 or any(type(n) not in (int, float) or not float(n).is_integer() for n in region):
+                    raise ValueError('Invalid item-art region')
+                x, y, width, height = region
+                if x < 0 or y < 0 or width <= 0 or height <= 0 or x + width > sizes[name][0] or y + height > sizes[name][1]:
+                    raise ValueError('Item-art region exceeds source PNG')
+    def entity_entry(entry):
+        return (isinstance(entry, str) and entry in config['clips']) or (isinstance(entry, dict) and set(entry) == {'variants'} and isinstance(entry['variants'], dict) and set(entry['variants']) == {'0', '1', '2'} and all(isinstance(v, str) and v in config['clips'] for v in entry['variants'].values()))
+    for mapping in config['entities'].values():
+        if not (entity_entry(mapping) or isinstance(mapping, dict) and all(entity_entry(v) for v in mapping.values())):
+            raise ValueError('Unknown item-art entity clip')
+    for mapping in config['cues'].values():
+        if not isinstance(mapping, dict) or any(not isinstance(v, str) or (not v.isidentifier() if k == 'source' else v not in config['clips']) for k, v in mapping.items()):
+            raise ValueError('Unknown item-art cue clip')
+    if sum(w*h*4 for w, h in sizes.values()) > 64*1024*1024:
+        raise ValueError('Item-art PNGs exceed original 64MiB RGBA budget')
+    # Every claimed source must be registered, not a sibling admitted by directory.
+    if set(family) != set(sizes):
+        raise ValueError('Item-art source-family manifest differs from registered PNGs')
+    return known
+
+
+
+# AUDIO-AMBIENCE-01: finite reviewed loader and the eight authored outputs only.
+# This is an asset-identity adapter, not an audio decoder or quality verdict.
+AMBIENCE_LOADER = 'scripts/audio/game_ambience.gd'
+# MOBILE-WEB-PERF-01: reviewed pause-state-only fix. Asset loading, authored
+# paths, manifest parsing and source selection remain unchanged. Keep an exact
+# binding so any future loader edit still requires a finite-adapter review.
+AMBIENCE_LOADER_SHA256 = 'baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48'
+AMBIENCE_ROOT = 'assets/audio/ambience_v1/'
+AMBIENCE_BEDS = {'plains_a': ('plains', 'A'), 'plains_b': ('plains', 'B'),
+                 'forest_a': ('forest', 'A'), 'forest_b': ('forest', 'B')}
+AMBIENCE_DETAIL_RULES = {
+    'plains_chime_a': ('plains_chime', ['plains'], ['A'], 9, 720),
+    'plains_chime_b': ('plains_chime', ['plains'], ['B'], 9, 720),
+    'forest_wood': ('forest_wood', ['forest'], ['A', 'B'], 13, 600),
+    'forest_leaf': ('forest_leaf', ['forest'], ['A', 'B'], 6, 320),
+}
+AMBIENCE_DETAILS = set(AMBIENCE_DETAIL_RULES)
+
+
+def ambience_asset_consumers(root):
+    """Bind runtime/catalog/render closure to exact ordinary files, never siblings."""
+    root = Path(root).absolute()
+
+    def ordinary(name):
+        name = resource_path(name)
+        path = root / name
+        for ancestor in (path, *path.parents):
+            if ancestor.is_symlink():
+                raise ValueError('Ambience resource or ancestor is a symlink: ' + name)
+            if ancestor == root:
+                break
+        if not path.is_file() or not path.resolve().is_relative_to(root.resolve()):
+            raise ValueError('Ambience resource missing or escapes project: ' + name)
+        return path
+
+    loader = root / AMBIENCE_LOADER
+    if not loader.exists() and not loader.is_symlink():
+        return set()
+    if hashlib.sha256(ordinary(AMBIENCE_LOADER).read_bytes()).hexdigest() != AMBIENCE_LOADER_SHA256:
+        raise ValueError('Ambience loader changed; review finite adapter')
+
+    def pairs(entries):
+        result = {}
+        for key, value in entries:
+            if key in result:
+                raise ValueError('Duplicate ambience JSON key: ' + key)
+            result[key] = value
+        return result
+
+    def read(name):
+        def constant(value):
+            raise ValueError('Nonfinite ambience JSON value: ' + value)
+        return json.loads(ordinary(name).read_text(), object_pairs_hook=pairs, parse_constant=constant)
+
+    def same(left, right):
+        # JSON booleans must never compare equal to numeric IDs/gains/bytes.
+        if type(left) in (int, float) or type(right) in (int, float):
+            return type(left) in (int, float) and type(right) in (int, float) and left == right
+        if type(left) is not type(right):
+            return False
+        if isinstance(left, dict):
+            return left.keys() == right.keys() and all(same(left[k], right[k]) for k in left)
+        if isinstance(left, list):
+            return len(left) == len(right) and all(same(a, b) for a, b in zip(left, right))
+        return left == right
+
+    manifest_name = AMBIENCE_ROOT + 'manifest.json'
+    manifest = read(manifest_name)
+    if not isinstance(manifest, dict) or type(manifest.get('schema_version')) is not int or manifest['schema_version'] != 1 or manifest.get('version') != 'audio-ambience-v1' or manifest.get('runtime_default') != 'original' or manifest.get('task') != 'AUDIO-AMBIENCE-01' or type(manifest.get('sample_rate')) is not int or manifest['sample_rate'] != 48000 or type(manifest.get('channels')) is not int or manifest['channels'] != 2:
+        raise ValueError('Invalid ambience manifest identity/version')
+    bindings = {'recipe_sha256': 'config/audio_director/ambience/recipes.json',
+                'sources_sha256': 'config/audio_director/ambience/sources.json',
+                'pipeline_sha256': 'tools/audio_ambience_design.py'}
+    for key, name in bindings.items():
+        if manifest.get(key) != hashlib.sha256(ordinary(name).read_bytes()).hexdigest():
+            raise ValueError('Ambience input fingerprint drift: ' + key)
+    recipe = read(bindings['recipe_sha256'])
+    if not isinstance(recipe, dict) or recipe.get('version') != manifest['version'] or recipe.get('task') != 'AUDIO-AMBIENCE-01':
+        raise ValueError('Invalid ambience recipe version')
+    beds, details = recipe.get('beds'), recipe.get('details')
+    if not isinstance(beds, list) or len(beds) != 4 or any(not isinstance(r, dict) or not isinstance(r.get('id'), str) for r in beds) or {r.get('id') for r in beds} != set(AMBIENCE_BEDS):
+        raise ValueError('Ambience finite bed inventory changed')
+    if not isinstance(details, list) or len(details) != 4 or any(not isinstance(r, dict) or not isinstance(r.get('id'), str) for r in details) or {r.get('id') for r in details} != AMBIENCE_DETAILS:
+        raise ValueError('Ambience finite detail inventory changed')
+    if type(recipe.get('loop_seconds')) not in (int, float) or not 0 < recipe['loop_seconds'] <= 120:
+        raise ValueError('Invalid ambience loop duration')
+    for row in beds:
+        layers = row.get('layers')
+        if not isinstance(row.get('title'), str) or not isinstance(layers, list) or not layers or any(not isinstance(layer, dict) or not isinstance(layer.get('source'), str) for layer in layers):
+            raise ValueError('Invalid ambience bed recipe')
+    for row in details:
+        rule = AMBIENCE_DETAIL_RULES[row['id']]
+        actual = [row.get(key) for key in ('event', 'regions', 'profiles', 'min_interval', 'max_distance')]
+        if not same(actual, list(rule)) or not isinstance(row.get('title'), str) or not isinstance(row.get('source'), str):
+            raise ValueError('Ambience finite detail routing changed')
+    renders = manifest.get('renders')
+    if not isinstance(renders, list) or len(renders) != 8 or any(not isinstance(r, dict) for r in renders):
+        raise ValueError('Invalid ambience render inventory')
+    indexed = {}
+    known = {manifest_name}
+    for row in renders:
+        identifier = row.get('id')
+        if not isinstance(identifier, str) or identifier in indexed or identifier not in set(AMBIENCE_BEDS) | AMBIENCE_DETAILS:
+            raise ValueError('Unknown/duplicate ambience render ID')
+        extension = '.ogg' if identifier in AMBIENCE_BEDS else '.wav'
+        expected = 'res://' + AMBIENCE_ROOT + identifier + extension
+        if row.get('path') != expected or not re.fullmatch('[0-9a-f]{64}', str(row.get('sha256'))) or type(row.get('bytes')) is not int or row['bytes'] <= 0:
+            raise ValueError('Invalid ambience render identity/path')
+        path = ordinary(expected)
+        if path.stat().st_size != row['bytes'] or hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
+            raise ValueError('Ambience output fingerprint drift: ' + identifier)
+        indexed[identifier] = row
+        known.add(resource_path(expected))
+    expected_regions = {region: {'profiles': {}} for region in ('plains', 'forest')}
+    expected_events = {region: {'id': 'ambience_' + region, 'region': region, 'candidates': []} for region in expected_regions}
+    for row in beds:
+        region, profile = AMBIENCE_BEDS[row['id']]
+        if (row.get('region'), row.get('profile')) != (region, profile):
+            raise ValueError('Ambience bed identity/profile changed')
+        take = indexed[row['id']]
+        source_ids = list(dict.fromkeys(layer['source'] for layer in row['layers']))
+        if take.get('source_ids') != source_ids:
+            raise ValueError('Ambience bed source IDs changed')
+        expected_events[region]['candidates'].append({'id': row['id'], 'profile': profile,
+            'title': row['title'], 'path': take['path'], 'loop': True,
+            'duration': recipe['loop_seconds'], 'source_ids': source_ids, 'renders': [take]})
+        detail_rows = [{'id': detail['event'], 'path': indexed[detail['id']]['path'], 'gain_db': 0.0,
+                        'min_interval': detail['min_interval'], 'max_distance': detail['max_distance']}
+                       for detail in details if region in detail['regions'] and profile in detail['profiles']]
+        expected_regions[region]['profiles'][profile] = {'candidate_id': row['id'], 'bed': take['path'],
+                                                        'gain_db': 0.0, 'details': detail_rows}
+    expected_points = []
+    for row in details:
+        take = indexed[row['id']]
+        if take.get('source_ids') != [row['source']]:
+            raise ValueError('Ambience detail source IDs changed')
+        expected_points.append({**take, 'event': row['event'], 'title': row['title']})
+    if not same(manifest.get('regions'), expected_regions) or not same(manifest.get('events'), list(expected_events.values())) or not same(manifest.get('point_events'), expected_points):
+        raise ValueError('Ambience runtime/catalog/render closure differs')
+    return known
+
+
 def known_asset_consumers(root):
     """Conservative finite adapters/literal references, not GDScript reachability.
 
@@ -90,7 +368,7 @@ def known_asset_consumers(root):
     """
     root = Path(root)
     manifests, textures, _absent_adapters = runtime_contract(root)
-    known = set(manifests) | set(textures) | style_asset_consumers(root)
+    known = set(manifests) | set(textures) | style_asset_consumers(root) | item_art_consumers(root) | ambience_asset_consumers(root)
     legacy = {
         ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/manifest.json'): 'assets/plains_v3/',
         ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/%s'): 'assets/plains_v3/',
@@ -133,6 +411,10 @@ def known_asset_consumers(root):
                     value = token[1:-1]
                     if not value.startswith('res://assets/'):
                         continue
+                    if relative == AMBIENCE_LOADER and value == 'res://' + AMBIENCE_ROOT:
+                        continue # Exact loader SHA and finite manifest closure validated above.
+                    if relative == ITEM_ART_LOADER and value == 'res://' + ITEM_ART_ROOT:
+                        continue # Exact SHA-bound loader; finite registry validated above.
                     if relative in STYLE_CONSUMER_SHA256 and value in {
                         'res://' + STYLE_ROOT,
                         'res://' + STYLE_ROOT + '%s/terrain.png',

@@ -7,18 +7,10 @@ static func install(stage: Node2D) -> Dictionary:
 		if child is EnemyMotor:
 			var actor := child.get_node_or_null("Actor") as EnemyActor
 			if actor == null: continue
-			var old := child.get_node_or_null("Presentation")
-			if old is UnderworldEnemy: continue
-			if old != null:
-				child.remove_child(old)
-				old.queue_free()
-			var art := UnderworldEnemy.new()
-			art.actor = actor
-			art.name = "Presentation"
-			child.add_child(art)
-			counts.enemies += 1
+			if EnemyPresentationBinding.replace(actor, &"underworld"):
+				counts.enemies += 1
 		for presentation: Node in child.get_children():
-			if presentation is BellstriderPresentation or presentation is WindkeeperPresentation:
+			if presentation is BellstriderPresentation or presentation is WindkeeperPresentation or presentation is WindkeeperPressurePresentation:
 				presentation.queue_redraw()
 				counts.bosses += 1
 	return counts

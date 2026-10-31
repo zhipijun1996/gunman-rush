@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T042054.378805Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "6c227116cb81cf346383dd71406159fb3d9285abca41c9db740a250f3604f73f",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792729258.7564495,
+      "ended_at_unix": 1792729282.831432,
+      "duration_seconds": 24.075,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_tests.py"
+      ],
+      "check_token": "53c632b4b686418a905f64638df4cbad",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T042054.378805Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "fd5a62b887f79eaad8ccf80d6a9ac88cab17d61fbc44662e12fba999c33d94ad",
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792729284.0383353,
+      "ended_at_unix": 1792729322.6882436,
+      "duration_seconds": 38.65,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "check_token": "2cb66d338c0a49e8aead2f332d553ce4",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T042054.378805Z/artifacts/actor-actions",
+      "reused": false
+    },
+    {
+      "id": "all-weapons",
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "60ea0815e94340c75a967d79f776a900e1a2e7952a536a6baf7ead05849bb7fd",
+      "log": "all-weapons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792729323.83045,
+      "ended_at_unix": 1792729368.208073,
+      "duration_seconds": 44.378,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "check_token": "825f3804ef02425d9b3de78aa7b63dad",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T042054.378805Z/artifacts/all-weapons",
+      "reused": false
+    },
+    {
+      "id": "action-budget",
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "3fb715e29eae5d77cfe075b324f0e2ec6a19890fba8424cfaaf35c94e0b8767e",
+      "log": "action-budget.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792729369.6190054,
+      "ended_at_unix": 1792729479.8197122,
+      "duration_seconds": 110.201,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "check_token": "0fd4c6b8a298480c9839a9001a5b1cd7",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T042054.378805Z/artifacts/action-budget",
+      "reused": false
+    },
+    {
+      "id": "demo-ui-time-energy",
+      "argv": [
+        "python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "bd2e80b775d0caacff2fb94e2a0f40efed874802f38c4b2584dce528bad36665",
+      "log": "demo-ui-time-energy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792729481.704963,
+      "ended_at_unix": 1792729488.5496294,
+      "duration_seconds": 6.845,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "check_token": "6e068486cb864ea2b4d8304b99661c40",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T042054.378805Z/artifacts/demo-ui-time-energy",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "d376cb1993f0ead934644376eab237bb9b8db16c6c68e19cb5483e72cf98d4ee",
+  "working_files": {
+    "docs/evidence/four_line_integration_20261023/asset-registration.json": "304e63d37f736ab5adfc1142bc1696c59f57f9325b889743b1baee85b2950ecf",
+    "docs/evidence/four_line_integration_20261023/verified-B/bgm-integration.log": "6edb0a6ec6571d46102611ee49b21e0b6e0b6f7daf17f664b93c3a36d16d21af",
+    "docs/evidence/four_line_integration_20261023/verified-B/bible-v7.log": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+    "docs/evidence/four_line_integration_20261023/verified-B/enemy-corpse-save.log": "0da8c946f6568b8269d4b9d1945cf21bf21b2d54f348e314b984a1ec1a843959",
+    "docs/evidence/four_line_integration_20261023/verified-B/enemy-corpse-snapshot.log": "78c7d9ec0edaaf282f67d15d1d6e0c43d996c8002de736d87777dd9e71e9d88c",
+    "docs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-formal.log": "0f1227d4dcd3a4057237c6fb01db3dfc2d4f704e27321b6979aa7b4cd30b6bc5",
+    "docs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-native.log": "85cb1194681515fb0ec5f3d92859576e72fca7b8a0bb184a9ba15694de1f58d2",
+    "docs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-support.log": "d09ede88e6b680af9b504531e50800a8a48dc0e0e128475ce890417641ce9905",
+    "docs/evidence/four_line_integration_20261023/verified-B/foreground.log": "a1a5e48aac0278886fbd8453319334ecea1780d15b848497972daac1e6065f44",
+    "docs/evidence/four_line_integration_20261023/verified-B/formal-hud.png": "b0d81202b84da8a92df61a3aeac98e7810bc5ea519375ea1028ae7b3494d41ca",
+    "docs/evidence/four_line_integration_20261023/verified-B/foundry-combined.log": "e3d24637411a9507c3073c77c3dbfaa9f825869798096679766d8dac32ca72e5",
+    "docs/evidence/four_line_integration_20261023/verified-B/gpu-receipt.json": "c4d8b7893ad6b0dcb00fd7d55d9b453aa37390826645183ac1dadf93e94a4717",
+    "docs/evidence/four_line_integration_20261023/verified-B/map.png": "8dd242f205b66ae1538fde6973976b6d06d9aba4827d7d0080b8e12168f3a720",
+    "docs/evidence/four_line_integration_20261023/verified-B/player-default-integration.log": "290fc6f5ca7289fc149b375c3b41ffc27284bab79f5e7ef4a09dc5440b88d4e1",
+    "docs/evidence/four_line_integration_20261023/verified-B/report.json": "f44f0382def6e141b4d546e0d45e5186b6e205153a09ae00ad4360563f36167d",
+    "docs/evidence/four_line_integration_20261023/verified-B/terrain.log": "97ce37a9aabb7330d231e6ac5ae229917c7d5ea2333d55598235b7ae525e463e",
+    "docs/evidence/four_line_integration_20261023/verified-B/title.png": "4dfc922f582309d2c9360f00534d9d9336e5ae1bae54f9f2cf91c18570be9d4b",
+    "docs/evidence/four_line_integration_20261023/verified-B/ui-contract.log": "88bb708ef280a38d858a173e25a0b37e41ace162c3fb39599e32725e2fbe2e1d",
+    "docs/evidence/four_line_integration_20261023/verified-B/ui-r2.log": "d5ab36904010f9bf34d0aecf4c1232bfad9d9d228931928b8fbabc943ec604d1",
+    "docs/evidence/four_line_integration_20261023/verified-B/web-bundle.log": "7c00f63b6543762278d6950e37c3112d599b2caf737e2023e8968be4faabd3b4",
+    "docs/evidence/four_line_integration_20261023/verified-B/web-closure.json": "205cc2f9de23dd59884ecca508279e46e62f967a50438c772eb1657c9bf54c89",
+    "docs/quality/asset_records/four-line-authored-terrain-lab.json": "7977053e2a4f4627796cc14f049f66a8522213cf3511e9ff04634cf54801910b",
+    "docs/quality/asset_records/four-line-high-density-terrain-lab.json": "45b8739de3db41f52f46c83ccc35e1c6f6be2577f809a33fcbe3043cfac21e29",
+    "docs/quality/asset_records/four-line-home-build-contract.json": "28b96764f3208039aaebe25823136919640ab4b72858d9bf6cd9855cd57a0b83",
+    "docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json": "c1b814d95cee33313a749fec362127f853f00983b9b59003baa22cb2de08b597"
+  },
+  "commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+  "git_status": "M docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n?? docs/evidence/four_line_integration_20261023/asset-registration.json\n?? docs/evidence/four_line_integration_20261023/verified-B/\n?? docs/quality/asset_records/four-line-authored-terrain-lab.json\n?? docs/quality/asset_records/four-line-high-density-terrain-lab.json\n?? docs/quality/asset_records/four-line-home-build-contract.json",
+  "diff": "diff --git a/docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json b/docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\nindex 9275354..a5b5ab2 100644\n--- a/docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n+++ b/docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n@@ -51,6 +51,11 @@\n       \"path\": \"assets/audio/kenney/enemy_defeat.ogg\",\n       \"sha256\": \"7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3\",\n       \"role\": \"reference\"\n+    },\n+    {\n+      \"path\": \"assets/audio/enemy_feedback_01/README.md\",\n+      \"sha256\": \"a54275406278822b9829344b54288f28fd7a739830daaf87f6865be6ec7583c2\",\n+      \"role\": \"documentation\"\n     }\n   ],\n   \"historical_producer\": {",
+  "untracked": "docs/evidence/four_line_integration_20261023/asset-registration.json\ndocs/evidence/four_line_integration_20261023/verified-B/bgm-integration.log\ndocs/evidence/four_line_integration_20261023/verified-B/bible-v7.log\ndocs/evidence/four_line_integration_20261023/verified-B/enemy-corpse-save.log\ndocs/evidence/four_line_integration_20261023/verified-B/enemy-corpse-snapshot.log\ndocs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-formal.log\ndocs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-native.log\ndocs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-support.log\ndocs/evidence/four_line_integration_20261023/verified-B/foreground.log\ndocs/evidence/four_line_integration_20261023/verified-B/formal-hud.png\ndocs/evidence/four_line_integration_20261023/verified-B/foundry-combined.log\ndocs/evidence/four_line_integration_20261023/verified-B/gpu-receipt.json\ndocs/evidence/four_line_integration_20261023/verified-B/map.png\ndocs/evidence/four_line_integration_20261023/verified-B/player-default-integration.log\ndocs/evidence/four_line_integration_20261023/verified-B/report.json\ndocs/evidence/four_line_integration_20261023/verified-B/terrain.log\ndocs/evidence/four_line_integration_20261023/verified-B/title.png\ndocs/evidence/four_line_integration_20261023/verified-B/ui-contract.log\ndocs/evidence/four_line_integration_20261023/verified-B/ui-r2.log\ndocs/evidence/four_line_integration_20261023/verified-B/web-bundle.log\ndocs/evidence/four_line_integration_20261023/verified-B/web-closure.json\ndocs/quality/asset_records/four-line-authored-terrain-lab.json\ndocs/quality/asset_records/four-line-high-density-terrain-lab.json\ndocs/quality/asset_records/four-line-home-build-contract.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 237.507,
+  "jobs": 1,
+  "release": true
+}

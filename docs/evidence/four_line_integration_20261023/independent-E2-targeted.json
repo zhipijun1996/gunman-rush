@@ -1,0 +1,38 @@
+{
+  "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+  "before": {
+    "tools/underworld_pipeline.py": "4bacf26c5f9059987701e91c0f1e75d9d3f14a009db2788d247f940d6c9794be",
+    "tests/test_underworld_pipeline.py": "bf921e14ec31baef082a6fdd0ce1650823c8e5232a465964f7ea66c07d53303f"
+  },
+  "after": {
+    "tools/underworld_pipeline.py": "4bacf26c5f9059987701e91c0f1e75d9d3f14a009db2788d247f940d6c9794be",
+    "tests/test_underworld_pipeline.py": "bf921e14ec31baef082a6fdd0ce1650823c8e5232a465964f7ea66c07d53303f"
+  },
+  "source_stable": true,
+  "argv": [
+    "python",
+    "tests/test_underworld_pipeline.py",
+    "UnderworldPipelineTest.test_selected_fine_hazard_root_and_tip_dimensions_required",
+    "UnderworldPipelineTest.test_selected_fine_hazard_empty_root_or_tip_alpha_rejected",
+    "UnderworldPipelineTest.test_home_build_slot_must_pass_actual_asset_and_root_parameters",
+    "UnderworldPipelineTest.test_home_build_slot_cannot_disconnect_actual_place_call",
+    "UnderworldPipelineTest.test_ui_modal_shell_must_be_an_actual_control"
+  ],
+  "exit_code": 0,
+  "tests": 5,
+  "seconds": 6.518974533000801,
+  "log": "/workspace/scratch/integration-four-20261023/independent-E2-targeted.log",
+  "log_sha256": "eeafe73ab770eb90ab154cfe5e708f8332376e9bea84ba2c7f7909ed33c36909",
+  "actual_source_baseline": {
+    "passed": true,
+    "checks": 1022,
+    "failures": 0
+  },
+  "extra_other_object_place": {
+    "rejected": true,
+    "failing_codes": [
+      "home.actual_asset_slots"
+    ],
+    "scope": "In-memory real HomeWorld building call substitution; no production write."
+  }
+}

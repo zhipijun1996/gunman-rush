@@ -1,0 +1,76 @@
+import asyncio,json,pathlib,sys,traceback,subprocess
+from playwright.async_api import async_playwright
+ROOT=pathlib.Path.cwd();sys.path.insert(0,str(ROOT/'tools'))
+from verify_mobile_ui_clarity_browser import surfaces
+import ast,os,csv,io
+_tree=ast.parse((ROOT/'tools/verify_four_line_browser.py').read_text())
+_fn=next(n for n in _tree.body if isinstance(n,ast.FunctionDef) and n.name=='locate_pixel_control')
+_ns={'subprocess':subprocess,'os':os,'csv':csv,'io':io,'TESS_ARGS':['--tessdata-dir','/workspace/toolchains/tessdata']}
+exec(compile(ast.Module(body=[_fn],type_ignores=[]),'existing-pixel-locator','exec'),_ns)
+locate_pixel_control=_ns['locate_pixel_control']
+OUT=ROOT/'build/audio_feedback_05/web-qa-02';OUT.mkdir(exist_ok=False)
+OBSERVER=(pathlib.Path('/workspace/gunman-ambience/build/audio_rollout_01/native_recording_observer.js').read_text())
+OBSERVER=OBSERVER.replace('const recorder = new MediaRecorder(sink.stream);','const recorder = new MediaRecorder(sink.stream); const chunks = [];')
+OBSERVER=OBSERVER.replace('const row = {analyser, sink, recorder, bytes: 0,','const row = {analyser, sink, recorder, chunks, bytes: 0,')
+OBSERVER=OBSERVER.replace('row.bytes += event.data.size;','row.bytes += event.data.size; row.chunks.push(event.data);')
+OBSERVER=OBSERVER.replace('  Object.defineProperty(window,','''  window.__feedbackStopRecordings = async () => {
+    const results=[];
+    for (const [context,row] of contexts) {
+      await new Promise(resolve => {row.recorder.addEventListener('stop',resolve,{once:true});row.recorder.stop();});
+      const blob=new Blob(row.chunks,{type:row.recorder.mimeType});
+      const encoded=await new Promise(resolve=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.readAsDataURL(blob);});
+      results.push({sample_rate:context.sampleRate,mime:row.recorder.mimeType,bytes:blob.size,data:encoded.split(',')[1]});
+    } return results;
+  };
+  Object.defineProperty(window,''')
+(OUT/'observer.js').write_text(OBSERVER)
+report={'status':'failed','scope':'Real local Chromium trusted input; exact Sites-staged chunk-only Godot export, no direct PCK/WASM file fallback, normal HTTP without server COI headers. No physical-device or aesthetic claim.','checks':[]};logs=[]
+def save():
+ (OUT/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');(OUT/'console.log').write_text('\n'.join(logs)+'\n')
+def check(ok,name,data=None):
+ report['checks'].append({'name':name,'passed':bool(ok),'data':data});save();assert ok,name
+async def main():
+ async with async_playwright() as p:
+  browser=await p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+  context=await browser.new_context(viewport={'width':960,'height':540},device_scale_factor=1,has_touch=True)
+  await context.add_init_script(OBSERVER);page=await context.new_page();page.on('console',lambda m:logs.append(m.type+':'+m.text));page.on('pageerror',lambda e:logs.append('PAGE ERROR:'+str(e)))
+  async def snap():return await page.evaluate('({sfx:window.SELECTED_SFX_SNAPSHOT,ambience:window.SELECTED_AMBIENCE_SNAPSHOT,pcm:window.__fourLineNativeAudio?.(),coi:crossOriginIsolated,sab:typeof SharedArrayBuffer!=="undefined"})')
+  async def pcm_window(seconds=2):
+   rows=[]
+   for i in range(int(seconds*5)):
+    rows.append(await page.evaluate('window.__fourLineNativeAudio?.()||[]'));await page.wait_for_timeout(200)
+   return rows
+  async def shot(name):
+   path=OUT/(name+'.png');await page.screenshot(path=str(path));return path
+  try:
+   await page.goto('http://127.0.0.1:8830/game/?audio_probe=1',wait_until='domcontentloaded');await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true && window.SELECTED_SFX_SNAPSHOT?.validation_ok===true',timeout=180000)
+   await page.wait_for_timeout(1200);title=await shot('title');before=await snap();check(before['coi'] and before['sab'],'Cold chunk-only export obtains real COI/SAB through the original cache worker',before)
+   check(before['sfx']['audio_profile']=='selected' and before['sfx']['candidate_revisions']['hurt']['id']=='hurt_feedback_05','Actual Web formal service assembles the latest hurt revision while retaining selected choices',before['sfx'])
+   try:point=locate_pixel_control(title,'轻触开启音乐')
+   except Exception:
+    primary=surfaces(title,[(195,163,102)])[0];point=(primary[0]+primary[2]/2,primary[1]-34)
+   check(0<point[0]<960 and 0<point[1]<540,'Title music touch target exists',{'point':point})
+   await page.touchscreen.tap(*point);title_pcm=await pcm_window(3);after=await snap();after_title=await shot('title-music')
+   check(any(v.get('peak',0)>1e-5 for row in title_pcm for v in row),'A real title touch yields nonzero native mixed PCM before entering Home',title_pcm)
+   check(after['ambience']['active_context']=='','Music touch stays on title',after['ambience'])
+   primary=surfaces(after_title,[(195,163,102)])[0];await page.touchscreen.tap(primary[0]+primary[2]/2,primary[1]+primary[3]/2)
+   await page.wait_for_function('window.SELECTED_AMBIENCE_SNAPSHOT?.active_context==="home"',timeout=45000);home_pcm=await pcm_window(3);await shot('home')
+   check(any(v.get('peak',0)>1e-5 for row in home_pcm for v in row),'Home has actual nonzero BGM/environment output after the same title start',home_pcm)
+   await page.keyboard.press('Space');await page.wait_for_timeout(500);await page.mouse.move(470,330);await page.mouse.down();await page.wait_for_timeout(400);await page.mouse.move(470,470);await page.mouse.up();await page.wait_for_timeout(3000);state=await snap();await shot('home-actions')
+   check(any(e.get('id')=='shot_pulse' and e.get('candidate')=='shot_pulse_a' for e in state['sfx']['director_events']),'Actual browser Home input retains selected pulse shot A',state['sfx']['director_events'])
+   recs=await page.evaluate('window.__feedbackStopRecordings()');import base64
+   for i,r in enumerate(recs):(OUT/('mixed-%d.webm'%i)).write_bytes(base64.b64decode(r.pop('data')))
+   report['native_recordings']=recs;check(bool(recs) and all(r['bytes']>0 for r in recs),'Native recording fanout produced downloadable real output containers',recs)
+   check(not any('SCRIPT ERROR:' in x or 'SHADER ERROR:' in x or 'PAGE ERROR:' in x for x in logs),'No script/shader/page errors in this real title/Home window')
+   # Responsive listening page and actual MP4 playback, no engine manipulation.
+   await page.goto('http://127.0.0.1:8830/',wait_until='domcontentloaded');await page.set_viewport_size({'width':390,'height':844});await page.wait_for_function('document.getElementById("build").textContent.includes("1b5989bf6054")');await page.screenshot(path=str(OUT/'phone-lab.png'),full_page=True)
+   await page.locator('#chapters button').first.click();await page.wait_for_timeout(1200);v=await page.locator('video').evaluate('(v)=>({paused:v.paused,time:v.currentTime,error:v.error?.message,width:v.videoWidth,height:v.videoHeight})')
+   check(not v['paused'] and v['time']>0 and v['width']==960,'Phone-sized lab really plays the native game MP4',v)
+   await page.locator('#hurt').select_option('new_better');await page.locator('#notes').fill('browser QA fixture');await page.locator('#notes').dispatch_event('input');value=await page.evaluate('JSON.parse(localStorage.getItem("audio-feedback-05-v1"))');check(value['choices']['hurt']=='new_better' and value['version']=='audio-feedback-v1','Lab records exact candidate/version feedback locally',value)
+   report['status']='passed'
+  except Exception as e:
+   report['error']=str(e);report['traceback']=traceback.format_exc();await page.screenshot(path=str(OUT/'failure.png'),full_page=True)
+  finally:
+   save();await context.close();await browser.close()
+ print(json.dumps({'status':report['status'],'checks':len(report['checks']),'error':report.get('error')}));return report['status']=='passed'
+sys.exit(0 if asyncio.run(main()) else 1)

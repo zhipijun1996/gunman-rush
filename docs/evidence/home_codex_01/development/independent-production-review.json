@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "task": "HOME-CODEX-01",
+  "reviewer": "/root/authoring_catalog",
+  "review_type": "Independent read-only production-source review",
+  "created_utc": "2026-10-28T08:12:23.756224+00:00",
+  "source_head": "0f25921dd41949f220999293013f065ce758189d",
+  "independence": {
+    "reviewer_wrote_current_home_production": false,
+    "reviewer_wrote_related_tests": true,
+    "reviewer_tests_are_independent_evidence": false,
+    "production_review_scope": "MetaProgression/MetaSaveService/HomeItemCatalog/HomeItemCodex/DemoApp/HomeScene/HomeWorld and immediate shared UI/input/inventory consumers",
+    "engine_started": false,
+    "tests_executed": false,
+    "tracked_files_modified": false,
+    "tracked_files_modified_note": "During production inspection no tracked writes occurred. A later distinct root-authorized implementation task appended test regressions; no Home production was authored by reviewer."
+  },
+  "verdict": "LIMITED_STATIC_ACCEPT_AFTER_REWORK",
+  "findings": [
+    {
+      "id": "HC-IR-01",
+      "severity": "P2",
+      "status": "reworked_by_owners; limited_static_recheck_satisfactory; native_recheck_pending",
+      "title": "Disabled or removed selected carry can block departure with no usable clear action",
+      "references": [
+        "scripts/demo/demo_app.gd:start_demo",
+        "scripts/ui/home_item_codex.gd:_render_detail",
+        "scripts/ui/home_item_codex.gd:_request_item",
+        "scripts/meta/meta_progression.gd:_transaction(home_select)"
+      ],
+      "trigger": [
+        "Unlock and select the sole affordable Home item.",
+        "A designer disables appearance_weight/home_enabled or removes its current definition while the profile keeps selected_home_item.",
+        "Formal startup rejects can_select=false. Disabled existing tile displays cancel but disables it; removed definition has no row at all.",
+        "No global clear-selection action exists, so without another selectable item the player cannot depart."
+      ],
+      "evidence": [
+        "App refuses selected IDs unavailable in current policy before Home teardown.",
+        "Action availability and _request_item both reject available=false, including cancellation.",
+        "Backend already permits home_select empty ID without requiring current catalog entry."
+      ],
+      "recommended_fix": "Provide an always-available explicit no-carry/clear-selection intent when selection is nonempty; retain owner, focus, generation and revision validation. Cancellation must work for missing/disabled selected definitions.",
+      "original_status": "P2 confirmed by static production trigger chain; reported to root before repair",
+      "resolution": "Current UI adds always-visible CodexClearSelection whose eligibility depends only on nonempty selected ID, plus chosen-item cancellation before source availability check. App still validates Home/focus/pause/revision/context. This makes disabled and missing selected entries cancellable without a replacement purchase."
+    },
+    {
+      "id": "HC-IR-02",
+      "severity": "P2",
+      "status": "reworked_by_owners; limited_static_recheck_satisfactory; native_recheck_pending",
+      "title": "Unlock submits a freshly computed quote instead of the displayed quote",
+      "references": [
+        "scripts/demo/demo_app.gd:_refresh_home_codex",
+        "scripts/demo/demo_app.gd:_unlock_home_item",
+        "scripts/ui/home_item_codex.gd:requested_unlock",
+        "scripts/meta/meta_progression.gd:_home_quote"
+      ],
+      "trigger": [
+        "Open a discovered locked item showing price5 with enough notes.",
+        "Update config/home_items.json to price25 without changing the profile revision; old UI remains displayed.",
+        "Press the old unlock action. App validates the unchanged revision, computes current price25/fingerprint, and passes that current fingerprint to backend.",
+        "Backend accepts and debits25 although displayed quote was5."
+      ],
+      "evidence": [
+        "UI signal carries ID and profile_revision only.",
+        "Backend quote fingerprint correctly covers definition/policy bytes/revision/price, but caller supplies new fingerprint at submit time."
+      ],
+      "recommended_fix": "Bind current displayed rows/quote fingerprints to the Home codex session and submit that captured fingerprint, rejecting policy/catalog changes with stale_quote before any debit.",
+      "original_status": "P2 confirmed by static production trigger chain; reported to root before repair",
+      "resolution": "App caches every displayed row.quote_fingerprint at _refresh_home_codex and passes the captured fingerprint on unlock. Current backend recomputes canonical quote and rejects stale_quote before debit; App maps refusal to explicit no-charge message."
+    },
+    {
+      "id": "HC-IR-03",
+      "severity": "P2",
+      "status": "reworked_by_owners; limited_static_recheck_satisfactory; native_recheck_pending",
+      "title": "Pending discovery retries are not bound to the originating profile owner",
+      "references": [
+        "scripts/demo/demo_app.gd:_record_item_discovery",
+        "scripts/demo/demo_app.gd:_flush_item_discoveries",
+        "scripts/meta/meta_progression.gd:configure_persistence",
+        "scripts/demo/demo_app.gd:start_demo"
+      ],
+      "trigger": [
+        "A committed acquisition in profileA fails permanent saving and remains in _pending_item_discoveries.",
+        "Reconfigure the exposed MetaProgression owner to profileB or replace App.meta before retry (candidate startup already replaces meta).",
+        "Any _refresh_home_meta calls _flush_item_discoveries, which writes pending A item IDs into current metaB."
+      ],
+      "evidence": [
+        "Pending entries store item_id only; key contains run/event, no captured owner/profile/slot epoch.",
+        "MetaProgression correctly resets its own in-memory data on profile switch, but does not own App pending entries.",
+        "No profile identity comparison precedes retry."
+      ],
+      "scope_note": "Current shipped Home menu exposes one local profile; multi-slot UI is not claimed. This affects the new profile-aware owner API and App replacement boundary, so prevent cross-owner retry before adding slot UI.",
+      "recommended_fix": "Bind queued discovery to the originating MetaProgression/profile identity/owner epoch; retry only the matching owner, never another profile. Preserve failed records for their original owner rather than dropping them silently.",
+      "original_status": "P2 confirmed by static production trigger chain; reported to root before repair",
+      "resolution": "MetaProgression.profile_context_id combines owner instance ID and incrementing configure epoch. App captures it for the current view, checks it before submit, and queues each pending discovery with its context. Retry erases mismatched contexts instead of writing another profile."
+    }
+  ],
+  "source_inputs": [
+    {
+      "path": "scripts/meta/meta_progression.gd",
+      "sha256_at_report": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403"
+    },
+    {
+      "path": "scripts/save/meta_save_service.gd",
+      "sha256_at_report": "73ea2b63c89b904528a9d9c0e2ae998307b5f5b80c30321d13ab3e8ed7068ab0"
+    },
+    {
+      "path": "scripts/meta/home_item_catalog.gd",
+      "sha256_at_report": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e"
+    },
+    {
+      "path": "scripts/ui/home_item_codex.gd",
+      "sha256_at_report": "9201701832b3d7499862496d4ee425c44a68bb55edc9467aa934514f3dedb3ed"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256_at_report": "c366c3e286258fb085841481083f28709ddd3e1f2c744c7bad52c9d45cc7087c"
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256_at_report": "ade42db4a56d11769e7f840a036982dfa3514dc852a45b00de4e959182e4e0a0"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "sha256_at_report": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d"
+    },
+    {
+      "path": "config/home_items.json",
+      "sha256_at_report": "e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc"
+    },
+    {
+      "path": "scripts/ui/demo_ui_01/modal_shell.gd",
+      "sha256_at_report": "ed469c7f83bbf21d0c2182d735fbb9dde7c7306da263ed4eb25facf8902a8715"
+    },
+    {
+      "path": "scripts/ui/demo_ui_01/modal_metrics.gd",
+      "sha256_at_report": "698d684d88af0555d6aaa8269aa9de4831094471735e5575a866091dc7d478d9"
+    },
+    {
+      "path": "scripts/ui/menu_scroll_touch_adapter.gd",
+      "sha256_at_report": "25035e4fce4aa2f0dd7875aab0319bba97705996b8c897ff48d995bc626a28fb"
+    }
+  ],
+  "production_snippets": {
+    "unlock_submit": "func _unlock_home_item(id: StringName, expected_revision: int) -> void:\n\tif not _home_codex_can_submit(expected_revision): return\n\tvar fingerprint := str(_home_codex_quotes.get(id, \"\"))\n\tif fingerprint.is_empty(): return\n\tvar result := meta.unlock_home_item(id, StringName(\"home_unlock/\" + meta.new_run_receipt_prefix()), expected_revision, fingerprint)\n\tGameAudio.cue(self, &\"confirm\" if result.accepted else &\"denied\")\n\t_refresh_home_meta()\n\t_refresh_home_codex(\"永久解锁成功，可选择在下次出发携带。\" if result.accepted else \"解锁失败：\" + _home_item_reason(str(result.reason)))\n\n",
+    "pending_record": "func _record_item_discovery(receipt: EconomyReceipt, run_id: String, from_shop: bool) -> void:\n\tif receipt == null or receipt.status != EconomyReceipt.Status.COMMITTED or run_id != _run_receipt_prefix or not lifetime.active or build == null: return\n\tvar owned := build.inventory.get_instance(receipt.instance_id)\n\tif owned == null or owned.definition_id != receipt.item_id or owned.item.catalog_version != 5: return\n\tif from_shop:\n\t\t# Repairs/gear purchases also emit purchased; only a committed acquisition\n\t\t# has this inventory source receipt (including same-instance growth).\n\t\tvar acquisition := build.inventory.source_receipt(StringName(\"shop:%s\" % receipt.event_id))\n\t\tif acquisition.get(\"instance_id\", &\"\") != receipt.instance_id: return\n\tvar key := \"%s/discovery/%s\" % [run_id, receipt.event_id]\n\t_pending_item_discoveries[key] = {\"id\":receipt.item_id,\"profile_context\":meta.profile_context_id()}\n\t_flush_item_discoveries()\n\n",
+    "pending_flush": "func _flush_item_discoveries() -> void:\n\tfor key: String in _pending_item_discoveries.keys():\n\t\tvar pending: Dictionary = _pending_item_discoveries[key]\n\t\tif pending.profile_context != meta.profile_context_id():\n\t\t\t_pending_item_discoveries.erase(key)\n\t\t\tcontinue\n\t\tvar result := meta.discover_item(pending.id, StringName(key))\n\t\tif result.accepted: _pending_item_discoveries.erase(key)\n\n",
+    "view_submit": "func _request_item(id: StringName, selecting: bool, generation: int, revision: int, detail_generation: int) -> void:\n\tif not _view_current(generation) or _submitted or revision != _profile_revision or detail_generation != _detail_generation or id != _focused_id or not _rows.has(id): return\n\tvar row: Dictionary = _rows[id]\n\t# Clearing an existing choice is valid even after its catalog entry was\n\t# disabled; the global action also handles a completely removed definition.\n\tif selecting and id == _selected_id:\n\t\t_request_clear(generation,revision)\n\t\treturn\n\tif not bool(row.get(\"discovered\",false)) or not bool(row.get(\"available\",false)): return\n\tif selecting != bool(row.get(\"unlocked\",false)): return\n\tif not selecting and _notes < maxi(0,int(row.get(\"price\",0))): return\n\t_submitted = true\n\tif is_instance_valid(_action): _action.disabled = true\n\tif is_instance_valid(_clear_button): _clear_button.disabled = true\n\tif selecting:\n\t\trequested_select.emit(&\"\" if id == _selected_id else id,revision)\n\telse:\n\t\trequested_unlock.emit(id,revision)\n\n"
+  },
+  "satisfactory_static_findings": [
+    {
+      "area": "Atomic notes/unlock/select",
+      "evidence": "MetaProgression validates candidate and commits through MetaSaveService before restoring any memory; failed commits preserve wallet/unlock/selection state."
+    },
+    {
+      "area": "Transaction replay and quotes",
+      "evidence": "Recorded receipts compare canonical full request before replay; stale revision and supplied quote fingerprints are checked. HC-IR-02 concerns App failing to forward displayed fingerprint, not the backend comparator."
+    },
+    {
+      "area": "Unknown and disabled data",
+      "evidence": "HomeItemCatalog derives actual canonical definitions; appearance_weight0/home policy deny new unlock/select. Unknown stored IDs retain history but have no eligible canonical definition."
+    },
+    {
+      "area": "Discovery authority",
+      "evidence": "App binds reward/shop observers to current random Run prefix; only COMMITTED matching live owned instance/catalog5 proceeds. Shop also requires actual acquisition source receipt, excluding gear/repair purchase signals."
+    },
+    {
+      "area": "Normal carry lifecycle",
+      "evidence": "Fresh formal run adds through BuildState/RunInventory home_carry source with Run namespace, level1, not EquipmentService. Once-per-run latch includes empty selection; actual map reload does not call grant; run cleanup clears temporary build and preserves Meta."
+    },
+    {
+      "area": "View/input ownership",
+      "evidence": "UI validates generation/detail generation/ID/profile revision/submitted state; App additionally validates Home/state/focus/input_blocked/paused/revision. Close/focus loss invalidate UI and reset router/keyboard/gamepad input."
+    },
+    {
+      "area": "Home world",
+      "evidence": "Only existing relics slot is activated on runtime specification copy; original geometry/art and empty keeper remain. Achievements/arms maintain separate IDs and handlers."
+    },
+    {
+      "area": "Small-screen structure",
+      "evidence": "Uses shared safe-area metrics and modal shell, two scroll containers,48px minimum physical touch targets, focus-neighbor grid and native deferred reveal; no screenshots or device execution inspected, so this is structural review only."
+    }
+  ],
+  "unverified_or_limits": [
+    "No independent native/GL/browser/device execution was performed.",
+    "Root-reported UI42/0 and backend92/0 are other-agent run observations, not this reviewer execution.",
+    "Own App63/0 integration test is explicitly excluded as independent review evidence.",
+    "No current GPU screenshots were present under build/home_codex_01 at this inspection; small-screen pixel layout, browser persistence refresh, physical touch/gamepad remain unverified.",
+    "Startup carry failures after director.start are not rolled back by start_demo (grant result ignored and latch set first). Current valid canonical fresh-empty-build path has no normal observed rejection; treat failpoint coverage as remaining limitation, not an additional reproduced P2.",
+    "Successful no-op already_discovered/already_unlocked/already_selected returns do not reserve new receipt IDs; App uses fresh random IDs. No new user-facing failure asserted here.",
+    "Cross-profile pending retry policy intentionally discards old-context failed discoveries on profile/owner switch; it prevents mixing but does not preserve an old-owner retry queue across a switch or application exit. Root chose this finite boundary explicitly; retain in delivery limitations."
+  ],
+  "recheck": {
+    "utc": "2026-10-28T08:13:47.471314+00:00",
+    "method": "Read actual repaired production methods and their ownership guards; no engine or tests executed in reviewer role.",
+    "runtime_acceptance": "Pending root fresh aggregate/native; this static conclusion is not runtime/UI/device acceptance.",
+    "source_sha256": {
+      "scripts/meta/meta_progression.gd": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403",
+      "scripts/ui/home_item_codex.gd": "9201701832b3d7499862496d4ee425c44a68bb55edc9467aa934514f3dedb3ed",
+      "scripts/demo/demo_app.gd": "4321324f5dc17ae838cbe8c5e7969cdaab283777257ec7db5c9cee918e183026"
+    },
+    "tracked_production_changes_by_reviewer": false,
+    "tracked_test_changes_by_reviewer_after_review": "At root request, appended explicit fixture regressions to own tests/home_codex/test_home_codex_app.gd; those author-written tests remain excluded from independent evidence."
+  }
+}

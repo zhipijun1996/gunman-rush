@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "scope": "Portability-only repair of five historical V5 Markdown links; raw original pass/failure bytes and prose are unchanged. Not a CHEST-ART-01 runtime or art failure.",
+  "origin_failure": {
+    "pr": 111,
+    "workflow": "Production impact",
+    "run_id": 40640604409,
+    "parallel_job_id": 122662058822,
+    "ci_consumer_head": "0f25921dd41949f220999293013f065ce758189d",
+    "failed_check": "docs",
+    "annotation_title": "Harness docs",
+    "annotation_source": "GitHub CheckRun annotations API; locally preserved at build/chest_art_01/ci111-prior-failure/annotations.data",
+    "annotation_original_message": "failed: nonzero_exit\nBroken link docs/worklines/item_v5_01/consumer_coverage.md: ../../../build/item_v5/development-04/formal.log\nBroken link docs/worklines/item_v5_01/consumer_coverage.md: ../../../build/item_v5/development-03/formal-02.log\nBroken link docs/worklines/item_v5_01/consumer_coverage.md: ../../../build/item_v5/development-05/core-effects-02.log\nBroken link docs/worklines/item_v5_01/consumer_coverage.md: ../../../build/item_v5/development-05/synergy-economy-02.log\nBroken link docs/worklines/item_v5_01/consumer_coverage.md: ../../../build/item_v5/boss-time-before-04/boss_time.log",
+    "identity_boundary": "ci_consumer_head identifies the old run that read broken links, not the native log producer."
+  },
+  "document": {
+    "path": "docs/worklines/item_v5_01/consumer_coverage.md",
+    "before_sha256": "d15f202f3db1577f0e06af3e1308584024369bffa3ed42a4169dc62f3aabb059",
+    "after_sha256": "50429ac588265d9d1dd631c7a88b41796b575091d05f98f1ff4909fadb39e76f",
+    "only_link_targets_changed": true
+  },
+  "files": [
+    {
+      "original_path": "build/item_v5/development-04/formal.log",
+      "archive_path": "docs/evidence/item_v5_01/portable-history-logs/development-04/formal.log",
+      "bytes": 3419,
+      "original_sha256": "10e80de181bca04951c0cafae902654bc9d405b798544bbf50b99a5b06abe645",
+      "archive_sha256": "10e80de181bca04951c0cafae902654bc9d405b798544bbf50b99a5b06abe645",
+      "byte_identical": true,
+      "source_identity": {
+        "stage_path": "build/item_v5/development-04/formal.log",
+        "native_engine_markers": [
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+        ],
+        "completion_markers": [
+          "ITEM V5 FORMAL: 190 assertions, 0 failures"
+        ],
+        "exact_source_commit": null,
+        "exact_source_commit_known": false,
+        "note": "Original same-stage local log is preserved verbatim. The log does not identify a frozen producer commit; no source SHA is inferred from later CI or from a different run."
+      },
+      "markdown_link_before": "../../../build/item_v5/development-04/formal.log",
+      "markdown_link_after": "../../evidence/item_v5_01/portable-history-logs/development-04/formal.log"
+    },
+    {
+      "original_path": "build/item_v5/development-03/formal-02.log",
+      "archive_path": "docs/evidence/item_v5_01/portable-history-logs/development-03/formal-02.log",
+      "bytes": 4348,
+      "original_sha256": "0f96e456910ffd4176e95e77a8da55df11d8387a6a66cffec8ba066dd0843da4",
+      "archive_sha256": "0f96e456910ffd4176e95e77a8da55df11d8387a6a66cffec8ba066dd0843da4",
+      "byte_identical": true,
+      "source_identity": {
+        "stage_path": "build/item_v5/development-03/formal-02.log",
+        "native_engine_markers": [
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+        ],
+        "completion_markers": [
+          "ITEM V5 FORMAL: 190 assertions, 7 failures"
+        ],
+        "exact_source_commit": null,
+        "exact_source_commit_known": false,
+        "note": "Original same-stage local log is preserved verbatim. The log does not identify a frozen producer commit; no source SHA is inferred from later CI or from a different run."
+      },
+      "markdown_link_before": "../../../build/item_v5/development-03/formal-02.log",
+      "markdown_link_after": "../../evidence/item_v5_01/portable-history-logs/development-03/formal-02.log"
+    },
+    {
+      "original_path": "build/item_v5/development-05/core-effects-02.log",
+      "archive_path": "docs/evidence/item_v5_01/portable-history-logs/development-05/core-effects-02.log",
+      "bytes": 1414,
+      "original_sha256": "487542a17974ac31bad187163ccb6e02583530faa030cf02b62f51d6823a6ffd",
+      "archive_sha256": "487542a17974ac31bad187163ccb6e02583530faa030cf02b62f51d6823a6ffd",
+      "byte_identical": true,
+      "source_identity": {
+        "stage_path": "build/item_v5/development-05/core-effects-02.log",
+        "native_engine_markers": [
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+        ],
+        "completion_markers": [
+          "ITEM V5 CORE EFFECTS: 79 checks, 0 failures"
+        ],
+        "exact_source_commit": null,
+        "exact_source_commit_known": false,
+        "note": "Original same-stage local log is preserved verbatim. The log does not identify a frozen producer commit; no source SHA is inferred from later CI or from a different run."
+      },
+      "markdown_link_before": "../../../build/item_v5/development-05/core-effects-02.log",
+      "markdown_link_after": "../../evidence/item_v5_01/portable-history-logs/development-05/core-effects-02.log"
+    },
+    {
+      "original_path": "build/item_v5/development-05/synergy-economy-02.log",
+      "archive_path": "docs/evidence/item_v5_01/portable-history-logs/development-05/synergy-economy-02.log",
+      "bytes": 1258,
+      "original_sha256": "bea5a43f36f9efcf8cdb07e0ddba2b68152692c92055a197579e759774da0c4e",
+      "archive_sha256": "bea5a43f36f9efcf8cdb07e0ddba2b68152692c92055a197579e759774da0c4e",
+      "byte_identical": true,
+      "source_identity": {
+        "stage_path": "build/item_v5/development-05/synergy-economy-02.log",
+        "native_engine_markers": [
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+        ],
+        "completion_markers": [
+          "ITEM V5 SYNERGY ECONOMY: 68 checks, 0 failures"
+        ],
+        "exact_source_commit": null,
+        "exact_source_commit_known": false,
+        "note": "Original same-stage local log is preserved verbatim. The log does not identify a frozen producer commit; no source SHA is inferred from later CI or from a different run."
+      },
+      "markdown_link_before": "../../../build/item_v5/development-05/synergy-economy-02.log",
+      "markdown_link_after": "../../evidence/item_v5_01/portable-history-logs/development-05/synergy-economy-02.log"
+    },
+    {
+      "original_path": "build/item_v5/boss-time-before-04/boss_time.log",
+      "archive_path": "docs/evidence/item_v5_01/portable-history-logs/boss-time-before-04/boss_time.log",
+      "bytes": 610708,
+      "original_sha256": "7a37b960b6875a97df863c921d63fb9d5053867de204b35f52d6c2093f907449",
+      "archive_sha256": "7a37b960b6875a97df863c921d63fb9d5053867de204b35f52d6c2093f907449",
+      "byte_identical": true,
+      "source_identity": {
+        "stage_path": "build/item_v5/boss-time-before-04/boss_time.log",
+        "native_engine_markers": [
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+        ],
+        "completion_markers": [
+          "ITEM V5 BOSS TIME: 189 checks, 35 failures"
+        ],
+        "exact_source_commit": null,
+        "exact_source_commit_known": false,
+        "note": "Original same-stage local log is preserved verbatim. The log does not identify a frozen producer commit; no source SHA is inferred from later CI or from a different run."
+      },
+      "markdown_link_before": "../../../build/item_v5/boss-time-before-04/boss_time.log",
+      "markdown_link_after": "../../evidence/item_v5_01/portable-history-logs/boss-time-before-04/boss_time.log"
+    }
+  ],
+  "verification": {
+    "all_source_files_present_before_copy": true,
+    "all_archives_byte_identical": true,
+    "old_failures_retained": [
+      "ITEM V5 FORMAL: 190 assertions, 7 failures",
+      "ITEM V5 BOSS TIME: 189 checks, 35 failures"
+    ],
+    "engine_executed": false,
+    "guards_changed": false,
+    "old_ci_status_remains": "failed; this repair does not relabel old CI or historical native failures as passed"
+  }
+}

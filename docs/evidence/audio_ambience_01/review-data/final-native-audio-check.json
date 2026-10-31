@@ -1,0 +1,79 @@
+{
+  "capture_script_sha256": "128e88ce0259fb19adbca10375e7984edc60e4a2f71bda9ffa2a5912867a5082",
+  "producer": "de6b36c62f0640d9322973fffb687472755d25b7",
+  "movie_sha256": "69da1d4d924d79010be30468ba3f23a0831c469212f45cc38929a3b09de5fc8e",
+  "actual_windows": [
+    {
+      "region": "plains",
+      "profile": "original",
+      "window_start": 25.033333333333335,
+      "rms": 0.0,
+      "scope": "Existing scene sound remains; no silence claim"
+    },
+    {
+      "region": "plains",
+      "profile": "A",
+      "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+      "window_start": 52.61666666666667,
+      "seconds": 2,
+      "rms": 0.0209661653997367,
+      "direct_normalized_dot": 0.9531341151381044,
+      "aligned_source_seconds": 0.988625,
+      "scope": "Native BGM-off movie samples match actual decoded candidate; not aesthetic approval"
+    },
+    {
+      "region": "plains",
+      "profile": "B",
+      "path": "res://assets/audio/ambience_v1/plains_b.ogg",
+      "window_start": 80.25,
+      "seconds": 2,
+      "rms": 0.013295520237105094,
+      "direct_normalized_dot": 0.9047644102269218,
+      "aligned_source_seconds": 0.99525,
+      "scope": "Native BGM-off movie samples match actual decoded candidate; not aesthetic approval"
+    },
+    {
+      "region": "forest",
+      "profile": "original",
+      "window_start": 107.88333333333334,
+      "rms": 0.0035163927062163733,
+      "scope": "Existing scene sound remains; no silence claim"
+    },
+    {
+      "region": "forest",
+      "profile": "A",
+      "path": "res://assets/audio/ambience_v1/forest_a.ogg",
+      "window_start": 135.46666666666667,
+      "seconds": 2,
+      "rms": 0.024842624020191044,
+      "direct_normalized_dot": 0.9329905942175879,
+      "aligned_source_seconds": 0.990625,
+      "scope": "Native BGM-off movie samples match actual decoded candidate; not aesthetic approval"
+    },
+    {
+      "region": "forest",
+      "profile": "B",
+      "path": "res://assets/audio/ambience_v1/forest_b.ogg",
+      "window_start": 163.1,
+      "seconds": 2,
+      "rms": 0.01956604812133284,
+      "direct_normalized_dot": 0.9154083427959836,
+      "aligned_source_seconds": 24.99725,
+      "scope": "Native BGM-off movie samples match actual decoded candidate; not aesthetic approval"
+    }
+  ],
+  "counterexamples": [
+    {
+      "id": "silent_native",
+      "rejected": true,
+      "reason": "Native soundtrack does not prove audible candidate: res://assets/audio/ambience_v1/plains_a.ogg correlation=0"
+    },
+    {
+      "id": "wrong_native_candidate",
+      "rejected": true,
+      "reason": "Native soundtrack does not prove audible candidate: res://assets/audio/ambience_v1/forest_b.ogg correlation=0.052117949465404975"
+    }
+  ],
+  "seconds": 3.931208879999758,
+  "scope": "Independent waveform identity only; no human listening or commercial quality approval"
+}

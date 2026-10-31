@@ -1,0 +1,325 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "content_version": "motion-v1-vfx-pixel-review-02",
+  "reviewer": "/root/audit_review",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "reviewed_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+  "verdict": "ACCEPT",
+  "scope": "Limited acceptance of visible local landing/contact accents and lack of gross foot/landing-area obstruction in the26 native extracted OFF/ON frames. Not full-speed VFX/animation quality, complete takeoff/landing feel, overall player presentation, weapon attachment or production promotion.",
+  "method": "Reviewer actually viewed every before/after001..013 at native1280x720 via view_image original; independently compared raw trace fields. No full-speed playback, audio listening, Godot execution, Web operation or physical device.",
+  "capture_receipt": {
+    "path": "build/player_presentation_01/motion-v1/capture-vfx-second/report.json",
+    "sha256": "1e517e60e785d9f36458d65f7dd87398d2abd46d3e1eadaa1c374ee2aa049800",
+    "reported_source_stable": true,
+    "source_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+    "media": "Each film615 frames/10.25seconds at60fps with audio track; existence of track is not listening approval."
+  },
+  "trace_cross_check": {
+    "samples": [
+      600,
+      600
+    ],
+    "compared_field_count": 16,
+    "fields": [
+      "sample",
+      "position",
+      "normal_velocity",
+      "velocity",
+      "recoil",
+      "motion_steps",
+      "hp",
+      "terminal",
+      "energy",
+      "muzzle",
+      "body_state",
+      "body_facing",
+      "camera",
+      "manifest_hash",
+      "session",
+      "weapon_epoch"
+    ],
+    "differences": [],
+    "accepted_events_equal": true,
+    "events": [
+      {
+        "event": "accepted_jump",
+        "sample": 360,
+        "tick": 366
+      },
+      {
+        "event": "accepted_land",
+        "sample": 394,
+        "tick": 403
+      },
+      {
+        "event": "accepted_jump",
+        "sample": 520,
+        "tick": 529
+      },
+      {
+        "event": "accepted_land",
+        "sample": 562,
+        "tick": 571
+      }
+    ],
+    "scope": "Exact selected16 fields and events over this600-sample local route; not all gameplay state or1080 long-fall validation."
+  },
+  "findings": [
+    {
+      "id": "VFXPIX-1",
+      "status": "ACCEPT_LIMITED_NATIVE_FRAMES",
+      "scope": "landing cue visibility",
+      "evidence": [
+        "after004(video406)",
+        "after005(video410)",
+        "after009(video575)",
+        "after010(video579)",
+        "after011(video583)"
+      ],
+      "observation": "New warm grey/tan clusters can be distinguished at the boot/contact area against the dark boots and green platform edge; this is more evident than the previously reviewed weak cue. At later second-landing samples a small separate fading cluster can be seen beside the character. These are identifiable contact accents at actual game scale.",
+      "limit": "Small block/cluster accents, not a demonstrated volumetric dust plume or signed impact feel; full-speed perception still unverified."
+    },
+    {
+      "id": "VFXPIX-2",
+      "status": "ACCEPT_LIMITED_NATIVE_FRAMES",
+      "scope": "foot and landing-area readability",
+      "evidence": [
+        "before/after003..007(video402..418)",
+        "before/after008..013(video571..591)"
+      ],
+      "observation": "Local clusters overlap the immediate ankle/contact pixels but do not form an opaque body-sized cloud. Boot silhouette above them and the near platform top remain readable in the viewed frames; no gross obscuration of the gap or destination platform observed.",
+      "limit": "Only this two-landing scene, camera and palette. No mobile scaling, bright-terrain, dense combat or all-material guarantee."
+    },
+    {
+      "id": "VFXPIX-3",
+      "status": "UNVERIFIED_FOR_FULL_SPEED_TAKEOFF_READABILITY",
+      "scope": "takeoff cue",
+      "evidence": [
+        "before/after001(video370)",
+        "before/after002(video375)"
+      ],
+      "observation": "A small pale residue at the departure point is present while the actor rises, and it remains at the platform rather than following the airborne feet. It is still subtle against the warm horizon/edge in these samples.",
+      "limit": "Cannot sign strong takeoff read or exact onset timing from these two stills; no unsupported full-speed claim."
+    },
+    {
+      "id": "VFXPIX-4",
+      "status": "REWORK_REMAINS_OUTSIDE_THIS_ACCEPTANCE",
+      "scope": "hand/weapon body attachment and motion language",
+      "observation": "Dust tuning does not reconcile generated hands with the retained fixed weapon line. Prior PIX-3 remains unresolved. Candidate idle and old landing/rise silhouette switching is visible in the extraction; smoothness was not assessed at normal speed. Walking/run-art complaint is not resolved by this VFX result."
+    }
+  ],
+  "prior_review": {
+    "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/pixel-review.json",
+    "sha256": "1ac36da471640a45a3162b81f0a4532a0a3bf46aaf2e8045a3bb9dd16b503037",
+    "preserved": true,
+    "verdict": "UNVERIFIED with PIX-3/PIX-4 REWORK",
+    "relationship": "Prior first-capture weak-dust REWORK remains the true historical result. This new-source local acceptance is a separate re-review, not an edit or retroactive upgrade of that first capture. Overall animation/user acceptance remains unverified."
+  },
+  "frame_index": {
+    "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/index.json",
+    "sha256": "e57050fab7dc575728126f947c196c6bf879a1c437c2d1319444610242f079ff",
+    "mapping": "Actual zero-based media frames only; not fabricated physics-tick mapping."
+  },
+  "viewed_frames": [
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-001.png",
+      "sha256": "d8f3bf9c31a0eb5a30011797c7090068f98704f2b3fcbf1b65570e537656dc09",
+      "video_frame_zero_based": 370,
+      "video_seconds": 6.166666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-002.png",
+      "sha256": "3067dc99e458eafb22f99836ff87ba2a4ef309dba24c876a9d4927f6ce27eb1c",
+      "video_frame_zero_based": 375,
+      "video_seconds": 6.25,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-003.png",
+      "sha256": "15bbec2244a4b6925fb9d519e34aff602dba0b83fe6d6272ebce33ca7368560a",
+      "video_frame_zero_based": 402,
+      "video_seconds": 6.7,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-004.png",
+      "sha256": "066845d6d3899bae3891527b0f55f2d582adeb7d30900c5be85a46c5c28ce57e",
+      "video_frame_zero_based": 406,
+      "video_seconds": 6.766666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-005.png",
+      "sha256": "d24a4ea5f4b0cf6bd099cb33fe720552c0ee9747ea7b3825eb085e9c9d41d0ca",
+      "video_frame_zero_based": 410,
+      "video_seconds": 6.833333333333333,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-006.png",
+      "sha256": "9ddbc8dc2782ba2d307cb746dde7e57f8d3eb057c9f9d2055fb751dd560a0f7d",
+      "video_frame_zero_based": 414,
+      "video_seconds": 6.9,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-007.png",
+      "sha256": "89fa0c9ae85f811574598f681ed595a559ad082be1eb896e80ec80061ffb1f66",
+      "video_frame_zero_based": 418,
+      "video_seconds": 6.966666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-008.png",
+      "sha256": "027a4423f370c342c8078f18c9ccb1088c1b93709401cf51d02900091e11cb8d",
+      "video_frame_zero_based": 571,
+      "video_seconds": 9.516666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-009.png",
+      "sha256": "5ecb717ed7878a77eebf0818f62d012f3520786bcfcf1b47120831a137b07e86",
+      "video_frame_zero_based": 575,
+      "video_seconds": 9.583333333333334,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-010.png",
+      "sha256": "a73b7703908d58f3235ee416d1ecacbe59fd3e1e5b4cbf79ef799e47c7f288f8",
+      "video_frame_zero_based": 579,
+      "video_seconds": 9.65,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-011.png",
+      "sha256": "ee513375178696ab7feb21297737c97120cf6b7159422458f7feffd4f2838d13",
+      "video_frame_zero_based": 583,
+      "video_seconds": 9.716666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-012.png",
+      "sha256": "c49cc3b0a16f7b471bf6f3da59034816e7e91ebc489f7a8b7eff0225df327cf1",
+      "video_frame_zero_based": 587,
+      "video_seconds": 9.783333333333333,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/before-013.png",
+      "sha256": "a399995c309d8750b7e17046890c7b1dee939f7db7c60bbad030c03a733a12f6",
+      "video_frame_zero_based": 591,
+      "video_seconds": 9.85,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-001.png",
+      "sha256": "3cb36b5474261a0c94e9b3f4cd61fb482d50ab4a7ec5c523791fe134ba6a81f8",
+      "video_frame_zero_based": 370,
+      "video_seconds": 6.166666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-002.png",
+      "sha256": "70f1246e001b1bf4c8529564072e07cb6fa1096016ca5db736b712b1ff51231b",
+      "video_frame_zero_based": 375,
+      "video_seconds": 6.25,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-003.png",
+      "sha256": "4d10492061aa1afb2302c594c71510e7d8b92b71cc4f36db64e021376fd3b351",
+      "video_frame_zero_based": 402,
+      "video_seconds": 6.7,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-004.png",
+      "sha256": "501b14c3cff7891ad98efe635fad90adb44dd788bd72d161f23c0b9fc65f93c9",
+      "video_frame_zero_based": 406,
+      "video_seconds": 6.766666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-005.png",
+      "sha256": "ca4108e6304b0204a633f94c89635dc4605722e477f36b67fb51fcafb773d8be",
+      "video_frame_zero_based": 410,
+      "video_seconds": 6.833333333333333,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-006.png",
+      "sha256": "f8cfdd3fc8f76056e726317f11b9e77edfa10c238d1b6268f5d036b32cc965ec",
+      "video_frame_zero_based": 414,
+      "video_seconds": 6.9,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-007.png",
+      "sha256": "cd7f2829a920f78b77931fd01f2f7a8289a6c05efa429f3fe05f4b458c0c25c4",
+      "video_frame_zero_based": 418,
+      "video_seconds": 6.966666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-008.png",
+      "sha256": "db9cad43d45dfee6502ffccf17021af6a70638a4fbfefc43fba7690af6424956",
+      "video_frame_zero_based": 571,
+      "video_seconds": 9.516666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-009.png",
+      "sha256": "d7f007bdf415f4cb9705a54184de69db8fa366e8d351ab8282f4f4a4d66352fc",
+      "video_frame_zero_based": 575,
+      "video_seconds": 9.583333333333334,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-010.png",
+      "sha256": "0b89313aeef7f799bb4bd4915c60d46c65039289c5d1613e002716a6f99e58ff",
+      "video_frame_zero_based": 579,
+      "video_seconds": 9.65,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-011.png",
+      "sha256": "4f6de4f38c580c118a6523a73ef9e45a31fc22134eda5aa9ed239aebe4b2fd53",
+      "video_frame_zero_based": 583,
+      "video_seconds": 9.716666666666667,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-012.png",
+      "sha256": "52c0340fa9300309f75195621f6682c3092d07a972058b01517b0f5c3f1c1bb9",
+      "video_frame_zero_based": 587,
+      "video_seconds": 9.783333333333333,
+      "viewed": "view_image original1280x720"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-vfx-second/frames/after-013.png",
+      "sha256": "89e370224a014ea7d1b1921127665a99a7b53d590e538ac366f103ec2a35ea26",
+      "video_frame_zero_based": 591,
+      "video_seconds": 9.85,
+      "viewed": "view_image original1280x720"
+    }
+  ],
+  "not_reviewed": [
+    "Complete full-speed615-frame movies",
+    "Audio listening",
+    "Exact accepted-event-to-media onset latency",
+    "All jump/landing variants,world materials and low-frame-rate GPU behavior",
+    "Long fall in the current VFX source600-sample capture",
+    "Hurt/death chain,all15 weapons,three appearances",
+    "Weapon grip,shared-style production rebind/integration",
+    "User aesthetics/feel,physical device performance and browser interaction"
+  ],
+  "overall_animation_acceptance": "unverified",
+  "user_acceptance": "unverified",
+  "audio_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "recommendation": "Keep this bounded VFX revision and its native comparison as a development candidate; no further automatic expansion implied. Report the visible landing-cue gain and remaining takeoff/full-speed/attachment/character coverage limits plainly."
+}

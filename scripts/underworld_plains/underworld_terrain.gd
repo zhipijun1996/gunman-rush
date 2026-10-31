@@ -1,10 +1,12 @@
 class_name UnderworldTerrain
 extends Node2D
-## Source-native Underworld material; never owns bodies or alters collision.
+## Selected native32px Underworld material; never owns bodies or alters collision.
 ## Aligned interiors are real TileMapLayer cells. Non-grid union edges use an
-## explicit exact-boundary adapter sampling the very same publisher pixels.
-const BUILD_PATH := "res://assets/underworld_plains/terrain/terrain_build.json"
-const SHADER := preload("res://scripts/underworld_plains/underworld_terrain.gdshader")
+## explicit exact-boundary adapter sampling the very same selected source family.
+## Legacy16 assets/spec/shader remain intact for historical reconstruction.
+const BUILD_PATH := "res://assets/underworld_plains/terrain/fine_32/terrain_build.json"
+const SHADER := preload("res://shaders/formal_fine_boundary.gdshader")
+const CORE_SHADER := preload("res://shaders/formal_fine_lit.gdshader")
 var union_edges := PackedVector4Array()
 var union_pieces: Array[Rect2] = []
 var union_corners := PackedVector4Array()
@@ -13,9 +15,16 @@ var boundary_pieces: Array[Rect2] = []
 var core_layer: TileMapLayer
 static var _mechanism_spec: Dictionary = {}
 static var _mechanism_textures: Dictionary = {}
+static var _terrain_source: Texture2D
 
 static func specification() -> Dictionary:
 	return JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH))
+
+static func source_texture() -> Texture2D:
+	# Draw command buffers retain only a RID, so the source must outlive _draw.
+	if _terrain_source==null:
+		_terrain_source=load(specification().source_texture) as Texture2D
+	return _terrain_source
 
 static func geometry_plan(solids: Array[Rect2]) -> Dictionary:
 	# Reuse the already verified union construction, not its obsolete paint.
@@ -50,6 +59,7 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 	node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var spec := specification()
 	var cell := int(spec.world_tile_wu)
+	node.set_meta("art_pixel_world_units",float(cell)/int(spec.tile_px))
 	var plan := geometry_plan(solids)
 	node.union_edges = plan.edges
 	node.union_pieces.assign(plan.pieces)
@@ -76,10 +86,14 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 	node.core_layer.name="Source47InteriorTileMap"
 	node.core_layer.tile_set=load(spec.tileset) as TileSet
 	node.core_layer.scale=Vector2.ONE*float(cell)/int(spec.tile_px)
+	var core_material:=ShaderMaterial.new()
+	core_material.shader=CORE_SHADER
+	node.core_layer.material=core_material
 	for key: Vector2i in node.core_cells:
 		var mask:=Blob47Rules.mask_at(full,key)
 		var atlas: Array = spec.mask_to_atlas[str(mask)]
-		node.core_layer.set_cell(key,0,Vector2i(int(atlas[0]),int(atlas[1])))
+		var variant:=posmod(key.x,int(spec.variant_count))
+		node.core_layer.set_cell(key,0,Vector2i(int(atlas[0])+variant*int(spec.variant_atlas_stride),int(atlas[1])))
 	node.add_child(node.core_layer)
 	# Subtract those exact full cells from the drawing only. Boundary strips are
 	# canonical horizontal runs, so input splitting/order cannot change pixels.
@@ -98,7 +112,7 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 					run_start=x_end
 				cursor=x_end
 			if cursor>run_start: node.boundary_pieces.append(Rect2(run_start,ys[row],cursor-run_start,ys[row+1]-ys[row]))
-	var texture := load(spec.source_texture) as Texture2D
+	var texture := source_texture()
 	var pending: Array[Rect2] = node.boundary_pieces.duplicate()
 	while not pending.is_empty():
 		var rect: Rect2 = pending.pop_back()
@@ -121,6 +135,7 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 		material.shader=SHADER
 		material.set_shader_parameter("source_pixels",texture)
 		material.set_shader_parameter("source_size",Vector2(texture.get_size()))
+		material.set_shader_parameter("art_scale",float(spec.source_coordinate_scale))
 		material.set_shader_parameter("shape_origin",rect.position)
 		material.set_shader_parameter("face_count",faces.size())
 		faces.resize(64);material.set_shader_parameter("faces",faces)
@@ -136,10 +151,24 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 ## Physics-semantic sibling interfaces: thin open decks and copper carriers.
 ## They never become solid tile cells or create new collider bodies.
 static func draw_one_way(node: CanvasItem, rect: Rect2) -> void:
-	var source := load(specification().source_texture) as Texture2D
-	for x: int in range(0,ceili(rect.size.x),32):
-		var width := minf(32.0,rect.size.x-x)
-		node.draw_texture_rect_region(source,Rect2(rect.position+Vector2(x,0),Vector2(width,minf(6.0,rect.size.y))),Rect2(32,0,width/2.0,minf(3.0,rect.size.y/2.0)))
+	# Open decks need an actual readable wood/copper cross-section, not the
+	# transparent first six rows of grass (which resemble background vines).
+	# Every strip is native1wu. End caps stay independent of body repetition.
+	var source:=mechanism_texture(&"carrier")
+	var height:=minf(8.0,maxf(6.0,rect.size.y))
+	var left:=minf(8.0,rect.size.x*.5)
+	var right:=minf(8.0,rect.size.x-left)
+	var widths: Array[float]=[left,rect.size.x-left-right,right]
+	var source_x: Array[float]=[0.0,80.0,192.0-right]
+	var source_width: Array[float]=[left,32.0,right]
+	for row: Vector3 in [Vector3(0,2,0),Vector3(2,height-4,6),Vector3(height-2,2,20)]:
+		var x:=rect.position.x
+		for column: int in 3:
+			var remaining:=widths[column]
+			while remaining>0.0:
+				var width:=minf(remaining,source_width[column])
+				node.draw_texture_rect_region(source,Rect2(x,rect.position.y+row.x,width,row.y),Rect2(source_x[column],row.z,width,row.y))
+				x+=width;remaining-=width
 	for x: float in [rect.position.x+3,rect.end.x-5]:
 		node.draw_rect(Rect2(x,rect.position.y+2,2,minf(8,rect.size.y-2)),Color("a69055"))
 
@@ -150,7 +179,7 @@ static func draw_moving(node: CanvasItem, rect: Rect2) -> void:
 
 static func mechanism_specification() -> Dictionary:
 	if _mechanism_spec.is_empty():
-		_mechanism_spec = JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/mechanisms/mechanisms_build.json"))
+		_mechanism_spec = JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json"))
 	return _mechanism_spec
 
 static func moving_patch_plan(rect: Rect2) -> Array[Dictionary]:

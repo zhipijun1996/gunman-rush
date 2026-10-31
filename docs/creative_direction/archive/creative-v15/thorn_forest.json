@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "region_id": "thorn_forest",
+  "version": "creative-v15",
+  "direction_id": "thorn_forest_v2",
+  "title": "荆棘森林｜用户区域圣经 V2",
+  "decision": "selected",
+  "acceptance": "user_confirmed",
+  "user_acceptance": "direction_only_not_art_gameplay_or_device",
+  "selection_basis": "user_supplied_bible",
+  "selection_rationale": "用户已提供并选择完整区域圣经；按原文制作，先完整森林含美术，再优化平原；不重新选方向。 最新两条用户纠正要求森林和所有后续区域沿用项目共用整体画风，继承当前正式平原tileset家族。",
+  "region_bible": {
+    "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "bible_id": "thorn_forest_v2",
+    "version": "2.0",
+    "status": "user_selected_direction_only",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+    "supplemental_authority_sha256": "35f521df530eead1a928ef2fa8230483c8e35bf3a1ee726242d2a7fba43152d1",
+    "region_id": "thorn_forest",
+    "registry_path": "docs/creative_direction/bibles/registry.json",
+    "registry_sha256": "46c57f2b127ef47ce27458ec8db7b30b0cfc21f2c48fa2d7381d884d91df48b5",
+    "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+    "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+  },
+  "candidates": [],
+  "user_evidence": {
+    "source": "docs/creative_direction/bibles/user-request.json",
+    "quote": "更新harness和skills流程，后续开发或者优化新区域，先有该区域的圣经，然后根据该文档去生成和优化。这是我给出的风铃平原和森林的区域圣经。\n可以使用subagent现在开始实现好这两个区域。先做好荆棘森林（包括美术），之后再优化风铃平原。音效，背景动画特效（比如风之类的）可以做，bgm后续我再引入。\n然后将过程中的好流程融合到harness和skills中。过程中发现无用的历史包袱可以优化效率提效。",
+    "scope": "方向选择及授权内实现；新内容的视觉、玩法、音频与实体设备尚未验收。"
+  },
+  "intent": {
+    "bible_sections": "1",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "identity": "缠绕、生长、借力与回返；活着的立体迷宫。"
+  },
+  "emotion": {
+    "bible_sections": "1",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "player_behavior": {
+    "bible_sections": "4",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "identity": "看见目的地后绕树、换向、借物体和改变高度；H与反冲组合，出发/取得/异路回返。"
+  },
+  "space": {
+    "bible_sections": "3–6",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "ecology": {
+    "bible_sections": "7",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "boss": {
+    "bible_sections": "8–9",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "visual": {
+    "bible_sections": "2",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "shared_project_style": "继承已绑定的正式平原实际像素尺度、tileset邻接/边界、光照/描边/材质语言；区域特色不等于另换项目画风。森林以树皮、苔藓、荆棘、有机结构及区域色域变化，其他后续区域同样沿共用母版。",
+    "cross_region_golden": "先阅读实际共享source PNG/atlas、TileSet及消费者，在正式平原/目标地区的正常比例游戏黄金做实际像素对照；独立视觉准入后才扩产，hash/metadata不签画面。",
+    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。",
+    "actual_shared_consumer": "ForestBiblePresentation.enabled时ThornForestRegionStage挂载同一UnderworldTerrain，DemoApp复用UnderworldPlayer；区域景层/摆件由ForestBiblePresentation组织。当前实际源码存在，不代同源截图/影片独审或设备验收。",
+    "thorn_covered_platforms": {
+      "quote": "森林的荆棘地块tile有点丑，我希望是那种自然的缠绕荆棘感觉。希望不是独立地块，而是有一种地块是“带荆棘的平台”",
+      "contract": [
+        "荆棘是长在真实根枝/平台上的覆盖层：藤体沿实体表面交错、绕角、扎根，尖刺从藤体长出；不呈独立刺砖或矩形边框。",
+        "延续实际平原16px/32wu像素簇、材质光向和危险辨识；通过森林木皮、苔藓与苍白刺尖体现区域特色。",
+        "可站平台、藤体和伤害表面分别保持清楚；真实伤害轮廓不可被漂亮贴图隐藏。",
+        "按实际host支持关系检查，不用nearest metadata冒充贴附；漂浮历史危险条须显式淘汰或版本化物理修正，不能画跨空假根掩盖。",
+        "先正常比例上/下/侧三种真实平台合屏和运动复审，再扩区域。"
+      ],
+      "source": "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+      "reference_path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+      "reference_sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e"
+    },
+    "selected_fine_grid": "Fine1wu shared grid per style-v5; region identity comes from materials/ecology, not a different pixel scale. Human/devices remain unverified."
+  },
+  "motion_audio": {
+    "bible_sections": "12",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "memory": {
+    "bible_sections": "13",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "commercial": {
+    "bible_sections": "13",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "status": "宣传记忆点与吸引力为待真实玩家验证假设；不自签市场结论。"
+  },
+  "slice": {
+    "bible_sections": "3–9",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "consumer": "DemoApp._select_next_region / start_debug_region -> ThornForestRegionGenerator CURRENT_DEPTH_LAYOUT (read actual versioned producer) -> ThornForestRegionStage -> ThornForestRegionAssembler",
+    "status": "source_present_not_bible_v2_execution_proof",
+    "requirements": "先正式比例完整可玩艺术黄金，独立G2准入后第二空间、多Seed与整区推广；旧实证保留原源。"
+  },
+  "exclusions": {
+    "core": "保留PlayerMotor、合法能力、资源、RNG与保存合同；旧提案或失败实现不自动约束新地区，但正式平原仍用的Underworld tileset及共用像素家族是当前继承依据，不得整体抛弃。",
+    "music": "deferred_user_supplied：原文BGM保留为设计意图，本轮不生成或替换BGM；SFX与环境动画/VFX在授权范围。",
+    "acceptance": "方向选择不签新视觉、完整地区、真人FUN或实体设备；无证据保持unverified/awaiting-device。"
+  },
+  "authority_sources": [
+    {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4"
+    },
+    {
+      "path": "docs/design/player_actions/README.md",
+      "sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
+    },
+    {
+      "path": "docs/world_regions.json",
+      "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656"
+    },
+    {
+      "path": "docs/controls_contract.md",
+      "sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+    },
+    {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3"
+    },
+    {
+      "path": "docs/creative_direction/bibles/user-request.json",
+      "sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+      "sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9"
+    },
+    {
+      "path": "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+      "sha256": "63dd0759036b28f3f2460003d7fc3178df934a07bfbbc95cb9792897594d5aba"
+    },
+    {
+      "path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+      "sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+      "sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+      "sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+      "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+      "sha256": "35f521df530eead1a928ef2fa8230483c8e35bf3a1ee726242d2a7fba43152d1"
+    }
+  ],
+  "historical_direction": {
+    "path": "docs/creative_direction/archive/creative-v7/thorn_forest.json",
+    "sha256": "ba717b942c1847fb8e71df3eba38e088f36da08229fed52633a1220ebfa467ed",
+    "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
+  },
+  "revision_impact": {
+    "task_id": "PLAYTEST-FEEDBACK-20261024",
+    "revision": "One existing runtime consumer rebound for actual fixed-status integration correction",
+    "previous_direction": {
+      "path": "docs/creative_direction/archive/creative-v14/thorn_forest.json",
+      "sha256": "57f09d212a4d4297cc2109876f03938a11684bb76e6d2515ed746f05bb46d171",
+      "version": "creative-v14"
+    },
+    "changed_authorities": [
+      {
+        "path": "docs/creative_direction/bibles/registry.json",
+        "old_sha256": "280b0a487fbb9273f131393ff0b5ca09bb757712d09e495d42ddf26eaf8ffd03",
+        "new_sha256": "46c57f2b127ef47ce27458ec8db7b30b0cfc21f2c48fa2d7381d884d91df48b5"
+      },
+      {
+        "previous_path": "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+        "path": "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+        "old_sha256": "e4f6439eaadee9078c4ecb7454b1a939ccf48263e334aa9fbbf12f5dd305071f",
+        "new_sha256": "35f521df530eead1a928ef2fa8230483c8e35bf3a1ee726242d2a7fba43152d1"
+      }
+    ],
+    "preserved": [
+      "Original raw creative-v14/registry archived",
+      "Other35 runtime references and complete original Bible/user pixel selection unchanged"
+    ],
+    "impact": "Keep left status hearts/resonance/ammunition anchored; restore existing avoidance for map/pause/wallet/location/item toast. Status widgets use compact existing minimum widths. Observe actual painted leaves instead of the transparent VBox. Normal world protection scans now execute again; previous e525 no-scan CPU statement is superseded, not re-signed.",
+    "evidence_scope": "Current technical correction only; independent/Web/fullCI/player/device acceptance remain separately sourced"
+  }
+}

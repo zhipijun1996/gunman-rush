@@ -13,13 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import run_underworld_home_terrace_tests as wrapper
 
-EXPECTED = 180
+EXPECTED = 187
+GPU_EXPECTED = 198
 MARKER = f'UNDERWORLD HOME TERRACES: {EXPECTED} assertions, 0 failures\n'
 
 
 def receipt():
     ids = ['character', 'upgrade', 'achievements', 'arms', 'relics', 'herbs', 'kitchen', 'courier', 'songs', 'stories', 'garden', 'departure']
-    active = {'character', 'upgrade', 'achievements', 'departure'}
+    active = {'character', 'upgrade', 'achievements', 'arms', 'relics', 'departure'}
     meta = {'notes': 4, 'upgrades': {'vitality': 1}, 'profile_revision': 2, 'completed_runs': 0, 'failed_runs': 0, 'last_summary': {}}
     visits = [{'id': name, 'foot': [index * 200, [432, 336, 240][index % 3]], 'expected_action': name if name in active else '', 'meta_before': deepcopy(meta), 'meta_after': deepcopy(meta)} for index, name in enumerate(ids)]
     return {'schema': 'underworld-home-terraces-v1', 'checks': EXPECTED, 'failures': 0, 'driver_errors': [], 'visits': visits, 'trace': [{'hp': 5, 'jumps': 1}], 'events': [{'key': code} for code in ['A', 'D', 'S', 'W', 'Space']]}
@@ -141,7 +142,10 @@ class HomeTerraceGuardTests(unittest.TestCase):
             for name in ['source.bin', 'image.bin', 'reference.bin']:
                 (root / name).write_bytes(b'synthetic provenance control, not runtime image')
             record = {'tool': 'image_gen.imagegen', 'prompt': 'Synthetic metadata guard control only', 'source': 'source.bin', 'image': 'image.bin', 'reference': 'reference.bin', 'source_sha256': wrapper.digest(root/'source.bin'), 'reference_sha256': wrapper.digest(root/'reference.bin')}
-            slots = [{'id': visit['id'], 'active': bool(visit['expected_action'])} for visit in receipt()['visits']]
+            # The raw authored file retains its four original active slots;
+            # Home enables the existing arms service in its runtime copy.
+            authored_active = {'character', 'upgrade', 'achievements', 'departure'}
+            slots = [{'id': visit['id'], 'active': visit['id'] in authored_active} for visit in receipt()['visits']]
             spec = {'slots': slots}
             mutate(root, record, spec)
             record_path.write_text(json.dumps(record))
@@ -177,6 +181,28 @@ class HomeTerraceGuardTests(unittest.TestCase):
     def test_36_generation_invents_active_business(self):
         self.rejected_generation(lambda root, record, spec: spec['slots'][0].update(id='fake_business'))
 
+    def test_37_current_arms_service_cannot_be_omitted(self):
+        next(row for row in self.value['visits'] if row['id'] == 'arms')['expected_action'] = ''
+        self.rejected()
+
+    def test_current_item_codex_service_cannot_be_omitted(self):
+        next(row for row in self.value['visits'] if row['id'] == 'relics')['expected_action'] = ''
+        self.rejected()
+
+    def test_38_consistent_underreported_count_is_rejected(self):
+        # The former 184-marker and matching receipt cannot sign the new
+        # 185-assertion route that actually clicks the Journey page.
+        self.value['checks'] = EXPECTED - 1
+        self.output = f'UNDERWORLD HOME TERRACES: {EXPECTED - 1} assertions, 0 failures\n'
+        self.rejected()
+
+    def test_39_actual_mode_counts_and_synthetic_capture_positive(self):
+        self.assertEqual(wrapper.expected_assertions(False), EXPECTED)
+        self.assertEqual(wrapper.expected_assertions(True), GPU_EXPECTED)
+        value = deepcopy(self.value)
+        value['checks'] = GPU_EXPECTED
+        wrapper.verify(f'UNDERWORLD HOME TERRACES: {GPU_EXPECTED} assertions, 0 failures\n', value, self.before, self.after, GPU_EXPECTED, 0)
+
 
 if __name__ == '__main__':
     stream = io.StringIO()
@@ -185,6 +211,6 @@ if __name__ == '__main__':
     out = ROOT / 'build/underworld_r3/home'
     out.mkdir(parents=True, exist_ok=True)
     (out / 'wrapper_guard_negatives.log').write_text(output)
-    report = {'schema': 'underworld-home-terrace-wrapper-guards-v1', 'scope': 'Pure verifier/source/provenance controls; synthetic parser positive and deliberate corrupted inputs. Not additional engine runs, image quality, motion, or final release acceptance.', 'expected_headless_checks': EXPECTED, 'expected_gpu_checks': EXPECTED+9, 'original_refusal_classes_retested_against_new_verifier': 17, 'unit_tests_run': result.testsRun, 'unit_test_failures': len(result.failures), 'unit_test_errors': len(result.errors), 'successful': result.wasSuccessful(), 'new_engine_execution': False, 'negative_controls': 34, 'synthetic_or_readonly_preflight_positives': 2}
+    report = {'schema': 'underworld-home-terrace-wrapper-guards-v1', 'scope': 'Pure verifier/source/provenance controls; synthetic parser positive and deliberate corrupted inputs. Not additional engine runs, image quality, motion, or final release acceptance.', 'expected_headless_checks': EXPECTED, 'expected_gpu_checks': GPU_EXPECTED, 'original_refusal_classes_retested_against_new_verifier': 17, 'unit_tests_run': result.testsRun, 'unit_test_failures': len(result.failures), 'unit_test_errors': len(result.errors), 'successful': result.wasSuccessful(), 'new_engine_execution': False, 'negative_controls': 37, 'synthetic_or_readonly_preflight_positives': 3}
     (out / 'wrapper_guard_negatives.json').write_text(json.dumps(report, indent=2)+'\n')
     sys.exit(0 if result.wasSuccessful() else 1)

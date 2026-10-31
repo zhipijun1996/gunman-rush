@@ -1,0 +1,180 @@
+{
+  "reviewer": "independent_review (not implementation author)",
+  "implementers": [
+    "root",
+    "player_presentation_01",
+    "enemy_feedback_01",
+    "audit_delivery",
+    "originalUI/art worklines"
+  ],
+  "verdict": "ACCEPT",
+  "approval_scope": "Limited combined-source technical review and actual7focused consumers at exactB. FullIntegration/Release and remaining metadata gates not signed.",
+  "reviewed_at_utc": "2026-10-23T04:21:19.036337+00:00",
+  "reviewed_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+  "source_sha256": {
+    "scripts/player/player_controller.gd": "50c2bd887a00cb9b9d7e12d009007a79110372ff04a49c1e9a3c7ae8ffec47fa",
+    "scripts/combat/weapon_action_runtime.gd": "f7396f30ca42ecad03d2889c206a8567351528ba0279a016553da0a62d358793",
+    "scripts/combat/shot_energy_policy.gd": "d1abb19e0441cda5dc58ca6dd2d46ad2ca3dee6cab0b666dd69039ea681b9990",
+    "scripts/art/player_presentation_runtime.gd": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91",
+    "scripts/art/avatar_presentation.gd": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437",
+    "scripts/audio/game_music.gd": "3ec485d7fc65f9a1f1c440a7dfe04b2d8b7f0bafd9473cea507ea4f5c9937fdb",
+    "scripts/audio/game_audio.gd": "a0c2fe69b14a498b133f08bb29351e0f263eccd3a5fcacdd1108ca8ae866775b",
+    "scripts/demo/demo_app.gd": "3e3ca46348c7c2aa5aca914068eea73fdfddc3d2312c9c5015cff7e5635dfaf6",
+    "scripts/demo/home_scene.gd": "1a8052e270fa7f4d6723295c70a44c9b6cf2a7fab2059988c92f8dd1d414ea1e",
+    "scripts/ui/demo_menu.gd": "e0187e5f6b7d41e7a0dc17a411e6181606ee69b70b59f475ea393b52e83813c2",
+    "scripts/demo/plains_region_stage.gd": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6",
+    "scripts/enemies/enemy_feedback_01_remains.gd": "70813d555ca9a7de5632daa902b2f011b04d6231fbe1b4fea00cc51be445f63f",
+    "scripts/enemies/enemy_feedback_01_frames.gd": "69a9551a567276fc9979df472bb228a6d8a79babfd5dee399fe9b1178a267489",
+    "tests/audio_teardown.gd": "4e0e850b56571e3069a8271b056fc7e18939ab74ff5bc8c97e7ccb1016bbe4d9",
+    "tools/run_integration_four_tests.py": "d25a160cdaad7dc2c00a015fe0f99f57c4b6d20ef4a16a54f6b32898973718a9",
+    "tools/harness/profiles.json": "d376cb1993f0ead934644376eab237bb9b8db16c6c68e19cb5483e72cf98d4ee",
+    "export_presets.cfg": "48f555c28f59f72ac51a8e5cc0016eda148279246c4fa7493401e1f16800f256"
+  },
+  "actual_fresh_checks": {
+    "report": "/workspace/integration-four/build/verification/harness/20261023T041712.001874Z/report.json",
+    "report_sha256": "f44f0382def6e141b4d546e0d45e5186b6e205153a09ae00ad4360563f36167d",
+    "manifest_sha256": "d376cb1993f0ead934644376eab237bb9b8db16c6c68e19cb5483e72cf98d4ee",
+    "current_manifest_matches": true,
+    "source_clean": true,
+    "jobs": 1,
+    "release_flag": "Fresh selectedchecks only;not a fullRelease profile run.",
+    "checks": [
+      {
+        "id": "enemy-feedback-native",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 8.495,
+        "actual_checks": 458,
+        "log_sha256": "85cb1194681515fb0ec5f3d92859576e72fca7b8a0bb184a9ba15694de1f58d2"
+      },
+      {
+        "id": "enemy-feedback-formal",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 14.777,
+        "actual_checks": 66,
+        "log_sha256": "0f1227d4dcd3a4057237c6fb01db3dfc2d4f704e27321b6979aa7b4cd30b6bc5"
+      },
+      {
+        "id": "enemy-feedback-support",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 7.388,
+        "actual_checks": 199,
+        "log_sha256": "d09ede88e6b680af9b504531e50800a8a48dc0e0e128475ce890417641ce9905"
+      },
+      {
+        "id": "enemy-corpse-save",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 14.043,
+        "actual_checks": 72,
+        "log_sha256": "0da8c946f6568b8269d4b9d1945cf21bf21b2d54f348e314b984a1ec1a843959"
+      },
+      {
+        "id": "enemy-corpse-snapshot",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 10.339,
+        "actual_checks": 147,
+        "log_sha256": "78c7d9ec0edaaf282f67d15d1d6e0c43d996c8002de736d87777dd9e71e9d88c"
+      },
+      {
+        "id": "bgm-integration",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 18.873,
+        "actual_checks": 89,
+        "log_sha256": "6edb0a6ec6571d46102611ee49b21e0b6e0b6f7daf17f664b93c3a36d16d21af"
+      },
+      {
+        "id": "player-default-integration",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 8.541,
+        "actual_checks": 235,
+        "log_sha256": "290fc6f5ca7289fc149b375c3b41ffc27284bab79f5e7ef4a09dc5440b88d4e1"
+      }
+    ],
+    "actual_total_checks": 1266,
+    "all7_fresh_pass_exit0": true,
+    "all7_raw_logs_without_script_error_or_audio_resource_leak": true,
+    "wall_seconds": 96.619,
+    "audio_release": "Originalformal66/corpse72/default235 logs now explicitly recordGameAudio+GameMusic genuine release within128-152ms. BGM89 retains actualnormalowner-free boundary distinct from explicitshutdown."
+  },
+  "static_integration_findings": [
+    "SharedPlayerController retains accepted damage receipt gated by actor/session/weapon epoch. UI time-energy uses explicitdefinition; AirFocus remains sole time-energy owner and explicitlegacy fixtures preserve old shot energy.",
+    "WeaponActionRuntime fallback presentation/audio remains owner-local; defaultadapter restores prior callbacks/draw when removed and guards projectile owner/session/weapon epoch. No new movement/damage authority in presentation.",
+    "Defaultnewbody is assembled in realHome/Plains/Forest; classicbody remains explicitchoice. HomeTimeweaver selection is sessionappearance only,not stats/abilities/save schema.",
+    "OnePlayerWeaponFeelAudioV2 service inherits original12voices and supplies sharedsessionvolume to separate two-voiceGameMusic. Title/Home/region/Boss lifecycle follows acceptedApp state; repeatedsame-track request does not restart and pause onlyducks.",
+    "Menuprocess_frame once-only bound instance callback withWeakRef target preserves originalgeneration/focus/scroll checks and prevents suspendedawait afterMenu free.",
+    "Optionalcorpseversion1 restores exactsettledfinalframe and stableweak support contact; invalid/absent data retainslegacyfallback. Originalstrictformal assertion file unchanged."
+  ],
+  "guard_preservation": {
+    "original_main": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+    "all_existing_check_dictionaries_identical": true,
+    "all_old_profile_prefixes_equal": true,
+    "new_registered_checks": "UI time-energy plus7focused consumer registrations appended; no deleted oldcheck or changed oldbudget.",
+    "shared_audio_helper": "Only9newlines added to originalhelper; existingtotal1000ms and realWeakRef release/failure condition retained. Seeindependent-music-teardown-delta.json."
+  },
+  "versioned_style": {
+    "version": "7",
+    "sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad",
+    "all36_refs_match_current_source": true,
+    "original20_v6_refs_preserved_exact": true,
+    "new16_formal_default_refs_only": true,
+    "native32px_32wu_and_collision_pixel_contracts_preserved": true,
+    "original_v5_v6_and_original_Bibles_retained": true,
+    "new_runtime_evidence_required_not_replaced_by_SHA": true
+  },
+  "source_and_asset_provenance": [
+    "FiveMP3sourcebytes/sizes matchuser-suppliedprovenance; projectauthorization only,no fabricatedauthorship/CC0/generalredistribution license. Importedstreams loop=true without alteringoriginalMP3.",
+    "Sixenemy assetregistrations have exactsource+associatedSHAs. Missingmodel/prompt/outputlicense remainexplicitnot_exposed/unknown; historicalaudioCC0sampleledger isexact andcurrentbuilderreproductionfalse.",
+    "Fourhistorical artcard migrations preserve oldfullJSON byte-identically inoriginal-author-record.json snapshots. Missing originalschema gates remainunverified instead of retroactivecurrent-pass."
+  ],
+  "web_gpu_support": {
+    "source_commit": "fbb417cb4d4d4d8d2500d7c4bed11cebf681dd46",
+    "runtime_equal_to_B": true,
+    "gitdiff_B_from_fbb": [
+      "docs/evidence/high_density_terrain_03/original-author-record.json",
+      "docs/evidence/light_study_01/original-author-record.json",
+      "docs/evidence/pixel_light_study_02/original-author-record.json",
+      "docs/evidence/terrain_density_04/original-author-record.json",
+      "docs/quality/records/HIGH-DENSITY-TERRAIN-03.json",
+      "docs/quality/records/LIGHT-STUDY-01.json",
+      "docs/quality/records/PIXEL-LIGHT-STUDY-02.json",
+      "docs/quality/records/TERRAIN-DENSITY-04.json"
+    ],
+    "scope": "Only4qualitycards+4preservedhistoryJSONs differ; runtime/tools/testhelper/export config unchanged. These receipts retainfbb identity,not relabeledBbuild.",
+    "gpu_receipt": "build/integration-four/gpu/receipt.json",
+    "gpu_actual": "GLllvmpipeUI147,R2223,terrainGPU,foreground506samples/23identities;cleanexit. Dummy audio,notphysicaldevice.",
+    "images_actually_opened": [
+      "build/integration-four/gpu/ui/formal-hud.png",
+      "build/integration-four/gpu/r2/title-960x540.png"
+    ],
+    "image_scope": "Verified actualvisibleformalbody/HUD andtitlemenu renders; no continuousmotion/audio/artisticapproval.",
+    "actual_web_package": "build7f88f353bfb4,184478012bytes",
+    "pack_sha256": "7f88f353bfb42ba4008a07a9cddf0df8b43ea5ef5812ee899d43142f39d0daa7",
+    "independent_package_check": "independent-web-closure.json independentlyMD5read all4JSON+5actualimportedMP3 PCKmembers and comparedexactlocalbytes. Manifestexportfindingresolved.",
+    "browser_status": "Awaiting separate realbrowser report at thisreview; no falsepublicURLorbrowseracceptance."
+  },
+  "failure_preservation": [
+    "Originalcorpse66/1 remains inenemy_corpse_save_integration; fixes66/0,72/0,147/0,199/0 are scopebound.",
+    "c33strict72/0/235/0 exits actuallyfailedMP3backendrelease; independent-c33-exit-reject.json andrawverboseMP3resource evidence retained.",
+    "fbb secondrun041453support raw199/0 did not approveaggregate: parallelhistoricalcardwrites triggeredoriginalsourceguard interrupted result. Bfreshcleanrun replaces pendingoutcome,not oldstatus."
+  ],
+  "outstanding_before_unqualified_merge_or_release": [
+    "21newartsource registrations and5existingasset-source/associatedSHA drift fixes remain underseparatemetadatareview; currentglobalquality/qualitydiff have not yet been signedgreen.",
+    "Completeexact-headPRIntegration andoriginalmainRelease gates pending; no completeCI claim from7checks.",
+    "Realbrowserinput/audio-unlock andpublicversionconfirmation pending at thisreport.",
+    "Userart,feel,fun,physicalmobile/controller/device andcommercialG5 remainunverified."
+  ],
+  "review_method": "Read exactsource tree,diffs,raw7receipt/logs,style36hashes,sourceownership andactualPCK;opened2realGLscreenshots. Did not runengine/CI,hydrate or changeintegrationtree."
+}

@@ -1,0 +1,117 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "version": "v3-remains-review",
+  "variant": "after",
+  "seed": "enemy-feedback-01-remains",
+  "status": "failed",
+  "source": {
+    "working_files": {},
+    "commit": "8f0fd51db3bfcc4a08dd352c1c5909aad4f4fcf9",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "driver_sha256": "8efcbef8ba9a32323776ec1ad0b17320bcf70f5f2e9064050595d78758b13c06",
+  "scope": "Two explicit Underworld spawn fixtures with actual AI, nonlethal/lethal shots and a long corpse hold; no campaign/device claim.",
+  "conditions": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "playback_speed": 1,
+    "camera": {
+      "center": [
+        575,
+        440
+      ],
+      "zoom": 2.5
+    },
+    "case_frames": 780,
+    "total_trace_frames": 1560,
+    "definitions": [
+      "resources/enemies/plains_charger.tres",
+      "resources/enemies/plains_diver.tres"
+    ],
+    "player_spawn": [
+      480,
+      482
+    ],
+    "enemy_spawn": [
+      [
+        640,
+        484
+      ],
+      [
+        640,
+        430
+      ]
+    ],
+    "floor_top": 500,
+    "shots_at_case_frames": [
+      50,
+      110,
+      170,
+      230
+    ],
+    "pause_at": [
+      70,
+      85
+    ],
+    "stable_visible_tail_frames": 210,
+    "renderer": "gl_compatibility/software GPU",
+    "input": "real Router aim/release; no HP, movement or feedback injection"
+  },
+  "expect_remains": true,
+  "user_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/enemy-feedback-01-v4-after/build/enemy-feedback-01/remains-after-v4/after.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_feedback_01_remains_capture.gd",
+    "--",
+    "--variant=after",
+    "--seed=enemy-feedback-01-remains",
+    "--trace=/workspace/enemy-feedback-01-v4-after/build/enemy-feedback-01/remains-after-v4/after.json",
+    "--expect-remains"
+  ],
+  "execution": {
+    "status": "failed",
+    "exit_code": -15,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1792692705.37269,
+    "ended_at_unix": 1792692718.2919068,
+    "duration_seconds": 12.919,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/enemy-feedback-01-v4-after/build/enemy-feedback-01/remains-after-v4/after.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_feedback_01_remains_capture.gd",
+      "--",
+      "--variant=after",
+      "--seed=enemy-feedback-01-remains",
+      "--trace=/workspace/enemy-feedback-01-v4-after/build/enemy-feedback-01/remains-after-v4/after.json",
+      "--expect-remains"
+    ],
+    "check_token": "2ba7796db751450daef5215800691bc6"
+  },
+  "error": "Actual Godot recording failed: failed",
+  "seconds": 12.986152773999493
+}

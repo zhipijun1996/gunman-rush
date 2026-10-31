@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "CLOUD-EFFICIENCY-01",
   "task_type": "small_fix",
-  "workflow": "review",
+  "workflow": "done",
   "baseline_commit": "97c060f33192ea560874da7348c907c80d780bd1",
-  "reviewed_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
-  "content_version": "cloud-efficiency-v2",
+  "reviewed_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+  "content_version": "cloud-efficiency-v3",
   "owner": "/root",
   "purpose": "Reduce Cloud historical downloads and safely isolate exact prepared sources without lowering quality gates",
   "player_experience": "Faster bounded engineering feedback preserves real game and human/device acceptance boundaries",
@@ -180,7 +180,15 @@
     "tools/cloud_inputs.py",
     "tools/harness.py",
     "tools/harness/profiles.json",
-    "tools/production_loop.py"
+    "tools/production_loop.py",
+    "docs/evidence/cloud_efficiency_01/final-a1/run-api.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/verification-summary.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/independent-ci-review.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/report.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/artifacts-api.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/independent-source-review.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/execution.json",
+    "docs/evidence/cloud_efficiency_01/final-a1/execution-plan.json"
   ],
   "deliverables": [
     "Guarded selected input hydration",
@@ -214,10 +222,10 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Current local docs33 passed; original-source native5 and previous transport/engine proofs remain separately labelled historical supports. Final exact-head full Integration and main Release pending",
+      "status": "passed",
+      "reason": "Exact A1 full selected Integration146 fresh checks and separate independent artifact/source review passed; main Release remains separate",
       "evidence": [
-        "docs",
+        "ci",
         "review"
       ]
     },
@@ -230,16 +238,16 @@
   "dimensions": {
     "design": {
       "status": "passed",
-      "reason": "Only current bounded local engineering scope; final full Integration, Release, player and device acceptance remain separate",
+      "reason": "Completed bounded infrastructure scope with exact A1 full selected Integration and independent review; no content/player/device approval",
       "evidence": [
         "spec"
       ]
     },
     "technical": {
       "status": "passed",
-      "reason": "Only current bounded local engineering scope; final full Integration, Release, player and device acceptance remain separate",
+      "reason": "Completed bounded infrastructure scope with exact A1 full selected Integration and independent review; no content/player/device approval",
       "evidence": [
-        "docs"
+        "ci"
       ]
     },
     "formal_integration": {
@@ -274,7 +282,7 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Only current bounded local engineering scope; final full Integration, Release, player and device acceptance remain separate",
+      "reason": "Completed bounded infrastructure scope with exact A1 full selected Integration and independent review; no content/player/device approval",
       "evidence": [
         "review"
       ]
@@ -310,13 +318,13 @@
       "gate": "G4",
       "dimension": "technical",
       "scenario": "Actual partial source and missing historical inputs",
-      "method": "Fresh current Python/Git/docs contracts; old engine and transport receipts retain separate original source labels",
+      "method": "Exact A1 complete selected Integration and independent raw artifact review",
       "expected": "Exact source isolation and explicit input failure/recovery without weakened checks",
       "failure": "Hidden full checkout, source drift, corrupt input or fake PASS",
       "status": "passed",
-      "reason": "Current local scope passed; full gate pending",
+      "reason": "146/146 fresh checks passed at A1, source/manifest/API digest verified",
       "evidence": [
-        "docs",
+        "ci",
         "review"
       ]
     }
@@ -328,35 +336,35 @@
       "sha256": "0d8bb0b45ec1cff95f451b1a4d0722a395bde4afd8b5800d6117d7e1877ac3a9",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
-      "content_version": "cloud-efficiency-v2",
-      "method": "Review ownership and phase/delivery contracts with formal-consumer audit",
-      "observed": "Three disjoint worklines with shared style rebind held by director"
+      "source_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+      "content_version": "cloud-efficiency-v3",
+      "method": "Exact A1 contract bytes plus final read-only source/ownership review",
+      "observed": "Three disjoint main-based worklines; unchanged spec bytes at verified A1"
     },
     {
-      "id": "docs",
-      "path": "docs/evidence/cloud_efficiency_01/docs-v3/report.json",
-      "sha256": "5d3e58cc2cfd0133b5dc1ee0f62c575acc1ed0967702e1454b283297b96035e6",
+      "id": "ci",
+      "path": "docs/evidence/cloud_efficiency_01/final-a1/report.json",
+      "sha256": "bd7d5e599846dff954825ff96ca11ef3c187f25b60447466d03afdca6dc5cfbe",
       "kind": "command",
       "producer": "/root",
-      "source_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
-      "content_version": "cloud-efficiency-v2",
-      "method": "Fresh complete original docs33 at actual 1c0332e with the exact report working overlay; original source guards retained",
-      "observed": "33/33 passed without reuse; 84 Harness,115 production-loop,21 input API,30 media,16 selector tests; does not approve final PR head full Integration",
-      "command": "python3 tools/harness.py --profile docs --jobs 2 --release",
+      "source_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+      "content_version": "cloud-efficiency-v3",
+      "method": "Original Production impact Integration full union, API digest-bound artifact12426861148",
+      "observed": "146/146 actually fresh passed, no reuse, clean A1, exact manifest and selected sequence; 3227.131seconds",
+      "command": "python3 tools/production_plan.py --base 74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074 --stage integration --execute --jobs 2 --output build/verification/production-ci/execution-plan.json",
       "exit_code": 0,
-      "environment": "Linux Cloud partial-source repo, locked source metadata and private lanes"
+      "environment": "GitHub Actions ubuntu-latest, Python3.12.15, locked Godot4.7.2; run39771696574"
     },
     {
       "id": "review",
-      "path": "docs/evidence/cloud_efficiency_01/local-v2-review.json",
-      "sha256": "c5baedb98849e7bddfa7aa074be40ad9cec099037d6759dd2e29532210b4421f",
+      "path": "docs/evidence/cloud_efficiency_01/final-a1/independent-ci-review.json",
+      "sha256": "d5a4ed23403245f1a2c2e60b76d82335eec599a5881a2b43708d45b6c012fe37",
       "kind": "review",
       "producer": "/root/independent_review",
-      "source_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
-      "content_version": "cloud-efficiency-v2",
-      "method": "Distinct read-only agent reviewed unchanged infrastructure and input-only deltas, actual receipts and current source hashes",
-      "observed": "ACCEPT current bounded local engineering scope only; old native495 and transport receipts retain their original identities",
+      "source_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+      "content_version": "cloud-efficiency-v3",
+      "method": "Separate reviewer independently hashed original archive and checked all146 raw logs, commands, budgets, source, selection and serial chronology",
+      "observed": "ACCEPT exact A1 complete selected engineering Integration; does not sign main Release, human or device quality",
       "reviewer": "/root/independent_review",
       "implementers": [
         "/root",
@@ -366,14 +374,15 @@
       ],
       "verdict": "ACCEPT",
       "independent": true,
-      "independence_basis": "Reviewer did not implement code or hydrate fixtures; read-only byte/receipt checks and prior separately executed counterexamples"
+      "independence_basis": "Read-only reviewer did not implement production changes; independently checked API and raw ZIP rather than adopting producer summary"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Exact final pushed-head full Integration CI pending; PR103 actual check status is authoritative",
-    "Original main/manual complete Release and physical devices/player quality remain separate",
-    "Input inventories are finite audited contracts, not a complete static dependency graph; new dynamic consumers still fail closed"
+    "Merge/main formal Release continues under its original separate workflow; actual run status is authoritative",
+    "Physical devices, player feel/aesthetics/fun and commercial content quality are outside this infrastructure task",
+    "Finite input inventories are not a complete dependency graph; undeclared dynamic consumers fail closed",
+    "Preview hosting capacity715MiB/900MiB requires verified shared-chunk/transport or reversible history planning before several new previews"
   ],
   "test_change_justification": "Keep all 158 original check commands, assertions, success patterns, timeouts, serial/cache flags and original profile prefixes. Append tooling/lifecycle checks only. After actual CI83 missing-fixture failure, extend eight original inputs inventories with audited real retained native/Python consumers; add runtime source roots for formerly absent noncacheable inventories without changing the full source guard. Preserve original failures/receipts and their actual source identities. Development finite routing retains full Integration for shared systems; original Release unchanged."
 }

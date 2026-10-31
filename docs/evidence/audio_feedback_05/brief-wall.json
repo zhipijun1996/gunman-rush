@@ -1,0 +1,134 @@
+{
+  "task": "AUDIO-FEEDBACK-05",
+  "candidate_version": "audio-feedback-v1",
+  "prior_v1_status": "user-rejected; preserve original jump/land",
+  "request": "优化碰墙声音",
+  "status": "production_brief",
+  "selected_events": [
+    "wall"
+  ],
+  "inputs": [
+    {
+      "path": "docs/audio_director/style_bible.md",
+      "sha256": "28248cc9bf92b22af5c538b90c400f8daddfea116de21517ff486dcc730e398a"
+    },
+    {
+      "path": "docs/audio_director/event_catalog.json",
+      "sha256": "19a378a53fa26dfcd3ab617a50f34e04549d3e4ef0aad64ef82e3855ddbbd0c3"
+    },
+    {
+      "path": "config/audio_director/v3/sources.json",
+      "sha256": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a"
+    },
+    {
+      "path": "config/audio_director/v3/recipes.json",
+      "sha256": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8"
+    },
+    {
+      "path": "config/audio_director/v3/runtime.json",
+      "sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58"
+    },
+    {
+      "path": "assets/audio/director_v3/manifest.json",
+      "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+    },
+    {
+      "path": "docs/audio_director/style_bible_v3.md",
+      "sha256": "3a1d568aee20cde3b1a6d6acc4aedb30c9b34875ba7342641c5d09be63bcb895"
+    },
+    {
+      "path": "docs/audio_director/event_catalog_v3.md",
+      "sha256": "b3879cb14b08cb2412568317b0358f2fbc63112f062a26e864ab39f3ea437f3d"
+    },
+    {
+      "path": "docs/worklines/audio_director_03/scope.md",
+      "sha256": "8703b01a67944aad433fa2d5e2131d74496872001626a93b088b6e364f923c3f"
+    },
+    {
+      "path": "config/audio_director/selected/selected.json",
+      "sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483"
+    },
+    {
+      "path": "docs/audio_director/feedback_05.md",
+      "sha256": "ba9cea81945fd5e1921a05eb4d061261d93cabf698037bf075e32ff62a214a70"
+    },
+    {
+      "path": "config/audio_director/feedback_05/recipes.json",
+      "sha256": "e6fb036049d796036b5fed5814b65abef6772380d81714d41b5a4461c332c875"
+    },
+    {
+      "path": "config/audio_director/feedback_05/sources.json",
+      "sha256": "b2c44b5061545fb6830a1df3af581f1f44f26186529cd0a1d4e26ab8f91f0068"
+    },
+    {
+      "path": "assets/audio/feedback_05/manifest.json",
+      "sha256": "799a69de37b291bde7229072aa9ec2d877bfeb949b79133cb558142945c87d13"
+    },
+    {
+      "path": "scripts/audio/selected_sfx_runtime.gd",
+      "sha256": "f90bef12397307bd1e9f3d6657c2a239506a93aebb8c225e14ee0aa0248cdeec"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+      "sha256": "7d800d5b0e3eabe03305bf96ecc7cae3d8f3bf134c6e15e7029f592022532836"
+    }
+  ],
+  "workflow": [
+    "Read current functional Audio Style Bible, Event Catalog and selected family; inspect actual accepted consumers",
+    "Review mature-game function/timing references, then select licensed source files with original SHA and terms",
+    "Build and validate explicit versioned recipes; preserve prior versions and failed aesthetic feedback",
+    "Verify event/phase semantics, pause/death/reload and shared voice lifecycle",
+    "Deliver short real Godot recordings or interactive lab as requested; user alone approves timbre"
+  ],
+  "next_command": "python3 tools/audio_feedback_design.py build",
+  "limitation": "Brief routes context, not automatic creative completion. New enemies/areas need actual source selection and authored recipes. Commercial game references are not licensed production inputs.",
+  "user_selection": {
+    "path": "config/audio_director/selected/selected.json",
+    "event_profiles": {
+      "coin": "A",
+      "heal": "A",
+      "chest_open": "A",
+      "item_get": "C",
+      "click": "C",
+      "confirm": "C",
+      "denied": "C",
+      "enemy_hit": "B",
+      "enemy_hurt": "B",
+      "hurt": "C",
+      "shot_pulse": "A",
+      "shot_shuriken": "original",
+      "shot_bomb": "original",
+      "bomb_explode": "original"
+    },
+    "provenance": {
+      "input": {
+        "path": "user-20261028.json",
+        "sha256": "56a0dd359fe5c53169794e28dcd7f333cea686d9f1d147ca70d3a3419d2ed072",
+        "choice_rows": 13
+      },
+      "reels": {
+        "path": "reels-user-20261028.json",
+        "sha256": "ac08d83ecadb0ef390779b2dba2045a9750b2ecbd88d4ebb8f8e51f5fc05e69a",
+        "imported_from": "build/audio_director_v3/listen-blob-publish/reels.json"
+      },
+      "candidate_manifest": {
+        "path": "assets/audio/director_v3/manifest.json",
+        "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+      },
+      "importer_sha256": "63620d3527c0564daf3e46ceb53aa8bf491bfd2096b67a3f1b690c383945621b"
+    },
+    "scope": "User selected individual event sounds on 2026-10-28; combined mix, formal rollout and device quality remain unapproved. Preserve original shuriken, bomb, jump and landing."
+  },
+  "current_feedback_revision": {
+    "task": "AUDIO-FEEDBACK-05",
+    "version": "audio-feedback-v1",
+    "status": "implemented candidate; awaiting user hearing",
+    "rejected_in_real_play": [
+      "hero hurt C",
+      "Freedoom solid-wall timbre"
+    ],
+    "runtime": "Selected default hurt uses separately named hurt_feedback_05; explicit old C remains an audition. Solid contact is a separate family with three takes, not enemy_hit B.",
+    "scope": "Title/Home BGM startup, committed chest/item rewards and mechanism audibility are also revised. Five BGM files, prior choices and regional/home selections remain unchanged.",
+    "manifest": "assets/audio/feedback_05/manifest.json"
+  }
+}

@@ -1,0 +1,28 @@
+..E..F...
+======================================================================
+ERROR: test_missing_original_cache_does_not_block_runtime_validation (test_audio_ambience_design.FingerprintTests.test_missing_original_cache_does_not_block_runtime_validation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-ambience/tests/test_audio_ambience_design.py", line 67, in test_missing_original_cache_does_not_block_runtime_validation
+    self.design.validate()
+  File "/tmp/ambience-test-xhidnt7q/tools/audio_ambience_design.py", line 227, in validate
+    raise ValueError("Fingerprint drift: " + key + "; full build required")
+ValueError: Fingerprint drift: pipeline_sha256; full build required
+
+======================================================================
+FAIL: test_source_snapshot_and_runtime_path_drift_rejected (test_audio_ambience_design.FingerprintTests.test_source_snapshot_and_runtime_path_drift_rejected)
+----------------------------------------------------------------------
+ValueError: Fingerprint drift: pipeline_sha256; full build required
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-ambience/tests/test_audio_ambience_design.py", line 143, in test_source_snapshot_and_runtime_path_drift_rejected
+    with self.assertRaisesRegex(ValueError, "Source snapshot|reference changed|Incomplete"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Source snapshot|reference changed|Incomplete" does not match "Fingerprint drift: pipeline_sha256; full build required"
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.126s
+
+FAILED (failures=1, errors=1)

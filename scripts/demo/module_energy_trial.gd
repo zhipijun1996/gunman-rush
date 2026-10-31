@@ -28,7 +28,7 @@ func setup(owner_lab: ModuleLab) -> void:
 	toast=ItemAcquiredToast.new();add_child(toast)
 	_hud=Label.new();_hud.position=Vector2(170,225);_hud.add_theme_font_size_override("font_size",17);_hud.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(_hud)
 func _process(_delta: float) -> void:
-	_hud.text="ENERGY & ITEMS / TRAINING DRONE HP %.0f\nShots spend energy. Real hits refill it. Air hits return one round.\nPractice item is a fixture; no Run or permanent reward." % (drone.get_node("Actor") as EnemyActor).health.current
+	_hud.text="ENERGY & ITEMS / TRAINING DRONE HP %.0f\nOnly airborne slow aim spends time energy. Grounding restores it. Air hits return one round.\nPractice item is a fixture; no Run or permanent reward." % (drone.get_node("Actor") as EnemyActor).health.current
 func show_choice() -> void:
 	if claimed or modal.opened or not lab.ready_for_play: return
 	lab.controller.router.clear("practice_choice");lab.controller.air_focus_ability.stop();get_tree().paused=true

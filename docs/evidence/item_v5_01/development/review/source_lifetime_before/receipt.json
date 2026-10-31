@@ -1,0 +1,22 @@
+{
+	"assertions": 16,
+	"failures": 3,
+	"observations": [
+		{
+			"authorization_after_remove": true,
+			"case": "derived admitted then actual paused unload before HP commit",
+			"committed_callbacks": 1,
+			"damage_results": 1,
+			"enemy_hp": 99.0,
+			"source_present": false
+		}
+	],
+	"scope": "explicit native integration fixtures, no natural-route/player/device endorsement",
+	"sources": {
+		"res://scripts/combat/weapon_action_runtime.gd": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160",
+		"res://scripts/damage/frame_damage_policy.gd": "04c69e1d1c3a3d0daff03363ea1d16bff25093fdb4f7ea88d8fd10b8eb129725",
+		"res://scripts/items/v5/item_active_effects.gd": "198daa3272a7d28ace53efb5731b51cfcd84b972db2e4a08f9c49fbf60e4d2ac",
+		"res://scripts/items/v5/item_runtime.gd": "bcb98c3ff28b11e5916eb7abbb4cfcd0a57f91cb7a3978877a59873cdf1dc75e",
+		"res://tests/item_v5_review_runner.gd": "089821fcaf400dd31a7484554064f54092f7a77811dd8b0ea46a79c4e9e673f2"
+	}
+}

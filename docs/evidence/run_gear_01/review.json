@@ -1,0 +1,1261 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-01",
+  "reviewer": "/root/inventory_review",
+  "independent_from_implementers": true,
+  "production_or_test_edits_by_reviewer": false,
+  "reviewed_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+  "baseline_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "verdict": "ACCEPT",
+  "verdict_scope": "bounded technical ownership/equipment/economy/lifecycle/native UI integration only",
+  "g5_acceptance": "unverified",
+  "source_stability": "HEAD exact and worktree clean during final Harness,GL and original menu44; this later review is docs-only, uncommitted",
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "final_harness": {
+    "report": "reviewer/harness/report.json",
+    "command": "reviewer/harness/command.json",
+    "receipt": "reviewer/harness/receipt.json",
+    "original_directory": "build/verification/harness/20261026T042231.550739Z",
+    "checks": 15,
+    "status": "passed",
+    "all_fresh": true,
+    "profiles": [],
+    "not_full_profile": true,
+    "release": true,
+    "jobs": 1,
+    "exit_code": 0,
+    "driver_seconds": 445.7475936412811,
+    "checks_summary": [
+      {
+        "id": "docs",
+        "status": "passed",
+        "duration_seconds": 0.18,
+        "input_digest": "7526083ce7d4f105ddaf85a89b016baa72666d53f6fe3809497be2b69c190ca4",
+        "original_timeout_seconds": 60,
+        "log": "reviewer/harness/logs/docs.log.gz"
+      },
+      {
+        "id": "quality",
+        "status": "passed",
+        "duration_seconds": 2.233,
+        "input_digest": "b5feb1ff28d3fd79cb78faa1e59ce2a173f9a42af6876bd1ab9f498c30a0243e",
+        "original_timeout_seconds": 60,
+        "log": "reviewer/harness/logs/quality.log.gz"
+      },
+      {
+        "id": "structure",
+        "status": "passed",
+        "duration_seconds": 0.078,
+        "input_digest": "e89092f7fc6a4b929e012fdaca797be4ea1defb40cf4fa629218e48f6be41cd1",
+        "original_timeout_seconds": 60,
+        "log": "reviewer/harness/logs/structure.log.gz"
+      },
+      {
+        "id": "gear-inventory",
+        "status": "passed",
+        "duration_seconds": 8.053,
+        "input_digest": "b9fa457440b6246248d65154c1507e7d63ff0a7a5ea2070e365fd4f62e897920",
+        "original_timeout_seconds": 210,
+        "log": "reviewer/harness/logs/gear-inventory.log.gz"
+      },
+      {
+        "id": "gear-ui",
+        "status": "passed",
+        "duration_seconds": 14.931,
+        "input_digest": "ce5045e8586af11dd180682ebdddb1ddffebc8d2bb9ff85afc81eab40b8cd1a7",
+        "original_timeout_seconds": 240,
+        "log": "reviewer/harness/logs/gear-ui.log.gz"
+      },
+      {
+        "id": "core",
+        "status": "passed",
+        "duration_seconds": 37.623,
+        "input_digest": "460208394a2b7397d7d75993fb01904dde2946428b2e67436b4cd163ef2b145d",
+        "original_timeout_seconds": 720,
+        "log": "reviewer/harness/logs/core.log.gz"
+      },
+      {
+        "id": "underworld-ui",
+        "status": "passed",
+        "duration_seconds": 16.413,
+        "input_digest": "e456ff5bc942299c689048096df4c9e41fec9d00d3eca4a0f9376c3a75bbe0e2",
+        "original_timeout_seconds": 300,
+        "log": "reviewer/harness/logs/underworld-ui.log.gz"
+      },
+      {
+        "id": "demo-ui-time-energy",
+        "status": "passed",
+        "duration_seconds": 9.4,
+        "input_digest": "995e2a375a9c31b3c962223ee858d22588f0557287c277b6c678e73a345edb43",
+        "original_timeout_seconds": 300,
+        "log": "reviewer/harness/logs/demo-ui-time-energy.log.gz"
+      },
+      {
+        "id": "root-bell-current",
+        "status": "passed",
+        "duration_seconds": 50.35,
+        "input_digest": "b048790f6db812bc6c02a7c1856021340309dc4fef3535860a095411b953ff29",
+        "original_timeout_seconds": 360,
+        "log": "reviewer/harness/logs/root-bell-current.log.gz"
+      },
+      {
+        "id": "forest-bible-discoveries-tests",
+        "status": "passed",
+        "duration_seconds": 9.048,
+        "input_digest": "e84b523539e116366254b6d66afe95f587e53a68310823b1981184df923b5e8d",
+        "original_timeout_seconds": 240,
+        "log": "reviewer/harness/logs/forest-bible-discoveries-tests.log.gz"
+      },
+      {
+        "id": "forest-bible-app-discoveries",
+        "status": "passed",
+        "duration_seconds": 12.563,
+        "input_digest": "ebe293f12fde5528c75bbceeff12a0b5c87f07cbe69f2a9d021fec54fe0be777",
+        "original_timeout_seconds": 180,
+        "log": "reviewer/harness/logs/forest-bible-app-discoveries.log.gz"
+      },
+      {
+        "id": "region-bible-contract",
+        "status": "passed",
+        "duration_seconds": 0.078,
+        "input_digest": "969030af19c7b88c4e4767920c8870c8848ae866b6faae6056041f14c0e40c40",
+        "original_timeout_seconds": 30,
+        "log": "reviewer/harness/logs/region-bible-contract.log.gz"
+      },
+      {
+        "id": "region",
+        "status": "passed",
+        "duration_seconds": 254.06,
+        "input_digest": "1f71dd40cedab5a7f4e531cd677869efa37ac42a03f7b44b07592ed295cb6609",
+        "original_timeout_seconds": 1500,
+        "log": "reviewer/harness/logs/region.log.gz"
+      },
+      {
+        "id": "cloud-production-planner-tests",
+        "status": "passed",
+        "duration_seconds": 0.278,
+        "input_digest": "b946f983e63813165702ab320add00c29e89e24b278bbe457403a7b19871e466",
+        "original_timeout_seconds": 60,
+        "log": "reviewer/harness/logs/cloud-production-planner-tests.log.gz"
+      },
+      {
+        "id": "forest-campaign",
+        "status": "passed",
+        "duration_seconds": 11.987,
+        "input_digest": "7a1bbb4ee400b2db935d51b0bc7d42e94f09c0f18ea38a8cb796c77149c81666",
+        "original_timeout_seconds": 180,
+        "log": "reviewer/harness/logs/forest-campaign.log.gz"
+      }
+    ]
+  },
+  "final_gui": {
+    "report": "reviewer/gui/ui-report.json",
+    "receipt": "reviewer/gui/receipt.json",
+    "gl_checks": 67,
+    "gl_failures": 0,
+    "original_menu_touch_checks": 44,
+    "original_menu_touch_failures": 0,
+    "menu_original_budget_seconds": 90,
+    "desktop_equipped": "reviewer/gui/desktop-equipped.png",
+    "desktop_backpack": "reviewer/gui/desktop-backpack.png",
+    "touch_equipped": "reviewer/gui/touch-equipped.png",
+    "pixel_observation": {
+      "actually_viewed": "reviewer/gui/desktop-equipped.png",
+      "format": "1280x720 original captured pixels",
+      "observed": "Purple Vessel MaxHP+1.5 and summary生命5.0 /6.5",
+      "F10": "resolved",
+      "continuous_video_playback": "not performed",
+      "audio_listening": "not performed"
+    }
+  },
+  "actual_consumers": {
+    "cross_region_equipment": "reviewer/consumers/cross_region_equipment.json",
+    "cross_region_manifest": "reviewer/consumers/cross_region_manifest.json",
+    "campaign_pointer_events": "reviewer/consumers/campaign_pointer_events.json",
+    "forest_app_summary": "reviewer/consumers/forest-app-summary.json",
+    "forest_app_native": "reviewer/consumers/forest-app-native.log.gz",
+    "forest_app_capture": "reviewer/consumers/forest-app-capture.json.gz",
+    "forest_app_report": "reviewer/consumers/forest-app-report.json.gz",
+    "fixture_scope": "campaign uses explicit settlement/paused equipment fixture and native H/region buttons; forestApp reports position staging and synthetic damage ordering, no resource injection; neither is natural route/device admission"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "problem": "component-only card text diverged from applied stats",
+      "repair": "ItemPresentation.stat_modifiers plus component-only actual Player/card/source regression",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F2",
+      "problem": "R3 item definition version old2 expected instead of gear data3",
+      "repair": "explicit current version3 assertion retained",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F3",
+      "problem": "old energy test rejected ownership of overcost gear",
+      "repair": "accept ownership/no effect then reject overcost equipment",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F4",
+      "problem": "root-bell replay assumed reward auto-equipped",
+      "repair": "lawful paused equipment fixture, original replay/snapshot guards retained",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F5",
+      "problem": "service could admit unpaused session and stale repause",
+      "repair": "actual tree pause/alive/focus/token/epoch/revision and unpause irreversible invalidation",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F6",
+      "problem": "caller array mutation / reentrant clear during synchronous apply",
+      "repair": "typed private requested IDs copy, pre-reset applying guard, actual committed Manifest",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F7",
+      "problem": "cleanup test migration lost original equipped-empty guard",
+      "repair": "both owned/equipped empty guards and observations retained",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F8",
+      "problem": "creative technical rebind accidentally changed forest section13 to14",
+      "repair": "restore13, exact old archives/originalBibles preserved",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F9",
+      "problem": "blanket cleanup guard contradicted still-live cross-region ownership",
+      "repair": "live assertion corrected; real terminal both clear, stronger cross-region run fixture",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F10",
+      "problem": "real card+1.5 HP rounded max6.5 to6 in summary",
+      "repair": "one decimal representation, actual5.0/6.5 pixel and formal UI assertion",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F11",
+      "problem": "ModuleEnergyTrial test assumed reward auto-effect",
+      "repair": "held/no effect45 then explicit lawful equip36; duplicate/Retry preserved",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F12",
+      "problem": "default StringName.sort follows intern order causing wrong equal-priority override",
+      "repair": "5 explicit String lexical sorts; original expected3 retained; narrow12/3->12/0 and107/0",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F13",
+      "problem": "dynamic load helper := return inference parse error causing real timeout",
+      "repair": "explicit bool and49 narrow parses plus final original root-bell Harness",
+      "status": "resolved in final reviewed scope"
+    },
+    {
+      "id": "F14",
+      "problem": "temporary pause fixture returned before normal action buttons rebuild",
+      "repair": "await2 real physics/process frames, no private refresh or deleted guard,83/8->92/0",
+      "status": "resolved in final reviewed scope"
+    }
+  ],
+  "sensitive_test_review": [
+    {
+      "path": "tests/boss_approach_lab_tests.gd",
+      "baseline_sha256": "c03e5fc693706756ef74d64bf03a9eb39e5baf7cb74112846cceea417fce67b9",
+      "reviewed_sha256": "393d32f81d00ea5abf259f4fab3498feaa0439fae670201108117dcb07d84fae",
+      "review": "diff reviewed",
+      "reason": "Ownership-aware observations; preserve prior equipped-empty/source guard and add inventory-empty at actual Retry/end boundary",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/demo_tests.gd",
+      "baseline_sha256": "7115bf20f36873fbe01f3c94dd034e30c82951fd0fc2cde11436fc41056367a1",
+      "reviewed_sha256": "3c79e0b2de308c8faca68b34e2997e5797546ef2439810693bd614a2ba4c2d26",
+      "review": "diff reviewed",
+      "reason": "Acquisition-only first; explicit lawful equip for effect-dependent cases; owned plus equipped lifecycle assertions preserve old wallet/death/return guards",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/demo_ui_01/r3_energy_runner.gd",
+      "baseline_sha256": "e1a71f5227155cdd957963f42e71b5c0364e25147d60e54c2828a548a6a929f7",
+      "reviewed_sha256": "284fc96c924845511be76fd732a476827133cc6f1eecbad97bdc64baff837371",
+      "review": "diff reviewed",
+      "reason": "Acquisition leaves stats unchanged; explicit paused equip only where old effect needed; original shot/energy/damage/trajectory/version guards retained; Retry both clears",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/economy_tests.gd",
+      "baseline_sha256": "3b83cbbd0c654e6944fa496d3237b650a0ff88cdef2c67c1f7fb980f4aa94b2b",
+      "reviewed_sha256": "c24623dac7d8f3cbe9db9ee2223855580cbee65010aa6d300cb4beb3e260d49d",
+      "review": "diff reviewed",
+      "reason": "Explicit acquire then paused equip; old override3/4, duplicate/exclusion, rollback, ledger, HP and terminal guards retained",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/extended_reward_tests.gd",
+      "baseline_sha256": "55770c76e2ea030f1875ef2fcca018b998f966b9f8656b0781e37e12b4806294",
+      "reviewed_sha256": "e3116530ec233ecc5932e2b38ab2ce063a7d1f507d25e3c2618e5b2460458785",
+      "review": "diff reviewed",
+      "reason": "Nine rewards counted as ownership rather than automatic equipped state; no reward count reduction",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_bible_app_discoveries_runner.gd",
+      "baseline_sha256": "17bdf87fbe3ba47e946571320b0909d43135674e31b1193cf949c00cc2dc833d",
+      "reviewed_sha256": "4d30f8fab044d16b772bcc2658a09d3e84aa288bd97e885c686154d63b45e2d7",
+      "review": "diff reviewed",
+      "reason": "First acquire no effect then lawful paused equip; preserve native button, first-W and death chain; await2 real frames on close for normal action rebuild, no private refresh",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_bible_discoveries_tests.gd",
+      "baseline_sha256": "e70078ef4cb91cad0429022d3659c236452eb9ce27338e47dadff1313587c6a8",
+      "reviewed_sha256": "22f6293df301b20b0f93aea5ce43c1f8d37233703b949dff11cefe4b5ca3fa9a",
+      "review": "diff reviewed",
+      "reason": "Acquisition-only reader semantics, explicit equip effect fixture; preserve original duplicate/fatal rules",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_bible_spiral_trace.gd",
+      "baseline_sha256": "494403605fcc3efef472dc2957a8bc0b3ffadbc09b310a45774d2f595f533e8d",
+      "reviewed_sha256": "cb439ee590244369c140c62eae667ac022d39b0b00199612fff0fc9d327e2fff",
+      "review": "diff reviewed",
+      "reason": "Acquisition leaves stats unchanged; explicit paused equip only where old effect needed; original shot/energy/damage/trajectory/version guards retained; Retry both clears",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_bible_trace_support.gd",
+      "baseline_sha256": "039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27",
+      "reviewed_sha256": "438df0502c1fc783375d8c511d94eff0fd8a88d872f0ae97fb03d346c3abb292",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_campaign_runner.gd",
+      "baseline_sha256": "4a798fcc4457826c742038fd144056daf705bad62e30acadc6c7a5e2a3ca14c2",
+      "reviewed_sha256": "c0b959bc0a0eb97b69294e48e59cdc2f6d73497150014c06bd6a585ee6faf05f",
+      "review": "diff reviewed",
+      "reason": "Native four-map campaign plus explicit paused equip/paid expansion fixture; exact IDs/provenance/effect/capacity/wallet/shop/grants/receipt replay across H->Forest; true Home cleanup both inventories",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_depth_campaign_boss_runner.gd",
+      "baseline_sha256": "c52808bddc2ec3c89d904c0d2e9066148a6f25f9780cb2a44ef66b2add7634a4",
+      "reviewed_sha256": "5b45e39fec70cad19e74db00e589e6d09ef703400ad15f77e5d6733664f523b0",
+      "review": "diff reviewed",
+      "reason": "Ownership-aware observations; preserve prior equipped-empty/source guard and add inventory-empty at actual Retry/end boundary",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_depth_canopy_campaign_case.gd",
+      "baseline_sha256": "4204017a1abdce66bd2d2fe273cbebbccef85dac585bbba874a7757e7bb87cb2",
+      "reviewed_sha256": "1390362c0ad4a05cb8850d28173c9b79359d1c3539b41c5854d6ab1f0af73324",
+      "review": "diff reviewed",
+      "reason": "Ownership-aware observations; preserve prior equipped-empty/source guard and add inventory-empty at actual Retry/end boundary",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_depth_ecology_trace.gd",
+      "baseline_sha256": "ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016",
+      "reviewed_sha256": "e7265d2a6cb175053d22bd80afd75d004e610f6e5bc5e3ea6f4280238b7ffa11",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_depth_guardian_campaign_case.gd",
+      "baseline_sha256": "8e15144c3e4be5a96372a3ed3adefb057a877a0d8a0cfd5ae7c146e65a72df43",
+      "reviewed_sha256": "95ee1ab79edbd83d911f1342ae538d325b219d357281403a07e7c79f60a5f906",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_depth_lift_trace.gd",
+      "baseline_sha256": "d973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762",
+      "reviewed_sha256": "82f28dee418fb765dc02724f7c4b283ca876e663bbfb353a5ac22b93bc9ccfd3",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_depth_region_trace.gd",
+      "baseline_sha256": "8403496832154fd5460b14adf75e1f70724a0b3b8dfc22cb30136b8b3a69da24",
+      "reviewed_sha256": "e53318a4cce18ecba4d391e5e27384a3a6be40f96e5c4a3bdc73128cdd8cdd2d",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_exploration_region_trace.gd",
+      "baseline_sha256": "71f6404c5ac127b623f9cef290fdee7a2e3310f579a91486f9f7324748f81ce1",
+      "reviewed_sha256": "99ff8865c4f092f40373f53b54d17eb9976e298bca732587e4bdef2dbb82f29d",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_places_region_trace.gd",
+      "baseline_sha256": "82c57c03cf85169e304014583bf5a00e0a5dd780cedcc115734e890565c9c757",
+      "reviewed_sha256": "8a94110d4295bbb684b4e6e68cd5ebeb7b885a97a597a6a058fb988159d12aea",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/forest_varied_region_trace.gd",
+      "baseline_sha256": "e0fa12b648c1b4fd625c27f7719b3bd929617b9715a137344cb5a0cc682cd8fd",
+      "reviewed_sha256": "24c1037137ca2ec91031d62ece9a9a149b1a7a17907456a7f559984c381a27ab",
+      "review": "diff reviewed",
+      "reason": "Trace ownership observation migrated from equipped IDs to RunInventory IDs so un-equipped acquisitions remain visible; preserve original route/physics/effect assertions",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/gear_inventory_runner.gd",
+      "baseline_sha256": null,
+      "reviewed_sha256": "f119e2fe6110d869a3c92098dbb0f1a5d12d42bd45b1aab0192c90d765273b3d",
+      "review": "diff reviewed",
+      "reason": "New shared lawful paused-session fixture and107 ownership/equipment/economy/airborne/reentrancy/order checks; strict exit retained",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/gear_inventory_runner.gd.uid",
+      "baseline_sha256": null,
+      "reviewed_sha256": "cabab0888cf2dc247c1b2afbad1b2af13df33521b05b52885fdf0a8367027433",
+      "review": "diff reviewed",
+      "reason": "New engine UID metadata, no assertion semantics",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/gear_inventory_support.gd",
+      "baseline_sha256": null,
+      "reviewed_sha256": "c1dc684437c4ce230527c3702f713657f8ee98d5a64d10df020976b3f67d2d16",
+      "review": "diff reviewed",
+      "reason": "New shared lawful paused-session fixture and107 ownership/equipment/economy/airborne/reentrancy/order checks; strict exit retained",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/gear_inventory_support.gd.uid",
+      "baseline_sha256": null,
+      "reviewed_sha256": "279eacaf7f361a3f7e8e0da703297f69491665c9a94103f7050304401dc31ab9",
+      "review": "diff reviewed",
+      "reason": "New engine UID metadata, no assertion semantics",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/plains_experience_energy_runner.gd",
+      "baseline_sha256": "75b9544e0515881da871930974e41492f2c2e3d14d8a7d13bb94ebb80a97bf55",
+      "reviewed_sha256": "87b1bed2e13a062e5a7e77e009027f87c531e297a775ec938bbf3f04e7d494c7",
+      "review": "diff reviewed",
+      "reason": "Acquisition leaves stats unchanged; explicit paused equip only where old effect needed; original shot/energy/damage/trajectory/version guards retained; Retry both clears",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/plains_exploration_expansion_runner.gd",
+      "baseline_sha256": "b3aaff80e0a7966c08a1cfc26def9d23a98009b5db7be6da9b753fdd0ce393be",
+      "reviewed_sha256": "99a2509a17b2703cc6857d5a35bc5472182a4c863b3597cdc6270eb51233c9ba",
+      "review": "diff reviewed",
+      "reason": "Acquisition leaves stats unchanged; explicit paused equip only where old effect needed; original shot/energy/damage/trajectory/version guards retained; Retry both clears",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/plains_redesign_scene_runner.gd",
+      "baseline_sha256": "6b7703ba48da6530f690ac0e98eeb9a2be289ab7503335c331875db2ab1a0461",
+      "reviewed_sha256": "8a1c14301111a124b53ea6d216f931dfb85daed7d5b10d2d1facea69df3f6fe0",
+      "review": "diff reviewed",
+      "reason": "Acquisition leaves stats unchanged; explicit paused equip only where old effect needed; original shot/energy/damage/trajectory/version guards retained; Retry both clears",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/root_bell_formal_tests.gd",
+      "baseline_sha256": "db861ee637786b95fb773691edef1038c6b22f622a1e615eb364a1f0fb8c5081",
+      "reviewed_sha256": "93be3e297f6365060fe0ccc4a9fa71d0663c4298557fb1ee3dbc963ce446bad6",
+      "review": "diff reviewed",
+      "reason": "Lawful brake_boots paused equip fixture and explicit bool parse fix; preserve exact StringName/versioned snapshots/roundtrip regeneration",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/run_gear_movie.gd",
+      "baseline_sha256": null,
+      "reviewed_sha256": "6471f9ed24376cadcdf265b0aa597f44a8b3b7564a40eef53e93a743847e9bb4",
+      "review": "diff reviewed",
+      "reason": "Explicit development fixed-room recording driver; ordinary movement/shooting/pickup/native UI, no teleport or direct reward settlement; own recording evidence separately required",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/run_gear_movie.gd.uid",
+      "baseline_sha256": null,
+      "reviewed_sha256": "c0cc0ca8fd492382bf1d49a7e52791c2e3e6c7ef81a4c9f45f86fbc43c9bacc2",
+      "review": "diff reviewed",
+      "reason": "New engine UID metadata, no assertion semantics",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/run_gear_ui_runner.gd",
+      "baseline_sha256": null,
+      "reviewed_sha256": "848823d5e78a96677cff262332ee64131e59feef00e49d91877bc7f51da97ba6",
+      "review": "diff reviewed",
+      "reason": "New formal App mouse/touch/gamepad focus, stale-session/lifecycle and fractional HP UI checks; captures add3 checks",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/run_gear_ui_runner.gd.uid",
+      "baseline_sha256": null,
+      "reviewed_sha256": "8dff0131498ea1aa870888ca5f985596678416cbd38d443128689e85bb4b8bd3",
+      "review": "diff reviewed",
+      "reason": "New engine UID metadata, no assertion semantics",
+      "assertion_budget_weakened": false
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "baseline_sha256": "90b3652b2ba5882d53becd5054464405fff55e01612acfaf547de77dff079487",
+      "reviewed_sha256": "8ddb05c262d842fad40b7ae935733e31f22c39ae787227d24b6a9145a03e476f",
+      "review": "diff reviewed",
+      "reason": "Exact serial check inventory142/89/53->144/89/55 for two additions, original parallel89 unchanged",
+      "assertion_budget_weakened": false
+    }
+  ],
+  "testguard": {
+    "old_check_definitions_unchanged": true,
+    "old_profiles_prefix_unchanged": {
+      "docs": {
+        "old_count": 33,
+        "new_count": 33,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "core": {
+        "old_count": 30,
+        "new_count": 30,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "gameplay": {
+        "old_count": 127,
+        "new_count": 129,
+        "old_prefix_unchanged": true,
+        "added": [
+          "gear-inventory",
+          "gear-ui"
+        ]
+      },
+      "art": {
+        "old_count": 95,
+        "new_count": 95,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "web": {
+        "old_count": 46,
+        "new_count": 46,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "full": {
+        "old_count": 142,
+        "new_count": 144,
+        "old_prefix_unchanged": true,
+        "added": [
+          "gear-inventory",
+          "gear-ui"
+        ]
+      },
+      "creative-feedback": {
+        "old_count": 11,
+        "new_count": 11,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "history": {
+        "old_count": 8,
+        "new_count": 8,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "creative-prototype": {
+        "old_count": 10,
+        "new_count": 10,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "regional-art-feedback": {
+        "old_count": 8,
+        "new_count": 8,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "region-bible-feedback": {
+        "old_count": 8,
+        "new_count": 8,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "forest-exploration-feedback": {
+        "old_count": 9,
+        "new_count": 9,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "forest-varied-feedback": {
+        "old_count": 6,
+        "new_count": 6,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "forest-places-feedback": {
+        "old_count": 6,
+        "new_count": 6,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "forest-library-feedback": {
+        "old_count": 6,
+        "new_count": 6,
+        "old_prefix_unchanged": true,
+        "added": []
+      },
+      "legacy-compat": {
+        "old_count": 15,
+        "new_count": 15,
+        "old_prefix_unchanged": true,
+        "added": []
+      }
+    },
+    "new_checks": [
+      "gear-inventory",
+      "gear-ui"
+    ],
+    "original_assertions_and_timeouts_not_weakened": true,
+    "strict_native_errors_leaks_exit_and_success_markers_retained": true
+  },
+  "style_technical_rebind": {
+    "old": "style-v13",
+    "new": "style-v14/creative-v17",
+    "reference_count": 36,
+    "unchanged_reference_entries": 35,
+    "changed_reference_entries": [
+      {
+        "old": {
+          "role": "default_player_4",
+          "path": "scripts/demo/demo_app.gd",
+          "sha256": "016e71b6bebc4846a0b91f48187564f695cade9d8b42b1629f4922b0cf3e7538"
+        },
+        "new": {
+          "role": "default_player_4",
+          "path": "scripts/demo/demo_app.gd",
+          "sha256": "841e4f35762e265fda3316201a7705123ee3b78148b0b8a794d9d55c5a5649c6"
+        }
+      }
+    ],
+    "originals_and_archive_byte_comparison": [
+      {
+        "path": "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
+        "equals_baseline_bytes": true,
+        "sha256": "ab8944e429a665aed6345aa5cc7d6e958a35b2b512255f7849fe3c9a82f57c97"
+      },
+      {
+        "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "equals_baseline_bytes": true,
+        "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35"
+      },
+      {
+        "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "equals_baseline_bytes": true,
+        "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3"
+      },
+      {
+        "path": "docs/creative_direction/archive/creative-v16/registry.json",
+        "baseline_path": "docs/creative_direction/bibles/registry.json",
+        "equals_baseline_bytes": true,
+        "sha256": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996"
+      },
+      {
+        "path": "docs/creative_direction/archive/creative-v16/windchime_plains.json",
+        "baseline_path": "docs/creative_direction/windchime_plains.json",
+        "equals_baseline_bytes": true,
+        "sha256": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155"
+      },
+      {
+        "path": "docs/creative_direction/archive/creative-v16/thorn_forest.json",
+        "baseline_path": "docs/creative_direction/thorn_forest.json",
+        "equals_baseline_bytes": true,
+        "sha256": "a1b40b7e3ab66e6ee0a864fa8c96ae369bd2abbb9b2945bc3bfc1e61ee45967d"
+      }
+    ],
+    "semantic_review": "DemoApp inventory/session/config/summary/Manifest/input-release integration; maximum_jumps preserves core floor; no terrain/actor/enemy/animation/camera/world rendering/BGM production changes",
+    "aesthetic_or_player_reacceptance": false
+  },
+  "historical_runs": [
+    {
+      "alias": "final-harness",
+      "source_commit": "6f646c0822bd862b187dd0a4f771041f1084e47f",
+      "status": "failed",
+      "passed": 3,
+      "checks": 4,
+      "report": "reviewer/history/final-harness-report.json.gz",
+      "failed_checks": [
+        "core"
+      ],
+      "superseded_by_final_pass": true,
+      "original_result_preserved": true
+    },
+    {
+      "alias": "final-harness-02",
+      "source_commit": "9d73daa4849c62ba85152bb8cf791d31cab6c8df",
+      "status": "failed",
+      "passed": 4,
+      "checks": 5,
+      "report": "reviewer/history/final-harness-02-report.json.gz",
+      "failed_checks": [
+        "root-bell-current"
+      ],
+      "superseded_by_final_pass": true,
+      "original_result_preserved": true
+    },
+    {
+      "alias": "final-harness-03",
+      "source_commit": "4762dd98e0a3ab21d084ee3d8d36e892168f9a65",
+      "status": "passed",
+      "passed": 2,
+      "checks": 2,
+      "report": "reviewer/history/final-harness-03-report.json.gz",
+      "failed_checks": [],
+      "superseded_by_final_pass": true,
+      "original_result_preserved": true
+    },
+    {
+      "alias": "final-harness-04",
+      "source_commit": "4762dd98e0a3ab21d084ee3d8d36e892168f9a65",
+      "status": "failed",
+      "passed": 12,
+      "checks": 13,
+      "report": "reviewer/history/final-harness-04-report.json.gz",
+      "failed_checks": [
+        "forest-bible-app-discoveries"
+      ],
+      "superseded_by_final_pass": true,
+      "original_result_preserved": true
+    }
+  ],
+  "historical_scope_notes": [
+    "Independent95/0 dirty candidate is not final91ea evidence; final107/0 replaces it only for current scope",
+    "Old F10 pixels lack complete independent source guard; old format exists in582c; final pixels have91ea stable receipt",
+    "Early movie trial functional20/0 remained strict FAILED because UIERROR/source drift; final recording evidence separate",
+    "region current15 suites pass;27legacy itineraries remain NOT RUN"
+  ],
+  "known_limitations": [
+    "Complex active/weapon/grapple skills interface only",
+    "No cross-process inventory save",
+    "Expansion economy remains experimental config",
+    "Development ModuleLab read-only preview is not formal free equipment controls",
+    "Touch footer can retain keyboard hints after adapter consumes touch; small screen must scroll",
+    "No physical Android/controller/browser-touch, hardware performance, listening or player/aesthetic G5 acceptance",
+    "PR Integration/full profile not independently executed by this reviewer"
+  ],
+  "evidence": [
+    {
+      "path": "reviewer/harness/command.json",
+      "source_path": "build/run_gear/final-harness-05/command.json",
+      "sha256": "af04d4d5742a1633e6a54ab69e05de4bacd3166795f1ffe77e0f6cb18df2aaf1",
+      "bytes": 1307,
+      "original_sha256": "af04d4d5742a1633e6a54ab69e05de4bacd3166795f1ffe77e0f6cb18df2aaf1",
+      "original_bytes": 1307,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/harness/receipt.json",
+      "source_path": "build/run_gear/final-harness-05/receipt.json",
+      "sha256": "de8f34df3315cb1e0e0d2d297de8a1e3f32a9d291084041a552cc376ca916db8",
+      "bytes": 244,
+      "original_sha256": "de8f34df3315cb1e0e0d2d297de8a1e3f32a9d291084041a552cc376ca916db8",
+      "original_bytes": 244,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/harness/report.json",
+      "source_path": "build/run_gear/final-harness-05/report.json",
+      "sha256": "2467fbd2cc7b28768949b5b78420316b0baf7eebd5610940eaf43f98105813af",
+      "bytes": 13680,
+      "original_sha256": "2467fbd2cc7b28768949b5b78420316b0baf7eebd5610940eaf43f98105813af",
+      "original_bytes": 13680,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/harness/logs/docs.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/docs.log",
+      "sha256": "ff25cc77a4794d97a3b464ff67e1724240b809e111a58296176c7b66f52e980d",
+      "bytes": 110,
+      "original_sha256": "0457972825119e5330d2b0b7fd9427546ee1e4bda9f9ced2be41a7fab01f96c1",
+      "original_bytes": 101,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/quality.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/quality.log",
+      "sha256": "5f4690b8c470608b7f9ae5e26f5a68078fd08a943378a982afeffb45c8b8e36e",
+      "bytes": 111,
+      "original_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "original_bytes": 97,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/structure.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/structure.log",
+      "sha256": "b57872dea6e7d5beaf2c0a74961864595d2124c2f68efd3e1fef10c522e03a87",
+      "bytes": 94,
+      "original_sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+      "original_bytes": 77,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/gear-inventory.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/gear-inventory.log",
+      "sha256": "9ee76b55ff578c605481cc4a9ced58047813f836bc9cc5c2b12e1b2e18eed904",
+      "bytes": 618,
+      "original_sha256": "0c83b873fcac2a1b683edab1cc92e599b90e65ae43d92b5b66292201c0101a3b",
+      "original_bytes": 1943,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/gear-ui.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/gear-ui.log",
+      "sha256": "743e0aa4a7f8600f18ad0790f594fe00a5a4e71650460443f2ea0a3e58d73201",
+      "bytes": 2008,
+      "original_sha256": "7027779be7ec8e7870f5c8aa6c0121ce0e1cd59005d9591e0465e0790f275558",
+      "original_bytes": 6572,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/core.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/core.log",
+      "sha256": "254d9c8b8e1db6db2027ff8cdbff8673876ac9a62ff8b22e24d71755c494956f",
+      "bytes": 2690,
+      "original_sha256": "02d12e1f4488352fa6ccbb172c102baa27c2f75b7b8e73f9b6d3eeb7b89cfc7e",
+      "original_bytes": 9452,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/underworld-ui.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/underworld-ui.log",
+      "sha256": "012d56216952efa81a170dd77af6a6658dce16bfedfb81d3bd0c59dd2812ee7c",
+      "bytes": 936,
+      "original_sha256": "faad27db1d80d37cc7deaa655884e7063591c9b29d335ddc735e549ff1631d56",
+      "original_bytes": 2029,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/demo-ui-time-energy.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/demo-ui-time-energy.log",
+      "sha256": "c3c490659fb4e2e8cd719209a0d0a2931f379f1323022fa573521ce347711f52",
+      "bytes": 469,
+      "original_sha256": "b171669a132924b70c08a58667ad9745278932347591d6f1f53b0b69abd33758",
+      "original_bytes": 1250,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/root-bell-current.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/root-bell-current.log",
+      "sha256": "a863c420703622403af9e8ace025b40cd431e498909a6792d29066e0241c7dc2",
+      "bytes": 146,
+      "original_sha256": "4b94ce145c6db921aaf56c48319146eeaaf8957ac186c193e571d27585eb214f",
+      "original_bytes": 137,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/forest-bible-discoveries-tests.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/forest-bible-discoveries-tests.log",
+      "sha256": "ee8e4833ed56a038098055ff653c12f03c86c37cb6e9ab2f980b643ff35562d5",
+      "bytes": 601,
+      "original_sha256": "49ebcd178a81fcfb1b06812481186d8add7aa9f9335560efb08852bf8c711f64",
+      "original_bytes": 1480,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/forest-bible-app-discoveries.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/forest-bible-app-discoveries.log",
+      "sha256": "2eb00a41554d5959b38e683e47359f8fd3bea8c3f9be24a6845cc65e7d29b8b4",
+      "bytes": 87,
+      "original_sha256": "38eeb5f516f97613342263a6d9a07285e72a943603c0fba9dd74f81c1b9255b2",
+      "original_bytes": 78,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/region-bible-contract.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/region-bible-contract.log",
+      "sha256": "7c4557869f62c0e46c7faaaa6e7971090764bcab6f5e206fccc5fcd177cb0b37",
+      "bytes": 114,
+      "original_sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "original_bytes": 110,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/region.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/region.log",
+      "sha256": "0b145cabeb9bf93079542ab102810699695e6ad5a6548e169df65ce4c06a179e",
+      "bytes": 7691,
+      "original_sha256": "0190c1548eb4645788c14f2531e116d72e122f8a6f64df11c37772ee187af4f0",
+      "original_bytes": 55737,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/cloud-production-planner-tests.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/cloud-production-planner-tests.log",
+      "sha256": "037f0b72f6fa1c665c4e54612d10a1a61e9441f2db96321c5fc5ee65ad534275",
+      "bytes": 791,
+      "original_sha256": "5093baaa0732b0eaf683c910cb9f43f418005e060e5cfaebfaf51cf80d704cd9",
+      "original_bytes": 3405,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/harness/logs/forest-campaign.log.gz",
+      "source_path": "build/verification/harness/20261026T042231.550739Z/forest-campaign.log",
+      "sha256": "76145bdacced6f2a71218f2e25eadb52a17ac7e200e08b18fafc2142f49d0f68",
+      "bytes": 1126,
+      "original_sha256": "e0db33d30879182f1f565e8b116bd7219a23bc77ac2979dd63d31bb6e415f9e3",
+      "original_bytes": 3046,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/gui/receipt.json",
+      "source_path": "build/run_gear/independent-final-gui/receipt.json",
+      "sha256": "c2dd12b0b27a522ea4d163429725b05868669d057f2bfa19cec5951e0e0280c4",
+      "bytes": 2041,
+      "original_sha256": "c2dd12b0b27a522ea4d163429725b05868669d057f2bfa19cec5951e0e0280c4",
+      "original_bytes": 2041,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/gui/ui-report.json",
+      "source_path": "build/run_gear/independent-final-gui/ui-report.json",
+      "sha256": "512e296eadb6550a91bd88753ccc5c79a1d093e30955ee265460f3ed768923b0",
+      "bytes": 7381,
+      "original_sha256": "512e296eadb6550a91bd88753ccc5c79a1d093e30955ee265460f3ed768923b0",
+      "original_bytes": 7381,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/gui/gl.log",
+      "source_path": "build/run_gear/independent-final-gui/gl.log",
+      "sha256": "a3b569b0d27a538b0537ee49497602527e79b0885beb6760532119d15bad328c",
+      "bytes": 6868,
+      "original_sha256": "a3b569b0d27a538b0537ee49497602527e79b0885beb6760532119d15bad328c",
+      "original_bytes": 6868,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/gui/menu-touch.log",
+      "source_path": "build/run_gear/independent-final-gui/menu-touch.log",
+      "sha256": "84f881e08b841b6480d1b8a904d6754e6367ced6b5822a5a469a8878ef4df4e5",
+      "bytes": 517,
+      "original_sha256": "84f881e08b841b6480d1b8a904d6754e6367ced6b5822a5a469a8878ef4df4e5",
+      "original_bytes": 517,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/gui/desktop-equipped.png",
+      "source_path": "build/run_gear/independent-final-gui/desktop-equipped.png",
+      "sha256": "8271b12e1cfc7b8bc1a0735e3a5f189cb503887a03e8496ea9683a8f004491d7",
+      "bytes": 238507,
+      "original_sha256": "8271b12e1cfc7b8bc1a0735e3a5f189cb503887a03e8496ea9683a8f004491d7",
+      "original_bytes": 238507,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/gui/desktop-backpack.png",
+      "source_path": "build/run_gear/independent-final-gui/desktop-backpack.png",
+      "sha256": "33e5c8f7f8d8b7c31286fb49195b32ad14f7f6dfd3f704ac7f91e78be2cd81dd",
+      "bytes": 226981,
+      "original_sha256": "33e5c8f7f8d8b7c31286fb49195b32ad14f7f6dfd3f704ac7f91e78be2cd81dd",
+      "original_bytes": 226981,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/gui/touch-equipped.png",
+      "source_path": "build/run_gear/independent-final-gui/touch-equipped.png",
+      "sha256": "7d31d244805558ce83ff6a62e8b897115fb3d72dd0f8b4d081e5696d88ee3aa3",
+      "bytes": 71547,
+      "original_sha256": "7d31d244805558ce83ff6a62e8b897115fb3d72dd0f8b4d081e5696d88ee3aa3",
+      "original_bytes": 71547,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/consumers/cross_region_equipment.json",
+      "source_path": "build/forest_playable/progression/cross_region_equipment.json",
+      "sha256": "0a7ddcf58270a3012f3141c953d5a9b4f5e20df815e168a70fe5d7830f5c107c",
+      "bytes": 1938,
+      "original_sha256": "0a7ddcf58270a3012f3141c953d5a9b4f5e20df815e168a70fe5d7830f5c107c",
+      "original_bytes": 1938,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/consumers/cross_region_manifest.json",
+      "source_path": "build/forest_playable/progression/cross_region_manifest.json",
+      "sha256": "47c3878403ffc940126ac8cb825b1e5801aafa27b2428ebbd0871edbbbdb8580",
+      "bytes": 314743,
+      "original_sha256": "47c3878403ffc940126ac8cb825b1e5801aafa27b2428ebbd0871edbbbdb8580",
+      "original_bytes": 314743,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/consumers/campaign_pointer_events.json",
+      "source_path": "build/forest_playable/progression/campaign_pointer_events.json",
+      "sha256": "f73ed155c11cefdb362aae2f9eb5b3d5fd1337933d7c11282688473003606ab1",
+      "bytes": 1632,
+      "original_sha256": "f73ed155c11cefdb362aae2f9eb5b3d5fd1337933d7c11282688473003606ab1",
+      "original_bytes": 1632,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/consumers/forest-app-capture.json.gz",
+      "source_path": "build/region_bible_v2/discoveries/app/capture.json",
+      "sha256": "b17b8584e1e682fbcfb7fee1e521cf132a3948d1560056288209835c60ac652c",
+      "bytes": 1836,
+      "original_sha256": "a048792f683a227d1390c5d4976cd98a00412e58c541f29ab6a9a4983acc80a3",
+      "original_bytes": 14603,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/consumers/forest-app-report.json.gz",
+      "source_path": "build/region_bible_v2/discoveries/app/report.json",
+      "sha256": "624f30036c765ad4eb254feb6df1fce72044681ac638212a184301f14bda6c14",
+      "bytes": 404731,
+      "original_sha256": "d3b2758f1f18382ee3cef2c9a0aa5ef5bc536a8e0ef42010d9aadb14032ad859",
+      "original_bytes": 1073394,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/consumers/forest-app-native.log.gz",
+      "source_path": "build/region_bible_v2/discoveries/app/native.log",
+      "sha256": "925752fa9979427bba5d469d28e75e85fa3cc1f085253bb281031fa3cec2c13f",
+      "bytes": 1786,
+      "original_sha256": "dee2ceda349a2f08212051fe94d71f94d7dd71b7718b4c08c12e6f97d21764dd",
+      "original_bytes": 12528,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/consumers/forest-app-summary.json",
+      "sha256": "c8ea9f6481f639dbc531323cf1508c67da9c228b0cbd044b89d99dfade6cc59b",
+      "derived": true
+    },
+    {
+      "path": "reviewer/history/final-harness-report.json.gz",
+      "source_path": "build/run_gear/final-harness/report.json",
+      "sha256": "94b3aa3511d9cce1322a15b6ee30a83099b6d24d50901ebdfc7453c95cb916ef",
+      "bytes": 1117,
+      "original_sha256": "11c2b50fb8c4b282abad7c164c154d19f16cc7878c188de17ff6d1a11a8db82a",
+      "original_bytes": 3840,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/final-harness-02-report.json.gz",
+      "source_path": "build/run_gear/final-harness-02/report.json",
+      "sha256": "2a803707f55fcf7b0ca5a3965943b95c8c3f8cc86a88bf71f7f4d399aabc7dfa",
+      "bytes": 1286,
+      "original_sha256": "c4f1edb18b737c25bdb0204a0df417b34c377e93cd57b9bd3b5c821abb47a3c8",
+      "original_bytes": 4826,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/final-harness-03-report.json.gz",
+      "source_path": "build/run_gear/final-harness-03/report.json",
+      "sha256": "ddc86dd8c18acc709373298c7f05223eed0393570fae4c84081ac20be1e164e2",
+      "bytes": 954,
+      "original_sha256": "75c6e3c3a2a723c753f82398b4b075cd8be79265795e75e9fa1bf0f4fb82ee8a",
+      "original_bytes": 2566,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/final-harness-04-report.json.gz",
+      "source_path": "build/run_gear/final-harness-04/report.json",
+      "sha256": "d303b937b798b22785e0f1456c594a9c8cf953dd372f1e92225a708bc590cf54",
+      "bytes": 2288,
+      "original_sha256": "22c3dda4ca0692b93bf2c50df000f6e9cb26ea0be391e47406985fa32e35b430",
+      "original_bytes": 11730,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/independent-core95.log.gz",
+      "source_path": "build/run_gear/independent-core.log",
+      "sha256": "540aaff8eb9b246218c7b9a940fa3c3a8f1aa94c283d363246fb4d0e37e0e672",
+      "bytes": 470,
+      "original_sha256": "1e8fe514aab2fa80f6fa1b9a59530c10a90e4a917f31f07406b0446df5ca31a6",
+      "original_bytes": 1465,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/independent-core95-receipt.json",
+      "source_path": "build/run_gear/independent-core/receipt.json",
+      "sha256": "d77f836624a5679154619d04a4e5c6b669000b0edb6d7b3bb903688fae04f7b9",
+      "bytes": 532090,
+      "original_sha256": "d77f836624a5679154619d04a4e5c6b669000b0edb6d7b3bb903688fae04f7b9",
+      "original_bytes": 532090,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/history/override-order-before.log.gz",
+      "source_path": "build/run_gear/override-order-before.log",
+      "sha256": "d05a83d692ef15b4e51ed36b6ea8dfadc4e64ab0cc7cc85a40b56b52d6bca31a",
+      "bytes": 339,
+      "original_sha256": "99c3572cd0057b98ac787c0ccf6f0521958a6307413a48c2dc341a3a8bd107ec",
+      "original_bytes": 934,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/override-order-after.log.gz",
+      "source_path": "build/run_gear/override-order-after.log",
+      "sha256": "7580ded80a0ac36e7ada903a68304ea094dc4470d95d70ed9586b132f6aa3ede",
+      "bytes": 252,
+      "original_sha256": "d55d948c110f46cd2c52f675ddd36df4d87baa9c9ba2565bc2628d2250a6041a",
+      "original_bytes": 757,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/reviewer-f10-before.png",
+      "source_path": "build/run_gear/reviewer-f10-before.png",
+      "sha256": "1bbadb4206af6dffd175aacb62bb518abd0dfc81b0c07bac1c3021c0d732eb90",
+      "bytes": 237180,
+      "original_sha256": "1bbadb4206af6dffd175aacb62bb518abd0dfc81b0c07bac1c3021c0d732eb90",
+      "original_bytes": 237180,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/history/failed-core.log.gz",
+      "source_path": "build/verification/harness/20261026T034554.463463Z/core.log",
+      "sha256": "e28b9038096d9a0131d602a0f91f0cad8de8973cf3177e7985ffef0ac7c04c79",
+      "bytes": 2881,
+      "original_sha256": "81be5280299bf4a9a59e4353a9d7affc20be3681dcee16d100ff39cfd6ba821c",
+      "original_bytes": 10180,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/failed-root-bell-parse-timeout.log.gz",
+      "source_path": "build/root_bell/formal_v2/1792986879369807323/runtime.log",
+      "sha256": "2e91e8494385767676e2b725f74d6508b6cbaf48efe46db31218947bb30a467b",
+      "bytes": 406,
+      "original_sha256": "c6c3b6532233a51954d0cd96621336d611780ac86d59db56c93f680229b9c262",
+      "original_bytes": 826,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/failed-forest-app-native.log.gz",
+      "source_path": "build/verification/harness/20261026T041101.814288Z/artifacts/forest-bible-app-discoveries/build/region_bible_v2/discoveries/app/native.log",
+      "sha256": "89ca79dccb8e9245e67e050f8dc8a2cb40177e25515fd5450792ccc255273a35",
+      "bytes": 1768,
+      "original_sha256": "6b4a98aaad6dfeaf3bc51d0ffdb28a800c38d127751d5bf472bdf8b52f2decbb",
+      "original_bytes": 11524,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/failed-forest-app-capture.json.gz",
+      "source_path": "build/verification/harness/20261026T041101.814288Z/artifacts/forest-bible-app-discoveries/build/region_bible_v2/discoveries/app/capture.json",
+      "sha256": "f259922fb26b570dc7699c5b687b5d8a8c938ad27f12dacf737a08a6c78bb560",
+      "bytes": 1794,
+      "original_sha256": "1da641994214a0cd3d5d0bcb9ee97c573a5bd477cd10e41660e2377b2bf27808",
+      "original_bytes": 13087,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/failed-forest-app-report.json.gz",
+      "source_path": "build/verification/harness/20261026T041101.814288Z/artifacts/forest-bible-app-discoveries/build/region_bible_v2/discoveries/app/report.json",
+      "sha256": "192f898a8bc1c5fe95347ad7a77d06c6aaea24326b9b9fc1c182de6a9118791c",
+      "bytes": 404750,
+      "original_sha256": "fad85ab226a97f574ecdada58dd4cca15c77d119f6b1d4a59974ce7cee85fff5",
+      "original_bytes": 1073405,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/changed-parse49-report.json.gz",
+      "source_path": "build/run_gear/changed-parse/report.json",
+      "sha256": "916281142fb1c80a283b25c3ace72342ac093786205037bb023740b77d2e04fa",
+      "bytes": 3987,
+      "original_sha256": "8767b323bbb9d93a1f084aab1c16091d68b85f191372ad09c55c2ad9ee574253",
+      "original_bytes": 31185,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/changed-parse-cross-region-report.json.gz",
+      "source_path": "build/run_gear/changed-parse-cross-region-20261026T040555.006373Z/report.json",
+      "sha256": "560b8861eaaf8cc67497b5459cf6d107ac8269a83e72a334c0b5c4923c706e0a",
+      "bytes": 394,
+      "original_sha256": "f5e68fc49d5c0fc219bd62926515362b466fb7d7ff9f893a97758291511c7f7a",
+      "original_bytes": 691,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/failed-movie-trial-receipt.json",
+      "source_path": "build/run_gear/movie-trial-01/receipt.json",
+      "sha256": "4715a1205727a1efef88d5ca085fb99da6ca5f452932e090fea7156665b5718b",
+      "bytes": 1074473,
+      "original_sha256": "4715a1205727a1efef88d5ca085fb99da6ca5f452932e090fea7156665b5718b",
+      "original_bytes": 1074473,
+      "gzip": false
+    },
+    {
+      "path": "reviewer/history/failed-movie-trial-capture.log.gz",
+      "source_path": "build/run_gear/movie-trial-01/capture.log",
+      "sha256": "10376041059e7d2e722e9b1443b67b1e854077f7a95bb92729a43e740b7ee230",
+      "bytes": 1427,
+      "original_sha256": "55c7cb27df9c0d0e57904a6fa97c46a14d53fded7d9624633138be3fdb0d9310",
+      "original_bytes": 2291,
+      "gzip": true
+    },
+    {
+      "path": "reviewer/history/original-core-after-sort.log.gz",
+      "source_path": "build/run_gear/original-core-after-sort.log",
+      "sha256": "7afe90c2cee7c6bb6a53b0c62ae409e2674a4ecc118bc190942544843dd10c53",
+      "bytes": 2767,
+      "original_sha256": "3d68092ac742a9a727c93b76498be0b0fb4ebf8fa0cb288a0cc2b099256d6474",
+      "original_bytes": 9933,
+      "gzip": true
+    }
+  ],
+  "requirement_evidence": [
+    {
+      "requirement": 1,
+      "evidence": "gear-inventory107: exactly8 commit and9 atomic rejection"
+    },
+    {
+      "requirement": 2,
+      "evidence": "gear-inventory107: legal blue5/gold1 definitions, independent rarity/cost"
+    },
+    {
+      "requirement": 3,
+      "evidence": "gear-inventory107: full equipped load reward claims and REPLAY without autoequip"
+    },
+    {
+      "requirement": 4,
+      "evidence": "gear-inventory107: repeated equip/unequip restores sole base, component-only source revocation"
+    },
+    {
+      "requirement": 5,
+      "evidence": "gear-inventory107: distinct IDs,holding/equipped limits,exclusive/prerequisite atomics"
+    },
+    {
+      "requirement": 6,
+      "evidence": "gear-inventory107 HP clamp/explicit supply/re-equip no healing; finalGL67 observed5.0/6.5"
+    },
+    {
+      "requirement": 7,
+      "evidence": "gear-inventory107 paused same-flight immediate remove/re-equip,spent jumps/shots/flight cap/velocity guards"
+    },
+    {
+      "requirement": 8,
+      "evidence": "core5685 andgear107 Shop original wallet/stock/receipt/rollback,8->14 config,poor/replay/conflict/stale"
+    },
+    {
+      "requirement": 9,
+      "evidence": "formalUI64/67 plus campaign67 native map/region identities,exact ledger; core/demo living return and death cleanup"
+    },
+    {
+      "requirement": 10,
+      "evidence": "formalUI67 Window/softwareGL synthetic mouse/touch/gamepad and original menu44; physicalAndroid/browser touch remains unverified"
+    }
+  ]
+}

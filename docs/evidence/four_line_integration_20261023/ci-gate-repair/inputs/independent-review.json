@@ -1,0 +1,49 @@
+{
+  "status": "ACCEPT",
+  "scope": "Only2file selected-input closure fix and sparse Git regression; no game/native/compatibility replay or full CI approval.",
+  "reviewed_base_commit": "54573a8e9400d790f58656efde2dd812cc00d8ba",
+  "candidate_files": {
+    "tools/production_loop.py": "69e8cdcd1b5bb39af6df9f82389832003d8050e6e6fda3f087d767f980b9e379",
+    "tests/test_cloud_inputs.py": "7b7d120b2bf5c2f2de1e216db09ec9710ce4bb28e8fa26d2763dd5e925bb07d8"
+  },
+  "patch_sha256": "9f6acc5313bd168334a45e42131864cae428808cc77f2c66588424a75b586f1c",
+  "reviewed_reason": "The unchanged original wrapper runs all24boundary Python methods before native. Its portable endpoint-restoration tool tests read exact manifest.json+delta.tar.gz even in default current mode. These2availability inputs are required; optional historical native comparison remains not_run unless requested.",
+  "source_checks": [
+    "Only selected wrapper or direct boundary command adds exact2required files; --with-legacy uses same wrapper command token. No historical directory wildcard.",
+    "Original production guards/digest/materialization algorithm, wrapper/native commands, all24boundary methods/setup and budgets unchanged.",
+    "All original cloud-input test method ASTs unchanged, with one actual temporary sparse Git test added.",
+    "Abandoned --current/class-splitting draft not part of candidate."
+  ],
+  "independent_validation": {
+    "new_targeted_sparse_test": "1/1passed0.127s; loaded actual candidate production_loop, existing cloud_inputs implementation; no engine.",
+    "test_semantics": "Both default/manual plans exactly2paths; unrelated selection stays separate; materialization checks byte content/Gitblob/size, no-tests-executed flag and unchanged sparse patterns; unrelated proof/history remain absent.",
+    "actual_endpoint_receipt": "/workspace/scratch/encounter-input-closure/actual-sparse-receipt.json",
+    "actual_committed_source_sha_and_git_oid_verified": true,
+    "actual_materialized_bytes": 977249,
+    "actual_endpoint_files": [
+      {
+        "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+        "size": 233289,
+        "blob": "2fdcf254093518db8678e682be551a2fc8e51868",
+        "sha256": "955f6713bdcdb9ec298add02321923a6d5007b9f773f5f42fe0d2e611c7150bb"
+      },
+      {
+        "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+        "size": 743960,
+        "blob": "38122fec4f757687a2d5b26848e403524ab0bc2b",
+        "sha256": "fcd2a891ec4bdace56c2c2422773bf45d3afc50b28bacba4613006bf0dfe40f1"
+      }
+    ],
+    "direct_boundary": "Exact source command predicate reviewed; actual receipt explicitly records default/manual modes, not a separate direct-boundary execution."
+  },
+  "observed_author_checks": {
+    "cloud_inputs": "23/0; original22testmethod AST retained.",
+    "boundary": "Original24/0tool units, no native game execution."
+  },
+  "failure_preservation": "CI39959074418 exact54573:97passed/1plains-encounter-policy failed before native due missing endpointfixture; remaining checks notrun. Failure retained, not relabeled.",
+  "unverified": [
+    "Fresh final committed-head complete CI after adoption.",
+    "Runtime/gameplay/Web/Release/device/art/player approval."
+  ],
+  "reviewer_actions": "Read2file diff/actualconsumer/receipt and originalCIreport, verified endpoint bytes/OIDs and original test AST preservation, independently ran1new temporary-sparse-Git test. No root write, native rerun or history hydration."
+}

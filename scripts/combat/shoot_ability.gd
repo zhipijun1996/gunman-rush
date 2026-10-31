@@ -57,6 +57,7 @@ func cancel_packet(reason: StringName) -> void:
 
 func advance(delta: float) -> void:
 	behavior().advance(delta)
+	if delta <= 0.0: return
 	if rounds_remaining > 0:
 		if not controller.active or controller.session_id != _packet_session or not controller.router.has_application_focus:
 			cancel_packet(&"cancelled")
@@ -91,7 +92,8 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	_packet_grounded=grounded
 	if controller.shot_energy != null:
 		if not controller.shot_energy.consume(packet_id): return false
-	cooldown_remaining = maxf(tuning.shot_cooldown,weapon.interval * (weapon.rounds-1)+weapon.burst_duration)
+	cooldown_remaining = maxf(tuning.shot_cooldown * item_cooldown_multiplier(),weapon.interval * (weapon.rounds-1)+weapon.burst_duration)
+	if item_runtime() != null: item_runtime().call("primary_packet_started", packet_id, packet_direction)
 	rounds_remaining = weapon.rounds-1
 	_round_timer = weapon.interval
 	packet_changed.emit(&"started",packet_id)
@@ -124,7 +126,16 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	projectile.speed = tuning.projectile_speed
 	projectile.radius = tuning.projectile_radius
 	projectile.damage = tuning.projectile_damage
-	projectile.lifetime = tuning.projectile_lifetime
+	projectile.base_lifetime = tuning.projectile_lifetime
+	projectile.lifetime = tuning.projectile_lifetime * item_range_multiplier()
+	projectile.weapon_id = weapon.id
+	projectile.weapon_tier = weapon.tier
+	projectile.weapon_mode = weapon.mode
+	projectile.shot_index = _shot_serial - packet_id + 1
+	if item_runtime() != null:
+		var pierce: Dictionary = item_runtime().call("extra_pierce")
+		projectile.extra_enemy_pierces = int(pierce.get("count", 0))
+		projectile.pierced_damage_ratio = float(pierce.get("damage_ratio", 1.0))
 	controller.motor.get_parent().add_child(projectile)
 	projectile.global_position = controller.motor.global_position
 	get_projectiles()
@@ -150,13 +161,14 @@ func clear_projectiles() -> void:
 		projectile.dispose()
 	_projectiles.clear()
 
-func reserve_packet(direction: Vector2, grounded: bool) -> bool:
+func reserve_packet(direction: Vector2, grounded: bool, skill: bool = false) -> bool:
 	if not enabled or not controller.active or cooldown_remaining>0 or rounds_remaining>0:return false
 	if controller.shot_energy!=null and not controller.shot_energy.can_fire():shot_rejected.emit(&"energy");return false
 	if not resources.try_consume_shot(grounded):shot_rejected.emit(&"empty");return false
 	_shot_serial+=1;packet_id=_shot_serial;_packet_session=controller.session_id;packet_direction=direction
 	if controller.shot_energy!=null and not controller.shot_energy.consume(packet_id):return false
-	cooldown_remaining=tuning.shot_cooldown
+	cooldown_remaining=tuning.shot_cooldown * item_cooldown_multiplier()
+	if not skill and item_runtime() != null: item_runtime().call("primary_packet_started", packet_id, direction)
 	packet_changed.emit(&"started",packet_id)
 	return true
 func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) -> void:
@@ -168,6 +180,14 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	projectile.owner_controller=controller;projectile.owner_body=controller.motor;projectile.fired_airborne=not controller.motor.is_on_floor()
 	projectile.direction=aim;projectile.speed=weapon.projectile_speed;projectile.damage=(weapon.skill_damage if skill else weapon.damage)*tuning.projectile_damage;projectile.lifetime=weapon.range_limit/weapon.projectile_speed
 	projectile.art_kind=art_kind;projectile.skill_attack=skill;projectile.radius=5 if art_kind==&"blade" else tuning.projectile_radius
+	projectile.weapon_id=weapon.id;projectile.weapon_tier=weapon.tier;projectile.weapon_mode=weapon.mode
+	projectile.shot_index=0 if skill else _shot_serial-packet_id+1
+	if not skill and art_kind==&"bullet":
+		projectile.base_lifetime = projectile.lifetime
+		projectile.lifetime *= item_range_multiplier()
+		if item_runtime() != null:
+			var pierce: Dictionary = item_runtime().call("extra_pierce")
+			projectile.extra_enemy_pierces=int(pierce.get("count",0));projectile.pierced_damage_ratio=float(pierce.get("damage_ratio",1.0))
 	controller.motor.get_parent().add_child(projectile);var origin := controller.motor.global_position
 	projectile.global_position=origin
 	var visual := controller.motor.get_node("CourierVisual") as CourierVisual
@@ -176,3 +196,22 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	elif weapon.mode==WeaponDefinition.Mode.MACHINE:visual.set_state(&"machine_recoil")
 	projectile.launch_motion=visual.muzzle_position(aim)-origin
 	_projectiles.append(projectile);last_muzzle=origin+projectile.launch_motion;shot_fired.emit(aim,_shot_serial)
+
+func item_runtime() -> RefCounted:
+	return controller.get("item_runtime") as RefCounted if is_instance_valid(controller) else null
+
+func item_cooldown_multiplier() -> float:
+	return float(item_runtime().call("weapon_cooldown_multiplier")) if item_runtime() != null else 1.0
+
+func item_range_multiplier() -> float:
+	return float(item_runtime().call("projectile_range_multiplier")) if item_runtime() != null else 1.0
+
+func item_hit_committed(event: Dictionary) -> void:
+	# This callback belongs to the living ability, not the projectile that queues
+	# itself for deletion after submitting to FrameDamagePolicy.
+	if not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or int(event.session) != controller.session_id or (int(event.weapon_epoch) >= 0 and int(event.weapon_epoch) != weapon_epoch): return
+	var raw: Variant = event.get("receiver")
+	var receiver: Damageable = raw as Damageable if is_instance_valid(raw) else null
+	var target := int(event.get("target_id", 0))
+	controller.on_weapon_damage(int(event.session),int(event.packet),int(event.shot),bool(event.airborne),target,bool(event.skill),receiver,int(event.weapon_epoch))
+	if item_runtime() != null and target != 0 and receiver != null and controller.active and not controller.actor_resources.health.terminal and int(event.session) == controller.session_id and (int(event.weapon_epoch) < 0 or int(event.weapon_epoch) == weapon_epoch): item_runtime().call("on_hit", event)

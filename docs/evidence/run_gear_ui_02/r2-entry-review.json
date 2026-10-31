@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-R2-03",
+  "reviewer": "/root/r2_entry_review",
+  "implementer": "/root",
+  "independent_source_audit": true,
+  "production_or_test_edits_by_reviewer": false,
+  "independent_engine_execution": false,
+  "runtime_producer": "/root",
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "baseline_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+  "reviewed_commit": "11a4216681a1947ebbff156175581fa025f22323",
+  "reviewed_path": "tests/demo_ui_01/r2_runner.gd",
+  "reviewed_sha256": "9ad56026ebc31904d90762fb3c0bf6765f2e9e4f229c0fb14455182a2de54803",
+  "verdict": "ACCEPT",
+  "scope": "Read-only independent source and actual output audit of one current R2 test-entry migration; not whole UI, visual output, devices, natural Home exit or full CI acceptance",
+  "source_changes": {
+    "production_files_changed_from_baseline": false,
+    "only_changed_file": "tests/demo_ui_01/r2_runner.gd",
+    "actual": "Assert title enters current playable Home, open original Home navigation, await original frames(6), native click Explore, keep formal-game and all pause checks",
+    "guards": "Existing click existence/visible/reachability/hover/exact activation count guards unchanged; no direct pressed signal, no actor/resources/settlement injection, no budgets or thresholds relaxed"
+  },
+  "failure_chain": [
+    {
+      "source": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "checks": 161,
+      "failures": 1,
+      "actual": "Obsolete title-start-enters-formal assumption fails and pause_checks does not execute",
+      "status": "rejected; not re-signed"
+    },
+    {
+      "source": "ce448ea5bdcb2012109fe760edadf8969554d860",
+      "checks": 167,
+      "failures": 3,
+      "actual": "Home navigation page not settled before pointer: hover false, activation0, formal start false",
+      "preserved_original": "build/run_gear_feedback/r2-entry-failed-02/r2.log",
+      "status": "rejected; not re-signed"
+    },
+    {
+      "source": "11a4216681a1947ebbff156175581fa025f22323",
+      "checks": 208,
+      "failures": 0,
+      "actual": "Native Explore click and retained pause checks execute after normal layout wait",
+      "status": "accepted within declared test-entry audit scope"
+    }
+  ],
+  "runtime_output_actually_read": {
+    "original_receipt": "build/run_gear_feedback/r2-third/receipt.json",
+    "original_console": "build/run_gear_feedback/r2-third/console.log",
+    "original_assertions": "build/run_gear_feedback/r2-third/native/assertions.json",
+    "checks": 208,
+    "failures": 0,
+    "exit_code": 0,
+    "seconds": 7.008566903998144,
+    "pointer_events": 73,
+    "environment": "Godot4.7.2 Standard headless, Dummy audio,1280x720",
+    "observed": [
+      "Title Start enters actual Home",
+      "Native Home navigation Explore starts formal Plains manifest",
+      "Default backpack, real Journey/backpack/settings page clicks",
+      "Q/E switching and settings Back",
+      "Same actor resume and no stale UI shot",
+      "Actual audio release and DemoApp teardown"
+    ]
+  },
+  "fixture_boundary": "Application Home-navigation entry plus actual Explore button is a UI fixture, not natural locomotion to departure; natural Home departure belongs to separate bb4bf46 movie",
+  "unverified": [
+    "Independent reviewer engine run prohibited by task; root runtime outputs audited instead",
+    "No new pixel viewing or audio listening in this narrow review",
+    "Physical Android/controller, browser touch, user experience and full PR CI",
+    "Old bb4bf46 Harness/GL/movie remain bound to their original source, not re-signed as11a4216"
+  ],
+  "portable_evidence": [
+    {
+      "path": "r2-native.log",
+      "sha256": "c42dea7e176f3ecbd527d5a48133bab6a64720fde0ae1ffc22f1571568b044fe",
+      "bytes_verified_identical_to_original": true
+    },
+    {
+      "path": "r2-receipt.json",
+      "sha256": "95c82727eb00a1c44d341aed119ed2f22fe200b32e6fb69f0389ef5269c4a425",
+      "bytes_verified_identical_to_original": true
+    },
+    {
+      "path": "r2-assertions.json",
+      "sha256": "e1811849a4629f2cbbfa289a7f87ae3d26732fa88f558e12095b61851dbdc995",
+      "bytes_verified_identical_to_original": true
+    }
+  ]
+}

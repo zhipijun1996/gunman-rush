@@ -1,0 +1,57 @@
+{
+  "task_id": "FINE-SPACE-05",
+  "subtask": "formal_parallax",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "calls": 2,
+  "generation_wall_seconds_parallel_envelope": 56.1,
+  "per_call_seconds": "not_exposed",
+  "operations": "two independent edits of original far/middle assets; byte-identical copies of returned PNGs, no code repaint/recolor/resample",
+  "raw_outputs": {
+    "morning_sky": "/workspace/generated_images/exec-a2d1e9f9-bf04-4f6f-a8f7-28bc013ab118.png",
+    "ridge_landmarks": "/workspace/generated_images/exec-b7c388a0-e9de-4ac9-b2b3-4b04ed0c70eb.png"
+  },
+  "prompt_files": [
+    "sky_prompt.txt",
+    "ridge_prompt.txt"
+  ],
+  "references": {
+    "assets/underworld_plains/backgrounds/far.png": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+    "assets/underworld_plains/backgrounds/middle.png": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+    "build/authored_terrain_study/deliver/home_fine.png": "701bd0c73b247abe814841b16a78c358c12b684828426ca21fd433104b02b358"
+  },
+  "outputs": {
+    "morning_sky": {
+      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
+      "alpha_min_max": [
+        255,
+        255
+      ],
+      "alpha_zero_fraction": 0.0,
+      "bottom_row_alpha_min": 255
+    },
+    "ridge_landmarks": {
+      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/ridge_landmarks.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "3d0723275b127b360c74ac749ff89aa9a69179f9bfaaef5e0b0594603b9af041",
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "alpha_zero_fraction": 0.8067139457667452,
+      "bottom_row_alpha_min": 253
+    }
+  },
+  "rights": "AI edits referencing repository sources. Existing source licensing records retained; no new third-party license claimed. Model and price unavailable.",
+  "runtime": "UnderworldParallax shared formal Home/Plains; sky same-orientation source-edge blend; clouds translate only sky portion; ridge bounded cool atmospheric mapping; near uses original source",
+  "scope": "Needs root Godot import/GPU/continuous capture and independent review; not final art/device acceptance."
+}

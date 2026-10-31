@@ -1,0 +1,64 @@
+{
+  "task_id": "ENEMY-ALL-02",
+  "implementation_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+  "forest_depth_region": {
+    "status": "passed",
+    "cases": 80,
+    "seconds": 540.378,
+    "original_budget_seconds": 600,
+    "harness_checks": 1,
+    "reused": false
+  },
+  "gpu_culling": {
+    "checks": 44,
+    "failures": 0
+  },
+  "current_native": {
+    "checks": [
+      90,
+      708,
+      209,
+      426
+    ],
+    "failures": 0,
+    "source_stable": true
+  },
+  "prior_native": {
+    "commit": "b71a87864d3843f8d4e898046224778890349dac",
+    "jobs": 11,
+    "source_stable": true,
+    "all_exit_codes": 0
+  },
+  "paired_route": {
+    "seed": "forest-depth-hollow-04",
+    "map": 2,
+    "route": "high_return",
+    "before_seconds": 43.800447876,
+    "after_seconds": 21.971068321,
+    "frames_each": 2077,
+    "legs_each": 24,
+    "failures_each": 0,
+    "scope": "headless same route timing, not GPU/target-device frame budget acceptance"
+  },
+  "old_ci": {
+    "run_id": 40815230347,
+    "commit": "67d28da6cbc082bb57ba3477aa2d950760975040",
+    "serial_job": 123258522316,
+    "status": "failed",
+    "reason": "forest-depth-region timed out under original600s; original failure preserved",
+    "parallel_job": 123258522349,
+    "parallel_status": "success",
+    "affected_status": "failed prerequisite: serial lane"
+  },
+  "full_165_latest_head": "pending remote CI; not claimed passed",
+  "user_device_listening": "unverified",
+  "archive_sha256": "e372807df7fc4a22ff0e95a298a73bc93a8ae77c6fd532b3575cd61c79874d74",
+  "docs_profile": {
+    "checks": 33,
+    "passed": 33,
+    "reused": 0,
+    "failed": 0,
+    "commit": "d91b27377c88e039560140deb87e0a67052a716b",
+    "scope": "Frozen d91 production + actual documentary/media worktree snapshot in report; later receipt/ledger-only changes use related static guards."
+  }
+}

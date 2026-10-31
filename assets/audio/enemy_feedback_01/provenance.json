@@ -1,0 +1,147 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "content_version": "enemy-feedback-01-death-burst-v7",
+  "asset": "death_burst.wav",
+  "asset_sha256": "1943e3210d0ffa127c0ef19b78e1b7a6e5814d0a0c0e3a9b21162f67a536d52f",
+  "producer": "task deterministic offline builder",
+  "producer_script_sha256": "353a9d02ac32e895b0662f66469dd5ff969fd73b96c8c23cd7bd77731f43640e",
+  "source_commit": "a325e41860c688e65f31c47176b1e80aee8ce646",
+  "sources_ledger_sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307",
+  "sources": {
+    "impact": {
+      "pack": "impact-sounds",
+      "original": "impactWood_light_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "runtime_path": "assets/audio/kenney/impact.ogg",
+      "verified_sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3"
+    },
+    "boss_impact": {
+      "pack": "impact-sounds",
+      "original": "impactWood_heavy_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d",
+      "runtime_path": "assets/audio/kenney/boss_impact.ogg",
+      "verified_sha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d"
+    },
+    "enemy_defeat": {
+      "pack": "impact-sounds",
+      "original": "impactSoft_medium_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "runtime_path": "assets/audio/kenney/enemy_defeat.ogg",
+      "verified_sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3"
+    }
+  },
+  "original_license": {
+    "path": "assets/audio/kenney/impact-sounds-LICENSE.txt",
+    "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+    "license": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "original_synthesis": {
+    "kind": "deterministic non-tonal broadband noise, Python random.Random uniform through one-pole high/low-pass filters",
+    "seed": 701013,
+    "third_party_samples": false,
+    "oscillators": false,
+    "rights": "Project-original procedural texture; no externally generated audio or model output."
+  },
+  "ffmpeg_commands": [
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/impact.ogg",
+      "-af",
+      "highpass=f=550,lowpass=f=6500,atrim=duration=0.085,afade=t=in:d=0.0004,afade=t=out:st=0.025:d=0.060",
+      "-ar",
+      "48000",
+      "-ac",
+      "1",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/enemy_defeat.ogg",
+      "-af",
+      "highpass=f=65,lowpass=f=950,atrim=duration=0.115,afade=t=in:d=0.0006,afade=t=out:st=0.030:d=0.085",
+      "-ar",
+      "48000",
+      "-ac",
+      "1",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/boss_impact.ogg",
+      "-af",
+      "highpass=f=75,lowpass=f=1800,atempo=1.25,atrim=duration=0.160,afade=t=in:d=0.0007,afade=t=out:st=0.035:d=0.125",
+      "-ar",
+      "48000",
+      "-ac",
+      "1",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ]
+  ],
+  "mix_recipe": {
+    "physical_crack_gain": 0.22,
+    "soft_thud_gain": 0.6,
+    "heavy_body_gain": 0.25,
+    "source_unit_peak_gains": {
+      "impact": 1.6700073351168945,
+      "enemy_defeat": 0.9023947118425127,
+      "boss_impact": 1.0329175509438142
+    },
+    "fragment_delays_seconds": [
+      0.049,
+      0.093,
+      0.147
+    ],
+    "fragment_gains": [
+      0.075,
+      0.035,
+      0.015
+    ],
+    "normalization_gain": 1.2203227389694054,
+    "target_sample_peak_dbfs": -1.0,
+    "duration_seconds": 0.36
+  },
+  "objective_measurements": {
+    "sample_rate": 48000,
+    "channels": 1,
+    "pcm_bits": 16,
+    "duration_seconds": 0.36,
+    "sample_peak_dbfs": -1.0001519038193567,
+    "rms_dbfs": -20.19646379258161,
+    "clipped_samples": 0,
+    "nonfinite_samples": 0,
+    "dc_offset": 1.9426699037905094e-06,
+    "energy_95_percent_time_seconds": 0.042354166666666665,
+    "first_sample": 0,
+    "last_sample": 0,
+    "bytes": 34604,
+    "spectral_energy_median_hz": 113.88888888888889,
+    "spectral_energy_95_percent_hz": 17130.555555555555,
+    "energy_fraction_600_7000_hz": 0.19223754655315814,
+    "spectrum_note": "Frequency-energy measurements describe the rendered samples; they do not certify perceived physicality or subjective quality."
+  },
+  "integration_boundary": "Use only the existing accepted enemy_defeat trigger for the selected two task enemies. Do not add a second cue or replace all global enemies.",
+  "subjective_listening": "unverified; file metrics and provenance do not sign sound quality",
+  "ffmpeg_version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers"
+}

@@ -63,6 +63,15 @@ def validate(data):
     validate_stress(data)
 
 
+def actual_shot_cost(snapshot):
+    policy=snapshot['shot_policy']
+    path='res://resources/player/demo_ui_01/time_energy_v2.tres'
+    tuning=json.loads((ROOT/'config/player_tuning.json').read_text())
+    if policy['definition_path']!=path or policy['definition_sha256']!=hashlib.sha256((ROOT/path.removeprefix('res://')).read_bytes()).hexdigest() or policy['shooting_consumes_energy'] is not False or policy['max_air_shots']!=tuning['max_air_shots']:
+        raise ValueError('Current shot policy must bind the actual free Definition and native action cap')
+    return 0.0
+
+
 def validate_live_recoil(row, events):
     before, after = row.get('recoil_before', {}), row.get('recoil_after', {})
     request_tick = row.get('recoil_request_tick', -1)
@@ -74,8 +83,8 @@ def validate_live_recoil(row, events):
         raise ValueError('Live H must actually fire a left projectile at first free airborne recovery')
     if after.get('shot_charges') != before.get('shot_charges', 0) - 1:
         raise ValueError('Actual H->R must consume one real air shot')
-    if abs(before.get('stamina', 0) - after.get('stamina', 0) - before.get('shot_cost', -1)) > 1e-6:
-        raise ValueError('Actual H->R must consume the real configured shot cost')
+    if abs(before.get('stamina', 0) - after.get('stamina', 0) - actual_shot_cost(before)) > 1e-6:
+        raise ValueError('Actual H->R must preserve time energy under its real free shot policy')
     if not row.get('upper_support_seen'):
         raise ValueError('Live H->R must actually reach the named main support')
 
@@ -134,14 +143,38 @@ def validate_stress(data):
                                   for e in prefix):
         raise ValueError('Dead-anchor fallback needs real projectile death before the route')
     row = by_id['low_resource/live_H']
-    cost = row['start']['shot_cost']
-    if not cost <= row['start']['stamina'] <= 2 * cost:
-        raise ValueError('Low-energy route must start with one or two configured shot costs')
+    actual_shot_cost(row['start'])
+    capacity=json.loads((ROOT/'config/player_tuning.json').read_text())['focus_stamina_capacity']
+    if row['start']['stamina_capacity']!=capacity or not capacity*.2 <= row['start']['stamina'] <= capacity*.4:
+        raise ValueError('Low-time-energy route must start within twenty to forty percent of its real capacity')
     prefix = events[row['setup_event_start']:row['event_start']]
-    if not any(e.get('kind') == 'accepted_shot' and e.get('aim') == [-1, 0] and e.get('projectiles', 0) > 0 for e in prefix):
-        raise ValueError('Low-energy setup needs actual costly missed projectiles')
+    pulses=[e for e in prefix if e.get('kind')=='time_energy_changed']
+    spent=[e for e in pulses if e['operation']=='consume']
+    if not spent or any(e.get('kind')=='accepted_shot' for e in prefix):
+        raise ValueError('Low-time-energy setup requires real airborne focus changes without shooting')
+    by_tick={f['tick']:f for f in frames if f.get('comparison')=='setup/low_resource/live_H'}
+    current=capacity
+    tuning=json.loads((ROOT/'config/player_tuning.json').read_text())
+    for pulse in pulses:
+        frame=by_tick.get(pulse['tick'])
+        if frame is None or pulse['controller_tick']!=frame['controller_tick'] or pulse['epoch']!=frame['resource_epoch'] or pulse['session_id']!=frame['session_id'] or frame['focus']['shared'] is not True or abs(pulse['real_delta']-1/tuning['physics_hz'])>1e-9:
+            raise ValueError('Time energy change lacks native frame, shared state, epoch or actual clock')
+        before=current
+        if pulse['operation']=='consume':
+            if pulse['grounded'] or not pulse['aiming'] or not pulse['focus_active'] or not frame['focus']['aiming']:
+                raise ValueError('Time drain requires actual airborne held aim')
+            used=min(pulse['real_delta'],max(0,tuning['focus_max_air_duration']-pulse['focus_air_time_before']),current/tuning['focus_stamina_drain'])
+            current-=used*tuning['focus_stamina_drain']
+        else:
+            if pulse['operation']!='grant' or not pulse['grounded'] or pulse['focus_active']:
+                raise ValueError('Time regeneration requires actual grounded focus owner')
+            current=min(capacity,current+tuning['focus_stamina_recovery']*pulse['real_delta'])
+        if abs(pulse['amount']-(current-before))>1e-6 or abs(pulse['current']-current)>1e-6 or abs(frame['stamina']-current)>1e-6:
+            raise ValueError('Actual focus time energy does not replay from its native input and tuning')
+    if abs(row['start']['stamina']-current)>1e-6:
+        raise ValueError('Low-time-energy route start differs from the real setup ledger')
     if any(e.get('kind') == 'policy_result' for e in prefix):
-        raise ValueError('Low-energy miss setup must not secretly hit/refund or damage the player')
+        raise ValueError('Low-time-energy setup must not secretly damage either actor')
 
 
 def summarize_stress(data):
@@ -282,7 +315,7 @@ def validate_formal_choice(data):
         by_tick = {f['tick']: f for f in data['frames']}
         after = by_tick[shot[0]['tick']]
         before = r[0]['snapshot']
-        cost = float(r[0]['shot_cost'])
+        cost = actual_shot_cost(before)
         if after['shots'] != before['shots'] - 1 or abs(before['energy'] - after['energy'] - cost) > .001:
             raise ValueError('Actual H-to-R shot/energy deduction does not match the real Definition')
     if strategy == 'shoot_clear':

@@ -1,0 +1,37 @@
+{
+  "kind": "confirmed finite-adapter dead-string-header counterexample",
+  "observed_utc": "2026-10-28T10:52:13.394129+00:00",
+  "engine_started": false,
+  "full159_suite_executed": false,
+  "production_modified": false,
+  "result": {
+    "baseline": true,
+    "wrong_actual_stage_without_decoy": false,
+    "wrong_actual_stage_with_fake_headers": true,
+    "wrong_actual_objects_without_decoy": false,
+    "wrong_actual_objects_with_fake_header": true,
+    "engine_started": false
+  },
+  "files": [
+    {
+      "path": "build/chest_art_01/guard-independent-probe/probe.py",
+      "sha256": "eeed5077bdf23851b1ab94c62a36fae60747c062a8884484102fe3159dc8540c"
+    },
+    {
+      "path": "build/chest_art_01/guard-independent-probe/result.json",
+      "sha256": "7c7a58a0b87b6c836e5f53dcb59fb1091219ba435c9e85390c952b276fcc41a5"
+    },
+    {
+      "path": "build/chest_art_01/guard-independent-probe/bad-stage.gd.source",
+      "sha256": "dd2507337882cc619778b6e43ca99f173b00d98b3112036a99d4bb59782dfa0f"
+    },
+    {
+      "path": "build/chest_art_01/guard-independent-probe/bad-objects.gd.source",
+      "sha256": "7084139a8e0ed9b7a8a925a93919c1cf6d9054afb576ca920c36b3128b25b874"
+    },
+    {
+      "path": "build/chest_art_01/guard-independent-probe/pipeline-before.py",
+      "sha256": "20af1d76489499efeafad4d1df593c54c35f51345059ccf78942d513664da26e"
+    }
+  ]
+}

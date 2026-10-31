@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "scope": "Documentation closeout checks on working changes above 620c; no new runtime validation",
+  "base_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "parent_commit": "620c40b3ca939cd9ba42d5cebcf9b97ccbbcef62",
+  "environment": "managed Linux /workspace/gunman-rush-work; original Harness; no Godot runtime changes",
+  "shared_skills_modified": false,
+  "checks": [
+    {
+      "name": "inputs",
+      "command": [
+        "python3",
+        "tools/cloud_inputs.py",
+        "--check",
+        "docs"
+      ],
+      "exit_code": 0,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/inputs.log",
+      "sha256": "0933da674d5dc0bb7dced7ae083bb1d7d9ec1e2a6608f7fb539bdd3b389f1d59"
+    },
+    {
+      "name": "docs",
+      "command": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "docs",
+        "--release",
+        "--jobs",
+        "1"
+      ],
+      "exit_code": 1,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/docs.log",
+      "sha256": "dc74493be2149defee45542c991400f9635be20c06fbbf926ea6eee7e86600d6"
+    },
+    {
+      "name": "quality-record",
+      "command": [
+        "python3",
+        "tools/quality.py",
+        "check",
+        "docs/quality/records/ENEMY-FEEDBACK-01.json"
+      ],
+      "exit_code": 0,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/quality-record.log",
+      "sha256": "99154c1de1fd3b604ee2044d4f76f713e2eba78caae4999c97f20ee219d3bbe6"
+    },
+    {
+      "name": "quality-index",
+      "command": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "exit_code": 1,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/quality-index.log",
+      "sha256": "57b8adbab6714b89298eea3e29bfb0424b4fdc0b4f2659e4722d405bc55faecc"
+    },
+    {
+      "name": "quality-diff",
+      "command": [
+        "python3",
+        "tools/check_quality_diff.py",
+        "--base",
+        "e9ab0e0743466b8983e34cc7de17bab1abf9d53a"
+      ],
+      "exit_code": 1,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/quality-diff.log",
+      "sha256": "ae402ba378b6418a9cbb68114359482d9a9bda2650c658ddae77d145d6a9c49f"
+    },
+    {
+      "name": "bundle-head",
+      "command": [
+        "git",
+        "bundle",
+        "list-heads",
+        "docs/evidence/enemy_feedback_01/v8/runtime-source.bundle"
+      ],
+      "exit_code": 0,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/bundle-head.log",
+      "sha256": "d2052df73b3f1e93566bead01d541d24e8ece9589d7dd9fe4ecde67c0fbc2bad"
+    },
+    {
+      "name": "docs-final",
+      "command": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "docs",
+        "--release",
+        "--jobs",
+        "1"
+      ],
+      "exit_code": 0,
+      "path": "docs/evidence/enemy_feedback_01/session_closeout/docs-final.log",
+      "sha256": "3c4df54e860b39add013f66172ae7b40559c11f12a87f3d20f2234efd236533a",
+      "reason": "Initial docs check ran before validation.json was created; original missing-link failure retained. Final rerun sees complete declared evidence."
+    }
+  ]
+}

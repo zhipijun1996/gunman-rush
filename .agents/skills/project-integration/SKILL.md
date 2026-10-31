@@ -66,3 +66,19 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 选定输入入口见[Harness](../../../docs/harness.md#稀疏检出与选定输入预检)：`tools/cloud_inputs.py --check ID`／`--profile NAME`默认只计划，`--materialize`显式物化，结果以实际收据为准。执行选定check／profile前先预检所需输入、精确版本、SHA和预计物化量；缺件明确阻塞，显式物化后再验证，不把预检当测试通过。复用原 `required_input_preflight` 语义，不由检查名称猜测动态依赖。sparse工作区当前先用 `--jobs 1`；只有本轮隔离修复及相关消费者真实复验通过后，才在已验证scope启用 `--jobs > 1`，不能沿旧建议先全checkout放大历史下载。
 
 归档先在新目录恢复并核原路径／字节SHA，再跑原消费者与精确commit守门；闭包未证明则保留原件。禁止以远程URL直接替换旧quality依赖，不rewrite历史、不强推；本轮源码历史证据及资源实际删除0项。
+
+## 当前 Demo 的集成成本边界（2026-10-23）
+
+按 [CI 前置检查与完整双通道](../../../docs/harness.md#ci前置检查与完整双通道)执行：已选中的有限便携 Python 子守门先于引擎／Foundry，不能按 `.py` 后缀推断廉价。完整任务复用原 `full` profile 两物理通道与原合流器；局部不升级全量或 Web。合入核最终 `affected` 聚合结果与精确源码，prepare 或单通道成功不足以放行。重跑失败 job 须能取同 run 已成功的准备产物；验收指针可更新，失败原始诊断按 attempt 保留。不重复整轮来定位输入缺件，不用完整本地工作区冒称稀疏闭包已成立。
+
+用户已明确暂不考虑旧存档/旧特性兼容：历史回放按显式 `legacy-compat` 手动执行，延期不记通过；默认检查保护当前真实消费者。不要在内容合并时顺带恢复已不要求的历史行为。共享机制发生变更，生产线先交代当前接口和消费者，避免沿过期fixture修改正式玩法。
+
+wrapper失败先用其原runner单独定位/复验，保原断言、预算与严格退出检查；通过后再执行所属wrapper。完整集成在源码冻结后集中执行，过程中不修改源集。Development用已有`--reuse`仅复用digest完全一致、确有归档的证明；最终CI fresh。检查已通过而依赖未变，不因无关任务再手动从头执行。退出泄漏、实际当前保存、资源/UID/接口与导出问题仍需修复。
+
+收缩必需输入前须贯穿Python入口、Godot runner和实际audit核实范围，并真实运行同一scope；顶层参数不代表底层已停止历史回放。内部启动多个Godot进程的重检查使用独占Harness调度，避免嵌套并发争CPU；保全部场景、原断言和预算。
+
+GUI专项在deferred run入口设置实际Window/viewport尺寸并记录screen scale，避免初始化设置被headless默认64覆盖；DisplayServer的headless零值另列，不能当真机尺寸。HUD遮挡检查取实际可见控件，透明布局根和同一个触控菜单的自交不能冒称遮挡；真实角色／敌人／机关／其他UI重叠继续拒绝。
+
+资源策略变化后，正例与反例都要绑定实际配置；篡改必须实际改变数据，不能用删除本来不存在的扣费回执充当拒绝测试。多个彼此独立的native场景可在原聚合硬时限内并行，但须保全部场景、唯一完整覆盖、原断言、退出／日志／清理检查和可追溯子进程证据，不把每个分片另给全额时限。
+
+APT镜像修复须核实际runner日志的`mirror+file`入口（含`/etc/apt/apt-mirrors.txt`）及实际获取URL；仅安装通过或修改sources文件不能证明已切源。保GPG、套件、参数及原超时，不把临时源文件测试签成Cloud生效。

@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "stage": "development",
+  "status": "planned",
+  "approval_scope": "plan_only",
+  "changed_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/enemy-creator/references/development_workflow.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    "docs/current_state.md",
+    "docs/design/enemies/plains_charger.md",
+    "docs/enemy_feedback_01_production_lessons.md",
+    "docs/evidence/enemy_workflow_01/README.md",
+    "docs/handoff.md",
+    "docs/quality/README.md",
+    "docs/quality/records/ENEMY-WORKFLOW-01.json",
+    "docs/tasks.md",
+    "docs/templates/animation_vfx_specification.md",
+    "docs/templates/art_asset_specification.md",
+    "docs/templates/enemy_design.md"
+  ],
+  "path_reasons": [
+    {
+      "path": ".agents/skills/animation-vfx/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/art-director/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/enemy-creator/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/enemy-creator/references/development_workflow.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": ".agents/skills/game-quality-gate/SKILL.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/current_state.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/design/enemies/plains_charger.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/enemy_feedback_01_production_lessons.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_workflow_01/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/handoff.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/records/ENEMY-WORKFLOW-01.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/tasks.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/templates/animation_vfx_specification.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/templates/art_asset_specification.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/templates/enemy_design.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    }
+  ],
+  "domains": [
+    "process"
+  ],
+  "escalations": [],
+  "selection": "affected_checks",
+  "checks": [
+    "docs",
+    "world",
+    "world-design-tests",
+    "structure",
+    "harness-tests",
+    "quality-drills",
+    "quality-tests",
+    "quality",
+    "production-loop-tests",
+    "terrain-tile-tests",
+    "consumer-coverage-tests",
+    "capture-tests",
+    "level-design-contracts",
+    "mechanism-comparisons",
+    "level-design-analysis",
+    "level-design-routing",
+    "level-design-golden-tests",
+    "level-region-context",
+    "level-experience",
+    "level-formal-receipts",
+    "visual-director-tests",
+    "asset-family-tests",
+    "creative-direction",
+    "creative-direction-tests",
+    "underworld-pipeline",
+    "underworld-home-guard-tests",
+    "region-bible-contract",
+    "region-bible-tests",
+    "harness-artifact-archive-tests",
+    "cloud-production-planner-tests",
+    "cloud-delivery-tests",
+    "cloud-inputs-tests",
+    "portable-frozen-assets"
+  ],
+  "commands": [
+    [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "docs",
+      "--check",
+      "world",
+      "--check",
+      "world-design-tests",
+      "--check",
+      "structure",
+      "--check",
+      "harness-tests",
+      "--check",
+      "quality-drills",
+      "--check",
+      "quality-tests",
+      "--check",
+      "quality",
+      "--check",
+      "production-loop-tests",
+      "--check",
+      "terrain-tile-tests",
+      "--check",
+      "consumer-coverage-tests",
+      "--check",
+      "capture-tests",
+      "--check",
+      "level-design-contracts",
+      "--check",
+      "mechanism-comparisons",
+      "--check",
+      "level-design-analysis",
+      "--check",
+      "level-design-routing",
+      "--check",
+      "level-design-golden-tests",
+      "--check",
+      "level-region-context",
+      "--check",
+      "level-experience",
+      "--check",
+      "level-formal-receipts",
+      "--check",
+      "visual-director-tests",
+      "--check",
+      "asset-family-tests",
+      "--check",
+      "creative-direction",
+      "--check",
+      "creative-direction-tests",
+      "--check",
+      "underworld-pipeline",
+      "--check",
+      "underworld-home-guard-tests",
+      "--check",
+      "region-bible-contract",
+      "--check",
+      "region-bible-tests",
+      "--check",
+      "harness-artifact-archive-tests",
+      "--check",
+      "cloud-production-planner-tests",
+      "--check",
+      "cloud-delivery-tests",
+      "--check",
+      "cloud-inputs-tests",
+      "--check",
+      "portable-frozen-assets",
+      "--jobs",
+      "1"
+    ]
+  ],
+  "precheck_commands": [],
+  "ci_route": "selected_commands",
+  "ci_lane_checks": {},
+  "additional_commands": [],
+  "release_follow_up": [],
+  "manual_checks": [
+    "GUI and real device/player acceptance remain unverified unless separately exercised.",
+    "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.",
+    "Check inputs are cache invalidation inventories, not complete test dependency graphs."
+  ],
+  "device_acceptance": "unverified",
+  "player_acceptance": "unverified",
+  "base_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
+  "source_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
+  "git_status": "M .agents/skills/animation-vfx/SKILL.md\n M .agents/skills/art-director/SKILL.md\n M .agents/skills/enemy-creator/SKILL.md\n M .agents/skills/game-quality-gate/SKILL.md\n M docs/current_state.md\n M docs/design/enemies/plains_charger.md\n M docs/enemy_feedback_01_production_lessons.md\n M docs/handoff.md\n M docs/quality/README.md\n M docs/tasks.md\n M docs/templates/animation_vfx_specification.md\n M docs/templates/art_asset_specification.md\n M docs/templates/enemy_design.md\n?? .agents/skills/enemy-creator/references/\n?? docs/evidence/enemy_workflow_01/\n?? docs/quality/records/ENEMY-WORKFLOW-01.json",
+  "working_files": {
+    ".agents/skills/animation-vfx/SKILL.md": "6f90839814b32acf9aa794165489904d024f7ca2a86c64f0596c32ccb1520da9",
+    ".agents/skills/art-director/SKILL.md": "2480906b81d164d87f0d4f2925d4521f2cb5f6f8b253a22ce7d74bfcf7cfa2b7",
+    ".agents/skills/enemy-creator/SKILL.md": "d9c8922cd716f39d92afdd4749b2638480a7f731e090dcd8c1ff16a0ea16f08b",
+    ".agents/skills/enemy-creator/references/development_workflow.md": "3a3497c784a6c86dc891b90721e010efaf2b2b5db4306abbfe60fabb4af90121",
+    ".agents/skills/game-quality-gate/SKILL.md": "e13bf7e51e3ca7c13b2e176c454c4e5325a7ff6f434107c61af1b9dd311bb2e9",
+    "docs/current_state.md": "55a6805458f78c5bb7b6d60d68e120f1d111c81fe372b510f02c16dea01c4ad2",
+    "docs/design/enemies/plains_charger.md": "68037374efa8e165ba3c0ca53f79a6cac7056b8ba6969023602ac546e48c1632",
+    "docs/enemy_feedback_01_production_lessons.md": "d69470af93a0329613dc52e7ecf842db98a1940e454ef61b194e86432ccd72b2",
+    "docs/evidence/enemy_workflow_01/README.md": "9b7232467f45fadcb8f530c0cb553f79e0b0e7b1c496e9255e89b851eb9eaf1c",
+    "docs/handoff.md": "3fe70e7ec38f0ee9d699807d124faf49bf0c54f83c90e64dd0ee53c773d9e845",
+    "docs/quality/README.md": "b01073ff10741a2fd1ef14ebaf2de4e0c2d7ff8985f5e125446be1f5955976ca",
+    "docs/quality/records/ENEMY-WORKFLOW-01.json": "5785612db3884a4326868b392ceb8abb1a87b27ecf5f4880891b0512cad9ee59",
+    "docs/tasks.md": "a664edaf3fe0dc36f380e0b69a6ff99cad2452dc4424f4c941e4c01178fefb5b",
+    "docs/templates/animation_vfx_specification.md": "f40ef6711b29f98babf86c179adc427ca6bc56c0c7aaacb890e7e2faa6bf4ba8",
+    "docs/templates/art_asset_specification.md": "0a316cadfc0f38920127b413fb652619c8678727f14435505c47d61b2814cf70",
+    "docs/templates/enemy_design.md": "dafef828d6d8bf34488ecb8a1cf8645808c3f024449546f31760df39788a899e"
+  },
+  "policy_sha256": "af7be9db6098f4dd2ca77fbc23e274c205a4fde6a63c695459bf66171b3eb5f1",
+  "manifest_sha256": "8635c6fa81c99f2c0e21d2c0f01667edc65ddb86fcf33ae4a7535ea14de685f9"
+}

@@ -1,0 +1,90 @@
+{
+  "reviewer": "independent_review (not change author)",
+  "verdict": "ACCEPT",
+  "scope": "Finite current-authority correction to the original strict documentation guard; shared runtime results independently inspected at their actual source only.",
+  "reviewed_at_utc": "2026-10-23T04:27:27.088779+00:00",
+  "candidate_parent_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+  "source_sha256": {
+    "tools/check_docs.py": "2b1e93abcf18cced4909c747fc447195e2015facf516b5dca6de8d0e4993fbb9",
+    "docs/decisions.md": "73cc1ac78fa36eb26c1f600e3922ab84c36991ef0ceda99644d02b72a11a8f84",
+    "docs/combat_and_recharge.md": "2d61205310df37ef7b5085bc27dfece69b1374b7ef05c6a21b19accb8e790ffb"
+  },
+  "authority_proof": {
+    "original_authored_ui_head": "ea2d6fd",
+    "r3_scope_path": "docs/worklines/demo_ui_01/r3/scope.md",
+    "r3_scope_sha256": "b9a5bba695dbb7589c6bc0975ac89bd71e74197d2384d3874eb01047d53f41d7",
+    "scope_matches_original_authored_ui_bytes": true,
+    "original_authored_ui_config_matches_current": true,
+    "config_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+    "actual_rule": "R3 explicitly records user authorization superseding old shooting-energy freeze: exactly one base airborne round; shooting does not consume/return time energy; actual airborne gun/grapple slow aim shares AirFocus.",
+    "existing_authorities": "Current player_mechanics.md and controls_contract.md already state that same R3 rule at their top. This correction does not introduce a new gameplay decision after a failed test."
+  },
+  "reviewed_diff": {
+    "tools/check_docs.py": "Same exact equality guard retains physics_hz!=60 rejection and changes only the obsolete default max_air_shots expected2 to current authorized1. Error now points to D084. Other check branches remain unchanged.",
+    "docs/decisions.md": "Adds unique currentD084 referencing original R3scope; preserves historicalD079 and explicit2round/shot-energyfixtures.",
+    "docs/combat_and_recharge.md": "Adds top precedence note covering historicalD079 rather than rewriting old decisions."
+  },
+  "guard_assessment": "This is intentional authority-aligned expected-value revision, not a relaxed guard: it still rejects every value other than exactly1 and every physics rate other than60. No skipped assertion, conditional bypass, budget increase or history fixture deletion.",
+  "actual_doc_results": {
+    "failed_before_log": "/workspace/scratch/integration-four-20261023/docs-final-check.log",
+    "failed_before_sha256": "167f273902befd6c3205072315dd8bfd4d21c6036a547ba936f139175929a90e",
+    "failure_marker": "Confirmed prototype baseline changed; update decisions and checker intentionally",
+    "after_log": "/workspace/scratch/integration-four-20261023/docs-policy-corrected.log",
+    "after_sha256": "31cc61d8935fc4b72d19c0bb922acc03a80e92d67fef5dd9d9ae7efadb799905",
+    "after_marker": "PASS: 33 required documents, local links, 279 task dependencies and tuning. Game runtime not tested.",
+    "attribution": "Producer-run originalcheck_docs output independently read; this reviewer did not rerun it. Old failure remains failed, not rewritten."
+  },
+  "shared_runtime_support": {
+    "report": "/workspace/integration-four/build/verification/harness/20261023T042054.378805Z/report.json",
+    "report_sha256": "a3f760eb043a18a3053b9d52fcbfddef3cf286268800983dc18e21b9ebe3c9f7",
+    "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+    "working_files": {
+      "docs/evidence/four_line_integration_20261023/asset-registration.json": "304e63d37f736ab5adfc1142bc1696c59f57f9325b889743b1baee85b2950ecf",
+      "docs/evidence/four_line_integration_20261023/verified-B/bgm-integration.log": "6edb0a6ec6571d46102611ee49b21e0b6e0b6f7daf17f664b93c3a36d16d21af",
+      "docs/evidence/four_line_integration_20261023/verified-B/bible-v7.log": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "docs/evidence/four_line_integration_20261023/verified-B/enemy-corpse-save.log": "0da8c946f6568b8269d4b9d1945cf21bf21b2d54f348e314b984a1ec1a843959",
+      "docs/evidence/four_line_integration_20261023/verified-B/enemy-corpse-snapshot.log": "78c7d9ec0edaaf282f67d15d1d6e0c43d996c8002de736d87777dd9e71e9d88c",
+      "docs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-formal.log": "0f1227d4dcd3a4057237c6fb01db3dfc2d4f704e27321b6979aa7b4cd30b6bc5",
+      "docs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-native.log": "85cb1194681515fb0ec5f3d92859576e72fca7b8a0bb184a9ba15694de1f58d2",
+      "docs/evidence/four_line_integration_20261023/verified-B/enemy-feedback-support.log": "d09ede88e6b680af9b504531e50800a8a48dc0e0e128475ce890417641ce9905",
+      "docs/evidence/four_line_integration_20261023/verified-B/foreground.log": "a1a5e48aac0278886fbd8453319334ecea1780d15b848497972daac1e6065f44",
+      "docs/evidence/four_line_integration_20261023/verified-B/formal-hud.png": "b0d81202b84da8a92df61a3aeac98e7810bc5ea519375ea1028ae7b3494d41ca",
+      "docs/evidence/four_line_integration_20261023/verified-B/foundry-combined.log": "e3d24637411a9507c3073c77c3dbfaa9f825869798096679766d8dac32ca72e5",
+      "docs/evidence/four_line_integration_20261023/verified-B/gpu-receipt.json": "c4d8b7893ad6b0dcb00fd7d55d9b453aa37390826645183ac1dadf93e94a4717",
+      "docs/evidence/four_line_integration_20261023/verified-B/map.png": "8dd242f205b66ae1538fde6973976b6d06d9aba4827d7d0080b8e12168f3a720",
+      "docs/evidence/four_line_integration_20261023/verified-B/player-default-integration.log": "290fc6f5ca7289fc149b375c3b41ffc27284bab79f5e7ef4a09dc5440b88d4e1",
+      "docs/evidence/four_line_integration_20261023/verified-B/report.json": "f44f0382def6e141b4d546e0d45e5186b6e205153a09ae00ad4360563f36167d",
+      "docs/evidence/four_line_integration_20261023/verified-B/terrain.log": "97ce37a9aabb7330d231e6ac5ae229917c7d5ea2333d55598235b7ae525e463e",
+      "docs/evidence/four_line_integration_20261023/verified-B/title.png": "4dfc922f582309d2c9360f00534d9d9336e5ae1bae54f9f2cf91c18570be9d4b",
+      "docs/evidence/four_line_integration_20261023/verified-B/ui-contract.log": "88bb708ef280a38d858a173e25a0b37e41ace162c3fb39599e32725e2fbe2e1d",
+      "docs/evidence/four_line_integration_20261023/verified-B/ui-r2.log": "d5ab36904010f9bf34d0aecf4c1232bfad9d9d228931928b8fbabc943ec604d1",
+      "docs/evidence/four_line_integration_20261023/verified-B/web-bundle.log": "7c00f63b6543762278d6950e37c3112d599b2caf737e2023e8968be4faabd3b4",
+      "docs/evidence/four_line_integration_20261023/verified-B/web-closure.json": "205cc2f9de23dd59884ecca508279e46e62f967a50438c772eb1657c9bf54c89",
+      "docs/quality/asset_records/four-line-authored-terrain-lab.json": "7977053e2a4f4627796cc14f049f66a8522213cf3511e9ff04634cf54801910b",
+      "docs/quality/asset_records/four-line-high-density-terrain-lab.json": "45b8739de3db41f52f46c83ccc35e1c6f6be2577f809a33fcbe3043cfac21e29",
+      "docs/quality/asset_records/four-line-home-build-contract.json": "28b96764f3208039aaebe25823136919640ab4b72858d9bf6cd9855cd57a0b83",
+      "docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json": "c1b814d95cee33313a749fec362127f853f00983b9b59003baa22cb2de08b597"
+    },
+    "all5_fresh_pass_exit0": true,
+    "checks": [
+      "core",
+      "actor-actions",
+      "all-weapons",
+      "action-budget",
+      "demo-ui-time-energy"
+    ],
+    "raw_counts": {
+      "core": 5681,
+      "actor_actions": 2872,
+      "all_weapons": 2381,
+      "action_budget": 7305,
+      "ui_r3_time_energy": 140
+    },
+    "source_identity": "Original8856057 plus report-listed metadata overlay; not a later clean commit or fullCI result."
+  },
+  "review_method": "Read exact3file diff, original authoredUI scope/config identity, current authoritative rule headers and raw before/after/check logs. No source edit,engine,CI or historical fixture rerun.",
+  "limits": [
+    "Only current-default documentation guard is approved. Historical2round and shot-energy regression assertions remain mandatory.",
+    "Final exact-source globalquality,qualitydiff,completeIntegration/mainRelease and player/device/art acceptance remain separate."
+  ]
+}

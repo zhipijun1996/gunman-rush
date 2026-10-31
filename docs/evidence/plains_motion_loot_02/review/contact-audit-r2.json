@@ -1,0 +1,107 @@
+{
+  "reviewer": "/root/corpse_contact_audit",
+  "implementers": [
+    "/root",
+    "/root/plains_motion_round2"
+  ],
+  "independent": true,
+  "independence_basis": "Reviewer authored and edited none of the production, native tests, recorder or assets. Actual unchanged/generated PNGs were read; no Godot was run. Only /tmp audit reports were written.",
+  "verdict": "ACCEPT",
+  "scope": "Bounded patrol03 main-mass/head terminal contact and continuous visible collapse as a candidate for user review; explicitly not complete G2/G5, allspecies art, listening or device approval.",
+  "reviewed_source_base_commit": "996a59461b0901c483a7769355b4e2afdd88b078",
+  "source_scope": "Dirty implementation based on recorded head; exact current source hashes below identify the corrected bytes. Do not relabel the old9e9 fullfilm as this new fix.",
+  "source_sha256": {
+    "scripts/enemies/plains_revision_ground.gd": "5602b56cc55f24429e1711e12798da2ea949627c2e278a0b6b34e278edc3f5ec",
+    "scripts/enemies/plains_revision_remains.gd": "64e559a37e9b1d1c2628237eb28db6fc04466284fe9b2b4c5a0be97473850b80",
+    "scripts/enemies/plains_revision_skin.gd": "10a76c7e0a0cc804c13eccf5faadbf2bfdc9e755202e7bbf59ffa454f0e8ae34",
+    "tests/plains_motion_loot_02_motion.gd": "340758b08d163bf0a44a4624c7399aebbf8d8a993f3862beb4de5df21a06fb40"
+  },
+  "previous_rejection": {
+    "path": "/tmp/plains_motion_loot_02_contact_audit.json",
+    "sha256": "dbf7c9a4a1646438ae296cfcf3de6d82e839fd379cd8a24d86935d704da95498",
+    "preserved": true,
+    "old_actual_frame": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/patrol.png"
+  },
+  "actual_frames_viewed": [
+    {
+      "movie_frame": 230,
+      "seconds": 3.8333333333333335,
+      "path": "build/plains_motion_loot_02/review-patrol-03/frames/n0230.png",
+      "sha256": "3e4ce640baa03ce9237d111d537a79e6ee03294854e9557e6abebf27b0ca56ad"
+    },
+    {
+      "movie_frame": 248,
+      "seconds": 4.133333333333334,
+      "path": "build/plains_motion_loot_02/review-patrol-03/frames/n0248.png",
+      "sha256": "fe3f6938ae182d62d4009d82b0d2178da1a1f6fb6778cadce64ecc365396ba64"
+    },
+    {
+      "movie_frame": 270,
+      "seconds": 4.5,
+      "path": "build/plains_motion_loot_02/review-patrol-03/frames/n0270.png",
+      "sha256": "dfc3f3c735287362f4f7d2e172bc5e46866ad467056493a44f9fa3945a575671"
+    },
+    {
+      "movie_frame": 300,
+      "seconds": 5.0,
+      "path": "build/plains_motion_loot_02/review-patrol-03/frames/n0300.png",
+      "sha256": "07631e91c12ce202b875011e002b25176093e9b21e688a9f3ef28202c6d93d67"
+    },
+    {
+      "movie_frame": 321,
+      "seconds": 5.35,
+      "path": "build/plains_motion_loot_02/review-patrol-03/frames/n0321.png",
+      "sha256": "6818ac2078aa4d55dcf1ca1daa11e22f64b11a1c191725df57dc0ee2dd0cc833"
+    },
+    {
+      "movie_frame": 350,
+      "seconds": 5.833333333333333,
+      "path": "build/plains_motion_loot_02/review-patrol-03/frames/n0350.png",
+      "sha256": "cc0de929b9a37417c379ce436857770ddb0222a0582e8206cfb5f65d6ab8b700"
+    }
+  ],
+  "actual_capture": {
+    "trace_sha256": "d6027bd2e28e2a06338c8b05ca572be76580365fecb79a915bb86b0972182f75",
+    "report_sha256": "3ba6e89f404a1efecf98079371385b2a60d85e0084b4ee00261bc17d79a48ab7",
+    "status": "recorded_complete_coverage",
+    "complete": true,
+    "observations": 420,
+    "selected": [
+      "patrol"
+    ],
+    "source_stable": true,
+    "scope": "Actual App normal-size patrol on original review shore, disclosed fixture, not natural traversal"
+  },
+  "observed": [
+    "Standing→acceptedlethal→knee release/body lowering→latehead arrival is coherent across230/248/270/300/321.",
+    "Head and mainmass settle closer to actual contact band and retain separate outlines; the old raised flank no longer reads as a disconnected hoveringstrip.",
+    "300→321→350 stays visually stable during hold/pickup; no wholecorpse bob or new floor translation is introduced.",
+    "Normal-size actualscreen frames substantiate this correction; numericalfoot/raster measurement alone is not used as art approval."
+  ],
+  "code_review": {
+    "change": "Only patrol target adds chest_drop=size.y*.12*topple to upper anatomy, transports neckpivot by same amount, and raises latehead descent .035→.09.",
+    "preserved": "death0/topple/head_drop begin atzero; same livehandoff,33ms localhold, collider/supportowner/facing/snapshot/AI/attack/damage/drop/timing/1wu; no globalcorpseoffset; the otherfive revised targetfunctions anddiver path unchanged."
+  },
+  "native_observed": {
+    "path": "build/plains-motion-loot-02-native-08.log",
+    "sha256": "b375af1928a62670011999ec04d7ef5ea637c7f184ed0023f611ce18481d016b",
+    "marker": "PLAINS MOTION LOOT02: 344 assertions, 0 failures",
+    "strict_error_lines": [],
+    "new_check": "Opaque head sample reaches[-1,0]wu supportband; keeps original abovefloor/continuity/static checks. Raster/chest visual separately viewed.",
+    "not_executed_by_reviewer": true
+  },
+  "offscreen_raster": {
+    "path": "build/plains_motion_loot_02/contact-patrol-1.6.png",
+    "sha256": "f0a591e1c681ac55293d4b97489f312604872970169d6500b3acd0a34860bac8",
+    "viewed": true,
+    "interpretation": "Independent exactshader/mesh1wu diagnostic corroborates a broader groundedhead/rim. It is not a substitute for the six normalgameframes above."
+  },
+  "not_verified": [
+    "Useracceptance or finishedcommercialartquality",
+    "Humanlistening",
+    "Physicaldeviceperformance",
+    "Allfacing/slopes/otherterrain/movingplatformgeometry",
+    "Fullseven-source currentrecording pending root",
+    "Other six complete animation transitions beyond the earlier terminal samples"
+  ]
+}

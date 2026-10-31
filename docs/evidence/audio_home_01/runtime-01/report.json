@@ -1,0 +1,19 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--verbose",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "res://tests/audio_home_runtime.gd"
+  ],
+  "status": "failed",
+  "failure_kind": "nonzero_exit",
+  "exit_code": 1,
+  "seconds": 0.36570844099333044,
+  "timing_scope": "native process including audio teardown; not device acceptance"
+}

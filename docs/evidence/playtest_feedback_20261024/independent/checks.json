@@ -1,0 +1,86 @@
+[
+  {
+    "name": "underworld-ui",
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_underworld_ui_tests.py"
+    ],
+    "budget_seconds": 300,
+    "original_output_preserved": false,
+    "log": "/tmp/feedback-review-20261024/frozen-e5254559/underworld-ui.log",
+    "exit_code": 0,
+    "seconds": 12.942320043002837,
+    "success_marker": true,
+    "strict_errors": [],
+    "log_sha256": "0204821097f509608e2014867ed5a46e4a078bf9f2d7c28645939c6d266fbd9e",
+    "status": "passed"
+  },
+  {
+    "name": "ui-contract",
+    "argv": [
+      "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/playtest-feedback-20261024",
+      "--script",
+      "tests/demo_ui_01/contract_runner.gd",
+      "--",
+      "--output=/tmp/feedback-review-20261024/frozen-e5254559/ui-contract-output"
+    ],
+    "budget_seconds": 180,
+    "original_output_preserved": false,
+    "log": "/tmp/feedback-review-20261024/frozen-e5254559/ui-contract.log",
+    "exit_code": 0,
+    "seconds": 9.583327207001275,
+    "success_marker": true,
+    "strict_errors": [],
+    "log_sha256": "60496360f56dbbf684a41aa1ffa284b3717e21faf90eb1c4b1ae4af6ace965da",
+    "status": "passed"
+  },
+  {
+    "name": "fixed-hud",
+    "argv": [
+      "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/playtest-feedback-20261024",
+      "--script",
+      "tests/underworld_plains/test_fine_hud_bounds.gd"
+    ],
+    "budget_seconds": 180,
+    "original_output_preserved": true,
+    "log": "/tmp/feedback-review-20261024/frozen-e5254559/fixed-hud.log",
+    "exit_code": 0,
+    "seconds": 3.3209291249950184,
+    "success_marker": true,
+    "strict_errors": [],
+    "log_sha256": "a58064612957ffc839adfd00c804963209385ddad8358835b777dcd73d4d50f4",
+    "status": "passed"
+  },
+  {
+    "name": "home-consumers",
+    "argv": [
+      "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/playtest-feedback-20261024",
+      "--script",
+      "tests/home_weapon_consumers_runner.gd"
+    ],
+    "budget_seconds": 240,
+    "original_output_preserved": false,
+    "log": "/tmp/feedback-review-20261024/frozen-e5254559/home-consumers.log",
+    "exit_code": 0,
+    "seconds": 11.234624940989306,
+    "success_marker": true,
+    "strict_errors": [],
+    "log_sha256": "56cb6d7647211997603287b129b4d996f98567f185bd84d9de4fa7bd1346b044",
+    "status": "passed"
+  }
+]

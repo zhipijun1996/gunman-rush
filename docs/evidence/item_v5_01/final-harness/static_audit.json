@@ -1,0 +1,38 @@
+{
+  "reviewer": "/root/final_review",
+  "reviewed_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+  "baseline": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "method": "Independent read-only JSON/byte comparison against actual Git base, not author summary",
+  "harness": {
+    "original_checks": 176,
+    "current_checks": 193,
+    "removed": [],
+    "new_checks": [
+      "item-v5-actives",
+      "item-v5-boss-time",
+      "item-v5-catalog",
+      "item-v5-combat",
+      "item-v5-core-effects",
+      "item-v5-data",
+      "item-v5-defense",
+      "item-v5-economy",
+      "item-v5-formal",
+      "item-v5-inventory",
+      "item-v5-manifest",
+      "item-v5-pause-escape",
+      "item-v5-pool",
+      "item-v5-random-context",
+      "item-v5-review",
+      "item-v5-synergy-economy",
+      "item-v5-ui"
+    ],
+    "only_original_changed_check": "region-bible-tests",
+    "only_changed_field": "inputs",
+    "original_inputs": 139,
+    "current_inputs": 187,
+    "original_input_prefix_preserved": true,
+    "all_original_argv_budgets_success_patterns_unchanged": true,
+    "full_profile": 161
+  },
+  "limits": "Static guard retention and bounded code review only; runtime independent final30 separate."
+}

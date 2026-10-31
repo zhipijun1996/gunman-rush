@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAINS-REVISION-01-ROOT-BELL",
+  "task_id": "PLAINS-MONSTER-REVISION-01",
+  "content_version": "plains-monster-revision-v1",
+  "source_path": "assets/plains_revision_01/root_bell.png",
+  "source_sha256": "f51e9794dfa005b12e98a0a1aacfcbf26a517f5124b851ceb1f358507c983696",
+  "runtime_paths": [
+    "assets/plains_revision_01/root_bell.png"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "prompt_or_reference": "assets/plains_revision_01/source/prompts.json; same six-body atlas, neutral cutout with continuous rig",
+  "processing": "Original source preserved byte-identical. Tight integer crop of alpha>=128 connected component; original RGB/alpha values retained within silhouette, no resize or repaint. Runtime uses 1wu derivative sampling and nearest, independent of atlas resolution.",
+  "usage_scope": "Actual plains ordinary-species live/hurt/death share one texture and joints; existing AI/damage/rewards remain external; player/device acceptance pending.",
+  "license_status": "unknown",
+  "license_source": "Generated-output license not exposed; reference provenance retained; no blanket CC0 claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/enemies/plains_revision_skin.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/plains_revision_01/source/master.png",
+      "sha256": "9026ddb9db0f9933b421b8de76712b90cf73834dc4608fa6f406ca613a653555",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_revision_01/source/first-palette.png",
+      "sha256": "5e217bf0c26f3c2b369621060cfdb9ea2355b79b1927e691085827a211cc1ff7",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_revision_01/source/prompts.json",
+      "sha256": "85d7ffcdd41c44dfa2b9ce99976e8c104dd1362dbbbe7b24decc47425b05e22c",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_revision_01/provenance.json",
+      "sha256": "697762548773540258cf70aa036050b7ab0dbd5724a85de338e5aecce88d0cb4",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_revision_01/manifest.json",
+      "sha256": "f18be3b4e03bc640e21762498066ec782706b0de693c005d0f82510a6a166828",
+      "role": "source_contract"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "reviewed_commit": "d0ba5425601b4d251a7deb2e6ca26d24ab69174e",
+  "source_commit": "d0ba5425601b4d251a7deb2e6ca26d24ab69174e",
+  "parent_commit": "ee0c5698e63758aeda7d6287b0440df80d60ac11",
+  "reviewer": "/root/independent_review",
+  "implementers": [
+    "/root"
+  ],
+  "scope": "Two-file finite preflight closure repair for real dynamic snapshot reads of selected creative-direction-tests. No native/gameplay/history expansion.",
+  "findings": [],
+  "actual_files_sha256": {
+    "tools/production_loop.py": "ec7d7d5f9af2bc0474ac8a05fcdf6013df8768555497fe2162592cf8c5f47981",
+    "tests/test_cloud_inputs.py": "fab8261f429a7e49e9720e01f308c0a3c1f4c6a1ce28286feb6a390b7d3ccf40"
+  },
+  "actual_git_delta_exact_two_files": true,
+  "new_required_edges": [
+    "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+    "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json"
+  ],
+  "preserved_existing_edges": [
+    "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json",
+    "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v10-before-hud-layout.json"
+  ],
+  "preflight_review": {
+    "selection": "Same exact tests/test_region_creative_direction.py command match; only revision tuple extends v10-before-hud-layout to (v10-before-hud-layout,v12-before-foreground-cpu) for same two regions.",
+    "no_directory_or_recursive_history_hydration": true,
+    "same_existing_require_and_materializer_digest_Git_blob_source_guards": true,
+    "assertions_budgets_profiles_runtime_and_consumer_tests": "unchanged"
+  },
+  "real_sparse_Git_regression": {
+    "method": "test_direction_refusal_snapshots_hydrate_without_unrelated_evidence",
+    "all_original_method_names_retained": true,
+    "method_count": 23,
+    "other_22_methods_exact_AST": true,
+    "checks": "Real temporary source Git commit, excluded docs/evidence sparse clone, fetch/fast-forward; required plan and actual materialized sets exactly four paths, restored bytes equal tracked source, unrelated evidence remains absent. Same test expanded; no mock materialization.",
+    "before": {
+      "path": "/workspace/scratch/foreground-refresh-cpu-candidate/v12-sparse-before.log",
+      "sha256": "edb5eb0515b9e2de3069bf040e53b3c378b999990e26d57e74974e99cd85786e",
+      "result": "Original preflight with expanded real sparse regression fails, exactly two new v12 paths missing."
+    },
+    "after": {
+      "path": "/workspace/scratch/foreground-refresh-cpu-candidate/v12-sparse-after.log",
+      "sha256": "5c104e8e84780819aebbadefaa93bff945905008a553175315d0c0ed6862a791",
+      "result": "Parent original23 tests passed,1.428 seconds."
+    }
+  },
+  "complete_production_loop_regression": {
+    "path": "/workspace/scratch/foreground-refresh-cpu-candidate/v12-production-loop.log",
+    "sha256": "3bf3a2993292a83e6e9d8a8c898516dcece2ad74239d2af1eb8253095f588774",
+    "result": "Parent original115 tests passed,25.741 seconds; final OK. Intentional invalid-media control diagnostics do not change suite outcome."
+  },
+  "prior_metadata_review_boundary": "Prior1d013d70 review confirmed content bindings/snapshots and strict fixtures, not sparse preflight closure. This repair closes demonstrated dynamic dependencies; original failure retained.",
+  "not_signed": [
+    "Canonical80/Godot/CI/Release results for this source",
+    "Historical compatibility gameplay or player/device/G5 acceptance"
+  ],
+  "reviewer_actions": "Read-only actual Git/diff, static real-Git test and original before/after23/115 logs. No source edits, native, hydration or suite rerun."
+}

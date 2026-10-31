@@ -145,8 +145,8 @@ for diagram in ('platforming_modules.svg', 'stage_topologies.svg'):
         errors.append(f'Invalid generation design SVG {diagram}: {error}')
 
 tuning = json.loads((ROOT / 'config/player_tuning.json').read_text())
-if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 2:
-    errors.append('Confirmed prototype baseline changed; update decisions and checker intentionally')
+if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 1:
+    errors.append('Current D084 time-energy baseline must retain 60Hz and exactly one airborne round')
 if tuning['max_jumps'] < 0 or not tuning['jump_speeds'] or any(v >= 0 for v in tuning['jump_speeds']):
     errors.append('Invalid jump capability configuration')
 if tuning['recoil_tau'] <= 0:

@@ -1,0 +1,203 @@
+{
+  "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+  "scope": "Only five proposed records plus byte-identical history and source evidence; no files written in integration tree; no engine/CI run",
+  "records": [
+    {
+      "record": "fine-space-05-shared-configuration.json",
+      "previous_record_sha256": "fb6090f8d0a47b4cb5be2aad8cbca4d1fa69f08709f0b5f928564ead87c81b02",
+      "old_version": "fine-space-05-candidate-20261022",
+      "new_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023",
+      "changed_fields": [
+        "content_version",
+        "source_sha256",
+        "runtime_file_sha256",
+        "revision_impact"
+      ],
+      "source_changes": [
+        {
+          "field": "source_sha256",
+          "path": "assets/underworld_plains/scenery_build.json",
+          "old_sha256": "50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe",
+          "new_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+          "old_source": {
+            "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+            "subject": "art: adopt fine pixel presentation and layered formal environments",
+            "path": "/workspace/scratch/asset-rebind/source-history/50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe/scenery_build.json",
+            "bytes": 6409
+          },
+          "new_source": {
+            "commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+            "subject": "art: alternate local landmark groups with open meadow intervals",
+            "path": "/workspace/scratch/asset-rebind/source-history/305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de/scenery_build.json",
+            "bytes": 7658
+          }
+        },
+        {
+          "field": "runtime_file_sha256/assets/underworld_plains/scenery_build.json",
+          "path": "assets/underworld_plains/scenery_build.json",
+          "old_sha256": "50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe",
+          "new_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+          "old_source": {
+            "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+            "subject": "art: adopt fine pixel presentation and layered formal environments",
+            "path": "/workspace/scratch/asset-rebind/source-history/50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe/scenery_build.json",
+            "bytes": 6409
+          },
+          "new_source": {
+            "commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+            "subject": "art: alternate local landmark groups with open meadow intervals",
+            "path": "/workspace/scratch/asset-rebind/source-history/305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de/scenery_build.json",
+            "bytes": 7658
+          }
+        }
+      ],
+      "new_record_sha256": "e466bc8145d64f4e99c6f04cf07671620032bd2f0a58f821231ad53606abcf9b",
+      "history_target": "docs/evidence/four_line_integration_20261023/asset-record-history/fine-space-05-shared-configuration.json"
+    },
+    {
+      "record": "underworld-production-home.json",
+      "previous_record_sha256": "02f071207714e10c370edb8f7194b7c9a9181bae1997db3b8aadab6954b3970c",
+      "old_version": "underworld-feedback-r3-v1",
+      "new_version": "underworld-feedback-r3-v1+four-line-rebind-v1-20261023",
+      "changed_fields": [
+        "content_version",
+        "associated_files",
+        "revision_impact"
+      ],
+      "source_changes": [
+        {
+          "field": "associated_files/1/sha256",
+          "path": "assets/underworld_plains/home/home_build.json",
+          "old_sha256": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35",
+          "new_sha256": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159",
+          "old_source": {
+            "commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+            "subject": "docs: record verified main closeout and parallel baseline [skip ci]",
+            "path": "/workspace/scratch/asset-rebind/source-history/52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35/home_build.json",
+            "bytes": 7130
+          },
+          "new_source": {
+            "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+            "subject": "art: adopt fine pixel presentation and layered formal environments",
+            "path": "/workspace/scratch/asset-rebind/source-history/1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159/home_build.json",
+            "bytes": 7903
+          }
+        }
+      ],
+      "new_record_sha256": "327413b1e625de2338f9a807969f151c3728df55ec44c16c5483e6f36b9a0d71",
+      "history_target": "docs/evidence/four_line_integration_20261023/asset-record-history/underworld-production-home.json"
+    },
+    {
+      "record": "demo_ui_01_r2_registry.json",
+      "previous_record_sha256": "1d5e26024655f86c405f1287800b3b917c031fe04873fc2c3041fa9041ee9a1f",
+      "old_version": "clockwork-ui-r2",
+      "new_version": "clockwork-ui-r2+four-line-rebind-v1-20261023",
+      "changed_fields": [
+        "content_version",
+        "source_sha256",
+        "revision_impact"
+      ],
+      "source_changes": [
+        {
+          "field": "source_sha256",
+          "path": "assets/manifest.json",
+          "old_sha256": "98cb4e0738161c429cee965315ce3bb99e483d20467e476bb87a11018b07d060",
+          "new_sha256": "a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b",
+          "old_source": {
+            "commit": "171d0426c20a8d95ad67fc6a6b7859767a097aef",
+            "subject": "feat(ui): apply R2 pixel typography, clock title and rounded HUD [skip ci]",
+            "path": "/workspace/scratch/asset-rebind/source-history/98cb4e0738161c429cee965315ce3bb99e483d20467e476bb87a11018b07d060/manifest.json",
+            "bytes": 138980
+          },
+          "new_source": {
+            "commit": "759695c611d71dcd8f1350e22ff82e2b85ac22c8",
+            "subject": "Merge fine-depth art and combine UI and world asset registrations",
+            "path": "/workspace/scratch/asset-rebind/source-history/a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b/manifest.json",
+            "bytes": 187032
+          }
+        }
+      ],
+      "new_record_sha256": "5b0709937f164cc0d413c6d06606425f132573299e32723f5af8ba5367f8c4a1",
+      "history_target": "docs/evidence/four_line_integration_20261023/asset-record-history/demo_ui_01_r2_registry.json"
+    },
+    {
+      "record": "underworld-production-manifests.json",
+      "previous_record_sha256": "d470e87f89edcbe810375e3508f94d109dd8ddedf544a3507242f894eb88512b",
+      "old_version": "underworld-feedback-r3-v1",
+      "new_version": "underworld-feedback-r3-v1+four-line-rebind-v1-20261023",
+      "changed_fields": [
+        "content_version",
+        "associated_files",
+        "revision_impact"
+      ],
+      "source_changes": [
+        {
+          "field": "associated_files/0/sha256",
+          "path": "assets/underworld_plains/scenery_build.json",
+          "old_sha256": "59f71c25a6290707271c12717755287485fcd0a5cfcd6cb3e3eeefe21e9fa2bf",
+          "new_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+          "old_source": {
+            "commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+            "subject": "docs: record verified main closeout and parallel baseline [skip ci]",
+            "path": "/workspace/scratch/asset-rebind/source-history/59f71c25a6290707271c12717755287485fcd0a5cfcd6cb3e3eeefe21e9fa2bf/scenery_build.json",
+            "bytes": 5514
+          },
+          "new_source": {
+            "commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+            "subject": "art: alternate local landmark groups with open meadow intervals",
+            "path": "/workspace/scratch/asset-rebind/source-history/305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de/scenery_build.json",
+            "bytes": 7658
+          }
+        }
+      ],
+      "new_record_sha256": "6ae4fbafaaa17d914ed3a2f0c8bde47692d84a4af7e4b5dd7c9434d41c8f27d8",
+      "history_target": "docs/evidence/four_line_integration_20261023/asset-record-history/underworld-production-manifests.json"
+    },
+    {
+      "record": "fine-space-05-asset-registry.json",
+      "previous_record_sha256": "dee96cda94e7c0a92918537a3f29b7cd88bf98d2513552acac490530ef6bd64f",
+      "old_version": "fine-space-05-candidate-20261022",
+      "new_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023",
+      "changed_fields": [
+        "content_version",
+        "source_sha256",
+        "revision_impact"
+      ],
+      "source_changes": [
+        {
+          "field": "source_sha256",
+          "path": "assets/manifest.json",
+          "old_sha256": "cb8d9be19545aff07452cc859ea94ece3bbc411e3d5792269d708bbf8b907bd1",
+          "new_sha256": "a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b",
+          "old_source": {
+            "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+            "subject": "art: adopt fine pixel presentation and layered formal environments",
+            "path": "/workspace/scratch/asset-rebind/source-history/cb8d9be19545aff07452cc859ea94ece3bbc411e3d5792269d708bbf8b907bd1/manifest.json",
+            "bytes": 184272
+          },
+          "new_source": {
+            "commit": "759695c611d71dcd8f1350e22ff82e2b85ac22c8",
+            "subject": "Merge fine-depth art and combine UI and world asset registrations",
+            "path": "/workspace/scratch/asset-rebind/source-history/a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b/manifest.json",
+            "bytes": 187032
+          }
+        }
+      ],
+      "new_record_sha256": "f9cbdbaf76862ace6effc4e4ebf2f3796f319b5bc4c43239bf46ef79763885fb",
+      "history_target": "docs/evidence/four_line_integration_20261023/asset-record-history/fine-space-05-asset-registry.json"
+    }
+  ],
+  "original_validate_asset": {
+    "fine-space-05-shared-configuration.json": [],
+    "underworld-production-home.json": [],
+    "demo_ui_01_r2_registry.json": [],
+    "underworld-production-manifests.json": [],
+    "fine-space-05-asset-registry.json": []
+  },
+  "manifest_union_exact": true,
+  "image_proof": "unchanged-home-image-proof.json",
+  "source_history": "source-history.json",
+  "independent_review": "unverified",
+  "copy_proposed_records_from": "/workspace/scratch/asset-rebind/asset-records",
+  "copy_old_records_from": "/workspace/scratch/asset-rebind/asset-record-history"
+}

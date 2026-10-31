@@ -14,16 +14,19 @@ func frames(count := 3) -> void:
 	for i: int in count: await process_frame
 func button(parent: Node, prefix: String) -> Button:
 	for node: Node in parent.find_children("*","Button",true,false):
-		if (node as Button).text.begins_with(prefix): return node
+		if node.name == prefix or (node as Button).text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
 	return null
 func click(target: Control) -> void:
 	check(target != null,"actual requested button exists")
 	if target == null: return
 	check(target.is_visible_in_tree(),"actual pointer target is visible, not an old hidden control")
 	if not target.is_visible_in_tree(): return
+	# Let deferred initial focus settle before scrolling a later button into
+	# view; otherwise its pending restore can undo this helper's scroll.
+	await frames(4)
 	var parent := target.get_parent()
 	while parent != null:
-		if parent is ScrollContainer: parent.ensure_control_visible(target)
+		if parent is ScrollContainer and parent.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED: parent.ensure_control_visible(target)
 		parent = parent.get_parent()
 	await frames(4)
 	var point := target.get_global_rect().get_center()
@@ -59,8 +62,8 @@ func run() -> void:
 		check(icon!=null and icon.atlas==atlas and icon.filter_clip,"actual complete icon consumer "+key)
 		check(Rect2(Vector2.ZERO,atlas.get_size()).encloses(icon.region),"actual icon region in bounds "+key)
 	var menu := DemoMenu.new();root.add_child(menu)
-	var starts: Array[String]=[];var resumes: Array[int]=[];var leaves: Array[int]=[];var upgrades: Array[int]=[];var patches: Array[Dictionary]=[]
-	menu.requested_plains.connect(func(seed: String): starts.append(seed));menu.requested_resume.connect(func():resumes.append(1));menu.requested_home.connect(func():leaves.append(1));menu.requested_upgrade.connect(func():upgrades.append(1));menu.settings_changed.connect(func(patch: Dictionary):patches.append(patch))
+	var homes: Array[int]=[];var starts: Array[String]=[];var resumes: Array[int]=[];var leaves: Array[int]=[];var upgrades: Array[int]=[];var patches: Array[Dictionary]=[]
+	menu.requested_enter_home.connect(func():homes.append(1));menu.requested_plains.connect(func(seed: String): starts.append(seed));menu.requested_resume.connect(func():resumes.append(1));menu.requested_home.connect(func():leaves.append(1));menu.requested_upgrade.connect(func():upgrades.append(1));menu.settings_changed.connect(func(patch: Dictionary):patches.append(patch))
 	menu.show_title();await frames();await observe("title",menu._root)
 	var touch_settings := button(menu._content,"SETTINGS")
 	for pressed: bool in [true,false]:
@@ -74,7 +77,9 @@ func run() -> void:
 	await click(button(menu._content,"APPLY"));check(patches.size()==1,"valid native Apply submits one validated settings patch")
 	await observe("settings",menu._root);await click(button(menu._content,"BACK"));check(menu.visible_panel==&"title","native settings back returns title")
 	await click(button(menu._content,"HOW TO PLAY"));check(menu.visible_panel==&"help","native help opens");await observe("help",menu._root)
-	await click(button(menu._content,"BACK"));await click(button(menu._content,"风铃平原"));check(starts==["level-design-v2-baseline/08"] and menu.visible_panel.is_empty(),"original primary entry seed and request preserved")
+	await click(button(menu._content,"BACK"));await click(button(menu._content,"风铃平原"));check(homes==[1] and starts.is_empty() and menu.visible_panel.is_empty(),"primary requests Home exactly once without starting a run")
+	menu._seed="level-design-v2-baseline/08";menu.show_region_select();await frames();await click(button(menu._content,"BEGIN"))
+	check(starts==["level-design-v2-baseline/08"],"explicit region entry preserves selected seed and original request")
 	menu.show_home_navigation();await frames();await observe("home_navigation",menu._root)
 	var text := ""
 	for node: Node in menu._content.find_children("*","Button",true,false):text+=node.text
@@ -83,10 +88,11 @@ func run() -> void:
 		menu.set_meta_state({"notes":0,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(service);await frames();await observe("home_"+str(service),menu._root)
 	menu.set_meta_state({"notes":0,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(&"upgrade");await click(button(menu._content,"PERMANENT"));check(upgrades.is_empty(),"actual disabled upgrade rejects native click")
 	menu.set_meta_state({"notes":7,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(&"upgrade");await click(button(menu._content,"PERMANENT"));await click(button(menu._content,"PERMANENT"));check(upgrades.size()==1,"same UI confirmation cannot submit upgrade twice")
-	menu.show_pause();await frames();await observe("pause",menu._root)
+	menu.show_pause();await frames();check(menu.visible_panel==&"build","standalone pause opens backpack preview");await observe("pause_backpack",menu._root)
+	await click(button(menu._content,"PausePage"))
 	await click(button(menu._content,"RETURN TO HOME"));check(menu.visible_panel==&"confirm_home" and leaves.is_empty(),"leave still asks actual UI confirmation")
 	await click(button(menu._content,"KEEP PLAYING"));check(resumes.size()==1 and leaves.is_empty(),"cancel resumes same run without leave")
-	menu.show_pause();await click(button(menu._content,"RETURN TO HOME"));await observe("leave_confirmation",menu._root);await click(button(menu._content,"LEAVE RUN"));check(leaves.size()==1,"confirmed native leave emits once")
+	menu.show_pause();await click(button(menu._content,"PausePage"));await click(button(menu._content,"RETURN TO HOME"));await observe("leave_confirmation",menu._root);await click(button(menu._content,"LEAVE RUN"));check(leaves.size()==1,"confirmed native leave emits once")
 	menu.hide_home()
 	var item: ItemDefinition=load("res://resources/items/jump_blue.tres")
 	var offer: RefCounted=load("res://scripts/shops/shop_offer.gd").new();offer.item=item;offer.price=10;offer.stock=1
@@ -98,16 +104,20 @@ func run() -> void:
 	menu.free();await frames(3)
 	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(4)
 	await click(button(app.menu._content,"风铃平原"));await frames(8)
-	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"native primary title click creates actual formal map1")
+	check(is_instance_valid(app.home_scene) and app.director.state==DemoRunDirector.State.HOME,"native primary title click creates playable Home")
+	app.menu._seed="level-design-v2-baseline/08";app._open_home_navigation();await click(button(app.menu._content,"Explore"));await frames(8)
+	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"Home navigation click creates actual formal map1 for retained UI cases")
 	await observe("actual_formal_hud",app._resources_hud)
-	check(app._pause_button.theme.get_stylebox("normal","Button").bg_color==UnderworldUI.INK,"actual App MENU button consumes shared theme")
+	# The requested rounded material replaces the old black palette snapshot;
+	# keep the original consumer assertion against its effective shared style.
+	check(app._pause_button.theme==app._demo_hud._chrome_theme and app._pause_button.get_theme_stylebox("normal").bg_color==DemoClockworkTheme.create_theme().get_stylebox("normal","CompactButton").bg_color,"actual App MENU button consumes shared theme")
 	var actual_player := app.player
 	var shots: int=app.controller.shoot_ability._shot_serial
 	app.controller.router.set_source_axis(&"keyboard_mouse",1.0)
 	await click(app._pause_button)
-	check(paused and app.menu.visible_panel==&"pause" and app.controller.router.axis==0,"actual pause pointer cancels movement and pauses same world")
+	check(paused and app.menu.visible_panel==&"build" and app.controller.router.axis==0,"actual pause pointer cancels movement and pauses same world")
 	await click(button(app.menu._content,"SETTINGS"));await observe("actual_run_settings",app.menu._root);await click(button(app.menu._content,"BACK"));check(paused,"settings back retains real world pause")
-	await click(button(app.menu._content,"YOUR BUILD"));await observe("actual_build",app.menu._root);await click(button(app.menu._content,"BACK"));await click(button(app.menu._content,"RESUME"))
+	check(app.menu.visible_panel==&"build","settings Back returns to live backpack");await observe("actual_build",app.menu._root);await click(button(app.menu._content,"ResumeAdventure"))
 	check(not paused and app.player==actual_player and app.controller.shoot_ability._shot_serial==shots,"resume preserves player and does not emit an old shot")
 	await click(app.stage.map_view);check(paused and app.map_modal.opened,"actual minimap pointer opens original fog map")
 	var old_zoom: float=app.map_modal.canvas.zoom
@@ -119,19 +129,19 @@ func run() -> void:
 	check(app.overlay._captures.get(77)==&"jump","real touch event captures original jump button index")
 	await observe("actual_touch_hud",app._resources_hud)
 	var menu_touch:=InputEventScreenTouch.new();menu_touch.index=78;menu_touch.position=app.overlay._pause_rect.get_center();menu_touch.pressed=true;Input.parse_input_event(menu_touch);await frames(3)
-	check(paused and app.menu.visible_panel==&"pause" and app.overlay._captures.is_empty(),"actual touch MENU pauses and cancels held touch without stale release")
+	check(paused and app.menu.visible_panel==&"build" and app.overlay._captures.is_empty(),"actual touch MENU pauses and cancels held touch without stale release")
 	menu_touch=InputEventScreenTouch.new();menu_touch.index=78;menu_touch.position=app.overlay._pause_rect.get_center();menu_touch.pressed=false;Input.parse_input_event(menu_touch);await frames(2)
 	touch=InputEventScreenTouch.new();touch.index=77;touch.position=app.overlay.jump_center;touch.pressed=false;Input.parse_input_event(touch);await frames(2)
-	await click(button(app.menu._content,"RESUME"));check(app.overlay._captures.is_empty(),"resume requires a new touch")
+	await click(button(app.menu._content,"ResumeAdventure"));check(app.overlay._captures.is_empty(),"resume requires a new touch")
 	app.overlay.set_enabled(false)
 	for viewport: Vector2i in [Vector2i(960,540),Vector2i(720,1280)]:
 		root.size=viewport;await frames(3);app.menu.show_pause();await frames(4)
 		for control: Node in app.menu._content.find_children("*","Button",true,false):
 			check(root.get_visible_rect().encloses(control.get_global_rect()),"actual small viewport menu buttons fit horizontally and vertically")
 		await observe("viewport_"+str(viewport.x)+"x"+str(viewport.y),app.menu._root)
-		await click(button(app.menu._content,"RESUME"))
+		await click(button(app.menu._content,"ResumeAdventure"))
 	root.size=Vector2i(1280,720);await frames(3)
-	await click(app._pause_button);await click(button(app.menu._content,"RETURN TO HOME"));await click(button(app.menu._content,"LEAVE RUN"));await frames(8)
+	await click(app._pause_button);await click(button(app.menu._content,"PausePage"));await click(button(app.menu._content,"RETURN TO HOME"));await click(button(app.menu._content,"LEAVE RUN"));await frames(8)
 	check(app.home_scene!=null and app.player==null and not paused,"actual leave confirmation unloads run and returns real Home")
 	if app.home_scene!=null:await observe("actual_home_return",app.home_scene._status.get_parent())
 	else:app.abandon_run();await frames(8)

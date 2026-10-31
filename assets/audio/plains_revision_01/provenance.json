@@ -1,0 +1,21 @@
+{
+  "source": "assets/audio/kenney/bell.ogg",
+  "source_sha256": "d21d0f0b782445db579d11e2506b24cd1ac9d664ee33aeaf807761aa7b6fd710",
+  "source_license": "existing Kenney CC0, see existing audio sources/credits",
+  "processing_command": [
+    "ffmpeg",
+    "-y",
+    "-v",
+    "error",
+    "-i",
+    "assets/audio/kenney/bell.ogg",
+    "-af",
+    "asetrate=31752,aresample=44100,atrim=duration=0.38,afade=t=out:st=0.14:d=0.24",
+    "-c:a",
+    "pcm_s16le",
+    "assets/audio/plains_revision_01/root_bell_fall.wav"
+  ],
+  "output": "assets/audio/plains_revision_01/root_bell_fall.wav",
+  "sha256": "6d59721d87c6cddfd2be662b7a140e6f304d0acb254b33ec1bba5d2ca4a059a9",
+  "purpose": "One short low bell at accepted root-bell corpse contact/collapse; existing shared GameAudio voice pool, no BGM change"
+}

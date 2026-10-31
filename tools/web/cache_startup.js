@@ -18,7 +18,19 @@ window.PLAYTEST_CACHE_READY = (async () => {
                     };
                     controller.postMessage({type: 'playtest-cache-version'}, [channel.port2]);
                 });
-                if (current) return true;
+                if (current) {
+                    if (__THREADS_ENABLED__ && !window.crossOriginIsolated) {
+                        // A newly claimed document keeps its original response
+                        // headers. Navigate once under the verified current worker.
+                        // Persistent policy failures must never create a reload loop.
+                        const key = 'playtest-isolation-' + __WORKER_ID__;
+                        if (sessionStorage.getItem(key) === 'reloaded') return false;
+                        sessionStorage.setItem(key, 'reloaded');
+                        window.location.reload();
+                        await new Promise(() => {});
+                    }
+                    return true;
+                }
             }
             await new Promise(resolve => setTimeout(resolve, 100));
         }

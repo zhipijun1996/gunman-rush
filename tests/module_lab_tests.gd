@@ -99,7 +99,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	var paused_clock := lab.elapsed
 	lab.controller.shoot_ability.cooldown_remaining = 0.35
 	await frames(4)
-	check.call(tree.paused and lab.menu.visible_panel == &"pause" and lab.elapsed == paused_clock, "lab pause freezes its actual game clock and opens the existing menu")
+	check.call(tree.paused and lab.menu.visible_panel == &"build" and lab.elapsed == paused_clock, "lab pause freezes its actual game clock and opens the read-only backpack preview")
 	check.call(lab.controller.shoot_ability.cooldown_remaining == 0.35, "lab pause freezes player ability cooldowns instead of inheriting the always-processing home app")
 	check.call(lab.controller.shoot_ability.get_projectiles().is_empty() and lab.controller.router._queue.is_empty(), "lab menu cancels old queued release-fire instead of shooting while paused")
 	lab.menu.show_settings(true)

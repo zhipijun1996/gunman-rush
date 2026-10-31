@@ -1,0 +1,47 @@
+import asyncio,json,time
+from pathlib import Path
+import numpy as np
+from PIL import Image
+from scipy import ndimage as ndi
+from playwright.async_api import async_playwright
+OUT=Path('/workspace/gunman-rush-main/build/verification/mobile-ui-browser')
+def surfaces(path,color=(195,163,102)):
+ a=np.array(Image.open(path).convert('RGB')).astype(int); labels,_=ndi.label(np.max(np.abs(a-color),axis=2)<3); out=[]
+ for b in ndi.find_objects(labels):
+  if b is None:continue
+  y,x=b
+  if x.stop-x.start>60 and y.stop-y.start>15:out.append([x.start,y.start,x.stop-x.start,y.stop-y.start])
+ return sorted(out,key=lambda b:b[2]*b[3],reverse=True)
+def game_rect(path):
+ a=np.array(Image.open(path).convert('RGB'));m=a.max(2)>25
+ ys=np.where(m.mean(1)>.25)[0];xs=np.where(m.mean(0)>.25)[0]
+ return [int(xs[0]),int(ys[0]),int(xs[-1]+1-xs[0]),int(ys[-1]+1-ys[0])]
+async def main():
+ report={'scope':'Actual exported Web GUI, Chromium SwiftShader; screen/DPR simulation, not physical phone/performance acceptance','devices':[]}
+ async with async_playwright() as p:
+  browser=await p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+  for name,w,h,dpr,touch in [('desktop',1280,720,1,False),('mobile',853,290,2.5,True)]:
+   context=await browser.new_context(viewport={'width':w,'height':h},device_scale_factor=dpr,is_mobile=touch,has_touch=touch)
+   page=await context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+   await page.goto('http://127.0.0.1:8800/',wait_until='domcontentloaded');await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=180000);await page.wait_for_timeout(2500)
+   path=OUT/f'{name}-title.png';await page.screenshot(path=str(path));rect=game_rect(path);primary=surfaces(path)[0]
+   row={'device':name,'viewport':[w,h],'dpr':dpr,'game_rect_device_px':rect,'primary_device_px':primary,'primary_logical':[round((primary[0]-rect[0])*1280/rect[2],2),round((primary[1]-rect[1])*720/rect[3],2),round(primary[2]*1280/rect[2],2),round(primary[3]*720/rect[3],2)],'canvas':await page.locator('canvas').evaluate('(c)=>({width:c.width,height:c.height,css:[c.getBoundingClientRect().width,c.getBoundingClientRect().height]})')}
+   async def tap(x,y):
+    if touch:await page.touchscreen.tap(x/dpr,y/dpr)
+    else:await page.mouse.click(x/dpr,y/dpr)
+    await page.wait_for_timeout(1800)
+   await tap(primary[0]+primary[2]/2,primary[1]+primary[3]/2)
+   await page.screenshot(path=str(OUT/f'{name}-home.png'))
+   await tap(rect[0]+rect[2]*1202/1280,rect[1]+rect[3]*42/720)
+   await page.screenshot(path=str(OUT/f'{name}-home-menu.png'))
+   await page.keyboard.press('Escape');await page.wait_for_timeout(1200);await page.screenshot(path=str(OUT/f'{name}-home-resumed.png'))
+   row['page_errors']=errors;report['devices'].append(row);(OUT/'report.json').write_text(json.dumps(report,indent=2));print(json.dumps(row),flush=True)
+   if touch:
+    await page.set_viewport_size({'width':844,'height':390});await page.wait_for_timeout(1800);await page.screenshot(path=str(OUT/'mobile-home-resized.png'))
+   await context.close()
+  await browser.close()
+ report['primary_max_logical_delta']=max(abs(a-b) for a,b in zip(report['devices'][0]['primary_logical'],report['devices'][1]['primary_logical']))
+ assert report['primary_max_logical_delta']<3,report
+ assert not any(x['page_errors'] for x in report['devices']),report
+ (OUT/'report.json').write_text(json.dumps(report,indent=2));print('BROWSER PASS',flush=True)
+asyncio.run(main())

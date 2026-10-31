@@ -1,4 +1,156 @@
+## 2026-10-30 牧风者60HP候选：完整原声影片已录，待用户审片
+
+正式map2接入六招、三阶段加权冻结招组、主动追近、真实平台支撑/跨台及共同姿态判定；致死立即停伤害/风，落位后1.9秒失效，原账本喷出并逐枚领取20金币。运行源7f919a22及140运行引用此后字节不变。分支feature/windkeeper-pressure-01，[PR124](https://github.com/zhipijun1996/gunman-rush/pull/124)为草稿，不自动合main；PR122巡游机保持独立。
+
+主片源b684b76e：88.867秒1280×720/60fps、Godot原声、不剪接，正式App地图2调试入口/一次开战前站位，之后正常输入。实际60有效命中、17组起手/16组完成、玩家3HP存活，三阶段六招/失效/20金币完成。active_assault含合法攻击期额外射击，不是只打两枪稳健打法证明。实际GPU九组两枪均命中，八组第二枪到下次出手前无伤；group9随后接触受伤不能当安全样本。第三枪同条件对照片68.433秒，玩家48次命中后死亡，原失败保留，不把死亡武断归因于第三枪。
+
+实际专项1637/0；原共享core5686/0、enemy-structure733/0、boss-time1182/0；原R3完整wrapper在46e源已通过100/16/54及map1 459帧/map2 5053帧，实际Gold/钩索选择/进入森林。旧失败与所有原断言/预算保留；四Bible绑定fresh通过、原168前缀加专项为169，不代表完整169CI已通过。工坊已更新私密第8版，主片与第三枪失败对照按动作可审；媒体完整HTTP200/SHA和实际Range206已核。直接影片见[实际证据](docs/evidence/windkeeper_pressure_01/README.md)；听感、正常速度整体动作、手机实机和用户认可仍待审，不记done。
+
 # 项目工作规则
+
+## 2026-10-30 用户已选受伤A并授权PR120＋PR121合main（最新）
+
+用户明确“受伤选用A，连同pr120一起合并到main”。采用确切hurt_feedback_06_a／audio-feedback-06-v1，原WAV不重做；[选择原话与指纹](config/audio_director/selected/hurt-20261030.json)。覆盖此前两线“不自动合main”的开发阶段边界。先在PR121组合保留PR120 head11f910f0与音频head2f3a5d9e的全部历史、双方文档和原失败，核精确组合head原完整166双通道/affected全绿后普通merge，不再请求已给授权，不跳红灯或放预算。原V3历史C与05两条保留，不继续当本轮已选。选择A不代签B/C、整体FPS或实体设备。见[本轮范围](docs/worklines/audio_merge_120_121/scope.md)。
+
+## 2026-10-28 PR111合入与试玩发布授权（最新）
+
+用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。修复代码c5a76945已实际通过formal96／0、canopy52／0及内嵌8pure，并经独审（生产0diff）。仍须精确新head完整165全绿才正常合并。原始问题为精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](docs/worklines/main_merge_web_111/scope.md)。
+
+## 2026-10-28 三档宝箱已进入正式两区（当前）
+
+蓝平盖、紫拱盖、金紧凑钟箱的闭／开六态已接平原和森林。原PNG与两区脚底、奖励／金币／claimed账本及RNG不变；成功提交才开盖，取消或拒绝不提前开盖。修复连续领奖后首个W被吞：只复用原输入恢复函数，不削弱按住保护。
+
+实际生产源为`0f7a5d1c401556b38f89d403ce781eda9798f0e6`：原生210／0、平原连续26.066667秒105／0、森林10.1秒41／0。两区1280与960六态对照32／0及26／0；后续仅gallery producer修订、生产字节不变，所有原来源与失败保留。实际Web Playtest PCK隔离15／0。独审已看24张真实PNG及逐帧收据，限定V8技术／视觉接受；旧几何规格失败、实体设备／完整G5和森林小屏旧教程HUD重叠未代签。
+
+冻结测试源／媒体提交`6d02fe70`的10项相关Harness已全部fresh通过（0复用／0失败，非full165／最新远端CI）。Core5686、region原15套、R387＋宝箱210、pure161及Home/V5formal均通过；两份过期单报价fixture已按正式V5三槽迁移，原失败与预算保留。公开两影片与两小屏截图均实际HTTP200、完整SHA一致。后续仅文档／收据收口，PR111保持OPEN，不自动合main。详见[宝箱证据](docs/evidence/chest_art_01/README.md)。
+
+## 2026-10-28 宝箱source04已按用户v8采用接入两区（当前）
+
+用户明确“宝箱接入游戏，继续工作”，已采用source04现图及此前披露的细微尺寸／姿态差异。三档蓝／紫／金的闭／开六态现已注册production资产并接入正式平原与森林消费者；[v8合同](docs/worklines/chest_art_01/spec.md)固定原PNG、完整ROI、每tier共同factor／脚底，交易／Manifest／RNG、平原＋21与森林＋18支撑及1wu采样不变。此为用户采用后的新合同，旧≤1wu配对与金箱44／58规格失败仍保留，不能追签旧PASS；4／4生成用尽，无新图。
+
+原生专项 `build/chest_art_01/native-02.log` 实跑192项／0失败，未见脚本或原生ERROR；未知tier负例的预期warning保留。首次native01的真实场景未就绪／Nil访问失败原件不删，不以其147／0 marker称通过。当前production两区capture／正式开箱媒体仍待root执行与核验；不把原隔离GL或旧影片当新主游戏证据，实体设备与完整G5仍未验。[宝箱证据与边界](docs/evidence/chest_art_01/README.md)。
+
+当前分支feature/item-v5-catalog／PR111，不自动合main。最终commit、当前源正式两区截图／媒体与公开入口由root收口后补实际收据；恢复先核git状态与单Godot租约，不重复生成美术。
+
+> 下方原文为本条之前的阶段交接，保留来源；其中“宝箱待取舍／仅离线／未注册”已被上述实际用户采用与两区实现覆盖，其历史失败仍有效。其余工作线按各自证据判断。
+
+
+## 2026-10-28 家园图鉴候选与宝箱美术取舍（当前）
+
+HOME-CODEX-01已接原relics建筑：共享ItemCatalogV5目录，存档独立记录发现／音符永久解锁／出发单选。配置管理价格、家园准入与先发现开关；每局一个Lv1实例先入背包，仍需装备。保存失败、旧报价、切档、失焦和关闭输入守门已实现；下架／移除条目始终可取消选择。冻结运行源8b83e22b的16项相关Harness全部fresh通过（0复用／0失败，非full165），Core5686、Meta92／UI72／App91；实际PCK隔离79、家园GPU198、商店11及27.133333秒／59断言连续影片均通过且clean。公开下载与PR状态以[交付证据](docs/evidence/home_codex_01/README.md)实际收据为准，不追签开发旧失败影片。
+
+style17／creative20 R2为73真实引用，公开16／19原件不改，旧68仅两个旧Home入口变更；原250输入前缀追加至267。原32＋10及四项绑定fresh通过；实体安卓／手柄、平衡、用户认可未验。
+
+CHEST-ART-01已按用户拒绝长扁金箱重画紧凑蓝／紫／金六态，但仍超冻结几何要求，4／4生成预算耗尽。原图／独审／失败与75项clean单相位GL诊断均[离线归档](docs/evidence/chest_art_01/README.md)，不注册为live、不替换默认主游戏箱体；用户对当前差异的取舍待答。正式接入方案只作离线准备，不伪称完成。PR111保持独立分支，不自动合main。
+
+[图鉴范围](docs/worklines/home_codex_01/scope.md) · [权威规则](docs/rewards_and_builds.md) · [开发证据](docs/evidence/home_codex_01/development/index.json)。恢复先核git状态、最终源/媒体收据和单Godot租约，避免重复生产美术。
+
+
+## 2026-10-28 PR111与公开录屏已交付（最新）
+
+PR111已推送并保持OPEN，不自动合main。运行源56e639d712cab0604807992cce0e6eaeaf56ac08；三段媒体固定在提交00264dbb9120916eb2a979abdf2de43320ea335b，后续仅文档证据。54秒主片及两区各12秒公网均实际HTTP200，完整SHA与本地一致，见[公开核验](docs/evidence/item_art_01/public-download-check/receipt.json)。33项受影响Harness fresh、222主片、19／18两区和导出包隔离加载均通过；完整远端CI已启动，精确head结果以[PR111](https://github.com/zhipijun1996/gunman-rush/pull/111)实际Actions为准，未签full164通过。工作树最后只归档下载证明及交接，不重跑原生或生成美术。
+
+恢复先核PR最新head／checks。若CI具体失败，只修真实失败并保旧报告；通过后等待用户／实体设备／平衡反馈，不自动合并。源码、已实现和未验边界见下方本次候选及[证据索引](docs/evidence/item_art_01/README.md)，不得把旧网页当新候选。
+
+
+## 2026-10-28 道具V5／独立美术候选交付（最新）
+
+分支feature/item-v5-catalog／PR111，运行源56e639d712cab0604807992cce0e6eaeaf56ac08，已同步最新main11e359的音频工作线。72有效道具、16同实例成长与9启用联动沿既有正式宝箱／Boss／商店／暂停背包接入；03H参数按用户确认。新增配置覆写／下架／已支持静态效果的数据新增与原子CLI，常规维护不改装备核心。
+
+72独立图标、32单帧语义资源与三套八帧家族采用现有细像素／旧黄铜／冷钢／克制青光。10原PNG不改像素、1wu世界采样、64MiB预算不提高；原全局shader／音符／物理与主线音频选择不改。R13只技术重绑实际WeaponFeel单叶，其他67引用保留；原32＋10和四绑定检查通过，有限历史输入原239前缀保留至250。新增finite资产适配原51测试完整保留，追加6例纯stdlib通过，不把离线manifest冒充运行资源。
+
+同运行源最终33项受影响Harness全部fresh通过（0复用／0失败，非full164／远端CI），core5686、ART1185、catalog1553、authoring451、森林74、gearUI158。主游戏真实连续54.066667秒／222断言；平原／森林各12秒／19与18断言，三段source_stable且clean。主片完整入包／装备生效／卸装撤销／B11生命上限5→6→5／8→10扩容扣35；已知奖励、靶场、站位、共鸣与扩容金币fixture各自可见明示，不称自然全流程。来源、失败与原件见[当前证据](docs/evidence/item_art_01/README.md)。
+
+正在更新同一PR111与公网下载核验，不自动合main。质量保持review；实体安卓／手柄、低端性能、听感、平衡、用户审美与G5未签；21删除道具不投放，3待重设计／4删除依赖联动禁用。P17基线解释与G19 Boss计精英候选仍保留原设计边界。最新阶段优先于下方历史待验描述，恢复先核git状态、实际PR头与证据，不重复美术生成。
+
+
+## 2026-10-28 同步最新main音频工作线
+
+本分支保留本次道具／美术实现，同步main `11e35968323bbc3d3e95a0b0c0c4fc9378e702cd`（PR109音频）。两份交接文档冲突保留双方原文；武器音效传入真实武器ID、敌人受击语义音效及导出资源条目均保留主线更新。正式音效默认与用户选择记录遵循音频工作线，不由道具美术更改。R13已对实际weapon_feel单叶重新绑定，另67引用不变；原32＋10和四项Harness fresh通过，历史缺件失败保留，有限输入原239前缀追加至250。新影片与最终33项受影响Harness仍待合入后干净源集中执行。PR111不自动合main。
+
+
+## 2026-10-28 道具美术与配置候选收口（最新）
+
+72独立图标、32单帧语义资源及P24／P14／G16三套八帧家族已接入实际目录、暂停背包与世界表现。沿现有细像素、旧黄铜／冷钢／克制青光，世界1wu采样；原全局shader不变。10张源PNG保持原字节，RGBA上界62,908,904字节，原64MiB预算不提高。
+
+当前原生ART1185／0，实际全72菜单534／0，世界shader独立GL11／0，最新完整节点／非零alpha边界83／0。修复施放回调换装后的旧视觉来源与重复通用效果；不改HP、能量和技能结果。G05／P20／陷阱边界已用原brief与全alpha实测修正；旧“下排消失”观察经原PNG和字节相同重播反证，独审已撤回，未改生产代码掩盖假设。所有失败保留。
+
+style16／creative19 R11绑定68实际引用，本轮只更新View／Defense两叶，另66不变；原32＋10与四项纯检查尚待最终冻结执行，不能沿用R10通过。原72基表400与实际配置目录1553、维护479分源保留。最终集中Harness、当前源正式连续影片、PR111推送与公网下载核验仍待执行；旧7afe影片不签新shader。不自动合main。实体安卓／手柄、低端性能、听感、平衡与用户G5仍未验。
+
+[当前证据](docs/evidence/item_art_01/README.md)。恢复先核git状态与实际PR头；native／GL单租约由root协调。
+
+
+## 2026-10-28 ITEM-AUTHOR-01／ITEM-ART-01（当前）
+
+用户继续要求实现表格道具、方便调参与增删，并强调新图标／特效必须与整体美术风格一致。当前本地候选已接入72独立图标、32单帧语义美术资源与P24／P14／G16三套8帧动画家族；10张原始PNG未改像素，实际注册纹理RGBA上界62,908,904字节，保留64MiB上限。UI资源由数据映射，世界沿现有1wu顶点／光照语义，新道具专用采样只补浮点稳定及真实REGION_RECT边界钳制，原全局shader不改。
+
+实际专项：原nativeART924／0；新世界采样GL11／0；完整G19节点／原回退对照GL35／0；真实暂停菜单534／0，两尺寸均完整显示72图标，包含G01／P16修正ROI的52／90px详情。G19真实光学中心偏差0.167wu，正式variant不再重复画旧进化圆点。所有源图留白／原生64请求失败及原生、切片、UV、高比例串图和采证失败链均保留；这些是局部技术证据，不签用户、实体设备、听感或完整玩法平衡。
+
+style16／creative19的R09已绑定68个实际引用，旧61只更新6项、追加6PNG及专用shader；原32＋10及四项绑定检查通过，原202输入保留追加至213。历史15／18、预美术16及R08原件不回写。配置维护的冻结72基表与实际覆写／新增已分离；原维护479／目录1553为先前阶段，最终受影响Harness尚待当前源码集中运行。
+
+当前仍在收口：独审要求明确解决G05／P20／陷阱完整alpha边界与候选brief差异，并补不可用护卫的实际画面（旧探针状态切换后隐藏了下排对象，不能拿数值当画面）。随后冻结源码、补本次材质的正式连续录屏、受影响Harness、权威设计／质量记录、同一PR111推送与公开媒体核验。旧7afe193断言49秒影片只证明前一美术源；不签最新材质。当前分支feature/item-v5-catalog，main879b39e未变，远端PR111仍d9445c0e；本地修改尚未交付，不自动合main。
+
+[维护说明](docs/item_authoring.md) · [架构范围](docs/worklines/item_authoring_01/scope.md) · [美术范围](docs/worklines/item_art_01/spec.md)。恢复先读build/item_art_01/checkpoint.json和git状态，native／GL单租约由root协调。
+
+
+## 2026-10-27 道具V5候选交付（当前）
+
+ITEM-V5-01基于main879b39e，分支feature/item-v5-catalog，冻结运行源`979dbb9ab5f04c82f9c605c775a5e92ee14f7141`。72 件有效道具、16 件同实例成长与9组有效联动已接入正式宝箱／Boss／商店、暂停背包与六个效果家族；21件删除道具不投放。03表H当前建议参数已由用户确认；原表与冲突完整保留。 冻结运行源的选定 30 项原 Harness 全部 fresh 通过（0 复用、0 失败）；这是受影响专项，不是 full161 或远端 CI 全通过。
+
+Manifest现记录实际装备实例的等级／破损／定义指纹与容量，和BuildState共用重算；它用于地图内容回放，不是完整中途存档。真实失败链、限定测试与影片见[证据](docs/evidence/item_v5_01/README.md)，逐件边界见[矩阵](docs/worklines/item_v5_01/consumer_coverage.md)。P17保留未装备的原全速蓄力基线，装备后按表40%／55%／70%运行，基础规则冲突仍待用户选择；G19的Boss计精英为可调候选，未冒称用户确认。S05／S08／S14待重设计，S03／S04／S11／S16因删除道具禁用。实体安卓／手柄、低端性能、平衡、听感、趣味与玩家G5未验。
+
+质量保持review，PR／发布状态以实际交付记录和GitHub为准；旧PR110已合，不把旧合入授权用于本新任务，不自动合main。恢复先看build/item_v5/checkpoint.json、git status和运行进程，真实Native／GL单租约由root协调。
+
+## 2026-10-26 PR110 版本与观察守门补齐（当前）
+
+用户合入授权继续有效。当前style14／creative17的精确测试已同步，region-bible-tests显式追加原回归实际读取的11份冻结style输入，原命令／30秒预算／全部旧输入保留。forest reader的旧源码SHA不刷新，仅允许ecology1处／lift3处持有统计接口的精确迁移，其余策略字节仍受原SHA约束。原本地97、尾部14及独审与失败链见[证据](docs/evidence/run_gear_merge_05/README.md)；它们不代签最新head完整CI。恢复先核PR110：若已merged核main与自动构建，否则等待同head两full通道及affected通过后普通merge。旧阶段不合main／待测试描述按时间保留。
+
+## 2026-10-26 PR110 合入授权（当前）
+
+用户已明确要求“合入到main”，授权将本局背包／齿轮／暂停分页工作线PR110正常合并；下文“不自动合main”是此前开发阶段边界。先核精确head及完整Production impact两通道和affected汇总，通过后执行普通merge，不强推或绕过门禁。当前完整CI发现creative方向版本断言仍v16，唯一测试期望已与实际v17同步；历史版本拒绝、原阶段门和旧失败保留。若PR已merged则核main及自动构建，不重复合并。合并不代签实体设备／用户手感或内容G5。
+
+## 2026-10-26 本局背包与齿轮装备（RUN-GEAR-01）
+
+当前正式道具先入RunInventory，只有EquipmentService已装备实例进入BuildState效果计算；暂停构筑支持自由装卸／原子替换，容量及升级价以config/gear_capacity.json为唯一运行来源。保持随机道具、核心能力和当前武器独立。详见[权威规则](docs/rewards_and_builds.md)和[工作线](docs/worklines/run_gear_01/scope.md)。当前style-v14／creative-v17仅技术重绑实际DemoApp消费者，另35引用、原Bible、像素规格和所有旧版本原件不改；没有新美术生产或继承用户／设备认可。本轮PR面向main，不自动合并。
+
+
+小屏集成修订：保留本帧响应式地图／暂停位置作为避障候选，避免桌面缓存fallback覆盖真实触屏MENU。原960×540失败与4fc独审REVISE保留；两行修复后原UIcontract139/0，最终同源专项／独审和新Web以实际结果为准。
+
+## 2026-10-24 固定状态HUD集成纠正（当前）
+
+左上角生命／共鸣／弹药固定，地图、暂停、钱包、位置提示和拾取Toast继续原实际目标避障。透明VBox不是实心面板；按实际绘制叶子核遮挡，保全部角色／敌人／预警／落点及原反例。共鸣线使用既有最小宽度。正常world保护扫描现已恢复，旧e525“普通HUD不扫描世界”的CPU说明不适用于本修订。当前style-v13／creative-v16仅再重绑DemoApp，另外35项与原v11/v14字节保留；[实际失败与修复](docs/evidence/playtest_feedback_20261024/hud-integration/README.md)，完整CI及新Web以实际收据为准。
+
+## 2026-10-24 当前试玩反馈修复
+
+当前任务[PLAYTEST-FEEDBACK-20261024](docs/worklines/playtest_feedback_20261024/scope.md)：普通HUD固定viewport安全边缘，不因角色/镜头运动自动搬位置；开始游戏进入可操作Home。原arms武器工坊提供现有3种Lv1（pulse_gun/shadow_shuriken/recoil_bomb），仅会话记忆；正式出发携带选择，返回Home保留，刷新后默认枪。怪物共用已接受普通受击状态与身体tint，死亡/攻击预警/HP/Boss弱点独立；共享表现不得改变伤害与资源。Web独有HiDPI修复须核真实DPR2 buffer/CSS输入与nearest合成，不能靠软件GPU代签实体性能。
+
+本轮技术绑定为[style-v11](docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json)、两区creative-v14，仅更新DemoApp/HomeScene两项真实消费者，其他34项、原32px/32wu/1wu及原Bible/旧v10/v13原件不改。下方v10及此前版本是历史来源；新重绑不继承旧ACCEPT/玩家/设备认可。
+
+
+当前共享画风技术绑定为 [style-v10](docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json)，两区方向creative-v13；仅重绑前景CPU修复的Presentation，其他35引用、像素规格及旧v9/v12原件保留。原自动早刷新取消，前景原晚刷新负责每帧更新；显式refresh仍即时，不能把此优化宣称居民逐帧等价或用户视觉认可。见[实际前后验证](docs/evidence/four_line_integration_20261023/foreground-cpu/README.md)。下文v9/v12为此前HUD修订的历史来源。
+
+## 2026-10-23 当前 Demo 优先与兼容延期（最新）
+
+用户明确：“暂时可以不考虑旧存档旧特性兼容。”本轮只为当前 Demo 的真实运行与交付守门；旧存档迁移、冻结历史版本回放暂不作为合入／发布前提。原断言与检查保留，`legacy-compat` 为显式手动 profile；未执行记延期／未验证，不能记通过。`root-bell-current` 保留当前正式40图、物理及准入拒绝验证；Golden 默认验证当前64图，历史使用 `--with-legacy`。此范围选择覆盖下文同主题旧兼容要求，不豁免当前保存、玩法、资源、导出及实际试玩回归。
+
+共享玩法规则（如弹药/时间能量）即便由UI反馈触发，也按System Engineering交接：先明确当前契约，并验证真实平原/森林消费者，再推广；不能只改局部UI测试，把跨区冲突留到最后。headless交互测试显式使用项目窗口尺寸，不能把64×64默认窗口当目标设备。
+
+定位失败先单独运行相关 runner；修复后再执行所属检查。相同输入的已通过证据按 Harness digest 复用，不因无关文档修改重跑；最终冻结源码再集中执行合入 CI。生产线交付须同时指出共享接口变化及受影响的正式消费者，避免把规则冲突留到集成时才发现。
+
+当前 CI 修复见 [Harness](docs/harness.md#ci前置检查与完整双通道)：选中的有限纯 Python 子守门在输入恢复后、引擎和 Foundry 前执行；完整 Integration 复用原物理双通道与合流验证，局部仍跑原相关检查。完整本地工作区通过不能替代稀疏 CI 输入闭包证明；前置检查、部分通道和完整通过须分别记录。具体新流程的远端结果以 Actions 为准，不把本地门禁演练记作 CI 通过。
+
+收缩必需输入前须贯穿Python入口、Godot runner和实际audit核实范围，并真实运行同一scope；顶层参数不代表底层已停止历史回放。内部启动多个Godot进程的重检查使用独占Harness调度，避免嵌套并发争CPU；保全部场景、原断言和预算。
+
+## 2026-10-23 四线集成与用户提供BGM（最新）
+
+用户已明确授权人物、怪物、细粒度美术和UI四条新线整理合入main，并提供家园、平原／平原Boss、森林／森林Boss五首原MP3接入。旧“BGM待用户提供”是历史状态，本轮授权使用这些原文件，不生成或替换为其他音乐；来源与原字节见assets/audio/bgm/provenance.json。Bible原文和最初选择快照保留，当前音乐交付以本轮记录为准。
+
+共享画风沿用用户选择的native32px/32wu与1wu采样。当前[style-v9 HUD绑定](docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json)保留v7其他35引用，仅绑定本轮实际HUD避敌布局的DemoApp改动；两区方向为creative-v12，原v7及v10方向原件保留。v7保留v6全部20引用，按最新默认人物授权追加实际正式适配与动作资源；v6仅重绑尸体保存消费者，旧v5/v6不回写，独审与组合回归单列。黄金切片已由用户暂停，不合入旧plains-golden工作线。用户最新指定新版人物默认，正式Home／平原／森林接入新motion与武器反馈；家园character服务改名“织时匠”，保持id／位置，在同一游戏会话更换新／经典外观，刷新后默认新外观；开发样板入口保留作对照。正式共享改动按实际回归；不把合并称全部角色或商业品质验收。
+
+
+## 2026-10-22 最新用户选择：统一细粒度
+
+用户原话：“细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。”共享规范现为 [style-v5](docs/creative_direction/bibles/style-continuity-20261022-v5.json)：正式地形原生32px/32wu，世界表现1wu采样/nearest，47邻接和精确边界/物理语义保留；从高分母版整理细源，不能放大旧16px冒充。家园、平原及森林共享消费者同步；材质/生态/光色表达区域差异。新采用暖光、清透空气透视和稀疏前景，以正式合屏评价。旧v4的16px描述属于历史，原文、许可与原Bible字节保持不动。用户确认的是粒度方向，不是新内容最终美术或真机认可。实际范围与剩余问题见 [FINE-SPACE-05](docs/evidence/fine_space_05/README.md)。
 
 ## 2026-10-22 商业 Demo 多 Cloud 生产
 
@@ -66,6 +218,7 @@
 - [.agents/skills/weapon-creator/SKILL.md](.agents/skills/weapon-creator/SKILL.md)：新增或替换武器、武器升级分支及整套攻击动作/特效。
 - [.agents/skills/ability-creator/SKILL.md](.agents/skills/ability-creator/SKILL.md)：新增移动/战斗能力、二段跳、贴墙/蹬墙跳或能力解锁与能力锁。
 - [.agents/skills/story-writer/SKILL.md](.agents/skills/story-writer/SKILL.md)：剧情、NPC、区域碎片和多轮结局；统一循环规则、角色知识与简明写法。
+- [.agents/skills/audio-director/SKILL.md](.agents/skills/audio-director/SKILL.md)：SFX设计、敌人/钩索/界面/区域声音；自动读声音风格、事件、许可库与配方，交可听候选与真实Godot对照，保留五首原BGM。
 - [.agents/skills/project-integration/SKILL.md](.agents/skills/project-integration/SKILL.md)：Git、结构与交付辅助。
 
 当前创作统一从 [区域创作总谱](docs/creative_direction/README.md) 开始，前置 [.agents/skills/region-creative-director/SKILL.md](.agents/skills/region-creative-director/SKILL.md) 负责Bible缺口、未选方向的比较/取舍与RETHINK；[.agents/skills/visual-director/SKILL.md](.agents/skills/visual-director/SKILL.md) 负责完整游戏画面，不取代区域创作决策。

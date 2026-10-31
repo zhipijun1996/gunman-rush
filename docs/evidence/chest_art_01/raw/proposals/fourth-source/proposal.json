@@ -1,0 +1,877 @@
+{
+  "task_id": "CHEST-ART-01",
+  "kind": "fourth-source-readonly-complete-ROI-foot-and-common-scale-diagnostic",
+  "source_path": "build/chest_art_01/generation/candidate-04.source.png",
+  "source_sha256": "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "source_mode": "RGBA",
+  "unique_RGBA8_bytes": 6291456,
+  "8MiB_source_budget_pass": true,
+  "source_alpha_extrema": [
+    0,
+    254
+  ],
+  "source_alpha_zero_count": 856844,
+  "source_alpha1_count": 15472,
+  "source_nonzero_alpha_bbox": [
+    0,
+    4,
+    1518,
+    1008
+  ],
+  "generation_calls_executed": 4,
+  "max_generation_calls_total": 4,
+  "remaining_generation_calls": 0,
+  "source_pixels_modified": false,
+  "engine_started": false,
+  "production_writes": false,
+  "source_runtime_admission": false,
+  "full_natural_partition": {
+    "x_boundaries": [
+      0,
+      535,
+      1028,
+      1536
+    ],
+    "y_boundaries": [
+      0,
+      498,
+      1024
+    ],
+    "selection": "Choose midpoints of actual full-alpha0 strips, not presumed equal cells: x535 in530:541, x1028 in1006:1050, y498 in494:503 (all ranges upper-exclusive). All source pixels retained in six partitions.",
+    "full_height_zero_alpha_columns": [
+      [
+        1,
+        41
+      ],
+      [
+        494,
+        497
+      ],
+      [
+        498,
+        499
+      ],
+      [
+        502,
+        503
+      ],
+      [
+        510,
+        511
+      ],
+      [
+        512,
+        513
+      ],
+      [
+        514,
+        515
+      ],
+      [
+        516,
+        517
+      ],
+      [
+        518,
+        521
+      ],
+      [
+        522,
+        529
+      ],
+      [
+        530,
+        541
+      ],
+      [
+        542,
+        545
+      ],
+      [
+        992,
+        993
+      ],
+      [
+        994,
+        1003
+      ],
+      [
+        1004,
+        1005
+      ],
+      [
+        1006,
+        1050
+      ],
+      [
+        1488,
+        1489
+      ],
+      [
+        1490,
+        1494
+      ],
+      [
+        1496,
+        1497
+      ],
+      [
+        1498,
+        1509
+      ],
+      [
+        1510,
+        1511
+      ],
+      [
+        1512,
+        1513
+      ],
+      [
+        1514,
+        1517
+      ],
+      [
+        1518,
+        1536
+      ]
+    ],
+    "full_width_zero_alpha_rows": [
+      [
+        0,
+        4
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        10,
+        19
+      ],
+      [
+        26,
+        27
+      ],
+      [
+        28,
+        33
+      ],
+      [
+        36,
+        37
+      ],
+      [
+        40,
+        41
+      ],
+      [
+        42,
+        44
+      ],
+      [
+        46,
+        47
+      ],
+      [
+        114,
+        115
+      ],
+      [
+        120,
+        121
+      ],
+      [
+        122,
+        125
+      ],
+      [
+        126,
+        127
+      ],
+      [
+        128,
+        131
+      ],
+      [
+        132,
+        133
+      ],
+      [
+        134,
+        135
+      ],
+      [
+        138,
+        139
+      ],
+      [
+        472,
+        473
+      ],
+      [
+        474,
+        475
+      ],
+      [
+        478,
+        480
+      ],
+      [
+        494,
+        503
+      ],
+      [
+        932,
+        943
+      ],
+      [
+        944,
+        977
+      ],
+      [
+        978,
+        979
+      ],
+      [
+        980,
+        987
+      ],
+      [
+        988,
+        997
+      ],
+      [
+        998,
+        999
+      ],
+      [
+        1000,
+        1005
+      ],
+      [
+        1006,
+        1007
+      ],
+      [
+        1008,
+        1024
+      ]
+    ],
+    "y512_rejected": "Would split actual gold open crown: structural alpha>32 beginsy506; true empty inter-row strip is494:503.",
+    "alternative_valid_boundaries": "Reviewer x512/x1024 andy503 also sit at alpha0 boundaries; chosen middle-gutter partition gives retained alpha1 tails more margin. Neither layout may be claimed original requested fixed-grid success."
+  },
+  "threshold_meaning": "0 means every nonzero alpha;1 means>=2;8>=9;32>=33;128>=129;200>=201. Thresholds are diagnostic only, never source edits/cutoff/discard/ROI alpha crop permission.",
+  "six_ROIs": [
+    {
+      "tier": "medium",
+      "state": "closed",
+      "full_ROI_xywh": [
+        0,
+        0,
+        535,
+        498
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          0,
+          4,
+          530,
+          494
+        ],
+        "1": [
+          50,
+          206,
+          478,
+          440
+        ],
+        "8": [
+          52,
+          207,
+          473,
+          439
+        ],
+        "32": [
+          53,
+          208,
+          473,
+          438
+        ],
+        "128": [
+          53,
+          208,
+          472,
+          438
+        ],
+        "200": [
+          53,
+          208,
+          472,
+          438
+        ]
+      },
+      "alpha1_tail_pixels": 2927,
+      "all_nonzero_pixels": 87625,
+      "ROI_boundary_nonzero_counts": {
+        "left": 5,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic": {
+        "start_y_absolute": 305,
+        "bbox_absolute_exclusive": [
+          53,
+          305,
+          473,
+          438
+        ],
+        "width_source_px": 420,
+        "definition": "Lower box and attached corner feet; alpha>32 diagnostic only, not source/render cutoff or production crop."
+      },
+      "source_foot_pivot_absolute": [
+        263.0,
+        438
+      ],
+      "source_foot_pivot_ROI_local": [
+        263.0,
+        438
+      ],
+      "pivot_semantics": "Fixed visible support baseline derived from structural body, maps to existing world foot; retain alpha1 tails in complete ROI."
+    },
+    {
+      "tier": "medium",
+      "state": "open",
+      "full_ROI_xywh": [
+        0,
+        498,
+        535,
+        526
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          41,
+          503,
+          522,
+          1008
+        ],
+        "1": [
+          42,
+          572,
+          487,
+          919
+        ],
+        "8": [
+          44,
+          574,
+          485,
+          917
+        ],
+        "32": [
+          44,
+          574,
+          485,
+          917
+        ],
+        "128": [
+          45,
+          575,
+          484,
+          916
+        ],
+        "200": [
+          45,
+          575,
+          484,
+          916
+        ]
+      },
+      "alpha1_tail_pixels": 2742,
+      "all_nonzero_pixels": 135276,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic": {
+        "start_y_absolute": 737,
+        "bbox_absolute_exclusive": [
+          52,
+          737,
+          485,
+          917
+        ],
+        "width_source_px": 433,
+        "definition": "Lower box and attached corner feet; alpha>32 diagnostic only, not source/render cutoff or production crop."
+      },
+      "source_foot_pivot_absolute": [
+        268.5,
+        917
+      ],
+      "source_foot_pivot_ROI_local": [
+        268.5,
+        419
+      ],
+      "pivot_semantics": "Fixed visible support baseline derived from structural body, maps to existing world foot; retain alpha1 tails in complete ROI."
+    },
+    {
+      "tier": "high",
+      "state": "closed",
+      "full_ROI_xywh": [
+        535,
+        0,
+        493,
+        498
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          541,
+          37,
+          994,
+          446
+        ],
+        "1": [
+          547,
+          155,
+          978,
+          445
+        ],
+        "8": [
+          551,
+          156,
+          976,
+          443
+        ],
+        "32": [
+          552,
+          157,
+          976,
+          442
+        ],
+        "128": [
+          552,
+          157,
+          975,
+          442
+        ],
+        "200": [
+          552,
+          157,
+          975,
+          441
+        ]
+      },
+      "alpha1_tail_pixels": 2034,
+      "all_nonzero_pixels": 107788,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic": {
+        "start_y_absolute": 289,
+        "bbox_absolute_exclusive": [
+          552,
+          289,
+          976,
+          442
+        ],
+        "width_source_px": 424,
+        "definition": "Lower box and attached corner feet; alpha>32 diagnostic only, not source/render cutoff or production crop."
+      },
+      "source_foot_pivot_absolute": [
+        764.0,
+        442
+      ],
+      "source_foot_pivot_ROI_local": [
+        229.0,
+        442
+      ],
+      "pivot_semantics": "Fixed visible support baseline derived from structural body, maps to existing world foot; retain alpha1 tails in complete ROI."
+    },
+    {
+      "tier": "high",
+      "state": "open",
+      "full_ROI_xywh": [
+        535,
+        498,
+        493,
+        526
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          547,
+          540,
+          1006,
+          1006
+        ],
+        "1": [
+          550,
+          541,
+          990,
+          921
+        ],
+        "8": [
+          553,
+          543,
+          987,
+          919
+        ],
+        "32": [
+          553,
+          543,
+          987,
+          919
+        ],
+        "128": [
+          553,
+          543,
+          986,
+          919
+        ],
+        "200": [
+          554,
+          544,
+          986,
+          918
+        ]
+      },
+      "alpha1_tail_pixels": 2163,
+      "all_nonzero_pixels": 143524,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic": {
+        "start_y_absolute": 735,
+        "bbox_absolute_exclusive": [
+          555,
+          735,
+          987,
+          919
+        ],
+        "width_source_px": 432,
+        "definition": "Lower box and attached corner feet; alpha>32 diagnostic only, not source/render cutoff or production crop."
+      },
+      "source_foot_pivot_absolute": [
+        771.0,
+        919
+      ],
+      "source_foot_pivot_ROI_local": [
+        236.0,
+        421
+      ],
+      "pivot_semantics": "Fixed visible support baseline derived from structural body, maps to existing world foot; retain alpha1 tails in complete ROI."
+    },
+    {
+      "tier": "region_top",
+      "state": "closed",
+      "full_ROI_xywh": [
+        1028,
+        0,
+        508,
+        498
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          1050,
+          23,
+          1518,
+          472
+        ],
+        "1": [
+          1050,
+          142,
+          1480,
+          469
+        ],
+        "8": [
+          1052,
+          144,
+          1478,
+          467
+        ],
+        "32": [
+          1052,
+          144,
+          1478,
+          467
+        ],
+        "128": [
+          1053,
+          144,
+          1477,
+          467
+        ],
+        "200": [
+          1053,
+          145,
+          1477,
+          466
+        ]
+      },
+      "alpha1_tail_pixels": 3009,
+      "all_nonzero_pixels": 104058,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic": {
+        "start_y_absolute": 327,
+        "bbox_absolute_exclusive": [
+          1052,
+          327,
+          1478,
+          467
+        ],
+        "width_source_px": 426,
+        "definition": "Lower box and attached corner feet; alpha>32 diagnostic only, not source/render cutoff or production crop."
+      },
+      "source_foot_pivot_absolute": [
+        1265.0,
+        467
+      ],
+      "source_foot_pivot_ROI_local": [
+        237.0,
+        467
+      ],
+      "pivot_semantics": "Fixed visible support baseline derived from structural body, maps to existing world foot; retain alpha1 tails in complete ROI."
+    },
+    {
+      "tier": "region_top",
+      "state": "open",
+      "full_ROI_xywh": [
+        1028,
+        498,
+        508,
+        526
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          1058,
+          504,
+          1488,
+          944
+        ],
+        "1": [
+          1058,
+          504,
+          1487,
+          932
+        ],
+        "8": [
+          1060,
+          506,
+          1485,
+          930
+        ],
+        "32": [
+          1061,
+          506,
+          1484,
+          930
+        ],
+        "128": [
+          1061,
+          507,
+          1484,
+          929
+        ],
+        "200": [
+          1061,
+          507,
+          1483,
+          929
+        ]
+      },
+      "alpha1_tail_pixels": 2597,
+      "all_nonzero_pixels": 137749,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic": {
+        "start_y_absolute": 748,
+        "bbox_absolute_exclusive": [
+          1061,
+          748,
+          1484,
+          930
+        ],
+        "width_source_px": 423,
+        "definition": "Lower box and attached corner feet; alpha>32 diagnostic only, not source/render cutoff or production crop."
+      },
+      "source_foot_pivot_absolute": [
+        1272.5,
+        930
+      ],
+      "source_foot_pivot_ROI_local": [
+        244.5,
+        432
+      ],
+      "pivot_semantics": "Fixed visible support baseline derived from structural body, maps to existing world foot; retain alpha1 tails in complete ROI."
+    }
+  ],
+  "tier_pairs": [
+    {
+      "tier": "medium",
+      "width_target_wu": 52,
+      "width_tolerance_wu": 1,
+      "closed_height_target_wu": 32,
+      "closed_height_limit_or_original_target_wu": 32,
+      "open_height_max_wu": 46,
+      "shared_factor_wu_per_source_px": 0.12192262602579132,
+      "factor_definition": "Width target divided by average lower-body source width; identical isotropic factor in both poses. Provisional diagnostic, not proposed threshold change.",
+      "lower_body_widths_source_px": [
+        420,
+        433
+      ],
+      "lower_body_widths_wu": [
+        51.207502930832355,
+        52.792497069167645
+      ],
+      "paired_lower_body_width_delta_wu": 1.5849941383352872,
+      "paired_width_limit_wu": 1,
+      "paired_width_meets_limit": false,
+      "minimum_shared_factor_while_both_widths_target_plus_minus1": 0.12142857142857143,
+      "maximum_shared_factor_while_both_widths_target_plus_minus1": 0.12240184757505773,
+      "minimum_possible_pair_width_delta_wu_at_allowed_common_factor": 1.5785714285714285,
+      "can_any_allowed_shared_factor_meet_pair_width_limit": false,
+      "core_alpha_gt32_heights_source_px": {
+        "closed": 230,
+        "open": 343
+      },
+      "core_heights_world_at_shared_factor": {
+        "closed": 28.042203985932005,
+        "open": 41.81946072684642
+      },
+      "core_heights_world_at_minimum_allowed_common_factor": {
+        "closed": 27.928571428571427,
+        "open": 41.65
+      },
+      "max_shared_factor_from_closed_and_open_height_bounds": 0.13411078717201166,
+      "width_height_factor_ranges_intersect": true,
+      "full_nonzero_tail_heights_world_at_factor": {
+        "closed": 59.742086752637746,
+        "open": 61.570926143024614
+      },
+      "closed_explicit_height_ceiling_wu": null,
+      "closed_target_interpretation": "Gold v6 has explicit maximum44. Blue32/purple38 are preserved original closed targets; this diagnostic does not invent a new hard max from target wording."
+    },
+    {
+      "tier": "high",
+      "width_target_wu": 58,
+      "width_tolerance_wu": 1,
+      "closed_height_target_wu": 38,
+      "closed_height_limit_or_original_target_wu": 38,
+      "open_height_max_wu": 54,
+      "shared_factor_wu_per_source_px": 0.13551401869158877,
+      "factor_definition": "Width target divided by average lower-body source width; identical isotropic factor in both poses. Provisional diagnostic, not proposed threshold change.",
+      "lower_body_widths_source_px": [
+        424,
+        432
+      ],
+      "lower_body_widths_wu": [
+        57.45794392523364,
+        58.54205607476635
+      ],
+      "paired_lower_body_width_delta_wu": 1.0841121495327102,
+      "paired_width_limit_wu": 1,
+      "paired_width_meets_limit": false,
+      "minimum_shared_factor_while_both_widths_target_plus_minus1": 0.13443396226415094,
+      "maximum_shared_factor_while_both_widths_target_plus_minus1": 0.13657407407407407,
+      "minimum_possible_pair_width_delta_wu_at_allowed_common_factor": 1.0754716981132075,
+      "can_any_allowed_shared_factor_meet_pair_width_limit": false,
+      "core_alpha_gt32_heights_source_px": {
+        "closed": 285,
+        "open": 376
+      },
+      "core_heights_world_at_shared_factor": {
+        "closed": 38.6214953271028,
+        "open": 50.95327102803738
+      },
+      "core_heights_world_at_minimum_allowed_common_factor": {
+        "closed": 38.31367924528302,
+        "open": 50.54716981132076
+      },
+      "max_shared_factor_from_closed_and_open_height_bounds": 0.14361702127659576,
+      "width_height_factor_ranges_intersect": true,
+      "full_nonzero_tail_heights_world_at_factor": {
+        "closed": 55.42523364485981,
+        "open": 63.14953271028037
+      },
+      "closed_explicit_height_ceiling_wu": null,
+      "closed_target_interpretation": "Gold v6 has explicit maximum44. Blue32/purple38 are preserved original closed targets; this diagnostic does not invent a new hard max from target wording."
+    },
+    {
+      "tier": "region_top",
+      "width_target_wu": 60,
+      "width_tolerance_wu": 1,
+      "closed_height_target_wu": 42,
+      "closed_height_limit_or_original_target_wu": 44,
+      "open_height_max_wu": 58,
+      "shared_factor_wu_per_source_px": 0.1413427561837456,
+      "factor_definition": "Width target divided by average lower-body source width; identical isotropic factor in both poses. Provisional diagnostic, not proposed threshold change.",
+      "lower_body_widths_source_px": [
+        426,
+        423
+      ],
+      "lower_body_widths_wu": [
+        60.21201413427562,
+        59.78798586572439
+      ],
+      "paired_lower_body_width_delta_wu": 0.42402826855123676,
+      "paired_width_limit_wu": 1,
+      "paired_width_meets_limit": true,
+      "minimum_shared_factor_while_both_widths_target_plus_minus1": 0.13947990543735225,
+      "maximum_shared_factor_while_both_widths_target_plus_minus1": 0.1431924882629108,
+      "minimum_possible_pair_width_delta_wu_at_allowed_common_factor": 0.4184397163120568,
+      "can_any_allowed_shared_factor_meet_pair_width_limit": true,
+      "core_alpha_gt32_heights_source_px": {
+        "closed": 323,
+        "open": 424
+      },
+      "core_heights_world_at_shared_factor": {
+        "closed": 45.65371024734983,
+        "open": 59.92932862190813
+      },
+      "core_heights_world_at_minimum_allowed_common_factor": {
+        "closed": 45.05200945626478,
+        "open": 59.139479905437355
+      },
+      "max_shared_factor_from_closed_and_open_height_bounds": 0.13622291021671826,
+      "width_height_factor_ranges_intersect": false,
+      "full_nonzero_tail_heights_world_at_factor": {
+        "closed": 63.46289752650177,
+        "open": 62.19081272084806
+      },
+      "closed_explicit_height_ceiling_wu": 44,
+      "closed_target_interpretation": "Gold v6 has explicit maximum44. Blue32/purple38 are preserved original closed targets; this diagnostic does not invent a new hard max from target wording."
+    }
+  ],
+  "geometry_conclusion": {
+    "medium": "FAIL paired lower-box width<=1wu even at minimum common factor keeping both widths52±1.",
+    "high": "FAIL paired lower-box width<=1wu even at minimum common factor keeping both widths58±1.",
+    "region_top": "FAIL v6 closed<=44/open<=58 at width60±1 despite compact form improvement. Pair base width alonepasses. No allowed common factor meets simultaneous width and height bounds."
+  },
+  "original_request_conformance": "Requested32px gutters/fixed512-grid/native4px clusters not passed; keep prior source/request failures. True alpha0 partition isolation allows diagnostics, not production admission.",
+  "not_proven": [
+    "actual world1wu GL/fractional-camera/neighbor region proof",
+    "formal claimed state and reward interaction",
+    "user aesthetic acceptance of fourth source",
+    "physical target devices"
+  ],
+  "independent_crosscheck": "final_review independently reported same blue420/433, purple424/432, gold426/423 lower widths and gold323/424 full structural heights; source-only review report to be linked separately."
+}

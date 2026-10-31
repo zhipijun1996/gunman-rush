@@ -1,0 +1,8 @@
+{'name': 'contract', 'script': 'tests/demo_ui_01/contract_runner.gd', 'checks': 149, 'failures': 0, 'exit_code': 0, 'seconds': 12.428646777996619, 'command': ['bash', 'tools/godot.sh', '--headless', '--audio-driver', 'Dummy', '--resolution', '1280x720', '--path', '.', '--script', 'tests/demo_ui_01/contract_runner.gd'], 'scope': 'Original current native UI consumer, headless pixels unverified'}
+Traceback (most recent call last):
+  File "/workspace/scratch/verify_gear_extra.py", line 12, in <module>
+    text=run_engine(cmd,180)
+         ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

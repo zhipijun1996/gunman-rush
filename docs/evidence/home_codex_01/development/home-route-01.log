@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=linked_rings areas=20 fallback=
+TERRAIN STUDY: solids=80 pieces=281 setup_ms=34
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"fef585916575097b20e99ec87a914eccdefbc445ca4076d1d26bb1ce5ffe7d33","map_index":1,"region":"plains","seed":"plains-a685732cfe2969fb25f40f8b37360788"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"click":9,"confirm":1,"death":1,"motion_heavy":3,"motion_jump":11,"motion_land":15,"step":76},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.122}
+UNDERWORLD HOME TERRACES: 187 assertions, 0 failures
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/run_underworld_home_terrace_tests.py", line 159, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/workspace/gunman-rush/tools/run_underworld_home_terrace_tests.py", line 156, in main
+    if failure: raise failure
+                ^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/run_underworld_home_terrace_tests.py", line 143, in main
+    verify(output, receipt, before, after, expected, 0)
+  File "/workspace/gunman-rush/tools/run_underworld_home_terrace_tests.py", line 87, in verify
+    raise RuntimeError(f'Expected exactly {expected} successful current Home assertions; got {markers}')
+RuntimeError: Expected exactly 185 successful current Home assertions; got [('187', '0')]

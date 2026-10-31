@@ -1,0 +1,21 @@
+import json,os,runpy,sys
+from pathlib import Path
+ROOT=Path.cwd().resolve();out=ROOT/'build/item_v5/guard-audit';name=sys.argv[1];script={'creative-direction-tests':'tests/test_region_creative_direction.py','region-bible-tests':'tests/test_region_bible.py'}[name];seen=set()
+def observe(event,args):
+ if event!='open' or not args or not isinstance(args[0],(str,bytes,os.PathLike)):return
+ try:
+  p=Path(os.fsdecode(args[0])).resolve()
+  if not p.is_relative_to(ROOT):return
+  rel=p.relative_to(ROOT).as_posix()
+  if rel.startswith('build/'):return
+  if '/__pycache__/' in rel and rel.endswith('.pyc'):
+   bits=rel.split('/');base=bits[-1].split('.')[0]+'.py';rel='/'.join(bits[:-2]+[base])
+  seen.add(rel)
+ except (ValueError,OSError):return
+sys.addaudithook(observe);sys.argv=[script];rc=0
+try:runpy.run_path(str(ROOT/script),run_name='__main__')
+except SystemExit as e:rc=e.code or 0
+inputs=json.loads((ROOT/'tools/harness/profiles.json').read_text())['checks'][name]['inputs']
+missing=sorted(p for p in seen if not any(p==i or p.startswith(i.rstrip('/')+'/') for i in inputs))
+(out/(name+'-read-trace.json')).write_text(json.dumps({'check':name,'exit_code':rc,'read_paths':sorted(seen),'undeclared_read_paths':missing},indent=2)+'\n')
+print('UNDECLARED READS',missing);raise SystemExit(rc)

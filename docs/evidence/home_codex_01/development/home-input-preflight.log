@@ -1,0 +1,63 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "0f25921dd41949f220999293013f065ce758189d",
+  "checks": [
+    "underworld-home"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "2f58fbff3e9d4a4ffbbc44c176903666bd5122ce5563e450b6a214419c169fd8",
+      "cwd": "/workspace/gunman-rush",
+      "checks": [
+        {
+          "id": "underworld-home",
+          "argv": [
+            "python3",
+            "tools/run_underworld_home_terrace_tests.py"
+          ],
+          "timeout_seconds": 180,
+          "success_pattern": "^UNDERWORLD HOME TERRACE CHECK: [1-9][0-9]* assertions,0 failures; twelve actual stations, original App business and basic input route$",
+          "inputs": [
+            "assets/underworld_plains",
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "tests/underworld_plains",
+            "tests/audio_teardown.gd",
+            "project.godot",
+            "tools/run_tests.py",
+            "tools/run_underworld_home_tests.py",
+            "tools/run_underworld_home_terrace_tests.py"
+          ],
+          "artifact_paths": [
+            "build/underworld_r3/home"
+          ]
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "materialized": [],
+  "rounds": [],
+  "prefetch": [],
+  "materialized_bytes": 0,
+  "sparse_patterns_changed": false,
+  "seconds": 0.367
+}

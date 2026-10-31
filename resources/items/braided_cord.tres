@@ -3,16 +3,18 @@
 [ext_resource type="Script" path="res://scripts/builds/build_modifier.gd" id="2"]
 [sub_resource type="Resource" id="Effect"]
 script = ExtResource("2")
-stat_id = &"ground_energy_recovery"
+stat_id = &"focus_stamina_recovery"
 operation = 2
 value = 1.35
 [resource]
 script = ExtResource("1")
 stable_id = &"braided_cord"
+definition_version = 3
 display_name = "回能绳索 / Braided Cord"
+gear_cost = 1
 rarity = 0
 modifiers = Array[ExtResource("2")]([SubResource("Effect")])
 duplicate_policy = 1
 stack_limit = 2
 icon_key = &"braid"
-description = "落地恢复射击精力更快，适合连续机关和失误后的整备。"
+description = "接地时的时间能量恢复速度提高35%。"

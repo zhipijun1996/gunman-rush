@@ -4,7 +4,7 @@ extends Node2D
 signal opened
 const GATE_ART := preload("res://assets/plains_v3/windchime_gate_beam.png")
 const BELL_ART := preload("res://assets/plains_v3/windchime_switch.png")
-const BELL_SOUND := preload("res://assets/audio/kenney/bell.ogg")
+const BELL_SOUND := GameAudio.MECHANISM_BELL_SOUND
 var access_bodies: Array[StaticBody2D] = []
 var access_positions: Array[Vector2] = []
 var access_sequence_steps: Array[int] = []
@@ -53,7 +53,7 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	process_physics_priority = 1150
 	_bell_audio = AudioStreamPlayer2D.new()
 	_bell_audio.stream = BELL_SOUND
-	_bell_audio.volume_db = -10.0
+	_bell_audio.volume_db = GameAudio.MECHANISM_BELL_GAIN_DB
 	_bell_audio.max_distance = 1200.0
 	_bell_audio.max_polyphony = 1
 	_bell_audio.position = bell
@@ -333,7 +333,7 @@ func _draw_gate(rect: Rect2, opacity: float) -> void:
 	draw_texture_rect_region(GATE_ART, Rect2(rect.position.x,rect.end.y-bottom_height,rect.size.x,bottom_height), Rect2(366,1747,105,bottom_height/scale_value), tint)
 
 func _play_bell() -> void:
-	if get_tree().get_first_node_in_group(&"game_audio") != null: GameAudio.cue(self, &"bell")
+	if get_tree().get_first_node_in_group(&"game_audio") != null: GameAudio.cue(self, &"mechanism_bell")
 	else: _bell_audio.play()
 
 # Multiple receivers belong to the same mechanism actor and health epoch. Both
@@ -431,7 +431,9 @@ func _underworld_bell_swing() -> float:
 	# the moving carrier's phase and the accepted projectile transaction stay owned
 	# by the original mechanism. Paused SceneTree freezes this clock naturally.
 	var elapsed := _clock-_opened_at
-	return sin(elapsed*28.0)*0.16*maxf(0,1-elapsed/.5) if _opened_at>=0 and elapsed<.5 else 0.0
+	var accepted_ring:=sin(elapsed*28.0)*0.16*maxf(0,1-elapsed/.5) if _opened_at>=0 and elapsed<.5 else 0.0
+	var breeze:=sin(_clock*.82+bell_position.x*.005)*.018 if bool(get_meta("fine_space_presentation",false)) else 0.0
+	return accepted_ring+breeze
 
 func _underworld_feedback_origins() -> PackedVector2Array:
 	# Every actual linked receiver shares the accepted state, so a return-side

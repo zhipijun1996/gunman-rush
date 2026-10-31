@@ -1,0 +1,89 @@
+{
+  "ci_run": "40985331850",
+  "observed_parent_report": "prepare selection: 21 tests, 1 failure; old suffix assertion full[144:] rejects appended real plains-motion-loot-02",
+  "original_sha256": "71c9f51b13332659119ea16765776df2722bdabcfadc94ea943f85dc4d48109a",
+  "candidate_sha256": "0055cc9a0894441220ff62ec1e58c132e1b722e246c5bee510cc8f921a8bcada",
+  "scope": "test_production_plan.py only, no policy/runtime/profile edits",
+  "preserves": [
+    "original144 digests unchanged",
+    "original165 digests unchanged",
+    "all original166 checks/order explicit frozen prefix",
+    "old22 appended checks unchanged",
+    "all old negative cases unchanged",
+    "original lane membership kept, new case added to parallel only",
+    "native budgets240/360 unchanged"
+  ],
+  "new_case": "plains-motion-loot-02",
+  "expected_counts": [
+    167,
+    92,
+    75
+  ],
+  "group_closure": [
+    "gameplay",
+    "art",
+    "full"
+  ],
+  "source_freeze": "Applied only after parent released actual-GL seven-species source freeze",
+  "local_original_failure": {
+    "command": [
+      "python3",
+      "tests/test_production_plan.py"
+    ],
+    "exit_code": 1,
+    "tests": 21,
+    "failures": 1,
+    "log": "local-original-21-tests-failure.log",
+    "classification": "separate local reproduction of CI run40985331850 job123834904836 prepare failure, exact source prefix5332137; original downloaded CI log retained separately"
+  },
+  "current_tests": {
+    "command": [
+      "python3",
+      "tests/test_production_plan.py"
+    ],
+    "exit_code": 0,
+    "tests": 22,
+    "failures": 0,
+    "log": "current-22-tests.log"
+  },
+  "all_original_test_methods_retained": true,
+  "unchanged_original_methods": [
+    "test_docs_do_not_export_or_claim_test_execution",
+    "test_shared_player_has_short_feedback_then_full_integration",
+    "test_same_extension_does_not_grant_unknown_source_narrow_scope",
+    "test_formal_player_body_retains_style_binding_and_full_integration",
+    "test_formal_enemy_mapping_does_not_admit_unreviewed_components",
+    "test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes",
+    "test_deleted_or_renamed_old_path_remains_a_real_impact",
+    "test_web_dependency_closure_exports_only_at_integration",
+    "test_overlapping_changes_run_each_check_once",
+    "test_new_harness_check_or_policy_typo_is_not_silently_skipped",
+    "test_dependency_cycle_and_missing_consumer_fail_before_execution",
+    "test_planner_policy_requires_own_regression_without_weakening_config_fallback",
+    "test_release_names_original_delivery_and_does_not_certify_full_profile",
+    "test_paths_cannot_escape_worktree",
+    "test_actual_nonzero_process_stops_later_commands",
+    "test_source_guard_rejects_actual_source_mutation",
+    "test_early_boundary_is_only_selected_with_its_real_parent",
+    "test_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full",
+    "test_precheck_failure_stops_actual_planned_harness_execution",
+    "test_precheck_source_mutation_fails_guard_and_preserves_failure_receipt"
+  ],
+  "changed_original_methods": [
+    "test_physical_lanes_require_the_exact_original_full_set"
+  ],
+  "added_methods": [
+    "test_plains_motion_loot_is_a_real_registered_native_case_with_group_closure"
+  ],
+  "independent_review": "pending motion reviewer; author cannot self approve",
+  "ci_job": "123834904836",
+  "ci_source_revision_prefix": "5332137",
+  "original_ci_log": {
+    "path": "ci-run40985331850-job123834904836-prepare-original.log",
+    "source_path": "build/plains-motion-loot-02-ci-40985331850-prepare.log",
+    "sha256": "bd618b8d871d244190487223bf595fdb2471875308512840c31be29f0666e2ad",
+    "bytes": 53624,
+    "retrieval": "parent fetched original GitHub prepare job log; child copied exact bytes",
+    "result": "21 tests, 1 failure"
+  }
+}

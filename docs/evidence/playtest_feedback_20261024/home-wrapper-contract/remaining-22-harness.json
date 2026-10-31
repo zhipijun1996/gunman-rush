@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "started_at": "20261024T053858.127303Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-ui",
+      "argv": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "b5ddb61b378c62f6d7dcb0ee3506a9b82f53b72cfd3ade39fcb62469da4047b8",
+      "log": "underworld-ui.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820340.9947345,
+      "ended_at_unix": 1792820353.855417,
+      "duration_seconds": 12.861,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "check_token": "4845d995623a45dfafbca0e83dba53b5",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/underworld-ui",
+      "reused": false
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "069981788a612b215ff729857027322943cfb4a508695bd43fc9dda83237b387",
+      "log": "underworld-damage-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820354.3312166,
+      "ended_at_unix": 1792820358.858516,
+      "duration_seconds": 4.527,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "check_token": "a95b4adb265043539788b63656724ea8",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/underworld-damage-feedback",
+      "reused": false
+    },
+    {
+      "id": "underworld-projectile-vfx",
+      "argv": [
+        "python3",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "35ac90e6805d378269d65131c24e83c1ca3b34166ec8d9382101ed94f93fd152",
+      "log": "underworld-projectile-vfx.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820359.341813,
+      "ended_at_unix": 1792820363.722298,
+      "duration_seconds": 4.38,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "check_token": "fb7de637aaec4bb7b6164f9e7207245d",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/underworld-projectile-vfx",
+      "reused": false
+    },
+    {
+      "id": "underworld-world-objects",
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_object_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "5e1b71d9b0bc823bf9fa5875a3cc37e452463b10b23f67f483f2c36055305504",
+      "log": "underworld-world-objects.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820364.2289827,
+      "ended_at_unix": 1792820375.2232158,
+      "duration_seconds": 10.994,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_r3_object_tests.py"
+      ],
+      "check_token": "e223b775aad14ec2a00f4bfae9802a5c",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/underworld-world-objects",
+      "reused": false
+    },
+    {
+      "id": "underworld-continuous-bosses",
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_boss_tests.py",
+        "--full-fights"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "154b6e3fa1cf779543d5575ab62997885a22147ee5cca2561187d984f2ba36f2",
+      "log": "underworld-continuous-bosses.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820375.700948,
+      "ended_at_unix": 1792820408.495231,
+      "duration_seconds": 32.794,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_r3_boss_tests.py",
+        "--full-fights"
+      ],
+      "check_token": "d1423b17c21e47399636042e06db568c",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/underworld-continuous-bosses",
+      "reused": false
+    },
+    {
+      "id": "forest-camera-stability",
+      "argv": [
+        "python3",
+        "tools/run_forest_camera_stability.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "af936c820bb8c35de65b11cd43bbf2ba1504424e65b3223df8c09a131d41da14",
+      "log": "forest-camera-stability.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820408.9797168,
+      "ended_at_unix": 1792820415.718282,
+      "duration_seconds": 6.739,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_camera_stability.py"
+      ],
+      "check_token": "39ef127e339f4bc89cc4666f200c8eb9",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-camera-stability",
+      "reused": false
+    },
+    {
+      "id": "forest-hazard-records",
+      "argv": [
+        "python3",
+        "tools/run_forest_hazard_records_tests.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "fe282a924b98c8b7cb902e697d88e763927995346bef1d0389f12a1c0080eb68",
+      "log": "forest-hazard-records.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820416.1838229,
+      "ended_at_unix": 1792820420.6615186,
+      "duration_seconds": 4.478,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_hazard_records_tests.py"
+      ],
+      "check_token": "e952b95f88c540b3b3f7307af26c45cf",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-hazard-records",
+      "reused": false
+    },
+    {
+      "id": "forest-fruit-contract",
+      "argv": [
+        "python3",
+        "tools/run_forest_fruit_contract.py",
+        "--output",
+        "build/forest_fruit_routes04/harness-{check_token}"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "75aaa3dbd2a1cc3bbc5609ccdecc3317cc1eefa544637dbdf624ea659c6ac159",
+      "log": "forest-fruit-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820421.137059,
+      "ended_at_unix": 1792820435.6901104,
+      "duration_seconds": 14.553,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_fruit_contract.py",
+        "--output",
+        "build/forest_fruit_routes04/harness-1bc75e0c99bb40ac8351f0cc5b183466"
+      ],
+      "check_token": "1bc75e0c99bb40ac8351f0cc5b183466",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-fruit-contract",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-weaver-tests",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_weaver.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "52fbea77244296cd4eb187c65884d243bde0cdf127fa1c5f343b3ebe568e3107",
+      "log": "forest-bible-weaver-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820436.1968396,
+      "ended_at_unix": 1792820438.1705227,
+      "duration_seconds": 1.974,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_weaver.py"
+      ],
+      "check_token": "3e27c370fb8f43c79abd05e83fae6a25",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-weaver-tests",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-discoveries-tests",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_discoveries.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "3efdf7620202f5c172cbfd833eefd43633007ffd2dce36c0314dca754c5d0761",
+      "log": "forest-bible-discoveries-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820438.6387036,
+      "ended_at_unix": 1792820444.8811662,
+      "duration_seconds": 6.242,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_discoveries.py"
+      ],
+      "check_token": "af601f5fe9484b688039e5e78b92d61e",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-discoveries-tests",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-integration-tests",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_integration.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "3568c2cc57e46503abf139056ac662292e18f87e3712543ac2fcd7a802407136",
+      "log": "forest-bible-integration-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820445.4252014,
+      "ended_at_unix": 1792820451.564642,
+      "duration_seconds": 6.139,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_integration.py"
+      ],
+      "check_token": "8de184b6b0b9475c9e429b5e94c4ca8c",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-integration-tests",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-world-contract",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_contract.py",
+        "--output",
+        "build/region_bible_v2/world-contract/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "eadf62115d78129083dba683e473db82197056bdbab9a21a63c3015f50168ea1",
+      "log": "forest-bible-world-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820452.055074,
+      "ended_at_unix": 1792820477.1775284,
+      "duration_seconds": 25.122,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_world_contract.py",
+        "--output",
+        "build/region_bible_v2/world-contract/49704790ef084149bd22f3bb7a0eea44"
+      ],
+      "check_token": "49704790ef084149bd22f3bb7a0eea44",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-world-contract",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-world-connection",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection/{check_token}",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "b140e1905c50d7f4b5ece1058258cf06a22765a0ebc3bcceec65a5c03468f635",
+      "log": "forest-bible-world-connection.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820477.6950202,
+      "ended_at_unix": 1792820547.8589973,
+      "duration_seconds": 70.164,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection/b447b58fe33848bd947193eef671f4be",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "check_token": "b447b58fe33848bd947193eef671f4be",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-world-connection",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-world-backbranch",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch/{check_token}",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "d5e96f085c325452fc6f86249603527d8e48f966ca50648aab7b4861949867be",
+      "log": "forest-bible-world-backbranch.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820548.4525297,
+      "ended_at_unix": 1792820630.7871575,
+      "duration_seconds": 82.335,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch/44e6b960e5b7469c986ff054b3ac5ae5",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "check_token": "44e6b960e5b7469c986ff054b3ac5ae5",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-world-backbranch",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-ambience",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_ambience.py",
+        "--output-dir",
+        "build/region_bible_v2/ambience/harness/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "0058d297417f91f97b13a2f6c1771ca32dbcb8b418e30e601df0f7f66c1126c1",
+      "log": "forest-bible-ambience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820631.4483318,
+      "ended_at_unix": 1792820637.086394,
+      "duration_seconds": 5.638,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_ambience.py",
+        "--output-dir",
+        "build/region_bible_v2/ambience/harness/093e782430ea4e0991d3ba9eb97e0921"
+      ],
+      "check_token": "093e782430ea4e0991d3ba9eb97e0921",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-ambience",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-app-discoveries",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_app_discoveries.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "a6f4a11dae40c7f9020dba81239564fc76d67013ea35fa62aed54254f81a3b04",
+      "log": "forest-bible-app-discoveries.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820637.6624203,
+      "ended_at_unix": 1792820646.9534192,
+      "duration_seconds": 9.291,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_app_discoveries.py"
+      ],
+      "check_token": "9a1b91abafe4450aba4b7ddaf68cfe49",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-app-discoveries",
+      "reused": false
+    },
+    {
+      "id": "forest-practice-bell-restore",
+      "argv": [
+        "python3",
+        "tools/run_forest_practice_bell_restore.py",
+        "--output-dir",
+        "build/region_bible_v2/practice-bell/harness/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "a9a56c0a6bdd5373ab1649333641a4513032b6b6db7ee8fcfa578c10d8cb35af",
+      "log": "forest-practice-bell-restore.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820647.441208,
+      "ended_at_unix": 1792820652.5720217,
+      "duration_seconds": 5.131,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_practice_bell_restore.py",
+        "--output-dir",
+        "build/region_bible_v2/practice-bell/harness/e2b60ed311744913b8277d5451cd5c52"
+      ],
+      "check_token": "e2b60ed311744913b8277d5451cd5c52",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-practice-bell-restore",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-world-connection-map1",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection-map1/{check_token}",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "a86b742a648df2a07c07d14b96113446a2c8dcdf828b0a85d8f8cefb6f920715",
+      "log": "forest-bible-world-connection-map1.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820653.0852711,
+      "ended_at_unix": 1792820702.402063,
+      "duration_seconds": 49.317,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection-map1/898f8dc15c7742a48fc7ed89bc14d2bc",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "check_token": "898f8dc15c7742a48fc7ed89bc14d2bc",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-world-connection-map1",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-world-backbranch-map1",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch-map1/{check_token}",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "6d428fb60f6d8d58311d25ab4243fa5a95d3d17602c3f0bc27186ad027bf76ec",
+      "log": "forest-bible-world-backbranch-map1.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820702.9765596,
+      "ended_at_unix": 1792820764.1715817,
+      "duration_seconds": 61.195,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch-map1/8b188363ebea41199683a57e5faefb91",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "check_token": "8b188363ebea41199683a57e5faefb91",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-world-backbranch-map1",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-world-spiral",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_spiral_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-spiral/{check_token}",
+        "--mode",
+        "full",
+        "--seed",
+        "forest-depth-hollow-00"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "531ca801e620d411fe89f7b53bcacf2b1619534325297ecb9f7d399be0f17188",
+      "log": "forest-bible-world-spiral.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820764.7518446,
+      "ended_at_unix": 1792820835.318886,
+      "duration_seconds": 70.567,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_spiral_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-spiral/b0f9c198d8dc4d5695ec1d4caf914097",
+        "--mode",
+        "full",
+        "--seed",
+        "forest-depth-hollow-00"
+      ],
+      "check_token": "b0f9c198d8dc4d5695ec1d4caf914097",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-world-spiral",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-versions",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_versions.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-bible-versions/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "69d15d2e666a43f595dc676271920eb2f79605255f75f60435964b3b2389702f",
+      "log": "forest-bible-versions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820835.9526985,
+      "ended_at_unix": 1792820857.4957001,
+      "duration_seconds": 21.543,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_versions.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-bible-versions/c01e069cd40848bb9647cd45f5d40e14"
+      ],
+      "check_token": "c01e069cd40848bb9647cd45f5d40e14",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/forest-bible-versions",
+      "reused": false
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "9e206d3cc920711253a3444d1302d558712bc5472ee0fb60e191323430610414",
+      "log": "cloud-preview-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792820858.0087266,
+      "ended_at_unix": 1792820861.5504427,
+      "duration_seconds": 3.542,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/f24a647d7b114566b4b8b3bc61ad070e"
+      ],
+      "check_token": "f24a647d7b114566b4b8b3bc61ad070e",
+      "artifact_directory": "/tmp/playtest-feedback-20261024/build/verification/harness/20261024T053858.127303Z/artifacts/cloud-preview-runtime",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "working_files": {},
+  "commit": "f6570eb5d7eb8ff53094433d277066a50ee1a3b8",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 525.994,
+  "jobs": 1,
+  "release": false
+}

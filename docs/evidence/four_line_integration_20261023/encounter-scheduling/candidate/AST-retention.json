@@ -1,0 +1,29 @@
+{
+  "status": "candidate_not_applied_not_native_verified",
+  "source_head": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+  "original_sha256": "44490d3cc43aef786888602ca6c265f6945fa40fba059a1307d020b8bb62820f",
+  "candidate_sha256": "d6a6162a9e224a1feddf55d81486ea8e93efb443d4d134c97937e049d37a4ee0",
+  "unchanged_top_level_functions": [
+    "restore_historical_endpoint",
+    "require",
+    "historical_boundary_rejection",
+    "historical_worker",
+    "historical_checks",
+    "validate_native",
+    "validate_reward_map_identity",
+    "validate_reward_entry",
+    "native_run",
+    "validate_early_entry_contact_conflict",
+    "reward_entry_run",
+    "validate_dead_low_guard",
+    "reward_entry_checks",
+    "reward_entry_identity_checks",
+    "policy_tamper_checks",
+    "claim_tamper_checks"
+  ],
+  "original_main_guard_call_occurrences_retained": 26,
+  "original_main_guard_call_AST_multiset_contained": true,
+  "CASES_AST_exact": true,
+  "budget_changes": false,
+  "scope": "Only six current producer scheduling; native verification remains root-owned"
+}

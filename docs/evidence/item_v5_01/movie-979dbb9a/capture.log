@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 60 FPS...
+ITEM V5 MOVIE PHASE: title / 0 / 正式主游戏 · 点击开始，进入可操作家园
+ITEM V5 MOVIE PHASE: home_walk / 87 / 家园 · D 行走到原出口，W 打开出发界面
+ITEM V5 MOVIE PHASE: departure / 787 / 原家园出口 · 点击出发进入正式风铃平原
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=288 setup_ms=35
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"78b664810df3d34ba76c89a3ccf28a6adeba31fe62f774a086367fa17f140926","map_index":1,"region":"plains","seed":"level-design-v2-baseline/08"}
+ITEM V5 MOVIE PHASE: plains / 869 / 正式平原 · 宝箱领取后进入背包，不会自动装备
+ITEM V5 MOVIE PHASE: cache_fixture / 924 / 宝箱演示 · 仅调整位置，使用原 W 交互
+ITEM V5 MOVIE PHASE: cache_choice / 932 / 原奖励按钮 · 通过正式奖励服务领取 V5 道具
+ITEM V5 MOVIE PHASE: backpack / 1033 / 暂停背包 · 选择图标查看 Lv 与当前效果
+ITEM V5 MOVIE PHASE: fixture_loadout / 1124 / 测试配置入包 · 飞轮、双响投架、三机械巡钟
+ITEM V5 MOVIE PHASE: equipped / 1348 / 实际背包装备 8 / 8 · 当前主动：回环飞轮
+ITEM V5 MOVIE PHASE: training / 1429 / 训练配置 · 两侧实体高 HP 靶，保持原角色与战斗规则
+ITEM V5 MOVIE PHASE: primary_charge / 1519 / 真实鼠标普攻命中 5 次 · 每次 7 共鸣，准备飞轮
+ITEM V5 MOVIE PHASE: companions / 1729 / 三机械巡钟自动攻击 · 派生伤害不额外获得共鸣
+ITEM V5 MOVIE PHASE: flywheels / 1841 / 按 R · 一次消耗 35，共鸣飞轮严格向左右两侧发射
+ITEM V5 MOVIE PHASE: result / 1993 / 真实配置演示完成 · 飞轮往返、三巡钟、背包与共鸣账本一致
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"click":18,"confirm":7,"motion_land":1,"step":52,"weapon_hit":5,"weapon_pulse":5},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":1,"plains":1},"track":"plains"}],"released":true,"seconds":0.078}
+ITEM V5 MOVIE: 2083 frames, 93 assertions, 0 failures
+--------------------------------------------------------------------------------
+Done recording movie at path: /workspace/gunman-rush/build/item_v5/movie-source-979dbb9a-01/raw.avi
+2093 frames at 60 FPS (movie length: 00:00:34:53), recorded in 00:02:36 (21% of real-time speed).
+CPU render time: 98.39 seconds (average: 47.01 ms/frame)
+GPU render time: 100.88 seconds (average: 48.20 ms/frame)
+Encoding time: 24.39 seconds (average: 11.65 ms/frame)
+--------------------------------------------------------------------------------

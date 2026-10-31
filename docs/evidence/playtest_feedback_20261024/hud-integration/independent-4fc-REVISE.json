@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "verdict": "REVISE",
+  "reviewed_commit": "4fc1e7a55c191dbe56cd7bc385539fc42b8f7898",
+  "reviewer": "/root/hud_integration_review",
+  "independence": "Reviewer did not edit production or tracked tests/docs. Own ignored probes and original validation entry points only.",
+  "scope": "Fixed status anchor, real drawn HUD coverage, unchanged scene occlusion/negative guards and actual native UI consumers; not whole game/G5/device/subjective acceptance.",
+  "findings": [
+    {
+      "id": "HUD-TOUCH960-01",
+      "severity": "blocking_current_mobile_navigation",
+      "status": "confirmed",
+      "native_ui_contract": "139 checks / 1 failure, actual exit1",
+      "failed_condition": "paused=true; shot_serial=0 remains baseline0; menu.visible_panel is empty instead of pause",
+      "viewport": [
+        960,
+        540
+      ],
+      "menu_bounds": [
+        1104,
+        24,
+        144,
+        64
+      ],
+      "map_bounds": [
+        1023.111,
+        18,
+        248.8889,
+        64
+      ],
+      "touch_point": [
+        1176,
+        56
+      ],
+      "cause": "Cached map position is preferred and all preset candidates collide with reservations. Fallback reuses an invalid cached map position covering the actual touch MENU. The current responsive position supplied by present_navigation is missing from candidates.",
+      "minimal_fix": "Include current map.position and pause_button.position as candidates while retaining cached preference, all original reservations/blockers/scoring and actual native tap assertions.",
+      "evidence": [
+        "ui-contract.log",
+        "ui-contract-diagnostic.log"
+      ]
+    },
+    {
+      "id": "HUD-LABEL-INK-01",
+      "severity": "guard_false_negative",
+      "status": "fixed_in_reviewed_commit",
+      "facts": "Real GL identified 11 quiet/16 notice ink pixels beyond raw Label rectangles. Final Label grow2 covers every rasterized status pixel; notice native font width56 plus6 padding then grow2 also contains all ink."
+    }
+  ],
+  "validation": {
+    "original_harness": {
+      "path": "build/verification/harness/20261024T035300.143891Z/report.json",
+      "status": "passed",
+      "check": "plains-redesign-scene",
+      "check_status": "passed",
+      "seconds": 131.224,
+      "scope": "Original eight routes, ten native occlusion mutations and fifteen JSON falsifications, original budgets."
+    },
+    "native_consumers": {
+      "commit": "4fc1e7a55c191dbe56cd7bc385539fc42b8f7898",
+      "runs": [
+        {
+          "name": "raster-final",
+          "command": [
+            "xvfb-run",
+            "-a",
+            "-s",
+            "-screen 0 1280x720x24",
+            "bash",
+            "tools/godot.sh",
+            "--path",
+            ".",
+            "--rendering-method",
+            "gl_compatibility",
+            "--audio-driver",
+            "Dummy",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "build/verification/hud-review-independent/raster_probe.gd"
+          ],
+          "budget_seconds": 90,
+          "seconds": 5.52558432299702,
+          "exit_code": 0,
+          "log": "build/verification/hud-review-independent/raster-final.log",
+          "log_sha256": "2e1f67575275464e404876005a14589641e32078bd63c358734f1d5c10918c37",
+          "success_marker": true,
+          "strict_errors": [],
+          "status": "passed"
+        },
+        {
+          "name": "underworld-ui",
+          "command": [
+            "python3",
+            "tools/run_underworld_ui_tests.py"
+          ],
+          "budget_seconds": 300,
+          "seconds": 11.944515956012765,
+          "exit_code": 0,
+          "log": "build/verification/hud-review-independent/underworld-ui.log",
+          "log_sha256": "3e3983a77b4cdd2e7fe082ef5c92fff4850907f31d4ab2de12e4759d67b31b3a",
+          "success_marker": true,
+          "strict_errors": [],
+          "status": "passed"
+        },
+        {
+          "name": "ui-contract",
+          "command": [
+            "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/demo_ui_01/contract_runner.gd",
+            "--",
+            "--output=/tmp/playtest-feedback-20261024/build/verification/hud-review-independent/ui-contract-output"
+          ],
+          "budget_seconds": 180,
+          "seconds": 9.582238557995879,
+          "exit_code": 1,
+          "log": "build/verification/hud-review-independent/ui-contract.log",
+          "log_sha256": "e7aa12ee0a55dda8a00973c46b9b1b18083081d517a928f366d1e01b798edebe",
+          "success_marker": false,
+          "strict_errors": [],
+          "status": "failed"
+        }
+      ],
+      "restored_original_outputs": [
+        {
+          "path": "build/fine_space_05/hud_bounds.json",
+          "had_original": true,
+          "original_sha256": "3d4d7dd8ad6f490d4274136639db6057a0a556fd0717df5cfbb7a954468f7897"
+        },
+        {
+          "path": "build/underworld_plains/ui_rework/ui_inventory.json",
+          "had_original": false,
+          "original_sha256": null
+        }
+      ],
+      "git_status_after": ""
+    },
+    "raster_analysis": "raster-analysis.json",
+    "raster_summary": [
+      {
+        "label": "before-quiet",
+        "ink_pixels": 4568,
+        "outside_raw_leaf_bounds": 11,
+        "outside_final_observer_bounds": 0,
+        "status_anchor": [
+          24.0,
+          18.0
+        ],
+        "resonance_bounds": [
+          121.0,
+          54.0,
+          203.0,
+          10.0
+        ]
+      },
+      {
+        "label": "after-quiet",
+        "ink_pixels": 4103,
+        "outside_raw_leaf_bounds": 11,
+        "outside_final_observer_bounds": 0,
+        "status_anchor": [
+          24.0,
+          18.0
+        ],
+        "resonance_bounds": [
+          121.0,
+          54.0,
+          110.0,
+          10.0
+        ]
+      },
+      {
+        "label": "after-notice",
+        "ink_pixels": 4605,
+        "outside_raw_leaf_bounds": 16,
+        "outside_final_observer_bounds": 0,
+        "status_anchor": [
+          24.0,
+          18.0
+        ],
+        "resonance_bounds": [
+          121.0,
+          54.0,
+          110.0,
+          10.0
+        ]
+      }
+    ],
+    "bible_guard_counterexamples": "bible-guard-counterexamples.json"
+  },
+  "source_provenance": {
+    "first_observed_inventory": "source-before.json",
+    "inventory_count": 2097,
+    "inventory_phase": "Immediately after launch of the original Harness, before native completion. Harness itself owns original before/after guards.",
+    "git_status_at_consumer_end": "",
+    "runtime_raster_source_hashes": {
+      "res://scripts/demo/demo_app.gd": "f4b25e0143203910e2a3c7325cc2cd8f3029c7e9d473e312fafe1bb0dfc501ac",
+      "res://scripts/ui/demo_ui_01/game_hud.gd": "0eda54104e1d1f39aca0afb495d73fb42657f2ba52a64d7f11ff3e41a42a188c",
+      "res://tests/plains_redesign_scene_runner.gd": "6b7703ba48da6530f690ac0e98eeb9a2be289ab7503335c331875db2ab1a0461",
+      "res://tests/underworld_plains/test_fine_hud_bounds.gd": "a76a18dffe808226429a5628384330c54ba542111c2cea69dc1fcd2c269bfaec"
+    }
+  },
+  "unverified": [
+    "fixed-HUD61 not independently rerun because sequence stopped at actual UI failure",
+    "public Web of follow-up HUD source",
+    "physical devices, player preferences, complete gameplay audiovisual journey",
+    "full PR Integration and Release"
+  ],
+  "earlier_probe_attempts": [
+    {
+      "log": "raster-native.log",
+      "status": "not_executed",
+      "reason": "xvfb-run not on PATH; no engine started"
+    },
+    {
+      "log": "raster-native-second.log",
+      "status": "not_clean",
+      "reason": "Own diagnostic cleanup returned released=false; raw evidence retained, not accepted"
+    },
+    {
+      "log": "raster-native-clean.log",
+      "status": "passed",
+      "reason": "Own cleanup corrected; actual backend release true; production sources untouched"
+    },
+    {
+      "log": "raster-final.log",
+      "status": "passed",
+      "reason": "Final native font metrics and strict clean exit"
+    }
+  ]
+}

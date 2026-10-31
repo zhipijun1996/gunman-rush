@@ -1,0 +1,51 @@
+{
+  "task": "HIGH-DENSITY-TERRAIN-03",
+  "status": "experimental_not_approved",
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool",
+  "price": "not exposed by tool",
+  "generation_calls": 2,
+  "retained_master": "master_original.png",
+  "raw_dimensions": [
+    1254,
+    1254
+  ],
+  "requested_dimensions": [
+    1024,
+    1024
+  ],
+  "prompt": "Revise this rejected game-terrain material (reference 1). The user rejected it because it looks like generic scattered rocks and lacks identity and refinement. Keep the ORIGINAL game mood and pixel rendering in references 2 and 3, but REPLACE the generic pebble content completely. Output is one game material asset, not a game screenshot.\n\nThe new material language is WIND-ERODED MONOLITHIC SLATE with LIVING GRASS ROOTS and very rare oxidized old copper seams, supporting an ancient windchime settlement. It must feel designed, restrained, mysterious and tactile, not noisy.\nOne 1024x1024 transparent RGBA material strip. Full rectangle beneath the grassy top is OPAQUE. No typography, tile grids, blank margins, sky, objects, lamps, characters, icons, runes, buildings, circles, big symbols or perspective.\n256x256 logical art pixels enlarged 4x nearest-neighbor; precise small pixel clusters, 1-logical-pixel selective highlights. No blur or soft painted rock shading.\nTop ~64 image pixels: thin irregular olive/moss-green grassy lip, scattered short individual blades, dark roots that naturally taper into only a few cracks. Do not create a continuous fluorescent green outline. Grass tips transparent in the first few rows, opaque soil below.\nBody: about 75% very quiet, deep midnight-navy/blue-black rock mass, several LARGE connected weathered slabs / broad compressed strata with gently bending broken edges. No field of separate rounded stones, pebbles, chips, little diamonds, brickwork, speckle noise or busy outlines. Broad mostly untextured dark facets supply weight. A SMALL number of irregular hairline cracks at different depths establish structure, with selective 1-pixel muted blue-gray highlights only on a few upper-left facets. The majority of edges disappear into the dark mass; do not outline all slabs.\nIdentity accents: extremely sparse thin old-bronze mineral traces and muted verdigris in perhaps 2-3 crack segments across the entire image, mostly dark brown/cool teal and only tiny amber pinpoints, no bright gold rivers, no circuit boards, no decorative network. These marks should read as ancient material wear when locally lit, not rewards or hazards. Keep them subtle enough that the original cream roofs and golden lanterns remain the focal objects in the real screenshot.\nThe upper grass band and dark rock mass must connect without a horizontal black gap. Horizontal edges should repeat naturally; the lower body texture should have no vertical gradient/horizon, so it can repeat as a stone infill. A side-on 2D cutaway material, not a landscape. More large calm dark shapes, much fewer details than reference 1.",
+  "references": [
+    "build/high_density_terrain_study/rejected/generic_pebbles.png",
+    "assets/underworld_plains/terrain/source.png",
+    "docs/evidence/pixel_light_study_02/home_original.png"
+  ],
+  "rejected_first_generation": {
+    "path": "build/high_density_terrain_study/rejected/generic_pebbles.png",
+    "reason": "Generic scattered pebbles; user rejected visual identity/refinement",
+    "exact_prompt": "not retained in current recoverable tool store"
+  },
+  "processing": "Godot builder nearest-samples generated master to256 logical pixels; organizes native32px 47-mask atlas and semantic edge data. World-space shader continuously samples generated material with overlapped repetition, grass on top only. Albedo contrast .32. No code-drawn replacement art, no screenshot retouch.",
+  "rights": "AI-generated edit referencing this repository's existing art; original source/license files retained. No new third-party asset license asserted.",
+  "limits": "Resolution study, not final material identity; residual repeated slant rock shapes, sparse copper barely visible; hazards/moving families remain native originals.",
+  "source_sha256": {
+    "scenes/dev/high_density_terrain_study.tscn": "c9160600958dbe0f9848993f44d4953755546d9664572de31737172fb96724ee",
+    "scripts/art/high_density_terrain_study.gd": "770b99ea6b40b7383031099511fb01753947647d71e419ba50775da10f4e53db",
+    "tools/build_high_density_terrain.gd": "2db45f016718fd66c288579ed768b57ed3fdb9e546388cc165ea711ba68dd4d4",
+    "shaders/dense_material.gdshaderinc": "22990f28491ba763fcf911778cbcc2e595e2d8efed2f49928eac1ecd01923a6c",
+    "shaders/dense_tile_core.gdshader": "85cfe176550a999b3e063d975549bab451c0980412c8a22a8cee8de52104cece",
+    "shaders/dense_tile_boundary.gdshader": "e456831092f839bfdb625d7460239a993c380dfc72fb670496211ee2061e217f",
+    "assets/high_density_terrain_study/edges_32.png": "8c8555dc9e795b6674f6997f2b03894e69ebd3580e337ca5c8439fe6fa4b10d7",
+    "assets/high_density_terrain_study/provenance.json": "48e07979e7075c5c5b56e32523269421c3a811ede9b1d146cf49daeb52cae3ca",
+    "assets/high_density_terrain_study/atlas_32.png": "22d8e40cbecbd37724e2b3078bd703fe69a9840d77daa19d1b335b735676ecfb",
+    "assets/high_density_terrain_study/terrain_32.tres": "2d0cc503fc2805cfcbc269c12a3b4bda271c50206649ab5633100e45d80eee2a",
+    "assets/high_density_terrain_study/standard.json": "900dc3b1ac448f27e3279fdd975b53802404afbf3e8c9f42f1343fb3ad0b5825",
+    "assets/high_density_terrain_study/master_original.png": "b1b649a5cc809924f07df8f276b82683d8dad36f2ebc10d1739989b3ca551c8e",
+    "assets/high_density_terrain_study/master_256.png": "af6a60b909d79da820b126090c28ab9bbd06dafc3e894d73e421f3346604fb0d"
+  },
+  "reference_sha256": {
+    "build/high_density_terrain_study/rejected/generic_pebbles.png": "44108409d49c65169f86a56b68b8e7353d3c1f9446d8fa60072aedd19d6bbf37",
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "docs/evidence/pixel_light_study_02/home_original.png": "2ff8a09cf03392ef0f9bb346dc5a5ecac8d50b088c5265e8977eea22217e7635"
+  }
+}

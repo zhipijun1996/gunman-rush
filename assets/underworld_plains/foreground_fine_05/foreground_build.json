@@ -1,0 +1,121 @@
+{
+  "assets": [
+    {
+      "attachment": [
+        44.2170524597168,
+        96.7971496582031
+      ],
+      "id": "grass_a",
+      "image": "res://assets/underworld_plains/foreground_fine_05/grass_a.png",
+      "kind": "grass",
+      "pixel_world_units": 1,
+      "raw_crop": [
+        75,
+        171,
+        387,
+        281
+      ],
+      "size": [
+        138,
+        100
+      ],
+      "source_sha256": "ab1c4ce2896c66b8b0dc4e5198aecb0c76b9099a4b15f321e96f1dfb954559ad"
+    },
+    {
+      "attachment": [
+        37.7270927429199,
+        92.8351669311523
+      ],
+      "id": "grass_b",
+      "image": "res://assets/underworld_plains/foreground_fine_05/grass_b.png",
+      "kind": "grass",
+      "pixel_world_units": 1,
+      "raw_crop": [
+        539,
+        179,
+        502,
+        273
+      ],
+      "size": [
+        177,
+        96
+      ],
+      "source_sha256": "9d74f622e1c3b19cb18cf0194d3e39006e0455233434394b1260efe11e709bfd"
+    },
+    {
+      "attachment": [
+        38.1792449951172,
+        104.981369018555
+      ],
+      "id": "grass_c",
+      "image": "res://assets/underworld_plains/foreground_fine_05/grass_c.png",
+      "kind": "grass",
+      "pixel_world_units": 1,
+      "raw_crop": [
+        1163,
+        130,
+        424,
+        322
+      ],
+      "size": [
+        142,
+        108
+      ],
+      "source_sha256": "6db0cc9ee7c1169ac285647ee367faf4c60d2ce17ee1066d114bedea912b8fc0"
+    },
+    {
+      "attachment": [
+        4.29809379577637,
+        6.46478891372681
+      ],
+      "id": "branch_left",
+      "image": "res://assets/underworld_plains/foreground_fine_05/branch_left.png",
+      "kind": "branch",
+      "pixel_world_units": 1,
+      "raw_crop": [
+        78,
+        523,
+        577,
+        355
+      ],
+      "size": [
+        248,
+        153
+      ],
+      "source_sha256": "c0e532554bffe46a01adfe26def6e26a5a05df2e4c8d52ce139888dd08ee1d58"
+    },
+    {
+      "attachment": [
+        242.393035888672,
+        5.16831684112549
+      ],
+      "id": "branch_right",
+      "image": "res://assets/underworld_plains/foreground_fine_05/branch_right.png",
+      "kind": "branch",
+      "pixel_world_units": 1,
+      "raw_crop": [
+        954,
+        526,
+        575,
+        404
+      ],
+      "size": [
+        248,
+        174
+      ],
+      "source_sha256": "7a484302838222008900fd3c7b60e933a83e806fa4d787dc2078cd7c37d406c3"
+    }
+  ],
+  "attachment_policy": "Every visible root/hanging point stays offscreen with12wu air margin; otherwise whole sprite hidden",
+  "collision": false,
+  "master": "master_original.png",
+  "master_sha256": "e3218e05c4a6e6386bd546beaf0310184adaf94c5087b20af2267e1763c18a99",
+  "max_visible_branches": 1,
+  "max_visible_grass": 2,
+  "method": "alpha>=2 crop inside disjoint declared source cells, keep all cropped RGBA, nearest resize; no repaint/recolor/alpha replacement",
+  "native_world_units_per_pixel": 1,
+  "protection_policy": "Actual complete sprite bounds plus3wu wind margin hard-hide on any functional/HUD intersection; more than64 visible protection rectangles hides all foreground",
+  "schema": "underworld-foreground-fine-v1",
+  "standing_edge": false,
+  "task": "FINE-SPACE-05"
+}

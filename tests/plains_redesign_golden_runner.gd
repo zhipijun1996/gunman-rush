@@ -7,6 +7,7 @@ var output := ""
 var broken_bank := false
 var smoke := false
 var cleanup_ok := true
+var historical_d079 := false
 var observations: Array[Dictionary] = []
 var controls: Array[Dictionary] = []
 
@@ -15,6 +16,7 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 	var events: Array[Dictionary] = []
 	var phrase := "initial"
 	var manifest: Dictionary
+	var historical_d079 := false
 	func point(v: Vector2) -> Array: return [v.x, v.y]
 	func support() -> Array:
 		var result: Array = []
@@ -37,7 +39,7 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 		if is_instance_valid(shot_latch_encounter):
 			for latch: ShotLatch in shot_latch_encounter.latches:
 				latches.append({"open":latch.is_open,"open_count":latch.open_count,"sequence_step":latch.sequence_step,"pending_id":latch._pending.get("id",""),"seen":latch._seen.keys(),"gate_disabled":latch.gate_shape.disabled,"clock":latch._clock,"motion_running":latch.motion_target.motion_running if latch.motion_mode else false,"motion_clock":latch.motion_target.motion_clock if latch.motion_mode else 0.0,"platform_position":point(latch.motion_target.global_position) if latch.motion_mode else []})
-		return {"tick":trace_ticks,"phrase":phrase,"position":point(motor.global_position),"normal_velocity":point(motor.normal_velocity),"recoil_velocity":point(motor.recoil_velocity),"recoil_remaining":motor.recoil_burst_remaining,"grounded":motor.is_on_floor(),"support":support(),"collisions":collisions,"energy":controller.actor_resources.stamina.current,"energy_capacity":controller.actor_resources.stamina.capacity,"shot_charges":controller.action_resources.shot_charges,"max_air_shots":motor.tuning.max_air_shots,"max_jumps":motor.tuning.max_jumps,"hook_enabled":controller.traversal.hook_enabled,"wall_enabled":controller.traversal.wall_enabled,"shot_cost":controller.shot_energy.shot_energy_cost,"used_jumps":controller.jump_ability.used_jumps,"cooldown":controller.shoot_ability.cooldown_remaining,"shot_cooldown":motor.tuning.shot_cooldown,"weapon":str(controller.shoot_ability.weapon.id),"session_id":controller.session_id,"motor_id":motor.get_instance_id(),"move_axis":controller.router.axis,"hazards":hazards,"safe":safe_trace,"continuous":continuous_trace,"latches":latches}
+		return {"tick":trace_ticks,"phrase":phrase,"position":point(motor.global_position),"normal_velocity":point(motor.normal_velocity),"recoil_velocity":point(motor.recoil_velocity),"recoil_remaining":motor.recoil_burst_remaining,"grounded":motor.is_on_floor(),"support":support(),"collisions":collisions,"energy":controller.actor_resources.stamina.current,"energy_capacity":controller.actor_resources.stamina.capacity,"shot_charges":controller.action_resources.shot_charges,"max_air_shots":motor.tuning.max_air_shots,"max_jumps":motor.tuning.max_jumps,"hook_enabled":controller.traversal.hook_enabled,"wall_enabled":controller.traversal.wall_enabled,"shot_cost":controller.shot_energy.shot_energy_cost,"shooting_consumes_energy":controller.shot_energy.definition.shooting_consumes_energy,"used_jumps":controller.jump_ability.used_jumps,"cooldown":controller.shoot_ability.cooldown_remaining,"shot_cooldown":motor.tuning.shot_cooldown,"weapon":str(controller.shoot_ability.weapon.id),"session_id":controller.session_id,"motor_id":motor.get_instance_id(),"move_axis":controller.router.axis,"hazards":hazards,"safe":safe_trace,"continuous":continuous_trace,"latches":latches}
 	func record(kind: String, extra: Dictionary = {}) -> void:
 		var event := {"tick":trace_ticks+1,"phrase":phrase,"kind":kind,"position":point(motor.global_position)}
 		event.merge(extra)
@@ -66,8 +68,9 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 		motor = PLAYER.instantiate()
 		motor.position = stage.modules[0].world_entry() if forward else stage.modules[-1].world_exit() # Sole spawn, before adding body.
 		world.add_child(motor)
+		if historical_d079: motor.tuning.max_air_shots = 2 # Explicit historical D079 fixture only.
 		controller = motor.get_node("Controller")
-		check.call(controller.enable_shot_energy(),"real shot-energy consumer enabled")
+		check.call(controller.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres") if historical_d079 else null),"real shot-energy consumer enabled")
 		controller.set_physics_process(false)
 		motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 		if low:
@@ -141,6 +144,7 @@ func _initialize() -> void:
 		if arg.begins_with("--output="): output=arg.trim_prefix("--output=")
 		elif arg=="--delete-far-bank": broken_bank=true
 		elif arg=="--smoke": smoke=true
+		elif arg=="--historical-d079": historical_d079=true
 	run.call_deferred()
 func check(ok: bool,message: String) -> void:
 	assertions+=1
@@ -173,7 +177,7 @@ func phrase_checks(trace: RecordedTrace, label: String, module: PlatformingModul
 			check(float(shots[1].position[1])<module.position.y+220,label+" second bell shot from actual upper support")
 
 func run_case(kind: String, forward: bool, low: bool, phase: float) -> void:
-	var trace := RecordedTrace.new(); trace.tree=self; trace.check=check
+	var trace := RecordedTrace.new(); trace.tree=self; trace.check=check; trace.historical_d079=historical_d079
 	check(await trace.install(kind,forward,low,phase),"fixture installs")
 	var body_id := trace.motor.get_instance_id(); var session := trace.controller.session_id
 	if broken_bank:
@@ -220,7 +224,7 @@ func run_case(kind: String, forward: bool, low: bool, phase: float) -> void:
 	cleanup_ok = released and cleanup_ok
 func resource_controls() -> void:
 	for low: bool in [true,false]:
-		var trace:=RecordedTrace.new();trace.tree=self;trace.check=check
+		var trace:=RecordedTrace.new();trace.tree=self;trace.check=check;trace.historical_d079=historical_d079
 		check(await trace.install("main",true,low,0),"resource control fixture")
 		trace.phrase="air_low_energy" if low else "cooldown_guard"
 		if low:
@@ -242,6 +246,45 @@ func resource_controls() -> void:
 		controls.append({"kind":trace.phrase,"initial":trace.frames[0],"final":trace.state(),"events":trace.events,"frames":trace.frames})
 		var released: bool = await trace.release_test_world()
 		cleanup_ok = released and cleanup_ok
+func current_resource_controls() -> void:
+	var trace:=RecordedTrace.new();trace.tree=self;trace.check=check
+	check(await trace.install("main",true,true,0),"current resource control fixture")
+	trace.phrase="current_free_air_shot"
+	check(trace.motor.tuning.max_air_shots==1 and not trace.controller.shot_energy.definition.shooting_consumes_energy,"actual current one-shot/free-shot policy")
+	trace.controller.router.request_action(&"jump");await trace.tick(2)
+	var before:=trace.controller.actor_resources.stamina.current
+	var charges:=trace.controller.action_resources.shot_charges
+	trace.controller.router.request_action(&"shoot_release",Vector2.DOWN);await trace.tick()
+	check(before==0 and trace.shots==1 and charges==1 and trace.controller.action_resources.shot_charges==0 and trace.controller.actor_resources.stamina.current==before and trace.motor.recoil_burst_remaining>0,"zero focus still accepts one actual airborne projectile without energy debit")
+	await trace.tick(int(ceil(trace.motor.tuning.shot_cooldown*60))+1)
+	trace.controller.router.request_action(&"shoot_release",Vector2.DOWN);await trace.tick()
+	check(not trace.motor.is_on_floor() and trace.shots==1 and trace.events.any(func(e:Dictionary):return e.kind=="rejected_shot" and e.reason=="empty"),"current airborne second shot retains actual empty-charge rejection after cooldown")
+	trace.controller.router.request_action(&"jump_release")
+	await trace.tick(90)
+	check(await trace.settle(),"current control returns to supported safe floor")
+	var focus_before:=trace.controller.actor_resources.stamina.current
+	# The route driver steps physics_tick for deterministic whole-body sweeps.
+	# Invoke the real complete Controller entry here so AirFocus owns recovery.
+	trace.controller._physics_process(1.0/60.0)
+	var focus_after:=trace.controller.actor_resources.stamina.current
+	check(trace.motor.is_on_floor() and focus_after>focus_before and trace.controller.air_focus_ability.stamina_state==trace.controller.actor_resources.stamina,"actual Controller ground tick restores shared focus energy")
+	check(trace.safe_trace and trace.continuous_trace and trace.controller.action_resources.shot_charges==1,"current complete control retains whole-body sweep and landing-only charge reset")
+	controls.append({"kind":"current_free_air_shot","initial":trace.frames[0],"final":trace.state(),"events":trace.events,"frames":trace.frames,"focus_before":focus_before,"focus_after":focus_after})
+	var released: bool=await trace.release_test_world()
+	cleanup_ok=released and cleanup_ok
+	# Keep the original real cooldown negative, using the current free policy.
+	trace=RecordedTrace.new();trace.tree=self;trace.check=check
+	check(await trace.install("main",true,false,0),"current cooldown control fixture")
+	trace.phrase="cooldown_guard"
+	check(await trace.move_to(130) and await trace.settle(),"current cooldown safe supported bank")
+	trace.controller.router.request_action(&"shoot_release",Vector2.UP);await trace.tick()
+	trace.controller.router.request_action(&"shoot_release",Vector2.UP);await trace.tick()
+	check(trace.shots==1 and trace.events.any(func(e:Dictionary):return e.kind=="rejected_shot" and e.reason=="cooldown"),"current sub-cooldown request rejects extra projectile")
+	await trace.tick(40)
+	check(not trace.shot_latch_encounter.latches[0].is_open and trace.safe_trace and trace.continuous_trace,"current unhit bell remains physically closed with safe trace")
+	controls.append({"kind":"cooldown_guard","initial":trace.frames[0],"final":trace.state(),"events":trace.events,"frames":trace.frames})
+	released=await trace.release_test_world()
+	cleanup_ok=released and cleanup_ok
 func run() -> void:
 	for kind: String in ["main","high"]:
 		for forward: bool in [true,false]:
@@ -249,12 +292,14 @@ func run() -> void:
 				for phase: float in ([0.0] if smoke or broken_bank else PHASES):
 					await run_case(kind,forward,low,phase)
 					if broken_bank: finish(); return
-	if not broken_bank: await resource_controls()
+	if not broken_bank:
+		if historical_d079: await resource_controls()
+		else: await current_resource_controls()
 	finish()
 func finish() -> void:
 	if output.is_empty() or FileAccess.file_exists(output): printerr("Unique --output required"); quit(2); return
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file:=FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"fixture_version":"plains-redesign-golden-v1","production_pool":false,"observations":observations,"controls":controls,"broken_bank":broken_bank,"cleanup_ok":cleanup_ok,"smoke":smoke,"assertions":assertions,"failures":failures})+"\n");file.close()
+	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"fixture_version":"plains-redesign-golden-v1","production_pool":false,"historical_d079":historical_d079,"observations":observations,"controls":controls,"broken_bank":broken_bank,"cleanup_ok":cleanup_ok,"smoke":smoke,"assertions":assertions,"failures":failures})+"\n");file.close()
 	print("PLAINS REDESIGN GOLDEN: %d assertions, %d failures"%[assertions,failures])
 	quit(0 if failures==0 else 1)

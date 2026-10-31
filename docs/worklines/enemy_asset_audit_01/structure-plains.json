@@ -1,0 +1,1437 @@
+{
+  "scope": "平原7普通怪只读程序结构盘点与最小统一边界建议；不是重构实施/验收",
+  "head": "9b76f0044f0fe4d729f2bc894abf153a4f238564",
+  "timestamp_utc": "2026-10-29T07:10:29.626346+00:00",
+  "constraints": [
+    "只/tmp输出，不写共享源，不运行Godot，不生成/改图，不改skills",
+    "遵守用户先不要批量做、先发现问题；本任务不自动授权批量重构",
+    "结构统一不意味着素材/美术同质，也不签艺术质量"
+  ],
+  "inventory_method": "git ls-tree full HEAD catalog + checked-out bytes or git show HEAD:path fallback；复用已完成素材审计，按真实代码分支核对",
+  "shared_components": {
+    "root_motor": {
+      "node": "PatrolDrone",
+      "script": {
+        "path": "scripts/enemies/enemy_motor.gd",
+        "line": 1,
+        "token": "class_name",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "responsibility": "唯一CharacterBody2D扫掠/巡逻/attack运动/knockback，不由动画移动碰撞体"
+    },
+    "brain": {
+      "node": "PatrolAI",
+      "script": {
+        "path": "scripts/enemies/enemy_patrol_ai.gd",
+        "line": 1,
+        "token": "class_name",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "responsibility": "边界/墙阻转向、输出EnemyIntent；attack状态可暂时接管brain.direction"
+    },
+    "actor": {
+      "node": "Actor",
+      "script": {
+        "path": "scripts/enemies/enemy_actor.gd",
+        "line": 1,
+        "token": "class_name",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "responsibility": "HealthState、Definition验证、初始reset、physics_tick调度Behavior或PatrolAI、接受击退、死亡关碰撞/physics；不画身体"
+    },
+    "damageable": {
+      "node": "Damageable",
+      "script": {
+        "path": "scripts/combat/damageable.gd",
+        "line": 1,
+        "token": "class_name",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "responsibility": "实际弹体接收适配、faction/event/actor_id/health_epoch校验；正式绑定FrameDamagePolicy sink，非第二份普通怪HP"
+    },
+    "health": {
+      "owner": "EnemyActor.health",
+      "script": {
+        "path": "scripts/resources/state/health_state.gd",
+        "line": 1,
+        "token": "class_name",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "definition": "resources/enemies/patrol_health.tres",
+      "responsibility": "唯一HP/terminal/epoch与资源提交结果"
+    },
+    "presentation": {
+      "node": "Presentation",
+      "default_script": {
+        "path": "scripts/enemies/enemy_presentation.gd",
+        "line": 1,
+        "token": "class_name",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "responsibility": "身体、父层HP/预警、可选专有反馈链；正式会被多次安装器替换"
+    }
+  },
+  "formal_assembly_call_path": [
+    {
+      "path": "scripts/generation/plains_region_generator.gd",
+      "line": 318,
+      "token": "behavior=\"fan_sentry\"",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "正式生成manifest决定behavior/aerial/活动半径等"
+    },
+    {
+      "path": "scripts/generation/plains_encounter_planner.gd",
+      "line": 171,
+      "token": "static func definition_for_behavior",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "行为id有限白名单→对应资源；patrol不在正式主动白名单"
+    },
+    {
+      "path": "scripts/demo/generated_demo_stage.gd",
+      "line": 168,
+      "token": "func _spawn_enemies_from_plan",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "PATROL.instantiate→Definition.duplicate(true)→覆盖patrol_half_width/aerial/可选dive_depth；root再换独立Presentation"
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "line": 43,
+      "token": "if region_state.actors.has(id)",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "新实例先恢复health，再恢复position，dead Motor隐藏"
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "line": 145,
+      "token": "UnderworldActors.install(self)",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "无regional_art_plan分支才PixelFormalActors再UnderworldActors安装"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actors.gd",
+      "line": 37,
+      "token": "static func install",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "动态加载one-way installer，避免强循环引用"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "line": 3,
+      "token": "static func install",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "遍历stage直接子EnemyMotor，替换Presentation并设underworld_formal_style meta；不按物种选多个外观profile"
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "line": 154,
+      "token": "remains.restore_presentation",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "实际安装器完成后才恢复保存的兄弟尸体和真实support"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 667,
+      "token": "policy.bind_damageable(id",
+      "HEAD_file": true,
+      "checked_out": true,
+      "fact": "正式App绑定DamagePolicy、Behavior和接触Emitter；保存中状态也由App直接写回Behavior字段"
+    }
+  ],
+  "actors": [
+    {
+      "id": "patrol_drone",
+      "stable_id": "graybox_patrol_drone",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": null
+      },
+      "definition": {
+        "path": "resources/enemies/patrol_drone.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"graybox_patrol_drone\"",
+        "definition_version": "1",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+          "motion_method": "静态idle_a母版+PlainsMotion02连续UV关节；不播放原manifest的idle_b/telegraph/attack/recovery格"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/underworld_plains/actors/patrol.png",
+          "motion_method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": false,
+        "sample_owner": "EnemyHitTemplate child owns sample and advances only while active",
+        "frame_and_body_owner": "host renderer and generic accepted tint/recoil",
+        "particles_owner": "EnemyHitTemplate child particles bound to Damageable",
+        "terminal_owner": "host/parent original terminal policy; no new persistent corpse",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "接触巡逻，无attack_behavior；边界/墙阻通过PatrolAI->Motor",
+      "structure_findings": [
+        "Underworld非专有反馈分支super._ready保留Windchime匿名hurt监听，另接_accepted_damage及HitTemplate.sample：重复视觉缓存，不表示重复HP提交。"
+      ]
+    },
+    {
+      "id": "plains_charger",
+      "stable_id": "plains_charger",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      },
+      "definition": {
+        "path": "resources/enemies/plains_charger.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_charger\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"charger\"",
+        "telegraph_duration": "0.45",
+        "attack_duration": "0.38",
+        "recovery_duration": "0.7",
+        "attack_speed": "360.0"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+          "motion_method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+          "motion_method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": true,
+        "sample_owner": "presenter.feedback_sample directly advances in presenter._process",
+        "frame_and_body_owner": "EnemyFeedback01Frames + AcceptedHitBody child",
+        "particles_owner": "presenter child bound to Damageable",
+        "terminal_owner": "stage-sibling EnemyFeedback01Remains; parent motor visibility can hide safely",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "锁朝向短冲，要求地面支持，恢复窗；不改成追踪",
+      "structure_findings": [
+        "stable_id硬编码同时决定hurt/death资源与持久尸体接入；两renderer重复建立sample/frames/body/particles/remains和初始化处理。",
+        "Parent death fade与Sibling corpse物理钟是不同所有者，不能统一成删除整个Motor时销毁全部视觉。"
+      ]
+    },
+    {
+      "id": "plains_diver",
+      "stable_id": "plains_diver",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      },
+      "definition": {
+        "path": "resources/enemies/plains_diver.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_diver\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"diver\"",
+        "telegraph_duration": "0.6",
+        "attack_duration": "0.35",
+        "recovery_duration": "0.9",
+        "attack_speed": "200.0",
+        "aerial": "true"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+          "motion_method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+          "motion_method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": true,
+        "sample_owner": "presenter.feedback_sample directly advances in presenter._process",
+        "frame_and_body_owner": "EnemyFeedback01Frames + AcceptedHitBody child",
+        "particles_owner": "presenter child bound to Damageable",
+        "terminal_owner": "stage-sibling EnemyFeedback01Remains; parent motor visibility can hide safely",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "orbit→锁目标俯冲→真实回home/blocked；空中运动与击退",
+      "structure_findings": [
+        "stable_id硬编码同时决定hurt/death资源与持久尸体接入；两renderer重复建立sample/frames/body/particles/remains和初始化处理。",
+        "Parent death fade与Sibling corpse物理钟是不同所有者，不能统一成删除整个Motor时销毁全部视觉。"
+      ]
+    },
+    {
+      "id": "plains_hopper",
+      "stable_id": "plains_hopper",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      },
+      "definition": {
+        "path": "resources/enemies/plains_hopper.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_hopper\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"hopper\"",
+        "telegraph_duration": "0.45",
+        "attack_duration": "0.7",
+        "recovery_duration": "0.7",
+        "attack_speed": "360.0"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+          "motion_method": "静态idle_a母版+PlainsMotion02连续UV关节；不播放原manifest的idle_b/telegraph/attack/recovery格"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/underworld_plains/actors/hopper.png",
+          "motion_method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": false,
+        "sample_owner": "EnemyHitTemplate child owns sample and advances only while active",
+        "frame_and_body_owner": "host renderer and generic accepted tint/recoil",
+        "particles_owner": "EnemyHitTemplate child particles bound to Damageable",
+        "terminal_owner": "host/parent original terminal policy; no new persistent corpse",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "锁定x的抛物跃击→回home；真实落点",
+      "structure_findings": [
+        "Underworld非专有反馈分支super._ready保留Windchime匿名hurt监听，另接_accepted_damage及HitTemplate.sample：重复视觉缓存，不表示重复HP提交。"
+      ]
+    },
+    {
+      "id": "plains_sentry",
+      "stable_id": "plains_sentry",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      },
+      "definition": {
+        "path": "resources/enemies/plains_sentry.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_sentry\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"sentry\"",
+        "telegraph_duration": "0.65",
+        "attack_duration": "0.1",
+        "recovery_duration": "1.0",
+        "patrol_speed": "0.0"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+          "motion_method": "静态idle_a母版+PlainsMotion02连续UV关节；不播放原manifest的idle_b/telegraph/attack/recovery格"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/underworld_plains/actors/sentry.png",
+          "motion_method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": false,
+        "sample_owner": "EnemyHitTemplate child owns sample and advances only while active",
+        "frame_and_body_owner": "host renderer and generic accepted tint/recoil",
+        "particles_owner": "EnemyHitTemplate child particles bound to Damageable",
+        "terminal_owner": "host/parent original terminal policy; no new persistent corpse",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "原锁定单弹，idle不巡逻，cooldown/墙阻/保护点",
+      "structure_findings": [
+        "Underworld非专有反馈分支super._ready保留Windchime匿名hurt监听，另接_accepted_damage及HitTemplate.sample：重复视觉缓存，不表示重复HP提交。"
+      ]
+    },
+    {
+      "id": "plains_fan_sentry",
+      "stable_id": "plains_fan_sentry",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      },
+      "definition": {
+        "path": "resources/enemies/plains_fan_sentry.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_fan_sentry\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"fan_sentry\"",
+        "telegraph_duration": "0.65",
+        "attack_duration": "0.1",
+        "recovery_duration": "1.0",
+        "patrol_speed": "0.0",
+        "aerial": "true",
+        "projectile_speed": "210.0",
+        "projectile_lifetime": "1.4",
+        "activation_range": "330.0"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/plains_v4/spatial/actors.png",
+          "motion_method": "先命中actor.definition.aerial分支：完整单图整体bob/倾斜/_weight缩放；绕开_draw_action_frame及PlainsMotion02.draw_body"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/underworld_plains/actors/aerial.png",
+          "motion_method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": false,
+        "sample_owner": "EnemyHitTemplate child owns sample and advances only while active",
+        "frame_and_body_owner": "host renderer and generic accepted tint/recoil",
+        "particles_owner": "EnemyHitTemplate child particles bound to Damageable",
+        "terminal_owner": "host/parent original terminal policy; no new persistent corpse",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "三角度发射；aerial=true的运动/击退语义和旧外观分支分开",
+      "structure_findings": [
+        "aerial既控制Motor/击退又被当作外观类别：scene分支绕过新的PlainsMotion02.draw_body；同helper对象创建/advance不代表使用。",
+        "正式generator也写aerial=true，不仅是.tres偶然默认值。",
+        "Underworld非专有反馈分支super._ready保留Windchime匿名hurt监听，另接_accepted_damage及HitTemplate.sample：重复视觉缓存，不表示重复HP提交。"
+      ]
+    },
+    {
+      "id": "plains_root_bell",
+      "stable_id": "plains_root_bell",
+      "shared_scene": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 8,
+        "token": "[node name=\"PatrolDrone\"",
+        "HEAD_file": true,
+        "checked_out": true
+      },
+      "components": {
+        "Actor": "EnemyActor",
+        "AI": "EnemyPatrolAI",
+        "Motor": "EnemyMotor",
+        "Health": "EnemyActor.health -> HealthState",
+        "Damageable": "Damageable -> formal FrameDamagePolicy sink",
+        "Behavior": {
+          "path": "scripts/enemies/root_bell_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      },
+      "definition": {
+        "path": "resources/enemies/plains_root_bell.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_stored_overrides": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_root_bell\"",
+        "definition_version": "1",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "0.0",
+        "patrol_half_width": "0.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(36, 40)",
+        "behavior_id": "&\"root_bell\"",
+        "telegraph_duration": "0.85",
+        "attack_duration": "0.16",
+        "recovery_duration": "1.2",
+        "activation_range": "240.0",
+        "protected_radius": "70.0",
+        "pulse_size": "Vector2(52, 36)"
+      },
+      "runtime_overlay": {
+        "formal_factory": [
+          "Definition.duplicate(true)",
+          "patrol_half_width=data.patrol_radius",
+          "aerial=data.aerial",
+          "dive_depth=data.dive_depth if present"
+        ],
+        "scene_alone": "默认场景Definition为patrol_drone；审查其它物种必须先明确谁给Actor覆盖Definition，不是独立物种scene",
+        "formal_app": [
+          "Behavior source_id=enemy_manifest[index].id",
+          "protected_points=anchors+spawn+exits",
+          "max_concurrent_attacks=(map1?1:2)",
+          "restore state/state_time/cooldown/serial/home/locked_direction/attack_goal/attack_origin/direction from saved state when present"
+        ]
+      },
+      "renderers": [
+        {
+          "chain": "scene_raw_fallback",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/plains_refresh/objects.png",
+          "motion_method": "行为不在_draw_action_frame白名单，落通用enemy_left/enemy_right；整体bob/_weight缩放，不调用PlainsMotion02.draw_body"
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/underworld_plains/actors/root_bell.png",
+          "motion_method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+        },
+        {
+          "chain": "root_bell_independent",
+          "presenter": {
+            "path": "scripts/enemies/root_bell_presentation.gd",
+            "line": 90,
+            "token": "func _draw_pose",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "body_path": "assets/region_production_v3/enemies/root_bell/source/master.png",
+          "motion_method": "固定idle母版+根枝程序关节"
+        }
+      ],
+      "feedback_lifecycle": {
+        "selection": "EnemyFeedback01.supports uses stable_id membership, not a declared profile capability",
+        "special_frames": false,
+        "sample_owner": "EnemyHitTemplate child owns sample and advances only while active",
+        "frame_and_body_owner": "host renderer and generic accepted tint/recoil",
+        "particles_owner": "EnemyHitTemplate child particles bound to Damageable",
+        "terminal_owner": "host/parent original terminal policy; no new persistent corpse",
+        "synchronize": "HealthState initialize result resets sample and local draw caches; motion epoch sync partly duplicated in presenter and draw_body",
+        "disposal": "presenter explicitly disposes special sample/remains; generic HitTemplate disposes own sample/particles; inherited anonymous health callback otherwise auto-Node signal lifetime"
+      },
+      "behavior_difference_to_preserve": "固定根部+真实地面目标验证，accepted非致死可中断telegraph；不应因统一流程变成可移动怪",
+      "structure_findings": [
+        "同一物种有rawscene通用旧图、独立RootBellPresentation、UnderworldEnemy三条装配路径，部分是过渡后又被替换。",
+        "RootBellBehavior独立health中断监听；RootBellPresentation也监听health并计算_pose/_transition_time，draw却固定idle/death；不能将该pose缓存当真实body动作序列。",
+        "Underworld非专有反馈分支super._ready保留Windchime匿名hurt监听，另接_accepted_damage及HitTemplate.sample：重复视觉缓存，不表示重复HP提交。"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "id": "PS01",
+      "title": "运动flag泄漏成外观分派",
+      "classification": "可由静态调用/分支证实",
+      "fact": "aerial用于Motor的_ground_actor、Actor击退平面；两个presenter又优先拿它选sprite/aerial分支，fan因此画飞行机并绕过mesh。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_motor.gd",
+          "line": 15,
+          "token": "_ground_actor = not definition.aerial",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 128,
+          "token": "if not definition.aerial: direction=",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 142,
+          "token": "elif actor.definition.aerial:",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "改运动参数可意外换身体/失去动画；反过来为换图改aerial会改击退与支撑策略。",
+      "minimal_boundary": "显式区分既有movement/aerial策略和逐物种presentation profile，profile只拥有素材/动作/锚点；不改AI/碰撞字段。"
+    },
+    {
+      "id": "PS02",
+      "title": "实例装配和最终表现选择分散",
+      "classification": "可由静态调用/分支证实",
+      "fact": "GeneratedDemoStage先root专门换Presentation，PlainsRegionStage后来装PixelFormalActors与UnderworldActors，installer整节点替换；rawscene/diagnostic/formal最后使用者不同。",
+      "evidence": [
+        {
+          "path": "scripts/demo/generated_demo_stage.gd",
+          "line": 182,
+          "token": "var presentation := RootBellPresentation.new()",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/demo/plains_region_stage.gd",
+          "line": 144,
+          "token": "PixelFormalActors.install(self)",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+          "line": 14,
+          "token": "old.queue_free()",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "临时表现已ready/订阅后再销毁；某链验证通过不能推出另链相同；名字同Presentation不足以确认身体。",
+      "minimal_boundary": "收敛一个明确装配入口，保留legacy/underworld为显式profile选择；最终只安装一次确认的表现，必要旧链标legacy/诊断而非隐式多次替换。"
+    },
+    {
+      "id": "PS03",
+      "title": "Definition源、实例覆盖和App恢复未成单一可读合同",
+      "classification": "可由静态调用/分支证实",
+      "fact": "基础tres复制后覆盖aerial/patrol范围/dive_depth，App再恢复Behavior多个字段和并发上限。基础Definition不是最终实例全貌。",
+      "evidence": [
+        {
+          "path": "scripts/demo/generated_demo_stage.gd",
+          "line": 175,
+          "token": "actor.definition.patrol_half_width =",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 720,
+          "token": "actor.attack_behavior.state=StringName",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 733,
+          "token": "actor.attack_behavior.max_concurrent_attacks",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "制作卡/测试容易只看资源默认值；保存/重载或改工厂顺序可能还原错home/phase。",
+      "minimal_boundary": "在现有工厂集中resolve/validate一次runtime overlay并保留manifest来源；只加明确输入/输出，不建新资源总线，不把运行state写进共享Definition。"
+    },
+    {
+      "id": "PS04",
+      "title": "专有与通用反馈有两套装配所有权",
+      "classification": "可由静态调用/分支证实",
+      "fact": "charger/diver presenter直接new/advance/dispose EnemyFeedback01及Frames/Remains；其它由HitTemplate child封装同sample。这一能力由stable_id映射决定。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 26,
+          "token": "feedback_sample = EnemyFeedback01.new",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_hit_template.gd",
+          "line": 33,
+          "token": "template.sample = EnemyFeedback01.new",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "新物种容易漏接/双接或误借两种死帧；事件顺序和epoch恢复每个分支重复维护。",
+      "minimal_boundary": "先定义唯一accepted-feedback owner接口/生命周期；把Frames/Remains作为可选view/death-policy适配，保留当前species专用资源，不先批量换实现。"
+    },
+    {
+      "id": "PS05",
+      "title": "非专有Underworld重复hurt缓存",
+      "classification": "可由静态调用/分支证实",
+      "fact": "父Windchime._ready匿名health监听、Underworld自己的_accepted_damage与HitTemplate.sample同时接入；_hurt/.12/.hurt_seconds与sample时钟并行。",
+      "evidence": [
+        {
+          "path": "scripts/art_foundation/windchime_enemy_visual.gd",
+          "line": 9,
+          "token": "actor.health.changed.connect",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 49,
+          "token": "super._ready()",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 50,
+          "token": "actor.health.changed.connect(_accepted_damage)",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_hit_template.gd",
+          "line": 53,
+          "token": "health.changed.connect",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "维护者误认唯一反馈；恢复/过滤条件不一致，但不能据此断言三次伤害或当前泄漏。",
+      "minimal_boundary": "给反馈一处接受事件/epoch同步权威，旧_hurt仅为明确兼容适配或移除前证明无消费者。"
+    },
+    {
+      "id": "PS06",
+      "title": "表现时钟和状态缓存有未消费计算",
+      "classification": "可由静态调用/分支证实",
+      "fact": "EnemyPresentation仍_update_frame_weights，但body live固定idle_a；RootBell计算_pose/_transition_time而_draw_pose固定idle/death。各宿主还保留_clock/_hurt/_death，另有body_motion.clock。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 90,
+          "token": "_update_frame_weights(state,delta)",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 171,
+          "token": "_draw_named_frame(data,species,\"death\"",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/root_bell_presentation.gd",
+          "line": 57,
+          "token": "if next != _pose:",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/root_bell_presentation.gd",
+          "line": 84,
+          "token": "_draw_pose(\"death\"",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "文档把存在的pose/state误当画面；清理若直接删缓存可能影响备用_remains_view/aerial分支。",
+      "minimal_boundary": "逐字段标真实消费者，保留行为phase/state_time为玩法权威；统一advance与epoch-sync入口，先证明无消费者再删旧cache。不要强求物理/视觉/尸体共用一个时钟。"
+    },
+    {
+      "id": "PS07",
+      "title": "epoch/initialize同步重复散在多宿主",
+      "classification": "可由静态调用/分支证实",
+      "fact": "EnemyFeedback01._synchronize、HitTemplate._health_changed、两个presenter初始化、PlainsMotion02.advance/draw_body自检查及Remains._initialized都处理epoch。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 40,
+          "token": "func _synchronize",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_hit_template.gd",
+          "line": 55,
+          "token": "func _health_changed",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/plains_motion_02.gd",
+          "line": 29,
+          "token": "if _epoch != actor.health.epoch:",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+          "line": 253,
+          "token": "func _initialized",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "paused initialize必须立即生效，移动delta=0同步不能吞位移；某个分支单独修改易残旧状态。",
+      "minimal_boundary": "统一生命周期调用语义bind/sync_epoch/advance/dispose，保留每模块自己的局部状态；health_epoch和DemoLifetime.actor_epoch分开命名。"
+    },
+    {
+      "id": "PS08",
+      "title": "Stage保存直接识别renderer类且恢复有顺序依赖",
+      "classification": "可由静态调用/分支证实",
+      "fact": "Stage._enemy_remains用UnderworldEnemy/EnemyPresentation type检查取feedback_remains；health/位置先恢复，表现安装后再恢复corpse support；App手写Behavior字段。",
+      "evidence": [
+        {
+          "path": "scripts/demo/plains_region_stage.gd",
+          "line": 157,
+          "token": "func _enemy_remains",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/demo/plains_region_stage.gd",
+          "line": 154,
+          "token": "remains.restore_presentation",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 720,
+          "token": "actor.attack_behavior.state=StringName",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "换renderer可能丢尸体/重播死亡；先后顺序动错会基于旧位置采样。",
+      "minimal_boundary": "保留当前schema，先用窄presentation snapshot capability替代renderer类型分支，统一记录恢复时序，不新造万能save框架。"
+    },
+    {
+      "id": "PS09",
+      "title": "终态政策分散且不应一刀切",
+      "classification": "可由静态调用/分支证实",
+      "fact": "Underworld父.65s fade、legacy普通单death/同图且alpha下限.18、RootBell独立.8s fade、charger/diver stage-sibling持久尸体，均由不同owner决定。",
+      "evidence": [
+        {
+          "path": "scripts/art_foundation/pixel_plains_enemy.gd",
+          "line": 15,
+          "token": "visible = _death < .65",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 132,
+          "token": "maxf(0.18, 0.8 - _death_time * 0.5)",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/root_bell_presentation.gd",
+          "line": 83,
+          "token": "1 - _death / .8",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+          "line": 108,
+          "token": "func bind",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "结构统一容易误清持尸或强加全部留尸，改变保存/奖励/预算。",
+      "minimal_boundary": "终态政策显式列入每物种profile/合同；同生命周期出口允许不同policy，不把外观和艺术方法统一。"
+    },
+    {
+      "id": "PS10",
+      "title": "恢复health不是完整复活接口",
+      "classification": "已证实接口边界；故障需独立复现",
+      "fact": "restore_instance_health仅health.configure复制的HealthDefinition；_on_death另关Motor碰撞和Actor physics。正式重载使用新实例，不能把health方法当通用同实例复活。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 100,
+          "token": "func restore_instance_health",
+          "HEAD_file": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 78,
+          "token": "motor.collision_layer = 0",
+          "HEAD_file": true,
+          "checked_out": true
+        }
+      ],
+      "risk": "未来统一reset时误认为恢复HP自动恢复碰撞/AI；未在本审计证明当前正式重载失败。",
+      "minimal_boundary": "明确区分spawn/new-run reset、saved-health restore、resume existing phase、可选same-instance revive；只维护当前授权路径。"
+    }
+  ],
+  "common_contract_to_keep": [
+    "EnemyActor独占HealthState和唯一physics调度；EnemyMotor独占碰撞体真实移动；动画不写Actor位置/HP/phase。",
+    "Damageable/FrameDamagePolicy/Health各层的epoch/event去重有不同职责，不因都出现event_id就盲目合并。",
+    "Behavior根据机制保留charger/diver/hopper/sentry/fan/root专门策略，root grounded_target_lock/accepted-hit interruption独立。",
+    "root固定根、diver/fan空中力、hopper真实抛物线和碰撞，不能为统一动画改运动。",
+    "接触伤害Emitter、敌弹/pulse policy与掉落EnemyDropService继续由正式App/既有服务管理，不移入Presentation。",
+    "普通Terminal退场与charger/diver尸体支撑/保存是内容政策；统一接口允许各自不同结果。",
+    "程序结构相同不等于共用同一身体、同一颜色、同一图或同一动画方式。"
+  ],
+  "minimal_unification_proposal": [
+    {
+      "step": 0,
+      "action": "本轮先共同确认物种/结构差异与问题清单",
+      "deliverable": "7物种组件表+实际factory/override/renderer/feedback/death policy合同；保留用户对成品质量的拒绝，不继续批量制作",
+      "changes": "不改生产源"
+    },
+    {
+      "step": 1,
+      "action": "选择一个代表物种作装配边界样板",
+      "deliverable": "建议先fan或charger其一：fan揭示aerial视觉耦合；charger揭示两skin和尸体生命周期。由用户一起选，不先两者都重构",
+      "changes": "只拟小范围，先锁当前玩法/资源/保存事实"
+    },
+    {
+      "step": 2,
+      "action": "收敛现有factory的创建顺序和显式presentation profile",
+      "deliverable": "baseDefinition + manifest runtime overlay → actor components ready → encounter binding → selected presentation → saved visual restore；只一最终renderer安装",
+      "changes": "保留legacy/underworld显式适配，不做全项目实体框架"
+    },
+    {
+      "step": 3,
+      "action": "统一accepted-feedback与表现生命周期契约",
+      "deliverable": "一sample owner、bind/sync_epoch/advance/dispose窄接口、body/warnings/HP separation；可选Frames/Remains policy；消除已证无消费者缓存",
+      "changes": "保持原伤害批次、信号语义、两种epoch与实际游戏clock"
+    },
+    {
+      "step": 4,
+      "action": "样板完成后再决定是否迁移第二物种",
+      "deliverable": "同构规范只约束所有权和输入输出；每物种艺术母版/动画方法/机制/终态保持独立。实际合屏和用户质量判断必须先于批量迁移",
+      "changes": "不以结构重构或测试数证明艺术质量"
+    }
+  ],
+  "migration_risks": [
+    "创建时机：Godot子节点_ready信号顺序、当前临时renderer已绑定的回调不可在替换时重复或漏解。",
+    "Health configure会触发initialize/terminal；死档不重播死亡/音效/掉落；保存位置和support恢复时序必须保持。",
+    "DemoLifetime.actor_epoch与HealthState.epoch意义不同；取消旧目标/弹体不等于重置怪物HP/phase。",
+    "运行Definition.duplicate/override及manifest复现/资源SHA/物种id保持；不以新profile暗改aerial物理。",
+    "父Motor隐藏不应隐藏stage sibling尸体；卸载断连和support weakref必须保持。",
+    "现有读Presentation.get/meta的capture/tests和Stage类识别要逐一迁移，不能只改类名或同步hash。",
+    "原scene/Underworld/独立RootBell旧链要明确保留或弃用政策；不以删链减少审查数量。",
+    "无用cache需按实际调用证明；备用_remains_view仍可能被诊断消费者使用，不能看到当前_draw没用就删。"
+  ],
+  "not_proven": [
+    "未运行本轮新Godot验证；未认定匿名signal造成实际内存泄漏或重复HP。",
+    "未认定restore_instance_health接口本身导致当前新实例正式重载失败。",
+    "未根据源码/结构给出视觉、听感、趣味、平衡、设备PASS。"
+  ],
+  "sources": [
+    {
+      "path": "scripts/art_foundation/pixel_plains_enemy.gd",
+      "sha256": "babba1d1270e9ddca01373a1d5282187e2086a82899635a37edf58706a81d166",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/art_foundation/windchime_enemy_visual.gd",
+      "sha256": "60e2aa69ae7be4a10ac3fab6eb50899a5d120a3050bd1f676f1502701a0f2040",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/combat/damageable.gd",
+      "sha256": "bd7e16e0d90d5df0853277fd5c292770d9660f40b31a936b72ed1c079df53a48",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/demo/generated_demo_stage.gd",
+      "sha256": "c9014d2067ea702685601a8b9d0df605752e4c910196d05f2d93521c6958aad7",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_behavior.gd",
+      "sha256": "2631c540f3d62b4ea313b60cdf935bf2feacbc998bb6a023afcbf4c98c1afe9d",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_definition.gd",
+      "sha256": "781c39d4073a68a1074855ac95703a66b0976934cd5c17c8c213de824d32b01a",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01.gd",
+      "sha256": "b905e9ded3a2ceb14b488280cd8ced6b386bb013603c27c1dca829abd70ced27",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_particles.gd",
+      "sha256": "4addea8ebbbb25cdc1266935e36348d4e11851cbd9cb37d4af905b2be7b17f47",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+      "sha256": "70813d555ca9a7de5632daa902b2f011b04d6231fbe1b4fea00cc51be445f63f",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_hit_template.gd",
+      "sha256": "2efe932e7d7dc985eb3a82e6bdcf52bbfd0351c3a3e47f6ca72c836831f4a9fe",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_motor.gd",
+      "sha256": "3f36d8c9c4a0a7cf58483a784cd7a425053722c3736dd888c1eab9c5b2afdad8",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_patrol_ai.gd",
+      "sha256": "e8dbac5de005df6b422d8b940fd06ffea75e56cec9745ffc8cf6f851f1d91ff8",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "sha256": "9b24a2da9bcaf0218882f1a3ea9871bc2b5a5ec7192fe1d931b6d1a642d47053",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/plains_motion_02.gd",
+      "sha256": "6e30386f0c4a8506709358d60875b5f8c81df4bb3c9f630bb82ee4e85f4a24a5",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/root_bell_behavior.gd",
+      "sha256": "e6b84a0c8da1a22be91f5a83310b21a26d5336ba85609980816fa3225ed7c3b5",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/enemies/root_bell_presentation.gd",
+      "sha256": "16ce7d982fbc66547392b863026305c450353e9c29bff640723a99428c573b1e",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/generation/plains_encounter_planner.gd",
+      "sha256": "e5ae4edfdd377c63d8632c08acc3fb61898bb644660702b65d64e28d65fa2b30",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/generation/plains_region_generator.gd",
+      "sha256": "3bcece711a322269dbb99e4f6a10e48349da2e5f6eac0f0dae18caf50db154ab",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/resources/state/health_state.gd",
+      "sha256": "ec2c1c6c7b8f7821ae7eed20f17364e4701410158a5f344436f3081509bdc2ec",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "sha256": "49cee240d1b2f0984cfafbf976860c21d9ff9074190494619e597f30e655dfb5",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actors.gd",
+      "sha256": "81f093dd3434e0338908f155d56a1592f0bf469bda37550ea7d60e30a685ecaf",
+      "checked_out": true,
+      "HEAD_file": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_enemy.gd",
+      "sha256": "01232c561efbbc9e116f56d9208d311a8fc0ad732f1129d9e90b3eec1157a451",
+      "checked_out": true,
+      "HEAD_file": true
+    }
+  ]
+}

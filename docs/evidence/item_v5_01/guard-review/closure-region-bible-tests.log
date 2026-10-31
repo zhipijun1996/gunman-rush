@@ -1,0 +1,121 @@
+....E...E..E......EE.........EE.
+======================================================================
+ERROR: test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume (__main__.BibleTests.test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 400, in test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume
+    proposed = level_design.route_request('create firefly_marsh')['tasks'][0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+======================================================================
+ERROR: test_default_current_bibles_skip_election (__main__.BibleTests.test_default_current_bibles_skip_election)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 499, in test_default_current_bibles_skip_election
+    mission = level_design.route_request(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+======================================================================
+ERROR: test_future_proposed_worker_gets_shared_style_without_visual_gate (__main__.BibleTests.test_future_proposed_worker_gets_shared_style_without_visual_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 205, in test_future_proposed_worker_gets_shared_style_without_visual_gate
+    mission = level_design.route_request('制作萤雾沼泽')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+======================================================================
+ERROR: test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes (__main__.BibleTests.test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 481, in test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes
+    checks=harness.load_manifest()['checks']
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+======================================================================
+ERROR: test_no_bible_proposal_only_and_explicit_production_rejected (__main__.BibleTests.test_no_bible_proposal_only_and_explicit_production_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 512, in test_no_bible_proposal_only_and_explicit_production_rejected
+    mission = level_design.route_request('制作萤雾沼泽')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+======================================================================
+ERROR: test_visual_director_uses_current_bible_and_exact_caller_scope (__main__.BibleTests.test_visual_director_uses_current_bible_and_exact_caller_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 664, in test_visual_director_uses_current_bible_and_exact_caller_scope
+    m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/visual_director.py", line 1385, in route
+    mission = route_request(request, mode='new_region' if re.search(r'制作|create|new region', request, re.I) else 'optimize')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+======================================================================
+ERROR: test_worker_prompt_contains_full_original_and_audio_scope (__main__.BibleTests.test_worker_prompt_contains_full_original_and_audio_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tests/test_region_bible.py", line 629, in test_worker_prompt_contains_full_original_and_audio_scope
+    mission = level_design.route_request('制作荆棘森林')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-region-bible-tests/tools/harness.py", line 36, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: docs
+
+----------------------------------------------------------------------
+Ran 32 tests in 2.943s
+
+FAILED (errors=7)

@@ -1,0 +1,112 @@
+{
+  "commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+  "runs": [
+    {
+      "name": "raster",
+      "command": [
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "build/verification/hud-review-independent/final-b7610b8a/raster_probe.gd",
+        "--",
+        "--output=res://build/verification/hud-review-independent/final-b7610b8a/raster"
+      ],
+      "budget_seconds": 90,
+      "seconds": 4.523503370000981,
+      "exit_code": 0,
+      "log": "build/verification/hud-review-independent/final-b7610b8a/raster.log",
+      "log_sha256": "d6d93e65640fadc5637f9a11a9814b28207d1f750fa1a194fbe11a681e128bab",
+      "success_marker": true,
+      "strict_errors": [],
+      "status": "passed"
+    },
+    {
+      "name": "underworld-ui",
+      "command": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "budget_seconds": 300,
+      "seconds": 11.939469453995116,
+      "exit_code": 0,
+      "log": "build/verification/hud-review-independent/final-b7610b8a/underworld-ui.log",
+      "log_sha256": "48e1a210cc9f789d56d2f44a4493e83d425b2d465e6c300d20df38b19e5ed406",
+      "success_marker": true,
+      "strict_errors": [],
+      "status": "passed"
+    },
+    {
+      "name": "ui-contract",
+      "command": [
+        "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/demo_ui_01/contract_runner.gd",
+        "--",
+        "--output=/tmp/playtest-feedback-20261024/build/verification/hud-review-independent/final-b7610b8a/ui-contract-output"
+      ],
+      "budget_seconds": 180,
+      "seconds": 9.682956060001743,
+      "exit_code": 0,
+      "log": "build/verification/hud-review-independent/final-b7610b8a/ui-contract.log",
+      "log_sha256": "73bb13c4b62d69640fe6d4dda3e5892b1d7dbebef7badaee72832e6049159098",
+      "success_marker": true,
+      "strict_errors": [],
+      "status": "passed"
+    },
+    {
+      "name": "hud-bounds",
+      "command": [
+        "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/underworld_plains/test_fine_hud_bounds.gd"
+      ],
+      "budget_seconds": 180,
+      "seconds": 3.4209744929976296,
+      "exit_code": 0,
+      "log": "build/verification/hud-review-independent/final-b7610b8a/hud-bounds.log",
+      "log_sha256": "1461facc949370d4d6cf3e4ad088e4920ddee7e784d338544b466bf6f30042a9",
+      "success_marker": true,
+      "strict_errors": [],
+      "status": "passed"
+    }
+  ],
+  "restored_original_outputs": [
+    {
+      "path": "build/fine_space_05/hud_bounds.json",
+      "had_original": true,
+      "original_sha256": "3d4d7dd8ad6f490d4274136639db6057a0a556fd0717df5cfbb7a954468f7897"
+    },
+    {
+      "path": "build/underworld_plains/ui_rework/ui_inventory.json",
+      "had_original": false,
+      "original_sha256": null
+    }
+  ],
+  "source_file_count": 2097,
+  "git_status_before": "",
+  "source_stable": true,
+  "head_after": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+  "git_status_after": ""
+}

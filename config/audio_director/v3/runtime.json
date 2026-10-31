@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "version": "audio-director-v3",
+  "default_profile": "original",
+  "voices": 12,
+  "events": {
+    "coin": {
+      "bus": "SFX",
+      "priority": 40,
+      "interval": 0.09,
+      "max_voices": 2,
+      "attenuation_db": 8
+    },
+    "heal": {
+      "bus": "SFX",
+      "priority": 40,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 8
+    },
+    "chest_open": {
+      "bus": "SFX",
+      "priority": 40,
+      "interval": 0.06,
+      "max_voices": 1,
+      "attenuation_db": 8
+    },
+    "item_get": {
+      "bus": "SFX",
+      "priority": 85,
+      "interval": 0.06,
+      "max_voices": 1,
+      "attenuation_db": 7
+    },
+    "click": {
+      "bus": "UI",
+      "priority": 40,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 10
+    },
+    "confirm": {
+      "bus": "UI",
+      "priority": 40,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 10
+    },
+    "denied": {
+      "bus": "UI",
+      "priority": 40,
+      "interval": 0.18,
+      "max_voices": 1,
+      "attenuation_db": 10
+    },
+    "enemy_hit": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 8
+    },
+    "enemy_hurt": {
+      "bus": "SFX",
+      "priority": 40,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 10
+    },
+    "hurt": {
+      "bus": "SFX",
+      "priority": 90,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 8
+    },
+    "shot_pulse": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 10
+    },
+    "shot_shuriken": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 10
+    },
+    "shot_bomb": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 10
+    },
+    "bomb_explode": {
+      "bus": "SFX",
+      "priority": 85,
+      "interval": 0.06,
+      "max_voices": 2,
+      "attenuation_db": 8
+    }
+  }
+}

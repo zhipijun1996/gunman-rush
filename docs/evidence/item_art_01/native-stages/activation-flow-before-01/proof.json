@@ -1,0 +1,356 @@
+{
+  "checks": 40,
+  "failures": 6,
+  "scenarios": [
+    {
+      "callback_revokes": false,
+      "energy_after": 20.0,
+      "energy_before": 100.0,
+      "equipped": [
+        "item_art_fixture/art/current/P26"
+      ],
+      "events": [
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "definition_id": "P26",
+            "equipment_revision": 3,
+            "event_id": "P26/item_art/map_one/use/0/0.0",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 91150616359
+          },
+          "kind": "item_guard_active",
+          "point": "(80.0, 20.0)"
+        },
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 3,
+            "event_id": "visual/1/1/1/1",
+            "item": "P26",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 91150616359
+          },
+          "kind": "defense_active",
+          "point": "(80.0, 20.0)"
+        },
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 3,
+            "event_id": "visual/1/1/1/2",
+            "item": "P26",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 91150616359
+          },
+          "kind": "active",
+          "point": "(80.0, 20.0)"
+        }
+      ],
+      "hp_after": 5.0,
+      "hp_before": 5.0,
+      "result": {
+        "accepted": true,
+        "reason": ""
+      },
+      "source": "P26",
+      "view": {
+        "art_draw_calls": 0,
+        "art_missing": 0,
+        "connected": true,
+        "count": 2,
+        "counts": {
+          "active": 1,
+          "item_guard_active": 1
+        },
+        "draw_calls": 0,
+        "dropped": 0,
+        "entries": [
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "item_guard_active",
+            "origin": "P26",
+            "point": "(80.0, 20.0)"
+          },
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "active",
+            "origin": "P26",
+            "point": "(80.0, 20.0)"
+          }
+        ],
+        "source_pruned": 0,
+        "world_clock": "inherited_stage_process_delta"
+      }
+    },
+    {
+      "callback_revokes": true,
+      "energy_after": 20.0,
+      "energy_before": 100.0,
+      "equipped": [
+        "item_art_fixture/art/current/B33"
+      ],
+      "events": [
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 5,
+            "event_id": "visual/1/1/1/1",
+            "item": "P26",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 100763961104
+          },
+          "kind": "defense_active",
+          "point": "(80.0, 20.0)"
+        },
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 5,
+            "event_id": "visual/1/1/1/2",
+            "item": "B33",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 100763961104
+          },
+          "kind": "active",
+          "point": "(80.0, 20.0)"
+        }
+      ],
+      "hp_after": 5.0,
+      "hp_before": 5.0,
+      "result": {
+        "accepted": true,
+        "reason": ""
+      },
+      "source": "P26",
+      "view": {
+        "art_draw_calls": 0,
+        "art_missing": 0,
+        "connected": true,
+        "count": 2,
+        "counts": {
+          "active": 1,
+          "defense_active": 1
+        },
+        "draw_calls": 0,
+        "dropped": 0,
+        "entries": [
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "defense_active",
+            "origin": "P26",
+            "point": "(80.0, 20.0)"
+          },
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "active",
+            "origin": "B33",
+            "point": "(80.0, 20.0)"
+          }
+        ],
+        "source_pruned": 0,
+        "world_clock": "inherited_stage_process_delta"
+      }
+    },
+    {
+      "callback_revokes": false,
+      "energy_after": 35.0,
+      "energy_before": 100.0,
+      "equipped": [
+        "item_art_fixture/art/current/P27"
+      ],
+      "events": [
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "amount": 1.0,
+            "definition_id": "P27",
+            "equipment_revision": 3,
+            "event_id": "P27/item_art/map_one/use/0/0.0/heal",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 106870867706
+          },
+          "kind": "heal",
+          "point": "(80.0, 20.0)"
+        },
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 3,
+            "event_id": "visual/1/1/1/1",
+            "item": "P27",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 106870867706
+          },
+          "kind": "defense_active",
+          "point": "(80.0, 20.0)"
+        },
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 3,
+            "event_id": "visual/1/1/1/2",
+            "item": "P27",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 106870867706
+          },
+          "kind": "active",
+          "point": "(80.0, 20.0)"
+        }
+      ],
+      "hp_after": 5.0,
+      "hp_before": 4.0,
+      "result": {
+        "accepted": true,
+        "reason": ""
+      },
+      "source": "P27",
+      "view": {
+        "art_draw_calls": 0,
+        "art_missing": 0,
+        "connected": true,
+        "count": 2,
+        "counts": {
+          "active": 1,
+          "heal": 1
+        },
+        "draw_calls": 0,
+        "dropped": 0,
+        "entries": [
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "heal",
+            "origin": "P27",
+            "point": "(80.0, 20.0)"
+          },
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "active",
+            "origin": "P27",
+            "point": "(80.0, 20.0)"
+          }
+        ],
+        "source_pruned": 0,
+        "world_clock": "inherited_stage_process_delta"
+      }
+    },
+    {
+      "callback_revokes": true,
+      "energy_after": 35.0,
+      "energy_before": 100.0,
+      "equipped": [
+        "item_art_fixture/art/current/B33"
+      ],
+      "events": [
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 5,
+            "event_id": "visual/1/1/1/1",
+            "item": "P27",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 111350384377
+          },
+          "kind": "defense_active",
+          "point": "(80.0, 20.0)"
+        },
+        {
+          "detail": {
+            "actor_epoch": 1,
+            "equipment_revision": 5,
+            "event_id": "visual/1/1/1/2",
+            "item": "B33",
+            "map_key": "item_art/map_one",
+            "run_epoch": 1,
+            "session": 1,
+            "stage_epoch": 1,
+            "weapon_epoch": 0,
+            "world_id": 111350384377
+          },
+          "kind": "active",
+          "point": "(80.0, 20.0)"
+        }
+      ],
+      "hp_after": 5.0,
+      "hp_before": 4.0,
+      "result": {
+        "accepted": true,
+        "reason": ""
+      },
+      "source": "P27",
+      "view": {
+        "art_draw_calls": 0,
+        "art_missing": 0,
+        "connected": true,
+        "count": 2,
+        "counts": {
+          "active": 1,
+          "defense_active": 1
+        },
+        "draw_calls": 0,
+        "dropped": 0,
+        "entries": [
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "defense_active",
+            "origin": "P27",
+            "point": "(80.0, 20.0)"
+          },
+          {
+            "age": 0.0,
+            "duration": 0.28,
+            "kind": "active",
+            "origin": "B33",
+            "point": "(80.0, 20.0)"
+          }
+        ],
+        "source_pruned": 0,
+        "world_clock": "inherited_stage_process_delta"
+      }
+    }
+  ],
+  "scope": "actual complete Runtime.activate_selected with real actor/health/energy/equipment/view; callback resource changes are explicit fixtures"
+}

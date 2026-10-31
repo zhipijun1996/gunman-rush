@@ -238,6 +238,18 @@
     "tools/harness.py",
     "tools/harness/*"
   ],
+  "early_python_checks": [
+    {
+      "parent_check": "plains-encounter-policy",
+      "argv": [
+        "python3",
+        "-S",
+        "tests/test_plains_encounter_policy_boundary.py",
+        "-v"
+      ],
+      "reason": "Original24 portable boundary cases before engine work; original parent wrapper still runs all its cases and native consumers."
+    }
+  ],
   "manual_checks": [
     "GUI and real device/player acceptance remain unverified unless separately exercised.",
     "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.",

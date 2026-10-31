@@ -1,0 +1,90 @@
+{
+  "status": "passed_native_and_real_complete_node_GL",
+  "generic_rule": "Authored registered entity variants own rank appearance; omit only duplicated legacy rank circles when the authored body successfully draws. Legacy fallback still draws original dots; marks/beams unchanged.",
+  "production_sources_sha256": {
+    "scripts/items/v5/item_art_library.gd": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+    "scripts/items/v5/item_v5_entity.gd": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd",
+    "shaders/item_v5_world_sprite.gdshader": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5"
+  },
+  "full_native": "build/item_art_01/full-art-native-03",
+  "native_checks": 924,
+  "native_failures": 0,
+  "actual_GL": "build/item_art_01/body-pose-native-03",
+  "GL_checks": 35,
+  "GL_failures": 0,
+  "actual_complete_nodes": [
+    {
+      "actual_complete_alpha_bbox": [
+        81,
+        49,
+        87,
+        96
+      ],
+      "actual_material": "res://shaders/item_v5_world_sprite.gdshader",
+      "actual_opaque_old_rank_pixels": 0,
+      "actual_world_width_height": [
+        21.75,
+        24.0
+      ],
+      "fallback_control": false,
+      "file": "g19-total-visual-state-0.png",
+      "scope": "actual complete real Node render on transparent independent viewport, not source-only projected bounds; explicit state fixture"
+    },
+    {
+      "actual_complete_alpha_bbox": [
+        72,
+        61,
+        89,
+        80
+      ],
+      "actual_material": "res://shaders/item_v5_world_sprite.gdshader",
+      "actual_opaque_old_rank_pixels": 0,
+      "actual_world_width_height": [
+        22.25,
+        20.0
+      ],
+      "fallback_control": false,
+      "file": "g19-total-visual-state-1.png",
+      "scope": "actual complete real Node render on transparent independent viewport, not source-only projected bounds; explicit state fixture"
+    },
+    {
+      "actual_complete_alpha_bbox": [
+        77,
+        57,
+        84,
+        93
+      ],
+      "actual_material": "res://shaders/item_v5_world_sprite.gdshader",
+      "actual_opaque_old_rank_pixels": 0,
+      "actual_world_width_height": [
+        21.0,
+        23.25
+      ],
+      "fallback_control": false,
+      "file": "g19-total-visual-state-2.png",
+      "scope": "actual complete real Node render on transparent independent viewport, not source-only projected bounds; explicit state fixture"
+    },
+    {
+      "actual_complete_alpha_bbox": [
+        55,
+        52,
+        146,
+        102
+      ],
+      "actual_material": "res://shaders/item_v5_world_sprite.gdshader",
+      "actual_opaque_old_rank_pixels": 224,
+      "actual_world_width_height": [
+        36.5,
+        25.5
+      ],
+      "fallback_control": true,
+      "file": "legacy-fallback-rank-control.png",
+      "scope": "actual complete real Node render on transparent independent viewport, not source-only projected bounds; explicit state fixture"
+    }
+  ],
+  "before_images": "build/item_art_01/body-pose-native-01 (five original actualPNGs with detacheddots)",
+  "retained_failure": "body-pose-native-02 (35/0functional butengineERROR dueprobeviewportsetup; strictfailed)",
+  "fixed_ignored_probe_only": "Register SubViewport before settingcanvas_transform; no testthresholds/config changes",
+  "metadata_note": "The per-source poses legacy_progress_dots field records the evolved input value from the historical probe helper, not submitted dot count. Complete-body actual_opaque_old_rank_pixels is the actual measured drawabsence/control metric.",
+  "lease": "released; productionfilesfrozen"
+}

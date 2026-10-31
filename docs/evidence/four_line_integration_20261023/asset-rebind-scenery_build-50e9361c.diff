@@ -1,0 +1,90 @@
+--- 50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe/assets/underworld_plains/scenery_build.json
++++ 305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de/assets/underworld_plains/scenery_build.json
+@@ -24,25 +24,26 @@
+     },
+     {
+       "id": "middle",
+-      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/ridge_landmarks.png",
++      "image": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png",
+       "camera_factor": [
+         0.105,
+         0.055
+       ],
+-      "role": "transparent_hill_ridge_with_distant_windmill_bell_tower_and_old_bridge",
+-      "generation_record": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json",
++      "role": "low_quiet_meadow_ridge_with_separate_local_landmark_ensembles",
++      "generation_record": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json",
+       "minimum_height_ratio": 0.85,
+-      "width_ratio": 1.8,
+-      "bottom_ratio": 1.11,
++      "width_ratio": 1.2,
++      "bottom_ratio": 1.1,
+       "repetition": "overlapping_alpha_edge_fade",
+       "edge_fraction": 0.035,
+-      "opacity": 0.92,
+-      "fog_shadow": "314a5b",
+-      "fog_highlight": "69818b",
+-      "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle",
++      "opacity": 1.0,
++      "fog_shadow": "304b60",
++      "fog_highlight": "8399a7",
++      "readability_policy": "native fine architectural material detail retained within a desaturated cool atmospheric blend; no playable green rim, no interaction markers",
+       "vertical_limit_ratio": 0.26,
+-      "source_sha256": "3d0723275b127b360c74ac749ff89aa9a69179f9bfaaef5e0b0594603b9af041",
+-      "composition_phase_wu": 450
++      "source_sha256": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
++      "composition_phase_wu": 0,
++      "source_detail_retention": 0.12
+     },
+     {
+       "id": "near",
+@@ -181,5 +182,48 @@
+     "scripts/underworld_plains/underworld_parallax.gd",
+     "scripts/underworld_plains/underworld_scenery.gd"
+   ],
+-  "pixel_policy": "fine1wu screen lattice; exact shared integer copy origins/widths; nearest source art retained"
++  "pixel_policy": "fine1wu screen lattice; exact shared integer copy origins/widths; nearest source art retained",
++  "landmark_sequence": {
++    "task_id": "SPATIAL-RHYTHM-07",
++    "image": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png",
++    "source_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
++    "camera_factor_x": 0.24,
++    "world_cell_wu": 4000,
++    "anchor_offset_wu": -1200,
++    "cycle": [
++      "windmills",
++      "open",
++      "clocktower",
++      "open",
++      "open"
++    ],
++    "home_policy": "one smaller distant windmill group; no clocktower behind Home facilities",
++    "groups": {
++      "windmills": {
++        "crop": [
++          0,
++          180,
++          660,
++          761
++        ],
++        "width_wu": 390
++      },
++      "clocktower": {
++        "crop": [
++          700,
++          180,
++          440,
++          761
++        ],
++        "width_wu": 260
++      }
++    },
++    "fog_shadow": "3c5568",
++    "fog_highlight": "8e9eaa",
++    "source_detail_retention": 0.22,
++    "bottom_ratio": 1.03,
++    "edge_fraction": 0.14,
++    "support": "painted complete ridge shoulders buried behind quiet continuous meadow base; no collision/standing edge",
++    "progression": "world anchored; no camera-zone opacity switching; same anchors on return; art hash separate from gameplay RNG"
++  }
+ }

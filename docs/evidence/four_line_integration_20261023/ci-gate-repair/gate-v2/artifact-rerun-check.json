@@ -1,0 +1,140 @@
+{
+  "scope": "local actual emitted artifact-name/overwrite selection exercise; not GitHub execution or native approval",
+  "failed_only_rerun_context_and_sibling_proof_resolved": true,
+  "prepare_rerun_pointers_replace_without_collision": true,
+  "raw_original_diagnostics_preserved": true,
+  "negative_counterexamples": [
+    "old_attempt2_context_missing",
+    "phase_pointer_without_overwrite_conflicts",
+    "other_run_artifact_not_borrowed"
+  ],
+  "all_non_artifact_protocol_fields_exactly_unchanged": true,
+  "operations": [
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-context-777",
+      "payload": "same-source-context"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-validated-foundry",
+      "payload": "same-prepared-inputs"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-impact-777-1",
+      "payload": "prepare-original-diagnostics"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-phase-proof-parallel",
+      "payload": "parallel-failed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-lane-parallel-777-1",
+      "payload": "parallel-original-failed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-phase-proof-serial",
+      "payload": "serial-passed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-lane-serial-777-1",
+      "payload": "serial-original-passed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 1,
+      "name": "production-merged-proof-777-1",
+      "payload": "original-failed-aggregate-diagnostics"
+    },
+    {
+      "action": "download",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-context-777",
+      "payload": "same-source-context"
+    },
+    {
+      "action": "download",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-validated-foundry",
+      "payload": "same-prepared-inputs"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-phase-proof-parallel",
+      "payload": "parallel-passed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-lane-parallel-777-2",
+      "payload": "parallel-rerun-passed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-merged-proof-777-2",
+      "payload": "rerun-aggregate-diagnostics"
+    },
+    {
+      "action": "download",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-phase-proof-parallel",
+      "payload": "parallel-passed"
+    },
+    {
+      "action": "download",
+      "run": 777,
+      "attempt": 2,
+      "name": "production-phase-proof-serial",
+      "payload": "serial-passed"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 3,
+      "name": "production-context-777",
+      "payload": "reprepared-context"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 3,
+      "name": "production-validated-foundry",
+      "payload": "reprepared-inputs"
+    },
+    {
+      "action": "upload",
+      "run": 777,
+      "attempt": 3,
+      "name": "production-impact-777-3",
+      "payload": "prepare-attempt3-diagnostics"
+    }
+  ]
+}

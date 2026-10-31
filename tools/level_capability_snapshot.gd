@@ -1,6 +1,6 @@
 extends RefCounted
 ## Read-only audit sidecar. Does not change RunManifest or grant capabilities.
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
 
 static func tuning_values(tuning: PlayerTuning) -> Dictionary:
 	var keys: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
@@ -26,6 +26,12 @@ static func capture(actor: Node, build: RefCounted = null, scope: String = "runt
 	if actor.shot_energy != null:
 		for key: String in ["shot_energy_cost", "hit_energy_recovery", "ground_energy_recovery", "shot_energy_delay", "_delay"]:
 			energy[key] = actor.shot_energy.get(key)
+	var energy_path: String = actor.shot_energy.definition.resource_path if actor.shot_energy != null else ""
+	if actor.shot_energy != null:
+		energy["definition_path"] = energy_path
+		energy["definition_sha256"] = FileAccess.get_sha256(energy_path)
+		energy["definition_version"] = actor.shot_energy.definition.definition_version
+		energy["shooting_consumes_energy"] = actor.shot_energy.definition.shooting_consumes_energy
 	var items: Array = []
 	var sources: Dictionary = {}
 	if build != null:
@@ -49,7 +55,7 @@ static func capture(actor: Node, build: RefCounted = null, scope: String = "runt
 		"normal_velocity": pair(actor.motor.normal_velocity), "recoil_velocity": pair(actor.motor.recoil_velocity),
 		"grounded": actor.motor.is_on_floor(), "active": actor.active, "session_id": actor.session_id,
 		"physics_hz": Engine.physics_ticks_per_second,
-		"config_hashes": {"player_tuning": FileAccess.get_sha256("res://config/player_tuning.json"), "input_profile": FileAccess.get_sha256("res://config/input_profile.json"), "shot_energy": FileAccess.get_sha256("res://resources/player/plains_shot_energy.tres"), "traversal": FileAccess.get_sha256("res://resources/player/traversal.tres"), "weapon_motion": FileAccess.get_sha256("res://resources/weapons/motion.tres")}}
+		"config_hashes": {"player_tuning": FileAccess.get_sha256("res://config/player_tuning.json"), "input_profile": FileAccess.get_sha256("res://config/input_profile.json"), "shot_energy": FileAccess.get_sha256(energy_path) if not energy_path.is_empty() else "", "traversal": FileAccess.get_sha256("res://resources/player/traversal.tres"), "weapon_motion": FileAccess.get_sha256("res://resources/weapons/motion.tres")}}
 
 static func pair(value: Vector2) -> Array:
 	return [value.x, value.y]

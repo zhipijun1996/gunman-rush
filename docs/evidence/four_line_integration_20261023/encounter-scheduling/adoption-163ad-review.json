@@ -1,0 +1,89 @@
+{
+  "status": "ACCEPT",
+  "reviewed_commit": "163ad4f9a4d7341beb468c60ea2fd30cdeeec608",
+  "source_commit": "163ad4f9a4d7341beb468c60ea2fd30cdeeec608",
+  "parent_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+  "scope": "Bounded exact Git adoption plus actual fresh original plains-encounter-policy Harness result, not wholeCI/Release/performance/player approval.",
+  "actual_candidate": {
+    "tools/run_plains_encounter_policy_tests.py": "d6a6162a9e224a1feddf55d81486ea8e93efb443d4d134c97937e049d37a4ee0"
+  },
+  "parent_six_implementation_files_unchanged": {
+    ".github/workflows/production.yml": "e4ed776b26bc92a3ed7757bc0439bd70c8cbdca1330293f5eeec56460421cd02",
+    "tools/production_plan.py": "c94603da777a8fb43c18793939d172c4370c6800d5481cb2badd4c66aafe2e86",
+    "config/production_impact.json": "af7be9db6098f4dd2ca77fbc23e274c205a4fde6a63c695459bf66171b3eb5f1",
+    "tests/test_production_plan.py": "90b3652b2ba5882d53becd5054464405fff55e01612acfaf547de77dff079487",
+    "tools/production_loop.py": "69e8cdcd1b5bb39af6df9f82389832003d8050e6e6fda3f087d767f980b9e379",
+    "tests/test_cloud_inputs.py": "7b7d120b2bf5c2f2de1e216db09ec9710ce4bb28e8fa26d2763dd5e925bb07d8"
+  },
+  "git_checks": "Exact parent8ca6 and single-file delta match previously reviewed candidate; no new runtime/assets/config budgets or other CI implementation change.",
+  "inherited_candidate_review": {
+    "path": "/workspace/scratch/plains-current-capture-scheduling-independent/independent-review.json",
+    "sha256": "5334c604041805efe8c51ec94435ae4fce620bead5e51e9546f30fe35e832399",
+    "identity": "Original8ca6candidate review retained; this report separately reviews163ad committed adoption."
+  },
+  "fresh_actual_validation": {
+    "harness_report": "/workspace/integration-four/build/verification/harness/20261023T152836.493786Z/report.json",
+    "harness_report_sha256": "58d06b89d73b5bf10bb4820dc2b940e95616deda441e7d461cdf3d12e09dcf08",
+    "source_commit": "163ad4f9a4d7341beb468c60ea2fd30cdeeec608",
+    "status": "passed",
+    "selected_check": "plains-encounter-policy",
+    "reused": false,
+    "check_token": "995079514e9a4aaaa47eeccd88da4791",
+    "input_digest": "f59d6e29ea6affe11b0c41a9f76dc935bddc881f23a51dc6cd37a5d7b4c12ac3",
+    "duration_seconds": 308.524,
+    "original_check_budget_seconds": 600,
+    "original_capture_timeout_seconds": 240,
+    "clean_source_snapshot": true,
+    "targeted_not_full_profile": true,
+    "wrapper_receipt": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/receipt.json",
+    "wrapper_receipt_sha256": "a1f08afc06fec89ada62943563305134c4bdffeb19815853eae3bbe0995dd6f3",
+    "wrapper_status": "passed",
+    "wrapper_source_stable": true,
+    "all_six_current_invocations": [
+      {
+        "path": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/after/case_0/capture.invocation.json",
+        "sha256": "1980de7eed02b10cc9bd5dd8853e3a424fdb15039d29625f2fb2d2148b53cbc3",
+        "status": "accepted"
+      },
+      {
+        "path": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/after/case_1/capture.invocation.json",
+        "sha256": "d3590485c2bb4c36ce9ab4eb5caeb318f96d0edc2380616f41688ba55aec0ffa",
+        "status": "accepted"
+      },
+      {
+        "path": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/after/case_2/capture.invocation.json",
+        "sha256": "9ff67c1d90c9118e16345cf1945ed3b363ccd89c7e8eadf660d9bd19532d29a4",
+        "status": "accepted"
+      },
+      {
+        "path": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/after/case_3/capture.invocation.json",
+        "sha256": "c6bcc5d32f4bea27142674c5e3ed4ed89e4bb5da0c808e96668b5b0e57701922",
+        "status": "accepted"
+      },
+      {
+        "path": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/current_repeat/capture.invocation.json",
+        "sha256": "ff3057dfb69a200f4fd04bcc8a3b3155747dab139a96569dcebfb026bc4328c9",
+        "status": "accepted"
+      },
+      {
+        "path": "/workspace/integration-four/build/verification/plains-encounter/run_6p3u6yiz/bait/capture.invocation.json",
+        "sha256": "d89abbc6603d3b4a41299003e8f7e6a59203915401b2ac34f1b53038b9ca9032",
+        "status": "accepted"
+      }
+    ],
+    "reward_run_count": 14,
+    "historical_boundary": {
+      "status": "not_run",
+      "scope": "optional immutable historical comparison; not current gameplay acceptance",
+      "reason": "not requested; use --with-legacy"
+    },
+    "policy_refusal_count": 7,
+    "claim_refusal_count": 8
+  },
+  "result_boundary": "308.524s is this actual local original check duration. Parent reports2coreaffinity; no GitHub machine timing comparison or general speed guarantee is inferred. OriginalCIoverallserialtimeout remains failed even though its parallel lane succeeded.",
+  "unverified": [
+    "Fresh finalsubmitted-head complete GitHub Integration and failed-job rerun path.",
+    "Release/main/Web/deployment, cross-environment performance and player/device/FUN/G5."
+  ],
+  "reviewer_actions": "Read exactgitparent/singlefile/hash and6retainedCI source hashes; independently read actual Harness/wrapper and6accepted invocation receipts/source guards. No source edits, suite/native rerun or CI."
+}

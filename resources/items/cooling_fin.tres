@@ -3,16 +3,18 @@
 [ext_resource type="Script" path="res://scripts/builds/build_modifier.gd" id="2"]
 [sub_resource type="Resource" id="Effect"]
 script = ExtResource("2")
-stat_id = &"shot_energy_delay"
+stat_id = &"focus_rearm_stamina"
 operation = 2
 value = 0.65
 [resource]
 script = ExtResource("1")
 stable_id = &"cooling_fin"
+definition_version = 3
 display_name = "散热风叶 / Cooling Fin"
+gear_cost = 2
 rarity = 1
 modifiers = Array[ExtResource("2")]([SubResource("Effect")])
 duplicate_policy = 1
 stack_limit = 2
 icon_key = &"cooling"
-description = "射击后等待地面回能的时间减少，空中不自动恢复精力。"
+description = "耗尽后重新启用慢时所需的时间能量降低35%，仍需接地恢复。"

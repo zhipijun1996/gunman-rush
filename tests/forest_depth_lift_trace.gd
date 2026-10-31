@@ -98,7 +98,7 @@ func observe() -> void:
 	if expedition_enabled or root_entry_enabled:
 		frames[-1].wallet_balance=app.wallet.balance
 		frames[-1].meta_notes=app.meta.snapshot().get("notes",0)
-		frames[-1].item_ids=app.build.item_ids()
+		frames[-1].item_ids=app.build.inventory.item_ids()
 		frames[-1].claimed_ids=stage.region_state.claimed.keys()
 
 	if lift_contact and lift_first_free_tick<0 and controller.traversal.state==&"free" and not player.is_on_floor():
@@ -148,7 +148,7 @@ func complete_leg() -> void:
 		expedition_reward_R=snapshot();expedition_reward_R.supports=supports()
 		expedition_reward_R.wallet_balance=app.wallet.balance
 		expedition_reward_R.meta_notes=app.meta.snapshot().get("notes",0)
-		expedition_reward_R.item_ids=app.build.item_ids()
+		expedition_reward_R.item_ids=app.build.inventory.item_ids()
 		expedition_reward_R.claimed_ids=stage.region_state.claimed.keys()
 		expedition_prefix=completed.duplicate(true)
 		event("expedition_reward_R_complete",{"snapshot":expedition_reward_R.duplicate(true),"prefix_final_leg":leg_index,"actual_edge":itinerary[leg_index].edge_id})
@@ -159,7 +159,7 @@ func complete_leg() -> void:
 		expedition_camp=snapshot();expedition_camp.supports=supports()
 		expedition_camp.wallet_balance=app.wallet.balance
 		expedition_camp.meta_notes=app.meta.snapshot().get("notes",0)
-		expedition_camp.item_ids=app.build.item_ids()
+		expedition_camp.item_ids=app.build.inventory.item_ids()
 		expedition_camp.claimed_ids=stage.region_state.claimed.keys()
 		expedition_prefix=completed.duplicate(true)
 		event("expedition_reward_return_complete",{"snapshot":expedition_camp.duplicate(true),"prefix_final_leg":leg_index,"actual_edge":itinerary[leg_index].edge_id})

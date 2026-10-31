@@ -392,12 +392,24 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	var sorted_enemies: Array=m.enemies.duplicate(true)
 	sorted_enemies.sort_custom(func(a: Dictionary,b: Dictionary): return str(a.id)<str(b.id))
 	for e: Dictionary in sorted_enemies:
-		var drop:=drops.settle(StringName(e.id))
-		if drop.kind!="none":
+		var drop:=drops.settle(StringName(e.id),StringName(e.behavior_id))
+		if drop.has("rewards"):
+			var limited: Array[Dictionary] = []
+			for drop_reward: Dictionary in drop.rewards:
+				if drop_reward.kind != "coin":
+					drop_reward.amount=mini(int(drop_reward.amount),int(left[drop_reward.kind]))
+					left[drop_reward.kind]-=int(drop_reward.amount)
+				if int(drop_reward.amount)>0: limited.append(drop_reward)
+			drop.rewards=limited
+		elif drop.kind!="none":
 			drop.amount=mini(int(drop.amount),int(left[drop.kind]))
 			left[drop.kind]-=int(drop.amount)
 			if drop.amount==0: drop.kind="none"
 		m.enemy_drops[e.id]=drop
+	m.budget.enemy_drop_coin_total=0
+	for drop: Dictionary in m.enemy_drops.values():
+		for drop_reward: Dictionary in EnemyDropService.rewards_of(drop):
+			if drop_reward.kind=="coin":m.budget.enemy_drop_coin_total+=int(drop_reward.amount)
 	m.ground_supports=[]
 	for a: Dictionary in m.areas:
 		if a.get("row",-1)==int(footprint.get("grid_height",3))-1:
@@ -439,7 +451,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.streams.shop="region_shop"
 	m.streams.items="region_items"
 	m.item_version="plains-items-v2"
-	m.shot_energy_version="plains-shot-energy-v1"
+	m.shot_energy_version="time-energy-v2"
 	if art_language_profile!="":
 		var planned: Array=[]
 		var unresolved: Array=[]

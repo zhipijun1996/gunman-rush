@@ -1,0 +1,54 @@
+{
+  "commit_executed": "01e5183ceccad356699caf060c5be3ae0437b1d0",
+  "working_status_before": " M docs/current_state.md\n M docs/handoff.md\n M docs/tasks.md\n M tools/harness/profiles.json\n?? docs/integration/\n?? docs/quality/records/FOUR-LINE-INTEGRATION-01.json\n?? tools/run_integration_four_tests.py\n",
+  "first_run_exit": 1,
+  "first_run_report": "build/verification/harness/20261023T035940.719837Z/report.json",
+  "first_run_checks": [
+    {
+      "id": "enemy-feedback-native",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "duration_seconds": 27.237
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "duration_seconds": 21.816
+    },
+    {
+      "id": "enemy-feedback-support",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "duration_seconds": 29.232
+    }
+  ],
+  "not_executed": [
+    "enemy-corpse-save",
+    "enemy-corpse-snapshot",
+    "bgm-integration"
+  ],
+  "known_runtime_error": "formal zero-failure summary included ERROR: Resumed function _restore_focus instance gone; not clean acceptance",
+  "original_test_hashes_unchanged": {
+    "tests/enemy_feedback_01_tests.gd": true,
+    "tests/enemy_feedback_01_formal.gd": true,
+    "tests/enemy_feedback_01_support.gd": true,
+    "tests/enemy_corpse_save_integration.gd": true,
+    "tests/enemy_corpse_snapshot_cases.gd": true,
+    "tests/bgm_integration/runner.gd": true
+  },
+  "wrapper_subsequently_changed": "five enemy cases restored original --fixed-fps 60; BGM keeps normal clock; reject resumed-owner lifecycle errors",
+  "registered_ids": [
+    "enemy-feedback-native",
+    "enemy-feedback-formal",
+    "enemy-feedback-support",
+    "enemy-corpse-save",
+    "enemy-corpse-snapshot",
+    "bgm-integration",
+    "player-default-integration"
+  ],
+  "subsequent_execution": "not performed; root will run final seven after formal player cherry-pick and lifecycle fix"
+}

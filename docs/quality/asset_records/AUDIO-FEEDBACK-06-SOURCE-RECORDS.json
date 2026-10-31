@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-FEEDBACK-06-SOURCE-RECORDS",
+  "content_version": "audio-feedback-06-v1",
+  "disposition": "production_record_only",
+  "source_path": "assets/audio/feedback_06/_sources/ghostbreath.flac",
+  "source_sha256": "f371839853a5dff7dbd5a8c81368f5cfab587f567df5ba962e981d4392c530bc",
+  "tool": "tools/audio_hurt_design.py; frozen audio_candidates_v3 sampled DSP and FFmpeg",
+  "model": "not applicable; existing licensed recordings, no generative model",
+  "prompt_or_reference": "User rejected hero C/feedback05; Hollow Knight feeling/function reference only, no commercial samples used. Direction 薄壳裂隙与抽离",
+  "processing": "Explicit crop/filter/pitch/envelope/layering and bounded final gain, reproducible build and independent validation",
+  "usage_scope": "Reproduction and license/source review only",
+  "license_source": "config/audio_director/feedback_06/sources.json; CC0 original source/page/license bytes retained",
+  "license_status": "verified",
+  "visual_status": "unverified",
+  "runtime_paths": [],
+  "associated_files": [
+    {
+      "path": "assets/audio/feedback_06/_sources/ghost-breath.html",
+      "sha256": "978033a7cc2df9b4133d7007b5cce56d67479ca0caf30107ad6d2838812a164a",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/swish-bamboo-stick-weapon-swhoshes.html",
+      "sha256": "49941d0ec55fd938e111ab35ecf130eb3ec26adec6339be244855602e2dfbf6f",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/crunch-sounds-cucumber.html",
+      "sha256": "2f6876e5b2e5a654de104aa48f43f4ede9f7d3eac9c047c32ec830ba83f9653d",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/crunch_1_0.ogg",
+      "sha256": "46db1080f2c53217a2e7e88e3b886a1ff5df935d3a511922cfcb6748eb1e3340",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/crunch_2_0.ogg",
+      "sha256": "22da4073f8922e5eb35ed7b6fc579f2ecdb98601af5f81ad5f330ee555294651",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/swosh-05.flac",
+      "sha256": "f8e711a61eb4d6f271a2ce71ba355148bc6f53628b21292338a27a9b7673cc1e",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/swosh-03.flac",
+      "sha256": "2111003e4c61b8f3589f926f549ffc36094319da7b99238624c7d64e91bddc09",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/feedback_06/_sources/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "reference"
+    }
+  ],
+  "non_runtime_reason": "Selected CC0 original recordings and exact source-page/license evidence; Godot .gdignore excludes this folder from imports and the shipped PCK. Runtime candidates have separate records."
+}

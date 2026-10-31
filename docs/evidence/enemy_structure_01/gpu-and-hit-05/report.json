@@ -1,0 +1,85 @@
+{
+  "source_before": {
+    "working_files": {},
+    "commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "scope": "Original native accepted-hit and actual software-GL fixture checks; not visual/user/device approval",
+  "cases": [
+    {
+      "name": "hit-native",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_hit_template_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 2.4719548409993877,
+      "marker": "ENEMY HIT TEMPLATE: 426 assertions, 0 failures",
+      "passed": true
+    },
+    {
+      "name": "draw-gl",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_draw_culling.gd",
+        "--",
+        "--verify-pixels"
+      ],
+      "exit_code": 0,
+      "seconds": 2.17568537400075,
+      "marker": "ENEMY ALL 02 DRAW CULLING: 44 checks, 0 failures",
+      "passed": true
+    },
+    {
+      "name": "hit-gl",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_hit_template_pixels.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2218256140004087,
+      "marker": "ENEMY HIT PIXELS: 12 assertions, 0 failures",
+      "passed": true
+    }
+  ],
+  "source_after": {
+    "working_files": {},
+    "commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "status": "passed"
+}

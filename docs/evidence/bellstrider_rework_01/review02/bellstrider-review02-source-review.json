@@ -1,0 +1,233 @@
+{
+  "verdict": "ACCEPT_BOUNDED_SOURCE_DESIGN_PENDING_NATIVE_FREEZE",
+  "reviewer": "/root/guard_review_recovery",
+  "independence": "No reviewed production or current contact tests authored by reviewer. No engine/test execution.",
+  "baseline_commit": "e20dea03b7b54eff1f706ab48e5a6f177851de24",
+  "source_state": "Uncommitted in-progress candidate; exact4 production leaf SHA only, not final frozen pass.",
+  "source_SHA": {
+    "scripts/bosses/bellstrider_definition.gd": "67c2f93c85660dc0d89a2c3fb9f66bb932a4c281de9620f08be7e41cc728f49a",
+    "scripts/bosses/bellstrider_encounter.gd": "a86339f4db60753c9c589a913cff239121ff5b87af1bfc903a65059dbaa53fa8",
+    "scripts/damage/demo_contact_emitter.gd": "cc7d6ca0a67b984a32c56fe5db945dd37168f5fabc43ddb3a34b1cfdba6930b6",
+    "scripts/demo/demo_app.gd": "fee196963d244f6d1fe9ca32ec69cd54bf08ec5c4a62949f41c1a72e94a168bf"
+  },
+  "checks": [
+    {
+      "check": "review_baseline_e20",
+      "passed": true
+    },
+    {
+      "check": "shorter_aim035_lock035",
+      "passed": true
+    },
+    {
+      "check": "flight110_lower127_gravity1935",
+      "passed": true
+    },
+    {
+      "check": "existing_resource_does_not_override_new_default_timing",
+      "passed": true
+    },
+    {
+      "check": "launch_consumes_new_gravity_and_duration",
+      "passed": true
+    },
+    {
+      "check": "barrel_aim_consumes_same_gravity",
+      "passed": true
+    },
+    {
+      "check": "launch_lock_remains_fixed_point",
+      "passed": true
+    },
+    {
+      "check": "contact_exact_admission_optin_only_Bell_App",
+      "passed": true
+    },
+    {
+      "check": "App_only_provider_install_diff",
+      "passed": true
+    },
+    {
+      "check": "relative_sweep_anchored_to_stable_Motor",
+      "passed": true
+    },
+    {
+      "check": "provider_passes_previousrelative_currentworld_actual_actor_half",
+      "passed": true
+    },
+    {
+      "check": "provider_exact_sweep_not_expanded_rect",
+      "passed": true
+    },
+    {
+      "check": "provider_uses_real_hull_and_actual_wheel_shapes",
+      "passed": true
+    },
+    {
+      "check": "provider_actor_box_actual_dimensions",
+      "passed": true
+    },
+    {
+      "check": "provider_rejects_nonfinite_and_badsize",
+      "passed": true
+    },
+    {
+      "check": "generic_nonoptin_old_path_retained",
+      "passed": true
+    },
+    {
+      "check": "precise_path_not_ORed_with_old_AABB",
+      "passed": true
+    },
+    {
+      "check": "ownhook_protection_before_geometry",
+      "passed": true
+    },
+    {
+      "check": "epoch_resets_previous_and_touching",
+      "passed": true
+    },
+    {
+      "check": "previous_relative_updated_even_when_disabled",
+      "passed": true
+    },
+    {
+      "check": "cadence_and_event_identity_retained",
+      "passed": true
+    },
+    {
+      "check": "Bell_phase_transition_now_real_contact",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/bosses/windkeeper_damageable.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/combat/damageable.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/damage/frame_damage_policy.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/player/traversal_ability.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/player/player_motor.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/player/player_controller.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/combat/weapon_action_runtime.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/items/v5/item_runtime.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/bosses/windkeeper_encounter.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/bosses/bellstrider_rig_pose.gd",
+      "passed": true
+    },
+    {
+      "check": "related_policy_and_weakpoint_bytes_unchanged/scripts/bosses/bellstrider_bell_projectile.gd",
+      "passed": true
+    },
+    {
+      "check": "model_clear_bevel_actual_polygons_nohit",
+      "passed": true
+    },
+    {
+      "check": "model_chassis_wheel_gap_negative",
+      "passed": true
+    },
+    {
+      "check": "model_outer_wheel_positive",
+      "passed": true
+    },
+    {
+      "check": "model_real_hull_positive",
+      "passed": true
+    },
+    {
+      "check": "model_mast_bell_gap_not_contact_hull",
+      "passed": true
+    },
+    {
+      "check": "model_fast_cross_endpoints_clear_midpoint_hit",
+      "passed": true
+    },
+    {
+      "check": "model_comoving_no_invented_relative_travel",
+      "passed": true
+    },
+    {
+      "check": "model_normalized_arc_preserved",
+      "passed": true
+    }
+  ],
+  "passed": 41,
+  "failed": 0,
+  "independent_model": {
+    "body": "Identity canonical shared hull and two21-radius wheel circles; actor24x36. SAT/closest-point model only; not native or formal App.",
+    "clear_bevel_actor_center": [
+      70,
+      -20
+    ],
+    "gap_actor_center": [
+      0,
+      69
+    ],
+    "gap_fixture_limit": "Below floor in a normal standing scene, intentionally geometry-only negative.",
+    "wheel_positive_actor_center": [
+      81.9,
+      44
+    ],
+    "through_body_endpoints": [
+      [
+        -140,
+        44
+      ],
+      [
+        140,
+        44
+      ]
+    ],
+    "arc_height_ratios_new_old": {
+      "raised": 1.0000000000000002,
+      "lower": 1.005270083102493
+    }
+  },
+  "findings": [
+    {
+      "severity": "BOUNDARY_NOT_NATIVE_DEFECT",
+      "id": "current_pose_translational_sweep",
+      "finding": "Relative translation is correct for moving player/carriage and exact current hull/wheel geometry. Shape transforms are sampled only at current rig pose. It does not integrate continuous angular old->new articulated shape motion. No reproduced native gameplay false positive is claimed; new tests must not describe a proof of that broader contract."
+    },
+    {
+      "severity": "MINOR_COMMENT_ONLY",
+      "id": "curvature_comment",
+      "finding": "Existing BellProjectile comment says120Hz chord error below.01wu. With new gravity1935, theoretical bound g*(1/120)^2/8 is.016796875wu, still far below1wu pixel. This is a stale numerical comment, not demonstrated gameplay failure."
+    }
+  ],
+  "not_accepted": [
+    "New contact_edges test while its author is writing it",
+    "Final8consumer/native contact pass",
+    "Old276 log as exact final frozen pass",
+    "Updated video/audio/art/fairness/user or G1-G5 acceptance"
+  ],
+  "actual_command": "python3 /tmp/review_bellstrider_review02_source.py > /tmp/bellstrider-review02-source-proof.log",
+  "script_sha256": "d9f71ddc5a3dfd0ab275a37159ea0ec06f16c9b500f521e0c595d513d129dd78",
+  "report_sha256": "b98a31f06837a5248f943b4002778ac75e213c503f45e9a23bc02e8b17f11090",
+  "proof_log_sha256": "2c2c086287767ecf8785a8a332d4e2088badc22ef2af199b96c67ebf2e7397b5"
+}

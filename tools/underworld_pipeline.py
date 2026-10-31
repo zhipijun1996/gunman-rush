@@ -17,6 +17,53 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = 'assets/underworld_plains/production_manifest.json'
 BITS = {'N': 1, 'NE': 2, 'E': 4, 'SE': 8, 'S': 16, 'SW': 32, 'W': 64, 'NW': 128}
+SELECTED_DERIVATIVES = {
+    'hazards': ('scripts/underworld_plains/underworld_hazard_tiles.gd',
+                'assets/underworld_plains/hazards/hazard_fine_build.json'),
+    'mechanisms': ('scripts/underworld_plains/underworld_terrain.gd',
+                   'assets/underworld_plains/mechanisms/mechanisms_fine_build.json'),
+}
+
+
+def gd_code(text):
+    """Discard comments, preserving # characters inside actual string literals."""
+    lines = []
+    for line in text.splitlines():
+        quote, escaped, result = None, False, []
+        for character in line:
+            if escaped:
+                escaped = False
+            elif quote and character == '\\':
+                escaped = True
+            elif character in '\"\'':
+                quote = None if character == quote else character if quote is None else quote
+            elif character == '#' and quote is None:
+                break
+            result.append(character)
+        lines.append(''.join(result))
+    return '\n'.join(lines)
+
+
+def gd_function(text, name):
+    text = gd_code(text)
+    start = re.search(r'^(?:static\s+)?func\s+' + re.escape(name) + r'\(', text, re.MULTILINE)
+    if not start:
+        return ''
+    end = re.search(r'^(?:static\s+)?func\s+', text[start.end():], re.MULTILINE)
+    return text[start.start():start.end() + end.start()] if end else text[start.start():]
+
+
+def compact(text):
+    return re.sub(r'\s+', '', gd_code(text))
+
+
+def literal_json_reads(text, function=None):
+    """Only literal/const operands actually passed through the JSON loader."""
+    text = gd_code(text)
+    constants = dict(re.findall(r'^const\s+(\w+)\s*(?::\s*String)?\s*(?::=|=)\s*[\"\']([^\"\']+)[\"\']', text, re.MULTILINE))
+    body = gd_function(text, function) if function else text
+    operands = re.findall(r'^\s*(?:return\s+|(?:var\s+\w+(?:\s*:\s*\w+)?\s*(?::=|=)|\w+\s*=)\s*)JSON\.parse_string\s*\(\s*FileAccess\.get_file_as_string\s*\(\s*([\"\'][^\"\']+[\"\']|\w+)\s*\)\s*\)', body, re.MULTILINE)
+    return {constants.get(value, value.strip('\"\'')).removeprefix('res://') for value in operands}
 
 
 def digest(path: Path) -> str:
@@ -39,6 +86,7 @@ class Audit:
         self.image_cache: dict[str, Image.Image] = {}
         self.checks: list[dict] = []
         self.measurements: dict = {'files': {}}
+        self.selected_derivatives: dict = {}
 
     def check(self, condition, code: str, detail: str):
         self.checks.append({'code': code, 'passed': bool(condition), 'detail': detail})
@@ -107,6 +155,15 @@ class Audit:
         self.runtime_text[code] = '\n'.join(texts)
         raw = fragment_path.get('path') if isinstance(fragment_path, dict) else fragment_path
         matched = isinstance(raw, str) and any(Path(raw).name in text and 'JSON.parse_string' in text and 'FileAccess.get_file_as_string' in text for text in texts)
+        if code in SELECTED_DERIVATIVES:
+            script, selected = SELECTED_DERIVATIVES[code]
+            matching = [text for value, text in zip(consumers, texts) if value == script]
+            selected_spec = self.json(selected, code + '.selected_manifest')
+            matched = (selected_spec.get('legacy_build') == raw and
+                       any(selected in literal_json_reads(text, 'specification' if code == 'hazards' else 'mechanism_specification') for text in matching))
+            self.selected_derivatives[code] = selected_spec
+            self.measurements.setdefault('selected_derivatives', {})[code] = {
+                'legacy_recipe': raw, 'selected_runtime_manifest': selected, 'consumer': script}
         self.check(matched, code + '.read_by_runtime', str(raw))
 
     def result(self):
@@ -120,7 +177,28 @@ def audit_generation(a: Audit, value, code: str, consumed_image=None):
     record = a.json(value, code)
     original = record.get('original_generation', {})
     prompt = record.get('prompt', original.get('props_prompt'))
-    a.check(isinstance(prompt, str) and bool(prompt.strip()), code + '.prompt', 'Actual nonempty generation prompt')
+    # Two current records externalize their original prompts. Resolve only the
+    # particular consumed output; a sibling image's prompt is not interchangeable.
+    record_path = value.get('path') if isinstance(value, dict) else value
+    consumed = consumed_image.get('path') if isinstance(consumed_image, dict) else consumed_image
+    consumed = str(consumed).removeprefix('res://')
+    if record_path == 'assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json':
+        outputs = record.get('outputs', {})
+        matches = [(name, output) for name, output in outputs.items() if isinstance(output, dict) and output.get('image') == consumed] if isinstance(outputs, dict) else []
+        names = {'morning_sky': 'sky_prompt.txt', 'ridge_landmarks': 'ridge_prompt.txt'}
+        linked = len(matches) == 1 and matches[0][0] in names
+        selected = names.get(matches[0][0]) if linked else None
+        a.check(prompt is None and linked and selected in record.get('prompt_files', []), code + '.prompt_output_binding', 'Consumed output selects its exact original prompt file; injected inline text cannot bypass this provenance')
+        if linked and selected in record.get('prompt_files', []):
+            a.hashed({'path': consumed, 'sha256': matches[0][1].get('sha256')}, code + '.prompt_output')
+            prompt = a.script(str(Path(record_path).parent / selected), code + '.prompt_file')
+    elif record_path == 'assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json':
+        linked = (consumed == 'assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png' and record.get('prompt_file') == 'prompt.txt')
+        a.check(prompt is None and linked, code + '.prompt_output_binding', 'Quiet meadow output uses this record\'s actual prompt.txt; injected inline text is not provenance')
+        if linked:
+            a.hashed({'path': consumed, 'sha256': record.get('source_sha256')}, code + '.prompt_output')
+            prompt = a.script(str(Path(record_path).parent / record['prompt_file']), code + '.prompt_file')
+    a.check(isinstance(prompt, str) and bool(prompt.strip()) and prompt.strip().lower() not in {'unknown', 'not_exposed', 'not_available', 'pending', 'tbd'}, code + '.prompt', 'Actual nonempty generation prompt, never an unavailable/unknown placeholder')
     a.check(record.get('tool') == 'image_gen.imagegen', code + '.tool', str(record.get('tool')))
     a.check(bool(record.get('model', record.get('model_status'))), code + '.model_disclosure', 'not_exposed / unknown is valid; invented model names are not required')
     for source_key in ('source', 'reference', 'image', 'atlas'):
@@ -325,7 +403,7 @@ def audit_local_composition(a: Audit, scenery: dict):
     a.check('_spec.readability_limits' in direct and 'spec.fog_shadow' in direct and 'spec.fog_highlight' in direct,'local.same_runtime_readability_spec','The actual material and runtime rejection read these same production values')
 
 
-def audit_hazards(a: Audit, hazards: dict):
+def audit_hazards(a: Audit, hazards: dict, tile_size: int = 16):
     a.hashed(hazards.get('source_image'), 'hazards.source')
     generated = hazards.get('generated_reference', {})
     if generated:
@@ -334,15 +412,15 @@ def audit_hazards(a: Audit, hazards: dict):
         a.check(bool(generated.get('model_status')), 'hazards.model_status', 'Unknown model is allowed when not exposed')
     atlas_spec = hazards.get('atlas', {})
     image = a.image(atlas_spec, 'hazards.atlas')
-    a.check(atlas_spec.get('tile_size_px') == [16,16], 'hazards.native_scale', str(atlas_spec.get('tile_size_px')))
+    a.check(atlas_spec.get('tile_size_px') == [tile_size,tile_size], 'hazards.native_scale', str(atlas_spec.get('tile_size_px')))
     a.check(atlas_spec.get('columns') == ['start','middle','end','single'], 'hazards.transitions', 'Start, repeat, end and single-span material variants')
     if image:
-        a.check(image.size == (64,16), 'hazards.atlas_size', str(image.size))
-        if image.size == (64,16):
+        a.check(image.size == (4*tile_size,tile_size), 'hazards.atlas_size', str(image.size))
+        if image.size == (4*tile_size,tile_size):
             root = int(atlas_spec.get('embedded_root_px', 0))
             outer = int(atlas_spec.get('external_depth_px', 0))
-            a.check(root > 0 and outer > 0 and root + outer == 16, 'hazards.root_and_tip', f'{root}+{outer}')
-            a.check(image.getchannel('A').crop((0,0,64,outer)).getbbox() is not None and image.getchannel('A').crop((0,outer,64,16)).getbbox() is not None, 'hazards.material_continuity', 'Visible tips and embedded root pixels, not an empty overlay')
+            a.check(root > 0 and outer > 0 and root + outer == tile_size, 'hazards.root_and_tip', f'{root}+{outer}')
+            a.check(image.getchannel('A').crop((0,0,4*tile_size,outer)).getbbox() is not None and image.getchannel('A').crop((0,outer,4*tile_size,tile_size)).getbbox() is not None, 'hazards.material_continuity', 'Visible tips and embedded root pixels, not an empty overlay')
     semantics = hazards.get('semantics', {})
     a.check(semantics.get('damage_source') == 'PlatformThornDefinition.danger', 'hazards.damage_source', 'Existing authoritative damage definition')
     a.check(set(semantics.get('orientation', [])) == {'top','left','right','bottom'}, 'hazards.orientations', str(semantics.get('orientation')))
@@ -455,8 +533,8 @@ def audit_player_animation(a: Audit, player: dict):
     a.measurements['player_animation']={'source_calls':len(calls),'body_frames':len(frames),'distinct_run_pixels':len(state_hashes.get('run',set())),'states':sorted(actual_ids),'scope':'Source/frame assembly; not full-speed aesthetic approval'}
 
 
-def audit_mechanisms(a: Audit, spec: dict):
-    a.check(spec.get('schema')=='underworld-mechanisms-v1','mechanisms.schema','Actual carrier/bell material manifest')
+def audit_mechanisms(a: Audit, spec: dict, schema: str = 'underworld-mechanisms-v1'):
+    a.check(spec.get('schema')==schema,'mechanisms.schema','Actual carrier/bell material manifest')
     carrier=spec.get('carrier',{})
     source_path=a.hashed({'path':carrier.get('source'),'sha256':carrier.get('source_sha256')},'mechanisms.carrier.source')
     source=a.image(carrier.get('source'),'mechanisms.carrier.source_image')
@@ -472,6 +550,12 @@ def audit_mechanisms(a: Audit, spec: dict):
         if valid:
             raw=source.crop(tuple(bbox))
             expected=raw.resize(output.size,Image.Resampling.NEAREST)
+            if schema == 'underworld-mechanisms-v2-fine':
+                # Godot's center-sampled nearest differs from Pillow at exact
+                # half-row ties (232->22 hits row174); replay that actual builder,
+                # rather than accepting either set of source pixels.
+                expected = Image.new('RGBA', output.size)
+                expected.putdata([raw.getpixel((min(raw.width-1, int((x+.5)*raw.width/output.width)), min(raw.height-1, int((y+.5)*raw.height/output.height)))) for y in range(output.height) for x in range(output.width)])
             a.check(expected.tobytes()==output.tobytes(),'mechanisms.carrier.source_reconstruction','Original crop/nearest only, no procedural replacement')
             expected_height=round(raw.height*output.width/raw.width)
             a.check(output.height==expected_height,'mechanisms.carrier.native_aspect','Source slab aspect preserved to nearest whole-pixel height')
@@ -490,7 +574,37 @@ def audit_mechanisms(a: Audit, spec: dict):
     a.check('moving_patch_plan(rect)' in text and 'mechanism_specification().carrier' in text and 'draw_texture_rect_region(texture,part.target,part.source)' in text,'mechanisms.runtime_patch_consumer','Actual carrier uses repeated source cap/body patches')
 
 
-def formal_chest_alpha_isolated(stage: str) -> bool:
+def audit_selected_derivative(a: Audit, key: str, legacy: dict):
+    """Retain the entire old recipe audit, then audit the actual selected build.
+
+    legacy_build is lineage, not a claim that runtime still loads the old JSON.
+    Only the two explicit current adapters above can establish this handoff.
+    """
+    selected = a.selected_derivatives.get(key)
+    if selected is None:
+        return
+    start = len(a.checks)
+    if key == 'hazards':
+        a.check(selected.get('schema_version') == 2, 'hazards.schema', 'Selected fine hazard schema')
+        audit_hazards(a, selected, tile_size=32)
+        for field in ['semantics', 'connection', 'world', 'source_image', 'generated_reference']:
+            a.check(selected.get(field) == legacy.get(field), 'hazards.inherited.' + field, 'Actual fine derivative preserves original danger, collision, source and world units')
+    elif key == 'mechanisms':
+        audit_mechanisms(a, selected, schema='underworld-mechanisms-v2-fine')
+        builder = a.script('tools/build_formal_fine.gd', 'mechanisms.builder')
+        body = compact(gd_function(builder, 'build_carrier'))
+        a.check('raw.get_region(Rect2i(70,272,2035,232))' in body and 'image.resize(192,22,Image.INTERPOLATE_NEAREST)' in body, 'mechanisms.builder_nearest', 'Replay the actual current Godot crop/center-nearest builder')
+        a.check(selected.get('bell') == legacy.get('bell'), 'mechanisms.inherited.bell', 'Actual original bell source, bounds, sampling and collision contract')
+        old, new = legacy.get('carrier', {}), selected.get('carrier', {})
+        for field in ['source', 'source_sha256']:
+            a.check(new.get(field) == old.get(field), 'mechanisms.inherited.' + field, 'Same actual original generated carrier source')
+        for field in ['left_px', 'right_px', 'top_px', 'bottom_px', 'middle_width_px']:
+            a.check(new.get(field, 0)*new.get('pixel_world_scale', 0) == old.get(field, 0)*old.get('pixel_world_scale', 0), 'mechanisms.inherited.' + field, 'Fine sampling retains physical patch dimensions')
+    for check in a.checks[start:]:
+        check['code'] = check['code'].replace(key + '.', key + '.selected.', 1)
+
+
+def legacy_chest_alpha_isolated(stage: str) -> bool:
     """Finite adapter for the explicit legacy candidate, not a GDScript parser.
 
     The complete, unique block must remain inside capture_state. Everything
@@ -509,6 +623,138 @@ def formal_chest_alpha_isolated(stage: str) -> bool:
     if stage.count(block) != 1 or capture is None or block not in capture.group(1):
         return False
     return re.search(r'\.\s*modulate\s*\.\s*a\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', stage.replace(block, '', 1)) is None
+
+
+CHEST_LIBRARY = 'scripts/art/chest_art_library.gd'
+# Reviewed finite config/AtlasTexture/WHITE/source-foot implementation. New
+# loader forms require review, not a directory or substring-based admission.
+CHEST_LIBRARY_SHA256 = '6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e'
+CHEST_INITIALIZATION = '''\tfor c: Dictionary in generated.manifest.rewards:
+\t\tvar chest := c.duplicate(true)
+\t\tchest.id=PlainsRegionCampaign.prefix(map_index)+c.id
+\t\tchest.position = Vector2(c.position[0],c.position[1])
+\t\tchest.claimed = region_state.claimed.has(chest.id)
+\t\tchests.append(chest)
+'''
+CHEST_READY = '''\tfor c: Dictionary in chests:
+\t\tvar sprite:=Sprite2D.new()
+\t\tUnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
+\t\tadd_child(sprite)
+\t\tc.sprite=sprite
+'''
+CHEST_CAPTURE = '''\tfor c: Dictionary in chests:
+\t\tif c.has("sprite"):
+\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
+'''
+CHEST_DISPATCH = '''static func place_chest(sprite: Sprite2D, foot: Vector2, claimed: bool, tier: StringName = &"") -> void:
+\tif not tier.is_empty():
+\t\tChestArtLibrary.place_sprite(sprite,foot,tier,claimed)
+\t\treturn
+\tsprite.texture = OPEN_CHEST if claimed else CLOSED_CHEST
+\tsprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+\tsprite.scale = Vector2.ONE * 58.0 / sprite.texture.get_width()
+\tsprite.position = foot - Vector2(0, sprite.texture.get_height() * sprite.scale.y * .5)
+\tsprite.modulate = Color.WHITE
+\tsprite.set_meta("underworld_chest_open", claimed)
+'''
+
+
+def chest_executable(text):
+    """Mask literal/comment contents, preserving offsets and line boundaries.
+
+    This only prevents a reviewed finite block being supplied as a dead string;
+    it is not a general GDScript parser or reachability proof.
+    """
+    pattern = (r'"""[\s\S]*?"""|' + r"'''[\s\S]*?'''|" +
+               r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|\#[^\n]*')
+    return re.sub(pattern, lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
+
+
+def chest_function(text, name):
+    """Extract a unique real function using offsets from the whole-file mask.
+
+    Starting a fresh literal scan at a fake header inside a multiline string
+    would lose the opening quote and mistake its contents for executable code.
+    Keep the original source and the complete masked source aligned instead.
+    """
+    executable = chest_executable(text)
+    starts = list(re.finditer(r'(?m)^(?:static\s+)?func\s+' + re.escape(name) + r'\(', executable))
+    if len(starts) != 1:
+        return ''
+    start = starts[0]
+    end = re.search(r'(?m)^(?:static\s+)?func\s+', executable[start.end():])
+    finish = start.end() + end.start() if end else len(text)
+    return text[start.start():finish]
+
+
+def chest_loop_matches(function, expected):
+    code = gd_code(function)
+    header = expected.splitlines()[0]
+    matches = list(re.finditer('(?m)^' + re.escape(header) + r'\s*$', code))
+    if len(matches) != 1:
+        return False
+    start = matches[0].start()
+    # The actual loop header must be code, not a multiline-string decoy.
+    if chest_executable(code)[start:start+len(header)] != header:
+        return False
+    lines = code[start:].splitlines(True)
+    block = [lines[0]]
+    for line in lines[1:]:
+        if line.strip() and not line.startswith('\t\t'):
+            break
+        block.append(line)
+    return compact(''.join(block)) == compact(expected)
+
+
+def formal_chest_alpha_isolated(stage: str) -> bool:
+    """Current finite two-call dispatcher: real tier/state/foot, no gray fade.
+
+    The original opt-in alpha adapter is retained separately for immutable
+    historical fixtures. It cannot admit a current formal runtime consumer.
+    """
+    executable = chest_executable(stage)
+    for function in ('_ready', 'capture_state'):
+        if len(re.findall(r'(?m)^func\s+' + function + r'\(', executable)) != 1:
+            return False
+    ready, capture = chest_function(stage, '_ready'), chest_function(stage, 'capture_state')
+    if not (chest_loop_matches(ready, CHEST_INITIALIZATION) and
+            chest_loop_matches(ready, CHEST_READY) and
+            chest_loop_matches(capture, CHEST_CAPTURE)):
+        return False
+    # Reject extra calls, aliases, reflection literals and a valid block planted
+    # in a nonexecuting string while a different actual call drives the chest.
+    if len(re.findall(r'\bplace_chest\b', executable)) != 2:
+        return False
+    if re.search(r'["\']place_chest["\']', gd_code(stage)):
+        return False
+    if re.search(r'\.\s*(?:self_)?modulate(?:\s*\.\s*a)?\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', executable):
+        return False
+    # The sole chest-state assignment mirrors the authoritative ledger at
+    # construction. Presentation must not manufacture claim or position state.
+    remainder = gd_code(stage).replace(CHEST_INITIALIZATION.rstrip(), '', 1)
+    remainder = remainder.replace('if p.claimed: region_state.claimed[p.id] = true', '', 1)
+    if re.search(r'\.\s*claimed\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=|\[\s*["\']claimed["\']\s*\]\s*=|region_state\s*\.\s*claimed\s*\[[^\n]*?\]\s*=', remainder):
+        return False
+    return re.search(r'\b(?:c|chest)\s*\.\s*position\s*(?:[+\-*/])?=', remainder) is None
+
+
+def current_chest_dispatch(objects: str, stage: str, library: str, opened_texture: str) -> bool:
+    """Actual formal four-argument path plus retained genuine three-arg recipe."""
+    if hashlib.sha256(library.encode()).hexdigest() != CHEST_LIBRARY_SHA256:
+        return False
+    executable = chest_executable(objects)
+    if len(re.findall(r'(?m)^static\s+func\s+place_chest\(', executable)) != 1:
+        return False
+    if compact(chest_function(objects, 'place_chest')) != compact(CHEST_DISPATCH):
+        return False
+    code = gd_code(objects)
+    executable = chest_executable(code)
+    for name, path in [('OPEN_CHEST', opened_texture.removeprefix('res://')),
+                       ('CLOSED_CHEST', 'assets/underworld_plains/actors/chest.png')]:
+        declaration = re.search(r'(?m)^const\s+' + name + r'\s*:=\s*preload\("res://' + re.escape(path) + r'"\)\s*$', code)
+        if declaration is None or not executable[declaration.start():declaration.end()].startswith('const ' + name):
+            return False
+    return formal_chest_alpha_isolated(stage)
 
 
 def audit_objects(a: Audit, spec: dict):
@@ -533,8 +779,9 @@ def audit_objects(a: Audit, spec: dict):
         a.check(reconstructed.tobytes()==runtime.tobytes(),'objects.exact_source_recipe','Runtime pixels exactly reconstruct from the retained generated original')
     text=a.script('scripts/underworld_plains/underworld_objects.gd','objects.consumer')
     stage=a.script('scripts/demo/plains_region_stage.gd','objects.stage')
-    a.check(str(opened.get('texture')) in text and 'OPEN_CHEST if claimed else CLOSED_CHEST' in text and 'UnderworldObjects.place_chest' in stage,'objects.actual_dispatch','Actual claimed ledger chooses the complete open texture; transaction itself remains gameplay-owned')
-    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Only the exact opt-in legacy candidate may fade; formal claimed chests use the opened pose')
+    library=a.script(CHEST_LIBRARY,'objects.tier_library')
+    a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture'))),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
+    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher')
 
 
 def audit_home(a: Audit, home: dict):
@@ -588,7 +835,19 @@ def audit_home(a: Audit, home: dict):
     a.check(home.get('safe_noncombat_settlement') is True and home.get('player_height_source')=='UnderworldActors.HUMANOID_HEIGHT','home.safe_shared_height','Safe Home shares real actor scale')
     text=a.runtime_text.get('home','')
     a.check('sprite.scale=Vector2.ONE*factor' in text and 'UnderworldActors.HUMANOID_HEIGHT' in text,'home.runtime_uniform_aspect','Actual world consumer preserves source aspect and shared humanoid scale')
-    a.check('specification.assets' in text and 'specification.slots' in text and 'sprite.position=root-Vector2(foot[0],foot[1])*factor' in text,'home.actual_asset_slots','Actual world builds source foot-anchored slots')
+    world = next((value for value in text.split('class_name UnderworldHomeWorld')[1:]), '')
+    place = compact(gd_function(world, '_place'))
+    configure, slot = compact(gd_function(world, 'configure')), compact(gd_function(world, '_build_slot'))
+    direct = 'sprite.position=root-Vector2(foot[0],foot[1])*factor' in place
+    grounded = False
+    if 'sprite.position=CONTACT.origin(root,Vector2(foot[0],foot[1]),factor,contact_depth)' in place:
+        contact = a.script('scripts/underworld_plains/grounded_contact.gd', 'home.grounded_contact')
+        grounded = ('constCONTACT:=preload("res://scripts/underworld_plains/grounded_contact.gd")' in compact(world) and
+                    'return(foot+Vector2(0,inset)-source_foot*scale_value).round()' in compact(gd_function(contact, 'origin')))
+    building_call = '_place(str(entry.id)+"_building",str(building.image),building.region,building.foot,root,float(entry.building_height),-7,float(building.get("opaque_height",building.foot[1])),_grounding_depth("structure"))'
+    actual_building_call = re.search(r'(?<![A-Za-z0-9_.])' + re.escape(building_call), slot) is not None
+    slot_root = 'varx:=float(entry.x)' in slot and 'varroot:=Vector2(x,float(entry.get("y",floor_y)))' in slot
+    a.check('forentry:Dictionaryinspecification.slots:_build_slot(entry)' in configure and 'specification.assets' in slot and actual_building_call and slot_root and (direct or grounded),'home.actual_asset_slots','Actual slot entry root/image/region/foot/height reach _place and the shared source-foot positioning adapter')
     a.measurements['home']={'slots':len(slots),'active_services':sorted(active),'world_width':width,'generated_objects':len(records)}
 
 
@@ -645,7 +904,20 @@ def audit_ui(a: Audit, ui: dict):
     for root in roots:
         name=str(root).split('.')[0]
         entry=classes.get(name)
-        a.check(entry is not None and 'UnderworldUI' in entry[1],'ui.root.'+str(root)+'.actual_theme','Real named class references the shared theme/colors; GUI flow remains separately tested')
+        themed = entry is not None and 'UnderworldUI' in gd_code(entry[1])
+        modern = {'ItemShopModal': 'show_offer', 'StageRewardModal': 'show_offer', 'StageExitModal': 'show_exit', 'PlainsRegionMapModal': 'show_map'}
+        if name in modern:
+            body = compact(gd_function(entry[1], modern[name])) if entry else ''
+            theme = compact(gd_function(classes.get('DemoClockworkTheme', (None, ''))[1], 'create_theme'))
+            theme_ready = 'varresult:=Theme.new()' in theme and 'result.default_font=FONT' in theme and 'returnresult' in theme
+            if name == 'PlainsRegionMapModal':
+                themed = (theme_ready and '_root=Control.new()' in body and '_root.theme=DemoClockworkTheme.create_theme()' in body and 'add_child(_root)' in body)
+            else:
+                shell_text = gd_code(classes.get('DemoUiModalShell', (None, ''))[1])
+                shell_control = re.search(r'^class_name\s+DemoUiModalShell\s*\n\s*extends\s+Control\s*$', shell_text, re.MULTILINE) is not None
+                shell = compact(gd_function(shell_text, '_ready'))
+                themed = (theme_ready and shell_control and '_shell=DemoUiModalShell.new()' in body and '_root=_shell' in body and 'add_child(_root)' in body and 'theme=DemoClockworkTheme.create_theme()' in shell)
+        a.check(themed,'ui.root.'+str(root)+'.actual_theme','Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient')
     for name in ['ItemCard','ItemAcquiredToast','DemoMenu']:
         text=classes.get(name,(None,''))[1]
         a.check('STRETCH_KEEP_ASPECT_CENTERED' in text,'ui.aspect.'+name,'Actual generated item icon consumer retains source aspect')
@@ -669,6 +941,7 @@ def audit(root: Path = ROOT, manifest_path: str = DEFAULT_MANIFEST, overrides: d
         a.consumption(path, consumer, key)
         try:
             handler(a, fragment)
+            audit_selected_derivative(a, key, fragment)
         except (OSError, ValueError, TypeError, KeyError, AttributeError) as exc:
             a.check(False, key + '.invalid_data', f'{type(exc).__name__}: {exc}')
     entries = manifest.get('runtime_entries', [])

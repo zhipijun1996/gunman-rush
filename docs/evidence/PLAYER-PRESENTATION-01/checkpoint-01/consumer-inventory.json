@@ -1,0 +1,68 @@
+{
+  "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "content_version": "checkpoint-01",
+  "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
+  "consumers": [
+    {
+      "id": "formal_plains_pixel",
+      "path": "scripts/demo/demo_app.gd",
+      "runtime_observed": true,
+      "baseline_output": "plains-rendered.json in baseline-evidence.zip"
+    },
+    {
+      "id": "home_courier",
+      "path": "scripts/demo/home_scene.gd",
+      "runtime_observed": true,
+      "baseline_output": "home-rendered.json in baseline-evidence.zip"
+    },
+    {
+      "id": "home_p1_traveller",
+      "path": "scripts/art/avatar_presentation.gd",
+      "runtime_observed": true,
+      "baseline_output": "home-rendered.json in baseline-evidence.zip"
+    },
+    {
+      "id": "home_p1_girl",
+      "path": "scripts/art/avatar_presentation.gd",
+      "runtime_observed": true,
+      "baseline_output": "home-rendered.json in baseline-evidence.zip"
+    },
+    {
+      "id": "formal_bible_forest_pixel",
+      "path": "scripts/demo/demo_app.gd",
+      "runtime_observed": false
+    },
+    {
+      "id": "forest_exploration_lab",
+      "path": "scripts/demo/forest_exploration_place_lab.gd",
+      "runtime_observed": false
+    },
+    {
+      "id": "nonpixel_courier_and_painted",
+      "path": "scripts/art/player_visual_adapter.gd",
+      "runtime_observed": false
+    },
+    {
+      "id": "old_labs_and_actionstudio",
+      "path": "scenes/player/player.tscn",
+      "runtime_observed": false
+    },
+    {
+      "id": "legacy_parent_pixel_windchime",
+      "path": "scripts/art_foundation/pixel_plains_actor.gd",
+      "runtime_observed": false
+    },
+    {
+      "id": "courier_svg_fallback",
+      "path": "assets/characters/courier/courier_visual.gd",
+      "runtime_observed": false
+    },
+    {
+      "id": "weapon_blink_echo",
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "runtime_observed": false
+    }
+  ],
+  "baseline_summary": "summary.json",
+  "raw_runtime_inventory": "baseline-evidence.zip home/plains-rendered.json;API avatar selection fixture only"
+}

@@ -1,0 +1,232 @@
+    "player-default-integration",
+2026-10-23T11:22:14.5984278Z       "--jobs",
+2026-10-23T11:22:14.5984349Z       "2",
+2026-10-23T11:22:14.5984417Z       "--release"
+2026-10-23T11:22:14.5984486Z     ]
+2026-10-23T11:22:14.5984554Z   ],
+2026-10-23T11:22:14.5984635Z   "additional_commands": [],
+2026-10-23T11:22:14.5984715Z   "release_follow_up": [],
+2026-10-23T11:22:14.5984786Z   "manual_checks": [
+2026-10-23T11:22:14.5985030Z     "GUI and real device/player acceptance remain unverified unless separately exercised.",
+2026-10-23T11:22:14.5985488Z     "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.",
+2026-10-23T11:22:14.5985722Z     "Check inputs are cache invalidation inventories, not complete test dependency graphs."
+2026-10-23T11:22:14.5985786Z   ],
+2026-10-23T11:22:14.5985890Z   "device_acceptance": "unverified",
+2026-10-23T11:22:14.5985987Z   "player_acceptance": "unverified",
+2026-10-23T11:22:14.5986138Z   "base_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+2026-10-23T11:22:14.5986289Z   "source_commit": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+2026-10-23T11:22:14.5986362Z   "git_status": "",
+2026-10-23T11:22:14.5986439Z   "working_files": {},
+2026-10-23T11:22:14.5986666Z   "policy_sha256": "df7bc31b31997b595e1adced27da45dd177e8ddf170b74f2513f85ea083c111c",
+2026-10-23T11:22:14.5986882Z   "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180"
+2026-10-23T11:22:14.5986957Z }
+2026-10-23T11:22:14.5987310Z Production plan: /home/runner/work/gunman-rush/gunman-rush/build/verification/production-ci/plan.json
+2026-10-23T11:22:14.6035680Z ##[group]Run python3 - <<'PY'
+2026-10-23T11:22:14.6035807Z [36;1mpython3 - <<'PY'[0m
+2026-10-23T11:22:14.6035881Z [36;1mimport json[0m
+2026-10-23T11:22:14.6035955Z [36;1mimport subprocess[0m
+2026-10-23T11:22:14.6036027Z [36;1mimport sys[0m
+2026-10-23T11:22:14.6036106Z [36;1mfrom pathlib import Path[0m
+2026-10-23T11:22:14.6036318Z [36;1mplan = json.loads(Path('build/verification/production-ci/plan.json').read_text())[0m
+2026-10-23T11:22:14.6036517Z [36;1mcommand = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--output',[0m
+2026-10-23T11:22:14.6036644Z [36;1m           'build/verification/production-ci/inputs.json'][0m
+2026-10-23T11:22:14.6036728Z [36;1mfor check in plan['checks']:[0m
+2026-10-23T11:22:14.6036819Z [36;1m    command.extend(['--check', check])[0m
+2026-10-23T11:22:14.6037003Z [36;1mwith Path('build/verification/production-ci/inputs.log').open('w') as log:[0m
+2026-10-23T11:22:14.6037190Z [36;1m    result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)[0m
+2026-10-23T11:22:14.6037268Z [36;1mif result.returncode:[0m
+2026-10-23T11:22:14.6037434Z [36;1m    print(Path('build/verification/production-ci/inputs.log').read_text())[0m
+2026-10-23T11:22:14.6037530Z [36;1mraise SystemExit(result.returncode)[0m
+2026-10-23T11:22:14.6037594Z [36;1mPY[0m
+2026-10-23T11:22:14.6094230Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-23T11:22:14.6094313Z env:
+2026-10-23T11:22:14.6094410Z   PRODUCTION_STAGE: integration
+2026-10-23T11:22:14.6094540Z   PRODUCTION_BASE: e9ab0e0743466b8983e34cc7de17bab1abf9d53a
+2026-10-23T11:22:14.6094623Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-23T11:22:14.6094747Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:22:14.6094896Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-23T11:22:14.6095013Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:22:14.6095143Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:22:14.6095255Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:22:14.6095378Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-23T11:22:14.6095514Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-23T11:22:14.6095589Z ##[endgroup]
+2026-10-23T11:29:45.9907336Z ##[group]Run python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log
+2026-10-23T11:29:45.9908166Z [36;1mpython3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log[0m
+2026-10-23T11:29:45.9964187Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-23T11:29:45.9964457Z env:
+2026-10-23T11:29:45.9964623Z   PRODUCTION_STAGE: integration
+2026-10-23T11:29:45.9964882Z   PRODUCTION_BASE: e9ab0e0743466b8983e34cc7de17bab1abf9d53a
+2026-10-23T11:29:45.9965147Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-23T11:29:45.9965381Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:29:45.9965705Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-23T11:29:45.9966032Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:29:45.9966321Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:29:45.9966642Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:29:45.9966940Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-23T11:29:45.9967252Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-23T11:29:45.9967513Z ##[endgroup]
+2026-10-23T11:30:17.7170685Z PASS: diff scope, new completion and test guard preservation (2703 files); semantic review still required.
+2026-10-23T11:30:17.7288894Z ##[group]Run if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+2026-10-23T11:30:17.7289379Z [36;1mif ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then[0m
+2026-10-23T11:30:17.7289855Z [36;1m  sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/media-install.log[0m
+2026-10-23T11:30:17.7290514Z [36;1m  sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg 2>&1 | tee -a build/verification/production-ci/media-install.log[0m
+2026-10-23T11:30:17.7290969Z [36;1mfi[0m
+2026-10-23T11:30:17.7291464Z [36;1mpython3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt 2>&1 | tee build/verification/production-ci/python-install.log[0m
+2026-10-23T11:30:17.7349052Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-23T11:30:17.7349329Z env:
+2026-10-23T11:30:17.7349507Z   PRODUCTION_STAGE: integration
+2026-10-23T11:30:17.7349809Z   PRODUCTION_BASE: e9ab0e0743466b8983e34cc7de17bab1abf9d53a
+2026-10-23T11:30:17.7350072Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-23T11:30:17.7350301Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:30:17.7350622Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-23T11:30:17.7350943Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:30:17.7351236Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:30:17.7351525Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:30:17.7351814Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-23T11:30:17.7352141Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-23T11:30:17.7352402Z ##[endgroup]
+2026-10-23T11:30:17.8113446Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-23T11:30:17.8238696Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-23T11:30:17.8325609Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-23T11:30:17.8340557Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-23T11:30:17.8697025Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-23T11:30:17.8706750Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-23T11:30:17.9182881Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [576 kB]
+2026-10-23T11:30:17.9345587Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [640 kB]
+2026-10-23T11:30:17.9444779Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.4 kB]
+2026-10-23T11:30:18.0116507Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1400 kB]
+2026-10-23T11:30:18.0224481Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [310 kB]
+2026-10-23T11:30:18.0254385Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1706 kB]
+2026-10-23T11:30:18.0368101Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-23T11:30:18.0398426Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1805 kB]
+2026-10-23T11:30:18.0542713Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [411 kB]
+2026-10-23T11:30:18.1086629Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1146 kB]
+2026-10-23T11:30:18.1195662Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-23T11:30:18.1216421Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-23T11:30:18.1320429Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+2026-10-23T11:30:18.1930458Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1713 kB]
+2026-10-23T11:30:18.2048695Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [392 kB]
+2026-10-23T11:30:24.7021589Z Fetched 12.5 MB in 1s (11.6 MB/s)
+2026-10-23T11:30:25.5010342Z Reading package lists...
+2026-10-23T11:30:25.5275215Z Reading package lists...
+2026-10-23T11:30:25.7236881Z Building dependency tree...
+2026-10-23T11:30:25.7242429Z Reading state information...
+2026-10-23T11:30:25.8742025Z The following additional packages will be installed:
+2026-10-23T11:30:25.8742704Z   libass9 libasyncns0 libavc1394-0 libavcodec60 libavdevice60 libavfilter9
+2026-10-23T11:30:25.8743576Z   libavformat60 libavutil58 libblas3 libbluray2 libbs2b0 libcaca0
+2026-10-23T11:30:25.8744237Z   libcdio-cdda2t64 libcdio-paranoia2t64 libcdio19t64 libchromaprint1 libcjson1
+2026-10-23T11:30:25.8744904Z   libcodec2-1.2 libdav1d7 libdc1394-25 libdecor-0-0 libflac12t64 libflite1
+2026-10-23T11:30:25.8745349Z   libgme0 libgsm1 libhwy1t64 libiec61883-0 libjack-jackd2-0 libjxl0.7
+2026-10-23T11:30:25.8746173Z   liblapack3 liblilv-0-0 libmbedcrypto7t64 libmp3lame0 libmpg123-0t64
+2026-10-23T11:30:25.8746832Z   libmysofa1 libopenal-data libopenal1 libopenmpt0t64 libopus0 libplacebo338
+2026-10-23T11:30:25.8747309Z   libpocketsphinx3 libpostproc57 libpulse0 librav1e0 libraw1394-11 librist4
+2026-10-23T11:30:25.8747736Z   librsvg2-2 librubberband2 libsamplerate0 libsdl2-2.0-0 libserd-0-0 libshine3
+2026-10-23T11:30:25.8748154Z   libsndfile1 libsndio7.0 libsord-0-0 libsoxr0 libspeex1 libsphinxbase3t64
+2026-10-23T11:30:25.8748551Z   libsratom-0-0 libsrt1.5-gnutls libssh-gcrypt-4 libsvtav1enc1d1
+2026-10-23T11:30:25.8748953Z   libswresample4 libswscale7 libtheora0 libtwolame0 libudfread0 libunibreak5
+2026-10-23T11:30:25.8749374Z   libva-drm2 libva-x11-2 libva2 libvdpau1 libvidstab1.1 libvorbisenc2 libvpl2
+2026-10-23T11:30:25.8749782Z   libvpx9 libx264-164 libx265-199 libxcb-shape0 libxv1 libxvidcore4 libzimg2
+2026-10-23T11:30:25.8750145Z   libzix-0-0 libzvbi-common libzvbi0t64 ocl-icd-libopencl1
+2026-10-23T11:30:25.8751001Z Suggested packages:
+2026-10-23T11:30:25.8751455Z   ffmpeg-doc libcuda1 libnvcuvid1 libnvidia-encode1 libbluray-bdj jackd2
+2026-10-23T11:30:25.8752049Z   libportaudio2 opus-tools pulseaudio libraw1394-doc librsvg2-bin serdi sndiod
+2026-10-23T11:30:25.8752367Z   sordi speex opencl-icd
+2026-10-23T11:30:25.8752562Z Recommended packages:
+2026-10-23T11:30:25.8752823Z   libaacs0 default-libdecor-0-plugin-1 | libdecor-0-plugin-1
+2026-10-23T11:30:25.8753344Z   pocketsphinx-en-us librsvg2-common va-driver-all | va-driver
+2026-10-23T11:30:25.8753639Z   vdpau-driver-all | vdpau-driver
+2026-10-23T11:30:25.9117980Z The following NEW packages will be installed:
+2026-10-23T11:30:25.9118907Z   ffmpeg libass9 libasyncns0 libavc1394-0 libavcodec60 libavdevice60
+2026-10-23T11:30:25.9119578Z   libavfilter9 libavformat60 libavutil58 libblas3 libbluray2 libbs2b0 libcaca0
+2026-10-23T11:30:25.9120289Z   libcdio-cdda2t64 libcdio-paranoia2t64 libcdio19t64 libchromaprint1 libcjson1
+2026-10-23T11:30:25.9120987Z   libcodec2-1.2 libdav1d7 libdc1394-25 libdecor-0-0 libflac12t64 libflite1
+2026-10-23T11:30:25.9121630Z   libgme0 libgsm1 libhwy1t64 libiec61883-0 libjack-jackd2-0 libjxl0.7
+2026-10-23T11:30:25.9122234Z   liblapack3 liblilv-0-0 libmbedcrypto7t64 libmp3lame0 libmpg123-0t64
+2026-10-23T11:30:25.9122878Z   libmysofa1 libopenal-data libopenal1 libopenmpt0t64 libopus0 libplacebo338
+2026-10-23T11:30:25.9123725Z   libpocketsphinx3 libpostproc57 libpulse0 librav1e0 libraw1394-11 librist4
+2026-10-23T11:30:25.9124423Z   librsvg2-2 librubberband2 libsamplerate0 libsdl2-2.0-0 libserd-0-0 libshine3
+2026-10-23T11:30:25.9125090Z   libsndfile1 libsndio7.0 libsord-0-0 libsoxr0 libspeex1 libsphinxbase3t64
+2026-10-23T11:30:25.9125715Z   libsratom-0-0 libsrt1.5-gnutls libssh-gcrypt-4 libsvtav1enc1d1
+2026-10-23T11:30:25.9126341Z   libswresample4 libswscale7 libtheora0 libtwolame0 libudfread0 libunibreak5
+2026-10-23T11:30:25.9127015Z   libva-drm2 libva-x11-2 libva2 libvdpau1 libvidstab1.1 libvorbisenc2 libvpl2
+2026-10-23T11:30:25.9127856Z   libvpx9 libx264-164 libx265-199 libxcb-shape0 libxv1 libxvidcore4 libzimg2
+2026-10-23T11:30:25.9128445Z   libzix-0-0 libzvbi-common libzvbi0t64 ocl-icd-libopencl1
+2026-10-23T11:30:25.9306196Z 0 upgraded, 87 newly installed, 0 to remove and 99 not upgraded.
+2026-10-23T11:30:25.9306630Z Need to get 62.8 MB of archives.
+2026-10-23T11:30:25.9306968Z After this operation, 173 MB of additional disk space will be used.
+2026-10-23T11:30:25.9307349Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-23T11:30:26.5420725Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva2 amd64 2.20.0-2ubuntu0.2 [66.4 kB]
+2026-10-23T11:30:28.4734687Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva-drm2 amd64 2.20.0-2ubuntu0.2 [7124 B]
+2026-10-23T11:30:29.0666463Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva-x11-2 amd64 2.20.0-2ubuntu0.2 [12.0 kB]
+2026-10-23T11:30:29.8681884Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvdpau1 amd64 1.5-2build1 [27.8 kB]
+2026-10-23T11:30:31.1110871Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libvpl2 amd64 2023.3.0-1build1 [99.8 kB]
+2026-10-23T11:30:33.9885318Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 ocl-icd-libopencl1 amd64 2.3.2-1build1 [38.5 kB]
+2026-10-23T11:30:35.5871464Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libavutil58 amd64 7:6.1.1-3ubuntu5 [401 kB]
+2026-10-23T11:30:45.0834041Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libcodec2-1.2 amd64 1.2.0-2build1 [8998 kB]
+2026-10-23T11:33:58.8406692Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libdav1d7 amd64 1.4.1-1build1 [604 kB]
+2026-10-23T11:34:13.3268538Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libgsm1 amd64 1.0.22-1build1 [27.8 kB]
+2026-10-23T11:34:14.4358611Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libhwy1t64 amd64 1.0.7-8.1build1 [584 kB]
+2026-10-23T11:34:27.8664930Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libjxl0.7 amd64 0.7.0-10.2ubuntu6.1 [1001 kB]
+2026-10-23T11:34:50.7396062Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libmp3lame0 amd64 3.100-6build1 [142 kB]
+2026-10-23T11:34:54.5699148Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopus0 amd64 1.4-1build1 [208 kB]
+2026-10-23T11:34:59.6167899Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 librav1e0 amd64 0.7.1-2 [1022 kB]
+2026-10-23T11:35:23.0284858Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 librsvg2-2 amd64 2.58.0+dfsg-1ubuntu0.1 [2141 kB]
+2026-10-23T11:35:30.2322940Z ##[error]The action 'Install media dependencies required by existing docs and readers' has timed out after 5 minutes.
+2026-10-23T11:35:30.2410995Z ##[group]Run actions/upload-artifact@v4
+2026-10-23T11:35:30.2411224Z with:
+2026-10-23T11:35:30.2411402Z   name: production-impact-39945409720-1
+2026-10-23T11:35:30.2412062Z   path: build/verification/production-ci/
+build/verification/harness/
+build/verification/environment/
+build/verification/release-evidence/
+/home/runner/work/_temp/gunman-toolchains/downloads/*.attempts.jsonl
+
+2026-10-23T11:35:30.2412722Z   if-no-files-found: error
+2026-10-23T11:35:30.2412915Z   retention-days: 14
+2026-10-23T11:35:30.2413246Z   compression-level: 6
+2026-10-23T11:35:30.2413417Z   overwrite: false
+2026-10-23T11:35:30.2413589Z   include-hidden-files: false
+2026-10-23T11:35:30.2413776Z env:
+2026-10-23T11:35:30.2413939Z   PRODUCTION_STAGE: integration
+2026-10-23T11:35:30.2414184Z   PRODUCTION_BASE: e9ab0e0743466b8983e34cc7de17bab1abf9d53a
+2026-10-23T11:35:30.2414455Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-23T11:35:30.2414682Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:35:30.2415028Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-23T11:35:30.2415346Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:35:30.2415631Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:35:30.2415910Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-23T11:35:30.2416194Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-23T11:35:30.2416508Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-23T11:35:30.2416778Z ##[endgroup]
+2026-10-23T11:35:30.3720085Z (node:50296) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T11:35:30.3721254Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T11:35:30.3793552Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-23T11:35:30.3797768Z The least common ancestor is /home/runner/work. This will be the root directory of the artifact
+2026-10-23T11:35:30.3798442Z With the provided path, there will be 6 files uploaded
+2026-10-23T11:35:30.3800936Z Artifact name is valid!
+2026-10-23T11:35:30.3802126Z Root directory input is valid!
+2026-10-23T11:35:30.7052401Z Beginning upload of artifact content to blob storage
+2026-10-23T11:35:30.8103348Z (node:50296) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-23T11:35:31.3890951Z Uploaded bytes 1030927
+2026-10-23T11:35:31.4551650Z Finished uploading artifact content to blob storage!
+2026-10-23T11:35:31.4552245Z SHA256 digest of uploaded artifact zip is 8e8736282587a67da6401c7df32980f8042d69d291326ba603608b5983b54d2a
+2026-10-23T11:35:31.4552677Z Finalizing artifact upload
+2026-10-23T11:35:31.8967193Z Artifact production-impact-39945409720-1.zip successfully finalized. Artifact ID 12499150451
+2026-10-23T11:35:31.8968000Z Artifact production-impact-39945409720-1 has been successfully uploaded! Final size is 1030927 bytes. Artifact ID is 12499150451
+2026-10-23T11:35:31.8973693Z Artifact download URL: https://github.com/zhipijun1996/gunman-rush/actions/runs/39945409720/artifacts/12499150451
+2026-10-23T11:35:31.9136526Z Post job cleanup.
+2026-10-23T11:35:31.9815735Z [command]/usr/bin/git version
+2026-10-23T11:35:31.9853699Z git version 2.55.0
+2026-10-23T11:35:31.9886704Z Temporarily overriding HOME='/home/runner/work/_temp/e88aeb8e-3610-439b-8903-f451e5d9b91c' before making global git config changes
+2026-10-23T11:35:31.9887473Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-23T11:35:31.9894054Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-23T11:35:31.9927256Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-23T11:35:31.9957105Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-23T11:35:32.0195617Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-23T11:35:32.0227445Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-23T11:35:32.0477909Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-23T11:35:32.0530193Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-23T11:35:32.0881889Z Cleaning up orphan processes
+2026-10-23T11:35:32.1179828Z Terminate orphan process: pid (50241) (tee)
+2026-10-23T11:35:32.1241241Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

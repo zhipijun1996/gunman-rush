@@ -20,6 +20,11 @@ OWNED = (
     'tests/underworld_plains/home_terrace_driver.gd',
     'tests/underworld_plains/test_underworld_home_terraces.gd',
     'tools/run_underworld_home_terrace_tests.py',
+    'scripts/demo/demo_app.gd',
+    'scripts/ui/home_item_codex.gd',
+    'scripts/meta/meta_progression.gd',
+    'scripts/meta/home_item_catalog.gd',
+    'config/home_items.json',
     # Preserve every dependency from the R2 component guard, then add actual
     # raw provenance inputs and the new default/immutable legacy fixtures.
     'assets/underworld_plains/home/generation_record.json',
@@ -68,6 +73,14 @@ def read_fresh_receipt(path, since_ns):
         raise RuntimeError('Current run did not write a fresh Home terrace receipt')
     return json.loads(path.read_text())
 
+def expected_assertions(capture=False):
+    # The authored arms service adds three route checks and one panel capture.
+    # Pausing now opens the backpack; the actual Journey-page pointer adds
+    # exactly one visible-control assertion before the existing leave flow.
+    # Actual relics run adds two checks and one GPU panel capture: 187/198.
+    # Prior 185/195 expectations and the native-count mismatch stay archived.
+    return 198 if capture else 187
+
 def verify(output, receipt, before, after, expected, exit_code=0):
     if exit_code != 0:
         raise RuntimeError(f'Home terrace engine returned {exit_code}')
@@ -83,7 +96,7 @@ def verify(output, receipt, before, after, expected, exit_code=0):
     if len(receipt.get('visits', [])) != 12 or len({x['foot'][1] for x in receipt['visits']}) != 3:
         raise RuntimeError('Actual visits do not cover twelve stations on all three tiers')
     active = {x['expected_action'] for x in receipt['visits'] if x['expected_action']}
-    if active != {'character', 'upgrade', 'achievements', 'departure'}:
+    if active != {'character', 'upgrade', 'achievements', 'arms', 'relics', 'departure'}:
         raise RuntimeError('Current Home changed active function identity')
     for visit in receipt['visits']:
         if 'meta_before' not in visit or 'meta_after' not in visit:
@@ -128,7 +141,7 @@ def main():
         preflight()
         after = {p: digest(ROOT / p) for p in OWNED}
         binding['source_after'] = after
-        expected = 189 if args.capture else 180
+        expected = expected_assertions(args.capture)
         verify(output, receipt, before, after, expected, 0)
         saved = run / 'receipt.json'; shutil.copy2(receipt_path, saved)
         binding.update(status='passed', checks=expected, failures=0, receipt=str(saved.relative_to(ROOT)), receipt_sha256=digest(saved))

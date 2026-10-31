@@ -1,0 +1,13 @@
+# style23／creative26：鸣铃巡游机局部重作与候选技术绑定
+
+用户本轮明确重做鸣铃巡游机，完整依据为[本轮规格](../worklines/bellstrider_rework_01/spec.md)。[来源记录](bibles/bellstrider-rework-20261030.json)明确它是root保留的直接用户规格，不冒充API导出或逐字聊天附件。该规格只覆盖原平原Bible6.1的这只Boss；原Bible原文字节、牧风者和其他Boss、共享像素/材质方向、BGM与旧用户引文均保留。平原总谱增加仅Bellstrider的局部覆写；森林只改共享绑定元信息。
+
+本次[style23](bibles/style-continuity-20261030-v23-bellstrider-rework.json)保留原83项role/path/顺序，按当前候选实际字节重绑正式平原Stage、DemoApp和WeaponActionRuntime三条注册叶，其余80条逐行不变；新增11项实际共姿态、绘制、定义/配置、旧PNG与音频service/manifest/source/recipe有限闭包，共94项。改变的SHA与实际来源逐项列在revision_impact，不批量刷新旧SHA。新17WAV由独立有限asset_record绑定逐件实际字节、literal preload、原CC0来源/许可证和加工配方，不登记whole-assets目录，也不把hash当听感或动作质量。
+
+[上一版归档](archive/creative-v25-before-bellstrider-rework/manifest.json)从实际基线840108da恢复完整style22、registry、两区creative25、原README/revision25、原40＋17测试全文及实际已变注册叶旧源；manifest逐件记录原路径、commit、bytes和SHA。历史style、Bible和旧测试SHA常量不改写；旧原件及所有旧失败仍保留。
+
+原测试的5处当前身份假设作机械迁移：两个角色闭包入口验证新current23并保留旧22身份，原merged22／merged25比较读取精确归档和对应旧叶，真实specialist入口验证current26。旧历史方法、所有SHA字面量、负例和拒绝仍执行；不把本轮body变化倒写进旧21／24合并证明。新增检查验证94项实际闭包、3叶差异、原83前缀、原件字节、旧22／25拒绝、新源漂移反例、真实17WAV格式/字节、仅Bellstrider设计覆写，以及原57方法与输入前缀保留。
+
+Harness原region-bible-tests的422项与contract的24项输入作为有序前缀保留，仅追加本次真实有限输入；原四检查argv、成功标记与30／30／30／60秒预算不变。Creative两检查没有显式inputs，继续其原依赖策略，不用新窄列表覆盖。当前纯检查结果、真实原生／GPU／音频／连续自然战斗证据分别记录；技术绑定不继承上轮通过，不签约20组平衡、两枪／第三枪余量、金币拾取、用户审美、听感、设备或G5。
+
+当前SHA为候选：pilot后仍可能调整Boss/共姿态/App。任何再次变源都应使守门真实拒绝，待root明确冻结后只重绑实际有限变叶并重跑原四检查；不能在采集中改源码或文档，也不能把pilot通过当最终验收。

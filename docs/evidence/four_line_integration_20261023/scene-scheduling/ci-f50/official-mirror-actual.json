@@ -1,0 +1,26 @@
+{
+  "source": "f50fe78630fd98339186349f4ea91d92540d6c5b",
+  "run_id": 39987409483,
+  "prepare_job": 120530702893,
+  "observed": "Actual GitHub mirror+file now139B and actual officialHTTPS Ubuntu index/package URLs; not inferred from stepstatus.",
+  "download": {
+    "bytes_label": "62.8MB",
+    "reported_seconds": 9,
+    "install_step_seconds": 32.8652146
+  },
+  "scope": "Completed prepare only, no full142/main/Release approval; not controlled performance comparison.",
+  "actual_selected_log_lines": [
+    "2026-10-23T16:39:37.9801019Z Ran 24 tests in 3.191s",
+    "2026-10-23T16:39:52.5306812Z ##[group]Run if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then",
+    "2026-10-23T16:39:52.6520537Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [139 B]",
+    "2026-10-23T16:39:53.1407405Z Get:3 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]",
+    "2026-10-23T16:39:53.4541662Z Get:4 https://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]",
+    "2026-10-23T16:39:53.6300680Z Get:5 https://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]",
+    "2026-10-23T16:39:58.8490705Z Fetched 12.5 MB in 4s (3373 kB/s)",
+    "2026-10-23T16:40:00.3799659Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [139 B]",
+    "2026-10-23T16:40:01.7972329Z Get:9 https://archive.ubuntu.com/ubuntu noble/universe amd64 libcodec2-1.2 amd64 1.2.0-2build1 [8998 kB]",
+    "2026-10-23T16:40:02.4693845Z Get:10 https://archive.ubuntu.com/ubuntu noble/universe amd64 libdav1d7 amd64 1.4.1-1build1 [604 kB]",
+    "2026-10-23T16:40:10.0765243Z Fetched 62.8 MB in 9s (6702 kB/s)",
+    "2026-10-23T16:40:25.3958958Z ##[group]Run python3 tests/test_cloud_delivery.py 2>&1 | tee build/verification/production-ci/delivery-tests.log"
+  ]
+}

@@ -75,10 +75,13 @@ def validate_fixture_output(fixture, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--fixture", action="append", choices=FIXTURES, help="Targeted diagnostics only; default executes all15 suites and all28 legacy fixtures")
+    parser.add_argument("--fixture", action="append", choices=FIXTURES, help="Targeted diagnostics only; default executes current15 suites with baseline; legacy walks require --with-legacy-fixtures")
+    parser.add_argument("--with-legacy-fixtures", action="store_true", help="Also execute all27 old standalone v10 itineraries; original budgets and assertions apply")
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
-    selected = args.fixture or FIXTURES
+    if args.fixture and args.with_legacy_fixtures:
+        parser.error("targeted --fixture and full --with-legacy-fixtures are distinct scopes")
+    selected = args.fixture or (FIXTURES if args.with_legacy_fixtures else ["baseline"])
     if len(selected) != len(set(selected)):
         parser.error("duplicate explicit fixture request")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
@@ -88,7 +91,7 @@ def main():
         parser.error("output must be under build/")
     out.mkdir(parents=True, exist_ok=False)
     started = time.monotonic()
-    ledger = {"scope":"targeted diagnostic fixtures" if args.fixture else "full original15 suites with legacy27 physical cases and once-only original corpus/App baseline", "expected_full_fixture_ids":FIXTURES,"requested_fixture_ids":selected,"completed_fixture_ids":[],"unfinished_fixture_ids":selected.copy(),"runs":[],"status":"running","total_timeout_seconds":TOTAL_TIMEOUT}
+    ledger = {"scope":"targeted diagnostic fixtures" if args.fixture else ("full original15 suites with legacy27 physical cases and once-only original corpus/App baseline" if args.with_legacy_fixtures else "current15 suites and original corpus/actual App baseline; old standalone v10 itineraries deferred"), "expected_full_fixture_ids":FIXTURES,"not_run_fixture_ids":[f for f in FIXTURES if f not in selected],"requested_fixture_ids":selected,"completed_fixture_ids":[],"unfinished_fixture_ids":selected.copy(),"runs":[],"status":"running","total_timeout_seconds":TOTAL_TIMEOUT}
 
     def save():
         ledger["elapsed_seconds"] = round(time.monotonic()-started,3)
@@ -156,9 +159,14 @@ def main():
     if args.fixture:
         print(f"PLAINS REGION TARGETED FIXTURES: {len(selected)} passed; full suite not claimed",flush=True)
     else:
-        if ledger["completed_fixture_ids"] != FIXTURES:
-            raise RuntimeError("Full suite missing required legacy fixture cases")
-        print("PLAINS REGION SUITES: 15 suites passed",flush=True)
+        if args.with_legacy_fixtures:
+            if ledger["completed_fixture_ids"] != FIXTURES:
+                raise RuntimeError("Full suite missing required legacy fixture cases")
+            print("PLAINS REGION SUITES: 15 suites passed",flush=True)
+        else:
+            if ledger["completed_fixture_ids"] != ["baseline"] or len(ledger["not_run_fixture_ids"]) != 27:
+                raise RuntimeError("Current baseline or explicit deferred legacy ledger incomplete")
+            print("PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27",flush=True)
 
 
 if __name__ == "__main__":

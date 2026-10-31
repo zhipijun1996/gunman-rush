@@ -1,0 +1,148 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "620c40b3ca939cd9ba42d5cebcf9b97ccbbcef62",
+  "checks": [
+    "docs"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [
+      {
+        "path": ".agents/skills",
+        "representative": ".agents/skills/ability-creator/SKILL.md",
+        "required_by": [
+          "README.md"
+        ]
+      },
+      {
+        "path": "assets/visual_development/p1_native",
+        "representative": "assets/visual_development/p1_native/device.prompt.txt",
+        "required_by": [
+          "docs/quality/p1_native.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/enemy_feedback_01/v8-first-review/independent",
+        "representative": "docs/evidence/enemy_feedback_01/v8-first-review/independent/affected-harness-rerun.log",
+        "required_by": [
+          "docs/evidence/enemy_feedback_01/v8-first-review/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/enemy_feedback_01/v8/independent",
+        "representative": "docs/evidence/enemy_feedback_01/v8/independent/affected-harness.log",
+        "required_by": [
+          "docs/evidence/enemy_feedback_01/v8/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/enemy_feedback_01/v8/root",
+        "representative": "docs/evidence/enemy_feedback_01/v8/root/docs/artifacts/docs/check.log",
+        "required_by": [
+          "docs/evidence/enemy_feedback_01/v8/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/forest_depth_v2",
+        "representative": "docs/evidence/forest_depth_v2/G_bounded_followup01/README.md",
+        "required_by": [
+          "docs/design/forest_depth_v2/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/p1_environment/records/comparison_02",
+        "representative": "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+        "required_by": [
+          "docs/quality/p1_environment.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/completed_lease_recovery",
+        "representative": "docs/evidence/region_production_v3/completed_lease_recovery/actual_collection/stderr.log",
+        "required_by": [
+          "docs/quality/region_production_v3/completed_lease_recovery.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/terrain_family_01/final_static",
+        "representative": "docs/evidence/region_production_v3/terrain_family_01/final_static/cold_import.log",
+        "required_by": [
+          "docs/quality/region_production_v3/terrain_family_01.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original",
+        "representative": "docs/evidence/region_production_v3/terrain_family_01/movie_original/capture.log",
+        "required_by": [
+          "docs/quality/region_production_v3/terrain_family_01.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/style_exploration/delivery",
+        "representative": "docs/evidence/style_exploration/delivery/README.md",
+        "required_by": [
+          "docs/evidence/style_exploration/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/terrain_production",
+        "representative": "docs/evidence/terrain_production/audio-exit-probe.log",
+        "required_by": [
+          "docs/quality/terrain_production.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/underworld_feedback_03/independent_review",
+        "representative": "docs/evidence/underworld_feedback_03/independent_review/baseline_audit.md",
+        "required_by": [
+          "docs/evidence/underworld_feedback_03/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/underworld_feedback_03/objects/provenance",
+        "representative": "docs/evidence/underworld_feedback_03/objects/provenance/experience_notes.md",
+        "required_by": [
+          "docs/evidence/underworld_feedback_03/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/underworld_feedback_03/verification/history",
+        "representative": "docs/evidence/underworld_feedback_03/verification/history/20261019T164643.182365Z/core.log",
+        "required_by": [
+          "docs/evidence/underworld_feedback_03/README.md"
+        ]
+      }
+    ],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+      "cwd": "/workspace/gunman-rush-work",
+      "checks": [
+        {
+          "id": "docs",
+          "argv": [
+            "python3",
+            "tools/check_docs.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^PASS:"
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "seconds": 0.613
+}

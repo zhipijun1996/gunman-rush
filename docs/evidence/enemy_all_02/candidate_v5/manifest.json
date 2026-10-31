@@ -1,0 +1,2402 @@
+{
+  "task_id": "ENEMY-ALL-02",
+  "production_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+  "capture_commit": "b71a87864d3843f8d4e898046224778890349dac",
+  "ordinary_species": 14,
+  "ordinary_render_chains": 22,
+  "development_candidates": 2,
+  "boss_scenes": 8,
+  "boss_definition_combinations": 9,
+  "approval": "director review candidate; user, physical device and listening acceptance pending",
+  "videos": {
+    "plains": {
+      "path": "plains/review.mp4",
+      "sha256": "a27c708729b8b3c0d9b9881cd0d1000513be5bc24d4b4c11362078da6e4ada0e",
+      "bytes": 15809082,
+      "frames": 9573,
+      "seconds": 159.55,
+      "source_commit": "94c95a80d4af831012fe7c1fc55e01abb95a30c1",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "6fb5360b5dedd2efe473583686c948f389c82bbeadc1250122dbd4f42cb6380e",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 21240645,
+            "sha256": "f1452c664adf709c7af011a3f12abf5e9ee8b4ddf7569a6e1aabf914b88a7196"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 30633678,
+            "sha256": "d4e583e8259a540886ef846a0a90da31ef463cdae2e2af69955c8f2a9c51cd15"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "patrol_drone",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 1,
+          "end_frame": 634,
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 10.5666666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "not_applicable_contact_only"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.08333333333331,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 201.972999369193,
+                "tension": 0.0,
+                "travel": 0.999999999926742
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 1,
+          "id": "patrol_drone",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 635,
+          "end_frame": 1268,
+          "start_seconds": 10.6166666666667,
+          "end_seconds": 21.1833333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "not_applicable_contact_only"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.09999999999998,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 202.444238267231,
+                "tension": 0.0,
+                "travel": 0.999999999926742
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 2,
+          "id": "plains_charger",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 1269,
+          "end_frame": 1902,
+          "start_seconds": 21.2333333333333,
+          "end_seconds": 31.8,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.09999999999998,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 113.976996812045,
+                "tension": 0.0,
+                "travel": 0.999999939684232
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  654.5,
+                  500.108428955078
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": true
+          }
+        },
+        {
+          "case": 3,
+          "id": "plains_charger",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 1903,
+          "end_frame": 2536,
+          "start_seconds": 31.85,
+          "end_seconds": 42.4166666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.09999999999998,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 113.976996812045,
+                "tension": 0.0,
+                "travel": 0.999999939684232
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  654.5,
+                  500.466979980469
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": true
+          }
+        },
+        {
+          "case": 4,
+          "id": "plains_diver",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 2537,
+          "end_frame": 3169,
+          "start_seconds": 42.4666666666667,
+          "end_seconds": 53.0166666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.08333333333331,
+                "recovery": 6.294e-28,
+                "release": 0.0,
+                "stride": 167.615570315477,
+                "tension": 0.0,
+                "travel": 0.999990727188492
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  628.853088378906,
+                  501.846160888672
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": true
+          }
+        },
+        {
+          "case": 5,
+          "id": "plains_diver",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 3170,
+          "end_frame": 3802,
+          "start_seconds": 53.0666666666667,
+          "end_seconds": 63.6166666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.08333333333331,
+                "recovery": 6.294e-28,
+                "release": 0.0,
+                "stride": 167.615570315477,
+                "tension": 0.0,
+                "travel": 0.999990727188492
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  628.853088378906,
+                  500.50927734375
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": true
+          }
+        },
+        {
+          "case": 6,
+          "id": "plains_hopper",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 3803,
+          "end_frame": 4433,
+          "start_seconds": 63.6666666666667,
+          "end_seconds": 74.1833333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.04999999999998,
+                "recovery": 3.48256573e-24,
+                "release": 6.1e-31,
+                "stride": 279.108595764044,
+                "tension": 0.0,
+                "travel": 0.99992960209073
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 7,
+          "id": "plains_hopper",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 4434,
+          "end_frame": 5064,
+          "start_seconds": 74.2333333333333,
+          "end_seconds": 84.75,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.04999999999998,
+                "recovery": 3.48256573e-24,
+                "release": 6.1e-31,
+                "stride": 279.108595764044,
+                "tension": 0.0,
+                "travel": 0.99992960209073
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 8,
+          "id": "plains_sentry",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 5065,
+          "end_frame": 5702,
+          "start_seconds": 84.8,
+          "end_seconds": 95.4333333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.16666666666665,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 10.1787678675349,
+                "tension": 0.0,
+                "travel": 1.0075601104758e-10
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 9,
+          "id": "plains_sentry",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 5703,
+          "end_frame": 6340,
+          "start_seconds": 95.4833333333333,
+          "end_seconds": 106.116666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.16666666666665,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 10.1787678675349,
+                "tension": 0.0,
+                "travel": 1.0075601104758e-10
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 10,
+          "id": "plains_fan_sentry",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 6341,
+          "end_frame": 6979,
+          "start_seconds": 106.166666666667,
+          "end_seconds": 116.816666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.18333333333331,
+                "recovery": 4.32854124522321e-12,
+                "release": 8.7979621024e-22,
+                "stride": 10.1787282634166,
+                "tension": 2.7095967282e-22,
+                "travel": 1.62210088594826e-10
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 11,
+          "id": "plains_fan_sentry",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 6980,
+          "end_frame": 7618,
+          "start_seconds": 116.866666666667,
+          "end_seconds": 127.516666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.18333333333331,
+                "recovery": 4.32854124522321e-12,
+                "release": 8.7979621024e-22,
+                "stride": 10.1787282634166,
+                "tension": 2.7095967282e-22,
+                "travel": 1.62210088594826e-10
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 12,
+          "id": "plains_root_bell",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 7619,
+          "end_frame": 8254,
+          "start_seconds": 127.566666666667,
+          "end_seconds": 138.166666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.13333333333331,
+                "recovery": 2.434709206e-23,
+                "release": 0.0,
+                "stride": 0.0,
+                "tension": 0.0,
+                "travel": 0.0
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 13,
+          "id": "plains_root_bell",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 8255,
+          "end_frame": 8890,
+          "start_seconds": 138.216666666667,
+          "end_seconds": 148.816666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.13333333333331,
+                "recovery": 2.434709206e-23,
+                "release": 0.0,
+                "stride": 0.0,
+                "tension": 0.0,
+                "travel": 0.0
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 14,
+          "id": "plains_root_bell",
+          "chain": "root_bell",
+          "renderer": "res://scripts/enemies/root_bell_presentation.gd",
+          "start_frame": 8891,
+          "end_frame": 9526,
+          "start_seconds": 148.866666666667,
+          "end_seconds": 159.466666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.13333333333331,
+                "recovery": 2.434709206e-23,
+                "release": 0.0,
+                "stride": 0.0,
+                "tension": 0.0,
+                "travel": 0.0
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "forest": {
+      "path": "forest/review.mp4",
+      "sha256": "85fb57d47d04eea0d06a9a50b71fa458b1f3cbda30e352f30f990877243d2e20",
+      "bytes": 5472815,
+      "frames": 5031,
+      "seconds": 83.85,
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "1b9997456b682509dd2d8886c63d72bd492050631623878453c408c22d4a1a07",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 9304427,
+            "sha256": "e4bb77a11fc6d0150b7f6b37c8aee5eebda24de2c6daeaf7667c11fdbde16f38"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 16099278,
+            "sha256": "5fcc8e02dd33e6800cb51dea63c6c9594694da388e0dfed2cc7af4e36e392adb"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "forest_bark_beetle",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "start_frame": 1,
+          "end_frame": 1171,
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 19.5166666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 1,
+          "id": "forest_swing_pod",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "start_frame": 1172,
+          "end_frame": 1711,
+          "start_seconds": 19.5666666666667,
+          "end_seconds": 28.5666666666667,
+          "post_death_observation_frames": 219,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "not_applicable_contact_only"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 2,
+          "id": "forest_lantern",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_enemy_presentation.gd",
+          "start_frame": 1712,
+          "end_frame": 2251,
+          "start_seconds": 28.6166666666667,
+          "end_seconds": 37.6166666666667,
+          "post_death_observation_frames": 220,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 3,
+          "id": "forest_seed_sentry",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_enemy_presentation.gd",
+          "start_frame": 2252,
+          "end_frame": 2889,
+          "start_seconds": 37.6666666666667,
+          "end_seconds": 48.3,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 4,
+          "id": "forest_thread_spider",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_depth_enemy_presentation.gd",
+          "start_frame": 2890,
+          "end_frame": 3429,
+          "start_seconds": 48.35,
+          "end_seconds": 57.35,
+          "post_death_observation_frames": 219,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 5,
+          "id": "forest_crossbranch",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_crossbranch_presentation.gd",
+          "start_frame": 3430,
+          "end_frame": 4265,
+          "start_seconds": 57.4,
+          "end_seconds": 71.3333333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 6,
+          "id": "forest_bible_weaver",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/forest_depth_enemy_presentation.gd",
+          "start_frame": 4266,
+          "end_frame": 5008,
+          "start_seconds": 71.3833333333333,
+          "end_seconds": 83.7666666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "authored_attack_variants": {
+              "actual_hold_ids": [
+                "upper",
+                "lower"
+              ],
+              "expected": [
+                "upper",
+                "lower"
+              ],
+              "source": "real state/strand_index/strand_rows, not a requested transition"
+            },
+            "lethal_HP_commit": true,
+            "locomotion": "not_applicable_rooted_definition",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {},
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": null,
+              "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "prototypes": {
+      "path": "prototypes/review.mp4",
+      "sha256": "d5573c51345a8435be92c057e3e4fdd5009e60c8317abebf592294226c4362ec",
+      "bytes": 2259294,
+      "frames": 1465,
+      "seconds": 24.416666666666668,
+      "source_commit": "94c95a80d4af831012fe7c1fc55e01abb95a30c1",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "eb7f19d05989b3bd891b2ce13577c48e436b2972adf139c1ce7aa9eb542bc2d7",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 3159920,
+            "sha256": "329bc80eac03be067ba02f91ca6e7f59ec728c29d2fe884fdf9b69080f8d015e"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 4688078,
+            "sha256": "07952ed667b8efa324c4fc75e31455c037f879bd13ce292e339f2e6decb7d7f9"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "candidate_lure_guard",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/prototype_enemy_presentation.gd",
+          "start_frame": 1,
+          "end_frame": 820,
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 13.6666666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 10.1833333333334,
+                "recovery": 0.942072240673842,
+                "release": 0.000738553903445369,
+                "stride": 91.04337044084,
+                "tension": 1.28650759261013e-08,
+                "travel": 1.13450167377649e-05
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        },
+        {
+          "case": 1,
+          "id": "candidate_crosswind_moth",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/prototype_enemy_presentation.gd",
+          "start_frame": 821,
+          "end_frame": 1457,
+          "start_seconds": 13.7166666666667,
+          "end_seconds": 24.3333333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": false,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.14999999999998,
+                "recovery": 0.929017352848726,
+                "release": 7.07391563410692e-16,
+                "stride": 18.6539761424353,
+                "tension": 3.22261094203611e-06,
+                "travel": 0.00595671952959932
+              },
+              "death_frame_index": null,
+              "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": false,
+            "visible_corpse_tail": false
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "boss-lab-eight": {
+      "path": "boss-lab-eight/review.mp4",
+      "sha256": "89cfc9553cbbb6e87f86ec46ac5dad13508c9f775ab879e9330f71b0d4821c05",
+      "bytes": 22873287,
+      "frames": 14457,
+      "seconds": 240.95,
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "303faddccb425cd4e29d9bfc11dc6d2cb7b97c01ddd960cd34ca0890dfbd8dee",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 27303424,
+            "sha256": "134b4758f08d58a0c41761eabc054965816b2577843377f4e96bf552cd3ba1fa"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 46262478,
+            "sha256": "e9b9ee5ba6507994a193b351a20b6b0fe3ea46b97de8617a4103f25b3488010a"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "clockwork_guardian",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/boss_presentation.gd",
+          "start_frame": 1,
+          "end_frame": 738,
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 12.3,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 1,
+          "id": "bellstrider",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/bellstrider_presentation.gd",
+          "start_frame": 739,
+          "end_frame": 1740,
+          "start_seconds": 12.35,
+          "end_seconds": 29.05,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 0.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 2,
+          "id": "windkeeper",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+          "start_frame": 1741,
+          "end_frame": 3760,
+          "start_seconds": 29.1,
+          "end_seconds": 62.7666666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 3,
+          "id": "thorn_guardian",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+          "start_frame": 3761,
+          "end_frame": 4870,
+          "start_seconds": 62.8166666666667,
+          "end_seconds": 81.3166666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "no_body_translation_observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 4,
+          "id": "thorn_queen",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+          "start_frame": 4871,
+          "end_frame": 8470,
+          "start_seconds": 81.3666666666667,
+          "end_seconds": 141.366666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "no_body_translation_observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 5,
+          "id": "rootbell_guardian_v2",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/forest_boss_duel_presentation_v2.gd",
+          "start_frame": 8471,
+          "end_frame": 10582,
+          "start_seconds": 141.416666666667,
+          "end_seconds": 176.616666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 6,
+          "id": "thorn_queen_v2",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/thorn_queen_weave_presentation.gd",
+          "start_frame": 10583,
+          "end_frame": 12297,
+          "start_seconds": 176.666666666667,
+          "end_seconds": 205.25,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        },
+        {
+          "case": 7,
+          "id": "thorn_queen_canopy",
+          "chain": "actual_boss_scene",
+          "renderer": "res://scripts/bosses/thorn_queen_canopy_presentation.gd",
+          "start_frame": 12298,
+          "end_frame": 14431,
+          "start_seconds": 205.3,
+          "end_seconds": 240.866666666667,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": "not_required_original_boss_policy",
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "death_frame_index": null,
+              "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+              "host_alpha": 1.0,
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+              "hurt_remaining": 0.0,
+              "remains": {}
+            },
+            "observation_frames": 210,
+            "policy": "original Boss body/exit; no added ordinary corpse",
+            "terminal": true
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "boss-formal-storm": {
+      "path": "boss-formal-storm/review.mp4",
+      "sha256": "4229fb0794751dad63231391bbfef8c378406d412963d1841d665ab77d727b00",
+      "bytes": 12288292,
+      "frames": 1021,
+      "seconds": 17.016666666666666,
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "37951d105e3acca4ccddc971793baec12de77d85963b82dcaf9b33fdc0287ade",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 1123955,
+            "sha256": "bbb81a6cba93837de238d8418eab644c76335adc83f7828f2cce19df61a31436"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 3267278,
+            "sha256": "930941b9d3b92a272e7ad26494fb51301f0f354b45836596f4f7ec4cfba0f2a1"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "windkeeper_storm_formal_app",
+          "chain": "actual_formal_App",
+          "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+          "start_frame": 1,
+          "end_frame": 1011,
+          "start_seconds": 0.1,
+          "end_seconds": 16.9333333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "nonlethal_HP_commit": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "terminal_observed_210_frames": true
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "policy": "original actual App Boss exit and original stage reward readiness; no reward/reset callbacks invoked",
+            "terminal": true
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "corpse-charger": {
+      "path": "corpse-charger/review.mp4",
+      "sha256": "2df0fe87787496dfc16c112801f6ea5a5d71dcc0f1018e7b3967ffecbb794e65",
+      "bytes": 2031754,
+      "frames": 1336,
+      "seconds": 22.266666666666666,
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "2407270d1be3e7d779751b300a67df2dbbb27df5a33d6a8ce554f016423a934d",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 3293709,
+            "sha256": "5172ce79879e30cca0c7915bb27a051737ec23efc70c7540bf5f77cf42d31043"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 4275278,
+            "sha256": "a291e7bb68debf242879dbdd25877fd4938cd77dac9abc7c31bc10375e0b344f"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "plains_charger",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 1,
+          "end_frame": 664,
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 11.0666666666667,
+          "post_death_observation_frames": 240,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": true,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "settled_remains_observed_210_frames": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.08333333333331,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 113.505757914007,
+                "tension": 0.0,
+                "travel": 0.999999923469542
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  653.0,
+                  500.108428955078
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": true,
+            "visible_corpse_tail": true
+          }
+        },
+        {
+          "case": 1,
+          "id": "plains_charger",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 665,
+          "end_frame": 1328,
+          "start_seconds": 11.1166666666667,
+          "end_seconds": 22.1833333333333,
+          "post_death_observation_frames": 240,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": true,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "settled_remains_observed_210_frames": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.09999999999998,
+                "recovery": 0.0,
+                "release": 0.0,
+                "stride": 113.976996812045,
+                "tension": 0.0,
+                "travel": 0.999999939684232
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  654.5,
+                  500.466979980469
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": true,
+            "visible_corpse_tail": true
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "corpse-diver": {
+      "path": "corpse-diver/review.mp4",
+      "sha256": "5b6546c158b5730c9b651c2f7982cfb640860a77e83b2b4c08af86bc11379ac3",
+      "bytes": 2627833,
+      "frames": 1338,
+      "seconds": 22.3,
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "0b57715a45a8720ed9b80061ea12d41468fd3b4ee21ff20162da5d15302c2d27",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 3367485,
+            "sha256": "020d0b4ae2bd6ed6cb2298378e08dd745bdac4cebcbe153cd3be184c4a43d3d4"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 4281678,
+            "sha256": "d1855c58f17557867c1a1e65e4135e848999fbfab0c9a2f7b5a7b301c236cf7b"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "plains_diver",
+          "chain": "underworld",
+          "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+          "start_frame": 1,
+          "end_frame": 666,
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 11.1,
+          "post_death_observation_frames": 243,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": true,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "settled_remains_observed_210_frames": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.06666666666665,
+                "recovery": 9.1155e-28,
+                "release": 0.0,
+                "stride": 167.00676981775,
+                "tension": 0.0,
+                "travel": 0.999996584727998
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 0.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": false,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  627.976989746094,
+                  501.846160888672
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": true,
+            "visible_corpse_tail": true
+          }
+        },
+        {
+          "case": 1,
+          "id": "plains_diver",
+          "chain": "scene",
+          "renderer": "res://scripts/enemies/enemy_presentation.gd",
+          "start_frame": 667,
+          "end_frame": 1330,
+          "start_seconds": 11.15,
+          "end_seconds": 22.2166666666667,
+          "post_death_observation_frames": 241,
+          "coverage": {
+            "actual_AI_commitment": true,
+            "lethal_HP_commit": true,
+            "locomotion": "observed",
+            "nonlethal_HP_commit": true,
+            "persistent_remains": true,
+            "player_damage_authority_registered": true,
+            "player_survived": true,
+            "recovered_after_nonlethal": true,
+            "settled_remains_observed_210_frames": true,
+            "terminal_observed_210_frames": true,
+            "warning": "observed"
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "final_visual": {
+              "body_motion": {
+                "clock": 7.08333333333331,
+                "recovery": 6.294e-28,
+                "release": 0.0,
+                "stride": 167.615570315477,
+                "tension": 0.0,
+                "travel": 0.999990727188492
+              },
+              "death_frame_index": 7,
+              "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+              "host_alpha": 1.0,
+              "host_feedback_frame_index": -1,
+              "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+              "host_visible": true,
+              "hurt_frame_index": null,
+              "hurt_frame_index_reason": "not currently in an authored hurt frame",
+              "hurt_remaining": 0.0,
+              "remains": {
+                "alpha": 1.0,
+                "frame_index": 7,
+                "position": [
+                  628.853088378906,
+                  500.50927734375
+                ],
+                "rotation": 0.0,
+                "scale": [
+                  1.0,
+                  1.0
+                ],
+                "settled": true,
+                "visible": true
+              }
+            },
+            "interpretation": "Observed component/body visibility; human visual review remains pending.",
+            "sampled_tail_frames": 210,
+            "stationary_corpse_tail": true,
+            "visible_corpse_tail": true
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "formal-plains": {
+      "path": "formal-plains/review.mp4",
+      "sha256": "1b41a5134a9302ca95b2890f5bd46191038f698cefbb3470f0cc7e8647e5b19e",
+      "bytes": 8110609,
+      "frames": 573,
+      "seconds": 9.55,
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "74b52c827c5e2d25e78d1363a065887bffb5d23542bd5a96ff1689b8fc298407",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 463878,
+            "sha256": "433264e637b4c01b5641f117abac35e83c6e997e0f05f9959170a67c6acf8981"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 1833678,
+            "sha256": "37694b85eb45c32aa977ae5fe67fb0fc17775c4cfa7f8b93186e012f5ef022eb"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "formal_plains_initial_review_stand",
+          "chain": "actual_DemoApp_generated_stage",
+          "renderer": "original stage-installed renderer and StageCameraRig",
+          "start_frame": 1,
+          "end_frame": 567,
+          "start_seconds": 0.0,
+          "end_seconds": 9.43333333333333,
+          "post_death_observation_frames": 210,
+          "coverage": {
+            "actual_enemy_HP_commits": 3,
+            "actual_enemy_deaths": 1,
+            "false_natural_spawn": true,
+            "formal_stage_ready": true,
+            "gameplay_seconds": 9.43333333333333,
+            "human_visual_review": "pending",
+            "initial_player_reset": true,
+            "natural_player_spawn": false,
+            "original_manifest_unchanged": true,
+            "original_stage_camera": true,
+            "selected_target_HP_commits": 3,
+            "selected_target_actual_attack": true,
+            "selected_target_nonlethal_recovered": true,
+            "selected_target_terminal": true,
+            "terminal_observation_210_frames": true
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "player_terminal_frame": -1,
+            "policy": "selected original species policy; no corpse policy added",
+            "scope": "actual formal stage with one disclosed initial review stand; not natural traversal or all-roster proof",
+            "target_terminal_frame": 357
+          }
+        }
+      ],
+      "listening_acceptance": false
+    },
+    "formal-forest": {
+      "path": "formal-forest/review.mp4",
+      "sha256": "eebf2a7a39ccff703f351271091a5f5aba4573a47d3dbd0fafea2985b6074320",
+      "bytes": 24709657,
+      "frames": 1807,
+      "seconds": 30.116666666666667,
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "source_stable": true,
+      "coverage_gap_count": 0,
+      "archive": {
+        "format": "ZIP/DEFLATE; original complete files retained, no trace minification or audio synthesis",
+        "sha256": "43dbc5b4f3549a5dbaf8b3351735b633fef4b71d3dcdc1b1437880a27ecc58d6",
+        "members": [
+          {
+            "name": "trace.json",
+            "bytes": 1606772,
+            "sha256": "6d464ae82b02583b878976a3eb66c5c8949a5e65a81ff08e536515eb23a11374"
+          },
+          {
+            "name": "original_engine_pcm.wav",
+            "bytes": 5782478,
+            "sha256": "a5096a8f93c0ac3bfd783630ec1f312c1208e56b0e5010033bffc65058008ffa"
+          }
+        ]
+      },
+      "chapters": [
+        {
+          "case": 0,
+          "id": "formal_forest_map1_debug_entry",
+          "chain": "actual_DemoApp_generated_stage",
+          "renderer": "actual installed stage/player/enemy renderers and original StageCameraRig",
+          "start_frame": 1,
+          "end_frame": 1801,
+          "start_seconds": 0.0,
+          "end_seconds": 30.0,
+          "post_death_observation_frames": 0,
+          "coverage": {
+            "actual_enemy_HP_commits": 3,
+            "actual_enemy_deaths": 1,
+            "formal_stage_ready": true,
+            "gameplay_seconds": 30.0,
+            "human_visual_review": "pending",
+            "natural_player_spawn": true,
+            "original_manifest_unchanged": true
+          },
+          "coverage_gaps": [],
+          "terminal_policy_observation": {
+            "player_terminal_frame": -1,
+            "policy": "actual generated stage and original run result",
+            "scope": "continuous actual traversal; no all-roster or completed-campaign claim"
+          }
+        }
+      ],
+      "listening_acceptance": false
+    }
+  },
+  "composites": {
+    "boss-all": {
+      "path": "boss-all/review.mp4",
+      "parts": [
+        "boss-lab-eight",
+        "boss-formal-storm"
+      ],
+      "sha256": "cfab2cdc2a49f64c92ff7d7dd49b26eea15b980674df7c489ce0d969d916e856",
+      "frames": 15478,
+      "seconds": 257.96666666666664,
+      "audio_sample_frames": 12382400,
+      "original_pcm_payload_sha256": "46c819546b9fcfea984540156cf773415f388a23346d62de463ac14284cb7c2f",
+      "chapters": [
+        {
+          "source": "boss-lab-eight",
+          "id": "clockwork_guardian",
+          "chain": "actual_boss_scene",
+          "start_seconds": 0.0166666666666667,
+          "end_seconds": 12.3,
+          "source_start_seconds": 0.0166666666666667,
+          "source_end_seconds": 12.3,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "bellstrider",
+          "chain": "actual_boss_scene",
+          "start_seconds": 12.35,
+          "end_seconds": 29.05,
+          "source_start_seconds": 12.35,
+          "source_end_seconds": 29.05,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "windkeeper",
+          "chain": "actual_boss_scene",
+          "start_seconds": 29.1,
+          "end_seconds": 62.7666666666667,
+          "source_start_seconds": 29.1,
+          "source_end_seconds": 62.7666666666667,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "thorn_guardian",
+          "chain": "actual_boss_scene",
+          "start_seconds": 62.8166666666667,
+          "end_seconds": 81.3166666666667,
+          "source_start_seconds": 62.8166666666667,
+          "source_end_seconds": 81.3166666666667,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "thorn_queen",
+          "chain": "actual_boss_scene",
+          "start_seconds": 81.3666666666667,
+          "end_seconds": 141.366666666667,
+          "source_start_seconds": 81.3666666666667,
+          "source_end_seconds": 141.366666666667,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "rootbell_guardian_v2",
+          "chain": "actual_boss_scene",
+          "start_seconds": 141.416666666667,
+          "end_seconds": 176.616666666667,
+          "source_start_seconds": 141.416666666667,
+          "source_end_seconds": 176.616666666667,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "thorn_queen_v2",
+          "chain": "actual_boss_scene",
+          "start_seconds": 176.666666666667,
+          "end_seconds": 205.25,
+          "source_start_seconds": 176.666666666667,
+          "source_end_seconds": 205.25,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-lab-eight",
+          "id": "thorn_queen_canopy",
+          "chain": "actual_boss_scene",
+          "start_seconds": 205.3,
+          "end_seconds": 240.866666666667,
+          "source_start_seconds": 205.3,
+          "source_end_seconds": 240.866666666667,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-formal-storm",
+          "id": "windkeeper_storm_formal_app",
+          "chain": "actual_formal_App",
+          "start_seconds": 241.04999999999998,
+          "end_seconds": 257.88333333333327,
+          "source_start_seconds": 0.1,
+          "source_end_seconds": 16.9333333333333,
+          "coverage_gaps": []
+        }
+      ],
+      "method": "Concatenate complete chapters only; video packets copied without re-encoding, dropping or interpolating frames. Original engine PCM samples concatenated without resampling, silence, added music or intra-chapter edits, then encoded to AAC once. Chapter boundaries are explicit, not a continuous natural campaign.",
+      "commands": [
+        [
+          "ffmpeg",
+          "-y",
+          "-f",
+          "concat",
+          "-safe",
+          "0",
+          "-i",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/boss-all/video-concat.txt",
+          "-map",
+          "0:v:0",
+          "-an",
+          "-c:v",
+          "copy",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/boss-all/video-only.mp4"
+        ],
+        [
+          "ffmpeg",
+          "-y",
+          "-i",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/boss-all/video-only.mp4",
+          "-i",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/boss-all/original-concatenated.wav",
+          "-map",
+          "0:v:0",
+          "-map",
+          "1:a:0",
+          "-c:v",
+          "copy",
+          "-c:a",
+          "aac",
+          "-b:a",
+          "192k",
+          "-movflags",
+          "+faststart",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/boss-all/review.mp4"
+        ]
+      ]
+    },
+    "in-game-overview": {
+      "path": "in-game-overview/review.mp4",
+      "parts": [
+        "formal-plains",
+        "formal-forest",
+        "boss-formal-storm"
+      ],
+      "sha256": "2e47afcd43492ba8be5d910568c46fc8033542a87c8831350a8b9c825e3c0eb3",
+      "frames": 3401,
+      "seconds": 56.68333333333333,
+      "audio_sample_frames": 2720800,
+      "original_pcm_payload_sha256": "2a7b6d368c9408651b0932de6293339ef2358f554441bd17342382eea37221f0",
+      "chapters": [
+        {
+          "source": "formal-plains",
+          "id": "formal_plains_initial_review_stand",
+          "chain": "actual_DemoApp_generated_stage",
+          "start_seconds": 0.0,
+          "end_seconds": 9.43333333333333,
+          "source_start_seconds": 0.0,
+          "source_end_seconds": 9.43333333333333,
+          "coverage_gaps": []
+        },
+        {
+          "source": "formal-forest",
+          "id": "formal_forest_map1_debug_entry",
+          "chain": "actual_DemoApp_generated_stage",
+          "start_seconds": 9.55,
+          "end_seconds": 39.55,
+          "source_start_seconds": 0.0,
+          "source_end_seconds": 30.0,
+          "coverage_gaps": []
+        },
+        {
+          "source": "boss-formal-storm",
+          "id": "windkeeper_storm_formal_app",
+          "chain": "actual_formal_App",
+          "start_seconds": 39.766666666666666,
+          "end_seconds": 56.599999999999966,
+          "source_start_seconds": 0.1,
+          "source_end_seconds": 16.9333333333333,
+          "coverage_gaps": []
+        }
+      ],
+      "method": "Concatenate complete chapters only; video packets copied without re-encoding, dropping or interpolating frames. Original engine PCM samples concatenated without resampling, silence, added music or intra-chapter edits, then encoded to AAC once. Chapter boundaries are explicit, not a continuous natural campaign.",
+      "commands": [
+        [
+          "ffmpeg",
+          "-y",
+          "-f",
+          "concat",
+          "-safe",
+          "0",
+          "-i",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/video-concat.txt",
+          "-map",
+          "0:v:0",
+          "-an",
+          "-c:v",
+          "copy",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/video-only.mp4"
+        ],
+        [
+          "ffmpeg",
+          "-y",
+          "-i",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/video-only.mp4",
+          "-i",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/original-concatenated.wav",
+          "-map",
+          "0:v:0",
+          "-map",
+          "1:a:0",
+          "-c:v",
+          "copy",
+          "-c:a",
+          "aac",
+          "-b:a",
+          "192k",
+          "-movflags",
+          "+faststart",
+          "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/review.mp4"
+        ]
+      ]
+    }
+  },
+  "retained_ordinary_source_proof": {
+    "recorded_commit": "94c95a80d4af831012fe7c1fc55e01abb95a30c1",
+    "historical_unchanged_through_commit": "b71a87864d3843f8d4e898046224778890349dac",
+    "compared_paths": [
+      "scripts/enemies",
+      "scripts/underworld_plains",
+      "scripts/presentation",
+      "assets",
+      "resources",
+      "config",
+      "scenes"
+    ],
+    "production_diff": "empty; old films retain original source metadata rather than relabeling"
+  },
+  "d91_retained_film_scope": {
+    "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+    "changes_since_b71": [
+      "Conservative viewport draw cull only in three body mesh helpers; state, AI, clocks and on-screen vertices unchanged.",
+      "Forest pod rope now reaches the actual opaque cap; forest group re-recorded at d91."
+    ],
+    "review": "review/r4.md; old films keep original source identities; no blanket identical-source claim"
+  }
+}

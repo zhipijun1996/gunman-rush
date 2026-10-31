@@ -57,7 +57,7 @@ static func home_errors(app: DemoApp) -> Array[String]:
 	if app.director.state != DemoRunDirector.State.HOME: errors.append("not Home")
 	if is_instance_valid(app.player) or is_instance_valid(app.stage): errors.append("ended run still owns player/stage")
 	if not is_instance_valid(app.home_scene): errors.append("actual Home consumer missing")
-	if not app.get_node("PixelPlainsParallax").visible or app.get_node("PlainsBackground").visible: errors.append("Home background ownership stale")
+	if app.get_node("PixelPlainsParallax").visible or app.get_node("PlainsBackground").visible: errors.append("Home background ownership stale")
 	var home_actor: Node = null
 	if is_instance_valid(app.home_scene):
 		if not is_instance_valid(app.home_scene.player): errors.append("actual Home player missing")
@@ -67,8 +67,14 @@ static func home_errors(app: DemoApp) -> Array[String]:
 		if not home_actor is UnderworldPlayer: errors.append("actual Home UnderworldPlayer missing")
 		if not app.home_scene.world is UnderworldHomeWorld: errors.append("actual Home renderer missing")
 		if not app.home_scene.parallax is UnderworldParallax: errors.append("actual Home parallax missing")
+		else:
+			var owner:=app.home_scene.parallax
+			if owner.get_parent()!=app.home_scene or not app.home_scene.is_visible_in_tree() or not owner.visible or not is_instance_valid(app.home_scene.camera) or owner._explicit_camera!=app.home_scene.camera or not app.home_scene.camera.is_current(): errors.append("Home parallax ownership stale")
+			if owner.panels.size()!=9 or owner.panels.any(func(panel: Sprite2D) -> bool:return not panel.is_visible_in_tree()): errors.append("Home parallax panels stale")
 	var home_actor_count := 0
 	for child: Node in app.find_children("*", "Node", true, false):
+		if child is PlainsRegionStage: errors.append("run stage survives cleanup")
+		if child is StageCameraRig: errors.append("run camera survives cleanup")
 		if child is PixelPlainsActor:
 			# Only the exact actor owned by the actual Home player is legal.
 			# Extra actors, including extras inside Home, remain run leaks.

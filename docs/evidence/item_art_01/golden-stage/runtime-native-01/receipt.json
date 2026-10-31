@@ -1,0 +1,32 @@
+{
+  "engine": "tools/godot.sh Godot4.7.2",
+  "status": "failed",
+  "phases": [
+    {
+      "name": "editor",
+      "argv": [
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "budget": 90,
+      "exit": 0
+    },
+    {
+      "name": "check-only",
+      "argv": [
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/item_v5_art_runner.gd",
+        "--check-only"
+      ],
+      "budget": 30,
+      "exit": 0
+    }
+  ],
+  "seconds": 11.484316261998174
+}

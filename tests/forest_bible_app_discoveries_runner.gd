@@ -1,4 +1,6 @@
 extends SceneTree
+
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 ## Actual App UI fixture. One explicit pose before the first Motor step; no route proof.
 const AUDIO := preload("res://tests/audio_teardown.gd")
 const PRODUCER := preload("res://scripts/generation/thorn_forest_region_v2_v15.gd")
@@ -119,8 +121,15 @@ func claim_badge(app: DemoApp, label: String) -> bool:
 	check(reader.is_open() and paused and not app.reward_modal.opened,"discovery button opens actual paused reader / "+label)
 	if not reader.is_open(): return false
 	await click(reader._confirm,label+"/confirm")
-	var accepted: bool = stage.region_state.claimed.get(BADGE,false) == true and app.build.count_item(&"forest_old_badge") == 1 and app.controller.actor_resources.health.capacity == before+2.0
-	check(accepted and not reader.is_open() and not paused,"actual queued reader commits one real badge effect / "+label)
+	var accepted: bool = stage.region_state.claimed.get(BADGE,false) == true and app.build.count_item(&"forest_old_badge") == 1 and app.controller.actor_resources.health.capacity == before
+	check(accepted and not reader.is_open() and not paused,"actual queued reader commits one backpack badge without auto-applying / "+label)
+	if accepted:
+		app.toggle_pause()
+		check(paused and GEAR.equip_all(app.build) and app.controller.actor_resources.health.capacity == before + 2.0,"paused equipment command applies the claimed real badge effect / "+label)
+		app.menu.close_panel()
+		# The real pause path clears contextual controls. Let normal App frames
+		# rebuild them before the next native cache/repeat click; do not rebuild by hand.
+		await frames(2)
 	return accepted
 
 func claim_cache(app: DemoApp, label: String) -> bool:

@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDKEEPER-PRESSURE-01",
+  "asset_id": "WINDKEEPER-PRESSURE-01-MATERIAL-AUDIO",
+  "content_version": "windkeeper-pressure-01-candidate",
+  "source_path": "assets/audio/windkeeper_pressure_01/manifest.json",
+  "source_sha256": "29fbebff350bf4968148406c4b2da06c81b6d4527319bd1b557df4be282d845b",
+  "runtime_paths": [
+    "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+    "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+    "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+    "assets/audio/windkeeper_pressure_01/gust_release.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+    "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+    "assets/audio/windkeeper_pressure_01/link.wav",
+    "assets/audio/windkeeper_pressure_01/recover.wav",
+    "assets/audio/windkeeper_pressure_01/phase.wav",
+    "assets/audio/windkeeper_pressure_01/hit.wav",
+    "assets/audio/windkeeper_pressure_01/death.wav",
+    "assets/audio/windkeeper_pressure_01/death_impact.wav",
+    "assets/audio/windkeeper_pressure_01/death_final.wav",
+    "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+    "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+    "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav"
+  ],
+  "consumer_scripts": [
+    "scripts/audio/windkeeper_pressure_audio.gd"
+  ],
+  "consumer_scenes": [
+    "scenes/bosses/windkeeper_pressure.tscn"
+  ],
+  "tool": "tools/build_windkeeper_pressure_01_audio.py; FFmpeg decoding plus deterministic recorded-source crop/rate/filter/envelope/layer processing",
+  "model": "not_applicable: existing licensed recordings; no generative model and no oscillator/random-noise primary material",
+  "prompt_or_reference": "docs/worklines/windkeeper_pressure_01/spec.md; user six whole-body attacks, frozen two/three-attack bell-count warnings, final recover release and layered structural death; exact input/source-chain in assets/audio/windkeeper_pressure_01/sources.json",
+  "processing": "32 mono44.1kHz PCM16 WAV streams:21 base sounds plus11 first-warning combo variants. Source offsets/rates/filter/gain/envelope, outputSHA and processor fingerprint are explicit in manifest. Two/three bell markers are embedded in one stream; no added runtime voices. Runtime literal preload set equals finite32 manifest outputs; source originals/approved derivative inputs and licenses/pages retained below.",
+  "usage_scope": "Formal new WindkeeperPressure accepted-event presentation only. Existing GameAudio12voice pool, own cap4; no BGM/player hurtA/global selected-profile changes. Custody/technical registration does not approve subjective listening, mix, AVsync, visual animation, natural combat, physicaldevice or userG5.",
+  "license_status": "verified",
+  "license_source": "Retained CC0-1.0 original rubberduck/OpenGameArt RPG and wood-metal recordings, Kenney core material, Iochi Glaucus cloth; PWL bell/Thimras park wind/HaelDB leaves use exact reviewed quiet-02 project derivatives. Original author/URL/license/download/review/inputSHA and original parent derivative recipe/manifest path retained in sources.json; full CC0 text and source webpages included as exact associated files. No new ownership or blanket music license inferred.",
+  "visual_status": "unverified",
+  "audio_status": "unverified",
+  "audio_listening_status": "unverified",
+  "device_status": "unverified",
+  "player_acceptance_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/README.md",
+      "sha256": "69a3f63f576c136bd6a969c87cdb70dacda02f8ba21618502d40a8e7c4816c66",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/bell-source-page.html",
+      "sha256": "080cd6cfd39aa7dab540fed97f6d052b59adc7780f19f176be3e232c7dcac14f",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/bell.wav",
+      "sha256": "1a7d4d8818d1cbd04c3d87aa1294cc2e5a53298fd9ece0e8929981e4296f15fc",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/blade.ogg",
+      "sha256": "caf7a7cb9b25cda4bd487c1d12d18b74a34bb18c816fd67277cf3c8d7ef32a3a",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/chain.ogg",
+      "sha256": "d376caf0f61384b1d2e0b447f64f06be56d0ee0622ba70dd01cfdd78b3a10687",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/cloth-source-page.html",
+      "sha256": "276c84d003f8d30e90d2034a6430a06d2b6ede749b7c7bbc42758fbfc628d2cd",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/cloth.ogg",
+      "sha256": "897c0937041afdf3581427b80a7546f99d219d0008e12ff5500c2afdfa4b7a1e",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/core.ogg",
+      "sha256": "d750cf88097d0c3e69920e6e14496e1444e1a9da01aa4cca8f5ec8cb44c57b4f",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/kenney-LICENSE.txt",
+      "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/leaves-source-page.html",
+      "sha256": "3553e28735a7676f8faf36d5d5103dda41f86d5e8bddb3b707c8192470d6e074",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/leaves.wav",
+      "sha256": "dec45948c0c9470140fbefde370333d54f160b00f106c6a2bca51bc380bbd4e7",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/metal-wood-source-page.html",
+      "sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/metal.ogg",
+      "sha256": "9daf6e7e1fc1871acfb063cb25ce050faab559ee6c42fed84bf18a4067f26a4d",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/rpg-source-page.html",
+      "sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/spring.ogg",
+      "sha256": "bc7d84bf0353ef884c62dc0a9ef29e05864d452ac8509a40e125fb9d7507f98f",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/stone.ogg",
+      "sha256": "d11ce95031c2c36ae2a00979620fa95a7a3f5c6d6f2ac86962ed292aa556be8d",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/wind-source-page.html",
+      "sha256": "6642a8f0698566fd0ea33c0690be58d94a62e26a43e033365d345d1f8ace14eb",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/wind.ogg",
+      "sha256": "ecee435be5c38c77b3bac2d9e728e4ce480abbac07fac37133abd101a5e330d0",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/_sources/wood.ogg",
+      "sha256": "c7723f3c577cc6f46b091233fcb735016c6e15d462b371393baa4d265aef52b6",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/death.wav",
+      "sha256": "ccae69f87622ae697aaa1396297b8812127f74ac8b6a9959d3e600cb9809750a",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/death_final.wav",
+      "sha256": "2581c850b775706a622945bb0b683d225ae898e60e4dedaf20e819ddc80356c4",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/death_impact.wav",
+      "sha256": "a61204f89f619ad5054f8343649b123debbaa92a7d8ffd3b42aeb2964a6b72f5",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/gust_release.wav",
+      "sha256": "cd45956ed053b4838b35ef4f19850fc8dd803ebb6d9403f0a3cbc033c8ea192c",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+      "sha256": "2161a41853b81efb7111f5525e9828c2397f6cf1017aa8eb731eb88c3031fa24",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+      "sha256": "d96801703ae2e0e0a27ea88a7f6aa18fba7c7e6f030973577a5e8f2544e8ff7c",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+      "sha256": "deacec891f0f927a5547191634833da187dfb9fd334491dc14e49af7d85d74fe",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/hit.wav",
+      "sha256": "726e17150ad7be43da15958efe0b585a728ebb045d6a001770e101e6b5cb56f4",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/link.wav",
+      "sha256": "735656d3d9651bc6a6dd154f6921b03a2d10a9a8172965d63ebc54685d43809a",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+      "sha256": "1542c7f82d1fdfce5b96cd5387df141a4097007f304570b0ee5ce7691d3fedb4",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+      "sha256": "67e30b7f334b08a165b50d6b24a52f8ee08ff24d0f55c4543651331269e526ce",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+      "sha256": "74407877f308f60a23b130cc5703070edcaeaf3e03988bd207ec1746ceaf0866",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+      "sha256": "feb7343af6770462c75ab43257ca51f7d049125ae0253f358257f0e349cbf350",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+      "sha256": "f5d133ed5cbf367e5ee357cf075ac47543ae5481a707b655b464b50484b78b87",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/manifest.json",
+      "sha256": "29fbebff350bf4968148406c4b2da06c81b6d4527319bd1b557df4be282d845b",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/phase.wav",
+      "sha256": "aaff9130da1a87aad5d0824e9c943700812d7fce02341ff373efe685f9ab4883",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+      "sha256": "6219b91c6299d6a2da33babdf10a2be96fb6c6d842f9b6f434ca4729009d3534",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+      "sha256": "7a2db5e9628f1498b9a1226c68bdbe691bf8708e7f43484c96e436386bfe60aa",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+      "sha256": "11086aba243cd81f1c49ddbfda789ed571103a047b258295f9e77fb53d6059ba",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+      "sha256": "f90d67e2d43800f4c4cdaa16e65540497c1dce12af5a6c45029ffd975924bff4",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/recover.wav",
+      "sha256": "0d39e3c78c331db97b5264ea2ebdc8118c590a2d176c69d3011bcf01a7b151a0",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+      "sha256": "71773b6e5ca5948ec285193e8d945c1b41886860583f61eaa878a7f0e5666b2f",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+      "sha256": "21e191073363fb4f6d8f03b1bf0682d309dc06c709fe4ef4968ac291625c101e",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+      "sha256": "71203d5c30800542318b652fef747b971e1a807c40c58ff410276f5879dd6589",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+      "sha256": "0f323fcc86c4297cbbf0ed8c21d19902203ff39047330987bd5d0cabda1c736b",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/sources.json",
+      "sha256": "9a58ccb51ff5e4fe7557baa2cd6c1b7a3372e96f7d79f4f63c67f8c16f048a3e",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+      "sha256": "0e5fdbc324f34a5411047a67c47dde50d2c8941f37234b0a6d010182e518d1b3",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+      "sha256": "469b49e2f8d1e4b3974676c149d7c5a281b54bf274a61da5c9375cf119e22bf7",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+      "sha256": "1ddae67702a9658100584b3f1ed4c7b79de3499d07cb3a5dcfa285344701bcf7",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+      "sha256": "0a24418225e7573e4a99dbb7ca312a4d900e4068c49237d750c73a6028103956",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+      "sha256": "16bfa82a2597142ae238af6eccb009445529c33f826d58a8078f5cb508c1c349",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+      "sha256": "349252437639ace6c05efabe008b8a3f4bd4b1e7355038b6913b5f0913870a01",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+      "sha256": "f76633b3c11681305701e73def94c475e4a61e685ea0c5315bf364d943201f0e",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav",
+      "sha256": "ac1b6716f91a067a72c681136bd170a4cb5b0c38695598d0180cf52ede559c0a",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_windkeeper_pressure_01_audio.py",
+      "sha256": "9f88bb019bd17dda26a793b9ed21747c6fb0987fa49bee41d53d1bb4f2009a54",
+      "role": "processing_record"
+    }
+  ]
+}

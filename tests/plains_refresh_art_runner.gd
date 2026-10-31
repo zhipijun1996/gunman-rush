@@ -2,6 +2,8 @@ extends SceneTree
 var failures := 0
 var checks := 0
 class VisualFixture extends Node2D:
+	# Match DemoStage's nullable Boss slot: this visual-only host has no encounter.
+	var boss: Node2D
 	var pickups: Array[Dictionary] = [{"id": "coin_1", "kind": "coin", "position": Vector2(100, 100), "claimed": false}, {"id": "note_1", "kind": "note", "position": Vector2(140, 90), "claimed": false}]
 	var exit_positions: Array[Vector2] = [Vector2(200, 120), Vector2(450, 40)]
 	var completed := false

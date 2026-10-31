@@ -1,4 +1,142 @@
+# CI-CURRENT-01 · PR124 合入后的当前测试契约
+
+用户明确先合 PR124，再重构修复。PR124 已合入 main `bd862374`，原 CI 红灯保留；本批从新 main 独立修复旧视觉测试宿主缺少 nullable boss 字段，并审计历史/当前检查范围。
+
+| ID | 任务 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| CI-CURRENT-01 | 当前消费者测试契约与历史CI分类 | WINDKEEPER-PRESSURE-01 | in_progress | [范围](worklines/ci_current_01/scope.md) · [质量记录](quality/records/CI-CURRENT-01.json) |
+
+# WINDKEEPER-PRESSURE-01 · 牧风者主动追压
+
+用户2026-10-30授权60HP/六招/三阶段冻结招组、两枪反击与原声完整片。状态review，分支feature/windkeeper-pressure-01，基于main840108da；[制作卡](worklines/windkeeper_pressure_01/spec.md) · [实际证据](evidence/windkeeper_pressure_01/README.md) · [质量记录](quality/records/WINDKEEPER-PRESSURE-01.json) · [PR124](https://github.com/zhipijun1996/gunman-rush/pull/124)。原生1637/0，完整主片88.867秒已通过技术覆盖，原R3两图完整消费者通过；另有第三枪玩家死亡对照片。工坊私密第8版已发布，媒体完整HTTP200/SHA与Range206已核；等待用户实片意见和设备/完整CI，不自动合main。
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| WINDKEEPER-PRESSURE-01 | 60HP牧风者六招三阶段主动追压与连续原声审核 | — | review | [制作卡](worklines/windkeeper_pressure_01/spec.md) · [实际证据](evidence/windkeeper_pressure_01/README.md) · [记录](quality/records/WINDKEEPER-PRESSURE-01.json) |
+
 # 开发任务
+
+## 2026-10-30 BELLSTRIDER-REWORK-01 · 鸣铃巡游机完整迭代
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| BELLSTRIDER-REWORK-01 | 40HP上端唯一弱点、三招与回冲、机械失效/实体奖励、正式原声实战与工坊审核 | — | review | [制作卡](worklines/bellstrider_rework_01/spec.md) · [证据](evidence/bellstrider_rework_01/README.md) · [质量记录](quality/records/BELLSTRIDER-REWORK-01.json) |
+
+## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-MERGE-120-121 | 采用确切受伤A，保历史整合PR120+121并通过原完整门禁后合main | AUDIO-FEEDBACK-06 | review | [范围](worklines/audio_merge_120_121/scope.md) · [记录](quality/records/AUDIO-MERGE-120-121.json) |
+
+## 2026-10-30 AUDIO-FEEDBACK-06 · 标题自动音乐与主角受伤再选材
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-FEEDBACK-06 | 标题即播、碰墙固定新版1、参考空洞骑士重做受伤候选 | AUDIO-FEEDBACK-05 | review | [范围](worklines/audio_feedback_06/scope.md) · [记录](quality/records/AUDIO-FEEDBACK-06.json) |
+
+## 2026-10-30 AUDIO-FEEDBACK-05 · 正式试玩声音反馈
+
+标题BGM启动、主角受伤与墙地音色、机关可听性、正式宝箱/道具成功反馈。分支fix/audio-playtest-feedback-20261030，从main5f55716a开始；[范围](worklines/audio_feedback_05/scope.md)／[记录](quality/records/AUDIO-FEEDBACK-05.json)。当前review，独立试听已发布，技术、真实混音和用户听感分开，不重复追认旧候选。
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-FEEDBACK-CI-01 | 精确selector尾部新增回归清单同步 | AUDIO-FEEDBACK-05 | review | [记录](quality/records/AUDIO-FEEDBACK-CI-01.json) |
+| AUDIO-FEEDBACK-05 | 五项实玩声音修复及新版hurt/wall | — | review | [记录](quality/records/AUDIO-FEEDBACK-05.json) |
+
+## 2026-10-30 MOBILE-WEB-FPS-04
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-FPS-04 | 正式Web帧时间、真实大地图空中攻击A/B/A及前景无损优化；PR120／perf-actions候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-AUDIO-FIX-03 | 独立供音接入普通Web；关闭瞄准附加声，修复机关风铃 | MOBILE-WEB-AUDIO-02 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-FIX-03.json) |
+| MOBILE-WEB-AUDIO-02 | 已恢复工坊音色；定位主线程供音排队并发布同包线程对照，待真机 | MOBILE-WEB-PERF-01 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-02.json) |
+
+[范围](worklines/mobile_web_audio_02/scope.md)。386真机仍卡；发现正式场景始终original，既有14项工坊选择未接入。前轮旧pulse匹配不签用户选择恢复。本轮不降低画质或重制声音。
+
+## 2026-10-29 MOBILE-WEB-PERF-01 · 音频修复已发布，awaiting-device
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-PERF-01 | 移动Web总线与重复unpause根因复现、音频针对性修复 | MOBILE-UI-CLARITY-01 | awaiting-device | [记录](quality/records/MOBILE-WEB-PERF-01.json) |
+
+[冻结范围](worklines/mobile_web_perf_01/scope.md) · [证据](evidence/mobile_web_perf_01/README.md)。用户已确认UI/画面恢复且动作几乎流畅；最小Web与真实demo四case已复现总线Sample静音和每帧unpause重启。两处修复原生160／0，标准Web3866985a四声实际PCM与独审通过，已发布[同UI前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)，公开两PCK完整SHA一致；不代签真机BGM连续性。
+
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
+
+运行源 `4707b9ef15fa7e89b09d3e33ef8206c0b12f64af`，分支 `fix/mobile-ui-clarity-20261029`；[新试玩](https://zhipijun1996.github.io/gunman-rush/?v=2caa023125bd) 为 `2caa023125bd`（角标2caa0231），已通过既有prepared流程发布，公网完整208,691,576字节PCK及SHA256一致。[PR115](https://github.com/zhipijun1996/gunman-rush/pull/115)保持draft，没有合main。
+
+手机与电脑统一1280×720逻辑UI/世界比例；Web使用完整1280×720内部RT与真实DPR backing store/nearest呈现，原生保留canvas_items。标题/HUD/模态框去掉逆CSS放大，家园提示避开摇杆且仅保留一个菜单入口。原shader/PNG不改，前景保护矩形改用RT局部stretch坐标，避免黑边偏移。
+
+原生专项37／0、原UI合同149／0、Web密度8／0，最终源图鉴UI72／0、R2菜单输入208／0；这些检查执行后UI生产字节保持一致，后续导出守门要求原Foundry重建（36短语／18行程、0失败）并刷新验证basis，生成数据单独提交。实际桌面与模拟手机Web截图/指针通过，按钮逻辑边界最大差0.6wu；隔离GPU探针实测原生产mask函数与shader在黑边/DPR下透明位置正确。独审限定ACCEPT，最终定向Harness docs/web-cache/web-bundle三项全fresh通过，公网模拟手机实际设定/家园/菜单/resize通过。真实荣耀60Pro、帧率、金币音效、完整两区动态和玩家认可仍未验，质量awaiting-device。所有旧失败和验收边界见[本轮证据](evidence/mobile_ui_clarity_01/README.md)。
+
+恢复先核当前公开build-info及完整PCK；不要重做已通过UI修复或擅自合main。后续先收用户真机UI/清晰度反馈，再继续单独定位家园/关卡卡顿及拾取音效。
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-UI-CLARITY-01 | 修复共享UI比例与Web清晰度并快速部署 | — | awaiting-device | [记录](quality/records/MOBILE-UI-CLARITY-01.json) |
+
+## 2026-10-26 AUDIO-DIRECTOR-01
+
+第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。
+| 任务 | 目标 | 依赖 | 状态 | 质量记录 |
+| --- | --- | --- | --- | --- |
+| AUDIO-AMBIENCE-01 | 两区环境音候选、轻微衬底混音与真实场景试听 | AUDIO-DIRECTOR-04 | review | [范围](worklines/audio_ambience_01/scope.md) · [质量记录](quality/records/AUDIO-AMBIENCE-01.json) |
+| AUDIO-HOME-01 | 家园平静底声与NPC生活音试听 | AUDIO-AMBIENCE-01 | review | [范围](worklines/audio_home_01/scope.md) · [质量记录](quality/records/AUDIO-HOME-01.json) |
+| AUDIO-ROLLOUT-01 | 已选音效合main与快速试玩 | AUDIO-HOME-01 | review | [范围](worklines/audio_rollout_01/scope.md) · [质量记录](quality/records/AUDIO-ROLLOUT-01.json) |
+| MAIN-MERGE-WEB-111 | PR111正常合入与实际main网页试玩 | CHEST-ART-01 | in_progress | [范围](worklines/main_merge_web_111/scope.md) · [质量记录](quality/records/MAIN-MERGE-WEB-111.json) |
+| CHEST-ART-01 | 三档宝箱关闭／开启六态美术与正式地图辨识 | ITEM-ART-01 | review | [规格](worklines/chest_art_01/spec.md) · [质量记录](quality/records/CHEST-ART-01.json) |
+| ITEM-AUTHOR-01 | 道具配置覆写、下架与数据式新增 | ITEM-V5-01 | review | [维护说明](item_authoring.md) · [范围](worklines/item_authoring_01/scope.md) · [质量记录](quality/records/ITEM-AUTHOR-01.json) |
+| ITEM-ART-01 | 72独立道具图标与专用事件特效 | ITEM-AUTHOR-01 | review | [规格与逐项计划](worklines/item_art_01/spec.md) · [质量记录](quality/records/ITEM-ART-01.json) |
+| ITEM-V5-01 | 实现道具V5的72件、16成长与9有效联动 | RUN-GEAR-01 | review | [范围与共享接口](worklines/item_v5_01/scope.md) · [质量记录](quality/records/ITEM-V5-01.json) |
+| RUN-GEAR-MERGE-05 | 补齐style14与过期style13拒绝的版本契约 | RUN-GEAR-MERGE-04 | review | [质量记录](quality/records/RUN-GEAR-MERGE-05.json) |
+| RUN-GEAR-MERGE-04 | 合入守门的creative精确版本测试同步 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-MERGE-04.json) |
+| RUN-GEAR-R2-03 | 修复当前R2测试的家园入口与布局等待 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-R2-03.json) |
+| RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | review | [质量记录](quality/records/RUN-GEAR-UI-02.json) |
+| RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | review | [质量记录](quality/records/RUN-GEAR-01.json) |
+
+
+## 2026-10-24 PLAYTEST-FEEDBACK-20261024（当前）
+
+main已实际合入四线，cd4989a6/72c47d59bc4f已快速公开。当前处理用户的性能、全部怪物普通受击、固定HUD、家园3种Lv1武器和标题进家园五项反馈；[范围与所有权](worklines/playtest_feedback_20261024/scope.md)。下方旧未合入/等待CI段落保留历史身份，不驱动本轮重复集成。
+
+## 2026-10-23 原场景预算内调度修复（最新）
+
+四线／新版默认人物／织时匠／5原BGM已接。f50实际CI98通过、1场景失败、43未执行，main尚未合并；官方HTTPS获取已实核、遭遇专项500.292秒通过。1dab6仅将原8场景分四组共享180秒，原断言与900预算不变；精确原Harness两核本地229.189秒通过，native129.262秒、10真实反例及15篡改拒绝；独审限定ACCEPT。冻结后核下一精确head的142完整合流再普通合PR106，不重导出同源游戏包、不加入可选提效候选。实际来源与未验见[修复记录](evidence/four_line_integration_20261023/scene-scheduling/README.md)。
+
+## 2026-10-23 四线集成调度（最新）
+
+`FOUR-LINE-INTEGRATION-01`保持review：四线／默认人物／织时匠／5原MP3已接入；当前实现17cd追加必要CI门禁修复，原97／1／44失败保留。原定向21／24／115和限定独审分源记录，下一精确head的142完整合流／main合并／Release仍待实际执行。[门禁来源](evidence/four_line_integration_20261023/ci-gate-repair/README.md)。黄金暂停，G5与真机仍未签。
+
+## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
+
+本会话01–08轮17笔提交已完整累积在`art/formal-fine-depth`，最后运行源6befe56、上轮交付head42f673c。[归整索引](art_session_20261023.md)记录各轮采用/替代关系、正式消费者、历史证据/视频、未验与恢复；本轮仅文档/skills，不合main、不新开触发Integration的PR。修正六份skills当前入口的旧v4/16px指向，增加[共享执行说明](quality/art_consistency_workflow.md)和现有Asset Specification像素字段，区分全局规格/区域身份/资产接口；不修改原Bible/style-v4/v5、运行参数或素材。仅定向文档/记录核对，不跑完整CI或重导出/发布。Git最新head与远端一致性以收口证据为准；跨区品质、用户与真机仍不代签。其他工作区须先取得本分支提交，不假定main已含。
+
+
+## 2026-10-23 FOREGROUND-CONTINUITY-08 固定前景与稳定恢复
+
+用户明确选择固定前景物件＋离屏回收＋提前淡化＋稳定后恢复。`art/formal-fine-depth`运行源6befe56：固定世界身份/尺寸/风相位，完整框+4wu离屏才回收；动态危险64wu提前淡化，安全0.3秒后渐入；常驻HUD/边缘使用即时局部strict mask，保留全部保护。实际Home506采样/23身份失败0、GPU387080保护像素差0及非零前景贡献、六正式定位窗（Home/两图×两Seed）失败0。原首版常驻HUD全抹草叶失败另存。完整CI未跑，不合main；用户/真机/完整战斗仍review。[证据与命令](evidence/foreground_continuity_08/README.md)。[24秒实机视频/截图](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FOREGROUND-CONTINUITY-08/6befe56/)已公开验证播放与完整字节，Pages39887917620 success；观察页，不是可玩Web更新。
+
+
+## 2026-10-23 SPATIAL-RHYTHM-07 沿途疏密与留白
+
+用户否定06中景均匀满铺，要求有的地方多、有的地方空旷，前进不断变化。运行源f554e6b、art/formal-fine-depth：低草坡连续底景与独立世界锚定风车/钟塔组分离，缩小地标并留无建筑窗口；Home焦点归还人物/功能屋，06前景完整保护不变。正式30张（29个Underworld窗口：25组景/4无建筑；Forest独立背景不冒充空段），旧景层450/0。真实24.283秒电影：4s家园输入+20s图一8400wu连续镜头诊断，不代表正常行走/通关。独立看11图确认局部改善，草坡密度、侧肩雾化与正常节奏/设备/用户仍review。完整CI未跑，不合main。[证据/恢复](evidence/spatial_rhythm_07/README.md)；[公开连续视频/对照页](https://zhipijun1996.github.io/gunman-rush-previews/reviews/SPATIAL-RHYTHM-07/f554e6b/)已验证完整字节、实际浏览器播放及全图加载，Pages39882280474 success；仅观察评审，不是可玩Web。
+
+
+## 2026-10-23 DEPTH-FRAME-06 中景与前景迭代
+
+用户要求更大、更丰富的风车钟塔中景，以及人物前方可见的氛围层。`art/formal-fine-depth`，运行源4a41fd7：新细源三风车/两塔/层叠石村，移开主角背后的主塔并把假路石桥改为远谷断桥；原高细母版Atlas前景、较大侧枝/草与稀疏世界候选，整框+3wu功能/HUD避让保持。正式两图×三Seed、Home/Forest30图通过，21镜头有可见前景，采样保护重叠0，原景层450/0；实际24.3667秒MovieWriter，前12秒真实Home输入、后2×6秒平原镜头诊断。详情与恢复见[evidence](evidence/depth_frame_06/README.md)。review而非done；大钟塔重复、低处偏满和显隐跳变仍需审美/运动复核，未签用户/设备，不跑完整CI、不合main。[公开视频/前后对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/)已验证完整字节与Chromium实际播放；Pages39877020268 success，未声称更新可玩Web。
+
+
+## 2026-10-22 FINE-SPACE-05 最新交付
+
+FINE-SPACE-05：review，art/formal-fine-depth。细粒度已按用户选择接入正式家园/平原及共享森林表现；房屋树根接地、暖光/三层景深/稀疏前景已实机，技术范围与公开影片见[evidence](evidence/fine_space_05/README.md)。源码efd7843，Web524396d0cd10本地入口通过，公开可玩站容量/权限blocked；森林根台造型、前景贡献及用户/真机仍未签，不标done、不跑全CI或默认合main。
+
 
 2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
 
@@ -37,12 +175,28 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| AI-LEVEL-DESIGN-01 | 四层契约、来源审计、离线AI评价与有界生成验证闭环 | CLOUD-EFFICIENCY-01 | review | [设计体系v1](ai_level_design_v1/README.md)；Macro可选，复用原Godot/Harness，技术证据与真人认可分轨 |
-| AI-LEVEL-PILOT-01 | 平原/森林小样、强替代、几何对照及失败回流 | AI-LEVEL-DESIGN-01 | review | [小样与失败](ai_level_design_v1/pilot_design.md)；无正式准入，高路编舞被直取奖励反证，真人/设备未验 |
-| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | review | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
-| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；main合入后独立分支启动 |
-| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；保留不同生命感与正式伤害链 |
-| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；Bible／共享母版不变，先比较再推广 |
+| ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | ENEMY-WORKFLOW-01 | review | 用户已拒绝本轮制作质量；先作[逐怪资料素材盘点](worklines/enemy_asset_audit_01/README.md)，验收与流程待共同讨论 |
+| ENEMY-WORKFLOW-01 | 怪物开发skills与实际制作交接 | ENEMY-COMPLETION-01 | done | [手册](../.agents/skills/enemy-creator/references/development_workflow.md)、[记录](quality/records/ENEMY-WORKFLOW-01.json)；原33项docs fresh通过，仅签制作方法／交接／工具入口，不签新怪物或生成能力 |
+| ENEMY-COMPLETION-01 | 每物种完成标准与制作卡统一 | — | done | [标准](quality/enemy_completion_standard.md)、[记录](quality/records/ENEMY-COMPLETION-01.json)；原33项docs fresh通过，只签process标准／模板／skills接入，不给任何怪物继承PASS |
+| ENEMY-CONTINUITY-01 | 冲锋怪完整链核对 | ENEMY-COMPLETION-01 | review | [制作卡](design/enemies/plains_charger.md)、[记录](quality/records/ENEMY-CONTINUITY-01.json)；当前四专项通过，实录受伤退出CHR-VIS-01失败，完整攻击／正式体验及设备未验，不能签整怪完成 |
+| AUDIO-DIRECTOR-03 | 功能音色与真实有声对比录屏 | AUDIO-DIRECTOR-02 | review | Mario币/液体回血/宝箱/道具乐句/打击/逐武器/UI，用户听选 |
+| AUDIO-DIRECTOR-04 | 用户逐事件选声与组合实景试听 | AUDIO-DIRECTOR-03 | review | 13明选、复合原版派生、共享混合profile及真实原声对照 |
+| AUDIO-DIRECTOR-02 | 现成CC0三套与真实情境工坊 | AUDIO-DIRECTOR-01 | review | 保原跳落；UI/拾取/战斗可重复比较，用户听感与设备待验 |
+| AUDIO-DIRECTOR-01 | SFX统一审计、候选与手机Sound Lab | — | review | 第一阶段16事件64WAV，真实Godot对照；音色/实体设备待验，独立PR不合main |
+| PLAYTEST-FEEDBACK-20261024 | 试玩性能、统一受击、固定HUD、家园武器与开始入口 | FOUR-LINE-INTEGRATION-01 | review | [范围](worklines/playtest_feedback_20261024/scope.md)、[质量记录](quality/records/PLAYTEST-FEEDBACK-20261024.json)、[实际试玩与证据](evidence/playtest_feedback_20261024/README.md)；当前b761/5ce真实候选已公开，最终CI／main状态核PR108；玩家／设备认可分别记录 |
+| FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
+| ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
+| DEMO-UI-01 | Demo UI／HUD／家园交互 | — | review | [原记录](quality/records/DEMO-UI-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| DEPTH-FRAME-06 | 中景地标与前景 | — | review | [原记录](quality/records/DEPTH-FRAME-06.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| FINE-SPACE-05 | 正式细粒度与共享空间表现 | — | review | [原记录](quality/records/FINE-SPACE-05.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| FOREGROUND-CONTINUITY-08 | 固定前景与稳定恢复 | — | review | [原记录](quality/records/FOREGROUND-CONTINUITY-08.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| LIGHT-STUDY-01 | 光色实验 | — | review | [原记录](quality/records/LIGHT-STUDY-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| PIXEL-LIGHT-STUDY-02 | 像素对齐与局部灯光实验 | — | review | [原记录](quality/records/PIXEL-LIGHT-STUDY-02.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| SPATIAL-RHYTHM-07 | 沿途疏密与留白 | — | review | [原记录](quality/records/SPATIAL-RHYTHM-07.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | done | v3 done；A1完整146项证据已保到Git树；此前提效基线，不代签四线组合 |
+| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [原记录](quality/records/PLAYER-PRESENTATION-01.json)；动作候选已汇入集成树，新默认／织时匠换装正在适配，用户／设备未验 |
+| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | review | [原记录](quality/records/ENEMY-FEEDBACK-01.json)；两表现链已汇入集成树，保存修复另验，视觉／完整集成未完成 |
+| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | 用户已暂停；本次不合入68bd037，保持未启动／未验 |
 | CLOUD-PRODUCTION-01 | Cloud生产与交付机制 | — | review | [入口](cloud_production.md)；真实交付与完整门槛分别留证 |
 | CLOUD-PREVIEW-01 | 显式开发入口与录屏样例 | CLOUD-PRODUCTION-01 | review | 仅开发bootstrap；不改变默认游戏，不签品质或真机 |
 | MAIN-CLOSEOUT-20261022 | 统一现状源码与历史到main，建立并行开发基线 | PARALLEL-INTEGRATION-01 | done | [范围与并行入口](main_closeout_20261022.md)、[质量记录](quality/records/MAIN-CLOSEOUT-20261022.json)；已合PR102至main 9c349f44，全部开发head祖先闭包成立；原树不变，docs29通过，基线全CI成功，新main CI执行中 |
@@ -542,3 +696,27 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-BIBLE-V2-01 | 森林后按圣经优化风铃平原 | FOREST-BIBLE-V2-01 | planned | 晨光草石/风车枢纽/反冲探索，BGM待用户后引入；[质量记录](quality/records/PLAINS-BIBLE-V2-01.json) |
 
 | FOREST-EXPLORATION-02 | 实机反馈：森林双图差异、多难度分支奖励、平缓教学及钩索可见/固定点起跳 | — | in_progress | [质量记录](quality/records/FOREST-EXPLORATION-02.json) |
+
+| HIGH-DENSITY-TERRAIN-03 | 高分辨率地形对齐与克制材质实验 | PIXEL-LIGHT-STUDY-02 | review | 原生32px/32wu、20实机静态图与独审；岩纹重复/地区特色未定稿，默认入口不改，无CI |
+
+| TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |
+
+| HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
+
+| PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7新版动作＋6平原同屏已私密发布；完整903源CI166／166 fresh与affected success，原失败全保留；静态粒度限定独审接受，整怪／听感／用户／真机G5未签 |
+| PLAINS-MAIN-MERGE-01 | 用户授权七怪工作线快速合main，保主线音频/性能并验证冲突 | PLAINS-MOTION-LOOT-02 | review | [范围](worklines/plains_motion_loot_02/main_merge.md)；完整168待核，不跳原红灯 |
+| PLAINS-MOTION-LOOT-02 | 七怪全身动作、伤亡音画、固定金币与概率补给完整动画 | PLAINS-MONSTER-REVISION-01 | review | [工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)/50.78秒已交；后继本地formal150/0、身体掉落481/0、原80/80在541.165/600秒通过；旧完整CI失败保留，新冻结源CI/用户/设备待验 |
+| PLAINS-MOTION-LOOT-GUARD-02 | 真实面额消费者、绑定与167检查清单的限定迁移独审 | PLAINS-MOTION-LOOT-02 | review | 独立纯Python22/35/13与审计333／0；原失败/预算/166前缀保留，旧drop＋实际自动counterpart联合门禁；[记录](quality/records/PLAINS-MOTION-LOOT-GUARD-02.json)、[边界](worklines/plains_motion_loot_02/guard_migration.md) |
+| PLAINS-ROOT-BELL-COIN-GUARD-02 | 根铃实际替换的物种固定金币合同验收迁移 | PLAINS-MOTION-LOOT-02 | review | 生产0diff；原40/10/2/3+新12反例/八变异实际过，2969输入与2c329逐件相同，独审3021/0限定ACCEPT；完整167/森林性能另待核 |
+| PLAINS-DROP-RECEIPT-GUARD-02 | 连续掉落物理保存与不可变结算合同的正式测试迁移 | PLAINS-MOTION-LOOT-02 | review | 原66/等待/字节重载/预算保留；原formal150/0及继承156/0、独审172/0限定接受；5353输入等于de22a39b、最终518/0限定接受；[记录](quality/records/PLAINS-DROP-RECEIPT-GUARD-02.json) |
+| ENEMY-WORKSHOP-01 | 怪物工坊与逐动作网页审核 | ENEMY-STRUCTURE-01 | review | 25条目私密站已发布、云端表建成；32测试／15浏览器检查及独审通过，缺片明示，待用户使用 |
+| ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |
+| PLAINS-REVISION-GUARD-01 | 旧frame到同体rig测试消费者守门迁移独审 | PLAINS-MONSTER-REVISION-01 | review | 限定7edda9三测试code接受，保原预算/退出与真实源；不签怪物视觉 |
+
+| MONSTER-LEGACY-SCOPE-01 | 冻结历史森林回放保留manual，同时真实当前registry/App守门默认一换一 | PLAINS-MONSTER-REVISION-01 | review | 精确d431独审＋reader48／0；当前registry88／0已实际通过，完整903 CI166 fresh；旧280／2manual延期不记通过，原检查/预算保留 |
+| MONSTER-PLANNER-SCOPE-01 | planner清单守门适配：保原四摘要与两lane | PLAINS-MONSTER-REVISION-01 | review | 精确a72a独审，原21suite＋18反例通过；四旧SHA与literal74/85保留，完整903 CI166 fresh与汇总通过 |
+
+| MAIN-UNIFY-20261031 | 整合122与107到含124/125的main，排除123，冻结架构底座 | CI-CURRENT-01 | in_progress | [范围](worklines/main_unify_20261031/scope.md)；不夹带旧架构候选，已知CI失败保留 |
+
+| AI-LEVEL-DESIGN-01 | 四层契约、来源审计、离线AI评价与有界生成验证闭环 | CLOUD-EFFICIENCY-01 | review | [设计体系v1](ai_level_design_v1/README.md)；Macro可选，复用原Godot/Harness，技术证据与真人认可分轨 |
+| AI-LEVEL-PILOT-01 | 平原/森林小样、强替代、几何对照及失败回流 | AI-LEVEL-DESIGN-01 | review | [小样与失败](ai_level_design_v1/pilot_design.md)；无正式准入，高路编舞被直取奖励反证，真人/设备未验 |

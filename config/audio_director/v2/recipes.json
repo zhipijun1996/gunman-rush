@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "version": "audio-director-v2",
+  "task": "AUDIO-DIRECTOR-02",
+  "profiles": {
+    "A": "A · 实体轻触",
+    "B": "B · 轻响拾取",
+    "C": "C · 短机械"
+  },
+  "sample_rate": 44100,
+  "peak_ceiling_dbfs": -6,
+  "fade_in_seconds": 0.002,
+  "fade_out_seconds": 0.012,
+  "silence_threshold_dbfs": -55,
+  "preserve_original_events": [
+    "jump",
+    "land",
+    "shot",
+    "enemy_death",
+    "hook_release",
+    "hook_connect",
+    "hook_pull"
+  ],
+  "events": [
+    {
+      "id": "click",
+      "label": "点击",
+      "category": "界面",
+      "legacy_cue": "click",
+      "target_rms_dbfs": -27,
+      "max_seconds": 0.22,
+      "candidates": [
+        {
+          "id": "click_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/click1.wav",
+            "ui/click2.wav"
+          ]
+        },
+        {
+          "id": "click_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/rollover1.wav",
+            "ui/rollover2.wav"
+          ]
+        },
+        {
+          "id": "click_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/click4.wav",
+            "ui/click5.wav"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confirm",
+      "label": "确认",
+      "category": "界面",
+      "legacy_cue": "confirm",
+      "target_rms_dbfs": -25,
+      "max_seconds": 0.45,
+      "candidates": [
+        {
+          "id": "confirm_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/switch4.wav",
+            "ui/switch5.wav"
+          ]
+        },
+        {
+          "id": "confirm_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/rollover3.wav",
+            "ui/rollover4.wav"
+          ]
+        },
+        {
+          "id": "confirm_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/switch9.wav",
+            "ui/switch10.wav"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "denied",
+      "label": "拒绝",
+      "category": "界面",
+      "legacy_cue": "denied",
+      "target_rms_dbfs": -27,
+      "max_seconds": 0.35,
+      "candidates": [
+        {
+          "id": "denied_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/switch23.wav",
+            "ui/switch24.wav"
+          ]
+        },
+        {
+          "id": "denied_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/switch30.wav",
+            "ui/switch31.wav"
+          ]
+        },
+        {
+          "id": "denied_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "ui/switch36.wav",
+            "ui/switch37.wav"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coin",
+      "label": "金币拾取",
+      "category": "拾取",
+      "legacy_cue": "coin",
+      "target_rms_dbfs": -25,
+      "max_seconds": 0.55,
+      "candidates": [
+        {
+          "id": "coin_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_coins_01.ogg",
+            "rpg/item_coins_02.ogg"
+          ]
+        },
+        {
+          "id": "coin_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_coins_03.ogg",
+            "rpg/item_coins_04.ogg"
+          ]
+        },
+        {
+          "id": "coin_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_misc_01.ogg",
+            "rpg/item_misc_02.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heal",
+      "label": "生命拾取",
+      "category": "拾取",
+      "legacy_cue": "heal",
+      "target_rms_dbfs": -25,
+      "max_seconds": 0.75,
+      "candidates": [
+        {
+          "id": "heal_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_gem_03.ogg",
+            "rpg/item_gem_04.ogg"
+          ]
+        },
+        {
+          "id": "heal_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/spell_01.ogg",
+            "rpg/spell_02.ogg"
+          ]
+        },
+        {
+          "id": "heal_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_misc_04.ogg",
+            "rpg/item_misc_05.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reward",
+      "label": "普通物品奖励",
+      "category": "拾取",
+      "legacy_cue": "note",
+      "target_rms_dbfs": -24,
+      "max_seconds": 0.75,
+      "candidates": [
+        {
+          "id": "reward_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_gem_01.ogg",
+            "rpg/item_gem_02.ogg"
+          ]
+        },
+        {
+          "id": "reward_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/item_misc_03.ogg",
+            "rpg/item_misc_06.ogg"
+          ]
+        },
+        {
+          "id": "reward_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "rpg/book_03.ogg",
+            "rpg/book_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enemy_hit",
+      "label": "敌人命中",
+      "category": "战斗",
+      "legacy_cue": null,
+      "target_rms_dbfs": -24,
+      "max_seconds": 0.32,
+      "candidates": [
+        {
+          "id": "enemy_hit_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "hit/bfh1_hit_01.ogg",
+            "hit/bfh1_hit_02.ogg"
+          ]
+        },
+        {
+          "id": "enemy_hit_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "material/wood_hit_01.ogg",
+            "material/wood_hit_02.ogg"
+          ]
+        },
+        {
+          "id": "enemy_hit_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "material/metal_hit_01.ogg",
+            "material/metal_hit_02.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enemy_hurt",
+      "label": "敌人受伤",
+      "category": "战斗",
+      "legacy_cue": "hurt",
+      "target_rms_dbfs": -28,
+      "max_seconds": 0.28,
+      "candidates": [
+        {
+          "id": "enemy_hurt_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "hit/bfh1_hit_03.ogg",
+            "hit/bfh1_hit_04.ogg"
+          ]
+        },
+        {
+          "id": "enemy_hurt_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "material/wood_hit_03.ogg",
+            "material/wood_hit_04.ogg"
+          ]
+        },
+        {
+          "id": "enemy_hurt_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "hit/bfh1_metal_hit_05.ogg",
+            "hit/bfh1_metal_hit_06.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hurt",
+      "label": "主角受伤",
+      "category": "战斗",
+      "legacy_cue": "hurt",
+      "target_rms_dbfs": -23,
+      "max_seconds": 0.36,
+      "candidates": [
+        {
+          "id": "hurt_a",
+          "profile": "A",
+          "label": "A · 实体轻触",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "hit/bfh1_hit_05.ogg",
+            "hit/bfh1_hit_06.ogg"
+          ]
+        },
+        {
+          "id": "hurt_b",
+          "profile": "B",
+          "label": "B · 轻响拾取",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "hit/bfh1_hit_09.ogg",
+            "hit/bfh1_hit_10.ogg"
+          ]
+        },
+        {
+          "id": "hurt_c",
+          "profile": "C",
+          "label": "C · 短机械",
+          "design": "单一CC0原录音；保留原音高与实际长度，仅修静音/端点/电平",
+          "sources": [
+            "hit/bfh1_hit_11.ogg",
+            "hit/bfh1_hit_12.ogg"
+          ]
+        }
+      ]
+    }
+  ]
+}

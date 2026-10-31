@@ -1,0 +1,22 @@
+{
+  "baseline_source_commit": "a38040c294aa541ed707bc50c55cf3769ecd7852",
+  "runtime_candidate": "foreground-refresh-cpu-candidate/COPY-INDEX.json",
+  "exit_code": 0,
+  "wall_seconds": 26.526411822000227,
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tools/verify_foreground_continuity.gd",
+    "--",
+    "--output=res://build/fg-cpu-after"
+  ]
+}

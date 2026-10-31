@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "task": "PLAYER-PRESENTATION-01",
+  "review_kind": "independent documentation and session inventory closeout review",
+  "reviewed_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+  "reviewed_at_utc": "2026-10-23T02:33:13.082541+00:00",
+  "reviewer": {
+    "agent": "/root/audit_review",
+    "role": "Independent delegated reviewer",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+    "independence": "Read-only implementation/docs audit;did not author reviewed skills/template/summary/inventory,did not runGodot,listen or write production.Only this authorized review record written."
+  },
+  "verdict": "ACCEPT",
+  "scope": "Limited acceptance of documentation,skill/template changes and cumulative inventory accuracy. Not whole-repository docs/quality success,new appearance pipeline validation,runtime integration,user/hearing or device signoff.",
+  "file_sha256": {
+    ".agents/skills/player-creator/SKILL.md": "f4b336d08db0b17c4e3b385b31084bc01a24acc13c010e38aceff60ae9f1b3cf",
+    ".agents/skills/animation-vfx/SKILL.md": "58bdb2dc8dc53a60f9df094971aa03dc11d88405c1ae139d946a0a1da7cac323",
+    "docs/templates/player_design.md": "06ef67b9603f036211936ab9b521990b58f03c268c227c746d1f84fefd5c8452",
+    "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md": "26139eca0d9eb4632e60fedaaaa5107e816f355ff4bf310b422f062e1962dd42",
+    "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md": "0365767025819c2de142ac2986bd992dec4875aa5547b2909d00b5098597f0cc",
+    "docs/worklines/PLAYER-PRESENTATION-01/session-inventory-09.json": "7f3bb5338edd6d7db55ae28d16542779b723a1345a13a5bef9de9ef2b4804789"
+  },
+  "findings": [
+    {
+      "id": "CLOSEOUT-APPEARANCE",
+      "status": "ACCEPT",
+      "locations": [
+        ".agents/skills/player-creator/SKILL.md:31",
+        "docs/templates/player_design.md:23"
+      ],
+      "observation": "Explicit appearance task may reuse gameplay without inventingnewabilities;gameplay-character task still must show realrule/newdecision changes and retain existingmechanics/weapon/quality verification. Template replaces blanketreject ofreskin withtype-specific failure conditions. No appearance exception permits input/physics/damage/resource/grant/save changes. Original actioncoverage card/qualityrecord reused;no secondvalidationframework."
+    },
+    {
+      "id": "CLOSEOUT-BOUNDS",
+      "status": "ACCEPT",
+      "locations": [
+        "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md:3",
+        "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md:54"
+      ],
+      "observation": "Explicitly states nosecondcompleteappearance delivered/accepted and noautomaticconsistentgeneration/plug-and-play guarantee. Defines reference/proportion/palette/anchors,continuousgolden beforeexpansion,actualconsumer/selectionflow andmissingstates. Existingrun failures,grip,formalhurt/recovery/death,full3appearance andfullintegration gaps remain. No new approvalplatform,Runtime/avatarloader framework or blanket gameplay gate exemption added. Sharedstyle/version coordination is existing user/repo boundary."
+    },
+    {
+      "id": "CLOSEOUT-AUDIOANCHOR",
+      "status": "ACCEPT_DOC_ONLY",
+      "locations": [
+        ".agents/skills/animation-vfx/SKILL.md:41",
+        "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md:21"
+      ],
+      "observation": "Records actualdrawnhand versus historicalevent anchor,acceptedinstantcatch versus visualecho,producer-scopedcue routing and committeddamage/contact distinction. Actualservice/leaf lifecycle evidence replaces false assumption ofnewaudio service perreentry. Soundsemantics/license/downloadformat and listening separated;no license/waveform/AudioContextrunning as heardquality signoff."
+    },
+    {
+      "id": "CLOSEOUT-VERSION",
+      "status": "ACCEPT",
+      "locations": [
+        "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md:25",
+        "docs/worklines/PLAYER-PRESENTATION-01/session-inventory-09.json"
+      ],
+      "observation": "Latest runtime4e5102a remains distinct from3254984 Web/movie source/build6952e7d0d356;latestWeb hasoldradio mine sound,notV3timer. V3actualmovie,oldV2movie,localZIP andpublichosting capacity failure distinguished. Summary doesnot claimnewplayablepublicPreview. Readsource receipts/knownpriorreviews;no newnetworkdelivery verification by thisdocumentreview."
+    },
+    {
+      "id": "CLOSEOUT-SHARED",
+      "status": "ACCEPT_INVENTORY_BOUNDARY",
+      "observation": "Inventory lists7sharedruntimepaths explicitly:PlayerController,PlayerProjectile,WeaponActionRuntime,WeaponDefinition,WeaponEntity and2magneticmine resources. Six-secondmine behavior identified asuser-authorizedgameplayexception,not hidden as purepresentation. Protected4stylepieces plusAdapter/Courier matchbaselinemainbytes;no body/styleSHA refresh. ExistingotheragentM1 b34511a7 notancestor of9db(verified gitmerge-base),so notsilentlymerged. M1authoritativeanchor/sharedbinding decisions remaincoordinator-owned."
+    }
+  ],
+  "inventory_verification": {
+    "baseline": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+    "snapshot": "631f437a3404e98cdf017d6a2709ed6399533a7a",
+    "scope": "Frozen631 cumulative implementation snapshot beforedocscloseout,not currentHEAD filehashes forlater-editedqualityrecord.",
+    "independent_method": "Comparedgitrev-list inreverse,gitdiff name-status andall459gitcat-file snapshotblobs/bytes/SHA256 againstinventory;recomputedcategorycounts.",
+    "commits": 23,
+    "exact_commit_sequence_match": true,
+    "files": 459,
+    "exact_path_status_match": true,
+    "all_snapshot_bytes_and_sha256_match": true,
+    "category_counts_match": true,
+    "category_counts": {
+      "task_assets": 154,
+      "evidence": 74,
+      "asset_provenance": 71,
+      "task_quality": 1,
+      "contracts_and_handoffs": 21,
+      "derived_development_foundry": 56,
+      "task_profiles_and_banks": 11,
+      "shared_runtime_delta": 7,
+      "task_preview_scenes": 4,
+      "task_visual_audio_preview": 28,
+      "task_tests_and_drivers": 32
+    },
+    "shared_runtime_paths": [
+      "resources/weapons/magnetic_mine.tres",
+      "resources/weapons/magnetic_storm.tres",
+      "scripts/combat/player_projectile.gd",
+      "scripts/combat/weapon_action_runtime.gd",
+      "scripts/combat/weapon_definition.gd",
+      "scripts/combat/weapon_entity.gd",
+      "scripts/player/player_controller.gd"
+    ],
+    "protected_files": [
+      {
+        "path": "scripts/underworld_plains/underworld_player.gd",
+        "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+        "equals_main_baseline": true
+      },
+      {
+        "path": "assets/underworld_plains/player_animation/animation_build.json",
+        "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+        "equals_main_baseline": true
+      },
+      {
+        "path": "assets/underworld_plains/player_animation/run_sheet.png",
+        "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+        "equals_main_baseline": true
+      },
+      {
+        "path": "assets/underworld_plains/player_animation/states_sheet.png",
+        "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+        "equals_main_baseline": true
+      },
+      {
+        "path": "scripts/art/player_visual_adapter.gd",
+        "sha256": "8df647e0cab625f932be6efa45b5b13ced4693f6e763c5e82e882027906d3fe9",
+        "equals_main_baseline": true
+      },
+      {
+        "path": "assets/characters/courier/courier_visual.gd",
+        "sha256": "fd07fc967903aeda0c952192ecd4d37adffa944fa3fcaae9a1092e0f58919378",
+        "equals_main_baseline": true
+      }
+    ],
+    "protected_comparison": "Eachprotectedpath baselinee9ab blob equals631blob independently read;all4style+Adapter/Courier retained.",
+    "exclusions": "Ignoredbuild/cache/scratchandlargeZIPexcluded;historyevidence countsnotactions/quality. Otherpreviewsrepositorypush/cleanstatements are scopedhandoffmetadata,not anewpublicdeploycheck."
+  },
+  "closeout_delta": {
+    "from": "631f437a3404e98cdf017d6a2709ed6399533a7a",
+    "to": "9db03e80707380dc1728577870f9893e1becfc6b",
+    "changed_files": [
+      ".agents/skills/animation-vfx/SKILL.md",
+      ".agents/skills/player-creator/SKILL.md",
+      "docs/quality/records/PLAYER-PRESENTATION-01.json",
+      "docs/templates/player_design.md",
+      "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md",
+      "docs/worklines/PLAYER-PRESENTATION-01/session-inventory-09.json",
+      "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md"
+    ],
+    "runtime_delta": [],
+    "method": "Actualgitdiffcontains7documentation/skill/template/quality/inventory files only;no newgamefile. Currentbranch matchesinventoryfeature/player-presentation-01-motion-candidate.",
+    "frontmatter": [
+      {
+        "path": ".agents/skills/player-creator/SKILL.md",
+        "frontmatter_unchanged": true
+      },
+      {
+        "path": ".agents/skills/animation-vfx/SKILL.md",
+        "frontmatter_unchanged": true
+      }
+    ]
+  },
+  "checks_and_retained_failures": {
+    "added_links_report": "build/player_presentation_01/session-closeout/local-checks.json",
+    "added_links_report_sha256": "a3c259cc64c192ae32a3cc0f1eadafdb919bc776773e90de69ae40efa82fc166",
+    "new_local_links": 29,
+    "new_missing": [],
+    "reviewer_verification": "Independentlyresolved29addedlocaltargets;also scannedallfiveMarkdownfiles,foundexactsame3oldmissingrefs. Headerbytes unchanged versus631. Thisisnotfull Markdown anchor/parser/allrepodocs proof.",
+    "first_full_selected_docs_check": {
+      "path": "build/player_presentation_01/session-closeout/changed-doc-link-first.json",
+      "sha256": "57566175c20ec5b57dfabee8635173468888f123f1ece6f82d0f42caee6af765",
+      "status": "failed",
+      "missing": [
+        {
+          "file": ".agents/skills/player-creator/SKILL.md",
+          "target": "../../../docs/archive/skill_history/README.md",
+          "existed_before": true
+        },
+        {
+          "file": ".agents/skills/animation-vfx/SKILL.md",
+          "target": "../../../docs/archive/skill_history/README.md",
+          "existed_before": true
+        },
+        {
+          "file": ".agents/skills/animation-vfx/SKILL.md",
+          "target": "../../../docs/archive/skill_history/bible-v2-input/manifest.json",
+          "existed_before": true
+        }
+      ],
+      "boundary": "These3targets also existasreferences inprecloseout631skills andremainmissinglocally;notnewlinks. Originalreferences/failedreportretained,notdeletedtobuyPASS."
+    },
+    "whole_repo_docs": {
+      "path": "build/player_presentation_01/session-closeout/docs-final.log",
+      "sha256": "6a9730f9cde6ea993fb24a8a0ab574e6633ca4d5417a22568470fb5544576c25",
+      "status": "failed",
+      "scope": "Rawlogshowsmissinghistoricalsparsetargets;notreclassifiedaspassed."
+    },
+    "quality_index": {
+      "path": "build/player_presentation_01/session-closeout/quality-index-final.log",
+      "sha256": "95b19da7c551eb5d1257c3a265aa1d780a5c11d7d7d7811bb0ff5bd1aefb6926",
+      "status": "failed",
+      "scope": "RawlogincludesmissinghistoricalevidenceandTaskindex/recordmismatchPLAYER-PRESENTATION-01. Centralindexnotupdatedbythisreview;coordinatorfollowupremains."
+    }
+  },
+  "unverified": [
+    "No secondfullappearance,stablebatchartproduction or universalcharacterloader validated.",
+    "No newrun/grip/death/fullallcharactersorfull15skillGPUcompletion.",
+    "No audio listening,useraesthetic/feel or physicaldevice acceptance.",
+    "No fullaffectedIntegration/Release signoff.",
+    "No newpublicplayableWebdeployment verified by reviewer."
+  ],
+  "conclusion": "Documentation accurately recordsbounded reuse guidance,session snapshot andremainingfailures. Acceptthisdocument/inventory scopeforbranchhandoff;leavecontent/workline in_progress andnamedruntime/quality gapsunchanged."
+}

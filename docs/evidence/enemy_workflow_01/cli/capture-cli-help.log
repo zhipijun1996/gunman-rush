@@ -1,0 +1,22 @@
+usage: capture_enemy_feedback_01_remains.py [-h] --output OUTPUT --variant
+                                            {before,after} [--seed SEED]
+                                            [--chain {underworld,legacy}]
+                                            [--expect-remains]
+                                            [--compare-trace COMPARE_TRACE]
+                                            [--expect-disappear]
+
+Record accepted death and a 3.5-second corpse hold in a named rendering chain.
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT
+  --variant {before,after}
+                        Label only. Run unchanged driver against the intended
+                        source externally.
+  --seed SEED
+  --chain {underworld,legacy}
+  --expect-remains      Require a visible, settled, stationary final 3.5s per
+                        case; validation only.
+  --compare-trace COMPARE_TRACE
+  --expect-disappear    Require an accepted death visual, then a fully
+                        invisible final tail (v5 user direction).

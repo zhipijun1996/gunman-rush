@@ -22,11 +22,17 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def native_runtime_failed(exit_code, log):
     # Both native phases redirect stderr; the outer Harness cannot inspect it.
     return exit_code != 0 or bool(re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit', log))
-def validate_admission_audit(data):
+def validate_admission_audit(data, current_only=False):
     rows=data.get('rows',[])
     require(isinstance(rows,list) and len(rows)==40 and data.get('failures')==[],'Formal admission map audit failed/incomplete')
     expected_rows={(f'v3-root-bell-pilot-{i}',map_index) for i in range(20) for map_index in (1,2)}
-    require({(row.get('root_seed'),row.get('map_index')) for row in rows}==expected_rows and all(row.get('legacy_default_byte_equal') is True for row in rows),'Formal map/legacy-byte inventory incomplete')
+    require({(row.get('root_seed'),row.get('map_index')) for row in rows}==expected_rows,'Formal map inventory incomplete')
+    if current_only:
+        require(data.get('current_only') is True and data.get('not_run')==['historical_raw_manifest_byte_comparison'],'Current admission scope missing or claims historical execution')
+        tuning=json.loads((ROOT/'config/player_tuning.json').read_text())
+        require(all('legacy_default_byte_equal' not in row and row.get('current_default_validated') is True and row.get('current_candidate_validated') is True and row.get('current_tuning_hash')==row.get('candidate_tuning_hash')==sha(ROOT/'config/player_tuning.json') and row.get('current_tuning_focus_scale')==tuning['focus_time_scale'] and row.get('current_tuning_max_air_shots')==tuning['max_air_shots'] and re.fullmatch(r'[0-9a-f]{64}',str(row.get('candidate_hash',''))) for row in rows),'Current configuration/hash/whole-manifest validation missing')
+    else:
+        require(all(row.get('legacy_default_byte_equal') is True for row in rows),'Formal map/legacy-byte inventory incomplete')
     for row in rows:
         require(type(row.get('map_index')) is int and row['map_index'] in (1,2),'Invalid actual campaign map index type')
         candidate=row.get('candidate',{})
@@ -56,10 +62,13 @@ def validate_admission_audit(data):
     require(len(bad)==len(expected_bad) and {c.get('mutation') for c in bad}==expected_bad and all(c.get('refused') is True for c in bad),'Versioned replay refusal inventory incomplete')
     return {'maps':40,'versioned_run_positive_cases':len(cases),'versioned_run_refusals':len(bad),'scope':replay['scope']}
 
-def sources():
+def sources(current_only=False):
     result=visual_director.sources()
-    for name in ('tools/run_root_bell_formal.py','tools/test_root_bell_formal_verifier.py','tools/root_bell_formal_capture.gd','tests/root_bell_formal_trace.gd','tools/run_root_bell_tests.py','docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json'):
+    for name in ('tools/run_root_bell_formal.py','tools/test_root_bell_formal_verifier.py','tools/root_bell_formal_capture.gd','tests/root_bell_formal_trace.gd','tools/run_root_bell_tests.py'):
         result[name]=sha(ROOT/name)
+    if not current_only:
+        legacy="docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
+        result[legacy]=sha(ROOT/legacy)
     return result
 
 # Resource/event verification shared by native capture and explicitly offline
@@ -83,6 +92,52 @@ def _vec(text,key):
 def _near(a,b,tolerance=.001):
     return len(a)==len(b) and all(isinstance(v,(int,float)) and math.isfinite(v) and abs(v-w)<=tolerance for v,w in zip(a,b))
 
+def current_free_profile(data):
+    cap=data['initial_capability'];schema=cap['schema_version']
+    require(schema in (1,2) and data['final_capability']['schema_version']==schema,'Unknown/mixed capability schema')
+    if schema==1:
+        # Frozen historical captures retain their original exact v1 authority.
+        require(cap['config_hashes']['shot_energy']==sha(ROOT/'resources/player/plains_shot_energy.tres'),'Historical energy authority mismatch')
+        return False
+    energy=cap['shot_energy'];path=energy['definition_path'];flag=energy['shooting_consumes_energy']
+    require(type(flag) is bool,'Nonboolean energy profile')
+    expected='res://resources/player/plains_shot_energy.tres' if flag else 'res://resources/player/demo_ui_01/time_energy_v2.tres'
+    require(path==expected and energy['definition_version']==(1 if flag else 2),'Unknown energy Definition/profile')
+    for c in (cap,data['final_capability']):
+        e=c['shot_energy']
+        require(e['definition_path']==path and e['shooting_consumes_energy'] is flag and e['definition_version']==energy['definition_version'] and e['definition_sha256']==sha(ROOT/path.removeprefix('res://'))==c['config_hashes']['shot_energy'],'Actual energy Definition authority mismatch')
+    return not flag
+
+def verify_free_energy_trace(data, inactive_ticks):
+    tuning=data['initial_capability']['tuning'];frames=data['frames'];events=data['events'];receipts=data['resource_receipts']
+    current=data['initial_capability']['shot_energy']['current'];capacity=data['initial_capability']['shot_energy']['capacity'];session=data['initial_capability']['session_id'];epoch=frames[0]['resource_epoch']
+    by_tick={}
+    for index,r in enumerate(receipts):
+        require(r['continuous'] is True and r['event_id']=='' and r['status']==0 and r['epoch']==epoch and r['session_id']==session and r['capacity']==capacity,'Foreign/noncontinuous time energy result')
+        require(1<=r['tick']<=len(frames) and r['tick'] not in inactive_ticks and r['actor_active'] is True,'Stale/inactive time energy result')
+        matching=[e for e in events if e['kind']=='time_energy_changed' and e['receipt_index']==index]
+        require(len(matching)==1 and matching[0]['tick']==r['tick'] and matching[0]['receipt']==r,'Time energy result lacks actual changed event')
+        require(r['controller_tick']==frames[r['tick']-1]['controller_tick'] and abs(r['real_delta']-1/data['physics_hz'])<1e-9,'Time energy result has foreign controller clock/delta')
+        by_tick.setdefault(r['tick'],[]).append(r)
+    require(len([e for e in events if e['kind']=='time_energy_changed'])==len(receipts),'Unbound time energy event')
+    for f in frames:
+        for r in by_tick.get(f['tick'],[]):
+            before=current
+            if r['operation']=='consume':
+                require(r['grounded_before'] is False and r['aim_engaged'] is True and r['focus_active'] is True,'Time drain lacks actual airborne focus input')
+                used=min(r['real_delta'],max(0,tuning['focus_max_air_duration']-r['focus_air_time_before']),current/tuning['focus_stamina_drain'])
+                current-=used*tuning['focus_stamina_drain']
+            else:
+                require(r['operation']=='grant' and r['grounded_before'] is True and r['focus_active'] is False,'Time recovery lacks grounded focus owner')
+                current=min(capacity,current+tuning['focus_stamina_recovery']*r['real_delta'])
+            require(math.isfinite(r['amount_applied']) and abs(r['amount_applied']-(current-before))<1e-5 and abs(r['current']-current)<1e-5,'Actual time energy delta does not replay from focus tuning/input')
+        require(abs(f['shot_energy']-current)<1e-5,'Frame time energy not bound to changed results')
+        for e in f['accepted_events']:
+            if e['kind']=='shot_accepted':
+                require(e['energy_after']==f['shot_energy'] and any(a['type']=='shoot_release' and _near(a['direction'],e['direction']) for a in f['input_requests']),'Free accepted shot lacks real release/unchanged time energy')
+    require(abs(data['final_capability']['shot_energy']['current']-current)<1e-5,'Final time energy differs from replay')
+    require(not any(e['kind']=='energy_recovered' for e in events),'Free projectile unexpectedly grants time energy')
+
 def strict_semantics(data, inactive_ticks=frozenset()):
     frames=data['frames'];events=data['events'];m=data['manifest'];identity=data['root_bell_identity'];admission=m['root_bell_admission']
     enemies=m['enemies'];ids=[e['id'] for e in enemies]
@@ -98,7 +153,8 @@ def strict_semantics(data, inactive_ticks=frozenset()):
     require({e['id'] for e in initial_actors}==set(ids)=={e['id'] for e in final_actors},'Runtime/Manifest actor inventories differ')
     observed=[e for e in initial_actors if e['id']==identity];require(len(observed)==1 and observed[0]['behavior']=='root_bell' and _near(observed[0]['home'],home) and _near(observed[0]['body_size'],body),'Actual actor Definition/home mismatch')
     require(observed[0]['health']==_number('resources/enemies/patrol_health.tres','max_health'),'Initial root HP not actual Definition')
-    tuning=json.loads((ROOT/'config/player_tuning.json').read_text());cap=data['initial_capability'];final=data['final_capability'];energy_script='scripts/resources/definitions/shot_energy_definition.gd';energy_resource='resources/player/plains_shot_energy.tres'
+    tuning=json.loads((ROOT/'config/player_tuning.json').read_text());cap=data['initial_capability'];final=data['final_capability'];energy_script='scripts/resources/definitions/shot_energy_definition.gd';energy_resource='resources/player/demo_ui_01/time_energy_v2.tres' if current_free_profile(data) else 'resources/player/plains_shot_energy.tres'
+    free_policy=current_free_profile(data)
     capacity=_number(energy_resource,'capacity');initial=_number(energy_resource,'initial_current');cost=_number(energy_resource,'shot_energy_cost',energy_script);hit_recovery=_number(energy_resource,'hit_energy_recovery',energy_script);rate=_number(energy_resource,'ground_recovery',energy_script);delay=_number(energy_resource,'recovery_delay',energy_script);max_hp=_number('resources/actors/prototype_health.tres','max_health')
     hz=tuning['physics_hz'];dt=1/hz;session=cap['session_id'];epoch=frames[0]['resource_epoch']
     for c in [cap,final]:
@@ -113,10 +169,15 @@ def strict_semantics(data, inactive_ticks=frozenset()):
     require(_near(cap['position'],frames[0]['position']) and _near(final['position'],frames[-1]['position']),'Capability terminal does not match actual frame')
     shot_events=[e for e in events if e['kind']=='shot_accepted'];shots={e['shot_id']:e for e in shot_events}
     require(len(shots)==len(shot_events) and list(shots)==list(range(1,len(shots)+1)),'Duplicate/gapped accepted projectile identity')
+    # Projectile lifetime identity is common to paid and free energy policies.
+    for sid,shot in shots.items():
+        require(shot['session_id']==session and shot['resource_epoch']==epoch and shot['packet_id']==sid and shot['event_id']==f"{shot['owner_id']}:{session}:{sid}",'Accepted shot identity/session/packet mismatch')
     receipts=data['resource_receipts'];by_tick={};seen=set();consumed=set();granted=set()
-    for r in receipts:
-        require((r['epoch'],r['event_id']) not in seen,'Duplicate resource transaction identity');seen.add((r['epoch'],r['event_id']));by_tick.setdefault(r['tick'],[]).append(r)
-        require(1<=r['tick']<=len(frames) and r['epoch']==epoch and r['session_id']==session and r['status']==0 and r['capacity']==capacity and 0<=r['current']<=capacity,'Foreign resource epoch/session/capacity/status')
+    if free_policy:verify_free_energy_trace(data,inactive_ticks)
+    else:
+        for r in receipts:
+            require((r['epoch'],r['event_id']) not in seen,'Duplicate resource transaction identity');seen.add((r['epoch'],r['event_id']));by_tick.setdefault(r['tick'],[]).append(r)
+            require(1<=r['tick']<=len(frames) and r['epoch']==epoch and r['session_id']==session and r['status']==0 and r['capacity']==capacity and 0<=r['current']<=capacity,'Foreign resource epoch/session/capacity/status')
     player_hp=_number('resources/actors/prototype_health.tres','initial_current');root_hp=observed[0]['health']
     current=initial;remaining_delay=cap['shot_energy']['_delay'];grounded=cap['grounded'];jump_window=math.ceil(tuning['jump_buffer']*hz)+1
     for i,f in enumerate(frames):
@@ -133,25 +194,26 @@ def strict_semantics(data, inactive_ticks=frozenset()):
         require(0<=f['shot_energy']<=capacity and math.isfinite(f['shot_energy']) and 0<=f['shots']<=tuning['max_air_shots'] and 0<=f['used_jumps']<=tuning['max_jumps'] and -1<=f['axis']<=1,'Native budget/action capacity invalid')
         require(_near(f['root_bell']['body_size'],body) and _near(f['root_bell']['pulse_size'],pulse),'Root actual Definition envelope changed')
         if i:require(abs(math.dist(f['position'],frames[i-1]['position'])-f['displacement'])<.05,'Continuous native displacement inconsistent with positions')
-        gain=max(0,dt-remaining_delay) if f['tick'] not in inactive_ticks else 0
-        if f['tick'] not in inactive_ticks:remaining_delay=max(0,remaining_delay-dt)
-        if grounded:current=min(capacity,current+rate*gain)
-        for r in by_tick.get(f['tick'],[]):
-            require(math.isfinite(r['amount_applied']) and math.isfinite(r['requested_amount']),'Nonfinite resource amount')
-            kind,rsession,sid=r['event_id'].split('/');sid=int(sid);require(int(rsession)==session and sid in shots,'Receipt has no actual accepted projectile')
-            shot=shots[sid];require(shot['session_id']==session and shot['resource_epoch']==epoch and shot['packet_id']==sid and shot['event_id']==f"{shot['owner_id']}:{session}:{sid}",'Accepted shot identity/session/packet mismatch')
-            before=current
-            if r['operation']=='consume':
-                require(kind=='shot' and sid not in consumed and r['tick']==shot['tick'] and abs(r['requested_amount']-cost)<1e-6 and current+1e-6>=cost,'Consume not exact actual shot debit');consumed.add(sid);current-=cost;remaining_delay=delay
-                require(any(a['type']=='shoot_release' and _near(a['direction'],shot['direction']) for a in f['input_requests']),'Accepted shot lacks same-frame real Router release')
-                require(abs(shot['energy_after']-current)<1e-6,'Accepted shot energy_after differs from debit')
-            else:
-                require(r['operation']=='grant' and kind=='hit' and sid not in granted and shot['tick']<r['tick'] and abs(r['requested_amount']-hit_recovery)<1e-6,'Grant not actual unique projectile hit');granted.add(sid);current=min(capacity,current+hit_recovery)
-                hit=[e for e in events if e['kind']=='damage_committed' and e['tick']==r['tick'] and e['event_id']==shot['event_id'] and e['source']=='player_projectile:'+str(shot['owner_id']) and e['target'] in ids]
-                require(len(hit)==1,'Hit recovery lacks actual Manifest damage event')
-                require(any(e['kind']=='energy_recovered' and e['tick']==r['tick'] and abs(e['amount']-(current-before))<1e-6 for e in events),'Hit grant lacks accepted recovered event')
-            require(abs(r['amount_applied']-(current-before))<1e-6 and abs(r['current']-current)<1e-6,'Resource applied delta/before-after accounting mismatch')
-        require(abs(f['shot_energy']-current)<1e-5,'Frame resource differs from actual debit/hit/continuous recovery replay')
+        if not free_policy:
+            gain=max(0,dt-remaining_delay) if f['tick'] not in inactive_ticks else 0
+            if f['tick'] not in inactive_ticks:remaining_delay=max(0,remaining_delay-dt)
+            if grounded:current=min(capacity,current+rate*gain)
+            for r in by_tick.get(f['tick'],[]):
+                require(math.isfinite(r['amount_applied']) and math.isfinite(r['requested_amount']),'Nonfinite resource amount')
+                kind,rsession,sid=r['event_id'].split('/');sid=int(sid);require(int(rsession)==session and sid in shots,'Receipt has no actual accepted projectile')
+                shot=shots[sid];require(shot['session_id']==session and shot['resource_epoch']==epoch and shot['packet_id']==sid and shot['event_id']==f"{shot['owner_id']}:{session}:{sid}",'Accepted shot identity/session/packet mismatch')
+                before=current
+                if r['operation']=='consume':
+                    require(kind=='shot' and sid not in consumed and r['tick']==shot['tick'] and abs(r['requested_amount']-cost)<1e-6 and current+1e-6>=cost,'Consume not exact actual shot debit');consumed.add(sid);current-=cost;remaining_delay=delay
+                    require(any(a['type']=='shoot_release' and _near(a['direction'],shot['direction']) for a in f['input_requests']),'Accepted shot lacks same-frame real Router release')
+                    require(abs(shot['energy_after']-current)<1e-6,'Accepted shot energy_after differs from debit')
+                else:
+                    require(r['operation']=='grant' and kind=='hit' and sid not in granted and shot['tick']<r['tick'] and abs(r['requested_amount']-hit_recovery)<1e-6,'Grant not actual unique projectile hit');granted.add(sid);current=min(capacity,current+hit_recovery)
+                    hit=[e for e in events if e['kind']=='damage_committed' and e['tick']==r['tick'] and e['event_id']==shot['event_id'] and e['source']=='player_projectile:'+str(shot['owner_id']) and e['target'] in ids]
+                    require(len(hit)==1,'Hit recovery lacks actual Manifest damage event')
+                    require(any(e['kind']=='energy_recovered' and e['tick']==r['tick'] and abs(e['amount']-(current-before))<1e-6 for e in events),'Hit grant lacks accepted recovered event')
+                require(abs(r['amount_applied']-(current-before))<1e-6 and abs(r['current']-current)<1e-6,'Resource applied delta/before-after accounting mismatch')
+            require(abs(f['shot_energy']-current)<1e-5,'Frame resource differs from actual debit/hit/continuous recovery replay')
         grounded=f['grounded']
     expected_hits={}
     by_event_id={shot['event_id']:sid for sid,shot in shots.items()}
@@ -160,18 +222,19 @@ def strict_semantics(data, inactive_ticks=frozenset()):
         sid=by_event_id[event['event_id']];shot=shots[sid]
         require(event['source']=='player_projectile:'+str(shot['owner_id']) and event['amount']>0 and event['tick']>shot['tick'],'Invalid committed projectile hit cause')
         expected_hits[sid]=min(expected_hits.get(sid,event['tick']),event['tick'])
-    require(granted==set(expected_hits),'Actual committed projectile hit missing unique resource grant')
-    expected_recovered=[]
-    for sid,hit_tick in expected_hits.items():
-        matches=[r for r in receipts if r['event_id']==f'hit/{session}/{sid}']
-        require(len(matches)==1 and matches[0]['tick']==hit_tick,'Hit grant not bound to first actual hit callback')
-        expected_recovered.append((hit_tick,matches[0]['amount_applied'],shots[sid]['fired_airborne']))
-    # ActorResourceState records APPLIED grants even when capacity clamps them
-    # to zero; ShotEnergyPolicy still emits recovered(0, airborne) in that case.
-    actual_recovered=[(e['tick'],e['amount'],e['airborne']) for e in events if e['kind']=='energy_recovered']
-    require(sorted(actual_recovered)==sorted(expected_recovered),'Accepted hit recovery events do not match unique grants, including legal zero grants')
-    require(consumed==set(shots),'Accepted shot missing exact debit')
-    require(abs(final['shot_energy']['current']-current)<1e-5,'Final resource does not match continuous ledger')
+    if not free_policy:
+        require(granted==set(expected_hits),'Actual committed projectile hit missing unique resource grant')
+        expected_recovered=[]
+        for sid,hit_tick in expected_hits.items():
+            matches=[r for r in receipts if r['event_id']==f'hit/{session}/{sid}']
+            require(len(matches)==1 and matches[0]['tick']==hit_tick,'Hit grant not bound to first actual hit callback')
+            expected_recovered.append((hit_tick,matches[0]['amount_applied'],shots[sid]['fired_airborne']))
+        # ActorResourceState records APPLIED grants even when capacity clamps them
+        # to zero; ShotEnergyPolicy still emits recovered(0, airborne) in that case.
+        actual_recovered=[(e['tick'],e['amount'],e['airborne']) for e in events if e['kind']=='energy_recovered']
+        require(sorted(actual_recovered)==sorted(expected_recovered),'Accepted hit recovery events do not match unique grants, including legal zero grants')
+        require(consumed==set(shots),'Accepted shot missing exact debit')
+        require(abs(final['shot_energy']['current']-current)<1e-5,'Final resource does not match continuous ledger')
     for e in events:
         if e['kind'] not in ('shot_accepted','jump_accepted','damage_committed','root_pulse','root_interrupted'):continue
         require(1<=e['tick']<=len(frames) and e in frames[e['tick']-1]['accepted_events'],'Accepted event not observed in actual frame')
@@ -336,20 +399,26 @@ def revalidate_frozen(native_folder,output_folder):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--revalidate-frozen',help='Explicit offline oldnative/newverifier revalidation; never a fresh native claim');parser.add_argument('--movie',action='store_true');parser.add_argument('--g1',action='store_true');parser.add_argument('--default',action='store_true',help='Do not request pilot; succeeds only after actual default admission');parser.add_argument('--output-dir');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--revalidate-frozen',help='Explicit offline oldnative/newverifier revalidation; never a fresh native claim');parser.add_argument('--movie',action='store_true');parser.add_argument('--g1',action='store_true');parser.add_argument('--current-g1',action='store_true',help='Current formal40 admission only; skip native165 and archived authority');parser.add_argument('--default',action='store_true',help='Do not request pilot; succeeds only after actual default admission');parser.add_argument('--output-dir');args=parser.parse_args()
     if args.revalidate_frozen:
-        require(not (args.movie or args.g1 or args.default),'Offline scope cannot request fresh capture')
+        require(not (args.movie or args.g1 or args.current_g1 or args.default),'Offline scope cannot request fresh capture')
         result=revalidate_frozen(Path(args.revalidate_frozen),ROOT/(args.output_dir or 'build/root_bell/offline_revalidation/'+str(time.time_ns())))
         print('OFFLINE ROOT BELL REVALIDATION: original native unchanged; new verifier only; NO NATIVE/MOVIE execution')
         return result
+    require(not (args.current_g1 and (args.g1 or args.movie or args.default)), '--current-g1 is a distinct current-admission-only scope')
     folder=(ROOT/(args.output_dir or 'build/root_bell/formal_v2/'+str(time.time_ns()))).resolve()
     require(folder.is_relative_to(ROOT/'build/root_bell') and not folder.exists(),'Use a NEW build/root_bell directory; old failures/success immutable')
-    folder.mkdir(parents=True);before=sources();report={'status':'failed','scope':'Actual formal pilot, no independent/content acceptance','source_before':before,'started_epoch':time.time(),'movie_requested':args.movie,'default_requested':args.default}
+    folder.mkdir(parents=True);before=sources(current_only=args.current_g1);report={'status':'failed','scope':'Actual formal pilot, no independent/content acceptance','source_before':before,'started_epoch':time.time(),'movie_requested':args.movie,'default_requested':args.default}
     if args.g1:report['scope']='Actual original165 fixtures plus formal40/versioned RunManifest audit; not input-only campaign traversal, commercial or device acceptance'
+    if args.current_g1:
+        report['scope']='Current formal40 admission and original physical/versioned replay verification only; native165 and archived authority not executed'
+        report['not_run']=['legacy_native165','archived_authority','historical_raw_manifest_byte_comparison']
     (folder/'invocation.json').write_text(json.dumps(report,indent=2)+'\n');display=None
     try:
         env=os.environ.copy();env['LP_NUM_THREADS']='1';env['LIBGL_ALWAYS_SOFTWARE']='1'
-        if args.g1:
+        if args.current_g1:
+            command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--',*(['--current-g1'] if args.current_g1 else []),'--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
+        elif args.g1:
             command=['python3','tools/run_root_bell_tests.py','--output-dir',str((folder/'native165').relative_to(ROOT))]
         else:
             command=['bash','tools/godot.sh']+([] if args.movie else ['--headless'])+['--fixed-fps','60','--path','.','--script','tools/root_bell_formal_capture.gd','--','--source-commit='+subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'--seed=v3-root-bell-pilot-1','--map-index=2','--strategy=fast','--encounter-policy=kill_from_bank_v1','--phase-wait-ticks=0','--max-ticks=18000','--output=res://'+str((folder/'capture.json').relative_to(ROOT))]
@@ -361,24 +430,31 @@ def main():
                 command[2:2]=['--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(folder/'gameplay.avi')]
                 command+=['--capture-visible']
         report['command']=command
-        with (folder/'runtime.log').open('w') as log:actual=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900 if args.movie else 300)
+        with (folder/'runtime.log').open('w') as log:actual=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900 if args.movie else (120 if args.current_g1 else 300))
         require(not native_runtime_failed(actual.returncode,(folder/'runtime.log').read_text()),'Actual producer failed or leaked resources; preserve log')
-        if args.g1:
-            native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
-            audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--','--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
-            with (folder/'admission_audit.log').open('w') as log:audit_actual=subprocess.run(audit_command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=120)
-            audit_log=(folder/'admission_audit.log').read_text()
+        if args.g1 or args.current_g1:
+            if args.g1:
+                native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
+            audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--',*(['--current-g1'] if args.current_g1 else []),'--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
+            if args.current_g1:
+                audit_actual=actual
+                audit_log_path=folder/'runtime.log'
+            else:
+                with (folder/'admission_audit.log').open('w') as log:audit_actual=subprocess.run(audit_command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=120)
+                audit_log_path=folder/'admission_audit.log'
+            audit_log=audit_log_path.read_text()
             require(not native_runtime_failed(audit_actual.returncode,audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete or leaked resources')
             audit=json.loads((folder/'admission_audit.json').read_text())
-            report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(folder/'admission_audit.log'),'observed':validate_admission_audit(audit),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
+            report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(audit_log_path),'observed':validate_admission_audit(audit,current_only=args.current_g1),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
+            if args.current_g1: report['observed']=report['formal_admission_audit']['observed']
             refusals=[]
             for label,key in [('missing_run_replay','run_manifest_replay'),('missing_physical_negatives','physical_negatives'),('missing_legacy_loader','legacy_live_loader_compatibility')]:
                 bad=copy.deepcopy(audit);bad.pop(key)
-                try:validate_admission_audit(bad)
+                try:validate_admission_audit(bad,current_only=args.current_g1)
                 except ValueError:refusals.append(label)
                 else:raise ValueError('Admission consumer accepted '+label)
             bad=copy.deepcopy(audit);bad['run_manifest_replay']['negatives'].pop()
-            try:validate_admission_audit(bad)
+            try:validate_admission_audit(bad,current_only=args.current_g1)
             except ValueError:refusals.append('missing_version_refusal')
             else:raise ValueError('Admission consumer accepted missing version refusal')
             # Retain each independently observed false acceptance as a live G1
@@ -394,13 +470,13 @@ def main():
             ]
             for label,mutate in mutations:
                 bad=copy.deepcopy(audit);mutate(bad)
-                try:validate_admission_audit(bad)
+                try:validate_admission_audit(bad,current_only=args.current_g1)
                 except ValueError:refusals.append(label)
                 else:raise ValueError('Admission consumer accepted '+label)
             report['formal_admission_mutation_refusals']={'scope':'Actual Python receipt mutations, not additional native runs','refused':refusals}
         else:
             data=json.loads((folder/'capture.json').read_text());require(data['root_bell_admission_scope'].startswith('default admitted') if args.default else data['root_bell_admission_scope'].startswith('explicit encounter-v2'),'Requested/default pilot scope mismatch');report['observed']=validate(data);report['tamper_refusals']=tamper(data);require(re.search(r'LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=route_target_reached, capture_errors=0',(folder/'runtime.log').read_text()),'Missing actual formal completion');report['capture_sha256']=sha(folder/'capture.json')
-        report['source_after']=sources();require(report['source_after']==before,'Source drift during native proof')
+        report['source_after']=sources(current_only=args.current_g1);require(report['source_after']==before,'Source drift during native proof')
         if args.movie:
             with (folder/'encode.log').open('w') as log:subprocess.run(['flock',LOCK,'ffmpeg','-n','-threads','1','-i',str(folder/'gameplay.avi'),'-c:v','libx264','-threads','1','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(folder/'gameplay.mp4')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=180)
             report['movie_sha256']=sha(folder/'gameplay.mp4')
@@ -410,7 +486,11 @@ def main():
             require(int(video['nb_frames'])>=data['tick_count'],'Movie lost native observation coverage')
             report['media_probe']=media
         report.update(status='passed',exit_code=0,runtime_log_sha256=sha(folder/'runtime.log'))
-        print('ROOT BELL FORMAL VERIFIED:',json.dumps(report['observed']));print('OUTPUT:',folder.relative_to(ROOT))
+        if args.current_g1:
+            print('ROOT BELL CURRENT G1 VERIFIED: maps=40 eligible=1 failures=0 admission_refusals=11')
+        else:
+            print('ROOT BELL FORMAL VERIFIED:',json.dumps(report['observed']))
+        print('OUTPUT:',folder.relative_to(ROOT))
     finally:
         if display is not None:display.terminate();display.wait(timeout=10)
         report['finished_epoch']=time.time();(folder/'report.json').write_text(json.dumps(report,indent=2)+'\n')

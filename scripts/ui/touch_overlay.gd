@@ -17,6 +17,9 @@ var hook_center := Vector2.ZERO
 var hook_radius := 0.0
 var context_center := Vector2.ZERO
 var skill_center := Vector2.ZERO
+var item_skill_center := Vector2.ZERO
+var _last_item_skill_available := false
+var _last_item_skill_label := ""
 var _hook_idle := Vector2.ZERO
 var _hook_offset := Vector2.ZERO
 var _hook_direction := Vector2.ZERO
@@ -99,6 +102,7 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	hook_center = _hook_idle
 	context_center=_hook_idle-Vector2(hook_radius*1.75,0)
 	skill_center=_hook_idle-Vector2(0,hook_radius*1.75)
+	item_skill_center = skill_center-Vector2(hook_radius*1.75,0)
 	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
 	left_center = _left_idle
 	right_center = _right_idle
@@ -110,6 +114,10 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 func _process(_delta: float) -> void:
 	if enabled and _layout_size != get_viewport_rect().size:
 		router.clear("touch_viewport_changed")
+	if enabled and (_last_item_skill_available != router.item_skill_available or _last_item_skill_label != router.item_skill_label):
+		_last_item_skill_available = router.item_skill_available
+		_last_item_skill_label = router.item_skill_label
+		queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not enabled:
@@ -132,7 +140,9 @@ func handle_touch(event: InputEvent) -> bool:
 			var region: StringName = &""
 			# GUI Controls consume their touches before this unhandled adapter. Jump
 			# and menu hit tests precede the floating sticks, even inside a ring.
-			if router.weapon_context_available and event.position.distance_to(context_center)<=hook_radius*.8:
+			if router.item_skill_available and event.position.distance_to(item_skill_center)<=hook_radius*.8:
+				region = &"item_skill"
+			elif router.weapon_context_available and event.position.distance_to(context_center)<=hook_radius*.8:
 				region=&"context"
 			elif router.weapon_skill_available and event.position.distance_to(skill_center)<=hook_radius*.8:
 				region=&"skill"
@@ -154,7 +164,7 @@ func handle_touch(event: InputEvent) -> bool:
 			router.activate_device(&"touch")
 			if region==&"context":
 				router.request_action(&"weapon_context")
-			elif region==&"skill":
+			elif region in [&"skill",&"item_skill"]:
 				pass
 			elif region == &"hook":
 				hook_center = event.position
@@ -180,7 +190,12 @@ func handle_touch(event: InputEvent) -> bool:
 			return true
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
-			if region==&"skill":
+			if region == &"item_skill":
+				router.request_action(&"item_skill",router.skill_direction())
+				# This gesture consumes the held main aim. Releasing that separate
+				# finger later must not also produce a normal shot.
+				if _captures.values().has(&"right"): _right_suppressed = true
+			elif region==&"skill":
 				router.request_action(&"weapon_skill",router.skill_direction())
 			elif region == &"hook":
 				_update_stick(&"hook", event.position)
@@ -223,7 +238,7 @@ func handle_touch(event: InputEvent) -> bool:
 	return false
 
 func _update_stick(region: StringName, location: Vector2) -> void:
-	if region==&"skill":return
+	if region in [&"skill",&"item_skill"]:return
 	if region == &"hook":
 		_hook_offset = (location-hook_center).limit_length(hook_radius)
 		var conditioned := router.profile.axis(_hook_offset / hook_radius,"right_sensitivity")
@@ -324,6 +339,12 @@ func _cancel(_reason: String) -> void:
 	update_layout()
 
 func _draw() -> void:
+	if enabled and router.item_skill_available:
+		draw_circle(item_skill_center,hook_radius*.8,Color(UnderworldUI.BRASS,0.30))
+		draw_arc(item_skill_center,hook_radius*.8,0,TAU,32,Color(UnderworldUI.BRASS,.65),2)
+		var title := router.item_skill_label.left(4) if not router.item_skill_label.is_empty() else "道具"
+		var title_size := UnderworldUI.FONT.get_string_size(title,HORIZONTAL_ALIGNMENT_LEFT,-1,13)
+		draw_string(UnderworldUI.FONT,item_skill_center+Vector2(-title_size.x*.5,5),title,HORIZONTAL_ALIGNMENT_LEFT,-1,13,UnderworldUI.TEXT)
 	if enabled and router.weapon_context_available:
 		draw_circle(context_center,hook_radius*.8,Color(UnderworldUI.MOSS,0.28))
 		draw_string(UnderworldUI.FONT,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.TEXT)

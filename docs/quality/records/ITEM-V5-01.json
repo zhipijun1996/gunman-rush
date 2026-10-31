@@ -1,0 +1,459 @@
+{
+  "schema_version": 1,
+  "task_id": "ITEM-V5-01",
+  "task_type": "mechanic",
+  "workflow": "review",
+  "baseline_commit": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "reviewed_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+  "content_version": "candidate-v1-item-v5",
+  "owner": "/root",
+  "purpose": "Implement uploaded V5 workbook72 effective items,16 growth definitions and9 viable synergies in formal run services",
+  "player_experience": "Real item rewards enter backpack; deliberate loadouts create reversible attack, defense, time, active and mechanical companion builds",
+  "constraints": [
+    "Preserve legacy primary damage arbitration and player death priority; only authenticated item-effect requests add enemy damage",
+    "Workbook03H numerical candidates explicitly confirmed by user; retain originalXLSX and all conflicting prior text",
+    "No permanent notes/run gold exchange, no core-ability grant by random items",
+    "No new terrain/assets production; reuse theme/icons and bounded mechanical draw feedback",
+    "P17 base-charge interpretation requires user choice; G19Boss eligibility remains explicit configurable candidate",
+    "No automatically merging this new branch; PR110 merge authorization has already been fulfilled"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "config/gear_capacity.json",
+    "config/item_v5_defense.json",
+    "config/item_v5_economy.json",
+    "config/item_v5_entities.json",
+    "config/item_v5_feedback.json",
+    "config/item_v5_runtime.json",
+    "config/item_v5_synergies.json",
+    "config/items_v5.json",
+    "docs/creative_direction/README.md",
+    "docs/creative_direction/archive/creative-v17/registry.json",
+    "docs/creative_direction/archive/creative-v17/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v17/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+    "docs/creative_direction/revision_creative_v18.md",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/quality/records/ITEM-V5-01.json",
+    "docs/rewards_and_builds.md",
+    "docs/tasks.md",
+    "docs/worklines/item_v5_01/consumer_coverage.md",
+    "docs/worklines/item_v5_01/scope.md",
+    "scripts/bosses/bellstrider_bell_projectile.gd",
+    "scripts/bosses/boss_projectile.gd",
+    "scripts/bosses/thorn_seed_projectile.gd",
+    "scripts/builds/build_modifier.gd",
+    "scripts/builds/build_state.gd",
+    "scripts/builds/equipment_service.gd",
+    "scripts/builds/item_definition.gd",
+    "scripts/builds/item_effect_component.gd",
+    "scripts/builds/run_inventory.gd",
+    "scripts/builds/run_item_instance.gd",
+    "scripts/combat/player_projectile.gd",
+    "scripts/combat/shoot_ability.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/damage/damage_request.gd",
+    "scripts/damage/damage_result.gd",
+    "scripts/damage/demo_contact_emitter.gd",
+    "scripts/damage/frame_damage_policy.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/dev/player_presentation_01/weapon_feel.gd",
+    "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_attack_projectile.gd",
+    "scripts/enemies/forest_seed_projectile.gd",
+    "scripts/generation/module_saw_hazard.gd",
+    "scripts/input/gamepad_adapter.gd",
+    "scripts/input/input_router.gd",
+    "scripts/input/keyboard_mouse_adapter.gd",
+    "scripts/items/v5/item_active_effects.gd",
+    "scripts/items/v5/item_active_effects.gd.uid",
+    "scripts/items/v5/item_catalog_v5.gd",
+    "scripts/items/v5/item_catalog_v5.gd.uid",
+    "scripts/items/v5/item_combat_effects.gd",
+    "scripts/items/v5/item_combat_effects.gd.uid",
+    "scripts/items/v5/item_companion_effects.gd",
+    "scripts/items/v5/item_companion_effects.gd.uid",
+    "scripts/items/v5/item_defense_effects.gd",
+    "scripts/items/v5/item_defense_effects.gd.uid",
+    "scripts/items/v5/item_economy_effects.gd",
+    "scripts/items/v5/item_economy_effects.gd.uid",
+    "scripts/items/v5/item_effect_view.gd",
+    "scripts/items/v5/item_effect_view.gd.uid",
+    "scripts/items/v5/item_runtime.gd",
+    "scripts/items/v5/item_runtime.gd.uid",
+    "scripts/items/v5/item_time_effects.gd",
+    "scripts/items/v5/item_time_effects.gd.uid",
+    "scripts/items/v5/item_v5_eligibility.gd",
+    "scripts/items/v5/item_v5_eligibility.gd.uid",
+    "scripts/items/v5/item_v5_entity.gd",
+    "scripts/items/v5/item_v5_entity.gd.uid",
+    "scripts/items/v5/item_v5_pool.gd",
+    "scripts/items/v5/item_v5_pool.gd.uid",
+    "scripts/items/v5/item_v5_shop_presenter.gd",
+    "scripts/items/v5/item_v5_shop_presenter.gd.uid",
+    "scripts/items/v5/world_freeze_scope.gd",
+    "scripts/items/v5/world_freeze_scope.gd.uid",
+    "scripts/player/air_focus_ability.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/resources/state/combat_energy_state.gd",
+    "scripts/resources/state/health_state.gd",
+    "scripts/rewards/demo_reward_catalog.gd",
+    "scripts/run/run_manifest.gd",
+    "scripts/shops/shop_service.gd",
+    "scripts/ui/actor_resources_hud.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/item_acquired_toast.gd",
+    "scripts/ui/item_card.gd",
+    "scripts/ui/item_presentation.gd",
+    "scripts/ui/item_shop_modal.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "scripts/ui/touch_overlay.gd",
+    "tests/forest_campaign_runner.gd",
+    "tests/gear_inventory_runner.gd",
+    "tests/item_v5_actives_runner.gd",
+    "tests/item_v5_actives_runner.gd.uid",
+    "tests/item_v5_boss_time_runner.gd",
+    "tests/item_v5_boss_time_runner.gd.uid",
+    "tests/item_v5_catalog_suite.gd",
+    "tests/item_v5_catalog_suite.gd.uid",
+    "tests/item_v5_combat_runner.gd",
+    "tests/item_v5_combat_runner.gd.uid",
+    "tests/item_v5_core_effects_runner.gd",
+    "tests/item_v5_core_effects_runner.gd.uid",
+    "tests/item_v5_defense_time_runner.gd",
+    "tests/item_v5_defense_time_runner.gd.uid",
+    "tests/item_v5_economy_runner.gd",
+    "tests/item_v5_economy_runner.gd.uid",
+    "tests/item_v5_formal_runner.gd",
+    "tests/item_v5_formal_runner.gd.uid",
+    "tests/item_v5_inventory_runner.gd",
+    "tests/item_v5_inventory_runner.gd.uid",
+    "tests/item_v5_manifest_runner.gd",
+    "tests/item_v5_manifest_runner.gd.uid",
+    "tests/item_v5_movie.gd",
+    "tests/item_v5_movie.gd.uid",
+    "tests/item_v5_pause_escape_runner.gd",
+    "tests/item_v5_pause_escape_runner.gd.uid",
+    "tests/item_v5_pool_suite.gd",
+    "tests/item_v5_pool_suite.gd.uid",
+    "tests/item_v5_random_context_runner.gd",
+    "tests/item_v5_random_context_runner.gd.uid",
+    "tests/item_v5_review_runner.gd",
+    "tests/item_v5_review_runner.gd.uid",
+    "tests/item_v5_synergy_economy_runner.gd",
+    "tests/item_v5_synergy_economy_runner.gd.uid",
+    "tests/item_v5_ui_input_runner.gd",
+    "tests/item_v5_ui_input_runner.gd.uid",
+    "tests/run_gear_ui_runner.gd",
+    "tests/test_item_v5_catalog.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/capture_item_v5.py",
+    "tools/harness/profiles.json",
+    "tools/import_items_v5.py",
+    "tools/run_gear_inventory_tests.py",
+    "tools/run_gear_ui_tests.py",
+    "tools/run_item_v5_tests.py"
+  ],
+  "deliverables": [
+    "config/items_v5.json",
+    "docs/worklines/item_v5_01/scope.md",
+    "docs/rewards_and_builds.md",
+    "docs/evidence/item_v5_01/source/items-v5-original.xlsx"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded engineering/source scope only; broader content gates remain unverified",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Bounded engineering/source scope only; broader content gates remain unverified",
+      "evidence": [
+        "harness",
+        "movie-trace"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "harness"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "formal-gui"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "source-contract",
+      "scenario": "Workbook03H and bounded ownership/equipment/effect contracts",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "current-runtime",
+      "scenario": "Current formal V5 ownership/equipment/effects and map lifecycle",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "harness",
+        "review"
+      ]
+    },
+    {
+      "id": "formal-input",
+      "scenario": "Actual title/Home/departure/reward/bag/active native input chain",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "formal-gui",
+        "movie-trace"
+      ]
+    },
+    {
+      "id": "independent-bounded",
+      "scenario": "Distinct readonly reviewer exact-current-source technical review",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/item_v5_01/scope.md",
+      "sha256": "02a36bb93e6b383ac5ff29be4db5b938bc3269081eb46605be22efa28662b5c0",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "User workbook and explicit03H selection, bounded implementation contract",
+      "observed": "72current definitions,16growth,9enabled synergies, deleted/pending exclusions"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/item_v5_01/final-harness/report.json",
+      "sha256": "46661e0d1b50cc7b69e28150e2bb0dc47cc13119320e957c84d6307bfc4b2ada",
+      "kind": "command",
+      "producer": "/root/final_review",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Original30 targeted checks, fresh/no reuse, unchanged budgets",
+      "observed": "30passed engineering checks; not full161 or CI",
+      "command": "See final-harness/invocation.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, single native lease"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/item_v5_01/independent-review.json",
+      "sha256": "96c062556bb30b5099e36678ee0527eba3cd80fffcd02ca71af8ac73d7facaae",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Readonly review and independent original30-check execution",
+      "observed": "Bounded technical ACCEPT, no player/device/full72natural endorsement",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/manifest_finish",
+        "/root/binding_finish"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct reviewer did not modify the reviewed production or tests"
+    },
+    {
+      "id": "formal-gui",
+      "path": "docs/evidence/item_v5_01/movie-979dbb9a/receipt.json.gz",
+      "sha256": "0e689334ef491c05b828866aab3d864cd11c4f820f47209ca0c6770a2e9f1364",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Frozen real Godot native input/movie capture and source guard",
+      "observed": "Title/Home/departure/formal reward/bag/equip/unequip and35resonance active; disclosed setup fixtures",
+      "consumers": [
+        "formal-entry-and-loadout"
+      ]
+    },
+    {
+      "id": "movie-trace",
+      "path": "docs/evidence/item_v5_01/movie-979dbb9a/trace.json.gz",
+      "sha256": "bb6233a2f3c4e540726380f2e94da02bdcb6c00c1ef6a6f1741a488e95b93c96",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Actual drawn frame and accepted damage/input receipts",
+      "observed": "Formal entry, actual five primary receipts and dualwheel/companion damage",
+      "consumers": [
+        "formal-entry-and-loadout"
+      ]
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/item_v5_01/movie-979dbb9a/movie.mp4",
+      "sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Godot native60fps continuous capture, visible fixture notes",
+      "observed": "Actual formal flow and active/companion motion; no matched before, not human/audio/device acceptance",
+      "consumers": [
+        "formal-entry-and-loadout"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/item_v5_01/consumer-inventory.json",
+      "sha256": "03a7d9314ee94e40227482c0edb3567ee8caab37808b5647c2819aad2fcecd66",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Actual movie trace checkpoint inventory",
+      "observed": "One bounded formal consumer family, explicitly initialized known items and targets"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "One bounded formal movie consumer family; known-reward/target setup disclosed; excludes72natural-item/G5 claims",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal-entry-and-loadout",
+        "status": "passed",
+        "reason": "Actual native title/Home/departure/cache/bag/equip/unequip and active effect flow; disclosed cache location, known reward and training-target fixtures; not natural fullrun",
+        "output": "behavior",
+        "evidence": [
+          "formal-gui",
+          "movie-trace"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Full161 remote CI/integration has not been signed by local selected30 evidence",
+    "Physical Android/gamepad, low-end stress, balance, fun, audio listening and human acceptance unverified",
+    "P17: baseline charge remains1, equipped table candidates .4/.55/.7 pending design clarification",
+    "G19 boss_counts_as_elite=true remains explicit configurable implementation candidate",
+    "Three pending-redesign synergies and four deleted-item synergies remain disabled",
+    "Per-item unmeasured behaviors/levels/formal scenarios remain explicit in consumer_coverage.md"
+  ],
+  "test_change_justification": "New style-v15 and creative-v18 bind changed visual consumers while retaining the exact v14/v17 originals, every historical refusal, original36 prefix and all previous Harness commands/inputs/budgets. New exact54/15/18 assertions replace superseded current-version literals with stronger historical and appended-set checks; no original semantic guard removed. GearUI keeps real ownership/HP/UI/map/death checks while its experiment prices follow the newly authorized workbook config; wrappers now additionally reject generic engine ERROR. Separate independent guard review must validate this migration before acceptance. Forest campaign migration retains actual pointer choices and exact reward provenance, adds a separately disclosed legacy +2 probe, reads actual35coin quote and exact debit/replay ledger, retains all original malformed/fractional map/Boss/capability refusals; the typed Array[StringName] construction fix changes only fixture typing. New Manifest check is additive; no old check command, budget, inputs or refusal is removed."
+}

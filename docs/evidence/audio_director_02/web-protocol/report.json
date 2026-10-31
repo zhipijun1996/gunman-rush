@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:8794/",
+  "dimensions": {
+    "width": 390,
+    "scroll": 390,
+    "stage": 305.53125,
+    "events": 9,
+    "profiles": 3
+  },
+  "decoded": 63,
+  "music": 5,
+  "checks": [
+    "mobile layout and stage visible early",
+    "explicit lazy game load",
+    "real-gesture audio unlock hint and separate unlock ACK",
+    "origin and source validation",
+    "context/profile applied only after mock ACK",
+    "no automatic demo on profile/context change",
+    "mute ACK before single playback",
+    "loop stop and late decode cancellation",
+    "Stop/background cancels pending music across delayed mute ACK",
+    "versioned context/event selection export and persistence",
+    "five BGM tracks decoded and played"
+  ],
+  "scope": "Actual HTML/audio playback with MOCK bridge protocol. This does not execute or validate Godot gameplay, scene actions, audible aesthetics, physical phones or Safari.",
+  "errors": []
+}

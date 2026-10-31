@@ -14,6 +14,17 @@ OWNED = ['scripts/world/shot_latch.gd','scripts/world/backside_shot_latch.gd',
     'tests/underworld_plains/test_underworld_r3_objects.gd','tools/run_underworld_r3_object_tests.py',
     'tools/build_underworld_r3_objects.py']
 OWNED += [str(p.relative_to(ROOT)) for p in sorted((ROOT/'assets/underworld_plains/objects').glob('*')) if p.suffix in ('.png','.json')]
+CHEST_OWNED = [
+    'scripts/art/chest_art_library.gd','scripts/art/chest_art_library.gd.uid',
+    'scripts/art/chest_art_layer.gd','scripts/art/chest_art_layer.gd.uid',
+    'config/chest_art.json',
+    'assets/objects/chests/chest-tiers-v1.source.png',
+    'assets/objects/chests/chest-tiers-v1.source.png.import',
+    'scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd',
+    'scripts/presentation/forest_bible_presentation.gd','scripts/art/p1_unity_props.gd',
+    'shaders/item_v5_world_sprite.gdshader','shaders/item_v5_world_sprite.gdshader.uid',
+    'tests/chest_art_runner.gd','tests/chest_art_runner.gd.uid']
+OWNED += CHEST_OWNED
 
 def snapshot(paths):
     return {p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}
@@ -32,12 +43,11 @@ def main():
     if args.capture: arguments += ['--','--capture']
     if args.cache_only: arguments += ['--cache-only']
     started_ns = time.time_ns()
+    native_deadline = time.monotonic() + 150
     output = run_engine(arguments,300 if args.capture else 150)
-    after = snapshot(OWNED)
     (OUT/('gpu_runtime.log' if args.capture else 'runtime.log')).write_text(output)
     if 'ERROR:' in output or not re.search(r'^UNDERWORLD R3 OBJECTS: [1-9]\d* assertions, 0 failures$',output,re.M):
         raise RuntimeError('R3 objects failed or clean completion marker missing')
-    if before != after: raise RuntimeError('Owned component source changed during execution')
     receipt_path = OUT/'receipt.json'
     if not receipt_path.exists() or receipt_path.stat().st_mtime_ns < started_ns: raise RuntimeError('Missing fresh actual consumer receipt')
     receipt = json.loads(receipt_path.read_text())
@@ -50,7 +60,26 @@ def main():
         for name in expected:
             p = OUT/name
             if not p.exists() or p.stat().st_mtime_ns < started_ns: raise RuntimeError('Missing fresh actual GPU capture: '+name)
+    chest_checks = None
+    if not args.capture:
+        # Both actual native suites share the original 150s runtime allowance.
+        # The editor remains the original separate 90s step; capture is unchanged.
+        remaining = native_deadline - time.monotonic()
+        if remaining <= 0: raise RuntimeError('Original 150s native budget exhausted before chest consumers')
+        chest_output = run_engine([
+            '--headless','--path','.','--audio-driver','Dummy','--fixed-fps','60',
+            '--script','tests/chest_art_runner.gd'],remaining)
+        (OUT/'chest_runtime.log').write_text(chest_output)
+        chest_marker = re.search(r'^CHEST ART: ([1-9]\d*) checks, 0 failures$',chest_output,re.M)
+        if re.search(r'ERROR:|Parse Error:|ObjectDB.*leaked|resources? still in use at exit',chest_output):
+            raise RuntimeError('Chest consumers emitted native/script/shader errors or leaked resources')
+        if chest_marker is None or int(chest_marker.group(1)) < 192:
+            raise RuntimeError('Chest consumers failed or required complete 192-check marker missing')
+        chest_checks = int(chest_marker.group(1))
+    after = snapshot(OWNED)
+    if before != after: raise RuntimeError('Owned component source changed during execution')
     binding = {'scope':'owned R3 objects component files only; shared runtime may be changing in parallel, final whole-source guard belongs to integration','mode':'gpu_cache_only' if args.cache_only else 'gpu' if args.capture else 'headless','started_ns':started_ns,'receipt':receipt_name,'source_before':before,'source_after':after,'owned_source_unchanged':before==after,'checks':receipt['checks'],'failures':0}
+    if chest_checks is not None: binding['chest_native_checks'] = chest_checks
     (OUT/('gpu_cache_binding.json' if args.cache_only else 'gpu_binding.json' if args.capture else 'headless_binding.json')).write_text(json.dumps(binding,indent=2)+'\n')
     print('PASS: Underworld R3 objects actual consumers'+ (' and six unobscured native cache GPU images' if args.cache_only else ' and thirteen native GPU images' if args.capture else '; GPU pixels separate'))
 

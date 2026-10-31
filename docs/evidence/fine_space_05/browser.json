@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+  "build_id": "524396d0cd10",
+  "scope": "real local Web Home keyboard and mouse map1/map2/forest1 plus DOM touch map2 entry/pause; no full route or physical-device acceptance",
+  "checks": [
+    "Home: actual rendered entry plus keyboard right and jump; screenshot observation, not full station traversal",
+    "plains1: exact real assembled map and complete HUD, actual click/tap pause/resume",
+    "plains2: exact real assembled map and complete HUD, actual click/tap pause/resume",
+    "forest1: exact real assembled map and complete HUD, actual click/tap pause/resume",
+    "touch_plains2: exact real assembled map and complete HUD, actual click/tap pause/resume"
+  ],
+  "events": [
+    {
+      "case": "plains1",
+      "event": "debug_entry",
+      "map_index": 1,
+      "natural_progression": false,
+      "region": "plains",
+      "seed": "plains-c308749b02ee4f7522a7e1b174eec873"
+    },
+    {
+      "case": "plains1",
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "b3164e015bed5436bef920e3bf5db60e4595f6028c9e784effb08b4f9e024731",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "plains-c308749b02ee4f7522a7e1b174eec873"
+    },
+    {
+      "case": "plains2",
+      "event": "debug_entry",
+      "map_index": 2,
+      "natural_progression": false,
+      "region": "plains",
+      "seed": "plains-b2b2cab918117d216da8fda2be6256b0"
+    },
+    {
+      "case": "plains2",
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/windkeeper_storm.tres",
+      "boss_scene": "res://scenes/bosses/windkeeper.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "0c4c5afbc8e137b56b9c6df326e71d6f185fcae92de769b85ecf351bc3100051",
+      "map_index": 2,
+      "region": "plains",
+      "seed": "plains-b2b2cab918117d216da8fda2be6256b0/plains/map_2"
+    },
+    {
+      "case": "forest1",
+      "event": "debug_entry",
+      "map_index": 1,
+      "natural_progression": false,
+      "region": "thorn_forest",
+      "seed": "plains-3daba27cb5a5af71a7ec48632a75004d"
+    },
+    {
+      "case": "forest1",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/rootbell_guardian_v2.tres",
+      "boss_scene": "res://scenes/bosses/rootbell_guardian_v2.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-bible-world-v15",
+      "manifest_hash": "fb3fd2d38d19824a3f4420b2a3a5ac1c17e99beca5eaaf28e2b464080d99600d",
+      "map_index": 1,
+      "region": "thorn_forest",
+      "seed": "plains-3daba27cb5a5af71a7ec48632a75004d/thorn_forest/map_1"
+    },
+    {
+      "case": "touch_plains2",
+      "event": "debug_entry",
+      "map_index": 2,
+      "natural_progression": false,
+      "region": "plains",
+      "seed": "plains-ea7157143f9dbb2bae446d01bb068ceb"
+    },
+    {
+      "case": "touch_plains2",
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/windkeeper_storm.tres",
+      "boss_scene": "res://scenes/bosses/windkeeper.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "d05fd202fa530cd862a4f5810d4ef46ac164a13a2cf9f821bb92c14f3d6b6c07",
+      "map_index": 2,
+      "region": "plains",
+      "seed": "plains-ea7157143f9dbb2bae446d01bb068ceb/plains/map_2"
+    }
+  ],
+  "errors": [],
+  "identity": {
+    "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+    "build_id": "524396d0cd10",
+    "pack": "index.524396d0cd10.pck",
+    "pack_sha256": "524396d0cd10dc78226bb7e2fb590bd091870dbd5be444f3e15d2e0c475f288b",
+    "pack_bytes": 150455860
+  }
+}

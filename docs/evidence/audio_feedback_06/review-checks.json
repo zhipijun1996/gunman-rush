@@ -1,0 +1,191 @@
+{
+  "task": "AUDIO-FEEDBACK-06",
+  "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "baseline_commit": "f0778c4c9e14e5cb05a63cf5e027da011a63db54",
+  "independent_sources_and_pipeline_negatives": [
+    {
+      "case": "real cucumber source fingerprint differs (mocked hash, bytes untouched)",
+      "rejected": true,
+      "reason": "Source/license fingerprint drift: cucumber_1"
+    },
+    {
+      "case": "locked original BGM fingerprint differs",
+      "rejected": true,
+      "reason": "Protected BGM/previous candidate/processor changed: assets/audio/bgm/where_the_path_bends.mp3"
+    },
+    {
+      "case": "noncommercial source license substituted in memory",
+      "rejected": true,
+      "reason": "Unreviewed commercial terms: ghost_breath"
+    },
+    {
+      "case": "nonfinite crop substituted in memory",
+      "rejected": true,
+      "reason": "Invalid crop/normalization bounds"
+    },
+    {
+      "case": "A/B runtime candidate path swapped in manifest",
+      "rejected": true,
+      "reason": "Candidate/processing/source manifest differs from real derivation"
+    },
+    {
+      "case": "stale creative23 windchime_plains",
+      "rejected": true,
+      "reason": "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+    },
+    {
+      "case": "stale creative23 thorn_forest",
+      "rejected": true,
+      "reason": "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+    },
+    {
+      "case": "native trace substitutes wrong A stream in B live hurt voices",
+      "rejected": true,
+      "reason": "Expected real hurt voice never played or another candidate leaked in"
+    },
+    {
+      "case": "native C camera diverges from A/B grounded context",
+      "rejected": true,
+      "reason": "Hurt audition did not retain the same grounded Home/camera context"
+    }
+  ],
+  "sourcebook": [
+    {
+      "id": "bamboo_3",
+      "original": "assets/audio/feedback_06/_sources/swosh-03.flac",
+      "sha256": "2111003e4c61b8f3589f926f549ffc36094319da7b99238624c7d64e91bddc09",
+      "author": "qubodup / Iwan Gabovitch",
+      "source_url": "https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes",
+      "license": "CC0-1.0",
+      "source_license_field_excerpt": "field-name-field-art-licenses field-type-taxonomy-term-reference field-label-above\"> License(s):        CC0        Collections:     <"
+    },
+    {
+      "id": "bamboo_5",
+      "original": "assets/audio/feedback_06/_sources/swosh-05.flac",
+      "sha256": "f8e711a61eb4d6f271a2ce71ba355148bc6f53628b21292338a27a9b7673cc1e",
+      "author": "qubodup / Iwan Gabovitch",
+      "source_url": "https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes",
+      "license": "CC0-1.0",
+      "source_license_field_excerpt": "field-name-field-art-licenses field-type-taxonomy-term-reference field-label-above\"> License(s):        CC0        Collections:     <"
+    },
+    {
+      "id": "bank_hit_03",
+      "original": "assets/audio/director_v3/_sources/hit/bfh1_hit_03.ogg",
+      "sha256": "91ef5562417a631bdb306d3c70ec7d33a2d418f5266c1488695a993877af21f9",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "source_license_field_excerpt": "field-name-field-art-licenses field-type-taxonomy-term-reference field-label-above\"> License(s):        CC0        Collections:     <"
+    },
+    {
+      "id": "cucumber_1",
+      "original": "assets/audio/feedback_06/_sources/crunch_1_0.ogg",
+      "sha256": "46db1080f2c53217a2e7e88e3b886a1ff5df935d3a511922cfcb6748eb1e3340",
+      "author": "CogitoLLC",
+      "source_url": "https://opengameart.org/content/crunch-sounds-cucumber",
+      "license": "CC0-1.0",
+      "source_license_field_excerpt": "field-name-field-art-licenses field-type-taxonomy-term-reference field-label-above\"> License(s):        CC0        Collections:     <"
+    },
+    {
+      "id": "cucumber_2",
+      "original": "assets/audio/feedback_06/_sources/crunch_2_0.ogg",
+      "sha256": "22da4073f8922e5eb35ed7b6fc579f2ecdb98601af5f81ad5f330ee555294651",
+      "author": "CogitoLLC",
+      "source_url": "https://opengameart.org/content/crunch-sounds-cucumber",
+      "license": "CC0-1.0",
+      "source_license_field_excerpt": "field-name-field-art-licenses field-type-taxonomy-term-reference field-label-above\"> License(s):        CC0        Collections:     <"
+    },
+    {
+      "id": "ghost_breath",
+      "original": "assets/audio/feedback_06/_sources/ghostbreath.flac",
+      "sha256": "f371839853a5dff7dbd5a8c81368f5cfab587f567df5ba962e981d4392c530bc",
+      "author": "qubodup / Iwan Gabovitch",
+      "source_url": "https://opengameart.org/content/ghost-breath",
+      "license": "CC0-1.0",
+      "source_license_field_excerpt": "field-name-field-art-licenses field-type-taxonomy-term-reference field-label-above\"> License(s):        CC0        Collections:     <"
+    }
+  ],
+  "locked_inputs": {
+    "config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+    "assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+    "config/audio_director/v3/recipes.json": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8",
+    "config/audio_director/v3/sources.json": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+    "tools/audio_candidates_v3.py": "ea6bc4818f193004f6f824c3e0ad431fc3c8142e97f764cc1593018b4c7a23ed",
+    "assets/audio/director_v3/hurt_c.wav": "5f96250bdd17c5858ee0bb7f4841b7f4f13daa5399dc1544e1b8dbb8a3492a17",
+    "assets/audio/bgm/where_the_path_bends.mp3": "1b6fd5dcc31c1ab61bf175484d9b2ca5ba77481597b1a9945fdb8949d52cbcfa",
+    "assets/audio/bgm/across_the_wooden_sails.mp3": "b6c742bf50b1f475f69a764fb9ec2ea0f70c18ce77315d20df9a719a75be4d9d",
+    "assets/audio/bgm/the_kindred_hearth.mp3": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+    "assets/audio/bgm/vines_beneath_the_canopy.mp3": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+    "assets/audio/bgm/beyond_the_knotted_vines.mp3": "b21f52effcc5a06288faaf1462331232feb6aca6ec16a1440d771f9e6bae6992",
+    "assets/audio/feedback_05/hurt_1.wav": "e194b2af466b1ab68904d24548e426ab25413ece823287f6e0f86ef86325e112",
+    "assets/audio/feedback_05/hurt_2.wav": "9b9a31db9bd6f66ece72af1a3416d7c092d74e7eb4c461e92ce7d84eeb3e528b",
+    "assets/audio/feedback_05/wall_3.wav": "41781dcc98a8ca9c47c80788903b6eec378450f75f7c6347bf9a05076dccb9cc",
+    "assets/audio/feedback_05/wall_2.wav": "d3f554eb6e44c74238fbc7b10092de379fa25912137f988322621f7f56e17bbd",
+    "assets/audio/feedback_05/wall_1.wav": "7877b8c43160b0d16742a32e8cf6b7d9e29919542dc511565ad7494689f00dfb"
+  },
+  "candidate_metrics": [
+    {
+      "path": "res://assets/audio/feedback_06/hurt_a.wav",
+      "sha256": "53445f070f73fd213860fd3c8f290403fc5718ba3d0e3d0ed8f36f1628aa1c84",
+      "rms_dbfs": -27.512908,
+      "peak_dbfs": -6.000478,
+      "duration": 0.14
+    },
+    {
+      "path": "res://assets/audio/feedback_06/hurt_b.wav",
+      "sha256": "8ccb23583863eb44a8780e69fc4583b71a9142714ad44f0ceb73c7c07034a181",
+      "rms_dbfs": -24.919479,
+      "peak_dbfs": -6.000478,
+      "duration": 0.117256
+    },
+    {
+      "path": "res://assets/audio/feedback_06/hurt_c.wav",
+      "sha256": "be4e1e79f39a55f3e71cad4efefac662b84b231dcbde9acc502eae5d17a18445",
+      "rms_dbfs": -23.000274,
+      "peak_dbfs": -10.818765,
+      "duration": 0.17
+    }
+  ],
+  "technical_binding": {
+    "refs": 81,
+    "changed": [
+      "scripts/ui/demo_menu.gd"
+    ],
+    "unchanged": 80,
+    "archive5_equal_previous_git_originals": true,
+    "old331_input_prefix_preserved_new337": true,
+    "entire_profile_otherwise_equal": true,
+    "tests": [
+      {
+        "path": "tests/test_region_bible.py",
+        "old_methods": 34,
+        "new_methods": 35,
+        "old_asserts": 332,
+        "new_asserts": 358,
+        "all_old_method_assert_counts_preserved": true
+      },
+      {
+        "path": "tests/test_region_creative_direction.py",
+        "old_methods": 12,
+        "new_methods": 13,
+        "old_asserts": 155,
+        "new_asserts": 168,
+        "all_old_method_assert_counts_preserved": true
+      }
+    ]
+  },
+  "native_capture_revalidation": {
+    "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+    "report_sha256": "4e89af6cfe51915dd9e7c5ce4baddb453fdf1bc23a09a2cf23e0f04c2c955514",
+    "actual_movie_sha256": "6d4f00e6b1b2d0af5f3711d9c8cc105f07f8035d5c036d7153dbc2d5cf1b6558",
+    "actual_pcm_sha256": "1c75767748171a0eeaea9a396588d5d81eb671fd3ffe21dc76abefab803d9a73",
+    "frames": 1213,
+    "source_before_after_equal": true,
+    "source_files_current_bytes_checked": 3879,
+    "actual_trace_and_chapters_revalidated": true,
+    "actual_pcm_chapters_revalidated": true,
+    "subjective_audio_listened": false
+  },
+  "reviewer_viewed_image": "build/audio_feedback_06/capture-01/hurt-a.png",
+  "pixel_observation": "Actual Home grounded protagonist visible near left ground; world buildings unobstructed. Top central caption discloses A and explicit damage/heal fixture, outside left hearts. One screenshot only; no full movie playback or hearing claim."
+}

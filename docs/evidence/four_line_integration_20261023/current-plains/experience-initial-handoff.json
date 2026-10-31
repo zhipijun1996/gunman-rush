@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "source_stable": true,
+  "patch": "/workspace/scratch/plains-experience-current-20261023/current-policy.patch",
+  "patch_sha256": "09a95fe5652d46b610e5b4d3e19883b682f2216ef6c81bcc7658cb62a6e5b645",
+  "original_native": {
+    "assertions": 292,
+    "failures": 0,
+    "python_valid": false,
+    "first_failure": "encounter_causality:75 assert len(transactions)==1",
+    "receipt": "/workspace/scratch/plains-experience-current-20261023/original-failure/receipt.json"
+  },
+  "current_native": {
+    "assertions": 332,
+    "failures": 0,
+    "observations": 16
+  },
+  "deleted_island": {
+    "assertions": 11,
+    "failures": 2,
+    "expected_exit": 1,
+    "valid_negative": true
+  },
+  "refusals": {
+    "original": 42,
+    "current_added": 6,
+    "total": 48,
+    "all_refused": true
+  },
+  "predicate_preservation": {
+    "original_assert_count": 107,
+    "candidate_assert_count": 124,
+    "all_original_asserts_preserved_except_equivalent_alias": [
+      "tx['tick'] == t and tx['operation'] == 'consume' and (tx['status'] == 0)"
+    ],
+    "alias_explanation": "paid helper preserves tx tick equality using shot['tick'] instead of local t=shot['tick']; no paid condition relaxed"
+  },
+  "scope": "Original 180s native budgets, action inputs, paths, geometry and all native292 checks retained. Native+40 checks observe actual projectiles. Manual fixture does not advance AirFocus: shared pointer and inactive unfocused automatic_process=false are verified; no claim of real focus regeneration/drain coverage. Paid original resource assertions and mutations remain conditional.",
+  "command": "source /workspace/scratch/integration-four-20261023/player-default-env.sh\nPYTHONDONTWRITEBYTECODE=1 python3 /workspace/scratch/plains-experience-current-20261023/overlay/tools/run_plains_experience_golden_tests.py",
+  "command_workdir": "/workspace/worklines/player-default-integration",
+  "success_marker": "PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated",
+  "receipt": "/workspace/scratch/plains-experience-current-20261023/overlay/build/plains_redesign/experience/run_e5ndonlg/receipt.json",
+  "files": {
+    "tools/run_plains_experience_golden_tests.py": "c98c77f88823381eec73a128a29d980fc11d3acdb5e2c58723c9e316b07d2f2a",
+    "tests/plains_experience_golden_runner.gd": "c10708274f33d1c14606bdedd4729ab396995385219fafde475691c04fb57b84"
+  }
+}

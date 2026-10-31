@@ -1,0 +1,28 @@
+{
+  "scope": "R13 author original42/four original Harness exact latest-main-audio merged68-reference source after final30 input materialization; no native/listening/visual/device/fullCI approval",
+  "source_commit": "4de01808f28e9471016e15155f0c36b8fbae75ab",
+  "worktree_modified": true,
+  "style_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 9.279743478000455
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 1,
+      "seconds": 1.4589543710026192
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "task": "AUDIO-HOME-01",
+  "baseline_main": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "dependency_head": "7b28301f8c63b0bca0078284b8d611795bddf686",
+  "branch": "feature/audio-ambience-01",
+  "workline_model": "Continuation of active Audio Director ambience workline and prerequisite PR113; latest main unchanged at45e98; no merge to main",
+  "user_request": {
+    "source": "Current conversation, 2026-10-29",
+    "quote": "家园也需要环境音，让人感觉平原的平静。还有一些npc的一些生活声音。"
+  },
+  "prior_choice": {
+    "quote": "两者都选A",
+    "scope": "quiet-02 plains_a and forest_a only"
+  },
+  "region_basis": "Existing safe Windchime Home at plains edge, not a new region/theme. Reuse full user-selected plains Bible v2, sections1/8/9, existing Home rules and global audio language. No art/geometry rewrite.",
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "2120a8f2321d41abec3936e36656afa27dad5be05caa45496e7984a25eb65791"
+    },
+    {
+      "path": "docs/home_and_save.md",
+      "sha256": "376d9814a45411e20eb2296a5321aefa0bf6f4c851122c8b5b98919482e7d70e"
+    },
+    {
+      "path": "docs/title_home_ui.md",
+      "sha256": "560a02590fadac35e4b51078cb47581f9b8ceff8247c1473cdf5260f69e41ae9"
+    },
+    {
+      "path": "docs/audio_director/style_bible.md",
+      "sha256": "28248cc9bf92b22af5c538b90c400f8daddfea116de21517ff486dcc730e398a"
+    },
+    {
+      "path": "docs/audio_director/ambience.md",
+      "sha256": "d76df2755a5926fc8b4a7b0ff3b61955ad4c7663e4ab8cfe4c232b716db23876"
+    },
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35"
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+      "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
+    },
+    {
+      "path": "assets/underworld_plains/home/home_build.json",
+      "sha256": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159"
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "ade42db4a56d11769e7f840a036982dfa3514dc852a45b00de4e959182e4e0a0"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "sha256": "e08004d5fea8ddce976088dc64af43a0b2f3bdb2fb428a8699d25bd66c9e4609"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "sha256": "344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3"
+    },
+    {
+      "path": "scripts/audio/game_music.gd",
+      "sha256": "6fe57ccecc3c68b5a9551f140bba5f50705a7276efd776453ff3c7b42499f3ed"
+    },
+    {
+      "path": "assets/audio/bgm/provenance.json",
+      "sha256": "69bfa28647bae046cf9891b70749d15257d81735ab2b2e239cadd73498005792"
+    },
+    {
+      "path": "config/audio_director/ambience/user-selected.json",
+      "sha256": "8eb9d5aa950fdd1f729de56b396d10980459fb7ce48ff132ed13dba3c13083b5"
+    },
+    {
+      "path": "assets/audio/ambience_v1/plains_a.ogg",
+      "sha256": "ecee435be5c38c77b3bac2d9e728e4ce480abbac07fac37133abd101a5e330d0"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "status": "passed",
+  "scope": "Real local Chromium phone-sized GUI, staged exact06 portal; no physical device or hearing approval",
+  "checks": [
+    {
+      "name": "Phone portal renders three new and four comparison WAVs",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "Stop during MP4 fetch cannot start late playback",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "Real native MP4 plays exact candidate chapter a",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 8.209613,
+        "width": 960,
+        "height": 540,
+        "source": "blob:http://127.0.0.1:8830/ca1ebd83-263f-4393-98ec-fb01af12d127",
+        "error": null
+      }
+    },
+    {
+      "name": "Real native MP4 plays exact candidate chapter b",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 12.319888,
+        "width": 960,
+        "height": 540,
+        "source": "blob:http://127.0.0.1:8830/ca1ebd83-263f-4393-98ec-fb01af12d127",
+        "error": null
+      }
+    },
+    {
+      "name": "Real native MP4 plays exact candidate chapter c",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 16.322633,
+        "width": 960,
+        "height": 540,
+        "source": "blob:http://127.0.0.1:8830/ca1ebd83-263f-4393-98ec-fb01af12d127",
+        "error": null
+      }
+    },
+    {
+      "name": "Actual WAV loops with one active source a",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 0.14,
+        "loop": true,
+        "duration": 0.14,
+        "error": null
+      }
+    },
+    {
+      "name": "Actual WAV loops with one active source b",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 0.117256,
+        "loop": true,
+        "duration": 0.117256,
+        "error": null
+      }
+    },
+    {
+      "name": "Actual WAV loops with one active source c",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 0.120581,
+        "loop": true,
+        "duration": 0.17,
+        "error": null
+      }
+    },
+    {
+      "name": "Scene video stops all single-sound loops",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "Stop stops scene and every WAV",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "A/B/C real-game links select the implemented presentation query",
+      "passed": true,
+      "data": [
+        "http://127.0.0.1:8830/game/?audio_hurt=A",
+        "http://127.0.0.1:8830/game/?audio_hurt=B",
+        "http://127.0.0.1:8830/game/?audio_hurt=C"
+      ]
+    },
+    {
+      "name": "Choice stores exact candidate/version/SHA",
+      "passed": true,
+      "data": {
+        "schema_version": 1,
+        "task": "AUDIO-FEEDBACK-06",
+        "version": "audio-feedback-06-v1",
+        "manifest_sha256": "02a353ffef06851c42052e018038a61c83668ff3e9b7eca7dfa0e795ef6c53f9",
+        "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+        "build_id": "80377273a40d",
+        "capture_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+        "exported_at": "2026-10-30T04:52:03.737Z",
+        "choice": "B",
+        "candidate_id": "hurt_feedback_06_b",
+        "candidate_version": "audio-feedback-06-v1",
+        "candidate_sha256": "8ccb23583863eb44a8780e69fc4583b71a9142714ad44f0ceb73c7c07034a181",
+        "notes": "phone browser QA fixture",
+        "subjective_status": "user-feedback"
+      }
+    },
+    {
+      "name": "Actual JSON download preserves candidate identity",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "No page or media errors",
+      "passed": true,
+      "data": null
+    }
+  ]
+}

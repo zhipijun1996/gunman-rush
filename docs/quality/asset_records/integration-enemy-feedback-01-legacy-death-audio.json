@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "asset_id": "INTEGRATION-ENEMY-FEEDBACK-01-LEGACY-DEATH-AUDIO",
+  "task_id": "ENEMY-FEEDBACK-01",
+  "content_version": "enemy-feedback-01-death-burst-v7-legacy-registration-20261023",
+  "source_path": "assets/audio/enemy_feedback_01/death_burst.wav",
+  "source_sha256": "1943e3210d0ffa127c0ef19b78e1b7a6e5814d0a0c0e3a9b21162f67a536d52f",
+  "runtime_paths": [
+    "assets/audio/enemy_feedback_01/death_burst.wav"
+  ],
+  "tool": "Historical deterministic offline Python/ffmpeg builder; not rerun by this registration",
+  "model": "not_applicable: the provenance records deterministic mixing and original procedural noise, not model-generated audio",
+  "prompt_or_reference": "assets/audio/enemy_feedback_01/provenance.json; exact Kenney source ledger and original impact-sounds CC0 license retained",
+  "processing": "Historical 0.36-second rendered WAV combines the three SHA-bound Kenney impacts and project-original non-tonal procedural texture using the retained ffmpeg/mix recipe. WAV, source samples, ledger and original license hashes match local originals. Current builder bytes differ from the original recorded producer hash; this registration does not claim current-builder reproduction or a fresh render.",
+  "usage_scope": "Dormant/legacy EnemyFeedback01DeathAudio helper still has an actual preload of this WAV. The current merged default feedback hosts no longer configure that helper, so this is retained legacy runtime capability/fixture coverage, not the current default enemy-death sound.",
+  "license_status": "verified",
+  "license_source": "The three original sample hashes match assets/audio/enemy_feedback_01/provenance.json and assets/audio/kenney/impact-sounds-LICENSE.txt (CC0-1.0); assets/audio/kenney/sources.json SHA also matches. Procedural texture is project original per retained provenance. Licensing verification does not grant sound/player acceptance.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "legacy_fixture_only",
+  "consumer_scripts": [
+    "scripts/enemies/enemy_feedback_01_death_audio.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/audio/enemy_feedback_01/provenance.json",
+      "sha256": "747cc7db5617381710e6a8c82edd0d0dc7993daf4d8f48bb2b814e2084a8c7f0",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/audio/kenney/sources.json",
+      "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/kenney/impact-sounds-LICENSE.txt",
+      "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/kenney/impact.ogg",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/kenney/boss_impact.ogg",
+      "sha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/kenney/enemy_defeat.ogg",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/enemy_feedback_01/README.md",
+      "sha256": "a54275406278822b9829344b54288f28fd7a739830daaf87f6865be6ec7583c2",
+      "role": "documentation"
+    }
+  ],
+  "historical_producer": {
+    "source_commit": "a325e41860c688e65f31c47176b1e80aee8ce646",
+    "recorded_script_sha256": "353a9d02ac32e895b0662f66469dd5ff969fd73b96c8c23cd7bd77731f43640e",
+    "current_script_sha256": "c958c5e0b5faf61283e4fafeb55dfc80fb1af4848176b47c0418fb1b9a915da8",
+    "current_script_reproduction_verified": false
+  }
+}

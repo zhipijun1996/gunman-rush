@@ -1,0 +1,1029 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+  "checks": [
+    "item-v5-data",
+    "item-v5-catalog",
+    "item-v5-pool",
+    "item-v5-inventory",
+    "item-v5-combat",
+    "item-v5-actives",
+    "item-v5-economy",
+    "item-v5-defense",
+    "item-v5-ui",
+    "item-v5-formal",
+    "item-v5-review",
+    "item-v5-boss-time",
+    "item-v5-core-effects",
+    "item-v5-synergy-economy",
+    "item-v5-pause-escape",
+    "item-v5-random-context",
+    "item-v5-manifest",
+    "core",
+    "all-weapons",
+    "gear-inventory",
+    "gear-ui",
+    "forest-bible-app-discoveries",
+    "forest-campaign",
+    "demo-ui-time-energy",
+    "underworld-ui",
+    "underworld-home",
+    "region-bible-tests",
+    "creative-direction-tests",
+    "region-bible-contract",
+    "creative-direction"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "dc634317d94419bcb3fc22665ca5cf6ce18995f0364aba5624a396a939aa3a7e",
+      "cwd": "/workspace/gunman-rush",
+      "checks": [
+        {
+          "id": "item-v5-data",
+          "argv": [
+            "python3",
+            "tests/test_item_v5_catalog.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "tools/import_items_v5.py",
+            "tests/test_item_v5_catalog.py",
+            "config/items_v5.json",
+            "config/item_v5_synergies.json",
+            "docs/evidence/item_v5_01/source/items-v5-original.xlsx",
+            "docs/evidence/item_v5_01/source/workbook-snapshot.json"
+          ]
+        },
+        {
+          "id": "item-v5-catalog",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "catalog"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-catalog original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-pool",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "pool"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-pool original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-inventory",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "inventory"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-inventory original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-combat",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "combat"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-combat original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-actives",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "actives"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-actives original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-economy",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "economy"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-economy original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-defense",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "defense"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-defense original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-ui",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "ui"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-ui original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-formal",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "formal"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-formal original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/formal"
+          ]
+        },
+        {
+          "id": "item-v5-review",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "review"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-review original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/review"
+          ]
+        },
+        {
+          "id": "item-v5-boss-time",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "boss-time"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-boss-time original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-core-effects",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "core-effects"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-core-effects original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-synergy-economy",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "synergy-economy"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-synergy-economy original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-pause-escape",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "pause-escape"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-pause-escape original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-random-context",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "random-context"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-random-context original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "item-v5-manifest",
+          "argv": [
+            "python3",
+            "tools/run_item_v5_tests.py",
+            "--suite",
+            "manifest"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: item-v5-manifest original native fixture and clean teardown$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/.gdignore",
+            "build/.gdignore",
+            "assets/**"
+          ],
+          "artifact_paths": [
+            "build/item_v5/native"
+          ]
+        },
+        {
+          "id": "core",
+          "argv": [
+            "python3",
+            "tools/run_tests.py"
+          ],
+          "timeout_seconds": 720,
+          "success_pattern": "^ALL TESTS: [1-9]\\d* assertions, 0 failures$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg"
+          ]
+        },
+        {
+          "id": "all-weapons",
+          "argv": [
+            "python3",
+            "tools/run_all_weapon_tests.py"
+          ],
+          "timeout_seconds": 300,
+          "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg"
+          ]
+        },
+        {
+          "id": "gear-inventory",
+          "argv": [
+            "python3",
+            "tools/run_gear_inventory_tests.py"
+          ],
+          "timeout_seconds": 210,
+          "success_pattern": "^GEAR INVENTORY: [1-9]\\d* assertions, 0 failures$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg"
+          ]
+        },
+        {
+          "id": "gear-ui",
+          "argv": [
+            "python3",
+            "tools/run_gear_ui_tests.py"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^GEAR UI: [1-9]\\d* checks, 0 failures$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "export_presets.cfg"
+          ],
+          "artifact_paths": [
+            "build/run_gear/ui"
+          ]
+        },
+        {
+          "id": "forest-bible-app-discoveries",
+          "argv": [
+            "python3",
+            "tools/run_forest_bible_app_discoveries.py"
+          ],
+          "timeout_seconds": 180,
+          "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+          "inputs": [
+            "scripts/enemies/forest_bible_weaver_behavior.gd",
+            "scripts/enemies/forest_bible_weaver_definition.gd",
+            "resources/enemies/forest_bible_weaver.tres",
+            "scenes/enemies/forest_bible_weaver.tscn",
+            "tests/forest_bible_weaver_runner.gd",
+            "tools/run_forest_bible_weaver.py",
+            "scripts/enemies/forest_thread_spider_behavior.gd",
+            "scripts/enemies/forest_enemy_definition.gd",
+            "resources/enemies/forest_thread_spider.tres",
+            "scenes/enemies/forest_thread_spider.tscn",
+            "scripts/enemies/enemy_attack_behavior.gd",
+            "scripts/enemies/enemy_actor.gd",
+            "scripts/enemies/enemy_motor.gd",
+            "scripts/demo/demo_app.gd",
+            "scripts/demo/thorn_forest_region_stage.gd",
+            "scripts/damage/frame_damage_policy.gd",
+            "tests/forest_depth_enemy_runner.gd",
+            "tests/audio_teardown.gd",
+            "tools/run_tests.py",
+            "tools/godot.sh",
+            "tests/forest_bible_integration_runner.gd",
+            "tools/run_forest_bible_integration.py",
+            "scripts/generation/thorn_forest_region_generator.gd",
+            "scripts/generation/thorn_forest_region_v2_v15.gd",
+            "scripts/generation/forest_bible_v2_layout.gd",
+            "scripts/generation/thorn_forest_region_assembler.gd",
+            "scripts/run/plains_region_state.gd",
+            "tests/forest_bible_app_discoveries_runner.gd",
+            "tools/run_forest_bible_app_discoveries.py",
+            "scripts/world/forest_bible_discoveries.gd",
+            "scripts/world/forest_bible_discovery_catalog.gd",
+            "resources/items/forest_old_badge.tres",
+            "scripts/ui/stage_reward_modal.gd",
+            "scripts/ui/item_card.gd",
+            "scripts/rewards/reward_service.gd",
+            "scripts/shops/run_wallet.gd",
+            "scripts/input/keyboard_mouse_adapter.gd",
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "shaders",
+            "assets",
+            "tests",
+            "tools",
+            "project.godot",
+            "tools/forest_bible_world_sources.py"
+          ],
+          "artifact_paths": [
+            "build/region_bible_v2/discoveries/app"
+          ]
+        },
+        {
+          "id": "forest-campaign",
+          "argv": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/forest_campaign_runner.gd"
+          ],
+          "timeout_seconds": 180,
+          "success_pattern": "^FOREST CAMPAIGN: [1-9]\\d* assertions / 0 failures$",
+          "inputs": [
+            "scripts",
+            "resources",
+            "scenes",
+            "config",
+            "tests",
+            "assets"
+          ]
+        },
+        {
+          "id": "demo-ui-time-energy",
+          "argv": [
+            "python3",
+            "tools/demo_ui_01/run_time_energy.py"
+          ],
+          "timeout_seconds": 300,
+          "success_pattern": "^PASS: current time energy, one-round baseline and actor-following HUD$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg"
+          ],
+          "artifact_paths": [
+            "build/verification/demo-ui-r3/energy.json"
+          ]
+        },
+        {
+          "id": "underworld-ui",
+          "argv": [
+            "python3",
+            "tools/run_underworld_ui_tests.py"
+          ],
+          "timeout_seconds": 300,
+          "success_pattern": "^PASS: Underworld UI actual native mouse paths",
+          "inputs": [
+            "assets/underworld_plains",
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "tests/underworld_plains",
+            "tests/audio_teardown.gd",
+            "project.godot",
+            "tools/run_tests.py",
+            "tools/run_underworld_ui_tests.py",
+            "assets/fonts",
+            "assets/underworld_plains/terrain/source.png",
+            "assets/underworld_plains/actors/bell.png"
+          ],
+          "artifact_paths": [
+            "build/underworld_plains/ui_rework"
+          ]
+        },
+        {
+          "id": "underworld-home",
+          "argv": [
+            "python3",
+            "tools/run_underworld_home_terrace_tests.py"
+          ],
+          "timeout_seconds": 180,
+          "success_pattern": "^UNDERWORLD HOME TERRACE CHECK: [1-9][0-9]* assertions,0 failures; twelve actual stations, original App business and basic input route$",
+          "inputs": [
+            "assets/underworld_plains",
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "tests/underworld_plains",
+            "tests/audio_teardown.gd",
+            "project.godot",
+            "tools/run_tests.py",
+            "tools/run_underworld_home_tests.py",
+            "tools/run_underworld_home_terrace_tests.py"
+          ],
+          "artifact_paths": [
+            "build/underworld_r3/home"
+          ]
+        },
+        {
+          "id": "region-bible-tests",
+          "argv": [
+            "python3",
+            "tests/test_region_bible.py"
+          ],
+          "timeout_seconds": 30,
+          "success_pattern": "^OK$",
+          "inputs": [
+            ".agents/skills/gameplay-reviewer/SKILL.md",
+            ".agents/skills/region-generator/SKILL.md",
+            "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "docs/creative_direction/bibles/registry.json",
+            "docs/creative_direction/bibles/user-request.json",
+            "docs/creative_direction/thorn_forest.json",
+            "docs/creative_direction/windchime_plains.json",
+            "docs/current_state.md",
+            "docs/design/player_actions/README.md",
+            "docs/design/player_actions/regions_v0.3.md",
+            "docs/design/player_actions/weapons_v0.8.md",
+            "docs/evidence/level_autonomy/action_control_comparison.json",
+            "docs/evidence/level_autonomy/baseline_summary.json",
+            "docs/evidence/level_autonomy/final_validation/review.json",
+            "docs/evidence/plains_redesign/design_midreview/report.md",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+            "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+            "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+            "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+            "docs/evidence/plains_redesign/reward_entry/README.md",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+            "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+            "docs/evidence/region_production_v3/art/clock_regulator_court_v1/independent/review.json",
+            "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+            "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+            "docs/evidence/region_production_v3/check_preflight/independent/review.final.json",
+            "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+            "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+            "docs/evidence/region_production_v3/enemy_parent_integration/strict_review/review_report.md",
+            "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+            "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+            "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+            "docs/evidence/region_production_v3/root_bell_run_replay_independent/review.json",
+            "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+            "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+            "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/capture.log",
+            "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/visual_capture.json",
+            "docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.json",
+            "docs/evidence/region_production_v3/supported_bank_failed_02/candidate_family/production/formal_manifest_solids_inventory.json",
+            "docs/evidence/region_production_v3/terrain_parent_integration/independent/review.json",
+            "docs/evidence/region_production_v3/v11_analysis_consumer_independent/fresh_current_r3_acceptance.json",
+            "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+            "docs/evidence/visual_director/recovery_checkpoint/static_v4_fixed_review.json",
+            "docs/quality/action_budget_spec.md",
+            "docs/quality/all_weapons_spec.md",
+            "docs/quality/level_lessons.json",
+            "docs/quality/plains_redesign_experience.md",
+            "docs/quality/plains_redesign_spatial.md",
+            "docs/quality/policy.json",
+            "docs/quality/weapon_feel_spec.md",
+            "docs/world_regions.json",
+            "resources/player/combat_energy.tres",
+            "resources/player/plains_shot_energy.tres",
+            "resources/player/traversal.tres",
+            "resources/weapons/blade_bloom.tres",
+            "resources/weapons/collapse_singularity.tres",
+            "resources/weapons/fan_shuriken.tres",
+            "resources/weapons/laser_cannon.tres",
+            "resources/weapons/machine_storm.tres",
+            "resources/weapons/magnetic_mine.tres",
+            "resources/weapons/magnetic_storm.tres",
+            "resources/weapons/moon_boomerang.tres",
+            "resources/weapons/motion.tres",
+            "resources/weapons/pulse_gun.tres",
+            "resources/weapons/recoil_bomb.tres",
+            "resources/weapons/remote_boomerang.tres",
+            "resources/weapons/shadow_shuriken.tres",
+            "resources/weapons/star_collapse.tres",
+            "resources/weapons/sustained_laser.tres",
+            "resources/weapons/triple_machine_gun.tres",
+            "scripts/builds/build_state.gd",
+            "scripts/combat/shot_energy_policy.gd",
+            "scripts/combat/weapon_catalog.gd",
+            "scripts/combat/weapon_definition.gd",
+            "scripts/demo/action_studio.gd",
+            "scripts/demo/demo_app.gd",
+            "scripts/demo/thorn_forest_region_stage.gd",
+            "scripts/generation/thorn_forest_region_assembler.gd",
+            "scripts/generation/thorn_forest_region_generator.gd",
+            "scripts/player/jump_ability.gd",
+            "scripts/player/traversal_ability.gd",
+            "scripts/resources/definitions/combat_energy_definition.gd",
+            "scripts/resources/definitions/shot_energy_definition.gd",
+            "scripts/resources/state/combat_energy_state.gd",
+            "scripts/run/run_profile.gd",
+            "tests/test_region_bible.py",
+            "tools/harness.py",
+            "tools/harness/profiles.json",
+            "tools/level_design.py",
+            "tools/level_experience.py",
+            "tools/level_formal.py",
+            "tools/level_region_context.py",
+            "tools/production_loop.py",
+            "tools/quality.py",
+            "tools/region_creative_direction.py",
+            "tools/visual_director.py",
+            "docs/creative_direction/bibles/style-continuity-20261021.json",
+            "scripts/demo/plains_region_stage.gd",
+            "scripts/art/plains_terrain_study.gd",
+            "scripts/underworld_plains/underworld_terrain.gd",
+            "scripts/underworld_plains/underworld_terrain.gdshader",
+            "assets/underworld_plains/terrain/terrain_build.json",
+            "assets/underworld_plains/terrain/terrain.tres",
+            "assets/underworld_plains/terrain/terrain.png",
+            "assets/underworld_plains/terrain/source.png",
+            "scripts/art_foundation/blob47_rules.gd",
+            "scripts/art_foundation/pixel_formal_terrain.gd",
+            "scripts/art/plains_terrain_borders.gd",
+            "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+            "scripts/underworld_plains/underworld_player.gd",
+            "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+            "assets/underworld_plains/player_animation/animation_build.json",
+            "assets/underworld_plains/player_animation/run_sheet.png",
+            "assets/underworld_plains/player_animation/states_sheet.png",
+            "docs/creative_direction/archive/creative-v5/thorn_forest.json",
+            "docs/creative_direction/bibles/style-continuity-20261021-v3.json",
+            "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+            "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+            "docs/creative_direction/bibles/style-continuity-20261023-v6.json",
+            "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+            "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+            "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+            "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+            "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+            "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
+            "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+            "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+            "docs/controls_contract.md",
+            "config/player_tuning.json",
+            "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+            "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+            "shaders/formal_fine_boundary.gdshader",
+            "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+            "assets/underworld_plains/terrain/fine_32/terrain.tres",
+            "assets/underworld_plains/terrain/fine_32/terrain.png",
+            "assets/underworld_plains/terrain/fine_32/source.png",
+            "shaders/formal_fine_lit.gdshader",
+            "scripts/underworld_plains/underworld_presentation.gd",
+            "shaders/underworld_fine_sprite.gdshader",
+            "assets/authored_terrain_study/provenance.json",
+            "scripts/art/player_presentation_runtime.gd",
+            "scripts/art/avatar_presentation.gd",
+            "resources/art/avatars.json",
+            "scripts/demo/home_scene.gd",
+            "scripts/dev/player_presentation_01/motion_visual.gd",
+            "scripts/dev/player_presentation_01/motion_profile.gd",
+            "scripts/dev/player_presentation_01/motion_feel.gd",
+            "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+            "resources/player_presentation_01/motion_v1.tres",
+            "resources/player_presentation_01/motion_clip_data.gd",
+            "resources/player_presentation_01/landing_screen.gdshader",
+            "resources/player_presentation_01/weapon_feel_v1.tres",
+            "scripts/dev/player_presentation_01/weapon_profile.gd",
+            "assets/player_presentation_01/motion_v1/motion_source.png",
+            "assets/player_presentation_01/motion_v1/idle_fall.json",
+            "scripts/items/v5/item_effect_view.gd",
+            "config/item_v5_feedback.json",
+            "scripts/items/v5/item_v5_entity.gd",
+            "config/item_v5_entities.json",
+            "scripts/items/v5/item_defense_effects.gd",
+            "config/item_v5_defense.json",
+            "scripts/ui/actor_resources_hud.gd",
+            "scripts/ui/demo_menu.gd",
+            "scripts/ui/item_presentation.gd",
+            "scripts/ui/item_card.gd",
+            "scripts/ui/item_acquired_toast.gd",
+            "scripts/ui/item_shop_modal.gd",
+            "scripts/ui/stage_reward_modal.gd",
+            "scripts/ui/touch_overlay.gd",
+            "scripts/items/v5/item_v5_shop_presenter.gd",
+            "scripts/combat/weapon_action_runtime.gd",
+            "scripts/dev/player_presentation_01/weapon_feel.gd",
+            "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+            "docs/.gdignore"
+          ]
+        },
+        {
+          "id": "creative-direction-tests",
+          "argv": [
+            "python3",
+            "tests/test_region_creative_direction.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "region-bible-contract",
+          "argv": [
+            "python3",
+            "tools/region_creative_direction.py",
+            "--check-bibles"
+          ],
+          "timeout_seconds": 30,
+          "success_pattern": "^PASS: Bible registry",
+          "inputs": [
+            "tools/region_creative_direction.py",
+            "docs/world_regions.json",
+            "docs/creative_direction/bibles/registry.json",
+            "docs/creative_direction/bibles/user-request.json",
+            "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "docs/creative_direction/bibles/style-continuity-20261021.json",
+            "scripts/demo/plains_region_stage.gd",
+            "scripts/art/plains_terrain_study.gd",
+            "scripts/underworld_plains/underworld_terrain.gd",
+            "scripts/underworld_plains/underworld_terrain.gdshader",
+            "assets/underworld_plains/terrain/terrain_build.json",
+            "assets/underworld_plains/terrain/terrain.tres",
+            "assets/underworld_plains/terrain/terrain.png",
+            "assets/underworld_plains/terrain/source.png",
+            "scripts/art_foundation/blob47_rules.gd",
+            "scripts/art_foundation/pixel_formal_terrain.gd",
+            "scripts/art/plains_terrain_borders.gd",
+            "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+            "scripts/underworld_plains/underworld_player.gd",
+            "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+            "assets/underworld_plains/player_animation/animation_build.json",
+            "assets/underworld_plains/player_animation/run_sheet.png",
+            "assets/underworld_plains/player_animation/states_sheet.png"
+          ]
+        },
+        {
+          "id": "creative-direction",
+          "argv": [
+            "python3",
+            "tools/region_creative_direction.py",
+            "--directory",
+            "docs/creative_direction"
+          ],
+          "timeout_seconds": 30,
+          "success_pattern": "^PASS:"
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "materialized": [],
+  "rounds": [],
+  "prefetch": [],
+  "materialized_bytes": 0,
+  "sparse_patterns_changed": false,
+  "seconds": 1.263
+}

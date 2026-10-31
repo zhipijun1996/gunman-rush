@@ -144,7 +144,174 @@ class RegionSchedulerTests(unittest.TestCase):
         self.assertEqual(json.loads((self.folder/'state.json').read_text())['active'],0)
 
     def test_more_than_two_workers_refused(self):
-        with self.assertRaises(ValueError):region.schedule_cases([],lambda *_:None,lambda *_:None,3)
+        for workers in (3,5):
+            with self.subTest(workers=workers),self.assertRaises(ValueError):region.schedule_cases([],lambda *_:None,lambda *_:None,workers)
+
+
+class FourProcessSchedulerTests(unittest.TestCase):
+    setUp=RegionSchedulerTests.setUp
+    tearDown=RegionSchedulerTests.tearDown
+    def four_worker(self,fail=False,exception=False):
+        script=self.folder/'four.py'
+        script.write_text(FIXTURE.replace('time.sleep(delay)',"""
+# A bounded real-process barrier proves four children are live simultaneously.
+end=time.monotonic()+2
+while True:
+ with (folder/'state.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  count=len(json.loads((folder/'state.json').read_text())['started'])
+  fcntl.flock(lock,fcntl.LOCK_UN)
+ if count>=4:break
+ if time.monotonic()>end:raise RuntimeError('four_process_barrier_timeout')
+ time.sleep(.002)
+time.sleep(delay)
+"""))
+        def run(i,case):
+            result=REAL_RUN([sys.executable,str(script),str(self.folder),str(i),'.01' if i==1 else '.12','nonzero' if fail and i==1 else 'ok'],capture_output=True,timeout=3)
+            if exception and i==1:raise RuntimeError('after real child exited')
+            return {'status':'passed' if result.returncode==0 else 'failed','exit_code':result.returncode,'case':case}
+        return run
+
+    def assert_four_finished(self):
+        state=json.loads((self.folder/'state.json').read_text())
+        self.assertEqual(state['peak'],4);self.assertEqual(state['active'],0)
+        self.assertEqual(sorted(state['started']),[0,1,2,3])
+        self.assertEqual(sorted(state['finished']),[0,1,2,3])
+        for path in self.folder.glob('pid-*'):
+            with self.assertRaises(ProcessLookupError):os.kill(int(path.read_text()),0)
+
+    def test_four_actual_children_and_all_receipts(self):
+        rows=region.schedule_cases([('seed',1,str(i)) for i in range(4)],self.four_worker(),lambda *_:None,4)
+        self.assertEqual(sorted(rows),[0,1,2,3]);self.assertTrue(all(r['status']=='passed' for r in rows.values()))
+        self.assert_four_finished()
+
+    def test_four_failure_stops_submission_and_reaps_all_active(self):
+        rows=region.schedule_cases([('seed',1,str(i)) for i in range(8)],self.four_worker(fail=True),lambda *_:None,4)
+        self.assertEqual(sorted(rows),[0,1,2,3]);self.assertEqual(rows[1]['exit_code'],3)
+        self.assert_four_finished()
+
+    def test_four_worker_exception_reaps_all_active(self):
+        rows=region.schedule_cases([('seed',1,str(i)) for i in range(8)],self.four_worker(exception=True),lambda *_:None,4)
+        self.assertEqual(sorted(rows),[0,1,2,3]);self.assertEqual(rows[1]['status'],'failed')
+        self.assertIn('case_worker_exception/RuntimeError',rows[1]['errors'][0])
+        self.assert_four_finished()
+
+
+
+class CpuCapacitySelectionTests(unittest.TestCase):
+    def capacity(self,count=8,affinity=range(8),files=None):
+        files=files or {}
+        def read(path,*args,**kwargs):
+            if str(path) not in files:raise FileNotFoundError(str(path))
+            return files[str(path)]
+        with mock.patch.object(region.os,'cpu_count',return_value=count),mock.patch.object(region.os,'sched_getaffinity',side_effect=OSError('unreadable') if affinity is None else lambda _:set(affinity),create=True),mock.patch.object(region.Path,'read_text',read):
+            return region.cpu_capacity()
+
+    def test_auto_uses_positive_host_and_affinity_minimum(self):
+        result=self.capacity(count=32,affinity=range(3))
+        self.assertEqual(result['effective_cpu_capacity'],3)
+        self.assertEqual(region.select_case_workers(None,result),2)
+        self.assertEqual(result['affinity_cpu_ids'],[0,1,2])
+
+    def test_v2_current_and_parent_quota_minimum_with_raw_source(self):
+        files={'/proc/self/cgroup':'0::/team/job','/proc/self/mountinfo':'1 0 0:1 / /cg rw - cgroup2 cgroup rw','/cg/team/job/cpu.max':'max 100000','/cg/team/cpu.max':'150000 100000','/cg/cpu.max':'400000 100000'}
+        result=self.capacity(files=files)
+        self.assertEqual(result['effective_cpu_capacity'],1.5)
+        self.assertEqual(region.select_case_workers(None,result),1)
+        self.assertEqual([r['status'] for r in result['cgroup_quota_sources']],['unlimited','limited','limited'])
+        self.assertEqual(result['cgroup_quota_sources'][1]['paths'],['/cg/team/cpu.max'])
+
+    def test_v2_container_namespace_root_mount_is_respected(self):
+        result=self.capacity(files={'/proc/self/cgroup':'0::/','/proc/self/mountinfo':'1 0 0:1 /.. /sys/fs/cgroup rw - cgroup2 cgroup rw','/sys/fs/cgroup/cpu.max':'200000 100000'})
+        self.assertEqual(result['effective_cpu_capacity'],2)
+        self.assertEqual(region.select_case_workers(None,result),2)
+
+    def test_v1_combined_controller_and_nonroot_mount(self):
+        files={'/proc/self/cgroup':'3:cpu,cpuacct:/parent/job','/proc/self/mountinfo':'1 0 0:1 /parent /cg rw - cgroup cgroup rw,cpu,cpuacct','/cg/job/cpu.cfs_quota_us':'250000','/cg/job/cpu.cfs_period_us':'100000','/cg/cpu.cfs_quota_us':'-1','/cg/cpu.cfs_period_us':'100000'}
+        result=self.capacity(files=files)
+        self.assertEqual(result['effective_cpu_capacity'],2.5)
+        self.assertEqual(region.select_case_workers(None,result),2)
+        self.assertEqual(result['cgroup_quota_sources'][0]['version'],1)
+
+    def test_unreadable_unlimited_or_malformed_quota_cannot_invent_two_cpus(self):
+        base={'/proc/self/cgroup':'0::/','/proc/self/mountinfo':'1 0 0:1 / /cg rw - cgroup2 cgroup rw'}
+        for raw in ('max 100000','0 100000','-2 100000','200000 0','garbage','200000 100000 extra'):
+            with self.subTest(raw=raw):
+                result=self.capacity(count=8,files={**base,'/cg/cpu.max':raw})
+                self.assertEqual(result['effective_cpu_capacity'],8)
+                self.assertEqual(region.select_case_workers(None,result),4)
+
+    def test_missing_all_readings_falls_back_to_original_four(self):
+        result=self.capacity(count=None,affinity=None)
+        self.assertIsNone(result['effective_cpu_capacity'])
+        self.assertEqual(region.select_case_workers(None,result),4)
+        self.assertTrue(result['read_errors'])
+
+    def test_auto_boundaries_and_subcpu_minimum(self):
+        for capacity,expected in ((.5,1),(1,1),(1.999,1),(2,2),(3.999,2),(4,4),(96,4)):
+            with self.subTest(capacity=capacity):self.assertEqual(region.select_case_workers(None,{'effective_cpu_capacity':capacity}),expected)
+        for invalid in (None,True,False,0,-1,float('nan'),float('inf'),'2'):
+            with self.subTest(invalid=invalid):self.assertEqual(region.select_case_workers(None,{'effective_cpu_capacity':invalid}),4)
+
+    def test_explicit_workers_do_not_change_with_host_limit(self):
+        for requested in (1,2,4):
+            for capacity in (.5,1,2,8,None):
+                with self.subTest(requested=requested,capacity=capacity):self.assertEqual(region.select_case_workers(requested,{'effective_cpu_capacity':capacity}),requested)
+        for invalid in (True,False,0,3,5,2.0,'2'):
+            with self.subTest(invalid=invalid),self.assertRaises(ValueError):region.select_case_workers(invalid,{})
+
+    def test_actual_cli_keeps_explicit_choices_and_uses_none_for_auto(self):
+        real_parse=region.argparse.ArgumentParser.parse_args
+        class Parsed(Exception):
+            def __init__(self,value):self.value=value
+        def parse_only(argv):
+            def capture(parser):raise Parsed(real_parse(parser,argv))
+            with mock.patch.object(region.argparse.ArgumentParser,'parse_args',capture):
+                try:region.main()
+                except Parsed as parsed:return parsed.value
+        self.assertIsNone(parse_only(['--output','build/fixture','--corpus']).case_workers)
+        for requested in (1,2,4):
+            self.assertEqual(parse_only(['--output','build/fixture','--corpus','--case-workers',str(requested)]).case_workers,requested)
+        import contextlib,io
+        for invalid in ('auto','0','3','8'):
+            with self.subTest(invalid=invalid),contextlib.redirect_stderr(io.StringIO()),self.assertRaises(SystemExit) as stopped:
+                parse_only(['--output','build/fixture','--case-workers',invalid])
+            self.assertEqual(stopped.exception.code,2)
+
+    def test_unrelated_v1_controller_and_escaping_member_are_not_quota(self):
+        result=self.capacity(files={'/proc/self/cgroup':'3:memory:/job\n0::/../escape','/proc/self/mountinfo':'1 0 0:1 / /v1 rw - cgroup cgroup rw,memory\n2 0 0:2 / /v2 rw - cgroup2 cgroup rw','/v1/job/cpu.cfs_quota_us':'100000','/v1/job/cpu.cfs_period_us':'100000'})
+        self.assertEqual(result['effective_cpu_capacity'],8)
+        self.assertEqual(result['cgroup_quota_sources'],[])
+
+
+class CaseTimingTelemetryTests(unittest.TestCase):
+    setUp=RegionSchedulerTests.setUp
+    tearDown=RegionSchedulerTests.tearDown
+    run_native_fixture=RegionSchedulerTests.run_native_fixture
+
+    def test_success_records_all_three_wall_segments(self):
+        row=self.run_native_fixture()
+        timing=row['timing_wall_seconds']
+        self.assertEqual(set(timing),{'native_seconds','json_read_parse_seconds','validate_seconds'})
+        self.assertTrue(all(type(v) is float and v>=0 for v in timing.values()))
+        self.assertLessEqual(sum(timing.values()),row['seconds'])
+
+    def test_timeout_records_native_but_not_unreached_segments(self):
+        row=self.run_native_fixture(timeout=True)
+        self.assertGreater(row['timing_wall_seconds']['native_seconds'],0)
+        self.assertIsNone(row['timing_wall_seconds']['json_read_parse_seconds'])
+        self.assertIsNone(row['timing_wall_seconds']['validate_seconds'])
+
+    def test_invalid_json_records_parse_failure_not_fake_validation(self):
+        def invoke(argv,**kwargs):
+            capture=Path(next(x.split('=',1)[1] for x in argv if x.startswith('--output=')))
+            capture.write_text('{invalid')
+            return subprocess.CompletedProcess(argv,0)
+        with mock.patch.object(region.subprocess,'run',side_effect=invoke),mock.patch.object(region,'validate') as validator:
+            row=region.run_region_case(0,('seed',1,'fast'),self.folder)
+        self.assertEqual(row['status'],'failed');self.assertTrue(row['errors'][0].startswith('JSONDecodeError:'))
+        self.assertIsNotNone(row['timing_wall_seconds']['json_read_parse_seconds'])
+        self.assertIsNone(row['timing_wall_seconds']['validate_seconds']);validator.assert_not_called()
 
 
 if __name__=='__main__':unittest.main()

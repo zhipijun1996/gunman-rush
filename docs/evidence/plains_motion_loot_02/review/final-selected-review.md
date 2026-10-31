@@ -1,0 +1,13 @@
+# Local selected-three final independent review
+
+ACCEPT bounded local selected-three technical evidence, frozen runtime source `de22a39b06aa5172571ee7c3ff377cdffce913b6`. Independent reviewer `/root/guard_review_recovery` ran no engine and edited no repository sources.518 pure/read-only checks,0 failures; all5353 explicit runtime input bytes independently match GitA, including the four frozen production/test leaves.
+
+Original Harness report20261030T063149.622284Z is a targeted3-check run, jobs1, not full167. Original formal passed150/0 in17.665seconds under360; plains native passed481/0 in16.247seconds under360; original forest corpus passed80/80 in541.165seconds under unchanged600. All3 are fresh exit0, original argv/token/budgets/markers unchanged and raw logs strict-clean. Every original input_digest was independently recomputed exactly without invoking Godot.
+
+The80 matrix matches the original ten-root×two-map×four-route corpus, with80 unique actual runs, completed indices0–79 and no unexecuted entries. Reviewer verified every raw capture/log SHA and original native argv and independently reran the original pure validator on all80 captures: no validation errors. Its5352-entry runtime source tables before/import/after are identical, and original4CPU/4workers are recorded.
+
+Formal/plains'5353 explicit inputs bind directly from the original stable matrix source table plus export_presets to GitA. Native execution itself reported96bf plus9 dirty runtime/document files; it was not Git clean. The old forest full input_digest separately matches a31291-entry explicitly derived reconstruction of original tracked/untracked names, reported working hashes, captured runtime hashes and original Git bytes/missing sentinels. The exact digest matches the original record. This is not represented as a producer-archived full before/after table and does not assert that older run documents equal laterGitA or documents hydrated afterward.
+
+Current cache/formal source acceptance remains limited to the earlier separate reviews. This selected evidence does not create full167/official affected coverage, make either old failedCI pass, establish CI-host performance, sign main G1–G5/art/audio/device/user/economics, or retag the996 movie. Root may use this evidence for explicitly bounded process records; the main enemy review remains separate.
+
+Proof `/tmp/plains_final_selected_proof.json`; scripts `/tmp/review_plains_final_selected.py` and `/tmp/bind_plains_selected_to_frozen_a.py`; original report `/workspace/gunman-rush/build/verification/harness/20261030T063149.622284Z/report.json`.

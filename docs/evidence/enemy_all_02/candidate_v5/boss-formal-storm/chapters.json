@@ -1,0 +1,26 @@
+[
+  {
+    "case": 0,
+    "id": "windkeeper_storm_formal_app",
+    "chain": "actual_formal_App",
+    "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+    "start_frame": 1,
+    "end_frame": 1011,
+    "start_seconds": 0.1,
+    "end_seconds": 16.9333333333333,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "nonlethal_HP_commit": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "policy": "original actual App Boss exit and original stage reward readiness; no reward/reset callbacks invoked",
+      "terminal": true
+    }
+  }
+]

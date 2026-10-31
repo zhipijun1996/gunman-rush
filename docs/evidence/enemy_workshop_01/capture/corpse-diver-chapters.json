@@ -1,0 +1,132 @@
+[
+  {
+    "case": 0,
+    "id": "plains_diver",
+    "chain": "underworld",
+    "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+    "start_frame": 1,
+    "end_frame": 666,
+    "start_seconds": 0.0166666666666667,
+    "end_seconds": 11.1,
+    "post_death_observation_frames": 243,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": true,
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "settled_remains_observed_210_frames": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "body_motion": {
+          "clock": 7.06666666666665,
+          "recovery": 9.1155e-28,
+          "release": 0.0,
+          "stride": 167.00676981775,
+          "tension": 0.0,
+          "travel": 0.999996584727998
+        },
+        "death_frame_index": 7,
+        "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+        "host_alpha": 0.0,
+        "host_feedback_frame_index": -1,
+        "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+        "host_visible": false,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "not currently in an authored hurt frame",
+        "hurt_remaining": 0.0,
+        "remains": {
+          "alpha": 1.0,
+          "frame_index": 7,
+          "position": [
+            627.976989746094,
+            501.846160888672
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "settled": true,
+          "visible": true
+        }
+      },
+      "interpretation": "Observed component/body visibility; human visual review remains pending.",
+      "sampled_tail_frames": 210,
+      "stationary_corpse_tail": true,
+      "visible_corpse_tail": true
+    }
+  },
+  {
+    "case": 1,
+    "id": "plains_diver",
+    "chain": "scene",
+    "renderer": "res://scripts/enemies/enemy_presentation.gd",
+    "start_frame": 667,
+    "end_frame": 1330,
+    "start_seconds": 11.15,
+    "end_seconds": 22.2166666666667,
+    "post_death_observation_frames": 241,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": true,
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "settled_remains_observed_210_frames": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "body_motion": {
+          "clock": 7.08333333333331,
+          "recovery": 6.294e-28,
+          "release": 0.0,
+          "stride": 167.615570315477,
+          "tension": 0.0,
+          "travel": 0.999990727188492
+        },
+        "death_frame_index": 7,
+        "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+        "host_alpha": 1.0,
+        "host_feedback_frame_index": -1,
+        "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "not currently in an authored hurt frame",
+        "hurt_remaining": 0.0,
+        "remains": {
+          "alpha": 1.0,
+          "frame_index": 7,
+          "position": [
+            628.853088378906,
+            500.50927734375
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ],
+          "settled": true,
+          "visible": true
+        }
+      },
+      "interpretation": "Observed component/body visibility; human visual review remains pending.",
+      "sampled_tail_frames": 210,
+      "stationary_corpse_tail": true,
+      "visible_corpse_tail": true
+    }
+  }
+]

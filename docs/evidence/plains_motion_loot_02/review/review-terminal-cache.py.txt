@@ -1,0 +1,43 @@
+from pathlib import Path
+import json,hashlib,re,subprocess,collections
+R=Path('/workspace/gunman-rush');B=R/'build/plains-ci-41001060607';BASE='96bf4410f3118936ba78faddacc717974ffd39b9';checks=[]
+def ck(n,v,d=None):checks.append({'id':n,'passed':bool(v),'detail':d})
+def sha(b):return hashlib.sha256(b).hexdigest()
+def old(path):return subprocess.check_output(['git','show',BASE+':'+path],cwd=R).decode()
+paths=['scripts/enemies/plains_revision_ground.gd','scripts/enemies/plains_revision_skin.gd','tests/plains_motion_loot_02_motion.gd'];sources={p:(R/p).read_text() for p in paths};ground,skin,test=[sources[p] for p in paths]
+ck('ground_exact_two_zero_weight_returns',ground.replace('\tif weight == 0.0: return point\n','')==old(paths[0]) and ground.count('\tif weight == 0.0: return point\n')==2)
+ck('original_deform_unchanged',skin[skin.index('func deform('):skin.index('func draw_pose(')]==old(paths[1])[old(paths[1]).index('func deform('):old(paths[1]).index('func draw_pose(')])
+ck('no_prepared_formula_duplication','prepare_charger' not in ground+skin and '_charger_weights' not in skin)
+ck('per_instance_cache',all(x in skin for x in ['var _rest_cached := false','var _rest_pose: Dictionary = {}']) and 'static var' not in skin)
+ck('exact_terminal_gate','bool(pose.get("dead",false)) and float(pose.get("death",0.0)) >= 1.0 and float(pose.get("landing",0.0)) == 0.0' in skin)
+ck('conservative_pose_key_only_ignores_death_clock','pose.duplicate(true) if at_rest else {}' in skin and skin.count('rest_pose.erase(')==1 and 'rest_pose.erase("death_clock")' in skin and '_rest_pose == rest_pose' in skin)
+ck('kind_bounds_texture_key',all(x in skin for x in ['_rest_kind == kind','_rest_bounds == bounds','_rest_texture == texture']))
+ck('every_miss_uses_original_deform_upload','for i: int in _points.size(): vertices[i] = deform(_points[i],_units[i],pose)' in skin and '_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())' in skin)
+ck('live_partial_landing_invalidates_current_mesh','_rest_cached = at_rest' in skin)
+# Material and draw statements remain exactly outside the new cache branch.
+ck('shader_and_draw_tail_exact',skin[skin.index('\tif canvas.material is ShaderMaterial:'):]==old(paths[1])[old(paths[1]).index('\tif canvas.material is ShaderMaterial:'):])
+ck('original_culling_gate_exact','\tif texture == null: return\n\tif not PlainsMotion02.body_mesh_visible(canvas,bounds): return\n' in skin)
+ck('ground_never_reads_death_clock','death_clock' not in ground)
+flora=(R/'scripts/enemies/plains_revision_flora.gd').read_text();fan=flora.split('static func _fan(',1)[1].split('static func _root_bell(',1)[0];ck('fan_terminal_returns_before_death_clock',fan.index('if d >= 1.0: return p')<fan.index('pose.get("death_clock"'))
+# All original motion source is retained, with one appended test invocation.
+prefix=test.split('# Exercise the production draw path',1)[0].replace('\tawait _settled_cache(tree,report)\n','');ck('original_motion_source_prefix_retained',prefix.rstrip()==old(paths[2]).rstrip())
+new=json.loads((B/'cache-native-01/native.json').read_text());prior=json.loads((R/'docs/evidence/plains_motion_loot_02/development/plains-motion-loot-02-native-09.json').read_text());nm=next(x for x in new['samples'] if x.get('assertions')==219);om=next(x for x in prior['samples'] if x.get('assertions')==84)
+ck('old84_actual_check_prefix',nm['checks'][:84]==om['checks'] and all(c['passed'] is True for c in nm['checks'][:84]))
+added=nm['checks'][84:];ck('135new_actual_checks',len(added)==135 and nm['assertions']==219 and len(nm['checks'])==219 and nm['failures']==[] and all(c['passed'] is True for c in added))
+ck('whole_native481_0',new['assertions']==481 and new['failures']==[])
+log=(B/'cache-native-01/wrapper.log').read_text();ck('original_strict_marker_clean','PLAINS MOTION LOOT02: 481 assertions, 0 failures' in log and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit|Integration consumer failed:',log))
+labels=[c['label'] for c in added];kinds=['patrol','charger','hopper','sentry','fan_sentry','root_bell']
+for kind in kinds:
+ for action in ['settled cache cold draw','death_clock-only cache hit','second canvas shares local settled mesh']:
+  ck(kind+'/'+action,any(x.startswith(kind+' '+action) for x in labels))
+for change in ['live','partial','landing','clock','air','bounds','texture','kind']:
+ ck('charger_invalidation/'+change,any(x.startswith('charger invalidates changed '+change) for x in labels) and any(x.startswith('charger repeat '+change) for x in labels))
+for label in ['shared rig second canvas overwrites with live vertices','shared rig first canvas restores canonical rest after live overwrite','shared rig second canvas reuses restored canonical rest']:
+ ck(label,any(x.startswith(label) for x in labels))
+ck('actual_draw_counts45',[sum('uses actual _draw and expected625-or0' in x for x in labels),sum('refreshes this canvas shader parameters' in x for x in labels)]==[45,45])
+ck('all45_deformation_checks_accounted',sum(('emits exactly625 bit-identical' in x or 'reuses the settled mesh without evaluating' in x) for x in labels)==45)
+# Original frozen ground reference used in the owner's actual22500 probe.
+ref=(B/'zero-weight-probe/reference-ground-original.gd.txt').read_bytes();ck('zero_probe_original_reference_exact',ref==old(paths[0]).encode());reference=(B/'zero-weight-probe/reference_ground.gd').read_text();ck('probe_reference_only_classname_changed',reference.replace('class_name PlainsRevisionGroundReference','class_name PlainsRevisionGround')==old(paths[0]) or reference==old(paths[0]).replace('class_name PlainsRevisionGround\n','',1))
+probe=(B/'zero-weight-probe/runtime.log').read_text();payload=json.loads(next(x.split('ZERO_WEIGHT_PROBE ',1)[1] for x in probe.splitlines() if x.startswith('ZERO_WEIGHT_PROBE ')));ck('actual22500_bit_probe',payload=={'different_bytes':0,'max_coordinate_error':0.0,'vertices':22500})
+proof={'verdict':'ACCEPT_BOUNDED_SOURCE_AND_OBSERVED_NATIVE_CACHE_EVIDENCE','reviewer':'/root/guard_review_recovery','implementers':{'production':'/root','tests':'/root/corpse_contact_audit'},'independent':True,'engine_executed_by_reviewer':False,'base_source_commit':BASE,'source_sha256':{p:sha((R/p).read_bytes()) for p in paths},'actual_command':'python3 /tmp/review_plains_terminal_cache.py > /tmp/plains_terminal_cache_review.log','checks':checks,'passed':sum(x['passed'] for x in checks),'failed':sum(not x['passed'] for x in checks),'native':{'whole':481,'old_motion_prefix':84,'motion_total':219,'added_motion':135,'actual_draw_assertion_groups':45,'failures':0,'all6_cold_clockhit_second_canvas':True,'8_invalidation_matrix_scope':'charger only; shared Skin logic. Not falsely claimed repeated for all six.','other_consumers':'Only charger tests second-canvas live overwrite then first-canvas rest miss then second rest hit.'},'scope_evidence':'Real CanvasItem._draw executes production draw_pose. Miss checks count625 production deform results and compare packed output bytes to canonical current unchanged deform; hit checks count0, draw invocation and material refresh. This is not GPU/framebuffer/readback evidence and does not claim reading uploaded ArrayMesh buffer back. Upload line is unchanged and independently source-reviewed.','float_lerp_risk_resolved':'Cache key conservatively includes every pose field except death_clock, so Ground air/captured-live float differences invalidate rather than assuming mathematical lerp1 is byte independent. No new terminal formula replaces the old one.','source_binding':'Current root frozen dirty files match hashes; original local wrapper native record does not embed a complete per-file source inventory. Final frozen-input Harness is separate owner work.','limits':['No new performance/corpus/fullCI pass inferred','No GPU pixel/art/animation subjective/audio/device/user/G1-G5 acceptance','No full pose-space proof of zero-weight returns; actual22500 finite sample matrix plus exact source inspection','No independent Godot rerun or repository mutations'],'input_sha256':{str(p):sha(p.read_bytes()) for p in [B/'cache-native-01/native.json',B/'cache-native-01/wrapper.log',B/'zero-weight-probe/runtime.log',B/'zero-weight-probe/reference_ground.gd']}}
+Path('/tmp/plains_terminal_cache_source_native_proof.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n');print(proof['verdict'],proof['passed'],proof['failed']);print('failures',[x for x in checks if not x['passed']])

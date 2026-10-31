@@ -1,0 +1,44 @@
+[
+  {
+    "check": "region-bible-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_bible.py"
+    ],
+    "timeout_seconds": 30,
+    "exit_code": 1,
+    "seconds": 3.1650427300000956,
+    "declared_inputs": 187,
+    "copied_files": 187,
+    "missing_inputs": [],
+    "log": "build/item_v5/guard-audit/closure-region-bible-tests.log"
+  },
+  {
+    "check": "creative-direction-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "timeout_seconds": 60,
+    "exit_code": 1,
+    "seconds": 0.4795766110000841,
+    "declared_inputs": 120,
+    "copied_files": 120,
+    "missing_inputs": [],
+    "log": "build/item_v5/guard-audit/closure-creative-direction-tests.log"
+  },
+  {
+    "check": "item-v5-data",
+    "argv": [
+      "python3",
+      "tests/test_item_v5_catalog.py"
+    ],
+    "timeout_seconds": 60,
+    "exit_code": 0,
+    "seconds": 2.678055583999594,
+    "declared_inputs": 6,
+    "copied_files": 6,
+    "missing_inputs": [],
+    "log": "build/item_v5/guard-audit/closure-item-v5-data.log"
+  }
+]

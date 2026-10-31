@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-MERGE-04",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "561846261608e226706d9697754b2cd19814c6f0",
+  "reviewed_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+  "content_version": "candidate-v1-creative-v17-test-binding",
+  "owner": "/root",
+  "purpose": "修复合入完整CI暴露的creative版本测试遗漏，按授权正常合main",
+  "player_experience": "测试正确绑定当前权威版本，保持原历史拒绝与阶段门，游戏不变",
+  "constraints": [
+    "只改精确测试版本期望，不改runtime、工具或资源",
+    "保留所有历史字节拒绝、原阶段门、原预算及真实失败",
+    "最新同head完整CI通过后正常合并；不越过门禁",
+    "合并不代签实体设备、用户G5或网页已发布"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/quality/records/RUN-GEAR-MERGE-04.json",
+    "tests/test_region_creative_direction.py",
+    "docs/evidence/run_gear_merge_04/README.md",
+    "docs/evidence/run_gear_merge_04/creative-after.log",
+    "docs/evidence/run_gear_merge_04/creative-before.log",
+    "docs/evidence/run_gear_merge_04/creative-harness-report.json",
+    "docs/evidence/run_gear_merge_04/creative-independent.log",
+    "docs/evidence/run_gear_merge_04/failed-ci-creative.log",
+    "docs/evidence/run_gear_merge_04/failed-parallel-report.json",
+    "docs/evidence/run_gear_merge_04/independent-receipt.json",
+    "docs/evidence/run_gear_merge_04/independent-review.md",
+    "docs/evidence/run_gear_merge_04/previous-ci-state.json",
+    "docs/evidence/run_gear_merge_04/review.json"
+  ],
+  "deliverables": [
+    "tests/test_region_creative_direction.py",
+    "docs/evidence/run_gear_merge_04/README.md",
+    "docs/evidence/run_gear_merge_04/independent-review.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Concrete CI failure and actual current authority",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Actual original tests and different-author independent review",
+      "evidence": [
+        "run",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Bounded one-line binding and original rejection guards verified",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded one-line binding and original rejection guards verified",
+      "evidence": [
+        "run"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Bounded one-line binding and original rejection guards verified",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Test-only precise version expectation; no gameplay/art/device change",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "contract",
+      "scenario": "Every specialist uses the actual current creative-v17 authority",
+      "method": "Actual exact current-source original test and independent audit",
+      "expected": "Every specialist uses the actual current creative-v17 authority",
+      "failure": "Wrong authority version, missing rejection/stage check, source drift or nonzero exit",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded actual result, not complete CI claim",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "actual-tests",
+      "scenario": "All original10 tests pass without removing historical refusals or stage gates",
+      "method": "Actual exact current-source original test and independent audit",
+      "expected": "All original10 tests pass without removing historical refusals or stage gates",
+      "failure": "Wrong authority version, missing rejection/stage check, source drift or nonzero exit",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Bounded actual result, not complete CI claim",
+      "evidence": [
+        "run"
+      ]
+    },
+    {
+      "id": "independent",
+      "scenario": "Independent original CLI and real archive rejection, stable inputs",
+      "method": "Actual exact current-source original test and independent audit",
+      "expected": "Independent original CLI and real archive rejection, stable inputs",
+      "failure": "Wrong authority version, missing rejection/stage check, source drift or nonzero exit",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Bounded actual result, not complete CI claim",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/run_gear_merge_04/README.md",
+      "sha256": "f5e0e0a77c901720ca481d2f3802b3b1a70875fb60617f70abb5e57face1b6a6",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+      "content_version": "candidate-v1-creative-v17-test-binding",
+      "method": "Exact failing test and authorized merge scope",
+      "observed": "One precise version expectation, original stage/authority guards retained"
+    },
+    {
+      "id": "run",
+      "path": "docs/evidence/run_gear_merge_04/creative-harness-report.json",
+      "sha256": "4c135a4aced695617809e398d8a684a488a35bd95a359ce22470dfaf3be3e35c",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+      "content_version": "candidate-v1-creative-v17-test-binding",
+      "method": "Original Harness creative-direction-tests --release --jobs1",
+      "observed": "Passed original10 tests after actual reproduced1 failure",
+      "command": "python3 tools/harness.py --check creative-direction-tests --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Python3.12, original unittest CLI; explicitly hydrated original tracked knowledge/history"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/run_gear_merge_04/review.json",
+      "sha256": "27df4f34ebb0a312354f00f40d93a0143907f8decfd1d898536343fcfa3ce0a3",
+      "kind": "review",
+      "producer": "/root/merge_guard_review",
+      "source_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+      "content_version": "candidate-v1-creative-v17-test-binding",
+      "method": "Read-only source audit and independent original10 tests plus archive refusals",
+      "observed": "ACCEPT single test binding; independent10/0, exit0, stable source",
+      "reviewer": "/root/merge_guard_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Different read-only author made no production/test/tool changes and independently executed original tests and archive refusals",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Latest-head complete CI must pass before merge; old serial55 success alone is insufficient",
+    "Physical devices, players and new creative/art content are outside this test-only fix",
+    "Main merge and Pages publication remain separate actual actions"
+  ],
+  "test_change_justification": "The exact expected authority version creative-v16 is stale after the recorded technical rebinding to17. Only that one literal becomes17, not a dynamic self-comparison or relaxed acceptance. Different read-only reviewer independently ran the original10 tests and actual archive-v16 refusals, verified archived original bytes and original G2/content/no-formal-opening guards; see independent-review.md/review.json. Entire old CI failure retained.",
+  "production_snapshot": "8dac892b973e5829018d7fe388b8c2e031c8a0ba5bd0065cdc9516fbc9852b67"
+}

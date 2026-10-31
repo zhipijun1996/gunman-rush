@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "case": "feedback",
+      "exit_code": 0,
+      "report": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/audio_feedback_05.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 4.681066737000947,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      }
+    },
+    {
+      "case": "rewards",
+      "exit_code": 0,
+      "report": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/audio_feedback_rewards.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 7.951110120004159,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      }
+    },
+    {
+      "case": "selected",
+      "exit_code": 0,
+      "report": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/selected_sfx_runtime.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 6.746952706002048,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      }
+    },
+    {
+      "case": "previous-fix",
+      "exit_code": 0,
+      "report": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/audio_fix_03.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 4.882198755003628,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      }
+    }
+  ],
+  "status": "passed"
+}

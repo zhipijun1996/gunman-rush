@@ -82,6 +82,30 @@ func advance(delta: float) -> void:
 				break
 		queue_free()
 
+# WorldFreezeScope calls only this entry while ordinary processing is disabled.
+# Keep the same current-shape/terrain ordering as advance(), without changing
+# lifetime, trail, position, speed or visual age. The original coordinator's
+# signal still enforces its run/arena/attack ownership admission.
+func advance_frozen_contact() -> void:
+	if spent or not is_inside_tree() or not is_instance_valid(_target) or not is_instance_valid(_owner_body): return
+	var encounter := _owner_body.get_node_or_null("Encounter") as BossEncounter
+	if encounter != null and (not encounter.active or encounter.health.terminal or (encounter.has_method("combat_target_active") and not bool(encounter.call("combat_target_active")))): return
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = _shape
+	query.transform = Transform2D(0.0,global_position)
+	query.collision_mask = 1
+	query.exclude = [_owner_body.get_rid()]
+	var contacts := get_world_2d().direct_space_state.intersect_shape(query,8)
+	if contacts.is_empty(): return
+	# An overlapping wall wins even if the player is also in the shape.
+	if contacts.any(func(contact: Dictionary) -> bool: return contact.get("collider") != _target):
+		dispose()
+		return
+	spent = true
+	if _visible_attack(): UnderworldProjectileVisual.emit(self,global_position,direction,false,true)
+	hit.emit(_target,event_id,amount)
+	queue_free()
+
 func dispose() -> void:
 	if spent:
 		return

@@ -1,0 +1,112 @@
+{
+  "base": "cd4989a68613e0b457cdfd5e252634dd57008505",
+  "source_kind": "current uncommitted shared worktree overlay; source hashes taken after targeted tests, not relabeled as baseline",
+  "files": {
+    "scripts/art_foundation/pixel_formal_actors.gd": "fef7059a560ccb11e0b0cb4813d97bb1b39a1dc75ea3fd250cc75afc233e6bbc",
+    "scripts/bosses/bellstrider_presentation.gd": "2f9b87e5fb13f5248c9a5359b431409efd58caa95cdb95f538388c990be94b87",
+    "scripts/bosses/boss_presentation.gd": "5246f51a82199f1848e53492323a3ff382b37a4a65aae6e32e6e2f89c7bb7905",
+    "scripts/bosses/forest_boss_duel_presentation_v2.gd": "a5434143db16855e99796d195a920edd8f67dcd550a3d80c7cb73d8cd06fad41",
+    "scripts/bosses/thorn_forest_presentation.gd": "ee1a21cf6d79cf61da6a107eec2a2b6d0b0e68b20503db43a9fdc77b377ea72e",
+    "scripts/bosses/thorn_queen_canopy_presentation.gd": "d2e5fa35fc56f7a0736b1e79a0651d20bb997bc0caef8e25e9da1ff3a491fa3a",
+    "scripts/bosses/thorn_queen_weave_presentation.gd": "d05d0876ebeab3fe9fd9587e19cd4bd7279a42d9eecb9ff45b7f8d43c1e5f168",
+    "scripts/bosses/windkeeper_presentation.gd": "4eb14b418ba9733a9ed39e69b99590820b5ed2fe13dd9f6b8aedc253657e926c",
+    "scripts/enemies/enemy_feedback_01.gd": "b905e9ded3a2ceb14b488280cd8ced6b386bb013603c27c1dca829abd70ced27",
+    "scripts/enemies/enemy_feedback_01_particles.gd": "4addea8ebbbb25cdc1266935e36348d4e11851cbd9cb37d4af905b2be7b17f47",
+    "scripts/enemies/enemy_hit_template.gd": "2efe932e7d7dc985eb3a82e6bdcf52bbfd0351c3a3e47f6ca72c836831f4a9fe",
+    "scripts/enemies/enemy_presentation.gd": "ecbc27fb3f13ce0319158b16397398bc9844f9ab40af5c273fb925b4725eb728",
+    "scripts/enemies/forest_crossbranch_presentation.gd": "0f586da927d7415e15439b03b34e1a181401311bfe4c61183201921bf2e4538c",
+    "scripts/enemies/forest_depth_enemy_presentation.gd": "5b592efa1eb02ce682e78fb2d79ecdf883fb9c46e94a67f610640487dc224b4e",
+    "scripts/enemies/forest_enemy_presentation.gd": "370eb6f896a6ad5cfb8a04638dc5247e7b06b17e836a221eaf79939f776d5b5f",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd": "cb898579931c5643e105f6390e28e639036d7ad14b404fbb096418ad11c26156",
+    "scripts/enemies/prototype_enemy_presentation.gd": "7a85085304987b1fbef32ffc2a29a41af58faffc2b3b80729047aff57735e081",
+    "scripts/enemies/root_bell_presentation.gd": "cd64cbb8ccac367b2528363b29215e8d29023001c06ba1d1f4001983775d0ee9",
+    "scripts/presentation/forest_bible_actor_presentation.gd": "60a2d1bb8d6ac20646f65fb8df8c66b5a3dd093350ffe02276e8dff2a61447f7",
+    "scripts/underworld_plains/underworld_actors.gd": "81f093dd3434e0338908f155d56a1592f0bf469bda37550ea7d60e30a685ecaf",
+    "scripts/underworld_plains/underworld_enemy.gd": "f2467a1bdf27ab81bd252fe01c5014f67400182a86c27274933446a3e4d8eae7",
+    "tests/enemy_hit_template_pixels.gd": "3965edc1ebb9303f01fe8394d6b7754b824c6265a41ee5a6b1b8b642d6dcea1b",
+    "tests/enemy_hit_template_tests.gd": "41dee1a645071bd695b98a46fbb1d51067e61f47fc78e98b59541613b6cab6c4"
+  },
+  "native": {
+    "assertions": 426,
+    "cases": 30,
+    "ordinary_render_chains": 22,
+    "ordinary_species": 14,
+    "boss_scenes": 8,
+    "exit": 0
+  },
+  "actual_gl": {
+    "checks": 12,
+    "failures": [],
+    "rows": [
+      {
+        "body_changed": 920,
+        "hp_changed": 0,
+        "kind": "ordinary",
+        "particles_hidden_for_body_ablation": true,
+        "world_cue_changed": 0
+      },
+      {
+        "body_changed": 12174,
+        "kind": "boss",
+        "particles_hidden_for_body_ablation": true,
+        "weakpoint_ring_changed": 0,
+        "weakpoint_ring_pixels": 220,
+        "world_cue_changed": 0
+      }
+    ],
+    "scope": "actual GL body-only color isolation with clocks frozen and contact particles hidden; not device/player/battle approval"
+  },
+  "original_authored_wrapper": {
+    "case": "enemy-feedback-native",
+    "assertions": 458,
+    "failures": 0,
+    "exit": 0
+  },
+  "web_density_candidate": {
+    "assertions": 7,
+    "failures": 0,
+    "exit": 0
+  },
+  "web_density_baseline_counterexample": {
+    "assertions": 7,
+    "failures": 1,
+    "exit": 1,
+    "expected": true,
+    "log": "build/enemy_hit_template/dpr-baseline-stdout.log"
+  },
+  "clean_log_sha256": [
+    {
+      "path": "build/enemy_hit_template/stdout-third.log",
+      "sha256": "c3eadbe8758b5874d33dc1438faed93d1830ea769c838d18bf62752b47bb0332",
+      "error_lines": []
+    },
+    {
+      "path": "build/enemy_hit_template/pixels-second-stdout.log",
+      "sha256": "88d57b2cd592fee9c38db38de94d6d0fd50deb57e6e8ecf0e7058dc0844c8fd5",
+      "error_lines": []
+    },
+    {
+      "path": "build/enemy_hit_template/original-authored-wrapper.log",
+      "sha256": "60852a9a56de7702b672bf0c060a547c173b00628db5d9e76ebf20ef03fd15dd",
+      "error_lines": []
+    },
+    {
+      "path": "build/enemy_hit_template/dpr-stdout.log",
+      "sha256": "8a82d21ab4d87a335f102591c850bcb37f3d716aeacbc31d87ac2ac3e86d8f21",
+      "error_lines": []
+    }
+  ],
+  "prior_failed_logs_retained": [
+    "build/enemy_hit_template/stdout-first.log",
+    "build/enemy_hit_template/stdout-second.log",
+    "build/enemy_hit_template/pixels-first-stdout.log"
+  ],
+  "not_claimed": [
+    "natural campaign traversal",
+    "complete Boss battles",
+    "GPU/device performance",
+    "aesthetic/player approval",
+    "full Integration/Release"
+  ],
+  "native_window_released": true
+}

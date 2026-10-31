@@ -34,6 +34,21 @@ jobs:
           path: prepared-web
       - name: Reconstruct and verify the complete content-addressed PCK
         run: python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web
+      - name: Reconstruct the optional frozen audio comparison
+        run: |
+          if [ -f prepared-web/audio-before/build-info.json ]; then
+            python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/audio-before
+          fi
+      - name: Reconstruct the optional FPS investigation candidate
+        run: |
+          if [ -f prepared-web/perf-04/build-info.json ]; then
+            python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/perf-04
+          fi
+      - name: Reconstruct the optional action performance candidate
+        run: |
+          if [ -f prepared-web/perf-actions/build-info.json ]; then
+            python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/perf-actions
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: prepared-web

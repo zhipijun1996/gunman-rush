@@ -1,0 +1,1362 @@
+{
+  "schema_version": 1,
+  "task": "WINDKEEPER-PRESSURE-01",
+  "version": "windkeeper-pressure-audio-01",
+  "status": "candidate-awaiting-listening",
+  "sample_rate": 44100,
+  "channels": 1,
+  "bits": 16,
+  "peak_ceiling_dbfs": -6,
+  "processor_sha256": "9f88bb019bd17dda26a793b9ed21747c6fb0987fa49bee41d53d1bb4f2009a54",
+  "sources_sha256": "9a58ccb51ff5e4fe7557baa2cd6c1b7a3372e96f7d79f4f63c67f8c16f048a3e",
+  "cues": {
+    "stomp_warning": {
+      "path": "res://assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+      "duration_seconds": 0.48,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0,
+          "gain": 0.5,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.06,
+          "gain": 0.36,
+          "reverse": false,
+          "lowpass_hz": 2200
+        }
+      ],
+      "peak_normalized": 0.4040730147599458,
+      "rms_normalized": 0.060069750187947815,
+      "sha256": "469b49e2f8d1e4b3974676c149d7c5a281b54bf274a61da5c9375cf119e22bf7",
+      "bytes": 42380
+    },
+    "stomp_warning_double": {
+      "path": "res://assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+      "duration_seconds": 0.58,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.03,
+          "gain": 0.36,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.68,
+          "offset": 0.25,
+          "gain": 0.3,
+          "reverse": false,
+          "lowpass_hz": 2400
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.0673273527755013,
+      "sha256": "0a24418225e7573e4a99dbb7ca312a4d900e4068c49237d750c73a6028103956",
+      "bytes": 51200
+    },
+    "lunge_warning": {
+      "path": "res://assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+      "duration_seconds": 0.48,
+      "layers": [
+        {
+          "source": "cloth",
+          "start": 0.4,
+          "rate": 0.82,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.6,
+          "offset": 0.08,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.48,
+          "offset": 0.18,
+          "gain": 0.23,
+          "reverse": false,
+          "lowpass_hz": 1600
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.05150930379864641,
+      "sha256": "74407877f308f60a23b130cc5703070edcaeaf3e03988bd207ec1746ceaf0866",
+      "bytes": 42380
+    },
+    "sweep_warning": {
+      "path": "res://assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+      "duration_seconds": 0.52,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.85,
+          "offset": 0,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "blade",
+          "start": 0,
+          "rate": 0.65,
+          "offset": 0.12,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0.03,
+          "gain": 0.25,
+          "reverse": false,
+          "lowpass_hz": 2500
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.05744914199656315,
+      "sha256": "349252437639ace6c05efabe008b8a3f4bd4b1e7355038b6913b5f0913870a01",
+      "bytes": 45908
+    },
+    "gust_warning": {
+      "path": "res://assets/audio/windkeeper_pressure_01/gust_warning.wav",
+      "duration_seconds": 0.52,
+      "layers": [
+        {
+          "source": "wind",
+          "start": 2.1,
+          "rate": 0.85,
+          "offset": 0,
+          "gain": 0.62,
+          "reverse": true,
+          "lowpass_hz": 4200
+        },
+        {
+          "source": "cloth",
+          "start": 1.1,
+          "rate": 0.9,
+          "offset": 0.12,
+          "gain": 0.33,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.34869000584011245,
+      "rms_normalized": 0.07194208726856162,
+      "sha256": "2161a41853b81efb7111f5525e9828c2397f6cf1017aa8eb731eb88c3031fa24",
+      "bytes": 45908
+    },
+    "seeds_warning": {
+      "path": "res://assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+      "duration_seconds": 0.46,
+      "layers": [
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.92,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.84,
+          "offset": 0.12,
+          "gain": 0.43,
+          "reverse": false,
+          "lowpass_hz": 3300
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.04655604160239522,
+      "sha256": "21e191073363fb4f6d8f03b1bf0682d309dc06c709fe4ef4968ac291625c101e",
+      "bytes": 40616
+    },
+    "platform_warning": {
+      "path": "res://assets/audio/windkeeper_pressure_01/platform_warning.wav",
+      "duration_seconds": 0.6,
+      "layers": [
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.7,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.65,
+          "offset": 0.11,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.54,
+          "offset": 0.28,
+          "gain": 0.32,
+          "reverse": false,
+          "lowpass_hz": 2200
+        }
+      ],
+      "peak_normalized": 0.49325117728339585,
+      "rms_normalized": 0.061937603917769396,
+      "sha256": "7a2db5e9628f1498b9a1226c68bdbe691bf8708e7f43484c96e436386bfe60aa",
+      "bytes": 52964
+    },
+    "stomp_strike": {
+      "path": "res://assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+      "duration_seconds": 0.38,
+      "layers": [
+        {
+          "source": "stone",
+          "start": 0,
+          "rate": 0.75,
+          "offset": 0,
+          "gain": 0.7,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.62,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.63,
+          "offset": 0.025,
+          "gain": 0.25,
+          "reverse": false,
+          "lowpass_hz": 3000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03344901531662192,
+      "sha256": "0e5fdbc324f34a5411047a67c47dde50d2c8941f37234b0a6d010182e518d1b3",
+      "bytes": 33560
+    },
+    "lunge_start": {
+      "path": "res://assets/audio/windkeeper_pressure_01/lunge_start.wav",
+      "duration_seconds": 0.29,
+      "layers": [
+        {
+          "source": "cloth",
+          "start": 0.3,
+          "rate": 1.25,
+          "offset": 0,
+          "gain": 0.7,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.82,
+          "offset": 0,
+          "gain": 0.38,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.05900061880246741,
+      "sha256": "67e30b7f334b08a165b50d6b24a52f8ee08ff24d0f55c4543651331269e526ce",
+      "bytes": 25622
+    },
+    "lunge_land": {
+      "path": "res://assets/audio/windkeeper_pressure_01/lunge_land.wav",
+      "duration_seconds": 0.36,
+      "layers": [
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.55,
+          "offset": 0,
+          "gain": 0.65,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "stone",
+          "start": 0,
+          "rate": 0.84,
+          "offset": 0.025,
+          "gain": 0.38,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.85,
+          "offset": 0.09,
+          "gain": 0.26,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.0528896233160954,
+      "sha256": "1542c7f82d1fdfce5b96cd5387df141a4097007f304570b0ee5ce7691d3fedb4",
+      "bytes": 31796
+    },
+    "sweep_release": {
+      "path": "res://assets/audio/windkeeper_pressure_01/sweep_release.wav",
+      "duration_seconds": 0.4,
+      "layers": [
+        {
+          "source": "blade",
+          "start": 0,
+          "rate": 0.8,
+          "offset": 0,
+          "gain": 0.63,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "leaves",
+          "start": 0.08,
+          "rate": 1.45,
+          "offset": 0,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "metal",
+          "start": 0,
+          "rate": 0.75,
+          "offset": 0.07,
+          "gain": 0.22,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.04538363028776192,
+      "sha256": "16bfa82a2597142ae238af6eccb009445529c33f826d58a8078f5cb508c1c349",
+      "bytes": 35324
+    },
+    "gust_release": {
+      "path": "res://assets/audio/windkeeper_pressure_01/gust_release.wav",
+      "duration_seconds": 0.6,
+      "layers": [
+        {
+          "source": "wind",
+          "start": 5.8,
+          "rate": 1.65,
+          "offset": 0,
+          "gain": 0.8,
+          "reverse": false,
+          "lowpass_hz": 4500
+        },
+        {
+          "source": "cloth",
+          "start": 0.8,
+          "rate": 1.2,
+          "offset": 0,
+          "gain": 0.45,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.4960129338281959,
+      "rms_normalized": 0.1231546049898907,
+      "sha256": "cd45956ed053b4838b35ef4f19850fc8dd803ebb6d9403f0a3cbc033c8ea192c",
+      "bytes": 52964
+    },
+    "seeds_release": {
+      "path": "res://assets/audio/windkeeper_pressure_01/seeds_release.wav",
+      "duration_seconds": 0.28,
+      "layers": [
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 1.18,
+          "offset": 0,
+          "gain": 0.55,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "core",
+          "start": 0,
+          "rate": 1.18,
+          "offset": 0.02,
+          "gain": 0.22,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "blade",
+          "start": 0,
+          "rate": 1.35,
+          "offset": 0.045,
+          "gain": 0.32,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03022261518279552,
+      "sha256": "71773b6e5ca5948ec285193e8d945c1b41886860583f61eaa878a7f0e5666b2f",
+      "bytes": 24740
+    },
+    "platform_impact": {
+      "path": "res://assets/audio/windkeeper_pressure_01/platform_impact.wav",
+      "duration_seconds": 0.48,
+      "layers": [
+        {
+          "source": "stone",
+          "start": 0,
+          "rate": 0.68,
+          "offset": 0,
+          "gain": 0.67,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.02,
+          "gain": 0.55,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "metal",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.075,
+          "gain": 0.32,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03469926017532372,
+      "sha256": "6219b91c6299d6a2da33babdf10a2be96fb6c6d842f9b6f434ca4729009d3534",
+      "bytes": 42380
+    },
+    "link": {
+      "path": "res://assets/audio/windkeeper_pressure_01/link.wav",
+      "duration_seconds": 0.16,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 1.05,
+          "offset": 0,
+          "gain": 0.36,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "cloth",
+          "start": 0.3,
+          "rate": 1.5,
+          "offset": 0.025,
+          "gain": 0.24,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.31394064715922004,
+      "rms_normalized": 0.04690248245949074,
+      "sha256": "735656d3d9651bc6a6dd154f6921b03a2d10a9a8172965d63ebc54685d43809a",
+      "bytes": 14156
+    },
+    "recover": {
+      "path": "res://assets/audio/windkeeper_pressure_01/recover.wav",
+      "duration_seconds": 0.36,
+      "layers": [
+        {
+          "source": "cloth",
+          "start": 1.6,
+          "rate": 0.82,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.68,
+          "offset": 0.045,
+          "gain": 0.35,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.3061594916952959,
+      "rms_normalized": 0.06934465580372141,
+      "sha256": "0d39e3c78c331db97b5264ea2ebdc8118c590a2d176c69d3011bcf01a7b151a0",
+      "bytes": 31796
+    },
+    "phase": {
+      "path": "res://assets/audio/windkeeper_pressure_01/phase.wav",
+      "duration_seconds": 0.82,
+      "layers": [
+        {
+          "source": "cloth",
+          "start": 0.7,
+          "rate": 0.7,
+          "offset": 0,
+          "gain": 0.5,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.62,
+          "offset": 0.1,
+          "gain": 0.36,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.54,
+          "offset": 0.34,
+          "gain": 0.38,
+          "reverse": false,
+          "lowpass_hz": 2400
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.04083900241649831,
+      "sha256": "aaff9130da1a87aad5d0824e9c943700812d7fce02341ff373efe685f9ab4883",
+      "bytes": 72368
+    },
+    "hit": {
+      "path": "res://assets/audio/windkeeper_pressure_01/hit.wav",
+      "duration_seconds": 0.17,
+      "layers": [
+        {
+          "source": "metal",
+          "start": 0,
+          "rate": 0.92,
+          "offset": 0,
+          "gain": 0.68,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "core",
+          "start": 0,
+          "rate": 0.88,
+          "offset": 0.015,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.46719520262975084,
+      "rms_normalized": 0.08760726288579429,
+      "sha256": "726e17150ad7be43da15958efe0b585a728ebb045d6a001770e101e6b5cb56f4",
+      "bytes": 15038
+    },
+    "death": {
+      "path": "res://assets/audio/windkeeper_pressure_01/death.wav",
+      "duration_seconds": 0.46,
+      "layers": [
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.48,
+          "offset": 0,
+          "gain": 0.62,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "metal",
+          "start": 0,
+          "rate": 0.46,
+          "offset": 0.08,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.45,
+          "offset": 0.02,
+          "gain": 0.23,
+          "reverse": false,
+          "lowpass_hz": 1700
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.04354968772929781,
+      "sha256": "ccae69f87622ae697aaa1396297b8812127f74ac8b6a9959d3e600cb9809750a",
+      "bytes": 40616
+    },
+    "death_impact": {
+      "path": "res://assets/audio/windkeeper_pressure_01/death_impact.wav",
+      "duration_seconds": 0.58,
+      "layers": [
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.45,
+          "offset": 0,
+          "gain": 0.62,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "stone",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0,
+          "gain": 0.51,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "leaves",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0.15,
+          "gain": 0.28,
+          "reverse": false,
+          "lowpass_hz": 6000
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03889153247313492,
+      "sha256": "a61204f89f619ad5054f8343649b123debbaa92a7d8ffd3b42aeb2964a6b72f5",
+      "bytes": 51200
+    },
+    "death_final": {
+      "path": "res://assets/audio/windkeeper_pressure_01/death_final.wav",
+      "duration_seconds": 0.9,
+      "layers": [
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.69,
+          "offset": 0,
+          "gain": 0.43,
+          "reverse": false,
+          "lowpass_hz": 2700
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.56,
+          "offset": 0.22,
+          "gain": 0.28,
+          "reverse": false,
+          "lowpass_hz": 2300
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.43,
+          "offset": 0.43,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 1800
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03968772254502976,
+      "sha256": "2581c850b775706a622945bb0b683d225ae898e60e4dedaf20e819ddc80356c4",
+      "bytes": 79424
+    },
+    "stomp_warning_combo3": {
+      "path": "res://assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+      "duration_seconds": 0.48,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0,
+          "gain": 0.5,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.06,
+          "gain": 0.36,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.49999999999999994,
+          "offset": 0.32499999999999996,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.0730524602495658,
+      "sha256": "1ddae67702a9658100584b3f1ed4c7b79de3499d07cb3a5dcfa285344701bcf7",
+      "bytes": 42380
+    },
+    "lunge_warning_combo2": {
+      "path": "res://assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+      "duration_seconds": 0.48,
+      "layers": [
+        {
+          "source": "cloth",
+          "start": 0.4,
+          "rate": 0.82,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.6,
+          "offset": 0.08,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.48,
+          "offset": 0.18,
+          "gain": 0.23,
+          "reverse": false,
+          "lowpass_hz": 1600
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.04036471929384218,
+      "sha256": "feb7343af6770462c75ab43257ca51f7d049125ae0253f358257f0e349cbf350",
+      "bytes": 42380
+    },
+    "lunge_warning_combo3": {
+      "path": "res://assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+      "duration_seconds": 0.48,
+      "layers": [
+        {
+          "source": "cloth",
+          "start": 0.4,
+          "rate": 0.82,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.6,
+          "offset": 0.08,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.48,
+          "offset": 0.18,
+          "gain": 0.23,
+          "reverse": false,
+          "lowpass_hz": 1600
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.49999999999999994,
+          "offset": 0.32499999999999996,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.04058716305156173,
+      "sha256": "f5d133ed5cbf367e5ee357cf075ac47543ae5481a707b655b464b50484b78b87",
+      "bytes": 42380
+    },
+    "sweep_warning_combo2": {
+      "path": "res://assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+      "duration_seconds": 0.52,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.85,
+          "offset": 0,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "blade",
+          "start": 0,
+          "rate": 0.65,
+          "offset": 0.12,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0.03,
+          "gain": 0.25,
+          "reverse": false,
+          "lowpass_hz": 2500
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.06269055483321496,
+      "sha256": "f76633b3c11681305701e73def94c475e4a61e685ea0c5315bf364d943201f0e",
+      "bytes": 45908
+    },
+    "sweep_warning_combo3": {
+      "path": "res://assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav",
+      "duration_seconds": 0.52,
+      "layers": [
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.85,
+          "offset": 0,
+          "gain": 0.48,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "blade",
+          "start": 0,
+          "rate": 0.65,
+          "offset": 0.12,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.72,
+          "offset": 0.03,
+          "gain": 0.25,
+          "reverse": false,
+          "lowpass_hz": 2500
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.49999999999999994,
+          "offset": 0.32499999999999996,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.06296455248534451,
+      "sha256": "ac1b6716f91a067a72c681136bd170a4cb5b0c38695598d0180cf52ede559c0a",
+      "bytes": 45908
+    },
+    "gust_warning_combo2": {
+      "path": "res://assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+      "duration_seconds": 0.52,
+      "layers": [
+        {
+          "source": "wind",
+          "start": 2.1,
+          "rate": 0.85,
+          "offset": 0,
+          "gain": 0.62,
+          "reverse": true,
+          "lowpass_hz": 4200
+        },
+        {
+          "source": "cloth",
+          "start": 1.1,
+          "rate": 0.9,
+          "offset": 0.12,
+          "gain": 0.33,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.48220838983537495,
+      "rms_normalized": 0.09740530883692429,
+      "sha256": "d96801703ae2e0e0a27ea88a7f6aa18fba7c7e6f030973577a5e8f2544e8ff7c",
+      "bytes": 45908
+    },
+    "gust_warning_combo3": {
+      "path": "res://assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+      "duration_seconds": 0.52,
+      "layers": [
+        {
+          "source": "wind",
+          "start": 2.1,
+          "rate": 0.85,
+          "offset": 0,
+          "gain": 0.62,
+          "reverse": true,
+          "lowpass_hz": 4200
+        },
+        {
+          "source": "cloth",
+          "start": 1.1,
+          "rate": 0.9,
+          "offset": 0.12,
+          "gain": 0.33,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.49999999999999994,
+          "offset": 0.32499999999999996,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.48220838983537495,
+      "rms_normalized": 0.09751974940703245,
+      "sha256": "deacec891f0f927a5547191634833da187dfb9fd334491dc14e49af7d85d74fe",
+      "bytes": 45908
+    },
+    "seeds_warning_combo2": {
+      "path": "res://assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+      "duration_seconds": 0.46,
+      "layers": [
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.92,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.84,
+          "offset": 0.12,
+          "gain": 0.43,
+          "reverse": false,
+          "lowpass_hz": 3300
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03771224897994506,
+      "sha256": "71203d5c30800542318b652fef747b971e1a807c40c58ff410276f5879dd6589",
+      "bytes": 40616
+    },
+    "seeds_warning_combo3": {
+      "path": "res://assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+      "duration_seconds": 0.46,
+      "layers": [
+        {
+          "source": "spring",
+          "start": 0,
+          "rate": 0.92,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.84,
+          "offset": 0.12,
+          "gain": 0.43,
+          "reverse": false,
+          "lowpass_hz": 3300
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.49999999999999994,
+          "offset": 0.32499999999999996,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.03780951928454177,
+      "sha256": "0f323fcc86c4297cbbf0ed8c21d19902203ff39047330987bd5d0cabda1c736b",
+      "bytes": 40616
+    },
+    "platform_warning_combo2": {
+      "path": "res://assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+      "duration_seconds": 0.6,
+      "layers": [
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.7,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.65,
+          "offset": 0.11,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.54,
+          "offset": 0.28,
+          "gain": 0.32,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.05583523136166013,
+      "sha256": "11086aba243cd81f1c49ddbfda789ed571103a047b258295f9e77fb53d6059ba",
+      "bytes": 52964
+    },
+    "platform_warning_combo3": {
+      "path": "res://assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+      "duration_seconds": 0.6,
+      "layers": [
+        {
+          "source": "wood",
+          "start": 0,
+          "rate": 0.7,
+          "offset": 0,
+          "gain": 0.42,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "chain",
+          "start": 0,
+          "rate": 0.65,
+          "offset": 0.11,
+          "gain": 0.4,
+          "reverse": false,
+          "lowpass_hz": 6000
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.54,
+          "offset": 0.28,
+          "gain": 0.32,
+          "reverse": false,
+          "lowpass_hz": 2200
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.58,
+          "offset": 0.035,
+          "gain": 0.2,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.5399999999999999,
+          "offset": 0.18,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        },
+        {
+          "source": "bell",
+          "start": 0,
+          "rate": 0.49999999999999994,
+          "offset": 0.32499999999999996,
+          "gain": 0.16,
+          "reverse": false,
+          "lowpass_hz": 2200,
+          "length_seconds": 0.12
+        }
+      ],
+      "peak_normalized": 0.5011872336272722,
+      "rms_normalized": 0.05615899289437182,
+      "sha256": "f90d67e2d43800f4c4cdaa16e65540497c1dce12af5a6c45029ffd975924bff4",
+      "bytes": 52964
+    }
+  },
+  "runtime": "Existing GameAudio12voice pool; accepted encounter events only; no BGM/player/default bank edits."
+}

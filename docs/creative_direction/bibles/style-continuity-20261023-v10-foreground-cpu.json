@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "authority_id": "project_shared_regional_style",
+  "version": "10",
+  "source": {
+    "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
+    "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
+    "scope": "Both direct user corrections apply to all later region creation, optimization and proposed Bibles. Preserve the active project style; regional identity varies within that family. Not acceptance of future visual output/devices.",
+    "additional_quote": "同时后续区域不要出类似的问题",
+    "global_style_selection_quote": "细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。然后我发现家园的房子或者树和地面不贴合，需要修复",
+    "global_style_selection_source": "Direct user message in current root conversation, 2026-10-22; manually retained by root, not an API export",
+    "default_player_selection_quote": "人物按照新的进行默认，后续在家园的“衣装守护者”处更换人物（改个合适的名字）",
+    "default_player_selection_source": "Direct user message in root conversation, 2026-10-23; direction and adoption authorization, not future aesthetic/device acceptance"
+  },
+  "mode": "shared_project_style_with_regional_variation",
+  "shared_dimensions": {
+    "pixel_scale": "用户已明确选细粒度：正式地形原生32px/32wu，世界表现统一1wu采样和nearest；从高分母版提取细源，不能把旧16px放大当细源。角色、建筑、装饰及前后景按同一1wu屏幕采样；字体/HUD保持清晰。历史实验不追改。",
+    "adjacency_and_boundary": "继承同一47-mask邻接语义、核心TileMap与非整格exact-boundary adapter，保留solid/one-way/moving和危险语义；不为图改变碰撞，也不把精确边界冒称全网格。",
+    "lighting_outline_material": "保留Underworld家族角色、材质与轮廓语言，在统一1wu网格下采用克制暖点光、冷灰空气透视；各层用明度/饱和度/轮廓/细节和视差区分。不能靠细碎噪声与满屏装饰代替构图。",
+    "regional_variation": "森林差异来自树皮、苔藓、荆棘、有机根枝结构与区域色域；制作与正式平原同族的新材料/边界矩阵，不把平原岩石换色冒称森林。"
+  },
+  "historical_boundary": "旧提案或失败实现不自动约束新区域；这不等于抛弃正式平原仍在实际使用的Underworld tileset家族。保留原许可/来源、正式消费者和已有效的公共接口。",
+  "runtime_reference": {
+    "region_id": "windchime_plains",
+    "status": "formal_home_and_region_consumers_integrated_candidate_not_user_art_acceptance",
+    "tile_px": 32,
+    "world_tile_wu": 32,
+    "terrain_mode": "blob47_core_with_exact_boundary_adapter",
+    "references": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6"
+      },
+      {
+        "role": "terrain_consumer",
+        "path": "scripts/art/plains_terrain_study.gd",
+        "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+      },
+      {
+        "role": "terrain_renderer",
+        "path": "scripts/underworld_plains/underworld_terrain.gd",
+        "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f"
+      },
+      {
+        "role": "material_shader",
+        "path": "shaders/formal_fine_boundary.gdshader",
+        "sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2"
+      },
+      {
+        "role": "tile_build",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410"
+      },
+      {
+        "role": "tileset",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.tres",
+        "sha256": "bb2b0b8bbb967144f338f06852817c25088cb4697a3719898de168fef28f34b9"
+      },
+      {
+        "role": "atlas",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de"
+      },
+      {
+        "role": "source_pixels",
+        "path": "assets/underworld_plains/terrain/fine_32/source.png",
+        "sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431"
+      },
+      {
+        "role": "adjacency",
+        "path": "scripts/art_foundation/blob47_rules.gd",
+        "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6"
+      },
+      {
+        "role": "boundary",
+        "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+        "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225"
+      },
+      {
+        "role": "boundary_sides",
+        "path": "scripts/art/plains_terrain_borders.gd",
+        "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34"
+      },
+      {
+        "role": "license",
+        "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270"
+      },
+      {
+        "role": "player_style_reference",
+        "path": "scripts/underworld_plains/underworld_player.gd",
+        "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127"
+      },
+      {
+        "role": "player_animation_build",
+        "path": "assets/underworld_plains/player_animation/animation_build.json",
+        "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3"
+      },
+      {
+        "role": "player_run_pixels",
+        "path": "assets/underworld_plains/player_animation/run_sheet.png",
+        "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27"
+      },
+      {
+        "role": "player_state_pixels",
+        "path": "assets/underworld_plains/player_animation/states_sheet.png",
+        "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+      },
+      {
+        "role": "core_material",
+        "path": "shaders/formal_fine_lit.gdshader",
+        "sha256": "26c22d0245301c575256ee94590f3d39819f1ea0fa25537cc98df28f5181ff39"
+      },
+      {
+        "role": "world_presentation",
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+      },
+      {
+        "role": "sprite_grid",
+        "path": "shaders/underworld_fine_sprite.gdshader",
+        "sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188"
+      },
+      {
+        "role": "fine_source_provenance",
+        "path": "assets/authored_terrain_study/provenance.json",
+        "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a"
+      },
+      {
+        "role": "default_player_1",
+        "path": "scripts/art/player_presentation_runtime.gd",
+        "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91"
+      },
+      {
+        "role": "default_player_2",
+        "path": "scripts/art/avatar_presentation.gd",
+        "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437"
+      },
+      {
+        "role": "default_player_3",
+        "path": "resources/art/avatars.json",
+        "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65"
+      },
+      {
+        "role": "default_player_4",
+        "path": "scripts/demo/demo_app.gd",
+        "sha256": "088c0c1457a958ca175087a970010db2fe23098cf18f6a3f9475d5e4349e62cd"
+      },
+      {
+        "role": "default_player_5",
+        "path": "scripts/demo/home_scene.gd",
+        "sha256": "1a8052e270fa7f4d6723295c70a44c9b6cf2a7fab2059988c92f8dd1d414ea1e"
+      },
+      {
+        "role": "default_player_6",
+        "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+        "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f"
+      },
+      {
+        "role": "default_player_7",
+        "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+        "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77"
+      },
+      {
+        "role": "default_player_8",
+        "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+        "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+      },
+      {
+        "role": "default_player_9",
+        "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+        "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138"
+      },
+      {
+        "role": "default_player_10",
+        "path": "resources/player_presentation_01/motion_v1.tres",
+        "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688"
+      },
+      {
+        "role": "default_player_11",
+        "path": "resources/player_presentation_01/motion_clip_data.gd",
+        "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154"
+      },
+      {
+        "role": "default_player_12",
+        "path": "resources/player_presentation_01/landing_screen.gdshader",
+        "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c"
+      },
+      {
+        "role": "default_player_13",
+        "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+        "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1"
+      },
+      {
+        "role": "default_player_14",
+        "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+        "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50"
+      },
+      {
+        "role": "default_player_15",
+        "path": "assets/player_presentation_01/motion_v1/motion_source.png",
+        "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280"
+      },
+      {
+        "role": "default_player_16",
+        "path": "assets/player_presentation_01/motion_v1/idle_fall.json",
+        "sha256": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+      }
+    ],
+    "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
+  },
+  "validation": "Supplement or any shared reference SHA drift blocks new calls and resumes; versioned impact analysis/rebind and fresh affected technical/visual evidence required. Original Bible bytes and old receipts remain unchanged. Cross-region actual golden comparison is required before expanding new regional materials; metadata and hashes never sign visual acceptance.",
+  "applies_to": "all_region_create_optimize_and_proposed_bibles",
+  "original_bible_regions": [
+    "windchime_plains",
+    "thorn_forest"
+  ],
+  "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
+  "supersedes": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+    "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
+    "reason": "Actual foreground CPU repair; no pixel, physics or budget changes."
+  },
+  "revision_impact": {
+    "task_id": "FOUR-LINE-INTEGRATION-01",
+    "trigger": "Measured foreground duplicate automatic refresh and repeated geometry work",
+    "changed_references": [
+      {
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "old_sha256": "f12f7687ff971ae054396f4ad76afc8878f36e9d8d19ceae005fd8a503a7b367",
+        "new_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+      }
+    ],
+    "added_references": [],
+    "preserved_contracts": [
+      "Other35 runtime references, source quotes, pixel specifications and original Bible bytes unchanged",
+      "Manual/ready refresh defaults remain immediate; foreground late priority2000 remains authoritative"
+    ],
+    "impact": "Automatic early refresh removed; sticky admission/entered-view/retirement timing is not claimed equivalent. Per-protection geometry snapshot and disjoint-mask skip retain mask semantics. No aesthetic/device/G5 acceptance.",
+    "required_revalidation": [
+      "Original Bible32/direction10 tests and stale binding refusal",
+      "Full creative direction check",
+      "Original foreground continuity suite, pure-helper differential, same-condition native measurement and affected formal consumers"
+    ],
+    "validation_status": "Technical evidence is recorded separately against exact source; full80/CI, art and device outcomes not inferred."
+  }
+}

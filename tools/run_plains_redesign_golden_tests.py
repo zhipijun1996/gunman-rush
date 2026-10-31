@@ -3,6 +3,7 @@
 Each run has a new directory; failures and original traces are never overwritten.
 This is a development fixture, not formal region/visual/device admission.
 """
+import argparse
 import hashlib
 import itertools
 import json
@@ -28,7 +29,7 @@ def sources():
     return result
 
 
-def validate_phrases(o):
+def validate_phrases(o, historical=True):
     """Bind both complete legs to frames and accepted physical transactions."""
     frames, events = o['frames'], o['events']
     initial=frames[0]
@@ -59,8 +60,12 @@ def validate_phrases(o):
                 assert f['grounded'] and all(f['support']) and math.dist(f['position'],e['position'])<.001, 'actual supported landing frame'
             for shot in shots:
                 spends=[e for e in ev if e['kind']=='energy_transaction' and e['event_id']==f"shot/{initial['session_id']}/{shot['shot_id']}"]
-                assert len(spends)==1 and spends[0]['tick']==shot['tick'] and spends[0]['status']==0 and spends[0]['operation']=='consume'
-                assert spends[0]['amount']==-initial['shot_cost'] and spends[0]['current']==shot['energy']==frames[shot['tick']]['energy'], 'same-shot resource transaction'
+                if historical:
+                    assert len(spends)==1 and spends[0]['tick']==shot['tick'] and spends[0]['status']==0 and spends[0]['operation']=='consume'
+                    assert spends[0]['amount']==-initial['shot_cost'] and spends[0]['current']==shot['energy']==frames[shot['tick']]['energy'], 'same-shot resource transaction'
+                else:
+                    assert not spends and shot['energy']==frames[shot['tick']-1]['energy']==frames[shot['tick']]['energy'], 'current shot never debits focus energy'
+                    assert shot['charges']==(initial['max_air_shots'] if frames[shot['tick']]['grounded'] else initial['max_air_shots']-1), 'current actual charge consumption'
                 assert shot['recoil_remaining']>0 and frames[shot['tick']]['recoil_remaining']>0, 'accepted shot native recoil'
             assert not any(e['kind']=='energy_transaction' and e['event_id'].startswith('hit/') for e in ev), 'no enemy-hit recovery'
             if module in ['plains_recoil_step','plains_windchime_well','plains_low_arch']:
@@ -117,12 +122,13 @@ def validate_phrases(o):
     assert all(e['phrase'] in labels or e['phrase']=='initial' for e in events), 'assigned itinerary events'
 
 
-def validate_positive(data):
+def validate_positive(data, historical=True):
     observations = data.get('observations', [])
     expected = set(itertools.product(('main', 'high'), (True, False), (True, False), (0, .125, .25, .375, .5, .625, .75, .875)))
     actual = [(o['kind'], o['forward_entry'], o['low_initial_energy'], o['phase']) for o in observations]
     assert len(actual) == len(expected) and set(actual) == expected, 'complete unique phase/direction/energy matrix'
     assert data['failures'] == 0 and not data['broken_bank'] and not data['smoke']
+    assert data['historical_d079'] is historical and data['production_pool'] is False, 'explicit development-fixture policy identity'
     for o in observations:
         frames, events = o['frames'], o['events']
         assert frames[0]['energy'] == (0 if o['low_initial_energy'] else frames[0]['energy_capacity'])
@@ -134,7 +140,8 @@ def validate_positive(data):
         assert {f['weapon'] for f in frames} == {'pulse_gun'}, 'single unchanged actual base weapon'
         assert all(f['max_jumps']==1 and not f['hook_enabled'] and not f['wall_enabled'] for f in frames), 'actual S1 capability boundary'
         assert len(o['legs']) == 2 and all(l['reached'] for l in o['legs'])
-        validate_phrases(o)
+        assert all(f['max_air_shots']==(2 if historical else 1) and f['shooting_consumes_energy'] is historical for f in frames), 'explicit historical/current policy boundary'
+        validate_phrases(o, historical)
         assert o['shots'] == len([e for e in events if e['kind']=='accepted_shot'])
         accepted_shots = [e for e in events if e['kind']=='accepted_shot']
         assert [e['shot_id'] for e in accepted_shots] == list(range(1,len(accepted_shots)+1))
@@ -158,15 +165,21 @@ def validate_positive(data):
                     commits = [e for e in ev if e['kind']=='latch_committed']
                     assert len(shots)==1 and len(commits)==1 and len(jumps)==1 and landings
                     shot,commit = shots[0],commits[0]
-                    assert shot['direction'][1]>.9 and shot['charges']==1 and shot['recoil_remaining']>0
+                    if historical:
+                        assert shot['direction'][1]>.9 and shot['charges']==1 and shot['recoil_remaining']>0
+                    else:
+                        assert shot['direction'][1]>.9 and shot['charges']==0 and shot['recoil_remaining']>0
                     assert jumps[0]['tick']<shot['tick']<=commit['tick']<landings[-1]['tick']
                     assert commit['gate_disabled'] and commit['open_count']==1
                     health = [e for e in ev if e['kind']=='latch_health_commit']
                     assert len(health)==1 and health[0]['event_id']==f"{frames[0]['motor_id']}:{frames[0]['session_id']}:{shot['shot_id']}"
                     assert health[0]['operation']=='damage' and health[0]['status']==0 and health[0]['current']==0
                     spends = [e for e in ev if e['kind']=='energy_transaction' and e['operation']=='consume']
-                    assert len(spends)==1 and spends[0]['event_id']==f"shot/{frames[0]['session_id']}/{shot['shot_id']}"
-                    assert spends[0]['amount']==-frames[0]['shot_cost']
+                    if historical:
+                        assert len(spends)==1 and spends[0]['event_id']==f"shot/{frames[0]['session_id']}/{shot['shot_id']}"
+                        assert spends[0]['amount']==-frames[0]['shot_cost']
+                    else:
+                        assert not spends, 'current mechanism shot has no focus debit'
                     assert not any(e['kind']=='energy_transaction' and e['event_id'].startswith('hit/') for e in ev), 'mechanism hit never grants enemy recovery'
                     following = [f for f in frames if shot['tick']<f['tick']<=shot['tick']+10]
                     assert any(f['recoil_velocity'][1]<0 and f['recoil_remaining']>0 for f in following)
@@ -183,14 +196,22 @@ def validate_positive(data):
             assert any(a['motion_clock']==b['motion_clock'] and a['platform_position']==b['platform_position'] for a,b in zip(parked,parked[1:]))
             assert max(f['open_count'] for f in moving)>=5, 'real park/restart in both directions'
     controls = data.get('controls', [])
-    assert {c['kind'] for c in controls} == {'air_low_energy','cooldown_guard'}
+    if historical:
+        assert {c['kind'] for c in controls} == {'air_low_energy','cooldown_guard'}
+    else:
+        assert {c['kind'] for c in controls} == {'current_free_air_shot','cooldown_guard'}
     for c in controls:
         ev = c['events']
         shots = [e for e in ev if e['kind']=='accepted_shot']
         rejected = [e for e in ev if e['kind']=='rejected_shot']
         assert all(f['safe'] and f['continuous'] for f in c['frames'])
         assert not any(e['kind']=='latch_committed' for e in ev)
-        if c['kind']=='air_low_energy':
+        if c['kind']=='current_free_air_shot':
+            assert not historical and c['initial']['energy']==0 and len(shots)==1 and shots[0]['energy']==0 and shots[0]['charges']==0
+            assert any(e['reason']=='empty' for e in rejected), 'one air charge remains enforced after cooldown'
+            assert c['focus_after']>c['focus_before'] and c['final']['grounded'] and c['final']['shot_charges']==1, 'real ground focus recovery and landing reset'
+            assert not any(e['kind']=='energy_transaction' and e['event_id'].startswith('shot/') for e in ev), 'no shot focus consumption'
+        elif c['kind']=='air_low_energy':
             assert c['initial']['energy']==0 and not shots and any(e['reason']=='energy' for e in rejected)
         else:
             assert len(shots)==1 and any(e['reason']=='cooldown' for e in rejected)
@@ -247,17 +268,48 @@ def validate_rejections(data):
     return results
 
 
+def validate_current_rejections(data):
+    results=[]
+    high=next(o for o in data['observations'] if o['kind']=='high' and o['forward_entry'])
+    def probe(name,obj,key,value):
+        old=obj[key];obj[key]=value
+        try:
+            validate_positive(data, False)
+            rejected=False
+        except (AssertionError,KeyError,ValueError,StopIteration,TypeError,IndexError):
+            rejected=True
+        finally:
+            obj[key]=old
+        results.append({'mode':name,'rejected':rejected})
+    shot=next(e for e in high['events'] if e['kind']=='accepted_shot')
+    probe('current_false_air_charge',shot,'charges',1)
+    probe('current_false_energy_debit',shot,'energy',-1)
+    probe('current_missing_actual_input',high,'events',[e for e in high['events'] if not (e['kind']=='input_request' and e['action']=='shoot_release')])
+    probe('current_missing_health_receipt',high,'events',[e for e in high['events'] if e['kind']!='latch_health_commit'])
+    probe('current_unsafe_frame',high['frames'][5],'safe',False)
+    assert all(r['rejected'] for r in results), 'current evidence corruption escaped'
+    validate_positive(data, False)
+    return results
+
+
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--with-legacy',action='store_true',help='Also execute historical D079 64-case matrix and its original refusals')
+    args=parser.parse_args()
     base = REPO/'build/plains_redesign/golden'
     base.mkdir(parents=True, exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix='run_',dir=base))
     before = sources()
     report = {'status':'failed','source_before':before,'source_after':None,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),'runs':[],'scope':'G0/G1 development fixture; production_pool=false; enemy/visual/device/player proof unverified'}
+    report['with_legacy']=args.with_legacy
+    report['not_run']=[] if args.with_legacy else ['historical_d079_64_case_matrix','historical_d079_deleted_bank_negative','historical_d079_11_validator_refusals']
+    report['scope']='Current R3 one-shot/free-shot 64-case development fixture'+(' plus explicit historical D079 regression' if args.with_legacy else '; legacy not executed')+'; production_pool=false; formal region/enemy/visual/device proof unverified'
     try:
-        for negative in (False,True):
-            name='deleted_bank_negative' if negative else 'positive'
+        for historical, negative in itertools.product((True,False) if args.with_legacy else (False,),(False,True)):
+            name=('historical_d079_' if historical else 'current_r3_')+('deleted_bank_negative' if negative else 'positive')
             output=folder/(name+'.json'); log=folder/(name+'.log')
             command=['bash',str(REPO/'tools/godot.sh'),'--headless','--fixed-fps','60','--path',str(REPO),'--script','tests/plains_redesign_golden_runner.gd','--','--output='+str(output)]
+            if historical: command.append('--historical-d079')
             if negative: command.append('--delete-far-bank')
             process=harness.run_check({'argv':command,'timeout_seconds':180,'success_pattern':r'^PLAINS REDESIGN GOLDEN: [1-9]\d* assertions, 0 failures$'},log,REPO)
             raw=json.loads(output.read_text()) if output.is_file() else {}
@@ -273,15 +325,15 @@ def main():
                     assert any(e['kind']=='accepted_jump' for e in raw['observations'][0]['events'])
                 else:
                     assert process['status']=='passed'
-                    validate_positive(raw)
-                    rejections=validate_rejections(raw)
-                    regression_output=folder/'validator_rejections.json'
+                    validate_positive(raw, historical)
+                    rejections=validate_rejections(raw) if historical else validate_current_rejections(raw)
+                    regression_output=folder/(name+'_validator_rejections.json')
                     regression_output.write_text(json.dumps({'source_output':str(output.relative_to(REPO)),'source_output_sha256':digest(output),'results':rejections},indent=2)+'\n')
-                    report['validator_rejections']={'path':str(regression_output.relative_to(REPO)),'sha256':digest(regression_output),'cases':len(rejections),'all_rejected':True}
+                    report.setdefault('validator_rejections',[]).append({'path':str(regression_output.relative_to(REPO)),'sha256':digest(regression_output),'cases':len(rejections),'all_rejected':True})
                 valid=True
             except (AssertionError,KeyError,ValueError,StopIteration,TypeError,IndexError) as exc:
                 error=str(exc) or type(exc).__name__
-            report['runs'].append({'command':command,'process':process,'expected_exit_code':1 if negative else 0,'expected_rejection':negative,'validated':valid,'validation_error':error,'output':str(output.relative_to(REPO)),'output_sha256':digest(output) if output.is_file() else None,'log':str(log.relative_to(REPO)),'log_sha256':digest(log)})
+            report['runs'].append({'command':command,'process':process,'expected_exit_code':1 if negative else 0,'expected_rejection':negative,'historical_d079':historical,'validated':valid,'validation_error':error,'output':str(output.relative_to(REPO)),'output_sha256':digest(output) if output.is_file() else None,'log':str(log.relative_to(REPO)),'log_sha256':digest(log)})
             if not valid: raise RuntimeError(f'{name}: real proof failed ({error}); retained {folder}')
         report['source_after']=sources()
         assert report['source_after']==before, 'source changed during actual run'

@@ -1,0 +1,174 @@
+{
+  "scope": "Independent read-only compatibility review, no Godot/browser execution or performance/audio taste approval",
+  "base": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "pr120_head": "11f910f0acd83e353262bdb350d4ece83312985a",
+  "pr121_head": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+  "decision": "ACCEPT",
+  "acceptance_scope": "Static implementation compatibility only; actual combined exact-head full CI remains required before normal merging. User-selected hurt A adoption and final combined commit are owned by root and are not re-labelled into these reviewed PR heads.",
+  "production_changes_pr120": [
+    "scripts/underworld_plains/underworld_foreground.gd"
+  ],
+  "overlap_requires_document_merge": [
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md"
+  ],
+  "source_bindings": {
+    "foreground_sha256": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4",
+    "formal_wrapper_sha256": "fd9f34e0add38a5b0883b03843f7fef3ea9edac60a92f0a0504a13ab1bcd27fe",
+    "cache_test_sha256": "416408b97a9a9d89c18e1eb3e77980bc2623ca6657138ef1a7e6b6b92dababf2",
+    "workflow_sha256": "45ff3335703edea59c83923394cbcf20fe37ed9cbd44fce259c20a5c4515ea85",
+    "style21_sha256": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de"
+  },
+  "findings": [
+    "No blocking audio/physics/resources/save/UID or source-merge conflict found in these exact two PR heads.",
+    "The only new foreground state is per-instance fixed Rect2 prefix cache; all ordered _fixed_world/canvas/viewport keys are exact. Copies restore protect/static/source_counts/sticky overflow, then unchanged dynamic/player/UI/collision/trail/reward masks run each frame.",
+    "Trail property fast path only accepts exact native Node2D with GDScript native Node2D and no inherited dynamic/validator hooks. Other instances use the original full property list. All subsequent trail values are still read live; weak tracking and removal remain. This code only computes visual masks and calls no audio playback/stop or gameplay/save/physics writes.",
+    "PR121 GameAudio/GameMusic players are native Node services, not Node2D trail candidates. The only modified weapon file is audio presentation; projectile scripts and their real schema classes remain unchanged.",
+    "No PR120 file is in the current81 style21 runtime references; all81 hashes independently verified against the two-head source union. No new creative rebind follows from this foreground path.",
+    "Source/resource/scene/config/audio assets and existing foreground UID are unchanged by PR120. The workflow changes add fail-closed optional candidate subdirectories and preserve all original steps/permissions/ref/concurrency/budget text.",
+    "The formal wrapper retains its original two-map invocation/marker/strict run_engine and total120s deadline; only remaining time is passed to the new cache suite. Actual combined timing remains unverified.",
+    "Only three task/context documents overlap; their current audio and performance authorization/failures/next steps must both be retained when root resolves them."
+  ],
+  "independent_wrapper_mock_controls": [
+    {
+      "case": "both actual completion markers accepted under original total120",
+      "accepted": true,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        },
+        {
+          "script": "tests/underworld_plains/test_foreground_fixed_cache.gd",
+          "budget": 109
+        }
+      ],
+      "failure": null
+    },
+    {
+      "case": "missing original formal marker rejects before new test",
+      "accepted": false,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        }
+      ],
+      "failure": "RuntimeError: Missing actual formal two-map consumer completion"
+    },
+    {
+      "case": "bad new cache failure marker rejects",
+      "accepted": false,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        },
+        {
+          "script": "tests/underworld_plains/test_foreground_fixed_cache.gd",
+          "budget": 109
+        }
+      ],
+      "failure": "RuntimeError: Missing actual foreground cache equivalence completion"
+    },
+    {
+      "case": "empty new completion marker rejects",
+      "accepted": false,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        },
+        {
+          "script": "tests/underworld_plains/test_foreground_fixed_cache.gd",
+          "budget": 109
+        }
+      ],
+      "failure": "RuntimeError: Missing actual foreground cache equivalence completion"
+    },
+    {
+      "case": "exhausted original deadline rejects before added test",
+      "accepted": false,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        }
+      ],
+      "failure": "RuntimeError: Original formal consumer time budget exhausted"
+    },
+    {
+      "case": "original strict engine exception propagates",
+      "accepted": false,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        }
+      ],
+      "failure": "RuntimeError: engine ERROR fixture"
+    },
+    {
+      "case": "new engine timeout propagates",
+      "accepted": false,
+      "calls": [
+        {
+          "script": "tests/underworld_plains/test_underworld_formal.gd",
+          "budget": 120
+        },
+        {
+          "script": "tests/underworld_plains/test_foreground_fixed_cache.gd",
+          "budget": 109
+        }
+      ],
+      "failure": "TimeoutError: new engine timeout fixture"
+    }
+  ],
+  "existing_pr120_native_receipts_inspected": [
+    {
+      "path": "docs/evidence/mobile_web_fps_04/native-cache-1793326121-6939431/report.json",
+      "checks": 383,
+      "failure_count": 0,
+      "source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+      "trail_cases": 0
+    },
+    {
+      "path": "docs/evidence/mobile_web_fps_04/native-cache-1793326169-6291915/report.json",
+      "checks": 383,
+      "failure_count": 0,
+      "source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+      "trail_cases": 0
+    }
+  ],
+  "actual_engine_run_by_reviewer": false,
+  "style_references_verified_against_union": 81,
+  "entire_original_foreground_restored_after_reversing_only_reviewed_substitutions": true,
+  "requirements_before_merge": [
+    "Normal exact-head checks on the combined source, including full166 in the current PR121 inventory, remain mandatory; neither old isolated PR CI nor this static review proves the combined run.",
+    "The added foreground test and audio/BGM consumers must retain their original assertions, strict exits and budgets; do not extend120 just because it now includes both suites.",
+    "Keep original frozen05/06 reviews and historical failures/source SHAs unchanged; record later combination/user hurt-A selection separately.",
+    "Actual mobile FPS, GPU/audio underrun/perceived quality, physical devices and natural long playthrough are not signed."
+  ],
+  "actual_current_PR120_formal_receipt_inspected": {
+    "report_path": "docs/evidence/mobile_web_fps_04/actions/formal-harness/report.json",
+    "report_sha256": "8d6800c3c0e1d8b1f368e62291cbfc3aea397ae4a12e2f3b455c3a02aecb76c6",
+    "log_path": "docs/evidence/mobile_web_fps_04/actions/formal-harness/underworld-formal.log",
+    "log_sha256": "5a8c83a35d162d47a1122af29b09f6311c27bf526b44257bacba7dead95c80dd",
+    "producer_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+    "foreground_test_and_wrapper_git_blobs_exactly_equal_PR120_head": {
+      "scripts/underworld_plains/underworld_foreground.gd": true,
+      "tests/underworld_plains/test_foreground_fixed_cache.gd": true,
+      "tools/run_underworld_formal_tests.py": true
+    },
+    "status": "passed",
+    "exit_code": 0,
+    "reused": false,
+    "formal_checks": 96,
+    "cache_checks": 444,
+    "check_duration_seconds": 27.605,
+    "reported_dirty_path": "M tests/support/forest_queen_canopy_fixture.gd.uid",
+    "limitation": "The historical eec run explicitly records a regenerated test fixture UID. This is not rewritten as a clean11f combined run; current two-head compatibility is independently assessed statically and actual combined CI remains required."
+  },
+  "existing_pr120_native_receipts_scope": "The two383 receipts predate the trail-schema optimization and retain their actual61acf source fingerprint. They supplement prefix history only;444 current-source receipt is separately bound above."
+}

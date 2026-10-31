@@ -1,0 +1,9 @@
+# Formal loot guard migration: direction review
+
+Accept the proposed direction only; actual before/after diagnosis and source review are pending. Review is read-only at source96bf. Original formal66 labels/waits45+130, Router shots, one death, effects, generated Manifest, corpse/reload ownership and original byte-reload equality must remain.
+
+Keep every non-units payout field and unknown key exact. For units, retain all identities, amount/kind/source/safe/keysets/order/count and per-kind sums. Permit only the snapshot physical fields that actual diagnosis proves change. Validate finite types/vectors, bounded age progression, no reset, and complete live/persisted ID correspondence across every drop—not just the primary ID or selected enemy. Claimed must be monotonic and match region.claimed and the exact coin grant receipt. RunWallet.grant returning true is insufficient because it returns true for existing same-amount receipt IDs: compare the complete ledger and balance deltas and map new grants to real newly claimed units. Account for genuine existing non-drop pickups if they occur in the fixture.
+
+Retain meaningful mutation refusals for missing/extra/duplicate secondary units, money/RNG/unknown fields, motion reset/NaN/Inf, live/save divergence, forged/reversed claim, wrong/missing receipt, extra ledger grant and duplicate payment. Settled can return false after losing actual support; do not assume unsupported flag monotonicity. Preserve the original byte-exact reload guard instead of applying a loose economic projection to it.
+
+No test/production edits or engine execution by reviewer. No source change or new native result is accepted yet. The failed CI remains failed; no third blind full rerun or budget/corpus reduction is recommended. Main-task/art/audio/device/user/G1–G5 acceptance is outside this process review.

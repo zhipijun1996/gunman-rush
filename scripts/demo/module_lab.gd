@@ -204,9 +204,10 @@ func _load_module(id: StringName) -> void:
 			boss_trial.boss_scene = preload("res://scenes/bosses/windkeeper.tscn")
 			if id==&"bellstrider_trial": boss_trial.boss_scene=preload("res://scenes/bosses/bellstrider.tscn")
 			if id in [&"storm_trial",&"storm_phase2",&"storm_phase3"]:
+				boss_trial.boss_scene=preload("res://scenes/bosses/windkeeper_pressure.tscn")
 				boss_trial.boss_definition=preload("res://resources/bosses/windkeeper_storm.tres").duplicate(true)
 				if id in [&"storm_phase2",&"storm_phase3"]:
-					boss_trial.boss_definition.health_definition.initial_current=24 if id==&"storm_phase2" else 12
+					boss_trial.boss_definition.health_definition.initial_current=40 if id==&"storm_phase2" else 20
 			boss_trial.core_left = 125
 			boss_trial.core_right = 995
 			boss_trial.spawn_position = Vector2(560,535)

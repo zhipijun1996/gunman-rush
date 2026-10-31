@@ -1,0 +1,26 @@
+{
+  "reviewer": "independent /root/final_review",
+  "scope": "Static readonly current completeactivation/cue flow. No native execution, no production edits.",
+  "head": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+  "finding_confirmed_in_code": {
+    "id": "IART-CAST-01",
+    "severity": "visualduplicate/misattribution; no claimdamage/resourceauthoritychange",
+    "P26": "Defense.activate ->present_committed(item_guard_active)->accepted_art_frames[P26]=frame ->defense_active earlyreturn ->cast_frames[P26]unset ->Runtime.activate_selected genericactive appended aslegacygear.",
+    "P27": "Same via successfulheal ->accepted_art_frames[P27]; defense_active skipscastframe then genericactive duplicates.",
+    "selected_callback": "heal/patch/eventcallbacks may selectanotheractive beforegenericactive; finalpayload reads mutable_selected, namingnewselectionratherthancompletedactivation.",
+    "stale_callback": "Precommit/source callback unequip/re-equip caninvalidateoriginalcontext, while later rawdefense_active/active areunmappedclip fallback andguarded_receiptisfalse; Runtime.cue can stampfreshcurrentidentityaftercallback. Capturedorigin alone doesnotproveactivationcurrent."
+  },
+  "required_bounded_fix": "Singlevisualowner foraccepted P26/P27/N02; finitelegacycastcueprecallbackidentity/sourceguard and capturedactualorigin; preserve existingenergy/uses/on_skill_started/gameplayflow. No newframework/config/art/shaderchange.",
+  "meaningful_verification": [
+    "RealRuntime.activate_selectedP26/P27/N02, exactacceptedartone, zerolegacyduplicates; P27realpositiveHPdelta.",
+    "Synchronouscallbackselectotheractive: finalvisualmustnotmisattribute toselectedother.",
+    "Synchronousunequipthenreequip/sourceepochchange/death/stagecallback: nofreshlegacyfallbackghost orstaleart; actualacceptedresourcebehavior unchanged.",
+    "Rejected/fullHP/insufficientenergy activation noacceptedart; existingactiveP24/G16 andunmappedbaselinefallback remainappropriate."
+  ],
+  "native_proof": "Parentruntimeagent owns separate exclusivelease; reviewerhasnone.",
+  "sources": {
+    "scripts/items/v5/item_runtime.gd": "cb4ce908c384e63552de30f66f3577dc12deee8ab08b14b15333431dbcd383b3",
+    "scripts/items/v5/item_effect_view.gd": "f155e63a3af9e6ab1095131bd598eb5de3d86379b90457928e4f9e60e1e09bba",
+    "scripts/items/v5/item_defense_effects.gd": "601470278bbace6be6f9880fc6dc0e2eba36e9e21b8bfd44672c632f1a37b8ee"
+  }
+}

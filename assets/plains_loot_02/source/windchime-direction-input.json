@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "region_id": "windchime_plains",
+  "version": "creative-v23",
+  "direction_id": "windchime_plains_v2",
+  "title": "风铃平原｜用户区域圣经 V2",
+  "decision": "selected",
+  "acceptance": "user_confirmed",
+  "user_acceptance": "direction_only_not_art_gameplay_or_device",
+  "selection_basis": "user_supplied_bible",
+  "selection_rationale": "用户已提供并选择完整区域圣经；按原文制作，先完整森林含美术，再优化平原；不重新选方向。 最新两条用户纠正要求森林和所有后续区域沿用项目共用整体画风，继承当前正式平原tileset家族。",
+  "region_bible": {
+    "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+    "bible_id": "windchime_plains_v2",
+    "version": "2.0",
+    "status": "user_selected_direction_only",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+    "supplemental_authority_sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
+    "region_id": "windchime_plains",
+    "registry_path": "docs/creative_direction/bibles/registry.json",
+    "registry_sha256": "7d32a5444bf226c3c26cc89a6231409e239d38a5fd9f2a246c170a7e1a55ddab",
+    "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+    "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+  },
+  "candidates": [],
+  "user_evidence": {
+    "source": "docs/creative_direction/bibles/user-request.json",
+    "quote": "更新harness和skills流程，后续开发或者优化新区域，先有该区域的圣经，然后根据该文档去生成和优化。这是我给出的风铃平原和森林的区域圣经。\n可以使用subagent现在开始实现好这两个区域。先做好荆棘森林（包括美术），之后再优化风铃平原。音效，背景动画特效（比如风之类的）可以做，bgm后续我再引入。\n然后将过程中的好流程融合到harness和skills中。过程中发现无用的历史包袱可以优化效率提效。",
+    "scope": "方向选择及授权内实现；新内容的视觉、玩法、音频与实体设备尚未验收。"
+  },
+  "intent": {
+    "bible_sections": "1",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "identity": "晨风草甸与失准风铃；清新好奇至逆风高潮与安静余韵。"
+  },
+  "emotion": {
+    "bible_sections": "1",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "player_behavior": {
+    "bible_sections": "4",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "identity": "一段跳与定向射击反冲；发现落点、机关空间关系与多层探索。"
+  },
+  "space": {
+    "bible_sections": "3",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "ecology": {
+    "bible_sections": "5",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "boss": {
+    "bible_sections": "6",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "visual": {
+    "bible_sections": "2",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "shared_project_style": "继承已绑定的正式平原实际像素尺度、tileset邻接/边界、光照/描边/材质语言；区域特色不等于另换项目画风。森林以树皮、苔藓、荆棘、有机结构及区域色域变化，其他后续区域同样沿共用母版。",
+    "cross_region_golden": "先阅读实际共享source PNG/atlas、TileSet及消费者，在正式平原/目标地区的正常比例游戏黄金做实际像素对照；独立视觉准入后才扩产，hash/metadata不签画面。",
+    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。",
+    "selected_fine_grid": "Fine1wu shared grid per style-v5; region identity comes from materials/ecology, not a different pixel scale. Human/devices remain unverified."
+  },
+  "motion_audio": {
+    "bible_sections": "9",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "memory": {
+    "bible_sections": "10",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+  },
+  "commercial": {
+    "bible_sections": "10",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "status": "宣传记忆点与吸引力为待真实玩家验证假设；不自签市场结论。"
+  },
+  "slice": {
+    "bible_sections": "3–6",
+    "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "consumer": "DemoApp.start_plains -> PlainsRegionGenerator -> PlainsRegionStage -> PlainsRegionAssembler",
+    "status": "source_present_not_bible_v2_execution_proof",
+    "requirements": "先正式比例完整可玩艺术黄金，独立G2准入后第二空间、多Seed与整区推广；旧实证保留原源。"
+  },
+  "exclusions": {
+    "core": "保留PlayerMotor、合法能力、资源、RNG与保存合同；旧提案或失败实现不自动约束新地区，但正式平原仍用的Underworld tileset及共用像素家族是当前继承依据，不得整体抛弃。",
+    "music": "deferred_user_supplied：原文BGM保留为设计意图，本轮不生成或替换BGM；SFX与环境动画/VFX在授权范围。",
+    "acceptance": "方向选择不签新视觉、完整地区、真人FUN或实体设备；无证据保持unverified/awaiting-device。"
+  },
+  "authority_sources": [
+    {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4"
+    },
+    {
+      "path": "docs/design/player_actions/README.md",
+      "sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
+    },
+    {
+      "path": "docs/world_regions.json",
+      "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656"
+    },
+    {
+      "path": "docs/controls_contract.md",
+      "sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+    },
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35"
+    },
+    {
+      "path": "docs/creative_direction/bibles/user-request.json",
+      "sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+      "sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+      "sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+      "sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+      "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+      "sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+      "sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+      "sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+      "sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+      "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
+      "sha256": "f08a99521953dc275f4e119ce447dd8dc97ccc77b65897de0b296590f5e655e0"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+      "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+      "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada"
+    }
+  ],
+  "historical_direction": {
+    "path": "docs/creative_direction/archive/creative-v6/windchime_plains.json",
+    "sha256": "5e2076c848899b350a25b8b666f970c6f4ffe418f7fa69466333d7bde6f7f28e",
+    "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
+  },
+  "revision_impact": {
+    "task_id": "PLAINS-MOTION-LOOT-02",
+    "scope": "Technical merge of program-refactor and mobile logical-canvas lineage only; no direction, asset, physics, economic or acceptance redesign. Exactly7 existing reference differences union,74 unchanged.",
+    "parent_directions": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261030-style19/program/windchime_plains.json",
+        "sha256": "43055988f565235d82d6db83ff994ff5040a7aac6d844d1e9f3eeed52a8e6b4f"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261030-style19/mobile/windchime_plains.json",
+        "sha256": "dbe7e46af3850d343d42c854c62d14f9cf56ccbbc6c9c2f5491babbe9e134c1d"
+      }
+    ],
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+    "shared_style_sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
+    "affected_consumers": [
+      "scripts/demo/plains_region_stage.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/home_scene.gd",
+      "scripts/ui/demo_menu.gd",
+      "scripts/ui/stage_reward_modal.gd",
+      "scripts/ui/home_item_codex.gd",
+      "scripts/demo/thorn_forest_region_stage.gd"
+    ],
+    "validation": "Original historical assertions remain against exact parent snapshots; current23 binds actual merged20 and rejects both stale22 pointers. Production leaf edits require later freeze/rebind; pure tests do not sign visual/audio/user/device."
+  }
+}

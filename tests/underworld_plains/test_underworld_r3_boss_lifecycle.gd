@@ -43,20 +43,39 @@ func fixture(map_index:int,one_hp:bool)->void:
 		player_health.initial_current=1;app.controller.actor_resources.health.configure(player_health)
 	app.policy.set_physics_process(false)
 func real_bullet()->PlayerProjectile:
-	app.controller.router.request_action(&"shoot_release",(encounter.motor.global_position+Vector2(0,-20)-app.player.global_position).normalized())
+	var point := encounter.motor.global_position+Vector2(0,-20)
+	if encounter is BellstriderEncounter: point = encounter.motor.to_global(encounter.core_offset())
+	app.controller.router.request_action(&"shoot_release",(point-app.player.global_position).normalized())
 	await frames(1)
 	var live:=app.controller.shoot_ability.get_projectiles()
 	check(live.size()==1,"actual Router action creates exactly one live player bullet")
 	if live.is_empty():return null
 	var bullet:=live[0];bullet.set_physics_process(false);return bullet
+func release_wave(side: int) -> BossProjectile:
+	if encounter is BellstriderEncounter:
+		# Observe the real owner-bound Bell release, not its inherited Windkeeper
+		# helper. Both real sides remain frozen in this collision-order fixture.
+		(encounter as BellstriderEncounter)._ring_pair()
+		var chosen: BossProjectile
+		for shot: BossProjectile in encounter._projectiles:
+			shot.set_physics_process(false)
+			if shot.direction == Vector2(side,0): chosen = shot
+		check(chosen is BellstriderRingProjectile,"lifecycle uses the actual Bellstrider ground-wave producer")
+		return chosen
+	encounter._wave(side)
+	var shot := encounter._projectiles.back() as BossProjectile
+	shot.set_physics_process(false)
+	return shot
+
 func run()->void:
 	for map_index:int in [1,2]:
 		for reverse:bool in [false,true]:
 			await fixture(map_index,true)
 			var bullet:=await real_bullet()
-			encounter._wave(-1)
-			var wave:=encounter._projectiles.back() as BossProjectile
-			wave.set_physics_process(false)
+			var wave := release_wave(-1)
+			var wallet_before := app.wallet.balance
+			var state_before := (app.stage as PlainsRegionStage).region_state
+			var boss_coin_id := BellstriderRewards.source_id(app.stage as PlainsRegionStage)
 			await frames(1)
 			if reverse:wave.advance(1);bullet.advance(1)
 			else:bullet.advance(1);wave.advance(1)
@@ -68,6 +87,9 @@ func run()->void:
 			check(not app.lifetime.active and app.director.state==DemoRunDirector.State.HOME,"actual simultaneous death returns Home as failure")
 			check(app.current_reward==null and app.meta.snapshot().completed_biomes==0,"actual simultaneous lethal never creates Gold or biome completion")
 			check(not app.director.manifest.snapshot().stages[0].outputs.has("mini_boss_reward"),"actual simultaneous lethal never pays mini reward")
+			check(map_index!=1 or not state_before.drops.has(boss_coin_id),"simultaneous player death creates no physical Bell coin entitlement")
+			await frames(72)
+			check(app.wallet.balance==wallet_before,"past the delayed major impact simultaneous death still pays no coins")
 			observations.append({"map":map_index,"reverse":reverse,"results":results.size(),"home":app.director.state==DemoRunDirector.State.HOME,"reward":app.current_reward!=null})
 	# A real accepted bullet is held before contact; actual segment return
 	# invalidates its actor/session and the old bullet must dispose without HP.
@@ -80,9 +102,7 @@ func run()->void:
 	check(stale.spent and encounter.health.current==hp,"held old actor bullet cannot damage current Boss after return")
 	# Actual encounter-created waves are cancelled at phase invalidation; a
 	# retained old object cannot hit after cancellation/restore.
-	encounter._wave(-1)
-	var cancelled:=encounter._projectiles.back() as BossProjectile
-	cancelled.set_physics_process(false)
+	var cancelled := release_wave(-1)
 	var player_hp:=app.controller.actor_resources.health.current
 	encounter.cancel_pending_attacks();cancelled.advance(1);app.policy.resolve_batch()
 	check(cancelled.spent and app.controller.actor_resources.health.current==player_hp,"cancelled phase wave cannot submit late damage")

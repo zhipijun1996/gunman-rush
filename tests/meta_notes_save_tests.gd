@@ -63,7 +63,7 @@ func _run() -> void:
 	overwrite(PATH, JSON.stringify(envelope))
 	var migrated := MetaProgression.new()
 	check(migrated.configure_persistence(PATH, false).accepted and migrated.snapshot().notes == 3 and migrated.snapshot().upgrades.is_empty(), "v1 profile migrates to explicit upgrade map")
-	check(migrated.grant_notes(1, &"migrated").accepted and JSON.parse_string(FileAccess.get_file_as_string(PATH)).schema_version == 2, "migration next commit writes v2 and backs up original")
+	check(migrated.grant_notes(1, &"migrated").accepted and JSON.parse_string(FileAccess.get_file_as_string(PATH)).schema_version == 3, "migration next commit writes v3 and backs up original")
 	var future := {"schema_version": 999, "profile_revision": 1, "payload": old, "checksum": JSON.stringify(old).sha256_text()}
 	overwrite(PATH, JSON.stringify(future))
 	var incompatible := MetaProgression.new()

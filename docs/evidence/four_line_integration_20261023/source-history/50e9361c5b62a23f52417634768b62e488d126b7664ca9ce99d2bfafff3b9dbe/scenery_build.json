@@ -1,0 +1,185 @@
+{
+  "schema": "underworld-scenery-v1",
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "backgrounds": [
+    {
+      "id": "far",
+      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png",
+      "camera_factor": [
+        0.035,
+        0.015
+      ],
+      "role": "opaque_morning_sky_long_clouds_and_distant_atmospheric_hills",
+      "generation_record": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json",
+      "minimum_height_ratio": 1.2,
+      "width_ratio": 1.5,
+      "bottom_ratio": 1.0,
+      "repetition": "same_orientation_seam_blend",
+      "edge_fraction": 0.035,
+      "vertical_limit_ratio": 0.16,
+      "cloud_speed_wu_per_second": 0.65,
+      "source_sha256": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
+      "upper_sky_gain": 0.72,
+      "upper_sky_saturation": 0.9
+    },
+    {
+      "id": "middle",
+      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/ridge_landmarks.png",
+      "camera_factor": [
+        0.105,
+        0.055
+      ],
+      "role": "transparent_hill_ridge_with_distant_windmill_bell_tower_and_old_bridge",
+      "generation_record": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json",
+      "minimum_height_ratio": 0.85,
+      "width_ratio": 1.8,
+      "bottom_ratio": 1.11,
+      "repetition": "overlapping_alpha_edge_fade",
+      "edge_fraction": 0.035,
+      "opacity": 0.92,
+      "fog_shadow": "314a5b",
+      "fog_highlight": "69818b",
+      "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle",
+      "vertical_limit_ratio": 0.26,
+      "source_sha256": "3d0723275b127b360c74ac749ff89aa9a69179f9bfaaef5e0b0594603b9af041",
+      "composition_phase_wu": 450
+    },
+    {
+      "id": "near",
+      "image": "assets/underworld_plains/backgrounds/near.png",
+      "camera_factor": [
+        0.265,
+        0.115
+      ],
+      "role": "transparent_near_background_meadow_bank_rooted_tree_and_distant_chime_frame",
+      "generation_record": "assets/underworld_plains/backgrounds/near_generation.json",
+      "minimum_height_ratio": 0.62,
+      "width_ratio": 1.5,
+      "bottom_ratio": 1.19,
+      "repetition": "overlapping_alpha_edge_fade",
+      "edge_fraction": 0.035,
+      "opacity": 0.94,
+      "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle",
+      "fog_shadow": "142d38",
+      "fog_highlight": "39545b",
+      "vertical_limit_ratio": 0.4,
+      "source_sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2"
+    }
+  ],
+  "horizontal_repetition": "all normal orientation; opaque source-edge blend, alpha planes overlap; shared integer1wu stride/origin, no mirrored strips",
+  "vertical_policy": "smooth bounded per-plane drift from real camera center; actual source bottom row extension, no repeated skyline or exposed clear color",
+  "decor": {
+    "atlas": "assets/underworld_plains/decor/chime_props.png",
+    "regions_metadata": "assets/underworld_plains/decor/chime_props.json",
+    "generation_record": "assets/underworld_plains/decor/provenance.json",
+    "independent_seed": true,
+    "seed_namespace": "underworld-scenery-v1",
+    "collision": false,
+    "keepout_policy": "whole_display_bounds_plus_8",
+    "support_policy": "full_root_span_on_exposed_static_solid",
+    "max_landmarks_per_1280": 2,
+    "max_small_accents_per_1280": 6,
+    "identity_landmarks": {
+      "windmill_plateau": {
+        "kind": "tower",
+        "heights": [
+          144,
+          112,
+          92
+        ]
+      },
+      "creek_well": {
+        "kind": "well",
+        "heights": [
+          112,
+          92,
+          76,
+          64
+        ]
+      },
+      "clock_court": {
+        "kind": "clock_arch",
+        "heights": [
+          136,
+          112,
+          92
+        ]
+      },
+      "repair_gallery": {
+        "kind": "repair_shelter",
+        "heights": [
+          120,
+          96,
+          80,
+          64,
+          56
+        ]
+      }
+    },
+    "identity_generation_record": "assets/underworld_plains/decor/identity_generation.json",
+    "local_composition": {
+      "consumer_script": "scripts/underworld_plains/underworld_local_composition.gd",
+      "identity": "creek_well",
+      "asset_id": "well",
+      "depth": "distant_local_architecture",
+      "collision": false,
+      "standing_edge": false,
+      "physical_support": false,
+      "image_base": "painted_base_of_complete_well_wheel_reeds_stone_footing",
+      "target_height": 92,
+      "offset_x": [
+        -240,
+        240,
+        -400,
+        400,
+        -600,
+        600
+      ],
+      "offset_y": [
+        140,
+        180,
+        220,
+        260
+      ],
+      "fog_shadow": "172c38",
+      "fog_highlight": "293f4b",
+      "opacity": 0.96,
+      "functional_keepout": "whole_display_bounds_plus_8_unchanged",
+      "maximum_solid_hidden_samples": 0,
+      "total_visibility_samples": 25,
+      "z_index": -8,
+      "painted_base": {
+        "source": "assets/underworld_plains/decor/identity_props.png",
+        "description": "complete original well stone footing, wheel and reeds form its painted base; no physical support claim"
+      },
+      "readability_limits": {
+        "max_r": 0.28,
+        "max_g": 0.34,
+        "max_b": 0.38,
+        "red_not_above_blue": true
+      },
+      "foreground_visibility_policy": "complete_display_bounds_plus_2_not_intersect_actual_solid"
+    },
+    "small_accent_policy": {
+      "scope": "quiet exposed static banks only; no added tall landmark budget",
+      "kinds": [
+        "grass",
+        "flowers"
+      ],
+      "height_world_units": [
+        12,
+        20
+      ],
+      "minimum_foot_spacing": 82,
+      "total_per_1280_budget": 6,
+      "seed": "existing independent decoration namespace, no gameplay RNG",
+      "source": "existing licensed native grass and complete generated flower object",
+      "keepout": "whole display bounds plus8 unchanged"
+    }
+  },
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_parallax.gd",
+    "scripts/underworld_plains/underworld_scenery.gd"
+  ],
+  "pixel_policy": "fine1wu screen lattice; exact shared integer copy origins/widths; nearest source art retained"
+}

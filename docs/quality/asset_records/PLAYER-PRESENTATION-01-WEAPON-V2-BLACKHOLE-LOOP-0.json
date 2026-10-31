@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-LOOP-0",
+  "content_version": "weapon-feel-v2",
+  "source_path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_0.wav",
+  "source_sha256": "7c1a7c08f98a98b1cafb72c534fcf510c35bd56be16232b0b505916d8d6262ec",
+  "tool": "tests/player_presentation_01/build_weapon_audio_v2.py;Python deterministic sampled-game PCM editing",
+  "model": "not applicable",
+  "prompt_or_reference": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
+  "processing": "Actual BSD Freedoom game PCM;exact offline layers/rates/filter/envelopes in provenance;no generated oscillator",
+  "usage_scope": "Task-only accepted weapon feedback;not production or listening acceptance",
+  "license_source": "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc;BSD-3-Clause Freedoom Contributors;full CREDITS retained",
+  "license_status": "verified",
+  "runtime_paths": [
+    "resources/player_presentation_01/weapon_sound_data_v2.gd",
+    "scripts/dev/player_presentation_01/weapon_audio.gd",
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "disposition": "limited_preview",
+  "associated_files": [
+    {
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
+      "sha256": "60a3e4f1b1d1c8dc0f0dfbccdc86a0391f2c3b541332894ae438a054aaba73b0",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v2/sources/freedoom-originals.zip",
+      "sha256": "e8273ec7a46aac816a4163e957cf726c79dfe8e5ba55ead53a1881cb5c2ddb8c",
+      "role": "reference"
+    }
+  ]
+}

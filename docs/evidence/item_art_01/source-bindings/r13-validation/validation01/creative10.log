@@ -1,0 +1,20 @@
+.....E....
+======================================================================
+ERROR: test_historical_v2_bytes_keep_identity_and_reject_current_authority (__main__.CreativeTests.test_historical_v2_bytes_keep_identity_and_reject_current_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_creative_direction.py", line 72, in test_historical_v2_bytes_keep_identity_and_reject_current_authority
+    old_raw = (creative.ROOT/path).read_bytes()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-rush/docs/creative_direction/archive/creative-v17/windchime_plains.json'
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.369s
+
+FAILED (errors=1)

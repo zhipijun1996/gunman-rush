@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "version": "audio-feedback-v1",
+  "task": "AUDIO-FEEDBACK-05",
+  "sample_rate": 44100,
+  "peak_ceiling_dbfs": -6,
+  "silence_threshold_dbfs": -55,
+  "profiles": {
+    "A": "柔软反馈修订候选"
+  },
+  "locked_inputs": {
+    "config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+    "assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+    "config/audio_director/v3/recipes.json": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8",
+    "config/audio_director/v3/sources.json": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+    "tools/audio_candidates_v3.py": "ea6bc4818f193004f6f824c3e0ad431fc3c8142e97f764cc1593018b4c7a23ed",
+    "assets/audio/director_v3/hurt_c.wav": "5f96250bdd17c5858ee0bb7f4841b7f4f13daa5399dc1544e1b8dbb8a3492a17",
+    "assets/audio/bgm/where_the_path_bends.mp3": "1b6fd5dcc31c1ab61bf175484d9b2ca5ba77481597b1a9945fdb8949d52cbcfa",
+    "assets/audio/bgm/across_the_wooden_sails.mp3": "b6c742bf50b1f475f69a764fb9ec2ea0f70c18ce77315d20df9a719a75be4d9d",
+    "assets/audio/bgm/the_kindred_hearth.mp3": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+    "assets/audio/bgm/vines_beneath_the_canopy.mp3": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+    "assets/audio/bgm/beyond_the_knotted_vines.mp3": "b21f52effcc5a06288faaf1462331232feb6aca6ec16a1440d771f9e6bae6992"
+  },
+  "runtime_gain_estimates": {
+    "hurt": {
+      "source_target_rms_dbfs": -26,
+      "attenuation_db": 8,
+      "session_volume": 0.7,
+      "estimated_rms_dbfs": -37.0980392
+    },
+    "wall": {
+      "source_target_rms_dbfs": -26,
+      "attenuation_db": 17,
+      "session_volume": 0.7,
+      "estimated_rms_dbfs": -46.0980392
+    }
+  },
+  "events": [
+    {
+      "id": "hurt",
+      "label": "主角受伤",
+      "category": "战斗",
+      "max_seconds": 0.19,
+      "target_rms_dbfs": -26,
+      "candidate_id": "hurt_a",
+      "takes": [
+        {
+          "id": "hurt_1",
+          "design": "柔软身体接触主体与短布料擦动，无旧木层",
+          "layers": [
+            {
+              "source": "k/hurt",
+              "clip_seconds": 0.13,
+              "delay_seconds": 0,
+              "gain": 0.85,
+              "pitch_semitones": -1,
+              "lowpass_hz": 3800,
+              "highpass_hz": 75,
+              "attack_seconds": 0.003,
+              "release_seconds": 0.025,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.12,
+              "delay_seconds": 0.008,
+              "gain": 0.2,
+              "pitch_semitones": 0,
+              "lowpass_hz": 3600,
+              "highpass_hz": 160,
+              "attack_seconds": 0.004,
+              "release_seconds": 0.025,
+              "start_seconds": 0.015
+            }
+          ]
+        },
+        {
+          "id": "hurt_2",
+          "design": "另一软体原件的温暖身体与不同布料裁剪",
+          "layers": [
+            {
+              "source": "k/roar",
+              "clip_seconds": 0.15,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": 1,
+              "lowpass_hz": 3200,
+              "highpass_hz": 95,
+              "attack_seconds": 0.003,
+              "release_seconds": 0.025,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0.006,
+              "gain": 0.25,
+              "pitch_semitones": 0,
+              "lowpass_hz": 3400,
+              "highpass_hz": 180,
+              "attack_seconds": 0.004,
+              "release_seconds": 0.025,
+              "start_seconds": 0.18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wall",
+      "label": "弹丸墙地消散",
+      "category": "武器",
+      "max_seconds": 0.12,
+      "target_rms_dbfs": -26,
+      "candidate_id": "wall_a",
+      "takes": [
+        {
+          "id": "wall_1",
+          "design": "短石粒主体与极轻布料空气层；无金属反弹或奖励铃",
+          "layers": [
+            {
+              "source": "rpg/stones_01.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.9,
+              "pitch_semitones": 2,
+              "lowpass_hz": 4600,
+              "highpass_hz": 350,
+              "attack_seconds": 0.003,
+              "release_seconds": 0.028,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.045,
+              "delay_seconds": 0.003,
+              "gain": 0.08,
+              "pitch_semitones": 3,
+              "lowpass_hz": 6200,
+              "highpass_hz": 1400,
+              "attack_seconds": 0.004,
+              "release_seconds": 0.018,
+              "start_seconds": 0.02
+            }
+          ]
+        },
+        {
+          "id": "wall_2",
+          "design": "短石粒主体与极轻布料空气层；无金属反弹或奖励铃",
+          "layers": [
+            {
+              "source": "rpg/stones_02.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.9,
+              "pitch_semitones": 1,
+              "lowpass_hz": 4600,
+              "highpass_hz": 350,
+              "attack_seconds": 0.003,
+              "release_seconds": 0.028,
+              "start_seconds": 0.01
+            },
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.045,
+              "delay_seconds": 0.003,
+              "gain": 0.08,
+              "pitch_semitones": 3,
+              "lowpass_hz": 6200,
+              "highpass_hz": 1400,
+              "attack_seconds": 0.004,
+              "release_seconds": 0.018,
+              "start_seconds": 0.04
+            }
+          ]
+        },
+        {
+          "id": "wall_3",
+          "design": "短石粒主体与极轻布料空气层；无金属反弹或奖励铃",
+          "layers": [
+            {
+              "source": "rpg/stones_03.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.9,
+              "pitch_semitones": 3,
+              "lowpass_hz": 4600,
+              "highpass_hz": 350,
+              "attack_seconds": 0.003,
+              "release_seconds": 0.028,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.045,
+              "delay_seconds": 0.003,
+              "gain": 0.08,
+              "pitch_semitones": 3,
+              "lowpass_hz": 6200,
+              "highpass_hz": 1400,
+              "attack_seconds": 0.004,
+              "release_seconds": 0.018,
+              "start_seconds": 0.06
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

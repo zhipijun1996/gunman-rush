@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T132527.122632Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "88bf01cacf2c0196518f2f4f22b48f83ce8bd5990b126fe19ebc39d4b5ac20f8",
+      "log": "docs.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792675529.1772728,
+      "ended_at_unix": 1792675529.4000707,
+      "duration_seconds": 0.223,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "100af85d6d1e4ac6b2b63351eb348814",
+      "artifact_directory": "/workspace/player-presentation/build/verification/harness/20261022T132527.122632Z/artifacts/docs",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/quality/records/PLAYER-PRESENTATION-01.json": "22330779e214117c97fc59dcd8c3d39d0dec747486da2150e2f98bf6302106b1",
+    "docs/worklines/PLAYER-PRESENTATION-01/checkpoint-01.md": "8457e0816f69498572f2a46751e7d235b0bf44a5d70b22a0fe4070b2144bb137",
+    "tests/player_presentation_01/baseline_audit.gd": "9f855fb3a442f82de07c90a0e9fab2dfe9d033476710e48b106650ac45864fb3"
+  },
+  "commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "git_status": "?? docs/quality/records/PLAYER-PRESENTATION-01.json\n?? docs/worklines/\n?? tests/player_presentation_01/",
+  "diff": "",
+  "untracked": "docs/quality/records/PLAYER-PRESENTATION-01.json\ndocs/worklines/PLAYER-PRESENTATION-01/checkpoint-01.md\ntests/player_presentation_01/baseline_audit.gd",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 3.802,
+  "jobs": 1,
+  "release": false
+}

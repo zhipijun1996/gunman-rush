@@ -1,0 +1,2014 @@
+{
+  "kind": "readonly_third_shot_and_R3_adapter_review",
+  "main_gpu": {
+    "source_commit": "b684b76e71143df6fdbcdf70307cc2b4e8f124d7",
+    "trace_sha256": "49f48c2216b2a3398e0c12d19ad3c6def9ae5b129ce6c2cab19f48bcfa596e55",
+    "report_sha256": "4694ffd92d074dbfe7e4ea2e4901d575b81fdb1b979f6cc26f2f4c3169b10d54",
+    "mp4_sha256": "e8b89682f632e7ddad4ab47ca9394bae3494830baa3f14f280642caeadde96dc",
+    "duration_seconds": 88.866667,
+    "status": "recorded_complete_coverage",
+    "errors": [],
+    "source_stable": true
+  },
+  "greedy": {
+    "trace_sha256": "55067dd87ba9c3e9eee7b31afdf619932f7da7de17f03c2fa24bfd76863cdf76",
+    "capture_log_sha256": "b40eb2102191f2e7a8d73f77c993d89118762156ae190f6cec15b05de9a49c5e",
+    "source": {
+      "head": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+      "status": ""
+    },
+    "source_stable_driver_receipt": true,
+    "wrapper_report_exists": true,
+    "actual_wrapper_report": {
+      "status": "failed_attempt_retained",
+      "source": {
+        "working_files": {},
+        "commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+        "git_status": "",
+        "diff": "",
+        "untracked": ""
+      },
+      "errors": [
+        "Godot encounter capture failed; original attempt retained",
+        "Actual player death; failed continuous attempt retained",
+        "Coverage gap: full_base_60HP_damage",
+        "Coverage gap: full_death",
+        "Coverage gap: configured_coin_total",
+        "Coverage gap: actual_configured_wallet_delta",
+        "Coverage gap: all_units_claimed",
+        "Stationary observation did not show meaningful active Boss approach"
+      ],
+      "execution": {
+        "status": "failed",
+        "exit_code": 1,
+        "failure_reason": "nonzero_exit",
+        "started_at_unix": 1793388725.191531,
+        "ended_at_unix": 1793388947.8117402,
+        "duration_seconds": 222.62,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--path",
+          ".",
+          "--rendering-method",
+          "gl_compatibility",
+          "--write-movie",
+          "/workspace/gunman-rush/build/windkeeper_pressure_01/movie-greedy-01/capture.avi",
+          "--fixed-fps",
+          "60",
+          "--script",
+          "tools/windkeeper_pressure_01_capture.gd",
+          "--",
+          "--trace=/workspace/gunman-rush/build/windkeeper_pressure_01/movie-greedy-01/trace.json",
+          "--seed=windkeeper-pressure-01",
+          "--pilot=assault_greed3",
+          "--max-battle-seconds=100.0"
+        ],
+        "check_token": "aa67b1cc51de455ea4eaf00703124e7b"
+      },
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1280,
+            "height": 720,
+            "coded_width": 1280,
+            "coded_height": 720,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuvj420p",
+            "level": 32,
+            "color_range": "pc",
+            "color_space": "bt470bg",
+            "chroma_location": "center",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 1051136,
+            "duration": "68.433333",
+            "bit_rate": "7612339",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "4106",
+            "extradata_size": 51,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 3284784,
+            "duration": "68.433000",
+            "bit_rate": "133615",
+            "nb_frames": "3209",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/gunman-rush/build/windkeeper_pressure_01/movie-greedy-01/review.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "68.433333",
+          "size": "66370811",
+          "bit_rate": "7758886",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "mp4_sha256": "8d947272e0e9e49dea1f5e95a48ef5b4908229244375b1a1bfc15c879ee50784",
+      "source_stable": true,
+      "external_source_stable": true,
+      "driver_source_guard": true
+    },
+    "diagnostic_headless": false,
+    "complete": false,
+    "failures": [
+      "Actual player death; failed continuous attempt retained",
+      "Coverage gap: full_base_60HP_damage",
+      "Coverage gap: full_death",
+      "Coverage gap: configured_coin_total",
+      "Coverage gap: actual_configured_wallet_delta",
+      "Coverage gap: all_units_claimed"
+    ],
+    "actual_accepted_hits": 48,
+    "groups_started": 14,
+    "groups_completed": 13,
+    "fight_seconds": 68.0333333333308,
+    "wallet_delta": 0,
+    "ending_player_HP": 0,
+    "evidence_limit": "Actual failed GPU movie,48 accepted hits/player death; complete original wrapper report preserves8errors and actual exit1, source inventories and driver guards stable. Recording exists, but no full Boss-death/reward success or subjective hearing claim."
+  },
+  "matched_prefix": {
+    "compared_physical_fields": [
+      "state",
+      "phase",
+      "group",
+      "boss_clock",
+      "boss_position",
+      "boss_HP",
+      "player_position",
+      "player_HP",
+      "grounded",
+      "normal_velocity",
+      "recoil_velocity",
+      "recoil_remaining",
+      "router_axis",
+      "router_aim",
+      "shots_fired"
+    ],
+    "first_difference": {
+      "frame": 383,
+      "main_movie_seconds": 6.48333333333333,
+      "greed_movie_seconds": 6.48333333333333,
+      "differences": {
+        "router_axis": [
+          -1.0,
+          1.0
+        ]
+      }
+    },
+    "exact_prefix_end_inclusive_frame": 382,
+    "first_actual_third_shot_frame": 600,
+    "causality": "Same seed/setup and physical prefix through382; from383, keeping open the attempt at a third changes retreat axis after second shot. Position differs392, Bossstate401. Therefore runs are not matched until the first actual third shot600."
+  },
+  "third_shot_observations": [
+    {
+      "group": 2,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 56.0,
+          "direction": [
+            -0.993579685688019,
+            0.113134615123272
+          ],
+          "frame": 556,
+          "grounded": true,
+          "group": 2,
+          "id": 7,
+          "movie_frame": 562,
+          "muzzle": [
+            6315.28662109375,
+            573.299072265625
+          ],
+          "ordinal": 1,
+          "player": [
+            6331.9267578125,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 55.0,
+          "direction": [
+            -0.997277200222015,
+            0.0737441033124924
+          ],
+          "frame": 579,
+          "grounded": true,
+          "group": 2,
+          "id": 8,
+          "movie_frame": 585,
+          "muzzle": [
+            6413.56591796875,
+            573.525329589844
+          ],
+          "ordinal": 2,
+          "player": [
+            6430.24951171875,
+            569.925170898438
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 55.0,
+          "direction": [
+            -0.999236166477203,
+            0.0390774309635162
+          ],
+          "frame": 600,
+          "grounded": true,
+          "group": 2,
+          "id": 9,
+          "movie_frame": 606,
+          "muzzle": [
+            6503.57373046875,
+            572.988037109375
+          ],
+          "ordinal": 3,
+          "player": [
+            6520.2177734375,
+            569.925231933594
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 55.0,
+        "direction": [
+          -0.999236166477203,
+          0.0390774309635162
+        ],
+        "frame": 600,
+        "grounded": true,
+        "group": 2,
+        "id": 9,
+        "movie_frame": 606,
+        "muzzle": [
+          6503.57373046875,
+          572.988037109375
+        ],
+        "ordinal": 3,
+        "player": [
+          6520.2177734375,
+          569.925231933594
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          6178.47607421875,
+          585.869140625
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          -0.999236166477203,
+          0.0390774309635162
+        ],
+        "frame": 599,
+        "group": 2,
+        "intent": "assault_greed3",
+        "movie_frame": 605,
+        "ordinal": 3,
+        "recovery_age": 0.833333333333333,
+        "remaining_recovery": 0.466666666666666,
+        "submitted": true
+      },
+      "actual_third_damage": {
+        "amount": 1.0,
+        "event": "303063633148:2:9",
+        "frame": 615,
+        "hp_lost": 1.0,
+        "kind": 0,
+        "movie_frame": 621,
+        "source": "player_projectile:303063633148",
+        "state": "recover",
+        "target": "boss"
+      },
+      "all_three_remove_actual_HP": false,
+      "second_to_third_seconds": 0.35,
+      "remaining_recovery_after_second_seconds": 0.7833333333332995,
+      "remaining_recovery_after_third_seconds": 0.4333333333332998,
+      "next_execution_state": "stomp",
+      "next_execution_seconds": 11.8,
+      "third_to_next_execution_seconds": 1.700000000000001,
+      "injuries_within3seconds_after_third": [],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 3,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 51.0,
+          "direction": [
+            -0.997871458530426,
+            0.0652115345001221
+          ],
+          "frame": 795,
+          "grounded": true,
+          "group": 3,
+          "id": 13,
+          "movie_frame": 801,
+          "muzzle": [
+            6575.49609375,
+            572.553039550781
+          ],
+          "ordinal": 1,
+          "player": [
+            6592.107421875,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 51.0,
+          "direction": [
+            -0.999805152416229,
+            0.019738458096981
+          ],
+          "frame": 816,
+          "grounded": true,
+          "group": 3,
+          "id": 14,
+          "movie_frame": 822,
+          "muzzle": [
+            6622.1787109375,
+            572.689331054688
+          ],
+          "ordinal": 2,
+          "player": [
+            6638.79345703125,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 50.0,
+          "direction": [
+            -0.999249339103699,
+            0.0387401543557644
+          ],
+          "frame": 835,
+          "grounded": true,
+          "group": 3,
+          "id": 15,
+          "movie_frame": 841,
+          "muzzle": [
+            6688.115234375,
+            572.982666015625
+          ],
+          "ordinal": 3,
+          "player": [
+            6704.7568359375,
+            569.925231933594
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 50.0,
+        "direction": [
+          -0.999249339103699,
+          0.0387401543557644
+        ],
+        "frame": 835,
+        "grounded": true,
+        "group": 3,
+        "id": 15,
+        "movie_frame": 841,
+        "muzzle": [
+          6688.115234375,
+          572.982666015625
+        ],
+        "ordinal": 3,
+        "player": [
+          6704.7568359375,
+          569.925231933594
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          6329.62646484375,
+          587.048461914062
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          -0.999249339103699,
+          0.0387401543557644
+        ],
+        "frame": 834,
+        "group": 3,
+        "intent": "assault_greed3",
+        "movie_frame": 840,
+        "ordinal": 3,
+        "recovery_age": 0.766666666666667,
+        "remaining_recovery": 0.533333333333333,
+        "submitted": true
+      },
+      "actual_third_damage": null,
+      "all_three_remove_actual_HP": false,
+      "second_to_third_seconds": 0.31666666666666665,
+      "remaining_recovery_after_second_seconds": 0.8166666666667002,
+      "remaining_recovery_after_third_seconds": 0.500000000000032,
+      "next_execution_state": "seeds",
+      "next_execution_seconds": 15.75,
+      "third_to_next_execution_seconds": 1.7333333333333325,
+      "injuries_within3seconds_after_third": [],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 4,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 48.0,
+          "direction": [
+            -0.982257843017578,
+            0.187535762786865
+          ],
+          "frame": 984,
+          "grounded": true,
+          "group": 4,
+          "id": 18,
+          "movie_frame": 990,
+          "muzzle": [
+            6557.02001953125,
+            575.188659667969
+          ],
+          "ordinal": 1,
+          "player": [
+            6573.68603515625,
+            569.975402832031
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 47.0,
+          "direction": [
+            -0.996590912342072,
+            0.0825019627809525
+          ],
+          "frame": 1008,
+          "grounded": true,
+          "group": 4,
+          "id": 19,
+          "movie_frame": 1014,
+          "muzzle": [
+            6605.533203125,
+            573.723205566406
+          ],
+          "ordinal": 2,
+          "player": [
+            6622.2236328125,
+            569.986877441406
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 46.0,
+          "direction": [
+            -0.999916970729828,
+            0.0128894988447428
+          ],
+          "frame": 1030,
+          "grounded": true,
+          "group": 4,
+          "id": 20,
+          "movie_frame": 1036,
+          "muzzle": [
+            6633.70068359375,
+            572.583618164062
+          ],
+          "ordinal": 3,
+          "player": [
+            6650.3037109375,
+            569.925170898438
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 46.0,
+        "direction": [
+          -0.999916970729828,
+          0.0128894988447428
+        ],
+        "frame": 1030,
+        "grounded": true,
+        "group": 4,
+        "id": 20,
+        "movie_frame": 1036,
+        "muzzle": [
+          6633.70068359375,
+          572.583618164062
+        ],
+        "ordinal": 3,
+        "player": [
+          6650.3037109375,
+          569.925170898438
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          6469.2275390625,
+          574.87158203125
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          -0.999916970729828,
+          0.0128894988447428
+        ],
+        "frame": 1029,
+        "group": 4,
+        "intent": "assault_greed3",
+        "movie_frame": 1035,
+        "ordinal": 3,
+        "recovery_age": 1.26666666666667,
+        "remaining_recovery": 0.033333333333333,
+        "submitted": true
+      },
+      "actual_third_damage": {
+        "amount": 1.0,
+        "event": "303063633148:2:20",
+        "frame": 1037,
+        "hp_lost": 1.0,
+        "kind": 0,
+        "movie_frame": 1043,
+        "source": "player_projectile:303063633148",
+        "state": "stomp_warning",
+        "target": "boss"
+      },
+      "all_three_remove_actual_HP": true,
+      "second_to_third_seconds": 0.36666666666666664,
+      "remaining_recovery_after_second_seconds": 0.36666666666670267,
+      "remaining_recovery_after_third_seconds": 3.552713678800501e-14,
+      "next_execution_state": "stomp",
+      "next_execution_seconds": 17.8833333333333,
+      "third_to_next_execution_seconds": 0.6166666666666352,
+      "injuries_within3seconds_after_third": [],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 5,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 45.0,
+          "direction": [
+            -0.996822357177734,
+            0.0796572715044022
+          ],
+          "frame": 1091,
+          "grounded": true,
+          "group": 5,
+          "id": 21,
+          "movie_frame": 1097,
+          "muzzle": [
+            6665.30029296875,
+            572.777404785156
+          ],
+          "ordinal": 1,
+          "player": [
+            6681.92431640625,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 45.0,
+          "direction": [
+            -0.999631822109222,
+            0.0271331779658794
+          ],
+          "frame": 1113,
+          "grounded": true,
+          "group": 5,
+          "id": 22,
+          "movie_frame": 1119,
+          "muzzle": [
+            6691.296875,
+            572.876953125
+          ],
+          "ordinal": 2,
+          "player": [
+            6707.923828125,
+            569.998718261719
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 44.0,
+          "direction": [
+            -0.996427774429321,
+            0.0844495221972466
+          ],
+          "frame": 1133,
+          "grounded": true,
+          "group": 5,
+          "id": 23,
+          "movie_frame": 1139,
+          "muzzle": [
+            6643.5654296875,
+            573.691528320312
+          ],
+          "ordinal": 3,
+          "player": [
+            6660.25537109375,
+            569.925170898438
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 44.0,
+        "direction": [
+          -0.996427774429321,
+          0.0844495221972466
+        ],
+        "frame": 1133,
+        "grounded": true,
+        "group": 5,
+        "id": 23,
+        "movie_frame": 1139,
+        "muzzle": [
+          6643.5654296875,
+          573.691528320312
+        ],
+        "ordinal": 3,
+        "player": [
+          6660.25537109375,
+          569.925170898438
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          6474.248046875,
+          588.208374023438
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          -0.996427774429321,
+          0.0844495221972466
+        ],
+        "frame": 1132,
+        "group": 5,
+        "intent": "assault_greed3",
+        "movie_frame": 1138,
+        "ordinal": 3,
+        "recovery_age": 0.8,
+        "remaining_recovery": 0.499999999999999,
+        "submitted": true
+      },
+      "actual_third_damage": null,
+      "all_three_remove_actual_HP": false,
+      "second_to_third_seconds": 0.3333333333333333,
+      "remaining_recovery_after_second_seconds": 0.8000000000000007,
+      "remaining_recovery_after_third_seconds": 0.466666666666665,
+      "next_execution_state": "lunge",
+      "next_execution_seconds": 20.0666666666667,
+      "third_to_next_execution_seconds": 1.0833333333333641,
+      "injuries_within3seconds_after_third": [],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 6,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 44.0,
+          "direction": [
+            0.998396635055542,
+            0.0566052906215191
+          ],
+          "frame": 1346,
+          "grounded": true,
+          "group": 6,
+          "id": 26,
+          "movie_frame": 1352,
+          "muzzle": [
+            6187.07666015625,
+            573.259582519531
+          ],
+          "ordinal": 1,
+          "player": [
+            6170.40869140625,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 44.0,
+          "direction": [
+            0.999565422534943,
+            0.0294798873364925
+          ],
+          "frame": 1367,
+          "grounded": true,
+          "group": 6,
+          "id": 27,
+          "movie_frame": 1373,
+          "muzzle": [
+            6096.97314453125,
+            572.839599609375
+          ],
+          "ordinal": 2,
+          "player": [
+            6080.3427734375,
+            569.925170898438
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 43.0,
+          "direction": [
+            0.999976992607117,
+            0.00678363442420959
+          ],
+          "frame": 1387,
+          "grounded": true,
+          "group": 6,
+          "id": 28,
+          "movie_frame": 1393,
+          "muzzle": [
+            6011.1025390625,
+            572.489562988281
+          ],
+          "ordinal": 3,
+          "player": [
+            5994.51171875,
+            569.925170898438
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 43.0,
+        "direction": [
+          0.999976992607117,
+          0.00678363442420959
+        ],
+        "frame": 1387,
+        "grounded": true,
+        "group": 6,
+        "id": 28,
+        "movie_frame": 1393,
+        "muzzle": [
+          6011.1025390625,
+          572.489562988281
+        ],
+        "ordinal": 3,
+        "player": [
+          5994.51171875,
+          569.925170898438
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          6491.2236328125,
+          575.91455078125
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          0.999976992607117,
+          0.00678363442420959
+        ],
+        "frame": 1386,
+        "group": 6,
+        "intent": "assault_greed3",
+        "movie_frame": 1392,
+        "ordinal": 3,
+        "recovery_age": 1.26666666666667,
+        "remaining_recovery": 0.033333333333333,
+        "submitted": true
+      },
+      "actual_third_damage": {
+        "amount": 1.0,
+        "event": "303063633148:2:28",
+        "frame": 1407,
+        "hp_lost": 1.0,
+        "kind": 0,
+        "movie_frame": 1413,
+        "source": "player_projectile:303063633148",
+        "state": "approach",
+        "target": "boss"
+      },
+      "all_three_remove_actual_HP": false,
+      "second_to_third_seconds": 0.3333333333333333,
+      "remaining_recovery_after_second_seconds": 0.3333333333333677,
+      "remaining_recovery_after_third_seconds": 3.552713678800501e-14,
+      "next_execution_state": "stomp",
+      "next_execution_seconds": 24.4833333333333,
+      "third_to_next_execution_seconds": 1.2666666666666337,
+      "injuries_within3seconds_after_third": [],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 8,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 35.0,
+          "direction": [
+            0.459897190332413,
+            -0.887972176074982
+          ],
+          "frame": 1988,
+          "grounded": true,
+          "group": 8,
+          "id": 37,
+          "movie_frame": 1994,
+          "muzzle": [
+            5818.45361328125,
+            689.021728515625
+          ],
+          "ordinal": 1,
+          "player": [
+            5812.0087890625,
+            699.998229980469
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 34.0,
+          "direction": [
+            0.457249879837036,
+            -0.889338254928589
+          ],
+          "frame": 2008,
+          "grounded": true,
+          "group": 8,
+          "id": 38,
+          "movie_frame": 2014,
+          "muzzle": [
+            5818.474609375,
+            688.9375
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.07470703125,
+            699.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 33.0,
+          "direction": [
+            0.449566274881363,
+            -0.893247008323669
+          ],
+          "frame": 2028,
+          "grounded": true,
+          "group": 8,
+          "id": 39,
+          "movie_frame": 2034,
+          "muzzle": [
+            5818.3486328125,
+            688.892639160156
+          ],
+          "ordinal": 3,
+          "player": [
+            5812.07470703125,
+            699.925231933594
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 33.0,
+        "direction": [
+          0.449566274881363,
+          -0.893247008323669
+        ],
+        "frame": 2028,
+        "grounded": true,
+        "group": 8,
+        "id": 39,
+        "movie_frame": 2034,
+        "muzzle": [
+          5818.3486328125,
+          688.892639160156
+        ],
+        "ordinal": 3,
+        "player": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          5869.509765625,
+          587.239807128906
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          0.449566274881363,
+          -0.893247008323669
+        ],
+        "frame": 2027,
+        "group": 8,
+        "intent": "assault_greed3",
+        "movie_frame": 2033,
+        "ordinal": 3,
+        "recovery_age": 0.766666666666667,
+        "remaining_recovery": 0.533333333333333,
+        "submitted": true
+      },
+      "actual_third_damage": {
+        "amount": 1.0,
+        "event": "303063633148:2:39",
+        "frame": 2032,
+        "hp_lost": 1.0,
+        "kind": 0,
+        "movie_frame": 2038,
+        "source": "player_projectile:303063633148",
+        "state": "recover",
+        "target": "boss"
+      },
+      "all_three_remove_actual_HP": true,
+      "second_to_third_seconds": 0.3333333333333333,
+      "remaining_recovery_after_second_seconds": 0.8333333333333286,
+      "remaining_recovery_after_third_seconds": 0.5,
+      "next_execution_state": "sweep",
+      "next_execution_seconds": 35.15,
+      "third_to_next_execution_seconds": 1.25,
+      "injuries_within3seconds_after_third": [],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 9,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 32.0,
+          "direction": [
+            0.455232828855515,
+            -0.890372514724731
+          ],
+          "frame": 2225,
+          "grounded": true,
+          "group": 9,
+          "id": 41,
+          "movie_frame": 2231,
+          "muzzle": [
+            5818.50830078125,
+            689.811340332031
+          ],
+          "ordinal": 1,
+          "player": [
+            5812.07470703125,
+            699.975524902344
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 31.0,
+          "direction": [
+            0.456447303295135,
+            -0.889750421047211
+          ],
+          "frame": 2241,
+          "grounded": true,
+          "group": 9,
+          "id": 42,
+          "movie_frame": 2247,
+          "muzzle": [
+            5818.458984375,
+            688.943420410156
+          ],
+          "ordinal": 2,
+          "player": [
+            5812.07470703125,
+            699.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 30.0,
+          "direction": [
+            0.451784670352936,
+            -0.89212703704834
+          ],
+          "frame": 2257,
+          "grounded": true,
+          "group": 9,
+          "id": 43,
+          "movie_frame": 2263,
+          "muzzle": [
+            5818.38232421875,
+            688.916076660156
+          ],
+          "ordinal": 3,
+          "player": [
+            5812.07470703125,
+            699.925231933594
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 30.0,
+        "direction": [
+          0.451784670352936,
+          -0.89212703704834
+        ],
+        "frame": 2257,
+        "grounded": true,
+        "group": 9,
+        "id": 43,
+        "movie_frame": 2263,
+        "muzzle": [
+          5818.38232421875,
+          688.916076660156
+        ],
+        "ordinal": 3,
+        "player": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          5872.552734375,
+          581.94970703125
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          0.451784670352936,
+          -0.89212703704834
+        ],
+        "frame": 2256,
+        "group": 9,
+        "intent": "assault_greed3",
+        "movie_frame": 2262,
+        "ordinal": 3,
+        "recovery_age": 1.01666666666667,
+        "remaining_recovery": 0.283333333333332,
+        "submitted": true
+      },
+      "actual_third_damage": {
+        "amount": 1.0,
+        "event": "303063633148:2:43",
+        "frame": 2261,
+        "hp_lost": 1.0,
+        "kind": 0,
+        "movie_frame": 2267,
+        "source": "player_projectile:303063633148",
+        "state": "recover",
+        "target": "boss"
+      },
+      "all_three_remove_actual_HP": true,
+      "second_to_third_seconds": 0.26666666666666666,
+      "remaining_recovery_after_second_seconds": 0.5166666666666941,
+      "remaining_recovery_after_third_seconds": 0.2500000000000284,
+      "next_execution_state": "lunge",
+      "next_execution_seconds": 38.5833333333333,
+      "third_to_next_execution_seconds": 0.8666666666666316,
+      "injuries_within3seconds_after_third": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 2280,
+          "group": 10,
+          "health": 4.0,
+          "last_shot_frame": 2257,
+          "movie_frame": 2286,
+          "movie_seconds": 38.1,
+          "state": "lunge_warning"
+        }
+      ],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    },
+    {
+      "group": 13,
+      "actual_recovery_shots": [
+        {
+          "boss_health": 15.0,
+          "direction": [
+            -0.854418694972992,
+            -0.519585072994232
+          ],
+          "frame": 3798,
+          "grounded": true,
+          "group": 13,
+          "id": 63,
+          "movie_frame": 3804,
+          "muzzle": [
+            6581.84375,
+            563.837036132812
+          ],
+          "ordinal": 1,
+          "player": [
+            6595.08935546875,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 14.0,
+          "direction": [
+            -0.885502099990845,
+            -0.464635401964188
+          ],
+          "frame": 3818,
+          "grounded": true,
+          "group": 13,
+          "id": 64,
+          "movie_frame": 3824,
+          "muzzle": [
+            6605.95849609375,
+            564.623596191406
+          ],
+          "ordinal": 2,
+          "player": [
+            6619.7890625,
+            569.925231933594
+          ],
+          "state": "recover"
+        },
+        {
+          "boss_health": 13.0,
+          "direction": [
+            -0.901827573776245,
+            -0.432096093893051
+          ],
+          "frame": 3838,
+          "grounded": true,
+          "group": 13,
+          "id": 65,
+          "movie_frame": 3844,
+          "muzzle": [
+            6632.9755859375,
+            565.091918945312
+          ],
+          "ordinal": 3,
+          "player": [
+            6647.12158203125,
+            569.925231933594
+          ],
+          "state": "recover"
+        }
+      ],
+      "actual_third_shot": {
+        "boss_health": 13.0,
+        "direction": [
+          -0.901827573776245,
+          -0.432096093893051
+        ],
+        "frame": 3838,
+        "grounded": true,
+        "group": 13,
+        "id": 65,
+        "movie_frame": 3844,
+        "muzzle": [
+          6632.9755859375,
+          565.091918945312
+        ],
+        "ordinal": 3,
+        "player": [
+          6647.12158203125,
+          569.925231933594
+        ],
+        "state": "recover"
+      },
+      "actual_third_request": {
+        "action": "shoot_release",
+        "actual_aim_point": [
+          6410.32275390625,
+          458.411682128906
+        ],
+        "actual_state": "recover",
+        "aim_anchor": "painted upper head",
+        "direction": [
+          -0.901827573776245,
+          -0.432096093893051
+        ],
+        "frame": 3837,
+        "group": 13,
+        "intent": "assault_greed3",
+        "movie_frame": 3843,
+        "ordinal": 3,
+        "recovery_age": 0.766666666666667,
+        "remaining_recovery": 0.533333333333333,
+        "submitted": true
+      },
+      "actual_third_damage": {
+        "amount": 1.0,
+        "event": "303063633148:2:65",
+        "frame": 3849,
+        "hp_lost": 1.0,
+        "kind": 0,
+        "movie_frame": 3855,
+        "source": "player_projectile:303063633148",
+        "state": "recover",
+        "target": "boss"
+      },
+      "all_three_remove_actual_HP": true,
+      "second_to_third_seconds": 0.3333333333333333,
+      "remaining_recovery_after_second_seconds": 0.8333333333333712,
+      "remaining_recovery_after_third_seconds": 0.5000000000000426,
+      "next_execution_state": "platform",
+      "next_execution_seconds": 67.0,
+      "third_to_next_execution_seconds": 2.933333333333337,
+      "injuries_within3seconds_after_third": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:5:1",
+          "frame": 3965,
+          "group": 14,
+          "health": 2.0,
+          "last_shot_frame": 3838,
+          "movie_frame": 3971,
+          "movie_seconds": 66.1833333333333,
+          "state": "traverse"
+        }
+      ],
+      "causality_limit": "Within-run timestamps quantify consumed recovery and actual extra damage. Later injury is not proof that the third shot caused it; global trajectories already diverged after intent to keep a third-shot opening."
+    }
+  ],
+  "third_shots_count": 8,
+  "third_shots_with_actual_Boss_HP_damage": 6,
+  "R3_adapter_audit": {
+    "reviewed_adapter": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "before_commit": "b684b76e71143df6fdbcdf70307cc2b4e8f124d7",
+    "after_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+    "before_sha256": "93388ac6036e49ee4ec663367cff938123d795cb29b8f002c518e2b5fe91290f",
+    "after_sha256": "13c40797c9f8d0d0119d7ccd947fc33205c3ddaf647c4e299806e8562cc83e0e",
+    "all_failure_append_expressions_preserved": true,
+    "failure_append_count": 19,
+    "original7200_frame_loop_unchanged": true,
+    "run_wrapper_byte_identical_to_original_main840108": true,
+    "scope": "Static adapter migration review only; original assertions and deadlines preserved, canonical ordinary-input owner now active_assault, external duplicate shoot helper disabled for that owner. No rerun by reviewer.",
+    "original_harness_check_unchanged": true,
+    "harness_seconds": 360,
+    "actual_coordinator_rerun": {
+      "log_path": "build/windkeeper_pressure_01/original-r3-full-02.log",
+      "log_sha256": "a79e4b5cbd6d07b3e57e61f27f7faf6c75b4a7d52dace26091c1b15360c3b2be",
+      "strict_terminal_marker_present": true,
+      "native_error_lines": 0,
+      "component_markers": [
+        "UNDERWORLD R3 BOSS: 100 checks, 0 failures",
+        "UNDERWORLD R3 BOSS HIT DIRECTION: 16 checks, 0 failures",
+        "UNDERWORLD R3 BOSS LIFECYCLE: 54 checks, 0 failures"
+      ],
+      "map1": {
+        "frames": 459,
+        "failures": [],
+        "boss_HP": 0.0,
+        "player_HP": 4.0
+      },
+      "map2": {
+        "frames": 5053,
+        "failures": [],
+        "boss_HP": 0.0,
+        "player_HP": 3.0,
+        "accepted_actual_shots": 78,
+        "no_midfight_injection": true,
+        "actual_physical_coins": {
+          "configured_total": 20,
+          "actual_total": 20,
+          "actual_units": 4,
+          "all_claimed": true,
+          "original_per_unit_claims": true,
+          "wallet_delta": 20,
+          "post_victory_position_fixture": true
+        },
+        "settlement": {
+          "stage_complete": true,
+          "gold": true,
+          "first_claim": true,
+          "repeat_claim_rejected": true,
+          "gold_instances": 1,
+          "gold_does_not_grant_hook": true,
+          "core_choice_open": true,
+          "grapple_granted_once": true,
+          "duplicate_core_has_no_effect": true,
+          "forest_entered": true,
+          "forest_version": "thorn-forest-region-v2",
+          "forest_layout": "forest-bible-world-v15",
+          "same_player_with_grapple": true,
+          "previous_region_token_rejected": true
+        }
+      }
+    },
+    "original_main_failure_append_count": 14,
+    "all_original14_guards_preserved_in_ordered_subsequence": true
+  },
+  "verdict": "ACCEPT bounded observed extra-shot timing/damage and static adapter preservation; UNVERIFIED causal third-shot death, full greedy victory, human feel, listening and devices.",
+  "all140_runtime_references_identical_between_two_actual_GPU_source_inventories": true,
+  "other_interrupted_failure_preserved": {
+    "path": "build/windkeeper_pressure_01/headless-greedy-01/trace.json",
+    "complete": false,
+    "actual_hits": 48,
+    "wrapper_report_exists": false,
+    "scope": "Separate earlier failed headless attempt, wrapper interrupted; not relabelled as the later GPU recording."
+  },
+  "recommended_greedy_GPU_chapters": [
+    {
+      "id": "greedy-third-group2",
+      "group": 2,
+      "start": 6.78333333333333,
+      "end": 11.9,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 10.1,
+      "actual_third_hits": true,
+      "all_three_shots_hit": false,
+      "second_to_third_seconds": 0.35,
+      "recovery_remaining_after_third": 0.4333333333332998,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group4",
+      "group": 4,
+      "start": 14.5333333333333,
+      "end": 18.05,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 17.266666666666666,
+      "actual_third_hits": true,
+      "all_three_shots_hit": true,
+      "second_to_third_seconds": 0.36666666666666664,
+      "recovery_remaining_after_third": 3.552713678800501e-14,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group6",
+      "group": 6,
+      "start": 19.4666666666667,
+      "end": 24.65,
+      "phase": 1,
+      "plan": {
+        "attacks": [
+          "lunge",
+          "stomp"
+        ],
+        "double_stomp": false,
+        "phase": 1,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 23.216666666666665,
+      "actual_third_hits": true,
+      "all_three_shots_hit": false,
+      "second_to_third_seconds": 0.3333333333333333,
+      "recovery_remaining_after_third": 3.552713678800501e-14,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group8",
+      "group": 8,
+      "start": 28.6166666666667,
+      "end": 35.6,
+      "phase": 2,
+      "plan": {
+        "attacks": [
+          "gust",
+          "sweep"
+        ],
+        "double_stomp": false,
+        "phase": 2,
+        "sweep_high": true
+      },
+      "label": "第三枪实际成功/余量观察",
+      "actual_third_shot_seconds": 33.9,
+      "actual_third_hits": true,
+      "all_three_shots_hit": true,
+      "second_to_third_seconds": 0.3333333333333333,
+      "recovery_remaining_after_third": 0.5,
+      "injuries_within3seconds": [],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    },
+    {
+      "id": "greedy-third-group9",
+      "group": 9,
+      "start": 34.4166666666667,
+      "end": 38.7,
+      "phase": 2,
+      "plan": {
+        "attacks": [
+          "sweep",
+          "seeds"
+        ],
+        "double_stomp": false,
+        "phase": 2,
+        "sweep_high": false
+      },
+      "label": "第三枪后跟随接触受伤（不作单一因果归因）",
+      "actual_third_shot_seconds": 37.71666666666667,
+      "actual_third_hits": true,
+      "all_three_shots_hit": true,
+      "second_to_third_seconds": 0.26666666666666666,
+      "recovery_remaining_after_third": 0.2500000000000284,
+      "injuries_within3seconds": [
+        {
+          "amount": 1.0,
+          "event": "actual_player_injury",
+          "event_id": "boss_contact:3:1:1",
+          "frame": 2280,
+          "group": 10,
+          "health": 4.0,
+          "last_shot_frame": 2257,
+          "movie_frame": 2286,
+          "movie_seconds": 38.1,
+          "state": "lunge_warning"
+        }
+      ],
+      "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
+    }
+  ],
+  "T2_waiting_review": {
+    "scope": "Recorded producer prechecks and actual frames only; not an independent earliest queued-input experiment. No third-specific manufactured delay found in selectedg4/g9, shared pacing delay disclosed.",
+    "configured_cooldown_seconds": 0.25,
+    "producer_common_minimum_request_gap_frames": 16,
+    "common_recovery_due_seconds": [
+      0.1,
+      0.43,
+      0.76
+    ],
+    "risk_group9": {
+      "second_request": 2240,
+      "last_nonzero_cooldown_frame": 2255,
+      "third_request_on_first_recorded_zero_cooldown": 2256,
+      "actual_third_shot": 2257,
+      "extra_third_specific_delay_observed": false
+    },
+    "success_group4": {
+      "second_request": 1007,
+      "still_airborne_no_round_frames": [
+        1023,
+        1024,
+        1025,
+        1026,
+        1027,
+        1028
+      ],
+      "first_grounded_round_restored_and_third_request": 1029,
+      "third_due_already_elapsed": true,
+      "extra_third_specific_delay_observed": false
+    },
+    "success_group8_common_pacing": {
+      "second_ready_frame": 2003,
+      "second_request": 2007,
+      "third_ready_frame": 2023,
+      "third_request": 2027,
+      "common_wait_frames": 4,
+      "does_not_prove_wait_was_necessary_for_aiming": true
+    },
+    "first_group_after_second": {
+      "greedy_continues_moving_axis": 1,
+      "two_shot_base_withdraws_axis": -1,
+      "third_did_not_fire": "rounds0 and airborne at398–400",
+      "not_a_stationary_or_Boss_clock_freeze": true
+    },
+    "actual_frame_samples": [
+      {
+        "frame": 383,
+        "movie_seconds": 6.48333333333333,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.25,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.123333333333333,
+        "player_position": [
+          6033.23779296875,
+          569.21044921875
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": [
+          {
+            "direction": [
+              -0.999996542930603,
+              -0.00263169407844543
+            ],
+            "event_id": "windkeeper_seed-0-5",
+            "position": [
+              5817.74951171875,
+              543.247741699219
+            ],
+            "speed": 300.0,
+            "spent": false
+          }
+        ]
+      },
+      {
+        "frame": 392,
+        "movie_seconds": 6.63333333333333,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.1,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5963.1416015625,
+          563.921508789062
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 398,
+        "movie_seconds": 6.73333333333333,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5989.142578125,
+          564.090270996094
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 399,
+        "movie_seconds": 6.75,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5993.47607421875,
+          564.437683105469
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 400,
+        "movie_seconds": 6.76666666666667,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5997.8095703125,
+          565.120544433594
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1007,
+        "movie_seconds": 16.8833333333333,
+        "state": "recover",
+        "group": 4,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6622.2236328125,
+          569.986877441406
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1023,
+        "movie_seconds": 17.15,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6676.3046875,
+          563.167175292969
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1024,
+        "movie_seconds": 17.1666666666667,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6671.97119140625,
+          563.514587402344
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1025,
+        "movie_seconds": 17.1833333333333,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6667.6376953125,
+          564.197448730469
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1026,
+        "movie_seconds": 17.2,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6663.30419921875,
+          565.342895507812
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1027,
+        "movie_seconds": 17.2166666666667,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6658.970703125,
+          567.066284179688
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1028,
+        "movie_seconds": 17.2333333333333,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6654.63720703125,
+          569.456665039062
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1029,
+        "movie_seconds": 17.25,
+        "state": "recover",
+        "group": 4,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6650.3037109375,
+          569.925170898438
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      },
+      {
+        "frame": 1987,
+        "movie_seconds": 33.2166666666667,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.0087890625,
+          699.998229980469
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 1,
+        "active_threats": []
+      },
+      {
+        "frame": 2003,
+        "movie_seconds": 33.4833333333333,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 1,
+        "active_threats": []
+      },
+      {
+        "frame": 2007,
+        "movie_seconds": 33.55,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2023,
+        "movie_seconds": 33.8166666666667,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2027,
+        "movie_seconds": 33.8833333333333,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      },
+      {
+        "frame": 2240,
+        "movie_seconds": 37.4333333333333,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2255,
+        "movie_seconds": 37.6833333333333,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.0166666666666667,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2256,
+        "movie_seconds": 37.7,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      },
+      {
+        "frame": 2257,
+        "movie_seconds": 37.7166666666667,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.25,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.123333333333333,
+        "player_position": [
+          5812.005859375,
+          699.924011230469
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      }
+    ]
+  }
+}

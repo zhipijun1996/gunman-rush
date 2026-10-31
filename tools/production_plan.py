@@ -45,6 +45,15 @@ def validate_policy(policy, manifest):
         if not manifest["profiles"].get(profile):
             raise ValueError("Missing existing Harness profile: " + profile)
     domain_closure(domains, list(domains))
+    seen = set()
+    for check in policy.get("early_python_checks", []):
+        parent, argv = check.get("parent_check"), check.get("argv")
+        if (parent not in manifest["checks"] or parent in seen or not isinstance(argv, list)
+                or len(argv) < 3 or argv[:2] != ["python3", "-S"]
+                or any(not isinstance(arg, str) or not arg for arg in argv)
+                or not safe_path(argv[2]).startswith("tests/") or not argv[2].endswith(".py")):
+            raise ValueError("Invalid explicit early Python check")
+        seen.add(parent)
 
 
 def domain_closure(domains, requested):
@@ -114,11 +123,19 @@ def make_plan(paths, stage, policy, manifest, jobs=1):
     if stage == "release":
         checks = []
         commands = [["python3", "tools/deliver.py", "--jobs", str(jobs)]]
+    checks = unique(checks)
+    prechecks = [item["argv"][:] for item in policy.get("early_python_checks", [])
+                 if item["parent_check"] in checks]
+    lane_checks = {lane: [name for name in manifest["profiles"]["full"] if bool(manifest["checks"][name].get("serial", False)) == (lane == "serial")]
+                   for lane in ("parallel", "serial")}
+    exact_full = (stage == "integration" and full and set(checks) == set(manifest["profiles"]["full"]))
     return {
         "schema_version": 1, "stage": stage, "status": "planned", "approval_scope": "plan_only",
         "changed_paths": paths, "path_reasons": matches, "domains": closure,
         "escalations": escalations, "selection": "original_release_delivery" if stage == "release" else ("full" if full else "affected_checks"),
-        "checks": unique(checks), "commands": commands,
+        "checks": checks, "commands": commands, "precheck_commands": prechecks,
+        "ci_route": "full_lanes" if exact_full else "selected_commands",
+        "ci_lane_checks": lane_checks if exact_full else {},
         "additional_commands": [["python3", "tests/test_production_plan.py"]] if "planner" in closure and stage != "release" else [],
         "release_follow_up": ["Run the existing exact-SHA CI release and deploy jobs.", "Verify the published build using tools/verify_published_build.py with the actual URL, build ID and source commit.", "Report independent review, player acceptance and real devices separately."] if stage == "release" else [],
         "manual_checks": policy["manual_checks"],
@@ -150,6 +167,8 @@ def main(argv=None):
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--plan", action="store_true", help="Default: record selection, never test success")
     action.add_argument("--execute", action="store_true", help="Execute selected Development/Integration checks through the original Harness")
+    action.add_argument("--precheck-only", action="store_true", help="Only selected explicit portable Python subchecks; never a Harness/profile approval")
+    parser.add_argument("--verbose-plan", action="store_true", help="Print complete JSON; the full plan artifact is always written")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--jobs", type=int, default=1, choices=range(1, 9))
     args = parser.parse_args(argv)
@@ -171,9 +190,16 @@ def main(argv=None):
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("x") as stream:
         stream.write(json.dumps(plan, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
-    print("Production plan: " + str(output), flush=True)
-    if not args.execute:
+    if args.verbose_plan:
+        print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
+    else:
+        print("Production plan: " + json.dumps({"source_commit": head_sha, "stage": args.stage,
+              "selection": plan["selection"], "ci_route": plan["ci_route"],
+              "changed_paths": len(plan["changed_paths"]), "checks": len(plan["checks"]),
+              "prechecks": len(plan["precheck_commands"]), "escalations": len(plan["escalations"]),
+              "escalation_sample": plan["escalations"][:3]}, ensure_ascii=False), flush=True)
+    print("Complete plan artifact: " + str(output), flush=True)
+    if not (args.execute or args.precheck_only):
         return 0
     if args.stage == "release":
         print("Release is plan-only here: execute tools/deliver.py and the existing exact-SHA release/deployment workflow; a Harness full run alone is not release acceptance.", file=sys.stderr)
@@ -184,12 +210,17 @@ def main(argv=None):
         if harness.git_metadata() != source_metadata:
             raise RuntimeError("Source/Git changed during planned verification; create a fresh plan")
     try:
-        exit_code = run_commands(plan["additional_commands"] + plan["commands"], ROOT, results, source_guard)
+        commands = plan["precheck_commands"]
+        if not args.precheck_only:
+            commands = commands + plan["additional_commands"] + plan["commands"]
+        exit_code = run_commands(commands, ROOT, results, source_guard)
         return exit_code
     finally:
         # Separate execution receipt; never turn a plan into a test result.
         receipt = {"schema_version": 1, "stage": args.stage, "plan": str(output), "source_commit": head_sha,
-                   "status": "selected_commands_succeeded" if exit_code == 0 else "failed_or_interrupted",
+                   "status": (("selected_prechecks_succeeded" if plan["precheck_commands"] else "no_selected_prechecks")
+                              if args.precheck_only else "selected_commands_succeeded") if exit_code == 0 else "failed_or_interrupted",
+                   "approval_scope": "precheck_only" if args.precheck_only else "selected_commands",
                    "steps": results, "device_acceptance": "unverified", "player_acceptance": "unverified"}
         receipt_path = output.with_name(output.stem + ".execution.json")
         with receipt_path.open("x") as stream:

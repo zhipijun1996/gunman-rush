@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-03-RAW-K-HURT",
+  "content_version": "audio-director-v3",
+  "source_path": "assets/audio/director_v3/_sources/kenney-impact-sounds/impactPunch_medium_000.ogg",
+  "source_sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+  "tool": "tools/audio_candidates_v3.py; licensed sampled layers, explicit pitch/envelope/timing and floating-point mix",
+  "model": "not applicable",
+  "prompt_or_reference": "User requests bright collected-coin contour, liquid healing, chest opening, longer item acquisition and three weapon identities; commercial game references are functional only, none of their audio copied",
+  "processing": "Trace in manifest: retained CC0 inputs; crop/pitch/filter/envelope/delay per layer; float mix and final RMS/peak bounded gain",
+  "usage_scope": "Audio Director V3 real-scene recording/audition only; no user timbre acceptance yet",
+  "license_source": "config/audio_director/v3/sources.json plus retained original source pages/licenses",
+  "license_status": "verified",
+  "runtime_paths": [],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "production_record_only",
+  "source_family": "AUDIO-DIRECTOR-03-FUNCTIONAL-V3",
+  "author": "Kenney",
+  "source_url": "https://kenney.nl/assets/impact-sounds",
+  "original_filename": "impactPunch_medium_000.ogg",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_v3/_sources/kenney-impact-sounds/LICENSE.txt",
+      "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "documentation"
+    },
+    {
+      "path": "config/audio_director/v3/sources.json",
+      "sha256": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+      "role": "source_contract"
+    }
+  ],
+  "non_runtime_reason": "Retained source sample/permission original for reproducibility; .gdignore excludes it from Godot runtime"
+}

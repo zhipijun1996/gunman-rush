@@ -1,0 +1,149 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "review_kind": "independent source03 bounded QA admission; no engine",
+  "created_utc": "2026-10-28T07:44:56.150486+00:00",
+  "source_head": "0f25921dd41949f220999293013f065ce758189d",
+  "verdict": "DIAGNOSTIC_QA_ONLY",
+  "actual_godot_diagnostic_qa_allowed": true,
+  "formal_source_admission": false,
+  "runtime_promotion_allowed": false,
+  "production_push_allowed_on_this_review": false,
+  "source": {
+    "path": "/workspace/generated_images/exec-4783506e-fa2f-4f1c-8b8b-04aef5030411.png",
+    "sha256": "a3106003f2189e0f4d5d4e12bdc7ed579d6dd52130de2a7919be7756818627a0",
+    "size": [
+      1536,
+      1024
+    ],
+    "rgba8_bytes": 6291456,
+    "hard_limit_rgba8_bytes": 8388608,
+    "source_pixels_modified": false
+  },
+  "inspected": {
+    "actual_full_source_pixels_viewed": true,
+    "source_measurements_and_natural_ROI_proposal_read": true,
+    "engine_started": false,
+    "actual_game_or_GL_pixels_for_source03_seen": false,
+    "production_or_test_or_document_writes": false
+  },
+  "evidence": [
+    {
+      "path": "docs/worklines/chest_art_01/spec.md",
+      "sha256": "70cc6ed87a10423c96f29102271ab6afa1f22edef966333f1baf0d8c6c8ecc1f"
+    },
+    {
+      "path": "docs/worklines/chest_art_01/authority.json",
+      "sha256": "a061db88668876c8bc09c62e974aed3dd5d4623ad402f566b7ed3109cde2f24c"
+    },
+    {
+      "path": "docs/worklines/chest_art_01/prompt.txt",
+      "sha256": "9230a700ef5e2ba19680ec596b050cd7b0e54d688a0c60a8a1b3bf96c62bab47"
+    },
+    {
+      "path": "build/chest_art_01/generation/response-03-measurement.json",
+      "sha256": "8e233e8a71af6466b2638ade4dac4cb8d53fbd78110987db53a1ffe9364ef0a5"
+    },
+    {
+      "path": "build/chest_art_01/proposals/third-source-natural-roi/proposal.json",
+      "sha256": "1fa40bac4335eaeca2e40d51fe9b98dd1adc1bb751c504d6360e82690a00dc44"
+    },
+    {
+      "path": "build/chest_art_01/source03-independent-roi-measurement.json",
+      "sha256": "a7299a35c322c10055a3dceba052393e8110e3f46e0afc4fb1b041217d4b7949"
+    },
+    {
+      "path": "build/chest_art_01/call3-bounded-rework-review.json",
+      "sha256": "d7bfe3ca62f7e89660767af33563e5a7c81f3e69c0a3c673a65ff83f8863135f"
+    },
+    {
+      "path": "build/chest_art_01/g0-review.json",
+      "sha256": "3ff586bc7785f048e5c4c4197c9d4e415271292bbcec9d4fabab30e43c9cb847"
+    }
+  ],
+  "positive_findings": [
+    "Broad steel-blue, royal-purple and old-gold panels are visibly different in both closed/open poses; flat lid, arched lid and low crown coffer provide additional structural tier cues. This is source-scale observation, not user aesthetic or small-screen acceptance.",
+    "Gold has materially improved from source02: the tall crown/coffer has become a lower, wider structure. Diagnostic structural heights are plausibly compatible with its original closed/open caps, but no formal all-alpha/GPU bound pass is signed.",
+    "Natural full partitions x=[0,512,1007,1536], y=[0,512,1024] preserve the entire source without masks or editing. Equal 512px columns would cut the gold object and are prohibited.",
+    "Single unique RGBA8 texture costs 6MiB and meets the unchanged 8MiB source-texture cap."
+  ],
+  "blocking_findings": [
+    {
+      "id": "PAIR_BASE_WIDTH",
+      "status": "OPEN",
+      "severity": "formal-admission blocker",
+      "detail": "The proposed lower-body Y windows cover the physical front box and supporting feet rather than raised lids. Source-scale visual review supports their use as a conservative counterexample. At one shared isotropic scale per tier, medium widths417/430 and high421/429 cannot meet the frozen pair-width difference<=1wu together with target width tolerance +/-1wu. Separate pose scales, measuring each edge independently, or redefining width delta are not permitted.",
+      "measurements": [
+        {
+          "tier": "medium",
+          "closed_open_source_px": [
+            417,
+            430
+          ],
+          "proposal_factor": 0.12278630460448642,
+          "delta_wu_at_proposal": 1.5962219598583236,
+          "minimum_shared_factor_compatible_with_width_target": 0.1223021582733813,
+          "minimum_possible_delta_wu": 1.589928057553957
+        },
+        {
+          "tier": "high",
+          "closed_open_source_px": [
+            421,
+            429
+          ],
+          "proposal_factor": 0.13647058823529412,
+          "delta_wu_at_proposal": 1.091764705882353,
+          "minimum_shared_factor_compatible_with_width_target": 0.13539192399049882,
+          "minimum_possible_delta_wu": 1.0831353919239906
+        },
+        {
+          "tier": "region_top",
+          "closed_open_source_px": [
+            495,
+            499
+          ],
+          "proposal_factor": 0.12877263581488935,
+          "delta_wu_at_proposal": 0.5150905432595574
+        }
+      ],
+      "measurement_caveat": "Alpha>32 is only a diagnostic for substantive structural features. It is not a runtime cutoff or permission to discard source alpha. Physical support/foot alignment and remaining base geometry still require real same-position state-switch examination."
+    },
+    {
+      "id": "SOURCE_REQUEST_AND_ALPHA",
+      "status": "OPEN",
+      "severity": "unverified consumer isolation and appearance",
+      "detail": "Original regular-grid/native4px-cluster/32px-gutter requests are not satisfied. Alpha1 tails remain; the second/third natural split has only a single fully transparent column locally. Full nonzero bounds extend well beyond structural bounds. Those tails must remain, and their perceptual effect requires actual shader sampling; no actual1wu/halo/neighbor/whole-height pass is claimed."
+    },
+    {
+      "id": "WORLD_FOOT_AND_PLAYER_SCALE",
+      "status": "UNVERIFIED",
+      "severity": "formal-admission blocker",
+      "detail": "Proposed source pivots are candidate metadata, not observed world support. No source03 GL at existing Plains+21/Forest+18 feet, 44wu player comparison, claimed-state switch, fractional camera origins, or physical-device observation exists in this review."
+    }
+  ],
+  "diagnostic_qa_conditions": [
+    "Use only an ignored isolated QA fixture and the unmodified source03 PNG. Keep runtime production assets/config/consumers unpromoted while known pair-geometry failures remain.",
+    "Use the complete natural partitions, nearest plus existing item_v5_world_sprite shader, one common isotropic factor per tier, fixed measured source foot pivots, and existing unmodified world support anchors. Do not move interactions or reward state.",
+    "Compare closed/open at identical world foot and camera positions for all three tiers; measure substantive base/feet and full retained-alpha bounds separately. Repeat fractional camera/origin phases rather than selecting a favorable quantization phase.",
+    "Run actual-ratio six-ROI sampling with a deliberately wrong ROI/neighbor positive control, dark/light backgrounds, terrain/hazards and 44wu player. Preserve all alpha, failed screenshots and source-request failures.",
+    "QA may diagnose actual GPU tails and rendering behavior; it does not erase the measured frozen pair-width defect or authorize lowering its threshold. Any eventual formal acceptance requires a separate explicit decision backed by compliant source geometry, not this report."
+  ],
+  "generation_budget": {
+    "calls_used_total": 3,
+    "calls_remaining": 0,
+    "fourth_call_allowed": false,
+    "previous_two_failed_or_unadmitted_sources_preserved": true,
+    "original_max2_G0_report_not_rewritten": true,
+    "versioned_total3_rework_report_preserved": true
+  },
+  "unverified": [
+    "source03 actual world rendering",
+    "source03 small-scale tier readability",
+    "actual closed/open foot continuity",
+    "source03 actual claimed/reward lifecycle",
+    "user aesthetic approval",
+    "physical Android/controller/device performance",
+    "final game art acceptance"
+  ],
+  "scope_boundary": "Only source review and permission for isolated diagnostic GL QA. No production source change, engine execution, final asset acceptance, changed geometry/alpha/budget threshold, new gameplay, reward/collision/RNG change or fourth generation is authorized by this review."
+}

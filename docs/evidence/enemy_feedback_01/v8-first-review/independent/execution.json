@@ -1,0 +1,157 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "timeout",
+      "90",
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--editor",
+      "--path",
+      ".",
+      "--import"
+    ],
+    "exit": 0,
+    "seconds": 6.638304508996953,
+    "errors": [],
+    "tail": [
+      "[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Started (Re)Importing Assets (4 steps)\u001b[39m\u001b[0m",
+      "[   0% ] \u001b[90m\u001b[1mreimport\u001b[22m | Executing post-reimport operations...\u001b[39m\u001b[0m",
+      "\u001b[92m[ DONE ]\u001b[39m \u001b[1mreimport\u001b[22m",
+      "\u001b[0m",
+      "[   0% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Started Loading editor (5 steps)\u001b[39m\u001b[0m",
+      "[   0% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading editor layout...\u001b[39m\u001b[0m",
+      "[  16% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading docks...\u001b[39m\u001b[0m",
+      "\u001b[92m[ DONE ]\u001b[39m \u001b[1mloading_editor_layout\u001b[22m",
+      "\u001b[0m"
+    ]
+  },
+  {
+    "name": "native",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tests/enemy_feedback_01_tests.gd"
+    ],
+    "exit": 0,
+    "seconds": 2.7213835380025557,
+    "errors": [],
+    "tail": [
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "",
+      "ENEMY_FEEDBACK_01 checks=458 failures=0"
+    ]
+  },
+  {
+    "name": "formal",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tests/enemy_feedback_01_formal.gd"
+    ],
+    "exit": 1,
+    "seconds": 5.9834442929932266,
+    "errors": [
+      "FAIL: official restored corpse stays visible despite hidden saved EnemyMotor",
+      "FAIL: official restored corpse stays visible despite hidden saved EnemyMotor"
+    ],
+    "tail": [
+      "TERRAIN STUDY: solids=81 pieces=289 setup_ms=43",
+      "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"f93cd6fbf4b8be98e00af8ada184f4ad44d3c047f2a6ce0c5d56e43ecb745b7d\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"enemy-feedback-01-formal\"}",
+      "PLAINS REGION: family=crossroads areas=20 fallback=",
+      "TERRAIN STUDY: solids=81 pieces=289 setup_ms=39",
+      "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"f93cd6fbf4b8be98e00af8ada184f4ad44d3c047f2a6ce0c5d56e43ecb745b7d\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"enemy-feedback-01-formal\"}",
+      "FAIL: official restored corpse stays visible despite hidden saved EnemyMotor",
+      "FAIL: official restored corpse stays visible despite hidden saved EnemyMotor",
+      "TEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@2/@Node@3\",\"played\":{\"bell\":1,\"confirm\":4,\"death\":1,\"hurt\":4,\"impact\":6,\"land\":3,\"shot\":5,\"step\":3,\"warning\":1},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.116}",
+      "ENEMY_FEEDBACK_01_FORMAL checks=66 failures=2"
+    ]
+  },
+  {
+    "name": "support",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tests/enemy_feedback_01_support.gd"
+    ],
+    "exit": 0,
+    "seconds": 2.6218993559959927,
+    "errors": [],
+    "tail": [
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "",
+      "ENEMY_FEEDBACK_01_SUPPORT checks=199 failures=0"
+    ]
+  },
+  {
+    "name": "death-audio",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--audio-driver",
+      "Dummy",
+      "--max-fps",
+      "60",
+      "--script",
+      "tests/enemy_feedback_01_death_audio.gd"
+    ],
+    "exit": 0,
+    "seconds": 9.614037400999223,
+    "errors": [],
+    "tail": [
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "",
+      "ENEMY_FEEDBACK_01_DEATH_AUDIO checks=278 failures=0"
+    ]
+  },
+  {
+    "name": "pixels",
+    "command": [
+      "python3",
+      "/workspace/scratch/run_enemy_v6_gpu.py",
+      "/workspace/enemy-feedback-01-v4-after",
+      "tests/enemy_feedback_01_pixels.gd",
+      "/workspace/enemy-feedback-01-v4-after/build/enemy_feedback_01/v8-independent/pixels.log"
+    ],
+    "exit": 0,
+    "seconds": 7.545630646003701,
+    "errors": [],
+    "tail": [
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+      "",
+      "ENEMY_FEEDBACK_01_PIXELS checks=258 failures=0",
+      ""
+    ]
+  }
+]

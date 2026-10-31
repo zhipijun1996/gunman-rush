@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/build/verification/workspaces/gunman-checks-nokbgepf/1/tools/run_forest_depth_campaign_boss.py", line 416, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/build/verification/workspaces/gunman-checks-nokbgepf/1/tools/run_forest_depth_campaign_boss.py", line 403, in main
+    ({'guardian':validate,'queen':validate_queen,'canopy':validate_canopy}[args.boss])(json.loads((out/'capture.json').read_text()));receipt['passed']=True
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/build/verification/workspaces/gunman-checks-nokbgepf/1/tools/run_forest_depth_campaign_boss.py", line 373, in validate_canopy
+    require(any('Next regions are in development' in row for row in data['boundary_ui_text']),'Truthful current development boundary text required')
+  File "/home/runner/work/gunman-rush/gunman-rush/build/verification/workspaces/gunman-checks-nokbgepf/1/tools/run_forest_depth_campaign_boss.py", line 22, in require
+    raise ValueError(reason)
+ValueError: Truthful current development boundary text required

@@ -1,14 +1,18 @@
 # 当前创作入口：区域圣经 V2
 
+当前技术消费者绑定为 [style-v23](bibles/style-continuity-20261030-v23-bellstrider-rework.json)，两区总谱 creative-v26；[本轮影响](revision_creative_v26.md)只按本轮用户明确规格重做鸣铃巡游机，并登记实际共姿态、旧源PNG与有限材质音效消费者。原style22的83项role/path顺序保留，实际变更叶与新增有限引用分列；原件和原57项测试保存在[上一版归档](archive/creative-v25-before-bellstrider-rework/manifest.json)。旧Bible文本、其他Boss设计、共享1wu/nearest风格、BGM和历史回执不改。当前是候选技术绑定，尚不代表平衡、自然战斗、画面、听感、用户或设备验收。
+
 制作或优化地区先有该地区完整圣经，所有专业按原文设计、生成和优化。用户已提供并选择两份原件：[荆棘森林](bibles/2-thorn_forest_region_bible_v2.md)、[风铃平原](bibles/1-windchime_plains_region_bible_v2.md)；先完整森林含美术，再优化平原。[原始指令](bibles/user-request.json)是直接用户消息的逐字引用，明确不是API导出。选方向不代表新内容的美术、趣味、音频或实体设备验收。
 
-[注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v6](thorn_forest.json)、[平原creative-v6](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
+[注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v26](thorn_forest.json)、[平原creative-v26](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
 
-[最新两条用户补充](bibles/style-continuity-20261022-v4.json)要求森林与所有后续区域继承当前正式平原的整体像素风格，仅体现地区特色。共享参考绑定实际 `PlainsRegionStage→PlainsTerrainStudy→UnderworldTerrain`、16px/32wu、47邻接与非整格exact-boundary adapter、原PNG/atlas/TileSet/shader和许可SHA。旧提案或失败实现不自动约束新区域，不等于把正式平原使用中的家族也丢弃。新地区从共享尺度、亮边/光照、材质与接口出发，树皮苔藓荆棘等构成森林差异。
+[当前用户细粒度选择与共享风格v5](bibles/style-continuity-20261022-v5.json)要求森林与所有后续区域继承当前正式平原的整体像素风格，仅体现地区特色。共享参考绑定实际 `PlainsRegionStage→PlainsTerrainStudy→UnderworldTerrain`、原生32px/32wu与1wu世界采样/nearest、47邻接与非整格exact-boundary adapter、原PNG/atlas/TileSet/shader和许可SHA。旧提案或失败实现不自动约束新区域，不等于把正式平原使用中的家族也丢弃。新地区从共享尺度、亮边/光照、材质与接口出发，树皮苔藓荆棘等构成森林差异。
 
 该共享补充进入所有region worker与missing-Bible proposed输入；任一共享源漂移均阻断调用/恢复并重验。生产先实际看共享PNG及正式平原/目标地区正常比例游戏黄金对照，独立像素准入后扩产；metadata/hash只绑定来源。用户明确另选global style时才版本化替代。普通物理、global动作和无关文档不因此新增图像门槛。
 
-当前补充v4绑定同一16项明确参考，其中同屏角色绑定 `UnderworldPlayer.gd` 及其直接读取的 `animation_build.json`、`run_sheet.png`、`states_sheet.png`；脚本SHA不变不能代表body像素不变。[v1与v2影响分析](bibles/style-continuity-rebind-v2.json)保留原漏绑定反例和旧验收来源，不递归猜测任意资产依赖。当前Forest Stage已挂载同一 `UnderworldTerrain`，DemoApp同用 `UnderworldPlayer`，`ForestBiblePresentation`负责地区景层/摆件；这些实际消费者存在不等于画面验收。
+历史补充v4绑定16项明确参考，其中同屏角色绑定 `UnderworldPlayer.gd` 及其直接读取的 `animation_build.json`、`run_sheet.png`、`states_sheet.png`；脚本SHA不变不能代表body像素不变。[v1与v2影响分析](bibles/style-continuity-rebind-v2.json)保留原漏绑定反例和旧验收来源，不递归猜测任意资产依赖。当前Forest Stage已挂载同一 `UnderworldTerrain`，DemoApp同用 `UnderworldPlayer`，`ForestBiblePresentation`负责地区景层/摆件；这些实际消费者存在不等于画面验收。
+
+当前执行以style-v23候选技术绑定及style-v5已选像素方向为准，旧v4/16px说明仅保留原版本来源。常规资产规格填写与跨区域对照见[美术稳定输出说明](../quality/art_consistency_workflow.md)，不新增质量体系。
 
 ## 预制作与生产
 

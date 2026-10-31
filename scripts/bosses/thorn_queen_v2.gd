@@ -268,3 +268,15 @@ func _valid_number(value: Variant) -> bool:
 	return typeof(value) in [TYPE_INT,TYPE_FLOAT] and is_finite(float(value))
 func _valid_integer(value: Variant) -> bool:
 	return _valid_number(value) and float(value)>=0 and float(value)<=1000000000 and float(value)==floorf(float(value))
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	values.merge({"phase":stage_phase,"phase_axes":{"combat":stage_phase,"route":route_phase},"damage_model":&"continuous_body","core_hint_visible":core_open},true)
+	return _presentation_countdown(values,StringName(motion_mode),motion_clock,(definition as ThornQueenWeaveDefinition).migration_preview_seconds,motion_mode in ["migration_preview","phase_preview"],false,motion_mode in ["flight","phase_flight"],motion_mode == "perched",&"motion")
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["motion_preview","persistent_weave","combat_state"])
+
+func presentation_motion_preview() -> Dictionary:
+	if not _weave_bound or motion_mode not in ["migration_preview","phase_preview"]: return {}
+	return {"path":PackedVector2Array(motion_path()),"phase_axes":{"combat":stage_phase,"route":route_phase}}

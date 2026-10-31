@@ -1,0 +1,459 @@
+{
+  "schema_version": 1,
+  "task_id": "ITEM-ART-01",
+  "reviewer": "/root/final_review",
+  "status": "passed_observed_icon_drawing_subset_with_unverified_controls_and_motion",
+  "verdict": "ACCEPT observed first8 icon drawing/layout subset; UNVERIFIED960button reachability, world and continuous motion",
+  "head_at_review": "7afe71a377c5fd263a99c9115cda25422ae9f182",
+  "identity_limits": "capture-manifest/log identify actual fixture/render environment but do not contain full source_before/after. Source hashes below are actual review-time bytes, not a claim of producer-time frozen-source capture. Later frozen movie/finalNative proof is separate.",
+  "actually_viewed_images": [
+    {
+      "path": "build/item_art_01/ui-golden-01/golden-menu-1280x720-top.png",
+      "sha256": "ba21f051b7214848141320357138416087e23673fc3f624cf2c6591a0af2c4fa",
+      "viewport": [
+        1280,
+        720
+      ],
+      "selected_instance": "golden/G16"
+    },
+    {
+      "path": "build/item_art_01/ui-golden-01/golden-menu-1280x720-scrolled.png",
+      "sha256": "9416410c8343b394bb6041dfe1482706f117f9f29d32c5603543d86e94bfb63b",
+      "viewport": [
+        1280,
+        720
+      ],
+      "selected_instance": "golden/N01"
+    },
+    {
+      "path": "build/item_art_01/ui-golden-01/golden-menu-960x540-top.png",
+      "sha256": "32347c9326c2dbb735f267bb1a7143cc97b706a10406e12c443e321c8a1c080a",
+      "viewport": [
+        960,
+        540
+      ],
+      "selected_instance": "golden/G16"
+    },
+    {
+      "path": "build/item_art_01/ui-golden-01/golden-menu-960x540-scrolled.png",
+      "sha256": "a63238bd7dcdef80b572239eb0dbc1b7bb755cec28fae4512363fb6c53873abf",
+      "viewport": [
+        960,
+        540
+      ],
+      "selected_instance": "golden/N01"
+    }
+  ],
+  "capture_manifest": {
+    "path": "build/item_art_01/ui-golden-01/capture-manifest.json",
+    "sha256": "475a14c56573bb4ad459cb29fd4f041be93038bb782e94e6de794b72b3c24027",
+    "scope": "ActualDemoMenu/ItemPresentation8goldenicons+12existingbacklog snapshotfixture. RealGL1280and960; sourceunmodified highresROI recipe; notnaturalownership/effectcommit/physicalAndroid orfull72art."
+  },
+  "producer_log": {
+    "path": "build/item_art_01/ui-golden-01.log",
+    "sha256": "2e91b44b5c8934b9581ac163536537214ea2b0cd58f511c47e802220adf7aac5",
+    "reported_native": "Godot4.7.2 X11 softwareGL llvmpipe;183assertions/0failures. Producer execution, not reviewer-run."
+  },
+  "current_source_at_review": [
+    {
+      "path": "scripts/ui/item_presentation.gd",
+      "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "sha256": "327e17778ce960ea2cd3d4cca53f78472f51c7ee1030528b6497aaddfb3de990"
+    },
+    {
+      "path": "scripts/ui/item_card.gd",
+      "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8"
+    },
+    {
+      "path": "scripts/items/v5/item_art_library.gd",
+      "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+    },
+    {
+      "path": "scripts/items/v5/item_effect_view.gd",
+      "sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+    },
+    {
+      "path": "scripts/items/v5/item_v5_entity.gd",
+      "sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+    },
+    {
+      "path": "scripts/items/v5/item_runtime.gd",
+      "sha256": "7eae7d0ff6116faed280c5b0cf848d16e970b31d13c2b599dee9bb51a9a00684"
+    },
+    {
+      "path": "config/item_v5_art.json",
+      "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+    },
+    {
+      "path": "config/item_v5_authoring.json",
+      "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+    },
+    {
+      "path": "tests/item_v5_authoring_runner.gd",
+      "sha256": "8d3abc3d7af66cfe4739445305caa20242fc9a3e58debfdd59f3f6072526e132"
+    },
+    {
+      "path": "tests/item_v5_catalog_suite.gd",
+      "sha256": "d9f336f8d009f5be9cc56c3555f80004acedd2f557b67e3e0a44e727de0832c7"
+    },
+    {
+      "path": "tests/item_v5_formal_runner.gd",
+      "sha256": "c50f367de1bf7655a7425e96da2d32e315fcef2851775a71dc85e3da94c07d12"
+    }
+  ],
+  "exact_icon_regions": [
+    {
+      "id": "B01",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        51,
+        51,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "B03",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        495,
+        51,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "B11",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        938,
+        51,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "P24",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        1382,
+        51,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "P14",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        51,
+        495,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "G14",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        495,
+        495,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "G16",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        938,
+        495,
+        340,
+        340
+      ]
+    },
+    {
+      "id": "N01",
+      "texture": "res://assets/items/v5/icons/golden-02.source.png",
+      "region": [
+        1382,
+        495,
+        340,
+        340
+      ]
+    }
+  ],
+  "original_icon_source": {
+    "path": "assets/items/v5/icons/golden-02.source.png",
+    "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15",
+    "same_raw2_sha": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+  },
+  "observations": [
+    {
+      "scope": "Both1280and960 top pictures",
+      "result": "Eight new sources appear as distinct magnet/barrel/box/rotor/squad/flask/fork/pendulum shapes in actual Menu. P24/P14 worn area is separate from backpack.8cog-shaped load cells show6filled/2empty; load6/8 and remaining2 agree. No visible neighbor fragment, rectangular halo or cropped object silhouette observed."
+    },
+    {
+      "scope": "1280 top/scrolled detail",
+      "result": "Selected G16 tuning-fork and N01 pendulum are readable at larger detail size and match the corresponding small grid identities. G16 effect text has3pulses×0.9D and65共鸣; N01Lv3 text has0.08worldscale. Text, rarity and gear-cost labels remain separate from artwork. Equip action is fully visible in these1280 samples."
+    },
+    {
+      "scope": "Bothscrolled pictures",
+      "result": "Backpack displays different rows, with old generic backlog icons still present; it is explicitly labeled first8 art snapshot/other art pending. Capturer directly sets scroll_vertical, so these pictures prove scrolling-window rendering, not actual finger/wheel/controller input."
+    },
+    {
+      "scope": "960 right detail",
+      "result": "G16/N01 long effect text pushes most of Equip below the visible right DetailScroll viewport. Only top of gold button is visible; the four images do not establish input reachability/discoverability. This is an observed limitation of the presented initial state, not proof that the existing scroll adapter fails."
+    }
+  ],
+  "findings": [
+    {
+      "id": "IART-UI-01",
+      "status": "UNVERIFIED interaction pending current-source probe",
+      "location": "golden-menu-960x540-top.png and-scrolled.png, right details near y454..479",
+      "required_proof": "Actual current-source native touch/drag scroll of DetailScroll followed by visible reachable action press/release and exact instance/session/revision callback once. Include no accidental activation while scrolling and close→late-release/stale closure refusal. No physicalAndroid claim."
+    }
+  ],
+  "vfx_source_review": {
+    "source_files": [
+      {
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f",
+        "actual_dimensions": [
+          2048,
+          768
+        ],
+        "actually_viewed_entire_source": true
+      },
+      {
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231",
+        "actual_dimensions": [
+          2048,
+          768
+        ],
+        "actually_viewed_entire_source": true
+      },
+      {
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf",
+        "actual_dimensions": [
+          2048,
+          768
+        ],
+        "actually_viewed_entire_source": true
+      }
+    ],
+    "actually_seen": "Opened all three full2048x768RGBA sheets. P24 row1 changes rotor orientation, row2 twin colored crescents vary, row3 cutting sparks shrink; P14 row1 wing poses change, row2 aperture/streak develops and fades, row3 receiving star clears; G16 seal separates teeth, crescent develops and fragments, receiving emblem breaks apart. Dedicated motifs correspond to icons.",
+    "not_animation_acceptance": "These source-frame differences are not a continuous playback or a guarantee that runtime regions/anchors/time/world size reproduce them correctly. Source sheets show broad soft colored glow outside primary forms; visibility/coverage/any adjacent-row pollution must be judged in real world frames, not declared clean from PNG inspection alone.",
+    "registered_clips": [
+      {
+        "id": "p24.rotor",
+        "frames": 8,
+        "first_region": [
+          0,
+          0,
+          256,
+          256
+        ],
+        "fps": 16,
+        "loop": true,
+        "world_size": [
+          32,
+          32
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "p24.trail",
+        "frames": 8,
+        "first_region": [
+          0,
+          256,
+          256,
+          256
+        ],
+        "fps": 16,
+        "loop": true,
+        "world_size": [
+          32,
+          32
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "p24.impact",
+        "frames": 8,
+        "first_region": [
+          0,
+          512,
+          256,
+          256
+        ],
+        "fps": 16,
+        "loop": false,
+        "world_size": [
+          32,
+          32
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "p14.body",
+        "frames": 8,
+        "first_region": [
+          0,
+          64,
+          256,
+          184
+        ],
+        "fps": 16,
+        "loop": true,
+        "world_size": [
+          32,
+          23
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "p14.muzzle",
+        "frames": 8,
+        "first_region": [
+          0,
+          256,
+          256,
+          256
+        ],
+        "fps": 16,
+        "loop": false,
+        "world_size": [
+          24,
+          24
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "p14.impact",
+        "frames": 8,
+        "first_region": [
+          0,
+          512,
+          256,
+          256
+        ],
+        "fps": 16,
+        "loop": false,
+        "world_size": [
+          24,
+          24
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "g16.cast",
+        "frames": 8,
+        "first_region": [
+          0,
+          0,
+          256,
+          286
+        ],
+        "fps": 24,
+        "loop": false,
+        "world_size": [
+          40,
+          44.6875
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "g16.wave",
+        "frames": 8,
+        "first_region": [
+          0,
+          286,
+          256,
+          242
+        ],
+        "fps": 24,
+        "loop": false,
+        "world_size": [
+          56,
+          52.9375
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "g16.impact",
+        "frames": 8,
+        "first_region": [
+          0,
+          512,
+          256,
+          256
+        ],
+        "fps": 24,
+        "loop": false,
+        "world_size": [
+          32,
+          32
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "world_motion_status": "UNVERIFIED by this reviewer at this stage"
+  },
+  "runtime_readonly_review": {
+    "current_delivery_guard": "ItemRuntime emits impact only from original positive-HP on_committed callback and rechecks source/session/run/stage/actor/weapon/equipment/world after gameplay callbacks. ItemEffectView now compares carried7integer identity fields+map before dedup/current-row capture and checks actual owned/equipped/notbroken source, addressing stale receipt redelivery counterexample.",
+    "source_candidate_closed": "Prior old-receipt→unload/re-equip→clear/newView→reemit case is now explicitly guarded in source and tested by author runtime-native-02; this reviewer has not independently launched the156native suite yet.",
+    "actual_native_report_read": "build/item_art_01/runtime-native-02/receipt.json reports156/0,4.7.2/strict budgets; author evidence separate from independent finalNative.",
+    "visual_ownership": "Recipe draw succeeds→old body/glyph is skipped; body owns actual delivery beam, observer owns muzzle and HP reception. Existing stage/world clocks and budgets remain in the checked code; actual simultaneous playback/lifecycle/performance remains unverified."
+  },
+  "maintenance_review_scope": {
+    "task_id": "ITEM-AUTHOR-01",
+    "reference": "Original72 workbook/fingerprint/icon reference guards stay on explicitly cleared authoring overrides/additions/disabled; original catalog400 conditions retained on reference factory. This preserves original tuning claims without forcing production to remain72/default balance.",
+    "production": "Current catalog suite independently derives expected field/parameter/icon/weight/requirements from rawbase+authoring patches/additions and checks per-definition snapshot isolation; authoring runner takes current B11fingerprint before isolated edits. Formal catalog check retains original72 inclusion and derives current configured additioncount.",
+    "actual_author_proof": "Author reports479native authoring/1553catalog checks with real combinedCLI B11[2,3,4]+newEXTRA_HEART and HP9→5; not independently executed by this reviewer yet.",
+    "retired_stale_note": "Reviewer previousliteral1 observation came from older in-progress bytes. Readonly currenta22 line159capturescanonical_before and180comparesit; sourceSHA8d3abc3d7af66cfe4739445305caa20242fc9a3e58debfdd59f3f6072526e132 confirms already fixed. No frozen source edit needed.",
+    "limits": "This supports bounded data-maintenance/catalog/proposal acceptance. Other deliberately initialized gameplay/balance scenarios retain their fixed contract expectations and still require behavior review when tuning; do not claim all regressions automatically adapt to arbitrary configuration."
+  },
+  "not_approved": [
+    "All72 expansion or72completedart",
+    "Originalequalgrid/alpha0/native64source claims",
+    "Real-world VFX rendering/continuous animation/audio",
+    "960touch/controller action accessibility until currentprobe",
+    "Naturalownership/effectcommit from a20-item UI snapshotfixture",
+    "User/device/G2-G5/lowend performance or fullCI approval"
+  ],
+  "reviewer_changes": "Only ignored build/item_art_01/review-ui-golden-01.json; no production/tests/art source edits."
+}

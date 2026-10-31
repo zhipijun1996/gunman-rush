@@ -1,0 +1,50 @@
+{
+  "scope": "Author original42 and four original Harness current style16/creative19 generic numerical text binding before any art asset writes; no native/visual/device or independent acceptance",
+  "source_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+  "worktree_modified": true,
+  "style_sha256": "fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f",
+  "presentation_sha256": "322bed12465c532301cc1b72f7b4f0b60a4b8bdd1e90ba272a504f00ab6ac5f5",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 4.445905861000938
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 1.3551302090017998
+    },
+    {
+      "label": "harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "region-bible-tests",
+        "--check",
+        "creative-direction-tests",
+        "--check",
+        "region-bible-contract",
+        "--check",
+        "creative-direction",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "seconds": 18.99788818899833
+    }
+  ]
+}

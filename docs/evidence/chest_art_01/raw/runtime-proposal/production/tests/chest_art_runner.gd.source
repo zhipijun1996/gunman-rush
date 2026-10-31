@@ -1,0 +1,106 @@
+extends SceneTree
+## Proposed native checks; unusable until the approved PNG/config are integrated.
+var checks := 0
+var failures := 0
+func _initialize() -> void: run.call_deferred()
+func check(ok: bool, label: String) -> void:
+	checks += 1
+	if not ok: failures += 1; printerr("CHEST ART FAILURE: "+label)
+
+func check_sprite(sprite: Sprite2D, foot: Vector2, tier: StringName, claimed: bool) -> void:
+	var row := ChestArtLibrary.pose(tier,claimed)
+	check(sprite.texture == ChestArtLibrary.texture(tier,claimed),"actual sprite selects explicit tier and actual claimed pose")
+	check(sprite.position == foot and not sprite.centered,"source pivot is anchored at unchanged caller world foot")
+	check(sprite.modulate == Color.WHITE,"claimed art keeps original opaque color")
+	check(sprite.material == ChestArtLibrary.world_material(),"actual Sprite2D keeps the REGION_RECT-safe 1wu material")
+	check(sprite.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST,"actual Sprite2D nearest filter")
+	var expected := -Vector2(float(row.foot_pivot_source_px[0]),float(row.foot_pivot_source_px[1]))
+	check(sprite.offset == expected and is_equal_approx(sprite.scale.x,sprite.scale.y),"actual source foot and isotropic source aspect preserved")
+
+func formal_region(region: StringName) -> void:
+	var app := DemoApp.new()
+	app.meta_persistence_enabled = false
+	root.add_child(app)
+	check(app.start_debug_region(region,1,"chest-art-formal-"+String(region)),"actual region enters through existing explicit debug fixture")
+	for unused: int in 6: await physics_frame
+	var stage := app.stage as PlainsRegionStage
+	check(stage != null and stage.assembly_ok and not stage.chests.is_empty(),"actual formal region contains unchanged reward rows")
+	if stage == null or stage.chests.is_empty():
+		app.abandon_run()
+		check(await load("res://tests/audio_teardown.gd").drain_world(app),"rejected fixture cleans actual audio")
+		app.free()
+		return
+	var before_manifest := JSON.stringify(stage.generated.manifest)
+	for actual: Dictionary in stage.chests:
+		if stage is ThornForestRegionStage:
+			check(is_instance_valid(stage.chest_art_layer) and stage.chest_art_layer.material == ChestArtLibrary.world_material(),"actual forest owns a dedicated world-material chest layer")
+			check(stage.chest_art_layer.chests.has(actual) and not actual.has("sprite"),"actual forest uses its existing rows exactly once, without a second chest sprite")
+		else:
+			check_sprite(actual.sprite,actual.position+Vector2(0,21),StringName(str(actual.tier)),bool(actual.claimed))
+	var chest: Dictionary = stage.chests[0]
+	var id := str(chest.id)
+	app.player.global_position = chest.position+Vector2(-65,0)
+	app._region_interact()
+	check(app.reward_modal.opened and not chest.claimed,"real offer opening leaves actual chest closed")
+	check(not app._claim_region_chest(&"missing-invalid-option") and not chest.claimed,"real denied choice leaves actual chest closed")
+	if app.reward_modal.opened and app._region_offer != null and not app._region_offer.candidates.is_empty():
+		var choice := (app._region_offer.candidates[0] as ItemDefinition).stable_id
+		check(app._claim_region_chest(choice),"real original reward transaction accepts one valid choice")
+		stage.capture_state()
+		check(chest.claimed and stage.region_state.claimed.has(id),"actual accepted transaction owns claimed ledger")
+		if not stage is ThornForestRegionStage: check_sprite(chest.sprite,chest.position+Vector2(0,21),StringName(str(chest.tier)),true)
+	check(JSON.stringify(stage.generated.manifest) == before_manifest,"art refresh and actual claim do not rewrite generated Manifest")
+	app._load_stage()
+	for unused: int in 6: await physics_frame
+	stage = app.stage as PlainsRegionStage
+	var restored := false
+	for actual: Dictionary in stage.chests:
+		if str(actual.id) == id:
+			restored = bool(actual.claimed)
+			if not stage is ThornForestRegionStage: check_sprite(actual.sprite,actual.position+Vector2(0,21),StringName(str(actual.tier)),true)
+	check(restored,"actual stage reload restores accepted claimed state through existing ledger")
+	app.abandon_run()
+	check(await load("res://tests/audio_teardown.gd").drain_world(app),"actual formal application drains audio")
+	app.free()
+	for unused: int in 3: await process_frame
+
+func run() -> void:
+	var audio := GameAudio.new()
+	root.add_child(audio)
+	check(bool(ChestArtLibrary.diagnostics().valid),"admitted configuration validates against immutable original atlas")
+	if not bool(ChestArtLibrary.diagnostics().valid):
+		check(await audio.shutdown(),"failed configuration drains audio")
+		audio.free()
+		quit(1)
+		return
+	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ChestArtLibrary.CONFIG_PATH))
+	var invalid: Dictionary = config.duplicate(true)
+	invalid.tiers.medium.states.open.world_size[0] *= 1.1
+	invalid.tiers.medium.states.open.world_size[1] *= 1.1
+	check("share one" in ChestArtLibrary.validate_config(invalid),"independently rescaled open pose is rejected without modifying actual data")
+	invalid = config.duplicate(true)
+	invalid.aliases["unknown"] = "region_top"
+	check(not ChestArtLibrary.validate_config(invalid).is_empty(),"unknown tiers cannot be silently promoted through extra aliases")
+	for tier: StringName in ChestArtLibrary.TIERS:
+		var sprite := Sprite2D.new()
+		var foot := Vector2(80.25,200.25)
+		var original_factor := -1.0
+		for claimed: bool in [false,true,false,true]:
+			UnderworldObjects.place_chest(sprite,foot,claimed,tier)
+			check_sprite(sprite,foot,tier,claimed)
+			if original_factor < 0: original_factor = sprite.scale.x
+			check(is_equal_approx(sprite.scale.x,original_factor),"repeated closed/open selection retains exact common pair factor")
+		sprite.free()
+	check(ChestArtLibrary.texture(&"hard_optional",false) == ChestArtLibrary.texture(&"region_top",false),"explicit legacy resource alias shares only top-tier visuals")
+	var bad := Sprite2D.new()
+	UnderworldObjects.place_chest(bad,Vector2.ZERO,false,&"unregistered-tier")
+	check(bad.texture == null and bool(bad.get_meta("chest_art_managed",false)),"unknown explicit tier fails closed and cannot be replaced by opt-in cosmetic art")
+	check("Unknown explicit" in str(ChestArtLibrary.diagnostics().last_error),"unknown tier has a clear diagnostic")
+	bad.free()
+	await formal_region(&"plains")
+	await formal_region(&"thorn_forest")
+	check(await audio.shutdown(),"actual mixer shutdown completes")
+	audio.free()
+	ChestArtLibrary.clear_cache()
+	print("CHEST ART: %d checks, %d failures"%[checks,failures])
+	quit(0 if failures == 0 else 1)

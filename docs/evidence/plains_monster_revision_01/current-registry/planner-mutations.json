@@ -1,0 +1,143 @@
+{
+  "source_commit": "a72a313a3fabde570733265aa7e2d795d70768c3",
+  "test_sha256": "71c9f51b13332659119ea16765776df2722bdabcfadc94ea943f85dc4d48109a",
+  "manifest_sha256": "7e4309aaf8d6a5d30f05951db5035ed3e8f2fdb8bbcbae8413cc5d02379a05f9",
+  "checks": 19,
+  "failures": 0,
+  "tamper_rejections": 18,
+  "rows": [
+    {
+      "case": "actual",
+      "rejected": false,
+      "expected_rejected": false,
+      "passed": true,
+      "observation": "accepted"
+    },
+    {
+      "case": "restore-old-default",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "0 != 1"
+    },
+    {
+      "case": "duplicate-current",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "2 != 1"
+    },
+    {
+      "case": "append-current",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "2 != 1"
+    },
+    {
+      "case": "move-current",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'forest-depth-enemies' != 'forest-current-registry'\n- forest-depth-enemies\n+ forest-current-registry\n"
+    },
+    {
+      "case": "drop-other-original",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'forest-depth-restore' != 'forest-current-registry'\n- forest-depth-restore\n+ forest-current-registry\n"
+    },
+    {
+      "case": "reorder-other-original",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'093ccfac886fb5d169102de129c3f15d45f39cd891e4bb6521e3c0395d668b72' != 'dd7ca8a04ea756fc112183fa3603a1cdcd75c4ff7677987702d659292d194bc2'\n- 093ccfac886fb5d169102de129c3f15d45f39cd891e4bb6521e3c0395d668"
+    },
+    {
+      "case": "replace-other-with-duplicate",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'forest-depth-restore' != 'forest-current-registry'\n- forest-depth-restore\n+ forest-current-registry\n"
+    },
+    {
+      "case": "remove-frozen-legacy",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'forest-depth-versions' not found in ['aim-save-compat', 'root-bell-tests', 'forest-region-matrix', 'forest-formal-combat', 'plains-action-golden', 'forest-depth-queen', 'forest-depth-campaign-queen',"
+    },
+    {
+      "case": "put-current-in-legacy",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'forest-current-registry' unexpectedly found in ['aim-save-compat', 'root-bell-tests', 'forest-region-matrix', 'forest-formal-combat', 'plains-action-golden', 'forest-depth-queen', 'forest-depth-campa"
+    },
+    {
+      "case": "change-current-budget",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "211 != 210"
+    },
+    {
+      "case": "move-current-to-serial",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "Tuples differ: (166, 90, 76) != (166, 91, 75)\n\nFirst differing element 1:\n90\n91\n\n- (166, 90, 76)\n?        ^   ^\n\n+ (166, 91, 75)\n?        ^   ^\n"
+    },
+    {
+      "case": "reorder-additions",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "Lists differ: ['doc[3413 chars]m-v5-catalog', 'item-v5-data', 'item-v5-pool',[357 chars]dex'] != ['doc[3413 chars]m-v5-data', 'item-v5-catalog', 'item-v5-pool',[357 chars]dex']\n\nFirst differing elemen"
+    },
+    {
+      "case": "drop-structure-native",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "Lists differ: ['ite[371 chars]-tools', 'item-v5-art', 'home-codex'] != ['ite[371 chars]-tools', 'item-v5-art', 'home-codex', 'enemy-structure-native']\n\nSecond list contains 1 additional elements.\nFirs"
+    },
+    {
+      "case": "plan-current-slot-shift",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'forest-depth-enemies' != 'forest-current-registry'\n- forest-depth-enemies\n+ forest-current-registry\n"
+    },
+    {
+      "case": "plan-other-original-order",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "'05b4cdb7c66f128368bdef45ededcc8779ef00ef60cb8ba80a1f2b658564b211' != '392a72c601c87c22daa53f7e2786c3481026048ee93fddd1753564e40ece621e'\n- 05b4cdb7c66f128368bdef45ededcc8779ef00ef60cb8ba80a1f2b658564b"
+    },
+    {
+      "case": "plan-additions-order",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "Lists differ: ['item-v5-catalog', 'item-v5-data', 'item-v5-pool',[357 chars]dex'] != ['item-v5-data', 'item-v5-catalog', 'item-v5-pool',[357 chars]dex']\n\nFirst differing element 0:\n'item-v5-catalog'\n'"
+    },
+    {
+      "case": "plan-lane-overlap",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "{'docs'} is not false"
+    },
+    {
+      "case": "plan-lane-omission",
+      "rejected": true,
+      "expected_rejected": true,
+      "passed": true,
+      "observation": "Items in the second set but not the first:\n'forest-current-registry'"
+    }
+  ]
+}

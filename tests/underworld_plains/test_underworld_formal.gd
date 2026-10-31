@@ -51,7 +51,7 @@ func run() -> void:
 			check(is_equal_approx(merchant.scale.x,merchant.scale.y),"merchant source aspect ratio is preserved")
 			var merchant_bounds := merchant.global_transform*merchant.get_rect()
 			var foot := Vector2(merchant_bounds.get_center().x,merchant_bounds.end.y)
-			check(foot.is_equal_approx(stage.merchant_position+Vector2(0,18)),"actual merchant feet remain at the unchanged interaction ground anchor")
+			check(foot.is_equal_approx(stage.merchant_position+Vector2(0,18)),"actual merchant feet remain at the unchanged interaction ground anchor actual=%s expected=%s"%[foot,stage.merchant_position+Vector2(0,18)])
 			var hit := stage.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(foot-Vector2(0,1),foot+Vector2(0,3),1))
 			check(not hit.is_empty() and hit.collider is StaticBody2D,"merchant foot is supported by real formal terrain")
 		var bg:=app.get_node("PixelPlainsParallax") as UnderworldParallax
@@ -76,7 +76,8 @@ func run() -> void:
 				pickups+=1
 		check(pickups==1,"single pickup visual layer")
 		for chest:Dictionary in stage.chests:
-			check(chest.sprite.texture==UnderworldActors.icon_texture(&"chest"),"actual reward chest no longer old flat placeholder")
+			var expected: AtlasTexture=ChestArtLibrary.texture(StringName(str(chest.tier)),bool(chest.claimed))
+			check(expected!=null and chest.sprite.texture==expected and chest.sprite.has_meta("underworld_chest_open") and bool(chest.sprite.get_meta("underworld_chest_open"))==bool(chest.claimed) and chest.sprite.modulate==Color.WHITE and chest.sprite.position==chest.position+Vector2(0,21),"actual reward chest uses its tier and claimed recipe at the unchanged world foot")
 		var old_manifest:=JSON.stringify(stage.generated.manifest)
 		var old_actor_epoch:=app.lifetime.actor_epoch
 		var old_stage_epoch:=app.lifetime.stage_epoch

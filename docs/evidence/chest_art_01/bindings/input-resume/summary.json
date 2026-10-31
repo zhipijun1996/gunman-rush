@@ -1,0 +1,47 @@
+{
+  "task_id": "CHEST-ART-01",
+  "candidate_iteration": "same18-21_input_resume",
+  "bindings": [
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+      "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d"
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8"
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729"
+    }
+  ],
+  "current_app_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+  "reference_count": 81,
+  "changed_since_first18": [
+    "scripts/demo/demo_app.gd"
+  ],
+  "unchanged_since_first18_count": 80,
+  "changed_since_published17": [
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/demo_app.gd"
+  ],
+  "published17_other_old_refs_unchanged_count": 71,
+  "new_chest_ref_count": 8,
+  "old_input_prefix_count": 288,
+  "finite_input_count": 294,
+  "original_test_methods": [
+    32,
+    10
+  ],
+  "prior_first18_report": "build/verification/harness/20261028T105534.089388Z/report.json",
+  "failed_migration_attempt": "build/chest_art_01/binding-verification/input-resume-attempt01/summary.json",
+  "failure_explanation": "Original first18 after-Plains stage was mistakenly compared to pre17 old stage source during migration. Restored separate exact first18/pre17 historical source checks without changing frozen SHA, negative cases or budgets. Production code untouched by binding agent.",
+  "pure_summary": "build/chest_art_01/binding-verification/input-resume-attempt02/summary.json",
+  "harness_summary": "build/chest_art_01/binding-verification/input-resume-attempt02/harness-summary.json",
+  "harness_report": "build/verification/harness/20261028T111105.819161Z/report.json",
+  "scope": "No engine run or image generation by binding agent; technical source identity/checks only, no user/device/art acceptance inherited."
+}

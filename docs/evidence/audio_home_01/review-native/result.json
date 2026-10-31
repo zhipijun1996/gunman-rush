@@ -1,0 +1,96 @@
+{
+  "producer": "a4b2113aa786193a1d653080365f6067dd020880",
+  "mp4_sha256": "d56076d5610af5f50b7f835046e28b51f8b6286c6d195b299b164bd86cf843a4",
+  "native_sha256": "38c1ea46464838eb5d987e2354af81c0a56bf430a015448eafe8247251f4d57a",
+  "trace_sha256": "14c93dac345c6a5817e2bf6491e5b716a7c68831a3e7c159386907e61bc36225",
+  "source_closure_count": 3838,
+  "source_before_after_current_equal": true,
+  "trace_chapters_override_hashes_revalidated": true,
+  "bed_alignment": {
+    "native_lag_samples": 256,
+    "native_rate": 48000,
+    "common_track_normalized_dot": 0.9673975105085115,
+    "difference_rate": 8000,
+    "method": "integer PCM alignment on unchanged original Home BGM, direct subtraction; no soundtrack replacement"
+  },
+  "bed_amplitude_fit": {
+    "least_squares_gain": 0.5316271538299172,
+    "gain_db": -5.487856895544649,
+    "normalized_dot": 0.9530483945407597,
+    "actual_rms": 0.0034041324792887756,
+    "source_rms": 0.006102590830467943,
+    "residual_rms": 0.0010308326820765335,
+    "expected_runtime_gain": 0.556029764306997,
+    "gain_error_db": -0.3898176958297851,
+    "window_relative_seconds": [
+      3,
+      5
+    ],
+    "source_offset_seconds": 4.49325
+  },
+  "bgm_joint_fit": {
+    "window_relative_seconds": [
+      3,
+      5
+    ],
+    "native_alignment_samples": 256,
+    "common_bgm_coefficient": 1.0002379529006433,
+    "common_bgm_gain_change_db": 0.0020665867686373057,
+    "bed_coefficient": 0.5316355030688599,
+    "original_pcm_rms": 0.012563203682949494,
+    "isolated_added_bed_rms": 0.0034041324792887756,
+    "bed_to_original_rms_db": -11.341878952686006,
+    "total_mix_rms_change_db": 0.2738736112447177,
+    "fitted_residual_rms": 0.0010308283485708821,
+    "note": "Joint regression of actual PCM mix on aligned original Home soundtrack and decoded bed; a numerical unchanged-music check. Window RMS ratios are not perceptual masking/listening approval."
+  },
+  "life_amplitude_fits": [
+    {
+      "event_id": "home_cloth_1",
+      "slot": "character",
+      "expected_runtime_gain": 0.5522213089950497,
+      "gain_error_db": -0.02597489179639509,
+      "actual_start_seconds": 16.069375,
+      "trace_expected_seconds": 16.066666666666666,
+      "least_squares_gain": 0.550572374547919,
+      "gain_db": -5.183711670055676,
+      "normalized_dot": 0.9999828350800667,
+      "actual_rms": 0.0055016416487924345,
+      "source_rms": 0.009992414199988536,
+      "residual_rms": 3.223489977350465e-05
+    }
+  ],
+  "life_before_cue": {
+    "alignment": {
+      "native_lag_samples": -256,
+      "native_rate": 48000,
+      "common_track_normalized_dot": 0.9999995584495177,
+      "difference_rate": 8000,
+      "method": "integer PCM alignment on unchanged original Home BGM, direct subtraction; no soundtrack replacement"
+    },
+    "relative_window_seconds": [
+      3,
+      5
+    ],
+    "residual_rms": 0.0,
+    "scope": "No life cue yet; compares the actual common Home soundtrack between bed and life."
+  },
+  "template_negative_controls": [
+    {
+      "id": "silence",
+      "rejected": true,
+      "reason": "Native differential soundtrack does not prove the actual cue, correlation=0"
+    },
+    {
+      "id": "fixed_seed_noise",
+      "rejected": true,
+      "reason": "Native differential soundtrack does not prove the actual cue, correlation=0.03609401458104647"
+    },
+    {
+      "id": "wrong_actual_home_page",
+      "rejected": true,
+      "reason": "Native differential soundtrack does not prove the actual cue, correlation=0.016019356376218638"
+    }
+  ],
+  "scope": "Independent analysis of actual retained native PCM; downsample/phase/source-fit residuals retained. No listening, user taste, physical-device or commercial-quality certification."
+}

@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-R2-03",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+  "reviewed_commit": "11a4216681a1947ebbff156175581fa025f22323",
+  "content_version": "candidate-v1-r2-current-home-fixture",
+  "owner": "/root",
+  "purpose": "恢复当前R2 UI测试通过真实Home导航进入formal并执行暂停断言",
+  "player_experience": "测试入口与当前正式标题进入可操作Home一致，保全部原生指针和暂停检查",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "tests/demo_ui_01/r2_runner.gd",
+    "docs/quality/records/RUN-GEAR-R2-03.json",
+    "docs/evidence/run_gear_ui_02/r2-entry-scope.md",
+    "docs/evidence/run_gear_ui_02/r2-entry-review.md",
+    "docs/evidence/run_gear_ui_02/r2-entry-review.json",
+    "docs/evidence/run_gear_ui_02/r2-receipt.json",
+    "docs/evidence/run_gear_ui_02/r2-native.log",
+    "docs/evidence/run_gear_ui_02/r2-assertions.json"
+  ],
+  "deliverables": [
+    "tests/demo_ui_01/r2_runner.gd",
+    "docs/evidence/run_gear_ui_02/r2-entry-review.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Concrete actual entry mismatch",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix; no runtime/content change",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix; no runtime/content change",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix; no runtime/content change",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Actual original R2 execution and distinct reviewer",
+      "evidence": [
+        "run",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix; no runtime/content change",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Actual current Home entry contract",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Strict original R2 native208/0",
+      "evidence": [
+        "run"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent source/output audit, not independent engine execution",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Test-only fixture change; no new runtime/content/device acceptance",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "entry",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Actual bounded test fixture evidence",
+      "evidence": [
+        "scope"
+      ],
+      "scenario": "Title Start enters Home before formal navigation",
+      "method": "Read current source and actual native output",
+      "expected": "Title Start enters Home before formal navigation",
+      "failure": "Missing real accepted event, omitted check or weakened guard"
+    },
+    {
+      "id": "run",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual bounded test fixture evidence",
+      "evidence": [
+        "run"
+      ],
+      "scenario": "All retained pause checks actually execute through native controls",
+      "method": "Read current source and actual native output",
+      "expected": "All retained pause checks actually execute through native controls",
+      "failure": "Missing real accepted event, omitted check or weakened guard"
+    },
+    {
+      "id": "review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Actual bounded test fixture evidence",
+      "evidence": [
+        "review"
+      ],
+      "scenario": "Independent audit preserves hover, count, viewport and strict exit guards",
+      "method": "Read current source and actual native output",
+      "expected": "Independent audit preserves hover, count, viewport and strict exit guards",
+      "failure": "Missing real accepted event, omitted check or weakened guard"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/run_gear_ui_02/r2-entry-scope.md",
+      "sha256": "a3786c6ae1883b116aa175a94cadd565be65cab67961153f210391d97f13ec06",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "11a4216681a1947ebbff156175581fa025f22323",
+      "content_version": "candidate-v1-r2-current-home-fixture",
+      "method": "Current title/Home contract and actual old fixture failure",
+      "observed": "Single test file repair only; no runtime change"
+    },
+    {
+      "id": "run",
+      "path": "docs/evidence/run_gear_ui_02/r2-receipt.json",
+      "sha256": "95c82727eb00a1c44d341aed119ed2f22fe200b32e6fb69f0389ef5269c4a425",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "11a4216681a1947ebbff156175581fa025f22323",
+      "content_version": "candidate-v1-r2-current-home-fixture",
+      "method": "Original R2 native input via strict run_engine",
+      "observed": "208 checks, zero failures, exit0; actual pause checks executed",
+      "command": "See r2-receipt.json exact original arguments",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, headless1280x720 native GUI events"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/run_gear_ui_02/r2-entry-review.json",
+      "sha256": "2aac03552c4350ecd9bf6f13b4aab924c4d16ebed7c418121f24ad7c803dbbab",
+      "kind": "review",
+      "producer": "/root/r2_entry_review",
+      "source_commit": "11a4216681a1947ebbff156175581fa025f22323",
+      "content_version": "candidate-v1-r2-current-home-fixture",
+      "method": "Read-only source/output audit; reviewer did not run engine",
+      "observed": "ACCEPT limited test entry and guard preservation",
+      "reviewer": "/root/r2_entry_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different read-only agent reviewed final source, original failures and actual run artifacts without implementation edits"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Headless pixels not judged by this test-only task",
+    "No independent engine execution by this small-fix reviewer; root actual execution audited",
+    "No physical-device or player acceptance claimed"
+  ],
+  "test_change_justification": "Only fixes preexisting title-to-stage assumption after Home became formal entry. Native Home Explore is clicked after original frames6 layout wait. No existing hover/activation/viewport/pause checks or budget removed. Distinct read-only reviewer audits original161/1 and167/3 failures and final208/0; actual current gameplay source is byte-identical to bb4bf46.",
+  "production_snapshot": "ac95afed050e13bab77529dfac59441f4544352a90320b4b6e342cf23630aba7"
+}

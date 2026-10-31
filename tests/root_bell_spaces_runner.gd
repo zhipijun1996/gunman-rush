@@ -25,7 +25,7 @@ func run() -> void:
 					var actual:=current.generate(seed_value,PlayerTuning.load_default(),false,"","intro" if map_index==1 else "advanced")
 					require(previous.ok and actual.ok,"generation/"+seed_value)
 					require(current.validate(actual.manifest,PlayerTuning.load_default()),"native_replay/"+seed_value)
-					require(previous.manifest.nodes==actual.manifest.nodes and previous.manifest.connections==actual.manifest.connections and previous.manifest.rewards==actual.manifest.rewards and previous.manifest.enemy_drops==actual.manifest.enemy_drops,"non_ecology_content_drift/"+seed_value)
+					require(previous.manifest.nodes==actual.manifest.nodes and previous.manifest.connections==actual.manifest.connections and previous.manifest.rewards==actual.manifest.rewards and drops_follow_selected_species(previous.manifest,actual.manifest),"non_ecology_content_drift/"+seed_value)
 					require(previous.manifest.enemies.size()==actual.manifest.enemies.size(),"enemy_budget/"+seed_value)
 					var eligible: Array=[]
 					for node: Dictionary in actual.manifest.nodes:
@@ -35,17 +35,96 @@ func run() -> void:
 						if facts.reasons.is_empty():eligible.append({"node":node.id,"facts":facts})
 					rows.append({"root_seed":prefix%i,"map_index":map_index,"legacy_v11_hash":previous.manifest.manifest_hash,"v12_hash":actual.manifest.manifest_hash,"admission":actual.manifest.root_bell_admission,"eligible":eligible,"enemy_count":actual.manifest.enemies.size()})
 	var negatives: Array=physical_negatives() if selected_phase in ["all","inventory"] else []
+	var drop_negatives: Array=drop_contract_negatives() if selected_phase in ["all","inventory"] else []
 	var compatibility: Array=[]
 	if selected_phase in ["all","compatibility"]:
 		for mode: String in ["legacy_v10","v2"]:compatibility.append(await saved_map_compatibility(mode))
 	var replay: Array=[]
 	if selected_phase in ["all","replay"]:
 		for mode: String in ["legacy_v10","v2","v3"]:replay.append(await run_replay(mode))
-	report={"phase":selected_phase,"scope":"40 actual maps; native physical rejection and real current DemoApp versioned state; not input traversal, pixels or player acceptance","rows":rows,"rejection_counts":rules,"physical_negatives":negatives,"saved_map_compatibility":compatibility,"run_manifest_replay":replay,"failures":failures,"production_admitted":PlainsRootBellEncounterV3.PRODUCTION_ADMITTED}
+	report={"phase":selected_phase,"scope":"40 actual maps; native physical rejection and real current DemoApp versioned state; not input traversal, pixels or player acceptance","rows":rows,"rejection_counts":rules,"physical_negatives":negatives,"drop_contract_negatives":drop_negatives,"saved_map_compatibility":compatibility,"run_manifest_replay":replay,"failures":failures,"production_admitted":PlainsRootBellEncounterV3.PRODUCTION_ADMITTED}
 	var file:=FileAccess.open(output,FileAccess.WRITE)
 	file.store_string(JSON.stringify(report,"  ")+"\n");file.close()
 	print("ROOT BELL SPACES: maps=%s negatives=%s failures=%s"%[rows.size(),negatives.size(),failures.size()])
 	finish.call_deferred()
+
+# Species-dependent guaranteed coins intentionally follow the one admitted
+# replacement. Keep the original equality for every other record/field/bonus.
+func drops_follow_selected_species(previous: Dictionary, actual: Dictionary) -> bool:
+	if previous.enemy_drops.size() != actual.enemy_drops.size(): return false
+	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(EnemyDropService.CONFIG_PATH))
+	if not EnemyDropService.valid_configuration(config) or not config.get("guaranteed_coins",false): return false
+	var old_enemies: Dictionary = {}
+	var new_enemies: Dictionary = {}
+	for enemy: Dictionary in previous.enemies: old_enemies[enemy.id] = enemy
+	for enemy: Dictionary in actual.enemies: new_enemies[enemy.id] = enemy
+	if old_enemies.size()!=previous.enemies.size() or new_enemies.size()!=actual.enemies.size(): return false
+	var changed := 0
+	var coin_delta := 0
+	for id: String in previous.enemy_drops:
+		if not actual.enemy_drops.has(id) or not old_enemies.has(id) or not new_enemies.has(id): return false
+		var before: Dictionary = previous.enemy_drops[id]
+		var after: Dictionary = actual.enemy_drops[id]
+		var old_species := str(old_enemies[id].behavior_id)
+		var new_species := str(new_enemies[id].behavior_id)
+		if old_species==new_species:
+			if before!=after: return false
+			continue
+		changed += 1
+		var admission: Dictionary = actual.root_bell_admission
+		if changed>1 or admission.get("replaced",0)!=1 or id!=admission.get("id","") or old_species!="charger" or new_species!="root_bell": return false
+		if before.get("enemy_id")!=id or after.get("enemy_id")!=id or before.get("behavior")!=old_species or after.get("behavior")!=new_species: return false
+		if before.get("content_version")!="plains-enemy-drops-v2" or before.get("drop_revision")!=2 or before.get("kind")!="coin": return false
+		var old_coins := int(config.coin_totals.get(old_species,-1))
+		var new_coins := int(config.coin_totals.get(new_species,-1))
+		if old_coins<=0 or new_coins<=0: return false
+		var expected: Dictionary = before.duplicate(true)
+		for key: String in ["amount","coin_total","configured_coin_total"]:
+			if typeof(before.get(key))!=TYPE_INT or before[key]!=old_coins: return false
+			expected[key] = new_coins
+		expected.behavior = new_species
+		if not expected.get("rewards") is Array: return false
+		var coin_rewards := 0
+		for reward: Dictionary in expected.rewards:
+			if reward.get("kind")!="coin": continue
+			coin_rewards += 1
+			if typeof(reward.get("amount"))!=TYPE_INT or reward.amount!=old_coins: return false
+			reward.amount = new_coins
+		if coin_rewards!=1 or expected!=after: return false
+		coin_delta += new_coins-old_coins
+	if typeof(actual.budget.enemy_drop_coin_total)!=TYPE_INT or typeof(previous.budget.enemy_drop_coin_total)!=TYPE_INT: return false
+	return actual.budget.enemy_drop_coin_total-previous.budget.enemy_drop_coin_total==coin_delta
+
+func drop_contract_negatives() -> Array:
+	var old := PlainsRegionGenerator.new();old.root_bell_mode="v2"
+	var current := PlainsRegionGenerator.new();current.root_bell_mode="v3"
+	var previous: Dictionary=old.generate("plains-redesign-8/plains/map_2",PlayerTuning.load_default(),false,"","advanced").manifest
+	var actual: Dictionary=current.generate("plains-redesign-8/plains/map_2",PlayerTuning.load_default(),false,"","advanced").manifest
+	var selected := str(actual.root_bell_admission.id)
+	var others: Array=actual.enemy_drops.keys().filter(func(id: String)->bool:return id!=selected)
+	require(drops_follow_selected_species(previous,actual),"drop_contract_legitimate_species_change")
+	var rows: Array=[]
+	for mutation: String in ["wrong_coin","wrong_before_coin","changed_roll","changed_bonus","other_drop","missing_drop","extra_drop","wrong_admission","wrong_budget","rolled_back_species_payout","fractional_budget","fractional_before_budget"]:
+		var before: Dictionary=previous.duplicate(true)
+		var after: Dictionary=actual.duplicate(true)
+		if mutation=="wrong_coin":after.enemy_drops[selected].amount+=1
+		elif mutation=="wrong_before_coin":before.enemy_drops[selected].amount+=1
+		elif mutation=="changed_roll":after.enemy_drops[selected].roll+=1
+		elif mutation=="changed_bonus":after.enemy_drops[selected].rewards.append({"kind":"note","amount":1})
+		elif mutation=="other_drop":after.enemy_drops[others[0]].amount+=1
+		elif mutation=="missing_drop":after.enemy_drops.erase(selected)
+		elif mutation=="extra_drop":after.enemy_drops["forged_extra"]={"kind":"coin","amount":1}
+		elif mutation=="wrong_admission":after.root_bell_admission.id=others[0]
+		elif mutation=="wrong_budget":after.budget.enemy_drop_coin_total+=1
+		elif mutation=="rolled_back_species_payout":
+			after.enemy_drops[selected]=before.enemy_drops[selected].duplicate(true)
+			after.budget.enemy_drop_coin_total=before.budget.enemy_drop_coin_total
+		elif mutation=="fractional_budget":after.budget.enemy_drop_coin_total+=0.5
+		elif mutation=="fractional_before_budget":before.budget.enemy_drop_coin_total+=0.5
+		var refused := not drops_follow_selected_species(before,after)
+		require(refused,"drop_contract_false_accept/"+mutation)
+		rows.append({"mutation":mutation,"refused":refused})
+	return rows
 
 func finish() -> void:
 	quit(0 if failures.is_empty() else 1)
@@ -89,9 +168,9 @@ func second_map(app: DemoApp) -> void:
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
 func cleanup(app: DemoApp) -> void:
-	for child: Node in app.get_children():
-		if child is GameAudio:require(await child.shutdown(),"audio_backend_not_released")
 	app.abandon_run();await process_frame;await process_frame
+	# Return-to-Home can start music: drain the still-live App before freeing it.
+	require(await load("res://tests/audio_teardown.gd").drain_world(app),"audio_backend_not_released")
 	app.queue_free();await process_frame;await process_frame
 func application(mode: String) -> DemoApp:
 	var app:=DemoApp.new();app.meta_persistence_enabled=false

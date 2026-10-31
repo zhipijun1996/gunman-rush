@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "task_id": "MONSTER-LEGACY-SCOPE-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "reviewed_commit": "d431e3a8196d4bddefd5e6ae415052b712cf5b8b",
+  "content_version": "current-registry-legacy-routing-v1",
+  "owner": "/root",
+  "purpose": "将冻结历史森林回放保留在手动legacy-compat，同时以真实当前registry/App消费者一换一保留默认守门；只验测试过程",
+  "player_experience": "当前地图准入拒绝与保存重载仍受严格测试，历史像素/碰撞版本的冻结回放按已有用户授权延期，失败可追溯",
+  "constraints": [
+    "纯测试过程，不包含森林charger生产装配修复或主怪物美术验收",
+    "原forest-depth-versions check字典、argv、所有断言/fixture/reader、import90/shared-native90/outer210预算原字节不变",
+    "默认新项真实验证当前V2/V15/两图App拒绝与当前保存；不声称逐项替代旧327语义",
+    "full166、gameplay151、docs/gameplay/art并集163、91parallel/75serial保持；原Bible/debug/campaign保留",
+    "旧native280/2与中断完整运行无aggregate原件保留，未执行不记通过"
+  ],
+  "affected_paths": [
+    "docs/evidence/plains_monster_revision_01/current-registry/",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-03/",
+    "docs/quality/records/MONSTER-LEGACY-SCOPE-01.json",
+    "docs/tasks.md",
+    "docs/worklines/plains_monster_revision_01/scope.md",
+    "tests/forest_current_registry_runner.gd",
+    "tests/forest_current_registry_runner.gd.uid",
+    "tools/harness/profiles.json",
+    "tools/run_forest_current_registry_tests.py"
+  ],
+  "deliverables": [
+    "docs/evidence/plains_monster_revision_01/current-registry/README.md",
+    "docs/quality/records/MONSTER-LEGACY-SCOPE-01.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "最终冻结源完整执行与过程收口尚待；限定独审另列",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "最终冻结源完整执行与过程收口尚待；限定独审另列",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "最终冻结源新Harness与完整适用检查尚待；开发原件与独审分账",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "最终冻结源新Harness与完整适用检查尚待；开发原件与独审分账",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同作者对精确干净d431的当前守门、严格reader与旧原件保留／profile一换一路由限定ACCEPT；不签最终完整运行或怪物美术",
+      "evidence": [
+        "current-guard-code"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "CURRENT-LEGACY-SCOPE-INDEPENDENT",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "原历史/当前混合守门迁入legacy前保留当前真实职责",
+      "method": "独立审查精确d431代码和一换一profile、原源字节对比、最终reader实际破坏测试",
+      "expected": "默认当前注册表/准入拒绝/保存/释放不遗漏，旧回放与预算/失败原件原样保留",
+      "failure": "直接丢失当前守门、改旧fixture/hash/预算，开发日志追签最终源，或减少默认数量伪称163",
+      "status": "passed",
+      "reason": "限定源码/分流实际接受；final163不在此结论范围",
+      "evidence": [
+        "current-guard-code"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "current-guard-code",
+      "path": "docs/evidence/plains_monster_revision_01/current-registry/code-review-final.md",
+      "sha256": "9a691a2fcfeac690f8f01cef4a5bb0f00ee19fc458fba66ac5bc4b971bf33413",
+      "kind": "review",
+      "producer": "/root/legacy_scope_review",
+      "source_commit": "d431e3a8196d4bddefd5e6ae415052b712cf5b8b",
+      "content_version": "current-registry-legacy-routing-v1",
+      "method": "独立只读源码/profile与原11源fixture字节对比，执行最终reader对真实dev04及47破坏报告共48检查",
+      "observed": "限定code/routing ACCEPT，48/0；旧check字典与原预算不变，当前真实App守门保留；最终native/full未预签",
+      "reviewer": "/root/legacy_scope_review",
+      "implementers": [
+        "/root",
+        "/root/current_registry_guard"
+      ],
+      "independent": true,
+      "independence_basis": "审查者没有编辑这些测试、profile或生产代码，独立读真实字节并执行reader破坏反例。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整903 CI166fresh与官方汇总已实际通过，严格归属另列，不追签旧开发native为新源fresh。",
+    "旧冻结v11真实280／2仍按已有用户授权延期；未执行旧327/world不记PASS。",
+    "主怪物视觉、正常速度声音、设备与用户G5不在本过程卡。"
+  ],
+  "test_change_justification": "AGENTS.md第122行既有用户授权“暂时可以不考虑旧存档旧特性兼容”，明确“旧存档迁移、冻结历史版本回放暂不作为合入／发布前提。原断言与检查保留，legacy-compat为显式手动profile；未执行记延期／未验证，不能记通过”，且不豁免当前保存/玩法/资源。原forest-depth-versions混合检查真实v11map1 data280/2失败，中断Harness仅57完成marker且无aggregate；保原件，不改旧hash/payload/断言。完整原check字典/argv/210outer、90import与90shared-native、三native/reader及11旧源fixture字节不变，仅在gameplay/full原顺序位置一换一为真实current-registry，旧项加入manual legacy-compat；full166/gameplay151/适用并集163/91parallel+75serial不变。新runner独立期待V2/V15，4seed×2map完整输出/strictvalidate、七种拒绝、真实当前App HOME/active无副作用拒绝、两图当前保存重载HP/账本/音频owner释放；原Bible/debug/campaign保留。严格reader拒绝空/弱化/畸形账本和bool冒充int/非有限HP；独立48/0含47负例。dev03/04真实88/0是开发源且dev04后reader三处再收紧，不追签d431 clean fresh；最终native和完整163另轮执行。独审只接受精确d431测试代码与分流，不代签旧327语义等价、原失败兼容、主怪物质量或未执行完整回归。 后继实际full04在planner历史清单摘要失败，保29通过/1失败/133未执行原件。适配仅固定新项原位置与唯一性/历史项legacy归属，再将该唯一名称逆映射给四个原历史SHA；所有原SHA、顺序、166/91/75和预算不变。"
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "started_at": "20261026T135811.537299Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "bgm-integration",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "input_digest": "7e132905e1fde728a26969e6bac0072afbea84a247e11741a04c913baaf0f465",
+      "log": "bgm-integration.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793023095.765121,
+      "ended_at_unix": 1793023119.8359983,
+      "duration_seconds": 24.071,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "check_token": "b66f084298f545d09424e48904b7500c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T135811.537299Z/artifacts/bgm-integration",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "0b7a0c29fe814c72e410523cc62ab59ad5394e028f98c9b90797536c0bc2d98b",
+  "working_files": {
+    "docs/quality/records/RUN-GEAR-MERGE-05.json": "522570f086a20ebb3afeeb76dd789b2fd4a325ee1db028613c29982c40238559",
+    "docs/tasks.md": "02df7c122110c529192514a2d84faab7c75cef16d146c12fd4cb9ac3d66a4caf"
+  },
+  "commit": "80c3456c642c6d77a255fda992eb45b0564a551b",
+  "git_status": "M docs/tasks.md\n?? docs/quality/records/RUN-GEAR-MERGE-05.json",
+  "diff": "diff --git a/docs/tasks.md b/docs/tasks.md\nindex 8dbef12b..5dedae7d 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -2,6 +2,7 @@\n \n | 任务 | 目标 | 依赖 | 状态 | 质量记录 |\n | --- | --- | --- | --- | --- |\n+| RUN-GEAR-MERGE-05 | 补齐style14与过期style13拒绝的版本契约 | RUN-GEAR-MERGE-04 | planned | [质量记录](quality/records/RUN-GEAR-MERGE-05.json) |\n | RUN-GEAR-MERGE-04 | 合入守门的creative精确版本测试同步 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-MERGE-04.json) |\n | RUN-GEAR-R2-03 | 修复当前R2测试的家园入口与布局等待 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-R2-03.json) |\n | RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | review | [质量记录](quality/records/RUN-GEAR-UI-02.json) |",
+  "untracked": "docs/quality/records/RUN-GEAR-MERGE-05.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 32.063,
+  "jobs": 1,
+  "release": true
+}

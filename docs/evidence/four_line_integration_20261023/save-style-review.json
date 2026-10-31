@@ -1,0 +1,168 @@
+{
+  "reviewer": "independent_review (not save-fix or integration implementation author)",
+  "verdict": "ACCEPT",
+  "approval_scope": "Static optional corpse save repair and proposed versioned style impact only; known export-manifest followup remains outside this acceptance.",
+  "reviewed_at_utc": "2026-10-23T03:34:57.990277+00:00",
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md (read-only technical scope; no visual/runtime acceptance)",
+  "integration_head": "f38c6087e17efdd60f08965c65e50627a6fc7057",
+  "upstream_fix": "d23caacd (cherry-picked asf38c608)",
+  "source_sha256": {
+    "scripts/demo/plains_region_stage.gd": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6",
+    "scripts/enemies/enemy_feedback_01_remains.gd": "70813d555ca9a7de5632daa902b2f011b04d6231fbe1b4fea00cc51be445f63f",
+    "tests/enemy_feedback_01_formal.gd": "c383c2522b5ff8b777bd51b01892fa4b704d119db4d6deb5b736e6cd342e1450",
+    "tests/enemy_corpse_save_integration.gd": "fb99903bdcd7385bd546fdd5a40bd62d62c10ace25c58e6500259559ce897117",
+    "tests/enemy_corpse_snapshot_cases.gd": "5bf9c8d0ab038f4f7cec16ffdcaeba29525fbdfe4f82799c44538b44938babde"
+  },
+  "save_logic_findings": [
+    "Stage adds optional presentation_remains only for terminal actors with a real visible settled final frame and stable support identity; original actor health/position/combat state fields remain unchanged.",
+    "New version1/frame7 pose validates finite coordinates,face,stable module/body identity or exact ground/shortcut identity. Unknown or malformed snapshots use the pre-existing legacy fallback; no new death/reward/audio transition is invoked.",
+    "Stable support identity is resolved in the freshly assembled stage; a short real physics contact recheck verifies that exact support. References are weak; missing/released support retains recorded pose and existing bounded fall rather than guessing a distant floor.",
+    "Health restoration and stage-owned pixels remain separate: terminal Motor stays hidden while restored corpse belongs to stage. Existing initialize/dispose clear snapshot references.",
+    "Original tests/enemy_feedback_01_formal.gd remains whole-filec383c252… byte-identical,including original visibility assertion aroundline214; original assertions and budgets are not replaced by the new tests."
+  ],
+  "runtime_support": {
+    "attribution": "Producer-run original Godot logs independently read,not independently rerun by this reviewer. Source binding after hashes match current save code and new tests.",
+    "original_failure": "strict-before.log:66checks/1failure/exit1,official restored corpse visibility failure retained.",
+    "successful_scopes": [
+      "Same unchanged formal66/0",
+      "Inherited formal plus pose/support checks72/0",
+      "Snapshot JSON/corrupt/missing/released boundary147/0",
+      "Original support test199/0"
+    ],
+    "retained_intermediate_failure": "regression-after03.log retains new boundary test first parse error;boundaries-after04.log contains subsequent147/0+199/0. No retroactive pass.",
+    "audio_environment": "headless,fixed60,Dummy audio per retained command; no listening or physical device evidence.",
+    "evidence_sha256": {
+      "strict-before.log": "01bf9fe2631d185317d9ae05899a68e20b0810a51b1370b14e3db4f76cd50333",
+      "regression-after03.log": "05a5d63215d0a4b4832adfabce9c6aab8bb0a7a5ffd8d3b81bde11b8827fded7",
+      "boundaries-after04.log": "13909ebb4f9699755ffcf466eddc9b617f54d5196f5fb5fa37d33ce7146997c7",
+      "source-binding.json": "62e4789690e07fff4e68381db65344b2b9e602515280f85f406f93cde9787dc4",
+      "README.md": "4a65dfd5ad199e47bbc88d5abdfacd2ca84cb7e1be5a36386e259a112ecbdc08"
+    }
+  },
+  "style_versioned_impact": {
+    "current_v5_preserved": true,
+    "v5_sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c",
+    "references": 20,
+    "only_drifted_reference": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "sha256": "5348f573850079dd68b5e5a0ac1050c0038d72fba590982bbaef90e9f04f52c5",
+        "current_sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6",
+        "matches": false
+      }
+    ],
+    "other19_references_exact": true,
+    "planned_v6": "Implemented explicit newversion with exact oldv5 supersedes hash; onlyStage reference SHA changes. Native32/32,all19 other references and all source/style contracts preserved.",
+    "preserved": "32px/32wu,1wu nearest,47adjacency/exact-boundary,terrain assets/shaders,player style reference and original Bible bytes unchanged.",
+    "status": "Actualv6+registry+both region directions statically inspected. Oldv5 unchanged. Required affected checks and full combined Integration remain pending.",
+    "actual_v6_path": "docs/creative_direction/bibles/style-continuity-20261023-v6.json",
+    "actual_v6_sha256": "40c3e7c6cdab51143b3f9088eec7b8f89a3a1131fd6c74ef1361d650f4836603",
+    "actual_v6_status": "ACCEPT static versioned consumer-impact/rebinding; new combined runtime checks remain pending.",
+    "top_level_changes_from_v5": [
+      "version",
+      "supersedes",
+      "revision_impact",
+      "runtime_reference (oneStage SHA only)"
+    ],
+    "source_user_quote_and_shared_dimensions_identical": true,
+    "all20_v6_references_match_current_source": true,
+    "registry_sha256": "f3235614fdacc11056a67e842c5931ee648a3ee34e532c94ee10f4e65ce269f7",
+    "direction_binding_files": [
+      {
+        "path": "docs/creative_direction/thorn_forest.json",
+        "sha256": "834b81333b34650793b069682e17de68baff55ee434c20c75f8a616ed76242a9"
+      },
+      {
+        "path": "docs/creative_direction/windchime_plains.json",
+        "sha256": "99adedd0dceec950113b81bd25743422d5a773a75217e87449d5933c92fff185"
+      }
+    ]
+  },
+  "frames_and_asset_registration": {
+    "frames_source_sha256": "69a9551a567276fc9979df472bb228a6d8a79babfd5dee399fe9b1178a267489",
+    "finite_manifest_texture_set": [
+      "legacy_charger.png",
+      "legacy_diver.png",
+      "underworld_charger.png",
+      "underworld_diver.png"
+    ],
+    "explicit_png_preload_set_exact": true,
+    "manifest_literal": "Exact fifth dependency assets/enemy_feedback_01/frames_v8/manifest.json; slicing/anchor/basis sizing logic otherwise unchanged.",
+    "asset_cards": [
+      {
+        "path": "docs/quality/asset_records/integration-enemy-feedback-01-frame-contracts.json",
+        "sha256": "9fce05fe23b8810a82ce41a508ce07dce94ec8e1758e7e14814c12b8d0cfcb3a",
+        "source_sha256": "ade5988d8743f618699f6d520dfdbfef281bd1ce84ca7ee49a40cfc2ad671e85",
+        "source_and_associated_hashes_match": true,
+        "license_status": "unknown",
+        "visual_status": "unverified",
+        "model": "not_applicable: this registration did not invoke a model; image model remains not_exposed in individual source records"
+      },
+      {
+        "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-legacy_charger.json",
+        "sha256": "ed03f5c01e97ec3c097df0461f9d6bc9c0931a889b44f98c92220a267efc23f2",
+        "source_sha256": "4d025f1f0612e2ef9464df8a552e36c28e6ca93044189befc87af3141e2f1bf3",
+        "source_and_associated_hashes_match": true,
+        "license_status": "unknown",
+        "visual_status": "unverified",
+        "model": "not_exposed"
+      },
+      {
+        "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-legacy_diver.json",
+        "sha256": "d2a28742d6bed421bc9df2ffdbc29e53cd288c16697f5efcc4fbea1d02bb44f1",
+        "source_sha256": "ed78d58c362d258ba0e3388922da118b70ae71ceba2816d52d16ae5a130cf562",
+        "source_and_associated_hashes_match": true,
+        "license_status": "unknown",
+        "visual_status": "unverified",
+        "model": "not_exposed"
+      },
+      {
+        "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-underworld_charger.json",
+        "sha256": "c17629b3f752a3daa8bdb7ccd708d11c47ef558829ff4f8964d4135613eb5a52",
+        "source_sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6",
+        "source_and_associated_hashes_match": true,
+        "license_status": "unknown",
+        "visual_status": "unverified",
+        "model": "not_exposed"
+      },
+      {
+        "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-underworld_diver.json",
+        "sha256": "6f21004361403faafa9d19f03b832ca64270f28203d7bdb64d26b147a8f06c61",
+        "source_sha256": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6",
+        "source_and_associated_hashes_match": true,
+        "license_status": "unknown",
+        "visual_status": "unverified",
+        "model": "not_exposed"
+      },
+      {
+        "path": "docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json",
+        "sha256": "311530f9aa61c772de77c2c3468f7adb8761e246213065d9c54eba4486c9302f",
+        "source_sha256": "1943e3210d0ffa127c0ef19b78e1b7a6e5814d0a0c0e3a9b21162f67a536d52f",
+        "source_and_associated_hashes_match": true,
+        "license_status": "verified",
+        "visual_status": "unverified",
+        "model": "not_applicable: the provenance records deterministic mixing and original procedural noise, not model-generated audio"
+      }
+    ],
+    "source_honesty": "Four generated images retain modelnot_exposed,unknown output license and unverified visual status; missing original prompt is explicitlynot_exposed,not fabricated verbatim. Audio card cites exact existing Kenney/CC0 source hashes and marks historical builder drift/current reproductionfalse; it grants no new render or current-default playback acceptance."
+  },
+  "findings": [
+    {
+      "id": "EXPORT-ENEMY-MANIFEST-01",
+      "severity": "required_before_export_acceptance",
+      "location": "export_presets.cfg include_filter for all3presets",
+      "observation": "Current exact frames_v8/manifest.json is a runtimeFileAccess JSON dependency but absent from everypreset include_filter. all_resources and rawPNG exporter do not establish this ordinaryJSON is included.",
+      "required_followup": "Add that exactJSON to existing finite include lists or prove exact file presence using a real exported package; then affected Web runtime smoke.",
+      "reported_to_root": true,
+      "root_response": "Root accepted followup and will include exact enemy manifest plus actual player motionJSON in all3presets,then check real exported package; not executed by this reviewer."
+    }
+  ],
+  "limits": [
+    "No source edits,hydration,CI or engine execution by this reviewer.",
+    "No actual image/video/audio review; no new artistic,user,device or commercial acceptance.",
+    "Final four-lines+5MP3 combined source and fullIntegration/Release are pending.",
+    "Forest and other candidate subclasses overriding capture_state have not been verified by this finite save review.",
+    "UI candidate menu,2UID additions and BGM implementation are outside current save/style source acceptance."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": "ACCEPT_BOUNDED_SOURCE_AND_OBSERVED_NATIVE_CACHE_EVIDENCE",
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": {
+    "production": "/root",
+    "tests": "/root/corpse_contact_audit"
+  },
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "base_source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "source_sha256": {
+    "scripts/enemies/plains_revision_ground.gd": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+    "scripts/enemies/plains_revision_skin.gd": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+    "tests/plains_motion_loot_02_motion.gd": "86b8e1e3cbe8ccb4687a569b9c459d88fd684ab93495db5da8416630d08692ed"
+  },
+  "actual_command": "python3 /tmp/review_plains_terminal_cache.py > /tmp/plains_terminal_cache_review.log",
+  "passed": 52,
+  "failed": 0,
+  "native": {
+    "whole": 481,
+    "old_motion_prefix": 84,
+    "motion_total": 219,
+    "added_motion": 135,
+    "actual_draw_assertion_groups": 45,
+    "failures": 0,
+    "all6_cold_clockhit_second_canvas": true,
+    "8_invalidation_matrix_scope": "charger only; shared Skin logic. Not falsely claimed repeated for all six.",
+    "other_consumers": "Only charger tests second-canvas live overwrite then first-canvas rest miss then second rest hit."
+  },
+  "scope_evidence": "Real CanvasItem._draw executes production draw_pose. Miss checks count625 production deform results and compare packed output bytes to canonical current unchanged deform; hit checks count0, draw invocation and material refresh. This is not GPU/framebuffer/readback evidence and does not claim reading uploaded ArrayMesh buffer back. Upload line is unchanged and independently source-reviewed.",
+  "float_lerp_risk_resolved": "Cache key conservatively includes every pose field except death_clock, so Ground air/captured-live float differences invalidate rather than assuming mathematical lerp1 is byte independent. No new terminal formula replaces the old one.",
+  "source_binding": "Current root frozen dirty files match hashes; original local wrapper native record does not embed a complete per-file source inventory. Final frozen-input Harness is separate owner work.",
+  "limits": [
+    "No new performance/corpus/fullCI pass inferred",
+    "No GPU pixel/art/animation subjective/audio/device/user/G1-G5 acceptance",
+    "No full pose-space proof of zero-weight returns; actual22500 finite sample matrix plus exact source inspection",
+    "No independent Godot rerun or repository mutations"
+  ],
+  "input_sha256": {
+    "/workspace/gunman-rush/build/plains-ci-41001060607/cache-native-01/native.json": "067f17313831239d71d2fc88ebb5abe0eef1ad8b4efce82ffbdebe345b5ad856",
+    "/workspace/gunman-rush/build/plains-ci-41001060607/cache-native-01/wrapper.log": "9d60424e5d6f09c4990166a64d30a01f8c19f08fdf45686705e49ebcd6771da4",
+    "/workspace/gunman-rush/build/plains-ci-41001060607/zero-weight-probe/runtime.log": "20b9e06a171bdcb619d1fc107d75ef231e0b1fbab9a0726e3b9c317e5e34b940",
+    "/workspace/gunman-rush/build/plains-ci-41001060607/zero-weight-probe/reference_ground.gd": "d957515da0001a8a77c95af6d4307429dbe4f67e8dc89540095e77cf5f417c61"
+  },
+  "proof_path": "/tmp/plains_terminal_cache_source_native_proof.json",
+  "proof_sha256": "e90046974914c3d9a1528b0adb5e3c900e08c3d71049d913ef06795c8a6d92a7",
+  "script_path": "/tmp/review_plains_terminal_cache.py",
+  "script_sha256": "074de87bb45946e31af8ee406963cecf3e8cd8ea21091a2735b92f06e8bab98a",
+  "stdout_sha256": "d0e7d0110c9f970cd197461ee13017fd431574cf15ac952d50ce0e596bf1ee0d"
+}

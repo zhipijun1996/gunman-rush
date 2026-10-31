@@ -4,6 +4,7 @@ extends Node2D
 signal blast_fired(point: Vector2)
 signal phase_changed(phase: StringName)
 signal entity_transition(entity: WeaponEntity, action: StringName)
+const BASE_BEAM_WIDTH := 2.0
 var ability: ShootAbility
 var phase: StringName = &"idle"
 var age := 0.0
@@ -13,6 +14,9 @@ var _session := 0
 var _packet := 0
 var _skill := false
 var _packet_damage := 0.0
+var _base_bomb_packet := -1
+var _base_bomb_session := -1
+var _base_bomb_airborne := false
 var _timer := 0.0
 var _rounds := 0
 var _entity_serial := 0
@@ -22,6 +26,9 @@ var _center := Vector2.ZERO
 var _fx: Array[Dictionary] = []
 var _art: Dictionary = {}
 var _beam_require_release := false
+## Optional per-owner presentation leaves. Old consumers retain original cues/draw.
+var presentation: CanvasItem
+var audio_override: Callable
 var _fire_grounded := false
 var _beam_elapsed := 0.0
 var skill_cooldown := 0.0
@@ -35,14 +42,19 @@ func steering_focus() -> bool:
 func fx_duration(fx: Dictionary) -> float:
 	return .55 if fx.kind=="blast" else .22 if fx.kind=="blink" else .3
 func return_flash(start: Vector2, finish: Vector2) -> void:
-	_fx.append({"kind":"beam","start":start,"end":finish,"age":0.0,"skill":false})
+	_fx.append({"kind":"return_blade","start":start,"end":finish,"age":0.0,"skill":false})
+func _cue(id: StringName) -> void:
+	# Producer keeps its source identity; never suppress global cue IDs or counts.
+	if audio_override.is_valid() and audio_override.call(id)==true: return
+	GameAudio.cue(actor().motor,id)
 func _blink_fx(start: Vector2, finish: Vector2) -> void:
 	var visual := actor().motor.get_node("CourierVisual") as CourierVisual
 	var transform := visual.body.global_transform
 	transform.origin+=start-finish
 	_fx.append({"kind":"blink","start":start,"end":finish,"age":0.0,"texture":visual.body.texture,"transform":transform,"skill":false})
 	_pose(&"blade_throw",.16)
-	GameAudio.cue(actor().motor,&"focus_start")
+	_cue(&"focus_start")
+	if ability.item_runtime() != null: ability.item_runtime().call("on_blink", start, finish)
 func actor() -> PlayerController:return ability.controller
 func definition() -> WeaponDefinition:return ability.weapon
 func art_catalog() -> Dictionary:
@@ -75,6 +87,8 @@ func cancel(reason: StringName) -> void:
 	actor().motor.cancel_weapon_requests()
 	# World entities survive a pause/aim interruption; equip/death/respawn remove them.
 	if reason in [&"equipment",&"reset",&"death",&"respawn",&"segment_return",&"scene_changed"]:
+		_base_bomb_packet = -1
+		_base_bomb_session = -1
 		for item: WeaponEntity in current_entities():item.dispose()
 		entities.clear();_fx.clear()
 	if phase in [&"beam",&"charge",&"storm",&"fan_wait",&"throw_windup",&"singularity"]:
@@ -82,22 +96,25 @@ func cancel(reason: StringName) -> void:
 	pose_remaining=0
 func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> bool:
 	var def := definition()
+	var skill_cost := float(ability.item_runtime().call("skill_cost", def.skill_cost)) if ability.item_runtime() != null else def.skill_cost
 	# Main aim starts a laser primary; a valid skill trigger can take ownership
 	# without refunding the already accepted primary cost. No other busy action is preempted.
-	if skill and def.tier==3 and def.mode==WeaponDefinition.Mode.LASER and phase==&"beam" and skill_cooldown<=0 and actor().active and ability.enabled and direction_value.is_finite() and not direction_value.is_zero_approx() and actor().combat_energy.can_consume(def.skill_cost) and (actor().shot_energy==null or actor().shot_energy.can_fire()) and (grounded or actor().action_resources.shot_charges>0):
+	if skill and def.tier==3 and def.mode==WeaponDefinition.Mode.LASER and phase==&"beam" and skill_cooldown<=0 and actor().active and ability.enabled and direction_value.is_finite() and not direction_value.is_zero_approx() and actor().combat_energy.can_consume(skill_cost) and (actor().shot_energy==null or actor().shot_energy.can_fire()) and (grounded or actor().action_resources.shot_charges>0):
 		_end_beam(false);ability.cooldown_remaining=0
 	if def.mode==WeaponDefinition.Mode.LASER and not skill and _beam_require_release:return false
 	if occupied() or (skill and (def.tier!=3 or skill_cooldown>0)):
 		ability.shot_rejected.emit(&"weapon_busy");return false
 	if not direction_value.is_finite() or direction_value.is_zero_approx():return false
-	if skill and not actor().combat_energy.can_consume(def.skill_cost):ability.shot_rejected.emit(&"combat_energy");return false
+	if skill and not actor().combat_energy.can_consume(skill_cost):ability.shot_rejected.emit(&"combat_energy");return false
 	if def.mode==WeaponDefinition.Mode.LASER and not skill:_beam_require_release=true
-	if not ability.reserve_packet(direction_value,grounded):return false
+	if not ability.reserve_packet(direction_value,grounded,skill):return false
 	_session=actor().session_id;_packet=ability.packet_id;_skill=skill;direction=direction_value.normalized()
 	_packet_damage=(def.skill_damage if skill else def.damage)*actor().motor.tuning.projectile_damage
 	if skill:
 		if def.mode==WeaponDefinition.Mode.LASER:_beam_require_release=true
-		if not actor().combat_energy.consume("%s/skill/%s" % [_session,_packet],def.skill_cost):return false
+		var receipt := "%s/skill/%s" % [_session,_packet]
+		if not actor().combat_energy.consume(receipt,skill_cost):return false
+		if ability.item_runtime() != null: ability.item_runtime().call("on_skill_started", StringName(receipt))
 		skill_cooldown=def.skill_cooldown
 		if def.mode in [WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
 			_phase(&"charge");_pose(&"weapon_charge",def.skill_charge);return true
@@ -107,7 +124,7 @@ func _start(grounded: bool) -> void:
 	_fire_grounded=grounded
 	var def := definition()
 	actor().traversal.on_weapon_fired();actor().jump_ability.cancel_ascent()
-	GameAudio.cue(actor().motor,&"focus_start" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &"jump" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &"confirm")
+	_cue(&"focus_start" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &"jump" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &"confirm")
 	if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG]:
 		_phase(&"throw_windup");return
 	_release(grounded)
@@ -133,6 +150,14 @@ func _release(_grounded: bool) -> void:
 			blink(-direction,base_displacement());_pose(&"blade_throw");_phase(&"idle")
 		WeaponDefinition.Mode.BOMB:
 			var bomb := spawn(&"bomb",actor().motor.global_position+direction*18)
+			if bomb.valid_owner():
+				# The real accepted Lv1 blast is a shot, just as a spawned bullet is.
+				# Register its unique reserved identity before existing gate/Boss sinks run.
+				_base_bomb_packet = _packet
+				_base_bomb_session = _session
+				_base_bomb_airborne = not actor().motor.is_on_floor()
+				ability.last_muzzle = bomb.global_position
+				ability.shot_fired.emit(direction, _packet)
 			explode(bomb);_pose(&"bomb_place");_phase(&"idle")
 		WeaponDefinition.Mode.MINE:
 			if not _fire_grounded and not _skill:
@@ -165,6 +190,9 @@ func flash(unit: Vector2, speed: float, duration: float) -> void:
 	actor().motor.reset_motion();actor().jump_ability.cancel_ascent()
 	actor().motor.start_weapon_burst(unit,speed,duration)
 func advance(delta: float) -> void:
+	if delta <= 0.0:
+		if not valid_session(_session) and (phase != &"idle" or not current_entities().is_empty()): cancel(&"reset")
+		return
 	pose_remaining=maxf(0,pose_remaining-delta);skill_cooldown=maxf(0,skill_cooldown-delta)
 	if not actor().router.aim_engaged or actor().router.aim_mode==&"grapple":_beam_require_release=false
 	for i: int in range(_fx.size()-1,-1,-1):
@@ -207,9 +235,10 @@ func advance(delta: float) -> void:
 				var step := minf(delta,maxf(0,def.beam_duration-_beam_elapsed))
 				var cost := (def.beam_drain+_beam_elapsed*def.beam_growth)*step
 				var stamina := actor().actor_resources.stamina
-				if stamina.current+1e-9<cost:_end_beam(false)
+				var legacy_drain := actor().shot_energy != null and actor().shot_energy.definition.shooting_consumes_energy
+				if legacy_drain and stamina.current+1e-9<cost:_end_beam(false)
 				else:
-					stamina.consume_continuous(cost,stamina.epoch)
+					if legacy_drain: stamina.consume_continuous(cost,stamina.epoch)
 					actor().traversal.on_weapon_fired()
 					var budget := base_displacement()*actor().motor.weapon_motion.lv2_total_ratio
 					var acceleration := 2*budget/(def.beam_duration*def.beam_duration)
@@ -218,14 +247,14 @@ func advance(delta: float) -> void:
 					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed)
 					_timer-=step
 					beam_damage(direction,_packet_damage,false,false,_timer<=0)
-					if _timer<=0:GameAudio.cue(actor().motor,&"focus_start");_timer+=def.beam_tick
+					if _timer<=0:_cue(&"focus_start");_timer+=def.beam_tick
 					if _beam_elapsed>=def.beam_duration-1e-9:_end_beam(true)
 		&"singularity":
 			actor().motor.request_ability_velocity(Vector2.ZERO)
 			actor().jump_ability.cancel_requests()
 			attract(delta)
-			if age>=def.hold_seconds:
-				damage_burst(_center,def.blast_radius*(def.skill_multiplier if _skill else 1),_skill)
+			if age>=def.hold_seconds+_singularity_hold_add():
+				damage_burst(_center,def.blast_radius*(def.skill_multiplier if _skill else 1)*_bomb_radius_multiplier(),_skill)
 				actor().motor.cancel_ability_motion()
 				flash(direction,base_displacement()*(def.skill_multiplier if _skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration);_pose(&"weapon_skill");_phase(&"idle")
 	queue_redraw()
@@ -247,12 +276,30 @@ func steer_direction(item: WeaponEntity, fallback: Vector2) -> Vector2:
 		return value.normalized() if actor().router.aim_engaged and value.length()>12 else fallback
 	var aim := actor().router.aim_direction
 	return aim if actor().router.aim_engaged and not aim.is_zero_approx() else fallback
+func _accepted_base_bomb(packet: int) -> bool:
+	return definition().id == &"recoil_bomb" and definition().tier == 1 and packet == _base_bomb_packet and _session == _base_bomb_session and valid_session(_session)
+
 func hit(receiver: Damageable, packet: int, serial: int, stage: String, skill: bool, point: Vector2, unit: Vector2, amount: float = -1) -> bool:
-	if not receiver.active or receiver.faction!=&"enemy":return false
+	var base_bomb := _accepted_base_bomb(packet)
+	var mechanism := receiver.faction == &"mechanism"
+	if not receiver.active or (receiver.faction != &"enemy" and not (base_bomb and mechanism)):return false
 	var damage := amount if amount>0 else _packet_damage
+	if ability.item_runtime() != null: damage = float(ability.item_runtime().call("modify_direct_damage", damage, receiver, skill, packet))
 	var event := "%s:%s:weapon:%s:%s:%s" % [actor().motor.get_instance_id(),_session,packet,serial,stage]
 	var target_id := receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()
-	return receiver.receive_damage({"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit,"on_committed":actor().on_weapon_damage.bind(_session,packet,serial,not actor().motor.is_on_floor(),target_id,skill,receiver,ability.weapon_epoch)})
+	var context := {"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit}
+	context.shot_id = packet
+	context.attack_id = packet
+	context.item_stagger_multiplier = float(ability.item_runtime().call("enemy_stagger_multiplier")) if ability.item_runtime() != null and not skill else 1.0
+	if base_bomb:
+		context.shot_id = packet
+		context.attack_id = packet
+		context.fired_airborne = _base_bomb_airborne
+	if not mechanism:
+		# A mechanism is not an enemy hit: it must not grant combat/air resources.
+		var hit_event := {"session":_session,"packet":packet,"shot":packet if base_bomb else serial,"shot_index":0,"airborne":_base_bomb_airborne if base_bomb else not actor().motor.is_on_floor(),"skill":skill,"receiver":receiver,"target_id":target_id,"point":point,"direction":unit,"amount":damage,"weapon_id":definition().id,"tier":definition().tier,"weapon_mode":definition().mode,"weapon_epoch":ability.weapon_epoch}
+		context.on_committed = ability.item_hit_committed.bind(hit_event)
+	return receiver.receive_damage(context)
 func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit: bool = true) -> void:
 	var visual := actor().motor.get_node("CourierVisual") as CourierVisual
 	var start := visual.muzzle_position(unit)
@@ -261,6 +308,9 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 	var obstruction := get_world_2d().direct_space_state.intersect_ray(barrel)
 	if not obstruction.is_empty():
 		_beam_start=obstruction.position;_beam_point=obstruction.position;return
+	if beam_item_width_scale() > 1.0:
+		_wide_beam_damage(start, unit, amount, skill, pierce, commit)
+		return
 	var finish := start+unit*definition().range_limit
 	var exclude: Array[RID]=[actor().motor.get_rid()]
 	_entity_serial+=1
@@ -277,14 +327,15 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 		elif not collider is Area2D:break
 		exclude.append(contact.rid)
 	if skill:_fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":skill})
-func receivers(point: Vector2, radius: float) -> Array[Dictionary]:
+func receivers(point: Vector2, radius: float, include_mechanisms := false) -> Array[Dictionary]:
 	var shape := CircleShape2D.new();shape.radius=radius
 	var query := PhysicsShapeQueryParameters2D.new();query.shape=shape;query.transform=Transform2D(0,point);query.collide_with_areas=true;query.exclude=[actor().motor.get_rid()]
 	var values: Array[Dictionary]=[];var seen: Dictionary={}
 	for item: Dictionary in get_world_2d().direct_space_state.intersect_shape(query,64):
 		var node := item.collider as Node2D
 		var receiver := node.get_node_or_null("Damageable") as Damageable if node!=null else null
-		if receiver==null or not receiver.active or receiver.faction!=&"enemy" or seen.has(receiver.get_instance_id()):continue
+		if receiver==null or not receiver.active or (receiver.faction!=&"enemy" and not (include_mechanisms and receiver.faction==&"mechanism")) or seen.has(receiver.get_instance_id()):continue
+		if receiver.faction == &"enemy" and not receiver.can_receive_effects(): continue
 		seen[receiver.get_instance_id()]=true;values.append({"node":node,"receiver":receiver})
 	values.sort_custom(func(a: Dictionary,b: Dictionary)->bool:return point.distance_squared_to(a.node.global_position)<point.distance_squared_to(b.node.global_position))
 	return values
@@ -295,14 +346,16 @@ func damage_burst(point: Vector2, radius: float, skill: bool) -> void:
 	_entity_serial+=1
 	var def := definition()
 	var chain_count := 0;var chain_origin := point
-	for value: Dictionary in receivers(point,radius+(def.chain_range*def.chain_limit if skill and def.mode==WeaponDefinition.Mode.MINE else 0)):
+	for value: Dictionary in receivers(point,radius+(def.chain_range*def.chain_limit if skill and def.mode==WeaponDefinition.Mode.MINE else 0),_accepted_base_bomb(_packet)):
 		var target: Node2D=value.node
 		var within := target.global_position.distance_to(point)<=radius
 		if not within:
 			if not skill or def.mode!=WeaponDefinition.Mode.MINE or chain_count>=def.chain_limit or target.global_position.distance_to(chain_origin)>def.chain_range or not clear_line(chain_origin,target.global_position):continue
 			_fx.append({"kind":"arc","start":chain_origin,"end":target.global_position,"age":0.0,"skill":true});chain_count+=1
 		elif not clear_line(point,target.global_position):continue
-		hit(value.receiver,_packet,_entity_serial,"blast",skill,target.global_position,(target.global_position-point).normalized())
+		var amount := _packet_damage
+		if def.mode == WeaponDefinition.Mode.SINGULARITY and ability.item_runtime() != null: amount *= float(ability.item_runtime().call("singularity_damage_multiplier"))
+		hit(value.receiver,_packet,_entity_serial,"blast",skill,target.global_position,(target.global_position-point).normalized(),amount)
 		chain_origin=target.global_position
 	_fx.append({"kind":"blast","start":point,"radius":radius,"age":0.0,"skill":skill})
 	blast_fired.emit(point)
@@ -310,25 +363,25 @@ func explode(item: WeaponEntity) -> void:
 	if not item.valid_owner():return
 	var def := definition();_packet=item.packet;_skill=item.skill
 	var radius: float = def.blast_radius*(def.skill_multiplier if item.skill else 1.0)
-	damage_burst(item.global_position,radius,item.skill)
+	damage_burst(item.global_position,radius*_bomb_radius_multiplier(),item.skill)
 	var offset := actor().motor.global_position-item.global_position
 	if offset.length()<=radius and clear_line(item.global_position,actor().motor.global_position):
 		if item.kind==&"bomb":base_recoil()
 		else:flash(offset.normalized() if not offset.is_zero_approx() else Vector2.UP,base_displacement()*(def.skill_multiplier if item.skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration)
 	_pose(&"weapon_skill" if item.skill else &"bomb_place")
-	item.dispose();_phase(&"idle");GameAudio.cue(actor().motor,&"impact")
+	item.dispose();_phase(&"idle");_cue(&"impact")
 func caught(item: WeaponEntity, unit: Vector2) -> void:
 	if not item.valid_owner() or item.phase not in [&"returning",&"auto_return"]:return
 	if item.manual_recall and not unit.is_zero_approx():
 		var distance: float = base_displacement()*actor().motor.weapon_motion.secondary_ratio*(definition().skill_multiplier if item.skill else 1)
 		flash(unit,distance/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration)
 	entity_transition.emit(item,&"caught")
-	_pose(&"blade_catch");item.dispose();GameAudio.cue(actor().motor,&"confirm")
+	_pose(&"blade_catch");item.dispose();_cue(&"confirm")
 func entity_failed(item: WeaponEntity) -> void:
 	_fx.append({"kind":"fizzle","start":item.global_position,"radius":12.0,"age":0.0,"skill":false})
-	GameAudio.cue(actor().motor,&"denied")
+	_cue(&"denied")
 func entity_attached(item: WeaponEntity) -> void:
-	entity_transition.emit(item,&"attached");GameAudio.cue(actor().motor,&"confirm")
+	entity_transition.emit(item,&"attached");_cue(&"confirm")
 func attract(_delta: float) -> void:
 	var def := definition();var count := 0
 	for value: Dictionary in receivers(_center,def.attract_radius*(def.skill_multiplier if _skill else 1)):
@@ -344,12 +397,62 @@ func beam_visual_segment() -> PackedVector2Array:
 	var offset := _beam_point-start
 	if offset.dot(direction)<=0:return PackedVector2Array()
 	return PackedVector2Array([start,start+offset.limit_length(definition().range_limit)])
+
+func beam_item_width_scale() -> float:
+	return float(ability.item_runtime().call("laser_width_multiplier")) if ability.item_runtime() != null else 1.0
+
+func _singularity_hold_add() -> float:
+	return float(ability.item_runtime().call("singularity_hold_add")) if ability.item_runtime() != null else 0.0
+
+func _bomb_radius_multiplier() -> float:
+	return float(ability.item_runtime().call("bomb_radius_multiplier")) if ability.item_runtime() != null else 1.0
+
+func _wide_beam_damage(start: Vector2, unit: Vector2, amount: float, skill: bool, pierce: bool, commit: bool) -> void:
+	# Preserve the authored centre line and its terrain clipping. Only the equipped
+	# mirror adds its actual capsule; it never replaces walls with target queries.
+	var finish := start + unit * definition().range_limit
+	var terrain := PhysicsRayQueryParameters2D.create(start, finish, 1, [actor().motor.get_rid()])
+	var contact := get_world_2d().direct_space_state.intersect_ray(terrain)
+	if not contact.is_empty(): finish = contact.position
+	_beam_point = finish
+	var length := start.distance_to(finish)
+	if length <= 0.000001: return
+	var shape := CapsuleShape2D.new()
+	shape.radius = BASE_BEAM_WIDTH * beam_item_width_scale() * 0.5
+	shape.height = length + shape.radius * 2.0
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = shape
+	query.transform = Transform2D(unit.angle()+PI*0.5, (start+finish)*0.5)
+	query.collide_with_areas = true
+	query.exclude = [actor().motor.get_rid()]
+	var candidates: Array[Dictionary] = []
+	var seen: Dictionary = {}
+	for value: Dictionary in get_world_2d().direct_space_state.intersect_shape(query,64):
+		var node := value.collider as Node2D
+		var receiver := node.get_node_or_null("Damageable") as Damageable if node != null else null
+		if receiver == null or receiver.faction != &"enemy" or not receiver.active or seen.has(receiver.get_instance_id()) or not clear_line(start,node.global_position): continue
+		var projection := (node.global_position-start).dot(unit)
+		if projection < 0.0 or projection > length: continue
+		seen[receiver.get_instance_id()] = true
+		candidates.append({"receiver":receiver,"node":node,"projection":projection})
+	candidates.sort_custom(func(a: Dictionary,b: Dictionary)->bool:
+		if not is_equal_approx(float(a.projection),float(b.projection)): return float(a.projection)<float(b.projection)
+		return (a.receiver as Damageable).get_instance_id()<(b.receiver as Damageable).get_instance_id())
+	_entity_serial += 1
+	for candidate: Dictionary in candidates:
+		var point: Vector2 = (candidate.node as Node2D).global_position
+		if commit: hit(candidate.receiver,_packet,_entity_serial,"beam",skill,point,unit,amount)
+		if not pierce:
+			_beam_point = start+unit*float(candidate.projection)
+			break
+	if skill: _fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":true})
 func _draw() -> void:
 	var underworld := UnderworldProjectileVisual.enabled(self)
+	var custom := is_instance_valid(presentation) and presentation.is_visible_in_tree()
 	var beam := beam_visual_segment()
-	if beam.size()==2:
+	if beam.size()==2 and not custom:
 		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.67,.52,.29,.4) if underworld else Color(.15,.55,.8,.4),8,not underworld)
-		draw_line(to_local(beam[0]),to_local(beam[1]),Color("f3dda0") if underworld else Color(.65,.95,1),2,not underworld)
+		draw_line(to_local(beam[0]),to_local(beam[1]),Color("f3dda0") if underworld else Color(.65,.95,1),BASE_BEAM_WIDTH*beam_item_width_scale(),not underworld)
 	for fx: Dictionary in _fx:
 		var duration := fx_duration(fx)
 		var alpha := 1-float(fx.age)/duration
@@ -367,16 +470,17 @@ func _draw() -> void:
 				var offset := Vector2.from_angle(angle)*(8+float(fx.age)*100)
 				draw_line(end+offset,end+offset+Vector2.from_angle(angle)*7,Color(.95,.86,.63,alpha) if underworld else Color(.7,.85,1,alpha),1.5,not underworld)
 		elif fx.kind=="blast":
-			_draw_blast(fx,alpha)
-		elif fx.kind in ["beam","arc"]:
+			if not custom: _draw_blast(fx,alpha)
+		elif fx.kind in ["beam","return_blade","arc"]:
+			if custom and fx.kind!="arc": continue
 			var color := Color(.95,.86,.63,alpha) if underworld else Color(.35,.86,1,alpha)
 			draw_line(to_local(fx.start),to_local(fx.end),Color(.67,.52,.29,alpha*.4) if underworld else Color(.2,.5,.8,alpha*.4),14 if fx.skill else 6,true)
 			draw_line(to_local(fx.start),to_local(fx.end),color,5 if fx.skill else 2,true)
 		else:
 			var progress := float(fx.age)/duration
 			draw_arc(to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,64,(Color(.57,.58,.43,alpha) if underworld else Color(.45,.65,.8,alpha)) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),4,true)
-	if phase==&"singularity":
-		var center := to_local(_center);var progress := clampf(age/definition().hold_seconds,0,1)
+	if phase==&"singularity" and not custom:
+		var center := to_local(_center);var progress := clampf(age/(definition().hold_seconds+_singularity_hold_add()),0,1)
 		draw_circle(center,24,Color(.22,.35,.27,.4) if underworld else Color(.3,.1,.5,.4))
 		for i: int in 4:draw_arc(center,12+i*10,age*7+i,age*7+i+PI*1.3,24,Color(.62,.71,.49,.7) if underworld else Color(.6,.5,1,.7),2,not underworld)
 		draw_arc(center,definition().attract_radius,0,TAU*progress,64,Color(.62,.71,.49,.2) if underworld else Color(.6,.55,1,.2),1,not underworld)

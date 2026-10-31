@@ -1,0 +1,149 @@
+{
+  "scope": "finite four actual original map2 routes, not corpus80/Harness/CI proof",
+  "base_commit": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+  "fg_sha256": "4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa",
+  "workers": 2,
+  "affinity": [
+    0,
+    1
+  ],
+  "cases": [
+    [
+      "forest-depth-hollow-00",
+      2,
+      "fast"
+    ],
+    [
+      "forest-depth-hollow-00",
+      2,
+      "growth"
+    ],
+    [
+      "forest-depth-hollow-00",
+      2,
+      "high_return"
+    ],
+    [
+      "forest-depth-hollow-00",
+      2,
+      "change_mind"
+    ]
+  ],
+  "status": "passed",
+  "native_timeout": 240,
+  "runs": [
+    {
+      "seed": "forest-depth-hollow-00",
+      "map": 2,
+      "route": "fast",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_region_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=2",
+        "--route=fast",
+        "--output=/workspace/integration-four/build/forest-workers-final/workers-2/00-map2-fast/capture.json"
+      ],
+      "status": "passed",
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "9111f8ad795e85f78397b26580315fc1da57b9a6c6054bf3556c4c6a9a265f24",
+      "capture_sha256": "40855a16ddd9042cae24e0d362d789fa80becbdcfcd592b77690a3e7483e94a0",
+      "seconds": 11.198806917993352
+    },
+    {
+      "seed": "forest-depth-hollow-00",
+      "map": 2,
+      "route": "growth",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_region_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=2",
+        "--route=growth",
+        "--output=/workspace/integration-four/build/forest-workers-final/workers-2/01-map2-growth/capture.json"
+      ],
+      "status": "passed",
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "8885e68b093c203fe134e5e325d3e0f09d04e09d6847ec1ddb08687e3a0b05df",
+      "capture_sha256": "5cead907d22f8d0a73fcd760df4d3607b81a758cc3bd15d25622573905660772",
+      "seconds": 16.749414039004478
+    },
+    {
+      "seed": "forest-depth-hollow-00",
+      "map": 2,
+      "route": "high_return",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_region_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=2",
+        "--route=high_return",
+        "--output=/workspace/integration-four/build/forest-workers-final/workers-2/02-map2-high_return/capture.json"
+      ],
+      "status": "passed",
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "0b4963db4e5039eaaff6af0cf84c0478a5d18e87c01eecdd7a9b81b5c361805c",
+      "capture_sha256": "1c9a53c5608482bfaa506368c6466d610cc0b6b45db2307e1a673ba554c0b57c",
+      "seconds": 13.708113679000235
+    },
+    {
+      "seed": "forest-depth-hollow-00",
+      "map": 2,
+      "route": "change_mind",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_region_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=2",
+        "--route=change_mind",
+        "--output=/workspace/integration-four/build/forest-workers-final/workers-2/03-map2-change_mind/capture.json"
+      ],
+      "status": "passed",
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "8b9495f50d0643545c180c139489add0402246db39a53e45100dd0abd50b4828",
+      "capture_sha256": "edf8a7b0c5f48edf7500f440aeb2c1f79ce5652a8cf93a2ef9651eacde696352",
+      "seconds": 10.66712913000083
+    }
+  ],
+  "seconds_so_far": 27.51978913399944,
+  "seconds": 27.520450563999475,
+  "user_cpu_seconds": 48.337641000000005,
+  "system_cpu_seconds": 2.1570419999999997,
+  "max_child_rss_kib": 1237976
+}

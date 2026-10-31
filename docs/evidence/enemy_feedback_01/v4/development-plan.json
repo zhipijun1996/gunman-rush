@@ -1,0 +1,4122 @@
+{
+  "schema_version": 1,
+  "stage": "development",
+  "status": "planned",
+  "approval_scope": "plan_only",
+  "changed_paths": [
+    "docs/enemy_feedback_01.md",
+    "docs/enemy_feedback_01_art_direction.md",
+    "docs/enemy_feedback_01_references.md",
+    "docs/evidence/enemy_feedback_01/README.md",
+    "docs/evidence/enemy_feedback_01/affected-actor-actions.log",
+    "docs/evidence/enemy_feedback_01/affected-consumers-v1.log",
+    "docs/evidence/enemy_feedback_01/affected-forest-bible-integration-tests.log",
+    "docs/evidence/enemy_feedback_01/affected-report.json",
+    "docs/evidence/enemy_feedback_01/affected-underworld-damage-feedback.log",
+    "docs/evidence/enemy_feedback_01/affected-underworld-formal.log",
+    "docs/evidence/enemy_feedback_01/after-report.json",
+    "docs/evidence/enemy_feedback_01/after.json",
+    "docs/evidence/enemy_feedback_01/after.log",
+    "docs/evidence/enemy_feedback_01/after.mp4",
+    "docs/evidence/enemy_feedback_01/audio-audit.md",
+    "docs/evidence/enemy_feedback_01/audio-candidates-manifest.json",
+    "docs/evidence/enemy_feedback_01/audio-candidates-v1.log",
+    "docs/evidence/enemy_feedback_01/audio-candidates-v2.log",
+    "docs/evidence/enemy_feedback_01/audio-candidates-v3.log",
+    "docs/evidence/enemy_feedback_01/audio-comparison-25s.wav",
+    "docs/evidence/enemy_feedback_01/audio-probe-v1.json",
+    "docs/evidence/enemy_feedback_01/audio-probe-v1.log",
+    "docs/evidence/enemy_feedback_01/authority-inputs.json",
+    "docs/evidence/enemy_feedback_01/before-report.json",
+    "docs/evidence/enemy_feedback_01/before.json",
+    "docs/evidence/enemy_feedback_01/before.log",
+    "docs/evidence/enemy_feedback_01/before.mp4",
+    "docs/evidence/enemy_feedback_01/check-quality-v1.log",
+    "docs/evidence/enemy_feedback_01/comparison-encode.log",
+    "docs/evidence/enemy_feedback_01/comparison.mp4",
+    "docs/evidence/enemy_feedback_01/consumers.json",
+    "docs/evidence/enemy_feedback_01/development-plan-v1.json",
+    "docs/evidence/enemy_feedback_01/digital-audio-LICENSE.txt",
+    "docs/evidence/enemy_feedback_01/docs-final-docs.log",
+    "docs/evidence/enemy_feedback_01/docs-final-harness-tests.log",
+    "docs/evidence/enemy_feedback_01/docs-final-quality-drills.log",
+    "docs/evidence/enemy_feedback_01/docs-final-quality-tests.log",
+    "docs/evidence/enemy_feedback_01/docs-final-quality.log",
+    "docs/evidence/enemy_feedback_01/docs-final-report.json",
+    "docs/evidence/enemy_feedback_01/docs-final-structure.log",
+    "docs/evidence/enemy_feedback_01/docs-final-world-design-tests.log",
+    "docs/evidence/enemy_feedback_01/docs-final-world.log",
+    "docs/evidence/enemy_feedback_01/docs-input-materialized.json",
+    "docs/evidence/enemy_feedback_01/docs-v1-docs.log",
+    "docs/evidence/enemy_feedback_01/docs-v1-report.json",
+    "docs/evidence/enemy_feedback_01/docs-v1-structure.log",
+    "docs/evidence/enemy_feedback_01/docs-v1-world-design-tests.log",
+    "docs/evidence/enemy_feedback_01/docs-v1-world.log",
+    "docs/evidence/enemy_feedback_01/feedback-harness-environment.log",
+    "docs/evidence/enemy_feedback_01/feedback-harness-report.json",
+    "docs/evidence/enemy_feedback_01/feedback-harness-underworld-damage-feedback.log",
+    "docs/evidence/enemy_feedback_01/formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/formal-v1.log",
+    "docs/evidence/enemy_feedback_01/harness-docs-v1.log",
+    "docs/evidence/enemy_feedback_01/harness-docs-v2.log",
+    "docs/evidence/enemy_feedback_01/harness-docs-v3.log",
+    "docs/evidence/enemy_feedback_01/harness-feedback-v1.log",
+    "docs/evidence/enemy_feedback_01/impact-sounds-LICENSE.txt",
+    "docs/evidence/enemy_feedback_01/integration-plan-v1.json",
+    "docs/evidence/enemy_feedback_01/inventory.json",
+    "docs/evidence/enemy_feedback_01/quality-record-check.log",
+    "docs/evidence/enemy_feedback_01/review-v1.md",
+    "docs/evidence/enemy_feedback_01/review-v2-formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/review-v2-formal.log",
+    "docs/evidence/enemy_feedback_01/review-v2-native.log",
+    "docs/evidence/enemy_feedback_01/review-v2-runtime.json",
+    "docs/evidence/enemy_feedback_01/review-v2.md",
+    "docs/evidence/enemy_feedback_01/runtime-v1.log",
+    "docs/evidence/enemy_feedback_01/runtime-v2.log",
+    "docs/evidence/enemy_feedback_01/runtime-v3-charger.log",
+    "docs/evidence/enemy_feedback_01/runtime.json",
+    "docs/evidence/enemy_feedback_01/shot-a-compact-mechanical.wav",
+    "docs/evidence/enemy_feedback_01/shot-b-weighted-mechanical.wav",
+    "docs/evidence/enemy_feedback_01/user-feedback.json",
+    "docs/evidence/enemy_feedback_01/v2/README.md",
+    "docs/evidence/enemy_feedback_01/v2/ci-v1-failure.log",
+    "docs/evidence/enemy_feedback_01/v2/consumers.json",
+    "docs/evidence/enemy_feedback_01/v2/development-plan.json",
+    "docs/evidence/enemy_feedback_01/v2/docs-current.log",
+    "docs/evidence/enemy_feedback_01/v2/early-movies/after.log",
+    "docs/evidence/enemy_feedback_01/v2/early-movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v2/early-movies/report.json",
+    "docs/evidence/enemy_feedback_01/v2/final-affected/actor-actions.log",
+    "docs/evidence/enemy_feedback_01/v2/final-affected/forest-bible-integration-tests.log",
+    "docs/evidence/enemy_feedback_01/v2/final-affected/report.json",
+    "docs/evidence/enemy_feedback_01/v2/final-affected/underworld-damage-feedback.log",
+    "docs/evidence/enemy_feedback_01/v2/final-affected/underworld-formal.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/docs.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/harness-tests.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/quality-drills.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/quality-tests.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/quality.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/report.json",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/structure.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/world-design-tests.log",
+    "docs/evidence/enemy_feedback_01/v2/final-docs/world.log",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/after-report.json",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/after.json",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/after.log",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/before-report.json",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/before.json",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/before.log",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/before.mp4",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/comparison-encode.log",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/comparison-recipe.json",
+    "docs/evidence/enemy_feedback_01/v2/final-movies/underworld-comparison.mp4",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/display.log",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/formal.exit",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/formal.log",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/native-runtime.json",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/native.exit",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/native.log",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels-receipt.json",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels.log",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-before.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-impact.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-recovered.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-before.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-impact.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-recovered.png",
+    "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/report.json",
+    "docs/evidence/enemy_feedback_01/v2/formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/v2/formal-v1.log",
+    "docs/evidence/enemy_feedback_01/v2/import-v1.log",
+    "docs/evidence/enemy_feedback_01/v2/import-v2.log",
+    "docs/evidence/enemy_feedback_01/v2/native-v1.log",
+    "docs/evidence/enemy_feedback_01/v2/pixels-native.log",
+    "docs/evidence/enemy_feedback_01/v2/pixels-receipt.json",
+    "docs/evidence/enemy_feedback_01/v2/pixels/plains_charger-before.png",
+    "docs/evidence/enemy_feedback_01/v2/pixels/plains_charger-impact.png",
+    "docs/evidence/enemy_feedback_01/v2/pixels/plains_charger-recovered.png",
+    "docs/evidence/enemy_feedback_01/v2/pixels/plains_diver-before.png",
+    "docs/evidence/enemy_feedback_01/v2/pixels/plains_diver-impact.png",
+    "docs/evidence/enemy_feedback_01/v2/pixels/plains_diver-recovered.png",
+    "docs/evidence/enemy_feedback_01/v2/pixels/report.json",
+    "docs/evidence/enemy_feedback_01/v2/quality-diff-final.log",
+    "docs/evidence/enemy_feedback_01/v2/quality-record-before-v2.json",
+    "docs/evidence/enemy_feedback_01/v2/quality-record-final.log",
+    "docs/evidence/enemy_feedback_01/v2/review.md",
+    "docs/evidence/enemy_feedback_01/v2/runtime.json",
+    "docs/evidence/enemy_feedback_01/v2/user-feedback.json",
+    "docs/evidence/enemy_feedback_01/v3/README.md",
+    "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after-report.json",
+    "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after.json",
+    "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after.log",
+    "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v3/baseline-import-v2.log",
+    "docs/evidence/enemy_feedback_01/v3/baseline-native-v2.log",
+    "docs/evidence/enemy_feedback_01/v3/baseline-v1-timeout-report.json",
+    "docs/evidence/enemy_feedback_01/v3/baseline-v1-timeout.log.gz",
+    "docs/evidence/enemy_feedback_01/v3/capture-v1-failed-after.json",
+    "docs/evidence/enemy_feedback_01/v3/capture-v1-failed-after.log",
+    "docs/evidence/enemy_feedback_01/v3/capture-v1-failed-report.json",
+    "docs/evidence/enemy_feedback_01/v3/consumers.json",
+    "docs/evidence/enemy_feedback_01/v3/development-plan-final.json",
+    "docs/evidence/enemy_feedback_01/v3/development-plan.json",
+    "docs/evidence/enemy_feedback_01/v3/docs-final-check.log",
+    "docs/evidence/enemy_feedback_01/v3/final-affected/actor-actions.log",
+    "docs/evidence/enemy_feedback_01/v3/final-affected/forest-bible-integration-tests.log",
+    "docs/evidence/enemy_feedback_01/v3/final-affected/report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-affected/underworld-damage-feedback.log",
+    "docs/evidence/enemy_feedback_01/v3/final-affected/underworld-formal.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/docs.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/harness-tests.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/quality-drills.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/quality-tests.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/quality.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/structure.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/world-design-tests.log",
+    "docs/evidence/enemy_feedback_01/v3/final-docs/world.log",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/after-report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/after.json",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/after.log",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/before-report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/before.json",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/before.log",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/before.mp4",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/comparison-encode.log",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/comparison-recipe.json",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/comparison-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-movies/comparison.mp4",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/formal.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/formal.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/native-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/native.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/native.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels-display.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels-receipt.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-actual-persistent-corpse-paused.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-actual-persistent-corpse.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-before.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-impact.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-recovered.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-actual-persistent-corpse-paused.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-actual-persistent-corpse.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-before.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-impact.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-recovered.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/source-and-log-audit.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/source-before.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/source-comparison.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/support-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/support.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v2/support.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/foot-counterexample.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/formal.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/formal.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/native-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/native.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/native.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels-display.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels-receipt.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-actual-persistent-corpse-paused.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-actual-persistent-corpse.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-before.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-impact.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-recovered.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-actual-persistent-corpse-paused.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-actual-persistent-corpse.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-before.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-impact.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-recovered.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/review-foot-comparison.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/source-and-log-audit.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/source-before.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/source-comparison.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/support-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/support.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests-v3/support.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/formal-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/formal.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/formal.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/native-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/native.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/native.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels-display.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels-receipt.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels.log",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-actual-persistent-corpse-paused.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-actual-persistent-corpse.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-before.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-impact.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-recovered.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-actual-persistent-corpse-paused.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-actual-persistent-corpse.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-before.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-impact.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-paused-restored.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-recovered.png",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/report.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/source-before.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/support-runtime.json",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/support.exit",
+    "docs/evidence/enemy_feedback_01/v3/final-tests/support.log",
+    "docs/evidence/enemy_feedback_01/v3/formal-restore-probe-v2.log",
+    "docs/evidence/enemy_feedback_01/v3/formal-restore-probe.log",
+    "docs/evidence/enemy_feedback_01/v3/formal-v1-receipt.json",
+    "docs/evidence/enemy_feedback_01/v3/formal-v1.log",
+    "docs/evidence/enemy_feedback_01/v3/formal-v2.log",
+    "docs/evidence/enemy_feedback_01/v3/import-v1.log",
+    "docs/evidence/enemy_feedback_01/v3/independent-comparison.json",
+    "docs/evidence/enemy_feedback_01/v3/native-alpha-v1.log",
+    "docs/evidence/enemy_feedback_01/v3/native-v1.log",
+    "docs/evidence/enemy_feedback_01/v3/native-v2.log",
+    "docs/evidence/enemy_feedback_01/v3/pixels-alpha-v1/display.log",
+    "docs/evidence/enemy_feedback_01/v3/pixels-alpha-v1/native.log",
+    "docs/evidence/enemy_feedback_01/v3/pixels-alpha-v1/receipt.json",
+    "docs/evidence/enemy_feedback_01/v3/pixels-v1-receipt.json",
+    "docs/evidence/enemy_feedback_01/v3/pixels-v1.log",
+    "docs/evidence/enemy_feedback_01/v3/project-final-check.log",
+    "docs/evidence/enemy_feedback_01/v3/quality-diff-final.log",
+    "docs/evidence/enemy_feedback_01/v3/quality-record-before-v3.json",
+    "docs/evidence/enemy_feedback_01/v3/quality-record-final.log",
+    "docs/evidence/enemy_feedback_01/v3/review.md",
+    "docs/evidence/enemy_feedback_01/v3/runtime-source-manifest.json",
+    "docs/evidence/enemy_feedback_01/v3/runtime-source.bundle",
+    "docs/evidence/enemy_feedback_01/v3/support-v1.log",
+    "docs/evidence/enemy_feedback_01/v3/user-feedback.json",
+    "docs/quality/records/ENEMY-FEEDBACK-01.json",
+    "scripts/enemies/enemy_feedback_01.gd",
+    "scripts/enemies/enemy_feedback_01.gd.uid",
+    "scripts/enemies/enemy_feedback_01_body.gd",
+    "scripts/enemies/enemy_feedback_01_body.gd.uid",
+    "scripts/enemies/enemy_feedback_01_flash.gdshader",
+    "scripts/enemies/enemy_feedback_01_flash.gdshader.uid",
+    "scripts/enemies/enemy_feedback_01_particles.gd",
+    "scripts/enemies/enemy_feedback_01_particles.gd.uid",
+    "scripts/enemies/enemy_feedback_01_remains.gd",
+    "scripts/enemies/enemy_feedback_01_remains.gd.uid",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "tests/enemy_feedback_01_formal.gd",
+    "tests/enemy_feedback_01_formal.gd.uid",
+    "tests/enemy_feedback_01_pixels.gd",
+    "tests/enemy_feedback_01_pixels.gd.uid",
+    "tests/enemy_feedback_01_support.gd",
+    "tests/enemy_feedback_01_support.gd.uid",
+    "tests/enemy_feedback_01_tests.gd",
+    "tests/enemy_feedback_01_tests.gd.uid",
+    "tools/capture_enemy_feedback_01.py",
+    "tools/capture_enemy_feedback_01_remains.py",
+    "tools/enemy_feedback_01_audio_candidates.py",
+    "tools/enemy_feedback_01_audio_probe.gd",
+    "tools/enemy_feedback_01_audio_probe.gd.uid",
+    "tools/enemy_feedback_01_capture.gd",
+    "tools/enemy_feedback_01_capture.gd.uid",
+    "tools/enemy_feedback_01_remains_capture.gd",
+    "tools/enemy_feedback_01_remains_capture.gd.uid"
+  ],
+  "path_reasons": [
+    {
+      "path": "docs/enemy_feedback_01.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/enemy_feedback_01_art_direction.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/enemy_feedback_01_references.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/affected-actor-actions.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/affected-consumers-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/affected-forest-bible-integration-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/affected-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/affected-underworld-damage-feedback.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/affected-underworld-formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/after-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/after.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/after.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/after.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-audit.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-candidates-manifest.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-candidates-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-candidates-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-candidates-v3.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-comparison-25s.wav",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-probe-v1.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/audio-probe-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/authority-inputs.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/before-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/before.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/before.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/before.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/check-quality-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/comparison-encode.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/comparison.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/consumers.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/development-plan-v1.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/digital-audio-LICENSE.txt",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-docs.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-harness-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-quality-drills.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-quality-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-quality.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-structure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-world-design-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-final-world.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-input-materialized.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-v1-docs.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-v1-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-v1-structure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-v1-world-design-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/docs-v1-world.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/feedback-harness-environment.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/feedback-harness-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/feedback-harness-underworld-damage-feedback.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/formal-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/harness-docs-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/harness-docs-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/harness-docs-v3.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/harness-feedback-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/impact-sounds-LICENSE.txt",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/integration-plan-v1.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/inventory.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/quality-record-check.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/review-v1.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/review-v2-formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/review-v2-formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/review-v2-native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/review-v2-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/review-v2.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/runtime-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/runtime-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/runtime-v3-charger.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/shot-a-compact-mechanical.wav",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/shot-b-weighted-mechanical.wav",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/user-feedback.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/ci-v1-failure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/consumers.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/development-plan.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/docs-current.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/early-movies/after.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/early-movies/after.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/early-movies/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-affected/actor-actions.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-affected/forest-bible-integration-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-affected/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-affected/underworld-damage-feedback.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-affected/underworld-formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/docs.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/harness-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/quality-drills.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/quality-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/quality.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/structure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/world-design-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-docs/world.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/after-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/after.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/after.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/after.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/before-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/before.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/before.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/before.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/comparison-encode.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/comparison-recipe.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-movies/underworld-comparison.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/display.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/formal.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/native-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/native.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_charger-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/plains_diver-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/final-tests/pixels/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/formal-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/import-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/import-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/native-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels-native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/plains_charger-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/plains_charger-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/plains_charger-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/plains_diver-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/plains_diver-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/plains_diver-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/pixels/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/quality-diff-final.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/quality-record-before-v2.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/quality-record-final.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/review.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v2/user-feedback.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/README.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/alpha-aabb-rejected-movies/after.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/baseline-import-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/baseline-native-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/baseline-v1-timeout-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/baseline-v1-timeout.log.gz",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/capture-v1-failed-after.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/capture-v1-failed-after.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/capture-v1-failed-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/consumers.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/development-plan-final.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/development-plan.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/docs-final-check.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-affected/actor-actions.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-affected/forest-bible-integration-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-affected/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-affected/underworld-damage-feedback.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-affected/underworld-formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/docs.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/harness-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/quality-drills.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/quality-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/quality.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/structure.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/world-design-tests.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-docs/world.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/after-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/after.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/after.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/after.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/before-report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/before.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/before.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/before.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/comparison-encode.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/comparison-recipe.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/comparison-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-movies/comparison.mp4",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/formal.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/native-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/native.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels-display.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-actual-persistent-corpse-paused.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-actual-persistent-corpse.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_charger-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-actual-persistent-corpse-paused.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-actual-persistent-corpse.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/plains_diver-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/pixels/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/source-and-log-audit.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/source-before.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/source-comparison.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/support-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/support.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v2/support.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/foot-counterexample.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/formal.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/native-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/native.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels-display.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-actual-persistent-corpse-paused.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-actual-persistent-corpse.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_charger-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-actual-persistent-corpse-paused.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-actual-persistent-corpse.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/plains_diver-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/pixels/review-foot-comparison.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/source-and-log-audit.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/source-before.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/source-comparison.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/support-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/support.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests-v3/support.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/formal-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/formal.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/formal.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/native-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/native.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels-display.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-actual-persistent-corpse-paused.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-actual-persistent-corpse.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_charger-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-actual-persistent-corpse-paused.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-actual-persistent-corpse.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-before.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-impact.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-paused-restored.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/plains_diver-recovered.png",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/pixels/report.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/source-before.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/support-runtime.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/support.exit",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/final-tests/support.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/formal-restore-probe-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/formal-restore-probe.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/formal-v1-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/formal-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/formal-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/import-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/independent-comparison.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/native-alpha-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/native-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/native-v2.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/pixels-alpha-v1/display.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/pixels-alpha-v1/native.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/pixels-alpha-v1/receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/pixels-v1-receipt.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/pixels-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/project-final-check.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/quality-diff-final.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/quality-record-before-v3.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/quality-record-final.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/review.md",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/runtime-source-manifest.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/runtime-source.bundle",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/support-v1.log",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/evidence/enemy_feedback_01/v3/user-feedback.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "docs/quality/records/ENEMY-FEEDBACK-01.json",
+      "rules": [
+        "docs"
+      ],
+      "reason": [
+        "Documentation and task records use the complete existing docs profile."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_body.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_body.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_flash.gdshader",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_flash.gdshader.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_particles.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_particles.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "rules": [
+        "damage-presentation"
+      ],
+      "reason": [
+        "Formal Underworld enemy and original EnemyPresentation use distinct rendering chains; accepted-damage Development regression and full Integration are required."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_enemy.gd",
+      "rules": [
+        "damage-presentation"
+      ],
+      "reason": [
+        "Formal Underworld enemy and original EnemyPresentation use distinct rendering chains; accepted-damage Development regression and full Integration are required."
+      ],
+      "scope": "mapped"
+    },
+    {
+      "path": "tests/enemy_feedback_01_formal.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_formal.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_pixels.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_pixels.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_support.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_support.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_tests.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_tests.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/capture_enemy_feedback_01.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/capture_enemy_feedback_01_remains.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_audio_candidates.py",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_audio_probe.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_audio_probe.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_capture.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_capture.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_remains_capture.gd",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_remains_capture.gd.uid",
+      "rules": [],
+      "reason": "Unknown or unregistered dependency scope",
+      "scope": "full"
+    }
+  ],
+  "domains": [
+    "process",
+    "damage_presentation"
+  ],
+  "escalations": [
+    {
+      "path": "scripts/enemies/enemy_feedback_01.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_body.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_body.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_flash.gdshader",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_flash.gdshader.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_particles.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_particles.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_formal.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_formal.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_pixels.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_pixels.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_support.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_support.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_tests.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tests/enemy_feedback_01_tests.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/capture_enemy_feedback_01.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/capture_enemy_feedback_01_remains.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_audio_candidates.py",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_audio_probe.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_audio_probe.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_capture.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_capture.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_remains_capture.gd",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    },
+    {
+      "path": "tools/enemy_feedback_01_remains_capture.gd.uid",
+      "reason": "Unknown or unregistered dependency scope",
+      "to": "full"
+    }
+  ],
+  "selection": "full",
+  "checks": [
+    "docs",
+    "world",
+    "world-design-tests",
+    "structure",
+    "harness-tests",
+    "quality-drills",
+    "quality-tests",
+    "quality",
+    "production-loop-tests",
+    "terrain-tile-tests",
+    "consumer-coverage-tests",
+    "capture-tests",
+    "level-design-contracts",
+    "mechanism-comparisons",
+    "level-design-analysis",
+    "level-design-routing",
+    "level-design-golden-tests",
+    "level-region-context",
+    "level-experience",
+    "level-formal-receipts",
+    "visual-director-tests",
+    "asset-family-tests",
+    "creative-direction",
+    "creative-direction-tests",
+    "underworld-pipeline",
+    "underworld-home-guard-tests",
+    "region-bible-contract",
+    "region-bible-tests",
+    "harness-artifact-archive-tests",
+    "cloud-production-planner-tests",
+    "cloud-delivery-tests",
+    "cloud-inputs-tests",
+    "portable-frozen-assets",
+    "environment",
+    "core",
+    "generated-consumers",
+    "region",
+    "art-art",
+    "art-painterly_pack",
+    "art-plains_v3",
+    "art-meadow_enemy_art",
+    "art-plains_ground_art",
+    "art-windkeeper_art",
+    "art-plains_spatial_art",
+    "art-plains_item_art",
+    "web-cache",
+    "web-build",
+    "web-bundle",
+    "quality-review-engine",
+    "terrain-production",
+    "wood-platforms",
+    "actor-actions",
+    "grapple-feel",
+    "forest-interwoven-contract",
+    "forest-player-aim",
+    "aim-save-compat",
+    "all-weapons",
+    "studio-input",
+    "weapon-feel",
+    "action-budget",
+    "level-design-runtime",
+    "level-design-golden",
+    "level-formal-runtime",
+    "plains-autonomy-golden",
+    "plains-action-golden",
+    "plains-redesign-golden",
+    "plains-redesign-spatial",
+    "plains-experience-golden",
+    "plains-encounter-policy",
+    "plains-redesign-scene",
+    "visual-director-space",
+    "directed-space-tests",
+    "terrain-family-tests",
+    "root-bell-tests",
+    "root-bell-spaces",
+    "root-bell-ecology",
+    "forest-h-slice",
+    "web-resource-contract-tests",
+    "runtime-raw-export-tests",
+    "connected-family-tests",
+    "forest-ecology",
+    "forest-progression",
+    "forest-campaign",
+    "forest-debug",
+    "forest-traversal",
+    "forest-region-matrix",
+    "forest-formal-combat",
+    "forest-depth-guardian",
+    "forest-depth-guardian-tolerance",
+    "forest-depth-enemies",
+    "forest-depth-versions",
+    "forest-depth-restore",
+    "forest-depth-queen",
+    "forest-depth-cavity",
+    "forest-depth-cavity-controls",
+    "forest-depth-region",
+    "forest-depth-campaign-guardian",
+    "forest-depth-campaign-queen",
+    "forest-depth-ecology-expedition",
+    "forest-depth-root-entry",
+    "forest-depth-crossbranch-lifecycle",
+    "forest-depth-queen-canopy",
+    "forest-depth-campaign-canopy",
+    "forest-air-chain",
+    "forest-vertical-shortcut",
+    "blob47-foundation",
+    "windchime-plains",
+    "pixel-plains",
+    "pixel-formal",
+    "visual-director-terrain",
+    "parallel-region-presentation",
+    "style-exploration",
+    "underworld-scenery",
+    "underworld-hazards",
+    "underworld-terrain",
+    "underworld-formal-terrain",
+    "underworld-formal",
+    "underworld-raw-export",
+    "underworld-player-animation",
+    "underworld-mechanisms",
+    "underworld-home",
+    "underworld-ui",
+    "forest-region-scheduler-tests",
+    "underworld-damage-feedback",
+    "underworld-projectile-vfx",
+    "underworld-world-objects",
+    "underworld-continuous-bosses",
+    "forest-camera-stability",
+    "forest-hazard-records",
+    "forest-fruit-contract",
+    "forest-bible-weaver-tests",
+    "forest-bible-discoveries-tests",
+    "forest-bible-integration-tests",
+    "forest-bible-world-contract",
+    "forest-bible-world-connection",
+    "forest-bible-world-backbranch",
+    "forest-bible-ambience",
+    "forest-bible-app-discoveries",
+    "forest-practice-bell-restore",
+    "forest-bible-world-connection-map1",
+    "forest-bible-world-backbranch-map1",
+    "forest-bible-world-spiral",
+    "forest-bible-versions",
+    "forest-bible-reader-tests",
+    "forest-bible-av-reader-tests",
+    "cloud-preview-runtime"
+  ],
+  "commands": [
+    [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "docs",
+      "--check",
+      "world",
+      "--check",
+      "world-design-tests",
+      "--check",
+      "structure",
+      "--check",
+      "harness-tests",
+      "--check",
+      "quality-drills",
+      "--check",
+      "quality-tests",
+      "--check",
+      "quality",
+      "--check",
+      "production-loop-tests",
+      "--check",
+      "terrain-tile-tests",
+      "--check",
+      "consumer-coverage-tests",
+      "--check",
+      "capture-tests",
+      "--check",
+      "level-design-contracts",
+      "--check",
+      "mechanism-comparisons",
+      "--check",
+      "level-design-analysis",
+      "--check",
+      "level-design-routing",
+      "--check",
+      "level-design-golden-tests",
+      "--check",
+      "level-region-context",
+      "--check",
+      "level-experience",
+      "--check",
+      "level-formal-receipts",
+      "--check",
+      "visual-director-tests",
+      "--check",
+      "asset-family-tests",
+      "--check",
+      "creative-direction",
+      "--check",
+      "creative-direction-tests",
+      "--check",
+      "underworld-pipeline",
+      "--check",
+      "underworld-home-guard-tests",
+      "--check",
+      "region-bible-contract",
+      "--check",
+      "region-bible-tests",
+      "--check",
+      "harness-artifact-archive-tests",
+      "--check",
+      "cloud-production-planner-tests",
+      "--check",
+      "cloud-delivery-tests",
+      "--check",
+      "cloud-inputs-tests",
+      "--check",
+      "portable-frozen-assets",
+      "--check",
+      "environment",
+      "--check",
+      "core",
+      "--check",
+      "generated-consumers",
+      "--check",
+      "region",
+      "--check",
+      "art-art",
+      "--check",
+      "art-painterly_pack",
+      "--check",
+      "art-plains_v3",
+      "--check",
+      "art-meadow_enemy_art",
+      "--check",
+      "art-plains_ground_art",
+      "--check",
+      "art-windkeeper_art",
+      "--check",
+      "art-plains_spatial_art",
+      "--check",
+      "art-plains_item_art",
+      "--check",
+      "web-cache",
+      "--check",
+      "web-build",
+      "--check",
+      "web-bundle",
+      "--check",
+      "quality-review-engine",
+      "--check",
+      "terrain-production",
+      "--check",
+      "wood-platforms",
+      "--check",
+      "actor-actions",
+      "--check",
+      "grapple-feel",
+      "--check",
+      "forest-interwoven-contract",
+      "--check",
+      "forest-player-aim",
+      "--check",
+      "aim-save-compat",
+      "--check",
+      "all-weapons",
+      "--check",
+      "studio-input",
+      "--check",
+      "weapon-feel",
+      "--check",
+      "action-budget",
+      "--check",
+      "level-design-runtime",
+      "--check",
+      "level-design-golden",
+      "--check",
+      "level-formal-runtime",
+      "--check",
+      "plains-autonomy-golden",
+      "--check",
+      "plains-action-golden",
+      "--check",
+      "plains-redesign-golden",
+      "--check",
+      "plains-redesign-spatial",
+      "--check",
+      "plains-experience-golden",
+      "--check",
+      "plains-encounter-policy",
+      "--check",
+      "plains-redesign-scene",
+      "--check",
+      "visual-director-space",
+      "--check",
+      "directed-space-tests",
+      "--check",
+      "terrain-family-tests",
+      "--check",
+      "root-bell-tests",
+      "--check",
+      "root-bell-spaces",
+      "--check",
+      "root-bell-ecology",
+      "--check",
+      "forest-h-slice",
+      "--check",
+      "web-resource-contract-tests",
+      "--check",
+      "runtime-raw-export-tests",
+      "--check",
+      "connected-family-tests",
+      "--check",
+      "forest-ecology",
+      "--check",
+      "forest-progression",
+      "--check",
+      "forest-campaign",
+      "--check",
+      "forest-debug",
+      "--check",
+      "forest-traversal",
+      "--check",
+      "forest-region-matrix",
+      "--check",
+      "forest-formal-combat",
+      "--check",
+      "forest-depth-guardian",
+      "--check",
+      "forest-depth-guardian-tolerance",
+      "--check",
+      "forest-depth-enemies",
+      "--check",
+      "forest-depth-versions",
+      "--check",
+      "forest-depth-restore",
+      "--check",
+      "forest-depth-queen",
+      "--check",
+      "forest-depth-cavity",
+      "--check",
+      "forest-depth-cavity-controls",
+      "--check",
+      "forest-depth-region",
+      "--check",
+      "forest-depth-campaign-guardian",
+      "--check",
+      "forest-depth-campaign-queen",
+      "--check",
+      "forest-depth-ecology-expedition",
+      "--check",
+      "forest-depth-root-entry",
+      "--check",
+      "forest-depth-crossbranch-lifecycle",
+      "--check",
+      "forest-depth-queen-canopy",
+      "--check",
+      "forest-depth-campaign-canopy",
+      "--check",
+      "forest-air-chain",
+      "--check",
+      "forest-vertical-shortcut",
+      "--check",
+      "blob47-foundation",
+      "--check",
+      "windchime-plains",
+      "--check",
+      "pixel-plains",
+      "--check",
+      "pixel-formal",
+      "--check",
+      "visual-director-terrain",
+      "--check",
+      "parallel-region-presentation",
+      "--check",
+      "style-exploration",
+      "--check",
+      "underworld-scenery",
+      "--check",
+      "underworld-hazards",
+      "--check",
+      "underworld-terrain",
+      "--check",
+      "underworld-formal-terrain",
+      "--check",
+      "underworld-formal",
+      "--check",
+      "underworld-raw-export",
+      "--check",
+      "underworld-player-animation",
+      "--check",
+      "underworld-mechanisms",
+      "--check",
+      "underworld-home",
+      "--check",
+      "underworld-ui",
+      "--check",
+      "forest-region-scheduler-tests",
+      "--check",
+      "underworld-damage-feedback",
+      "--check",
+      "underworld-projectile-vfx",
+      "--check",
+      "underworld-world-objects",
+      "--check",
+      "underworld-continuous-bosses",
+      "--check",
+      "forest-camera-stability",
+      "--check",
+      "forest-hazard-records",
+      "--check",
+      "forest-fruit-contract",
+      "--check",
+      "forest-bible-weaver-tests",
+      "--check",
+      "forest-bible-discoveries-tests",
+      "--check",
+      "forest-bible-integration-tests",
+      "--check",
+      "forest-bible-world-contract",
+      "--check",
+      "forest-bible-world-connection",
+      "--check",
+      "forest-bible-world-backbranch",
+      "--check",
+      "forest-bible-ambience",
+      "--check",
+      "forest-bible-app-discoveries",
+      "--check",
+      "forest-practice-bell-restore",
+      "--check",
+      "forest-bible-world-connection-map1",
+      "--check",
+      "forest-bible-world-backbranch-map1",
+      "--check",
+      "forest-bible-world-spiral",
+      "--check",
+      "forest-bible-versions",
+      "--check",
+      "forest-bible-reader-tests",
+      "--check",
+      "forest-bible-av-reader-tests",
+      "--check",
+      "cloud-preview-runtime",
+      "--jobs",
+      "1"
+    ]
+  ],
+  "additional_commands": [],
+  "release_follow_up": [],
+  "manual_checks": [
+    "GUI and real device/player acceptance remain unverified unless separately exercised.",
+    "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.",
+    "Check inputs are cache invalidation inventories, not complete test dependency graphs."
+  ],
+  "device_acceptance": "unverified",
+  "player_acceptance": "unverified",
+  "base_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "source_commit": "afc3696f78022204c99f8b7e379a5775ccfe4db8",
+  "git_status": "M docs/enemy_feedback_01_art_direction.md\n M scripts/enemies/enemy_feedback_01_body.gd\n M scripts/enemies/enemy_feedback_01_flash.gdshader\n M scripts/enemies/enemy_feedback_01_particles.gd\n M scripts/enemies/enemy_feedback_01_remains.gd\n M scripts/underworld_plains/underworld_enemy.gd",
+  "working_files": {
+    "docs/enemy_feedback_01_art_direction.md": "54d719715e8f0764e60e83454638cef4b2d8856cab2f314862343f937b5b40d1",
+    "scripts/enemies/enemy_feedback_01_body.gd": "3995a55bbc9a36086aecab7e4accf3d8ee86447b62e5426d703a7ca5c75d788d",
+    "scripts/enemies/enemy_feedback_01_flash.gdshader": "a67c0909b7d7dacaa59da76b5fca14b3db040f97fd2d70b662e7bbe29cd35727",
+    "scripts/enemies/enemy_feedback_01_particles.gd": "86360d62f55b602e2dda0e4f1aa9242e6b5179041bb5ae99f715e9f24447caa0",
+    "scripts/enemies/enemy_feedback_01_remains.gd": "0c01417cc4ff23567b21d1d7480c010a780415ff77ff467d7acee3f89d1cb5d8",
+    "scripts/underworld_plains/underworld_enemy.gd": "4bc72a157ae9c4a293145811f9661fa5786ee74293169ac79e32cbf2413d792d"
+  },
+  "policy_sha256": "df7bc31b31997b595e1adced27da45dd177e8ddf170b74f2513f85ea083c111c",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434"
+}

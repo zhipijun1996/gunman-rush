@@ -29,7 +29,8 @@ def prepare_web_playtest(html):
     config = json.loads(match.group(1))
     config["mainPack"] = versioned.name
     config["fileSizes"][versioned.name] = config["fileSizes"].pop(pack.name)
-    config["ensureCrossOriginIsolationHeaders"] = False
+    threaded = "const GODOT_THREADS_ENABLED = true;" in page
+    config["ensureCrossOriginIsolationHeaders"] = False  # Our cache worker owns isolation too.
     page = page[:match.start(1)] + json.dumps(config, separators=(",", ":")) + page[match.end(1):]
     # The official runtime is immutable across gameplay-only changes. Name all
     # engine files together so JS/WASM/audio worklets can never cross versions.
@@ -91,8 +92,15 @@ def prepare_web_playtest(html):
         "__RESOURCE_MAP__", json.dumps(resources, separators=(",", ":")))
     startup_template = (REPO / "tools/web/cache_startup.js").read_text()
     worker_id = hashlib.sha256((worker_template + startup_template).encode()).hexdigest()[:12]
-    startup = startup_template.replace("__BUILD_ID__", json.dumps(build_id)).replace("__WORKER_ID__", json.dumps(worker_id))
-    page = page.replace("</head>", "<script>\n" + startup + "\n</script>\n</head>")
+    startup = startup_template.replace("__BUILD_ID__", json.dumps(build_id)).replace("__WORKER_ID__", json.dumps(worker_id)).replace("__THREADS_ENABLED__", json.dumps(threaded))
+    # Render the canvas at device density; keep nearest composition for the
+    # selected pixel art. UI geometry is shared logical canvas space.
+    page = page.replace("</head>", '<style id="playtest-pixel-canvas">#canvas { image-rendering: pixelated; }</style>\n<script>\n' + startup + "\n</script>\n</head>")
+    # Feature detection must run after cache activation / the isolation reload.
+    if page.count("(function () {") != 1:
+        raise RuntimeError("Official startup closure changed")
+    page = page.replace("(function () {", "(async function () {")
+    page = page.replace("\tconst missing = Engine.getMissingFeatures({", "\tawait window.PLAYTEST_CACHE_READY;\n\tconst missing = Engine.getMissingFeatures({")
     start_marker = "engine.startGame({"
     end_marker = "}).then(() => {\n\t\t\tsetStatusMode('hidden');"
     if start_marker not in page or end_marker not in page:
@@ -109,6 +117,7 @@ def prepare_web_playtest(html):
     metadata = html.parent / "build-info.json"
     metadata.write_text(json.dumps({"build_id": build_id, "pack": versioned.name,
                                    "engine_id": engine_id, "cache_schema": 2, "loader_id": worker_id,
+                                   "threads_enabled": threaded, "audio_supply": "dedicated_thread" if threaded else "main_thread",
                                    "pack_bytes": versioned.stat().st_size,
                                    "download_bytes": sum(c["gzip_bytes"] for r in resources.values() for c in r.get("chunks", [])),
                                    "chunk_bytes": 512 * 1024,
@@ -167,6 +176,29 @@ def main():
         provenance = artifact.parent / "Kenney-audio-sources.json"
         shutil.copyfile(REPO / "assets/audio/kenney/sources.json", provenance)
         files.append(provenance)
+        # Keep source terms with this isolated audio candidate export.
+        director_sources = REPO / "config/audio_director/sources.json"
+        if director_sources.is_file():
+            destination = artifact.parent / "Audio-Director-sources.json"
+            shutil.copyfile(director_sources, destination)
+            files.append(destination)
+        # Keep this feedback revision's exact CC0 source/processing history
+        # beside its playable export; the original sources remain untouched.
+        for source, name in [(REPO / "config/audio_director/feedback_05/sources.json", "Audio-Feedback-05-sources.json"),
+                             (REPO / "config/audio_director/feedback_05/recipes.json", "Audio-Feedback-05-recipes.json"),
+                             (REPO / "assets/audio/feedback_05/manifest.json", "Audio-Feedback-05-manifest.json"),
+                             (REPO / "config/audio_director/feedback_06/sources.json", "Audio-Feedback-06-sources.json"),
+                             (REPO / "config/audio_director/feedback_06/recipes.json", "Audio-Feedback-06-recipes.json"),
+                             (REPO / "assets/audio/feedback_06/manifest.json", "Audio-Feedback-06-manifest.json")]:
+            if source.is_file():
+                destination = artifact.parent / name
+                shutil.copyfile(source, destination)
+                files.append(destination)
+        freedoom_license = REPO / "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc"
+        if freedoom_license.is_file():
+            destination = artifact.parent / "Freedoom-COPYING.adoc"
+            shutil.copyfile(freedoom_license, destination)
+            files.append(destination)
     report = {"platform": args.platform, "export_exit_code": 0,
               "device_execution": "unverified", "artifacts": [
                   {"path": str(p.relative_to(REPO)), "bytes": p.stat().st_size,

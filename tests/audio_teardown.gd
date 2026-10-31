@@ -16,6 +16,15 @@ static func drain_world(world: Node, timeout_msec: int = 1000) -> bool:
 		if not await audio.shutdown(maxi(0,timeout_msec-(Time.get_ticks_msec()-started))):
 			print("TEST AUDIO TEARDOWN: ",JSON.stringify({"released":false,"seconds":float(Time.get_ticks_msec()-started)/1000.0,"owners":owners}))
 			return false
+	# The formal App now owns music as well as SFX. Observe its actual backend
+	# release within the same original total budget; fixed-frame tests may quit
+	# before the audio server's real-time release otherwise completes.
+	for music: GameMusic in world.get_tree().get_nodes_in_group(&"game_music"):
+		if not world.is_ancestor_of(music): continue
+		owners.append({"node":str(music.get_path()),"service":"GameMusic","track":str(music.requested_track),"starts":music.starts.duplicate()})
+		if not await music.shutdown(maxi(0,timeout_msec-(Time.get_ticks_msec()-started))):
+			print("TEST AUDIO TEARDOWN: ",JSON.stringify({"released":false,"seconds":float(Time.get_ticks_msec()-started)/1000.0,"owners":owners}))
+			return false
 	while pending.any(func(reference: WeakRef) -> bool: return reference.get_ref() != null):
 		if Time.get_ticks_msec()-started >= timeout_msec:
 			print("TEST AUDIO TEARDOWN: ",JSON.stringify({"released":false,"seconds":float(Time.get_ticks_msec()-started)/1000.0,"owners":owners}))

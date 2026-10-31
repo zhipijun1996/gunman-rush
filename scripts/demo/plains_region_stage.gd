@@ -50,15 +50,15 @@ func _ready() -> void:
 			if saved.has("position"): enemies[index].position=Vector2(saved.position[0],saved.position[1])
 			# Terminal actors keep their drop receipt and stay terminal on reload.
 			if float(saved.health) <= 0: enemies[index].hide()
-	boss = preload("res://scenes/bosses/bellstrider.tscn").instantiate() if map_index==1 else preload("res://scenes/bosses/windkeeper.tscn").instantiate()
-	if map_index==2:
-		(boss.get_node("Encounter") as WindkeeperEncounter).definition=preload("res://resources/bosses/windkeeper_storm.tres")
+	boss = BossFactory.create(&"bellstrider" if map_index == 1 else &"windkeeper_storm")
 	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-65)
 	add_child(boss)
 	if not region_state.boss_state.is_empty():
 		restored_boss=region_state.boss_state.duplicate(true)
 		var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 		var data: Dictionary = region_state.boss_state
+		if encounter is BellstriderEncounter and float(data.health) <= 0:
+			encounter.prepare_terminal_restore()
 		var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
 		restored.initial_current=float(data.health)
 		encounter.health.configure(restored)
@@ -74,8 +74,8 @@ func _ready() -> void:
 		pickups.append({"id": p.id, "kind": p.kind, "amount": int(p.amount), "position": Vector2(p.position[0],p.position[1]), "claimed": region_state.claimed.has(p.id)})
 	for id: String in region_state.drops:
 		var p: Dictionary=region_state.drops[id]
-		if p.kind=="none": continue
-		pickups.append({"id":"drop_"+id,"kind":p.kind,"amount":int(p.amount),"position":Vector2(p.position[0],p.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
+		restore_drop_pickups(p,id,region_state.claimed)
+		if id == BellstriderRewards.source_id(self): BellstriderRewards.restore_pickup_lock(self,p)
 	for c: Dictionary in generated.manifest.rewards:
 		var chest := c.duplicate(true)
 		chest.id=PlainsRegionCampaign.prefix(map_index)+c.id
@@ -106,13 +106,7 @@ func _ready() -> void:
 			_context_sign(chest.position+Vector2(-95,-80), "CACHE  ·  ↓ + JUMP TO RETURN", 170)
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
-		if generated.has("regional_art_plan"):
-			sprite.texture=PixelFormalActors.icon_texture(&"chest")
-			sprite.scale=Vector2(58,48)/sprite.texture.get_size()
-			sprite.position=c.position+Vector2(0,-3)
-			sprite.modulate=Color("ddb1ff") if c.tier=="high" else Color("ffe7a0") if c.tier=="region_top" else Color.WHITE
-		else:
-			UnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed))
+		UnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
 		add_child(sprite)
 		c.sprite=sprite
 	var merchant:=Sprite2D.new()
@@ -149,7 +143,50 @@ func _ready() -> void:
 			scenery.queue_redraw())
 		PixelFormalActors.install(self)
 		UnderworldActors.install(self)
+	# Health restoration intentionally leaves terminal Motors hidden. Their
+	# stage-owned pixels restore only after the real presentation installer exists.
+	for index: int in enemies.size():
+		var saved: Dictionary = region_state.actors.get(enemy_manifest[index].id,{})
+		var remains := _enemy_remains(enemies[index])
+		if is_instance_valid(remains) and saved.has("presentation_remains"):
+			var pose: Variant = saved.presentation_remains
+			var support: Node2D = _resolve_remains_support(pose.support) if EnemyFeedback01Remains.valid_presentation_snapshot(pose) else null
+			remains.restore_presentation(pose,support)
 	queue_redraw()
+
+func _enemy_remains(motor: EnemyMotor) -> EnemyFeedback01Remains:
+	var presentation := motor.get_node_or_null("Presentation")
+	return EnemyPresentationBinding.remains(presentation)
+
+func _remains_support_identity(support: Node2D) -> Dictionary:
+	if not is_instance_valid(support) or support.is_queued_for_deletion(): return {}
+	for module: PlatformingModule in assembler.modules:
+		if support.get_parent() == module and not String(support.name).contains("@"):
+			return {"kind":"module","module":String(module.name),"body":String(support.name)}
+	if is_instance_valid(assembler.ground_supports) and support.get_parent() == assembler.ground_supports:
+		for column: Rect2 in assembler.ground_supports.columns:
+			if support.position.is_equal_approx(column.get_center()):
+				return {"kind":"ground","rect":[column.position.x,column.position.y,column.size.x,column.size.y]}
+	if assembler is PlainsRegionAssembler:
+		for id: String in (assembler as PlainsRegionAssembler).shortcut_bodies:
+			if (assembler as PlainsRegionAssembler).shortcut_bodies[id] == support: return {"kind":"shortcut","id":id}
+	return {}
+
+func _resolve_remains_support(identity: Dictionary) -> Node2D:
+	match identity.kind:
+		"module":
+			for module: PlatformingModule in assembler.modules:
+				if String(module.name) == identity.module: return module.get_node_or_null(NodePath(identity.body)) as PhysicsBody2D
+		"ground":
+			if not is_instance_valid(assembler.ground_supports): return null
+			var r: Array = identity.rect
+			var column := Rect2(r[0],r[1],r[2],r[3])
+			if column not in assembler.ground_supports.columns: return null
+			for body: Node in assembler.ground_supports.get_children():
+				if body is StaticBody2D and body.position.is_equal_approx(column.get_center()): return body
+		"shortcut":
+			if assembler is PlainsRegionAssembler: return (assembler as PlainsRegionAssembler).shortcut_bodies.get(identity.id) as Node2D
+	return null
 
 func get_regional_art_snapshot() -> Dictionary:
 	var art: Dictionary = {}
@@ -186,6 +223,9 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	capture_state()
 	_update_context_signs()
+
+func _persist_pickup_motion() -> void:
+	if region_state != null: _save_pickup_units(region_state.drops)
 
 func _context_sign(at: Vector2, text: String, radius: float) -> void:
 	var label := _sign(at, text, Color("e7d9ac"))
@@ -235,10 +275,7 @@ func capture_state() -> void:
 			visited_area = "TUTORIAL" if a.role=="tutorial" else area_label(a)
 	for c: Dictionary in chests:
 		if c.has("sprite"):
-			if generated.has("regional_art_plan"):
-				(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0
-			else:
-				UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))
+			UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
 	for p: Dictionary in pickups:
 		if p.claimed: region_state.claimed[p.id] = true
 	for index: int in assembler.modules.size():
@@ -248,6 +285,10 @@ func capture_state() -> void:
 		var attack := actor.attack_behavior
 		var pos := enemies[index].position
 		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"locked_direction":[attack.locked_direction.x,attack.locked_direction.y] if attack!=null else [1,0],"attack_goal":[attack.attack_goal.x,attack.attack_goal.y] if attack!=null else [pos.x,pos.y],"attack_origin":[attack.attack_origin.x,attack.attack_origin.y] if attack!=null else [pos.x,pos.y],"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
+		var remains := _enemy_remains(enemies[index])
+		if actor.health.terminal and is_instance_valid(remains):
+			var pose := remains.presentation_snapshot(_remains_support_identity(remains.support_node()))
+			if not pose.is_empty(): region_state.actors[enemy_manifest[index].id].presentation_remains = pose
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
 	region_state.boss_state.merge(encounter.combat_snapshot(),true)
@@ -311,14 +352,5 @@ func cancel_shot_latch_requests(permanent: bool = false) -> void:
 	if is_instance_valid(assembler):
 		(assembler as PlainsRegionAssembler).cancel_attack_shortcuts(permanent)
 
-func _draw() -> void:
-	super._draw()
-	if not assembly_ok: return
-	for c: Dictionary in chests:
-		if c.has("sprite"): continue
-		var color := Color("c7aa77") if c.tier == "medium" else Color("cfa2f3") if c.tier == "high" else Color("ffe186")
-		if c.claimed: color = Color("647361")
-		draw_rect(Rect2(c.position+Vector2(-18,-4),Vector2(36,22)),color)
-		draw_rect(Rect2(c.position+Vector2(-18,-4),Vector2(36,8)),color.lightened(0.2))
-		draw_line(c.position+Vector2(0,-4),c.position+Vector2(0,18),Color("635037"),3)
-		if not c.claimed: draw_circle(c.position+Vector2(0,-10),3,color.lightened(0.4))
+# Chests are owned by their explicit-tier Sprite2D consumers in every art branch.
+# No rectangle fallback can mask an invalid/missing admitted art recipe.

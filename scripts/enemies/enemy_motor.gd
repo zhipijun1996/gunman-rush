@@ -54,7 +54,12 @@ func reset_at(location: Vector2) -> void:
 func move_attack(motion: Vector2, require_floor: bool, delta: float) -> bool:
 	if not motion.is_finite() or not is_finite(delta) or delta <= 0: return false
 	if require_floor:
-		var feet := global_position + Vector2(signf(motion.x) * 15, 18)
+		var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if body_shape == null or not body_shape.shape is RectangleShape2D: return false
+		var half := (body_shape.shape as RectangleShape2D).size * 0.5
+		# Probe from above the actual sole. Starting exactly on or inside the
+		# floor can miss it; retain the original ten-unit ray length.
+		var feet := global_position + Vector2(signf(motion.x) * (half.x + 1.0), half.y)
 		var ray := PhysicsRayQueryParameters2D.create(feet + motion + Vector2(0, -2), feet + motion + Vector2(0, 8), 1, [get_rid()])
 		if get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
 			velocity = Vector2.ZERO

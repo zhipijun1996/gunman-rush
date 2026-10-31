@@ -38,3 +38,8 @@ func grant_shot(amount: int) -> int:
 
 func can_grant_shot() -> bool:
 	return shot_charges < mini(_flight_cap, tuning.max_air_shots)
+
+# Preserve flight spending and pending shots across paused equipment changes.
+func reconcile_capacity() -> void:
+	_flight_cap = mini(_flight_cap,tuning.max_air_shots)
+	shot_charges = mini(shot_charges,_flight_cap)

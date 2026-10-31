@@ -1,0 +1,39 @@
+{
+  "scope": "Same original route, same CPU affinity as baseline; not same CI hardware",
+  "affinity": [
+    0,
+    1
+  ],
+  "source_files": {
+    "scripts/enemies/enemy_actor.gd": "b4e6fff4c1e7785f1f2eaa19c25a64d2c99f2e40c2a75857cab17f77961cf7a9",
+    "scripts/enemies/forest_motion_02.gd": "3fac77a231eb8dd6475ea5e80c02963eef44158b720a60525362113f50234ca7"
+  },
+  "wall_seconds": 32.80697242400129,
+  "run": {
+    "seed": "forest-depth-hollow-00",
+    "map": 2,
+    "route": "growth",
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_depth_region_runner.gd",
+      "--",
+      "--seed=forest-depth-hollow-00",
+      "--map=2",
+      "--route=growth",
+      "--output=/workspace/gunman-rush/build/enemy_structure/performance-diagnosis-01/native-candidate-2cpu/09-map2-growth/capture.json"
+    ],
+    "status": "passed",
+    "errors": [],
+    "exit_code": 0,
+    "log_sha256": "51b6962b77a25c80f16da9cfa636b574ec6cbf3cdd03a514345667c9c1d7e493",
+    "capture_sha256": "4f010722b72cff100558df250b7ae0e226e6e6d119057a7ff1a8d8a937cbaad4",
+    "seconds": 32.73480377400119
+  }
+}

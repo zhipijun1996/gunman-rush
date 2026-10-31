@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+  "build_id": "5ae16004975a",
+  "provenance": "Explicit assistant summary of actual pre-disconnection tool outputs. NOT original harness/browser reports, screenshots or a rerun.",
+  "evidence_archive_status": "blocked: exec-server transport disconnected; execution environment unavailable before evidence commit",
+  "observed_results": {
+    "native": {
+      "checks": 550,
+      "failures": 0,
+      "groups": {
+        "UI": 130,
+        "Underworld UI": 255,
+        "Preview": 25,
+        "legacy": 101,
+        "settings": 14,
+        "grapple focus": 25
+      },
+      "source_clean": true,
+      "source_stable": true
+    },
+    "original_touch_lifecycle": {
+      "checks": 44,
+      "failures": 0
+    },
+    "public_browser": {
+      "desktop": 10,
+      "emulated_mobile": 11,
+      "failed": 0,
+      "engine_errors": [],
+      "url": "https://zhipijun1996.github.io/gunman-rush-previews/previews/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/5ae16004975a/",
+      "physical_device": false
+    },
+    "font": {
+      "cjk_characters": 313,
+      "missing": 0,
+      "glyphs": 7543
+    },
+    "public_downloads": {
+      "pck": {
+        "bytes": 141868084,
+        "sha256": "5ae16004975a6921b4e306aac77b86ca100bcca2e2205f0152d3499ef4c09f0d"
+      },
+      "comparison": {
+        "bytes": 3547931,
+        "sha256": "93b03ef086fc9a310b9e16c273170236c7e944a207f6270bdb4b0d67369964c3"
+      },
+      "build_info_matched": true,
+      "main_build_info_unchanged": true
+    }
+  },
+  "independently_refetched_pages_run": {
+    "id": 39843594774,
+    "head_sha": "c676d703a80d1ba0eb47b9a04a40798c869286cf",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/zhipijun1996/gunman-rush-previews/actions/runs/39843594774"
+  },
+  "known_limits": [
+    "Original native/browser/failure archives not committed because environment became unavailable",
+    "User and physical-device acceptance unverified",
+    "Full Integration/Release unverified",
+    "Final local quality-diff and commit-tree check interrupted before process launch"
+  ],
+  "available_originals": {
+    "movie_report": "https://zhipijun1996.github.io/gunman-rush-previews/deliveries/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/93b03ef086fc/report.json",
+    "after_trace": "https://zhipijun1996.github.io/gunman-rush-previews/deliveries/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/93b03ef086fc/after.json"
+  }
+}

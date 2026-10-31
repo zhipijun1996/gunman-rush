@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "started_at": "20261028T172505.712229Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "97667b6161781fba4fa9f19ed641377195a4bc2c6bc7dacfd85b46633817805e",
+      "log": "docs.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1793208309.9589806,
+      "ended_at_unix": 1793208310.1546104,
+      "duration_seconds": 0.196,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "0bfe770d44af447799aecc3cf2cd8e8e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261028T172505.712229Z/artifacts/docs",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "8635c6fa81c99f2c0e21d2c0f01667edc65ddb86fcf33ae4a7535ea14de685f9",
+  "working_files": {},
+  "commit": "4e2227554ab1aeca9b78bf203b7692b32e6fdf72",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 8.009,
+  "jobs": 1,
+  "release": true
+}

@@ -1,0 +1,355 @@
+{
+  "schema": "underworld-home-v2-terraces",
+  "task": "UNDERWORLD-FEEDBACK-03-HOME",
+  "world_width": 3280,
+  "floor_y": 432,
+  "safe_noncombat_settlement": true,
+  "currency_and_save": "unchanged real Meta service; reserved slots do not emit function IDs or grant resources",
+  "player_height_source": "UnderworldActors.HUMANOID_HEIGHT",
+  "terrain": "existing UnderworldTerrain TileMap+exact union boundary; independent unchanged real static support bodies",
+  "backgrounds": "same actual UnderworldParallax3 independent images and factors",
+  "assets": {
+    "wardrobe": {
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        32,
+        131,
+        467,
+        432
+      ],
+      "foot": [
+        233.5,
+        422
+      ],
+      "opaque_height": 413
+    },
+    "workshop": {
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        515,
+        55,
+        534,
+        508
+      ],
+      "foot": [
+        267.0,
+        499
+      ],
+      "opaque_height": 493
+    },
+    "archive": {
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        1053,
+        111,
+        454,
+        453
+      ],
+      "foot": [
+        227.0,
+        442
+      ],
+      "opaque_height": 436
+    },
+    "tailor": {
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        178,
+        651,
+        189,
+        344
+      ],
+      "foot": [
+        93.5,
+        333
+      ],
+      "opaque_height": 328
+    },
+    "artisan": {
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        672,
+        654,
+        202,
+        341
+      ],
+      "foot": [
+        102.5,
+        332
+      ],
+      "opaque_height": 326
+    },
+    "archivist": {
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        1192,
+        666,
+        191,
+        329
+      ],
+      "foot": [
+        95.5,
+        320
+      ],
+      "opaque_height": 314
+    },
+    "tower": {
+      "image": "assets/underworld_plains/decor/chime_props.png",
+      "region": [
+        794,
+        112,
+        289,
+        547
+      ],
+      "foot": [
+        138.0,
+        543
+      ]
+    },
+    "shelter": {
+      "image": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        1501,
+        224,
+        606,
+        434
+      ],
+      "foot": [
+        303.0,
+        423
+      ]
+    },
+    "clock_arch": {
+      "image": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        733,
+        100,
+        689,
+        564
+      ],
+      "foot": [
+        344.5,
+        548
+      ]
+    }
+  },
+  "slots": [
+    {
+      "id": "character",
+      "x": 300,
+      "label": "衣装守护者 / CHARACTER",
+      "active": true,
+      "building": "wardrobe",
+      "keeper": "tailor",
+      "building_height": 124,
+      "y": 432
+    },
+    {
+      "id": "upgrade",
+      "x": 620,
+      "label": "维修工坊 / UPGRADES",
+      "active": true,
+      "building": "workshop",
+      "keeper": "artisan",
+      "building_height": 136,
+      "y": 336
+    },
+    {
+      "id": "achievements",
+      "x": 920,
+      "label": "钟之档案 / ARCHIVE",
+      "active": true,
+      "building": "archive",
+      "keeper": "archivist",
+      "building_height": 120,
+      "y": 240
+    },
+    {
+      "id": "arms",
+      "x": 1250,
+      "label": "武器工坊",
+      "active": false,
+      "building": "archive",
+      "keeper": "",
+      "building_height": 86,
+      "y": 336
+    },
+    {
+      "id": "relics",
+      "x": 1550,
+      "label": "遗物鉴定",
+      "active": false,
+      "building": "shelter",
+      "keeper": "",
+      "building_height": 62,
+      "y": 240
+    },
+    {
+      "id": "herbs",
+      "x": 1770,
+      "label": "草药花园",
+      "active": false,
+      "building": "shelter",
+      "keeper": "",
+      "building_height": 62,
+      "y": 432
+    },
+    {
+      "id": "kitchen",
+      "x": 1920,
+      "label": "旅人食堂",
+      "active": false,
+      "building": "archive",
+      "keeper": "",
+      "building_height": 86,
+      "y": 336
+    },
+    {
+      "id": "courier",
+      "x": 2160,
+      "label": "信使驿站",
+      "active": false,
+      "building": "shelter",
+      "keeper": "",
+      "building_height": 62,
+      "y": 240
+    },
+    {
+      "id": "songs",
+      "x": 2230,
+      "label": "钟音工房",
+      "active": false,
+      "building": "shelter",
+      "keeper": "",
+      "building_height": 62,
+      "y": 432
+    },
+    {
+      "id": "stories",
+      "x": 2460,
+      "label": "故事访客",
+      "active": false,
+      "building": "archive",
+      "keeper": "",
+      "building_height": 86,
+      "y": 336
+    },
+    {
+      "id": "garden",
+      "x": 2690,
+      "label": "栖风苗圃",
+      "active": false,
+      "building": "shelter",
+      "keeper": "",
+      "building_height": 62,
+      "y": 432
+    },
+    {
+      "id": "departure",
+      "x": 3070,
+      "label": "走出聚落 · 风铃平原 / DEPARTURE",
+      "active": true,
+      "building": "clock_arch",
+      "keeper": "",
+      "building_height": 228,
+      "y": 432
+    }
+  ],
+  "source_record": "assets/underworld_plains/home/generation_record.json",
+  "camera_y": 310,
+  "layout_contract": {
+    "authorized_change": "R3 user 9/10 explicitly relocates function anchors onto reachable multi-tier platforms and makes east departure road distinct",
+    "legacy_source": "tests/fixtures/underworld_home_r2/replay.json",
+    "tier_step_wu": 96,
+    "movement": "same basic single jump, no recoil, wall jump, grapple or new ability required",
+    "interaction": "grounded, same vertical tier within 32wu and x range90/115 hysteresis; reserved has no business request",
+    "return": "walk off platform ends or original S one-way drop-through; safe ground below all tiers"
+  },
+  "platforms": [
+    {
+      "id": "artisan_terrace",
+      "rect": [
+        470,
+        336,
+        400,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "archive_terrace",
+      "rect": [
+        780,
+        240,
+        350,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "arms_terrace",
+      "rect": [
+        1100,
+        336,
+        400,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "relic_terrace",
+      "rect": [
+        1400,
+        240,
+        340,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "kitchen_terrace",
+      "rect": [
+        1770,
+        336,
+        360,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "courier_terrace",
+      "rect": [
+        2030,
+        240,
+        340,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "story_terrace",
+      "rect": [
+        2290,
+        336,
+        350,
+        24
+      ],
+      "one_way": true
+    }
+  ],
+  "departure_road": {
+    "from_x": 2810,
+    "gate_x": 3070,
+    "to_x": 3260,
+    "direction": "east",
+    "ground_y": 432,
+    "collision": "existing safe floor only; arch is non-colliding; W opens original departure panel"
+  },
+  "grounding": {
+    "task": "FINE-SPACE-05",
+    "source_contact_measurement": "Existing source foot is the lower edge of the last alpha>=128 row. Most foundation/root width ends several source pixels earlier; fine terrain grass becomes continuous below the physical top.",
+    "layering": "Non-colliding building and tree bases remain behind actual terrain, whose grass/soil naturally covers the shallow buried source base.",
+    "logical_support": "Slot roots, interaction anchors and all physical rectangles unchanged. Render origins snap to the shared1wu grid; actual render roots/bounds are recorded separately.",
+    "runtime_policy": "scripts/underworld_plains/grounded_contact.gd: structure/tree7wu, small flora3wu; single shared home/scenery contact policy"
+  }
+}

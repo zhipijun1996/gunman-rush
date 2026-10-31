@@ -56,7 +56,7 @@ func _ready() -> void:
 		add_child(enemy)
 		_sign(Vector2(410, 535), "DEFEAT THE DRONE")
 	elif stage_type == &"boss":
-		boss = BOSS.instantiate() as Node2D
+		boss = BossFactory.create(&"clockwork_guardian")
 		boss.position = Vector2(1030, 560)
 		add_child(boss)
 		_sign(Vector2(400, 340), "CLOCKWORK GUARDIAN\nDODGE, AIM, RELEASE", Color(0.95, 0.75, 0.35))

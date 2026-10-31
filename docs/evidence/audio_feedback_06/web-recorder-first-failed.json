@@ -1,0 +1,1283 @@
+{
+  "status": "failed",
+  "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "build": "80377273a40d",
+  "scope": "Real local Chromium, exact staged chunk-only package over normal HTTP; explicit allowed/blocked autoplay policies, trusted touches. No private deployed-origin/physical-phone/aesthetic claim.",
+  "checks": [
+    {
+      "name": "allowed cold chunk-only game obtains COI/SAB",
+      "passed": true,
+      "data": {
+        "sfx": {
+          "audio_owner_id": 261741348316,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_06_a",
+              "variants": [
+                "res://assets/audio/feedback_06/hurt_a.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261036705064,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 261741348316,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "running",
+            "current_time": 11.250068027210885,
+            "sample_rate": 44100,
+            "rms": 0.0038922570047805155,
+            "peak": 0.0115814208984375,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 10660
+          }
+        ],
+        "coi": true,
+        "sab": true
+      }
+    },
+    {
+      "name": "allowed actual Web assembly uses explicit new hurt direction A",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 261741348316,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_06_a",
+            "variants": [
+              "res://assets/audio/feedback_06/hurt_a.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261036705064,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Allowed autoplay: title produces real BGM PCM before any user input",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 12.640362811791384,
+            "sample_rate": 44100,
+            "rms": 0.005678137186694607,
+            "peak": 0.0116424560546875,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 32926
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 12.860952380952382,
+            "sample_rate": 44100,
+            "rms": 0.008831733990231379,
+            "peak": 0.0220489501953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 32926
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.081541950113378,
+            "sample_rate": 44100,
+            "rms": 0.011936251420361421,
+            "peak": 0.031280517578125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 40670
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.302131519274376,
+            "sample_rate": 44100,
+            "rms": 0.0021661493204963174,
+            "peak": 0.006134033203125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 40670
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.531428571428572,
+            "sample_rate": 44100,
+            "rms": 0.00351833049103473,
+            "peak": 0.0075531005859375,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 40670
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.760725623582767,
+            "sample_rate": 44100,
+            "rms": 0.0018443925057216833,
+            "peak": 0.0042266845703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 49380
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.990022675736961,
+            "sample_rate": 44100,
+            "rms": 0.001788966273788058,
+            "peak": 0.0040740966796875,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 49380
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.210612244897959,
+            "sample_rate": 44100,
+            "rms": 0.0015311652121289807,
+            "peak": 0.00347900390625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 57124
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.460226757369615,
+            "sample_rate": 44100,
+            "rms": 0.014624784401221795,
+            "peak": 0.0355377197265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 57124
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.680816326530612,
+            "sample_rate": 44100,
+            "rms": 0.010901837994485908,
+            "peak": 0.0278778076171875,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 63902
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.930430839002268,
+            "sample_rate": 44100,
+            "rms": 0.010312047480249614,
+            "peak": 0.031524658203125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 63902
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.171337868480725,
+            "sample_rate": 44100,
+            "rms": 0.002160176638848719,
+            "peak": 0.0060882568359375,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 71646
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.38031746031746,
+            "sample_rate": 44100,
+            "rms": 0.0009852015367693872,
+            "peak": 0.0033111572265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 71646
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.61251700680272,
+            "sample_rate": 44100,
+            "rms": 0.0006115617340419824,
+            "peak": 0.001861572265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 79390
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.870839002267573,
+            "sample_rate": 44100,
+            "rms": 0.0003679698622636217,
+            "peak": 0.0010986328125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 79390
+          }
+        ]
+      ]
+    },
+    {
+      "name": "allowed stays on title without a dedicated music enable button",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "allowed same title session reaches Home with actual native audio",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 20.552562358276646,
+            "sample_rate": 44100,
+            "rms": 0.01796764329757422,
+            "peak": 0.057647705078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 147138
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 20.82249433106576,
+            "sample_rate": 44100,
+            "rms": 0.006117877185037846,
+            "peak": 0.0152130126953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 147138
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 21.15047619047619,
+            "sample_rate": 44100,
+            "rms": 0.00493621341365697,
+            "peak": 0.0143585205078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 165524
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 21.47265306122449,
+            "sample_rate": 44100,
+            "rms": 0.01962934975527916,
+            "peak": 0.05010986328125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 174234
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 21.82095238095238,
+            "sample_rate": 44100,
+            "rms": 0.008462800355908445,
+            "peak": 0.0384979248046875,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 174234
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 22.151836734693877,
+            "sample_rate": 44100,
+            "rms": 0.025694989898408623,
+            "peak": 0.050048828125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 181978
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 22.482721088435373,
+            "sample_rate": 44100,
+            "rms": 0.031452335135848254,
+            "peak": 0.0795440673828125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 189722
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 22.78167800453515,
+            "sample_rate": 44100,
+            "rms": 0.021850417437703717,
+            "peak": 0.0411376953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 189722
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 23.100952380952382,
+            "sample_rate": 44100,
+            "rms": 0.02013906497396377,
+            "peak": 0.043609619140625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 195534
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 23.45215419501134,
+            "sample_rate": 44100,
+            "rms": 0.02169128887518171,
+            "peak": 0.0412445068359375,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 205210
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 23.791746031746033,
+            "sample_rate": 44100,
+            "rms": 0.03376419572058168,
+            "peak": 0.07818603515625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 205210
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.12263038548753,
+            "sample_rate": 44100,
+            "rms": 0.01824960897161711,
+            "peak": 0.044403076171875,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 213936
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.450612244897957,
+            "sample_rate": 44100,
+            "rms": 0.010095726901194823,
+            "peak": 0.0340423583984375,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 221680
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.781496598639457,
+            "sample_rate": 44100,
+            "rms": 0.012852195759666073,
+            "peak": 0.0349273681640625,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 221680
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 25.112380952380953,
+            "sample_rate": 44100,
+            "rms": 0.009171259459932666,
+            "peak": 0.0325775146484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 64271.835000000894
+              },
+              {
+                "state": "running",
+                "time": 74400.38500000164
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 229424
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Real Home action retains selected pulse A",
+      "passed": true,
+      "data": [
+        {
+          "bus": "UI",
+          "candidate": "click_c",
+          "id": "click",
+          "path": "res://assets/audio/director_v3/click_c.wav",
+          "priority": 40,
+          "tick": 505,
+          "variant": 0
+        },
+        {
+          "bus": "SFX",
+          "candidate": "shot_pulse_a",
+          "id": "shot_pulse",
+          "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+          "priority": 70,
+          "tick": 901,
+          "variant": 0
+        }
+      ]
+    },
+    {
+      "name": "allowed no script/shader/page errors",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "blocked cold chunk-only game obtains COI/SAB",
+      "passed": true,
+      "data": {
+        "sfx": {
+          "audio_owner_id": 261741348316,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_06_b",
+              "variants": [
+                "res://assets/audio/feedback_06/hurt_b.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261036705064,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 261741348316,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "running",
+            "current_time": 11.82185941043084,
+            "sample_rate": 44100,
+            "rms": 0.003086855570042082,
+            "peak": 0.0092926025390625,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 3378
+          }
+        ],
+        "coi": true,
+        "sab": true
+      }
+    },
+    {
+      "name": "blocked actual Web assembly uses explicit new hurt direction B",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 261741348316,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_06_b",
+            "variants": [
+              "res://assets/audio/feedback_06/hurt_b.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261036705064,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Blocked autoplay: real suspended context remains silent before trusted input",
+      "passed": false,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 12.97124716553288,
+            "sample_rate": 44100,
+            "rms": 0.0020614620030675935,
+            "peak": 0.01214599609375,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 21764
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.302131519274376,
+            "sample_rate": 44100,
+            "rms": 0.010398588824967097,
+            "peak": 0.0224761962890625,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 31440
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.531428571428572,
+            "sample_rate": 44100,
+            "rms": 0.014389023666726045,
+            "peak": 0.0403594970703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 31440
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.75201814058957,
+            "sample_rate": 44100,
+            "rms": 0.0026132605735519425,
+            "peak": 0.0084991455078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 41116
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.990022675736961,
+            "sample_rate": 44100,
+            "rms": 0.0023190015685934334,
+            "peak": 0.0067291259765625,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 41116
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.201904761904762,
+            "sample_rate": 44100,
+            "rms": 0.0013834147605041518,
+            "peak": 0.003570556640625,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 49842
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.431201814058957,
+            "sample_rate": 44100,
+            "rms": 0.0017685903696778578,
+            "peak": 0.00439453125,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 49842
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.672108843537416,
+            "sample_rate": 44100,
+            "rms": 0.001799803393394729,
+            "peak": 0.0041656494140625,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 49842
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.892698412698413,
+            "sample_rate": 44100,
+            "rms": 0.020238702325222898,
+            "peak": 0.044036865234375,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 59518
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.101678004535147,
+            "sample_rate": 44100,
+            "rms": 0.014351468024580014,
+            "peak": 0.0378875732421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 59518
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.351292517006803,
+            "sample_rate": 44100,
+            "rms": 0.01663235448963065,
+            "peak": 0.0393829345703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 68228
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.580589569160997,
+            "sample_rate": 44100,
+            "rms": 0.00696481051075265,
+            "peak": 0.0146484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 68228
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.81278911564626,
+            "sample_rate": 44100,
+            "rms": 0.0015614071517001502,
+            "peak": 0.0049591064453125,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 68228
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.021768707482995,
+            "sample_rate": 44100,
+            "rms": 0.000563220988763909,
+            "peak": 0.001739501953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 77904
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.25106575963719,
+            "sample_rate": 44100,
+            "rms": 0.0006051033476866837,
+            "peak": 0.0018310546875,
+            "states": [
+              {
+                "state": "running",
+                "time": 40777.03000000119
+              },
+              {
+                "state": "running",
+                "time": 51425.205000000075
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 77904
+          }
+        ]
+      ]
+    }
+  ],
+  "error": "blocked: Blocked autoplay: real suspended context remains silent before trusted input",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/gunman-main/build/audio_feedback_06/web_qa.py\", line 37, in main\n    check(bool(before['pcm']) and all(v['state']=='suspended' for v in before['pcm']) and all(v.get('peak',0)==0 for row in pcm for v in row),'Blocked autoplay: real suspended context remains silent before trusted input',pcm)\n  File \"/workspace/gunman-main/build/audio_feedback_06/web_qa.py\", line 11, in check\n    report['checks'].append({'name':name,'passed':bool(ok),'data':data});save();assert ok,name\n                                                                                       ^^\nAssertionError: Blocked autoplay: real suspended context remains silent before trusted input\n"
+}

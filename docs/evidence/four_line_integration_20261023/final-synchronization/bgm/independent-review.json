@@ -1,0 +1,66 @@
+{
+  "status": "ACCEPT",
+  "scope": "Bounded BGM test timing correction and directed native evidence only; no production runtime/config/MP3 change.",
+  "reviewed_base_commit": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+  "candidate_path": "tests/bgm_integration/runner.gd",
+  "candidate_sha256": "35e5a5fa661dccb44c8b254e1c332a5ce37f7a9b79c9e193d0dba134953a3256",
+  "patch_sha256": "270dda1428d8f193e976c16f3b0b12144e9c0b2e5565f7790ec95aa7e059215f",
+  "executed_external_sha256": "8757d1fda0341c80747a854037ac5e06599a29d410c4dc36625da1fe2c416eda",
+  "executed_identity": "Read-only12f6 project/runtime/resources plus external candidate script; exact canonical candidate except scratch output-directory literal. Not a fresh integrated rootHEAD run.",
+  "findings": [
+    "Original48 static check calls/labels remain byte-identical and produce original89 runtime assertions. Seek target remains track length minus50ms and intended wait remains200ms.",
+    "Monotonic deadline yields process_frame and measures actual elapsed mixer time, avoiding pre-creation SceneTreeTimer frame-delta credit. This does not enlarge the declared200ms interval.",
+    "Source/import hash I/O occurs before seek. Read-only clock telemetry retains only numbers/dictionaries; synchronous audio_clock backend reference is not held across await or teardown. Existing one-second weakref/backend shutdown checks unchanged.",
+    "Native360/Harness480/teardown1s budgets and original assertions stay unchanged; no loop flag/assets/audio runtime changed."
+  ],
+  "evidence": {
+    "original_failure": "CI39945409720 attempt2 exact12f6:88Harness checks passed,1bgm check failed; original three loop assertions failed; retained attempt2 report/log.",
+    "causal_probe": {
+      "path": "/workspace/scratch/bgm-seek-current-20261023/longframe-probe.json",
+      "five_preseek_longframe_timer_usec": [
+        83,
+        87,
+        85,
+        88,
+        142
+      ],
+      "all_backend_loops_zero": true,
+      "scope": "Actual fresh MP3 backends with explicit250ms main-thread work; diagnostic reproduction, not production-performance measurement."
+    },
+    "candidate_native": {
+      "path": "/workspace/scratch/bgm-seek-current-20261023/candidate-final-output/report.json",
+      "checks": 89,
+      "failures": 0,
+      "five_wait_usec": [
+        200335,
+        200294,
+        200289,
+        200302,
+        200338
+      ],
+      "all_five_zero_to_positive_loop": true,
+      "driver": "Dummy",
+      "source_import_and_runtime_hashes_verified": true
+    },
+    "strict_controls": {
+      "path": "/workspace/scratch/bgm-seek-current-20261023/wall-clock-controls-final.json",
+      "checks": 15,
+      "failures": 0,
+      "positive": 5,
+      "nonloop_private_clone_refused": 5,
+      "paused_refused": 5,
+      "all_fresh_loop_baselines_zero": true,
+      "all_elapsed_at_least200ms": true,
+      "all_backend_release_within1s": true,
+      "compiled_exact_helper_verified": true
+    },
+    "clean_logs": true
+  },
+  "failure_preservation": "Original CI and short SceneTreeTimer failures remain failed. New canonical/external source and directed proof are separately identified; no old proof relabeled.",
+  "unverified": [
+    "Fresh complete integrated Harness/Integration/Release CI after adoption.",
+    "Browser autoplay/Web and physical audio-device behavior.",
+    "Music listening/aesthetic/player quality approval."
+  ],
+  "reviewer_actions": "Read candidate/controls/probe implementation, rawreports/logs and exact external-output-only mapping; independently verified all48 original predicates, source/import/runtime/script hashes, real observed loop transitions and15 control expectations. No engine rerun, source modification or broad history hydration."
+}

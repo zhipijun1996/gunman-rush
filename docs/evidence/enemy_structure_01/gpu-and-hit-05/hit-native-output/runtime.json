@@ -1,0 +1,240 @@
+{
+	"cases": [
+		{
+			"chain": "scene",
+			"id": "patrol_drone",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "patrol_drone",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "plains_charger",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "plains_charger",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "plains_diver",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "plains_diver",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "plains_hopper",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "plains_hopper",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "plains_sentry",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "plains_sentry",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "plains_fan_sentry",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "plains_fan_sentry",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "plains_root_bell",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "underworld",
+			"id": "plains_root_bell",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_bark_beetle",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_feedback_enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_swing_pod",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_feedback_enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_lantern",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_seed_sentry",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_thread_spider",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_depth_enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_crossbranch",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_crossbranch_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "scene",
+			"id": "forest_bible_weaver",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/forest_depth_enemy_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"chain": "root_bell",
+			"id": "plains_root_bell",
+			"independent_death": true,
+			"kind": "ordinary",
+			"renderer": "res://scripts/enemies/root_bell_presentation.gd",
+			"shared_state": true
+		},
+		{
+			"accepted": true,
+			"id": "clockwork_guardian",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/boss_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "bellstrider",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/bellstrider_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "windkeeper",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "thorn_guardian",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "thorn_queen",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "rootbell_guardian_v2",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/forest_boss_duel_presentation_v2.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "thorn_queen_v2",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/thorn_queen_weave_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		},
+		{
+			"accepted": true,
+			"id": "thorn_queen_canopy",
+			"kind": "boss",
+			"renderer": "res://scripts/bosses/thorn_queen_canopy_presentation.gd",
+			"scope": "explicit vulnerable actual receiver, not complete battle"
+		}
+	],
+	"checks": 426,
+	"failures": [],
+	"scope": "all current ordinary species/render chains and existing Boss receiver fixtures; no visual/device/player approval",
+	"task": "MAIN-PLAYTEST-FEEDBACK-20261024"
+}

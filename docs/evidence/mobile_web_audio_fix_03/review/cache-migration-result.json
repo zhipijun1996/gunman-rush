@@ -1,0 +1,24 @@
+{
+  "command": [
+    "node",
+    "build/mobile_web_audio_fix_03/review/cache_migration_mock.js"
+  ],
+  "exit_code": 0,
+  "passed": 13,
+  "failed": 0,
+  "tests": [
+    "cold_control_then_exact_handshake_one_reload",
+    "after_reload_actual_coi_ready_without_second_reload",
+    "persistent_noncoi_fails_without_reload_loop",
+    "old_worker_never_authorizes_reload_new_exact_worker_does",
+    "right_worker_wrong_pack_cannot_authorize",
+    "unsupported_insecure_denied_hung_storageblocked_noreply_bounded_failure",
+    "singlethread_compatibility_and_alreadycoi_without_storage",
+    "documented_outer_timeout_does_not_cancel_late_inner_one_reload",
+    "mutable_html_metadata_worker_passthrough_body_and_isolation_not_cached",
+    "old_immutable_cached_engine_bytes_retained_headers_upgraded",
+    "cold_tabs_share_one_immutable_fetch_independent_isolated_responses",
+    "nonget_crossorigin_outscope_not_intercepted",
+    "opaque_statuszero_response_identity_preserved"
+  ]
+}

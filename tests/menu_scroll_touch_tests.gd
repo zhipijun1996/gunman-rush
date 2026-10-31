@@ -68,6 +68,10 @@ func actions_accepted() -> void:
 	controller.traversal.action_changed.connect(func(_action: StringName) -> void: traversal_actions += 1)
 
 func run() -> void:
+	var before:=DisplayServer.window_get_size()
+	DisplayServer.window_set_size(Vector2i(1280,720))
+	root.size=Vector2i(1280,720)
+	print("MENU_SCROLL_WINDOW ",JSON.stringify({"physical_before":[before.x,before.y],"physical":[DisplayServer.window_get_size().x,DisplayServer.window_get_size().y],"viewport":[root.size.x,root.size.y],"screen_scale":[root.get_screen_transform().get_scale().x,root.get_screen_transform().get_scale().y]}))
 	var menu_font := DemoMenu.create_theme().default_font
 	for text: String in ["DEVELOPMENT DEMOS / ALL ENTRIES", "ACTIONS", "HOME / SETTINGS"]:
 		check(menu_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,18) == ThemeDB.fallback_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,18),"CJK fallback preserves exact Latin advance: " + text)

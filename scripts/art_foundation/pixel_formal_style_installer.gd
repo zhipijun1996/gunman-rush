@@ -8,21 +8,16 @@ static func install(stage: Node2D) -> Dictionary:
 		if child is EnemyMotor:
 			var actor := child.get_node_or_null("Actor") as EnemyActor
 			if actor == null: continue
-			var old := child.get_node_or_null("Presentation")
-			if old is PixelPlainsEnemy: continue
-			if old != null:
-				child.remove_child(old)
-				old.queue_free()
-			var art := PixelPlainsEnemy.new()
-			art.name = "Presentation"
-			art.actor = actor
-			child.add_child(art)
-			counts.enemies += 1
+			if EnemyPresentationBinding.replace(actor, &"pixel"):
+				counts.enemies += 1
 		elif child is PlainsStageVisual:
 			child.set_pixel_style(true)
 			counts.pickup_layers += 1
 		for presentation: Node in child.get_children():
-			if presentation is BellstriderPresentation or presentation is WindkeeperPresentation:
+			if presentation is WindkeeperPressurePresentation:
+				presentation.queue_redraw()
+				counts.bosses += 1
+			elif presentation is BellstriderPresentation or presentation is WindkeeperPresentation:
 				presentation.pixel_style = true
 				presentation.queue_redraw()
 				counts.bosses += 1

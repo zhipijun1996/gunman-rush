@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-03-CLIP-HEAL-B",
+  "content_version": "audio-director-v3",
+  "source_path": "assets/audio/director_v3/heal_b.wav",
+  "source_sha256": "bd62a49841f6f7bb7c97becc134fae3318daedd55409cdf8f812facd374d51cc",
+  "tool": "tools/audio_candidates_v3.py; licensed sampled layers, explicit pitch/envelope/timing and floating-point mix",
+  "model": "not applicable",
+  "prompt_or_reference": "User requests bright collected-coin contour, liquid healing, chest opening, longer item acquisition and three weapon identities; commercial game references are functional only, none of their audio copied",
+  "processing": "Trace in manifest: retained CC0 inputs; crop/pitch/filter/envelope/delay per layer; float mix and final RMS/peak bounded gain",
+  "usage_scope": "Audio Director V3 real-scene recording/audition only; no user timbre acceptance yet",
+  "license_source": "config/audio_director/v3/sources.json plus retained original source pages/licenses",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/audio/game_audio.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "limited_preview",
+  "source_family": "AUDIO-DIRECTOR-03-FUNCTIONAL-V3",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_v3/manifest.json",
+      "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/v3/recipes.json",
+      "sha256": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/v3/sources.json",
+      "sha256": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/audio_candidates_v3.py",
+      "sha256": "ea6bc4818f193004f6f824c3e0ad431fc3c8142e97f764cc1593018b4c7a23ed",
+      "role": "processing_record"
+    }
+  ],
+  "input_source_ids": [
+    "water/bubble_03.ogg",
+    "water/loop_water_01.ogg",
+    "k/core"
+  ]
+}

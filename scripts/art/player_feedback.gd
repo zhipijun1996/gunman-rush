@@ -24,6 +24,10 @@ var _step_position := Vector2.ZERO
 var _hook_was_visible := false
 var _guide_was_visible := false
 var hook_redraw_ticks := 0
+var _heal_glow_remaining := 0.0
+const HEAL_GLOW_TINT := Color(1.12,1.42,1.22,1.0)
+var _heal_original_tint := Color.WHITE
+var last_healed_amount := 0.0
 
 func _ready() -> void:
 	z_index = 4
@@ -31,8 +35,10 @@ func _ready() -> void:
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
 	_controller.traversal.action_changed.connect(func(action: StringName) -> void:
-		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action in [&"wall_kick",&"hook_kick"] else &"focus_start")
-		if action == &"hook_pull": GameAudio.cue(self,&"bell")
+		if action != &"hook_pull": GameAudio.stop_origin(self)
+		if action in [&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump")
+		if action == &"hook_cast": GameAudio.cue_event(self,&"hook_release",&"focus_start")
+		if action == &"hook_pull": GameAudio.hook_connected(self)
 		if action == &"hook_contact_kick":
 			GameAudio.cue(self,&"impact")
 			_emit(_controller.traversal.hook_tip,-_controller.traversal.hook_direction,8,Color("ffecc0"),.22,95,&"hit_spark")
@@ -54,11 +60,13 @@ func _ready() -> void:
 	_controller.died.connect(func() -> void:
 		GameAudio.cue(self, &"death")
 		clear())
-	_controller.air_focus_ability.active_changed.connect(func(value: bool) -> void:
-		if _controller.active: GameAudio.cue(self, &"focus_start" if value else &"focus_end"))
+	# Accepted air aim/slow-time changes are intentionally silent. The shot and
+	# its existing recoil still own their one selected weapon sound on release.
 	_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &"denied"))
 
 func clear() -> void:
+	GameAudio.stop_origin(self)
+	_clear_heal_glow()
 	_particles.clear()
 	queue_redraw()
 
@@ -74,6 +82,7 @@ func _land() -> void:
 	_fall_speed = 0
 
 func _shot(direction: Vector2, _shot_id: int) -> void:
+	if _controller.shoot_ability.weapon.mode == WeaponDefinition.Mode.BOMB: return
 	GameAudio.cue(self, &"shot")
 	var visual := get_parent().get_node_or_null("CourierVisual") as CourierVisual
 	var muzzle := _controller.shoot_ability.last_muzzle
@@ -82,6 +91,24 @@ func _shot(direction: Vector2, _shot_id: int) -> void:
 
 func reward_received(point: Vector2, permanent: bool = false) -> void:
 	_emit(point, Vector2.UP, 12, Color("c8b8ff") if permanent else Color("ffe3a0"), 0.40, 85.0, &"coin_sparkle")
+
+func healing_received(amount: float) -> void:
+	if amount<=0.0 or _controller==null or not _controller.active or _controller.actor_resources.health.terminal:return
+	last_healed_amount=amount
+	var visual:=_controller.motor as CanvasItem
+	if visual!=null:
+		if _heal_glow_remaining<=0.0:_heal_original_tint=visual.modulate
+		# Formal pixel and legacy bodies share this visible ancestor. The hidden
+		# legacy CourierVisual cannot represent the active formal renderer.
+		visual.modulate=_heal_original_tint*HEAL_GLOW_TINT
+	_heal_glow_remaining=.38
+	_emit(global_position,Vector2.UP,6,Color("bbf2ce"),.35,35.0)
+
+func _clear_heal_glow() -> void:
+	if _heal_glow_remaining>0.0 and _controller!=null and is_instance_valid(_controller.motor):
+		var visual:=_controller.motor as CanvasItem
+		if visual!=null:visual.modulate=_heal_original_tint
+	_heal_glow_remaining=0.0
 
 func _impact(point: Vector2, direction: Vector2) -> void:
 	GameAudio.cue(self, &"impact")
@@ -101,6 +128,10 @@ func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetim
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	if _heal_glow_remaining>0.0:
+		_heal_glow_remaining=maxf(0.0,_heal_glow_remaining-delta)
+		var visual:=_controller.motor as CanvasItem
+		if visual!=null:visual.modulate=_heal_original_tint.lerp(_heal_original_tint*HEAL_GLOW_TINT,_heal_glow_remaining/.38)
 	if _controller.active and _controller.motor.is_on_floor() and absf(_controller.motor.normal_velocity.x) > 20:
 		_step_distance += minf(10.0, global_position.distance_to(_step_position))
 		if _step_distance >= 55:
@@ -191,6 +222,7 @@ func _draw() -> void:
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:
 		return
+	_clear_heal_glow()
 	GameAudio.cue(self, &"hurt")
 	# Only committed nonterminal HP loss; replay/invulnerability never emits.
 	# RunEnd owns terminal cleanup, so no particle callback survives the actor.

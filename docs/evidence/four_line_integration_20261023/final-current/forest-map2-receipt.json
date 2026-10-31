@@ -1,0 +1,192 @@
+{
+  "status": "passed",
+  "source_base": "cbce53f145a128bd8ecd328e4c60a7b1f449b27d",
+  "patch_is_incremental_to_actual_cbce_sources": true,
+  "scope": "Only the two previously failed current map2 routes; no map1 replay/matrix/full CI",
+  "source_stable": true,
+  "patch_sha256": "b3eb2a2775fbf0fd22b50d7728e7d83d195b7898447116deccd2ea9d6e20c45b",
+  "changed_files": {
+    "tests/forest_depth_air_chain_case.gd": "b2a014c9c2b829e37cb32e70505ce68e80de594a55cc9717923f8d723d513024",
+    "tests/forest_depth_region_trace.gd": "8403496832154fd5460b14adf75e1f70724a0b3b8dfc22cb30136b8b3a69da24",
+    "tools/run_forest_depth_region.py": "ccfe4c1fb8257f7fdc02f5e13ebd6b6d91ea0cc5d30620bcc8548d4505793f8e"
+  },
+  "original_predicate_call_AST_count_preserved": 316,
+  "native_budget_seconds_unchanged": 240,
+  "phase_budget_ticks_unchanged": 400,
+  "production_gameplay_geometry_unchanged": true,
+  "runs": [
+    {
+      "route": "fast",
+      "native_exit": 0,
+      "status": "passed",
+      "errors": [],
+      "legs": [
+        30,
+        30
+      ],
+      "frames": 2118,
+      "seconds": 19.424395124999137,
+      "capture_sha256": "40855a16ddd9042cae24e0d362d789fa80becbdcfcd592b77690a3e7483e94a0",
+      "substitutions": [
+        {
+          "leg": 6,
+          "step": 2,
+          "source_action": "R",
+          "executed_action": "J",
+          "source_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "J"
+            }
+          ]
+        },
+        {
+          "leg": 15,
+          "step": 2,
+          "source_action": "R",
+          "executed_action": "H",
+          "source_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a",
+              "current_receiver_side": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "growth",
+      "native_exit": 0,
+      "status": "passed",
+      "errors": [],
+      "legs": [
+        46,
+        46
+      ],
+      "frames": 3810,
+      "seconds": 30.492644570000266,
+      "capture_sha256": "5cead907d22f8d0a73fcd760df4d3607b81a758cc3bd15d25622573905660772",
+      "substitutions": [
+        {
+          "leg": 19,
+          "step": 2,
+          "source_action": "R",
+          "executed_action": "H",
+          "source_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a",
+              "current_receiver_side": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "refusals_file": "/workspace/scratch/forest-map2-current-20261023/current-map2-refusals.json",
+  "refusals_count": 5,
+  "all_refusals_rejected": true,
+  "raw_receipt": "/workspace/scratch/forest-map2-current-20261023/overlay/build/forest_depth/map2_candidate_proof/receipt.json",
+  "original_failures_retained": true,
+  "root_status_after_final_tests": "clean",
+  "candidate_and_overlay_files_are_regular": true,
+  "not_run": [
+    "map1 repetition",
+    "matrix/corpus",
+    "historical micro scenes",
+    "full Harness/CI"
+  ]
+}

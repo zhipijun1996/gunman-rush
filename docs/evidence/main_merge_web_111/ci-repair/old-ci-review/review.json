@@ -1,0 +1,403 @@
+{
+  "task": "MERGE-WEB-01",
+  "reviewer": "/root/final_review",
+  "review_kind": "readonly exact-run failed fullCI scope and minimal fixture root causes",
+  "observed_utc": "2026-10-28T13:26:54.370654+00:00",
+  "run_id": 40684591543,
+  "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/40684591543",
+  "head": "91545e4bea256ebff641167e04c310f3df4db0e9",
+  "remote_jobs": {
+    "prepare": {
+      "id": 122804122512,
+      "status": "success"
+    },
+    "parallel": {
+      "id": 122808006378,
+      "status": "failure"
+    },
+    "serial": {
+      "id": 122808006389,
+      "status": "failure"
+    },
+    "affected_aggregator": {
+      "id": 122827292774,
+      "status": "failure",
+      "reason": "Both selected full lanes did not succeed; no successful complete coverage verification."
+    }
+  },
+  "full_profile_requested": 165,
+  "actual_executed_total": 90,
+  "actual_passed_total": 88,
+  "actual_failed_total": 2,
+  "not_executed_total": 75,
+  "complete_CI_pass": false,
+  "merge_gate_satisfied": false,
+  "lanes": {
+    "parallel": {
+      "report": "build/merge_web_01/ci-original/parallel/report.json",
+      "report_sha256": "8a2f3947bf24524dd3e8ea8f08e614b81b7f2692989ebfb8b6da31022ec2fe3c",
+      "selected_total_for_lane": 91,
+      "executed": 63,
+      "passed": 62,
+      "failed": 1,
+      "not_executed": 28,
+      "executed_ids": [
+        "docs",
+        "world",
+        "world-design-tests",
+        "structure",
+        "harness-tests",
+        "quality-drills",
+        "quality-tests",
+        "quality",
+        "core",
+        "generated-consumers",
+        "region",
+        "art-art",
+        "art-painterly_pack",
+        "art-plains_v3",
+        "art-meadow_enemy_art",
+        "art-plains_ground_art",
+        "art-windkeeper_art",
+        "art-plains_spatial_art",
+        "art-plains_item_art",
+        "web-cache",
+        "production-loop-tests",
+        "quality-review-engine",
+        "terrain-tile-tests",
+        "terrain-production",
+        "consumer-coverage-tests",
+        "wood-platforms",
+        "actor-actions",
+        "grapple-feel",
+        "forest-interwoven-contract",
+        "forest-player-aim",
+        "all-weapons",
+        "studio-input",
+        "weapon-feel",
+        "action-budget",
+        "capture-tests",
+        "level-design-contracts",
+        "mechanism-comparisons",
+        "level-design-analysis",
+        "level-design-routing",
+        "level-design-golden-tests",
+        "level-region-context",
+        "level-experience",
+        "level-formal-receipts",
+        "plains-redesign-golden",
+        "visual-director-tests",
+        "visual-director-space",
+        "directed-space-tests",
+        "root-bell-current",
+        "root-bell-spaces",
+        "root-bell-ecology",
+        "web-resource-contract-tests",
+        "runtime-raw-export-tests",
+        "asset-family-tests",
+        "connected-family-tests",
+        "forest-depth-guardian",
+        "forest-depth-guardian-tolerance",
+        "forest-depth-enemies",
+        "forest-depth-versions",
+        "forest-depth-restore",
+        "forest-depth-campaign-guardian",
+        "forest-depth-crossbranch-lifecycle",
+        "forest-depth-queen-canopy",
+        "forest-depth-campaign-canopy"
+      ],
+      "not_executed_ids": [
+        "forest-vertical-shortcut",
+        "blob47-foundation",
+        "creative-direction",
+        "creative-direction-tests",
+        "visual-director-terrain",
+        "parallel-region-presentation",
+        "underworld-pipeline",
+        "forest-region-scheduler-tests",
+        "underworld-home-guard-tests",
+        "region-bible-contract",
+        "region-bible-tests",
+        "forest-bible-reader-tests",
+        "forest-bible-av-reader-tests",
+        "harness-artifact-archive-tests",
+        "cloud-production-planner-tests",
+        "cloud-delivery-tests",
+        "cloud-inputs-tests",
+        "portable-frozen-assets",
+        "demo-ui-time-energy",
+        "enemy-feedback-native",
+        "enemy-feedback-formal",
+        "enemy-feedback-support",
+        "enemy-corpse-save",
+        "enemy-corpse-snapshot",
+        "bgm-integration",
+        "player-default-integration",
+        "item-v5-data",
+        "item-authoring-tools"
+      ],
+      "failure": {
+        "id": "forest-depth-campaign-canopy",
+        "argv": [
+          "python3",
+          "tools/run_forest_depth_campaign_boss.py",
+          "--boss",
+          "canopy",
+          "--output-dir",
+          "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+        ],
+        "timeout_seconds": 300,
+        "input_digest": "ad1fb1773410f5c9b9391e37a2ac1519abb5f597f91834937852af47f8245ccc",
+        "log": "forest-depth-campaign-canopy.log",
+        "status": "failed",
+        "exit_code": 1,
+        "failure_reason": "nonzero_exit",
+        "started_at_unix": 1793191855.6995375,
+        "ended_at_unix": 1793191887.3321555,
+        "duration_seconds": 31.633,
+        "expanded_argv": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python3",
+          "tools/run_forest_depth_campaign_boss.py",
+          "--boss",
+          "canopy",
+          "--output-dir",
+          "build/forest_depth/campaign/harness-canopy/harness-372acb50f423458886c49fe350e8c8d9"
+        ],
+        "check_token": "372acb50f423458886c49fe350e8c8d9",
+        "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261028T122205.933329Z/artifacts/forest-depth-campaign-canopy",
+        "reused": false,
+        "success_pattern": "^PASS:",
+        "log_sha256": "f9a34a124fd778fd269331e1a926bdeb41ef494bf7413e1ddf15a4eb7993a300"
+      },
+      "all_executed_fresh_no_reuse": true,
+      "all_original_argv_and_budget_preserved": true,
+      "source_inventory_count": 29479,
+      "source_before_equals_after": true,
+      "source_inventory_canonical_sha256": "87024fe017ea26736fe4ed0a6da7e96cc8bc97600f2b21343f98f6c9b9850de0"
+    },
+    "serial": {
+      "report": "build/merge_web_01/ci-original/serial/report.json",
+      "report_sha256": "2f720be7aee0dd19e25323a7286fc8510021ef920e9632466d3e88878966b464",
+      "selected_total_for_lane": 74,
+      "executed": 27,
+      "passed": 26,
+      "failed": 1,
+      "not_executed": 47,
+      "executed_ids": [
+        "environment",
+        "web-build",
+        "web-bundle",
+        "level-design-runtime",
+        "level-design-golden",
+        "level-formal-runtime",
+        "plains-redesign-spatial",
+        "plains-experience-golden",
+        "plains-encounter-policy",
+        "plains-redesign-scene",
+        "terrain-family-tests",
+        "forest-h-slice",
+        "forest-ecology",
+        "forest-progression",
+        "forest-campaign",
+        "forest-debug",
+        "forest-traversal",
+        "forest-depth-region",
+        "windchime-plains",
+        "pixel-plains",
+        "pixel-formal",
+        "style-exploration",
+        "underworld-scenery",
+        "underworld-hazards",
+        "underworld-terrain",
+        "underworld-formal-terrain",
+        "underworld-formal"
+      ],
+      "not_executed_ids": [
+        "underworld-raw-export",
+        "underworld-player-animation",
+        "underworld-mechanisms",
+        "underworld-home",
+        "underworld-ui",
+        "underworld-damage-feedback",
+        "underworld-projectile-vfx",
+        "underworld-world-objects",
+        "underworld-continuous-bosses",
+        "forest-camera-stability",
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-bible-weaver-tests",
+        "forest-bible-discoveries-tests",
+        "forest-bible-integration-tests",
+        "forest-bible-world-contract",
+        "forest-bible-world-connection",
+        "forest-bible-world-backbranch",
+        "forest-bible-ambience",
+        "forest-bible-app-discoveries",
+        "forest-practice-bell-restore",
+        "forest-bible-world-connection-map1",
+        "forest-bible-world-backbranch-map1",
+        "forest-bible-world-spiral",
+        "forest-bible-versions",
+        "cloud-preview-runtime",
+        "gear-inventory",
+        "gear-ui",
+        "item-v5-catalog",
+        "item-v5-pool",
+        "item-v5-inventory",
+        "item-v5-combat",
+        "item-v5-actives",
+        "item-v5-economy",
+        "item-v5-defense",
+        "item-v5-ui",
+        "item-v5-formal",
+        "item-v5-review",
+        "item-v5-boss-time",
+        "item-v5-core-effects",
+        "item-v5-synergy-economy",
+        "item-v5-pause-escape",
+        "item-v5-random-context",
+        "item-v5-manifest",
+        "item-v5-authoring",
+        "item-v5-art",
+        "home-codex"
+      ],
+      "failure": {
+        "id": "underworld-formal",
+        "argv": [
+          "python3",
+          "tools/run_underworld_formal_tests.py"
+        ],
+        "timeout_seconds": 150,
+        "input_digest": "88ed50a70ecc41d726c20bc189caa441ee6b98a44679708dba98b782c235cf29",
+        "log": "underworld-formal.log",
+        "status": "failed",
+        "exit_code": 1,
+        "failure_reason": "nonzero_exit",
+        "started_at_unix": 1793191961.4106264,
+        "ended_at_unix": 1793191967.8748584,
+        "duration_seconds": 6.464,
+        "expanded_argv": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python3",
+          "tools/run_underworld_formal_tests.py"
+        ],
+        "check_token": "24eb47ca8f464c719cce8525dddd7b13",
+        "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261028T122218.419594Z/artifacts/underworld-formal",
+        "reused": false,
+        "success_pattern": "^PASS: Underworld default formal actor/UI consumers and lifecycle$",
+        "log_sha256": "8fe61b99d08a4daa2ccfb84337285b443f2fad70877e8506dc5dd8d948c1e9c9"
+      },
+      "all_executed_fresh_no_reuse": true,
+      "all_original_argv_and_budget_preserved": true,
+      "source_inventory_count": 29479,
+      "source_before_equals_after": true,
+      "source_inventory_canonical_sha256": "87024fe017ea26736fe4ed0a6da7e96cc8bc97600f2b21343f98f6c9b9850de0"
+    }
+  },
+  "source_preparation_boundary": {
+    "both_lanes_exact_same_source_inventory": true,
+    "clean_git_checkout_claimed": false,
+    "actual_prepared_working_files_count": 56,
+    "dirty_scope": "Prepared generatedFoundry batch/export_basis/replayJSON recorded in both original reports, not claimed source edits by test fix.",
+    "same_source_proof_does_not_erase_failures": true
+  },
+  "minimal_root_causes": {
+    "forest-depth-campaign-canopy": {
+      "actual_summary": "FOREST DEPTH CAMPAIGN: 50 assertions / 3 failures",
+      "native_failures": [
+        "FAIL: canopy_app/GOLD first enters backpack without changing HP, capacity, coins or equipped items",
+        "FAIL: canopy_app/GOLD owns exactly one versioned instance with its actual reward source",
+        "FAIL: canopy_app/explicit equipment fixture applies original GOLD maxHP+2 with no healing, purchase or new ownership"
+      ],
+      "actual_reward_definition": {
+        "id": "G07",
+        "resource_path": "",
+        "fingerprint": "[\"G07\",5,2,2,0,1,1,[\"item_v5\"],[],[],[],\"\",1.0,[[\"G07\",0,[],{\"idle_delay_s\":6.0,\"max_recovery_per_map\":20.0,\"resonance_per_s\":2.0}]],[],5,1,68,{\"idle_delay_s\":6.0,\"max_recovery_per_map\":20.0,\"resonance_per_s\":2.0},{\"integer_keys\":[],\"positive_keys\":[\"idle_delay_s\",\"max_recovery_per_map\",\"resonance_per_s\"],\"reject_unknown_keys\":true,\"required_keys\":[\"idle_delay_s\",\"max_recovery_per_map\",\"resonance_per_s\"],\"schema_source_sha256\":\"222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f\",\"text_modes\":{},\"zero_allowed_keys\":[]}]"
+      },
+      "source_defect": "The test reward_identity filters only forest_heart_gold, so actual G07 ownership is not counted. Three old test expectations require this oldID and maxHP+2. Actual canonical V5G07 is an idle-resonance item; successful real equipment leavesHPcapacity5 andequippedG07, as expected for thatdefinition.",
+      "before_gold": {
+        "capacity": 5.0,
+        "count": 0,
+        "equipped": [],
+        "hp": 5.0,
+        "instances": [],
+        "wallet": 1
+      },
+      "after_gold": {
+        "capacity": 5.0,
+        "count": 0,
+        "equipped": [],
+        "hp": 5.0,
+        "instances": [],
+        "wallet": 1
+      },
+      "equipment_after": {
+        "capacity": 5.0,
+        "count": 0,
+        "equipped": [
+          "G07"
+        ],
+        "hp": 5.0,
+        "instances": [],
+        "wallet": 1
+      },
+      "not_a_verified_production_reward_loss": "Filtered empty instances/count0 do not prove missing ownership; successful equipment ofG07 is actualcounterevidence.",
+      "minimum_repair": "Current realGOLD definition/version/source/fingerprint/inventory and configuredeffect expectations must follow actual selectedV5data. Preserve old forest_heart_gold +2 as explicit historical/source-bound coverage if retained, not fakeG07alias. Preserve all native combat/policy/routes/pointer/coreability/boundary/death checks and Pythonvalidators; original300sHarness/180snative/90simport caps remain."
+    },
+    "underworld-formal": {
+      "actual_summary": "UNDERWORLD_FORMAL checks=96 failures=8 maps=2",
+      "failure_occurrences": 8,
+      "source_defect": "The original test compares each actual tiered chest.texture to sharedUnderworldActors.icon_texture(chest), eight times across2maps. Formal registered chest renderer now uses tier+claimed-specific AtlasTexture, so the equality is stale.",
+      "minimum_repair": "Replace only stale shared-image assertion with substantive actual ChestArtLibrary canonical tier+claimed texture /WHITE /originalrow+21foot /state metadata assertions. Preserve actual2map IDs/derivedseeds/uniquehashes/all other terrain/player/merchant/background/enemy/pickup/pause/lifecycle/teardown assertions and original150sHarness/120snative budget."
+    }
+  },
+  "original_evidence": [
+    {
+      "path": "build/merge_web_01/ci-original/parallel/report.json",
+      "sha256": "8a2f3947bf24524dd3e8ea8f08e614b81b7f2692989ebfb8b6da31022ec2fe3c",
+      "bytes": 17378674
+    },
+    {
+      "path": "build/merge_web_01/ci-original/serial/report.json",
+      "sha256": "2f720be7aee0dd19e25323a7286fc8510021ef920e9632466d3e88878966b464",
+      "bytes": 17342317
+    },
+    {
+      "path": "build/merge_web_01/ci-original/parallel/forest-depth-campaign-canopy.log",
+      "sha256": "f9a34a124fd778fd269331e1a926bdeb41ef494bf7413e1ddf15a4eb7993a300",
+      "bytes": 1079
+    },
+    {
+      "path": "build/merge_web_01/ci-original/parallel-full/harness/20261028T122205.933329Z/artifacts/forest-depth-campaign-canopy/build/forest_depth/campaign/harness-canopy/harness-372acb50f423458886c49fe350e8c8d9/native.log",
+      "sha256": "808997598c6522db0773da1f1bb6a31b1ba8b7badb2b3b2d2e1910a5536ffc42",
+      "bytes": 2445
+    },
+    {
+      "path": "build/merge_web_01/ci-original/parallel-full/harness/20261028T122205.933329Z/artifacts/forest-depth-campaign-canopy/build/forest_depth/campaign/harness-canopy/harness-372acb50f423458886c49fe350e8c8d9/receipt.json",
+      "sha256": "cc8f24ad9568f015eea3fc9ff16868549adc9e7f167f39d527ef4fdcf371f484",
+      "bytes": 405356
+    },
+    {
+      "path": "build/merge_web_01/ci-original/parallel-full/harness/20261028T122205.933329Z/artifacts/forest-depth-campaign-canopy/large-json.zip",
+      "sha256": "fdfea0784a221239abce097cd1905667bdd082a5a20a04f0b82084be4723ff66",
+      "bytes": 1062384
+    },
+    {
+      "path": "build/merge_web_01/independent-ci-failure-91545/original-canopy-capture.json",
+      "sha256": "17cdde1bbfeb7dd99a0e2fda5dde408c07404f9d776a75ad0e4601ac54802e68",
+      "bytes": 17364756
+    },
+    {
+      "path": "build/merge_web_01/ci-original/serial/underworld-formal.log",
+      "sha256": "8fe61b99d08a4daa2ccfb84337285b443f2fad70877e8506dc5dd8d948c1e9c9",
+      "bytes": 2540
+    }
+  ],
+  "reviewer_actions": {
+    "engine_started": false,
+    "production_or_tests_or_docs_modified": false,
+    "original_reports_logs_or_zip_modified": false,
+    "new_CI_run_triggered": false,
+    "only_build_summary_and_lossless_original_capture_extracted": true
+  },
+  "next_gate": "Do not merge the failed91545head. Independently review scoped fixture changes, execute their original checks/budgets, then require complete fresh same-source165/two-lane coverage before the already-authorized merge andWebexport."
+}

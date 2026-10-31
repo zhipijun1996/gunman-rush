@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v8",
+  "version": "creative-v28",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
-    "supplemental_authority_sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+    "supplemental_authority_sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "6840ac76c8b45d9e14d92ed1542066ae9a8750870c70212f12db00d3e18b32de",
+    "registry_sha256": "cd5a988a1c0e2ddf6e4e4e2a4852029ee9b64d005a35a3603b133ffeabeefbe4",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -59,7 +59,22 @@
   "boss": {
     "bible_sections": "6",
     "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
-    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "current_overrides": [
+      {
+        "boss_id": "bellstrider",
+        "task_id": "BELLSTRIDER-REWORK-01",
+        "source": "docs/worklines/bellstrider_rework_01/spec.md",
+        "source_sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea",
+        "authorization_source": {
+          "path": "docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+          "sha256": "db750e527f083912ac25f41288369af0164158caab5b5c40a1d08a19d44e81b4"
+        },
+        "precedence": "The explicit current user rework supersedes original Bible section6.1 only for Bellstrider. Preserve the original Bible and all other Boss designs.",
+        "contract": "Follow the complete current spec and actual BellstriderDefinition for upper-bell-only damage, Encounter-owned common pose, clock-driven attack groups, fair recovery/third-shot risk, terminal remains and one reward chain. This navigation record does not replace that spec or lock unverified balance.",
+        "acceptance": "unverified: implementation authorization is not gameplay/visual/audio/device/user acceptance."
+      }
+    ]
   },
   "visual": {
     "bible_sections": "2",
@@ -67,7 +82,8 @@
     "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
     "shared_project_style": "继承已绑定的正式平原实际像素尺度、tileset邻接/边界、光照/描边/材质语言；区域特色不等于另换项目画风。森林以树皮、苔藓、荆棘、有机结构及区域色域变化，其他后续区域同样沿共用母版。",
     "cross_region_golden": "先阅读实际共享source PNG/atlas、TileSet及消费者，在正式平原/目标地区的正常比例游戏黄金做实际像素对照；独立视觉准入后才扩产，hash/metadata不签画面。",
-    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。"
+    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。",
+    "selected_fine_grid": "Fine1wu shared grid per style-v5; region identity comes from materials/ecology, not a different pixel scale. Human/devices remain unverified."
   },
   "motion_audio": {
     "bible_sections": "9",
@@ -105,7 +121,7 @@
     },
     {
       "path": "docs/design/player_actions/README.md",
-      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618"
+      "sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
     },
     {
       "path": "docs/world_regions.json",
@@ -113,11 +129,11 @@
     },
     {
       "path": "docs/controls_contract.md",
-      "sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70"
+      "sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
     },
     {
       "path": "config/player_tuning.json",
-      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
     },
     {
       "path": "resources/player/traversal.tres",
@@ -134,11 +150,199 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
       "sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+      "sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+      "sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+      "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+      "sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+      "sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+      "sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+      "sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+      "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
+      "sha256": "f08a99521953dc275f4e119ce447dd8dc97ccc77b65897de0b296590f5e655e0"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+      "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+      "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+      "sha256": "58bc77e49cb9f5b283a5d0c5ba506162a0e1ffe4a501f88874e2ba55a1ea6d26"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+      "sha256": "66d75a2ea49cf0126cfbe5585daf2099ec3b1e883e8b5cd01e5ff78b77ac92f8"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
+      "sha256": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+      "sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "sha256": "49cff7edde3f22e8880dd2b3ee0f1d502423509c8713eb30efaa9e1544f93cfe"
+    },
+    {
+      "path": "docs/worklines/bellstrider_rework_01/spec.md",
+      "sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea"
+    },
+    {
+      "path": "docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+      "sha256": "db750e527f083912ac25f41288369af0164158caab5b5c40a1d08a19d44e81b4"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+      "sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183"
+    },
+    {
+      "path": "docs/creative_direction/bibles/windkeeper-pressure-20261030.json",
+      "sha256": "dcf15aa23d929800fa6eaf2c7faa0092d94ff0d825b55d7f9c6ed6b084809a2b"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+      "sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25"
     }
   ],
   "historical_direction": {
     "path": "docs/creative_direction/archive/creative-v6/windchime_plains.json",
     "sha256": "5e2076c848899b350a25b8b666f970c6f4ffe418f7fa69466333d7bde6f7f28e",
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
+  },
+  "revision_impact": {
+    "task_id": "MAIN-INTEGRATION-122-124-125",
+    "scope": "Combined technical identity for Bellstrider and Windkeeper Pressure. Original selected regional content remains; forest only shares source identity.",
+    "parent_directions": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/docs/creative_direction/windchime_plains.json",
+        "sha256": "f6a36e7363ff79e7f297b0339f0123ceed3832ba7d0eb545181130a8e6c1ab5e"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/docs/creative_direction/windchime_plains.json",
+        "sha256": "21bcb094037e433ea597004928b81df60e23013f8f82e4bbd1bd30db46dd88b1"
+      }
+    ],
+    "parent_manifests": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/manifest.json",
+        "sha256": "c6e8c5ccc283900a84d3d5f8078ce599e9e9ef35acc9a1cdf8ae38cfacb43159",
+        "source_commit": "66c6c41d1a77e6b2f034999b6111c272a11f2d76"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/manifest.json",
+        "sha256": "bebfb3cd755699bd66deda0ed3d7a9969bb461c177aad4da89c9fd509129132b",
+        "source_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323"
+      }
+    ],
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
+    "shared_style_sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
+    "affected_consumers": [
+      "scripts/demo/plains_region_stage.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/combat/weapon_action_runtime.gd",
+      "scripts/bosses/bellstrider_presentation.gd",
+      "scripts/bosses/bellstrider_rig_pose.gd",
+      "scripts/bosses/bellstrider_encounter.gd",
+      "scripts/bosses/bellstrider_definition.gd",
+      "resources/bosses/bellstrider.tres",
+      "assets/underworld_plains/actors/bellstrider.png",
+      "assets/underworld_plains/actors/bell.png",
+      "scripts/audio/bellstrider_audio.gd",
+      "assets/audio/bellstrider_01/manifest.json",
+      "assets/audio/bellstrider_01/sources.json",
+      "assets/audio/bellstrider_01/recipes.json",
+      "scripts/bosses/bellstrider_ring_projectile.gd",
+      "scripts/bosses/bellstrider_bell_projectile.gd",
+      "scripts/bosses/boss_factory.gd",
+      "scenes/bosses/windkeeper_pressure.tscn",
+      "scripts/bosses/windkeeper_pressure_definition.gd",
+      "resources/bosses/windkeeper_storm.tres",
+      "resources/bosses/windkeeper_pressure_health.tres",
+      "scripts/bosses/windkeeper_pressure_encounter.gd",
+      "scripts/bosses/windkeeper_pressure_rig.gd",
+      "scripts/bosses/windkeeper_pressure_presentation.gd",
+      "scripts/bosses/windkeeper_pressure_projectile.gd",
+      "scripts/bosses/windkeeper_pressure_strike.gd",
+      "scripts/audio/windkeeper_pressure_audio.gd",
+      "scripts/rewards/windkeeper_pressure_rewards.gd",
+      "scripts/ui/windkeeper_hud.gd",
+      "scripts/damage/demo_contact_emitter.gd",
+      "scripts/art_foundation/pixel_formal_style_installer.gd",
+      "scripts/underworld_plains/underworld_actor_installer.gd",
+      "scripts/demo/module_lab.gd",
+      "scripts/run/run_manifest.gd",
+      "scripts/art/plains_stage_visual.gd",
+      "scripts/bosses/windkeeper_pressure_wind.gd",
+      "shaders/windkeeper_pressure_foreground.gdshader",
+      "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
+      "assets/audio/windkeeper_pressure_01/README.md",
+      "assets/audio/windkeeper_pressure_01/death.wav",
+      "assets/audio/windkeeper_pressure_01/death_final.wav",
+      "assets/audio/windkeeper_pressure_01/death_impact.wav",
+      "assets/audio/windkeeper_pressure_01/gust_release.wav",
+      "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+      "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/hit.wav",
+      "assets/audio/windkeeper_pressure_01/link.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/manifest.json",
+      "assets/audio/windkeeper_pressure_01/phase.wav",
+      "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+      "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+      "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/recover.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/sources.json",
+      "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+      "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+      "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav"
+    ],
+    "validation": "Fresh combination checks required. Original user confirmation remains direction-only; no previous technical PASS, independent ACCEPT, gameplay/art/audio/device/user acceptance inherited."
   }
 }

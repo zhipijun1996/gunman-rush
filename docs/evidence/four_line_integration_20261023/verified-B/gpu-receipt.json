@@ -1,0 +1,88 @@
+{
+  "source_commit": "fbb417cb4d4d4d8d2500d7c4bed11cebf681dd46",
+  "environment": "Godot4.7.2 real GL via llvmpipe Xvfb:96; Dummy audio; not physical device acceptance",
+  "checks": [
+    {
+      "name": "ui-contract",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/demo_ui_01/contract_runner.gd",
+        "--",
+        "--capture",
+        "--output=res://build/integration-four/gpu/ui"
+      ],
+      "exit_code": 0,
+      "seconds": 17.4499556210003,
+      "errors": []
+    },
+    {
+      "name": "ui-r2",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/demo_ui_01/r2_runner.gd",
+        "--",
+        "--capture",
+        "--output=res://build/integration-four/gpu/r2"
+      ],
+      "exit_code": 0,
+      "seconds": 9.988474046000192,
+      "errors": []
+    },
+    {
+      "name": "terrain",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/underworld_plains/test_underworld_terrain.gd",
+        "--",
+        "--gpu"
+      ],
+      "exit_code": 0,
+      "seconds": 1.1832998059999227,
+      "errors": []
+    },
+    {
+      "name": "foreground",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tools/verify_foreground_continuity.gd",
+        "--",
+        "--output=res://build/integration-four/gpu/foreground"
+      ],
+      "exit_code": 0,
+      "seconds": 11.096154853999906,
+      "errors": []
+    }
+  ]
+}

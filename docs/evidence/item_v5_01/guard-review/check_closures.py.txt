@@ -1,0 +1,18 @@
+from pathlib import Path
+import hashlib,json,os,shutil,subprocess,time
+ROOT=Path.cwd();OUT=ROOT/'build/item_v5/guard-audit';manifest=json.loads((ROOT/'tools/harness/profiles.json').read_text());receipts=[]
+for name in ['region-bible-tests','creative-direction-tests','item-v5-data']:
+ spec=manifest['checks'][name];folder=OUT/('closure-'+name);folder.mkdir(exist_ok=False)
+ files=[];missing=[]
+ for entry in spec['inputs']:
+  src=ROOT/entry
+  if not src.exists():missing.append(entry);continue
+  selected=[p for p in src.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc'] if src.is_dir() else [src]
+  for p in selected:
+   dest=folder/p.relative_to(ROOT);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest);files.append(p.relative_to(ROOT).as_posix())
+ start=time.monotonic()
+ try:
+  r=subprocess.run(spec['argv'],cwd=folder,capture_output=True,text=True,timeout=spec['timeout_seconds']);text=r.stdout+r.stderr;row={'check':name,'argv':spec['argv'],'timeout_seconds':spec['timeout_seconds'],'exit_code':r.returncode,'seconds':time.monotonic()-start,'declared_inputs':len(spec['inputs']),'copied_files':len(set(files)),'missing_inputs':missing,'log':str((OUT/('closure-'+name+'.log')).relative_to(ROOT))};(OUT/('closure-'+name+'.log')).write_text(text)
+ except subprocess.TimeoutExpired:row={'check':name,'error':'timeout','seconds':time.monotonic()-start}
+ receipts.append(row);print(row,flush=True)
+(OUT/'closures.json').write_text(json.dumps(receipts,indent=2)+'\n')

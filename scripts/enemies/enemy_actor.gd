@@ -72,7 +72,9 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	set_physics_process(not health.terminal)
 
 func _on_death() -> void:
-	if not _restoring_instance: GameAudio.cue(self, &"enemy_defeat")
+	if not _restoring_instance:
+		if PlainsEnemyAudio.supports(self): PlainsEnemyAudio.defeated(self)
+		else: GameAudio.cue(self, &"enemy_defeat")
 	if attack_behavior != null: attack_behavior.cancel()
 	motor.stop()
 	motor.collision_layer = 0
@@ -82,18 +84,52 @@ func _on_death() -> void:
 
 func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
 	if definition.behavior_id == &"patrol" or attack_behavior != null: return
-	match definition.behavior_id:
-		&"root_bell": attack_behavior = RootBellBehavior.new()
-		&"forest_lantern": attack_behavior = ForestLanternBehavior.new()
-		&"forest_seed_sentry": attack_behavior = ForestSeedSentryBehavior.new()
-		&"forest_thread_spider": attack_behavior = ForestThreadSpiderBehavior.new()
-		&"forest_bible_weaver": attack_behavior = ForestBibleWeaverBehavior.new()
-		&"forest_crossbranch": attack_behavior = ForestCrossbranchBehavior.new()
-		&"forest_bark_beetle": attack_behavior = ForestBarkBeetleBehavior.new()
-		&"forest_swing_pod": attack_behavior = ForestSwingPodBehavior.new()
-		_: attack_behavior = EnemyAttackBehavior.new()
+	attack_behavior = EnemyBehaviorRegistry.create_behavior(definition)
+	if attack_behavior == null:
+		push_error("Registered enemy behavior could not be constructed: " + String(definition.behavior_id))
+		return
 	add_child(attack_behavior)
 	attack_behavior.configure(self, target, policy, scope, id, safe_points)
+
+# Read-only presentation input. Does not advance any clock or cache a phase.
+# Health epoch and encounter target actor_epoch intentionally remain separate.
+func presentation_state() -> Dictionary:
+	var valid := definition != null and is_instance_valid(motor) and is_instance_valid(brain) and health != null and health.epoch > 0
+	if not valid:
+		var invalid := {"valid":false,"reason":"actor_not_initialized","epoch":health.epoch if health != null else -1}
+		invalid.make_read_only()
+		return invalid
+	var phase: StringName = attack_behavior.state if is_instance_valid(attack_behavior) else &"idle"
+	var elapsed: float = attack_behavior.state_time if is_instance_valid(attack_behavior) else 0.0
+	var durations := {&"telegraph":definition.telegraph_duration,&"attack":definition.attack_duration,&"recovery":definition.recovery_duration}
+	# This freshly allocated dictionary contains only immutable phase values.
+	durations.make_read_only()
+	var result := {"valid":true,"state":phase,"state_time":elapsed,"phase_durations":durations,"phase_duration":float(durations.get(phase,0.0)),"facing":brain.direction,"position":motor.global_position,"velocity":motor.velocity,"epoch":health.epoch,"terminal":health.terminal,"stable_id":definition.stable_id,"behavior_id":definition.behavior_id,"aim_direction":attack_behavior.locked_direction if is_instance_valid(attack_behavior) else Vector2(float(brain.direction),0),"source_phase":phase,"source_kind":&"behavior" if is_instance_valid(attack_behavior) else &"patrol","source_behavior_script":(attack_behavior.get_script() as Script).resource_path if is_instance_valid(attack_behavior) else ""}
+	# Specialized phases may supply their own read-only phase values. Identity,
+	# epoch, actual Motor coordinates and terminal authority cannot be replaced.
+	if is_instance_valid(attack_behavior) and attack_behavior.has_method("presentation_state"):
+		var details: Variant = attack_behavior.call("presentation_state")
+		if details is Dictionary:
+			for key: String in ["state","state_time","phase_duration","phase_durations"]:
+				if details.has(key): result[key] = _freeze_presentation_value(details[key])
+			result.source_phase = _freeze_presentation_value(result.state)
+	# All default fields are scalar/value types; specialized containers were
+	# isolated above. Freeze this owned shell directly instead of copying it.
+	result.make_read_only()
+	return result
+
+static func _freeze_presentation_value(value: Variant) -> Variant:
+	if value is Dictionary:
+		var frozen: Dictionary = value.duplicate()
+		for key: Variant in frozen: frozen[key] = _freeze_presentation_value(frozen[key])
+		frozen.make_read_only()
+		return frozen
+	if value is Array:
+		var frozen: Array = []
+		for item: Variant in value: frozen.append(_freeze_presentation_value(item))
+		frozen.make_read_only()
+		return frozen
+	return value
 
 # Explicit region unload/rebuild consumer. Shared HealthState emits the restored
 # terminal pose once; restoration is not a new accepted defeat/audio/drop event.
@@ -119,13 +155,14 @@ func _accepted_hit(context: Dictionary) -> void:
 	# Grapple and active skills already own their target motion contract. HP
 	# still drives the shared hurt animation/audio; generic hit motion must not
 	# stop a moving hook target or extend the authored skill stagger clock.
-	GameAudio.cue(self, &"hurt")
+	if PlainsEnemyAudio.supports(self): PlainsEnemyAudio.hurt(self, context)
+	else: GameAudio.cue_event(self, &"enemy_hurt", &"hurt")
 	if context.get("damage_type", &"") == &"grapple" or context.get("skill_attack", false) == true: return
 	var direction: Vector2 = raw_direction
 	if direction.is_zero_approx(): direction = Vector2(-brain.direction,0)
 	# Ground actors have no gravity policy in EnemyMotor; a vertical force must
 	# not leave a walking beetle permanently hovering above its authored floor.
 	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
-	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds
+	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds * clampf(float(context.get("item_stagger_multiplier", 1.0)), 1.0, 1.3)
 	if definition.behavior_id == &"root_bell": return
 	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds,not definition.aerial)

@@ -54,11 +54,11 @@ func _physics_process(_delta: float) -> void:
 	if not _touching:
 		_exposure += 1
 		_pulse = 0
-		_next_pulse = policy.clock
+		_next_pulse = policy.player_clock()
 	_touching = true
-	if policy.clock < _next_pulse:
+	if policy.player_clock() < _next_pulse:
 		return
-	_next_pulse = policy.clock + definition.contact_interval
+	_next_pulse = policy.player_clock() + definition.contact_interval
 	_pulse += 1
 	var request := DamageRequest.new()
 	request.token = lifetime.token()

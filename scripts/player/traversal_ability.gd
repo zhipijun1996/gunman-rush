@@ -52,6 +52,14 @@ func grant(id: StringName, enabled: bool = true) -> bool:
 	if not enabled: cancel()
 	return true
 
+# Query the independent core-ability owner; equipment never grants these rights.
+func has_capability(id: StringName) -> bool:
+	match id:
+		&"double_jump": return double_enabled
+		&"wall_climb": return wall_enabled
+		&"grapple": return hook_enabled
+	return false
+
 func busy() -> bool:
 	return state in [&"hook_cast", &"hook_fly", &"hook_pull", &"hook_miss", &"hook_retract", &"hook_contact_kick"]
 
@@ -160,8 +168,8 @@ func advance(delta: float) -> void:
 		return
 	if state == &"hook_fly":
 		var finish := hook_tip + hook_direction * definition.hook_flight_speed * delta
-		if hook_start.distance_to(finish) > definition.hook_range:
-			finish = hook_start + hook_direction * definition.hook_range
+		if hook_start.distance_to(finish) > _effective_hook_range():
+			finish = hook_start + hook_direction * _effective_hook_range()
 		var hit := _probe_segment(hook_tip,finish)
 		if not hit.is_empty():
 			hook_tip = hit.position
@@ -182,7 +190,7 @@ func advance(delta: float) -> void:
 			else: _set_state(&"hook_miss")
 		else:
 			hook_tip = finish
-			if hook_start.distance_to(hook_tip) >= definition.hook_range-0.01: _set_state(&"hook_miss")
+			if hook_start.distance_to(hook_tip) >= _effective_hook_range()-0.01: _set_state(&"hook_miss")
 		return
 	if state == &"hook_hang":
 		if not is_instance_valid(hook_target) or not hook_target.is_inside_tree():
@@ -240,7 +248,7 @@ func after_move() -> void:
 		controller.jump_ability.cancel_requests()
 		motor.normal_velocity = Vector2.ZERO
 		if receiver != null:
-			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0)})
+			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,receiver)})
 		if hook_target is GrappleAnchor and (hook_target as GrappleAnchor).hang_enabled:
 			_hang_offset=motor.global_position-hook_tip
 			restore_air_actions()
@@ -298,6 +306,12 @@ func _set_state(next: StringName) -> void:
 func protects_contact(source: Node) -> bool:
 	if _session != controller.session_id or not controller.active or not is_instance_valid(_contact_target): return false
 	if state not in [&"hook_pull",&"hook_contact_kick",&"hook_kick"] and _contact_remaining <= 0.0: return false
+	var receiver := _contact_target.get_node_or_null("Damageable") as Damageable
+	if receiver != null and receiver.damage_policy_owner() != receiver:
+		# The real upper bell is the anchor; protection covers only its own
+		# mechanical body contact, never projectiles or unrelated actors.
+		var owner_body := receiver.damage_policy_owner().get_parent()
+		if source == owner_body: return true
 	return source == _contact_target or _contact_target.is_ancestor_of(source)
 
 func on_weapon_fired() -> void:
@@ -338,7 +352,7 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 	var chosen: Dictionary={};var nearest := INF
 	for i: int in _hook_probe.get_collision_count():
 		var point := _hook_probe.get_collision_point(i)
-		if point.distance_to(hook_start)>definition.hook_range+.01:continue
+		if point.distance_to(hook_start)>_effective_hook_range()+.01:continue
 		var node := _hook_probe.get_collider(i) as Node2D
 		if node==null:continue
 		if node==_released_hang_target and state in [&"hook_cast",&"hook_fly"]:continue
@@ -356,10 +370,15 @@ func _update_guide() -> void:
 	guide_target_valid=false
 	if not guide_active:return
 	var origin := controller.motor.global_position+Vector2(0,-6)
-	var end := origin+controller.router.aim_direction.normalized()*definition.hook_range
+	var end := origin+controller.router.aim_direction.normalized()*_effective_hook_range()
 	var previous_start := hook_start
 	hook_start=origin
 	var contact := _probe_segment(origin,end)
 	hook_start=previous_start
 	guide_point=end if contact.is_empty() else contact.position
 	guide_target_valid=not contact.is_empty() and (contact.collider as Node).is_in_group(&"grapple_target")
+
+func _effective_hook_range() -> float:
+	if controller == null or controller.item_runtime == null: return definition.hook_range
+	var params: Dictionary = controller.item_runtime.call("effect", &"B21")
+	return definition.hook_range * float(params.get("hook_range_multiplier", 1.0))

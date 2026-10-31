@@ -2,6 +2,7 @@ class_name UnderworldScenery
 extends Node2D
 ## Sparse, grounded original Underworld props. Own seed; never touches gameplay RNG.
 const BUILD_PATH := "res://assets/underworld_plains/scenery_build.json"
+const CONTACT := preload("res://scripts/underworld_plains/grounded_contact.gd")
 var placements: Array[Dictionary] = []
 var omitted: Array[Dictionary] = []
 var supports: Array[Rect2] = []
@@ -123,15 +124,18 @@ func _identity_x_candidates(kind: String, height: float, edge: Vector4, desired:
 	var scale_value := height / float(region.foot[1])
 	var left := float(region.foot[0]) * scale_value
 	var right := (float(region.region[2])-float(region.foot[0])) * scale_value
-	var minimum := edge.x+8.0+left
-	var maximum := edge.z-8.0-right
+	# Half a pixel reserves the shared1wu origin snap without relaxing the
+	# original whole-object eight-unit support/functional protection margin.
+	var minimum := edge.x+8.5+left
+	var maximum := edge.z-8.5-right
 	if maximum<minimum: return []
 	var values: Array[float] = [minimum,maximum,clampf(desired,minimum,maximum),(minimum+maximum)*.5]
 	# Exact interval boundaries find narrow but genuinely legal bank sockets.
 	# A fixed 33-point scan can miss a 1-world-unit admissible interval.
 	for keepout: Rect2 in protected_regions:
-		if keepout.end.y<edge.y-height-8.0 or keepout.position.y>edge.y+8.0: continue
-		for x: float in [keepout.position.x-8.01-right,keepout.end.x+8.01+left]:
+		var inset:=CONTACT.depth(kind)
+		if keepout.end.y<edge.y-height+inset-8.5 or keepout.position.y>edge.y+inset+8.5: continue
+		for x: float in [keepout.position.x-8.51-right,keepout.end.x+8.51+left]:
 			if x>=minimum and x<=maximum: values.append(x)
 	values.sort_custom(func(a:float,b:float):return absf(a-desired)<absf(b-desired))
 	return values
@@ -139,14 +143,15 @@ func _identity_x_candidates(kind: String, height: float, edge: Vector4, desired:
 func _try_place(kind: String, foot: Vector2, height: float, edge: Vector4, spacing: float, identity: Dictionary = {}) -> bool:
 	var region: Dictionary = _props[kind]
 	var r: Array = region.region.duplicate()
-	# Identity props bury only their declared below-root tail. The drawn box's
-	# bottom is the real root line, so actual bottom-center ray validation
-	# cannot start inside a solid beneath transparent source padding.
+	# Exclude only declared transparent below-root padding. A shallow visual
+	# inset then plants this measured root into the fine terrain grass/soil;
+	# the logical support foot remains on the real exposed collision surface.
 	if not identity.is_empty(): r[3] = int(region.foot[1])
 	var scale_value := height / float(r[3])
 	var anchor := Vector2(float(region.foot[0]), float(region.foot[1])) * scale_value
 	var size := Vector2(float(r[2]), float(r[3])) * scale_value
-	var bounds := Rect2(foot - anchor, size)
+	var contact_depth:=CONTACT.depth(kind)
+	var bounds := Rect2(CONTACT.origin(foot,Vector2(region.foot[0],region.foot[1]),scale_value,contact_depth),size)
 	# Conservative whole-source-width support: the complete root fan is over a
 	# real exposed static top, rather than checking only a root center point.
 	var reason := ""
@@ -172,14 +177,18 @@ func _try_place(kind: String, foot: Vector2, height: float, edge: Vector4, spaci
 	sprite.texture = texture
 	sprite.position = bounds.position
 	sprite.scale = Vector2.ONE * scale_value
+	var render_root:=sprite.position+anchor
+	sprite.set_meta("grounded_surface_foot",foot)
+	sprite.set_meta("grounded_render_root",render_root)
+	sprite.set_meta("grounded_inset_wu",render_root.y-foot.y)
 	add_child(sprite)
 	if not identity.is_empty():
 		var source := str(region.get("atlas",_spec.atlas))
 		if not _source_hashes.has(source): _source_hashes[source] = FileAccess.get_sha256("res://"+source)
-		var item := {"identity":identity.identity,"area_id":identity.area_id,"asset_id":kind,"asset_source":source,"source_sha256":_source_hashes[source],"display_bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"foot":[foot.x,foot.y],"support":[edge.x,edge.y,edge.z-edge.x,0.0],"depth":"grounded_noninteractive_local_landmark","collision":false,"standing_edge":false,"node":sprite.name}
+		var item := {"identity":identity.identity,"area_id":identity.area_id,"asset_id":kind,"asset_source":source,"source_sha256":_source_hashes[source],"display_bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"foot":[foot.x,foot.y],"source_foot":region.foot.duplicate(),"render_root":[render_root.x,render_root.y],"ground_inset_wu":render_root.y-foot.y,"support":[edge.x,edge.y,edge.z-edge.x,0.0],"depth":"grounded_noninteractive_local_landmark","collision":false,"standing_edge":false,"node":sprite.name}
 		sprite.set_meta("landmark",item.duplicate(true))
 		identity_items.append(item)
-	placements.append({"kind": kind, "position": foot, "bounds": bounds, "support_edge": edge, "root_span": [bounds.position.x, bounds.end.x], "source_region": r, "scale": scale_value, "node": sprite.name, "collision": false})
+	placements.append({"kind": kind, "position": foot, "render_root":render_root,"ground_inset_wu":render_root.y-foot.y,"bounds": bounds, "support_edge": edge, "root_span": [bounds.position.x, bounds.end.x], "source_region": r, "scale": scale_value, "node": sprite.name, "collision": false})
 	return true
 
 func _process(delta: float) -> void:
@@ -195,4 +204,4 @@ func _draw() -> void:
 	var size := get_viewport_rect().size / camera.zoom
 	for i: int in 12:
 		var p := center - size * .5 + Vector2(fposmod(i * 173.0 + _phase * 7.0, size.x), size.y * (.38 + .05 * (i % 7)) + sin(_phase * .7 + i) * 6.0)
-		draw_rect(Rect2(p.snapped(Vector2(2, 2)), Vector2(2, 2)), Color(.63, .69, .49, .25))
+		draw_rect(Rect2(p.snapped(Vector2.ONE),Vector2.ONE), Color(.63, .69, .49, .25))

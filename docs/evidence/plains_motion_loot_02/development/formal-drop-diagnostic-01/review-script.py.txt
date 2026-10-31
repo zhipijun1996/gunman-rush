@@ -1,0 +1,44 @@
+from pathlib import Path
+import json,hashlib,re,subprocess,collections,math
+R=Path('/workspace/gunman-rush');P=R/'build/plains-ci-41001060607/instrumented-formal';HEAD='96bf4410f3118936ba78faddacc717974ffd39b9'
+checks=[]
+def ck(n,v,d=None):checks.append({'id':n,'passed':bool(v),'detail':d})
+def sha(b):return hashlib.sha256(b).hexdigest()
+obs=json.loads((P/'observations.json').read_text());log=(P/'runtime.log').read_text();runner=(P/'runner.gd').read_text();old=subprocess.check_output(['git','show',HEAD+':tests/enemy_feedback_01_formal.gd'],cwd=R,text=True)
+prints=[json.loads(s.split('FORMAL_DIAG ',1)[1]) for s in log.splitlines() if s.startswith('FORMAL_DIAG ')]
+ck('observations_exact_actual_log',obs==prints and len(obs)==6)
+stripped=runner.split('\nfunc diagnostic_drop_state()',1)[0]
+stripped='\n'.join(s for s in stripped.split('\n') if 'FORMAL_DIAG' not in s)
+stripped=stripped.replace('res://build/plains-ci-41001060607/instrumented-formal','res://build/enemy_feedback_01/v8')
+ck('instrumentation_only_reads_and_output_path',stripped.rstrip()==old.rstrip())
+ck('original66_4_reproduced','ENEMY_FEEDBACK_01_FORMAL checks=66 failures=4' in log and sum(s.startswith('FAIL: ') for s in log.splitlines())==4)
+ck('no_script_parse_leak_errors',not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log))
+groups=collections.defaultdict(dict)
+for row in obs:groups[row['target']][row['phase']]=row['state']
+ck('two_targets_three_phases',len(groups)==2 and all(set(v)=={'before','after45','after175'} for v in groups.values()))
+changes=[];changed_keys=set()
+for target,phases in groups.items():
+ before=phases['before'];ids=set(before['drops'])
+ for phase,state in phases.items():
+  ck(target+'/'+phase+'/same_drop_ids',set(state['drops'])==ids)
+  ck(target+'/'+phase+'/no_claims_or_grants',state['claimed']=={} and state['wallet_balance']==0 and state['wallet_grants']=={})
+  ck(target+'/'+phase+'/same_run_stage',state['prefix']==before['prefix'] and state['stage_index']==before['stage_index'])
+  saved={u['id']:u for d in state['drops'].values() for u in d['units']};live={u['id']:u for u in state['live']}
+  ck(target+'/'+phase+'/all_live_ids_exact',set(saved)==set(live) and len(live)==len(state['live']))
+  for uid,u in saved.items():ck(uid+'/'+phase+'/live_snapshot_projection_exact',all(u.get(k)==v for k,v in live[uid].items()))
+  for did,d in state['drops'].items():
+   original=before['drops'][did]
+   ck(did+'/'+phase+'/entire_non_units_metadata_exact',{k:v for k,v in d.items() if k!='units'}=={k:v for k,v in original.items() if k!='units'})
+   ck(did+'/'+phase+'/unit_order_count',{u['id'] for u in d['units']}=={u['id'] for u in original['units']} and [u['id'] for u in d['units']]==[u['id'] for u in original['units']])
+   for i,u in enumerate(d['units']):
+    old_u=original['units'][i];ck(u['id']+'/'+phase+'/exact_keyset',set(u)==set(old_u))
+    diff=sorted(k for k in u if u[k]!=old_u[k]);changed_keys.update(diff)
+    if diff:changes.append({'target_window':target,'drop_source':did,'phase':phase,'unit_id':u['id'],'changed_fields':diff})
+    ck(u['id']+'/'+phase+'/immutable_unit_fields',all(u[k]==old_u[k] for k in ['id','kind','amount','source','safe','claimed']))
+    ck(u['id']+'/'+phase+'/unclaimed',u['claimed'] is False)
+    ck(u['id']+'/'+phase+'/finite',all(math.isfinite(x) for x in u['position']+u['velocity']+[u['age'],u['rotation']]))
+    ck(u['id']+'/'+phase+'/nonnegative_monotonic_age_bounces',u['age']>=old_u['age'] and type(u['bounces']) is int and u['bounces']>=old_u['bounces'])
+ ck(target+'/after45_to175_complete_equality',phases['after45']['drops']==phases['after175']['drops'], 'Informational: equality expected only for grounded charger; diver legitimately continues moving') if target=='plains/enemy/tutorial' else None
+allowed=['age','bounces','position','returning','rotation','settled','velocity'];ck('exact_observed_dynamic_field_union',sorted(changed_keys)==allowed,sorted(changed_keys))
+result={'verdict':'ACCEPT_DIAGNOSIS_AND_SEVEN_FIELD_ALLOWLIST_ONLY','source_commit':HEAD,'reviewer':'/root/guard_review_recovery','implementer':'/root','independent':True,'engine_executed_by_reviewer':False,'command':'python3 /tmp/review_formal_drop_diagnostic.py > /tmp/plains_formal_drop_diagnostic_review.log','inputs':{n:sha((P/n).read_bytes()) for n in ['observations.json','runner.gd','runtime.log','formal_runtime.json']},'observed_dynamic_allowlist':allowed,'not_in_allowlist':'claimed did not change and is false for every saved/live unit; balance0, grants{}, region.claimed{} in all six observations. No blanket claim mutation is justified by this diagnosis. Any separately generalized claim transition needs its own exact ledger/claim proof.','changes':changes,'checks':checks,'passed':sum(c['passed'] for c in checks),'failed':sum(not c['passed'] for c in checks),'semantic_limits':['Seven allowed keys are only inside unit snapshots. Drop-level position, birth/origin and every other payout/unknown field remain exact.','Unit keysets/order/count/id/kind/amount/source/safe/claimed remain exact in this fixture.','No ignoring whole units collection: require full live/saved IDs and per-kind totals/receipt consistency.','Observed diver bounce4 forbids hard maximum3; observed settled=true and returning=true forbids treating flags as mutually exclusive.','Original byte-exact reload assertion must remain.','No approval of candidate helper/test code, new native pass or full CI.']}
+Path('/tmp/plains_formal_drop_diagnostic_review.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(result['verdict'],result['passed'],result['failed']);print('allowed',allowed);print('failures',[c for c in checks if not c['passed']])

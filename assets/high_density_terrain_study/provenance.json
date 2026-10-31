@@ -1,0 +1,31 @@
+{
+  "task": "HIGH-DENSITY-TERRAIN-03",
+  "status": "experimental_not_approved",
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool",
+  "price": "not exposed by tool",
+  "generation_calls": 2,
+  "retained_master": "master_original.png",
+  "raw_dimensions": [
+    1254,
+    1254
+  ],
+  "requested_dimensions": [
+    1024,
+    1024
+  ],
+  "prompt": "Revise this rejected game-terrain material (reference 1). The user rejected it because it looks like generic scattered rocks and lacks identity and refinement. Keep the ORIGINAL game mood and pixel rendering in references 2 and 3, but REPLACE the generic pebble content completely. Output is one game material asset, not a game screenshot.\n\nThe new material language is WIND-ERODED MONOLITHIC SLATE with LIVING GRASS ROOTS and very rare oxidized old copper seams, supporting an ancient windchime settlement. It must feel designed, restrained, mysterious and tactile, not noisy.\nOne 1024x1024 transparent RGBA material strip. Full rectangle beneath the grassy top is OPAQUE. No typography, tile grids, blank margins, sky, objects, lamps, characters, icons, runes, buildings, circles, big symbols or perspective.\n256x256 logical art pixels enlarged 4x nearest-neighbor; precise small pixel clusters, 1-logical-pixel selective highlights. No blur or soft painted rock shading.\nTop ~64 image pixels: thin irregular olive/moss-green grassy lip, scattered short individual blades, dark roots that naturally taper into only a few cracks. Do not create a continuous fluorescent green outline. Grass tips transparent in the first few rows, opaque soil below.\nBody: about 75% very quiet, deep midnight-navy/blue-black rock mass, several LARGE connected weathered slabs / broad compressed strata with gently bending broken edges. No field of separate rounded stones, pebbles, chips, little diamonds, brickwork, speckle noise or busy outlines. Broad mostly untextured dark facets supply weight. A SMALL number of irregular hairline cracks at different depths establish structure, with selective 1-pixel muted blue-gray highlights only on a few upper-left facets. The majority of edges disappear into the dark mass; do not outline all slabs.\nIdentity accents: extremely sparse thin old-bronze mineral traces and muted verdigris in perhaps 2-3 crack segments across the entire image, mostly dark brown/cool teal and only tiny amber pinpoints, no bright gold rivers, no circuit boards, no decorative network. These marks should read as ancient material wear when locally lit, not rewards or hazards. Keep them subtle enough that the original cream roofs and golden lanterns remain the focal objects in the real screenshot.\nThe upper grass band and dark rock mass must connect without a horizontal black gap. Horizontal edges should repeat naturally; the lower body texture should have no vertical gradient/horizon, so it can repeat as a stone infill. A side-on 2D cutaway material, not a landscape. More large calm dark shapes, much fewer details than reference 1.",
+  "references": [
+    "build/high_density_terrain_study/rejected/generic_pebbles.png",
+    "assets/underworld_plains/terrain/source.png",
+    "docs/evidence/pixel_light_study_02/home_original.png"
+  ],
+  "rejected_first_generation": {
+    "path": "build/high_density_terrain_study/rejected/generic_pebbles.png",
+    "reason": "Generic scattered pebbles; user rejected visual identity/refinement",
+    "exact_prompt": "not retained in current recoverable tool store"
+  },
+  "processing": "Godot builder nearest-samples generated master to256 logical pixels; organizes native32px 47-mask atlas and semantic edge data. World-space shader continuously samples generated material with overlapped repetition, grass on top only. Albedo contrast .32. No code-drawn replacement art, no screenshot retouch.",
+  "rights": "AI-generated edit referencing this repository's existing art; original source/license files retained. No new third-party asset license asserted.",
+  "limits": "Resolution study, not final material identity; residual repeated slant rock shapes, sparse copper barely visible; hazards/moving families remain native originals."
+}
