@@ -43,6 +43,16 @@ class ProjectDependenciesTests(unittest.TestCase):
         self.source("game/application/app.gd", "class_name DemoApp\n")
         self.assertFalse(inspect(self.root)["errors"])
 
+    def test_shared_ui_and_platform_cannot_hide_experiment_owned_helpers(self):
+        self.source("experiments/motion/studio.gd", "class_name ActionStudio\n")
+        self.source("experiments/platform/preview.gd", "class_name CloudPreviewBootstrap\n")
+        self.source("game/presentation/ui/pause.gd", "var owner: ActionStudio\n")
+        self.source("game/platform/preview_adapter.gd", "var owner: CloudPreviewBootstrap\n")
+        self.source("game/application/app.gd", "var explicit_preview: ActionStudio\n")
+        errors = inspect(self.root)["errors"]
+        self.assertEqual(2, len(errors), errors)
+        self.assertTrue(all("Shared module depends on experiment" in error for error in errors))
+
     def test_real_test_loads_are_rejected_and_computed_paths_remain_visible(self):
         self.source("scripts/preview.gd", 'const T = preload("res://tests/helper.gd")\nfunc get_scene(path):\n return load(path)\n')
         result = inspect(self.root)

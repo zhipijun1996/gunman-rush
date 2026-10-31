@@ -1,39 +1,44 @@
-# 项目结构与清理规则
+# 项目结构与维护规则
 
-| 目录 | 职责与保留范围 |
-| --- | --- |
-| scenes/、scripts/、resources/、shaders/ | 运行场景、类型化组件、Definition 和表现；模块接入查 module_map.md |
-| config/ | 实际运行参数和固定工具链来源，不放任务状态 |
-| assets/ | 原始母版、运行资源、manifest、许可；运行资源的 .import 与 .uid 保留以稳定 Godot 引用 |
-| tools/ | 现有验证/构建/素材工具；统一执行入口 harness.py，检查清单 tools/harness/profiles.json |
-| tests/ | 技术回归；旧命名 run_plains_ten 等保留兼容，不冒称正式十关 |
-| .agents/skills/ | 仓库内可发现的技能，每个目录一个 SKILL.md；按任务使用，不复制配置默认值 |
-| docs/ | 权威契约和主题说明；先 current_state.md，再按主题读取 |
-| docs/archive/ | 历史交接、整合前 AGENTS/README；不作为当前规则 |
-| docs/evidence/ | 精选成功/失败证据与报告，不能因整理而删失败记录 |
-| build/、.godot/、__pycache__/ | 忽略的导出、临时证据、导入缓存；工具链放工作区同级 toolchains/ |
-| .github/ | CI 和任务/PR 模板；文档 CI 使用同一 harness docs 入口 |
+当前结构按功能组织代码，按用途隔离实验、测试、工具、当前文档与历史证据。功能导航见[模块导航](module_map.md)，调用关系见[运行架构](architecture.md)。重构尚未验收的范围见[执行记录](worklines/game_architecture_01/execution.md)。
 
-## 本轮实际清理
+```text
+project.godot / export_presets.cfg
+├── game/                  正式模块；专属脚本、场景、局部资源就近存放
+├── experiments/           可启动实验及专属实现
+├── config/                实际运行配置、authoring 与已选版本
+├── assets/                原图、音频、字体、来源许可与当前技术合同
+├── scripts/ scenes/ resources/
+│                          暂留的协议路径、冻结回放依赖及明确历史资源
+├── tests/                 原行为回归、反例与真实消费者检查
+├── tools/                 内容维护、Harness、构建、导出与交付
+├── addons/                现有 Godot 工程插件
+├── .github/workflows/     调度与报告；实际检查仍由 Harness 定义
+├── docs/                  当前规则、导航、任务、工作线与精选证据
+│   ├── archive/           冻结历史规则或兼容源；不参与生产脚本扫描
+│   └── evidence/          原始失败/通过证据及其来源
+└── build/ preview/ .godot/
+                           生成输出、临时试玩和引擎缓存
+```
 
-原 AGENTS.md 中叠加的历史指令和 README 的旧入口说明移入 archive 原文快照，当前两文件只保留通用约束与现行导航。检查命令集中进 harness 清单；当前玩法集中到 current_state.md，不让每个 skill 再写一套。历史正文仍用于溯源，开头的最新修订优先。
+## 放文件之前先确定职责
 
-assets/painterly_v2 已由 D083 排除 Web 包，源母版与素材校验仍有用途；biome_style_review 为用户风格候选。旧八关/三关 tests 与 Lab 仍有消费者。因此本轮不删除这些源资产/测试。运行 res:// 路径不整体搬迁，避免破坏场景/资源 UID。
+一个状态有一个所有者，一个参数有一个可编辑来源。新消费者先调用现有服务/工厂/目录；需要抽取共用逻辑时，连真实消费者一起迁移，并删除原重复实现。仅新建目录、转发包装或无人使用的 helper 不算完成重构。
 
-## 后续删除与移动
+同一功能的脚本和专属场景靠近存放；共用资源状态放共用模块，不按玩家/怪物复制。原图声继续保留原来源和许可，技术路径重绑不等于用户重新认可艺术版本。不要为统一格式再造一份配置或内容注册表。
 
-删除前同时检查代码/场景/资源/config 引用、动态加载、manifest、工具消费者、文档和许可；没有静态引用只算候选。记录路径、理由、替代入口和验证，实际删除后跑对应 harness 并更新引用。可重建的缓存只清本项目路径，不清玩家保存和用户工作区。
+## 移动与删除
 
-归档需修正相对链接，保留任务/决策编号；历史 PR 和分支不因整理批量关闭/删除。新生成物写 build/，禁止把导出包、工具链或一次性大截图提交为运行源码。
+移动必须同时覆盖 `preload/load/extends/ext_resource`、隐式 class_name、动态路径拼接、注册表、工程启动、Web allowlist、导出、工具源码快照、测试输入和当前文档引用。保留 Godot UID；检查重复类、丢失资源和核心反向依赖。字面量扫描公开保留动态加载清单，不能代替真实引擎与 PCK 测试。
 
-## 源码与资源重复检查
+冻结 Manifest 的路径和 SHA 是兼容协议，不是普通可替换文本。当前技术 metadata 可随真实消费者迁移，但旧证据、旧原 SHA 和原生成记录不可批量替换；必要历史源仅通过明确的有限快照保留。历史版本缺失应明确失败，不能悄悄加载当前或更旧版本。
 
-本轮对 scripts/scenes/resources/assets/tools/tests 做内容 SHA256 分组：脚本、场景、Resource、工具和测试未发现完全相同文件。资源有三组小型 SVG 重复：checkpoint_ring/recharge_jump、thin_platform 左/中/右、inner_corner 左/右。它们具有独立 manifest ID 和语义用途，删除需要先迁移 manifest/消费者；本轮保留，不把字节相同直接当废文件。git ls-files 未发现已跟踪的 build/.godot/__pycache__ 产物。
+删除要证明正式、实验、动态装配、历史回放、导出、原始来源与许可均不再需要。没有证明的旧资源应标明保留用途和导出政策，不以“看起来旧”直接删。保留源文件与进入正式 PCK 是两件事，交付必须按真实导出包核验。
 
-## 测试产物隔离
+## 工具、CI 与产物
 
-四个地区测试 runner 原来直接写 docs/evidence，会覆盖历史语料和报告；现改为 build/verification/generated/，目录在运行前创建，断言/轨迹不变。check_project 阻止测试再次直接写历史证据目录。精选证据需显式选择后归档。
+Harness 是检查定义和执行入口；CI 只调度并验证同源产物。新增功能目录必须同步脏源检查、输入选择、源码快照与交付规则；搬家不能扩大内容工具的可写域或漏掉原受影响测试。严格保留原断言、预算、缺失报告拒绝及错误/泄漏检查。
 
-docs/ 与 preview/ 无 Godot 运行资源引用，且导出原已排除，加入 .gdignore 停止导入图/预览；删除这两个目录的 9 个已跟踪 .import 元数据，保留源图/页面。其他运行资产的 .import/.uid 不动。
+生成物放 `build/`、`preview/` 或引擎缓存，使用既有 `.gdignore` 与 Git 忽略政策隔离。临时日志不伪装成正式验收；需要留存的失败、命令、source commit、SHA 和结果归档到 `docs/evidence/`。旧通过不能为后续修改代签。
 
-2026-10-13：build/ 仅跟踪空的 .gdignore 标记；所有生成物继续忽略。结构检查同时检查该标记，防止 Godot 再导入测试截图、旧导出图与临时审查夹具。
+当前规则只在其权威文档维护，工作线记录变化和证据，不再复制一整套同义架构。历史声明与当前实现冲突时，在当前导航明确状态并保留历史来源。

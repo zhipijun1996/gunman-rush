@@ -192,7 +192,7 @@ func _run() -> void:
 	await _cloud_case("res://game/application/demo.tscn",true)
 	await _cloud_case("res://experiments/motion/entries/action_studio.tscn",false)
 	if "--auditions" in OS.get_cmdline_user_args():
-		for path: String in ["audio_home_lab", "audio_ambience_lab", "audio_director_lab", "audio_director_lab_v2", "audio_director_reels", "player_presentation_01/motion_candidate", "player_presentation_01/landing_feel", "player_presentation_01/weapon_feel", "player_presentation_01/weapon_feel_v2"]:
-			await _cloud_case("res://scenes/dev/"+path+".tscn",true)
+		for path: String in ["audio/entries/audio_home_lab", "audio/entries/audio_ambience_lab", "audio/entries/audio_director_lab", "audio/entries/audio_director_lab_v2", "audio/entries/audio_director_reels", "motion/entries/motion_candidate", "motion/entries/landing_feel", "motion/entries/weapon_feel", "motion/entries/weapon_feel_v2"]:
+			await _cloud_case("res://experiments/"+path+".tscn",true)
 	print("ENTRY AUDIO OWNERS: %d assertions, %d failures" % [assertions,failures])
 	quit(1 if failures else 0)

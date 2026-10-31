@@ -1,102 +1,62 @@
-# 架构与接口
+# 当前运行架构
 
-> 现行入口与最新修订优先见 [当前状态](current_state.md)。本文保留分阶段契约与历史接入说明；一张图/八关、未接入保存或精力未定等旧段落仅用于溯源，不覆盖当前两图、实际 SaveService 和 D079 射击精力。
+游戏采用按功能组织的模块化单体，继续使用 Godot Node、Scene、Resource。应用层装配服务，功能模块拥有规则和状态；实验复用这些模块，并保留自己明确的输入、重生和版本政策。当前重构的验证状态见[执行记录](worklines/game_architecture_01/execution.md)，目标和批次见[目标架构](worklines/game_architecture_01/target_architecture.md)。目录归属见[模块导航](module_map.md)。本文描述已接入的调用，不把规划中的类当成实现。
 
+## 正式运行路径
 
-D063变化度提案见[平原多样性设计](plains_variety_design.md)：当前默认新局种子已修复，三骨架/段落语法/去重为下一阶段设计，未宣称已实现。
-当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
-正式设计以[游戏设计](game_design.md)为准；运行、奖励、伤害、家园分别由[运行路线](run_and_routes.md)、[奖励构筑](rewards_and_builds.md)、[伤害回退](damage_and_respawn.md)、[家园存档](home_and_save.md)细化。下表是职责契约，不代表系统已实现；实现状态在[任务](tasks.md)。
+```mermaid
+flowchart TD
+    Entry[正式入口与开发入口] --> App[DemoApp：用户流程与跨模块接线]
+    App --> Composition[RunComposition：玩家节点装配]
+    App --> Session[RunSession：一局服务引用与所有权]
+    Session --> Flow[原 DemoRunDirector / DemoLifetime]
+    Session --> Build[BuildState / Inventory / Equipment]
+    Session --> Economy[RunWallet / RewardService / ShopService]
+    App --> Request[LevelRequest]
+    Request --> Provider[平原 / 森林 Provider]
+    Provider --> Legacy[现有生成器与版本校验]
+    Legacy --> Adapter[LegacyRegionPlanAdapter]
+    Adapter --> Plan[LevelPlan：已解析内容]
+    Plan --> Runtime[LevelRuntime：公共装配入口]
+    Runtime --> Stage[原 Stage / Assembler / 地图状态]
+    Stage --> Factory[原 EnemyFactory / BossFactory / 世界组件]
+    Factory --> Entity[实体自身的状态 / 行为 / 表现]
+    Build --> Effects[ItemRuntime 与专属效果族]
+```
 
-当前模块导航及已接入资源框架见[模块分类](module_map.md)。
+RunSession 复用原流程和 epoch 权威，不新增第二个 RunDirector。它持有本局构筑、钱包、奖励、商店及道具服务；出发仍按原顺序创建，跨图保留同一局状态，终局按原政策清空并返回家园。节点父子关系与物理生命周期仍由实际场景管理。
 
-## 角色、输入与局部世界
+地图的 Request/Plan 是暂态内容协议，不是新存档格式。Provider 包含旧生成器选择、Manifest 校验和有界回退；公共装配只消费已经解析的内容，不抽随机数。LevelRuntime 当前是装配入口，运行中的节点和恢复状态仍归 Stage、Assembler 与既有地图状态对象，不能把它误写成另一个持有全部服务的世界管理器。
 
-| 系统 | 状态归属与边界 |
+后续新模块库和新地图算法通过新 Provider 生成同一个 Plan。怪物、Boss、宝箱等用既有工厂/组件创建多个实例，但每个实例必须有稳定身份、独立状态与原领取收据；共享定义不等于共享生命值或 claimed 状态。旧地图实现留在旧 Provider 后面，直到真实新消费者完成迁移再删除。
+
+## 状态与操作的唯一权威
+
+| 功能 | 所有者与真实调用边界 |
 | --- | --- |
-| InputAdapters / InputRouter | 归一化轴、jump/jump_release/shoot_release有序请求、aim_engaged与epoch；取消不射击，不消费资源/改位置 |
-| PlayerController | 协调能力与动作顺序，ACTIVE/ROLLING_BACK/INACTIVE；接收通用伤害结果，不管理Boss/路线/道具ID |
-| PlayerMotor | normal/recoil速度、接地/碰撞、唯一运动与安全定位出口，每tick最多一次move_and_slide |
-| Jump / Shoot / Recoil / AirFocusAbility | 各自动作规则、冷却与持续状态；启停/次数配置，慢时与金黄遮罩保留原型实验 |
-| Health / Stamina / ActionResources | 三份独立状态/配置/变更事件；精力用途未定，动作不默认消耗精力 |
-| Actor / Damageable / AI | Actor组合Health/Hurtbox/Faction/Motor/能力；AI输出ActorIntent，不读取玩家输入 |
-| StageContext（演进自WorldContext） | 显式局部服务引用、run/stage token、游戏clock、对象注册/状态；段回退不能reset全世界 |
-| Presentation | 订阅具体结果，控制动画/光效/声音/遮罩；不决定玩法或时间倍率 |
+| 输入和移动 | 输入适配器 → Router → PlayerController/能力 → PlayerMotor；Motor 唯一执行运动与碰撞 |
+| 生命、资源、伤害 | 原资源状态与 DamagePolicy/FrameDamagePolicy；地图只装配、提交请求 |
+| 本局金币 | RunWallet；Shop 与道具收益提交钱包命令，不从外部改余额 |
+| 库存与配装 | RunInventory 持有实例/效果进度并负责受限事务恢复；BuildState 负责生效，EquipmentService 负责装备选择和容量 |
+| 道具效果 | 原目录/authoring 是定义权威；ItemRuntime 编排效果族。Active/Companion 共用 ItemActiveCast，Time 只获得 ItemTimeContext 的窄能力 |
+| 购买与重放 | ShopService 负责报价、付款与购买收据；四种操作共用已有 transaction replay 实现 |
+| 奖励与永久成长 | RewardService、既有来源账本、SupplyHealEffect、MetaProgression；拾取和宝箱共用底层提交，但保留不同领取/反馈协议 |
+| 普通怪和 Boss | 原 Registry/Factory 与 Definition；Actor/Behavior 负责快照和恢复，地图不再逐字段写普通怪内部状态 |
+| 地图状态 | 既有 PlainsRegionState/区域状态及原 Manifest；不创建第二份存档或随机流 |
+| 音频与入口释放 | 局部 GameAudio 宿主和既有选定音效服务；WorldAudioLifecycle 是生产与测试共用的释放实现 |
 
-现有WorldContext.respawn的全对象reset、PlayerController.die快速检查点复活只属于尚待隔离的旧灰盒。阶段2将环境碰撞从直接die迁移到DamagePolicy；显式LEGACY_INSTANT_DEATH只能测试，正式健康/死亡不复用旧全场景reset。
+不要把 RunSession 传给所有模块任意取用。装配层只注入实际需要的服务；UI、音效和视觉不能拥有第二份伤害、余额、冷却或奖励规则。
 
-## 运行与内容服务
+## 需要保留的差异
 
-| 职责 | 所有权与输入输出 |
-| --- | --- |
-| RunDirector | RunLifetime/RunState、一局与主题/小关、唯一转场、胜负；SelectExit→StageTransitionCommitted，RunEnd→Home |
-| BiomeDefinition | 主题与内容池，不拥有运行状态，不等于StageType |
-| StageTypeDefinition + StageRule | 类型、图标、完成条件/奖励/出口策略；注册新规则组件，Loader不堆类型switch |
-| RoutePlanner | ExitOffer数组（默认两个、后续可配置）、节奏、Boss必达；独立route随机流 |
-| LevelGenerator | Biome+Type+能力快照+seed→LevelDefinition与StageManifest；独立map流，有界失败与验证保底 |
-| RewardService | RewardOffer/领取组/稀有度与幂等收据；独立reward流与RunLedger |
-| ShopService | 报价/币种/库存/购买与收据；独立shop流，原子扣币/效果/库存 |
-| BuildState + ModifierResolver | 本局道具/技能/武器及来源修正；从基础重算，可撤销，不修改玩家脚本 |
-| DamagePolicy | 按物理tick收集/排序/去重与两类伤害/终局优先级；Health只数值结算 |
-| SegmentRespawn | 挑战段安全锚点、输入/运动清理及actor_epoch；不拥有场景整体reset |
-| BossEncounter | 战斗开关/阶段/攻击/BossArena与defeat_id；奖励交RewardService，胜负交RunDirector |
-| MetaProgression + RunPolicy | 永久升级/解锁/剧情与本局结算边界；未决定经济不自动转币 |
-| SaveService / StorageAdapter | Profile版本/迁移/幂等提交与原子存储；云/Steam适配独立、可缺省 |
+同类功能不一定具有相同合同。商店分层抽样与物品池归一加权抽样使用不同随机调用序列；拾取和宝箱的收据、满血处理、音效条件不同；Boss 招式、织蛛/跨枝怪恢复、灰盒全场重置各有明确政策。这些差异不能为了减少代码行数合成带大量开关的万能函数。
 
-## 类型化数据与事件
+旧版本回放使用显式版本边界。v11 历史 charger 定义漂移是单独修复：原 SHA/28×32 和当前 28×28 同时由原 Registry 明确选择，未知版本拒绝。正式图声保持用户已采用版本；历史预览的素材不自动升级或删除。
 
-请求与结果采用具体Resource/RefCounted类型，不用无边界Dictionary事件总线。RunToken={run_id,run_epoch}；StageToken另加stage_id/stage_epoch；ActorToken再加actor_id/actor_epoch。奖励账本属于run/stage，不随actor_epoch重置；持久事务用profile_id/revision/transaction_id，不能误用临时token。
+## 维护与验证
 
-局部typed signal例：DamagePolicy.damage_resolved(result:DamageResult)、SegmentRespawn.actor_returned(result:SegmentReturnResult)、RewardService.reward_claimed(receipt:RewardReceipt)、ShopService.purchase_committed(receipt:PurchaseReceipt)、BossEncounter.boss_defeated(result:BossResult)、RunDirector.run_ended(result:RunEndResult)、SaveService.save_committed(receipt:SaveReceipt)。对象只引用所需StageContext服务；表现/AI不凭同名全局signal串关。
+现有权威仍是 `config/player_tuning.json`、`config/input_profile.json`、实际 Definition、原目录及注册表。设计文档和检查契约不是第二份运行配置。不要再建立平行注册机制或复制默认数值。
 
-## 帧级提交顺序
+新增功能先找到所属模块及真实消费者：规则放在拥有该状态的模块，跨模块用例由应用或既有服务编排，表现消费已接受结果。出现第二个语义相同消费者时，迁移到同一实现并删除重复代码；不要只新增一个无人调用的 helper。
 
-输入意图→动作时钟/合法已提交资源→有序跳跃→释放射击→一次Motor移动/碰撞→收集所有Actor合法DamageRequest→确定性去重/批次Health结算→玩家零血终局→非致命环境段回退/怪物无敌→Boss胜利与StageRule完成→奖励/购买/出口逻辑提交→表现。死亡优先于未提交奖励/转场；双方同帧死亡暂定失败且无金奖励。具体批策略见damage_and_respawn，不由回调顺序决定。
-
-## 时间、随机与存储域
-
-普通物理/机关/攻击/冷却按60Hz游戏clock，现有慢时原型统一缩放Engine.time_scale，精力与慢时预算按真实秒。视觉淡入/淡出与输入保持实时响应；多慢时来源引入前建立统一所有权，不能Boss与能力互相覆盖。独立Stamina正式消费时钟由策略配置，用途待定。HEALTH-01已将AirFocus计量提取为独立StaminaState，由显式原型政策消费/恢复；移动/跳跃/射击不绑定消费。
-
-map/route/reward/shop及Boss攻击独立随机流；Seed和所有算法/内容/配置版本、实际路线/布局/候选/库存结果写完整RunManifest。内容复现与运行快照不同，版本缺失显式不兼容。局内与Meta存档数据共用schema、文件适配与云同步分层。
-
-## 跨平台与渐进迁移
-
-Godot Standard + 类型化GDScript不变。Android横屏当前优先，Windows为正式目标、Steam首发Windows，Linux/macOS/Steam Deck分别验证。三适配器只产统一意图，物理不依赖屏幕/设备，提示/死区/敏感度/映射独立；详见controls_contract。Web用于Android/iPhone快速迭代，不能证明Safari真机、APK性能或Windows实机通过。
-
-PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/地图/AI不调用Steam SDK。不实现完整Steamworks/商店发布，不要求Steam账号/SDK。SaveService不包含Steam标识，未来CloudSyncAdapter独立处理失败/冲突。
-
-先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式8关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD，以及scripts/enemies的Actor/AI/Intent/Motor/表现组合；Damageable兼容桥委托HealthState；scripts/{run,rewards,builds,damage,meta}已由固定demo消费，Meta仅内存摘要；save/generation仍按对应任务引入。
-
-
-## 随机地图空间与难度（设计接入）
-
-详见[生成权威](procedural_generation.md)、[模块蓝图](platforming_modules.md)与[候选难度](difficulty_profiles.md)。LevelGenerator以GenerationRequest快照调用LayoutPlanner/ModuleAssembler/LevelValidator，输出LevelDefinition与StageManifest；布局图/端口速度资源/危险相位、world_bounds和CameraProfile必须明确。主题、类型、横纵/方形拓扑、P/C/T/R预算分别组合。StageFactory只实例化验证结果，共用现有伤害/段回退/奖励/交易/Boss服务；Controller和Motor不认识生成器。
-
-CameraRig负责世界边界与预告视野，不改物理和输入意图；非单屏布局须先验证鼠标世界转换/触屏瞄准与顶底边界。随机关卡生成时固定参数快照，不让不同手机分辨率改变世界碰撞。各接口按任务实际消费者创建，正式生成流水线逐任务接入；独立RANDOM STAGE已实际消费RandomStageGenerator/RandomStageAssembler/StageCameraRig，不是完整正式类型/八关生成。
-
-静态样片当前实装：PlatformingModuleDefinition/PlatformingModulePort/PlatformingModule是上述契约的最小消费者；ModuleLab复用玩家和段回退提供固定模块试玩，不承担LayoutPlanner或StageFactory角色。已有动态锯轮/移动平台、实际全图CameraRig与版本化布局重放；本轮扩展不等尺寸微/大模块直接端口对接。仅停靠窄范围允许落脚面重叠，其余实体/危险包络交叉拒绝；端口是内部数据，试玩隐藏标记。验证证据按实际轨迹/Seed/设备区分，不冒称所有拓扑已通过。
-
-
-多端口与镜像接入：PlatformingModuleDefinition提供类型化entry_ports/exit_ports及canonical选择，ModuleReflection只反射数据；RandomStageAssembler消费记录的反射和端口，RandomStagePreview消费过滤后的终端world_exits并记录唯一chosen_exit_id。资源/输入/Motor与选择结算分别管理，练习多终点不更新正式Run/Meta。正式RoutePlanner出口数量未来配置化，当前固定demo默认两选项不变。
-
-
-## 历史平原区域美术接入（ART-PLAINS-01）
-
-本节记录旧美术接入。八关消费者已退休；当前正式两图与美术方向以[当前状态](current_state.md)及[美术地基](art_foundation_v1.md)为准。
-
-用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
-
-PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。本轮平原随机八关消费者复用该皮肤，固定回归与独立练习保留。手机美术可读性/性能及风格最终确认仍待用户试玩；最新手绘PNG按已校准草木局部裁切接入，未通过接缝的岩填充仍不用，未支持独立瞄准的角色候选不强行替换。
-
-
-## 世界/地区/剧情职责
-
-世界区域白名单与故事层级来自[世界锚点](world_and_story.md)及design-only目录，不是万能全局管理器。未来BiomeRoutePlanner负责跨地区候选，现有RoutePlanner负责小关类型；RunDirector拥有阶段/唯一切换和终局。StoryService局部去重发现、StoryDefinition保存层级与等效投放、MetaProgression保存已发现集合、SaveService负责实际持久提交；表现不能决定胜负/奖励。只在后续任务有消费者时实现这些接口，不本轮创建16个空场景。
-
-
-## 当前区域与音符职责
-
-正式入口由 DemoApp 编排 PlainsRegionGenerator / ThornForestRegionGenerator 与对应 RegionStage / Assembler，按地区和地图索引消费版本化 Manifest。RandomStageGenerator 与 GeneratedDemoStage 继续服务共享模块和三段快速演示。旧 PlainsStageGenerator 八房间链已删除。伤害批次后处理拾取请求，死亡取消当帧未提交动作；镜头与出界检测来自实际 world_bounds。
-
-RunWallet拥有金币；MetaProgression拥有音符/永久升级/收据，MetaSaveService负责版本与存储适配，不隐式转换。永久升级通过新局HealthDefinition克隆基础注入，然后BuildState捕获基线；临时道具来源撤销不消除永久基线，不直接改PlayerController。Boss核心固定、随机入口与阶段/伤害/金奖职责分离。
-
-历史 D065 的 PlainsBlueprintSchedule / PlainsBranchLayout 与专属八房间配置、验证已退休。[趣味性切片](plains_playful_blueprints.md)保留当时的设计和证据；当前模块、随机流与保存职责见[模块地图](module_map.md)。
+验证沿现有 Harness：静态边界检查、原行为回归、版本/随机/恢复、所有入口、真实导出及 PCK 隔离加载分别给证据。静态扫描公开列出动态加载，不能代替引擎；原生通过不能代签 Web、实体设备或用户手感。原断言、预算、失败日志必须保留。

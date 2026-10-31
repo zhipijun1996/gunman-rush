@@ -132,6 +132,8 @@ def inspect(root):
         if len(parts) > 2 and parts[0] == "game" and parts[1] in CORE:
             if target in application or target.startswith("experiments/"):
                 errors.append(f"Core module depends on entry/composition: {source} -> {target}")
+        elif len(parts) > 2 and parts[0] == "game" and parts[1] != "application" and target.startswith("experiments/"):
+            errors.append(f"Shared module depends on experiment: {source} -> {target}")
     return {"files": len(texts), "classes": classes,
             "edges": [{"source": a, "target": b, "kind": c} for a, b, c in sorted(edges)],
             "dynamic_loads": dynamic, "errors": errors,

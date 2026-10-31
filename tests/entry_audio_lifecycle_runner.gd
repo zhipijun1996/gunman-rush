@@ -122,7 +122,7 @@ func _split_release() -> void:
 
 func _studies() -> void:
 	for entry: String in ["light_study","pixel_light_study","high_density_terrain_study","authored_terrain_study"]:
-		var packed := load("res://scenes/dev/"+entry+".tscn") as PackedScene
+		var packed := load("res://experiments/terrain/entries/"+entry+".tscn") as PackedScene
 		var study := packed.instantiate()
 		root.add_child(study)
 		var deadline := Time.get_ticks_msec()+15000
