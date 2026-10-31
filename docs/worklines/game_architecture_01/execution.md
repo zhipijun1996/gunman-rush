@@ -33,3 +33,9 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 - 原能量初始化失败无回滚、Inventory patch失败后效果拒绝的原事务局限、同帧音频停止限制单独保留，不混改玩法。
 
 每批回退父提交由Git历史真实记录；重构整体回退底座为2ce4ffa6。原dirty `/workspace/gunman-rush` 从未套用/覆盖。
+
+## 历史缺陷与后续对照
+
+源5a15414a：新历史v11真实App专项45/0、raw-export计划反例19/0；原完整forest-depth-versions、core、gear-inventory、item-v5-economy四项全部fresh通过。真实PCK仍待最终导出，不以源码计划代签。见[原始运行报告](../../evidence/game_architecture_02/legacy-and-shop-01/report.json)。
+
+正式道具退出泄漏二分首次出现在地图接口761adec5：其父f44无泄漏，但另有一次原心形多边形绘制错误，不记该运行全通过；2ce内容基线严格formal通过。解除Runtime/Assembler直接依赖环cd71c538（主树7b5ad80d）已独审并保模块循环逐语句顺序；对照仍57泄漏，明确不是泄漏修复。正在进一步定位，原失败全部保留。

@@ -1,0 +1,91 @@
+{
+  "reviewer": "items_refactor; independent of P6 implementation",
+  "scope": "P6 enemy snapshot/restore boundary and existing candidate registry, including real three-Stage and App consumers",
+  "implementation_commits": [
+    "f44f8eecf55d61b869c5fa94e85a464a07caf3ac",
+    "efb202db09b9c143781b553594660e11a97286e6"
+  ],
+  "consumer_integration_commit": "761adec5",
+  "reviewed_snapshot": "d8144d39fbee9b0f6166369f25399702ac7f8b20",
+  "comparison_baseline": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "mode": "Read-only source/immutable Git comparison. No Godot execution; no production/test/asset edits.",
+  "verdict": "ACCEPT_WITHIN_STATIC_SCOPE",
+  "blocking_findings": [],
+  "checks": [
+    {
+      "name": "actual_consumers",
+      "status": "passed",
+      "evidence": [
+        "scripts/demo/plains_region_stage.gd:287",
+        "scripts/demo/plains_environment_stage.gd:85",
+        "scripts/demo/thorn_forest_region_stage.gd:199",
+        "scripts/demo/demo_app.gd:693"
+      ],
+      "detail": "Plains and environment call region_snapshot(); forest calls region_snapshot(false,true). All three old enemy dictionary implementations were removed. App invokes behavior.restore_region_state after encounter binding and authored geometry setup."
+    },
+    {
+      "name": "snapshot_fields_order_types",
+      "status": "passed",
+      "detail": "Plains/environment retain health,position,state,state_time,cooldown,serial,locked_direction,attack_goal,attack_origin,home,direction in that order. Forest retains its eight-field subset omitting attack vectors. Outer fields are String keys; forest depth_state remains the original dot-appended StringName. efb202db fixes the interim dot-insertion regression; acceptance covers the corrected version."
+    },
+    {
+      "name": "local_position_and_defaults",
+      "status": "passed",
+      "detail": "All eight enemy scenes bind Actor.motor to NodePath(..); motor.position equals the original enemies[i].position. Health, scalar and no-attack vector defaults are unchanged. Snapshot does not reset/advance/cancel actor state or alter epoch."
+    },
+    {
+      "name": "restore_assignment_order",
+      "status": "passed",
+      "detail": "Independent normalization comparison found old App common assignments identical to EnemyAttackBehavior.restore_region_state after removing owner qualification: state, state_time, cooldown, serial, optional home, optional locked_direction/attack_goal/attack_origin, brain.direction, then depth validation."
+    },
+    {
+      "name": "weaver_rejection_partial_writes",
+      "status": "passed",
+      "evidence": [
+        "scripts/enemies/enemy_attack_behavior.gd:39",
+        "scripts/enemies/forest_bible_weaver_behavior.gd:114",
+        "scripts/demo/demo_app.gd:693"
+      ],
+      "detail": "Weaver validates depth fields against already-applied outer phase/time/cooldown/serial/home and authored strands. Failure intentionally leaves prior outer writes as the original App did, then returns false to the unchanged abandon-run path. No invented atomic rollback or geometry-from-save was introduced."
+    },
+    {
+      "name": "crossbranch_depth_authority",
+      "status": "passed",
+      "evidence": [
+        "scripts/enemies/forest_crossbranch_behavior.gd:201",
+        "scripts/enemies/forest_crossbranch_behavior.gd:218",
+        "scripts/demo/demo_app.gd:667"
+      ],
+      "detail": "Override skips all generic outer assignments, including home/facing, just as old App special-casing did. Actual depth validation/application is unchanged, including geometry validation before mutation and actor-epoch rebinding. Missing required depth remains rejected by App/Stage; the low-level optional extension method retains its historical no-op when absent."
+    },
+    {
+      "name": "surrounding_lifecycle",
+      "status": "passed",
+      "detail": "Stage still owns initial position and restore_instance_health before App behavior restore. Shore/transfer/strand/line setup occurs before restore; attack limits, presentation synchronization and contact attachment follow it. Snapshot extraction does not move boss/mechanism/drop/corpse state authority."
+    },
+    {
+      "name": "candidate_single_authority",
+      "status": "passed",
+      "detail": "Existing CANDIDATES mapping now supplies Factory candidate_recipe behavior rather than a duplicate behavior entry in CANDIDATE_RECIPES. Registry tables, rejection, scene/definition/strategy selection are unchanged. Actual Lab and Studio consumers still use EnemyFactory.create_candidate. Lab/review vs Studio authored widths, movement and guard flags remain intentionally distinct."
+    }
+  ],
+  "verification": {
+    "independent_static_script": "/workspace/refactor-evidence/entity-boundary-independent-static-checks.json",
+    "native_by_reviewer": "not_run; root owns engine lease",
+    "native_reported_by_root": "Existing enemy_region_state_runner completed 61 checks, 0 failures. This report does not convert that into a reviewer-run claim.",
+    "limits": "The new native runner is an explicit real-Actor fixture, not a natural three-Stage/App playthrough. Consumer tracing here is static. Overall formal cleanup leak was bisected by root to P3 and remains a separate integration blocker; this review does not approve release."
+  },
+  "source_sha256": {
+    "scripts/enemies/enemy_actor.gd": "07a58a89c99be3997b5a84fd4bddfe57fae7120fbd40b2214fa7eaa12598f452",
+    "scripts/enemies/enemy_attack_behavior.gd": "22d5c17e73f11d002781f0ece2e851f14631b7173bb88d043a087c80a6b0bfcb",
+    "scripts/enemies/enemy_behavior_registry.gd": "984a38d3aaf20f474ff7a04a06da2ceefa11e7b10c13236e44f9f3dae71becac",
+    "scripts/enemies/enemy_factory.gd": "673d2fefe454378f41f79ac900dc4bc69801e780e5db7333c2983a359712a2ac",
+    "scripts/enemies/forest_crossbranch_behavior.gd": "fb399626ef1d79681eba74ca16c82a584cf1d224463e7a4a3ad8e64fdfe868af",
+    "scripts/enemies/forest_bible_weaver_behavior.gd": "f5414fed8e9814db74b74266317606d803e8cd97428ca71098f865ccd5a9bfde",
+    "scripts/demo/plains_region_stage.gd": "37787044e80ee5955bdfd4ebbce7acefb5a9a9b5823638bd9e8d436e4ea404ae",
+    "scripts/demo/plains_environment_stage.gd": "b0e0c426c419aad3b8ec27bf65499ff7b0a337ed01ce7a4147cf7b5ee613665e",
+    "scripts/demo/thorn_forest_region_stage.gd": "9c92885fb1eed4b7df35d912f0946e3ec293cce3b9350856c1691ac6e876c2a4",
+    "scripts/demo/demo_app.gd": "944ffcbe41175656e420447590edd1517a729b4cf56dc130a01324a311bff136",
+    "tests/enemy_region_state_runner.gd": "42da387cbe481d17ab8cbbeb91b580101c9671216f9ef59a1c3c4e00b6a7b77a"
+  }
+}

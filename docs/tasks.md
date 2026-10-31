@@ -738,3 +738,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | GAME-ARCH-AUDIO-01 | 单独修复已知音频宿主串用与按钮重复触发；不改音频资源 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-AUDIO-01.json) |
 
 | GAME-ARCH-MESH-01 | 同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-MESH-01.json) |
+
+| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | in_progress | /root/runtime_audit | 原完整versions、新45/0与导出计划19/0已过；最终实际PCK待验 |

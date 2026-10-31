@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-V11-DEFINITION-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "7b5ad80d6804db7850ef8cfeb0dc761646ee80b8",
+  "content_version": "candidate-v1",
+  "owner": "/root/runtime_audit",
+  "purpose": "修复已记录v11地图意外使用当前charger定义的历史版本混用；源与实际实体使用原revision",
+  "player_experience": "仅历史v11恢复原28×32；当前和v15保持28×28；未知revision明确拒绝",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "addons/runtime_raw_export/raw_exporter.gd",
+    "docs/worklines/forest_v11_definition_lock_01/issue.md",
+    "export_presets.cfg",
+    "game/world/level_plan.gd",
+    "game/world/level_runtime.gd",
+    "game/world/providers/legacy_region_plan_adapter.gd",
+    "resources/enemies/legacy/plains_charger_v2.tres",
+    "scripts/enemies/enemy_behavior_registry.gd",
+    "scripts/enemies/enemy_factory.gd",
+    "scripts/generation/thorn_forest_region_v2_v10.gd",
+    "scripts/generation/thorn_forest_region_v2_v11.gd",
+    "tests/forest_v11_definition_runner.gd",
+    "tests/forest_v11_definition_runner.gd.uid",
+    "tests/recorded_enemy_raw_export_runner.gd",
+    "tests/recorded_enemy_raw_export_runner.gd.uid",
+    "tools/check_recorded_enemy_pack.gd",
+    "tools/check_recorded_enemy_pack.gd.uid"
+  ],
+  "deliverables": [
+    "原fixture及原SHA不变的生成与实际实体恢复",
+    "沿唯一Registry和既有raw exporter保留导出原字节",
+    "原版本回归和独立原生/实际PCK验证"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "实际最终PCK与隔离探针待验证",
+    "最终整合完整CI待验证",
+    "v7/v9/v10其他历史定义潜在漂移另列，不扩大本修复"
+  ]
+}
