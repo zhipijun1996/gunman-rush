@@ -1,0 +1,65 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "file": "tests/enemy_hit_template_tests.gd",
+  "original_sha256": "122af06da2760afd6da88121d5e5cc308554e6e81a1acfd823dd723053c2aa29",
+  "candidate_sha256": "afcd040b0903e52dfc336009f93d07e2ed07edb84b8d48957241572011dfc026",
+  "patch_sha256": "02192564f1b5eecb6554712f0e563f546c454b3a496ece570ac4c379395923a6",
+  "source_comparison": [
+    {
+      "baseline": "scripts/enemies/root_bell_presentation.gd",
+      "current": "game/enemies/presentation/root_bell_presentation.gd",
+      "baseline_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+      "current_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+      "whole_file_equal": true
+    },
+    {
+      "baseline": "scripts/enemies/plains_revision_visual.gd",
+      "current": "game/enemies/presentation/plains_revision_visual.gd",
+      "baseline_sha256": "4634f96cdeeaf7cf595c08fe258e878eaedf7f9b8a0d49f3abdbbd7adce9f4c5",
+      "current_sha256": "28faf90ec5c9a9872bea04797ec780ce0a8a4beaf9b2df3bb05027bbf9bb71df",
+      "whole_file_equal": false
+    },
+    {
+      "baseline": "scripts/bosses/windkeeper_damageable.gd",
+      "current": "game/bosses/windkeeper/windkeeper_damageable.gd",
+      "baseline_sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+      "current_sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+      "whole_file_equal": true
+    },
+    {
+      "baseline": "scripts/bosses/windkeeper_encounter.gd",
+      "current": "game/bosses/windkeeper/windkeeper_encounter.gd",
+      "baseline_sha256": "432d6cb2441ef740e6ed5b16241494b58ca74bec3464051e21d2bec813cf9e24",
+      "current_sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+      "whole_file_equal": false
+    },
+    {
+      "baseline": "scripts/bosses/bellstrider_encounter.gd",
+      "current": "game/bosses/bellstrider/bellstrider_encounter.gd",
+      "baseline_sha256": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d",
+      "current_sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+      "whole_file_equal": false
+    }
+  ],
+  "baseline_test_equals_current_after_only_reviewed_delta6_scene_resolution": true,
+  "baseline_native_status": "Not run; same stale source contracts exist in exact2ce, not a claim that the original2ce native suite was run or failed.",
+  "original_failure": {
+    "assertions": 380,
+    "failures": 4,
+    "log_sha256": "865e652e876b79642a0cb29bea7820ce37d9228e6e624ec944bb04f093b07d65"
+  },
+  "changes": {
+    "root_bell": "Read existing typed RootBellPresentation.revision_visual.sample/particles when the actual current skin installed them; retain generic and feedback_sample fallback for every other chain. Do not install a second sample/template.",
+    "bell": "Retain inactive body/armour refusal and original explicit vulnerable state fixture. For accepted,duplicate,lethal requests only, select actual installed BellCore Damageable and its actual posed world point. Its existing receive_damage forwards to the shared primary owner via receive_core; other Boss receivers and historical Windkeeper core path remain unchanged."
+  },
+  "verification": {
+    "whole_source_inverse_exact": true,
+    "all_original_check_lines_equal": true,
+    "check_call_lines_including_definition": 28,
+    "original_loops_frames_damage_amounts_and_thresholds_equal": true,
+    "main_unchanged": true
+  },
+  "native_boundary": "Previously missing RootBell sample caused early return, so repaired runner will execute additional original checks; do not freeze marker at380 or describe original checks as removed. Root/runtime owns original90-second native test and strict cleanup. No engine executed by author.",
+  "authority": "RootBell sample still sole PlainsRevisionVisual sample and particles; Bell primary still sole Health/epoch/policy owner. No production, registry, resources, collision, damage, cue or RNG changes.",
+  "independent_review": "pending"
+}

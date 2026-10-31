@@ -1,0 +1,66 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_CURRENT_TEST_CONSUMERS_NATIVE_PENDING",
+  "file": "tests/enemy_hit_template_tests.gd",
+  "original_sha256": "122af06da2760afd6da88121d5e5cc308554e6e81a1acfd823dd723053c2aa29",
+  "candidate_sha256": "afcd040b0903e52dfc336009f93d07e2ed07edb84b8d48957241572011dfc026",
+  "patch_sha256": "02192564f1b5eecb6554712f0e563f546c454b3a496ece570ac4c379395923a6",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "checks": {
+    "patch_reverse_restores_entire_original": true,
+    "original_check_lines_identical": 28,
+    "baseline_test_only_prior_reviewed_registry_path_change": true,
+    "rootbell_and_windkeeper_damageable_entire_git_blobs_equal_current": true,
+    "baseline_core_install_and_core_rule_methods_equal_current": true,
+    "baseline_revision_visual_install_equal_current": true,
+    "source_vectors": [
+      {
+        "baseline": "scripts/enemies/root_bell_presentation.gd",
+        "current": "game/enemies/presentation/root_bell_presentation.gd",
+        "baseline_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+        "current_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+        "whole_file_equal": true
+      },
+      {
+        "baseline": "scripts/enemies/plains_revision_visual.gd",
+        "current": "game/enemies/presentation/plains_revision_visual.gd",
+        "baseline_sha256": "4634f96cdeeaf7cf595c08fe258e878eaedf7f9b8a0d49f3abdbbd7adce9f4c5",
+        "current_sha256": "28faf90ec5c9a9872bea04797ec780ce0a8a4beaf9b2df3bb05027bbf9bb71df",
+        "whole_file_equal": false
+      },
+      {
+        "baseline": "scripts/bosses/windkeeper_damageable.gd",
+        "current": "game/bosses/windkeeper/windkeeper_damageable.gd",
+        "baseline_sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+        "current_sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+        "whole_file_equal": true
+      },
+      {
+        "baseline": "scripts/bosses/windkeeper_encounter.gd",
+        "current": "game/bosses/windkeeper/windkeeper_encounter.gd",
+        "baseline_sha256": "432d6cb2441ef740e6ed5b16241494b58ca74bec3464051e21d2bec813cf9e24",
+        "current_sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+        "whole_file_equal": false
+      },
+      {
+        "baseline": "scripts/bosses/bellstrider_encounter.gd",
+        "current": "game/bosses/bellstrider/bellstrider_encounter.gd",
+        "baseline_sha256": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d",
+        "current_sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+        "whole_file_equal": false
+      }
+    ]
+  },
+  "semantics": {
+    "rootbell": "Reads existing sole revision_visual.sample and particles; original lifecycle owns sample. Generic/fallback paths retained. No installation or new state.",
+    "bell": "Bell-only installed BellCore Damageable shares primary actor_id and Health/epoch. Its receive_damage requires active/accepts_combat_damage and forwards primary.receive_core then original Damageable sink/dedup. Bell continuous_combat=true means candidate calls core.receive_damage, not direct core.receive_core. Original inactive primary-armour refusal check unchanged.",
+    "point": "Actual core_offset transformed by motor.to_global. Original amounts,event IDs,direction,explicit exposed fixture and all checks retained.",
+    "others": "Default receiver=encounter.damageable and target_point=motor.global_position preserve other Boss behavior. Original legacy noncontinuous Windkeeper direct receive_core remains."
+  },
+  "limits": [
+    "No engine/native/cleanup/full185 result signed; this runner is unregistered in full185.",
+    "Observed original380/4; restored RootBell early-return branch will execute additional original assertions. Do not freeze380 or remove checks.",
+    "Runtime must retain original90-second native cap and strict diagnostics."
+  ],
+  "main_written": false,
+  "raw_failure_log_sha256": "865e652e876b79642a0cb29bea7820ce37d9228e6e624ec944bb04f093b07d65"
+}

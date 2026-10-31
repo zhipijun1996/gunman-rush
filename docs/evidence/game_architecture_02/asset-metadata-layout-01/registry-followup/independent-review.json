@@ -1,0 +1,45 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_TWO_EXISTING_RECORD_SOURCE_BINDINGS",
+  "base_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "records": [
+    {
+      "path": "docs/quality/asset_records/demo_ui_01_r2_registry.json",
+      "before_sha256": "4dfd57c0eed52bf6918a655eacbcd9ad2b088d493e1739b25ef5a0cc83241289",
+      "candidate_sha256": "a36fa76b56f23d997a8c6bdd9748e8fd66d1f668fcbbfe585488638c07c5f5cb",
+      "only_changed_fields": [
+        "source_sha256",
+        "technical_followup"
+      ],
+      "content_version_unchanged": true,
+      "revision_impact_exact": true,
+      "all_other_original_fields_exact": true
+    },
+    {
+      "path": "docs/quality/asset_records/fine-space-05-asset-registry.json",
+      "before_sha256": "8726c0fd7383f48b37b78561a74f4598e816674b902ce35479e1b29e2df6bddb",
+      "candidate_sha256": "bbc4f19b7ce19632e01035140630b1dc39d80848d2b1c3f51f1684b33e7d38f5",
+      "only_changed_fields": [
+        "source_sha256",
+        "technical_followup"
+      ],
+      "content_version_unchanged": true,
+      "revision_impact_exact": true,
+      "all_other_original_fields_exact": true
+    }
+  ],
+  "patch_sha256": "8b0c24405211cbca2a01df5ddb4294a8b56b37190bb8cd37a5e346fd65b45cd1",
+  "proof_sha256": "85400c38613e4de320d6feabb3f98c968a7cc04d8f93a0299b53753a20eaf41f",
+  "verified": [
+    "Exactly source_sha256 update and additive technical_followup; removing followup/restoring sourceSHA recreates every original JSON field, including content_version/revision_impact/generation/status.",
+    "Two actual current parent records preserved byte-for-byte separately; previous manifest exactGit11254 ffca09 source. Older0a02/b090 archives unchanged and explicitly not claimed as current parents.",
+    "Actual current manifest62a1 source independently matches; reversing just261/267/271 existingrow.sha256 restores entire310-row original JSON including order and all other fields.",
+    "Original60-second quality checker final-overlay receipt/log integrity and exit0 verified; did not rerun checker."
+  ],
+  "scope": "Metadata provenance only; no new registry, runtime asset/version/media generation, artwork/listening/user/device acceptance or full185 claim. Prior1041-media proof inherited, not independently rehashed again in this followup.",
+  "limitations": [
+    "Review covers two record semantics plus linked parent/source provenance. Quality card/README editorial or complete15-file packaging not independently signed here.",
+    "External overlay first incomplete-evidence failure remains history; final targeted quality pass does not retroactively erase it."
+  ],
+  "main_written": false,
+  "engine_run": false
+}

@@ -1,0 +1,103 @@
+{
+  "decision": "NO_STYLE27_CREATIVE30_OR_ASSET_RECORD_REBIND_REQUIRED_FOR_THIS_SINGLE_LEAF",
+  "scope": "Read-only finite source-binding impact; not code approval, native, style/art/audio/user acceptance or complete repo revalidation.",
+  "main_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "candidate_file": "game/enemies/presentation/root_bell_presentation.gd",
+  "original_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+  "candidate_sha256": "e68c50153c882b06e8c61aef82dfef997cb6f8bde9246506649008ffb9b7267b",
+  "candidate_patch_sha256": "31c312dd4488f42148fb92ce4ed9f7131a3c94c8adcfd3f882306418bcaeb58e",
+  "style_version": "27",
+  "creative_versions": [
+    "creative-v30",
+    "creative-v30"
+  ],
+  "runtime_reference_count": 206,
+  "target_matches": 0,
+  "binding_semantics": "supplemental_authority hashes each declared runtime_reference directly; no transitive GDScript hash in this authority. bind_region_bible derives from current registry/supplement identity. One unlisted leaf update does not change any declared reference byte.",
+  "live_files": [
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "b752da79e0cd969b31a67674b1dd39e356871eee1bf4f3a6f827475c2d9a0ab2"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+      "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "6eb10a96738b4a211604a127690f968215df6aabc1658b2546017fa4e4d01492"
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "738350970fafcf5fc04dcd4150967627385966171376b54dc81d55d823e1371f"
+    },
+    {
+      "path": "tools/region_style_history.py",
+      "sha256": "e8de43543961eb78afb35b4a8892ac4aeec5afd32af687ae725586cf0216c2fa"
+    },
+    {
+      "path": "tools/region_creative_direction.py",
+      "sha256": "f00ca5b608b1603555dfc5da31fb8d99c7afc456f327f433074aee26076c5d6f"
+    },
+    {
+      "path": "docs/quality/asset_records/v3-root-bell.json",
+      "sha256": "d386b9f1dea5bb2df5ea73e677726a0f791e94c45336a148d356b652f51bc6b5"
+    },
+    {
+      "path": "docs/quality/asset_records/v3-root-bell-burst.json",
+      "sha256": "6901ec7fcbd573ea49642017a500cb0ae25c875a381331dfd5f6b1b912d48b09"
+    },
+    {
+      "path": "tools/quality.py",
+      "sha256": "ca5788cd8b6c1463e06deff743afe1ef8e6efc37f51a6f7df5752a6f4a26cd18"
+    }
+  ],
+  "finite_archives": [
+    {
+      "path": "docs/creative_direction/archive/feature-layout-before-style26/manifest.json",
+      "sha256": "e7d7c7b016dea2f8a42f30736a40ecc89a625ec90715d0258a04ca42d1cb3ca9",
+      "rootbell_source_rows": []
+    },
+    {
+      "path": "docs/creative_direction/archive/feature-layout-before-style26/scene-reference-supplement/manifest.json",
+      "sha256": "0a893d58b17e1ddf96bb142cb52af9ac1f7325cb6b1ae07afb14596bd4859e8c",
+      "rootbell_source_rows": []
+    },
+    {
+      "path": "docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json",
+      "sha256": "28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229",
+      "rootbell_source_rows": []
+    }
+  ],
+  "asset_records": [
+    {
+      "path": "docs/quality/asset_records/v3-root-bell.json",
+      "runtime_paths_has_target": true,
+      "runtime_paths_contract": "Existence only at tools/quality.py:353; runtime path unchanged. No runtime source SHA field.",
+      "source_path": "assets/region_production_v3/enemies/root_bell/source/master.png",
+      "source_sha256": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca",
+      "associated_source_binding_contains_target": false,
+      "requires_change": false
+    },
+    {
+      "path": "docs/quality/asset_records/v3-root-bell-burst.json",
+      "runtime_paths_has_target": true,
+      "runtime_paths_contract": "Existence only at tools/quality.py:353; runtime path unchanged. No runtime source SHA field.",
+      "source_path": "assets/region_production_v3/enemies/root_bell_burst/source/master.png",
+      "source_sha256": "81faabec82277e630cdabefd3f34188d8be4177318e31dca87be832679482d74",
+      "associated_source_binding_contains_target": false,
+      "requires_change": false
+    }
+  ],
+  "required_binding_writes": [],
+  "retained": "Current206 roles/paths/SHA; current registry/two directions; all old styles/acceptance/archive; PNG/WAV/media bytes; two runtime_paths remain correct.",
+  "separate_task": "Original RootBell paused epoch restoration production defect; separate quality card/commit from CI consumer migration, evidence bind precise candidate/source SHA; native and independent code review remain pending.",
+  "not_claimed": [
+    "No native test performed",
+    "No actual old main run inferred from source equality",
+    "No all-media rehash performed; candidate patch modifies only one .gd leaf",
+    "No new visual/audio/user acceptance"
+  ],
+  "main_written": false,
+  "engine_run": false
+}

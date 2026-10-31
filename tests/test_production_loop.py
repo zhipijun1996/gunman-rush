@@ -848,7 +848,7 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         self.git('config', 'user.name', 'SIMULATED contract fixture')
         self.git('config', 'user.email', 'fixture@example.invalid')
         (self.main / 'tools').mkdir()
-        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py', 'level_region_context.py'):
+        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py', 'level_region_context.py', 'godot_identity.py'):
             (self.main / 'tools' / name).write_bytes((self.repo / 'tools' / name).read_bytes())
         (self.main / '.gitignore').write_text('build/\n__pycache__/\n')
         skill = self.main / '.agents/skills/gameplay-reviewer/SKILL.md'

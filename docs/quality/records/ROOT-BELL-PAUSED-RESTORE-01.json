@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "task_id": "ROOT-BELL-PAUSED-RESTORE-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "独立修复RootBell恢复新Health epoch时遗漏清除既有视觉命中粒子的原有缺陷；不归为保持行为不变的消费者迁移。",
+  "player_experience": "暂停恢复后不保留旧命中的视觉碎屑；现有命中、死亡和材质规则保持。",
+  "constraints": [
+    "不修改HP/碰撞/伤害/资源/奖励/RNG/存档/原图声/材质对象。",
+    "不修改原hit-template断言、暂停门禁、帧数或原flags；90秒是此次显式诊断cap，不冒称既有注册预算。独立缺陷不混入CI消费者保持行为记录。",
+    "仅新epoch初始化清理已有视觉粒子；同epoch同步和常规命中路径不新增重置。",
+    "保留原380/4及393/1失败；2ce目前仅源码同缺陷证明，未签2ce原生失败。"
+  ],
+  "affected_paths": [
+    "game/enemies/presentation/root_bell_presentation.gd"
+  ],
+  "deliverables": [
+    "单一现有初始化回调复用particles.clear_for_epoch",
+    "原393/1失败与候选原生结果分别保留",
+    "原2ce源证明、限定非作者独审与技术绑定检查"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Only the bounded paused-epoch particle defect and four recorded consumers validated; full185 separate.",
+      "evidence": [
+        "root-bell-actual-summary-json",
+        "root-bell-actual-application-json",
+        "root-bell-actual-source-before-json",
+        "root-bell-actual-source-after-json",
+        "root-bell-actual-hit-template-log",
+        "root-bell-actual-plains-lifecycle-log",
+        "root-bell-actual-original-related-01-receipt-json",
+        "root-bell-actual-original-related-01-report-json-gz",
+        "root-bell-actual-root-bell-current-log",
+        "root-bell-actual-plains-revision-deform-equivalence-log"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Non-author exact candidate review and no-media-binding-impact review archived; native results separately recorded.",
+      "evidence": [
+        "root-bell-independent-review-json",
+        "root-bell-binding-audit-json"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "paused-epoch-particles",
+      "gate": "G2",
+      "dimension": "technical",
+      "scenario": "实际RootBell受击后暂停并restore_instance_health",
+      "method": "原enemy_hit_template_tests完整原生断言及非作者独审",
+      "expected": "hurt/flash及active_bursts同步清零，host材质同实例，合法后续伤害/死亡保留",
+      "failure": "遗留粒子、等待解暂停才清理、修改任何游戏数值或弱化断言",
+      "status": "passed",
+      "reason": "Actual original hit393/0 and lifecycle112/0, with related original RootBell and deformation checks passed; original393/1 preserved.",
+      "evidence": [
+        "root-bell-actual-summary-json",
+        "root-bell-actual-application-json",
+        "root-bell-actual-source-before-json",
+        "root-bell-actual-source-after-json",
+        "root-bell-actual-hit-template-log",
+        "root-bell-actual-plains-lifecycle-log",
+        "root-bell-actual-original-related-01-receipt-json",
+        "root-bell-actual-original-related-01-report-json-gz",
+        "root-bell-actual-root-bell-current-log",
+        "root-bell-actual-plains-revision-deform-equivalence-log"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "root-bell-candidate-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/candidate.json",
+      "sha256": "0b8c3fc30c6562680958bda9d41af46f8f6218e4e4669e344daa5d0a69bb307c",
+      "kind": "spec",
+      "producer": "root/items_refactor, root/ci_audit, root/asset_audit; applied by root/runtime_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Preserved exact candidate, limited independent review/binding analysis or original native failure; current leaf hash separately recorded.",
+      "observed": "Evidence retained; does not certify native candidate or full185."
+    },
+    {
+      "id": "root-bell-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/candidate.patch",
+      "sha256": "31c312dd4488f42148fb92ce4ed9f7131a3c94c8adcfd3f882306418bcaeb58e",
+      "kind": "spec",
+      "producer": "root/items_refactor, root/ci_audit, root/asset_audit; applied by root/runtime_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Preserved exact candidate, limited independent review/binding analysis or original native failure; current leaf hash separately recorded.",
+      "observed": "Evidence retained; does not certify native candidate or full185."
+    },
+    {
+      "id": "root-bell-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/independent-review.json",
+      "sha256": "ebfd9b161b346dcd3747133cc58d678f38989a4983795e373d21757a68088036",
+      "kind": "review",
+      "producer": "root/items_refactor, root/ci_audit, root/asset_audit; applied by root/runtime_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Preserved exact candidate, limited independent review/binding analysis or original native failure; current leaf hash separately recorded.",
+      "observed": "Evidence retained; does not certify native candidate or full185.",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate agent independently read exact source candidate and baseline; reviewer did not author production change. Acceptance limited to recorded source/binding scope."
+    },
+    {
+      "id": "root-bell-binding-audit-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/binding-audit.json",
+      "sha256": "b4f5d2fabbb22ecf0cfd59d7de2c450cd84b954a40369aa77317199e15769516",
+      "kind": "review",
+      "producer": "root/items_refactor, root/ci_audit, root/asset_audit; applied by root/runtime_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Preserved exact candidate, limited independent review/binding analysis or original native failure; current leaf hash separately recorded.",
+      "observed": "Evidence retained; does not certify native candidate or full185.",
+      "reviewer": "/root/asset_audit",
+      "implementers": [
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate agent independently read exact source candidate and baseline; reviewer did not author production change. Acceptance limited to recorded source/binding scope."
+    },
+    {
+      "id": "root-bell-original-hit-380-4-log",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/original-hit-380-4.log",
+      "sha256": "865e652e876b79642a0cb29bea7820ce37d9228e6e624ec944bb04f093b07d65",
+      "kind": "runtime_trace",
+      "producer": "root/items_refactor, root/ci_audit, root/asset_audit; applied by root/runtime_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Preserved exact candidate, limited independent review/binding analysis or original native failure; current leaf hash separately recorded.",
+      "observed": "Evidence retained; does not certify native candidate or full185."
+    },
+    {
+      "id": "root-bell-original-hit-393-1-log",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/original-hit-393-1.log",
+      "sha256": "6aad88dcb6facf35cca5e1c0b97354c5280794495d7b27dd274268947ec094ea",
+      "kind": "runtime_trace",
+      "producer": "root/items_refactor, root/ci_audit, root/asset_audit; applied by root/runtime_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Preserved exact candidate, limited independent review/binding analysis or original native failure; current leaf hash separately recorded.",
+      "observed": "Evidence retained; does not certify native candidate or full185."
+    },
+    {
+      "id": "root-bell-actual-summary-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-summary.json",
+      "sha256": "ff3961b81d4a956eafa6787f306038c4f6d513bdcf2ab0c3b4e18d2db9e54f75",
+      "kind": "command",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification.",
+      "command": "python3 /workspace/refactor-evidence/root-bell-paused-restore-closeout-01.py",
+      "exit_code": 0,
+      "environment": "Frozen source vector cb111fd3ecdabb74ad19e229e5e5d168df03272af4259b8c2c31bfd440fbaadf, locked godot-4.7.2-gunman-sd1 Linux x86_64; original flags and listed original budgets / disclosed standalone diagnostic caps."
+    },
+    {
+      "id": "root-bell-actual-application-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-application.json",
+      "sha256": "f266bd9cba1a0eb8933c92074c12569c7616e44277b63d34cfa93fa0ba3ea68c",
+      "kind": "spec",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-source-before-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-source-before.json",
+      "sha256": "6359a0d6c8d4a1765d1d674a11ae7e1cc54a96be36889f0d4bfee64689195a65",
+      "kind": "spec",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-source-after-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-source-after.json",
+      "sha256": "6359a0d6c8d4a1765d1d674a11ae7e1cc54a96be36889f0d4bfee64689195a65",
+      "kind": "spec",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-hit-template-log",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-hit-template.log",
+      "sha256": "6a14a28c4d5c3826075f21b996fd8e0090e93e754943d40a1a3e942979ac4612",
+      "kind": "runtime_trace",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-plains-lifecycle-log",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-plains-lifecycle.log",
+      "sha256": "0e2686086f8c3ae7b9f3d5b407da97c11d64164a91b486558dcafa429d1e4891",
+      "kind": "runtime_trace",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-original-related-01-receipt-json",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-original-related-01.receipt.json",
+      "sha256": "4555ac1b554020aeff0e05210393cf0fa326ba6724e3cf54bd815b83550ad690",
+      "kind": "spec",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-original-related-01-report-json-gz",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-original-related-01.report.json.gz",
+      "sha256": "1afd8505602a929cccea229bd7bf5dfd8bc78898e2cd51d98612e08f9cde29fa",
+      "kind": "spec",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-root-bell-current-log",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-root-bell-current.log",
+      "sha256": "f3ccc41cdaa1b7a8de757e7a18f89bc07967ec0b2672fc109551a6d2b5236440",
+      "kind": "runtime_trace",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    },
+    {
+      "id": "root-bell-actual-plains-revision-deform-equivalence-log",
+      "path": "docs/evidence/game_architecture_02/root-bell-paused-restore-01/actual-plains-revision-deform-equivalence.log",
+      "sha256": "27dc8752b168c54bb747636efdf29ba74774e82ad4a02f3a129e0a2cd0083c81",
+      "kind": "runtime_trace",
+      "producer": "root/runtime_audit; existing original run_engine and Harness consumers",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1",
+      "method": "Frozen uncommitted exact leaf e68c5015; source vector in actual source-before/after. Original root-bell360 and deformation180; standalone original flags under disclosed90s diagnostic cap.",
+      "observed": "hit393/0, lifecycle112/0, root-bell-current and deformation passed strict; no full185/GUI/subjective certification."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整185、GUI/设备与正常速度视觉认可未验；有限技术通过不是整体完成。",
+    "R3原278/1及精确2ce targeted8/1独立保留，不能由本修复消除或覆盖。",
+    "源为11254基点上的冻结未提交候选；root后续独立提交/回退点和最终全量交付待完成。"
+  ],
+  "candidate_source": {
+    "base_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+    "state": "Applied exact independent original-defect fix; four finite original consumers passed under recorded unchanged source vector; not full185 or visual acceptance.",
+    "path": "game/enemies/presentation/root_bell_presentation.gd",
+    "sha256": "e68c50153c882b06e8c61aef82dfef997cb6f8bde9246506649008ffb9b7267b"
+  },
+  "discovered_by": "Existing hit-template runner reached original paused restore assertion after separate actual-owner fixture migration.",
+  "baseline_observation": {
+    "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+    "status": "source_same_omission_native_unverified",
+    "current_actual_failure": "393 assertions /1 failure; paused restoration clears all hit state without touching material"
+  }
+}

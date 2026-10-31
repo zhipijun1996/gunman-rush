@@ -1,0 +1,44 @@
+{
+  "invocation": "01-parallel-remaining",
+  "exit_code": 1,
+  "wall_seconds": 13.811,
+  "original_report": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/report.json",
+  "raw_sha256": "146cfab1c8ce55d013ede474b7fb09b729a8ea2c16a104bc200211466c82e945",
+  "raw_bytes": 28801,
+  "lossless_gzip": "/workspace/refactor-evidence/remaining-checks-preflight-02/01-parallel-remaining.report.json.gz",
+  "gzip_sha256": "0a6732f77a2a769d629f7b927b154e5c56c2f157cfddc06a474fa1d1ac8c10e0",
+  "checks": [
+    {
+      "id": "art-meadow_enemy_art",
+      "status": "passed",
+      "duration_seconds": 0.35,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-meadow_enemy_art.log"
+    },
+    {
+      "id": "art-plains_ground_art",
+      "status": "passed",
+      "duration_seconds": 0.295,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-plains_ground_art.log"
+    },
+    {
+      "id": "art-windkeeper_art",
+      "status": "passed",
+      "duration_seconds": 0.336,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-windkeeper_art.log"
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "status": "failed",
+      "duration_seconds": 0.288,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-plains_spatial_art.log"
+    }
+  ]
+}

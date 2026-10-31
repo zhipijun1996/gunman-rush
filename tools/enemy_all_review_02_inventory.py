@@ -49,7 +49,7 @@ def inventory():
     ordinary = []
     renderer_chains = []
     for ident in PLAINS + FOREST:
-        scene = f"scenes/enemies/{ident if ident in FOREST else 'patrol_drone'}.tscn"
+        scene = f"game/enemies/species/scenes/{ident}.tscn" if ident in FOREST else "game/enemies/scenes/patrol_drone.tscn"
         definition = file_info(f"resources/enemies/{ident}.tres")
         hosts = scene_info(scene)
         chains = ["scene", "underworld"] if ident in PLAINS else ["scene"]

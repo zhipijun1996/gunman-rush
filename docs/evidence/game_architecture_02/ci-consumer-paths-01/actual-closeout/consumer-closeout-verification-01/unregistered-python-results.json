@@ -1,0 +1,33 @@
+[
+  {
+    "id": "audio-source-closure",
+    "argv": [
+      "python3",
+      "tests/test_audio_reels_capture.py",
+      "SourceClosure"
+    ],
+    "diagnostic_cap_seconds": 30,
+    "original_registered_budget": null,
+    "exit_code": 0,
+    "seconds": 0.1111232229959569,
+    "status": "passed",
+    "log": "/workspace/refactor-evidence/consumer-closeout-verification-01/audio-source-closure.log",
+    "log_sha256": "1635a6194f78c5e89329e41ae3b95909ced52dd425f9291840b91d6deaa41ba0",
+    "registered_full185": false
+  },
+  {
+    "id": "directional-known-baseline",
+    "argv": [
+      "python3",
+      "tests/test_forest_directional_validator.py"
+    ],
+    "diagnostic_cap_seconds": 30,
+    "original_registered_budget": null,
+    "exit_code": 1,
+    "seconds": 0.2984480169980088,
+    "status": "failed_preexisting",
+    "log": "/workspace/refactor-evidence/consumer-closeout-verification-01/directional-known-baseline.log",
+    "log_sha256": "cc3f3dc8dc3a30bc8b675b6a255f1b002f7706d747f4da3c214f885b5ceb1cdc",
+    "registered_full185": false
+  }
+]

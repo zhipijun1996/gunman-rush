@@ -1,0 +1,131 @@
+{
+  "decision": "ACCEPT_LOADER_ONLY_WITH_PREEXISTING_SUITE_FAILURE_RETAINED",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "baseline_report_sha256": "7a98b641572977258f7addb853391abc5661c9b2df495012f225e810443a4eb4",
+  "exact_git_inputs_verified": [
+    {
+      "path": "tests/test_forest_directional_validator.py",
+      "sha256": "7597c5abb9488ac06d44cfaa4d0c01798ef51c87297cb39af05ea04b94106281",
+      "bytes": 36307
+    },
+    {
+      "path": "tools/run_forest_directional_golden.py",
+      "sha256": "eb35df0108540f0526de3899df0b99b97163fe0114124d22f24c902e77cb0bf0",
+      "bytes": 33065
+    },
+    {
+      "path": "scripts/generation/forest_directional_geometry.gd",
+      "sha256": "ea44b33daa27cfc8c46eba54648cf99cc7f4b7fa6391e57caa6ce48b15407bd7",
+      "bytes": 3782
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+      "bytes": 1029
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "bytes": 436
+    },
+    {
+      "path": "scripts/player/traversal_definition.gd",
+      "sha256": "5d212b12fd4ac72422addfa6d35de176ccae9e5f08593a8064a7f71be6183c49",
+      "bytes": 908
+    },
+    {
+      "path": "resources/player/plains_shot_energy.tres",
+      "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+      "bytes": 414
+    },
+    {
+      "path": "scripts/resources/definitions/shot_energy_definition.gd",
+      "sha256": "ecf7bb786c83652775cf11eb398eb3011462a73936c81defcb1cf0366896d17e",
+      "bytes": 530
+    },
+    {
+      "path": "resources/actors/prototype_health.tres",
+      "sha256": "75299fd7f1e089fbf82082652114789c8e503d942f5ad842991e317b4bf4dd41",
+      "bytes": 319
+    }
+  ],
+  "patch_sha256": "7ba134f2c93c196dc3a6c5f7114ed2dcb98e924907c33d4138067f171da6557e",
+  "candidate_sha256": "37069dcfb2165c7ec12567b5bb0c106ae3bcbc506c6c3ca12379005941cd966c",
+  "two_loader_changes_only": true,
+  "all_class_and_function_AST_unchanged": true,
+  "compressed_payload_sha256": "b194b9e9484349bc74c6853b03fc6d493699ea6cfe69037240969d6a9cd98388",
+  "current_test_before_loader_equals_baseline": true,
+  "current_tuning_bytes_equal_baseline": true,
+  "max_air_shots": 1,
+  "captured_shots": {
+    "intended": {
+      "frames": 290,
+      "shots_min": 1,
+      "shots_max": 2
+    },
+    "noH": {
+      "frames": 274,
+      "shots_min": 2,
+      "shots_max": 2
+    },
+    "naivejump": {
+      "frames": 222,
+      "shots_min": 2,
+      "shots_max": 2
+    },
+    "onlyR": {
+      "frames": 306,
+      "shots_min": 0,
+      "shots_max": 2
+    }
+  },
+  "registered_in_full185": false,
+  "tests": [
+    {
+      "label": "baseline-repeat",
+      "cwd": "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/baseline-2ce",
+      "argv": [
+        "python3",
+        "tests/test_forest_directional_validator.py"
+      ],
+      "timeout_seconds": 30,
+      "seconds": 0.3128563150021364,
+      "exit_code": 1,
+      "tests": 23,
+      "failures": 4,
+      "failure_names": [
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='intended')",
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='noH')",
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='naivejump')",
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='onlyR')"
+      ],
+      "log": "/workspace/refactor-evidence/directional-loader-runtime-baseline-repeat.log",
+      "log_sha256": "1068734e8e915a0b3d4ac98033d77e480ca11166926240eb82c7e16fab8a3f32"
+    },
+    {
+      "label": "current_loader_fixed",
+      "cwd": "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/overlay",
+      "argv": [
+        "python3",
+        "tests/test_forest_directional_validator.py"
+      ],
+      "timeout_seconds": 30,
+      "seconds": 0.2922337839991087,
+      "exit_code": 1,
+      "tests": 23,
+      "failures": 4,
+      "failure_names": [
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='intended')",
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='noH')",
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='naivejump')",
+        "test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='onlyR')"
+      ],
+      "log": "/workspace/refactor-evidence/directional-loader-runtime-current_loader_fixed.log",
+      "log_sha256": "e1896828ae573a96678741422369018d58b716260d818c3769d81c95a5a49723"
+    }
+  ],
+  "classification": "New sibling-helper import closure repaired. Four historical positive-capture subcases fail on exact2ce and current loader-fixed source with identical capacity and accepted-shot/reset errors: immutable captures reach2 shots against unchanged max1. Root cause of historical capture-generation discrepancy not proven beyond this mismatch; no recapture/resource/validator change performed.",
+  "scope": "No main writes/Godot/new full registration/native/GUI certification. Suite remains23tests4fail, not passing; existing payload/source claim dirty-overlay bee850c preserved.",
+  "review_probe_note": "First independent baseline also23/4; reviewer output-count assertion expected4 but matched both summary and diff8 occurrences. Narrowed pattern to diff lines; first log retained as directional-loader-runtime-baseline.log. No candidate change."
+}

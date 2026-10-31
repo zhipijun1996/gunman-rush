@@ -1,0 +1,1112 @@
+...............E..EE.EEEFFEFEEEEEFEEFE.FEE.EEEEEEEE.F..EEEEE..EEE.....[mov,mp4,m4a,3gp,3g2,mj2 @ 0x55e676d80ec0] moov atom not found
+/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/build/unit-visual-director-k2ku03bw/gameplay.mp4: Invalid data found when processing input
+.EEEEEEEEEEEEEEEEEEEEEEEE.EEEE.EE...............................
+======================================================================
+ERROR: test_invalid_direction_stops_before_allocating_calls (__main__.CreativeLoopTests.test_invalid_direction_stops_before_allocating_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 2000, in test_invalid_direction_stops_before_allocating_calls
+    mission["tasks"][0]["region_bible"] = fixture_bible({"region_id":"thorn_forest"})
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 1933, in fixture_bible
+    return bind_region_bible(ref["region_id"], root or loop.ROOT)[1]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 126, in bind_region_bible
+    data = load_bible_registry(root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 60, in load_bible_registry
+    data = strict_json(BIBLE_REGISTRY, root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 56, in strict_json
+    return json.loads(repository_file(path, root).read_bytes(), object_pairs_hook=unique_object)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 49, in repository_file
+    raise ValueError('Bible source and ancestors must not be symlinks')
+ValueError: Bible source and ancestors must not be symlinks
+
+======================================================================
+ERROR: test_rethink_and_discard_stop_only_dependent_work_and_resume_without_calls (__main__.CreativeLoopTests.test_rethink_and_discard_stop_only_dependent_work_and_resume_without_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 2070, in test_rethink_and_discard_stop_only_dependent_work_and_resume_without_calls
+    state = loop.run(mission, Path(tmp), worker)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_rework_keeps_original_bounds_and_quality_gate (__main__.CreativeLoopTests.test_rework_keeps_original_bounds_and_quality_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 2090, in test_rework_keeps_original_bounds_and_quality_gate
+    state = loop.run(mission, Path(tmp), worker)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_budget_before_invocation (__main__.LoopTests.test_budget_before_invocation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 98, in test_budget_before_invocation
+    state,calls=self.run_case([],m)
+                ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 60, in run_case
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_complete_dependency_cannot_be_incomplete_on_resume (__main__.LoopTests.test_complete_dependency_cannot_be_incomplete_on_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 356, in test_complete_dependency_cannot_be_incomplete_on_resume
+    folder=Path(tmp);state,worker=self.completed_fixture(folder,mission)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 313, in completed_fixture
+    return loop.run(mission,folder,worker),worker
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_complete_resume_rechecks_current_final_scope_quality (__main__.LoopTests.test_complete_resume_rechecks_current_final_scope_quality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 365, in test_complete_resume_rechecks_current_final_scope_quality
+    folder=Path(tmp);state,worker=self.completed_fixture(folder)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 313, in completed_fixture
+    return loop.run(mission,folder,worker),worker
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_dependencies_deliver_real_prior_result_and_resume_no_calls (__main__.LoopTests.test_dependencies_deliver_real_prior_result_and_resume_no_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 154, in test_dependencies_deliver_real_prior_result_and_resume_no_calls
+    state=loop.run(m,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_explicit_content_plan_stage_and_final_content_are_distinct (__main__.LoopTests.test_explicit_content_plan_stage_and_final_content_are_distinct)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 463, in test_explicit_content_plan_stage_and_final_content_are_distinct
+    m=content_plan('优化风铃平原')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/level_design.py", line 207, in content_plan
+    region_context = (build_region_context(region_id) if region_id is not None else
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/level_region_context.py", line 377, in build_region_context
+    raise ContextError(f"Missing/unsafe latest authority link: {target}")
+level_region_context.ContextError: Missing/unsafe latest authority link: ../../quality/action_budget_spec.md
+
+======================================================================
+ERROR: test_failed_check_repair_carries_feedback_and_skips_review (__main__.LoopTests.test_failed_check_repair_carries_feedback_and_skips_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 173, in test_failed_check_repair_carries_feedback_and_skips_review
+    state=loop.run(m,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues (__main__.LoopTests.test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 191, in test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues
+    state=loop.run(m,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_adapter_binding_and_role (__main__.LoopTests.test_host_adapter_binding_and_role)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 399, in test_host_adapter_binding_and_role
+    self.assertEqual(self.host_case()['status'],'ready_for_review')
+                     ^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 391, in host_case
+    result=loop.invoke_host(MISSION['tasks'][0],MISSION,'implement',folder,'{"dependencies":{}}')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_timeout_and_stale_response_rejected (__main__.LoopTests.test_host_timeout_and_stale_response_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 411, in test_host_timeout_and_stale_response_rejected
+    loop.invoke_host(m['tasks'][0],m,'implement',folder,'')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_incomplete_content_stops_after_technical_review (__main__.LoopTests.test_incomplete_content_stops_after_technical_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 242, in test_incomplete_content_stops_after_technical_review
+    state=loop.run(MISSION,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_independent_reject_is_reworked_with_original_findings (__main__.LoopTests.test_independent_reject_is_reworked_with_original_findings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 233, in test_independent_reject_is_reworked_with_original_findings
+    state=loop.run(m,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_interrupted_call_stays_blocked_and_consumes_budget (__main__.LoopTests.test_interrupted_call_stays_blocked_and_consumes_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 251, in test_interrupted_call_stays_blocked_and_consumes_budget
+    resumed=loop.run(MISSION,Path(tmp))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_invoke_launch_error_keeps_attempt_evidence (__main__.LoopTests.test_invoke_launch_error_keeps_attempt_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 134, in test_invoke_launch_error_keeps_attempt_evidence
+    with self.assertRaises(FileNotFoundError):loop.invoke(MISSION['tasks'][0],MISSION,'review',Path(tmp),'')
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 682, in invoke
+    prompt, skill_files, schema, output = prepare_call(task, mission, role, folder, feedback)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_invoke_timeout_always_writes_metadata (__main__.LoopTests.test_invoke_timeout_always_writes_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 127, in test_invoke_timeout_always_writes_metadata
+    loop.invoke(MISSION['tasks'][0],MISSION,'review',Path(tmp),'')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 682, in invoke
+    prompt, skill_files, schema, output = prepare_call(task, mission, role, folder, feedback)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_malformed_restored_rounds_rejected_without_repair (__main__.LoopTests.test_malformed_restored_rounds_rejected_without_repair)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 276, in test_malformed_restored_rounds_rejected_without_repair
+    folder=Path(tmp);state=loop.run(MISSION,folder,worker)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_modified_restored_call_budget_rejected_without_repair (__main__.LoopTests.test_modified_restored_call_budget_rejected_without_repair)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 260, in test_modified_restored_call_budget_rejected_without_repair
+    folder=Path(tmp);state=loop.run(MISSION,folder,worker)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='agent', reviewer='author-one')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 443, in test_prior_round_implementer_cannot_review_later_round
+    loop.run(mission,Path(tmp),worker)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='agent', reviewer='independent-two')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 446, in test_prior_round_implementer_cannot_review_later_round
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='thread', reviewer='author-one')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 443, in test_prior_round_implementer_cannot_review_later_round
+    loop.run(mission,Path(tmp),worker)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='thread', reviewer='independent-two')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 446, in test_prior_round_implementer_cannot_review_later_round
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_prior_task_implementer_cannot_review_dependent_task (__main__.LoopTests.test_prior_task_implementer_cannot_review_dependent_task)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 459, in test_prior_task_implementer_cannot_review_dependent_task
+    loop.run(mission,Path(tmp),worker)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_read_only_mutation_blocked (__main__.LoopTests.test_read_only_mutation_blocked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 112, in test_read_only_mutation_blocked
+    loop.run(MISSION,Path(tmp),lambda *a:{'status':'accept'})
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_route_prepares_registered_context_and_scoped_lessons (__main__.LoopTests.test_route_prepares_registered_context_and_scoped_lessons) (region='windchime_plains')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 474, in test_route_prepares_registered_context_and_scoped_lessons
+    mission=route_request(request)
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/level_design.py", line 429, in route_request
+    bible, bible_binding = bind_region_bible(region_id)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 126, in bind_region_bible
+    data = load_bible_registry(root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 60, in load_bible_registry
+    data = strict_json(BIBLE_REGISTRY, root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 56, in strict_json
+    return json.loads(repository_file(path, root).read_bytes(), object_pairs_hook=unique_object)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 49, in repository_file
+    raise ValueError('Bible source and ancestors must not be symlinks')
+ValueError: Bible source and ancestors must not be symlinks
+
+======================================================================
+ERROR: test_route_prepares_registered_context_and_scoped_lessons (__main__.LoopTests.test_route_prepares_registered_context_and_scoped_lessons) (region='thorn_forest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 474, in test_route_prepares_registered_context_and_scoped_lessons
+    mission=route_request(request)
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/level_design.py", line 429, in route_request
+    bible, bible_binding = bind_region_bible(region_id)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 126, in bind_region_bible
+    data = load_bible_registry(root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 60, in load_bible_registry
+    data = strict_json(BIBLE_REGISTRY, root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 56, in strict_json
+    return json.loads(repository_file(path, root).read_bytes(), object_pairs_hook=unique_object)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 49, in repository_file
+    raise ValueError('Bible source and ancestors must not be symlinks')
+ValueError: Bible source and ancestors must not be symlinks
+
+======================================================================
+ERROR: test_same_host_agent_cannot_review_itself (__main__.LoopTests.test_same_host_agent_cannot_review_itself)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 425, in test_same_host_agent_cannot_review_itself
+    loop.run(MISSION,Path(tmp),worker)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_scope_resume_cannot_forge_full_content_completion (__main__.LoopTests.test_scope_resume_cannot_forge_full_content_completion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 374, in test_scope_resume_cannot_forge_full_content_completion
+    folder=Path(tmp);state,worker=self.completed_fixture(folder)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 313, in completed_fixture
+    return loop.run(mission,folder,worker),worker
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_source_mutation_during_check_rejected (__main__.LoopTests.test_source_mutation_during_check_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 219, in test_source_mutation_during_check_rejected
+    loop.run(MISSION,Path(tmp),lambda *a:{'status':'ready_for_review','summary':'SIMULATED','findings':[]})
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_task_budget_caps_rework_without_refunding_failed_calls (__main__.LoopTests.test_task_budget_caps_rework_without_refunding_failed_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 207, in test_task_budget_caps_rework_without_refunding_failed_calls
+    state=loop.run(m,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_unknown_region_never_inherits_plains (__main__.LoopTests.test_unknown_region_never_inherits_plains)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 486, in test_unknown_region_never_inherits_plains
+    mission=route_request('制作未知的地下河地区')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/level_design.py", line 429, in route_request
+    bible, bible_binding = bind_region_bible(region_id)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 126, in bind_region_bible
+    data = load_bible_registry(root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 60, in load_bible_registry
+    data = strict_json(BIBLE_REGISTRY, root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 56, in strict_json
+    return json.loads(repository_file(path, root).read_bytes(), object_pairs_hook=unique_object)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/region_creative_direction.py", line 49, in repository_file
+    raise ValueError('Bible source and ancestors must not be symlinks')
+ValueError: Bible source and ancestors must not be symlinks
+
+======================================================================
+ERROR: test_worker_error_retains_consumed_call (__main__.LoopTests.test_worker_error_retains_consumed_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 117, in test_worker_error_retains_consumed_call
+    with self.assertRaises(RuntimeError):loop.run(MISSION,Path(tmp),fail)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_authentication_never_retries_even_with_retry_budget (__main__.PhaseRecoveryTests.test_authentication_never_retries_even_with_retry_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 747, in test_authentication_never_retries_even_with_retry_budget
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='result.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 683, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    loop.run(MISSION,folder,worker,stop_after_phase='checks')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='invocation.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 683, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    loop.run(MISSION,folder,worker,stop_after_phase='checks')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='docs.log')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 683, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    loop.run(MISSION,folder,worker,stop_after_phase='checks')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='checkpoint.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 683, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    loop.run(MISSION,folder,worker,stop_after_phase='checks')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_clean_implement_and_checks_checkpoint_resume_without_reimplementation (__main__.PhaseRecoveryTests.test_clean_implement_and_checks_checkpoint_resume_without_reimplementation) (phase='implement')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 665, in test_clean_implement_and_checks_checkpoint_resume_without_reimplementation
+    paused=loop.run(MISSION,folder,worker,stop_after_phase=phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_clean_implement_and_checks_checkpoint_resume_without_reimplementation (__main__.PhaseRecoveryTests.test_clean_implement_and_checks_checkpoint_resume_without_reimplementation) (phase='checks')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 665, in test_clean_implement_and_checks_checkpoint_resume_without_reimplementation
+    paused=loop.run(MISSION,folder,worker,stop_after_phase=phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_cli401_takes_precedence_over_disconnect_and_keeps_raw_events (__main__.PhaseRecoveryTests.test_cli401_takes_precedence_over_disconnect_and_keeps_raw_events)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 760, in test_cli401_takes_precedence_over_disconnect_and_keeps_raw_events
+    loop.invoke(MISSION['tasks'][0],MISSION,'implement',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 682, in invoke
+    prompt, skill_files, schema, output = prepare_call(task, mission, role, folder, feedback)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed (__main__.PhaseRecoveryTests.test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed) (mutation='failed-invocation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 637, in test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed (__main__.PhaseRecoveryTests.test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed) (mutation='same-identity')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 637, in test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed (__main__.PhaseRecoveryTests.test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed) (mutation='no-check-completion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 637, in test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_finished_completion_rejects_log_and_invocation_byte_changes (__main__.PhaseRecoveryTests.test_finished_completion_rejects_log_and_invocation_byte_changes) (artifact='docs.log')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 615, in test_finished_completion_rejects_log_and_invocation_byte_changes
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_finished_completion_rejects_log_and_invocation_byte_changes (__main__.PhaseRecoveryTests.test_finished_completion_rejects_log_and_invocation_byte_changes) (artifact='review/invocation.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 615, in test_finished_completion_rejects_log_and_invocation_byte_changes
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_finished_completion_rejects_log_and_invocation_byte_changes (__main__.PhaseRecoveryTests.test_finished_completion_rejects_log_and_invocation_byte_changes) (artifact='review/events.jsonl')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 615, in test_finished_completion_rejects_log_and_invocation_byte_changes
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_expiry_is_rechecked_after_response_read_and_result_write (__main__.PhaseRecoveryTests.test_host_expiry_is_rechecked_after_response_read_and_result_write) (race='parse')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 574, in test_host_expiry_is_rechecked_after_response_read_and_result_write
+    loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_expiry_is_rechecked_after_response_read_and_result_write (__main__.PhaseRecoveryTests.test_host_expiry_is_rechecked_after_response_read_and_result_write) (race='result-write')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 574, in test_host_expiry_is_rechecked_after_response_read_and_result_write
+    loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_revocation_races_response_parse_validation_and_result_commit (__main__.PhaseRecoveryTests.test_host_revocation_races_response_parse_validation_and_result_commit) (race='poll')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 549, in test_host_revocation_races_response_parse_validation_and_result_commit
+    loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_revocation_races_response_parse_validation_and_result_commit (__main__.PhaseRecoveryTests.test_host_revocation_races_response_parse_validation_and_result_commit) (race='parse')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 549, in test_host_revocation_races_response_parse_validation_and_result_commit
+    loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_revocation_races_response_parse_validation_and_result_commit (__main__.PhaseRecoveryTests.test_host_revocation_races_response_parse_validation_and_result_commit) (race='validation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 549, in test_host_revocation_races_response_parse_validation_and_result_commit
+    loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_host_revocation_races_response_parse_validation_and_result_commit (__main__.PhaseRecoveryTests.test_host_revocation_races_response_parse_validation_and_result_commit) (race='result-write')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 549, in test_host_revocation_races_response_parse_validation_and_result_commit
+    loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 613, in invoke_host
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 570, in prepare_call
+    skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_independent_package_continues_and_only_descendant_blocks (__main__.PhaseRecoveryTests.test_independent_package_continues_and_only_descendant_blocks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 717, in test_independent_package_continues_and_only_descendant_blocks
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt (__main__.PhaseRecoveryTests.test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt) (expired=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 810, in test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt
+    folder=Path(tmp);worker,calls=self.interrupted_review(folder,expired)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 804, in interrupted_review
+    with self.assertRaises(KeyboardInterrupt):loop.run(MISSION,folder,worker)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt (__main__.PhaseRecoveryTests.test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt) (expired=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 810, in test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt
+    folder=Path(tmp);worker,calls=self.interrupted_review(folder,expired)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 804, in interrupted_review
+    with self.assertRaises(KeyboardInterrupt):loop.run(MISSION,folder,worker)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_partial_check_checkpoint_only_reruns_interrupted_check (__main__.PhaseRecoveryTests.test_partial_check_checkpoint_only_reruns_interrupted_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 702, in test_partial_check_checkpoint_only_reruns_interrupted_check
+    with self.assertRaises(KeyboardInterrupt):loop.run(mission,folder,worker)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings (__main__.PhaseRecoveryTests.test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings) (missing='role_metadata')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 626, in test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings (__main__.PhaseRecoveryTests.test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings) (missing='check_logs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 626, in test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 608, in completed_metadata_fixture
+    state=loop.run(MISSION,folder,simulated)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried (__main__.PhaseRecoveryTests.test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried) (kind='transport')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 789, in test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried (__main__.PhaseRecoveryTests.test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried) (kind='worker_error')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 786, in test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried
+    with self.assertRaises(RuntimeError):loop.run(mission,Path(tmp),worker)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_transient_retry_is_bounded_consumes_calls_and_restores (__main__.PhaseRecoveryTests.test_transient_retry_is_bounded_consumes_calls_and_restores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 734, in test_transient_retry_is_bounded_consumes_calls_and_restores
+    folder=Path(tmp);state=loop.run(mission,folder,worker)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+ERROR: test_transient_with_source_mutation_is_not_automatically_replayed (__main__.PhaseRecoveryTests.test_transient_with_source_mutation_is_not_automatically_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 774, in test_transient_with_source_mutation_is_not_automatically_replayed
+    state=loop.run(mission,Path(tmp),worker)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/production_loop.py", line 73, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+======================================================================
+FAIL: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 31, in run
+    self.assertEqual(observed['status'], 'passed')
+AssertionError: 'blocked' != 'passed'
+- blocked
++ passed
+
+
+======================================================================
+FAIL: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 31, in run
+    self.assertEqual(observed['status'], 'passed')
+AssertionError: 'blocked' != 'passed'
+- blocked
++ passed
+
+
+======================================================================
+FAIL: test_empty_complete_state_cannot_skip_declared_tasks (__main__.LoopTests.test_empty_complete_state_cannot_skip_declared_tasks)
+----------------------------------------------------------------------
+ValueError: Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 304, in test_empty_complete_state_cannot_skip_declared_tasks
+    with self.assertRaisesRegex(ValueError,'completed declared tasks'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "completed declared tasks" does not match "Missing or external evidence: .agents/skills/gameplay-reviewer/SKILL.md"
+
+======================================================================
+FAIL: test_human_pending_not_done (__main__.LoopTests.test_human_pending_not_done)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 31, in run
+    self.assertEqual(observed['status'], 'passed')
+AssertionError: 'blocked' != 'passed'
+- blocked
++ passed
+
+
+======================================================================
+FAIL: test_independent_role_and_resume (__main__.LoopTests.test_independent_role_and_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 31, in run
+    self.assertEqual(observed['status'], 'passed')
+AssertionError: 'blocked' != 'passed'
+- blocked
++ passed
+
+
+======================================================================
+FAIL: test_invalid_lessons_and_ambiguous_regions_fail_closed (__main__.LoopTests.test_invalid_lessons_and_ambiguous_regions_fail_closed)
+----------------------------------------------------------------------
+ValueError: Bible source and ancestors must not be symlinks
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 494, in test_invalid_lessons_and_ambiguous_regions_fail_closed
+    with self.assertRaisesRegex(ValueError,'lesson evidence mismatch'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "lesson evidence mismatch" does not match "Bible source and ancestors must not be symlinks"
+
+======================================================================
+FAIL: test_reject_no_progress (__main__.LoopTests.test_reject_no_progress)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay/tests/test_production_loop.py", line 31, in run
+    self.assertEqual(observed['status'], 'passed')
+AssertionError: 'blocked' != 'passed'
+- blocked
++ passed
+
+
+----------------------------------------------------------------------
+Ran 115 tests in 26.182s
+
+FAILED (failures=7, errors=63)

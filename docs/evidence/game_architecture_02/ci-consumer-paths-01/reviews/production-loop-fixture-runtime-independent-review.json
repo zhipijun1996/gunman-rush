@@ -1,0 +1,39 @@
+{
+  "decision": "ACCEPT_LIMITED_FIXTURE_IMPORT_CLOSURE",
+  "reviewer": "runtime_audit independent of CI author",
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "candidate_sha256": "239d0e2d23d75ffd6d88f8364f123cabea16f452e1a55a5de4b91e23d12d9998",
+  "patch_sha256": "79a115566d0102a25fb6ba6a1ca15bce538ccacef0e9c43a465e62bd2ce38973",
+  "exact_change": "Only existing CompletedReviewCollectionTests.setUp copied tools tuple gains godot_identity.py. Inherited by SelectedInputPreflightTests. Removing that final AST literal restores whole original file AST.",
+  "all110_test_method_AST_identical": true,
+  "production_and_config_unmodified": true,
+  "real_dependency": "tools/production_loop.py top-level imports banner_pattern from godot_identity; helper has stdlib-only top-level imports and lazy configuration reads. These non-native temporary CLI cases need the real helper file, not invented config or permissive fallback.",
+  "original_failure_log_sha256": "f10662bd8481a1485eaed8062ddeb3bcce871ce8520a704c95ab9e458bc5141b",
+  "original_seven_failing_names_exactly_retested": true,
+  "independent_command": [
+    "python3",
+    "tests/test_production_loop.py",
+    "CompletedReviewCollectionTests.test_actual_cli_collector_preserves_creative_sources_and_terminal_rethink",
+    "CompletedReviewCollectionTests.test_actual_cli_collects_accept_into_existing_scope_finalization",
+    "CompletedReviewCollectionTests.test_actual_cli_collects_reject_without_new_calls_or_target_source_changes",
+    "CompletedReviewCollectionTests.test_actual_cli_unrelated_worktree_refuses_without_state_mutation",
+    "SelectedInputPreflightTests.test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization",
+    "SelectedInputPreflightTests.test_actual_sparse_cli_blocks_before_any_role_allocation_and_preserves_missing_path",
+    "SelectedInputPreflightTests.test_real_unreadable_source_snapshot_is_calls0_blocked_not_unknown_baseline"
+  ],
+  "cwd": "/workspace/refactor-evidence/production-loop-fixture-closure-candidate/overlay",
+  "exit_code": 0,
+  "seconds": 2.892,
+  "timeout_seconds": 180,
+  "PYTHONPATH_removed": true,
+  "log_sha256": "0cd41c6f54130b68e19c2c13b7121f8582806a444d6ab85ad2b7753b2a138d46",
+  "Godot_executed": false,
+  "main_modified": false,
+  "full115_status": "NOT accepted by this review. Author first whole115 external symlink overlay failed7/63 due existing strict source/Bible guards, preserved at actual-115-suite-01.log; root must run original115 on actual main after integration. No widening budgets or weakening guard.",
+  "does_not_certify": [
+    "full185",
+    "production loop whole115",
+    "GUI/native",
+    "all dynamic temporary CLI fixtures"
+  ]
+}

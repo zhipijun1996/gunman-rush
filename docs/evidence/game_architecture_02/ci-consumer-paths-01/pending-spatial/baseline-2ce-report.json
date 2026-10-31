@@ -1,0 +1,99 @@
+{
+  "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "scope": "Exact Git objects for original checker and every file read or tested for existence; external minimal checkout, not full repository/native/full-suite evidence.",
+  "command": [
+    "python3",
+    "tools/check_plains_spatial_art.py"
+  ],
+  "timeout_seconds": 120,
+  "exit_code": 1,
+  "duration_seconds": 0.113,
+  "inputs": [
+    {
+      "path": "assets/plains_v3/background_layers/hills.png",
+      "sha256": "9006535fe85103b5aaccb1916c069eaec881f4b885e364d396129b1802a6f82e",
+      "git_object": "485bf732df41f248d4e282672001f91146aa5f59",
+      "bytes": 2358998
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png",
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+      "git_object": "55fe169f9b95e6c0d33ee7f110d0be20922c5166",
+      "bytes": 2693554
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png.import",
+      "sha256": "fb53a651f9f7a4b5746f8370e289bbd65f40fe2d0450c776fade4d25f878506b",
+      "git_object": "9b55e053db9dce0a516974451acfd52361b3eb79",
+      "bytes": 948
+    },
+    {
+      "path": "assets/plains_v4/spatial/chassis.png",
+      "sha256": "42ed6ed092c4d21915bc80c644f320d4baace454930f4177f58b4a7697702aec",
+      "git_object": "d9e2d56ba02441d0e0b428ccc34efb465811d0b1",
+      "bytes": 2945609
+    },
+    {
+      "path": "assets/plains_v4/spatial/chassis.png.import",
+      "sha256": "ddcd90ae04162236ffd926f7fb0f724484020e14476f92a41e2f491e189a608a",
+      "git_object": "cc20305971ac4d6c0b95123a8f6cdb0f406b92c2",
+      "bytes": 951
+    },
+    {
+      "path": "assets/plains_v4/spatial/manifest.json",
+      "sha256": "43b92f2eab1329e4de841c869b08413519d44173734f9f9b00f0ccc79a0ae568",
+      "git_object": "3cc67a1f445f13ffa819af29579106967630ed64",
+      "bytes": 1913
+    },
+    {
+      "path": "assets/plains_v4/spatial/panorama.png",
+      "sha256": "990603b0c11db4948b4b1428f61ae87de12053d55bb63bc85a4f412ed4a99fa9",
+      "git_object": "503aaa04c6c9b392de566a9f3abfcbcaf38411c2",
+      "bytes": 2876802
+    },
+    {
+      "path": "assets/plains_v4/spatial/panorama.png.import",
+      "sha256": "a381edc61916b7970efb78cdd63828aee5dc0df7fe3b8094dbe9ac654be16b16",
+      "git_object": "75812a28963a16a0e9a1cf06e21da0460e9afab7",
+      "bytes": 954
+    },
+    {
+      "path": "assets/plains_v4/windkeeper/body_actions.png",
+      "sha256": "cae013243a94eb2e79a4e27e7efed75883ea92398942525ba97fdefa42dfb231",
+      "git_object": "4fed02d121ae11bdc38313166dec33b2a0a25eeb",
+      "bytes": 2770096
+    },
+    {
+      "path": "scripts/art/plains_depth.gdshader",
+      "sha256": "5378f01bf2009431dab0d5107f34fa0540e2e27a54f95e30c46e3302b6b4a403",
+      "git_object": "f3be011be164905713852945aeb30f7046f07d34",
+      "bytes": 322
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee",
+      "git_object": "e1d7f98acb9d890220272126650ff980245e9f3f",
+      "bytes": 14739
+    },
+    {
+      "path": "scripts/combat/player_projectile.gd",
+      "sha256": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+      "git_object": "61c5c909d699039f65b2b0a8bc8f2d042c609560",
+      "bytes": 8534
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "sha256": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e",
+      "git_object": "af2c39f4c5e7f65d67f67f3ca84dc820958085e7",
+      "bytes": 15128
+    },
+    {
+      "path": "tools/check_plains_spatial_art.py",
+      "sha256": "321ca364c3bf7d313948ba41c0488832021e3be24baa59f45d73e0a642dc7bfb",
+      "git_object": "708a93bb3b6b321c0cd4798c1b5855e08efb0d43",
+      "bytes": 1590
+    }
+  ],
+  "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/baseline-2ce/tools/check_plains_spatial_art.py\", line 20, in <module>\n    assert 'spatial/chassis.png' in (ROOT/'scripts/bosses/bellstrider_presentation.gd').read_text()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "log_sha256": "9dfd2326eb092ca73137a08f93c38101e3186d492555d0352167270e13689f6c"
+}

@@ -1,0 +1,613 @@
+{
+  "decision": "FINITE_STATIC_AUDIT_COMPLETE_ONE_ADDITIONAL_NON_FULL185_LOADER_DEFECT",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "profiles_sha256": "95e4e288dccd7a0acc72c00581474b591f91009dde0cb4d699780097a337d2b0",
+  "full_count": 185,
+  "root_worktree_has_other_pending_changes": true,
+  "scope": "16 actual tools godot_identity importers; test references, copy/write/tuple/sparse setup and relevant current full185 Python entries/wrappers reviewed. Read-only main, external evidence/candidate only.",
+  "importers": [
+    {
+      "path": "tools/build.py",
+      "sha256": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+      "imports": [
+        {
+          "line": 15,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_godot_identity.py",
+          "sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/capture_audio_ambience.py",
+      "sha256": "e1c17ee07a6aa4eadabced3f0e2a8f6b1f14f49e1c58f7a908d7537340667bd4",
+      "imports": [
+        {
+          "line": 5,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": []
+    },
+    {
+      "path": "tools/capture_audio_feedback.py",
+      "sha256": "f69b824b004f8e2d36ce3fa8466268b42f3a7e6bff4cc23880d94f2a2678625c",
+      "imports": [
+        {
+          "line": 5,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": []
+    },
+    {
+      "path": "tools/capture_audio_home.py",
+      "sha256": "de88eefb125819416e0ce2a8745cc232dc8592453f9cad1a7e8805f6b6f7eed0",
+      "imports": [
+        {
+          "line": 5,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": []
+    },
+    {
+      "path": "tools/capture_audio_hurt.py",
+      "sha256": "e493fc50ec092d749522f6eb9ff83b8e5b4799e6ed1edd9a68bbdc53b9281195",
+      "imports": [
+        {
+          "line": 5,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": []
+    },
+    {
+      "path": "tools/capture_audio_reels.py",
+      "sha256": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+      "imports": [
+        {
+          "line": 4,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_audio_reels_capture.py",
+          "sha256": "cb5f21f6914ffb99056223567a1450d45b7bca3ca325741130f9598b3aa19e5f",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/capture_forest_bible_route.py",
+      "sha256": "9400c901d1d12d22b21957d7a4a40f3c8c53169bfbb0ecf4890e82168da01eaf",
+      "imports": [
+        {
+          "line": 6,
+          "names": [
+            "expected_version"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_capture_forest_bible_route.py",
+          "sha256": "5fde2d0fa8011631bf56ca9901cfa443faafcf89f5349f9841763d535fcb87ca",
+          "direct_full_checks": [
+            "forest-bible-av-reader-tests"
+          ],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/capture_selected_audio.py",
+      "sha256": "96a4a1c77ccf81f0a9f727b7b51c89078ccf7f9e74b291ce05eb1fcd8554473c",
+      "imports": [
+        {
+          "line": 4,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": []
+    },
+    {
+      "path": "tools/check_environment.py",
+      "sha256": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+      "imports": [
+        {
+          "line": 12,
+          "names": [
+            "godot_identity"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_godot_identity.py",
+          "sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/harness.py",
+      "sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+      "imports": [
+        {
+          "line": 248,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "toolchain_identity"
+        },
+        {
+          "line": 627,
+          "names": [
+            "data_root"
+          ],
+          "scope": "isolated_workspace"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_forest_legacy_fixture.py",
+          "sha256": "70c077ad361a450d7114bad45611f58d323abda6ef8fcaac4f02806ccd5b7210",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_harness.py",
+          "sha256": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+          "direct_full_checks": [
+            "harness-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_harness_artifact_archive.py",
+          "sha256": "2ed6724e18a84e34d4c219987697ec7aaa4905a37a8789ebfc2d940deb91ebee",
+          "direct_full_checks": [
+            "harness-artifact-archive-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_production_loop.py",
+          "sha256": "3e26e73be70f003f1b1f6d6084c5a81add583b73fb254674c6ac0be1b6efd717",
+          "direct_full_checks": [
+            "production-loop-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_production_plan.py",
+          "sha256": "374347807aa9f7ae73fe8f467bc256fe55079243b5319c3160b407a82c9adeae",
+          "direct_full_checks": [
+            "cloud-production-planner-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_region_bible.py",
+          "sha256": "e250441176985cf4a5d04f0f24a68b30f8e9c7fd5c3cc641419cf4825f5ad722",
+          "direct_full_checks": [
+            "region-bible-tests"
+          ],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/level_content_pilot.py",
+      "sha256": "826ca08ed2c110354333c9af9a9a2567e0fc885a574941e501335e53c6bdf8a1",
+      "imports": [
+        {
+          "line": 36,
+          "names": [
+            "verified_engine"
+          ],
+          "scope": "engine_identity"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_level_content_contract.py",
+          "sha256": "3c79731cba46066f1a7573c79586663ba8f0abd4c774feb0bbc537229f5756ef",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": [
+            "ai-level-content",
+            "ai-level-pilot"
+          ]
+        },
+        {
+          "test": "tests/test_level_content_pipeline.py",
+          "sha256": "e1024338b6c634746b6fd855cd76734fca2668f8a8d71c04d6ec8baf1f3859e6",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": [
+            "ai-level-content",
+            "ai-level-pilot"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/level_design.py",
+      "sha256": "529107c00485d770526d1fdf898cb7e25f7a1ecdaa88cd584f78b129db824ff8",
+      "imports": [
+        {
+          "line": 39,
+          "names": [
+            "expected_version"
+          ],
+          "scope": "engine_log_matches"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_level_design_contracts.py",
+          "sha256": "08963779fbbcbdcb741aec1ede6e8f4a415c332286cc6126161998f36629dc6a",
+          "direct_full_checks": [
+            "level-design-contracts"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_level_design_routing.py",
+          "sha256": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+          "direct_full_checks": [
+            "level-design-routing"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_level_formal_receipts.py",
+          "sha256": "cbafbce21c9ece4af05de5d16356540d5c4950e385561449212b74a908f2f7b9",
+          "direct_full_checks": [
+            "level-formal-receipts"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_level_region_context.py",
+          "sha256": "4a045853c66bc9efe7d861caa05b9a922630f861d5a486042dd45fd292d6323d",
+          "direct_full_checks": [
+            "level-region-context"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_production_loop.py",
+          "sha256": "3e26e73be70f003f1b1f6d6084c5a81add583b73fb254674c6ac0be1b6efd717",
+          "direct_full_checks": [
+            "production-loop-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_region_bible.py",
+          "sha256": "e250441176985cf4a5d04f0f24a68b30f8e9c7fd5c3cc641419cf4825f5ad722",
+          "direct_full_checks": [
+            "region-bible-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_region_creative_direction.py",
+          "sha256": "04c2eab87ccb4f3e4006f9c192f4a2e70e8b92009e9235e3b2376310e1037696",
+          "direct_full_checks": [
+            "creative-direction-tests"
+          ],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_frame_pair.py",
+      "sha256": "2c6b247845c34033c39cac8c1713c5399463b572a1391c4d8252c367a94aa579",
+      "imports": [
+        {
+          "line": 23,
+          "names": [
+            "verify_templates"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": []
+    },
+    {
+      "path": "tools/production_loop.py",
+      "sha256": "874a3545d3bdcb2c666389fef118c7c0e8b6046dfd0069d472e6dd1705472f77",
+      "imports": [
+        {
+          "line": 2,
+          "names": [
+            "banner_pattern"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_level_design_contracts.py",
+          "sha256": "08963779fbbcbdcb741aec1ede6e8f4a415c332286cc6126161998f36629dc6a",
+          "direct_full_checks": [
+            "level-design-contracts"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_level_design_routing.py",
+          "sha256": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+          "direct_full_checks": [
+            "level-design-routing"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_mechanism_comparisons.py",
+          "sha256": "9ec646a8861d3fb9180a931141eac2cb02e956b78aef5de1b945824491e98562",
+          "direct_full_checks": [
+            "mechanism-comparisons"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_production_loop.py",
+          "sha256": "3e26e73be70f003f1b1f6d6084c5a81add583b73fb254674c6ac0be1b6efd717",
+          "direct_full_checks": [
+            "production-loop-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_production_snapshot.py",
+          "sha256": "63658935738e5d49002b8956b48cedfc03b433487604cd9d334ba70e0afb86ca",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_region_bible.py",
+          "sha256": "e250441176985cf4a5d04f0f24a68b30f8e9c7fd5c3cc641419cf4825f5ad722",
+          "direct_full_checks": [
+            "region-bible-tests"
+          ],
+          "explicit_wrapper_references": []
+        },
+        {
+          "test": "tests/test_region_creative_direction.py",
+          "sha256": "04c2eab87ccb4f3e4006f9c192f4a2e70e8b92009e9235e3b2376310e1037696",
+          "direct_full_checks": [
+            "creative-direction-tests"
+          ],
+          "explicit_wrapper_references": []
+        }
+      ]
+    },
+    {
+      "path": "tools/run_plains_action_golden_tests.py",
+      "sha256": "296a45bab64deac0524828cdd5ff2c54f07bc314696c6cf025b82202834e6f7c",
+      "imports": [
+        {
+          "line": 2,
+          "names": [
+            "banner_pattern"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_plains_encounter_policy_boundary.py",
+          "sha256": "25442b936ae84f68b288d93b441005d7628f36a303c8ec83e908d1b187db7a2c",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": [
+            "plains-encounter-policy"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/setup_environment.py",
+      "sha256": "1f67e3395ac8513153203136046ceec0b5753ff9e60ddcde7816c48322c611c0",
+      "imports": [
+        {
+          "line": 19,
+          "names": [
+            "godot_identity"
+          ],
+          "scope": "module"
+        }
+      ],
+      "test_references": [
+        {
+          "test": "tests/test_godot_identity.py",
+          "sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+          "direct_full_checks": [],
+          "explicit_wrapper_references": []
+        }
+      ]
+    }
+  ],
+  "reviewed_groups": [
+    {
+      "classification": "known_true_cli_fixture_defect_already_repaired_in_external_candidate",
+      "locations": [
+        "tests/test_production_loop.py:851",
+        "tests/test_production_loop.py:942",
+        "tests/test_production_loop.py:1231",
+        "tests/test_production_loop.py:1646"
+      ],
+      "reason": "CompletedReviewCollectionTests copies real CLI tools; inherited SelectedInputPreflightTests executes them in a child. Missing top-level godot_identity caused the seven observed failures. Existing finite candidate adds the real helper, no lazy config branch entered.",
+      "candidate_patch_sha256": "79a115566d0102a25fb6ba6a1ca15bce538ccacef0e9c43a465e62bd2ce38973",
+      "validation": "Original seven real CLI tests passed; independent runtime review accepted; full115 remains root-owned."
+    },
+    {
+      "classification": "new_defect_outside_full185",
+      "locations": [
+        "tests/test_audio_reels_capture.py:13",
+        "tools/capture_audio_reels.py:4"
+      ],
+      "reason": "Direct file-spec loader does not automatically prepend tools to sys.path; direct CLI fails before test collection even with actual helper present. Minimal candidate adds import sys and the same explicit tools path used by other direct test entries.",
+      "candidate": "audio-reels-loader-candidate.patch",
+      "candidate_sha256": "5533d952d752c4e1e8946cafee885cf42c961e4f593ac8d0f3844311e75b6d21",
+      "patch_sha256": "fc7e13fc896537fc94c37e3aafd233a80fe193301a39a6010a999856b011fb65",
+      "full185_member": false,
+      "environment_download26_member": false,
+      "validation": "Original SourceClosure invocation fails ModuleNotFoundError; candidate runs existing single SourceClosure test successfully without PYTHONPATH. ActualMovieReceipt deliberately not run without explicit real capture."
+    },
+    {
+      "classification": "correct_real_source_imports_not_reconstructed_cli",
+      "locations": [
+        "tests/test_capture_forest_bible_route.py:10",
+        "tests/test_level_design_routing.py:10",
+        "tests/test_level_design_contracts.py:12",
+        "tests/test_level_formal_receipts.py:11",
+        "tests/test_region_creative_direction.py:10",
+        "tests/test_mechanism_comparisons.py:8"
+      ],
+      "reason": "Current test entries explicitly prepend real tools and import current modules. Temporary documents/receipts and patched ROOT values are data, not child Python tool copies. Lazy engine_log_matches resolves actual helper/config via imported module, not temporary data root."
+    },
+    {
+      "classification": "mocked_branch_not_a_missing_dependency",
+      "locations": [
+        "tests/test_level_content_pipeline.py:384",
+        "tests/test_level_content_pipeline.py:397",
+        "tests/test_level_content_pipeline.py:413",
+        "tests/test_level_content_pipeline.py:423",
+        "tools/run_level_content_tests.py:124"
+      ],
+      "reason": "AI content unit fixtures write format-test strings at nominal tool paths to validate snapshot/digest invalidation, never execute those files; engine_identity is explicitly patched. Real --pilot engine path uses current imported module/verified_engine, distinct from pure fake fixtures."
+    },
+    {
+      "classification": "existing_harness_import_boundary_already_correct",
+      "locations": [
+        "tools/harness.py:24",
+        "tests/test_harness.py:14",
+        "tests/test_harness_artifact_archive.py:13",
+        "tests/test_harness.py:339"
+      ],
+      "reason": "Current Harness inserts its real module directory before lazy helper imports. SparseIsolation tests exercise imported Harness object and real copies/files via existing isolation protocol; no additional hand-copied current CLI list lacking helper found. Previously passed91 not rerun."
+    },
+    {
+      "classification": "historical_frozen_source_not_current_importer",
+      "locations": [
+        "tests/test_forest_legacy_fixture.py:464",
+        "tests/test_forest_legacy_fixture.py:473",
+        "tests/test_plains_encounter_policy_boundary.py:102",
+        "tools/run_plains_action_golden_tests.py:2"
+      ],
+      "reason": "Archived harness is loaded from its manifest/SHA-bound old tar; it is not a copy of current identity-importing harness. Frozen v9 restoration tests operate on retained source/data while current parent imports via tools path. Do not add current identity code to immutable old archives."
+    },
+    {
+      "classification": "existing_installation_gate_correct_separate_from_full185",
+      "locations": [
+        "tools/test_toolchain_download.py:82",
+        "tests/test_godot_identity.py:15",
+        "tests/test_godot_identity.py:141",
+        "tests/test_godot_identity.py:161",
+        ".github/workflows/environment.yml:57"
+      ],
+      "reason": "Existing environment check loads identity tests with actual tools path; test fixture contracts provide real selected recipe/patch/config and packaged synthetic bytes. Installer verification hooks mocked explicitly only where intended. Not another copied Python CLI import gap; passed26 not rerun."
+    },
+    {
+      "classification": "no_temporary_test_cli_found_in_this_finite_scan",
+      "locations": [
+        "tools/capture_audio_home.py",
+        "tools/capture_selected_audio.py",
+        "tools/capture_audio_hurt.py",
+        "tools/capture_audio_ambience.py",
+        "tools/capture_audio_feedback.py",
+        "tools/mobile_web_perf/prepare_frame_pair.py:22"
+      ],
+      "reason": "No matching test copy/tuple/sparse reconstruction invocation found in searched Python test/tool sources; direct tools invocations receive their own tools directory, nested frame-pair utility explicitly adds tools. This is not runtime verification of capture/export."
+    }
+  ],
+  "new_candidate": {
+    "path": "tests/test_audio_reels_capture.py",
+    "original_sha256": "cb5f21f6914ffb99056223567a1450d45b7bca3ca325741130f9598b3aa19e5f",
+    "candidate_sha256": "5533d952d752c4e1e8946cafee885cf42c961e4f593ac8d0f3844311e75b6d21",
+    "patch_sha256": "fc7e13fc896537fc94c37e3aafd233a80fe193301a39a6010a999856b011fb65",
+    "all_class_and_function_ast_unchanged": true,
+    "scope": "Existing direct-file test loader only: add real tools directory to sys.path before spec.exec_module. No production code or identity/config stubs. Does not add this test to full185.",
+    "tests": [
+      {
+        "label": "original",
+        "command": [
+          "python3",
+          "tests/test_audio_reels_capture.py",
+          "SourceClosure"
+        ],
+        "cwd": "/workspace/gunman-rush-refactor",
+        "exit_code": 1,
+        "seconds": 0.0985363080035313,
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/workspace/gunman-rush-refactor/tests/test_audio_reels_capture.py\", line 14, in <module>\n    capture=importlib.util.module_from_spec(spec);spec.loader.exec_module(capture)\n                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/workspace/gunman-rush-refactor/tools/capture_audio_reels.py\", line 4, in <module>\n    from godot_identity import verified_engine\nModuleNotFoundError: No module named 'godot_identity'\n"
+      },
+      {
+        "label": "candidate",
+        "command": [
+          "python3",
+          "tests/test_audio_reels_capture.py",
+          "SourceClosure"
+        ],
+        "cwd": "/workspace/refactor-evidence/identity-cli-fixture-audit-02/overlay",
+        "exit_code": 0,
+        "seconds": 0.11085652600013418,
+        "stdout": "",
+        "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nOK\n"
+      }
+    ],
+    "PYTHONPATH_removed": true,
+    "not_run": "ActualMovieReceipt needs explicitly supplied real trace; no full recording/engine tests executed."
+  },
+  "known_production_loop_candidate_not_duplicated": true,
+  "not_executed": [
+    "Godot",
+    "original Harness91",
+    "toolchain download26",
+    "full production loop115",
+    "full185",
+    "capture media/device validation"
+  ],
+  "limitations": [
+    "Finite static source audit, not a proof of all dynamic imports or future subprocess construction.",
+    "No automatic registration/deletion of audio reel receipt tests; their real-media admission remains explicit.",
+    "New audio loader candidate has not been independently reviewed by another agent or applied to main."
+  ],
+  "main_modified": false,
+  "evidence_script_sha256": "ef44818dcb6dc0089e50d07df0e2f6d72db5302d6dc5a8a26845b3d81f7126d3"
+}

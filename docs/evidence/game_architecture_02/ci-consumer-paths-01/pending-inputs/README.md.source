@@ -1,0 +1,5 @@
+只读审计覆盖 full185 的入口及显式 input 匹配，递归 Python import 与当前 GDScript literal load；未新增当前真正缺失的 sparse 文件。
+
+确认8项优先 input 绑定缺口，见 input-binding-gap-candidate.json/.patch；仅尾追加已存在的真实依赖，未修改主树、断言、预算、检查数量或生产规则。536项纯 input_digest 控制证明旧绑定忽略而新绑定失效，不能当原生测试。
+
+历史分支、未注册旧runner及手动打包工具缺件逐项列在 audit-report.json，未当成当前185缺件恢复。其他潜在 import 欠绑定仍是待审候选，不声称闭包穷尽。

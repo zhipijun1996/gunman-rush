@@ -1,0 +1,87 @@
+[
+  {
+    "id": "audio-source-closure",
+    "argv": [
+      "python3",
+      "tests/test_audio_reels_capture.py",
+      "SourceClosure"
+    ],
+    "diagnostic_cap_seconds": 30,
+    "original_registered_budget": null,
+    "exit_code": 0,
+    "seconds": 0.1111232229959569,
+    "status": "passed",
+    "log": "/workspace/refactor-evidence/consumer-closeout-verification-01/audio-source-closure.log",
+    "log_sha256": "1635a6194f78c5e89329e41ae3b95909ced52dd425f9291840b91d6deaa41ba0",
+    "registered_full185": false
+  },
+  {
+    "id": "directional-known-baseline",
+    "argv": [
+      "python3",
+      "tests/test_forest_directional_validator.py"
+    ],
+    "diagnostic_cap_seconds": 30,
+    "original_registered_budget": null,
+    "exit_code": 1,
+    "seconds": 0.2984480169980088,
+    "status": "failed_preexisting",
+    "log": "/workspace/refactor-evidence/consumer-closeout-verification-01/directional-known-baseline.log",
+    "log_sha256": "cc3f3dc8dc3a30bc8b675b6a255f1b002f7706d747f4da3c214f885b5ceb1cdc",
+    "registered_full185": false
+  },
+  {
+    "id": "motion-lifecycle",
+    "original_engine_arguments": [
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--script",
+      "tests/enemy_all_02_motion_lifecycle.gd"
+    ],
+    "argv": [
+      "python3",
+      "-c",
+      "import sys,re;sys.path.insert(0,'tools');from run_tests import run_engine;out=run_engine(['--headless', '--fixed-fps', '60', '--audio-driver', 'Dummy', '--path', '.', '--script', 'tests/enemy_all_02_motion_lifecycle.gd'],90);assert re.search('ENEMY\\\\-ALL\\\\-02\\\\ MOTION\\\\ LIFECYCLE:.*assertions, 0 failures',out);assert not re.search(r'(?m)^ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit',out)"
+    ],
+    "diagnostic_cap_seconds": 90,
+    "original_registered_budget": null,
+    "exit_code": 0,
+    "seconds": 2.1848050789994886,
+    "status": "passed",
+    "log": "/workspace/refactor-evidence/consumer-closeout-verification-01/motion-lifecycle.log",
+    "log_sha256": "081105b2cad550bebbd4bd900e3895399f608147b7e7db5a6e691b5d77c936af",
+    "registered_full185": false
+  },
+  {
+    "id": "hit-template",
+    "original_engine_arguments": [
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--script",
+      "tests/enemy_hit_template_tests.gd"
+    ],
+    "argv": [
+      "python3",
+      "-c",
+      "import sys,re;sys.path.insert(0,'tools');from run_tests import run_engine;out=run_engine(['--headless', '--fixed-fps', '60', '--audio-driver', 'Dummy', '--path', '.', '--script', 'tests/enemy_hit_template_tests.gd'],90);assert re.search('ENEMY\\\\ HIT\\\\ TEMPLATE:.*assertions, 0 failures',out);assert not re.search(r'(?m)^ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit',out)"
+    ],
+    "diagnostic_cap_seconds": 90,
+    "original_registered_budget": null,
+    "exit_code": 1,
+    "seconds": 2.9973064409932704,
+    "status": "failed",
+    "log": "/workspace/refactor-evidence/consumer-closeout-verification-01/hit-template.log",
+    "log_sha256": "865e652e876b79642a0cb29bea7820ce37d9228e6e624ec944bb04f093b07d65",
+    "registered_full185": false
+  }
+]

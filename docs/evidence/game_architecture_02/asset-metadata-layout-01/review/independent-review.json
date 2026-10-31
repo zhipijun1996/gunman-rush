@@ -1,0 +1,81 @@
+{
+  "reviewer": "structure_audit",
+  "reviewed_at_utc": "2026-10-31T11:32:41.352267+00:00",
+  "decision": "LIMITED_TECHNICAL_BINDING_ACCEPT",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "patch_sha256": "8b3d7fc64e5198c6c218570d930bbb740d50213c72f6e8c09d8a40feefa47b9d",
+  "freeze_sha256": "cf0ffd08c1cd59dfa661f10eb817ff1bc5abb91e5e9a253bce4dc8f29cbd4b6c",
+  "files": [
+    {
+      "path": "assets/manifest.json",
+      "before_sha256": "ffca09afe4e5eca7e9ab5f298f4bf9ec5453b4dd5b1f190db1b0c9874b885d3c",
+      "candidate_sha256": "62a1c2a8f5ea4f3a4df7466b923a912c6da4536210b5d75b1636910814d8e83f"
+    }
+  ],
+  "independent_checks": {
+    "all310_rows_ids_order_and_non_primary_hash_fields_exact": true,
+    "only_primary_sha256_indices": [
+      261,
+      267,
+      271
+    ],
+    "inverse_three_hash_changes_restore_entire_manifest_bytes": true,
+    "three_current_metadata_actual_sha256_verified": true,
+    "five_consumer_path_changes_exact_existing_map_only": [
+      {
+        "field": "/consumer_script",
+        "old": "scripts/underworld_plains/underworld_hazard_tiles.gd",
+        "current": "game/presentation/world/underworld_plains/underworld_hazard_tiles.gd",
+        "matches_existing_migration_map": true
+      },
+      {
+        "field": "/decor/local_composition/consumer_script",
+        "old": "scripts/underworld_plains/underworld_local_composition.gd",
+        "current": "game/presentation/world/underworld_plains/underworld_local_composition.gd",
+        "matches_existing_migration_map": true
+      },
+      {
+        "field": "/consumer_scripts/0",
+        "old": "scripts/underworld_plains/underworld_parallax.gd",
+        "current": "game/presentation/world/underworld_plains/underworld_parallax.gd",
+        "matches_existing_migration_map": true
+      },
+      {
+        "field": "/consumer_scripts/1",
+        "old": "scripts/underworld_plains/underworld_scenery.gd",
+        "current": "game/presentation/world/underworld_plains/underworld_scenery.gd",
+        "matches_existing_migration_map": true
+      },
+      {
+        "field": "/consumer_scripts/0",
+        "old": "scripts/underworld_plains/underworld_terrain.gd",
+        "current": "game/presentation/world/underworld_plains/underworld_terrain.gd",
+        "matches_existing_migration_map": true
+      }
+    ],
+    "actual_metadata_reader_literals_and_source_hashes_verified": true,
+    "producer_source_hash_unchanged": true,
+    "all1041_media_git_tree_path_and_blob_ids_equal_2ce": true,
+    "author_actual_media_stream_receipt_hash_and1041_rows_match_git": true,
+    "media_bytes_per_author_stream": 581123832,
+    "reviewer_did_not_rehash_entire_media_payload": true,
+    "frozen_style20_exact_baseline_bytes": true,
+    "historical_source_sha256_provenance_unchanged": true,
+    "original_checker_sha_unchanged": true
+  },
+  "checker_evidence": {
+    "before_log_sha256": "1b0d952f321f0575f337b32ab2adec57e54979178c3aba072b7692746aa95bf7",
+    "before_exact_three_stale_rows": true,
+    "candidate_log_sha256": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620",
+    "author_actual_original_checker_result": "PASS: 310 assets, hashes, dimensions, pivots, self-contained SVGs. Device visuals not verified.",
+    "author_exit_code": 0,
+    "reviewer_did_not_rerun": true
+  },
+  "interpretation": "Primary row SHA binds current technical metadata, already changed by five exact consumer-path relocations. Updating it is appropriate; source_sha256 remains historical provenance and frozen style20 stays byte-identical. No media generation or runtime resource version substitution.",
+  "limits": [
+    "No visual/audio/user/device/gameplay or full-CI acceptance.",
+    "Remote11254 art-art failure remains a failure; candidate does not retroactively validate that run, remaining83 or serial.",
+    "No engine/main writes/public deployment verification by reviewer."
+  ]
+}

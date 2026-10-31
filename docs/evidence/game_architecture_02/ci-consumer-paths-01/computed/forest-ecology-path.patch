@@ -1,0 +1,11 @@
+--- a/tests/forest_ecology_runner.gd
++++ b/tests/forest_ecology_runner.gd
+@@ -56,7 +56,7 @@
+ 		await process_frame
+ 		tick += 1
+ func enemy(name_id: String, position_value: Vector2) -> EnemyActor:
+-	var scene := load("res://scenes/enemies/%s.tscn" % name_id) as PackedScene
++	var scene := load("res://game/enemies/species/scenes/%s.tscn" % name_id) as PackedScene
+ 	var body := scene.instantiate() as EnemyMotor
+ 	body.position = position_value
+ 	world.add_child(body)

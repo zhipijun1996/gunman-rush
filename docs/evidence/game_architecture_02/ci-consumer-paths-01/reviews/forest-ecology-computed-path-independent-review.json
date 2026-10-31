@@ -1,0 +1,19 @@
+{
+  "reviewer": "structure_audit",
+  "decision": "LIMITED_STATIC_ACCEPT",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "path": "tests/forest_ecology_runner.gd",
+  "original_sha256": "85b63e783511377873a969f6b89af4ced7d43613e7cc3afdcd2944433938ebc8",
+  "candidate_sha256": "c34c51f5638b0a7674276e846af0adbc1b7e8a4306fbc3ee0fc857a78455e9c1",
+  "patch_sha256": "db13b1a06d61912015bc93bfae27f92b27ab4eec1fe0147966b368687286737c",
+  "checks": [
+    "One computed enemy-scene prefix; inverse restores entire Git file.",
+    "All enemy callers resolve two real species; current scene bytes match relocation commit, and old scene structure differs only ext_resource paths. Definition identity unchanged.",
+    "Both actual boss loops retain thorn_guardian/thorn_queen existing scenes/bosses paths.",
+    "All assertions, frames, waits, physics/damage, binding and cleanup unchanged."
+  ],
+  "limits": [
+    "No engine/main writes; native pending root; original timeout retained.",
+    "Existing caller budget unchanged, no increase; no full185 claim."
+  ]
+}

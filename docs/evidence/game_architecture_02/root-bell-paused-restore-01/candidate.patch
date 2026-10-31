@@ -1,0 +1,13 @@
+--- a/game/enemies/presentation/root_bell_presentation.gd
++++ b/game/enemies/presentation/root_bell_presentation.gd
+@@ -45,7 +45,9 @@
+ 	_burst_tail = false
+ 	_previous_state = &"idle"
+ 	_transition_time = 1.0
+-	if revision_visual != null: revision_visual.refresh(0.0)
++	if revision_visual != null:
++		revision_visual.particles.clear_for_epoch()
++		revision_visual.refresh(0.0)
+ 	queue_redraw()
+ 
+ func synchronize_presentation() -> void:

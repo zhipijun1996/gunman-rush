@@ -97,7 +97,7 @@ func _damage(results: Array[DamageResult]) -> void:
 	for result: DamageResult in results:
 		events.append({"kind":"policy_result","tick":tick,"event_id":String(result.request.event_id),"source":String(result.request.source_id),"target":String(result.request.target_id),"hp":result.health.current})
 func enemy(id: String, at: Vector2, instance_id: String = "") -> EnemyActor:
-	var scene: PackedScene=load("res://game/enemies/scenes/patrol_drone.tscn" if id=="plains_charger" else "res://scenes/enemies/"+id+".tscn")
+	var scene: PackedScene=load(EnemyBehaviorRegistry.scene_path(&"patrol" if id=="plains_charger" else StringName(id)))
 	var body := scene.instantiate() as EnemyMotor
 	if id=="plains_charger":
 		(body.get_node("Actor") as EnemyActor).definition=load("res://resources/enemies/plains_charger.tres")

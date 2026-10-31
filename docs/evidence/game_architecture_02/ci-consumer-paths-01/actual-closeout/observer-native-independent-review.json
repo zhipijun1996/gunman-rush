@@ -1,0 +1,43 @@
+{
+  "decision": "ACCEPT_LIMITED_REAL_FAILURE_RECEIPT_NOT_GAMEPLAY_PASS",
+  "candidate_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "source_digest": "0f0e8b303a3db8015013d3f58d867c0310679f284ac9d3f07bcae4241527f211",
+  "evidence_sha256": {
+    "summary.json": "8c7d9f77ece98db3d4487bf122d1c8302640a1d37ad0a4c19e15758b7893aa19",
+    "source-before.json": "5becbca4861d8caefc21e448590ca5e8b5f0733ee17570c3ee48da47a432fc55",
+    "source-after.json": "5becbca4861d8caefc21e448590ca5e8b5f0733ee17570c3ee48da47a432fc55",
+    "full_fight_map1.json": "0a7312bb5efdad12a66f3359fcdeea431783b24b79fb7b1580daf601bfd608ac",
+    "native.log": "7bd975546e0bbeea019303ef91c4b585f2bbbbaaee28a6b90e27d4a4fd46453a"
+  },
+  "verification": {
+    "before_after_source_vectors_exact": true,
+    "vector_entries": 33953,
+    "vector_digest_recomputed": true,
+    "candidate_bound_to_executed_source_vector": true,
+    "log_and_trace_hashes_match": true,
+    "no_script_shader_or_leak_diagnostic_in_log": true,
+    "original_native_budget_seconds": 180,
+    "elapsed_seconds": 21.128392081998754,
+    "trace_frames": 1608,
+    "failure_count": 3,
+    "exit": "Godot returned1; expected observed failure, not success"
+  },
+  "observations": {
+    "boss_hp": 26,
+    "boss_terminal": false,
+    "player_hp": 0,
+    "player_terminal": true,
+    "last_live_player_hp": 1,
+    "terminal_tick": 1621,
+    "damage_event": "boss_contact:3:7:1",
+    "run_end_reason": "failure",
+    "app_stage_player_controller_released": true
+  },
+  "interpretation": "Observer now emits a strict failed-case receipt instead of dereferencing freed encounter. Real cached resource state, batch player-contact record atHP0 and same-tick fatal/runended events consistently identify player failure with Boss alive. No victory/settlement inferred from invalid objects.",
+  "limits": [
+    "Did not rerun engine or hash entire live workspace; independently compared complete recorded before/after vectors and recomputed vector digest.",
+    "Existing damage_events schema records request amount and resulting health, not status/hp_lost; contact attribution is supported by the consistent fatal/resource sequence, not a newly recorded acceptance flag.",
+    "This is one formal map1 cautious2 case; not a strategy pass, whole R3 wrapper, isolated roll proof or full185 pass."
+  ]
+}

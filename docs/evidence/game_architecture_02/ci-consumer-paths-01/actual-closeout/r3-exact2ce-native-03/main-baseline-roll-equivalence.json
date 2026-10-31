@@ -1,0 +1,23 @@
+{
+  "comparisons": [
+    {
+      "baseline": "/workspace/refactor-evidence/r3-exact2ce-native-03/original-roll.trace.json",
+      "main": "/workspace/refactor-evidence/consumer-closeout-verification-01/prior-r3-build-output/continuous_combat.json",
+      "tick_offset": 6759,
+      "frames": 296,
+      "all_rows_equal_after_constant_tick_offset": true,
+      "baseline_sha256": "34b54fd8cd82ad59f96515df5c889fd6c7c5eb973a40380ed7bc1cb799f1e635",
+      "main_sha256": "aa462b2c6decc3afff69ae2fb84257f0b270e2f473ce49890332abfe361333c7"
+    },
+    {
+      "baseline": "/workspace/refactor-evidence/r3-exact2ce-native-03/precise-fixture-roll.trace.json",
+      "main": "/workspace/refactor-evidence/consumer-closeout-verification-01/r3-after-precise-fixture-continuous_combat.json",
+      "tick_offset": 6759,
+      "frames": 296,
+      "all_rows_equal_after_constant_tick_offset": true,
+      "baseline_sha256": "c8a5039e08d0c5dbf1ce409e2206680a572b7afb552ec79bd75feaa17a682b93",
+      "main_sha256": "b698fc7b3b500639e8229c4fb1fc494327a53eb559c19db7654206aedc7fb5f3"
+    }
+  ],
+  "scope": "All296 physical trace rows equal after only constant global tick offset, original and callback-corrected comparisons; full278 main vs baseline original8 targeted assertions not conflated."
+}

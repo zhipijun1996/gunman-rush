@@ -97,7 +97,9 @@ func exercise() -> void:
 	# Offset from Home so unrelated authored geometry cannot intercept this shot.
 	var world := Node2D.new()
 	world.position = Vector2(10000, 6000)
-	root.add_child(world)
+	# Keep the isolated geometry pausable under the formal App audio owner.
+	world.process_mode = Node.PROCESS_MODE_PAUSABLE
+	app.add_child(world)
 	var floor_body := StaticBody2D.new()
 	floor_body.position = Vector2(250, 620)
 	var shape := CollisionShape2D.new()

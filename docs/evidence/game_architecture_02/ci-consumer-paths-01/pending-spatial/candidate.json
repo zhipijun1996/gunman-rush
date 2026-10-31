@@ -1,0 +1,135 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "file": "tools/check_plains_spatial_art.py",
+  "original_sha256": "cd78ec8b1da2bb9c7225a117dd67a54a8f500a149aee922bbaea375475079333",
+  "candidate_sha256": "8732fcb60ef3ad201dc175c3ea715e7bd0b943f8abd0b872f0184e103a700108",
+  "patch_sha256": "4a9cd454ec93b7af479303b02c129791b8a6f7f395a810fb9636027fe0786315",
+  "exact_inverse_except_declared_contract_and_success_message": true,
+  "main_unchanged": true,
+  "original_assertions_preserved_except_obsolete_bell_current_chassis_requirement": true,
+  "scope": "Static art guard consumer-contract repair only. PR122 current Bell rig replaces old spatial chassis body; historical original hash/size/mode/import/alpha/regions remain enforced. No production/resources/frames/budgets edited.",
+  "inputs": [
+    {
+      "path": "assets/plains_v3/background_layers/hills.png",
+      "sha256": "9006535fe85103b5aaccb1916c069eaec881f4b885e364d396129b1802a6f82e"
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png",
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56"
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png.import",
+      "sha256": "fb53a651f9f7a4b5746f8370e289bbd65f40fe2d0450c776fade4d25f878506b"
+    },
+    {
+      "path": "assets/plains_v4/spatial/chassis.png",
+      "sha256": "42ed6ed092c4d21915bc80c644f320d4baace454930f4177f58b4a7697702aec"
+    },
+    {
+      "path": "assets/plains_v4/spatial/chassis.png.import",
+      "sha256": "ddcd90ae04162236ffd926f7fb0f724484020e14476f92a41e2f491e189a608a"
+    },
+    {
+      "path": "assets/plains_v4/spatial/manifest.json",
+      "sha256": "43b92f2eab1329e4de841c869b08413519d44173734f9f9b00f0ccc79a0ae568"
+    },
+    {
+      "path": "assets/plains_v4/spatial/panorama.png",
+      "sha256": "990603b0c11db4948b4b1428f61ae87de12053d55bb63bc85a4f412ed4a99fa9"
+    },
+    {
+      "path": "assets/plains_v4/spatial/panorama.png.import",
+      "sha256": "a381edc61916b7970efb78cdd63828aee5dc0df7fe3b8094dbe9ac654be16b16"
+    },
+    {
+      "path": "assets/plains_v4/windkeeper/body_actions.png",
+      "sha256": "cae013243a94eb2e79a4e27e7efed75883ea92398942525ba97fdefa42dfb231"
+    },
+    {
+      "path": "assets/underworld_plains/actors/bell.png",
+      "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2"
+    },
+    {
+      "path": "assets/underworld_plains/actors/bellstrider.png",
+      "sha256": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5"
+    },
+    {
+      "path": "game/bosses/bellstrider/bellstrider_presentation.gd",
+      "sha256": "f8b2372b444dcfc79e43fd886a6973fa78b4488430112f04ef0ea7a67b8648ca"
+    },
+    {
+      "path": "game/combat/projectiles/player_projectile.gd",
+      "sha256": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743"
+    },
+    {
+      "path": "game/enemies/presentation/enemy_presentation.gd",
+      "sha256": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e"
+    },
+    {
+      "path": "game/presentation/world/art/plains_depth.gdshader",
+      "sha256": "5378f01bf2009431dab0d5107f34fa0540e2e27a54f95e30c46e3302b6b4a403"
+    },
+    {
+      "path": "scenes/bosses/bellstrider.tscn",
+      "sha256": "9f2708b3129233387e2434e3ec52d4c688d68ad0b55830f41ec2179dc119b733"
+    }
+  ],
+  "positive": {
+    "case": "candidate-positive",
+    "exit_code": 0,
+    "duration_seconds": 0.12,
+    "output": "PASS: immutable spatial originals (including historical chassis), alpha, 4 measured regions, player/drone source references and current Bell rig scene binding; runtime and subjective style require separate review.\n"
+  },
+  "negative_cases": [
+    {
+      "case": "negative-missing-current-machine",
+      "exit_code": 1,
+      "duration_seconds": 0.113,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 24, in <module>\n    assert 'const MACHINE := preload(\"res://assets/underworld_plains/actors/bellstrider.png\")' in bell_presentation\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-missing-current-bell",
+      "exit_code": 1,
+      "duration_seconds": 0.124,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 25, in <module>\n    assert 'const BELL := preload(\"res://assets/underworld_plains/actors/bell.png\")' in bell_presentation\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-disconnected-presentation",
+      "exit_code": 1,
+      "duration_seconds": 0.115,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 32, in <module>\n    assert '[node name=\"Presentation\" type=\"Node2D\" parent=\".\" node_paths=PackedStringArray(\"encounter\")]\\nscript = ExtResource(\"4\")\\nencounter = NodePath(\"../Encounter\")' in bell_scene\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-missing-rig-pose",
+      "exit_code": 1,
+      "duration_seconds": 0.115,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 26, in <module>\n    assert 'var pose: Dictionary = encounter.rig_pose()' in bell_presentation\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-legacy-svg-return",
+      "exit_code": 1,
+      "duration_seconds": 0.116,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 33, in <module>\n    assert 'chassis.svg' not in (ROOT/'game/bosses/bellstrider/bellstrider_presentation.gd').read_text()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-missing-projectile-consumer",
+      "exit_code": 1,
+      "duration_seconds": 0.121,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 34, in <module>\n    assert 'spatial/actors.png' in (ROOT/'game/combat/projectiles/player_projectile.gd').read_text()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-missing-drone-consumer",
+      "exit_code": 1,
+      "duration_seconds": 0.118,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 35, in <module>\n    assert 'spatial/actors.png' in (ROOT/'game/enemies/presentation/enemy_presentation.gd').read_text()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "case": "negative-historical-chassis-bytes",
+      "exit_code": 1,
+      "duration_seconds": 0.11,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/refactor-evidence/plains-spatial-art-consumer-candidate/current-overlay/tools/check_plains_spatial_art.py\", line 11, in <module>\n    assert hashlib.sha256(p.read_bytes()).hexdigest()==source['sha256']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ],
+  "validation_boundary": "Python static source/asset assertions only; no engine, rendering, current full CI or subjective approval. Positive and negative mutations occur solely in external current-overlay.",
+  "baseline_evidence": "baseline-2ce-report.json exact Git input replay fails original line20; pre-existing stale requirement, not a refactor-induced runtime change."
+}

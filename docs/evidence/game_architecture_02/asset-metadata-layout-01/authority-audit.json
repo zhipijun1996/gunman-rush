@@ -1,0 +1,107 @@
+{
+  "type": "READ_ONLY_AUTHORITY_AND_THREE_CURRENT_METADATA_MISMATCHES",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "assets_manifest_sha256": "ffca09afe4e5eca7e9ab5f298f4bf9ec5453b4dd5b1f190db1b0c9874b885d3c",
+  "rows": [
+    {
+      "index": 261,
+      "id": "fine_space_05.underworld_plains.hazards.hazard_fine_build.json",
+      "path": "assets/underworld_plains/hazards/hazard_fine_build.json",
+      "registered_sha256": "715ada54667b8eb8be709a0aa0f0c61f849f586fb1a5693759a52e168b613d1e",
+      "actual_sha256": "914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c"
+    },
+    {
+      "index": 267,
+      "id": "fine_space_05.underworld_plains.scenery_build.json",
+      "path": "assets/underworld_plains/scenery_build.json",
+      "registered_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+      "actual_sha256": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2"
+    },
+    {
+      "index": 271,
+      "id": "fine_space_05.underworld_plains.terrain.fine_32.terrain_build.json",
+      "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+      "registered_sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410",
+      "actual_sha256": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c"
+    }
+  ],
+  "existing_layout_record_source_commit": "986bb75d68213879366b824485f482e553158944",
+  "recorded_path_only_changes": [
+    {
+      "path": "assets/underworld_plains/hazards/hazard_fine_build.json",
+      "fields": [
+        {
+          "key": "consumer_script",
+          "before": "scripts/underworld_plains/underworld_hazard_tiles.gd",
+          "after": "game/presentation/world/underworld_plains/underworld_hazard_tiles.gd"
+        }
+      ],
+      "before": "715ada54667b8eb8be709a0aa0f0c61f849f586fb1a5693759a52e168b613d1e",
+      "after": "914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c"
+    },
+    {
+      "path": "assets/underworld_plains/scenery_build.json",
+      "fields": [
+        {
+          "key": "decor.local_composition.consumer_script",
+          "before": "scripts/underworld_plains/underworld_local_composition.gd",
+          "after": "game/presentation/world/underworld_plains/underworld_local_composition.gd"
+        },
+        {
+          "key": "consumer_scripts.0",
+          "before": "scripts/underworld_plains/underworld_parallax.gd",
+          "after": "game/presentation/world/underworld_plains/underworld_parallax.gd"
+        },
+        {
+          "key": "consumer_scripts.1",
+          "before": "scripts/underworld_plains/underworld_scenery.gd",
+          "after": "game/presentation/world/underworld_plains/underworld_scenery.gd"
+        }
+      ],
+      "before": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+      "after": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2"
+    },
+    {
+      "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+      "fields": [
+        {
+          "key": "consumer_scripts.0",
+          "before": "scripts/underworld_plains/underworld_terrain.gd",
+          "after": "game/presentation/world/underworld_plains/underworld_terrain.gd"
+        }
+      ],
+      "before": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410",
+      "after": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c"
+    }
+  ],
+  "authority_decision": "New small_fix quality record, not a new asset/provenance record. No art/audio generated; authoritative current registry is assets/manifest.json. Existing asset_records already carry current scenerySHA; style27 already carries current terrainSHA.",
+  "authorities": [
+    {
+      "path": "docs/quality/README.md",
+      "sha256": "b01073ff10741a2fd1ef14ebaf2de4e0c2d7ff8985f5e125446be1f5955976ca"
+    },
+    {
+      "path": "tools/check_art.py",
+      "sha256": "3676aba61886e018d8f060b78715ec56e7edd2e2f00703008aecf4d17b90c532"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "sha256": "e4becd029357e36309564008b6735f4d0c2a3759bd73633c00dd0ad13f67ba71"
+    },
+    {
+      "path": "docs/quality/asset_records/fine-space-05-shared-configuration.json",
+      "sha256": "bdb67855cc9921f6952675a03cffd172fb42b4a4babbdfcc470e1f54deba7c3e"
+    },
+    {
+      "path": "docs/quality/asset_records/underworld-production-manifests.json",
+      "sha256": "a70d3cacbe0c2ccda207dcdee3a085a7743754e1dd3cfadb4835ed40395409e4"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+      "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+    }
+  ],
+  "guard": "tools/check_art.py validates all listed paths, exactSHA,SVG dimensions/pivots/safety; existingart-art timeout120s; unchanged.",
+  "historical_boundary": "Do not rewrite currentbuildJSON bytes, frozen oldmetadata archives, provenance revision history, historical sourceSHA or acceptance.",
+  "limits": "This read-only mismatch/authority audit does not runcheck_art or sign the candidate; CI original wholelane/artifact details remain root-provided evidence."
+}

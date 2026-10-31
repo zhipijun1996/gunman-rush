@@ -53,6 +53,8 @@ func fixture(mini: bool, phase: int = 1, at := Vector2(350,582)) -> void:
 	encounter.configure_arena(100,1100,player);encounter.set_physics_process(false)
 	policy.bind_damageable(&"boss",boss.get_node("Damageable"),encounter.health)
 	contact=DemoContactEmitter.new();contact.policy=policy;contact.controller=controller;contact.source_id=&"r3_actual_boss_body";contact.contact_rect_provider=encounter.body_contact_rect;contact.enabled=false;boss.add_child(contact)
+	# Match the formal App: bounds alone include empty space around the real rig.
+	if encounter is BellstriderEncounter: contact.contact_test_provider=encounter.body_contact_sweep
 	defeats=0;emissions=0
 	encounter.defeated.connect(func(_e:BossEncounter)->void:defeats+=1)
 	encounter.projectile_created.connect(func(shot:BossProjectile)->void:

@@ -1,0 +1,87 @@
+FFF..F............................................................[mov,mp4,m4a,3gp,3g2,mj2 @ 0x564fe0166f40] moov atom not found
+/workspace/gunman-rush-refactor/build/unit-visual-director-ph8r0vkn/gameplay.mp4: Invalid data found when processing input
+.......................F.F................F......
+======================================================================
+FAIL: test_actual_cli_collector_preserves_creative_sources_and_terminal_rethink (__main__.CompletedReviewCollectionTests.test_actual_cli_collector_preserves_creative_sources_and_terminal_rethink)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 950, in test_actual_cli_collector_preserves_creative_sources_and_terminal_rethink
+    self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "/tmp/tmp5detihl4/main/tools/production_loop.py", line 2, in <module>
+    from godot_identity import banner_pattern
+ModuleNotFoundError: No module named 'godot_identity'
+
+
+======================================================================
+FAIL: test_actual_cli_collects_accept_into_existing_scope_finalization (__main__.CompletedReviewCollectionTests.test_actual_cli_collects_accept_into_existing_scope_finalization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 986, in test_actual_cli_collects_accept_into_existing_scope_finalization
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/tmp1wtugkqm/main/tools/production_loop.py", line 2, in <module>
+    from godot_identity import banner_pattern
+ModuleNotFoundError: No module named 'godot_identity'
+
+
+======================================================================
+FAIL: test_actual_cli_collects_reject_without_new_calls_or_target_source_changes (__main__.CompletedReviewCollectionTests.test_actual_cli_collects_reject_without_new_calls_or_target_source_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 962, in test_actual_cli_collects_reject_without_new_calls_or_target_source_changes
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "/tmp/tmpo2qdq6iu/main/tools/production_loop.py", line 2, in <module>
+    from godot_identity import banner_pattern
+ModuleNotFoundError: No module named 'godot_identity'
+
+
+======================================================================
+FAIL: test_actual_cli_unrelated_worktree_refuses_without_state_mutation (__main__.CompletedReviewCollectionTests.test_actual_cli_unrelated_worktree_refuses_without_state_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1059, in test_actual_cli_unrelated_worktree_refuses_without_state_mutation
+    self.assertIn('same Git common',result.stderr)
+AssertionError: 'same Git common' not found in 'Traceback (most recent call last):\n  File "/tmp/tmp7lnacjxk/main/tools/production_loop.py", line 2, in <module>\n    from godot_identity import banner_pattern\nModuleNotFoundError: No module named \'godot_identity\'\n'
+
+======================================================================
+FAIL: test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization (__main__.SelectedInputPreflightTests.test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1648, in test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "/tmp/tmp6ai9rxr9/frozen/tools/production_loop.py", line 2, in <module>
+    from godot_identity import banner_pattern
+ModuleNotFoundError: No module named 'godot_identity'
+
+
+======================================================================
+FAIL: test_actual_sparse_cli_blocks_before_any_role_allocation_and_preserves_missing_path (__main__.SelectedInputPreflightTests.test_actual_sparse_cli_blocks_before_any_role_allocation_and_preserves_missing_path)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1233, in test_actual_sparse_cli_blocks_before_any_role_allocation_and_preserves_missing_path
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "/tmp/tmpx5my9nzd/frozen/tools/production_loop.py", line 2, in <module>
+    from godot_identity import banner_pattern
+ModuleNotFoundError: No module named 'godot_identity'
+
+
+======================================================================
+FAIL: test_real_unreadable_source_snapshot_is_calls0_blocked_not_unknown_baseline (__main__.SelectedInputPreflightTests.test_real_unreadable_source_snapshot_is_calls0_blocked_not_unknown_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1559, in test_real_unreadable_source_snapshot_is_calls0_blocked_not_unknown_baseline
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "/tmp/tmp8wdyeuuz/frozen/tools/production_loop.py", line 2, in <module>
+    from godot_identity import banner_pattern
+ModuleNotFoundError: No module named 'godot_identity'
+
+
+----------------------------------------------------------------------
+Ran 115 tests in 58.850s
+
+FAILED (failures=7)

@@ -1,0 +1,28 @@
+{
+  "invocation": "02-parallel-remaining",
+  "exit_code": 1,
+  "wall_seconds": 70.617,
+  "original_report": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115015.022507Z/report.json",
+  "raw_sha256": "dc9a18d9853d49746ee610e04ba9221b209284bab759d30ae8b8ef25f0def9e1",
+  "raw_bytes": 26931,
+  "lossless_gzip": "/workspace/refactor-evidence/remaining-checks-preflight-02/02-parallel-remaining.report.json.gz",
+  "gzip_sha256": "f26da4464330babe056cad14def7af0a62e6c497d4b9a538cbf72bf0a07dfd61",
+  "checks": [
+    {
+      "id": "web-cache",
+      "status": "passed",
+      "duration_seconds": 0.29,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115015.022507Z/web-cache.log"
+    },
+    {
+      "id": "production-loop-tests",
+      "status": "failed",
+      "duration_seconds": 59.236,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115015.022507Z/production-loop-tests.log"
+    }
+  ]
+}

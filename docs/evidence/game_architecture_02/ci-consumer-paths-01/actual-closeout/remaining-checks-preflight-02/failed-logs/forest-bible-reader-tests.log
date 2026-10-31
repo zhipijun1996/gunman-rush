@@ -1,0 +1,16 @@
+.......................................F..................
+======================================================================
+FAIL: test_ecology_and_lift_only_migrate_owned_item_observations (test_forest_bible_trace_consumers.BibleTraceConsumerTests.test_ecology_and_lift_only_migrate_owned_item_observations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_forest_bible_trace_consumers.py", line 107, in test_ecology_and_lift_only_migrate_owned_item_observations
+    self.assertEqual(hashlib.sha256(source.replace(owned, previous)).hexdigest(), digest)
+AssertionError: 'ccc45a5bd43f0e0c3c66effd0105d6100549d218e790accfe1c64b59acd1a0e9' != 'ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016'
+- ccc45a5bd43f0e0c3c66effd0105d6100549d218e790accfe1c64b59acd1a0e9
++ ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016
+
+
+----------------------------------------------------------------------
+Ran 58 tests in 1.456s
+
+FAILED (failures=1)

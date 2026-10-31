@@ -1,0 +1,38 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_OBSERVER_FAILURE_RECEIPT_NATIVE_PENDING",
+  "source_file": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+  "original_sha256": "3b88e93aa8649f7723a56125e66d5534955b3d96fbf905ef49e2ec5469428c75",
+  "candidate_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+  "patch_sha256": "5e37b450ece810fb4626fffce37ac7275ca694174ab4821d5c88103f93a510c8",
+  "version": "V2 including initial placement await5 guard; V1 preserved separately",
+  "checks": {
+    "reverse_patch_entire_original_exact": true,
+    "all_original_live_failure_predicate_lines_exact": 21,
+    "original_frame_waits_identical": true,
+    "pilot_calls_and_input_requests_identical": true,
+    "initial_and_postvictory_placements_identical": true,
+    "7200_combat_and300_terminal_frames_retained": true,
+    "all_released_paths_quit1": true,
+    "actual_signal_signatures_and_result_fields_valid": true,
+    "main_source_unmodified": true
+  },
+  "reasoning": [
+    "Shared existing Pressure released-receipt path now serves Bell; both real RefCounted HealthState objects captured during valid initial setup. They do not retain arena Nodes or mutate health.",
+    "Every combat iteration and post-loop read, initial placement await5, existing post-collection/await60 boundaries, every Bell terminal iteration and exit, and pre-portal await3 are guarded before encounter/player reads. Initial App await8 setup remains original precondition outside this repair.",
+    "Short-circuit availability validates app before its properties and validates actual nodes before encounter access. It does not reject terminal Boss or stage_complete: valid IN_STAGE victory can still execute unchanged settlement.",
+    "Health unknown values remain null, add an explicit unknown failure; lifecycle events copy actual run_ended/player_fatal/defeated values. No release is interpreted as victory, HP0 or implicit successful settlement.",
+    "Released receipt retains original Pressure data and adds Bell trace/input/terminal/last-live metrics and actual App lifecycle. Its success path is impossible: append release failure then quit1.",
+    "combat_metrics reads/copies state only. Added observer signals neither change pilot state nor issue inputs. Original success receipt and actual settlement checks preserved."
+  ],
+  "historical_classification": {
+    "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+    "player_fatal_method_exact": true,
+    "both_apps_defer_cleanup_and_queue_free_stage": true,
+    "conclusion": "Old App already freed ended arena; not demonstrated P2-induced teardown. Original Pressure-only capture guard omitted Bell. Actual failure cause requires the new native receipt, not inferred from freed-node log."
+  },
+  "limitations": [
+    "No engine/GDScript compiler run or syntax pass claimed; source review found valid existing signal types/methods.",
+    "Native180 budget unchanged outside this single file; actual map1 run still pending, no victory/full185 claim.",
+    "Initial generation failure before cached observers remains existing setup precondition; no broad lifecycle rewrite."
+  ]
+}

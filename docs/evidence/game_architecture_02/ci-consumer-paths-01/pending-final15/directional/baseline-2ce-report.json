@@ -1,0 +1,115 @@
+{
+  "status": "CONFIRMED_PREEXISTING_2CE_HISTORICAL_CAPTURE_CONTRACT_FAILURE",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "exact_git_inputs": [
+    {
+      "path": "tests/test_forest_directional_validator.py",
+      "sha256": "7597c5abb9488ac06d44cfaa4d0c01798ef51c87297cb39af05ea04b94106281",
+      "bytes": 36307,
+      "git_blob": "efd81f2f0cd568fb512f383c7a8f5515ca2970f2"
+    },
+    {
+      "path": "tools/run_forest_directional_golden.py",
+      "sha256": "eb35df0108540f0526de3899df0b99b97163fe0114124d22f24c902e77cb0bf0",
+      "bytes": 33065,
+      "git_blob": "c25eed9bf529b304fc8c51aeb0a601c177754be0"
+    },
+    {
+      "path": "scripts/generation/forest_directional_geometry.gd",
+      "sha256": "ea44b33daa27cfc8c46eba54648cf99cc7f4b7fa6391e57caa6ce48b15407bd7",
+      "bytes": 3782,
+      "git_blob": "61164e6a7d8fe6a7d9774d071c55ac52d6cb1036"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+      "bytes": 1029,
+      "git_blob": "a14ad962ce814b7b4824abc4498fc68bad9dbfcf"
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "bytes": 436,
+      "git_blob": "58c69ce2acba25666df7f74a0de89e27cdbab3a8"
+    },
+    {
+      "path": "scripts/player/traversal_definition.gd",
+      "sha256": "5d212b12fd4ac72422addfa6d35de176ccae9e5f08593a8064a7f71be6183c49",
+      "bytes": 908,
+      "git_blob": "bbbbb5cfcd7164954d9b039d22964b3a75f9eea8"
+    },
+    {
+      "path": "resources/player/plains_shot_energy.tres",
+      "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+      "bytes": 414,
+      "git_blob": "c9ab7848248c163758293e4b6ef0c6ea26b0deca"
+    },
+    {
+      "path": "scripts/resources/definitions/shot_energy_definition.gd",
+      "sha256": "ecf7bb786c83652775cf11eb398eb3011462a73936c81defcb1cf0366896d17e",
+      "bytes": 530,
+      "git_blob": "4c74e63815f43a8a3398a694509ac1d125725ed7"
+    },
+    {
+      "path": "resources/actors/prototype_health.tres",
+      "sha256": "75299fd7f1e089fbf82082652114789c8e503d942f5ad842991e317b4bf4dd41",
+      "bytes": 319,
+      "git_blob": "7ef665c95b04f30b2091b9d1f1c8790b077c329d"
+    }
+  ],
+  "input_total_bytes": 76790,
+  "command": [
+    "python3",
+    "tests/test_forest_directional_validator.py"
+  ],
+  "cwd": "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/baseline-2ce",
+  "timeout_seconds": 30,
+  "exit_code": 1,
+  "seconds": 0.36916511000163155,
+  "tests": 23,
+  "failures": 4,
+  "log_sha256": "70c0b9e3e8ff05bc1c909fe2539f0ce1e6384f2141687595a5bd935df92373bc",
+  "failure_names_same_as_current_loader_fixed": true,
+  "test_file_current_equals_2ce": true,
+  "payload_sha256": "b194b9e9484349bc74c6853b03fc6d493699ea6cfe69037240969d6a9cd98388",
+  "original_test_added_git_log": "40edd668c83aea4a14e3d95179b58bd11daf2b85 wip: preserve forest depth mechanisms and bounded rejected candidates",
+  "capture_source_claim": "Original test docstring: compressed actual golden03 captures from dirty-overlay snapshot of bee850c; no fresh native run claim. Individual captures contain source_scope but no exact source commit vector.",
+  "capture_summary": {
+    "intended": {
+      "frames": 290,
+      "shots_min": 1,
+      "shots_max": 2,
+      "source_scope": "development_golden_not_formal_region_admission",
+      "engine": "4.7.2-stable (official)"
+    },
+    "noH": {
+      "frames": 274,
+      "shots_min": 2,
+      "shots_max": 2,
+      "source_scope": "development_golden_not_formal_region_admission",
+      "engine": "4.7.2-stable (official)"
+    },
+    "naivejump": {
+      "frames": 222,
+      "shots_min": 2,
+      "shots_max": 2,
+      "source_scope": "development_golden_not_formal_region_admission",
+      "engine": "4.7.2-stable (official)"
+    },
+    "onlyR": {
+      "frames": 306,
+      "shots_min": 0,
+      "shots_max": 2,
+      "source_scope": "development_golden_not_formal_region_admission",
+      "engine": "4.7.2-stable (official)"
+    }
+  },
+  "baseline_and_current_tuning_identical": true,
+  "baseline_and_current_max_air_shots": 1,
+  "cause": "All four immutable historical traces contain shots=2 while exact2ce and current live tuning both cap max_air_shots at1; validator capacity and accepted-shot/ground-reset replay therefore reject. Current loader fix exposes this pre-existing mismatch and does not create it.",
+  "disposition": "No game tuning/validator/historical payload changes. Loader-only two-line candidate may be considered separately; original23/4 remains FAILED and unregistered, no new full185 check.",
+  "main_written": false,
+  "engine_run": false,
+  "symlinks_or_hardlinks_used": false,
+  "scope": "Only nine precise Git input files (small external checkout), no full repository materialization."
+}

@@ -1,0 +1,169 @@
+{
+  "decision": "LIMITED_ACCEPT_TEST_FIXTURE_FORMAL_CONTACT_BINDING_NATIVE_PENDING",
+  "reviewer": "ci_audit",
+  "author": "items_refactor",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "file": "tests/underworld_plains/test_underworld_r3_boss.gd",
+  "original_sha256": "d7fa9aaa698fd5fc8116697e09ff8ca4547fc67eaa86ff354ac09b12c2998e87",
+  "candidate_sha256": "de1ba7be3db8b056f6ebc0e3c4ab68e5c574af137d6156547f37116f9a474f59",
+  "patch_sha256": "49d550fc902ee98b76bd88c585bbc96651f6ee75ff09c544892bb5a4dea05486",
+  "inverse_wholefile_exact": true,
+  "all_original_statements_checks_frames_positions_hp_and_input_actions_preserved": true,
+  "changed_runtime_fixture_behavior": "Bell-only callback now uses same pre-existing precise contact owner as formal App; this intentionally corrects fixture admission and is not a production collision/physics change. Legacy Windkeeper remains original rectangle path.",
+  "formal_binding": {
+    "baseline_path": "scripts/demo/demo_app.gd",
+    "baseline_sha256": "bebe53660e26b820275d70faea9e16ad8443da383b219a20e886d4e0242b7c96",
+    "current_path": "game/application/demo_app.gd",
+    "current_sha256": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f",
+    "same_binding_once_each": true
+  },
+  "source_comparison_independently_verified": [
+    {
+      "baseline_path": "tests/underworld_plains/test_underworld_r3_boss.gd",
+      "current_path": "tests/underworld_plains/test_underworld_r3_boss.gd",
+      "baseline_sha256": "8d0abea0f608a09b2aee5a72e6c332bb4aac1bbabfb2c7e2ba950760326e35cd",
+      "current_sha256": "d7fa9aaa698fd5fc8116697e09ff8ca4547fc67eaa86ff354ac09b12c2998e87",
+      "identical_bytes": false,
+      "changed_shared_methods": [
+        "fixture"
+      ],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "scripts/bosses/bellstrider_encounter.gd",
+      "current_path": "game/bosses/bellstrider/bellstrider_encounter.gd",
+      "baseline_sha256": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d",
+      "current_sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+      "identical_bytes": false,
+      "changed_shared_methods": [],
+      "added_methods": [
+        "_region_pattern_index",
+        "restore_region_entry"
+      ]
+    },
+    {
+      "baseline_path": "scripts/bosses/bellstrider_rig_pose.gd",
+      "current_path": "game/bosses/bellstrider/bellstrider_rig_pose.gd",
+      "baseline_sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366",
+      "current_sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366",
+      "identical_bytes": true,
+      "changed_shared_methods": [],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "scripts/bosses/boss_motor.gd",
+      "current_path": "game/bosses/encounter/boss_motor.gd",
+      "baseline_sha256": "35215febee9b663d6b7478c2b92faac83e85a6d729bca4b9c8407653f0f91cbc",
+      "current_sha256": "35215febee9b663d6b7478c2b92faac83e85a6d729bca4b9c8407653f0f91cbc",
+      "identical_bytes": true,
+      "changed_shared_methods": [],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "scripts/damage/demo_contact_emitter.gd",
+      "current_path": "game/combat/damage/demo_contact_emitter.gd",
+      "baseline_sha256": "cc7d6ca0a67b984a32c56fe5db945dd37168f5fabc43ddb3a34b1cfdba6930b6",
+      "current_sha256": "f8a35c951b1e239c2ba4d062f5692e5d623abe6f1b139cbac59590bcda299994",
+      "identical_bytes": false,
+      "changed_shared_methods": [],
+      "added_methods": [
+        "environment_rect"
+      ]
+    },
+    {
+      "baseline_path": "scripts/player/jump_ability.gd",
+      "current_path": "game/player/actions/jump_ability.gd",
+      "baseline_sha256": "0214cea7035d855185b74ebae81e43a3cfb0e14568616eede9d05aa3b327cd6a",
+      "current_sha256": "0214cea7035d855185b74ebae81e43a3cfb0e14568616eede9d05aa3b327cd6a",
+      "identical_bytes": true,
+      "changed_shared_methods": [],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "scripts/player/player_motor.gd",
+      "current_path": "game/player/player_motor.gd",
+      "baseline_sha256": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "current_sha256": "4d093a7c631ab18ee10bc9c90a01d15716cb4ac3dcbe75508b8d8c3f552a3b7f",
+      "identical_bytes": false,
+      "changed_shared_methods": [],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "scripts/player/player_controller.gd",
+      "current_path": "game/player/player_controller.gd",
+      "baseline_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+      "current_sha256": "022263cb4c62880e5e936908553d5638ef409fcb479f54903463b6cb7a641eea",
+      "identical_bytes": false,
+      "changed_shared_methods": [
+        "enable_shot_energy"
+      ],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "scripts/bosses/bellstrider_definition.gd",
+      "current_path": "scripts/bosses/bellstrider_definition.gd",
+      "baseline_sha256": "67c2f93c85660dc0d89a2c3fb9f66bb932a4c281de9620f08be7e41cc728f49a",
+      "current_sha256": "67c2f93c85660dc0d89a2c3fb9f66bb932a4c281de9620f08be7e41cc728f49a",
+      "identical_bytes": true,
+      "changed_shared_methods": [],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "resources/bosses/bellstrider.tres",
+      "current_path": "resources/bosses/bellstrider.tres",
+      "baseline_sha256": "ddeed0868df8c84fb421eacfeb98c7940dd0b8ab5d60780f9a5f16769c9e8de1",
+      "current_sha256": "ddeed0868df8c84fb421eacfeb98c7940dd0b8ab5d60780f9a5f16769c9e8de1",
+      "identical_bytes": true,
+      "changed_shared_methods": [],
+      "added_methods": []
+    },
+    {
+      "baseline_path": "config/player_tuning.json",
+      "current_path": "config/player_tuning.json",
+      "baseline_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+      "current_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+      "identical_bytes": true,
+      "changed_shared_methods": [],
+      "added_methods": []
+    }
+  ],
+  "contact_semantics": "No intervening await between add_child and callback assignment; disabled contact before first frame. Existing owner retains active/intro/terminal refusal plus convex hull, both circle wheels and actual installed bell via collide_with_motion; emitter uses Motor origin for relative sweep.",
+  "sample_geometry": {
+    "trace_index": 223,
+    "previous_tick": 6997,
+    "first_jump_hp_loss_tick": 6998,
+    "hp_before": 5.0,
+    "hp_after": 4.0,
+    "broad_rect_intersects": true,
+    "independent_affine_x_projection_separation_pixels": {
+      "hull": 8.953717714498993,
+      "wheel": 4.978668212890966,
+      "bell": 62.21689441267405
+    },
+    "scope": "Only recorded consecutive sample under stated mature roll/direction/no-impact assumptions; physics observation may lag. Does not prove entire corrected jump or predict native pass."
+  },
+  "original_native_failure_preserved": {
+    "checks": 278,
+    "failures": [
+      "held base jump clears actual full body roll"
+    ],
+    "log_sha256": "6b8395987231712271de7f9a3adc81d6ab8a8640184d00d82a37ab18aab55daa",
+    "trace_sha256": "aa462b2c6decc3afff69ae2fb84257f0b270e2f473ce49890332abfe361333c7"
+  },
+  "budgets": {
+    "inner_native_seconds": 180,
+    "outer_harness_seconds": 360,
+    "changed": false
+  },
+  "baseline_native_plan_review": "Existing roll-only mode confirmed in original2ce. Selected baseline-2ce evidence directory is not runnable project. Root must use existing exact full2ce tree, same approved engine identity, original preimport/native caps; original and corrected fixtures separately labelled. No baseline native executed here.",
+  "not_verified": [
+    "Exact2ce native reproduction",
+    "Candidate full278 native",
+    "R3 lifecycle/full fights",
+    "full185 CI"
+  ],
+  "main_written": false,
+  "engine_run": false,
+  "review_script_sha256": "919e9bbac6b11d2975c6cb49968d32be75950000bb1e641d183d93ac176dab53"
+}

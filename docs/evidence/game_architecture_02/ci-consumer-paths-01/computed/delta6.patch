@@ -1,0 +1,68 @@
+--- a/tests/forest_depth_enemy_runner.gd
++++ b/tests/forest_depth_enemy_runner.gd
+@@ -97,7 +97,7 @@
+ 	for result: DamageResult in results:
+ 		events.append({"kind":"policy_result","tick":tick,"event_id":String(result.request.event_id),"source":String(result.request.source_id),"target":String(result.request.target_id),"hp":result.health.current})
+ func enemy(id: String, at: Vector2, instance_id: String = "") -> EnemyActor:
+-	var scene: PackedScene=load("res://game/enemies/scenes/patrol_drone.tscn" if id=="plains_charger" else "res://scenes/enemies/"+id+".tscn")
++	var scene: PackedScene=load(EnemyBehaviorRegistry.scene_path(&"patrol" if id=="plains_charger" else StringName(id)))
+ 	var body := scene.instantiate() as EnemyMotor
+ 	if id=="plains_charger":
+ 		(body.get_node("Actor") as EnemyActor).definition=load("res://resources/enemies/plains_charger.tres")
+--- a/tests/forest_depth_version_app_case.gd
++++ b/tests/forest_depth_version_app_case.gd
+@@ -34,7 +34,7 @@
+ 	var enemies: Array = []
+ 	for motor: EnemyMotor in stage.enemies:
+ 		var actor := motor.get_node("Actor") as EnemyActor
+-		var expected := "res://scenes/enemies/"+str(actor.definition.behavior_id)+".tscn"
++		var expected := "res://game/enemies/species/scenes/"+str(actor.definition.behavior_id)+".tscn"
+ 		check(actor.definition.behavior_id in [&"forest_lantern",&"forest_seed_sentry"] and motor.scene_file_path==expected,"legacy actual enemy instance remains old behavior/scene")
+ 		enemies.append({"behavior":str(actor.definition.behavior_id),"scene":motor.scene_file_path})
+ 	var snapshot: Dictionary = app.director.manifest.snapshot()
+--- a/tests/enemy_all_02_motion_lifecycle.gd
++++ b/tests/enemy_all_02_motion_lifecycle.gd
+@@ -18,8 +18,8 @@
+ 
+ func make_actor(id: String,initial_terminal: bool) -> EnemyActor:
+ 	var prototype := id.begins_with("candidate_")
+-	var source := "patrol_drone" if prototype else id
+-	var motor := (load("res://scenes/enemies/%s.tscn" % source) as PackedScene).instantiate() as EnemyMotor
++	var source := EnemyBehaviorRegistry.scene_path(&"patrol" if prototype else StringName(id))
++	var motor := (load(source) as PackedScene).instantiate() as EnemyMotor
+ 	var actor := motor.get_node("Actor") as EnemyActor
+ 	# Candidate identity/behavior must come from the same review recipe as its actual factory.
+ 	actor.definition = EnemyFactory.candidate_definition(StringName(id),&"review") if prototype else (load("res://resources/enemies/%s.tres" % id) as EnemyDefinition).duplicate(true)
+--- a/tests/enemy_hit_template_tests.gd
++++ b/tests/enemy_hit_template_tests.gd
+@@ -25,7 +25,7 @@
+ 	for _index: int in count: await process_frame
+ 
+ func ordinary(id: String, chain: String) -> void:
+-	var source := "res://scenes/enemies/%s.tscn" % (id if id in FOREST else "patrol_drone")
++	var source := EnemyBehaviorRegistry.scene_path(StringName(id) if id in FOREST else &"patrol")
+ 	var motor := (load(source) as PackedScene).instantiate() as EnemyMotor
+ 	var actor := motor.get_node("Actor") as EnemyActor
+ 	actor.definition = load("res://resources/enemies/%s.tres" % id) as EnemyDefinition
+--- a/tools/enemy_all_review_02_capture.gd
++++ b/tools/enemy_all_review_02_capture.gd
+@@ -157,7 +157,7 @@
+ 	# controller, Router, abilities, resources and physics remain enabled.
+ 	player.get_node("KeyboardMouseAdapter").process_mode = Node.PROCESS_MODE_DISABLED
+ 	controller.router.activate_device(&"gamepad")
+-	var scene_path := "res://scenes/enemies/%s.tscn" % (id if id in FOREST else "patrol_drone")
++	var scene_path := EnemyBehaviorRegistry.scene_path(StringName(id) if id in FOREST else &"patrol")
+ 	enemy = (load(scene_path) as PackedScene).instantiate() as EnemyMotor
+ 	actor = enemy.get_node("Actor") as EnemyActor
+ 	var definition_path := "res://resources/enemies/%s.tres" % id
+--- a/tools/enemy_all_review_02_inventory.py
++++ b/tools/enemy_all_review_02_inventory.py
+@@ -49,7 +49,7 @@
+     ordinary = []
+     renderer_chains = []
+     for ident in PLAINS + FOREST:
+-        scene = f"scenes/enemies/{ident if ident in FOREST else 'patrol_drone'}.tscn"
++        scene = f"game/enemies/species/scenes/{ident}.tscn" if ident in FOREST else "game/enemies/scenes/patrol_drone.tscn"
+         definition = file_info(f"resources/enemies/{ident}.tres")
+         hosts = scene_info(scene)
+         chains = ["scene", "underworld"] if ident in PLAINS else ["scene"]

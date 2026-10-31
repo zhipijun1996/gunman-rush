@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "started_at": "20261031T113354.529736Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "f343e1c461f9675e15a5cbf629f7904b5435a2f498465b1c388d70a8e4483286",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793446440.0102022,
+      "ended_at_unix": 1793446440.4091918,
+      "duration_seconds": 0.399,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_art.py"
+      ],
+      "check_token": "e86735763516414db2afefe271c5c190",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T113354.529736Z/artifacts/art-art",
+      "reused": false
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "793c9436f0dd5153b21d873edc533bbf5f77a48ee9ad11092799afd5fff80c4d",
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793446441.2441223,
+      "ended_at_unix": 1793446441.5313528,
+      "duration_seconds": 0.287,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "check_token": "2f752b33458b4045aaa70d840fe42101",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T113354.529736Z/artifacts/art-painterly_pack",
+      "reused": false
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "6fefba4a3748c8ded52ecf33c68622327b7ed7f9ecca4e53b00d41a4e2c37974",
+      "log": "art-plains_v3.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1793446442.3809907,
+      "ended_at_unix": 1793446442.6948934,
+      "duration_seconds": 0.314,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_plains_v3.py"
+      ],
+      "check_token": "8908a6442d064fac913e2649c6eaa14c",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T113354.529736Z/artifacts/art-plains_v3",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "e4becd029357e36309564008b6735f4d0c2a3759bd73633c00dd0ad13f67ba71",
+  "working_files": {
+    "assets/manifest.json": "62a1c2a8f5ea4f3a4df7466b923a912c6da4536210b5d75b1636910814d8e83f",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/authority-audit.json": "0eaba9fbc625c40b46b73d655ccab0bae3a680ab22971b1f86ece0e01cb2817e",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/ci41195033622-parallel-job.log": "e10ae8fc3f278807b8fc08a79a417d4458a87f99ad7a645512c0b9c13b672daf",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/hazard_fine_build.json.source": "914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/scenery_build.json.source": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/terrain_build.json.source": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/initial-scope.md.source": "9e1ccefd6a90bb69beae80e31ba2702a6013f11b1b092f2305714cfd5ae5b291",
+    "docs/evidence/game_architecture_02/asset-metadata-layout-01/prior-layout-metadata-rebinding.json": "14d6a661e738357307e4af98ecf93f7dc02a43922cf0d718e89eedaea3496bbb",
+    "docs/quality/records/ASSET-METADATA-LAYOUT-01.json": "9be7473e29fd393d9118ac6354c6b57d40e119f395d51481079220d9aa36943d",
+    "docs/tasks.md": "84e08ebd411293c70cc5580716cd3d0f5357cbe88ca2fea1f10972f439806fa2",
+    "docs/worklines/game_architecture_01/asset_metadata_layout_01.md": "9e1ccefd6a90bb69beae80e31ba2702a6013f11b1b092f2305714cfd5ae5b291"
+  },
+  "commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "git_status": "M assets/manifest.json\n M docs/tasks.md\n?? docs/evidence/game_architecture_02/asset-metadata-layout-01/\n?? docs/quality/records/ASSET-METADATA-LAYOUT-01.json\n?? docs/worklines/game_architecture_01/asset_metadata_layout_01.md",
+  "diff": "diff --git a/assets/manifest.json b/assets/manifest.json\nindex f343cfb4..c35f9109 100644\n--- a/assets/manifest.json\n+++ b/assets/manifest.json\n@@ -4751,7 +4751,7 @@\n     {\n       \"id\": \"fine_space_05.underworld_plains.hazards.hazard_fine_build.json\",\n       \"path\": \"assets/underworld_plains/hazards/hazard_fine_build.json\",\n-      \"sha256\": \"715ada54667b8eb8be709a0aa0f0c61f849f586fb1a5693759a52e168b613d1e\",\n+      \"sha256\": \"914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c\",\n       \"task_id\": \"FINE-SPACE-05\",\n       \"asset_record\": \"docs/quality/asset_records/fine-space-05-hazard.json\",\n       \"source_path\": \"assets/underworld_plains/hazards/generated_reference.png\",\n@@ -4845,7 +4845,7 @@\n     {\n       \"id\": \"fine_space_05.underworld_plains.scenery_build.json\",\n       \"path\": \"assets/underworld_plains/scenery_build.json\",\n-      \"sha256\": \"305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de\",\n+      \"sha256\": \"d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2\",\n       \"task_id\": \"FINE-SPACE-05\",\n       \"asset_record\": \"docs/quality/asset_records/fine-space-05-shared-configuration.json\",\n       \"source_path\": \"assets/underworld_plains/scenery_build.json\",\n@@ -4909,7 +4909,7 @@\n     {\n       \"id\": \"fine_space_05.underworld_plains.terrain.fine_32.terrain_build.json\",\n       \"path\": \"assets/underworld_plains/terrain/fine_32/terrain_build.json\",\n-      \"sha256\": \"d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410\",\n+      \"sha256\": \"82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c\",\n       \"task_id\": \"FINE-SPACE-05\",\n       \"asset_record\": \"docs/quality/asset_records/fine-space-05-terrain.json\",\n       \"source_path\": \"assets/authored_terrain_study/master_original.png\",\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 6932d925..1372db72 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -758,3 +758,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；\n | UNDERWORLD-DEFERRED-LIFETIME-01 | Underworld延迟节点释放与world归属缺陷修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)；原main2ce319 ERROR保留；两文件a671已提交，formal104/cache444及同probe错误0有限通过；全量未验 |\n \n | CI-FOUNDRY-CONSUMERS-01 | Android同源Foundry消费者、开发池刷新与三入口统一CI覆盖 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/CI-FOUNDRY-CONSUMERS-01.json)；63文件WIP限定独审通过，原91/37及3selected fresh过；185已注册未全跑，旧失败/未构成反例保留 |\n+\n+| ASSET-METADATA-LAYOUT-01 | 功能目录迁移后的三条当前资产登记SHA修复 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/ASSET-METADATA-LAYOUT-01.json)；原art-art失败保留，仅manifest三SHA；候选/原检查待验，不签图声或full185 |",
+  "untracked": "docs/evidence/game_architecture_02/asset-metadata-layout-01/authority-audit.json\ndocs/evidence/game_architecture_02/asset-metadata-layout-01/ci41195033622-parallel-job.log\ndocs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/hazard_fine_build.json.source\ndocs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/scenery_build.json.source\ndocs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/terrain_build.json.source\ndocs/evidence/game_architecture_02/asset-metadata-layout-01/initial-scope.md.source\ndocs/evidence/game_architecture_02/asset-metadata-layout-01/prior-layout-metadata-rebinding.json\ndocs/quality/records/ASSET-METADATA-LAYOUT-01.json\ndocs/worklines/game_architecture_01/asset_metadata_layout_01.md",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 12.475,
+  "jobs": 1,
+  "release": false
+}

@@ -1,8 +1,17 @@
 # GAME-ARCH-01：功能目录与依赖交付报告
 
-本报告更新至生产提交 `a6714757ed59aa698027669ed2f11d8f346d4a93`，包含恢复所有权收口 `4e91a0dd` 与真实工具链整合 `59537400`。内容底座仍为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`；保留 PR122/124/125/107 内容，排除 PR123。八个 Boss/共享消费者测试与两份测试依赖已在 `49a298b40890ccf4d9d2326d051f12a0ffe63c27` 提交；current15 已完整通过（224.151秒），随后技术绑定ad3与Foundry/185收口becd已提交，索引采用下述acb快照；尚非远端main或公开试玩。
+## 后继有限验收与独立缺陷（未提交）
 
-功能所有权已接到真实消费者，1,124 文件功能迁移已实施；后续 P9 将机关、流程及 Boss 场地恢复交回实际所有者。固定上游修复版引擎及同源模板已构建、公开发布、按精确锁实际安装；这不等于游戏各平台导出或完整回归通过。当前完整 Harness 为185项：保留原182前缀，新增三个原Foundry入口回归并移除重复调度。完整185、实际PCK与GUI仍待验收；Foundry36+18验证及三个入口有限检查已通过。统一新地图模块库与替换旧算法尚未实现，当前 Provider 仍运行原算法。
+11254基点后的18个既有消费者和资产manifest3SHA已精确应用独审候选；原157诊断151通过/6失败保留。后继spatial、production-loop115、scheduler27、forest-bible-reader58、Harness91及audio四case通过，motion708/0；原R3完整wrapper仍278/1，不能拼成full185通过。精确2ce原/回调修正targeted均8/1，两组296行与当前仅全局tick差6759；单event起跳probe8/2未采用。正式App现有cautious2经安全观察者记录1608帧/3失败，Boss26/player0及fatal/run_ended，原180/7200与胜利判据保留；这只证明当前策略失败。
+
+RootBell原暂停恢复视觉粒子遗漏独立修1生产leaf(e68c5015)，不属保持行为不变的消费者迁移；hit从原380/4、fixture后393/1到修复后393/0，plains lifecycle112/0与原RootBell/deform两检查通过。图声/物理/伤害/奖励/RNG未改，无style/creative重绑。见[独立记录](../../quality/records/ROOT-BELL-PAUSED-RESTORE-01.json)与[消费者实际收口](ci_consumer_paths_01.md)。新生产leaf尚未提交；下文a671及acb索引仍是此前已提交快照，不能冒称已覆盖本修复，最终索引由root在独立提交后再冻结。
+
+未注册directional仍23/4，与精确2ce同旧capture合同失败；不改原规则/payload，也不计full185。完整185、后继同源导出/PCK/GUI/影片/设备/用户认可仍未验，未发布游戏网页；新地图库/算法尚未实现。后续不得以删除原R3检查或降低物理/胜利门槛收口。
+
+
+本报告当前验收状态对应提交 `11254a6647dbb4d842feb4d21de9e2d8bd9accd3`；生产实施沿用恢复所有权收口 `4e91a0dd`、真实工具链整合 `59537400` 与独立生命周期修复 `a6714757`。内容底座仍为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`；保留 PR122/124/125/107 内容，排除 PR123。八个 Boss/共享消费者测试与两份测试依赖已在 `49a298b40890ccf4d9d2326d051f12a0ffe63c27` 提交；current15 已完整通过（224.151秒），随后技术绑定ad3与Foundry/185收口becd已提交，索引采用下述acb快照；尚非远端main或公开试玩。
+
+功能所有权已接到真实消费者，1,124 文件功能迁移已实施；P9 已在 `4e91a0dd` 将机关、流程及 Boss 场地恢复交回实际所有者。固定上游修复版引擎及同源模板已构建、公开发布、按精确锁实际安装；这不等于游戏各平台导出或完整回归通过。当前完整 Harness 为185项：保留原182前缀，新增三个原Foundry入口回归并移除重复调度。完整185首次远端运行已失败：parallel的11项通过后停在资产元数据绑定，serial的12项通过后停在森林测试旧动态路径；未运行项不能计为通过。Windows导出job成功，serial中的Web构建/包检查通过，但后续交付与发布跳过，最终同源PCK/GUI仍待验收。Foundry36+18验证及三个入口有限检查已通过。统一新地图模块库与替换旧算法尚未实现，当前 Provider 仍运行原算法。
 
 ## 可检索文件与实际图
 
@@ -41,7 +50,25 @@ assets/        原媒体、当前元数据、原始来源与许可
 
 HomeScene 创建家园玩家；DemoApp 经 RunComposition 创建出发玩家，RunSession 持有本局引用、原 Director/Lifetime、构筑、库存、配装、钱包、奖励、商店与道具服务。输入适配器提交意图，PlayerMotor 仍是唯一运动执行者。DamagePolicy/FrameDamagePolicy 管理原伤害政策，Stage 只装配并提交请求。
 
-地图走 `LevelRequest → Provider → 原生成器/版本校验 → LegacyRegionPlanAdapter → LevelPlan → LevelRuntime → Stage/Assembler/原工厂`。Request/Plan 是暂态接口，不是新存档；Provider 保留原版本选择和失败回退，公共装配不抽随机数。共享实体快照与行为状态恢复已接入实际消费者；Boss 的生命、地图快照和决斗恢复由 Encounter 执行，Stage 仍装配实例及普通怪的空间位置，App 保持原几何绑定和触发顺序。
+正式平原/森林的实际顺序是：App构造`LevelRequest`并调用Provider；Provider执行原生成器和版本校验，经`LegacyRegionPlanAdapter`返回`LevelBuildResult`。App创建对应Stage，调用`configure_level(plan, legacy_generated, tuning)`后加入场景树；Stage在`_ready`中调用`LevelRuntime.assemble(self, plan, state, generated.manifest)`，Runtime校验Plan后创建Assembler并调用`build_plan`。Stage还通过Runtime的窄方法创建怪物/Boss及恢复拾取声明。Runtime不会创建Stage，也不拥有App、本局玩家、钱包或伤害服务。
+
+```mermaid
+flowchart LR
+  App[DemoApp] -->|构造请求并 load_level| Provider[Plains / Forest LevelProvider]
+  Provider --> Generator[原生成器与版本校验]
+  Generator --> Adapter[LegacyRegionPlanAdapter]
+  Adapter --> Result[LevelBuildResult: Plan及旧生成结果]
+  Result -->|配置数据| Stage[对应RegionStage]
+  App -->|创建 configure_level add_child| Stage
+  Stage -->|ready时 assemble| Runtime[LevelRuntime]
+  Runtime -->|创建并 build_plan| Assembler[Plains / Forest Assembler]
+  Stage -->|create_actor / create_boss| Runtime
+  Runtime --> Factory[既有EnemyFactory / BossFactory]
+```
+
+这张图描述当前正式两区，不把所有独立实验说成已改走同一路径。仍调用`configure_generated`的区级消费者在Stage内补做旧结果适配；基础生成关和独立实验保留各自现有入口。Request/Plan是暂态接口，不是新存档；Provider保留原版本选择和失败回退，公共装配不抽随机数。共享实体快照与行为状态恢复已接入实际消费者；Boss的生命、地图快照和决斗恢复由Encounter执行，Stage仍装配实例及普通怪的空间位置，App保持原几何绑定和触发顺序。
+
+公共Plan装配边界已经存在，但当前正式来源仍是旧算法。App和Stage保留`legacy_generated`用于记录及表现，当前Stage还把旧Manifest作为`presentation`传给Assembler；因此不能宣称整条地图路径已经脱离旧Manifest。下一步仍按[目标架构第5.1—5.4节](target_architecture.md)实施：先交付真实的新模块库/算法和同协议输出，再迁移真实消费者、验证身份与恢复、按新开局切换并清理旧正式依赖。模块声明继续引用现有敌人、道具、奖励和资源权威；不另造注册表，也不把空Provider当成新地图实现。新布局/算法改变需独立验收，不能借“等价重构”提前切换。
 
 | 内容 | 当前正式选择与权威 | 必须区分的历史/缺陷 |
 | --- | --- | --- |
@@ -70,7 +97,7 @@ ShotLatch 保持原七字段及永久打开账本应用顺序；Director 只复�
 
 ## 实施批次、行为与回退
 
-表中验证是相应批次已取得的有限证据，不代签本报告源的完整 182 项。6f快照以前批次的精确文件列表见运行时详单的 `batches[].current_changed_files`，全文件 CSV 的 `change_batches` 可检索工具与测试；P9、595和a671新增写集以对应提交及质量卡为准，不能从旧索引推导。下表列主要真实消费者。回退列为实际 Git 基点，操作须按依赖逆序撤回后续批次，不能直接覆盖当前工作树。
+表中验证是相应批次已取得的有限证据，不代签本报告当前完整185项。历史批次中的原182等数字保留当时清单含义。6f快照以前批次的精确文件列表见运行时详单的 `batches[].current_changed_files`，全文件 CSV 的 `change_batches` 可检索工具与测试；P9、595和a671新增写集以对应提交及质量卡为准，不能从旧索引推导。下表列主要真实消费者。回退列为实际 Git 基点，操作须按依赖逆序撤回后续批次，不能直接覆盖当前工作树。
 
 | 批次与提交 | 主要文件/消除的问题 | 保留行为 | 验证与剩余边界 | 回退基点 |
 | --- | --- | --- | --- | --- |

@@ -1,0 +1,34 @@
+{
+  "status": "LOADER_REPAIRED_BUT_ORIGINAL_HISTORICAL_SUITE_REMAINS_FAILED_NOT_ACCEPTED_AS_PASS",
+  "file": "tests/test_forest_directional_validator.py",
+  "original_sha256": "7597c5abb9488ac06d44cfaa4d0c01798ef51c87297cb39af05ea04b94106281",
+  "candidate_sha256": "37069dcfb2165c7ec12567b5bb0c106ae3bcbc506c6c3ca12379005941cd966c",
+  "patch_sha256": "7ba134f2c93c196dc3a6c5f7114ed2dcb98e924907c33d4138067f171da6557e",
+  "inverse_wholebytes_equal": true,
+  "full185_registered": false,
+  "main_written": false,
+  "engine_run": false,
+  "command": [
+    "python3",
+    "tests/test_forest_directional_validator.py"
+  ],
+  "probe_cap_seconds": 30,
+  "original_cli": {
+    "exit_code": 1,
+    "cause": "ModuleNotFoundError: forest_bible_world_sources",
+    "log_sha256": "9ce8a0a3f1b35af40c2fac8d4436d00997250c363f9efd531c27ac6a91199cd6"
+  },
+  "candidate_cli": {
+    "exit_code": 1,
+    "tests": 23,
+    "failures": 4,
+    "failing_test": "test_actual_four_captures: intended/noH/noR/onlyR subcases",
+    "errors": [
+      "resource_outside_real_capacity",
+      "charges_not_actual_accepted_shot_and_ground_reset"
+    ],
+    "log_sha256": "73b7eff6dd23d970b1487416b9f24997e5362e9c5ffa7a9f3ab4787d0d0fd879"
+  },
+  "preserved": "Entire compressed historical payload/FIXTURE_SHA256, all class/method AST and original assertions unchanged. No current-validator fallback or historical rebind.",
+  "next": "Separate historical receipt-consumer investigation if requested; do not include this failed suite as a new full185 blocker or report acceptance from loader-only success."
+}

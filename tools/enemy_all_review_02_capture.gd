@@ -157,7 +157,7 @@ func make_case() -> void:
 	# controller, Router, abilities, resources and physics remain enabled.
 	player.get_node("KeyboardMouseAdapter").process_mode = Node.PROCESS_MODE_DISABLED
 	controller.router.activate_device(&"gamepad")
-	var scene_path := "res://scenes/enemies/%s.tscn" % (id if id in FOREST else "patrol_drone")
+	var scene_path := EnemyBehaviorRegistry.scene_path(StringName(id) if id in FOREST else &"patrol")
 	enemy = (load(scene_path) as PackedScene).instantiate() as EnemyMotor
 	actor = enemy.get_node("Actor") as EnemyActor
 	var definition_path := "res://resources/enemies/%s.tres" % id

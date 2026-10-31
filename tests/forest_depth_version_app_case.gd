@@ -34,7 +34,7 @@ func run(map_index: int) -> void:
 	var enemies: Array = []
 	for motor: EnemyMotor in stage.enemies:
 		var actor := motor.get_node("Actor") as EnemyActor
-		var expected := "res://scenes/enemies/"+str(actor.definition.behavior_id)+".tscn"
+		var expected := "res://game/enemies/species/scenes/"+str(actor.definition.behavior_id)+".tscn"
 		check(actor.definition.behavior_id in [&"forest_lantern",&"forest_seed_sentry"] and motor.scene_file_path==expected,"legacy actual enemy instance remains old behavior/scene")
 		enemies.append({"behavior":str(actor.definition.behavior_id),"scene":motor.scene_file_path})
 	var snapshot: Dictionary = app.director.manifest.snapshot()

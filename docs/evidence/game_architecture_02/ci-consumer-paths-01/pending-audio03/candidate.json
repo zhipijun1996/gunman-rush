@@ -1,0 +1,84 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "file": "tests/audio_fix_03.gd",
+  "original_sha256": "99db69a73286fe4924a9368a9a9933edbd4305b23001632a77c745ece92b111a",
+  "candidate_sha256": "7378cfa47d05bd031935437ffa1e2c49821fc33fbe17217727cce0f629890897",
+  "patch_sha256": "cd0e9a5e9429e5dadd4885e092f78444ed00064fd0117059cf550d29991775c4",
+  "inverse_entire_source_equal": true,
+  "assertion_control": {
+    "count": 31,
+    "all_complete_check_expressions_byte_equal": true,
+    "original_conditions_labels_and_order_preserved": true,
+    "method": "Exact full-file inverse and balanced complete check-call extraction, not an installed GDScript AST parser. Full-byte equality of all check expressions preserves their syntax/AST by construction."
+  },
+  "source_evidence": [
+    {
+      "path": "game/world/components/shot_latch.gd",
+      "sha256": "741ab54b15e452f80b8c19fef74113fa06d391da50a973fe9e9991f6ff7a04d7"
+    },
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "sha256": "79bd8fc3aacad831947f1035d40930b35e91ba5c03cbfbad4ef09a1f25a27235"
+    },
+    {
+      "path": "game/application/demo_app.gd",
+      "sha256": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f"
+    },
+    {
+      "path": "game/application/demo.tscn",
+      "sha256": "c15f2600345a33494d7654ff61ecea2f6c917939d2c2add931620ea4cd4c6527"
+    },
+    {
+      "path": "tests/entry_audio_owner_runner.gd",
+      "sha256": "555658443bd833dd802e0570be1be2b57e1ae1af0bfce6dcc4356d779040b512"
+    },
+    {
+      "path": "tests/audio_teardown.gd",
+      "sha256": "0cfa8959bef31d171cee212ca0878a31df5b1c76cdf976e2d0efe9c2c59c40f2"
+    },
+    {
+      "path": "game/presentation/audio/world_audio_lifecycle.gd",
+      "sha256": "54138348ec092b3f9c7dac9afeec8b272e65baed91caab65fb55d0c2e0b7a46f"
+    },
+    {
+      "path": "tools/run_audio_feedback_tests.py",
+      "sha256": "ae3a02afe079855f5cf900303b92ac3032429beaecc358b3ac7c5c8bbab26067"
+    },
+    {
+      "path": "tools/run_audio_lifecycle_tests.py",
+      "sha256": "e93b5d235d9e13d376706915e87293e6442480e3b94bfb0a551eb71445fb6214"
+    }
+  ],
+  "baseline": {
+    "commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+    "test_sha256": "e8e278d85fb7f3459210e6e7fef1e1c3c892c86a84439f0226e1ffbc72286493",
+    "current_test_equals_baseline_after_three_path_relocations": true,
+    "behavior_difference": "Baseline ShotLatch/GameAudio selected first global audio group. P7 commit317b755c deliberately changed both to nearest ancestry owner; current sibling fixture is unowned and intentionally falls back. Do not label this as the same original2ce native failure.",
+    "native_status": "not run"
+  },
+  "original_failure": {
+    "checks": 31,
+    "failures": 5,
+    "log_sha256": "e6c942bf13fe20c20bc63da826a327ce921f0b7e82a8f3efab0f59fcd6916a1e",
+    "labels": [
+      "Actual projectile collision commits one opening and one dedicated chime",
+      "Accepted mechanism uses the new source in the unchanged shared pool",
+      "Formal chime neither plays generic hook bell nor doubles the fallback voice",
+      "Rejected duplicate committed request cannot ring again",
+      "Cancelled mechanism's deferred request adds no chime"
+    ]
+  },
+  "topology": {
+    "before": "SceneTree.root -> App -> selected GameAudio; separate root -> fixture world -> ShotLatch. for_origin searches only ancestor/direct-child scopes, never inside sibling App, thus fallback.",
+    "after": "SceneTree.root -> App -> selected GameAudio + fixture world -> ShotLatch. Nearest owner now is the already asserted formal selected GameAudio.",
+    "geometry": "App root is Node2D with default identity transform in demo.tscn and no own transform writes in App entry path. Existing fixture local offset10000,6000 and all player/floor/latch coordinates unchanged.",
+    "pause": "App PROCESS_MODE_ALWAYS requires explicit fixture PROCESS_MODE_PAUSABLE to retain the prior inherited root-world pause behavior.",
+    "teardown": "Original order unchanged: drain_world(world), world.free(), drain_world(app), app.free(). Child is gone before parent drain/free; no double-free or stale await introduced."
+  },
+  "scope": "Test fixture consumer migration for P7 intentional owner isolation. No production audio/cue/fallback/dedup/RNG/budget change. No new service or owner registry. Main untouched, no engine run.",
+  "pending_native_commands": [
+    "python3 tools/run_audio_lifecycle_tests.py --script res://tests/audio_fix_03.gd --marker \"^AUDIO_FIX_03 checks=\\d+ failures=0$\" --timeout 90 --output build/audio-fix03-owner-01",
+    "python3 tools/run_audio_feedback_tests.py --output build/audio-fix03-owner-wrapper-01"
+  ],
+  "independent_review": "pending"
+}

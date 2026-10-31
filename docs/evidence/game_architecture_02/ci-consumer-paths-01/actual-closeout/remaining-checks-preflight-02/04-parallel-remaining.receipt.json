@@ -1,0 +1,44 @@
+{
+  "invocation": "04-parallel-remaining",
+  "exit_code": 1,
+  "wall_seconds": 49.572,
+  "original_report": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/report.json",
+  "raw_sha256": "f4e26a834d20ad26a821e0ce3bb9ea4ca54a6c235b615f6a9d013e88fd27fa82",
+  "raw_bytes": 28916,
+  "lossless_gzip": "/workspace/refactor-evidence/remaining-checks-preflight-02/04-parallel-remaining.report.json.gz",
+  "gzip_sha256": "dec897e13a2a100eb7bacdee65111944046099080f7a4071f1938a6037d7c6d7",
+  "checks": [
+    {
+      "id": "underworld-home-guard-tests",
+      "status": "passed",
+      "duration_seconds": 0.313,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/underworld-home-guard-tests.log"
+    },
+    {
+      "id": "region-bible-contract",
+      "status": "passed",
+      "duration_seconds": 0.305,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/region-bible-contract.log"
+    },
+    {
+      "id": "region-bible-tests",
+      "status": "passed",
+      "duration_seconds": 30.149,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/region-bible-tests.log"
+    },
+    {
+      "id": "forest-bible-reader-tests",
+      "status": "failed",
+      "duration_seconds": 1.885,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/forest-bible-reader-tests.log"
+    }
+  ]
+}

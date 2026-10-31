@@ -1,3 +1,25 @@
+## 2026-10-31 后继有限预检完成，R3仍阻断完整验收
+
+当前基点仍为 `11254a6647dbb4d842feb4d21de9e2d8bd9accd3`，后继工作区尚未提交，未合main或发布游戏。18个既有测试/工具消费者已按精确独审候选接回实际所有者，资产manifest仅修3份当前元数据SHA。独立的RootBell暂停恢复缺陷另改1个生产文件，不混作保持行为不变的重构。
+
+原剩余157项诊断为151通过、6失败，原状态与8份压缩报告保留。后继原检查中，spatial、production-loop115、scheduler27、forest-bible-reader58、Harness91通过；audio-feedback原四case另通过。原R3完整wrapper仍在278条中的1条跳跃断言失败，不能把不同冻结源的分次结果拼成full185通过。独立motion708/0与未注册Audio SourceClosure1/0只覆盖各自入口；未注册directional仍23/4，与精确2ce旧capture合同同失败，保留为独立历史问题，未改旧payload/容量规则或注册新覆盖。
+
+R3先补齐正式App既有的精确接触回调，仍278/1。相同固定引擎下，精确2ce的5637个普通运行文件原探针和仅补回调探针均8/1；两组296行轨迹逐字段与当前相同，仅全局tick差6759。一次实际状态转换起跳诊断仍8/2，不采用其时序变更。正式App现有cautious2策略随后因玩家死亡而释放场景；观察者修复后保存真实1608帧/3失败、Boss26HP/player0及fatal/run_ended事件，严格退出1。它证明该策略失败，不能推论全部合法counterplay不可行；没有修改碰撞、伤害、能力、随机、180秒/7200帧预算或胜利判据。
+
+hit测试接实际表现/受伤所有者后由380/4到393/1，揭示RootBell原有的暂停恢复粒子遗漏。独立修复只调用现有`particles.clear_for_epoch()`；hit393/0、plains lifecycle112/0、原root-bell-current与deformation检查通过，冻结源前后相同。此为独立生产缺陷修复，原失败保留，没有更换图声或重绑style/creative版本，见[独立质量记录](quality/records/ROOT-BELL-PAUSED-RESTORE-01.json)。
+
+完整185、后继同源Web/Windows/Android交付、Foundry完整UI、实际连续影片及GUI/设备/用户认可尚未通过本轮最终验收；R3仍列阻断。此前Windows job和serial Web构建/包检查有限通过不等于最终交付。公开网页未更新，上次核实源仍为`55b07609ea756c6faee771aaa84f080b249917fe`；统一新地图库/算法尚未实现，当前Provider仍适配旧算法。实际证据与不同源向量见[消费者收口](worklines/game_architecture_01/ci_consumer_paths_01.md)。下方历史记录保留当时状态。
+
+## 2026-10-31 完整185首次运行失败，当前修复与剩余预检进行中
+
+已执行的远端源为 `11254a6647dbb4d842feb4d21de9e2d8bd9accd3`，分支 `refactor/game-architecture-02`，内容底座仍为 main `2ce4ffa6`（PR122/124/125/107，排除PR123）。[环境运行41195033622](https://github.com/zhipijun1996/gunman-rush/actions/runs/41195033622)没有完成完整185验收：parallel的11项通过后，`art-art`因3份已迁路径的资产元数据SHA未重绑而失败；serial的12项通过后，`forest-ecology`因测试动态加载旧敌人场景路径报错并超时。两个失败和未运行项均保留，不能把注册数量或局部通过数记成全量成功。
+
+Windows导出job成功。serial中`web-build`、`web-bundle`也已执行通过，但后续Web交付、合流和发布job跳过，没有形成最终同源交付证明；这不等于公开游戏网页已更新。本轮未发布游戏网页；上次已核公开源为 `55b07609ea756c6faee771aaa84f080b249917fe`，最终交付时须再核网页metadata与完整PCK。此前固定工具链完整产物、Foundry36条挑战/18条路线和三个入口检查的有限证据继续有效，范围见[Foundry收口](worklines/game_architecture_01/ci_foundry_consumers_01.md)与[工具链收口](worklines/game_architecture_01/engine_toolchain_01.md)。
+
+目前正在把已独审的元数据绑定、真实测试消费者旧路径及声明输入漏项分批收口，并逐个执行原Harness检查提前排查其余失败。`preview/plains_v3_catalog.json`属于稀疏检出缺件，按精确Git原件恢复并补真实读取闭包，不是重新生成美术。正在进行的本地预检与远端旧源结果不能拼成一个通过的185报告；修复后的最终提交、剩余检查和交付结果须另行冻结并核验。
+
+同一11254源的原38项启动探针已全部加载并干净退出，包括35场景及正式App的Home/平原/森林三模式；Foundry本次实际出现Player和FoundryWorld。这只证明有限启动与清理，不代表全部交互、设备、GUI或完整185。地图公共接口仍通过旧Provider和Manifest适配当前内容，新模块库与新算法尚未接入；已实现调用方向和后续范围见[迁移报告](worklines/game_architecture_01/migration_report.md)及[目标架构第5节](worklines/game_architecture_01/target_architecture.md)。下方历史记录按当时状态保留。
+
 ## 2026-10-31 Foundry消费者收口完成，下一步完整185与导出
 
 当前实现提交 `becd0099b161f57cd919e7492f9f99752d377935`，继承工具链595、独立生命周期a671、Boss八测试49a和技术绑定ad3/b893。内容基线main仍为2ce4ffa6（PR122/124/125/107，排除123）。本重构未合main；游戏公开网页尚未更新。
