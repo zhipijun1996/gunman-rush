@@ -56,7 +56,7 @@ func validation_error() -> String:
 	for actor: Dictionary in actors:
 		if not actor.get("id") is String or str(actor.id).is_empty() or identities.has(actor.id) or not actor.get("position") is Vector2 or not actor.position.is_finite() or not actor.get("overrides") is Dictionary:
 			return "Invalid or duplicate actor placement"
-		if not LevelContentValidation.identity(actor.get("behavior_id")) or EnemyFactory.definition_for_behavior(StringName(actor.behavior_id),actor.overrides)==null:
+		if not LevelContentValidation.identity(actor.get("behavior_id")) or not actor.get("definition_revision","") is String or EnemyFactory.definition_for_behavior(StringName(actor.behavior_id),actor.overrides,actor.get("definition_revision",""))==null:
 			return "Missing or invalid actor definition"
 		identities[actor.id]=true
 	if not boss.is_empty() and (not LevelContentValidation.identity(boss.get("definition_id")) or not BossFactory.RECORDS.has(StringName(boss.definition_id)) or not boss.get("position") is Vector2 or not boss.position.is_finite()):

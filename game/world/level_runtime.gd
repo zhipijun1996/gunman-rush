@@ -28,7 +28,9 @@ static func install_modules(parent: Node2D, plan: LevelPlan, state: PlainsRegion
 	return modules
 
 static func create_actor(placement: Dictionary) -> EnemyMotor:
-	var actor := EnemyFactory.create_for_behavior(StringName(placement.behavior_id),placement.overrides)
+	var revision: Variant=placement.get("definition_revision","")
+	if not revision is String: return null
+	var actor := EnemyFactory.create_for_behavior(StringName(placement.behavior_id),placement.overrides,revision)
 	if actor!=null: actor.position=placement.position
 	return actor
 

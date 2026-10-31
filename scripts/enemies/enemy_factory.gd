@@ -22,8 +22,8 @@ const CANDIDATE_RECIPES := {
 static func scene_path_for_behavior(behavior: StringName) -> String:
 	return EnemyBehaviorRegistry.scene_path(behavior)
 
-static func definition_path_for_behavior(behavior: StringName) -> String:
-	return EnemyBehaviorRegistry.definition_path(behavior)
+static func definition_path_for_behavior(behavior: StringName, revision: String = "") -> String:
+	return EnemyBehaviorRegistry.definition_path(behavior,revision)
 
 static func override_error(overrides: Dictionary) -> String:
 	for raw: Variant in overrides:
@@ -39,8 +39,8 @@ static func override_error(overrides: Dictionary) -> String:
 			return "invalid_numeric_override:" + String(key)
 	return ""
 
-static func definition_for_behavior(behavior: StringName, overrides: Dictionary = {}) -> EnemyDefinition:
-	var path := definition_path_for_behavior(behavior)
+static func definition_for_behavior(behavior: StringName, overrides: Dictionary = {}, revision: String = "") -> EnemyDefinition:
+	var path := definition_path_for_behavior(behavior,revision)
 	if path.is_empty() or not override_error(overrides).is_empty(): return null
 	var original := load(path) as EnemyDefinition
 	if original == null: return null
@@ -53,8 +53,8 @@ static func definition_for_behavior(behavior: StringName, overrides: Dictionary 
 	for key: Variant in overrides: definition.set(key,overrides[key])
 	return definition if definition.is_valid() else null
 
-static func create_for_behavior(behavior: StringName, overrides: Dictionary = {}) -> EnemyMotor:
-	var definition := definition_for_behavior(behavior,overrides)
+static func create_for_behavior(behavior: StringName, overrides: Dictionary = {}, revision: String = "") -> EnemyMotor:
+	var definition := definition_for_behavior(behavior,overrides,revision)
 	var path := scene_path_for_behavior(behavior)
 	if definition == null or path.is_empty(): return null
 	var scene := load(path) as PackedScene

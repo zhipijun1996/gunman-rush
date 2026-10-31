@@ -69,7 +69,13 @@ static func generated(data: Dictionary, tuning: PlayerTuning, map_index: int, fo
 				return result
 			overrides[&"initial_direction"]=int(row.initial_direction)
 		if not forest_region and row.has("dive_depth"): overrides[&"dive_depth"]=float(row.dive_depth)
-		plan.actors.append({"id":str(row.id),"behavior_id":StringName(row.behavior_id),"position":Vector2(row.position[0],row.position[1]),"overrides":overrides})
+		var placement := {"id":str(row.id),"behavior_id":StringName(row.behavior_id),"position":Vector2(row.position[0],row.position[1]),"overrides":overrides}
+		if forest_region and manifest.get("layout_version")==ThornForestRegionGenerator.DEPTH_LAYOUT_EXPEDITION and row.behavior_id=="charger":
+			if row.get("definition_path")!=EnemyBehaviorRegistry.definition_path(&"charger") or row.get("definition_sha256")!=EnemyBehaviorRegistry.CHARGER_V2_REVISION:
+				result.error="Recorded v11 charger Definition identity rejected"
+				return result
+			placement.definition_revision=EnemyBehaviorRegistry.CHARGER_V2_REVISION
+		plan.actors.append(placement)
 	var boss_id: StringName=&"bellstrider" if map_index==1 else &"windkeeper_storm"
 	var boss_position := Vector2(plan.boss_arena.get_center().x,plan.boss_arena.end.y-65)
 	if forest_region:

@@ -2,9 +2,12 @@ class_name EnemyBehaviorRegistry
 extends RefCounted
 ## Finite gameplay construction registry. Resources/AI algorithms stay unchanged.
 ## String script paths deliberately avoid preloading the Actor -> Behavior graph.
+# Historical v11 records this exact resource revision. The logical source path
+# remains in its Manifest; only the finite resolver selects retained bytes.
+const CHARGER_V2_REVISION := "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0"
 const BEHAVIORS := {
 	&"patrol": {"family":&"base", "script":"", "definition":"res://resources/enemies/patrol_drone.tres", "scene":"res://scenes/enemies/patrol_drone.tscn"},
-	&"charger": {"strategy":"res://scripts/enemies/charger_attack_strategy.gd", "family":&"base", "script":"res://scripts/enemies/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_charger.tres", "scene":"res://scenes/enemies/patrol_drone.tscn"},
+	&"charger": {"strategy":"res://scripts/enemies/charger_attack_strategy.gd", "family":&"base", "script":"res://scripts/enemies/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_charger.tres", "revisions":{CHARGER_V2_REVISION:"res://resources/enemies/legacy/plains_charger_v2.tres"}, "scene":"res://scenes/enemies/patrol_drone.tscn"},
 	&"diver": {"strategy":"res://scripts/enemies/diver_attack_strategy.gd", "family":&"base", "script":"res://scripts/enemies/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_diver.tres", "scene":"res://scenes/enemies/patrol_drone.tscn"},
 	&"hopper": {"strategy":"res://scripts/enemies/hopper_attack_strategy.gd", "family":&"base", "script":"res://scripts/enemies/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_hopper.tres", "scene":"res://scenes/enemies/patrol_drone.tscn"},
 	&"sentry": {"strategy":"res://scripts/enemies/sentry_attack_strategy.gd", "family":&"base", "script":"res://scripts/enemies/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_sentry.tres", "scene":"res://scenes/enemies/patrol_drone.tscn"},
@@ -42,8 +45,13 @@ static func supports_behavior(id: StringName) -> bool:
 static func validation_family(id: StringName) -> StringName:
 	return BEHAVIORS[id].family if BEHAVIORS.has(id) else &""
 
-static func definition_path(id: StringName) -> String:
-	return BEHAVIORS[id].definition if BEHAVIORS.has(id) else ""
+static func definition_path(id: StringName, revision: String = "") -> String:
+	if not BEHAVIORS.has(id): return ""
+	if revision.is_empty(): return BEHAVIORS[id].definition
+	var revisions: Dictionary=BEHAVIORS[id].get("revisions",{})
+	var path: String=revisions.get(revision,"")
+	# Unknown revisions and changed retained bytes fail closed, never current.
+	return path if not path.is_empty() and FileAccess.get_sha256(path)==revision else ""
 
 static func scene_path(id: StringName) -> String:
 	return BEHAVIORS[id].scene if BEHAVIORS.has(id) else ""
