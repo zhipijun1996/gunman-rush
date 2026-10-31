@@ -4,8 +4,8 @@
   "task_type": "process",
   "workflow": "in_progress",
   "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "reviewed_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "content_version": "candidate-v2-layout",
   "owner": "/root",
   "purpose": "消除CI跨job重复并让全部源码/导出守门识别功能目录game",
   "player_experience": "为保持玩法的功能重构提供完整可追溯验证",
@@ -95,28 +95,31 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "6项迁移后原生回归实际fresh通过；formal191/0仍因退出57 ObjectDB/25 resources严格失败，完整集成未完成。局部通过不代签full182。",
+      "evidence": [
+        "post-layout-native-six",
+        "formal-cleanup-failure"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "当前源全部入口GUI/实际导出PCK/动态ResourceLoader未完整验证；静态依赖图不作运行轨迹。",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "gameplay": {
@@ -131,25 +134,77 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "P8工具守门与full182注册有限定静态/Python接受；5589初始scope widening和parser fail-open拒绝保留。注册182不等于执行182；不覆盖style26工作树。 最终整合独审未完成，保持unverified。",
+      "evidence": [
+        "bounded-independent-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "post-layout-native-six",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/native-six-report.json",
+      "sha256": "02b35bff1e3211e2358aa92d201f65bddac6406d8417fd2db305a5c467899434",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "逐项实际expanded_argv按report顺序记载（分号仅表顺序）；读取root已完成的6项fresh报告，没有重跑或猜测harness启动参数。",
+      "observed": "6项fresh passed，原report commit为6584；不是full182/GUI/导出/PCK证明。",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_bellstrider_rework_01_tests.py ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/level_plan_runner.gd ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/harness-d5bab305794f44099ad252b96c98c80c ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_lifecycle_runner.gd -- --studies ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_owner_runner.gd -- --auditions ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_integration_four_tests.py --case forest-v11-definition",
+      "exit_code": 0,
+      "environment": "Linux / Godot 4.7.2 headless；root独占引擎，6项fresh运行；本记录整理者未运行引擎"
+    },
+    {
+      "id": "formal-cleanup-failure",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/post-layout-formal-02.log",
+      "sha256": "22abcc3a5c9d2b58f60e27d074a9751a24819186e6a54c497395b4eb343afe16",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "原formal191 assertions/0 failures后退出57 ObjectDB/25 resources及RID泄漏，严格wrapper拒绝；不得仅以191/0称通过。"
+    },
+    {
+      "id": "bounded-independent-review",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/architecture-independent-review.json",
+      "sha256": "417519349e685cefd1ba3d86083c43ee739543e41523226800257a7552cc1045",
+      "kind": "review",
+      "producer": "/root/structure_audit",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "P8工具守门与full182注册有限定静态/Python接受；5589初始scope widening和parser fail-open拒绝保留。注册182不等于执行182；不覆盖style26工作树。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者只读比对实现与真实消费者；实际审查范围和排除项以归档原件为准，未替代作者或完整CI验收。"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "现180项完整CI与远端workflow待最终冻结后执行",
-    "不签设备/听感/视觉认可"
-  ]
+    "不签设备/听感/视觉认可",
+    "full182当前源完整执行尚未完成；6项fresh不是完整CI",
+    "formal191/0后57 ObjectDB/25 resources退出泄漏仍是严格失败，不得消音/清cache掩盖",
+    "style26资产与相应测试调整仍WIP且独审未完；不改变本记录为已通过",
+    "实际导出PCK、35入口自然运行与118动态加载分支未全部验证",
+    "不以旧SHA独审/旧源森林80/80追签当前整合；后续Cloud动态入口字符串修正待独审"
+  ],
+  "test_change_justification": "P8测试与工具改动依据归档p8-test-change-justification.json：原213 checks与profiles/非inputs字段保持；后来full182仅追加forest-v11-definition并保留原全部lane前缀。旧Python测试方法无删除，原断言不降；路径迁移、实际cache restore helper守门与finite registry负例详见原件。初次两个工具守门缺陷通过修生产修复，不改弱期望；最终style26测试和新Cloud字符串修正尚待独审，不能借此记录覆盖为passed。"
 }

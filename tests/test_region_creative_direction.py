@@ -94,6 +94,27 @@ def frozen25_direction(region):
 
 
 
+def frozen28_direction(region):
+    """Replay only the pre-layout153 closure using the already pinned source adapter."""
+    base = creative.ROOT/history.STYLE25_ARCHIVE
+    registry = json.loads((base/creative.BIBLE_REGISTRY).read_bytes())
+    path = 'docs/creative_direction/'+region+'.json'
+    old = json.loads((base/path).read_bytes())
+    style = json.loads((base/MERGED_BOSSES_STYLE).read_bytes())
+    selected = next(row['current_bible'] for row in registry['regions'] if row['region_id']==region)
+    paths = {'docs/world_regions.json', creative.BIBLE_REGISTRY, path, MERGED_BOSSES_STYLE,
+             selected['path'], selected['selection_evidence']['path'],
+             *[row['path'] for row in style['runtime_reference']['references']],
+             *[row['path'] for row in old['authority_sources']]}
+    with tempfile.TemporaryDirectory() as folder:
+        fixture = Path(folder)
+        for name in paths:
+            raw = (base/name).read_bytes() if name in {creative.BIBLE_REGISTRY,path,MERGED_BOSSES_STYLE} else history.style25_source(creative.ROOT,name)
+            target=fixture/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+        direction,binding=creative.load_direction(path,region,root=fixture)
+        return direction,{**binding,'region_bible':creative.bind_region_bible(region,fixture)[1]}
+
+
 class CreativeTests(unittest.TestCase):
     def setUp(self):
         self.path = 'docs/creative_direction/thorn_forest.json'
@@ -536,7 +557,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v28')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v29')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -817,10 +838,10 @@ class CreativeTests(unittest.TestCase):
 
 
     def test_merged28_combines_both_sources_without_inheriting_acceptance(self):
-        style = creative.load_bible_registry()['shared_style_authority']
+        style = json.loads((creative.ROOT/history.STYLE25_ARCHIVE/creative.BIBLE_REGISTRY).read_bytes())['shared_style_authority']
         self.assertEqual(style['path'],MERGED_BOSSES_STYLE)
         for region in ('windchime_plains','thorn_forest'):
-            current,binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            current,binding = frozen28_direction(region)
             self.assertEqual((current['version'],binding['version']),('creative-v28','creative-v28'))
             self.assertEqual(current['user_acceptance'],'direction_only_not_art_gameplay_or_device')
             parents=[]
@@ -843,8 +864,26 @@ class CreativeTests(unittest.TestCase):
                 if row not in expected:expected.append(row)
             expected.append(style)
             self.assertEqual(current['authority_sources'],expected)
-            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['region_bible'],binding['region_bible'])
             self.assertEqual(current['revision_impact']['task_id'],'MAIN-INTEGRATION-122-124-125')
+
+class FeatureLayoutDirectionTests(unittest.TestCase):
+    def test_current29_preserves_selected_content_and_refuses_frozen28_as_current(self):
+        for region in ('windchime_plains','thorn_forest'):
+            old,old_binding=frozen28_direction(region)
+            current,binding=creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            self.assertEqual((current['version'],binding['version']),('creative-v29','creative-v29'))
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key],key)
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['user_acceptance'],'direction_only_not_art_gameplay_or_device')
+            self.assertIn('FAILED',current['revision_impact']['known_failure'])
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.validate_bible_binding(old['region_bible'])
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(history.STYLE25_ARCHIVE+'/docs/creative_direction/'+region+'.json',region)
 
 if __name__ == '__main__':
     unittest.main()

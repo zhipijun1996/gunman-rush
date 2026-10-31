@@ -4,8 +4,8 @@
   "task_type": "mechanic",
   "workflow": "in_progress",
   "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "reviewed_commit": "ca8b99160efa6f075c2ea8b2b7fab743196250f8",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "content_version": "candidate-v2-layout",
   "owner": "/root/runtime_audit",
   "purpose": "纯值地图请求、已解析Plan与实际运行装配；四正式地图接入并保留旧格式适配",
   "player_experience": "保留现有入口、玩法、随机、保存及已采用图声；音频宿主缺陷独立标记",
@@ -13,38 +13,38 @@
     "Preserve existing gameplay contracts"
   ],
   "affected_paths": [
-    "game/world/content/level_module_catalog.gd",
-    "game/world/content/level_module_catalog.gd.uid",
-    "game/world/forest_level_geometry.gd",
-    "game/world/forest_level_geometry.gd.uid",
-    "game/world/level_build_result.gd",
-    "game/world/level_build_result.gd.uid",
-    "game/world/level_content_validation.gd",
-    "game/world/level_content_validation.gd.uid",
-    "game/world/level_module_placement.gd",
-    "game/world/level_module_placement.gd.uid",
-    "game/world/level_plan.gd",
-    "game/world/level_plan.gd.uid",
-    "game/world/level_request.gd",
-    "game/world/level_request.gd.uid",
-    "game/world/level_runtime.gd",
-    "game/world/level_runtime.gd.uid",
-    "game/world/providers/forest_level_provider.gd",
-    "game/world/providers/forest_level_provider.gd.uid",
-    "game/world/providers/legacy_region_plan_adapter.gd",
-    "game/world/providers/legacy_region_plan_adapter.gd.uid",
-    "game/world/providers/plains_level_provider.gd",
-    "game/world/providers/plains_level_provider.gd.uid",
-    "scripts/demo/demo_app.gd",
-    "scripts/demo/demo_stage.gd",
-    "scripts/demo/generated_demo_stage.gd",
-    "scripts/demo/plains_environment_stage.gd",
-    "scripts/demo/plains_region_stage.gd",
-    "scripts/demo/thorn_forest_region_stage.gd",
-    "scripts/generation/plains_region_assembler.gd",
-    "scripts/generation/random_stage_generator.gd",
-    "scripts/generation/thorn_forest_region_assembler.gd",
-    "scripts/world/forest_practice_bell.gd",
+    "game/application/demo_app.gd",
+    "game/world/components/forest_practice_bell.gd",
+    "game/world/generation/plains_region_assembler.gd",
+    "game/world/generation/random_stage_generator.gd",
+    "game/world/generation/thorn_forest_region_assembler.gd",
+    "game/world/levels/content/level_module_catalog.gd",
+    "game/world/levels/content/level_module_catalog.gd.uid",
+    "game/world/levels/forest_level_geometry.gd",
+    "game/world/levels/forest_level_geometry.gd.uid",
+    "game/world/levels/level_build_result.gd",
+    "game/world/levels/level_build_result.gd.uid",
+    "game/world/levels/level_content_validation.gd",
+    "game/world/levels/level_content_validation.gd.uid",
+    "game/world/levels/level_module_placement.gd",
+    "game/world/levels/level_module_placement.gd.uid",
+    "game/world/levels/level_plan.gd",
+    "game/world/levels/level_plan.gd.uid",
+    "game/world/levels/level_request.gd",
+    "game/world/levels/level_request.gd.uid",
+    "game/world/levels/level_runtime.gd",
+    "game/world/levels/level_runtime.gd.uid",
+    "game/world/levels/providers/demo_stage.gd",
+    "game/world/levels/providers/forest_level_provider.gd",
+    "game/world/levels/providers/forest_level_provider.gd.uid",
+    "game/world/levels/providers/generated_demo_stage.gd",
+    "game/world/levels/providers/legacy_region_plan_adapter.gd",
+    "game/world/levels/providers/legacy_region_plan_adapter.gd.uid",
+    "game/world/levels/providers/plains_environment_stage.gd",
+    "game/world/levels/providers/plains_level_provider.gd",
+    "game/world/levels/providers/plains_level_provider.gd.uid",
+    "game/world/levels/providers/plains_region_stage.gd",
+    "game/world/levels/providers/thorn_forest_region_stage.gd",
     "tests/forest_hazard_records_runner.gd",
     "tests/level_plan_runner.gd",
     "tests/level_plan_runner.gd.uid"
@@ -95,27 +95,30 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "6项迁移后原生回归实际fresh通过；formal191/0仍因退出57 ObjectDB/25 resources严格失败，完整集成未完成。局部通过不代签full182。",
+      "evidence": [
+        "post-layout-native-six",
+        "formal-cleanup-failure"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "当前源全部入口GUI/实际导出PCK/动态ResourceLoader未完整验证；静态依赖图不作运行轨迹。",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "gameplay": {
@@ -130,25 +133,77 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "P3初审R1旧hazard fixture未迁移、R2裸Plan漏验证被拒；3f557修正获有限静态接受。cd71单向依赖接受不代表泄漏已修复。 最终整合独审未完成，保持unverified。",
+      "evidence": [
+        "bounded-independent-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "post-layout-native-six",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/native-six-report.json",
+      "sha256": "02b35bff1e3211e2358aa92d201f65bddac6406d8417fd2db305a5c467899434",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "逐项实际expanded_argv按report顺序记载（分号仅表顺序）；读取root已完成的6项fresh报告，没有重跑或猜测harness启动参数。",
+      "observed": "6项fresh passed，原report commit为6584；不是full182/GUI/导出/PCK证明。",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_bellstrider_rework_01_tests.py ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/level_plan_runner.gd ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/harness-d5bab305794f44099ad252b96c98c80c ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_lifecycle_runner.gd -- --studies ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_owner_runner.gd -- --auditions ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_integration_four_tests.py --case forest-v11-definition",
+      "exit_code": 0,
+      "environment": "Linux / Godot 4.7.2 headless；root独占引擎，6项fresh运行；本记录整理者未运行引擎"
+    },
+    {
+      "id": "formal-cleanup-failure",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/post-layout-formal-02.log",
+      "sha256": "22abcc3a5c9d2b58f60e27d074a9751a24819186e6a54c497395b4eb343afe16",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "原formal191 assertions/0 failures后退出57 ObjectDB/25 resources及RID泄漏，严格wrapper拒绝；不得仅以191/0称通过。"
+    },
+    {
+      "id": "bounded-independent-review",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/architecture-independent-review.json",
+      "sha256": "417519349e685cefd1ba3d86083c43ee739543e41523226800257a7552cc1045",
+      "kind": "review",
+      "producer": "/root/structure_audit",
+      "source_commit": "3f5576734ebead78f11bc12558b7c913f14972ea",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "P3初审R1旧hazard fixture未迁移、R2裸Plan漏验证被拒；3f557修正获有限静态接受。cd71单向依赖接受不代表泄漏已修复。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root/runtime_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者只读比对实现与真实消费者；实际审查范围和排除项以归档原件为准，未替代作者或完整CI验收。"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "整合后的原完整回归和导出尚未全部执行",
-    "不签用户设备、听感或新艺术认可"
-  ]
+    "不签用户设备、听感或新艺术认可",
+    "full182当前源完整执行尚未完成；6项fresh不是完整CI",
+    "formal191/0后57 ObjectDB/25 resources退出泄漏仍是严格失败，不得消音/清cache掩盖",
+    "style26资产与相应测试调整仍WIP且独审未完；不改变本记录为已通过",
+    "实际导出PCK、35入口自然运行与118动态加载分支未全部验证",
+    "不以旧SHA独审/旧源森林80/80追签当前整合；后续Cloud动态入口字符串修正待独审"
+  ],
+  "test_change_justification": "原forest_hazard_records fixture真实消费者由仅设manifest迁移为既有adapter产生plan/forest_geometry，原variant/map/count/order/role断言保留。新Plan负例检查拒绝且无节点安装；初审遗漏与修正留在architecture-independent-review。P8路径变更不降低旧fixture/SHA/预算。"
 }

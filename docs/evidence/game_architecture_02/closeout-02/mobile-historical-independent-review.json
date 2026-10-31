@@ -1,0 +1,50 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_ACCEPT_EXTERNAL_CANDIDATE_NOT_YET_APPLIED",
+  "source_head": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "files": [
+    {
+      "path": "tools/mobile_web_perf/run_minimal.py",
+      "sha256": "97480c37ee0a1561de086c0befdc796d937399f84414459a27c47b697f665c1e"
+    },
+    {
+      "path": "tools/mobile_web_perf/build_formal_audio_ab.py",
+      "sha256": "019c963a26c06e461846c26f88f0b02a01aa760c6529d71c1e05781f1f8720cd"
+    },
+    {
+      "path": "tools/mobile_web_perf/build_frame_profile.py",
+      "sha256": "45680f8d905f8eca69c95250127403d243d07c0cfb052001476c6a9ebd3a509a"
+    },
+    {
+      "path": "tools/mobile_web_perf/build_probe.py",
+      "sha256": "b831a90ee2c1157a2f73671466746a1e161ed91db859cc7df968da9a1758debb"
+    },
+    {
+      "path": "tests/test_mobile_web_recorded_paths.py",
+      "sha256": "3cee858963a1aebfb9f4b043043d0797fede533047ac6737e3b30530e6770ba6"
+    }
+  ],
+  "patch_sha256": "a0385d2f1ff83df185a482b820a286693d6064d125735e06f66e550eb9ae77ab",
+  "patch_replay_matches": true,
+  "findings": [
+    "run_minimal fixed1b source and scene keys restored; original PACK_SHA/GAME_AUDIO_SHA guards precede package handling.",
+    "Formal16 measurement paths are an immutable protocol tied to COMMIT, not a second live registry. All16 real fixed Git-source treatments/wrappers/steps equal original2ce; AUDIO/HELPER/write_pack shared implementation AST independently exact to original2ce.",
+    "Frame original9+6 method lists unchanged; selected source-tree/path-remap intersection must resolve each role uniquely and choose one homogeneous old/current measurement layout. Existing package-digest rule and instrumentation retained.",
+    "Candidate-source flags require exact selected keys; foreground arbitrary-file candidate remains explicitly recorded. No implicit current-path alias into old measurement key.",
+    "Current build_probe only adds complete current required-remap admission. Existing source reading and instrumentation remain current-checkout diagnostic semantics.",
+    "New10 test methods preserve original production thresholds and algorithms; tests do not stand in for real PCK export/engine verification."
+  ],
+  "independent_tests": {
+    "result": "10/0, 0.716s",
+    "log": "mobile-historical-independent-tests.log",
+    "log_sha256": "a5feb40b5261a031169b4593254eec7d1ff796e2fe713a9a0e3e4682cb49aa7d",
+    "frame_main_cases": "old/current x basic/action using real Git source and synthetic pack directory, intercepted before write_pack"
+  },
+  "limits": [
+    "Actual fixed historical PCK unavailable/not run; no engine/browser/mobile performance acceptance.",
+    "Layout admission is finite selected-role compatibility, not proof of package bytes matching declared Git source; original digest/metadata trust boundary unchanged.",
+    "Unselected opposite-layout extra remaps are not globally rejected. build_probe complete-current plus extra historical paths can pass; do not describe as rejection of every mixed package.",
+    "Current build_probe still reads checkout source, not same-SHA source binding. Explicit foreground candidate dependencies are not validated as compatible with old PCK.",
+    "Candidate not yet applied; same-byte reconciliation required."
+  ]
+}

@@ -37,7 +37,7 @@ HISTORICAL_CORE_BOUNDARY = {
     "res://project.godot": (
         "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
         "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"),
-    "res://game/application/run_manifest.gd": (
+    "res://scripts/run/run_manifest.gd": (
         "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
         "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"),
 }

@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "task_id": "GAME-ARCH-TEST-MIGRATION-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "按真实当前消费者迁移测试路径与技术绑定，固定历史消费者继续读取其原版本",
+  "player_experience": "检查仍约束原玩法、素材与生命周期，不通过降低检查门槛获得通过",
+  "constraints": [
+    "原172项顺序前缀和原检查命令/预算保留，追加10项真实回归",
+    "原历史协议/来源字节保留，当前消费者明确迁移",
+    "本记录只签有限静态审查，不签全量运行、视觉、设备或整个P8",
+    "所引62文件审查中的两份assets manifest不计本process范围，沿现资产质量记录与LAYOUT跟踪；本记录仅60个测试/工具/文档技术文件。"
+  ],
+  "affected_paths": [
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/evidence/game_architecture_02/blob47_metadata_before_layout/blob47_foundation_v1.json",
+    "docs/evidence/game_architecture_02/blob47_metadata_before_layout/build_blob47_art.py",
+    "docs/evidence/game_architecture_02/blob47_metadata_before_layout/manifest.json",
+    "docs/evidence/game_architecture_02/pixel_metadata_before_layout/build_pixel_plains_art.py",
+    "docs/evidence/game_architecture_02/pixel_metadata_before_layout/manifest.json",
+    "docs/evidence/game_architecture_02/pixel_metadata_before_layout/windchime_pixel_vectors.json",
+    "docs/evidence/game_architecture_02/windchime_metadata_before_layout/build_windchime_art.py",
+    "docs/evidence/game_architecture_02/windchime_metadata_before_layout/windchime_limestone_v2.json",
+    "docs/quality/asset_records/blob47_foundation_v1.json",
+    "docs/quality/asset_records/windchime_limestone_v2.json",
+    "docs/quality/asset_records/windchime_pixel_vectors.json",
+    "docs/worklines/game_architecture_01/dependency_graph.json",
+    "docs/worklines/game_architecture_01/file_inventory.csv",
+    "docs/worklines/game_architecture_01/runtime_inventory.json",
+    "docs/worklines/game_architecture_01/style26_binding.md",
+    "docs/worklines/game_architecture_01/style26_input_migration.json",
+    "tests/aim_save_compat_case.gd",
+    "tests/cloud_preview_runner.gd",
+    "tests/demo_ui_01/contract_runner.gd",
+    "tests/entry_audio_lifecycle_runner.gd",
+    "tests/entry_audio_owner_runner.gd",
+    "tests/forest_exploration_modules_runner.gd",
+    "tests/style_exploration/test_style_biomes.gd",
+    "tests/test_blob47_layout.gd",
+    "tests/test_cloud_delivery.py",
+    "tests/test_forest_vine_gate.gd",
+    "tests/test_level_design_routing.py",
+    "tests/test_mobile_web_recorded_paths.py",
+    "tests/test_plains_encounter_policy_boundary.py",
+    "tests/test_production_plan.py",
+    "tests/test_project_dependencies.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/test_underworld_pipeline.py",
+    "tests/test_visual_director.py",
+    "tests/test_web_bundle.py",
+    "tests/test_windchime_layout.gd",
+    "tools/audio_inventory.py",
+    "tools/check_quality_diff.py",
+    "tools/check_web_bundle.py",
+    "tools/cloud_delivery.py",
+    "tools/harness/profiles.json",
+    "tools/level_design.py",
+    "tools/level_region_context.py",
+    "tools/mobile_web_perf/build_formal_audio_ab.py",
+    "tools/mobile_web_perf/build_frame_profile.py",
+    "tools/mobile_web_perf/build_probe.py",
+    "tools/mobile_web_perf/run_minimal.py",
+    "tools/project_dependencies.py",
+    "tools/region_creative_direction.py",
+    "tools/region_style_history.py",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/run_plains_experience_golden_tests.py",
+    "tools/run_plains_regional_art_tests.py",
+    "tools/run_root_bell_formal.py",
+    "tools/test_root_bell_formal_verifier.py"
+  ],
+  "deliverables": [
+    "62文件精确SHA的独立静态审查",
+    "12个敏感测试/检查变更逐项说明及保留的失败证据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "所引62文件审查中本记录覆盖60个测试/工具/文档技术文件，限定静态迁移接受；两份assets manifest由原资产记录另管。最终commit需同字节绑定；不覆盖整个P8、118动态加载、35GUI或完整CI。",
+      "evidence": [
+        "test-migration-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "test-migration-independent",
+      "path": "docs/evidence/game_architecture_02/closeout-02/p8-final-unified-independent-review.json",
+      "sha256": "5a422efffdb5461b7773996301dd257afdc86001418ef4596eba423b536b2077",
+      "kind": "review",
+      "producer": "/root/structure_audit",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "candidate-v1",
+      "method": "对精确工作树62文件逐SHA、历史方法AST、当前/旧路径、原检查和反例独立审查；工作树候选尚待commit绑定。",
+      "observed": "LIMITED_STATIC_ACCEPT_FOR_EXACT_CANDIDATE_BYTES；12敏感路径全部覆盖，23当前代码写集无遗漏；不代表全量引擎或PCK通过。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root",
+        "/root/asset_audit",
+        "/root/ci_audit",
+        "/root/preview_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者未实施被审62文件，只读比对并独立运行有限纯Python反例。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整182、最终引擎与Web/PCK未完成",
+    "历史真实移动端PCK缺件，独立10项只是纯Pythonfixture",
+    "文件级提交绑定待紧接提交后核对",
+    "用户/设备/艺术及全部运行迁移均不在本次静态ACCEPT范围"
+  ],
+  "test_change_justification": "归档p8-test-change-justification.json及最终62文件独审逐项覆盖12个敏感guard：当前路径迁移、历史固定路径恢复、有限AST守门和单次style26技术绑定。原full172为当前182的精确顺序前缀，10项均真实注册；原断言、方法、预算与负例保留。未把全量CI或动态加载签为通过。"
+}

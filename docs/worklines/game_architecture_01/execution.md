@@ -39,3 +39,19 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 源5a15414a：新历史v11真实App专项45/0、raw-export计划反例19/0；原完整forest-depth-versions、core、gear-inventory、item-v5-economy四项全部fresh通过。真实PCK仍待最终导出，不以源码计划代签。见[原始运行报告](../../evidence/game_architecture_02/legacy-and-shop-01/report.json)。
 
 正式道具退出泄漏二分首次出现在地图接口761adec5：其父f44无泄漏，但另有一次原心形多边形绘制错误，不记该运行全通过；2ce内容基线严格formal通过。解除Runtime/Assembler直接依赖环cd71c538（主树7b5ad80d）已独审并保模块循环逐语句顺序；对照仍57泄漏，明确不是泄漏修复。正在进一步定位，原失败全部保留。
+
+## P8 实际整合与当前阻断（源 6584d48b）
+
+功能路径整合提交 e4915fa8，后续工具与边界守门至 6584d48b。已迁移 1,124 个文件；491 个 UID 配对保持。图提取器当前 842 源、510 类、3,450 静态边，118 个动态表达式仍须按消费者验证。原 181 项前缀保留，追加真实 v11 定义检查为 182（95/87），不代表全部运行完成。上文 P8 尚未实施及181数量是较早进度。
+
+最新原 Harness 六项全 fresh 通过（报告 `20261031T051250.127716Z`），包括 Bell 八组真实原生消费者、地图146/0、enemy结构、Study65/0、owner84/0、v11 45/0。详见[原报告](../../evidence/game_architecture_02/post-layout-01/native-six-report.json)。正式道具 warm import 后仍191/0与57/25退出失败；cold import 的四条字体错误和运行时类型候选失败都原样保留，候选生产改动已回退。解除直接依赖环不是泄漏修复。
+
+上游 Godot PR117991 的五行脚本基类引用清理修复正在独立构建对照；官方4.7.2工具链未变。修复涉及脚本卸载与语言结束，不能说只影响quit；任何后续采用须以真实差异和严格验证为据，不能绕过版本守门。
+
+当前在收口一次 style26/creative29 技术版本绑定，补齐真实203引用及既有缓存输入；历史style25原件不回写，图声字节不改。独审发现遗漏入口路径与旧测试路径，逐个迁移其真实消费者，原断言保留。仍需最终源完整回归、35入口覆盖、既有Foundry重建、实际导出/raw旧定义PCK隔离、GUI与公开版本核对；未执行不标通过。
+
+## P6B 与固定引擎修复选择
+
+063d6ccb独立提交8文件，Boss健康/家族快照/决斗恢复与原非duel位置恢复移回现有Encounter；两个Stage和App真实委托，原forest测试三处调用同步，41个check和负例不减。原Bell/Pressure/core/forest-depth-restore已过；入口回归的三次实际路径/技术metadata失败已分别修正，四批合计11个不同check通过，见closeout-02各原report。其dirty状态和精确源仍各自保留，不签full182。
+
+用户2026-10-31明确选择“采用固定的上游修复版，继续完整验证（推荐）”。独立A/B/C证明完整上游117991+120976四文件修复使最新原formal191/0且严格退出通过，单五行修复失败仍保留。正式工具链在fix/godot-shutdown-toolchain-01隔离建设，拟固定源码/补丁/容器/SDK和实际产物SHA，保Web、Windows、Linux及现Android能力；不把O0诊断binary或官方模板混装当作正式交付。完整182/目标平台/真实PCK与GUI继续待验。

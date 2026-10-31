@@ -4,8 +4,8 @@
   "task_type": "mechanic",
   "workflow": "in_progress",
   "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "reviewed_commit": "ca8b99160efa6f075c2ea8b2b7fab743196250f8",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "content_version": "candidate-v2-layout",
   "owner": "/root/preview_audit",
   "purpose": "同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化",
   "player_experience": "保留现有入口、玩法、随机、保存及已采用图声；音频宿主缺陷独立标记",
@@ -13,13 +13,13 @@
     "Preserve existing gameplay contracts"
   ],
   "affected_paths": [
-    "scripts/enemies/plains_revision_flora.gd",
-    "scripts/enemies/plains_revision_ground.gd",
-    "scripts/enemies/plains_revision_pose.gd",
-    "scripts/enemies/plains_revision_pose.gd.uid",
-    "scripts/enemies/plains_revision_skin.gd",
-    "scripts/enemies/plains_revision_weights.gd",
-    "scripts/enemies/plains_revision_weights.gd.uid",
+    "game/enemies/presentation/plains_revision_flora.gd",
+    "game/enemies/presentation/plains_revision_ground.gd",
+    "game/enemies/presentation/plains_revision_pose.gd",
+    "game/enemies/presentation/plains_revision_pose.gd.uid",
+    "game/enemies/presentation/plains_revision_skin.gd",
+    "game/enemies/presentation/plains_revision_weights.gd",
+    "game/enemies/presentation/plains_revision_weights.gd.uid",
     "tests/fixtures/plains_revision_deform_2ce4ffa6/flora.gd",
     "tests/fixtures/plains_revision_deform_2ce4ffa6/flora.gd.uid",
     "tests/fixtures/plains_revision_deform_2ce4ffa6/ground.gd",
@@ -77,27 +77,30 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "6项迁移后原生回归实际fresh通过；formal191/0仍因退出57 ObjectDB/25 resources严格失败，完整集成未完成。局部通过不代签full182。",
+      "evidence": [
+        "post-layout-native-six",
+        "formal-cleanup-failure"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "当前源全部入口GUI/实际导出PCK/动态ResourceLoader未完整验证；静态依赖图不作运行轨迹。",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "gameplay": {
@@ -112,25 +115,57 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "现有独审仅覆盖所注明旧提交/有限文件；最终整合范围尚未独立审查，不追签当前6584全源。",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "post-layout-native-six",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/native-six-report.json",
+      "sha256": "02b35bff1e3211e2358aa92d201f65bddac6406d8417fd2db305a5c467899434",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "逐项实际expanded_argv按report顺序记载（分号仅表顺序）；读取root已完成的6项fresh报告，没有重跑或猜测harness启动参数。",
+      "observed": "6项fresh passed，原report commit为6584；不是full182/GUI/导出/PCK证明。",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_bellstrider_rework_01_tests.py ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/level_plan_runner.gd ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/harness-d5bab305794f44099ad252b96c98c80c ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_lifecycle_runner.gd -- --studies ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_owner_runner.gd -- --auditions ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_integration_four_tests.py --case forest-v11-definition",
+      "exit_code": 0,
+      "environment": "Linux / Godot 4.7.2 headless；root独占引擎，6项fresh运行；本记录整理者未运行引擎"
+    },
+    {
+      "id": "formal-cleanup-failure",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/post-layout-formal-02.log",
+      "sha256": "22abcc3a5c9d2b58f60e27d074a9751a24819186e6a54c497395b4eb343afe16",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "原formal191 assertions/0 failures后退出57 ObjectDB/25 resources及RID泄漏，严格wrapper拒绝；不得仅以191/0称通过。"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "整合后的原完整回归和导出尚未全部执行",
-    "不签用户设备、听感或新艺术认可"
-  ]
+    "不签用户设备、听感或新艺术认可",
+    "full182当前源完整执行尚未完成；6项fresh不是完整CI",
+    "formal191/0后57 ObjectDB/25 resources退出泄漏仍是严格失败，不得消音/清cache掩盖",
+    "style26资产与相应测试调整仍WIP且独审未完；不改变本记录为已通过",
+    "实际导出PCK、35入口自然运行与118动态加载分支未全部验证",
+    "不以旧SHA独审/旧源森林80/80追签当前整合；后续Cloud动态入口字符串修正待独审"
+  ],
+  "test_change_justification": "新增冻结2ce变形fixture与逐顶点等价runner；旧动作runner迁移真实消费者，原边界与预算不得放宽。此处暂无完整签名独审归档，不把作者优化说明当独审。"
 }

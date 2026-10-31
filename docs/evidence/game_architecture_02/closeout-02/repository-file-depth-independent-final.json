@@ -1,0 +1,49 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_ACCEPT_EXACT_ONE_LINE_PATH_ENUMERATION_OPTIMIZATION",
+  "file": "tools/region_creative_direction.py",
+  "before_sha256": "0f5e4b421e6ed9dfafd885dfeaf3364a58d8b18baa3c791b583f0d7dfbc59118",
+  "after_sha256": "f00ca5b608b1603555dfc5da31fb8d99c7afc456f327f433074aee26076c5d6f",
+  "only_change_exact": true,
+  "independent_safety_evidence": "repository-file-depth-independent-proposal.json",
+  "author_execution_receipt": "region-bible-ancestor-optimization-20261031T060933Z.json",
+  "observed_logs": [
+    {
+      "check": "region-bible-tests",
+      "tail": [
+        ".............................................................",
+        "----------------------------------------------------------------------",
+        "Ran 61 tests in 25.757s",
+        "",
+        "OK"
+      ],
+      "elapsed": 25.94,
+      "budget": 30
+    },
+    {
+      "check": "creative-direction-tests",
+      "tail": [
+        ".....................",
+        "----------------------------------------------------------------------",
+        "Ran 21 tests in 6.142s",
+        "",
+        "OK"
+      ],
+      "elapsed": 6.23,
+      "budget": 60
+    },
+    {
+      "check": "repository-file-existing-safety",
+      "tail": [
+        ".",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.058s",
+        "",
+        "OK"
+      ],
+      "elapsed": 0.216,
+      "budget": 30
+    }
+  ],
+  "limits": "No engine run; author original-suite logs read and hashes verified, not independently rerun; no full182 claim."
+}

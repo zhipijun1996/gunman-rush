@@ -77,10 +77,18 @@ def write_pack(pack,replacements,skip,target):
  for name,data in replacements.items():assert result.read(name)==data
  for name in set(pack.entries)-set(skip)-set(replacements):assert result.entries[name]==pack.entries[name]
 
+def require_current_measurement_paths(pack):
+ # This producer reads current checkout sources. An older/mixed pack must not
+ # silently retain its old script remaps while we append unreferenced new keys.
+ missing = [path+'.remap' for path in MEASURE if path+'.remap' not in pack.entries]
+ if missing:
+  raise ValueError('Input PCK lacks the complete current measurement layout: '+', '.join(missing))
+
 def main():
  parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--bundle',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--expected-pack',required=True);args=parser.parse_args()
  info=json.loads((args.bundle/'build-info.json').read_text());original=args.bundle/info['pack'];digest=hashlib.sha256(original.read_bytes()).hexdigest();assert digest==args.expected_pack
  out=args.output;out.mkdir(exist_ok=False,parents=True);pack=Pack(original);replacement={};skip=set();sources={}
+ require_current_measurement_paths(pack)
  for path,methods in MEASURE.items():
   source=(ROOT/path).read_text();sources[path]=hashlib.sha256(source.encode()).hexdigest()
   for name in methods:

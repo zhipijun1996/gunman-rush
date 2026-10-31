@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/structure_audit",
+  "recorded_date_utc": "2026-10-31",
+  "scope": "Completed independent static reviews only. This is not a native, Web, GUI, full-CI or deployment acceptance.",
+  "independent_exclusions": [
+    "Reviewer-authored P6 EnemyActor/behavior/Registry implementation is not independently approved here.",
+    "Earlier abandoned StageFactory proposal and old PR integration reviews are outside this report."
+  ],
+  "method": [
+    "Read commit diffs and actual caller/callee implementations.",
+    "Compare original contracts, error paths, ownership and generation ordering.",
+    "Use read-only Python/git byte comparisons; do not execute Godot.",
+    "Separate parent-reported native results from reviewer verification."
+  ],
+  "reviews": [
+    {
+      "id": "P2",
+      "source_commit": "bcdc28d4be18759d8d0875dea04e0da910c03e84",
+      "baseline": "2ce4ffa6",
+      "additional_scope": "Runner-only explicit WeakRef correction observed in the original review; its individual commit was not recorded by this reviewer.",
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "scope": [
+        "RunSession",
+        "RunComposition",
+        "DemoApp actual ownership and composition migration"
+      ],
+      "findings": [
+        "Actual App consumers moved to the session-owned services without a second authoritative state copy.",
+        "Persistent DemoLifetime retains cross-run epoch progression; node parenting and initialization/cleanup ordering remained consistent in the inspected migration.",
+        "Existing enable_shot_energy failure cleanup and ignored build.clear rejection were not silently repaired by this extraction."
+      ],
+      "limitations": [
+        "This entry persists the earlier completed review, not a newly executed review of the whole current main.",
+        "Parent later reported the three original regressions passed; reviewer did not execute or independently certify those runs.",
+        "No runtime/GUI, full CI, device or release acceptance."
+      ]
+    },
+    {
+      "id": "P3_initial",
+      "source_commit": "ea516d03e3f0659499e3ef943134f681aecf8650",
+      "verdict": "REJECT_PENDING_CORRECTIONS",
+      "scope": [
+        "LevelRequest/Plan/Runtime/providers",
+        "module catalog",
+        "actual Stage/App/assembler migration",
+        "existing standalone fixtures"
+      ],
+      "blocking_findings": [
+        {
+          "id": "P3-R1",
+          "path": "tests/forest_hazard_records_runner.gd:28",
+          "detail": "Existing forest-hazard-records assigns only assembler.manifest, then reads danger methods; migrated methods unconditionally access uninitialized forest_geometry. Actual old consumer was not migrated."
+        },
+        {
+          "id": "P3-R2",
+          "path": "game/world/level_plan.gd:38",
+          "detail": "New bare-plan validation admitted a matching module_id with invalid PlatformingModuleDefinition, and backside edges without required geometry. Runtime could partially install nodes before module error/quit or missing-field failure."
+        }
+      ],
+      "accepted_observations": [
+        "Six module catalog constants and definition_for/scene_for implementations compared exactly equal to the old generator authority; old API now delegates.",
+        "Seed construction and original historical hash fallback loop/call order preserved by inspection; no new RNG draws.",
+        "Extra EnemyFactory.definition_for_behavior reads duplicate resources and perform pure field validation; no observed RNG/node creation/shared resource writes.",
+        "App binds the existing PlayerController before add_child(stage), including formal and experimental branch selection.",
+        "Detached forest state fixtures previously had no DemoApp parent/player and retain that offline meaning.",
+        "Runtime accepts bare plans; legacy Stage/App presentation and recording still depend on legacy_generated and are not claimed fully Manifest-independent."
+      ],
+      "limitations": [
+        "No Godot execution.",
+        "Existing lawful generated output was not observed to be rejected statically; all historical variants were not dynamically certified."
+      ]
+    },
+    {
+      "id": "P3_correction",
+      "source_commit": "3f5576734ebead78f11bc12558b7c913f14972ea",
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "closes": [
+        "P3-R1",
+        "P3-R2"
+      ],
+      "findings": [
+        "Hazard fixture now uses the existing legacy adapter and binds level_plan/forest_geometry; all original variant/map/count/order/role assertions remain.",
+        "Plan validation reuses PlatformingModuleDefinition.is_valid and validates fields read by backside/ownership/forest consumers before world nodes are installed.",
+        "New rejection cases check null assembler and unchanged child count, not only a returned error.",
+        "ForestPracticeBell configuration predicates were extracted without changing original predicate expressions or configuration assignment order."
+      ],
+      "limitations": [
+        "No Godot execution or blanket malformed-input proof.",
+        "Hazard metadata fixture calls geometry().accepted(), which alone does not execute plan.validation_error(); its pass cannot certify every historical layout against the new plan validator.",
+        "Original forest versions/restore and LevelPlan actual consumer regressions still provide required dynamic evidence."
+      ]
+    },
+    {
+      "id": "P5",
+      "source_commit": "d0664765135f4659bc8bb1fcb07e4e4aae7981b3",
+      "baseline": "a371285e",
+      "integration_notes": [
+        "Parent identified main integration as 7df9b40b.",
+        "3e0940b9637b06079b4357c2d0b6d210ffcc72a4 adds UIDs and an explicit WeakRef test type; no production behavior change."
+      ],
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "findings": [
+        "Both ItemActiveEffects and ItemCompanionEffects are actual consumers of ItemActiveCast and removed their old duplicated prepare/spend/patch code.",
+        "Preparation retains actives cached actor and companion state→map→actor read ordering.",
+        "Family casting guard remains after preparation/before debit; synchronous spent callback precedes now and patch; successful entity materialization and guard release ordering remain.",
+        "Cooldown is evaluated earlier as a helper argument, but is a pure read from ItemRuntime.effect's deep-copied local dictionary; current production callbacks cannot mutate it.",
+        "Refused progress patch after successful energy debit deliberately remains a paid accepted cast: pre-existing behavior, not fixed here.",
+        "TimeContext has no raw-runtime return method and no copied state authority. Persistent context weakly references runtime; four methods use scoped strong retention equivalent to their prior local owner reference.",
+        "Configuration order remains combat/defense/time/actives/companions/economy."
+      ],
+      "limitations": [
+        "Parent reported new helper runner 13/0; reviewer did not execute it.",
+        "Helper test does not certify actual family reentrancy, spawned entities, B06 refunds or freeze behavior; original actives/defense-time/formal suites remain required.",
+        "ItemActiveCast does not promise direct prepare/commit calls after host release are safe. Actual callers keep original preview guards and a local strong host reference.",
+        "GDScript API narrowing is an architecture contract, not a hostile-code security sandbox."
+      ]
+    },
+    {
+      "id": "FOREST_V11_DEFINITION_LOCK",
+      "source_commit": "549b871616a9e08b03d5cb8785b46a637add071a",
+      "baseline": "2ce4ffa6",
+      "historical_evidence_commit": "7ba2e92d2c3cb5449ac6648b820f79679548ee89",
+      "classification": "Independent historical-content bug fix, not behavior-preserving refactor.",
+      "verdict": "LIMITED_NATIVE_STATIC_ACCEPT_WEB_BLOCKED",
+      "findings": [
+        "Retained charger resource is byte-identical to 7ba2; patrol_health dependency also remains byte-identical.",
+        "Original two v11 corpus fixtures remain identical to 7ba2 and 2ce; original forest_depth_version_runner.gd is unchanged from 2ce; this commit modifies no previously existing test file or test budget.",
+        "v11 producer explicitly selects revision through v10; existing Registry owns the finite revision mapping and verifies retained bytes.",
+        "Legacy adapter adds revision only for expedition/v11 charger after checking original logical path and SHA; Plan validation and Runtime→Factory carry it through actual actor construction.",
+        "Unknown revision and revision requested for the wrong behavior refuse rather than falling back.",
+        "Current empty-revision default remains PR122 28×28; v15 chain goes through v14→v13→v2→v10 without the v11 explicit lock, while v11 uses original 28×32."
+      ],
+      "verified_bytes": {
+        "historical_charger_sha256": "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+        "current_charger_sha256": "39513bce9f2d604514a88838d733db24b723ce965402ce5579e8260f5a83a232",
+        "patrol_health_sha256": "c709aeb2cf6ff21f925dfe26b0c5e78e76530ab57995ce060f63da4f6155962d",
+        "v11_map1_fixture_sha256": "ddd26758ae3d968927a16bfaa94c89366e00a443120b6441fc2a285df615a2ff",
+        "v11_map2_fixture_sha256": "85e7ef09f8fbc59a4f0f5f70d2286200bb9e86bb55db6fcc029a08847949cf72"
+      },
+      "blocking_findings": [
+        {
+          "id": "V11-WEB-R1",
+          "detail": "New strict FileAccess SHA resolver needs original .tres bytes. Existing actual public PCK has plains_charger.tres.remap and converted .res, but no raw plains_charger.tres; patrol_health has the same conversion. Current exporter explicitly preserves PNG/audio only. Same export policy would make the new retained revision fail closed without explicit raw-file preservation.",
+          "evidence_pack": "/workspace/audit-evidence/index.33925609669e.pck",
+          "inspection": "Read using tools/check_web_bundle.py Pack parser; raw absent/remap present for both resources."
+        }
+      ],
+      "limitations": [
+        "No Godot execution; latest export/PCK fix not reviewed yet at report creation.",
+        "Existing public PCK is evidence of export policy only, not the newly changed build.",
+        "A single retained-file export fix would close the new resolver requirement, not prove every legacy producer hash is portable between native and PCK. Other old direct FileAccess hash dependencies remain a separate risk.",
+        "Current AI/art/audio are not historical simulation replay; only the specified Definition revision is pinned.",
+        "Original versions data/world/App checks, new runner and actual new PCK isolated v11 consumption are still required."
+      ]
+    },
+    {
+      "id": "SHOP_RECEIPT_REUSE",
+      "source_commit": "3a8e0efb9d5348c9d9ddb382fb65260e3b5777ee",
+      "baseline": "d8144d39",
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "scope": [
+        "scripts/shops/shop_service.gd purchase and purchase_gear_upgrade"
+      ],
+      "findings": [
+        "Both actual purchase consumers replace duplicate replay logic with the existing repair/reroll _transaction_replay helper. No new receipt authority.",
+        "Read-only Python function comparison confirms the helper body is unchanged, both INVALID-guard/payload prefixes are unchanged, and entire _committing/stale/payment/rollback/receipt/signal suffixes are byte-identical.",
+        "Replay/conflict remains before lifetime/session/offer/balance validation: settled identical payload replays after run-end or balance changes; conflicting payload refuses.",
+        "Receipt is copied before setting REPLAY; cached original receipt is not mutated.",
+        "No test file or expectation was changed by this commit."
+      ],
+      "limitations": [
+        "Reviewer did not run Godot or a shop regression; no native/full-CI acceptance."
+      ]
+    },
+    {
+      "id": "V11_RAW_EXPORT_FOLLOWUP",
+      "source_commit": "9f4ae403f729b6bef41c12e2f3fa387baa3ae8ea",
+      "baseline": "549b871616a9e08b03d5cb8785b46a637add071a",
+      "verdict": "LIMITED_STATIC_PRODUCTION_ACCEPT_PACK_VERIFICATION_PENDING",
+      "addresses": [
+        "V11-WEB-R1"
+      ],
+      "findings": [
+        "Exporter derives retained paths and revisions directly from existing EnemyBehaviorRegistry.BEHAVIORS; no second production revision registry. Duplicate registered paths return empty contract and refuse.",
+        "Three shipping presets only append the single exact retained resource path; independent ConfigParser comparison confirms all prior fields, options, exclusions and include prefix are unchanged.",
+        "Raw plan refuses empty contract, missing/duplicate/unknown/wildcard legacy includes, exclusion collisions and mismatching source SHA.",
+        "Exporter hashes the actual newly read byte buffer again before add_file(path,bytes,false); it does not replace the normal ResourceLoader remap.",
+        "Independent function comparison confirms prior PNG/audio planning and original export prefix are unchanged.",
+        "Native test adds all-three-preset positives and rejection cases without changing any original tests. PCK probe checks actual raw SHA, remap and converted target, ResourceLoader identity and actual historical/current collider sizes."
+      ],
+      "review_findings": [
+        {
+          "id": "V11-PROBE-R1",
+          "path": "tools/check_recorded_enemy_pack.gd:16",
+          "detail": "Directory-only res://.git check misses this session worktrees where .git is a file. Probe should also reject FileAccess.file_exists(res://.git). This is a test-isolation guard defect; the final empty-directory launch command still needs external evidence."
+        }
+      ],
+      "limitations": [
+        "No engine/export/PCK probe execution by reviewer.",
+        "V11-WEB-R1 is mitigated by source but not dynamically closed until the real new package and isolated execution are verified.",
+        "Probe must be launched from an empty directory with --main-pack pointing to the actual package; preserve command, cwd and PCK hash.",
+        "Separately authored Python actual-PCK bundle checks were not included in this commit or this review.",
+        "Other historical direct FileAccess dependencies still limit exact whole-map native-vs-Web replay claims."
+      ]
+    },
+    {
+      "id": "V11_PROBE_WORKTREE_GUARD",
+      "source_commit": "72299fb3deefdfb1e41db399a5944ae0b07f2bc5",
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "findings": [
+        "Combined directory and FileAccess file .git checks close V11-PROBE-R1 worktree isolation gap."
+      ],
+      "limitations": [
+        "No exported PCK execution by reviewer; does not close V11-WEB-R1 dynamically."
+      ]
+    },
+    {
+      "id": "P3_SINGLE_DIRECTION_DEPENDENCY",
+      "source_commit": "cd71c53812426d3415296d91915e458243788788",
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "findings": [
+        "Only install_modules consumer moved to PlainsRegionAssembler private implementation; original creation/name/definition duplicate/position/debug/clock/append/add_child order retained.",
+        "Pure rect helper moved to LevelContentValidation; both assemblers and legacy adapter no longer depend on LevelRuntime."
+      ],
+      "limitations": [
+        "No native execution.",
+        "No claim to fix57 ObjectDB leaks; cache/test cleanup unchanged."
+      ]
+    },
+    {
+      "id": "P8_CI_TOOLS",
+      "source_commit": "5589c284237277e963c424eeb4cce9eaf334630a",
+      "baseline": "986bb75d68213879366b824485f482e553158944",
+      "verdict": "LIMITED_STATIC_AND_PYTHON_ACCEPT_AFTER_D58B72B6",
+      "scope": "Frozen 128-file tools/config/tests commit only; adjacent production migration excluded.",
+      "findings": [
+        {
+          "id": "P8-SCOPE-R1",
+          "severity": "blocking",
+          "path": "tools/level_design.py:348",
+          "detail": "Spatial experiment blanket game/world/ and experiments/ prefixes accept mapped DemoLifetime, RunProfile and graybox, whose original scripts/run or scripts/player paths were rejected. No blacklist catches these names. Preserve original protected-core boundary through exact migrated ownership projection.",
+          "evidence": "p8-spatial-scope-independent-probe.json",
+          "resolution": "Closed in d58b72b6: independently executed original-versus-current mapped admission comparison (1124 paths,296 admitted/828 refused,zero differences)."
+        },
+        {
+          "id": "P8-PARSER-R2",
+          "severity": "blocking_fail_closed_contract",
+          "path": "tools/check_web_bundle.py:316",
+          "detail": "Valid GDScript single-quoted revisions key yields zero mappings and empty contract, silently skipping raw+remap checks. Current actual registry uses supported double quotes, but unsupported equivalent declaration is not refused. Support a finite grammar or reject unrecognized/empty revision contract.",
+          "evidence": "p8-recorded-revision-independent-probe.json",
+          "resolution": "Closed in d58b72b6: quoted strings canonicalized before finite parsing; reviewer independently ran52/52 Python Web-bundle tests including single-quote and actual PCK raw/remap/target missing cases."
+        }
+      ],
+      "accepted_static_facts": [
+        "All 213 checks, complete profiles and every check field except inputs are exact equal to baseline, preserving commands, budgets, serial flags and guards.",
+        "Effective execution map contains 1124 paths after later historical holds; independent check of 120072 mapped input edges has zero missing. Earlier author 121784 count belongs to earlier map and is not represented as current independent count.",
+        "All original 183 core source files remain within mapped CORE_FOLDERS; full observed-runtime inventory now includes game and experiments.",
+        "128 frozen files exactly match supplied write-set SHA256.",
+        "All original Python test methods remain: 715 to728 across23 changed test files; no old assertion-call count reduced. Counts are a syntax check, not a semantic proof.",
+        "style_scenery SHA 55cbdfd22ac193162cae6ab6a14b27e8c6a88aad9de0d4e5991744fd97a365b7 to c22a5f5174e255f7a460f56e32ed971f26d2719be9851de437bf1d6450543f07 independently equals old bytes with exact path substitutions only. Other finite adapter SHA bindings unchanged.",
+        "Cloud clean-tree/bootstrap checks and inventories add actual game/experiments roots, retain old roots and dirty/new/deleted checks.",
+        "Supported recorded-enemy declarations derive finite source SHA/path from real Registry; raw bytes, remap and nonempty converted target are read from actual PCK, no local fallback for missing pack entries. Synthetic target test explicitly does not prove ResourceLoader semantics."
+      ],
+      "evidence": [
+        "p8-independent-effective-closure.json",
+        "p8-test-change-justification.json",
+        "p8-ci-tools-write-set.json",
+        "style-scenery-finite-adapter-relocation.json",
+        "p8-spatial-scope-independent-fixed.json",
+        "p8-web-bundle-independent-52.log"
+      ],
+      "limitations": [
+        "No Godot or native/rendering/Web runtime execution by reviewer.",
+        "Actual ResourceLoader/Factory legacy-v11 correctness requires separate exported-PCK native probe; Python checks only content closure.",
+        "Surrounding production migration not frozen and not accepted by this review.",
+        "CORE_FOLDERS is current finite projection; future new shared siblings require deliberate policy classification, while full runtime source inventory still binds them.",
+        "Empty unrelated asset fixtures intentionally permit missing Registry; real integration checkout must include Registry and exporter has its own nonempty-contract gate.",
+        "Initial failure and49-test logs remain; independent final52-test log is separate and does not imply native export execution."
+      ],
+      "followup_commit": "d58b72b69f1cdd9ac62e3d3a6a37c4080191e38e"
+    },
+    {
+      "id": "BELL_PROJECTILE_OWNERSHIP_REUSE_INITIAL",
+      "source_commit": "07c67561d5d6fcba7a7406bdcbf542036c01074d",
+      "baseline": "fe66459c",
+      "verdict": "REJECT",
+      "findings": [
+        "Bell projectile _sweep retains fifth _owned() call at line106 after definition removal. Four changed advance/frozen consumers do not cover impact-emission consumer. Undefined method must be replaced at the original conditional position."
+      ],
+      "limitations": [
+        "No engine execution.",
+        "Helper body otherwise preserves original optional-unbound and short-circuit semantics; Windkeeper remains unchanged."
+      ]
+    },
+    {
+      "id": "BELL_PROJECTILE_OWNERSHIP_REUSE_FIXED",
+      "source_commit": "448a9e09624def0dd03c925a03458a67b8c9a696",
+      "baseline": "fe66459c",
+      "verdict": "LIMITED_STATIC_ACCEPT",
+      "addresses": [
+        "BELL_PROJECTILE_OWNERSHIP_REUSE_INITIAL"
+      ],
+      "findings": [
+        "Independent byte transformation confirms Bell3 and Ring2 actual consumers replace original calls in place; both identical _owned bodies removed, no leftover method call.",
+        "BossProjectile original bytes remain unchanged outside new helper; helper body equals original body after exact identifier parameter substitution.",
+        "Optional unbound returns true, WeakRef get_ref local strong Node, validity/active/nonterminal/epoch short-circuit order unchanged. Fields and binding remain per projectile.",
+        "Fifth _sweep guard preserves not _impact_emitted short circuit, owner validation, flag set and impacted.emit order.",
+        "Windkeeper own mandatory-binding policy remains untouched; no Bell subclass or known string-dispatched _owned consumer found in source."
+      ],
+      "evidence": [
+        "bell-projectile-independent-fixed.json"
+      ],
+      "limitations": [
+        "No Godot executed by reviewer.",
+        "Original Bell/Boss native regression and migration rename-aware integration remain root responsibilities.",
+        "Initial07c67561 rejection remains recorded rather than overwritten."
+      ]
+    },
+    {
+      "id": "P8_TOOLS_CLOSEOUT",
+      "verdict": "LIMITED_STATIC_AND_TARGETED_PYTHON_ACCEPT",
+      "source_commits": {
+        "finite_registry": "9e42173d07965f47a8dd688d1ae664ca33aaa519",
+        "main_finite_registry": "f8a0c94d",
+        "chest_checker": "1cd95f3f68c6595d5e5167135e449f9f8b9cfac0",
+        "preview_inputs": "c4a317ef8df10f1e14186cf5735211ba49718eb6",
+        "shared_boundary_and_entry_paths": "6069b6b44fa2fb371f6eee126b7c2accbd5a024a",
+        "full182_registration": "6584d48bca916de100eed3801af6f0973ae49767"
+      },
+      "findings": [
+        {
+          "topic": "finite Registry",
+          "conclusion": "Entire BEHAVIORS expression decoded using finite AST, permitting only dictionaries, string literals and declared string constants after StringName/quote normalization; unknown names/calls/unpacking/nondictionary revisions reject. Constant-key revisions cannot be skipped. Actual registry resolves original1afd resource, with rawSHA+remap+target read from PCK. Mainf8a checker/test exactly match9e.",
+          "validation": "Independent53/53 test_web_bundle; no engine/PCK export."
+        },
+        {
+          "topic": "chest real restore consumer",
+          "conclusion": "Auditor reads LevelRuntime source, requires exactly one actual ready-time restore call preceding rendering and a unique full helper body. All original tier/state/foot, white Atlas library SHA, duplicate/reflection/dead-string, manual claimed/position gates retained. Legacy fixture uses immutable original source_path keys and unchanged original SHA; active mapping applied only when selecting that historical source. Old inline restore still separately passes and ledger tampering fails.",
+          "validation": "Original162 methods preserved plus2 new methods, no assertion-count reduction. Reviewer independently ran both new positive/negative groups2/2. Author164/164 log inspected; not claimed reviewer reran164."
+        },
+        {
+          "topic": "preview inputs",
+          "conclusion": "c4 profiles exactly equal parent after removing only the appended preview_affordance.gd and .uid inputs. New assertion proves source mutation changes underworld check digest. No command, marker, cacheability, timeout, budget or profile selection changed."
+        },
+        {
+          "topic": "boundary and dynamic entries",
+          "conclusion": "6069 strengthens shared nonapplication game modules against experiments dependencies, preserves existing CORE and tests-load rules, leaves explicit application composition legal. All13 dynamic entry paths (4 studies+9 auditions) exactly match effective relocation map and exist; original check-call counts unchanged.",
+          "validation": "Reviewer independently ran13/13 project_dependencies tests. Static paths are not engine-loading proof."
+        },
+        {
+          "topic": "full182 registration",
+          "conclusion": "All old profile sequences remain exact prefixes, only new forest-v11-definition added; old check definitions unchanged except append-only26 owner inputs. Original forest-depth-versions unchanged in legacy-compat with210s budget. New wrapper case uses existing run_engine and fixed60fps,180s, anchored nonzero assertions/zero failures marker, retaining callback/exit/leak failure handling. Full182 consists95parallel/87serial.",
+          "validation": "Independent production_plan37/37. All34 prior methods retained; three tests added and old168/170/172/173/174/180/181 lane-prefix assertions retained. This proves registration/dispatch only, not182 actual runs."
+        }
+      ],
+      "evidence": [
+        "p8-closeout-independent-static.json",
+        "p8-web-finite-independent-53.log",
+        "p8-chest-independent-targeted-normal.log",
+        "p8-underworld-shared-cache-frozen1cd95.log",
+        "p8-boundary6069-independent-13.log",
+        "p8-entry-dynamic-path-independent.json",
+        "p8-plan182-independent-static.json",
+        "p8-plan182-independent-37.log"
+      ],
+      "limitations": [
+        "No Godot/native/export/actual Web ResourceLoader execution by reviewer.",
+        "Finite checker is not arbitrary GDScript evaluator; unsupported future registry shapes deliberately reject.",
+        "Chest finite source checker is not general execution/reachability proof; full runtime semantics require native tests.",
+        "Full182 registration accepted, execution not claimed.",
+        "Initial reviewer -S chest invocation could not import Pillow; log preserved, corrected normal-Python two-case run passed. Earlier migration-tree12 boundary suite log remains distinct from actual6069 main13 suite."
+      ]
+    },
+    {
+      "id": "ITEM_PRESENTATION_RUNTIME_TYPE_CHECK",
+      "baseline": "6584d48bca916de100eed3801af6f0973ae49767",
+      "candidate": "uncommitted two-line change",
+      "path": "game/presentation/ui/item_presentation.gd",
+      "baseline_sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae",
+      "candidate_sha256": "642c971530edfb4848132d5e6a7651866af358624619ecf1d46d609e6ac55f90",
+      "exact_two_line_transformation": true,
+      "verdict": "NOT_ADOPTED_REVERTED_AFTER_ORIGINAL_FORMAL_STILL_FAILED",
+      "findings": [
+        "Same ResourceRewardChoice Script used for runtime type test; is_instance_of supports inherited Script instances, rather than exact get_script equality.",
+        "Guarded Object.call effect_text retains instance virtual dispatch; existing effect_text return type is String and enclosing function remains String.",
+        "No change to ResourceRewardChoice.make, ItemDefinition, resource_kind/amount, reward/wallet consumption, inventory exclusion, or ordinary catalog/stat formatting branches.",
+        "Only when effects is actually called does ResourceLoader resolve the unique existing Script; no new node/resource instance, global manager, or parallel registry added. Default load cache uses existing Script resource and normal export remaps.",
+        "All3 shipping presets export all_resources and no exclusion matches resource_reward_choice.gd. Literal load path is visible to static resource dependency inspection, and the existing Script also remains referenced by real App/Inventory/UI consumers. No FileAccess raw-source requirement is introduced.",
+        "Real consumers include ItemCard, ItemAcquiredToast and DemoMenu; App still creates the same ResourceRewardChoice with unchanged Factory. There are no current ResourceRewardChoice subclasses in production, but new check retains subclass support.",
+        "Minimal engine log records original4 ObjectDB/1resource leak rejected and runtime_type CLEAN using unchanged strict wrapper; its main explicitly does not execute type-text branch, so this isolates shutdown dependency shape, not rendered effects semantics."
+      ],
+      "risks_and_limits": [
+        "Reviewer ran no Godot. Formal191 result pending at review time.",
+        "Native or exported runtime loading must still verify the literal Script path/remap; source preset eligibility is not actualPCK proof.",
+        "New check resolves/loads Script at runtime; missing/corrupt exported Script is an error, not a supported resource-card fallback.",
+        "Recommend actual coin/heart/note effects, ordinary ItemDefinition and subclass override control after formal; micro leak-only control does not execute these.",
+        "This is a narrow engine-compatibility adjustment backed by shutdown-control evidence; do not claim general leak-free lifecycle or blame scene cleanup from this result."
+      ],
+      "evidence": [
+        "item-static-runtime-type-control-01.log",
+        "godot-static-type-control-runtime_type/main.gd",
+        "godot-static-type-control-runtime_type/user.gd",
+        "post-layout-formal-type-boundary-03.log"
+      ],
+      "disposition": {
+        "production_candidate_reverted": true,
+        "root_report": "main6584 original formal191 assertions0 failures still rejected57ObjectDB25resources with2-line candidate;candidate fully reverted.",
+        "observed_log": "post-layout-formal-type-boundary-03.log",
+        "log_review": "Reviewer read191/0 marker followed57 ObjectDB/25resource leaks,RID leaks,and strict wrapper failure.",
+        "production_acceptance": false
+      }
+    }
+  ],
+  "pending_reviews": [
+    "Final frozen production directory migration not reviewed.",
+    "Actual new exported PCK execution not independently performed."
+  ]
+}

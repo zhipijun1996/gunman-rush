@@ -45,7 +45,7 @@ def repository_file(path, root=ROOT):
     target = base / relative
     if relative.is_absolute() or '..' in relative.parts or not relative.parts:
         raise ValueError('Bible source must be repository relative')
-    if any(p.is_symlink() for p in [target, *target.parents] if p == base or p.is_relative_to(base)):
+    if any(p.is_symlink() for p in [target, *target.parents[:len(relative.parts)]]):
         raise ValueError('Bible source and ancestors must not be symlinks')
     if not target.resolve().is_relative_to(base) or not target.is_file():
         raise ValueError('Missing/unsafe Bible source: ' + str(path))
@@ -101,7 +101,12 @@ def supplemental_authority(bible, region_id, root=ROOT):
         raise ValueError('Complete actual formal Plains runtime/style reference family required')
     by_role = {row['role']: row for row in references}
     player = by_role['player_style_reference']
-    if (player.get('path') != 'scripts/underworld_plains/underworld_player.gd'
+    # Frozen styles1-25 retain their exact former consumer; style26 onward binds
+    # the sole relocated implementation. Never accept either path indiscriminately.
+    player_path = ('scripts/underworld_plains/underworld_player.gd'
+                   if data['version'] in {str(version) for version in range(1, 26)}
+                   else 'game/presentation/actors/underworld_plains/underworld_player.gd')
+    if (player.get('path') != player_path
             or any(by_role[role].get('path') != path for role,path in PLAYER_STYLE_DEPENDENCIES.items())):
         raise ValueError('Actual UnderworldPlayer body dependencies must retain their explicit consumer paths')
     player_source = repository_file(player['path'],root).read_text()

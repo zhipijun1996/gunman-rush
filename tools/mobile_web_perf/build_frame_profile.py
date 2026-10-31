@@ -18,23 +18,42 @@ from check_web_bundle import Pack
 from build_probe import write_pack
 
 MEASURE = {
-    'game/presentation/world/underworld_plains/underworld_foreground.gd': ['_refresh', '_protection', '_sync_residents', '_render_receipt'],
-    'game/presentation/world/underworld_plains/underworld_presentation.gd': ['refresh'],
-    'game/presentation/world/underworld_plains/underworld_parallax.gd': ['_update'],
-    'game/presentation/world/underworld_plains/underworld_home_world.gd': ['update_focus'],
-    'game/application/demo_app.gd': ['_process', '_physics_process', '_layout_region_hud'],
-    'game/progression/home/home_scene.gd': ['_process', '_physics_process'],
-    'game/world/levels/providers/plains_region_stage.gd': ['_physics_process', 'capture_state', '_update_context_signs'],
-    'game/enemies/enemy_actor.gd': ['_physics_process'],
-    'game/player/player_controller.gd': ['_physics_process'],
+    'scripts/underworld_plains/underworld_foreground.gd': ['_refresh', '_protection', '_sync_residents', '_render_receipt'],
+    'scripts/underworld_plains/underworld_presentation.gd': ['refresh'],
+    'scripts/underworld_plains/underworld_parallax.gd': ['_update'],
+    'scripts/underworld_plains/underworld_home_world.gd': ['update_focus'],
+    'scripts/demo/demo_app.gd': ['_process', '_physics_process', '_layout_region_hud'],
+    'scripts/demo/home_scene.gd': ['_process', '_physics_process'],
+    'scripts/demo/plains_region_stage.gd': ['_physics_process', 'capture_state', '_update_context_signs'],
+    'scripts/enemies/enemy_actor.gd': ['_physics_process'],
+    'scripts/player/player_controller.gd': ['_physics_process'],
 }
 ACTION_MEASURE = {
-    'game/presentation/effects/art/chest_art_library.gd': ['pose', 'place_sprite', 'texture', 'draw_chest'],
-    'game/combat/weapons/shoot_ability.gd': ['_emit_round'],
-    'game/combat/projectiles/player_projectile.gd': ['advance'],
-    'game/combat/weapons/presentation/weapon_feel.gd': ['_shot'],
-    'game/combat/weapons/presentation/weapon_feel_v2.gd': ['_shot'],
-    'game/player/presentation/motion_feel.gd': ['_land'],
+    'scripts/art/chest_art_library.gd': ['pose', 'place_sprite', 'texture', 'draw_chest'],
+    'scripts/combat/shoot_ability.gd': ['_emit_round'],
+    'scripts/combat/player_projectile.gd': ['advance'],
+    'scripts/dev/player_presentation_01/weapon_feel.gd': ['_shot'],
+    'scripts/dev/player_presentation_01/weapon_feel_v2.gd': ['_shot'],
+    'scripts/dev/player_presentation_01/motion_feel.gd': ['_land'],
+}
+
+# Finite source-path relocation only; one unchanged measurement/instrumentation algorithm.
+CURRENT_PATHS = {
+    'scripts/underworld_plains/underworld_foreground.gd': 'game/presentation/world/underworld_plains/underworld_foreground.gd',
+    'scripts/underworld_plains/underworld_presentation.gd': 'game/presentation/world/underworld_plains/underworld_presentation.gd',
+    'scripts/underworld_plains/underworld_parallax.gd': 'game/presentation/world/underworld_plains/underworld_parallax.gd',
+    'scripts/underworld_plains/underworld_home_world.gd': 'game/presentation/world/underworld_plains/underworld_home_world.gd',
+    'scripts/demo/demo_app.gd': 'game/application/demo_app.gd',
+    'scripts/demo/home_scene.gd': 'game/progression/home/home_scene.gd',
+    'scripts/demo/plains_region_stage.gd': 'game/world/levels/providers/plains_region_stage.gd',
+    'scripts/enemies/enemy_actor.gd': 'game/enemies/enemy_actor.gd',
+    'scripts/player/player_controller.gd': 'game/player/player_controller.gd',
+    'scripts/art/chest_art_library.gd': 'game/presentation/effects/art/chest_art_library.gd',
+    'scripts/combat/shoot_ability.gd': 'game/combat/weapons/shoot_ability.gd',
+    'scripts/combat/player_projectile.gd': 'game/combat/projectiles/player_projectile.gd',
+    'scripts/dev/player_presentation_01/weapon_feel.gd': 'game/combat/weapons/presentation/weapon_feel.gd',
+    'scripts/dev/player_presentation_01/weapon_feel_v2.gd': 'game/combat/weapons/presentation/weapon_feel_v2.gd',
+    'scripts/dev/player_presentation_01/motion_feel.gd': 'game/player/presentation/motion_feel.gd',
 }
 STATIC_HELPER = '''
 static func _fps04_static_record(method: String, elapsed: int) -> void:
@@ -73,13 +92,39 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def measurement_paths(commit, pack_entries, measured):
+    """Require one complete source/pack layout; never add unreferenced new keys."""
+    source_paths = set(subprocess.check_output(
+        ['git', 'ls-tree', '-r', '--name-only', commit], cwd=ROOT, text=True).splitlines())
+    selected, layouts = {}, set()
+    for historical in measured:
+        current = CURRENT_PATHS[historical]
+        candidates = [path for path in (historical, current)
+                      if path in source_paths and path + '.remap' in pack_entries]
+        if len(candidates) != 1:
+            raise ValueError('Missing or ambiguous source/PCK measurement path: ' + historical)
+        selected[historical] = candidates[0]
+        layouts.add(candidates[0] == current)
+    if len(layouts) != 1:
+        raise ValueError('Mixed source/PCK measurement layouts are not supported')
+    return selected
+
+
+def candidate_sources(candidates, paths):
+    # Candidate injection is explicit, and must name the actual selected pack key.
+    # A current source path is never silently substituted into a historical pack.
+    if any(path not in paths.values() for path in candidates):
+        raise ValueError('Candidate source must match the selected source/PCK layout')
+    return candidates
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--bundle', required=True, type=Path)
     p.add_argument('--output', required=True, type=Path)
     p.add_argument('--foreground-candidate', type=Path, help='Explicit single-file candidate; all other source stays at the bundle commit')
     p.add_argument('--action-detail', action='store_true', help='Observe per-frame costs/objects and chest presentation methods')
-    p.add_argument('--candidate-source', action='append', default=[], choices=['game/presentation/effects/art/chest_art_library.gd', 'game/world/levels/providers/plains_region_stage.gd'], help='Explicit current-worktree candidate, recorded separately from the baseline commit')
+    p.add_argument('--candidate-source', action='append', default=[], choices=['scripts/art/chest_art_library.gd', 'scripts/demo/plains_region_stage.gd', CURRENT_PATHS['scripts/art/chest_art_library.gd'], CURRENT_PATHS['scripts/demo/plains_region_stage.gd']], help='Explicit current-worktree candidate, recorded separately from the baseline commit')
     args = p.parse_args()
     info = json.loads((args.bundle / 'build-info.json').read_text())
     commit = info['source_commit']
@@ -92,13 +137,16 @@ def main():
     measured = dict(MEASURE)
     if args.action_detail:
         measured.update(ACTION_MEASURE)
-        measured['game/presentation/world/underworld_plains/underworld_foreground.gd'] = MEASURE['game/presentation/world/underworld_plains/underworld_foreground.gd'] + ['_observe']
-        measured['game/presentation/world/underworld_plains/underworld_presentation.gd'] = MEASURE['game/presentation/world/underworld_plains/underworld_presentation.gd'] + ['install_item']
+        measured['scripts/underworld_plains/underworld_foreground.gd'] = MEASURE['scripts/underworld_plains/underworld_foreground.gd'] + ['_observe']
+        measured['scripts/underworld_plains/underworld_presentation.gd'] = MEASURE['scripts/underworld_plains/underworld_presentation.gd'] + ['install_item']
     assert not args.candidate_source or args.action_detail, 'Candidate source requires action detail profile'
+    paths = measurement_paths(commit, pack.entries, measured)
+    candidate_sources(args.candidate_source, paths)
+    measured = {paths[path]: methods for path, methods in measured.items()}
     for path, methods in measured.items():
         raw = subprocess.check_output(['git', 'show', commit + ':' + path], cwd=ROOT)
         baseline_source_sha = sha(raw)
-        if args.foreground_candidate and path == 'game/presentation/world/underworld_plains/underworld_foreground.gd':
+        if args.foreground_candidate and path == paths['scripts/underworld_plains/underworld_foreground.gd']:
             raw = args.foreground_candidate.read_bytes()
         if path in args.candidate_source:
             raw = (ROOT / path).read_bytes()
@@ -129,11 +177,11 @@ def main():
                 source += '\tif heavy and airborne: _fps04_event("heavy_landing")\n'
             if args.action_detail and method == '_observe':
                 source += '\tvar _fps04_script := node.get_script() as Script\n\t_fps04_record("observe:"+(_fps04_script.resource_path if _fps04_script != null else node.get_class()),_fps04_elapsed)\n'
-        if path == 'game/application/demo_app.gd':
+        if path == paths['scripts/demo/demo_app.gd']:
             hook = 'func _ready() -> void:\n'
             assert source.count(hook) == 1
             source = source.replace(hook, hook + '\tadd_child.call_deferred(load("res://fps04_profile.gd").new())\n', 1)
-        source += STATIC_HELPER if path == 'game/presentation/effects/art/chest_art_library.gd' else HELPER
+        source += STATIC_HELPER if path == paths.get('scripts/art/chest_art_library.gd') else HELPER
         replacements[path] = source.encode()
         skip.add(path + '.remap')
         mutations.append({'path': path, 'baseline_source_sha256': baseline_source_sha, 'source_sha256': sha(raw), 'instrumented_sha256': sha(source.encode()), 'methods': methods})
@@ -143,7 +191,7 @@ def main():
     receipt = {'baseline_info': info, 'baseline_pack_sha256': digest, 'diagnostic_pack_sha256': sha(target.read_bytes()),
                'replaced': mutations, 'removed_remaps': sorted(skip), 'source_sha256': sources,
                'probe_sha256': sha(replacements['fps04_profile.gd']), 'unchanged_entries': len(set(pack.entries)-skip-set(replacements)),
-               'source_commit': commit, 'foreground_candidate': str(args.foreground_candidate) if args.foreground_candidate else None, 'candidate_sources':args.candidate_source, 'action_detail':args.action_detail, 'main_scene': 'Unchanged original exported demo.tscn and project.binary',
+               'source_commit': commit, 'measurement_paths': paths, 'foreground_candidate': str(args.foreground_candidate) if args.foreground_candidate else None, 'candidate_sources':args.candidate_source, 'action_detail':args.action_detail, 'main_scene': 'Unchanged original exported demo.tscn and project.binary',
                'scope': 'Shared timing wrappers add overhead; nested elapsed costs inclusive and not additive. Only current-root capture metadata and diagnostic JS are written. No GPU or physical phone timing claim.'}
     (args.output / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'output': str(args.output), 'source_commit': commit, 'unchanged_entries': receipt['unchanged_entries'], 'diagnostic_pack_sha256': receipt['diagnostic_pack_sha256']}))

@@ -14,7 +14,7 @@ func expect(value: bool, message: String) -> void:
 
 func run() -> void:
 	for entry_id: String in ["actions", "scene", "demo"]:
-		var preview := preload("res://experiments/terrain/entries/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
+		var preview := preload("res://experiments/platform/entries/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
 		preview.entry = "actions" if entry_id == "actions" else "scene"
 		preview.entry_scene = "res://game/application/demo.tscn" if entry_id == "demo" else "res://experiments/motion/entries/action_studio.tscn"
 		root.add_child(preview)

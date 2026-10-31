@@ -17,9 +17,11 @@ flowchart TD
     Provider --> Legacy[现有生成器与版本校验]
     Legacy --> Adapter[LegacyRegionPlanAdapter]
     Adapter --> Plan[LevelPlan：已解析内容]
-    Plan --> Runtime[LevelRuntime：公共装配入口]
-    Runtime --> Stage[原 Stage / Assembler / 地图状态]
-    Stage --> Factory[原 EnemyFactory / BossFactory / 世界组件]
+    App --> Stage[Stage：地图节点与运行状态]
+    Plan -. App 配置到 Stage .-> Stage
+    Stage --> Runtime[LevelRuntime：公共装配与实体创建入口]
+    Runtime --> Assembler[原 Assembler / 世界组件]
+    Runtime --> Factory[原 EnemyFactory / BossFactory]
     Factory --> Entity[实体自身的状态 / 行为 / 表现]
     Build --> Effects[ItemRuntime 与专属效果族]
 ```
@@ -41,7 +43,7 @@ RunSession 复用原流程和 epoch 权威，不新增第二个 RunDirector。�
 | 道具效果 | 原目录/authoring 是定义权威；ItemRuntime 编排效果族。Active/Companion 共用 ItemActiveCast，Time 只获得 ItemTimeContext 的窄能力 |
 | 购买与重放 | ShopService 负责报价、付款与购买收据；四种操作共用已有 transaction replay 实现 |
 | 奖励与永久成长 | RewardService、既有来源账本、SupplyHealEffect、MetaProgression；拾取和宝箱共用底层提交，但保留不同领取/反馈协议 |
-| 普通怪和 Boss | 原 Registry/Factory 与 Definition；Actor/Behavior 负责快照和恢复，地图不再逐字段写普通怪内部状态 |
+| 普通怪和 Boss | 原 Registry/Factory 与 Definition；Actor/Behavior 负责普通怪快照和行为恢复；BossEncounter 共用生命恢复，各 Encounter 拥有原家族快照/决斗恢复，地图另保存封门状态 |
 | 地图状态 | 既有 PlainsRegionState/区域状态及原 Manifest；不创建第二份存档或随机流 |
 | 音频与入口释放 | 局部 GameAudio 宿主和既有选定音效服务；WorldAudioLifecycle 是生产与测试共用的释放实现 |
 

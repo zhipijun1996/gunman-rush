@@ -4,8 +4,8 @@
   "task_type": "mechanic",
   "workflow": "in_progress",
   "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "reviewed_commit": "7b5ad80d6804db7850ef8cfeb0dc761646ee80b8",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "content_version": "candidate-v2-layout",
   "owner": "/root/runtime_audit",
   "purpose": "修复已记录v11地图意外使用当前charger定义的历史版本混用；源与实际实体使用原revision",
   "player_experience": "仅历史v11恢复原28×32；当前和v15保持28×28；未知revision明确拒绝",
@@ -16,12 +16,12 @@
     "addons/runtime_raw_export/raw_exporter.gd",
     "docs/worklines/forest_v11_definition_lock_01/issue.md",
     "export_presets.cfg",
-    "game/world/level_plan.gd",
-    "game/world/level_runtime.gd",
-    "game/world/providers/legacy_region_plan_adapter.gd",
+    "game/enemies/enemy_behavior_registry.gd",
+    "game/enemies/enemy_factory.gd",
+    "game/world/levels/level_plan.gd",
+    "game/world/levels/level_runtime.gd",
+    "game/world/levels/providers/legacy_region_plan_adapter.gd",
     "resources/enemies/legacy/plains_charger_v2.tres",
-    "scripts/enemies/enemy_behavior_registry.gd",
-    "scripts/enemies/enemy_factory.gd",
     "scripts/generation/thorn_forest_region_v2_v10.gd",
     "scripts/generation/thorn_forest_region_v2_v11.gd",
     "tests/forest_v11_definition_runner.gd",
@@ -78,27 +78,30 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "6项迁移后原生回归实际fresh通过；formal191/0仍因退出57 ObjectDB/25 resources严格失败，完整集成未完成。局部通过不代签full182。",
+      "evidence": [
+        "post-layout-native-six",
+        "formal-cleanup-failure"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "当前源全部入口GUI/实际导出PCK/动态ResourceLoader未完整验证；静态依赖图不作运行轨迹。",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "gameplay": {
@@ -113,26 +116,78 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "历史v11修复不是保持行为不变重构；549b定义锁、9f4 raw exporter、7229 worktree隔离守门有限静态接受。旧源80/80只作为有限历史依据；最终真实PCK/ResourceLoader仍待验。 最终整合独审未完成，保持unverified。",
+      "evidence": [
+        "bounded-independent-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "post-layout-native-six",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/native-six-report.json",
+      "sha256": "02b35bff1e3211e2358aa92d201f65bddac6406d8417fd2db305a5c467899434",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "逐项实际expanded_argv按report顺序记载（分号仅表顺序）；读取root已完成的6项fresh报告，没有重跑或猜测harness启动参数。",
+      "observed": "6项fresh passed，原report commit为6584；不是full182/GUI/导出/PCK证明。",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_bellstrider_rework_01_tests.py ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/level_plan_runner.gd ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/harness-d5bab305794f44099ad252b96c98c80c ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_lifecycle_runner.gd -- --studies ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_owner_runner.gd -- --auditions ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_integration_four_tests.py --case forest-v11-definition",
+      "exit_code": 0,
+      "environment": "Linux / Godot 4.7.2 headless；root独占引擎，6项fresh运行；本记录整理者未运行引擎"
+    },
+    {
+      "id": "formal-cleanup-failure",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/post-layout-formal-02.log",
+      "sha256": "22abcc3a5c9d2b58f60e27d074a9751a24819186e6a54c497395b4eb343afe16",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "原formal191 assertions/0 failures后退出57 ObjectDB/25 resources及RID泄漏，严格wrapper拒绝；不得仅以191/0称通过。"
+    },
+    {
+      "id": "bounded-independent-review",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/architecture-independent-review.json",
+      "sha256": "417519349e685cefd1ba3d86083c43ee739543e41523226800257a7552cc1045",
+      "kind": "review",
+      "producer": "/root/structure_audit",
+      "source_commit": "72299fb3deefdfb1e41db399a5944ae0b07f2bc5",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "历史v11修复不是保持行为不变重构；549b定义锁、9f4 raw exporter、7229 worktree隔离守门有限静态接受。旧源80/80只作为有限历史依据；最终真实PCK/ResourceLoader仍待验。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root/runtime_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者只读比对实现与真实消费者；实际审查范围和排除项以归档原件为准，未替代作者或完整CI验收。"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "实际最终PCK与隔离探针待验证",
     "最终整合完整CI待验证",
-    "v7/v9/v10其他历史定义潜在漂移另列，不扩大本修复"
-  ]
+    "v7/v9/v10其他历史定义潜在漂移另列，不扩大本修复",
+    "full182当前源完整执行尚未完成；6项fresh不是完整CI",
+    "formal191/0后57 ObjectDB/25 resources退出泄漏仍是严格失败，不得消音/清cache掩盖",
+    "style26资产与相应测试调整仍WIP且独审未完；不改变本记录为已通过",
+    "实际导出PCK、35入口自然运行与118动态加载分支未全部验证",
+    "不以旧SHA独审/旧源森林80/80追签当前整合；后续Cloud动态入口字符串修正待独审"
+  ],
+  "test_change_justification": "历史fixture及原SHA/forest_depth_version_runner不改；新增v11定义与raw exporter/PCK隔离探针。P8既有版本断言保留，只迁移实际资源路径；.git文件与目录双拒绝补强隔离。不用修改fixture使旧历史变成当前数据。"
 }

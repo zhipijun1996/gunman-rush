@@ -1,10 +1,14 @@
-## 2026-10-31 整体架构重构进行中（当前）
+## 2026-10-31 功能重构进入固定工具链验证（当前）
 
-内容底座已正常合入 PR122/124/125/107，main 精确提交 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`；PR123 排除。当前候选在 `refactor/game-architecture-02`，未合 main、未替换公开试玩。公开 metadata 与完整 PCK 已核仍对应 `55b07609ea756c6faee771aaa84f080b249917fe`，不能当成本次候选。
+当前候选分支 `refactor/game-architecture-02`，生产整合源 `063d6ccbd7a6ab659fd27abcb20a5c59c7308c53`；后续技术绑定和消费者修复待提交。内容底座 main 为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`（PR122/124/125/107），PR123 排除。公开网页仍是已核完整 PCK 的 `55b07609ea756c6faee771aaa84f080b249917fe`；本重构未合 main、未发布。
 
-Session/地图 Plan 与装配/装备事务/主动施放/敌人快照恢复/入口生命周期已迁移真实消费者；功能目录与全部工具输入范围正在隔离分支迁移。6 个代理分工实现和独审，root 串行执行引擎回归。不是只搬文件，也未开始替换正式地图算法或图声资源。
+1,124 个文件已按功能迁移；Session、地图 Provider/Plan/装配、库存/钱包事务、主动施放、实体与 Boss 状态、音频及入口辅助均有真实调用者。原地图算法仍由 Provider 包装，Stage 表现/记录仍依赖旧 Manifest 适配；新模块库与算法尚未接入。文件职责、实际依赖和回退批次见[迁移报告](worklines/game_architecture_01/migration_report.md)。
 
-源 d8144d39 的原14项回归执行到13项：12通过，formal191断言通过但退出资源泄漏失败，gear未执行；正在定位，不签完整181通过。历史v11定义版本混用已独立记录和修复，Web原字节保留与实际导出仍待验证。当前进度/验证/未验见[执行记录](worklines/game_architecture_01/execution.md)。恢复先核工作树与正在运行的引擎进程，禁止多工作树同时导入/跑Godot；历史失败原件保留。
+063 源之后四批原定向 Harness 的 11 个不同检查最终通过：Bell、Pressure、forest-depth-restore、core、Blob47、Windchime、Pixel、Style、CloudPreview、player-default-integration、studio-input；前三批发现的元数据/动态旧路径失败均保留，修复不改原图声。此前 6584 源的 Plan、enemy structure、Study、audio owner、v11 专项通过仍有独立收据。完整 182 项、35 入口全部真实覆盖、Foundry 与最终 PCK/GUI 尚未完成。
+
+官方 Godot 4.7.2 的正式道具 191 条行为断言通过，但退出 57 ObjectDB/25 资源泄漏。相同 063 源和 4,186 个运行文件下，独立诊断构建 C 采用上游 PR117991＋PR120976 后 191/0 且严格退出通过；A 原源码和 B 单补丁失败保留。用户已明确选择“采用固定的上游修复版，继续完整验证（推荐）”。正在独立工具链分支构建优化版及配套平台模板；诊断 O0 二进制不是交付版本，原工具链锁尚未替换。
+
+style26/creative29 只作技术绑定：206 引用、原媒体与历史原件保留，原598输入映射前缀完整；原 Bible61 在30秒预算内25.94秒通过，无缓存、删测试或放预算。代理按职责并行，root 协调唯一 Godot 租约；原 dirty `/workspace/gunman-rush` 未动。恢复先查真实 HEAD、工作区、远端构建及进程，再按[执行记录](worklines/game_architecture_01/execution.md)继续。
 
 ## 2026-10-31 PR122已合入，PR107离线工具组合完成（最新）
 

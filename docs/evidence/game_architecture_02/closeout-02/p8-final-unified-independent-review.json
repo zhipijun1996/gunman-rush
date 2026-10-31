@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "reviewer": "structure_audit independent fromci/asset authors",
+  "verdict": "LIMITED_STATIC_ACCEPT_FOR_EXACT_CANDIDATE_BYTES",
+  "source_baseline": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "production_source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "candidate_state": "Reviewed frozen working-tree files; rootcommit pending; do notclaim cleanHEAD containsuncommittedbindings",
+  "reviewed_file_count": 62,
+  "reviewed_file_list_sha256": "fe23b43040f351d26a2371df0b77b8f28d6b3e0aaf51d3e1ca5d3099f9810fbf",
+  "files": [
+    {
+      "path": "assets/art_foundation_v1/manifest.json",
+      "sha256": "a82dc6a37bfd1245f5f0eb074cb1eca4d405b193e39624f852497444db2bf4fe",
+      "review_scope": "blob47_technical_pointer_rebind",
+      "justification": "Original builder two path substitutions and rules bytes verified; manifest one pointer; archive three originals exact; five SVG bytes unchanged; visual failed retained."
+    },
+    {
+      "path": "assets/pixel_plains/manifest.json",
+      "sha256": "55fa382ff285ccd367e7b91a8253e21503f68536046f109adeda61e906a8aac1",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "051e33094124bd95672e1d9278aded99b5101770ec492a77473f768a60e30ae6",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json",
+      "sha256": "f2ef7c7f3cf3ae3f81e129db1f1d6669fb9ad7b654f010cdceeeacbf62619bad",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "f4455c54896ab1191870fae09628e83a2059c21cf167110c224a1bbbf09a4896",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "372a2824516416f9dabf6396e8464bb34f55ddc3283b9c30d56374e082b762c1",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/blob47_metadata_before_layout/blob47_foundation_v1.json",
+      "sha256": "19f388db175a1883c5a02a36072d16887a238aa2757e09cc00f5d8cec1cb84ba",
+      "review_scope": "blob47_technical_pointer_rebind",
+      "justification": "Original builder two path substitutions and rules bytes verified; manifest one pointer; archive three originals exact; five SVG bytes unchanged; visual failed retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/blob47_metadata_before_layout/build_blob47_art.py",
+      "sha256": "5594b2c1fb47fadb57cde4ea56394b90106800fac086884c8f725ffd4dbe488d",
+      "review_scope": "blob47_technical_pointer_rebind",
+      "justification": "Original builder two path substitutions and rules bytes verified; manifest one pointer; archive three originals exact; five SVG bytes unchanged; visual failed retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/blob47_metadata_before_layout/manifest.json",
+      "sha256": "732476a9d6462ee166c3bf17afdaff0d85c1e3ff04e823023a3620231252e83d",
+      "review_scope": "blob47_technical_pointer_rebind",
+      "justification": "Original builder two path substitutions and rules bytes verified; manifest one pointer; archive three originals exact; five SVG bytes unchanged; visual failed retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pixel_metadata_before_layout/build_pixel_plains_art.py",
+      "sha256": "4c8c64d7bd24f75e293e2a564345d36760f137753bdb6969a8317ed759ad025e",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pixel_metadata_before_layout/manifest.json",
+      "sha256": "b5e1fb1da34a84d4fbfbc8c1bbd027005b15e42b3477736317546f152e5cf2df",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pixel_metadata_before_layout/windchime_pixel_vectors.json",
+      "sha256": "0d56d73358ea5ca5505e56c15e66e01e0c29c03b76a64fe537eb6bb31809b058",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/windchime_metadata_before_layout/build_windchime_art.py",
+      "sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/windchime_metadata_before_layout/windchime_limestone_v2.json",
+      "sha256": "00bada2a771c5bde8373c9e6581940a3ad0988d5281c5db4e08b2373dbdfb815",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/quality/asset_records/blob47_foundation_v1.json",
+      "sha256": "570480eeb8da4fa24fb41ac5efeed7bc51221be5df314b87508e051f2e4e9f53",
+      "review_scope": "blob47_technical_pointer_rebind",
+      "justification": "Original builder two path substitutions and rules bytes verified; manifest one pointer; archive three originals exact; five SVG bytes unchanged; visual failed retained."
+    },
+    {
+      "path": "docs/quality/asset_records/windchime_limestone_v2.json",
+      "sha256": "7e900bd8f3a9c2b056a94e2aaf2bbdc71be77c817809f49f72e049117724dee5",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/quality/asset_records/windchime_pixel_vectors.json",
+      "sha256": "dd3ace387cc4e286e171244f2461d1a089a676271d3c6c199e2bf859ec5f58d0",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Technical path/SHA metadata only; five original archives exact, four SVG bytes unchanged; visual statuses retained."
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/dependency_graph.json",
+      "sha256": "2075298c2b0de0d1019a3d1158a22ba656ffe88b357d8765e23cd9a172e626ce",
+      "review_scope": "generated_inventory_snapshot_identity_only",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/file_inventory.csv",
+      "sha256": "12e1d7d17ea9cceb3591104b67cbb0629a93ef5c2f8fb44aad75ed84cae645f8",
+      "review_scope": "generated_inventory_snapshot_identity_only",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/runtime_inventory.json",
+      "sha256": "d67ba431aded85635ed02f85e3f60c8af1acc277108c56ad7a02ea8ded750387",
+      "review_scope": "generated_inventory_snapshot_identity_only",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/style26_binding.md",
+      "sha256": "3a1c2e66c05087f01076f4332983687466335c24b4e11751a207fd6f23b3ea51",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/style26_input_migration.json",
+      "sha256": "784dcecc63cbb7884274646cc0d688679e0f902c05ee3c776221fed11c4301f9",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/aim_save_compat_case.gd",
+      "sha256": "cdc9d37dd04b1187f897ae830fb621edc54513217086f8f498d3472674df6506",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Whole file equals2ce after exact effective path substitutions; historical fullManifest equality,tamper cases andstate checks retained."
+    },
+    {
+      "path": "tests/cloud_preview_runner.gd",
+      "sha256": "271666931addb784b6e448328e4d33a7b6aa31a18a8027d8ed6c23b766505f7e",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/demo_ui_01/contract_runner.gd",
+      "sha256": "6c3d90c4d50866ef91227eff068ad6121670d8d06599075df14c03abacac83fb",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/entry_audio_lifecycle_runner.gd",
+      "sha256": "dfb293ed3cfe19044c45d55cfede911defef4823c9ad1e061aec0afddf2ccfce",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/entry_audio_owner_runner.gd",
+      "sha256": "555658443bd833dd802e0570be1be2b57e1ae1af0bfce6dcc4356d779040b512",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/forest_exploration_modules_runner.gd",
+      "sha256": "a2a211349104c9381ec5bc47d153391d274e0250d98906152197327c304550f4",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Only actual Player scene path and emitted body-source identity moved; shape/assertion data and structural scope unchanged."
+    },
+    {
+      "path": "tests/style_exploration/test_style_biomes.gd",
+      "sha256": "78a698fc974f29d53dbaf68e7ce09488dc9069c62c5951c2811fccc6927b6bb4",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Exact one-line path corrections; original assertions/budgets retained; current four scene defaults bound and fixed148d old Git source exists."
+    },
+    {
+      "path": "tests/test_blob47_layout.gd",
+      "sha256": "fdb43240b2fca6d56dda9618ec788f251d0331302198f6eb91f1d8d494f79d53",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/test_cloud_delivery.py",
+      "sha256": "f14700644be80fed9d09d7c51fd3eebd0ce878a48db21be375dacc79ea791e17",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Actual bootstrap path/fixture directory migrated; original absent-bootstrap assertion retained; addsnew-root dirty/new/deleted cases."
+    },
+    {
+      "path": "tests/test_forest_vine_gate.gd",
+      "sha256": "ad4345676af15ea91ff324f8c9d1697f9c850ce8f81fbe904be6441c391fbdca",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Whole file equals2ce after effective path substitutions; generator sourcehash follows actual current source; allcases remain."
+    },
+    {
+      "path": "tests/test_level_design_routing.py",
+      "sha256": "75a30cc20770fbb903a184f1297d494af99f4ce239fa07cd765460e233712b81",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Finite path updates plus addedsourceinventory/spatial permission negatives; originalgates preserved; independentlyproved1124 mappedold admission results identical afterd58."
+    },
+    {
+      "path": "tests/test_mobile_web_recorded_paths.py",
+      "sha256": "3cee858963a1aebfb9f4b043043d0797fede533047ac6737e3b30530e6770ba6",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Fixed historical measurement protocol and finite selected-source/PCK-layout adaptation; exact frozen candidate applied, independent10/10; no actual historical PCK/device acceptance."
+    },
+    {
+      "path": "tests/test_plains_encounter_policy_boundary.py",
+      "sha256": "25442b936ae84f68b288d93b441005d7628f36a303c8ec83e908d1b187db7a2c",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Frozen fixture uses originalold paths; currentfullinventory includesgame/experiments.24 independentlypassed; historicalSHA/1668member contract unchanged."
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "sha256": "b8845ec6b5b55a057e116d8e811881871b47b88b796cc0fb4a75bc3d558238fc",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Full172 baseline sequence remains exact prefix of182; every intermediate168/170/172/173/174/180/181 lane count retained; original34 methods plus3 registration negatives.Onlyappend ownerinputs andnewforest-v11case."
+    },
+    {
+      "path": "tests/test_project_dependencies.py",
+      "sha256": "db42239345dee390292b3bc094a0737e745b521c152b764a74cefe1101ae3903",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "sha256": "e96c10b5a2a26de7e59be61ea561fe51354cee3ded09b1920c984ea1dd939f83",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Original testfiles pinnedunchanged;16 explicitlyreviewedmethod adaptations fixed byboth original/current completeAST hashes; others exactAST. Allold assertions retained after finite path/version adaptation. Return/ifFalse/emptyloop rejected. Current598 mappedinputprefix,original3duplicates and206source digestcoverage tested."
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "sha256": "271157f4051700f0843e41145ae71d388332bb47e2a9a39717ae0a0b51a6d98a",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Historical28 replay uses existing finite pinnedarchive; current29 separatevalidation retains selectedcontent anddirection-only acceptance. Oldmethod bodies pinned withfinite approved adaptations; frozen28 rejectedascurrent."
+    },
+    {
+      "path": "tests/test_underworld_pipeline.py",
+      "sha256": "3a9ef43031d049cdf6fc22fe1ca7d152434e1eafc690ceee35865713d7ae9c64",
+      "review_scope": "sensitive_guard_review",
+      "justification": "All162 originalmethods retained plus2 groups; helper movedfromStage verifiedasunique fullbody atactualready call. Oldtier/claimed/foot/white/noalias/nodeadstring negatives remain; claimedtamper nowtargetsrealhelper. Historicalfixture paths/SHA restored."
+    },
+    {
+      "path": "tests/test_visual_director.py",
+      "sha256": "e396a5dd625755def46512d056ce3746690742eecdd435973578dae320cadad4",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Wholefile equals2ce after exactreal path substitutions plus3 explicit unsafe-path fixture migrations; unsupportedcatalog andpath traversal assertions unchanged."
+    },
+    {
+      "path": "tests/test_web_bundle.py",
+      "sha256": "a799f9e0849358e750383f10f25c07e49bfa11b66a4770a56a3b1c3fc154e63f",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/test_windchime_layout.gd",
+      "sha256": "90c209e47ffb7397cb004f08cf526149a85c6c9e622f40be5f764cb8e10567d1",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/audio_inventory.py",
+      "sha256": "96cee36289ed146c1193ded58efccdb85a989221d55689940c6dd8394e7f9a68",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Pinned audio consumer source roles; exact frozen candidate applied, code-only independent10/10; no full media CLI acceptance."
+    },
+    {
+      "path": "tools/check_quality_diff.py",
+      "sha256": "9c092bc735654e38f39c308fd3b457bfdfb1a8c4b6deb80920b734cbb287230c",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/check_web_bundle.py",
+      "sha256": "32f6f5357258782a9f12ffc233142771c49a763169d7386656572194829aa34f",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/cloud_delivery.py",
+      "sha256": "affe411bdd4df3a3747b73b9be287373abc0cf3d434984602f59c40bf8fc8f67",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "sha256": "d132627afa0994ca56d5f0a9435bc3c6bde9b23c22917c0948d6363f2534de03",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/level_design.py",
+      "sha256": "3ac2e0436240f505a84593326dab4cac131a469c3fbeeaf198f27422ec0caefa",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/level_region_context.py",
+      "sha256": "13c4bc37b66c6563d45ca8188eff4782f487d51be7246b6b47e638d631148a0f",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/mobile_web_perf/build_formal_audio_ab.py",
+      "sha256": "019c963a26c06e461846c26f88f0b02a01aa760c6529d71c1e05781f1f8720cd",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Fixed historical measurement protocol and finite selected-source/PCK-layout adaptation; exact frozen candidate applied, independent10/10; no actual historical PCK/device acceptance."
+    },
+    {
+      "path": "tools/mobile_web_perf/build_frame_profile.py",
+      "sha256": "45680f8d905f8eca69c95250127403d243d07c0cfb052001476c6a9ebd3a509a",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Fixed historical measurement protocol and finite selected-source/PCK-layout adaptation; exact frozen candidate applied, independent10/10; no actual historical PCK/device acceptance."
+    },
+    {
+      "path": "tools/mobile_web_perf/build_probe.py",
+      "sha256": "b831a90ee2c1157a2f73671466746a1e161ed91db859cc7df968da9a1758debb",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Fixed historical measurement protocol and finite selected-source/PCK-layout adaptation; exact frozen candidate applied, independent10/10; no actual historical PCK/device acceptance."
+    },
+    {
+      "path": "tools/mobile_web_perf/run_minimal.py",
+      "sha256": "97480c37ee0a1561de086c0befdc796d937399f84414459a27c47b697f665c1e",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Fixed historical measurement protocol and finite selected-source/PCK-layout adaptation; exact frozen candidate applied, independent10/10; no actual historical PCK/device acceptance."
+    },
+    {
+      "path": "tools/project_dependencies.py",
+      "sha256": "0891bfe87a549712d00c418c93a24cb9eaaaa343bd5097e5dd7ff67da813a9f5",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/region_creative_direction.py",
+      "sha256": "f00ca5b608b1603555dfc5da31fb8d99c7afc456f327f433074aee26076c5d6f",
+      "review_scope": "frozen_style_write_set",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution. Additional exact one-line ancestor traversal optimization independently reviewed; all filesystem guards retained."
+    },
+    {
+      "path": "tools/region_style_history.py",
+      "sha256": "e9f5b3f010b84716db43a2f16b7d4684f611633164953c9674c8f6fc4dc17149",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/run_plains_encounter_policy_tests.py",
+      "sha256": "138e2fe11c4a1b3301d755f96f0b18810939081cdc0dcb4c3cb462c48346d7df",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tools/run_plains_experience_golden_tests.py",
+      "sha256": "c3bab5e19d8f7fc0fa16b8880592f85c66927b78ea43311e1fd415e0e2ed9162",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Wholefile equals2ce afterexactpaid/freeDefinition path migration; resourceconsumption/maxairshots assertions unchanged."
+    },
+    {
+      "path": "tools/run_plains_regional_art_tests.py",
+      "sha256": "b9f59de5d5c8a592123facde4faa84908e58c32bf51f1559fd3e83f3606b995f",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Exact one-line path corrections; original assertions/budgets retained; current four scene defaults bound and fixed148d old Git source exists."
+    },
+    {
+      "path": "tools/run_root_bell_formal.py",
+      "sha256": "082aae36bd73af429bc186732f094c8c5263db381bb741835de7e39488c8c82d",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Current schema2 follows relocatedactual Definitions;historicalschema1 usesoriginalpinnedc4f557resource+oldscript/player withbothcapabilityhashes. No updatingoldcapture/SHA orfallback tocurrentbytes."
+    },
+    {
+      "path": "tools/test_root_bell_formal_verifier.py",
+      "sha256": "cd33292eeff37e07731ee948d6746ab47367e9cddabd41db6b53a32b974c7f98",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    }
+  ],
+  "sensitive_paths": [
+    "tests/aim_save_compat_case.gd",
+    "tests/forest_exploration_modules_runner.gd",
+    "tests/test_cloud_delivery.py",
+    "tests/test_forest_vine_gate.gd",
+    "tests/test_level_design_routing.py",
+    "tests/test_plains_encounter_policy_boundary.py",
+    "tests/test_production_plan.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/test_underworld_pipeline.py",
+    "tests/test_visual_director.py",
+    "tools/run_plains_experience_golden_tests.py",
+    "tools/run_root_bell_formal.py"
+  ],
+  "sensitive_path_count": 13,
+  "style_binding": {
+    "version": "26",
+    "creative_version": "creative-v29",
+    "references": 206,
+    "original_prefix": 153,
+    "changed_existing": 72,
+    "added": 53,
+    "all_reference_file_hashes_match": true,
+    "original_role_order_preserved": true,
+    "mapped_original_paths_preserved": true,
+    "media_count_unchanged": 51,
+    "added_scope": "52 productionleaves staticallyreachable from original153roots,plus finiteRegistry-selected historicalv11Definition; noaddedexperimentroot",
+    "archives": [
+      {
+        "manifest": "docs/creative_direction/archive/feature-layout-before-style26/manifest.json",
+        "manifest_sha256": "e7d7c7b016dea2f8a42f30736a40ecc89a625ec90715d0258a04ca42d1cb3ca9",
+        "file_count": 80,
+        "mismatches": []
+      },
+      {
+        "manifest": "docs/creative_direction/archive/feature-layout-before-style26/scene-reference-supplement/manifest.json",
+        "manifest_sha256": "0a893d58b17e1ddf96bb142cb52af9ac1f7325cb6b1ae07afb14596bd4859e8c",
+        "file_count": 26,
+        "mismatches": []
+      }
+    ],
+    "original16_complete_method_hashes_unchanged": true
+  },
+  "ci_inputs": {
+    "region_bible_tests": 653,
+    "region_bible_contract": 314,
+    "mapped_original598_exact_prefix": true,
+    "original_duplicate_entries_at320_preserved": true,
+    "full": 182,
+    "no_check_budget_or_command_reduction": true
+  },
+  "resolved_findings": [
+    "P8-SCOPE-R1",
+    "P8-PARSER-R2",
+    "P8-FROZEN-ENDPOINT-R3",
+    "P8-LEGACY-ENERGY-R4",
+    "P8-TEST-METHOD-R5",
+    "Original598 inputduplicate/order regression"
+  ],
+  "independently_executed_python": [
+    "style26-final-independent-14.log:14/14 finalfrozenstyle/archive/currentguards",
+    "p8-policy-boundary-independent-fixed24.log:24/24 historicalboundary",
+    "p8-web-finite-independent-53.log:53/53 finiteRegistry/PCKsyntheticpack",
+    "p8-plan182-independent-37.log:37/37 full182registration/dispatch",
+    "p8-boundary6069-independent-13.log:13/13 shareddependencies",
+    "p8-chest-independent-targeted-normal.log:2/2 actualhelperandinlineledgercases"
+  ],
+  "external_review_binding": {
+    "boss_state_owner_review": "p6-boss-owner-independent-source-proof.json",
+    "reviewer": "ci_audit",
+    "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+    "eight_files_match": true,
+    "scope": "Referencedindependentstaticreview only; notreviewer self-sign ornativeacceptance"
+  },
+  "limitations": [
+    "NoGodot/native/export/Web/render/audio/device acceptance bythisreviewer.",
+    "Full182 registered,notallrun. Author originalBible61 now passed25.940s under30; log independently read/hashed. Prior failures retained.",
+    "P6Bosstailnative isroot/ci responsibility; thisreport onlyverifies itsindependentreview8filebytes.",
+    "ItemPresentation two-line enginecandidate wasfullyreverted afterformal191/0 still57/25strictfailure; notpartofacceptedproduction.",
+    "Currentofficialengine formal191behaviorassertionspassbut57ObjectDB/25resourceexitfailure remainsknownFAILED; diagnosticcustomengine isoutsideproductionacceptance.",
+    "InventoryCSV/runtime/graph outputhashes verified; notclaim all32923files manuallyline-reviewed.",
+    "Rootdocumentation/qualityreceipts outsidefrozenfiles maystillbecompleted; finalcommit samebytes reconciliation required."
+  ],
+  "evidence": [
+    "p8-test-change-justification.json",
+    "p8-tools-closeout-independent-review.json",
+    "p8-historical-consumer-independent-fixed.json",
+    "style26-independent-method-guard.json",
+    "style26-independent-original598-inputs-fixed.json",
+    "p8-quality-flagged-pure-path-proof.json",
+    "finite-asset-adapter-readonly-probe.json",
+    "p6-boss-owner-independent-source-proof.json",
+    "style26-final-write-set.json",
+    "blob47-technical-rebind-independent-review.json",
+    "repository-file-depth-independent-final.json",
+    "audio-inventory-independent-review.json",
+    "mobile-historical-independent-review.json",
+    "pixel-windchime-independent-review.json",
+    "style-and-fixed148d-independent-review.json"
+  ],
+  "prior_41_file_list_sha256": "7ba904d2b71b1054757cb3d3e67664cf9384df62e06974e86a1cd477100c7bba",
+  "blob47_technical_rebind": {
+    "independent_evidence": "blob47-technical-rebind-independent-review.json",
+    "files": 5,
+    "media_files_unchanged": 5,
+    "visual_status": "failed; no upgrade",
+    "builder_sha256": "05ca9129d3c3b9cb8645b9b1a8b30fd908d7132c0c6508311e948e1544b0d874"
+  },
+  "reviewed_file_list_history": [
+    {
+      "file_list_sha256": "20c27c37f0061710599b78a7fe0e7ce0fda6146b18eeca49b8b23ef0a2dc4ab4",
+      "reason": "before exact one-line repository_file enumeration optimization"
+    },
+    {
+      "file_list_sha256": "37bd80913194ab1af72739ee580b7f9f185b94d26639b7f8c3b77a5affd4aee8",
+      "reason": "before audio/mobile/Pixel/Wind/Style/fixed148d applied extensions"
+    }
+  ],
+  "latest_sensitive_guard_scan": {
+    "log": "quality-diff-precloseout-03.log",
+    "sha256": "0cd8cbc823e1dabba899be47f497d74f5768c588bce6b155020625f3005d79ff",
+    "paths": [
+      "tests/aim_save_compat_case.gd",
+      "tests/forest_exploration_modules_runner.gd",
+      "tests/test_cloud_delivery.py",
+      "tests/test_forest_vine_gate.gd",
+      "tests/test_level_design_routing.py",
+      "tests/test_production_plan.py",
+      "tests/test_region_bible.py",
+      "tests/test_region_creative_direction.py",
+      "tests/test_underworld_pipeline.py",
+      "tests/test_visual_director.py",
+      "tools/run_plains_experience_golden_tests.py",
+      "tools/run_root_bell_formal.py"
+    ],
+    "count": 12,
+    "all_covered_by_same_bytes": true,
+    "quality_status": "NOT_MARKED_PASSED_BY_REVIEWER"
+  },
+  "current_code_write_set": "architecture-final-code-write-set.json",
+  "current_code_write_set_count": 23,
+  "root_original_harness_series_read": [
+    {
+      "report": "docs/evidence/game_architecture_02/closeout-02/20261031T055635.820287Z/report.json",
+      "sha256": "37405ac4cf6d25fdc30da2a6ac0a6f9cff69c17130f7f1f33da447d3fab4c415",
+      "executed_by": "root original Harness; not independent reviewer",
+      "checks": [
+        {
+          "id": "bellstrider-rework-01",
+          "status": "passed",
+          "duration_seconds": 147.48,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "forest-depth-restore",
+          "status": "passed",
+          "duration_seconds": 33.629,
+          "timeout_seconds": 210
+        },
+        {
+          "id": "core",
+          "status": "passed",
+          "duration_seconds": 38.164,
+          "timeout_seconds": 720
+        },
+        {
+          "id": "blob47-foundation",
+          "status": "failed",
+          "duration_seconds": 0.202,
+          "timeout_seconds": 180
+        }
+      ]
+    },
+    {
+      "report": "docs/evidence/game_architecture_02/closeout-02/20261031T060540.737474Z/report.json",
+      "sha256": "d517d6d29b5b738b9b0dfe1a9e5395500405cb7f33a6b3838329995b6d28d684",
+      "executed_by": "root original Harness; not independent reviewer",
+      "checks": [
+        {
+          "id": "windkeeper-pressure-01",
+          "status": "passed",
+          "duration_seconds": 54.205,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "blob47-foundation",
+          "status": "passed",
+          "duration_seconds": 2.15,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "windchime-plains",
+          "status": "passed",
+          "duration_seconds": 4.104,
+          "timeout_seconds": 200
+        },
+        {
+          "id": "pixel-plains",
+          "status": "failed",
+          "duration_seconds": 0.231,
+          "timeout_seconds": 180
+        }
+      ]
+    },
+    {
+      "report": "docs/evidence/game_architecture_02/closeout-02/20261031T061145.813067Z/report.json",
+      "sha256": "2d4fd046d771e44c3f84cb7585ef8c31b1013e07cae453f85e58cdd2910957f1",
+      "executed_by": "root original Harness; not independent reviewer",
+      "checks": [
+        {
+          "id": "pixel-plains",
+          "status": "passed",
+          "duration_seconds": 2.738,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "style-exploration",
+          "status": "failed",
+          "duration_seconds": 29.912,
+          "timeout_seconds": 240
+        },
+        {
+          "id": "player-default-integration",
+          "status": "passed",
+          "duration_seconds": 12.173,
+          "timeout_seconds": 240
+        },
+        {
+          "id": "studio-input",
+          "status": "passed",
+          "duration_seconds": 14.83,
+          "timeout_seconds": 180
+        }
+      ]
+    },
+    {
+      "report": "docs/evidence/game_architecture_02/closeout-02/20261031T062149.778297Z/report.json",
+      "sha256": "1e7631c1c959194959dc9ce7c8cc10b516acc32b7d9be4e2767ce356512397c7",
+      "executed_by": "root original Harness; not independent reviewer",
+      "checks": [
+        {
+          "id": "style-exploration",
+          "status": "passed",
+          "duration_seconds": 34.189,
+          "timeout_seconds": 240
+        },
+        {
+          "id": "cloud-preview-runtime",
+          "status": "passed",
+          "duration_seconds": 6.675,
+          "timeout_seconds": 120
+        }
+      ]
+    }
+  ],
+  "pre_fix_failures_and_boundaries": [
+    "Original Blob47 check failed stale manifest before native; metadata pointer-only fix retains failed visual status.",
+    "Original Pixel check failed stale manifest before native; Wind producer already passed. Source metadata updated, four SVG bytes unchanged.",
+    "Style native failure retained; only dynamically formatted scene path corrected; later root Harness report passes style-exploration.",
+    "Audio default fixed26e7 source lookup used migrated absent game path; restored finite selected-Git-role identity. Independent pure-code10pass does not execute full media CLI.",
+    "Mobile historical fixed1b source/PCK paths and imported live measurement table were incompatible; original paths/protocol restored with shared algorithm. Real historical package unavailable/not run.",
+    "Fixed148d git-show incorrectly addressed new path absent in historical commit; exact old path restored. This review proves source object existence, not native comparison rerun.",
+    "Original Bible30s timeout retained; exact no-cache ancestor optimization now has original61 suite25.940s log; no threshold change."
+  ],
+  "final172_to182_rechecked": {
+    "baseline": "2ce4ffa6",
+    "original_count": 172,
+    "current_count": 182,
+    "original_order_exact_prefix": true,
+    "real_registered_appended_checks": [
+      "run-session",
+      "architecture-tests",
+      "level-plan",
+      "enemy-region-state",
+      "game-architecture-effects",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle",
+      "entry-audio-lifecycle-comparison",
+      "entry-audio-owners",
+      "forest-v11-definition"
+    ],
+    "all_appended_registered": true,
+    "old_172_lane_assertion_retained": "(172,94,78)",
+    "current_lane_assertion": "(182,95,87)"
+  }
+}

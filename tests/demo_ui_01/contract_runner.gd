@@ -189,7 +189,7 @@ func run() -> void:
 	check(map_text.contains("THORN FOREST") and not map_text.contains("WINDCHIME PLAINS"), "forest map shows real region identity")
 	app.close_region_map(); await frames()
 	app.free(); await frames(8)
-	var preview := preload("res://experiments/terrain/entries/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
+	var preview := preload("res://experiments/platform/entries/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
 	preview.task_id = "DEMO-UI-01"
 	preview.entry = "menu"
 	root.add_child(preview); await frames(8)

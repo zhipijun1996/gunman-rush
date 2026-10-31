@@ -138,7 +138,7 @@ func _run() -> void:
 	# Dedicated variant scenes are convenience art previews, using the same runtime.
 	for style: String in ["underworld", "cavern"]:
 		for biome: String in ["forest", "gear"]:
-			var scene := load("res://scenes/style_exploration/%s_%s.tscn" % [style, biome]) as PackedScene
+			var scene := load("res://experiments/terrain/entries/%s_%s.tscn" % [style, biome]) as PackedScene
 			var variant := scene.instantiate() as StyleLab
 			root.add_child(variant)
 			expect(variant.style_id == style and variant.biome_id == biome, "named art-preview scene opens its requested environment")

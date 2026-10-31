@@ -1,0 +1,52 @@
+{
+  "id": "P8_CI_TOOLS",
+  "source_commit": "5589c284237277e963c424eeb4cce9eaf334630a",
+  "baseline": "986bb75d68213879366b824485f482e553158944",
+  "verdict": "LIMITED_STATIC_AND_PYTHON_ACCEPT_AFTER_D58B72B6",
+  "scope": "Frozen 128-file tools/config/tests commit only; adjacent production migration excluded.",
+  "findings": [
+    {
+      "id": "P8-SCOPE-R1",
+      "severity": "blocking",
+      "path": "tools/level_design.py:348",
+      "detail": "Spatial experiment blanket game/world/ and experiments/ prefixes accept mapped DemoLifetime, RunProfile and graybox, whose original scripts/run or scripts/player paths were rejected. No blacklist catches these names. Preserve original protected-core boundary through exact migrated ownership projection.",
+      "evidence": "p8-spatial-scope-independent-probe.json",
+      "resolution": "Closed in d58b72b6: independently executed original-versus-current mapped admission comparison (1124 paths,296 admitted/828 refused,zero differences)."
+    },
+    {
+      "id": "P8-PARSER-R2",
+      "severity": "blocking_fail_closed_contract",
+      "path": "tools/check_web_bundle.py:316",
+      "detail": "Valid GDScript single-quoted revisions key yields zero mappings and empty contract, silently skipping raw+remap checks. Current actual registry uses supported double quotes, but unsupported equivalent declaration is not refused. Support a finite grammar or reject unrecognized/empty revision contract.",
+      "evidence": "p8-recorded-revision-independent-probe.json",
+      "resolution": "Closed in d58b72b6: quoted strings canonicalized before finite parsing; reviewer independently ran52/52 Python Web-bundle tests including single-quote and actual PCK raw/remap/target missing cases."
+    }
+  ],
+  "accepted_static_facts": [
+    "All 213 checks, complete profiles and every check field except inputs are exact equal to baseline, preserving commands, budgets, serial flags and guards.",
+    "Effective execution map contains 1124 paths after later historical holds; independent check of 120072 mapped input edges has zero missing. Earlier author 121784 count belongs to earlier map and is not represented as current independent count.",
+    "All original 183 core source files remain within mapped CORE_FOLDERS; full observed-runtime inventory now includes game and experiments.",
+    "128 frozen files exactly match supplied write-set SHA256.",
+    "All original Python test methods remain: 715 to728 across23 changed test files; no old assertion-call count reduced. Counts are a syntax check, not a semantic proof.",
+    "style_scenery SHA 55cbdfd22ac193162cae6ab6a14b27e8c6a88aad9de0d4e5991744fd97a365b7 to c22a5f5174e255f7a460f56e32ed971f26d2719be9851de437bf1d6450543f07 independently equals old bytes with exact path substitutions only. Other finite adapter SHA bindings unchanged.",
+    "Cloud clean-tree/bootstrap checks and inventories add actual game/experiments roots, retain old roots and dirty/new/deleted checks.",
+    "Supported recorded-enemy declarations derive finite source SHA/path from real Registry; raw bytes, remap and nonempty converted target are read from actual PCK, no local fallback for missing pack entries. Synthetic target test explicitly does not prove ResourceLoader semantics."
+  ],
+  "evidence": [
+    "p8-independent-effective-closure.json",
+    "p8-test-change-justification.json",
+    "p8-ci-tools-write-set.json",
+    "style-scenery-finite-adapter-relocation.json",
+    "p8-spatial-scope-independent-fixed.json",
+    "p8-web-bundle-independent-52.log"
+  ],
+  "limitations": [
+    "No Godot or native/rendering/Web runtime execution by reviewer.",
+    "Actual ResourceLoader/Factory legacy-v11 correctness requires separate exported-PCK native probe; Python checks only content closure.",
+    "Surrounding production migration not frozen and not accepted by this review.",
+    "CORE_FOLDERS is current finite projection; future new shared siblings require deliberate policy classification, while full runtime source inventory still binds them.",
+    "Empty unrelated asset fixtures intentionally permit missing Registry; real integration checkout must include Registry and exporter has its own nonempty-contract gate.",
+    "Initial failure and49-test logs remain; independent final52-test log is separate and does not imply native export execution."
+  ],
+  "followup_commit": "d58b72b69f1cdd9ac62e3d3a6a37c4080191e38e"
+}

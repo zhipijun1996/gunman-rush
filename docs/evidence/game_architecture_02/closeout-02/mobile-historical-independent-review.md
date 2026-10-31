@@ -1,0 +1,3 @@
+限定接受外部五文件候选：固定1b协议恢复旧路径/原SHA；formal16历史测量表与原Git真实源码逐一比对，仍共用原instrumentation。Frame原9+6方法不减，所选测量角色必须由source tree与PCK remap唯一且同布局解析。独立10/10通过，四组合实际main测至write_pack前。
+
+边界：这不是全包旧新互斥或源码/包字节同源证明；current producer仍使用checkout，显式foreground候选仍未验证内部资源依赖。无真实历史PCK、引擎或设备验收。应用后须核同字节。详见同名JSON。

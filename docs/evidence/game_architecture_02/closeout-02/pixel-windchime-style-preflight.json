@@ -1,0 +1,104 @@
+{
+  "scope": "Pure existing --check and in-memory expected metadata; no engine/writer/production edits",
+  "source_head": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "families": [
+    {
+      "family": "pixel",
+      "original_check_status": "FAIL manifest.json only",
+      "metadata_changes": [
+        {
+          "field": "/provenance/generator_sha256",
+          "old": "4c8c64d7bd24f75e293e2a564345d36760f137753bdb6969a8317ed759ad025e",
+          "new": "896e2e5cd5562aa512b37688ddf22e28202731c8bb25f68d74b5e02d12085e52"
+        },
+        {
+          "field": "/provenance/technical_input",
+          "old": "scripts/art_foundation/blob47_rules.gd (grid/topology only)",
+          "new": "game/presentation/world/art_foundation/blob47_rules.gd (grid/topology only)"
+        }
+      ],
+      "old_builder_sha256": "4c8c64d7bd24f75e293e2a564345d36760f137753bdb6969a8317ed759ad025e",
+      "new_builder_sha256": "896e2e5cd5562aa512b37688ddf22e28202731c8bb25f68d74b5e02d12085e52",
+      "old_manifest_sha256": "b5e1fb1da34a84d4fbfbc8c1bbd027005b15e42b3477736317546f152e5cf2df",
+      "candidate_manifest_sha256": "55fa382ff285ccd367e7b91a8253e21503f68536046f109adeda61e906a8aac1",
+      "visual_outputs": [
+        {
+          "path": "assets/pixel_plains/stone_blob47.svg",
+          "sha256": "8291b4db06d8762dbeb1e6d4be8942eca30bc272253b6477c93f34474e70263a",
+          "exact_bytes": true
+        },
+        {
+          "path": "assets/pixel_plains/props.svg",
+          "sha256": "f3bbe02eb926025d4548ff4aeb4559844fe52d64d7f60e9c000edb80bf82efd6",
+          "exact_bytes": true
+        }
+      ]
+    },
+    {
+      "family": "windchime",
+      "original_check_status": "PASS",
+      "metadata_changes": [],
+      "old_builder_sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89",
+      "new_builder_sha256": "0483aac365e97058b469363573ba3b1fb271272443640f05cf627fba03904d37",
+      "old_manifest_sha256": "eb897500c61d952a6dee0cec52cf1961d32776103d3c9617d9d96c86244f26b1",
+      "candidate_manifest_sha256": "eb897500c61d952a6dee0cec52cf1961d32776103d3c9617d9d96c86244f26b1",
+      "visual_outputs": [
+        {
+          "path": "assets/windchime_plains/limestone_blob47.svg",
+          "sha256": "2e4456fbcbf37a7df6d1eb08df4c60332e603b8643ebf31d8aa45d479265005a",
+          "exact_bytes": true
+        },
+        {
+          "path": "assets/windchime_plains/props.svg",
+          "sha256": "b7212b71b448ea48cdbf8ca00dd1c6a4db538942e57a7cc978c1712fef9c680e",
+          "exact_bytes": true
+        }
+      ]
+    },
+    {
+      "family": "style",
+      "original_check_status": "PASS:5 exact source/PNG hashes",
+      "manifest_object_equal": true,
+      "manifest_serialization_equal": true,
+      "manifest_sha256": "e965d7d6123a8e0fb9676c4d3878dcd38c0ec4cb036f11c053a70c911636fbd7",
+      "no_changes_required": true,
+      "historical_source_paths": "original_recipe_source/publisher metadata retained; not runtime path errors"
+    }
+  ],
+  "candidate_files": [
+    {
+      "path": "assets/pixel_plains/manifest.json",
+      "sha256": "55fa382ff285ccd367e7b91a8253e21503f68536046f109adeda61e906a8aac1"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pixel_metadata_before_layout/manifest.json",
+      "sha256": "b5e1fb1da34a84d4fbfbc8c1bbd027005b15e42b3477736317546f152e5cf2df"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pixel_metadata_before_layout/build_pixel_plains_art.py",
+      "sha256": "4c8c64d7bd24f75e293e2a564345d36760f137753bdb6969a8317ed759ad025e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pixel_metadata_before_layout/windchime_pixel_vectors.json",
+      "sha256": "0d56d73358ea5ca5505e56c15e66e01e0c29c03b76a64fe537eb6bb31809b058"
+    },
+    {
+      "path": "docs/quality/asset_records/windchime_pixel_vectors.json",
+      "sha256": "dd3ace387cc4e286e171244f2461d1a089a676271d3c6c199e2bf859ec5f58d0"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/windchime_metadata_before_layout/build_windchime_art.py",
+      "sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/windchime_metadata_before_layout/windchime_limestone_v2.json",
+      "sha256": "00bada2a771c5bde8373c9e6581940a3ad0988d5281c5db4e08b2373dbdfb815"
+    },
+    {
+      "path": "docs/quality/asset_records/windchime_limestone_v2.json",
+      "sha256": "7e900bd8f3a9c2b056a94e2aaf2bbdc71be77c817809f49f72e049117724dee5"
+    }
+  ],
+  "native_status": "NOT_RUN",
+  "patch": "/workspace/refactor-evidence/pixel-windchime-technical-rebind-candidate.patch"
+}

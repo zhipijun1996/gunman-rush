@@ -1,0 +1,249 @@
+--- a/game/bosses/encounter/boss_encounter.gd
++++ b/game/bosses/encounter/boss_encounter.gd
+@@ -33,6 +33,17 @@
+ 	phases.configure(definition)
+ 	pattern.configure(definition, phases.phase)
+ 	defeat_id = StringName("boss-defeat-%s" % motor.get_instance_id())
++
++# Region restore keeps the existing instance-local HealthState and epoch signals.
++# Entry policy and validation remain with the owning encounter family.
++func restore_region_health(saved_health: float) -> void:
++	var restored := definition.health_definition.duplicate(true) as HealthDefinition
++	restored.initial_current = saved_health
++	health.configure(restored)
++	damageable.bind_health(health)
++
++func restore_region_position(data: Dictionary) -> void:
++	motor.position = Vector2(data.position[0],data.position[1])
+ 
+ func configure_arena(left: float, right: float, target: Node2D) -> bool:
+ 	if definition == null or not definition.is_valid() or not arena.configure(left, right, definition.collision_size.x / 2.0):
+--- a/game/bosses/windkeeper/windkeeper_encounter.gd
++++ b/game/bosses/windkeeper/windkeeper_encounter.gd
+@@ -376,6 +376,23 @@
+ 		motor.get_parent().add_child(shot)
+ 		shot.global_position=origin
+ 
++# Stage entry restores only the original pre-binding fields. Full combat restore
++# remains at the App's existing post-geometry/activation points.
++func restore_region_entry(data: Dictionary) -> void:
++	restore_region_health(float(data.health))
++	stage_phase = int(data.phase)
++	chase_segment = int(data.chase_segment)
++	mode = StringName(data.mode)
++	clock = float(data.clock)
++
++func _region_pattern_index() -> int:
++	return 0
++
++func region_snapshot() -> Dictionary:
++	var data := {"health":health.current,"phase":stage_phase,"chase_segment":chase_segment,"mode":String(mode),"clock":clock,"position":[motor.position.x,motor.position.y],"active":active,"serial":_attack_serial,"direction":direction,"pattern_index":_region_pattern_index()}
++	data.merge(combat_snapshot(),true)
++	return data
++
+ func combat_snapshot() -> Dictionary:
+ 	return {"intro_duration":intro_duration,"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target,"pier_direction":_pier_direction,"rune_platform":rune_platform}
+ 
+--- a/game/bosses/bellstrider/bellstrider_encounter.gd
++++ b/game/bosses/bellstrider/bellstrider_encounter.gd
+@@ -110,6 +110,17 @@
+ 
+ func reward_impact_ready() -> bool:
+ 	return health.terminal and _death_impacted
++
++
++func restore_region_entry(data: Dictionary) -> void:
++	if float(data.health) <= 0:
++		prepare_terminal_restore()
++	super.restore_region_entry(data)
++	pattern_index = int(data.get("pattern_index",0))
++
++
++func _region_pattern_index() -> int:
++	return pattern_index
+ 
+ 
+ func prepare_terminal_restore() -> void:
+--- a/game/bosses/thorn_forest/thorn_forest_encounter.gd
++++ b/game/bosses/thorn_forest/thorn_forest_encounter.gd
+@@ -147,6 +147,36 @@
+ 	super.cancel()
+ func reward_stand_position() -> Vector2:
+ 	return Vector2(arena.left_x + 95, _floor_y - 18)
++# Legacy encounters restore before binding; physical duels deliberately defer.
++func restore_region_entry(data: Dictionary) -> void:
++	restore_region_health(float(data.health))
++	restore_combat_state(data)
++
++func region_snapshot() -> Dictionary:
++	var data := combat_snapshot()
++	data.health = health.current
++	data.active = active
++	data.direction = direction
++	data.position = [motor.position.x,motor.position.y]
++	return data
++
++# Actual duel consumers call this only after geometry and local targets bind.
++func restore_bound_duel(data: Dictionary) -> bool:
++	if not has_method("valid_duel_snapshot") or not call("valid_duel_snapshot",data): return false
++	var saved_health: Variant = data.get("health")
++	if typeof(saved_health) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(saved_health)) or float(saved_health) < 0 or float(saved_health) > health.capacity: return false
++	var saved_position: Variant = data.get("position")
++	if not saved_position is Array or saved_position.size() != 2: return false
++	for coordinate: Variant in saved_position:
++		if typeof(coordinate) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(coordinate)): return false
++	var body_position: Variant = data.get("body_position")
++	if not body_position is Array or body_position.size() != 2: return false
++	for index: int in 2:
++		if typeof(body_position[index]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(body_position[index])) or not is_equal_approx(float(body_position[index]),float(saved_position[index])): return false
++	restore_region_health(float(saved_health))
++	call("restore_combat_state",data)
++	return get("last_restore_accepted") == true and motor.position.is_equal_approx(Vector2(saved_position[0],saved_position[1]))
++
+ func combat_snapshot() -> Dictionary:
+ 	return {"mode":String(mode),"clock":clock,"stage_phase":stage_phase,"intro_duration":intro_duration,"weak_side":weak_side,"cycles":_cycles,"serial":_attack_serial,"attack_epoch":attack_epoch}
+ func serialize_combat_state() -> Dictionary: return combat_snapshot()
+--- a/game/world/levels/providers/plains_region_stage.gd
++++ b/game/world/levels/providers/plains_region_stage.gd
+@@ -64,18 +64,7 @@
+ 	if not region_state.boss_state.is_empty():
+ 		restored_boss=region_state.boss_state.duplicate(true)
+ 		var encounter := boss.get_node("Encounter") as WindkeeperEncounter
+-		var data: Dictionary = region_state.boss_state
+-		if encounter is BellstriderEncounter and float(data.health) <= 0:
+-			encounter.prepare_terminal_restore()
+-		var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
+-		restored.initial_current=float(data.health)
+-		encounter.health.configure(restored)
+-		encounter.damageable.bind_health(encounter.health)
+-		encounter.stage_phase=int(data.phase)
+-		encounter.chase_segment=int(data.chase_segment)
+-		encounter.mode=StringName(data.mode)
+-		encounter.clock=float(data.clock)
+-		if encounter is BellstriderEncounter: encounter.pattern_index=int(data.get("pattern_index",0))
++		encounter.restore_region_entry(region_state.boss_state)
+ 	if restored_boss.get("seal_closed",false) and float(restored_boss.get("health",0))>0:spawn=Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
+ 	reward_position = boss.position
+ 	pickups.append_array(LevelRuntime.restore_pickups(level_plan.pickups,region_state.claimed))
+@@ -290,8 +279,7 @@
+ 			var pose := remains.presentation_snapshot(_remains_support_identity(remains.support_node()))
+ 			if not pose.is_empty(): region_state.actors[enemy_manifest[index].id].presentation_remains = pose
+ 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
+-	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
+-	region_state.boss_state.merge(encounter.combat_snapshot(),true)
++	region_state.boss_state = encounter.region_snapshot()
+ 	region_state.boss_state.seal_closed=is_instance_valid(boss_seal) and boss_seal.closed
+ 	for i: int in shot_latches.size():
+ 		var latch := shot_latches[i]
+--- a/game/world/levels/providers/thorn_forest_region_stage.gd
++++ b/game/world/levels/providers/thorn_forest_region_stage.gd
+@@ -107,14 +107,10 @@
+ 	var encounter := boss.get_node("Encounter") as ThornForestEncounter
+ 	if not region_state.boss_state.is_empty():
+ 		restored_boss = region_state.boss_state.duplicate(true)
+-		# Duels own extra physical targets. App validates/restores them only after
+-		# configure_arena + bind_duel; restoring here would discard their ledger.
++		# Duels own extra physical targets. App schedules encounter validation and
++		# restoration after configure_arena + bind_duel; an early restore loses their ledger.
+ 		if not encounter.has_method("bind_duel"):
+-			var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
+-			restored.initial_current = float(restored_boss.health)
+-			encounter.health.configure(restored)
+-			encounter.damageable.bind_health(encounter.health)
+-			encounter.restore_combat_state(restored_boss)
++			encounter.restore_region_entry(restored_boss)
+ 	if bool(restored_boss.get("seal_closed",false)) and encounter.health.current > 0:
+ 		spawn = forest_boss_entry_position()
+ 	reward_position = _canopy_point("reward_position") if _has_canopy_boss() else Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
+@@ -199,11 +195,7 @@
+ 		region_state.actors[enemy_manifest[i].id] = actor.region_snapshot(false,true)
+ 	if is_instance_valid(boss):
+ 		var encounter := boss.get_node("Encounter") as ThornForestEncounter
+-		region_state.boss_state = encounter.combat_snapshot()
+-		region_state.boss_state.health = encounter.health.current
+-		region_state.boss_state.active = encounter.active
+-		region_state.boss_state.direction = encounter.direction
+-		region_state.boss_state.position = [boss.position.x,boss.position.y]
++		region_state.boss_state = encounter.region_snapshot()
+ 		region_state.boss_state.seal_closed = is_instance_valid(boss_seal) and boss_seal.closed
+ 
+ func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) -> bool:
+--- a/game/application/demo_app.gd
++++ b/game/application/demo_app.gd
+@@ -724,12 +724,12 @@
+ 			if connected_region and not (stage as PlainsRegionStage).restored_boss.is_empty():
+ 				var saved: Dictionary=(stage as PlainsRegionStage).restored_boss
+ 				if encounter.has_method("bind_duel"):
+-					if not _restore_forest_duel(encounter,saved):
++					if not encounter.call("restore_bound_duel",saved):
+ 						push_error("Recorded forest duel state rejected after physical target binding")
+ 						abandon_run()
+ 						return
+ 				else:
+-					stage.boss.position=Vector2(saved.position[0],saved.position[1])
++					encounter.restore_region_position(saved)
+ 					# Terminal actors cannot activate again. Restore their actual
+ 					# articulated wreck/death clock without replaying the encounter.
+ 					if encounter is BellstriderEncounter and float(saved.get("health",1)) <= 0:
+@@ -2240,25 +2240,6 @@
+ 	var spatial := traversal.hook_target.get_node_or_null("Damageable") as Damageable
+ 	return spatial != null and spatial != receiver and spatial.can_receive_effects() and spatial.damage_policy_owner() == receiver and int(context.get("session_id",-1)) == controller.session_id and int(context.get("attack_id",-1)) == traversal._serial and int(context.get("source_actor_id",0)) == player.get_instance_id() and int(context.get("target_actor_id",-1)) == receiver.actor_id and int(context.get("target_epoch",-1)) == receiver.damage_epoch
+ 
+-func _restore_forest_duel(encounter: BossEncounter, data: Dictionary) -> bool:
+-	if not encounter.has_method("valid_duel_snapshot") or not encounter.call("valid_duel_snapshot",data): return false
+-	var saved_health: Variant = data.get("health")
+-	if typeof(saved_health) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(saved_health)) or float(saved_health) < 0 or float(saved_health) > encounter.health.capacity: return false
+-	var saved_position: Variant = data.get("position")
+-	if not saved_position is Array or saved_position.size() != 2: return false
+-	for coordinate: Variant in saved_position:
+-		if typeof(coordinate) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(coordinate)): return false
+-	var body_position: Variant = data.get("body_position")
+-	if not body_position is Array or body_position.size() != 2: return false
+-	for index: int in 2:
+-		if typeof(body_position[index]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(body_position[index])) or not is_equal_approx(float(body_position[index]),float(saved_position[index])): return false
+-	var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
+-	restored.initial_current = float(saved_health)
+-	encounter.health.configure(restored)
+-	encounter.damageable.bind_health(encounter.health)
+-	encounter.call("restore_combat_state",data)
+-	return encounter.get("last_restore_accepted") == true and encounter.motor.position.is_equal_approx(Vector2(saved_position[0],saved_position[1]))
+-
+ func _start_generated_boss() -> void:
+ 	var encounter := stage.boss.get_node("Encounter") as BossEncounter
+ 	var receiver := stage.boss.get_node("Damageable") as Damageable
+@@ -2278,7 +2259,7 @@
+ 		var data: Dictionary=(stage as PlainsRegionStage).restored_boss
+ 		if data.get("active",false):
+ 			if encounter.has_method("bind_duel"):
+-				if not _restore_forest_duel(encounter,data):
++				if not encounter.call("restore_bound_duel",data):
+ 					push_error("Recorded active forest duel rejected")
+ 					abandon_run()
+ 					return
+--- a/tests/forest_depth_restore_runner.gd
++++ b/tests/forest_depth_restore_runner.gd
+@@ -82,20 +82,20 @@
+ 		invalid.body_position=malformed
+ 		var before := duel.combat_snapshot()
+ 		var hp := duel.health.current
+-		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed/mismatched body_position "+str(malformed))
+-		check(duel.combat_snapshot()==before and duel.health.current==hp,"malformed App restore is side-effect free "+str(malformed))
++		check(not duel.restore_bound_duel(invalid),"Boss owner rejects malformed/mismatched body_position "+str(malformed))
++		check(duel.combat_snapshot()==before and duel.health.current==hp,"malformed Boss owner restore is side-effect free "+str(malformed))
+ 	for invalid_field: String in ["stage_phase","weak_side","intro_duration","next_bell","duel_roots","duel_version","duel_counter_enabled","cycles"]:
+ 		var invalid := saved.duplicate(true)
+ 		invalid[invalid_field] = {"stage_phase":3,"weak_side":0,"intro_duration":INF,"next_bell":1,"duel_roots":{},"duel_version":"guardian-two-action-static-arena-v5","duel_counter_enabled":1,"cycles":0}[invalid_field]
+ 		var before := duel.combat_snapshot()
+-		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed current duel contract "+invalid_field)
++		check(not duel.restore_bound_duel(invalid),"Boss owner rejects malformed current duel contract "+invalid_field)
+ 		check(duel.combat_snapshot()==before and duel.health.current==saved.health,"invalid duel contract leaves state untouched "+invalid_field)
+ 	for patch: Dictionary in [{"duel_version":1},{"duel_counter_enabled":null},{"missing_counter":true}]:
+ 		var invalid:=saved.duplicate(true)
+ 		if patch.has("missing_counter"): invalid.erase("duel_counter_enabled")
+ 		else: invalid.merge(patch,true)
+ 		var before:=duel.combat_snapshot()
+-		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed version/counter type or missing field "+str(patch))
++		check(not duel.restore_bound_duel(invalid),"Boss owner rejects malformed version/counter type or missing field "+str(patch))
+ 		check(duel.combat_snapshot()==before and duel.health.current==saved.health,"type/missing-field refusal is atomic "+str(patch))
+ 	await app._load_stage() # Required real unload/create/configure/bind/restore path.
+ 	await process_frame # Flush deferred old-stage disposal while simulation remains paused.

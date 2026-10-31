@@ -723,7 +723,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | LEVEL-TOOLS-INTEGRATION-01 | PR107离线工具与两Boss主线并集 | MAIN-UNIFY-20261031 | in_progress | [组合证据](evidence/main_unify_20261031/level-tools/README.md)；28/41通过，native pilot/full172未签，不切正式地图 |
 
-| GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原172/预算保持，森林超时分开修复 |
+| GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原lane前缀与预算保持；full182注册获有限独审，尚未完整执行；formal191/0退出57/25仍阻塞 |
 
 | GAME-ARCH-SESSION-01 | mechanic | GAME-ARCH-CI-01 | in_progress | RunSession owns actual App services; bounded original regressions pass; full integration pending |
 
@@ -739,4 +739,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | GAME-ARCH-MESH-01 | 同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-MESH-01.json) |
 
-| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | in_progress | /root/runtime_audit | 原完整versions、新45/0与导出计划19/0已过；最终实际PCK待验 |
+| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | in_progress | /root/runtime_audit | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |
+
+| GAME-ARCH-LAYOUT-01 | 实际功能目录、资源引用及测试/CI输入迁移 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LAYOUT-01.json)；6584六项fresh通过，formal清理57/25仍失败；style26与最终GUI/PCK/全量未验 |
+
+| GAME-ARCH-BOSS-STATE-01 | Boss自身快照、生命与决斗恢复所有权收口 | GAME-ARCH-ENTITY-01 | in_progress | [质量记录](quality/records/GAME-ARCH-BOSS-STATE-01.json)；063d6ccb静态独审限定接受，原生待验 |
+
+| GAME-ARCH-TEST-MIGRATION-01 | 当前与历史测试消费者迁移收口；62文件限定独审 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/GAME-ARCH-TEST-MIGRATION-01.json) |

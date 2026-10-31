@@ -57,6 +57,49 @@ def refstr(ref: dict) -> str:
     return f"`{ref['path']}:{ref['line']}`"
 
 
+def resolve_source_paths(tree):
+    """Resolve this audit's eight existing source roles inside the selected Git tree.
+
+    These aliases are only historical/current file identities for the audit;
+    they do not select game content. Never fall back to working-tree bytes.
+    """
+    aliases = {
+        'scripts/audio/game_audio.gd': 'game/presentation/audio/game_audio.gd',
+        'scripts/audio/game_music.gd': 'game/presentation/audio/game_music.gd',
+        'scripts/demo/demo_app.gd': 'game/application/demo_app.gd',
+        'scripts/dev/player_presentation_01/motion_feel.gd': 'game/player/presentation/motion_feel.gd',
+        'scripts/dev/player_presentation_01/weapon_feel.gd': 'game/combat/weapons/presentation/weapon_feel.gd',
+        'scripts/dev/player_presentation_01/weapon_feel_v2.gd': 'game/combat/weapons/presentation/weapon_feel_v2.gd',
+        'scripts/art/player_feedback.gd': 'game/presentation/actors/art/player_feedback.gd',
+        'scripts/enemies/enemy_actor.gd': 'game/enemies/enemy_actor.gd',
+    }
+    resolved = {}
+    for old, current in aliases.items():
+        matches = [path for path in (old, current) if path in tree]
+        if len(matches) != 1:
+            raise ValueError("Missing/ambiguous audited source in selected Git tree: " + old)
+        resolved[old] = matches[0]
+    return resolved
+
+
+def music_app_refs(texts, path, cue):
+    """Keep the baseline's exact window; locate the moved consumer by function."""
+    references = line_refs(texts, '&"' + cue + '"', (path,))
+    if path == "scripts/demo/demo_app.gd":
+        return [row for row in references if 1365 <= row["line"] <= 1376 or row["line"] == 116]
+    source = texts[path].splitlines()
+    starts = [i for i, line in enumerate(source) if line.startswith("func _sync_music(")]
+    if len(starts) != 1:
+        raise ValueError("Missing/ambiguous actual DemoApp music selector in selected Git tree")
+    start = starts[0]
+    end = next((i for i in range(start + 1, len(source))
+                if source[i] and not source[i][0].isspace()), len(source))
+    if not any("_music.request_track(" in line for line in source[start:end]):
+        raise ValueError("Actual DemoApp music selector no longer delegates to GameMusic")
+    return [row for row in references if start + 1 <= row["line"] <= end
+            or "_music.request_track(" in row["code"]]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ref", default=BASELINE, help="Pinned source to audit; default is phase-one main baseline")
@@ -72,6 +115,7 @@ def main() -> None:
         mode, kind, oid = meta.split()
         if kind == "blob":
             tree[path] = {"git_oid": oid, "bytes": None}
+    runtime_paths = resolve_source_paths(tree)
     code_paths = [p for p in tree if Path(p).suffix in SOURCE
                   and not p.startswith(("docs/evidence/", "docs/archive/"))]
     texts = {p: b.decode("utf-8", errors="replace") for p, b in blobs(ref, code_paths).items()}
@@ -206,32 +250,32 @@ def main() -> None:
                 callsites.append({"path": path, "line": i, "code": line.strip(), "scope":
                                   "test_or_tool" if path.startswith(("tests/", "tools/")) else
                                   "dev_or_formal_shared_requires_assembly_evidence" if path.startswith("scripts/dev/") else "runtime_source"})
-    cue_ids = re.findall(r'&"([a-z_]+)"', next(line for line in texts["game/presentation/audio/game_audio.gd"].splitlines() if "const CUES :=" in line))
+    cue_ids = re.findall(r'&"([a-z_]+)"', next(line for line in texts[runtime_paths['scripts/audio/game_audio.gd']].splitlines() if "const CUES :=" in line))
     descriptions = {"focus_start":"慢瞄开始／二跳／钩索释放／旧武器阶段共享", "focus_end":"慢瞄结束", "enemy_defeat":"敌人接受死亡（可被DeathAudio替换）", "door":"已接受关卡／区域门转换", "warning":"敌人／Boss攻击预告或封门", "boss_impact":"Boss动作冲击及DefeatBurst", "click":"全部BaseButton pressed自动点击", "confirm":"接受交易、资源恢复和部分动作成功共享", "coin":"金币及普通奖励", "note":"音符／其他拾取", "victory":"运行成功／区域完成", "jump":"经典主角起跳／蹬墙／钩索踢出及旧动作", "land":"经典主角落地", "step":"主角累计移动距离脚步", "hurt":"敌人普通受击和主角受伤共享", "shot":"旧版主角射击（新正式WeaponFeel委派关闭）", "impact":"旧弹体接触／钩索接触踢出／武器后备", "armour":"护甲／无效伤害反馈", "core":"Boss铃芯有效受击", "enemy_shot":"敌方攻击发射", "heal":"接受生命拾取／生命奖励", "death":"主角死亡和运行失败共享", "bell":"机关射铃／钩索连接／部分种子接触共享", "denied":"UI拒绝／射击拒绝／钩索失败共享", "roar":"牧风者阶段咆哮"}
     events = []
     for cue in cue_ids + ["forest_wind", "forest_fruit", "forest_web"]:
         refs = [c for c in callsites if f'&"{cue}"' in c["code"] and
                 ("GameAudio.cue(" in c["code"] or re.search(r"\b_cue\(",c["code"]) or
-                 c["path"]=="game/presentation/audio/game_audio.gd" and "play(" in c["code"])]
+                 c["path"]==runtime_paths['scripts/audio/game_audio.gd'] and "play(" in c["code"])]
         asset = next((r for r in records if r["path"] == f"assets/audio/kenney/{cue}.ogg" or r["path"] == f"assets/forest_bible_v2/audio/{cue}.wav"), None)
         events.append({"event_id": "cue."+cue, "description": descriptions.get(cue,{"forest_wind":"森林每9秒风声（首次3秒）", "forest_fruit":"800wu内接受果枝钩索", "forest_web":"800wu内真实蛛网生长状态进入"}.get(cue,cue)),
                        "route": "GameAudio.cue → local game_audio service → shared 12-voice pool", "assets": [asset["path"]] if asset else [],
                        "references": refs, "mapping_status": "verified_static", "listening_status":"subjective_pending"})
     for cue in ["jump", "land", "heavy"]:
-        motion_refs = line_refs(texts,'audio.motion_cue(&"jump"' if cue=="jump" else 'audio.motion_cue(&"heavy"',("game/player/presentation/motion_feel.gd",))
-        motion_refs += line_refs(texts,'visual.motion_jump.connect' if cue=="jump" else 'visual.motion_land.connect',("game/player/presentation/motion_feel.gd",))
+        motion_refs = line_refs(texts,'audio.motion_cue(&"jump"' if cue=="jump" else 'audio.motion_cue(&"heavy"',(runtime_paths['scripts/dev/player_presentation_01/motion_feel.gd'],))
+        motion_refs += line_refs(texts,'visual.motion_jump.connect' if cue=="jump" else 'visual.motion_land.connect',(runtime_paths['scripts/dev/player_presentation_01/motion_feel.gd'],))
         events.append({"event_id":"motion."+cue, "description":{"jump":"新版主角接受起跳", "land":"新版主角轻落地", "heavy":"新版主角重落地"}[cue],
                        "route":"PlayerMotionFeel → PlayerMotionAudio.motion_cue → same 12-voice pool", "assets":[r["path"] for r in records if r["family"]=="motion" and Path(r["path"]).stem.startswith(cue+"_")],
                        "references":motion_refs,
                        "mapping_status":"verified_static", "listening_status":"subjective_pending"})
     weapon_ids = ["pulse","machine","blade","hit","wall","blast","ion_start","ion_loop","ion_tail","blackhole_start","blackhole_loop","blackhole_burst","mine_beep","boomerang_return"]
     for cue in weapon_ids:
-        refs = [c for c in callsites if f'&"{cue}"' in c["code"] and c["path"].startswith("scripts/")]
+        refs = [c for c in callsites if f'&"{cue}"' in c["code"] and c["path"].startswith(("scripts/", "game/", "experiments/"))]
         if cue in ["pulse","machine","blade"]:
-            refs += line_refs(texts,'var cue: StringName',("game/combat/weapons/presentation/weapon_feel.gd",))
+            refs += line_refs(texts,'var cue: StringName',(runtime_paths['scripts/dev/player_presentation_01/weapon_feel.gd'],))
         if cue in ["blast","blackhole_burst"]:
-            refs += line_refs(texts,'var cue: StringName',("game/combat/weapons/presentation/weapon_feel_v2.gd",))
-            refs += line_refs(texts,'_sound(cue,',("game/combat/weapons/presentation/weapon_feel_v2.gd",))
+            refs += line_refs(texts,'var cue: StringName',(runtime_paths['scripts/dev/player_presentation_01/weapon_feel_v2.gd'],))
+            refs += line_refs(texts,'_sound(cue,',(runtime_paths['scripts/dev/player_presentation_01/weapon_feel_v2.gd'],))
         assets = [r["path"] for r in records if r["family"]=="weapon_v2" and Path(r["path"]).stem.startswith(cue+"_")]
         if cue=="mine_beep": assets=["assets/player_presentation_01/mine_beep_v3/timer_beep.wav"]
         events.append({"event_id":"weapon."+cue, "description":{"pulse":"接受普通枪及默认弹体射击／反冲同帧反馈", "machine":"接受机枪弹次", "blade":"手里剑／扇刃／实体掷出", "hit":"确认敌方HP伤害提交；不是固体接触", "wall":"真实地形接触或地雷附着", "blast":"接受爆炸", "ion_start":"光束开始／蓄力／炮释放", "ion_loop":"光束持续阶段", "ion_tail":"光束结束", "blackhole_start":"奇点启动", "blackhole_loop":"奇点持续阶段", "blackhole_burst":"奇点爆发", "mine_beep":"真实地雷age/fuse节奏提示", "boomerang_return":"回旋镖返回／自动接住"}[cue],
@@ -240,7 +284,7 @@ def main() -> None:
     for cue in ["home","plains","plains_boss","forest","forest_boss"]:
         events.append({"event_id":"music."+cue,"description":"用户原BGM；由DemoApp真实状态选择", "route":"DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
                        "assets":[r["path"] for r in records if r["family"]=="bgm" and (cue=="home" and "kindred" in r["path"] or cue=="plains" and "path_bends" in r["path"] or cue=="plains_boss" and "wooden_sails" in r["path"] or cue=="forest" and "beneath" in r["path"] or cue=="forest_boss" and "knotted" in r["path"])],
-                       "references":line_refs(texts,'&"'+cue+'"',("game/presentation/audio/game_music.gd",))+[r for r in line_refs(texts,'&"'+cue+'"',("game/application/demo_app.gd",)) if 1365<=r["line"]<=1376 or r["line"]==116],"mapping_status":"verified_static","listening_status":"subjective_pending"})
+                       "references":line_refs(texts,'&"'+cue+'"',(runtime_paths['scripts/audio/game_music.gd'],))+music_app_refs(texts, runtime_paths['scripts/demo/demo_app.gd'], cue),"mapping_status":"verified_static","listening_status":"subjective_pending"})
     generators=[]
     for p, text in texts.items():
         if p.endswith(".py") and ("wave.open" in text or "ffmpeg" in text) and re.search(r"audio|sound|sfx",p,re.I):
@@ -253,11 +297,15 @@ def main() -> None:
                "generators":generators,"audio_nodes_and_bus_references":player_nodes,
                "unknowns":["Static reachability is not an observed play session; per-event audible coverage awaits Godot/browser evidence", "Historical evidence archive internals beyond the tracked audio files are not runtime sources and are not expanded", "Source download dates missing from old provenance remain unknown", "BGM author/broader commercial redistribution license is not supplied; retain project authorization boundary", "No subjective quality, real device latency or loudness balance has been accepted"]}
     catalog={"schema_version":1,"task":"AUDIO-DIRECTOR-01","source_commit":ref,"events":events,"all_audio_callsites":callsites,
-             "missing_or_collapsed_event_semantics":[{"event":"hook.release / hook.connect / hook.pull / hook.miss","state":"existing shared cues, no dedicated family or sustained pull loop","references":line_refs(texts,'GameAudio.cue',("game/presentation/actors/art/player_feedback.gd",))},
-                {"event":"player.hurt vs enemy.hurt","state":"same cue.hurt; independent scopes collide with global cooldown","references":line_refs(texts,'&"hurt"',("game/presentation/actors/art/player_feedback.gd","game/enemies/enemy_actor.gd"))},
-                {"event":"recoil","state":"accepted shot supplies feedback; no standalone recoil audio layer observed","references":line_refs(texts,'var cue: StringName',("game/combat/weapons/presentation/weapon_feel.gd",))},
+             "missing_or_collapsed_event_semantics":[{"event":"hook.release / hook.connect / hook.pull / hook.miss","state":"existing shared cues, no dedicated family or sustained pull loop","references":line_refs(texts,'GameAudio.cue',(runtime_paths['scripts/art/player_feedback.gd'],))},
+                {"event":"player.hurt vs enemy.hurt","state":"same cue.hurt; independent scopes collide with global cooldown","references":line_refs(texts,'&"hurt"',(runtime_paths['scripts/art/player_feedback.gd'],runtime_paths['scripts/enemies/enemy_actor.gd']))},
+                {"event":"recoil","state":"accepted shot supplies feedback; no standalone recoil audio layer observed","references":line_refs(texts,'var cue: StringName',(runtime_paths['scripts/dev/player_presentation_01/weapon_feel.gd'],))},
                 {"event":"plains wind / gears / pendulum / material-specific footsteps / enemy species vocal identity","state":"no dedicated runtime event mapping found in audited source; not proof every future design requires one","references":[]}],
              "conflicts":["Nonlethal enemy HP hit may trigger shared hurt plus weapon.hit; this is observed static layering, not a claim of audible clipping", "All BaseButton pressed emits click; explicit confirm/denied can layer on the same interaction", "Shared global cue cooldown can suppress unrelated origins (e.g. player.hurt after enemy.hurt)", "motion and weapon serials cycle deterministically; no shuffle bag or per-family no-repeat policy", "Most SFX have no spatial attenuation; forest has binary 800wu gate and standalone bell has 2D attenuation", "Parent V1 bank and V2 timer files stay loaded although formal V2 replaces their playback mapping"]}
+    if ref != BASELINE:
+        scope = "Source paths/references are from the selected Git tree; descriptive behavior, conflicts and listening notes retain the original AUDIO-DIRECTOR-01 baseline interpretation and are not revalidated for this revision."
+        inventory["historical_annotation_scope"] = scope
+        catalog["historical_annotation_scope"] = scope
     args.output.mkdir(parents=True,exist_ok=True)
     (args.output/"inventory.json").write_text(json.dumps(inventory,ensure_ascii=False,indent=2)+"\n")
     (args.output/"event_catalog.json").write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n")
@@ -272,10 +320,10 @@ def render_inventory(out: Path, inventory: dict) -> None:
           "`verified` 只证明字节/静态代码；`subjective_pending` 是待用户听音；`unknown` 表示没有依据。静态正式接入不等于已听到该声音。", "",
           f"共 {inventory['summary']['standalone_audio_files']} 个受Git跟踪的独立音频：已读取/ffprobe {inventory['summary']['measured_files']} 个，默认3个稀疏历史评审媒体只核Git对象（大小/媒体元数据未知）；另列Freedoom原始ZIP的 {inventory['summary']['archived_source_members']} 个声音成员。没有删除任何资源。", "",
           "## 声部、混音与正式消费者", "",
-          "正式 `DemoApp` 在 `game/application/demo_app.gd:111` 创建 `PlayerWeaponFeelAudioV2`，继承 `PlayerWeaponFeelAudio → PlayerMotionAudio → GameAudio`；`game/presentation/actors/art/player_presentation_runtime.gd:55` 将新版动作和武器反馈接入真实角色。`scripts/dev/` 路径下这些组件是正式共享消费者，不能按目录判作测试。经典外观保留旧跳跃/落地回调。", "",
+          "正式 `DemoApp` 在 `scripts/demo/demo_app.gd:111` 创建 `PlayerWeaponFeelAudioV2`，继承 `PlayerWeaponFeelAudio → PlayerMotionAudio → GameAudio`；`scripts/art/player_presentation_runtime.gd:55` 将新版动作和武器反馈接入真实角色。`scripts/dev/` 路径下这些组件是正式共享消费者，不能按目录判作测试。经典外观保留旧跳跃/落地回调。", "",
           "`GameAudio` 12个非空间AudioStreamPlayer，默认volume=0.7；基础cue限流为55ms，step/denied/armour为160ms，按全局cue而非origin。基础声满池直接丢弃；Motion可抢占step/旧动作，Weapon可抢占step/动作/contact，V2最多8个weapon voice为其他声保留4槽。没有通用数值优先级。", "",
-          "`game/presentation/audio/game_audio.gd:78` 和继承组件定义暂停准入：UI click/confirm/denied在暂停中仍播放，世界声pausable；stop_motion/stop_weapon按owner清理，持续声随phase取消。shutdown用实际playback弱引用和1000ms墙钟等待。GameAudio非循环区域声随卸载停止。", "",
-          "没有受跟踪的专用Audio Bus Layout，也未发现SFX/Music/UI独立总线。默认音效走Master；`game/presentation/audio/game_music.gd:36`显式Master。主菜单静音直接mute Master。多数音效无距离/声像；`shot_latch.gd:54`后备铃为AudioStreamPlayer2D、-10dB、1200wu、1 polyphony；森林事件先做800wu门限但播放仍非空间。", "",
+          "`scripts/audio/game_audio.gd:78` 和继承组件定义暂停准入：UI click/confirm/denied在暂停中仍播放，世界声pausable；stop_motion/stop_weapon按owner清理，持续声随phase取消。shutdown用实际playback弱引用和1000ms墙钟等待。GameAudio非循环区域声随卸载停止。", "",
+          "没有受跟踪的专用Audio Bus Layout，也未发现SFX/Music/UI独立总线。默认音效走Master；`scripts/audio/game_music.gd:36`显式Master。主菜单静音直接mute Master。多数音效无距离/声像；`shot_latch.gd:54`后备铃为AudioStreamPlayer2D、-10dB、1200wu、1 polyphony；森林事件先做800wu门限但播放仍非空间。", "",
           "基础衰减：step 18dB，shot/land/jump/click 10dB，其他7dB；forest_wind 16dB、其他regional 11dB。Motion jump12dB，land按strength从16到11dB，heavy9dB。Weapon通常profile shot12dB、sustained24dB，hit10dB、wall17dB、blast9dB等由实际调用给定。", "",
           "GameMusic另有2个流式voice，900ms交叉淡化；原MP3文件不加工，MUSIC_GAIN=0.16再乘同一session volume，暂停增益0.5；Web等待真实用户gesture。音乐和转换用除以Engine.time_scale后的真实时间。五曲混音/掩蔽听感均待验。", "",
           "## 资源家族与当前用途", "", "| 家族 | 文件数 | 当前结论 |", "| --- | ---: | --- |"]
@@ -290,19 +338,23 @@ def render_inventory(out: Path, inventory: dict) -> None:
     rows += ["", "## 生成和加工入口（静态扫描）", ""]
     for g in inventory["generators"]: rows.append(f"- `{g['path']}`："+"、".join(refstr(r) for r in g["references"][:3]))
     rows += ["", "## 未验证边界", ""]+["- "+x for x in inventory["unknowns"]]+[""]
+    if "historical_annotation_scope" in inventory:
+        rows[2:2] = [inventory["historical_annotation_scope"], ""]
     (out/"inventory.md").write_text("\n".join(rows))
 
 
 def render_catalog(out: Path, catalog: dict) -> None:
     rows=["# Audio Event Catalog（基线审计）", "", f"任务 AUDIO-DIRECTOR-01；固定源码 `{catalog['source_commit']}`。完整事件/路径/全部调用行见 [event_catalog.json](event_catalog.json)。", "", "以下为代码映射验证，不是听感或实际试玩覆盖声明。自动扫描包括条件表达式及动态中间接口；原始callsites全部保留。候选接入和新事件规范另见当前Audio Director文档，不能回写基线。", "", "## 事件映射", "", "| 事件ID | 实际语义 | 代码位置（基线） |", "| --- | --- | --- |"]
     for e in catalog["events"]:
-        runtime=[r for r in e["references"] if r["path"].startswith("scripts/")]
+        runtime=[r for r in e["references"] if r["path"].startswith(("scripts/", "game/", "experiments/"))]
         refs=runtime if runtime else e["references"]
         rows.append(f"| `{e['event_id']}` | {e['description']} | "+("、".join(refstr(r) for r in refs) if refs else "未发现直接常量调用；见动态接口与注册表")+" |")
     rows += ["", "## 正式动作同步与生命周期", "", "- 新主角跳跃/落地：真实motor/controller事件→candidate visual的motion_jump/motion_land→PlayerMotionFeel；旧jump/land回调显式断开，退出时恢复。命中音只订阅接受后的weapon_damage_committed，物理接触只画火花，地形另走wall。", "- 同时齐射只发一枪声；机枪逐轮。持续ion/blackhole声随真实Runtime phase进入/退出，stop_weapon(owner,true)清理；地雷85ms录音依真实entity age/fuse排节奏，不用音轨驱动玩法。", "- 角色伤害/死亡/segment return清理Motion/Weapon表现，武器epoch/session变更清理旧声；GameAudio/音乐服务在App卸载时有shutdown。一般短cue由App池持有，不能据此宣称每个短voice都按actor epoch取消。", "- 默认敌人死亡仍使用Kenney enemy_defeat。EnemyFeedback01DeathAudio保留同cue的origin meta替换能力，但当前默认host没有配置该helper；现有legacy资产登记亦明确fixture_only。恢复已死亡实例不重放；基础override仅对enemy_defeat生效，不能假设所有事件已支持参数化override。", "", "## 缺失或折叠的语义", ""]
     for e in catalog["missing_or_collapsed_event_semantics"]: rows.append(f"- `{e['event']}`：{e['state']}。")
     rows += ["", "## 冲突与待试听判断", ""]+["- "+x for x in catalog["conflicts"]]
     rows += ["", "上述冲突是静态行为与设计风险；响度是否不适、哪个层应去除、素材是否悦耳均保持subjective_pending，须在单声和同场景BGM中试听。不能用hash不同或有3个变体宣称避免疲劳。", "", "## 音频节点和事件边界", "", "全项目非历史代码的AudioStreamPlayer/AudioServer/bus引用及全部生成/加工代码入口已存入inventory.json；测试、工具调用保留scope标记。没有静态引用只说明本次未发现，不将资源直接判可删除。", ""]
+    if "historical_annotation_scope" in catalog:
+        rows[2:2] = [catalog["historical_annotation_scope"], ""]
     (out/"event_catalog.md").write_text("\n".join(rows))
 
 

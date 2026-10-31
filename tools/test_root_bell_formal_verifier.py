@@ -5,6 +5,7 @@ import copy
 import io
 import json
 import math
+import shutil
 from pathlib import Path
 import sys
 import types
@@ -44,8 +45,8 @@ def prepare_historical_authority(out, archive, capture):
         require_historical_tuning(raw,inventory,capture)
         required={'config/player_tuning.json','resources/enemies/plains_root_bell.tres',
                   'resources/enemies/patrol_health.tres','resources/actors/prototype_health.tres',
-                  'resources/weapons/pulse_gun.tres','game/player/resources/plains_shot_energy.tres',
-                  'game/combat/resources/definitions/shot_energy_definition.gd','game/player/player.tscn'}
+                  'resources/weapons/pulse_gun.tres','resources/player/plains_shot_energy.tres',
+                  'scripts/resources/definitions/shot_energy_definition.gd','scenes/player/player.tscn'}
         target_edge=capture['manifest']['root_bell_admission']['physical_facts']['edge']
         edge=next(e for e in capture['manifest']['connections'] if e['id']==target_edge)
         for index in edge['modules']:
@@ -89,6 +90,45 @@ def historical_semantics(directory):
     with patch.object(rf,'strict_semantics',side_effect=validate_historical):
         yield
 
+def verify_profile_authorities(authority):
+    """Synthetic finite profile probes; original ZIP and native capture stay intact."""
+    digest=rf.sha(authority/'resources/player/plains_shot_energy.tres')
+    cap={'schema_version':1,'config_hashes':{'shot_energy':digest}}
+    data={'initial_capability':copy.deepcopy(cap),'final_capability':copy.deepcopy(cap)}
+    refused=[]
+    with patch.object(rf,'ROOT',authority):
+        rf.require(rf.current_free_profile(data) is False,'Historical paid energy profile not retained')
+        cases={}
+        for schema in (0,3,99):
+            bad=copy.deepcopy(data)
+            for c in ('initial_capability','final_capability'):bad[c]['schema_version']=schema
+            cases['unknown_schema_'+str(schema)]=bad
+        bad=copy.deepcopy(data);bad['final_capability']['schema_version']=2;cases['mixed_schema']=bad
+        for field in ('initial_capability','final_capability'):
+            bad=copy.deepcopy(data);bad[field]['config_hashes']['shot_energy']=rf.sha(ROOT/'game/player/resources/plains_shot_energy.tres');cases['current_bytes_in_historical_'+field]=bad
+        for name,bad in cases.items():
+            try:rf.current_free_profile(bad)
+            except ValueError:refused.append(name)
+            else:raise ValueError('Invalid historical profile accepted: '+name)
+    try:rf.current_free_profile(data)
+    except ValueError as error:
+        rf.require(str(error)=='Historical energy authority mismatch','Historical profile rejected for unexpected reason')
+        refused.append('current_root_is_not_historical_authority')
+    else:raise ValueError('Current resource substituted for frozen historical authority')
+    for paid,path,version in ((True,'game/player/resources/plains_shot_energy.tres',1),(False,'game/player/resources/demo_ui_01/time_energy_v2.tres',2)):
+        digest=rf.sha(ROOT/path)
+        cap={'schema_version':2,'config_hashes':{'shot_energy':digest},'shot_energy':{'definition_path':'res://'+path,'definition_version':version,'definition_sha256':digest,'shooting_consumes_energy':paid}}
+        current={'initial_capability':copy.deepcopy(cap),'final_capability':copy.deepcopy(cap)}
+        rf.require(rf.current_free_profile(current) is (not paid),'Actual current profile failed')
+        for name,value in [('path','res://resources/player/plains_shot_energy.tres'),('version',99),('digest','f'*64)]:
+            bad=copy.deepcopy(current)
+            key={'path':'definition_path','version':'definition_version','digest':'definition_sha256'}[name]
+            for field in ('initial_capability','final_capability'):bad[field]['shot_energy'][key]=value
+            try:rf.current_free_profile(bad)
+            except ValueError:refused.append(('paid_' if paid else 'free_')+name)
+            else:raise ValueError('Invalid current profile accepted: '+name)
+    return {'scope':'Synthetic Python profile probes only; no native', 'positive_profiles':3,'refusals':refused}
+
 def variants(base):
     samples={}
     x=copy.deepcopy(base);case=x['root_bell_cases'][-1];start=case['start_tick']-1;first=x['frames'][start]
@@ -130,7 +170,7 @@ def variants(base):
     x=copy.deepcopy(base);removed=next(r for r in x['resource_receipts'] if r['event_id']=='hit/3/25');tick=removed['tick'];x['resource_receipts'].remove(removed)
     x['events']=[e for e in x['events'] if not(e['kind']=='energy_recovered' and e['tick']==tick)]
     for frame in x['frames']:frame['accepted_events']=[e for e in frame['accepted_events'] if not(e['kind']=='energy_recovered' and e['tick']==tick)]
-    resource='game/player/resources/plains_shot_energy.tres';script='game/combat/resources/definitions/shot_energy_definition.gd';capacity=rf._number(resource,'capacity');rate=rf._number(resource,'ground_recovery',script);delay=rf._number(resource,'recovery_delay',script);current=rf._number(resource,'initial_current');remaining=x['initial_capability']['shot_energy']['_delay'];grounded=x['initial_capability']['grounded'];dt=1/x['physics_hz'];by_tick={}
+    resource='resources/player/plains_shot_energy.tres';script='scripts/resources/definitions/shot_energy_definition.gd';capacity=rf._number(resource,'capacity');rate=rf._number(resource,'ground_recovery',script);delay=rf._number(resource,'recovery_delay',script);current=rf._number(resource,'initial_current');remaining=x['initial_capability']['shot_energy']['_delay'];grounded=x['initial_capability']['grounded'];dt=1/x['physics_hz'];by_tick={}
     for r in x['resource_receipts']:by_tick.setdefault(r['tick'],[]).append(r)
     for frame in x['frames']:
         gain=max(0,dt-remaining);remaining=max(0,remaining-dt)
@@ -153,11 +193,24 @@ def main():
         authority,authority_record,original_inventory=prepare_historical_authority(out,archive,base)
     rf.require(hashlib.sha256(raw_native).hexdigest()==rf.FROZEN_NATIVE_02_PINS['old_capture_sha256'],'Original portable native SHA changed')
     current_root=rf.ROOT
+    profile_refusals=verify_profile_authorities(authority)
     try:rf.validate(base)
     except ValueError as error:
-        rf.require(str(error)=='Not weakest formal capability','Current authority rejected for an unexpected reason: '+str(error))
-        current_refusal={'refused':True,'reason':str(error)}
+        rf.require(str(error)=='Self-reported geometry/home differs from Manifest/Definition','Current authority rejected for an unexpected reason: '+str(error))
+        current_refusal={'refused':True,'reason':str(error),'profile_checks':profile_refusals}
     else:raise ValueError('Current authority accepted historical focus/config identity')
+    # Preserve the original one-shot and focus negatives using a named synthetic
+    # reader authority: exact old resources plus actual current tuning. This is
+    # not current runtime acceptance or a rewrite of the frozen capture/archive.
+    mixed=out/'synthetic_current_tuning_authority'
+    shutil.copytree(authority,mixed)
+    shutil.copyfile(ROOT/'config/player_tuning.json',mixed/'config/player_tuning.json')
+    with historical_semantics(mixed):
+        try:rf.validate(base)
+        except ValueError as error:
+            rf.require(str(error)=='Not weakest formal capability','Original one-shot rejection changed: '+str(error))
+            current_refusal['independent_one_shot_probe']={'scope':'Synthetic old resources/current tuning reader only, NOT native','refused':True,'reason':str(error)}
+        else:raise ValueError('Current tuning accepted historical two-shot capability')
     # Explicitly synthetic rejection probe only: align both the effective cap
     # and its tuning field to the current one-shot policy, so the independent
     # historical .2 focus versus current .15 mismatch remains reachable.
@@ -170,11 +223,12 @@ def main():
         focus_probe[capability]['air_shot_flight_cap']=current_tuning['max_air_shots']
         focus_probe[capability]['tuning']['max_air_shots']=current_tuning['max_air_shots']
         focus_fields.extend([capability+'.air_shot_flight_cap',capability+'.tuning.max_air_shots'])
-    try:rf.validate(focus_probe)
-    except ValueError as error:
-        rf.require(str(error)=='Actual tuning mismatch focus_time_scale','Independent old-focus rejection changed: '+str(error))
-        current_refusal['independent_focus_probe']={'scope':'Explicit synthetic deep-copy rejection only, NOT native','modified_fields':focus_fields,'refused':True,'reason':str(error)}
-    else:raise ValueError('Current authority accepted synthetic old-focus mismatch')
+    with historical_semantics(mixed):
+        try:rf.validate(focus_probe)
+        except ValueError as error:
+            rf.require(str(error)=='Actual tuning mismatch focus_time_scale','Independent old-focus rejection changed: '+str(error))
+            current_refusal['independent_focus_probe']={'scope':'Explicit synthetic deep-copy rejection only, NOT native','modified_fields':focus_fields,'refused':True,'reason':str(error)}
+        else:raise ValueError('Current authority accepted synthetic old-focus mismatch')
     altered_tuning=json.loads(HISTORICAL_TUNING.read_bytes());altered_tuning['focus_time_scale']=.15
     try:require_historical_tuning(json.dumps(altered_tuning).encode(),original_inventory,base)
     except ValueError as error:tuning_refusal={'refused':True,'reason':str(error)}
@@ -184,7 +238,9 @@ def main():
 
 def run_historical_cases(out,base,raw_native,authority_record,current_root,current_refusal,tuning_refusal):
     positive=rf.validate(base);old27=rf.tamper(base);rf.require(len(old27)==27,'Original27 assertions changed');results={};original_run=rf.subprocess.run
-    for name,candidate in variants(base).items():
+    with patch.object(rf,'ROOT',ROOT/authority_record['directory']):
+        candidates=variants(base)
+    for name,candidate in candidates.items():
         folder=out/name
         def fake_run(command,*args,**kwargs):
             if command[:2]==['bash','tools/godot.sh']:

@@ -1,7 +1,7 @@
 extends SceneTree
 ## Real starting PlayerMotor, forward AND return; no ability grants, shots,
 ## mid-route reset, resource refill or actor position writes.
-const Layout := preload("res://game/presentation/world/art_foundation/windchime_layout.gd")
+const Layout := preload("res://experiments/terrain/art_foundation/windchime_layout.gd")
 var checks := 0
 var failures: Array[String] = []
 var _layout: Dictionary

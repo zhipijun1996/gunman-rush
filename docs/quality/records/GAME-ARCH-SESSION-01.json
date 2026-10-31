@@ -4,8 +4,8 @@
   "task_type": "mechanic",
   "workflow": "in_progress",
   "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "reviewed_commit": "48d699ffe8ae01916cd83ab187824009501c12b3",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "content_version": "candidate-v2-layout",
   "owner": "/root/runtime_audit",
   "purpose": "将一局服务所有权和玩家装配收敛到RunSession/RunComposition，迁移真实App调用",
   "player_experience": "保持原出发、购物、跨图、死亡、回家行为",
@@ -13,11 +13,11 @@
     "Preserve existing gameplay contracts"
   ],
   "affected_paths": [
-    "game/application/run_session.gd",
-    "game/application/run_session.gd.uid",
+    "game/application/demo_app.gd",
     "game/application/run_composition.gd",
     "game/application/run_composition.gd.uid",
-    "scripts/demo/demo_app.gd",
+    "game/application/run_session.gd",
+    "game/application/run_session.gd.uid",
     "tests/run_session_runner.gd",
     "tests/run_session_runner.gd.uid"
   ],
@@ -68,27 +68,30 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "6项迁移后原生回归实际fresh通过；formal191/0仍因退出57 ObjectDB/25 resources严格失败，完整集成未完成。局部通过不代签full182。",
+      "evidence": [
+        "post-layout-native-six",
+        "formal-cleanup-failure"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "当前源全部入口GUI/实际导出PCK/动态ResourceLoader未完整验证；静态依赖图不作运行轨迹。",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "gameplay": {
@@ -103,26 +106,78 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "P2仅静态接受一局单owner与实际App迁移；不代签后续完整源与引擎。 最终整合独审未完成，保持unverified。",
+      "evidence": [
+        "bounded-independent-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅记录架构/路径与有限技术证据；当前完整GUI/听感/设备/用户认可未提供，不代签。",
       "evidence": []
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "post-layout-native-six",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/native-six-report.json",
+      "sha256": "02b35bff1e3211e2358aa92d201f65bddac6406d8417fd2db305a5c467899434",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "逐项实际expanded_argv按report顺序记载（分号仅表顺序）；读取root已完成的6项fresh报告，没有重跑或猜测harness启动参数。",
+      "observed": "6项fresh passed，原report commit为6584；不是full182/GUI/导出/PCK证明。",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_bellstrider_rework_01_tests.py ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/level_plan_runner.gd ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/harness-d5bab305794f44099ad252b96c98c80c ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_lifecycle_runner.gd -- --studies ; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/entry_audio_owner_runner.gd -- --auditions ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_integration_four_tests.py --case forest-v11-definition",
+      "exit_code": 0,
+      "environment": "Linux / Godot 4.7.2 headless；root独占引擎，6项fresh运行；本记录整理者未运行引擎"
+    },
+    {
+      "id": "formal-cleanup-failure",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/post-layout-formal-02.log",
+      "sha256": "22abcc3a5c9d2b58f60e27d074a9751a24819186e6a54c497395b4eb343afe16",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "原formal191 assertions/0 failures后退出57 ObjectDB/25 resources及RID泄漏，严格wrapper拒绝；不得仅以191/0称通过。"
+    },
+    {
+      "id": "bounded-independent-review",
+      "path": "docs/evidence/game_architecture_02/post-layout-01/architecture-independent-review.json",
+      "sha256": "417519349e685cefd1ba3d86083c43ee739543e41523226800257a7552cc1045",
+      "kind": "review",
+      "producer": "/root/structure_audit",
+      "source_commit": "bcdc28d4be18759d8d0875dea04e0da910c03e84",
+      "content_version": "candidate-v2-layout",
+      "method": "原件读取与SHA绑定；不改写原报告的source、结论、限制或失败",
+      "observed": "P2仅静态接受一局单owner与实际App迁移；不代签后续完整源与引擎。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root/runtime_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者只读比对实现与真实消费者；实际审查范围和排除项以归档原件为准，未替代作者或完整CI验收。"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "完整集成CI及GUI待最终冻结",
     "原失败日志保留，不冒称外层成功",
-    "旧初始化失败回滚缺陷未混修"
-  ]
+    "旧初始化失败回滚缺陷未混修",
+    "full182当前源完整执行尚未完成；6项fresh不是完整CI",
+    "formal191/0后57 ObjectDB/25 resources退出泄漏仍是严格失败，不得消音/清cache掩盖",
+    "style26资产与相应测试调整仍WIP且独审未完；不改变本记录为已通过",
+    "实际导出PCK、35入口自然运行与118动态加载分支未全部验证",
+    "不以旧SHA独审/旧源森林80/80追签当前整合；后续Cloud动态入口字符串修正待独审"
+  ],
+  "test_change_justification": "新增RunSession原生runner与明确WeakRef类型校正验证实际服务生命周期；原App回归不删除。P8仅迁移真实入口路径；本记录不认证新源全局清理无泄漏。"
 }

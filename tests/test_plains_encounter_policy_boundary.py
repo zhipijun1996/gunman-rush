@@ -131,7 +131,7 @@ class FrozenEndpointTests(unittest.TestCase):
         self.assertEqual(len(result["members"]),1668)
         for path, expected in result["members"].items():
             self.assertEqual(runner.formal.file_hash(project/path),expected,path)
-        self.assertNotIn("game/application/run_campaign_progression.gd",result["members"])
+        self.assertNotIn("scripts/run/run_campaign_progression.gd",result["members"])
         self.assertNotIn("resources/items/forest_heart_gold.tres",result["members"])
 
     def test_changed_endpoint_manifest_and_missing_delta_refused(self):
@@ -153,7 +153,7 @@ class FrozenEndpointTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"base identity"):
             runner.restore_historical_endpoint(self.seed,changed)
         project=self.candidate()
-        (project/"game/player/player_motor.gd").unlink()
+        (project/"scripts/player/player_motor.gd").unlink()
         with self.assertRaisesRegex(ValueError,"complete endpoint inventory"):
             runner.restore_historical_endpoint(project,self.base)
 
@@ -171,7 +171,7 @@ class FrozenEndpointTests(unittest.TestCase):
                "core_invariants":{"res://"+p:sources[p] for p in runner.formal.core_source_paths()}}
         data={"capture_contract_version":3,"encounter_policy":"kill_from_bank_v1","policy_basis":basis,
               "capture_source_hashes":{p:"0"*64 for p in ["res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://game/presentation/world/art/plains_region_scenery.gd"]},
-              "runtime_source_hashes":{"res://"+p:h for p,h in sources.items() if p=="project.godot" or p.startswith(("scripts/","scenes/","resources/","config/","shaders/","assets/"))},
+              "runtime_source_hashes":{"res://"+p:h for p,h in sources.items() if p=="project.godot" or p.startswith(("scripts/","game/","experiments/","scenes/","resources/","config/","shaders/","assets/"))},
               "resource_receipts":[],"policy_observations":[]}
         self.assertEqual(runner.formal.validate_policy_basis(data,sources),[])
         for name in ["game/application/run_campaign_progression.gd","resources/items/forest_heart_gold.tres"]:

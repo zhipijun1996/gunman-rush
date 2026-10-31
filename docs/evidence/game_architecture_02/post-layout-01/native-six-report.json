@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "started_at": "20261031T051250.127716Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "bellstrider-rework-01",
+      "argv": [
+        "python3",
+        "tools/run_bellstrider_rework_01_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "2ee6cbc565ba13f3f516520165ea1228657635d4ace7217e40a6b605f07ea3bb",
+      "log": "bellstrider-rework-01.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793423572.1362808,
+      "ended_at_unix": 1793423719.2338395,
+      "duration_seconds": 147.098,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_bellstrider_rework_01_tests.py"
+      ],
+      "check_token": "d3ab6b5f1b33464386d67378e3a620bc",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T051250.127716Z/artifacts/bellstrider-rework-01",
+      "reused": false
+    },
+    {
+      "id": "level-plan",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/level_plan_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "86effb75527347f89bd669dcb423ff910052446325aa17c60fd216740c7d6b36",
+      "log": "level-plan.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793423720.0627449,
+      "ended_at_unix": 1793423738.3505876,
+      "duration_seconds": 18.288,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/level_plan_runner.gd"
+      ],
+      "check_token": "33efb901d00f4e5d865936976c1741a7",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T051250.127716Z/artifacts/level-plan",
+      "reused": false
+    },
+    {
+      "id": "enemy-structure-native",
+      "argv": [
+        "python3",
+        "tools/run_enemy_structure_tests.py",
+        "--output-dir",
+        "build/enemy_structure/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "a655e6f72b34fab7b0422849e70a5ac2618da73e2573655b7f7588fa22081df4",
+      "log": "enemy-structure-native.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793423739.1934597,
+      "ended_at_unix": 1793423752.0134814,
+      "duration_seconds": 12.82,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_enemy_structure_tests.py",
+        "--output-dir",
+        "build/enemy_structure/harness-d5bab305794f44099ad252b96c98c80c"
+      ],
+      "check_token": "d5bab305794f44099ad252b96c98c80c",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T051250.127716Z/artifacts/enemy-structure-native",
+      "reused": false
+    },
+    {
+      "id": "entry-audio-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_lifecycle_runner.gd",
+        "--",
+        "--studies"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "022b57395bb5afa7e144b030061344d419a29664471bc6e6f2d166ed19fc7b87",
+      "log": "entry-audio-lifecycle.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793423752.849309,
+      "ended_at_unix": 1793423763.9270139,
+      "duration_seconds": 11.078,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_lifecycle_runner.gd",
+        "--",
+        "--studies"
+      ],
+      "check_token": "15a98f2f316543058758a818493a9e46",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T051250.127716Z/artifacts/entry-audio-lifecycle",
+      "reused": false
+    },
+    {
+      "id": "entry-audio-owners",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_owner_runner.gd",
+        "--",
+        "--auditions"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "09309cdb4667b953540116733b755aceb085f8dd6fc6fb870a7fd567a6e658ac",
+      "log": "entry-audio-owners.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793423764.7798438,
+      "ended_at_unix": 1793423775.745434,
+      "duration_seconds": 10.966,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_owner_runner.gd",
+        "--",
+        "--auditions"
+      ],
+      "check_token": "3b4edce10a3341f1acdcd4f67d210cb4",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T051250.127716Z/artifacts/entry-audio-owners",
+      "reused": false
+    },
+    {
+      "id": "forest-v11-definition",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "forest-v11-definition"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "cf237c7432732098843b5aa8d52f77fc5d473efe6f8a57ac356b81c3cac00474",
+      "log": "forest-v11-definition.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793423776.5778022,
+      "ended_at_unix": 1793423790.0012407,
+      "duration_seconds": 13.423,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "forest-v11-definition"
+      ],
+      "check_token": "29fa9ed44bcc45d08284480f38b538d2",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T051250.127716Z/artifacts/forest-v11-definition",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "f97c1d982219419c511d58af3eced8639505cad5b6bf60c9909ece724c660067",
+  "working_files": {
+    "docs/worklines/game_architecture_01/dependency_graph.json": "fef8d8edf0bf91ad7c88d24ee5295d7c7363c031272c6b19f9cdcfdf2e327930",
+    "docs/worklines/game_architecture_01/file_inventory.csv": "d5037558f2d9a263e5be498bfa69ad5a8922c4baa85a90e55e80dd100d1e5191",
+    "docs/worklines/game_architecture_01/migration_report.md": "754e2b89d95039db8c248109615ccb52e97c00c41b36c43d8e9550f77cdd1c46",
+    "docs/worklines/game_architecture_01/runtime_inventory.json": "191ae9748f4d6385932ad350ebe95caa312821a02f720a257b2817841ff9918f"
+  },
+  "commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "git_status": "?? docs/worklines/game_architecture_01/dependency_graph.json\n?? docs/worklines/game_architecture_01/file_inventory.csv\n?? docs/worklines/game_architecture_01/migration_report.md\n?? docs/worklines/game_architecture_01/runtime_inventory.json",
+  "diff": "",
+  "untracked": "docs/worklines/game_architecture_01/dependency_graph.json\ndocs/worklines/game_architecture_01/file_inventory.csv\ndocs/worklines/game_architecture_01/migration_report.md\ndocs/worklines/game_architecture_01/runtime_inventory.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 221.078,
+  "jobs": 1,
+  "release": true
+}
