@@ -2,6 +2,8 @@ class_name LevelRuntime
 extends RefCounted
 ## Actual shared content assembly. No generator, Manifest, RNG or run services.
 static func assemble(parent: Node2D, plan: LevelPlan, state: PlainsRegionState, presentation: Dictionary = {}) -> Dictionary:
+	if not is_instance_valid(parent) or not parent.is_inside_tree(): return {"ok":false,"error":"Level parent must be in the scene tree","assembler":null}
+	if state==null: return {"ok":false,"error":"Missing map state","assembler":null}
 	if plan==null: return {"ok":false,"error":"Missing level plan","assembler":null}
 	var error := plan.validation_error()
 	if not error.is_empty(): return {"ok":false,"error":error,"assembler":null}

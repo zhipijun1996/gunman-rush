@@ -133,7 +133,59 @@ func bare_plan() -> void:
 	plan.modules.pop_back()
 	plan.actors[0].behavior_id=&"missing_definition"
 	check(not LevelRuntime.assemble(host,plan,state).ok and host.get_child_count()==count,"missing actor definition rejects before partial installation")
+	plan.actors[0].behavior_id=&"patrol"
+	var original_definition := plan.modules[0].definition
+	var incomplete := PlatformingModuleDefinition.new()
+	incomplete.module_id=&"micro_board"
+	plan.modules[0].definition=incomplete
+	reject_before_nodes(host,plan,state,"incomplete definition fails the existing module validator")
+	plan.modules[0].definition=original_definition
+	plan.connections.append({"id":"shortcut","condition":"backside","control":[20,30]})
+	reject_before_nodes(host,plan,state,"backside connection requires its gate before assembly")
+	plan.connections[0].gate=[10,20,30,40]
+	plan.connections[0].control=[INF,30]
+	reject_before_nodes(host,plan,state,"backside control must be finite")
+	plan.connections.clear()
+	plan.pickups[0].erase("amount")
+	reject_before_nodes(host,plan,state,"pickup amount must exist before materialization")
+	plan.pickups[0].amount=2
+	plan.actors[0].behavior_id=17
+	reject_before_nodes(host,plan,state,"wrong actor identity type rejects without string coercion")
+	plan.actors[0].behavior_id=&"patrol"
+	plan.boss={"definition_id":17,"position":Vector2.ZERO}
+	reject_before_nodes(host,plan,state,"wrong boss identity type rejects before registry lookup")
+	plan.boss.clear()
+	plan.modules[0].terrain_ownership={"module_id":"micro_board","terrain_bodies":[{"source_role":"bank","points":[[0,0],[10,0],[0,10]]}],"region_context":{"owned_slabs":[{"node_id":"missing","platform_index":0}]}}
+	reject_before_nodes(host,plan,state,"missing collision ownership reference rejects before nodes")
+	plan.modules[0].terrain_ownership.clear()
+	var forest := ForestLevelGeometry.new()
+	forest.platforms.append({"id":"branch","rect":[0,300,240,40],"one_way":false})
+	forest.hook_anchors.append({"id":"ring","position":[100,100]})
+	forest.vine_gate={"rect":[200,0,20,300],"key_anchor":"ring"}
+	plan.forest=forest
+	check(plan.validation_error().is_empty(),"minimal direct forest geometry is admitted without historical layout flags")
+	forest.vine_gate.key_anchor="missing"
+	reject_before_nodes(host,plan,state,"missing hook reference rejects before nodes")
+	forest.vine_gate.key_anchor="ring"
+	forest.training_bells.append({"id":"practice","host_support_id":"branch"})
+	reject_before_nodes(host,plan,state,"practice bell uses the existing full configure validator")
+	forest.training_bells.clear()
+	forest.fruit_presentation=true
+	forest.hook_anchors[0].fruit_presentation="rooted_fruit"
+	forest.hook_anchors[0].fruit_role="optional"
+	reject_before_nodes(host,plan,state,"fruit anchor requires a finite stem before assembly")
+	forest.hook_anchors[0].fruit_stem_root=[100,0]
+	forest.target_hosts={"mounts":[{"target_id":"missing"}]}
+	reject_before_nodes(host,plan,state,"resolved target hosts cannot refer to missing anchors")
+	forest.target_hosts.clear()
+	forest.reward_shortcuts.append({"id":"cache_gate","rect":[210,0,20,300],"opened_key":"cache_gate","unlock_reward_id":"cache_1"})
+	reject_before_nodes(host,plan,state,"reward shortcuts need an explicit resolved source identity")
 	host.free()
+
+func reject_before_nodes(host: Node2D, plan: LevelPlan, state: PlainsRegionState, label: String) -> void:
+	var before := host.get_child_count()
+	var rejected := LevelRuntime.assemble(host,plan,state)
+	check(not rejected.ok and not str(rejected.get("error","")).is_empty() and rejected.assembler==null and host.get_child_count()==before,label)
 
 func real_entries() -> void:
 	app=DemoApp.new()

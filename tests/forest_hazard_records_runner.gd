@@ -26,7 +26,13 @@ func run() -> void:
 			check(generated.get("ok", false), "exact recorded layout generates / " + label)
 			if not generated.get("ok", false): continue
 			var assembler := ThornForestRegionAssembler.new()
-			assembler.manifest = generated.manifest.duplicate(true)
+			var converted := LegacyRegionPlanAdapter.geometry(generated.manifest,tuning,true)
+			check(converted.accepted(),"recorded geometry converts to the runtime plan / " + label)
+			if not converted.accepted():
+				assembler.free()
+				continue
+			assembler.level_plan=converted.plan
+			assembler.forest_geometry=converted.plan.forest
 			var records := assembler.world_static_hazard_records()
 			var rectangles := assembler.world_static_dangers()
 			check(records.size() == rectangles.size() and records.size() == generated.manifest.dangers.size(), "record and danger counts align / " + label)

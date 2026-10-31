@@ -16,6 +16,23 @@ var _configured := false
 
 func configure(row: Dictionary) -> bool:
 	if _configured: return false
+	if not configuration_valid(row): return false
+	var motion: Dictionary = row.motion
+	var center := Vector2(row.position[0],row.position[1])
+	var radius := Vector2(motion.radius[0],motion.radius[1])
+	var tether := Vector2(row.tether_root[0],row.tether_root[1])
+	_center = center
+	_radius = radius
+	_period = float(motion.period)
+	_tether_root = tether
+	_authored_row = {"id":str(row.id), "position":[_center.x,_center.y], "motion":{"kind":"pendulum", "center":[_center.x,_center.y], "radius":[_radius.x,_radius.y], "period":_period}, "tether_root":[_tether_root.x,_tether_root.y], "host_support_id":str(row.host_support_id), "route_id":str(row.route_id)}
+	_clock = 0.0
+	accepted_kicks = 0
+	position = _center
+	_configured = true
+	return true
+
+static func configuration_valid(row: Dictionary) -> bool:
 	for key: String in ["id", "host_support_id", "route_id"]:
 		if not row.get(key) is String or str(row[key]).is_empty(): return false
 	if not _finite_pair(row.get("position")) or not _finite_pair(row.get("tether_root")): return false
@@ -29,15 +46,6 @@ func configure(row: Dictionary) -> bool:
 	if not center.is_finite() or not radius.is_finite() or not tether.is_finite() or not (center+radius).is_finite() or not (center-radius).is_finite(): return false
 	if Vector2(motion.center[0], motion.center[1]) != center or radius.x < 0.0 or radius.y < 0.0: return false
 	if not row.get("damage") is bool or row.damage or not row.get("reward") is bool or row.reward: return false
-	_center = center
-	_radius = radius
-	_period = float(motion.period)
-	_tether_root = tether
-	_authored_row = {"id":str(row.id), "position":[_center.x,_center.y], "motion":{"kind":"pendulum", "center":[_center.x,_center.y], "radius":[_radius.x,_radius.y], "period":_period}, "tether_root":[_tether_root.x,_tether_root.y], "host_support_id":str(row.host_support_id), "route_id":str(row.route_id)}
-	_clock = 0.0
-	accepted_kicks = 0
-	position = _center
-	_configured = true
 	return true
 
 func _ready() -> void:
