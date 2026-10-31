@@ -125,32 +125,8 @@
         "icudt_godot.dat",
         "LICENSE.txt",
         "COPYRIGHT.txt"
-      ]
-    },
-    "linux-debug": {
-      "platform": "linuxbsd",
-      "target": "template_debug",
-      "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
-      "outputs": [
-        "linux_debug.x86_64"
-      ]
-    },
-    "linux-release": {
-      "platform": "linuxbsd",
-      "target": "template_release",
-      "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
-      "outputs": [
-        "linux_release.x86_64"
-      ]
-    },
-    "windows-debug": {
-      "platform": "windows",
-      "target": "template_debug",
-      "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
-      "outputs": [
-        "windows_debug_x86_64.exe",
-        "windows_debug_x86_64_console.exe"
-      ]
+      ],
+      "python_executable": "/usr/local/bin/python3"
     },
     "web-threaded-debug": {
       "platform": "web",
@@ -159,45 +135,18 @@
       "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
       "outputs": [
         "web_debug.zip"
-      ]
+      ],
+      "python_executable": "/usr/bin/python3"
     },
-    "web-single-debug": {
-      "platform": "web",
-      "target": "template_debug",
-      "threads": false,
-      "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
-      "outputs": [
-        "web_nothreads_debug.zip"
-      ]
-    },
-    "windows-release": {
+    "windows-debug": {
       "platform": "windows",
-      "target": "template_release",
+      "target": "template_debug",
       "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
       "outputs": [
-        "windows_release_x86_64.exe",
-        "windows_release_x86_64_console.exe",
-        "D3D12Core.x86_64.dll",
-        "d3d12SDKLayers.x86_64.dll"
-      ]
-    },
-    "web-threaded-release": {
-      "platform": "web",
-      "target": "template_release",
-      "threads": true,
-      "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
-      "outputs": [
-        "web_release.zip"
-      ]
-    },
-    "web-single-release": {
-      "platform": "web",
-      "target": "template_release",
-      "threads": false,
-      "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
-      "outputs": [
-        "web_nothreads_release.zip"
-      ]
+        "windows_debug_x86_64.exe",
+        "windows_debug_x86_64_console.exe"
+      ],
+      "python_executable": "/usr/local/bin/python3"
     },
     "android-arm64": {
       "platform": "android",
@@ -210,7 +159,68 @@
         "android_debug.apk",
         "android_release.apk",
         "android_source.zip"
-      ]
+      ],
+      "python_executable": "/usr/bin/python3"
+    },
+    "linux-debug": {
+      "platform": "linuxbsd",
+      "target": "template_debug",
+      "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "outputs": [
+        "linux_debug.x86_64"
+      ],
+      "python_executable": "/usr/local/bin/python3"
+    },
+    "linux-release": {
+      "platform": "linuxbsd",
+      "target": "template_release",
+      "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "outputs": [
+        "linux_release.x86_64"
+      ],
+      "python_executable": "/usr/local/bin/python3"
+    },
+    "web-threaded-release": {
+      "platform": "web",
+      "target": "template_release",
+      "threads": true,
+      "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "outputs": [
+        "web_release.zip"
+      ],
+      "python_executable": "/usr/bin/python3"
+    },
+    "web-single-debug": {
+      "platform": "web",
+      "target": "template_debug",
+      "threads": false,
+      "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "outputs": [
+        "web_nothreads_debug.zip"
+      ],
+      "python_executable": "/usr/bin/python3"
+    },
+    "web-single-release": {
+      "platform": "web",
+      "target": "template_release",
+      "threads": false,
+      "image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "outputs": [
+        "web_nothreads_release.zip"
+      ],
+      "python_executable": "/usr/bin/python3"
+    },
+    "windows-release": {
+      "platform": "windows",
+      "target": "template_release",
+      "image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "outputs": [
+        "windows_release_x86_64.exe",
+        "windows_release_x86_64_console.exe",
+        "D3D12Core.x86_64.dll",
+        "d3d12SDKLayers.x86_64.dll"
+      ],
+      "python_executable": "/usr/local/bin/python3"
     }
   },
   "capabilities": {
@@ -219,5 +229,7 @@
     "web": "wasm32 threaded and single-threaded debug/release; extensions disabled matches all current presets/tools",
     "android": "arm64-v8a debug/release/source templates; Swappy; native SDK29/API36 separated from app installer SDK28/API35; other ABIs not enabled in current application preset"
   },
-  "distribution": "Only after matrix artifacts and provenance are reviewed: publish immutable release assets, then commit exact package/member hashes in config/toolchain.json. No temporary artifact URL is an installation authority."
+  "distribution": "Only after matrix artifacts and provenance are reviewed: publish immutable release assets, then commit exact package/member hashes in config/toolchain.json. No temporary artifact URL is an installation authority.",
+  "work_directory": "/tmp/gunman-engine",
+  "build_workers": 2
 }

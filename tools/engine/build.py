@@ -56,6 +56,9 @@ def extract(archive, destination):
             for target,link in links:
                 target.parent.mkdir(parents=True,exist_ok=True)
                 target.symlink_to(link)
+            for target,_ in links:
+                if not target.resolve().is_relative_to(destination.resolve()):
+                    raise RuntimeError('Unsafe ZIP symlink chain: '+str(target))
     else:
         with tarfile.open(archive) as source:
             # Verified downloads still may not write outside the build directory.
@@ -88,7 +91,7 @@ def run(argv, cwd, env, log, timeout=10800):
             raise
     print(log.read_text(errors='replace')[-5000:], flush=True)
     record = {'argv':list(map(str, argv)), 'seconds':time.monotonic()-started,
-              'exit_code':code, 'log':log.name, 'log_sha256':sha256(log)}
+              'exit_code':code, 'cwd':str(cwd), 'log':log.name, 'log_sha256':sha256(log)}
     if code: raise RuntimeError(f'Command failed ({code}); full log: {log}')
     return record
 
@@ -112,15 +115,43 @@ def prepare_source(work):
     return source
 
 
+def platform_options(job,work):
+    deps=work/'dependencies';platform=job['platform'];options=[]
+    if platform in ('linuxbsd','windows'):
+        options += ['accesskit=yes','accesskit_sdk_path='+str(deps/'accesskit-c-0.22.3')]
+    if platform=='linuxbsd':
+        options += ['arch=x86_64','wayland=yes','x11=yes']
+    elif platform=='windows':
+        options += ['arch=x86_64','use_mingw=yes','use_llvm=yes',
+                    'mingw_prefix='+str(deps/'llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64'),
+                    'angle=yes','angle_libs='+str(deps/'angle'),'d3d12=yes',
+                    'mesa_libs='+str(deps/'mesa'),'agility_sdk_path='+str(deps/'agility'),
+                    'winrt=yes','winrt_path='+str(deps/'winrt')]
+    elif platform=='web':
+        options += ['arch=wasm32','threads='+('yes' if job['threads'] else 'no'),'dlink_enabled=no']
+    elif platform=='android':options += ['arch=arm64','swappy=yes']
+    return options
+
+
+def command_contract(job,work):
+    source=work/'godot-4.7.2-stable'
+    result=[{'argv':[job['python_executable'],'-m','SCons','platform='+job['platform'],'target='+target,
+                     '-j'+str(RECIPE['build_workers']),*RECIPE['common_options'],*platform_options(job,work)],
+             'cwd':str(source)} for target in job.get('targets',[job.get('target')])]
+    if job['platform']=='android':
+        result.append({'argv':[str(work/'dependencies/gradle/gradle-8.11.1/bin/gradle'),'--no-daemon',
+                               '--max-workers=2','generateGodotTemplates'],
+                       'cwd':str(source/'platform/android/java')})
+    return result
+
+
 def prepare_dependencies(job, source, work, env):
     deps = work / 'dependencies'
     extract(dependency('scons'), deps / 'scons')
     env['PYTHONPATH'] = str(deps / 'scons')
-    options = []
     platform = job['platform']
     if platform in ('linuxbsd','windows'):
         extract(dependency('accesskit'), deps)
-        options += ['accesskit=yes', 'accesskit_sdk_path=' + str(deps / 'accesskit-c-0.22.3')]
     if platform == 'linuxbsd':
         extract(dependency('linux_sdk'), deps)
         sdk = deps / 'x86_64-godot-linux-gnu_sdk-buildroot'
@@ -133,7 +164,6 @@ def prepare_dependencies(job, source, work, env):
             raise RuntimeError('Linux SDK did not supply gcc; refusing host compiler fallback')
         run(['gcc','--version'],work,env,work / 'compiler.log',30)
         run(['wayland-scanner','--version'],work,env,work / 'scanner-version.log',30)
-        options += ['arch=x86_64','wayland=yes','x11=yes']
     elif platform == 'windows':
         extract(dependency('llvm_mingw'), deps)
         sdk = deps / 'llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64'
@@ -141,16 +171,11 @@ def prepare_dependencies(job, source, work, env):
         env['PATH'] = str(sdk / 'bin') + os.pathsep + env['PATH']
         for key in ('angle','mesa','agility','winrt'):
             extract(dependency(key), deps / key)
-        options += ['arch=x86_64','use_mingw=yes','use_llvm=yes','mingw_prefix=' + str(sdk),
-                    'angle=yes','angle_libs=' + str(deps/'angle'), 'd3d12=yes',
-                    'mesa_libs=' + str(deps/'mesa'),'agility_sdk_path=' + str(deps/'agility'),
-                    'winrt=yes','winrt_path=' + str(deps/'winrt')]
         run(['x86_64-w64-mingw32-clang','--version'],work,env,work/'compiler.log',30)
     elif platform == 'web':
         run(['emcc','--version'],work,env,work/'compiler.log',30)
         if '4.0.20' not in (work/'compiler.log').read_text():
             raise RuntimeError('Pinned Emscripten image/version mismatch')
-        options += ['arch=wasm32','threads=' + ('yes' if job['threads'] else 'no'),'dlink_enabled=no']
     elif platform == 'android':
         sdk = deps / 'android-sdk'
         for key,destination in [('ndk_29.0.14206865',sdk/'ndk/29.0.14206865'),
@@ -172,11 +197,10 @@ def prepare_dependencies(job, source, work, env):
                    GRADLE_USER_HOME=str(deps/'gradle-user'))
         env['PATH'] = str(java/'bin') + os.pathsep + env['PATH']
         extract(dependency('swappy'), source/'thirdparty/swappy-frame-pacing')
-        options += ['arch=arm64','swappy=yes']
         run([sdk/'ndk/29.0.14206865/toolchains/llvm/prebuilt/linux-x86_64/bin/clang','--version'],
             work,env,work/'compiler.log',30)
         run(['java','-version'],work,env,work/'java.log',30)
-    return options
+    return platform_options(job,work)
 
 
 def one(paths, label):
@@ -245,6 +269,8 @@ def main():
         print('PASS: original archive + exact ordered patches + all four resulting source hashes');return
     if not args.lane: raise RuntimeError('--lane is required for compilation')
     job=RECIPE['jobs'][args.lane]
+    if work!=Path(RECIPE['work_directory']) or args.jobs!=RECIPE['build_workers']:
+        raise RuntimeError('Production lane requires the canonical work path and worker count in the recipe')
     if os.environ.get('GUNMAN_BUILD_IMAGE')!=job['image']:
         raise RuntimeError('Invoke via the locked container lane; GUNMAN_BUILD_IMAGE must match its exact digest')
     env=os.environ.copy()
@@ -261,17 +287,14 @@ def main():
             'workflow_run':os.environ.get('GITHUB_RUN_ID','local'),'acceptance':'compiler output only'}
     write(output/'provenance.json',record)
     try:
-        for target in job.get('targets',[job.get('target')]):
-            argv=[sys.executable,'-m','SCons','platform='+job['platform'],'target='+target,
-                  '-j'+str(args.jobs),*RECIPE['common_options'],*options]
-            record['commands'].append(run(argv,source,env,work/(target+'.log')))
-            text=(work/(target+'.log')).read_text(errors='replace')
+        targets=job.get('targets',[job.get('target')])
+        for index,command in enumerate(command_contract(job,work)):
+            label=targets[index] if index<len(targets) else 'gradle'
+            record['commands'].append(run(command['argv'],Path(command['cwd']),env,work/(label+'.log')))
+            text=(work/(label+'.log')).read_text(errors='replace')
             if 'Disabling Wayland' in text or 'Alternatively, disable this driver' in text:
                 raise RuntimeError('A required original platform feature was disabled; inspect compiler log')
-        if job['platform']=='android':
-            gradle=one((work/'dependencies/gradle').glob('*/bin/gradle'),'Gradle executable')
-            record['commands'].append(run([gradle,'--no-daemon','--max-workers=2','generateGodotTemplates'],
-                source/'platform/android/java',env,work/'gradle.log',3600))
+            shutil.copy2(work/(label+'.log'),output/(label+'.log'))
         record['outputs']=collect(job,source,output)
         if args.lane=='linux-editor':
             result=subprocess.run([str(output/'godot-linux-x86_64'),'--version'],capture_output=True,text=True,timeout=30,env=env)
