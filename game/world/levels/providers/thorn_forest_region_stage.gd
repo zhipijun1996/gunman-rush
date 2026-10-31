@@ -10,6 +10,9 @@ var forest_terrain: UnderworldTerrain
 var near_scenery: ForestBibleNearScenery
 var _web_phase_seen: Dictionary = {}
 
+func _after_cache_claim() -> void:
+	(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
+
 func _has_canopy_boss() -> bool:
 	var content: Variant=generated.manifest.get("boss_content")
 	return content is Dictionary and content.get("contract")=="forest-queen-canopy-v3"

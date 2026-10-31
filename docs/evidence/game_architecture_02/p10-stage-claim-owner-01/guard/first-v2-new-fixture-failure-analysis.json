@@ -1,0 +1,36 @@
+{
+  "cause": "New fixture global replace selected earlier unrelated actual App methods; guard intentionally protects the submitted-claim functions only. Correct only new mutation construction to use actual unique function span, not broad guard expansion.",
+  "source_app_sha256": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+  "guard_file_unchanged": true,
+  "matches": [
+    {
+      "needle": "var pickup: Dictionary = random_stage.pickups[index]",
+      "first_global_match_function": "_physics_process",
+      "first_global_match_line": 872,
+      "required_target_function": "_commit_pickup",
+      "same_function": false
+    },
+    {
+      "needle": "var rs := stage as PlainsRegionStage",
+      "first_global_match_function": "_update_actions",
+      "first_global_match_line": 1872,
+      "required_target_function": "_claim_region_chest",
+      "same_function": false
+    },
+    {
+      "needle": "var random_stage := stage as GeneratedDemoStage",
+      "first_global_match_function": "_load_stage",
+      "first_global_match_line": 541,
+      "required_target_function": "_commit_pickup",
+      "same_function": false
+    },
+    {
+      "needle": "var chest: Dictionary = rs.chests[_region_chest]",
+      "first_global_match_function": "_claim_region_chest",
+      "first_global_match_line": 2566,
+      "required_target_function": "_claim_region_chest",
+      "same_function": true
+    }
+  ],
+  "old177_exit1_preserved": true
+}

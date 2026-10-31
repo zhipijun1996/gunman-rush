@@ -215,6 +215,17 @@ func _physics_process(delta: float) -> void:
 	capture_state()
 	_update_context_signs()
 
+func _record_claim(id: Variant) -> void:
+	region_state.claimed[id] = true
+
+func commit_cache_claim(chest: Dictionary) -> void:
+	chest.claimed = true
+	_record_claim(chest.id)
+	_after_cache_claim()
+
+func _after_cache_claim() -> void:
+	pass
+
 func _persist_pickup_motion() -> void:
 	if region_state != null: _save_pickup_units(region_state.drops)
 

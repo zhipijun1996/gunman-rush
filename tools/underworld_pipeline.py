@@ -680,7 +680,7 @@ def chest_executable(text):
     return re.sub(pattern, lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
 
 
-def chest_function(text, name):
+def chest_function_span(text, name):
     """Extract a unique real function using offsets from the whole-file mask.
 
     Starting a fresh literal scan at a fake header inside a multiline string
@@ -690,11 +690,16 @@ def chest_function(text, name):
     executable = chest_executable(text)
     starts = list(re.finditer(r'(?m)^(?:static\s+)?func\s+' + re.escape(name) + r'\(', executable))
     if len(starts) != 1:
-        return ''
+        return None
     start = starts[0]
     end = re.search(r'(?m)^(?:static\s+)?func\s+', executable[start.end():])
     finish = start.end() + end.start() if end else len(text)
-    return text[start.start():finish]
+    return start.start(), finish
+
+
+def chest_function(text, name):
+    span = chest_function_span(text, name)
+    return text[span[0]:span[1]] if span is not None else ''
 
 
 def chest_loop_matches(function, expected):
@@ -716,12 +721,191 @@ def chest_loop_matches(function, expected):
     return compact(''.join(block)) == compact(expected)
 
 
-def formal_chest_alpha_isolated(stage: str, cache_source: str = "") -> bool:
+# These finite source paths are audit inputs, never runtime authority.
+CHEST_CLAIM_SOURCES = {
+    'app': 'game/application/demo_app.gd',
+    'generated': 'game/world/levels/providers/generated_demo_stage.gd',
+    'forest': 'game/world/levels/providers/thorn_forest_region_stage.gd',
+}
+
+# Only the small relocated owner operations are exact bodies. App transaction
+# implementations are deliberately not copied or pinned as whole-function SHA.
+CHEST_OWNER_FUNCTIONS = {
+    'generated': {
+        'record_collected_coins': 'func record_collected_coins(amount: int) -> void:\n\tcoins_collected += amount',
+        'commit_pickup_claim': 'func commit_pickup_claim(pickup: Dictionary, record_region_claim: bool) -> void:\n\tpickup.claimed = true\n\tpickup.claimed_position=pickup.position\n\tpickup.claimed_at=clock\n\tif record_region_claim: _record_claim(pickup.id)',
+        '_record_claim': 'func _record_claim(_id: Variant) -> void:\n\tpass',
+        'persist_pickup_motion': 'func persist_pickup_motion() -> void:\n\t_persist_pickup_motion()',
+        '_advance_pickup_motion': 'func _advance_pickup_motion(delta: float) -> void:\n\tfor pickup: Dictionary in pickups:\n\t\tPlainsLootMotion.advance(pickup,delta,self)\n\t_persist_pickup_motion()',
+    },
+    'stage': {
+        '_record_claim': 'func _record_claim(id: Variant) -> void:\n\tregion_state.claimed[id] = true',
+        'commit_cache_claim': 'func commit_cache_claim(chest: Dictionary) -> void:\n\tchest.claimed = true\n\t_record_claim(chest.id)\n\t_after_cache_claim()',
+        '_after_cache_claim': 'func _after_cache_claim() -> void:\n\tpass',
+    },
+    'forest': {
+        '_after_cache_claim': 'func _after_cache_claim() -> void:\n\t(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()',
+    },
+}
+
+
+def chest_body_lines(text):
+    """Finite body comparison preserves indentation and actual literal values."""
+    return [line.rstrip() for line in gd_code(text).splitlines() if line.strip()]
+
+
+def chest_live_lines(function):
+    # Align the whole-function literal mask before selecting executable lines.
+    # A line inside a dead multiline literal cannot supply a callsite/anchor.
+    raw = gd_code(function).splitlines()
+    masked = chest_executable(function).splitlines()
+    return [line.rstrip() for line, live in zip(raw, masked) if live.strip()]
+
+
+def chest_borrowed_local(function, name, declaration):
+    """Protect these finite borrowed locals, not general GDScript dataflow."""
+    if chest_live_lines(function).count(declaration) != 1:
+        return False
+    executable = chest_executable(function)
+    matches = list(re.finditer(r'(?m)^'+re.escape(declaration)+r'$', executable))
+    if len(matches) != 1:
+        return False
+    start, end = matches[0].span()
+    remainder = executable[:start]+executable[end:]
+    local = re.escape(name)
+    # The allowed declaration was removed by its actual executable span.
+    # Direct/compound assignment, local redeclaration and loop shadowing elsewhere
+    # in this function would detach the claim from its real Stage or array row.
+    assignment = r'(?<![\w.])'+local+r'\s*(?::=|(?:\*\*|<<|>>|[+\-*/%&|^])?=(?!=))'
+    binding = r'\b(?:var|const|for)\s+'+local+r'\b'
+    return not re.search(assignment, remainder) and not re.search(binding, remainder)
+
+
+def chest_claim_app_calls(app):
+    """Only P10 callsite conditions/order, not a template of either transaction."""
+    pickup = chest_function(app, '_commit_pickup')
+    cache = chest_function(app, '_claim_region_chest')
+    if not pickup or not cache:
+        return False
+    pickup_lines, cache_lines = chest_live_lines(pickup), chest_live_lines(cache)
+    top = lambda lines: [line for line in lines if line.startswith('\t') and not line.startswith('\t\t')]
+    ptop, ctop = top(pickup_lines), top(cache_lines)
+    coin = '\tif pickup.kind == "coin":'
+    claim = '\trandom_stage.commit_pickup_claim(pickup, connected_region)'
+    cast = '\tvar random_stage := stage as GeneratedDemoStage'
+    borrowed = '\tvar pickup: Dictionary = random_stage.pickups[index]'
+    if (ptop.count(coin) != 1 or ptop.count(claim) != 1
+            or ptop.count(cast) != 1 or ptop.count(borrowed) != 1
+            or not chest_borrowed_local(pickup, 'random_stage', cast)
+            or not chest_borrowed_local(pickup, 'pickup', borrowed)):
+        return False
+    ci, pi = ptop.index(coin), ptop.index(claim)
+    if not ptop.index(cast) < ptop.index(borrowed) < ci < pi:
+        return False
+    if ptop[ci:pi+1] != [coin, '\telif pickup.kind == "heart":',
+                           '\telif pickup.kind == "note":', '\telse:', claim]:
+        return False
+    start = pickup_lines.index(coin)
+    stop = pickup_lines.index('\telif pickup.kind == "heart":', start)
+    if pickup_lines[start:stop] != [coin,
+            '\t\tif not wallet.grant(pickup.amount, receipt_id):',
+            '\t\t\treturn false', '\t\trandom_stage.record_collected_coins(pickup.amount)']:
+        return False
+    end = pickup_lines.index(claim)
+    if pickup_lines[end-2:end] != ['\telse:', '\t\treturn false']:
+        return False
+    # No unconditional early return may make the real-looking tail unreachable.
+    if any(re.match(r'\treturn\b', line) for line in ptop[:pi]):
+        return False
+    tail = ptop[pi:]
+    if len(tail) != 7 or not tail[1].startswith('\tGameAudio.cue(self, '):
+        return False
+    if (tail[2:5] != ['\tvar feedback := player.get_node_or_null("PlayerFeedback") as PlayerFeedback',
+                       '\tif feedback != null:', '\trandom_stage.persist_pickup_motion()']
+            or not tail[5].startswith('\tdirector.manifest.record_output(director.stage_index, ')
+            or tail[6] != '\treturn true'):
+        return False
+    feedback_start = pickup_lines.index(tail[3])
+    feedback_end = pickup_lines.index(tail[4])
+    if pickup_lines[feedback_start:feedback_end] != [tail[3],
+            '\t\tif pickup.kind=="heart":feedback.healing_received(healed_amount)',
+            '\t\telse:feedback.reward_received(random_stage.to_global(pickup.position), pickup.kind == "note")']:
+        return False
+    # Cache ownership changes only between the original UI/status and Manifest.
+    cclaim = '\trs.commit_cache_claim(chest)'
+    ccast = '\tvar rs := stage as PlainsRegionStage'
+    cborrowed = '\tvar chest: Dictionary = rs.chests[_region_chest]'
+    if (ctop.count(cclaim) != 1 or ctop.count(ccast) != 1 or ctop.count(cborrowed) != 1
+            or not chest_borrowed_local(cache, 'rs', ccast)
+            or not chest_borrowed_local(cache, 'chest', cborrowed)):
+        return False
+    i = ctop.index(cclaim)
+    if i < 3 or not ctop.index(ccast) < ctop.index(cborrowed) < i:
+        return False
+    if ctop[i-3:i] != ['\titem_toast.show_item(selected)',
+            '\tif connected_region: _layout_region_hud()',
+            '\t_status="CACHE CLAIMED / "+selected.display_name.split(" / ")[-1]']:
+        return False
+    if (len(ctop) <= i+2 or not ctop[i+1].startswith('\tdirector.manifest.record_output(director.stage_index,')
+            or ctop[i+2] != '\t_region_chest = -1'
+            or ctop.count('\tif audio_committed:') != 1
+            or ctop.index('\tif audio_committed:') <= i+2
+            or any(re.match(r'\treturn\b', line) for line in ctop[:i])):
+        return False
+    return True
+
+
+def chest_claim_owner_contract(stage, sources):
+    if (not isinstance(sources, dict) or set(sources) != set(CHEST_CLAIM_SOURCES)
+            or not all(isinstance(value, str) and value for value in sources.values())):
+        return False
+    texts = dict(sources, stage=stage)
+    hierarchy = {'stage': ('PlainsRegionStage', 'GeneratedDemoStage'),
+                 'generated': ('GeneratedDemoStage', 'DemoStage'),
+                 'forest': ('ThornForestRegionStage', 'PlainsRegionStage')}
+    for key, (name, base) in hierarchy.items():
+        live = chest_live_lines(texts[key])
+        if live.count('class_name '+name) != 1 or live.count('extends '+base) != 1:
+            return False
+    if chest_live_lines(stage).count('var region_state: PlainsRegionState') != 1:
+        return False
+    for key, functions in CHEST_OWNER_FUNCTIONS.items():
+        for name, expected in functions.items():
+            if chest_body_lines(chest_function(texts[key], name)) != chest_body_lines(expected):
+                return False
+    # Counts include the unique definitions and their actual calls. This also
+    # rejects external private-hook calls, aliases and unexpected overrides.
+    counts = {
+        'record_collected_coins': {'app': 1, 'generated': 1},
+        'commit_pickup_claim': {'app': 1, 'generated': 1},
+        'persist_pickup_motion': {'app': 1, 'generated': 1},
+        'commit_cache_claim': {'app': 1, 'stage': 1},
+        '_record_claim': {'generated': 2, 'stage': 2},
+        '_after_cache_claim': {'stage': 2, 'forest': 1},
+    }
+    for key, text in texts.items():
+        executable = chest_executable(text)
+        code = gd_code(text)
+        for name, expected in counts.items():
+            if len(re.findall(r'\b'+re.escape(name)+r'\b', executable)) != expected.get(key, 0):
+                return False
+            if re.search(r'["\']'+re.escape(name)+r'["\']', code):
+                return False
+        if re.search(r'\b(?:var|const|func|class)\s+(?:GeneratedDemoStage|PlainsRegionStage|ThornForestRegionAssembler)\b', executable):
+            return False
+    if re.search(r'\b_persist_pickup_motion\b', chest_executable(sources['app'])):
+        return False
+    return chest_claim_app_calls(sources['app'])
+
+
+def formal_chest_alpha_isolated(stage: str, cache_source: str = "", *, claim_sources=None) -> bool:
     """Current finite two-call dispatcher: real tier/state/foot, no gray fade.
 
     The original opt-in alpha adapter is retained separately for immutable
     historical fixtures. It cannot admit a current formal runtime consumer.
     """
+    if not chest_claim_owner_contract(stage, claim_sources):
+        return False
     executable = chest_executable(stage)
     for function in ('_ready', 'capture_state'):
         if len(re.findall(r'(?m)^func\s+' + function + r'\(', executable)) != 1:
@@ -756,7 +940,13 @@ def formal_chest_alpha_isolated(stage: str, cache_source: str = "") -> bool:
         return False
     # The sole chest-state assignment mirrors the authoritative ledger at
     # construction. Presentation must not manufacture claim or position state.
-    remainder = gd_code(stage).replace(initialization.rstrip(), '', 1)
+    # Remove only the two complete, uniquely extracted and verified owner
+    # bodies. Every other Stage function still faces the original write bans.
+    owner_spans = [chest_function_span(stage, name) for name in ('_record_claim', 'commit_cache_claim')]
+    remainder = stage
+    for start, end in sorted(owner_spans, reverse=True):
+        remainder = remainder[:start]+remainder[end:]
+    remainder = gd_code(remainder).replace(initialization.rstrip(), '', 1)
     remainder = remainder.replace('if p.claimed: region_state.claimed[p.id] = true', '', 1)
     if re.search(r'\.\s*claimed\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=|\[\s*["\']claimed["\']\s*\]\s*=|region_state\s*\.\s*claimed\s*\[[^\n]*?\]\s*=', remainder):
         return False
@@ -765,7 +955,7 @@ def formal_chest_alpha_isolated(stage: str, cache_source: str = "") -> bool:
     return re.search(r'\b(?:c|chest)\s*\.\s*position\s*(?:[+\-*/])?=', remainder) is None
 
 
-def current_chest_dispatch(objects: str, stage: str, library: str, opened_texture: str, cache_source: str = "") -> bool:
+def current_chest_dispatch(objects: str, stage: str, library: str, opened_texture: str, cache_source: str = "", *, claim_sources=None) -> bool:
     """Actual formal four-argument path plus retained genuine three-arg recipe."""
     if hashlib.sha256(library.encode()).hexdigest() != CHEST_LIBRARY_SHA256:
         return False
@@ -781,7 +971,7 @@ def current_chest_dispatch(objects: str, stage: str, library: str, opened_textur
         declaration = re.search(r'(?m)^const\s+' + name + r'\s*:=\s*preload\("res://' + re.escape(path) + r'"\)\s*$', code)
         if declaration is None or not executable[declaration.start():declaration.end()].startswith('const ' + name):
             return False
-    return formal_chest_alpha_isolated(stage, cache_source)
+    return formal_chest_alpha_isolated(stage, cache_source, claim_sources=claim_sources)
 
 
 def audit_objects(a: Audit, spec: dict):
@@ -808,8 +998,9 @@ def audit_objects(a: Audit, spec: dict):
     stage=a.script('game/world/levels/providers/plains_region_stage.gd','objects.stage')
     library=a.script(CHEST_LIBRARY,'objects.tier_library')
     cache_source=a.script(CHEST_RUNTIME,'objects.cache_restore')
-    a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture')),cache_source),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
-    a.check(formal_chest_alpha_isolated(stage,cache_source),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher')
+    claim_sources = {name: a.script(path, 'objects.claim_owner.'+name) for name, path in CHEST_CLAIM_SOURCES.items()}
+    a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture')),cache_source,claim_sources=claim_sources),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
+    a.check(formal_chest_alpha_isolated(stage,cache_source,claim_sources=claim_sources),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, unowned claim write or extra dispatcher')
 
 
 def audit_home(a: Audit, home: dict):

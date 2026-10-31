@@ -1,0 +1,60 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT",
+  "candidate_patch_sha256": "a1e364a57c65908e2bf7df6cfd71cde8b9037de3c2d3876086fd80377f13f056",
+  "candidate_files": {
+    "tools/underworld_pipeline.py": "ce9e472ee22c8efaa5b2427a2c1165ff9444a2bede62e79cbbc6102fa103fdec",
+    "tests/test_underworld_pipeline.py": "274f146403304b5a1e8c5505670bef662724cab82a8989d7e3b62ba672745c25"
+  },
+  "independent_full_owner_positive": true,
+  "independent_three_original_mutants": [
+    {
+      "mutation": "pickup row clone",
+      "mutated_app_sha256": "2bce25337a3de98d81a2b588c7287cbb56763fb25af42a91d5b46571f5d74a85",
+      "old": true,
+      "new": false
+    },
+    {
+      "mutation": "chest row clone",
+      "mutated_app_sha256": "7631381101446ab78599e9ccd4c31230184b1e5895549410554070c4d57c0c00",
+      "old": true,
+      "new": false
+    },
+    {
+      "mutation": "stage receiver rebind",
+      "mutated_app_sha256": "89e2524170717d89730cc4301fa040f0f0fae2439aaad892758b92ef9c428d40",
+      "old": true,
+      "new": false
+    }
+  ],
+  "all_v1_method_AST_exact": true,
+  "all_original_C59_methods_AST_exact_after_prior_claim_context_only": true,
+  "original_method_count": 172,
+  "reviewed_author_full177_log_sha256": "1155e8867eb6a7bb37685d1ffa4f0bbf9291d38a699e727b667a24d77d727045",
+  "reviewed_author_full177_receipt": {
+    "argv": [
+      "python3",
+      "tests/test_underworld_pipeline.py"
+    ],
+    "timeout_seconds": 180,
+    "original_budget_unchanged": true,
+    "seconds": 134.87876576399867,
+    "exit_code": 0,
+    "timeout": false,
+    "PYTHONPATH": "removed",
+    "Godot": "not used",
+    "source_unchanged": true,
+    "main_head": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+    "main_dirty_authorized_by_root": "P10 four production files applied by root; native runner independently revised and not an input of this Python suite",
+    "production_input_files": {
+      "game/application/demo_app.gd": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+      "game/world/levels/providers/generated_demo_stage.gd": "bfd9c4db6f881c2cbae1155ff4c6e266130124d9da21f082739600fe38d3a971",
+      "game/world/levels/providers/thorn_forest_region_stage.gd": "15c1d22d930e553832f3a858ccbd44366928937659e2ae455cff4e206fab767b",
+      "game/world/levels/providers/plains_region_stage.gd": "10187f75235c6400e447f2bfec2ca6e4c81ea5e85671da30c52273925ec8e3dd"
+    },
+    "native_runner": "not copied or bound; revised native fixture is a separate root validation",
+    "log_sha256": "1155e8867eb6a7bb37685d1ffa4f0bbf9291d38a699e727b667a24d77d727045",
+    "source_before_sha256": "1428ef49c4eefc75ada1340d96f8c7273e9b1c55011fe45621c7a13649fe784a",
+    "source_after_sha256": "1428ef49c4eefc75ada1340d96f8c7273e9b1c55011fe45621c7a13649fe784a"
+  },
+  "scope": "Finite owner guard repair. No independent177 rerun, native or production mutation; does not bind separately revised run_session fixture. Original failed full177/10 fixture log retained."
+}

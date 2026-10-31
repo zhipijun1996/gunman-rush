@@ -130,6 +130,7 @@ func run() -> void:
 	var formal := owned_services()
 	var item_runtime := app._item_runtime
 	var state := app.region_state
+	check((app.stage as PlainsRegionStage).region_state==state, "actual formal Stage and App share the same claim-state owner")
 	var map_hash := state.manifest_hash
 	var map_token := lifetime.token()
 	var coin_index := next_coin()
@@ -140,7 +141,14 @@ func run() -> void:
 	var stage := app.stage as GeneratedDemoStage
 	var coin: Dictionary = stage.pickups[coin_index]
 	app.player.reset_at(stage.to_global(coin.position))
+	var claim_position: Vector2 = coin.position
+	var claim_clock := stage.clock
+	var collected_before := stage.coins_collected
 	check(app._commit_pickup(coin_index),"actual App pickup commits the existing coin source")
+	check(is_same(coin,stage.pickups[coin_index]) and coin.claimed and coin.claimed_position==claim_position and coin.claimed_at==claim_clock, "actual pickup retains its row identity and claim pose at the commit clock")
+	check(stage.coins_collected==collected_before+int(coin.amount) and state.claimed.has(coin.id), "accepted coin commits the Stage counter and shared map claim")
+	var credited_balance := app.wallet.balance
+	check(not app._commit_pickup(coin_index) and app.wallet.balance==credited_balance and stage.coins_collected==collected_before+int(coin.amount), "repeated App pickup cannot credit wallet or Stage counter twice")
 	var balance := app.wallet.balance
 	var coin_id := str(coin.id)
 	paused = true
@@ -174,6 +182,24 @@ func run() -> void:
 	if await ready_stage():
 		check(app.stage is ThornForestRegionStage and app.controller.traversal.hook_enabled and app.campaign.abilities==[&"grapple"], "forest composition retains its actual map and explicit grapple grant")
 		check(lifetime.epoch>second_end_epoch and not lifetime.accepts(map_token) and app.region_state!=state, "forest departure cannot reuse prior map token or state")
+		check((app.stage as PlainsRegionStage).region_state==app.region_state, "actual Forest Stage inherits the same App claim-state binding")
+		# Explicit synchronous policy fixture: Stage type alone must not turn on
+		# connected-region recording. No frame/capture runs until it is restored.
+		# This forest seed has no loose coins. Restore an explicit saved entitlement
+		# through the existing Stage API; this is not a natural enemy-drop claim.
+		var forest_stage := app.stage as GeneratedDemoStage
+		var fixture_position := forest_stage.to_local(app.player.global_position)
+		forest_stage.restore_drop_pickups({"kind":"coin","amount":1,"position":[fixture_position.x,fixture_position.y]},"session-disconnected-policy",{})
+		var forest_coin_index := next_coin()
+		check(forest_coin_index>=0,"existing Stage restore API supplies the explicit disconnected-policy coin fixture")
+		if forest_coin_index>=0:
+			var forest_coin: Dictionary = forest_stage.pickups[forest_coin_index]
+			app.player.reset_at(forest_stage.to_global(forest_coin.position))
+			var connected_before := app.connected_region
+			app.connected_region=false
+			var accepted := app._commit_pickup(forest_coin_index)
+			app.connected_region=connected_before
+			check(accepted and forest_coin.claimed and not app.region_state.claimed.has(forest_coin.id), "explicit disconnected App policy retains immediate pickup claim without a region-ledger write")
 	else:
 		check(false,"forest departure assembles within bounded wait")
 	await clear_run("forest departure")

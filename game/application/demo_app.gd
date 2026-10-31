@@ -2165,7 +2165,7 @@ func _commit_pickup(index: int) -> bool:
 	if pickup.kind == "coin":
 		if not wallet.grant(pickup.amount, receipt_id):
 			return false
-		random_stage.coins_collected += pickup.amount
+		random_stage.record_collected_coins(pickup.amount)
 	elif pickup.kind == "heart":
 		if controller.actor_resources.health.current >= controller.actor_resources.health.capacity:
 			return false
@@ -2182,16 +2182,13 @@ func _commit_pickup(index: int) -> bool:
 			return false
 	else:
 		return false
-	pickup.claimed = true
-	pickup.claimed_position=pickup.position
-	pickup.claimed_at=random_stage.clock
-	if connected_region: region_state.claimed[pickup.id] = true
+	random_stage.commit_pickup_claim(pickup, connected_region)
 	GameAudio.cue(self, &"coin" if pickup.kind == "coin" else &"heal" if pickup.kind == "heart" else &"note")
 	var feedback := player.get_node_or_null("PlayerFeedback") as PlayerFeedback
 	if feedback != null:
 		if pickup.kind=="heart":feedback.healing_received(healed_amount)
 		else:feedback.reward_received(random_stage.to_global(pickup.position), pickup.kind == "note")
-	random_stage._persist_pickup_motion()
+	random_stage.persist_pickup_motion()
 	director.manifest.record_output(director.stage_index, StringName("pickup_claim_" + str(pickup.id)), {"id": pickup.id, "kind": pickup.kind, "amount": pickup.amount,"healed_amount":healed_amount})
 	return true
 
@@ -2601,10 +2598,7 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	item_toast.show_item(selected)
 	if connected_region: _layout_region_hud()
 	_status="CACHE CLAIMED / "+selected.display_name.split(" / ")[-1]
-	chest.claimed = true
-	region_state.claimed[chest.id] = true
-	if rs is ThornForestRegionStage:
-		(rs.assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
+	rs.commit_cache_claim(chest)
 	director.manifest.record_output(director.stage_index,StringName("cache/"+chest.id),{"choice": String(option_id),"resource":resource.resource_kind if resource!=null else "item","amount":resource.amount if resource!=null else int(chest.coins)})
 	_region_chest = -1
 	_region_offer = null

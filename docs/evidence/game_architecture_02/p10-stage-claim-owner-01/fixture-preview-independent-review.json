@@ -1,0 +1,171 @@
+{
+  "reviewer": "preview_audit; independent non-author of P10 production and fixture correction",
+  "decision": "LIMITED_ACCEPT_FIXTURE_CORRECTION_AND_READ_ACTUAL_NATIVE_RECEIPT",
+  "reviewed_at_utc": "2026-10-31T17:01:50.008360+00:00",
+  "scope": "Only P10 run_session added fixture correction, preservation of C59 original test, and four production-file identity checks. Not a re-review of ci_guard/Bible or full P10 semantics.",
+  "baseline_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "original_test_sha256": "1bb1f260f2bc964fe781d28f1ba498f6d40a746196545302f3fa406c245bab9f",
+  "candidate_test": {
+    "path": "/workspace/gunman-rush-refactor/tests/run_session_runner.gd",
+    "sha256": "73c3eda3a50a8f71e68b75337bdad8939f15da4c1fd58ddd6760605bd25de134"
+  },
+  "external_candidate": {
+    "path": "/workspace/refactor-evidence/p10-run-session-fixture-correction-01/run_session_runner.gd",
+    "sha256": "73c3eda3a50a8f71e68b75337bdad8939f15da4c1fd58ddd6760605bd25de134"
+  },
+  "production_candidate_receipt": {
+    "path": "/workspace/refactor-evidence/p10-stage-claim-owner-candidate/candidate.json",
+    "sha256": "30d5795b12672195bf9e0021a85cb39bd163baadb879053cdd46130f19a4ac79"
+  },
+  "production_four_sha256": {
+    "game/application/demo_app.gd": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+    "game/world/levels/providers/generated_demo_stage.gd": "bfd9c4db6f881c2cbae1155ff4c6e266130124d9da21f082739600fe38d3a971",
+    "game/world/levels/providers/plains_region_stage.gd": "10187f75235c6400e447f2bfec2ca6e4c81ea5e85671da30c52273925ec8e3dd",
+    "game/world/levels/providers/thorn_forest_region_stage.gd": "15c1d22d930e553832f3a858ccbd44366928937659e2ae455cff4e206fab767b"
+  },
+  "source_preservation": {
+    "entire_original_restored_after_removing_insertions": true,
+    "diff_operations": [
+      "equal",
+      "insert"
+    ],
+    "inserted_line_count": 26,
+    "old_check_call_source_lines": 50,
+    "current_check_call_source_lines": 57,
+    "original_assertions_actions_loops_frames_and_original_order_preserved": true,
+    "candidate_first_failure_not_erased": true
+  },
+  "fixture_reasoning": [
+    "First added forest assumption required a loose unclaimed coin from the fixed seed. Actual original run reached this assertion and failed; no natural forest loose coin was supplied. This is an added characterization fixture precondition error, not evidence production reward policy should change.",
+    "Correction calls existing GeneratedDemoStage.restore_drop_pickups with one explicit coin, amount1, player-local current position and unique source identity, empty claimed dictionary. Existing API creates an ordinary pickup row through its supported flat saved-drop representation. No direct wallet/health/claimed write is added by the test.",
+    "The actual App _commit_pickup validates active/reachable/ready/unclaimed state, grants original wallet receipt, records Stage coin count, invokes commit_pickup_claim with actual connected_region flag, emits original feedback, persists motion and records original manifest output.",
+    "GeneratedDemoStage.commit_pickup_claim owns row claimed/position/time; its boolean condition delegates region ledger only when connected. Plains override writes its existing shared region_state; forest inherits it. The test observes a real Forest Stage sharing App state, not a fake owner.",
+    "connected_region is saved, set false only for the synchronous App transaction and restored immediately before any await/frame. This is an explicit App policy fixture, not a production policy modification or natural disconnected forest route. Pickup restoration and player positioning also occur in the same non-yielding block.",
+    "The new assertion requires accepted actual transaction, immediate claimed row and absence from region claimed ledger; it would reject unconditional type-based region recording. Earlier added plains assertions cover shared owner, same-row claim clock/position, coin counter and duplicate rejection. All C59 originals are retained.",
+    "Fixture does not prove natural enemy death/drop selection, real saved-game reload durability or traversal. Its manual restore API invocation and player positioning must remain disclosed. It does not insert an entitlement into production configuration or restore a historical Boss implementation."
+  ],
+  "native_evidence": [
+    {
+      "report": {
+        "path": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T165839.581851Z/report.json",
+        "sha256": "57a03f65b356a915d0f9ddbf549d925729aadfc6e0b7407dfe2a71a358222647"
+      },
+      "log": {
+        "path": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T165839.581851Z/run-session.log",
+        "sha256": "35f1c0acc41c3b221366717adf039fd9624435613e34350e63a0e515e662dbb0"
+      },
+      "status": "failed",
+      "check": {
+        "id": "run-session",
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/run_session_runner.gd"
+        ],
+        "timeout_seconds": 180,
+        "input_digest": "125d9e3d9320f039e02a8c95fc1566e1c125478b769b420d6de1dbff7de22a77",
+        "log": "run-session.log",
+        "status": "failed",
+        "exit_code": 1,
+        "failure_reason": "nonzero_exit",
+        "started_at_unix": 1793465926.140376,
+        "ended_at_unix": 1793465934.2603612,
+        "duration_seconds": 8.12,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/run_session_runner.gd"
+        ],
+        "check_token": "4a2fd36111444ef195cce04562049512",
+        "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T165839.581851Z/artifacts/run-session",
+        "reused": false
+      },
+      "recorded_working_test_sha256": "efde63a0cb08b2061c056b205ec9d47b3bf541e9a3579b872ea61c772d376e92",
+      "production_four_match_candidate": true,
+      "marker": [
+        "RUN SESSION TESTS: 60 assertions, 1 failures"
+      ],
+      "strict_error_lines": [
+        "ERROR: FAIL: forest map supplies a real coin for disconnected-policy coverage"
+      ],
+      "receipt_boundary": "Original report records working_files and input_digest; it does not contain a source_files_after field. Current file hashes independently match its recorded vector; no continuous no-write monitoring is invented."
+    },
+    {
+      "report": {
+        "path": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T165957.366705Z/report.json",
+        "sha256": "8ca2c8638f730bd2ee70a404ff812a5a570e2d02d673f5cd4494c7b3d5c3f03e"
+      },
+      "log": {
+        "path": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T165957.366705Z/run-session.log",
+        "sha256": "34fde01a783b545093fd00a1e67d1e62340eb5c054830955fefaec81e5eea459"
+      },
+      "status": "passed",
+      "check": {
+        "id": "run-session",
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/run_session_runner.gd"
+        ],
+        "timeout_seconds": 180,
+        "input_digest": "98f17765a30ed39136110c9f6d31bae04f53275d58d17fbaa2fa7b02b94e3581",
+        "log": "run-session.log",
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1793466003.0803697,
+        "ended_at_unix": 1793466010.6745274,
+        "duration_seconds": 7.594,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/run_session_runner.gd"
+        ],
+        "check_token": "398a1ec5b1424587b4da10337999cb58",
+        "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T165957.366705Z/artifacts/run-session",
+        "reused": false
+      },
+      "recorded_working_test_sha256": "73c3eda3a50a8f71e68b75337bdad8939f15da4c1fd58ddd6760605bd25de134",
+      "production_four_match_candidate": true,
+      "marker": [
+        "RUN SESSION TESTS: 61 assertions, 0 failures"
+      ],
+      "strict_error_lines": [],
+      "receipt_boundary": "Original report records working_files and input_digest; it does not contain a source_files_after field. Current file hashes independently match its recorded vector; no continuous no-write monitoring is invented."
+    }
+  ],
+  "accepted_native_scope": "Root executed original registered run-session command, same180s budget, current test73c3...,61assertions/0failures,strict clean log,7.594seconds. Reviewer only read existing results, did not invoke Godot.",
+  "findings": [],
+  "main_writes": false,
+  "engine_run_by_reviewer": false,
+  "quality_other_audits_repeated": false,
+  "limits": [
+    "No full185 or publication acceptance.",
+    "No blanket proof all P10 production behavior is equivalent; production read was restricted to actual fixture consumer path and byte freezing.",
+    "Original60/1 report remains failed; new61/0 is a distinct run on corrected test bytes."
+  ]
+}

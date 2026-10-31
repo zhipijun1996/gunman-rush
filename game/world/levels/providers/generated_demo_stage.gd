@@ -115,6 +115,23 @@ func _advance_pickup_motion(delta: float) -> void:
 		PlainsLootMotion.advance(pickup,delta,self)
 	_persist_pickup_motion()
 
+# App commits the resource transaction before these local map mutations.
+func record_collected_coins(amount: int) -> void:
+	coins_collected += amount
+
+func commit_pickup_claim(pickup: Dictionary, record_region_claim: bool) -> void:
+	pickup.claimed = true
+	pickup.claimed_position=pickup.position
+	pickup.claimed_at=clock
+	if record_region_claim: _record_claim(pickup.id)
+
+func _record_claim(_id: Variant) -> void:
+	pass
+
+# Keep persistence at the caller's original point after reward feedback.
+func persist_pickup_motion() -> void:
+	_persist_pickup_motion()
+
 func _persist_pickup_motion() -> void:
 	pass
 
