@@ -19,7 +19,7 @@ func frames(n: int) -> void:
 func fixture(automatic: bool=false) -> void:
 	if is_instance_valid(world): world.free()
 	world=Node2D.new();root.add_child(world)
-	player=preload("res://scenes/player/player.tscn").instantiate();player.position=Vector2(200,100);world.add_child(player)
+	player=preload("res://game/player/player.tscn").instantiate();player.position=Vector2(200,100);world.add_child(player)
 	actor=player.get_node("Controller");actor.set_physics_process(automatic)
 	player.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 	check(actor.enable_shot_energy(),"formal shot policy configures")

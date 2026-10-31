@@ -1,6 +1,6 @@
 extends SceneTree
 ## Calls the actual candidate generator/validator. No capture, art or traversal claim.
-const Plan = preload("res://scripts/generation/plains_place_plan.gd")
+const Plan = preload("res://game/world/generation/plains_place_plan.gd")
 const SEEDS := ["places-contract-01", "places-contract-02", "places-contract-03", "places-contract-04", "places-contract-05", "places-contract-06", "places-contract-07", "places-contract-08", "places-contract-09", "places-contract-10", "places-contract-11", "places-contract-12"]
 var assertions := 0
 var failures: Array[String] = []

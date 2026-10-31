@@ -49,7 +49,7 @@ func run() -> void:
 	var output := "res://build/forest_playable/traversal/vine-gate-native-%s-%s.json" % [Time.get_datetime_string_from_system().replace(":",""),Time.get_ticks_usec()]
 	var file := FileAccess.open(output,FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"cases":case_receipts,"assertions":assertions,"failures":failures,"generator_sha256":FileAccess.get_sha256("res://scripts/generation/thorn_forest_region_generator.gd")}))
+		file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"cases":case_receipts,"assertions":assertions,"failures":failures,"generator_sha256":FileAccess.get_sha256("res://game/world/generation/thorn_forest_region_generator.gd")}))
 		file.close()
 	else: check(false,"native regression evidence opens")
 	print("FOREST VINE GATE EVIDENCE: ",output)
@@ -68,7 +68,7 @@ func actual_case(variant: String, generator: ThornForestRegionGenerator, tuning:
 	assembler.region_state.bind_map(str(manifest.manifest_hash))
 	world.add_child(assembler)
 	check(assembler.build(manifest,tuning).ok,"actual production assembler "+variant)
-	var player := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var player := preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	player.position = Vector2(step.takeoff[0],step.takeoff[1])
 	world.add_child(player)
 	var controller := player.get_node("Controller") as PlayerController
@@ -76,7 +76,7 @@ func actual_case(variant: String, generator: ThornForestRegionGenerator, tuning:
 	if variant != "noH": controller.traversal.grant(&"grapple")
 	var live_target: EnemyMotor
 	if variant == "live":
-		live_target = preload("res://scenes/enemies/forest_lantern.tscn").instantiate() as EnemyMotor
+		live_target = preload("res://game/enemies/species/scenes/forest_lantern.tscn").instantiate() as EnemyMotor
 		live_target.position = player.position+Vector2(signf(player.position.x)*-105,-132)
 		world.add_child(live_target)
 	var events: Array[String] = []
@@ -141,7 +141,7 @@ func actual_below_bypass(generator: ThornForestRegionGenerator, tuning: PlayerTu
 				if candidate.y > gate.end.y+60 and absf(candidate.x-gate.get_center().x)<closest:
 					destination = candidate
 					closest = absf(candidate.x-gate.get_center().x)
-	var player := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var player := preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	player.position = destination
 	world.add_child(player)
 	var controller := player.get_node("Controller") as PlayerController

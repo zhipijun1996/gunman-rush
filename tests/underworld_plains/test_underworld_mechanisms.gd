@@ -103,7 +103,7 @@ func actual_ferry(phase: float, forward: bool) -> void:
 	ferry.add_child(old_paint)
 	ferry.set_painted_enabled(true)
 	check(ferry.painted_art is ModuleMovingPlatform.UnderworldCarrierPaint and old_paint.get_parent()==null,"stale painted overlay replaced in current consumer")
-	trace.motor=preload("res://scenes/player/player.tscn").instantiate()
+	trace.motor=preload("res://game/player/player.tscn").instantiate()
 	trace.motor.position=module.world_exit() if feedback_only else module.world_entry() if forward else module.world_exit()
 	trace.world.add_child(trace.motor)
 	trace.controller=trace.motor.get_node("Controller")
@@ -227,7 +227,7 @@ func actual_sequence(id: String) -> void:
 	module.definition=RandomStageGenerator.new().definition_for(id).duplicate(true)
 	module.authoring_debug=false
 	trace.stage.add_child(module);trace.stage.modules.append(module)
-	trace.motor=preload("res://scenes/player/player.tscn").instantiate()
+	trace.motor=preload("res://game/player/player.tscn").instantiate()
 	trace.motor.position=module.world_entry()
 	trace.world.add_child(trace.motor)
 	trace.controller=trace.motor.get_node("Controller")

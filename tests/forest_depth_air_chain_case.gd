@@ -120,7 +120,7 @@ func _target(action: Dictionary) -> String:
 	return rest_anchor_id if str(action.action)=="HANG" else str(instance_data.anchor_id_map.get(str(action.get("anchor","")),""))
 func _submit(trace: Node) -> void:
 	var action: Dictionary = program[step_index]
-	var free_base: bool=trace.controller.shot_energy!=null and trace.controller.shot_energy.definition.resource_path=="res://resources/player/demo_ui_01/time_energy_v2.tres" and not trace.controller.shot_energy.definition.shooting_consumes_energy and trace.player.tuning.max_air_shots==1 and trace.controller.shoot_ability.weapon.id==&"pulse_gun" and trace.controller.shoot_ability.weapon.tier==1
+	var free_base: bool=trace.controller.shot_energy!=null and trace.controller.shot_energy.definition.resource_path=="res://game/player/resources/demo_ui_01/time_energy_v2.tres" and not trace.controller.shot_energy.definition.shooting_consumes_energy and trace.player.tuning.max_air_shots==1 and trace.controller.shoot_ability.weapon.id==&"pulse_gun" and trace.controller.shoot_ability.weapon.tier==1
 	if str(action.action)=="R" and trace.controller.action_resources.shot_charges==0 and free_base:
 		var anchor_jump: bool=trace.controller.traversal.state==&"hook_hang" and trace.controller.traversal.hook_target is GrappleAnchor and trace.controller.jump_ability.enabled and trace.controller.jump_ability.maximum_jumps()>0
 		var air_jump: bool=trace.controller.jump_ability.can_air_jump()

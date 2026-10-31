@@ -107,7 +107,7 @@ func resources_and_grammar() -> void:
 		row.fps = value
 		bad.clips = {"test":row}
 		check(not ItemArtLibrary.validate_payload(bad).is_empty(),"invalid clip speed rejected: "+str(value))
-	for path: String in ["res://scripts/player/player_controller.gd","https://example.com/test.png","res://assets/items/v5/../other.png"]:
+	for path: String in ["res://game/player/player_controller.gd","https://example.com/test.png","res://assets/items/v5/../other.png"]:
 		var bad := empty.duplicate(true)
 		bad.icons = {"item_bad":{"texture":path,"region":[0,0,16,16]}}
 		check(not ItemArtLibrary.validate_payload(bad).is_empty(),"art data cannot load scripts, network paths or escaped files: "+path)

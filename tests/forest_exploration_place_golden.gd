@@ -12,7 +12,7 @@ func run() -> void:
 	var rows: Array = []
 	var failures: Array = []
 	for variant: int in [0,1]:
-		var room := preload("res://scripts/demo/forest_exploration_place_lab.gd").new()
+		var room := preload("res://experiments/generation/forest_exploration_place_lab.gd").new()
 		room.place_variant = variant
 		root.add_child(room)
 		for unused: int in 12: await physics_frame

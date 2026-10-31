@@ -90,7 +90,7 @@ func ordinary(behavior: String, profile: String) -> void:
 	check(not (binding.call("view",host) as Dictionary).is_empty(),behavior+" ready produced a real final binding")
 	check((binding.call("view",host) as Dictionary).get("body_theme")==&"scene",behavior+" standalone ready keeps Lab/scene fallback instead of enabling formal fine body")
 	if profile=="underworld":
-		var installer: Script = load("res://scripts/underworld_plains/underworld_actor_installer.gd")
+		var installer: Script = load("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 		var installed: Dictionary = installer.call("install",world)
 		check(installed.enemies==1,behavior+" actual Underworld installer replaced one renderer")
 		host=motor.get_node("Presentation") as Node2D
@@ -180,10 +180,10 @@ func registry_refusals() -> void:
 	var cold:=EnemyActor.new()
 	check(not (cold.call("presentation_state") as Dictionary).get("valid",true),"uninitialized Actor snapshot explicitly invalid")
 	cold.free()
-	var boss_factory: Script=load("res://scripts/bosses/boss_factory.gd")
+	var boss_factory: Script=load("res://game/bosses/encounter/boss_factory.gd")
 	check(boss_factory.call("create",&"unknown_boss")==null,"unknown Boss ID refused")
 	check(boss_factory.call("create_recorded","res://scenes/bosses/windkeeper.tscn","res://resources/bosses/thorn_guardian.tres")==null,"cross-family recorded Boss pair refused")
-	check(boss_factory.call("create_recorded","res://scripts/bosses/boss_encounter.gd","")==null,"non-scene Boss path refused")
+	check(boss_factory.call("create_recorded","res://game/bosses/encounter/boss_encounter.gd","")==null,"non-scene Boss path refused")
 	finish_case("registry/refusals",before)
 
 func binding_replacements() -> void:
@@ -193,8 +193,8 @@ func binding_replacements() -> void:
 	var original:=motor.get_node("Presentation")
 	var position_before:=motor.global_position
 	var epoch:=actor.health.epoch
-	var pixel: Script=load("res://scripts/art_foundation/pixel_formal_style_installer.gd")
-	var underworld: Script=load("res://scripts/underworld_plains/underworld_actor_installer.gd")
+	var pixel: Script=load("res://game/presentation/world/art_foundation/pixel_formal_style_installer.gd")
+	var underworld: Script=load("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 	check((pixel.call("install",world) as Dictionary).enemies==1,"Pixel actual install replaces scene renderer")
 	var pixel_host:=motor.get_node("Presentation")
 	check((pixel.call("install",world) as Dictionary).enemies==0 and pixel_host==motor.get_node("Presentation"),"Pixel reinstall retains exact host")
@@ -226,7 +226,7 @@ func binding_replacements() -> void:
 func boss(identity: String) -> void:
 	var before:=failures.size()
 	var scene_id: String="windkeeper" if identity=="windkeeper_storm" else identity
-	var boss_factory: Script=load("res://scripts/bosses/boss_factory.gd")
+	var boss_factory: Script=load("res://game/bosses/encounter/boss_factory.gd")
 	var motor: BossMotor=boss_factory.call("create",StringName(identity))
 	check(motor!=null and not motor.is_inside_tree(),identity+" Boss factory creates unparented real scene")
 	if motor==null:
@@ -291,7 +291,7 @@ func contains_object(value: Variant) -> bool:
 
 func boss_rebind() -> void:
 	var before:=failures.size()
-	var boss_factory: Script=load("res://scripts/bosses/boss_factory.gd")
+	var boss_factory: Script=load("res://game/bosses/encounter/boss_factory.gd")
 	var first: BossMotor=boss_factory.call("create",&"clockwork_guardian")
 	var second: BossMotor=boss_factory.call("create",&"windkeeper")
 	world.add_child(first)
@@ -337,7 +337,7 @@ func boss_rebind() -> void:
 
 func lifecycle() -> void:
 	var before:=failures.size()
-	var source: Script=load("res://scripts/presentation/enemy_presentation_lifecycle.gd")
+	var source: Script=load("res://game/presentation/actors/presentation/enemy_presentation_lifecycle.gd")
 	var life: Variant=source.new()
 	var motor: EnemyMotor=factory.call("create_for_behavior",&"patrol")
 	var actor:=add_fixture(motor)
@@ -380,9 +380,9 @@ func forest_cache_parity() -> void:
 	finish_case("forest-cache/parity",before,{"checks":observation.get("checks",0),"compared_cases":observation.get("compared_cases",0),"compared_vertices":observation.get("compared_vertices",0),"scope":observation.get("scope","")})
 
 func run() -> void:
-	registry=load("res://scripts/enemies/enemy_behavior_registry.gd")
-	factory=load("res://scripts/enemies/enemy_factory.gd")
-	binding=load("res://scripts/presentation/enemy_presentation_binding.gd")
+	registry=load("res://game/enemies/enemy_behavior_registry.gd")
+	factory=load("res://game/enemies/enemy_factory.gd")
+	binding=load("res://game/presentation/actors/presentation/enemy_presentation_binding.gd")
 	world=Node2D.new()
 	root.add_child(world)
 	paused=true

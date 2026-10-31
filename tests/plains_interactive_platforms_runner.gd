@@ -25,7 +25,7 @@ func run()->void:
 				var module:=PlatformingModule.new();module.definition=d.duplicate(true)
 				for f:ModuleMovingPlatformDefinition in module.definition.ferries:f.initial_phase=phase
 				trace.stage.add_child(module);trace.stage.modules.append(module)
-				trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor)
+				trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor)
 				trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 				trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
 				var manifest:Dictionary={"layout_id":"connected_region","nodes":[{"id":"probe","module_id":id,"offset":[0,0],"mirrored":false,"reverse_traversal":false}]};manifest.shot_latch_plan=PlainsShotLatchPlanner.recorded_plan(manifest)
@@ -56,7 +56,7 @@ func run()->void:
 	print("PLAINS INTERACTIVE PLATFORMS: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)
 func boss_rules()->void:
 	var world:=Node2D.new();root.add_child(world)
-	var player:=preload("res://scenes/player/player.tscn").instantiate();world.add_child(player)
+	var player:=preload("res://game/player/player.tscn").instantiate();world.add_child(player)
 	var boss:=preload("res://scenes/bosses/windkeeper.tscn").instantiate();var e:WindkeeperEncounter=boss.get_node("Encounter");e.definition=preload("res://resources/bosses/legacy/windkeeper_storm_window_v4.tres");world.add_child(boss);e.configure_arena(255,1000,player);e.set_physics_process(false);e.activate()
 	e.stage_phase=1
 	check(e.accepts_core_direction({"hit_direction":Vector2.UP,"fired_airborne":false}),"stage I permits ground-fired attack")
@@ -93,7 +93,7 @@ func remote_detour()->void:
 		var trace=load("res://tests/plains_region_trace.gd").new();trace.tree=self;trace.check=check
 		trace.world=Node2D.new();root.add_child(trace.world);trace.stage=PlainsRegionAssembler.new();trace.world.add_child(trace.stage)
 		var module:=PlatformingModule.new();module.definition=RandomStageGenerator.new().definition_for("plains_remote_bell");trace.stage.add_child(module);trace.stage.modules.append(module)
-		trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false);trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
+		trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false);trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
 		var m:Dictionary={"layout_id":"connected_region","nodes":[{"id":"route_choice","module_id":"plains_remote_bell","offset":[0,0],"mirrored":false,"reverse_traversal":false}]};m.shot_latch_plan=PlainsShotLatchPlanner.recorded_plan(m)
 		trace.shot_latch_encounter=GeneratedShotLatchEncounter.new();trace.world.add_child(trace.shot_latch_encounter);trace.shot_latch_encounter.setup(m,trace.stage,trace.controller,trace.lifetime);await trace.tick(3)
 		var driver=load("res://tests/branch_module_driver.gd").new();driver.module=module;driver.motor=trace.motor;driver.controller=trace.controller;driver.tick_callback=trace.tick;driver.check=check

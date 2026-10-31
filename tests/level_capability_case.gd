@@ -10,7 +10,7 @@ func verify(ok: bool, label: String) -> void:
 	if not ok: failures += 1; push_error("LEVEL CAPABILITY: " + label)
 
 func run() -> void:
-	var app=load("res://scripts/demo/demo_app.gd").new()
+	var app=load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled=false
 	get_tree().root.add_child(app)
 	if not app.start_plains("level-capability-default"):
@@ -26,8 +26,8 @@ func run() -> void:
 	SNAPSHOT=load("res://tools/level_capability_snapshot.gd")
 	var baseline = SNAPSHOT.capture(actor, build)
 	verify(baseline.equipped_weapon.id == "pulse_gun" and baseline.granted_actions == ["jump", "shot_recoil"], "formal default does not inherit studio grants")
-	verify(SNAPSHOT.matches_tuning(actor, load("res://scripts/player/player_tuning.gd").load_default()), "actual default matches request")
-	var wrong = load("res://scripts/player/player_tuning.gd").load_default()
+	verify(SNAPSHOT.matches_tuning(actor, load("res://game/player/player_tuning.gd").load_default()), "actual default matches request")
+	var wrong = load("res://game/player/player_tuning.gd").load_default()
 	wrong.max_air_shots += 1
 	verify(not SNAPSHOT.matches_tuning(actor, wrong), "different requested capacity rejected")
 	var driver = load("res://tests/level_design_trace.gd").new()
@@ -39,8 +39,8 @@ func run() -> void:
 	verify(actor.traversal.grant(&"double_jump") and actor.traversal.grant(&"grapple"), "grant real independent abilities")
 	var granted = SNAPSHOT.capture(actor)
 	verify(granted.effective_max_jumps == 2 and granted.tuning.max_jumps == 1 and "grapple" in granted.granted_actions, "effective capacity includes real grant without rewriting tuning")
-	for index: int in load("res://scripts/combat/weapon_catalog.gd").IDS.size():
-		var definition = load("res://scripts/combat/weapon_catalog.gd").get_loadout(index)
+	for index: int in load("res://game/combat/weapons/weapon_catalog.gd").IDS.size():
+		var definition = load("res://game/combat/weapons/weapon_catalog.gd").get_loadout(index)
 		verify(actor.shoot_ability.equip(definition), "equip real weapon/" + str(definition.id))
 		var snapshot = SNAPSHOT.capture(actor)
 		verify(snapshot.equipped_weapon.id == str(definition.id) and snapshot.equipped_weapon.tier == definition.tier and not snapshot.has("combined_weapon_abilities"), "one current weapon/" + str(definition.id))

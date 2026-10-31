@@ -1,6 +1,6 @@
 extends SceneTree
 ## Production drain contract; --studies also drives all four real Study scenes.
-const Lifecycle = preload("res://scripts/audio/world_audio_lifecycle.gd")
+const Lifecycle = preload("res://game/presentation/audio/world_audio_lifecycle.gd")
 const Shim = preload("res://tests/audio_teardown.gd")
 const FALLBACK_STREAM = preload("res://assets/audio/bgm/the_kindred_hearth.mp3")
 var failures := 0

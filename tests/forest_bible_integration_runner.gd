@@ -92,7 +92,7 @@ func run() -> void:
 			var weaver := actor.attack_behavior as ForestBibleWeaverBehavior
 			var row: Dictionary = stage.enemy_manifest.filter(func(value: Dictionary) -> bool: return value.id == WEAVER_ID)[0]
 			check(stage.generated.manifest.layout_version == ThornForestRegionGenerator.DEPTH_LAYOUT_BIBLE,"actual manifest remains v15")
-			check(actor.motor.scene_file_path == "res://scenes/enemies/forest_bible_weaver.tscn" and actor.definition.behavior_id == &"forest_bible_weaver","actual scene and definition identity agree")
+			check(actor.motor.scene_file_path == "res://game/enemies/species/scenes/forest_bible_weaver.tscn" and actor.definition.behavior_id == &"forest_bible_weaver","actual scene and definition identity agree")
 			check(weaver.line_configured and weaver.strand_rows == row.web_strands and weaver.strand_rows.size() == 2,"type-first App configure uses both authored strands without legacy line fallback")
 			var configured := weaver.depth_snapshot()
 			cases.append({"id":"app_configure","layout":stage.generated.manifest.layout_version,"scene":actor.motor.scene_file_path,"behavior":str(actor.definition.behavior_id),"strands":weaver.strand_rows.duplicate(true),"configured":weaver.line_configured})

@@ -1,6 +1,6 @@
 extends RefCounted
 
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var tree: SceneTree
 var check: Callable
@@ -193,7 +193,7 @@ func _fixture(id: String, jumps: int, shots: int, mirrored: bool = false) -> voi
 		world.free()
 	world = Node2D.new()
 	tree.root.add_child(world)
-	module = load("res://scenes/generation/modules/%s.tscn" % id).instantiate() as PlatformingModule
+	module = load("res://game/world/generation/scenes/modules/%s.tscn" % id).instantiate() as PlatformingModule
 	if mirrored:
 		module.definition = ModuleReflection.reflected_definition(module.definition)
 	world.add_child(module)

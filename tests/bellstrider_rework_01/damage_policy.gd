@@ -77,7 +77,7 @@ func diagnostic(label: String) -> Dictionary:
 
 func setup() -> bool:
 	await cleanup()
-	app = load("res://scripts/demo/demo_app.gd").new()
+	app = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains("level-design-v2-baseline/08"):

@@ -84,12 +84,12 @@ func run() -> void:
 	await finish(trace)
 func reward_declaration() -> Dictionary:
 	# Read the actual production settlement declaration, never a fixture grant.
-	var source:=FileAccess.get_file_as_string("res://scripts/demo/demo_app.gd")
+	var source:=FileAccess.get_file_as_string("res://game/application/demo_app.gd")
 	var section:=source.get_slice("func _advance_region_map() -> bool:",1).get_slice("\nfunc ",0)
 	var coins:=RegEx.new();coins.compile("wallet\\.grant\\(([0-9.]+),id\\)")
 	var heal:=RegEx.new();heal.compile("SupplyHealEffect\\.apply\\(controller\\.actor_resources\\.health,([0-9.]+),id\\)")
 	var coin_match:=coins.search(section);var heal_match:=heal.search(section)
-	return {"coins":float(coin_match.get_string(1)) if coin_match!=null else -1.0,"heal":float(heal_match.get_string(1)) if heal_match!=null else -1.0,"app_source_sha256":FileAccess.get_sha256("res://scripts/demo/demo_app.gd")}
+	return {"coins":float(coin_match.get_string(1)) if coin_match!=null else -1.0,"heal":float(heal_match.get_string(1)) if heal_match!=null else -1.0,"app_source_sha256":FileAccess.get_sha256("res://game/application/demo_app.gd")}
 func identity(app: DemoApp) -> Dictionary:
 	return {"map":app.director.region_map_index,"stage_index":app.director.stage_index,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch,"session":app.controller.session_id,"version":app.stage.generated.stage_generator_version,"manifest_hash":app.stage.generated.manifest.manifest_hash,"wallet":app.wallet.balance,"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"energy":app.controller.actor_resources.stamina.current,"build":app.build.inventory.item_ids(),"hook":app.controller.traversal.hook_enabled,"double":app.controller.traversal.double_enabled,"wall":app.controller.traversal.wall_enabled,"weapon":String(app.controller.shoot_ability.weapon.id),"tier":app.controller.shoot_ability.weapon.tier}
 func pointer(owner: Node, text: String) -> bool:

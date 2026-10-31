@@ -2296,6 +2296,31 @@ class Style25ArchiveTests(unittest.TestCase):
             self.assertEqual(direction['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
         self.assertIn('no_inherited', style['runtime_reference']['status'])
 
+    def test_scene_reference_supplement_preserves_original_archive_and_rejects_missing_leaf(self):
+        self.manifest()  # The original e7d7 manifest is still byte-for-byte pinned.
+        base = ROOT/history.STYLE25_SCENE_ARCHIVE
+        raw = (base/'manifest.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), history.STYLE25_SCENE_MANIFEST_SHA)
+        manifest = json.loads(raw)
+        self.assertEqual(manifest['original_archive_manifest_sha256'], history.STYLE25_MANIFEST_SHA)
+        self.assertEqual(manifest['source_commit'], '4bb7aa962cb9477b6fc931b221b3a38132cad1f2')
+        self.assertEqual(len(manifest['sources']), 3)
+        self.assertEqual({r['path'] for r in manifest['sources']}, {'scenes/bosses/windkeeper_pressure.tscn', 'assets/underworld_plains/terrain/fine_32/terrain_build.json', 'assets/underworld_plains/terrain/terrain_build.json'})
+        for original_file in manifest['files']:
+            original_bytes = (base/original_file['path']).read_bytes()
+            self.assertEqual((len(original_bytes), hashlib.sha256(original_bytes).hexdigest()), (original_file['bytes'], original_file['sha256']))
+        row = manifest['sources'][0]
+        self.assertEqual(row['path'], 'scenes/bosses/windkeeper_pressure.tscn')
+        self.assertEqual(row['sha256'], 'd751a5a3eae2faa1c507f93fe565bd04601fe88185951690055d136824e54033')
+        self.assertEqual(hashlib.sha256(history.style25_source(ROOT, row['path'])).hexdigest(), row['sha256'])
+        root = self.fixture()
+        live = root/row['path']
+        live.parent.mkdir(parents=True, exist_ok=True)
+        live.write_bytes((ROOT/row['path']).read_bytes())
+        (root/history.STYLE25_SCENE_ARCHIVE/row['archive_path']).unlink()
+        with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+            history.style25_source(root, row['path'])
+
     def test_preserved_original_test_methods_are_unchanged(self):
         import ast
         base = ROOT/history.STYLE25_ARCHIVE
@@ -2321,7 +2346,7 @@ class Style25ArchiveTests(unittest.TestCase):
         root = self.fixture()
         path = 'scripts/ui/item_card.gd'
         (root/path).parent.mkdir(parents=True, exist_ok=True)
-        (root/path).write_bytes((ROOT/path).read_bytes())
+        (root/path).write_bytes(history.style25_source(ROOT, path))
         (root/history.STYLE25_ARCHIVE/('sources/'+path+'.txt')).unlink()
         with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
             history.style25_source(root, path)
@@ -2330,7 +2355,7 @@ class Style25ArchiveTests(unittest.TestCase):
         root = self.fixture()
         path = 'scripts/ui/item_card.gd'
         (root/path).parent.mkdir(parents=True, exist_ok=True)
-        (root/path).write_bytes((ROOT/path).read_bytes())
+        (root/path).write_bytes(history.style25_source(ROOT, path))
         leaf = root/history.STYLE25_ARCHIVE/('sources/'+path+'.txt')
         leaf.write_bytes(leaf.read_bytes()+b'\nsource-drift')
         with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):

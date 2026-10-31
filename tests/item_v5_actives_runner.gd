@@ -2,8 +2,8 @@ extends SceneTree
 ## Isolated module fixture, not a formal run or natural-route acceptance.
 ## Uses the actual Player scene, Motor floor contact, physics rays and Damageable;
 ## only the host's catalog/equipment and committed-damage bridge are isolated.
-const ACTIVE := preload("res://scripts/items/v5/item_active_effects.gd")
-const COMPANIONS := preload("res://scripts/items/v5/item_companion_effects.gd")
+const ACTIVE := preload("res://game/loadout/effects/item_active_effects.gd")
+const COMPANIONS := preload("res://game/loadout/effects/item_companion_effects.gd")
 const DT := 1.0/60.0
 var assertions := 0
 var failures := 0

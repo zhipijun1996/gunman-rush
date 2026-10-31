@@ -11,6 +11,8 @@ from region_creative_direction import repository_file, unique_object
 
 STYLE25_ARCHIVE = 'docs/creative_direction/archive/feature-layout-before-style26'
 STYLE25_MANIFEST_SHA = 'e7d7c7b016dea2f8a42f30736a40ecc89a625ec90715d0258a04ca42d1cb3ca9'
+STYLE25_SCENE_ARCHIVE = STYLE25_ARCHIVE + '/scene-reference-supplement'
+STYLE25_SCENE_MANIFEST_SHA = '0a893d58b17e1ddf96bb142cb52af9ac1f7325cb6b1ae07afb14596bd4859e8c'
 
 
 def archived_source(root, archive, path, manifest_sha=None):
@@ -34,4 +36,6 @@ def archived_source(root, archive, path, manifest_sha=None):
 def style25_source(root, path):
     """One version adapter; current registry and live validators never call it."""
     raw = archived_source(root, STYLE25_ARCHIVE, path, STYLE25_MANIFEST_SHA)
+    if raw is None:
+        raw = archived_source(root, STYLE25_SCENE_ARCHIVE, path, STYLE25_SCENE_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw

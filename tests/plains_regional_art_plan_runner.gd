@@ -1,6 +1,6 @@
 extends SceneTree
 ## Actual complete formal generator + art compiler; not Motor or art admission.
-const Plan = preload("res://scripts/generation/plains_region_art_plan.gd")
+const Plan = preload("res://game/world/generation/plains_region_art_plan.gd")
 const ROOT_SEEDS := ["regional-art-01","regional-art-02","regional-art-03","regional-art-04","regional-art-05","regional-art-06"]
 var assertions := 0
 var failures: Array[String] = []

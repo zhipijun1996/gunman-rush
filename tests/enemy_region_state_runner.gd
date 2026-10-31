@@ -174,7 +174,7 @@ func run() -> void:
 	world.position=Vector2(500,600)
 	root.add_child(world)
 	paused=true
-	var player := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var player := preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	world.add_child(player)
 	controller=player.get_node("Controller") as PlayerController
 	policy=FrameDamagePolicy.new()

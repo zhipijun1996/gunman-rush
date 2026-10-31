@@ -1,4 +1,4 @@
-extends "res://scripts/demo/demo_app.gd"
+extends "res://game/application/demo_app.gd"
 ## EXPLICIT LOCAL FEEDBACK FIXTURE. The formal fullspawn runner never uses this.
 ## One initial spawn at the authored root fork, before the first Motor step.
 var fixture_data: Dictionary = {}

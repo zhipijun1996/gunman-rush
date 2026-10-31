@@ -1,8 +1,8 @@
 extends SceneTree
 ## Real physics fixtures and an actual DemoApp failure/retry. Fixture results
 ## never stand in for the separately captured formal-route consumer.
-const PLAYER := preload("res://scenes/player/player.tscn")
-const ENEMY := preload("res://scenes/enemies/patrol_drone.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
+const ENEMY := preload("res://game/enemies/scenes/patrol_drone.tscn")
 var assertions := 0
 var failures := 0
 var output := "res://build/plains_redesign/encounter/native.json"

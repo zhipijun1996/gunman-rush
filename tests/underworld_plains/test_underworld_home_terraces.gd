@@ -47,7 +47,7 @@ func capture(id: String) -> void:
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	root.size=Vector2i(1280,720)
-	app=preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled=false
 	# Explicit economic test fixture, inherited from the original Home App
 	# business test. This grants no movement ability and is not production input.
@@ -73,7 +73,7 @@ func run() -> void:
 	check(home.player.get_node_or_null("UnderworldPlayer") is UnderworldPlayer and home.player.get_node("UnderworldPlayer") is PlayerMotionCandidateVisual and home.avatar_selection_id=="courier" and app.avatar_selection_id=="courier","Actual shared presentation is the current new Courier default")
 	var default_body:=home.player.get_node("UnderworldPlayer") as PlayerMotionCandidateVisual
 	var motion:=home.player.get_node_or_null("MotionFeel") as PlayerMotionFeel
-	check(not home.player.get_node("PlayerFeedback").visible and motion!=null and motion.visual==default_body and motion.is_processing() and default_body!=null and default_body.candidate_enabled and default_body.profile!=null and default_body.profile.valid() and default_body.profile.resource_path=="res://resources/player_presentation_01/motion_v1.tres","Legacy feedback remains hidden while actual new-default MotionFeel/profile is active")
+	check(not home.player.get_node("PlayerFeedback").visible and motion!=null and motion.visual==default_body and motion.is_processing() and default_body!=null and default_body.candidate_enabled and default_body.profile!=null and default_body.profile.valid() and default_body.profile.resource_path=="res://game/player/presentation/resources/motion_v1.tres","Legacy feedback remains hidden while actual new-default MotionFeel/profile is active")
 	check(home.player.get_node("PlayerVisualAdapter").process_mode==Node.PROCESS_MODE_DISABLED,"Legacy adapter cannot draw a duplicate body")
 	var muzzle_owner:=home.player.get_node("CourierVisual") as CourierVisual
 	check(muzzle_owner.is_node_ready() and muzzle_owner.visible_muzzle_position().is_finite() and default_body!=null and default_body.motor==home.player and default_body.controller==home.controller and default_body.visible and default_body.is_processing(),"Hidden authoritative muzzle remains ready and finite")

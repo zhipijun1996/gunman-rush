@@ -6,7 +6,7 @@ func expect(value: bool, message: String) -> void:
  checks += 1
  if not value: failures.append(message); printerr("FAIL: "+message)
 func _run() -> void:
- var lab := preload("res://scenes/demo/windchime_lab.tscn").instantiate() as WindchimeLab
+ var lab := preload("res://experiments/terrain/entries/windchime_lab.tscn").instantiate() as WindchimeLab
  root.add_child(lab)
  for i: int in 60: await physics_frame
  expect(lab.player.is_on_floor(),"actual actor supported at entry")

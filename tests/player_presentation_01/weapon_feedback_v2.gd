@@ -12,7 +12,7 @@ func sustained() -> int:
 func run() -> void:
 	root.size=Vector2i(1280,720)
 	if output.is_empty() or FileAccess.file_exists(output): quit(1);return
-	app=preload("res://scenes/dev/player_presentation_01/weapon_feel_v2.tscn").instantiate()
+	app=preload("res://experiments/motion/entries/weapon_feel_v2.tscn").instantiate()
 	root.add_child(app)
 	for unused: int in 150:
 		await physics_frame

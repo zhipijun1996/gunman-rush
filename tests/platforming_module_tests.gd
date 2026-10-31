@@ -1,7 +1,7 @@
 extends RefCounted
 
-const PLAYER := preload("res://scenes/player/player.tscn")
-const MODULE_ROOT := "res://scenes/generation/modules/"
+const PLAYER := preload("res://game/player/player.tscn")
+const MODULE_ROOT := "res://game/world/generation/scenes/modules/"
 const DT := 1.0 / 60.0
 var tree: SceneTree
 var check: Callable

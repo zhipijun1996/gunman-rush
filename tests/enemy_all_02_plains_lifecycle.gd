@@ -17,7 +17,7 @@ func run() -> void:
 	for id: String in IDS:
 		for chain: String in ["scene", "underworld", "root_bell"]:
 			if chain == "root_bell" and id != "plains_root_bell": continue
-			var motor := preload("res://scenes/enemies/patrol_drone.tscn").instantiate() as EnemyMotor
+			var motor := preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate() as EnemyMotor
 			var actor := motor.get_node("Actor") as EnemyActor
 			actor.definition = load("res://resources/enemies/%s.tres" % id) as EnemyDefinition
 			if chain != "scene":

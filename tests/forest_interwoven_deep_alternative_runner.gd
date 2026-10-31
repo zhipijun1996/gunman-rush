@@ -106,7 +106,7 @@ func _initialize() -> void:
 	run.call_deferred()
 func source_hashes() -> Dictionary:
 	var result := {}
-	for path: String in [get_script().resource_path,"res://tests/forest_interwoven_midloop_runner.gd","res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://scripts/generation/forest_interwoven_expedition.gd","res://scripts/generation/thorn_forest_region_v2_v13.gd","res://scripts/player/player_controller.gd","res://scripts/player/player_motor.gd","res://scripts/player/traversal_ability.gd","res://scripts/combat/shoot_ability.gd","res://scripts/combat/shot_energy_policy.gd","res://config/player_tuning.json","res://resources/player/plains_shot_energy.tres"]: result[path]=FileAccess.get_sha256(path)
+	for path: String in [get_script().resource_path,"res://tests/forest_interwoven_midloop_runner.gd","res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://scripts/generation/forest_interwoven_expedition.gd","res://scripts/generation/thorn_forest_region_v2_v13.gd","res://game/player/player_controller.gd","res://game/player/player_motor.gd","res://game/player/actions/traversal_ability.gd","res://game/combat/weapons/shoot_ability.gd","res://game/combat/resources/shot_energy_policy.gd","res://config/player_tuning.json","res://game/player/resources/plains_shot_energy.tres"]: result[path]=FileAccess.get_sha256(path)
 	return result
 func run() -> void:
 	if strategy not in ["early","apex","late"]: printerr("unknown_finite_deep_alternative_strategy"); quit(1); return

@@ -43,7 +43,7 @@ func run()->void:
 		root.size=Vector2i(1280,720)
 		var sky:=ColorRect.new();sky.position=Vector2(-2000,-1000);sky.size=Vector2(6000,3000);sky.color=Color("4a635e");sky.z_index=-10;world.add_child(sky)
 		var soil:=ColorRect.new();soil.position=Vector2(-1500,350);soil.size=Vector2(5000,1000);soil.color=Color("182521");soil.z_index=-1;world.add_child(soil)
-	motor=preload("res://scenes/player/player.tscn").instantiate();motor.position=Vector2(500,332);world.add_child(motor)
+	motor=preload("res://game/player/player.tscn").instantiate();motor.position=Vector2(500,332);world.add_child(motor)
 	controller=motor.get_node("Controller")
 	for name:String in ["KeyboardMouseAdapter","PlayerVisualAdapter"]:motor.get_node(name).process_mode=Node.PROCESS_MODE_DISABLED
 	motor.get_node("CourierVisual").hide();motor.get_node("PlayerFeedback").hide()

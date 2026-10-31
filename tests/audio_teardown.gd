@@ -1,6 +1,6 @@
 extends RefCounted
 ## Compatibility entry for existing tests. Production owns the only drain logic.
-const Lifecycle = preload("res://scripts/audio/world_audio_lifecycle.gd")
+const Lifecycle = preload("res://game/presentation/audio/world_audio_lifecycle.gd")
 
 static func drain_world(world: Node, timeout_msec: int = 1000) -> bool:
 	return await Lifecycle.drain_world(world, timeout_msec)

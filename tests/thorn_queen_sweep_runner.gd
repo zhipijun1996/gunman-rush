@@ -407,7 +407,7 @@ func collision_semantics_probe() -> void:
 	check(controller.actor_resources.health.current==4,"same-coordinate Queen body still deals exactly one actual normal damage")
 	check(events.any(func(event: Dictionary) -> bool: return event.get("case")==current and event.get("event")=="policy_result" and event.get("source")=="queen_body_contact" and event.get("target")=="player"),"body contact commits through existing Policy")
 	check(queen.motor.get_collision_exceptions().has(player) and queen.motor.collision_mask==1,"only current Player physics body is excepted while world mask remains")
-	var other := load("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var other := load("res://game/player/player.tscn").instantiate() as PlayerMotor
 	other.position=Vector2(130,582) # Explicit independent actor initial fixture only.
 	world.add_child(other)
 	var other_controller := other.get_node("Controller") as PlayerController

@@ -2,7 +2,7 @@ extends SceneTree
 ## Real packed DemoApp assembly, synchronous cache equivalence fixtures, bounded CPU samples.
 ## These deliberate state mutations are fixtures, not a natural playthrough or phone FPS proof.
 const TEARDOWN := preload("res://tests/audio_teardown.gd")
-const SOURCE := "res://scripts/underworld_plains/underworld_foreground.gd"
+const SOURCE := "res://game/presentation/world/underworld_plains/underworld_foreground.gd"
 const FIXED_SOURCE := "actual_static_geometry_and_functions"
 const FIELDS := ["protect", "static", "dynamic", "source_counts", "overflow"]
 
@@ -418,7 +418,7 @@ func run() -> void:
 	root.size = Vector2i(1280, 720)
 	exercise_trail_discovery()
 	synthetic_prefix()
-	var packed := load("res://scenes/demo/demo.tscn") as PackedScene
+	var packed := load("res://game/application/demo.tscn") as PackedScene
 	check(packed != null, "real demo.tscn loads")
 	if packed != null:
 		var app := packed.instantiate() as DemoApp
@@ -444,7 +444,7 @@ func run() -> void:
 			await frames(4)
 	check(FileAccess.get_sha256(SOURCE) == initial_sha, "production source stays unchanged during run")
 	Engine.max_fps = old_fps
-	var report: Dictionary = {"schema": 1, "checks": checks, "failures": failures, "source_sha256": initial_sha, "scene": "res://scenes/demo/demo.tscn", "seed": "mobile-fps-04", "elapsed_msec": float(Time.get_ticks_usec() - begin) / 1000.0, "scope": "Functional exact-output synchronous fixtures and direct CPU prefix microbenchmark; no visual, gameplay-route, Web FPS or phone acceptance claim.", "scenes": scenes, "cases": cases, "benchmarks": benchmarks, "trail_cases": trail_cases}
+	var report: Dictionary = {"schema": 1, "checks": checks, "failures": failures, "source_sha256": initial_sha, "scene": "res://game/application/demo.tscn", "seed": "mobile-fps-04", "elapsed_msec": float(Time.get_ticks_usec() - begin) / 1000.0, "scope": "Functional exact-output synchronous fixtures and direct CPU prefix microbenchmark; no visual, gameplay-route, Web FPS or phone acceptance claim.", "scenes": scenes, "cases": cases, "benchmarks": benchmarks, "trail_cases": trail_cases}
 	var file := FileAccess.open(output.path_join("report.json"), FileAccess.WRITE)
 	if file == null:
 		check(false, "report output opens")

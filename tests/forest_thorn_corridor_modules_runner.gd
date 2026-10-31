@@ -1,7 +1,7 @@
 extends SceneTree
 ## Full-body root screens plus actual isolated Motor input cases. World/art/FUN remain separate.
 const LIBRARY := preload("res://scripts/generation/forest_thorn_corridor_modules.gd")
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 var assertions := 0
 var failures := 0
 var body_size := Vector2.ZERO

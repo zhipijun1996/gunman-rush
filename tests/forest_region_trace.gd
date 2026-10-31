@@ -19,7 +19,7 @@ class SNAPSHOT:
 			"position":pair(actor.motor.position),"velocity":pair(actor.motor.velocity),
 			"health":{"current":actor.actor_resources.health.current,"capacity":actor.actor_resources.health.capacity},
 			"shot_energy":{"current":actor.actor_resources.stamina.current,"capacity":actor.actor_resources.stamina.capacity},
-			"config_hashes":{"player_tuning":FileAccess.get_sha256("res://config/player_tuning.json"),"input_profile":FileAccess.get_sha256("res://config/input_profile.json"),"traversal":FileAccess.get_sha256("res://resources/player/traversal.tres"),"shot_energy":FileAccess.get_sha256("res://resources/player/plains_shot_energy.tres")}}
+			"config_hashes":{"player_tuning":FileAccess.get_sha256("res://config/player_tuning.json"),"input_profile":FileAccess.get_sha256("res://config/input_profile.json"),"traversal":FileAccess.get_sha256("res://resources/player/traversal.tres"),"shot_energy":FileAccess.get_sha256("res://game/player/resources/plains_shot_energy.tres")}}
 class Observer extends Node:
 	var trace: Node
 	func _physics_process(_delta: float) -> void:
@@ -95,7 +95,7 @@ func _ready() -> void:
 	anchor.position = anchor_point
 	add_child(anchor)
 	if variant == "blocked": surface("SolidTrunk", Rect2(Vector2(205, 470), Vector2(30, 130)), false)
-	player = preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	player = preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	player.position = spawn
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
@@ -202,7 +202,7 @@ func install_observer() -> void:
 	add_child(observer)
 
 func begin_region() -> void:
-	var script: Script = load("res://scripts/demo/demo_app.gd")
+	var script: Script = load("res://game/application/demo_app.gd")
 	if script == null or not script.can_instantiate():
 		route_errors.append("formal_DemoApp_compile_failed")
 		finished = true

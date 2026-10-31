@@ -51,13 +51,13 @@ func nodes_of(node: Node, script_class: String) -> Array[Node]:
 	return result
 func reward(id: StringName, suffix := "") -> void:
 	var offer_id := StringName("boss_time_fixture/"+String(id)+suffix)
-	var catalog: Variant = load("res://scripts/items/v5/item_catalog_v5.gd")
+	var catalog: Variant = load("res://game/loadout/catalog/item_catalog_v5.gd")
 	var choices: Variant = catalog.all_items()
 	choices.clear()
 	choices.append(catalog.get_item(id))
 	var offer: Variant = app.rewards.create_cache_offer(offer_id,choices,offer_id)
 	check(offer != null,"SETUP original reward service admits "+String(id))
-	var request: Variant = load("res://scripts/rewards/reward_claim_request.gd").new()
+	var request: Variant = load("res://game/rewards/grants/reward_claim_request.gd").new()
 	request.token = app.lifetime.token()
 	request.offer_id = offer_id
 	request.option_id = id
@@ -458,7 +458,7 @@ func static_hazard_and_scene_case() -> void:
 func _run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
-	app = load("res://scripts/demo/demo_app.gd").new()
+	app = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(5)

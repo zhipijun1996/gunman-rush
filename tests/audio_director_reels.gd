@@ -8,7 +8,7 @@ func check(value: bool, reason: String) -> void:
 	if not value: failures.append(reason); push_error(reason)
 func run() -> void:
 	root.size = Vector2i(1280, 720)
-	var lab := preload("res://scenes/dev/audio_director_reels.tscn").instantiate() as AudioDirectorReels
+	var lab := preload("res://experiments/audio/entries/audio_director_reels.tscn").instantiate() as AudioDirectorReels
 	root.add_child(lab)
 	for unused: int in 240:
 		await physics_frame

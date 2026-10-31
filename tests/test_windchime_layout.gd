@@ -1,7 +1,7 @@
 extends SceneTree
 ## Real starting PlayerMotor, forward AND return; no ability grants, shots,
 ## mid-route reset, resource refill or actor position writes.
-const Layout := preload("res://scripts/art_foundation/windchime_layout.gd")
+const Layout := preload("res://game/presentation/world/art_foundation/windchime_layout.gd")
 var checks := 0
 var failures: Array[String] = []
 var _layout: Dictionary
@@ -67,7 +67,7 @@ func _run() -> void:
 		platform.travel = item.travel
 		platform.period = item.period
 		world.add_child(platform)
-	_player = preload("res://scenes/player/player.tscn").instantiate()
+	_player = preload("res://game/player/player.tscn").instantiate()
 	_player.position = _layout.spawn
 	world.add_child(_player)
 	_controller = _player.get_node("Controller")
@@ -114,7 +114,7 @@ func _run() -> void:
 	var trace_file := FileAccess.open("res://build/windchime-layout-trace.json", FileAccess.WRITE)
 	if trace_file != null:
 		trace_file.store_string(JSON.stringify({"layout_version": Layout.VERSION,
-			"player_scene": "res://scenes/player/player.tscn", "physics_hz": Engine.physics_ticks_per_second,
+			"player_scene": "res://game/player/player.tscn", "physics_hz": Engine.physics_ticks_per_second,
 			"initial_spawn_only": true, "required_shots": 0, "granted_abilities": [], "frames": _trace}))
 	_controller.shoot_ability.reset()
 	world.free()

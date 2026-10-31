@@ -20,7 +20,7 @@ func stopped(before: Array[Vector2]) -> void:
 	for i: int in before.size(): check(after[i].distance_to(before[i])<.01,"target %s remains fixed" % i)
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute("res://build/studio_input")
-	studio=preload("res://scenes/demo/action_studio.tscn").instantiate();root.add_child(studio)
+	studio=preload("res://experiments/motion/entries/action_studio.tscn").instantiate();root.add_child(studio)
 	await frames(2)
 	check(studio._weapon_picker.focus_mode==Control.FOCUS_NONE,"closed picker cannot consume gameplay Space")
 	check(studio._training_toggle.focus_mode==Control.FOCUS_NONE,"mode toggle cannot consume gameplay Space")

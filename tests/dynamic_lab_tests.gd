@@ -1,6 +1,6 @@
 extends RefCounted
 ## Dynamic module consumer regressions, not platforming reachability evidence.
-const DEMO := preload("res://scenes/demo/demo.tscn")
+const DEMO := preload("res://game/application/demo.tscn")
 var tree: SceneTree
 var check: Callable
 

@@ -15,3 +15,11 @@
 P8.2 须等待 P3/P5/P6/P7 整合后刷新逐文件映射。保留已标记的 226 个协议路径；`PlatformingModuleDefinition` 本身未导出场景路径，而 `RandomStageGenerator.scene_for()` 按原模块 ID 装载场景。其 `content_hash()` 排除 `script/resource_path`，但 Foundry 的 basis 与其他生成器还直接绑定源文件路径/字节，不能仅凭 content_hash 不变就移动场景。模块资源/场景及所有旧 Manifest 身份在证明真实重放兼容前保持原位。
 
 后续一次升到 style26 / creative29 时只绑定冻结后的当前真实消费者。有限归档不能替代新绑定检查；两份既有 Bible 检查 inputs 需追加本归档目录及 `tools/region_style_history.py`，不新增平行检查。回退使用本批提交的 revert；本批父提交为 `7a7883a36fdec904de850aced81cf54fa1d0ff8b`。
+
+## P8.2 有限补档与当前技术引用
+
+P8.1 原 manifest 与全部 80 个原件保持原字节。实际迁移发现，保留 Boss 场景协议路径仍需要修改其中运行脚本引用；两个 terrain_build 元数据也是真实校验消费者，须更新已搬迁脚本的指针。追加 `scene-reference-supplement/`，使用相同有限 manifest 读取算法，仅为这三个旧 style25 输入保存原 `4bb7aa96` 字节，不刷新旧 SHA。另保存 11 份当前资产技术元数据和 12 份关联技术记录的 `986bb75d` 原件，以说明本次路径与元数据指纹变更。补档不是新运行时资源选择表。
+
+当前资产元数据只更改确切的消费者路径；关联记录只重绑被改变元数据的技术 SHA，并注明技术迁移不代签新的艺术、声音、玩法、用户或设备接受。PNG、WAV、原作者来源与许可不变。两份历史测试仍优先读取既有 Boss 父源，再读取原 P8.1 有限归档及本次三个补档；当前 live 绑定不能使用这些快照掩盖漂移。
+
+实际执行 `python3 tests/test_region_bible.py Style25ArchiveTests`：8 项通过，包括三个有限源、全部补档文件指纹、原 manifest 不变、缺失已索引叶节点时即使存在 live 文件也必须失败。当前 style26 / creative29 尚未建立，旧 live 绑定红灯仍保留。最终源码冻结后执行一次技术重绑；原 Foundry source-basis 因真实代码迁移改变，将由既有构建/提升流程验证，不能手改旧 basis 或宣称旧 replay 已兼容。

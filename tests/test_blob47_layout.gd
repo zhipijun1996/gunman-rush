@@ -1,7 +1,7 @@
 extends SceneTree
 ## Grid/semantic generation tests. Does not claim player/Motor clearance proof.
 
-const Layout = preload("res://scripts/art_foundation/blob47_layout.gd")
+const Layout = preload("res://game/presentation/world/art_foundation/blob47_layout.gd")
 var failures: Array[String] = []
 var checks: int = 0
 

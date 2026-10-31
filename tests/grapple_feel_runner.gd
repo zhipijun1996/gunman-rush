@@ -26,7 +26,7 @@ func fixture(start: Vector2, floor_rect: Rect2) -> void:
 	if is_instance_valid(world): world.free()
 	world=Node2D.new();root.add_child(world)
 	slab(floor_rect)
-	player=preload("res://scenes/player/player.tscn").instantiate()
+	player=preload("res://game/player/player.tscn").instantiate()
 	player.position=start;world.add_child(player)
 	controller=player.get_node("Controller")
 	if legacy_collision:

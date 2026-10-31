@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3]
-[ext_resource type="Script" path="res://scripts/bosses/boss_motor.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/bosses/windkeeper_damageable.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/bosses/windkeeper_pressure_encounter.gd" id="3"]
-[ext_resource type="Script" path="res://scripts/bosses/windkeeper_pressure_presentation.gd" id="4"]
+[ext_resource type="Script" path="res://game/bosses/encounter/boss_motor.gd" id="1"]
+[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_damageable.gd" id="2"]
+[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_pressure_encounter.gd" id="3"]
+[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_pressure_presentation.gd" id="4"]
 [ext_resource type="Resource" path="res://resources/bosses/windkeeper_storm.tres" id="5"]
-[ext_resource type="Script" path="res://scripts/audio/windkeeper_pressure_audio.gd" id="6"]
-[ext_resource type="Script" path="res://scripts/bosses/windkeeper_pressure_wind.gd" id="7"]
+[ext_resource type="Script" path="res://game/presentation/audio/windkeeper_pressure_audio.gd" id="6"]
+[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_pressure_wind.gd" id="7"]
 [node name="WindkeeperPressure" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 1

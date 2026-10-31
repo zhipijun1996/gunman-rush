@@ -1,0 +1,123 @@
+{
+  "atlas": {
+    "columns": [
+      "start",
+      "middle",
+      "end",
+      "single"
+    ],
+    "embedded_root_px": 8,
+    "external_depth_px": 24,
+    "path": "assets/underworld_plains/hazards/hazard_surface_fine.png",
+    "sha256": "37bc77717fa0eea0bf4cb760af9a7f17c9d9454e2790a04d5c09b9e3e610dd2b",
+    "source_id": 0.0,
+    "tile_size_px": [
+      32,
+      32
+    ],
+    "tileset": "assets/underworld_plains/hazards/hazard_fine_tileset.tres"
+  },
+  "connection": {
+    "floating_base": false,
+    "material_family": "underworld_green_rock",
+    "root_source": "same_underworld_platform"
+  },
+  "consumer_script": "scripts/underworld_plains/underworld_hazard_tiles.gd",
+  "generated_reference": {
+    "model_status": "unknown; tool exposes no model identifier",
+    "path": "assets/underworld_plains/hazards/generated_reference.png",
+    "prompt_record": "assets/underworld_plains/hazards/generation_call.json",
+    "sha256": "a12fa0e2524fc7f7b5ff7febce23bbd4c5203f8599b0b92f281695dfcf99eb0a"
+  },
+  "legacy_build": "assets/underworld_plains/hazards/hazard_build.json",
+  "processing": {
+    "alpha_cutoff": 128.0,
+    "command": "bash tools/godot.sh --headless --path . --script tools/build_formal_fine.gd",
+    "limits": "Generated reference adapted to pixel grid; not native 47-blob tile art. Orientation uses exact rectangular source mapping; root clipped to real host.",
+    "palette_mapping": "generated reference luma floor(luma/36), clamped 0..5; original rock unchanged",
+    "palette_rgba": [
+      [
+        32.0,
+        13.0,
+        25.0,
+        255.0
+      ],
+      [
+        65.0,
+        22.0,
+        34.0,
+        255.0
+      ],
+      [
+        104.0,
+        39.0,
+        42.0,
+        255.0
+      ],
+      [
+        157.0,
+        75.0,
+        50.0,
+        255.0
+      ],
+      [
+        202.0,
+        129.0,
+        68.0,
+        255.0
+      ],
+      [
+        237.0,
+        185.0,
+        107.0,
+        255.0
+      ]
+    ],
+    "reference_crop_px": [
+      30.0,
+      272.0,
+      2144.0,
+      450.0
+    ],
+    "resample": "nearest",
+    "root_composite": "Actual generated red-root pixels in y24..31 over selected fine terrain substrate; no invented root fill.",
+    "source_detail": "Direct raw2172x724 generated reference to256x32 nearest, not enlarged16px atlas; same alpha128/palette6 rules. Fine32 terrain substrate32x8; real generated red roots only.",
+    "substrate_sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431",
+    "substrate_source": "res://assets/underworld_plains/terrain/fine_32/source.png",
+    "substrate_source_region_px": [
+      64,
+      32,
+      32,
+      8
+    ],
+    "variant_offsets_px": [
+      0,
+      64,
+      128,
+      192
+    ]
+  },
+  "schema_version": 2,
+  "semantics": {
+    "collision_mutation": false,
+    "damage_source": "PlatformThornDefinition.danger",
+    "one_way": false,
+    "orientation": [
+      "top",
+      "left",
+      "right",
+      "bottom"
+    ]
+  },
+  "source_image": {
+    "license": "custom publisher permission; not CC0",
+    "path": "assets/style_exploration/underworld/source/TileSet.png",
+    "publisher": "Asouris",
+    "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c"
+  },
+  "task_id": "FINE-SPACE-05",
+  "world": {
+    "embedded_root_depth": 8.0,
+    "tile_width": 32.0
+  }
+}

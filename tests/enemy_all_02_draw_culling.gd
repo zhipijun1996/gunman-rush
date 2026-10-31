@@ -134,7 +134,7 @@ func run() -> void:
 	world = Node2D.new()
 	world.set_meta(ForestBibleActors.METADATA,true)
 	root.add_child(world)
-	var motor := preload("res://scenes/enemies/forest_lantern.tscn").instantiate() as EnemyMotor
+	var motor := preload("res://game/enemies/species/scenes/forest_lantern.tscn").instantiate() as EnemyMotor
 	world.add_child(motor)
 	actor = motor.get_node("Actor") as EnemyActor
 	actor.set_physics_process(false)

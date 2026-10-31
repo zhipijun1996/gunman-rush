@@ -9,7 +9,7 @@ func expect(value:bool,message:String) -> void:
  checks+=1
  if not value:failures.append(message);printerr("FAIL: "+message)
 func _run() -> void:
- sample=preload("res://scenes/demo/pixel_plains_preview.tscn").instantiate()
+ sample=preload("res://experiments/terrain/entries/pixel_plains_preview.tscn").instantiate()
  root.add_child(sample)
  room=sample.room
  for adapter:String in ["KeyboardMouseAdapter","GamepadAdapter"]:room.player.get_node(adapter).process_mode=Node.PROCESS_MODE_DISABLED

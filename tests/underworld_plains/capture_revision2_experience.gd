@@ -229,7 +229,7 @@ func run() -> void:
 		if argument.begins_with("--seed="):seed=argument.trim_prefix("--seed=")
 	root.size=Vector2i(1280,720)
 	animation_build=JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/player_animation/animation_build.json"))
-	app=preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	await ticks("ordinary_title_boot",45)

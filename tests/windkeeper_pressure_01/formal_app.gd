@@ -56,7 +56,7 @@ func setup() -> bool:
 	player_damage.clear()
 	shots.clear()
 	spawned.clear()
-	app = load("res://scripts/demo/demo_app.gd").new()
+	app = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_debug_region(&"plains", 2, "windkeeper-pressure-formal-01"), "declared map2 debug entry uses actual App formal stage factory")
@@ -68,7 +68,7 @@ func setup() -> bool:
 	check(app.stage.map_index == 2 and app.director.region_map_index == 2, "actual stage and director both identify Plains map2")
 	manifest = JSON.stringify(app.stage.generated.manifest)
 	encounter = app.stage.boss.get_node("Encounter")
-	check(encounter.get_script().resource_path == "res://scripts/bosses/windkeeper_pressure_encounter.gd", "formal BossFactory route instantiates current pressure encounter")
+	check(encounter.get_script().resource_path == "res://game/bosses/windkeeper/windkeeper_pressure_encounter.gd", "formal BossFactory route instantiates current pressure encounter")
 	check(encounter.definition.resource_path == "res://resources/bosses/windkeeper_storm.tres", "formal consumer retains authoritative storm Definition entry")
 	check(encounter.health.capacity == 60 and encounter.health.current == 60, "formal current resource starts requested60HP")
 	var boss: BossMotor = app.stage.boss

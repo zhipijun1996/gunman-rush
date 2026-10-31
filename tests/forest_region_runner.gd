@@ -85,7 +85,7 @@ func run_region() -> void:
 	if not saved_json.is_empty():
 		var restored_state := PlainsRegionState.new()
 		var bound := restored_state.restore(JSON.parse_string(saved_json),str(generated.manifest.manifest_hash))
-		var restored_stage: Node2D = load("res://scripts/demo/thorn_forest_region_stage.gd").new()
+		var restored_stage: Node2D = load("res://game/world/levels/providers/thorn_forest_region_stage.gd").new()
 		restored_stage.region_state = restored_state
 		restored_stage.map_index = map_index
 		restored_stage.configure_generated(generated,tuning)

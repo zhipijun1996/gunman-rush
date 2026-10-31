@@ -1,7 +1,7 @@
 extends RefCounted
 
 func run(_tree: SceneTree, check: Callable) -> void:
-	var resource_reader = load("res://scripts/generation/random_stage_generator.gd").new()
+	var resource_reader = load("res://game/world/generation/random_stage_generator.gd").new()
 	for id: String in ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "moving_transfer", "challenge_recoil_climb", "challenge_long_gap", "route_junction"]:
 		var source := load("res://resources/generation/modules/%s.tres" % id) as PlatformingModuleDefinition
 		check.call(source != null and source.is_valid(), id + " reflection starts from valid authored geometry")

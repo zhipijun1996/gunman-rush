@@ -1,7 +1,7 @@
 extends SceneTree
 ## Meaningful standalone Control/lifecycle contracts. No Home integration,
 ## physical device, natural discovery or actual economy claims.
-const CODEX := preload("res://scripts/ui/home_item_codex.gd")
+const CODEX := preload("res://game/presentation/ui/home_item_codex.gd")
 var assertions := 0
 var failures: Array[String] = []
 var codex: HomeItemCodex
