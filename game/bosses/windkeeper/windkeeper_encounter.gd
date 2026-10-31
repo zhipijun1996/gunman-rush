@@ -376,6 +376,23 @@ func _storm_fan(point: Vector2, offsets: Array) -> void:
 		motor.get_parent().add_child(shot)
 		shot.global_position=origin
 
+# Stage entry restores only the original pre-binding fields. Full combat restore
+# remains at the App's existing post-geometry/activation points.
+func restore_region_entry(data: Dictionary) -> void:
+	restore_region_health(float(data.health))
+	stage_phase = int(data.phase)
+	chase_segment = int(data.chase_segment)
+	mode = StringName(data.mode)
+	clock = float(data.clock)
+
+func _region_pattern_index() -> int:
+	return 0
+
+func region_snapshot() -> Dictionary:
+	var data := {"health":health.current,"phase":stage_phase,"chase_segment":chase_segment,"mode":String(mode),"clock":clock,"position":[motor.position.x,motor.position.y],"active":active,"serial":_attack_serial,"direction":direction,"pattern_index":_region_pattern_index()}
+	data.merge(combat_snapshot(),true)
+	return data
+
 func combat_snapshot() -> Dictionary:
 	return {"intro_duration":intro_duration,"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target,"pier_direction":_pier_direction,"rune_platform":rune_platform}
 

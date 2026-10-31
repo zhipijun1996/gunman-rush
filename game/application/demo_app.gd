@@ -724,12 +724,12 @@ func _load_stage() -> void:
 			if connected_region and not (stage as PlainsRegionStage).restored_boss.is_empty():
 				var saved: Dictionary=(stage as PlainsRegionStage).restored_boss
 				if encounter.has_method("bind_duel"):
-					if not _restore_forest_duel(encounter,saved):
+					if not encounter.call("restore_bound_duel",saved):
 						push_error("Recorded forest duel state rejected after physical target binding")
 						abandon_run()
 						return
 				else:
-					stage.boss.position=Vector2(saved.position[0],saved.position[1])
+					encounter.restore_region_position(saved)
 					# Terminal actors cannot activate again. Restore their actual
 					# articulated wreck/death clock without replaying the encounter.
 					if encounter is BellstriderEncounter and float(saved.get("health",1)) <= 0:
@@ -2240,25 +2240,6 @@ func _bellstrider_hook_admitted(context: Dictionary, receiver: Damageable) -> bo
 	var spatial := traversal.hook_target.get_node_or_null("Damageable") as Damageable
 	return spatial != null and spatial != receiver and spatial.can_receive_effects() and spatial.damage_policy_owner() == receiver and int(context.get("session_id",-1)) == controller.session_id and int(context.get("attack_id",-1)) == traversal._serial and int(context.get("source_actor_id",0)) == player.get_instance_id() and int(context.get("target_actor_id",-1)) == receiver.actor_id and int(context.get("target_epoch",-1)) == receiver.damage_epoch
 
-func _restore_forest_duel(encounter: BossEncounter, data: Dictionary) -> bool:
-	if not encounter.has_method("valid_duel_snapshot") or not encounter.call("valid_duel_snapshot",data): return false
-	var saved_health: Variant = data.get("health")
-	if typeof(saved_health) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(saved_health)) or float(saved_health) < 0 or float(saved_health) > encounter.health.capacity: return false
-	var saved_position: Variant = data.get("position")
-	if not saved_position is Array or saved_position.size() != 2: return false
-	for coordinate: Variant in saved_position:
-		if typeof(coordinate) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(coordinate)): return false
-	var body_position: Variant = data.get("body_position")
-	if not body_position is Array or body_position.size() != 2: return false
-	for index: int in 2:
-		if typeof(body_position[index]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(body_position[index])) or not is_equal_approx(float(body_position[index]),float(saved_position[index])): return false
-	var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
-	restored.initial_current = float(saved_health)
-	encounter.health.configure(restored)
-	encounter.damageable.bind_health(encounter.health)
-	encounter.call("restore_combat_state",data)
-	return encounter.get("last_restore_accepted") == true and encounter.motor.position.is_equal_approx(Vector2(saved_position[0],saved_position[1]))
-
 func _start_generated_boss() -> void:
 	var encounter := stage.boss.get_node("Encounter") as BossEncounter
 	var receiver := stage.boss.get_node("Damageable") as Damageable
@@ -2278,7 +2259,7 @@ func _start_generated_boss() -> void:
 		var data: Dictionary=(stage as PlainsRegionStage).restored_boss
 		if data.get("active",false):
 			if encounter.has_method("bind_duel"):
-				if not _restore_forest_duel(encounter,data):
+				if not encounter.call("restore_bound_duel",data):
 					push_error("Recorded active forest duel rejected")
 					abandon_run()
 					return

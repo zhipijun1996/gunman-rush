@@ -112,6 +112,17 @@ func reward_impact_ready() -> bool:
 	return health.terminal and _death_impacted
 
 
+func restore_region_entry(data: Dictionary) -> void:
+	if float(data.health) <= 0:
+		prepare_terminal_restore()
+	super.restore_region_entry(data)
+	pattern_index = int(data.get("pattern_index",0))
+
+
+func _region_pattern_index() -> int:
+	return pattern_index
+
+
 func prepare_terminal_restore() -> void:
 	# Region loading restores Health before it has the bound player/arena needed
 	# for the complete combat snapshot. Suppress a new death transition during

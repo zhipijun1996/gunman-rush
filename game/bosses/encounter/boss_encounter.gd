@@ -34,6 +34,17 @@ func _ready() -> void:
 	pattern.configure(definition, phases.phase)
 	defeat_id = StringName("boss-defeat-%s" % motor.get_instance_id())
 
+# Region restore keeps the existing instance-local HealthState and epoch signals.
+# Entry policy and validation remain with the owning encounter family.
+func restore_region_health(saved_health: float) -> void:
+	var restored := definition.health_definition.duplicate(true) as HealthDefinition
+	restored.initial_current = saved_health
+	health.configure(restored)
+	damageable.bind_health(health)
+
+func restore_region_position(data: Dictionary) -> void:
+	motor.position = Vector2(data.position[0],data.position[1])
+
 func configure_arena(left: float, right: float, target: Node2D) -> bool:
 	if definition == null or not definition.is_valid() or not arena.configure(left, right, definition.collision_size.x / 2.0):
 		return false

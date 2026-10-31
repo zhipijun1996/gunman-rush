@@ -107,14 +107,10 @@ func _ready() -> void:
 	var encounter := boss.get_node("Encounter") as ThornForestEncounter
 	if not region_state.boss_state.is_empty():
 		restored_boss = region_state.boss_state.duplicate(true)
-		# Duels own extra physical targets. App validates/restores them only after
-		# configure_arena + bind_duel; restoring here would discard their ledger.
+		# Duels own extra physical targets. App schedules encounter validation and
+		# restoration after configure_arena + bind_duel; an early restore loses their ledger.
 		if not encounter.has_method("bind_duel"):
-			var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
-			restored.initial_current = float(restored_boss.health)
-			encounter.health.configure(restored)
-			encounter.damageable.bind_health(encounter.health)
-			encounter.restore_combat_state(restored_boss)
+			encounter.restore_region_entry(restored_boss)
 	if bool(restored_boss.get("seal_closed",false)) and encounter.health.current > 0:
 		spawn = forest_boss_entry_position()
 	reward_position = _canopy_point("reward_position") if _has_canopy_boss() else Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
@@ -199,11 +195,7 @@ func capture_state() -> void:
 		region_state.actors[enemy_manifest[i].id] = actor.region_snapshot(false,true)
 	if is_instance_valid(boss):
 		var encounter := boss.get_node("Encounter") as ThornForestEncounter
-		region_state.boss_state = encounter.combat_snapshot()
-		region_state.boss_state.health = encounter.health.current
-		region_state.boss_state.active = encounter.active
-		region_state.boss_state.direction = encounter.direction
-		region_state.boss_state.position = [boss.position.x,boss.position.y]
+		region_state.boss_state = encounter.region_snapshot()
 		region_state.boss_state.seal_closed = is_instance_valid(boss_seal) and boss_seal.closed
 
 func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) -> bool:

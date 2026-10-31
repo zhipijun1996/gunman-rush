@@ -82,20 +82,20 @@ func guardian_case() -> void:
 		invalid.body_position=malformed
 		var before := duel.combat_snapshot()
 		var hp := duel.health.current
-		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed/mismatched body_position "+str(malformed))
-		check(duel.combat_snapshot()==before and duel.health.current==hp,"malformed App restore is side-effect free "+str(malformed))
+		check(not duel.restore_bound_duel(invalid),"Boss owner rejects malformed/mismatched body_position "+str(malformed))
+		check(duel.combat_snapshot()==before and duel.health.current==hp,"malformed Boss owner restore is side-effect free "+str(malformed))
 	for invalid_field: String in ["stage_phase","weak_side","intro_duration","next_bell","duel_roots","duel_version","duel_counter_enabled","cycles"]:
 		var invalid := saved.duplicate(true)
 		invalid[invalid_field] = {"stage_phase":3,"weak_side":0,"intro_duration":INF,"next_bell":1,"duel_roots":{},"duel_version":"guardian-two-action-static-arena-v5","duel_counter_enabled":1,"cycles":0}[invalid_field]
 		var before := duel.combat_snapshot()
-		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed current duel contract "+invalid_field)
+		check(not duel.restore_bound_duel(invalid),"Boss owner rejects malformed current duel contract "+invalid_field)
 		check(duel.combat_snapshot()==before and duel.health.current==saved.health,"invalid duel contract leaves state untouched "+invalid_field)
 	for patch: Dictionary in [{"duel_version":1},{"duel_counter_enabled":null},{"missing_counter":true}]:
 		var invalid:=saved.duplicate(true)
 		if patch.has("missing_counter"): invalid.erase("duel_counter_enabled")
 		else: invalid.merge(patch,true)
 		var before:=duel.combat_snapshot()
-		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed version/counter type or missing field "+str(patch))
+		check(not duel.restore_bound_duel(invalid),"Boss owner rejects malformed version/counter type or missing field "+str(patch))
 		check(duel.combat_snapshot()==before and duel.health.current==saved.health,"type/missing-field refusal is atomic "+str(patch))
 	await app._load_stage() # Required real unload/create/configure/bind/restore path.
 	await process_frame # Flush deferred old-stage disposal while simulation remains paused.

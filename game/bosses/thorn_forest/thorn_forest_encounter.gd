@@ -147,6 +147,36 @@ func cancel() -> void:
 	super.cancel()
 func reward_stand_position() -> Vector2:
 	return Vector2(arena.left_x + 95, _floor_y - 18)
+# Legacy encounters restore before binding; physical duels deliberately defer.
+func restore_region_entry(data: Dictionary) -> void:
+	restore_region_health(float(data.health))
+	restore_combat_state(data)
+
+func region_snapshot() -> Dictionary:
+	var data := combat_snapshot()
+	data.health = health.current
+	data.active = active
+	data.direction = direction
+	data.position = [motor.position.x,motor.position.y]
+	return data
+
+# Actual duel consumers call this only after geometry and local targets bind.
+func restore_bound_duel(data: Dictionary) -> bool:
+	if not has_method("valid_duel_snapshot") or not call("valid_duel_snapshot",data): return false
+	var saved_health: Variant = data.get("health")
+	if typeof(saved_health) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(saved_health)) or float(saved_health) < 0 or float(saved_health) > health.capacity: return false
+	var saved_position: Variant = data.get("position")
+	if not saved_position is Array or saved_position.size() != 2: return false
+	for coordinate: Variant in saved_position:
+		if typeof(coordinate) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(coordinate)): return false
+	var body_position: Variant = data.get("body_position")
+	if not body_position is Array or body_position.size() != 2: return false
+	for index: int in 2:
+		if typeof(body_position[index]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(body_position[index])) or not is_equal_approx(float(body_position[index]),float(saved_position[index])): return false
+	restore_region_health(float(saved_health))
+	call("restore_combat_state",data)
+	return get("last_restore_accepted") == true and motor.position.is_equal_approx(Vector2(saved_position[0],saved_position[1]))
+
 func combat_snapshot() -> Dictionary:
 	return {"mode":String(mode),"clock":clock,"stage_phase":stage_phase,"intro_duration":intro_duration,"weak_side":weak_side,"cycles":_cycles,"serial":_attack_serial,"attack_epoch":attack_epoch}
 func serialize_combat_state() -> Dictionary: return combat_snapshot()

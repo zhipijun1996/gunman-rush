@@ -64,18 +64,7 @@ func _ready() -> void:
 	if not region_state.boss_state.is_empty():
 		restored_boss=region_state.boss_state.duplicate(true)
 		var encounter := boss.get_node("Encounter") as WindkeeperEncounter
-		var data: Dictionary = region_state.boss_state
-		if encounter is BellstriderEncounter and float(data.health) <= 0:
-			encounter.prepare_terminal_restore()
-		var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
-		restored.initial_current=float(data.health)
-		encounter.health.configure(restored)
-		encounter.damageable.bind_health(encounter.health)
-		encounter.stage_phase=int(data.phase)
-		encounter.chase_segment=int(data.chase_segment)
-		encounter.mode=StringName(data.mode)
-		encounter.clock=float(data.clock)
-		if encounter is BellstriderEncounter: encounter.pattern_index=int(data.get("pattern_index",0))
+		encounter.restore_region_entry(region_state.boss_state)
 	if restored_boss.get("seal_closed",false) and float(restored_boss.get("health",0))>0:spawn=Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
 	reward_position = boss.position
 	pickups.append_array(LevelRuntime.restore_pickups(level_plan.pickups,region_state.claimed))
@@ -290,8 +279,7 @@ func capture_state() -> void:
 			var pose := remains.presentation_snapshot(_remains_support_identity(remains.support_node()))
 			if not pose.is_empty(): region_state.actors[enemy_manifest[index].id].presentation_remains = pose
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
-	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
-	region_state.boss_state.merge(encounter.combat_snapshot(),true)
+	region_state.boss_state = encounter.region_snapshot()
 	region_state.boss_state.seal_closed=is_instance_valid(boss_seal) and boss_seal.closed
 	for i: int in shot_latches.size():
 		var latch := shot_latches[i]
