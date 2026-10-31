@@ -1,0 +1,88 @@
+name: Fixed Godot shutdown backport build
+on:
+  push:
+    branches: [fix/godot-shutdown-toolchain-01]
+    paths:
+      - config/godot_build.json
+      - tools/engine/**
+      - .github/workflows/engine-backport-build.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: engine-backport-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    container: docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - run: python3 tools/engine/test_build_contract.py
+      - id: matrix
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os
+          recipe=json.load(open('config/godot_build.json'))
+          matrix={'include':[{'lane':name,'image':job['image']} for name,job in recipe['jobs'].items()]}
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output:
+              output.write('value='+json.dumps(matrix,separators=(',',':'))+'\n')
+          PY
+  compile:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    container: ${{ matrix.image }}
+    env:
+      GUNMAN_BUILD_IMAGE: ${{ matrix.image }}
+      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-engine-downloads
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Build exact source and reviewed backports with locked dependencies
+        run: python3 tools/engine/build.py --lane '${{ matrix.lane }}' --work /tmp/gunman-engine --jobs 2
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: success()
+        with:
+          name: engine-built-${{ matrix.lane }}
+          path: /tmp/gunman-engine/artifacts/
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: engine-logs-${{ matrix.lane }}
+          path: |
+            /tmp/gunman-engine/*.log
+            /tmp/gunman-engine/artifacts/provenance.json
+            /tmp/gunman-engine-downloads/downloads/*.attempts.jsonl
+          if-no-files-found: warn
+          retention-days: 30
+  package:
+    needs: compile
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container: docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: engine-built-*
+          path: /tmp/engine-lanes
+      - name: Verify all lane identities and assemble immutable distribution candidates
+        run: >-
+          python3 tools/engine/package.py --inputs /tmp/engine-lanes --output /tmp/engine-distribution
+          --release-base-url https://github.com/zhipijun1996/gunman-rush/releases/download/toolchain-godot-4.7.2-gunman-sd1/
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: engine-distribution-candidate
+          path: /tmp/engine-distribution/
+          if-no-files-found: error
+          retention-days: 30
