@@ -14,6 +14,12 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/production_impact.json"
+# Audited isolated experiment configuration, never read by formal generators.
+# These exact path/rule/domain triples are the only additions permitted ahead
+# of config/* routing. A broad policy glob or metadata flag cannot opt out.
+EXACT_EXPERIMENT_CONFIG = {
+    "config/level_pilot_candidates.json": ("ai-level-pilot", "ai_level_pilot"),
+}
 
 
 def unique(items):
@@ -83,10 +89,15 @@ def make_plan(paths, stage, policy, manifest, jobs=1):
     paths = sorted({safe_path(path) for path in paths})
     matches, selected_domains, escalations = [], [], []
     for path in paths:
-        # Only the planner policy itself may precede config/* fail-closed routing.
+        # Planner self-tests and this one isolated pilot catalogue have reviewed
+        # exact consumers. Unknown/shared config retains fail-closed routing.
         planner = next((r for r in policy["rules"] if r["id"] == "planner" and path in r["paths"]), None)
-        forced = not planner and any(fnmatch.fnmatchcase(path, pattern) for pattern in policy["always_full"])
-        rules = [planner] if planner else [r for r in policy["rules"] if any(fnmatch.fnmatchcase(path, p) for p in r["paths"])]
+        audited = EXACT_EXPERIMENT_CONFIG.get(path)
+        experiment = next((r for r in policy["rules"] if audited and r["id"] == audited[0]
+                           and r["domain"] == audited[1] and path in r["paths"]), None)
+        precedence = planner or experiment
+        forced = not precedence and any(fnmatch.fnmatchcase(path, pattern) for pattern in policy["always_full"])
+        rules = [precedence] if precedence else [r for r in policy["rules"] if any(fnmatch.fnmatchcase(path, p) for p in r["paths"])]
         if forced or not rules:
             reason = "Shared runtime/configuration/build boundary" if forced else "Unknown or unregistered dependency scope"
             escalations.append({"path": path, "reason": reason, "to": "full"})

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "task_id": "LEVEL-TOOLS-INTEGRATION-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "a22b8f76f784da044bf2e4fa018ec274f12eab3f",
+  "reviewed_commit": "0d0526de85963f678646fa057c5d8504a7bc5c6a",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "将已存在PR107离线工具及CI路由无损整合到两Boss主线",
+  "player_experience": "正式地图不切换；后续新模块库通过独立合同接入",
+  "constraints": [
+    "不改正式运行代码与资源",
+    "不修改原native pilot九条件或预算"
+  ],
+  "affected_paths": [
+    "config/level_pilot_candidates.json",
+    "config/production_impact.json",
+    "tests/test_level_content_contract.py",
+    "tests/test_level_content_pipeline.py",
+    "tests/test_production_plan.py",
+    "tools/harness/profiles.json",
+    "tools/level_content.py",
+    "tools/level_content_contract.py",
+    "tools/level_content_evidence.py",
+    "tools/level_content_export.py",
+    "tools/level_content_pilot.py",
+    "tools/level_content_report.py",
+    "tools/level_content_search.py",
+    "tools/level_pilot_movie.gd",
+    "tools/level_pilot_movie.gd.uid",
+    "tools/level_pilot_validate.gd",
+    "tools/level_pilot_validate.gd.uid",
+    "tools/production_plan.py",
+    "tools/run_level_content_tests.py"
+  ],
+  "deliverables": [
+    "main170+原AI两项172检查并集",
+    "原Python28/41验证和独立静态审查"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Static CI/config/test merge scope only; native pilot and full CI remain unverified",
+      "evidence": [
+        "ci-merge-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "ci-merge-review",
+      "kind": "review",
+      "path": "docs/evidence/main_unify_20261031/level-tools/independent-review.md",
+      "sha256": "10234f7fea1e32d395060c65af5ba229ccf09446248dc778a610f93bc80981cf",
+      "producer": "/root/structure_audit",
+      "source_commit": "0d0526de85963f678646fa057c5d8504a7bc5c6a",
+      "content_version": "candidate-v1",
+      "method": "Compare both parents, AST test methods and exact check/routing JSON",
+      "observed": "Limited ACCEPT; no old checks, budgets, routing safeguards or actual runtime files changed",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root",
+        "/root/ci_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not edit any reviewed implementation",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "原九条件native pilot在组合源未重跑",
+    "完整172/森林超时/GUI/设备未签"
+  ],
+  "test_change_justification": "Exact main170 prefix retained; append two unchanged PR107 checks. Keep all prior tests, add six original AI tests; explicitly assert168/170/172 and exact config routing negatives. Independent static review provided."
+}
