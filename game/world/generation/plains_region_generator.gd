@@ -371,7 +371,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var value: int=16 if reward_data.tier=="medium" else 36 if reward_data.tier=="high" else 54
 		reward_data.resources.append({"kind":"coin","amount":value})
 		var kind: String="heart" if items_rng.next_int(2)==0 else "note"
-		reward_data.resources.append({"kind":kind,"amount":(2 if reward_data.tier=="medium" else 3 if reward_data.tier=="high" else 4) if kind=="heart" else 1 if reward_data.tier=="medium" else 2 if reward_data.tier=="high" else 4})
+		reward_data.resources.append({"kind":kind,"amount":(2 if reward_data.tier=="medium" else 3 if reward_data.tier=="high" else 4) if kind=="heart" else CacheRewardPolicy.note_amount(reward_data.tier)})
 		if reward_data.reward_mode=="item_resource" and items_rng.next_int(2)==1: reward_data.resources.reverse()
 		reward_data.items=[]
 		for unused: int in 2:

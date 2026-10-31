@@ -1,0 +1,78 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_P11_RELATIVE_TO_FROZEN_P10_NATIVE_PENDING",
+  "reviewer": "ci_audit non-author",
+  "source_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "p10_app_sha256": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+  "candidate_json_sha256": "7ac81ae0939b61859beba8148967dce3fb4c757f1706d6d7e319a6182393bc9c",
+  "patch_sha256": "fafccd439de88d0118d8dfdd438ce66d676c1a6b9f980b6e53475983d3a6cd93",
+  "files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+      "candidate_sha256": "47c3158f8268aad9125e42f102fe5fc9bdd82e9b98909fb43702381c4416e6eb"
+    },
+    {
+      "path": "game/world/generation/plains_region_generator.gd",
+      "before_sha256": "6e16c288e5e9c48631f69bfa0ceb302a3b72fc14fff15c01c1fe4b778c36c68c",
+      "candidate_sha256": "ac6e5a364306c4e768a2de148c9d21ae8e9daba0f0aecf7c934e389081e74477"
+    },
+    {
+      "path": "tests/plains_exploration_expansion_runner.gd",
+      "before_sha256": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "candidate_sha256": "7907c629c856ed4e7288d3b153fb946f644181df88d44aa6bb089f76cfc3b4bc"
+    },
+    {
+      "path": "game/rewards/offers/cache_reward_policy.gd",
+      "before_sha256": null,
+      "candidate_sha256": "12dc715619c1d36c7fbb074f43da7954952ca24cc1700f41a9b8eeab5c17361e"
+    },
+    {
+      "path": "game/rewards/offers/cache_reward_policy.gd.uid",
+      "before_sha256": null,
+      "candidate_sha256": "dcbd071cfed5c1cbb6afc4e459bd9366744a2c5a6da0326451b14c35b1ad41bf"
+    }
+  ],
+  "independent_checks": {
+    "freeze_hashes_all_verified": true,
+    "actual_C59_dependency_git_blobs_verified": {
+      "game/combat/resources/state/health_state.gd": "ec2c1c6c7b8f7821ae7eed20f17364e4701410158a5f344436f3081509bdc2ec",
+      "game/combat/resources/state/actor_resource_state.gd": "16860c344cbe0c3bae68040c6841b69dc67f15025e15c1f1d4e1ef4d0e3d3878",
+      "game/rewards/offers/resource_reward_choice.gd": "7e3c6fd9fba12d7cb2d857fcfc3c0523b713a157c396ac97441fc98a6cfd9304",
+      "scripts/builds/item_definition.gd": "8d31f27f2dbebb6745727741a39be36b24307f85f17ff415da626fac789fe61c",
+      "game/rewards/grants/reward_service.gd": "ff16abef0e835537f4bc2fa3945f2de0efa9fcb1da9136a81263b9c063790a7d",
+      "tools/harness/profiles.json": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c"
+    },
+    "relative_patch_reverse_all_five_exact": true,
+    "App_outside_composition_prefix_and_suffix_exact": true,
+    "P10_ownership_changes_preserved": true,
+    "Generator_only_note_subexpression_changed_entire_source_inverse_exact": true,
+    "all_original_test_source_inverse_exact": true,
+    "original_actual_check_call_lines": 93,
+    "additional_check_sites": 12,
+    "existing_four_check_input_closure_covers_all_five_leaves": true,
+    "profile_full185_unchanged": true
+  },
+  "causal_review": [
+    "Existing App collects eligible items, selects first item according to reward_mode, creates/registers item offer, handles null, copies/new offer, sets offer_id and clears existing candidates at exactly the original location. Pure composition replaces only the following assign/append block; no changes to reward source registration, epochs, claim transactions or UI order.",
+    "complete_choices creates a temporary typed array but retains ItemDefinition references; final assign mutates the original RewardOffer.candidates array rather than replacing it. selected/eligible/resource declarations are not modified or cloned into replacement items.",
+    "Original resource order, two-candidate cap, full-health heart skip, items[1] precedence, one note fallback, duplicate stable IDs and unknown-tier GOLD/four behavior are retained. Variant cache_id/tier preserves the original string/StringName comparison and concatenation behavior; existing casts for resource amount/kind/stable ID remain.",
+    "Health current/capacity are actual pure getters returning _current/_capacity. The moved single boolean read occurs after original create/null/copy/id/clear. ResourceRewardChoice.make and ItemDefinition have no callback/custom initializer/await between old heart reads; local newly created resources have no external observers at that time. Thus the finite current synchronous path has unchanged full-health decisions; no claim for hypothetical future side-effect getters.",
+    "Generator changes only the note amount subexpression to the same pure tier rule. RNG creation, next_int count/order, heart amounts, reverse and item draws are byte-identical. Multi-seed Manifest-byte equivalence still requires actual native output comparison.",
+    "Added pure cases characterize identity/order, resource-only second-item precedence, unknown tier, one fallback and duplicate notes. Four actual App cases use the existing empty pool-provider seam and disclosed fixed chest declarations; they do not claim those are naturally generated empty-pool seeds. All original runner source and 93 actual check-call lines remain, plus 12 new check sites."
+  ],
+  "known_preexisting_behavior_not_fixed": {
+    "resource_only_item_fallback": "Original items[1] can enter a resources-only display offer without RewardService item offer registration; preserved deliberately, separate planned bounded probe not executed here.",
+    "duplicate_note_ID": "Original fallback can repeat a note stable ID; exact behavior preserved."
+  },
+  "remaining": [
+    "P10 finite static-guard closure must be completed and reviewed before the dependent stack is applied.",
+    "Root owns original native suites and unchanged budgets. No GDScript parse/native execution performed in this review.",
+    "Actual Generator multi-seed before/after complete Manifest bytes must be compared; no refreshed golden or changed RNG accepted.",
+    "Combined guard must bind the P11 final App source/body where relevant; no self-approval of stale P10-only expectations."
+  ],
+  "limitations": [
+    "Only external candidate review; no main or engine actions.",
+    "Full-C59 stack patch is evidence only, not the P11 patch to apply.",
+    "No claim of fixing or natively reproducing the preserved original defects, nor of full185/device/export acceptance."
+  ]
+}

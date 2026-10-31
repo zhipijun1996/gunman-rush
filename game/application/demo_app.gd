@@ -2503,16 +2503,7 @@ func _region_interact() -> void:
 		_region_offer=item_offer.copy() if item_offer!=null else RewardOffer.new()
 		_region_offer.offer_id=StringName(chest.id)
 		_region_offer.candidates.clear()
-		_region_offer.candidates.assign(selected)
-		for resource: Dictionary in chest.resources:
-			if _region_offer.candidates.size()>=2: break
-			if resource.kind=="heart" and controller.actor_resources.health.current>=controller.actor_resources.health.capacity: continue
-			var tier: ItemDefinition.Rarity=ItemDefinition.Rarity.BLUE if chest.tier=="medium" else ItemDefinition.Rarity.PURPLE if chest.tier=="high" else ItemDefinition.Rarity.GOLD
-			_region_offer.candidates.append(ResourceRewardChoice.make(StringName(chest.id+"/resource/"+resource.kind),str(resource.kind),int(resource.amount),tier))
-		if _region_offer.candidates.size()<2 and items.size()>1: _region_offer.candidates.append(items[1])
-		# A full-health resource-only cache still offers a valuable note alternative.
-		if _region_offer.candidates.size()<2:
-			_region_offer.candidates.append(ResourceRewardChoice.make(StringName(chest.id+"/resource/note"),"note",1 if chest.tier=="medium" else 2 if chest.tier=="high" else 4,ItemDefinition.Rarity.BLUE if chest.tier=="medium" else ItemDefinition.Rarity.PURPLE if chest.tier=="high" else ItemDefinition.Rarity.GOLD))
+		_region_offer.candidates.assign(CacheRewardPolicy.complete_choices(selected,items,chest.id,chest.tier,chest.resources,controller.actor_resources.health.current>=controller.actor_resources.health.capacity))
 		_region_pending_claim=false
 		_region_chest = index
 		_region_offer_token = lifetime.token()

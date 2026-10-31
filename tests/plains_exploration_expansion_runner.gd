@@ -56,6 +56,8 @@ func run() -> void:
 	for kind: String in ["coin","heart","note"]: await resource_cache(kind)
 	await save_failure_cache()
 	await eligible_item_cache()
+	cache_policy_boundaries()
+	await cache_policy_actual_app()
 	await death_cache()
 	await mini_rays()
 	await enemy_behaviors()
@@ -401,3 +403,52 @@ func formal_consumers() -> void:
 	check(seen.has("coin") and seen.has("heart") and seen.has("note"),"normal generated high/top cards actually offer all three resource categories")
 	check(hopper_checked and fan_checked,"new enemy roles exist in formal randomized instances")
 	var proof:=FileAccess.open("res://build/verification/generated/plains_cohesion/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()
+
+func cache_policy_boundaries() -> void:
+	var first:=ItemCatalogV5.get_item(&"B03")
+	var second:=ItemCatalogV5.get_item(&"B11")
+	var selected: Array[ItemDefinition]=[first]
+	var eligible: Array[ItemDefinition]=[first,second]
+	var none: Array[ItemDefinition]=[]
+	var resources: Array=[{"kind":"heart","amount":2},{"kind":"coin","amount":16}]
+	var resources_before: Array=resources.duplicate(true)
+	var full: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(selected,eligible,"policy/full","medium",resources,true)
+	check(full.size()==2 and is_same(full[0],first) and full[1] is ResourceRewardChoice and (full[1] as ResourceRewardChoice).resource_kind=="coin","cache policy keeps the selected definition identity and skips only full-health heart")
+	var hurt: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(selected,eligible,"policy/hurt","medium",resources,false)
+	check(hurt.size()==2 and is_same(hurt[0],first) and (hurt[1] as ResourceRewardChoice).resource_kind=="heart","cache policy retains resource order and stops after the first eligible alternative")
+	check(resources==resources_before and selected.size()==1 and is_same(selected[0],first) and eligible.size()==2 and is_same(eligible[1],second),"cache composition does not mutate its declaration arrays or clone eligible definitions")
+	var second_item: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(none,eligible,"policy/second","medium",[{"kind":"coin","amount":16},{"kind":"heart","amount":2}],true)
+	check(second_item.size()==2 and is_same(second_item[1],second),"characterization: resource-only second-item fallback precedes note; registration defect remains separate")
+	var empty: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(none,none,"policy/empty","unknown",[],true)
+	check(empty.size()==1 and empty[0].stable_id==&"policy/empty/resource/note" and empty[0].rarity==ItemDefinition.Rarity.GOLD and (empty[0] as ResourceRewardChoice).amount==4,"empty declaration appends only one note and unknown tier keeps the original gold/four fallback")
+	var duplicate_note: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(none,none,"policy/duplicate","medium",[{"kind":"note","amount":9}],true)
+	check(duplicate_note.size()==2 and duplicate_note[0].stable_id==duplicate_note[1].stable_id and (duplicate_note[0] as ResourceRewardChoice).amount==9 and (duplicate_note[1] as ResourceRewardChoice).amount==1,"characterization: composition preserves duplicate note IDs and both original quantities")
+
+func cache_policy_actual_app() -> void:
+	# Empty actual provider is an explicit eligibility boundary, not a generated-seed claim.
+	for row: Array in [["medium",1,ItemDefinition.Rarity.BLUE],["high",2,ItemDefinition.Rarity.PURPLE],["region_top",4,ItemDefinition.Rarity.GOLD],["unknown",4,ItemDefinition.Rarity.GOLD]]:
+		var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
+		check(app.start_plains("cache-policy-"+str(row[0])),"cache policy consumer starts the actual App")
+		await frames(4)
+		app.set_physics_process(false)
+		for contact: DemoContactEmitter in app.stage.find_children("*","DemoContactEmitter",true,false): contact.enabled=false
+		for module: PlatformingModule in app.stage.assembler.modules:
+			for hazard: ModuleSawHazard in module.hazards: hazard.enabled=false
+		app._item_v5_pool.configure(app.build,func() -> Array[ItemDefinition]: return [])
+		var chest: Dictionary=(app.stage as PlainsRegionStage).chests.filter(func(c: Dictionary): return c.tier=="medium")[0]
+		chest.tier=row[0];chest.reward_mode="resources";chest.resources=[{"kind":"coin","amount":16},{"kind":"heart","amount":2}]
+		var declaration: Dictionary=chest.duplicate(true)
+		check(app.controller.actor_resources.health.current==app.controller.actor_resources.health.capacity,"cache policy fixture observes actual full health without changing its value")
+		app.player.position=chest.position;app._region_interact()
+		check(app.reward_modal.opened and paused and app._region_offer!=null and app._region_offer.candidates.size()==2,"actual App displays full-health resource alternatives")
+		if app._region_offer!=null and app._region_offer.candidates.size()==2:
+			var coin:=app._region_offer.candidates[0] as ResourceRewardChoice
+			var note:=app._region_offer.candidates[1] as ResourceRewardChoice
+			check(coin!=null and coin.resource_kind=="coin" and coin.amount==16 and coin.stable_id==StringName(chest.id+"/resource/coin"),"actual App keeps original first coin ID and amount")
+			check(note!=null and note.resource_kind=="note" and note.amount==int(row[1]) and note.rarity==int(row[2]) and note.stable_id==StringName(chest.id+"/resource/note"),"actual App uses the shared tier note alternative after filtering full-health heart")
+		check(app.rewards.get_offer(StringName(chest.id))==null and chest==declaration,"resource-only composition does not register an item offer or mutate the cache declaration")
+		app.reward_modal.close();paused=false
+		app.abandon_run()
+		if not await load("res://tests/audio_teardown.gd").drain_world(app):
+			failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+		app.free();await frames(2)
