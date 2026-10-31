@@ -227,6 +227,60 @@ class ProductionPlanTests(unittest.TestCase):
             self.plan(["docs/handoff.md"], policy=policy)
 
     def test_physical_lanes_require_the_exact_original_full_set(self):
+        # User-authorized retirement of these old map-content checks from default
+        # CI. Reconstruct and hash-pin C59's exact vectors before replaying the
+        # existing historical144..185 assertions below; those are not current
+        # default coverage claims. No check/command/budget is reconstructed.
+        current_manifest = self.manifest
+        retired_positions = {
+            'docs': [],
+            'core': [],
+            'gameplay': [(20, 'forest-interwoven-contract'), (33, 'level-design-golden'), (38, 'plains-redesign-golden'), (39, 'plains-redesign-spatial'), (40, 'plains-experience-golden'), (50, 'forest-h-slice'), (62, 'forest-depth-region'), (67, 'forest-vertical-shortcut'), (101, 'forest-bible-world-contract'), (102, 'forest-bible-world-connection'), (103, 'forest-bible-world-backbranch'), (107, 'forest-bible-world-connection-map1'), (108, 'forest-bible-world-backbranch-map1'), (109, 'forest-bible-world-spiral')],
+            'art': [(43, 'forest-h-slice'), (81, 'forest-bible-world-contract'), (82, 'forest-bible-world-connection'), (83, 'forest-bible-world-backbranch')],
+            'web': [],
+            'full': [(31, 'forest-interwoven-contract'), (44, 'level-design-golden'), (49, 'plains-redesign-golden'), (50, 'plains-redesign-spatial'), (51, 'plains-experience-golden'), (61, 'forest-h-slice'), (76, 'forest-depth-region'), (81, 'forest-vertical-shortcut'), (116, 'forest-bible-world-contract'), (117, 'forest-bible-world-connection'), (118, 'forest-bible-world-backbranch'), (122, 'forest-bible-world-connection-map1'), (123, 'forest-bible-world-backbranch-map1'), (124, 'forest-bible-world-spiral')],
+        }
+        c59_profile_sha256 = {'docs': '0552d688b6e75fe033f98c8f0f9b5bf22ca8b9d6a57547fd521b4305b8ed110e', 'core': '98aa48c726a2bde3c973f17094737e440f5c1262723e83d68782365cd40327b3', 'gameplay': 'af9cc2551e55f726f0231be5556485fd9608faa19fa2ed80f186f48b2463d65d', 'art': 'bb1d3e346780b6ee0c27bcd05fe570aeee5dc561c3b42d9df7a8d1d6760c7dfe', 'web': '3d160046a76d34296ca5ee1bbb6e929bd8bd5e739604470cefbae2cdc89f3098', 'full': 'd5cbe9db8d0ff831eb8328916d30c98a5724697351d7649889b19f6a77f17c00', 'legacy-compat': 'c46db10cc740987ffabb22509b8bb68ea662bbbbde1f74a34a6390d4e5939c84'}
+        canonical = lambda value: hashlib.sha256(json.dumps(
+            value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        retired = [name for _index, name in retired_positions["full"]]
+        self.assertEqual(len(retired), 14)
+        self.assertEqual(len(set(retired)), 14)
+        historical_manifest = copy.deepcopy(current_manifest)
+        for profile, positions in retired_positions.items():
+            actual = current_manifest["profiles"][profile]
+            self.assertFalse(set(actual) & set(retired), profile)
+            restored = list(actual)
+            for index, name in positions:
+                restored.insert(index, name)
+            self.assertEqual(canonical(restored), c59_profile_sha256[profile], profile)
+            historical_manifest["profiles"][profile] = restored
+            self.assertEqual(actual, [name for name in restored if name not in retired])
+        manual = current_manifest["profiles"]["legacy-compat"]
+        self.assertEqual(canonical(manual[:16]), c59_profile_sha256["legacy-compat"])
+        self.assertEqual(manual[16:], retired)
+        historical_manifest["profiles"]["legacy-compat"] = manual[:16]
+        for name in retired:
+            self.assertIn(name, current_manifest["checks"])
+        for domain in self.policy["domains"].values():
+            for stage in ("development", "integration"):
+                self.assertFalse(set(domain[stage]) & set(retired))
+        current = self.plan(["game/application/demo_app.gd"], "integration")
+        historical = make_plan(["game/application/demo_app.gd"], "integration",
+                               self.policy, historical_manifest)
+        self.assertEqual(current["ci_route"], "full_lanes")
+        for key, actual in [("checks", current["checks"]),
+                            ("parallel", current["ci_lane_checks"]["parallel"]),
+                            ("serial", current["ci_lane_checks"]["serial"])]:
+            prior = historical["checks"] if key == "checks" else historical["ci_lane_checks"][key]
+            self.assertEqual(actual, [name for name in prior if name not in retired], key)
+        self.assertEqual((len(current["checks"]), len(current["ci_lane_checks"]["parallel"]),
+                          len(current["ci_lane_checks"]["serial"])), (171, 92, 79))
+        self.assertFalse(set(current["ci_lane_checks"]["parallel"]) & set(current["ci_lane_checks"]["serial"]))
+        self.assertEqual(set(current["checks"]), set(current_manifest["profiles"]["full"]))
+        # Only this test instance sees the pinned historical profiles. All
+        # original assertions/negative plans below remain executable unchanged.
+        self.manifest = historical_manifest
         full = self.plan(["game/application/demo_app.gd"], "integration")
         self.assertEqual(full["ci_route"], "full_lanes")
         self.assertEqual(set(full["checks"]), set(self.manifest["profiles"]["full"]))
@@ -373,6 +427,7 @@ class ProductionPlanTests(unittest.TestCase):
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
         with_extra = make_plan(["game/application/demo_app.gd"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
+        self.manifest = current_manifest
 
     def test_real_refactor_runners_keep_direct_strict_native_contracts(self):
         rows = [
