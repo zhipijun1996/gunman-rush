@@ -410,6 +410,11 @@ class ProductionPlanTests(unittest.TestCase):
                 self.assertTrue((ROOT / path).is_file())
                 self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "a" * 64}),
                                     harness.input_digest(check, [path], {}, {path: "b" * 64}), name + ":" + path)
+        preview = "experiments/platform/preview_affordance.gd"
+        check = self.manifest["checks"]["underworld-pipeline"]
+        self.assertTrue((ROOT / preview).is_file())
+        self.assertNotEqual(harness.input_digest(check, [preview], {}, {preview: "a" * 64}),
+                            harness.input_digest(check, [preview], {}, {preview: "b" * 64}))
 
     def test_finite_bible_inputs_include_the_shared_frozen_source_adapter(self):
         import harness
