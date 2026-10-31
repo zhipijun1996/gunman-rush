@@ -1,0 +1,11 @@
+# CI-FOUNDRY-CONSUMERS-01：同源Foundry产物传递与开发池刷新
+
+独立small_fix，formal_impact=true；[质量卡](../../quality/records/CI-FOUNDRY-CONSUMERS-01.json)绑定`b893b45e0039e73eb2cb8606964efdd73b53f19a`基点及当前WIP57文件SHA。没有改生成算法/物理/碰撞/伤害/资源/奖励/RNG/存档，也没有新资源选择或平行CI。
+
+首environment run41192769750在checkout阶段由root取消，未执行完整full182，不记绿灯也不冒称完整CI失败；本记录据root实际操作通知说明，远端API原收据待补。随后本地原stamper实际拒绝旧canonical池、返回1，[原失败](../../evidence/game_architecture_02/ci-foundry-consumers-01/foundry-b893-preexisting-stamp-check.log)保留。它证明过期源守门生效，不是Android已经实际导出失败的证据。
+
+Android原有needs只传递成功依赖，不向独立checkout复制prepare产生的资源。当前4行补丁复用其他消费者的`actions/download-artifact@v4`，取同一次运行`validated-foundry`到`resources/foundry/`，放在原SDK/build之前。缺产物会失败，不静默回退；needs、manual build_android条件、30分钟、原182列表/预算和stamper源校验均保留。独审仅静态接受这项传递，不签Android SDK/APK/设备或远端工作流。
+
+root已实际运行原`python3 tools/foundry.py build --count 24 --promote`，再运行原`bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd`。原默认24+6+6得到36个开发短句和18个连接证明，basis为`4b8bf84672a16f455651397c900287f1d8ba605c34bbf6d8b6ddc5c20f716e19`，[build/stamp与前后清单](../../evidence/game_architecture_02/ci-foundry-consumers-01/refresh/after.json)分别保留；不是手改basis，也不是生产池或游玩认可。
+
+56份旧文件保在精确b893 Git及外部备份，原件SHA逐一核对，仓库只归档有限清单/日志，不重复放4.8MB旧replays。56份当前JSON是否仅metadata/派生hash变化及frames是否一致正在独审，当前不作等价声明。Harness原91与原Foundry lab/touch/feedback补验待root结果；工作流in_progress，技术验收暂unverified。完整full182、实际平台导出、GUI/设备和趣味性仍未验。

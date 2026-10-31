@@ -1,0 +1,17 @@
+# Foundry current consumer test migration candidate
+
+Frozen source: `b893b45e0039e73eb2cb8606964efdd73b53f19a`. External candidate only; author did not edit main or run Godot.
+
+The original Lab run failed two obsolete two-shot expectations (35 checks / 2 failures). Touch (439 / 0) and Feedback (12 / 0) passed their behavioral checks but all three strict wrappers rejected leaked Home MP3 playback. Original failures remain failures; their log hashes are recorded in candidate.json.
+
+Lab now compares the actual App-created player against existing FoundryCatalog.tuning_for("base"/"double_jump") and PlayerTuning.load_default(). Base still requires one jump; double_jump still requires two and executes an actual second jump. The current default one-shot guard and explicit development four-shot assertion remain. No production tuning or resource changes.
+
+All three tests keep the existing audio presence assertion and --prove-skip-drain negative control, resolve the scoped service using GameAudio.for_origin(app), and call the existing audio_teardown.drain_world(app). This delegates to the sole WorldAudioLifecycle implementation and checks descendant SFX, music and fallback release within the unchanged shared 1000 ms. No fixed sleep or log filtering.
+
+Static validation: each candidate reverses byte-for-byte to its archived original after removing only the declared replacements; check call-site counts, action ordering, six Lab replay iterations, loop bounds, frame waits, labels, exit markers and quit behavior remain intact. git apply --check succeeded. Native and independent review remain separate pending results.
+
+Run unchanged strict wrappers at 180 seconds (new output locations):
+
+    python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_lab_runner.gd --marker "^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$" --timeout 180 --output build/foundry-current-consumer-tests-01/lab
+    python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_touch_runner.gd --marker "^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$" --timeout 180 --output build/foundry-current-consumer-tests-01/touch
+    python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_feedback_runner.gd --marker "^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$" --timeout 180 --output build/foundry-current-consumer-tests-01/feedback

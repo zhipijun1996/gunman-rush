@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+ERROR: Foundry source changed after validation; rebuild batch before export
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/foundry_export_stamp.gd:7)
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/workspace/gunman-rush-refactor/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

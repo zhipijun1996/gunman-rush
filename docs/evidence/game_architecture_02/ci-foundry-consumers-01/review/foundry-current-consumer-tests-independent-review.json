@@ -1,0 +1,141 @@
+{
+  "reviewer": "structure_audit",
+  "reviewed_at_utc": "2026-10-31T10:44:09.222492+00:00",
+  "decision": "LIMITED_STATIC_ACCEPT",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "patch_sha256": "11264fcc3b5881e522f39bbbfe3779f3129db8e4f7e694503842713fe4b0fc0b",
+  "files": [
+    {
+      "path": "tests/foundry_lab_runner.gd",
+      "original_sha256": "1ce000aed63c56f6eff3d483120e25bdbc921151f66ee6d445f237d3c956d45f",
+      "candidate_sha256": "bc8d8757b09c04f00229b2767e86b6734b40d99917690ce754948f431093c08c",
+      "reverse_exact": true,
+      "check_call_sites_before": 27,
+      "check_call_sites_after": 27,
+      "changes": 4,
+      "main_unchanged": true,
+      "independent_original_git_blob_verified": true,
+      "independent_inverse_whole_file_equal": true
+    },
+    {
+      "path": "tests/foundry_touch_runner.gd",
+      "original_sha256": "1521ce68d0680c541546e74e8c1f20b7e868d358502495259616c89a4ac524a6",
+      "candidate_sha256": "d063993cefb8ae2136d4a61245fdeb183aaf2c55ea51645bdd24784ea748cfae",
+      "reverse_exact": true,
+      "check_call_sites_before": 20,
+      "check_call_sites_after": 20,
+      "changes": 2,
+      "main_unchanged": true,
+      "independent_original_git_blob_verified": true,
+      "independent_inverse_whole_file_equal": true
+    },
+    {
+      "path": "tests/foundry_feedback_runner.gd",
+      "original_sha256": "1dc200bdab42d0b82df7b5bbbcd05ef94ac0305dfcf15c5edc5a0069443c3c81",
+      "candidate_sha256": "0b02c69a1785c65c259906a81f9a9811aafc11fc4bb4f37ed7302b3fcdc57a9b",
+      "reverse_exact": true,
+      "check_call_sites_before": 12,
+      "check_call_sites_after": 12,
+      "changes": 2,
+      "main_unchanged": true,
+      "independent_original_git_blob_verified": true,
+      "independent_inverse_whole_file_equal": true
+    }
+  ],
+  "supporting_source_sha256": [
+    {
+      "path": "game/world/generation/foundry_catalog.gd",
+      "sha256": "f29157e9fa36bf348ffa258a821d3227cdaa3385d587bdf57b41cff385de0fee"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "config/foundry_capabilities.json",
+      "sha256": "8486a94ba242f341d7bd53f175477d26bfd965d5f165feac9919c4ca2723b751"
+    },
+    {
+      "path": "experiments/generation/foundry_lab.gd",
+      "sha256": "e09e2a3475e12c902a98ad1fb70a58f39cde5eb8b026eaf31765fb176f579838"
+    },
+    {
+      "path": "tests/audio_teardown.gd",
+      "sha256": "0cfa8959bef31d171cee212ca0878a31df5b1c76cdf976e2d0efe9c2c59c40f2"
+    },
+    {
+      "path": "game/presentation/audio/world_audio_lifecycle.gd",
+      "sha256": "54138348ec092b3f9c7dac9afeec8b272e65baed91caab65fb55d0c2e0b7a46f"
+    },
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "sha256": "79bd8fc3aacad831947f1035d40930b35e91ba5c03cbfbad4ef09a1f25a27235"
+    },
+    {
+      "path": "tools/run_audio_lifecycle_tests.py",
+      "sha256": "e93b5d235d9e13d376706915e87293e6442480e3b94bfb0a551eb71445fb6214"
+    }
+  ],
+  "old_failure_evidence": [
+    {
+      "path": "build/entry-final-b893/foundry-lab/native.log",
+      "sha256": "0ba5abfbb2b05a11c9328a056ad810f047a0581f3ed41d38b36a82a43ee8d906",
+      "independently_hash_checked": true,
+      "summary_and_errors": [
+        "FOUNDRY LAB: 35 assertions, 2 failures",
+        "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 1 resources still in use at exit.",
+        "Leaked instance: AudioStreamMP3:9223372335338228178 - Reference count: 1",
+        "Resource still in use: res://assets/audio/bgm/the_kindred_hearth.mp3 (AudioStreamMP3)"
+      ]
+    },
+    {
+      "path": "build/entry-final-b893/foundry-touch/native.log",
+      "sha256": "6391bc488fdd0b80e8af3f8c0ad269091746cbded72e15d97a07e8d04bed9e60",
+      "independently_hash_checked": true,
+      "summary_and_errors": [
+        "FOUNDRY TOUCH: 439 assertions, 0 failures",
+        "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 1 resources still in use at exit.",
+        "Leaked instance: AudioStreamMP3:9223372335690549709 - Reference count: 1",
+        "Resource still in use: res://assets/audio/bgm/the_kindred_hearth.mp3 (AudioStreamMP3)"
+      ]
+    },
+    {
+      "path": "build/entry-final-b893/foundry-feedback/native.log",
+      "sha256": "e0f366f450b568ef3417612983e76c101e9e7354de021ae0fdf331c72121f51c",
+      "independently_hash_checked": true,
+      "summary_and_errors": [
+        "LAB FEEDBACK: 12 assertions, 0 failures",
+        "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 1 resources still in use at exit.",
+        "Leaked instance: AudioStreamMP3:9223372335975762383 - Reference count: 1",
+        "Resource still in use: res://assets/audio/bgm/the_kindred_hearth.mp3 (AudioStreamMP3)"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "topic": "Current configuration expectations",
+      "result": "The two old hardcoded max_air_shots==2 assertions contradict current default1/base1/double_jump1. This is an explicit current-test contract migration, not preservation of those obsolete expected values. New assertions test actual constructed Player against existing catalog and independently loaded default, retain literal jumps1/2 and old final literal default1/1, plus actual second jump and air_chain4. Thus this is not only comparing a value to itself or accepting any catalog result."
+    },
+    {
+      "topic": "Ownership and cleanup",
+      "result": "App directly owns GameAudio and GameMusic. Existing for_origin(app) resolves scoped service; nonnull guard remains. Existing audio_teardown delegates sole production WorldAudioLifecycle; it drains descendant fallback, GameAudio and GameMusic with shared1000ms budget before app.free. No parallel drain implementation or extra timer. Skip-drain still bypasses cleanup and its assertion exactly as before."
+    },
+    {
+      "topic": "Preservation",
+      "result": "Independent inverse transformation restores every byte of each original Git source; only two obsolete conditions and scoped cleanup expressions change. Same check call counts, labels, six-replay loop, frame waits, actions, fixtures, pause/return ordering and completion markers. Wrapper180 and strict engine-error/leak rejection unchanged."
+    }
+  ],
+  "test_change_justification": {
+    "lab_two_expectations": "Migrate obsolete hardcoded two-shot assumptions to existing FoundryCatalog.tuning_for(base/double_jump) and current PlayerTuning.load_default, still requiring actual one/two jumps and current configuration wiring. Original tail explicit 1-shot default guard remains. This changes outdated test contracts, not behavior-equivalent assertions.",
+    "all_three_teardowns": "Keep service-presence and original skip-drain negative-control guard. Resolve owner via existing GameAudio.for_origin(app), then use existing tests/audio_teardown.drain_world(app) to observe all descendant GameAudio, GameMusic and fallback playback release within original shared 1000ms default. No sleeps, budget change, relaxed marker or log filter.",
+    "preserved": "All original assertion call counts and labels, six real Lab replay iterations, exact movement/damage/feedback/touch actions, frame waits, pause and leave order, actual second jump, explicit air_chain four-shot capability, forged manifest negatives and terminal strict quit markers. Only listed two conditions and cleanup expressions differ."
+  },
+  "limits": [
+    "No engine or candidate test executed by reviewer. Original lab35/2 and touch439/0/feedback12/0 strict leak failures preserved and hash verified.",
+    "Acceptance permits applying these three frozen test files for native verification only; it does not declare Foundry pass, generated-pool freshness, full185, Web/mobile or GUI acceptance.",
+    "Root must run all three existing strict wrappers at180 plus actual skip-drain negative control; use same freshly validated Foundry source basis and do not relax timeout or leak filters."
+  ]
+}

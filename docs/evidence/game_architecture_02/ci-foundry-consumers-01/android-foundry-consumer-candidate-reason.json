@@ -1,0 +1,67 @@
+{
+  "decision": "CONFIRMED_MISSING_REAL_CONSUMER_ARTIFACT_HANDOFF",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "source_workflow_sha256": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+  "candidate_workflow_sha256": "a6c070826a9a33d76b8ba87fdec9028d843e4cdff0366eaaa9e904866e44a0a5",
+  "patch_sha256": "60700c18c7b02e79dea0e5f0ba4edbd6f1797d07cd9ba9643a76e0f6b1e684a9",
+  "only_change": "Android adds existing actions/download-artifact@v4 name=validated-foundry path=resources/foundry/ before install/build. Exactly same four-line consumer used by core_checks/core/windows/web.",
+  "source_lines": {
+    "prepare_produces": [
+      82,
+      89
+    ],
+    "existing_consumers": [
+      151,
+      318,
+      411,
+      436
+    ],
+    "android_missing_original": [
+      527,
+      548
+    ],
+    "build_revalidates_stamp": [
+      146,
+      147
+    ],
+    "stamp_rejects_stale": "tools/foundry_export_stamp.gd:5-9",
+    "catalog_batch": "game/world/generation/foundry_catalog.gd:181"
+  },
+  "reason": "Job dependencies gate success but do not copy resources across isolated checkout workspaces. Android transitively depends on prepare via core/windows/web yet receives only tracked old resources/foundry. The same source/export guard necessarily rejects that old batch if reached, as the recorded current-source stamp check demonstrates. Existing download without run-id selects the same workflow run artifact; no cross-run restore or bypass is added.",
+  "same_run_existing_artifact": true,
+  "unchanged": [
+    "job needs",
+    "manual build_android condition",
+    "30-minute Android budget",
+    "all existing install/build commands",
+    "platform presets and engine/source guards",
+    "all other jobs",
+    "full182 checks and budgets",
+    "prepare count24 and stamp"
+  ],
+  "baseline_failure": {
+    "path": "/workspace/refactor-evidence/foundry-b893-preexisting-stamp-check.log",
+    "sha256": "07a6f7f45005851ffab49ba620ca8e006260e8183b3c2eefdfc6298fe7291410",
+    "observation": "root actual optimized-engine stamp returned1 before export; reviewer read log only"
+  },
+  "apply_check_exit": 0,
+  "canonical_pool_recommendation": {
+    "required": true,
+    "commands": [
+      "python3 tools/foundry.py build --count 24 --promote",
+      "bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd"
+    ],
+    "count_semantics": "Existing defaults base/double_jump/air_chain produce24+6+6=36 accepted development phrases. Do not change --count to36; that would produce36+9+9=54 and change scope.",
+    "preserve": "Retain old batch/replays/stamp and failed stamp evidence externally, run original guarded validator at frozen final source, inspect genuine produced canonical resources/foundry diff; only then commit rebuilt development batch/replays/stamp. No hand-edited basis/SHA, no production-pool promotion or fun/visual approval.",
+    "basis_note": "Foundry source basis covers actual bounded scripts/resources and engine string. Final source must be stable before rebuilding. Metadata-only/workflow change does not itself justify altering runtime rules.",
+    "history_docs": [
+      "docs/worklines/game_architecture_01/migration_report.md:113",
+      "docs/worklines/game_architecture_01/continuation_guide.md:123"
+    ]
+  },
+  "limits": [
+    "No engine invocation or main writes by reviewer.",
+    "This patch fixes handoff; Android SDK installation, real APK export and platform execution remain separate validations.",
+    "Current checkout/prepare run may be cancelled by root to replace actual broken source; reviewer has not cancelled or changed remote state."
+  ]
+}

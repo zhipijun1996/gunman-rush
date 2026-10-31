@@ -1,0 +1,146 @@
+{
+  "scope": "External author implementation/static evidence only; independent review and native selected3/full185 pending",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "check_definition_source": {
+    "path": "/workspace/refactor-evidence/foundry-harness-registration-check-candidates.json",
+    "sha256": "ab28000fd9a44bd758461016a716ab626a55b7230abb7868fa0389a8e323be81"
+  },
+  "old_check_count": 215,
+  "old_check_dicts_exact": true,
+  "append_only_profiles": {
+    "full": {
+      "prefix": 182,
+      "total": 185
+    },
+    "gameplay": {
+      "prefix": 167,
+      "total": 170
+    }
+  },
+  "lanes": {
+    "old": [
+      95,
+      87
+    ],
+    "new": [
+      95,
+      90
+    ]
+  },
+  "full_equals_gameplay_art_web_docs_union": true,
+  "new_checks_exact_source": [
+    "foundry-lab",
+    "foundry-touch",
+    "foundry-feedback"
+  ],
+  "all_new_inputs": {
+    "entries_per_check": 623,
+    "tracked_and_exist": true,
+    "assets_entries_per_check": 596,
+    "no_whole_assets_root": true
+  },
+  "android_artifact_fix_preserved_exact": true,
+  "environment_removed_only_exact_three_foundry_blocks": true,
+  "environment_audio_service_gpu_and_artifact_collection_preserved": true,
+  "delivery": {
+    "old_commands_and_patterns": 12,
+    "new_commands_and_patterns": 9,
+    "removed_indices": [
+      3,
+      4,
+      5
+    ],
+    "all_other_ast_exact": true,
+    "freeze_after_stamp_index1_preserved": true
+  },
+  "budgets": {
+    "old_checks_exact": true,
+    "new_outer": 180,
+    "existing_wrapper_inner": 180
+  },
+  "apply_check_exit": 0,
+  "no_main_writes_no_engine": true,
+  "files": [
+    {
+      "path": ".github/workflows/environment.yml",
+      "before_sha256": "a6c070826a9a33d76b8ba87fdec9028d843e4cdff0366eaaa9e904866e44a0a5",
+      "candidate_sha256": "a7b228a51e7ff1a32a399075a8d09f8a3c3c09e82b891b7d695fbfce0f254cf1"
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "before_sha256": "b8845ec6b5b55a057e116d8e811881871b47b88b796cc0fb4a75bc3d558238fc",
+      "candidate_sha256": "374347807aa9f7ae73fe8f467bc256fe55079243b5319c3160b407a82c9adeae"
+    },
+    {
+      "path": "tools/deliver.py",
+      "before_sha256": "06daaccbc40a92ffa27a31829a945f08ec5ed1f44cd80e8d4d5a3c6e2eead5d9",
+      "candidate_sha256": "f90e7115d4a65bc8a27f8196e8d32efd47cb4a337eaa71dab7305851fdf5ea26"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "before_sha256": "07792c86ac9610b9fef13dcb9ae9f8c9dde3dd3638c9f0eccdd9d501d3e681f5",
+      "candidate_sha256": "e4becd029357e36309564008b6735f4d0c2a3759bd73633c00dd0ad13f67ba71"
+    }
+  ],
+  "patch_sha256": "d151a2f251f6b87a7864b4ea8022ec1f54940c377fd4c948af25340bfba8d74a",
+  "production_plan_guard": {
+    "changed_existing_method_only": [
+      "test_physical_lanes_require_the_exact_original_full_set"
+    ],
+    "all_methods_preserved": true,
+    "old_counts_preserved": [
+      [
+        168,
+        92,
+        76
+      ],
+      [
+        170,
+        93,
+        77
+      ],
+      [
+        172,
+        94,
+        78
+      ],
+      [
+        173,
+        94,
+        79
+      ],
+      [
+        174,
+        95,
+        79
+      ],
+      [
+        180,
+        95,
+        85
+      ],
+      [
+        181,
+        95,
+        86
+      ],
+      [
+        182,
+        95,
+        87
+      ]
+    ],
+    "new_count": [
+      185,
+      95,
+      90
+    ],
+    "full182_and_gameplay167_ordered_prefix_hashes_from": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+    "no_test_harness_changes": true
+  },
+  "validation_status": "Existing production_plan full CLI passed on actual candidate overlay; no Harness91/native selected3/full185 claim",
+  "existing_plan_test_receipt": {
+    "path": "actual-production-plan-tests.json",
+    "sha256": "e328a2a936cc2ae170405495f431830a052850bcff306eafd6fe6e2e478fced6"
+  }
+}

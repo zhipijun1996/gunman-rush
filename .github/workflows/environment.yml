@@ -269,24 +269,6 @@ jobs:
           --script tests/audio_lifecycle_runner.gd
           --marker "^AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$"
           --output build/verification/audio-lifecycle/service
-      - if: matrix.lane == 'serial'
-        run: >-
-          python3 tools/run_audio_lifecycle_tests.py
-          --script tests/foundry_lab_runner.gd
-          --marker "^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$"
-          --output build/verification/audio-lifecycle/lab
-      - if: matrix.lane == 'serial'
-        run: >-
-          python3 tools/run_audio_lifecycle_tests.py
-          --script tests/foundry_touch_runner.gd
-          --marker "^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$"
-          --output build/verification/audio-lifecycle/touch
-      - if: matrix.lane == 'serial'
-        run: >-
-          python3 tools/run_audio_lifecycle_tests.py
-          --script tests/foundry_feedback_runner.gd
-          --marker "^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$"
-          --output build/verification/audio-lifecycle/feedback
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -538,6 +520,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
       - run: bash tools/cloud_setup.sh --accept-android-licenses
       - run: python3 tools/build.py android
       - uses: actions/upload-artifact@v4

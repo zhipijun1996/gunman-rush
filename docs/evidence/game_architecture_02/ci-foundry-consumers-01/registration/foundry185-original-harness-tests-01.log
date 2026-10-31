@@ -1,0 +1,236 @@
+..{"profiles": ["gameplay"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T104957.705350Z/a.log
+a: failed
+Evidence: build/verification/harness/20261031T104957.705350Z/report.json
+.{"profiles": ["gameplay"], "changed_paths": [], "checks": ["b", "c"]}
+Running b (fresh); log: build/verification/harness/20261031T104957.999584Z/b.log
+b: passed
+Running c (fresh); log: build/verification/harness/20261031T104957.999584Z/c.log
+c: passed
+Evidence: build/verification/harness/20261031T104957.999584Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T104958.491482Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T104958.491482Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T104958.724002Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T104958.724002Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T104959.044251Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T104959.044251Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T104959.261195Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T104959.261195Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T104959.593534Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T104959.593534Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T104959.805092Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T104959.805092Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105000.093632Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105000.093632Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105000.317834Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105000.317834Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105000.865071Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105000.865071Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105001.096209Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105001.096209Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105001.405005Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105001.405005Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105001.640354Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105001.640354Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a", "b"]}
+Evidence: build/verification/harness/20261031T105001.899532Z/report.json
+.usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Phases/merge require explicit profiles, jobs=1, no check/reuse/auto; phases require release
+.{"profiles": ["gameplay"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105001.949861Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105001.949861Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105002.186074Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105002.186074Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105002.424162Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105002.424162Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105002.668440Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105002.668440Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105002.890445Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105002.890445Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105003.127039Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105003.127039Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105003.342848Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105003.342848Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a", "b"]}
+HARNESS LANES: verified complete fresh selected-profile coverage (technical only)
+Evidence: build/verification/harness/20261031T105003.577599Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105003.627636Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105003.627636Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105003.849292Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105003.849292Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a", "b"]}
+HARNESS LANES: verified complete fresh selected-profile coverage (technical only)
+Evidence: build/verification/harness/20261031T105004.065767Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105004.103030Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105004.103030Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105004.312564Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105004.312564Z/report.json
+.{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["a"]}
+Running a (fresh); log: build/verification/harness/20261031T105004.641084Z/a.log
+a: passed
+Evidence: build/verification/harness/20261031T105004.641084Z/report.json
+{"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["b"]}
+Running b (fresh); log: build/verification/harness/20261031T105004.850988Z/b.log
+b: passed
+Evidence: build/verification/harness/20261031T105004.850988Z/report.json
+usage: harness.py [-h] [--profile {auto,gameplay,art}] [--base BASE]
+                  [--check {a,b}] [--jobs {1,2,3,4,5,6,7,8}] [--reuse]
+                  [--release] [--plan] [--lane {parallel,serial}]
+                  [--verify-lanes PARALLEL_REPORT SERIAL_REPORT]
+                  [--bind-output CHECK:BUILD_DIRECTORY]
+harness.py: error: Output custody requires a fresh lane or lane verification
+.......Running proof (fresh); log: build/verification/harness/first/proof.log
+proof: passed
+Running proof (reused); log: build/verification/harness/same/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/corrupt/proof.log
+proof: passed
+Running proof (reused); log: build/verification/harness/repaired/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/deleted/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/changed-input/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/changed-input-corrupt-output/proof.log
+proof: passed
+........Running a (fresh); log: build/report/a.log
+Running b (fresh); log: build/report/b.log
+b: passed
+a: passed
+Running bad (fresh); log: build/report/bad.log
+bad: failed
+Running created (fresh); log: build/report/created.log
+created: failed
+Running deleted (fresh); log: build/report/deleted.log
+deleted: failed
+Running custom (fresh); log: build/report/custom.log
+custom: passed
+Running good (fresh); log: build/report/good.log
+Running bad (fresh); log: build/report/bad.log
+bad: failed
+good: passed
+................Running changed (fresh); log: build/final-guard/changed.log
+changed: passed
+..Running a (fresh); log: build/first/a.log
+a: passed
+Running b (fresh); log: build/first/b.log
+b: passed
+Running c (fresh); log: build/first/c.log
+c: passed
+Running a (fresh); log: build/second/a.log
+a: passed
+Running b (fresh); log: build/second/b.log
+b: passed
+Running c (fresh); log: build/second/c.log
+c: passed
+..Running bad (fresh); log: build/0/bad.log
+bad: failed
+Running bad (fresh); log: build/1/bad.log
+bad: failed
+......Running a (fresh); log: build/report/a.log
+Running b (fresh); log: build/report/b.log
+a: passed
+b: passed
+...PROMISOR ISOLATION: genuine filtered source, origin unavailable, transport fallback fails, metadata setup and two real lanes pass without pack transport
+Running a (fresh); log: build/report/a.log
+Running b (fresh); log: build/report/b.log
+b: passed
+a: passed
+..............................
+----------------------------------------------------------------------
+Ran 91 tests in 19.353s
+
+OK
+SPARSE ISOLATION: actual two-lane checks 0.562s; cold evidence 0 bytes/lane; eager checkout control 0.042s, 4194304 bytes
+PASS: grapple feel, hanging lifecycle and dual aim input

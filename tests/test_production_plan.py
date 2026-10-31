@@ -290,7 +290,8 @@ class ProductionPlanTests(unittest.TestCase):
                             "entry-audio-lifecycle-comparison"]
         owner_additions = ["entry-audio-owners"]
         definition_additions = ["forest-v11-definition"]
-        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions
+        foundry_additions = ["foundry-lab", "foundry-touch", "foundry-feedback"]
+        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions + foundry_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:170], baseline_additions + boss_additions)
         self.assertEqual(full["checks"][144:170], baseline_additions + boss_additions)
         self.assertEqual(self.manifest["profiles"]["full"][170:172], ai_additions)
@@ -320,38 +321,47 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
         # Keep the complete reviewed168 and its92/76 split, then append both
         # actual native Boss contracts without replacing any original case.
-        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions]
+        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions + foundry_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, baseline_lanes)), (168,92,76))
-        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions]
+        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions + foundry_additions]
                       for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, boss_lanes)), (170,93,77))
-        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions + owner_additions + definition_additions]
+        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions + owner_additions + definition_additions + foundry_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, existing_lanes)), (172,94,78))
         self.assertEqual(self.manifest["profiles"]["full"][172:173], session_additions)
         self.assertEqual(full["checks"][172:173], session_additions)
-        session_lanes = [[name for name in names if name not in architecture_additions + native_additions + owner_additions + definition_additions]
+        session_lanes = [[name for name in names if name not in architecture_additions + native_additions + owner_additions + definition_additions + foundry_additions]
                          for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, session_lanes)), (173,94,79))
         self.assertEqual(self.manifest["profiles"]["full"][173:174], architecture_additions)
         self.assertEqual(full["checks"][173:174], architecture_additions)
-        architecture_lanes = [[name for name in names if name not in native_additions + owner_additions + definition_additions]
+        architecture_lanes = [[name for name in names if name not in native_additions + owner_additions + definition_additions + foundry_additions]
                               for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, architecture_lanes)), (174,95,79))
         self.assertEqual(self.manifest["profiles"]["full"][174:180], native_additions)
         self.assertEqual(full["checks"][174:180], native_additions)
-        native_lanes = [[name for name in names if name not in owner_additions + definition_additions]
+        native_lanes = [[name for name in names if name not in owner_additions + definition_additions + foundry_additions]
                         for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, native_lanes)), (180,95,85))
         self.assertEqual(self.manifest["profiles"]["full"][180:181], owner_additions)
         self.assertEqual(full["checks"][180:181], owner_additions)
-        owner_lanes = [[name for name in names if name not in definition_additions]
+        owner_lanes = [[name for name in names if name not in definition_additions + foundry_additions]
                        for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, owner_lanes)), (181,95,86))
-        self.assertEqual(self.manifest["profiles"]["full"][181:], definition_additions)
-        self.assertEqual(full["checks"][181:], definition_additions)
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (182,95,87))
+        self.assertEqual(self.manifest["profiles"]["full"][181:182], definition_additions)
+        self.assertEqual(full["checks"][181:182], definition_additions)
+        definition_lanes = [[name for name in names if name not in foundry_additions]
+                            for names in (full["checks"], parallel, serial)]
+        self.assertEqual(tuple(map(len, definition_lanes)), (182,95,87))
+        # Exact ordered b893 full182/gameplay167 stay intact before this append.
+        self.assertEqual(digest(self.manifest["profiles"]["full"][:182]), "d3897ab1d8b883144bd4adccd09e2adf3c87bed3a6173729913b024c517745bb")
+        self.assertEqual(digest(self.manifest["profiles"]["gameplay"][:167]), "677c100793e3c9d80980aeaa18889929b2fcd01e5f77ae669c7511ca178e850a")
+        self.assertEqual(self.manifest["profiles"]["full"][182:], foundry_additions)
+        self.assertEqual(full["checks"][182:], foundry_additions)
+        self.assertEqual(self.manifest["profiles"]["gameplay"][167:], foundry_additions)
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (185,95,90))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["game/application/demo_app.gd"], "development")]:

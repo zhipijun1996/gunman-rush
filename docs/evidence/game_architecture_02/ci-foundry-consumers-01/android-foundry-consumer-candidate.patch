@@ -1,0 +1,13 @@
+--- a/.github/workflows/environment.yml
++++ b/.github/workflows/environment.yml
+@@ -538,6 +538,10 @@
+       - uses: actions/setup-python@v5
+         with:
+           python-version: '3.12'
++      - uses: actions/download-artifact@v4
++        with:
++          name: validated-foundry
++          path: resources/foundry/
+       - run: bash tools/cloud_setup.sh --accept-android-licenses
+       - run: python3 tools/build.py android
+       - uses: actions/upload-artifact@v4

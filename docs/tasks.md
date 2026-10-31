@@ -756,3 +756,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | CI-BOSS-CONSUMERS-01 | 当前Boss测试消费者与历史fixture边界迁移 | GAME-ARCH-OWNERSHIP-02 | in_progress | [质量记录](quality/records/CI-BOSS-CONSUMERS-01.json)；八测试+两fixture已49a298提交，current15原wrapper224.151秒通过；共享五消费者分次通过，旧失败/27legacy未验保留，全量未验 |
 
 | UNDERWORLD-DEFERRED-LIFETIME-01 | Underworld延迟节点释放与world归属缺陷修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)；原main2ce319 ERROR保留；两文件a671已提交，formal104/cache444及同probe错误0有限通过；全量未验 |
+
+| CI-FOUNDRY-CONSUMERS-01 | Android同源Foundry消费者、开发池刷新与三入口统一CI覆盖 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/CI-FOUNDRY-CONSUMERS-01.json)；63文件WIP限定独审通过，原91/37及3selected fresh过；185已注册未全跑，旧失败/未构成反例保留 |

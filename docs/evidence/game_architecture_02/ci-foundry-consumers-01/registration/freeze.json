@@ -1,0 +1,30 @@
+{
+  "author": "ci_audit",
+  "scope": "External candidate awaiting independent review",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "patch_sha256": "d151a2f251f6b87a7864b4ea8022ec1f54940c377fd4c948af25340bfba8d74a",
+  "write_set_sha256": "88c3838fe8035bdda20b37d65fe91392329489fdfc32b42f3c4b68d7de87868d",
+  "static_proof_sha256": "e14e1297d9249cca27c4b1bf95829c80a612f6a665f1a9118ab5769971d8c198",
+  "candidate_files": [
+    {
+      "path": ".github/workflows/environment.yml",
+      "before_sha256": "a6c070826a9a33d76b8ba87fdec9028d843e4cdff0366eaaa9e904866e44a0a5",
+      "candidate_sha256": "a7b228a51e7ff1a32a399075a8d09f8a3c3c09e82b891b7d695fbfce0f254cf1"
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "before_sha256": "b8845ec6b5b55a057e116d8e811881871b47b88b796cc0fb4a75bc3d558238fc",
+      "candidate_sha256": "374347807aa9f7ae73fe8f467bc256fe55079243b5319c3160b407a82c9adeae"
+    },
+    {
+      "path": "tools/deliver.py",
+      "before_sha256": "06daaccbc40a92ffa27a31829a945f08ec5ed1f44cd80e8d4d5a3c6e2eead5d9",
+      "candidate_sha256": "f90e7115d4a65bc8a27f8196e8d32efd47cb4a337eaa71dab7305851fdf5ea26"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "before_sha256": "07792c86ac9610b9fef13dcb9ae9f8c9dde3dd3638c9f0eccdd9d501d3e681f5",
+      "candidate_sha256": "e4becd029357e36309564008b6735f4d0c2a3759bd73633c00dd0ad13f67ba71"
+    }
+  ]
+}
