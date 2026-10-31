@@ -139,9 +139,9 @@ class GitHub:
         with self.request(method, path, body) as response:
             return json.load(response)
 
-    def download(self, path, destination):
+    def download(self, path, destination, *, accept='application/vnd.github+json'):
         destination.parent.mkdir(parents=True, exist_ok=True)
-        with self.request('GET', path, accept='application/octet-stream') as response, destination.open('xb') as output:
+        with self.request('GET', path, accept=accept) as response, destination.open('xb') as output:
             shutil.copyfileobj(response, output, 1024*1024)
 
     def upload(self, url, path):
@@ -182,7 +182,7 @@ def verify_assets(api, pins, expected, work, phase, complete=False):
                 or row.get('state') != 'uploaded' or row.get('size') != wanted['bytes']):
             raise ValueError('Existing asset differs; refusing replacement: '+row['name'])
         target = work/'asset-checks'/phase/row['name']
-        api.download('/releases/assets/'+str(row['id']), target)
+        api.download('/releases/assets/'+str(row['id']), target, accept='application/octet-stream')
         if pack.sha(target) != wanted['sha256']:
             raise ValueError('Existing asset bytes differ; refusing replacement: '+row['name'])
     return set(names)

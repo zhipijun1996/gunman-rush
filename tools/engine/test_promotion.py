@@ -47,7 +47,8 @@ class FakeGitHub:
     def add(self, name, data):
         self.assets[name] = {'id': len(self.assets)+1, 'bytes': data}
 
-    def download(self, path, destination):
+    def download(self, path, destination, *, accept):
+        assert accept == 'application/octet-stream'
         self.events.append(('DOWNLOAD', path))
         value = next(row for row in self.assets.values() if path.endswith('/'+str(row['id'])))
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -194,6 +195,25 @@ class PromotionTests(unittest.TestCase):
                                                              'https://blob.example.invalid/file?signature=synthetic')
         self.assertFalse(redirected.has_header('Authorization'))
         self.assertEqual(redirected.get_header('Accept'), 'application/octet-stream')
+
+    def test_download_uses_actions_api_media_type_and_explicit_release_binary_media_type(self):
+        api = promote.GitHub(self.pins.repository, 'SYNTHETIC_TOKEN')
+        class Opener:
+            def open(inner, request, timeout):
+                if '/actions/artifacts/' in request.full_url:
+                    self.assertEqual(request.get_header('Accept'), 'application/vnd.github+json')
+                else:
+                    self.assertIn('/releases/assets/', request.full_url)
+                    self.assertEqual(request.get_header('Accept'), 'application/octet-stream')
+                self.assertEqual(request.method, 'GET')
+                return io.BytesIO(b'exact downloaded bytes')
+        api.opener = Opener()
+        artifact = self.root/'downloaded-artifact.zip'
+        api.download('/actions/artifacts/17/zip', artifact)
+        self.assertEqual(artifact.read_bytes(), b'exact downloaded bytes')
+        asset = self.root/'downloaded-release-asset'
+        api.download('/releases/assets/23', asset, accept='application/octet-stream')
+        self.assertEqual(asset.read_bytes(), artifact.read_bytes())
 
     def test_upload_stream_sends_exact_content_length_and_bytes_to_github_only(self):
         api = promote.GitHub(self.pins.repository, 'SYNTHETIC_TOKEN')
