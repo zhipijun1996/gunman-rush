@@ -398,6 +398,22 @@ class BundleTests(unittest.TestCase):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 bundle.check_runtime_closure(self.pack, self.repo)
 
+    def test_revision_constant_key_is_read_and_unknown_dictionary_expressions_fail_closed(self):
+        name, target = self.recorded_enemy_fixture()
+        registry = self.repo / 'game/enemies/enemy_behavior_registry.gd'
+        original = registry.read_text()
+        registry.write_text('const REVISION_FIELD := "revisions"\n' + original.replace('"revisions":', 'REVISION_FIELD:'))
+        self.assertEqual(bundle.recorded_enemy_contract(self.repo), {name: hashlib.sha256(self.entries[name]).hexdigest()})
+        write_pack(self.pack, [(key,value) for key,value in self.entries.items() if key != name])
+        with self.assertRaises(ValueError):
+            bundle.check_runtime_closure(self.pack,self.repo)
+        for replacement in ('revision_field():', 'UNKNOWN_FIELD:', 'revisions ='):
+            registry.write_text(original.replace('"revisions":',replacement))
+            with self.subTest(key=replacement), self.assertRaisesRegex(ValueError,'finite literal'):
+                bundle.recorded_enemy_contract(self.repo)
+        registry.write_text(original.replace('"revisions":','&"revisions":'))
+        self.assertEqual(bundle.recorded_enemy_contract(self.repo), {name: hashlib.sha256(self.entries[name]).hexdigest()})
+
     def test_recorded_enemy_changed_source_or_pack_and_unsafe_registry_are_rejected(self):
         name, target = self.recorded_enemy_fixture()
         original = self.entries[name]
@@ -417,7 +433,7 @@ class BundleTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bundle.recorded_enemy_contract(self.repo)
         registry.write_text(source.replace('OLD_REVISION:"res://', 'UNKNOWN_REVISION:"res://'))
-        with self.assertRaisesRegex(ValueError, 'Unknown/duplicate'):
+        with self.assertRaisesRegex(ValueError, 'finite literal'):
             bundle.recorded_enemy_contract(self.repo)
         registry.write_text(source.replace('{OLD_REVISION:', 'build_revisions({OLD_REVISION:'))
         with self.assertRaisesRegex(ValueError, 'finite literal'):

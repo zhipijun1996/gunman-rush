@@ -306,37 +306,52 @@ def recorded_enemy_contract(repo):
     source = registry.read_text()
     # Canonicalize both legal quote forms before reading finite dictionaries.
     # Single-quoted revision keys must not silently become an empty contract.
-    strings_or_comments = re.compile(r"\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'|\#[^\n]*")
+    strings_or_comments = re.compile(r"&?\"(?:\\.|[^\"\\])*\"|&?'(?:\\.|[^'\\])*'|\#[^\n]*")
     def normalized(match):
         token = match.group()
         if token.startswith('#'):
             return ''
         try:
-            return json.dumps(ast.literal_eval(token))
+            return json.dumps(ast.literal_eval(token.removeprefix("&")))
         except (ValueError, SyntaxError) as error:
             raise ValueError('Recorded enemy registry has unsupported string syntax') from error
     source = strings_or_comments.sub(normalized, source)
     body = re.search(r'(?ms)^const BEHAVIORS\s*:?=\s*({.*?})\s*^const CANDIDATES\b', source)
     if not body:
         raise ValueError('Recorded enemy registry needs finite BEHAVIORS dictionary')
-    constants = dict(re.findall(r'(?m)^const ([A-Z][A-Z0-9_]*)\s*:?=\s*"([0-9a-f]{64})"\s*$', source))
-    mappings = re.findall(r'"revisions"\s*:\s*{([^{}]*)}', body.group(1))
-    if len(mappings) != len(re.findall(r'"revisions"\s*:', body.group(1))):
-        raise ValueError('Recorded enemy revision map must be a finite literal')
+    declarations = re.findall(r'(?m)^const ([A-Z][A-Z0-9_]*)\s*:?=\s*("(?:\\.|[^"\\])*")\s*$', source)
+    if len({name for name, _ in declarations}) != len(declarations):
+        raise ValueError('Duplicate recorded enemy registry constant')
+    constants = {name: json.loads(value) for name, value in declarations}
+
+    def finite(node):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if isinstance(node, ast.Name) and node.id in constants:
+            return constants[node.id]
+        if isinstance(node, ast.Dict):
+            result = {}
+            for key, value in zip(node.keys, node.values):
+                name = finite(key)
+                if not isinstance(name, str) or name in result:
+                    raise ValueError('Unknown/duplicate recorded enemy registry key')
+                result[name] = finite(value)
+            return result
+        raise ValueError('Recorded enemy registry must remain a finite literal dictionary')
+
+    try:
+        behaviors = finite(ast.parse(body.group(1), mode='eval').body)
+    except SyntaxError as error:
+        raise ValueError('Recorded enemy registry must remain a finite literal dictionary') from error
+    if not isinstance(behaviors, dict):
+        raise ValueError('Recorded enemy registry needs finite BEHAVIORS dictionary')
     result = {}
-    row = re.compile(r'\s*(?:([A-Z][A-Z0-9_]*)|"([0-9a-f]{64})")\s*:\s*"(res://[^"\n]+)"\s*(?:,|$)')
-    for mapping in mappings:
-        offset = 0
-        seen = set()
-        while mapping[offset:].strip():
-            match = row.match(mapping, offset)
-            if not match:
-                raise ValueError('Recorded enemy revision needs literal path and registered SHA')
-            key, literal, path = match.groups()
-            digest = constants.get(key) if key else literal
-            if digest is None or digest in seen:
+    for behavior in behaviors.values():
+        if not isinstance(behavior, dict) or not isinstance(behavior.get('revisions', {}), dict):
+            raise ValueError('Recorded enemy revision map must be a finite literal dictionary')
+        for digest, path in behavior.get('revisions', {}).items():
+            if not re.fullmatch(r'[0-9a-f]{64}', digest):
                 raise ValueError('Unknown/duplicate recorded enemy revision SHA')
-            seen.add(digest)
             name = resource_path(path)
             if not name.endswith('.tres') or (name in result and result[name] != digest):
                 raise ValueError('Invalid/conflicting recorded enemy resource')
@@ -346,7 +361,6 @@ def recorded_enemy_contract(repo):
             if hashlib.sha256(local.read_bytes()).hexdigest() != digest:
                 raise ValueError('Recorded enemy source SHA changed: ' + name)
             result[name] = digest
-            offset = match.end()
     return result
 
 
