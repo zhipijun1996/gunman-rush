@@ -42,12 +42,8 @@ func purchase(request: ShopPurchaseRequest) -> EconomyReceipt:
 	if request == null or request.transaction_id.is_empty() or request.token == null:
 		return EconomyReceipt.rejected(EconomyReceipt.Status.INVALID)
 	var payload := [&"item", request.shop_id, request.offer_id, request.quantity, request.quote_version, request.token.run_epoch, request.token.stage_epoch, request.token.actor_epoch]
-	if _receipts.has(request.transaction_id):
-		if _receipts[request.transaction_id].payload != payload:
-			return EconomyReceipt.rejected(EconomyReceipt.Status.CONFLICT)
-		var replay: EconomyReceipt = _receipts[request.transaction_id].receipt.copy()
-		replay.status = EconomyReceipt.Status.REPLAY
-		return replay
+	var replay := _transaction_replay(request.transaction_id, payload)
+	if replay != null: return replay
 	if _committing or not lifetime.accepts(request.token):
 		return EconomyReceipt.rejected(EconomyReceipt.Status.STALE)
 	var offer: ShopOffer = _offers.get(request.offer_id)
@@ -83,11 +79,8 @@ func purchase_gear_upgrade(request: ShopPurchaseRequest) -> EconomyReceipt:
 	if request == null or request.transaction_id.is_empty() or request.token == null:
 		return EconomyReceipt.rejected(EconomyReceipt.Status.INVALID)
 	var payload := [&"gear",request.shop_id,request.offer_id,request.quantity,request.quote_version,request.token.run_epoch,request.token.stage_epoch,request.token.actor_epoch,request.equipment_session,request.equipment_revision]
-	if _receipts.has(request.transaction_id):
-		if _receipts[request.transaction_id].payload != payload: return EconomyReceipt.rejected(EconomyReceipt.Status.CONFLICT)
-		var replay: EconomyReceipt = _receipts[request.transaction_id].receipt.copy()
-		replay.status = EconomyReceipt.Status.REPLAY
-		return replay
+	var replay := _transaction_replay(request.transaction_id, payload)
+	if replay != null: return replay
 	if _committing or not lifetime.accepts(request.token): return EconomyReceipt.rejected(EconomyReceipt.Status.STALE)
 	if not build.equipment.validate_session(request.token,request.equipment_session,request.equipment_revision).is_empty(): return EconomyReceipt.rejected(EconomyReceipt.Status.STALE)
 	var quote := gear_quote()
