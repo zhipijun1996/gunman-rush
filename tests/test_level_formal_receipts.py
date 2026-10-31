@@ -22,6 +22,27 @@ def make_receipt(path, data, log, sources):
                 visible=False, realtime=False, frame_dir="", frame_stride=120)
 
 
+class FormalSourceInventoryTests(unittest.TestCase):
+    def test_runtime_inventory_hashes_real_game_edits_additions_and_deletions(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            required = ['project.godot', 'tools/godot.sh', 'tools/level_formal.py', 'tools/level_design.py',
+                        'tools/level_formal_capture.gd', 'tools/level_capability_snapshot.gd',
+                        'scripts/legacy.gd', 'game/application/run_session.gd']
+            for name in required + ['build/old.gd', 'docs/evidence/frozen.gd']:
+                path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text('fixture bytes')
+            with patch.object(formal, 'ROOT', root), patch.object(formal, '__file__', str(root/'tools/level_formal.py')), \
+                    patch.object(formal, 'driver_source_paths', return_value=[]):
+                before = formal.source_files()
+                self.assertEqual(set(before), set(required))
+                (root/'game/application/run_session.gd').write_text('changed actual owner')
+                self.assertNotEqual(before, formal.source_files())
+                path = root/'game/application/new_untracked.gd'; path.write_text('added owner')
+                self.assertIn('game/application/new_untracked.gd', formal.source_files())
+                path.unlink()
+                self.assertNotIn('game/application/new_untracked.gd', formal.source_files())
+
+
 class FormalReceiptTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="unit-receipts-", dir=formal.ROOT / "build")

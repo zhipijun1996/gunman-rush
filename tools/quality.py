@@ -93,7 +93,7 @@ def validate_record(data, root=ROOT):
         required_dims.append("formal_integration")
     if kind == "process" and data["formal_impact"]:
         errors.append("Process scope cannot declare runtime integration changes")
-    production = ("scripts/", "scenes/", "resources/", "config/", "assets/", "shaders/")
+    production = ("game/", "scripts/", "scenes/", "resources/", "config/", "assets/", "shaders/")
     if kind == "process" and any(str(path).startswith(production) or path in {"project.godot", "export_presets.cfg"} for path in data["affected_paths"]):
         errors.append("Process scope cannot hide production changes")
     light = kind in {"process", "small_fix"}

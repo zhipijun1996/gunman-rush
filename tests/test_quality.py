@@ -177,7 +177,7 @@ class QualityTests(unittest.TestCase):
         self.rejected(data)
 
     def test_process_cannot_hide_game_changes(self):
-        for path in ('scripts/game.gd', 'config/player_tuning.json', 'project.godot'):
+        for path in ('game/player/player.gd', 'scripts/game.gd', 'config/player_tuning.json', 'project.godot'):
             with self.subTest(path=path):
                 data = copy.deepcopy(self.record)
                 data['affected_paths'] = [path]

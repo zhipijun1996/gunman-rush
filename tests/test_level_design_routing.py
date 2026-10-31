@@ -13,6 +13,23 @@ import production_loop
 
 
 class RoutingTests(unittest.TestCase):
+    def test_runtime_snapshot_tracks_new_game_sources_but_not_build_or_evidence(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            paths = ['project.godot', 'scripts/legacy.gd', 'game/application/run_session.gd',
+                     'build/output.gd', 'docs/evidence/frozen.gd']
+            for name in paths:
+                path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text('original')
+            before = level_design.source_files(root)
+            self.assertEqual(set(before), {'project.godot', 'scripts/legacy.gd', 'game/application/run_session.gd'})
+            (root / 'game/application/run_session.gd').write_text('changed owner')
+            self.assertNotEqual(before, level_design.source_files(root))
+            added = root / 'game/application/new_untracked.gd'; added.write_text('new consumer')
+            self.assertIn('game/application/new_untracked.gd', level_design.source_files(root))
+            added.unlink()
+            self.assertNotIn('game/application/new_untracked.gd', level_design.source_files(root))
+
+
     def test_source_painting_rebuild_is_explicit_limited_real_consumer_route(self):
         import visual_director as vd
         request = '从源画重建风铃平原连续地貌与美术'

@@ -29,7 +29,7 @@ def source_files(extra_paths=()):
         if path.is_absolute() or ".." in path.parts:
             raise ValueError("Extra source must be repository relative")
         paths.append(ROOT / path)
-    for folder in ("scripts", "scenes", "resources", "config", "shaders", "assets"):
+    for folder in ("scripts", "game", "scenes", "resources", "config", "shaders", "assets"):
         paths.extend(p for p in (ROOT / folder).rglob("*") if p.is_file() and p.suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})
     paths.extend((ROOT / "tests").glob("*.gd"))
     return {p.relative_to(ROOT).as_posix(): file_hash(p) for p in sorted(set(paths))}

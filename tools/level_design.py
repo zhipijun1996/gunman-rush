@@ -99,7 +99,7 @@ def validate_receipt(source, data, receipt, log, current_sources):
 def source_files(root=ROOT):
     """Include new/untracked sources too; no build/cache or evidence dependency."""
     paths = [root / "project.godot"]
-    for folder in ("scripts", "scenes", "resources", "config", "tools", "tests"):
+    for folder in ("scripts", "game", "scenes", "resources", "config", "tools", "tests"):
         paths.extend(p for p in (root / folder).rglob("*") if p.is_file()
                      and p.suffix in {".gd", ".py", ".tres", ".tscn", ".json", ".sh"})
     return {p.relative_to(root).as_posix(): file_hash(p) for p in sorted(paths)}

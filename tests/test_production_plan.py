@@ -283,11 +283,12 @@ class ProductionPlanTests(unittest.TestCase):
         baseline_additions = additions + structure_additions + motion_loot_additions + audio_additions
         boss_additions = pressure_additions + bell_additions
         ai_additions = ["ai-level-content", "ai-level-pilot"]
-        expected_additions = baseline_additions + boss_additions + ai_additions
+        session_additions = ["run-session"]
+        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:170], baseline_additions + boss_additions)
         self.assertEqual(full["checks"][144:170], baseline_additions + boss_additions)
-        self.assertEqual(self.manifest["profiles"]["full"][170:], ai_additions)
-        self.assertEqual(full["checks"][170:], ai_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][170:172], ai_additions)
+        self.assertEqual(full["checks"][170:172], ai_additions)
         self.assertEqual(self.manifest["profiles"]["full"][144:168], baseline_additions)
         self.assertEqual(full["checks"][144:168], baseline_additions)
         self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
@@ -313,13 +314,18 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
         # Keep the complete reviewed168 and its92/76 split, then append both
         # actual native Boss contracts without replacing any original case.
-        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions]
+        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, baseline_lanes)), (168,92,76))
-        boss_lanes = [[name for name in names if name not in ai_additions]
+        boss_lanes = [[name for name in names if name not in ai_additions + session_additions]
                       for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, boss_lanes)), (170,93,77))
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (172,94,78))
+        existing_lanes = [[name for name in names if name not in session_additions]
+                          for names in (full["checks"], parallel, serial)]
+        self.assertEqual(tuple(map(len, existing_lanes)), (172,94,78))
+        self.assertEqual(self.manifest["profiles"]["full"][172:], session_additions)
+        self.assertEqual(full["checks"][172:], session_additions)
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (173,94,79))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
@@ -331,6 +337,44 @@ class ProductionPlanTests(unittest.TestCase):
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
         with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
+
+    def test_run_session_registers_actual_app_consumer_with_existing_strict_harness(self):
+        name = "run-session"
+        check = self.manifest["checks"][name]
+        runner = "tests/run_session_runner.gd"
+        self.assertEqual(check["argv"], ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60",
+                                         "--path", ".", "--script", runner])
+        self.assertEqual(check["success_pattern"], "^RUN SESSION TESTS: [1-9][0-9]* assertions, 0 failures$")
+        self.assertEqual(check["timeout_seconds"], 180)
+        self.assertTrue(check["serial"])
+        self.assertTrue((ROOT / runner).is_file())
+        self.assertIn('RUN SESSION TESTS: %d assertions, %d failures', (ROOT / runner).read_text())
+        self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names},
+                         {"core", "gameplay", "full"})
+        for path in ("game/application/run_session.gd", runner):
+            for stage in ("development", "integration"):
+                plan = self.plan([path], stage)
+                self.assertEqual(plan["selection"], "full")
+                self.assertIn(name, plan["checks"])
+                if stage == "integration":
+                    self.assertIn(name, plan["ci_lane_checks"]["serial"])
+                    self.assertNotIn(name, plan["ci_lane_checks"]["parallel"])
+
+    def test_migrated_runtime_inputs_invalidate_real_cache_contracts_without_widening_pure_checks(self):
+        import harness
+        for name, check in self.manifest["checks"].items():
+            if any(root in check.get("inputs", []) for root in ("scripts", "scripts/**")):
+                self.assertIn("game", check["inputs"], name)
+        path = "game/application/run_session.gd"
+        for name in ("run-session", "core", "generated-consumers", "forest-campaign", "connected-family-tests",
+                     "underworld-scenery", "underworld-hazards", "underworld-pipeline", "underworld-raw-export",
+                     "visual-director-terrain"):
+            check = self.manifest["checks"][name]
+            before = harness.input_digest(check, [path], {}, {path: "a" * 64})
+            after = harness.input_digest(check, [path], {}, {path: "b" * 64})
+            self.assertNotEqual(before, after, name + " must not reuse proof for changed RunSession")
+        for name in ("asset-family-tests", "item-v5-data", "item-authoring-tools", "cloud-production-planner-tests"):
+            self.assertNotIn("game", self.manifest["checks"][name]["inputs"], name)
 
     def test_plains_motion_loot_is_a_real_registered_native_case_with_group_closure(self):
         # Importing the adapter reads its registry; it does not start Godot.
