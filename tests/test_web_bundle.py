@@ -385,6 +385,19 @@ class BundleTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     bundle.check_runtime_closure(self.pack, self.repo)
 
+    def test_single_quoted_revision_keys_and_paths_cannot_skip_pack_validation(self):
+        name, target = self.recorded_enemy_fixture()
+        registry = self.repo / 'game/enemies/enemy_behavior_registry.gd'
+        registry.write_text(registry.read_text().replace('"', "'"))
+        self.assertEqual(bundle.recorded_enemy_contract(self.repo),
+                         {name: hashlib.sha256(self.entries[name]).hexdigest()})
+        write_pack(self.pack, list(self.entries.items()))
+        self.assertEqual(bundle.check_runtime_closure(self.pack, self.repo)['recorded_enemy_definitions'], [name])
+        for missing in (name, name + '.remap', target):
+            write_pack(self.pack, [(key, value) for key, value in self.entries.items() if key != missing])
+            with self.subTest(missing=missing), self.assertRaises(ValueError):
+                bundle.check_runtime_closure(self.pack, self.repo)
+
     def test_recorded_enemy_changed_source_or_pack_and_unsafe_registry_are_rejected(self):
         name, target = self.recorded_enemy_fixture()
         original = self.entries[name]

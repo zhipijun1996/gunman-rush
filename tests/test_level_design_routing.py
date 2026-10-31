@@ -175,9 +175,25 @@ class RoutingTests(unittest.TestCase):
             level_design.write(path, data)
             _, binding = level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)
             self.assertEqual(binding['allowed_paths'], data['allowed_paths'])
+            for allowed in ('scripts/demo/demo_app.gd', 'game/application/demo_app.gd',
+                            'game/world/components/module_moving_platform.gd',
+                            'game/world/components/module_moving_platform.gd.uid',
+                            'game/world/components/scenes/checkpoint.tscn',
+                            'game/presentation/effects/art/defeat_burst.gd',
+                            'experiments/terrain/art/light_study.gd',
+                            'experiments/motion/entries/graybox.tscn'):
+                data['allowed_paths'] = [allowed]; level_design.write(path, data)
+                self.assertEqual(level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)[1]['allowed_paths'], [allowed])
             for bad in ('scripts/generation/', 'assets/spatial_golden/*', 'scripts/actors/player_motor.gd',
                         'game/combat/weapons/weapon_catalog.gd', 'game/platform/persistence/meta_save_service.gd',
-                        'config/player_tuning.json', 'game/world/generation/movement_capability_envelope.gd', '../outside.gd'):
+                        'config/player_tuning.json', 'game/world/generation/movement_capability_envelope.gd', '../outside.gd',
+                        'scripts/run/demo_lifetime.gd', 'game/world/state/demo_lifetime.gd',
+                        'scripts/run/run_profile.gd', 'game/world/state/run_profile.gd',
+                        'scripts/run/route_planner.gd', 'game/world/state/route_planner.gd',
+                        'scripts/player/graybox.gd', 'experiments/motion/graybox.gd',
+                        'scripts/world/checkpoint.gd', 'game/world/components/checkpoint.gd',
+                        'scripts/damage/damage_return_echo.gd', 'game/presentation/effects/damage_return_echo.gd',
+                        'scripts/style_exploration/style_scenery.gd', 'game/presentation/world/style_exploration/style_scenery.gd'):
                 data['allowed_paths'] = [bad]; level_design.write(path, data)
                 with self.subTest(path=bad), self.assertRaises(ValueError):
                     level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)

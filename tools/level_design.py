@@ -344,9 +344,26 @@ def load_spatial_experiment(path, region_id, root=ROOT):
         raise ValueError('Spatial experiment needs a distinct exact-file write set')
     for name in paths:
         entry = Path(name)
+        # Preserve the original generation/art/scene scope at its current homes.
+        # World state and arbitrary experiments are not geometry permissions.
         permitted = (name.startswith(('scripts/generation/', 'scripts/art/', 'resources/generation/', 'resources/art/',
-                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/', 'game/world/', 'game/presentation/world/', 'experiments/'))
-                     or name == 'game/application/demo_app.gd')
+                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/',
+                                      'game/world/generation/', 'game/world/components/scenes/',
+                                      'game/presentation/world/art/', 'game/presentation/actors/art/',
+                                      'game/presentation/effects/art/', 'game/presentation/world/resources/art/',
+                                      'game/presentation/actors/resources/art/',
+                                      'game/enemies/species/scenes/', 'game/enemies/scenes/',
+                                      'experiments/terrain/art/', 'experiments/terrain/entries/',
+                                      'experiments/platform/entries/', 'experiments/audio/entries/',
+                                      'experiments/motion/entries/', 'experiments/generation/entries/'))
+                     or name in {'scripts/demo/demo_app.gd', 'game/application/demo_app.gd',
+                                 'game/application/demo.tscn', 'game/player/player.tscn',
+                                 'game/world/components/module_moving_platform.gd',
+                                 'game/world/components/module_moving_platform.gd.uid',
+                                 'game/world/components/module_saw_hazard.gd',
+                                 'game/world/components/module_saw_hazard.gd.uid',
+                                 'game/world/components/platforming_module.gd',
+                                 'game/world/components/platforming_module.gd.uid'})
         if (entry.is_absolute() or '..' in entry.parts or name.endswith('/') or any(c in name for c in '*?[')
                 or not entry.suffix or not permitted or (Path(root)/name).is_dir()
                 or re.search(r'(?:motor|rng|save|ability|weapon|resource)', entry.stem, re.I)

@@ -1,4 +1,5 @@
 """Verify cached bytes and the runtime resource closure inside the actual Web PCK."""
+import ast
 import gzip
 import fnmatch
 import hashlib
@@ -303,9 +304,18 @@ def recorded_enemy_contract(repo):
     if not registry.is_file():
         return {}  # Small unrelated asset fixtures have no enemy consumer.
     source = registry.read_text()
-    # Strip comments without treating a hash inside a quoted string as one.
-    source = re.sub(r'"(?:\\.|[^"\\])*"|\#[^\n]*',
-                    lambda match: '' if match.group().startswith('#') else match.group(), source)
+    # Canonicalize both legal quote forms before reading finite dictionaries.
+    # Single-quoted revision keys must not silently become an empty contract.
+    strings_or_comments = re.compile(r"\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'|\#[^\n]*")
+    def normalized(match):
+        token = match.group()
+        if token.startswith('#'):
+            return ''
+        try:
+            return json.dumps(ast.literal_eval(token))
+        except (ValueError, SyntaxError) as error:
+            raise ValueError('Recorded enemy registry has unsupported string syntax') from error
+    source = strings_or_comments.sub(normalized, source)
     body = re.search(r'(?ms)^const BEHAVIORS\s*:?=\s*({.*?})\s*^const CANDIDATES\b', source)
     if not body:
         raise ValueError('Recorded enemy registry needs finite BEHAVIORS dictionary')
