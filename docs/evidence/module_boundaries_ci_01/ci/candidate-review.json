@@ -1,0 +1,75 @@
+{
+  "status": "candidate implementation; non-author review pending",
+  "base_commit": "8271d131331f961784bcd0b4dfe7ad28e8cf0f6f",
+  "files": {
+    "config/production_impact.json": "59511f5f68ae0c0d5b66a618e5d30441af82c850c0898231a04e795cf53895f9",
+    "tools/production_plan.py": "995c5a67410d44434a8a3249cd30e94374c1d61a41ace5fe59854ba19aa9bd9e",
+    "tests/test_production_plan.py": "7043fd7ecbe140d1ae050a4c14d9e482e56641dcdb37a7ef24a7aa018b1338e8",
+    ".github/workflows/production.yml": "7729187092d048781830c359f99869784e2f045626a0d7fc6606806f4b549501"
+  },
+  "only_author_write_set": [
+    "config/production_impact.json",
+    "tools/production_plan.py",
+    "tests/test_production_plan.py",
+    ".github/workflows/production.yml"
+  ],
+  "registered_checks": 218,
+  "full": 171,
+  "legacy": 30,
+  "harness_registry_and_budgets_byte_identical": true,
+  "workflow_changed": true,
+  "workflow_reason": "Only4addedlines: needs_media false exclusively for verified stdlib baseline3+harness-tests; existing prepare media step conditional. Toolchain flags/full lanes/deploy unchanged.",
+  "policy_lines": 447,
+  "no_check_owners_registry": true,
+  "baseline_checks": [
+    "docs",
+    "structure",
+    "quality"
+  ],
+  "module_domains": [
+    "application",
+    "player",
+    "combat",
+    "loadout",
+    "economy",
+    "rewards",
+    "progression",
+    "enemies",
+    "bosses",
+    "world",
+    "presentation",
+    "platform"
+  ],
+  "test_result": {
+    "planner": "46/0 final,0.2s; planner-final-04.log; includes actual owner-to-forest/drop consumer regressions and4 workflow media scenarios",
+    "harness": "91/0,22.679s before4line media gate; unchanged Harness code",
+    "workflow_after_gate": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK"
+  },
+  "limitations": [
+    "Plans are selection only, no engine or affected checks execution.",
+    "Current authority source binding drift and historical Bible30s failure remain separate unresolved gates.",
+    "Existing exact presentation sources preserve prior conservative full integration rules.",
+    "Unknown helper/path and global API/build/save/RNG boundaries escalate full; no broad input inventory used as dependency graph."
+  ],
+  "prior_rejected_design": "Initial derived check_owners closure removed entirely; external actual-consumer-map.json/build_policy.py retain superseded design only, not current policy or authority.",
+  "shared_direct_cli_helper_guard": "level_design/level_formal/underworld_pipeline explicitly full: their CLI is only one consumer of shared helper, so direct argv lookup must not omit imported validators.",
+  "root_reviewed_consumer_additions": {
+    "application": [
+      "forest-bible-integration-tests",
+      "forest-bible-app-discoveries"
+    ],
+    "world": [
+      "forest-bible-integration-tests",
+      "forest-bible-app-discoveries",
+      "forest-bible-ambience"
+    ],
+    "enemies": [
+      "forest-bible-integration-tests",
+      "forest-bible-weaver-tests"
+    ],
+    "rewards": [
+      "enemy-structure-native",
+      "plains-motion-loot-02"
+    ]
+  }
+}

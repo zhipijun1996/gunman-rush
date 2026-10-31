@@ -1,3 +1,7 @@
+## 2026-10-31 模块边界与责任CI已实施
+
+森林地方装配归Stage，怪物地方几何／恢复归EnemyActor；App保流程协调。实际95／54／61／61／69专项及source guard通过。CI沿原planner按12模块和实际下游选择，普通文档3门禁，未知／共享／构建full171；选择器46和Harness91通过。完整集成、内容源码权威技术绑定与历史Bible30秒仍待，不宣称全绿或发布。具体调用、责任、证据与回退见[本批说明](module_boundaries_and_ci.md)。下方为历史节点。
+
 # 当前重构节点：优先解决真实阻断
 
 用户最新要求 token 有限，集中高收益重构；不再展开全仓审计、旧地图计时或资源清理。本页优先于旧暂停指导。工作树 `/workspace/gunman-rush-refactor`，分支 `refactor/game-architecture-02`；原 `/workspace/gunman-rush` 用户改动不碰。

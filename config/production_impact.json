@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "Finite reviewed routing rules, not inferred GDScript reachability. Unknown production paths fail closed to full. Existing Harness checks and budgets remain authoritative.",
+  "description": "Finite module and existing command consumer routing. Unknown/shared contracts/build changes fail closed to existing full; cache inventories are not dependency graphs. No test registration or budget changes.",
   "domains": {
     "process": {
       "development": [],
@@ -8,251 +8,440 @@
       "depends_on": []
     },
     "planner": {
-      "development": [
-        "harness-tests"
-      ],
-      "integration": [
-        "harness-tests"
-      ],
-      "depends_on": []
+      "development": ["harness-tests"],
+      "integration": ["harness-tests"],
+      "depends_on": [],
+      "full_integration": true
     },
     "movie": {
-      "development": [
-        "capture-tests"
-      ],
-      "integration": [
-        "capture-tests",
-        "actor-actions",
-        "action-budget"
-      ],
+      "development": ["capture-tests"],
+      "integration": ["capture-tests", "actor-actions", "action-budget"],
       "depends_on": []
     },
     "player_presentation": {
-      "development": [
-        "environment",
-        "underworld-player-animation",
-        "actor-actions",
-        "region-bible-contract"
-      ],
+      "development": ["environment", "underworld-player-animation", "actor-actions", "region-bible-contract"],
       "integration": [],
       "depends_on": [],
       "full_integration": true
     },
     "damage_presentation": {
-      "development": [
-        "environment",
-        "underworld-damage-feedback"
-      ],
+      "development": ["environment", "underworld-damage-feedback"],
       "integration": [],
       "depends_on": [],
       "full_integration": true
     },
     "ui_presentation": {
-      "development": [
-        "environment",
-        "underworld-ui"
-      ],
+      "development": ["environment", "underworld-ui"],
       "integration": [],
       "depends_on": [],
       "full_integration": true
     },
     "web": {
-      "development": [
-        "web-cache",
-        "web-resource-contract-tests",
-        "runtime-raw-export-tests"
-      ],
-      "integration": [
-        "web-build",
-        "web-bundle"
-      ],
-      "depends_on": [
-        "web_contracts"
-      ]
+      "development": ["web-cache", "web-resource-contract-tests", "runtime-raw-export-tests"],
+      "integration": ["web-build", "web-bundle"],
+      "depends_on": ["web_contracts"]
     },
     "web_contracts": {
-      "development": [
-        "web-cache",
-        "web-resource-contract-tests",
-        "runtime-raw-export-tests"
-      ],
-      "integration": [
-        "web-cache",
-        "web-resource-contract-tests",
-        "runtime-raw-export-tests"
-      ],
+      "development": ["web-cache", "web-resource-contract-tests", "runtime-raw-export-tests"],
+      "integration": ["web-cache", "web-resource-contract-tests", "runtime-raw-export-tests"],
       "depends_on": []
     },
     "ai_level_content": {
-      "development": [
-        "ai-level-content"
-      ],
-      "integration": [
-        "ai-level-content"
-      ],
+      "development": ["ai-level-content"],
+      "integration": ["ai-level-content"],
       "depends_on": []
     },
     "ai_level_pilot": {
-      "development": [
-        "ai-level-pilot"
-      ],
-      "integration": [
-        "ai-level-pilot"
-      ],
-      "depends_on": [
-        "ai_level_content"
-      ]
+      "development": ["ai-level-pilot"],
+      "integration": ["ai-level-pilot"],
+      "depends_on": ["ai_level_content"]
+    },
+    "runtime_contracts": {
+      "development": ["environment", "core", "architecture-tests"],
+      "integration": ["environment", "core", "architecture-tests", "run-session", "game-architecture-effects"],
+      "depends_on": []
+    },
+    "application": {
+      "development": ["run-session", "game-architecture-effects", "generated-consumers", "region-bible-contract"],
+      "integration": ["run-session", "game-architecture-effects", "generated-consumers", "region", "forest-campaign", "forest-depth-restore", "underworld-world-objects", "underworld-continuous-bosses", "enemy-corpse-save", "audio-feedback", "region-bible-contract", "forest-bible-integration-tests", "forest-bible-app-discoveries"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "player": {
+      "development": ["actor-actions", "action-budget", "grapple-feel", "player-default-integration", "region-bible-contract"],
+      "integration": ["actor-actions", "action-budget", "grapple-feel", "player-default-integration", "all-weapons", "weapon-feel", "studio-input", "forest-player-aim", "item-v5-combat", "underworld-player-animation", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "combat": {
+      "development": ["all-weapons", "action-budget", "item-v5-combat", "item-v5-defense", "region-bible-contract"],
+      "integration": ["all-weapons", "action-budget", "item-v5-combat", "item-v5-defense", "enemy-structure-native", "underworld-continuous-bosses", "underworld-damage-feedback", "underworld-projectile-vfx", "game-architecture-effects", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "loadout": {
+      "development": ["item-v5-data", "item-v5-catalog", "item-v5-pool", "item-v5-inventory", "gear-inventory", "item-authoring-tools", "region-bible-contract"],
+      "integration": ["item-v5-data", "item-v5-catalog", "item-v5-pool", "item-v5-inventory", "gear-inventory", "item-authoring-tools", "item-v5-combat", "item-v5-actives", "item-v5-economy", "item-v5-defense", "item-v5-ui", "item-v5-formal", "item-v5-review", "item-v5-boss-time", "item-v5-core-effects", "item-v5-synergy-economy", "item-v5-pause-escape", "item-v5-random-context", "item-v5-manifest", "item-v5-authoring", "item-v5-art", "gear-ui", "underworld-world-objects", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "economy": {
+      "development": ["item-v5-economy", "item-v5-synergy-economy", "run-session", "region-bible-contract"],
+      "integration": ["item-v5-economy", "item-v5-synergy-economy", "run-session", "gear-ui", "item-v5-formal", "underworld-world-objects", "audio-feedback", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "rewards": {
+      "development": ["item-v5-pool", "item-v5-economy", "underworld-world-objects", "region-bible-contract"],
+      "integration": ["item-v5-pool", "item-v5-economy", "underworld-world-objects", "item-v5-random-context", "item-v5-manifest", "forest-progression", "forest-campaign", "audio-feedback", "region-bible-contract", "enemy-structure-native", "plains-motion-loot-02"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "progression": {
+      "development": ["home-codex", "forest-progression", "forest-debug", "run-session", "region-bible-contract"],
+      "integration": ["home-codex", "forest-progression", "forest-debug", "run-session", "underworld-home", "forest-campaign", "underworld-continuous-bosses", "item-v5-formal", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "enemies": {
+      "development": ["enemy-structure-native", "enemy-region-state", "forest-current-registry", "forest-ecology", "region-bible-contract"],
+      "integration": ["enemy-structure-native", "enemy-region-state", "forest-current-registry", "forest-ecology", "enemy-feedback-native", "enemy-feedback-formal", "enemy-feedback-support", "enemy-corpse-save", "enemy-corpse-snapshot", "plains-motion-loot-02", "forest-depth-enemies", "forest-depth-crossbranch-lifecycle", "forest-depth-restore", "region-bible-contract", "forest-bible-integration-tests", "forest-bible-weaver-tests"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "bosses": {
+      "development": ["windkeeper-pressure-01", "bellstrider-rework-01", "root-bell-current", "forest-depth-guardian", "forest-depth-queen-canopy", "region-bible-contract"],
+      "integration": ["windkeeper-pressure-01", "bellstrider-rework-01", "root-bell-current", "forest-depth-guardian", "forest-depth-queen-canopy", "underworld-continuous-bosses", "item-v5-boss-time", "root-bell-spaces", "root-bell-ecology", "forest-depth-guardian-tolerance", "forest-depth-campaign-guardian", "forest-depth-campaign-canopy", "forest-depth-restore", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "world": {
+      "development": ["level-plan", "generated-consumers", "region", "forest-current-registry", "region-bible-contract"],
+      "integration": ["level-plan", "generated-consumers", "region", "forest-current-registry", "underworld-world-objects", "underworld-mechanisms", "terrain-production", "wood-platforms", "forest-campaign", "forest-traversal", "forest-progression", "forest-hazard-records", "forest-practice-bell-restore", "region-bible-contract", "forest-bible-integration-tests", "forest-bible-app-discoveries", "forest-bible-ambience"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "presentation": {
+      "development": ["underworld-pipeline", "art-art", "region-bible-contract"],
+      "integration": ["underworld-pipeline", "art-art", "region-bible-contract", "underworld-formal", "underworld-player-animation", "underworld-damage-feedback", "underworld-projectile-vfx", "underworld-ui", "underworld-world-objects", "plains-revision-deform-equivalence", "audio-feedback", "bgm-integration", "entry-audio-lifecycle", "entry-audio-lifecycle-comparison", "entry-audio-owners"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "platform": {
+      "development": ["studio-input", "run-session", "entry-audio-lifecycle", "region-bible-contract"],
+      "integration": ["studio-input", "run-session", "entry-audio-lifecycle", "gear-ui", "item-v5-ui", "underworld-ui", "underworld-home", "foundry-touch", "audio-feedback", "region-bible-contract"],
+      "depends_on": ["runtime_contracts"]
+    },
+    "style_documents": {
+      "development": ["creative-direction", "creative-direction-tests", "region-bible-contract", "region-bible-tests"],
+      "integration": ["creative-direction", "creative-direction-tests", "region-bible-contract", "region-bible-tests"],
+      "depends_on": []
+    },
+    "quality_documents": {
+      "development": ["quality-tests", "quality-drills"],
+      "integration": ["quality-tests", "quality-drills"],
+      "depends_on": []
+    },
+    "world_documents": {
+      "development": ["world", "world-design-tests", "level-design-contracts"],
+      "integration": ["world", "world-design-tests", "level-design-contracts"],
+      "depends_on": []
     }
   },
   "rules": [
     {
       "id": "planner",
-      "paths": [
-        "tools/production_plan.py",
-        "config/production_impact.json",
-        "tests/test_production_plan.py"
-      ],
+      "paths": ["tools/production_plan.py", "config/production_impact.json", "tests/test_production_plan.py"],
       "domain": "planner",
       "reason": "Impact planner requires its fail-closed regression suite in addition to Harness regression."
     },
     {
       "id": "docs",
-      "paths": [
-        "docs/*",
-        ".agents/skills/*",
-        "AGENTS.md",
-        "README.md",
-        ".github/pull_request_template.md"
-      ],
+      "paths": ["docs/*", ".agents/skills/*", "AGENTS.md", "README.md", ".github/pull_request_template.md"],
       "domain": "process",
-      "reason": "Documentation and task records use the complete existing docs profile."
+      "reason": "Ordinary documentation uses the shared pure baseline; specific content/quality rules add their own validators. Explicit docs profile remains available."
     },
     {
       "id": "movie",
-      "paths": [
-        "tools/capture_actions.py",
-        "tools/action_movie_capture.gd",
-        "tools/action_movie_capture.gd.uid",
-        "tests/test_capture_actions.py"
-      ],
+      "paths": ["tools/capture_actions.py", "tools/action_movie_capture.gd", "tools/action_movie_capture.gd.uid", "tests/test_capture_actions.py"],
       "domain": "movie",
       "reason": "Existing accepted-input recording producer and its strict reader."
     },
     {
       "id": "player-presentation",
-      "paths": [
-        "game/presentation/actors/art/avatar_presentation.gd",
-        "game/presentation/actors/art/avatar_presentation.gd.uid",
-        "game/presentation/actors/art/player_visual_adapter.gd",
-        "game/presentation/actors/art/player_visual_adapter.gd.uid",
-        "game/presentation/actors/underworld_plains/underworld_player.gd",
-        "game/presentation/actors/underworld_plains/underworld_player.gd.uid",
-        "assets/characters/courier/courier_visual.gd",
-        "assets/characters/courier/courier_visual.gd.uid"
-      ],
+      "paths": ["game/presentation/actors/art/avatar_presentation.gd", "game/presentation/actors/art/avatar_presentation.gd.uid", "game/presentation/actors/art/player_visual_adapter.gd", "game/presentation/actors/art/player_visual_adapter.gd.uid", "game/presentation/actors/underworld_plains/underworld_player.gd", "game/presentation/actors/underworld_plains/underworld_player.gd.uid", "assets/characters/courier/courier_visual.gd", "assets/characters/courier/courier_visual.gd.uid"],
       "domain": "player_presentation",
       "reason": "Formal Underworld body, original authoritative Courier muzzle and adapter consumers; shared style source binding must pass, and Integration remains full."
     },
     {
       "id": "damage-presentation",
-      "paths": [
-        "game/presentation/actors/art/player_feedback.gd",
-        "game/presentation/actors/art/player_feedback.gd.uid",
-        "game/presentation/effects/art/defeat_burst.gd",
-        "game/presentation/effects/art/defeat_burst.gd.uid",
-        "game/enemies/presentation/enemy_presentation.gd",
-        "game/enemies/presentation/enemy_presentation.gd.uid",
-        "game/presentation/actors/underworld_plains/underworld_enemy.gd",
-        "game/presentation/actors/underworld_plains/underworld_enemy.gd.uid"
-      ],
+      "paths": ["game/presentation/actors/art/player_feedback.gd", "game/presentation/actors/art/player_feedback.gd.uid", "game/presentation/effects/art/defeat_burst.gd", "game/presentation/effects/art/defeat_burst.gd.uid", "game/enemies/presentation/enemy_presentation.gd", "game/enemies/presentation/enemy_presentation.gd.uid", "game/presentation/actors/underworld_plains/underworld_enemy.gd", "game/presentation/actors/underworld_plains/underworld_enemy.gd.uid"],
       "domain": "damage_presentation",
       "reason": "Formal Underworld enemy and original EnemyPresentation use distinct rendering chains; accepted-damage Development regression and full Integration are required."
     },
     {
       "id": "ui-presentation",
-      "paths": [
-        "game/presentation/ui/underworld_ui.gd",
-        "game/presentation/ui/underworld_ui.gd.uid",
-        "game/presentation/ui/focus_vignette.gd",
-        "game/presentation/ui/focus_vignette.gd.uid"
-      ],
+      "paths": ["game/presentation/ui/underworld_ui.gd", "game/presentation/ui/underworld_ui.gd.uid", "game/presentation/ui/focus_vignette.gd", "game/presentation/ui/focus_vignette.gd.uid"],
       "domain": "ui_presentation",
       "reason": "Known UI presentation consumers; shared interaction/interface changes retain conservative integration."
     },
     {
       "id": "web-contracts",
-      "paths": [
-        "tools/web/*",
-        "tools/verify_web_*.py",
-        "tools/check_web_*.py",
-        "tools/test_web_*.mjs",
-        "tests/test_web_bundle.py",
-        "tests/test_runtime_raw_export.py"
-      ],
+      "paths": ["tools/web/*", "tools/verify_web_*.py", "tools/check_web_*.py", "tools/test_web_*.mjs", "tests/test_web_bundle.py", "tests/test_runtime_raw_export.py"],
       "domain": "web",
       "reason": "Web loader and export contracts require real export and bundle verification at integration."
     },
     {
       "id": "ai-level-content",
-      "paths": [
-        "tools/level_content.py",
-        "tools/level_content_contract.py",
-        "tests/test_level_content_contract.py",
-        "tests/test_level_content_pipeline.py",
-        "docs/ai_level_design_v1/content.schema.json",
-        "tools/level_content_search.py",
-        "tools/level_content_export.py",
-        "tools/level_content_report.py",
-        "tools/level_content_evidence.py"
-      ],
+      "paths": ["tools/level_content.py", "tools/level_content_contract.py", "tests/test_level_content_contract.py", "tests/test_level_content_pipeline.py", "docs/ai_level_design_v1/content.schema.json", "tools/level_content_search.py", "tools/level_content_export.py", "tools/level_content_report.py", "tools/level_content_evidence.py"],
       "domain": "ai_level_content",
       "reason": "Offline four-layer sidecar, byte-bound reference/AI analysis and evidence counterexamples; no runtime consumer is modified."
     },
     {
       "id": "ai-level-pilot",
-      "paths": [
-        "config/level_pilot_candidates.json",
-        "tools/level_content_pilot.py",
-        "tools/level_pilot_validate.gd",
-        "tools/level_pilot_validate.gd.uid",
-        "tools/run_level_content_tests.py",
-        "tools/level_content_search.py",
-        "tools/level_pilot_movie.gd",
-        "tools/level_pilot_movie.gd.uid"
-      ],
+      "paths": ["config/level_pilot_candidates.json", "tools/level_content_pilot.py", "tools/level_pilot_validate.gd", "tools/level_pilot_validate.gd.uid", "tools/run_level_content_tests.py", "tools/level_content_search.py", "tools/level_pilot_movie.gd", "tools/level_pilot_movie.gd.uid"],
       "domain": "ai_level_pilot",
       "reason": "Isolated candidate catalogue and native experiment runner; exact catalogue exception is audited in production_plan, never applies to shared config or generation. Nine bounded real Motor conditions and pure contract tests are required."
+    },
+    {
+      "id": "module-application",
+      "paths": ["game/application/*"],
+      "domain": "application",
+      "reason": "Owned application implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-player",
+      "paths": ["game/player/*"],
+      "domain": "player",
+      "reason": "Owned player implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-combat",
+      "paths": ["game/combat/*"],
+      "domain": "combat",
+      "reason": "Owned combat implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-loadout",
+      "paths": ["game/loadout/*"],
+      "domain": "loadout",
+      "reason": "Owned loadout implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-economy",
+      "paths": ["game/economy/*"],
+      "domain": "economy",
+      "reason": "Owned economy implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-rewards",
+      "paths": ["game/rewards/*"],
+      "domain": "rewards",
+      "reason": "Owned rewards implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-progression",
+      "paths": ["game/progression/*"],
+      "domain": "progression",
+      "reason": "Owned progression implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-enemies",
+      "paths": ["game/enemies/*"],
+      "domain": "enemies",
+      "reason": "Owned enemies implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-bosses",
+      "paths": ["game/bosses/*"],
+      "domain": "bosses",
+      "reason": "Owned bosses implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-world",
+      "paths": ["game/world/*"],
+      "domain": "world",
+      "reason": "Owned world implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-presentation",
+      "paths": ["game/presentation/*"],
+      "domain": "presentation",
+      "reason": "Owned presentation implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-platform",
+      "paths": ["game/platform/*"],
+      "domain": "platform",
+      "reason": "Owned platform implementation plus actual shared contracts and downstream integration consumers."
+    },
+    {
+      "id": "module-config-gear_capacity",
+      "paths": ["config/gear_capacity.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-home_items",
+      "paths": ["config/home_items.json"],
+      "domain": "progression",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-meta_upgrades",
+      "paths": ["config/meta_upgrades.json"],
+      "domain": "progression",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-enemy_drops",
+      "paths": ["config/enemy_drops.json"],
+      "domain": "rewards",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-chest_art",
+      "paths": ["config/chest_art.json"],
+      "domain": "presentation",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-items_v5",
+      "paths": ["config/items_v5.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_art",
+      "paths": ["config/item_v5_art.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_authoring",
+      "paths": ["config/item_v5_authoring.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_defense",
+      "paths": ["config/item_v5_defense.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_economy",
+      "paths": ["config/item_v5_economy.json"],
+      "domain": "economy",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_entities",
+      "paths": ["config/item_v5_entities.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_feedback",
+      "paths": ["config/item_v5_feedback.json"],
+      "domain": "presentation",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_runtime",
+      "paths": ["config/item_v5_runtime.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-item_v5_synergies",
+      "paths": ["config/item_v5_synergies.json"],
+      "domain": "loadout",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-plains_encounter_profile",
+      "paths": ["config/plains_encounter_profile.json"],
+      "domain": "world",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-config-plains_shot_latches",
+      "paths": ["config/plains_shot_latches.json"],
+      "domain": "world",
+      "reason": "Exact existing configuration consumed by this module; no directory-wide configuration exception."
+    },
+    {
+      "id": "module-assets-loadout",
+      "paths": ["assets/items/*"],
+      "domain": "loadout",
+      "reason": "Current family assets consumed by the selected module and its presentation integration checks."
+    },
+    {
+      "id": "module-assets-enemies",
+      "paths": ["assets/enemies/*"],
+      "domain": "enemies",
+      "reason": "Current family assets consumed by the selected module and its presentation integration checks."
+    },
+    {
+      "id": "module-assets-presentation",
+      "paths": ["assets/underworld_plains/*", "assets/ui/*", "assets/characters/*", "assets/player_presentation_01/*"],
+      "domain": "presentation",
+      "reason": "Current family assets consumed by the selected module and its presentation integration checks."
+    },
+    {
+      "id": "module-tests-loadout",
+      "paths": ["tests/item_v5_*", "tests/gear_*"],
+      "domain": "loadout",
+      "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
+    },
+    {
+      "id": "module-tests-enemies",
+      "paths": ["tests/enemy_*", "tests/plains_motion_loot_02_*", "tests/forest_depth_ecology_*", "tests/forest_depth_enemy_*"],
+      "domain": "enemies",
+      "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
+    },
+    {
+      "id": "module-tests-bosses",
+      "paths": ["tests/bellstrider_rework_01/*", "tests/windkeeper_pressure_01/*", "tests/root_bell_*", "tests/underworld_plains/test_underworld_r3_boss*"],
+      "domain": "bosses",
+      "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
+    },
+    {
+      "id": "module-tests-player",
+      "paths": ["tests/actor_actions_*", "tests/player_presentation_01/*", "tests/grapple_*", "tests/action_budget_*"],
+      "domain": "player",
+      "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
+    },
+    {
+      "id": "module-tests-presentation",
+      "paths": ["tests/audio_feedback_*", "tests/bgm_integration/*", "tests/chest_art_runner.gd"],
+      "domain": "presentation",
+      "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
+    },
+    {
+      "id": "module-tests-application",
+      "paths": ["tests/demo_tests.gd", "tests/run_session_runner.gd"],
+      "domain": "application",
+      "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
+    },
+    {
+      "id": "style_documents",
+      "paths": ["docs/creative_direction/*", "tools/region_style_history.py", "tools/region_creative_direction.py"],
+      "domain": "style_documents",
+      "reason": "Document/schema responsibility and original pure Python validator/counterexamples; no engine."
+    },
+    {
+      "id": "quality_documents",
+      "paths": ["docs/quality/*", ".agents/skills/*"],
+      "domain": "quality_documents",
+      "reason": "Document/schema responsibility and original pure Python validator/counterexamples; no engine."
+    },
+    {
+      "id": "world_documents",
+      "paths": ["docs/world_regions.json", "docs/design/player_actions/regions_v0.3.md", "docs/design_contract.json"],
+      "domain": "world_documents",
+      "reason": "Document/schema responsibility and original pure Python validator/counterexamples; no engine."
     }
   ],
-  "always_full": [
-    "project.godot",
-    "export_presets.cfg",
-    "config/*",
-    "resources/*",
-    "scenes/*",
-    "scripts/player/*",
-    "scripts/core/*",
-    "scripts/generation/*",
-    "scripts/save/*",
-    ".github/workflows/*",
-    "tools/harness.py",
-    "tools/harness/*"
-  ],
+  "always_full": ["project.godot", "export_presets.cfg", "config/*", "resources/*", "scenes/*", "scripts/player/*", "scripts/core/*", "scripts/generation/*", "scripts/save/*", ".github/workflows/*", "tools/harness.py", "tools/harness/*", "game/player/player_motor.gd*", "game/application/run_composition.gd*", "game/application/run_manifest.gd*", "game/combat/resources/contracts/*", "game/combat/resources/state/*", "game/combat/damage/damage_request.gd*", "game/combat/damage/damage_result.gd*", "game/combat/damage/damageable.gd*", "game/platform/persistence/*", "game/world/state/run_random_stream.gd*", "game/world/state/demo_lifetime.gd*", "game/world/components/platforming_module.gd*", "tools/run_tests.py", "tools/godot*", "tools/setup_environment.py", "tools/build.py", "tools/cloud_inputs.py", "addons/*", "tools/project_dependencies.py", "tools/check_project.py", "tools/check_quality.py", "tools/quality.py", "tools/check_docs.py", "tools/level_design.py", "tools/level_formal.py", "tools/underworld_pipeline.py"],
   "early_python_checks": [
     {
       "parent_check": "plains-encounter-policy",
-      "argv": [
-        "python3",
-        "-S",
-        "tests/test_plains_encounter_policy_boundary.py",
-        "-v"
-      ],
+      "argv": ["python3", "-S", "tests/test_plains_encounter_policy_boundary.py", "-v"],
       "reason": "Original24 portable boundary cases before engine work; original parent wrapper still runs all its cases and native consumers."
     }
   ],
-  "manual_checks": [
-    "GUI and real device/player acceptance remain unverified unless separately exercised.",
-    "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.",
-    "Check inputs are cache invalidation inventories, not complete test dependency graphs."
-  ]
+  "manual_checks": ["GUI and real device/player acceptance remain unverified unless separately exercised.", "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.", "Check inputs are cache invalidation inventories, not complete test dependency graphs."],
+  "baseline_checks": ["docs", "structure", "quality"],
+  "baseline_reason": "Pure shared link/schema, actual dependency/entry and quality-record gates. Full docs remains an explicit manual Harness profile; ordinary documentation does not activate content/history suites."
 }

@@ -83,9 +83,12 @@ jobs:
           manifest = json.loads(Path('tools/harness/profiles.json').read_text())
           checks = set(plan['checks'])
           needs_engine = bool(checks - set(manifest['profiles']['docs']))
+          # Only this verified stdlib-only set skips media installation.
+          needs_media = bool(checks - {'docs', 'structure', 'quality', 'harness-tests'})
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write('needs_engine=' + str(needs_engine).lower() + '\n')
               output.write('needs_web=' + str('web-build' in checks).lower() + '\n')
+              output.write('needs_media=' + str(needs_media).lower() + '\n')
           PY
       - name: Materialize selected original inputs without checking out all historical media
         run: |
@@ -111,6 +114,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log
       - name: Install media dependencies required by existing docs and readers
+        if: steps.impact.outputs.needs_media == 'true'
         timeout-minutes: 5
         run: |
           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then

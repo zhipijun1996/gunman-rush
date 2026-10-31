@@ -1,3 +1,7 @@
+## 2026-10-31 模块边界与责任CI已实施
+
+森林地方装配归Stage，怪物地方几何／恢复归EnemyActor；App保流程协调。实际95／54／61／61／69专项及source guard通过。CI沿原planner按12模块和实际下游选择，普通文档3门禁，未知／共享／构建full171；选择器46和Harness91通过。完整集成、内容源码权威技术绑定与历史Bible30秒仍待，不宣称全绿或发布。具体调用、责任、证据与回退见[本批说明](worklines/game_architecture_01/module_boundaries_and_ci.md)。下方为历史节点。
+
 ## 2026-10-31 高效率重构节点：P10/P11与默认CI范围已保存
 
 已提交P10领取状态归属、P11共用宝箱候选和14项旧地图默认CI退役；实际专项通过，默认171＝92＋79。完整验收仍被现有资源权威四源码技术绑定、历史Bible检查30秒超时阻断，没有合main或发布。下一步只处理这两项，不再扩大审计或资源清理。准确提交、结果、失败与继续顺序见[高效率交接](worklines/game_architecture_01/efficient_continuation.md)。下方是历史快照。

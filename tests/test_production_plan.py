@@ -28,7 +28,7 @@ class ProductionPlanTests(unittest.TestCase):
 
     def test_docs_do_not_export_or_claim_test_execution(self):
         plan = self.plan(["docs/handoff.md", "AGENTS.md"])
-        self.assertEqual(set(plan["checks"]), set(self.manifest["profiles"]["docs"]))
+        self.assertEqual(plan["checks"], self.policy["baseline_checks"])
         self.assertNotIn("web-build", plan["checks"])
         self.assertEqual(plan["status"], "planned")
         self.assertEqual(plan["approval_scope"], "plan_only")
@@ -218,7 +218,7 @@ class ProductionPlanTests(unittest.TestCase):
     def test_early_boundary_is_only_selected_with_its_real_parent(self):
         docs = self.plan(["docs/handoff.md"])
         self.assertEqual(docs["precheck_commands"], [])
-        full = self.plan(["game/application/demo_app.gd"], "integration")
+        full = self.plan(["project.godot"], "integration")
         self.assertEqual(full["precheck_commands"], [["python3", "-S", "tests/test_plains_encounter_policy_boundary.py", "-v"]])
         self.assertIn("plains-encounter-policy", full["checks"])
         policy = copy.deepcopy(self.policy)
@@ -265,8 +265,8 @@ class ProductionPlanTests(unittest.TestCase):
         for domain in self.policy["domains"].values():
             for stage in ("development", "integration"):
                 self.assertFalse(set(domain[stage]) & set(retired))
-        current = self.plan(["game/application/demo_app.gd"], "integration")
-        historical = make_plan(["game/application/demo_app.gd"], "integration",
+        current = self.plan(["project.godot"], "integration")
+        historical = make_plan(["project.godot"], "integration",
                                self.policy, historical_manifest)
         self.assertEqual(current["ci_route"], "full_lanes")
         for key, actual in [("checks", current["checks"]),
@@ -281,7 +281,7 @@ class ProductionPlanTests(unittest.TestCase):
         # Only this test instance sees the pinned historical profiles. All
         # original assertions/negative plans below remain executable unchanged.
         self.manifest = historical_manifest
-        full = self.plan(["game/application/demo_app.gd"], "integration")
+        full = self.plan(["project.godot"], "integration")
         self.assertEqual(full["ci_route"], "full_lanes")
         self.assertEqual(set(full["checks"]), set(self.manifest["profiles"]["full"]))
         parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
@@ -425,7 +425,7 @@ class ProductionPlanTests(unittest.TestCase):
         manifest = copy.deepcopy(self.manifest)
         manifest["profiles"]["docs"].append("not-in-full")
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
-        with_extra = make_plan(["game/application/demo_app.gd"],"integration",self.policy,manifest)
+        with_extra = make_plan(["project.godot"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
         self.manifest = current_manifest
 
@@ -470,8 +470,10 @@ class ProductionPlanTests(unittest.TestCase):
                     profiles.add("art")
                 self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names}, profiles)
                 plan = self.plan([runner], "integration")
-                self.assertEqual(plan["selection"], "full")
-                self.assertIn(name, plan["ci_lane_checks"]["serial"])
+                self.assertEqual(plan["selection"], "affected_checks")
+                self.assertIn(name, plan["checks"])
+                self.assertEqual(plan["ci_route"], "selected_commands")
+                self.assertEqual(plan["ci_lane_checks"], {})
                 path = "game/application/run_session.gd"
                 self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "a" * 64}),
                                     harness.input_digest(check, [path], {}, {path: "b" * 64}))
@@ -501,6 +503,7 @@ class ProductionPlanTests(unittest.TestCase):
                      "resources/enemies/legacy/plains_charger_v2.tres", "tools/run_tests.py"):
             self.assertIn(path, check["inputs"])
         plan = self.plan(["tests/forest_v11_definition_runner.gd"], "integration")
+        self.assertEqual(plan["ci_route"], "full_lanes")
         self.assertIn(name, plan["ci_lane_checks"]["serial"])
 
     def test_recorded_definition_wrapper_keeps_clock_marker_and_shared_failure_propagation(self):
@@ -585,9 +588,14 @@ class ProductionPlanTests(unittest.TestCase):
         for path in check["inputs"]:
             self.assertTrue((ROOT / path).is_file())
             plan = self.plan([path], "integration")
-            self.assertEqual(plan["selection"], "full")
-            self.assertIn(name, plan["ci_lane_checks"]["parallel"])
-            self.assertNotIn(name, plan["ci_lane_checks"]["serial"])
+            if path == "tools/project_dependencies.py":
+                self.assertEqual(plan["selection"], "full")
+                self.assertIn(name, plan["ci_lane_checks"]["parallel"])
+                self.assertNotIn(name, plan["ci_lane_checks"]["serial"])
+            else:
+                self.assertEqual(plan["selection"], "affected_checks")
+                self.assertIn(name, plan["checks"])
+                self.assertEqual(plan["ci_route"], "selected_commands")
 
     def test_run_session_registers_actual_app_consumer_with_existing_strict_harness(self):
         name = "run-session"
@@ -605,11 +613,10 @@ class ProductionPlanTests(unittest.TestCase):
         for path in ("game/application/run_session.gd", runner):
             for stage in ("development", "integration"):
                 plan = self.plan([path], stage)
-                self.assertEqual(plan["selection"], "full")
+                self.assertEqual(plan["selection"], "affected_checks")
                 self.assertIn(name, plan["checks"])
-                if stage == "integration":
-                    self.assertIn(name, plan["ci_lane_checks"]["serial"])
-                    self.assertNotIn(name, plan["ci_lane_checks"]["parallel"])
+                self.assertEqual(plan["ci_route"], "selected_commands")
+                self.assertEqual(plan["ci_lane_checks"], {})
 
     def test_migrated_runtime_inputs_invalidate_real_cache_contracts_without_widening_pure_checks(self):
         import harness
@@ -652,10 +659,141 @@ class ProductionPlanTests(unittest.TestCase):
             self.assertTrue((ROOT / path).is_file())
             self.assertTrue(any(path == item or path.startswith(item.rstrip("/") + "/")
                                 for item in check["inputs"]))
-        integration = self.plan(["game/application/demo_app.gd"], "integration")
+        integration = self.plan(["project.godot"], "integration")
         self.assertIn(name, integration["checks"])
         self.assertIn(name, integration["ci_lane_checks"]["parallel"])
         self.assertNotIn(name, integration["ci_lane_checks"]["serial"])
+
+
+    def test_module_changes_use_real_consumers_and_small_shared_baseline(self):
+        cases = {
+            "application": ("game/application/demo_app.gd", "run-session", "underworld-world-objects"),
+            "player": ("game/player/player_controller.gd", "actor-actions", "all-weapons"),
+            "combat": ("game/combat/damage/frame_damage_policy.gd", "item-v5-combat", "underworld-continuous-bosses"),
+            "loadout": ("game/loadout/equipment/equipment_service.gd", "gear-inventory", "item-v5-formal"),
+            "economy": ("game/economy/shops/shop_service.gd", "item-v5-economy", "gear-ui"),
+            "rewards": ("game/rewards/offers/cache_reward_policy.gd", "item-v5-pool", "audio-feedback"),
+            "progression": ("game/progression/home/home_scene.gd", "home-codex", "forest-campaign"),
+            "enemies": ("game/enemies/enemy_actor.gd", "enemy-structure-native", "enemy-corpse-save"),
+            "bosses": ("game/bosses/windkeeper/windkeeper_encounter.gd", "windkeeper-pressure-01", "item-v5-boss-time"),
+            "world": ("game/world/levels/level_runtime.gd", "level-plan", "underworld-world-objects"),
+            "presentation": ("game/presentation/ui/item_card.gd", "underworld-pipeline", "underworld-ui"),
+            "platform": ("game/platform/input/keyboard_mouse_adapter.gd", "studio-input", "gear-ui"),
+        }
+        for domain,(path,own,downstream) in cases.items():
+            with self.subTest(domain=domain):
+                self.assertTrue((ROOT/path).is_file(),path)
+                development=self.plan([path]); integration=self.plan([path],"integration")
+                self.assertEqual(integration["selection"],"affected_checks")
+                self.assertIn(own,development["checks"])
+                self.assertIn(downstream,integration["checks"])
+                self.assertIn("core",integration["checks"])
+                self.assertIn("region-bible-contract",integration["checks"])
+                self.assertNotIn("region-bible-tests",integration["checks"])
+                self.assertNotIn("web-build",integration["checks"])
+                self.assertLess(len(integration["checks"]),len(self.manifest["profiles"]["full"]))
+                self.assertEqual(integration["ci_route"],"selected_commands")
+                self.assertEqual(len(integration["checks"]),len(set(integration["checks"])))
+
+    def test_changed_real_owners_keep_forest_and_enemy_drop_consumers(self):
+        cases={
+            "game/application/demo_app.gd": ["forest-bible-integration-tests","forest-bible-app-discoveries"],
+            "game/world/levels/providers/thorn_forest_region_stage.gd": ["forest-bible-integration-tests","forest-bible-app-discoveries","forest-bible-ambience"],
+            "game/enemies/enemy_actor.gd": ["forest-bible-integration-tests","forest-bible-weaver-tests"],
+            "config/enemy_drops.json": ["enemy-structure-native","plains-motion-loot-02"],
+            "game/rewards/drops/enemy_drop_service.gd": ["enemy-structure-native","plains-motion-loot-02"],
+        }
+        for path,consumers in cases.items():
+            with self.subTest(path=path):
+                self.assertTrue((ROOT/path).is_file())
+                plan=self.plan([path],"integration")
+                self.assertEqual(plan["selection"],"affected_checks")
+                for name in consumers:
+                    self.assertIn(name,plan["checks"])
+                    self.assertEqual(plan["checks"].count(name),1)
+                self.assertNotIn("forest-depth-region",plan["checks"])
+
+    def test_documentation_with_module_does_not_activate_unrelated_content_tools(self):
+        a=self.plan(["game/economy/shops/shop_service.gd"],"integration")
+        b=self.plan(["game/economy/shops/shop_service.gd","docs/handoff.md"],"integration")
+        self.assertEqual(a["checks"],b["checks"])
+        self.assertEqual(self.policy["baseline_checks"],["docs","structure","quality"])
+        for check in ("underworld-pipeline","region-bible-tests","terrain-tile-tests","level-design-golden-tests"):
+            self.assertNotIn(check,b["checks"])
+        self.assertEqual(self.plan(["docs/handoff.md"])["checks"],self.policy["baseline_checks"])
+
+    def test_global_contracts_and_unknown_sources_still_escalate(self):
+        for path in ("game/player/player_motor.gd","game/application/run_composition.gd", "game/world/state/run_random_stream.gd", "game/platform/persistence/meta_save_service.gd", "game/combat/resources/contracts/actor_resource_result.gd", "game/unregistered/new.gd", "tools/new_unknown_helper.py", "tools/godot_identity.py", "tools/check_quality.py", "tools/underworld_pipeline.py", "tools/level_design.py", "config/toolchain.json"):
+            with self.subTest(path=path):
+                plan=self.plan([path],"integration")
+                self.assertEqual(plan["selection"],"full")
+                self.assertEqual(set(plan["checks"]),set(self.manifest["profiles"]["full"]))
+                self.assertEqual(plan["ci_route"],"full_lanes")
+        self.assertEqual(self.plan(["config/production_impact.json"],"integration")["selection"],"full")
+
+    def test_exact_module_config_does_not_admit_adjacent_or_fake_exceptions(self):
+        for path,check in (("config/items_v5.json","item-v5-catalog"),("config/enemy_drops.json","underworld-world-objects"),("config/gear_capacity.json","gear-inventory")):
+            plan=self.plan([path],"integration")
+            self.assertEqual(plan["selection"],"affected_checks")
+            self.assertIn(check,plan["checks"])
+        bad=copy.deepcopy(self.policy)
+        rule=next(r for r in bad["rules"] if r["id"]=="module-config-items_v5")
+        rule["paths"].extend(["config/*","config/player_tuning.json"])
+        for path in ("config/player_tuning.json","config/items_v5_unreviewed.json"):
+            self.assertEqual(self.plan([path],policy=bad)["selection"],"full")
+
+    def test_actual_command_and_selected_suite_ownership_not_broad_inputs(self):
+        for path,expected in (("tests/item_v5_inventory_runner.gd","item-v5-inventory"),("tests/enemy_corpse_snapshot_cases.gd","enemy-corpse-snapshot"),("tests/run_session_runner.gd","run-session"),("tests/test_region_bible.py","region-bible-tests")):
+            plan=self.plan([path],"integration")
+            self.assertEqual(plan["selection"],"affected_checks")
+            self.assertIn(expected,plan["checks"])
+            self.assertNotIn("forest-depth-region",plan["checks"])
+        self.assertEqual(self.plan(["tests/new_unreviewed_test.gd"])["selection"],"full")
+        self.assertEqual(self.plan(["tools/run_tests.py"])["selection"],"full")
+
+    def test_invalid_baseline_and_shared_wrapper_fail_closed(self):
+        bad=copy.deepcopy(self.policy);bad["baseline_checks"].append("core")
+        with self.assertRaises(ValueError):self.plan(["game/enemies/enemy_actor.gd"],policy=bad)
+        self.assertNotIn("check_owners",self.policy)
+        selected=self.plan(["tools/run_item_v5_tests.py"],"integration")["checks"]
+        actual=[n for n in self.manifest["profiles"]["full"]
+                if self.manifest["checks"][n]["argv"][1]=="tools/run_item_v5_tests.py"]
+        self.assertEqual(selected,self.policy["baseline_checks"]+actual)
+
+    def test_document_content_uses_pure_responsibility_checks(self):
+        cases=[("docs/creative_direction/thorn_forest.json","region-bible-tests"),
+               ("docs/world_regions.json","world-design-tests"),
+               ("docs/quality/records/example.json","quality-tests")]
+        for path,expected in cases:
+            plan=self.plan([path],"integration")
+            self.assertIn(expected,plan["checks"])
+            self.assertLessEqual(set(plan["checks"]),set(self.manifest["profiles"]["docs"]))
+            self.assertNotIn("environment",plan["checks"])
+        self.assertEqual(len(self.manifest["profiles"]["docs"]),33)
+
+    def test_actual_prepare_media_gate_skips_only_verified_stdlib_set(self):
+        import os
+        import textwrap
+        workflow=(ROOT/".github/workflows/production.yml").read_text()
+        section=workflow.split("- name: Plan actual changed paths before installing an engine",1)[1]
+        code=textwrap.dedent(section.split("python3 - <<'PY'",1)[1].split("\n          PY",1)[0])
+        self.assertIn("if: steps.impact.outputs.needs_media == 'true'",workflow.split("- name: Install media dependencies required by existing docs and readers",1)[1].split("- uses:",1)[0])
+        scenarios=[(["docs","structure","quality"],False,False),
+                   (["docs","structure","quality","harness-tests"],False,False),
+                   (["region-bible-tests"],True,False),
+                   (["core"],True,True)]
+        for checks,media,engine in scenarios:
+            with self.subTest(checks=checks),tempfile.TemporaryDirectory() as directory:
+                root=Path(directory);(root/"build/verification/production-ci").mkdir(parents=True);(root/"tools/harness").mkdir(parents=True)
+                (root/"build/verification/production-ci/plan.json").write_text(json.dumps({"checks":checks}))
+                (root/"tools/harness/profiles.json").write_text(json.dumps(self.manifest))
+                output=root/"outputs"
+                with contextlib.chdir(root),patch.dict(os.environ,{"GITHUB_OUTPUT":str(output)}):
+                    exec(compile(code,"actual-production-workflow-impact","exec"),{})
+                values=dict(line.split("=",1) for line in output.read_text().splitlines())
+                self.assertEqual(values["needs_media"],str(media).lower())
+                self.assertEqual(values["needs_engine"],str(engine).lower())
+                self.assertEqual(values["needs_web"],"false")
 
     def exercise_main(self, script, action="--precheck-only", verbose=False):
         directory = tempfile.TemporaryDirectory(); self.addCleanup(directory.cleanup)
@@ -670,7 +808,7 @@ class ProductionPlanTests(unittest.TestCase):
         def metadata():
             return {"working_files":{"source.txt":hashlib.sha256((root/"source.txt").read_bytes()).hexdigest()}}
         harness=types.SimpleNamespace(load_manifest=lambda:self.manifest,
-                    changed_paths=lambda base:["game/application/demo_app.gd"],git_metadata=metadata,
+                    changed_paths=lambda base:["project.godot"],git_metadata=metadata,
                     MANIFEST=ROOT/"tools/harness/profiles.json")
         stdout=io.StringIO(); output=root/"build/plan.json"
         with patch.object(production_plan,"ROOT",root), patch.object(production_plan,"POLICY",policy_path), patch.object(production_plan,"git",return_value="frozen-source"), patch.dict(sys.modules,{"harness":harness}), contextlib.redirect_stdout(stdout):

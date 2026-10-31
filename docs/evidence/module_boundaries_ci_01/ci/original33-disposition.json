@@ -1,0 +1,438 @@
+[
+  {
+    "check": "docs",
+    "actual_argv": [
+      "python3",
+      "tools/check_docs.py"
+    ],
+    "always_baseline": true,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tools/check_docs.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "world",
+    "actual_argv": [
+      "python3",
+      "tools/check_world_design.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "world_documents"
+    ],
+    "direct_tool_or_test_trigger": "tools/check_world_design.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "world-design-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_world_design.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "world_documents"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_world_design.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "structure",
+    "actual_argv": [
+      "python3",
+      "tools/check_project.py"
+    ],
+    "always_baseline": true,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tools/check_project.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "harness-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_harness.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "planner"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_harness.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "quality-drills",
+    "actual_argv": [
+      "python3",
+      "tools/quality_drills.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "quality_documents"
+    ],
+    "direct_tool_or_test_trigger": "tools/quality_drills.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "quality-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_quality.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "quality_documents"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_quality.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "quality",
+    "actual_argv": [
+      "python3",
+      "tools/check_quality.py"
+    ],
+    "always_baseline": true,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tools/check_quality.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "production-loop-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_production_loop.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_production_loop.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "terrain-tile-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_terrain_tiles.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_terrain_tiles.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "consumer-coverage-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_consumer_coverage.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_consumer_coverage.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "capture-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_capture_actions.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "movie"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_capture_actions.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-design-contracts",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_design_contracts.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "world_documents"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_level_design_contracts.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "mechanism-comparisons",
+    "actual_argv": [
+      "python3",
+      "tests/test_mechanism_comparisons.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_mechanism_comparisons.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-design-analysis",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_design_analysis.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_level_design_analysis.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-design-routing",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_design_routing.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_level_design_routing.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-design-golden-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_design_golden.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_level_design_golden.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-region-context",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_region_context.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_level_region_context.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-experience",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_experience.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_level_experience.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "level-formal-receipts",
+    "actual_argv": [
+      "python3",
+      "tests/test_level_formal_receipts.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_level_formal_receipts.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "visual-director-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_visual_director.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_visual_director.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "asset-family-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_asset_family.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_asset_family.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "creative-direction",
+    "actual_argv": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--directory",
+      "docs/creative_direction"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "style_documents"
+    ],
+    "direct_tool_or_test_trigger": "tools/region_creative_direction.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "creative-direction-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "style_documents"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_region_creative_direction.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "underworld-pipeline",
+    "actual_argv": [
+      "python3",
+      "tests/test_underworld_pipeline.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "presentation"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_underworld_pipeline.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "underworld-home-guard-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_underworld_home_terrace_wrapper.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_underworld_home_terrace_wrapper.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "region-bible-contract",
+    "actual_argv": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--check-bibles"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "player_presentation",
+      "application",
+      "player",
+      "combat",
+      "loadout",
+      "economy",
+      "rewards",
+      "progression",
+      "enemies",
+      "bosses",
+      "world",
+      "presentation",
+      "platform",
+      "style_documents"
+    ],
+    "direct_tool_or_test_trigger": "tools/region_creative_direction.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "region-bible-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_region_bible.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [
+      "style_documents"
+    ],
+    "direct_tool_or_test_trigger": "tests/test_region_bible.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "harness-artifact-archive-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_harness_artifact_archive.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_harness_artifact_archive.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "cloud-production-planner-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_production_plan.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_production_plan.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "cloud-delivery-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_cloud_delivery.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_cloud_delivery.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "cloud-inputs-tests",
+    "actual_argv": [
+      "python3",
+      "tests/test_cloud_inputs.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tests/test_cloud_inputs.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  },
+  {
+    "check": "portable-frozen-assets",
+    "actual_argv": [
+      "python3",
+      "tools/test_frozen_assets.py"
+    ],
+    "always_baseline": false,
+    "mapped_domains": [],
+    "direct_tool_or_test_trigger": "tools/test_frozen_assets.py",
+    "unknown_shared_helper": "full171 fallback",
+    "explicit_full_docs_profile_retained": true
+  }
+]

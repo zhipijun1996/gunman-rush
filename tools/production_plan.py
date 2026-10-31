@@ -21,6 +21,24 @@ EXACT_EXPERIMENT_CONFIG = {
     "config/level_pilot_candidates.json": ("ai-level-pilot", "ai_level_pilot"),
 }
 
+# Exact module configuration consumers; a policy glob cannot expand this bypass.
+EXACT_MODULE_CONFIG = {'config/gear_capacity.json': ('module-config-gear_capacity', 'loadout'),
+ 'config/home_items.json': ('module-config-home_items', 'progression'),
+ 'config/meta_upgrades.json': ('module-config-meta_upgrades', 'progression'),
+ 'config/enemy_drops.json': ('module-config-enemy_drops', 'rewards'),
+ 'config/chest_art.json': ('module-config-chest_art', 'presentation'),
+ 'config/items_v5.json': ('module-config-items_v5', 'loadout'),
+ 'config/item_v5_art.json': ('module-config-item_v5_art', 'loadout'),
+ 'config/item_v5_authoring.json': ('module-config-item_v5_authoring', 'loadout'),
+ 'config/item_v5_defense.json': ('module-config-item_v5_defense', 'loadout'),
+ 'config/item_v5_economy.json': ('module-config-item_v5_economy', 'economy'),
+ 'config/item_v5_entities.json': ('module-config-item_v5_entities', 'loadout'),
+ 'config/item_v5_feedback.json': ('module-config-item_v5_feedback', 'presentation'),
+ 'config/item_v5_runtime.json': ('module-config-item_v5_runtime', 'loadout'),
+ 'config/item_v5_synergies.json': ('module-config-item_v5_synergies', 'loadout'),
+ 'config/plains_encounter_profile.json': ('module-config-plains_encounter_profile', 'world'),
+ 'config/plains_shot_latches.json': ('module-config-plains_shot_latches', 'world')}
+
 
 def unique(items):
     return list(dict.fromkeys(items))
@@ -44,6 +62,9 @@ def validate_policy(policy, manifest):
     for profile in ("docs", "full"):
         if not manifest["profiles"].get(profile):
             raise ValueError("Missing existing Harness profile: " + profile)
+    baseline = policy.get("baseline_checks", manifest["profiles"]["docs"])
+    if not baseline or any(name not in manifest["profiles"]["docs"] for name in baseline):
+        raise ValueError("Invalid pure baseline check")
     domain_closure(domains, list(domains))
     seen = set()
     for check in policy.get("early_python_checks", []):
@@ -87,36 +108,47 @@ def make_plan(paths, stage, policy, manifest, jobs=1):
     if stage not in ("development", "integration", "release"):
         raise ValueError("Unknown production stage")
     paths = sorted({safe_path(path) for path in paths})
-    matches, selected_domains, escalations = [], [], []
+    matches, selected_domains, escalations, consumer_checks = [], [], [], []
     for path in paths:
         # Planner self-tests and this one isolated pilot catalogue have reviewed
         # exact consumers. Unknown/shared config retains fail-closed routing.
         planner = next((r for r in policy["rules"] if r["id"] == "planner" and path in r["paths"]), None)
-        audited = EXACT_EXPERIMENT_CONFIG.get(path)
+        audited = EXACT_EXPERIMENT_CONFIG.get(path) or EXACT_MODULE_CONFIG.get(path)
         experiment = next((r for r in policy["rules"] if audited and r["id"] == audited[0]
                            and r["domain"] == audited[1] and path in r["paths"]), None)
         precedence = planner or experiment
         forced = not precedence and any(fnmatch.fnmatchcase(path, pattern) for pattern in policy["always_full"])
         rules = [precedence] if precedence else [r for r in policy["rules"] if any(fnmatch.fnmatchcase(path, p) for p in r["paths"])]
-        if forced or not rules:
+        # Existing commands are the authority. Do not infer reachability from
+        # broad cache inputs or persist another per-test ownership registry.
+        owned = ([name for name in manifest["profiles"]["full"]
+                  if path in manifest["checks"][name]["argv"]
+                  and (path == manifest["checks"][name]["argv"][1] or path.startswith("tests/"))]
+                 if not forced and not rules else [])
+        if forced or (not rules and not owned):
             reason = "Shared runtime/configuration/build boundary" if forced else "Unknown or unregistered dependency scope"
             escalations.append({"path": path, "reason": reason, "to": "full"})
             matches.append({"path": path, "rules": [], "reason": reason, "scope": "full"})
         else:
+            consumer_checks.extend(owned)
             selected_domains.extend(r["domain"] for r in rules)
-            matches.append({"path": path, "rules": [r["id"] for r in rules], "reason": [r["reason"] for r in rules], "scope": "mapped"})
+            matches.append({"path": path, "rules": [r["id"] for r in rules], "reason": [r["reason"] for r in rules], "consumer_checks": owned, "scope": "mapped"})
     closure = domain_closure(policy["domains"], unique(selected_domains))
     if stage == "integration":
         for domain in closure:
             if policy["domains"][domain].get("full_integration"):
                 escalations.append({"domain": domain, "reason": "Shared interface and consumer reachability require the existing full integration baseline", "to": "full"})
     full = bool(escalations)
-    checks = manifest["profiles"]["docs"][:]
+    checks = (manifest["profiles"]["docs"] if full
+              else policy.get("baseline_checks", manifest["profiles"]["docs"]))[:]
     if full:
         checks.extend(manifest["profiles"]["full"])
     else:
         for domain in closure:
             checks.extend(policy["domains"][domain][stage if stage != "release" else "integration"])
+        if any(manifest["checks"][name]["argv"][1] == "tools/godot.sh" for name in consumer_checks):
+            checks.append("environment")
+        checks.extend(consumer_checks)
     commands = [["python3", "tools/harness.py", *[arg for check in unique(checks) for arg in ("--check", check)], "--jobs", str(jobs)]]
     if stage == "integration":
         commands[0].append("--release")
