@@ -21,6 +21,16 @@ jobs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
       - run: python3 tools/engine/test_build_contract.py
       - id: matrix
         shell: bash
@@ -46,6 +56,16 @@ jobs:
       GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-engine-downloads
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
       - name: Build exact source and reviewed backports with locked dependencies
         run: python3 tools/engine/build.py --lane '${{ matrix.lane }}' --work /tmp/gunman-engine --jobs 2
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -72,6 +92,16 @@ jobs:
     container: docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           pattern: engine-built-*
