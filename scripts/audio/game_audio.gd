@@ -48,19 +48,27 @@ var material_dropped := 0
 var material_preemptions := 0
 var _candidate_revisions: Dictionary = {}
 
+static func for_origin(origin: Node) -> Node:
+	# The existing game_audio registration is scoped by ancestry, not by the
+	# order unrelated worlds entered the tree. A closing owner still owns its
+	# origin: return it and let its playback methods reject new work. Skipping
+	# it would incorrectly send cues/stops into an ancestor or sibling world.
+	# Return Node to retain the existing Bellstrider service test-double API.
+	if not is_instance_valid(origin) or not origin.is_inside_tree(): return null
+	var scope := origin
+	while scope != null:
+		if scope is GameAudio or scope.is_in_group(&"game_audio"): return scope
+		for child: Node in scope.get_children():
+			if child is GameAudio or child.is_in_group(&"game_audio"): return child
+		scope = scope.get_parent()
+	return null
+
 static func cue_committed_reward(origin: Node, event_id: StringName, legacy_cue: StringName) -> void:
 	# Only call after COMMITTED. Reward confirmation belongs to the accepted
 	# menu transaction, so it can finish while that menu still pauses the world.
 	if event_id not in [&"chest_open", &"item_get"] or legacy_cue not in [&"confirm", &"note"]: return
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
-	var owner := origin
-	var service: GameAudio
-	while owner != null and service == null:
-		for child: Node in owner.get_children():
-			if child is GameAudio:
-				service = child as GameAudio
-				break
-		owner = owner.get_parent()
+	var service := for_origin(origin) as GameAudio
 	if service == null: return
 	if service.is_director_event_suppressed(event_id): return
 	if service.director_profile_for_event(event_id) != "original":
@@ -93,7 +101,7 @@ static func ensure_buses() -> void:
 
 static func cue_event(origin: Node, event_id: StringName, legacy_cue: StringName) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
-	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	var service := for_origin(origin) as GameAudio
 	if service == null: return
 	if service.is_director_event_suppressed(event_id): return
 	if service.director_profile_for_event(event_id) != "original":
@@ -105,7 +113,7 @@ static func cue_event(origin: Node, event_id: StringName, legacy_cue: StringName
 
 static func cue(origin: Node, id: StringName) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
-	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	var service := for_origin(origin) as GameAudio
 	if service:
 		var event_id := service.director_event_for_cue(id)
 		if service.is_director_event_suppressed(event_id): return
@@ -124,17 +132,17 @@ func _origin_stream_override(origin: Node, id: StringName) -> AudioStream:
 
 static func stop_region(origin: Node) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
-	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	var service := for_origin(origin) as GameAudio
 	if service: service.stop_regional_cues()
 
 static func stop_origin(origin: Node, sustained_only: bool = true) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
-	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	var service := for_origin(origin) as GameAudio
 	if service: service.stop_director_cues(origin, sustained_only)
 
 static func hook_connected(origin: Node) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
-	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	var service := for_origin(origin) as GameAudio
 	if service == null: return
 	if service.director_profile_for_event(&"hook_connect") == "original":
 		service._play_original(&"bell")
@@ -198,7 +206,14 @@ func _observe_subtree(node: Node) -> void:
 	for child: Node in node.get_children(): _observe_subtree(child)
 
 func _observe_button(node: Node) -> void:
-	if node is BaseButton and not node.get_meta("audio_skip_click", false) and not node.pressed.is_connected(_click): node.pressed.connect(_click)
+	if not node is BaseButton or node.get_meta("audio_skip_click", false): return
+	var callback := _click_from_button.bind(node)
+	if not node.pressed.is_connected(callback): node.pressed.connect(callback)
+
+func _click_from_button(button: BaseButton) -> void:
+	# Resolve at the actual press so reparented controls follow their new host.
+	# All services may observe tree additions, but only the local owner plays.
+	if for_origin(button) == self: _click()
 
 func _click() -> void:
 	# Explicit accepted confirm/denied consumers own candidate UI feedback.

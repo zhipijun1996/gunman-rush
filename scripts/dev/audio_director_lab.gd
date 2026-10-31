@@ -19,21 +19,8 @@ var _lab_compact := false
 func _ready() -> void:
 	meta_persistence_enabled = false
 	set_meta("cloud_preview_host", true)
-	# A custom preview bootstrap offers an empty generic service. This formal
-	# DemoApp owns its richer inherited service; remove the empty one before
-	# PlayerPresentationRuntime resolves the first game_audio group member.
-	var host := get_parent()
-	if host != null and host.has_method("open_test_scene") and host.has_method("return_to_menu"):
-		var offered := host.get("custom_audio") as GameAudio
-		if is_instance_valid(offered):
-			host.remove_child(offered)
-			offered.free()
-			host.set("custom_audio", null)
 	super._ready()
-	for child: Node in get_children():
-		if child is PlayerWeaponFeelAudioV2:
-			lab_audio = child as PlayerWeaponFeelAudioV2
-			break
+	lab_audio = GameAudio.for_origin(self) as PlayerWeaponFeelAudioV2
 	if lab_audio == null:
 		push_error("Audio Director Lab requires the current formal audio service")
 		return

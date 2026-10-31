@@ -54,15 +54,10 @@ func _ready() -> void:
 	set_meta("cloud_preview_host", true)
 	var host := get_parent()
 	if host != null and host.has_method("open_test_scene"):
-		var offered := host.get("custom_audio") as GameAudio
-		if is_instance_valid(offered):
-			host.remove_child(offered)
-			offered.free()
-			host.set("custom_audio", null)
 		var banner := host.get("banner") as Control
 		if is_instance_valid(banner): banner.hide()
 	super._ready()
-	lab_audio = get_tree().get_first_node_in_group(&"game_audio") as PlayerWeaponFeelAudioV2
+	lab_audio = GameAudio.for_origin(self) as PlayerWeaponFeelAudioV2
 	if lab_audio == null or not lab_audio.configure_candidate_bank("res://assets/audio/director_v2/manifest.json", "res://config/audio_director/v2/runtime.json"):
 		push_error("AUDIO_LAB_V2 candidate bank unavailable")
 		return

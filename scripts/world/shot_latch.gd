@@ -333,7 +333,7 @@ func _draw_gate(rect: Rect2, opacity: float) -> void:
 	draw_texture_rect_region(GATE_ART, Rect2(rect.position.x,rect.end.y-bottom_height,rect.size.x,bottom_height), Rect2(366,1747,105,bottom_height/scale_value), tint)
 
 func _play_bell() -> void:
-	if get_tree().get_first_node_in_group(&"game_audio") != null: GameAudio.cue(self, &"mechanism_bell")
+	if GameAudio.for_origin(self) != null: GameAudio.cue(self, &"mechanism_bell")
 	else: _bell_audio.play()
 
 # Multiple receivers belong to the same mechanism actor and health epoch. Both

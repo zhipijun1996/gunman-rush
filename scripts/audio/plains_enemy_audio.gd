@@ -44,7 +44,7 @@ static func _receipts(actor: EnemyActor) -> Dictionary:
 
 static func _service(origin: Node) -> GameAudio:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return null
-	return origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	return GameAudio.for_origin(origin) as GameAudio
 
 static func hurt(actor: EnemyActor, context: Dictionary) -> void:
 	if not supports(actor) or actor.health.terminal: return

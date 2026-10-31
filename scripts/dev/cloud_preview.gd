@@ -37,7 +37,15 @@ func _ready() -> void:
 	row.add_child(label)
 	var menu_button := Button.new()
 	menu_button.text = "FULL GAME / MENU"
-	menu_button.pressed.connect(return_to_menu)
+	# This host control is outside the playable entry's subtree. Route its
+	# click explicitly to that entry; the shared observer must not cross into
+	# unrelated scene owners to guess a service.
+	menu_button.set_meta("audio_skip_click", true)
+	menu_button.pressed.connect(func() -> void:
+		var origin: Node = custom_scene if is_instance_valid(custom_scene) else app
+		var audio := GameAudio.for_origin(origin) as GameAudio
+		if audio != null: audio._click()
+		return_to_menu())
 	row.add_child(menu_button)
 	if task_id == "DEMO-UI-01":
 		var ui_affordance := preload("res://scripts/ui/demo_ui_01/preview_affordance.gd").new()
@@ -59,9 +67,13 @@ func open_test_scene() -> void:
 	remove_child(app)
 	app.queue_free()
 	app = null
-	custom_audio = GameAudio.new()
-	add_child(custom_audio)
 	custom_scene = packed.instantiate()
+	custom_audio = null
+	# DemoApp and its audition subclasses assemble their own richer service.
+	# Other standalone scenes still borrow the original bootstrap service.
+	if not custom_scene is DemoApp:
+		custom_audio = GameAudio.new()
+		add_child(custom_audio)
 	if custom_scene is DemoApp:
 		(custom_scene as DemoApp).meta_persistence_enabled = false
 		custom_scene.set_meta("cloud_preview_host", true)

@@ -21,7 +21,7 @@ func _ready() -> void:
 	meta_persistence_enabled = false
 	set_meta("cloud_preview_host", true)
 	super._ready()
-	lab_audio = get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	lab_audio = GameAudio.for_origin(self) as GameAudio
 	if lab_audio == null or not lab_audio.configure_ambience(MANIFEST):
 		push_error("AUDIO_AMBIENCE_LAB manifest unavailable")
 		return

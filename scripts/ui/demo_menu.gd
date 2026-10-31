@@ -525,7 +525,7 @@ func show_settings(in_run: bool = false) -> void:
 	volume_slider.custom_minimum_size = Vector2(0, 48)
 	volume_slider.value_changed.connect(func(value: float) -> void:
 		_audio_volume = value
-		var service := get_tree().get_first_node_in_group(&"game_audio")
+		var service := GameAudio.for_origin(self)
 		if service: service.set("volume", value))
 	_content.add_child(volume_slider)
 	_settings_error = _label(_content, "", 14, GOLD)

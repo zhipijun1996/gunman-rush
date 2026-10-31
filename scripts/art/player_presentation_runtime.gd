@@ -52,7 +52,7 @@ static func apply_avatar(player: PlayerMotor, avatar_id: String) -> void:
 static func attach(player: PlayerMotor) -> void:
 	var body := current_body(player)
 	if body == null: return
-	var audio := player.get_tree().get_first_node_in_group(&"game_audio") as PlayerWeaponFeelAudioV2
+	var audio := GameAudio.for_origin(player) as PlayerWeaponFeelAudioV2
 	if audio == null: return
 	var motion := player.get_node_or_null("MotionFeel") as PlayerMotionFeel
 	if body is PlayerMotionCandidateVisual:

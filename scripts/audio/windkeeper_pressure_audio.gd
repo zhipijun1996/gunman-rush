@@ -102,7 +102,7 @@ func bind(owner_encounter: WindkeeperEncounter, origin: Node = null, restored_te
 func _service() -> GameAudio:
 	if not is_instance_valid(_origin) or not _origin.is_inside_tree():
 		return null
-	return _origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	return GameAudio.for_origin(_origin) as GameAudio
 
 
 func _process(_delta: float) -> void:

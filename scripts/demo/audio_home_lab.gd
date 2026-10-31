@@ -14,7 +14,7 @@ func _ready() -> void:
 	meta_persistence_enabled = false
 	set_meta("cloud_preview_host", true)
 	super._ready()
-	home_lab_audio = get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+	home_lab_audio = GameAudio.for_origin(self) as GameAudio
 	# Invoke the original title action, which creates the real HomeScene with
 	# its original player, input, resources, camera, service slots and music.
 	menu._start_title_adventure()

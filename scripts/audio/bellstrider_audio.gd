@@ -64,7 +64,7 @@ func bind(encounter: Node, origin: Node = null, restored_terminal := false) -> v
 
 func _service() -> Node:
 	if not is_instance_valid(_origin) or not _origin.is_inside_tree(): return null
-	return _origin.get_tree().get_first_node_in_group(&"game_audio")
+	return GameAudio.for_origin(_origin)
 
 func _process(_delta: float) -> void:
 	# Lifetime checks only; attack, hit and death sounds never poll a mode.
