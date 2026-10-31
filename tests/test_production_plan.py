@@ -288,7 +288,8 @@ class ProductionPlanTests(unittest.TestCase):
         native_additions = ["level-plan", "enemy-region-state", "game-architecture-effects",
                             "plains-revision-deform-equivalence", "entry-audio-lifecycle",
                             "entry-audio-lifecycle-comparison"]
-        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions
+        owner_additions = ["entry-audio-owners"]
+        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:170], baseline_additions + boss_additions)
         self.assertEqual(full["checks"][144:170], baseline_additions + boss_additions)
         self.assertEqual(self.manifest["profiles"]["full"][170:172], ai_additions)
@@ -318,28 +319,33 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
         # Keep the complete reviewed168 and its92/76 split, then append both
         # actual native Boss contracts without replacing any original case.
-        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions]
+        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, baseline_lanes)), (168,92,76))
-        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions]
+        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions + owner_additions]
                       for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, boss_lanes)), (170,93,77))
-        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions]
+        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions + owner_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, existing_lanes)), (172,94,78))
         self.assertEqual(self.manifest["profiles"]["full"][172:173], session_additions)
         self.assertEqual(full["checks"][172:173], session_additions)
-        session_lanes = [[name for name in names if name not in architecture_additions + native_additions]
+        session_lanes = [[name for name in names if name not in architecture_additions + native_additions + owner_additions]
                          for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, session_lanes)), (173,94,79))
         self.assertEqual(self.manifest["profiles"]["full"][173:174], architecture_additions)
         self.assertEqual(full["checks"][173:174], architecture_additions)
-        architecture_lanes = [[name for name in names if name not in native_additions]
+        architecture_lanes = [[name for name in names if name not in native_additions + owner_additions]
                               for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, architecture_lanes)), (174,95,79))
-        self.assertEqual(self.manifest["profiles"]["full"][174:], native_additions)
-        self.assertEqual(full["checks"][174:], native_additions)
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (180,95,85))
+        self.assertEqual(self.manifest["profiles"]["full"][174:180], native_additions)
+        self.assertEqual(full["checks"][174:180], native_additions)
+        native_lanes = [[name for name in names if name not in owner_additions]
+                        for names in (full["checks"], parallel, serial)]
+        self.assertEqual(tuple(map(len, native_lanes)), (180,95,85))
+        self.assertEqual(self.manifest["profiles"]["full"][180:], owner_additions)
+        self.assertEqual(full["checks"][180:], owner_additions)
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (181,95,86))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
@@ -360,6 +366,7 @@ class ProductionPlanTests(unittest.TestCase):
             ("plains-revision-deform-equivalence", "plains_revision_deform_equivalence_runner", "PLAINS DEFORM EQUIVALENCE", 180, "assertions"),
             ("entry-audio-lifecycle", "entry_audio_lifecycle_runner", "ENTRY AUDIO LIFECYCLE", 180, "assertions"),
             ("entry-audio-lifecycle-comparison", "entry_audio_lifecycle_comparison_runner", "ENTRY AUDIO BASELINE COMPARISON", 60, "assertions"),
+            ("entry-audio-owners", "entry_audio_owner_runner", "ENTRY AUDIO OWNERS", 180, "assertions"),
         ]
         import re
         import harness
@@ -370,6 +377,8 @@ class ProductionPlanTests(unittest.TestCase):
                 argv = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", runner]
                 if name == "entry-audio-lifecycle":
                     argv += ["--", "--studies"]
+                elif name == "entry-audio-owners":
+                    argv += ["--", "--auditions"]
                 self.assertEqual(check["argv"], argv)
                 self.assertEqual(check["timeout_seconds"], budget)
                 self.assertTrue(check["serial"])
@@ -386,7 +395,7 @@ class ProductionPlanTests(unittest.TestCase):
                 for path in check["inputs"]:
                     self.assertTrue((ROOT / path).exists(), path)
                 profiles = {"core", "gameplay", "full"}
-                if name in ("plains-revision-deform-equivalence", "entry-audio-lifecycle"):
+                if name in ("plains-revision-deform-equivalence", "entry-audio-lifecycle", "entry-audio-owners"):
                     profiles.add("art")
                 self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names}, profiles)
                 plan = self.plan([runner], "integration")

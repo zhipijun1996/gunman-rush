@@ -5417,6 +5417,39 @@
         "tests/entry_audio_lifecycle_comparison_runner.gd",
         "tests/fixtures/audio_lifecycle_2ce4ffa6"
       ]
+    },
+    "entry-audio-owners": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/entry_audio_owner_runner.gd",
+        "--",
+        "--auditions"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^ENTRY AUDIO OWNERS: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/entry_audio_owner_runner.gd"
+      ]
     }
   },
   "profiles": {
@@ -5495,7 +5528,8 @@
       "game-architecture-effects",
       "plains-revision-deform-equivalence",
       "entry-audio-lifecycle",
-      "entry-audio-lifecycle-comparison"
+      "entry-audio-lifecycle-comparison",
+      "entry-audio-owners"
     ],
     "gameplay": [
       "docs",
@@ -5662,7 +5696,8 @@
       "game-architecture-effects",
       "plains-revision-deform-equivalence",
       "entry-audio-lifecycle",
-      "entry-audio-lifecycle-comparison"
+      "entry-audio-lifecycle-comparison",
+      "entry-audio-owners"
     ],
     "art": [
       "docs",
@@ -5766,7 +5801,8 @@
       "audio-feedback",
       "windkeeper-pressure-01",
       "plains-revision-deform-equivalence",
-      "entry-audio-lifecycle"
+      "entry-audio-lifecycle",
+      "entry-audio-owners"
     ],
     "web": [
       "docs",
@@ -5998,7 +6034,8 @@
       "game-architecture-effects",
       "plains-revision-deform-equivalence",
       "entry-audio-lifecycle",
-      "entry-audio-lifecycle-comparison"
+      "entry-audio-lifecycle-comparison",
+      "entry-audio-owners"
     ],
     "creative-feedback": [
       "docs",
