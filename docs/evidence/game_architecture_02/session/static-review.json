@@ -1,0 +1,29 @@
+{
+  "reviewer": "/root/structure_audit",
+  "implementers": [
+    "/root/runtime_audit"
+  ],
+  "verdict": "ACCEPT",
+  "scope": "static ownership and behavior-equivalence review only; no engine or device signoff",
+  "baseline": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "candidate": "bcdc28d4be18759d8d0875dea04e0da910c03e84",
+  "test_type_fix": "48d699ffe8ae01916cd83ab187824009501c12b3",
+  "observed": [
+    "RunSession created once; one flow/lifetime preserves monotonic epochs",
+    "App compatibility properties forward references, no duplicate mutable state",
+    "five App entrypoints migrate actual creation/cleanup; original node parents and binding order preserved",
+    "Session does not leak to maps/enemies/items; only App and application composition reference it"
+  ],
+  "limits": [
+    "Original failed energy setup has no rollback, unchanged",
+    "Original ignored build.clear failure unchanged",
+    "New runner does not prove Home weapon rejection/energy init failure/full natural campaign",
+    "native-02 had 49 assertions/0 failures but outer marker assertion failed; outer run remains FAILED"
+  ],
+  "sha256": {
+    "game/application/run_session.gd": "c039c5364d66834fbc69fe7c9f003213a9228b8f50b570d9fcf8044bef37a58a",
+    "game/application/run_composition.gd": "f8541aec285bc84af6e2b6bda43be4a7851881a850d3d5a81f41b4481bb2c53f",
+    "scripts/demo/demo_app.gd": "f2d14fce43f4b47bd5dae06a91004e988f28e54dcff24e3439604ad7e2c9410b",
+    "tests/run_session_runner.gd": "a0061e72717b0c02e9be14dd6e462026c8233720c4e56b972942197bd5d40868"
+  }
+}
