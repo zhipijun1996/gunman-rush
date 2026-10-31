@@ -3,8 +3,11 @@
 import copy
 import importlib.util
 import json
+import os
 from pathlib import Path
 import re
+import shutil
+import subprocess
 import tempfile
 import unittest
 import zipfile
@@ -46,6 +49,36 @@ def package_fixture(*args):
 
 
 class EngineBuildContract(unittest.TestCase):
+    def test_android_scons_cli_uses_locked_python_wheel_and_literal_arguments(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);wheel=root/"locked wheel's path";module=wheel/'SCons'
+            module.mkdir(parents=True);(module/'__init__.py').write_text('')
+            (module/'__main__.py').write_text(
+                'import json,sys\nprint(json.dumps({"args":sys.argv[1:],"python":sys.executable,"module":__file__}))\n'
+                'raise SystemExit(17 if "--fail" in sys.argv else 0)\n')
+            python=root/"locked python's path";python.symlink_to(sys.executable)
+            hostile=root/'hostile';hostile.mkdir()
+            (hostile/'scons').write_text('#!/bin/sh\nexit 99\n');(hostile/'scons').chmod(0o755)
+            env={**os.environ,'PATH':str(hostile),'PYTHONPATH':str(hostile)}
+            executable=build.install_scons_cli(python,wheel,root/'controlled-bin',env)
+            self.assertEqual(shutil.which('scons',path=env['PATH']),str(executable))
+            marker=root/'must-not-exist'
+            arguments=['argument with spaces',"quote'\"",'$(touch '+str(marker)+')','semi;colon','--']
+            result=subprocess.run(['scons',*arguments],env=env,cwd=root,capture_output=True,text=True,timeout=10)
+            self.assertEqual(result.returncode,0,result.stderr)
+            recorded=json.loads(result.stdout)
+            self.assertEqual(recorded['args'],arguments)
+            self.assertEqual(Path(recorded['python']).resolve(),Path(sys.executable).resolve())
+            self.assertEqual(Path(recorded['module']),module/'__main__.py')
+            self.assertFalse(marker.exists())
+            failed=subprocess.run(['scons','--fail'],env=env,cwd=root,capture_output=True,text=True,timeout=10)
+            self.assertEqual(failed.returncode,17)
+            self.assertEqual(json.loads(failed.stdout)['args'],['--fail'])
+        commands=build.command_contract(R['jobs']['android-arm64'],Path(R['work_directory']))
+        self.assertEqual(len(commands),3)
+        self.assertEqual(commands[-1]['argv'][-1],'generateGodotTemplates')
+        self.assertNotIn('-PgenerateNativeLibs',commands[-1]['argv'])
+
     def test_inputs_are_content_locked(self):
         self.assertEqual(len(R['patches']),2)
         self.assertEqual(len(R['patched_source_sha256']),4)
