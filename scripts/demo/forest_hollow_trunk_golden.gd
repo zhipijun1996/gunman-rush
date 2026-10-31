@@ -43,13 +43,7 @@ func _ready() -> void:
 	for index: int in manifest.dangers.size():
 		var danger := ForestDirectionalGeometry.rect(manifest.dangers[index])
 		segment.danger_bounds.append(danger)
-		var emitter := DemoContactEmitter.new()
-		emitter.policy=policy
-		emitter.controller=controller
-		emitter.source_id=StringName("hollow_thorns_%s"%index)
-		emitter.kind=DamageRequest.Kind.ENVIRONMENT
-		emitter.half_size=danger.size/2
-		emitter.position=danger.get_center()
+		var emitter := DemoContactEmitter.environment_rect(danger, policy, controller, StringName("hollow_thorns_%s" % index))
 		emitter.interval=.7
 		add_child(emitter)
 	policy.batch_resolved.connect(func(results: Array[DamageResult]) -> void:

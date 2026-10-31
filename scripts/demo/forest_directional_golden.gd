@@ -77,13 +77,7 @@ func _setup_environment_damage() -> void:
 	policy.batch_resolved.connect(_resolved)
 	for index: int in manifest.dangers.size():
 		var danger:=GEOMETRY.rect(manifest.dangers[index])
-		var emitter:=DemoContactEmitter.new()
-		emitter.policy=policy
-		emitter.controller=controller
-		emitter.source_id=StringName("mouth_thorns_%s"%index)
-		emitter.kind=DamageRequest.Kind.ENVIRONMENT
-		emitter.half_size=danger.size/2
-		emitter.position=danger.get_center()
+		var emitter := DemoContactEmitter.environment_rect(danger, policy, controller, StringName("mouth_thorns_%s" % index))
 		emitter.interval=.7
 		add_child(emitter)
 	_activate_entry.call_deferred()

@@ -152,10 +152,7 @@ func _load_stage(value: String) -> void:
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	controller.router.reconfigure(input_values)
-	_overlay = InputSetup.attach(player, controller.router)
-	_overlay.hide_reset_button = true
-	_overlay.pause_label = "MENU"
-	_overlay.pause_requested.connect(toggle_pause)
+	_overlay = InputSetup.attach_menu(player, controller.router, toggle_pause, "MENU")
 	var vignette := FocusVignette.new()
 	vignette.ability = controller.air_focus_ability
 	player.add_child(vignette)
@@ -180,13 +177,7 @@ func _load_stage(value: String) -> void:
 		segment.add_anchor(StringName("anchor_%s" % index), anchors[index])
 	var dangers := stage.world_static_dangers()
 	for index: int in dangers.size():
-		var contact := DemoContactEmitter.new()
-		contact.policy = policy
-		contact.controller = controller
-		contact.kind = DamageRequest.Kind.ENVIRONMENT
-		contact.source_id = StringName("preview_%s_danger_%s" % [attempt, index])
-		contact.position = dangers[index].get_center()
-		contact.half_size = dangers[index].size / 2.0
+		var contact := DemoContactEmitter.environment_rect(dangers[index], policy, controller, StringName("preview_%s_danger_%s" % [attempt, index]))
 		stage.add_child(contact)
 	stage.setup_damage(controller, policy, lifetime)
 	_status = "Jump, release a shot for recoil, and watch moving platforms. Reach the golden finish beacon."

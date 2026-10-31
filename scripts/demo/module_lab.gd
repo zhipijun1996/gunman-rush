@@ -155,10 +155,7 @@ func _load_module(id: StringName) -> void:
 	if id in [&"thorn_slalom",&"remote_sequence",&"energy_trial",&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3"]: controller.enable_shot_energy()
 	controller.router.reconfigure(input_values)
 	controller.interact_requested.connect(take_supply)
-	_overlay = InputSetup.attach(player, controller.router)
-	_overlay.hide_reset_button = true
-	_overlay.pause_label = "MENU"
-	_overlay.pause_requested.connect(toggle_pause)
+	_overlay = InputSetup.attach_menu(player, controller.router, toggle_pause, "MENU")
 	var vignette := FocusVignette.new()
 	vignette.ability = controller.air_focus_ability
 	player.add_child(vignette)
@@ -181,13 +178,7 @@ func _load_module(id: StringName) -> void:
 	var static_dangers := module.world_static_dangers()
 	for index: int in static_dangers.size():
 		var rect := static_dangers[index]
-		var contact := DemoContactEmitter.new()
-		contact.policy = policy
-		contact.controller = controller
-		contact.kind = DamageRequest.Kind.ENVIRONMENT
-		contact.source_id = StringName("practice_%s_danger_%s" % [id, index])
-		contact.position = rect.get_center()
-		contact.half_size = rect.size / 2.0
+		var contact := DemoContactEmitter.environment_rect(rect, policy, controller, StringName("practice_%s_danger_%s" % [id, index]))
 		module.add_child(contact)
 	module.setup_damage(controller, policy, lifetime)
 	if id in [&"remote_sequence",&"remote_bell",&"bell_ferry"]:

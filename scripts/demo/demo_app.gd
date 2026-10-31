@@ -337,10 +337,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	controller.shoot_ability.packet_changed.connect(_record_bellstrider_packet)
 	controller.router.reconfigure(_session_input)
 	(get_meta("avatar_presentation") as Node).call("bind_player",player)
-	overlay = InputSetup.attach(player, controller.router)
-	overlay.hide_reset_button = true
-	overlay.pause_label = "MENU"
-	overlay.pause_requested.connect(toggle_pause)
+	overlay = InputSetup.attach_menu(player, controller.router, toggle_pause, "MENU")
 	overlay.reset_requested.connect(toggle_pause)
 	RunComposition.attach_player_guides(player, controller)
 	if generated_plains:

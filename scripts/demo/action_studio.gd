@@ -56,9 +56,7 @@ func _ready() -> void:
 	controller.traversal.grant(&"grapple")
 	controller.router.grapple_available = true
 	if not input_values.is_empty(): controller.router.reconfigure(input_values)
-	overlay = InputSetup.attach(player,controller.router)
-	overlay.hide_reset_button = true
-	overlay.pause_requested.connect(_toggle_pause)
+	overlay = InputSetup.attach_menu(player, controller.router, _toggle_pause)
 	camera = Camera2D.new()
 	camera.zoom = Vector2(1.6,1.6)
 	camera.position = player.position+Vector2(150,-100)

@@ -28,6 +28,18 @@ var _physical_contact_frame := -1
 var _physical_contact_epoch := -1
 var _physical_contact_session := -1
 
+# Construct an unparented local-space rectangle. Callers keep source identity,
+# insertion order, and any explicit cadence override before adding the node.
+static func environment_rect(rect: Rect2, owner_policy: FrameDamagePolicy, actor: PlayerController, exposure_source_id: StringName) -> DemoContactEmitter:
+	var emitter := DemoContactEmitter.new()
+	emitter.policy = owner_policy
+	emitter.controller = actor
+	emitter.source_id = exposure_source_id
+	emitter.kind = DamageRequest.Kind.ENVIRONMENT
+	emitter.position = rect.get_center()
+	emitter.half_size = rect.size / 2.0
+	return emitter
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority = 900

@@ -1,0 +1,220 @@
+{
+  "batch": "P7.2 entry menu input and rectangle environment assembly",
+  "classification": "behavior-preserving extraction; audio owner behavior fix is preceding independent commit 892bd085",
+  "base_commit": "892bd0853b754c9a5da9447ff1ff19563bdd2dbb",
+  "rollback": "Revert only the P7.2 commit to restore this base; preserve preceding lifecycle and audio owner commits. Parent integration must adapt the single DemoApp input hunk to its P2/P3 owner.",
+  "before_graph": [
+    "9 entry methods -> InputSetup.attach -> keyboard/gamepad/TouchOverlay; then each duplicates hide-reset, optional label and owner callback connection",
+    "7 entry methods -> DemoContactEmitter.new -> each duplicates policy/controller/source/environment-kind/rectangle center/half-size -> original parent.add_child -> unchanged contact sweep and FrameDamagePolicy"
+  ],
+  "after_graph": [
+    "same 9 entry methods -> InputSetup.attach_menu -> existing InputSetup.attach -> same adapters/overlay; attach_menu owns common menu policy and connection; entry owns callback and optional label",
+    "same 7 entry methods -> DemoContactEmitter.environment_rect -> DemoContactEmitter.new + one common field assembly -> entry keeps explicit interval override and original add_child -> same contact sweep and FrameDamagePolicy"
+  ],
+  "input_consumers": [
+    {
+      "file": "scripts/demo/demo_app.gd",
+      "function": "start_demo",
+      "overlay": "overlay",
+      "label": "MENU",
+      "callback": "toggle_pause"
+    },
+    {
+      "file": "scripts/demo/home_scene.gd",
+      "function": "_ready",
+      "overlay": "overlay",
+      "label": "MENU",
+      "callback": "requested_navigation.emit via original lambda"
+    },
+    {
+      "file": "scripts/demo/module_lab.gd",
+      "function": "_load_module",
+      "overlay": "_overlay",
+      "label": "MENU",
+      "callback": "toggle_pause"
+    },
+    {
+      "file": "scripts/demo/random_stage_preview.gd",
+      "function": "_load_stage",
+      "overlay": "_overlay",
+      "label": "MENU",
+      "callback": "toggle_pause"
+    },
+    {
+      "file": "scripts/demo/foundry_lab.gd",
+      "function": "_load",
+      "overlay": "_overlay",
+      "label": "PAUSE explicit",
+      "callback": "toggle_pause"
+    },
+    {
+      "file": "scripts/demo/action_studio.gd",
+      "function": "_ready",
+      "overlay": "overlay",
+      "label": "TouchOverlay default PAUSE",
+      "callback": "_toggle_pause"
+    },
+    {
+      "file": "scripts/art_foundation/blob47_lab.gd",
+      "function": "_ready",
+      "overlay": "overlay",
+      "label": "TouchOverlay default PAUSE",
+      "callback": "_toggle_pause"
+    },
+    {
+      "file": "scripts/art_foundation/windchime_lab.gd",
+      "function": "_ready",
+      "overlay": "overlay",
+      "label": "TouchOverlay default PAUSE",
+      "callback": "_toggle_pause"
+    },
+    {
+      "file": "scripts/style_exploration/style_lab.gd",
+      "function": "_ready",
+      "overlay": "overlay",
+      "label": "TouchOverlay default PAUSE",
+      "callback": "_toggle_pause"
+    }
+  ],
+  "hazard_consumers": [
+    {
+      "file": "scripts/demo/module_lab.gd",
+      "rect_argument": "rect",
+      "source_id_pattern": "practice_%s_danger_%s",
+      "parent": "module",
+      "interval": "default .7"
+    },
+    {
+      "file": "scripts/demo/random_stage_preview.gd",
+      "rect_argument": "dangers[index]",
+      "source_id_pattern": "preview_%s_danger_%s",
+      "parent": "stage",
+      "interval": "default .7"
+    },
+    {
+      "file": "scripts/demo/foundry_lab.gd",
+      "rect_argument": "danger",
+      "source_id_pattern": "foundry_danger_%d % get_child_count()",
+      "parent": "self",
+      "interval": "default .7"
+    },
+    {
+      "file": "scripts/demo/forest_directional_golden.gd",
+      "rect_argument": "danger",
+      "source_id_pattern": "mouth_thorns_%s",
+      "parent": "self",
+      "interval": "explicit .7 retained"
+    },
+    {
+      "file": "scripts/demo/forest_hollow_trunk_golden.gd",
+      "rect_argument": "danger",
+      "source_id_pattern": "hollow_thorns_%s",
+      "parent": "self",
+      "interval": "explicit .7 retained"
+    },
+    {
+      "file": "scripts/art_foundation/blob47_lab.gd",
+      "rect_argument": "rect",
+      "source_id_pattern": "blob47/spikes/ + str(index)",
+      "parent": "_world",
+      "interval": "default .7"
+    },
+    {
+      "file": "scripts/art_foundation/windchime_lab.gd",
+      "rect_argument": "rect",
+      "source_id_pattern": "blob47/spikes/ + str(index)",
+      "parent": "_world",
+      "interval": "default .7"
+    }
+  ],
+  "removed_duplicate_code": {
+    "input": "Nine local attach + hide_reset + optional pause_label + pause_requested.connect sequences replaced by attach_menu. Foundry explicit PAUSE remains explicit; four consumers still inherit authoritative TouchOverlay PAUSE default. Home retains the same lambda, stored locally before attaching. DemoApp reset_requested remains a separate connection.",
+    "hazards": "Seven seven-line constructor/assignment blocks replaced by one call each. All seven add_child statements stay in place; two explicit interval statements stay in place. Shared factory returns an unparented node, never assigns ownership, never reads child counts, never creates policy or controller.",
+    "production_diff": {
+      "files": 13,
+      "insertions": 38,
+      "deletions": 81,
+      "net_lines_removed": 43
+    }
+  },
+  "preserved_contracts": [
+    "InputSetup.attach implementation unchanged, including its existing non-idempotent gamepad/layer creation",
+    "Graybox keeps raw attach, visible RESET and original reset handler",
+    "No PlayerFactory or parallel player/input/HUD config registry",
+    "No PlayerController state/capability/resource, cancel sequence, damage pulse/exposure, RNG, wallet, lifetime or session change",
+    "Foundry source ID still reads the parent child count before the same add_child at the same position",
+    "Environment rectangle uses the original local coordinates; no coordinate normalization or validation added",
+    "MONSTER, dynamic-kind App contact, circular-rim Boss, top_level WindkeeperArena contact constructors retain their distinct policies",
+    "Existing labels, source IDs including Windchime blob47/spikes naming, default amount and interval preserved",
+    "All current art/audio/resource/config/scene versions unchanged"
+  ],
+  "explicitly_deferred": [
+    "Third repeated cancellation tail; PlayerController._cancel has different jump/cancel-packet semantics",
+    "Making attach idempotent would change behavior and is outside this extraction",
+    "Adding controller argument to existing HUD consumers would add hint wiring",
+    "Player instantiation/placement stays explicit: 11 short scene-use sites do not justify another factory",
+    "WindkeeperArena top_level and module.to_global center/radius are not the same local Rect2 contract"
+  ],
+  "static_validation": {
+    "original_input_attach_byte_identical": true,
+    "original_emitter_including_every_runtime_rule_byte_identical": true,
+    "nine_actual_menu_callers": true,
+    "no_local_duplicate_menu_property_writes": true,
+    "formal_hidden_reset_signal_preserved": true,
+    "graybox_unmodified": true,
+    "resource_config_scene_bytes_unmodified": true,
+    "seven_actual_rectangle_callers": true,
+    "two_explicit_intervals_retained": true,
+    "all_original_add_child_lines_preserved": true
+  },
+  "native_validation": {
+    "status": "NOT RUN by subagent; root owns exclusive engine lease",
+    "note": "Existing tests are unchanged. Reuse real integration suites instead of assignment-mirroring unit tests. Several suites invoke owner pause methods directly; actual overlay signal wiring merits a bounded root smoke if not covered by browser input. No claim of exhaustive device or 35-entry execution in this batch.",
+    "commands": [
+      {
+        "command": "python3 tools/run_tests.py",
+        "scope": "Existing aggregate includes module_lab_tests, menu/demo, policy/input regressions; keep original assertions and baseline failures separate."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/random_preview_runner.gd",
+        "scope": "Real generated stage, actual static spikes and moving hazard contact, one-HP environmental return, seed/retry, pause and touch overlay visibility."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/foundry_lab_runner.gd",
+        "scope": "Foundry actual replay, capability profiles, pause, HP/resource preservation and leave; requires validated foundry batch; test writes only its existing user feedback file."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/studio_input_runner.gd",
+        "scope": "ActionStudio live actor/input and pause integration."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/test_blob47_foundation.gd",
+        "scope": "Blob47 real routes across seeds and original return behavior."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/test_windchime_lab.gd",
+        "scope": "Windchime fresh actor/policy on map switches, pause/restart. PixelPlainsRoom inherits same methods."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/style_exploration/test_style_exploration.gd",
+        "scope": "StyleLab all original style/seed real-route assertions, no collapse of style policies."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/player_default_integration.gd",
+        "scope": "Actual Home/formal player, pause/death/retry/resource/action contracts; no alternate App fixture."
+      },
+      {
+        "command": "bash tools/godot.sh --headless --path . --script tests/forest_directional_golden_runner.gd -- --layout=narrow --variant=onlyR --output=res://build/entry_composition/directional-onlyR.json",
+        "scope": "Actual explicit ENVIRONMENT rectangle consumer; onlyR must contact thorns, lose HP and recover with policy return."
+      },
+      {
+        "command": "python3 tools/run_forest_hollow_trunk.py",
+        "scope": "Existing hollow-trunk wrapper and body trace validator; base geometry can have no dangers, so this alone does not prove nonempty hazard iteration."
+      }
+    ],
+    "targeted_smoke_requirements": [
+      "Emit actual pause_requested from each migrated overlay after entry readiness, assert its original owner menu/pause/navigation response; formal hidden reset_requested remains connected and Graybox RESET remains distinct.",
+      "Inspect nonempty hazard consumers against source manifest for identical source_id/parent/position/half_size/interval and insertion order; source comparison already proves assignments; use existing Random and Directional real-contact tests for behavior."
+    ]
+  }
+}

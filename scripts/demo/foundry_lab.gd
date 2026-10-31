@@ -187,10 +187,7 @@ func _load(manifest: Dictionary) -> void:
 	if requested_autoplay: controller.set_physics_process(false)
 	controller.router.reconfigure(input_values)
 	if not FoundryCatalog.apply_profile(controller, manifest.capability_profile): _status.text = "该能力尚未实现。"; return
-	_overlay = InputSetup.attach(player, controller.router)
-	_overlay.hide_reset_button = true
-	_overlay.pause_label = "PAUSE"
-	_overlay.pause_requested.connect(toggle_pause)
+	_overlay = InputSetup.attach_menu(player, controller.router, toggle_pause, "PAUSE")
 	var guide := DemoAimGuide.new()
 	guide.controller = controller
 	player.add_child(guide)
@@ -212,13 +209,7 @@ func _load(manifest: Dictionary) -> void:
 	for module: PlatformingModule in stage.modules:
 		module.setup_damage(controller, policy, lifetime)
 	for danger: Rect2 in stage.static_dangers():
-		var contact := DemoContactEmitter.new()
-		contact.policy = policy
-		contact.controller = controller
-		contact.kind = DamageRequest.Kind.ENVIRONMENT
-		contact.source_id = StringName("foundry_danger_%d" % get_child_count())
-		contact.position = danger.get_center()
-		contact.half_size = danger.size / 2
+		var contact := DemoContactEmitter.environment_rect(danger, policy, controller, StringName("foundry_danger_%d" % get_child_count()))
 		add_child(contact)
 	camera = StageCameraRig.new()
 	# Expose the 190px receiver below the authoring HUD without changing physics.
