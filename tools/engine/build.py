@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shlex
 import shutil
 import stat
 import subprocess
@@ -145,6 +146,17 @@ def command_contract(job,work):
     return result
 
 
+def install_scons_cli(python, wheel, directory, env):
+    """Expose the same locked module to Gradle's configure-time PATH lookup."""
+    directory.mkdir(parents=True, exist_ok=True)
+    executable = directory / 'scons'
+    executable.write_text('#!/bin/sh\nexport PYTHONPATH=' + shlex.quote(str(wheel)) +
+                          '\nexec ' + shlex.quote(str(python)) + ' -m SCons "$@"\n')
+    executable.chmod(0o755)
+    env['PATH'] = str(directory) + os.pathsep + env['PATH']
+    return executable
+
+
 def prepare_dependencies(job, source, work, env):
     deps = work / 'dependencies'
     extract(dependency('scons'), deps / 'scons')
@@ -177,6 +189,7 @@ def prepare_dependencies(job, source, work, env):
         if '4.0.20' not in (work/'compiler.log').read_text():
             raise RuntimeError('Pinned Emscripten image/version mismatch')
     elif platform == 'android':
+        install_scons_cli(job['python_executable'], deps/'scons', deps/'bin', env)
         sdk = deps / 'android-sdk'
         for key,destination in [('ndk_29.0.14206865',sdk/'ndk/29.0.14206865'),
                                 ('build-tools_36.1.0',sdk/'build-tools/36.1.0'),
