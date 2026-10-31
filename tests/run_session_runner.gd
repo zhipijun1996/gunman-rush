@@ -35,9 +35,9 @@ func check_same_services(before: Dictionary, label: String) -> void:
 	check(app.wallet==before.wallet and app.rewards==before.rewards and app.shop==before.shop, label+": same economy and transaction owners")
 
 func clear_run(label: String) -> void:
-	var player_ref := weakref(app.player)
-	var stage_ref := weakref(app.stage)
-	var policy_ref := weakref(app.policy)
+	var player_ref: WeakRef = weakref(app.player)
+	var stage_ref: WeakRef = weakref(app.stage)
+	var policy_ref: WeakRef = weakref(app.policy)
 	var old_wallet := app.wallet
 	var old_build := app.build
 	var old_token := app.lifetime.token()
@@ -69,7 +69,7 @@ func run() -> void:
 	check(app._item_runtime==null and app._item_v5_pool==null and app.region_state==null, "fixed departure retains its original non-region service policy")
 	check(not app.start_demo("duplicate") and app.wallet==first.wallet and app.player.get_instance_id()==first.player_id, "duplicate departure cannot replace the active run")
 	# A real fixed-room exit, without defeating or changing the room's enemy.
-	var old_policy := weakref(app.policy)
+	var old_policy: WeakRef = weakref(app.policy)
 	var exit: ExitOffer = app.director.offers[0]
 	check(exit.next_stage_type_id==&"shop", "existing fixed route supplies the shop consumer")
 	app.player.reset_at(app.stage.exit_positions[0])
