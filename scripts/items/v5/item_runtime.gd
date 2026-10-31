@@ -52,7 +52,14 @@ func configure(player: PlayerController, state_owner: BuildState, scope: DemoLif
 	_companions = ItemCompanionEffects.new()
 	_economy = ItemEconomyEffects.new()
 	player.item_runtime = self
-	for module: RefCounted in _modules(): module.call("configure", self)
+	# Configuration order remains combat/defense/time/actives/companions/economy.
+	# Time receives a bounded capability view rather than the complete runtime.
+	_combat.call("configure", self)
+	_defense.call("configure", self)
+	_time.call("configure", ItemTimeContext.new(self))
+	_actives.call("configure", self)
+	_companions.call("configure", self)
+	_economy.call("configure", self)
 	state_owner.changed.connect(sync)
 	player.combat_energy.spent.connect(_energy_spent)
 	player.shoot_ability.shot_fired.connect(func(_direction: Vector2, _shot: int) -> void: mark_combat_activity())

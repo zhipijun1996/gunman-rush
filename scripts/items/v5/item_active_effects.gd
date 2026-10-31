@@ -5,6 +5,7 @@ extends RefCounted
 const ENTITY := preload("res://scripts/items/v5/item_v5_entity.gd")
 const IDS: Array[StringName] = [&"B33", &"P24", &"P25", &"G14", &"G16"]
 var _host_ref: WeakRef
+var _casts: ItemActiveCast
 var _tuning: Dictionary = {}
 var _entities: Array[Dictionary] = []
 var _casting := false
@@ -12,6 +13,7 @@ var _casting := false
 func configure(host: RefCounted) -> void:
 	clear()
 	_host_ref = weakref(host)
+	_casts = ItemActiveCast.new(host)
 	_tuning = ENTITY.read_tuning()
 
 func _host() -> RefCounted:
@@ -79,16 +81,14 @@ func activate(id: StringName, direction: Vector2) -> Dictionary:
 	var host := _host()
 	var actor := _actor()
 	var params := _effect(id)
-	var stored: Dictionary = host.call("state", id)
-	var sequence := int(stored.get("cast_sequence", 0))+1
-	var cast := StringName("%s/item/%s/%s/%s" % [host.call("map_key"), actor.session_id, id, sequence])
+	var prepared := _casts.prepare(id, actor)
+	var cast: StringName = prepared.receipt
 	_casting = true
 	# No yield, external placement or target selection may fail after this debit.
 	# All physical preconditions were resolved by preview in the same tick.
-	if not bool(host.call("spend_energy", float(params.combat_energy_cost), cast)):
+	if not _casts.commit(prepared, float(params.combat_energy_cost), _cooldown(params)):
 		_casting = false
 		return _result(false, &"combat_energy")
-	host.call("patch_state", id, {"cast_sequence":sequence, "cooldown_until":float(host.call("now"))+_cooldown(params)}, StringName("%s/state" % cast))
 	var point := actor.motor.global_position
 	var unit: Vector2 = quote.direction
 	match id:

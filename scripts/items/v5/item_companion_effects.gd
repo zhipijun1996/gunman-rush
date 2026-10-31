@@ -4,6 +4,7 @@ extends RefCounted
 ## Lifetimes and attack cadence advance only with the game world's delta.
 const ENTITY := preload("res://scripts/items/v5/item_v5_entity.gd")
 var _host_ref: WeakRef
+var _casts: ItemActiveCast
 var _tuning: Dictionary = {}
 var _drones: Array[Dictionary] = []
 var _world_time := 0.0
@@ -15,6 +16,7 @@ var _pending_attacks: Dictionary = {}
 func configure(host: RefCounted) -> void:
 	clear()
 	_host_ref = weakref(host)
+	_casts = ItemActiveCast.new(host)
 	_world_time = 0.0
 	_serial = 0
 	_tuning = ENTITY.read_tuning()
@@ -94,14 +96,12 @@ func activate(id: StringName, direction: Vector2) -> Dictionary:
 	if not quote.accepted: return quote
 	var host := _host()
 	var params := _effect(id)
-	var stored: Dictionary = host.call("state", id)
-	var sequence := int(stored.get("cast_sequence", 0))+1
-	var receipt := StringName("%s/item/%s/%s/%s" % [host.call("map_key"), _actor().session_id, id, sequence])
+	var prepared := _casts.prepare(id)
+	var receipt: StringName = prepared.receipt
 	_casting = true
-	if not bool(host.call("spend_energy", float(params.combat_energy_cost), receipt)):
+	if not _casts.commit(prepared, float(params.combat_energy_cost), float(params.skill_cooldown_s)):
 		_casting = false
 		return _result(false, &"combat_energy")
-	host.call("patch_state", id, {"cast_sequence":sequence, "cooldown_until":float(host.call("now"))+float(params.skill_cooldown_s)}, StringName("%s/state" % receipt))
 	_spawn(id, &"large_drone", receipt, float(params.attack_interval_s), float(params.attack_damage_ratio_D), float(params.lifetime_s))
 	_casting = false
 	host.call("cue", &"item_large_guard_summoned", _actor().motor.global_position, {"packet":receipt, "definition_id":id})
