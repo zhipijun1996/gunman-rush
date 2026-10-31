@@ -289,7 +289,8 @@ class ProductionPlanTests(unittest.TestCase):
                             "plains-revision-deform-equivalence", "entry-audio-lifecycle",
                             "entry-audio-lifecycle-comparison"]
         owner_additions = ["entry-audio-owners"]
-        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions
+        definition_additions = ["forest-v11-definition"]
+        expected_additions = baseline_additions + boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:170], baseline_additions + boss_additions)
         self.assertEqual(full["checks"][144:170], baseline_additions + boss_additions)
         self.assertEqual(self.manifest["profiles"]["full"][170:172], ai_additions)
@@ -319,33 +320,38 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
         # Keep the complete reviewed168 and its92/76 split, then append both
         # actual native Boss contracts without replacing any original case.
-        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions]
+        baseline_lanes = [[name for name in names if name not in boss_additions + ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, baseline_lanes)), (168,92,76))
-        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions + owner_additions]
+        boss_lanes = [[name for name in names if name not in ai_additions + session_additions + architecture_additions + native_additions + owner_additions + definition_additions]
                       for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, boss_lanes)), (170,93,77))
-        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions + owner_additions]
+        existing_lanes = [[name for name in names if name not in session_additions + architecture_additions + native_additions + owner_additions + definition_additions]
                           for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, existing_lanes)), (172,94,78))
         self.assertEqual(self.manifest["profiles"]["full"][172:173], session_additions)
         self.assertEqual(full["checks"][172:173], session_additions)
-        session_lanes = [[name for name in names if name not in architecture_additions + native_additions + owner_additions]
+        session_lanes = [[name for name in names if name not in architecture_additions + native_additions + owner_additions + definition_additions]
                          for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, session_lanes)), (173,94,79))
         self.assertEqual(self.manifest["profiles"]["full"][173:174], architecture_additions)
         self.assertEqual(full["checks"][173:174], architecture_additions)
-        architecture_lanes = [[name for name in names if name not in native_additions + owner_additions]
+        architecture_lanes = [[name for name in names if name not in native_additions + owner_additions + definition_additions]
                               for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, architecture_lanes)), (174,95,79))
         self.assertEqual(self.manifest["profiles"]["full"][174:180], native_additions)
         self.assertEqual(full["checks"][174:180], native_additions)
-        native_lanes = [[name for name in names if name not in owner_additions]
+        native_lanes = [[name for name in names if name not in owner_additions + definition_additions]
                         for names in (full["checks"], parallel, serial)]
         self.assertEqual(tuple(map(len, native_lanes)), (180,95,85))
-        self.assertEqual(self.manifest["profiles"]["full"][180:], owner_additions)
-        self.assertEqual(full["checks"][180:], owner_additions)
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (181,95,86))
+        self.assertEqual(self.manifest["profiles"]["full"][180:181], owner_additions)
+        self.assertEqual(full["checks"][180:181], owner_additions)
+        owner_lanes = [[name for name in names if name not in definition_additions]
+                       for names in (full["checks"], parallel, serial)]
+        self.assertEqual(tuple(map(len, owner_lanes)), (181,95,86))
+        self.assertEqual(self.manifest["profiles"]["full"][181:], definition_additions)
+        self.assertEqual(full["checks"][181:], definition_additions)
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (182,95,87))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["game/application/demo_app.gd"], "development")]:
@@ -408,6 +414,67 @@ class ProductionPlanTests(unittest.TestCase):
                       self.manifest["checks"]["plains-revision-deform-equivalence"]["inputs"])
         self.assertIn("tests/fixtures/audio_lifecycle_2ce4ffa6",
                       self.manifest["checks"]["entry-audio-lifecycle-comparison"]["inputs"])
+
+    def test_recorded_v11_definition_appends_existing_strict_adapter_without_replacing_forest(self):
+        import run_integration_four_tests as wrapper
+        name = "forest-v11-definition"
+        check = self.manifest["checks"][name]
+        self.assertEqual(check["argv"], ["python3", "tools/run_integration_four_tests.py", "--case", name])
+        self.assertEqual(wrapper.CASES[name], ("tests/forest_v11_definition_runner.gd", r"FOREST V11 DEFINITION: [1-9]\d* assertions, 0 failures", 180))
+        self.assertEqual(check["success_pattern"], "^" + wrapper.CASES[name][1] + "$")
+        self.assertEqual(check["timeout_seconds"], 180)
+        self.assertTrue(check["serial"])
+        self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names}, {"core", "gameplay", "full"})
+        self.assertEqual({p for p, names in self.manifest["profiles"].items() if "forest-depth-versions" in names}, {"legacy-compat"})
+        original = self.manifest["checks"]["forest-depth-versions"]
+        self.assertEqual(original["timeout_seconds"], 210)
+        self.assertEqual(original["argv"], ["python3", "tools/run_forest_depth_versions.py", "--output-dir", "build/forest_depth/versions/native/harness-{check_token}"])
+        for path in check["inputs"]:
+            self.assertTrue((ROOT / path).exists(), path)
+        for path in ("tests/fixtures/forest_recorded_layouts/v11_corpus_map1.json",
+                     "tests/fixtures/forest_recorded_layouts/v11_corpus_map2.json",
+                     "resources/enemies/legacy/plains_charger_v2.tres", "tools/run_tests.py"):
+            self.assertIn(path, check["inputs"])
+        plan = self.plan(["tests/forest_v11_definition_runner.gd"], "integration")
+        self.assertIn(name, plan["ci_lane_checks"]["serial"])
+
+    def test_recorded_definition_wrapper_keeps_clock_marker_and_shared_failure_propagation(self):
+        # Simulated adapter output only; this unit never starts the engine.
+        import run_integration_four_tests as wrapper
+        import run_tests
+        self.assertIs(wrapper.run_engine, run_tests.run_engine)
+        argv = ["wrapper", "--case", "forest-v11-definition"]
+        good = "FOREST V11 DEFINITION: 1 assertions, 0 failures\n"
+        with patch.object(sys, "argv", argv), patch.object(wrapper, "run_engine", side_effect=["", good]) as engine:
+            wrapper.main()
+            self.assertEqual(engine.call_args_list[1].args,
+                             (["--headless", "--audio-driver", "Dummy", "--fixed-fps", "60", "--path", ".", "--script", "tests/forest_v11_definition_runner.gd"], 180))
+        for failed in ("", good.replace("1 assertions", "0 assertions"), good.replace("0 failures", "1 failures"),
+                       good + "ERROR: Resumed function fixture class instance is gone\n",
+                       RuntimeError("Godot leaked ObjectDB instances or live resources at exit"),
+                       RuntimeError("Godot returned 1")):
+            with self.subTest(output=str(failed)), patch.object(sys, "argv", argv), patch.object(wrapper, "run_engine", side_effect=["", failed]):
+                with self.assertRaises(RuntimeError):
+                    wrapper.main()
+
+    def test_migrated_audio_entries_keep_real_scene_and_cache_coverage(self):
+        import harness
+        cases = {
+            "entry-audio-owners": ["experiments/audio/entries/" + name + ".tscn" for name in
+                                   ("audio_home_lab", "audio_ambience_lab", "audio_director_lab", "audio_director_lab_v2", "audio_director_reels")]
+                                  + ["experiments/motion/entries/" + name + ".tscn" for name in
+                                     ("motion_candidate", "landing_feel", "weapon_feel", "weapon_feel_v2", "action_studio")],
+            "entry-audio-lifecycle": ["experiments/terrain/entries/" + name + ".tscn" for name in
+                                      ("light_study", "pixel_light_study", "high_density_terrain_study", "authored_terrain_study")],
+        }
+        for name, paths in cases.items():
+            check = self.manifest["checks"][name]
+            source = (ROOT / check["argv"][check["argv"].index("--script") + 1]).read_text()
+            self.assertNotIn('"res://scenes/dev/"', source)
+            for path in paths:
+                self.assertTrue((ROOT / path).is_file(), path)
+                self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "a" * 64}),
+                                    harness.input_digest(check, [path], {}, {path: "b" * 64}), name + ":" + path)
 
     def test_moved_lab_sources_keep_the_original_shared_script_cache_coverage(self):
         import harness
