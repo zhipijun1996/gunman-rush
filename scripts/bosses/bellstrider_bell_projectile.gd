@@ -103,7 +103,7 @@ func _sweep(motion: Vector2) -> bool:
 		var rest := space.get_rest_info(query)
 		var normal: Vector2 = rest.get("normal", -direction)
 		var point: Vector2 = rest.get("point", centre - normal * radius)
-		if not _impact_emitted and _owned():
+		if not _impact_emitted and accepts_optional_encounter_epoch(_attack_owner, _epoch):
 			_impact_emitted = true
 			impacted.emit(point, normal)
 	elif is_instance_valid(_target):
