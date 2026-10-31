@@ -64,7 +64,7 @@ func clear_run_services() -> void:
 	# Keep the cleared objects observable after Home, as existing App consumers
 	# require. A later departure replaces them with fresh run-owned services.
 	build.clear()
-	wallet.balance = 0
+	wallet.discard_balance()
 
 func release_player_references() -> void:
 	player = null
