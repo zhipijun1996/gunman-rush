@@ -13,7 +13,7 @@ func check(ok: bool,label: String) -> void:
 		failures+=1
 		printerr("RECORDED ENEMY PACK: "+label)
 func run() -> void:
-	check(not DirAccess.dir_exists_absolute("res://.git"),"probe has no repository checkout at its resource root")
+	check(not DirAccess.dir_exists_absolute("res://.git") and not FileAccess.file_exists("res://.git"),"probe has no repository checkout at its resource root")
 	var bytes := FileAccess.get_file_as_bytes(SOURCE)
 	var digest := HashingContext.new()
 	digest.start(HashingContext.HASH_SHA256)
