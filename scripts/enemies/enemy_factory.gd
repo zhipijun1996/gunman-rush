@@ -5,13 +5,13 @@ extends RefCounted
 const INSTANCE_FIELDS := [&"patrol_half_width",&"aerial",&"dive_depth",&"initial_direction",&"patrol_speed"]
 const CANDIDATE_RECIPES := {
 	&"candidate_lure_guard": {
-		"behavior":&"charger", "guard":true,
+		"guard":true,
 		"common":{&"stable_id":&"candidate_lure_guard",&"aerial":false,&"collision_size":Vector2(32,36),&"telegraph_duration":0.8,&"attack_duration":0.65,&"recovery_duration":1.1},
 		"lab":{&"patrol_half_width":120.0,&"activation_range":360.0},
 		"studio":{&"patrol_half_width":100.0},
 	},
 	&"candidate_crosswind_moth": {
-		"behavior":&"sentry", "guard":false,
+		"guard":false,
 		"common":{&"stable_id":&"candidate_crosswind_moth",&"aerial":true,&"collision_size":Vector2(32,36),&"telegraph_duration":0.8,&"attack_duration":1.1,&"recovery_duration":1.1},
 		"lab":{&"patrol_half_width":120.0,&"patrol_speed":45.0,&"activation_range":360.0},
 		# Studio keeps sentry's original zero speed and default activation range.
@@ -73,9 +73,10 @@ static func candidate_recipe(identity: StringName, context: StringName = &"lab")
 	var recipe_context := &"lab" if context == &"review" else context
 	if not CANDIDATE_RECIPES.has(identity) or recipe_context not in [&"lab",&"studio"]: return {}
 	var source: Dictionary = CANDIDATE_RECIPES[identity]
+	var behavior := EnemyBehaviorRegistry.candidate_behavior(identity)
 	var fields: Dictionary = source.common.duplicate(true)
 	fields.merge(source[String(recipe_context)],true)
-	return {"identity":identity,"context":context,"source_context":recipe_context,"behavior":source.behavior,"guard":source.guard,"definition_path":definition_path_for_behavior(source.behavior),"scene_path":scene_path_for_behavior(source.behavior),"overrides":fields,"admission":&"development_candidate"}
+	return {"identity":identity,"context":context,"source_context":recipe_context,"behavior":behavior,"guard":source.guard,"definition_path":definition_path_for_behavior(behavior),"scene_path":scene_path_for_behavior(behavior),"overrides":fields,"admission":&"development_candidate"}
 
 static func candidate_definition(identity: StringName, context: StringName = &"lab") -> EnemyDefinition:
 	var recipe := candidate_recipe(identity,context)

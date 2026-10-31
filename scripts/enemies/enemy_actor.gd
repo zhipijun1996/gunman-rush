@@ -142,6 +142,23 @@ func restore_instance_health(value: float) -> bool:
 	_restoring_instance=false
 	return accepted
 
+# Region save adapters keep their existing field sets. Attack vectors belong to
+# the plains schema; forest consumers append the behavior's own depth record.
+# This observes local Motor coordinates and never advances or cancels behavior.
+func region_snapshot(include_attack_vectors: bool = true, include_depth_state: bool = false) -> Dictionary:
+	var at := motor.position
+	var attack := attack_behavior
+	var saved := {"health":health.current,"position":[at.x,at.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0}
+	if include_attack_vectors:
+		saved.locked_direction = [attack.locked_direction.x,attack.locked_direction.y] if attack!=null else [1,0]
+		saved.attack_goal = [attack.attack_goal.x,attack.attack_goal.y] if attack!=null else [at.x,at.y]
+		saved.attack_origin = [attack.attack_origin.x,attack.attack_origin.y] if attack!=null else [at.x,at.y]
+	saved.home = [attack.home.x,attack.home.y] if attack!=null else [at.x,at.y]
+	saved.direction = brain.direction
+	if include_depth_state and attack != null and attack.has_method("depth_snapshot"):
+		saved.depth_state = attack.call("depth_snapshot")
+	return saved
+
 func apply_skill_impact(unit: Vector2, stagger_seconds: float, stagger_cooldown: float, knockback_speed: float, knockback_seconds: float) -> void:
 	if health.terminal or _stagger_cooldown>0:return
 	_stagger_remaining=stagger_seconds;_stagger_cooldown=stagger_cooldown

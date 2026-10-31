@@ -33,6 +33,25 @@ func configure(owner_actor: EnemyActor, target: PlayerController, damage_policy:
 	_actor_epoch = lifetime.actor_epoch
 	_attack_strategy()
 
+# Invoked after the stage has restored health/position and bound authored
+# geometry. Preserve the existing outer-record assignment order: specialized
+# depth validation (for example Weaver) compares against these exact fields.
+func restore_region_state(saved: Dictionary) -> bool:
+	state = StringName(saved.get("state","idle"))
+	state_time = float(saved.get("state_time",0.0))
+	cooldown = float(saved.get("cooldown",0.0))
+	_serial = int(saved.get("serial",0))
+	if saved.has("home"): home = Vector2(saved.home[0],saved.home[1])
+	for field: String in ["locked_direction","attack_goal","attack_origin"]:
+		if saved.has(field): set(field,Vector2(saved[field][0],saved[field][1]))
+	actor.brain.direction = int(saved.get("direction",1))
+	return _restore_region_depth(saved)
+
+func _restore_region_depth(saved: Dictionary) -> bool:
+	if saved.has("depth_state") and has_method("restore_depth_state"):
+		return call("restore_depth_state",saved.depth_state)
+	return true
+
 func advance(delta: float) -> bool:
 	if not _active():
 		cancel()

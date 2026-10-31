@@ -198,6 +198,11 @@ func _shore_snapshot() -> Array:
 func depth_snapshot() -> Dictionary:
 	return {"version":1,"shores":_shore_snapshot(),"state":str(state),"time":state_time,"shore":current_shore,"committed":committed_shore,"velocity":[flight_velocity.x,flight_velocity.y],"motor_velocity":[actor.motor.velocity.x,actor.motor.velocity.y],"serial":transit_serial,"supported_frames":supported_frames,"obstruction":obstruction.duplicate(true),"recovery_support":recovery_support.duplicate(true),"recovery_budget_failed":recovery_budget_failed}
 
+func restore_region_state(saved: Dictionary) -> bool:
+	# Migration has one validated physical transit record. The App historically
+	# skipped the generic attack fields, including home and facing, for this actor.
+	return _restore_region_depth(saved)
+
 func _finite_number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
 

@@ -33,6 +33,9 @@ static func candidate_ids() -> Array[StringName]:
 	for id: StringName in CANDIDATES: result.append(id)
 	return result
 
+static func candidate_behavior(identity: StringName) -> StringName:
+	return CANDIDATES[identity].behavior if CANDIDATES.has(identity) else &""
+
 static func supports_behavior(id: StringName) -> bool:
 	return BEHAVIORS.has(id)
 
