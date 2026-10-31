@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "task_id": "CI-CURRENT-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "bd86237456c7ce12a352b040857b208bdede7f66",
+  "reviewed_commit": "bd86237456c7ce12a352b040857b208bdede7f66",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "PR124合入后修复当前消费者测试契约，审计历史与当前CI范围",
+  "player_experience": "保留新Boss和现有玩法，减少失效测试契约阻塞开发",
+  "constraints": [
+    "不改Boss玩法或生产资源",
+    "原断言/失败/预算保留；历史分类依据真实消费者"
+  ],
+  "affected_paths": [
+    "tests/plains_refresh_art_runner.gd"
+  ],
+  "deliverables": [
+    "修复视觉测试宿主缺少nullable boss字段",
+    "原生成消费者回归与CI范围审计"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "原generated-consumers全26套通过，证据见docs/evidence/ci_current_01/receipt.json；不签完整CI",
+    "森林超时未修复",
+    "CI分类已完成只读审计，workflow/profile去重尚未实施",
+    "本轮不签用户/设备认可"
+  ]
+}

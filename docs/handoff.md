@@ -1,3 +1,9 @@
+## 2026-10-31 PR124 已按用户顺序合入，开始 CI-CURRENT-01
+
+PR124 普通 merge 已完成，main 为 `bd86237456c7ce12a352b040857b208bdede7f66`。用户明确先合入再重构修复，原 generated-consumers 的 VisualFixture 缺 boss 字段与 forest-depth-region 超时失败保留，不签完整 CI。PR122 未自动合入；旧架构候选留在 `/workspace/gunman-rush`，新 main 修复工作区为 `/workspace/gunman-rush-ci`，分支 `fix/current-ci-01`。
+
+只读审查确认该 visual 的全部生产宿主都有 nullable boss 字段，当前首修只补齐测试替身，不改 Boss 或生产代码。修前已真实重现，修后单项27/0，原故意失败模式28/1且退出1；原 generated-consumers 全26套通过（161.372秒），详见 [收据](evidence/ci_current_01/README.md)。范围见 [CI-CURRENT-01](worklines/ci_current_01/scope.md)。后续依据 [实际CI分类](worklines/ci_current_01/ci_inventory.md) 分离当前与历史CI；main正常完整计划的247次调用/169唯一检查提供跨job去重方向，尚未实施。森林超时仍未修，不签完整CI。
+
 ## 2026-10-30 牧风者60HP候选：完整原声影片已录，待用户审片
 
 正式map2接入六招、三阶段加权冻结招组、主动追近、真实平台支撑/跨台及共同姿态判定；致死立即停伤害/风，落位后1.9秒失效，原账本喷出并逐枚领取20金币。运行源7f919a22及140运行引用此后字节不变。分支feature/windkeeper-pressure-01，[PR124](https://github.com/zhipijun1996/gunman-rush/pull/124)为草稿，不自动合main；PR122巡游机保持独立。
