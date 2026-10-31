@@ -1,6 +1,6 @@
 # B 方向：两个最小制作范例
 
-先读 [style_master](../../../resources/visual_development/style_master.json)，并实际看 [B1 母版](../../../assets/visual_development/master/b1_master.png) 与 [B 方向板](../../../assets/visual_development/proposals/b_board.png)。以后只按任务补读对应 record；不需要全部 PR 历史。母版四格是教学示意，不能列作真实编辑步骤。以下为真实素材生产经过，均尚未获得正式整屏艺术准入。
+先读 [style_master](../../../game/presentation/world/resources/visual_development/style_master.json)，并实际看 [B1 母版](../../../assets/visual_development/master/b1_master.png) 与 [B 方向板](../../../assets/visual_development/proposals/b_board.png)。以后只按任务补读对应 record；不需要全部 PR 历史。母版四格是教学示意，不能列作真实编辑步骤。以下为真实素材生产经过，均尚未获得正式整屏艺术准入。
 
 ## 1. 大明暗体块 → 真正的材质编辑
 

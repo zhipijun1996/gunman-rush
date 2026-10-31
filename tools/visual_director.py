@@ -351,7 +351,7 @@ def formal_source_projection(inventory):
     Full bitmap + producer inventories remain separately bound by before/after equality.
     Never replace the full original runtime inventory with the small driver/core subset.
     """
-    runtime_folders=('scripts/','scenes/','resources/','config/','shaders/','assets/')
+    runtime_folders=('game/','experiments/','scripts/','scenes/','resources/','config/','shaders/','assets/')
     suffixes={'.gd','.tscn','.tres','.json','.gdshader'}
     return {k:v for k,v in inventory.items() if not k.startswith(runtime_folders) or Path(k).suffix in suffixes}
 
@@ -1327,7 +1327,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-regional-art-contract', 'plains-regional-art-counterexamples', 'plains-regional-art-graph-counterexamples']))
             task['goal'] += ' Before a long movie, execute this same MovieWriter adapter with max_ticks=60; require capture integrity and label frame_budget_exhausted as a bounded preflight, never route acceptance. Read the current full-region recipe and actual independent rejection first. Use the formal complete map, not fixed place reordering. Structural checks cannot sign art. Show whole-world terrain/routes/layers plus normal-camera actual full-route footage; preserve failed Seeds. Do not repeat the two rejected landmass methods or silently change collision in an art-only task.'
     elif region_id == 'windchime_plains':
-        catalog_path = 'game/presentation/world/resources/visual_development/p1_places_assets.json'
+        catalog_path = 'resources/visual_development/p1_places_assets.json'
         catalog = read(ROOT / catalog_path)
         paths = [catalog_path, catalog['master'],
                  'resources/generation/environment_grammar/places_v1.json',

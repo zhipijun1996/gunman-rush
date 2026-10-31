@@ -1,5 +1,7 @@
 # Visual Bible：新美术地基入口
 
+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/visual_bible.md.txt)。
+
 ## 2026-10-22 最新用户选择：统一细粒度
 
 用户原话：“细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。”共享规范现为 [style-v5](creative_direction/bibles/style-continuity-20261022-v5.json)：正式地形原生32px/32wu，世界表现1wu采样/nearest，47邻接和精确边界/物理语义保留；从高分母版整理细源，不能放大旧16px冒充。家园、平原及森林共享消费者同步；材质/生态/光色表达区域差异。新采用暖光、清透空气透视和稀疏前景，以正式合屏评价。旧v4的16px描述属于历史，原文、许可与原Bible字节保持不动。用户确认的是粒度方向，不是新内容最终美术或真机认可。实际范围与剩余问题见 [FINE-SPACE-05](evidence/fine_space_05/README.md)。
@@ -53,12 +55,12 @@
 
 ## B方向实际制作范例
 
-用户选定B“雨釉与偏心”：圆润低重心、盘筑陶形、蛋彩明暗；[版本与认可范围](../resources/visual_development/style_master.json)区分用户方向与候选母版。上节v5/v8是既有正式版本的历史认可，不强制新授权B实验继承石灰岩，也不表示B已替换正式生产池。
+用户选定B“雨釉与偏心”：圆润低重心、盘筑陶形、蛋彩明暗；[版本与认可范围](../game/presentation/world/resources/visual_development/style_master.json)区分用户方向与候选母版。上节v5/v8是既有正式版本的历史认可，不强制新授权B实验继承石灰岩，也不表示B已替换正式生产池。
 
 - 源参考：[B方向板](../assets/visual_development/proposals/b_board.png)与[B1源母版](../assets/visual_development/master/b1_master.png)。派生保持两者可追溯；单物继续编辑可增加上一步原图，不用它替代源母版。
 - 同题对象板：[实际明暗原图](../assets/visual_development/props/value_block.png)→[实际材质编辑](../assets/visual_development/props/material_pass.png)，先固定大形/功能开口/重心，再画木、陶、金属差异。母版图内印出的步骤只是示意，不算真实多轮制作。
-- [原生画面paintover目标](../assets/visual_development/master/paintover_target.png)来自实际画面，但仍是目标图；由[候选catalog](../resources/visual_development/candidate.json)逐项映射独立源图、region、比例、pivot/socket及真实节点，不能把目标图贴满游戏屏幕宣称实现。
+- [原生画面paintover目标](../assets/visual_development/master/paintover_target.png)来自实际画面，但仍是目标图；由[候选catalog](../game/presentation/world/resources/visual_development/candidate.json)逐项映射独立源图、region、比例、pivot/socket及真实节点，不能把目标图贴满游戏屏幕宣称实现。
 - [对象家族原始规格](../assets/visual_development/props/family.json)保留两次多物打包失败后改独立树/屋派生的原因。尺寸/alpha实测决定非网格region；内接socket不是最外可站边，必须与真实碰撞端分别校准。
 - [环境原始连接规格](../assets/visual_development/environment/connections_family.json)保留等格/padding失败、误画underside及未校准端头。两个同法失败后改为单功能生成，不能再堆atlas或降阈值追认；[新连续草甸原图](../assets/visual_development/environment/continuous_meadow.png)及[来源](../assets/visual_development/environment/continuous_meadow.record.json)只承担远层连续地面，不承担碰撞或整屏关卡。
 
-当前地形制作入口为[连续截面与端转面范例](evidence/painted_terrain/recipe.md)及[候选catalog](../resources/visual_development/painted_terrain_candidate.json)，不是默认沿旧texture+rect覆材。04采用section_v2与meadow_v2的首整屏已获[静态/运动抽帧整体艺术限定接受](evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅允许一次第二真实结构同家族验证，不强制重生成有效源；不是完整G2、用户或商业品质。
+当前地形制作入口为[连续截面与端转面范例](evidence/painted_terrain/recipe.md)及[候选catalog](../game/presentation/world/resources/visual_development/painted_terrain_candidate.json)，不是默认沿旧texture+rect覆材。04采用section_v2与meadow_v2的首整屏已获[静态/运动抽帧整体艺术限定接受](evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅允许一次第二真实结构同家族验证，不强制重生成有效源；不是完整G2、用户或商业品质。

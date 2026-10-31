@@ -1,0 +1,3 @@
+限定接受外部5文件历史证据重定位。Home/P1仅evidence.path变化，两个归档逐字匹配原Git blob与旧SHA；source_commit、quote、accepted及原风险状态不变。Home745097指原UI反馈范围，selection原件来自稍后3e6bf692，不能声称原件位于745097。
+
+Bell原两个source_contract SHA绑定原存档，current consumer单独指实际路径；已明确P7 owner行为修复，未将新代码伪装成历史同字节。独立核current17预载、manifest、WAV字节/格式与原asset validator均通过。没有新音频/图片/用户重签，也不签当前owner行为或整个质量门禁。应用后须核同字节。

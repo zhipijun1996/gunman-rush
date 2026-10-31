@@ -1,0 +1,49 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_ACCEPT_EXTERNAL_HISTORICAL_EVIDENCE_RELOCATION",
+  "base_commit": "bc576b63e11e6f020eff8c309505677321895f13",
+  "files": [
+    {
+      "path": "docs/quality/records/AUDIO-HOME-01.json",
+      "sha256": "af3fde08a5986a64993b690467d01353c1c6a633418c5d2a6525b67e25fcc9a1"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/retained_source_records/audio_home_user_selected_3e6bf692.json",
+      "sha256": "2219390277435c2e8d861dd49f16917d2cc32119cf0e4735c2643d5e7cba069e"
+    },
+    {
+      "path": "docs/quality/records/P1-NATIVE-01.json",
+      "sha256": "a4a936272b188e3470f5aa433f63dcd2e415b4cb764cf01cc179412e00ae9f68"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/retained_source_records/p1_actor_calibration_2be5e1f6.json",
+      "sha256": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3"
+    },
+    {
+      "path": "docs/quality/asset_records/bellstrider-rework-01-material-audio.json",
+      "sha256": "903b242015be7fce60c1b15c3572f39f38096f707a344f93def74ce3b4a530ac"
+    }
+  ],
+  "patch_replay_matches": true,
+  "historical_originals_exact_git_blobs": true,
+  "home_and_p1_records_only_evidence_path_changed": true,
+  "bell_changes_only_allowed_fields": true,
+  "current_literal17_manifest_wav_hash_and_format_checked": true,
+  "candidate_asset_validator_errors": [],
+  "semantics": [
+    "Home source_commit745097 identifies original UI/feedback scope; selection artifact created later at3e6bf692 is archived as its exact original bytes. It is not asserted to exist at745097. quote/accepted/content/scope untouched; no new user feedback.",
+    "P1 original measurement a3934e is retained rather than rebound to current calibration metadata whose target catalog moved; original measured risks/status unchanged.",
+    "Bell associated original source_contract hashes remain provenance; live consumer_scripts points to current implementation. Current17 media custody remains independently checked. Owner resolution changed earlier inP7 and is explicitly not byte-only relocation/revalidation."
+  ],
+  "limits": [
+    "Not full docs/quality gate pass or current owner behavior/native/listening/user/device acceptance.",
+    "No fixture/guard change; existing literal17+corruption checks remain.",
+    "Candidate not yet main-applied; recheck same bytes after application/commit."
+  ],
+  "applied_main_verification": {
+    "head": "bc576b63e11e6f020eff8c309505677321895f13",
+    "count": 5,
+    "all_frozen_candidate_bytes_match": true,
+    "commit_binding_pending": true
+  }
+}

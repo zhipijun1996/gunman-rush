@@ -1,0 +1,5 @@
+限定接受37文件文档导航/历史绑定候选。20MD仅链接与6条原件说明变更；100唯一目标中69锁历史Git实际blob/原锚点，31用既有迁移表指当前路径。6旧MD+5旧记录共11原件逐字匹配，复用既有finite helper；篡改/缺件均拒绝。5直接record仅改一处path，原SHA/source/accepted不变，原validator错误集合等价且目标tamper/missing拒绝。
+
+3ledger明确历史source_head/baseline，保原字节与逻辑源路径，visual_bible原SHA恰好匹配新有限归档，未刷新任何旧ledger/source-report哈希。206当前引用无交集，check_docs未改。
+
+未签全docs/quality。原AudioV3 weapon_audio#L69已指到voice.stream=null，与旧文本路由说明不精确；候选仅保原历史锚点，不静默重写。Git对象存在不等于HTTP可用性实测；用户认可/艺术状态均不升级。应用后须核同字节。

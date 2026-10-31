@@ -1,5 +1,7 @@
 # 风铃平原：生成阶段的美术语言候选
 
+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_art_language/recipe.md.txt)。
+
 本轮任务 `PLAINS-ART-LANGUAGE-01`，从 PR88/`07ffe3f3` 开始，独立分支 `feature/plains-art-language`。这是参数和消费者实验，不是新风格定稿、整区黄金或正式池准入。森林、核心操作、资源与保存不在写集。
 
 ## 为什么过去对接不好
@@ -13,7 +15,7 @@
 3. 坐标嵌入后、模块实例化前解析世界轮廓；物理继续使用真实 Definition。横向模块携带预先表达；生成内联 junction/connection 在其几何已确定、场景实例化之前绑定同一语法，并用外部实际源节点重新校验。
 4. `PlainsRegionArtPlan` 验证表达，`PlainsRegionalComposer` 直接消费有限后山体轮廓、世界 UV 和源画 SHA。前景只将表达绑定到实际相交的源平台区域，仍使用旧材质；**未实例化新绘画件**。
 
-源接口：[目录](../../../resources/generation/plains_art_language.json)、[实现](../../../scripts/generation/plains_art_language.gd)。四家族为草原母岩、裂隙岸体、溪流栈道、修补砌体。9 档完整挑战占地与9件拟议岸端/梁端/墙端及芯段是两种不同尺度，不能混称九件可用资产。固定画件按源像素分配有限重叠，禁止随跨度拉伸；实际画源仍缺失。
+源接口：[目录](../../../resources/generation/plains_art_language.json)、[实现](../../../game/world/generation/plains_art_language.gd)。四家族为草原母岩、裂隙岸体、溪流栈道、修补砌体。9 档完整挑战占地与9件拟议岸端/梁端/墙端及芯段是两种不同尺度，不能混称九件可用资产。固定画件按源像素分配有限重叠，禁止随跨度拉伸；实际画源仍缺失。
 
 支座/根部/吊挂目前是可核验要求和待生产接口，不是已完成支承求解。家族连接只覆盖同站面初版，不是任意墙脚/材质过渡。配方依旧先由玩法选择再映射家族，尚未实现地貌反选挑战、局部修复或通用连续地质场。
 

@@ -1,0 +1,42 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_PRODUCTION_AND_FIXTURE_ROOT_PROTOCOL_FIX",
+  "baseline_commit": "bc576b63e11e6f020eff8c309505677321895f13",
+  "files": [
+    {
+      "path": "tools/visual_director.py",
+      "before_sha256": "d92719f9056afa633dd8d5ff2026cfbbf8f1ac917701e90b6dd666f105d7a7ac",
+      "sha256": "febf1d653bd8f39bd23b3be00fef56e03158840fba946d117d0e69da67e3d486"
+    },
+    {
+      "path": "tests/test_visual_director.py",
+      "before_sha256": "e396a5dd625755def46512d056ce3746690742eecdd435973578dae320cadad4",
+      "sha256": "de0f38f1bfcb9af9c6f4df910e535d64b8c766c3bcaf0812aede1a74972e3209"
+    }
+  ],
+  "only_production_change": "runtime_folders adds game/experiments; suffix set/projection/comparison guard unchanged",
+  "only_test_changes": "Fixture runtime inventory adds same2 roots; adds2 root cases retaining gd and rejecting uid/png; all old methods/guards remain",
+  "old_test_methods_preserved": 24,
+  "independent_pure_matrix_cases": 56,
+  "actual_observer_protocol": "tools/level_formal_capture.gd runtime_source_hashes collects scripts/game/experiments/scenes/resources/config/shaders/assets with gd,json,tres,tscn,gdshader; level_formal.py source_files/validate_policy_basis already use both new roots",
+  "failure_diagnosis": "Original production-loop115 1error6fail is directly caused by test_visual_director fixture excluding new-root sources; its level_formal.source_files already excludes uid. Production projection omission is a separate real new-root nonsource-filter defect. Production-only repair cannot cure fixture failure; second failed run retained.",
+  "negative_guard_preserved": "Bitmap source_before/source_after drift still rejects; removing actual new-root scenery source still rejects; strict inventory equality never broadened",
+  "limits": [
+    "No engine or full suites run by reviewer; root115+24 rerun pending at review time.",
+    "This is a new post6f743953 source/test delta and not part of immutable62file commit receipt."
+  ],
+  "source_identity_history": [
+    {
+      "sha256": "179eb00ff37dc95770e8b56eaacc15df82cfbd1a6315d93cadf2613a54c01d9f",
+      "scope": "tuple repair before p1 actual path-hold correction"
+    }
+  ],
+  "additional_path_hold_fix": {
+    "old_incorrect_path": "game/presentation/world/resources/visual_development/p1_places_assets.json",
+    "actual_retained_path": "resources/visual_development/p1_places_assets.json",
+    "tracked_in_base": true,
+    "catalog_sha256": "de1718c017e530c92e116f33b0720309dfd6853a863107d973482548ed106d60",
+    "diff": "Exactly one catalog_path literal; historical_recipe_plan flags/guards/checks unchanged",
+    "reason": "Feature migration intentionally held this resource at original root; no assumption every historical root was relocated."
+  }
+}

@@ -10,6 +10,10 @@
 
 style26/creative29 只作技术绑定：206 引用、原媒体与历史原件保留，原598输入映射前缀完整；原 Bible61 在30秒预算内25.94秒通过，无缓存、删测试或放预算。代理按职责并行，root 协调唯一 Godot 租约；原 dirty `/workspace/gunman-rush` 未动。恢复先查真实 HEAD、工作区、远端构建及进程，再按[执行记录](worklines/game_architecture_01/execution.md)继续。
 
+后续原 docs33 已在同一候选写集全部 fresh 通过（318.136秒），原命令/预算未改。修复当前/历史导航及证据路径、视觉 source projection 与fixture漏掉功能根、P1刻意保留路径和森林 Provider 调用链识别；原断链、误判和字符串伪造反例均保留，详见 [静态收口](evidence/game_architecture_02/static-closeout-03/archive-index.json)。这不代表完整182或实际导出已完成。
+
+固定引擎构建390的Windows调试/Web多线程调试成功；Android两份native库完成后Gradle因缺SCons CLI失败，原run已取消保留失败及成功产物。只补锁定SCons命令入口的184970c7正完整同源重建，见[当前构建](https://github.com/zhipijun1996/gunman-rush/actions/runs/41180438395)；不混入旧run产物。安装器62eceec4已限定独审，须和真实完整artifact lock原子激活，当前官方配置未切换。
+
 ## 2026-10-31 PR122已合入，PR107离线工具组合完成（最新）
 
 PR122已普通合入main `a22b8f76f784da044bf2e4fa018ec274f12eab3f`，此前124/125保留；Bell八组、Pressure六组及四绑定分别通过，原输入顺序失败已修且保留。PR107本分支已与该main整合，原正式scripts/scenes/resources/assets无差异；Python28/28及41/41通过，原九条件native pilot/完整172未签。远端合并状态以PR为准；PR123排除。之后从统一main修CI基线，再按既定架构批次迁移。地图目标是统一新库/新算法，接口先行，旧算法只是过渡，当前未切换正式地图。见[组合证据](evidence/main_unify_20261031/level-tools/README.md)。

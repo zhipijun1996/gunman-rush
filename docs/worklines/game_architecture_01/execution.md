@@ -55,3 +55,9 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 063d6ccb独立提交8文件，Boss健康/家族快照/决斗恢复与原非duel位置恢复移回现有Encounter；两个Stage和App真实委托，原forest测试三处调用同步，41个check和负例不减。原Bell/Pressure/core/forest-depth-restore已过；入口回归的三次实际路径/技术metadata失败已分别修正，四批合计11个不同check通过，见closeout-02各原report。其dirty状态和精确源仍各自保留，不签full182。
 
 用户2026-10-31明确选择“采用固定的上游修复版，继续完整验证（推荐）”。独立A/B/C证明完整上游117991+120976四文件修复使最新原formal191/0且严格退出通过，单五行修复失败仍保留。正式工具链在fix/godot-shutdown-toolchain-01隔离建设，拟固定源码/补丁/容器/SDK和实际产物SHA，保Web、Windows、Linux及现Android能力；不把O0诊断binary或官方模板混装当作正式交付。完整182/目标平台/真实PCK与GUI继续待验。
+
+## 原文档与工具消费者完整收口
+
+原docs33在bc576b63及报告记录的候选写集全部fresh通过，318.136秒；源projection/fixture两根、保留P1路径、当前与历史文档引用、旧metadata证据及森林真实Provider链均已迁。旧失败和独审原件位于static-closeout-03。森林源码观察采用有限单行词法与有序调用检查，明确runtime_available=None，不等于执行可达/正式开放；原36测试保留、新6反例已接原入口。未新增运行registry或修改玩法。
+
+引擎构建390的Android原生库完成，但Gradle查找scons失败；仅锁定命令入口补丁184970c7重建全部10lane，保同commit/run门禁，未拼旧成功包。安装器62eceec4及补丁已有独审，真实完整产物和原182/实际PCK仍待验。

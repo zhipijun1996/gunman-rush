@@ -59,7 +59,7 @@ PR85候选`PlainsPlacePlan`绕过正式区域生成，只有有限场所链，�
 
 v2在实际图源尺寸/统一尺度下求完整脚距的可行锚点区间；安装后以真实节点global_transform逐脚与声明站面及实际StaticBody2D/CollisionShape2D的SOLID顶边独立复核。三个真实棚屋的52项节点变异断言通过：故意让锚点仍在实际地面内、脚越界，消费者隐藏并报告遗漏/not-ready；恢复节点恢复ready。实际碰撞全清单与完整Manifest前后相同；六Seed合同193项通过。修复后Seed02再次真实Motor完成15626tick、17/17节点、30次穿越、61枪、零恢复、HP最低/最终3；完整Manifest与修复前逐字节相等，45.14秒headless。独立审查仅[接受保护修复](../evidence/plains_regional/independent-foundation-fix.md)，实机艺术继续REJECT，非第三种艺术迭代。
 
-定位可直接复查：[生成器的先嵌入后填岩体](../../scripts/generation/plains_region_generator.gd)、[计划的碰撞并集及12像素内缩轮廓](../../scripts/generation/plains_region_art_plan.gd)、[实际消费者](../../scripts/art/plains_regional_composer.gd)。当前布局只把180安静空间和列间距反向约束到生成，未实现完整地貌与探索路线的联合求解；不能把新增计划中的focus/light/wind字段当成已生产的艺术设计。
+定位可直接复查：[生成器的先嵌入后填岩体](https://github.com/zhipijun1996/gunman-rush/blob/46c3c0993b2ea69293f60161a1c2a95cc6677942/scripts/generation/plains_region_generator.gd)、[计划的碰撞并集及12像素内缩轮廓](https://github.com/zhipijun1996/gunman-rush/blob/46c3c0993b2ea69293f60161a1c2a95cc6677942/scripts/generation/plains_region_art_plan.gd)、[实际消费者](https://github.com/zhipijun1996/gunman-rush/blob/46c3c0993b2ea69293f60161a1c2a95cc6677942/scripts/art/plains_regional_composer.gd)。当前布局只把180安静空间和列间距反向约束到生成，未实现完整地貌与探索路线的联合求解；不能把新增计划中的focus/light/wind字段当成已生产的艺术设计。
 
 
 下一项关键实验只验证一个不同假设：先生成跨全图的主岩脊/草坡实体及可穿越空腔场，再将真实探索图的分岔和环路约束嵌入其中；挑战站面仍精准平整，但崖肩、转面、底部和洞口应从地貌场派生，不能再次直接复制模块AABB。先以两个非同构图的全图与正常相机检查形体，未成立不生产精细素材。这个实验尚未执行，不能作为本轮交付能力。

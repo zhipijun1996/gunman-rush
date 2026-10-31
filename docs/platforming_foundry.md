@@ -38,10 +38,10 @@ python3 tools/foundry.py next --feedback /path/to/foundry-feedback.json
 | --- | --- |
 | [模板配置](../config/platforming_foundry.json) | 动作顺序、判断、依赖、参考与压力记录 |
 | [能力配置](../config/foundry_capabilities.json) | 生成/验证/试玩使用同一能力条件 |
-| [生成器](../scripts/generation/foundry_catalog.gd) | 端口直接重合、能力筛选、版本与规范JSON校验 |
-| [实际世界](../scripts/generation/foundry_world.gd) | 实例化原有模块和碰撞，不添加接桥 |
+| [生成器](../game/world/generation/foundry_catalog.gd) | 端口直接重合、能力筛选、版本与规范JSON校验 |
+| [实际世界](../game/world/generation/foundry_world.gd) | 实例化原有模块和碰撞，不添加接桥 |
 | [验证器](../tools/foundry_validate.gd) | 单角色连续动作、静态/动态全体积扫掠与回放 |
-| [试玩消费者](../scripts/demo/foundry_lab.gd) | 试玩、输入回放、暂停、评价、随机已验证路线 |
+| [试玩消费者](../experiments/generation/foundry_lab.gd) | 试玩、输入回放、暂停、评价、随机已验证路线 |
 
 能力配置 `base`读取唯一默认调参；`double_jump`仅在开发玩家上设为二跳；`air_chain`开发玩家二跳/四发容量，仍受精力与冷却约束。高级配置本轮只验证现有组合的兼容性，并没有声称完成必须四发的专属动作链。正式能力发放仍未接入。
 

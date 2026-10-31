@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "started_at": "20261031T070249.591880Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "79483f3c1200e3f42315290b5eaf2637446b887378b27e9274bb974c7d9c8745",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793430174.665687,
+      "ended_at_unix": 1793430175.5302985,
+      "duration_seconds": 0.865,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "check_token": "0d0080974901444094060dbcaf3f6cc9",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T070249.591880Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c4661be6704642a03fa43225fc8d5088bddad99c422d5410f064fb589aebf9c8",
+      "log": "level-region-context.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1793430176.3804328,
+      "ended_at_unix": 1793430177.3421862,
+      "duration_seconds": 0.962,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "check_token": "c6c10de4587e449683064a4be4d42ea1",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T070249.591880Z/artifacts/level-region-context",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "d132627afa0994ca56d5f0a9435bc3c6bde9b23c22917c0948d6363f2534de03",
+  "working_files": {
+    "docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json": "9ebf8b6f29f7da1a920d8fdf0129418b2d15dc7112d5bb058eafcff1b03a12f1",
+    "docs/tasks.md": "fc469c85c2821fbd7f45209e23516c44ebfd96dd7a00ca87e3cf066b90ae63a7",
+    "tests/test_visual_director.py": "de0f38f1bfcb9af9c6f4df910e535d64b8c766c3bcaf0812aede1a74972e3209",
+    "tools/visual_director.py": "179eb00ff37dc95770e8b56eaacc15df82cfbd1a6315d93cadf2613a54c01d9f"
+  },
+  "commit": "bc576b63e11e6f020eff8c309505677321895f13",
+  "git_status": "M docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\n M docs/tasks.md\n M tests/test_visual_director.py\n M tools/visual_director.py",
+  "diff": "diff --git a/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json b/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\nindex 21f2d743..8559fcad 100644\n--- a/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\n+++ b/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\n@@ -160,7 +160,7 @@\n       \"status\": \"passed\",\n       \"reason\": \"所引62文件审查中本记录覆盖60个测试/工具/文档技术文件，限定静态迁移接受；两份assets manifest由原资产记录另管。精确6f743953已逐Git blob绑定62文件；原不可变报告保留候选状态，新增commit-binding收据证明一致；不覆盖整个P8、118动态加载、35GUI或完整CI。\",\n       \"evidence\": [\n-        \"test-migration-independent\"\n+        \"test-migration-commit-binding\"\n       ]\n     },\n     \"device\": {\n@@ -196,6 +196,27 @@\n       \"verdict\": \"ACCEPT\",\n       \"independent\": true,\n       \"independence_basis\": \"审查者未实施被审62文件，只读比对并独立运行有限纯Python反例。\"\n+    },\n+    {\n+      \"id\": \"test-migration-commit-binding\",\n+      \"path\": \"docs/evidence/game_architecture_02/closeout-02/architecture-closeout-6f743953-independent-commit-binding.json\",\n+      \"sha256\": \"f2c0ca23baeba3b61af3bea462a8710d928c904e2543e313d5328d69aecb5a8c\",\n+      \"kind\": \"review\",\n+      \"producer\": \"/root/structure_audit\",\n+      \"source_commit\": \"6f743953d6c70c63d4d366a3e84cbe2a571b29d7\",\n+      \"content_version\": \"candidate-v1\",\n+      \"method\": \"审查者在6f743953提交后逐Git blob核62文件、23代码写集及12敏感guard，并核本process精确60路径范围。\",\n+      \"observed\": \"精确提交与原独审候选逐SHA一致；只绑定原限定静态接受，不扩大至全量运行。\",\n+      \"reviewer\": \"/root/structure_audit\",\n+      \"implementers\": [\n+        \"/root\",\n+        \"/root/asset_audit\",\n+        \"/root/ci_audit\",\n+        \"/root/preview_audit\"\n+      ],\n+      \"verdict\": \"ACCEPT\",\n+      \"independent\": true,\n+      \"independence_basis\": \"审查者未实施被审62文件，只读比对并独立运行有限纯Python反例。\"\n     }\n   ],\n   \"consumer_coverage\": null,\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 55afd2bb..fcaa22aa 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -739,7 +739,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；\n \n | GAME-ARCH-MESH-01 | 同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-MESH-01.json) |\n \n-| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | in_progress | /root/runtime_audit | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |\n+| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | GAME-ARCH-LEVEL-01 | in_progress | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |\n \n | GAME-ARCH-LAYOUT-01 | 实际功能目录、资源引用及测试/CI输入迁移 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LAYOUT-01.json)；6584六项fresh通过，formal清理57/25仍失败；style26与最终GUI/PCK/全量未验 |\n \ndiff --git a/tests/test_visual_director.py b/tests/test_visual_director.py\nindex b492aaf7..d89afbab 100644\n--- a/tests/test_visual_director.py\n+++ b/tests/test_visual_director.py\n@@ -20,7 +20,7 @@ class VisualDirectorTests(unittest.TestCase):\n         self.source['tests/observer_fixture.gd']='b'*64\n         self.source['assets/fixture-bitmap.png']='e'*64\n         self.request=dict(source_commit='c'*40,root_seed='SYNTHETIC-NOT-MOTOR',map_index=2,strategy='growth',phase_wait_ticks=0,max_ticks=60,encounter_policy='kill_from_bank_v1')\n-        runtime={'res://'+k:v for k,v in vd.formal_source_projection(self.source).items() if k=='project.godot' or k.startswith(('scripts/','scenes/','resources/','config/','shaders/','assets/'))}\n+        runtime={'res://'+k:v for k,v in vd.formal_source_projection(self.source).items() if k=='project.godot' or k.startswith(('game/','experiments/','scripts/','scenes/','resources/','config/','shaders/','assets/'))}\n         basis={'schema_version':1,'encounter_policy':'kill_from_bank_v1','reward_policy':'two_actual_medium_and_camp_v1',\n                'driver_sources':{'res://'+k:self.source[k] for k in vd.level_formal.driver_source_paths()},\n                'core_invariants':{'res://'+k:self.source[k] for k in vd.level_formal.core_source_paths()}}\n@@ -160,6 +160,9 @@ class VisualDirectorTests(unittest.TestCase):\n     def test_full_bitmap_guard_is_separate_from_original_formal_projection(self):\n         # Original GDScript observer never lists PNG: keep that contract while retaining bitmap provenance.\n         self.assertNotIn('assets/fixture-bitmap.png',vd.formal_source_projection(self.source))\n+        for root in ('game','experiments'):\n+            projection=vd.formal_source_projection({root+'/fixture.gd':'a'*64,root+'/fixture.gd.uid':'b'*64,root+'/fixture.png':'c'*64})\n+            self.assertEqual(projection,{root+'/fixture.gd':'a'*64})\n         self.assertIn('game/presentation/world/art/plains_region_scenery.gd',vd.formal_source_projection(self.source))\n         self.assertEqual(vd.validate_native(self.data,self.report,self.log),[])\n         self.report['source_after']['assets/fixture-bitmap.png']='f'*64\ndiff --git a/tools/visual_director.py b/tools/visual_director.py\nindex 97b7c407..58fdcce4 100644\n--- a/tools/visual_director.py\n+++ b/tools/visual_director.py\n@@ -351,7 +351,7 @@ def formal_source_projection(inventory):\n     Full bitmap + producer inventories remain separately bound by before/after equality.\n     Never replace the full original runtime inventory with the small driver/core subset.\n     \"\"\"\n-    runtime_folders=('scripts/','scenes/','resources/','config/','shaders/','assets/')\n+    runtime_folders=('game/','experiments/','scripts/','scenes/','resources/','config/','shaders/','assets/')\n     suffixes={'.gd','.tscn','.tres','.json','.gdshader'}\n     return {k:v for k,v in inventory.items() if not k.startswith(runtime_folders) or Path(k).suffix in suffixes}",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 12.162,
+  "jobs": 1,
+  "release": true
+}

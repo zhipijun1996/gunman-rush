@@ -1,0 +1,98 @@
+................................................................EFFFFFF.................................................
+======================================================================
+ERROR: test_real_media_native_binding_and_review_lease_identity (__main__.NativeVisualMediaAdmissionTests.test_real_media_native_binding_and_review_lease_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1756, in test_real_media_native_binding_and_review_lease_identity
+    self.assertEqual(loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer'),'fixture-reviewer')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-refactor/tools/production_loop.py", line 1017, in visual_capture_admission
+    report, data = visual.load_capture(bound(ref))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-refactor/tools/visual_director.py", line 1080, in load_capture
+    if errors: raise ValueError('; '.join(errors))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: incomplete/changed independently observed runtime source inventory
+
+======================================================================
+FAIL: test_still_only_or_foreign_movie_attestation_cannot_admit_golden (__main__.NativeVisualMediaAdmissionTests.test_still_only_or_foreign_movie_attestation_cannot_admit_golden) (case='missing_movie')
+----------------------------------------------------------------------
+ValueError: incomplete/changed independently observed runtime source inventory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1776, in test_still_only_or_foreign_movie_attestation_cannot_admit_golden
+    with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "normal-speed movie" does not match "incomplete/changed independently observed runtime source inventory"
+
+======================================================================
+FAIL: test_still_only_or_foreign_movie_attestation_cannot_admit_golden (__main__.NativeVisualMediaAdmissionTests.test_still_only_or_foreign_movie_attestation_cannot_admit_golden) (case='foreign_movie')
+----------------------------------------------------------------------
+ValueError: incomplete/changed independently observed runtime source inventory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1776, in test_still_only_or_foreign_movie_attestation_cannot_admit_golden
+    with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "normal-speed movie" does not match "incomplete/changed independently observed runtime source inventory"
+
+======================================================================
+FAIL: test_still_only_or_foreign_movie_attestation_cannot_admit_golden (__main__.NativeVisualMediaAdmissionTests.test_still_only_or_foreign_movie_attestation_cannot_admit_golden) (case='not_normal_speed')
+----------------------------------------------------------------------
+ValueError: incomplete/changed independently observed runtime source inventory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1776, in test_still_only_or_foreign_movie_attestation_cannot_admit_golden
+    with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "normal-speed movie" does not match "incomplete/changed independently observed runtime source inventory"
+
+======================================================================
+FAIL: test_still_only_or_foreign_movie_attestation_cannot_admit_golden (__main__.NativeVisualMediaAdmissionTests.test_still_only_or_foreign_movie_attestation_cannot_admit_golden) (case='incomplete_route')
+----------------------------------------------------------------------
+ValueError: incomplete/changed independently observed runtime source inventory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1776, in test_still_only_or_foreign_movie_attestation_cannot_admit_golden
+    with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "normal-speed movie" does not match "incomplete/changed independently observed runtime source inventory"
+
+======================================================================
+FAIL: test_still_only_or_foreign_movie_attestation_cannot_admit_golden (__main__.NativeVisualMediaAdmissionTests.test_still_only_or_foreign_movie_attestation_cannot_admit_golden) (case='single_frame')
+----------------------------------------------------------------------
+ValueError: incomplete/changed independently observed runtime source inventory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1776, in test_still_only_or_foreign_movie_attestation_cannot_admit_golden
+    with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "normal-speed movie" does not match "incomplete/changed independently observed runtime source inventory"
+
+======================================================================
+FAIL: test_still_only_or_foreign_movie_attestation_cannot_admit_golden (__main__.NativeVisualMediaAdmissionTests.test_still_only_or_foreign_movie_attestation_cannot_admit_golden) (case='missing_limits')
+----------------------------------------------------------------------
+ValueError: incomplete/changed independently observed runtime source inventory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_production_loop.py", line 1776, in test_still_only_or_foreign_movie_attestation_cannot_admit_golden
+    with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "normal-speed movie" does not match "incomplete/changed independently observed runtime source inventory"
+
+----------------------------------------------------------------------
+Ran 115 tests in 67.519s
+
+FAILED (failures=6, errors=1)

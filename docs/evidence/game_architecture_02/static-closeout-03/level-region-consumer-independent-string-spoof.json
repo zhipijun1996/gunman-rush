@@ -1,0 +1,8 @@
+{
+  "candidate_sha256": "0020b4172dbed018a13f1a2d3973c5a881404d614a7307eceebf61b14c7f9ca4",
+  "case": "Named _ready exists only inside a top-level multiline string after actual _ready was renamed",
+  "actual_forest_consumer_observed": true,
+  "expected": false,
+  "finding": "Helper scans function headers before determining string lexical context; next top-level triple-quote closes extracted body before multiline-string guard sees it.",
+  "mutated_stage_tail": "circle(reward_position,24+sin(clock*3)*2,Color(\"d8bc77\"),false,3,true)\n\nconst UNCALLED_SOURCE_EXAMPLE = \"\"\"\nfunc _ready() -> void:\n\tvar built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)\n\"\"\"\n"
+}

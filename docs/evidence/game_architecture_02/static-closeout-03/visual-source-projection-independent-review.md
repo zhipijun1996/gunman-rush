@@ -1,0 +1,5 @@
+限定接受生产/fixture两处根协议修复。真实GDScript observer及level_formal均早已覆盖game/experiments及原5类后缀；生产projection遗漏导致新根非源码错误进入投影，fixture遗漏则使真实新根源码全缺。原115的1error6fail直接来自后者，不能归因fixture中的UID（该fixture原source_files已排UID）；只改生产后的第二失败也保留。
+
+最终生产只加2根，fixture只加2根及2组gd保留、uid/png拒绝断言；24原方法、bitmap完整输入漂移检查、新根源码缺件拒绝及精确inventory比较均保留。独立56项纯投影矩阵通过；未跑引擎/整套，待root原115+24。
+
+补审：P1 places catalog本来保留在resources/visual_development/p1_places_assets.json，已由基线Git tree及实际文件确认；新增修正仅catalog_path单字面量，未改配方/guard/后缀或原比较。不能把1124映射当作全仓所有旧根都已迁移。新工具SHA见JSON，先前tuple-only SHA作为历史保留。

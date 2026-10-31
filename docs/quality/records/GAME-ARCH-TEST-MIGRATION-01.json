@@ -160,7 +160,7 @@
       "status": "passed",
       "reason": "所引62文件审查中本记录覆盖60个测试/工具/文档技术文件，限定静态迁移接受；两份assets manifest由原资产记录另管。精确6f743953已逐Git blob绑定62文件；原不可变报告保留候选状态，新增commit-binding收据证明一致；不覆盖整个P8、118动态加载、35GUI或完整CI。",
       "evidence": [
-        "test-migration-independent"
+        "test-migration-commit-binding"
       ]
     },
     "device": {
@@ -186,6 +186,27 @@
       "content_version": "candidate-v1",
       "method": "对精确工作树62文件逐SHA、历史方法AST、当前/旧路径、原检查和反例独立审查；工作树候选尚待commit绑定。",
       "observed": "LIMITED_STATIC_ACCEPT_FOR_EXACT_CANDIDATE_BYTES；12敏感路径全部覆盖，23当前代码写集无遗漏；不代表全量引擎或PCK通过。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root",
+        "/root/asset_audit",
+        "/root/ci_audit",
+        "/root/preview_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者未实施被审62文件，只读比对并独立运行有限纯Python反例。"
+    },
+    {
+      "id": "test-migration-commit-binding",
+      "path": "docs/evidence/game_architecture_02/closeout-02/architecture-closeout-6f743953-independent-commit-binding.json",
+      "sha256": "f2c0ca23baeba3b61af3bea462a8710d928c904e2543e313d5328d69aecb5a8c",
+      "kind": "review",
+      "producer": "/root/structure_audit",
+      "source_commit": "6f743953d6c70c63d4d366a3e84cbe2a571b29d7",
+      "content_version": "candidate-v1",
+      "method": "审查者在6f743953提交后逐Git blob核62文件、23代码写集及12敏感guard，并核本process精确60路径范围。",
+      "observed": "精确提交与原独审候选逐SHA一致；只绑定原限定静态接受，不扩大至全量运行。",
       "reviewer": "/root/structure_audit",
       "implementers": [
         "/root",

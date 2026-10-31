@@ -30,7 +30,7 @@ enemy-creator负责整怪制作次序与正式消费者，art-director交身体�
 ## 阶段流程与交付物
 
 A / G0 敌人策划：Enemy Design Sheet 写名称/背景/地区、战斗职责、独特操作压力、对射击反冲跳跃落点的影响、AI 状态机、移动/攻击、预警/判定/恢复时间、反制、受伤死亡奖励、旧敌人对照、地形/同伴组合。新物种必须新增玩家操作或策略，换图/HP/速度不成立；旧怪纯表现补齐引用既有机制及未变依据，不强制新增AI。
-B / G1 灰盒：复用 [EnemyDefinition](../../../scripts/enemies/enemy_definition.gd)、[AI](../../../scripts/enemies/enemy_patrol_ai.gd)、[Motor](../../../scripts/enemies/enemy_motor.gd) 与既有 Health/[DamagePolicy](../../../scripts/damage/frame_damage_policy.gd)。让真实输入和弹体产生攻击/命中/死亡；含暂停、中断、无目标及失败反例，不旁路正式伤害。
+B / G1 灰盒：复用 [EnemyDefinition](../../../scripts/enemies/enemy_definition.gd)、[AI](../../../game/enemies/behaviors/enemy_patrol_ai.gd)、[Motor](../../../game/enemies/enemy_motor.gd) 与既有 Health/[DamagePolicy](../../../game/combat/damage/frame_damage_policy.gd)。让真实输入和弹体产生攻击/命中/死亡；含暂停、中断、无目标及失败反例，不旁路正式伤害。
 C / G2 美术动作：用 art-director 区域母版和 animation-vfx 状态表，按需求完成待机/移动/预警/攻击/恢复/受伤/死亡；锚点、连续转向和动作过渡需正常速度录像，无统一帧数门槛。
 D / G1–G3 遭遇：平地、多平台、落差、机关与其他敌人组合；写生成区域/机制标签、禁用组合、安全空间、同时压力预算。检查镜头外攻击、出口堵塞和落点公平性。
 从实际接敌函数逐项核距离、视线、目标保护区、并发上限与落地等前提：敌人允许生成，不等于它能在拟定观察岸发动攻击。站位无攻击时先记录哪项真实谓词拒绝；不要先移动敌人、加射程或削弱安全保护。普通弹、钩头与身体各按实际形状扫掠，中心射线可通不代签可射杀。

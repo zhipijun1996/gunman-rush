@@ -30,9 +30,9 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01
 
 ## 正式公共接线
 
-正式起局在 [DemoApp](../../../scripts/demo/demo_app.gd) 创建 ItemRuntime／ItemV5Pool／ItemV5ShopPresenter；实际 stage 完成后 `bind_world()`、`map_ready()`，并创建 [ItemEffectView](../../../scripts/items/v5/item_effect_view.gd)。只有已装备且未损坏的拥有实例进入 [ItemRuntime.sync()](../../../scripts/items/v5/item_runtime.gd) 缓存。
+正式起局在 [DemoApp](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/demo/demo_app.gd) 创建 ItemRuntime／ItemV5Pool／ItemV5ShopPresenter；实际 stage 完成后 `bind_world()`、`map_ready()`，并创建 [ItemEffectView](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_effect_view.gd)。只有已装备且未损坏的拥有实例进入 [ItemRuntime.sync()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_runtime.gd) 缓存。
 
-主攻与武器技能通过 [ShootAbility](../../../scripts/combat/shoot_ability.gd)、[PlayerProjectile](../../../scripts/combat/player_projectile.gd)或 [WeaponActionRuntime](../../../scripts/combat/weapon_action_runtime.gd)提交伤害；策略成功后 `item_hit_committed()`→[PlayerController.on_weapon_damage()](../../../scripts/player/player_controller.gd)→`ItemRuntime.on_hit()`。防御由 [FrameDamagePolicy](../../../scripts/damage/frame_damage_policy.gd) 的 `defend_request()`／`on_damage()`插点接入。道具主动用独立 `item_skill` 输入，召唤／连锁／DOT 等派生通过 Runtime 授权与原策略结算，不走主攻回能。
+主攻与武器技能通过 [ShootAbility](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/combat/shoot_ability.gd)、[PlayerProjectile](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/combat/player_projectile.gd)或 [WeaponActionRuntime](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/combat/weapon_action_runtime.gd)提交伤害；策略成功后 `item_hit_committed()`→[PlayerController.on_weapon_damage()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/player/player_controller.gd)→`ItemRuntime.on_hit()`。防御由 [FrameDamagePolicy](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/damage/frame_damage_policy.gd) 的 `defend_request()`／`on_damage()`插点接入。道具主动用独立 `item_skill` 输入，召唤／连锁／DOT 等派生通过 Runtime 授权与原策略结算，不走主攻回能。
 
 表中 `缺` 表示尚未找到所述**行为断言**，不表示配置无定义。`部分`明确指出已测与未测的边界。当前逐件均找到候选生产消费者。初扫发现的 S10“蓄成钟摆提示”缺口已补入cue／View分支并有SE回执，但GL观察仍未验。
 
@@ -40,24 +40,24 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01
 
 | ID／名称／最高等级 | 实际 module → 正式 consumer／callback | 已有逐件行为断言 | 尚缺或证据边界 |
 | --- | --- | --- | --- |
-| B01 拾铃磁盘／1 | [Economy](../../../scripts/items/v5/item_economy_effects.gd) `can_magnet_pickup()` → DemoApp `_physics_process()`／`_commit_pickup()`原领取流程 | E.`magnet_policy`：半径、ready_at、coin/note/heart/energy、实墙 LOS、拒绝宝箱／商品／奖励对象、卸装撤销 | 没有正式 App 磁吸领取正例；S07 弧线组合与 GL 未验 |
-| B03 薄暮枪管／3 | [Combat](../../../scripts/items/v5/item_combat_effects.gd) `modify_direct_damage()` → Projectile／WeaponActionRuntime | C.`multipliers`：Lv3 1.32 与技能排除；F.`primary`：真实主攻 Lv1 1.12、Lv2 1.22、卸装恢复；同实例成长／不增负荷 | Lv3 的正式输入链仍仅局部倍率查询；没有自然平衡认可 |
-| B04 省力扳簧／3 | [BuildState](../../../scripts/builds/build_state.gd) `_modifiers_for()` → AirFocusAbility 的 tuning 消耗 | I.`broken_and_static_sources`：Lv1 .82、升级 Lv2 .72、卸装还原实际 tuning | Lv3、实际持续瞄准的总消耗与正式关卡组合未断言 |
+| B01 拾铃磁盘／1 | [Economy](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_economy_effects.gd) `can_magnet_pickup()` → DemoApp `_physics_process()`／`_commit_pickup()`原领取流程 | E.`magnet_policy`：半径、ready_at、coin/note/heart/energy、实墙 LOS、拒绝宝箱／商品／奖励对象、卸装撤销 | 没有正式 App 磁吸领取正例；S07 弧线组合与 GL 未验 |
+| B03 薄暮枪管／3 | [Combat](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_combat_effects.gd) `modify_direct_damage()` → Projectile／WeaponActionRuntime | C.`multipliers`：Lv3 1.32 与技能排除；F.`primary`：真实主攻 Lv1 1.12、Lv2 1.22、卸装恢复；同实例成长／不增负荷 | Lv3 的正式输入链仍仅局部倍率查询；没有自然平衡认可 |
+| B04 省力扳簧／3 | [BuildState](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/builds/build_state.gd) `_modifiers_for()` → AirFocusAbility 的 tuning 消耗 | I.`broken_and_static_sources`：Lv1 .82、升级 Lv2 .72、卸装还原实际 tuning | Lv3、实际持续瞄准的总消耗与正式关卡组合未断言 |
 | B05 疾鸣撞针／1 | Combat `weapon_cooldown_multiplier()` → ShootAbility `try_fire()`／`reserve_packet()` | C.`multipliers` 返回 .88 | 仅查询；未量实际发射间隔／冷却下限 |
-| B06 回声小匣／3 | [Time](../../../scripts/items/v5/item_time_effects.gd) `on_hit()` → 成功回执、AirFocus stamina 原 grant 账本 | D.`air_refund_committed_pipeline`：真实局部主攻命中返时间能量、单次腾空 20 封顶、不延长 AirFocus 时长、换装不重置 | Lv2／3 数值与正式 App 空中操作未逐级验证 |
+| B06 回声小匣／3 | [Time](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_time_effects.gd) `on_hit()` → 成功回执、AirFocus stamina 原 grant 账本 | D.`air_refund_committed_pipeline`：真实局部主攻命中返时间能量、单次腾空 20 封顶、不延长 AirFocus 时长、换装不重置 | Lv2／3 数值与正式 App 空中操作未逐级验证 |
 | B07 定脚支架／1 | BuildState 参数映射 → RecoilAbility／WeaponMotionDefinition 使用实际 `ground_recoil_multiplier` | I.`broken_and_static_sources`：实际 tuning ×.7、卸装恢复 | 实际地面位移／反冲距离对照未测 |
 | B08 止滑钟靴／1 | BuildState 参数映射 → JumpAbility `advance()`／`try_jump()`读取 coyote_time | I 同段：coyote_time +.05、卸装恢复 | 真正离边宽限帧内／外跳跃反例未测 |
 | B09 接地回路／1 | BuildState 参数映射 → AirFocusAbility 地面恢复 | I 同段：恢复 tuning ×1.25、卸装恢复 | 实际地面恢复总量／暂停条件未测 |
 | B11 心室木匣／3 | BuildState `_commit()` → HealthState `set_max()` | I.`equipped_growth_and_rollback`：三等级 +1/+2/+3、不免费治疗、卸装、组合溢出原子回滚；I.`growth_and_receipts` 覆盖同实例／来源幂等／满级拒绝 | 正式自然领取／装备三等级未演练；U 等级展示只是显示证据 |
-| B13 晨露护片／1 | [Defense](../../../scripts/items/v5/item_defense_effects.gd) `map_entered()`／`_commit_entry()` → 共享盾 | D.`barriers_and_map_receipts`：与 B32 入图合计 3、失焦延后、同图防刷、卸装清除；`guard_synergy_geometry` S09 | 正式 App 两图入图盾路径与 GL 未验 |
+| B13 晨露护片／1 | [Defense](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_defense_effects.gd) `map_entered()`／`_commit_entry()` → 共享盾 | D.`barriers_and_map_receipts`：与 B32 入图合计 3、失焦延后、同图防刷、卸装清除；`guard_synergy_geometry` S09 | 正式 App 两图入图盾路径与 GL 未验 |
 | B14 苦痛铃歌／1 | Defense `on_damage()` → Runtime `grant_energy()` | D.`breakage_and_one_bell`：真实 HP 伤害每次回能、第三次破损 S15 单铃、修复不重领铃 | 正式敌伤／致死边界的逐件自然组合未验 |
 | B15 荆棘铜衣／1 | Defense `on_damage()` → Runtime `burst()` → 策略派生 HP | D.`retaliation_and_crystal_contacts`：真实HP受伤→B15自动派生、表内7秒CD、实际目标HP；另保策略授权／致死优先反例 | 真实局部场景与伤害初始化fixture；正式自然战斗／GL未验 |
 | B16 裂纹钱袋／1 | Economy `on_kill()`／`_kill_bonus()`；Defense 破损计数；ShopService 维修 | E.`bonus_and_remainder`／`bonus_rollback`：实际钱包逐敌 8 次预算、换装不刷、冲突回滚 | 未测 B16 自身第三次伤害破损与其维修价格；正式击杀→额外收入、S07 表现未验 |
 | B17 裂纹强击栓／1 | Combat `primary_damage_multiplier()`；Defense `on_damage()`破损撤销；ShopService 维修 | D.`breakage_and_one_bell`：第三次 HP 伤害破损、仍占负荷、修复不重发 S15 | **部分：缺主攻增伤数值及破损后实伤撤销**；维修交易价未逐件测 |
-| B18 捕魂音叉／3 | PlayerController `on_weapon_damage()`读取额外gain→[CombatEnergyState.committed_hit()](../../../scripts/resources/state/combat_energy_state.gd)共享包上限 | K.`resonance_fork`：实际HP提交后回执，三等级每敌9/10/11、同包多敌仍12、同目标去重、技能/session/weapon epoch排除、卸装撤销 | 成功回执envelope为初始化fixture，未装备B18走完整真实弹体路线；GL未验 |
+| B18 捕魂音叉／3 | PlayerController `on_weapon_damage()`读取额外gain→[CombatEnergyState.committed_hit()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/resources/state/combat_energy_state.gd)共享包上限 | K.`resonance_fork`：实际HP提交后回执，三等级每敌9/10/11、同包多敌仍12、同目标去重、技能/session/weapon epoch排除、卸装撤销 | 成功回执envelope为初始化fixture，未装备B18走完整真实弹体路线；GL未验 |
 | B19 梦读铭片／1 | PlayerController `on_grapple_damage()`额外回能；Combat `on_hook_hit()`梦读标记；Companion S02 锁定 | C.`explicit_synergies`：独立梦读标记、4 世界秒、回执防刷新／卸装撤销；A.`_run` S02 单目标最多两机 | **部分：额外钩索共鸣没有数值断言**；钩索→正式标记→机体闭环没有 App 输入链 |
 | B20 盗铃钩齿／1 | Runtime `on_hook_hit()` → Economy `on_hook()` → 原钱包 | E.`bonus_and_remainder`：每敌一次、每图 10 金封顶、重复／Boss 排除 | 接受钩索伤害回执的正式输入链未验 |
-| B21 长索绕轮／3 | [TraversalAbility._effective_hook_range()](../../../scripts/player/traversal_ability.gd)→request_hook／guide | K.`long_hook`：真实Router/Traversal基线触不到，Lv1的1.15范围触到同一真实anchor、仅入包无效、卸装再触不到且核心权利保留 | Lv2/3实际钩距边界、正式地图路线未验 |
+| B21 长索绕轮／3 | [TraversalAbility._effective_hook_range()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/player/traversal_ability.gd)→request_hook／guide | K.`long_hook`：真实Router/Traversal基线触不到，Lv1的1.15范围触到同一真实anchor、仅入包无效、卸装再触不到且核心权利保留 | Lv2/3实际钩距边界、正式地图路线未验 |
 | B22 扩震钟环／3 | Combat `bomb_radius_multiplier()` → WeaponActionRuntime `explode()`／`damage_burst()` | C.`multipliers`：Lv3 返回 1.28 | 仅查询，缺真实炸弹范围边缘伤害／LOS；S14 仍禁用，不作用针雷的设计不能冒称已通过组合 |
 | B23 尾摆齿环／1 | Combat `_end_recoil()`／`on_blink()` → ring 实际范围派生 | C.`recoil_and_cooldown`：.4D 端点环、CD／重复／卸装重装防刷 | 路径来自明确接受-Motor通知 fixture；未有正式实际移动输入证明 |
 | B24 余火枪片／1 | Combat `on_hit()`建 DOT，`advance()`按世界时间派生 | C.`dots_cloud_and_unload`：3 世界秒总 .35D、零 delta 不结算、到期／卸装取消 | 事件是已接受命中 fixture；正式主攻→DOT、GL 未验 |
@@ -66,9 +66,9 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01
 | B28 逐风鞋簧／1 | PlayerController `physics_tick()`地面move_axis×倍率→唯一PlayerMotor.step() | K.`ground_shoes`：同输入实际地面速度与10 tick位移均×1.05、背包无效、空中不加、卸装恢复、重装不改基础tuning | 局部初始化位置／Controller tick，非正式自然路线／手感认可 |
 | B29 薄钟长管／3 | Combat `projectile_range_multiplier()` → Projectile 寿命与 ShootAbility 发射 | C.`multipliers`：Lv3 返回 1.5 | 仅查询；未验证真实射程边缘／飞行中卸装撤销、Lv1/2 |
 | B30 易裂心匣／1 | BuildState HP +3；Defense 第三次 HP 损伤破损；ShopService 修理 | I.`broken_and_static_sources` 破损最大 HP 撤销／仍占负荷；D 第三次伤害破损；E.`repairs` 原价 18、重放／余额不足／回滚、不免费治疗；F 近店修理授权 | F 的破损是显式状态 fixture，并未自然打裂；其他三件破损道具不自动继承 B30 各自价格验证 |
-| B31 敲钟重锤／1 | Combat `enemy_stagger_multiplier()` → 弹体／武器 context → [EnemyActor](../../../scripts/enemies/enemy_actor.gd)受击硬直 | C.`multipliers`：返回 1.3 | 仅查询；缺真实 EnemyActor 硬直持续时间、Boss／普通敌人边界 |
+| B31 敲钟重锤／1 | Combat `enemy_stagger_multiplier()` → 弹体／武器 context → [EnemyActor](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/enemies/enemy_actor.gd)受击硬直 | C.`multipliers`：返回 1.3 | 仅查询；缺真实 EnemyActor 硬直持续时间、Boss／普通敌人边界 |
 | B32 晨蓝洪流／1 | Defense `map_entered()`／`_commit_entry()` → 共享盾 | D 与 B13 合计 3、同图防刷／卸装撤销 | 没有正式 App 新图自动授盾／GL |
-| B33 小焰触片／3 | [Active](../../../scripts/items/v5/item_active_effects.gd) `preview()`／`activate()` → Runtime 授权 burst | A.`_run`：Lv3 1.9D、实际 LOS、无所有权／零方向／CD拒绝；F：Lv1 原生 R、30 自然共鸣消费、真实 1.10D、无附送普攻／状态跨图保留 | Lv2 未逐级测；F 为训练场 fixture，不是自然路线或手感认可 |
+| B33 小焰触片／3 | [Active](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_active_effects.gd) `preview()`／`activate()` → Runtime 授权 burst | A.`_run`：Lv3 1.9D、实际 LOS、无所有权／零方向／CD拒绝；F：Lv1 原生 R、30 自然共鸣消费、真实 1.10D、无附送普攻／状态跨图保留 | Lv2 未逐级测；F 为训练场 fixture，不是自然路线或手感认可 |
 
 ## P 系列：26 件
 
@@ -84,7 +84,7 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01
 | P10 腐蚀尾铃／1 | Runtime `on_skill_started()` → Combat 布置 primed 窗口，后继主攻一团 cloud | C.`dots_cloud_and_unload`：一次技能仅一云、3 秒总 .45D、表现 cue 一次 | 技能开始通知／命中为 fixture；实际主动→主攻→云与窗口边界未验 |
 | P12 刃影回纹／1 | Combat `_observe_path()`／`_path_committed()`／`on_blink()` | C.`recoil_and_cooldown` 实际目标接触 .25D、重复／CD；`explicit_synergies` S06 后继包才可引爆 | 位移通知由 fixture 提供，未真实 Router→Motor 反冲路径验收 |
 | P13 追索徽记／1 | Combat `on_hook_hit()`普通钩索标记→`modify_direct_damage()`；Companion `mark_key()` | C.`next_shot_and_marks`：标记回执、倍率 1.2、技能排除、过期、换图清除；A G08 标记 fixture | 真钩索物理回执→主弹的正式输入链未验；与 B19 梦读标记明确分离 |
-| P14 游钟机群／1 | [Companion](../../../scripts/items/v5/item_companion_effects.gd) `sync()`三机→`advance()`／`_fire()`实际派生 | A：三机数量、世界停时不攻击、G08 标记首击、S02 独立目标锁；M/dbf3a154已采集真实正式配置路径（已知奖励和训练靶fixture） | A Host 手动标记／效果集合不等于正式准入；K2影片采样／实际收据已观察三机攻击；并非自然全路线 |
+| P14 游钟机群／1 | [Companion](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_companion_effects.gd) `sync()`三机→`advance()`／`_fire()`实际派生 | A：三机数量、世界停时不攻击、G08 标记首击、S02 独立目标锁；M/dbf3a154已采集真实正式配置路径（已知奖励和训练靶fixture） | A Host 手动标记／效果集合不等于正式准入；K2影片采样／实际收据已观察三机攻击；并非自然全路线 |
 | P15 续鸣装配匣／1 | Runtime `combat_energy.spent`→`_energy_spent()`→Companion `on_energy_spent()` | K.`assembly_threshold_and_s01`：真实44+1 debit/spent信号召机、去重／不足／上限、.35D真HP、8世界秒到期、不自充／递归、卸装保部分进度；A新增生命周期源码补边界和节点释放 | K已开发79/0；A新增已在K2原Harness102/0执行；正式App自然供能／召唤链及GL未验 |
 | P16 循时梦盾／1 | Defense `_advance_guard()`真实扫掠拦截 EnemyAttackProjectile／允许的 BossProjectile | D.`guard_synergy_geometry`：实际弹体拦截、12 秒／S09 .9CD、unblockable与不可见Boss攻击代理排除 | 正式 Boss 实战与 GL 读性／同帧多弹边界未验 |
 | P17 游鸣聚能体／3 | Combat `charge_move_multiplier()`→PlayerController真实charge phase的move_axis | C.`multipliers`：仅Lv3查询.7；pool拒绝不存在蓄力技能的武器；K显式输出UNVERIFIED | **用户基础蓄力选择pending；无真实蓄力移动正例**。root已把未装备fallback从实际0修为1以保旧baseline；装备.4/.55/.7仍是表值候选，不是用户或实发验证 |
@@ -115,7 +115,7 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01
 | G08 空白钟芯／1 | Companion `_target()`／`_fire()`→标记优先、实际提交后一次首击信用 | 原A的P14组合；新增A.`growth_damage_and_s12`：G19远处标记优先、首次桥拒绝不消费信用、首真HP命中×1.3、同标记重装不刷、新标记一次 | 新增S12断言K2原Harness A102/0；标记仍为初始化身份，非正式钩索回执链 |
 | G10 不朽钱袋／1 | Economy `_kill_bonus()`唯一每图敌人账本，与B16装备互斥 | E：新图六次每次 2 金、不重领、失活拒绝、背包共存而装备互斥 | 正式击杀原回执／稳定掉落展示未验 |
 | G11 不朽心匣／1 | BuildState通用`max_hp_add`映射→HealthState；与B30装备互斥 | K.`immortal_health`：G11仅入包无效、装备+3不补HP、卸装撤销／实际current钳制、重装不找回损失HP／不叠加 | G11/B30互斥的逐件正反例、正式App自然配置未验 |
-| G12 错位命运骰／1 | [ShopService](../../../scripts/shops/shop_service.gd)冻结概率／刷新账本；正式 Presenter 读取 Runtime effect | E.`rerolls`：真实权重转移、负蓝概率拒绝、首免费／次收费、同收据／旧报价、失败不改库存或RNG、卸装不得伪造免费 | F 实际 8 金刷新没有装备 G12；近店 UI 下的 G12 组合尚未正式验证 |
+| G12 错位命运骰／1 | [ShopService](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/shops/shop_service.gd)冻结概率／刷新账本；正式 Presenter 读取 Runtime effect | E.`rerolls`：真实权重转移、负蓝概率拒绝、首免费／次收费、同收据／旧报价、失败不改库存或RNG、卸装不得伪造免费 | F 实际 8 金刷新没有装备 G12；近店 UI 下的 G12 组合尚未正式验证 |
 | G14 飞雷钟樽／1 | Active `_step_throw()`／`_explode_throw()`→Runtime 原 G14 origin 的命中与传导 | A：1.3D直击＋.35D传导、墙阻挡／不回能；R.`g14_real_runtime_chain`：实际Runtime／policy两额外目标 .35D，补原Host掩盖的来源授权问题 | 正式 App R 输入与 GL 未验；仅 THROW 模式，不能声称部署模式 |
 | G15 双响投架／1 | Active `activate()`分裂P24/G14，一次消费／总预算；P24第二方向取负向 | A：真实两侧往返总 1.4D×1.15、共一包／单扣35；R.`s13_opposite_trajectories`；M/dbf3a154已实际采集 | G14分裂预算/方向独立反例尚缺；不是全类型主动都复制 |
 | G16 钟匠裁决／1 | Active `_step_pulses()`锥形筛选／LOS → 三段真实派生 | A：3×.9D、一次65、不搬角色、不被G15复制 | 锥体边角／遮挡更多反例、正式 App 与 GL 未验 |

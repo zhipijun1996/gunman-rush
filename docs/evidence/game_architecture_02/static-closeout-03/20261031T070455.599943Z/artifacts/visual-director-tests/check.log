@@ -1,0 +1,26 @@
+....................E...
+======================================================================
+ERROR: test_route_is_real_original_production_loop_input_not_worker_success (__main__.VisualDirectorTests.test_route_is_real_original_production_loop_input_not_worker_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_visual_director.py", line 446, in test_route_is_real_original_production_loop_input_not_worker_success
+    mission=vd.historical_recipe_plan('优化风铃平原钟庭美术','unit-visual','docs/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-refactor/tools/visual_director.py", line 1331, in historical_recipe_plan
+    catalog = read(ROOT / catalog_path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-refactor/tools/level_design.py", line 23, in read
+    return json.loads(Path(path).read_text(), object_pairs_hook=pairs,
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-rush-refactor/game/presentation/world/resources/visual_development/p1_places_assets.json'
+
+----------------------------------------------------------------------
+Ran 24 tests in 15.831s
+
+FAILED (errors=1)

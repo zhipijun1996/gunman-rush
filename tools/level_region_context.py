@@ -44,6 +44,104 @@ class Source:
                 "source": self.ref(start + 1, end)}
 
 
+def _gd_source_lines(source):
+    """Admit single-line quoted literals/comments; reject unsupported continuations.
+
+    This finite source observer intentionally does not interpret multiline
+    strings. Reject them before looking for any function or inheritance edge.
+    """
+    lines = []
+    for line in source.lines:
+        quote = None
+        index = 0
+        while index < len(line):
+            char = line[index]
+            if quote is not None:
+                if char == "\\":
+                    index += 2
+                    continue
+                if char == quote:
+                    quote = None
+            elif char == "#":
+                break
+            elif char in ("'", '\"'):
+                if line[index:index + 3] == char * 3:
+                    return None
+                quote = char
+            elif char == "\\":
+                return None
+            index += 1
+        if quote is not None:
+            return None
+        lines.append(line[:index].rstrip())
+    return lines
+
+
+def _gd_function_has_statements(source, name, statements):
+    """Bounded source observation, not execution/reachability or a GDScript parser.
+
+    Match complete statements inside one named top-level function, in order.
+    Unsupported source shapes fail closed and require a new source review.
+    """
+    lines = _gd_source_lines(source)
+    if lines is None:
+        return False
+    starts = [i for i, line in enumerate(lines)
+              if re.match(r"^(?:static )?func " + re.escape(name) + r"\(", line)]
+    if len(starts) != 1:
+        return False
+    start = starts[0] + 1
+    end = next((i for i in range(start, len(lines))
+                if lines[i] and not lines[i][0].isspace()), len(lines))
+    observed = iter(line.strip() for line in lines[start:end] if line.strip())
+    return all(any(line == expected.strip() for line in observed)
+               for expected in statements)
+
+
+def _forest_consumer_observed(root, app):
+    """Follow the existing forest provider/plan/runtime source edges, not a registry."""
+    provider = Source(root, "game/world/levels/providers/forest_level_provider.gd")
+    adapter = Source(root, "game/world/levels/providers/legacy_region_plan_adapter.gd")
+    configured = Source(root, "game/world/levels/providers/generated_demo_stage.gd")
+    stage = Source(root, "game/world/levels/providers/thorn_forest_region_stage.gd")
+    inherited = Source(root, "game/world/levels/providers/plains_region_stage.gd")
+    runtime = Source(root, "game/world/levels/level_runtime.gd")
+    assembler = Source(root, "game/world/generation/thorn_forest_region_assembler.gd")
+    generator = Source(root, "game/world/generation/thorn_forest_region_generator.gd")
+    observed = all((
+        _gd_function_has_statements(app, "start_debug_region", [
+            "_debug_region = region", "var accepted := start_demo(seed_value,true)"]),
+        _gd_function_has_statements(app, "_select_next_region", [
+            "active_region_id = id",
+            "director.continue_region(_progression_token,id,_next_id(\"enter_thorn_forest\"),campaign.abilities)"]),
+        _gd_function_has_statements(app, "_load_stage", [
+            "var request := LevelRequest.new()", "request.region_id=active_region_id",
+            'var loaded := ForestLevelProvider.load_level(request) if active_region_id==&"thorn_forest" else PlainsLevelProvider.load_level(request)',
+            'stage = ThornForestRegionStage.new() if active_region_id == &"thorn_forest" else PlainsRegionStage.new()',
+            "(stage as GeneratedDemoStage).configure_level(loaded.plan,loaded.legacy_generated,controller.motor.tuning)"]),
+        _gd_function_has_statements(provider, "load_level", [
+            "var generated := ThornForestRegionGenerator.new().generate(seed_value,request.tuning,request.map_index,capabilities)",
+            "var result := LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,true)", "return result"]),
+        _gd_function_has_statements(adapter, "generated", [
+            "var result := geometry(data.manifest,tuning,forest_region)", "var plan := result.plan", "return result"]),
+        _gd_function_has_statements(adapter, "geometry", [
+            "var plan := LevelPlan.new()", "if forest_region:", "var forest := ForestLevelGeometry.new()",
+            "plan.forest=forest", "result.plan=plan", "return result"]),
+        _gd_function_has_statements(configured, "configure_level", ["level_plan=plan"]),
+        "extends PlainsRegionStage" in (_gd_source_lines(stage) or []),
+        "extends GeneratedDemoStage" in (_gd_source_lines(inherited) or []),
+        _gd_function_has_statements(stage, "_ready", [
+            "var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)"]),
+        _gd_function_has_statements(runtime, "assemble", [
+            "var assembler: PlainsRegionAssembler = ThornForestRegionAssembler.new() if plan.forest!=null else PlainsRegionAssembler.new()",
+            "parent.add_child(assembler)", "var result := assembler.build_plan(plan,presentation)", "return result"]),
+        _gd_function_has_statements(assembler, "build_plan", ["level_plan=plan", "forest_geometry=plan.forest"]),
+        _gd_function_has_statements(generator, "generate", [
+            'return generate_version(str(capability_snapshot.get("forest_content_version",VERSION)),seed_value,tuning,map_index,capability_snapshot)']),
+    ))
+    return observed, [source.ref() for source in (provider, adapter, configured, stage, inherited, runtime, assembler, generator)]
+
+
 def _clean(value):
     return value.replace("**", "").replace("`", "").strip()
 
@@ -307,15 +405,9 @@ def build_region_context(region_id, root=ROOT):
     formal_observed = (region_id == "windchime_plains" and "func start_plains(" in app.text
                        and 'profile_id == &"formal_plains_region"' in profile.text)
     if region_id == "thorn_forest":
-        chain = [Source(root, path) for path in (
-            "game/world/generation/thorn_forest_region_generator.gd",
-            "game/world/levels/providers/thorn_forest_region_stage.gd",
-            "game/world/generation/thorn_forest_region_assembler.gd")]
-        consumer_sources.extend(source.ref() for source in chain)
-        sources.extend(source.ref() for source in chain)
-        formal_observed = ("func _select_next_region(" in app.text and "func start_debug_region(" in app.text and "ThornForestRegionGenerator.new().generate(" in app.text
-                           and "ThornForestRegionStage.new()" in app.text
-                           and "ThornForestRegionAssembler" in chain[1].text)
+        formal_observed, chain_sources = _forest_consumer_observed(root, app)
+        consumer_sources.extend(chain_sources)
+        sources.extend(chain_sources)
     from region_creative_direction import bind_region_bible, MissingBible
     try:
         _, bible_binding = bind_region_bible(region_id, root)

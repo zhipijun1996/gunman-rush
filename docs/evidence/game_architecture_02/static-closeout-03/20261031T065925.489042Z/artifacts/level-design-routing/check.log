@@ -1,0 +1,32 @@
+.....F............F......
+======================================================================
+FAIL: test_forest_proof_boundary_preserves_authority_without_formal_grant (__main__.RoutingTests.test_forest_proof_boundary_preserves_authority_without_formal_grant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_level_design_routing.py", line 307, in test_forest_proof_boundary_preserves_authority_without_formal_grant
+    self.assertEqual(boundary['runtime_status']['formal_region'],'consumer_present_in_source')
+AssertionError: 'no_formal_consumer_observed' != 'consumer_present_in_source'
+- no_formal_consumer_observed
++ consumer_present_in_source
+
+
+======================================================================
+FAIL: test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained (__main__.RoutingTests.test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_level_design_routing.py", line 126, in test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained
+    self.assertEqual(default['phase'], 'production')
+AssertionError: 'prototype' != 'production'
+- prototype
++ production
+
+
+----------------------------------------------------------------------
+Ran 25 tests in 8.275s
+
+FAILED (failures=2)
+PASS: optimize routed to existing harness --mission /workspace/gunman-rush-refactor/build/tmpqyqwa011/mission.json; plan only
+PASS: new_region routed to existing harness --mission /tmp/tmpgiacjukg/forest.json; plan only
+Level experience report: /tmp/tmps3yce2q5/report.json; REVIEW; subjective/device unverified
+Comparison: /tmp/tmps3yce2q5/comparison.json
+Level experience report: /tmp/tmps3yce2q5/report.json; REJECT; subjective/device unverified

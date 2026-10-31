@@ -20,7 +20,7 @@ class VisualDirectorTests(unittest.TestCase):
         self.source['tests/observer_fixture.gd']='b'*64
         self.source['assets/fixture-bitmap.png']='e'*64
         self.request=dict(source_commit='c'*40,root_seed='SYNTHETIC-NOT-MOTOR',map_index=2,strategy='growth',phase_wait_ticks=0,max_ticks=60,encounter_policy='kill_from_bank_v1')
-        runtime={'res://'+k:v for k,v in vd.formal_source_projection(self.source).items() if k=='project.godot' or k.startswith(('scripts/','scenes/','resources/','config/','shaders/','assets/'))}
+        runtime={'res://'+k:v for k,v in vd.formal_source_projection(self.source).items() if k=='project.godot' or k.startswith(('game/','experiments/','scripts/','scenes/','resources/','config/','shaders/','assets/'))}
         basis={'schema_version':1,'encounter_policy':'kill_from_bank_v1','reward_policy':'two_actual_medium_and_camp_v1',
                'driver_sources':{'res://'+k:self.source[k] for k in vd.level_formal.driver_source_paths()},
                'core_invariants':{'res://'+k:self.source[k] for k in vd.level_formal.core_source_paths()}}
@@ -160,6 +160,9 @@ class VisualDirectorTests(unittest.TestCase):
     def test_full_bitmap_guard_is_separate_from_original_formal_projection(self):
         # Original GDScript observer never lists PNG: keep that contract while retaining bitmap provenance.
         self.assertNotIn('assets/fixture-bitmap.png',vd.formal_source_projection(self.source))
+        for root in ('game','experiments'):
+            projection=vd.formal_source_projection({root+'/fixture.gd':'a'*64,root+'/fixture.gd.uid':'b'*64,root+'/fixture.png':'c'*64})
+            self.assertEqual(projection,{root+'/fixture.gd':'a'*64})
         self.assertIn('game/presentation/world/art/plains_region_scenery.gd',vd.formal_source_projection(self.source))
         self.assertEqual(vd.validate_native(self.data,self.report,self.log),[])
         self.report['source_after']['assets/fixture-bitmap.png']='f'*64

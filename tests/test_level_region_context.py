@@ -150,5 +150,145 @@ class RegionContextTests(unittest.TestCase):
             build_region_context("thorn_forest", root)
 
 
+# Finite source-chain negatives; no runtime or region authorization.
+from level_region_context import Source, _forest_consumer_observed
+
+APP = 'game/application/demo_app.gd'
+PROVIDER = 'game/world/levels/providers/forest_level_provider.gd'
+ADAPTER = 'game/world/levels/providers/legacy_region_plan_adapter.gd'
+CONFIGURED = 'game/world/levels/providers/generated_demo_stage.gd'
+STAGE = 'game/world/levels/providers/thorn_forest_region_stage.gd'
+INHERITED = 'game/world/levels/providers/plains_region_stage.gd'
+RUNTIME = 'game/world/levels/level_runtime.gd'
+ASSEMBLER = 'game/world/generation/thorn_forest_region_assembler.gd'
+GENERATOR = 'game/world/generation/thorn_forest_region_generator.gd'
+
+
+class ForestConsumerEdgeTests(unittest.TestCase):
+    def fixture(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        observed, references = _forest_consumer_observed(ROOT, Source(ROOT, APP))
+        self.assertTrue(observed)
+        for name in [APP, *[ref['path'] for ref in references]]:
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, path)
+        return root
+
+    def test_each_real_chain_edge_is_required(self):
+        mutations = [
+            (APP, 'var request := LevelRequest.new()', 'var request := WrongRequest.new()'),
+            (APP, 'request.region_id=active_region_id', 'request.region_id=&"plains"'),
+            (APP, 'ForestLevelProvider.load_level(request)', 'PlainsLevelProvider.load_level(request)'),
+            (APP, 'ThornForestRegionStage.new()', 'PlainsRegionStage.new()'),
+            (APP, 'configure_level(loaded.plan,loaded.legacy_generated,controller.motor.tuning)', 'configure_generated(loaded.legacy_generated,controller.motor.tuning)'),
+            (APP, 'func _select_next_region(', 'func _unused_select_next_region('),
+            (APP, 'func start_debug_region(', 'func unused_start_debug_region('),
+            (PROVIDER, 'ThornForestRegionGenerator.new().generate(', 'PlainsRegionGenerator.new().generate('),
+            (PROVIDER, 'LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,true)', 'LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,false)'),
+            (ADAPTER, 'var result := geometry(data.manifest,tuning,forest_region)', 'var result := LevelBuildResult.new()'),
+            (ADAPTER, 'plan.forest=forest', 'plan.forest=null'),
+            (ADAPTER, 'result.plan=plan', 'result.plan=null'),
+            (CONFIGURED, 'level_plan=plan', 'level_plan=null'),
+            (STAGE, 'LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)', 'OtherRuntime.assemble(self,level_plan,region_state,generated.manifest)'),
+            (STAGE, 'extends PlainsRegionStage', 'extends DemoStage'),
+            (INHERITED, 'extends GeneratedDemoStage', 'extends DemoStage'),
+            (RUNTIME, 'ThornForestRegionAssembler.new() if plan.forest!=null', 'PlainsRegionAssembler.new() if plan.forest!=null'),
+            (RUNTIME, 'parent.add_child(assembler)', 'pass'),
+            (RUNTIME, 'assembler.build_plan(plan,presentation)', 'assembler.build({},null)'),
+            (ASSEMBLER, 'forest_geometry=plan.forest', 'forest_geometry=null'),
+            (GENERATOR, 'return generate_version(str(capability_snapshot.get("forest_content_version",VERSION)),seed_value,tuning,map_index,capability_snapshot)', 'return {}'),
+        ]
+        root = self.fixture()
+        for name, old, new in mutations:
+            with self.subTest(path=name, removed=old):
+                path = root / name
+                original = path.read_text()
+                self.assertIn(old, original)
+                try:
+                    path.write_text(original.replace(old, new))
+                    self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])
+                finally:
+                    path.write_text(original)
+
+    def test_comments_strings_and_other_function_do_not_supply_missing_call(self):
+        root = self.fixture()
+        path = root / STAGE
+        original = path.read_text()
+        statement = 'var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)'
+        for replacement in ['# ' + statement, 'var example = "' + statement + '"',
+                            'var example = """\n' + statement + '\n\t"""']:
+            with self.subTest(replacement=replacement):
+                path.write_text(original.replace(statement, replacement))
+                self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])
+        path.write_text(original.replace(statement, 'var built := {}') + '\nfunc unused_example():\n\t' + statement + '\n')
+        self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])
+
+    def test_top_level_multiline_strings_cannot_forge_consumer_edges(self):
+        root = self.fixture()
+        statement = 'var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)'
+        cases = [
+            (STAGE, 'func _ready(', 'func _unused_ready(', 'func _ready() -> void:\n\t' + statement),
+            (STAGE, 'extends PlainsRegionStage', 'extends DemoStage', 'extends PlainsRegionStage'),
+            (INHERITED, 'extends GeneratedDemoStage', 'extends DemoStage', 'extends GeneratedDemoStage'),
+        ]
+        for name, old, new, fake_edge in cases:
+            path = root / name
+            original = path.read_text()
+            self.assertIn(old, original)
+            for quote in ['"""', "'''", '"', "'"]:
+                with self.subTest(path=name, fake=fake_edge, quote=quote):
+                    if len(quote) == 3:
+                        fake = 'const EXAMPLE = ' + quote + '\n' + fake_edge + '\n' + quote + '\n'
+                    else:
+                        # Godot accepts backslash-newline inside ordinary strings.
+                        fake = 'const EXAMPLE = ' + quote + 'example\\\n' + fake_edge.replace('\n', '\\\n') + '\\\n' + quote + '\n'
+                    try:
+                        path.write_text(original.replace(old, new) + '\n' + fake)
+                        self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])
+                    finally:
+                        path.write_text(original)
+
+    def test_source_quote_examples_in_comments_are_not_string_context(self):
+        root = self.fixture()
+        path = root / STAGE
+        original = path.read_text()
+        examples = ['# Example triple quote: """', "# Example triple quote: '''",
+                    '# Example continuation: \\', 'const EXAMPLE = "# is inside a string"',
+                    'const ESCAPED_EXAMPLE = "escaped quote: \\" and hash #"']
+        path.write_text(original + '\n' + '\n'.join(examples) + '\n')
+        self.assertTrue(_forest_consumer_observed(root, Source(root, APP))[0])
+
+    def test_order_and_missing_source_fail_closed(self):
+        root = self.fixture()
+        path = root / RUNTIME
+        original = path.read_text()
+        before = '\tparent.add_child(assembler)\n\tvar result := assembler.build_plan(plan,presentation)'
+        self.assertIn(before, original)
+        path.write_text(original.replace(before, '\tvar result := assembler.build_plan(plan,presentation)\n\tparent.add_child(assembler)'))
+        self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])
+        path.unlink()
+        with self.assertRaises(FileNotFoundError):
+            _forest_consumer_observed(root, Source(root, APP))
+
+    def test_chain_sources_are_cited_without_claiming_runtime_or_grants(self):
+        context = build_region_context('thorn_forest')
+        implementation = context['implementation']
+        self.assertEqual(implementation['formal_region'], 'consumer_present_in_source')
+        self.assertIsNone(implementation['runtime_available'])
+        self.assertEqual(implementation['validation_status'], 'unverified')
+        self.assertFalse(implementation['catalog_flag_is_authoritative'])
+        expected = {APP, PROVIDER, ADAPTER, CONFIGURED, STAGE, INHERITED, RUNTIME, ASSEMBLER, GENERATOR}
+        refs = {ref['path']: ref for ref in implementation['formal_consumer_sources']}
+        self.assertTrue(expected.issubset(refs))
+        for name in expected:
+            self.assertEqual(refs[name]['sha256'], hashlib.sha256((ROOT / name).read_bytes()).hexdigest())
+        import level_design
+        mission = level_design.route_request('制作荆棘森林')
+        self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])
+
+
 if __name__ == "__main__":
     unittest.main()
