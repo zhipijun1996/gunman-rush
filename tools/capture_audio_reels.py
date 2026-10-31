@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Capture real Godot movie audio, encode unchanged soundtrack, preserve per-clip source evidence."""
 import argparse
+from godot_identity import verified_engine
 from collections import Counter
 import hashlib
 import json
@@ -128,8 +129,8 @@ def main():
             frozen=sources(); started=time.monotonic()
             command=['bash','tools/godot.sh','--path','.', '--rendering-method','gl_compatibility','--write-movie',str(avi),'--fixed-fps','60','--script','tools/audio_reels_capture.gd','--','--output='+str(clip),'--reel='+reel]
             if args.smoke: command.append('--smoke')
-            engine_path=Path(env.get('GODOT_BIN',str(ROOT.parent/'toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64'))).resolve()
-            engine={'version':subprocess.check_output(['bash','tools/godot.sh','--version'],cwd=ROOT,text=True).strip(),'path':str(engine_path),'sha256':sha(engine_path)}
+            engine_identity = verified_engine(repo=ROOT)
+            engine = {'version': engine_identity['version'], 'sha256': engine_identity['binary_sha256'], 'path': engine_identity['binary']}
             report={'engine':engine,'version':'audio-director-v3-reels-1','reel':reel,'command':command,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_before':frozen,'status':'failed','scope':'Real Godot write-movie, normal 60Hz tick, software GPU; original captured audio encoded AAC without replacement; explicit development fixtures, not natural progression or device/player approval.'}
             try:
                 with (clip/'native.log').open('w') as log:

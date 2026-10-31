@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Record the user's chosen SFX in actual Godot, preserving its native soundtrack."""
 import argparse
+from godot_identity import verified_engine
 import copy
 import math
 from collections import Counter
@@ -127,8 +128,8 @@ def main():
             binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
             display=subprocess.Popen([binary,'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=(folder/'display.log').open('wb'),text=True);env['DISPLAY']=':'+display.stdout.readline().strip()
         selection=verified_selection()
-        engine_path=Path(os.environ.get('GODOT_BIN',str(ROOT.parent/'toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64'))).resolve()
-        report['engine']={'version':subprocess.check_output(['bash','tools/godot.sh','--version'],cwd=ROOT,text=True).strip(),'path':str(engine_path),'sha256':sha(engine_path)}
+        engine_identity = verified_engine(repo=ROOT)
+        report['engine'] = {'version': engine_identity['version'], 'sha256': engine_identity['binary_sha256'], 'path': engine_identity['binary']}
         frozen=frozen_sources();report['source_before']=frozen
         avi=folder/'native.avi';movie=folder/'selected.mp4'
         command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(avi),'--fixed-fps','60','--resolution','1280x720','--script','res://tools/audio_reels_capture.gd','--','--selected','--output='+str(folder)]

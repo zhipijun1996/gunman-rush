@@ -12,9 +12,10 @@ from pathlib import Path
 
 from check_environment import REPO, SDK, environment
 from run_tests import run_engine
+from godot_identity import verified_engine
 
 
-def prepare_web_playtest(html):
+def prepare_web_playtest(html, engine_identity):
     """Name gameplay data by content so a phone never reuses an older pack."""
     pack = html.with_suffix(".pck")
     build_id = hashlib.sha256(pack.read_bytes()).hexdigest()[:12]
@@ -32,7 +33,7 @@ def prepare_web_playtest(html):
     threaded = "const GODOT_THREADS_ENABLED = true;" in page
     config["ensureCrossOriginIsolationHeaders"] = False  # Our cache worker owns isolation too.
     page = page[:match.start(1)] + json.dumps(config, separators=(",", ":")) + page[match.end(1):]
-    # The official runtime is immutable across gameplay-only changes. Name all
+    # The locked runtime is immutable across gameplay-only changes. Name all
     # engine files together so JS/WASM/audio worklets can never cross versions.
     engine_files = [html.with_suffix(suffix) for suffix in
                     (".js", ".wasm", ".audio.worklet.js", ".audio.position.worklet.js")]
@@ -40,13 +41,13 @@ def prepare_web_playtest(html):
     engine_base = f"index.{engine_id}.engine"
     for source in engine_files[:2]:
         if not source.is_file():
-            raise RuntimeError(f"Required official runtime missing: {source.name}")
+            raise RuntimeError(f"Required locked runtime missing: {source.name}")
     # Local rebuilds must not upload obsolete engine binaries indefinitely.
     for previous in html.parent.glob("index.*.engine.*"):
         previous.unlink()
     runtime_files = []
     # Independently hashed small files survive interrupted downloads and can be
-    # reused across builds. Raw official resources remain the compatibility path.
+    # reused across builds. Raw locked resources remain the compatibility path.
     chunk_dir = html.parent / "chunks"
     if chunk_dir.exists():
         shutil.rmtree(chunk_dir)
@@ -98,13 +99,13 @@ def prepare_web_playtest(html):
     page = page.replace("</head>", '<style id="playtest-pixel-canvas">#canvas { image-rendering: pixelated; }</style>\n<script>\n' + startup + "\n</script>\n</head>")
     # Feature detection must run after cache activation / the isolation reload.
     if page.count("(function () {") != 1:
-        raise RuntimeError("Official startup closure changed")
+        raise RuntimeError("Locked startup closure changed")
     page = page.replace("(function () {", "(async function () {")
     page = page.replace("\tconst missing = Engine.getMissingFeatures({", "\tawait window.PLAYTEST_CACHE_READY;\n\tconst missing = Engine.getMissingFeatures({")
     start_marker = "engine.startGame({"
     end_marker = "}).then(() => {\n\t\t\tsetStatusMode('hidden');"
     if start_marker not in page or end_marker not in page:
-        raise RuntimeError("Official Web startup changed; refusing an unverified loader")
+        raise RuntimeError("Locked Web startup changed; refusing an unverified loader")
     page = page.replace(start_marker, "window.PLAYTEST_CACHE_READY.then(() => engine.startGame({")
     page = page.replace("}).then(() => {\n\t\t\tsetStatusMode('hidden');", "})).then(() => {\n\t\t\twindow.PLAYTEST_LOADING_DONE = true; document.getElementById('playtest-download')?.remove();\n\t\t\tsetStatusMode('hidden');")
     worker = html.parent / "index.cache-sw.js"
@@ -116,6 +117,7 @@ def prepare_web_playtest(html):
     html.write_text(page)
     metadata = html.parent / "build-info.json"
     metadata.write_text(json.dumps({"build_id": build_id, "pack": versioned.name,
+                                   "godot_toolchain": engine_identity,
                                    "engine_id": engine_id, "cache_schema": 2, "loader_id": worker_id,
                                    "threads_enabled": threaded, "audio_supply": "dedicated_thread" if threaded else "main_thread",
                                    "pack_bytes": versioned.stat().st_size,
@@ -138,6 +140,7 @@ def main():
     if args.platform in ("windows", "web"):
         check.append("--godot-only")
     subprocess.run(check, check=True, timeout=120, env=environment())
+    engine_identity = {key:value for key,value in verified_engine().items() if key != "binary"}
     wrapper = ["bash", str(REPO / "tools/godot.sh"), "--headless", "--path", str(REPO)]
     run_engine(["--headless", "--path", str(REPO), "--editor", "--quit"], 90)
     if (REPO / "resources/foundry/batch.json").exists():
@@ -157,7 +160,7 @@ def main():
     if not all(p.is_file() and p.stat().st_size for p in files):
         raise RuntimeError("Export returned success without all expected artifacts")
     if args.platform == "web":
-        files = prepare_web_playtest(artifact)
+        files = prepare_web_playtest(artifact, engine_identity)
     if args.platform == "android":
         with zipfile.ZipFile(artifact) as package:
             for required in ("assets/config/player_tuning.json", "assets/config/input_profile.json"):
@@ -199,7 +202,7 @@ def main():
             destination = artifact.parent / "Freedoom-COPYING.adoc"
             shutil.copyfile(freedoom_license, destination)
             files.append(destination)
-    report = {"platform": args.platform, "export_exit_code": 0,
+    report = {"platform": args.platform, "export_exit_code": 0, "godot_toolchain": engine_identity,
               "device_execution": "unverified", "artifacts": [
                   {"path": str(p.relative_to(REPO)), "bytes": p.stat().st_size,
                    "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in files]}

@@ -25,7 +25,7 @@ Run inside the lane's specified container:
 
 ```
 GUNMAN_BUILD_IMAGE=<exact recipe image digest> GUNMAN_TOOLCHAIN_ROOT=/tmp/engine-downloads \
-  python3 tools/engine/build.py --lane linux-editor --work /tmp/engine-build --jobs 2
+  python3 tools/engine/build.py --lane linux-editor --work /tmp/gunman-engine --jobs 2
 ```
 
 A fresh work directory is required; a failed attempt's logs are not overwritten. Source-only checking needs no engine lease:
@@ -40,3 +40,9 @@ python3 tools/engine/test_build_contract.py
 Root reviews the artifacts, publishes an immutable versioned release (never overwriting existing differing bytes), verifies downloads, then integrates the resulting exact lock plus strict installer/runtime checks. Existing installation budgets stay unchanged because normal CI downloads those fixed prebuilt packages. A temporary Actions artifact is evidence and a handoff, not the permanent installation source. No official template package is combined with patched runtimes.
 
 The normal project core/entry/entity/reward/level/formal suites, focused reload/await cancellation checks, actual Windows/Android export, Web/PCK validation and public preview are subsequent acceptance work. A compiler success or the diagnostic formal result cannot sign those on its own.
+
+## Installation identity
+
+`tools/godot_identity.py` is the shared runtime path and identity authority for the wrapper, installer, environment check, Harness and capture producers. It requires the reviewed active lock, checks executable bytes before running even `--version`, and verifies the pinned source provenance. An explicit `GODOT_BIN` must match those same bytes. Export flags additionally verify the complete template member set and every SHA; native runs do not repeatedly hash the templates. The custom distribution uses its own data directory, leaving the official control installation and explicitly frozen historical diagnostics available.
+
+`python3 tools/test_toolchain_download.py` retains the original downloader tests and also runs the source/package and installer identity rejection tests. Its synthetic shell/package fixtures are not native-engine evidence. Before promotion, the installer candidate intentionally rejects the still-official `config/toolchain.json`: root must integrate the reviewed actual artifact lock atomically with these consumers, without placeholder hashes or a fallback to arbitrary custom builds.

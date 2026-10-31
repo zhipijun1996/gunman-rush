@@ -1,7 +1,7 @@
 """Prepare a local engine-only Debug/Release A/B pair without running Godot.
 
 Both pages retain the production HTML/loader/CSS and consume the same exact PCK.
-Only official, matching threaded engine files differ. This is not a complete
+Only matching threaded engine files differ. This is not a complete
 release export: the PCK retains its original export mode (or explicit diagnostic
 patches). Local symlinks avoid duplicating hundreds of MiB and forbid treating
 these directories as ready-to-upload deployment bundles.
@@ -15,9 +15,12 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'tools'))
+from godot_identity import verify_templates
 SUFFIXES = ('.js', '.wasm', '.audio.worklet.js', '.audio.position.worklet.js')
 CHUNK_SIZE = 512 * 1024
 
@@ -132,7 +135,7 @@ def prepare(bundle, output, templates, pack_override=None):
             resources[name] = {'bytes': len(data)}
             official[name] = {'zip_member': 'godot' + suffix, 'sha256': sha(data), 'bytes': len(data)}
             if mode == 'debug' and (bundle / (old_engine + suffix)).read_bytes() != data:
-                raise ValueError('Baseline engine differs from official threaded Debug template')
+                raise ValueError('Baseline engine differs from selected threaded Debug template')
             if suffix == '.wasm':
                 compressed = gzip.compress(data, compresslevel=9, mtime=0)
                 (target / (name + '.gz')).write_bytes(compressed)
@@ -169,7 +172,7 @@ def prepare(bundle, output, templates, pack_override=None):
                         engine_template=mode, engine_only_comparison=True, diagnostic_pack_override=bool(pack_override))
         (target / 'build-info.json').write_text(json.dumps(metadata, indent=2) + '\n')
         row = {'mode': mode, 'directory': str(target), 'template_archive': describe(archive),
-               'pack_sha256': pack_sha, 'official_engine_files': official,
+               'pack_sha256': pack_sha, 'engine_files': official,
                'html_sha256': file_sha(target / 'index.html'), 'metadata': metadata,
                'html_allowlist_inverse_verified': True}
         receipt['variants'].append(row)
@@ -181,10 +184,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--bundle', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--templates', type=Path, default=Path('/workspace/toolchains/user-data/godot/export_templates/4.7.2.stable'))
+    parser.add_argument('--templates', type=Path, help='Explicit historical comparison templates; otherwise use the current SHA-verified distribution')
     parser.add_argument('--pack', type=Path, help='Explicit diagnostic derivative, used identically by both engines')
     args = parser.parse_args()
-    receipt = prepare(args.bundle.resolve(), args.output.resolve(), args.templates.resolve(), args.pack.resolve() if args.pack else None)
+    templates = args.templates.resolve() if args.templates else verify_templates()
+    receipt = prepare(args.bundle.resolve(), args.output.resolve(), templates, args.pack.resolve() if args.pack else None)
     print(json.dumps({'output': str(args.output), 'pack_sha256': receipt['measured_pack']['sha256'],
                       'variants': {v['mode']: v['metadata']['engine_id'] for v in receipt['variants']}}))
 

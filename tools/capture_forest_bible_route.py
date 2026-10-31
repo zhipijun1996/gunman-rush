@@ -3,6 +3,7 @@
 No new pilot,
 fixture spawn, resources, physics stepping, BGM, or staged player pose.
 """
+from godot_identity import expected_version
 import argparse
 from array import array
 import contextlib
@@ -468,7 +469,7 @@ def main():
                 native_text = run_engine(native_args, 240)
         marker = 'FOREST BIBLE WORLD MOTOR: PASS' if args.challenge == 'F05' else 'FOREST BIBLE F08 MOTOR: PASS'
         if (marker not in native_text or ERRORS.search(native_text) or 'OpenGL API' not in native_text
-                or 'Godot Engine v4.7.2.stable.official.ed1daf0bf' not in native_text):
+                or ('Godot Engine v' + expected_version()) not in native_text):
             raise RuntimeError('Exact engine, real GL, existing runner completion and clean resource teardown required')
         data = json.loads(trace.read_text())
         if data.get('seed') != args.seed:
