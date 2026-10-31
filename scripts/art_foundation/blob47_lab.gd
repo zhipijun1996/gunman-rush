@@ -48,9 +48,7 @@ func _ready() -> void:
 	actor_visual.motor = player
 	actor_visual.controller = controller
 	player.add_child(actor_visual)
-	overlay = InputSetup.attach(player, controller.router)
-	overlay.hide_reset_button = true
-	overlay.pause_requested.connect(_toggle_pause)
+	overlay = InputSetup.attach_menu(player, controller.router, _toggle_pause)
 	camera = Camera2D.new()
 	camera.position = Vector2(640, 360)
 	camera.limit_left = 0
@@ -96,13 +94,7 @@ func _install_world() -> void:
 func _install_hazards() -> void:
 	for index: int in layout.hazards.size():
 		var rect: Rect2 = layout.hazards[index]
-		var emitter := DemoContactEmitter.new()
-		emitter.position = rect.get_center()
-		emitter.half_size = rect.size / 2
-		emitter.policy = policy
-		emitter.controller = controller
-		emitter.source_id = StringName("blob47/spikes/" + str(index))
-		emitter.kind = DamageRequest.Kind.ENVIRONMENT
+		var emitter := DemoContactEmitter.environment_rect(rect, policy, controller, StringName("blob47/spikes/" + str(index)))
 		_world.add_child(emitter)
 
 func _make_ui() -> void:

@@ -54,10 +54,8 @@ func _ready() -> void:
 	controller = player.get_node("Controller") as PlayerController
 	controller.enable_shot_energy()
 	controller.interact_requested.connect(interact)
-	overlay=InputSetup.attach(player,controller.router)
-	overlay.hide_reset_button=true
-	overlay.pause_label="MENU"
-	overlay.pause_requested.connect(func()->void:requested_navigation.emit())
+	var request_navigation := func() -> void: requested_navigation.emit()
+	overlay = InputSetup.attach_menu(player, controller.router, request_navigation, "MENU")
 	var guide:=DemoAimGuide.new();guide.controller=controller;player.add_child(guide)
 	var vignette:=FocusVignette.new();vignette.ability=controller.air_focus_ability;player.add_child(vignette)
 	camera = Camera2D.new()

@@ -65,9 +65,7 @@ func _ready() -> void:
 	controller.enable_shot_energy()
 	if not input_values.is_empty(): controller.router.reconfigure(input_values)
 	controller.died.connect(restart)
-	overlay = InputSetup.attach(player, controller.router)
-	overlay.hide_reset_button = true
-	overlay.pause_requested.connect(_toggle_pause)
+	overlay = InputSetup.attach_menu(player, controller.router, _toggle_pause)
 	camera = Camera2D.new()
 	camera.position = Vector2(640, 360)
 	camera.limit_left = 0

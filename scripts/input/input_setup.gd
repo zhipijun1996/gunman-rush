@@ -26,3 +26,12 @@ static func attach(motor: Node2D, router: InputRouter) -> TouchOverlay:
 	overlay.aim_origin = motor
 	layer.add_child(overlay)
 	return overlay
+
+# Menu entries share adapter assembly while their owner retains pause behavior.
+# Empty label keeps TouchOverlay's authoritative default. Reset wiring is opt-in.
+static func attach_menu(motor: Node2D, router: InputRouter, pause_handler: Callable, pause_label: String = "") -> TouchOverlay:
+	var overlay := attach(motor, router)
+	overlay.hide_reset_button = true
+	if not pause_label.is_empty(): overlay.pause_label = pause_label
+	overlay.pause_requested.connect(pause_handler)
+	return overlay
