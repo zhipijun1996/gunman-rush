@@ -13,18 +13,6 @@ func bind_attack(owner: Node, epoch: int) -> void:
 	_epoch = epoch
 
 
-func _owned() -> bool:
-	if _attack_owner == null:
-		return true
-	var owner := _attack_owner.get_ref() as Node
-	return (
-		is_instance_valid(owner)
-		and owner.active
-		and not owner.health.terminal
-		and owner.attack_epoch == _epoch
-	)
-
-
 func configure_local(width: float, normal: Vector2) -> void:
 	local_surface = true
 	surface_normal = normal.normalized() if normal.length_squared() > .001 else Vector2.UP
@@ -38,7 +26,7 @@ func configure_local(width: float, normal: Vector2) -> void:
 func advance(delta: float) -> void:
 	if spent or not is_inside_tree() or delta <= 0.0 or not is_finite(delta):
 		return
-	if not _owned():
+	if not accepts_optional_encounter_epoch(_attack_owner, _epoch):
 		dispose()
 		return
 	if not local_surface:
@@ -98,7 +86,7 @@ func _test_local_contact() -> void:
 
 
 func advance_frozen_contact() -> void:
-	if not _owned():
+	if not accepts_optional_encounter_epoch(_attack_owner, _epoch):
 		dispose()
 		return
 	if local_surface:

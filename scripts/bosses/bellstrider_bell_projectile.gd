@@ -18,18 +18,6 @@ func bind_attack(owner: Node, epoch: int) -> void:
 	_epoch = epoch
 
 
-func _owned() -> bool:
-	if _attack_owner == null:
-		return true
-	var owner := _attack_owner.get_ref() as Node
-	return (
-		is_instance_valid(owner)
-		and owner.active
-		and not owner.health.terminal
-		and owner.attack_epoch == _epoch
-	)
-
-
 func aim_landing(point: Vector2, duration: float = 1.05) -> void:
 	landing_point = point
 	duration = maxf(.1, duration)
@@ -41,7 +29,7 @@ func aim_landing(point: Vector2, duration: float = 1.05) -> void:
 func advance(delta: float) -> void:
 	if spent or not is_inside_tree() or delta <= 0.0 or not is_finite(delta):
 		return
-	if not _owned():
+	if not accepts_optional_encounter_epoch(_attack_owner, _epoch):
 		dispose()
 		return
 	lifetime -= delta
@@ -127,7 +115,7 @@ func _sweep(motion: Vector2) -> bool:
 func advance_frozen_contact() -> void:
 	if spent or not is_inside_tree():
 		return
-	if not _owned():
+	if not accepts_optional_encounter_epoch(_attack_owner, _epoch):
 		dispose()
 		return
 	# Zero-motion sweep observes entry without advancing flight, gravity or age.

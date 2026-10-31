@@ -16,6 +16,20 @@ var _visual_age := 0.0
 var _visual_launched := false
 var _visual_trail: Array[Vector2] = []
 
+# Bell attacks permit an unbound encounter; bound attacks require a live
+# owner in the same epoch. Callers retain their weak reference and epoch.
+static func accepts_optional_encounter_epoch(owner_ref: WeakRef, epoch: int) -> bool:
+	if owner_ref == null:
+		return true
+	var owner := owner_ref.get_ref() as Node
+	return (
+		is_instance_valid(owner)
+		and owner.active
+		and not owner.health.terminal
+		and owner.attack_epoch == epoch
+	)
+
+
 func _ready() -> void:
 	if UnderworldProjectileVisual.enabled(self): z_index = 8
 
