@@ -151,7 +151,7 @@ class GitHub:
 def release_state(api, pins):
     release = api.json('GET', '/releases/'+str(pins.release))
     if (release.get('id') != pins.release or release.get('tag_name') != pins.tag
-            or release.get('target_commitish') != pins.source or release.get('prerelease') is not False
+            or release.get('target_commitish') != pins.source or release.get('prerelease') is not True
             or type(release.get('draft')) is not bool):
         raise ValueError('Existing release metadata differs from the reviewed target')
     obj = api.json('GET', '/git/ref/tags/'+urllib.parse.quote(pins.tag, safe=''))['object']

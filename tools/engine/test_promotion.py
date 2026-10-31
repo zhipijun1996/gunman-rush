@@ -24,7 +24,7 @@ class FakeGitHub:
         self.events = []
         self.corrupt_upload = False
         self.release = {'id': pins.release, 'tag_name': pins.tag, 'target_commitish': pins.source,
-                        'draft': True, 'prerelease': False,
+                        'draft': True, 'prerelease': True,
                         'upload_url': 'https://uploads.github.com/repos/'+pins.repository+
                         '/releases/'+str(pins.release)+'/assets{?name,label}'}
         self.tag = {'object': {'type': 'commit', 'sha': pins.source}}
@@ -147,11 +147,13 @@ class PromotionTests(unittest.TestCase):
         self.assertFalse(any(method in ('UPLOAD', 'PATCH') for method, _ in api.events))
         result = promote.promote(api, self.pins, self.distribution, self.expected, self.root/'publish', True)
         self.assertEqual(result['status'], 'published_verified')
+        self.assertTrue(api.release['prerelease'])
         self.assertEqual(sum(method == 'UPLOAD' for method, _ in api.events), 7)
         self.assertEqual(sum(method == 'PATCH' for method, _ in api.events), 1)
         before = len(api.events)
         result = promote.promote(api, self.pins, self.distribution, self.expected, self.root/'again', True)
         self.assertEqual(result['status'], 'already_published_verified')
+        self.assertTrue(api.release['prerelease'])
         self.assertFalse(any(method in ('UPLOAD', 'PATCH') for method, _ in api.events[before:]))
 
     def test_different_existing_asset_rejects_before_any_upload_or_publish(self):
@@ -173,13 +175,14 @@ class PromotionTests(unittest.TestCase):
         self.assertFalse(any(method == 'PATCH' for method, _ in api.events))
 
     def test_wrong_release_tag_target_or_upload_host_cannot_mutate(self):
-        for case in ('release', 'tag', 'target', 'upload', 'schema'):
+        for case in ('release', 'tag', 'target', 'upload', 'schema', 'prerelease'):
             api = FakeGitHub(self.pins, self.files)
             if case == 'release': api.release['id'] += 1
             if case == 'tag': api.tag['object']['sha'] = 'b'*40
             if case == 'target': api.release['target_commitish'] = 'publisher-branch'
             if case == 'upload': api.release['upload_url'] = 'https://example.invalid/steal'
             if case == 'schema': del api.release['draft']
+            if case == 'prerelease': api.release['prerelease'] = False
             with self.assertRaises(ValueError):
                 promote.promote(api, self.pins, self.distribution, self.expected, self.root/case, True)
             self.assertFalse(any(method in ('UPLOAD', 'PATCH') for method, _ in api.events))
