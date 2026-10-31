@@ -1,0 +1,70 @@
+{
+  "source_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+  "initial_union": "4bb7aa962cb9477b6fc931b221b3a38132cad1f2",
+  "runs": [
+    {
+      "id": "20261031T030449.807516Z",
+      "commit": "4bb7aa962cb9477b6fc931b221b3a38132cad1f2",
+      "status": "failed",
+      "checks": [
+        {
+          "id": "bellstrider-rework-01",
+          "status": "passed",
+          "input_digest": "feb207a0cba3a7b1335eb2a4fea6d6e334413151b8ba3fbeae3c71df107fd8b9"
+        },
+        {
+          "id": "region-bible-contract",
+          "status": "passed",
+          "input_digest": "a086eb3cf51d81aef950a2b7eec96bc17d3f2ecbb2e923f99303c33a82b7254a"
+        },
+        {
+          "id": "region-bible-tests",
+          "status": "failed",
+          "input_digest": "643c4b820e9123158cc1d2858ec0e3eb16a7812c1ddae480775388502c4f35e9"
+        }
+      ]
+    },
+    {
+      "id": "20261031T030846.074027Z",
+      "commit": "4bb7aa962cb9477b6fc931b221b3a38132cad1f2",
+      "status": "passed",
+      "checks": [
+        {
+          "id": "windkeeper-pressure-01",
+          "status": "passed",
+          "input_digest": "ea519310d5034ecc333952734f11ec9fc3aacab2e2a757ac09d1199a33c99ee6"
+        },
+        {
+          "id": "creative-direction",
+          "status": "passed",
+          "input_digest": "1c5c36e545cd10b20d845ee38b942353d33bf951a57420819dbe5f963b2203d4"
+        },
+        {
+          "id": "creative-direction-tests",
+          "status": "passed",
+          "input_digest": "a5d9a18bd594a10b170778680d4e422dd35f9df1a61097c02e3a228480bee2d8"
+        }
+      ]
+    },
+    {
+      "id": "20261031T031013.622904Z",
+      "commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+      "status": "passed",
+      "checks": [
+        {
+          "id": "region-bible-tests",
+          "status": "passed",
+          "input_digest": "3d79045b367ecd46af92132098c89daaced57053b9940ee4a6fdc45381aa4450"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Targeted checks only, not full170",
+    "First Bible input-prefix failure retained; no assertion removed",
+    "Original forest timeout unresolved",
+    "Native Boss/runner source unchanged between4bb7aa96 and44e9fc52; only inputs/quality metadata changed",
+    "No GUI/subjective/device/public deployment approval"
+  ],
+  "archive_sha256": "a65e9f7f6c4b3b48d0788f8a0ebb457faec437055ce7904ac76aee1ab4dac03d"
+}

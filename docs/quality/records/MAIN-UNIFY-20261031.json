@@ -4,7 +4,7 @@
   "task_type": "boss",
   "workflow": "in_progress",
   "baseline_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323",
-  "reviewed_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323",
+  "reviewed_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
   "content_version": "candidate-v1",
   "owner": "/root",
   "purpose": "整合两条Boss内容及离线关卡工具，为已规划架构迁移固定底座",
@@ -196,9 +196,12 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded static conflict/test merge reviews only; not full runtime/art/device approval. Initial prefix omission and correction explicitly recorded.",
+      "evidence": [
+        "runtime-plan-review",
+        "binding-tests-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -212,12 +215,53 @@
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "runtime-plan-review",
+      "kind": "review",
+      "path": "docs/evidence/main_unify_20261031/runtime-and-plan-review.md",
+      "sha256": "305962f75920482d9a53d7382522df0473473bbd133e609bc74050c87294f470",
+      "source_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+      "content_version": "candidate-v1",
+      "producer": "/root/structure_audit",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root",
+        "/root/runtime_audit",
+        "/root/ci_audit"
+      ],
+      "independent": true,
+      "verdict": "ACCEPT",
+      "method": "Read-only comparison against both exact parent commits, frozen source hashes and supplemental input-prefix fix",
+      "observed": "ACCEPT limited to the files and static assertions described in the linked review; no runtime/fullCI/art/device approval",
+      "independence_basis": "Reviewer did not implement or edit the files covered by this review; production-plan author reviewed only binding tests, separate reviewer reviewed production-plan."
+    },
+    {
+      "id": "binding-tests-review",
+      "kind": "review",
+      "path": "docs/evidence/main_unify_20261031/binding-tests-review.md",
+      "sha256": "a1dd0254e728f2272f4a7df28ac868c6fc2bc1806a9b399497cbb53b7d7dbf33",
+      "source_commit": "44e9fc52a15bd4ef151f1dd14ff45dd1c5f5bab3",
+      "content_version": "candidate-v1",
+      "producer": "/root/ci_audit",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root",
+        "/root/asset_audit"
+      ],
+      "independent": true,
+      "verdict": "ACCEPT",
+      "method": "Read-only comparison against both exact parent commits, frozen source hashes and supplemental input-prefix fix",
+      "observed": "ACCEPT limited to the files and static assertions described in the linked review; no runtime/fullCI/art/device approval",
+      "independence_basis": "Reviewer did not implement or edit the files covered by this review; production-plan author reviewed only binding tests, separate reviewer reviewed production-plan."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "合成两Boss原生专项已通过；完整CI仍未签",
     "原森林超时未修复",
     "不签艺术/听感/设备或用户接受",
     "本记录表示Boss内容整合，不能标process掩盖生产路径变化"
-  ]
+  ],
+  "test_change_justification": "Preserve both original Boss suites and 169-prefix then append Bell; historical version tests use exact archived parent bytes and current153 binding. Independent reviews cover changed test guards. Original input-prefix failure fixed by restoring inputs, not weakening assertions."
 }
