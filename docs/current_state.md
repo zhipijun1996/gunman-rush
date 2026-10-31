@@ -1,4 +1,12 @@
-## 2026-10-31 功能重构进入固定工具链验证（当前）
+## 2026-10-31 用户要求暂停换模型：从此处接手
+
+本地工作已在诊断节点结束，暂不继续重构/全量测试。详细事实、分支、下一步命令和不可重复事项见 [后续重构指导](worklines/game_architecture_01/continuation_guide.md)。暂停前源码 `05c3e3db`；本次仅补指导与证据归档，正式工具链仍未切换，本重构未推送/合 main/发布。
+
+35入口加3正式模式的诊断C启动38/38通过，已有独审；AudioDirectorLab25/0、V2 66/0通过，Reels126条中3条失败（enemy_hurt A/B/C播放次数），尚未判断原缺陷或重构回归，原失败保留。它们均为O0诊断，不能代签优化引擎或full182。见 [暂停证据](evidence/game_architecture_02/pause-checkpoint-04/index.json)。
+
+远端固定引擎 [41180438395](https://github.com/zhipijun1996/gunman-rush/actions/runs/41180438395) 保持运行，精确源184970c7；暂停时Windows debug成功，Linux editor/debug、Web threaded debug及Android构建中，其余5lane排队。接手查询实际新状态，不重复开build、不混旧run产物；代理监测与本地Godot已结束。先定位Reels失败并核完整产物，再原子接入已审安装器+真实锁、Foundry重建与完整182/PCK/GUI验证。用户已批准固定上游双补丁方案，不再重复询问。
+
+## 2026-10-31 固定工具链验证的此前阶段记录（由上方暂停节点覆盖）
 
 当前候选分支 `refactor/game-architecture-02`，生产整合源 `063d6ccbd7a6ab659fd27abcb20a5c59c7308c53`；后续技术绑定和消费者修复待提交。内容底座 main 为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`（PR122/124/125/107），PR123 排除。公开网页仍是已核完整 PCK 的 `55b07609ea756c6faee771aaa84f080b249917fe`；本重构未合 main、未发布。
 

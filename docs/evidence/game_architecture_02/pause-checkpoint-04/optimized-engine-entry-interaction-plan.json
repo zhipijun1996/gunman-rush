@@ -1,0 +1,883 @@
+{
+  "kind": "finite_existing_interaction_runner_execution_plan_not_new_framework",
+  "source_head": "05c3e3dba43f3fc9283aa74198a9bf0d04d99bfb",
+  "created_utc": "2026-10-31T07:38:38.086219+00:00",
+  "basis": "/workspace/refactor-evidence/entry-native-execution-plan.json",
+  "corrects": [
+    "Old after-wrappers14 exactscene gap was overstated: original style biome runner tail directly loads four named previews, now correct after path-only repair.",
+    "Core already covers Module/Random; do not duplicate polish_regression just for these entries.",
+    "15 owner/lifecycle PackedScene cases prove bounded semantics, not35 interaction PASS."
+  ],
+  "activation_prerequisite": "Optimized artifact41180438395 still building; only execute after exact approved editor/templates/lock activated by root. Current05c3 main tools/godot.sh still official4.7.2 prefix; do not bypass by faking official or pointingGODOT_BIN at diagnosticC. Source/engine/template fingerprints must remain bound.",
+  "acceptance_limit": "No collection of existing runners here proves every user path in35 entries; this is minimum finite known interaction coverage plus explicit gaps. It is targeted, not full182 approval or user/device acceptance.",
+  "commands": [
+    {
+      "id": "primary-harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--jobs",
+        "1",
+        "--release",
+        "--check",
+        "item-v5-formal",
+        "--check",
+        "core",
+        "--check",
+        "player-default-integration",
+        "--check",
+        "studio-input",
+        "--check",
+        "blob47-foundation",
+        "--check",
+        "windchime-plains",
+        "--check",
+        "pixel-plains",
+        "--check",
+        "style-exploration",
+        "--check",
+        "cloud-preview-runtime",
+        "--check",
+        "entry-audio-lifecycle",
+        "--check",
+        "entry-audio-owners"
+      ],
+      "scope": "11 existing checks: strict formal exit gate first; core includes ModuleLab/Random consumer interaction so do not repeat polish_regression.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": {
+        "item-v5-formal": 240,
+        "core": 720,
+        "player-default-integration": 240,
+        "studio-input": 180,
+        "blob47-foundation": 180,
+        "windchime-plains": 200,
+        "pixel-plains": 180,
+        "style-exploration": 240,
+        "cloud-preview-runtime": 120,
+        "entry-audio-lifecycle": 180,
+        "entry-audio-owners": 180
+      }
+    },
+    {
+      "id": "foundry-rebuild",
+      "argv": [
+        "python3",
+        "tools/foundry.py",
+        "build",
+        "--count",
+        "24",
+        "--promote"
+      ],
+      "scope": "After final source/engine activation: original real physics base24+double_jump6+air_chain6; tracked metadata/replays can change, review real diff; no fabricated SHA. Import120s + each original profile300s.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": null
+    },
+    {
+      "id": "foundry-stamp",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tools/foundry_export_stamp.gd"
+      ],
+      "scope": "Only after successful rebuild; current-basis validation then writes existing export_basis.json. Must precede exportedpack acceptance.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": null
+    },
+    {
+      "id": "foundry-lab",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/foundry_lab_runner.gd",
+        "--marker",
+        "^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/foundry-lab"
+      ],
+      "scope": "Actual App→Foundry ready, six real recorded route playbacks, supported exit, pause/resume, profile abilities, return HP/stamina and normal feedback write.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "foundry-touch",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/foundry_touch_runner.gd",
+        "--marker",
+        "^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/foundry-touch"
+      ],
+      "scope": "Actual Foundry scrolling/selection UI and touch input, pause/leave.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "foundry-feedback",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/foundry_feedback_runner.gd",
+        "--marker",
+        "^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/foundry-feedback"
+      ],
+      "scope": "Actual feedback panel open/save/cancel, prior pause preservation, separate local feedback, enemy toggle and return lifetime. These3 are complementary, same root class is not3 entries.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "audio-director-lab",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/audio_director_lab.gd",
+        "--marker",
+        "^AUDIO_DIRECTOR_LAB checks=[1-9][0-9]* failures=0$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/audio-director-lab"
+      ],
+      "scope": "Exact hosted Lab v1: actual Home current body, Router jump/shot, A/B/C selection, Home/Plains/Forest route switches, drain.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "audio-director-v2",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/audio_director_v2_scene.gd",
+        "--marker",
+        "^AUDIO_DIRECTOR_V2_SCENE checks=[1-9][0-9]* failures=0$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/audio-director-v2"
+      ],
+      "scope": "Exact hosted v2: ready; original/A/B/C accepted shop/denied/button/projectile/hurt/coin/heal reward fixtures; combat context, pause and shutdown.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "audio-director-reels",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/audio_director_reels.gd",
+        "--marker",
+        "^AUDIO_DIRECTOR_REELS checks=[1-9][0-9]* failures=0$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/audio-director-reels"
+      ],
+      "scope": "Exact reels PackedScene: all declared reels, selected profiles/accepted timelines and audio cleanup; scripted auditions, not human listening.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "home-audio-service",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/audio_home_runtime.gd",
+        "--marker",
+        "^AUDIO_HOME_RUNTIME checks=[1-9][0-9]* failures=0$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/home-audio-service"
+      ],
+      "scope": "Actual Home audio adapter+GameAudio deterministic source scheduling/modes/pause/lifecycle; not audio_home_lab scene UI controls.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "regional-ambience-service",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/audio_ambience_runtime.gd",
+        "--marker",
+        "^AUDIO_AMBIENCE_RUNTIME checks=[1-9][0-9]* failures=0$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/regional-ambience-service"
+      ],
+      "scope": "Actual GameAmbience listener/origin/transport lifecycle fixtures; not audio_ambience_lab UI mode interaction.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "motion-candidate",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/player_presentation_01/motion_lifecycle.gd",
+        "--marker",
+        "^MOTION LIFECYCLE: checks=[1-9][0-9]* errors=0$",
+        "--timeout",
+        "180",
+        "--output",
+        "build/entry-final-41180438395/motion-candidate"
+      ],
+      "scope": "Exact MotionCandidate scene; real ready, enable/disable/reset and lifecycle adversarial checks.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "landing-feel",
+      "argv": [
+        "python3",
+        "-c",
+        "import json,re,sys; sys.path.insert(0,\"tools\"); from run_tests import run_engine; out=run_engine(json.loads(sys.argv[1]),180); assert re.search(sys.argv[2],out,re.M), \"missing original complete lifecycle marker\"",
+        "[\"--headless\", \"--fixed-fps\", \"60\", \"--path\", \".\", \"--script\", \"tests/player_presentation_01/feel_lifecycle.gd\", \"--\", \"--output=res://build/entry-final-41180438395/landing-feel.json\"]",
+        "^FEEL TRACE: samples=[0-9]+ checks=[1-9][0-9]* errors=0$"
+      ],
+      "scope": "Exact LandingFeel scene: real Home terrace drop, heavy recovery/shake, toggles/pause/cleanup. Source uses real Router/Motor route. Existing runner requires a new --output file and refuses overwrite; command uses original run_engine, no new runner.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "weapon-feel-entry",
+      "argv": [
+        "python3",
+        "-c",
+        "import json,re,sys; sys.path.insert(0,\"tools\"); from run_tests import run_engine; out=run_engine(json.loads(sys.argv[1]),180); assert re.search(sys.argv[2],out,re.M), \"missing original complete lifecycle marker\"",
+        "[\"--headless\", \"--fixed-fps\", \"60\", \"--path\", \".\", \"--script\", \"tests/player_presentation_01/weapon_lifecycle.gd\", \"--\", \"--output=res://build/entry-final-41180438395/weapon-feel-entry.json\"]",
+        "^WEAPON TRACE: samples=[0-9]+ checks=[1-9][0-9]* errors=0$"
+      ],
+      "scope": "Exact WeaponFeel scene: real controller/projectile/target feedback and enable/disable/change/reentry lifecycle. Existing runner requires a new --output file and refuses overwrite; command uses original run_engine, no new runner.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "weapon-feel-v2-entry",
+      "argv": [
+        "python3",
+        "-c",
+        "import json,re,sys; sys.path.insert(0,\"tools\"); from run_tests import run_engine; out=run_engine(json.loads(sys.argv[1]),180); assert re.search(sys.argv[2],out,re.M), \"missing original complete lifecycle marker\"",
+        "[\"--headless\", \"--fixed-fps\", \"60\", \"--path\", \".\", \"--script\", \"tests/player_presentation_01/weapon_feedback_v2.gd\", \"--\", \"--output=res://build/entry-final-41180438395/weapon-feel-v2-entry.json\"]",
+        "^WEAPON V2 TRACE: samples=[0-9]+ checks=[1-9][0-9]* errors=0$"
+      ],
+      "scope": "Exact V2 scene and real formal scene: six weapons feedback observers, accepted audio, leaf restoration, formal projectile binding/reentry. Existing runner requires a new --output file and refuses overwrite; command uses original run_engine, no new runner.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 180
+    },
+    {
+      "id": "forest-golden",
+      "argv": [
+        "python3",
+        "tools/run_forest_directional_golden.py",
+        "--output-dir",
+        "build/entry-final-41180438395/forest-directional-arch",
+        "--layout",
+        "arch",
+        "--variant",
+        "all"
+      ],
+      "scope": "Existing fixed golden source.new real Motor four positive/negative arch cases. Separate exact PackedScene startup remains root probe; not formal Forest80 route suite.",
+      "status": "PENDING_FINAL_OPTIMIZED_ENGINE",
+      "timeout_note": 45
+    }
+  ],
+  "earlier_engine_latest_harness": {
+    "core": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T055635.820287Z/report.json",
+      "log": "core.log",
+      "duration_seconds": 38.164,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "item-v5-formal": {
+      "status": "failed",
+      "report": "build/verification/harness/20261031T042120.793106Z/report.json",
+      "log": "item-v5-formal.log",
+      "duration_seconds": 16.93,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "entry-audio-lifecycle": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T051250.127716Z/report.json",
+      "log": "entry-audio-lifecycle.log",
+      "duration_seconds": 11.078,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "entry-audio-owners": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T051250.127716Z/report.json",
+      "log": "entry-audio-owners.log",
+      "duration_seconds": 10.966,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "blob47-foundation": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T060540.737474Z/report.json",
+      "log": "blob47-foundation.log",
+      "duration_seconds": 2.15,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "windchime-plains": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T060540.737474Z/report.json",
+      "log": "windchime-plains.log",
+      "duration_seconds": 4.104,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "pixel-plains": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T061145.813067Z/report.json",
+      "log": "pixel-plains.log",
+      "duration_seconds": 2.738,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "style-exploration": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T062149.778297Z/report.json",
+      "log": "style-exploration.log",
+      "duration_seconds": 34.189,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "player-default-integration": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T061145.813067Z/report.json",
+      "log": "player-default-integration.log",
+      "duration_seconds": 12.173,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "studio-input": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T061145.813067Z/report.json",
+      "log": "studio-input.log",
+      "duration_seconds": 14.83,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    },
+    "cloud-preview-runtime": {
+      "status": "passed",
+      "report": "build/verification/harness/20261031T062149.778297Z/report.json",
+      "log": "cloud-preview-runtime.log",
+      "duration_seconds": 6.675,
+      "reused": false,
+      "engine_scope": "Earlier official/native receipts; not final optimized engine evidence"
+    }
+  },
+  "root_diagnostic_startups_snapshot": {
+    "partial_results_count": 25,
+    "planned_cases": 38,
+    "engine": "/workspace/engine-diagnostics/godot-4.7.2-standard-shutdown-c",
+    "engine_sha256": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311",
+    "status": "IN_PROGRESS_ROOT_OWNED",
+    "scope": "35known packed entry startups +3 extra modes; diagnostic shutdown-C engine, not optimized build41180438395",
+    "not_passed_rows": []
+  },
+  "known_legacy_or_environment_limits": [
+    "Formal item-v5 earlier191/0 still failed native exit with57ObjectDB/25resources; final optimized engine must pass unchanged strict exit gate. Diagnostic-C behavior does not sign final artifact.",
+    "PlainsPolishReview oldBoss8 preview separate original defect risk.",
+    "Foundry stale current-basis is a prerequisite failure, not license to delete/refresh hashes manually.",
+    "38startup probes are35entries+3modes, not38distinct entries and never interaction completion.",
+    "118dynamic expressions remain not exhaustively executed; PCK/bundle and browser are distinct plans."
+  ],
+  "entries": [
+    {
+      "id": 1,
+      "entry": "experiments/motion/entries/action_studio.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "studio-input exact scene patrol/static toggle, popup focus, pause/leave; owners hosted audio/MENU",
+      "remaining_user_path_gap": [
+        "Full human keyboard/touch weapons/navigation needs existing Web GUI trio."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 2,
+      "entry": "experiments/terrain/entries/blob47_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact scene real supported readiness and Router/Motor routes; atlas/catalog/reseed/restart/pause/cleanup as original per-entry tests",
+      "remaining_user_path_gap": [
+        "Device/GPU appearance not headless acceptance."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 3,
+      "entry": "game/application/demo.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "item-v5-formal/core/player-default real App/Home/regional selection/jump/shot/economy/pause/death/retry, full strict exit required",
+      "remaining_user_path_gap": [
+        "Finite scripted routes do not prove every seed/full formal loop, browser GUI, persistence across installed builds or physical device."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 4,
+      "entry": "experiments/generation/entries/forest_directional_golden.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "forest-golden"
+      ],
+      "real_interaction_scope": "Same entry script.new real Motor archived arch four variants",
+      "remaining_user_path_gap": [
+        "Exact PackedScene startup separate; full formal Forest acceptance not this golden."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 5,
+      "entry": "experiments/generation/entries/foundry_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "foundry-rebuild",
+        "foundry-stamp",
+        "foundry-lab",
+        "foundry-touch",
+        "foundry-feedback"
+      ],
+      "real_interaction_scope": "Actual Home→class instance accepted replay/touch/profile/enemy/feedback/leave; original batch36 verified routes",
+      "remaining_user_path_gap": [
+        "Direct packed root startup separate; current basis must be regenerated by actual engine, cannot inherit old replay PASS."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 6,
+      "entry": "experiments/generation/entries/module_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "core actual Home.menu.requested_lab→ModuleLab.new: ready, module switches, supply/reward isolation, real hazard/damage/return, pause/exit",
+      "remaining_user_path_gap": [
+        "Direct standalone PackedScene startup recorded separately; no claim all module geometry crossed."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 7,
+      "entry": "experiments/terrain/entries/pixel_plains_preview.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact scene real supported readiness and Router/Motor routes; atlas/catalog/reseed/restart/pause/cleanup as original per-entry tests",
+      "remaining_user_path_gap": [
+        "Device/GPU appearance not headless acceptance."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 8,
+      "entry": "experiments/terrain/entries/plains_polish_review.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [],
+      "real_interaction_scope": "NO_EXISTING_ENTRY_INTERACTION_PROOF_IDENTIFIED",
+      "remaining_user_path_gap": [
+        "Original explicit Boss8 stage-index fixture assumes retired room flow; formal Boss tests do not certify this exact preview. Record actual startup result separately and isolate any legacy defect; no supplied original interactive runner proves it."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 9,
+      "entry": "experiments/generation/entries/random_stage_preview.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "core exact packed Random: ready, camera, actual hazard contacts/HP/epoch, retry seed, pause clocks/overview and death/Home",
+      "remaining_user_path_gap": [
+        "Not exhaustive generator seeds."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 10,
+      "entry": "experiments/terrain/entries/windchime_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact scene real supported readiness and Router/Motor routes; atlas/catalog/reseed/restart/pause/cleanup as original per-entry tests",
+      "remaining_user_path_gap": [
+        "Device/GPU appearance not headless acceptance."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 11,
+      "entry": "experiments/audio/entries/audio_ambience_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "regional-ambience-service",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact scene startup/owner only; real shared transport/adapter functions separately tested",
+      "remaining_user_path_gap": [
+        "Exact Lab UI three-mode/context/preset complete interaction not proven. Capture scripts are media workflows, not interchangeable with this finite native gate."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 12,
+      "entry": "experiments/audio/entries/audio_director_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "audio-director-lab",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact Scene packed Lab accepted-event/profile/context/reels original runner (see commands); hosted owner separate",
+      "remaining_user_path_gap": [
+        "Actual audible mix/listening/device not signed by event counters."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 13,
+      "entry": "experiments/audio/entries/audio_director_lab_v2.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "audio-director-v2",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact Scene packed Lab accepted-event/profile/context/reels original runner (see commands); hosted owner separate",
+      "remaining_user_path_gap": [
+        "Actual audible mix/listening/device not signed by event counters."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 14,
+      "entry": "experiments/audio/entries/audio_director_reels.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "audio-director-reels",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact Scene packed Lab accepted-event/profile/context/reels original runner (see commands); hosted owner separate",
+      "remaining_user_path_gap": [
+        "Actual audible mix/listening/device not signed by event counters."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 15,
+      "entry": "experiments/audio/entries/audio_home_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "home-audio-service",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact scene startup/owner only; real shared transport/adapter functions separately tested",
+      "remaining_user_path_gap": [
+        "Exact Lab UI three-mode/context/preset complete interaction not proven. Capture scripts are media workflows, not interchangeable with this finite native gate."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 16,
+      "entry": "experiments/terrain/entries/authored_terrain_study.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "entry-audio-lifecycle: exact PackedScene busy→Home→Plains→Home, old App weak release",
+      "remaining_user_path_gap": [
+        "Preset switches/actual visual outputs/device controls not exhausted."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 17,
+      "entry": "experiments/platform/entries/cloud_preview.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact bootstrap actions/scene/demo modes, banner MENU and reconstruction/persistence isolation + owner/lifecycle tests",
+      "remaining_user_path_gap": [
+        "Web URL/embedded canvas/history/cache/deep links require real exported browser checks."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 18,
+      "entry": "experiments/terrain/entries/high_density_terrain_study.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "entry-audio-lifecycle: exact PackedScene busy→Home→Plains→Home, old App weak release",
+      "remaining_user_path_gap": [
+        "Preset switches/actual visual outputs/device controls not exhausted."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 19,
+      "entry": "experiments/terrain/entries/light_study.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "entry-audio-lifecycle: exact PackedScene busy→Home→Plains→Home, old App weak release",
+      "remaining_user_path_gap": [
+        "Preset switches/actual visual outputs/device controls not exhausted."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 20,
+      "entry": "experiments/terrain/entries/pixel_light_study.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "entry-audio-lifecycle: exact PackedScene busy→Home→Plains→Home, old App weak release",
+      "remaining_user_path_gap": [
+        "Preset switches/actual visual outputs/device controls not exhausted."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 21,
+      "entry": "experiments/motion/entries/landing_feel.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "landing-feel",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact packed preview and original lifecycle controls/Router/physics/feedback tests",
+      "remaining_user_path_gap": [
+        "No proof full visual animation quality or physical-device input."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 22,
+      "entry": "experiments/motion/entries/motion_candidate.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "motion-candidate",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact packed preview and original lifecycle controls/Router/physics/feedback tests",
+      "remaining_user_path_gap": [
+        "No proof full visual animation quality or physical-device input."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 23,
+      "entry": "experiments/motion/entries/weapon_feel.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "weapon-feel-entry",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact packed preview and original lifecycle controls/Router/physics/feedback tests",
+      "remaining_user_path_gap": [
+        "No proof full visual animation quality or physical-device input."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 24,
+      "entry": "experiments/motion/entries/weapon_feel_v2.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "weapon-feel-v2-entry",
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Exact packed preview and original lifecycle controls/Router/physics/feedback tests",
+      "remaining_user_path_gap": [
+        "No proof full visual animation quality or physical-device input."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 25,
+      "entry": "experiments/terrain/entries/basic.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Shared StyleLab style/biome parameter routes; this named root not directly instantiated by interactive runner",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 26,
+      "entry": "experiments/terrain/entries/cavern.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Shared StyleLab style/biome parameter routes; this named root not directly instantiated by interactive runner",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 27,
+      "entry": "experiments/terrain/entries/cavern_forest.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "style-exploration exact style_lab:20 routes +16 biome cases +3CLI assertions; four named variant scenes loaded and default geometry asserted",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 28,
+      "entry": "experiments/terrain/entries/cavern_gear.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "style-exploration exact style_lab:20 routes +16 biome cases +3CLI assertions; four named variant scenes loaded and default geometry asserted",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 29,
+      "entry": "experiments/terrain/entries/retro.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Shared StyleLab style/biome parameter routes; this named root not directly instantiated by interactive runner",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 30,
+      "entry": "experiments/terrain/entries/scribble.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Shared StyleLab style/biome parameter routes; this named root not directly instantiated by interactive runner",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 31,
+      "entry": "experiments/terrain/entries/style_lab.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "style-exploration exact style_lab:20 routes +16 biome cases +3CLI assertions; four named variant scenes loaded and default geometry asserted",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 32,
+      "entry": "experiments/terrain/entries/underworld.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "Shared StyleLab style/biome parameter routes; this named root not directly instantiated by interactive runner",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 33,
+      "entry": "experiments/terrain/entries/underworld_forest.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "style-exploration exact style_lab:20 routes +16 biome cases +3CLI assertions; four named variant scenes loaded and default geometry asserted",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 34,
+      "entry": "experiments/terrain/entries/underworld_gear.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [
+        "primary-harness"
+      ],
+      "real_interaction_scope": "style-exploration exact style_lab:20 routes +16 biome cases +3CLI assertions; four named variant scenes loaded and default geometry asserted",
+      "remaining_user_path_gap": [
+        "Direct named-root startup separate; rendered/GPU image and user palette judgment not covered."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    },
+    {
+      "id": 35,
+      "entry": "experiments/motion/entries/graybox.tscn",
+      "exact_scene_startup": "Root38-case diagnostic-C run separate; not interaction or final optimized engine",
+      "recommended_commands": [],
+      "real_interaction_scope": "NO_EXISTING_ENTRY_INTERACTION_PROOF_IDENTIFIED",
+      "remaining_user_path_gap": [
+        "No existing precise Graybox RESET/contact/menu interactive runner found; shared motor/WorldContext core tests and startup do not prove this full legacy RESET policy."
+      ],
+      "optimized_engine_status": "NOT_RUN"
+    }
+  ],
+  "known_entries_count": 35,
+  "optimized_engine_all_commands_status": "NOT_RUN_BY_THIS_REVIEWER",
+  "full_release_followup": "Original full182 same source/approved toolchain remains required by release contract; targeted matrix avoids duplicate extra runners but does not replace that gate. Web plan web-pck-final-execution-plan.md requires updated activated toolchain identity, not earlier officialtemplate assumption."
+}

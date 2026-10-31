@@ -1,0 +1,7 @@
+# Diagnostic C entry-startup evidence — limited independent acceptance
+
+All38 raw logs were inspected and hashed:35 exact scenes match the prior finite entry plan, plus DemoApp plains/forest/home. Every log has exactly one matching snapshot, one released audio-drain receipt and one done-true marker in order; all recorded exits are0 and no error/warning/leak markers occur. The3 additional snapshots contain the actual respective PlainsStage/ForestStage/HomeScene children. Existing probe bytes and actual diagnostic C binary match plan/report SHA; source HEAD05c3e3db and clean status were rechecked.
+
+This is **O0 diagnostic C headless startup and cleanup evidence**, not final optimized-toolchain or full interaction acceptance. Dummy audio/fixed60 do not establish audiovisual or device behavior. Foundry boots its UI but has no player in the snapshot, so readiness/current-basis remains unverified. Probe mode calls are not return-value assertions. The original probe path is reused; no old contemporaneous probe SHA exists in the earlier results, so historical byte identity is not independently asserted. Current audio teardown delegates to the committed WorldAudioLifecycle and is separately hash-bound.
+
+Root executed the runs; this reviewer ran no engine. Exact38 log hashes,35 scene hashes, probe/binary/source identities and limitations are recorded in `entry-startup-diagnostic-C-independent-review.json`. No full182/native-suite/Web/PCK/GUI/dynamic-path coverage upgrade is signed.

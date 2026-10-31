@@ -61,3 +61,10 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 原docs33在bc576b63及报告记录的候选写集全部fresh通过，318.136秒；源projection/fixture两根、保留P1路径、当前与历史文档引用、旧metadata证据及森林真实Provider链均已迁。旧失败和独审原件位于static-closeout-03。森林源码观察采用有限单行词法与有序调用检查，明确runtime_available=None，不等于执行可达/正式开放；原36测试保留、新6反例已接原入口。未新增运行registry或修改玩法。
 
 引擎构建390的Android原生库完成，但Gradle查找scons失败；仅锁定命令入口补丁184970c7重建全部10lane，保同commit/run门禁，未拼旧成功包。安装器62eceec4及补丁已有独审，真实完整产物和原182/实际PCK仍待验。
+
+
+## 2026-10-31 换模型暂停节点
+
+用户要求先暂停并留下后续指导。暂停前05c3干净源上38个诊断启动检查完成，source_unchanged=true；独审仅接受启动/清理。随后三个原音频脚本按180秒预算运行：Lab25/0、V2 66/0，Reels126/3（enemy_hurt A/B/C候选播放次数）退出1，116.009秒；未定位原因、不修改断言或生产代码。完整日志、报告、独审和构建快照见[暂停证据](../../evidence/game_architecture_02/pause-checkpoint-04/index.json)。
+
+本地引擎与持续监测结束，远端41180438395不取消；Windows debug已成功，其他任务接手再查。正式工具链仍官方、未发布新Release/重构PR或预览。详细接手顺序与回退注意见[continuation_guide](continuation_guide.md)。
