@@ -68,3 +68,8 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 用户要求先暂停并留下后续指导。暂停前05c3干净源上38个诊断启动检查完成，source_unchanged=true；独审仅接受启动/清理。随后三个原音频脚本按180秒预算运行：Lab25/0、V2 66/0，Reels126/3（enemy_hurt A/B/C候选播放次数）退出1，116.009秒；未定位原因、不修改断言或生产代码。完整日志、报告、独审和构建快照见[暂停证据](../../evidence/game_architecture_02/pause-checkpoint-04/index.json)。
 
 本地引擎与持续监测结束，远端41180438395不取消；Windows debug已成功，其他任务接手再查。正式工具链仍官方、未发布新Release/重构PR或预览。详细接手顺序与回退注意见[continuation_guide](continuation_guide.md)。
+
+
+## 2026-10-31 恢复：AUDIO-LAB-MATERIAL-01
+
+精确main2ce同C原126/3，确认旧缺陷；修复只为显式hurt试听委托原候选播放器，正常材质路径保留。原126逐字可还原，增加28实际stream/计数边界。C154/0（116.478/180）、优化editor184 154/0（32.176/180），1905文件源码向量一致并独审。实际editor产物与构建命令已独立核，优化生命周期28/0+负例4/0，原正式191/0严格退出及V2 66/0补充通过。完整工具链锁仍未激活，full182/GUI/导出未完成。证据及未签范围见独立修复说明；不冲销原失败或代签正式音效听感。

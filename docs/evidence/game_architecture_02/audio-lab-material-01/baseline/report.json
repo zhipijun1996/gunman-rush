@@ -1,0 +1,52 @@
+{
+  "scope": "Exact main2ce original Reels full script, diagnostic C engine; baseline comparison only",
+  "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "source_script_sha256": "d64e4d97f90cc6a6735da837776ba743d3173e1ca9c65017cb9820cf6e757850",
+  "engine_sha256": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311",
+  "source_clean_after": true,
+  "results": [
+    {
+      "label": "import",
+      "argv": [
+        "/workspace/engine-diagnostics/godot-4.7.2-standard-shutdown-c",
+        "--headless",
+        "--path",
+        "/workspace/gunman-rush-integration",
+        "--editor",
+        "--quit"
+      ],
+      "limit": 120,
+      "exit_code": 0,
+      "seconds": 24.187075974001345,
+      "log_sha256": "f9b01bd0459eb730451880d4ea511e02665df968731f592afb05ea062629f559",
+      "errors": [],
+      "marker": []
+    },
+    {
+      "label": "reels",
+      "argv": [
+        "/workspace/engine-diagnostics/godot-4.7.2-standard-shutdown-c",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/workspace/gunman-rush-integration",
+        "--script",
+        "tests/audio_director_reels.gd"
+      ],
+      "limit": 180,
+      "exit_code": 1,
+      "seconds": 133.34001014299793,
+      "log_sha256": "ea5e7df92752941d3c0d60d903f844d82f0d029f1f1a32a46c1e0a4688f03e90",
+      "errors": [
+        "ERROR: enemy_hurt A actually plays exactly one candidate for each accepted target",
+        "ERROR: enemy_hurt B actually plays exactly one candidate for each accepted target",
+        "ERROR: enemy_hurt C actually plays exactly one candidate for each accepted target"
+      ],
+      "marker": [
+        "AUDIO_DIRECTOR_REELS checks=126 failures=3"
+      ]
+    }
+  ]
+}

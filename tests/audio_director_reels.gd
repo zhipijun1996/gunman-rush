@@ -52,6 +52,7 @@ func run() -> void:
 			signatures.append(sequence)
 		check(signatures.all(func(seq: Array) -> bool: return seq == signatures[0]), reel + " all four sound profiles retain identical seeded input/position/health sequence")
 	check(not lab.lab_audio.has_director_event(&"jump") and not lab.lab_audio.has_director_event(&"land"), "V3 retains original accepted jump and landing family")
+	_check_material_audition_policy(audio, lab)
 	check(await lab._music.shutdown(), "Original music drains")
 	check(await lab.lab_audio.shutdown(), "Original voice pool drains")
 	lab.free()
@@ -61,3 +62,39 @@ func run() -> void:
 	FileAccess.open("res://build/audio_director_v3/reels-runtime/receipt.json", FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures}))
 	print("AUDIO_DIRECTOR_REELS checks=%s failures=%s" % [checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+func _check_material_audition_policy(audio: GameAudio, origin: Node) -> void:
+	# Direct service-policy fixture supplements the unchanged real-damage reels.
+	# No altered Actor identity or synthetic accepted-damage receipt is used.
+	var hurt_stream := PlainsEnemyAudio.STREAMS[&"plant_hurt"] as AudioStream
+	for profile: String in ["A", "B", "C"]:
+		check(audio.set_audio_profile(profile), "%s policy fixture selects the existing candidate profile" % profile)
+		audio.set_audition_focus(&"")
+		var legacy_before := int(audio.played.get(&"hurt", 0))
+		var candidate_before := int(audio.played.get(&"director_enemy_hurt", 0))
+		check(audio.play_enemy_material(&"hurt", hurt_stream, origin, &"plains_sentry") and int(audio.played.get(&"hurt", 0)) == legacy_before + 1 and int(audio.played.get(&"director_enemy_hurt", 0)) == candidate_before, "%s without audition focus preserves material hurt" % profile)
+		check(audio._voices.any(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.stream == hurt_stream and voice.get_meta("director_event", &"") == &"plains_enemy_hurt"), "%s ordinary material route plays the current plant WAV" % profile)
+		audio.set_audition_focus(&"enemy_hurt")
+		legacy_before = int(audio.played.get(&"hurt", 0))
+		check(audio.play_enemy_material(&"hurt", hurt_stream, origin, &"plains_sentry") and int(audio.played.get(&"director_enemy_hurt", 0)) == candidate_before + 1 and int(audio.played.get(&"hurt", 0)) == legacy_before, "%s explicit hurt audition plays one candidate without doubling material" % profile)
+		var candidate_id := "enemy_hurt_" + profile.to_lower()
+		check(audio.director_events.back().candidate == candidate_id and audio._voices.any(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.get_meta("director_event", &"") == &"enemy_hurt" and voice.stream.resource_path == "res://assets/audio/director_v3/" + candidate_id + ".wav"), "%s audition owns the actual selected candidate stream" % profile)
+		audio.set_audition_focus(&"")
+		check(audio.play_enemy_material(&"hurt", hurt_stream, origin, &"plains_sentry") and int(audio.played.get(&"hurt", 0)) == legacy_before + 1 and int(audio.played.get(&"director_enemy_hurt", 0)) == candidate_before + 1, "%s clearing audition focus restores material playback" % profile)
+		audio.set_audition_focus(&"enemy_hit")
+		check(not audio.play_enemy_material(&"hurt", hurt_stream, origin, &"plains_sentry") and int(audio.played.get(&"hurt", 0)) == legacy_before + 1 and int(audio.played.get(&"director_enemy_hurt", 0)) == candidate_before + 1, "%s weapon-hit focus still suppresses the body layer" % profile)
+	check(audio.set_audio_profile("original"), "Original material audition profile is available")
+	audio.set_audition_focus(&"enemy_hurt")
+	var original_before := int(audio.played.get(&"hurt", 0))
+	var candidates_before := audio.director_events.size()
+	check(audio.play_enemy_material(&"hurt", hurt_stream, origin, &"plains_sentry") and int(audio.played.get(&"hurt", 0)) == original_before + 1 and audio.director_events.size() == candidates_before and audio._voices.any(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.stream == hurt_stream), "Original hurt audition preserves the current material stream without candidate playback")
+	check(audio.set_audio_profile("A"), "Non-hurt policy fixture selects a candidate profile")
+	for kind: StringName in [&"death", &"land"]:
+		var material_stream := PlainsEnemyAudio.STREAMS[StringName("plant_" + String(kind))] as AudioStream
+		var material_event := StringName("plains_enemy_" + String(kind))
+		check(audio.play_enemy_material(kind, material_stream, origin, &"plains_sentry") and audio.director_events.size() == candidates_before and audio._voices.any(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.stream == material_stream and voice.get_meta("director_event", &"") == material_event), "%s retains species material during explicit hurt audition" % kind)
+	audio.set_audition_focus(&"")
+	check(audio.configure_selected_profiles({&"enemy_hurt": "B"}) and audio.set_audio_profile("selected"), "Explicit selected profile fixture retains the adopted enemy candidate choice")
+	var selected_before := audio.director_events.size()
+	var selected_hurt_before := int(audio.played.get(&"hurt", 0))
+	check(audio.play_enemy_material(&"hurt", hurt_stream, origin, &"plains_sentry") and int(audio.played.get(&"hurt", 0)) == selected_hurt_before + 1 and audio.director_events.size() == selected_before and audio._voices.any(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.stream == hurt_stream), "Selected profile without audition focus keeps the latest species material")

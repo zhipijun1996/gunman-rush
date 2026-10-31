@@ -40,6 +40,7 @@ var _director_clock := 0.0
 var _director_random := RandomNumberGenerator.new()
 var _director_profiles: Array[String] = ["A", "B"]
 var _director_suppressed: Array[StringName] = []
+var _audition_focus: StringName = &""
 var _selected_profiles: Dictionary = {}
 var _selected_configured := false
 ## Scoped plains material cues share this same12voice pool and ownership.
@@ -248,6 +249,10 @@ func play_enemy_material(kind: StringName, stream: AudioStream, origin: Node, sp
 	if kind not in [&"hurt", &"death", &"land"]: return false
 	var semantic := &"enemy_death" if kind == &"death" else &"enemy_hurt" if kind == &"hurt" else &"land"
 	if is_director_event_suppressed(semantic): return false
+	# Explicit lab audition may replace only this accepted hurt layer. Normal
+	# gameplay and original auditions retain the current species material.
+	if kind == &"hurt" and _audition_focus == &"enemy_hurt" and director_profile_for_event(semantic) != "original":
+		return play_director_event(semantic, "", origin)
 	var event := StringName("plains_enemy_" + String(kind))
 	var priority := 80 if kind == &"death" else 45 if kind == &"hurt" else 35
 	var cap := 3 if kind in [&"death", &"hurt"] else 2
@@ -435,6 +440,7 @@ func is_director_event_suppressed(event_id: StringName) -> bool:
 func set_audition_focus(event_id: StringName) -> void:
 	# Explicit lab-only isolation. The normal game never calls this method.
 	# Both original and candidates isolate the same accepted damage layer.
+	_audition_focus = event_id
 	_director_suppressed.clear()
 	if event_id == &"enemy_hit": _director_suppressed.append(&"enemy_hurt")
 	elif event_id == &"enemy_hurt": _director_suppressed.append(&"enemy_hit")

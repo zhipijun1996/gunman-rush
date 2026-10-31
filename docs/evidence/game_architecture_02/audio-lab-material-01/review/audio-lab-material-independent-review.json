@@ -1,0 +1,82 @@
+{
+  "task_id": "AUDIO-LAB-MATERIAL-01",
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_PENDING_ROOT_NATIVE_REGRESSION",
+  "source_head": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+  "candidate_files": [
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "before_sha256": "2166334db25bd464b50eefac32cddd4ed0a8816a1a93de7948511c0c96a38aca",
+      "candidate_sha256": "79bd8fc3aacad831947f1035d40930b35e91ba5c03cbfbad4ef09a1f25a27235"
+    },
+    {
+      "path": "tests/audio_director_reels.gd",
+      "before_sha256": "2f5547b3cf0eee2632280cd1afcb8f2a5f8705c65e7937d7cc25e337ea1d9c97",
+      "candidate_sha256": "93f93e1123c5f7ab650a3b69cbe8f67294ba00df39f33e4f7a0549f602270a11"
+    }
+  ],
+  "classification": "Explicit correction of baseline-existing audition routing defect; not behavior-equivalent refactor",
+  "baseline_evidence": {
+    "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+    "original_script_sha256": "d64e4d97f90cc6a6735da837776ba743d3173e1ca9c65017cb9820cf6e757850",
+    "report_sha256": "c9f367513818156158013e32c4856f8bae70b8571baf2b7d94f1e5244902c7da",
+    "raw_reels_log_sha256": "ea5e7df92752941d3c0d60d903f844d82f0d029f1f1a32a46c1e0a4688f03e90",
+    "original_test_blob_matches_report": true,
+    "raw_log_hashes_match_report": true,
+    "engine_sha256": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311",
+    "result": "126 checks /3 failures,exit1,133.340 seconds within180; same enemy_hurt A/B/C assertions",
+    "scope": "Actual root run on exact2ce using same diagnostic C, not official binary reproduction"
+  },
+  "source_review": {
+    "whole_production_original_exactly_restored_by_removing_six_additions": true,
+    "whole_original126_test_script_exactly_restored_by_removing_one_call_and_appended_helper": true,
+    "gameplay_side_effects": "No Actor/Health/Definition/receipt epoch/RNG/physics/save/source config/media changes",
+    "gate_order": "Original shutting-down/null-stream/volume/origin/tree/pause/kind/suppression rejection remains before new branch",
+    "new_gate": "kind hurt AND explicit _audition_focus enemy_hurt AND existing event selector non-original",
+    "dispatch": "One return through existing play_director_event(semantic,empty candidate,origin); no simultaneous material fallback/second implementation",
+    "unchanged_fallbacks": [
+      "ordinary A/B/C without focus",
+      "formal selected without focus",
+      "empty or unrelated focus",
+      "original profile even with enemy_hurt focus",
+      "death",
+      "land"
+    ],
+    "focus_ownership": "Typed instance-local field starts empty, only written by existing explicit setter; clearing/changing focus updates it; no inference from suppression",
+    "actual_non_test_focus_callers": [
+      "experiments/audio/audio_director_lab_v2.gd:222",
+      "experiments/audio/audio_director_lab_v2.gd:391",
+      "experiments/audio/audio_director_reels.gd:257"
+    ],
+    "formal_focus_callers_found": 0,
+    "audio_rules": "Existing candidate pool,rate limits,origin metadata,stream selection and separate audio RNG reused only under explicit audition; existing material pool algorithm untouched"
+  },
+  "test_review": {
+    "original_checks": 126,
+    "original_reel_profiles_loop_seed_frames_assertions_preserved": true,
+    "expected_added_checks": 28,
+    "expected_total": 154,
+    "native_total_unverified_at_review": true,
+    "added_negative_boundaries": [
+      "ABC no focus uses material count and actual current WAV",
+      "ABC focus plays actual matching candidate stream exactly once and no extra material",
+      "ABC clear focus restores material; enemy_hit suppression still rejects",
+      "original profile with focus retains material",
+      "death/land remain current material under explicit hurt audition",
+      "selected B without focus retains material"
+    ],
+    "does_not_change_fixture_actor_identity_or_fake_damage_receipt": true,
+    "no_existing_timeout_or_harness_change": true
+  },
+  "limits": [
+    "No engine run or production/test modification by independent reviewer",
+    "Static accept is contingent on original full Reels plus28 new policy assertions and related V2/selected/material lifecycle regressions under root lease",
+    "No audible,GUI,device,final optimized binary or full182 acceptance",
+    "Explicit audition changes hurt presentation to existing candidate semantics, including existing candidate rate/pool policy; not claimed byte-identical lab audio behavior",
+    "Any subsequent style/quality current-source binding update must retain historical original SHA and identify this separate bugfix"
+  ],
+  "receipt_files": {
+    "candidate_patch_sha256": "94f628af616ce9210deec549fab2f50663c6fc4e3ad62e3997c57bfab9ae5254",
+    "candidate_json_sha256": "8d1a660623303e27749e2a856621f051d51b3f5e89824507e31ec767ca2e3e2f"
+  }
+}

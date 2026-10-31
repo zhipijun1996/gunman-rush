@@ -746,3 +746,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | GAME-ARCH-BOSS-STATE-01 | Boss自身快照、生命与决斗恢复所有权收口 | GAME-ARCH-ENTITY-01 | in_progress | [质量记录](quality/records/GAME-ARCH-BOSS-STATE-01.json)；063d6ccb静态独审限定接受，原生待验 |
 
 | GAME-ARCH-TEST-MIGRATION-01 | 当前与历史测试消费者迁移收口；62文件限定独审 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/GAME-ARCH-TEST-MIGRATION-01.json) |
+
+| AUDIO-LAB-MATERIAL-01 | 显式 Lab enemy_hurt ABC 试听与七怪材质路由兼容缺陷独立修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/AUDIO-LAB-MATERIAL-01.json)；精确 2ce 原 126/3 保留；候选 C/optimized 原生各154/0限定通过，正式集成与完整验收待验 |

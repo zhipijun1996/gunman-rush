@@ -1,3 +1,9 @@
+## 2026-10-31 已恢复工作：原音频试听缺陷已修，完整工具链仍待齐备
+
+用户换模型后要求继续。候选基点59a6上，精确main2ce同诊断C原测试复现126/3，独立确认旧材质路由绕过ABC试听。最小修复只允许显式enemy_hurt focus的非original候选；原126保留并新增28边界检查。C154/0、实际优化编辑器154/0及source一致均有独审，见[独立修复](worklines/game_architecture_01/audio_lab_material_fix.md)。当前修改已进入独立提交收口，不扩大成玩法或资源更换。
+
+实际优化editor184单lane产物已独审，生命周期28/0+负例4/0、正式191/0严格退出、V2 66/0均通过。主config仍官方，等待同run全部模板与package才原子接入；不能把这些外部单lane预检称主Harness182通过。当前远端Windowsdebug、Webthreadeddebug、Linuxeditor、Android已成功，其余接手查[41180438395](https://github.com/zhipijun1996/gunman-rush/actions/runs/41180438395)。后续仍按[指导](worklines/game_architecture_01/continuation_guide.md)完成工具链、Foundry、full182/PCK/GUI和可玩预览；下方暂停记录保留为历史。
+
 ## 2026-10-31 用户要求暂停换模型：从此处接手
 
 本地工作已在诊断节点结束，暂不继续重构/全量测试。详细事实、分支、下一步命令和不可重复事项见 [后续重构指导](worklines/game_architecture_01/continuation_guide.md)。暂停前源码 `05c3e3db`；本次仅补指导与证据归档，正式工具链仍未切换，本重构未推送/合 main/发布。
