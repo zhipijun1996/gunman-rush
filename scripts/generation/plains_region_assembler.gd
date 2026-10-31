@@ -35,8 +35,11 @@ func build_plan(plan: LevelPlan, presentation: Dictionary = {}) -> Dictionary:
 		ground_supports=PlainsGroundSupports.new()
 		add_child(ground_supports)
 		ground_supports.install(plan.ground_supports)
-	if is_instance_valid(ground_supports):ground_supports.configure_edges(modules)
-	PlainsTerrainSkin.configure_ground_edges(modules,ground_supports.columns if is_instance_valid(ground_supports) else [])
+	var columns: Array[Rect2] = []
+	if is_instance_valid(ground_supports):
+		ground_supports.configure_edges(modules)
+		columns=ground_supports.columns
+	PlainsTerrainSkin.configure_ground_edges(modules,columns)
 	for e: Dictionary in connection_records():
 		if e.condition != "backside": continue
 		var gate: Array = e.gate
