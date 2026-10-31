@@ -21,6 +21,7 @@ import shutil
 import subprocess
 import sys
 import time
+from forest_bible_world_sources import inventory as source_inventory
 ROOT=Path(__file__).resolve().parents[1]
 VERSION='thorn-forest-region-v2'
 ERRORS=re.compile(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit')
@@ -78,10 +79,7 @@ def inspect_movie(path,data):
     except (OSError,ValueError,KeyError,StopIteration,subprocess.SubprocessError) as error:
         return {'errors':['movie_probe_failed/'+type(error).__name__+': '+str(error)],'argv':argv,'sha256':sha(path),'bytes':path.stat().st_size}
 def inventory():
-    files=[ROOT/'project.godot']
-    for directory in ('scripts','scenes','resources','config','shaders','assets','tests','tools'):
-        files.extend(p for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc')
-    return {p.relative_to(ROOT).as_posix():sha(p) for p in sorted(files)}
+    return source_inventory(ROOT)
 def import_inventory_guard(before,after):
     changed=[p for p,h in before.items() if after.get(p)!=h]
     additions=sorted(set(after)-set(before));unexpected=[]

@@ -76,6 +76,34 @@ class FrozenForestTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unexpected fixture source'):
             fixture.verify(project, manifest)
 
+    def test_game_source_injection_cannot_enter_frozen_legacy_fixture(self):
+        project, manifest = self.restore()
+        injected = project/'game/actors/injected.gd'
+        injected.parent.mkdir(parents=True)
+        injected.write_text('extends Node\n')
+        with self.assertRaisesRegex(ValueError, 'Unexpected fixture source: game/actors/injected.gd'):
+            fixture.verify(project, manifest)
+
+    def test_game_source_is_frozen_as_real_git_bytes_and_cannot_be_changed(self):
+        name = 'game/actors/current.gd'
+        source = self.repo/name
+        source.parent.mkdir(parents=True)
+        source.write_text('extends Node\n')
+        fixture.git(self.repo, 'add', name)
+        fixture.git(self.repo, '-c', 'user.name=Fixture Test', '-c', 'user.email=fixture@example.invalid',
+                    'commit', '-qm', 'game source fixture')
+        commit = fixture.git(self.repo, 'rev-parse', 'HEAD').decode().strip()
+        basis = self.base/'game-archive'
+        manifest = fixture.freeze(self.repo, basis, commit)
+        self.assertIn(name, manifest['members'])
+        with patch.object(fixture, 'BASELINE', commit):
+            project, restored = fixture.restore(self.repo, self.base/'game-restored', basis)
+        self.assertEqual((project/name).read_bytes(), source.read_bytes())
+        fixture.verify(project, restored)
+        (project/name).write_text('extends Node2D\n')
+        with self.assertRaisesRegex(ValueError, 'Fixture input differs: game/actors/current.gd'):
+            fixture.verify(project, restored)
+
     def test_source_missing_detected(self):
         project, manifest = self.restore()
         (project / 'scripts/example.gd').unlink()

@@ -410,6 +410,29 @@ class ContentPipelineTests(unittest.TestCase):
             self.assertNotEqual(baseline["build/ai_level_design_v1/engine-identity.json"],
                                 changed["build/ai_level_design_v1/engine-identity.json"])
 
+    def test_game_bytes_and_new_consumers_invalidate_pilot_cache_identity(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for name in ('project.godot', 'tools/level_pilot_validate.gd', 'tools/level_content_pilot.py',
+                         'tools/level_content.py', 'tools/run_tests.py', 'tools/godot.sh',
+                         'tests/branch_module_driver.gd', 'tests/audio_teardown.gd',
+                         'tests/plains_exploration_motion.gd', 'tests/plains_interactive_motion.gd'):
+                path = root/name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('format-test ' + name)
+            with patch.object(pilot, 'engine_identity', return_value=ENGINE_FORMAT_FIXTURE):
+                before = pilot.snapshot(root)
+                actor = root/'game/actors/current.gd'
+                actor.parent.mkdir(parents=True)
+                actor.write_text('extends Node\n')
+                added = pilot.snapshot(root)
+                self.assertIn('game/actors/current.gd', added)
+                self.assertNotEqual(content.digest(before), content.digest(added))
+                actor.write_text('extends Node2D\n')
+                self.assertNotEqual(content.digest(added), content.digest(pilot.snapshot(root)))
+                actor.unlink()
+                self.assertEqual(before, pilot.snapshot(root))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

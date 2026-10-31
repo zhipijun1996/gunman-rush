@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "task_id": "GAME-ARCH-CI-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "消除CI跨job重复并让全部源码/导出守门识别功能目录game",
+  "player_experience": "为保持玩法的功能重构提供完整可追溯验证",
+  "constraints": [
+    "原检查集合/命令/预算/断言保留",
+    "不改正式运行代码或资源字节"
+  ],
+  "affected_paths": [
+    ".github/workflows/docs.yml",
+    ".github/workflows/environment.yml",
+    ".github/workflows/production.yml",
+    "tests/test_forest_bible_world_sources.py",
+    "tests/test_forest_legacy_fixture.py",
+    "tests/test_harness.py",
+    "tests/test_level_content_pipeline.py",
+    "tests/test_quality.py",
+    "tests/test_underworld_pipeline.py",
+    "tests/test_underworld_raw_export.py",
+    "tests/test_web_bundle.py",
+    "tools/capture_run_gear.py",
+    "tools/check_quality_diff.py",
+    "tools/check_web_bundle.py",
+    "tools/forest_bible_world_sources.py",
+    "tools/forest_legacy_fixture.py",
+    "tools/harness.py",
+    "tools/harness/profiles.json",
+    "tools/level_content_pilot.py",
+    "tools/run_forest_campaign_combat_tests.py",
+    "tools/run_forest_depth_region.py",
+    "tools/run_forest_directional_golden.py",
+    "tools/run_forest_ecology_tests.py",
+    "tools/underworld_delivery.py",
+    "tools/underworld_pipeline.py"
+  ],
+  "deliverables": [
+    "同源full双lane与已验Web产物传递",
+    "真实game源码消费者与包依赖检查"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整172与远端workflow未执行",
+    "原森林80路线600秒超时待独立修复",
+    "不签设备/听感/视觉认可"
+  ]
+}

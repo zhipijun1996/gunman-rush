@@ -13,11 +13,51 @@ import json
 import re
 from pathlib import Path
 import sys
+import shutil
+import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from underworld_pipeline import ROOT, DEFAULT_MANIFEST, audit, canonical_mask
 import underworld_pipeline as pipeline
+
+
+class GameUiDiscoveryTests(unittest.TestCase):
+    def test_moved_game_ui_class_keeps_actual_theme_guard(self):
+        manifest = json.loads((ROOT/DEFAULT_MANIFEST).read_text())
+        ui_path = manifest['ui_manifest']
+        ui = json.loads((ROOT/ui_path).read_text())
+        source = pipeline.Audit(ROOT)
+        source.consumption(ui_path, manifest['consumers']['ui'], 'ui')
+        pipeline.audit_ui(source, ui)
+        self.assertTrue(source.result()['passed'], source.result())
+        paths = set(source.measurements['files'])
+        names = {name.split('.')[0] for name in ui['production_roots']} | {
+            'ItemCard', 'ItemAcquiredToast', 'DemoMenu', 'ItemPresentation',
+            'DemoUiModalShell', 'DemoClockworkTheme'}
+        for path in (ROOT/'scripts').rglob('*.gd'):
+            match = re.search(r'^class_name\s+(\w+)', path.read_text(), re.MULTILINE)
+            if match and match.group(1) in names:
+                paths.add(path.relative_to(ROOT).as_posix())
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for name in paths:
+                target = root/name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT/name, target)
+            target = root/'game/ui/item_card.gd'
+            target.parent.mkdir(parents=True)
+            (root/'scripts/ui/item_card.gd').rename(target)
+            def inspect():
+                current = pipeline.Audit(root)
+                current.consumption(ui_path, manifest['consumers']['ui'], 'ui')
+                pipeline.audit_ui(current, ui)
+                return current.result()
+            result = inspect()
+            self.assertTrue(result['passed'], result)
+            target.write_text(target.read_text().replace('UnderworldUI', 'MissingTheme'))
+            failures = {item['code'] for item in inspect()['checks'] if not item['passed']}
+            self.assertIn('ui.root.ItemCard.actual_theme', failures)
 
 
 class UnderworldPipelineTest(unittest.TestCase):

@@ -23,6 +23,32 @@ EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version
                                                         CONNECTED_ROOT + 'connected_cliff_v2/')
 
 
+def verify_delivery_metadata(root, commit):
+    """Check transported metadata after full Harness output custody verification.
+
+    This does not replace the original PCK/runtime-closure check; the full
+    release proof must already bind every transported byte, including metadata.
+    """
+    root = Path(root)
+    metadata = json.loads((root / "build-info.json").read_text())
+    if not re.fullmatch(r"[0-9a-f]{40}", commit) or metadata.get("source_commit") != commit:
+        raise ValueError("Transferred Web metadata belongs to a different source commit")
+    name = metadata.get("pack")
+    if (not isinstance(name, str) or not name or name != Path(name).name
+            or "\\" in name or not name.endswith(".pck")):
+        raise ValueError("Invalid transferred Web pack path")
+    pack = root / name
+    if pack.is_symlink() or not pack.is_file():
+        raise ValueError("Missing/linked transferred Web pack")
+    with pack.open("rb") as stream:
+        digest = hashlib.file_digest(stream, "sha256").hexdigest()
+    if (metadata.get("build_id") != digest[:12]
+            or type(metadata.get("pack_bytes")) is not int
+            or metadata["pack_bytes"] != pack.stat().st_size):
+        raise ValueError("Transferred Web pack bytes disagree with metadata")
+    return metadata
+
+
 def excluded_evidence_families(repo):
     """Removal from every preset is required before adding a runtime consumer."""
     preset = Path(repo) / 'export_presets.cfg'
@@ -38,7 +64,7 @@ def check_excluded_consumers(repo):
     families = excluded_evidence_families(repo)
     suffixes = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc', '.cfg',
                 '.gdextension', '.cs', '.glsl', '.shader', '.res', '.scn'}
-    for directory in ('scripts', 'scenes', 'resources', 'config'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'game'):
         for source in (Path(repo) / directory).rglob('*'):
             if source.is_file() and source.suffix in suffixes:
                 data = source.read_bytes()
@@ -337,7 +363,7 @@ def check(root, repo=REPO):
     assert metadata['build_id'] == hashlib.sha256((root / metadata['pack']).read_bytes()).hexdigest()[:12]
     closure = check_runtime_closure(root / metadata['pack'], repo)
     # Excluded candidates have no runtime consumer. New consumers must revisit this export policy.
-    for directory in ('scripts', 'scenes', 'resources', 'config'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'game'):
         for source in (repo / directory).rglob('*'):
             if source.suffix in ('.gd', '.tscn', '.tres', '.json'):
                 assert 'assets/painterly_v2/' not in source.read_text(), str(source)

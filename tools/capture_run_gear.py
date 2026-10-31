@@ -21,7 +21,7 @@ from run_underworld_home_tests import Tee
 
 ROOT = Path(__file__).resolve().parents[1]
 DRIVER = "tests/run_gear_movie.gd"
-FOLDERS = ("scripts", "scenes", "resources", "assets", "config", "shaders", "addons", "tools", "tests")
+FOLDERS = ("scripts", "scenes", "resources", "assets", "config", "shaders", "addons", "tools", "tests", "game")
 
 
 def sha(path):

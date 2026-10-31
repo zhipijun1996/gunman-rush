@@ -722,3 +722,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | AI-LEVEL-PILOT-01 | 平原/森林小样、强替代、几何对照及失败回流 | AI-LEVEL-DESIGN-01 | review | [小样与失败](ai_level_design_v1/pilot_design.md)；无正式准入，高路编舞被直取奖励反证，真人/设备未验 |
 
 | LEVEL-TOOLS-INTEGRATION-01 | PR107离线工具与两Boss主线并集 | MAIN-UNIFY-20261031 | in_progress | [组合证据](evidence/main_unify_20261031/level-tools/README.md)；28/41通过，native pilot/full172未签，不切正式地图 |
+
+| GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原172/预算保持，森林超时分开修复 |

@@ -3,7 +3,7 @@ import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOTS = ('scripts', 'scenes', 'resources', 'config', 'shaders', 'assets', 'tests', 'tools')
+SOURCE_ROOTS = ('scripts', 'scenes', 'resources', 'config', 'shaders', 'assets', 'tests', 'tools', 'game')
 
 
 def inventory(root=ROOT):

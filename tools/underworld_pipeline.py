@@ -897,7 +897,7 @@ def audit_ui(a: Audit, ui: dict):
     roots=ui.get('production_roots',[])
     a.check(isinstance(roots,list) and len(roots)>=13 and len(set(roots))==len(roots),'ui.real_root_inventory','Explicit actual UI consumer inventory')
     classes={}
-    for path in (a.root/'scripts').rglob('*.gd'):
+    for path in (p for directory in ('scripts','game') for p in (a.root/directory).rglob('*.gd')):
         content=a.text_overrides.get(str(path.relative_to(a.root)),path.read_text())
         match=re.search(r'^class_name\s+(\w+)',content,re.MULTILINE)
         if match:classes[match.group(1)]=(path,content)

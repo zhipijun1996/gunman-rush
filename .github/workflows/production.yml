@@ -112,8 +112,6 @@ jobs:
             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg 2>&1 | tee -a build/verification/production-ci/media-install.log
           fi
           python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt 2>&1 | tee build/verification/production-ci/python-install.log
-      - name: Exercise real media delivery checks after installing ffmpeg and ffprobe
-        run: python3 tests/test_cloud_delivery.py 2>&1 | tee build/verification/production-ci/delivery-tests.log
       - uses: actions/cache/restore@v4
         if: steps.impact.outputs.needs_engine == 'true'
         id: toolchain
@@ -146,7 +144,6 @@ jobs:
         timeout-minutes: 15
         run: |
           python3 tools/check_release_evidence.py --commit "$(git rev-parse HEAD)" 2>&1 | tee build/verification/production-ci/release-evidence.log
-          python3 tools/test_frozen_assets.py 2>&1 | tee build/verification/production-ci/frozen-assets.log
           python3 tools/foundry.py build --count 24 --promote 2>&1 | tee build/verification/production-ci/foundry-build.log
           bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd 2>&1 | tee build/verification/production-ci/foundry-stamp.log
       - name: Freeze the prepared execution plan and restore all its selected inputs

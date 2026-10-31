@@ -412,6 +412,38 @@ class QualityTests(unittest.TestCase):
         self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
         self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
 
+    def test_game_production_change_requires_non_process_record(self):
+        base, asset = self.asset_diff_fixture()
+        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+        name = 'game/combat/actor.gd'
+        consumer = self.root / name
+        consumer.parent.mkdir(parents=True)
+        consumer.write_text('extends Node\n')
+        errors, changed = validate_diff(base, self.root)
+        self.assertIn(name, changed)
+        self.assertIn('Production change lacks non-process task record: ' + name, errors)
+        record_path = self.root / 'docs/quality/records/test.json'
+        record = json.loads(record_path.read_text())
+        record['affected_paths'].append(name)
+        record_path.write_text(json.dumps(record))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+
+    def test_game_asset_consumer_cannot_bypass_literal_or_dynamic_audit(self):
+        from check_quality_diff import known_asset_consumers
+        asset = self.root / 'assets/fixture.png'
+        asset.parent.mkdir()
+        asset.write_bytes(b'synthetic source bytes, not rendered')
+        consumer = self.root / 'game/presentation/actor.gd'
+        consumer.parent.mkdir(parents=True)
+        consumer.write_text('var texture = preload("res://assets/fixture.png")\n')
+        self.assertIn('assets/fixture.png', known_asset_consumers(self.root))
+        for reference in ('res://assets/missing.png', 'res://assets/%s.png'):
+            with self.subTest(reference=reference):
+                consumer.write_text('var texture = load("' + reference + '")\n')
+                with self.assertRaisesRegex(ValueError, 'Unresolved asset reference needs finite consumer adapter'):
+                    known_asset_consumers(self.root)
+
     def test_diff_asset_omitted_file_never_inherits_directory_coverage(self):
         base, asset = self.asset_diff_fixture()
         (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))

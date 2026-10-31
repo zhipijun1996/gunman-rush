@@ -1,7 +1,7 @@
 name: Documentation
+# Main push runs this complete profile within Godot core/full exactly once.
+# Keep the explicit standalone documentation validation entry point.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read

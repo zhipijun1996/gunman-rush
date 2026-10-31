@@ -1,12 +1,10 @@
 """Bounded real-Motor directional forest golden, not formal region admission."""
 import argparse,fcntl,hashlib,json,math,os,pathlib,re,subprocess,time
+from forest_bible_world_sources import inventory as source_inventory
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ERRORS=re.compile(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit')
 def inventory():
-    paths=[ROOT/'project.godot']
-    for directory in ('scripts','scenes','resources','config','shaders','assets','tests','tools'):
-        paths += [p for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc']
-    return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
+    return source_inventory(ROOT)
 # Source fragment for the existing golden wrapper, not another runtime.
 def _xy(value):
     return isinstance(value,list) and len(value)==2 and all(isinstance(x,(int,float)) and not isinstance(x,bool) and math.isfinite(x) for x in value)

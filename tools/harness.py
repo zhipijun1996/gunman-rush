@@ -628,7 +628,10 @@ def isolated_workspace(destination, files, setup_log=None):
     return env
 
 
-def execute_checks(data, ids, folder, jobs=1, reuse=False, commit="", hash_cache=None):
+def execute_checks(data, ids, folder, jobs=1, reuse=False, commit="", hash_cache=None, bindings=None):
+    bindings = bindings or {}
+    if bindings and (jobs != 1 or reuse):
+        raise ValueError("Output custody requires fresh non-isolated phase execution")
     """Each lane has its own Godot import cache, user data and generated artifacts."""
     files = source_files()
     identity = toolchain_identity()
@@ -699,6 +702,11 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit="", hash_cache
                     temporary.replace(cache_file)
             results[name] = {"id": name, "argv": check["argv"], "timeout_seconds": check["timeout_seconds"],
                              "input_digest": digest, "log": log.name, **result}
+            if result["status"] == "passed" and name in bindings.values():
+                # Bind at the actual validating check, not after later checks
+                # could have changed an otherwise unverified output tree.
+                results[name]["bound_outputs"] = bind_outputs({directory: producer for directory, producer in bindings.items()
+                                                              if producer == name})
             print(f"{name}: {result['status']}", flush=True)
             if result["status"] != "passed":
                 break
@@ -759,7 +767,7 @@ def bind_lane_logs(data, checks, folder):
         item["log_sha256"] = hashlib.sha256((folder / item["log"]).read_bytes()).hexdigest()
 
 
-def proof_file(path):
+def _proof_path(path):
     """Keep evidence inside ROOT/build; inspect links before resolving evidence.
 
     ROOT itself may be reached through an OS/workspace alias. Only its trusted
@@ -785,6 +793,11 @@ def proof_file(path):
         current = current / part
         if current.is_symlink():
             raise ValueError("Linked phase proof path")
+    return current
+
+
+def proof_file(path):
+    current = _proof_path(path)
     try:
         regular = stat.S_ISREG(current.lstat().st_mode)
     except OSError as error:
@@ -794,11 +807,58 @@ def proof_file(path):
     return current
 
 
-def verify_lane_reports(data, profiles, paths, metadata, inventory):
+def output_bindings(values, data, ids, lane=None):
+    """Explicit output custody, using existing registered check ownership."""
+    result = {}
+    for value in values:
+        producer, separator, directory = value.partition(":")
+        if not separator or producer not in ids:
+            raise ValueError("Bound output requires a selected registered check")
+        _safe_member(directory)
+        if len(Path(directory).parts) < 2 or directory in result:
+            raise ValueError("Duplicate or unbounded output directory")
+        if any(Path(directory).is_relative_to(Path(other)) or Path(other).is_relative_to(Path(directory))
+               for other in result):
+            raise ValueError("Overlapping bound output directories")
+        if lane and producer not in lane_checks(data, ids, lane):
+            raise ValueError("Bound output producer belongs to another lane")
+        result[directory] = producer
+    return result
+
+
+def bound_output_files(directory):
+    """Hash the full transferred tree; reject links, special files and emptiness."""
+    _safe_member(directory)
+    base = _proof_path(directory)
+    if not base.is_dir():
+        raise ValueError("Missing bound output directory")
+    result = {}
+    hashes = SourceHashCache()
+    for path in sorted(base.rglob("*")):
+        safe = _proof_path(path)
+        mode = safe.lstat().st_mode
+        if stat.S_ISDIR(mode):
+            continue
+        if not stat.S_ISREG(mode):
+            raise ValueError("Non-regular bound output")
+        result[path.relative_to(base).as_posix()] = {"sha256": hashes.digest(safe), "size": safe.stat().st_size}
+    if not result:
+        raise ValueError("Empty bound output directory")
+    return result
+
+
+def bind_outputs(bindings):
+    return {directory: {"check": producer, "files": bound_output_files(directory)}
+            for directory, producer in bindings.items()}
+
+
+def verify_lane_reports(data, profiles, paths, metadata, inventory, bindings=None):
     """Verify two fresh phase proofs against this checkout; never execute checks."""
     ids = resolve_checks(data, profiles)
     manifest_hash = hashlib.sha256(MANIFEST.read_bytes()).hexdigest()
     reports, references, results = {}, [], {}
+    bindings = bindings or {}
+    bound_outputs = {}
     identity = None
     tokens = set()
     for path in paths:
@@ -836,6 +896,9 @@ def verify_lane_reports(data, profiles, paths, metadata, inventory):
         if identity is not None and toolchain != identity:
             raise ValueError("Phase toolchain identities differ")
         identity = toolchain
+        outputs = report.get("bound_outputs", {})
+        if not isinstance(outputs, dict):
+            raise ValueError("Invalid phase output custody")
         checks = report.get("checks")
         expected = lane_checks(data, ids, lane)
         if (not isinstance(checks, list) or not all(isinstance(item, dict) for item in checks)
@@ -887,13 +950,28 @@ def verify_lane_reports(data, profiles, paths, metadata, inventory):
                     or not re.search(check["success_pattern"], text, re.MULTILINE)
                     or re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit", text)):
                 raise ValueError("Phase completion/log integrity failed")
+            expected_check_outputs = {directory: producer for directory, producer in bindings.items() if producer == name}
+            check_outputs = item.get("bound_outputs", {})
+            if not isinstance(check_outputs, dict) or set(check_outputs) != set(expected_check_outputs):
+                raise ValueError("Missing or unexpected validating-check output custody")
+            for directory in expected_check_outputs:
+                if outputs.get(directory) != check_outputs[directory]:
+                    raise ValueError("Phase output differs from validating check")
             results[name] = item
+        expected_outputs = {directory: producer for directory, producer in bindings.items() if producer in expected}
+        if set(outputs) != set(expected_outputs):
+            raise ValueError("Missing or unexpected phase output custody")
+        for directory, producer in expected_outputs.items():
+            actual = {"check": producer, "files": bound_output_files(directory)}
+            if outputs[directory] != actual:
+                raise ValueError("Transferred output bytes/producer differ from fresh phase: " + directory)
+            bound_outputs[directory] = actual
         reports[lane] = report
         references.append({"lane": lane, "path": str(path), "sha256": hashlib.sha256(raw).hexdigest()})
     if set(reports) != {"parallel", "serial"} or set(results) != set(ids):
         raise ValueError("Missing selected-profile coverage")
     return {"checks": [results[name] for name in ids], "lane_reports": references,
-            "toolchain": identity, "toolchain_after": identity}
+            "toolchain": identity, "toolchain_after": identity, "bound_outputs": bound_outputs}
 
 
 def main():
@@ -912,7 +990,11 @@ def main():
     parser.add_argument("--lane", choices=("parallel", "serial"), help="Fresh partial profile phase; jobs=1 only")
     parser.add_argument("--verify-lanes", nargs=2, metavar=("PARALLEL_REPORT", "SERIAL_REPORT"),
                         help="Verify two fresh phase reports against current prepared source; no checks executed")
+    parser.add_argument("--bind-output", action="append", default=[], metavar="CHECK:BUILD_DIRECTORY",
+                        help="Bind a producing lane's output bytes; verify the same binding after transfer")
     args = parser.parse_args()
+    if args.bind_output and not (args.lane or args.verify_lanes):
+        parser.error("Output custody requires a fresh lane or lane verification")
     if args.lane or args.verify_lanes:
         if (not args.profile or "auto" in args.profile or args.check or args.reuse or args.jobs != 1
                 or (args.lane and (not args.release or args.verify_lanes))
@@ -924,6 +1006,7 @@ def main():
                                   (select_profiles(paths) if "auto" in profiles else [])))
     ids = list(dict.fromkeys(args.check)) if args.check else resolve_checks(data, profiles)
     requested_ids = ids[:]
+    bindings = output_bindings(args.bind_output, data, requested_ids, args.lane)
     if args.lane:
         ids = lane_checks(data, ids, args.lane)
     print(json.dumps({"profiles": profiles, "changed_paths": paths, "checks": ids}, ensure_ascii=False), flush=True)
@@ -956,7 +1039,7 @@ def main():
             report.update(requested_checks=requested_ids, source_files=inventory,
                           partial=bool(args.lane), approval_scope="partial" if args.lane else "selected_profiles_technical")
             if args.verify_lanes:
-                report.update(verify_lane_reports(data, profiles, args.verify_lanes, metadata, inventory))
+                report.update(verify_lane_reports(data, profiles, args.verify_lanes, metadata, inventory, bindings))
                 for reference in report["lane_reports"]:
                     phase_path = proof_file(reference["path"])
                     for name in lane_checks(data, requested_ids, reference["lane"]):
@@ -967,6 +1050,8 @@ def main():
                             raise RuntimeError("Phase log changed during verification")
                     if hashlib.sha256(proof_file(phase_path).read_bytes()).hexdigest() != reference["sha256"]:
                         raise RuntimeError("Phase report changed during verification")
+                if bind_outputs(bindings) != report["bound_outputs"]:
+                    raise RuntimeError("Bound outputs changed during lane verification")
                 report.update(source_files_after=source_inventory(), jobs=1, release=True)
                 if report["source_files_after"] != inventory or git_metadata() != metadata:
                     raise RuntimeError("Source/Git changed during lane verification")
@@ -974,7 +1059,7 @@ def main():
                 print("HARNESS LANES: verified complete fresh selected-profile coverage (technical only)", flush=True)
                 return 0
             report.update(lane=args.lane, toolchain=toolchain_identity(), python_executable=sys.executable)
-        report["checks"] = execute_checks(data, ids, folder, args.jobs, args.reuse and not args.release, report["commit"], hash_cache=source_hashes)
+        report["checks"] = execute_checks(data, ids, folder, args.jobs, args.reuse and not args.release, report["commit"], hash_cache=source_hashes, bindings=bindings)
         if args.lane:
             bind_lane_logs(data, report["checks"], folder)
             report.update(source_files_after=source_inventory(), toolchain_after=toolchain_identity())
@@ -987,6 +1072,11 @@ def main():
         if len(report["checks"]) != len(ids) or any(item["status"] != "passed" for item in report["checks"]):
             report["status"] = "failed"
             return 1
+        if args.lane:
+            report["bound_outputs"] = {directory: output for item in report["checks"]
+                                       for directory, output in item.get("bound_outputs", {}).items()}
+            if bind_outputs(bindings) != report["bound_outputs"]:
+                raise RuntimeError("Bound outputs changed after their validating check")
         report["status"] = "passed"
         return 0
     except BaseException:

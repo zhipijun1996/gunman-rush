@@ -11,7 +11,7 @@ import zlib
 from quality import ROOT, read_json, validate_record, validate_asset
 from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT, LANDSCAPE
 
-PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/')
+PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/', 'game/')
 # Exact reviewed finite loader. Any source change requires adapter review;
 # the hash does not replace runtime_contract's manifest/path/PNG/SHA checks.
 CONNECTED_CONSUMER_SHA256 = {
@@ -380,7 +380,7 @@ def known_asset_consumers(root):
     }
     suffixes = {'.gd', '.tscn', '.tres', '.json', '.cfg', '.gdshader', '.gdshaderinc'}
     quoted = re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\#[^\n]*''')
-    for directory in ('scripts', 'scenes', 'resources', 'config', 'assets'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'assets', 'game'):
         folder = root / directory
         if not folder.is_dir():
             continue

@@ -32,8 +32,6 @@ jobs:
           python-version: '3.12'
       - name: Check committed quality evidence before toolchain work
         run: python3 tools/check_release_evidence.py --commit "$(git rev-parse HEAD)"
-      - name: Check exact portable frozen assets before toolchain work
-        run: python3 tools/test_frozen_assets.py
       - uses: actions/cache/restore@v4
         id: installed-toolchain-cache
         with:
@@ -150,8 +148,23 @@ jobs:
           ffprobe -version
       - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
         timeout-minutes: 2
-      # Each machine runs its exact disjoint lane, with original per-check caps.
-      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release --lane ${{ matrix.lane }}
+      # One complete registered full set across disjoint lanes. Web checks run
+      # here once; their exact output bytes travel with the original phase proof.
+      - name: Run the complete fresh full-profile lane
+        run: |
+          output_args=()
+          if [ "${{ matrix.lane }}" = serial ]; then
+            output_args+=(--bind-output web-bundle:build/web)
+          fi
+          python3 tools/harness.py --profile full --jobs 1 --release --lane ${{ matrix.lane }} "${output_args[@]}"
+      - uses: actions/upload-artifact@v4
+        if: success() && matrix.lane == 'serial'
+        with:
+          name: checked-web-output
+          path: build/web/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
       - name: Collect the unique original phase report and check stdout logs
         if: always()
         env:
@@ -296,9 +309,13 @@ jobs:
         with:
           name: harness-phase-proof-serial
           path: build/verification/ci-lane-proof/serial/
-      - name: Verify exact same-source complete fresh check coverage and original logs
+      - uses: actions/download-artifact@v4
+        with:
+          name: checked-web-output
+          path: build/web/
+      - name: Verify complete full coverage, original logs and exact Web output bytes
         run: |
-          python3 tools/harness.py --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --profile gameplay --profile art
+          python3 tools/harness.py --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --profile full --bind-output web-bundle:build/web
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -379,72 +396,36 @@ jobs:
     outputs:
       build_id: ${{ steps.fingerprint.outputs.build_id }}
       source_commit: ${{ steps.fingerprint.outputs.source_commit }}
-    needs: prepare
+    needs: [prepare, core]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Select absolute external toolchain path
-        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/cache/restore@v4
-        id: installed-toolchain-cache
-        with:
-          path: |
-            ${{ runner.temp }}/gunman-toolchains/godot
-            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
-      - uses: actions/cache/restore@v4
-        with:
-          path: ${{ runner.temp }}/gunman-toolchains/downloads
-          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
-          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
-      - name: Install verified toolchain (resumable bounded downloads)
-        run: bash tools/cloud_setup.sh --godot-only
-      - uses: actions/cache/save@v4
-        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
-        with:
-          path: |
-            ${{ runner.temp }}/gunman-toolchains/godot
-            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
-      - uses: actions/cache/save@v4
-        if: failure()
-        with:
-          path: ${{ runner.temp }}/gunman-toolchains/downloads
-          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
-          path: |
-            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
-            build/verification/environment/setup-report.json
-          if-no-files-found: warn
-          retention-days: 7
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
           path: resources/foundry/
-      - name: Install media verification dependencies
-        timeout-minutes: 5
-        run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do
-              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
-            done
-            sudo apt-get -o Acquire::Retries=1 update
-            sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg
-          fi
-          ffmpeg -version
-          ffprobe -version
-      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
-        timeout-minutes: 2
-      - run: python3 tools/harness.py --profile web --release
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-phase-proof-parallel
+          path: build/verification/ci-lane-proof/parallel/
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-phase-proof-serial
+          path: build/verification/ci-lane-proof/serial/
+      - uses: actions/download-artifact@v4
+        with:
+          name: checked-web-output
+          path: build/web/
+      # Revalidate the transferred proof and bytes, without executing any check
+      # or substituting a native result for the original Web export/PCK checks.
+      - name: Verify complete fresh proof and transported Web artifact
+        run: python3 tools/harness.py --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --profile full --bind-output web-bundle:build/web
       - name: Show failed Harness checks without requiring artifact download
         if: failure()
         run: |
@@ -468,7 +449,17 @@ jobs:
                   print('::error title=Harness ' + check['id'] + '::' + detail)
           PY
       - id: fingerprint
-        run: python3 -c "import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\nsource_commit='+d['source_commit']+'\n')"
+        name: Require metadata to match the tested source and actual PCK bytes
+        run: |
+          python3 - <<'PY'
+          import os, subprocess, sys
+          sys.path.insert(0, 'tools')
+          from check_web_bundle import verify_delivery_metadata
+          commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          data = verify_delivery_metadata('build/web', commit)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('build_id=' + data['build_id'] + '\nsource_commit=' + data['source_commit'] + '\n')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:

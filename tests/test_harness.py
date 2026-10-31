@@ -796,6 +796,61 @@ class SourceHashCacheTests(unittest.TestCase):
         self.assertEqual(self.path.read_bytes(), b"mutated!", "Mutation is real; only metadata observation is mocked")
 
 
+class CIWorkflowCoverageTests(unittest.TestCase):
+    """Guard actual workflow/profile ownership, without a second check registry."""
+    def test_one_main_execution_retains_complete_union_and_web_ownership(self):
+        import re
+        root = Path(__file__).resolve().parents[1]
+        data = json.loads((root / "tools/harness/profiles.json").read_text())
+        required = set().union(*(set(data["profiles"][name]) for name in ("gameplay", "art", "web", "docs")))
+        self.assertEqual(set(data["profiles"]["full"]), required)
+        source = (root / ".github/workflows/environment.yml").read_text()
+        commands = re.findall(r"python3 tools/harness\.py ([^\n]+)", source)
+        executions = [command for command in commands if "--verify-lanes" not in command]
+        self.assertEqual(len(executions), 1, "Main must not rerun overlapping profiles in another job")
+        self.assertRegex(executions[0], r"--profile full\b")
+        self.assertIn("--release", executions[0]); self.assertIn("--lane", executions[0])
+        self.assertIn("lane: [parallel, serial]", source)
+        for name in ("web-build", "web-bundle"):
+            self.assertTrue(data["checks"][name]["serial"])
+        self.assertFalse(data["checks"]["web-cache"].get("serial", False))
+        self.assertLess(data["profiles"]["full"].index("web-build"), data["profiles"]["full"].index("web-bundle"))
+        self.assertIn("output_args+=(--bind-output web-bundle:build/web)", source)
+        verifiers = [command for command in commands if "--verify-lanes" in command]
+        self.assertEqual(len(verifiers), 2)
+        for command in verifiers:
+            self.assertIn("--profile full", command)
+            self.assertIn("--bind-output web-bundle:build/web", command)
+        web = source.split("  web:\n", 1)[1].split("  deploy_web:\n", 1)[0]
+        self.assertIn("needs: [prepare, core]", web)
+        self.assertIn("verify_delivery_metadata('build/web', commit)", web)
+        self.assertIn("needs: [core, windows, web]", source)
+        self.assertIn("needs: [deploy_web, web]", source)
+        self.assertIn("workflow_dispatch:", source)
+        self.assertIn("inputs.build_android", source)
+
+    def test_docs_manual_entry_and_original_registered_prechecks_are_preserved(self):
+        import re
+        root = Path(__file__).resolve().parents[1]
+        data = json.loads((root / "tools/harness/profiles.json").read_text())
+        docs = (root / ".github/workflows/docs.yml").read_text()
+        self.assertIn("  workflow_dispatch:", docs)
+        self.assertNotRegex(docs, r"(?m)^  push:")
+        self.assertIn("python3 tools/harness.py --profile docs", docs)
+        self.assertLessEqual(set(data["profiles"]["docs"]), set(data["profiles"]["full"]))
+        for filename in ("environment.yml", "production.yml"):
+            source = (root / ".github/workflows" / filename).read_text()
+            self.assertNotIn("python3 tools/test_frozen_assets.py", source)
+            self.assertNotIn("python3 tests/test_cloud_delivery.py", source)
+        for name in ("portable-frozen-assets", "cloud-delivery-tests"):
+            self.assertIn(name, data["profiles"]["docs"])
+        production = (root / ".github/workflows/production.yml").read_text()
+        self.assertIn("--precheck-only", production)
+        self.assertIn("--profile full --release --jobs 1 --lane", production)
+        policy = json.loads((root / "config/production_impact.json").read_text())
+        self.assertIn("plains-encounter-policy", [check["parent_check"] for check in policy["early_python_checks"]])
+
+
 class HarnessLaneTests(unittest.TestCase):
     """Real tiny Python checks and Git sources; no native/profile approval."""
     def setUp(self):
@@ -845,6 +900,113 @@ class HarnessLaneTests(unittest.TestCase):
 
     def verify(self, paths):
         return h.verify_lane_reports(self.data, ["gameplay", "art"], paths, h.git_metadata(), h.source_inventory())
+
+    def output_phases(self):
+        # Tiny real output producer; no Godot/export/runtime approval claim.
+        (self.root / "tests/b.py").write_text(
+            "from pathlib import Path\n"
+            "p=Path('build/web');p.mkdir(parents=True)\n"
+            "(p/'pack.pck').write_bytes(b'SIMULATED export bytes')\n"
+            "(p/'build-info.json').write_text('{}')\n"
+            "print('COMPLETE b')\n")
+        paths = []
+        for lane in ("parallel", "serial"):
+            args = ["--profile", "gameplay", "--profile", "art", "--release", "--lane", lane]
+            if lane == "serial": args += ["--bind-output", "b:build/web"]
+            self.assertEqual(self.cli(*args), 0)
+            paths.append(max((self.root / "build/verification/harness").glob("*/report.json"), key=lambda p: p.parent.name))
+        return paths
+
+    def verify_outputs(self, paths):
+        return h.verify_lane_reports(self.data, ["gameplay", "art"], paths,
+                                     h.git_metadata(), h.source_inventory(), {"build/web": "b"})
+
+    def test_real_output_transfer_binds_complete_tree_without_reexecuting_checks(self):
+        paths = self.output_phases()
+        # Transfer actual bytes to a fresh directory rather than accepting a name.
+        source = self.root / "build/web"
+        held = self.root / "build/held-output"
+        source.rename(held)
+        import shutil
+        shutil.copytree(held, source)
+        with patch.object(h, "execute_checks", side_effect=AssertionError("No rerun on transfer")):
+            self.assertEqual(self.cli("--verify-lanes", *map(str, paths), "--profile", "gameplay",
+                                      "--profile", "art", "--bind-output", "b:build/web"), 0)
+        output = self.verify_outputs(paths)["bound_outputs"]["build/web"]
+        self.assertEqual(output["check"], "b")
+        self.assertEqual(set(output["files"]), {"pack.pck", "build-info.json"})
+        self.assertEqual(output["files"]["pack.pck"]["sha256"], hashlib.sha256(b"SIMULATED export bytes").hexdigest())
+
+    def test_transfer_rejects_changed_missing_extra_and_linked_payloads(self):
+        paths = self.output_phases()
+        pack = self.root / "build/web/pack.pck"; original = pack.read_bytes()
+        for change in ("changed", "missing", "extra", "linked", "empty", "special"):
+            with self.subTest(change=change):
+                extra = self.root / "build/web/unexpected"
+                if change == "changed": pack.write_bytes(b"another export")
+                elif change == "missing": pack.unlink()
+                elif change == "extra": extra.write_bytes(b"unverified file")
+                elif change == "linked":
+                    pack.unlink(); pack.symlink_to(self.root / "tests/b.py")
+                elif change == "empty":
+                    pack.unlink(); (self.root / "build/web/build-info.json").unlink()
+                elif change == "special": os.mkfifo(extra)
+                try:
+                    with self.assertRaises(ValueError): self.verify_outputs(paths)
+                finally:
+                    pack.unlink(missing_ok=True); pack.write_bytes(original)
+                    extra.unlink(missing_ok=True)
+                    (self.root / "build/web/build-info.json").write_text('{}')
+        source = self.root / "build/web"; held = self.root / "build/held"
+        source.rename(held); source.symlink_to(held, target_is_directory=True)
+        with self.assertRaises(ValueError): self.verify_outputs(paths)
+
+    def test_transfer_requires_explicit_exact_producer_and_fresh_complete_proof(self):
+        paths = self.output_phases(); original = json.loads(paths[1].read_text())
+        changes = [lambda r:r.pop("bound_outputs"),
+                   lambda r:r["bound_outputs"]["build/web"].update(check="a"),
+                   lambda r:r["bound_outputs"]["build/web"].update(files={}),
+                   lambda r:r["bound_outputs"].update({"build/elsewhere": {}}),
+                   lambda r:r.update(status="failed"),
+                   lambda r:r["checks"][0].update(reused=True)]
+        for mutation in changes:
+            changed = self.copy(original); mutation(changed); paths[1].write_text(json.dumps(changed))
+            with self.assertRaises(ValueError): self.verify_outputs(paths)
+        paths[1].write_text(json.dumps(original))
+        with self.assertRaises(ValueError): self.verify(paths)  # Cannot silently discard output custody.
+        for values, lane in [(["missing:build/web"], "serial"), (["a:build/web"], "serial"),
+                             (["b:/tmp/web"], "serial"), (["b:build/../web"], "serial"),
+                             (["b:build"], "serial"), (["b:build/web", "b:build/web"], "serial"),
+                             (["b:build/web", "b:build/web/nested"], "serial")]:
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                h.output_bindings(values, self.data, ["a", "b"], lane)
+        with self.assertRaises(SystemExit): self.cli("--profile", "gameplay", "--bind-output", "b:build/web")
+
+    def test_later_checks_cannot_rebind_changed_bytes_as_validated_output(self):
+        (self.root / "tests/b.py").write_text(
+            "from pathlib import Path\np=Path('build/web');p.mkdir(parents=True)\n"
+            "(p/'pack.pck').write_bytes(b'checked bytes')\nprint('COMPLETE b')\n")
+        (self.root / "tests/c.py").write_text(
+            "from pathlib import Path\nPath('build/web/pack.pck').write_bytes(b'unchecked later bytes')\n"
+            "print('COMPLETE c')\n")
+        self.data["checks"]["c"] = {"argv": ["python3", "tests/c.py"], "timeout_seconds": 5,
+                                    "success_pattern": "^COMPLETE c$", "serial": True}
+        self.data["profiles"]["gameplay"].append("c")
+        self.manifest.write_text(json.dumps(self.data))
+        with self.assertRaisesRegex(RuntimeError, "changed after their validating check"):
+            self.cli("--profile", "gameplay", "--release", "--lane", "serial", "--bind-output", "b:build/web")
+
+    def test_output_change_during_full_proof_verification_fails(self):
+        paths = self.output_phases()
+        original = h.verify_lane_reports
+        def mutate(*args, **kwargs):
+            result = original(*args, **kwargs)
+            (self.root / "build/web/pack.pck").write_bytes(b"changed during proof copying")
+            return result
+        with patch.object(h, "verify_lane_reports", side_effect=mutate):
+            with self.assertRaisesRegex(RuntimeError, "outputs changed"):
+                self.cli("--verify-lanes", *map(str, paths), "--profile", "gameplay", "--profile", "art",
+                         "--bind-output", "b:build/web")
 
     def test_real_phases_and_merge_cover_complete_dirty_prepared_source(self):
         paths = self.phases()

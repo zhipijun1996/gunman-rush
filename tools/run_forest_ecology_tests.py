@@ -7,6 +7,11 @@ import re
 from run_tests import run_engine
 ROOT = Path(__file__).resolve().parent.parent
 
+def inventory():
+    sources = sorted([*ROOT.glob('scripts/enemies/forest_*.gd'), *ROOT.glob('scripts/bosses/thorn_*.gd'), *ROOT.glob('resources/enemies/forest_*.tres'), *ROOT.glob('resources/bosses/thorn_*.tres'), ROOT/'scripts/enemies/enemy_actor.gd', ROOT/'scripts/enemies/enemy_definition.gd', ROOT/'tests/forest_ecology_runner.gd',
+                      *(p for p in (ROOT/'game').rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')])
+    return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default='build/forest_playable/ecology/native')
@@ -17,8 +22,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     if (out/'capture.json').exists():
         parser.error('fresh output required; retain previous capture')
-    sources = sorted([*ROOT.glob('scripts/enemies/forest_*.gd'), *ROOT.glob('scripts/bosses/thorn_*.gd'), *ROOT.glob('resources/enemies/forest_*.tres'), *ROOT.glob('resources/bosses/thorn_*.tres'), ROOT/'scripts/enemies/enemy_actor.gd', ROOT/'scripts/enemies/enemy_definition.gd', ROOT/'tests/forest_ecology_runner.gd'])
-    (out/'sources.json').write_text(json.dumps({str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},indent=2))
+    (out/'sources.json').write_text(json.dumps(inventory(),indent=2))
     output = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script', 'tests/forest_ecology_runner.gd', '--', f'--output-dir=res://{out.relative_to(ROOT)}'], 180)
     (out/'native.log').write_text(output)
     if not re.search(r'^FOREST ECOLOGY: [1-9]\d* assertions, 0 failures$', output,re.M):

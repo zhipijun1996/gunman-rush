@@ -268,6 +268,16 @@ class BundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Runtime consumer references excluded'):
             self.check()
 
+    def test_game_consumers_cannot_reference_excluded_evidence_families(self):
+        for suffix in ('.gd', '.tscn', '.tres', '.json', '.gdshader'):
+            name = 'game/presentation/consumer' + suffix
+            with self.subTest(path=name):
+                self.local(name, ('res://' + bundle.EVIDENCE_ONLY_FAMILIES[0] + 'source.png').encode())
+                with self.assertRaisesRegex(ValueError, 'Runtime consumer references excluded'):
+                    self.check()
+                (self.repo / name).unlink()
+        self.assertEqual(self.check()['excluded_evidence_families'], list(bundle.EVIDENCE_ONLY_FAMILIES))
+
     def test_missing_each_runtime_json_is_rejected(self):
         for name in [n for n in self.entries if n.endswith('.json')]:
             with self.subTest(path=name):
@@ -408,6 +418,12 @@ class BundleTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             bundle.check(folder, self.repo)
 
+    def test_bundle_entrypoint_rejects_retired_painterly_consumer_in_game(self):
+        folder, _ = self.web_fixture()
+        self.local('game/presentation/retired.gd', b'var bad := "res://assets/painterly_v2/retired.png"')
+        with self.assertRaisesRegex(AssertionError, 'game/presentation/retired.gd'):
+            bundle.check(folder, self.repo)
+
     def test_all_shipping_presets_preserve_finite_runtime_closure(self):
         presets = configparser.ConfigParser(interpolation=None)
         presets.read(bundle.REPO / 'export_presets.cfg')
@@ -512,6 +528,28 @@ class BundleTests(unittest.TestCase):
         broken[family + 'source.png'] = PNG
         with self.assertRaisesRegex(ValueError, 'PCK contains excluded evidence-only family'):
             self.check(broken)
+
+
+class DeliveryMetadataTests(unittest.TestCase):
+    """Delivery identity only; complete runtime validation remains in check()."""
+    def test_exact_commit_pack_hash_and_size_are_required_after_transport(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); pack = root / 'fixture.pck'
+            write_pack(pack, [('res://fixture.txt', b'actual small pack bytes')])
+            commit = 'a' * 40
+            original = {'source_commit': commit, 'pack': pack.name, 'pack_bytes': pack.stat().st_size,
+                        'build_id': hashlib.sha256(pack.read_bytes()).hexdigest()[:12]}
+            info = root / 'build-info.json'; info.write_text(json.dumps(original))
+            self.assertEqual(bundle.verify_delivery_metadata(root, commit), original)
+            for key, value in [('source_commit', 'b' * 40), ('pack', '../fixture.pck'), ('pack', '/tmp/a.pck'),
+                               ('pack', 'sub\\a.pck'), ('pack_bytes', True), ('pack_bytes', 1), ('build_id', '0' * 12)]:
+                with self.subTest(key=key, value=value):
+                    info.write_text(json.dumps({**original, key: value}))
+                    with self.assertRaises(ValueError): bundle.verify_delivery_metadata(root, commit)
+            info.write_text(json.dumps(original)); pack.write_bytes(b'corrupt')
+            with self.assertRaises(ValueError): bundle.verify_delivery_metadata(root, commit)
+            pack.unlink(); pack.symlink_to(info)
+            with self.assertRaises(ValueError): bundle.verify_delivery_metadata(root, commit)
 
 
 if __name__ == '__main__':

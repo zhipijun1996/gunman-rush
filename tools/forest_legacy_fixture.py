@@ -21,7 +21,7 @@ BASIS = ROOT / 'docs/evidence/forest_depth_v2/legacy_v1'
 CHECK_IDS = ('forest-h-slice', 'forest-ecology', 'forest-progression',
              'forest-campaign', 'forest-debug', 'forest-traversal',
              'forest-region-matrix', 'forest-formal-combat')
-SOURCE_DIRS = {'scripts', 'scenes', 'resources', 'config', 'tests', 'tools', 'shaders', 'addons'}
+SOURCE_DIRS = {'scripts', 'scenes', 'resources', 'config', 'tests', 'tools', 'shaders', 'addons', 'game'}
 
 
 def sha(data):

@@ -54,7 +54,7 @@ def engine_identity(root):
 
 def snapshot(root, catalog=None):
     paths = []
-    for folder in ('scripts', 'scenes', 'resources', 'config', 'assets', 'shaders', 'addons'):
+    for folder in ('scripts', 'scenes', 'resources', 'config', 'assets', 'shaders', 'addons', 'game'):
         paths += [p for p in (root / folder).rglob('*') if p.is_file()]
     paths += [root / p for p in ('project.godot', 'tools/level_pilot_validate.gd',
                                 'tools/level_content_pilot.py', 'tools/level_content.py',
