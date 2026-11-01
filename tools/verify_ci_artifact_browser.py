@@ -25,21 +25,22 @@ def inventory(root):
 # One reviewed consumer-tool revision, not a general tools/tests exemption.
 # Locator-only consumer migrations must also reverse to the complete reference Git bytes.
 CONSUMER_REFERENCE_COMMIT = '37950e0896a91c6b812a11c323ec3d5fd1800bb0'
-REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': 'aaeeb2fea8d96c329689560a3bbf67e1e82fe97f26519686963441f2be9ed129',
+REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': 'd0d57caf25fa14f19925540f2ffdb3d8f99bb42b027f99aae178cf8808c1e223',
  'tools/verify_four_line_browser.py': 'ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f',
- 'tools/test_studio_gui_pointer.py': '2f1f7ff5975fa32a28020d6bc307f351391e5b899e4fb17f039de9d636bb7087',
+ 'tools/test_studio_gui_pointer.py': '74759e48c0bf236d9fa971377dd57e550f9d772ba40f7b7f690f1a6b0fa0f496',
  'tests/fixtures/studio_gui_pointer/title_37950_current.png': 'cc90b463b98b79e66e703a720fbd644c5de277e52ee2d4d5601894cccb321ff9',
  'tests/fixtures/studio_gui_pointer/title_37950_current.json': '570a8e2eb2a63dac2cc4785d44df0b0ae6ca4517e6d7d6d560e23eafc38fc5fa',
  'tools/verify_action_budget_browser.py': 'f95db7d7691231e82e72530553e02a3b4a5c5809f9eda4f9d4c1ec3e7ac372d3',
  'tools/verify_studio_click_browser.py': '675b97ec54e961492c770fa068bd478ad78cbd3a65faef0917588929a367cc71',
  'tools/verify_all_weapon_browser.py': '7905cc12f0224b8512f3268aac14abc0de9b4a99eea609dd1c0f88d72eb0fd10',
- 'tests/fixtures/studio_gui_pointer/current_navigation_37950.json': 'a1ed617cbc56089e4b5f0d90871a67d02305a8a89f3a74c8db77ae3c74338b45',
+ 'tests/fixtures/studio_gui_pointer/current_navigation_37950.json': '6c9bffd28619e834c71bed3486e26df3495947f773b88eb7f796a6fbaf9f7253',
  'tests/fixtures/studio_gui_pointer/navigation_touch_title_37950.png': '0858bb644054a9c46df4e5572f7a17ae53eee45cba6cb490102b1bf2a2dfa92e',
  'tests/fixtures/studio_gui_pointer/navigation_touch_actions_37950.png': '0f3ddd31c61e1f57762ffa7f0c14d30ebe506c4885fd3ff0ccaca80852763215',
  'tests/fixtures/studio_gui_pointer/controls_37950_desktop.png': 'cf6a5454814a4b01263ba895da9ccfe641e5085e4bb8e80ce5c0711f317c1285',
  'tests/fixtures/studio_gui_pointer/controls_37950_touch.png': '77f9f6cee7c56516a23822051557397460f44dbd24124f28d298adafb9645004',
  'tests/fixtures/studio_gui_pointer/popup_37950_desktop.png': '818c096cf86d089fe99c19c703bf8fc1453270aaa89cfba89aee24021b6334f2',
- 'tests/fixtures/studio_gui_pointer/controls_37950_touch_mixed_derived.png': '3c89a4d0555e4803d15fed4c61cde88a75eb292bb1d771478b5992be079d04b3'}
+ 'tests/fixtures/studio_gui_pointer/controls_37950_touch_mixed_derived.png': '3c89a4d0555e4803d15fed4c61cde88a75eb292bb1d771478b5992be079d04b3',
+ 'tests/fixtures/studio_gui_pointer/navigation_desktop_actions_ab263.png': '0af4de54c504256e5cb60810e4937b70c8326e5108f53a2399fc2c3985c28f4c'}
 REVIEWED_VISUAL_INPUTS = {'game/combat/weapons/weapon_catalog.gd': 'efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4',
  'scripts/combat/weapon_definition.gd': '5c4d8be2021279e1eb4f6e981116ba80e49811a8318681c15e6e241b2c70ec1b',
  'assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf': 'db40edf0cc1e446bfe1ce75d5abb4d7c499ace96379b8a0f5f761bd3de8335eb',

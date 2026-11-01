@@ -395,15 +395,21 @@ async def enter_action_studio(page,touch=False,between_clicks_ms=300):
    observation={'label':label,'attempt':attempt,'screenshot':stem+'.png'}
    receipt['observations'].append(observation)
    try:
-    if label=='ACTIONS':
-     point=_studio_actions_from_pixels(pixels,folder,stem,observation)
-    else:
-     im=Image.open(io.BytesIO(pixels)).convert('L');im=im.resize((im.width*3,im.height*3))
-     data=io.BytesIO();im.save(data,format='PNG')
-     result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
-     tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
-     observation['ocr']=stem+'.tsv'
-     point=_studio_title_from_pixels(pixels,folder,stem,observation,tsv) if label=='DEVELOPMENT DEMOS / ALL ENTRIES' else _studio_label_box(tsv,label,3)
+    control={'DEVELOPMENT DEMOS / ALL ENTRIES':'title','ACTIONS':'actions'}.get(label)
+    try:
+     if control is None:raise StudioMenuLabelMissing('No current contract for navigation label')
+     point=_studio_current_reference(folder/(stem+'.png'),control)
+     observation['locator']='source_bound_current_full_control_pixels'
+    except StudioMenuLabelMissing:
+     if label=='ACTIONS':
+      point=_studio_actions_from_pixels(pixels,folder,stem,observation)
+     else:
+      im=Image.open(io.BytesIO(pixels)).convert('L');im=im.resize((im.width*3,im.height*3))
+      data=io.BytesIO();im.save(data,format='PNG')
+      result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+      tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
+      observation['ocr']=stem+'.tsv'
+      point=_studio_title_from_pixels(pixels,folder,stem,observation,tsv) if label=='DEVELOPMENT DEMOS / ALL ENTRIES' else _studio_label_box(tsv,label,3)
    except StudioMenuLabelMissing as exc:
     observation['result']='missing';observation['error']=str(exc)
     if attempt==4:raise

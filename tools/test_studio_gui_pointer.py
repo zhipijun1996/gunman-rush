@@ -806,5 +806,63 @@ class PopupConnectivityTests(unittest.TestCase):
         self.assertEqual(sets(np.zeros((0,0),dtype=bool)),set())
         self.assertEqual(sets(np.ones((1,1),dtype=bool)),{((0,0,1,1),frozenset([(0,0)]))})
 
+class CurrentNavigationFastPathTests(unittest.TestCase):
+    def invoke_actual_label_click(self,pixels,label):
+        import ast,inspect
+        from unittest.mock import AsyncMock
+        outer=ast.parse(inspect.getsource(helper.enter_action_studio)).body[0]
+        node=next(n for n in outer.body if isinstance(n,ast.AsyncFunctionDef) and n.name=='label_click')
+        with tempfile.TemporaryDirectory() as directory:
+            receipt={'observations':[],'clicks':[]};pointer=AsyncMock()
+            namespace={**helper.__dict__,'folder':Path(directory),'page':type('Page',(),{'screenshot':AsyncMock(return_value=pixels)})(),
+                       'receipt':receipt,'touch':False,'click':pointer,'scroll_visible_menu':AsyncMock()}
+            exec(compile(ast.fix_missing_locations(ast.Module(body=[node],type_ignores=[])),'<actual navigation label_click>','exec'),namespace)
+            asyncio.run(namespace['label_click']('observed',label))
+            self.assertEqual(pointer.await_count,1)
+            return receipt
+
+    def test_four_current_controls_use_existing_exact_match_without_ocr(self):
+        from unittest.mock import patch
+        cases=[('title_37950_current.png','title','DEVELOPMENT DEMOS / ALL ENTRIES'),
+               ('navigation_touch_title_37950.png','title','DEVELOPMENT DEMOS / ALL ENTRIES'),
+               ('navigation_desktop_actions_ab263.png','actions','ACTIONS'),
+               ('navigation_touch_actions_37950.png','actions','ACTIONS')]
+        for name,control,label in cases:
+            frame=FIXTURES/name;expected=helper._studio_current_reference(frame,control)
+            with self.subTest(frame=name),patch('subprocess.run',side_effect=AssertionError('unused OCR must not run')):
+                receipt=self.invoke_actual_label_click(frame.read_bytes(),label)
+            self.assertEqual(receipt['clicks'][0]['point'],expected)
+            self.assertEqual(receipt['clicks'][0]['locator'],'source_bound_current_full_control_pixels')
+
+    def test_missing_current_and_unknown_label_keep_original_ocr_fallback(self):
+        from unittest.mock import patch
+        from types import SimpleNamespace
+        frame=(FIXTURES/'title_37950_current.png').read_bytes()
+        for label,old_name in [('DEVELOPMENT DEMOS / ALL ENTRIES','_studio_title_from_pixels'),('ACTIONS','_studio_actions_from_pixels'),('OTHER','_studio_label_box')]:
+            with self.subTest(label=label),patch.object(helper,'_studio_current_reference',side_effect=helper.StudioMenuLabelMissing('not this current control')) as current,patch.object(helper,old_name,return_value=(12,34)) as fallback,patch('subprocess.run',return_value=SimpleNamespace(stdout=b'')) as ocr:
+                receipt=self.invoke_actual_label_click(frame,label)
+                self.assertEqual(receipt['clicks'][0]['point'],(12,34));fallback.assert_called_once()
+                self.assertEqual(current.call_count,0 if label=='OTHER' else 1)
+                self.assertEqual(ocr.call_count,0 if label=='ACTIONS' else 1)
+
+    def test_current_ambiguity_and_source_rejection_never_fall_back(self):
+        from unittest.mock import patch
+        image=Image.open(FIXTURES/'title_37950_current.png').convert('RGB')
+        image.paste(image.crop((50,480,414,540)),(50,570));pixels=io.BytesIO();image.save(pixels,format='PNG')
+        with patch('subprocess.run',side_effect=AssertionError('OCR fallback forbidden')),self.assertRaisesRegex(AssertionError,'Ambiguous current'):
+            self.invoke_actual_label_click(pixels.getvalue(),'DEVELOPMENT DEMOS / ALL ENTRIES')
+        with patch.object(helper,'_studio_reference_data',side_effect=AssertionError('source drift')),patch('subprocess.run',side_effect=AssertionError('OCR fallback forbidden')),self.assertRaisesRegex(AssertionError,'source drift'):
+            self.invoke_actual_label_click((FIXTURES/'title_37950_current.png').read_bytes(),'DEVELOPMENT DEMOS / ALL ENTRIES')
+
+    def test_new_desktop_actions_reference_rejects_duplicate_suffix_and_clip(self):
+        original=Image.open(FIXTURES/'navigation_desktop_actions_ab263.png').convert('RGB')
+        duplicate=original.copy();duplicate.paste(original.crop((270,263,530,325)),(270,540))
+        suffix=original.copy();ImageDraw.Draw(suffix).rectangle((520,285,522,303),fill=(246,232,191))
+        clipped=original.crop((0,0,1280,310))
+        for name,image in [('duplicate',duplicate),('suffix',suffix),('clip',clipped)]:
+            with self.subTest(case=name),tempfile.TemporaryDirectory() as directory:
+                frame=Path(directory)/'frame.png';image.save(frame)
+                with self.assertRaises(AssertionError):helper._studio_current_reference(frame,'actions')
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
