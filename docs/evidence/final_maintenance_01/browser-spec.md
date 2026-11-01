@@ -1,0 +1,3 @@
+# Browser consumer maintenance
+
+ToolSource a8a4114 and GameSource ab263 are separate frozen identities. Only tools/* and tests/fixtures/* differences from379 belong to this process card; two UI runtime/test files are excluded. Preserve source25, original business predicates and finite whole-byte inverse, three300s consumer budgets, API/PCK/clean-root/OCR guards. v4 actual51 remains at1790; finalv5 affected3 and coordinator28 passed, not full52. Original3 browsers03 pending. Current aiming/locator contract update is explicit, not a claim that changed coordinates equal old numeric aim. Prior failed observations remain unchanged. No device/content acceptance.

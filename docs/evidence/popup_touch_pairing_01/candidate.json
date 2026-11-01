@@ -1,0 +1,76 @@
+{
+  "task": "POPUP-TOUCH-PAIRING-01",
+  "classification": "separate existing UI bug fix, not behavior-preserving architecture change",
+  "rollback_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "files": [
+    {
+      "path": "game/presentation/ui/popup_touch_adapter.gd",
+      "original_sha256": "aea25b377ef6d242313cfb1c4b9addd83e89ca572cba02e498fced1134f0a012",
+      "candidate_sha256": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de"
+    },
+    {
+      "path": "tests/underworld_plains/test_underworld_ui.gd",
+      "original_sha256": "613e566bf221c28a611745d30020f8b6603142adf6d02a8a6eee33d5a13387f9",
+      "candidate_sha256": "1de2d2cddd2dd51e0868a645c462be9827bdda8ab47cc68d18b52872b8f0ef8d"
+    }
+  ],
+  "patch_sha256": "50e166e0e338ff9b16d48e2300531a53199648a395a6c50310e4f65c58f4b95a",
+  "original_web_blocker": {
+    "path": "/workspace/refactor-evidence/studio-controls-v2-candidate/touch-opening-contract-blocker.json",
+    "sha256": "48e40427317f9158a011d2e3c40c9b351aebec4e3b3973361eaf6182b013a83c"
+  },
+  "proofs": {
+    "two_file_patch_apply_reverse_exact": true,
+    "entire_original_registered_test_body_preserved": true,
+    "original_test_check_sites": 48,
+    "new_test_check_sites": 11,
+    "mouse_button_and_motion_forwarding_body_exact": true,
+    "global_emulation_setting_unchanged": true,
+    "main_written": false,
+    "chrome_run": false,
+    "whole_repo_cache_created": false
+  },
+  "validation": {
+    "bounded_native_probe_report": "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-06-final/report.json",
+    "report_sha256": "bb6e1801c9c7ecb2cb9c625f084e7abcf7cf38c1c15d20b256113f3885262e08",
+    "engine": "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+    "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "old": {
+      "checks": 11,
+      "failures": 9,
+      "exit_code": 1
+    },
+    "new": {
+      "checks": 11,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "scope": "Actual external PopupMenu + production Adapter + exact appended test method. Not full DemoMenu/App, DOM dispatch, browser or device acceptance. Earlier fixture failures retained."
+  },
+  "registered_followup": {
+    "check": "underworld-ui",
+    "argv": [
+      "python3",
+      "tools/run_underworld_ui_tests.py"
+    ],
+    "outer_seconds": 300,
+    "native_seconds": 180,
+    "editor_seconds": 90,
+    "status": "NOT_RUN",
+    "existing_input_closure": {
+      "game/presentation/ui/popup_touch_adapter.gd": [
+        "game/presentation",
+        "game"
+      ],
+      "tests/underworld_plains/test_underworld_ui.gd": [
+        "tests/underworld_plains"
+      ]
+    }
+  },
+  "existing_consumers": [
+    "DemoMenu touch movement OptionButton",
+    "DemoMenu Timeweaver appearance OptionButton",
+    "ActionStudio weapon OptionButton"
+  ],
+  "status": "FROZEN_EXTERNAL_CANDIDATE_AWAITING_NONAUTHOR_REVIEW"
+}

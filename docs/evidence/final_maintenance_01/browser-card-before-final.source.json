@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "task_id": "BROWSER-CONSUMER-REFRESH-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "reviewed_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+  "content_version": "maintenance-v1",
+  "owner": "/root",
+  "purpose": "刷新既有浏览器消费者的实际locator/reference aim及双来源验证工具；不修改UI运行实现。",
+  "player_experience": "维护既有消费者与检查归属；不签内容、设备或玩家认可。",
+  "constraints": [
+    "原失败及历史来源保留",
+    "不降低原断言/预算",
+    "GameSource与ToolSource分别绑定"
+  ],
+  "affected_paths": [
+    "tests/fixtures/studio_gui_pointer/controls_37950_desktop.png",
+    "tests/fixtures/studio_gui_pointer/controls_37950_touch.png",
+    "tests/fixtures/studio_gui_pointer/controls_37950_touch_mixed_derived.png",
+    "tests/fixtures/studio_gui_pointer/current_navigation_37950.json",
+    "tests/fixtures/studio_gui_pointer/navigation_touch_actions_37950.png",
+    "tests/fixtures/studio_gui_pointer/navigation_touch_title_37950.png",
+    "tests/fixtures/studio_gui_pointer/popup_37950_desktop.png",
+    "tests/fixtures/studio_gui_pointer/title_37950_current.json",
+    "tests/fixtures/studio_gui_pointer/title_37950_current.png",
+    "tools/studio_gui_pointer.py",
+    "tools/test_studio_gui_pointer.py",
+    "tools/test_verify_ci_artifact_browser.py",
+    "tools/verify_action_budget_browser.py",
+    "tools/verify_all_weapon_browser.py",
+    "tools/verify_ci_artifact_browser.py",
+    "tools/verify_four_line_browser.py",
+    "tools/verify_studio_click_browser.py"
+  ],
+  "deliverables": [
+    "现有维护源码与精确SHA",
+    "有限原测试和独审证据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限维护设计。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "实际原3浏览器03仍pending，保最终维护交付待验。",
+      "evidence": [
+        "affected3",
+        "coordinator28",
+        "v5-review",
+        "aim-review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "维护边界和原守门明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "仅当前v5 affected3和coordinator28实际通过；原51限定v4，不称final52或原3浏览器通过。",
+      "evidence": [
+        "affected3",
+        "coordinator28"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "限定当前v5四叶delta的独立源码/合同守门审查，不外推全部浏览器执行。",
+      "evidence": [
+        "v5-review",
+        "aim-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "仅声明的维护范围。",
+      "scenario": "真实既有消费者维护",
+      "method": "对照有限写集和原合同",
+      "expected": "不扩到游戏规则或新框架",
+      "failure": "混入运行规则或弱化原守门",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "pure-v5",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "actual3+28有限pure检查。",
+      "scenario": "冻结工具v5有限回归",
+      "method": "引用同字节原log，不重跑",
+      "expected": "affected3与coordinator28为0失败",
+      "failure": "弱化source25/300预算/有限逆变换或伪称full52",
+      "evidence": [
+        "affected3",
+        "coordinator28"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/final_maintenance_01/browser-spec.md",
+      "sha256": "cb663b388370d22527831441cff042c6a1d09c1b49742ccce528ba9fc5a24c6b",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "有限维护范围及明确不代签项。"
+    },
+    {
+      "id": "affected3",
+      "path": "docs/evidence/final_maintenance_01/studio-reference-v5-integrated-targeted-02.log",
+      "sha256": "71a1858f5162a217d8119ec3447c3035c21b96b8003ed75861c454100fea7989",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "v5实际affected3/0，非full52。",
+      "command": "python3 tools/test_studio_gui_pointer.py HookReferencePointTests",
+      "exit_code": 0,
+      "environment": "Frozen ToolSource a8a4114 samebytes; pure Python existing tests; no new run by record author"
+    },
+    {
+      "id": "coordinator28",
+      "path": "docs/evidence/final_maintenance_01/browser-dual-root-v5-final-worktree-28.log",
+      "sha256": "bde73d77fc1c42763762530ade564389418a8bf50239c69d11eebeabca2ff14d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "v5原coordinator28/0。",
+      "command": "python3 tools/test_verify_ci_artifact_browser.py",
+      "exit_code": 0,
+      "environment": "Frozen ToolSource a8a4114 samebytes; pure Python existing tests"
+    },
+    {
+      "id": "v4-history",
+      "path": "docs/evidence/final_maintenance_01/final-browser-tools-v4-integrated.json",
+      "sha256": "664ede444509847370ce242a4fe7048e68ed955ad5a8b16563bd3bd84bdb008b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "1790a276ee9036f3718b5b389163513463a862d5",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "原51和28只代表v4原来源，不作为v5完整52结果。"
+    },
+    {
+      "id": "v5-review",
+      "path": "docs/evidence/final_maintenance_01/browser-dual-root-v5-independent-review.json",
+      "sha256": "3ddd28eb4ef7caf77b05f0ba5596e70900056b29af9212fe2ff196d80acca605",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "原Runtime有限独审，当前相关叶GitSHA匹配；仅该delta，不签实际三浏览器或全内容。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/preview_audit",
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者不是工具候选作者；文档整理者只核Git同字节。",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "aim-review",
+      "path": "docs/evidence/final_maintenance_01/studio-reference-aim-v5-independent-review.json",
+      "sha256": "53411c4106dbb7ad84b294fcd21d5e0e9c941a0e2b64be98ba9b6ffd07e04ed2",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "原Runtime有限独审，当前相关叶GitSHA匹配；仅该delta，不签实际三浏览器或全内容。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/preview_audit",
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者不是工具候选作者；文档整理者只核Git同字节。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "原三个浏览器03尚未完成，不签通过",
+    "最终full52未重跑；原51仍仅v4",
+    "设备、玩家、主观图声与内容未签"
+  ]
+}

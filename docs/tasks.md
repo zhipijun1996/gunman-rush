@@ -1,3 +1,18 @@
+## 2026-11-01 最终维护批次
+
+实现及技术验证已保存；review状态不代表玩家／设备／艺术G5通过。旧任务行保留其历史来源，最终结果按以下精确来源读取。
+
+| 任务 | 目标 | 依赖 | 状态 | 结果 |
+| --- | --- | --- | --- | --- |
+| GAME-ARCH-TECHNICAL-CLOSEOUT-01 | 架构技术收口 | GAME-ARCH-LAYOUT-01 | review | [质量记录](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json)，379完整171／平台／公开基本验证 |
+| POPUP-TOUCH-PAIRING-01 | 独立弹窗触摸配对修复 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | review | [质量记录](quality/records/POPUP-TOUCH-PAIRING-01.json)，ab263 UI24／真实触屏／Web／公开基本GUI |
+| BROWSER-CONSUMER-REFRESH-01 | 当前浏览器消费者与严格共用定位 | POPUP-TOUCH-PAIRING-01 | review | [质量记录](quality/records/BROWSER-CONSUMER-REFRESH-01.json)，e8c578工具60＋28及原3实际73项 |
+| UI-CI-OWNERSHIP-01 | 真实UI测试叶与模块责任映射 | MODULE-CALL-BOUNDARIES-01 | review | [质量记录](quality/records/UI-CI-OWNERSHIP-01.json)，2d64映射原48项，未知与selector自身仍full |
+
+## 2026-11-01 当前技术收口
+
+本轮架构职责迁移与冻结源37950e08的full171／平台／公开基本验证已经完成；run41280956930仅对attempt1 checkout失败jobs作attempt2重跑，最终九jobs成功。下方历史任务行仍记录各自当时来源，不据此追改旧失败。最终技术收口以独立继任记录GAME-ARCH-TECHNICAL-CLOSEOUT-01补379证据并保持review边界；旧质量卡不批量改写；完整任意新地图接入、物理设备与玩家认可不属于本次已验收范围。PopupTouchAdapter触屏缺陷及工具v3 locator更新单列，不归入等价架构迁移，最终结果待绑定。
+
 # CI-CURRENT-01 · PR124 合入后的当前测试契约
 
 用户明确先合 PR124，再重构修复。PR124 已合入 main `bd862374`，原 CI 红灯保留；本批从新 main 独立修复旧视觉测试宿主缺少 nullable boss 字段，并审计历史/当前检查范围。
@@ -723,7 +738,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | LEVEL-TOOLS-INTEGRATION-01 | PR107离线工具与两Boss主线并集 | MAIN-UNIFY-20261031 | in_progress | [组合证据](evidence/main_unify_20261031/level-tools/README.md)；28/41通过，native pilot/full172未签，不切正式地图 |
 
-| GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原lane前缀与预算保持；full182注册获有限独审，尚未完整执行；formal191/0退出57/25仍阻塞 |
+| GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原lane前缀与预算保持；full182注册获有限独审，尚未完整执行；formal191/0退出57/25仍阻塞；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
 
 | GAME-ARCH-SESSION-01 | mechanic | GAME-ARCH-CI-01 | in_progress | RunSession owns actual App services; bounded original regressions pass; full integration pending |
 
@@ -741,7 +756,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | GAME-ARCH-LEVEL-01 | in_progress | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |
 
-| GAME-ARCH-LAYOUT-01 | 实际功能目录、资源引用及测试/CI输入迁移 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LAYOUT-01.json)；6584六项fresh通过，formal清理57/25仍失败；style26与最终GUI/PCK/全量未验 |
+| GAME-ARCH-LAYOUT-01 | 实际功能目录、资源引用及测试/CI输入迁移 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LAYOUT-01.json)；6584六项fresh通过，formal清理57/25仍失败；style26与最终GUI/PCK/全量未验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
 
 | GAME-ARCH-BOSS-STATE-01 | Boss自身快照、生命与决斗恢复所有权收口 | GAME-ARCH-ENTITY-01 | in_progress | [质量记录](quality/records/GAME-ARCH-BOSS-STATE-01.json)；063d6ccb静态独审限定接受，原生待验 |
 
@@ -763,10 +778,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | CI-CONSUMER-PATHS-01 | 既有18消费者装配、输入闭包与真实失败收据 | GAME-ARCH-LAYOUT-01 | in_progress | [原质量记录](quality/records/CI-CONSUMER-PATHS-01.json)；旧278/1历史不覆写，当前R3合同迁移已单列并在760e原完整检查通过；完整185待验 |
 | ROOT-BELL-PAUSED-RESTORE-01 | 暂停恢复新epoch时同步清RootBell旧命中颗粒 | CI-CONSUMER-PATHS-01 | in_progress | [独立原缺陷质量记录](quality/records/ROOT-BELL-PAUSED-RESTORE-01.json)；原393/1保留；独审后hit393/0、lifecycle112/0与原RootBell/deform均通过，整体未验；不改玩法/素材，R3另行阻断 |
 | R3-CURRENT-CONTENT-CONTRACT-01 | 当前Bell真实平台正例、共享夹具与默认完整战斗消费者迁移 | CI-CONSUMER-PATHS-01 | done | [独立质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)；760e同源原registeredcheck313/16/65与两图4954/5053全0，旧失败不改签；仅该原检查，非full185 |
-| STAGE-CLAIM-CACHE-OWNER-01 | Stage领取状态归属与共用宝箱候选规则 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/STAGE-CLAIM-CACHE-OWNER-01.json)；P10/P11实际专项通过；资源权威技术重绑和完整171仍待 |
-| MODULE-CALL-BOUNDARIES-01 | 收紧App/地图/怪物调用边界与模块CI责任 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/MODULE-CALL-BOUNDARIES-01.json)；专项与选择器已验，完整集成另验 |
-| CURRENT-AUTHORITY-CI-01 | 当前技术绑定与当前/历史CI分区 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/CURRENT-AUTHORITY-CI-01.json)；两个P0专项已过，完整171另验 |
-| BIBLE-VALIDATION-COST-01 | 单次验证共享路径与读取上下文 | CURRENT-AUTHORITY-CI-01 | in_progress | [质量记录](quality/records/BIBLE-VALIDATION-COST-01.json)；原CI超时保留，当前专项及独审通过 |
-| APP-WORLD-COMPOSITION-01 | Stage/Actor取消、地图伤害与Boss场地接线 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/APP-WORLD-COMPOSITION-01.json)；六源码静审及原9项回归通过，完整集成/交付待验 |
+| STAGE-CLAIM-CACHE-OWNER-01 | Stage领取状态归属与共用宝箱候选规则 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/STAGE-CLAIM-CACHE-OWNER-01.json)；P10/P11实际专项通过；资源权威技术重绑和完整171仍待；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| MODULE-CALL-BOUNDARIES-01 | 收紧App/地图/怪物调用边界与模块CI责任 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/MODULE-CALL-BOUNDARIES-01.json)；专项与选择器已验，完整集成另验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| CURRENT-AUTHORITY-CI-01 | 当前技术绑定与当前/历史CI分区 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/CURRENT-AUTHORITY-CI-01.json)；两个P0专项已过，完整171另验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| BIBLE-VALIDATION-COST-01 | 单次验证共享路径与读取上下文 | CURRENT-AUTHORITY-CI-01 | in_progress | [质量记录](quality/records/BIBLE-VALIDATION-COST-01.json)；原CI超时保留，当前专项及独审通过；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| APP-WORLD-COMPOSITION-01 | Stage/Actor取消、地图伤害与Boss场地接线 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/APP-WORLD-COMPOSITION-01.json)；六源码静审及原9项回归通过，完整集成/交付待验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
 
-| MAP-VIEW-BOUNDARY-01 | App最后两处旧地图展示查询归Stage | APP-WORLD-COMPOSITION-01 | in_progress | [质量记录](quality/records/MAP-VIEW-BOUNDARY-01.json)；原HUD61及五布局前后相同，三叶独审通过；最终CI/平台另验 |
+| MAP-VIEW-BOUNDARY-01 | App最后两处旧地图展示查询归Stage | APP-WORLD-COMPOSITION-01 | in_progress | [质量记录](quality/records/MAP-VIEW-BOUNDARY-01.json)；原HUD61及五布局前后相同，三叶独审通过；最终CI/平台另验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |

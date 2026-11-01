@@ -1,0 +1,401 @@
+{
+  "schema_version": 1,
+  "task_id": "BROWSER-CONSUMER-REFRESH-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "reviewed_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+  "content_version": "browser-consumer-e8c578-local05",
+  "owner": "/root",
+  "purpose": "刷新既有浏览器消费者的实际locator/reference aim及双来源验证工具；不修改UI运行实现。",
+  "player_experience": "维护既有消费者与检查归属；不签内容、设备或玩家认可。",
+  "constraints": [
+    "原失败及历史来源保留",
+    "不降低原断言/预算",
+    "GameSource与ToolSource分别绑定"
+  ],
+  "affected_paths": [
+    "tests/fixtures/studio_gui_pointer/controls_37950_desktop.png",
+    "tests/fixtures/studio_gui_pointer/controls_37950_touch.png",
+    "tests/fixtures/studio_gui_pointer/controls_37950_touch_mixed_derived.png",
+    "tests/fixtures/studio_gui_pointer/current_navigation_37950.json",
+    "tests/fixtures/studio_gui_pointer/navigation_desktop_actions_ab263.png",
+    "tests/fixtures/studio_gui_pointer/navigation_touch_actions_37950.png",
+    "tests/fixtures/studio_gui_pointer/navigation_touch_title_37950.png",
+    "tests/fixtures/studio_gui_pointer/popup_37950_desktop.png",
+    "tests/fixtures/studio_gui_pointer/title_37950_current.json",
+    "tests/fixtures/studio_gui_pointer/title_37950_current.png",
+    "tools/studio_gui_pointer.py",
+    "tools/test_studio_gui_pointer.py",
+    "tools/test_verify_ci_artifact_browser.py",
+    "tools/verify_action_budget_browser.py",
+    "tools/verify_all_weapon_browser.py",
+    "tools/verify_ci_artifact_browser.py",
+    "tools/verify_four_line_browser.py",
+    "tools/verify_studio_click_browser.py"
+  ],
+  "deliverables": [
+    "现有维护源码与精确SHA",
+    "有限原测试和独审证据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "明确限定维护范围。",
+      "evidence": [
+        "final-scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "原current工具和3browser技术检查通过。",
+      "evidence": [
+        "final-raw05"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "同源最终技术结果及有限独审。",
+      "evidence": [
+        "final-actual3",
+        "final-browser-review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "当前维护范围与双来源/旧失败边界明确。",
+      "evidence": [
+        "final-scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "当前60/28及原3local browser05实际完成；只此Tool/Game配对，不签full171/API产物。",
+      "evidence": [
+        "final-locator60",
+        "final-coordinator28",
+        "final-actual3"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "已有Runtime独立审查实际3及精确源码/数据稳定性，限定local export执行。",
+      "evidence": [
+        "final-browser-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "final-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "当前工具维护边界",
+      "scenario": "当前工具维护边界",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final-scope"
+      ]
+    },
+    {
+      "id": "final-current-pure",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "current60/28实际通过",
+      "scenario": "current60/28实际通过",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final-locator60",
+        "final-coordinator28"
+      ]
+    },
+    {
+      "id": "final-actual-three",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "local05原三个consumer各原300秒内通过",
+      "scenario": "local05原三个consumer各原300秒内通过",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final-actual3"
+      ]
+    },
+    {
+      "id": "final-independent",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "独立审查actual05限定结果",
+      "scenario": "独立审查actual05限定结果",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final-browser-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/final_maintenance_01/browser-spec.md",
+      "sha256": "cb663b388370d22527831441cff042c6a1d09c1b49742ccce528ba9fc5a24c6b",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "有限维护范围及明确不代签项。"
+    },
+    {
+      "id": "affected3",
+      "path": "docs/evidence/final_maintenance_01/studio-reference-v5-integrated-targeted-02.log",
+      "sha256": "71a1858f5162a217d8119ec3447c3035c21b96b8003ed75861c454100fea7989",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "v5实际affected3/0，非full52。",
+      "command": "python3 tools/test_studio_gui_pointer.py HookReferencePointTests",
+      "exit_code": 0,
+      "environment": "Frozen ToolSource a8a4114 samebytes; pure Python existing tests; no new run by record author"
+    },
+    {
+      "id": "coordinator28",
+      "path": "docs/evidence/final_maintenance_01/browser-dual-root-v5-final-worktree-28.log",
+      "sha256": "bde73d77fc1c42763762530ade564389418a8bf50239c69d11eebeabca2ff14d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "v5原coordinator28/0。",
+      "command": "python3 tools/test_verify_ci_artifact_browser.py",
+      "exit_code": 0,
+      "environment": "Frozen ToolSource a8a4114 samebytes; pure Python existing tests"
+    },
+    {
+      "id": "v4-history",
+      "path": "docs/evidence/final_maintenance_01/final-browser-tools-v4-integrated.json",
+      "sha256": "664ede444509847370ce242a4fe7048e68ed955ad5a8b16563bd3bd84bdb008b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "1790a276ee9036f3718b5b389163513463a862d5",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "原51和28只代表v4原来源，不作为v5完整52结果。"
+    },
+    {
+      "id": "v5-review",
+      "path": "docs/evidence/final_maintenance_01/browser-dual-root-v5-independent-review.json",
+      "sha256": "3ddd28eb4ef7caf77b05f0ba5596e70900056b29af9212fe2ff196d80acca605",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "原Runtime有限独审，当前相关叶GitSHA匹配；仅该delta，不签实际三浏览器或全内容。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/preview_audit",
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者不是工具候选作者；文档整理者只核Git同字节。",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "aim-review",
+      "path": "docs/evidence/final_maintenance_01/studio-reference-aim-v5-independent-review.json",
+      "sha256": "53411c4106dbb7ad84b294fcd21d5e0e9c941a0e2b64be98ba9b6ffd07e04ed2",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "a8a411404464ca65f414c89ac8ed70a2dd261d5e",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "原Runtime有限独审，当前相关叶GitSHA匹配；仅该delta，不签实际三浏览器或全内容。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/preview_audit",
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者不是工具候选作者；文档整理者只核Git同字节。",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "final-scope",
+      "path": "docs/evidence/final_maintenance_01/browser-final-spec.md",
+      "sha256": "910c3500af6ef8e592d689aa3b0c38168e9c30a7e19689d3a702f3c85b56db23",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "当前工具维护边界；Game与Tool身份分开。"
+    },
+    {
+      "id": "final-locator60",
+      "path": "docs/evidence/final_maintenance_01/studio-current-v8-final-worktree-60.log",
+      "sha256": "96e677deeba70a1b93a9279b5cba59530c5133cdcc8c0b543225ad42d310cc31",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "当前完整60/0，92.882s；同源码保存后核Git字节一致。",
+      "command": "python3 tools/test_studio_gui_pointer.py",
+      "exit_code": 0,
+      "environment": "Existing frozen current ToolSource worktree Python test log; not a fresh execution by record editor"
+    },
+    {
+      "id": "final-coordinator28",
+      "path": "docs/evidence/final_maintenance_01/browser-dual-root-v8-final-worktree-28.log",
+      "sha256": "5896d7f3701f9bbc9eb6242cf49742b7b461f3a3c2a4b4eacfcc58ff84c0b095",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "当前coordinator28/0，1.645s。",
+      "command": "python3 tools/test_verify_ci_artifact_browser.py",
+      "exit_code": 0,
+      "environment": "Existing frozen current ToolSource worktree Python test log"
+    },
+    {
+      "id": "final-actual3",
+      "path": "docs/evidence/final_maintenance_01/actual-three-browser-binding.json",
+      "sha256": "6273134d8e8efcdd1d1e7aa6f20b2106e4aca685acfd4e840ebd143edcec89b1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "原3实际local export browser05全部通过25/40/8；each300s，151.481/225.579/129.045s。非CI API产物。",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /workspace/gunman-rush-browser-tools/tools/verify_action_budget_browser.py http://127.0.0.1:38701/ ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /workspace/gunman-rush-browser-tools/tools/verify_studio_click_browser.py http://127.0.0.1:38701/ ; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /workspace/gunman-rush-browser-tools/tools/verify_all_weapon_browser.py http://127.0.0.1:38701/",
+      "exit_code": 0,
+      "environment": "Actual local ab263 export via original browser consumers on tool e8c578; desktop/CDP synthetic touch",
+      "game_source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567"
+    },
+    {
+      "id": "final-raw05",
+      "path": "docs/evidence/final_maintenance_01/actual-three-browser-05.zip",
+      "sha256": "68989768b557c4cff8a3f5332a3aca4ab46eddceb61569cf212a24ddc947091b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "原05receipt、3stdout、3business report和3events原字节，成员SHA见browser-evidence-archive.json；不含截图/PCK。",
+      "game_source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567"
+    },
+    {
+      "id": "final-browser-review",
+      "path": "docs/evidence/final_maintenance_01/final-ab263-three-browser-independent-review.json",
+      "sha256": "44a3ff97b0289b190f488cbe0946785b40dd7735562bc5755e4f4e5f1d2a9f92",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "Runtime独立核对实际3消费者、本地包身份/源向量/537输入/业务报告/旧失败；有限ACCEPT。原review文件未改。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root",
+        "/root/preview_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer was not the tool author or execution receipt author; existing original report inspected final execution independently.",
+      "verdict": "ACCEPT",
+      "game_source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567"
+    },
+    {
+      "id": "final-byte-binding",
+      "path": "docs/evidence/final_maintenance_01/final-review-source-bindings.json",
+      "sha256": "c3da6ce849f5b2bd75bef410f903a7b1a9847876197d0cf6f048200ca2aff21e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+      "content_version": "browser-consumer-e8c578-local05",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "工具18叶与Main2d64实际Git字节同，当前review指向精确Gameab263/Toole8。",
+      "game_source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "物理设备、玩家/艺术/听感/全部内容质量未验",
+    "localab263导出不是379CI API产物，不继承full171或公网更新验收",
+    "旧01–04失败仍失败，历史v4/v5结果保持各自来源",
+    "workflow保持review；维护检查通过不等于完整游戏内容终态"
+  ]
+}

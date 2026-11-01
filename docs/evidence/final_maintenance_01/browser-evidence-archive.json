@@ -1,0 +1,78 @@
+{
+  "archive": "actual-three-browser-05.zip",
+  "sha256": "68989768b557c4cff8a3f5332a3aca4ab46eddceb61569cf212a24ddc947091b",
+  "bytes": 6875334,
+  "members": [
+    {
+      "member": "receipt.json",
+      "sha256": "fdf095d1b0b8a61c525219778a016f3d7168a8db61ef7965174493a578832c99",
+      "bytes": 38933760
+    },
+    {
+      "member": "verify_action_budget_browser.log",
+      "sha256": "aa00ab791e5b9642d3c5b80a96a058b3e5696fe701a945bdf607b2b84435a6fe",
+      "bytes": 1267
+    },
+    {
+      "member": "verify_studio_click_browser.log",
+      "sha256": "05de5a9d719c3032af46254fbcbbdb959aec233b4c6af4d57697351733ecfae4",
+      "bytes": 2050
+    },
+    {
+      "member": "verify_all_weapon_browser.log",
+      "sha256": "8ccad57287730656cd3d20071ae3559bd24d932bc46aa4088936ece3e39279d0",
+      "bytes": 487
+    },
+    {
+      "member": "browser-cwd/build/action_budget/browser/report.json",
+      "sha256": "09597867e20986def5863f0db6fc216a0fd7a74f4338b514606e3daa08ce9c1d",
+      "bytes": 1383
+    },
+    {
+      "member": "browser-cwd/build/studio_input/browser/report.json",
+      "sha256": "031c02a7b7751423efe4c4c7de4ab4c9a46d8bb2421344f4706df1bc43c60dc4",
+      "bytes": 1884
+    },
+    {
+      "member": "browser-cwd/build/weapons/browser/report.json",
+      "sha256": "98b397f38bac09b7d479523ac35bc0ba36e63b52f7342a05ab45eab0b55db1db",
+      "bytes": 533
+    },
+    {
+      "member": "browser-cwd/build/action_budget/browser/events.json",
+      "sha256": "e4c82e46891c89d396852fc30505d8be2b35caf031f2b0b2ff060895b2ca04bf",
+      "bytes": 242106
+    },
+    {
+      "member": "browser-cwd/build/studio_input/browser/events.json",
+      "sha256": "f63fa069f94283796bbc8624bee4d6606cd8b36c3b965e976a7cf535b6eee74c",
+      "bytes": 238015
+    },
+    {
+      "member": "browser-cwd/build/weapons/browser/events.json",
+      "sha256": "b30f6e6081e6f717e52b34dcfb363e80142b527973c5eedb2f8a017efa16f1a5",
+      "bytes": 145295
+    }
+  ],
+  "game_source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "tool_source_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+  "artifact_kind": "actual_local_web_export_not_CI_API_artifact",
+  "excluded": [
+    "all screenshots",
+    "216386008-byte PCK",
+    "served Web payload"
+  ],
+  "prior_failed_restore": {
+    "receipt": "prior-browser-failed-01-03-archive-receipt.json",
+    "archive": "/workspace/refactor-evidence/archived-browser-receipts-01/original-failed-01-03-receipts.zip",
+    "sha256": "41a737cb7c22bf3b421a0fa01479f3910dde22e14834e2847774233f645ae9a1",
+    "restore": "Extract each exact member into original_path; verify recorded SHA and bytes."
+  },
+  "raw04_retained": {
+    "path": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-04/receipt.json",
+    "sha256": "d631c834edc47093cc19a4b8106cc0a696b8e34ffb673a23c95f19fc6e5323dc",
+    "bytes": 38932560,
+    "status": "failed"
+  },
+  "prior48_bad_invocation": "final-ui-ci-ownership-48-01.log retained; directory/invocation error, not a source-code test failure"
+}

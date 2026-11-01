@@ -1,0 +1,94 @@
+{
+  "status": "LIMITED_ACCEPT_BOUNDED_ACTUAL_UI_AND_HOOK_EVIDENCE_FOR_CONSUMER_MIGRATION",
+  "receipt": "/workspace/gunman-rush-refactor/build/verification/final-ab263-ui-hook-diagnostic-01/receipt.json",
+  "receipt_sha256": "d6bb7ae89a4e2711f5c3a8caff88b9f79e5109b7be3f93cead38177f854e6e44",
+  "diagnostic_script": "/workspace/refactor-evidence/final-ab263-local-browser/diagnose_ui_hook.py",
+  "diagnostic_sha256": "e1bd1e2a7a18fd3a3491dbc01e6af92dc4453a7cdee5805ce5ed9d4d3d222d05",
+  "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "tool_commit": "bd5c56fb073584aeb3344aaf49446210e209d003",
+  "pack_sha256": "2e1274f622102b34f18ab2fdb0f41584b06b518c097497999608c20f7803b2f6",
+  "buildinfo_source_matches": true,
+  "source_inputs_verified_to_git": {
+    "experiments/motion/action_studio.gd": "1b7657046a4aad2e90d56ecce8c6024df7fede7ea344b9267b58de51e66195dc",
+    "game/platform/input/keyboard_mouse_adapter.gd": "cb64f724d0fe5dd4e68cdb65a1890343ae377dd7e3447de995f304ce326dab1d",
+    "game/world/components/grapple_anchor.gd": "9f6a613dcbea0f63b83e0e271e63621513f0503950a6d6899377cd9fda899863",
+    "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+    "scripts/player/traversal_definition.gd": "5d212b12fd4ac72422addfa6d35de176ccae9e5f08593a8064a7f71be6183c49"
+  },
+  "ui_pairing_evidence": {
+    "first_tap": "actual open15markers, no equip",
+    "second_tap": "one shadow_shuriken equip and one close at tick1599",
+    "DOM_cancel": "popup_touch cancel then close at1926, no equip/shot",
+    "normal_input_after_cancel": "actual Space jump1943 in touch-capable context"
+  },
+  "hook_evidence": {
+    "source_reference_oblique": {
+      "cast_aim": [
+        0.529747366905212,
+        -0.848155558109283
+      ],
+      "source_anchor": [
+        1570,
+        240
+      ],
+      "hook_contact": [
+        1559.10620117188,
+        245.032287597656
+      ],
+      "radius": 11.999948807102093,
+      "kick": [
+        -240.0,
+        -240.0
+      ],
+      "kick_side": -1.0,
+      "cast_to_free_physics_ticks": 30
+    },
+    "source_reference_vertical": {
+      "cast_aim": [
+        0.0,
+        -1.0
+      ],
+      "source_anchor": [
+        1490,
+        190
+      ],
+      "hook_contact": [
+        1490.0,
+        202.0
+      ],
+      "radius": 12.0,
+      "kick": [
+        0.0,
+        -240.0
+      ],
+      "kick_side": 0.0,
+      "cast_to_free_physics_ticks": 34
+    }
+  },
+  "independent_findings": [
+    "All case events independently matched full actual event list; oblique/vertical original angle and kick predicates hold with deadzone0.2 and hook_kick(240,-240).",
+    "Hook contact lies on actual12wu source ring boundary: oblique11.9999488 and vertical12.0. Each has cast→pull→kick→free.",
+    "Original560245 attempt has only jump and no hook; it remains a failed control.",
+    "Viewed real source_reference_vertical-before, oblique-after and touch-first-tap PNGs. Current reference click347.2/387.2 lies below visible panel; target rings need not themselves be visible under UI for a source-declared legal aim reference.",
+    "Diagnostic source uses ordinary mouse/touch/keyboard and readonly console events, one fixed attempt per old/oblique/vertical point; no engine-state evaluation/injection or coordinate scan.",
+    "Reference midpoint calculation uses reset camera/player and actual source anchors. It is an authored current consumer aim choice, not exact current-frame camera reconstruction or equality to old numerical aim."
+  ],
+  "png_sha256": {
+    "source_reference_vertical-before.png": "96dd26d0d80ff23ea068dbf3fb4194be192067796925ebf762d98e78aaa62f19",
+    "source_reference_oblique-after.png": "222071a9d1ba6ffd24bb723992932178683e413eb5e393dd064a1262ff986c25",
+    "touch-first-tap-popup.png": "06cd2f94cb9f8b776b8fbb5e4e801058e2f444d36af7fd49a598c51838512e8f"
+  },
+  "served_inventory_before_after_equal": true,
+  "console_errors": [],
+  "browser_closed": true,
+  "acceptance_scope": [
+    "Permit a narrow shared helper for source-bound oblique/vertical reference points and two pointer-call migrations, while every original business angle/side/kick/recovery assertion and300s budget remains unchanged.",
+    "Helper candidate still requires frozen code/source-input closure review; actual full3 suites must be rerun with explicit new game/tool identities."
+  ],
+  "limitations": [
+    "This diagnostic has its own setup and screenshots and does not replay prior full weapon sequence. It is not a pass for the failed179.16s full action consumer or remaining2consumers.",
+    "Diagnostic exit0 is not used as the success oracle: case fields/events were evaluated individually.",
+    "Local ab263 PCK evidence does not certify old379 APIZIP, current public deployment, physical device or complete release.",
+    "No reviewer browser/Godot/main write."
+  ]
+}

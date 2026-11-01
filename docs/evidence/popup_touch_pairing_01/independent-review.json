@@ -1,0 +1,60 @@
+{
+  "status": "LIMITED_ACCEPT_SEPARATE_UI_BUG_FIX_FOR_REGISTERED_NATIVE_AND_WEB_VALIDATION",
+  "candidate_patch_sha256": "50e166e0e338ff9b16d48e2300531a53199648a395a6c50310e4f65c58f4b95a",
+  "candidate_json_sha256": "97cc5ac57994c6f7d5613fa6ca7f3a1c28444c6eb5ad4eb4068827920ffbc30d",
+  "files": [
+    {
+      "path": "game/presentation/ui/popup_touch_adapter.gd",
+      "original_sha256": "aea25b377ef6d242313cfb1c4b9addd83e89ca572cba02e498fced1134f0a012",
+      "candidate_sha256": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de"
+    },
+    {
+      "path": "tests/underworld_plains/test_underworld_ui.gd",
+      "original_sha256": "613e566bf221c28a611745d30020f8b6603142adf6d02a8a6eee33d5a13387f9",
+      "candidate_sha256": "1de2d2cddd2dd51e0868a645c462be9827bdda8ab47cc68d18b52872b8f0ef8d"
+    }
+  ],
+  "rollback_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "independent_checks": {
+    "both_candidate_and_original379Git_sha256": true,
+    "original_registered_test_entire_body_exact_after_removing_one_addedcall": true,
+    "original_check_sites": 48,
+    "new_check_sites": 11,
+    "before_and_after_native_probe_method_bodies_exact_appended_registered_tests": true,
+    "probe_after_adapter_exact_candidate": true,
+    "all_native_receipt_log_hashes_match": true,
+    "runtime_logs_no_script_error_or_leak_diagnostic": true
+  },
+  "state_ownership_review": [
+    "One finger belongs only to a press received while this specific popup is visible. Unpaired opening release and unmatched drag are handled without root mouse forwarding.",
+    "Other finger or repeated press cannot steal the sole native mouse gesture. Matching release clears ownership before signal/mouse forwarding, avoiding hide callback/reentrant stale state.",
+    "Visibility changes and adapter exit clear ownership; hide/reopen/cancel cannot carry old release into a new popup lifecycle.",
+    "Any canceled touch retains original cancel-and-hide semantics, including foreign-finger cancellation. DOM cancel entry retains same policy and now clears ownership first.",
+    "Regular mouse input remains outside this adapter touch branch. Existing mouse-button/motion payload, coordinates and forwarding mechanism remain unchanged. No gameplay/audio/resource/RNG/global-emulation change."
+  ],
+  "test_scope": {
+    "author_actual_bounded_native_before": "11 checks / 9 failures, exit1",
+    "author_actual_bounded_native_after": "11 checks / 0 failures, exit0",
+    "reviewer_engine_execution": false,
+    "covers": [
+      "unpaired opening release",
+      "matching second tap exactly once",
+      "later legitimate tap",
+      "different finger press/release/drag",
+      "hide/reopen old release",
+      "foreign cancel preserves old hide",
+      "cancelled pair stale release",
+      "existing DOM cancel callback entry",
+      "ordinary native mouse selection after orphan release",
+      "adapter exit stale pair"
+    ],
+    "remaining": "Original registered underworld-ui and studio-input full native wrappers, actual Web DOM/touch and browser consumers remain to be run by root; bounded probe is not that acceptance."
+  },
+  "classification": "Independent pre-existing UI gesture-lifecycle defect correction, not behavior-preserving architecture refactor. Production379 architecture CI remains separately attributed.",
+  "lease": "Reviewer ran no engine/browser and holds no main-write or engine lease. Root may apply exact two files and execute original checks immediately.",
+  "limits": [
+    "No blanket first-release swallowing: a real visible popup press pairs its own release, and tests prove subsequent real taps work.",
+    "No claim that callback-native test reproduces real DOM touchcancel dispatch; browser verification remains required.",
+    "Original Web failure and prior probe fixture/parser failures retained; no retroactive pass."
+  ]
+}

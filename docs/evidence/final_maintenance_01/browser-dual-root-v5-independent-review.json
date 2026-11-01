@@ -1,0 +1,19 @@
+{
+  "status": "LIMITED_ACCEPT_CONSTANT_ONLY_V5_COORDINATOR",
+  "base_tool_commit": "1790a276ee9036f3718b5b389163513463a862d5",
+  "candidate_sha256": "21a588a7cb8b86b7eea1c5155a8de521741414cae87db01d7ec89e5532387316",
+  "patch_sha256": "a11e6cca641cd6cf7581edb8b1e8500f2343d8a2df12f0180088c428dffa4473",
+  "independent_checks": {
+    "entire_module_AST_except_two_approved_constants_exact": true,
+    "only_three_tool_hashes_changed_and_equal_actual_toolroot": true,
+    "source25_dictionary_unchanged": true,
+    "original_migrations_unchanged_plus_two_counted_suffix_operations": true,
+    "three_actual_consumers_full_inverse_equals_reference379_Git": true,
+    "missing_duplicate_focus_extra_assertion_rejected": [
+      "missing_focus",
+      "duplicate_focus",
+      "extra_assertion"
+    ]
+  },
+  "scope": "No source writes, browser, Godot, CI or wide suite. Does not mark prior failed browser runs passed. Original API/source/OCR/clean-tree/default mode and three 300 second loops are unchanged. Root may apply this exact coordinator and run original 28 guards before freezing tools for actual browsers."
+}

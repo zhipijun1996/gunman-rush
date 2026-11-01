@@ -1,3 +1,21 @@
+## 2026-11-01 本轮架构实现与技术验证收口
+
+分支 `refactor/game-architecture-02`，实现提交 `2d64fbbbbeea120b5c64add5a2af801a81fe7797`；之后文档保存提交以Git HEAD为准。main仍为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`，PR122／124等已含，PR123关闭未合入，本重构未自动合main。代码和调用边界见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。
+
+架构冻结源37950e08已完成fresh171与Windows／Web／Android／Pages验证；原run41280956930的checkout超时仅重跑失败jobs，旧失败保留。独立UI修复ab263ea6完成干净源24项受影响检查、302项UI／37项Studio输入、Web构建／包检查与空目录PCK探针。工具e8c578eb完成60项纯回归、28项守门及原三个真实浏览器消费者73项检查，151.481／225.579／129.045秒均在原300秒内。最终CI映射2d64fbbb的原48项选择器测试通过；选择器自身变动仍触发full，未把这些分源结果拼成最终HEAD fresh171。
+
+[当前试玩](https://zhipijun1996.github.io/gunman-rush/?v=2e1274f62210)对应运行源码ab263ea6／build2e1274f62210，完整PCK216386008字节／SHA2e1274f622102b34f18ab2fdb0f41584b06b518c097497999608c20f7803b2f6。公开Title→Home→出发门→正式Plains→移动实际通过；DOM自然两次tap／取消亦通过。图声与其它游戏源码保持379字节，新UI之后仅测试／CI／文档。未代签物理设备、用户或完整内容G5。
+
+下一工作是新地图库／算法的真实来源适配与正式消费者迁移；本轮没有制作新地图，也不声称任意裸Plan已经无缝接完整App。历史未注册directional capture合同、旧four-line GUI主按钮仍预期直达Plains等问题单列保留，不能通过改物理或删入口处理。下方旧节点保持原时间／来源。
+
+## 2026-11-01 架构基线已完成同源CI与平台验证，触屏缺陷另行收口
+
+冻结源 `37950e0896a91c6b812a11c323ec3d5fd1800bb0`：run41280956930的原full171（92＋79）全fresh通过，Windows／Web／Android及公开基本验证完成。attempt1的core checkout十分钟超时；attempt2只重跑失败jobs，最终九jobs成功，旧失败原件保留。不是把两次完整运行拼接成一次，也不追签旧C8或2d44结果。
+
+已约定的架构职责与真实消费者迁移完成；新模块库／算法及完整新Provider正式接入另属后续内容，不扩大本轮。共享Runtime能消费裸Plan，但旧App／Stage仍有明确来源适配。地图实际链路为Provider返回Plan给App，App配置Stage，再由Stage调用Runtime。三索引继续是其metadata声明的b69冻结快照，本次不再生成。
+
+当前仅收尾独立的PopupTouchAdapter触屏opener-release缺陷与浏览器工具v3的真实locator更新。最终修复源码／工具SHA、专项结果及发布身份需按新证据记录，379的全量／基本GUI不能替它们验收；旧R3 locator失败保留。设备、玩家与主观图声认可仍未代签。以下历史节点保留原来源。
+
 ## 2026-11-01 最终生产源码已保存，收口后只做同源交付
 
 代码提交 `b69ca2933b1739226e9edc37cc5621d47443e322`，分支 `refactor/game-architecture-02`。Stage最后两处路线/HUD值查询已替代App的assembler读取；P1取消/伤害/Boss接线、共用规则及模块CI已保存。三索引已按b69冻结源刷新（34,487路径／1,556runtime／35入口，843源／3,462边／118未解析dynamic，errors0），不是全量引擎/设备证明。当前style30/creative33仅技术重绑三叶，图声保持。

@@ -1,0 +1,38 @@
+{
+  "status": "LIMITED_ACCEPT_EXISTING_UI_CHECK_ROUTING",
+  "candidate_files": {
+    "config/production_impact.json": "bea5176ed22e7d62cb3c8e570b9ddf9bebe5033c67e7ffbdf815b1971c5c9cac",
+    "tests/test_production_plan.py": "b508bc9d5936aaee235b266e20cb2dab52b33c7f50a77f5ec56bdf3ba84bb9fe"
+  },
+  "patch_sha256": "9df6a46270f1c42b0e7b5c93f581564b606c116e6fd99ad6438263bd61392992",
+  "independent_static": {
+    "policy_delta_exact": "Only append tests/underworld_plains/test_underworld_ui.gd and tests/studio_input_runner.gd to existing presentation fixture rule; append existing studio-input to presentation integration.",
+    "original46_test_methods_AST_exact": true,
+    "selector_bytes_unchanged": true,
+    "profiles_entire_bytes_unchanged": true,
+    "registered_checks": 219,
+    "full_count": 171,
+    "all_original_argv_budgets_profiles_preserved": true,
+    "actual_wrapper_to_GD_leaf_and_existing_budgets_checked": true
+  },
+  "independent_execution": {
+    "command": "env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 /workspace/refactor-evidence/popup-ui-impact-mapping-candidate/test-tree/tests/test_production_plan.py ProductionPlanTests.test_ui_fixture_leaves_select_existing_real_popup_consumers ProductionPlanTests.test_ui_leaf_mapping_does_not_admit_neighbors_or_selector_changes",
+    "tests": 2,
+    "failures": 0,
+    "seconds": 0.013,
+    "tool_output": "1c3174",
+    "scope": "Actual planner with frozen policy/profiles and true existing wrapper/leaf files. No engine/browser."
+  },
+  "findings": [
+    "Both exact UI fixture leaves select existing presentation plus runtime-contract closure, including environment and each underworld-ui/studio-input once.",
+    "Unknown adjacent fixture names, old unregistered DemoUI contract, planner/policy/workflow selector changes still escalate to original full171. No broad tests directory whitelist added.",
+    "Combined UI implementation+fixture resolves same module integration checks as implementation alone; affected24 includes actual shared downstream Studio consumer rather than forcing historical unrelated-map checks due an unmapped fixture.",
+    "This mapping file itself remains a selector change and therefore full-selection trigger; no bypass is introduced for this policy update."
+  ],
+  "author_validation": "Original complete48 planner cases passed0.170s; reviewer independently ran only the2new focused cases plus static old46 preservation, not91Harness.",
+  "limits": [
+    "Selection correctness only, not native UI/Web/gameplay acceptance.",
+    "No new check registration or relaxed budget/assertion.",
+    "No source/main writes, Godot/browser/CI executions by reviewer."
+  ]
+}
