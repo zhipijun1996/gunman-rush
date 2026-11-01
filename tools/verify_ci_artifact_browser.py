@@ -25,12 +25,12 @@ def inventory(root):
 # One reviewed consumer-tool revision, not a general tools/tests exemption.
 # Locator-only consumer migrations must also reverse to the complete reference Git bytes.
 CONSUMER_REFERENCE_COMMIT = '37950e0896a91c6b812a11c323ec3d5fd1800bb0'
-REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': 'bde4185370b5c1b552a41dee93fb0277d5a316fa05af59b7f66297585f6abf1c',
+REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': '0662568216aef58c50392d0380762a4cc6582495f4d217cc3239be7ab9cc5d07',
  'tools/verify_four_line_browser.py': 'ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f',
- 'tools/test_studio_gui_pointer.py': '5360f9f11ddfce02270806aae1968310af635c8470cdfed1a20f68f5fb84bfc3',
+ 'tools/test_studio_gui_pointer.py': '26917e53a5b24a8de2b32df6d3927c00a7018ac1a652dc4b6a1e33819e58bd46',
  'tests/fixtures/studio_gui_pointer/title_37950_current.png': 'cc90b463b98b79e66e703a720fbd644c5de277e52ee2d4d5601894cccb321ff9',
  'tests/fixtures/studio_gui_pointer/title_37950_current.json': '570a8e2eb2a63dac2cc4785d44df0b0ae6ca4517e6d7d6d560e23eafc38fc5fa',
- 'tools/verify_action_budget_browser.py': 'a4bd1d8ac165f1078824f4bcf09a946cc74bd7733fd28da6529e12a8df1b494d',
+ 'tools/verify_action_budget_browser.py': '493207d05a8513c41abc29c235a862976c1809b94216d8b2b3fb223bcd7e8adc',
  'tools/verify_studio_click_browser.py': '675b97ec54e961492c770fa068bd478ad78cbd3a65faef0917588929a367cc71',
  'tools/verify_all_weapon_browser.py': '7905cc12f0224b8512f3268aac14abc0de9b4a99eea609dd1c0f88d72eb0fd10',
  'tests/fixtures/studio_gui_pointer/current_navigation_37950.json': 'a1ed617cbc56089e4b5f0d90871a67d02305a8a89f3a74c8db77ae3c74338b45',
@@ -63,7 +63,8 @@ REVIEWED_VISUAL_INPUTS = {'game/combat/weapons/weapon_catalog.gd': 'efd5300898af
  'resources/weapons/star_collapse.tres': '6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36',
  'game/presentation/ui/demo_menu.gd': '35f27a52f675fd3227b16d5231b8f4ad6c6220a3a09f756f7deb7b8c4e85991f',
  'game/presentation/ui/underworld_ui.gd': '0a6d717ef7a9f02e40b003a8f40850b4007634485b1f7ca6882086b43ec378ce',
- 'game/presentation/ui/menu_theme.gd': '59e7d3012fca992901c2088f3965d0be54969c07b112fdce75e4776a349cb5b3'}
+ 'game/presentation/ui/menu_theme.gd': '59e7d3012fca992901c2088f3965d0be54969c07b112fdce75e4776a349cb5b3',
+ 'game/player/actions/traversal_ability.gd': '36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369'}
 REFERENCE_CONSUMER_SHA256 = {'tools/verify_action_budget_browser.py': '6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca',
  'tools/verify_all_weapon_browser.py': 'c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272',
  'tools/verify_studio_click_browser.py': '8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825'}
@@ -83,7 +84,20 @@ CONSUMER_MIGRATIONS = {'tools/verify_action_budget_browser.py': [['from studio_g
                                            ['await page.mouse.click(500,100)',
                                             'await page.mouse.click(*(await '
                                             "studio_control_point(page,'hook_practice')))",
-                                            2]],
+                                            2],
+                                           ['from studio_gui_pointer import '
+                                            'select_weapon,studio_control_point,enter_action_studio',
+                                            'from studio_gui_pointer import '
+                                            'select_weapon,studio_control_point,enter_action_studio,studio_hook_reference_point',
+                                            1],
+                                           ["await page.mouse.click(560,245,button='right')",
+                                            'await '
+                                            "page.mouse.click(*studio_hook_reference_point(page,'oblique'),button='right')",
+                                            1],
+                                           ["await page.mouse.click(432,230,button='right')",
+                                            'await '
+                                            "page.mouse.click(*studio_hook_reference_point(page,'vertical'),button='right')",
+                                            1]],
  'tools/verify_all_weapon_browser.py': [['from studio_gui_pointer import select_weapon, weapon_row_y, '
                                          'enter_action_studio',
                                          'from studio_gui_pointer import select_weapon, '

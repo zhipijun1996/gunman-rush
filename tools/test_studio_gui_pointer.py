@@ -686,5 +686,41 @@ class CurrentStudioControlsTests(unittest.TestCase):
         self.assertEqual(result['rows'],[181.5+36*i for i in range(15)])
         self.assertEqual(len(result['marker_boxes']),15)
 
+class HookReferencePointTests(unittest.TestCase):
+    # Authored reset-reference test fixture, not runtime configuration or a
+    # claimed live camera projection. Gameplay assertions remain in the caller.
+    def test_authored_points_unknown_case_and_unobserved_viewport(self):
+        from types import SimpleNamespace
+        page=SimpleNamespace(viewport_size={'width':1280,'height':720})
+        self.assertEqual(helper.studio_hook_reference_point(page,'oblique'),(496.0,387.2))
+        self.assertEqual(helper.studio_hook_reference_point(page,'vertical'),(432.0,347.2))
+        for case in ('diagonal','',None):
+            with self.subTest(case=case),self.assertRaises(ValueError):
+                helper.studio_hook_reference_point(page,case)
+        for size in ({'width':844,'height':390},{'width':1280,'height':721}):
+            with self.subTest(size=size),self.assertRaisesRegex(AssertionError,'viewport'):
+                helper.studio_hook_reference_point(SimpleNamespace(viewport_size=size),'oblique')
+
+    def test_authored_point_rejects_actual_camera_anchor_and_origin_source_drift(self):
+        import shutil
+        from types import SimpleNamespace
+        source=Path(helper.__file__).resolve().parents[1]
+        metadata='tests/fixtures/studio_gui_pointer/current_navigation_37950.json'
+        meta=json.loads((source/metadata).read_text())
+        traversal='game/player/actions/traversal_ability.gd'
+        page=SimpleNamespace(viewport_size={'width':1280,'height':720})
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for name in [metadata,*meta['source_sha256'],traversal]:
+                target=root/name;target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(source/name,target)
+            self.assertEqual(helper.studio_hook_reference_point(page,'oblique',root),(496.0,387.2))
+            for name in ('experiments/motion/action_studio.gd',traversal):
+                target=root/name;original=target.read_bytes();target.write_bytes(original+b'\n')
+                with self.subTest(source=name),self.assertRaisesRegex(AssertionError,'source drift'):
+                    helper.studio_hook_reference_point(page,'oblique',root)
+                target.write_bytes(original)
+            self.assertEqual(helper.studio_hook_reference_point(page,'vertical',root),(432.0,347.2))
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

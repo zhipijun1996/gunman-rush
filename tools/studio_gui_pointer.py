@@ -601,6 +601,28 @@ async def studio_control_point(page,control):
   path=Path(directory)/'studio.png';path.write_bytes(await page.screenshot())
   return _studio_bitmap_control(path,control,scale)['point']
 
+def studio_hook_reference_point(page,case,root=None):
+ """Finite authored reset-reference point, NOT the live camera/original ray.
+
+ Current desktop HUD covers the old aim points. Project the reset hook origin
+ and the existing selected ring, then use their midpoint below that HUD.
+ Actual cast angle, kick, side and recovery remain the consumer's assertions.
+ This is a current interactive aiming contract migration, not equal numeric aim.
+ """
+ import hashlib
+ from pathlib import Path
+ if page.viewport_size!={'width':1280,'height':720}:raise AssertionError('Unobserved hook reference viewport')
+ if case not in ('oblique','vertical'):raise ValueError('Unknown hook reference case: '+str(case))
+ root=Path(root) if root is not None else Path(__file__).resolve().parents[1]
+ _studio_reference_data(root)  # Includes exact ActionStudio reset/camera/anchor source.
+ traversal=root/'game/player/actions/traversal_ability.gd'
+ if hashlib.sha256(traversal.read_bytes()).hexdigest()!='36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369':raise AssertionError('Hook origin source drift')
+ player=(1490.0,400.0);camera=(player[0]+130.0,player[1]-100.0)
+ origin=(player[0],player[1]-6.0)
+ anchor=(1570.0,240.0) if case=='oblique' else (1490.0,190.0)
+ midpoint=tuple((a+b)/2 for a,b in zip(origin,anchor))
+ return tuple(center+(value-offset)*1.6 for center,value,offset in zip((640.0,360.0),midpoint,camera))
+
 async def weapon_row_y(page):
  scale,pad,h=geometry(page);im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB');x=round(pad+970*scale);start=round(100*scale);ref=im.getpixel((x,start));y=start
  while y<min(h,round(270*scale))and sum(abs(a-b)for a,b in zip(im.getpixel((x,y)),ref))<70:y+=1
