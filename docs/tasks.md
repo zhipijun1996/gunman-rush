@@ -766,3 +766,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | STAGE-CLAIM-CACHE-OWNER-01 | Stage领取状态归属与共用宝箱候选规则 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/STAGE-CLAIM-CACHE-OWNER-01.json)；P10/P11实际专项通过；资源权威技术重绑和完整171仍待 |
 | MODULE-CALL-BOUNDARIES-01 | 收紧App/地图/怪物调用边界与模块CI责任 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/MODULE-CALL-BOUNDARIES-01.json)；专项与选择器已验，完整集成另验 |
 | CURRENT-AUTHORITY-CI-01 | 当前技术绑定与当前/历史CI分区 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/CURRENT-AUTHORITY-CI-01.json)；两个P0专项已过，完整171另验 |
+| BIBLE-VALIDATION-COST-01 | 单次验证共享路径与读取上下文 | CURRENT-AUTHORITY-CI-01 | in_progress | [质量记录](quality/records/BIBLE-VALIDATION-COST-01.json)；原CI超时保留，当前专项及独审通过 |

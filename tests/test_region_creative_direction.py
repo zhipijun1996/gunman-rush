@@ -932,5 +932,71 @@ class RuntimeOwnershipDirectionTests(unittest.TestCase):
                 creative.load_direction(history.STYLE27_ARCHIVE+'/'+path, region)
 
 
+
+class ValidationReadScopeTests(unittest.TestCase):
+    def setUp(self):
+        from test_region_bible import BibleTests
+        BibleTests.setUp(self)
+
+    def test_public_calls_reread_mutable_sources_and_reject_resigned_binding(self):
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)
+        row = next(r for r in style['content']['runtime_reference']['references'] if r['role']=='architecture_enemy_actor')
+        leaf = self.root/row['path']; raw = leaf.read_bytes()
+        changed = bytes([raw[0]^1])+raw[1:]  # Same size must not evade fresh hashing.
+        for call in (lambda: creative.bind_region_bible('thorn_forest',self.root),
+                     lambda: creative.validate_bible_binding(self.ref,root=self.root),
+                     lambda: creative.supplemental_authority(self.bible,'thorn_forest',self.root)):
+            call()
+            leaf.write_bytes(changed)
+            with self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                call()
+            leaf.write_bytes(raw); call()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                call()
+            leaf.write_bytes(raw)
+            parent=leaf.parent; moved=parent.with_name(parent.name+'-actual')
+            parent.rename(moved);parent.symlink_to(moved,target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, 'symlinks'):
+                call()
+            parent.unlink();moved.rename(parent);call()
+        leaf.write_bytes(changed)
+        style['content']['runtime_reference']['references'][style['content']['runtime_reference']['references'].index(row)]['sha256']=hashlib.sha256(changed).hexdigest()
+        style_path=self.root/style['path'];style_path.write_text(json.dumps(style['content']))
+        registry_path=self.root/creative.BIBLE_REGISTRY;registry=json.loads(registry_path.read_bytes())
+        registry['shared_style_authority']['sha256']=hashlib.sha256(style_path.read_bytes()).hexdigest()
+        registry_path.write_text(json.dumps(registry))
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(self.ref,root=self.root)
+
+    def test_each_public_bind_reads_each_leaf_once_and_rechecks_parent_symlinks(self):
+        from collections import Counter
+        from unittest.mock import patch
+        counts=Counter(); read_bytes=Path.read_bytes
+        def record(path):
+            counts[path]+=1
+            return read_bytes(path)
+        with patch.object(Path,'read_bytes',record):
+            self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
+            self.assertTrue(counts)
+            self.assertEqual(set(counts.values()),{1})
+            first=dict(counts)
+            self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
+            self.assertEqual(dict(counts),{path:count*2 for path,count in first.items()})
+        # Drive-relative and rooted Windows paths must not reset the checked root.
+        from pathlib import PureWindowsPath
+        reader=creative._ValidationFiles(self.root)
+        for unsafe in ('C:relative', r'C:\absolute', r'\rooted'):
+            with self.subTest(path=unsafe),patch.object(creative,'Path',PureWindowsPath),self.assertRaisesRegex(ValueError,'repository relative'):
+                reader.path(unsafe)
+        # Path checks themselves are never cached, even inside one call's reader.
+        reader=creative._ValidationFiles(self.root)
+        directory=self.root/'mutable-parent';directory.mkdir();(directory/'leaf').write_bytes(b'leaf')
+        reader.read('mutable-parent/leaf')
+        moved=self.root/'real-parent';directory.rename(moved);directory.symlink_to(moved,target_is_directory=True)
+        with self.assertRaisesRegex(ValueError, 'symlinks'):
+            reader.read('mutable-parent/leaf')
+
+
 if __name__ == '__main__':
     unittest.main()

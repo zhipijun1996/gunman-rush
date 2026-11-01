@@ -2,6 +2,8 @@
 import argparse
 import hashlib
 import json
+import os
+import stat
 import re
 from pathlib import Path
 
@@ -39,30 +41,62 @@ def unique_object(pairs):
     return result
 
 
+class _ValidationFiles:
+    """One public validation only; never retain mutable repository state between calls."""
+    def __init__(self, root):
+        self.root = Path(root).resolve()
+        self._bytes = {}
+
+    def path(self, path):
+        relative = Path(path)
+        if relative.anchor or '..' in relative.parts or not relative.parts:
+            raise ValueError('Bible source must be repository relative')
+        # With absolute/parent paths forbidden, checking every component without
+        # following symlinks proves containment; no second full resolve is needed.
+        # Do not cache stat results: even another leaf in this call rechecks parents.
+        current = str(self.root)
+        for index, part in enumerate(('', *relative.parts)):
+            if part:
+                current = os.path.join(current, part)
+            try:
+                mode = os.lstat(current).st_mode
+            except (FileNotFoundError, NotADirectoryError):
+                raise ValueError('Missing/unsafe Bible source: ' + str(path)) from None
+            if stat.S_ISLNK(mode):
+                raise ValueError('Bible source and ancestors must not be symlinks')
+            if not (stat.S_ISREG(mode) if index == len(relative.parts) else stat.S_ISDIR(mode)):
+                raise ValueError('Missing/unsafe Bible source: ' + str(path))
+        return Path(current)
+
+    def read(self, path):
+        target = self.path(path)
+        if target not in self._bytes:
+            self._bytes[target] = target.read_bytes()
+        return self._bytes[target]
+
+    def json(self, path):
+        return json.loads(self.read(path), object_pairs_hook=unique_object)
+
+
 def repository_file(path, root=ROOT):
-    relative = Path(path)
-    base = Path(root).resolve()
-    target = base / relative
-    if relative.is_absolute() or '..' in relative.parts or not relative.parts:
-        raise ValueError('Bible source must be repository relative')
-    if any(p.is_symlink() for p in [target, *target.parents[:len(relative.parts)]]):
-        raise ValueError('Bible source and ancestors must not be symlinks')
-    if not target.resolve().is_relative_to(base) or not target.is_file():
-        raise ValueError('Missing/unsafe Bible source: ' + str(path))
-    return target
+    return _ValidationFiles(root).path(path)
 
 
 def strict_json(path, root=ROOT):
-    return json.loads(repository_file(path, root).read_bytes(), object_pairs_hook=unique_object)
+    return _ValidationFiles(root).json(path)
 
 
 def load_bible_registry(root=ROOT):
-    data = strict_json(BIBLE_REGISTRY, root)
+    return _load_bible_registry(_ValidationFiles(root))
+
+
+def _load_bible_registry(files):
+    data = files.json(BIBLE_REGISTRY)
     if (not isinstance(data, dict) or type(data.get('schema_version')) is not int
             or data['schema_version'] != 1 or data.get('kind') != 'region_bible_registry_direction_only'
             or not isinstance(data.get('regions'), list)):
         raise ValueError('Invalid Bible registry schema')
-    catalog = strict_json('docs/world_regions.json', root)
+    catalog = files.json('docs/world_regions.json')
     expected = {row['id'] for row in catalog['regions']}
     ids = [row.get('region_id') for row in data['regions'] if isinstance(row, dict)]
     if len(ids) != len(data['regions']) or len(ids) != len(set(ids)) or set(ids) != expected:
@@ -71,13 +105,17 @@ def load_bible_registry(root=ROOT):
 
 
 def supplemental_authority(bible, region_id, root=ROOT):
-    ref = load_bible_registry(root).get('shared_style_authority')
+    files = _ValidationFiles(root)
+    return _supplemental_authority(files, _load_bible_registry(files))
+
+
+def _supplemental_authority(files, registry):
+    ref = registry.get('shared_style_authority')
     if not isinstance(ref, dict) or set(ref) != {'path', 'sha256'}:
         raise ValueError('Invalid supplemental authority binding')
-    path = repository_file(ref['path'], root)
-    if hashlib.sha256(path.read_bytes()).hexdigest() != ref['sha256']:
+    if hashlib.sha256(files.read(ref['path'])).hexdigest() != ref['sha256']:
         raise ValueError('Supplemental authority SHA changed; impact analysis/rebind required')
-    data = strict_json(ref['path'], root)
+    data = files.json(ref['path'])
     source = data.get('source', {})
     dimensions = data.get('shared_dimensions', {})
     if (data.get('schema_version') != 1 or data.get('authority_id') != 'project_shared_regional_style'
@@ -109,21 +147,22 @@ def supplemental_authority(bible, region_id, root=ROOT):
     if (player.get('path') != player_path
             or any(by_role[role].get('path') != path for role,path in PLAYER_STYLE_DEPENDENCIES.items())):
         raise ValueError('Actual UnderworldPlayer body dependencies must retain their explicit consumer paths')
-    player_source = repository_file(player['path'],root).read_text()
+    player_source = files.read(player['path']).decode('utf-8')
     if any('"res://' + path + '"' not in player_source for path in PLAYER_STYLE_DEPENDENCIES.values()):
         raise ValueError('Shared player references differ from the actual direct body consumer; impact analysis/rebind required')
     for row in references:
         if (not isinstance(row.get('sha256'), str) or not re.fullmatch(r'[0-9a-f]{64}',row['sha256'])
-                or hashlib.sha256(repository_file(row.get('path'),root).read_bytes()).hexdigest() != row['sha256']):
+                or hashlib.sha256(files.read(row.get('path'))).hexdigest() != row['sha256']):
             raise ValueError('Shared Plains style reference SHA changed; impact analysis and revalidation required: ' + str(row.get('path')))
-    build = strict_json(next(row['path'] for row in references if row['role']=='tile_build'),root)
+    build = files.json(next(row['path'] for row in references if row['role']=='tile_build'))
     if any(runtime.get(key) != build.get(key) for key in ('tile_px','world_tile_wu')) or runtime.get('terrain_mode') != build.get('mode'):
         raise ValueError('Shared style scale/boundary metadata differs from the actual runtime build')
     return {'path':ref['path'],'sha256':ref['sha256'],'content':data}
 
 
 def bind_region_bible(region_id, root=ROOT):
-    data = load_bible_registry(root)
+    files = _ValidationFiles(root)
+    data = _load_bible_registry(files)
     row = next((row for row in data['regions'] if row['region_id'] == region_id), None)
     if row is None or row.get('current_bible') is None:
         raise MissingBible('Missing Bible for ' + str(region_id) + '; author a proposed Bible in preproduction before production')
@@ -141,17 +180,16 @@ def bind_region_bible(region_id, root=ROOT):
             or bible['bible_id'] != str(region_id) + '_v' + major
             or not Path(bible['path']).name.endswith(str(region_id) + '_region_bible_v' + major + '.md')):
         raise ValueError('Bible version/region identity must agree with the registered original document name')
-    raw = repository_file(bible['path'], root).read_bytes()
+    raw = files.read(bible['path'])
     if hashlib.sha256(raw).hexdigest() != bible['sha256']:
         raise ValueError('Bible SHA256 changed; impact analysis, versioned rebind and independent review required')
     raw.decode('utf-8')  # Never normalize or replace original attachment bytes.
     evidence = bible.get('selection_evidence', {})
     if not isinstance(evidence, dict) or not isinstance(evidence.get('path'), str):
         raise ValueError('Bible selection requires original user instruction evidence')
-    source = repository_file(evidence['path'], root)
-    if hashlib.sha256(source.read_bytes()).hexdigest() != evidence.get('sha256'):
+    if hashlib.sha256(files.read(evidence['path'])).hexdigest() != evidence.get('sha256'):
         raise ValueError('Bible selection evidence SHA256 mismatch')
-    request = strict_json(evidence['path'], root)
+    request = files.json(evidence['path'])
     if any(not isinstance(request.get(k), str) or not request[k].strip() for k in ('source', 'quote', 'authorization_scope')):
         raise ValueError('Bible selection requires original user source/quote/scope')
     attachments = request.get('attachments', [])
@@ -170,12 +208,12 @@ def bind_region_bible(region_id, root=ROOT):
             or original.get('sha256') != bible['sha256']
             or original.get('bytes') != len(raw) or original.get('copied_verbatim') is not True):
         raise ValueError('Bible canonical region/document must match its original/staged attachment identity and exact bytes')
-    supplement = supplemental_authority(bible, region_id, root)
+    supplement = _supplemental_authority(files, data)
     ref = {k:bible[k] for k in ('path', 'sha256', 'bible_id', 'version', 'status')}
     if supplement:
         ref.update(supplemental_authority_path=supplement['path'], supplemental_authority_sha256=supplement['sha256'])
     ref.update(region_id=region_id, registry_path=BIBLE_REGISTRY,
-               registry_sha256=hashlib.sha256(repository_file(BIBLE_REGISTRY, root).read_bytes()).hexdigest(),
+               registry_sha256=hashlib.sha256(files.read(BIBLE_REGISTRY)).hexdigest(),
                selection_evidence_path=evidence['path'], selection_evidence_sha256=evidence['sha256'])
     return bible, ref
 
