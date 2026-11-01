@@ -1,5 +1,5 @@
 """Locate the actual canvas menu on screenshots, then use normal pointer input."""
-import io
+import io,csv,os,subprocess
 from collections import Counter
 from PIL import Image
 
@@ -9,7 +9,7 @@ class StudioMenuLabelMissing(AssertionError):
 def _studio_label_box(tsv, label, scale=1):
  """Exact rendered OCR row, including suffixes; never a coordinate fallback."""
  import csv,re
- normalize=lambda value:re.sub(r'[^A-Z0-9]','',value.upper())
+ normalize=(lambda value:''.join(c for c in value.upper() if c.isalnum())) if any('\u3400'<=c<='\u9fff' for c in label) else (lambda value:re.sub(r'[^A-Z0-9]','',value.upper()))
  rows={}
  for word in csv.DictReader(io.StringIO(tsv),delimiter='\t'):
   if not word.get('text','').strip():continue
@@ -187,7 +187,7 @@ def _studio_actions_from_pixels(pixels,folder,stem,observation):
  assert len(matches)==1,f"Expected one complete rendered menu label 'ACTIONS'; found {len(matches)} complete button matches"
  return next(iter(matches.values()))
 
-def _studio_title_from_pixels(pixels,folder,stem,observation,whole_tsv):
+def _studio_legacy_title_from_pixels(pixels,folder,stem,observation,whole_tsv):
  """Full-frame title first; only missing text permits same-frame complete ROIs."""
  label='DEVELOPMENT DEMOS / ALL ENTRIES'
  try:return _studio_label_box(whole_tsv,label,3)
@@ -241,6 +241,99 @@ def _studio_title_from_pixels(pixels,folder,stem,observation,whole_tsv):
  if not matches:raise StudioMenuLabelMissing(f'Expected one complete rendered menu label {label!r}; found 0 complete button matches')
  assert len(matches)==1,f'Expected one complete rendered menu label {label!r}; found {len(matches)} complete button matches'
  return next(iter(matches.values()))
+
+def _complete_native_fill(image,box):
+ """Require four actual fill boundaries, including unclipped outer pixels."""
+ import numpy as np
+ a=np.asarray(image.convert('RGB'));left,top,right,bottom=box;w=right-left;h=bottom-top
+ if left<1 or top<1 or right>=image.width or bottom>=image.height:return False
+ crop=image.crop(box);color=Counter(crop.getdata()).most_common(1)[0][0]
+ mask=np.max(np.abs(a.astype(int)-color),axis=2)<3
+ xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+ inside=[mask[top,xs],mask[bottom-1,xs],mask[ys,left],mask[ys,right-1]]
+ outside=[mask[top-1,xs],mask[bottom,xs],mask[ys,left-1],mask[ys,right]]
+ return all(np.mean(edge)>=.8 for edge in inside) and all(np.mean(~edge)>=.8 for edge in outside)
+
+def locate_pixel_control(path,phrase,tess_args=(),exact=False):
+ from PIL import Image,ImageOps
+ import numpy as np,scipy.ndimage as ndi
+ pic=Image.open(path).convert('RGB');array=np.asarray(pic).astype(int)
+ normalize=lambda t: ''.join(x for x in t if x.isalnum()).upper()
+ target=normalize(phrase);cjk=any(0x3400<=ord(x)<=0x9fff for x in phrase)
+ matches={}
+ if exact and cjk:
+  languages=subprocess.run(['tesseract',*tess_args,'--list-langs'],capture_output=True,text=True,check=True,timeout=10).stdout.splitlines()
+  if not {'eng','chi_sim'}.issubset(set(languages)):raise RuntimeError('Current Chinese title requires eng and chi_sim; configure TESSDATA_PREFIX or tess_args')
+ _,surfaces=native_surfaces(path,[(41,58,59),(59,78,76),(195,163,102),(37,53,56)])
+ for left,top,right,bottom in surfaces:
+   xx=slice(left,right);yy=slice(top,bottom);width=right-left;height=bottom-top
+   if exact and not _complete_native_fill(pic,(left,top,right,bottom)):continue
+   roi=path.with_name(path.stem+'-control-'+str(xx.start)+'-'+str(yy.start)+'.png')
+   pic.crop((xx.start,yy.start,xx.stop,yy.stop)).resize((width*3,height*3)).save(roi)
+   versions=[roi]
+   if cjk:
+    binary=roi.with_name(roi.stem+'-binary.png')
+    ImageOps.invert(Image.open(roi).convert('L').point(lambda v:255 if v>145 else 0)).save(binary)
+    versions.append(binary)
+   for observed in versions:
+    for psm in (['7','6'] if cjk else ['7']):
+     args=['tesseract',str(observed),'stdout','--psm',psm]
+     if cjk:args+=[*tess_args,'-l','chi_sim+eng','-c','tessedit_create_tsv=1']
+     else:args+=['tsv']
+     result=subprocess.run(args,capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+     observed.with_suffix('.psm'+psm+'.tsv').write_text(result.stdout)
+     if exact:
+      try:local=_studio_label_box(result.stdout,phrase,3)
+      except StudioMenuLabelMissing:continue
+      matches[(left,top,right,bottom)]=(left+local[0],top+local[1])
+      continue
+     words=[normalize(r.get('text','')) for r in csv.DictReader(io.StringIO(result.stdout),delimiter='\t') if normalize(r.get('text',''))]
+     for start in range(len(words)):
+      for end in range(start+1,min(len(words),start+14)+1):
+       if ''.join(words[start:end])==target:return (xx.start+xx.stop)/2,(yy.start+yy.stop)/2
+ if exact and matches:
+  if len(matches)!=1:raise AssertionError(f'Expected one complete rendered menu label {phrase!r}; found {len(matches)} complete button matches')
+  return next(iter(matches.values()))
+ raise ValueError('Actual native button text missing from cropped pixel controls: '+phrase)
+
+def native_surfaces(path,colors):
+ from PIL import Image
+ import numpy as np,scipy.ndimage as ndi
+ pic=Image.open(path).convert('RGB');a=np.asarray(pic).astype(int);result=[]
+ for color in colors:
+  labels,_=ndi.label(np.max(np.abs(a-color),axis=2)<3)
+  for bounds in ndi.find_objects(labels):
+   if bounds is None:continue
+   yy,xx=bounds;w=xx.stop-xx.start;h=yy.stop-yy.start
+   if w>=60 and h>=28:result.append((xx.start,yy.start,xx.stop,yy.stop))
+ return pic.size,result
+
+def title_surface(path,index):
+ (w,h),rectangles=native_surfaces(path,[(41,58,59),(59,78,76),(195,163,102)])
+ rectangles=[r for r in rectangles if r[0]<w*.5 and r[2]-r[0]>w*.23 and r[3]-r[1]<h*.23 and r[1]<h*.86]
+ rectangles.sort(key=lambda r:r[1])
+ if len(rectangles)<4:raise ValueError('Four actual native title surfaces are not rendered')
+ r=rectangles[index];return (r[0]+r[2])/2,(r[1]+r[3])/2
+
+def touch_menu_surface(path):
+ (w,h),rectangles=native_surfaces(path,[(37,53,56)])
+ rectangles=[r for r in rectangles if r[0]>w*.5 and r[1]<h*.2 and r[2]-r[0]<w*.25]
+ if not rectangles:raise ValueError('Actual top-right touch MENU surface not found')
+ r=min(rectangles,key=lambda r:r[1]);return (r[0]+r[2])/2,(r[1]+r[3])/2
+
+def _studio_title_from_pixels(pixels,folder,stem,observation,whole_tsv):
+ """Retain historical English contract; current title uses shared strict pixels."""
+ try:return _studio_legacy_title_from_pixels(pixels,folder,stem,observation,whole_tsv)
+ except StudioMenuLabelMissing as legacy_missing:
+  observation['legacy_title_missing']=str(legacy_missing)
+ path=folder/(stem+'.png')
+ if not path.exists():path.write_bytes(pixels)
+ elif path.read_bytes()!=pixels:raise AssertionError('Current title screenshot differs from observed bytes')
+ try:point=locate_pixel_control(path,'开发入口',exact=True)
+ except ValueError as exc:raise StudioMenuLabelMissing(str(exc)) from exc
+ observation['actual_title_label']='开发入口'
+ observation['locator']='shared_native_surfaces_exact_complete_label'
+ return point
 
 async def enter_action_studio(page,touch=False,between_clicks_ms=300):
  """Navigate visible menus with actual pointer input; require a fresh Studio event.

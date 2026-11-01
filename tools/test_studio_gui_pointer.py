@@ -540,5 +540,50 @@ class MobilePopupPhaseTests(unittest.TestCase):
             self.parse(image)
 
 
+
+
+class CurrentTitleTests(unittest.TestCase):
+    def image(self):
+        return Image.open(FIXTURES / 'title_37950_current.png').convert('RGB')
+
+    def locate(self,image):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'title.png';image.save(path)
+            return helper.locate_pixel_control(path,'开发入口',exact=True)
+
+    def test_current_raw_fixture_and_real_unique_label(self):
+        raw=(FIXTURES/'title_37950_current.png').read_bytes()
+        provenance=json.loads((FIXTURES/'title_37950_current.json').read_text())
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),provenance['sha256'])
+        point=self.locate(self.image())
+        self.assertTrue(52<point[0]<412 and 482<point[1]<536)
+
+    def test_current_title_is_shared_navigation_consumer(self):
+        raw=(FIXTURES/'title_37950_current.png').read_bytes();observation={}
+        with tempfile.TemporaryDirectory() as directory:
+            point=helper._studio_title_from_pixels(raw,Path(directory),'current',observation,'')
+        self.assertEqual(observation['actual_title_label'],'开发入口')
+        self.assertEqual(point,self.locate(self.image()))
+
+    def test_duplicate_current_labels_are_not_index_selected(self):
+        image=self.image();image.paste(image.crop((50,480,414,540)),(50,570))
+        with self.assertRaisesRegex(AssertionError,'found 2 complete button matches'):
+            self.locate(image)
+
+    def test_clipped_or_missing_current_label_does_not_click_surface(self):
+        image=self.image();blank=image.copy()
+        ImageDraw.Draw(blank).rectangle((64,495,170,523),fill=image.getpixel((200,510)))
+        for control in (image.crop((0,0,1280,518)),blank):
+            with self.subTest(size=control.size),self.assertRaises(ValueError):self.locate(control)
+
+    def test_current_exact_rows_refuse_suffix_substring_and_duplicate(self):
+        rows=ExactLabelTests().tsv
+        self.assertEqual(helper._studio_label_box(rows(['开发入口']),'开发入口'),(65,36))
+        for label in ('开发','开发入口2','更多开发入口','开发入口 OTHER'):
+            with self.subTest(label=label),self.assertRaises(helper.StudioMenuLabelMissing):
+                helper._studio_label_box(rows([label]),'开发入口')
+        with self.assertRaisesRegex(AssertionError,'found 2'):
+            helper._studio_label_box(rows(['开发入口','开发入口']),'开发入口')
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
