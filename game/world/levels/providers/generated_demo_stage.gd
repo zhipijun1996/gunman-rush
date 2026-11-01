@@ -35,6 +35,13 @@ func cancel_enemy_attacks() -> bool:
 			return true
 	return false
 
+# Legacy route diagnostics are a source-owned view, not camera control.
+func route_debug_summary(world_position: Vector2) -> Dictionary:
+	var route_index := assembler.module_index_at(world_position) + 1
+	var flow := "LEFT" if generated.manifest.nodes[0].mirrored else "RIGHT"
+	var count := assembler.modules.size()
+	return {"index":route_index,"flow":flow,"count":count}
+
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	generated = data
 	tuning = player_tuning

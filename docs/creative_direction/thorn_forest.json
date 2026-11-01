@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v32",
+  "version": "creative-v33",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
-    "supplemental_authority_sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
+    "supplemental_authority_sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "2e8db61df2419ba09299e9c47754ac357cfcbee5e77b018240368c3b2759640f",
+    "registry_sha256": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -245,6 +245,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
       "sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
+      "sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e"
     }
   ],
   "historical_direction": {
@@ -254,52 +258,37 @@
   },
   "revision_impact": {
     "task_id": "GAME-ARCH-CI-01",
-    "source_commit": "254b600337c8adee5e8938e430650e34e7257cf9",
-    "source_identity": "Committed254b6003 baseline plus the six exact frozen candidate_source leaves below; candidate production is not yet part of that Git commit.",
+    "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+    "source_identity": "Committed2d44aaeb baseline plus the three exact frozen candidate_source leaves below; those production changes are not part of the baseline Git commit.",
     "candidate_source": [
       {
         "path": "game/application/demo_app.gd",
-        "sha256": "7da726dbb2b647bc8368c4a2cd638fcda61cae2c158ab80da26b0c4bf06dcbd8"
-      },
-      {
-        "path": "game/combat/damage/demo_contact_emitter.gd",
-        "sha256": "aceb78d87b477de483e032c230f0fa2684750c06baac20c3ff5d6de35df03494"
-      },
-      {
-        "path": "game/enemies/enemy_actor.gd",
-        "sha256": "777d9151d4aa8a670a5b25c97c107ade383834aac7579990136dac3f0d2b00df"
+        "sha256": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4"
       },
       {
         "path": "game/world/levels/providers/generated_demo_stage.gd",
-        "sha256": "f1be089d76d1c49c8361d7845c690eaad2eedb2cfc669b3c725d6f27c433114d"
+        "sha256": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5"
       },
       {
         "path": "game/world/levels/providers/plains_region_stage.gd",
-        "sha256": "651d98e0c2edf1ad0eed9f5bd232a10be322aabcc3c8d73c28391ab849821ad3"
-      },
-      {
-        "path": "game/world/levels/providers/thorn_forest_region_stage.gd",
-        "sha256": "26eaefabcfecc779aa85b37381a9f46c88a7d17e2175addbe25abd04e652c6c5"
+        "sha256": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
       }
     ],
-    "scope": "One technical source revision after attack-cancellation ownership, map damage/contact construction and Boss arena assembly closeout. No new gameplay rules, selected art/audio, RNG, save formats or content choice; no art, audio, user or device acceptance.",
-    "previous_direction": "docs/creative_direction/archive/composition-closeout-before-style29/docs/creative_direction/thorn_forest.json",
-    "previous_sha256": "aa85da1a656723093b801c58c4aa5662349947e0d6279d19cda3950fa39f15e0",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
-    "shared_style_sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c",
+    "scope": "Technical source revision for Stage-owned route debug summary and HUD world-region queries. Preserve selected art/audio and existing gameplay/Manifest rules; pure canvas projection remains with App. No new artwork or audio generation and no user/device acceptance.",
+    "previous_direction": "docs/creative_direction/archive/map-query-boundary-before-style30/docs/creative_direction/thorn_forest.json",
+    "previous_sha256": "a0499cce44cd12aa19195fe613eace43c88c5463831561b8c1710a92135ab76e",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
+    "shared_style_sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/composition-closeout-before-style29/manifest.json",
-      "sha256": "9d2d76226ba552cbcfe71ab063c18ba809921f66b359f4576c42a678aed79f3b"
+      "path": "docs/creative_direction/archive/map-query-boundary-before-style30/manifest.json",
+      "sha256": "9a863035c38c8cf153c659a1761b3419eb782fb2f538cddda66b9102b4325c83"
     },
     "affected_consumers": [
       "game/world/levels/providers/plains_region_stage.gd",
       "game/application/demo_app.gd",
-      "game/world/levels/providers/thorn_forest_region_stage.gd",
-      "game/combat/damage/demo_contact_emitter.gd",
-      "game/enemies/enemy_actor.gd",
       "game/world/levels/providers/generated_demo_stage.gd"
     ],
-    "validation": "Editor import was reported clean for the frozen six-source vector; original binding checks and regression evidence must be recorded separately. No full-CI/native/art/export/user/device acceptance is inherited by this metadata.",
+    "validation": "Independent static review accepted the three-source candidate; root native import/HUD verification is separate and must retain its actual results. This metadata does not imply full-CI, export, artwork, listening, player or device acceptance.",
     "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
   }
 }

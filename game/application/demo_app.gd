@@ -1604,9 +1604,8 @@ func _process(_delta: float) -> void:
 	_hint.text = _device_hint()
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
-		var route_index := random_stage.assembler.module_index_at(player.global_position) + 1
-		var flow := "LEFT" if random_stage.generated.manifest.nodes[0].mirrored else "RIGHT"
-		_status_label.text += "\nROUTE %s / %s | WORLD X %.0f | CAMERA X %.0f | FLOW %s" % [route_index, random_stage.assembler.modules.size(), player.global_position.x, _run_camera.global_position.x, flow]
+		var route := random_stage.route_debug_summary(player.global_position)
+		_status_label.text += "\nROUTE %s / %s | WORLD X %.0f | CAMERA X %.0f | FLOW %s" % [route.index, route.count, player.global_position.x, _run_camera.global_position.x, route.flow]
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
 	if connected_region and not debug_hud:
@@ -1665,15 +1664,13 @@ func _layout_region_hud() -> void:
 	var required_regions: Array[Rect2]=[]
 	var viewport:=get_viewport_rect()
 	if stage is PlainsRegionStage:
-		for module: PlatformingModule in stage.assembler.modules:
-			for anchor: Vector2 in module.definition.anchors:
-				var point := module.global_position+anchor
-				var projected:=transform*Rect2(point-Vector2(26,48),Vector2(52,65))
-				if viewport.intersects(projected):blockers.append(projected)
-			if module.definition.module_id==&"plains_windchime_well":
-				var bank: Rect2=module.definition.platforms[1]
-				var receiver:=transform*Rect2(module.global_position+bank.position-Vector2(0,36),Vector2(bank.size.x,36))
-				if viewport.intersects(receiver):required_regions.append(receiver.intersection(viewport))
+		var world_regions := (stage as PlainsRegionStage).hud_world_regions()
+		for world_rect: Rect2 in world_regions.blockers:
+			var projected := transform * world_rect
+			if viewport.intersects(projected): blockers.append(projected)
+		for world_rect: Rect2 in world_regions.required:
+			var receiver := transform * world_rect
+			if viewport.intersects(receiver): required_regions.append(receiver.intersection(viewport))
 		for latch: ShotLatch in (stage as PlainsRegionStage).shot_latches:
 			var point := latch.global_position+latch.bell_position
 			var projected:=transform*Rect2(point-Vector2(20,30),Vector2(40,60))

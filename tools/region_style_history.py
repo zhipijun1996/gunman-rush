@@ -89,4 +89,14 @@ STYLE28_MANIFEST_SHA = '9d2d76226ba552cbcfe71ab063c18ba809921f66b359f4576c42a678
 def style28_source(root, path):
     """Six prior28 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE28_ARCHIVE, path, STYLE28_MANIFEST_SHA)
+    return style29_source(root, path) if raw is None else raw
+
+
+STYLE29_ARCHIVE = 'docs/creative_direction/archive/map-query-boundary-before-style30'
+STYLE29_MANIFEST_SHA = '9a863035c38c8cf153c659a1761b3419eb782fb2f538cddda66b9102b4325c83'
+
+
+def style29_source(root, path):
+    """Three prior29 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE29_ARCHIVE, path, STYLE29_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw

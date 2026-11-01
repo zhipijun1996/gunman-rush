@@ -1,3 +1,9 @@
+## 2026-11-01 最后两处地图查询已收口，准备最终同源验证
+
+分支 `refactor/game-architecture-02`；P1六源码已存 `2d44aaeb`，其后最后三源码查询迁移与style30/creative33按[精确收据](evidence/map_view_boundary_01/receipt.json)记录，三源码静审通过，HUD61/0及五布局前后相同，current46／creative27／history36均在原预算通过。三处Stage值查询已接实际App，App assembler访问归零；不承诺任意新Provider已直接接通正式流程。见[架构收口与新地图门槛](worklines/game_architecture_01/architecture_closeout.md)。
+
+2d44的run41279913906已在prepare取消，不计通过。当前无本地Godot；所有代码/绑定/测试保存并刷新三索引后，冻结干净最终HEAD，只执行一次原environment.yml完整171＋Windows/Web（Android按本轮设置）＋授权试玩，补实际impact计划、quality-diff及exact release-evidence。不得把旧C8失败、限定专项或排队当全量通过；不合main。当前main经远端核仍2ce4ffa6，PR122/124已含，PR123排除。以下历史节点按各自精确来源保留。
+
 ## 2026-11-01 App地图接线六源码已收口，原9项相关回归通过
 
 攻击取消、地图伤害/接触器构造、Boss场地/恢复/封印已归Stage与Actor。核心5686与原9项相关Harness全fresh通过；style29/creative32技术绑定及当前46/历史32/creative26均在原预算通过。旧C8完整CI是79+70通过、Bible超时、21未执行，仍记失败；性能修复254已独立保存，最终完整171待验。具体调用、证据、回退及剩余地图接口/交付工作见[本批说明](worklines/game_architecture_01/composition_closeout.md)。以下为历史节点。

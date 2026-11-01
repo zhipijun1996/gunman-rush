@@ -1,0 +1,22 @@
+{
+  "scope": "Original HUD runner baseline2d versus exact three-file query candidate; five camera-extrema panel diagnostics and61 assertions. Not all routes or physical device acceptance.",
+  "baseline": {
+    "commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+    "log": "/workspace/refactor-evidence/map-interface-hud-baseline-01.log",
+    "sha256": "e058b9faaba9bf44351ac89c52451df65a804a24dbd6af0805b79a20df6cfae5"
+  },
+  "candidate": {
+    "source_vector": "final-map-boundary-candidate/candidate.json",
+    "log": "/workspace/refactor-evidence/map-interface-original-hud-bounds-01.log",
+    "sha256": "26fdc80676d75f263374d4d0a1dce86931591b3583fd5d9131216b36f36a7988"
+  },
+  "identical_observed_diagnostic_lines": [
+    "HUD_DIAG offset=(350.0, 184.375) center=(-1500.0, 184.375) player_screen=(80.0, 64.99999) panel=(12.0, 572.0) touch=false",
+    "HUD_DIAG offset=(350.0, -181.25) center=(-1500.0, -181.25) player_screen=(80.0, 649.9999) panel=(12.0, 8.0) touch=false",
+    "HUD_DIAG offset=(-337.5, 184.375) center=(-2187.5, 184.375) player_screen=(1180.0, 64.99999) panel=(12.0, 8.0) touch=false",
+    "HUD_DIAG offset=(0.0, 412.5) center=(-1850.0, 412.5) player_screen=(640.0, -300.0) panel=(12.0, 8.0) touch=false",
+    "HUD_DIAG offset=(650.0, -337.5) center=(-1200.0, -337.5) player_screen=(-400.0, 899.9999) panel=(12.0, 8.0) touch=false",
+    "FINE_HUD_BOUNDS checks=61 failures=0"
+  ],
+  "status": "passed"
+}

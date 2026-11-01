@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "task_id": "MAP-VIEW-BOUNDARY-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+  "reviewed_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+  "content_version": "three-source-query-candidate-v1",
+  "owner": "/root",
+  "purpose": "将App最后两处assembler/旧Manifest只读展示查询交给Stage，迁移真实路线与HUD消费者。",
+  "player_experience": "原路线文本、HUD坐标、裁切、避让评分和实际游戏规则保持。",
+  "constraints": [
+    "三个实际源码与技术绑定/历史适配共同迁移；不改图声或游戏规则。",
+    "Stage返回fresh值，不暴露module/Definition/内部容器，不传App或Session。",
+    "保原路线index→flow→count；HUD module读与每结果顺序保持，纯投影收集后执行，无await；latch及后缀字节保持。",
+    "不承诺任意Provider已接通正式App；旧来源适配与新算法开发明确列为后续新地图接入任务。"
+  ],
+  "affected_paths": [
+    "game/application/demo_app.gd",
+    "game/world/levels/providers/generated_demo_stage.gd",
+    "game/world/levels/providers/plains_region_stage.gd"
+  ],
+  "deliverables": [
+    "route_debug_summary与hud_world_regions的真实App消费者",
+    "独立静审、三叶SHA、原HUD61/0前后及五位置诊断比较",
+    "现有版本权威技术绑定和有限历史消费者适配",
+    "最终架构说明/逐文件图与CI交付收据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限状态不变查询范围及新来源边界明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "最终同源集成/平台未验；限定工程证据按实际scope单列。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "最终同源集成/平台未验；限定工程证据按实际scope单列。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "最终同源集成/平台未验；限定工程证据按实际scope单列。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "最终同源集成/平台未验；限定工程证据按实际scope单列。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "最终同源集成/平台未验；限定工程证据按实际scope单列。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "限定真实接口归属；不设计新地图规则。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "仅三叶import/原HUD及实际诊断比较通过；完整171仍待。",
+      "evidence": [
+        "native",
+        "comparison"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "三叶独立静审；不包含最终平台/用户验收。",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "本批不代签完整游戏/主观/设备验收。",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/map_view_boundary_01/baseline-review.json",
+      "sha256": "1c5850af203948afec4a8d62ef704c1f7d6978b8e78e77e45adef873f1d9d16f",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+      "content_version": "three-source-query-candidate-v1",
+      "method": "Exact2d44 baseline plus three source hashes from receipt/candidate; not claiming WIP source was committed in2d44.",
+      "observed": "两处具体查询与可接受过渡/新来源真实接入门槛。"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/map_view_boundary_01/native.json",
+      "sha256": "d9781b70046962c2a08e990e5ecd35fa328f4ceca8913e4c9ad0c12558e8c1a2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+      "content_version": "three-source-query-candidate-v1",
+      "method": "Exact2d44 baseline plus three source hashes from receipt/candidate; not claiming WIP source was committed in2d44.",
+      "observed": "import6.950及原HUD61/0 5.153秒，三源前后同SHA；仅候选限定检查。",
+      "command": "run_engine original editor import90 then tests/underworld_plains/test_fine_hud_bounds.gd operational cap90; original assertions unchanged",
+      "exit_code": 0,
+      "environment": "Locked optimized gunman_sd1 Linux editor; headless, no fixed-fps, no physical device acceptance."
+    },
+    {
+      "id": "comparison",
+      "path": "docs/evidence/map_view_boundary_01/hud-comparison.json",
+      "sha256": "111649fcfa1511a343c5f4cf8c63d0f9e64dfc79d753bb9220618cf23d4458b1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+      "content_version": "three-source-query-candidate-v1",
+      "method": "Exact2d44 baseline plus three source hashes from receipt/candidate; not claiming WIP source was committed in2d44.",
+      "observed": "baseline五个HUD_DIAG及61完成marker与候选逐字同。"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/map_view_boundary_01/independent-review.json",
+      "sha256": "b0877957d780db6fbfd5a1159a5dae680f09782b815a4ca829c9deb51adf9288",
+      "kind": "review",
+      "producer": "/root/runtime_audit",
+      "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+      "content_version": "three-source-query-candidate-v1",
+      "method": "Exact2d44 baseline plus three source hashes from receipt/candidate; not claiming WIP source was committed in2d44.",
+      "observed": "非作者三叶静审ACCEPT；未代签最终171/平台。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/structure_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Structure agent authored the three-file patch. Runtime agent did not modify implementation; independently read Git baseline, candidate hashes, inverse proof and original read/output ordering. Root only applied reviewed bytes and ran native checks."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终冻结提交full171及同源平台/公开预览未验。",
+    "新算法/模块库及完整新来源App接入为后续内容任务。",
+    "物理设备/听感/用户认可未由工程检查代签。"
+  ]
+}

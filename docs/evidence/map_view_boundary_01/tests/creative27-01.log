@@ -1,0 +1,20 @@
+.................E.........
+======================================================================
+ERROR: test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes (__main__.CreativeTests.test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/style30-test-adaptation-01/overlay/tests/test_region_creative_direction.py", line 580, in test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes
+    before = level_formal.source_files()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/style30-test-adaptation-01/overlay/tools/level_formal.py", line 26, in source_files
+    paths.extend(ROOT / relative for relative in driver_source_paths())
+                                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/refactor-evidence/style30-test-adaptation-01/overlay/tools/level_formal.py", line 51, in driver_source_paths
+    if not path.is_file(): raise ValueError("Missing actual driver dependency: " + name)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Missing actual driver dependency: tools/level_formal_capture.gd
+
+----------------------------------------------------------------------
+Ran 27 tests in 8.550s
+
+FAILED (errors=1)

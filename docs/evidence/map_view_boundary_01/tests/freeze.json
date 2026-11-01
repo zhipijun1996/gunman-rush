@@ -1,0 +1,995 @@
+{
+  "base_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+  "files": {
+    "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+    "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+    "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a"
+  },
+  "patch_sha256": "e49e4b84b331436885496d63df715337f4318469170ae378e3190859add538b5",
+  "preserved_methods": [
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_cli_and_original_selected_bytes",
+      "old_ast_sha256": "812a924c5f3388018b09cf516ac03ab18401d1d2385878c28acce2571c84758c",
+      "current_ast_sha256": "812a924c5f3388018b09cf516ac03ab18401d1d2385878c28acce2571c84758c",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_missing_bible_is_distinct_from_invalid_bible",
+      "old_ast_sha256": "6aafcddecfbd751280d9cc875d9133e1c13322906c8919ef07b7cb1448d14100",
+      "current_ast_sha256": "6aafcddecfbd751280d9cc875d9133e1c13322906c8919ef07b7cb1448d14100",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_wrong_region_partial_binding_and_wrong_version_fail",
+      "old_ast_sha256": "653c7a7ee50b42f5ff434047e80813f6ab3a859eab10b7b21b49140be68f1cfa",
+      "current_ast_sha256": "653c7a7ee50b42f5ff434047e80813f6ab3a859eab10b7b21b49140be68f1cfa",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_unannounced_original_drift_never_refreshes_binding",
+      "old_ast_sha256": "d5cce7ba6aa7d9de8a957d1b86a5258f07fc80293bac9fbedf791478b6a80301",
+      "current_ast_sha256": "d5cce7ba6aa7d9de8a957d1b86a5258f07fc80293bac9fbedf791478b6a80301",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_registry_drift_invalidates_existing_binding_even_if_bible_unchanged",
+      "old_ast_sha256": "c419a72c53982b3b329014c2b7cce65bed35a8a739c7a0fc05325b0fa80e481a",
+      "current_ast_sha256": "c419a72c53982b3b329014c2b7cce65bed35a8a739c7a0fc05325b0fa80e481a",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_duplicate_json_and_duplicate_regions_rejected",
+      "old_ast_sha256": "527d4172801abb83577432436b985fc9b815dba5afd0a7e3022d5ddc6482a0c0",
+      "current_ast_sha256": "527d4172801abb83577432436b985fc9b815dba5afd0a7e3022d5ddc6482a0c0",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_path_escape_absolute_and_symlink_ancestors_rejected",
+      "old_ast_sha256": "62a5a8e6ab3e78fc625317f0e9d0b00bc0f1e362a0f9915ebb4540acbd82ecaa",
+      "current_ast_sha256": "62a5a8e6ab3e78fc625317f0e9d0b00bc0f1e362a0f9915ebb4540acbd82ecaa",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_selection_needs_raw_original_user_evidence",
+      "old_ast_sha256": "826d40b864d8b0a365bf57bd733c226c6fbeef14b25c8ad28a0c34680468fc81",
+      "current_ast_sha256": "826d40b864d8b0a365bf57bd733c226c6fbeef14b25c8ad28a0c34680468fc81",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_hash_refresh_cannot_turn_another_attachment_into_forest",
+      "old_ast_sha256": "8c963646da771cf5d896fd1c71cf19b335f1f817a7a653a20ba170c3c0a8e0a3",
+      "current_ast_sha256": "8c963646da771cf5d896fd1c71cf19b335f1f817a7a653a20ba170c3c0a8e0a3",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_selected_direction_cannot_forge_raw_quote_or_player_approval",
+      "old_ast_sha256": "90670b164ba624196607f21068d2ceb1f527ed4b7797d8573c25c95c96ccdba6",
+      "current_ast_sha256": "90670b164ba624196607f21068d2ceb1f527ed4b7797d8573c25c95c96ccdba6",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_cross_attachment_bytes_cannot_be_relabelled_with_refreshed_registry",
+      "old_ast_sha256": "e6e31dbbf3b98c048a2c452eb427b58d477a3d5b539a9c9540dc93d5d5541fac",
+      "current_ast_sha256": "e6e31dbbf3b98c048a2c452eb427b58d477a3d5b539a9c9540dc93d5d5541fac",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_original_staged_basename_mismatch_and_duplicate_identity_refused",
+      "old_ast_sha256": "ee642dd1cbb1e72ebfa506e9eb5f543e20934dd1a008711654cbf95d63855f4c",
+      "current_ast_sha256": "ee642dd1cbb1e72ebfa506e9eb5f543e20934dd1a008711654cbf95d63855f4c",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_latest_shared_style_quotes_and_actual_family_bind_all_region_production",
+      "old_ast_sha256": "c2c4478b84ca2e79e6d25e7d4297f70b26cfc9313c5e8ccbcd13e0e393b83807",
+      "current_ast_sha256": "c2c4478b84ca2e79e6d25e7d4297f70b26cfc9313c5e8ccbcd13e0e393b83807",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_future_proposed_worker_gets_shared_style_without_visual_gate",
+      "old_ast_sha256": "927ac3e18113ddf4ca6a41b80c53f1f6bf54cc6dfb70af5c45963fb9efa42d4f",
+      "current_ast_sha256": "927ac3e18113ddf4ca6a41b80c53f1f6bf54cc6dfb70af5c45963fb9efa42d4f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_shared_reference_or_quote_drift_blocks_calls_and_restore",
+      "old_ast_sha256": "acd8566574117abb014a331627b41591e83c1b5611c7c2bd2eb2fc7bcfcad7bf",
+      "current_ast_sha256": "acd8566574117abb014a331627b41591e83c1b5611c7c2bd2eb2fc7bcfcad7bf",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_global_physics_actions_and_plain_docs_have_no_shared_art_gate",
+      "old_ast_sha256": "38c9fbc51996ea838fb65e9557fa8944beadc7848a6bdef7445a4f4f9eb74dda",
+      "current_ast_sha256": "38c9fbc51996ea838fb65e9557fa8944beadc7848a6bdef7445a4f4f9eb74dda",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_actual_player_body_closure_is_required_and_superseded_binding_refused",
+      "old_ast_sha256": "9190f9918629b22522a87cffbf96a5f480cf41d286540f508db3fcb39504363c",
+      "current_ast_sha256": "4d26a68c4ef15faf7fccf9520c5d4317cf6ed5ccca4e6d72b08bc0dab0c8803a",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume",
+      "old_ast_sha256": "572910f883a5ae26fbbd8efa0e18400fe4eecae775f2379109cd280d200d81f5",
+      "current_ast_sha256": "572910f883a5ae26fbbd8efa0e18400fe4eecae775f2379109cd280d200d81f5",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes",
+      "old_ast_sha256": "c9ccbff13e079fe3a62a4a4fcd4238bb2a4e5ffcf079c795921d379070c22ee5",
+      "current_ast_sha256": "c9ccbff13e079fe3a62a4a4fcd4238bb2a4e5ffcf079c795921d379070c22ee5",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_default_current_bibles_skip_election",
+      "old_ast_sha256": "13e23d270d0a8bcd6bd82b4c53a6915f4d8392f0da5cbd5ef9830b20475406b5",
+      "current_ast_sha256": "13e23d270d0a8bcd6bd82b4c53a6915f4d8392f0da5cbd5ef9830b20475406b5",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_no_bible_proposal_only_and_explicit_production_rejected",
+      "old_ast_sha256": "18f857cfdde3d39ce179c4191599424701ae01caa5faba93dee87d8886f86fa9",
+      "current_ast_sha256": "18f857cfdde3d39ce179c4191599424701ae01caa5faba93dee87d8886f86fa9",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls",
+      "old_ast_sha256": "f973f182452cc57b0a9a8af40b6787c3688a9b7045c24dab2d9fca382d9b2d47",
+      "current_ast_sha256": "f973f182452cc57b0a9a8af40b6787c3688a9b7045c24dab2d9fca382d9b2d47",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_anonymous_production_write_paths_block_all_original_adversarial_probes",
+      "old_ast_sha256": "30b95e6d12a23b0f4f919d2d2f18952e0122d01bf90ed305c998160bd64228c3",
+      "current_ast_sha256": "30b95e6d12a23b0f4f919d2d2f18952e0122d01bf90ed305c998160bd64228c3",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_exact_known_catalog_paths_require_matching_single_region_binding",
+      "old_ast_sha256": "3c690e2f73646d294af24e51b2c221de5af592652df02e68d6662c228e912a79",
+      "current_ast_sha256": "3c690e2f73646d294af24e51b2c221de5af592652df02e68d6662c228e912a79",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_all_runtime_domains_detect_registered_region_families_before_prefix_filter",
+      "old_ast_sha256": "9a1e165e386d95a66dbf05eb5f830f116ba64a5d80ddbbe1c64293a24fadb740",
+      "current_ast_sha256": "9a1e165e386d95a66dbf05eb5f830f116ba64a5d80ddbbe1c64293a24fadb740",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_anonymous_multi_region_task_and_ambiguous_mission_return_blocked",
+      "old_ast_sha256": "982a618baddf7dce05e75c9127e7d6172f680f206cb4cdfe7c9771f7278263a4",
+      "current_ast_sha256": "982a618baddf7dce05e75c9127e7d6172f680f206cb4cdfe7c9771f7278263a4",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_broad_bound_scope_cannot_write_another_actual_region_consumer",
+      "old_ast_sha256": "82d1460d10656e7125280bc07cacf6c7f047d033de13d477d89b64254aa555d6",
+      "current_ast_sha256": "82d1460d10656e7125280bc07cacf6c7f047d033de13d477d89b64254aa555d6",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_handwritten_partial_binding_and_source_inputs",
+      "old_ast_sha256": "20f20f93f62b859df377a867b64fa758f3632b93e730aaed098087cdfee08c91",
+      "current_ast_sha256": "20f20f93f62b859df377a867b64fa758f3632b93e730aaed098087cdfee08c91",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_worker_prompt_contains_full_original_and_audio_scope",
+      "old_ast_sha256": "68acae9d2dce19f621d742979ee25baa591af35010a9c3b484702af8f8c86832",
+      "current_ast_sha256": "68acae9d2dce19f621d742979ee25baa591af35010a9c3b484702af8f8c86832",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_source_drift_during_worker_blocks_after_call",
+      "old_ast_sha256": "8957aaea3ca4ab9b18380399d99cf704b35b966a65d1bbc3d6b49a2b56fccd2e",
+      "current_ast_sha256": "8957aaea3ca4ab9b18380399d99cf704b35b966a65d1bbc3d6b49a2b56fccd2e",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_source_drift_before_worker_and_restored_completion_block",
+      "old_ast_sha256": "e647939040ecd158446adaf4775bca131d69650bd4e393b3ae8f69435b7f5f52",
+      "current_ast_sha256": "e647939040ecd158446adaf4775bca131d69650bd4e393b3ae8f69435b7f5f52",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_visual_director_uses_current_bible_and_exact_caller_scope",
+      "old_ast_sha256": "56d3055f503b9407375524222ef4d63eed842fff592376825c0a1a8553f82810",
+      "current_ast_sha256": "56d3055f503b9407375524222ef4d63eed842fff592376825c0a1a8553f82810",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18",
+      "old_ast_sha256": "c556d48b16d4de4b067e76eae8e27be9c76a03a0447e2dbe36b5db5c688ef2e3",
+      "current_ast_sha256": "c556d48b16d4de4b067e76eae8e27be9c76a03a0447e2dbe36b5db5c688ef2e3",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_merged20_preserves_both_parent19_contracts_and_refuses_both_pointers",
+      "old_ast_sha256": "4261da4b1400deff96cf733c786a8c687f9d4d02d63c8aaa87c6d52b83ac113d",
+      "current_ast_sha256": "4261da4b1400deff96cf733c786a8c687f9d4d02d63c8aaa87c6d52b83ac113d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references",
+      "old_ast_sha256": "c51fe361f7912566a5415b3b92003d7b1d182ed6e2d06b8a30992b6e40cee436",
+      "current_ast_sha256": "c51fe361f7912566a5415b3b92003d7b1d182ed6e2d06b8a30992b6e40cee436",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history",
+      "old_ast_sha256": "e54a2fcdbc5c312e2d003da9b41f75575b0560d8c0af77d4b6590900b6f184ab",
+      "current_ast_sha256": "e4ab14afd8a4ce7e55c656dffa758e115daf9241373ee8ee7a5f2375fced3e89",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18_audio_history",
+      "old_ast_sha256": "9e7e8f3c6a6635a45df33561ed18f8d08071dabac43fbf979e9cd7b5a1eaca33",
+      "current_ast_sha256": "9e7e8f3c6a6635a45df33561ed18f8d08071dabac43fbf979e9cd7b5a1eaca33",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_audio_feedback_v20_preserves81_and_refuses_stale19",
+      "old_ast_sha256": "ac4fa2868cdfb6907bbb1831a75103573eb0d11f76e0d01eaa3a0153602217c9",
+      "current_ast_sha256": "ac4fa2868cdfb6907bbb1831a75103573eb0d11f76e0d01eaa3a0153602217c9",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_audio_feedback06_v21_rebinds_only_original_title_and_refuses_stale20",
+      "old_ast_sha256": "d92899a6c56658c03b9cb23408189e122f52703f346e8df6338a74987c733c88",
+      "current_ast_sha256": "d92899a6c56658c03b9cb23408189e122f52703f346e8df6338a74987c733c88",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale",
+      "old_ast_sha256": "caa98876fe706e3075e432787dd81de09b21a1a3cc4b71961c63f0050431b62e",
+      "current_ast_sha256": "231165fa217cbc8dcca3b213d1dd664af172faa4cad4c0c20e65f4dc03fc7c23",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_bellstrider23_has_exact83_prefix_and_finite_real_body_audio_closure",
+      "old_ast_sha256": "079d5b3e518e3a53ae5490321f2f611d199f67e1f3a7cbc5aae324148dff347c",
+      "current_ast_sha256": "079d5b3e518e3a53ae5490321f2f611d199f67e1f3a7cbc5aae324148dff347c",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_bellstrider_audio_assets_are_literal17_real_wavs_with_strict_byte_custody",
+      "old_ast_sha256": "ca315d65019e92ccfcd52e98d85e9723159c01cc396ea5a2c66d07e50df4345e",
+      "current_ast_sha256": "ca315d65019e92ccfcd52e98d85e9723159c01cc396ea5a2c66d07e50df4345e",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_bellstrider_binding_migration_preserves57_original_methods_hashes_and_input_prefixes",
+      "old_ast_sha256": "925b667c8ed5c182fea9475c39c1f9fd557d7189b267966479e7ff458c8e0ab0",
+      "current_ast_sha256": "925b667c8ed5c182fea9475c39c1f9fd557d7189b267966479e7ff458c8e0ab0",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_windkeeper24_keeps83_prefix_and_binds_actual_pressure_consumers",
+      "old_ast_sha256": "5aa514a2d3d0a1fff1ba3fd75c1a907d61aed88809dcca41c46973fc49d8a272",
+      "current_ast_sha256": "5aa514a2d3d0a1fff1ba3fd75c1a907d61aed88809dcca41c46973fc49d8a272",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_windkeeper24_rejects_prior22_and_new_consumer_drift",
+      "old_ast_sha256": "b83f3f1aeb3df83c38918dedc3ab20c1272263891fd237531f92f9cbcf8dd559",
+      "current_ast_sha256": "b83f3f1aeb3df83c38918dedc3ab20c1272263891fd237531f92f9cbcf8dd559",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_windkeeper24_archive_and_original_harness_guards_remain",
+      "old_ast_sha256": "fcd9c31ee8c283168d9aa1bf88995d07f633e06ba7f21b677520a28f1ffd11ac",
+      "current_ast_sha256": "fcd9c31ee8c283168d9aa1bf88995d07f633e06ba7f21b677520a28f1ffd11ac",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_merged25_preserves_both_frozen_parents_and_real153_union",
+      "old_ast_sha256": "e50d5bfb1f7707bb82541cd696b20d411899445def59450283aea62ff595b330",
+      "current_ast_sha256": "e50d5bfb1f7707bb82541cd696b20d411899445def59450283aea62ff595b330",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_exact_finite_source_selection_and_original_documents",
+      "old_ast_sha256": "dbd539c02bed8813f6a0586314a4abb80951ecc64996b84d680c887567a21b14",
+      "current_ast_sha256": "dbd539c02bed8813f6a0586314a4abb80951ecc64996b84d680c887567a21b14",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_scene_reference_supplement_preserves_original_archive_and_rejects_missing_leaf",
+      "old_ast_sha256": "b9a2ff18b1a2953c2531161232470e58083d88313d8668eeada5da4609011767",
+      "current_ast_sha256": "b9a2ff18b1a2953c2531161232470e58083d88313d8668eeada5da4609011767",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_preserved_original_test_methods_are_unchanged",
+      "old_ast_sha256": "a4a5f4e3ba372aa7f523869f0762cae1710a9a592284b1715c02daf57e2206fd",
+      "current_ast_sha256": "87f0f158dd3f897008049bee92566bde32a239f4e01b6543c14cc56dbd55de62",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_missing_frozen_source_rejects_even_when_live_path_exists",
+      "old_ast_sha256": "972f892c41c766f6373d61bf9d8012e140b2b07258fec1ad82c086f227572b7d",
+      "current_ast_sha256": "972f892c41c766f6373d61bf9d8012e140b2b07258fec1ad82c086f227572b7d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_corrupt_frozen_source_rejects_even_when_live_path_exists",
+      "old_ast_sha256": "ee240ae222f7d47df2db7268b2f3e7fe7979dfb404981e210998c6160859616d",
+      "current_ast_sha256": "ee240ae222f7d47df2db7268b2f3e7fe7979dfb404981e210998c6160859616d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_rehashing_mutated_archive_manifest_does_not_re_sign_history",
+      "old_ast_sha256": "903ebef39446b852d5b5cbd3d8d723f72695f2f3a2ff20c8d855ce2c137e29e9",
+      "current_ast_sha256": "903ebef39446b852d5b5cbd3d8d723f72695f2f3a2ff20c8d855ce2c137e29e9",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_existing_boss_parent_override_precedes_shared_style25_snapshot",
+      "old_ast_sha256": "a8f3299bbf237babfc307088ff3bf77fa8551c1e4e6cf0df880c8d1dd842ff6f",
+      "current_ast_sha256": "a8f3299bbf237babfc307088ff3bf77fa8551c1e4e6cf0df880c8d1dd842ff6f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_live_validator_still_rejects_changed_source_despite_available_archive",
+      "old_ast_sha256": "5a96a8ad01448cac14bb176d4e08b245cb20652469c398556c491a357cc2733d",
+      "current_ast_sha256": "5a96a8ad01448cac14bb176d4e08b245cb20652469c398556c491a357cc2733d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_complete_method_guard_rejects_return_dead_assertions_and_reduced_loop",
+      "old_ast_sha256": "871a31ac8d08354248cca2f4f4258b1e651f063fe93b2dd50fbe050d0a319d7d",
+      "current_ast_sha256": "871a31ac8d08354248cca2f4f4258b1e651f063fe93b2dd50fbe050d0a319d7d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current26_preserves_original153_roles_and_media_and_binds_real_helpers",
+      "old_ast_sha256": "03f996b1fbba9b813966a6d2f47720b448691f13d2df3faa2babe1497c5049f0",
+      "current_ast_sha256": "03f996b1fbba9b813966a6d2f47720b448691f13d2df3faa2babe1497c5049f0",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_new_delegates_drift_and_missing_current_source_cannot_fall_back_to_archive",
+      "old_ast_sha256": "483dad2e43c0942ac416bf4eeae9c72adbcf3279d738120740fec4012626d20c",
+      "current_ast_sha256": "483dad2e43c0942ac416bf4eeae9c72adbcf3279d738120740fec4012626d20c",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current_player_identity_rejects_former_path_even_after_refreshing_hashes",
+      "old_ast_sha256": "adef80de7d040d7f0691b2951f7dd56a58ab1aef863128c1e5032002637a2aeb",
+      "current_ast_sha256": "adef80de7d040d7f0691b2951f7dd56a58ab1aef863128c1e5032002637a2aeb",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current_check_preserves_original598_mapped_input_prefix_and_duplicates",
+      "old_ast_sha256": "e653ab8322429e029d94736af8f1b69d23b077cb918dccce92353b4139d1d51f",
+      "current_ast_sha256": "e653ab8322429e029d94736af8f1b69d23b077cb918dccce92353b4139d1d51f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_original_checks_track_each_current_reference_and_technical_style",
+      "old_ast_sha256": "c55fb0106156af17eb8dca1883bb8d05230cfce2514d96548c29828a26af91a9",
+      "current_ast_sha256": "c55fb0106156af17eb8dca1883bb8d05230cfce2514d96548c29828a26af91a9",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_lifecycle_r2_source_is_separate_from_the_original_p9_vector",
+      "old_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+      "current_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current27_preserves206_roles_media_and_only_six_source_changes",
+      "old_ast_sha256": "8432b10406b1082a078ff541841f932ee1960e7932a52d3f12fbd218acf15f37",
+      "current_ast_sha256": "8432b10406b1082a078ff541841f932ee1960e7932a52d3f12fbd218acf15f37",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_finite26_archive_exact_original_files_and_sources",
+      "old_ast_sha256": "2ecaa65f71a536502fd5287c45c30b0db497e85e8047a761cec411eba9c2611d",
+      "current_ast_sha256": "2ecaa65f71a536502fd5287c45c30b0db497e85e8047a761cec411eba9c2611d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_indexed26_leaf_never_falls_back_and_live27_never_uses_archive",
+      "old_ast_sha256": "7bd86078235199572fff8fad253bf1de268c60f47996f4d270b5ccd58f3b8c76",
+      "current_ast_sha256": "7bd86078235199572fff8fad253bf1de268c60f47996f4d270b5ccd58f3b8c76",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_all_original_check_inputs_order_duplicates_and_new_digests",
+      "old_ast_sha256": "3078d89ca0c0d1b4782264b5e273fb2550545895f6285f83c61362bad38ef423",
+      "current_ast_sha256": "3078d89ca0c0d1b4782264b5e273fb2550545895f6285f83c61362bad38ef423",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_prior26_whole_methods_and_reject_dead_or_reduced_assertions",
+      "old_ast_sha256": "220096d71ea47b3cccd1a19785d32e75ef868a04e032668d20eb45d08f3d570f",
+      "current_ast_sha256": "220096d71ea47b3cccd1a19785d32e75ef868a04e032668d20eb45d08f3d570f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_exact_history_without_git_and_refuse_missing_corrupt_or_unknown",
+      "old_ast_sha256": "f3a1fde86b9ee7b454fa4a2d8e35891380ca3432b5ed9efd8f14e8b20652bf17",
+      "current_ast_sha256": "f3a1fde86b9ee7b454fa4a2d8e35891380ca3432b5ed9efd8f14e8b20652bf17",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_history_read_migration_preserves_complete_method_guards",
+      "old_ast_sha256": "462a86ca19934c3b7960c997e2ace56dd1b8e1ec78a188f65d805b0830005d93",
+      "current_ast_sha256": "462a86ca19934c3b7960c997e2ace56dd1b8e1ec78a188f65d805b0830005d93",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current28_exact206_sources_roles_media_and_five_technical_changes",
+      "old_ast_sha256": "45901ae5f3285cc601f1ac2f92d5750d0dd51de0b456cb532ff006d23d5dfa47",
+      "current_ast_sha256": "45901ae5f3285cc601f1ac2f92d5750d0dd51de0b456cb532ff006d23d5dfa47",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current28_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "old_ast_sha256": "73ae25ce060806c243395fb442cda7bc47df2548f50514d4af903cfe7e3e3278",
+      "current_ast_sha256": "73ae25ce060806c243395fb442cda7bc47df2548f50514d4af903cfe7e3e3278",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current28_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+      "old_ast_sha256": "f21b708708e1949a833b80acad144212e62a0e37934d7faed220572e6f68589a",
+      "current_ast_sha256": "f21b708708e1949a833b80acad144212e62a0e37934d7faed220572e6f68589a",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current29_exact206_sources_roles_media_and_six_technical_changes",
+      "old_ast_sha256": "29a3085c91fa2b9243a8c99a4728d9d4d2f0bbd67711f0167931648f3af42b2b",
+      "current_ast_sha256": "2cf1687f21d49fc9cd87e8c1f68b3cd0110b3cab05c5486d7196051c9c28387f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current29_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "old_ast_sha256": "5436d42f3706a67c1e389661853acc50850e6b1b0850e3b81f4f1fc6ea51f3e2",
+      "current_ast_sha256": "89e7d8a1c809c697edeb4cec7749fa6268fc17e31400913869e90f1bb485435a",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_current29_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+      "old_ast_sha256": "c28fbee4dc57f67ef157c9712390deb3222809f073c8d6cbfefc4696fb40de92",
+      "current_ast_sha256": "c28fbee4dc57f67ef157c9712390deb3222809f073c8d6cbfefc4696fb40de92",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_prior27_complete_methods_preserved_and_mutations_rejected",
+      "old_ast_sha256": "a2990135bae4a9bf906ae98841e72afc421c83406354cd5552394ad844c2b755",
+      "current_ast_sha256": "a2990135bae4a9bf906ae98841e72afc421c83406354cd5552394ad844c2b755",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_prior28_complete_methods_preserved_and_mutations_rejected",
+      "old_ast_sha256": "d3ee5624de3f26803b7b4a2c2b0b74a800d1672946222fb8389e97b325446390",
+      "current_ast_sha256": "d3ee5624de3f26803b7b4a2c2b0b74a800d1672946222fb8389e97b325446390",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_bible.py",
+      "method": "test_partition_rejects_missing_unknown_overlap_and_empty_suites",
+      "old_ast_sha256": "d72456b16e6c80cbbb988b729ab7267aad8d04f5bf782082ce96275f268de02e",
+      "current_ast_sha256": "d72456b16e6c80cbbb988b729ab7267aad8d04f5bf782082ce96275f268de02e",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_actual_recommendations_are_valid_but_never_player_or_runtime_acceptance",
+      "old_ast_sha256": "9d7d417aa7797dbae0ba62f0d8df72480e2fa457778d7dff7f6c9792731fe9df",
+      "current_ast_sha256": "9d7d417aa7797dbae0ba62f0d8df72480e2fa457778d7dff7f6c9792731fe9df",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_historical_v2_bytes_keep_identity_and_reject_current_authority",
+      "old_ast_sha256": "13258df415a949d030c25ad177e3ef1aeb1b2102a3626a5eec4075d9dce76aac",
+      "current_ast_sha256": "13258df415a949d030c25ad177e3ef1aeb1b2102a3626a5eec4075d9dce76aac",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_missing_theme_or_whole_screen_coverage_is_refused",
+      "old_ast_sha256": "970217ee8db6c8bb631e65b8cd6b1c92815afabf55a1ec17b93239a4f5f385ae",
+      "current_ast_sha256": "970217ee8db6c8bb631e65b8cd6b1c92815afabf55a1ec17b93239a4f5f385ae",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_candidate_comparison_cannot_be_empty_or_single_color_variant",
+      "old_ast_sha256": "e8e8d58171302d41901fadf0631765da6b602a15338da92f303ee403a8536bd8",
+      "current_ast_sha256": "e8e8d58171302d41901fadf0631765da6b602a15338da92f303ee403a8536bd8",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_authority_changes_and_region_mismatch_fail_closed",
+      "old_ast_sha256": "65450f971b6be781be7012a8cb5b0eb2e4130a0125d4b5d0aa128e61b5ca910f",
+      "current_ast_sha256": "65450f971b6be781be7012a8cb5b0eb2e4130a0125d4b5d0aa128e61b5ca910f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_short_prompt_starts_creative_work_before_assets_or_terrain",
+      "old_ast_sha256": "9916addb66e46dc95cad29ea70b1c4c147b7d11449b6f410eb18cdd880891fa2",
+      "current_ast_sha256": "9916addb66e46dc95cad29ea70b1c4c147b7d11449b6f410eb18cdd880891fa2",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_selected_direction_binds_every_specialist_and_retains_stage_gates",
+      "old_ast_sha256": "6782f1ae04c91aa89002606713866e388930bdb25b29581a5f493478f9a749c0",
+      "current_ast_sha256": "a7b583809812aa8d89245c9064776f01c02bfddd711e78a26daa30fbe9f6d4bb",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_engineering_prototype_stays_explicit_and_does_not_claim_region",
+      "old_ast_sha256": "63f62ffdb893e22241711b46d4961939c84f2f8c40a5b95ea7928f6bd26d4521",
+      "current_ast_sha256": "63f62ffdb893e22241711b46d4961939c84f2f8c40a5b95ea7928f6bd26d4521",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes",
+      "old_ast_sha256": "5bbef50f43a12c5dd095338a95a428c3fe50647f0de8a1dd50ac1260f43d5ecd",
+      "current_ast_sha256": "5bbef50f43a12c5dd095338a95a428c3fe50647f0de8a1dd50ac1260f43d5ecd",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_direction_cannot_bind_another_region_or_unregistered_request",
+      "old_ast_sha256": "4fb92e552ab78696e08f2ea3837230761566d4b74f301ff0bd90d410c1d09a69",
+      "current_ast_sha256": "4fb92e552ab78696e08f2ea3837230761566d4b74f301ff0bd90d410c1d09a69",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer",
+      "old_ast_sha256": "a7b998d5807fc1b2155fcafed50f948b9c9db2cbd0f131318bbf312026429725",
+      "current_ast_sha256": "a7b998d5807fc1b2155fcafed50f948b9c9db2cbd0f131318bbf312026429725",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_merged23_preserves_both_parent22_content_and_rejects_both_bindings",
+      "old_ast_sha256": "7583cddd854f39b9bbebba2235a083cbd3e59451d67ccf05a4f33bbda24dcce2",
+      "current_ast_sha256": "7583cddd854f39b9bbebba2235a083cbd3e59451d67ccf05a4f33bbda24dcce2",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_plains_motion_loot24_preserves23_and_refuses_old_binding",
+      "old_ast_sha256": "4744bde2e8cffcca126c437ac17777ac290ed9d5a9926546e8916b49c8eaf961",
+      "current_ast_sha256": "4744bde2e8cffcca126c437ac17777ac290ed9d5a9926546e8916b49c8eaf961",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer_audio_history",
+      "old_ast_sha256": "789e69ce09f5517ae2dd75f4e589f0d18fcff463a1ee91f14d8c54a04e62c41f",
+      "current_ast_sha256": "789e69ce09f5517ae2dd75f4e589f0d18fcff463a1ee91f14d8c54a04e62c41f",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_audio_feedback_creative23_preserves22_and_refuses_previous_pointer",
+      "old_ast_sha256": "e4caae713cd726745fa52f7cde518bc5aa594bef7be0ea2444ca4705e76f9f24",
+      "current_ast_sha256": "e4caae713cd726745fa52f7cde518bc5aa594bef7be0ea2444ca4705e76f9f24",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_audio_feedback06_creative24_preserves23_and_refuses_previous_pointer",
+      "old_ast_sha256": "c05f533210cd9b3e17e31e4ab1bb2c6a0d9d55536b93bc5c02f6cd2c3c6de6b2",
+      "current_ast_sha256": "c05f533210cd9b3e17e31e4ab1bb2c6a0d9d55536b93bc5c02f6cd2c3c6de6b2",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_merged25_preserves_both_parent24_directions_and_authority_union",
+      "old_ast_sha256": "c7a961e29d0f98058720aaa2de648e42dc8a781fbd498e3793296be6d19de097",
+      "current_ast_sha256": "c7a961e29d0f98058720aaa2de648e42dc8a781fbd498e3793296be6d19de097",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_bellstrider26_only_overrides_this_boss_and_binds_real_current_spec",
+      "old_ast_sha256": "d892bfbeae51c976107f13ef3b4d207ab8c789b859e5bfe6cfcdd6e8a99b85b9",
+      "current_ast_sha256": "d892bfbeae51c976107f13ef3b4d207ab8c789b859e5bfe6cfcdd6e8a99b85b9",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_windkeeper27_preserves_selected_content_and_complete_current_bindings",
+      "old_ast_sha256": "e8ab1f2b0031ae271401759b418e96cf3b76fed8c9a8b9ce5bc2b3397db4bd14",
+      "current_ast_sha256": "e8ab1f2b0031ae271401759b418e96cf3b76fed8c9a8b9ce5bc2b3397db4bd14",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_merged28_combines_both_sources_without_inheriting_acceptance",
+      "old_ast_sha256": "1d4bf0bf2f2a3758c0bffb1277685f7e54683184f7cc445aa04ca9bbdf59a4d8",
+      "current_ast_sha256": "1d4bf0bf2f2a3758c0bffb1277685f7e54683184f7cc445aa04ca9bbdf59a4d8",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_current29_preserves_selected_content_and_refuses_frozen28_as_current",
+      "old_ast_sha256": "3bd3bb6d93261962510a898f9ebd760afcd0e161fa0f30cd9e6bbf52186f3a2c",
+      "current_ast_sha256": "3bd3bb6d93261962510a898f9ebd760afcd0e161fa0f30cd9e6bbf52186f3a2c",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_current30_keeps_selected_content_and_refuses_frozen29_as_current",
+      "old_ast_sha256": "2487484081fac5d6a3f730a54289a9cb1c80ab20c943c9944361e4840124c949",
+      "current_ast_sha256": "2487484081fac5d6a3f730a54289a9cb1c80ab20c943c9944361e4840124c949",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_current31_retains_selected_content_and_refuses_prior30_binding",
+      "old_ast_sha256": "ab6ff0a9f74ca99233ad84ab95e3928413f251726ae240f955cfa8ab2ba14661",
+      "current_ast_sha256": "ab6ff0a9f74ca99233ad84ab95e3928413f251726ae240f955cfa8ab2ba14661",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_current32_retains_selected_content_and_refuses_prior31_binding",
+      "old_ast_sha256": "6a352413c12b7aa51526aa9d1ff436a9564840879dfa0753d97fd3223119a607",
+      "current_ast_sha256": "a47cb58e4cf8d690b81817fc7b7f15dfe9bc79820e42c0cb7da9b180cf437a7d",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_public_calls_reread_mutable_sources_and_reject_resigned_binding",
+      "old_ast_sha256": "fae741e612842292c856430cb6cccc4aa251a0b7a1c3b6145a897df9fe8adce0",
+      "current_ast_sha256": "fae741e612842292c856430cb6cccc4aa251a0b7a1c3b6145a897df9fe8adce0",
+      "finite_inverse_exact": true
+    },
+    {
+      "file": "tests/test_region_creative_direction.py",
+      "method": "test_each_public_bind_reads_each_leaf_once_and_rechecks_parent_symlinks",
+      "old_ast_sha256": "eda2fe06182b58e8171d8827b9f996493ac07d651ec6e64dbec2a07a541dc3c5",
+      "current_ast_sha256": "eda2fe06182b58e8171d8827b9f996493ac07d651ec6e64dbec2a07a541dc3c5",
+      "finite_inverse_exact": true
+    }
+  ],
+  "old_bible78_creative26_preserved": true,
+  "partition": {
+    "CURRENT_METHODS": [
+      "BibleTests.test_cli_and_original_selected_bytes",
+      "BibleTests.test_missing_bible_is_distinct_from_invalid_bible",
+      "BibleTests.test_wrong_region_partial_binding_and_wrong_version_fail",
+      "BibleTests.test_unannounced_original_drift_never_refreshes_binding",
+      "BibleTests.test_registry_drift_invalidates_existing_binding_even_if_bible_unchanged",
+      "BibleTests.test_duplicate_json_and_duplicate_regions_rejected",
+      "BibleTests.test_path_escape_absolute_and_symlink_ancestors_rejected",
+      "BibleTests.test_selection_needs_raw_original_user_evidence",
+      "BibleTests.test_hash_refresh_cannot_turn_another_attachment_into_forest",
+      "BibleTests.test_selected_direction_cannot_forge_raw_quote_or_player_approval",
+      "BibleTests.test_cross_attachment_bytes_cannot_be_relabelled_with_refreshed_registry",
+      "BibleTests.test_original_staged_basename_mismatch_and_duplicate_identity_refused",
+      "BibleTests.test_latest_shared_style_quotes_and_actual_family_bind_all_region_production",
+      "BibleTests.test_future_proposed_worker_gets_shared_style_without_visual_gate",
+      "BibleTests.test_shared_reference_or_quote_drift_blocks_calls_and_restore",
+      "BibleTests.test_global_physics_actions_and_plain_docs_have_no_shared_art_gate",
+      "BibleTests.test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume",
+      "BibleTests.test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes",
+      "BibleTests.test_default_current_bibles_skip_election",
+      "BibleTests.test_no_bible_proposal_only_and_explicit_production_rejected",
+      "BibleTests.test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls",
+      "BibleTests.test_anonymous_production_write_paths_block_all_original_adversarial_probes",
+      "BibleTests.test_exact_known_catalog_paths_require_matching_single_region_binding",
+      "BibleTests.test_all_runtime_domains_detect_registered_region_families_before_prefix_filter",
+      "BibleTests.test_anonymous_multi_region_task_and_ambiguous_mission_return_blocked",
+      "BibleTests.test_broad_bound_scope_cannot_write_another_actual_region_consumer",
+      "BibleTests.test_handwritten_partial_binding_and_source_inputs",
+      "BibleTests.test_worker_prompt_contains_full_original_and_audio_scope",
+      "BibleTests.test_source_drift_during_worker_blocks_after_call",
+      "BibleTests.test_source_drift_before_worker_and_restored_completion_block",
+      "BibleTests.test_visual_director_uses_current_bible_and_exact_caller_scope",
+      "BibleTests.test_bellstrider_audio_assets_are_literal17_real_wavs_with_strict_byte_custody",
+      "BibleTests.test_windkeeper24_rejects_prior22_and_new_consumer_drift",
+      "Style25ArchiveTests.test_missing_frozen_source_rejects_even_when_live_path_exists",
+      "Style25ArchiveTests.test_corrupt_frozen_source_rejects_even_when_live_path_exists",
+      "Style25ArchiveTests.test_rehashing_mutated_archive_manifest_does_not_re_sign_history",
+      "Style25ArchiveTests.test_live_validator_still_rejects_changed_source_despite_available_archive",
+      "FeatureLayoutBindingTests.test_new_delegates_drift_and_missing_current_source_cannot_fall_back_to_archive",
+      "FeatureLayoutBindingTests.test_current_player_identity_rejects_former_path_even_after_refreshing_hashes",
+      "FeatureLayoutBindingTests.test_original_checks_track_each_current_reference_and_technical_style",
+      "OwnershipBindingTests.test_indexed26_leaf_never_falls_back_and_live27_never_uses_archive",
+      "OwnershipBindingTests.test_all_original_check_inputs_order_duplicates_and_new_digests",
+      "RuntimeOwnershipBindingTests.test_current30_exact206_sources_roles_media_and_three_technical_changes",
+      "RuntimeOwnershipBindingTests.test_current30_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "RuntimeOwnershipBindingTests.test_current30_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+      "SuitePartitionTests.test_partition_rejects_missing_unknown_overlap_and_empty_suites"
+    ],
+    "HISTORY_METHODS": [
+      "BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused",
+      "BibleTests.test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18",
+      "BibleTests.test_merged20_preserves_both_parent19_contracts_and_refuses_both_pointers",
+      "BibleTests.test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references",
+      "BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history",
+      "BibleTests.test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18_audio_history",
+      "BibleTests.test_audio_feedback_v20_preserves81_and_refuses_stale19",
+      "BibleTests.test_audio_feedback06_v21_rebinds_only_original_title_and_refuses_stale20",
+      "BibleTests.test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale",
+      "BibleTests.test_bellstrider23_has_exact83_prefix_and_finite_real_body_audio_closure",
+      "BibleTests.test_bellstrider_binding_migration_preserves57_original_methods_hashes_and_input_prefixes",
+      "BibleTests.test_windkeeper24_keeps83_prefix_and_binds_actual_pressure_consumers",
+      "BibleTests.test_windkeeper24_archive_and_original_harness_guards_remain",
+      "BibleTests.test_merged25_preserves_both_frozen_parents_and_real153_union",
+      "Style25ArchiveTests.test_exact_finite_source_selection_and_original_documents",
+      "Style25ArchiveTests.test_scene_reference_supplement_preserves_original_archive_and_rejects_missing_leaf",
+      "Style25ArchiveTests.test_preserved_original_test_methods_are_unchanged",
+      "Style25ArchiveTests.test_existing_boss_parent_override_precedes_shared_style25_snapshot",
+      "FeatureLayoutBindingTests.test_complete_method_guard_rejects_return_dead_assertions_and_reduced_loop",
+      "FeatureLayoutBindingTests.test_current26_preserves_original153_roles_and_media_and_binds_real_helpers",
+      "FeatureLayoutBindingTests.test_current_check_preserves_original598_mapped_input_prefix_and_duplicates",
+      "OwnershipBindingTests.test_lifecycle_r2_source_is_separate_from_the_original_p9_vector",
+      "OwnershipBindingTests.test_current27_preserves206_roles_media_and_only_six_source_changes",
+      "OwnershipBindingTests.test_finite26_archive_exact_original_files_and_sources",
+      "OwnershipBindingTests.test_prior26_whole_methods_and_reject_dead_or_reduced_assertions",
+      "HistoricalGitSourceTests.test_exact_history_without_git_and_refuse_missing_corrupt_or_unknown",
+      "HistoricalGitSourceTests.test_history_read_migration_preserves_complete_method_guards",
+      "RuntimeOwnershipBindingTests.test_prior27_complete_methods_preserved_and_mutations_rejected",
+      "RuntimeOwnershipBindingTests.test_current28_exact206_sources_roles_media_and_five_technical_changes",
+      "RuntimeOwnershipBindingTests.test_current28_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "RuntimeOwnershipBindingTests.test_current28_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+      "RuntimeOwnershipBindingTests.test_prior28_complete_methods_preserved_and_mutations_rejected",
+      "RuntimeOwnershipBindingTests.test_current29_exact206_sources_roles_media_and_six_technical_changes",
+      "RuntimeOwnershipBindingTests.test_current29_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "RuntimeOwnershipBindingTests.test_current29_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+      "RuntimeOwnershipBindingTests.test_prior29_complete_methods_preserved_and_mutations_rejected"
+    ]
+  },
+  "counts": {
+    "current": 46,
+    "history": 36,
+    "bible_all": 82,
+    "creative": 27,
+    "registered": 219,
+    "full": 171,
+    "legacy": 31
+  },
+  "only_two_check_input_prefix_append": [
+    "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
+    "docs/creative_direction/archive/map-query-boundary-before-style30"
+  ],
+  "profiles_argv_markers_budgets_all_unchanged": true,
+  "production_candidate_source": {
+    "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+    "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+    "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+  },
+  "main_tests_profiles_unwritten": true,
+  "git_apply_check": 0,
+  "exact_final_overlay_test_results": [
+    {
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout": 30,
+      "seconds": 17.319833280998864,
+      "returncode": 0,
+      "source_before": {
+        "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+        "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+        "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+        "tools/region_style_history.py": "6748e43dc54c85f5328dfdcd05789dba4168f0aff3c366a94891e64a4a450f16",
+        "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+        "docs/creative_direction/bibles/registry.json": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+        "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+        "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+        "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+        "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+      },
+      "source_after": {
+        "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+        "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+        "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+        "tools/region_style_history.py": "6748e43dc54c85f5328dfdcd05789dba4168f0aff3c366a94891e64a4a450f16",
+        "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+        "docs/creative_direction/bibles/registry.json": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+        "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+        "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+        "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+        "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+      },
+      "ordinary_external_overlay": true,
+      "no_git": true,
+      "no_pythonpath": true,
+      "source_unchanged": true
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout": 60,
+      "seconds": 8.138315597998371,
+      "returncode": 0,
+      "source_before": {
+        "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+        "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+        "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+        "tools/region_style_history.py": "6748e43dc54c85f5328dfdcd05789dba4168f0aff3c366a94891e64a4a450f16",
+        "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+        "docs/creative_direction/bibles/registry.json": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+        "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+        "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+        "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+        "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+      },
+      "source_after": {
+        "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+        "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+        "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+        "tools/region_style_history.py": "6748e43dc54c85f5328dfdcd05789dba4168f0aff3c366a94891e64a4a450f16",
+        "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+        "docs/creative_direction/bibles/registry.json": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+        "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+        "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+        "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+        "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+      },
+      "ordinary_external_overlay": true,
+      "no_git": true,
+      "no_pythonpath": true,
+      "source_unchanged": true,
+      "ordinary_driver_closure": {
+        "tools/level_capability_snapshot.gd": "b7caf3537d7caf5d51f62f9fad2a0a2e72d668fe9b0bbe856b2405ebc89b68ac",
+        "tools/level_formal_capture.gd": "f74bd97b14ae3debc08f488a46de6eb462c123c7404f62fd3051b4c01592c14f",
+        "tests/audio_teardown.gd": "0cfa8959bef31d171cee212ca0878a31df5b1c76cdf976e2d0efe9c2c59c40f2",
+        "tests/random_stage_tests.gd": "3831bdfb9aab99fb866c8c37e614609488650d900c9ae7707a79f5fcd73c6f0c",
+        "tests/challenge_ferry_tests.gd": "410e50081abbc8bbe6206777270e59a104689d8ad50146743ed20f710d7835d2",
+        "tests/dynamic_module_tests.gd": "5e4fa3ebd0e693ae575557f74fc76a8be476a0c15004a0599e83ab3eecaed233",
+        "tests/challenge_recoil_tests.gd": "13822c042e736439e8e578a0e542850277d8e825980f63c7eb2ecf1f712aa4b2",
+        "tests/plains_run_trace.gd": "9e91370bf96e651e93c292ed0eb09ce341bd4e2fa9c95320fb830abbfdfe58e0",
+        "tests/branch_module_driver.gd": "bbb38add7fcb2d7d579adfd4c2f30ce8e21c77c7f84166923929633751b9568f",
+        "tests/recoil_recovery_tests.gd": "644ae44a3591a602ef42159c6989068ddbc1beed39cee718b642213a5faaa749",
+        "tests/plains_exploration_motion.gd": "6393fb33b6ef579b1433ba576d769902f05500ad73c04718b3117bf1376f28be",
+        "tests/shot_latch_module_driver.gd": "87a79efca1747b83239d47a813a54020ec7edf74bcf41bfc7deb71b2eac3ed9e",
+        "tests/plains_region_trace.gd": "6b973879680210bf73612322116ac20dfc9bda1885af064ecc7eddbbb1daef69",
+        "tests/plains_interactive_motion.gd": "5610ae3a19c317d7a22d33ab6ce662a336b5939cd748fb11372c3c8168b2dc14",
+        "tests/plains_cohesion_motion.gd": "c59b777b4ad093d743c214980feb1bd64fe33211ba379d9a545a04e921f92efd",
+        "tests/plains_creek_discovery_motion.gd": "4cb9d6e9c32e831d8fa15e3afecf53b1d04801aab32c190d269b9e46231615fb",
+        "tests/level_formal_trace.gd": "cba3e6c681a9ef6df55904c123d4a2e616eefc4644e000f3fe1f4c65b609ffd1"
+      },
+      "fixed_source_closure": {
+        "project.godot": "b60c7347a81697a45c0946ae8cae5f3b0989df9388f23d5dfcf55149430b7911",
+        "tools/godot.sh": "eb526a93e85d880573fa29d55eb7caa6fc4b566b93767849f5c3e3c9e0719246"
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py",
+        "--history"
+      ],
+      "timeout": 30,
+      "seconds": 16.173104403000252,
+      "returncode": 0,
+      "source_before": {
+        "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+        "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+        "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+        "tools/region_style_history.py": "6748e43dc54c85f5328dfdcd05789dba4168f0aff3c366a94891e64a4a450f16",
+        "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+        "docs/creative_direction/bibles/registry.json": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+        "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+        "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+        "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+        "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+      },
+      "source_after": {
+        "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+        "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+        "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+        "tools/region_style_history.py": "6748e43dc54c85f5328dfdcd05789dba4168f0aff3c366a94891e64a4a450f16",
+        "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+        "docs/creative_direction/bibles/registry.json": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+        "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+        "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+        "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+        "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+      },
+      "ordinary_external_overlay": true,
+      "no_git": true,
+      "no_pythonpath": true,
+      "source_unchanged": true
+    }
+  ],
+  "retained_initial_overlay_failures": [
+    "creative27-01.log: missing actual level_formal_capture driver closure",
+    "creative27-02.log: missing project.godot fixed source dependency; both resolved with original ordinary source files, no candidate changes"
+  ],
+  "not_claimed": [
+    "full171",
+    "82 tests within a single30s run",
+    "native or media acceptance"
+  ]
+}

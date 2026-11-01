@@ -1,0 +1,26 @@
+{
+  "base": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+  "source_sha256": {
+    "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+    "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+    "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+  },
+  "checks": [
+    {
+      "id": "import",
+      "status": "passed",
+      "seconds": 6.95,
+      "timeout_seconds": 90,
+      "budget_scope": "Original import cap; HUD standalone uses a new explicit operational cap, not a registered historical budget"
+    },
+    {
+      "id": "original-hud-bounds",
+      "status": "passed",
+      "seconds": 5.153,
+      "timeout_seconds": 90,
+      "budget_scope": "Original import cap; HUD standalone uses a new explicit operational cap, not a registered historical budget"
+    }
+  ],
+  "source_unchanged": true,
+  "status": "passed"
+}

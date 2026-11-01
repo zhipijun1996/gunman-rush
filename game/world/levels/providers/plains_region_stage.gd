@@ -48,6 +48,20 @@ func _hide_boss_seal_world_status(encounter: BossEncounter) -> bool:
 func boss_entry_position() -> Vector2:
 	return Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
 
+# Source-specific world rectangles for the shared HUD avoidance consumer.
+# Canvas projection, viewport clipping and layout scoring remain in the App.
+func hud_world_regions() -> Dictionary:
+	var blockers: Array[Rect2] = []
+	var required_regions: Array[Rect2] = []
+	for module: PlatformingModule in assembler.modules:
+		for anchor: Vector2 in module.definition.anchors:
+			var point := module.global_position+anchor
+			blockers.append(Rect2(point-Vector2(26,48),Vector2(52,65)))
+		if module.definition.module_id==&"plains_windchime_well":
+			var bank: Rect2=module.definition.platforms[1]
+			required_regions.append(Rect2(module.global_position+bank.position-Vector2(0,36),Vector2(bank.size.x,36)))
+	return {"blockers":blockers,"required":required_regions}
+
 func _prepare_level_plan(forest_region: bool) -> bool:
 	if level_plan!=null: return true
 	# Existing standalone/experimental callers keep configure_generated().
