@@ -28,6 +28,20 @@ var _physical_contact_frame := -1
 var _physical_contact_epoch := -1
 var _physical_contact_session := -1
 
+# Preserve the shared formal contact construction and tree-entry order. Local
+# position/metadata remain caller-owned writes after this parenting operation.
+static func attach(parent: Node2D, owner_policy: FrameDamagePolicy, actor: PlayerController,
+		id: StringName, damage_kind: DamageRequest.Kind, size: Vector2) -> DemoContactEmitter:
+	var emitter := DemoContactEmitter.new()
+	emitter.policy = owner_policy
+	emitter.controller = actor
+	emitter.source_id = id
+	emitter.kind = damage_kind
+	emitter.half_size = size
+	emitter.interval = 0.7
+	parent.add_child(emitter)
+	return emitter
+
 # Construct an unparented local-space rectangle. Callers keep source identity,
 # insertion order, and any explicit cadence override before adding the node.
 static func environment_rect(rect: Rect2, owner_policy: FrameDamagePolicy, actor: PlayerController, exposure_source_id: StringName) -> DemoContactEmitter:

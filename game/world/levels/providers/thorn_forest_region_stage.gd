@@ -40,6 +40,12 @@ func configure_world_details(player: PlayerMotor, lifetime: DemoLifetime, health
 	discoveries = reader
 	return true
 
+func _hide_boss_seal_world_status(encounter: BossEncounter) -> bool:
+	return super._hide_boss_seal_world_status(encounter) or generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT
+
+func boss_entry_position() -> Vector2:
+	return forest_boss_entry_position()
+
 func _has_canopy_boss() -> bool:
 	var content: Variant=generated.manifest.get("boss_content")
 	return content is Dictionary and content.get("contract")=="forest-queen-canopy-v3"

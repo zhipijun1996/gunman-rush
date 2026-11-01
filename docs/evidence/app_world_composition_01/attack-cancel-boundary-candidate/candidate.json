@@ -1,0 +1,228 @@
+{
+  "task": "P1-ATTACK-CANCEL-BOUNDARY",
+  "source_commit": "c8d39551bbe79b40895e96bdcdf8250c56939813",
+  "files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "original_sha256": "f2a034d09e501e0f08b2c7c4a028b05d41a6ba93e1e3945fac84c04b9bcd8684",
+      "candidate_sha256": "206357a8ff8520bd3c7acf3798f4fc3c6956e6d53fafa6c039ff7f1490c0732c"
+    },
+    {
+      "path": "game/world/levels/providers/generated_demo_stage.gd",
+      "original_sha256": "bfd9c4db6f881c2cbae1155ff4c6e266130124d9da21f082739600fe38d3a971",
+      "candidate_sha256": "38afc9ab3ebdca0d54a0fcee5a1edd55bfb8fffb5a76d12fc5e73033ed8cdb1b"
+    },
+    {
+      "path": "game/enemies/enemy_actor.gd",
+      "original_sha256": "7be84347496bb32de0bb7636af0cc065207636b60fd4123682edcd2c364e4f3a",
+      "candidate_sha256": "777d9151d4aa8a670a5b25c97c107ade383834aac7579990136dac3f0d2b00df"
+    }
+  ],
+  "patch_sha256": "896f6bfd266303cf2711bf9c3f6aa4388cddae8a8f3185b8b1ea41e48cb0a228",
+  "proofs": {
+    "original_three_files_reverse_exact": true,
+    "patch_apply_reverse_exact": true,
+    "owner_expansion_matches_original_app_sequence": true,
+    "enemy_reset_body_byte_identical": true,
+    "app_call_sites_unchanged": true,
+    "tests_modified": false,
+    "engine_run": false,
+    "main_written": false
+  },
+  "actor_actual_shared_sites": [
+    "_on_death",
+    "apply_skill_impact",
+    "GeneratedDemoStage.cancel_enemy_attacks"
+  ],
+  "premise_correction": "EnemyActor.reset has no cancellation in the baseline and remains byte-identical; existing death and skill impact cancellation become real shared consumers.",
+  "actual_app_consumers": [
+    {
+      "path": "game/application/demo_app.gd",
+      "line": 389,
+      "function": "func _load_stage() -> void:",
+      "code": "_cancel_enemy_attacks()"
+    },
+    {
+      "path": "game/application/demo_app.gd",
+      "line": 986,
+      "function": "func _environment_return() -> void:",
+      "code": "_cancel_enemy_attacks()"
+    },
+    {
+      "path": "game/application/demo_app.gd",
+      "line": 994,
+      "function": "func _player_fatal() -> void:",
+      "code": "_cancel_enemy_attacks()"
+    },
+    {
+      "path": "game/application/demo_app.gd",
+      "line": 1339,
+      "function": "func _run_ended(result: DemoRunResult) -> void:",
+      "code": "_cancel_enemy_attacks()"
+    },
+    {
+      "path": "game/application/demo_app.gd",
+      "line": 2269,
+      "function": "func _offer_generated_exit(id: StringName) -> bool:",
+      "code": "_cancel_enemy_attacks()"
+    },
+    {
+      "path": "game/application/demo_app.gd",
+      "line": 2338,
+      "function": "func _enter_generated_exit(id: StringName) -> bool:",
+      "code": "_cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/audio_feedback_rewards.gd",
+      "line": 156,
+      "function": "func exercise() -> void:",
+      "code": "app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/audio_feedback_rewards.gd",
+      "line": 200,
+      "function": "func exercise() -> void:",
+      "code": "app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_campaign_boss_runner.gd",
+      "line": 60,
+      "function": "func finish(trace: Node) -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_canopy_campaign_case.gd",
+      "line": 211,
+      "function": "func finish(trace: Node) -> void:",
+      "code": "trace.app.process_mode=Node.PROCESS_MODE_DISABLED;trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_ecology_runner.gd",
+      "line": 63,
+      "function": "func run() -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_ecology_runner.gd",
+      "line": 132,
+      "function": "func run_crossbranch_lifecycle(trace: Node) -> void:",
+      "code": "app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_guardian_campaign_case.gd",
+      "line": 110,
+      "function": "func finish(trace: Node) -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_lift_runner.gd",
+      "line": 84,
+      "function": "func run() -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_depth_region_runner.gd",
+      "line": 39,
+      "function": "func run() -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_fruit_ablation_runner.gd",
+      "line": 64,
+      "function": "func run() -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_interwoven_alternative_runner.gd",
+      "line": 169,
+      "function": "func run() -> void:",
+      "code": "trace.app.process_mode=Node.PROCESS_MODE_DISABLED; trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_interwoven_deep_alternative_runner.gd",
+      "line": 128,
+      "function": "func run() -> void:",
+      "code": "trace.app.process_mode=Node.PROCESS_MODE_DISABLED; trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_interwoven_midloop_runner.gd",
+      "line": 94,
+      "function": "func run() -> void:",
+      "code": "trace.app.process_mode=Node.PROCESS_MODE_DISABLED;trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_player_aim_runner.gd",
+      "line": 48,
+      "function": "func run() -> void:",
+      "code": "trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_root_retry_runner.gd",
+      "line": 95,
+      "function": "func run() -> void:",
+      "code": "trace.app.process_mode=Node.PROCESS_MODE_DISABLED;trace.app._cancel_enemy_attacks()"
+    },
+    {
+      "path": "tests/forest_vertical_shortcut_runner.gd",
+      "line": 61,
+      "function": "func run() -> void:",
+      "code": "trace.app.process_mode=Node.PROCESS_MODE_DISABLED; trace.app._cancel_enemy_attacks()"
+    }
+  ],
+  "existing_validation_commands": {
+    "core": {
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720
+    },
+    "all-weapons": {
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300
+    },
+    "item-v5-boss-time": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "boss-time"
+      ],
+      "timeout_seconds": 240
+    },
+    "enemy-structure-native": {
+      "argv": [
+        "python3",
+        "tools/run_enemy_structure_tests.py",
+        "--output-dir",
+        "build/enemy_structure/harness-{check_token}"
+      ],
+      "timeout_seconds": 300
+    },
+    "audio-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "timeout_seconds": 240
+    },
+    "run-session": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/run_session_runner.gd"
+      ],
+      "timeout_seconds": 180
+    }
+  },
+  "status": "EXTERNAL_FROZEN_CANDIDATE_NOT_APPLIED_NOT_NATIVE"
+}

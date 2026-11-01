@@ -21,6 +21,20 @@ var route_signpost: RouteSignpost
 var shot_latch_encounter: GeneratedShotLatchEncounter
 var shot_latches: Array[ShotLatch] = []
 
+# True only when the existing Boss cancellation method was present and called.
+# App retains ownership of its eligible-shot set and the player's projectiles.
+func cancel_enemy_attacks() -> bool:
+	for enemy_motor: EnemyMotor in enemies:
+		if not is_instance_valid(enemy_motor): continue
+		var actor := enemy_motor.get_node("Actor") as EnemyActor
+		actor.cancel_attacks()
+	if is_instance_valid(boss):
+		var encounter := boss.get_node("Encounter")
+		if encounter.has_method("cancel_pending_attacks"):
+			encounter.call("cancel_pending_attacks")
+			return true
+	return false
+
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	generated = data
 	tuning = player_tuning
@@ -30,6 +44,21 @@ func configure_level(plan: LevelPlan, source_view: Dictionary, player_tuning: Pl
 	# The existing region adapters retain their own view/recording source. The
 	# shared LevelRuntime only sees the plan and never requires this dictionary.
 	configure_generated(source_view,player_tuning)
+
+func configure_boss_arena(encounter: BossEncounter, player: Node2D, controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime) -> bool:
+	var arena := boss_arena
+	encounter.configure_arena(arena.position.x + 25, arena.end.x - 25, player)
+	if encounter.has_method("configure_forest_floor"): encounter.call("configure_forest_floor",arena.end.y)
+	if encounter.has_method("bind_duel"):
+		if not encounter.call("bind_duel",generated.manifest.get("boss_geometry",{}),controller,policy,lifetime):
+			return false
+	return true
+
+func bind_boss_stage_geometry(encounter: WindkeeperEncounter, controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, segment: SegmentRespawn, connected_region: bool) -> void:
+	for arena_module: PlatformingModule in assembler.modules:
+		if arena_module.definition.module_id == &"plains_boss_arena":
+			var arena_consumer: WindkeeperArena = encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,assembler.ground_supports)
+			if connected_region and not encounter is WindkeeperPressureEncounter: encounter.restore_stage_geometry(arena_consumer)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -314,6 +343,35 @@ func _install_branch_bonuses() -> void:
 			pickups.append({"id": pickup_id, "kind": kind, "amount": amount,
 				"position": point + Vector2(-12 if kind == "coin" else 12, -8),
 				"claimed": false, "branch_index": index})
+
+# One synchronous world-damage assembly transaction. Callbacks keep run-level
+# recording outside this owner without moving it past static hazard creation.
+func bind_damage_context(controller: PlayerController, policy: FrameDamagePolicy,
+		lifetime: DemoLifetime, segment: SegmentRespawn, connected_region: bool,
+		shortcut_opened: Callable, layout_record: Callable) -> bool:
+	for index: int in anchors.size():
+		segment.add_anchor(StringName("generated_%s" % index), anchors[index])
+	segment.danger_bounds = assembler.world_dangers()
+	assembler.setup_damage(controller, policy, lifetime)
+	if not setup_shot_latches(controller,lifetime):
+		return false
+	if connected_region:
+		(assembler as PlainsRegionAssembler).attack_shortcut_opened.connect(shortcut_opened.bind(lifetime.stage_epoch,lifetime.epoch))
+	layout_record.call(generated.manifest.shot_latch_plan)
+	var static_records: Array[Dictionary] = []
+	if connected_region: static_records.assign(assembler.world_static_hazard_records())
+	var static_dangers := assembler.world_static_dangers()
+	for index: int in static_dangers.size():
+		var danger: Rect2 = static_dangers[index]
+		var emitter := DemoContactEmitter.attach(self, policy, controller, StringName("generated_spikes_%s" % index), DamageRequest.Kind.ENVIRONMENT, danger.size / 2)
+		emitter.position = danger.get_center()
+		if connected_region:
+			var record: Dictionary = static_records[index]
+			emitter.fall_plane = record.role == "fall_plane"
+			emitter.set_meta("hazard_role",record.role)
+			emitter.set_meta("hazard_module",record.module_id)
+			emitter.set_meta("hazard_authored_id",record.authored_id)
+	return true
 
 func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) -> bool:
 	if not PlainsShotLatchPlanner.validate(generated.manifest):

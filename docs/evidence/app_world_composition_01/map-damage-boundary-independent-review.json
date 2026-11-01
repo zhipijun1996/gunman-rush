@@ -1,0 +1,55 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_NATIVE_PENDING",
+  "reviewer": "runtime_audit (non-author)",
+  "base_commit": "c8d39551bbe79b40895e96bdcdf8250c56939813",
+  "stack_order": [
+    "attack-cancel",
+    "map-damage",
+    "boss-stage"
+  ],
+  "independent_stack_apply_reverse_exact": true,
+  "stack_final_file_sha256": {
+    "game/application/demo_app.gd": "7da726dbb2b647bc8368c4a2cd638fcda61cae2c158ab80da26b0c4bf06dcbd8",
+    "game/combat/damage/demo_contact_emitter.gd": "aceb78d87b477de483e032c230f0fa2684750c06baac20c3ff5d6de35df03494",
+    "game/enemies/enemy_actor.gd": "777d9151d4aa8a670a5b25c97c107ade383834aac7579990136dac3f0d2b00df",
+    "game/world/levels/providers/generated_demo_stage.gd": "f1be089d76d1c49c8361d7845c690eaad2eedb2cfc669b3c725d6f27c433114d",
+    "game/world/levels/providers/plains_region_stage.gd": "651d98e0c2edf1ad0eed9f5bd232a10be322aabcc3c8d73c28391ab849821ad3",
+    "game/world/levels/providers/thorn_forest_region_stage.gd": "26eaefabcfecc779aa85b37381a9f46c88a7d17e2175addbe25abd04e652c6c5"
+  },
+  "no_main_writes": true,
+  "engine_run": false,
+  "limits": [
+    "Source/sequence review only; no Godot parse, real runtime, gameplay, full171 or visual acceptance.",
+    "Cancellation patch is a prerequisite from its separate review; this report reviews damage and Boss deltas.",
+    "Root must apply patches sequentially; copying standalone candidate App/Generated files would overwrite the other candidate."
+  ],
+  "candidate_files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "206357a8ff8520bd3c7acf3798f4fc3c6956e6d53fafa6c039ff7f1490c0732c",
+      "after_sha256": "781fc7a10375d51ea3c666f5dc1b1b8edcbf0805c019d6db17f9e0dd9a42ec4e"
+    },
+    {
+      "path": "game/world/levels/providers/generated_demo_stage.gd",
+      "before_sha256": "38afc9ab3ebdca0d54a0fcee5a1edd55bfb8fffb5a76d12fc5e73033ed8cdb1b",
+      "after_sha256": "f6150bc8dfbf4632c5b2ce59d9709af77f82d0ee7d2f60722cb8106f8f237202"
+    },
+    {
+      "path": "game/combat/damage/demo_contact_emitter.gd",
+      "before_sha256": "f8a35c951b1e239c2ba4d062f5692e5d623abe6f1b139cbac59590bcda299994",
+      "after_sha256": "aceb78d87b477de483e032c230f0fa2684750c06baac20c3ff5d6de35df03494"
+    }
+  ],
+  "patch_sha256": "aa594cd859bd0551f8d7bfac72efec318d65e3297212af37b1ff2aa108b3c73e",
+  "independent_damage_body_inverse_exact": true,
+  "independent_contact_constructor_inverse_exact": true,
+  "findings": [
+    "Original generated anchors, world_dangers, setup_damage, latch validation order preserved. Latch failure returns immediately before signal/Manifest/emitter work; App original status/abandon/return remains.",
+    "Shortcut signal connects after successful latch validation with original stage/session epochs captured at that point.",
+    "layout_record callback runs synchronously in same transaction before static hazard records/dangers. It is not retained and uses original Director/stage-index output.",
+    "Static emitter IDs, sizes, parent/add_child then position then connected fall-plane/metadata order preserved.",
+    "DemoContactEmitter.attach contains exactly former App construction order/default0.7; existing environment_rect intentionally remains unparented.",
+    "App._contact remains a real compatibility bridge used by tests/forest_depth_ecology_trace.gd:361 and production dynamic contacts.",
+    "Stage receives narrow existing services and two calls, not App/Director/Session; no new rules/registry."
+  ]
+}

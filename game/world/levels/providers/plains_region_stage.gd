@@ -12,6 +12,42 @@ var context_signs: Array[Dictionary] = []
 var boss_seal:BossArenaSeal
 var regional_art_renderer: Node2D
 
+func restore_boss_after_binding(encounter: BossEncounter) -> bool:
+	if restored_boss.is_empty(): return true
+	var saved: Dictionary=restored_boss
+	if encounter.has_method("bind_duel"):
+		if not encounter.call("restore_bound_duel",saved): return false
+	else:
+		encounter.restore_region_position(saved)
+		# Terminal actors cannot activate again. Restore their actual
+		# articulated wreck/death clock without replaying the encounter.
+		if encounter is BellstriderEncounter and float(saved.get("health",1)) <= 0:
+			(encounter as BellstriderEncounter).restore_combat_state(saved)
+			EnemyPresentationBinding.synchronize(encounter)
+	return true
+
+func restore_terminal_boss_geometry(encounter: WindkeeperPressureEncounter) -> void:
+	if not restored_boss.is_empty():
+		encounter.restore_combat_state(restored_boss)
+		encounter.restore_bridge_geometry()
+
+func configure_boss_seal(encounter: BossEncounter, controller: PlayerController, lifetime: DemoLifetime, segment: SegmentRespawn) -> void:
+	boss_seal=BossArenaSeal.new()
+	if _hide_boss_seal_world_status(encounter):
+		boss_seal.world_status_text_enabled=false
+	add_child(boss_seal)
+	boss_seal.setup(boss_arena,bounds,controller,encounter,lifetime)
+	boss_seal.restore_closed(bool(restored_boss.get("seal_closed",false)))
+	var boss_entry := boss_entry_position()
+	segment.add_anchor(&"boss_enter",boss_entry)
+	if boss_seal.closed:segment.activate_anchor(&"boss_enter")
+
+func _hide_boss_seal_world_status(encounter: BossEncounter) -> bool:
+	return encounter is BellstriderEncounter
+
+func boss_entry_position() -> Vector2:
+	return Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
+
 func _prepare_level_plan(forest_region: bool) -> bool:
 	if level_plan!=null: return true
 	# Existing standalone/experimental callers keep configure_generated().

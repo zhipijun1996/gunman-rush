@@ -579,30 +579,12 @@ func _load_stage() -> void:
 	segment.add_anchor(&"midpoint", stage.anchor_position)
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
-		for index: int in random_stage.anchors.size():
-			segment.add_anchor(StringName("generated_%s" % index), random_stage.anchors[index])
-		segment.danger_bounds = random_stage.assembler.world_dangers()
-		random_stage.assembler.setup_damage(controller, policy, lifetime)
-		if not random_stage.setup_shot_latches(controller,lifetime):
+		if not random_stage.bind_damage_context(controller, policy, lifetime, segment, connected_region,
+			_record_attack_shortcut_opened,
+			func(plan: Dictionary) -> void: director.manifest.record_output(director.stage_index, &"shot_latch_layout", plan)):
 			_status = "GENERATION FAILED / invalid windchime layout"
 			abandon_run()
 			return
-		if connected_region:
-			(random_stage.assembler as PlainsRegionAssembler).attack_shortcut_opened.connect(_record_attack_shortcut_opened.bind(lifetime.stage_epoch,lifetime.epoch))
-		director.manifest.record_output(director.stage_index, &"shot_latch_layout", random_stage.generated.manifest.shot_latch_plan)
-		var static_records: Array[Dictionary] = []
-		if connected_region: static_records.assign(random_stage.assembler.world_static_hazard_records())
-		var static_dangers := random_stage.assembler.world_static_dangers()
-		for index: int in static_dangers.size():
-			var danger: Rect2 = static_dangers[index]
-			var emitter := _contact(stage, StringName("generated_spikes_%s" % index), DamageRequest.Kind.ENVIRONMENT, danger.size / 2)
-			emitter.position = danger.get_center()
-			if connected_region:
-				var record: Dictionary = static_records[index]
-				emitter.fall_plane = record.role == "fall_plane"
-				emitter.set_meta("hazard_role",record.role)
-				emitter.set_meta("hazard_module",record.module_id)
-				emitter.set_meta("hazard_authored_id",record.authored_id)
 	else:
 		segment.danger_bounds = [Rect2(780, 530, 80, 110)]
 	await get_tree().physics_frame
@@ -669,49 +651,23 @@ func _load_stage() -> void:
 		else:
 			policy.bind_damageable(&"boss", stage.boss.get_node("Damageable"), encounter.health)
 		if generated_plains:
-			var arena := (stage as GeneratedDemoStage).boss_arena
-			encounter.configure_arena(arena.position.x + 25, arena.end.x - 25, player)
-			if encounter.has_method("configure_forest_floor"): encounter.call("configure_forest_floor",arena.end.y)
-			if encounter.has_method("bind_duel"):
-				if not encounter.call("bind_duel",(stage as GeneratedDemoStage).generated.manifest.get("boss_geometry",{}),controller,policy,lifetime):
-					push_error("Forest duel geometry or local damage targets rejected")
+			if not (stage as GeneratedDemoStage).configure_boss_arena(encounter as BossEncounter,player,controller,policy,lifetime):
+				push_error("Forest duel geometry or local damage targets rejected")
+				abandon_run()
+				return
+			if connected_region:
+				if not (stage as PlainsRegionStage).restore_boss_after_binding(encounter as BossEncounter):
+					push_error("Recorded forest duel state rejected after physical target binding")
 					abandon_run()
 					return
-			if connected_region and not (stage as PlainsRegionStage).restored_boss.is_empty():
-				var saved: Dictionary=(stage as PlainsRegionStage).restored_boss
-				if encounter.has_method("bind_duel"):
-					if not encounter.call("restore_bound_duel",saved):
-						push_error("Recorded forest duel state rejected after physical target binding")
-						abandon_run()
-						return
-				else:
-					encounter.restore_region_position(saved)
-					# Terminal actors cannot activate again. Restore their actual
-					# articulated wreck/death clock without replaying the encounter.
-					if encounter is BellstriderEncounter and float(saved.get("health",1)) <= 0:
-						encounter.restore_combat_state(saved)
-						EnemyPresentationBinding.synchronize(encounter)
 		else:
 			encounter.configure_arena(890.0, 1240.0, player)
 		if generated_plains and encounter is WindkeeperEncounter:
-			for arena_module: PlatformingModule in (stage as GeneratedDemoStage).assembler.modules:
-				if arena_module.definition.module_id == &"plains_boss_arena":
-					var arena_consumer: WindkeeperArena = encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,(stage as GeneratedDemoStage).assembler.ground_supports)
-					if connected_region and not encounter is WindkeeperPressureEncounter: encounter.restore_stage_geometry(arena_consumer)
-			if encounter is WindkeeperPressureEncounter and encounter.health.terminal and not (stage as PlainsRegionStage).restored_boss.is_empty():
-				encounter.restore_combat_state((stage as PlainsRegionStage).restored_boss)
-				encounter.restore_bridge_geometry()
+			(stage as GeneratedDemoStage).bind_boss_stage_geometry(encounter as WindkeeperEncounter,controller,policy,lifetime,segment,connected_region)
+			if encounter is WindkeeperPressureEncounter and encounter.health.terminal:
+				(stage as PlainsRegionStage).restore_terminal_boss_geometry(encounter as WindkeeperPressureEncounter)
 		if connected_region:
-			var region:=stage as PlainsRegionStage
-			region.boss_seal=BossArenaSeal.new()
-			if encounter is BellstriderEncounter or (region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT):
-				region.boss_seal.world_status_text_enabled=false
-			region.add_child(region.boss_seal)
-			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
-			region.boss_seal.restore_closed(bool(region.restored_boss.get("seal_closed",false)))
-			var boss_entry := (region as ThornForestRegionStage).forest_boss_entry_position() if region is ThornForestRegionStage else Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18)
-			segment.add_anchor(&"boss_enter",boss_entry)
-			if region.boss_seal.closed:segment.activate_anchor(&"boss_enter")
+			(stage as PlainsRegionStage).configure_boss_seal(encounter as BossEncounter,controller,lifetime,segment)
 		encounter.projectile_created.connect(_boss_projectile_created)
 		if not generated_plains:
 			encounter.activate()
@@ -2038,15 +1994,7 @@ func _draw() -> void:
 	pass
 
 func _contact(parent: Node2D, id: StringName, kind: DamageRequest.Kind, size: Vector2) -> DemoContactEmitter:
-	var emitter := DemoContactEmitter.new()
-	emitter.policy = policy
-	emitter.controller = controller
-	emitter.source_id = id
-	emitter.kind = kind
-	emitter.half_size = size
-	emitter.interval = 0.7
-	parent.add_child(emitter)
-	return emitter
+	return DemoContactEmitter.attach(parent, policy, controller, id, kind, size)
 
 # Physical damage resolves first. UI and interaction intents cannot win a race
 # against a lethal contact/Boss projectile in the same physics frame.
@@ -2422,16 +2370,9 @@ func _cancel_stage_shot_latches(permanent: bool = false) -> void:
 
 func _cancel_enemy_attacks() -> void:
 	if not is_instance_valid(stage) or not stage is GeneratedDemoStage: return
-	for enemy_motor: EnemyMotor in (stage as GeneratedDemoStage).enemies:
-		if not is_instance_valid(enemy_motor): continue
-		var actor := enemy_motor.get_node("Actor") as EnemyActor
-		if actor.attack_behavior != null: actor.attack_behavior.cancel()
-	if is_instance_valid(stage.boss):
-		var encounter := stage.boss.get_node("Encounter")
-		if encounter.has_method("cancel_pending_attacks"):
-			encounter.call("cancel_pending_attacks")
-			_boss_eligible_shots.clear()
-			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()
+	if (stage as GeneratedDemoStage).cancel_enemy_attacks():
+		_boss_eligible_shots.clear()
+		if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()
 
 func _record_attack_shortcut_opened(id: String, stage_epoch: int, run_epoch: int) -> void:
 	if not lifetime.active or lifetime.stage_epoch != stage_epoch or lifetime.epoch != run_epoch or not connected_region:

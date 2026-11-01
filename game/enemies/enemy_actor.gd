@@ -55,6 +55,9 @@ func physics_tick(delta: float) -> void:
 	if motor.step(intent, delta):
 		brain.on_blocked()
 
+func cancel_attacks() -> void:
+	if attack_behavior != null: attack_behavior.cancel()
+
 func reset(_policy: StringName = &"legacy_test") -> void:
 	# Only new-stage or explicit historical graybox restart. Segment returns will
 	# retain this actor's health and phase, not invoke reset on all world objects.
@@ -75,7 +78,7 @@ func _on_death() -> void:
 	if not _restoring_instance:
 		if PlainsEnemyAudio.supports(self): PlainsEnemyAudio.defeated(self)
 		else: GameAudio.cue(self, &"enemy_defeat")
-	if attack_behavior != null: attack_behavior.cancel()
+	cancel_attacks()
 	motor.stop()
 	motor.collision_layer = 0
 	motor.collision_mask = 0
@@ -212,7 +215,7 @@ func region_snapshot(include_attack_vectors: bool = true, include_depth_state: b
 func apply_skill_impact(unit: Vector2, stagger_seconds: float, stagger_cooldown: float, knockback_speed: float, knockback_seconds: float) -> void:
 	if health.terminal or _stagger_cooldown>0:return
 	_stagger_remaining=stagger_seconds;_stagger_cooldown=stagger_cooldown
-	if attack_behavior!=null:attack_behavior.cancel()
+	cancel_attacks()
 	if knockback_speed>0:motor.request_knockback(unit.normalized()*knockback_speed,knockback_seconds)
 
 func _accepted_hit(context: Dictionary) -> void:

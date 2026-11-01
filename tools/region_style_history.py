@@ -58,7 +58,7 @@ STYLE27_MANIFEST_SHA = '358a3b010b4b1e95772a13a2c5d3f219eb6da4eb8962004dfc73e59c
 def style27_source(root, path):
     """Five prior27 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE27_ARCHIVE, path, STYLE27_MANIFEST_SHA)
-    return repository_file(path, root).read_bytes() if raw is None else raw
+    return style28_source(root, path) if raw is None else raw
 
 
 GIT_HISTORY_ARCHIVE = 'docs/creative_direction/archive/style-source-git-history'
@@ -80,3 +80,13 @@ def git_history_source(root, commit, path):
     if len(raw) != row['size'] or hashlib.sha256(raw).hexdigest() != row['sha256']:
         raise AssertionError('Frozen Git source bytes changed: ' + commit + ':' + path)
     return raw
+
+
+STYLE28_ARCHIVE = 'docs/creative_direction/archive/composition-closeout-before-style29'
+STYLE28_MANIFEST_SHA = '9d2d76226ba552cbcfe71ab063c18ba809921f66b359f4576c42a678aed79f3b'
+
+
+def style28_source(root, path):
+    """Six prior28 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE28_ARCHIVE, path, STYLE28_MANIFEST_SHA)
+    return repository_file(path, root).read_bytes() if raw is None else raw

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v31",
+  "version": "creative-v32",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
-    "supplemental_authority_sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
+    "supplemental_authority_sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "e350323d15eff300d43dd026c948970f774d6fb4e44251158d730a3e50fe6038",
+    "registry_sha256": "2e8db61df2419ba09299e9c47754ac357cfcbee5e77b018240368c3b2759640f",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -246,6 +246,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
       "sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
+      "sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c"
     }
   ],
   "historical_direction": {
@@ -255,24 +259,52 @@
   },
   "revision_impact": {
     "task_id": "GAME-ARCH-CI-01",
-    "source_commit": "23887fe5c9d32afa8bcba8725fd7895b6266aa5d",
-    "scope": "Technical source binding for completed P10/P11 and455 ownership-call migrations. Preserve existing gameplay rules and selected art/audio; this does not approve new art, audio, content, user experience or devices.",
-    "previous_direction": "docs/creative_direction/archive/runtime-ownership-before-style28/docs/creative_direction/windchime_plains.json",
-    "previous_sha256": "6eb10a96738b4a211604a127690f968215df6aabc1658b2546017fa4e4d01492",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
-    "shared_style_sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7",
+    "source_commit": "254b600337c8adee5e8938e430650e34e7257cf9",
+    "source_identity": "Committed254b6003 baseline plus the six exact frozen candidate_source leaves below; candidate production is not yet part of that Git commit.",
+    "candidate_source": [
+      {
+        "path": "game/application/demo_app.gd",
+        "sha256": "7da726dbb2b647bc8368c4a2cd638fcda61cae2c158ab80da26b0c4bf06dcbd8"
+      },
+      {
+        "path": "game/combat/damage/demo_contact_emitter.gd",
+        "sha256": "aceb78d87b477de483e032c230f0fa2684750c06baac20c3ff5d6de35df03494"
+      },
+      {
+        "path": "game/enemies/enemy_actor.gd",
+        "sha256": "777d9151d4aa8a670a5b25c97c107ade383834aac7579990136dac3f0d2b00df"
+      },
+      {
+        "path": "game/world/levels/providers/generated_demo_stage.gd",
+        "sha256": "f1be089d76d1c49c8361d7845c690eaad2eedb2cfc669b3c725d6f27c433114d"
+      },
+      {
+        "path": "game/world/levels/providers/plains_region_stage.gd",
+        "sha256": "651d98e0c2edf1ad0eed9f5bd232a10be322aabcc3c8d73c28391ab849821ad3"
+      },
+      {
+        "path": "game/world/levels/providers/thorn_forest_region_stage.gd",
+        "sha256": "26eaefabcfecc779aa85b37381a9f46c88a7d17e2175addbe25abd04e652c6c5"
+      }
+    ],
+    "scope": "One technical source revision after attack-cancellation ownership, map damage/contact construction and Boss arena assembly closeout. No new gameplay rules, selected art/audio, RNG, save formats or content choice; no art, audio, user or device acceptance.",
+    "previous_direction": "docs/creative_direction/archive/composition-closeout-before-style29/docs/creative_direction/windchime_plains.json",
+    "previous_sha256": "81fa70905d62d6c0099e7f00c1a9bcb74dbfe0ed88295a552c90b71ac9bf7208",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
+    "shared_style_sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/runtime-ownership-before-style28/manifest.json",
-      "sha256": "358a3b010b4b1e95772a13a2c5d3f219eb6da4eb8962004dfc73e59c08056e4a"
+      "path": "docs/creative_direction/archive/composition-closeout-before-style29/manifest.json",
+      "sha256": "9d2d76226ba552cbcfe71ab063c18ba809921f66b359f4576c42a678aed79f3b"
     },
     "affected_consumers": [
       "game/world/levels/providers/plains_region_stage.gd",
       "game/application/demo_app.gd",
       "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "game/combat/damage/demo_contact_emitter.gd",
       "game/enemies/enemy_actor.gd",
       "game/world/levels/providers/generated_demo_stage.gd"
     ],
-    "validation": "Current binding contract and existing tests must be actually revalidated; no full185, native, export, artistic, listening, player or device acceptance is inherited.",
+    "validation": "Editor import was reported clean for the frozen six-source vector; original binding checks and regression evidence must be recorded separately. No full-CI/native/art/export/user/device acceptance is inherited by this metadata.",
     "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
   }
 }

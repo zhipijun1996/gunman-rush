@@ -1,0 +1,34 @@
+{
+  "task": "P1-MAP-DAMAGE-BOUNDARY",
+  "source_commit": "c8d39551bbe79b40895e96bdcdf8250c56939813",
+  "base": "c8 tree with frozen attack-cancel-boundary-candidate 3-leaf overlay",
+  "base_cancel_receipt_sha256": "fa0c0aa7b1d8daf7c8c5cfcba430f81ba0bb95b4d57e65e05211634f8c5b8d83",
+  "files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "206357a8ff8520bd3c7acf3798f4fc3c6956e6d53fafa6c039ff7f1490c0732c",
+      "after_sha256": "781fc7a10375d51ea3c666f5dc1b1b8edcbf0805c019d6db17f9e0dd9a42ec4e"
+    },
+    {
+      "path": "game/world/levels/providers/generated_demo_stage.gd",
+      "before_sha256": "38afc9ab3ebdca0d54a0fcee5a1edd55bfb8fffb5a76d12fc5e73033ed8cdb1b",
+      "after_sha256": "f6150bc8dfbf4632c5b2ce59d9709af77f82d0ee7d2f60722cb8106f8f237202"
+    },
+    {
+      "path": "game/combat/damage/demo_contact_emitter.gd",
+      "before_sha256": "f8a35c951b1e239c2ba4d062f5692e5d623abe6f1b139cbac59590bcda299994",
+      "after_sha256": "aceb78d87b477de483e032c230f0fa2684750c06baac20c3ff5d6de35df03494"
+    }
+  ],
+  "patch_sha256": "aa594cd859bd0551f8d7bfac72efec318d65e3297212af37b1ff2aa108b3c73e",
+  "proofs": {
+    "entire_three_file_reverse_exact": true,
+    "original_map_block_inverse_exact": true,
+    "original_contact_factory_body_inverse_exact": true,
+    "patch_apply_reverse_exact": true,
+    "main_written": false,
+    "engine_run": false,
+    "tests_changed": false
+  },
+  "validation": "Author static transform only; independent review and native pending"
+}
