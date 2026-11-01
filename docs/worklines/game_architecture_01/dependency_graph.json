@@ -1,27 +1,29 @@
 {
   "schema_version": 1,
   "kind": "audit_snapshot_not_runtime_registry",
-  "source_commit": "2fa2daac907b1d84a00ed8dc2846c73bbe223300",
+  "source_commit": "b69ca2933b1739226e9edc37cc5621d47443e322",
   "production_baseline": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
   "production_baseline_role": "original_integrated_architecture_snapshot",
-  "latest_production_source": "61c4fac9e3f5674787cecc963a8ac1d9b675480d",
+  "latest_production_source": "b69ca2933b1739226e9edc37cc5621d47443e322",
   "latest_generated_development_source": "becd0099b161f57cd919e7492f9f99752d377935",
-  "technical_closeout_commit": "2fa2daac907b1d84a00ed8dc2846c73bbe223300",
+  "technical_closeout_commit": "b69ca2933b1739226e9edc37cc5621d47443e322",
   "consumer_closeout_commit": "dce431120e1ad7c0cb69ff1d189490bf9fa47b8e",
   "root_bell_paused_fix_commit": "61c4fac9e3f5674787cecc963a8ac1d9b675480d",
   "r3_current_contract_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
-  "generated_utc": "2026-10-31T15:37:32.674574+00:00",
+  "architecture_closeout_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+  "map_interface_closeout_commit": "b69ca2933b1739226e9edc37cc5621d47443e322",
+  "generated_utc": "2026-11-01T06:25:35.195424+00:00",
   "freeze_status": "committed_technical_source_snapshot_not_full_ci_or_release_acceptance",
   "source_status_at_start": "All tracked source and narrative committed; only index outputs may differ.",
   "technical_binding": {
     "registry": "docs/creative_direction/bibles/registry.json",
     "style": {
-      "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
-      "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
+      "sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e"
     },
     "creative_versions": {
-      "windchime_plains": "creative-v30",
-      "thorn_forest": "creative-v30"
+      "windchime_plains": "creative-v33",
+      "thorn_forest": "creative-v33"
     },
     "scope": "Technical source binding only; no inherited artwork/gameplay/audio/device acceptance."
   },
@@ -35,7 +37,7 @@
     "The three generated index files deliberately omit their own size/blob hashes to avoid circular self-binding."
   ],
   "extractor": "tools/project_dependencies.py:inspect",
-  "source_count": 842,
+  "source_count": 843,
   "classes": {
     "CourierVisual": "assets/characters/courier/courier_visual.gd",
     "PainterlyCourierVisual": "assets/painterly_v2/painterly_courier_visual.gd",
@@ -401,6 +403,7 @@
     "SimpleRoomReward": "game/rewards/grants/simple_room_reward.gd",
     "SupplyHealEffect": "game/rewards/grants/supply_heal_effect.gd",
     "WindkeeperPressureRewards": "game/rewards/grants/windkeeper_pressure_rewards.gd",
+    "CacheRewardPolicy": "game/rewards/offers/cache_reward_policy.gd",
     "DemoRewardCatalog": "game/rewards/offers/demo_reward_catalog.gd",
     "ResourceRewardChoice": "game/rewards/offers/resource_reward_choice.gd",
     "RewardOffer": "game/rewards/offers/reward_offer.gd",
@@ -3286,11 +3289,6 @@
     },
     {
       "source": "game/application/demo_app.gd",
-      "target": "game/bosses/windkeeper/windkeeper_arena.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
       "target": "game/bosses/windkeeper/windkeeper_encounter.gd",
       "kind": "class"
     },
@@ -3372,16 +3370,6 @@
     {
       "source": "game/application/demo_app.gd",
       "target": "game/economy/shops/shop_service.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
-      "target": "game/enemies/behaviors/forest_bible_weaver_behavior.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
-      "target": "game/enemies/behaviors/forest_crossbranch_behavior.gd",
       "kind": "class"
     },
     {
@@ -3506,11 +3494,6 @@
     },
     {
       "source": "game/application/demo_app.gd",
-      "target": "game/presentation/actors/presentation/forest_bible_actor_presentation.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
       "target": "game/presentation/audio/game_audio.gd",
       "kind": "class"
     },
@@ -3626,16 +3609,6 @@
     },
     {
       "source": "game/application/demo_app.gd",
-      "target": "game/presentation/world/presentation/forest_bible_ambience.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
-      "target": "game/presentation/world/presentation/forest_bible_near_scenery.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
       "target": "game/presentation/world/presentation/forest_bible_presentation.gd",
       "kind": "class"
     },
@@ -3726,6 +3699,11 @@
     },
     {
       "source": "game/application/demo_app.gd",
+      "target": "game/rewards/offers/cache_reward_policy.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/application/demo_app.gd",
       "target": "game/rewards/offers/demo_reward_catalog.gd",
       "kind": "class"
     },
@@ -3742,16 +3720,6 @@
     {
       "source": "game/application/demo_app.gd",
       "target": "game/world/components/forest_bible_discoveries.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
-      "target": "game/world/components/forest_target_hosts.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
-      "target": "game/world/components/platforming_module.gd",
       "kind": "class"
     },
     {
@@ -3776,11 +3744,6 @@
     },
     {
       "source": "game/application/demo_app.gd",
-      "target": "game/world/generation/plains_region_assembler.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
       "target": "game/world/generation/plains_root_bell_encounter_v2.gd",
       "kind": "class"
     },
@@ -3802,11 +3765,6 @@
     {
       "source": "game/application/demo_app.gd",
       "target": "game/world/generation/stage_camera_rig.gd",
-      "kind": "class"
-    },
-    {
-      "source": "game/application/demo_app.gd",
-      "target": "game/world/generation/thorn_forest_region_assembler.gd",
       "kind": "class"
     },
     {
@@ -6472,6 +6430,16 @@
     {
       "source": "game/enemies/enemy_actor.gd",
       "target": "game/enemies/behaviors/enemy_patrol_ai.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/enemies/enemy_actor.gd",
+      "target": "game/enemies/behaviors/forest_bible_weaver_behavior.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/enemies/enemy_actor.gd",
+      "target": "game/enemies/behaviors/forest_crossbranch_behavior.gd",
       "kind": "class"
     },
     {
@@ -12075,6 +12043,16 @@
       "kind": "class"
     },
     {
+      "source": "game/rewards/offers/cache_reward_policy.gd",
+      "target": "game/rewards/offers/resource_reward_choice.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/rewards/offers/cache_reward_policy.gd",
+      "target": "scripts/builds/item_definition.gd",
+      "kind": "class"
+    },
+    {
       "source": "game/rewards/offers/demo_reward_catalog.gd",
       "target": "game/loadout/catalog/item_catalog_v5.gd",
       "kind": "class"
@@ -13122,6 +13100,11 @@
     {
       "source": "game/world/generation/plains_region_generator.gd",
       "target": "game/rewards/drops/enemy_drop_service.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/generation/plains_region_generator.gd",
+      "target": "game/rewards/offers/cache_reward_policy.gd",
       "kind": "class"
     },
     {
@@ -14386,7 +14369,47 @@
     },
     {
       "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/bosses/encounter/boss_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
       "target": "game/bosses/encounter/boss_factory.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/bosses/windkeeper/windkeeper_arena.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/bosses/windkeeper/windkeeper_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/bosses/windkeeper/windkeeper_pressure_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/combat/damage/damage_request.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/combat/damage/demo_contact_emitter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/combat/damage/frame_damage_policy.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/combat/respawn/segment_respawn.gd",
       "kind": "class"
     },
     {
@@ -14457,6 +14480,11 @@
     {
       "source": "game/world/levels/providers/generated_demo_stage.gd",
       "target": "game/world/generation/plains_encounter_planner.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/generated_demo_stage.gd",
+      "target": "game/world/generation/plains_region_assembler.gd",
       "kind": "class"
     },
     {
@@ -14666,12 +14694,32 @@
     },
     {
       "source": "game/world/levels/providers/plains_region_stage.gd",
+      "target": "game/bosses/bellstrider/bellstrider_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/plains_region_stage.gd",
       "target": "game/bosses/encounter/boss_arena_seal.gd",
       "kind": "class"
     },
     {
       "source": "game/world/levels/providers/plains_region_stage.gd",
+      "target": "game/bosses/encounter/boss_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/plains_region_stage.gd",
       "target": "game/bosses/windkeeper/windkeeper_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/plains_region_stage.gd",
+      "target": "game/bosses/windkeeper/windkeeper_pressure_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/plains_region_stage.gd",
+      "target": "game/combat/respawn/segment_respawn.gd",
       "kind": "class"
     },
     {
@@ -14876,7 +14924,22 @@
     },
     {
       "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "target": "game/bosses/encounter/boss_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
       "target": "game/bosses/thorn_forest/thorn_forest_encounter.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "target": "game/combat/resources/state/health_state.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "target": "game/economy/shops/run_wallet.gd",
       "kind": "class"
     },
     {
@@ -14897,6 +14960,16 @@
     {
       "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
       "target": "game/player/player_controller.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "target": "game/player/player_motor.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "target": "game/presentation/actors/presentation/forest_bible_actor_presentation.gd",
       "kind": "class"
     },
     {
@@ -14937,6 +15010,11 @@
     {
       "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
       "target": "game/presentation/world/underworld_plains/underworld_terrain.gd",
+      "kind": "class"
+    },
+    {
+      "source": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "target": "game/rewards/grants/reward_service.gd",
       "kind": "class"
     },
     {
@@ -18306,7 +18384,7 @@
       "source": "game/application",
       "target": "game/bosses",
       "kind": "class",
-      "count": 7
+      "count": 6
     },
     {
       "source": "game/application",
@@ -18324,7 +18402,7 @@
       "source": "game/application",
       "target": "game/enemies",
       "kind": "class",
-      "count": 6
+      "count": 4
     },
     {
       "source": "game/application",
@@ -18354,7 +18432,7 @@
       "source": "game/application",
       "target": "game/presentation",
       "kind": "class",
-      "count": 33
+      "count": 30
     },
     {
       "source": "game/application",
@@ -18378,7 +18456,7 @@
       "source": "game/application",
       "target": "game/rewards",
       "kind": "class",
-      "count": 15
+      "count": 16
     },
     {
       "source": "game/application",
@@ -18390,7 +18468,7 @@
       "source": "game/application",
       "target": "game/world",
       "kind": "class",
-      "count": 43
+      "count": 39
     },
     {
       "source": "game/application",
@@ -18594,7 +18672,7 @@
       "source": "game/enemies",
       "target": "game/enemies",
       "kind": "class",
-      "count": 110
+      "count": 112
     },
     {
       "source": "game/enemies",
@@ -19002,7 +19080,7 @@
       "source": "game/rewards",
       "target": "game/rewards",
       "kind": "class",
-      "count": 9
+      "count": 10
     },
     {
       "source": "game/rewards",
@@ -19026,7 +19104,7 @@
       "source": "game/rewards",
       "target": "scripts",
       "kind": "class",
-      "count": 6
+      "count": 7
     },
     {
       "source": "game/world",
@@ -19038,19 +19116,19 @@
       "source": "game/world",
       "target": "game/bosses",
       "kind": "class",
-      "count": 9
+      "count": 17
     },
     {
       "source": "game/world",
       "target": "game/combat",
       "kind": "class",
-      "count": 11
+      "count": 17
     },
     {
       "source": "game/world",
       "target": "game/economy",
       "kind": "class",
-      "count": 1
+      "count": 2
     },
     {
       "source": "game/world",
@@ -19074,7 +19152,7 @@
       "source": "game/world",
       "target": "game/player",
       "kind": "class",
-      "count": 50
+      "count": 51
     },
     {
       "source": "game/world",
@@ -19086,7 +19164,7 @@
       "source": "game/world",
       "target": "game/presentation",
       "kind": "class",
-      "count": 60
+      "count": 61
     },
     {
       "source": "game/world",
@@ -19098,13 +19176,13 @@
       "source": "game/world",
       "target": "game/rewards",
       "kind": "class",
-      "count": 8
+      "count": 10
     },
     {
       "source": "game/world",
       "target": "game/world",
       "kind": "class",
-      "count": 197
+      "count": 198
     },
     {
       "source": "game/world",

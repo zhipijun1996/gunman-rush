@@ -1,3 +1,11 @@
+## 2026-11-01 最终生产源码已保存，收口后只做同源交付
+
+代码提交 `b69ca2933b1739226e9edc37cc5621d47443e322`，分支 `refactor/game-architecture-02`。Stage最后两处路线/HUD值查询已替代App的assembler读取；P1取消/伤害/Boss接线、共用规则及模块CI已保存。三索引已按b69冻结源刷新（34,487路径／1,556runtime／35入口，843源／3,462边／118未解析dynamic，errors0），不是全量引擎/设备证明。当前style30/creative33仅技术重绑三叶，图声保持。
+
+原HUD61/0及五布局前后相同；当前46、creative27、历史36原预算通过，代码/绑定/测试分别独审。新Provider完整App仍须迁移旧来源记录与恢复适配，新算法/库为后续内容，准确边界见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。本轮不再扩大重构、旧地图矩阵或素材清理。
+
+下一步：确认干净最终HEAD、release-evidence、实际main2ce quality-diff和impact计划，推送后只启动一次原environment.yml（full171＋Windows/Web，Android按实际input）及已授权试玩。随后取同run唯一API摘要原ZIP→原三浏览器/PCK隔离加载/同源连续原生音画→公网metadata与完整PCK SHA/基本GUI。未执行不能签通过；2d44 run41279913906是prepare主动取消，旧C8仍失败。当前无本地Godot或CI租约；启动后必须在外部checkpoint记实际run/head，冻结源至后验完毕，不合main。后续历史节点保留原来源。
+
 ## 2026-11-01 最后两处地图查询已收口，准备最终同源验证
 
 分支 `refactor/game-architecture-02`；P1六源码已存 `2d44aaeb`，其后最后三源码查询迁移与style30/creative33按[精确收据](evidence/map_view_boundary_01/receipt.json)记录，三源码静审通过，HUD61/0及五布局前后相同，current46／creative27／history36均在原预算通过。三处Stage值查询已接实际App，App assembler访问归零；不承诺任意新Provider已直接接通正式流程。见[架构收口与新地图门槛](worklines/game_architecture_01/architecture_closeout.md)。
