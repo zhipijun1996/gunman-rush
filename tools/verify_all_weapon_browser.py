@@ -2,7 +2,7 @@
 import asyncio,json,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
-from studio_gui_pointer import select_weapon, weapon_row_y, enter_action_studio
+from studio_gui_pointer import select_weapon, studio_control_point, enter_action_studio
 out=Path('build/weapons/browser');out.mkdir(parents=True,exist_ok=True)
 async def main():
  events=[];errors=[];checks={}
@@ -25,7 +25,7 @@ async def main():
    return c,page
   c,page=await launch()
   # Controlled-weapon cases use the explicitly selectable stationary target mode.
-  await page.mouse.click(710,150);await page.wait_for_timeout(250)
+  await page.mouse.click(*(await studio_control_point(page,'training')));await page.wait_for_timeout(250)
   assert any(e['action']=='training_mode'and e['detail'].get('static')for e in events), 'stationary target mode was not accepted'
   async def wait_event(predicate,timeout=5):
    end=time.monotonic()+timeout
@@ -37,7 +37,7 @@ async def main():
    expected=['pulse_gun','shadow_shuriken','recoil_bomb','triple_machine_gun','sustained_laser','fan_shuriken','remote_boomerang','magnetic_mine','collapse_singularity','machine_storm'][index]
    n=len(events);await select_weapon(page,index)
    assert await wait_event(lambda:any(e['action']=='weapon_equipped'and e['weapon']==expected for e in events[n:])),f'GUI selected wrong loadout for {expected}'
-   await page.mouse.click(330,await weapon_row_y(page));await page.wait_for_timeout(220)
+   await page.mouse.click(*(await studio_control_point(page,'practice')));await page.wait_for_timeout(220)
    assert any(e['action']=='practice_reset'and e['weapon']==expected for e in events[-8:]),f'GUI did not reset {expected}'
   await choose(4);n=len(events);await page.mouse.move(790,510);await page.mouse.down();await page.wait_for_timeout(450);await page.screenshot(path=str(out/'desktop-laser-held.png'));await page.mouse.up();await page.wait_for_timeout(220)
   phases=[e['detail'].get('phase') for e in events[n:] if e['action']=='weapon_phase' and e['weapon']=='sustained_laser'];checks['desktop_laser_hold_release']='beam'in phases and phases[-1:] == ['idle']
@@ -52,7 +52,7 @@ async def main():
   c,page=await launch(True);session=await c.new_cdp_session(page)
   async def touch(kind,points):await session.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'id':i,'x':x,'y':y}for i,x,y in points]})
   # Upward hook from the public practice checkpoint to the overhead anchor.
-  await page.touchscreen.tap(350,54);await page.wait_for_timeout(300);n=len(events)
+  await page.touchscreen.tap(*(await studio_control_point(page,'hook_practice')));await page.wait_for_timeout(300);n=len(events)
   await touch('touchStart',[(3,694,232)]);await touch('touchMove',[(3,694,192)]);await page.wait_for_timeout(70);await touch('touchEnd',[]);await page.wait_for_timeout(700);await page.screenshot(path=str(out/'touch-upward-hook.png'))
   rows=[e for e in events[n:]if e['action']=='hook_pull'];checks['touch_360_upward_hook']=bool(rows)and any(e['position'][1]<350 for e in events[n:]if e['action']=='hook_kick')
   # Skill touch area exists for an actual Lv3 selection. Popup selection uses actual pointer input.
