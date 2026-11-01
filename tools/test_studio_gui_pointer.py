@@ -150,7 +150,7 @@ class WeaponPopupTests(unittest.TestCase):
 
         page = ScreenshotPage()
         self.assertEqual(asyncio.run(helper.weapon_row_y(page)), 179)
-        self.assertEqual(asyncio.run(helper.open_weapon_picker(page)),
+        self.assertEqual(asyncio.run(helper.open_weapon_picker(page,historical_fixture=True)),
                          (popup['marker_x'], popup['rows']))
         self.assertEqual(popup['bounds'], (36, 191, 286, 654))
         self.assertEqual(popup['marker_x'], 59.5)
@@ -399,7 +399,7 @@ class MobilePopupTests(unittest.TestCase):
                 pass
 
         page = ScreenshotPage()
-        self.assertEqual(asyncio.run(helper.open_weapon_picker(page, True)),
+        self.assertEqual(asyncio.run(helper.open_weapon_picker(page, True,historical_fixture=True)),
                          (popup['marker_x'], popup['rows']))
 
     def test_missing_selected_middle_or_all_radios_never_inferred_from_text(self):
@@ -584,6 +584,107 @@ class CurrentTitleTests(unittest.TestCase):
                 helper._studio_label_box(rows([label]),'开发入口')
         with self.assertRaisesRegex(AssertionError,'found 2'):
             helper._studio_label_box(rows(['开发入口','开发入口']),'开发入口')
+
+class CurrentStudioControlsTests(unittest.TestCase):
+    def locate(self,image,control,scale=1):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'frame.png';image.save(path)
+            return helper._studio_bitmap_control(path,control,scale)
+
+    def reference(self,image,control):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'frame.png';image.save(path)
+            return helper._studio_current_reference(path,control)
+
+    def test_real_desktop_full_font_glyphs_and_source_labels(self):
+        image=Image.open(FIXTURES/'controls_37950_desktop.png')
+        for control,label in [('weapon','Lv.1 脉冲枪'),('training','敌人：巡逻'),('practice','武器靶场'),('hook_practice','钩索接力')]:
+            with self.subTest(control=control):
+                result=self.locate(image,control)
+                self.assertEqual(result['label'],label)
+                l,t,r,b=result['bounds'];x,y=result['point']
+                self.assertTrue(l<x<r and t<y<b)
+
+    def test_real_touch_weapon_and_training_exact_scaled_font(self):
+        image=Image.open(FIXTURES/'controls_37950_touch.png')
+        self.assertEqual(self.locate(image,'weapon',390/720)['point'],(139,155.5))
+        self.assertEqual(self.locate(image,'training',390/720)['point'],(556,155.5))
+        self.assertEqual(self.locate(image,'practice',390/720)['point'],(269.5,155.5))
+        self.assertEqual(self.locate(image,'hook_practice',390/720)['point'],(404.5,82.0))
+
+    def test_control_suffix_wrong_glyph_duplicate_and_clipping_rejected(self):
+        original=Image.open(FIXTURES/'controls_37950_desktop.png').convert('RGB')
+        changed=original.copy();ImageDraw.Draw(changed).point((840,287),fill=(41,58,59) if original.getpixel((840,287))==(246,232,191) else (246,232,191))
+        suffix=original.copy();ImageDraw.Draw(suffix).rectangle((950,280,952,287),fill=(246,232,191))
+        duplicate=original.copy();duplicate.paste(original.crop((810,252,966,320)),(650,360))
+        clipped=original.crop((0,0,940,720))
+        for image in [changed,suffix,duplicate,clipped]:
+            with self.subTest(size=image.size),self.assertRaises(AssertionError):self.locate(image,'training')
+
+    def test_two_observed_title_viewports_strict_raw_glyphs(self):
+        for name in ['title_37950_current.png','navigation_touch_title_37950.png']:
+            image=Image.open(FIXTURES/name)
+            self.assertEqual(len(self.reference(image,'title')),2)
+        image=Image.open(FIXTURES/'navigation_touch_title_37950.png').convert('RGB')
+        duplicate=image.copy();duplicate.paste(image.crop((103,260,301,294)),(400,260))
+        changed=image.copy();ImageDraw.Draw(changed).rectangle((153,274,155,278),fill=(246,232,191))
+        for frame in [duplicate,changed,image.crop((0,0,844,280)),image.resize((800,370))]:
+            with self.subTest(size=frame.size),self.assertRaises(AssertionError):self.reference(frame,'title')
+
+    def test_touch_actions_source_bound_edges_all_pixels_required(self):
+        image=Image.open(FIXTURES/'navigation_touch_actions_37950.png').convert('RGB')
+        self.assertEqual(self.reference(image,'actions'),(292,160))
+        variants=[]
+        for y in (143,175):
+            changed=image.copy();ImageDraw.Draw(changed).line((223,y,361,y),fill=(37,53,56));variants.append(changed)
+        duplicate=image.copy();duplicate.paste(image.crop((223,143,362,176)),(400,210));variants.append(duplicate)
+        suffix=image.copy();ImageDraw.Draw(suffix).rectangle((354,154,356,160),fill=(246,232,191));variants.append(suffix)
+        variants.append(image.crop((0,0,844,170)))
+        for frame in variants:
+            with self.subTest(size=frame.size),self.assertRaises(AssertionError):self.reference(frame,'actions')
+
+    def test_source_font_resource_and_reference_drift_rejected(self):
+        import shutil
+        source=Path(helper.__file__).resolve().parents[1]
+        meta=json.loads((FIXTURES/'current_navigation_37950.json').read_text())
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for name in meta['source_sha256']:
+                target=root/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source/name,target)
+            target=root/'tests/fixtures/studio_gui_pointer';shutil.copytree(FIXTURES,target)
+            frame=target/'navigation_touch_title_37950.png'
+            for name in ['assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf','resources/weapons/pulse_gun.tres','game/presentation/ui/demo_ui_01/game_typography.gd']:
+                path=root/name;original=path.read_bytes();path.write_bytes(original+b'\n')
+                with self.subTest(source=name),self.assertRaisesRegex(AssertionError,'source drift'):
+                    helper._studio_current_reference(frame,'title',root)
+                path.write_bytes(original)
+            frame.write_bytes(frame.read_bytes()+b'\n')
+            with self.assertRaisesRegex(AssertionError,'raw reference drift'):helper._studio_current_reference(frame,'title',root)
+
+    def test_touch_practice_raw_glyph_duplicates_suffix_and_clipping_rejected(self):
+        original=Image.open(FIXTURES/'controls_37950_touch.png').convert('RGB')
+        for control,crop,point in [('hook_practice',(370,63,442,100),(405,82)),('practice',(233,136,306,175),(270,155))]:
+            duplicate=original.copy();duplicate.paste(original.crop(crop),(500,220))
+            changed=original.copy();ImageDraw.Draw(changed).point(point,fill=(41,58,59) if original.getpixel(point)==(246,232,191) else (246,232,191))
+            suffix=original.copy();ImageDraw.Draw(suffix).rectangle((crop[2]-9,point[1]-2,crop[2]-8,point[1]+2),fill=(246,232,191))
+            clipped=original.copy();ImageDraw.Draw(clipped).rectangle((crop[0],crop[1],point[0],crop[3]),fill=(37,53,56))
+            for name,image in [('duplicate',duplicate),('changed_glyph',changed),('suffix',suffix),('clipped',clipped)]:
+                with self.subTest(control=control,case=name),self.assertRaises(AssertionError):self.locate(image,control,390/720)
+        with self.assertRaisesRegex(ValueError,'Unknown Studio control'):self.locate(original,'unknown',390/720)
+
+    def test_mixed_font_and_raw_complete_controls_are_ambiguous(self):
+        # Independent adversarial derivative: real current control plus a full
+        # second control using another admitted raster of the same source font.
+        # This is a negative fixture, never a claimed gameplay screenshot.
+        image=Image.open(FIXTURES/'controls_37950_touch_mixed_derived.png')
+        with self.assertRaisesRegex(AssertionError,'found 2 exact glyph matches'):
+            self.locate(image,'hook_practice',390/720)
+
+    def test_original_marker_algorithm_on_real_current_desktop_popup(self):
+        image=Image.open(FIXTURES/'popup_37950_desktop.png')
+        result=helper._weapon_popup_from_pixels(image,1,303)
+        self.assertEqual(result['rows'],[181.5+36*i for i in range(15)])
+        self.assertEqual(len(result['marker_boxes']),15)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

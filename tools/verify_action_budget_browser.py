@@ -2,7 +2,7 @@
 import asyncio,json,math,re,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
-from studio_gui_pointer import select_weapon,weapon_row_y,enter_action_studio
+from studio_gui_pointer import select_weapon,studio_control_point,enter_action_studio
 OUT=Path('build/action_budget/browser');OUT.mkdir(parents=True,exist_ok=True)
 ROOT=Path(__file__).resolve().parents[1]
 # Observe the actual Resource/default contract, without another tuning default.
@@ -28,7 +28,7 @@ async def main():
   await page.goto(sys.argv[1]if len(sys.argv)>1 else'http://127.0.0.1:8765',wait_until='networkidle')
   await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000)
   await page.wait_for_timeout(600);await enter_action_studio(page,between_clicks_ms=300);await page.wait_for_timeout(600)
-  await page.mouse.click(710,await weapon_row_y(page));await page.wait_for_timeout(250)
+  await page.mouse.click(*(await studio_control_point(page,'training')));await page.wait_for_timeout(250)
   async def wait(pred,seconds=5):
    end=time.monotonic()+seconds
    while time.monotonic()<end:
@@ -38,7 +38,7 @@ async def main():
   async def choose(i):
    n=len(events);await select_weapon(page,i)
    assert await wait(lambda:any(e['action']=='weapon_equipped'for e in events[n:])),f'no real equip {i}'
-   await page.mouse.click(330,await weapon_row_y(page));await page.wait_for_timeout(300)
+   await page.mouse.click(*(await studio_control_point(page,'practice')));await page.wait_for_timeout(300)
   async def fire(x=790,y=590):
    await page.mouse.move(x,y);await page.mouse.down();await page.wait_for_timeout(40);await page.mouse.up()
   await choose(1);n=len(events);await fire();await wait(lambda:any(e['action']=='weapon_blink'for e in events[n:]));await page.wait_for_timeout(100)
@@ -72,7 +72,7 @@ async def main():
   await page.mouse.up();await page.wait_for_timeout(150);checks['mouse_laser_release']=any(e['action']=='weapon_phase'and e['detail']['phase']=='idle'for e in events[n:])
   await page.screenshot(path=str(OUT/'mouse-laser.png'))
   await choose(6)
-  await page.mouse.click(500,100);await page.wait_for_timeout(350);n=len(events)
+  await page.mouse.click(*(await studio_control_point(page,'hook_practice')));await page.wait_for_timeout(350);n=len(events)
   await page.keyboard.press(' ')
   # Existing visible side ring: retain the original 45-degree assertion on an
   # oblique cast. The central ring now has a distinct near-vertical contract.
@@ -82,7 +82,7 @@ async def main():
   assert abs(cast['aim'][0])>HOOK_VERTICAL_DEADZONE, '45-degree case did not actually cast obliquely'
   kick=next(e for e in events[n:]if e['action']=='hook_kick');checks['mouse_hook_fixed_45']=kick['recoil'][1]<0 and abs(abs(kick['recoil'][0])+kick['recoil'][1])<1 and math.copysign(1,kick['recoil'][0])==kick['kick_side']
   assert await wait(lambda:any(e['action']=='free'for e in events[n:])), 'oblique hook recovery never returned to free'
-  await page.mouse.click(500,100);await page.wait_for_timeout(350);n=len(events)
+  await page.mouse.click(*(await studio_control_point(page,'hook_practice')));await page.wait_for_timeout(350);n=len(events)
   await page.keyboard.press(' ')
   await page.mouse.click(432,230,button='right')
   assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real upward hook did not launch'

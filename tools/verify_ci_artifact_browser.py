@@ -23,15 +23,95 @@ def inventory(root):
     return {str(p.relative_to(root)): sha(p) for p in sorted(root.rglob('*')) if p.is_file()}
 
 # One reviewed consumer-tool revision, not a general tools/tests exemption.
-# These bytes fix title recognition; the three business consumers stay unchanged.
-REVIEWED_PRODUCTION_COMMIT = '37950e0896a91c6b812a11c323ec3d5fd1800bb0'
-REVIEWED_TOOL_FILES = {
-    'tools/studio_gui_pointer.py': 'a4b14d5d9b06889592b70cd91cfa9c19265c2a9b93d9caf61dcff6222dc024c6',
-    'tools/verify_four_line_browser.py': 'ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f',
-    'tools/test_studio_gui_pointer.py': '259cd1ab5fb02fb9b336a780e0440b69b14760e999e2edbe5d8a2285eaf39a1c',
-    'tests/fixtures/studio_gui_pointer/title_37950_current.png': 'cc90b463b98b79e66e703a720fbd644c5de277e52ee2d4d5601894cccb321ff9',
-    'tests/fixtures/studio_gui_pointer/title_37950_current.json': '570a8e2eb2a63dac2cc4785d44df0b0ae6ca4517e6d7d6d560e23eafc38fc5fa',
-}
+# Locator-only consumer migrations must also reverse to the complete reference Git bytes.
+CONSUMER_REFERENCE_COMMIT = '37950e0896a91c6b812a11c323ec3d5fd1800bb0'
+REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': 'bde4185370b5c1b552a41dee93fb0277d5a316fa05af59b7f66297585f6abf1c',
+ 'tools/verify_four_line_browser.py': 'ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f',
+ 'tools/test_studio_gui_pointer.py': '5360f9f11ddfce02270806aae1968310af635c8470cdfed1a20f68f5fb84bfc3',
+ 'tests/fixtures/studio_gui_pointer/title_37950_current.png': 'cc90b463b98b79e66e703a720fbd644c5de277e52ee2d4d5601894cccb321ff9',
+ 'tests/fixtures/studio_gui_pointer/title_37950_current.json': '570a8e2eb2a63dac2cc4785d44df0b0ae6ca4517e6d7d6d560e23eafc38fc5fa',
+ 'tools/verify_action_budget_browser.py': 'a4bd1d8ac165f1078824f4bcf09a946cc74bd7733fd28da6529e12a8df1b494d',
+ 'tools/verify_studio_click_browser.py': '675b97ec54e961492c770fa068bd478ad78cbd3a65faef0917588929a367cc71',
+ 'tools/verify_all_weapon_browser.py': '7905cc12f0224b8512f3268aac14abc0de9b4a99eea609dd1c0f88d72eb0fd10',
+ 'tests/fixtures/studio_gui_pointer/current_navigation_37950.json': 'a1ed617cbc56089e4b5f0d90871a67d02305a8a89f3a74c8db77ae3c74338b45',
+ 'tests/fixtures/studio_gui_pointer/navigation_touch_title_37950.png': '0858bb644054a9c46df4e5572f7a17ae53eee45cba6cb490102b1bf2a2dfa92e',
+ 'tests/fixtures/studio_gui_pointer/navigation_touch_actions_37950.png': '0f3ddd31c61e1f57762ffa7f0c14d30ebe506c4885fd3ff0ccaca80852763215',
+ 'tests/fixtures/studio_gui_pointer/controls_37950_desktop.png': 'cf6a5454814a4b01263ba895da9ccfe641e5085e4bb8e80ce5c0711f317c1285',
+ 'tests/fixtures/studio_gui_pointer/controls_37950_touch.png': '77f9f6cee7c56516a23822051557397460f44dbd24124f28d298adafb9645004',
+ 'tests/fixtures/studio_gui_pointer/popup_37950_desktop.png': '818c096cf86d089fe99c19c703bf8fc1453270aaa89cfba89aee24021b6334f2',
+ 'tests/fixtures/studio_gui_pointer/controls_37950_touch_mixed_derived.png': '3c89a4d0555e4803d15fed4c61cde88a75eb292bb1d771478b5992be079d04b3'}
+REVIEWED_VISUAL_INPUTS = {'game/combat/weapons/weapon_catalog.gd': 'efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4',
+ 'scripts/combat/weapon_definition.gd': '5c4d8be2021279e1eb4f6e981116ba80e49811a8318681c15e6e241b2c70ec1b',
+ 'assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf': 'db40edf0cc1e446bfe1ce75d5abb4d7c499ace96379b8a0f5f761bd3de8335eb',
+ 'game/presentation/ui/demo_ui_01/clockwork_theme.gd': '37d1f71e185b9c4374d86d5fb8ac15da6e2e73031e1faacf9e88e47625532dd9',
+ 'game/presentation/ui/demo_ui_01/game_typography.gd': 'd1f317206cc7bbab5b262153e032ff4bfd323f829450a571c78e437f553a17e7',
+ 'experiments/motion/action_studio.gd': '1b7657046a4aad2e90d56ecce8c6024df7fede7ea344b9267b58de51e66195dc',
+ 'resources/weapons/pulse_gun.tres': 'd9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a',
+ 'resources/weapons/shadow_shuriken.tres': 'daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272',
+ 'resources/weapons/recoil_bomb.tres': '7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407',
+ 'resources/weapons/triple_machine_gun.tres': '61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958',
+ 'resources/weapons/sustained_laser.tres': '6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641',
+ 'resources/weapons/fan_shuriken.tres': '00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c',
+ 'resources/weapons/remote_boomerang.tres': '0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41',
+ 'resources/weapons/magnetic_mine.tres': 'aa25a81862e2fc1d19ac766a28b947f259e5933092a6a790eaa242da8825a897',
+ 'resources/weapons/collapse_singularity.tres': '7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc',
+ 'resources/weapons/machine_storm.tres': 'daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e',
+ 'resources/weapons/laser_cannon.tres': 'b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6',
+ 'resources/weapons/blade_bloom.tres': 'ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18',
+ 'resources/weapons/moon_boomerang.tres': '56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0',
+ 'resources/weapons/magnetic_storm.tres': 'e83da8ec575f745017d9fce0bca590860341e39dc1b89936c23c477bfc46037f',
+ 'resources/weapons/star_collapse.tres': '6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36',
+ 'game/presentation/ui/demo_menu.gd': '35f27a52f675fd3227b16d5231b8f4ad6c6220a3a09f756f7deb7b8c4e85991f',
+ 'game/presentation/ui/underworld_ui.gd': '0a6d717ef7a9f02e40b003a8f40850b4007634485b1f7ca6882086b43ec378ce',
+ 'game/presentation/ui/menu_theme.gd': '59e7d3012fca992901c2088f3965d0be54969c07b112fdce75e4776a349cb5b3'}
+REFERENCE_CONSUMER_SHA256 = {'tools/verify_action_budget_browser.py': '6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca',
+ 'tools/verify_all_weapon_browser.py': 'c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272',
+ 'tools/verify_studio_click_browser.py': '8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825'}
+CONSUMER_MIGRATIONS = {'tools/verify_action_budget_browser.py': [['from studio_gui_pointer import '
+                                            'select_weapon,weapon_row_y,enter_action_studio',
+                                            'from studio_gui_pointer import '
+                                            'select_weapon,studio_control_point,enter_action_studio',
+                                            1],
+                                           ['await page.mouse.click(710,await weapon_row_y(page))',
+                                            'await page.mouse.click(*(await '
+                                            "studio_control_point(page,'training')))",
+                                            1],
+                                           ['await page.mouse.click(330,await weapon_row_y(page))',
+                                            'await page.mouse.click(*(await '
+                                            "studio_control_point(page,'practice')))",
+                                            1],
+                                           ['await page.mouse.click(500,100)',
+                                            'await page.mouse.click(*(await '
+                                            "studio_control_point(page,'hook_practice')))",
+                                            2]],
+ 'tools/verify_all_weapon_browser.py': [['from studio_gui_pointer import select_weapon, weapon_row_y, '
+                                         'enter_action_studio',
+                                         'from studio_gui_pointer import select_weapon, '
+                                         'studio_control_point, enter_action_studio',
+                                         1],
+                                        ['await page.mouse.click(710,150)',
+                                         'await page.mouse.click(*(await '
+                                         "studio_control_point(page,'training')))",
+                                         1],
+                                        ['await page.mouse.click(330,await weapon_row_y(page))',
+                                         'await page.mouse.click(*(await '
+                                         "studio_control_point(page,'practice')))",
+                                         1],
+                                        ['await page.touchscreen.tap(350,54)',
+                                         'await page.touchscreen.tap(*(await '
+                                         "studio_control_point(page,'hook_practice')))",
+                                         1]],
+ 'tools/verify_studio_click_browser.py': [['from studio_gui_pointer import weapon_row_y, select_weapon, '
+                                           'open_weapon_picker, enter_action_studio',
+                                           'from studio_gui_pointer import studio_control_point, '
+                                           'select_weapon, open_weapon_picker, enter_action_studio',
+                                           1],
+                                          ['y=await weapon_row_y(page);n=len(events);await '
+                                           'click(pad+710*scale,y)',
+                                           'point=await '
+                                           "studio_control_point(page,'training');n=len(events);await "
+                                           'click(*point)',
+                                           2]]}
 COORDINATOR_FILES = {'tools/verify_ci_artifact_browser.py', 'tools/test_verify_ci_artifact_browser.py'}
 CONSUMERS = ('verify_action_budget_browser', 'verify_studio_click_browser', 'verify_all_weapon_browser')
 
@@ -105,8 +185,27 @@ class SourceRoot:
                 'git_entries': entries, 'source_sha256': files}
 
 
+def verify_consumer_migrations(production, consumer):
+    """Only approved locator/import edits; never normalize business assertions."""
+    expected = {f'tools/{name}.py' for name in CONSUMERS}
+    require(set(CONSUMER_MIGRATIONS) == expected == set(REFERENCE_CONSUMER_SHA256),
+            'Incomplete consumer migration contract')
+    for name in sorted(expected):
+        original = pathlib.Path(production['root']) / name
+        current = pathlib.Path(consumer['root']) / name
+        require(production['source_sha256'].get(name) == REFERENCE_CONSUMER_SHA256[name],
+                f'Production consumer differs from reference Git bytes: {name}')
+        restored = current.read_bytes()
+        for old, new, count in reversed(CONSUMER_MIGRATIONS[name]):
+            old, new = old.encode('utf-8'), new.encode('utf-8')
+            require(restored.count(new) == count, f'Consumer migration occurrence mismatch: {name}')
+            restored = restored.replace(new, old)
+        require(restored == original.read_bytes(), f'Consumer inverse differs from reference: {name}')
+        require(hashlib.sha256(restored).hexdigest() == REFERENCE_CONSUMER_SHA256[name],
+                f'Consumer reference hash mismatch: {name}')
+
+
 def validate_tool_pair(production, consumer, executing_file):
-    require(production['commit'] == REVIEWED_PRODUCTION_COMMIT, 'Tool revision is not reviewed for this production commit')
     game_tree, tool_tree = production['git_entries'], consumer['git_entries']
     allowed = set(REVIEWED_TOOL_FILES) | COORDINATOR_FILES
     changed = {name for name in game_tree.keys() | tool_tree.keys() if game_tree.get(name) != tool_tree.get(name)}
@@ -116,6 +215,10 @@ def validate_tool_pair(production, consumer, executing_file):
             'Coordinator must execute from the frozen consumer tool root')
     for name, digest in REVIEWED_TOOL_FILES.items():
         require(consumer['source_sha256'].get(name) == digest, f'Unreviewed tool bytes: {name}')
+    for name, digest in REVIEWED_VISUAL_INPUTS.items():
+        require(production['source_sha256'].get(name) == digest == consumer['source_sha256'].get(name),
+                f'Incompatible actual visual input: {name}')
+    verify_consumer_migrations(production, consumer)
     required = [f'tools/{name}.py' for name in CONSUMERS] + [
         'tools/harness.py', 'tools/publish_playtest.py', 'tools/verify_ci_artifact_browser.py',
         'resources/player/traversal.tres']
@@ -130,6 +233,7 @@ def validate_tool_pair(production, consumer, executing_file):
                     f'Prepared consumer inputs differ: {name}')
     # Other tracked files were compared by Git blob above; every materialized file
     # in either root was independently checked against that blob by snapshot().
+    # The reference commit dates the screenshots/consumer source, not the game API identity.
     # Sparse absences are recorded, never claimed to be browser-read inputs.
     return sorted(changed)
 
@@ -183,6 +287,11 @@ def main():
             before_tool, changes = before_game, []
         report.update(production_source=before_game, consumer_tools=before_tool, reviewed_tool_changes=changes,
                       consumer_tool_commit=before_tool['commit'], dual_root_mode=dual)
+        if dual:
+            report.update(consumer_reference_commit=CONSUMER_REFERENCE_COMMIT,
+                          reference_consumer_sha256=REFERENCE_CONSUMER_SHA256,
+                          visual_compatibility_sha256=REVIEWED_VISUAL_INPUTS,
+                          consumer_migrations_verified=True)
         fixed_files = {str(path.resolve()): sha(path) for path in (a.run_api, a.artifact_api, a.artifact_zip)}
         report['fixed_artifact_inputs'] = dict(fixed_files)
         if dual:

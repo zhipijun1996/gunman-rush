@@ -29,24 +29,38 @@ class ToolRootTests(unittest.TestCase):
         self.write(self.game, '.gitignore', 'build/\n__pycache__/\n')
         names = [f'tools/{name}.py' for name in verifier.CONSUMERS]
         names += ['tools/harness.py', 'tools/publish_playtest.py', 'tools/verify_ci_artifact_browser.py', 'game/player.gd']
+        consumers = {f'tools/{name}.py' for name in verifier.CONSUMERS}
         for name in names:
-            self.write(self.game, name, '# original ' + name + '\n')
+            self.write(self.game, name, '# original ' + name + '\nassert True # business assertion\n')
         self.write(self.game, 'resources/player/traversal.tres', 'hook_vertical_kick_deadzone = 4.0\n')
         for name in verifier.REVIEWED_TOOL_FILES:
-            if name.endswith('.py'):
+            if name.endswith('.py') and name not in consumers:
                 self.write(self.game, name, '# old helper\n')
+        visual = {}
+        for name in ('game/visual.gd', 'assets/ui/font.ttf'):
+            self.write(self.game, name, 'original visual ' + name + '\n')
+            visual[name] = verifier.sha(self.game / name)
+        references = {name: verifier.sha(self.game / name) for name in consumers}
         self.game_commit = self.commit(self.game)
         self.git(self.base, 'clone', '-q', '--no-hardlinks', str(self.game), str(self.tool))
-        approved = {}
+        approved, migrations = {}, {}
         for name in verifier.REVIEWED_TOOL_FILES:
-            self.write(self.tool, name, 'reviewed ' + name + '\n')
+            if name in consumers:
+                old, new = '# original ' + name, '# locator ' + name
+                self.write(self.tool, name, (self.game / name).read_text().replace(old, new))
+                migrations[name] = [[old, new, 1]]
+            else:
+                self.write(self.tool, name, 'reviewed ' + name + '\n')
             approved[name] = verifier.sha(self.tool / name)
         self.write(self.tool, 'tools/verify_ci_artifact_browser.py', '# reviewed coordinator\n')
         self.write(self.tool, 'tools/test_verify_ci_artifact_browser.py', '# reviewed tests\n')
         self.tool_commit = self.commit(self.tool)
         self.addCleanup(patch.stopall)
         patch.object(verifier, 'REVIEWED_TOOL_FILES', approved).start()
-        patch.object(verifier, 'REVIEWED_PRODUCTION_COMMIT', self.game_commit).start()
+        patch.object(verifier, 'CONSUMER_REFERENCE_COMMIT', self.game_commit).start()
+        patch.object(verifier, 'REFERENCE_CONSUMER_SHA256', references).start()
+        patch.object(verifier, 'CONSUMER_MIGRATIONS', migrations).start()
+        patch.object(verifier, 'REVIEWED_VISUAL_INPUTS', visual).start()
 
     @staticmethod
     def git(root, *args):
@@ -88,7 +102,7 @@ class ToolRootTests(unittest.TestCase):
     def test_top_level_business_script_change_rejected(self):
         self.write(self.tool, 'tools/verify_action_budget_browser.py', '# altered checks\n')
         self.tool_commit = self.commit(self.tool)
-        with self.assertRaisesRegex(ValueError, 'Unreviewed tool-root changes'):
+        with self.assertRaisesRegex(ValueError, 'Unreviewed tool bytes'):
             self.pair()
 
     def test_runtime_and_unknown_tool_changes_rejected(self):
@@ -257,9 +271,83 @@ class ToolRootTests(unittest.TestCase):
             self.run_main()
 
     def test_explicit_mode_cannot_attribute_game_package_to_tool_commit(self):
-        patch.object(verifier, 'REVIEWED_PRODUCTION_COMMIT', 'f' * 40).start()
-        with self.assertRaisesRegex(ValueError, 'not reviewed'):
+        self.game_commit = self.tool_commit
+        with self.assertRaisesRegex(ValueError, 'HEAD'):
             self.run_main(dual=True)
+
+    def test_approved_new_consumer_inverse_is_exact(self):
+        self.pair()
+        for name, rows in verifier.CONSUMER_MIGRATIONS.items():
+            restored = (self.tool / name).read_text()
+            for old, new, count in reversed(rows):
+                self.assertEqual(restored.count(new), count)
+                restored = restored.replace(new, old)
+            self.assertEqual(restored.encode(), (self.game / name).read_bytes())
+
+    def test_resigned_business_assertion_change_rejected(self):
+        name = 'tools/verify_action_budget_browser.py'
+        path = self.tool / name
+        path.write_text(path.read_text().replace('assert True', 'assert False'))
+        verifier.REVIEWED_TOOL_FILES[name] = verifier.sha(path)
+        self.tool_commit = self.commit(self.tool)
+        with self.assertRaisesRegex(ValueError, 'inverse differs'):
+            self.pair()
+
+    def test_resigned_extra_operation_rejected(self):
+        name = 'tools/verify_studio_click_browser.py'
+        path = self.tool / name
+        path.write_text(path.read_text() + "send_input('extra')\n")
+        verifier.REVIEWED_TOOL_FILES[name] = verifier.sha(path)
+        self.tool_commit = self.commit(self.tool)
+        with self.assertRaisesRegex(ValueError, 'inverse differs'):
+            self.pair()
+
+    def test_resigned_duplicate_locator_rejected(self):
+        name = 'tools/verify_all_weapon_browser.py'
+        path = self.tool / name
+        new = verifier.CONSUMER_MIGRATIONS[name][0][1]
+        path.write_text(path.read_text() + new + '\n')
+        verifier.REVIEWED_TOOL_FILES[name] = verifier.sha(path)
+        self.tool_commit = self.commit(self.tool)
+        with self.assertRaisesRegex(ValueError, 'occurrence mismatch'):
+            self.pair()
+
+    def test_changed_visual_bytes_in_both_clean_roots_rejected(self):
+        for root in (self.game, self.tool):
+            self.write(root, 'game/visual.gd', '# changed visual but same in both roots\n')
+        self.game_commit = self.commit(self.game)
+        self.tool_commit = self.commit(self.tool)
+        with self.assertRaisesRegex(ValueError, 'Incompatible actual visual input'):
+            self.pair()
+
+    def test_production_script_must_remain_reference_bytes(self):
+        name = 'tools/verify_action_budget_browser.py'
+        path = self.game / name
+        path.write_text(path.read_text() + '# extra production change\n')
+        self.game_commit = self.commit(self.game)
+        with self.assertRaisesRegex(ValueError, 'Production consumer differs'):
+            self.pair()
+
+    def test_missing_visual_input_rejected(self):
+        name = 'assets/ui/font.ttf'
+        self.git(self.tool, 'update-index', '--skip-worktree', name)
+        (self.tool / name).unlink()
+        with self.assertRaisesRegex(ValueError, 'Incompatible actual visual input'):
+            self.pair()
+
+    def test_new_game_commit_does_not_relabel_reference_as_game_identity(self):
+        reference = verifier.CONSUMER_REFERENCE_COMMIT
+        for root in (self.game, self.tool):
+            self.write(root, 'game/player.gd', '# same independent runtime repair\n')
+        self.game_commit = self.commit(self.game)
+        self.tool_commit = self.commit(self.tool)
+        result, receipt, _ = self.run_main(dual=True)
+        self.assertEqual(result, 0)
+        self.assertNotEqual(self.game_commit, reference)
+        self.assertEqual(receipt['source_commit'], self.game_commit)
+        self.assertEqual(receipt['build_info']['source_commit'], self.game_commit)
+        self.assertEqual(receipt['consumer_reference_commit'], reference)
+        self.assertTrue(receipt['consumer_migrations_verified'])
 
     def test_partial_explicit_mode_rejected(self):
         with self.assertRaisesRegex(ValueError, 'all three'):

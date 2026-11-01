@@ -143,6 +143,17 @@ def _studio_button_inner_fill(image,box):
  return (box[0]+left,box[1]+top,box[0]+right,box[1]+bottom)
 
 def _studio_actions_from_pixels(pixels,folder,stem,observation):
+ try:return _studio_legacy_actions_from_pixels(pixels,folder,stem,observation)
+ except StudioMenuLabelMissing as legacy_missing:
+  observation['legacy_actions_missing']=str(legacy_missing)
+ path=folder/(stem+'.png')
+ if not path.exists():path.write_bytes(pixels)
+ elif path.read_bytes()!=pixels:raise AssertionError('Current Actions screenshot differs from observed bytes')
+ point=_studio_current_reference(path,'actions')
+ observation['locator']='source_bound_current_full_control_pixels'
+ return point
+
+def _studio_legacy_actions_from_pixels(pixels,folder,stem,observation):
  """OCR every complete button, then require one actual ACTIONS glyph rectangle."""
  import csv,json,os,subprocess,time
  image=Image.open(io.BytesIO(pixels)).convert('RGB');started=time.monotonic()
@@ -294,9 +305,12 @@ def locate_pixel_control(path,phrase,tess_args=(),exact=False):
  if exact and matches:
   if len(matches)!=1:raise AssertionError(f'Expected one complete rendered menu label {phrase!r}; found {len(matches)} complete button matches')
   return next(iter(matches.values()))
+ if exact and phrase=='开发入口':
+  try:return _studio_current_reference(path,'title')
+  except StudioMenuLabelMissing:pass
  raise ValueError('Actual native button text missing from cropped pixel controls: '+phrase)
 
-def native_surfaces(path,colors):
+def native_surfaces(path,colors,minimum=(60,28)):
  from PIL import Image
  import numpy as np,scipy.ndimage as ndi
  pic=Image.open(path).convert('RGB');a=np.asarray(pic).astype(int);result=[]
@@ -305,7 +319,7 @@ def native_surfaces(path,colors):
   for bounds in ndi.find_objects(labels):
    if bounds is None:continue
    yy,xx=bounds;w=xx.stop-xx.start;h=yy.stop-yy.start
-   if w>=60 and h>=28:result.append((xx.start,yy.start,xx.stop,yy.stop))
+   if w>=minimum[0] and h>=minimum[1]:result.append((xx.start,yy.start,xx.stop,yy.stop))
  return pic.size,result
 
 def title_surface(path,index):
@@ -421,6 +435,172 @@ def geometry(page):
  w,h=page.viewport_size['width'],page.viewport_size['height'];scale=min(w/1280,h/720)
  return scale,(w-1280*scale)/2,h
 
+def _studio_reference_data(root):
+ import hashlib,json
+ data=json.loads((root/'tests/fixtures/studio_gui_pointer/current_navigation_37950.json').read_text())
+ for name,expected in data['source_sha256'].items():
+  if hashlib.sha256((root/name).read_bytes()).hexdigest()!=expected:raise AssertionError('Current Studio reference source drift: '+name)
+ return data
+
+def _studio_current_reference(path,control,root=None,*,details=False,all_matches=False):
+ """Finite same-source raw glyphs; actual location is always rediscovered."""
+ import hashlib,json
+ import numpy as np
+ from pathlib import Path
+ root=Path(root) if root is not None else Path(__file__).resolve().parents[1]
+ folder=root/'tests/fixtures/studio_gui_pointer'
+ data=_studio_reference_data(root)
+ image=Image.open(path).convert('RGB');rgb=np.asarray(image);matches={}
+ refs=[r for r in data['references'] if r['control']==control and r['viewport']==list(image.size)]
+ if len(refs)!=1:raise StudioMenuLabelMissing('No observed current navigation reference for control/viewport')
+ ref=refs[0];source=folder/ref['fixture']
+ if hashlib.sha256(source.read_bytes()).hexdigest()!=ref['sha256']:raise AssertionError('Current Studio raw reference drift')
+ crop=np.asarray(Image.open(source).convert('RGB').crop(ref['box']))
+ paper=_studio_control_contract(root)['paper'];glyph=np.all(crop==paper,axis=2);ys,xs=np.where(glyph)
+ l,t,r,b=int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1
+ if ref['mode']=='native_full_glyph':
+  expected=glyph[t:b,l:r]
+  _,surfaces=native_surfaces(path,[(41,58,59),(59,78,76),(195,163,102),(37,53,56)],minimum=(60*min(image.width/1280,image.height/720),28*min(image.width/1280,image.height/720)))
+  for box in surfaces:
+   if not _complete_native_fill(image,box):continue
+   left,top,right,bottom=box;actual=np.all(rgb[top:bottom,left:right]==paper,axis=2)
+   yy,xx=np.where(actual)
+   if not len(xx):continue
+   al,at,ar,ab=int(xx.min()),int(yy.min()),int(xx.max())+1,int(yy.max())+1
+   actual=actual[at:ab,al:ar]
+   if actual.shape==expected.shape and np.array_equal(actual,expected):matches[box]=(left+(al+ar)/2,top+(at+ab)/2)
+ elif ref['mode']=='source_bound_horizontal_edges_full_raster':
+  # Exactly this observed 13/24 viewport rendering: both complete horizontal
+  # edges, every glyph and every margin pixel. Never a generic missing-edge rule.
+  height,width=crop.shape[:2];edge=crop[0,0]
+  if not(np.all(crop[0]==edge)and np.all(crop[-1]==edge)):raise AssertionError('Reference horizontal edges incomplete')
+  candidates=np.argwhere(np.all(rgb==edge,axis=2))
+  for top,left in candidates:
+   if left<1 or top<1 or left+width>=image.width or top+height>=image.height:continue
+   # Same-span lines must end on both sides, not a prefix of a larger panel.
+   if np.all(rgb[top,left-1]==edge)or np.all(rgb[top,left+width]==edge):continue
+   if np.array_equal(rgb[top:top+height,left:left+width],crop):matches[(int(left),int(top),int(left+width),int(top+height))]=(left+(l+r)/2,top+(t+b)/2)
+ else:raise AssertionError('Unknown current navigation reference mode')
+ if all_matches:return [{'point':point,'bounds':box,'label':ref['label']} for box,point in matches.items()]
+ if not matches:raise StudioMenuLabelMissing('Current full control pixels not observed: '+control)
+ if len(matches)!=1:raise AssertionError('Ambiguous current full control pixels: '+control)
+ box,point=next(iter(matches.items()))
+ return {'point':point,'bounds':box,'label':ref['label']} if details else point
+
+def _studio_control_contract(root=None):
+ """Read existing runtime label/font authorities; no second weapon name table."""
+ import re
+ from pathlib import Path
+ root=Path(root) if root is not None else Path(__file__).resolve().parents[1]
+ _studio_reference_data(root)
+ catalog=(root/'game/combat/weapons/weapon_catalog.gd').read_text()
+ ids=re.fullmatch(r'const IDS: Array\[String\] = \[(.*)\]',next(line for line in catalog.splitlines() if line.startswith('const IDS:')))
+ if ids is None:raise AssertionError('Studio WeaponCatalog IDS syntax changed')
+ names=re.findall(r'"([a-z_]+)"',ids[1])
+ if len(names)!=15 or len(set(names))!=15:raise AssertionError('Studio requires the actual fifteen unique catalog IDs')
+ definition=(root/'scripts/combat/weapon_definition.gd').read_text()
+ default_name=re.search(r'^@export var display_name := "([^"\n]+)"$',definition,re.M)
+ default_tier=re.search(r'^@export var tier := ([123])$',definition,re.M)
+ if default_name is None or default_tier is None:raise AssertionError('WeaponDefinition display defaults missing')
+ labels=[]
+ for name in names:
+  source=(root/f'resources/weapons/{name}.tres').read_text()
+  display=re.search(r'^display_name = "([^"\n]+)"$',source,re.M)
+  tier=re.search(r'^tier = ([123])$',source,re.M)
+  labels.append(f'Lv.{tier[1] if tier else default_tier[1]} {display[1] if display else default_name[1]}')
+ typography=(root/'game/presentation/ui/demo_ui_01/game_typography.gd').read_text()
+ font=re.search(r'^const FONT := preload\("res://([^"\n]+)"\)$',typography,re.M)
+ if font is None:raise AssertionError('GameTypography canonical font missing')
+ theme=(root/'game/presentation/ui/demo_ui_01/clockwork_theme.gd').read_text()
+ size=re.search(r'^\s*result.default_font_size = (\d+)$',theme,re.M)
+ paper=re.search(r'^const PAPER := Color\("([0-9a-f]{6})"\)$',theme,re.M)
+ if size is None or paper is None:raise AssertionError('Current native button typography missing')
+ studio=(root/'experiments/motion/action_studio.gd').read_text()
+ patrol=re.search(r'^\s*_training_toggle.text = "([^"\n]+)"$',studio,re.M)
+ static=re.search(r'^\s*_training_toggle.text = "([^"\n]+)" if value else "([^"\n]+)"$',studio,re.M)
+ practice=re.search(r'_button\(weapon_row,"([^"\n]+)",func\(\)->void:restart\(4\)\)',studio)
+ if patrol is None or static is None or practice is None or static[2]!=patrol[1]:raise AssertionError('Studio visible control labels changed')
+ checkpoints=re.search(r'_button\(row,\[(.*?)\]\[i\],func\(\) -> void: restart\(index\)\)',studio)
+ if checkpoints is None:raise AssertionError('Studio practice checkpoint labels changed')
+ checkpoint_labels=re.findall(r'"([^"\n]+)"',checkpoints[1])
+ if len(checkpoint_labels)!=4:raise AssertionError('Studio checkpoint index contract changed')
+ return {'font':root/font[1],'font_size':int(size[1]),'paper':tuple(int(paper[1][i:i+2],16) for i in (0,2,4)),
+         'labels':{'weapon':tuple(labels),'training':(patrol[1],static[1]),'practice':(practice[1],),'hook_practice':(checkpoint_labels[2],)}}
+
+def _studio_viewport_masks(mask,scale):
+ """Exact nearest viewport samples for every integer logical glyph origin."""
+ import numpy as np
+ from fractions import Fraction
+ ratio=Fraction(scale).limit_denominator(128)
+ if abs(float(ratio)-scale)>1e-12 or ratio<=0 or ratio.denominator>128:raise AssertionError('Unsupported exact viewport scale')
+ if ratio==1:return [mask]
+ numerator,denominator=ratio.numerator,ratio.denominator
+ def samples(length):
+  found={}
+  for origin in range(denominator):
+   start=origin*numerator//denominator
+   end=((origin+length)*numerator+denominator-1)//denominator
+   indices=((2*np.arange(start,end)+1)*denominator)//(2*numerator)-origin
+   valid=(indices>=0)&(indices<length)
+   key=(tuple(indices),tuple(valid));found[key]=(np.clip(indices,0,length-1),valid)
+  return list(found.values())
+ variants={}
+ for yy,yvalid in samples(mask.shape[0]):
+  for xx,xvalid in samples(mask.shape[1]):
+   result=mask[yy[:,None],xx]&yvalid[:,None]&xvalid
+   ys,xs=np.where(result)
+   if not len(xs):continue
+   result=result[ys.min():ys.max()+1,xs.min():xs.max()+1]
+   variants[(result.shape,result.tobytes())]=result
+ return list(variants.values())
+
+def _studio_bitmap_control(path,control,scale=1,root=None):
+ """Exact complete rendered glyph mask inside a complete observed native fill."""
+ import numpy as np
+ from PIL import ImageFont,ImageDraw
+ contract=_studio_control_contract(root)
+ if control not in contract['labels']:raise ValueError('Unknown Studio control: '+control)
+ image=Image.open(path).convert('RGB');rgb=np.asarray(image)
+ if image.size not in ((1280,720),(844,390)) or scale!=min(image.width/1280,image.height/720):raise AssertionError('Unobserved current Studio viewport/scale')
+ font=ImageFont.truetype(str(contract['font']),contract['font_size'])
+ templates=[]
+ for label in contract['labels'][control]:
+  bounds=font.getbbox(label)
+  glyph=Image.new('1',(bounds[2]-bounds[0],bounds[3]-bounds[1]))
+  ImageDraw.Draw(glyph).text((-bounds[0],-bounds[1]),label,font=font,fill=1)
+  mask=np.asarray(glyph);ys,xs=np.where(mask)
+  templates.extend((label,variant) for variant in _studio_viewport_masks(mask[ys.min():ys.max()+1,xs.min():xs.max()+1],scale))
+ matches={}
+ _,surfaces=native_surfaces(path,[(41,58,59),(59,78,76),(195,163,102),(37,53,56)])
+ for box in surfaces:
+  if not _complete_native_fill(image,box):continue
+  left,top,right,bottom=box
+  mask=np.all(rgb[top:bottom,left:right]==contract['paper'],axis=2)
+  ys,xs=np.where(mask)
+  if not len(xs):continue
+  l,t,r,b=int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1
+  actual=mask[t:b,l:r]
+  for label,expected in templates:
+   if actual.shape==expected.shape and np.array_equal(actual,expected):
+    matches[box]={'point':(left+(l+r)/2,top+(t+b)/2),'label':label,'bounds':box}
+ if image.size==(844,390) and control in ('hook_practice','practice'):
+  # Every legal rendering participates. A font match must not hide another
+  # actual raw-reference control; only the same complete box is deduplicated.
+  for reference in _studio_current_reference(path,control,root,all_matches=True):
+   if reference['label'] not in contract['labels'][control]:raise AssertionError('Current control reference label differs from its source authority')
+   matches[reference['bounds']]=reference
+ if len(matches)!=1:raise AssertionError(f'Expected one complete Studio {control} label; found {len(matches)} exact glyph matches')
+ return next(iter(matches.values()))
+
+async def studio_control_point(page,control):
+ """Read screenshot only, then return the actual full-label glyph center."""
+ import tempfile
+ from pathlib import Path
+ scale,_,_=geometry(page)
+ with tempfile.TemporaryDirectory() as directory:
+  path=Path(directory)/'studio.png';path.write_bytes(await page.screenshot())
+  return _studio_bitmap_control(path,control,scale)['point']
+
 async def weapon_row_y(page):
  scale,pad,h=geometry(page);im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB');x=round(pad+970*scale);start=round(100*scale);ref=im.getpixel((x,start));y=start
  while y<min(h,round(270*scale))and sum(abs(a-b)for a,b in zip(im.getpixel((x,y)),ref))<70:y+=1
@@ -526,10 +706,14 @@ def _weapon_popup_from_pixels(image,scale,start_y):
  assert len(candidates)==1,f'actual fifteen evenly spaced item markers not uniquely observed: {len(candidates)} complete popup/column candidates'
  return candidates[0]
 
-async def open_weapon_picker(page,touch=False):
- scale,pad,h=geometry(page);await click(page,pad+145*scale,await weapon_row_y(page),touch);await page.wait_for_timeout(200)
+async def open_weapon_picker(page,touch=False,*,historical_fixture=False):
+ # Only the two archived screenshot unit fixtures explicitly retain the old HUD scan.
+ # Current consumers never fall back to it on a missing or ambiguous label.
+ scale,pad,h=geometry(page)
+ point=(pad+145*scale,await weapon_row_y(page)) if historical_fixture else await studio_control_point(page,'weapon')
+ await click(page,*point,touch);await page.wait_for_timeout(200)
  im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB')
- start_y=round((await weapon_row_y(page))+18*scale)
+ start_y=round((await weapon_row_y(page) if historical_fixture else point[1])+18*scale)
  try:popup=_weapon_popup_from_pixels(im,scale,start_y)
  except AssertionError:
   from pathlib import Path
