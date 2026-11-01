@@ -25,9 +25,9 @@ def inventory(root):
 # One reviewed consumer-tool revision, not a general tools/tests exemption.
 # Locator-only consumer migrations must also reverse to the complete reference Git bytes.
 CONSUMER_REFERENCE_COMMIT = '37950e0896a91c6b812a11c323ec3d5fd1800bb0'
-REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': '13504536cb4aafd94eca27d58f834b509832fc07873bbcf0bc9611962bffed3a',
+REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': 'aaeeb2fea8d96c329689560a3bbf67e1e82fe97f26519686963441f2be9ed129',
  'tools/verify_four_line_browser.py': 'ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f',
- 'tools/test_studio_gui_pointer.py': 'c86899f873ae71e3e2e536382bd6bf40857bfd54db1367f36099a8696921bfd0',
+ 'tools/test_studio_gui_pointer.py': '2f1f7ff5975fa32a28020d6bc307f351391e5b899e4fb17f039de9d636bb7087',
  'tests/fixtures/studio_gui_pointer/title_37950_current.png': 'cc90b463b98b79e66e703a720fbd644c5de277e52ee2d4d5601894cccb321ff9',
  'tests/fixtures/studio_gui_pointer/title_37950_current.json': '570a8e2eb2a63dac2cc4785d44df0b0ae6ca4517e6d7d6d560e23eafc38fc5fa',
  'tools/verify_action_budget_browser.py': 'f95db7d7691231e82e72530553e02a3b4a5c5809f9eda4f9d4c1ec3e7ac372d3',

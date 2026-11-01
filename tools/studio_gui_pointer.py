@@ -1,5 +1,6 @@
 """Locate the actual canvas menu on screenshots, then use normal pointer input."""
 import io,csv,os,subprocess
+from functools import lru_cache
 from collections import Counter
 from PIL import Image
 
@@ -492,7 +493,7 @@ def _studio_control_contract(root=None):
  import re
  from pathlib import Path
  root=Path(root) if root is not None else Path(__file__).resolve().parents[1]
- _studio_reference_data(root)
+ reference=_studio_reference_data(root)
  catalog=(root/'game/combat/weapons/weapon_catalog.gd').read_text()
  ids=re.fullmatch(r'const IDS: Array\[String\] = \[(.*)\]',next(line for line in catalog.splitlines() if line.startswith('const IDS:')))
  if ids is None:raise AssertionError('Studio WeaponCatalog IDS syntax changed')
@@ -524,7 +525,7 @@ def _studio_control_contract(root=None):
  if checkpoints is None:raise AssertionError('Studio practice checkpoint labels changed')
  checkpoint_labels=re.findall(r'"([^"\n]+)"',checkpoints[1])
  if len(checkpoint_labels)!=4:raise AssertionError('Studio checkpoint index contract changed')
- return {'font':root/font[1],'font_size':int(size[1]),'paper':tuple(int(paper[1][i:i+2],16) for i in (0,2,4)),
+ return {'font':root/font[1],'font_sha256':reference['source_sha256'][font[1]],'font_size':int(size[1]),'paper':tuple(int(paper[1][i:i+2],16) for i in (0,2,4)),
          'labels':{'weapon':tuple(labels),'training':(patrol[1],static[1]),'practice':(practice[1],),'hook_practice':(checkpoint_labels[2],)}}
 
 def _studio_viewport_masks(mask,scale):
@@ -554,22 +555,35 @@ def _studio_viewport_masks(mask,scale):
    variants[(result.shape,result.tobytes())]=result
  return list(variants.values())
 
-def _studio_bitmap_control(path,control,scale=1,root=None):
- """Exact complete rendered glyph mask inside a complete observed native fill."""
+@lru_cache(maxsize=8)
+def _studio_glyph_templates(font_bytes,font_size,labels,scale):
+ """Cache only deterministic immutable glyph masks, never observations/guards."""
  import numpy as np
  from PIL import ImageFont,ImageDraw
- contract=_studio_control_contract(root)
- if control not in contract['labels']:raise ValueError('Unknown Studio control: '+control)
- image=Image.open(path).convert('RGB');rgb=np.asarray(image)
- if image.size not in ((1280,720),(844,390)) or scale!=min(image.width/1280,image.height/720):raise AssertionError('Unobserved current Studio viewport/scale')
- font=ImageFont.truetype(str(contract['font']),contract['font_size'])
+ font=ImageFont.truetype(io.BytesIO(font_bytes),font_size)
  templates=[]
- for label in contract['labels'][control]:
+ for label in labels:
   bounds=font.getbbox(label)
   glyph=Image.new('1',(bounds[2]-bounds[0],bounds[3]-bounds[1]))
   ImageDraw.Draw(glyph).text((-bounds[0],-bounds[1]),label,font=font,fill=1)
   mask=np.asarray(glyph);ys,xs=np.where(mask)
-  templates.extend((label,variant) for variant in _studio_viewport_masks(mask[ys.min():ys.max()+1,xs.min():xs.max()+1],scale))
+  for variant in _studio_viewport_masks(mask[ys.min():ys.max()+1,xs.min():xs.max()+1],scale):
+   # Immutable bytes backing prevents callers from re-enabling array writes.
+   readonly=np.frombuffer(variant.tobytes(),dtype=variant.dtype).reshape(variant.shape)
+   templates.append((label,readonly))
+ return tuple(templates)
+
+def _studio_bitmap_control(path,control,scale=1,root=None):
+ """Exact complete rendered glyph mask inside a complete observed native fill."""
+ import numpy as np
+ import hashlib
+ contract=_studio_control_contract(root)
+ if control not in contract['labels']:raise ValueError('Unknown Studio control: '+control)
+ image=Image.open(path).convert('RGB');rgb=np.asarray(image)
+ if image.size not in ((1280,720),(844,390)) or scale!=min(image.width/1280,image.height/720):raise AssertionError('Unobserved current Studio viewport/scale')
+ font_bytes=contract['font'].read_bytes()
+ if hashlib.sha256(font_bytes).hexdigest()!=contract['font_sha256']:raise AssertionError('Current Studio font bytes differ from source authority')
+ templates=_studio_glyph_templates(font_bytes,contract['font_size'],contract['labels'][control],scale)
  matches={}
  _,surfaces=native_surfaces(path,[(41,58,59),(59,78,76),(195,163,102),(37,53,56)])
  for box in surfaces:
@@ -643,15 +657,15 @@ def _weapon_popup_from_pixels(image,scale,start_y):
  rgb=np.asarray(image.convert('RGB'),dtype=np.uint32)
  height,width=rgb.shape[:2];packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
  def components(mask):
-  pixels={(int(x),int(y))for y,x in np.argwhere(mask)}
-  while pixels:
-   seed=pixels.pop();pending=[seed];points=[]
-   while pending:
-    x,y=pending.pop();points.append((x,y))
-    for point in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
-     if point in pixels:pixels.remove(point);pending.append(point)
-   xs,ys=zip(*points)
-   yield (min(xs),min(ys),max(xs)+1,max(ys)+1),points
+  from scipy import ndimage
+  # Explicit four-neighbor connectivity preserves the original flood fill.
+  labels,count=ndimage.label(mask,structure=((0,1,0),(1,1,1),(0,1,0)))
+  if count==0:return
+  for number,bounds in enumerate(ndimage.find_objects(labels),1):
+   if bounds is None:continue
+   yy,xx=bounds;ys,xs=np.nonzero(labels[yy,xx]==number)
+   points=list(zip((xs+xx.start).tolist(),(ys+yy.start).tolist()))
+   yield (xx.start,yy.start,xx.stop,yy.stop),points
  def round_boxes(mask,origin):
   for (l,t,r,b),part in components(mask):
    mw,mh=r-l,b-t

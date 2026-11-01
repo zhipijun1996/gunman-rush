@@ -736,5 +736,75 @@ class HookReferencePointTests(unittest.TestCase):
         self.assertGreater(y,bottom)
         self.assertLess(y,670)  # Original downward release aim remains below.
 
+class GlyphTemplateCacheTests(unittest.TestCase):
+    def test_cold_warm_templates_bits_immutable_and_bounded(self):
+        import numpy as np
+        cached=helper._studio_glyph_templates;cached.cache_clear()
+        contract=helper._studio_control_contract();font=contract['font'].read_bytes()
+        for scale in (1,390/720):
+            for labels in contract['labels'].values():
+                args=(font,contract['font_size'],labels,scale)
+                cold=cached.__wrapped__(*args);first=cached(*args);warm=cached(*args)
+                self.assertIs(first,warm);self.assertEqual(len(cold),len(warm))
+                for (a,x),(b,y) in zip(cold,warm):
+                    self.assertEqual(a,b);self.assertEqual(x.shape,y.shape)
+                    self.assertTrue(np.array_equal(x,y));self.assertFalse(y.flags.writeable)
+                    with self.assertRaises(ValueError):y.setflags(write=True)
+        self.assertEqual(cached.cache_info().maxsize,8)
+        for label in contract['labels']['weapon']:
+            cached(font,contract['font_size'],(label,),1)
+        self.assertEqual(cached.cache_info().currsize,8)
+
+    def test_warm_cache_still_rejects_actual_source_and_font_drift(self):
+        import shutil
+        source=Path(helper.__file__).resolve().parents[1]
+        metadata='tests/fixtures/studio_gui_pointer/current_navigation_37950.json'
+        meta=json.loads((source/metadata).read_text())
+        frame=FIXTURES/'controls_37950_desktop.png'
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for name in [metadata,*meta['source_sha256']]:
+                target=root/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source/name,target)
+            first=helper._studio_bitmap_control(frame,'training',1,root)
+            self.assertEqual(first,helper._studio_bitmap_control(frame,'training',1,root))
+            font=str(helper._studio_control_contract(root)['font'].relative_to(root))
+            for name in ('experiments/motion/action_studio.gd',font):
+                target=root/name;original=target.read_bytes();target.write_bytes(original+b'\n')
+                with self.subTest(source=name),self.assertRaisesRegex(AssertionError,'source drift'):
+                    helper._studio_bitmap_control(frame,'training',1,root)
+                target.write_bytes(original)
+            self.assertEqual(first,helper._studio_bitmap_control(frame,'training',1,root))
+
+    def test_warm_cache_still_rejects_fresh_duplicate_control(self):
+        frame=FIXTURES/'controls_37950_desktop.png'
+        first=helper._studio_bitmap_control(frame,'training')
+        self.assertEqual(first,helper._studio_bitmap_control(frame,'training'))
+        original=Image.open(frame).convert('RGB');duplicate=original.copy()
+        duplicate.paste(original.crop((810,252,966,320)),(650,360))
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'duplicate.png';duplicate.save(path)
+            with self.assertRaisesRegex(AssertionError,'found 2 exact glyph matches'):
+                helper._studio_bitmap_control(path,'training')
+
+class PopupConnectivityTests(unittest.TestCase):
+    def test_actual_nested_components_keep_four_neighbors_and_edge_pixels(self):
+        import ast,inspect
+        import numpy as np
+        # Exercise the actual nested production enumeration, not a test copy.
+        outer=ast.parse(inspect.getsource(helper._weapon_popup_from_pixels)).body[0]
+        node=next(n for n in outer.body if isinstance(n,ast.FunctionDef) and n.name=='components')
+        namespace={'np':np}
+        exec(compile(ast.fix_missing_locations(ast.Module(body=[node],type_ignores=[])),'<actual popup components>','exec'),namespace)
+        components=namespace['components']
+        def sets(mask):return {(box,frozenset(points)) for box,points in components(mask)}
+        diagonal=np.eye(4,dtype=bool)
+        self.assertEqual(sets(diagonal),{((i,i,i+1,i+1),frozenset([(i,i)])) for i in range(4)})
+        border=np.ones((4,6),dtype=bool);border[1:-1,1:-1]=False
+        expected=frozenset((x,y) for y in range(4) for x in range(6) if y in (0,3) or x in (0,5))
+        self.assertEqual(sets(border),{((0,0,6,4),expected)})
+        self.assertEqual(sets(np.zeros((4,6),dtype=bool)),set())
+        self.assertEqual(sets(np.zeros((0,0),dtype=bool)),set())
+        self.assertEqual(sets(np.ones((1,1),dtype=bool)),{((0,0,1,1),frozenset([(0,0)]))})
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
