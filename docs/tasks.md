@@ -2,7 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
-| MOBILE-COMBAT-PRESENTATION-01 | 两怪物宿主单帧重复同步收敛，保原表现契约 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | in_progress | [范围](worklines/mobile_combat_presentation_01/scope.md) · [质量记录](quality/records/MOBILE-COMBAT-PRESENTATION-01.json)；手机掉帧根因及整帧改善未验 |
+| MOBILE-COMBAT-PRESENTATION-01 | 两怪物宿主单帧重复同步收敛，保原表现契约 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | review | [结果／回退](worklines/mobile_combat_presentation_01/results.md) · [质量记录](quality/records/MOBILE-COMBAT-PRESENTATION-01.json)；原Development16＋四专项通过，手机掉帧及完整Integration未验 |
 
 ## 2026-11-01 最终维护批次
 

@@ -1,3 +1,11 @@
+## 2026-11-01 MOBILE-COMBAT-PRESENTATION-01
+
+用户授权开始优化手机浏览器战斗停顿。源码提交 `cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503`，分支 `refactor/game-architecture-02`；之后仅本批证据和文档收口。两宿主单次revision刷新及同tick快照复用已落地；旧实现新断言12失败保留，候选原四命令563／150／129／5796全过，干净cd12原Development16项fresh通过（273.4秒）。独审限定接受；108姿态精确一致，受控管线平均微秒耗时降31.9%–49.3%，不含mesh/绘制/浏览器，不称手机卡顿已解决。
+
+下一步读[本批结果与后续次序](worklines/mobile_combat_presentation_01/results.md)，优先原Pose/Ground/Flora的625顶点重复计算与真实交战采样。保留已有离屏裁绘、权重准备和静止尸体缓存；不把它们再次当新优化。原 `plains-revision-deform-equivalence` 必须保留逐字节oracle。手机自述“荣耀magic60”，浏览器未知，实机P95/P99未测。
+
+完整Integration原计划仍full171（`damage_presentation`保守升级），本批未执行；聚合下一批后再冻结、完整验证及按实际门槛导出试玩。当前公开仍ab263／build2e1274f62210，不能用旧包展示本批效果。原始日志／测量／原计划见[归档收据](evidence/mobile_combat_presentation_01/receipt.json)。不合main，不改数值、图声、存档、RNG或CI选择器。回退使用本批results链接的六路径逆补丁（已check，未应用），回到9da行为并保留后续文档／证据；文档保存HEAD以Git为准。
+
 ## 2026-11-01 本轮架构实现与技术验证收口
 
 分支 `refactor/game-architecture-02`，实现提交 `2d64fbbbbeea120b5c64add5a2af801a81fe7797`；之后文档保存提交以Git HEAD为准。main仍为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`，PR122／124等已含，PR123关闭未合入，本重构未自动合main。代码和调用边界见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。

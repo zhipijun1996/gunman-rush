@@ -1,3 +1,9 @@
+## 2026-11-01 手机战斗性能第一批
+
+代码提交 `cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503`，分支 `refactor/game-architecture-02`。两怪物宿主正常帧合并重复 revision 刷新，复用本帧生命周期快照；保持初始化／恢复／终态及原图声玩法。干净cd12的原Development16项fresh通过，另四原命令按实际候选字节通过；108姿态完全一致，受控微秒级CPU段减少31.9%–49.3%，不是游戏FPS或手机卡顿消缺证明。
+
+完整Integration仍由原规则选择full171，本批未执行，未合main或更新公开Web。手机型号自述“荣耀magic60”，浏览器未知。下一批优先625顶点核与实际交战帧耗时；细节、归因和回退见[本批结果](worklines/mobile_combat_presentation_01/results.md)。下方架构收口及公开ab263包身份保持有效。
+
 ## 2026-11-01 本轮架构实现与技术验证收口
 
 分支 `refactor/game-architecture-02`，实现提交 `2d64fbbbbeea120b5c64add5a2af801a81fe7797`；之后文档保存提交以Git HEAD为准。main仍为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`，PR122／124等已含，PR123关闭未合入，本重构未自动合main。代码和调用边界见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。
