@@ -11,6 +11,11 @@ static func run(tree: SceneTree) -> Dictionary:
 	for style: StringName in [&"legacy",&"underworld"]:
 		await _diver(tree,style,report)
 	await _settled_cache(tree,report)
+	var presentation: Dictionary = await preload("res://tests/plains_motion_loot_02_presentation.gd").run(tree)
+	report.assertions += int(presentation.assertions)
+	report.failures.append_array(presentation.failures)
+	report.checks.append_array(presentation.checks)
+	report.samples.append(presentation)
 	return report
 
 static func _check(report: Dictionary, ok: bool, label: String) -> void:

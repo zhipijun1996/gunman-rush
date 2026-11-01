@@ -1,3 +1,9 @@
+## 2026-11-01 手机战斗表现性能
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MOBILE-COMBAT-PRESENTATION-01 | 两怪物宿主单帧重复同步收敛，保原表现契约 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | in_progress | [范围](worklines/mobile_combat_presentation_01/scope.md) · [质量记录](quality/records/MOBILE-COMBAT-PRESENTATION-01.json)；手机掉帧根因及整帧改善未验 |
+
 ## 2026-11-01 最终维护批次
 
 实现及技术验证已保存；review状态不代表玩家／设备／艺术G5通过。旧任务行保留其历史来源，最终结果按以下精确来源读取。

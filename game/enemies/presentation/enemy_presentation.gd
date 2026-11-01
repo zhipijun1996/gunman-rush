@@ -94,13 +94,14 @@ func _process(delta: float) -> void:
 	if feedback_sample != null:
 		_hurt_time = feedback_sample.hurt_remaining
 		_death_time = feedback_sample.death_elapsed
-		_sync_feedback_body()
+		if revision_visual == null: _sync_feedback_body()
 	else:
 		if actor.health.terminal: _death_time += delta
 		_hurt_time = maxf(0, _hurt_time - delta)
 	if feedback_sample == null or not actor.health.terminal:
 		_advance_body_pose(delta)
-	if revision_visual != null: revision_visual.refresh(delta)
+	# Lifecycle already sampled this tick; restore/initialize keep their own sync.
+	if revision_visual != null: revision_visual.refresh(delta, lifecycle.snapshot)
 	queue_redraw()
 
 func _advance_body_pose(delta: float) -> void:

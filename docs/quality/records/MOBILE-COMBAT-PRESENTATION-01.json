@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-COMBAT-PRESENTATION-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "9da210e0cdf61e5af6f383738445985707968851",
+  "reviewed_commit": "9da210e0cdf61e5af6f383738445985707968851",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "移除两真实怪物宿主正常帧的重复表现刷新，复用本tick生命周期状态。",
+  "player_experience": "保留现有怪物图声及转向/受伤/死亡/恢复行为，减少重复CPU工作；不承诺手机卡顿已解决。",
+  "constraints": [
+    "不改物理/碰撞/伤害/资源/奖励/RNG/保存/图声",
+    "保留初始化/恢复独立零时间刷新及终态早退",
+    "微基准不冒称自然战斗/浏览器/手机FPS"
+  ],
+  "affected_paths": [
+    "game/enemies/presentation/enemy_presentation.gd",
+    "game/enemies/presentation/plains_revision_visual.gd",
+    "game/presentation/actors/underworld_plains/underworld_enemy.gd",
+    "tests/plains_motion_loot_02_motion.gd",
+    "tests/plains_motion_loot_02_presentation.gd",
+    "tests/plains_motion_loot_02_presentation.gd.uid"
+  ],
+  "deliverables": [
+    "单次正常帧表现更新",
+    "既有消费者新增快照/转向/暂停/恢复回归",
+    "同脚本受控原生CPU与姿态前后对照"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "已锁原契约及验证范围。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "最终冻结检查及独审待记录。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "保持契约和测量边界已声明。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "本轮最终对应证据尚未记录；不继承先前架构验收。",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_combat_presentation_01/scope.md",
+      "sha256": "fa54391dba44724fb1e62b148d11ee8e8835b68553ac99329fa5ab780525074c",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "9da210e0cdf61e5af6f383738445985707968851",
+      "content_version": "candidate-v1",
+      "method": "源路径和变更范围审计；局部性能与设备结论分开。",
+      "observed": "限定三生产文件及原专项消费者。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整integration按原规则升级full171，尚未执行",
+    "手机浏览器实机P95/P99、用户认可及当前候选Web未验证",
+    "网格变形及其他战斗热点尚未优化"
+  ]
+}

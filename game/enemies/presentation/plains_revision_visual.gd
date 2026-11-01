@@ -56,7 +56,7 @@ func configure(owner_actor: EnemyActor, body_motion: PlainsMotion02, accepted: E
 	_requested_face = _face
 	refresh(0.0)
 
-func refresh(delta: float) -> void:
+func refresh(delta: float, state: Dictionary = {}) -> void:
 	if actor == null: return
 	visible = not actor.health.terminal
 	(material as ShaderMaterial).set_shader_parameter("hit_flash",sample.flash_strength() if visible else 0.0)
@@ -67,7 +67,9 @@ func refresh(delta: float) -> void:
 	_turn_age += delta
 	# Head probes first, then the trunk follows; AI facing is unchanged.
 	if actor.definition.behavior_id!=&"patrol" or _turn_age>=.10: _face = _requested_face
-	var state := actor.presentation_state()
+	# Normal host ticks supply their current lifecycle snapshot. Standalone
+	# initialization/complete-restore calls must still read fresh Actor state.
+	if state.is_empty(): state = actor.presentation_state()
 	var foot := actor.motor.global_position+Vector2(0,actor.definition.collision_size.y*.5)
 	var air := false
 	if is_inside_tree():

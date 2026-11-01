@@ -66,8 +66,9 @@ func _advance_presentation(delta: float) -> void:
 	if feedback_sample != null:
 		_hurt = feedback_sample.hurt_remaining
 		accepted_hurt_count = feedback_sample.accepted_hit_count
-		_sync_feedback_body()
-	if revision_visual != null: revision_visual.refresh(delta)
+		if revision_visual == null: _sync_feedback_body()
+	# Share the lifecycle's current snapshot and refresh the revision body once.
+	if revision_visual != null: revision_visual.refresh(delta, lifecycle.snapshot)
 
 func _sync_feedback_body() -> void:
 	if revision_visual != null:
