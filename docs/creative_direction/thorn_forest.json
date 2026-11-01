@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v33",
+  "version": "creative-v34",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
-    "supplemental_authority_sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
+    "supplemental_authority_sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "3825faffd2e7ec194e3df17e5b4ff0ebd22f5df3fe57566eeec969b964922aec",
+    "registry_sha256": "df548e59fe8c4d68703d76e7e7ac8cc8c57b9c0b2f6d17465f23a0085a06a859",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -249,6 +249,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
       "sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
+      "sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448"
     }
   ],
   "historical_direction": {
@@ -257,38 +261,38 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "GAME-ARCH-CI-01",
-    "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
-    "source_identity": "Committed2d44aaeb baseline plus the three exact frozen candidate_source leaves below; those production changes are not part of the baseline Git commit.",
+    "task_id": "MOBILE-COMBAT-MESH-02",
+    "source_commit": "ca505102f2bcd429a8a4c62eabd4f3a73a040ee8",
+    "source_identity": "Three current runtime leaves are exact committed ca505102 bytes, retained in metadata baseline119f4a7e; no uncommitted runtime candidate is attributed to the baseline.",
     "candidate_source": [
       {
-        "path": "game/application/demo_app.gd",
-        "sha256": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4"
+        "path": "game/enemies/presentation/plains_revision_flora.gd",
+        "sha256": "1bfcaa098d9c00464a308fdd1c2972f518837ee1ccb91e64eae4b48724812cb3"
       },
       {
-        "path": "game/world/levels/providers/generated_demo_stage.gd",
-        "sha256": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5"
+        "path": "game/enemies/presentation/plains_revision_ground.gd",
+        "sha256": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54"
       },
       {
-        "path": "game/world/levels/providers/plains_region_stage.gd",
-        "sha256": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+        "path": "game/enemies/presentation/plains_revision_pose.gd",
+        "sha256": "41ce2a2192376551ec9eb21b0134437c23036361d79d7640758cc0329e5ac972"
       }
     ],
-    "scope": "Technical source revision for Stage-owned route debug summary and HUD world-region queries. Preserve selected art/audio and existing gameplay/Manifest rules; pure canvas projection remains with App. No new artwork or audio generation and no user/device acceptance.",
-    "previous_direction": "docs/creative_direction/archive/map-query-boundary-before-style30/docs/creative_direction/thorn_forest.json",
-    "previous_sha256": "a0499cce44cd12aa19195fe613eace43c88c5463831561b8c1710a92135ab76e",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
-    "shared_style_sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e",
+    "scope": "Technical source binding for exactly equivalent prepared pose/ground/flora mesh arithmetic. Preserve selected art/audio, geometry, vertex results, gameplay, resource and RNG rules. No new artwork/audio and no inherited user/device acceptance.",
+    "previous_direction": "docs/creative_direction/archive/mobile-combat-mesh-before-style31/docs/creative_direction/thorn_forest.json",
+    "previous_sha256": "4979c02f942870147353f7e1e8bd3be75cb68af00cb264dfaa1e46054edf342e",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
+    "shared_style_sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/map-query-boundary-before-style30/manifest.json",
-      "sha256": "9a863035c38c8cf153c659a1761b3419eb782fb2f538cddda66b9102b4325c83"
+      "path": "docs/creative_direction/archive/mobile-combat-mesh-before-style31/manifest.json",
+      "sha256": "00af41bd539a814de7b2c4c01e239f45b91299d64c16e7fc30e57df45ef22b3b"
     },
     "affected_consumers": [
-      "game/world/levels/providers/plains_region_stage.gd",
-      "game/application/demo_app.gd",
-      "game/world/levels/providers/generated_demo_stage.gd"
+      "game/enemies/presentation/plains_revision_flora.gd",
+      "game/enemies/presentation/plains_revision_ground.gd",
+      "game/enemies/presentation/plains_revision_pose.gd"
     ],
-    "validation": "Independent static review accepted the three-source candidate; root native import/HUD verification is separate and must retain its actual results. This metadata does not imply full-CI, export, artwork, listening, player or device acceptance.",
+    "validation": "MOBILE-COMBAT-MESH-02 has separate root native7101/0 and371801 byte-exact vertices evidence and independent review; this binding does not replace those receipts or imply full-CI, export, visual/listening/user/device acceptance.",
     "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
   }
 }

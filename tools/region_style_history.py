@@ -99,4 +99,14 @@ STYLE29_MANIFEST_SHA = '9a863035c38c8cf153c659a1761b3419eb782fb2f538cddda66b9102
 def style29_source(root, path):
     """Three prior29 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE29_ARCHIVE, path, STYLE29_MANIFEST_SHA)
+    return style30_source(root, path) if raw is None else raw
+
+
+STYLE30_ARCHIVE = 'docs/creative_direction/archive/mobile-combat-mesh-before-style31'
+STYLE30_MANIFEST_SHA = '00af41bd539a814de7b2c4c01e239f45b91299d64c16e7fc30e57df45ef22b3b'
+
+
+def style30_source(root, path):
+    """Three prior30 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE30_ARCHIVE, path, STYLE30_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw
