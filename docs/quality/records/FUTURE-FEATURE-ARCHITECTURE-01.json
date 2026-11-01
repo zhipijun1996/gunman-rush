@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "task_id": "FUTURE-FEATURE-ARCHITECTURE-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+  "reviewed_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "核查教程/短片、map-gen/多区域、剧情NPC/家园及永久升级的真实基础和接入边界。",
+  "player_experience": "技术/架构改进，尚不签手机性能或新功能完成。",
+  "constraints": [
+    "保原图声/玩法/保存/随机/预算",
+    "不造平行权威或用规划签实现"
+  ],
+  "affected_paths": [
+    "docs/architecture_extensions.md",
+    "docs/module_map.md",
+    "docs/worklines/future_feature_architecture_01/assessment.md"
+  ],
+  "deliverables": [
+    "实际源码/契约与有限验证记录",
+    "明确未实现、未验证和回退边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限范围与既有权威明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "源码基础、缺口及边界已明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/architecture_extensions.md",
+      "sha256": "2c3ba48c3df480d643ec5ee19a9f5d9fd300e6862f34f6d7238b8c29e64b2e87",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+      "content_version": "candidate-v1",
+      "method": "实际源/运行消费者和保持范围核查。",
+      "observed": "核查教程/短片、map-gen/多区域、剧情NPC/家园及永久升级的真实基础和接入边界。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终冻结检查及独审待记录",
+    "手机性能/新功能实施/完整Integration未验"
+  ]
+}

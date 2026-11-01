@@ -1,3 +1,10 @@
+## 2026-11-01 网格性能与后续功能架构
+
+| 任务 | 目标 | 状态 | 记录 |
+| --- | --- | --- | --- |
+| MOBILE-COMBAT-MESH-02 | 复用现Pose派生量及实际零权重叶子计算 | in_progress | [范围](worklines/mobile_combat_mesh_02/scope.md) · [质量记录](quality/records/MOBILE-COMBAT-MESH-02.json)；CPU核不是整帧／手机验收 |
+| FUTURE-FEATURE-ARCHITECTURE-01 | 教程／短片、map-gen／区域、剧情NPC／家园、永久升级接入审计 | in_progress | [接入方案](architecture_extensions.md) · [源码审计](worklines/future_feature_architecture_01/assessment.md) · [质量记录](quality/records/FUTURE-FEATURE-ARCHITECTURE-01.json)；不声称新功能已实施 |
+
 ## 2026-11-01 手机战斗表现性能
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |

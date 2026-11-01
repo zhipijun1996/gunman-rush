@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-COMBAT-MESH-02",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+  "reviewed_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "将625顶点重复标量计算复用到原每姿态准备阶段；保持冻结结果与原行为。",
+  "player_experience": "技术/架构改进，尚不签手机性能或新功能完成。",
+  "constraints": [
+    "保原图声/玩法/保存/随机/预算",
+    "不造平行权威或用规划签实现"
+  ],
+  "affected_paths": [
+    "game/enemies/presentation/plains_revision_pose.gd",
+    "game/enemies/presentation/plains_revision_ground.gd",
+    "game/enemies/presentation/plains_revision_flora.gd",
+    "tests/plains_revision_deform_equivalence_runner.gd"
+  ],
+  "deliverables": [
+    "实际源码/契约与有限验证记录",
+    "明确未实现、未验证和回退边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限范围与既有权威明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "源码基础、缺口及边界已明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_combat_mesh_02/scope.md",
+      "sha256": "2683be51b9613b1d3ca5d8be2ff52334cb0774ea7b8db6f35de42d8cda131c1c",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+      "content_version": "candidate-v1",
+      "method": "实际源/运行消费者和保持范围核查。",
+      "observed": "将625顶点重复标量计算复用到原每姿态准备阶段；保持冻结结果与原行为。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终冻结检查及独审待记录",
+    "手机性能/新功能实施/完整Integration未验"
+  ]
+}

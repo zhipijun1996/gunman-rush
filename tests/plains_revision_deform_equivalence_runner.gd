@@ -181,8 +181,35 @@ func _draw_cases() -> void:
 		canvas.rig = null
 		canvas.free()
 
+func _oscillation_cases() -> void:
+	# Existing output oracle, with wave arguments near phase boundaries and
+	# long-running clocks. Do not test the new cached fields against themselves.
+	var epsilon := .000000001
+	var phases: Array[float] = [-1000000.125, -TAU-epsilon, -TAU, -TAU+epsilon, -PI-epsilon, -PI, -PI+epsilon, -epsilon, 0.0, epsilon, PI-epsilon, PI, PI+epsilon, TAU-epsilon, TAU, TAU+epsilon, 1000000.125]
+	for kind: StringName in KINDS:
+		var rig := PlainsRevisionSkin.new(kind)
+		for key: String in ["clock", "stride"]:
+			for phase: float in phases:
+				for dead: bool in [false, true]:
+					var pose := _base_pose()
+					pose[key] = phase
+					pose.dead = dead
+					pose.death = .13
+					_compare_batch(rig, _arbitrary_uvs(), pose, Vector2(.127,-.219), String(kind)+"/phase/"+key+"/"+str(phase)+"/"+str(dead), true)
+	# Exercise zero-mask fast paths through the public deformation consumer,
+	# including signed-zero coordinates and lethal/live pose branches.
+	for kind: StringName in [&"sentry", &"fan_sentry", &"root_bell"]:
+		for point: Vector2 in [Vector2.ZERO, Vector2(-0.0,-0.0), Vector2(1.25,-2.5)]:
+			for uv: Vector2 in [Vector2.ZERO, Vector2.ONE, Vector2(.5,.5)]:
+				for pose: Dictionary in [{}, _base_pose(), {"dead":true,"death":.13}]:
+					var actual := PlainsRevisionFlora.deform(point, uv, Vector2(41.4,40), pose, kind)
+					var expected := FloraOracle.deform(point, uv, Vector2(41.4,40), pose, kind)
+					compared_vertices += 1
+					_check(PackedVector2Array([actual]).to_byte_array() == PackedVector2Array([expected]).to_byte_array(), String(kind)+" zero-mask consumer retains exact coordinate bits")
+
 func _run() -> void:
 	_standalone_cases()
+	_oscillation_cases()
 	await _draw_cases()
 	print("PLAINS DEFORM EQUIVALENCE VERTICES: %d" % compared_vertices)
 	print("PLAINS DEFORM EQUIVALENCE: %d assertions, %d failures" % [assertions, failures])

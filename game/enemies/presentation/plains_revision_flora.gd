@@ -87,32 +87,35 @@ static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevi
 		var folded_leg := moved_hip+(point-hip).rotated(leg_angle*fold)
 		return carried.lerp(folded_leg,legs)
 
-	var clock := pose.clock
 	var load := pose.load
 	var strike := pose.strike
 	var recovery := pose.recovery
 	var hurt := pose.hurt
 	var turn := pose.raw_turn
-	var quiet := 1.0-clampf(load+strike,0.0,1.0)*.8
+	var quiet := pose.flora_quiet
 	var drive := pose.drive
-	var breath := sin(clock * 3.1) * 0.026 * (1.0 - load)
+	var breath := pose.sentry_breath_sin * 0.026 * (1.0 - load)
 	var inflation := 0.18 * load - 0.13 * strike - 0.13 * hurt + breath
-	p = _scale_part(p, Vector2(0.30, 0.53), size, Vector2(1.0 + inflation, 1.0 + inflation * 0.65), sac)
+	if sac != 0.0:
+		p = _scale_part(p, Vector2(0.30, 0.53), size, Vector2(1.0 + inflation, 1.0 + inflation * 0.65), sac)
 	# The nozzle aims independently of the planted support, then retracts.
-	p = _joint(p, Vector2(0.70, 0.34), size, pose.aim*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt +.028*sin(clock*2.2-.55)*quiet-.035*drive, muzzle)
+	if muzzle != 0.0:
+		p = _joint(p, Vector2(0.70, 0.34), size, pose.aim*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt +.028*pose.sentry_muzzle_sin*quiet-.035*drive, muzzle)
 	p.x -= size.x * (0.075 * strike + 0.035 * hurt) * muzzle
-	var chamber_angle := -0.035*load-0.15*strike+0.04*recovery+.021*sin(clock*2.2)*quiet-.043*drive
-	p = _joint(p, Vector2(0.45, 0.81), size, chamber_angle, upper)
+	var chamber_angle := -0.035*load-0.15*strike+0.04*recovery+.021*pose.sentry_body_sin*quiet-.043*drive
+	if upper != 0.0:
+		p = _joint(p, Vector2(0.45, 0.81), size, chamber_angle, upper)
 	p.x -= size.x * 0.035 * strike * upper
 	# Broad leaves answer the chamber's release after the hard nozzle recoil.
-	var leaf_spring := 0.22 * recovery * sin((1.0 - recovery) * PI * 2.0)
+	var leaf_spring := 0.22 * recovery * pose.recovery_return_sin
 	var leaf_root := _joint(_pivot(Vector2(.47,.51),size),Vector2(.45,.81),size,chamber_angle,1.0)
 	leaf_root.x -= size.x*.035*strike
-	var leaf_idle := .060*sin(clock*2.2-.9)*quiet+.035*drive
-	p = _joint_at(p,leaf_root,(1.0 if uv.x > 0.48 else -1.0)*(-.12*load+.17*strike+leaf_spring+.10*hurt+leaf_idle),leaves)
+	var leaf_idle := .060*pose.sentry_leaf_sin*quiet+.035*drive
+	if leaves != 0.0:
+		p = _joint_at(p,leaf_root,(1.0 if uv.x > 0.48 else -1.0)*(-.12*load+.17*strike+leaf_spring+.10*hurt+leaf_idle),leaves)
 	# The leg tops answer the chamber's weight shift; toes retain their root.
 	var knee := weights.sentry_knee
-	p.x += size.x*.012*sin(clock*2.2)*quiet*(front*2.0-1.0)*knee
+	p.x += size.x*.012*pose.sentry_body_sin*quiet*(front*2.0-1.0)*knee
 	return p
 
 static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
@@ -131,12 +134,16 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisio
 		# The second wing has one bounded failed correction. It cannot keep
 		# flapping after the body has settled, even if the world clock advances.
 		var failed_beat := sin(_window(0.20, 0.58, d) * TAU) * 0.21 * (1.0 - _window(0.55, 0.72, d))
-		p = _joint(p, Vector2(0.45, 0.43), size, -0.94 * left_drop, left_wing)
-		p = _joint(p, Vector2(0.59, 0.43), size, 0.70 * right_drop + failed_beat, right_wing)
-		p = _joint(p, Vector2(0.44, 0.77), size, 0.56 * roll, body)
+		if left_wing != 0.0:
+			p = _joint(p, Vector2(0.45, 0.43), size, -0.94 * left_drop, left_wing)
+		if right_wing != 0.0:
+			p = _joint(p, Vector2(0.59, 0.43), size, 0.70 * right_drop + failed_beat, right_wing)
+		if body != 0.0:
+			p = _joint(p, Vector2(0.44, 0.77), size, 0.56 * roll, body)
 		p.y += size.y * 0.17 * roll * body
 		p.x += size.x * 0.10 * roll * body
-		p = _joint(p, Vector2(0.56, 0.79), size, -0.75 * roll, feet)
+		if feet != 0.0:
+			p = _joint(p, Vector2(0.56, 0.79), size, -0.75 * roll, feet)
 		# Final loose wing spread is wider than the side-lying abdomen. The
 		# two fans retain their own hinges instead of collapsing as one slab.
 		p.x += size.x * 0.07 * sprawl * (right_wing - left_wing)
@@ -155,37 +162,43 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisio
 		var air_roll := _window(0.06, 0.38, death_age)
 		var weak_beat := sin(death_age * TAU * 7.0) * exp(-death_age * 4.5) * _window(0.02, 0.07, death_age) * 0.20
 		var falling := _joint(live, Vector2(0.45, 0.43), size, -0.80 * air_loss, left_wing)
-		falling = _joint(falling, Vector2(0.59, 0.43), size, 0.50 * late_wing + weak_beat, right_wing)
-		falling = _joint(falling, Vector2(0.44, 0.77), size, 0.31 * air_roll, body)
+		if right_wing != 0.0:
+			falling = _joint(falling, Vector2(0.59, 0.43), size, 0.50 * late_wing + weak_beat, right_wing)
+		if body != 0.0:
+			falling = _joint(falling, Vector2(0.44, 0.77), size, 0.31 * air_roll, body)
 		falling.y += size.y * 0.055 * air_roll * body
 		falling.x += size.x * 0.035 * air_roll * body
-		falling = _joint(falling, Vector2(0.56, 0.79), size, -0.40 * air_roll, feet)
+		if feet != 0.0:
+			falling = _joint(falling, Vector2(0.56, 0.79), size, -0.40 * air_roll, feet)
 		# death is contact-relative, so the same airborne pose is used at d=0
 		# on either side of landing. A short contact blend then carries it into
 		# the folded ground pose without resetting to the captured live fan.
 		return falling.lerp(p, _window(0.00, 0.20, d))
-	var clock := pose.clock
 	var load := pose.load
 	var strike := pose.strike
 	var recovery := pose.recovery
 	var hurt := pose.hurt
-	var beat := clock*12.5
 	var drive := pose.drive
-	var flight_beat := sin(beat) * 0.14 * (1.0 - 0.90 * load)
+	var flight_beat := pose.fan_wing_sin * 0.14 * (1.0 - 0.90 * load)
 	var fan_open := 0.37 * load + 0.14 * strike - 0.12 * recovery
-	p = _joint(p, Vector2(0.45, 0.43), size, -fan_open - flight_beat + 0.10 * hurt, left_wing)
-	p = _joint(p, Vector2(0.59, 0.43), size, fan_open + flight_beat - 0.07 * hurt, right_wing)
+	if left_wing != 0.0:
+		p = _joint(p, Vector2(0.45, 0.43), size, -fan_open - flight_beat + 0.10 * hurt, left_wing)
+	if right_wing != 0.0:
+		p = _joint(p, Vector2(0.59, 0.43), size, fan_open + flight_beat - 0.07 * hurt, right_wing)
 	# Expansion is horizontal and symmetric. Shooting gives the central mass
 	# a short backward pitch while both wing roots visibly brace it.
 	p.x += size.x * 0.055 * load * (right_wing - left_wing)
-	var carried_lift := sin(beat-.52)*(1.0-.85*load)
+	var carried_lift := pose.fan_body_sin*(1.0-.85*load)
 	# Wing roots answer first; the copper mass follows the downstroke and the
 	# feet trail a little later. Neither uses an independent whole-image bob.
 	p.y -= size.y*.019*carried_lift*maxf(body,wing_height*.52)
-	p = _joint(p, Vector2(0.44, 0.74), size, -0.19 * strike + 0.05 * recovery+.025*sin(beat-.72)*(1.0-load)-.055*drive, body)
-	p = _scale_part(p, Vector2(0.42, 0.69), size, Vector2(1.0 - 0.10 * hurt, 1.0 - 0.07 * hurt), body)
+	if body != 0.0:
+		p = _joint(p, Vector2(0.44, 0.74), size, -0.19 * strike + 0.05 * recovery+.025*pose.fan_pitch_sin*(1.0-load)-.055*drive, body)
+	if body != 0.0:
+		p = _scale_part(p, Vector2(0.42, 0.69), size, Vector2(1.0 - 0.10 * hurt, 1.0 - 0.07 * hurt), body)
 	p.x -= size.x * 0.04 * strike * body
-	p = _joint(p, Vector2(0.56, 0.79), size, 0.10 * strike + sin(beat-1.1) * 0.065 * (1.0 - load)-.065*drive, feet)
+	if feet != 0.0:
+		p = _joint(p, Vector2(0.56, 0.79), size, 0.10 * strike + pose.fan_feet_sin * 0.065 * (1.0 - load)-.065*drive, feet)
 	return p
 
 static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
@@ -242,18 +255,17 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsR
 		var leaf_mask := maxf(leaf,maxf(top_left,top_right))*(1.0-dead_bell)
 		return p.lerp(leaf_pose,leaf_mask)
 
-	var clock := pose.clock
 	var load := pose.load
 	var strike := pose.strike
 	var recovery := pose.recovery
 	var hurt := pose.hurt
-	var breath := sin(clock * 2.6) * 0.018
-	var hurt_rebound := sin((1.0 - hurt) * PI * 1.5) * hurt * 0.17
+	var breath := pose.root_stem_sin * 0.018
+	var hurt_rebound := pose.root_hurt_sin * hurt * 0.17
 	# Load bends the stalk rearward and lifts the heavy bell; release brings
 	# both connected upper segments down into the accepted pulse event.
-	var quiet := 1.0-clampf(load+strike,0.0,1.0)*.8
+	var quiet := pose.flora_quiet
 	var live_lower_angle := breath*quiet-.19*load+.25*strike+hurt_rebound
-	var live_upper_angle := .015*sin(clock*2.6-.5)*quiet-.10*load+.19*strike+.05*recovery+hurt_rebound*.6
+	var live_upper_angle := .015*pose.root_upper_sin*quiet-.10*load+.19*strike+.05*recovery+hurt_rebound*.6
 	var moved_elbow := _joint(_pivot(Vector2(.50,.68),size),Vector2(.50,.94),size,live_lower_angle,1.0)
 	p = _joint(p, Vector2(0.50, 0.94), size, live_lower_angle, main_stem)
 	p = _joint_at(p,moved_elbow,live_upper_angle,upper_stem)
@@ -261,13 +273,13 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsR
 	# leaf motion are then delayed about those actual carried attachments.
 	var live_hanger := _joint(_pivot(Vector2(.70,.20),size),Vector2(.50,.94),size,live_lower_angle,1.0)
 	live_hanger = _joint_at(live_hanger,moved_elbow,live_upper_angle,1.0)
-	var bell_lag := (.044*sin(clock*2.6-.95)-breath*.5)*quiet
+	var bell_lag := (.044*pose.root_bell_sin-breath*.5)*quiet
 	p = _joint_at(p,live_hanger,-.17*load+.39*strike-.07*recovery+.13*hurt+bell_lag,bell)
 	p.y -= size.y * 0.035 * load * bell
-	var leaf_lag := sin((1.0 - recovery) * PI * 2.0) * recovery * 0.09
+	var leaf_lag := pose.recovery_return_sin * recovery * 0.09
 	var moved_leaf := _joint(_pivot(Vector2(.50,.58),size),Vector2(.50,.94),size,live_lower_angle,1.0)
 	moved_leaf = _joint_at(moved_leaf,moved_elbow,live_upper_angle,1.0-_window(.45,.72,.58))
-	p = _joint_at(p,moved_leaf,(1.0 if uv.x>.5 else -1.0)*(.09*load-.15*strike+leaf_lag+.058*sin(clock*2.6-1.2)*quiet),leaf)
+	p = _joint_at(p,moved_leaf,(1.0 if uv.x>.5 else -1.0)*(.09*load-.15*strike+leaf_lag+.058*pose.root_leaf_sin*quiet),leaf)
 	return p
 
 # Two connected rigid stem bones, with the bend directed to the slack side.

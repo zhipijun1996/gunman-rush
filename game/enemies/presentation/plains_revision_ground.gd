@@ -7,21 +7,11 @@ static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary,
 	return deform_prepared(point, uv, size, PlainsRevisionPose.prepare(pose), kind, PlainsRevisionWeights.new(uv, kind))
 
 static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, kind: StringName, weights: PlainsRevisionWeights) -> Vector2:
-	var clock := pose.clock
-	var stride := pose.stride
-	var travel := pose.travel
-	var load := pose.load
-	var strike := pose.strike
-	var recovery := pose.recovery
-	var hurt := pose.hurt
-	var turn := pose.turn
-	var air := pose.air
-	var vertical := pose.vertical
 	var p := point
 	match kind:
-		&"patrol": p = _patrol_live(p, uv, size, clock, stride, travel, hurt, turn, weights)
-		&"charger": p = _charger_live(p, uv, size, clock, stride, travel, load, strike, recovery, hurt, weights)
-		&"hopper": p = _hopper_live(p, uv, size, clock, stride, travel, load, strike, recovery, hurt, air, vertical, weights)
+		&"patrol": p = _patrol_live(p, uv, size, pose, weights)
+		&"charger": p = _charger_live(p, uv, size, pose, weights)
+		&"hopper": p = _hopper_live(p, uv, size, pose, weights)
 	p = _vitality(p,uv,size,pose,kind, weights)
 	if not pose.dead: return p
 	var death := pose.death
@@ -53,63 +43,62 @@ static func _vitality(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRe
 	# Carry weight through the chest/hip while toes retain their support. This
 	# is deliberately not a common translation applied to the entire picture.
 	var p := point
-	var clock := pose.clock
-	var stride := pose.stride
 	var travel := pose.travel
 	var drive := pose.drive
 	var delayed := pose.appendage_follow
-	var quiet := 1.0-clampf(pose.raw_load+pose.raw_strike,0.0,1.0)*.75
+	var quiet := pose.ground_quiet
 	var upper := weights.ground_upper
 	match kind:
 		&"patrol":
 			var head := weights.patrol_head
 			var chest := upper*(1.0-.72*head)
-			var breath := sin(clock*3.6)*quiet
+			var breath := pose.patrol_breath_sin*quiet
 			var pivot := _at(Vector2(.46,.69),size)
 			p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.010*breath,1.0+.023*breath),chest)
 			# Downward weight transfer coincides with the swing foot's return.
-			p.y += size.y*.040*absf(sin(stride))*travel*upper
-			p = _joint(p,Vector2(.46,.76),size,-.060*drive+.018*sin(stride-.22)*travel,chest)
-			p = _joint(p,Vector2(.74,.49),size,.028*sin(clock*2.1-.65)*quiet+.043*sin(stride-.65)*delayed-.075*drive,head)
-			p.x += size.x*.011*sin(stride-.55)*delayed*head
+			p.y += size.y*.040*absf(pose.stride_sin)*travel*upper
+			p = _joint(p,Vector2(.46,.76),size,-.060*drive+.018*pose.patrol_body_sin*travel,chest)
+			p = _joint(p,Vector2(.74,.49),size,.028*pose.patrol_head_sin*quiet+.043*pose.patrol_gait_head_sin*delayed-.075*drive,head)
+			p.x += size.x*.011*pose.patrol_gait_lag_sin*delayed*head
 		&"charger":
 			var head := weights.charger_head
 			var shell := upper*(1.0-.65*head)
-			var breath := sin(clock*2.8)*quiet
+			var breath := pose.charger_breath_sin*quiet
 			var pivot := _at(Vector2(.45,.73),size)
 			p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.007*breath,1.0+.024*breath),shell)
-			p.y += size.y*.027*absf(sin(stride))*travel*quiet*upper
-			p = _joint(p,Vector2(.58,.76),size,-.047*drive+.019*sin(stride-.38)*travel,shell)
-			p = _joint(p,Vector2(.68,.60),size,.022*sin(clock*1.9-.80)*quiet+.033*sin(stride-.75)*delayed-.036*drive,head)
+			p.y += size.y*.027*absf(pose.stride_sin)*travel*quiet*upper
+			p = _joint(p,Vector2(.58,.76),size,-.047*drive+.019*pose.charger_body_sin*travel,shell)
+			p = _joint(p,Vector2(.68,.60),size,.022*pose.charger_head_sin*quiet+.033*pose.charger_gait_head_sin*delayed-.036*drive,head)
 			# The fore knee yields a little; the planted toe does not drift.
 			var knee := weights.charger_knee
 			p = _joint(p,Vector2(.55,.64),size,.027*breath*(1.0-travel),knee)
 		&"hopper":
 			var grounded := 0.0 if pose.air else 1.0
 			var belly := weights.ground_belly
-			var breath := sin(clock*3.5)*quiet
+			var breath := pose.hopper_breath_sin*quiet
 			var pivot := _at(Vector2(.43,.53),size)
 			p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.018*breath,1.0+.029*breath),belly)
-			p.y += size.y*.025*absf(sin(stride))*travel*grounded*upper
+			p.y += size.y*.025*absf(pose.stride_sin)*travel*grounded*upper
 			p = _joint(p,Vector2(.49,.72),size,-.043*drive*grounded,upper)
-			p = _joint(p,Vector2(.79,.52),size,.029*sin(clock*2.4-.7)*quiet+.038*sin(stride-.7)*delayed*grounded-.045*drive,weights.hopper_head)
+			p = _joint(p,Vector2(.79,.52),size,.029*pose.hopper_head_sin*quiet+.038*pose.hopper_gait_head_sin*delayed*grounded-.045*drive,weights.hopper_head)
 			var thigh := weights.hopper_thigh
 			p = _joint(p,Vector2(.49,.60),size,.022*breath*(1.0-travel)*grounded,thigh)
 	return p
 
-static func _patrol_live(point: Vector2, uv: Vector2, size: Vector2, clock: float, stride: float, travel: float, hurt: float, turn: float, weights: PlainsRevisionWeights) -> Vector2:
+static func _patrol_live(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	var travel := pose.travel
+	var hurt := pose.hurt
+	var turn := pose.turn
 	var p := point
 	var front := weights.front_leg
 	var rear := weights.rear_leg
-	var fore_phase := stride
-	var rear_phase := stride + PI
 	# Opposed contact/swing halves: one foot bears weight while the other lifts.
-	p.x += size.x * 0.065 * travel * (sin(fore_phase) * front + sin(rear_phase) * rear)
-	p.y -= size.y * 0.075 * travel * (maxf(0.0, cos(fore_phase)) * front + maxf(0.0, cos(rear_phase)) * rear)
-	p = _joint(p, Vector2(0.64, 0.57), size, sin(fore_phase) * travel * 0.13, front)
-	p = _joint(p, Vector2(0.28, 0.66), size, sin(rear_phase) * travel * 0.13, rear)
+	p.x += size.x * 0.065 * travel * (pose.stride_sin * front + pose.rear_stride_sin * rear)
+	p.y -= size.y * 0.075 * travel * (maxf(0.0, pose.stride_cos) * front + maxf(0.0, pose.rear_stride_cos) * rear)
+	p = _joint(p, Vector2(0.64, 0.57), size, pose.stride_sin * travel * 0.13, front)
+	p = _joint(p, Vector2(0.28, 0.66), size, pose.rear_stride_sin * travel * 0.13, rear)
 	var upper := weights.ground_upper
-	p.y -= size.y * (0.017 * travel * absf(sin(stride)) + 0.006 * sin(clock * 3.6)) * upper
+	p.y -= size.y * (0.017 * travel * absf(pose.stride_sin) + 0.006 * pose.patrol_breath_sin) * upper
 	var head := weights.patrol_head
 	# The head looks ahead of the torso. The trunk answers only a strong turn.
 	# Negative is a pending reversal: look back toward the new travel side
@@ -124,7 +113,12 @@ static func _patrol_live(point: Vector2, uv: Vector2, size: Vector2, clock: floa
 	p.y += size.y * 0.06 * hurt * upper
 	return p
 
-static func _charger_live(point: Vector2, uv: Vector2, size: Vector2, clock: float, stride: float, travel: float, load: float, strike: float, recovery: float, hurt: float, weights: PlainsRevisionWeights) -> Vector2:
+static func _charger_live(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	var travel := pose.travel
+	var load := pose.load
+	var strike := pose.strike
+	var recovery := pose.recovery
+	var hurt := pose.hurt
 	var p := point
 	var fore := weights.charger_foreleg
 	var hind := weights.rear_leg
@@ -132,8 +126,8 @@ static func _charger_live(point: Vector2, uv: Vector2, size: Vector2, clock: flo
 	var head := weights.charger_head
 	var shell := weights.charger_shell
 	var gait := travel * (1.0 - 0.75 * load)
-	p.x += size.x * 0.055 * gait * (sin(stride) * fore + sin(stride + PI) * hind)
-	p.y -= size.y * 0.045 * gait * (maxf(0.0, cos(stride)) * fore + maxf(0.0, cos(stride + PI)) * hind)
+	p.x += size.x * 0.055 * gait * (pose.stride_sin * fore + pose.rear_stride_sin * hind)
+	p.y -= size.y * 0.045 * gait * (maxf(0.0, pose.stride_cos) * fore + maxf(0.0, pose.rear_stride_cos) * hind)
 	# Forelegs compress under the lowered horn; the rear legs load behind them.
 	p = _joint(p, Vector2(0.55, 0.64), size, -0.34 * load - 0.24 * recovery, fore)
 	p = _joint(p, Vector2(0.30, 0.64), size, 0.23 * load - 0.54 * strike, hind)
@@ -142,18 +136,25 @@ static func _charger_live(point: Vector2, uv: Vector2, size: Vector2, clock: flo
 	p = _joint(p, Vector2(0.68, 0.60), size, 0.23 * load - 0.12 * strike - 0.08 * recovery, head)
 	# During braking the front limbs stop first. A damped shell overshoot carries
 	# the rear mass forward while the horn is already lifting out of its strike.
-	var brake := sin(recovery * PI) * recovery
+	var brake := pose.recovery_half_sin * recovery
 	p.x += size.x * (0.045 * recovery + 0.034 * brake) * shell
 	p = _joint(p, Vector2(0.62, 0.72), size, 0.075 * recovery + 0.065 * brake, shell)
 	# Impact shakes the armour locally, instead of squashing the entire animal.
-	var shiver := sin((1.0 - hurt) * PI * 5.0) * hurt * hurt
+	var shiver := pose.charger_hurt_sin * hurt * hurt
 	p.x += size.x * 0.026 * shiver * shell
 	p.y += size.y * 0.015 * shiver * shell
 	p = _joint(p, Vector2(0.47, 0.67), size, shiver * 0.035, shell)
-	p.y -= size.y * 0.004 * sin(clock * 2.8) * shell
+	p.y -= size.y * 0.004 * pose.charger_breath_sin * shell
 	return p
 
-static func _hopper_live(point: Vector2, uv: Vector2, size: Vector2, clock: float, stride: float, travel: float, load: float, strike: float, recovery: float, hurt: float, air: bool, vertical: float, weights: PlainsRevisionWeights) -> Vector2:
+static func _hopper_live(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	var travel := pose.travel
+	var load := pose.load
+	var strike := pose.strike
+	var recovery := pose.recovery
+	var hurt := pose.hurt
+	var air := pose.air
+	var vertical := pose.vertical
 	var p := point
 	var hind := weights.hopper_hind
 	var fore := weights.front_leg
@@ -171,10 +172,10 @@ static func _hopper_live(point: Vector2, uv: Vector2, size: Vector2, clock: floa
 	p = _joint(p, Vector2(0.76, 0.68), size, -0.20 * load + 0.28 * extend - 0.26 * fold + 0.16 * recovery, fore)
 	# Real landing/recovery makes a second, smaller upward response, not a
 	# perpetual idle bounce. At the end of recovery both feet carry the body.
-	var bounce := sin(recovery * PI * 2.0) * recovery * (1.0 - recovery)
+	var bounce := pose.recovery_full_sin * recovery * (1.0 - recovery)
 	p.y += size.y * 0.07 * bounce * upper
-	p.x += size.x * 0.03 * sin(stride) * travel * (fore + 0.5 * hind) * (1.0 - fold)
-	p.y -= size.y * 0.005 * sin(clock * 3.5) * upper
+	p.x += size.x * 0.03 * pose.stride_sin * travel * (fore + 0.5 * hind) * (1.0 - fold)
+	p.y -= size.y * 0.005 * pose.hopper_breath_sin * upper
 	# A seed-soft abdomen pulls in toward its upper hip after an accepted hit.
 	var belly_pivot := _at(Vector2(0.43, 0.53), size)
 	var contracted := belly_pivot + (p - belly_pivot) * Vector2(1.0 - hurt * 0.11, 1.0 - hurt * 0.13)
