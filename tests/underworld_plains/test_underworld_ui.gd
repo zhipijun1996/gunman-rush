@@ -71,6 +71,7 @@ func run() -> void:
 	check(menu.visible_panel==&"settings","actual native touch activates regular menu control without mouse emulation")
 	if menu.visible_panel==&"settings":await click(button(menu._content,"BACK"))
 	await click(button(menu._content,"SETTINGS"));check(menu.visible_panel==&"settings","native title mouse opens settings")
+	await popup_touch_pairing_contract(menu._movement_mode.get_popup())
 	menu._sliders.right_enter_deadzone.value=.2;menu._sliders.right_exit_deadzone.value=.3
 	await click(button(menu._content,"APPLY"));check(patches.is_empty() and not menu._settings_error.text.is_empty(),"native invalid settings never submit")
 	await click(button(menu._content,"RESTORE DEFAULTS"));check(patches.is_empty(),"restore remains preview")
@@ -155,3 +156,80 @@ func finish() -> void:
 	await frames(6)
 	print("UNDERWORLD UI: %s checks, %s failures" % [checks,failures])
 	quit(1 if failures else 0)
+
+func popup_pairing_point(popup: PopupMenu) -> Vector2:
+	await frames(2) # Let the previous native Window hide notification settle.
+	popup.popup(Rect2i(80,80,300,0))
+	await frames(3)
+	return Vector2(popup.position)+Vector2(popup.size)*.5
+
+func popup_pairing_touch(popup: PopupMenu, point: Vector2, finger: int, pressed: bool, canceled := false) -> bool:
+	var event := InputEventScreenTouch.new()
+	event.position=point;event.index=finger;event.pressed=pressed;event.canceled=canceled
+	root.push_input(event,true)
+	var consumed := popup.is_input_handled()
+	await frames(2)
+	return consumed
+
+func popup_touch_pairing_contract(popup: PopupMenu) -> void:
+	var adapter := popup.get_child(0) as PopupTouchAdapter
+	check(adapter!=null,"actual embedded PopupMenu owns the production touch adapter")
+	if adapter==null: return
+	var selected: Array[int]=[]
+	var phases: Array[StringName]=[]
+	popup.id_pressed.connect(func(id: int) -> void: selected.append(id))
+	adapter.forwarded.connect(func(value: StringName) -> void: phases.append(value))
+	var point: Vector2=await popup_pairing_point(popup)
+	# Explicit lifecycle fixture: the opening press was outside this popup.
+	var opener_consumed: bool = await popup_pairing_touch(popup,point,91,false)
+	check(opener_consumed and popup.visible and selected.is_empty() and phases.is_empty(),"unpaired opening release is consumed without selecting or forwarding a root mouse release")
+	await popup_pairing_touch(popup,point,92,true)
+	await popup_pairing_touch(popup,point,93,true)
+	await popup_pairing_touch(popup,point,93,false)
+	var drag := InputEventScreenDrag.new();drag.index=93;drag.position=point;drag.relative=Vector2(0,10)
+	root.push_input(drag,true)
+	var drag_consumed := popup.is_input_handled()
+	await frames(2)
+	check(drag_consumed and popup.visible and selected.is_empty() and phases==[&"press"],"another finger cannot acquire, release or drag the active popup mouse gesture")
+	await popup_pairing_touch(popup,point,92,false)
+	check(not popup.visible and selected.size()==1 and phases==[&"press",&"release"],"matching second tap selects exactly once through native PopupMenu")
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,94,true)
+	await popup_pairing_touch(popup,point,94,false)
+	check(not popup.visible and selected.size()==2,"a later legitimate popup tap still selects; the adapter does not blindly swallow a first release")
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,95,true)
+	popup.hide()
+	point=await popup_pairing_point(popup)
+	var phase_count := phases.size()
+	await popup_pairing_touch(popup,point,95,false)
+	check(popup.visible and selected.size()==2 and phases.size()==phase_count,"hide/reopen invalidates the previous lifecycle finger release")
+	await popup_pairing_touch(popup,point,96,true)
+	await popup_pairing_touch(popup,point,97,false,true)
+	check(not popup.visible and selected.size()==2 and phases.back()==&"cancel","foreign-finger canceled touch preserves the original cancel-and-hide policy without selecting")
+	point=await popup_pairing_point(popup)
+	phase_count=phases.size()
+	await popup_pairing_touch(popup,point,96,false)
+	check(popup.visible and selected.size()==2 and phases.size()==phase_count,"canceled gesture cannot release into a later popup lifecycle")
+	await popup_pairing_touch(popup,point,98,true)
+	# Native callback entry verifies the existing Web bridge's cancellation policy;
+	# actual DOM dispatch remains a separate browser check.
+	adapter._web_touch_cancel([])
+	check(not popup.visible and selected.size()==2 and phases.back()==&"cancel","existing DOM-cancel callback entry clears touch ownership and hides without selecting")
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,98,false)
+	phase_count=phases.size()
+	for pressed: bool in [true,false]:
+		var mouse := InputEventMouseButton.new()
+		mouse.position=point;mouse.global_position=point;mouse.button_index=MOUSE_BUTTON_LEFT;mouse.pressed=pressed
+		Input.parse_input_event(mouse);await frames(2)
+	check(not popup.visible and selected.size()==3 and phases.size()==phase_count,"unpaired touch release does not prevent the original native mouse selection path")
+	# Reusing an adapter after remove/add exercises its local exit cleanup.
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,99,true)
+	popup.remove_child(adapter)
+	popup.add_child(adapter)
+	phase_count=phases.size()
+	await popup_pairing_touch(popup,point,99,false)
+	check(popup.visible and selected.size()==3 and phases.size()==phase_count,"adapter tree exit invalidates its pending touch pair")
+	popup.hide()
