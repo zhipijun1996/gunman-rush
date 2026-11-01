@@ -1,3 +1,17 @@
+## 2026-11-01 MOBILE-COMBAT-MESH-02／FUTURE-FEATURE-ARCHITECTURE-01
+
+分支 `refactor/game-architecture-02`。运行源码ca505102、任务表修正119f4a7e、绑定／实际局部验证提交 `4ed961113a65068e3d488c0370cb573154a2bd14`；之后仅本轮记录／证据。主内容仍含PR122／124、排除已关闭PR123；不自动合main。
+
+原Pose／Ground／Flora三叶复用64位派生量，Sentry／Fan实际零权重调用点跳过，Root共享helper恢复原样。7101／371801位级通过；干净4ed的32项原命令fresh通过（403.276秒），非最终政策full171。style31／creative34只变206中三GD，203引用及图声不动；历史40手动／当前46／creative28均保原预算，原219／171不变，两check只追加精确inputs。任务表列位及旧style30 SHA两次失败真实归档。
+
+CPU核交替三轮对照：ground live约快5%–9%、sentry13%、fan29%–30%；**Root dying +2.95%代价**，不是静止尸体缓存或手机帧率。所有54组checksum一致，早期六版24源码均按原SHA恢复保存，源码／测量和技术重绑分别独审。详见[结果与原件](worklines/mobile_combat_mesh_02/results.md)。
+
+下一步：累计改动的原Integration仍full171，完成同源验证／所需Web构建和实际战斗采样后再给手机试玩。当前公开仍ab263／build2e1274f62210，本候选未导出／发布。不要拿旧包签本轮改善；Root几何／IK与真正手机P95/P99未处理，不要再从零重复已有离屏／权重／静止缓存。
+
+业务架构下一批按[接入方案](architecture_extensions.md)：先收现有菜单／阅读／切图的配对取消和输入恢复，再用一个真实教程／NPC对话消费者；map-gen（已核main c2ac2c36）先模块格式／单位／能力／来源及版本合同和一个真实Provider，不能把Python检查器说成浏览器生成器；多区域准入收原Campaign，永久升级UI／效果沿Meta现事务去单项硬编码。新持久剧情／教程字段须另立保存迁移，当前未改schema。首次实施前重新核map-gen实际源，别把本审计当持续最新。
+
+回退必须将运行／测试和绑定成对回到8df；原件ZIP含已dry-run的22路径逆补丁，保留未来架构文档／证据，不只回退三源码。状态为review，手机／玩家／完整Integration未签；最终保存HEAD以Git为准。
+
 ## 2026-11-01 MOBILE-COMBAT-PRESENTATION-01
 
 用户授权开始优化手机浏览器战斗停顿。源码提交 `cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503`，分支 `refactor/game-architecture-02`；之后仅本批证据和文档收口。两宿主单次revision刷新及同tick快照复用已落地；旧实现新断言12失败保留，候选原四命令563／150／129／5796全过，干净cd12原Development16项fresh通过（273.4秒）。独审限定接受；108姿态精确一致，受控管线平均微秒耗时降31.9%–49.3%，不含mesh/绘制/浏览器，不称手机卡顿已解决。
