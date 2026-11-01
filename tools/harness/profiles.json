@@ -3909,7 +3909,10 @@
         "game/bosses/thorn_forest/thorn_forest_encounter.gd",
         "game/bosses/windkeeper/windkeeper_encounter.gd",
         "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
-        "docs/creative_direction/archive/ownership-closeout-before-style27"
+        "docs/creative_direction/archive/ownership-closeout-before-style27",
+        "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+        "docs/creative_direction/archive/runtime-ownership-before-style28",
+        "docs/creative_direction/archive/style-source-git-history"
       ],
       "weight_seconds": 0.1
     },
@@ -4578,7 +4581,10 @@
         "docs/creative_direction/archive/ownership-closeout-before-style27",
         "tests/test_region_creative_direction.py",
         "tests/underworld_plains/test_underworld_formal.gd",
-        "tests/quality_review_runner.gd"
+        "tests/quality_review_runner.gd",
+        "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+        "docs/creative_direction/archive/runtime-ownership-before-style28",
+        "docs/creative_direction/archive/style-source-git-history"
       ],
       "weight_seconds": 0.5
     },
@@ -11018,6 +11024,16 @@
         "tests/recoil_recovery_tests.gd",
         "tests/foundry_feedback_runner.gd"
       ]
+    },
+    "region-bible-history-tests": {
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py",
+        "--history"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.5
     }
   },
   "profiles": {
@@ -11702,7 +11718,8 @@
       "forest-bible-world-backbranch",
       "forest-bible-world-connection-map1",
       "forest-bible-world-backbranch-map1",
-      "forest-bible-world-spiral"
+      "forest-bible-world-spiral",
+      "region-bible-history-tests"
     ],
     "item-v5": [
       "item-v5-data",

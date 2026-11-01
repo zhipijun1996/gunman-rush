@@ -557,7 +557,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v30')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v31')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -890,14 +890,36 @@ class FeatureLayoutDirectionTests(unittest.TestCase):
 
 class OwnershipDirectionTests(unittest.TestCase):
     def test_current30_keeps_selected_content_and_refuses_frozen29_as_current(self):
-        from test_region_bible import frozen26_root
+        from test_region_bible import frozen26_root, frozen27_root
         frozen_root = frozen26_root(self)
+        prior_root = frozen27_root(self)
         for region in ('windchime_plains', 'thorn_forest'):
             path = 'docs/creative_direction/'+region+'.json'
             old, _ = creative.load_direction(path, region, root=frozen_root)
-            current, binding = creative.load_direction(path, region)
+            current, binding = creative.load_direction(path, region, root=prior_root)
             self.assertEqual((old['version'], current['version'], binding['version']),
                              ('creative-v29', 'creative-v30', 'creative-v30'))
+            for key in old.keys()-{'version', 'region_bible', 'authority_sources', 'revision_impact'}:
+                self.assertEqual(current[key], old[key], key)
+            self.assertEqual(current['authority_sources'][:-1], old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1], creative.load_bible_registry(prior_root)['shared_style_authority'])
+            self.assertEqual(current['region_bible'], creative.bind_region_bible(region,prior_root)[1])
+            self.assertEqual(current['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
+            with self.assertRaisesRegex(ValueError, 'binding changed'):
+                creative.validate_bible_binding(old['region_bible'],root=prior_root)
+            with self.assertRaisesRegex(ValueError, 'binding changed'):
+                creative.load_direction(history.STYLE26_ARCHIVE+'/'+path, region)
+
+class RuntimeOwnershipDirectionTests(unittest.TestCase):
+    def test_current31_retains_selected_content_and_refuses_prior30_binding(self):
+        from test_region_bible import frozen27_root
+        prior_root = frozen27_root(self)
+        for region in ('windchime_plains', 'thorn_forest'):
+            path = 'docs/creative_direction/'+region+'.json'
+            old, _ = creative.load_direction(path, region, root=prior_root)
+            current, binding = creative.load_direction(path, region)
+            self.assertEqual((old['version'], current['version'], binding['version']),
+                             ('creative-v30', 'creative-v31', 'creative-v31'))
             for key in old.keys()-{'version', 'region_bible', 'authority_sources', 'revision_impact'}:
                 self.assertEqual(current[key], old[key], key)
             self.assertEqual(current['authority_sources'][:-1], old['authority_sources'])
@@ -907,7 +929,8 @@ class OwnershipDirectionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'binding changed'):
                 creative.validate_bible_binding(old['region_bible'])
             with self.assertRaisesRegex(ValueError, 'binding changed'):
-                creative.load_direction(history.STYLE26_ARCHIVE+'/'+path, region)
+                creative.load_direction(history.STYLE27_ARCHIVE+'/'+path, region)
+
 
 if __name__ == '__main__':
     unittest.main()

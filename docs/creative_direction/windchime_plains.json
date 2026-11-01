@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v30",
+  "version": "creative-v31",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
-    "supplemental_authority_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+    "supplemental_authority_sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "b752da79e0cd969b31a67674b1dd39e356871eee1bf4f3a6f827475c2d9a0ab2",
+    "registry_sha256": "e350323d15eff300d43dd026c948970f774d6fb4e44251158d730a3e50fe6038",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -242,6 +242,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
       "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+      "sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7"
     }
   ],
   "historical_direction": {
@@ -250,52 +254,25 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "GAME-ARCH-OWNERSHIP-02",
-    "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
-    "source_identity": "Committed source4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a; all11 Git blobs match the original independently frozen candidate SHA exactly. Source identity update only; no new acceptance.",
-    "scope": "Technical source version only. AUDIO-LAB-MATERIAL-01 (ed95) is an independent original-defect correction limited to explicit enemy_hurt auditions; GAME-ARCH-OWNERSHIP-02 moves existing Latch, terminal reentry and Boss arena restore operations to existing owners without new gameplay rules.",
-    "previous_direction": "docs/creative_direction/archive/ownership-closeout-before-style27/docs/creative_direction/windchime_plains.json",
-    "previous_sha256": "372a2824516416f9dabf6396e8464bb34f55ddc3283b9c30d56374e082b762c1",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
-    "shared_style_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+    "task_id": "GAME-ARCH-CI-01",
+    "source_commit": "23887fe5c9d32afa8bcba8725fd7895b6266aa5d",
+    "scope": "Technical source binding for completed P10/P11 and455 ownership-call migrations. Preserve existing gameplay rules and selected art/audio; this does not approve new art, audio, content, user experience or devices.",
+    "previous_direction": "docs/creative_direction/archive/runtime-ownership-before-style28/docs/creative_direction/windchime_plains.json",
+    "previous_sha256": "6eb10a96738b4a211604a127690f968215df6aabc1658b2546017fa4e4d01492",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+    "shared_style_sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json",
-      "sha256": "28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229"
+      "path": "docs/creative_direction/archive/runtime-ownership-before-style28/manifest.json",
+      "sha256": "358a3b010b4b1e95772a13a2c5d3f219eb6da4eb8962004dfc73e59c08056e4a"
     },
     "affected_consumers": [
       "game/world/levels/providers/plains_region_stage.gd",
-      "game/presentation/world/underworld_plains/underworld_presentation.gd",
       "game/application/demo_app.gd",
-      "game/bosses/windkeeper/windkeeper_pressure_encounter.gd",
-      "game/presentation/audio/game_audio.gd",
-      "game/world/components/shot_latch.gd",
-      "game/bosses/windkeeper/windkeeper_encounter.gd"
+      "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "game/enemies/enemy_actor.gd",
+      "game/world/levels/providers/generated_demo_stage.gd"
     ],
-    "validation": "P9 exact11-file static review is limited acceptance pending original native reload regressions. Audio candidate154 passed two actual lanes in its separate record. This new binding has not yet passed original four checks, full182, exports, GUI, listening, player or device acceptance.",
-    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result.",
-    "lifecycle_followup": {
-      "task_id": "UNDERWORLD-DEFERRED-LIFETIME-01",
-      "base_commit": "59537400af06a26046037840e28989f75933a265",
-      "source_commit": "49a298b40890ccf4d9d2326d051f12a0ffe63c27",
-      "source_status": "committed_samebytes",
-      "source_identity": "Independent lifecycle follow-up committed at49a298b40890ccf4d9d2326d051f12a0ffe63c27; all three Git blobs equal the originally frozen59537400-based candidate. This source is separate from P9 source_commit4e91; no new acceptance.",
-      "frozen_candidate": [
-        {
-          "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
-          "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18"
-        },
-        {
-          "path": "tests/underworld_plains/test_underworld_formal.gd",
-          "sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a"
-        },
-        {
-          "path": "tests/quality_review_runner.gd",
-          "sha256": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
-        }
-      ],
-      "quality_record": "docs/quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json",
-      "scope": "Original deferred-node lifetime defect: WeakRef/context admission calls the existing typed installer only for still-live nodes in the current world. No new art/audio/visual acceptance.",
-      "validation": "Independent lifecycle native receipts are owned by the separate quality record. Prior six-leaf style27 four-check passes do not cover this seven-leaf R2; its four checks remain pending. Commit identity binds the same frozen bytes and does not add runtime or visual acceptance."
-    }
+    "validation": "Current binding contract and existing tests must be actually revalidated; no full185, native, export, artistic, listening, player or device acceptance is inherited.",
+    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
   }
 }

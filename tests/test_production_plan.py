@@ -258,7 +258,11 @@ class ProductionPlanTests(unittest.TestCase):
             self.assertEqual(actual, [name for name in restored if name not in retired])
         manual = current_manifest["profiles"]["legacy-compat"]
         self.assertEqual(canonical(manual[:16]), c59_profile_sha256["legacy-compat"])
-        self.assertEqual(manual[16:], retired)
+        self.assertEqual(manual[16:30], retired)
+        self.assertEqual(manual[30:], ["region-bible-history-tests"])
+        self.assertEqual(current_manifest["checks"]["region-bible-history-tests"]["argv"], ["python3", "tests/test_region_bible.py", "--history"])
+        self.assertEqual(current_manifest["checks"]["region-bible-history-tests"]["timeout_seconds"], 30)
+        self.assertEqual({name for name, checks in current_manifest["profiles"].items() if "region-bible-history-tests" in checks}, {"legacy-compat"})
         historical_manifest["profiles"]["legacy-compat"] = manual[:16]
         for name in retired:
             self.assertIn(name, current_manifest["checks"])

@@ -38,7 +38,7 @@ def style25_source(root, path):
     raw = archived_source(root, STYLE25_ARCHIVE, path, STYLE25_MANIFEST_SHA)
     if raw is None:
         raw = archived_source(root, STYLE25_SCENE_ARCHIVE, path, STYLE25_SCENE_MANIFEST_SHA)
-    return repository_file(path, root).read_bytes() if raw is None else raw
+    return style26_source(root, path) if raw is None else raw
 
 
 STYLE26_ARCHIVE = 'docs/creative_direction/archive/ownership-closeout-before-style27'
@@ -48,4 +48,35 @@ STYLE26_MANIFEST_SHA = '28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135
 def style26_source(root, path):
     """Seven prior26 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE26_ARCHIVE, path, STYLE26_MANIFEST_SHA)
+    return style27_source(root, path) if raw is None else raw
+
+
+STYLE27_ARCHIVE = 'docs/creative_direction/archive/runtime-ownership-before-style28'
+STYLE27_MANIFEST_SHA = '358a3b010b4b1e95772a13a2c5d3f219eb6da4eb8962004dfc73e59c08056e4a'
+
+
+def style27_source(root, path):
+    """Five prior27 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE27_ARCHIVE, path, STYLE27_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw
+
+
+GIT_HISTORY_ARCHIVE = 'docs/creative_direction/archive/style-source-git-history'
+GIT_HISTORY_MANIFEST_SHA = 'dcec926ec878a797ee8119769019c8edf9a04543d8837ca2f255729bc1fecfdc'
+
+
+def git_history_source(root, commit, path):
+    """Read only pinned historical Git leaves; never fetch or use live bytes."""
+    raw = repository_file(GIT_HISTORY_ARCHIVE + '/manifest.json', root).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != GIT_HISTORY_MANIFEST_SHA:
+        raise AssertionError('Frozen Git source manifest changed')
+    manifest = json.loads(raw, object_pairs_hook=unique_object)
+    rows = [row for row in manifest['sources']
+            if row['source_commit'] == commit and row['path'] == path]
+    if len(rows) != 1:
+        raise AssertionError('Unknown or duplicate frozen Git source: ' + commit + ':' + path)
+    row = rows[0]
+    raw = repository_file(row['archive_path'], root).read_bytes()
+    if len(raw) != row['size'] or hashlib.sha256(raw).hexdigest() != row['sha256']:
+        raise AssertionError('Frozen Git source bytes changed: ' + commit + ':' + path)
+    return raw
