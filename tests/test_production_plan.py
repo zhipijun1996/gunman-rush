@@ -717,6 +717,45 @@ class ProductionPlanTests(unittest.TestCase):
                     self.assertEqual(plan["checks"].count(name),1)
                 self.assertNotIn("forest-depth-region",plan["checks"])
 
+    def test_ui_fixture_leaves_select_existing_real_popup_consumers(self):
+        cases = {
+            "tests/underworld_plains/test_underworld_ui.gd": ("underworld-ui", 300),
+            "tests/studio_input_runner.gd": ("studio-input", 180),
+        }
+        for path, (name, budget) in cases.items():
+            with self.subTest(path=path):
+                check = self.manifest["checks"][name]
+                self.assertEqual(check["timeout_seconds"], budget)
+                self.assertIn(path, (ROOT / check["argv"][1]).read_text())
+                self.assertTrue((ROOT / path).is_file())
+        for paths in ([path] for path in cases):
+            plan = self.plan(paths, "integration")
+            self.assertEqual(plan["selection"], "affected_checks")
+            self.assertEqual(plan["domains"], ["runtime_contracts", "presentation"])
+            self.assertEqual(plan["ci_route"], "selected_commands")
+            self.assertFalse(plan["escalations"])
+            for name in cases.values():
+                self.assertEqual(plan["checks"].count(name[0]), 1)
+            self.assertNotIn("web-build", plan["checks"])
+            self.assertNotIn("forest-depth-region", plan["checks"])
+            self.assertLess(len(plan["checks"]), len(self.manifest["profiles"]["full"]))
+        production = "game/presentation/ui/popup_touch_adapter.gd"
+        combined = self.plan([production, *cases], "integration")
+        self.assertEqual(combined["checks"], self.plan([production], "integration")["checks"])
+        self.assertEqual(combined["checks"][:3], self.policy["baseline_checks"])
+        self.assertEqual(combined["checks"].count("studio-input"), 1)
+
+    def test_ui_leaf_mapping_does_not_admit_neighbors_or_selector_changes(self):
+        for path in ("tests/underworld_plains/test_underworld_ui_future.gd",
+                     "tests/studio_input_runner_extra.gd", "tests/demo_ui_01/contract_runner.gd",
+                     "tools/production_plan.py", "config/production_impact.json",
+                     ".github/workflows/production.yml"):
+            with self.subTest(path=path):
+                plan = self.plan(["tests/underworld_plains/test_underworld_ui.gd", path], "integration")
+                self.assertEqual(plan["selection"], "full")
+                self.assertEqual(set(plan["checks"]), set(self.manifest["profiles"]["full"]))
+                self.assertTrue(plan["escalations"])
+
     def test_documentation_with_module_does_not_activate_unrelated_content_tools(self):
         a=self.plan(["game/economy/shops/shop_service.gd"],"integration")
         b=self.plan(["game/economy/shops/shop_service.gd","docs/handoff.md"],"integration")

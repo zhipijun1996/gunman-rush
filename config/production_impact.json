@@ -113,7 +113,7 @@
     },
     "presentation": {
       "development": ["underworld-pipeline", "art-art", "region-bible-contract"],
-      "integration": ["underworld-pipeline", "art-art", "region-bible-contract", "underworld-formal", "underworld-player-animation", "underworld-damage-feedback", "underworld-projectile-vfx", "underworld-ui", "underworld-world-objects", "plains-revision-deform-equivalence", "audio-feedback", "bgm-integration", "entry-audio-lifecycle", "entry-audio-lifecycle-comparison", "entry-audio-owners"],
+      "integration": ["underworld-pipeline", "art-art", "region-bible-contract", "underworld-formal", "underworld-player-animation", "underworld-damage-feedback", "underworld-projectile-vfx", "underworld-ui", "underworld-world-objects", "plains-revision-deform-equivalence", "audio-feedback", "bgm-integration", "entry-audio-lifecycle", "entry-audio-lifecycle-comparison", "entry-audio-owners", "studio-input"],
       "depends_on": ["runtime_contracts"]
     },
     "platform": {
@@ -404,7 +404,7 @@
     },
     {
       "id": "module-tests-presentation",
-      "paths": ["tests/audio_feedback_*", "tests/bgm_integration/*", "tests/chest_art_runner.gd"],
+      "paths": ["tests/audio_feedback_*", "tests/bgm_integration/*", "tests/chest_art_runner.gd", "tests/underworld_plains/test_underworld_ui.gd", "tests/studio_input_runner.gd"],
       "domain": "presentation",
       "reason": "Existing fixture family exercises this module and its already listed downstream consumers; no copied test registry."
     },
