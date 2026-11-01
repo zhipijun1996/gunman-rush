@@ -25,12 +25,12 @@ def inventory(root):
 # One reviewed consumer-tool revision, not a general tools/tests exemption.
 # Locator-only consumer migrations must also reverse to the complete reference Git bytes.
 CONSUMER_REFERENCE_COMMIT = '37950e0896a91c6b812a11c323ec3d5fd1800bb0'
-REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': '0662568216aef58c50392d0380762a4cc6582495f4d217cc3239be7ab9cc5d07',
+REVIEWED_TOOL_FILES = {'tools/studio_gui_pointer.py': '13504536cb4aafd94eca27d58f834b509832fc07873bbcf0bc9611962bffed3a',
  'tools/verify_four_line_browser.py': 'ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f',
- 'tools/test_studio_gui_pointer.py': '26917e53a5b24a8de2b32df6d3927c00a7018ac1a652dc4b6a1e33819e58bd46',
+ 'tools/test_studio_gui_pointer.py': 'c86899f873ae71e3e2e536382bd6bf40857bfd54db1367f36099a8696921bfd0',
  'tests/fixtures/studio_gui_pointer/title_37950_current.png': 'cc90b463b98b79e66e703a720fbd644c5de277e52ee2d4d5601894cccb321ff9',
  'tests/fixtures/studio_gui_pointer/title_37950_current.json': '570a8e2eb2a63dac2cc4785d44df0b0ae6ca4517e6d7d6d560e23eafc38fc5fa',
- 'tools/verify_action_budget_browser.py': '493207d05a8513c41abc29c235a862976c1809b94216d8b2b3fb223bcd7e8adc',
+ 'tools/verify_action_budget_browser.py': 'f95db7d7691231e82e72530553e02a3b4a5c5809f9eda4f9d4c1ec3e7ac372d3',
  'tools/verify_studio_click_browser.py': '675b97ec54e961492c770fa068bd478ad78cbd3a65faef0917588929a367cc71',
  'tools/verify_all_weapon_browser.py': '7905cc12f0224b8512f3268aac14abc0de9b4a99eea609dd1c0f88d72eb0fd10',
  'tests/fixtures/studio_gui_pointer/current_navigation_37950.json': 'a1ed617cbc56089e4b5f0d90871a67d02305a8a89f3a74c8db77ae3c74338b45',
@@ -97,6 +97,11 @@ CONSUMER_MIGRATIONS = {'tools/verify_action_budget_browser.py': [['from studio_g
                                            ["await page.mouse.click(432,230,button='right')",
                                             'await '
                                             "page.mouse.click(*studio_hook_reference_point(page,'vertical'),button='right')",
+                                            1],
+                                           ['studio_hook_reference_point', 'studio_reference_aim_point', 3],
+                                           ['await page.mouse.move(790,250)',
+                                            'await '
+                                            "page.mouse.move(*studio_reference_aim_point(page,'air_blade_focus'))",
                                             1]],
  'tools/verify_all_weapon_browser.py': [['from studio_gui_pointer import select_weapon, weapon_row_y, '
                                          'enter_action_studio',

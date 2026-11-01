@@ -601,22 +601,26 @@ async def studio_control_point(page,control):
   path=Path(directory)/'studio.png';path.write_bytes(await page.screenshot())
   return _studio_bitmap_control(path,control,scale)['point']
 
-def studio_hook_reference_point(page,case,root=None):
+def studio_reference_aim_point(page,case,root=None):
  """Finite authored reset-reference point, NOT the live camera/original ray.
 
- Current desktop HUD covers the old aim points. Project the reset hook origin
- and the existing selected ring, then use their midpoint below that HUD.
+ Current desktop HUD covers the old aim points. Hook references project the
+ reset origin/ring midpoint; blade focus retains its x at the viewport midline.
  Actual cast angle, kick, side and recovery remain the consumer's assertions.
  This is a current interactive aiming contract migration, not equal numeric aim.
  """
  import hashlib
  from pathlib import Path
  if page.viewport_size!={'width':1280,'height':720}:raise AssertionError('Unobserved hook reference viewport')
- if case not in ('oblique','vertical'):raise ValueError('Unknown hook reference case: '+str(case))
+ if case not in ('oblique','vertical','air_blade_focus'):raise ValueError('Unknown hook reference case: '+str(case))
  root=Path(root) if root is not None else Path(__file__).resolve().parents[1]
  _studio_reference_data(root)  # Includes exact ActionStudio reset/camera/anchor source.
  traversal=root/'game/player/actions/traversal_ability.gd'
  if hashlib.sha256(traversal.read_bytes()).hexdigest()!='36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369':raise AssertionError('Hook origin source drift')
+ if case=='air_blade_focus':
+  # Retain authored x790; the observed desktop HUD ends at344. Its viewport
+  # centerline360 is outside, and actual accepted blade motion proves upturn.
+  return (790.0,page.viewport_size['height']/2)
  player=(1490.0,400.0);camera=(player[0]+130.0,player[1]-100.0)
  origin=(player[0],player[1]-6.0)
  anchor=(1570.0,240.0) if case=='oblique' else (1490.0,190.0)

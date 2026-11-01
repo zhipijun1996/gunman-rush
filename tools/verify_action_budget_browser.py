@@ -2,7 +2,7 @@
 import asyncio,json,math,re,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
-from studio_gui_pointer import select_weapon,studio_control_point,enter_action_studio,studio_hook_reference_point
+from studio_gui_pointer import select_weapon,studio_control_point,enter_action_studio,studio_reference_aim_point
 OUT=Path('build/action_budget/browser');OUT.mkdir(parents=True,exist_ok=True)
 ROOT=Path(__file__).resolve().parents[1]
 # Observe the actual Resource/default contract, without another tuning default.
@@ -76,7 +76,7 @@ async def main():
   await page.keyboard.press(' ')
   # Existing visible side ring: retain the original 45-degree assertion on an
   # oblique cast. The central ring now has a distinct near-vertical contract.
-  await page.mouse.click(*studio_hook_reference_point(page,'oblique'),button='right')
+  await page.mouse.click(*studio_reference_aim_point(page,'oblique'),button='right')
   assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real oblique hook did not launch'
   cast=next(e for e in events[n:]if e['action']=='hook_cast')
   assert abs(cast['aim'][0])>HOOK_VERTICAL_DEADZONE, '45-degree case did not actually cast obliquely'
@@ -84,7 +84,7 @@ async def main():
   assert await wait(lambda:any(e['action']=='free'for e in events[n:])), 'oblique hook recovery never returned to free'
   await page.mouse.click(*(await studio_control_point(page,'hook_practice')));await page.wait_for_timeout(350);n=len(events)
   await page.keyboard.press(' ')
-  await page.mouse.click(*studio_hook_reference_point(page,'vertical'),button='right')
+  await page.mouse.click(*studio_reference_aim_point(page,'vertical'),button='right')
   assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real upward hook did not launch'
   cast=next(e for e in events[n:]if e['action']=='hook_cast');kick=next(e for e in events[n:]if e['action']=='hook_kick')
   checks['mouse_hook_near_vertical_no_side_kick']=abs(cast['aim'][0])<=HOOK_VERTICAL_DEADZONE and kick['kick_side']==0 and kick['recoil']==[0,HOOK_KICK_Y]
@@ -94,7 +94,7 @@ async def main():
   if not released:
    (OUT/'failed_events.json').write_text(json.dumps(events,ensure_ascii=False,indent=2)+'\n');await page.screenshot(path=str(OUT/'failed-air-blade.png'))
   assert released, 'air blade never released'
-  await page.mouse.move(790,250);await page.mouse.down();await page.wait_for_timeout(1300)
+  await page.mouse.move(*studio_reference_aim_point(page,'air_blade_focus'));await page.mouse.down();await page.wait_for_timeout(1300)
   await page.keyboard.press(' ');await page.wait_for_timeout(1300)
   rows=[e for e in events[n:]if e['action']=='weapon_motion'and e['detail']['entities']]
   scaled=[e for e in rows if e['time_scale']<.5]

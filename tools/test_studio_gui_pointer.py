@@ -692,14 +692,14 @@ class HookReferencePointTests(unittest.TestCase):
     def test_authored_points_unknown_case_and_unobserved_viewport(self):
         from types import SimpleNamespace
         page=SimpleNamespace(viewport_size={'width':1280,'height':720})
-        self.assertEqual(helper.studio_hook_reference_point(page,'oblique'),(496.0,387.2))
-        self.assertEqual(helper.studio_hook_reference_point(page,'vertical'),(432.0,347.2))
+        self.assertEqual(helper.studio_reference_aim_point(page,'oblique'),(496.0,387.2))
+        self.assertEqual(helper.studio_reference_aim_point(page,'vertical'),(432.0,347.2))
         for case in ('diagonal','',None):
             with self.subTest(case=case),self.assertRaises(ValueError):
-                helper.studio_hook_reference_point(page,case)
+                helper.studio_reference_aim_point(page,case)
         for size in ({'width':844,'height':390},{'width':1280,'height':721}):
             with self.subTest(size=size),self.assertRaisesRegex(AssertionError,'viewport'):
-                helper.studio_hook_reference_point(SimpleNamespace(viewport_size=size),'oblique')
+                helper.studio_reference_aim_point(SimpleNamespace(viewport_size=size),'oblique')
 
     def test_authored_point_rejects_actual_camera_anchor_and_origin_source_drift(self):
         import shutil
@@ -714,13 +714,27 @@ class HookReferencePointTests(unittest.TestCase):
             for name in [metadata,*meta['source_sha256'],traversal]:
                 target=root/name;target.parent.mkdir(parents=True,exist_ok=True)
                 shutil.copyfile(source/name,target)
-            self.assertEqual(helper.studio_hook_reference_point(page,'oblique',root),(496.0,387.2))
+            self.assertEqual(helper.studio_reference_aim_point(page,'oblique',root),(496.0,387.2))
             for name in ('experiments/motion/action_studio.gd',traversal):
                 target=root/name;original=target.read_bytes();target.write_bytes(original+b'\n')
                 with self.subTest(source=name),self.assertRaisesRegex(AssertionError,'source drift'):
-                    helper.studio_hook_reference_point(page,'oblique',root)
+                    helper.studio_reference_aim_point(page,'oblique',root)
                 target.write_bytes(original)
-            self.assertEqual(helper.studio_hook_reference_point(page,'vertical',root),(432.0,347.2))
+            self.assertEqual(helper.studio_reference_aim_point(page,'vertical',root),(432.0,347.2))
+
+    def test_blade_focus_is_inside_viewport_and_outside_real_reference_hud(self):
+        from types import SimpleNamespace
+        frame=FIXTURES/'controls_37950_desktop.png'
+        (width,height),surfaces=helper.native_surfaces(frame,[(37,53,56)])
+        panel=max(surfaces,key=lambda b:(b[2]-b[0])*(b[3]-b[1]))
+        left,top,right,bottom=panel
+        # The original accepted screenshot demonstrates the old pointer was
+        # inside this actual HUD; the new point clears it without a game edit.
+        self.assertTrue(left<790<right and top<250<bottom)
+        x,y=helper.studio_reference_aim_point(SimpleNamespace(viewport_size={'width':width,'height':height}),'air_blade_focus')
+        self.assertTrue(0<x<width and 0<y<height)
+        self.assertGreater(y,bottom)
+        self.assertLess(y,670)  # Original downward release aim remains below.
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
