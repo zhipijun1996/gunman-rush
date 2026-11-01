@@ -5,8 +5,10 @@ signal forwarded(phase: StringName)
 var popup: PopupMenu
 var _web_canvas: Variant
 var _web_cancel_callback: Variant
+var _finger := -1
 
 func _ready() -> void:
+	if popup != null: popup.visibility_changed.connect(_clear_touch_pair)
 	if OS.has_feature("web"):
 		var bridge := Engine.get_singleton("JavaScriptBridge")
 		var document: Variant = bridge.call("get_interface","document")
@@ -16,22 +18,40 @@ func _ready() -> void:
 		# ordinary touch-release handler can activate a popup item.
 		_web_canvas.addEventListener("touchcancel",_web_cancel_callback,true)
 
+func _clear_touch_pair() -> void:
+	_finger = -1
+
 func _web_touch_cancel(_arguments: Array) -> void:
 	if popup != null and popup.visible:
+		_clear_touch_pair()
 		forwarded.emit(&"cancel")
 		popup.hide()
 
 func _exit_tree() -> void:
+	_clear_touch_pair()
 	if _web_canvas != null and _web_cancel_callback != null:
 		_web_canvas.removeEventListener("touchcancel",_web_cancel_callback,true)
 
 func _input(event: InputEvent) -> void:
 	if popup == null or not popup.visible: return
 	if event is InputEventScreenTouch:
-		forwarded.emit(&"cancel" if event.canceled else &"press" if event.pressed else &"release")
 		if event.canceled:
+			_clear_touch_pair()
+			forwarded.emit(&"cancel")
 			popup.hide()
 		else:
+			if event.pressed:
+				if _finger != -1:
+					get_viewport().set_input_as_handled()
+					return
+				_finger = event.index
+			else:
+				if _finger == -1 or event.index != _finger:
+					# The opener's press belonged to the parent control, not this popup.
+					get_viewport().set_input_as_handled()
+					return
+				_clear_touch_pair()
+			forwarded.emit(&"press" if event.pressed else &"release")
 			var mouse := InputEventMouseButton.new()
 			mouse.device = InputEvent.DEVICE_ID_EMULATION
 			mouse.button_index = MOUSE_BUTTON_LEFT
@@ -43,6 +63,9 @@ func _input(event: InputEvent) -> void:
 			get_tree().root.push_input(mouse,true)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventScreenDrag:
+		if _finger == -1 or event.index != _finger:
+			get_viewport().set_input_as_handled()
+			return
 		var mouse := InputEventMouseMotion.new()
 		mouse.device = InputEvent.DEVICE_ID_EMULATION
 		mouse.position = Vector2(popup.position)+event.position
