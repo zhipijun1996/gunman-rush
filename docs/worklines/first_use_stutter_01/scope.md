@@ -1,8 +1,8 @@
 # FIRST-USE-STUTTER-01
 
-状态：in_progress。用户报告 Chrome 首次空中射击卡、第二次不再卡，敌战仍部分卡。工作基点 `23ba7a79bbfca7f0f1662088f611911dbfd0725b`；第一批采用已通过冷启动 GL 验证的 Focus V3；敌战仍有未归因时间，不签整体消卡。
+状态：in_progress。用户报告 Chrome 首次空中射击卡、第二次不再卡，敌战仍部分卡。工作基点 `23ba7a79bbfca7f0f1662088f611911dbfd0725b`；第一批已冻结运行源b5c7bf65：共用绘制准备、真实Home首air零新增编译、原生GPU50和10项相关fresh通过；敌战仍有未归因时间，不签整体消卡。
 
-范围仅现有 `game/presentation/ui/focus_vignette.gd` 与既有 `tests/grapple_focus_hud_runner.gd` 中必要的最小测试候选；测试候选保持原完整 runner 与预算，实际执行仍待。保输入、物理、碰撞、伤害、资源、奖励、RNG、存档、图声和原预算。不用预演射击或改变游戏状态假装预热，不先把持续卡顿归因给首次编译。
+范围仅现有 `game/presentation/ui/focus_vignette.gd` 与既有 `tests/grapple_focus_hud_runner.gd` 中必要的最小测试候选；测试保原完整 runner 与预算，已执行；实际结果与失败见[结果](results.md)。保输入、物理、碰撞、伤害、资源、奖励、RNG、存档、图声和原预算。不用预演射击或改变游戏状态假装预热，不先把持续卡顿归因给首次编译。
 
 已有事实：原首次 air 出现 Focus edge_width shader 编译，重复为零。V2 虽在 Home 编译2/link1，首次真实 air 仍编译2/link1，原 LINK_STATUS 等待47.285ms，**实际REJECT**，未达零新增编译门槛。基线15.735ms与候选47.285ms为不同页面/新进程单次测量，不能量化改善或回归；也不能解释整段掉帧。
 

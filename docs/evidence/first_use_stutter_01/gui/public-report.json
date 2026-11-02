@@ -1,0 +1,259 @@
+{
+  "status": "GUI_SMOKE_PASSED",
+  "scope": "One fresh public final Web GUI smoke only. No init scripts, instrumentation, FPS observer, GL queries, gameplay state writes or performance acceptance. 300s total budget. Real keyboard/mouse only.",
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    },
+    {
+      "type": "log",
+      "text": "Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "type": "log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "type": "log",
+      "text": "Build configuration: Emscripten 4.0.20, multi-threaded, no GDExtension support."
+    },
+    {
+      "type": "error",
+      "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread"
+    },
+    {
+      "type": "log",
+      "text": "PLAINS REGION: family=crossroads areas=20 fallback="
+    },
+    {
+      "type": "log",
+      "text": "TERRAIN STUDY: solids=79 pieces=304 setup_ms=79"
+    },
+    {
+      "type": "log",
+      "text": "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"9a4fe7b628b726bd7535b22201bec3f40a500e60b450902f621c0402df1cf90a\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"plains-418c608c8a1d9f1766e736e760505809\"}"
+    }
+  ],
+  "page_errors": [],
+  "screenshots": [
+    {
+      "file": "01-title.png",
+      "sha256": "043859042c68528125008a21dd023b91fa45e952e123cd8de8ee931c9dc066f6",
+      "host_epoch_ms": 1793613273929.7205
+    },
+    {
+      "file": "02-home.png",
+      "sha256": "86fc5b7b5c7f73c74b4d17a5c160d6f4caded407e807299f6c2ca7afac656489",
+      "host_epoch_ms": 1793613277856.4397
+    },
+    {
+      "file": "03-segment-1-d.png",
+      "sha256": "a27e52618777b10bf0faf5a28188165ecfc5f6299d58ce74a324aef4cafba771",
+      "host_epoch_ms": 1793613303256.2017
+    },
+    {
+      "file": "03-segment-2-d.png",
+      "sha256": "8ffe00abcf09a3720ed0797e8d89b3077af5b470e46ef23177fc5a6b4da7f32d",
+      "host_epoch_ms": 1793613306419.9988
+    },
+    {
+      "file": "03-segment-3-d.png",
+      "sha256": "9ae5170676ff72b6f9a7a0f474c261dd18dd2ca935d23b43d42f606a6e18dd3e",
+      "host_epoch_ms": 1793613309426.1294
+    },
+    {
+      "file": "03-segment-4-d.png",
+      "sha256": "89cd6f0b8672d206b0a8e09e31b6ea4c2959330b3fcb4444034fdbb4ec4431bd",
+      "host_epoch_ms": 1793613312328.1133
+    },
+    {
+      "file": "03-segment-5-d.png",
+      "sha256": "99a079747b22f076ff279e2ce478ca47377c895b7bbd7aacf06dfd08fcb81684",
+      "host_epoch_ms": 1793613315311.072
+    },
+    {
+      "file": "03-segment-6-d.png",
+      "sha256": "640e249abe936fc8ebad43d7d0cd6d13ea75928c12c7ff2e600a758f4fda3cb6",
+      "host_epoch_ms": 1793613318175.9226
+    },
+    {
+      "file": "04-after-d-1500.png",
+      "sha256": "c5b3d7f45cd3d021382f0070b9c9a2387e1937a7e1ad3d3ba5766028b55e4a47",
+      "host_epoch_ms": 1793613335807.2542
+    },
+    {
+      "file": "05-after-d-400.png",
+      "sha256": "efc1f278931ec17d2abedbf42a35b9cdd5f3aef875f1b8c1f20a75d82c447feb",
+      "host_epoch_ms": 1793613353806.7944
+    },
+    {
+      "file": "06-after-W.png",
+      "sha256": "b5824dfe4a75b58f8305186e6b14514a70fee60f0a4eda977111412b9b27615a",
+      "host_epoch_ms": 1793613364929.1938
+    },
+    {
+      "file": "07-plains-entry.png",
+      "sha256": "fb6353b3bd608eb5161c69074685073487fab86310ecb3221940bd88a9610490",
+      "host_epoch_ms": 1793613380180.6565
+    },
+    {
+      "file": "08-after-d-600.png",
+      "sha256": "8983aa7aad2c1973f1a28d0e83a3d5380d3e7a2eae86020620417d83c40571b3",
+      "host_epoch_ms": 1793613389817.6619
+    }
+  ],
+  "actions": [
+    {
+      "action": "actual-title-start",
+      "point": [
+        231.5,
+        189.0
+      ]
+    },
+    {
+      "seq": 1,
+      "action": "walk-segments",
+      "command": {
+        "seq": 1,
+        "action": "walk-segments",
+        "key": "d",
+        "ms": 1500,
+        "count": 6
+      }
+    },
+    {
+      "seq": 2,
+      "action": "hold",
+      "command": {
+        "seq": 2,
+        "action": "hold",
+        "key": "d",
+        "ms": 1500
+      }
+    },
+    {
+      "seq": 3,
+      "action": "hold",
+      "command": {
+        "seq": 3,
+        "action": "hold",
+        "key": "d",
+        "ms": 400
+      }
+    },
+    {
+      "seq": 4,
+      "action": "gate-W",
+      "command": {
+        "seq": 4,
+        "action": "gate-W"
+      }
+    },
+    {
+      "seq": 5,
+      "action": "begin",
+      "command": {
+        "seq": 5,
+        "action": "begin"
+      },
+      "actual_BEGIN_point": [
+        640.0,
+        281.5
+      ]
+    },
+    {
+      "seq": 6,
+      "action": "hold",
+      "command": {
+        "seq": 6,
+        "action": "hold",
+        "key": "d",
+        "ms": 600
+      }
+    },
+    {
+      "seq": 7,
+      "action": "finish",
+      "command": {
+        "seq": 7,
+        "action": "finish",
+        "passed": true,
+        "review": "All13 saved public-URL screenshots individually viewed. Rendered title Start and Home normal; six bounded Home D segments then screenshot-guided1500ms+400ms reach the visible departure arch and actual interaction prompt. W opens complete rendered BEGIN; original OCR plus mouse click enters formal Plains with MAP1/2 and Windchime Plains1/2 HUD. D600 visibly changes player/camera position to the initial ledge, without a survival/standing claim. No blank/error screen or warmup geometry visible in sampled images. Finite screenshot GUI smoke only; no FPS/performance/formal-first-shot certification."
+      }
+    }
+  ],
+  "checkpoints": [
+    {
+      "seq": 1,
+      "name": "visual-ordinary-input",
+      "screenshot": "02-home.png"
+    },
+    {
+      "seq": 2,
+      "name": "visual-ordinary-input",
+      "screenshot": "03-segment-6-d.png"
+    },
+    {
+      "seq": 3,
+      "name": "visual-ordinary-input",
+      "screenshot": "04-after-d-1500.png"
+    },
+    {
+      "seq": 4,
+      "name": "visual-ordinary-input",
+      "screenshot": "05-after-d-400.png"
+    },
+    {
+      "seq": 5,
+      "name": "visual-ordinary-input",
+      "screenshot": "06-after-W.png"
+    },
+    {
+      "seq": 6,
+      "name": "visual-ordinary-input",
+      "screenshot": "07-plains-entry.png"
+    },
+    {
+      "seq": 7,
+      "name": "visual-ordinary-input",
+      "screenshot": "08-after-d-600.png"
+    }
+  ],
+  "identity": {
+    "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+    "build_id": "9dd3a9a2ecd8",
+    "pack": "index.9dd3a9a2ecd8.pck",
+    "pack_sha256": "9dd3a9a2ecd845d5728089693282e1642ab1efa2e1868e3925c637fbaa32e0e5",
+    "pack_bytes": 216394452
+  },
+  "expected_pack_sha256": "9dd3a9a2ecd845d5728089693282e1642ab1efa2e1868e3925c637fbaa32e0e5",
+  "remote_pack_SHA_scope": "GUI verifier checks actual public metadata/worker against expected PCK SHA/size. Separate root verifier streams full216MB SHA; GUI does not duplicate that download.",
+  "helpers_before": {
+    "/workspace/gunman-rush-refactor/tools/verify_four_line_browser.py": "ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f",
+    "/workspace/gunman-rush-refactor/tools/verify_forest_browser.py": "3d75e424e528dd41da56d58b077fb2e3be598206bd415349b92ce9942d09a1a3",
+    "/workspace/gunman-rush-refactor/tools/studio_gui_pointer.py": "d0d57caf25fa14f19925540f2ffdb3d8f99bb42b027f99aae178cf8808c1e223",
+    "/workspace/refactor-evidence/first-use-stutter-01/public-web-gui-smoke/run.py": "1faf9dadbc9d6fcde4a79e10af21e29fffa9da8f4a196e0a14ded1e0f0534c6c"
+  },
+  "browser_version": "154.0.8037.57",
+  "no_FPS04_injection": true,
+  "waiting_seq": 7,
+  "actual_BEGIN_clicked": true,
+  "operator_visual_review": "All13 saved public-URL screenshots individually viewed. Rendered title Start and Home normal; six bounded Home D segments then screenshot-guided1500ms+400ms reach the visible departure arch and actual interaction prompt. W opens complete rendered BEGIN; original OCR plus mouse click enters formal Plains with MAP1/2 and Windchime Plains1/2 HUD. D600 visibly changes player/camera position to the initial ledge, without a survival/standing claim. No blank/error screen or warmup geometry visible in sampled images. Finite screenshot GUI smoke only; no FPS/performance/formal-first-shot certification.",
+  "browser_closed": true,
+  "identity_after": {
+    "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+    "build_id": "9dd3a9a2ecd8",
+    "pack": "index.9dd3a9a2ecd8.pck",
+    "pack_sha256": "9dd3a9a2ecd845d5728089693282e1642ab1efa2e1868e3925c637fbaa32e0e5",
+    "pack_bytes": 216394452
+  },
+  "helpers_after": {
+    "/workspace/gunman-rush-refactor/tools/verify_four_line_browser.py": "ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f",
+    "/workspace/gunman-rush-refactor/tools/verify_forest_browser.py": "3d75e424e528dd41da56d58b077fb2e3be598206bd415349b92ce9942d09a1a3",
+    "/workspace/gunman-rush-refactor/tools/studio_gui_pointer.py": "d0d57caf25fa14f19925540f2ffdb3d8f99bb42b027f99aae178cf8808c1e223",
+    "/workspace/refactor-evidence/first-use-stutter-01/public-web-gui-smoke/run.py": "1faf9dadbc9d6fcde4a79e10af21e29fffa9da8f4a196e0a14ded1e0f0534c6c"
+  },
+  "stable": true,
+  "elapsed_seconds": 179.01639497998985
+}

@@ -1,3 +1,11 @@
+## 2026-11-02 FIRST-USE-STUTTER-01 技术已部署，设备仍待复测
+
+运行源 `b5c7bf65cf7a551cb0783f44f6fa594804bf94ee`；build `9dd3a9a2ecd8`，prepared `2f0b308952145b4f8f522b10925782e4ae21f3ac`，Pages41423846094成功。两个实际表现宿主共用离屏Canvas准备；真实Home首jump/pulse被接受且全program新增编译／链接0，原生GPU50和同版相关10项fresh通过。style33／creative36只技术重绑一GD，图声与玩法规则保持，不自动合main。
+
+原Web构建／精确原Foundry56派生输入守门／实际PCK13／完整公网SHA及本地和公网Title→Home→真实BEGIN→正式平原入口均通过。公网179.016秒／原300，末尾短移动下落仅签输入响应；原favicon404和Emscripten提示保留。此为快速试玩，不是新full171／Windows或手机FPS。
+
+正式新4pulse／3hit／kill性能采样NOT_RUN，原首hit220ms尚有未归因耗时，draw／buffer仍是计时盲区；用户设备、完整consumer inventory和formal integration未签，任务review。下一步优先手机Chrome及上述实际帧盲区，不能用已证明的编译准备宣称全部战斗消卡。版本、原失败、缓存恢复和成组回退见[本批结果](worklines/first_use_stutter_01/results.md)。
+
 ## 2026-11-02 COMBAT-PERF-DEPLOY-01 技术已部署，待真机
 
 运行源码 F `60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50`，运行补丁 `70edb686`，prepared `f55e3cfc7d7867c672d76f5887fc3694c62502c8`；公开 build `506a4e40a1ee`。原 CI 41382432305 attempt1 的 171 项 fresh／0 复用和 Windows/Web/GPU/audio 通过；同次 prepare 56 个生成路径保持实际 dirty 记录，不声称 CI Git-clean。原3浏览器73、空目录PCK13、第二次同源连续影片2300帧、Pages41390679708、公开完整PCK SHA及真实Title→Home→正式平原入口GUI均已通过。
