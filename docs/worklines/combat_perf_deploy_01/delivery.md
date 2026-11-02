@@ -1,6 +1,6 @@
 # 本轮既有交付路径
 
-以下为待执行步骤，不是成功收据。使用最终干净源F；`SOURCE_REF`是已推送且HEAD等于F的固定源分支／标签，不能运行中移动。完整流程既有 `environment.yml`，prepared工作流唯一必填input为 `prepared_ref`。不新增workflow，不重新导出替换已经验过的包。
+本轮实际交付已完成，见[结果与未验边界](results.md)。以下保留原执行程序供追溯／后续交付，不表示再次启动 CI 或重复发布。使用最终干净源F；`SOURCE_REF`是已推送且HEAD等于F的固定源分支／标签，不能运行中移动。完整流程既有 `environment.yml`，prepared工作流唯一必填input为 `prepared_ref`。不新增workflow，不重新导出替换已经验过的包。
 
 ```sh
 # root填入最终值后执行；本记录不启动CI。
@@ -35,4 +35,4 @@ python3 tools/verify_published_build.py --url "$PUBLIC_URL" --build-id "$BUILD_I
 
 还须流式核公开完整PCK的64位SHA等于原ZIP记录（原公开工具比的是完整读取后的12位build ID）、HTTP与长度，并做真实Title／目标入口基本GUI。报告具体URL／F／build／run，手机帧率和玩家认可另列。部署不表示合main。
 
-已批准非editor模板存在于 `/workspace/toolchains/user-data/godot-4.7.2-gunman-sd1/godot/export_templates/4.7.2.stable/linux_release.x86_64`，89583008字节／SHA `6a280c82dfaf94efc1a7e268c69cb536ecb841d303478068333df14ffb192493`，与当前工具链锁一致；仅用于root随后真实release路径验证，未执行不记通过。
+已批准非editor模板存在于 `/workspace/toolchains/user-data/godot-4.7.2-gunman-sd1/godot/export_templates/4.7.2.stable/linux_release.x86_64`，89583008字节／SHA `6a280c82dfaf94efc1a7e268c69cb536ecb841d303478068333df14ffb192493`，与当前工具链锁一致；本轮已实际用于 release 路径核测量，具体成功与失败分别见结果及原收据；不能代签整帧性能。

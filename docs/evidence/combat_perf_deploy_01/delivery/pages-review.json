@@ -1,0 +1,129 @@
+{
+  "scope": "Actual prepared deployment API and original job log; public HTTP/full PCK/GUI not performed by reviewer",
+  "run_id": 41390679708,
+  "attempt": 1,
+  "workflow_source": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "prepared_checkout": "f55e3cfc7d7867c672d76f5887fc3694c62502c8",
+  "job_id": 125101163604,
+  "status": "success",
+  "checkout_order_verified": [
+    "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+    "f55e3cfc7d7867c672d76f5887fc3694c62502c8"
+  ],
+  "reconstruction": {
+    "scope": "exact PCK reconstruction for static Pages transport",
+    "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+    "build_id": "506a4e40a1ee",
+    "pack": "index.506a4e40a1ee.pck",
+    "pack_bytes": 216391560,
+    "pack_sha256": "506a4e40a1ee711362f9f701b64f39ba68f9015c0922c102bf87ccc29dc74d59",
+    "reconstructed": true,
+    "failed": 0
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-11-02T04:50:50Z",
+      "completed_at": "2026-11-02T04:50:51Z"
+    },
+    {
+      "name": "Checkout exact deployment helper without historical evidence",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-11-02T04:50:51Z",
+      "completed_at": "2026-11-02T04:50:55Z"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-11-02T04:50:55Z",
+      "completed_at": "2026-11-02T04:51:17Z"
+    },
+    {
+      "name": "Reconstruct and verify the complete content-addressed PCK",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-11-02T04:51:17Z",
+      "completed_at": "2026-11-02T04:51:18Z"
+    },
+    {
+      "name": "Reconstruct the optional frozen audio comparison",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2026-11-02T04:51:18Z",
+      "completed_at": "2026-11-02T04:51:18Z"
+    },
+    {
+      "name": "Reconstruct the optional FPS investigation candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6,
+      "started_at": "2026-11-02T04:51:18Z",
+      "completed_at": "2026-11-02T04:51:18Z"
+    },
+    {
+      "name": "Reconstruct the optional action performance candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 7,
+      "started_at": "2026-11-02T04:51:18Z",
+      "completed_at": "2026-11-02T04:51:18Z"
+    },
+    {
+      "name": "Run actions/upload-pages-artifact@v3",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 8,
+      "started_at": "2026-11-02T04:51:18Z",
+      "completed_at": "2026-11-02T04:51:35Z"
+    },
+    {
+      "name": "Run actions/deploy-pages@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 9,
+      "started_at": "2026-11-02T04:51:35Z",
+      "completed_at": "2026-11-02T04:51:52Z"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 17,
+      "started_at": "2026-11-02T04:51:52Z",
+      "completed_at": "2026-11-02T04:51:52Z"
+    },
+    {
+      "name": "Post Checkout exact deployment helper without historical evidence",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 18,
+      "started_at": "2026-11-02T04:51:52Z",
+      "completed_at": "2026-11-02T04:51:53Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 19,
+      "started_at": "2026-11-02T04:51:53Z",
+      "completed_at": "2026-11-02T04:51:53Z"
+    }
+  ],
+  "run_api_file": "/workspace/refactor-evidence/combat-perf-deploy-01/final-ci/prepared-watch-2026-11-02T04-52-24-430Z-run.json",
+  "run_api_sha256": "2f8064bf27f9a62f5c9657a9ef02bdc524d6486b39e62efa3ccaa86d8b738b36",
+  "jobs_api_file": "/workspace/refactor-evidence/combat-perf-deploy-01/final-ci/prepared-watch-2026-11-02T04-52-24-430Z-jobs.json",
+  "jobs_api_sha256": "d7633728a4662a21540ad9c5bc117daa59799205141a0d8c87aad26b1bdff83f",
+  "log_file": "/workspace/refactor-evidence/combat-perf-deploy-01/final-ci/prepared-deploy-job125101163604.log",
+  "log_sha256": "ef07c3bef0c95dfee1c7585bd7eb07e85232415ffc3bcf2f2a965948cf4fde19",
+  "public_verification": "pending root independent HTTP/fullSHA/GUI",
+  "actions": "read-only monitoring; no dispatch/download/production writes"
+}

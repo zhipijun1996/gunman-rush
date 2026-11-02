@@ -1,3 +1,11 @@
+## 2026-11-02 COMBAT-PERF-DEPLOY-01 技术已部署，待真机
+
+运行源码 F `60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50`，运行补丁 `70edb686`，prepared `f55e3cfc7d7867c672d76f5887fc3694c62502c8`；公开 build `506a4e40a1ee`。原 CI 41382432305 attempt1 的 171 项 fresh／0 复用和 Windows/Web/GPU/audio 通过；同次 prepare 56 个生成路径保持实际 dirty 记录，不声称 CI Git-clean。原3浏览器73、空目录PCK13、第二次同源连续影片2300帧、Pages41390679708、公开完整PCK SHA及真实Title→Home→正式平原入口GUI均已通过。
+
+源码／图声／玩法规则没有因交付改写；这次收口仅文档证据。局部 CPU 改善并不等于手机FPS，Root首次构造0.307→0.491ms冷代价保留。公开GUI保留favicon404与Emscripten blocking诊断，未验战斗/死亡/无人机实机；手机、玩家、审美听感及完整consumer inventory仍未验。任务保持review，formal_integration未签，非G5或main合并。
+
+详见[结果、版本与回退](worklines/combat_perf_deploy_01/results.md)和[精选交付证据](evidence/combat_perf_deploy_01/delivery/index.json)。下一步只做文档/结构/质量与精确提交证据守门后提交收口；无需因文档再跑171。继续性能工作先补真实设备证据，不用局部核测量代替。旧公开回退P为ab57c6d5cc14e279aa074f54fd1e0854ae97a750；源码回退须成组回到e42批次，不能单退GD。以下保留各阶段原状态和失败，不追签历史。
+
 ## 2026-11-02 COMBAT-PERF-DEPLOY-01 正在实施
 
 用户已明确授权优化后部署；当前从 `e42b277f37425458a2920815258d1cfc817acfc3` 推进反馈／足部／网格／ItemArt与实际同伴查询热点。候选与有限测试由root收口，最终F尚未冻结；没有本轮完整171、同源新Web或手机FPS通过声明。公开仍是ab263／build2e1274f62210，不拿旧包展示本轮效果，不自动合main。

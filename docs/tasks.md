@@ -2,7 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
-| COMBAT-PERF-DEPLOY-01 | 收敛实际战斗热点，最终同源验证后部署试玩 | MOBILE-COMBAT-MESH-02 | in_progress | [范围](worklines/combat_perf_deploy_01/scope.md) · [交付命令](worklines/combat_perf_deploy_01/delivery.md) · [质量记录](quality/records/COMBAT-PERF-DEPLOY-01.json)；用户已授权，本轮未部署，完整171／手机FPS尚未签 |
+| COMBAT-PERF-DEPLOY-01 | 原所有者内优化战斗热点并部署同源试玩 | MOBILE-COMBAT-MESH-02 | review | [结果](worklines/combat_perf_deploy_01/results.md) · [范围](worklines/combat_perf_deploy_01/scope.md) · [质量记录](quality/records/COMBAT-PERF-DEPLOY-01.json)；F60f44：171 fresh、原3浏览器73、PCK13、同源影片与公开完整SHA/入口GUI通过；技术已部署，待真机/玩家，非整体FPS或G5通过 |
 
 ## 2026-11-01 网格性能与后续功能架构
 
