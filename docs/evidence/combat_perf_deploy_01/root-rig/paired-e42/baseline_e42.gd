@@ -1,0 +1,850 @@
+extends RefCounted
+# Exact e42b277f test-only source; lexical class names and nesting only.
+
+class E42Pose:
+	extends RefCounted
+	## A draw-local snapshot. Float properties retain GDScript's 64-bit arithmetic.
+	## Raw fields are distinct: Ground vitality and Flora intentionally clamp at
+	## different points. Never cache by Dictionary identity across draws.
+	var clock: float
+	var stride: float
+	var travel: float
+	var raw_load: float
+	var raw_strike: float
+	var load: float
+	var strike: float
+	var recovery: float
+	var hurt: float
+	var raw_turn: float
+	var turn: float
+	var air: bool
+	var vertical: float
+	var dead: bool
+	var raw_death: float
+	var death: float
+	var drive: float
+	var appendage_follow: float
+	var aim: float
+	var death_clock: float
+	var landing: float
+	var live: E42Pose
+	# Draw-local scalar terms, evaluated once with the original 64-bit expressions.
+	# Keep each offset wave distinct; trigonometric identities change rounding.
+	var stride_sin: float
+	var stride_cos: float
+	var rear_stride_sin: float
+	var rear_stride_cos: float
+	var patrol_breath_sin: float
+	var patrol_body_sin: float
+	var patrol_head_sin: float
+	var patrol_gait_head_sin: float
+	var patrol_gait_lag_sin: float
+	var charger_breath_sin: float
+	var charger_body_sin: float
+	var charger_head_sin: float
+	var charger_gait_head_sin: float
+	var hopper_breath_sin: float
+	var hopper_head_sin: float
+	var hopper_gait_head_sin: float
+	var recovery_half_sin: float
+	var recovery_full_sin: float
+	var recovery_return_sin: float
+	var charger_hurt_sin: float
+	var sentry_breath_sin: float
+	var sentry_muzzle_sin: float
+	var sentry_body_sin: float
+	var sentry_leaf_sin: float
+	var fan_wing_sin: float
+	var fan_body_sin: float
+	var fan_pitch_sin: float
+	var fan_feet_sin: float
+	var root_stem_sin: float
+	var root_hurt_sin: float
+	var root_upper_sin: float
+	var root_bell_sin: float
+	var root_leaf_sin: float
+	var ground_quiet: float
+	var flora_quiet: float
+
+	static func prepare(values: Dictionary) -> E42Pose:
+		var result := E42Pose.new()
+		result.clock = float(values.get("clock", 0.0))
+		result.stride = float(values.get("stride", 0.0))
+		result.travel = clampf(float(values.get("travel", 0.0)), 0.0, 1.0)
+		result.raw_load = float(values.get("load", 0.0))
+		result.raw_strike = float(values.get("strike", 0.0))
+		result.load = clampf(result.raw_load, 0.0, 1.0)
+		result.strike = clampf(result.raw_strike, 0.0, 1.0)
+		result.recovery = clampf(float(values.get("recovery", 0.0)), 0.0, 1.0)
+		result.hurt = clampf(float(values.get("hurt", 0.0)), 0.0, 1.0)
+		result.raw_turn = float(values.get("turn", 0.0))
+		result.turn = clampf(result.raw_turn, -1.0, 1.0)
+		result.air = bool(values.get("air", false))
+		result.vertical = float(values.get("vertical", 0.0))
+		result.dead = bool(values.get("dead", false))
+		result.raw_death = float(values.get("death", 0.0))
+		result.death = clampf(result.raw_death, 0.0, 1.0)
+		result.drive = clampf(float(values.get("drive", 0.0)), -1.0, 1.0)
+		result.appendage_follow = clampf(float(values.get("appendage_follow", result.travel)), 0.0, 1.0)
+		result.aim = float(values.get("aim", 0.0))
+		result.death_clock = float(values.get("death_clock", 0.0))
+		result.landing = float(values.get("landing", 0.0))
+		result._prepare_motion_terms()
+		if result.dead:
+			var captured := values.duplicate()
+			captured["dead"] = false
+			result.live = prepare(captured)
+		return result
+
+	func _prepare_motion_terms() -> void:
+		stride_sin = sin(stride)
+		stride_cos = cos(stride)
+		rear_stride_sin = sin(stride + PI)
+		rear_stride_cos = cos(stride + PI)
+		patrol_breath_sin = sin(clock * 3.6)
+		patrol_body_sin = sin(stride - .22)
+		patrol_head_sin = sin(clock * 2.1 - .65)
+		patrol_gait_head_sin = sin(stride - .65)
+		patrol_gait_lag_sin = sin(stride - .55)
+		charger_breath_sin = sin(clock * 2.8)
+		charger_body_sin = sin(stride - .38)
+		charger_head_sin = sin(clock * 1.9 - .80)
+		charger_gait_head_sin = sin(stride - .75)
+		hopper_breath_sin = sin(clock * 3.5)
+		hopper_head_sin = sin(clock * 2.4 - .7)
+		hopper_gait_head_sin = sin(stride - .7)
+		recovery_half_sin = sin(recovery * PI)
+		recovery_full_sin = sin(recovery * PI * 2.0)
+		recovery_return_sin = sin((1.0 - recovery) * PI * 2.0)
+		charger_hurt_sin = sin((1.0 - hurt) * PI * 5.0)
+		sentry_breath_sin = sin(clock * 3.1)
+		sentry_muzzle_sin = sin(clock * 2.2 - .55)
+		sentry_body_sin = sin(clock * 2.2)
+		sentry_leaf_sin = sin(clock * 2.2 - .9)
+		fan_wing_sin = sin(clock * 12.5)
+		fan_body_sin = sin(clock * 12.5 - .52)
+		fan_pitch_sin = sin(clock * 12.5 - .72)
+		fan_feet_sin = sin(clock * 12.5 - 1.1)
+		root_stem_sin = sin(clock * 2.6)
+		root_hurt_sin = sin((1.0 - hurt) * PI * 1.5)
+		root_upper_sin = sin(clock * 2.6 - .5)
+		root_bell_sin = sin(clock * 2.6 - .95)
+		root_leaf_sin = sin(clock * 2.6 - 1.2)
+		ground_quiet = 1.0-clampf(raw_load+raw_strike,0.0,1.0)*.75
+		flora_quiet = 1.0-clampf(load+strike,0.0,1.0)*.8
+
+class E42Ground:
+	extends RefCounted
+	## Presentation-only, right-facing anatomy. Feet are the common (0, 0) anchor.
+	## State values and locomotion distance are sampled by the owning presentation.
+
+	static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary, kind: StringName) -> Vector2:
+		return deform_prepared(point, uv, size, E42Pose.prepare(pose), kind, PlainsRevisionWeights.new(uv, kind))
+
+	static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, kind: StringName, weights: PlainsRevisionWeights) -> Vector2:
+		var p := point
+		match kind:
+			&"patrol": p = _patrol_live(p, uv, size, pose, weights)
+			&"charger": p = _charger_live(p, uv, size, pose, weights)
+			&"hopper": p = _hopper_live(p, uv, size, pose, weights)
+		p = _vitality(p,uv,size,pose,kind, weights)
+		if not pose.dead: return p
+		var death := pose.death
+		if death<=0.0: return p
+		# The first lethal picture is the sampled live pose. The settled picture is
+		# derived only from anatomy and progress, so no breath/gait/twitch survives.
+		var target := point
+		match kind:
+			&"patrol": target = _patrol_dead(point, uv, size, death, weights)
+			&"charger": target = _charger_dead(point, uv, size, death, weights)
+			&"hopper": target = _hopper_dead(point, uv, size, death, weights)
+		p = p.lerp(target, smoothstep(0.0, 0.14, death))
+		p.y = minf(p.y, 0.0)
+		return p
+
+	static func _at(unit: Vector2, size: Vector2) -> Vector2:
+		return Vector2((unit.x - 0.5) * size.x, (unit.y - 1.0) * size.y)
+
+	static func _joint(point: Vector2, unit: Vector2, size: Vector2, angle: float, weight: float) -> Vector2:
+		if weight == 0.0: return point
+		var pivot := _at(unit, size)
+		return _joint_at(point, pivot, angle, weight)
+
+	static func _joint_at(point: Vector2, pivot: Vector2, angle: float, weight: float) -> Vector2:
+		if weight == 0.0: return point
+		return point.lerp(pivot + (point - pivot).rotated(angle), clampf(weight, 0.0, 1.0))
+
+	static func _vitality(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, kind: StringName, weights: PlainsRevisionWeights) -> Vector2:
+		# Carry weight through the chest/hip while toes retain their support. This
+		# is deliberately not a common translation applied to the entire picture.
+		var p := point
+		var travel := pose.travel
+		var drive := pose.drive
+		var delayed := pose.appendage_follow
+		var quiet := pose.ground_quiet
+		var upper := weights.ground_upper
+		match kind:
+			&"patrol":
+				var head := weights.patrol_head
+				var chest := upper*(1.0-.72*head)
+				var breath := pose.patrol_breath_sin*quiet
+				var pivot := _at(Vector2(.46,.69),size)
+				p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.010*breath,1.0+.023*breath),chest)
+				# Downward weight transfer coincides with the swing foot's return.
+				p.y += size.y*.040*absf(pose.stride_sin)*travel*upper
+				p = _joint(p,Vector2(.46,.76),size,-.060*drive+.018*pose.patrol_body_sin*travel,chest)
+				p = _joint(p,Vector2(.74,.49),size,.028*pose.patrol_head_sin*quiet+.043*pose.patrol_gait_head_sin*delayed-.075*drive,head)
+				p.x += size.x*.011*pose.patrol_gait_lag_sin*delayed*head
+			&"charger":
+				var head := weights.charger_head
+				var shell := upper*(1.0-.65*head)
+				var breath := pose.charger_breath_sin*quiet
+				var pivot := _at(Vector2(.45,.73),size)
+				p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.007*breath,1.0+.024*breath),shell)
+				p.y += size.y*.027*absf(pose.stride_sin)*travel*quiet*upper
+				p = _joint(p,Vector2(.58,.76),size,-.047*drive+.019*pose.charger_body_sin*travel,shell)
+				p = _joint(p,Vector2(.68,.60),size,.022*pose.charger_head_sin*quiet+.033*pose.charger_gait_head_sin*delayed-.036*drive,head)
+				# The fore knee yields a little; the planted toe does not drift.
+				var knee := weights.charger_knee
+				p = _joint(p,Vector2(.55,.64),size,.027*breath*(1.0-travel),knee)
+			&"hopper":
+				var grounded := 0.0 if pose.air else 1.0
+				var belly := weights.ground_belly
+				var breath := pose.hopper_breath_sin*quiet
+				var pivot := _at(Vector2(.43,.53),size)
+				p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.018*breath,1.0+.029*breath),belly)
+				p.y += size.y*.025*absf(pose.stride_sin)*travel*grounded*upper
+				p = _joint(p,Vector2(.49,.72),size,-.043*drive*grounded,upper)
+				p = _joint(p,Vector2(.79,.52),size,.029*pose.hopper_head_sin*quiet+.038*pose.hopper_gait_head_sin*delayed*grounded-.045*drive,weights.hopper_head)
+				var thigh := weights.hopper_thigh
+				p = _joint(p,Vector2(.49,.60),size,.022*breath*(1.0-travel)*grounded,thigh)
+		return p
+
+	static func _patrol_live(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var travel := pose.travel
+		var hurt := pose.hurt
+		var turn := pose.turn
+		var p := point
+		var front := weights.front_leg
+		var rear := weights.rear_leg
+		# Opposed contact/swing halves: one foot bears weight while the other lifts.
+		p.x += size.x * 0.065 * travel * (pose.stride_sin * front + pose.rear_stride_sin * rear)
+		p.y -= size.y * 0.075 * travel * (maxf(0.0, pose.stride_cos) * front + maxf(0.0, pose.rear_stride_cos) * rear)
+		p = _joint(p, Vector2(0.64, 0.57), size, pose.stride_sin * travel * 0.13, front)
+		p = _joint(p, Vector2(0.28, 0.66), size, pose.rear_stride_sin * travel * 0.13, rear)
+		var upper := weights.ground_upper
+		p.y -= size.y * (0.017 * travel * absf(pose.stride_sin) + 0.006 * pose.patrol_breath_sin) * upper
+		var head := weights.patrol_head
+		# The head looks ahead of the torso. The trunk answers only a strong turn.
+		# Negative is a pending reversal: look back toward the new travel side
+		# while the trunk still retains its previous facing.
+		p.x += size.x * (0.095 if turn<0.0 else 0.052) * turn * head
+		p = _joint(p, Vector2(0.74, 0.49), size, -0.17 * turn + 0.10 * hurt, head)
+		p = _joint(p, Vector2(0.46, 0.75), size, -0.035 * smoothstep(0.42, 1.0, turn), upper)
+		# A short stumble folds a knee and puts the head behind the load-bearing foot.
+		p = _joint(p, Vector2(0.28, 0.66), size, hurt * 0.31, rear)
+		p = _joint(p, Vector2(0.64, 0.57), size, -hurt * 0.22, front)
+		p.x -= size.x * 0.035 * hurt * upper
+		p.y += size.y * 0.06 * hurt * upper
+		return p
+
+	static func _charger_live(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var travel := pose.travel
+		var load := pose.load
+		var strike := pose.strike
+		var recovery := pose.recovery
+		var hurt := pose.hurt
+		var p := point
+		var fore := weights.charger_foreleg
+		var hind := weights.rear_leg
+		var upper := weights.ground_upper
+		var head := weights.charger_head
+		var shell := weights.charger_shell
+		var gait := travel * (1.0 - 0.75 * load)
+		p.x += size.x * 0.055 * gait * (pose.stride_sin * fore + pose.rear_stride_sin * hind)
+		p.y -= size.y * 0.045 * gait * (maxf(0.0, pose.stride_cos) * fore + maxf(0.0, pose.rear_stride_cos) * hind)
+		# Forelegs compress under the lowered horn; the rear legs load behind them.
+		p = _joint(p, Vector2(0.55, 0.64), size, -0.34 * load - 0.24 * recovery, fore)
+		p = _joint(p, Vector2(0.30, 0.64), size, 0.23 * load - 0.54 * strike, hind)
+		p.y += size.y * 0.085 * load * upper
+		p.x += size.x * 0.070 * strike * upper
+		p = _joint(p, Vector2(0.68, 0.60), size, 0.23 * load - 0.12 * strike - 0.08 * recovery, head)
+		# During braking the front limbs stop first. A damped shell overshoot carries
+		# the rear mass forward while the horn is already lifting out of its strike.
+		var brake := pose.recovery_half_sin * recovery
+		p.x += size.x * (0.045 * recovery + 0.034 * brake) * shell
+		p = _joint(p, Vector2(0.62, 0.72), size, 0.075 * recovery + 0.065 * brake, shell)
+		# Impact shakes the armour locally, instead of squashing the entire animal.
+		var shiver := pose.charger_hurt_sin * hurt * hurt
+		p.x += size.x * 0.026 * shiver * shell
+		p.y += size.y * 0.015 * shiver * shell
+		p = _joint(p, Vector2(0.47, 0.67), size, shiver * 0.035, shell)
+		p.y -= size.y * 0.004 * pose.charger_breath_sin * shell
+		return p
+
+	static func _hopper_live(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var travel := pose.travel
+		var load := pose.load
+		var strike := pose.strike
+		var recovery := pose.recovery
+		var hurt := pose.hurt
+		var air := pose.air
+		var vertical := pose.vertical
+		var p := point
+		var hind := weights.hopper_hind
+		var fore := weights.front_leg
+		var upper := weights.ground_upper
+		var belly := weights.ground_belly
+		var fold := (0.65 + 0.35 * clampf(absf(vertical) / 220.0, 0.0, 1.0)) if air else 0.0
+		var extend := strike * (1.0 - 0.65 * fold)
+		# Hip and ankle have opposing axes: preload closes the knee; push-off opens
+		# the large thigh and extends its long lower segment behind the abdomen.
+		p = _joint(p, Vector2(0.49, 0.60), size, 0.38 * load - 0.62 * extend + 0.37 * fold + 0.18 * recovery, hind)
+		var ankle := weights.hopper_ankle
+		p = _joint(p, Vector2(0.28, 0.72), size, -0.55 * load + 0.78 * extend - 0.58 * fold - 0.22 * recovery, ankle)
+		p.y += size.y * (0.13 * load + 0.09 * recovery - 0.055 * extend) * upper
+		p.x += size.x * 0.045 * extend * upper
+		p = _joint(p, Vector2(0.76, 0.68), size, -0.20 * load + 0.28 * extend - 0.26 * fold + 0.16 * recovery, fore)
+		# Real landing/recovery makes a second, smaller upward response, not a
+		# perpetual idle bounce. At the end of recovery both feet carry the body.
+		var bounce := pose.recovery_full_sin * recovery * (1.0 - recovery)
+		p.y += size.y * 0.07 * bounce * upper
+		p.x += size.x * 0.03 * pose.stride_sin * travel * (fore + 0.5 * hind) * (1.0 - fold)
+		p.y -= size.y * 0.005 * pose.hopper_breath_sin * upper
+		# A seed-soft abdomen pulls in toward its upper hip after an accepted hit.
+		var belly_pivot := _at(Vector2(0.43, 0.53), size)
+		var contracted := belly_pivot + (p - belly_pivot) * Vector2(1.0 - hurt * 0.11, 1.0 - hurt * 0.13)
+		p = p.lerp(contracted, belly)
+		p = _joint(p, Vector2(0.79, 0.52), size, hurt * 0.11, weights.hopper_head)
+		return p
+
+	static func _patrol_dead(point: Vector2, uv: Vector2, size: Vector2, death: float, weights: PlainsRevisionWeights) -> Vector2:
+		var p := point
+		var front := weights.front_leg
+		var rear := weights.rear_leg
+		var first_knee := smoothstep(0.08, 0.38, death)
+		var second_knee := smoothstep(0.24, 0.58, death)
+		var topple := smoothstep(0.30, 0.80, death)
+		var head_drop := smoothstep(0.67, 0.98, death)
+		var stumble := sin(clampf(death / 0.30, 0.0, 1.0) * PI) * (1.0 - smoothstep(0.22, 0.36, death))
+		p = _joint(p, Vector2(0.64, 0.57), size, -1.03 * first_knee, front)
+		p = _joint(p, Vector2(0.28, 0.66), size, 0.92 * second_knee, rear)
+		var trunk := weights.ground_upper * (1.0 - 0.8 * weights.patrol_head)
+		p = _joint(p, Vector2(0.48, 0.70), size, 0.26 * topple - 0.08 * stumble, trunk)
+		# The first GPU corpse became a thin strip: folding knees must lower the
+		# trunk without removing its ribcage volume. Keep a full, rounded side.
+		var depth := lerpf(1.0, 0.68, topple)
+		p.y *= depth
+		# Folded toes already meet the support plane. Lower the ribcage onto them
+		# instead of leaving the chest suspended above those few contact pixels.
+		var chest_drop := size.y * 0.12 * topple
+		p.y += chest_drop * weights.ground_upper
+		p.x += size.x * (0.045 * stumble + 0.055 * topple) * weights.ground_upper
+		# Bend at the lowered neck, not its old upright coordinate. The pale face
+		# comes to rest ahead of the chest rather than being driven into its pixels.
+		var neck := _at(Vector2(0.74, 0.49), size)
+		neck.y *= depth
+		neck.y += chest_drop * PlainsRevisionWeights.ground_upper_at(Vector2(0.74, 0.49))
+		p = _joint_at(p, neck, 0.34 * head_drop, weights.patrol_head)
+		p.x += size.x * 0.055 * head_drop * weights.patrol_head
+		p.y += size.y * 0.09 * head_drop * weights.patrol_head
+		return p
+
+	static func _charger_dead(point: Vector2, uv: Vector2, size: Vector2, death: float, weights: PlainsRevisionWeights) -> Vector2:
+		var p := point
+		var fore := weights.charger_foreleg
+		var hind := weights.rear_leg
+		var head := weights.charger_head
+		var kneel := smoothstep(0.02, 0.31, death)
+		var roll := smoothstep(0.24, 0.78, death)
+		var hind_fold := smoothstep(0.42, 0.84, death)
+		var horn_contact := smoothstep(0.50, 0.73, death)
+		var shell_contact := smoothstep(0.68, 0.96, death)
+		p = _joint(p, Vector2(0.55, 0.64), size, -1.15 * kneel, fore)
+		p = _joint(p, Vector2(0.30, 0.63), size, 0.93 * hind_fold, hind)
+		var shell := weights.ground_upper * (1.0 - 0.75 * head)
+		p = _joint(p, Vector2(0.56, 0.70), size, 0.19 * roll + 0.055 * shell_contact, shell)
+		# Knees and hind legs supply the height loss; the shell keeps its volume.
+		var depth := lerpf(1.0, 0.70, roll)
+		p.y *= depth
+		p.x += size.x * (0.035 * kneel + 0.045 * roll) * weights.ground_upper
+		var neck := _at(Vector2(0.68, 0.60), size)
+		neck.y *= depth
+		p = _joint_at(p, neck, 0.19 * horn_contact, head)
+		p.y += size.y * 0.045 * horn_contact * head
+		# The armour answers the first horn contact once; amplitude tends to zero at
+		# final rest, and there is no clock-driven movement in the permanent corpse.
+		var knock := sin(clampf((death - 0.67) / 0.29, 0.0, 1.0) * PI) * (1.0 - shell_contact)
+		p.y -= size.y * 0.035 * knock * shell
+		return p
+
+	static func _hopper_dead(point: Vector2, uv: Vector2, size: Vector2, death: float, weights: PlainsRevisionWeights) -> Vector2:
+		var hind := weights.hopper_hind
+		var fore := weights.front_leg
+		var release := smoothstep(0.01, 0.60, death)
+		var belly_drop := smoothstep(0.17, 0.63, death)
+		var head_drop := smoothstep(0.48, 0.81, death)
+		var stop := smoothstep(0.78, 0.94, death)
+		var twitch := sin(clampf((death - 0.66) / 0.25, 0.0, 1.0) * PI) * (1.0 - stop)
+		# The round abdomen's lower rim is y=.81 in the master. Translate that
+		# mass to contact instead of squeezing its height and leaving a standing hip.
+		var body_shift := Vector2(0.0, size.y * (0.19 * belly_drop - 0.012 * twitch))
+		var p := point + body_shift
+		var old_hip := _at(Vector2(0.49, 0.60), size)
+		var old_knee := _at(Vector2(0.20, 0.09), size)
+		var old_foot := _at(Vector2(0.05, 0.98), size)
+		var hip := old_hip + body_shift
+		var thigh_length := old_hip.distance_to(old_knee)
+		var shin_length := old_knee.distance_to(old_foot)
+		# Commit the final foot beside the animal first. The near-straight chain is
+		# outside the abdomen, and its toe has enough height for its actual thickness
+		# rather than relying on the outer floor clamp to cut away a hanging shin.
+		var foot := (old_foot + body_shift).lerp(Vector2(hip.x - (thigh_length + shin_length) * 0.97, -size.y * 0.06), release)
+		var knee := _hopper_knee(hip, foot, thigh_length, shin_length)
+		var thigh_point := _hopper_segment_map(point, old_hip, old_knee, hip, knee)
+		var shin_point := _hopper_segment_map(point, old_knee, old_foot, knee, foot)
+		var thigh_distance := point.distance_to(Geometry2D.get_closest_point_to_segment(point, old_hip, old_knee))
+		var shin_distance := point.distance_to(Geometry2D.get_closest_point_to_segment(point, old_knee, old_foot))
+		# Both transforms meet at the knee; only the small joint neighbourhood blends.
+		var shin_weight := smoothstep(-size.x * 0.035, size.x * 0.035, thigh_distance - shin_distance)
+		var hind_point := thigh_point.lerp(shin_point, shin_weight)
+		p = p.lerp(hind_point, hind)
+		# The short front limbs similarly roll outward to the right of the belly.
+		# Their hip follows the translated mass; their foot retains its bone length.
+		var old_front_hip := _at(Vector2(0.76, 0.68), size)
+		var old_front_foot := _at(Vector2(0.95, 0.98), size)
+		var front_hip := old_front_hip + body_shift
+		var front_length := old_front_hip.distance_to(old_front_foot)
+		var front_y := -size.y * 0.04
+		var front_dy := clampf(front_y - front_hip.y, -front_length * 0.96, front_length * 0.96)
+		var spread_front := front_hip + Vector2(sqrt(maxf(0.0, front_length * front_length - front_dy * front_dy)), front_dy)
+		var front_foot := (old_front_foot + body_shift).lerp(spread_front, release)
+		p = p.lerp(_hopper_segment_map(point, old_front_hip, old_front_foot, front_hip, front_foot), fore)
+		# Head descent is a child of the lowered abdomen, and happens after contact.
+		var neck := _at(Vector2(0.79, 0.52), size) + body_shift
+		p = _joint_at(p, neck, 0.56 * head_drop, weights.hopper_head)
+		p.x += size.x * 0.025 * head_drop * weights.hopper_head
+		p.y += size.y * 0.085 * head_drop * weights.hopper_head
+		return p
+
+	static func _hopper_segment_map(point: Vector2, old_start: Vector2, old_end: Vector2, new_start: Vector2, new_end: Vector2) -> Vector2:
+		return new_start + (point - old_start).rotated((old_end - old_start).angle_to(new_end - new_start))
+
+	static func _hopper_knee(hip: Vector2, foot: Vector2, thigh_length: float, shin_length: float) -> Vector2:
+		var to_foot := foot - hip
+		var distance := clampf(to_foot.length(), absf(thigh_length - shin_length) + 0.0001, thigh_length + shin_length - 0.0001)
+		var direction := to_foot.normalized()
+		var along := (thigh_length * thigh_length - shin_length * shin_length + distance * distance) / (2.0 * distance)
+		var height := sqrt(maxf(0.0, thigh_length * thigh_length - along * along))
+		# Leftward leg uses the upper branch, keeping the knee clear of the ground.
+		return hip + direction * along + Vector2(-direction.y, direction.x) * height
+
+class E42Flora:
+	extends RefCounted
+	## Body-space joints for the three planted/winged plains organisms.
+	## The host owns every clock, accepted hit and contact. This leaf only bends
+	## the same neutral skin; it never draws an intent marker or moves an Actor.
+
+	static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary, kind: StringName) -> Vector2:
+		return deform_prepared(point, uv, size, E42Pose.prepare(pose), kind, PlainsRevisionWeights.new(uv, kind))
+
+	static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, kind: StringName, weights: PlainsRevisionWeights) -> Vector2:
+		if not size.is_finite() or size.x <= 0.0 or size.y <= 0.0: return point
+		var p := point
+		match kind:
+			&"sentry": p = _sentry(point, uv, size, pose, weights)
+			&"fan_sentry": p = _fan(point, uv, size, pose, weights)
+			&"root_bell": p = _root_bell(point, uv, size, pose, weights)
+		if kind != &"fan_sentry" and pose.dead and pose.raw_death<.16:
+			# Lethal handoff keeps the captured loaded or hurt joints intact.
+			var live := pose.live
+			var current := deform_prepared(point,uv,size,live,kind,weights)
+			p = current.lerp(p,smoothstep(0.0,.16,pose.raw_death))
+		# Cosmetic joints may approach the floor, but never fold pixels through it.
+		# The host supplies a separate falling/contact transform for aerial deaths.
+		if not pose.air or (pose.dead and pose.raw_death > 0.0):
+			p.y = minf(p.y, 0.0)
+		return p
+
+	static func _pivot(unit: Vector2, size: Vector2) -> Vector2:
+		return Vector2((unit.x - 0.5) * size.x, (unit.y - 1.0) * size.y)
+
+	static func _joint(point: Vector2, unit_pivot: Vector2, size: Vector2, angle: float, weight: float) -> Vector2:
+		var root := _pivot(unit_pivot, size)
+		return _joint_at(point,root,angle,weight)
+
+	static func _joint_at(point: Vector2, root: Vector2, angle: float, weight: float) -> Vector2:
+		return point.lerp(root + (point - root).rotated(angle), clampf(weight, 0.0, 1.0))
+
+	static func _scale_part(point: Vector2, unit_pivot: Vector2, size: Vector2, factor: Vector2, weight: float) -> Vector2:
+		var root := _pivot(unit_pivot, size)
+		return point.lerp(root + (point - root) * factor, clampf(weight, 0.0, 1.0))
+
+	static func _window(start: float, end: float, value: float) -> float:
+		return smoothstep(start, end, value)
+
+	static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var upper := weights.upper
+		var muzzle := weights.muzzle
+		var sac := weights.sac
+		var leaves := weights.leaves
+		var legs := weights.legs
+		var front := weights.front
+		var p := point
+		if pose.dead:
+			var d := pose.death
+			var deflate := _window(0.00, 0.32, d)
+			var topple := _window(0.28, 0.78, d)
+			var leaf_drop := _window(0.65, 1.00, d)
+			var center := _pivot(Vector2(0.30, 0.53), size)
+			var parent_angle := 0.70 * topple
+			# The sac carries its nozzle and leaves. Their hinges are transformed
+			# with this parent, rather than rotating about abandoned upright pivots.
+			var body_target := center + Vector2(size.x * 0.06, size.y * 0.28) * topple
+			var emptied := _scale_part(point, Vector2(0.30, 0.53), size, Vector2(1.0 - 0.12 * deflate, 1.0 - 0.36 * deflate), sac)
+			var carried := body_target + (emptied - center).rotated(parent_angle)
+			var nozzle_hinge := body_target + (_pivot(Vector2(0.70, 0.34),size)-center).rotated(parent_angle)
+			var nozzle := nozzle_hinge + (carried-nozzle_hinge).rotated(-0.76 * _window(0.13,0.78,d))
+			carried = carried.lerp(nozzle,muzzle)
+			# Upper, rear and front leaves have separate attachments. Late droop
+			# lays their tips beside the emptied chamber instead of making a pole.
+			var leaf_hinge_uv := Vector2(0.47,0.31)
+			var leaf_angle := -1.48
+			if uv.y < 0.23:
+				leaf_hinge_uv = Vector2(0.43,0.23)
+				leaf_angle = -1.58
+			elif uv.x < 0.39:
+				leaf_hinge_uv = Vector2(0.42,0.32)
+				leaf_angle = -1.22
+			var leaf_hinge := body_target + (_pivot(leaf_hinge_uv,size)-center).rotated(parent_angle)
+			carried = carried.lerp(leaf_hinge+(carried-leaf_hinge).rotated(leaf_angle*leaf_drop),leaves)
+			# Folding legs stop supporting the parent mass. Their hips travel with
+			# the chamber; feet release outward instead of remaining planted props.
+			var hip_uv := Vector2(0.61,0.74) if front>0.5 else Vector2(0.34,0.75)
+			var hip := _pivot(hip_uv,size)
+			var moved_hip := body_target+(hip-center).rotated(parent_angle)
+			var fold := _window(0.25 if front>0.5 else 0.34,0.68 if front>0.5 else 0.76,d)
+			var leg_angle := -1.12 if front>0.5 else 1.18
+			var folded_leg := moved_hip+(point-hip).rotated(leg_angle*fold)
+			return carried.lerp(folded_leg,legs)
+
+		var load := pose.load
+		var strike := pose.strike
+		var recovery := pose.recovery
+		var hurt := pose.hurt
+		var turn := pose.raw_turn
+		var quiet := pose.flora_quiet
+		var drive := pose.drive
+		var breath := pose.sentry_breath_sin * 0.026 * (1.0 - load)
+		var inflation := 0.18 * load - 0.13 * strike - 0.13 * hurt + breath
+		if sac != 0.0:
+			p = _scale_part(p, Vector2(0.30, 0.53), size, Vector2(1.0 + inflation, 1.0 + inflation * 0.65), sac)
+		# The nozzle aims independently of the planted support, then retracts.
+		if muzzle != 0.0:
+			p = _joint(p, Vector2(0.70, 0.34), size, pose.aim*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt +.028*pose.sentry_muzzle_sin*quiet-.035*drive, muzzle)
+		p.x -= size.x * (0.075 * strike + 0.035 * hurt) * muzzle
+		var chamber_angle := -0.035*load-0.15*strike+0.04*recovery+.021*pose.sentry_body_sin*quiet-.043*drive
+		if upper != 0.0:
+			p = _joint(p, Vector2(0.45, 0.81), size, chamber_angle, upper)
+		p.x -= size.x * 0.035 * strike * upper
+		# Broad leaves answer the chamber's release after the hard nozzle recoil.
+		var leaf_spring := 0.22 * recovery * pose.recovery_return_sin
+		var leaf_root := _joint(_pivot(Vector2(.47,.51),size),Vector2(.45,.81),size,chamber_angle,1.0)
+		leaf_root.x -= size.x*.035*strike
+		var leaf_idle := .060*pose.sentry_leaf_sin*quiet+.035*drive
+		if leaves != 0.0:
+			p = _joint_at(p,leaf_root,(1.0 if uv.x > 0.48 else -1.0)*(-.12*load+.17*strike+leaf_spring+.10*hurt+leaf_idle),leaves)
+		# The leg tops answer the chamber's weight shift; toes retain their root.
+		var knee := weights.sentry_knee
+		p.x += size.x*.012*pose.sentry_body_sin*quiet*(front*2.0-1.0)*knee
+		return p
+
+	static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var wing_height := weights.wing_height
+		var left_wing := weights.left_wing
+		var right_wing := weights.right_wing
+		var body := weights.body
+		var feet := weights.feet
+		var p := point
+		if pose.dead:
+			var d := pose.death
+			var left_drop := maxf(_window(0.00, 0.37, d), 0.82 * _window(0.00, 0.18, d))
+			var right_drop := maxf(_window(0.21, 0.69, d), 0.58 * _window(0.01, 0.22, d))
+			var roll := maxf(_window(0.31, 0.80, d), 0.55 * _window(0.00, 0.16, d))
+			var sprawl := _window(0.66, 1.00, d)
+			# The second wing has one bounded failed correction. It cannot keep
+			# flapping after the body has settled, even if the world clock advances.
+			var failed_beat := sin(_window(0.20, 0.58, d) * TAU) * 0.21 * (1.0 - _window(0.55, 0.72, d))
+			if left_wing != 0.0:
+				p = _joint(p, Vector2(0.45, 0.43), size, -0.94 * left_drop, left_wing)
+			if right_wing != 0.0:
+				p = _joint(p, Vector2(0.59, 0.43), size, 0.70 * right_drop + failed_beat, right_wing)
+			if body != 0.0:
+				p = _joint(p, Vector2(0.44, 0.77), size, 0.56 * roll, body)
+			p.y += size.y * 0.17 * roll * body
+			p.x += size.x * 0.10 * roll * body
+			if feet != 0.0:
+				p = _joint(p, Vector2(0.56, 0.79), size, -0.75 * roll, feet)
+			# Final loose wing spread is wider than the side-lying abdomen. The
+			# two fans retain their own hinges instead of collapsing as one slab.
+			p.x += size.x * 0.07 * sprawl * (right_wing - left_wing)
+			p.y += size.y * 0.075 * sprawl * maxf(left_wing, right_wing)
+			# Once grounded collapse is complete, return before reading a running
+			# clock: the settled fan is exactly static on every following draw.
+			if d >= 1.0: return p
+			var death_age := maxf(0.0, pose.death_clock)
+			var captured := pose.live
+			var live := _fan(point, uv, size, captured, weights)
+			# The lethal handoff starts at the exact captured load/hurt/wing pose.
+			# Airborne loss uses the corpse owner's advancing age, never the frozen
+			# live locomotion clock, and remains present through first contact.
+			var air_loss := _window(0.00, 0.19, death_age)
+			var late_wing := _window(0.07, 0.31, death_age)
+			var air_roll := _window(0.06, 0.38, death_age)
+			var weak_beat := sin(death_age * TAU * 7.0) * exp(-death_age * 4.5) * _window(0.02, 0.07, death_age) * 0.20
+			var falling := _joint(live, Vector2(0.45, 0.43), size, -0.80 * air_loss, left_wing)
+			if right_wing != 0.0:
+				falling = _joint(falling, Vector2(0.59, 0.43), size, 0.50 * late_wing + weak_beat, right_wing)
+			if body != 0.0:
+				falling = _joint(falling, Vector2(0.44, 0.77), size, 0.31 * air_roll, body)
+			falling.y += size.y * 0.055 * air_roll * body
+			falling.x += size.x * 0.035 * air_roll * body
+			if feet != 0.0:
+				falling = _joint(falling, Vector2(0.56, 0.79), size, -0.40 * air_roll, feet)
+			# death is contact-relative, so the same airborne pose is used at d=0
+			# on either side of landing. A short contact blend then carries it into
+			# the folded ground pose without resetting to the captured live fan.
+			return falling.lerp(p, _window(0.00, 0.20, d))
+		var load := pose.load
+		var strike := pose.strike
+		var recovery := pose.recovery
+		var hurt := pose.hurt
+		var drive := pose.drive
+		var flight_beat := pose.fan_wing_sin * 0.14 * (1.0 - 0.90 * load)
+		var fan_open := 0.37 * load + 0.14 * strike - 0.12 * recovery
+		if left_wing != 0.0:
+			p = _joint(p, Vector2(0.45, 0.43), size, -fan_open - flight_beat + 0.10 * hurt, left_wing)
+		if right_wing != 0.0:
+			p = _joint(p, Vector2(0.59, 0.43), size, fan_open + flight_beat - 0.07 * hurt, right_wing)
+		# Expansion is horizontal and symmetric. Shooting gives the central mass
+		# a short backward pitch while both wing roots visibly brace it.
+		p.x += size.x * 0.055 * load * (right_wing - left_wing)
+		var carried_lift := pose.fan_body_sin*(1.0-.85*load)
+		# Wing roots answer first; the copper mass follows the downstroke and the
+		# feet trail a little later. Neither uses an independent whole-image bob.
+		p.y -= size.y*.019*carried_lift*maxf(body,wing_height*.52)
+		if body != 0.0:
+			p = _joint(p, Vector2(0.44, 0.74), size, -0.19 * strike + 0.05 * recovery+.025*pose.fan_pitch_sin*(1.0-load)-.055*drive, body)
+		if body != 0.0:
+			p = _scale_part(p, Vector2(0.42, 0.69), size, Vector2(1.0 - 0.10 * hurt, 1.0 - 0.07 * hurt), body)
+		p.x -= size.x * 0.04 * strike * body
+		if feet != 0.0:
+			p = _joint(p, Vector2(0.56, 0.79), size, 0.10 * strike + pose.fan_feet_sin * 0.065 * (1.0 - load)-.065*drive, feet)
+		return p
+
+	static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var main_stem := weights.main_stem
+		var upper_stem := weights.upper_stem
+		var bell := weights.bell
+		var leaf := weights.leaf
+		var p := point
+		if pose.dead:
+			var d := pose.death
+			var fold := _window(0.03,0.72,d)
+			var droop := _window(0.58,1.00,d)
+			var root := _pivot(Vector2(0.43,0.90),size)
+			var elbow := _pivot(Vector2(0.43,0.55),size)
+			var crown := _pivot(Vector2(0.61,0.17),size)
+			var destination := crown.lerp(_pivot(Vector2(0.55,0.58),size),fold)
+			var bent := _fold_elbow(root,elbow,crown,destination)
+			var stem := _carry_stem(point,uv.y,root,elbow,crown,bent,destination)
+			# The lower root remains fixed; both stem bones deliver their real
+			# moving endpoint to the crown. Nothing rotates about the old arch.
+			var lower_angle := (bent-root).angle()-(elbow-root).angle()
+			var upper_angle := (destination-bent).angle()-(crown-elbow).angle()
+			var crown_angle := upper_angle*(1.0-fold)
+			var crown_body := destination+(point-crown).rotated(crown_angle)
+			var upper_weight := weights.upper_weight
+			p = stem.lerp(crown_body,upper_weight)
+			# Bell orientation remains hanging under gravity while its hanger is
+			# transported down. Its actual clapper/rim reaches the floor at d=.72.
+			var hanger := _pivot(Vector2(0.72,0.20),size)
+			var moved_hanger := destination+(hanger-crown).rotated(crown_angle)
+			var swing_progress := _window(0.72,1.00,d)
+			var swing := sin(swing_progress*TAU*1.25)*(1.0-swing_progress)*0.11
+			var bell_pose := moved_hanger+(point-hanger).rotated(swing)
+			# Include the copper mouth and clapper down to their actual alpha rim.
+			# The live crown mask fades at y=.46 and cannot carry these lower pixels.
+			var dead_bell := weights.dead_bell
+			p = p.lerp(bell_pose,dead_bell)
+			# Leaf attachments follow the appropriate stem segment, then their
+			# blades yield independently. They no longer hold a raised canopy.
+			var hinge_uv := Vector2(0.43,0.40) if uv.y<0.47 else Vector2(0.46,0.62)
+			if uv.y<0.17: hinge_uv=Vector2(0.62,0.17)
+			var top_left := weights.top_left
+			var top_right := weights.top_right
+			if top_left>0.3: hinge_uv=Vector2(0.43,0.34)
+			elif top_right>0.3: hinge_uv=Vector2(0.62,0.17)
+			var hinge := _pivot(hinge_uv,size)
+			var moved_hinge := _carry_stem(hinge,hinge_uv.y,root,elbow,crown,bent,destination)
+			if hinge_uv.y<0.32: moved_hinge=destination+(hinge-crown).rotated(crown_angle)
+			var attached_angle := upper_angle if hinge_uv.y<0.55 else lower_angle
+			var leaf_angle := (-0.98 if uv.x<0.46 else 0.80)*droop
+			if top_left>0.3: leaf_angle=-2.1*droop
+			elif top_right>0.3: leaf_angle=1.2*droop
+			var leaf_pose := moved_hinge+(point-hinge).rotated(attached_angle*(1.0-droop)+leaf_angle)
+			var leaf_mask := maxf(leaf,maxf(top_left,top_right))*(1.0-dead_bell)
+			return p.lerp(leaf_pose,leaf_mask)
+
+		var load := pose.load
+		var strike := pose.strike
+		var recovery := pose.recovery
+		var hurt := pose.hurt
+		var breath := pose.root_stem_sin * 0.018
+		var hurt_rebound := pose.root_hurt_sin * hurt * 0.17
+		# Load bends the stalk rearward and lifts the heavy bell; release brings
+		# both connected upper segments down into the accepted pulse event.
+		var quiet := pose.flora_quiet
+		var live_lower_angle := breath*quiet-.19*load+.25*strike+hurt_rebound
+		var live_upper_angle := .015*pose.root_upper_sin*quiet-.10*load+.19*strike+.05*recovery+hurt_rebound*.6
+		var moved_elbow := _joint(_pivot(Vector2(.50,.68),size),Vector2(.50,.94),size,live_lower_angle,1.0)
+		p = _joint(p, Vector2(0.50, 0.94), size, live_lower_angle, main_stem)
+		p = _joint_at(p,moved_elbow,live_upper_angle,upper_stem)
+		# Child hinges are transported by the two flexible stem segments. Bell and
+		# leaf motion are then delayed about those actual carried attachments.
+		var live_hanger := _joint(_pivot(Vector2(.70,.20),size),Vector2(.50,.94),size,live_lower_angle,1.0)
+		live_hanger = _joint_at(live_hanger,moved_elbow,live_upper_angle,1.0)
+		var bell_lag := (.044*pose.root_bell_sin-breath*.5)*quiet
+		p = _joint_at(p,live_hanger,-.17*load+.39*strike-.07*recovery+.13*hurt+bell_lag,bell)
+		p.y -= size.y * 0.035 * load * bell
+		var leaf_lag := pose.recovery_return_sin * recovery * 0.09
+		var moved_leaf := _joint(_pivot(Vector2(.50,.58),size),Vector2(.50,.94),size,live_lower_angle,1.0)
+		moved_leaf = _joint_at(moved_leaf,moved_elbow,live_upper_angle,1.0-_window(.45,.72,.58))
+		p = _joint_at(p,moved_leaf,(1.0 if uv.x>.5 else -1.0)*(.09*load-.15*strike+leaf_lag+.058*pose.root_leaf_sin*quiet),leaf)
+		return p
+
+	# Two connected rigid stem bones, with the bend directed to the slack side.
+	static func _fold_elbow(root:Vector2, elbow:Vector2, tip:Vector2, target:Vector2)->Vector2:
+		var first := root.distance_to(elbow)
+		var second := elbow.distance_to(tip)
+		var delta := target-root
+		var distance := clampf(delta.length(),absf(first-second)+0.001,first+second-0.001)
+		var along := (first*first-second*second+distance*distance)/(2.0*distance)
+		var height := sqrt(maxf(0.0,first*first-along*along))
+		var axis := delta.normalized()
+		return root+axis*along+Vector2(axis.y,-axis.x)*height
+
+	static func _carry_stem(point:Vector2, uv_y:float, root:Vector2, elbow:Vector2, tip:Vector2, bent:Vector2, target:Vector2)->Vector2:
+		var lower_angle := (bent-root).angle()-(elbow-root).angle()
+		var upper_angle := (target-bent).angle()-(tip-elbow).angle()
+		var lower := root+(point-root).rotated(lower_angle)
+		var upper := bent+(point-elbow).rotated(upper_angle)
+		var joint_blend := 1.0-_window(0.50,0.60,uv_y)
+		var carried := lower.lerp(upper,joint_blend)
+		return point.lerp(carried,1.0-_window(0.87,0.97,uv_y))
+
+class E42Skin:
+	extends RefCounted
+	## One authored body and continuous joints through live, hurt and death.
+	## Coordinates are in world units; source resolution never sets pixel size.
+	const GRID := 24
+	const TEXTURES := {
+		&"patrol": preload("res://assets/plains_revision_01/patrol.png"),
+		&"charger": preload("res://assets/plains_revision_01/charger.png"),
+		&"hopper": preload("res://assets/plains_revision_01/hopper.png"),
+		&"sentry": preload("res://assets/plains_revision_01/sentry.png"),
+		&"fan_sentry": preload("res://assets/plains_revision_01/fan_sentry.png"),
+		&"root_bell": preload("res://assets/plains_revision_01/root_bell.png")
+	}
+	# Relative to the measured visible bodies, not the source PNG dimensions.
+	const SIZES := {&"patrol":Vector2(41.4,39.33),&"charger":Vector2(40.5,30.375),&"hopper":Vector2(41.4,33.12),&"sentry":Vector2(41.4,42.46),&"fan_sentry":Vector2(41.4,30),&"root_bell":Vector2(49.5,60)}
+	var texture: Texture2D
+	var bounds := Rect2()
+	var kind: StringName
+	var _mesh := ArrayMesh.new()
+	var _points := PackedVector2Array()
+	var _units := PackedVector2Array()
+	var _weights: Array[PlainsRevisionWeights] = []
+	var _weights_kind: StringName
+	# A settled body's local vertices are independent of its continuing corpse age.
+	# Keep every draw/shader/tint and world-support transform with its existing host.
+	var _rest_cached := false
+	var _rest_kind: StringName
+	var _rest_bounds := Rect2()
+	var _rest_texture: Texture2D
+	var _rest_pose: Dictionary = {}
+
+	static func supports(definition: EnemyDefinition) -> bool:
+		return definition != null and definition.stable_id in [&"patrol_drone",&"graybox_patrol_drone",&"plains_charger",&"plains_hopper",&"plains_sentry",&"plains_fan_sentry",&"plains_root_bell"]
+
+	func _init(behavior: StringName = &"patrol") -> void:
+		kind = behavior
+		texture = TEXTURES.get(kind)
+		var size: Vector2 = SIZES.get(kind,Vector2(36,36))
+		bounds = Rect2(Vector2(-size.x*.5,-size.y),size)
+		var uvs := PackedVector2Array()
+		var indices := PackedInt32Array()
+		for y: int in GRID+1:
+			for x: int in GRID+1:
+				var uv := Vector2(float(x)/GRID,float(y)/GRID)
+				_units.append(uv)
+				_points.append(bounds.position+uv*size)
+				uvs.append(uv)
+		for y: int in GRID:
+			for x: int in GRID:
+				var i := y*(GRID+1)+x
+				indices.append_array(PackedInt32Array([i,i+1,i+GRID+2,i,i+GRID+2,i+GRID+1]))
+		var arrays: Array = []
+		arrays.resize(Mesh.ARRAY_MAX)
+		arrays[Mesh.ARRAY_VERTEX] = _points
+		arrays[Mesh.ARRAY_TEX_UV] = uvs
+		arrays[Mesh.ARRAY_INDEX] = indices
+		_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES|Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
+
+	func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
+		return deform_prepared(point, uv, E42Pose.prepare(pose), PlainsRevisionWeights.new(uv, kind))
+
+	func deform_prepared(point: Vector2, uv: Vector2, pose: E42Pose, weights: PlainsRevisionWeights) -> Vector2:
+		var master := point
+		if kind==&"fan_sentry":
+			# The new broad fan source devotes more area to wings. Fit its copper
+			# abdomen to the previous body's ~13wu mass (+about 7.5%), independently
+			# of the wing envelope's +15%. Stretching the entire source made it small.
+			var body := weights.fan_body_fit
+			var center := Vector2((.42-.5)*bounds.size.x,(.70-1.0)*bounds.size.y)
+			master = point.lerp(center+(point-center)*1.55,body)
+		var p := E42Ground.deform_prepared(master,uv,bounds.size,pose,kind,weights) if kind in [&"patrol",&"charger",&"hopper"] else E42Flora.deform_prepared(master,uv,bounds.size,pose,kind,weights)
+		# Contact impulse moves the mass, while the supporting feet retain the floor.
+		if pose.dead:
+			p.y -= pose.landing*bounds.size.y*.025*weights.landing
+		return p
+
+	func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> void:
+		if texture == null: return
+		if not PlainsMotion02.body_mesh_visible(canvas,bounds): return
+		var at_rest := bool(pose.get("dead",false)) and float(pose.get("death",0.0)) >= 1.0 and float(pose.get("landing",0.0)) == 0.0
+		var rest_pose: Dictionary = pose.duplicate(true) if at_rest else {}
+		rest_pose.erase("death_clock")
+		if not (at_rest and _rest_cached and _rest_kind == kind and _rest_bounds == bounds and _rest_texture == texture and _rest_pose == rest_pose):
+			var vertices := PackedVector2Array()
+			vertices.resize(_points.size())
+			# Only UV and kind determine these masks. Bounds and texture remain live
+			# inputs to the unchanged kernel and existing settled-mesh invalidation.
+			if _weights.size() != _units.size() or _weights_kind != kind:
+				_weights.clear()
+				for uv: Vector2 in _units: _weights.append(PlainsRevisionWeights.new(uv, kind))
+				_weights_kind = kind
+			var prepared := E42Pose.prepare(pose)
+			for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
+			_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
+			_rest_cached = at_rest
+			_rest_pose = rest_pose
+			_rest_kind = kind
+			_rest_bounds = bounds
+			_rest_texture = texture if at_rest else null
+		if canvas.material is ShaderMaterial:
+			canvas.material.set_shader_parameter("death_progress",float(pose.get("death",0.0)) if bool(pose.get("dead",false)) else 0.0)
+			canvas.material.set_shader_parameter("eye_center",Vector2(.86,.39) if kind==&"patrol" else Vector2(.87,.52) if kind==&"hopper" else Vector2(.79,.46))
+			canvas.material.set_shader_parameter("plant_body",kind in [&"root_bell",&"sentry"])
+			canvas.material.set_shader_parameter("kind_code",1 if kind==&"fan_sentry" else 2 if kind==&"root_bell" else 0)
+		canvas.draw_mesh(_mesh,texture,Transform2D.IDENTITY,tint)

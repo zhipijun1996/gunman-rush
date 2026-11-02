@@ -1,0 +1,56 @@
+{
+  "task": "COMBAT-PERF-DEPLOY-01/legacy-feet",
+  "reviewer": "runtime_audit (non-author)",
+  "status": "LIMITED_PRODUCTION_STATIC_ACCEPT_TEST_FIXTURE_NATIVE_FAILURE_OPEN",
+  "candidate_json_sha256": "e9fbac7d5d9c2da3b4b77c564b3a5c4494a0fa18b079d2f2c2f1515f35eb589c",
+  "patch_sha256": "e47fb19a67f85896e4dde9f23489614f37874e724758ff65294226ced623b0fa",
+  "source": [
+    {
+      "path": "game/enemies/presentation/enemy_feedback_01_frames.gd",
+      "sha256": "150c5471ebca30a794d513921a75176e1a5ec9d9379d373316c144dd912bf470",
+      "reverse_equals_exact_baseline": true
+    },
+    {
+      "path": "game/enemies/presentation/enemy_feedback_01_remains.gd",
+      "sha256": "ffd71b03d1824d75338fef3d94c4ae3dd73675dd5054b9d33835fc8be13f90cc",
+      "reverse_equals_exact_baseline": true
+    },
+    {
+      "path": "tests/enemy_feedback_01_tests.gd",
+      "sha256": "1d712d24f97b8ef9c60751496baf27617d8de6ec8e8484b1136fec7f824db34a",
+      "reverse_equals_exact_baseline": true
+    }
+  ],
+  "independent_checks": {
+    "three_live_leaves_match_frozen_candidate": true,
+    "reverse_patch_exact_git_base": "e42b277f37425458a2920815258d1cfc817acfc3",
+    "four_engine_source_files_hash_and_excerpts_verified": true,
+    "engine_executed_by_reviewer": false,
+    "repository_modified_by_reviewer": false
+  },
+  "findings": [
+    "Actual Remains cache-miss path delegates to Frames; per-corpse _feet and _capture reset remain unchanged.",
+    "Bottom-up row order and alpha>=0.5 remain unchanged. Float64 normalized division precedes original multiplication/addition. Transparent input returns0, not bounds.position.y.",
+    "Keys contain ObjectID/RID/size/region/margin values, not Texture refs. Direct mutable/custom/nested-Atlas sources retain immediate scans. Atlas edits form distinct keys. Engine AtlasTexture.get_image only extracts region; filter_clip is a drawing concern.",
+    "Verified CompressedTexture2D.load can preserve RID and emits changed. Named static invalidator is connected once synchronously. Verified normal non-RPC static Callable stores ObjectID and method; unlike lambda it adds no Ref<GDScript> capture. Existing TEXTURES constant refs predate this candidate. No new strong Texture-to-script reference edge found.",
+    "128-entry clear bounds the scalar cache; no per-corpse _feet invalidation behavior is added.",
+    "All original test text reverse-restores exact base. New tests cover retained clips, actual two Remains consumers, destination bounds, Atlas edits, mutable images, weak lifetime and explicit clear."
+  ],
+  "actual_native_evidence": {
+    "path": "/workspace/gunman-rush-refactor/build/verification/harness/20261102T031249.244362Z/enemy-feedback-native.log",
+    "sha256": "473efa056031ea6c43cec50ac1ba5b8347cf7deb01b63f231c7b71c5481feb39",
+    "result": "618 checks /3 failures; preserved as FAILED",
+    "failures": [
+      "hardcoded half-alpha0.5 expected row",
+      "hardcoded half-alpha0.501 expected row",
+      "Atlas over updated ImageTexture expected1.0"
+    ],
+    "scope": "Old pixel-scan oracle equality checks do not fail. Renderer pixel-update visibility versus fixture assumptions requires author diagnosis, not production relaxation."
+  },
+  "limits": [
+    "No independent native execution or teardown certification. Root strict wrappers remain authoritative; failed618/3 is not accepted as passing.",
+    "No direct same-RID CompressedTexture2D reload signal regression is in added tests; invalidation is supported by engine source inspection, not a claimed native result.",
+    "No speedup/mobileFPS/deployedPCK acceptance.",
+    "Companion changes are authored by this reviewer and excluded from this independent review."
+  ]
+}

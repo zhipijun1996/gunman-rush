@@ -1,0 +1,41 @@
+{
+  "conclusion": "Named non-RPC static method resolves normal Callable(script,method), holding only ObjectID+StringName, not Ref<GDScript>. Strong Ref is lambda-specific; no lambda/bind/node/Texture capture is added. Compressed.load may replace same RID and emits changed, so existing resource signal invalidates scalar entries. Native strict exit still pending.",
+  "sources": [
+    {
+      "path": "/workspace/engine-diagnostics/godot-4.7.2-stable/modules/gdscript/gdscript.cpp",
+      "sha256": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+      "lines": [
+        985,
+        997
+      ],
+      "excerpt": "\t\t}\n\n\t\tif (likely(top->valid)) {\n\t\t\tHashMap<StringName, GDScriptFunction *>::ConstIterator E = top->member_functions.find(p_name);\n\t\t\tif (E && E->value->is_static()) {\n\t\t\t\tif (top->rpc_config.has(p_name)) {\n\t\t\t\t\tr_ret = Callable(memnew(GDScriptRPCCallable(const_cast<GDScript *>(top), E->key)));\n\t\t\t\t} else {\n\t\t\t\t\tr_ret = Callable(const_cast<GDScript *>(top), E->key);\n\t\t\t\t}\n\t\t\t\treturn true;\n\t\t\t}\n\t\t}"
+    },
+    {
+      "path": "/workspace/engine-diagnostics/godot-4.7.2-stable/core/variant/callable.cpp",
+      "sha256": "78bcfcc2440be43330a1f848a619110f5eb1174fa6e0c3a32a57157e66b40db1",
+      "lines": [
+        392,
+        404
+      ],
+      "excerpt": "Callable::Callable(const Object *p_object, const StringName &p_method) {\n\tif (unlikely(p_method == StringName())) {\n\t\tobject = 0;\n\t\tERR_FAIL_MSG(\"Method argument to Callable constructor must be a non-empty string.\");\n\t}\n\tif (unlikely(p_object == nullptr)) {\n\t\tobject = 0;\n\t\tERR_FAIL_MSG(\"Object argument to Callable constructor must be non-null.\");\n\t}\n\n\tobject = p_object->get_instance_id();\n\tmethod = p_method;\n}"
+    },
+    {
+      "path": "/workspace/engine-diagnostics/godot-4.7.2-stable/modules/gdscript/gdscript_lambda_callable.h",
+      "sha256": "3247923065df9265a99174a7b87ffcc0997cbfef41e6329fb0941ec682ec0361",
+      "lines": [
+        43,
+        49
+      ],
+      "excerpt": "class GDScriptLambdaCallable : public CallableCustom {\n\tGDScript::UpdatableFuncPtr function;\n\tRef<GDScript> script;\n\tuint32_t h;\n\n\tVector<Variant> captures;\n"
+    },
+    {
+      "path": "/workspace/engine-diagnostics/godot-4.7.2-stable/scene/resources/compressed_texture.cpp",
+      "sha256": "a7972f1b9960c5ea3a04adbf8a1d559f135bd3369d9c2fac89edaca2a666f45b",
+      "lines": [
+        132,
+        197
+      ],
+      "excerpt": "Error CompressedTexture2D::load(const String &p_path) {\n\tint lw, lh;\n\tRef<Image> image;\n\timage.instantiate();\n\n\tbool request_3d;\n\tbool request_normal;\n\tbool request_roughness;\n\tint mipmap_limit;\n\n\tError err = _load_data(p_path, lw, lh, image, request_3d, request_normal, request_roughness, mipmap_limit);\n\tif (err) {\n\t\treturn err;\n\t}\n\n\tif (texture.is_valid()) {\n\t\tRID new_texture = RS::get_singleton()->texture_2d_create(image);\n\t\tRS::get_singleton()->texture_replace(texture, new_texture);\n\t} else {\n\t\ttexture = RS::get_singleton()->texture_2d_create(image);\n\t}\n\tif (lw || lh) {\n\t\tRS::get_singleton()->texture_set_size_override(texture, lw, lh);\n\t}\n\n\tw = lw;\n\th = lh;\n\tpath_to_file = p_path;\n\tformat = image->get_format();\n\n\tif (get_path().is_empty()) {\n\t\t//temporarily set path if no path set for resource, helps find errors\n\t\tRenderingServer::get_singleton()->texture_set_path(texture, p_path);\n\t}\n\n#ifdef TOOLS_ENABLED\n\n\tif (request_3d) {\n\t\t//print_line(\"request detect 3D at \" + p_path);\n\t\tRS::get_singleton()->texture_set_detect_3d_callback(texture, _requested_3d, this);\n\t} else {\n\t\t//print_line(\"not requesting detect 3D at \" + p_path);\n\t\tRS::get_singleton()->texture_set_detect_3d_callback(texture, nullptr, nullptr);\n\t}\n\n\tif (request_roughness) {\n\t\t//print_line(\"request detect srgb at \" + p_path);\n\t\tRS::get_singleton()->texture_set_detect_roughness_callback(texture, _requested_roughness, this);\n\t} else {\n\t\t//print_line(\"not requesting detect srgb at \" + p_path);\n\t\tRS::get_singleton()->texture_set_detect_roughness_callback(texture, nullptr, nullptr);\n\t}\n\n\tif (request_normal) {\n\t\t//print_line(\"request detect srgb at \" + p_path);\n\t\tRS::get_singleton()->texture_set_detect_normal_callback(texture, _requested_normal, this);\n\t} else {\n\t\t//print_line(\"not requesting detect normal at \" + p_path);\n\t\tRS::get_singleton()->texture_set_detect_normal_callback(texture, nullptr, nullptr);\n\t}\n\n#endif\n\tnotify_property_list_changed();\n\temit_changed();\n\treturn OK;\n}"
+    }
+  ]
+}

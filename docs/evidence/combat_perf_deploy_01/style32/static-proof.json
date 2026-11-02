@@ -1,0 +1,217 @@
+{
+  "references": {
+    "count": 206,
+    "role_path_order_unchanged": true,
+    "changed": [
+      "game/loadout/effects/item_art_library.gd",
+      "game/enemies/presentation/plains_revision_flora.gd",
+      "game/enemies/presentation/plains_revision_pose.gd",
+      "game/enemies/presentation/plains_revision_skin.gd",
+      "game/loadout/effects/item_companion_effects.gd",
+      "game/loadout/effects/item_runtime.gd"
+    ],
+    "unchanged": 200,
+    "non_gd_unchanged": 86,
+    "all_current_sha_match": true
+  },
+  "archive": {
+    "exact_git_files": 12,
+    "git_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+    "media_or_runtime_uids_copied": false
+  },
+  "creative_content_preserved_no_acceptance_inherited": true,
+  "profiles": {
+    "check_count": 219,
+    "only_append_inputs": [
+      "region-bible-contract",
+      "region-bible-tests"
+    ],
+    "old_prefix_multiplicity_order_preserved": true,
+    "all_commands_budgets_and_suite_selections_unchanged": true
+  },
+  "tests/test_region_bible.py": {
+    "original_methods_all_exact_after_finite_inverse": 86,
+    "current_total": 90,
+    "added_methods": [
+      "test_current32_exact206_sources_roles_media_and_six_technical_changes",
+      "test_current32_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+      "test_current32_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "test_prior31_complete_methods_preserved_and_mutations_rejected"
+    ]
+  },
+  "tests/test_region_creative_direction.py": {
+    "original_methods_all_exact_after_finite_inverse": 28,
+    "current_total": 29,
+    "added_methods": [
+      "test_current35_retains_selected_content_and_refuses_prior34_binding"
+    ]
+  },
+  "original_method_inverse": [
+    {
+      "path": "tests/test_region_bible.py",
+      "method": "test_actual_player_body_closure_is_required_and_superseded_binding_refused",
+      "steps": [
+        {
+          "new": "self.assertEqual(style['content']['version'],'32')",
+          "original": "self.assertEqual(style['content']['version'],'31')",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "method": "test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history",
+      "steps": [
+        {
+          "new": "self.assertEqual(style['content']['version'],'32')",
+          "original": "self.assertEqual(style['content']['version'],'31')",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "method": "test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale",
+      "steps": [
+        {
+          "new": "self.assertEqual(live['version'],'32')",
+          "original": "self.assertEqual(live['version'],'31')",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "method": "test_preserved_original_test_methods_are_unchanged",
+      "steps": [
+        {
+          "new": "'31':'25','32':'25'",
+          "original": "'31':'25'",
+          "count": 1
+        },
+        {
+          "new": "'creative-v34':'creative-v28','creative-v35':'creative-v28'",
+          "original": "'creative-v34':'creative-v28'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "method": "test_current31_exact206_sources_roles_media_and_three_technical_changes",
+      "steps": [
+        {
+          "new": "        self.root = frozen31_root(self)\n        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)\n",
+          "original": "",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "method": "test_current31_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+      "steps": [
+        {
+          "new": "        self.root = frozen31_root(self)\n        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)\n",
+          "original": "",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "method": "test_selected_direction_binds_every_specialist_and_retains_stage_gates",
+      "steps": [
+        {
+          "new": "'creative-v35'",
+          "original": "'creative-v34'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "method": "test_current34_retains_selected_content_and_refuses_prior33_binding",
+      "steps": [
+        {
+          "new": "from test_region_bible import frozen30_root, frozen31_root",
+          "original": "from test_region_bible import frozen30_root",
+          "count": 1
+        },
+        {
+          "new": "\n        current_root = frozen31_root(self)",
+          "original": "",
+          "count": 1
+        },
+        {
+          "new": "creative.load_direction(path, region, root=current_root)",
+          "original": "creative.load_direction(path, region)",
+          "count": 1
+        },
+        {
+          "new": "creative.load_bible_registry(current_root)",
+          "original": "creative.load_bible_registry()",
+          "count": 1
+        },
+        {
+          "new": "creative.bind_region_bible(region, current_root)[1]",
+          "original": "creative.bind_region_bible(region)[1]",
+          "count": 1
+        },
+        {
+          "new": "creative.validate_bible_binding(old['region_bible'], root=current_root)",
+          "original": "creative.validate_bible_binding(old['region_bible'])",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "resource_change_audit": {
+    "tracked_assets_resources_shaders_changed": [],
+    "all86_bound_non_gd_bytes_verified": true,
+    "no_all_media_download_or_rehash_claim": true
+  },
+  "frozen_all_runtime_vector": [
+    {
+      "path": "game/enemies/presentation/enemy_feedback_01_frames.gd",
+      "sha256": "150c5471ebca30a794d513921a75176e1a5ec9d9379d373316c144dd912bf470",
+      "bound_style_role": false
+    },
+    {
+      "path": "game/enemies/presentation/enemy_feedback_01_remains.gd",
+      "sha256": "ffd71b03d1824d75338fef3d94c4ae3dd73675dd5054b9d33835fc8be13f90cc",
+      "bound_style_role": false
+    },
+    {
+      "path": "game/enemies/presentation/plains_revision_flora.gd",
+      "sha256": "8ecb41f063aba37cc398a0b41d954c9f09c4b1056718619cd14f5d40719fdb47",
+      "bound_style_role": true
+    },
+    {
+      "path": "game/enemies/presentation/plains_revision_pose.gd",
+      "sha256": "7d896cb27f9722a279904164c9217a148325f4648744285a9d47a358910b558d",
+      "bound_style_role": true
+    },
+    {
+      "path": "game/enemies/presentation/plains_revision_skin.gd",
+      "sha256": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50",
+      "bound_style_role": true
+    },
+    {
+      "path": "game/loadout/effects/item_art_library.gd",
+      "sha256": "98e2454f2781c028d1a6c512bd7976845a4396ef4d546e08dea2b4f4ece6a333",
+      "bound_style_role": true
+    },
+    {
+      "path": "game/loadout/effects/item_companion_effects.gd",
+      "sha256": "76bd7bd07c1c85d79296cea390c863e9a4ddc11b7738cb363a0834d9e7d5fea7",
+      "bound_style_role": true
+    },
+    {
+      "path": "game/loadout/effects/item_runtime.gd",
+      "sha256": "1a1b0ea5dd067c7022e6b763c636eec18fb95142c390a457295c17493dbf5e6c",
+      "bound_style_role": true
+    }
+  ],
+  "unchanged_live_validator_and_preserved_root_loader_sha": true
+}

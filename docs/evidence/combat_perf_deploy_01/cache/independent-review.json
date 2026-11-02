@@ -1,0 +1,101 @@
+{
+  "reviewer": "asset_audit non-author",
+  "baseline_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+  "status": "ACCEPT_LIMITED_STATIC_REVIEW",
+  "runtime_status": "UNVERIFIED",
+  "performance_status": "UNVERIFIED",
+  "executed": "Pure Python SHA/Git-original/whole-file inverse and bounded logical enumeration; no Godot/Chrome/heavy benchmarks",
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "files": [
+    {
+      "path": "game/loadout/effects/item_art_library.gd",
+      "old_sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+      "candidate_sha256": "98e2454f2781c028d1a6c512bd7976845a4396ef4d546e08dea2b4f4ece6a333",
+      "original_exact_git_blob": true
+    },
+    {
+      "path": "tests/item_v5_art_runner.gd",
+      "old_sha256": "6598fad753b91fd6d2b6d940ee8373f14f8e98c538f04800bbaa467be00cfeb1",
+      "candidate_sha256": "a1b1cff13e32bcd5eb09c836265c7357213595c3845997ae9101959249fe304f",
+      "original_exact_git_blob": true
+    }
+  ],
+  "proofs": {
+    "production_exact_after_removing_only_four_added_lines": true,
+    "old_test_whole_file_restored_after_removing_added_call_and_method": true,
+    "new_check_sites": 9,
+    "unchanged_methods": [
+      "clear_cache",
+      "reload_registry",
+      "validate_payload",
+      "validate_sources",
+      "_texture",
+      "_path_ok",
+      "_region_ok",
+      "_positive",
+      "_pair"
+    ],
+    "hot_guard_truth_table": [
+      {
+        "editor": false,
+        "signature_nonempty": false,
+        "data_nonempty": false,
+        "new_hot_return": false
+      },
+      {
+        "editor": false,
+        "signature_nonempty": false,
+        "data_nonempty": true,
+        "new_hot_return": false
+      },
+      {
+        "editor": false,
+        "signature_nonempty": true,
+        "data_nonempty": false,
+        "new_hot_return": false
+      },
+      {
+        "editor": false,
+        "signature_nonempty": true,
+        "data_nonempty": true,
+        "new_hot_return": true
+      },
+      {
+        "editor": true,
+        "signature_nonempty": false,
+        "data_nonempty": false,
+        "new_hot_return": false
+      },
+      {
+        "editor": true,
+        "signature_nonempty": false,
+        "data_nonempty": true,
+        "new_hot_return": false
+      },
+      {
+        "editor": true,
+        "signature_nonempty": true,
+        "data_nonempty": false,
+        "new_hot_return": false
+      },
+      {
+        "editor": true,
+        "signature_nonempty": true,
+        "data_nonempty": true,
+        "new_hot_return": false
+      }
+    ]
+  },
+  "findings": [],
+  "scope_notes": [
+    "Warm non-editor registry becomes explicitly immutable until clear_cache/reload_registry. It intentionally no longer notices live res:// file deletion/edit at every query; current export has no resource-pack mutation consumer found in game/experiments. This is not a general hot-reload-compatible cache.",
+    "Editor/editor--main-pack keeps automatic original file-existence/SHA path; native editor art runner cannot by itself prove non-editor speedup.",
+    "Cold/missing/race/grammar/source-bounds/64MiB paths remain byte-identical; failed load leaves data empty so new shortcut is impossible. Original same-invalid-signature retry behavior remains unchanged.",
+    "No PNG/WAV/config/allowlist changes in this patch. Root may rebind ITEM_ART_LOADER_SHA256 from 14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d to 98e2454f2781c028d1a6c512bd7976845a4396ef4d546e08dea2b4f4ece6a333 only after this review; original finite missing/corrupt/source negatives still required."
+  ],
+  "pending": [
+    "Original art runner native",
+    "Actual exported hot-path validation / fixed-workload performance",
+    "Original quality finite-loader negative suite after root SHA update"
+  ]
+}

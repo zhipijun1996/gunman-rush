@@ -1,0 +1,12 @@
+from pathlib import Path
+import subprocess,re,hashlib,json
+R=Path('/workspace/gunman-rush-refactor');E=Path(__file__).parent;C=subprocess.check_output(['git','rev-parse','e42b277f'],cwd=R,text=True).strip();sha=lambda b:hashlib.sha256(b).hexdigest()
+names={'PlainsRevisionPose':'E42Pose','PlainsRevisionGround':'E42Ground','PlainsRevisionFlora':'E42Flora','PlainsRevisionSkin':'E42Skin'};pattern=re.compile(r'\b('+'|'.join(names)+r')\b');out=['extends RefCounted\n# Exact e42b277f test-only source; lexical class names and nesting only.\n'];rows=[]
+for old,new in names.items():
+ suffix={'PlainsRevisionPose':'pose','PlainsRevisionGround':'ground','PlainsRevisionFlora':'flora','PlainsRevisionSkin':'skin'}[old];p='game/enemies/presentation/plains_revision_'+suffix+'.gd';raw=subprocess.check_output(['git','show',C+':'+p],cwd=R);s=raw.decode();assert s.startswith('class_name '+old+'\n');body=s.split('\n',1)[1];renamed=pattern.sub(lambda m:names[m[0]],body);fragment='class '+new+':\n'+''.join('\t'+line if line.strip() else line for line in renamed.splitlines(keepends=True));out.append('\n'+fragment)
+ reverse={v:k for k,v in names.items()};back=re.sub(r'\b('+'|'.join(reverse)+r')\b',lambda m:reverse[m[0]],renamed);assert 'class_name '+old+'\n'+back==s
+ q=E/'original'/p;q.parent.mkdir(parents=True,exist_ok=True);q.write_bytes(raw);rows.append(dict(path=p,baseline_sha256=sha(raw),candidate_sha256=sha((R/p).read_bytes()),lexical_inverse_exact=True))
+shared=['game/enemies/presentation/plains_revision_weights.gd','game/enemies/presentation/plains_motion_02.gd']+['assets/plains_revision_01/'+k+'.png' for k in ['patrol','charger','hopper','sentry','fan_sentry','root_bell']]
+for p in shared:
+ raw=(R/p).read_bytes();assert raw==subprocess.check_output(['git','show',C+':'+p],cwd=R);rows.append(dict(path=p,baseline_sha256=sha(raw),candidate_sha256=sha(raw),unchanged_shared=True))
+(E/'baseline_e42.gd').write_text(''.join(out));(E/'source-vector.json').write_text(json.dumps(dict(baseline_commit=C,candidate_identity='e42b277f + exact current four-source WIP vector below; not a committed e42 result',files=rows,baseline_generated_sha256=sha((E/'baseline_e42.gd').read_bytes()),generator_sha256=sha(Path(__file__).read_bytes()),adaptation='Only the four class tokens are renamed, class_name becomes a nested lexical class and every body line gains one indent. No expression, call, constant or loop changes; exact inverse proved.'),indent=2)+'\n')
