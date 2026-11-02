@@ -1,0 +1,11 @@
+# Plains spatial art consumer contract candidate
+
+The exact main+PR122 baseline 2ce4ffa6 already fails the original checker at the assertion requiring Bellstrider to use spatial/chassis.png. This was independently reproduced with exact Git objects for the original checker and every file it reads or checks for existence (external minimal checkout, 0.113 s, exit1). This is not a refactor runtime regression.
+
+PR122 commit6742f381 replaced that Bell renderer with the articulated current rig using underworld actors/bellstrider.png and bell.png. Current presentation is byte-identical to the 2ce source after its single audio-preload path migration. No current runtime or experiment/preview source scanned still references the old spatial chassis; the spatial actors atlas and panorama retain actual consumers. See consumer-audit.json for scope and source identities.
+
+The one-tool candidate preserves every immutable spatial source/hash/size/mode/import assertion, alpha/region checks, player/drone consumer checks, shader check and no-chassis.svg guard. The obsolete current-Bell chassis requirement is explicitly replaced by current rig asset preload/draw/pose checks and the actual scene Presentation-to-script/Encounter binding. It also verifies the retained historical mini_chassis manifest designation. This is a declared contract migration, not a claim that the old chassis requirement remained satisfied.
+
+No art/audio, production source, renderer, preview, gameplay rule or budget changes. No historical file removed. No new registry, engine or renderer is introduced. The PASS message states the static scope and leaves runtime and subjective review separate.
+
+Actual external Python candidate run passed. Eight external mutation probes were rejected: missing machine or bell preload, scene presentation disconnected, missing rig pose, old SVG, missing projectile or drone consumer, and corrupted historical chassis bytes. Original failure remains in baseline-2ce.log; main local failure source is hashed in consumer-audit.json. Candidate originals, patch, full input SHA and probe outputs are preserved here. git apply --check passed. Independent review pending; no native/full CI or visual approval claimed.

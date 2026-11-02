@@ -60,7 +60,7 @@ func setup(kind: StringName, air: bool, chain: String) -> void:
 	actor.set_physics_process(false)
 	actor.brain.enabled = false
 	if chain == "underworld":
-		var install: Dictionary = load("res://scripts/underworld_plains/underworld_actor_installer.gd").install(fixture)
+		var install: Dictionary = load("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd").install(fixture)
 		check(int(install.enemies)==1,String(kind)+" actual formal installer replaces one body")
 	host = motor.get_node("Presentation") as Node2D
 	if kind != &"patrol":
@@ -151,7 +151,7 @@ func lifecycle_case(kind: StringName, air: bool = false, chain: String = "underw
 		# Actual physics sweeps at the core and the former oversized top edge,
 		# with the unchanged real player-projectile radius. This is a geometry
 		# fixture, not a claim to a naturally aimed combat shot.
-		var bullet: Node = load("res://scripts/combat/player_projectile.gd").new()
+		var bullet: Node = load("res://game/combat/projectiles/player_projectile.gd").new()
 		var circle := CircleShape2D.new()
 		circle.radius = float(bullet.get("radius"))
 		bullet.free()

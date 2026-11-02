@@ -1,0 +1,19 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--verbose",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tests/foundry_feedback_runner.gd"
+  ],
+  "status": "failed",
+  "failure_kind": "runtime_or_resource_error",
+  "exit_code": 0,
+  "seconds": 4.93086697200124,
+  "timing_scope": "native process including audio teardown; not device acceptance"
+}

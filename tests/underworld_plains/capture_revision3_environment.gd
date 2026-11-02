@@ -173,7 +173,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	if capture:DirAccess.make_dir_recursive_absolute(image_dir)
 	root.size=Vector2i(1280,720)
-	app=preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp;app.meta_persistence_enabled=false;root.add_child(app)
+	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp;app.meta_persistence_enabled=false;root.add_child(app)
 	await execute()
 	key_right(false)
 	var report: Dictionary={"schema":"underworld-r3-formal-environment-capture-v1","kind":kind,"capture":capture,"seed":seed,"checks":checks,"failures":failures,"fixture":fixture,"health_commits":health_events,"damage_receipts":damage_events,"segment_returns":return_events,"actual_input_events":events,"frames":rows,"media_scope":"210 actual per-tick observations (3.5 simulation seconds); PNGs only under --capture after frame_post_draw. MovieMaker startup/teardown frames are additional. Software host rendering speed is not device FPS. Explicit fixture-only initial placement, not natural route from region entrance."}

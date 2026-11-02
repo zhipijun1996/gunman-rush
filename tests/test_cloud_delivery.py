@@ -66,6 +66,7 @@ class DeliveryTests(unittest.TestCase):
         for name in ('cloud_delivery.py', 'style_exploration_delivery.py', 'preview_host_workflow.yml'):
             shutil.copyfile(Path(delivery.__file__).parent / name, self.root / 'tools' / name)
         (self.root / 'scenes/dev').mkdir(parents=True)
+        (self.root / delivery.BOOTSTRAP).parent.mkdir(parents=True, exist_ok=True)
         (self.root / delivery.BOOTSTRAP).write_text('[gd_scene format=3]\n[node name="Preview" type="Node"]\n')
         self.consumer = 'scenes/dev/consumer_test.tscn'
         (self.root / self.consumer).write_text('[gd_scene format=3]\n[node name="Consumer" type="Node"]\n')
@@ -162,7 +163,7 @@ class DeliveryTests(unittest.TestCase):
         self.assertTrue((destination / 'preview.json').is_file())
         page = (destination / 'index.html').read_text()
         self.assertIn('--cloud-preview', page)
-        self.assertNotIn('"res://scenes/dev/cloud_preview.tscn"', page)
+        self.assertNotIn('"res://experiments/platform/entries/cloud_preview.tscn"', page)
         self.assertIn('--seed=fixed-seed', page)
         self.assertIn('--entry=actions', page)
         self.assertFalse((destination / self.pack_name).exists())
@@ -201,7 +202,7 @@ class DeliveryTests(unittest.TestCase):
                    'res://scenes/../demo/demo.tscn', 'res://scenes/dev\\test.tscn',
                    'res://scenes//test.tscn', 'res://scenes/./test.tscn',
                    'res://scenes/test.gd', 'res://scenes/name..tscn',
-                   'res://scenes/dev/cloud_preview.tscn')
+                   'res://experiments/platform/entries/cloud_preview.tscn')
         for scene in invalid:
             with self.subTest(scene=scene), self.assertRaises(ValueError):
                 self.stage(entry='scene', scene=scene)
@@ -262,6 +263,25 @@ class DeliveryTests(unittest.TestCase):
         (self.root / delivery.BOOTSTRAP).write_text('changed runtime')
         with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):
             self.stage(task='RUNTIME-DIRTY')
+
+    def test_migrated_runtime_and_experiments_reject_untracked_modified_and_deleted_sources(self):
+        for name in ('game/application/app.gd', 'experiments/audio/owner.gd'):
+            with self.subTest(path=name):
+                path = self.root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('fixture source')
+                with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):
+                    delivery.clean_runtime(self.root)
+                run(self.root, 'add', name)
+                run(self.root, '-c', 'user.name=Delivery Test', '-c', 'user.email=delivery@example.invalid', 'commit', '-qm', 'runtime fixture')
+                delivery.clean_runtime(self.root)
+                path.write_text('modified runtime')
+                with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):
+                    delivery.clean_runtime(self.root)
+                path.unlink()
+                with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):
+                    delivery.clean_runtime(self.root)
+                run(self.root, 'checkout', '--', name)
 
     def test_dirty_export_or_publish_producer_refuses_staging(self):
         producer = self.root / 'tools/style_exploration_delivery.py'

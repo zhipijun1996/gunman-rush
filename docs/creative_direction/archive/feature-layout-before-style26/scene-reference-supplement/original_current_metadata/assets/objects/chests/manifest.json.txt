@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "asset_family": "chest-tiers-v1",
+  "task_id": "CHEST-ART-01",
+  "source_path": "assets/objects/chests/chest-tiers-v1.source.png",
+  "source_sha256": "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5",
+  "size": [
+    1536,
+    1024
+  ],
+  "rgba8_bytes": 6291456,
+  "rgba8_budget_bytes": 8388608,
+  "source_pixels_modified": false,
+  "generation_calls_used": 4,
+  "max_calls": 4,
+  "generation_request": "docs/evidence/chest_art_01/raw/generation/request-04.json",
+  "exact_prompt": "docs/evidence/chest_art_01/raw/generation/prompt-04.txt",
+  "original_source_artifact": "docs/evidence/chest_art_01/sources/source-04.png",
+  "runtime_config": "config/chest_art.json",
+  "runtime_consumers": [
+    "scripts/art/chest_art_library.gd",
+    "scripts/art/chest_art_layer.gd",
+    "scripts/underworld_plains/underworld_objects.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "scripts/presentation/forest_bible_presentation.gd"
+  ],
+  "sampling": "Existing REGION_RECT-safe item_v5_world_sprite shader, nearest and world1wu; full alpha and isotropic shared tier factor",
+  "adoption": {
+    "actual_user_quote": "宝箱接入游戏，继续工作",
+    "basis": "Direct reply to concrete source04 size/pose tradeoff question",
+    "scope": "Use current source04; does not retroactively pass original geometry/gutter requests, license, physical devices or full-game visuals"
+  },
+  "license_status": "unknown",
+  "model": "not_exposed",
+  "six_static_states": true,
+  "not_animation": true
+}

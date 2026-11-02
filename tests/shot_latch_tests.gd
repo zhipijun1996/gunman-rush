@@ -1,6 +1,6 @@
 extends RefCounted
-const PLAYER := preload("res://scenes/player/player.tscn")
-const MODULE := preload("res://scenes/generation/modules/windchime_trial.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
+const MODULE := preload("res://game/world/generation/scenes/modules/windchime_trial.tscn")
 var tree: SceneTree
 var check: Callable
 var world: Node2D

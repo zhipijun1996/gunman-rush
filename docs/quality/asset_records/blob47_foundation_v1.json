@@ -3,7 +3,7 @@
   "asset_id": "blob47_foundation_v1",
   "content_version": "blob47-v1",
   "source_path": "tools/build_blob47_art.py",
-  "source_sha256": "5594b2c1fb47fadb57cde4ea56394b90106800fac086884c8f725ffd4dbe488d",
+  "source_sha256": "05ca9129d3c3b9cb8645b9b1a8b30fd908d7132c0c6508311e948e1544b0d874",
   "runtime_paths": [
     "assets/art_foundation_v1/far.svg",
     "assets/art_foundation_v1/middle.svg",
@@ -24,7 +24,7 @@
   "associated_files": [
     {
       "path": "assets/art_foundation_v1/manifest.json",
-      "sha256": "732476a9d6462ee166c3bf17afdaff0d85c1e3ff04e823023a3620231252e83d",
+      "sha256": "a82dc6a37bfd1245f5f0eb074cb1eca4d405b193e39624f852497444db2bf4fe",
       "role": "generation_record"
     },
     {
@@ -32,5 +32,31 @@
       "sha256": "5929927a7d9f0112f01ea0477c85c3d97a98a0f7a362831a17a3fe11f14869e5",
       "role": "generation_record"
     }
-  ]
+  ],
+  "revision_impact": {
+    "revision": "feature-layout-technical-pointer-rebind-20261031",
+    "previous_record_path": "docs/evidence/game_architecture_02/blob47_metadata_before_layout/blob47_foundation_v1.json",
+    "previous_record_sha256": "19f388db175a1883c5a02a36072d16887a238aa2757e09cc00f5d8cec1cb84ba",
+    "original_builder_path": "docs/evidence/game_architecture_02/blob47_metadata_before_layout/build_blob47_art.py",
+    "original_builder_sha256": "5594b2c1fb47fadb57cde4ea56394b90106800fac086884c8f725ffd4dbe488d",
+    "original_generation_record_path": "docs/evidence/game_architecture_02/blob47_metadata_before_layout/manifest.json",
+    "original_generation_record_sha256": "732476a9d6462ee166c3bf17afdaff0d85c1e3ff04e823023a3620231252e83d",
+    "source_changes": [
+      {
+        "path": "tools/build_blob47_art.py",
+        "old_sha256": "5594b2c1fb47fadb57cde4ea56394b90106800fac086884c8f725ffd4dbe488d",
+        "new_sha256": "05ca9129d3c3b9cb8645b9b1a8b30fd908d7132c0c6508311e948e1544b0d874",
+        "actual_change": "Only RULES file lookup and emitted configuration_source literal move from scripts/art_foundation/blob47_rules.gd to game/presentation/world/art_foundation/blob47_rules.gd; original authoring algorithms unchanged."
+      },
+      {
+        "path": "assets/art_foundation_v1/manifest.json",
+        "old_sha256": "732476a9d6462ee166c3bf17afdaff0d85c1e3ff04e823023a3620231252e83d",
+        "new_sha256": "a82dc6a37bfd1245f5f0eb074cb1eca4d405b193e39624f852497444db2bf4fe",
+        "actual_change": "Only configuration_source path; all asset SHA, layout, masks, palette, version, status and license text unchanged."
+      }
+    ],
+    "verification": "Original builder outputs() evaluated only in memory; every one of the five SVG strings exactly equals existing file bytes. Existing assets/manifest.json family records also checked against original builder schema. Original rules file at2ce4ffa6 equals current relocated rules byte for byte. No renderer/generator main, image/audio generation or production mutation performed by this review.",
+    "visual_status": "failed remains unchanged: user rejected V1; technical binding does not reopen aesthetic acceptance",
+    "independent_review": "Read-only producer/byte/path audit completed by preview_audit; root must review candidate patch and run original --check/native gates after applying. Native not executed by reviewer."
+  }
 }

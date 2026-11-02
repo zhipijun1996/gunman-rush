@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+ERROR: Bellstrider requires BellstriderDefinition
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/bosses/bellstrider/bellstrider_encounter.gd:50)
+       [1] run (res://tests/plains_experience_energy_runner.gd:69)
+       [2] fixture (res://tests/plains_experience_energy_runner.gd:40)
+       [3] frames (res://tests/plains_experience_energy_runner.gd:22)
+FAIL: actual closed Boss armour never refunds energy or a round
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=82 pieces=305 setup_ms=45
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"e414ff06c0dedfd816cacb3502be5f32243b189d80ed32d102d233f161943af0","map_index":1,"region":"plains","seed":"energy-formal-preview"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@249/@Node@250","played":{"death":1},"service":"GameAudio"},{"node":"/root/@Node2D@249/@Node@263","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.145}
+PLAINS EXPERIENCE ENERGY: 540 assertions, 1 failures

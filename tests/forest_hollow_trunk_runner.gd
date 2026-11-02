@@ -38,7 +38,7 @@ func _initialize() -> void:
 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
 	run.call_deferred()
 func create_room() -> Node2D:
-	var candidate=load("res://scripts/demo/forest_hollow_trunk_golden.gd").new()
+	var candidate=load("res://experiments/generation/forest_hollow_trunk_golden.gd").new()
 	if aircatch_geometry:candidate.geometry_override=ForestHollowTrunkGeometry.build_aircatch()
 	return candidate
 func run() -> void:

@@ -44,7 +44,7 @@ func start() -> void:
 		return
 	DirAccess.make_dir_recursive_absolute(output)
 	source_before = leaf_hashes()
-	app = load("res://scripts/demo/demo_app.gd").new()
+	app = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_debug_region(&"plains",2,"windkeeper-pressure-01"):
@@ -61,7 +61,7 @@ func start() -> void:
 	boss = app.stage.boss as BossMotor
 	encounter = boss.get_node("Encounter") as WindkeeperPressureEncounter
 	presentation = boss.get_node("Presentation") as Node2D
-	if encounter == null or presentation.get_script().resource_path != "res://scripts/bosses/windkeeper_pressure_presentation.gd":
+	if encounter == null or presentation.get_script().resource_path != "res://game/bosses/windkeeper/windkeeper_pressure_presentation.gd":
 		fail("Formal map2 did not instantiate current pressure encounter/renderer")
 		await finish()
 		return
@@ -243,7 +243,7 @@ func capture_size(size: Vector2i) -> void:
 
 func leaf_hashes() -> Dictionary:
 	var result: Dictionary = {}
-	for path: String in ["scripts/bosses/windkeeper_pressure_encounter.gd","scripts/bosses/windkeeper_pressure_rig.gd","scripts/bosses/windkeeper_pressure_presentation.gd","scripts/bosses/windkeeper_pressure_definition.gd","scripts/bosses/windkeeper_pressure_wind.gd","shaders/windkeeper_pressure_foreground.gdshader","shaders/underworld_foreground.gdshader","resources/bosses/windkeeper_storm.tres","scenes/bosses/windkeeper_pressure.tscn","assets/underworld_plains/actors/windkeeper.png","tools/windkeeper_pressure_01/pose_review.gd"]:
+	for path: String in ["game/bosses/windkeeper/windkeeper_pressure_encounter.gd","game/bosses/windkeeper/windkeeper_pressure_rig.gd","game/bosses/windkeeper/windkeeper_pressure_presentation.gd","scripts/bosses/windkeeper_pressure_definition.gd","game/bosses/windkeeper/windkeeper_pressure_wind.gd","shaders/windkeeper_pressure_foreground.gdshader","shaders/underworld_foreground.gdshader","resources/bosses/windkeeper_storm.tres","scenes/bosses/windkeeper_pressure.tscn","assets/underworld_plains/actors/windkeeper.png","tools/windkeeper_pressure_01/pose_review.gd"]:
 		result[path] = FileAccess.get_sha256("res://"+path)
 	return result
 

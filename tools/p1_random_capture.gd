@@ -1,6 +1,6 @@
 extends "res://tools/level_formal_capture.gd"
 ## The original full formal driver, with an explicit presentation treatment only.
-const P1_CATALOG := "res://resources/visual_development/p1_candidate.json"
+const P1_CATALOG := "res://game/presentation/world/resources/visual_development/p1_candidate.json"
 var _p1_selected := false
 
 func _initialize() -> void:
@@ -32,10 +32,10 @@ func _observe_install_node(node: Node) -> void:
 	if not _p1_selected or app==null or node.get_parent()!=app.stage:return
 	var script := node.get_script() as Script
 	if script==null:return
-	if script.resource_path=="res://scripts/art/p1_random_plains_sample.gd":
+	if script.resource_path=="res://game/presentation/world/art/p1_random_plains_sample.gd":
 		report["p1_collision_before_install"]=_collision_rows(app.stage)
 		report["p1_collision_observation_boundary"]="SceneTree.node_added before P1 install; presentation.ready after synchronous install, before route input"
-	elif script.resource_path=="res://scripts/art/visual_language_sample.gd" and app.stage.has_meta("p1_random_coverage"):
+	elif script.resource_path=="res://game/presentation/world/art/visual_language_sample.gd" and app.stage.has_meta("p1_random_coverage"):
 		node.ready.connect(_after_install,CONNECT_ONE_SHOT)
 
 func _after_install() -> void:

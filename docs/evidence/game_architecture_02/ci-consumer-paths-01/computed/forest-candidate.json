@@ -1,0 +1,48 @@
+{
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "path": "tests/forest_ecology_runner.gd",
+  "original_sha256": "85b63e783511377873a969f6b89af4ced7d43613e7cc3afdcd2944433938ebc8",
+  "candidate_sha256": "c34c51f5638b0a7674276e846af0adbc1b7e8a4306fbc3ee0fc857a78455e9c1",
+  "changed_lines": 1,
+  "exact_inverse": true,
+  "proof": [
+    {
+      "id": "forest_lantern",
+      "old_path": "scenes/enemies/forest_lantern.tscn",
+      "new_path": "game/enemies/species/scenes/forest_lantern.tscn",
+      "migration_commit": "4f2fb531",
+      "pre_sha256": "29dcd4c86b913094e6d82209b75b12841f8cb8e26e957feb349798f07286a30e",
+      "migrated_sha256": "924072bbf71cfe71264dd66c82cda1cb37a3f6efb1a05b4a5419d0fa4b21da23",
+      "current_sha256": "924072bbf71cfe71264dd66c82cda1cb37a3f6efb1a05b4a5419d0fa4b21da23",
+      "same_as_migration": true,
+      "scene_structure_equal_except_ext_resource_paths": true,
+      "current_definition_path": "res://resources/enemies/forest_lantern.tres",
+      "current_definition_referenced": true
+    },
+    {
+      "id": "forest_seed_sentry",
+      "old_path": "scenes/enemies/forest_seed_sentry.tscn",
+      "new_path": "game/enemies/species/scenes/forest_seed_sentry.tscn",
+      "migration_commit": "4f2fb531",
+      "pre_sha256": "ddbafdc702f0150790ac174e511ed7cdcf7799a26493b4a67a57861a29ebb5f5",
+      "migrated_sha256": "9169e9b49104e4c05b6cc1ae13c3b31e575a0b660000357feeeb58a48ea2eddd",
+      "current_sha256": "9169e9b49104e4c05b6cc1ae13c3b31e575a0b660000357feeeb58a48ea2eddd",
+      "same_as_migration": true,
+      "scene_structure_equal_except_ext_resource_paths": true,
+      "current_definition_path": "res://resources/enemies/forest_seed_sentry.tres",
+      "current_definition_referenced": true
+    }
+  ],
+  "boss_path_preserved": {
+    "pattern": "res://scenes/bosses/%s.tscn",
+    "actual_ids": [
+      "thorn_guardian",
+      "thorn_queen"
+    ],
+    "all_current_files_exist": true,
+    "reason": "Actual retained scene identities; moving this second pattern would create missing paths."
+  },
+  "validation": "Static only; no main edit or engine execution. Original assertions, frames, waits, command and timeout unchanged. Native pending root.",
+  "suggested_command": "bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/forest_ecology_runner.gd",
+  "required_budget": "Use original caller budget unmodified; current tools/harness/profiles.json forest-ecology timeout_seconds=180; remote supplied failure reported outer300. No increase."
+}

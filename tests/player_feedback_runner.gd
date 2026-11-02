@@ -1,5 +1,5 @@
 extends SceneTree
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var checks := 0
 var failures := 0

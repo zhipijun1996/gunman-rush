@@ -116,7 +116,7 @@ func record_batch(results: Array[DamageResult]) -> void:
 func setup(wait_intro: bool = true) -> bool:
 	await cleanup()
 	contacts.clear()
-	app = load("res://scripts/demo/demo_app.gd").new()
+	app = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(

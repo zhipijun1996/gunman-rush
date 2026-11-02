@@ -1,0 +1,62 @@
+{
+  "decision": "ACCEPT_LIMITED_REGISTERED_TEST_LOADER_FIX",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "patch_sha256": "48d0c30a55adea24195b0b99f3fdda3cffcaf5b0f5e36adf4a4b5aee168fea14",
+  "candidate_sha256": "940ce99a5549f22d0cb4558312f212903662e771d9186ef9e96243d410b6059a",
+  "original_sha256": "d90f9d5b0a49ec4b278b54e9339b97bbb4d8b27914942f834aa85fbb1a99bb5c",
+  "one_line_inverse_exact": true,
+  "all_class_and_method_ast_unchanged": true,
+  "test_method_count": 27,
+  "registered_full_profile_count": 185,
+  "original_check": {
+    "argv": [
+      "python3",
+      "tests/test_forest_region_scheduler.py"
+    ],
+    "timeout_seconds": 30,
+    "success_pattern": "^OK$",
+    "weight_seconds": 2,
+    "cacheable": false,
+    "inputs": [
+      "tools/run_forest_depth_region.py",
+      "tests/test_forest_region_scheduler.py",
+      "tools/harness/profiles.json"
+    ]
+  },
+  "registry_sha256": "95e4e288dccd7a0acc72c00581474b591f91009dde0cb4d699780097a337d2b0",
+  "PYTHONPATH_removed": true,
+  "results": [
+    {
+      "label": "before",
+      "cwd": "/workspace/gunman-rush-refactor",
+      "argv": [
+        "python3",
+        "tests/test_forest_region_scheduler.py"
+      ],
+      "seconds": 0.12088113899517339,
+      "exit_code": 1,
+      "log": "/workspace/refactor-evidence/forest-scheduler-loader-runtime-before.log",
+      "sha256": "11658554caad8d1a8cfc50256f87e2f34e7fcf7c8278c05ced85f7f4c14a8fc8",
+      "output": "Traceback (most recent call last):\n  File \"/workspace/gunman-rush-refactor/tests/test_forest_region_scheduler.py\", line 15, in <module>\n    spec.loader.exec_module(region)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/workspace/gunman-rush-refactor/tools/run_forest_depth_region.py\", line 24, in <module>\n    from forest_bible_world_sources import inventory as source_inventory\nModuleNotFoundError: No module named 'forest_bible_world_sources'\n"
+    },
+    {
+      "label": "candidate",
+      "cwd": "/workspace/refactor-evidence/forest-scheduler-loader-candidate/overlay",
+      "argv": [
+        "python3",
+        "tests/test_forest_region_scheduler.py"
+      ],
+      "seconds": 1.8348868489993038,
+      "exit_code": 0,
+      "log": "/workspace/refactor-evidence/forest-scheduler-loader-runtime-candidate.log",
+      "sha256": "4cf8ae7f148451c6768f82f29bc719f63df66c2529a6f8be0139460d796a484a",
+      "output": "...........................\n----------------------------------------------------------------------\nRan 27 tests in 1.722s\n\nOK\n"
+    }
+  ],
+  "dependency": {
+    "path": "tools/forest_bible_world_sources.py",
+    "sha256": "37b5d55e15f75e22cd43eb88d7f117a0edac3d857929b183b2160efc8d68deb9",
+    "reason": "run_forest_depth_region imports sibling source inventory at module load; real tools search path restores direct-file loader. Helper import uses stdlib only."
+  },
+  "scope": "No production, assertions, budget or main writes. Existing scheduler Python subprocess tests only; no Godot/full185/native/GUI certification. Unregistered directional capture followup excluded; its historical failures retained unchanged."
+}

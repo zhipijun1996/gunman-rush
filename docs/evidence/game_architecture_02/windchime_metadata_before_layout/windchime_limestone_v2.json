@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "content_version": "warm-limestone-v2",
+  "usage_scope": "WindchimeLab MAP00/MAP01 handmade samples; not formal random maps; user-rejected warm candidate, no promotion or public deployment",
+  "visual_status": "failed",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "asset_id": "windchime_warm_limestone_vectors",
+  "source_path": "tools/build_windchime_art.py",
+  "source_sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89",
+  "runtime_paths": [
+    "assets/windchime_plains/limestone_blob47.svg",
+    "assets/windchime_plains/props.svg"
+  ],
+  "tool": "Original SVG paths + deterministic atlas construction",
+  "model": "Codex; underlying asset-author model ID not exposed",
+  "prompt_or_reference": "docs/evidence/windchime_style_01/user_request.txt",
+  "processing": "Original 47 masks x3variants,8props. Separate cross-cell masonry and grain are clipped to actual occupancy. No historical art used.",
+  "license_status": "verified",
+  "license_source": "Original project-authored vector paths. User reference not embedded or traced.",
+  "associated_files": [
+    {
+      "path": "assets/windchime_plains/manifest.json",
+      "sha256": "eb897500c61d952a6dee0cec52cf1961d32776103d3c9617d9d96c86244f26b1",
+      "role": "generation_record"
+    },
+    {
+      "path": "docs/evidence/windchime_style_01/user_request.txt",
+      "sha256": "e9dfefba07afabe9221634b3460fecdd1fd1f22755bf3db2df60c3a0cb1bc74a",
+      "role": "source_contract"
+    }
+  ]
+}

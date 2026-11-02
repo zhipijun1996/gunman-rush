@@ -1,0 +1,39 @@
+{
+  "base_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "files": {
+    "tools/underworld_pipeline.py": {
+      "original_sha256": "7da7b312ce8fb7a4fd178a51219138fa2186ca724022607130f499a34370be67",
+      "candidate_sha256": "ce9e472ee22c8efaa5b2427a2c1165ff9444a2bede62e79cbbc6102fa103fdec"
+    },
+    "tests/test_underworld_pipeline.py": {
+      "original_sha256": "3a9ef43031d049cdf6fc22fe1ca7d152434e1eafc690ceee35865713d7ae9c64",
+      "candidate_sha256": "274f146403304b5a1e8c5505670bef662724cab82a8989d7e3b62ba672745c25"
+    }
+  },
+  "patch_sha256": "a1e364a57c65908e2bf7df6cfd71cde8b9037de3c2d3876086fd80377f13f056",
+  "delta_from_rejected_v1_sha256": "d523fa133e3124724d98a0d21c5775715523bcd1115fc660deb4d65927eb5512",
+  "production_input_files": {
+    "game/application/demo_app.gd": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+    "game/world/levels/providers/generated_demo_stage.gd": "bfd9c4db6f881c2cbae1155ff4c6e266130124d9da21f082739600fe38d3a971",
+    "game/world/levels/providers/thorn_forest_region_stage.gd": "15c1d22d930e553832f3a858ccbd44366928937659e2ae455cff4e206fab767b",
+    "game/world/levels/providers/plains_region_stage.gd": "10187f75235c6400e447f2bfec2ca6e4c81ea5e85671da30c52273925ec8e3dd"
+  },
+  "native_runner": "excluded from Python overlay; root revises and validates separately",
+  "full_original_check": {
+    "tests": 177,
+    "exit_code": 0,
+    "seconds": 134.87876576399867,
+    "budget_seconds": 180,
+    "receipt": "full-v2-02.receipt.json",
+    "source_unchanged": true
+  },
+  "original_tests": 164,
+  "prior_added_groups": 10,
+  "new_added_groups": 3,
+  "whole_App_body_templates_or_hashes_used": false,
+  "guard_unchanged_after_first_v2_failure": true,
+  "original_rejection_and_failed177_retained": true,
+  "profile_or_budget_changes": false,
+  "engine_run": false,
+  "main_writes": false
+}

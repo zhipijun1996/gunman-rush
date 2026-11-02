@@ -9,6 +9,9 @@ const LAYOUT_VERSION := "shared-tree-canopy-hunt-v10"
 const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
 const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")
 const ARENA_FACTORY_PATH := "res://scripts/generation/forest_boss_arena_factory.gd"
+# Source-bound callers may pin this one admitted historical Definition. Empty
+# retains this producer's existing current-resource behavior for other layouts.
+var charger_definition_revision := ""
 static func seed_for(root_seed: String,map_index: int) -> String:return root_seed+"/thorn_forest/map_%s"%map_index
 func generate(seed_value: String,tuning: PlayerTuning,map_index:=1,capability_snapshot: Dictionary={}) -> Dictionary:
 	var result:=generate_spatial_candidate(seed_value,tuning,map_index,capability_snapshot)
@@ -27,6 +30,7 @@ func generate_spatial_candidate(seed_value: String,tuning: PlayerTuning,map_inde
 	for area: Dictionary in m.areas:points.append(_point(area.position))
 	return {"ok":true,"manifest":m,"stage_generator_version":VERSION,"boss_arena":_rect(m.boss_arena),"placement_points":points,"encounter_plan":{"version":VERSION,"enemies":m.enemies.duplicate(true)},"exit_points":[],"admission":"experimental_not_formal_motor_verified","production_pool":false}
 func _candidate(seed_value: String,map_index: int) -> Dictionary:
+	if not charger_definition_revision.is_empty() and EnemyBehaviorRegistry.definition_path(&"charger",charger_definition_revision).is_empty(): return {}
 	var topology:=RunRandomStream.new(seed_value,"forest_topology","map_%s"%map_index,VERSION)
 	var content:=RunRandomStream.new(seed_value,"forest_ecology","map_%s"%map_index,VERSION)
 	var variant:=topology.next_int(2)
@@ -60,7 +64,7 @@ func _candidate(seed_value: String,map_index: int) -> Dictionary:
 	else:_clearing(m,p,variant)
 	if int(m.choices.cache_route)==1:_borer_reward(m,p)
 	if bool(m.choices.west_reward):_install_west_reward(m,p)
-	_install_encounters(m,content)
+	if not _install_encounters(m,content): return {}
 	_install_boss(m,p)
 	if variant==0 and int(m.choices.cache_route)==0:
 		# The upper right exit shares an existing broad prep shore before the
@@ -361,7 +365,7 @@ func _install_west_reward(m: Dictionary,p: Dictionary) -> void:
 	m.macro_loops.far_bough=["west_north","north_far_bough","far_cache","far_reward_return"]
 	if m.has("loop_sharing"):m.loop_sharing.crosslink_endpoints=["N","W"]
 
-func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
+func _install_encounters(m: Dictionary,content: RunRandomStream) -> bool:
 	# Consume the already-recorded ecology choice; never jitter positions or
 	# add another RNG stream. These are two authored route-pressure recipes.
 	var mix := int(m.choices.enemy_mix)
@@ -395,7 +399,10 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 	var rejected: Array = []
 	for row: Dictionary in rows:
 		var path: String = "res://resources/enemies/"+("plains_charger" if row.behavior=="charger" else str(row.behavior))+".tres"
-		var definition := load(path) as EnemyDefinition
+		var resolved_path := EnemyBehaviorRegistry.definition_path(&"charger",charger_definition_revision) if row.behavior=="charger" else path
+		if resolved_path.is_empty(): return false
+		var definition := load(resolved_path) as EnemyDefinition
+		if definition==null: return false
 		var at := Vector2(float(row.x),float(row.get("y",0)) if definition.aerial else float(row.floor)-definition.collision_size.y*.5)
 		var radius := float(row.get("radius",minf(definition.patrol_half_width,45.0)))
 		var half := definition.collision_size*.5
@@ -414,7 +421,7 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 		if not reason.is_empty():
 			rejected.append({"id":row.id,"reason":reason,"body_sweep":[sweep.position.x,sweep.position.y,sweep.size.x,sweep.size.y]})
 			continue
-		var placed: Dictionary = {"id":"hollow_route__"+str(row.id),"behavior_id":String(definition.behavior_id),"definition_path":path,"definition_sha256":FileAccess.get_sha256(path),"stable_id":String(definition.stable_id),"position":_pair(at),"aerial":definition.aerial,"patrol_radius":radius,"support_id":row.support,"authored_body_sweep":[sweep.position.x,sweep.position.y,sweep.size.x,sweep.size.y],"encounter_role":row.role,"encounter_group":row.group,"approach":row.approach,"alternatives":row.alternatives.duplicate(),"ecology_recipe":mix}
+		var placed: Dictionary = {"id":"hollow_route__"+str(row.id),"behavior_id":String(definition.behavior_id),"definition_path":path,"definition_sha256":FileAccess.get_sha256(resolved_path),"stable_id":String(definition.stable_id),"position":_pair(at),"aerial":definition.aerial,"patrol_radius":radius,"support_id":row.support,"authored_body_sweep":[sweep.position.x,sweep.position.y,sweep.size.x,sweep.size.y],"encounter_role":row.role,"encounter_group":row.group,"approach":row.approach,"alternatives":row.alternatives.duplicate(),"ecology_recipe":mix}
 		if row.has("line_start"):
 			placed.line_start=row.line_start.duplicate()
 			placed.line_end=row.line_end.duplicate()
@@ -427,6 +434,8 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 		m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
 		if bool(row.get("no_drop",false)):m.enemy_drops[row.id]={"kind":"none","amount":0}
 	m.encounter_plan_contract={"version":"compact-authored-ecology-v5","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
+	return true
+
 func _install_boss(m: Dictionary,p: Dictionary) -> void:
 	# First map introduces combat at the crown. The final map promotes the
 	# horizontal cavity to the approach: the lower crown is now a return shore.

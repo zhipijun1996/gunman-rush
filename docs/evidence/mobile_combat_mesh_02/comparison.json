@@ -1,0 +1,239 @@
+{
+  "task_id": "MOBILE-COMBAT-MESH-02",
+  "baseline_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+  "saved_code_commit": "ca505102f2bcd429a8a4c62eabd4f3a73a040ee8",
+  "source_sha256": {
+    "game/enemies/presentation/plains_revision_pose.gd": "41ce2a2192376551ec9eb21b0134437c23036361d79d7640758cc0329e5ac972",
+    "game/enemies/presentation/plains_revision_ground.gd": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54",
+    "game/enemies/presentation/plains_revision_flora.gd": "1bfcaa098d9c00464a308fdd1c2972f518837ee1ccb91e64eae4b48724812cb3",
+    "tests/plains_revision_deform_equivalence_runner.gd": "c3ce43d8c51f7625dd544430f275c6a01e420b833a8973d267b60d7532e57c14"
+  },
+  "measurement_attribution": "Candidate measured on HEAD8df + recorded WIP bytes; all four hashes match saved ca505 Git blobs. Not a clean ca505 benchmark claim.",
+  "method": "Same native process, alternating baseline/current order per frame, 3 rounds, 3 warmup + 60 sampled frames, 625 vertices including prepare cost and identical cached UV weights. Comparison is mean of three round means, lower is faster.",
+  "rows": [
+    {
+      "kind": "patrol",
+      "case": "moving",
+      "baseline_ms": 3.8872055555555565,
+      "candidate_ms": 3.6471944444444464,
+      "change_percent": -6.174386913192398,
+      "round_changes_percent": [
+        -5.092816676116496,
+        -4.324251718193917,
+        -8.67168557430249
+      ]
+    },
+    {
+      "kind": "patrol",
+      "case": "hurt_attack",
+      "baseline_ms": 3.8669000000000002,
+      "candidate_ms": 3.5628388888888898,
+      "change_percent": -7.863174923352312,
+      "round_changes_percent": [
+        -7.223337276638442,
+        -10.639124308376202,
+        -5.5535604799859755
+      ]
+    },
+    {
+      "kind": "patrol",
+      "case": "dying",
+      "baseline_ms": 5.602816666666667,
+      "candidate_ms": 5.377161111111113,
+      "change_percent": -4.027537736475761,
+      "round_changes_percent": [
+        -7.644254922131044,
+        -3.773391991411401,
+        -0.5493754697175168
+      ]
+    },
+    {
+      "kind": "charger",
+      "case": "moving",
+      "baseline_ms": 4.006605555555553,
+      "candidate_ms": 3.7681222222222233,
+      "change_percent": -5.952253847465694,
+      "round_changes_percent": [
+        -8.590410075550636,
+        -4.475149691641455,
+        -4.608324222623372
+      ]
+    },
+    {
+      "kind": "charger",
+      "case": "hurt_attack",
+      "baseline_ms": 4.067605555555557,
+      "candidate_ms": 3.7194166666666635,
+      "change_percent": -8.560045563251206,
+      "round_changes_percent": [
+        -11.134535987797856,
+        -8.299719307652786,
+        -6.094775542781539
+      ]
+    },
+    {
+      "kind": "charger",
+      "case": "dying",
+      "baseline_ms": 5.6448,
+      "candidate_ms": 5.40267777777778,
+      "change_percent": -4.289296737213366,
+      "round_changes_percent": [
+        -6.1892451318237285,
+        -3.395276682618187,
+        -3.156692553677476
+      ]
+    },
+    {
+      "kind": "hopper",
+      "case": "moving",
+      "baseline_ms": 4.036366666666667,
+      "candidate_ms": 3.79901111111111,
+      "change_percent": -5.880426015696227,
+      "round_changes_percent": [
+        -5.62203100299844,
+        -6.075438625502216,
+        -5.95631153192282
+      ]
+    },
+    {
+      "kind": "hopper",
+      "case": "hurt_attack",
+      "baseline_ms": 3.98208888888889,
+      "candidate_ms": 3.7902055555555534,
+      "change_percent": -4.818660222998616,
+      "round_changes_percent": [
+        -6.938601254253729,
+        -3.4024265237192597,
+        -4.084537289299018
+      ]
+    },
+    {
+      "kind": "hopper",
+      "case": "dying",
+      "baseline_ms": 6.6395,
+      "candidate_ms": 6.4562333333333335,
+      "change_percent": -2.7602480106433736,
+      "round_changes_percent": [
+        -1.7120248483952105,
+        -3.5883594588048573,
+        -2.9945643136276234
+      ]
+    },
+    {
+      "kind": "sentry",
+      "case": "moving",
+      "baseline_ms": 3.0917111111111133,
+      "candidate_ms": 2.7043055555555533,
+      "change_percent": -12.53045778317665,
+      "round_changes_percent": [
+        -14.408614705289391,
+        -9.855267329113904,
+        -13.262715526554691
+      ]
+    },
+    {
+      "kind": "sentry",
+      "case": "hurt_attack",
+      "baseline_ms": 3.0813722222222233,
+      "candidate_ms": 2.67035,
+      "change_percent": -13.338934493470656,
+      "round_changes_percent": [
+        -13.015372617079679,
+        -14.884271799283955,
+        -12.07972477263366
+      ]
+    },
+    {
+      "kind": "sentry",
+      "case": "dying",
+      "baseline_ms": 3.0911333333333335,
+      "candidate_ms": 2.9519388888888867,
+      "change_percent": -4.503022983299987,
+      "round_changes_percent": [
+        -7.599938718692501,
+        -3.1125689545285717,
+        -2.7032721261527004
+      ]
+    },
+    {
+      "kind": "fan_sentry",
+      "case": "moving",
+      "baseline_ms": 2.9271722222222234,
+      "candidate_ms": 2.0390222222222234,
+      "change_percent": -30.341569698476523,
+      "round_changes_percent": [
+        -29.56303996961942,
+        -29.408306767053173,
+        -31.974626199386012
+      ]
+    },
+    {
+      "kind": "fan_sentry",
+      "case": "hurt_attack",
+      "baseline_ms": 2.9737444444444434,
+      "candidate_ms": 2.1087833333333332,
+      "change_percent": -29.08659863920159,
+      "round_changes_percent": [
+        -29.073499839234472,
+        -28.207768271593668,
+        -29.978123135494428
+      ]
+    },
+    {
+      "kind": "fan_sentry",
+      "case": "dying",
+      "baseline_ms": 7.40986111111111,
+      "candidate_ms": 5.39805,
+      "change_percent": -27.15045641131375,
+      "round_changes_percent": [
+        -23.794241822414552,
+        -29.23445394641956,
+        -28.57934699407877
+      ]
+    },
+    {
+      "kind": "root_bell",
+      "case": "moving",
+      "baseline_ms": 3.72157222222222,
+      "candidate_ms": 3.657705555555553,
+      "change_percent": -1.716120576279745,
+      "round_changes_percent": [
+        -2.0368582308217253,
+        -3.6627981004569654,
+        0.5233518305878038
+      ]
+    },
+    {
+      "kind": "root_bell",
+      "case": "hurt_attack",
+      "baseline_ms": 3.6883500000000033,
+      "candidate_ms": 3.6002,
+      "change_percent": -2.3899575691028074,
+      "round_changes_percent": [
+        -6.744751342981459,
+        0.43316160840096707,
+        -0.540491520812636
+      ]
+    },
+    {
+      "kind": "root_bell",
+      "case": "dying",
+      "baseline_ms": 4.3358,
+      "candidate_ms": 4.46385,
+      "change_percent": 2.953318880022149,
+      "round_changes_percent": [
+        2.080745223631597,
+        2.5604099874090513,
+        4.171940378516159
+      ]
+    }
+  ],
+  "paired_rows": 54,
+  "all_checksums_exact": true,
+  "performance_limits": [
+    "Synthetic CPU kernel, not natural combat, browser/GPU or phone FPS.",
+    "Root Bell dying cost increased consistently across3 rounds; do not call all cases faster.",
+    "No settled corpse draw cache performance claim; current cache is unchanged."
+  ],
+  "scope": "Both original and candidate actual skin math; test-only original source copies have only lexical class names adapted."
+}

@@ -22,8 +22,8 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE_SOURCES = (
     "tests/forest_bible_ambience_runner.gd",
     "tools/run_forest_bible_ambience.py",
-    "scripts/presentation/forest_bible_ambience.gd",
-    "scripts/audio/game_audio.gd",
+    "game/presentation/world/presentation/forest_bible_ambience.gd",
+    "game/presentation/audio/game_audio.gd",
     "tools/generate_forest_bible_sfx.py",
     "assets/forest_bible_v2/audio/provenance.json",
     "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",

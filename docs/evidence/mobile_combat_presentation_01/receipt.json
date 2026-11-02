@@ -1,0 +1,183 @@
+{
+  "task_id": "MOBILE-COMBAT-PRESENTATION-01",
+  "saved_code_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+  "baseline_commit": "9da210e0cdf61e5af6f383738445985707968851",
+  "production_and_test_sha256": {
+    "game/enemies/presentation/enemy_presentation.gd": "343a44a1441c738ceb70ff35e3d6a7497abdbdb5eb808b871b23e54820997f5a",
+    "game/presentation/actors/underworld_plains/underworld_enemy.gd": "dbfd89cfbcad907d5b277e55d0a628bdf4df14313e87caa899c816f590e717c8",
+    "game/enemies/presentation/plains_revision_visual.gd": "703f90b2def4e440c8c25ee373f40b355519ddc3da4a3355a2565a70b4f1e7b1",
+    "tests/plains_motion_loot_02_motion.gd": "541733b09c6f591be488676bd46b16abbd959f4ca32268826abd28a239eeb0fb",
+    "tests/plains_motion_loot_02_presentation.gd": "73517dc8822043723eac0fc9a4d1440259abcffbd396e3e5d393f3301aa37fb6"
+  },
+  "development": {
+    "status": "passed",
+    "checks": 16,
+    "fresh": true,
+    "git_status": "",
+    "wall_seconds": 273.4,
+    "checks_executed": [
+      "docs",
+      "structure",
+      "quality",
+      "quality-tests",
+      "quality-drills",
+      "environment",
+      "underworld-damage-feedback",
+      "core",
+      "architecture-tests",
+      "enemy-structure-native",
+      "enemy-region-state",
+      "forest-current-registry",
+      "forest-ecology",
+      "region-bible-contract",
+      "underworld-pipeline",
+      "art-art"
+    ],
+    "source_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+    "original_report_sha256": "9f6d1264c749d86512535ccbc48722383330cb992ddbfc95ef17af4be43b7415"
+  },
+  "supplemental_original_checks": {
+    "plains-motion-loot-02": {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793552901.187096,
+      "ended_at_unix": 1793552918.8065932,
+      "duration_seconds": 17.619,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "plains-motion-loot-02"
+      ],
+      "check_token": "dea2dad4428d4ca48f7900bc9cef075a"
+    },
+    "enemy-feedback-formal": {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793552918.809191,
+      "ended_at_unix": 1793552937.33311,
+      "duration_seconds": 18.524,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "check_token": "ed2d1ca7568245f69efd049649c96e65"
+    },
+    "enemy-corpse-snapshot": {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793552937.3364675,
+      "ended_at_unix": 1793552949.0934458,
+      "duration_seconds": 11.757,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "check_token": "ace0deb4cf554a4e8343bee10f0d046d"
+    },
+    "plains-revision-deform-equivalence": {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793552949.096827,
+      "ended_at_unix": 1793552966.431092,
+      "duration_seconds": 17.334,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_revision_deform_equivalence_runner.gd"
+      ],
+      "check_token": "b4f15aaa9bc24134b3c0d38912caf0bc"
+    }
+  },
+  "supplemental_attribution": "Actual candidate bytes on dirty HEAD9da, five hashes matched saved cd12 Git blobs; original execution receipt retained. Not clean cd12/full171 execution.",
+  "integration": {
+    "plan": "full171",
+    "status": "not_executed",
+    "reason": "Existing shared presentation integration policy requires full; selected development/native results do not replace it."
+  },
+  "web": {
+    "candidate_status": "not_exported_or_published",
+    "current_runtime_source": "ab263ea6ca24f055f889e79116c75c89acb14567",
+    "current_build": "2e1274f62210"
+  },
+  "phone": {
+    "user_reported_device": "荣耀magic60",
+    "browser": "unknown",
+    "frame_profile": "unverified",
+    "stutter_resolved": "unverified"
+  },
+  "archive": {
+    "file": "original-receipts.zip",
+    "sha256": "a2d120b2728aff2f167e67f325bd9b9801d31c4fbcb4ff62bcb28877b1ada097",
+    "members": {
+      "harness/architecture-tests.log": "fc924f6e1fea3cec579bda3420051891bdf01c960fe5ca7e49fdfc8005bd9c0c",
+      "harness/art-art.log": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620",
+      "harness/core.log": "05f120bbf61180b05d91ef13769d55e5528baf5060af36251a111ed8b6fbcc37",
+      "harness/docs.log": "fbf99c80b7f77b7399a2ddf3d9b48556dfba5161b48da91921fe2fec4824e353",
+      "harness/enemy-region-state.log": "e57062daa672163828989098bb72773179aa5b6af5aa77d20aa89a45389a51f5",
+      "harness/enemy-structure-native.log": "7d8d4f18b6fb4e8a3f395dca78cbff5e4b96c329c02ad0dc62a6938b0096cb84",
+      "harness/environment.log": "cfb4d5082661845c9449be46f21134fc5dd2ead76a9fee917db3e62c080466a3",
+      "harness/forest-current-registry.log": "b7a53addcb575568ef502f44ddee74d7e78afaf7ca2534b261afc0b67d198a67",
+      "harness/forest-ecology.log": "a91dd1d234b85e09b61d5d6376ce6d58ecb985c6aff5c24cf32d2a9466d95aec",
+      "harness/quality-drills.log": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+      "harness/quality-tests.log": "1d4094d1a7d7fcd579d43037cde62497a7678edf95bfd6529993585967bf4e00",
+      "harness/quality.log": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "harness/region-bible-contract.log": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "harness/report.json": "9f6d1264c749d86512535ccbc48722383330cb992ddbfc95ef17af4be43b7415",
+      "harness/structure.log": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+      "harness/underworld-damage-feedback.log": "dee00a56424617c250db6280ebe43714689c542280d12e6dda5959954561e73c",
+      "harness/underworld-pipeline.log": "35a50b2403490eb4e777d85d1f9597065b3d6f6b3881cbb82a31f33c5df6bb7e",
+      "local/baseline-bench-pipeline-bench.log": "98c05e666e8107434e6554bfada92eea9b76b18b0a5950eb63d10e1d24afb109",
+      "local/baseline-bench-receipt.json": "0f8a26ab9095b9515e863523c1a158af50debd875f2001abb33a544094120fd5",
+      "local/baseline-red-plains-motion-loot-02.log": "523bc379cc89d47ff607f29f6c45dfe05ebee16fef6dc66919249b89e18ddcf3",
+      "local/baseline-red-receipt.json": "2dffc2085bb60a4796041329925c5f1aa1a0a8f5df75646d7ba01b9fb1ec7a56",
+      "local/candidate-final-enemy-corpse-snapshot.log": "21be085ceeeb953b7093be8f01f1c2af385dcdaf214a4972c9aa149f3e416556",
+      "local/candidate-final-enemy-feedback-formal.log": "e6367cc0e5e8b84ee07328548354b5dad76a87bce0933e8d01fc2ea3f1d4f3bf",
+      "local/candidate-final-plains-motion-loot-02.log": "01c14d329d4cda224e8924e886be61316da41d0dae214ef4bf00f222c0331c85",
+      "local/candidate-final-plains-revision-deform-equivalence.log": "27dc8752b168c54bb747636efdf29ba74774e82ad4a02f3a129e0a2cd0083c81",
+      "local/candidate-final-receipt.json": "e2f6c8ee50789fd0207f969f3d3fc6e5ac62d9d6ac505497b075e567f86e6607",
+      "local/candidate-first-pipeline-bench.log": "f64b8530a07f0baedc3336ec9a75de292d929f1b7d1ae35376bc981fb4294296",
+      "local/candidate-first-plains-motion-loot-02.log": "bc4015eeae9e5b37d2fc48773c064afee2b39f108e648c4e21705149e23198c6",
+      "local/candidate-first-receipt.json": "b7e43922657c2e96888640f7ff564318e5bd70561da9b1f58edc3e0c9846d44f",
+      "local/comparison-and-source-binding.json": "8e792d6713e57fc3290934dcdd5c24df1680cb41eed3c40e46b8f15cd411fb03",
+      "local/development-frozen.log": "cb584da09ea274619b7a18c6e9c1668106a036d69dde80d870f5da421e397c06",
+      "local/pipeline_bench.gd": "f82c51f936c73a637f60288110a13aa575b61eb509402cbc1589623439a3dd70",
+      "local/run_checks.py": "4589983d424b31f4eb7106e7078c7017b914509164194481b5171060b690fc8e",
+      "plans/development-frozen-cd12.execution.json": "dd45ec9b1136dd21c3c8b1857649db5c708e3a0a1ad992ea7d9b13fb1e10fbf5",
+      "plans/development-frozen-cd12.json": "f588f2c61769c3e0be8d2719db0ffbd3de1ae3986838754096386914510456a0",
+      "plans/integration-frozen-cd12.json": "6305a88e6b2a11cd726688aad3b23e7d92367dab50b8352c0ac728ae623c5cf1",
+      "reviews/mobile-combat-presentation-01-final-independent-review.json": "0fd0229317d74a14482decdbd41f28212d6a871b324a18a111ef609bc16f25de",
+      "reviews/mobile-combat-presentation-01-plan-independent-review.json": "04af1843ebdb45c6347afc521e64daff1cf71b48f0c2b4d82dfa4fed77db632d",
+      "reviews/mobile-combat-presentation-01-production-diff-independent-review.json": "970521b96d4d9409269a494e6f974ddfb46461a28c04d8828a37e4fbab41a5cb"
+    }
+  },
+  "rollback": {
+    "target_behavior_commit": "9da210e0cdf61e5af6f383738445985707968851",
+    "patch": "rollback-runtime-tests.patch",
+    "sha256": "81b75ccaf42465b584a9f3956b79c0ea7bbc57a4d95324642b46f869a887705b",
+    "dry_run_exit_code": 0,
+    "paths": [
+      "game/enemies/presentation/enemy_presentation.gd",
+      "game/enemies/presentation/plains_revision_visual.gd",
+      "game/presentation/actors/underworld_plains/underworld_enemy.gd",
+      "tests/plains_motion_loot_02_motion.gd",
+      "tests/plains_motion_loot_02_presentation.gd",
+      "tests/plains_motion_loot_02_presentation.gd.uid"
+    ],
+    "method": "Inverse six runtime/test/UID paths from cd12; preserve later docs/quality/evidence. git apply --check succeeded without mutating the worktree."
+  }
+}

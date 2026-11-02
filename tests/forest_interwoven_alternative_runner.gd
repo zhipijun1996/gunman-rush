@@ -143,7 +143,7 @@ func _initialize() -> void:
 	run.call_deferred()
 func source_hashes() -> Dictionary:
 	var result := {}
-	for path: String in [get_script().resource_path,"res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://scripts/generation/forest_interwoven_expedition.gd","res://scripts/generation/thorn_forest_region_v2.gd","res://scripts/generation/thorn_forest_region_v2_v13.gd","res://scripts/player/player_controller.gd","res://scripts/player/player_motor.gd","res://scripts/player/traversal_ability.gd","res://scripts/player/air_focus_ability.gd","res://scripts/input/keyboard_mouse_adapter.gd","res://config/player_tuning.json","res://resources/player/traversal.tres"]: result[path]=FileAccess.get_sha256(path)
+	for path: String in [get_script().resource_path,"res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://scripts/generation/forest_interwoven_expedition.gd","res://scripts/generation/thorn_forest_region_v2.gd","res://scripts/generation/thorn_forest_region_v2_v13.gd","res://game/player/player_controller.gd","res://game/player/player_motor.gd","res://game/player/actions/traversal_ability.gd","res://game/player/actions/air_focus_ability.gd","res://game/platform/input/keyboard_mouse_adapter.gd","res://config/player_tuning.json","res://resources/player/traversal.tres"]: result[path]=FileAccess.get_sha256(path)
 	return result
 func run() -> void:
 	if variant not in ["noH_twoR","noH_oneR","no_actions_jump"] or strategy not in ["early","apex","late"] or launch_side not in ["left","center","right"] or map_index not in [1,2]:

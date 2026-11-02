@@ -1,0 +1,261 @@
+{
+  "base_commit": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+  "scope": "Exact frozen 11-file ownership candidate, independently reviewed optimized editor. Original per-case commands/pacing/budgets retained; native preflight not original Harness/full182/GUI acceptance.",
+  "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+  "frozen_files": {
+    "game/application/demo_app.gd": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f",
+    "game/application/demo_run_director.gd": "09a902df1839a0156150a703025f88aa92c027729d721b185a107607f168151c",
+    "game/bosses/windkeeper/windkeeper_encounter.gd": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+    "game/bosses/windkeeper/windkeeper_pressure_encounter.gd": "792753e7f9db6a7b8c6359ed06d609bf305d97492bdaf1734b9527dcc36f4a26",
+    "game/bosses/windkeeper/windkeeper_arena.gd": "39b113af8f2a8976fd5bfbbc5df96f38c23db5e0546ce9f8b6cdebf5d6d058c1",
+    "tests/run_session_runner.gd": "1bb1f260f2bc964fe781d28f1ba498f6d40a746196545302f3fa406c245bab9f",
+    "tests/windkeeper_runner.gd": "939aba08b29a66d7b0209097a78acde0c38a8c3c9afa97b558c9eff1b3944322",
+    "tests/windkeeper_pressure_01/rewards.gd": "cd47b964ac69fe1962cbe201b75d9f5cc532f13707c70e8051bf49669b31147c",
+    "game/world/components/shot_latch.gd": "741ab54b15e452f80b8c19fef74113fa06d391da50a973fe9e9991f6ff7a04d7",
+    "game/world/levels/providers/plains_region_stage.gd": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275",
+    "tests/plains_interactive_lifecycle_runner.gd": "4886a4955041ee0dd4861aeb1cc53258061e9967a37c640cb156c4881e9bcdd8"
+  },
+  "source_unchanged": true,
+  "results": [
+    {
+      "case": "import",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--import",
+        "--quit"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 7.997271275999083,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "6f9c079a30919bedc3d4e7914c3663c9cea7e434f02c6b58be307d181d5e167a",
+      "completion": []
+    },
+    {
+      "case": "session",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/run_session_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "seconds": 7.486922689000494,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "47e35bb11189ab1d6a5e53ca85dfdbd959ed6f0184793fe91e4b77c9b8640b55",
+      "completion": [
+        "RUN SESSION TESTS: 54 assertions, 0 failures"
+      ]
+    },
+    {
+      "case": "latch-lifecycle",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_interactive_lifecycle_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 6.333252233001986,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "1c32db57b4a70bad3121ab9e5dcb7807c4955096728fa1e215a34232b90809a0",
+      "completion": [
+        "PLAINS INTERACTIVE LIFECYCLE: 26 assertions, 0 failures"
+      ]
+    },
+    {
+      "case": "windkeeper",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "seconds": 2.972202577002463,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "d73088694f1242a3aacd86196c44b2680029f4b80928debf1070a7db0d9493df",
+      "completion": [
+        "WINDKEEPER: 175 assertions, 0 failures"
+      ]
+    },
+    {
+      "case": "pressure-geometry",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_pressure_01/attack_geometry.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 4.226778476997424,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "6b8945b87ab647f6337be5657bd0202b3696dca36b1cb977c565623cafdbe89a",
+      "completion": [
+        "WINDKEEPER PRESSURE ATTACK GEOMETRY: 97 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "pressure-components",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_pressure_01/component_clock.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 4.17664876300114,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "9213dbd73a876d5957b975f6b6daef97d309b87ee998fa541ee0827b1c7cbadf",
+      "completion": [
+        "WINDKEEPER PRESSURE COMPONENT CLOCK: 1198 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "pressure-formal",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_pressure_01/formal_app.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 12.04769324100198,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "6ccae9e46031b7905d22710b40b4fe3d0a29656a285b886083bd286131ee9884",
+      "completion": [
+        "WINDKEEPER PRESSURE FORMAL APP: 63 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "pressure-support",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_pressure_01/support_app.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 12.449412979000044,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "9bd1971e9a2077c98e6266942ab0002308f1eb04375753611646d4a51c226219",
+      "completion": [
+        "WINDKEEPER PRESSURE SUPPORT APP: 72 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "pressure-rewards",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_pressure_01/rewards.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 19.285739317998377,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "b98e53894bad3eea650c2e06fb45e2417f88a0e50890eb92cce795f1fc949465",
+      "completion": [
+        "WINDKEEPER PRESSURE REWARDS: 139 checks, 0 failures"
+      ]
+    },
+    {
+      "case": "pressure-audio",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/windkeeper_pressure_01/audio.gd"
+      ],
+      "timeout_seconds": 90,
+      "seconds": 1.5693346450025274,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "daa80fa1c7ef0eb633f83c9049ae976f49c00b2b2f85d48e2970ab6a1b2bbfd0",
+      "completion": [
+        "WINDKEEPER_PRESSURE_AUDIO assertions=130 failures=0"
+      ]
+    },
+    {
+      "case": "core",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/run_tests.gd"
+      ],
+      "timeout_seconds": 540,
+      "seconds": 28.74568347299646,
+      "exit_code": 0,
+      "errors": [],
+      "error_lines": [],
+      "log_sha256": "339ee4139580ae03cf320f37c7949f4b9d54e57504a15051e8e374d3910ef7c6",
+      "completion": [
+        "ALL TESTS: 5686 assertions, 0 failures"
+      ]
+    }
+  ],
+  "passed": true
+}

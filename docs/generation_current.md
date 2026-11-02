@@ -54,12 +54,12 @@ v10使用三种手工宏观骨架的受约束变体、按身份变化的共享�
 
 | 实际模块 | 职责与版本 |
 | --- | --- |
-| [PlainsRegionGenerator](../scripts/generation/plains_region_generator.gd) | plains-region-v8，RNG plains-region-v4；最多 4 次候选，验证失败用 verified_fallback，记录 tuning hash、布局和预算 |
-| [PlainsExplorationTopology](../scripts/generation/plains_exploration_topology.gd) | woven_layers / linked_rings / crossroads；网格删选保连通/环路与 Boss 邻接，保留教学/可选入口，失败有界保底 |
-| [PlainsRouteRecipes](../scripts/generation/plains_route_recipes.gd) | 以 actions/pressure/decision 描述实际操作，历史使用次数和重复限制影响选择，初图过滤部分复合配方 |
-| [PlainsRegionAssembler](../scripts/generation/plains_region_assembler.gd) | Manifest 实例化、模块对接和捷径状态，不能依外观重新抽图 |
-| [RunRandomStream](../scripts/run/run_random_stream.gd) | sha256_counter_52_v1，命名流分离；拓扑/内容/奖励/机关相位等可复现 |
-| [PlainsRegionCampaign](../scripts/run/plains_region_campaign.gd) | plains-two-maps-v1，两图独立 seed/实例前缀与 Boss 角色 |
+| [PlainsRegionGenerator](../game/world/generation/plains_region_generator.gd) | plains-region-v8，RNG plains-region-v4；最多 4 次候选，验证失败用 verified_fallback，记录 tuning hash、布局和预算 |
+| [PlainsExplorationTopology](../game/world/generation/plains_exploration_topology.gd) | woven_layers / linked_rings / crossroads；网格删选保连通/环路与 Boss 邻接，保留教学/可选入口，失败有界保底 |
+| [PlainsRouteRecipes](../game/world/generation/plains_route_recipes.gd) | 以 actions/pressure/decision 描述实际操作，历史使用次数和重复限制影响选择，初图过滤部分复合配方 |
+| [PlainsRegionAssembler](../game/world/generation/plains_region_assembler.gd) | Manifest 实例化、模块对接和捷径状态，不能依外观重新抽图 |
+| [RunRandomStream](../game/world/state/run_random_stream.gd) | sha256_counter_52_v1，命名流分离；拓扑/内容/奖励/机关相位等可复现 |
+| [PlainsRegionCampaign](../game/world/state/plains_region_campaign.gd) | plains-two-maps-v1，两图独立 seed/实例前缀与 Boss 角色 |
 
 当前已实现能力包络筛选、输入轨迹、预算与账本、三种拓扑家族及 Boss 快行/探索/深层奖励等专项验证。ActionStudio 已有15种装备与H/W/D实现；正式平原仍基础单武器/一跳，正式成长、区域结束授予与后续能力锁尚未开放。V2旁路 CapabilitySnapshot 读取实际装备、授予、精力、共鸣和冷却，绑定原 RunManifest；不改保存合同，也不把Studio目录当正式解锁列表。
 

@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "task_id": "POPUP-TOUCH-PAIRING-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "reviewed_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "content_version": "popup-touch-pairing-v1",
+  "owner": "items_refactor",
+  "purpose": "修复本popup未收到press却转发opening release导致误选；仅局部触摸配对与原注册UI回归。",
+  "player_experience": "第一次触摸只打开选择菜单；第二次独立触摸才选择。取消、重新打开和鼠标继续正常。",
+  "constraints": [
+    "不修改游戏物理、资源、RNG、字体或全局mouse-from-touch设置",
+    "原48 check sites/全部旧正文及300/180预算保持",
+    "正式浏览器touch、完整24项受影响集合和实机未验不得签通过；技术wrapper与构建证据按实际来源分开。"
+  ],
+  "affected_paths": [
+    "game/presentation/ui/popup_touch_adapter.gd",
+    "tests/underworld_plains/test_underworld_ui.gd"
+  ],
+  "deliverables": [
+    "单finger PopupTouchAdapter生命周期配对",
+    "既有underworld-ui实际PopupMenu新增11项回归",
+    "原Web失败/原生旧新对照/有限独审保留"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "保既有视觉和选项布局，只修事件配对。",
+      "basis": "已观察到独立UI生命周期缺陷，不是美术/内容采用。"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "独立缺陷与保持边界明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "small_fix不以本卡申请内容/设备完整门禁。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "small_fix不以本卡申请内容/设备完整门禁。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "small_fix不以本卡申请内容/设备完整门禁。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "技术wrapper与构建通过；24项检查及实际浏览器touch/设备尚未验。",
+      "evidence": [
+        "new-native",
+        "independent"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "small_fix不以本卡申请内容/设备完整门禁。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "明确独立开菜单/再选择的原合同和最小生命周期配对范围。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "真实注册UI302/0、Studio37/0，原Web构建/包检查与新PCK空cwd探针通过；两代码叶与ab263ea6逐字绑定，原收据HEAD/dirty状态保留。仅签有限技术范围。 后续精确ab263干净源的24项integration全部fresh通过，原注册检查、断言与预算保持。",
+      "evidence": [
+        "registered-wrapper",
+        "web-export",
+        "pack-probe",
+        "actual-ui-integration24"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "实际正式native UI302/0与精确ab263原24项、Web自然两次tap/DOMcancel以及公开Home→Plains基本GUI均通过；尚不具备覆盖所有Popup消费者的完整consumer inventory，保留unverified，不用单个Studio证明所有UI。",
+      "evidence": [
+        "old-web"
+      ]
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "窄UI事件配对修复，不修改这些内容，也不以本卡签其验收。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "窄UI事件配对修复，不修改这些内容，也不以本卡签其验收。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "窄UI事件配对修复，不修改这些内容，也不以本卡签其验收。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "窄UI事件配对修复，不修改这些内容，也不以本卡签其验收。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "窄UI事件配对修复，不修改这些内容，也不以本卡签其验收。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "runtime_audit限定接受原50e候选和已存11项探针；最终提交两叶已逐字绑定，但完整wrapper/实际浏览器不扩写为该独审签字。",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "没有新实机/用户验收证据。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "没有新实机/用户验收证据。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "开菜单和独立选择",
+      "method": "真实源/原事件路径与分级证据核对",
+      "expected": "只配对本visible popup实收press，原鼠标/cancel保持",
+      "failure": "吞所有release或无owner转发release",
+      "status": "passed",
+      "reason": "范围已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "registered-ui",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原underworld-ui及Studio完整消费者",
+      "method": "真实源/原事件路径与分级证据核对",
+      "expected": "原全部断言/预算通过且退出clean",
+      "failure": "原断言失败或parse/error/leak",
+      "status": "passed",
+      "reason": "完整实际注册wrapper通过，原收据与后续提交字节对应。",
+      "evidence": [
+        "registered-wrapper"
+      ]
+    },
+    {
+      "id": "actual-web",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "scenario": "实际Web379原失败场景重测",
+      "method": "真实源/原事件路径与分级证据核对",
+      "expected": "开窗不选，第二tap选择，DOMcancel不选",
+      "failure": "开窗即误选或触摸泄漏",
+      "status": "unverified",
+      "reason": "Web export/bundle通过；真实浏览器业务被旧hook点击阻断，未到touch段，不签通过。",
+      "evidence": [
+        "old-web"
+      ]
+    },
+    {
+      "id": "scoped-review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "冻结两叶独审及最终提交绑定",
+      "method": "真实源/原事件路径与分级证据核对",
+      "expected": "相同候选SHA和明确有限结论",
+      "failure": "换源追签或把小probe当完整验收",
+      "status": "unverified",
+      "reason": "候选已有限独审且最终两叶Git字节匹配；不扩展为wrapper/browser独审。",
+      "evidence": [
+        "independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/popup_touch_pairing_01/README.md",
+      "sha256": "2a1a5ff28acb1190bde8be4314cc1d272a9a9c30ceacc426b73516218bccd288",
+      "kind": "spec",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Independent UI bug scope; subsequent registered-wrapper/export technical evidence documented; browser and final coverage remain pending."
+    },
+    {
+      "id": "old-web",
+      "path": "docs/evidence/popup_touch_pairing_01/original-web-failure.json",
+      "sha256": "48e40427317f9158a011d2e3c40c9b351aebec4e3b3973361eaf6182b013a83c",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Actual baseline379 touch release→close→wrong equip before independent second tap; original screenshots referenced, not duplicated."
+    },
+    {
+      "id": "candidate",
+      "path": "docs/evidence/popup_touch_pairing_01/candidate.json",
+      "sha256": "97cc5ac57994c6f7d5613fa6ca7f3a1c28444c6eb5ad4eb4068827920ffbc30d",
+      "kind": "runtime_trace",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Frozen two-leaf external candidate, exact source/patch SHA and original-body inverse proof; reviewed code commit pending.",
+      "source_state": "external_candidate_on_379"
+    },
+    {
+      "id": "probe-report",
+      "path": "docs/evidence/popup_touch_pairing_01/bounded-probe.json",
+      "sha256": "bb6e1801c9c7ecb2cb9c625f084e7abcf7cf38c1c15d20b256113f3885262e08",
+      "kind": "runtime_trace",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Exact before/import provenance and final after source; only tiny actual PopupMenu project.",
+      "source_state": "external_candidate_on_379"
+    },
+    {
+      "id": "old-native",
+      "path": "docs/evidence/popup_touch_pairing_01/before-native.log",
+      "sha256": "39021f10aea014e644c60bf8284a1e90eee4a3a067d6a2b29436e7eab439058c",
+      "kind": "command",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Original379 adapter:11 checks/9 failures; not original full UI suite.",
+      "command": "fixed godot-linux-x86_64 --headless --path <external bounded probe> --audio-driver Dummy --fixed-fps 60 --script main.gd",
+      "exit_code": 1,
+      "environment": "Installed fixed Godot4.7.2 gunman_sd1 eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638;30s external probe cap",
+      "source_state": "baseline379"
+    },
+    {
+      "id": "new-native",
+      "path": "docs/evidence/popup_touch_pairing_01/after-native.log",
+      "sha256": "f79f8a2f1bfcd15f42cb03606fe05043264a27300c24d98d1134de98232ba1f3",
+      "kind": "command",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Candidate b53de2a8 adapter:11 checks/0 failures; not full UI/Web acceptance.",
+      "command": "fixed godot-linux-x86_64 --headless --path <external bounded probe> --audio-driver Dummy --fixed-fps 60 --script main.gd",
+      "exit_code": 0,
+      "environment": "Installed fixed Godot4.7.2 gunman_sd1 eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638;30s external probe cap",
+      "source_state": "external_candidate_on_379"
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/popup_touch_pairing_01/independent-review.json",
+      "sha256": "c27b053f5db5ce77f08b140580669aadf2302e632c36975fa3d7be7b5007a521",
+      "kind": "review",
+      "producer": "runtime_audit",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Limited static and existing native-probe evidence ACCEPT; whole wrappers and Web remain pending.",
+      "reviewer": "runtime_audit",
+      "implementers": [
+        "items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author independently checked379Git/original/candidate source, patch inverse, exact11-method reuse and existing log hashes; no engine/browser run.",
+      "source_state": "external_candidate_on_379"
+    },
+    {
+      "id": "fixture-parse-failure",
+      "path": "docs/evidence/popup_touch_pairing_01/original-fixture-parse-failure.log",
+      "sha256": "e92971bcc1cac01f686f569ba9e65bc3c7bb34fed6a1dfe84388950df14d18a3",
+      "kind": "runtime_trace",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "First external test harness indentation parse failure, preserved without blaming production source."
+    },
+    {
+      "id": "fixture-native-failure",
+      "path": "docs/evidence/popup_touch_pairing_01/provisional-fixture-failure.log",
+      "sha256": "09a464dad9c739aef0cdc7ed7dae1b28ef2442b1947c18d2c76ead21ed23b72b",
+      "kind": "runtime_trace",
+      "producer": "items_refactor",
+      "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Exact small original retained; external candidate source bound by file SHA, not a claim that candidate bytes were committed at baseline.",
+      "observed": "Provisional fixture11/4 failed; original receipt retained, final corrected lifecycle/input fixture separate."
+    },
+    {
+      "id": "registered-wrapper",
+      "path": "docs/evidence/popup_touch_pairing_01/registered-native-receipt.json",
+      "sha256": "39e015a5c1dfc236a85d99477d393f43352fd1ae9e8fdcd8886babbb8ce66c1c",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Original command receipts preserved/extracted with original HEAD, report hashes and explicit source byte binding; no re-run by draft author.",
+      "observed": "Actual underworld302/0 and Studio37/0, exit0; precommit dirty-file receipts bound byte-for-byte to later commit, not relabelled HEAD.",
+      "command": "python3 tools/run_underworld_ui_tests.py; python3 tools/run_studio_input_tests.py",
+      "exit_code": 0,
+      "environment": "fixed Godot4.7.2 gunman_sd1; original wrapper/export budgets retained; actual source state in linked receipt"
+    },
+    {
+      "id": "web-export",
+      "path": "docs/evidence/popup_touch_pairing_01/web-export-receipt.json",
+      "sha256": "01c24935028f534ce90b6e4860932ad68c87171f1155101193e029f9db0cf2e4",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Original command receipts preserved/extracted with original HEAD, report hashes and explicit source byte binding; no re-run by draft author.",
+      "observed": "Actual original600/120 budgets passed; export/bundle only, not browser touch.",
+      "command": "python3 tools/build.py web; python3 tools/check_web_bundle.py",
+      "exit_code": 0,
+      "environment": "fixed Godot4.7.2 gunman_sd1; original wrapper/export budgets retained; actual source state in linked receipt"
+    },
+    {
+      "id": "pack-probe",
+      "path": "docs/evidence/popup_touch_pairing_01/pack-probe-receipt.json",
+      "sha256": "19a18853d249aa7a249566f0ea9660aaf4f7417eea20d562ab50b756d63591ef",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Original command receipts preserved/extracted with original HEAD, report hashes and explicit source byte binding; no re-run by draft author.",
+      "observed": "New exported PCK in empty cwd, exit0 in1.520s; no full171/browser claim.",
+      "command": "bash tools/godot.sh --headless --audio-driver Dummy --main-pack <actual exported PCK> --script tools/check_recorded_enemy_pack.gd",
+      "exit_code": 0,
+      "environment": "fixed Godot4.7.2 gunman_sd1; original wrapper/export budgets retained; actual source state in linked receipt"
+    },
+    {
+      "id": "actual-ui-integration24",
+      "path": "docs/evidence/popup_touch_pairing_01/ui-integration24.json",
+      "sha256": "6c60839e8ec7b4ee6e446d017306ffc9f38d5e6ec46eab7b654d799ebcebc7e0",
+      "kind": "command",
+      "producer": "root original Harness",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Execute exact24 existing checks selected by reviewed UI responsibility candidate; original assertions/budgets and source stability, fresh/no reuse. Preserve original report and logs in adjacent local ZIP.",
+      "observed": "24/24 passed, clean exactab263 source; full171 remains separate379 baseline",
+      "command": "python3 tools/harness.py --check docs --check structure --check quality --check environment --check core --check architecture-tests --check run-session --check game-architecture-effects --check underworld-pipeline --check art-art --check region-bible-contract --check underworld-formal --check underworld-player-animation --check underworld-damage-feedback --check underworld-projectile-vfx --check underworld-ui --check underworld-world-objects --check plains-revision-deform-equivalence --check audio-feedback --check bgm-integration --check entry-audio-lifecycle --check entry-audio-lifecycle-comparison --check entry-audio-owners --check studio-input --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Managed Linux; repository fixed Godot4.7.2 gunman-sd1 via tools/godot.sh; jobs1; original per-check timeouts"
+    },
+    {
+      "id": "actual-web-touch",
+      "path": "docs/evidence/popup_touch_pairing_01/web-touch-original.json",
+      "sha256": "d6bb7ae89a4e2711f5c3a8caff88b9f79e5109b7be3f93cead38177f854e6e44",
+      "kind": "gui",
+      "producer": "preview_audit realbrowser",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Observe real DOM/CDP natural touch; exact local exported PCKab263; firsttap only opens, secondtap selects once, cancel nofire/equip, normalSpace after cancel. This is a bounded actual consumer proof, not fullthreebrowser approval.",
+      "observed": "actual firsttap15/noequip; secondshadowonce/oneclose; DOMcancel nofire/equip; normaljump accepted; source/Web stable and errors[]"
+    },
+    {
+      "id": "actual-public-basic",
+      "path": "docs/evidence/popup_touch_pairing_01/public-basic-original.json",
+      "sha256": "24b714103d6a816f6205447ea51d58ac8994bae1c6975d6e31b6a10106778570",
+      "kind": "gui",
+      "producer": "asset_audit realpublicbrowser",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "popup-touch-pairing-v1",
+      "method": "Actual public Title→Home→gate→formalPlains→movement, ordinarypublicloading, independently viewed realframes. Full64PCK receipt adjacent.",
+      "observed": "101.192seconds within original300; correctsource/build, formalplains1/2, movement; noScript/Shader errors; favicon404 and Emscripten advisory retained"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "24项受影响checks仍运行，尚无此卡完整结论。",
+    "浏览器第一业务179.16s因旧hook aim点击被当前HUD覆盖失败，未到touch段；新opening→第二tap及真实DOMtouchcancel仍未验。",
+    "consumer_coverage尚无最终完整输出；formal integration保持unverified。",
+    "真实触屏设备与用户认可未验证。",
+    "保留379原Web误选、旧11/9、fixture parse及11/4失败；不追改历史源。",
+    "实际Web自然两次tap、DOMcancel及公开基本流程已验证；完整三Popup消费者覆盖/实体设备/玩家认可仍未代签。旧业务浏览器完整失败与后继定位维护单列。"
+  ],
+  "test_change_justification": "原48检查与全文逆删除新增调用/11项方法后逐字还原。追加真实DemoMenu PopupMenu配对、handled、异指、hide/reopen、cancel和mouse检查；不改变原断言/预算/注册。非作者runtime_audit限定审查candidate50e166e0与两叶b53de2a8/1de2d2cd。完整UI wrapper实际302/0、Studio37/0通过；执行时HEAD379加两叶WIP，记录字节等于随后ab263ea6提交，未伪造运行时commit读数。",
+  "candidate_source": {
+    "base_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+    "candidate_json_sha256": "97cc5ac57994c6f7d5613fa6ca7f3a1c28444c6eb5ad4eb4068827920ffbc30d",
+    "candidate_patch_sha256": "50e166e0e338ff9b16d48e2300531a53199648a395a6c50310e4f65c58f4b95a",
+    "files_sha256": {
+      "game/presentation/ui/popup_touch_adapter.gd": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de",
+      "tests/underworld_plains/test_underworld_ui.gd": "1de2d2cddd2dd51e0868a645c462be9827bdda8ab47cc68d18b52872b8f0ef8d"
+    },
+    "code_commit_pending": false,
+    "code_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+    "git_blob_sha256_verified": {
+      "game/presentation/ui/popup_touch_adapter.gd": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de",
+      "tests/underworld_plains/test_underworld_ui.gd": "1de2d2cddd2dd51e0868a645c462be9827bdda8ab47cc68d18b52872b8f0ef8d"
+    }
+  }
+}

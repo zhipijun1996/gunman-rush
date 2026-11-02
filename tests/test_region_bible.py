@@ -15,6 +15,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import region_creative_direction as creative
+import region_style_history as history
 import level_design
 import production_loop as loop
 import visual_director
@@ -27,18 +28,85 @@ BOSS_PARENT_MANIFESTS = {'bellstrider': 'c6e8c5ccc283900a84d3d5f8078ce599e9e9ef3
 MERGED_BOSSES_ARCHIVE = 'docs/creative_direction/archive/merge-20261031-style25/'
 MERGED_BOSSES_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
 
+FEATURE_LAYOUT_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json'
+
+
+OWNERSHIP_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json'
+
+
+def frozen26_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE26_ARCHIVE, history.style26_source)
+
+
+def frozen27_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE27_ARCHIVE, history.style27_source)
+
+
+def frozen28_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE28_ARCHIVE, history.style28_source)
+
+
+def frozen29_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE29_ARCHIVE, history.style29_source)
+
+
+def frozen30_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE30_ARCHIVE, history.style30_source)
+
+
+def frozen31_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE31_ARCHIVE, history.style31_source)
+
+
+def frozen32_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE32_ARCHIVE, history.style32_source)
+
+
+def frozen33_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE33_ARCHIVE, history.style33_source)
+
+
+def _frozen_style_root(testcase, archive, source_reader):
+    """Replay the exact selected authority through its finite source reader."""
+    folder = tempfile.TemporaryDirectory()
+    testcase.addCleanup(folder.cleanup)
+    root = Path(folder.name)
+    base = ROOT/archive
+    registry = json.loads((base/creative.BIBLE_REGISTRY).read_bytes())
+    style_path = registry['shared_style_authority']['path']
+    style = json.loads((ROOT/style_path).read_bytes())
+    frozen_documents = {creative.BIBLE_REGISTRY,
+                        'docs/creative_direction/windchime_plains.json',
+                        'docs/creative_direction/thorn_forest.json'}
+    paths = {'docs/world_regions.json', style_path, *frozen_documents,
+             *[row['path'] for row in style['runtime_reference']['references']]}
+    for row in registry['regions']:
+        bible = row['current_bible']
+        if bible:
+            paths.update((bible['path'], bible['selection_evidence']['path']))
+    for region in ('windchime_plains', 'thorn_forest'):
+        direction = json.loads((base/('docs/creative_direction/'+region+'.json')).read_bytes())
+        paths.update(ref['path'] for ref in direction['authority_sources'])
+    for path in paths:
+        raw = (base/path).read_bytes() if path in frozen_documents else source_reader(ROOT, path)
+        target = root/path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(raw)
+    return root
+
+
+def layout_path(path):
+    """Only migrate live test consumers listed by the current finite authority."""
+    current = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+    return next((row['path'] for row in current['revision_impact']['changed_references']
+                 if row['previous_path'] == path), path)
+
+
 
 def boss_parent_source(parent, path):
-    """Only explicit changed parent leaves use frozen bytes; others stay live."""
-    base = creative.ROOT / MERGED_BOSSES_ARCHIVE / parent
-    manifest = json.loads((base/'manifest.json').read_bytes())
-    row = next((r for r in manifest['sources'] if r['path']==path), None)
-    if row is None:
-        return (creative.ROOT/path).read_bytes()
-    raw = (base/row['archive_path']).read_bytes()
-    if hashlib.sha256(raw).hexdigest()!=row['sha256']:
-        raise AssertionError('Frozen combination parent source changed: '+path)
-    return raw
+    """Keep each parent leaf first, then the finite pre-layout shared source."""
+    raw = history.archived_source(creative.ROOT, MERGED_BOSSES_ARCHIVE.rstrip('/') + '/' + parent, path)
+    return history.style25_source(creative.ROOT, path) if raw is None else raw
 
 
 def boss_parent_registry(parent):
@@ -71,7 +139,7 @@ BELLSTRIDER_OLD_LEAVES = {'scripts/demo/plains_region_stage.gd','scripts/demo/de
 def before_bellstrider_source(path):
     if path in BELLSTRIDER_OLD_LEAVES:
         return (ROOT/(BELLSTRIDER_ARCHIVE+'sources/'+path+'.txt')).read_bytes()
-    return (ROOT/path).read_bytes()
+    return history.style25_source(ROOT, path)
 
 
 def merge21_parent_source(parent, path):
@@ -187,6 +255,201 @@ def initial20_source(path):
     if path in {'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'}:
         return (ROOT/(MOTION_LOOT_ARCHIVE+'sources/'+Path(path).name+'.txt')).read_bytes()
     return merge21_parent_source('program',path)
+
+
+# Finite reviewed current-test migrations; old AST identities always remain pinned.
+# Each full current method is fixed too: unreachable assertions or changed loops fail.
+LAYOUT_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_latest_shared_style_quotes_and_actual_family_bind_all_region_production": {
+        "original_ast_sha256": "f7f58fa8bbcab53edcc980dd646677969380082b4e5a8f1f2ea0272eed211f4c",
+        "current_ast_sha256": "c2c4478b84ca2e79e6d25e7d4297f70b26cfc9313c5e8ccbcd13e0e393b83807",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_future_proposed_worker_gets_shared_style_without_visual_gate": {
+        "original_ast_sha256": "3def91575840b149e9f1f09c54a198fdae853cdbf00c21672c5ea243fbfa1ed3",
+        "current_ast_sha256": "927ac3e18113ddf4ca6a41b80c53f1f6bf54cc6dfb70af5c45963fb9efa42d4f",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_shared_reference_or_quote_drift_blocks_calls_and_restore": {
+        "original_ast_sha256": "f4e78e81aef2506a3ab228afb6b6256cdebe943b1608297ea3499cf8c0114a34",
+        "current_ast_sha256": "acd8566574117abb014a331627b41591e83c1b5611c7c2bd2eb2fc7bcfcad7bf",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "8c6d60295f8908620f0bf4197d752714b3a764cc92ea0fd120579c52431cbf96",
+        "previous_current_ast_sha256": "c16e1413dc427dda3a7fce9f133fbb2c16a0fdc46069488557e4ec91106f48e5",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "source_read_migration": "Only eight git-show reads become exact commit/path/SHA finite archive reads; original method and all assertions preserved by inverse proof.",
+        "reason": "Only live authority version expectation26->27; all historical assertions and loop/control flow retained. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume": {
+        "original_ast_sha256": "d7169076a14c3f9fa1ae6dd7acc3f6b2461e8c11228f0b00aa2410efefa3543b",
+        "current_ast_sha256": "572910f883a5ae26fbbd8efa0e18400fe4eecae775f2379109cd280d200d81f5",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references": {
+        "original_ast_sha256": "1b3489c46a0e7ecbaa5b6caa96346375e9d8c9f50a05f21e7d951ce4745463fd",
+        "current_ast_sha256": "c51fe361f7912566a5415b3b92003d7b1d182ed6e2d06b8a30992b6e40cee436",
+        "reason": "Relocated real visual consumer; original368 prefix is read from immutable Windkeeper parent profile whose prefix exactly equals original archived list."
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "676382e5b3398fb09ce1715bf9ddb897ff39bcd3de4884b16c652e1d28e8d225",
+        "previous_current_ast_sha256": "bd7f7fbcb750322f037159d05cf2896740a0c281d993039717adfe62bdc7b950",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "source_read_migration": "Only eight git-show reads become exact commit/path/SHA finite archive reads; original method and all assertions preserved by inverse proof.",
+        "reason": "Only live authority version expectation26->27; all historical assertions and loop/control flow retained. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_audio_feedback06_v21_rebinds_only_original_title_and_refuses_stale20": {
+        "original_ast_sha256": "d7ff911cc043a16d5860b5001237d66def2f4e506d04ed6b306b3c97d2243810",
+        "current_ast_sha256": "d92899a6c56658c03b9cb23408189e122f52703f346e8df6338a74987c733c88",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "935893a7c4448345f91b9e7ae83280d2457319ddd019ec3d1bc0584768f279f0",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only live authority version expectation26->27; all historical assertions and loop/control flow retained. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "previous_current_ast_sha256": "f11a2e370c815c2be96ef1074e64ce89689a0a4ebfe72a0dd4e7dbabb75970b8",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_bellstrider23_has_exact83_prefix_and_finite_real_body_audio_closure": {
+        "original_ast_sha256": "e5a475b275ecbab42c1bbb72db01ff20aad82084937e9cdae0d20f8f7cf8a97c",
+        "current_ast_sha256": "079d5b3e518e3a53ae5490321f2f611d199f67e1f3a7cbc5aae324148dff347c",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_bellstrider_audio_assets_are_literal17_real_wavs_with_strict_byte_custody": {
+        "original_ast_sha256": "0b6cd166c01f5c36cd596f873cdaeda303f14b2b8034bb83cf77e98c3bd4fb45",
+        "current_ast_sha256": "ca315d65019e92ccfcd52e98d85e9723159c01cc396ea5a2c66d07e50df4345e",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_windkeeper24_keeps83_prefix_and_binds_actual_pressure_consumers": {
+        "original_ast_sha256": "9b34a78dc66578052c428b1491c629661d04343880d234a0fdacfe37741a0443",
+        "current_ast_sha256": "5aa514a2d3d0a1fff1ba3fd75c1a907d61aed88809dcca41c46973fc49d8a272",
+        "reason": "Read current moved audio/wind consumers; historical scene paths and old input closure use their exact original finite sources."
+    },
+    "test_region_bible.py::test_windkeeper24_rejects_prior22_and_new_consumer_drift": {
+        "original_ast_sha256": "dbd82c4da86ed39bf35d32e760aab62e44826f85fa330d7be907e0354437dd87",
+        "current_ast_sha256": "b83f3f1aeb3df83c38918dedc3ab20c1272263891fd237531f92f9cbcf8dd559",
+        "reason": "Explicit current26 version/path migration or exact finite historical source read; original negative assertions and loop cases remain."
+    },
+    "test_region_bible.py::test_merged25_preserves_both_frozen_parents_and_real153_union": {
+        "original_ast_sha256": "dd467b509dba65a71d2853285a88592fe9882dfa1cde38c849d71b30303ffd34",
+        "current_ast_sha256": "e50d5bfb1f7707bb82541cd696b20d411899445def59450283aea62ff595b330",
+        "reason": "Original style25 union remains checked against unchanged style25 document and finite exact old sources, not current26."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "92186a8d02d3ca561b9405083b19b7916cb6403084962179dbc471bcb1b9080f",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Actual route expectation advances creative28 through29 to30; stage gates and full original method structure unchanged. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "previous_current_ast_sha256": "65c2c73414acefec62ff14a92b34720d3bd2aa81eaa1f14b4422464e27d2fc2b",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_merged28_combines_both_sources_without_inheriting_acceptance": {
+        "original_ast_sha256": "39e42918cb617c11f7de992d6ddb7cd064652cd3698b96e6a82d68e78a913565",
+        "current_ast_sha256": "1d4bf0bf2f2a3758c0bffb1277685f7e54683184f7cc445aa04ca9bbdf59a4d8",
+        "reason": "Original creative28 replay now uses its pinned finite archived registry/directions; equality compares reconstructed historical binding; stale-current refusal remains."
+    }
+}
+
+
+OWNERSHIP_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "16a68b71dc724a63251a4a28b443236a8d0e1f970904ffbd883f966fe595e2ea",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only add explicit30->28 normalization for retained extra assertion check; wholemethod identity enforcement remains. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "previous_current_ast_sha256": "93d70a7a9c599905735b5dbe289ff2e0c78fd05c6f1ab774b69380bd4c829d39",
+        "prior_current_ast_sha256s": [
+            "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_bible.py::test_current26_preserves_original153_roles_and_media_and_binds_real_helpers": {
+        "original_ast_sha256": "0bfa2257cc9b53f39cdc4701bedbcff7f9fad77df89b81eeb597e17f870139e0",
+        "current_ast_sha256": "03f996b1fbba9b813966a6d2f47720b448691f13d2df3faa2babe1497c5049f0",
+        "reason": "Replay exact frozen26 fixture/six old leaves, retaining all original role/order/media/source/failure assertions."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "a8b014b050a9ed5d667fcb777b1e0ddc2b075adaf1000c0215cf040e3b08e615",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current selected creative version29->30; all stage gates and loop body otherwise unchanged. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "previous_current_ast_sha256": "65c2c73414acefec62ff14a92b34720d3bd2aa81eaa1f14b4422464e27d2fc2b",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_current29_preserves_selected_content_and_refuses_frozen28_as_current": {
+        "original_ast_sha256": "5d2fc998584f05b1bac4a1be681d81376be7fa760ee51566b33c28e28b5ca5cb",
+        "current_ast_sha256": "3bd3bb6d93261962510a898f9ebd760afcd0e161fa0f30cd9e6bbf52186f3a2c",
+        "reason": "Replay exact frozen29 registry/binding via method-local imported fixture; preserve selected content/authority/user-status and old28 rejection. Rejected undefined-local candidate retained separately."
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "5e90209e58b8c81459b8c5c450f9aea33ead2ff7849766767a1ab9190365da9d",
+        "previous_current_ast_sha256": "c16e1413dc427dda3a7fce9f133fbb2c16a0fdc46069488557e4ec91106f48e5",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "source_read_migration": "Only eight git-show reads become exact commit/path/SHA finite archive reads; original method and all assertions preserved by inverse proof.",
+        "reason": "Only live authority version expectation26->27; historical source/role/media assertions unchanged. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "19c2531feef039fdcd1526f28adb95572679a3f90ba37c1de5d4a6309cfd3caa",
+        "previous_current_ast_sha256": "bd7f7fbcb750322f037159d05cf2896740a0c281d993039717adfe62bdc7b950",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "source_read_migration": "Only eight git-show reads become exact commit/path/SHA finite archive reads; original method and all assertions preserved by inverse proof.",
+        "reason": "Only live authority version expectation26->27; historical source/role/media assertions unchanged. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "64b1a28cb0369ff16217fe0d217077441898e9dc7656b567c0b8cdf063dc7e7c",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only live authority version expectation26->27; historical source/role/media assertions unchanged. Current28/creative31 expectation or finite Git source selector; prior SHA retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "previous_current_ast_sha256": "f11a2e370c815c2be96ef1074e64ce89689a0a4ebfe72a0dd4e7dbabb75970b8",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    }
+}
+
+def preserved_method_errors(before, after, filename, migrations=None):
+    import ast
+    methods = lambda tree: {node.name:node for node in ast.walk(tree)
+                           if isinstance(node,ast.FunctionDef) and node.name.startswith('test_')}
+    old,current = methods(before),methods(after)
+    if migrations is None: migrations = LAYOUT_TEST_METHOD_MIGRATIONS
+    errors=[]
+    for name,node in old.items():
+        if name not in current:
+            errors.append('Missing original test: '+name)
+            continue
+        original=ast.dump(node,include_attributes=False)
+        actual=ast.dump(current[name],include_attributes=False)
+        allowed=migrations.get(filename+'::'+name)
+        if allowed is None:
+            if actual!=original: errors.append('Unapproved complete method change: '+name)
+        elif (hashlib.sha256(original.encode()).hexdigest()!=allowed['original_ast_sha256'] or
+              hashlib.sha256(actual.encode()).hexdigest()!=allowed['current_ast_sha256']):
+            errors.append('Approved complete method identity changed: '+name)
+    return errors
 
 
 class BibleTests(unittest.TestCase):
@@ -339,7 +602,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(data['applies_to'],'all_region_create_optimize_and_proposed_bibles')
         self.assertEqual([data['runtime_reference'][k] for k in ('tile_px','world_tile_wu')],[32,32])
         refs = data['runtime_reference']['references']
-        self.assertTrue(any(row['path']=='scripts/underworld_plains/underworld_terrain.gd' for row in refs))
+        self.assertTrue(any(row['path']=='game/presentation/world/underworld_plains/underworld_terrain.gd' for row in refs))
         for row in refs:
             self.assertEqual(hashlib.sha256((self.root/row['path']).read_bytes()).hexdigest(),row['sha256'])
         for region, expected in [('windchime_plains','02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35'),('thorn_forest','a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3')]:
@@ -361,7 +624,7 @@ class BibleTests(unittest.TestCase):
         folder=self.root/'future-prompt';folder.mkdir()
         prompt,*_ = loop.prepare_call(task,mission,'implement',folder,'{}',check_contracts={'checks':[]})
         self.assertIn('同时后续区域不要出类似的问题',prompt)
-        self.assertIn('scripts/underworld_plains/underworld_terrain.gd',prompt)
+        self.assertIn('game/presentation/world/underworld_plains/underworld_terrain.gd',prompt)
         sources=loop.bound_source_inputs(task)
         self.assertIn(task['shared_style_authority'],sources)
         self.assertGreater(len(sources),10)
@@ -383,7 +646,7 @@ class BibleTests(unittest.TestCase):
         with patch.object(loop,'ROOT',self.root),self.assertRaisesRegex(ValueError,'binding changed'):
             loop.region_bible_input(stripped)
         for name in paths:
-            path=self.root/name;raw=path.read_bytes();path.write_bytes(raw+b'changed')
+            path=self.root/layout_path(name);raw=path.read_bytes();path.write_bytes(raw+b'changed')
             with self.subTest(path=name),patch.object(loop,'ROOT',self.root):
                 with self.assertRaisesRegex(ValueError,'SHA changed'):
                     creative.validate_bible_binding(self.ref,root=self.root)
@@ -407,7 +670,7 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'25')
+        self.assertEqual(style['content']['version'],'34')
         self.assertEqual(json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())['version'],'22')
         style = {**style,'content':json.loads((ROOT/(MERGE21_ARCHIVE+'program/style21.json')).read_bytes())}
         self.assertEqual(style['content']['version'],'21')
@@ -606,7 +869,7 @@ class BibleTests(unittest.TestCase):
                 self.assertNotEqual(before['sha256'],after['sha256'])
                 old_leaf = (ROOT/(r12_root+'weapon_feel.gd.txt')).read_bytes()
                 self.assertEqual(before['sha256'],hashlib.sha256(old_leaf).hexdigest())
-                new_leaf = (ROOT/after['path']).read_text()
+                new_leaf = history.style25_source(ROOT,after['path']).decode()
                 sound_call = 'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained,controller.shoot_ability.weapon.id)'
                 self.assertEqual(new_leaf.count(sound_call),1)
                 self.assertEqual(new_leaf.replace(sound_call,'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained)'),old_leaf.decode())
@@ -705,7 +968,7 @@ class BibleTests(unittest.TestCase):
             if before['path']=='config/item_v5_art.json':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -745,7 +1008,7 @@ class BibleTests(unittest.TestCase):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
             if before['path'] in changed_r09:
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','cd163e2ddbb9e1041067279eb2f554d09af0582a:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'cd163e2ddbb9e1041067279eb2f554d09af0582a', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -764,7 +1027,7 @@ class BibleTests(unittest.TestCase):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
             if before['path'] in changed_current54:
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','df5b075799e36624597b780a17d88850f0b4ff21:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'df5b075799e36624597b780a17d88850f0b4ff21', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -794,7 +1057,7 @@ class BibleTests(unittest.TestCase):
             if before['path'] in changed_current54:
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'd9445c0e5d6516d4eb93ebbfbc5639efddf7fc04', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
                 self.assertEqual(after['sha256'],hashlib.sha256(historical_source(after['path'])).hexdigest())
             else:
@@ -812,7 +1075,7 @@ class BibleTests(unittest.TestCase):
             if before['path']=='scripts/demo/demo_app.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','879b39eaa869be70cb799dedd1bb6ffc35e0b92f:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, '879b39eaa869be70cb799dedd1bb6ffc35e0b92f', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
                 self.assertEqual(after['sha256'],hashlib.sha256(historical_source(after['path'])).hexdigest())
             else:
@@ -836,7 +1099,7 @@ class BibleTests(unittest.TestCase):
             if before['path']=='scripts/demo/demo_app.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'], after['sha256'])
-                actual = subprocess.check_output(['git','show','4fc1e7a55c191dbe56cd7bc385539fc42b8f7898:'+before['path']], cwd=ROOT)
+                actual = history.git_history_source(ROOT, '4fc1e7a55c191dbe56cd7bc385539fc42b8f7898', before['path'])
                 self.assertEqual(before['sha256'], hashlib.sha256(actual).hexdigest())
                 self.assertEqual(after['sha256'], hashlib.sha256(historical_source(after['path'])).hexdigest())
             else:
@@ -858,7 +1121,7 @@ class BibleTests(unittest.TestCase):
             if before['path'] in ('scripts/demo/demo_app.gd','scripts/demo/home_scene.gd'):
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'], after['sha256'])
-                actual = subprocess.check_output(['git','show','e5254559b38f9593f03fa2fd7847b107d5d04402:'+after['path']], cwd=ROOT)
+                actual = history.git_history_source(ROOT, 'e5254559b38f9593f03fa2fd7847b107d5d04402', after['path'])
                 self.assertEqual(after['sha256'], hashlib.sha256(actual).hexdigest())
             else:
                 self.assertEqual(before, after)
@@ -883,7 +1146,7 @@ class BibleTests(unittest.TestCase):
                 self.assertNotEqual(before['sha256'],after['sha256'])
                 # The v9 source is frozen in the actual pre-feedback main,
                 # while the active DemoApp is independently verified above.
-                actual = subprocess.check_output(['git','show','cd4989a68613e0b457cdfd5e252634dd57008505:'+after['path']], cwd=ROOT)
+                actual = history.git_history_source(ROOT, 'cd4989a68613e0b457cdfd5e252634dd57008505', after['path'])
                 self.assertEqual(after['sha256'],hashlib.sha256(actual).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -939,7 +1202,7 @@ class BibleTests(unittest.TestCase):
     def test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume(self):
         # Regresses style-body-closure-probe/report-first: changing real body
         # payloads alone leaves the UnderworldPlayer script byte-identical.
-        script = self.root/'scripts/underworld_plains/underworld_player.gd'
+        script = self.root/layout_path('scripts/underworld_plains/underworld_player.gd')
         script_raw = script.read_bytes()
         for skill_name in ('gameplay-reviewer','region-creative-director'):
             skill = self.root/('.agents/skills/'+skill_name+'/SKILL.md')
@@ -1312,14 +1575,14 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(changed,{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'})
         self.assertEqual(sum(a==b for a,b in zip(before,actual[:81])),78)
         self.assertEqual([(x['role'],x['path']) for x in actual[81:]],[('plains_loot_life_orb','assets/plains_loot_02/life_orb.png'),('plains_loot_world_sampler','shaders/plains_loot_02.gdshader')])
-        consumer = (ROOT/'scripts/art/plains_stage_visual.gd').read_text()
+        consumer = (ROOT/layout_path('scripts/art/plains_stage_visual.gd')).read_text()
         for row in actual[81:]:
             self.assertIn('res://'+row['path'],consumer)
             self.assertEqual(row['sha256'],hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest())
         self.assertEqual(current['shared_dimensions'],prior['shared_dimensions'])
         original_inputs = json.loads((root/'region-bible-inputs.json').read_bytes())
         self.assertEqual(len(original_inputs),368)
-        live_inputs = json.loads((ROOT/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
+        live_inputs = json.loads((ROOT/MERGED_BOSSES_ARCHIVE/'windkeeper'/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
         self.assertEqual(live_inputs[:368],original_inputs)
         stale = copy.deepcopy(self.ref)
         stale.update(supplemental_authority_path=MOTION_LOOT_ARCHIVE+'style20.json',supplemental_authority_sha256=hashlib.sha256(prior_raw).hexdigest())
@@ -1331,7 +1594,7 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'25')
+        self.assertEqual(style['content']['version'],'34')
         self.assertEqual(json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())['version'],'22')
         style = {**style,'content':json.loads((ROOT/(MERGE21_ARCHIVE+'audio/style21.json')).read_bytes())}
         self.assertEqual(style['content']['version'],'21')
@@ -1463,7 +1726,7 @@ class BibleTests(unittest.TestCase):
                 self.assertNotEqual(before['sha256'],after['sha256'])
                 old_leaf = (ROOT/(r12_root+'weapon_feel.gd.txt')).read_bytes()
                 self.assertEqual(before['sha256'],hashlib.sha256(old_leaf).hexdigest())
-                new_leaf = (ROOT/after['path']).read_text()
+                new_leaf = history.style25_source(ROOT,after['path']).decode()
                 sound_call = 'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained,controller.shoot_ability.weapon.id)'
                 self.assertEqual(new_leaf.count(sound_call),1)
                 self.assertEqual(new_leaf.replace(sound_call,'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained)'),old_leaf.decode())
@@ -1562,7 +1825,7 @@ class BibleTests(unittest.TestCase):
             if before['path']=='config/item_v5_art.json':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -1602,7 +1865,7 @@ class BibleTests(unittest.TestCase):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
             if before['path'] in changed_r09:
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','cd163e2ddbb9e1041067279eb2f554d09af0582a:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'cd163e2ddbb9e1041067279eb2f554d09af0582a', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -1621,7 +1884,7 @@ class BibleTests(unittest.TestCase):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
             if before['path'] in changed_current54:
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','df5b075799e36624597b780a17d88850f0b4ff21:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'df5b075799e36624597b780a17d88850f0b4ff21', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -1651,7 +1914,7 @@ class BibleTests(unittest.TestCase):
             if before['path'] in changed_current54:
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, 'd9445c0e5d6516d4eb93ebbfbc5639efddf7fc04', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
                 self.assertEqual(after['sha256'],hashlib.sha256(historical_source(after['path'])).hexdigest())
             else:
@@ -1669,7 +1932,7 @@ class BibleTests(unittest.TestCase):
             if before['path']=='scripts/demo/demo_app.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                historical = subprocess.check_output(['git','show','879b39eaa869be70cb799dedd1bb6ffc35e0b92f:'+before['path']],cwd=ROOT)
+                historical = history.git_history_source(ROOT, '879b39eaa869be70cb799dedd1bb6ffc35e0b92f', before['path'])
                 self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
                 self.assertEqual(after['sha256'],hashlib.sha256(historical_source(after['path'])).hexdigest())
             else:
@@ -1693,7 +1956,7 @@ class BibleTests(unittest.TestCase):
             if before['path']=='scripts/demo/demo_app.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'], after['sha256'])
-                actual = subprocess.check_output(['git','show','4fc1e7a55c191dbe56cd7bc385539fc42b8f7898:'+before['path']], cwd=ROOT)
+                actual = history.git_history_source(ROOT, '4fc1e7a55c191dbe56cd7bc385539fc42b8f7898', before['path'])
                 self.assertEqual(before['sha256'], hashlib.sha256(actual).hexdigest())
                 self.assertEqual(after['sha256'], hashlib.sha256(historical_source(after['path'])).hexdigest())
             else:
@@ -1715,7 +1978,7 @@ class BibleTests(unittest.TestCase):
             if before['path'] in ('scripts/demo/demo_app.gd','scripts/demo/home_scene.gd'):
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'], after['sha256'])
-                actual = subprocess.check_output(['git','show','e5254559b38f9593f03fa2fd7847b107d5d04402:'+after['path']], cwd=ROOT)
+                actual = history.git_history_source(ROOT, 'e5254559b38f9593f03fa2fd7847b107d5d04402', after['path'])
                 self.assertEqual(after['sha256'], hashlib.sha256(actual).hexdigest())
             else:
                 self.assertEqual(before, after)
@@ -1740,7 +2003,7 @@ class BibleTests(unittest.TestCase):
                 self.assertNotEqual(before['sha256'],after['sha256'])
                 # The v9 source is frozen in the actual pre-feedback main,
                 # while the active DemoApp is independently verified above.
-                actual = subprocess.check_output(['git','show','cd4989a68613e0b457cdfd5e252634dd57008505:'+after['path']], cwd=ROOT)
+                actual = history.git_history_source(ROOT, 'cd4989a68613e0b457cdfd5e252634dd57008505', after['path'])
                 self.assertEqual(after['sha256'],hashlib.sha256(actual).hexdigest())
             else:
                 self.assertEqual(before,after)
@@ -1920,7 +2183,7 @@ class BibleTests(unittest.TestCase):
         stale.update(supplemental_authority_path=STYLE20_PATH,supplemental_authority_sha256=hashlib.sha256(old_raw).hexdigest())
         with self.assertRaisesRegex(ValueError,'binding changed'):
             creative.validate_bible_binding(stale,root=self.root)
-        menu = self.root/'scripts/ui/demo_menu.gd'
+        menu = self.root/layout_path('scripts/ui/demo_menu.gd')
         original = menu.read_bytes()
         menu.write_bytes(original+b'\n# isolated title source drift\n')
         with self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
@@ -1930,7 +2193,7 @@ class BibleTests(unittest.TestCase):
 
     def test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale(self):
         live = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
-        self.assertEqual(live['version'],'25')
+        self.assertEqual(live['version'],'34')
         current = json.loads((ROOT/(BELLSTRIDER_ARCHIVE+'style22.json')).read_bytes())
         self.assertEqual(current['version'],'22')
         actual = current['runtime_reference']['references']
@@ -1968,7 +2231,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(current['revision_impact']['changed_references'],changed)
         self.assertEqual(current['revision_impact']['added_references'],[])
         self.assertEqual(current['supersedes'],json.loads((ROOT/(MERGE21_ARCHIVE+'program/registry.json')).read_bytes())['shared_style_authority'])
-        source = self.root/'scripts/demo/demo_app.gd'
+        source = self.root/layout_path('scripts/demo/demo_app.gd')
         original = source.read_bytes()
         source.write_bytes(original+b'\n# merged source drift counterexample\n')
         with self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
@@ -2029,7 +2292,7 @@ class BibleTests(unittest.TestCase):
         stale.update(supplemental_authority_path=frozen_registry['shared_style_authority']['path'],supplemental_authority_sha256=frozen_registry['shared_style_authority']['sha256'])
         with self.assertRaisesRegex(ValueError,'binding changed'):creative.validate_bible_binding(stale,root=self.root)
         for relative in ['scripts/bosses/bellstrider_rig_pose.gd','scripts/bosses/bellstrider_presentation.gd','assets/audio/bellstrider_01/manifest.json','assets/underworld_plains/actors/bellstrider.png','scripts/bosses/bellstrider_ring_projectile.gd','scripts/bosses/bellstrider_bell_projectile.gd']:
-            path = self.root/relative;raw = path.read_bytes();path.write_bytes(raw+b'\nsource-drift')
+            path = self.root/layout_path(relative);raw = path.read_bytes();path.write_bytes(raw+b'\nsource-drift')
             with self.subTest(path=relative),self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
                 creative.bind_region_bible('thorn_forest',self.root)
             path.write_bytes(raw)
@@ -2045,7 +2308,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(record['audio_status'],'unverified')
         self.assertEqual(record['user_acceptance_evidence'],[])
         expected_ids = {'armour_hit','weak_hit','roll_warn','roll_warn_double','roll_start','brake','turn','ring_strike','lob_aim','lob_lock','lob_release','lob_impact','phase','death','death_jam','death_impact','death_final'}
-        consumer = (ROOT/'scripts/audio/bellstrider_audio.gd').read_text()
+        consumer = (ROOT/layout_path('scripts/audio/bellstrider_audio.gd')).read_text()
         literal = re.findall(r'preload\("res://(assets/audio/bellstrider_01/[^\"]+\.wav)"\)',consumer)
         self.assertEqual(len(literal),17)
         self.assertEqual({Path(p).stem for p in literal},expected_ids)
@@ -2058,7 +2321,7 @@ class BibleTests(unittest.TestCase):
                 self.assertEqual((wav.getnchannels(),wav.getsampwidth(),wav.getframerate(),wav.getnframes()),(1,2,48000,row['frames']))
         paths = [record['source_path'],*record['runtime_paths'],*(r['path'] for r in record['associated_files'])]
         for relative in set(paths):
-            target = self.root/relative;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/relative,target)
+            target = self.root/relative;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(history.style25_source(ROOT,relative))
         self.assertEqual(validate_asset(record,self.root),[])
         corrupted = self.root/literal[0];raw = corrupted.read_bytes();corrupted.write_bytes(raw+b'\x00\x00')
         self.assertIn('Associated file hash mismatch',validate_asset(record,self.root))
@@ -2141,7 +2404,7 @@ class BibleTests(unittest.TestCase):
         audio_manifest = json.loads((ROOT/'assets/audio/windkeeper_pressure_01/manifest.json').read_bytes())
         audio_paths = {row['path'].removeprefix('res://') for row in audio_manifest['cues'].values()}
         self.assertEqual(len(audio_paths),32)
-        audio_source = (ROOT/'scripts/audio/windkeeper_pressure_audio.gd').read_text()
+        audio_source = (ROOT/layout_path('scripts/audio/windkeeper_pressure_audio.gd')).read_text()
         for path in audio_paths:
             self.assertIn('preload("res://'+path+'")',audio_source)
         audio_paths |= {'assets/audio/windkeeper_pressure_01/'+name for name in ('CC0-1.0.txt','README.md','manifest.json','sources.json')}
@@ -2149,7 +2412,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(len(actual),140)
         for row in actual[83:]:
             self.assertEqual(row['sha256'],hashlib.sha256(boss_parent_source('windkeeper',row['path'])).hexdigest())
-        scene = (ROOT/'scenes/bosses/windkeeper_pressure.tscn').read_text()
+        scene = history.style25_source(ROOT, 'scenes/bosses/windkeeper_pressure.tscn').decode()
         for path in ['scripts/bosses/windkeeper_pressure_encounter.gd',
                      'scripts/bosses/windkeeper_pressure_presentation.gd',
                      'scripts/audio/windkeeper_pressure_audio.gd']:
@@ -2160,9 +2423,9 @@ class BibleTests(unittest.TestCase):
                       (ROOT/'resources/bosses/windkeeper_storm.tres').read_text())
         self.assertIn('max_health = 60.0',(ROOT/'resources/bosses/windkeeper_pressure_health.tres').read_text())
         self.assertIn('res://scripts/bosses/windkeeper_pressure_wind.gd',scene)
-        wind_source = (ROOT/'scripts/bosses/windkeeper_pressure_wind.gd').read_text()
+        wind_source = (ROOT/layout_path('scripts/bosses/windkeeper_pressure_wind.gd')).read_text()
         self.assertIn('res://shaders/windkeeper_pressure_foreground.gdshader',wind_source)
-        live_inputs = json.loads((ROOT/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
+        live_inputs = json.loads((ROOT/history.STYLE25_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
         self.assertLessEqual({r['path'] for r in actual},set(live_inputs))
 
 
@@ -2177,7 +2440,7 @@ class BibleTests(unittest.TestCase):
         # the old App leaf. Mutate temp copies; never the production checkout.
         current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
         for row in current['runtime_reference']['references'][83:]:
-            path = self.root/row['path'];original = path.read_bytes()
+            path = self.root/layout_path(row['path']);original = path.read_bytes()
             path.write_bytes(original+b'\npressure source drift\n')
             with self.subTest(path=row['path']):
                 with self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
@@ -2221,7 +2484,7 @@ class BibleTests(unittest.TestCase):
 
     def test_merged25_preserves_both_frozen_parents_and_real153_union(self):
         import ast
-        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        current = json.loads((ROOT/MERGED_BOSSES_STYLE).read_bytes())
         self.assertEqual(current['version'],'25')
         self.assertEqual(current['revision_impact']['task_id'],'MAIN-INTEGRATION-122-124-125')
         parents = {}
@@ -2256,7 +2519,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual([(r['role'],r['path']) for r in refs],expected)
         self.assertEqual(len({r['path'] for r in refs}),153)
         for row in refs:
-            digest=hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest()
+            digest=hashlib.sha256(history.style25_source(ROOT, row['path'])).hexdigest()
             self.assertEqual(row['sha256'],digest)
             parent_hashes=[dict(parent=p,sha256=r['sha256']) for p,s in parents.items() for r in s['runtime_reference']['references'] if r['role']==row['role']]
             if any(r['sha256']!=digest for r in parent_hashes):
@@ -2264,5 +2527,1757 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(current['revision_impact']['changed_references'],expected_changes)
         self.assertEqual({r['path'] for r in expected_changes},{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/combat/weapon_action_runtime.gd','scripts/ui/windkeeper_hud.gd','scripts/art/plains_stage_visual.gd'})
 
+
+class Style25ArchiveTests(unittest.TestCase):
+    """The bounded old-source archive never substitutes for current validation."""
+    def manifest(self):
+        raw = (ROOT/history.STYLE25_ARCHIVE/'manifest.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), history.STYLE25_MANIFEST_SHA)
+        return json.loads(raw)
+
+    def test_exact_finite_source_selection_and_original_documents(self):
+        manifest = self.manifest()
+        base = ROOT/history.STYLE25_ARCHIVE
+        self.assertEqual(manifest['source_commit'], '4bb7aa962cb9477b6fc931b221b3a38132cad1f2')
+        style = json.loads((base/MERGED_BOSSES_STYLE).read_bytes())
+        held = {'resources/bosses/bellstrider.tres', 'resources/bosses/windkeeper_pressure_health.tres',
+                'resources/bosses/windkeeper_storm.tres', 'scenes/bosses/windkeeper_pressure.tscn'}
+        expected = {row['path'] for row in style['runtime_reference']['references']
+                    if row['path'].startswith(('scripts/', 'scenes/', 'resources/')) and row['path'] not in held}
+        self.assertEqual(len(expected), 72)
+        expected.add('scripts/underworld_plains/underworld_terrain.gdshader')
+        self.assertEqual({row['path'] for row in manifest['sources']}, expected)
+        self.assertEqual(len(manifest['sources']), 73)
+        self.assertEqual(len(manifest['files']), 80)
+        self.assertFalse(manifest['selection']['media_copied'])
+        self.assertFalse(manifest['selection']['runtime_uid_copied'])
+        for row in manifest['files']:
+            raw = (base/row['path']).read_bytes()
+            self.assertEqual((len(raw), hashlib.sha256(raw).hexdigest()), (row['bytes'], row['sha256']))
+        for row in manifest['sources']:
+            self.assertTrue(row['archive_path'].endswith('.txt'))
+            self.assertEqual(hashlib.sha256(history.style25_source(ROOT, row['path'])).hexdigest(), row['sha256'])
+        for row in style['runtime_reference']['references']:
+            self.assertEqual(hashlib.sha256(history.style25_source(ROOT, row['path'])).hexdigest(), row['sha256'])
+        for region in ('windchime_plains', 'thorn_forest'):
+            direction = json.loads((base/'docs/creative_direction'/(region+'.json')).read_bytes())
+            self.assertEqual(direction['version'], 'creative-v28')
+            self.assertEqual(direction['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
+        self.assertIn('no_inherited', style['runtime_reference']['status'])
+
+    def test_scene_reference_supplement_preserves_original_archive_and_rejects_missing_leaf(self):
+        self.manifest()  # The original e7d7 manifest is still byte-for-byte pinned.
+        base = ROOT/history.STYLE25_SCENE_ARCHIVE
+        raw = (base/'manifest.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), history.STYLE25_SCENE_MANIFEST_SHA)
+        manifest = json.loads(raw)
+        self.assertEqual(manifest['original_archive_manifest_sha256'], history.STYLE25_MANIFEST_SHA)
+        self.assertEqual(manifest['source_commit'], '4bb7aa962cb9477b6fc931b221b3a38132cad1f2')
+        self.assertEqual(len(manifest['sources']), 3)
+        self.assertEqual({r['path'] for r in manifest['sources']}, {'scenes/bosses/windkeeper_pressure.tscn', 'assets/underworld_plains/terrain/fine_32/terrain_build.json', 'assets/underworld_plains/terrain/terrain_build.json'})
+        for original_file in manifest['files']:
+            original_bytes = (base/original_file['path']).read_bytes()
+            self.assertEqual((len(original_bytes), hashlib.sha256(original_bytes).hexdigest()), (original_file['bytes'], original_file['sha256']))
+        row = manifest['sources'][0]
+        self.assertEqual(row['path'], 'scenes/bosses/windkeeper_pressure.tscn')
+        self.assertEqual(row['sha256'], 'd751a5a3eae2faa1c507f93fe565bd04601fe88185951690055d136824e54033')
+        self.assertEqual(hashlib.sha256(history.style25_source(ROOT, row['path'])).hexdigest(), row['sha256'])
+        root = self.fixture()
+        live = root/row['path']
+        live.parent.mkdir(parents=True, exist_ok=True)
+        live.write_bytes((ROOT/row['path']).read_bytes())
+        (root/history.STYLE25_SCENE_ARCHIVE/row['archive_path']).unlink()
+        with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+            history.style25_source(root, row['path'])
+
+    def test_preserved_original_test_methods_are_unchanged(self):
+        """Original artifacts remain exact; live assertions allow only explicit path/version migration."""
+        import ast
+        from collections import Counter
+        base = ROOT/history.STYLE25_ARCHIVE
+        # Exact old test-file bytes are checked against the pinned manifest above.
+        self.manifest()
+        current_style = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+        reverse = {row['path']:row['previous_path'] for row in current_style['revision_impact']['changed_references']}
+        class Normalize(ast.NodeTransformer):
+            def visit_Constant(self, node):
+                if isinstance(node.value,str):
+                    value = reverse.get(node.value,node.value)
+                    value = {'26':'25','27':'25','28':'25','29':'25','30':'25','31':'25','32':'25','33':'25','34':'25','creative-v29':'creative-v28','creative-v30':'creative-v28','creative-v31':'creative-v28','creative-v32':'creative-v28','creative-v33':'creative-v28','creative-v34':'creative-v28','creative-v35':'creative-v28','creative-v36':'creative-v28','creative-v37':'creative-v28'}.get(value,value)
+                    return ast.copy_location(ast.Constant(value=value),node)
+                return node
+        # Creative28 now replays its frozen authority; the exact original
+        # equality checks its reconstructed binding, not unrelated live29.
+        old_binding_assert = ast.dump(ast.parse("self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])",mode='eval').body,include_attributes=False)
+        new_binding_assert = ast.dump(ast.parse("self.assertEqual(current['region_bible'],binding['region_bible'])",mode='eval').body,include_attributes=False)
+        for name in ('test_region_bible.py','test_region_creative_direction.py'):
+            methods = lambda tree: {node.name:node for node in ast.walk(tree)
+                                   if isinstance(node,ast.FunctionDef) and node.name.startswith('test_')}
+            old = methods(ast.parse((base/'tests'/name).read_text()))
+            current = methods(ast.parse((ROOT/'tests'/name).read_text()))
+            self.assertTrue(old)
+            self.assertLessEqual(old.keys(),current.keys())
+            self.assertEqual(preserved_method_errors(ast.parse((base/'tests'/name).read_text()),
+                                                    ast.parse((ROOT/'tests'/name).read_text()),name),[])
+            for key,method in old.items():
+                def assertions(node):
+                    result=[]
+                    for call in ast.walk(copy.deepcopy(node)):
+                        if isinstance(call,ast.Call) and isinstance(call.func,ast.Attribute) and call.func.attr.startswith('assert'):
+                            text=ast.dump(Normalize().visit(call),include_attributes=False)
+                            if key=='test_merged28_combines_both_sources_without_inheriting_acceptance' and text==new_binding_assert:
+                                text=old_binding_assert
+                            result.append(text)
+                    return Counter(result)
+                self.assertFalse(assertions(method)-assertions(current[key]),key)
+
+    def fixture(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        shutil.copytree(ROOT/history.STYLE25_ARCHIVE, root/history.STYLE25_ARCHIVE)
+        return root
+
+    def test_missing_frozen_source_rejects_even_when_live_path_exists(self):
+        root = self.fixture()
+        path = 'scripts/ui/item_card.gd'
+        (root/path).parent.mkdir(parents=True, exist_ok=True)
+        (root/path).write_bytes(history.style25_source(ROOT, path))
+        (root/history.STYLE25_ARCHIVE/('sources/'+path+'.txt')).unlink()
+        with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+            history.style25_source(root, path)
+
+    def test_corrupt_frozen_source_rejects_even_when_live_path_exists(self):
+        root = self.fixture()
+        path = 'scripts/ui/item_card.gd'
+        (root/path).parent.mkdir(parents=True, exist_ok=True)
+        (root/path).write_bytes(history.style25_source(ROOT, path))
+        leaf = root/history.STYLE25_ARCHIVE/('sources/'+path+'.txt')
+        leaf.write_bytes(leaf.read_bytes()+b'\nsource-drift')
+        with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+            history.style25_source(root, path)
+
+    def test_rehashing_mutated_archive_manifest_does_not_re_sign_history(self):
+        root = self.fixture()
+        path = root/history.STYLE25_ARCHIVE/'manifest.json'
+        data = json.loads(path.read_bytes())
+        data['sources'][0]['sha256'] = '0'*64
+        path.write_text(json.dumps(data))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style25_source(root, data['sources'][0]['path'])
+
+    def test_existing_boss_parent_override_precedes_shared_style25_snapshot(self):
+        path = 'scripts/demo/demo_app.gd'
+        prior = boss_parent_source('bellstrider', path)
+        self.assertEqual(hashlib.sha256(prior).hexdigest(), 'fee196963d244f6d1fe9ca32ec69cd54bf08ec5c4a62949f41c1a72e94a168bf')
+        self.assertNotEqual(prior, history.style25_source(ROOT, path))
+        self.assertEqual(boss_parent_source('bellstrider', 'scripts/ui/item_card.gd'),
+                         history.style25_source(ROOT, 'scripts/ui/item_card.gd'))
+        untouched = 'config/player_tuning.json'
+        self.assertEqual(history.style25_source(ROOT, untouched), (ROOT/untouched).read_bytes())
+
+    def test_live_validator_still_rejects_changed_source_despite_available_archive(self):
+        root = self.fixture()
+        base = root/history.STYLE25_ARCHIVE
+        registry = json.loads((base/creative.BIBLE_REGISTRY).read_bytes())
+        style = json.loads((base/MERGED_BOSSES_STYLE).read_bytes())
+        paths = {'docs/world_regions.json', 'docs/creative_direction/bibles/user-request.json',
+                 'docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
+                 'docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md',
+                 *[row['path'] for row in style['runtime_reference']['references']]}
+        for path in paths:
+            target = root/path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(history.style25_source(ROOT, path))
+        for path in (creative.BIBLE_REGISTRY, MERGED_BOSSES_STYLE):
+            target = root/path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes((base/path).read_bytes())
+        original = creative.bind_region_bible('thorn_forest', root)[1]
+        self.assertEqual(original['supplemental_authority_sha256'], registry['shared_style_authority']['sha256'])
+        live = root/'scripts/demo/demo_app.gd'
+        live.write_bytes(live.read_bytes()+b'\ncurrent-source-drift')
+        self.assertNotEqual(live.read_bytes(), history.style25_source(root, 'scripts/demo/demo_app.gd'))
+        with self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+            creative.bind_region_bible('thorn_forest', root)
+
+
+class FeatureLayoutBindingTests(unittest.TestCase):
+    """Current206-source authority is validated separately from frozen25 replay."""
+    setUp = BibleTests.setUp
+
+    def test_complete_method_guard_rejects_return_dead_assertions_and_reduced_loop(self):
+        import ast
+        filename='test_region_bible.py'
+        before=ast.parse((ROOT/history.STYLE25_ARCHIVE/'tests'/filename).read_text())
+        live=ast.parse((ROOT/'tests'/filename).read_text())
+        self.assertEqual(preserved_method_errors(before,live,filename),[])
+        name='test_windkeeper24_keeps83_prefix_and_binds_actual_pressure_consumers'
+        for attack in ('return','if_false','empty_loop'):
+            changed=copy.deepcopy(live)
+            method=next(node for node in ast.walk(changed) if isinstance(node,ast.FunctionDef) and node.name==name)
+            if attack=='return': method.body.insert(0,ast.Return(value=None))
+            elif attack=='if_false': method.body=[ast.If(test=ast.Constant(value=False),body=method.body,orelse=[])]
+            else:
+                loop_node=next(node for node in ast.walk(method) if isinstance(node,ast.For))
+                loop_node.iter=ast.List(elts=[],ctx=ast.Load())
+            with self.subTest(attack=attack):
+                self.assertIn('Approved complete method identity changed: '+name,
+                              preserved_method_errors(before,changed,filename))
+
+    def test_current26_preserves_original153_roles_and_media_and_binds_real_helpers(self):
+        frozen_root = frozen26_root(self)
+        current = creative.supplemental_authority(self.bible,'thorn_forest',frozen_root)['content']
+        prior = json.loads((ROOT/MERGED_BOSSES_STYLE).read_bytes())
+        references = current['runtime_reference']['references']
+        self.assertEqual(current['version'],'26')
+        self.assertEqual(len(references),206)
+        self.assertEqual([row['role'] for row in references[:153]], [row['role'] for row in prior['runtime_reference']['references']])
+        for before,after in zip(prior['runtime_reference']['references'],references[:153]):
+            self.assertEqual(after['path'],layout_path(before['path']))
+            self.assertEqual(after['sha256'],hashlib.sha256(history.style26_source(ROOT,after['path'])).hexdigest())
+            if Path(before['path']).suffix in {'.png','.jpg','.wav','.ogg','.mp3','.ttf','.otf'}:
+                self.assertEqual(after['sha256'],before['sha256'])
+        added = current['revision_impact']['added_references']
+        self.assertEqual(references[153:],added)
+        self.assertEqual(len({r['path'] for r in references}),206)
+        self.assertFalse(any(r['path'].startswith('experiments/') for r in added))
+        for path in ('game/application/run_session.gd','game/application/run_composition.gd',
+                     'game/world/levels/level_runtime.gd','game/loadout/effects/item_active_cast.gd',
+                     'game/presentation/audio/game_audio.gd','game/loadout/effects/item_time_context.gd',
+                     'game/bosses/encounter/boss_encounter.gd','game/bosses/windkeeper/windkeeper_encounter.gd',
+                     'game/bosses/thorn_forest/thorn_forest_encounter.gd'):
+            self.assertIn(path,{r['path'] for r in added})
+        self.assertEqual(current['supersedes'],{'path':MERGED_BOSSES_STYLE,'sha256':hashlib.sha256((ROOT/MERGED_BOSSES_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'],'063d6ccbd7a6ab659fd27abcb20a5c59c7308c53')
+        self.assertIn('FAILED',current['revision_impact']['known_failure'])
+        self.assertIn('no_inherited',current['runtime_reference']['status'])
+
+    def test_new_delegates_drift_and_missing_current_source_cannot_fall_back_to_archive(self):
+        shutil.copytree(ROOT/history.STYLE25_ARCHIVE,self.root/history.STYLE25_ARCHIVE)
+        for name in ('game/application/run_session.gd','game/world/levels/level_runtime.gd',
+                     'game/loadout/effects/item_active_cast.gd','game/loadout/effects/item_time_context.gd',
+                     'game/bosses/encounter/boss_encounter.gd','game/bosses/thorn_forest/thorn_forest_encounter.gd',
+                     'game/bosses/windkeeper/windkeeper_encounter.gd'):
+            path=self.root/name;raw=path.read_bytes()
+            path.write_bytes(raw+b'\n# current consumer drift\n')
+            with self.subTest(path=name),self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
+                creative.bind_region_bible('thorn_forest',self.root)
+            path.unlink()
+            with self.subTest(missing=name),self.assertRaisesRegex(ValueError,'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest',self.root)
+            path.write_bytes(raw)
+        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
+
+    def test_current_player_identity_rejects_former_path_even_after_refreshing_hashes(self):
+        registry_path=self.root/creative.BIBLE_REGISTRY
+        registry=json.loads(registry_path.read_bytes());style_path=self.root/registry['shared_style_authority']['path']
+        style=json.loads(style_path.read_bytes());player=next(row for row in style['runtime_reference']['references'] if row['role']=='player_style_reference')
+        old_path='scripts/underworld_plains/underworld_player.gd';target=self.root/old_path
+        target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((self.root/player['path']).read_bytes())
+        player['path']=old_path;style_path.write_text(json.dumps(style));registry['shared_style_authority']['sha256']=hashlib.sha256(style_path.read_bytes()).hexdigest();registry_path.write_text(json.dumps(registry))
+        with self.assertRaisesRegex(ValueError,'Actual UnderworldPlayer body dependencies'):
+            creative.bind_region_bible('thorn_forest',self.root)
+
+    def test_current_check_preserves_original598_mapped_input_prefix_and_duplicates(self):
+        import harness
+        receipt_path='docs/worklines/game_architecture_01/style26_input_migration.json'
+        raw=(ROOT/receipt_path).read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),'784dcecc63cbb7884274646cc0d688679e0f902c05ee3c776221fed11c4301f9')
+        receipt=json.loads(raw);source=receipt['reconstruction_source']
+        source_raw=(ROOT/source['path']).read_bytes()
+        self.assertEqual(hashlib.sha256(source_raw).hexdigest(),source['sha256'])
+        old=json.loads(source_raw)['checks']['region-bible-tests']['inputs']
+        self.assertEqual(len(old),595)
+        restored=receipt['restore_original_duplicates'];at=restored['index']
+        old=old[:at]+restored['paths']+old[at:]
+        self.assertEqual(len(old),598)
+        self.assertEqual(hashlib.sha256(json.dumps(old,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),receipt['original_inputs_canonical_sha256'])
+        changes={row['previous_path']:row['path'] for row in receipt['path_changes']}
+        self.assertEqual(len(changes),85)
+        expected=[changes.get(path,path) for path in old]
+        current=harness.load_manifest()['checks']['region-bible-tests']['inputs']
+        self.assertEqual(current[:598],expected)
+        self.assertEqual(current[320:323],restored['paths'])
+        for path in changes.values():self.assertTrue((ROOT/path).is_file(),path)
+        before={receipt_path:'before'};after={receipt_path:'after'};check=harness.load_manifest()['checks']['region-bible-tests']
+        self.assertNotEqual(harness.input_digest(check,list(before),{},snapshot=before),harness.input_digest(check,list(after),{},snapshot=after))
+
+    def test_original_checks_track_each_current_reference_and_technical_style(self):
+        import harness
+        checks=harness.load_manifest()['checks']
+        current=json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+        for check_id in ('region-bible-tests','region-bible-contract','creative-direction','creative-direction-tests'):
+            for path in [FEATURE_LAYOUT_STYLE,*[row['path'] for row in current['runtime_reference']['references']]]:
+                with self.subTest(check=check_id,path=path):
+                    first={path:'before'};after={path:'after'}
+                    self.assertNotEqual(harness.input_digest(checks[check_id],list(first),{},snapshot=first),
+                                        harness.input_digest(checks[check_id],list(after),{},snapshot=after))
+
+
+class OwnershipBindingTests(unittest.TestCase):
+    def test_lifecycle_r2_source_is_separate_from_the_original_p9_vector(self):
+        current = json.loads((ROOT/OWNERSHIP_STYLE).read_bytes())
+        impact = current['revision_impact']
+        self.assertEqual(impact['source_commit'], '4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a')
+        self.assertEqual(len(impact['frozen_candidate']), 11)
+        followup = impact['lifecycle_followup']
+        self.assertEqual(followup['base_commit'], '59537400af06a26046037840e28989f75933a265')
+        self.assertEqual(followup['source_commit'], '49a298b40890ccf4d9d2326d051f12a0ffe63c27')
+        self.assertEqual(followup['source_status'], 'committed_samebytes')
+        self.assertEqual(followup['quality_record'], 'docs/quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json')
+        self.assertEqual(followup['frozen_candidate'], [{'path': 'game/presentation/world/underworld_plains/underworld_presentation.gd', 'sha256': '1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18'}, {'path': 'tests/underworld_plains/test_underworld_formal.gd', 'sha256': '8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a'}, {'path': 'tests/quality_review_runner.gd', 'sha256': '58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f'}])
+        for source in followup['frozen_candidate']:
+            with self.subTest(source=source['path']):
+                self.assertEqual(hashlib.sha256(history.style32_source(ROOT, source['path'])).hexdigest(), source['sha256'])
+        path = followup['frozen_candidate'][0]['path']
+        self.assertNotIn(path, [row['path'] for row in impact['frozen_candidate']])
+        role = next(row for row in current['runtime_reference']['references'] if row['path'] == path)
+        self.assertEqual(role['role'], 'world_presentation')
+        self.assertEqual(role['sha256'], followup['frozen_candidate'][0]['sha256'])
+        self.assertEqual(role['sha256'], hashlib.sha256(history.style32_source(ROOT, path)).hexdigest())
+
+    def test_current27_preserves206_roles_media_and_only_six_source_changes(self):
+        # R2 extends the uncommitted technical binding by one independently tracked lifecycle leaf.
+        old = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+        new = json.loads((ROOT/OWNERSHIP_STYLE).read_bytes())
+        before = old['runtime_reference']['references']
+        after = new['runtime_reference']['references']
+        self.assertEqual(new['version'], '27')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        actual_changes = []
+        for previous, current in zip(before, after):
+            self.assertEqual(current['sha256'], hashlib.sha256(history.style27_source(ROOT,current['path'])).hexdigest())
+            if previous != current:
+                self.assertEqual(Path(current['path']).suffix, '.gd')
+                actual_changes.append({'role':current['role'], 'path':current['path'],
+                                       'previous_sha256':previous['sha256'], 'sha256':current['sha256']})
+        self.assertEqual(new['revision_impact']['changed_references'], actual_changes)
+        self.assertEqual(len(actual_changes), 7)
+        self.assertEqual(new['revision_impact']['added_references'], [])
+        self.assertEqual(new['supersedes'], {'path':FEATURE_LAYOUT_STYLE, 'sha256':hashlib.sha256((ROOT/FEATURE_LAYOUT_STYLE).read_bytes()).hexdigest()})
+        self.assertIn('no_inherited', new['runtime_reference']['status'])
+
+    def test_finite26_archive_exact_original_files_and_sources(self):
+        base = ROOT/history.STYLE26_ARCHIVE
+        raw = (base/'manifest.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), history.STYLE26_MANIFEST_SHA)
+        manifest = json.loads(raw)
+        self.assertEqual(manifest['source_commit'], '6f743953d6c70c63d4d366a3e84cbe2a571b29d7')
+        self.assertEqual(len(manifest['sources']), 7)
+        self.assertEqual(len(manifest['files']), 13)
+        self.assertFalse(manifest['selection']['media_copied'])
+        style = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+        prior = {r['path']:r for r in style['runtime_reference']['references']}
+        current = json.loads((ROOT/OWNERSHIP_STYLE).read_bytes())
+        self.assertEqual({r['path'] for r in manifest['sources']}, {r['path'] for r in current['revision_impact']['changed_references']})
+        for row in manifest['files']:
+            original = (base/row['path']).read_bytes()
+            self.assertEqual((len(original), hashlib.sha256(original).hexdigest()), (row['bytes'], row['sha256']))
+        for row in manifest['sources']:
+            self.assertEqual(row['sha256'], prior[row['path']]['sha256'])
+            self.assertEqual(hashlib.sha256(history.style26_source(ROOT,row['path'])).hexdigest(), row['sha256'])
+
+    def test_indexed26_leaf_never_falls_back_and_live27_never_uses_archive(self):
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        root = Path(folder.name)
+        shutil.copytree(ROOT/history.STYLE26_ARCHIVE,root/history.STYLE26_ARCHIVE)
+        rows = json.loads((root/history.STYLE26_ARCHIVE/'manifest.json').read_bytes())['sources']
+        for row in rows:
+            live = root/row['path']; live.parent.mkdir(parents=True,exist_ok=True)
+            live.write_bytes((ROOT/row['path']).read_bytes())
+            leaf = root/history.STYLE26_ARCHIVE/row['archive_path']; raw = leaf.read_bytes()
+            leaf.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError,'Missing/unsafe Bible source'):
+                history.style26_source(root,row['path'])
+            leaf.write_bytes(raw+b'\nsource drift')
+            with self.subTest(corrupt=row['path']), self.assertRaisesRegex(AssertionError,'Frozen combination parent source changed'):
+                history.style26_source(root,row['path'])
+            leaf.write_bytes(raw)
+        manifest_path = root/history.STYLE26_ARCHIVE/'manifest.json'; original = manifest_path.read_bytes()
+        manifest = json.loads(original);manifest['sources'][0]['sha256']='0'*64;manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError,'Frozen source manifest changed'):
+            history.style26_source(root,rows[0]['path'])
+        manifest_path.write_bytes(original)
+        BibleTests.setUp(self)  # Real current27 fixture, not the frozen26 fixture.
+        shutil.copytree(ROOT/history.STYLE26_ARCHIVE,self.root/history.STYLE26_ARCHIVE)
+        for row in rows:
+            live=self.root/row['path'];raw=live.read_bytes();live.write_bytes(history.style26_source(ROOT,row['path']))
+            with self.subTest(old_live=row['path']), self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
+                creative.bind_region_bible('thorn_forest',self.root)
+            live.unlink()
+            with self.subTest(missing_live=row['path']), self.assertRaisesRegex(ValueError,'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest',self.root)
+            live.write_bytes(raw)
+        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
+
+    def test_all_original_check_inputs_order_duplicates_and_new_digests(self):
+        import harness
+        old=json.loads((ROOT/history.STYLE26_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        current=harness.load_manifest()['checks']
+        names=('region-bible-tests','region-bible-contract','creative-direction','creative-direction-tests')
+        for name in names:
+            self.assertEqual({k:v for k,v in current[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            before=old[name].get('inputs',[])
+            self.assertEqual(current[name].get('inputs',[])[:len(before)],before)
+            leaves=[OWNERSHIP_STYLE,history.STYLE26_ARCHIVE+'/manifest.json','tools/region_style_history.py']
+            manifest=json.loads((ROOT/history.STYLE26_ARCHIVE/'manifest.json').read_bytes())
+            leaves.extend(history.STYLE26_ARCHIVE+'/'+r['path'] for r in manifest['files'])
+            for path in leaves:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(current[name],[path],{},snapshot={path:'before'}),harness.input_digest(current[name],[path],{},snapshot={path:'after'}))
+        for name in ('region-bible-tests','region-bible-contract'):
+            unknown='unlisted-sibling/style27-never-an-input.txt'
+            self.assertEqual(harness.input_digest(current[name],[unknown],{},snapshot={unknown:'before'}),harness.input_digest(current[name],[unknown],{},snapshot={unknown:'after'}))
+        self.assertEqual(current['region-bible-tests']['inputs'][320:323],old['region-bible-tests']['inputs'][320:323])
+
+    def test_prior26_whole_methods_and_reject_dead_or_reduced_assertions(self):
+        import ast
+        for filename in ('test_region_bible.py','test_region_creative_direction.py'):
+            old=ast.parse((ROOT/history.STYLE26_ARCHIVE/'tests'/filename).read_text())
+            current=ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,OWNERSHIP_TEST_METHOD_MIGRATIONS),[])
+            name=('test_current26_preserves_original153_roles_and_media_and_binds_real_helpers' if filename=='test_region_bible.py' else 'test_current29_preserves_selected_content_and_refuses_frozen28_as_current')
+            for attack in ('return','if_false','empty_loop'):
+                changed=copy.deepcopy(current)
+                method=next(node for node in ast.walk(changed) if isinstance(node,ast.FunctionDef) and node.name==name)
+                if attack=='return':method.body.insert(0,ast.Return(value=None))
+                elif attack=='if_false':method.body=[ast.If(test=ast.Constant(value=False),body=method.body,orelse=[])]
+                else:next(node for node in ast.walk(method) if isinstance(node,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name,preserved_method_errors(old,changed,filename,OWNERSHIP_TEST_METHOD_MIGRATIONS))
+
+
+
+class HistoricalGitSourceTests(unittest.TestCase):
+    def test_exact_history_without_git_and_refuse_missing_corrupt_or_unknown(self):
+        manifest = json.loads((ROOT/history.GIT_HISTORY_ARCHIVE/'manifest.json').read_bytes())
+        self.assertEqual(len(manifest['sources']),20)
+        self.assertEqual(len({(r['source_commit'],r['path']) for r in manifest['sources']}),20)
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            paths={history.GIT_HISTORY_ARCHIVE+'/manifest.json',*[r['archive_path'] for r in manifest['sources']]}
+            for path in paths:
+                target=root/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((ROOT/path).read_bytes())
+            self.assertFalse((root/'.git').exists())
+            for row in manifest['sources']:
+                with self.subTest(commit=row['source_commit'],path=row['path']):
+                    actual=history.git_history_source(root,row['source_commit'],row['path'])
+                    self.assertEqual(hashlib.sha256(actual).hexdigest(),row['sha256'])
+                    leaf=root/row['archive_path'];leaf.unlink()
+                    with self.assertRaises((FileNotFoundError,ValueError)):
+                        history.git_history_source(root,row['source_commit'],row['path'])
+                    leaf.write_bytes(actual+b'corrupt')
+                    with self.assertRaisesRegex(AssertionError,'bytes changed'):
+                        history.git_history_source(root,row['source_commit'],row['path'])
+                    leaf.write_bytes(actual)
+            row=manifest['sources'][0]
+            for commit,path in [('0'*40,row['path']),(row['source_commit'],'../config/item_v5_art.json'),(row['source_commit'],'unlisted')]:
+                with self.assertRaisesRegex(AssertionError,'Unknown or duplicate'):
+                    history.git_history_source(root,commit,path)
+            target=root/history.GIT_HISTORY_ARCHIVE/'manifest.json'
+            for attack in ('duplicate','redirect','rehash'):
+                changed=copy.deepcopy(manifest)
+                if attack=='duplicate':changed['sources'].append(copy.deepcopy(row))
+                elif attack=='redirect':changed['sources'][0]['archive_path']='../outside'
+                else:changed['sources'][0]['sha256']='0'*64
+                target.write_text(json.dumps(changed))
+                with self.assertRaisesRegex(AssertionError,'manifest changed'):
+                    history.git_history_source(root,row['source_commit'],row['path'])
+
+    def test_history_read_migration_preserves_complete_method_guards(self):
+        import ast
+        current=ast.parse((ROOT/'tests/test_region_bible.py').read_text())
+        for archive,migrations in [(history.STYLE25_ARCHIVE,LAYOUT_TEST_METHOD_MIGRATIONS),(history.STYLE26_ARCHIVE,OWNERSHIP_TEST_METHOD_MIGRATIONS)]:
+            old=ast.parse((ROOT/archive/'tests/test_region_bible.py').read_text())
+            self.assertEqual(preserved_method_errors(old,current,'test_region_bible.py',migrations),[])
+            for name in ('test_actual_player_body_closure_is_required_and_superseded_binding_refused','test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history'):
+                original_method=next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+                current_method=next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+                original_target=ast.Module(body=[original_method],type_ignores=[])
+                for attack in ('return','dead','empty'):
+                    method=copy.deepcopy(current_method)
+                    changed=ast.Module(body=[method],type_ignores=[])
+                    if attack=='return':method.body.insert(0,ast.Return(value=None))
+                    elif attack=='dead':method.body=[ast.If(test=ast.Constant(value=False),body=method.body,orelse=[])]
+                    else:next(n for n in ast.walk(method) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                    self.assertIn('Approved complete method identity changed: '+name,preserved_method_errors(original_target,changed,'test_region_bible.py',migrations))
+
+RUNTIME_STYLE = 'docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json'
+RUNTIME_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "c16e1413dc427dda3a7fce9f133fbb2c16a0fdc46069488557e4ec91106f48e5",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "bd7f7fbcb750322f037159d05cf2896740a0c281d993039717adfe62bdc7b950",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "f11a2e370c815c2be96ef1074e64ce89689a0a4ebfe72a0dd4e7dbabb75970b8",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "93d70a7a9c599905735b5dbe289ff2e0c78fd05c6f1ab774b69380bd4c829d39",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_bible.py::test_current27_preserves206_roles_media_and_only_six_source_changes": {
+        "original_ast_sha256": "bed8bfb8ff9b3098a0521ec69228bec05346a5434c5ab1d326959679799d6c9d",
+        "current_ast_sha256": "8432b10406b1082a078ff541841f932ee1960e7932a52d3f12fbd218acf15f37",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "65c2c73414acefec62ff14a92b34720d3bd2aa81eaa1f14b4422464e27d2fc2b",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained. Current29/creative32 expectation; prior accepted method identity retained. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_current30_keeps_selected_content_and_refuses_frozen29_as_current": {
+        "original_ast_sha256": "ff05720a3c15a1cd65676847979ac6d4ced44c2991579e6009af27021eafe0bb",
+        "current_ast_sha256": "2487484081fac5d6a3f730a54289a9cb1c80ab20c943c9944361e4840124c949",
+        "reason": "Finite archived27 replay, current28/creative31 version expectation, or exact historical Git source adapter; original complete method retained."
+    },
+    "test_region_bible.py::test_lifecycle_r2_source_is_separate_from_the_original_p9_vector": {
+        "original_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+        "current_ast_sha256": "309e5ba939f9f14fa2516cb66bc2020274b4a480bf50667a6b25bb1f13e569bd",
+        "reason": "Only explicit finite32 source replay for historical lifecycle leaf; original SHA, assertions, gates and complete method structure retained with exact external inverse proof."
+    }
+}
+
+
+COMPOSITION_STYLE = 'docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json'
+COMPOSITION_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "7dd74a92758ea16a0ff219128817e5fb82437b9019fac87f100bd9e7bc9798ac",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "0373e121a74fce53ca9defd0cf221ec7eefff2b1f3ff9d2effc35bf54744588c",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "df2bdaa0834b595c9b865adea89e8fc2e14ac1b7e411d1e5afa2cb8146ad18dd",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "7ae83fdbb112ef8604f64e020aadced78cb5a8fe593d2292681205bd4397815e",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_bible.py::test_current28_exact206_sources_roles_media_and_five_technical_changes": {
+        "original_ast_sha256": "66dd7e92d569e3cdf638d7e6015cc6fc7b2aad07e54e7978151c207f9f1df0f8",
+        "current_ast_sha256": "45901ae5f3285cc601f1ac2f92d5750d0dd51de0b456cb532ff006d23d5dfa47",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method."
+    },
+    "test_region_bible.py::test_current28_rejects_old_missing_corrupt_sources_and_manifest_resigning": {
+        "original_ast_sha256": "7d83d21cd49c15efbc1abf730e87c301701ce593f7a92619b73d1918c9b999bc",
+        "current_ast_sha256": "73ae25ce060806c243395fb442cda7bc47df2548f50514d4af903cfe7e3e3278",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "e5826c9c21febdc68b8174ac2f3aa20273f0822fb109773401134904c1969079",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method. Current30/creative33 expectation; prior accepted identity retained. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_current31_retains_selected_content_and_refuses_prior30_binding": {
+        "original_ast_sha256": "528f60be1e8d2526e95d6093453eac1efa508edf2485de3ea52a2c8a7631d119",
+        "current_ast_sha256": "ab6ff0a9f74ca99233ad84ab95e3928413f251726ae240f955cfa8ab2ba14661",
+        "reason": "Only current29/creative32 literal or finite28 replay of the preserved original method."
+    },
+    "test_region_bible.py::test_lifecycle_r2_source_is_separate_from_the_original_p9_vector": {
+        "original_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+        "current_ast_sha256": "309e5ba939f9f14fa2516cb66bc2020274b4a480bf50667a6b25bb1f13e569bd",
+        "reason": "Only explicit finite32 source replay for historical lifecycle leaf; original SHA, assertions, gates and complete method structure retained with exact external inverse proof."
+    }
+}
+
+MAP_QUERY_STYLE = 'docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json'
+MAP_QUERY_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "9190f9918629b22522a87cffbf96a5f480cf41d286540f508db3fcb39504363c",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "e54a2fcdbc5c312e2d003da9b41f75575b0560d8c0af77d4b6590900b6f184ab",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "caa98876fe706e3075e432787dd81de09b21a1a3cc4b71961c63f0050431b62e",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "a4a5f4e3ba372aa7f523869f0762cae1710a9a592284b1715c02daf57e2206fd",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_bible.py::test_current29_exact206_sources_roles_media_and_six_technical_changes": {
+        "original_ast_sha256": "29a3085c91fa2b9243a8c99a4728d9d4d2f0bbd67711f0167931648f3af42b2b",
+        "current_ast_sha256": "2cf1687f21d49fc9cd87e8c1f68b3cd0110b3cab05c5486d7196051c9c28387f",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method."
+    },
+    "test_region_bible.py::test_current29_rejects_old_missing_corrupt_sources_and_manifest_resigning": {
+        "original_ast_sha256": "5436d42f3706a67c1e389661853acc50850e6b1b0850e3b81f4f1fc6ea51f3e2",
+        "current_ast_sha256": "89e7d8a1c809c697edeb4cec7749fa6268fc17e31400913869e90f1bb485435a",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "6782f1ae04c91aa89002606713866e388930bdb25b29581a5f493478f9a749c0",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method. Current31/creative34 finite adaptation; prior accepted identity retained. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_current32_retains_selected_content_and_refuses_prior31_binding": {
+        "original_ast_sha256": "6a352413c12b7aa51526aa9d1ff436a9564840879dfa0753d97fd3223119a607",
+        "current_ast_sha256": "a47cb58e4cf8d690b81817fc7b7f15dfe9bc79820e42c0cb7da9b180cf437a7d",
+        "reason": "Only current30/creative33 literal or finite29 replay of preserved original method."
+    },
+    "test_region_bible.py::test_lifecycle_r2_source_is_separate_from_the_original_p9_vector": {
+        "original_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+        "current_ast_sha256": "309e5ba939f9f14fa2516cb66bc2020274b4a480bf50667a6b25bb1f13e569bd",
+        "reason": "Only explicit finite32 source replay for historical lifecycle leaf; original SHA, assertions, gates and complete method structure retained with exact external inverse proof."
+    }
+}
+
+MOBILE_MESH_STYLE = 'docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json'
+MOBILE_MESH_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "4d26a68c4ef15faf7fccf9520c5d4317cf6ed5ccca4e6d72b08bc0dab0c8803a",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "e4ab14afd8a4ce7e55c656dffa758e115daf9241373ee8ee7a5f2375fced3e89",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "231165fa217cbc8dcca3b213d1dd664af172faa4cad4c0c20e65f4dc03fc7c23",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "87f0f158dd3f897008049bee92566bde32a239f4e01b6543c14cc56dbd55de62",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_bible.py::test_current30_exact206_sources_roles_media_and_three_technical_changes": {
+        "original_ast_sha256": "4458eecece840af153435ff3f88cbdb226b0759a7b68113f27a1790750ed37fc",
+        "current_ast_sha256": "e2931122415bba0e5070c5c7fae4882d319329d745343a35ddc5da06d872715b",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external."
+    },
+    "test_region_bible.py::test_current30_rejects_old_missing_corrupt_sources_and_manifest_resigning": {
+        "original_ast_sha256": "da38bb4104dfb7d45210ebb77976e55c50610590a004d6f53730c6e4c3b92184",
+        "current_ast_sha256": "3384bc1aa22bc63b722d464383ac512dade007b2b40ef29eddf976b97bbaceb6",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "a7b583809812aa8d89245c9064776f01c02bfddd711e78a26daa30fbe9f6d4bb",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external. Current32/creative35 finite adaptation; prior accepted identity retained. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_current33_retains_selected_content_and_refuses_prior32_binding": {
+        "original_ast_sha256": "4331c223410340bb4d924278da2a0593f7fd94fb534115ec505860aca6311d84",
+        "current_ast_sha256": "8b0e4609d48197843e22ae3490cc01e87265a1837790068fc2c8357130cac4e6",
+        "reason": "Only current31/creative34 version expectation/normalization or explicit finite30 historical root; original predicates retained, inverse proof external."
+    },
+    "test_region_bible.py::test_lifecycle_r2_source_is_separate_from_the_original_p9_vector": {
+        "original_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+        "current_ast_sha256": "309e5ba939f9f14fa2516cb66bc2020274b4a480bf50667a6b25bb1f13e569bd",
+        "reason": "Only explicit finite32 source replay for historical lifecycle leaf; original SHA, assertions, gates and complete method structure retained with exact external inverse proof."
+    }
+}
+
+COMBAT_PERF_STYLE = 'docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json'
+COMBAT_PERF_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "5648bc6eb6483e97d579a6d36c83236c0b8ff99ea5e0026a9ea1ef57db5b8fb5",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "1688b5a432119881054f8339ebbea049ce52a89f5053b0bcbe00a09bf0ab304f",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "51477a5f29e644af1c6d6e5ab69e4f5cd85deba09737a6cb4582962ef6ff677f",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "2e8b57edd62b2d78c5fa884a7d1bf51f8383c7b45d22fda018879ca24682a736",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_bible.py::test_current31_exact206_sources_roles_media_and_three_technical_changes": {
+        "original_ast_sha256": "825a41ed4e4f956c70dfecdf216f7484f942a5809ad8e0488d9db7312fab563f",
+        "current_ast_sha256": "4c7379f994aada2a87ee5d03249be0a18a85d15186520a67c137be395af8bf7c",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_current31_rejects_old_missing_corrupt_sources_and_manifest_resigning": {
+        "original_ast_sha256": "ff06d527d86a7f57bcfb520e6fb84a4bb7702eb5ffe10e5e4edc684367b7b102",
+        "current_ast_sha256": "2526d45caecc8e0843b3426819ca68de3dbcc335713ca439bf69d4cb09404fe8",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "b02b67f75f26902b24a1730d8aae57cff9ca14c93f69d235ec075d0a7f1c50b6",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof. Current33/creative36 finite adaptation; prior accepted identity retained. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_creative_direction.py::test_current34_retains_selected_content_and_refuses_prior33_binding": {
+        "original_ast_sha256": "c4f123e6a63072d0db4408b40338c23774a691168b53fa319083c792c29ec579",
+        "current_ast_sha256": "9549c0c79bd2399e980982e1804b913014095a26cd710a56625612266bdfbe5b",
+        "reason": "Only current32/creative35 version expectation/normalization or explicit finite31 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_lifecycle_r2_source_is_separate_from_the_original_p9_vector": {
+        "original_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+        "current_ast_sha256": "309e5ba939f9f14fa2516cb66bc2020274b4a480bf50667a6b25bb1f13e569bd",
+        "reason": "Only explicit finite32 source replay for historical lifecycle leaf; original SHA, assertions, gates and complete method structure retained with exact external inverse proof."
+    }
+}
+
+CANVAS_PREPARATION_STYLE = 'docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json'
+CANVAS_PREPARATION_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "7f6d39b2966025389b49733d4c11d3b00deec56c1fbb7e141007a0f498126ce1",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813"
+        ]
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "d3f7ec2c2a4bebf3ffb71e53dc11877c5fc1db0a6ea594c9ef92ba43c09dd5c7",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7"
+        ]
+    },
+    "test_region_bible.py::test_current32_exact206_sources_roles_media_and_six_technical_changes": {
+        "original_ast_sha256": "b6b940f48de6e1ff047213341b7c8791319931164289ff45f30ed3e4b7a7a83d",
+        "current_ast_sha256": "65669aa020fb67e8781097dd1b2ce7b34661e3090f735d5a7f139cafc4b9b066",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof."
+    },
+    "test_region_bible.py::test_current32_rejects_old_missing_corrupt_sources_and_manifest_resigning": {
+        "original_ast_sha256": "8c3f5b7d82a39b0a0bcb7865f3585b3910ea9398e9068b3d4b9da8130b41b7e0",
+        "current_ast_sha256": "9a82fc1d3430506b7f412526d5100499d39c1027e8aa5689b3a1c2ea356e68ea",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof."
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "cbc18f91dae3529995115a2dc6d74012b6b6c4913031fdbbc9b9c90aa7b7c46a",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b"
+        ]
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "fd0a0c446eb0c4177873e332a439ac8d66ddb48ccc65daafa64d252654e7c201",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7"
+        ]
+    },
+    "test_region_creative_direction.py::test_current35_retains_selected_content_and_refuses_prior34_binding": {
+        "original_ast_sha256": "a0d1aef30970a8862a8a835b8ed1528d57c646d43f4a3e37d0003994759e84b4",
+        "current_ast_sha256": "0fbcbac34a61dd96c047487420b874c6f10e75fc9d6993cf18d4595fc914ee24",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "bb8d6dbd755f6747db6055ddb4246ebf5226615cd40eb4558dab607e60df129c",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current33/creative36 version expectation/normalization or explicit finite32 historical root; all original predicates retained with external exact inverse proof. Current34/creative37 finite adaptation; prior accepted identity retained.",
+        "prior_current_ast_sha256s": [
+            "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445"
+        ]
+    },
+    "test_region_bible.py::test_lifecycle_r2_source_is_separate_from_the_original_p9_vector": {
+        "original_ast_sha256": "d40354a4693a35b720d2b88c21af05711d20189708ae99639fee038a026b86a1",
+        "current_ast_sha256": "309e5ba939f9f14fa2516cb66bc2020274b4a480bf50667a6b25bb1f13e569bd",
+        "reason": "Only explicit finite32 source replay for historical lifecycle leaf; original SHA, assertions, gates and complete method structure retained with exact external inverse proof."
+    }
+}
+
+DEATH_RUNTIME_STYLE = 'docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json'
+DEATH_RUNTIME_TEST_METHOD_MIGRATIONS = {
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused": {
+        "original_ast_sha256": "041ef9c0389b9cc9a3b1cb75354283798b73b05ea646c8b82c3df3df1e4a8813",
+        "current_ast_sha256": "448fa0331cbe19a07ad40351891c2e83c41bd79d9869620b564061c8e7707c71",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history": {
+        "original_ast_sha256": "2cce391f061c686b126b63960f8891d29ea5257fad2cca72326439a8ec5ed2e7",
+        "current_ast_sha256": "265404149c3a71f276cf1df55efc34f1dd2b68bc6b131d3452978ae87c895d5c",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_current33_exact206_sources_roles_media_and_one_technical_change": {
+        "original_ast_sha256": "4c2083459f04704d0dc702e0176bda7e2aac9926a0125a3d98ed6a0c8d5323fb",
+        "current_ast_sha256": "5d7e166d8ee40c84fad519ea37c0755557f8f2bc309822a18f586fbe3576fc59",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_current33_rejects_old_missing_corrupt_sources_and_manifest_resigning": {
+        "original_ast_sha256": "7e689b58e2ad18f3377f721dd06b5a0db9fad96a7bd2ca6c12355ea8b49d4ccf",
+        "current_ast_sha256": "9cb1a62843e36da0c505b1ea731e51ae9871ab42a33f1e4adf75fd15a140c4ea",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale": {
+        "original_ast_sha256": "1895196bae5ec04cc2636eb0a15703dcd94b0c20284932fe363c444601afca9b",
+        "current_ast_sha256": "5fde3733df590b0659417ffc1a38b89f51a044f90db599ea09a5b1bd964f0309",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_bible.py::test_preserved_original_test_methods_are_unchanged": {
+        "original_ast_sha256": "56d40df9b37eced2a9bd089578231a296898b265248da7f9e592951616f368c7",
+        "current_ast_sha256": "2da87a98b018fa5df2e7bbd19e2bb19d3bb1ed0d958a2d938b1bff61a2ad3de6",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_creative_direction.py::test_current36_retains_selected_content_and_refuses_prior35_binding": {
+        "original_ast_sha256": "2925b75f3935a34033c2ae327b22aad510c2cc9e37578755cbc2e498548161eb",
+        "current_ast_sha256": "444eb12af21ef3c205fcc453039b0882cb064643905e8c3ef3426fdafc16dd39",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    },
+    "test_region_creative_direction.py::test_selected_direction_binds_every_specialist_and_retains_stage_gates": {
+        "original_ast_sha256": "bd08649e6dcbeb5dae93d8b2b4930a56468f8608a57375be80c1f4907c9ef445",
+        "current_ast_sha256": "b25300dd03809c253cb73a4241447b205451be4a428767e08fd34d9ad458fb35",
+        "reason": "Only current34/creative37 version expectation/normalization or explicit finite33 historical root; original predicates retained with complete-method identity and external inverse proof."
+    }
+}
+
+class RuntimeOwnershipBindingTests(unittest.TestCase):
+    setUp = BibleTests.setUp
+
+    def test_current28_exact206_sources_roles_media_and_five_technical_changes(self):
+        self.root = frozen28_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        previous = json.loads((ROOT/OWNERSHIP_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '28')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style27_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 5)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': OWNERSHIP_STYLE, 'sha256': hashlib.sha256((ROOT/OWNERSHIP_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], '23887fe5c9d32afa8bcba8725fd7895b6266aa5d')
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+    def test_current28_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        self.root = frozen28_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        shutil.copytree(ROOT/history.STYLE27_ARCHIVE, self.root/history.STYLE27_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE27_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 5)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style27_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE27_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style27_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style27_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style27_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen27_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+    def test_current28_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE27_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/RUNTIME_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [RUNTIME_STYLE, history.STYLE27_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+    def test_current29_exact206_sources_roles_media_and_six_technical_changes(self):
+        self.root = frozen29_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        previous = json.loads((ROOT/RUNTIME_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '29')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style28_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 6)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': RUNTIME_STYLE, 'sha256': hashlib.sha256((ROOT/RUNTIME_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], '254b600337c8adee5e8938e430650e34e7257cf9')
+        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
+        self.assertIn('not yet part', current['revision_impact']['source_identity'])
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+
+    def test_current29_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        self.root = frozen29_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        shutil.copytree(ROOT/history.STYLE28_ARCHIVE, self.root/history.STYLE28_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE28_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 6)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style28_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE28_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style28_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style28_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style28_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen28_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+
+    def test_current29_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE28_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/COMPOSITION_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [COMPOSITION_STYLE, history.STYLE28_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+
+    def test_current30_exact206_sources_roles_media_and_three_technical_changes(self):
+        self.root = frozen30_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        previous = json.loads((ROOT/COMPOSITION_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '30')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style29_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 3)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': COMPOSITION_STYLE, 'sha256': hashlib.sha256((ROOT/COMPOSITION_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], '2d44aaebbda52977f6ec347379242ec01a9ee62a')
+        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
+        self.assertIn('not part of the baseline', current['revision_impact']['source_identity'])
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+
+    def test_current30_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        self.root = frozen30_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        shutil.copytree(ROOT/history.STYLE29_ARCHIVE, self.root/history.STYLE29_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE29_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 3)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style29_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE29_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style29_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style29_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style29_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen29_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+
+    def test_current30_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE29_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/MAP_QUERY_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [MAP_QUERY_STYLE, history.STYLE29_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+
+    def test_prior27_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE27_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,RUNTIME_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current27_preserves206_roles_media_and_only_six_source_changes' if filename=='test_region_bible.py' else 'test_current30_keeps_selected_content_and_refuses_frozen29_as_current')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,RUNTIME_TEST_METHOD_MIGRATIONS))
+
+    def test_prior28_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE28_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,COMPOSITION_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current28_exact206_sources_roles_media_and_five_technical_changes' if filename=='test_region_bible.py' else 'test_current31_retains_selected_content_and_refuses_prior30_binding')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,COMPOSITION_TEST_METHOD_MIGRATIONS))
+
+
+    def test_prior29_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE29_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,MAP_QUERY_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current29_exact206_sources_roles_media_and_six_technical_changes' if filename=='test_region_bible.py' else 'test_current32_retains_selected_content_and_refuses_prior31_binding')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,MAP_QUERY_TEST_METHOD_MIGRATIONS))
+
+
+    def test_current31_exact206_sources_roles_media_and_three_technical_changes(self):
+        self.root = frozen31_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        previous = json.loads((ROOT/MAP_QUERY_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '31')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style30_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 3)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': MAP_QUERY_STYLE, 'sha256': hashlib.sha256((ROOT/MAP_QUERY_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], 'ca505102f2bcd429a8a4c62eabd4f3a73a040ee8')
+        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
+        self.assertIn('exact committed ca505102 bytes', current['revision_impact']['source_identity'])
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+
+    def test_current31_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        self.root = frozen31_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        shutil.copytree(ROOT/history.STYLE30_ARCHIVE, self.root/history.STYLE30_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE30_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 3)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style30_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE30_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style30_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style30_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style30_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen30_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+
+    def test_current31_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE30_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/MOBILE_MESH_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [MOBILE_MESH_STYLE, history.STYLE30_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+
+    def test_prior30_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE30_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,MOBILE_MESH_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current30_exact206_sources_roles_media_and_three_technical_changes' if filename=='test_region_bible.py' else 'test_current33_retains_selected_content_and_refuses_prior32_binding')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,MOBILE_MESH_TEST_METHOD_MIGRATIONS))
+
+
+
+    def test_current32_exact206_sources_roles_media_and_six_technical_changes(self):
+        self.root = frozen32_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        previous = json.loads((ROOT/MOBILE_MESH_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '32')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style31_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 6)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': MOBILE_MESH_STYLE, 'sha256': hashlib.sha256((ROOT/MOBILE_MESH_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], 'e42b277f37425458a2920815258d1cfc817acfc3')
+        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
+        self.assertIn('not part of the baseline commit', current['revision_impact']['source_identity'])
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+
+    def test_current32_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        self.root = frozen32_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        shutil.copytree(ROOT/history.STYLE31_ARCHIVE, self.root/history.STYLE31_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE31_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 6)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style31_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE31_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style31_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style31_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style31_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen31_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+
+    def test_current32_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE31_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/COMBAT_PERF_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [COMBAT_PERF_STYLE, history.STYLE31_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+
+    def test_prior31_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE31_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,COMBAT_PERF_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current31_exact206_sources_roles_media_and_three_technical_changes' if filename=='test_region_bible.py' else 'test_current34_retains_selected_content_and_refuses_prior33_binding')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,COMBAT_PERF_TEST_METHOD_MIGRATIONS))
+
+
+
+    def test_current33_exact206_sources_roles_media_and_one_technical_change(self):
+        self.root = frozen33_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        previous = json.loads((ROOT/COMBAT_PERF_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '33')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style32_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 1)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': COMBAT_PERF_STYLE, 'sha256': hashlib.sha256((ROOT/COMBAT_PERF_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], '23ba7a79bbfca7f0f1662088f611911dbfd0725b')
+        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
+        self.assertIn('candidate not present in baseline Git', current['revision_impact']['source_identity'])
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+
+    def test_current33_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        self.root = frozen33_root(self)
+        self.bible, self.ref = creative.bind_region_bible('thorn_forest', self.root)
+        shutil.copytree(ROOT/history.STYLE32_ARCHIVE, self.root/history.STYLE32_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE32_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 1)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style32_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE32_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style32_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style32_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style32_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen32_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+
+    def test_current33_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE32_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/CANVAS_PREPARATION_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [CANVAS_PREPARATION_STYLE, history.STYLE32_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+
+    def test_prior32_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE32_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,CANVAS_PREPARATION_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current32_exact206_sources_roles_media_and_six_technical_changes' if filename=='test_region_bible.py' else 'test_current35_retains_selected_content_and_refuses_prior34_binding')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,CANVAS_PREPARATION_TEST_METHOD_MIGRATIONS))
+
+
+    def test_current34_exact206_sources_roles_media_and_five_technical_changes(self):
+        previous = json.loads((ROOT/CANVAS_PREPARATION_STYLE).read_bytes())
+        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
+        self.assertEqual(current['version'], '34')
+        self.assertEqual(len(after), 206)
+        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
+        changes = []
+        for old, new in zip(before, after):
+            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
+            self.assertEqual(hashlib.sha256(history.style33_source(ROOT, old['path'])).hexdigest(), old['sha256'])
+            if old != new:
+                self.assertEqual(Path(new['path']).suffix, '.gd')
+                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
+        self.assertEqual(len(changes), 5)
+        self.assertEqual(current['revision_impact']['changed_references'], changes)
+        self.assertEqual(current['revision_impact']['added_references'], [])
+        self.assertEqual(current['supersedes'], {'path': CANVAS_PREPARATION_STYLE, 'sha256': hashlib.sha256((ROOT/CANVAS_PREPARATION_STYLE).read_bytes()).hexdigest()})
+        self.assertEqual(current['revision_impact']['source_commit'], '5d3303b78d4db374300d4a0266bde8eb1a6de5b2')
+        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
+        self.assertIn('candidate not present in baseline Git', current['revision_impact']['source_identity'])
+        self.assertIn('no_inherited', current['runtime_reference']['status'])
+
+
+    def test_current34_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
+        shutil.copytree(ROOT/history.STYLE33_ARCHIVE, self.root/history.STYLE33_ARCHIVE)
+        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
+        manifest_path = self.root/history.STYLE33_ARCHIVE/'manifest.json'
+        manifest_raw = manifest_path.read_bytes()
+        manifest = json.loads(manifest_raw)
+        self.assertEqual(len(manifest['sources']), 5)
+        for row in style['revision_impact']['changed_references']:
+            path = self.root/row['path']; raw = path.read_bytes()
+            old = history.style33_source(ROOT, row['path'])
+            for bad in (old, raw+b'\n# current source drift\n'):
+                path.write_bytes(bad)
+                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
+                    creative.bind_region_bible('thorn_forest', self.root)
+            path.unlink()
+            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                creative.bind_region_bible('thorn_forest', self.root)
+            path.write_bytes(raw)
+            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
+            leaf = self.root/history.STYLE33_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
+            leaf.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
+                history.style33_source(self.root, row['path'])
+            leaf.write_bytes(saved+b'changed')
+            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
+                history.style33_source(self.root, row['path'])
+            leaf.write_bytes(saved)
+        manifest['sources'][0]['sha256']='0'*64
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
+            history.style33_source(self.root, manifest['sources'][0]['path'])
+        manifest_path.write_bytes(manifest_raw)
+        stale = creative.bind_region_bible('thorn_forest', frozen33_root(self))[1]
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale, root=self.root)
+        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
+
+
+    def test_current34_inputs_cover_all_current_sources_and_preserve_ordered_prefix(self):
+        import harness
+        checks = harness.load_manifest()['checks']
+        old = json.loads((ROOT/history.STYLE33_ARCHIVE/'tools/harness/profiles.json').read_bytes())['checks']
+        style = json.loads((ROOT/DEATH_RUNTIME_STYLE).read_bytes())
+        for name in ('region-bible-tests', 'region-bible-contract', 'creative-direction', 'creative-direction-tests'):
+            self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+            if 'inputs' in old[name]:
+                self.assertEqual(checks[name]['inputs'][:len(old[name]['inputs'])], old[name]['inputs'])
+            for path in [DEATH_RUNTIME_STYLE, history.STYLE33_ARCHIVE+'/manifest.json', 'tools/region_style_history.py', *[r['path'] for r in style['runtime_reference']['references']]]:
+                with self.subTest(check=name,path=path):
+                    self.assertNotEqual(harness.input_digest(checks[name],[path],{},snapshot={path:'before'}), harness.input_digest(checks[name],[path],{},snapshot={path:'after'}))
+
+
+    def test_prior33_complete_methods_preserved_and_mutations_rejected(self):
+        import ast
+        for filename in ('test_region_bible.py', 'test_region_creative_direction.py'):
+            old = ast.parse((ROOT/history.STYLE33_ARCHIVE/'tests'/filename).read_text())
+            current = ast.parse((ROOT/'tests'/filename).read_text())
+            self.assertEqual(preserved_method_errors(old,current,filename,DEATH_RUNTIME_TEST_METHOD_MIGRATIONS), [])
+            name = ('test_current33_exact206_sources_roles_media_and_one_technical_change' if filename=='test_region_bible.py' else 'test_current36_retains_selected_content_and_refuses_prior35_binding')
+            original = next(n for n in ast.walk(old) if isinstance(n,ast.FunctionDef) and n.name==name)
+            method = next(n for n in ast.walk(current) if isinstance(n,ast.FunctionDef) and n.name==name)
+            for attack in ('return', 'dead', 'empty_loop'):
+                changed = copy.deepcopy(method)
+                if attack=='return': changed.body.insert(0,ast.Return(value=None))
+                elif attack=='dead': changed.body=[ast.If(test=ast.Constant(value=False),body=changed.body,orelse=[])]
+                else: next(n for n in ast.walk(changed) if isinstance(n,ast.For)).iter=ast.List(elts=[],ctx=ast.Load())
+                with self.subTest(filename=filename,attack=attack):
+                    self.assertIn('Approved complete method identity changed: '+name, preserved_method_errors(ast.Module(body=[original],type_ignores=[]),ast.Module(body=[changed],type_ignores=[]),filename,DEATH_RUNTIME_TEST_METHOD_MIGRATIONS))
+
+
+class SuitePartitionTests(unittest.TestCase):
+    def test_partition_rejects_missing_unknown_overlap_and_empty_suites(self):
+        all_ids = set(CURRENT_METHODS) | set(HISTORY_METHODS)
+        validate_partition(all_ids, CURRENT_METHODS, HISTORY_METHODS)
+        for found,current,history in ((all_ids|{'Unregistered.test_new'},CURRENT_METHODS,HISTORY_METHODS),
+                                      (all_ids-{CURRENT_METHODS[0]},CURRENT_METHODS,HISTORY_METHODS),
+                                      (all_ids,CURRENT_METHODS,HISTORY_METHODS+(CURRENT_METHODS[0],)),
+                                      (all_ids,(),tuple(sorted(all_ids))),
+                                      (all_ids,tuple(sorted(all_ids)),())):
+            with self.assertRaises(ValueError): validate_partition(found,current,history)
+
+
+
+# Exact method IDs: adding/removing a method requires an explicit responsibility decision.
+CURRENT_METHODS = (
+    'BibleTests.test_cli_and_original_selected_bytes',
+    'BibleTests.test_missing_bible_is_distinct_from_invalid_bible',
+    'BibleTests.test_wrong_region_partial_binding_and_wrong_version_fail',
+    'BibleTests.test_unannounced_original_drift_never_refreshes_binding',
+    'BibleTests.test_registry_drift_invalidates_existing_binding_even_if_bible_unchanged',
+    'BibleTests.test_duplicate_json_and_duplicate_regions_rejected',
+    'BibleTests.test_path_escape_absolute_and_symlink_ancestors_rejected',
+    'BibleTests.test_selection_needs_raw_original_user_evidence',
+    'BibleTests.test_hash_refresh_cannot_turn_another_attachment_into_forest',
+    'BibleTests.test_selected_direction_cannot_forge_raw_quote_or_player_approval',
+    'BibleTests.test_cross_attachment_bytes_cannot_be_relabelled_with_refreshed_registry',
+    'BibleTests.test_original_staged_basename_mismatch_and_duplicate_identity_refused',
+    'BibleTests.test_latest_shared_style_quotes_and_actual_family_bind_all_region_production',
+    'BibleTests.test_future_proposed_worker_gets_shared_style_without_visual_gate',
+    'BibleTests.test_shared_reference_or_quote_drift_blocks_calls_and_restore',
+    'BibleTests.test_global_physics_actions_and_plain_docs_have_no_shared_art_gate',
+    'BibleTests.test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume',
+    'BibleTests.test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes',
+    'BibleTests.test_default_current_bibles_skip_election',
+    'BibleTests.test_no_bible_proposal_only_and_explicit_production_rejected',
+    'BibleTests.test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls',
+    'BibleTests.test_anonymous_production_write_paths_block_all_original_adversarial_probes',
+    'BibleTests.test_exact_known_catalog_paths_require_matching_single_region_binding',
+    'BibleTests.test_all_runtime_domains_detect_registered_region_families_before_prefix_filter',
+    'BibleTests.test_anonymous_multi_region_task_and_ambiguous_mission_return_blocked',
+    'BibleTests.test_broad_bound_scope_cannot_write_another_actual_region_consumer',
+    'BibleTests.test_handwritten_partial_binding_and_source_inputs',
+    'BibleTests.test_worker_prompt_contains_full_original_and_audio_scope',
+    'BibleTests.test_source_drift_during_worker_blocks_after_call',
+    'BibleTests.test_source_drift_before_worker_and_restored_completion_block',
+    'BibleTests.test_visual_director_uses_current_bible_and_exact_caller_scope',
+    'BibleTests.test_bellstrider_audio_assets_are_literal17_real_wavs_with_strict_byte_custody',
+    'BibleTests.test_windkeeper24_rejects_prior22_and_new_consumer_drift',
+    'Style25ArchiveTests.test_missing_frozen_source_rejects_even_when_live_path_exists',
+    'Style25ArchiveTests.test_corrupt_frozen_source_rejects_even_when_live_path_exists',
+    'Style25ArchiveTests.test_rehashing_mutated_archive_manifest_does_not_re_sign_history',
+    'Style25ArchiveTests.test_live_validator_still_rejects_changed_source_despite_available_archive',
+    'FeatureLayoutBindingTests.test_new_delegates_drift_and_missing_current_source_cannot_fall_back_to_archive',
+    'FeatureLayoutBindingTests.test_current_player_identity_rejects_former_path_even_after_refreshing_hashes',
+    'FeatureLayoutBindingTests.test_original_checks_track_each_current_reference_and_technical_style',
+    'OwnershipBindingTests.test_indexed26_leaf_never_falls_back_and_live27_never_uses_archive',
+    'OwnershipBindingTests.test_all_original_check_inputs_order_duplicates_and_new_digests',
+    'RuntimeOwnershipBindingTests.test_current34_exact206_sources_roles_media_and_five_technical_changes',
+    'RuntimeOwnershipBindingTests.test_current34_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current34_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'SuitePartitionTests.test_partition_rejects_missing_unknown_overlap_and_empty_suites',
+)
+HISTORY_METHODS = (
+    'BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused',
+    'BibleTests.test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18',
+    'BibleTests.test_merged20_preserves_both_parent19_contracts_and_refuses_both_pointers',
+    'BibleTests.test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references',
+    'BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history',
+    'BibleTests.test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18_audio_history',
+    'BibleTests.test_audio_feedback_v20_preserves81_and_refuses_stale19',
+    'BibleTests.test_audio_feedback06_v21_rebinds_only_original_title_and_refuses_stale20',
+    'BibleTests.test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale',
+    'BibleTests.test_bellstrider23_has_exact83_prefix_and_finite_real_body_audio_closure',
+    'BibleTests.test_bellstrider_binding_migration_preserves57_original_methods_hashes_and_input_prefixes',
+    'BibleTests.test_windkeeper24_keeps83_prefix_and_binds_actual_pressure_consumers',
+    'BibleTests.test_windkeeper24_archive_and_original_harness_guards_remain',
+    'BibleTests.test_merged25_preserves_both_frozen_parents_and_real153_union',
+    'Style25ArchiveTests.test_exact_finite_source_selection_and_original_documents',
+    'Style25ArchiveTests.test_scene_reference_supplement_preserves_original_archive_and_rejects_missing_leaf',
+    'Style25ArchiveTests.test_preserved_original_test_methods_are_unchanged',
+    'Style25ArchiveTests.test_existing_boss_parent_override_precedes_shared_style25_snapshot',
+    'FeatureLayoutBindingTests.test_complete_method_guard_rejects_return_dead_assertions_and_reduced_loop',
+    'FeatureLayoutBindingTests.test_current26_preserves_original153_roles_and_media_and_binds_real_helpers',
+    'FeatureLayoutBindingTests.test_current_check_preserves_original598_mapped_input_prefix_and_duplicates',
+    'OwnershipBindingTests.test_lifecycle_r2_source_is_separate_from_the_original_p9_vector',
+    'OwnershipBindingTests.test_current27_preserves206_roles_media_and_only_six_source_changes',
+    'OwnershipBindingTests.test_finite26_archive_exact_original_files_and_sources',
+    'OwnershipBindingTests.test_prior26_whole_methods_and_reject_dead_or_reduced_assertions',
+    'HistoricalGitSourceTests.test_exact_history_without_git_and_refuse_missing_corrupt_or_unknown',
+    'HistoricalGitSourceTests.test_history_read_migration_preserves_complete_method_guards',
+    'RuntimeOwnershipBindingTests.test_prior27_complete_methods_preserved_and_mutations_rejected',
+    'RuntimeOwnershipBindingTests.test_current28_exact206_sources_roles_media_and_five_technical_changes',
+    'RuntimeOwnershipBindingTests.test_current28_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current28_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'RuntimeOwnershipBindingTests.test_prior28_complete_methods_preserved_and_mutations_rejected',
+    'RuntimeOwnershipBindingTests.test_current29_exact206_sources_roles_media_and_six_technical_changes',
+    'RuntimeOwnershipBindingTests.test_current29_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current29_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'RuntimeOwnershipBindingTests.test_prior29_complete_methods_preserved_and_mutations_rejected',
+    'RuntimeOwnershipBindingTests.test_current30_exact206_sources_roles_media_and_three_technical_changes',
+    'RuntimeOwnershipBindingTests.test_current30_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current30_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'RuntimeOwnershipBindingTests.test_prior30_complete_methods_preserved_and_mutations_rejected',
+    'RuntimeOwnershipBindingTests.test_current31_exact206_sources_roles_media_and_three_technical_changes',
+    'RuntimeOwnershipBindingTests.test_current31_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current31_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'RuntimeOwnershipBindingTests.test_prior31_complete_methods_preserved_and_mutations_rejected',
+    'RuntimeOwnershipBindingTests.test_prior32_complete_methods_preserved_and_mutations_rejected',
+    'RuntimeOwnershipBindingTests.test_current32_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'RuntimeOwnershipBindingTests.test_current32_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current32_exact206_sources_roles_media_and_six_technical_changes',
+    'RuntimeOwnershipBindingTests.test_current33_exact206_sources_roles_media_and_one_technical_change',
+    'RuntimeOwnershipBindingTests.test_current33_rejects_old_missing_corrupt_sources_and_manifest_resigning',
+    'RuntimeOwnershipBindingTests.test_current33_inputs_cover_all_current_sources_and_preserve_ordered_prefix',
+    'RuntimeOwnershipBindingTests.test_prior33_complete_methods_preserved_and_mutations_rejected',
+)
+
+SUITE_MODE = 'current'
+
+def validate_partition(discovered, current, history):
+    current_set, history_set = set(current), set(history)
+    if (not current_set or not history_set or len(current)!=len(current_set) or
+        len(history)!=len(history_set) or current_set & history_set or
+        set(discovered)!=current_set | history_set):
+        raise ValueError('Bible current/history method partition is incomplete or ambiguous')
+
+def load_tests(loader, standard_tests, pattern):
+    def flatten(suite):
+        for test in suite:
+            if isinstance(test, unittest.TestSuite): yield from flatten(test)
+            else: yield test
+    tests = list(flatten(standard_tests))
+    keyed = {test.__class__.__name__+'.'+test._testMethodName:test for test in tests}
+    validate_partition(keyed, CURRENT_METHODS, HISTORY_METHODS)
+    if len(keyed)!=len(tests): raise ValueError('Duplicate discovered Bible test IDs')
+    selected = {'current':CURRENT_METHODS, 'history':HISTORY_METHODS,
+                'all':CURRENT_METHODS+HISTORY_METHODS}[SUITE_MODE]
+    return unittest.TestSuite(keyed[name] for name in selected)
+
 if __name__ == '__main__':
+    for flag, mode in (('--history','history'),('--all','all')):
+        if flag in sys.argv:
+            if SUITE_MODE!='current': raise ValueError('Choose only one Bible suite')
+            sys.argv.remove(flag)
+            SUITE_MODE=mode
     unittest.main()

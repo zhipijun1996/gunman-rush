@@ -1,0 +1,129 @@
+{
+  "decision": "LIMITED_ACCEPT_FINAL_STYLE30_TEST_ADAPTATION",
+  "reviewer": "preview_audit; non-author",
+  "freeze_sha256": "65d68154aa5faf56062a242128eab0c9674407d9df17ae50c96b68b47e55c4bb",
+  "patch_sha256": "e49e4b84b331436885496d63df715337f4318469170ae378e3190859add538b5",
+  "files": {
+    "tests/test_region_bible.py": "b8141ae609fc8a35af6002be34d2d28a68924ed929c7300d4f23ef85e65d6483",
+    "tests/test_region_creative_direction.py": "d917db8f42e8e0afae0482347c959b2a4b83744eabafa0daf4ddbeee3ae5aae7",
+    "tools/harness/profiles.json": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a"
+  },
+  "method_preservation": {
+    "tests/test_region_bible.py": {
+      "original_methods": 78,
+      "candidate_methods": 82,
+      "unchanged_AST": 72,
+      "finite_inverse_exact": [
+        "BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused",
+        "BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history",
+        "BibleTests.test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale",
+        "Style25ArchiveTests.test_preserved_original_test_methods_are_unchanged",
+        "RuntimeOwnershipBindingTests.test_current29_exact206_sources_roles_media_and_six_technical_changes",
+        "RuntimeOwnershipBindingTests.test_current29_rejects_old_missing_corrupt_sources_and_manifest_resigning"
+      ],
+      "new_methods": [
+        "RuntimeOwnershipBindingTests.test_current30_exact206_sources_roles_media_and_three_technical_changes",
+        "RuntimeOwnershipBindingTests.test_current30_inputs_cover_all_current_sources_and_preserve_ordered_prefix",
+        "RuntimeOwnershipBindingTests.test_current30_rejects_old_missing_corrupt_sources_and_manifest_resigning",
+        "RuntimeOwnershipBindingTests.test_prior29_complete_methods_preserved_and_mutations_rejected"
+      ]
+    },
+    "tests/test_region_creative_direction.py": {
+      "original_methods": 26,
+      "candidate_methods": 27,
+      "unchanged_AST": 24,
+      "finite_inverse_exact": [
+        "CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates",
+        "RuntimeOwnershipDirectionTests.test_current32_retains_selected_content_and_refuses_prior31_binding"
+      ],
+      "new_methods": [
+        "RuntimeOwnershipDirectionTests.test_current33_retains_selected_content_and_refuses_prior32_binding"
+      ]
+    }
+  },
+  "partition": {
+    "current": 46,
+    "history": 36,
+    "total": 82,
+    "exhaustive_disjoint": true,
+    "loader_modes_verified": [
+      "current",
+      "history",
+      "all"
+    ],
+    "negative_probes_rejected": [
+      "unknown",
+      "missing",
+      "overlap",
+      "duplicate current",
+      "duplicate history",
+      "empty current",
+      "empty history",
+      "duplicate discovered ID"
+    ]
+  },
+  "default_current_boundary": "Only three version29 current checks are replaced in default by corresponding version30 checks; original29 checks remain explicitly historical. All other current selectors and existing drift/unknown/worker/corrupt/re-sign guards preserved.",
+  "profiles": "Only two check input lists append style30 and finite prior29 archive; all219 check IDs/argv/markers/budgets/other properties and all profiles including full171/legacy31 unchanged.",
+  "independent_selected_real_tests": {
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "log": "/workspace/refactor-evidence/style30-tests-independent-selected.log",
+    "log_sha256": "761d13a89aa7c21a00f2b3d15478fc0f0b53a41b948edf90e4a2329679d77682",
+    "scope": [
+      "current30 old/corrupt/missing/manifest-re-sign/stale binding refusal",
+      "creative33 selected content and prior32 binding refusal"
+    ]
+  },
+  "author_actual_receipts": {
+    "current46-01": {
+      "record_sha256": "046318a87a654855e05eebad05c6383d263011de7394dfe087f38a1f94569a63",
+      "log_sha256": "1d03e99c13b2ef868687231e74fa91653f72b61333c4c9a6f85ced82c72bc745",
+      "returncode": 0,
+      "timeout": 30,
+      "seconds": 17.319833280998864,
+      "exact_candidate_before_after_vector": true
+    },
+    "history36-01": {
+      "record_sha256": "0449f8d5b79b6771949dad88c17d64ff111928642a2c33be49e101672209f34a",
+      "log_sha256": "9866e08f6d2151d935faaf6b2f180e7bcbd29c829b0530177880ab5b4f408fcd",
+      "returncode": 0,
+      "timeout": 30,
+      "seconds": 16.173104403000252,
+      "exact_candidate_before_after_vector": true
+    },
+    "creative27-03": {
+      "record_sha256": "c5485d4fb568044b97b2a6e49e09ba4e4bd300768a2d2ffb4a634178791f74d8",
+      "log_sha256": "3e7cb4403ee227b4b3c0c41c008c324d07e55e1df144f3d3b488d17b7cfb9247",
+      "returncode": 0,
+      "timeout": 60,
+      "seconds": 8.138315597998371,
+      "exact_candidate_before_after_vector": true
+    },
+    "creative27-01": {
+      "record_sha256": "5003279c4e023a181ed5670cc07def6acbbe2da2ff94572e7d2e100ac82b3d2a",
+      "log_sha256": "0536ca19d2a88cf55efeaacfa2e3ae670c63f0149c387df116b6e3621b483fba",
+      "returncode": 1,
+      "timeout": 60,
+      "seconds": 8.742978456000856,
+      "exact_candidate_before_after_vector": true
+    },
+    "creative27-02": {
+      "record_sha256": "e1e265f89583d44f03e5cdc5dbb65b069e3a114ab36911fd12996a8188f99e91",
+      "log_sha256": "40f6100048ef85d3b56753739a40c8e932d514291c1ec33de109ae69ed07b20c",
+      "returncode": 1,
+      "timeout": 60,
+      "seconds": 8.136858251000376,
+      "exact_candidate_before_after_vector": true
+    }
+  },
+  "failed_overlay_repairs": "Initial creative01 missing actual driver and creative02 missing project.godot remain errors=1. Independently verified 17 driver +2 fixed source additions are exact base Git bytes, three candidate files identical across all runs; no assertion replacement to obtain pass.",
+  "limits": [
+    "No independent rerun of full46/36/27; only two selected real methods plus partition probes.",
+    "No full171/native/media acceptance.",
+    "Before/after author vectors bind listed source inputs; not invented whole-overlay runtime freeze.",
+    "Style metadata/history correctness separately reviewed; this acceptance covers three candidate test/profile files only."
+  ],
+  "main_modified": false,
+  "engine_run": false
+}

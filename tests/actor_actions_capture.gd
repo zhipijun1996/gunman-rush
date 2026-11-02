@@ -11,7 +11,7 @@ func start() -> void:
 	root.size=Vector2i(1280,720)
 	var audio := GameAudio.new()
 	root.add_child(audio)
-	studio = preload("res://scenes/demo/action_studio.tscn").instantiate()
+	studio = preload("res://experiments/motion/entries/action_studio.tscn").instantiate()
 	root.add_child(studio)
 	studio.controller.air_focus_ability.enabled=false
 	physics_frame.connect(drive)

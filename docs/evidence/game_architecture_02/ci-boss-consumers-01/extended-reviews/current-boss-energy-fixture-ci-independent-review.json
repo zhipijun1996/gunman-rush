@@ -1,0 +1,181 @@
+{
+  "decision": "LIMITED_ACCEPT_STATIC_FIXTURE_ONLY",
+  "reviewer": "ci_audit, independent non-author",
+  "reviewed_at_utc": "2026-10-31T10:00:11.289646+00:00",
+  "source_commit": "59537400af06a26046037840e28989f75933a265",
+  "candidate": {
+    "path": "/workspace/refactor-evidence/current-boss-energy-fixture/candidate.json",
+    "sha256": "1fbf12c8057c01620d47a4397993eadef7caba8ee2dca41f5bbca6eb759d295c"
+  },
+  "patch": {
+    "path": "/workspace/refactor-evidence/current-boss-energy-fixture/candidate.patch",
+    "sha256": "565d7afcba76ef5c71bbaa9f7ddbcfd239d4443ca5b8ae302108e22fc16feb22"
+  },
+  "files": [
+    {
+      "path": "tests/plains_experience_energy_runner.gd",
+      "before_sha256": "0483b498a76b93fb8e641ccb851355bafa251f2daaac0f6d61073ceb81c014ec",
+      "candidate_sha256": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b"
+    },
+    {
+      "path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres",
+      "before_sha256": null,
+      "candidate_sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2"
+    },
+    {
+      "path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json",
+      "before_sha256": null,
+      "candidate_sha256": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7"
+    }
+  ],
+  "preservation": {
+    "full_before_restored_by_only_four_explicit_fixture_edits": true,
+    "all_check_call_lines_exact": true,
+    "static_check_call_lines": 69,
+    "all_loops_frames_assertions_and_remaining_control_flow_exact": true,
+    "original_expected_dynamic_assertions": 540,
+    "actual_native_candidate_result": "pending",
+    "original_energy_budget_seconds": 90,
+    "original_success_marker": "PLAINS EXPERIENCE ENERGY: [1-9]\\d* assertions, 0 failures",
+    "git_apply_check_exit": 0,
+    "no_healthstate_current_capacity_or_terminal_assignment_added": true,
+    "definition_duplicate_before_add_child_ready": true,
+    "pressure_runner_exact_baseline_sha": "a1c8f070351005483cc2c6892a7e1b5ce75ca3e6d8139030b76a53c4c5b2aa91"
+  },
+  "historical_resource": {
+    "source_commit": "2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62",
+    "git_blob": "4dfa930601d3c54a3c1c41cac0de4997a3de77a7",
+    "sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2",
+    "exact_original_bytes": true,
+    "existing_history_authority_source_matches": true,
+    "health_definition_script_only_ext_dependency": "scripts/resources/definitions/health_definition.gd",
+    "health_definition_script_exact_d079_bytes": true,
+    "health_initial_and_capacity": 16,
+    "no_old_encounter_algorithm_copied": true
+  },
+  "runtime_paths_reviewed": [
+    {
+      "path": "scenes/bosses/windkeeper.tscn",
+      "sha256": "cd9f507556cc6b59dab5687770a540104c60d0d8335f4af2789b4e98f2e7d1ed",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "scenes/bosses/bellstrider.tscn",
+      "sha256": "9f2708b3129233387e2434e3ec52d4c688d68ad0b55830f41ec2179dc119b733",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "resources/bosses/legacy/bellstrider_window_v1.tres",
+      "sha256": "14bcb17cc4a3af32c764b00a60d9e49370604ad236297fcc9646d6fa136eee48",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "resources/bosses/bellstrider_health.tres",
+      "sha256": "e05ffe6644c3a1100a03bc64349d8701c46fff096672237e23ea997789abf78b",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "scripts/bosses/windkeeper_definition.gd",
+      "sha256": "1a02f38f0044ff1a0954fb4d3f3ea952400445953c2e6df9298cc948086f2274",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "scripts/bosses/boss_definition.gd",
+      "sha256": "ec5bfb51585b3a19dd0a14e59a4364fd1e5557db5277c40320206046fde299e3",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "scripts/resources/definitions/health_definition.gd",
+      "sha256": "3ab78102f977e9f651fd07cc243d896af714443721b501d7ba5f627ee6c787e8",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/bosses/encounter/boss_motor.gd",
+      "sha256": "35215febee9b663d6b7478c2b92faac83e85a6d729bca4b9c8407653f0f91cbc",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/bosses/encounter/boss_encounter.gd",
+      "sha256": "86f6df7f8a80a8fab03d4fbbd7d6d0ac96ebb7aa5add4dba4d78ff4fc070641f",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/bosses/windkeeper/windkeeper_encounter.gd",
+      "sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/bosses/windkeeper/windkeeper_damageable.gd",
+      "sha256": "d547688043e8de78d014d7e326fd83ebf2f357a17e55aea5c098b905d2e5aa60",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/bosses/bellstrider/bellstrider_encounter.gd",
+      "sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/combat/projectiles/player_projectile.gd",
+      "sha256": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/combat/damage/damageable.gd",
+      "sha256": "6818f7d9744459eada05175b84aedb6c5f3a880d68dfb701c03b4c30ac27c31c",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/combat/damage/frame_damage_policy.gd",
+      "sha256": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/combat/weapons/shoot_ability.gd",
+      "sha256": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/player/player_controller.gd",
+      "sha256": "022263cb4c62880e5e936908553d5638ef409fcb479f54903463b6cb7a641eea",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "game/combat/resources/shot_energy_policy.gd",
+      "sha256": "d1abb19e0441cda5dc58ca6dd2d46ad2ca3dee6cab0b666dd69039ea681b9990",
+      "same_59537400_git_blob": true
+    },
+    {
+      "path": "tests/plains_pressure_boss_runner.gd",
+      "sha256": "a1c8f070351005483cc2c6892a7e1b5ce75ca3e6d8139030b76a53c4c5b2aa91",
+      "same_59537400_git_blob": true
+    }
+  ],
+  "equivalence_scope": {
+    "old_broken_current_bell": "BellstriderEncounter._config requires BellstriderDefinition, but fixture supplies legacy WindkeeperDefinition. Current referenced health is40, contradicting unchanged16 assertion.",
+    "generic_setup": "Existing Windkeeper scene retains BossMotor and WindkeeperDamageable, uses instance-only duplicate of existing historical window definition. BossEncounter._ready configures real HealthState from exact16 resource and real104x92 body collision.",
+    "closed_armour": "Active observe, continuous_combat=false, primary=null, core closed: WindkeeperDamageable.receive_damage emits armour_hit and returns false before Damageable.receive_damage or policy commit. Core has collision_layer0 and encounter physics disabled exactly as before.",
+    "real_refund_path": "Unchanged PlayerProjectile sweep supplies on_committed callback to ShootAbility.item_hit_committed -> PlayerController.on_weapon_damage -> on_projectile_hit -> ShotEnergyPolicy.on_hit. Armour rejection never invokes that callback; original assertion still requires actual contact,16HP,80stamina,no grant.",
+    "not_full_boss_equivalence": "Windkeeper presentation and inactive core offset differ from historical Bell; neither is the tested damage/refund rule. This acceptance does not cover Bell lob/ring/roll/Presentation or the separate Pressure runner.",
+    "test_scope_only": "Only tests runner and two test-only fixture files in patch; no runtime or resource production edits, no artificial damage/refund callback, no real HP state assignment."
+  },
+  "prior_failure": {
+    "report": {
+      "path": "/workspace/refactor-evidence/legacy-boss-fixture-baseline-01/report.json",
+      "sha256": "e7427c7f2988c79b894e9b2a751e07427e1a35dac42b44c92e2c185d1a1b1177"
+    },
+    "energy_log": {
+      "path": "/workspace/refactor-evidence/legacy-boss-fixture-baseline-01/energy.log",
+      "sha256": "b99111f500e86f50937471ffae28fd147e6ca9a8c94a578469f3e8001bbd191f"
+    },
+    "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+    "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "assertions": 540,
+    "failures": 1,
+    "preserved": true
+  },
+  "limitations": [
+    "No Godot invocation or540/0 claim; execute original strict native case within90seconds before accepting runtime result.",
+    "No pressure test deletion, waiver, budget adjustment or migration to current40HP authorized by this review.",
+    "Main files unchanged by reviewer; candidate hash binding is required when applying."
+  ]
+}

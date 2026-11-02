@@ -1,0 +1,119 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "scope": "Separate six-source delta; forest_ecology one-line patch remains independently frozen. No production, scene, definition, CLI argument, test condition/frame/action/budget change. No engine run or main write.",
+  "files": [
+    {
+      "path": "tests/forest_depth_enemy_runner.gd",
+      "original_sha256": "1f2c81a3f5ba173d900a0c16789907acdbdb8fe8064048c16b0c5f651dad49c4",
+      "candidate_sha256": "c0278f6f5d9be2086a94b0e3e483a9333ec8a0700774dc6aff91f8f645a9ef9f",
+      "replacement_count": 1,
+      "full_inverse_equal": true,
+      "all_assertion_lines_identical": true,
+      "main_unchanged_at_prepare": true
+    },
+    {
+      "path": "tests/forest_depth_version_app_case.gd",
+      "original_sha256": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274",
+      "candidate_sha256": "b9bf8bf1b38f7cf774463da9124de0a4855e3b46c34ba60e97cb728d79308b94",
+      "replacement_count": 1,
+      "full_inverse_equal": true,
+      "all_assertion_lines_identical": true,
+      "main_unchanged_at_prepare": true
+    },
+    {
+      "path": "tests/enemy_all_02_motion_lifecycle.gd",
+      "original_sha256": "9ec18a2777200002593b2c6faecafecac93d1f4819b5a21cc058fa14a37e3050",
+      "candidate_sha256": "2c19befb84ea03c11d803abf1e17a7551adbe4d48256bdfeeb0408e55d741bcb",
+      "replacement_count": 2,
+      "full_inverse_equal": true,
+      "all_assertion_lines_identical": true,
+      "main_unchanged_at_prepare": true
+    },
+    {
+      "path": "tests/enemy_hit_template_tests.gd",
+      "original_sha256": "41dee1a645071bd695b98a46fbb1d51067e61f47fc78e98b59541613b6cab6c4",
+      "candidate_sha256": "122af06da2760afd6da88121d5e5cc308554e6e81a1acfd823dd723053c2aa29",
+      "replacement_count": 1,
+      "full_inverse_equal": true,
+      "all_assertion_lines_identical": true,
+      "main_unchanged_at_prepare": true
+    },
+    {
+      "path": "tools/enemy_all_review_02_capture.gd",
+      "original_sha256": "d773bedcc1cdcfa53da1ff3ee34c26724c0913f4ce176a5acd5b87b3c1c62e3f",
+      "candidate_sha256": "377e77830eac4d64fbc3147c38071322e2598aedb5cbb484c6cfbdc0374f71a1",
+      "replacement_count": 1,
+      "full_inverse_equal": true,
+      "all_assertion_lines_identical": true,
+      "main_unchanged_at_prepare": true
+    },
+    {
+      "path": "tools/enemy_all_review_02_inventory.py",
+      "original_sha256": "01af61e6f1936443e6aa149e7af2327bdefb440b4f43bf8b0181de1e9c55c0fe",
+      "candidate_sha256": "db167388c27c05d4cf3a2b8a9cbae09d81c9c94c011b54d9cacec85a7eb92165",
+      "replacement_count": 1,
+      "full_inverse_equal": true,
+      "all_assertion_lines_identical": true,
+      "main_unchanged_at_prepare": true
+    }
+  ],
+  "patch_sha256": "74e07232d1d9228bfcdbedff879a93f147cabb504fc37e1bc9b19565334fef89",
+  "existing_resolver": {
+    "path": "game/enemies/enemy_behavior_registry.gd",
+    "sha256": "cfad0e810e0ea17e332260138b91493895ddefd80640841642173d5417c24f15",
+    "method": "scene_path",
+    "proof": [
+      {
+        "behavior_id": "patrol",
+        "registry_path": "res://game/enemies/scenes/patrol_drone.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_bark_beetle",
+        "registry_path": "res://game/enemies/species/scenes/forest_bark_beetle.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_swing_pod",
+        "registry_path": "res://game/enemies/species/scenes/forest_swing_pod.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_lantern",
+        "registry_path": "res://game/enemies/species/scenes/forest_lantern.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_seed_sentry",
+        "registry_path": "res://game/enemies/species/scenes/forest_seed_sentry.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_thread_spider",
+        "registry_path": "res://game/enemies/species/scenes/forest_thread_spider.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_crossbranch",
+        "registry_path": "res://game/enemies/species/scenes/forest_crossbranch.tscn",
+        "matches_existing_migrated_scene": true
+      },
+      {
+        "behavior_id": "forest_bible_weaver",
+        "registry_path": "res://game/enemies/species/scenes/forest_bible_weaver.tscn",
+        "matches_existing_migrated_scene": true
+      }
+    ]
+  },
+  "shared_scene_identity_proof": "computed-consumer-audit.json identity_evidence (eight actual scenes; current==P8; P8 structural equality except relocated ext_resource paths)",
+  "python_static_validation": {
+    "inventory_executed_without_engine": true,
+    "ordinary_species": 14,
+    "renderer_chains": 22,
+    "boss_scenes": 8,
+    "candidate_output_equals_original_with_only_proven_scene_read_redirect_and_output_path_relocation": true,
+    "limitations": "Original tool cannot run unmodified because deleted files are absent. Controlled original replay is a path-difference proof, not a claim that the original CLI passed. No capture or native evidence."
+  },
+  "preserved": "PackedScene instantiate and ordering; definition assignment and duplicate semantics; candidate recipes; actual Damageable and motion/lifecycle logic; v1 allowlist/version/save/replay/Boss identity checks; all check lines identical; review capture actions, scene choice categories and CLI arguments unchanged.",
+  "remaining_validation": "Independent review and root engine runs; capture GUI/media not claimed. Original remote failure preserved."
+}

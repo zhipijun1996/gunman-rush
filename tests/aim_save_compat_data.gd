@@ -40,21 +40,21 @@ func run() -> Dictionary:
 	recorded.erase("legacy_versions")
 	recorded.stages=recorded.stages.slice(0,2)
 	var historical_json:=JSON.stringify(recorded,"",true)
-	var restored: RefCounted =data_script("res://scripts/run/run_manifest.gd").from_snapshot(recorded)
+	var restored: RefCounted =data_script("res://game/application/run_manifest.gd").from_snapshot(recorded)
 	check(restored!=null and restored.canonical_json()==historical_json,"both real archived Plains outputs replay unchanged at historical .2")
 	cases.append({"kind":"original_archived_plains_prefix","source":archive,"source_sha256":FileAccess.get_sha256(archive),"recorded":recorded})
 	for index: int in [0,1]:
 		for field: String in ["id","version","health"]:
 			var invalid := recorded.duplicate(true)
 			invalid.stages[index].outputs.boss_layout[field] = "foreign_boss" if field=="id" else 999
-			check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(invalid)==null,"archived map %s rejects foreign Boss %s" % [index+1,field])
+			check(data_script("res://game/application/run_manifest.gd").from_snapshot(invalid)==null,"archived map %s rejects foreign Boss %s" % [index+1,field])
 		var mismatched := recorded.duplicate(true)
 		mismatched.stages[index].outputs.generated_layout.player_tuning_hash = FileAccess.get_sha256("res://config/player_tuning.json")
-		mismatched.stages[index].outputs.generated_layout.manifest_hash = data_script("res://scripts/generation/random_stage_generator.gd").new()._manifest_hash(mismatched.stages[index].outputs.generated_layout)
-		check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(mismatched)==null,"archived map %s rejects historical Boss under foreign configuration" % [index+1])
+		mismatched.stages[index].outputs.generated_layout.manifest_hash = data_script("res://game/world/generation/random_stage_generator.gd").new()._manifest_hash(mismatched.stages[index].outputs.generated_layout)
+		check(data_script("res://game/application/run_manifest.gd").from_snapshot(mismatched)==null,"archived map %s rejects historical Boss under foreign configuration" % [index+1])
 		var swapped := recorded.duplicate(true)
 		swapped.stages[index].outputs.boss_layout = recorded.stages[1-index].outputs.boss_layout.duplicate(true)
-		check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(swapped)==null,"archived map %s rejects other map historical Boss tuple" % [index+1])
+		check(data_script("res://game/application/run_manifest.gd").from_snapshot(swapped)==null,"archived map %s rejects other map historical Boss tuple" % [index+1])
 	check_historical_plains_prefixes()
 	restored=null
 	return {"checks":checks,"cases":cases}
@@ -67,14 +67,14 @@ func check_historical_plains_prefixes() -> void:
 		var recorded: Dictionary = row.recorded
 		var label := "main dbc6ba08 / " + str(row.mode)
 		var canonical := JSON.stringify(recorded,"",true)
-		var restored: RefCounted = data_script("res://scripts/run/run_manifest.gd").from_snapshot(recorded)
+		var restored: RefCounted = data_script("res://game/application/run_manifest.gd").from_snapshot(recorded)
 		check(restored!=null and restored.canonical_json()==canonical,label+" actual .15 old-Boss snapshot replays unchanged")
 		var current := recorded.duplicate(true)
 		for index: int in [0,1]:
 			var definition: Resource = load("res://resources/bosses/bellstrider.tres" if index==0 else "res://resources/bosses/windkeeper_storm.tres")
 			assert(is_instance_of(definition,data_script("res://scripts/bosses/boss_definition.gd")))
 			current.stages[index].outputs.boss_layout = {"id":str(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}
-		var current_restored: RefCounted = data_script("res://scripts/run/run_manifest.gd").from_snapshot(current)
+		var current_restored: RefCounted = data_script("res://game/application/run_manifest.gd").from_snapshot(current)
 		check(current_restored!=null and current_restored.canonical_json()==JSON.stringify(current,"",true),label+" current-Boss tuple remains canonical")
 		for index: int in [0,1]:
 			for field: String in ["id","version","health","configuration","focus","map_identity"]:
@@ -86,8 +86,8 @@ func check_historical_plains_prefixes() -> void:
 					"health":output.boss_layout.health+=1
 					"configuration":
 						output.generated_layout.player_tuning_hash="f".repeat(64)
-						output.generated_layout.manifest_hash=data_script("res://scripts/generation/random_stage_generator.gd").new()._manifest_hash(output.generated_layout)
+						output.generated_layout.manifest_hash=data_script("res://game/world/generation/random_stage_generator.gd").new()._manifest_hash(output.generated_layout)
 					"focus":output.stage_tuning.focus_time_scale=0.19
 					"map_identity":output.region_map.map_index=2 if index==0 else 1
-				check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(bad)==null,label+" map%s rejects foreign %s" % [index+1,field])
+				check(data_script("res://game/application/run_manifest.gd").from_snapshot(bad)==null,label+" map%s rejects foreign %s" % [index+1,field])
 		cases.append({"kind":"actual_old_source_plains_prefix","source_commit":row.source_commit,"mode":row.mode,"source":path,"source_sha256":FileAccess.get_sha256(path),"recorded":recorded})

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Real formal scene and existing audio dispatch; no natural campaign/PCM/device claim.
-const RUNTIME := preload("res://scripts/audio/selected_sfx_runtime.gd")
+const RUNTIME := preload("res://game/presentation/audio/selected_sfx_runtime.gd")
 const TEARDOWN := preload("res://tests/audio_teardown.gd")
 var checks := 0
 var failures: Array[String] = []
@@ -23,7 +23,7 @@ func local_audio(app: DemoApp) -> Variant:
 	for child: Node in app.get_children():
 		var source := child.get_script() as Script
 		while source != null:
-			if source.resource_path == "res://scripts/audio/game_audio.gd": return child
+			if source.resource_path == "res://game/presentation/audio/game_audio.gd": return child
 			source = source.get_base_script()
 	return null
 
@@ -64,7 +64,7 @@ func exercise() -> void:
 	await frames()
 	var other_audio: Variant = local_audio(other)
 	check(other_audio != null and other_audio.audio_profile == "original", "Earlier programmatic App remains original")
-	var packed := load("res://scenes/demo/demo.tscn") as PackedScene
+	var packed := load("res://game/application/demo.tscn") as PackedScene
 	var app := packed.instantiate() as DemoApp
 	packed = null
 	app.meta_persistence_enabled = false

@@ -357,7 +357,7 @@ def _analyze_capture(capture, policy=None):
                                 {"width": width, "enemies": [e.get("id") for e in manifest.get("enemies", []) if e.get("area") == node.get("id")]},
                                 "Long connector candidate; inspect actual route interaction and intended observation/recovery.")
         source_hashes = capture.get("capture_source_hashes", {})
-        scenery_hash = source_hashes.get("res://scripts/art/plains_region_scenery.gd", source_hashes.get("scripts/art/plains_region_scenery.gd"))
+        scenery_hash = source_hashes.get("res://game/presentation/world/art/plains_region_scenery.gd", source_hashes.get("game/presentation/world/art/plains_region_scenery.gd"))
         # Only an observed original consumer supports this historical projection.
         if (manifest.get("region") == "plains" and manifest.get("version") == "plains-region-v8"
                 and scenery_hash == LEGACY_PLAINS_SCENERY_SHA256):

@@ -16,7 +16,7 @@ func _initialize() -> void:
 	run.call_deferred()
 
 func run() -> void:
-	room = load("res://scripts/demo/forest_varied_module_golden.gd").new()
+	room = load("res://experiments/generation/forest_varied_module_golden.gd").new()
 	room.layout = layout
 	room.grant_hook = variant not in ["noH", "naivejump", "onlyR"]
 	root.add_child(room)

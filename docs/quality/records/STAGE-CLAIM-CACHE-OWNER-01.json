@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "task_id": "STAGE-CLAIM-CACHE-OWNER-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "reviewed_commit": "9c48310be10adfbd1eed956b3745139c7edf1f6e",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "将成功事务后的地图状态写入收回Stage，并让实际App与生成器共用纯宝箱候选规则。",
+  "player_experience": "保留当前玩法、资源选择及结算；集中职责使后续地图替换和奖励维护有明确调用入口。",
+  "constraints": [
+    "不改玩家物理、碰撞、伤害、消耗、奖励数量、随机调用、存档格式或图声。",
+    "保原资源事务、收据、声音/反馈/持久化/Manifest顺序；不新注册表或服务容器。",
+    "旧资源模式候选注册和重复note ID原缺陷单列，不顺手修规则。",
+    "只声明已实际执行的限定回归；当前资源权威源码指纹更新与完整171/导出仍待。"
+  ],
+  "affected_paths": [
+    "game/application/demo_app.gd",
+    "game/world/levels/providers/generated_demo_stage.gd",
+    "game/world/levels/providers/plains_region_stage.gd",
+    "game/world/levels/providers/thorn_forest_region_stage.gd",
+    "game/world/generation/plains_region_generator.gd",
+    "game/rewards/offers/cache_reward_policy.gd",
+    "game/rewards/offers/cache_reward_policy.gd.uid",
+    "tests/run_session_runner.gd",
+    "tests/plains_exploration_expansion_runner.gd",
+    "tools/underworld_pipeline.py",
+    "tests/test_underworld_pipeline.py"
+  ],
+  "deliverables": [
+    "Stage单一claim实现及森林后置hook",
+    "实际App和原生成器共用CacheRewardPolicy",
+    "原生消费者与静态guard结果、原失败、独审和回退说明"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

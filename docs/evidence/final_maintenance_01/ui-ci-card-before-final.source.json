@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "task_id": "UI-CI-OWNERSHIP-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "reviewed_commit": null,
+  "content_version": "maintenance-v1",
+  "owner": "/root",
+  "purpose": "将两个精确UI测试叶及既有studio-input消费者接入现有模块责任映射。",
+  "player_experience": "维护既有消费者与检查归属；不签内容、设备或玩家认可。",
+  "constraints": [
+    "原失败及历史来源保留",
+    "不降低原断言/预算",
+    "GameSource与ToolSource分别绑定"
+  ],
+  "affected_paths": [
+    "config/production_impact.json",
+    "tests/test_production_plan.py"
+  ],
+  "deliverables": [
+    "现有维护源码与精确SHA",
+    "有限原测试和独审证据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限维护设计。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "维护边界和原守门明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "有限候选独审已提供，最终代码提交须先核两Gitblob同SHA；暂不签最终身份。",
+      "evidence": [
+        "candidate-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "仅声明的维护范围。",
+      "scenario": "真实既有消费者维护",
+      "method": "对照有限写集和原合同",
+      "expected": "不扩到游戏规则或新框架",
+      "failure": "混入运行规则或弱化原守门",
+      "evidence": [
+        "scope"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/final_maintenance_01/ci-spec.md",
+      "sha256": "b78ef39b99c04942a71e37d598dbfbdbefc54df10c9de088ceb4e7b053dc4a0b",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "有限维护范围及明确不代签项。"
+    },
+    {
+      "id": "candidate-review",
+      "path": "docs/evidence/final_maintenance_01/popup-ui-impact-mapping-independent-review.json",
+      "sha256": "7dc19898a45a0427f4a7767ecb1169a842692628227de9939ce364218fbc5aec",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "仅9df6两叶候选静态/两新case独审；最终commit及其48仍待，不能据此置最终technical passed。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/preview_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Runtime非候选作者，仅验证有限映射与原46保持。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "reviewed_commit=null为明确待填模板，禁止原样入库",
+    "最终两源码Gitblob与9df6候选同字节绑定待验",
+    "最终commit原48测试待root执行；旧46+2候选证明保留",
+    "UIab26324fresh属于独立UI卡，不代签本映射代码",
+    "不新增check、预算、设备或内容接受"
+  ]
+}

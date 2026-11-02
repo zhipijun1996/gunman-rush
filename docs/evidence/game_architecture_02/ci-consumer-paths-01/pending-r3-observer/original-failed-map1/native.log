@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=296 setup_ms=47
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"00ca33a8e622314d1ca9adeca1a5815a51eee0f6eac63e154ce712644259451a","map_index":1,"region":"plains","seed":"underworld-r3-continuous-boss"}
+SCRIPT ERROR: Invalid access to property or key 'health' on a base object of type 'previously freed'.
+          at: run (res://tests/underworld_plains/capture_underworld_r3_boss_fight.gd:145)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/underworld_plains/capture_underworld_r3_boss_fight.gd:145)
+              [1] frames (res://tests/underworld_plains/capture_underworld_r3_boss_fight.gd:35)
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/r3-formal-map1-strategy-01.py", line 24, in <module>
+    text=run_engine(args,180)
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-refactor/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

@@ -344,7 +344,7 @@ func far_approach_case() -> void:
 
 
 func shooter_at(point: Vector2) -> PlayerController:
-	var player := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var player := preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	player.position = point
 	world.add_child(player)
 	var controller := player.get_node("Controller") as PlayerController

@@ -1,0 +1,908 @@
+{
+  "schema_version": 1,
+  "authority_id": "project_shared_regional_style",
+  "version": "25",
+  "source": {
+    "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
+    "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
+    "scope": "Both direct user corrections apply to all later region creation, optimization and proposed Bibles. Preserve the active project style; regional identity varies within that family. Not acceptance of future visual output/devices.",
+    "additional_quote": "同时后续区域不要出类似的问题",
+    "global_style_selection_quote": "细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。然后我发现家园的房子或者树和地面不贴合，需要修复",
+    "global_style_selection_source": "Direct user message in current root conversation, 2026-10-22; manually retained by root, not an API export",
+    "default_player_selection_quote": "人物按照新的进行默认，后续在家园的“衣装守护者”处更换人物（改个合适的名字）",
+    "default_player_selection_source": "Direct user message in root conversation, 2026-10-23; direction and adoption authorization, not future aesthetic/device acceptance"
+  },
+  "mode": "shared_project_style_with_regional_variation",
+  "shared_dimensions": {
+    "pixel_scale": "用户已明确选细粒度：正式地形原生32px/32wu，世界表现统一1wu采样和nearest；从高分母版提取细源，不能把旧16px放大当细源。角色、建筑、装饰及前后景按同一1wu屏幕采样；字体/HUD保持清晰。历史实验不追改。",
+    "adjacency_and_boundary": "继承同一47-mask邻接语义、核心TileMap与非整格exact-boundary adapter，保留solid/one-way/moving和危险语义；不为图改变碰撞，也不把精确边界冒称全网格。",
+    "lighting_outline_material": "保留Underworld家族角色、材质与轮廓语言，在统一1wu网格下采用克制暖点光、冷灰空气透视；各层用明度/饱和度/轮廓/细节和视差区分。不能靠细碎噪声与满屏装饰代替构图。",
+    "regional_variation": "森林差异来自树皮、苔藓、荆棘、有机根枝结构与区域色域；制作与正式平原同族的新材料/边界矩阵，不把平原岩石换色冒称森林。"
+  },
+  "historical_boundary": "旧提案或失败实现不自动约束新区域；这不等于抛弃正式平原仍在实际使用的Underworld tileset家族。保留原许可/来源、正式消费者和已有效的公共接口。",
+  "runtime_reference": {
+    "region_id": "windchime_plains",
+    "status": "technical_combination_candidate_no_inherited_gameplay_art_audio_user_or_device_acceptance",
+    "tile_px": 32,
+    "world_tile_wu": 32,
+    "terrain_mode": "blob47_core_with_exact_boundary_adapter",
+    "references": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0"
+      },
+      {
+        "role": "terrain_consumer",
+        "path": "scripts/art/plains_terrain_study.gd",
+        "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+      },
+      {
+        "role": "terrain_renderer",
+        "path": "scripts/underworld_plains/underworld_terrain.gd",
+        "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f"
+      },
+      {
+        "role": "material_shader",
+        "path": "shaders/formal_fine_boundary.gdshader",
+        "sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2"
+      },
+      {
+        "role": "tile_build",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410"
+      },
+      {
+        "role": "tileset",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.tres",
+        "sha256": "bb2b0b8bbb967144f338f06852817c25088cb4697a3719898de168fef28f34b9"
+      },
+      {
+        "role": "atlas",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de"
+      },
+      {
+        "role": "source_pixels",
+        "path": "assets/underworld_plains/terrain/fine_32/source.png",
+        "sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431"
+      },
+      {
+        "role": "adjacency",
+        "path": "scripts/art_foundation/blob47_rules.gd",
+        "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6"
+      },
+      {
+        "role": "boundary",
+        "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+        "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225"
+      },
+      {
+        "role": "boundary_sides",
+        "path": "scripts/art/plains_terrain_borders.gd",
+        "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34"
+      },
+      {
+        "role": "license",
+        "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270"
+      },
+      {
+        "role": "player_style_reference",
+        "path": "scripts/underworld_plains/underworld_player.gd",
+        "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127"
+      },
+      {
+        "role": "player_animation_build",
+        "path": "assets/underworld_plains/player_animation/animation_build.json",
+        "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3"
+      },
+      {
+        "role": "player_run_pixels",
+        "path": "assets/underworld_plains/player_animation/run_sheet.png",
+        "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27"
+      },
+      {
+        "role": "player_state_pixels",
+        "path": "assets/underworld_plains/player_animation/states_sheet.png",
+        "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+      },
+      {
+        "role": "core_material",
+        "path": "shaders/formal_fine_lit.gdshader",
+        "sha256": "26c22d0245301c575256ee94590f3d39819f1ea0fa25537cc98df28f5181ff39"
+      },
+      {
+        "role": "world_presentation",
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+      },
+      {
+        "role": "sprite_grid",
+        "path": "shaders/underworld_fine_sprite.gdshader",
+        "sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188"
+      },
+      {
+        "role": "fine_source_provenance",
+        "path": "assets/authored_terrain_study/provenance.json",
+        "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a"
+      },
+      {
+        "role": "default_player_1",
+        "path": "scripts/art/player_presentation_runtime.gd",
+        "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91"
+      },
+      {
+        "role": "default_player_2",
+        "path": "scripts/art/avatar_presentation.gd",
+        "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437"
+      },
+      {
+        "role": "default_player_3",
+        "path": "resources/art/avatars.json",
+        "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65"
+      },
+      {
+        "role": "default_player_4",
+        "path": "scripts/demo/demo_app.gd",
+        "sha256": "bebe53660e26b820275d70faea9e16ad8443da383b219a20e886d4e0242b7c96"
+      },
+      {
+        "role": "default_player_5",
+        "path": "scripts/demo/home_scene.gd",
+        "sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320"
+      },
+      {
+        "role": "default_player_6",
+        "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+        "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f"
+      },
+      {
+        "role": "default_player_7",
+        "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+        "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77"
+      },
+      {
+        "role": "default_player_8",
+        "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+        "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+      },
+      {
+        "role": "default_player_9",
+        "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+        "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138"
+      },
+      {
+        "role": "default_player_10",
+        "path": "resources/player_presentation_01/motion_v1.tres",
+        "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688"
+      },
+      {
+        "role": "default_player_11",
+        "path": "resources/player_presentation_01/motion_clip_data.gd",
+        "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154"
+      },
+      {
+        "role": "default_player_12",
+        "path": "resources/player_presentation_01/landing_screen.gdshader",
+        "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c"
+      },
+      {
+        "role": "default_player_13",
+        "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+        "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1"
+      },
+      {
+        "role": "default_player_14",
+        "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+        "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50"
+      },
+      {
+        "role": "default_player_15",
+        "path": "assets/player_presentation_01/motion_v1/motion_source.png",
+        "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280"
+      },
+      {
+        "role": "default_player_16",
+        "path": "assets/player_presentation_01/motion_v1/idle_fall.json",
+        "sha256": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+      },
+      {
+        "role": "item_feedback_view",
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "sha256": "09ddea3f0ad634f62f6d7d8e11f6f50e48d5d394a019015cba4c9d8569921ced"
+      },
+      {
+        "role": "item_feedback_config",
+        "path": "config/item_v5_feedback.json",
+        "sha256": "d8652bb319fa19555c98c82cd2b812e36ab4bd34422f2ccdd747fdbd77f406ba"
+      },
+      {
+        "role": "item_entity_view",
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd"
+      },
+      {
+        "role": "item_entity_config",
+        "path": "config/item_v5_entities.json",
+        "sha256": "22202b101e0488b15551121b5982380078184be52c121ea0b76f03eea178fa29"
+      },
+      {
+        "role": "item_defense_glyphs",
+        "path": "scripts/items/v5/item_defense_effects.gd",
+        "sha256": "3d3619d85220d87fab738f084ad3a4a549d7b460f71d3a6e4e94702fe7088c9c"
+      },
+      {
+        "role": "item_defense_visual_config",
+        "path": "config/item_v5_defense.json",
+        "sha256": "00a631f71797c6a0371012ba9eaad2a49265dc1e8d06174464519a2cf4279cc0"
+      },
+      {
+        "role": "item_resource_hud",
+        "path": "scripts/ui/actor_resources_hud.gd",
+        "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721"
+      },
+      {
+        "role": "item_pause_menu",
+        "path": "scripts/ui/demo_menu.gd",
+        "sha256": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f"
+      },
+      {
+        "role": "item_description",
+        "path": "scripts/ui/item_presentation.gd",
+        "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+      },
+      {
+        "role": "item_card",
+        "path": "scripts/ui/item_card.gd",
+        "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8"
+      },
+      {
+        "role": "item_toast",
+        "path": "scripts/ui/item_acquired_toast.gd",
+        "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b"
+      },
+      {
+        "role": "item_shop_modal",
+        "path": "scripts/ui/item_shop_modal.gd",
+        "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+      },
+      {
+        "role": "item_reward_modal",
+        "path": "scripts/ui/stage_reward_modal.gd",
+        "sha256": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5"
+      },
+      {
+        "role": "item_touch_control",
+        "path": "scripts/ui/touch_overlay.gd",
+        "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f"
+      },
+      {
+        "role": "item_shop_presenter",
+        "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+        "sha256": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b"
+      },
+      {
+        "role": "item_weapon_runtime",
+        "path": "scripts/combat/weapon_action_runtime.gd",
+        "sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6"
+      },
+      {
+        "role": "item_weapon_feel",
+        "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b"
+      },
+      {
+        "role": "item_weapon_vfx",
+        "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+        "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676"
+      },
+      {
+        "role": "item_art_library",
+        "path": "scripts/items/v5/item_art_library.gd",
+        "sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d"
+      },
+      {
+        "role": "item_art_config",
+        "path": "config/item_v5_art.json",
+        "sha256": "708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b"
+      },
+      {
+        "role": "item_icon_metadata",
+        "path": "config/item_v5_authoring.json",
+        "sha256": "a56669cea41f6aa8e179bf278fb115c8551d3a320dd9c326eb31a3e506dd69a7"
+      },
+      {
+        "role": "item_icon_atlas_first8",
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+      },
+      {
+        "role": "item_vfx_p24_source",
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+      },
+      {
+        "role": "item_vfx_p14_source",
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+      },
+      {
+        "role": "item_vfx_g16_source",
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      },
+      {
+        "role": "item_icon_atlas_catalog01",
+        "path": "assets/items/v5/icons/catalog-01.source.png",
+        "sha256": "1886eacd1441f03a9a3049dd7fc297183fc8e1fb74a8ca387347d99985ab676d"
+      },
+      {
+        "role": "item_icon_atlas_catalog02",
+        "path": "assets/items/v5/icons/catalog-02.source.png",
+        "sha256": "24f59cf059af977b901b13367ddc917b4255d34a5b132c1e844a4fd34f1cbfed"
+      },
+      {
+        "role": "item_icon_atlas_catalog03",
+        "path": "assets/items/v5/icons/catalog-03.source.png",
+        "sha256": "b2a96b978c0edeace1507f7c1393c8c7b8c99ca3ebb154dca99481086f223db3"
+      },
+      {
+        "role": "item_icon_atlas_catalog04",
+        "path": "assets/items/v5/icons/catalog-04.source.png",
+        "sha256": "242438a3157b514ebf7fdeaf2c7aa88cffe8d74b83d0ec355d866842faf21c31"
+      },
+      {
+        "role": "item_vfx_static_entities_source",
+        "path": "assets/items/v5/vfx/static-entities.source.png",
+        "sha256": "9aa8c5dd255d5bd01a1a9f90ad8bc31bcd53f5f2d678682822042190902f41ff"
+      },
+      {
+        "role": "item_vfx_static_procs_source",
+        "path": "assets/items/v5/vfx/static-procs.source.png",
+        "sha256": "bc9cebbd9319a0bd778076e65281c2e591102b43b7e62b38651a4507fc178885"
+      },
+      {
+        "role": "item_world_sampler_shader",
+        "path": "shaders/item_v5_world_sprite.gdshader",
+        "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5"
+      },
+      {
+        "role": "home_codex_ui",
+        "path": "scripts/ui/home_item_codex.gd",
+        "sha256": "18d3e61a40e681afc029596a15e005eb2aaa23f4638930b7127f91b75def75d1"
+      },
+      {
+        "role": "home_codex_world",
+        "path": "scripts/underworld_plains/underworld_home_world.gd",
+        "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d"
+      },
+      {
+        "role": "home_item_catalog_policy",
+        "path": "scripts/meta/home_item_catalog.gd",
+        "sha256": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e"
+      },
+      {
+        "role": "home_item_policy_config",
+        "path": "config/home_items.json",
+        "sha256": "e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc"
+      },
+      {
+        "role": "home_item_profile_presenter",
+        "path": "scripts/meta/meta_progression.gd",
+        "sha256": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403"
+      },
+      {
+        "role": "chest_art_library",
+        "path": "scripts/art/chest_art_library.gd",
+        "sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e"
+      },
+      {
+        "role": "chest_art_layer",
+        "path": "scripts/art/chest_art_layer.gd",
+        "sha256": "4def1212d2a3e4369ba4d202cc42178829d1c0d3c11c306626d72a31ca226719"
+      },
+      {
+        "role": "chest_formal_dispatch",
+        "path": "scripts/underworld_plains/underworld_objects.gd",
+        "sha256": "a1b4681f8d527fa51ac06fadbecf4d4a0d53b112c31f77487bed2b686763da91"
+      },
+      {
+        "role": "chest_forest_presentation",
+        "path": "scripts/presentation/forest_bible_presentation.gd",
+        "sha256": "4e00cfc7d232b25ccfac81ac1a47a9a23743689c5b4815d85cb762c1d5130a44"
+      },
+      {
+        "role": "chest_forest_stage",
+        "path": "scripts/demo/thorn_forest_region_stage.gd",
+        "sha256": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8"
+      },
+      {
+        "role": "chest_cosmetic_boundary",
+        "path": "scripts/art/p1_unity_props.gd",
+        "sha256": "0a7d5976ae68146902efbc12aeee2d7656a76a0e9abe5ecdaca96b60bac70263"
+      },
+      {
+        "role": "chest_art_config",
+        "path": "config/chest_art.json",
+        "sha256": "ad641a9c79ba4f8a2540cc8b8497fa86ba3397f3e7cc94944195eccbf3f5fa04"
+      },
+      {
+        "role": "chest_source04_atlas",
+        "path": "assets/objects/chests/chest-tiers-v1.source.png",
+        "sha256": "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5"
+      },
+      {
+        "role": "plains_loot_life_orb",
+        "path": "assets/plains_loot_02/life_orb.png",
+        "sha256": "a24be1307b7cf41d6f8af7e3473fca5b6e74015395e11ed2e848d4b2885e5cb7"
+      },
+      {
+        "role": "plains_loot_world_sampler",
+        "path": "shaders/plains_loot_02.gdshader",
+        "sha256": "5d30c2cc3d8d3c616f17f6f41f3c8d5275b99ba807c1e24ce2b5ba1b28aee947"
+      },
+      {
+        "role": "bellstrider_presentation",
+        "path": "scripts/bosses/bellstrider_presentation.gd",
+        "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee"
+      },
+      {
+        "role": "bellstrider_shared_rig",
+        "path": "scripts/bosses/bellstrider_rig_pose.gd",
+        "sha256": "38e77b2926dac0b9e2faaea59271339874dd7d6b098e2825239f1aaa68a5a366"
+      },
+      {
+        "role": "bellstrider_accepted_pose_owner",
+        "path": "scripts/bosses/bellstrider_encounter.gd",
+        "sha256": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d"
+      },
+      {
+        "role": "bellstrider_definition",
+        "path": "scripts/bosses/bellstrider_definition.gd",
+        "sha256": "67c2f93c85660dc0d89a2c3fb9f66bb932a4c281de9620f08be7e41cc728f49a"
+      },
+      {
+        "role": "bellstrider_config",
+        "path": "resources/bosses/bellstrider.tres",
+        "sha256": "ddeed0868df8c84fb421eacfeb98c7940dd0b8ab5d60780f9a5f16769c9e8de1"
+      },
+      {
+        "role": "bellstrider_source_body",
+        "path": "assets/underworld_plains/actors/bellstrider.png",
+        "sha256": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5"
+      },
+      {
+        "role": "bellstrider_source_bell",
+        "path": "assets/underworld_plains/actors/bell.png",
+        "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2"
+      },
+      {
+        "role": "bellstrider_audio_consumer",
+        "path": "scripts/audio/bellstrider_audio.gd",
+        "sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207"
+      },
+      {
+        "role": "bellstrider_audio_manifest",
+        "path": "assets/audio/bellstrider_01/manifest.json",
+        "sha256": "1ce2af2452c4d3c00b59650a3959cb4a13804b8a6e96316134b4c02350148029"
+      },
+      {
+        "role": "bellstrider_audio_sources",
+        "path": "assets/audio/bellstrider_01/sources.json",
+        "sha256": "5fd7adffeff44cb84485ee41a9f7585ad2bef23f15f78557aa5bfc6098f43763"
+      },
+      {
+        "role": "bellstrider_audio_recipes",
+        "path": "assets/audio/bellstrider_01/recipes.json",
+        "sha256": "8e95a2f74e960b748bb2f556aaaa982fa91940e768681ce584ab59618072c4e9"
+      },
+      {
+        "role": "bellstrider_local_ring_vfx",
+        "path": "scripts/bosses/bellstrider_ring_projectile.gd",
+        "sha256": "f7a0f7e1635a17f01ec808833ac460406c836858f28102a9d6c960693d4796d2"
+      },
+      {
+        "role": "bellstrider_lob_bell_vfx",
+        "path": "scripts/bosses/bellstrider_bell_projectile.gd",
+        "sha256": "0093e043bcde8f5858b1828aa37927e0f2057fddbd2596232e886b4cffca33df"
+      },
+      {
+        "role": "windkeeper_pressure_factory",
+        "path": "scripts/bosses/boss_factory.gd",
+        "sha256": "ebbbf1064557eba90ee789234d2e7638fac71a450c39c7929f87fe48a3c52d7a"
+      },
+      {
+        "role": "windkeeper_pressure_scene",
+        "path": "scenes/bosses/windkeeper_pressure.tscn",
+        "sha256": "d751a5a3eae2faa1c507f93fe565bd04601fe88185951690055d136824e54033"
+      },
+      {
+        "role": "windkeeper_pressure_definition",
+        "path": "scripts/bosses/windkeeper_pressure_definition.gd",
+        "sha256": "afaf0fb90b8b3ac2e87e11c550eb2bb154892f1bf837bd5d8f74dd9263c4ecb2"
+      },
+      {
+        "role": "windkeeper_pressure_config",
+        "path": "resources/bosses/windkeeper_storm.tres",
+        "sha256": "c6ae603a2fc5c8fc2dddbf1dd4d8a044b3e0bab136ef765a75261cc3460a47e8"
+      },
+      {
+        "role": "windkeeper_pressure_health",
+        "path": "resources/bosses/windkeeper_pressure_health.tres",
+        "sha256": "7847b3d3008af8868586007494a0f227e69842c1b0510da797a50ad6a0c54d32"
+      },
+      {
+        "role": "windkeeper_pressure_pose_owner",
+        "path": "scripts/bosses/windkeeper_pressure_encounter.gd",
+        "sha256": "cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef"
+      },
+      {
+        "role": "windkeeper_pressure_rig",
+        "path": "scripts/bosses/windkeeper_pressure_rig.gd",
+        "sha256": "37a9f92078742dd5d0845ecf43aef1e9addbed031dc0be52461f6dd5445e475f"
+      },
+      {
+        "role": "windkeeper_pressure_presentation",
+        "path": "scripts/bosses/windkeeper_pressure_presentation.gd",
+        "sha256": "86ac2ccac624b53b97d0c1e769a2b48bc50a6e03e14627c9bfebaa3ff7b8fae4"
+      },
+      {
+        "role": "windkeeper_pressure_projectile",
+        "path": "scripts/bosses/windkeeper_pressure_projectile.gd",
+        "sha256": "ee748f5d8420d9d41861de02a6e066982b67884579d900e4586bde2cfe5d4689"
+      },
+      {
+        "role": "windkeeper_pressure_strike",
+        "path": "scripts/bosses/windkeeper_pressure_strike.gd",
+        "sha256": "c9ab3f99510f34bd40168b931ea2b1a73f22b7fdfbcf89f454b97bf4c6c0cb9c"
+      },
+      {
+        "role": "windkeeper_pressure_audio",
+        "path": "scripts/audio/windkeeper_pressure_audio.gd",
+        "sha256": "f7bbcc4810ab978f639adc4acf659b2639d5373f9b3bb1fa0d4a4052ec821ff2"
+      },
+      {
+        "role": "windkeeper_pressure_rewards",
+        "path": "scripts/rewards/windkeeper_pressure_rewards.gd",
+        "sha256": "c679f22db00aca09b034521b4000d18f413cd88ecbf47ca59c09ea2ade301df7"
+      },
+      {
+        "role": "windkeeper_pressure_hud",
+        "path": "scripts/ui/windkeeper_hud.gd",
+        "sha256": "2560641b9db7a79e4e91fe2f5d8027dfafa5495900125c27ffebd69e33af95e0"
+      },
+      {
+        "role": "windkeeper_pressure_contact",
+        "path": "scripts/damage/demo_contact_emitter.gd",
+        "sha256": "cc7d6ca0a67b984a32c56fe5db945dd37168f5fabc43ddb3a34b1cfdba6930b6"
+      },
+      {
+        "role": "windkeeper_pressure_style_installer",
+        "path": "scripts/art_foundation/pixel_formal_style_installer.gd",
+        "sha256": "28bac61b655690762b240020e8d91773fbeb78c7c47838a7ab7d87927bb8cc69"
+      },
+      {
+        "role": "windkeeper_pressure_actor_installer",
+        "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+        "sha256": "13f1b3e1f6e27cf9a71024a88ef04db3dfb3457c65efedaa7b514ed8efc87fb0"
+      },
+      {
+        "role": "windkeeper_pressure_lab",
+        "path": "scripts/demo/module_lab.gd",
+        "sha256": "0da13b9d89012227acfacca33754041bf89558f8fba74853b9c4a66f002d9b0d"
+      },
+      {
+        "role": "windkeeper_pressure_manifest",
+        "path": "scripts/run/run_manifest.gd",
+        "sha256": "b88e1e6d42fc9b3ed0ed0697c3ebbcc47a06aaaea7abd05ce867310fe6e855cd"
+      },
+      {
+        "role": "windkeeper_pressure_stage_visual",
+        "path": "scripts/art/plains_stage_visual.gd",
+        "sha256": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8"
+      },
+      {
+        "role": "windkeeper_pressure_wind",
+        "path": "scripts/bosses/windkeeper_pressure_wind.gd",
+        "sha256": "d1039ea821d93c6ad61c7b0e4a4c3f7519a4f11dea3033651b3666196fdc4f4c"
+      },
+      {
+        "role": "windkeeper_pressure_foreground_shader",
+        "path": "shaders/windkeeper_pressure_foreground.gdshader",
+        "sha256": "c89edc6a33d9df49a519538af938339711f9668b1d8159a64d8f8746f3312da2"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_cc0_1_0_txt",
+        "path": "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
+        "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_readme_md",
+        "path": "assets/audio/windkeeper_pressure_01/README.md",
+        "sha256": "69a3f63f576c136bd6a969c87cdb70dacda02f8ba21618502d40a8e7c4816c66"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_death_wav",
+        "path": "assets/audio/windkeeper_pressure_01/death.wav",
+        "sha256": "ccae69f87622ae697aaa1396297b8812127f74ac8b6a9959d3e600cb9809750a"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_death_final_wav",
+        "path": "assets/audio/windkeeper_pressure_01/death_final.wav",
+        "sha256": "2581c850b775706a622945bb0b683d225ae898e60e4dedaf20e819ddc80356c4"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_death_impact_wav",
+        "path": "assets/audio/windkeeper_pressure_01/death_impact.wav",
+        "sha256": "a61204f89f619ad5054f8343649b123debbaa92a7d8ffd3b42aeb2964a6b72f5"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_gust_release_wav",
+        "path": "assets/audio/windkeeper_pressure_01/gust_release.wav",
+        "sha256": "cd45956ed053b4838b35ef4f19850fc8dd803ebb6d9403f0a3cbc033c8ea192c"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_gust_warning_wav",
+        "path": "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+        "sha256": "2161a41853b81efb7111f5525e9828c2397f6cf1017aa8eb731eb88c3031fa24"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_gust_warning_combo2_wav",
+        "path": "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+        "sha256": "d96801703ae2e0e0a27ea88a7f6aa18fba7c7e6f030973577a5e8f2544e8ff7c"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_gust_warning_combo3_wav",
+        "path": "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+        "sha256": "deacec891f0f927a5547191634833da187dfb9fd334491dc14e49af7d85d74fe"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_hit_wav",
+        "path": "assets/audio/windkeeper_pressure_01/hit.wav",
+        "sha256": "726e17150ad7be43da15958efe0b585a728ebb045d6a001770e101e6b5cb56f4"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_link_wav",
+        "path": "assets/audio/windkeeper_pressure_01/link.wav",
+        "sha256": "735656d3d9651bc6a6dd154f6921b03a2d10a9a8172965d63ebc54685d43809a"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_lunge_land_wav",
+        "path": "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+        "sha256": "1542c7f82d1fdfce5b96cd5387df141a4097007f304570b0ee5ce7691d3fedb4"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_lunge_start_wav",
+        "path": "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+        "sha256": "67e30b7f334b08a165b50d6b24a52f8ee08ff24d0f55c4543651331269e526ce"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_lunge_warning_wav",
+        "path": "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+        "sha256": "74407877f308f60a23b130cc5703070edcaeaf3e03988bd207ec1746ceaf0866"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_lunge_warning_combo2_wav",
+        "path": "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+        "sha256": "feb7343af6770462c75ab43257ca51f7d049125ae0253f358257f0e349cbf350"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_lunge_warning_combo3_wav",
+        "path": "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+        "sha256": "f5d133ed5cbf367e5ee357cf075ac47543ae5481a707b655b464b50484b78b87"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_manifest_json",
+        "path": "assets/audio/windkeeper_pressure_01/manifest.json",
+        "sha256": "29fbebff350bf4968148406c4b2da06c81b6d4527319bd1b557df4be282d845b"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_phase_wav",
+        "path": "assets/audio/windkeeper_pressure_01/phase.wav",
+        "sha256": "aaff9130da1a87aad5d0824e9c943700812d7fce02341ff373efe685f9ab4883"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_platform_impact_wav",
+        "path": "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+        "sha256": "6219b91c6299d6a2da33babdf10a2be96fb6c6d842f9b6f434ca4729009d3534"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_platform_warning_wav",
+        "path": "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+        "sha256": "7a2db5e9628f1498b9a1226c68bdbe691bf8708e7f43484c96e436386bfe60aa"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_platform_warning_combo2_wav",
+        "path": "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+        "sha256": "11086aba243cd81f1c49ddbfda789ed571103a047b258295f9e77fb53d6059ba"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_platform_warning_combo3_wav",
+        "path": "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+        "sha256": "f90d67e2d43800f4c4cdaa16e65540497c1dce12af5a6c45029ffd975924bff4"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_recover_wav",
+        "path": "assets/audio/windkeeper_pressure_01/recover.wav",
+        "sha256": "0d39e3c78c331db97b5264ea2ebdc8118c590a2d176c69d3011bcf01a7b151a0"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_seeds_release_wav",
+        "path": "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+        "sha256": "71773b6e5ca5948ec285193e8d945c1b41886860583f61eaa878a7f0e5666b2f"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_seeds_warning_wav",
+        "path": "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+        "sha256": "21e191073363fb4f6d8f03b1bf0682d309dc06c709fe4ef4968ac291625c101e"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_seeds_warning_combo2_wav",
+        "path": "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+        "sha256": "71203d5c30800542318b652fef747b971e1a807c40c58ff410276f5879dd6589"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_seeds_warning_combo3_wav",
+        "path": "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+        "sha256": "0f323fcc86c4297cbbf0ed8c21d19902203ff39047330987bd5d0cabda1c736b"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_sources_json",
+        "path": "assets/audio/windkeeper_pressure_01/sources.json",
+        "sha256": "9a58ccb51ff5e4fe7557baa2cd6c1b7a3372e96f7d79f4f63c67f8c16f048a3e"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_stomp_strike_wav",
+        "path": "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+        "sha256": "0e5fdbc324f34a5411047a67c47dde50d2c8941f37234b0a6d010182e518d1b3"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_stomp_warning_wav",
+        "path": "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+        "sha256": "469b49e2f8d1e4b3974676c149d7c5a281b54bf274a61da5c9375cf119e22bf7"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_stomp_warning_combo3_wav",
+        "path": "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+        "sha256": "1ddae67702a9658100584b3f1ed4c7b79de3499d07cb3a5dcfa285344701bcf7"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_stomp_warning_double_wav",
+        "path": "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+        "sha256": "0a24418225e7573e4a99dbb7ca312a4d900e4068c49237d750c73a6028103956"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_sweep_release_wav",
+        "path": "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+        "sha256": "16bfa82a2597142ae238af6eccb009445529c33f826d58a8078f5cb508c1c349"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_sweep_warning_wav",
+        "path": "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+        "sha256": "349252437639ace6c05efabe008b8a3f4bd4b1e7355038b6913b5f0913870a01"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_sweep_warning_combo2_wav",
+        "path": "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+        "sha256": "f76633b3c11681305701e73def94c475e4a61e685ea0c5315bf364d943201f0e"
+      },
+      {
+        "role": "windkeeper_pressure_audio_source_sweep_warning_combo3_wav",
+        "path": "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav",
+        "sha256": "ac1b6716f91a067a72c681136bd170a4cb5b0c38695598d0180cf52ede559c0a"
+      }
+    ],
+    "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
+  },
+  "validation": "Supplement or any shared reference SHA drift blocks new calls and resumes; versioned impact analysis/rebind and fresh affected technical/visual evidence required. Original Bible bytes and old receipts remain unchanged. Cross-region actual golden comparison is required before expanding new regional materials; metadata and hashes never sign visual acceptance.",
+  "applies_to": "all_region_create_optimize_and_proposed_bibles",
+  "original_bible_regions": [
+    "windchime_plains",
+    "thorn_forest"
+  ],
+  "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
+  "supersedes": [
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "sha256": "49cff7edde3f22e8880dd2b3ee0f1d502423509c8713eb30efaa9e1544f93cfe"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+      "sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183"
+    }
+  ],
+  "revision_impact": {
+    "task_id": "MAIN-INTEGRATION-122-124-125",
+    "scope": "Technical combination of both authorized implementations; preserves their content sources and exact historical receipts. No new assets or inherited acceptance.",
+    "parent_manifests": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/manifest.json",
+        "sha256": "c6e8c5ccc283900a84d3d5f8078ce599e9e9ef35acc9a1cdf8ae38cfacb43159",
+        "source_commit": "66c6c41d1a77e6b2f034999b6111c272a11f2d76"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/manifest.json",
+        "sha256": "bebfb3cd755699bd66deda0ed3d7a9969bb461c177aad4da89c9fd509129132b",
+        "source_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323"
+      }
+    ],
+    "changed_references": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "parent_hashes": [
+          {
+            "parent": "bellstrider",
+            "sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0"
+          },
+          {
+            "parent": "windkeeper",
+            "sha256": "c4d37d6211854ee021181f57e2081f4981b6cc176ae0e3a5c7efdb580e604e61"
+          }
+        ],
+        "merged_sha256": "9e93bf1a0997eb15841a07163164096105bb52fd9b20214094caf99110faa9c0"
+      },
+      {
+        "role": "default_player_4",
+        "path": "scripts/demo/demo_app.gd",
+        "parent_hashes": [
+          {
+            "parent": "bellstrider",
+            "sha256": "fee196963d244f6d1fe9ca32ec69cd54bf08ec5c4a62949f41c1a72e94a168bf"
+          },
+          {
+            "parent": "windkeeper",
+            "sha256": "6b64a18be2893591df90ab3e90b3edc7629339dae1cdac8e9d4fd5e032008862"
+          }
+        ],
+        "merged_sha256": "bebe53660e26b820275d70faea9e16ad8443da383b219a20e886d4e0242b7c96"
+      },
+      {
+        "role": "item_weapon_runtime",
+        "path": "scripts/combat/weapon_action_runtime.gd",
+        "parent_hashes": [
+          {
+            "parent": "bellstrider",
+            "sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6"
+          },
+          {
+            "parent": "windkeeper",
+            "sha256": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160"
+          }
+        ],
+        "merged_sha256": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6"
+      },
+      {
+        "role": "windkeeper_pressure_hud",
+        "path": "scripts/ui/windkeeper_hud.gd",
+        "parent_hashes": [
+          {
+            "parent": "windkeeper",
+            "sha256": "b7d000af3edbdda91dbbdd0623b7a5c556612c855086612567455d94849a05f5"
+          }
+        ],
+        "merged_sha256": "2560641b9db7a79e4e91fe2f5d8027dfafa5495900125c27ffebd69e33af95e0"
+      },
+      {
+        "role": "windkeeper_pressure_stage_visual",
+        "path": "scripts/art/plains_stage_visual.gd",
+        "parent_hashes": [
+          {
+            "parent": "windkeeper",
+            "sha256": "2a81088f207defae2c0370ad2f32a93840f8be77484f653899f745db50cabb15"
+          }
+        ],
+        "merged_sha256": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8"
+      }
+    ],
+    "reference_union": {
+      "shared_original_prefix": 83,
+      "bellstrider": 96,
+      "windkeeper": 140,
+      "merged": 153
+    },
+    "preserved": "Original Bible texts, user quotes, style23/style24 bytes, original acceptance limits, every parent test and historical input.",
+    "validation": "Unverified until fresh technical checks run on this exact combination; merge authorization does not imply CI/gameplay/art/audio/user/device acceptance."
+  }
+}

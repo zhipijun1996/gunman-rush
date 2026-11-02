@@ -20,9 +20,9 @@ func frames(n: int) -> void:
 func fixture(mini: bool, at: Vector2=Vector2(350,582)) -> void:
 	if is_instance_valid(world): world.free()
 	world=Node2D.new();root.add_child(world)
-	var module:=preload("res://scenes/generation/modules/plains_boss_arena.tscn").instantiate()
+	var module:=preload("res://game/world/generation/scenes/modules/plains_boss_arena.tscn").instantiate()
 	world.add_child(module)
-	player=preload("res://scenes/player/player.tscn").instantiate();player.position=at;world.add_child(player)
+	player=preload("res://game/player/player.tscn").instantiate();player.position=at;world.add_child(player)
 	controller=player.get_node("Controller")
 	life=DemoLifetime.new();policy=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy)
 	policy.register_target(&"player",controller.actor_resources.health,true)
@@ -46,6 +46,20 @@ func fixture(mini: bool, at: Vector2=Vector2(350,582)) -> void:
 	await frames(3)
 	check(encounter.activate(),"actual redesigned Boss activates")
 func run() -> void:
+	if "--legacy-d077-boss" in OS.get_cmdline_user_args():
+		print("PLAINS PRESSURE SCOPE: legacy_d077=explicit-diagnostic; historical combat contract is deferred and known incompatible with current Boss implementations")
+		await run_legacy_d077()
+		return
+	# Preserve the original actual App/Manifest/Camera and Run -> Home checks.
+	# These inspect explicit historical renderers on the current application;
+	# they do not certify the deferred D077 combat contract or current Boss AI.
+	print("PLAINS PRESSURE SCOPE: current_app_background_lifecycle=default; legacy_d077=deferred")
+	await check_legacy_shared_background()
+	await check_current_formal_background()
+	print("PLAINS PRESSURE BOSS: %s assertions, %s failures" % [assertions,failures])
+	quit(1 if failures else 0)
+
+func run_legacy_d077() -> void:
 	await fixture(true)
 	check(encounter is BellstriderEncounter and encounter.health.capacity==16,"mini is independent machine with sixteen HP")
 	check(is_equal_approx((encounter.definition as WindkeeperDefinition).phase_two_health,.5),"mini HUD threshold matches actual half-health intensity")

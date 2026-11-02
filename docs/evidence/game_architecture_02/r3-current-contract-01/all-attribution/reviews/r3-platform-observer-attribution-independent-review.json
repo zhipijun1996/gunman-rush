@@ -1,0 +1,43 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_REAL_SHOT_ID_OBSERVER_JOIN_NATIVE_PENDING",
+  "files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "previous_candidate_sha256": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122",
+      "candidate_sha256": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "previous_candidate_sha256": "c6a5a8008171d7e9ca4234c4bdfc09020eb548844759af920653dc374ffc63ed",
+      "candidate_sha256": "6dc0cc5de47b8f036e4d6803b830f41cf259e1a6267b4dff31c62d9f7ce7daa5"
+    }
+  ],
+  "patch_sha256": "25546be17bcea7670876f7319f6571ad2a489273317c5cb53b1b79b239568068",
+  "observer_delta_sha256": "76a3aa0e9a23159f21396e51cfe22cb3ab92e010b5b4d77dd3bcc22ec3a89292",
+  "source_api_sha256": {
+    "game/combat/weapons/shoot_ability.gd": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+    "game/combat/projectiles/player_projectile.gd": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+    "game/combat/damage/frame_damage_policy.gd": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+    "game/bosses/bellstrider/bellstrider_encounter.gd": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9"
+  },
+  "verified": [
+    "Both fullpatch andobserver-onlydelta independently reverse exactly; pilot a770 unchanged.",
+    "Original25criteria and allinput-call/framewait/placement/7200/300 paths remain; original180 wrapper budget unaffected.",
+    "StaticWindkeeper/base method issue fixed: helpertypedBellstrider andcallback explicitlycasts map1Bell; combat_metrics exists on actualclass.",
+    "Actual shot_fired callback records serial, currentencountergroup, realmotorinstance/session. Noordinal/requestindex/eventID parsing or synthesis fallback.",
+    "PrimaryBoss Damageable.damaged copiedcontext is emitted by FrameDamagePolicy only after hp_lost>0; helper copies primitives, notcallbacks orNodes.",
+    "Context opaqueevent ID joins actualBell health-change event andpolicybatch; actualsourceowner/session/shot_id joins actualfire. Deferred receipt join does not assume adjacent callback order.",
+    "Malformed/missingidentity, duplicateevent/shot, mismatchedowner/session, futurefiretick, unknownshot, nonprojectile/nonplayer/skill, nonbaseone amount, mismatchedbatchHP and incomplete cardinality retain explicitfalsecheck.",
+    "Allfour collections must contain40 unique joineditems, eachactualshot hits once; BellHP chain startscapacity40, falls1 perreal event, ends0. Firedgroup two-shot requirements strengthened while preservingimpactgroup separately.",
+    "Originalfailed4954/3receipt preserved; no reinterpretation aspass in code orreview."
+  ],
+  "remaining_limits": [
+    "NoGDScript compiler/engine invoked; actualsyntax/native must be tested byroot.",
+    "First/all now share correctedobserver; originalterminal/sourceguards inherited from priorreview.",
+    "Staticunchangedpilot is insufficient to prove dynamicnoninterference: nextnative review must compare exactphysicaltrace andallsubmittedshoot/jump/routeractions to preceding4954failedrun, normalizing only documentedGodot instance identities.",
+    "Nativeoverall currentlypending; nofull185/wrapper/strategygeneralization orpriorfailureerase."
+  ],
+  "main_written": false
+}

@@ -1,0 +1,191 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "scope": "Read-only finite computed-path audit of currently available tests/tools .gd/.py/.sh sources; lexical lines plus actual consumers and Git migration identity verification. Not a full runtime reachability proof; sparse missing files and arbitrary variable-only construction outside these source forms are not certified.",
+  "confirmed_stale_consumers": [
+    {
+      "path": "tests/forest_ecology_runner.gd",
+      "line": 59,
+      "source_sha256": "85b63e783511377873a969f6b89af4ced7d43613e7cc3afdcd2944433938ebc8",
+      "expression": "var scene := load(\"res://scenes/enemies/%s.tscn\" % name_id) as PackedScene",
+      "real_caller": "Direct full forest-ecology runner",
+      "finite_values": "forest_lantern, forest_seed_sentry",
+      "required_boundary": "Frozen one-line candidate; Boss path retained",
+      "candidate_prepared": true
+    },
+    {
+      "path": "tests/forest_depth_enemy_runner.gd",
+      "line": 100,
+      "source_sha256": "1f2c81a3f5ba173d900a0c16789907acdbdb8fe8064048c16b0c5f651dad49c4",
+      "expression": "var scene: PackedScene=load(\"res://game/enemies/scenes/patrol_drone.tscn\" if id==\"plains_charger\" else \"res://scenes/enemies/\"+id+\".tscn\")",
+      "real_caller": "run_forest_depth_enemies.py; inherited by forest_feedback_enemy_runner.gd and forest_bible_weaver_runner.gd (run_forest_bible_weaver.py)",
+      "finite_values": "plains_charger uses already valid generic branch; forest_thread_spider/forest_lantern plus inherited bark_beetle/swing_pod/bible_weaver use stale branch",
+      "required_boundary": "Change only forest branch; leave charger definition replacement, bind order and all derived tests intact",
+      "candidate_prepared": false
+    },
+    {
+      "path": "tests/forest_depth_version_app_case.gd",
+      "line": 37,
+      "source_sha256": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274",
+      "expression": "var expected := \"res://scenes/enemies/\"+str(actor.definition.behavior_id)+\".tscn\"",
+      "real_caller": "forest_depth_version_world_runner.gd -> run_forest_depth_versions.py; legacy-compat current engine App helper",
+      "finite_values": "forest_lantern, forest_seed_sentry",
+      "required_boundary": "Only actual scene identity assertion prefix needs relocation; preserve legacy v1 version, behavior allowlist, recorded manifest, replay and Boss contracts",
+      "candidate_prepared": false
+    },
+    {
+      "path": "tests/enemy_all_02_motion_lifecycle.gd",
+      "line": 22,
+      "source_sha256": "9ec18a2777200002593b2c6faecafecac93d1f4819b5a21cc058fa14a37e3050",
+      "expression": "var motor := (load(\"res://scenes/enemies/%s.tscn\" % source) as PackedScene).instantiate() as EnemyMotor",
+      "real_caller": "Standalone existing SceneTree runner; no direct Harness argv reference found",
+      "finite_values": "seven FOREST plus candidate_lure_guard/candidate_crosswind_moth -> patrol_drone",
+      "required_boundary": "Mixed families: forest species directory versus generic patrol directory; retain real scene and explicit candidate_definition/initial_health fixtures",
+      "candidate_prepared": false
+    },
+    {
+      "path": "tests/enemy_hit_template_tests.gd",
+      "line": 28,
+      "source_sha256": "41dee1a645071bd695b98a46fbb1d51067e61f47fc78e98b59541613b6cab6c4",
+      "expression": "var source := \"res://scenes/enemies/%s.tscn\" % (id if id in FOREST else \"patrol_drone\")",
+      "real_caller": "Standalone existing SceneTree runner; no direct Harness argv reference found",
+      "finite_values": "seven FOREST; seven PLAINS -> patrol_drone; Boss separate retained directory",
+      "required_boundary": "Mixed families require distinct actual paths; preserve definition swaps/renderer chains and real Damageable transactions",
+      "candidate_prepared": false
+    },
+    {
+      "path": "tools/enemy_all_review_02_capture.gd",
+      "line": 160,
+      "source_sha256": "d773bedcc1cdcfa53da1ff3ee34c26724c0913f4ce176a5acd5b87b3c1c62e3f",
+      "expression": "var scene_path := \"res://scenes/enemies/%s.tscn\" % (id if id in FOREST else \"patrol_drone\")",
+      "real_caller": "tools/enemy_all_review_02.py selects actual MovieMaker driver for nonformal/nonroute/nonboss groups",
+      "finite_values": "seven FOREST; PLAINS and development prototypes -> patrol_drone",
+      "required_boundary": "Mixed families require distinct paths; preserve custom review definition/profile setup and complete recording actions",
+      "candidate_prepared": false
+    },
+    {
+      "path": "tools/enemy_all_review_02_inventory.py",
+      "line": 52,
+      "source_sha256": "01af61e6f1936443e6aa149e7af2327bdefb440b4f43bf8b0181de1e9c55c0fe",
+      "expression": "scene = f\"scenes/enemies/{ident if ident in FOREST else 'patrol_drone'}.tscn\"",
+      "real_caller": "Direct Python CLI main -> inventory -> scene_info reads actual scene",
+      "finite_values": "seven FOREST plus PLAINS -> patrol_drone",
+      "required_boundary": "Filesystem computed path also stale without res://; requires same two directory identities, not broad prefix replace",
+      "candidate_prepared": false
+    }
+  ],
+  "count": 7,
+  "identity_evidence": [
+    {
+      "identity": "patrol_drone",
+      "old": "scenes/enemies/patrol_drone.tscn",
+      "current": "game/enemies/scenes/patrol_drone.tscn",
+      "old_git_parent_sha256": "a7675b05719e92969c599ce8b0dbc92fd224152824aa56bb5e0ac76f160257be",
+      "migration_sha256": "609f82d02b6192f612f6a17829880556d4a19525fa2ccd8e99199ca261678a10",
+      "current_sha256": "609f82d02b6192f612f6a17829880556d4a19525fa2ccd8e99199ca261678a10",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_bark_beetle",
+      "old": "scenes/enemies/forest_bark_beetle.tscn",
+      "current": "game/enemies/species/scenes/forest_bark_beetle.tscn",
+      "old_git_parent_sha256": "79351c2151891138789c869897c8cc1e57bd18c1dcb95e767fe5f857f655ba56",
+      "migration_sha256": "b92346ab80d669c25aebdff26cb6590e8ac005eab3b4dea6fc59bafcf160164d",
+      "current_sha256": "b92346ab80d669c25aebdff26cb6590e8ac005eab3b4dea6fc59bafcf160164d",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_swing_pod",
+      "old": "scenes/enemies/forest_swing_pod.tscn",
+      "current": "game/enemies/species/scenes/forest_swing_pod.tscn",
+      "old_git_parent_sha256": "f8d9574e8681efb31db7095a4913b5f623d9f498346cbdff83e512e7eb8d71e2",
+      "migration_sha256": "574762eaa82a7872fff0727ab2ed4c15343f033e2a8fef00c0af4b20d6c051ce",
+      "current_sha256": "574762eaa82a7872fff0727ab2ed4c15343f033e2a8fef00c0af4b20d6c051ce",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_lantern",
+      "old": "scenes/enemies/forest_lantern.tscn",
+      "current": "game/enemies/species/scenes/forest_lantern.tscn",
+      "old_git_parent_sha256": "29dcd4c86b913094e6d82209b75b12841f8cb8e26e957feb349798f07286a30e",
+      "migration_sha256": "924072bbf71cfe71264dd66c82cda1cb37a3f6efb1a05b4a5419d0fa4b21da23",
+      "current_sha256": "924072bbf71cfe71264dd66c82cda1cb37a3f6efb1a05b4a5419d0fa4b21da23",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_seed_sentry",
+      "old": "scenes/enemies/forest_seed_sentry.tscn",
+      "current": "game/enemies/species/scenes/forest_seed_sentry.tscn",
+      "old_git_parent_sha256": "ddbafdc702f0150790ac174e511ed7cdcf7799a26493b4a67a57861a29ebb5f5",
+      "migration_sha256": "9169e9b49104e4c05b6cc1ae13c3b31e575a0b660000357feeeb58a48ea2eddd",
+      "current_sha256": "9169e9b49104e4c05b6cc1ae13c3b31e575a0b660000357feeeb58a48ea2eddd",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_thread_spider",
+      "old": "scenes/enemies/forest_thread_spider.tscn",
+      "current": "game/enemies/species/scenes/forest_thread_spider.tscn",
+      "old_git_parent_sha256": "e1c7900d23b0f9de4395322ca98534d7c5de914ed9d9dc0027a4917490d66620",
+      "migration_sha256": "4d07f11fad0aa9bd57cc1ec3ac93cc42941259773494f9b7fc9f478115bf4819",
+      "current_sha256": "4d07f11fad0aa9bd57cc1ec3ac93cc42941259773494f9b7fc9f478115bf4819",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_crossbranch",
+      "old": "scenes/enemies/forest_crossbranch.tscn",
+      "current": "game/enemies/species/scenes/forest_crossbranch.tscn",
+      "old_git_parent_sha256": "b433acf4134b300182e273dbe56dc743559ebb4ffa427756cdc431319ac43426",
+      "migration_sha256": "086660960028ac0d7dbbaad4c49e0742f5fb4276e1c8638fcfe1bf72afaece77",
+      "current_sha256": "086660960028ac0d7dbbaad4c49e0742f5fb4276e1c8638fcfe1bf72afaece77",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    },
+    {
+      "identity": "forest_bible_weaver",
+      "old": "scenes/enemies/forest_bible_weaver.tscn",
+      "current": "game/enemies/species/scenes/forest_bible_weaver.tscn",
+      "old_git_parent_sha256": "2fd965713cd606173d4b665af43c55e6cabae449e81b1817ed73f79e446ce490",
+      "migration_sha256": "e87596d994bba3efd1369b555e48edfcc2c416022191e8a2d717307e87caf619",
+      "current_sha256": "e87596d994bba3efd1369b555e48edfcc2c416022191e8a2d717307e87caf619",
+      "old_missing_now": true,
+      "current_file_exists": true,
+      "migration_structure_equal_except_ext_resource_paths": true,
+      "current_equals_migrated": true
+    }
+  ],
+  "existing_authority": {
+    "path": "game/enemies/enemy_behavior_registry.gd",
+    "sha256": "cfad0e810e0ea17e332260138b91493895ddefd80640841642173d5417c24f15",
+    "method": "scene_path(id: StringName)",
+    "consumer": "EnemyFactory.scene_path_for_behavior -> EnemyBehaviorRegistry.scene_path; create_for_behavior additionally duplicates/replaces definitions and is not a drop-in behavior-equivalent substitute for these raw scene fixtures.",
+    "recommendation": "Future behavior-ID callers can use existing resolver; no parallel registry. Narrow current forest candidate is exact path migration only."
+  },
+  "preserved_valid_groups": [
+    "All actual res://scenes/bosses dynamic identities remain tracked/on disk; resources/bosses and resources/enemies definitions remain there.",
+    "scripts/enemies/enemy_definition.gd and forest_enemy_definition.gd are intentionally retained real Resource script identities; previous preliminary missing-path suspicion withdrawn.",
+    "Frozen scripts/generation forest producers retain serialized factory identities and historical evidence; do not mass-edit.",
+    "Dynamic module paths already use game/world/generation/scenes/modules; weapons/resources paths and output res://build paths do not need this scene relocation."
+  ],
+  "native_status": "Not run by this agent. Original remote forest failure retained in ci41195033622-serial-job.log.",
+  "native_failure_sha256": "6dcbd50513621a36211f0d01b2a5b76efc663c64c49e186289a7cf9dfab4d7cf",
+  "changes": "Only external forest one-line candidate prepared. Remaining six positions reported, not edited."
+}

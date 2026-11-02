@@ -1,4 +1,5 @@
 """Bounded, resumable Codex Skill production loop; harness remains the check authority."""
+from godot_identity import banner_pattern
 import argparse
 import fcntl
 import hashlib
@@ -1516,7 +1517,7 @@ def native_import_preflight(folder):
     """Materialize only new Godot UID sidecars before creating any worker lease."""
     log = folder / "native_import_preflight.log"
     check = {"argv": ["bash", "tools/godot.sh", "--headless", "--path", ".", "--editor", "--quit"],
-             "timeout_seconds": 120, "success_pattern": r"^Godot Engine v4\.7\.2\.stable\.official"}
+             "timeout_seconds": 120, "success_pattern": banner_pattern()}
     record = {"status": "blocked", "check": check, "log": str(log), "started_at_unix": time.time(),
               "before": None, "after": None, "changes": [], "allowed_new_uids": [], "rejected_changes": []}
     try:

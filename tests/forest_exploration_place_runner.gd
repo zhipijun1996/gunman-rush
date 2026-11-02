@@ -12,7 +12,7 @@ func _initialize() -> void:
 		elif arg.begins_with("--output="): output = arg.trim_prefix("--output=")
 	run.call_deferred()
 func run() -> void:
-	room = load("res://scripts/demo/forest_exploration_place_lab.gd").new()
+	room = load("res://experiments/generation/forest_exploration_place_lab.gd").new()
 	room.layout = layout
 	room.place_variant = place_variant
 	room.route_name = route_name

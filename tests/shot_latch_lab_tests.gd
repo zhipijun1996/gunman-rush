@@ -1,6 +1,6 @@
 extends RefCounted
 ## Real ModuleLab consumer integration; explicit position changes are state fixtures.
-const DEMO := preload("res://scenes/demo/demo.tscn")
+const DEMO := preload("res://game/application/demo.tscn")
 var tree: SceneTree
 var check: Callable
 func run(scene_tree: SceneTree, assertion: Callable) -> void:

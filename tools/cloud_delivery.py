@@ -14,7 +14,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 HOST_REPOSITORY = "zhipijun1996/gunman-rush-previews"
 HOST_URL = "https://zhipijun1996.github.io/gunman-rush-previews/"
-BOOTSTRAP = "scenes/dev/cloud_preview.tscn"
+BOOTSTRAP = "experiments/platform/entries/cloud_preview.tscn"
 LIMIT = 900 * 1024 * 1024
 KIND_NEEDS = {
     'local_animation': ('observe',), 'local_vfx': ('observe',),
@@ -80,7 +80,7 @@ def validate_task(task):
 def clean_runtime(root):
     changed = subprocess.check_output(['git', '-C', str(root), 'diff', '--name-only', '-z', 'HEAD']).decode().split('\0')
     changed += subprocess.check_output(['git', '-C', str(root), 'ls-files', '--others', '--exclude-standard', '-z']).decode().split('\0')
-    prefixes = ('scripts/', 'scenes/', 'resources/', 'assets/', 'config/', 'shaders/', 'addons/', 'tools/')
+    prefixes = ('scripts/', 'scenes/', 'resources/', 'assets/', 'config/', 'shaders/', 'addons/', 'tools/', 'game/', 'experiments/')
     dirty = [p for p in changed if p.startswith(prefixes) or p in ('project.godot', 'export_presets.cfg')]
     if dirty:
         raise ValueError('Runtime source is dirty; commit and rebuild before staging: ' + ', '.join(dirty))

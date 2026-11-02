@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "scope": "Normal-speed software-GPU accepted-input animation; independent/player/device acceptance unverified",
+  "demos": [
+    "collapse_singularity",
+    "fan_shuriken",
+    "hook_hit",
+    "hook_miss",
+    "magnetic_mine",
+    "pulse_gun",
+    "remote_boomerang",
+    "shadow_shuriken",
+    "sustained_laser",
+    "triple_machine_gun"
+  ],
+  "frames": 2300,
+  "duration_seconds": 38.366667,
+  "media_sha256": "d2c6e1a764b5f79fafa79444e11088e9e3d4ac6a4f11db3fc6f7c48c2d0818ab",
+  "capture": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793590448.7885644,
+    "ended_at_unix": 1793590584.697475,
+    "duration_seconds": 135.909,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush-refactor/build/verification/actions-movie/actions.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/action_movie_capture.gd"
+    ],
+    "check_token": "1cca066238ee4c19ace8d30ac56e171e"
+  }
+}

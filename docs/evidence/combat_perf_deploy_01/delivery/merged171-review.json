@@ -1,0 +1,1249 @@
+{
+  "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "run_id": 41382432305,
+  "attempt": 1,
+  "core_job_id": 125089843115,
+  "core_conclusion": "success",
+  "artifact_id": 13115499076,
+  "artifact_zip_bytes": 4308633,
+  "artifact_zip_sha256": "f6f9dd6a64ec2eaad6a622bc658560facb06e2d731f740d751c1ed2fad55b51c",
+  "report_sha256": "e8830ede1297eba120ed4878e28413732219ce57d6662e84db7080e20214cd4f",
+  "status": "passed",
+  "partial": false,
+  "release": true,
+  "profiles": [
+    "full"
+  ],
+  "checks": 171,
+  "fresh": 171,
+  "reused": 0,
+  "failed": 0,
+  "parallel": 92,
+  "serial": 79,
+  "ordered_complete_profile": true,
+  "original_argv_and_budgets_unchanged": true,
+  "source_files_before_after_exact": true,
+  "toolchain_before_after_exact": true,
+  "all_171_log_bytes_sha_verified": true,
+  "lane_reports": [
+    {
+      "lane": "parallel",
+      "path": "/home/runner/work/gunman-rush/gunman-rush/build/verification/ci-lane-proof/parallel/report.json",
+      "sha256": "e63582d14f00f68c6db0c1b0a47f0ca25155895b3b2674d06ba7c7128fd855a3"
+    },
+    {
+      "lane": "serial",
+      "path": "/home/runner/work/gunman-rush/gunman-rush/build/verification/ci-lane-proof/serial/report.json",
+      "sha256": "10c44e91bcbecc54c9abafd5dbcbf2473be077862130d6f5ec9009066bfe042f"
+    }
+  ],
+  "manifest_sha256": "6bb3d21561ed2d020a0509ae7bd4d7835dd4dc41798209d762060e804528a612",
+  "generated_foundry_git_status": "M resources/foundry/batch.json\n M resources/foundry/export_basis.json\n M resources/foundry/replays/climb_change_height-air_chain-v0-p0.json\n M resources/foundry/replays/climb_change_height-base-v0-p0.json\n M resources/foundry/replays/climb_change_height-base-v0-p1.json\n M resources/foundry/replays/climb_change_height-base-v1-p0.json\n M resources/foundry/replays/climb_change_height-base-v1-p1.json\n M resources/foundry/replays/climb_change_height-double_jump-v0-p0.json\n M resources/foundry/replays/height_then_precision-air_chain-v0-p0.json\n M resources/foundry/replays/height_then_precision-base-v0-p0.json\n M resources/foundry/replays/height_then_precision-base-v0-p1.json\n M resources/foundry/replays/height_then_precision-base-v1-p0.json\n M resources/foundry/replays/height_then_precision-base-v1-p1.json\n M resources/foundry/replays/height_then_precision-double_jump-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v0-p1.json\n M resources/foundry/replays/precision_to_transfer-base-v1-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v1-p1.json\n M resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json\n M resources/foundry/replays/read_ride_release-air_chain-v0-p0.json\n M resources/foundry/replays/read_ride_release-base-v0-p0.json\n M resources/foundry/replays/read_ride_release-base-v0-p1.json\n M resources/foundry/replays/read_ride_release-base-v1-p0.json\n M resources/foundry/replays/read_ride_release-base-v1-p1.json\n M resources/foundry/replays/read_ride_release-double_jump-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v0-p1.json\n M resources/foundry/replays/resource_then_rhythm-base-v1-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v1-p1.json\n M resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json\n M resources/foundry/replays/route-0e61faed40.json\n M resources/foundry/replays/route-0efaee5828.json\n M resources/foundry/replays/route-122d7f6e2a.json\n M resources/foundry/replays/route-1521b6b7c3.json\n M resources/foundry/replays/route-2860deda61.json\n M resources/foundry/replays/route-2d706b6f11.json\n M resources/foundry/replays/route-2d7d2e4612.json\n M resources/foundry/replays/route-2f6354523f.json\n M resources/foundry/replays/route-3aa2ad4cba.json\n M resources/foundry/replays/route-4bec60578b.json\n M resources/foundry/replays/route-5798c84cea.json\n M resources/foundry/replays/route-7da5a6c16f.json\n M resources/foundry/replays/route-908c475df3.json\n M resources/foundry/replays/route-93acd6603f.json\n M resources/foundry/replays/route-ad7b9db895.json\n M resources/foundry/replays/route-b4df2effd8.json\n M resources/foundry/replays/route-cf73f3c620.json\n M resources/foundry/replays/route-f91361b454.json\n M resources/foundry/replays/short_long_rise-air_chain-v0-p0.json\n M resources/foundry/replays/short_long_rise-base-v0-p0.json\n M resources/foundry/replays/short_long_rise-base-v0-p1.json\n M resources/foundry/replays/short_long_rise-base-v1-p0.json\n M resources/foundry/replays/short_long_rise-base-v1-p1.json\n M resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+  "dirty_scope_note": "Original prepare rebuild/stamp supplied validated-foundry to all jobs; original report records generated Foundry dirty files. Not a claim that runner worktree remained Git-clean. Head/source inventory/derived bytes are bound by the original merge verifier.",
+  "approval_scope": "selected_profiles_technical",
+  "limits": [
+    "Web job still pending at this extraction",
+    "not browser/device/player/public deployment acceptance"
+  ],
+  "checks_order": [
+    "docs",
+    "world",
+    "world-design-tests",
+    "structure",
+    "harness-tests",
+    "quality-drills",
+    "quality-tests",
+    "quality",
+    "environment",
+    "core",
+    "generated-consumers",
+    "region",
+    "art-art",
+    "art-painterly_pack",
+    "art-plains_v3",
+    "art-meadow_enemy_art",
+    "art-plains_ground_art",
+    "art-windkeeper_art",
+    "art-plains_spatial_art",
+    "art-plains_item_art",
+    "web-cache",
+    "web-build",
+    "web-bundle",
+    "production-loop-tests",
+    "quality-review-engine",
+    "terrain-tile-tests",
+    "terrain-production",
+    "consumer-coverage-tests",
+    "wood-platforms",
+    "actor-actions",
+    "grapple-feel",
+    "forest-player-aim",
+    "all-weapons",
+    "studio-input",
+    "weapon-feel",
+    "action-budget",
+    "capture-tests",
+    "level-design-contracts",
+    "mechanism-comparisons",
+    "level-design-analysis",
+    "level-design-routing",
+    "level-design-golden-tests",
+    "level-design-runtime",
+    "level-region-context",
+    "level-experience",
+    "level-formal-receipts",
+    "level-formal-runtime",
+    "plains-encounter-policy",
+    "plains-redesign-scene",
+    "visual-director-tests",
+    "visual-director-space",
+    "directed-space-tests",
+    "terrain-family-tests",
+    "root-bell-current",
+    "root-bell-spaces",
+    "root-bell-ecology",
+    "web-resource-contract-tests",
+    "runtime-raw-export-tests",
+    "asset-family-tests",
+    "connected-family-tests",
+    "forest-ecology",
+    "forest-progression",
+    "forest-campaign",
+    "forest-debug",
+    "forest-traversal",
+    "forest-depth-guardian",
+    "forest-depth-guardian-tolerance",
+    "forest-depth-enemies",
+    "forest-current-registry",
+    "forest-depth-restore",
+    "forest-depth-campaign-guardian",
+    "forest-depth-crossbranch-lifecycle",
+    "forest-depth-queen-canopy",
+    "forest-depth-campaign-canopy",
+    "blob47-foundation",
+    "windchime-plains",
+    "pixel-plains",
+    "pixel-formal",
+    "creative-direction",
+    "creative-direction-tests",
+    "visual-director-terrain",
+    "parallel-region-presentation",
+    "style-exploration",
+    "underworld-pipeline",
+    "underworld-scenery",
+    "underworld-hazards",
+    "underworld-terrain",
+    "underworld-formal-terrain",
+    "underworld-formal",
+    "underworld-raw-export",
+    "underworld-player-animation",
+    "underworld-mechanisms",
+    "underworld-home",
+    "underworld-ui",
+    "forest-region-scheduler-tests",
+    "underworld-damage-feedback",
+    "underworld-projectile-vfx",
+    "underworld-world-objects",
+    "underworld-continuous-bosses",
+    "underworld-home-guard-tests",
+    "forest-camera-stability",
+    "forest-hazard-records",
+    "forest-fruit-contract",
+    "region-bible-contract",
+    "region-bible-tests",
+    "forest-bible-weaver-tests",
+    "forest-bible-discoveries-tests",
+    "forest-bible-integration-tests",
+    "forest-bible-ambience",
+    "forest-bible-app-discoveries",
+    "forest-practice-bell-restore",
+    "forest-bible-versions",
+    "forest-bible-reader-tests",
+    "forest-bible-av-reader-tests",
+    "harness-artifact-archive-tests",
+    "cloud-production-planner-tests",
+    "cloud-delivery-tests",
+    "cloud-preview-runtime",
+    "cloud-inputs-tests",
+    "portable-frozen-assets",
+    "demo-ui-time-energy",
+    "enemy-feedback-native",
+    "enemy-feedback-formal",
+    "enemy-feedback-support",
+    "enemy-corpse-save",
+    "enemy-corpse-snapshot",
+    "bgm-integration",
+    "player-default-integration",
+    "gear-inventory",
+    "gear-ui",
+    "item-v5-data",
+    "item-v5-catalog",
+    "item-v5-pool",
+    "item-v5-inventory",
+    "item-v5-combat",
+    "item-v5-actives",
+    "item-v5-economy",
+    "item-v5-defense",
+    "item-v5-ui",
+    "item-v5-formal",
+    "item-v5-review",
+    "item-v5-boss-time",
+    "item-v5-core-effects",
+    "item-v5-synergy-economy",
+    "item-v5-pause-escape",
+    "item-v5-random-context",
+    "item-v5-manifest",
+    "item-v5-authoring",
+    "item-authoring-tools",
+    "item-v5-art",
+    "home-codex",
+    "enemy-structure-native",
+    "plains-motion-loot-02",
+    "audio-feedback",
+    "windkeeper-pressure-01",
+    "bellstrider-rework-01",
+    "ai-level-content",
+    "ai-level-pilot",
+    "run-session",
+    "architecture-tests",
+    "level-plan",
+    "enemy-region-state",
+    "game-architecture-effects",
+    "plains-revision-deform-equivalence",
+    "entry-audio-lifecycle",
+    "entry-audio-lifecycle-comparison",
+    "entry-audio-owners",
+    "forest-v11-definition",
+    "foundry-lab",
+    "foundry-touch",
+    "foundry-feedback"
+  ],
+  "logs": [
+    {
+      "id": "docs",
+      "member": "20261102T041352.043709Z/docs.log",
+      "sha256": "8fa1c62bc8165afb22b18e404a3f99095791840c965dee756b7a4586c2631f3c",
+      "bytes": 101
+    },
+    {
+      "id": "world",
+      "member": "20261102T041352.043709Z/world.log",
+      "sha256": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+      "bytes": 150
+    },
+    {
+      "id": "world-design-tests",
+      "member": "20261102T041352.043709Z/world-design-tests.log",
+      "sha256": "e00da7e465fbb1b007f5d736308609b32bb1a35656e71b4274a4472930943589",
+      "bytes": 109
+    },
+    {
+      "id": "structure",
+      "member": "20261102T041352.043709Z/structure.log",
+      "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+      "bytes": 77
+    },
+    {
+      "id": "harness-tests",
+      "member": "20261102T041352.043709Z/harness-tests.log",
+      "sha256": "9aa415799f0cd0a5bcc0f866e625efb3162cfcff93e487f1b1fdddfc749b26c1",
+      "bytes": 13332
+    },
+    {
+      "id": "quality-drills",
+      "member": "20261102T041352.043709Z/quality-drills.log",
+      "sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+      "bytes": 1418
+    },
+    {
+      "id": "quality-tests",
+      "member": "20261102T041352.043709Z/quality-tests.log",
+      "sha256": "4dbfe6a513d6fa7506e4df353e75d9dcd2845572b457c6ec094522ca6ebf021b",
+      "bytes": 8748
+    },
+    {
+      "id": "quality",
+      "member": "20261102T041352.043709Z/quality.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "bytes": 97
+    },
+    {
+      "id": "environment",
+      "member": "20261102T041352.043709Z/environment.log",
+      "sha256": "c72dfb271d564121b1d6fe7280ee353d97275000323d12d23109a2d1f2c02ed7",
+      "bytes": 5201
+    },
+    {
+      "id": "core",
+      "member": "20261102T041352.043709Z/core.log",
+      "sha256": "ceeb81884ffb4575396b16cfd5eb957c22e44c83616ffdc38b6229e703bc31dd",
+      "bytes": 253826
+    },
+    {
+      "id": "generated-consumers",
+      "member": "20261102T041352.043709Z/generated-consumers.log",
+      "sha256": "0606280928fb006092d3167952da9a7f03d7f5d2f242ff9014f745fdaae8b019",
+      "bytes": 41361
+    },
+    {
+      "id": "region",
+      "member": "20261102T041352.043709Z/region.log",
+      "sha256": "b436bf0bf12f1c12d0d64a42d5b8895f0314e111c1d8514a53e36b22f4e22371",
+      "bytes": 61821
+    },
+    {
+      "id": "art-art",
+      "member": "20261102T041352.043709Z/art-art.log",
+      "sha256": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620",
+      "bytes": 96
+    },
+    {
+      "id": "art-painterly_pack",
+      "member": "20261102T041352.043709Z/art-painterly_pack.log",
+      "sha256": "f6dbfa921abe41a6157fcf62de3c8cc976d04cdf31c313b12b712caa69015553",
+      "bytes": 110
+    },
+    {
+      "id": "art-plains_v3",
+      "member": "20261102T041352.043709Z/art-plains_v3.log",
+      "sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+      "bytes": 151
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "member": "20261102T041352.043709Z/art-meadow_enemy_art.log",
+      "sha256": "fc607f4b2a42f919c29e142b93f0f95d69e9d04fe73bdc2af5ace8e002381691",
+      "bytes": 111
+    },
+    {
+      "id": "art-plains_ground_art",
+      "member": "20261102T041352.043709Z/art-plains_ground_art.log",
+      "sha256": "e717791b18a7b06a9950b1cc30226b93a1c7af56b53a2786055768e2d20df1f1",
+      "bytes": 152
+    },
+    {
+      "id": "art-windkeeper_art",
+      "member": "20261102T041352.043709Z/art-windkeeper_art.log",
+      "sha256": "9f08579cd90e6a456cf8eaa4954a97771305ec7037f3d10e75f369783f66af36",
+      "bytes": 134
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "member": "20261102T041352.043709Z/art-plains_spatial_art.log",
+      "sha256": "8aad93a36f4c29b39237cb37de261669e5a93c4cd258ba1addaf919cd8aec38e",
+      "bytes": 214
+    },
+    {
+      "id": "art-plains_item_art",
+      "member": "20261102T041352.043709Z/art-plains_item_art.log",
+      "sha256": "44d0fe6579b2a06d53b54db59c07983637418a263c40c7e7d251b83daae5ad81",
+      "bytes": 153
+    },
+    {
+      "id": "web-cache",
+      "member": "20261102T041352.043709Z/web-cache.log",
+      "sha256": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc",
+      "bytes": 85
+    },
+    {
+      "id": "web-build",
+      "member": "20261102T041352.043709Z/web-build.log",
+      "sha256": "cb20877431291e40199bf862d9f9707aaf8cde8411e0de86ecd3259dc75df920",
+      "bytes": 808681
+    },
+    {
+      "id": "web-bundle",
+      "member": "20261102T041352.043709Z/web-bundle.log",
+      "sha256": "121c5f8022a9cc51cecafe98fc40476d8d8e2d52c1b576c5f8e3b5074af76cf9",
+      "bytes": 2859
+    },
+    {
+      "id": "production-loop-tests",
+      "member": "20261102T041352.043709Z/production-loop-tests.log",
+      "sha256": "0bd30085be48e93e14391073524e5387618fc269bfdf49c0975b3d844c38244d",
+      "bytes": 412
+    },
+    {
+      "id": "quality-review-engine",
+      "member": "20261102T041352.043709Z/quality-review-engine.log",
+      "sha256": "389dbdb9d6ec4ca10bca518eb804f5e87493dbd7971f9512ce44c0ee9ab09ba8",
+      "bytes": 2857
+    },
+    {
+      "id": "terrain-tile-tests",
+      "member": "20261102T041352.043709Z/terrain-tile-tests.log",
+      "sha256": "cb4b0893c1ad095466f5a4fff264cb5c39aa41cb3196ed219c998fc981e85d18",
+      "bytes": 103
+    },
+    {
+      "id": "terrain-production",
+      "member": "20261102T041352.043709Z/terrain-production.log",
+      "sha256": "d68f65d0225420210e8353cbc3a16180a420bcaf2c4c1ca942e1d4565f52a859",
+      "bytes": 3188
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "member": "20261102T041352.043709Z/consumer-coverage-tests.log",
+      "sha256": "670a39115e7523a8984e4842e16547cb2094b03fad392b037b4b9dc8b2656e62",
+      "bytes": 105
+    },
+    {
+      "id": "wood-platforms",
+      "member": "20261102T041352.043709Z/wood-platforms.log",
+      "sha256": "e4ac9200ea6cb9a99a69a4045224b5e71b7d636ce5b62c458d4017d63ec72352",
+      "bytes": 2264
+    },
+    {
+      "id": "actor-actions",
+      "member": "20261102T041352.043709Z/actor-actions.log",
+      "sha256": "bad98ac2ff4b60e32d368bce3a357705306ea1e0689d00e86afb37b232857cc6",
+      "bytes": 1201
+    },
+    {
+      "id": "grapple-feel",
+      "member": "20261102T041352.043709Z/grapple-feel.log",
+      "sha256": "ce3fb6d9d24ef641e70c08f6612bc89a0ddf83f72e91c56daa14bf1d1c181cee",
+      "bytes": 9408
+    },
+    {
+      "id": "forest-player-aim",
+      "member": "20261102T041352.043709Z/forest-player-aim.log",
+      "sha256": "705504bbdaef2066947bccd77a88a051424d01f0a4af97a401a62ab46fcd3924",
+      "bytes": 2232
+    },
+    {
+      "id": "all-weapons",
+      "member": "20261102T041352.043709Z/all-weapons.log",
+      "sha256": "690f07917588e6478b5d60484fe24658a1753e706518c828e346f0b193a19505",
+      "bytes": 1210
+    },
+    {
+      "id": "studio-input",
+      "member": "20261102T041352.043709Z/studio-input.log",
+      "sha256": "2a51b1191d9520cdee0e831321e9909e05cd655116d7cb669bb9c87fdf4ffb77",
+      "bytes": 1198
+    },
+    {
+      "id": "weapon-feel",
+      "member": "20261102T041352.043709Z/weapon-feel.log",
+      "sha256": "6b95ec0877656f34f00191f6f6be098241642f4420ec875bbf44c2d25b1e4243",
+      "bytes": 1197
+    },
+    {
+      "id": "action-budget",
+      "member": "20261102T041352.043709Z/action-budget.log",
+      "sha256": "b1ec97829ca2da3fc4f7936571203722e6b9d9f65e9b5d990691ca322a9b4608",
+      "bytes": 1199
+    },
+    {
+      "id": "capture-tests",
+      "member": "20261102T041352.043709Z/capture-tests.log",
+      "sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6",
+      "bytes": 103
+    },
+    {
+      "id": "level-design-contracts",
+      "member": "20261102T041352.043709Z/level-design-contracts.log",
+      "sha256": "24c529ad2cb70c201ca05e56ec92156aa7442c4718a9b1325f9d47c418a8884e",
+      "bytes": 131
+    },
+    {
+      "id": "mechanism-comparisons",
+      "member": "20261102T041352.043709Z/mechanism-comparisons.log",
+      "sha256": "603db52fd0016ca5cdcf83b2588160ae92bde08c66ba4c61dfc8a2a74cdb95c9",
+      "bytes": 107
+    },
+    {
+      "id": "level-design-analysis",
+      "member": "20261102T041352.043709Z/level-design-analysis.log",
+      "sha256": "6594abe16c00ab1d46aa4f616e236024ef3f159dc01907f05207db32de5b93b6",
+      "bytes": 132
+    },
+    {
+      "id": "level-design-routing",
+      "member": "20261102T041352.043709Z/level-design-routing.log",
+      "sha256": "426e554081c1f4fe15f240a221acb9b7aa4c1b0254c520053a3555345551819c",
+      "bytes": 585
+    },
+    {
+      "id": "level-design-golden-tests",
+      "member": "20261102T041352.043709Z/level-design-golden-tests.log",
+      "sha256": "f97ca81007828dacddce34df253a5c9748c53f8f27d66cbc6142effbbdd1ac2e",
+      "bytes": 131
+    },
+    {
+      "id": "level-design-runtime",
+      "member": "20261102T041352.043709Z/level-design-runtime.log",
+      "sha256": "9b53c695c84b57ace764b5f3c6608a09c36b37acf4ddc52da3b2cdcb2832d9f7",
+      "bytes": 309
+    },
+    {
+      "id": "level-region-context",
+      "member": "20261102T041352.043709Z/level-region-context.log",
+      "sha256": "138c37f505cc1537679e96340c347116128fa3b9d8c1499b8d46f14ae93697e5",
+      "bytes": 116
+    },
+    {
+      "id": "level-experience",
+      "member": "20261102T041352.043709Z/level-experience.log",
+      "sha256": "18db88ac65c7cfb6936d97ffd96a1fe6ca5ca516b84baae0d690478ddc0b0aa7",
+      "bytes": 128
+    },
+    {
+      "id": "level-formal-receipts",
+      "member": "20261102T041352.043709Z/level-formal-receipts.log",
+      "sha256": "f75d38635cecccd2498b3f97915a7f0e00ce50828d9589b022f898a018700094",
+      "bytes": 116
+    },
+    {
+      "id": "level-formal-runtime",
+      "member": "20261102T041352.043709Z/level-formal-runtime.log",
+      "sha256": "a7d53f306a11bf42970d38416ffbfbc29fe60b56f741c63daf8ec018132ee465",
+      "bytes": 282
+    },
+    {
+      "id": "plains-encounter-policy",
+      "member": "20261102T041352.043709Z/plains-encounter-policy.log",
+      "sha256": "4c03feaf7fdd667ffb726f8928255f15fa809aae862ff2fb4ad0370895925937",
+      "bytes": 3379
+    },
+    {
+      "id": "plains-redesign-scene",
+      "member": "20261102T041352.043709Z/plains-redesign-scene.log",
+      "sha256": "da29aa22c2590346e9d36299b69d72762d02e02dfb81b7e8fea4727380e488f7",
+      "bytes": 1187
+    },
+    {
+      "id": "visual-director-tests",
+      "member": "20261102T041352.043709Z/visual-director-tests.log",
+      "sha256": "5a18940b03589cc0acecb6335cd0185375d38a6b63fa181ec7c70ce62e675670",
+      "bytes": 124
+    },
+    {
+      "id": "visual-director-space",
+      "member": "20261102T041352.043709Z/visual-director-space.log",
+      "sha256": "65a8f15eae38ccd028faa788be4f7857c0a8e3b35d65f98dbf391f237ac21d39",
+      "bytes": 74
+    },
+    {
+      "id": "directed-space-tests",
+      "member": "20261102T041352.043709Z/directed-space-tests.log",
+      "sha256": "504d69a433a7dc9cbb5d981b94454a15a73e1aa7980cd5448878618f048a1893",
+      "bytes": 59
+    },
+    {
+      "id": "terrain-family-tests",
+      "member": "20261102T041352.043709Z/terrain-family-tests.log",
+      "sha256": "7c0e739168384f19c595fd4f7be79b60a53ab59bb7441def77b9a1c5c5f51afc",
+      "bytes": 59
+    },
+    {
+      "id": "root-bell-current",
+      "member": "20261102T041352.043709Z/root-bell-current.log",
+      "sha256": "fcda50c52058ed96df03a67a209f16465288aa9501487677a9ebb52c36ec17d8",
+      "bytes": 137
+    },
+    {
+      "id": "root-bell-spaces",
+      "member": "20261102T041352.043709Z/root-bell-spaces.log",
+      "sha256": "0b139da82250c9dfb5c20353f5d782d97d88e2e9e8585241d8ce45d0bd5403d1",
+      "bytes": 359
+    },
+    {
+      "id": "root-bell-ecology",
+      "member": "20261102T041352.043709Z/root-bell-ecology.log",
+      "sha256": "7f4bbead903248b502967dcf9a28dc79b862f61e1f43c0a8637cdf7effa27da4",
+      "bytes": 159
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "member": "20261102T041352.043709Z/web-resource-contract-tests.log",
+      "sha256": "b3500139b4e8f10526b52f15027d31bc07d2258874f995ea27da44ffda254815",
+      "bytes": 152
+    },
+    {
+      "id": "runtime-raw-export-tests",
+      "member": "20261102T041352.043709Z/runtime-raw-export-tests.log",
+      "sha256": "5ccd76e8fb90bd81172f8cfe3eeec8a591d9d1ab0396345fccbed1630ed7bc50",
+      "bytes": 100
+    },
+    {
+      "id": "asset-family-tests",
+      "member": "20261102T041352.043709Z/asset-family-tests.log",
+      "sha256": "c31e811c47f992d66e20f9b41cd43f0634edac76521e17dbdc11a485fe59c061",
+      "bytes": 110
+    },
+    {
+      "id": "connected-family-tests",
+      "member": "20261102T041352.043709Z/connected-family-tests.log",
+      "sha256": "7fcf90f77583a950c3a4e72804dfd8e847e6201df7593cb50ad89c72eb86fdfb",
+      "bytes": 136
+    },
+    {
+      "id": "forest-ecology",
+      "member": "20261102T041352.043709Z/forest-ecology.log",
+      "sha256": "a91dd1d234b85e09b61d5d6376ce6d58ecb985c6aff5c24cf32d2a9466d95aec",
+      "bytes": 4455
+    },
+    {
+      "id": "forest-progression",
+      "member": "20261102T041352.043709Z/forest-progression.log",
+      "sha256": "188da27db06e8eed3251d025ac873877023f25c9511978f6307d64e53a74a7f8",
+      "bytes": 135
+    },
+    {
+      "id": "forest-campaign",
+      "member": "20261102T041352.043709Z/forest-campaign.log",
+      "sha256": "95ee8dc2b52550cee8b858bded3d5946ca9f0a4b4efbd3008cd09d55af8ff515",
+      "bytes": 3127
+    },
+    {
+      "id": "forest-debug",
+      "member": "20261102T041352.043709Z/forest-debug.log",
+      "sha256": "eb505ab695e55604c359908445255c8abf1ef4a472ca9323b9fcd7d9044aac21",
+      "bytes": 3754
+    },
+    {
+      "id": "forest-traversal",
+      "member": "20261102T041352.043709Z/forest-traversal.log",
+      "sha256": "ad1ba613246a9cd72eda2a4c43594b12dbbc14ef282194ff04b5f8ebd1f096a1",
+      "bytes": 164
+    },
+    {
+      "id": "forest-depth-guardian",
+      "member": "20261102T041352.043709Z/forest-depth-guardian.log",
+      "sha256": "94e073439d4a085f7e11343499ba565242bf02b5711db249ecce80147bbb63bb",
+      "bytes": 97
+    },
+    {
+      "id": "forest-depth-guardian-tolerance",
+      "member": "20261102T041352.043709Z/forest-depth-guardian-tolerance.log",
+      "sha256": "dcfbaceebc9c38bcd11c12913b2ac4243cd3887bf35e94272372e73487d3fa9e",
+      "bytes": 102
+    },
+    {
+      "id": "forest-depth-enemies",
+      "member": "20261102T041352.043709Z/forest-depth-enemies.log",
+      "sha256": "eb300e96450e6a855ab45b44e614aa37dfa4ab5b57305297cc35d5b753c2f539",
+      "bytes": 72
+    },
+    {
+      "id": "forest-current-registry",
+      "member": "20261102T041352.043709Z/forest-current-registry.log",
+      "sha256": "b7a53addcb575568ef502f44ddee74d7e78afaf7ca2534b261afc0b67d198a67",
+      "bytes": 72
+    },
+    {
+      "id": "forest-depth-restore",
+      "member": "20261102T041352.043709Z/forest-depth-restore.log",
+      "sha256": "55c9b15b6a54e00646244ac70153f4f20e3b1a3c99512855294ea93881d8a307",
+      "bytes": 106
+    },
+    {
+      "id": "forest-depth-campaign-guardian",
+      "member": "20261102T041352.043709Z/forest-depth-campaign-guardian.log",
+      "sha256": "dd3b6b21393796ebfe3079b4d60883b44293c94af3954574540d58f17eb1c83a",
+      "bytes": 121
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle",
+      "member": "20261102T041352.043709Z/forest-depth-crossbranch-lifecycle.log",
+      "sha256": "837485b07ab9199869a3f444b34c3ef53a15daa52043a51a759493768cefd2a4",
+      "bytes": 50
+    },
+    {
+      "id": "forest-depth-queen-canopy",
+      "member": "20261102T041352.043709Z/forest-depth-queen-canopy.log",
+      "sha256": "551d8d09acc9b13190589189be4076f9cd3f9d3d36779126498a1b51287aec74",
+      "bytes": 91
+    },
+    {
+      "id": "forest-depth-campaign-canopy",
+      "member": "20261102T041352.043709Z/forest-depth-campaign-canopy.log",
+      "sha256": "b80f570fcc83e0759552775e961fc24df6952104f6f554eb9d0dd8c81a1521a0",
+      "bytes": 137
+    },
+    {
+      "id": "blob47-foundation",
+      "member": "20261102T041352.043709Z/blob47-foundation.log",
+      "sha256": "9551562c21ba1f19c261a1505ae971a8e5b23f4726d70009ad5e08838e68c6c7",
+      "bytes": 478
+    },
+    {
+      "id": "windchime-plains",
+      "member": "20261102T041352.043709Z/windchime-plains.log",
+      "sha256": "29adb68f6c87e9637a7a7d1dae9f13cbd592e8dacb28fcd5d16c1e6f6b418986",
+      "bytes": 1019
+    },
+    {
+      "id": "pixel-plains",
+      "member": "20261102T041352.043709Z/pixel-plains.log",
+      "sha256": "0d516436be1b3b55cbbb2997184fb0943f519744e57354a92c11111997f73895",
+      "bytes": 278
+    },
+    {
+      "id": "pixel-formal",
+      "member": "20261102T041352.043709Z/pixel-formal.log",
+      "sha256": "b5b74bb0316124afc8fae8c9bb2ce1a5a8cb3a4ef3942189e98a21337b1c7837",
+      "bytes": 206
+    },
+    {
+      "id": "creative-direction",
+      "member": "20261102T041352.043709Z/creative-direction.log",
+      "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+      "bytes": 85
+    },
+    {
+      "id": "creative-direction-tests",
+      "member": "20261102T041352.043709Z/creative-direction-tests.log",
+      "sha256": "8612f1d4c1b9a7478bede6b3ac908e59d19f69a8106b42d3dfd63c7134ffc80d",
+      "bytes": 129
+    },
+    {
+      "id": "visual-director-terrain",
+      "member": "20261102T041352.043709Z/visual-director-terrain.log",
+      "sha256": "b1c33c7f06bbba5e0e06229a22b073bb5226e990d5a949865f6be00f067e2de4",
+      "bytes": 1370
+    },
+    {
+      "id": "parallel-region-presentation",
+      "member": "20261102T041352.043709Z/parallel-region-presentation.log",
+      "sha256": "43d4771912660d075edc1631251290a983b6ce36eb81179eb96b2c0c7c7db225",
+      "bytes": 23967
+    },
+    {
+      "id": "style-exploration",
+      "member": "20261102T041352.043709Z/style-exploration.log",
+      "sha256": "b380cd8df3d172d98c3bd746aba4c0b1c5a32f52e4938e9b50972424435e0e3f",
+      "bytes": 613
+    },
+    {
+      "id": "underworld-pipeline",
+      "member": "20261102T041352.043709Z/underworld-pipeline.log",
+      "sha256": "dba00f3ba11a1209d205f98afdbb0e101c5dacf1ae773af6c872225706b78170",
+      "bytes": 23449
+    },
+    {
+      "id": "underworld-scenery",
+      "member": "20261102T041352.043709Z/underworld-scenery.log",
+      "sha256": "11a1ba391fc9cbd15958697e9b847b56a5956f1b9b50f4bafe86a897a72637e1",
+      "bytes": 16926
+    },
+    {
+      "id": "underworld-hazards",
+      "member": "20261102T041352.043709Z/underworld-hazards.log",
+      "sha256": "0ddfb487af9dcbc71df63ef6bf411bf9a32e9b3b0f5beda8fa7c22b03244c703",
+      "bytes": 2019
+    },
+    {
+      "id": "underworld-terrain",
+      "member": "20261102T041352.043709Z/underworld-terrain.log",
+      "sha256": "ccced86dae7d82ba2c1bff37078baeb1120ce738bb7668822eb387c4adf5d71c",
+      "bytes": 521
+    },
+    {
+      "id": "underworld-formal-terrain",
+      "member": "20261102T041352.043709Z/underworld-formal-terrain.log",
+      "sha256": "fb064cad8f430fc5165021a166dda3fbdd1e11ca53819b7cc065bf75956b3222",
+      "bytes": 33567
+    },
+    {
+      "id": "underworld-formal",
+      "member": "20261102T041352.043709Z/underworld-formal.log",
+      "sha256": "aceeaabeb55b20804187d5876a005c5f9fed4411b1e999c98eb5cd9753b56063",
+      "bytes": 2508
+    },
+    {
+      "id": "underworld-raw-export",
+      "member": "20261102T041352.043709Z/underworld-raw-export.log",
+      "sha256": "efe1d02a260ee3b81bc78de868d3674688e16735b20ea1cad52cb22f8cd0da4c",
+      "bytes": 111
+    },
+    {
+      "id": "underworld-player-animation",
+      "member": "20261102T041352.043709Z/underworld-player-animation.log",
+      "sha256": "dc7287fa5272e0b44381d94338ab37cecd14847a5ec1e4b1c1d6783f804c3e01",
+      "bytes": 272
+    },
+    {
+      "id": "underworld-mechanisms",
+      "member": "20261102T041352.043709Z/underworld-mechanisms.log",
+      "sha256": "e4daa25c18c33a13779831d7eed2074b25603e7c2a653fd2ced91c278ddb5bd7",
+      "bytes": 4971
+    },
+    {
+      "id": "underworld-home",
+      "member": "20261102T041352.043709Z/underworld-home.log",
+      "sha256": "dccc1c27bd730caaf4891e60a33497b639b7eb6035131c5645bb54078d83b601",
+      "bytes": 1155
+    },
+    {
+      "id": "underworld-ui",
+      "member": "20261102T041352.043709Z/underworld-ui.log",
+      "sha256": "9865beda04f79cee1f4ead5a4e0200591dc2b869fcd236fe58d32255310f65f7",
+      "bytes": 2026
+    },
+    {
+      "id": "forest-region-scheduler-tests",
+      "member": "20261102T041352.043709Z/forest-region-scheduler-tests.log",
+      "sha256": "e0d8e5b82caac88cbae20d5cde836241b0e8359e0c6028fefc0ccbde487af42a",
+      "bytes": 126
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "member": "20261102T041352.043709Z/underworld-damage-feedback.log",
+      "sha256": "dee00a56424617c250db6280ebe43714689c542280d12e6dda5959954561e73c",
+      "bytes": 304
+    },
+    {
+      "id": "underworld-projectile-vfx",
+      "member": "20261102T041352.043709Z/underworld-projectile-vfx.log",
+      "sha256": "5a510fe88a8f0067512f2843a0e244f0ab81892eae51a6a5e97c943de5828b49",
+      "bytes": 450
+    },
+    {
+      "id": "underworld-world-objects",
+      "member": "20261102T041352.043709Z/underworld-world-objects.log",
+      "sha256": "45ebe2c76ed2cc06611d0c8fffe4e7c8ee796df6fc81b9f74e1b7cbfcf65fa36",
+      "bytes": 8242
+    },
+    {
+      "id": "underworld-continuous-bosses",
+      "member": "20261102T041352.043709Z/underworld-continuous-bosses.log",
+      "sha256": "903a0398940588a0102d24a33ee0777dc26e82486b00cfa27659558296772476",
+      "bytes": 14684
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "member": "20261102T041352.043709Z/underworld-home-guard-tests.log",
+      "sha256": "648190d01aa86d11cbd1ac0bc38d6dc3658cdeba07ebf79d31ee31f1bad30c03",
+      "bytes": 4249
+    },
+    {
+      "id": "forest-camera-stability",
+      "member": "20261102T041352.043709Z/forest-camera-stability.log",
+      "sha256": "25971a82ce02147cfc7ab89a276f399edfdedc328b333c566a62d04c9d1faa29",
+      "bytes": 140
+    },
+    {
+      "id": "forest-hazard-records",
+      "member": "20261102T041352.043709Z/forest-hazard-records.log",
+      "sha256": "e2db65cf98445f55cbb1dce696337fc841897e8411a686cac77940c07be361a9",
+      "bytes": 135
+    },
+    {
+      "id": "forest-fruit-contract",
+      "member": "20261102T041352.043709Z/forest-fruit-contract.log",
+      "sha256": "1087cc9e2bec831c3f1e7eed1dc47b52d312afd44a57ceea015ca4148bf576f6",
+      "bytes": 1235
+    },
+    {
+      "id": "region-bible-contract",
+      "member": "20261102T041352.043709Z/region-bible-contract.log",
+      "sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "bytes": 110
+    },
+    {
+      "id": "region-bible-tests",
+      "member": "20261102T041352.043709Z/region-bible-tests.log",
+      "sha256": "08efbb86180a0dbd34afe315049f20523097e2a9630e48c0351aa3de22191ab8",
+      "bytes": 146
+    },
+    {
+      "id": "forest-bible-weaver-tests",
+      "member": "20261102T041352.043709Z/forest-bible-weaver-tests.log",
+      "sha256": "7d28b2b57d872f53dc6c003da9cd612e051ea4f99b536452c82e379ce0cba75f",
+      "bytes": 2463
+    },
+    {
+      "id": "forest-bible-discoveries-tests",
+      "member": "20261102T041352.043709Z/forest-bible-discoveries-tests.log",
+      "sha256": "5c61468886fbeb00dbb7a73197fb4166e0b19ce3e32c22de43a28f8329e290e7",
+      "bytes": 1462
+    },
+    {
+      "id": "forest-bible-integration-tests",
+      "member": "20261102T041352.043709Z/forest-bible-integration-tests.log",
+      "sha256": "25cb1991f6d58b24fa3da74584dd8a3e9b73e6789a10a858d1a9d858bb58896b",
+      "bytes": 78
+    },
+    {
+      "id": "forest-bible-ambience",
+      "member": "20261102T041352.043709Z/forest-bible-ambience.log",
+      "sha256": "dff9559ff9fad4ba5aeac4f3d4bd1058a0dba1d5922d88339be1aae36e4da101",
+      "bytes": 4606
+    },
+    {
+      "id": "forest-bible-app-discoveries",
+      "member": "20261102T041352.043709Z/forest-bible-app-discoveries.log",
+      "sha256": "d66173d75183e3f4f7169a8db42738749e0151d331d67624464f8934b4b22cb5",
+      "bytes": 78
+    },
+    {
+      "id": "forest-practice-bell-restore",
+      "member": "20261102T041352.043709Z/forest-practice-bell-restore.log",
+      "sha256": "d99545e2c79c65e369656e5ae89c821d09aae265543efc856436d0ea100cd13f",
+      "bytes": 259
+    },
+    {
+      "id": "forest-bible-versions",
+      "member": "20261102T041352.043709Z/forest-bible-versions.log",
+      "sha256": "2092a68853e97b7048542cb5c994bea9a3081d34beaf86eedbc2264871ce083b",
+      "bytes": 156
+    },
+    {
+      "id": "forest-bible-reader-tests",
+      "member": "20261102T041352.043709Z/forest-bible-reader-tests.log",
+      "sha256": "d7fa35118681012762871a13caef6ccc05db7a4a6f355295c85d37b6d3296d07",
+      "bytes": 157
+    },
+    {
+      "id": "forest-bible-av-reader-tests",
+      "member": "20261102T041352.043709Z/forest-bible-av-reader-tests.log",
+      "sha256": "10def50f0d703bd20ef77ecfffa3fdb7874881b07720b8a49a2adab5c6061e6b",
+      "bytes": 106
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "member": "20261102T041352.043709Z/harness-artifact-archive-tests.log",
+      "sha256": "b36193dec52614168c7f10ceaeecc2872ab8374fa60f8d0d699024d96d4a78b2",
+      "bytes": 662
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "member": "20261102T041352.043709Z/cloud-production-planner-tests.log",
+      "sha256": "e7153d6591d38d72d6320c59fd436a1633dc3cf64aa07fefc3847696f1098c58",
+      "bytes": 8081
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "member": "20261102T041352.043709Z/cloud-delivery-tests.log",
+      "sha256": "9e0c250b9846481ed633fe0cd61958232bb006d50ed2d7f564d2d1c410a506cc",
+      "bytes": 130
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "member": "20261102T041352.043709Z/cloud-preview-runtime.log",
+      "sha256": "ccb0dbff0e565c156bbecc426274286923ae4c97cbbb088f4f51e2c25c0e849f",
+      "bytes": 318
+    },
+    {
+      "id": "cloud-inputs-tests",
+      "member": "20261102T041352.043709Z/cloud-inputs-tests.log",
+      "sha256": "80d2057d4a952e052cf3ea419830ccff140ab201b1425555c0998b5724d278ad",
+      "bytes": 123
+    },
+    {
+      "id": "portable-frozen-assets",
+      "member": "20261102T041352.043709Z/portable-frozen-assets.log",
+      "sha256": "8f879b604e5285b3c93d15814e5cb0335118a23a3ca77a85f74eafcdcbdc3493",
+      "bytes": 103
+    },
+    {
+      "id": "demo-ui-time-energy",
+      "member": "20261102T041352.043709Z/demo-ui-time-energy.log",
+      "sha256": "8ba7aad54c071c34d0a124380cdaf79440b9d4cf9d6f8e39ecd85cf281da44da",
+      "bytes": 1232
+    },
+    {
+      "id": "enemy-feedback-native",
+      "member": "20261102T041352.043709Z/enemy-feedback-native.log",
+      "sha256": "435514dc274a9b02f0a323328a2cbd308cb1a3f886eae9213194c31382a049d1",
+      "bytes": 1526
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "member": "20261102T041352.043709Z/enemy-feedback-formal.log",
+      "sha256": "3169812553a043a9ecab13726db4e93be3974e68b81ee83d556f441ef3d14fc0",
+      "bytes": 2570
+    },
+    {
+      "id": "enemy-feedback-support",
+      "member": "20261102T041352.043709Z/enemy-feedback-support.log",
+      "sha256": "3839da6ee3fa003b65ee83608fea1aabf946716f9595a46e32671e8f99f935b6",
+      "bytes": 1168
+    },
+    {
+      "id": "enemy-corpse-save",
+      "member": "20261102T041352.043709Z/enemy-corpse-save.log",
+      "sha256": "85ba748593fb52787e720dbbc866c2275cbfe7217cf55543595f147c2de31ea0",
+      "bytes": 3583
+    },
+    {
+      "id": "enemy-corpse-snapshot",
+      "member": "20261102T041352.043709Z/enemy-corpse-snapshot.log",
+      "sha256": "e4310cf9e61c616a75fea845cf20c043470214f5378d920716b495aed450751f",
+      "bytes": 1164
+    },
+    {
+      "id": "bgm-integration",
+      "member": "20261102T041352.043709Z/bgm-integration.log",
+      "sha256": "437098778c543b82491495a5af05d8b923cf3fc3ddcf214acc10f1afea0d3461",
+      "bytes": 4602
+    },
+    {
+      "id": "player-default-integration",
+      "member": "20261102T041352.043709Z/player-default-integration.log",
+      "sha256": "a157993f48b6221042d4d883c8b15d8325c7376a91310bf32ab51307b6013a51",
+      "bytes": 3850
+    },
+    {
+      "id": "gear-inventory",
+      "member": "20261102T041352.043709Z/gear-inventory.log",
+      "sha256": "f4d65b0cde241db7156cc12e1d6c827610ef1b5edd195467248e93acc0599489",
+      "bytes": 1163
+    },
+    {
+      "id": "gear-ui",
+      "member": "20261102T041352.043709Z/gear-ui.log",
+      "sha256": "ce037ba3572830151d8d282d38682bf27262f2d85b33bfb9b1d20e51647e4998",
+      "bytes": 10504
+    },
+    {
+      "id": "item-v5-data",
+      "member": "20261102T041352.043709Z/item-v5-data.log",
+      "sha256": "ee5e652d5a9e4c1da3fd48861558ef6a3129ba7911243b665de878e1e0d92cff",
+      "bytes": 126
+    },
+    {
+      "id": "item-v5-catalog",
+      "member": "20261102T041352.043709Z/item-v5-catalog.log",
+      "sha256": "d4aa5b4e2cfc02f812e15e87b77eaf378cbd4b4ddd13114bdc4f7974cb52ac4e",
+      "bytes": 1226
+    },
+    {
+      "id": "item-v5-pool",
+      "member": "20261102T041352.043709Z/item-v5-pool.log",
+      "sha256": "3bfba8c725233012a62941fb9696cfc0f83c97044b125541d1548927d32e5bcd",
+      "bytes": 1219
+    },
+    {
+      "id": "item-v5-inventory",
+      "member": "20261102T041352.043709Z/item-v5-inventory.log",
+      "sha256": "dbdec061b91c4f5d64b63badb999c5699cc3ee2a354113de97061ae200eb5aac",
+      "bytes": 1232
+    },
+    {
+      "id": "item-v5-combat",
+      "member": "20261102T041352.043709Z/item-v5-combat.log",
+      "sha256": "97f67348713860b55fc7ce8f3d15fe7fc953096f27688ff5179c9ffea461d82e",
+      "bytes": 1226
+    },
+    {
+      "id": "item-v5-actives",
+      "member": "20261102T041352.043709Z/item-v5-actives.log",
+      "sha256": "707f8f0edb6f6e6a3f2e73f41e991258576932583f6f39cd34aad50323230886",
+      "bytes": 1229
+    },
+    {
+      "id": "item-v5-economy",
+      "member": "20261102T041352.043709Z/item-v5-economy.log",
+      "sha256": "be5fdd3f9685f499cec4cac82dd53ea83311815c4b1967201b0f7fbb8287dd5d",
+      "bytes": 1224
+    },
+    {
+      "id": "item-v5-defense",
+      "member": "20261102T041352.043709Z/item-v5-defense.log",
+      "sha256": "ca2f4c415cd8618faf2d7ac173d89b153e0dac12df0332d9b782234441798736",
+      "bytes": 1234
+    },
+    {
+      "id": "item-v5-ui",
+      "member": "20261102T041352.043709Z/item-v5-ui.log",
+      "sha256": "83de42a10da87c8660c69ba79b897f5446e468bc552e531cfc4ee3f92f90145d",
+      "bytes": 1225
+    },
+    {
+      "id": "item-v5-formal",
+      "member": "20261102T041352.043709Z/item-v5-formal.log",
+      "sha256": "594571df367a4c52c899dcdb9bb6d5e002bbd57b5e4b0d01e76a46601358b0c0",
+      "bytes": 2623
+    },
+    {
+      "id": "item-v5-review",
+      "member": "20261102T041352.043709Z/item-v5-review.log",
+      "sha256": "22015ad6c9bb55059a91617972e57bcfca8728ee30ff911a009c3335b61ff834",
+      "bytes": 2030
+    },
+    {
+      "id": "item-v5-boss-time",
+      "member": "20261102T041352.043709Z/item-v5-boss-time.log",
+      "sha256": "90e94d9f8ac811e24f3228b565b85ffe46a2c1a2fb33ecf1169cbae6d78976ca",
+      "bytes": 4531
+    },
+    {
+      "id": "item-v5-core-effects",
+      "member": "20261102T041352.043709Z/item-v5-core-effects.log",
+      "sha256": "49fa9c82145b681dd3ef927b3f4a6569cc3e196ff3148c0342b47438fee07b11",
+      "bytes": 1396
+    },
+    {
+      "id": "item-v5-synergy-economy",
+      "member": "20261102T041352.043709Z/item-v5-synergy-economy.log",
+      "sha256": "a55816007b45ab011cad7d0941f3fdccbc7eaca7403a5d5a338d43c3166e637e",
+      "bytes": 1240
+    },
+    {
+      "id": "item-v5-pause-escape",
+      "member": "20261102T041352.043709Z/item-v5-pause-escape.log",
+      "sha256": "9a1cffcc975d13edfdf2c5ac83607b2e45bfa46980eb0c6fb9842c7a3115ae90",
+      "bytes": 10537
+    },
+    {
+      "id": "item-v5-random-context",
+      "member": "20261102T041352.043709Z/item-v5-random-context.log",
+      "sha256": "c154dcc0a26df4fae7b0fa48c2dc11457c1d74b5b82ef45add9d3708d4a592ee",
+      "bytes": 10347
+    },
+    {
+      "id": "item-v5-manifest",
+      "member": "20261102T041352.043709Z/item-v5-manifest.log",
+      "sha256": "692ff4d122a7988861be3b7ca8c29dcac3e182540589ccde0d64d85ff52ab02c",
+      "bytes": 1226
+    },
+    {
+      "id": "item-v5-authoring",
+      "member": "20261102T041352.043709Z/item-v5-authoring.log",
+      "sha256": "df9d826ee7e5d456137ce8cf483b6a326dbae5a5485e7a375af37c4f4f59152b",
+      "bytes": 1229
+    },
+    {
+      "id": "item-authoring-tools",
+      "member": "20261102T041352.043709Z/item-authoring-tools.log",
+      "sha256": "13a8fb06bc40c7245fa3d5098a4ed1f53288971a8712cdceb76dfbe99cbef30c",
+      "bytes": 110
+    },
+    {
+      "id": "item-v5-art",
+      "member": "20261102T041352.043709Z/item-v5-art.log",
+      "sha256": "ee2ee8c3532dd905ded8e9771fea9569aff419d1ee7f74a38ce39502ce256629",
+      "bytes": 2165
+    },
+    {
+      "id": "home-codex",
+      "member": "20261102T041352.043709Z/home-codex.log",
+      "sha256": "775a97f4edd0a97026b0bbeeee1711627ccf75ca377eeaacfa9efec56d0e2379",
+      "bytes": 4588
+    },
+    {
+      "id": "enemy-structure-native",
+      "member": "20261102T041352.043709Z/enemy-structure-native.log",
+      "sha256": "75d654b2343804e07f3e622b88623de8cbf0227249e01d13d0ee1c0894b1bf2a",
+      "bytes": 1288
+    },
+    {
+      "id": "plains-motion-loot-02",
+      "member": "20261102T041352.043709Z/plains-motion-loot-02.log",
+      "sha256": "b57c45a67b46cdcd9cb95930db617d3370c6cd44e6d599b88f9998c3a595d670",
+      "bytes": 3197
+    },
+    {
+      "id": "audio-feedback",
+      "member": "20261102T041352.043709Z/audio-feedback.log",
+      "sha256": "b21c0b9ca627ff1e39e65c35acc2a7c059485c76c6be48ad6e6f0c15ecf95a16",
+      "bytes": 1367
+    },
+    {
+      "id": "windkeeper-pressure-01",
+      "member": "20261102T041352.043709Z/windkeeper-pressure-01.log",
+      "sha256": "43313ad610b4afe8287047e97e21cdf6214743a3c55309036a4b3add03a4a9e1",
+      "bytes": 14785
+    },
+    {
+      "id": "bellstrider-rework-01",
+      "member": "20261102T041352.043709Z/bellstrider-rework-01.log",
+      "sha256": "809487cb0b2583a1b4c2e1614652ecb61e3ab6826034245843af1251a9f00a8a",
+      "bytes": 45220
+    },
+    {
+      "id": "ai-level-content",
+      "member": "20261102T041352.043709Z/ai-level-content.log",
+      "sha256": "14c733d77d9ae0e6f6db1ead839f811c193921518f13765dc27f9a426a5f6d8f",
+      "bytes": 7922
+    },
+    {
+      "id": "ai-level-pilot",
+      "member": "20261102T041352.043709Z/ai-level-pilot.log",
+      "sha256": "1d44d22412fa89328ca0cc3d750cf0421a4f096f6cec63e77531eb0a47838e07",
+      "bytes": 2087
+    },
+    {
+      "id": "run-session",
+      "member": "20261102T041352.043709Z/run-session.log",
+      "sha256": "24a8b5fa8bac94757f508cc44720f035e3b2557316cb041c09ef62a950643466",
+      "bytes": 2154
+    },
+    {
+      "id": "architecture-tests",
+      "member": "20261102T041352.043709Z/architecture-tests.log",
+      "sha256": "eb55bdeb232a5345b812b14974fa3803a4265c20b50cb28f1fb75acf884da36e",
+      "bytes": 112
+    },
+    {
+      "id": "level-plan",
+      "member": "20261102T041352.043709Z/level-plan.log",
+      "sha256": "ffe968b814792dab823f4df3df545ff442684b8069dbd6e651b4be62a628cbd3",
+      "bytes": 3029
+    },
+    {
+      "id": "enemy-region-state",
+      "member": "20261102T041352.043709Z/enemy-region-state.log",
+      "sha256": "e57062daa672163828989098bb72773179aa5b6af5aa77d20aa89a45389a51f5",
+      "bytes": 195
+    },
+    {
+      "id": "game-architecture-effects",
+      "member": "20261102T041352.043709Z/game-architecture-effects.log",
+      "sha256": "0d4f462a4675f116cc9933c2f292b528fff7e2fe94c0989327537ec4be11a4e7",
+      "bytes": 141
+    },
+    {
+      "id": "plains-revision-deform-equivalence",
+      "member": "20261102T041352.043709Z/plains-revision-deform-equivalence.log",
+      "sha256": "6b4cd65ea42c624e1353ed5ec4b3b359dc00bb5fedb852bde82da474259b7c68",
+      "bytes": 186
+    },
+    {
+      "id": "entry-audio-lifecycle",
+      "member": "20261102T041352.043709Z/entry-audio-lifecycle.log",
+      "sha256": "eea6027bbbe3d087ab0c0df6734b291915ebba24cee243b9c8a3c2d5bfffba76",
+      "bytes": 8053
+    },
+    {
+      "id": "entry-audio-lifecycle-comparison",
+      "member": "20261102T041352.043709Z/entry-audio-lifecycle-comparison.log",
+      "sha256": "7355bd3f3a6c250f7b7d9cf460b118a40b00165117bf3c38f9714e30fb1e67c1",
+      "bytes": 10966
+    },
+    {
+      "id": "entry-audio-owners",
+      "member": "20261102T041352.043709Z/entry-audio-owners.log",
+      "sha256": "6b64c832f45356992e82287a488fafc6dfe64fccaf7be6ceb4d71f696499f9ac",
+      "bytes": 8614
+    },
+    {
+      "id": "forest-v11-definition",
+      "member": "20261102T041352.043709Z/forest-v11-definition.log",
+      "sha256": "083195e3a471923667aab7f2af2ec0709bb474d5c5e45ce334df41cb9cd6c672",
+      "bytes": 2780
+    },
+    {
+      "id": "foundry-lab",
+      "member": "20261102T041352.043709Z/foundry-lab.log",
+      "sha256": "d943f70ad76fb94895815efa76d9668587f1becd9ad5cc6a52b95ece10806b8b",
+      "bytes": 317
+    },
+    {
+      "id": "foundry-touch",
+      "member": "20261102T041352.043709Z/foundry-touch.log",
+      "sha256": "ebaf7ca9d9986721a20cdd1ed16ac17a8bb1e1c74f5c01976207605e73f8853d",
+      "bytes": 317
+    },
+    {
+      "id": "foundry-feedback",
+      "member": "20261102T041352.043709Z/foundry-feedback.log",
+      "sha256": "90398ea97bc06f5489d36ceddc4006c8a8dd9a688506fd9245d78b8b77740b61",
+      "bytes": 321
+    }
+  ]
+}

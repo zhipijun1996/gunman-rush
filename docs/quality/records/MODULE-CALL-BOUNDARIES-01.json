@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "task_id": "MODULE-CALL-BOUNDARIES-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "8271d131331f961784bcd0b4dfe7ad28e8cf0f6f",
+  "reviewed_commit": "8271d131331f961784bcd0b4dfe7ad28e8cf0f6f",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "收紧App与地图、怪物模块的调用边界：森林地方装配归Stage，专属几何与状态恢复归EnemyActor；App保流程和错误处理。",
+  "player_experience": "保持现有森林发现、奖励、UI暂停恢复与怪物行为；新增物种时不再在App加入几何解码分支。",
+  "constraints": [
+    "不改节点父级、构建顺序、资源、物理、碰撞、伤害、掉落、奖励、随机或存档格式。",
+    "App保damage绑定→Actor绑定→placement配置恢复→表现同步→contact顺序和原六条错误；攻击上限策略原位同步求值。",
+    "Stage只接收原窄依赖，Actor不保存调用方策略，不接收App/Director或全局容器。",
+    "原检查、错误与失败保留；不以限定专项代签完整171、导出或资源权威技术重绑。"
+  ],
+  "affected_paths": [
+    "game/application/demo_app.gd",
+    "game/world/levels/providers/thorn_forest_region_stage.gd",
+    "game/enemies/enemy_actor.gd",
+    "tools/underworld_pipeline.py",
+    "tests/test_underworld_pipeline.py",
+    "tests/forest_bible_app_discoveries_runner.gd",
+    "config/production_impact.json",
+    "tools/production_plan.py",
+    "tests/test_production_plan.py",
+    ".github/workflows/production.yml"
+  ],
+  "deliverables": [
+    "实际App森林装配和发现结算边界迁移",
+    "实际EnemyActor placement命令及App消费者迁移",
+    "原专项结果与独审、模块CI说明",
+    "沿现有planner按模块与真实下游触发CI，保未知和共享边界full"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

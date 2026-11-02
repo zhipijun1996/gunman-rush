@@ -1,0 +1,82 @@
+{
+  "reviewer": "structure_audit",
+  "reviewed_at_utc": "2026-10-31T15:40:29.308539+00:00",
+  "status": "LIMITED_ACCEPT_ACTUAL_GENERATED_INDEX_OUTPUTS",
+  "source_commit": "2fa2daac907b1d84a00ed8dc2846c73bbe223300",
+  "generator_source_sha256": "125114845329cc223b99c3e53186072b44661701a7ad8c74de5f63040c802725",
+  "output_sha256": {
+    "file_inventory.csv": "0b6314c03ba792f96d4fc5b92db95d14fa82b2c91ca31e296a715bd4d215af40",
+    "runtime_inventory.json": "7ee54b2d6313f39c85fb069e6fc61aaf45113dadf3350545bca6319e171a7a89",
+    "dependency_graph.json": "096ef82e90c0b441240f461441f9331ac9f00b520607b76cadf2a68dbc7e9af4"
+  },
+  "summary_sha256": "bf84487e8a11b9c23123185a9e2bb6ba6d54f28b501dd40bb6671c1562eff11a",
+  "method": "Read-only CSV/JSON parse and independent Git metadata/working-tree comparison. Generator not rerun/imported; no engine and no main file write. No media blob bodies fetched.",
+  "checks": {
+    "csv_rows": 34200,
+    "unique_paths": 34200,
+    "git_tracked_paths": 34200,
+    "missing_tracked_paths": 0,
+    "extra_paths": 0,
+    "dirty_write_set_exact_three_indexes": true,
+    "untracked_files": 0,
+    "runtime_rows_unique": 1554,
+    "all_runtime_git_blob_ids_equal_HEAD": 1554,
+    "json_schema_version": 1,
+    "both_json_metadata_identical": true,
+    "metadata_refs_match_external_summary_and_are_real_ancestors": true,
+    "static_source_count": 842,
+    "class_count": 510,
+    "edge_count": 3447,
+    "dynamic_count": 118,
+    "graph_errors": [],
+    "edges_with_untracked_source_or_target": 0,
+    "manual_purposes_count": 67,
+    "self_index_bytes_blank": true,
+    "technical_style_authority_matches_real_registry_and_SHA": true,
+    "creative_versions_match_current_files": {
+      "windchime_plains": "creative-v30",
+      "thorn_forest": "creative-v30"
+    }
+  },
+  "batch_checks": {
+    "R3-CURRENT-CONTENT-CONTRACT": {
+      "commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+      "rollback_parent": "e564aeae849311a9c1847de24ad579be2a010aeb",
+      "changed_files": 74,
+      "actual_first_parent_git_write_set_exact": true
+    },
+    "ROOT-BELL-PAUSED-RESTORE": {
+      "commit": "61c4fac9e3f5674787cecc963a8ac1d9b675480d",
+      "also_latest_production_source": true
+    },
+    "UNDERWORLD-DEFERRED-LIFETIME": {
+      "commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+      "historical_identity_retained": true
+    },
+    "FOUNDRY-CI-CONSUMERS": {
+      "commit": "becd0099b161f57cd919e7492f9f99752d377935",
+      "also_latest_generated_development_source": true
+    }
+  },
+  "new_specific_purposes": {
+    "tests/underworld_plains/bell_platform_fixture.gd": "test",
+    "tests/underworld_plains/test_underworld_r3_boss.gd": "test",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "test",
+    "tools/bellstrider_01/legal_input_pilot.gd": "tool"
+  },
+  "new_specific_purposes_absent_from_runtime_inventory": true,
+  "narrative": {
+    "path": "docs/worklines/game_architecture_01/migration_report.md",
+    "working_and_HEAD_and_summary_sha256": "2b6bee83b7e997e2ce7f3df5c2f19ec346dacdcafacc2e0c390fb98f75ac960f",
+    "unchanged": true
+  },
+  "blockers": [],
+  "limitations": [
+    "Path coverage is complete for tracked files, not a claim of manual line-by-line semantic review of all34200 files.",
+    "Source842/dependency edges are the existing static runtime extractor scope; test/tool purposes are separately inventoried, not production runtime reachability.",
+    "118 dynamic references remain unresolved; no native/PCK/GUI/full185 acceptance is inferred.",
+    "Source metadata describes committed source2fa2 before these generated index writes; it is not a published website/source claim.",
+    "This review verifies generated output custody/classification and metadata, not a new independent approval of reviewer-authored R3 gameplay-test implementation.",
+    "Narrative and evidence records subsequently changed by root require their own commit binding; these hashes bind only the three current generated outputs."
+  ]
+}

@@ -1,7 +1,7 @@
 extends SceneTree
 ## Isolated consumer contract test. Mock records calls; it does not prove sound
 ## quality or actual GameAudio saturation, which require root's engine fixture.
-const Consumer := preload("res://scripts/audio/bellstrider_audio.gd")
+const Consumer := preload("res://game/presentation/audio/bellstrider_audio.gd")
 class FakeHealth extends RefCounted:
 	var epoch := 1
 class FakeEncounter extends Node:

@@ -1,0 +1,63 @@
+{
+  "status": "passed_limited_original_consumers",
+  "source_unchanged": true,
+  "source_digest": "cb111fd3ecdabb74ad19e229e5e5d168df03272af4259b8c2c31bfd440fbaadf",
+  "production_leaf_sha256": "e68c50153c882b06e8c61aef82dfef997cb6f8bde9246506649008ffb9b7267b",
+  "results": [
+    {
+      "id": "hit-template",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 2.901801815998624,
+      "original_engine_arguments": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_hit_template_tests.gd"
+      ],
+      "diagnostic_cap_seconds": 90,
+      "original_registered_budget": null,
+      "log": "/workspace/refactor-evidence/root-bell-paused-restore-closeout-01/hit-template.log",
+      "log_sha256": "6a14a28c4d5c3826075f21b996fd8e0090e93e754943d40a1a3e942979ac4612"
+    },
+    {
+      "id": "plains-lifecycle",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 2.1394871070006047,
+      "original_engine_arguments": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_plains_lifecycle.gd"
+      ],
+      "diagnostic_cap_seconds": 90,
+      "original_registered_budget": null,
+      "log": "/workspace/refactor-evidence/root-bell-paused-restore-closeout-01/plains-lifecycle.log",
+      "log_sha256": "0e2686086f8c3ae7b9f3d5b407da97c11d64164a91b486558dcafa429d1e4891"
+    },
+    {
+      "id": "root-bell-current",
+      "status": "passed",
+      "duration_seconds": 45.041,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T133427.861716Z/root-bell-current.log"
+    },
+    {
+      "id": "plains-revision-deform-equivalence",
+      "status": "passed",
+      "duration_seconds": 17.08,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T133427.861716Z/plains-revision-deform-equivalence.log"
+    }
+  ],
+  "scope": "Independent original visual restoration bug; unchanged originalRootBell current360/deformation180 checks plus two standalone90 diagnostic caps. Not full185/R3/GUI/subjective approval."
+}

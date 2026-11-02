@@ -68,69 +68,14 @@ def locate_primary(path):
  if len(points)<25:raise ValueError('Actual brass primary rectangle not found')
  return (min(x[1] for x in points)+max(x[2] for x in points))/2,(points[0][0]+points[-1][0])/2
 
-def locate_pixel_control(path,phrase):
- from PIL import Image,ImageOps
- import numpy as np,scipy.ndimage as ndi
- pic=Image.open(path).convert('RGB');array=np.asarray(pic).astype(int)
- normalize=lambda t: ''.join(x for x in t if x.isalnum()).upper()
- target=normalize(phrase);cjk=any(0x3400<=ord(x)<=0x9fff for x in phrase)
- for color in [(41,58,59),(59,78,76),(195,163,102),(37,53,56)]:
-  labels,_=ndi.label(np.max(np.abs(array-color),axis=2)<3)
-  for bounds in ndi.find_objects(labels):
-   if bounds is None:continue
-   yy,xx=bounds;width=xx.stop-xx.start;height=yy.stop-yy.start
-   if width<60 or height<28:continue
-   roi=path.with_name(path.stem+'-control-'+str(xx.start)+'-'+str(yy.start)+'.png')
-   pic.crop((xx.start,yy.start,xx.stop,yy.stop)).resize((width*3,height*3)).save(roi)
-   versions=[roi]
-   if cjk:
-    binary=roi.with_name(roi.stem+'-binary.png')
-    ImageOps.invert(Image.open(roi).convert('L').point(lambda v:255 if v>145 else 0)).save(binary)
-    versions.append(binary)
-   for observed in versions:
-    for psm in (['7','6'] if cjk else ['7']):
-     args=['tesseract',str(observed),'stdout','--psm',psm]
-     if cjk:args+=[*TESS_ARGS,'-l','chi_sim+eng','-c','tessedit_create_tsv=1']
-     else:args+=['tsv']
-     result=subprocess.run(args,capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
-     observed.with_suffix('.psm'+psm+'.tsv').write_text(result.stdout)
-     words=[normalize(r.get('text','')) for r in csv.DictReader(io.StringIO(result.stdout),delimiter='\t') if normalize(r.get('text',''))]
-     for start in range(len(words)):
-      for end in range(start+1,min(len(words),start+14)+1):
-       if ''.join(words[start:end])==target:return (xx.start+xx.stop)/2,(yy.start+yy.stop)/2
- raise ValueError('Actual native button text missing from cropped pixel controls: '+phrase)
-
-def native_surfaces(path,colors):
- from PIL import Image
- import numpy as np,scipy.ndimage as ndi
- pic=Image.open(path).convert('RGB');a=np.asarray(pic).astype(int);result=[]
- for color in colors:
-  labels,_=ndi.label(np.max(np.abs(a-color),axis=2)<3)
-  for bounds in ndi.find_objects(labels):
-   if bounds is None:continue
-   yy,xx=bounds;w=xx.stop-xx.start;h=yy.stop-yy.start
-   if w>=60 and h>=28:result.append((xx.start,yy.start,xx.stop,yy.stop))
- return pic.size,result
-
-def title_surface(path,index):
- (w,h),rectangles=native_surfaces(path,[(41,58,59),(59,78,76),(195,163,102)])
- rectangles=[r for r in rectangles if r[0]<w*.5 and r[2]-r[0]>w*.23 and r[3]-r[1]<h*.23 and r[1]<h*.86]
- rectangles.sort(key=lambda r:r[1])
- if len(rectangles)<4:raise ValueError('Four actual native title surfaces are not rendered')
- r=rectangles[index];return (r[0]+r[2])/2,(r[1]+r[3])/2
-
-def touch_menu_surface(path):
- (w,h),rectangles=native_surfaces(path,[(37,53,56)])
- rectangles=[r for r in rectangles if r[0]>w*.5 and r[1]<h*.2 and r[2]-r[0]<w*.25]
- if not rectangles:raise ValueError('Actual top-right touch MENU surface not found')
- r=min(rectangles,key=lambda r:r[1]);return (r[0]+r[2])/2,(r[1]+r[3])/2
+from studio_gui_pointer import locate_pixel_control, native_surfaces, title_surface, touch_menu_surface
 
 def locate_any(path,phrase):
  if phrase=="设定":return title_surface(path,2)
  if phrase=="新手教程":return title_surface(path,3)
  if phrase=="菜单":return touch_menu_surface(path)
  if phrase=="开始游戏":return locate_primary(path)
- try:return locate_pixel_control(path,phrase)
+ try:return locate_pixel_control(path,phrase,tess_args=TESS_ARGS,exact=(phrase=="开发入口"))
  except ValueError:pass
  if any(0x3400<=ord(x)<=0x9fff for x in phrase):return locate_cjk(path,phrase)
  try:return locate(path,phrase)

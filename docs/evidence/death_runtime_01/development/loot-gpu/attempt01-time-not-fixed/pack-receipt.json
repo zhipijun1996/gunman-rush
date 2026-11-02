@@ -1,0 +1,50 @@
+{
+  "scope": "external technical fixture only, exact same fixture/App bytes in both packs; original production main scene unchanged; no natural death, phone FPS or deployment claim",
+  "base_pack": {
+    "path": "/tmp/gunman-first-use-web-source/build/web/index.9dd3a9a2ecd8.pck",
+    "sha256": "9dd3a9a2ecd845d5728089693282e1642ab1efa2e1868e3925c637fbaa32e0e5",
+    "bytes": 216394452
+  },
+  "fixture_sha256": "20c81c4900c0a9ca797e7f4faac7db3c4ab42a94c35707b4e81199ac0417696e",
+  "app_original_sha256": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+  "app_fixture_sha256": "c9d807c3f8120b1ab3fa2178a9030a12300146de46128097700ab2be6a184527",
+  "app_inverse_verified": true,
+  "candidate_before_guard_sha256": "0e92793d3e0d56c22e6a150d9f2fe83a8422b0a3bf4239c7bd2e324b3ae33c2d",
+  "candidate_guarded_sha256": "2a33e506fac549c365c3c8cffb6eee8282e3440d5d387835bc1787d14cd1797d",
+  "variants": {
+    "baseline": {
+      "pack_sha256": "ead9ce3961e018e17601083c0a04c5f5b4131a0efde591e6d419b7659c1c6416",
+      "pack_bytes": 216935420,
+      "replaced_sha256": {
+        "game/application/demo_app.gd": "c9d807c3f8120b1ab3fa2178a9030a12300146de46128097700ab2be6a184527",
+        "loot_fixture.gd": "20c81c4900c0a9ca797e7f4faac7db3c4ab42a94c35707b4e81199ac0417696e",
+        "loot_baseline_reference.gd": "37ebb9baef0322c069e21994c24bafc1e5298d9b0250b3abe2ad4c2cd9d2b029",
+        "game/presentation/world/art/plains_stage_visual.gd": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8",
+        "game/presentation/rendering/canvas_shader_preparation.gd": "8fa37476532b4655936bb381eff7480a0e19fe819ebd4082ea459bee94690912"
+      },
+      "removed_remaps": [
+        "game/application/demo_app.gd.remap",
+        "game/presentation/rendering/canvas_shader_preparation.gd.remap",
+        "game/presentation/world/art/plains_stage_visual.gd.remap"
+      ],
+      "site": "/tmp/loot-gpu-01/baseline/web/engine-debug"
+    },
+    "candidate": {
+      "pack_sha256": "2ee9b81477b7fb04cfefbc72912ed07bcff1a08db5722f9eb7fdc5fd41db36e1",
+      "pack_bytes": 216936924,
+      "replaced_sha256": {
+        "game/application/demo_app.gd": "c9d807c3f8120b1ab3fa2178a9030a12300146de46128097700ab2be6a184527",
+        "loot_fixture.gd": "20c81c4900c0a9ca797e7f4faac7db3c4ab42a94c35707b4e81199ac0417696e",
+        "loot_baseline_reference.gd": "37ebb9baef0322c069e21994c24bafc1e5298d9b0250b3abe2ad4c2cd9d2b029",
+        "game/presentation/world/art/plains_stage_visual.gd": "2a33e506fac549c365c3c8cffb6eee8282e3440d5d387835bc1787d14cd1797d",
+        "game/presentation/rendering/canvas_shader_preparation.gd": "2e17c80f6a46efc70e3130041c754e2cfa78d1e303a1ff0259cd6c79f2301c03"
+      },
+      "removed_remaps": [
+        "game/application/demo_app.gd.remap",
+        "game/presentation/rendering/canvas_shader_preparation.gd.remap",
+        "game/presentation/world/art/plains_stage_visual.gd.remap"
+      ],
+      "site": "/tmp/loot-gpu-01/candidate/web/engine-debug"
+    }
+  }
+}

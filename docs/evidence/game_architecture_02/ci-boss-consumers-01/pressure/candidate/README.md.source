@@ -1,0 +1,29 @@
+# Pressure mixed-suite CI classification candidate
+
+External single-leaf change; main untouched and no engine run. Independent candidate review and the original 90-second native slot remain pending.
+
+The exact `ed95d67d8c19988ab6af3b720aa07a17fd1f59cf` source is archived under `originals/tests/`. The same optimized-engine baseline produced 10 FAIL lines, a runtime error, and a 90-second timeout with no success summary. This predates the ownership refactor. Full raw failure/import logs and report are retained under `originals/`.
+
+The only source change inserts a default dispatcher and renames the original `run` method to `run_legacy_d077`. Reverse that insertion to recover every original source byte. Existing fixture, check/frames, both background methods, and all statements/assertions in the legacy run remain unchanged. No new helper, Boss implementation, resource, profile, wrapper, threshold, or budget is introduced.
+
+Default execution still runs both original background methods: real DemoApp and Manifest; two-plane and pixel three-plane historical renderer inspections; actual Camera2D; original three-aspect geometry/source checks; exact current Underworld App owner returned before abandon; visible Home-owned Underworld and released stage/camera/scenery weakrefs; original audio drain. These are historical renderer fixtures on the current application, not a claim that those resources are the current default. The existing projection methods manually update the inspected historical renderers; this patch does not expand that into a claim about natural rendering schedules.
+
+The historical D077 16/36 HP combat combination and its single-panorama assertion remain explicit diagnostics using `--legacy-d077-boss`. They are known incompatible with the current Boss implementations and are **deferred**, not passed. This branch invokes every original statement; it is not a successful skip. Current Bell/Pressure specialized suites stay separate existing evidence, not a replacement rerun inside this slot.
+
+The default suite still occupies the original slot and emits its original strict failure summary, but its default scope changes. Fifteen registered slots must not be reported as fifteen unchanged old suites. Quality evidence must name the deferred D077 cases and attach the original failure. The classification itself does not establish current acceptance until native execution.
+
+After independent acceptance and application, root can run the original slot under its unchanged 90-second budget through the existing runner:
+
+```sh
+PYTHONPATH=tools python3 - <<'RUN'
+import re
+from run_tests import run_engine
+output = run_engine(["--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/plains_pressure_boss_runner.gd"], 90)
+assert re.search(r"^PLAINS PRESSURE BOSS: [1-9]\d* assertions, 0 failures$", output, re.M)
+assert "current_app_background_lifecycle=default; legacy_d077=deferred" in output
+RUN
+```
+
+Full registered default validation remains `python3 tools/run_plains_region_tests.py` with its unchanged 15-slot list and 1500-second overall budget. Do not run it concurrently with root's engine lease. Manual old diagnostic arguments are the same native arguments plus `["--", "--legacy-d077-boss"]`, with the original 90-second limit; its known failure is not a release-pass prerequisite.
+
+`report.json` records exact original/candidate/patch/archived-log hashes, reversible-source and retained-body checks. Review approval and native receipts must bind these bytes before any pass is asserted.

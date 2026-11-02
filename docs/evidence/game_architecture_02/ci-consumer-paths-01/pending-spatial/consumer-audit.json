@@ -1,0 +1,44 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "current_runtime_scan": [
+    {
+      "file": "game/enemies/presentation/enemy_presentation.gd",
+      "line": 150,
+      "text": "\t\tvar atlas := preload(\"res://assets/plains_v4/spatial/actors.png\")"
+    },
+    {
+      "file": "game/enemies/presentation/enemy_presentation.gd",
+      "line": 179,
+      "text": "\t\ttexture.atlas = preload(\"res://assets/plains_v4/spatial/actors.png\")"
+    },
+    {
+      "file": "game/enemies/presentation/enemy_presentation.gd",
+      "line": 215,
+      "text": "\t\tsource.atlas = preload(\"res://assets/plains_v4/spatial/actors.png\")"
+    },
+    {
+      "file": "game/presentation/world/art/plains_background.gd",
+      "line": 26,
+      "text": "const PANORAMA:=preload(\"res://assets/plains_v4/spatial/panorama.png\")"
+    },
+    {
+      "file": "game/combat/projectiles/player_projectile.gd",
+      "line": 42,
+      "text": "const ART := preload(\"res://assets/plains_v4/spatial/actors.png\")"
+    }
+  ],
+  "old_chassis_current_runtime_reference_count": 0,
+  "scan_scope": "Current available game/experiments/scripts/scenes/preview gd/tscn/json/html; source lexical inventory, not engine dynamic reachability. Exact2ce git grep over gd/tscn also no spatial/chassis reference.",
+  "bell_identity": {
+    "baseline_sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee",
+    "current_sha256": "f8b2372b444dcfc79e43fd886a6973fa78b4488430112f04ef0ea7a67b8648ca",
+    "only_change_since_2ce": "Audio preload path relocation; exact whole-file transformed equality verified",
+    "pr122_change_commit": "6742f381"
+  },
+  "history": "Old chassis remains immutable spatial manifest member and source image; no old renderer/preview is restored or deleted. Actors atlas still used in player projectile/enemy renderer; panorama in plains background.",
+  "baseline_evidence": "baseline-2ce-report.json",
+  "local_original_failure": {
+    "path": "build/verification/harness/20261031T114956.955877Z/art-plains_spatial_art.log",
+    "sha256": "fa08f5e1b368e3066fba85bb8225b2a649a6a429152b3628c9d27cfb33ff0de0"
+  }
+}

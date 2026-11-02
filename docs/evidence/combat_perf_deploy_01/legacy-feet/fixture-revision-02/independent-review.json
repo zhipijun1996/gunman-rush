@@ -1,0 +1,20 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_FIXTURE_CORRECTION_NATIVE_PENDING",
+  "reviewer": "runtime_audit (non-author)",
+  "candidate_json_sha256": "e2b45d1701e4d80aaa3940a0b65d8eb29181999d1231fe413ef9bd9fc6b261e3",
+  "patch_sha256": "8dbde3c62fe5037f23d3116ae90dd732a68d7d1fabd876102b87581e721d9e08",
+  "test_sha256": "7624f71458daf5c91ed496315d57f9cbb0b790dbf09d942d9c697edc9a43be81",
+  "verified": [
+    "Fixture-only patch reverse restores exact rejected candidate; original preoptimization484 checks are transitively preserved by earlier exact inverse review.",
+    "Both production leaves still match original frozen SHA.",
+    "Three actual engine-source files and excerpts independently SHA-verified: Dummy initializes duplicate pixels; update is empty; get returns stored image; Texture2D _get_image virtual is real.",
+    "Existing ImageTexture.update-versus-original-scan checks retained. Numeric alpha>=.5/transparent0/Atlas changed row expectations retained on same mutable real RGBAF CPU Texture2D instance; readback assertions establish actual input. No production cache mock and no tolerance added to bottom result.",
+    "Custom Texture2D has script, so explicitly exercises original uncached fallback; retained imported texture tests still exercise shared cache.",
+    "Original618/3 log SHA verified and remains failed."
+  ],
+  "limits": [
+    "Final623 expected count is not actual until root executes existing native wrapper.",
+    "No claimed GPU ImageTexture.update coverage under Dummy; new CPU fixture corrects unavailable renderer update premise.",
+    "No engine/repository modifications by reviewer; no new performance or deployment acceptance."
+  ]
+}

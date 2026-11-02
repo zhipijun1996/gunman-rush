@@ -1,0 +1,1081 @@
+{
+  "status": "LIMITED_NATIVE_ACCEPT_ORIGINAL_REGISTERED_R3_CHECK",
+  "source_commit": "760e0cda93a3e14533bab945eb9bd3cb53a8d59c",
+  "report_sha256": "0029c2a2359fad1220cd5f3690530fcfac323d74e012b6a3b306ace32c283579",
+  "source_before_after_exact": true,
+  "git_clean_and_unchanged_reported": true,
+  "reviewed_source_git_blob_sha256s": {
+    "tools/bellstrider_01/legal_input_pilot.gd": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "c519d16772922e818224a9de71d010a50e58ec7c5e1665a3d37ed8f6d0dacf84",
+    "tests/underworld_plains/test_underworld_r3_boss.gd": "225fc2ebc7fe4c54d96f478bb0419acac285a7d6339beed5220e158019902866",
+    "tests/underworld_plains/bell_platform_fixture.gd": "c4c109849014954073f7913626f2d5c350e2929d464ed48b7e4e439f2bd569fe",
+    "tests/underworld_plains/bell_platform_fixture.gd.uid": "0180753e0901dc6c93170378f8e8581166081378277de67f839083eea0d311c5",
+    "tools/harness/profiles.json": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c",
+    "tools/run_underworld_r3_boss_tests.py": "1db931a4eeb3d39d195b1c0a2589f7e99e2e6edf4a750810190a1f01ea841248",
+    "tools/run_tests.py": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb",
+    "tools/harness.py": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+    "config/toolchain.json": "9a5e8ae804bea1c742b03bb6cc5b01e006bab768d5146b6748ba104e1049278e",
+    "tests/underworld_plains/test_underworld_boss_hit_direction.gd": "503bd831dc1dddf0606c6c5e3a84535771b7d0afa36fc15f9a2a609e0badc9ac",
+    "tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd": "443b8691f860be60eb3d2fa0aab79e1af94893fcc749bcacbaf85a343a746b36"
+  },
+  "one_fresh_check": {
+    "id": "underworld-continuous-bosses",
+    "input_digest": "16993ec7c0d79b0e60b36c1d529f78edef6499fd3808c354fc21080dc8e2811f",
+    "reused": false,
+    "release": true,
+    "jobs": 1,
+    "native_process_exit": 0,
+    "harness_budget_seconds": 360,
+    "check_seconds": 134.931,
+    "harness_wall_seconds": 145.425,
+    "outer_wall_seconds": 150.206,
+    "internal_budgets": "unchanged source: import90/component180/directions120/lifecycle180/map1andmap2each180"
+  },
+  "fresh_artifacts": {
+    "continuous_combat.json": {
+      "sha256": "1727dbdab53e1241390501c76c7659eae5c2b667040ab84b7f6c64c914d7785d",
+      "different_from_preserved_prior": true
+    },
+    "directional_hits.json": {
+      "sha256": "a0db91c949eb7d1def2cf08e2cad2d385b4ed900ff759b54dba25c925eaa5b46",
+      "different_from_preserved_prior": true
+    },
+    "directional_hits_runtime.log": {
+      "sha256": "74490b6c93666ffb577a9b7debcb2c572618cd1397ff57fb61abf45b25e3d6b6",
+      "different_from_preserved_prior": true
+    },
+    "full_fight_map1.json": {
+      "sha256": "4182333a5304473b191fd7337cf147bb5811631e8bd971df3968a21b50e62152",
+      "different_from_preserved_prior": true
+    },
+    "full_fight_map1_runtime.log": {
+      "sha256": "541c9ddf311616ef85f1108f9bbf72528502e875ba64acd3693cec794908803b",
+      "different_from_preserved_prior": true
+    },
+    "full_fight_map2.json": {
+      "sha256": "f4a2a7f1b65fb6f5559770e191133e2039f8b8af2d52ef97ff0eccc28b312adb",
+      "different_from_preserved_prior": true
+    },
+    "full_fight_map2_runtime.log": {
+      "sha256": "c1a7e03e1e0fa82e807273579275355171d18d2d43e3dfcf87991ab5921b3322",
+      "different_from_preserved_prior": true
+    },
+    "lifecycle.json": {
+      "sha256": "cc4d2cdd5a933dfb4115686b1957e160d97ffe5d774b66d0ebccbcaf9ac93357",
+      "different_from_preserved_prior": true
+    },
+    "lifecycle_runtime.log": {
+      "sha256": "7d7026a3ee0fdd4be3636d0357ea41a9b7d503e5e7ac450adc0e38bd1c9aee74",
+      "different_from_preserved_prior": true
+    },
+    "runtime.log": {
+      "sha256": "fb6a0c65e5103a0c6a13e1d21cb96fde912821a5cff8487102d43c28d1860963",
+      "different_from_preserved_prior": true
+    }
+  },
+  "component": {
+    "checks": 313,
+    "failures": 0,
+    "flat_trial_actual_policy_snapshots": [
+      {
+        "actual_policy_events": [
+          {
+            "amount": 1.0,
+            "event": "r3_actual_boss_body:1:1:1",
+            "health": 4.0,
+            "source": "r3_actual_boss_body",
+            "target": "player",
+            "tick": 6844
+          }
+        ],
+        "first_tick": 6766,
+        "last_tick": 6916,
+        "player_hp_after": 4.0,
+        "player_hp_before": 5.0,
+        "trial": "standing"
+      },
+      {
+        "actual_policy_events": [
+          {
+            "amount": 1.0,
+            "event": "r3_actual_boss_body:1:1:1",
+            "health": 4.0,
+            "source": "r3_actual_boss_body",
+            "target": "player",
+            "tick": 7004
+          }
+        ],
+        "first_tick": 6992,
+        "last_tick": 7070,
+        "player_hp_after": 4.0,
+        "player_hp_before": 5.0,
+        "trial": "late_jump"
+      }
+    ],
+    "flat_trace_non_tick_fields_exact_to_previous": true,
+    "tick_offset_to_previous": 6759,
+    "positive_rows": 384,
+    "positive_hp": 5,
+    "positive_boss_chain": [
+      40,
+      39,
+      38
+    ],
+    "positive_join": [
+      {
+        "shot_identity": [
+          951989571014,
+          2,
+          1
+        ],
+        "event_id": "951989571014:2:1",
+        "fire_group": 1,
+        "impact_group": 1,
+        "fire_tick": 7410,
+        "impact_tick": 7417,
+        "health": 39
+      },
+      {
+        "shot_identity": [
+          951989571014,
+          2,
+          2
+        ],
+        "event_id": "951989571014:2:2",
+        "fire_group": 1,
+        "impact_group": 1,
+        "fire_tick": 7447,
+        "impact_tick": 7458,
+        "health": 38
+      }
+    ],
+    "positive_support": [
+      {
+        "group": 1,
+        "leg": 0,
+        "support_body": 1370681774906,
+        "support_tick": 7320,
+        "takeoff_tick": 7360,
+        "crossing_tick": 7382,
+        "landing_tick": 7402
+      }
+    ]
+  },
+  "directions": {
+    "checks": 16,
+    "failures": 0,
+    "actual_observations": [
+      {
+        "after": "(6348.472, -2.928881)",
+        "before": "(6360.0, 0.0)",
+        "hp": 4.0,
+        "queued_direction": "(-1.0, 0.0)",
+        "side": -1,
+        "source": "actual encounter._wave -> BossProjectile collision -> DemoApp -> FrameDamagePolicy"
+      },
+      {
+        "after": "(6771.528, -2.928881)",
+        "before": "(6760.0, 0.0)",
+        "hp": 4.0,
+        "queued_direction": "(1.0, 0.0)",
+        "side": 1,
+        "source": "actual encounter._wave -> BossProjectile collision -> DemoApp -> FrameDamagePolicy"
+      }
+    ]
+  },
+  "lifecycle": {
+    "checks": 65,
+    "failures": 0,
+    "actual_observations": [
+      {
+        "home": true,
+        "map": 1,
+        "results": 2,
+        "reverse": false,
+        "reward": false
+      },
+      {
+        "home": true,
+        "map": 1,
+        "results": 2,
+        "reverse": true,
+        "reward": false
+      },
+      {
+        "home": true,
+        "map": 2,
+        "results": 2,
+        "reverse": false,
+        "reward": false
+      },
+      {
+        "home": true,
+        "map": 2,
+        "results": 2,
+        "reverse": true,
+        "reward": false
+      }
+    ]
+  },
+  "map1": {
+    "frames": 4954,
+    "failures": 0,
+    "player_hp": 5,
+    "boss_hp": 0,
+    "original_capture_predicates_passed": true,
+    "extra_checks_true": 164,
+    "unique_actual_join_count": 40,
+    "per_fire_group_exactly_two": true,
+    "join": [
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          1
+        ],
+        "event_id": "322558758293:2:1",
+        "fire_group": 1,
+        "impact_group": 1,
+        "fire_tick": 339,
+        "impact_tick": 346,
+        "health": 39
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          2
+        ],
+        "event_id": "322558758293:2:2",
+        "fire_group": 1,
+        "impact_group": 1,
+        "fire_tick": 376,
+        "impact_tick": 387,
+        "health": 38
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          3
+        ],
+        "event_id": "322558758293:2:3",
+        "fire_group": 2,
+        "impact_group": 2,
+        "fire_tick": 550,
+        "impact_tick": 565,
+        "health": 37
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          4
+        ],
+        "event_id": "322558758293:2:4",
+        "fire_group": 2,
+        "impact_group": 2,
+        "fire_tick": 578,
+        "impact_tick": 594,
+        "health": 36
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          5
+        ],
+        "event_id": "322558758293:2:5",
+        "fire_group": 3,
+        "impact_group": 3,
+        "fire_tick": 721,
+        "impact_tick": 733,
+        "health": 35
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          6
+        ],
+        "event_id": "322558758293:2:6",
+        "fire_group": 3,
+        "impact_group": 3,
+        "fire_tick": 737,
+        "impact_tick": 753,
+        "health": 34
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          7
+        ],
+        "event_id": "322558758293:2:7",
+        "fire_group": 4,
+        "impact_group": 4,
+        "fire_tick": 895,
+        "impact_tick": 902,
+        "health": 33
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          8
+        ],
+        "event_id": "322558758293:2:8",
+        "fire_group": 4,
+        "impact_group": 4,
+        "fire_tick": 923,
+        "impact_tick": 934,
+        "health": 32
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          9
+        ],
+        "event_id": "322558758293:2:9",
+        "fire_group": 5,
+        "impact_group": 5,
+        "fire_tick": 1106,
+        "impact_tick": 1118,
+        "health": 31
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          10
+        ],
+        "event_id": "322558758293:2:10",
+        "fire_group": 5,
+        "impact_group": 5,
+        "fire_tick": 1123,
+        "impact_tick": 1138,
+        "health": 30
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          11
+        ],
+        "event_id": "322558758293:2:11",
+        "fire_group": 6,
+        "impact_group": 6,
+        "fire_tick": 1277,
+        "impact_tick": 1289,
+        "health": 29
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          12
+        ],
+        "event_id": "322558758293:2:12",
+        "fire_group": 6,
+        "impact_group": 6,
+        "fire_tick": 1293,
+        "impact_tick": 1309,
+        "health": 28
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          13
+        ],
+        "event_id": "322558758293:2:13",
+        "fire_group": 7,
+        "impact_group": 7,
+        "fire_tick": 1455,
+        "impact_tick": 1476,
+        "health": 27
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          14
+        ],
+        "event_id": "322558758293:2:14",
+        "fire_group": 7,
+        "impact_group": 7,
+        "fire_tick": 1472,
+        "impact_tick": 1495,
+        "health": 26
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          15
+        ],
+        "event_id": "322558758293:2:15",
+        "fire_group": 8,
+        "impact_group": 8,
+        "fire_tick": 1681,
+        "impact_tick": 1688,
+        "health": 25
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          16
+        ],
+        "event_id": "322558758293:2:16",
+        "fire_group": 8,
+        "impact_group": 8,
+        "fire_tick": 1709,
+        "impact_tick": 1720,
+        "health": 24
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          17
+        ],
+        "event_id": "322558758293:2:17",
+        "fire_group": 9,
+        "impact_group": 9,
+        "fire_tick": 1892,
+        "impact_tick": 1904,
+        "health": 23
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          18
+        ],
+        "event_id": "322558758293:2:18",
+        "fire_group": 9,
+        "impact_group": 9,
+        "fire_tick": 1909,
+        "impact_tick": 1924,
+        "health": 22
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          19
+        ],
+        "event_id": "322558758293:2:19",
+        "fire_group": 10,
+        "impact_group": 10,
+        "fire_tick": 2107,
+        "impact_tick": 2128,
+        "health": 21
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          20
+        ],
+        "event_id": "322558758293:2:20",
+        "fire_group": 10,
+        "impact_group": 10,
+        "fire_tick": 2124,
+        "impact_tick": 2147,
+        "health": 20
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          21
+        ],
+        "event_id": "322558758293:2:21",
+        "fire_group": 11,
+        "impact_group": 11,
+        "fire_tick": 2540,
+        "impact_tick": 2561,
+        "health": 19
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          22
+        ],
+        "event_id": "322558758293:2:22",
+        "fire_group": 11,
+        "impact_group": 11,
+        "fire_tick": 2557,
+        "impact_tick": 2580,
+        "health": 18
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          23
+        ],
+        "event_id": "322558758293:2:23",
+        "fire_group": 12,
+        "impact_group": 12,
+        "fire_tick": 2760,
+        "impact_tick": 2767,
+        "health": 17
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          24
+        ],
+        "event_id": "322558758293:2:24",
+        "fire_group": 12,
+        "impact_group": 12,
+        "fire_tick": 2788,
+        "impact_tick": 2799,
+        "health": 16
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          25
+        ],
+        "event_id": "322558758293:2:25",
+        "fire_group": 13,
+        "impact_group": 13,
+        "fire_tick": 2971,
+        "impact_tick": 2986,
+        "health": 15
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          26
+        ],
+        "event_id": "322558758293:2:26",
+        "fire_group": 13,
+        "impact_group": 13,
+        "fire_tick": 2988,
+        "impact_tick": 3005,
+        "health": 14
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          27
+        ],
+        "event_id": "322558758293:2:27",
+        "fire_group": 14,
+        "impact_group": 14,
+        "fire_tick": 3311,
+        "impact_tick": 3326,
+        "health": 13
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          28
+        ],
+        "event_id": "322558758293:2:28",
+        "fire_group": 14,
+        "impact_group": 14,
+        "fire_tick": 3328,
+        "impact_tick": 3346,
+        "health": 12
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          29
+        ],
+        "event_id": "322558758293:2:29",
+        "fire_group": 15,
+        "impact_group": 15,
+        "fire_tick": 3525,
+        "impact_tick": 3538,
+        "health": 11
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          30
+        ],
+        "event_id": "322558758293:2:30",
+        "fire_group": 15,
+        "impact_group": 16,
+        "fire_tick": 3541,
+        "impact_tick": 3557,
+        "health": 10
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          31
+        ],
+        "event_id": "322558758293:2:31",
+        "fire_group": 16,
+        "impact_group": 16,
+        "fire_tick": 3833,
+        "impact_tick": 3850,
+        "health": 9
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          32
+        ],
+        "event_id": "322558758293:2:32",
+        "fire_group": 16,
+        "impact_group": 16,
+        "fire_tick": 3850,
+        "impact_tick": 3870,
+        "health": 8
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          33
+        ],
+        "event_id": "322558758293:2:33",
+        "fire_group": 17,
+        "impact_group": 17,
+        "fire_tick": 4187,
+        "impact_tick": 4197,
+        "health": 7
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          34
+        ],
+        "event_id": "322558758293:2:34",
+        "fire_group": 17,
+        "impact_group": 17,
+        "fire_tick": 4204,
+        "impact_tick": 4218,
+        "health": 6
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          35
+        ],
+        "event_id": "322558758293:2:35",
+        "fire_group": 18,
+        "impact_group": 18,
+        "fire_tick": 4534,
+        "impact_tick": 4551,
+        "health": 5
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          36
+        ],
+        "event_id": "322558758293:2:36",
+        "fire_group": 18,
+        "impact_group": 18,
+        "fire_tick": 4551,
+        "impact_tick": 4571,
+        "health": 4
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          37
+        ],
+        "event_id": "322558758293:2:37",
+        "fire_group": 19,
+        "impact_group": 19,
+        "fire_tick": 4762,
+        "impact_tick": 4775,
+        "health": 3
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          38
+        ],
+        "event_id": "322558758293:2:38",
+        "fire_group": 19,
+        "impact_group": 20,
+        "fire_tick": 4778,
+        "impact_tick": 4794,
+        "health": 2
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          39
+        ],
+        "event_id": "322558758293:2:39",
+        "fire_group": 20,
+        "impact_group": 20,
+        "fire_tick": 4928,
+        "impact_tick": 4935,
+        "health": 1
+      },
+      {
+        "shot_identity": [
+          322558758293,
+          2,
+          40
+        ],
+        "event_id": "322558758293:2:40",
+        "fire_group": 20,
+        "impact_group": 20,
+        "fire_tick": 4956,
+        "impact_tick": 4967,
+        "health": 0
+      }
+    ],
+    "roll_groups": 11,
+    "legs": [
+      {
+        "group": 1,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 249,
+        "takeoff_tick": 289,
+        "crossing_tick": 311,
+        "landing_tick": 331
+      },
+      {
+        "group": 2,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 443,
+        "takeoff_tick": 473,
+        "crossing_tick": 496,
+        "landing_tick": 515
+      },
+      {
+        "group": 4,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 788,
+        "takeoff_tick": 846,
+        "crossing_tick": 867,
+        "landing_tick": 888
+      },
+      {
+        "group": 5,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 983,
+        "takeoff_tick": 1029,
+        "crossing_tick": 1061,
+        "landing_tick": 1071
+      },
+      {
+        "group": 8,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 1582,
+        "takeoff_tick": 1632,
+        "crossing_tick": 1653,
+        "landing_tick": 1674
+      },
+      {
+        "group": 9,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 1769,
+        "takeoff_tick": 1815,
+        "crossing_tick": 1847,
+        "landing_tick": 1857
+      },
+      {
+        "group": 12,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 2667,
+        "takeoff_tick": 2715,
+        "crossing_tick": 2734,
+        "landing_tick": 2757
+      },
+      {
+        "group": 13,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 2848,
+        "takeoff_tick": 2894,
+        "crossing_tick": 2923,
+        "landing_tick": 2936
+      },
+      {
+        "group": 16,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 3587,
+        "takeoff_tick": 3649,
+        "crossing_tick": 3668,
+        "landing_tick": 3691
+      },
+      {
+        "group": 16,
+        "leg": 1,
+        "support_body": 741720724242,
+        "support_tick": 3718,
+        "takeoff_tick": 3756,
+        "crossing_tick": 3775,
+        "landing_tick": 3798
+      },
+      {
+        "group": 18,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 4291,
+        "takeoff_tick": 4350,
+        "crossing_tick": 4369,
+        "landing_tick": 4392
+      },
+      {
+        "group": 18,
+        "leg": 1,
+        "support_body": 741720724242,
+        "support_tick": 4419,
+        "takeoff_tick": 4457,
+        "crossing_tick": 4476,
+        "landing_tick": 4499
+      },
+      {
+        "group": 20,
+        "leg": 0,
+        "support_body": 741720724242,
+        "support_tick": 4824,
+        "takeoff_tick": 4883,
+        "crossing_tick": 4901,
+        "landing_tick": 4925
+      }
+    ],
+    "settlement": {
+      "coin_delta": 0,
+      "first_advance": true,
+      "gold": false,
+      "heal_clamped_at_full": true,
+      "heal_delta": 0.0,
+      "mini_exit_open": true,
+      "mini_recorded": false,
+      "mini_reward_receipt": {
+        "coin_delivery": "physical_pickups",
+        "coins": 12,
+        "heal": 1,
+        "major_ability": false
+      },
+      "next_map": 2,
+      "physical_coin_delta_before_portal": 12,
+      "physical_units_claimed_before_UI_fixture": true,
+      "repeat_advance_rejected": true,
+      "reward_available": true,
+      "reward_offer": "",
+      "stage_complete": true
+    },
+    "physical_units_amounts": [
+      1,
+      1,
+      5,
+      5
+    ]
+  },
+  "map2": {
+    "frames": 5053,
+    "failures": 0,
+    "player_hp": 3,
+    "boss_hp": 0,
+    "actual_boss_policy_hits": 60,
+    "player_policy_hits": [
+      {
+        "amount": 1.0,
+        "event": "boss_contact:4:1:1",
+        "health": 4.0,
+        "target": "player",
+        "tick": 2361
+      },
+      {
+        "amount": 1.0,
+        "event": "boss_contact:4:4:1",
+        "health": 3.0,
+        "target": "player",
+        "tick": 3645
+      }
+    ],
+    "physical_coins": {
+      "actual_total": 20,
+      "actual_units": 4,
+      "all_claimed": true,
+      "configured_total": 20,
+      "original_per_unit_claims": true,
+      "original_position": [
+        6281.59521484375,
+        379.925201416016
+      ],
+      "post_victory_position": [
+        6000.0,
+        380.0
+      ],
+      "post_victory_position_fixture": true,
+      "unique_units": 4,
+      "wallet_delta": 20
+    },
+    "actual_last_coin_units": {
+      "tick": 5198,
+      "units": [
+        {
+          "age": 0.533333333333333,
+          "amount": 5,
+          "bounces": 0,
+          "claimed": true,
+          "id": "drop_windkeeper_pressure/death_coins",
+          "kind": "coin",
+          "position": [
+            6018.279296875,
+            338.496276855469
+          ],
+          "returning": false,
+          "rotation": -0.198911999511719,
+          "safe": [
+            6000.0,
+            386.0
+          ],
+          "settled": false,
+          "source": "windkeeper_pressure/death_coins",
+          "velocity": [
+            -31.0799999237061,
+            196.566665649414
+          ]
+        },
+        {
+          "age": 0.933333333333335,
+          "amount": 5,
+          "bounces": 2,
+          "claimed": true,
+          "id": "drop_windkeeper_pressure/death_coins/unit_1",
+          "kind": "coin",
+          "position": [
+            6062.0234375,
+            386.0
+          ],
+          "returning": false,
+          "rotation": 0.319475503540039,
+          "safe": [
+            6000.0,
+            386.0
+          ],
+          "settled": true,
+          "source": "windkeeper_pressure/death_coins",
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "age": 0.516666666666667,
+          "amount": 5,
+          "bounces": 0,
+          "claimed": true,
+          "id": "drop_windkeeper_pressure/death_coins/unit_2",
+          "kind": "coin",
+          "position": [
+            6011.849609375,
+            337.545166015625
+          ],
+          "returning": false,
+          "rotation": -0.276024002838135,
+          "safe": [
+            6000.0,
+            386.0
+          ],
+          "settled": false,
+          "source": "windkeeper_pressure/death_coins",
+          "velocity": [
+            -44.5200004577637,
+            190.733337402344
+          ]
+        },
+        {
+          "age": 0.966666666666668,
+          "amount": 5,
+          "bounces": 2,
+          "claimed": true,
+          "id": "drop_windkeeper_pressure/death_coins/unit_3",
+          "kind": "coin",
+          "position": [
+            6059.25146484375,
+            386.0
+          ],
+          "returning": false,
+          "rotation": 0.286970873641968,
+          "safe": [
+            6000.0,
+            386.0
+          ],
+          "settled": true,
+          "source": "windkeeper_pressure/death_coins",
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "wallet_delta": 20
+    },
+    "settlement": {
+      "completed_biomes": 0,
+      "core_choice_open": true,
+      "duplicate_core_has_no_effect": true,
+      "first_claim": true,
+      "forest_entered": true,
+      "forest_layout": "forest-bible-world-v15",
+      "forest_version": "thorn-forest-region-v2",
+      "gold": true,
+      "gold_choice_open": true,
+      "gold_does_not_grant_hook": true,
+      "gold_exit_open": true,
+      "gold_instances": 1,
+      "grapple_granted_once": true,
+      "mini_recorded": false,
+      "previous_region_token_rejected": true,
+      "region_choice_open": true,
+      "repeat_claim_rejected": true,
+      "returned_home": false,
+      "reward_available": true,
+      "reward_offer": "gold_stage_2",
+      "same_player_with_grapple": true,
+      "stage_complete": true
+    },
+    "post_victory_ui_position_fixture_disclosed": true
+  },
+  "strict_logs": {
+    "engine_banners": 6,
+    "audio_drains": 19,
+    "all_audio_released": true,
+    "script_parse_engine_error_or_leak_lines": false,
+    "preserved_note": "Editor import logs Unable to open Android 'build-tools' directory. This native check is not Android packaging acceptance."
+  },
+  "scope_limits": [
+    "Only this original registered check on clean760e with one fresh uninterrupted wrapper is accepted; not full185, device, Web/Android/Windows export or general gameplay approval.",
+    "Old278/1, first map failures and earlier4954/3 remain failed historical evidence. No stitching of previous targeted runs is used to certify this wrapper.",
+    "Pressure60/Gold/core/forest follow their existing current rules and disclosed post-victory UI positioning; not a claim of zero-damage Pressure or fully unassisted traversal.",
+    "Reviewer performed only reads and bounded Python reconstruction, no engine or main modification."
+  ]
+}

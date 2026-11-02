@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "task_id": "FUTURE-FEATURE-ARCHITECTURE-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "8dfaf7f325907e4b60853d6e49965fd359e869d4",
+  "reviewed_commit": "4ed961113a65068e3d488c0370cb573154a2bd14",
+  "content_version": "mesh02-and-architecture-v1",
+  "owner": "/root",
+  "purpose": "核查教程/短片、map-gen/多区域、剧情NPC/家园及永久升级的真实基础和接入边界。",
+  "player_experience": "技术/架构改进，尚不签手机性能或新功能完成。",
+  "constraints": [
+    "保原图声/玩法/保存/随机/预算",
+    "不造平行权威或用规划签实现"
+  ],
+  "affected_paths": [
+    "docs/architecture_extensions.md",
+    "docs/module_map.md",
+    "docs/worklines/future_feature_architecture_01/assessment.md"
+  ],
+  "deliverables": [
+    "实际源码/契约与有限验证记录",
+    "明确未实现、未验证和回退边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "已有权威与新功能缺口明确。",
+      "evidence": [
+        "scope",
+        "sources"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "文档一致性与独立边界审查通过，不申请内容完成。",
+      "evidence": [
+        "docs-validation",
+        "independent"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本卡为small_fix/process，仅适用G0/G4；不申请内容验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "有具体文件归属、真实消费者与缺口。",
+      "evidence": [
+        "scope",
+        "sources"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "实际文档门禁与非作者边界审查通过。",
+      "evidence": [
+        "docs-validation",
+        "independent"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "非作者只读审查，严格限定文档可行性。",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "只读架构文档，不实施或验收运行内容。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "real-owner-assessment",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "四类未来功能接入",
+      "method": "核实际源码/API及外仓固定源，明确已有/缺口/计划",
+      "expected": "现玩家/输入/能力/Campaign/Meta/工厂继续复用",
+      "failure": "虚构已实现功能/注册表/浏览器运行时",
+      "status": "passed",
+      "reason": "冻结来源和接入边界明确。",
+      "evidence": [
+        "scope",
+        "sources"
+      ]
+    },
+    {
+      "id": "bounded-document-review",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "建议的新模块与原真实消费者关系",
+      "method": "原文档守门＋非作者只读审查",
+      "expected": "明确未实现与保存迁移边界，避免空框架或平行authority",
+      "failure": "把规划签为实现或把UI/剧情当钱包/能力所有者",
+      "status": "passed",
+      "reason": "文档技术审查通过。",
+      "evidence": [
+        "docs-validation",
+        "independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/architecture_extensions.md",
+      "sha256": "2c3ba48c3df480d643ec5ee19a9f5d9fd300e6862f34f6d7238b8c29e64b2e87",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "4ed961113a65068e3d488c0370cb573154a2bd14",
+      "content_version": "mesh02-and-architecture-v1",
+      "method": "基于8df代码审计与pinned map-gen c2ac源；规划与实现分开。",
+      "observed": "四类功能的现有所有者、缺口、拟建归属与真实消费者批次明确。"
+    },
+    {
+      "id": "sources",
+      "path": "docs/evidence/future_feature_architecture_01/source-audit.zip",
+      "sha256": "2814064410efc3fd295dbc0072c72a36d19ecc2dcf8b226d3eedf8838dff404d",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "4ed961113a65068e3d488c0370cb573154a2bd14",
+      "content_version": "mesh02-and-architecture-v1",
+      "method": "GitHub只读API取确切c2ac2c3625f659364b187592c836c5ff2bceb892；不下载模块大包，不修改外仓。",
+      "observed": "含只读源码审计、原独审及map-gen README/generate/model固定源和SHA，不执行生成器。"
+    },
+    {
+      "id": "docs-validation",
+      "path": "docs/evidence/mobile_combat_mesh_02/receipt.json",
+      "sha256": "63c75151f23c7d055dedac9da225801b1a667367a1ad3058437536576cd0d650",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "4ed961113a65068e3d488c0370cb573154a2bd14",
+      "content_version": "mesh02-and-architecture-v1",
+      "method": "原注册检查，归因到本报告字节及通用文档一致性。",
+      "observed": "干净4ed原32项中的docs/structure/quality通过；不由它证明未来功能。",
+      "command": "python3 tools/harness.py --check docs --check structure --check quality --check quality-tests --check quality-drills --check environment --check core --check architecture-tests --check run-session --check game-architecture-effects --check enemy-structure-native --check enemy-region-state --check forest-current-registry --check forest-ecology --check enemy-feedback-native --check enemy-feedback-formal --check enemy-feedback-support --check enemy-corpse-save --check enemy-corpse-snapshot --check plains-motion-loot-02 --check forest-depth-enemies --check forest-depth-crossbranch-lifecycle --check forest-depth-restore --check region-bible-contract --check forest-bible-integration-tests --check forest-bible-weaver-tests --check plains-revision-deform-equivalence --check creative-direction --check creative-direction-tests --check region-bible-tests --check harness-tests --check cloud-production-planner-tests --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Managed cloud native repository checks, no new feature/device run."
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/future_feature_architecture_01/independent-review.json",
+      "sha256": "2aa82f8e542bce5e139607c1b4e444a4a9df0649b213f295e1e5fd1d4dd48dc8",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "4ed961113a65068e3d488c0370cb573154a2bd14",
+      "content_version": "mesh02-and-architecture-v1",
+      "method": "非作者只读现有接口与root建议；未再次网络取源、未实施新功能。",
+      "observed": "限定接入边界接受：无平行InputLock/Campaign/存档，不把Python检查器说成Web生成器。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root",
+        "/root/preview_audit"
+      ],
+      "independent": true,
+      "independence_basis": "审查者未撰写源码审计或新增接入建议。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "教程/短片/剧情/NPC新运行模块未实施",
+    "map-gen当前Python原型；正式模块包/本地或远程执行/真实Godot接入仍待",
+    "永久升级事务存在，UI及效果泛化与新增数值未实施",
+    "新增持久剧情/教程字段需另立保存迁移；本轮无schema修改"
+  ]
+}

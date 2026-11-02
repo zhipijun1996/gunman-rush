@@ -70,7 +70,7 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 		world.add_child(motor)
 		if historical_d079: motor.tuning.max_air_shots = 2 # Explicit historical D079 fixture only.
 		controller = motor.get_node("Controller")
-		check.call(controller.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres") if historical_d079 else null),"real shot-energy consumer enabled")
+		check.call(controller.enable_shot_energy(preload("res://game/player/resources/plains_shot_energy.tres") if historical_d079 else null),"real shot-energy consumer enabled")
 		controller.set_physics_process(false)
 		motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 		if low:

@@ -177,7 +177,7 @@ func review_regressions() -> void:
 		if FileAccess.file_exists(path): DirAccess.remove_absolute(path)
 
 func _exercise() -> void:
-	app = preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled = false
 	app.meta.grant_notes(1000,&"home_codex_app_notes_fixture")
 	root.add_child(app)

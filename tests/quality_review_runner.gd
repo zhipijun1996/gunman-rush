@@ -45,7 +45,7 @@ func moving_support()->void:
 	platform.definition.travel_duration=1.5;platform.definition.dwell_duration=.5
 	platform.bell_controlled=true
 	world.add_child(platform)
-	var player:PlayerMotor=preload("res://scenes/player/player.tscn").instantiate()
+	var player:PlayerMotor=preload("res://game/player/player.tscn").instantiate()
 	player.position=Vector2(0,170);world.add_child(player)
 	var camera:=StageCameraRig.new();world.add_child(camera)
 	camera.configure(player,Rect2(-3000,-3000,6000,6000))
@@ -87,10 +87,13 @@ func pause_encounter()->void:
 		check(attack.state==&"telegraph" and is_equal_approx(attack.state_time,.23) and is_equal_approx(attack.cooldown,.41),"pause preserves enemy warning, elapsed time and recovery debt")
 		app._resume_from_menu()
 	var encounter:WindkeeperEncounter=stage.boss.get_node("Encounter")
+	check(encounter is BellstriderEncounter,"formal map one uses current Bellstrider contact policy")
 	encounter.active=true
 	for mode:StringName in [&"intro",&"phase_transition",&"observe",&"roll_warning",&"roll",&"neck"]:
 		encounter.mode=mode
-		check(encounter.body_contact_enabled()==(mode not in [&"intro",&"phase_transition"]),"boss contact contract mode "+str(mode))
+		check(encounter.body_contact_enabled()==(mode!=&"intro"),"Bellstrider solid copper contact contract mode "+str(mode))
+	encounter.mode=&"dead";check(not encounter.body_contact_enabled(),"terminal Bellstrider wreck has no body contact")
+	encounter.mode=&"neck"
 	encounter.active=false;check(not encounter.body_contact_enabled(),"inactive boss body is safe")
 	app.free();paused=false;await process_frame
 

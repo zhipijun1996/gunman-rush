@@ -1,0 +1,84 @@
+{
+  "source_commit": "2d44aaebbda52977f6ec347379242ec01a9ee62a",
+  "source_status": "committed baseline plus three frozen production WIP leaves",
+  "candidate_source": {
+    "game/application/demo_app.gd": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4",
+    "game/world/levels/providers/generated_demo_stage.gd": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5",
+    "game/world/levels/providers/plains_region_stage.gd": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+  },
+  "old_style_original_exact": true,
+  "references": 206,
+  "non_gd_references_unchanged": 86,
+  "changed_gd": 3,
+  "archive_sources": 3,
+  "archive_files": 9,
+  "negative_probes": [
+    {
+      "probe": "live_old:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/world/levels/providers/plains_region_stage.gd"
+    },
+    {
+      "probe": "live_missing:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/world/levels/providers/plains_region_stage.gd"
+    },
+    {
+      "probe": "archive_missing:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/map-query-boundary-before-style30/sources/game/world/levels/providers/plains_region_stage.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/world/levels/providers/plains_region_stage.gd"
+    },
+    {
+      "probe": "live_old:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/application/demo_app.gd"
+    },
+    {
+      "probe": "live_missing:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/application/demo_app.gd"
+    },
+    {
+      "probe": "archive_missing:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/map-query-boundary-before-style30/sources/game/application/demo_app.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/application/demo_app.gd"
+    },
+    {
+      "probe": "live_old:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/world/levels/providers/generated_demo_stage.gd"
+    },
+    {
+      "probe": "live_missing:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/world/levels/providers/generated_demo_stage.gd"
+    },
+    {
+      "probe": "archive_missing:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/map-query-boundary-before-style30/sources/game/world/levels/providers/generated_demo_stage.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/world/levels/providers/generated_demo_stage.gd"
+    },
+    {
+      "probe": "archive_manifest_drift",
+      "result": "rejected",
+      "error": "Frozen source manifest changed: docs/creative_direction/archive/map-query-boundary-before-style30"
+    }
+  ],
+  "live_does_not_read_archive": true,
+  "scope": "Static finite identity/probe verification; no native/art/full-CI acceptance"
+}

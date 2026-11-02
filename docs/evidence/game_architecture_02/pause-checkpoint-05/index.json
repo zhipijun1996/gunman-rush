@@ -1,0 +1,260 @@
+{
+  "state": "PAUSED_BY_USER_BEFORE_PLATFORM_DIAGNOSTIC",
+  "branch": "refactor/game-architecture-02",
+  "main_baseline": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "consumer_closeout_commit": "dce431120e1ad7c0cb69ff1d189490bf9fa47b8e",
+  "root_bell_paused_fix_commit": "61c4fac9e3f5674787cecc963a8ac1d9b675480d",
+  "root_bell_code_sha256": "e68c50153c882b06e8c61aef82dfef997cb6f8bde9246506649008ffb9b7267b",
+  "platform_patch_applied": false,
+  "platform_native_executed": false,
+  "platform_original_files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "d8e29025a9544884d90367639cb78b280dab73044d00a0525da943a8b3c5d62a"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "94ea65362019f5dfcab522e92e611de74d58ba841ea41a63615feacaa953cac9"
+    }
+  ],
+  "full185": "NOT_PASSED_R3_BLOCKED",
+  "local_remaining_diagnostic": {
+    "executed": 157,
+    "passed": 151,
+    "failed": 6,
+    "source_unchanged": true
+  },
+  "latest_static_checks": "docs and quality passed; not full profile",
+  "prior_remote_full_run": 41195033622,
+  "public_last_verified_source": "55b07609ea756c6faee771aaa84f080b249917fe",
+  "main_merged": false,
+  "game_deployed": false,
+  "all_agents_instructed_to_stop": true,
+  "files": [
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/README.md",
+      "sha256": "572110182d18eb4dfa7ee4de9a4027da5db38ce65cba59f37929e16571991747",
+      "raw_sha256": "572110182d18eb4dfa7ee4de9a4027da5db38ce65cba59f37929e16571991747",
+      "raw_bytes": 5714,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/candidate.json",
+      "sha256": "852e73231ccfc9538295b44ab9299ea68164202c03674b87c24fa23c8bb9875f",
+      "raw_sha256": "852e73231ccfc9538295b44ab9299ea68164202c03674b87c24fa23c8bb9875f",
+      "raw_bytes": 862,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/static-proof.json",
+      "sha256": "b030536af2b1a3c5619944114ba74b2bd7d3f4e0da80fccf65f5664b75e2c814",
+      "raw_sha256": "b030536af2b1a3c5619944114ba74b2bd7d3f4e0da80fccf65f5664b75e2c814",
+      "raw_bytes": 2744,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/platform-counterplay.patch",
+      "sha256": "4715b69e51932d74f163b3f2b598509a40821fd8d4fcdb83265a6843cbd72665",
+      "raw_sha256": "4715b69e51932d74f163b3f2b598509a40821fd8d4fcdb83265a6843cbd72665",
+      "raw_bytes": 21354,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/candidate/tests/underworld_plains/capture_underworld_r3_boss_fight.gd.source",
+      "sha256": "94ea65362019f5dfcab522e92e611de74d58ba841ea41a63615feacaa953cac9",
+      "raw_sha256": "94ea65362019f5dfcab522e92e611de74d58ba841ea41a63615feacaa953cac9",
+      "raw_bytes": 38319,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/candidate/tools/bellstrider_01/legal_input_pilot.gd.source",
+      "sha256": "d8e29025a9544884d90367639cb78b280dab73044d00a0525da943a8b3c5d62a",
+      "raw_sha256": "d8e29025a9544884d90367639cb78b280dab73044d00a0525da943a8b3c5d62a",
+      "raw_bytes": 26344,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/originals/tests/underworld_plains/capture_underworld_r3_boss_fight.gd.source",
+      "sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "raw_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "raw_bytes": 32835,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/platform-diagnostic/originals/tools/bellstrider_01/legal_input_pilot.gd.source",
+      "sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "raw_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "raw_bytes": 18414,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/reviews/r3-platform-counterplay-causal-independent-review.json",
+      "sha256": "25847789a3ca73e774c9c9ff5e55f739b7dd2475f5543e6ee9799ad82f6ff865",
+      "raw_sha256": "25847789a3ca73e774c9c9ff5e55f739b7dd2475f5543e6ee9799ad82f6ff865",
+      "raw_bytes": 4218,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/reviews/r3-platform-counterplay-code-independent-review.json",
+      "sha256": "e44bd6af0adee99f57e818a3cf0d7e5ba3f1ba49ba441e57a661e60ea9b9cdf7",
+      "raw_sha256": "e44bd6af0adee99f57e818a3cf0d7e5ba3f1ba49ba441e57a661e60ea9b9cdf7",
+      "raw_bytes": 2647,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/reviews/runtime-finite-closeout-handoff-01.json",
+      "sha256": "14bfe8641b8938a5818d0e7e5523f2a2dcb26c1ac801f69b8ad336c3d27af49d",
+      "raw_sha256": "14bfe8641b8938a5818d0e7e5523f2a2dcb26c1ac801f69b8ad336c3d27af49d",
+      "raw_bytes": 91300,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/reviews/final-delivery-readiness-02.json",
+      "sha256": "97f4ec2d7aaf9fa47732708c199f8af41df246fbf8f3988173c784aab963396d",
+      "raw_sha256": "97f4ec2d7aaf9fa47732708c199f8af41df246fbf8f3988173c784aab963396d",
+      "raw_bytes": 15124,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/contract-review/review.md",
+      "sha256": "ed20599fa23a8e63a6a826e04e953d5d5573ce6164059669bbf7dc160da519da",
+      "raw_sha256": "ed20599fa23a8e63a6a826e04e953d5d5573ce6164059669bbf7dc160da519da",
+      "raw_bytes": 8293,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/contract-review/review.json",
+      "sha256": "d068e924d695266f270ead6af92e2451032565824b53a4f6e459fb1c8737baff",
+      "raw_sha256": "d068e924d695266f270ead6af92e2451032565824b53a4f6e459fb1c8737baff",
+      "raw_bytes": 24952,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/contract-review/roll-contact-mapping.csv",
+      "sha256": "8ae3e4f9313ebd2f1c69dff152454da6e6f511f0d3371f0307d1fd5a63a06d04",
+      "raw_sha256": "8ae3e4f9313ebd2f1c69dff152454da6e6f511f0d3371f0307d1fd5a63a06d04",
+      "raw_bytes": 417,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/contract-review/unchanged-trigger-platform-boundary.json",
+      "sha256": "29df05b54cff09cd07cbede67885bcc2df760bc28094a49df8621e690e2bb4c3",
+      "raw_sha256": "29df05b54cff09cd07cbede67885bcc2df760bc28094a49df8621e690e2bb4c3",
+      "raw_bytes": 7629,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/index-generator/persist-main-layout-report-05.py.source",
+      "sha256": "d53403bd79638bd44964716e4e5a3d6508d62dbf2c8cd82f90ea7d7a84f97e6a",
+      "raw_sha256": "d53403bd79638bd44964716e4e5a3d6508d62dbf2c8cd82f90ea7d7a84f97e6a",
+      "raw_bytes": 20544,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/index-generator/build-final-file-index.py.source",
+      "sha256": "6226f49ef4ae357a3dbc65cc8dc40c1cf031910aedf06de55e60965c08e6cc14",
+      "raw_sha256": "6226f49ef4ae357a3dbc65cc8dc40c1cf031910aedf06de55e60965c08e6cc14",
+      "raw_bytes": 9117,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/index-generator/improve-runtime-purposes.py.source",
+      "sha256": "ef9628d1b4ec175b4af156e159ffc1d0016953cd0aab6f00cb0b06c9364297f6",
+      "raw_sha256": "ef9628d1b4ec175b4af156e159ffc1d0016953cd0aab6f00cb0b06c9364297f6",
+      "raw_bytes": 11783,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/index-generator/refresh-boss-tail-index.py.source",
+      "sha256": "5af80ca02ae77faac52337cab93e1f5818028decb83791d6a7c14bc9a0128bc7",
+      "raw_sha256": "5af80ca02ae77faac52337cab93e1f5818028decb83791d6a7c14bc9a0128bc7",
+      "raw_bytes": 6327,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/index-generator/feature-layout-execution.json.gz",
+      "sha256": "6bdd617acb518583b1160f85ff1a8171eec54f133d9050bcadc2857cd76efee5",
+      "raw_sha256": "d63890b9eb3957581faffa1ff373e893f02376d867f80828411ca5ac6f125a72",
+      "raw_bytes": 9323744,
+      "lossless_gzip": true
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/index-generator/feature-migration-plan.json.gz",
+      "sha256": "dd2efedafa279db8d38e14063eb9e5d530e2f35fcc2650fc3c8be3dc1342ad9e",
+      "raw_sha256": "361928a6c0182872e0420fc7fe7ebb65e39e5c38b62680cdb41b4789c58117ac",
+      "raw_bytes": 14355500,
+      "lossless_gzip": true
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/static-checks/pause-node-docs-quality-01.log",
+      "sha256": "53771dc7f0f18d9669caddec638938d8f582249c5502a13c2129e2d1895db2d5",
+      "raw_sha256": "53771dc7f0f18d9669caddec638938d8f582249c5502a13c2129e2d1895db2d5",
+      "raw_bytes": 351,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/static-checks/report.json.gz",
+      "sha256": "3136a3e7421eda0890a231e1878d6de1c3dcaa4ccf4aad0f5f8e59d6dc5b9b13",
+      "raw_sha256": "5eb2923ece12f84ffee4b1aefc5153d1ddefffcf7f0d6834bbb39f47316fc96b",
+      "raw_bytes": 230574,
+      "lossless_gzip": true
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/static-checks/docs.log",
+      "sha256": "a3efcefa27ae5d319ae3c08ed1f38abf08d997c093b79f6cc164a4213ddbfc08",
+      "raw_sha256": "a3efcefa27ae5d319ae3c08ed1f38abf08d997c093b79f6cc164a4213ddbfc08",
+      "raw_bytes": 101,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/static-checks/quality.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "raw_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "raw_bytes": 97,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/final-static-checks/report.json.gz",
+      "sha256": "4a1e53eb1d70cf03f82ac3812668db39e285a37567c7680be83417b4645791f6",
+      "raw_sha256": "c0956a90f41c6a8e37885390a4adaee4e08233831a72a3e3b19ce82e758a81a9",
+      "raw_bytes": 19415,
+      "lossless_gzip": true
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/final-static-checks/docs.log",
+      "sha256": "a3efcefa27ae5d319ae3c08ed1f38abf08d997c093b79f6cc164a4213ddbfc08",
+      "raw_sha256": "a3efcefa27ae5d319ae3c08ed1f38abf08d997c093b79f6cc164a4213ddbfc08",
+      "raw_bytes": 101,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/final-static-checks/quality.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "raw_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "raw_bytes": 97,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/final-static-checks/harness-stdout.log",
+      "sha256": "f544ad6c9e52e0a991dd91227aefd37bc810df312b78b7e6ac78a22a21c79392",
+      "raw_sha256": "f544ad6c9e52e0a991dd91227aefd37bc810df312b78b7e6ac78a22a21c79392",
+      "raw_bytes": 351,
+      "lossless_gzip": false
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/pause-checkpoint-05/final-static-checks/quality-diff.log",
+      "sha256": "7594ed9e0e6854f726df2af51f94f35bda3cf344500500d6b904f97d36f1d2b2",
+      "raw_sha256": "7594ed9e0e6854f726df2af51f94f35bda3cf344500500d6b904f97d36f1d2b2",
+      "raw_bytes": 107,
+      "lossless_gzip": false
+    }
+  ],
+  "final_pause_document_static_checks": {
+    "docs": "passed",
+    "quality": "passed",
+    "quality_diff": "passed3303files_against_actual_main2ce",
+    "scope": "record/source/test-guard consistency only, not full185"
+  }
+}

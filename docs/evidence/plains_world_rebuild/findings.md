@@ -1,5 +1,7 @@
 # 实际结果：让绘画构造与玩法共同定义世界
 
+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_world_rebuild/findings.md.txt)。
+
 先看 [正常游戏画面与电影](gallery.html)，再看[独审03](independent-art-03.md)与[独审04](independent-art-04.md)。运行冻结 `ba787df7261dba40f75409a3b99457dd9bbef985`；首准入完整电影保留其真实来源 `97703a8f`。本轮交付两种有限连续地貌布局，均为内部 ACCEPT_SCOPED。未完成完整随机区域，未获得用户最终风格认可，不进入正式池。
 
 ## 为什么以前持续失败
@@ -20,7 +22,7 @@ v1/v2 的源码、原始报告与独审保留在 Git 和 [records](records/index
 
 1. 从一段开敞草岸—裂隙—溪床世界截面出发，画完整可承重的顶面、转肩、侧壁与根须。源图是地貌实体，不含角色、HUD或整屏场景。
 2. 在原图坐标标定可信可站线和语义轮廓；画幅、比例、方向、源SHA构成 `paint_frame`。不将每片草叶做碰撞，也不把任意多边形反投影回图像。
-3. [生成器](../../../scripts/generation/plains_world_rebuild.gd)从同frame变换出实体、站面、路线、出生点、敌人和树棚依附；[前景消费者](../../../scripts/art/plains_world_rebuild_composer.gd)直接呈现完整源图，[舞台](../../../scripts/demo/plains_world_rebuild_stage.gd)安装实际多边形与原敌人。无法匹配已登记源构造的尺寸、源、变换、接触或碰撞必须拒绝。
+3. [生成器](../../../game/world/generation/plains_world_rebuild.gd)从同frame变换出实体、站面、路线、出生点、敌人和树棚依附；[前景消费者](../../../game/presentation/world/art/plains_world_rebuild_composer.gd)直接呈现完整源图，[舞台](../../../game/world/levels/providers/plains_world_rebuild_stage.gd)安装实际多边形与原敌人。无法匹配已登记源构造的尺寸、源、变换、接触或碰撞必须拒绝。
 4. 先真实输入试操作，再正常镜头拍片。连续两轮绘画映射不成立后换方法，没有用更长缺陷清单继续原映射。v3还真实修复了斜坡出生全脚宽安全、源图后绘吞角色和未接延展口进入正常镜头的问题；各失败帧保留。
 5. 首构造内部准入后，保持四张主要画源及尺度不变，改变东岸相对位置与高差、拓宽溪床，把上跨路线改为下溪—行走—反冲攀岸，再实际去返验证与独审。
 

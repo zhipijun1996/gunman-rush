@@ -2,6 +2,7 @@
 """Capture formal audio feedback fixtures with the original MovieMaker audio."""
 from __future__ import annotations
 import argparse
+from godot_identity import verified_engine
 import fcntl
 import hashlib
 import json
@@ -157,8 +158,8 @@ def capture(output, smoke=False):
             binary = shutil.which('Xvfb') or str(ROOT.parent / 'toolchains/xvfb/usr/bin/Xvfb')
             display = subprocess.Popen([binary, '-displayfd', '1', '-screen', '0', '960x540x24', '-nolisten', 'tcp', '-ac'], stdout=subprocess.PIPE, stderr=(output / 'display.log').open('w'), text=True)
             env['DISPLAY'] = ':' + display.stdout.readline().strip()
-        engine = Path(env.get('GODOT_BIN', str(ROOT.parent / 'toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64')))
-        report['engine'] = {'version': subprocess.check_output(['bash', 'tools/godot.sh', '--version'], cwd=ROOT, text=True).strip(), 'sha256': sha(engine)}
+        engine_identity = verified_engine(repo=ROOT)
+        report['engine'] = {'version': engine_identity['version'], 'sha256': engine_identity['binary_sha256']}
         before = frozen_sources()
         report['source_before'] = before
         command = ['bash', 'tools/godot.sh', '--path', '.', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility', '--write-movie', str(native), '--fixed-fps', '60', '--resolution', '960x540', '--script', 'res://tools/audio_feedback_capture.gd', '--', '--output=' + str(output)]

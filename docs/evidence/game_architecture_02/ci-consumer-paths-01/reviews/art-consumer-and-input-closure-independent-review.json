@@ -1,0 +1,68 @@
+{
+  "reviewer": "ci_audit independent non-author",
+  "decision": "LIMITED_ACCEPT_TWO_FINITE_CURRENT_CONSUMER_FIXES",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "item_path": {
+    "candidate_sha256": "75da697c8879dccb48fb43cfca9f65cb97079dbcfb936cff13799d409c3f1c68",
+    "patch_sha256": "b7b5d5553a91259baed6bab8b980c02c768035bdce5dc47e5696201696739848",
+    "whole_file_inverse_exact": true,
+    "all_original_assertions_and_resource_glob_unchanged": true,
+    "real_items": 23,
+    "actual_mapped_consumers": [
+      {
+        "old": "scripts/ui/stage_reward_modal.gd",
+        "current": "game/presentation/ui/stage_reward_modal.gd",
+        "current_sha256": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5"
+      },
+      {
+        "old": "scripts/ui/demo_menu.gd",
+        "current": "game/presentation/ui/demo_menu.gd",
+        "current_sha256": "35f27a52f675fd3227b16d5231b8f4ad6c6220a3a09f756f7deb7b8c4e85991f"
+      },
+      {
+        "old": "scripts/ui/item_shop_modal.gd",
+        "current": "game/presentation/ui/item_shop_modal.gd",
+        "current_sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+      }
+    ]
+  },
+  "v3_input_closure": {
+    "candidate_profiles_sha256": "95e4e288dccd7a0acc72c00581474b591f91009dde0cb4d699780097a337d2b0",
+    "patch_sha256": "e46c53f2f0a51a2852d3b7f10eea7fa04fc7bf6803831442c719ca2001e66ea8",
+    "only_change": "Existing art-plains_v3 gains explicit actual47read inputs; every other field/check/profile preserved.",
+    "derived_from_original_checker_and_actual_manifest_catalog_frames": true,
+    "entries": 47,
+    "all_tracked": true,
+    "all47_digest_changes_detected": true,
+    "catalog": {
+      "path": "preview/plains_v3_catalog.json",
+      "sha256": "ffc409da208d65ec44e7aea386b34ac2bf5d0db0d0f994aa2fe144c77f0e96a8",
+      "rows": 78,
+      "source": "exact11254Git blob; supplied only in external positive fixture, not written main"
+    },
+    "caveat": "Future manifest/frames referencing new files requires this finite input list to follow actual new reads; no universal dynamic path solution claimed."
+  },
+  "actual_python_checks": [
+    {
+      "check": "item",
+      "exit_code": 0,
+      "stdout": "PASS: immutable AI atlas, 15 transparent AI icon regions, 23 actual item resources, reward/shop/build consumers; subjective style pending player review.",
+      "log_path": "/workspace/refactor-evidence/art-item-candidate-independent-check.log",
+      "log_sha256": "44d0fe6579b2a06d53b54db59c07983637418a263c40c7e7d251b83daae5ad81",
+      "checker_sha256": "75da697c8879dccb48fb43cfca9f65cb97079dbcfb936cff13799d409c3f1c68"
+    },
+    {
+      "check": "v3",
+      "exit_code": 0,
+      "stdout": "PASS: 20 source PNG hashes/dimensions, 78 sprite regions, 16 body frames/six states, independent weapon, six exit mappings. Runtime/device not tested.",
+      "log_path": "/workspace/refactor-evidence/art-v3-candidate-independent-check.log",
+      "log_sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+      "checker_sha256": "c1d5005989588e356f80bf8c27304ea0469801692b620c3b17c682ffa56c82b6"
+    }
+  ],
+  "no_engine_no_main_writes": true,
+  "scope_limits": [
+    "No claim of native execution, full185 or visual/player/device acceptance.",
+    "Broader eight-art advisory scan not independently repeated; this review covers only the two exact candidate changes."
+  ]
+}

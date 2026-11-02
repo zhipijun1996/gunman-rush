@@ -22,7 +22,7 @@ func local_audio(app: DemoApp) -> Variant:
 	for child: Node in app.get_children():
 		var source := child.get_script() as Script
 		while source != null:
-			if source.resource_path == "res://scripts/audio/game_audio.gd": return child
+			if source.resource_path == "res://game/presentation/audio/game_audio.gd": return child
 			source = source.get_base_script()
 	return null
 
@@ -63,7 +63,7 @@ func exercise() -> void:
 	check(await music.shutdown(), "Standalone music drain stays within original budget")
 	music.free()
 
-	var packed := load("res://scenes/demo/demo.tscn") as PackedScene
+	var packed := load("res://game/application/demo.tscn") as PackedScene
 	var app := packed.instantiate() as DemoApp
 	packed = null
 	app.meta_persistence_enabled = false

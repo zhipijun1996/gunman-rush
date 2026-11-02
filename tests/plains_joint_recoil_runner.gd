@@ -104,7 +104,7 @@ func verify_actual_paint_registration(world:Node2D,plan:Dictionary)->Dictionary:
 	composer.install(world,plan)
 	var facts:Dictionary=composer.measured_nodes()
 	check(facts.get("omitted",[]).is_empty(),"Actual first-context consumer installs complete registered paint without omissions")
-	var catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://resources/visual_development/p1_landform_assets.json"))
+	var catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/resources/visual_development/p1_landform_assets.json"))
 	for volume:Dictionary in facts.get("joint_terrain",[]):
 		var mesh:=composer.get_node(str(volume.node_path)) as MeshInstance2D
 		var material:=mesh.material as ShaderMaterial if mesh!=null else null
@@ -143,7 +143,7 @@ func negative_tick(count:int=1)->void:
 		negative_previous=negative_motor.global_position
 
 func verify_no_shot(world:Node2D,module:PlatformingModule)->void:
-	negative_motor=load("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	negative_motor=load("res://game/player/player.tscn").instantiate() as PlayerMotor
 	negative_motor.position=module.world_entry()
 	world.add_child(negative_motor)
 	negative_controller=negative_motor.get_node("Controller") as PlayerController
@@ -298,7 +298,7 @@ func run()->void:
 		# The old full40px rectangular containment assertion belongs to v4.
 		# v5 is explicitly24px compatibility projection with environment-derived
 		# exposed sides. Test real24x36 player contact rather than the old slab.
-		var player_scene:=load("res://scenes/player/player.tscn") as PackedScene
+		var player_scene:=load("res://game/player/player.tscn") as PackedScene
 		var player:=player_scene.instantiate() as PlayerMotor
 		var player_shape:=(player.get_node("CollisionShape2D") as CollisionShape2D).shape
 		check(player_shape is RectangleShape2D and (player_shape as RectangleShape2D).size==Vector2(24,36),"Actual player collision resource is24x36 rectangle, not an invented capsule")

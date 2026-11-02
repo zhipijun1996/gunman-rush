@@ -1,0 +1,261 @@
+diff --git a/game/application/demo_app.gd b/game/application/demo_app.gd
+index 8f6e01bc..3fe13c13 100644
+--- a/game/application/demo_app.gd
++++ b/game/application/demo_app.gd
+@@ -624,7 +624,7 @@ func _load_stage() -> void:
+ 	policy.protect_player()
+ 	current_reward = null
+ 	if connected_region and not region_state.boss_state.is_empty() and float(region_state.boss_state.health)<=0:
+-		director.stage_complete=false
++		director.prepare_terminal_stage_reentry()
+ 	simple_reward = null
+ 	_pending_exit = &""
+ 	_reward_token = null
+@@ -741,10 +741,10 @@ func _load_stage() -> void:
+ 			for arena_module: PlatformingModule in (stage as GeneratedDemoStage).assembler.modules:
+ 				if arena_module.definition.module_id == &"plains_boss_arena":
+ 					var arena_consumer: WindkeeperArena = encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,(stage as GeneratedDemoStage).assembler.ground_supports)
+-					if connected_region and encounter.stage_phase==3 and not encounter is WindkeeperPressureEncounter: arena_consumer._phase_changed(3)
++					if connected_region and not encounter is WindkeeperPressureEncounter: encounter.restore_stage_geometry(arena_consumer)
+ 			if encounter is WindkeeperPressureEncounter and encounter.health.terminal and not (stage as PlainsRegionStage).restored_boss.is_empty():
+ 				encounter.restore_combat_state((stage as PlainsRegionStage).restored_boss)
+-				_restore_windkeeper_pressure_bridge(encounter)
++				encounter.restore_bridge_geometry()
+ 		if connected_region:
+ 			var region:=stage as PlainsRegionStage
+ 			region.boss_seal=BossArenaSeal.new()
+@@ -2264,7 +2264,7 @@ func _start_generated_boss() -> void:
+ 					abandon_run()
+ 					return
+ 			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
+-			if encounter is WindkeeperPressureEncounter: _restore_windkeeper_pressure_bridge(encounter)
++			if encounter is WindkeeperPressureEncounter: encounter.restore_bridge_geometry()
+ 		(stage as PlainsRegionStage).restored_boss.clear()
+ 	EnemyPresentationBinding.synchronize(encounter)
+ 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
+@@ -2906,14 +2906,6 @@ func _repair_equipment_item(_instance_id: StringName, _quote_version: int, _revi
+ 	_refresh_equipment_view("请前往商店修理破损道具。")
+ 
+ 
+-func _restore_windkeeper_pressure_bridge(encounter: WindkeeperPressureEncounter) -> void:
+-	# A saved transition may still be landing on its first real shelf. Restore
+-	# the actual break flag, independently of the requested health phase.
+-	if not encounter.bridge_break_ready(): return
+-	for child: Node in encounter.get_children():
+-		if child is WindkeeperArena: (child as WindkeeperArena)._phase_changed(3)
+-
+-
+ func _bind_windkeeper_pressure_rewards(encounter: WindkeeperPressureEncounter) -> void:
+ 	var voice := stage.boss.get_node_or_null("Audio") as WindkeeperPressureAudio
+ 	if voice != null: voice.bind(encounter, stage.boss, encounter.health.terminal)
+diff --git a/game/application/demo_run_director.gd b/game/application/demo_run_director.gd
+index a47a9c7e..6c86dcdb 100644
+--- a/game/application/demo_run_director.gd
++++ b/game/application/demo_run_director.gd
+@@ -50,6 +50,11 @@ func start(root_seed: String, selected_profile: RunProfile = null) -> DemoRunRes
+ 	stage_entered.emit(result.copy())
+ 	return result
+ 
++# Rebuilding a terminal Boss stage re-evaluates completion on the next damage
++# batch. The App retains the existing terminal-region condition and load order.
++func prepare_terminal_stage_reentry() -> void:
++	stage_complete = false
++
+ func complete_stage(token: DemoToken) -> bool:
+ 	if state != State.IN_STAGE or not lifetime.accepts(token):
+ 		return false
+diff --git a/game/bosses/windkeeper/windkeeper_arena.gd b/game/bosses/windkeeper/windkeeper_arena.gd
+index c8cd9303..2ffbfa60 100644
+--- a/game/bosses/windkeeper/windkeeper_arena.gd
++++ b/game/bosses/windkeeper/windkeeper_arena.gd
+@@ -35,7 +35,10 @@ func setup(owner_module: PlatformingModule, boss_encounter: WindkeeperEncounter,
+ 		segment.add_anchor(StringName("windkeeper_bridge_%s" % index),module.to_global([Vector2(350,452),Vector2(640,452),Vector2(870,452)][index]))
+ 
+ func _phase_changed(phase: int) -> void:
+-	if phase == 3 and not broken: _break_ground.call_deferred()
++	if phase == 3: restore_broken_bridge()
++
++func restore_broken_bridge() -> void:
++	if not broken: _break_ground.call_deferred()
+ 
+ func _break_ground() -> void:
+ 	if not is_instance_valid(module) or not lifetime.active: return
+diff --git a/game/bosses/windkeeper/windkeeper_encounter.gd b/game/bosses/windkeeper/windkeeper_encounter.gd
+index b29bb09c..6d4328e2 100644
+--- a/game/bosses/windkeeper/windkeeper_encounter.gd
++++ b/game/bosses/windkeeper/windkeeper_encounter.gd
+@@ -357,6 +357,11 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
+ 	reward_stands.assign([owner_module.to_global(Vector2(350,452)),owner_module.to_global(Vector2(640,452)),owner_module.to_global(Vector2(870,452))])
+ 	return consumer
+ 
++# The ordinary encounter restores its phase-three bridge after stage binding.
++# Pressure has a separate grounded release flag and restore timing.
++func restore_stage_geometry(consumer: WindkeeperArena) -> void:
++	if stage_phase == 3: consumer.restore_broken_bridge()
++
+ func reward_stand_position() -> Vector2:
+ 	var x := _home_x
+ 	if stage_phase == 3 and reward_stands.size() == 3: return reward_stands[clampi(chase_segment,0,2)]
+diff --git a/game/bosses/windkeeper/windkeeper_pressure_encounter.gd b/game/bosses/windkeeper/windkeeper_pressure_encounter.gd
+index 16e6a319..fc749505 100644
+--- a/game/bosses/windkeeper/windkeeper_pressure_encounter.gd
++++ b/game/bosses/windkeeper/windkeeper_pressure_encounter.gd
+@@ -904,6 +904,13 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
+ 	_support_rects.sort_custom(func(a: Rect2, b: Rect2) -> bool: return a.position.x < b.position.x)
+ 	return consumer
+ 
++# Restored phase three can still be landing on its first real shelf. Restore
++# the actual release flag, after terminal binding or active combat restoration.
++func restore_bridge_geometry() -> void:
++	if not bridge_break_ready(): return
++	for child: Node in get_children():
++		if child is WindkeeperArena: (child as WindkeeperArena).restore_broken_bridge()
++
+ func bridge_break_ready() -> bool:
+ 	return _bridge_released
+ 
+diff --git a/tests/run_session_runner.gd b/tests/run_session_runner.gd
+index 02808726..5bd0ab19 100644
+--- a/tests/run_session_runner.gd
++++ b/tests/run_session_runner.gd
+@@ -48,7 +48,22 @@ func clear_run(label: String) -> void:
+ 	check(player_ref.get_ref()==null and stage_ref.get_ref()==null and policy_ref.get_ref()==null, label+": old scene nodes are freed")
+ 	check(app.wallet==old_wallet and old_wallet.balance==0 and app.build==old_build and old_build.inventory.instances().is_empty() and old_build.item_ids().is_empty(), label+": cleared wallet and inventory remain observable")
+ 
++func flow_reentry_boundary() -> void:
++	var owner := DemoRunDirector.new()
++	check(owner.start("completion-owner-reentry").accepted(), "flow reentry fixture starts through original flow")
++	check(owner.complete_stage(owner.lifetime.token()), "flow reentry fixture completes through original owner")
++	var manifest_before := owner.manifest.canonical_json()
++	var token := owner.lifetime.token()
++	var receipts := owner._receipts.duplicate(true)
++	var stage_index := owner.stage_index
++	var state := owner.state
++	owner.prepare_terminal_stage_reentry()
++	check(not owner.stage_complete and owner.state==state and owner.stage_index==stage_index, "terminal reentry operation only reopens the completion flag")
++	check(owner.lifetime.accepts(token) and owner.manifest.canonical_json()==manifest_before and owner._receipts==receipts, "terminal reentry does not advance epochs or rewrite Manifest/flow receipts")
++	check(owner.complete_stage(token) and owner.stage_complete, "original completion owner can recompute the reopened stage")
++
+ func run() -> void:
++	flow_reentry_boundary()
+ 	app = DemoApp.new()
+ 	app.meta_persistence_enabled = false
+ 	root.add_child(app)
+diff --git a/tests/windkeeper_pressure_01/rewards.gd b/tests/windkeeper_pressure_01/rewards.gd
+index 2a14e0fb..ade5947c 100644
+--- a/tests/windkeeper_pressure_01/rewards.gd
++++ b/tests/windkeeper_pressure_01/rewards.gd
+@@ -69,12 +69,87 @@ func reward_case(broken: bool) -> void:
+ 			check(app.stage.region_state.claimed.has(unit.id), "original per-unit claim identity persists")
+ 		observations.append({"case":"actual Boss reward chain", "total":total, "wallet_delta":app.wallet.balance-wallet_start,
+ 			"large":large,"small":small,"units":saved.units,"scope":"declared Boss-only lethal fixture; player and physical App pickup unchanged"})
++		await terminal_reload(broken, units.size())
+ 	await cleanup()
+ 
++func current_arena() -> WindkeeperArena:
++	for child: Node in encounter.get_children():
++		if child is WindkeeperArena: return child as WindkeeperArena
++	return null
++
++func terminal_reload(broken: bool, unit_count: int) -> void:
++	# Existing earned terminal/reward fixture, followed by the actual App reload.
++	# Pause only excludes a fresh damage batch until the completion flag is read.
++	var old_stage_id: int = app.stage.get_instance_id()
++	var balance: int = app.wallet.balance
++	var wallet: RunWallet = app.wallet
++	var inventory: RunInventory = app.build.inventory
++	var claimed: Dictionary = app.region_state.claimed.duplicate(true)
++	var run_epoch: int = app.lifetime.epoch
++	var stage_epoch: int = app.lifetime.stage_epoch
++	paused = true
++	await app._load_stage()
++	encounter = app.stage.boss.get_node("Encounter")
++	check(app.stage.get_instance_id()!=old_stage_id and encounter.health.terminal, "terminal App reload creates a new actual Stage and preserves Boss death")
++	check(not app.director.stage_complete and app.current_reward==null, "terminal App reentry reopens completion before the next real damage batch")
++	await ticks(2)
++	var arena := current_arena()
++	check(arena!=null and arena.broken==broken and encounter.bridge_break_ready()==broken, "terminal Pressure reload restores the actual bridge-release flag, not phase alone")
++	if arena!=null:
++		check(arena.module.get_node("Platform0").collision_layer==(0 if broken else 1), "terminal restore binds the corresponding actual collision surface")
++	check(app.wallet==wallet and app.build.inventory==inventory and app.wallet.balance==balance and app.region_state.claimed==claimed, "terminal reentry retains the real wallet, inventory and claimed-source ledger")
++	check(app.lifetime.epoch==run_epoch and app.lifetime.stage_epoch==stage_epoch, "same-stage terminal reentry does not advance run or stage epoch")
++	paused = false
++	await ticks(3)
++	check(app.director.stage_complete and app.current_reward!=null and app.current_reward.gold, "first live batch rebuilds the guaranteed reward through the original completion chain")
++	var restored_units: Array = app.stage.pickups.filter(func(pickup: Dictionary) -> bool: return str(pickup.get("source", ""))==WindkeeperPressureRewards.SOURCE)
++	check(restored_units.size()==unit_count and restored_units.all(func(pickup: Dictionary) -> bool: return bool(pickup.claimed)) and app.wallet.balance==balance, "terminal reload neither duplicates physical coins nor pays an already claimed source")
++	check(not WindkeeperPressureRewards.spawn(app.stage,encounter), "restored terminal impact still cannot resettle its original receipt")
++	observations.append({"case":"actual terminal App reload", "bridge_released":broken, "physical_units":unit_count, "wallet":balance, "scope":"actual unload/bind/terminal restore/completion batch; original earned reward fixture, no injected bridge or completion state"})
++
++func unreleased_phase_three_restore() -> void:
++	if not await setup(): return
++	var arena := current_arena()
++	var health_goal: float = encounter.health.capacity * encounter._config().phase_three_health - 1
++	var request := ActorResourceRequest.new(&"explicit-restore-unreleased-phase3", encounter.health.epoch,
++		encounter.health.current-health_goal, encounter.health.get_instance_id())
++	check(encounter.health.apply_damage(request).accepted(), "unreleased restore fixture reaches phase3 through the original Boss resource transaction")
++	encounter.set_physics_process(true)
++	await ticks(1)
++	paused = true
++	check(encounter.stage_phase==3 and not encounter.bridge_break_ready() and arena!=null and not arena.broken, "Pressure is actually in phase3 before its verified landing releases the bridge")
++	encounter.restore_bridge_geometry()
++	await ticks(2)
++	check(not arena.broken and arena.module.get_node("Platform0").collision_layer==1, "Pressure restore cannot substitute phase3 for the unreleased bridge flag")
++	await cleanup()
++
++func active_bridge_reload() -> void:
++	# Earn the real bridge release using the original Boss HP transaction and
++	# ordinary player jump fixture, then exercise App's second restore consumer.
++	await bridge_transition_escape()
++	if not is_instance_valid(app) or not is_instance_valid(encounter): return
++	check(encounter.bridge_break_ready() and current_arena()!=null and current_arena().broken, "active reload begins after the actual grounded bridge release")
++	var health: float = encounter.health.current
++	var stage_id: int = app.stage.get_instance_id()
++	paused = true
++	await app._load_stage()
++	encounter = app.stage.boss.get_node("Encounter")
++	var arena := current_arena()
++	check(app.stage.get_instance_id()!=stage_id and arena!=null and not arena.broken and not app._boss_started, "live Pressure reload waits for actual activation before restoring its bridge")
++	check(bool(app.stage.restored_boss.get("active",false)), "active snapshot is retained for the real activation restore consumer")
++	app._start_generated_boss()
++	check(app._boss_started and encounter.health.current==health and app.stage.restored_boss.is_empty(), "actual App activation consumes the saved active combat state")
++	check(encounter.bridge_break_ready() and not arena.broken, "active bridge restore retains the same deferred collision boundary")
++	await ticks(2)
++	check(arena.broken and arena.module.get_node("Platform0").collision_layer==0, "App activation restores the physically earned broken bridge through its owner")
++	observations.append({"case":"actual active App bridge reload", "scope":"earned original bridge fixture, actual unload/bind and explicit existing App activation command while paused; not a natural approach-route claim"})
++	await cleanup()
+ 
+ func run() -> void:
+ 	await reward_case(false)
+ 	await reward_case(true)
++	await unreleased_phase_three_restore()
++	await active_bridge_reload()
+ 	DirAccess.make_dir_recursive_absolute("res://build/windkeeper_pressure_01")
+ 	var file := FileAccess.open("res://build/windkeeper_pressure_01/rewards.json", FileAccess.WRITE)
+ 	file.store_string(JSON.stringify({"assertions":assertions,"failures":failures,"observations":observations},"\t"))
+diff --git a/tests/windkeeper_runner.gd b/tests/windkeeper_runner.gd
+index a5d75364..731549ec 100644
+--- a/tests/windkeeper_runner.gd
++++ b/tests/windkeeper_runner.gd
+@@ -211,6 +211,21 @@ func run() -> void:
+ 		await frames(1)
+ 		encounter._prune_attacks()
+ 		check(encounter._projectiles.is_empty(), "disposed attack references pruned during long encounter")
++	# Explicit restored phase fixture, on the same real unbroken Arena. No phase
++	# signal is emitted: this exercises the owner entry used by App reload.
++	paused = true
++	check(encounter.stage_phase==1 and not arena_consumer.broken, "ordinary restore fixture retains its actual initial bridge")
++	encounter.restore_stage_geometry(arena_consumer)
++	await process_frame
++	check(not arena_consumer.broken and module.get_node("Platform0").collision_layer==1, "ordinary non-third-phase restore leaves real ground intact")
++	encounter.stage_phase = 3
++	encounter.restore_stage_geometry(arena_consumer)
++	check(not arena_consumer.broken, "ordinary restored bridge keeps the existing deferred removal boundary")
++	await process_frame
++	await process_frame
++	check(arena_consumer.broken and module.get_node("Platform0").collision_layer==0, "ordinary third-phase owner restore removes the actual original ground")
++	check(module.definition.platforms[0]==Rect2(0,600,290,80) and module.definition.platforms[-1]==Rect2(1000,600,120,80), "ordinary restored bridge preserves the original two ground remnants")
++	paused = false
+ 	world.free()
+ 	await process_frame
+ 	if "--failure-probe" in OS.get_cmdline_user_args(): check(false, "intentional Windkeeper failure probe")

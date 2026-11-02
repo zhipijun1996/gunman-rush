@@ -1,0 +1,65 @@
+{
+  "source_head": "2e1c06a162b19c3a8e5d31a41a30c66f25a1876f",
+  "rollback": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "status": "FROZEN_PENDING_REVIEW_AND_NATIVE",
+  "engine_executed": false,
+  "committed": false,
+  "files": {
+    "game/application/demo_app.gd": {
+      "before_sha256": "77674db1b78a94b2ab25ffa679282e9bf7ba9da396165fc84fa095f69bb34f85",
+      "candidate_sha256": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f",
+      "removed_assertion_lines": []
+    },
+    "game/application/demo_run_director.gd": {
+      "before_sha256": "ae4c25fa9805d1d6ebf428f41139cc2fac093e11ee0314925016dc07b30ff6aa",
+      "candidate_sha256": "09a902df1839a0156150a703025f88aa92c027729d721b185a107607f168151c",
+      "removed_assertion_lines": []
+    },
+    "game/bosses/windkeeper/windkeeper_encounter.gd": {
+      "before_sha256": "b6bad0306339152167dade9458c0d8547d9154a3c377c767865a81c392127566",
+      "candidate_sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+      "removed_assertion_lines": []
+    },
+    "game/bosses/windkeeper/windkeeper_pressure_encounter.gd": {
+      "before_sha256": "cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef",
+      "candidate_sha256": "792753e7f9db6a7b8c6359ed06d609bf305d97492bdaf1734b9527dcc36f4a26",
+      "removed_assertion_lines": []
+    },
+    "game/bosses/windkeeper/windkeeper_arena.gd": {
+      "before_sha256": "cee2dcaa54879b86f76f1646dac0038797d065f8443f5f502dfde54f7a5c13f4",
+      "candidate_sha256": "39b113af8f2a8976fd5bfbbc5df96f38c23db5e0546ce9f8b6cdebf5d6d058c1",
+      "removed_assertion_lines": []
+    },
+    "tests/run_session_runner.gd": {
+      "before_sha256": "a0061e72717b0c02e9be14dd6e462026c8233720c4e56b972942197bd5d40868",
+      "candidate_sha256": "1bb1f260f2bc964fe781d28f1ba498f6d40a746196545302f3fa406c245bab9f",
+      "removed_assertion_lines": []
+    },
+    "tests/windkeeper_runner.gd": {
+      "before_sha256": "79f7f1b8677c848ceffee134e6f083b715b98d4ffef8f27aa001dda0cef38111",
+      "candidate_sha256": "939aba08b29a66d7b0209097a78acde0c38a8c3c9afa97b558c9eff1b3944322",
+      "removed_assertion_lines": []
+    },
+    "tests/windkeeper_pressure_01/rewards.gd": {
+      "before_sha256": "68ec162b62f3e78254e654cc002493cd7158e1cf73378dc7cd6dd55fab3da66d",
+      "candidate_sha256": "cd47b964ac69fe1962cbe201b75d9f5cc532f13707c70e8051bf49669b31147c",
+      "removed_assertion_lines": []
+    }
+  },
+  "static_checks": [
+    "git diff --check: passed for own 8 files",
+    "all original assertion lines retained",
+    "App old completion field write and private phase callback removed",
+    "Pressure true consumers at _load_stage:747 and _start_generated_boss:2267 migrated"
+  ],
+  "native_commands": [
+    "python3 tools/harness.py --jobs 1 --release --check run-session --check windkeeper-pressure-01",
+    "python3 tools/run_audio_lifecycle_tests.py --script tests/windkeeper_runner.gd --marker \"^WINDKEEPER: [1-9][0-9]* assertions, 0 failures$\" --timeout 180 --output build/ownership-closeout-02/windkeeper"
+  ],
+  "limits": [
+    "Native parse, behavior, duration and full CI not run",
+    "Original full suite assertions and timeout declarations unchanged",
+    "Tests use disclosed Boss HP fixtures and explicit App activation; not natural fullfight/route acceptance"
+  ],
+  "patch_sha256": "6c872e1136c3bc0ff15e4f243e607ac1cab1296b66bcff27fa674bd29f19132a"
+}

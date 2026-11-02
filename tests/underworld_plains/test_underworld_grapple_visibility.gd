@@ -51,7 +51,7 @@ func fixture(with_anchor: bool, original_out_of_range := false) -> void:
 	shape.shape = box
 	ground.add_child(shape)
 	world.add_child(ground)
-	motor = preload("res://scenes/player/player.tscn").instantiate()
+	motor = preload("res://game/player/player.tscn").instantiate()
 	motor.position = Vector2(280, 482) # Initial fixture spawn only.
 	world.add_child(motor)
 	controller = motor.get_node("Controller") as PlayerController

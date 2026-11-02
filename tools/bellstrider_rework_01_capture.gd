@@ -66,7 +66,7 @@ func _initialize() -> void:
 func start() -> void:
 	source_before = _source_hashes()
 	git_before = _git_source()
-	app = load("res://scripts/demo/demo_app.gd").new() as Node2D
+	app = load("res://game/application/demo_app.gd").new() as Node2D
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains(seed_label):
@@ -85,7 +85,7 @@ func start() -> void:
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	encounter = app.stage.boss.get_node("Encounter")
-	if encounter.get_script().resource_path != "res://scripts/bosses/bellstrider_encounter.gd":
+	if encounter.get_script().resource_path != "res://game/bosses/bellstrider/bellstrider_encounter.gd":
 		_fail("Formal map1 did not instantiate actual BellstriderEncounter")
 		return
 	if app._boss_started or bool(encounter.active):
@@ -366,7 +366,7 @@ func finish() -> void:
 
 
 func _stage_ready() -> bool:
-	return is_instance_valid(app) and not app._stage_pending and is_instance_valid(app.stage) and app.stage.get_script().resource_path == "res://scripts/demo/plains_region_stage.gd" and bool(app.stage.get("assembly_ok")) and is_instance_valid(app.player) and is_instance_valid(app.controller) and is_instance_valid(app.stage.boss) and app._can_interact() and is_instance_valid(app._run_camera)
+	return is_instance_valid(app) and not app._stage_pending and is_instance_valid(app.stage) and app.stage.get_script().resource_path == "res://game/world/levels/providers/plains_region_stage.gd" and bool(app.stage.get("assembly_ok")) and is_instance_valid(app.player) and is_instance_valid(app.controller) and is_instance_valid(app.stage.boss) and app._can_interact() and is_instance_valid(app._run_camera)
 
 
 func _live_world() -> bool:
@@ -427,7 +427,7 @@ func _json_value(value: Variant) -> Variant:
 
 func _source_hashes() -> Dictionary:
 	var result: Dictionary = {}
-	for path: String in ["tools/bellstrider_rework_01_capture.gd", "tools/bellstrider_01/legal_input_pilot.gd", "scripts/demo/demo_app.gd", "scripts/bosses/bellstrider_encounter.gd", "scripts/bosses/bellstrider_definition.gd", "scripts/bosses/bellstrider_rig_pose.gd", "scripts/bosses/bellstrider_presentation.gd", "scripts/bosses/bellstrider_bell_projectile.gd", "scripts/bosses/bellstrider_ring_projectile.gd", "scenes/bosses/bellstrider.tscn", "scripts/input/input_router.gd", "scripts/input/keyboard_mouse_adapter.gd", "scripts/combat/shoot_ability.gd", "scripts/player/player_controller.gd", "scripts/player/player_motor.gd", "resources/bosses/bellstrider.tres", "resources/bosses/bellstrider_health.tres", "scripts/rewards/plains_loot_motion.gd", "scripts/audio/bellstrider_audio.gd"]:
+	for path: String in ["tools/bellstrider_rework_01_capture.gd", "tools/bellstrider_01/legal_input_pilot.gd", "game/application/demo_app.gd", "game/bosses/bellstrider/bellstrider_encounter.gd", "scripts/bosses/bellstrider_definition.gd", "game/bosses/bellstrider/bellstrider_rig_pose.gd", "game/bosses/bellstrider/bellstrider_presentation.gd", "game/bosses/bellstrider/bellstrider_bell_projectile.gd", "game/bosses/bellstrider/bellstrider_ring_projectile.gd", "scenes/bosses/bellstrider.tscn", "game/platform/input/input_router.gd", "game/platform/input/keyboard_mouse_adapter.gd", "game/combat/weapons/shoot_ability.gd", "game/player/player_controller.gd", "game/player/player_motor.gd", "resources/bosses/bellstrider.tres", "resources/bosses/bellstrider_health.tres", "game/rewards/drops/plains_loot_motion.gd", "game/presentation/audio/bellstrider_audio.gd"]:
 		result[path] = FileAccess.get_sha256("res://" + path) if FileAccess.file_exists("res://" + path) else "missing"
 	return result
 

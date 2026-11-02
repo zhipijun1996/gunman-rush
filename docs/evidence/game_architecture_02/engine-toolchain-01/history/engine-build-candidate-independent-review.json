@@ -1,0 +1,53 @@
+{
+  "reviewer": "/root/ci_audit",
+  "implementers": [
+    "/root/runtime_audit"
+  ],
+  "baseline_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "reviewed_commit": "915c20b73ba94498e38cd680940d405bc88db7b1",
+  "source_commit": "915c20b73ba94498e38cd680940d405bc88db7b1",
+  "verdict": "ACCEPT",
+  "scope": "Static permission to start fixed10-lane engine candidate build only; not built artifact, installer, export, native/full182 or release acceptance",
+  "files_sha256": {
+    ".github/workflows/engine-backport-build.yml": "af595f9cd5683ca75a6bd8a95b92a93496fe0b71a844da040cdd6f1ee61b4e46",
+    "config/godot_build.json": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+    "tools/engine/README.md": "6e996234f0ae93e9fffbdb3e1c7ba8ea95de409a3b88bea4d671137b8c19eadd",
+    "tools/engine/build.py": "7d1fca0e55f7b1ff3d91582887f3fea6388ace3d9975c13c302ea5be96e68684",
+    "tools/engine/package.py": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+    "tools/engine/patches/117991-clear-base.patch": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+    "tools/engine/patches/120976-language-shutdown.patch": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+    "tools/engine/test_build_contract.py": "b0be364002c1bf09961f13380db2e76619c640d00191a8af9cefe872fcf747d0"
+  },
+  "independent_tests": {
+    "655_original_pure": 5,
+    "b875_symlink_pure": 6,
+    "915_final_pure": 7,
+    "original_four_drift_negatives": "all rejected after fix"
+  },
+  "source_checks": [
+    "exact official archive/hash/source commit declared;2 ordered patch hashes checked",
+    "all4 patched source hashes match independently inspected materialized source",
+    "655 original source/patch/options/dependency values unchanged in915",
+    "10lane original outputs/capabilities retained;only scheduling order/interpreter/workpath/workers made explicit",
+    "original config/toolchain,182 profiles,environment/production workflows unchanged"
+  ],
+  "not_executed": [
+    "engine compilation",
+    "Godot execution",
+    "platform exports",
+    "full182",
+    "installer activation",
+    "artifact publication"
+  ],
+  "remaining_validation": [
+    "actual matrix success with complete log/provenance and all expected artifacts",
+    "individual built binary/template identities and actual optimization/compiler output",
+    "Android engine NDK29/API36 versus existing app NDK28/API35 packaging compatibility",
+    "installer exact hashes and drift refusal",
+    "original game regressions and actual Web/Windows/Android exports"
+  ],
+  "limitations": [
+    "Gradle Maven transitive resolution is explicitly not claimed bit-reproducible;fixed versions/actual artifacts need retained build provenance",
+    "Container digest environment is trusted CI execution context;payload identity-string check alone is not cryptographic attestation, and must accompany trusted logs/commit and final artifact hash lock"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-shared-configuration",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023",
+  "source_path": "assets/underworld_plains/scenery_build.json",
+  "source_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+  "runtime_paths": [
+    "assets/underworld_plains/scenery_build.json",
+    "assets/underworld_plains/home/home_build.json"
+  ],
+  "runtime_file_sha256": {
+    "assets/underworld_plains/scenery_build.json": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+    "assets/underworld_plains/home/home_build.json": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159"
+  },
+  "tool": "Repository metadata assembly; no image generation call",
+  "model": "not_applicable; no model invoked by metadata assembly",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 0,
+  "prompt_or_reference": "Existing repository metadata and task FINE-SPACE-05",
+  "processing": "Task metadata updates for fine parallax/foreground/root support. Exact current JSON bytes recorded; no generated art claimed by metadata itself.",
+  "usage_scope": "Formal Home grounding and shared scenery configuration. Rendering and gameplay acceptance remain unverified.",
+  "consumer_scripts": [],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [],
+  "revision_impact": {
+    "revision": "four-line-source-rebind-v1-20261023",
+    "prepared_source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+    "prepared_source_git_status": "M docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n?? docs/evidence/four_line_integration_20261023/asset-registration.json\n?? docs/evidence/four_line_integration_20261023/verified-B/\n?? docs/quality/asset_records/four-line-authored-terrain-lab.json\n?? docs/quality/asset_records/four-line-high-density-terrain-lab.json\n?? docs/quality/asset_records/four-line-home-build-contract.json",
+    "previous_content_version": "fine-space-05-candidate-20261022",
+    "previous_record_path": "docs/evidence/four_line_integration_20261023/asset-record-history/fine-space-05-shared-configuration.json",
+    "previous_record_sha256": "fb6090f8d0a47b4cb5be2aad8cbca4d1fa69f08709f0b5f928564ead87c81b02",
+    "source_changes": [
+      {
+        "field": "source_sha256",
+        "path": "assets/underworld_plains/scenery_build.json",
+        "old_sha256": "50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe",
+        "new_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+        "old_source": {
+          "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+          "subject": "art: adopt fine pixel presentation and layered formal environments",
+          "bytes": 6409,
+          "source_path": "assets/underworld_plains/scenery_build.json"
+        },
+        "new_source": {
+          "commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+          "subject": "art: alternate local landmark groups with open meadow intervals",
+          "bytes": 7658,
+          "source_path": "assets/underworld_plains/scenery_build.json"
+        }
+      },
+      {
+        "field": "runtime_file_sha256/assets/underworld_plains/scenery_build.json",
+        "path": "assets/underworld_plains/scenery_build.json",
+        "old_sha256": "50e9361c5b62a23f52417634768b62e488d126b7664ca9ce99d2bfafff3b9dbe",
+        "new_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+        "old_source": {
+          "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+          "subject": "art: adopt fine pixel presentation and layered formal environments",
+          "bytes": 6409,
+          "source_path": "assets/underworld_plains/scenery_build.json"
+        },
+        "new_source": {
+          "commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+          "subject": "art: alternate local landmark groups with open meadow intervals",
+          "bytes": 7658,
+          "source_path": "assets/underworld_plains/scenery_build.json"
+        }
+      }
+    ],
+    "actual_change": "Runtime configuration change, not a byte-only refresh: retain FINE-SPACE-05 far morning sky, switch middle layer to SPATIAL-RHYTHM-07 quiet meadow, tune composition/fog/detail and add world-anchored windmill/open/clocktower/open/open landmark ensembles (DEPTH-FRAME-06 image). Compared with legacy 59f71c, also adopt same-orientation sky seam, bounded vertical parallax and fine-pixel policy. UnderworldParallax3 reads backgrounds/landmark_sequence, UnderworldScenery reads decor; Home shares parallax. Original source assets remain preserved, but current composition requires independent review.",
+    "unchanged": [
+      "Original source_path/runtime_paths/associated path order and roles; only drifted hash values are rebound.",
+      "Existing processing/tool/model/license fields and original user acceptance references remain historical and unchanged.",
+      "This record revision does not generate, rewrite or replace any image/audio or grant new rights."
+    ],
+    "independent_review": "unverified; root must arrange actual source/consumer impact review before accepting this revision",
+    "visual_acceptance": "unverified for changed composition/current runtime; original record status was unverified",
+    "not_verified": [
+      "Current combined GPU composition/aesthetics and user acceptance",
+      "Physical device and complete Release acceptance"
+    ],
+    "technical_status": "Only original validate_asset schema/source consistency will be checked; previous technical/visual approvals do not transfer to this new source"
+  }
+}

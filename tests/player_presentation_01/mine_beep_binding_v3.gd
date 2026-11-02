@@ -24,7 +24,7 @@ func _audit_audio(audio: PlayerWeaponFeelAudioV2) -> void:
 		check(false,"actual V2 audio survived until ready audit")
 		return
 	var clips: Array=audio.weapon_clips[&"mine_beep"]
-	var old: Array=preload("res://resources/player_presentation_01/weapon_sound_data_v2.gd").CLIPS[&"mine_beep"]
+	var old: Array=preload("res://game/combat/weapons/presentation/resources/weapon_sound_data_v2.gd").CLIPS[&"mine_beep"]
 	check(clips.size()==3,"actual V2 timer has three compatible selection slots")
 	var paths: Array[String]=[]
 	for i: int in clips.size():

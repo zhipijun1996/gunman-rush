@@ -1,0 +1,44 @@
+{
+  "scope": "Original direct checker command, targeted Python not full Harness/185",
+  "runs": [
+    {
+      "label": "before",
+      "cwd": "/workspace/gunman-rush-refactor",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 1,
+      "seconds": 3.2645856979943346,
+      "log": "/workspace/refactor-evidence/asset-registry-layout-followup-01/before-quality.log",
+      "log_sha256": "a92928c9137986eca80208fded97b0d4b52a69f555d0419d1025384d2edecb5d"
+    },
+    {
+      "label": "candidate",
+      "cwd": "/workspace/refactor-evidence/asset-registry-layout-followup-01/overlay",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 1,
+      "seconds": 2.9911778919995413,
+      "log": "/workspace/refactor-evidence/asset-registry-layout-followup-01/candidate-quality.log",
+      "log_sha256": "c59590c2b1ed334203c8557baf4877c0298bae1377e69cf9ae1f61e8b00e9317"
+    },
+    {
+      "label": "candidate-complete-overlay",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "cwd": "/workspace/refactor-evidence/asset-registry-layout-followup-01/overlay",
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 3.1526723350034445,
+      "log": "/workspace/refactor-evidence/asset-registry-layout-followup-01/candidate-quality-complete-overlay.log",
+      "log_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1"
+    }
+  ]
+}

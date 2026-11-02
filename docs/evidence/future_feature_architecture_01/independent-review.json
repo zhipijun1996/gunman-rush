@@ -1,0 +1,26 @@
+{
+  "status": "LIMITED_ACCEPT_DOCUMENTED_EXTENSION_BOUNDARIES",
+  "sources": {
+    "docs/architecture_extensions.md": "2c3ba48c3df480d643ec5ee19a9f5d9fd300e6862f34f6d7238b8c29e64b2e87",
+    "docs/worklines/future_feature_architecture_01/assessment.md": "9198dc55289a584121f6b66037570676881e3358d3aac5d50fa1f9eff52af9aa"
+  },
+  "checked": [
+    "Both docs explicitly distinguish present implementation from proposed new folders/features.",
+    "InputRouter.clear cancellation is not described as sustained blocking; existing pause/cancel/token/AirFocus ownership is reused, no parallel InputLock proposed.",
+    "Existing RunCampaignProgression/Director hardcoded progression is openly identified for consolidation; no new parallel Campaign authority.",
+    "MetaProgression/MetaSaveService remain sole transaction/persistence boundary; new story/tutorial persistence requires separately reviewed schema migration.",
+    "map-gen Python output and browser HTML inspector are explicitly not claimed to be Godot Web runtime or certified playable content.",
+    "Catalog/Definition/LevelPlan/Runtime reuse and existing two-assembler/legacy-manifest limits are stated; arbitrary new Provider compatibility is not claimed."
+  ],
+  "spot_checks": [
+    "Current RunCampaignProgression offers/claim/enter_region actual gating",
+    "Current LevelRuntime two-assembler selection and actor factory route",
+    "Current LevelModuleCatalog admission/definition/scene authority",
+    "Current App pause/resume and PlayerController cancel entry existence"
+  ],
+  "limits": [
+    "Map-gen source claims reviewed as clearly attributed c2ac2c36 external-source evidence in author report; reviewer did not refetch network or run generator.",
+    "No future functionality, migration, performance or device acceptance implied.",
+    "Assessment source line references are explicitly bound to 8df baseline; documentation is not a new runtime registry."
+  ]
+}

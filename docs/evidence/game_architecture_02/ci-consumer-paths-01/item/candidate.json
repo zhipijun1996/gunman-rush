@@ -1,0 +1,63 @@
+{
+  "author": "structure_audit",
+  "scope": "External candidate awaiting independent review; no main/engine/check execution",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "path": "tools/check_plains_item_art.py",
+  "before_sha256": "6b425e784a26779b003ed9ef438e7d816b0a1a30b0e2c97afee30aeb49338c41",
+  "candidate_sha256": "75da697c8879dccb48fb43cfca9f65cb97079dbcfb936cff13799d409c3f1c68",
+  "patch_sha256": "b7b5d5553a91259baed6bab8b980c02c768035bdce5dc47e5696201696739848",
+  "one_literal_prefix_change": true,
+  "inverse_whole_file_equal": true,
+  "unchanged_all_assertions_loops_resource_glob": true,
+  "mapped_actual_consumers": [
+    {
+      "old": "scripts/ui/stage_reward_modal.gd",
+      "current": "game/presentation/ui/stage_reward_modal.gd",
+      "current_sha256": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5"
+    },
+    {
+      "old": "scripts/ui/demo_menu.gd",
+      "current": "game/presentation/ui/demo_menu.gd",
+      "current_sha256": "35f27a52f675fd3227b16d5231b8f4ad6c6220a3a09f756f7deb7b8c4e85991f"
+    },
+    {
+      "old": "scripts/ui/item_shop_modal.gd",
+      "current": "game/presentation/ui/item_shop_modal.gd",
+      "current_sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+    }
+  ],
+  "resource_inventory": {
+    "directory": "resources/items",
+    "count": 23,
+    "actual_all_present": true,
+    "paths": [
+      "resources/items/braided_cord.tres",
+      "resources/items/brake_boots.tres",
+      "resources/items/cooling_fin.tres",
+      "resources/items/damage_blue.tres",
+      "resources/items/echo_gold.tres",
+      "resources/items/echo_magazine.tres",
+      "resources/items/efficient_grip.tres",
+      "resources/items/field_medic.tres",
+      "resources/items/forest_heart_gold.tres",
+      "resources/items/forest_old_badge.tres",
+      "resources/items/forest_spiral_core.tres",
+      "resources/items/health_blue.tres",
+      "resources/items/jump_blue.tres",
+      "resources/items/power_gold.tres",
+      "resources/items/quick_hammer.tres",
+      "resources/items/recoil_purple.tres",
+      "resources/items/region_damage_gold.tres",
+      "resources/items/region_damage_purple.tres",
+      "resources/items/region_health_gold.tres",
+      "resources/items/region_health_purple.tres",
+      "resources/items/region_recoil_purple.tres",
+      "resources/items/shot_purple.tres",
+      "resources/items/stability_blue.tres"
+    ]
+  },
+  "limits": [
+    "No pass claim until independent review and actual original Harness check.",
+    "No new fallback or restored shadow old scripts; no guard weakening."
+  ]
+}

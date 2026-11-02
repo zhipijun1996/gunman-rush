@@ -33,5 +33,5 @@ for item in items:
  assert re.search(r'description = "[^\n"]+"',text),item
  assert 'modifiers = ' in text,item
 for consumer in ['stage_reward_modal','demo_menu','item_shop_modal']:
- assert 'ItemCard.new()' in (root/f'scripts/ui/{consumer}.gd').read_text(),consumer
+ assert 'ItemCard.new()' in (root/f'game/presentation/ui/{consumer}.gd').read_text(),consumer
 print(f'PASS: immutable AI atlas, 15 transparent AI icon regions, {len(items)} actual item resources, reward/shop/build consumers; subjective style pending player review.')

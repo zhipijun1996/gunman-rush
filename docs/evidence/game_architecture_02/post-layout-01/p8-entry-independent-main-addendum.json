@@ -1,0 +1,72 @@
+{
+  "kind": "independent_review_main_integration_addendum",
+  "head": "6584d48bca916de100eed3801af6f0973ae49767",
+  "prior_review": "/workspace/refactor-evidence/p8-entry-independent-review.json",
+  "execution_plan": "/workspace/refactor-evidence/entry-native-execution-plan.json",
+  "scope": "Read only current35 known entry scenes, existing Harness/source coverage, four test-literal migration repairs and baseline stale-reference classification; no Godot",
+  "fixes": [
+    {
+      "file": "tests/cloud_preview_runner.gd",
+      "line": 17,
+      "old": "experiments/terrain/entries/cloud_preview.tscn",
+      "actual": "experiments/platform/entries/cloud_preview.tscn",
+      "root_reported_fix": "mechanical literal replacement; original assertions unchanged",
+      "current_source_actual_literal_present": true,
+      "native_status": "NOT_RUN_AFTER_FIX_BY_THIS_REVIEWER",
+      "current_sha256": "271666931addb784b6e448328e4d33a7b6aa31a18a8027d8ed6c23b766505f7e",
+      "target_exists": true
+    },
+    {
+      "file": "tests/demo_ui_01/contract_runner.gd",
+      "line": 192,
+      "old": "experiments/terrain/entries/cloud_preview.tscn",
+      "actual": "experiments/platform/entries/cloud_preview.tscn",
+      "root_reported_fix": "mechanical literal replacement; original assertions unchanged",
+      "current_source_actual_literal_present": true,
+      "native_status": "NOT_RUN_AFTER_FIX_BY_THIS_REVIEWER",
+      "current_sha256": "6c3d90c4d50866ef91227eff068ad6121670d8d06599075df14c03abacac83fb",
+      "target_exists": true
+    },
+    {
+      "file": "tests/test_blob47_layout.gd",
+      "line": 4,
+      "old": "game/presentation/world/art_foundation/blob47_layout.gd",
+      "actual": "experiments/terrain/art_foundation/blob47_layout.gd",
+      "root_reported_fix": "mechanical literal replacement; original assertions unchanged",
+      "current_source_actual_literal_present": true,
+      "native_status": "NOT_RUN_AFTER_FIX_BY_THIS_REVIEWER",
+      "current_sha256": "fdb43240b2fca6d56dda9618ec788f251d0331302198f6eb91f1d8d494f79d53",
+      "target_exists": true
+    },
+    {
+      "file": "tests/test_windchime_layout.gd",
+      "line": 4,
+      "old": "game/presentation/world/art_foundation/windchime_layout.gd",
+      "actual": "experiments/terrain/art_foundation/windchime_layout.gd",
+      "root_reported_fix": "mechanical literal replacement; original assertions unchanged",
+      "current_source_actual_literal_present": true,
+      "native_status": "NOT_RUN_AFTER_FIX_BY_THIS_REVIEWER",
+      "current_sha256": "90c209e47ffb7397cb004f08cf526149a85c6c9e622f40be5f764cb8e10567d1",
+      "target_exists": true
+    }
+  ],
+  "native_approval": "LIMITED_6_EXISTING_GATES_ONLY; formal exit remains failed; all newly recommended commands NOT_RUN",
+  "dynamic_118_status": "NOT_EXHAUSTIVELY_EXECUTED",
+  "historical_references": [
+    {
+      "file": "tests/eight_demo_runner.gd",
+      "reference": "tests/ten_demo_tests.gd",
+      "finding": "Already absent at2ce4ffa6; historical retired flow runner. No semantics-preserving path target; do not alias current tests."
+    },
+    {
+      "file": "tests/eight_run_runner.gd",
+      "reference": "tests/ten_route_tests.gd",
+      "finding": "Already absent at2ce4ffa6; historical retired flow runner. Current formal gates level-plan/level-formal-runtime/item-v5-formal do not make old runner valid."
+    },
+    {
+      "file": "tests/run_loop_tests.gd:5",
+      "reference": "resources/run/formal_eight.tres",
+      "finding": "Intentional negative exists assertion present in baseline; absence is required. Do not map to live resource."
+    }
+  ]
+}

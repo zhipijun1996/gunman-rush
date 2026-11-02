@@ -170,7 +170,7 @@
 设计资料：
 - [docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md](../../creative_direction/bibles/2-thorn_forest_region_bible_v2.md) · grouped_design_chapter
 - [docs/worklines/enemy_all_02/forest-production-cards.md](../enemy_all_02/forest-production-cards.md) · late_implementation_card_not_original_art_design
-- [scripts/enemies/forest_bible_weaver_behavior.gd](../../../scripts/enemies/forest_bible_weaver_behavior.gd) · behavior identity differentiator
+- [scripts/enemies/forest_bible_weaver_behavior.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/forest_bible_weaver_behavior.gd) · behavior identity differentiator
 
 当前身体：[assets/forest_bible_v2/native/weaver_silk_bell_v5.png](../../../assets/forest_bible_v2/native/weaver_silk_bell_v5.png)；源图尺寸[32, 32]。
 
@@ -198,7 +198,7 @@
 - [docs/quality/actor_inventory.md](../../quality/actor_inventory.md) · shared actor coverage/inventory
 - [docs/quality/asset_generation_notes.md](../../quality/asset_generation_notes.md) · old six-pose-per-species art generation brief
 - [docs/worklines/enemy_all_02/forest-production-cards.md](../enemy_all_02/forest-production-cards.md) · late implementation card
-- [scripts/demo/module_enemy_prototypes.gd](../../../scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides
+- [scripts/demo/module_enemy_prototypes.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides
 
 当前身体：[assets/enemy_all_02/prototype_sheet.png](../../../assets/enemy_all_02/prototype_sheet.png)；源图尺寸[2172, 724]。
 
@@ -225,7 +225,7 @@
 - [docs/quality/actor_inventory.md](../../quality/actor_inventory.md) · shared actor coverage/inventory
 - [docs/quality/asset_generation_notes.md](../../quality/asset_generation_notes.md) · old six-pose-per-species art generation brief
 - [docs/worklines/enemy_all_02/forest-production-cards.md](../enemy_all_02/forest-production-cards.md) · late implementation card
-- [scripts/demo/module_enemy_prototypes.gd](../../../scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides
+- [scripts/demo/module_enemy_prototypes.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides
 
 当前身体：[assets/enemy_all_02/prototype_sheet.png](../../../assets/enemy_all_02/prototype_sheet.png)；源图尺寸[2172, 724]。
 

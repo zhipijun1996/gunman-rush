@@ -1,0 +1,454 @@
+{
+  "schema_version": 1,
+  "task_id": "PAINTED-TERRAIN-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+  "reviewed_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+  "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+  "owner": "/root; bounded first renderer /root/plains_slice; formal reuse /root/painted_reuse; independent /root/pr_cost_audit",
+  "purpose": "通过B曲线驱动完整绘画截面/端部真实建立土台体积；先首完整空间独审再迁移",
+  "player_experience": "真实40world信使反冲穿过连续草毯和厚土台，读出安全岸/敌人/端部深度，保留原合法玩法",
+  "constraints": [
+    "No forest level/enemy/Boss/generator/production file modifications",
+    "Independent worktree based latest PR75 art branch; leave other sessions untouched",
+    "Core/actual collision immutable for first space; any new true geometry requires user authority",
+    "Use already admitted generator geometry for conditional reuse when possible; do not silently alter gameplay",
+    "No default formal asset pool promotion",
+    "Two consecutive no-progress same-method rounds stop method; useful progress permits bounded revision"
+  ],
+  "affected_paths": [
+    "assets/visual_development/painted_terrain",
+    "scripts/art/painted_terrain_grammar.gd",
+    "scripts/art/visual_language_sample.gd",
+    "resources/visual_development/painted_terrain_candidate.json",
+    "tools/visual_director.py",
+    "tools/spatial_golden_capture.gd",
+    "tools/spatial_golden_preview.gd",
+    "scripts/art/painted_formal_terrain_sample.gd",
+    "scripts/art/painted_formal_underside.gdshader",
+    "tools/level_design.py",
+    "tools/run_visual_director_space_tests.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "Actual modular section+end paintings, not whole-screen backdrop",
+    "Native first space oldB/newterrain same geometry comparison",
+    "Independent art gate before second true structure/seed proof",
+    "Existing Skills/tool workflow extraction only after actual result"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "RETHINK old repeated world-UV cliff texture",
+      "reason": "Actual PR75 visible rectangle seams and missing top/turn/deep volume; replace representation rather than add ornament",
+      "status": "not_required",
+      "basis": "Actual PR75 visible rectangle seams and missing top/turn/deep volume; replace representation rather than add ornament; user authorized reversible implementation, no new final art approval claimed"
+    },
+    {
+      "decision": "ACCEPT_SCOPED first-space static and sampled art pilot",
+      "reason": "Independent04 actual-pixel review confirms continuous mass, readable footline/dangers, quiet windband hierarchy; allows exactly one different-structure family trial, not fullG2/user/commercial approval",
+      "source": "build/painted_terrain/candidate_feedback_04/visual_capture.json",
+      "status": "proposed",
+      "basis": "Independent04 actual-pixel review confirms continuous mass, readable footline/dangers, quiet windband hierarchy; allows exactly one different-structure family trial, not fullG2/user/commercial approval; user authorized reversible implementation, no new final art approval claimed"
+    },
+    {
+      "decision": "Preserve failures",
+      "reason": "660tick incomplete route,02 wedge/end deformation and03 typed-array runtime failure retained;03b/04 do not re-sign prior results",
+      "status": "not_required",
+      "basis": "660tick incomplete route,02 wedge/end deformation and03 typed-array runtime failure retained;03b/04 do not re-sign prior results; user authorized reversible implementation, no new final art approval claimed"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Actual B-driven functional family and real first-space design",
+      "evidence": [
+        "family",
+        "recipe"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "04 strict actual route and source-bound native runtime",
+      "evidence": [
+        "final-first-native"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Scoped static/sampled first-space art admitted only; animation/audio/full-gameG2 remain unverified",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "B direction user chosen; actual functional paintings, same real route and readable first-space composition",
+      "evidence": [
+        "family",
+        "recipe"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "First1116ticks/HP5/4acceptedshots strict exit/source guard; second351tick local real-input out/return HP5/collisions preserved, targeted/head fixtures; final checks separately recorded",
+      "evidence": [
+        "targeted-checks",
+        "final-first-native",
+        "local-pack"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Opt-in actual formal pair and exported PCK loaded; no default formal pool promotion/full-stage integration admission",
+      "evidence": []
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "First04 static/sampled overall art ACCEPT_SCOPED; second03 only actual two-bank local use ACCEPT_SCOPED, not second complete commercial golden",
+      "evidence": [
+        "final-first-pixels",
+        "final-art-review"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Real movement sampled, original B basic states/fallbacks retained; full animation quality incomplete",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Encoded audio and existing effects present; no actual listening/full audiovisual judgment",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Actual normal native route/negative tests pass, not human fun/handling acceptance",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "SoftwareGL/fixed movie production not actual native-device FPS benchmark",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Distinct reviewer saw7fullscreens+20frame sequence and bound exact source; no self-modification or human signoff",
+      "evidence": [
+        "final-art-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Only virtual GPU/Xvfb and Linux native startup; no physical mobile/PC/controller playtest",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "User selected B direction only, no final art/gameplay or market approval",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "real-first-art",
+      "status": "passed",
+      "evidence": [
+        "final-first-pixels",
+        "final-art-review",
+        "final-first-native"
+      ],
+      "reason": "scoped static/sampled first pilot only",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "real-first-art",
+      "method": "Actual normal Godot pixels/records and distinct readonly review, no numerical beauty score",
+      "expected": "scoped static/sampled first pilot only",
+      "failure": "False success if missing pixels, consumer/source mismatch, hidden collision or extrapolation beyond actual reviewed scope"
+    },
+    {
+      "id": "distinct-structure-reuse",
+      "status": "unverified",
+      "evidence": [
+        "second03-review",
+        "family"
+      ],
+      "reason": "Historical second03 local use scoped accepted; full second commercial space/random generalization unverified, final PCK startup alone not full second native art review",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "distinct-structure-reuse",
+      "method": "Actual normal Godot pixels/records and distinct readonly review, no numerical beauty score",
+      "expected": "two real existing thin banks, only local art scope",
+      "failure": "False success if missing pixels, consumer/source mismatch, hidden collision or extrapolation beyond actual reviewed scope"
+    },
+    {
+      "id": "random-topology-art",
+      "status": "unverified",
+      "evidence": [],
+      "reason": "three registered seeds consumed identical local geometry; no wider inference",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "random-topology-art",
+      "method": "Actual normal Godot pixels/records and distinct readonly review, no numerical beauty score",
+      "expected": "three registered seeds consumed identical local geometry; no wider inference",
+      "failure": "False success if missing pixels, consumer/source mismatch, hidden collision or extrapolation beyond actual reviewed scope"
+    },
+    {
+      "id": "commercial-golden",
+      "status": "unverified",
+      "evidence": [
+        "first04-review",
+        "second03-review"
+      ],
+      "reason": "AI scoped acceptance cannot certify commercial/user/devices/full animation/audio",
+      "gate": "G5",
+      "dimension": "player_acceptance",
+      "scenario": "commercial-golden",
+      "method": "Actual normal Godot pixels/records and distinct readonly review, no numerical beauty score",
+      "expected": "AI scoped acceptance cannot certify commercial/user/devices/full animation/audio",
+      "failure": "False success if missing pixels, consumer/source mismatch, hidden collision or extrapolation beyond actual reviewed scope"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "first04-native",
+      "path": "docs/evidence/painted_terrain/first04/visual_capture.json",
+      "sha256": "87077991ec92f6699662f99b9f68a0e388e5d67b3086d705c8d24ddd4b752b9e",
+      "kind": "runtime_trace",
+      "method": "actual Godot normal camera normal speed",
+      "observed": "1116tick HP5 four shots unchanged source strict exit",
+      "producer": "/root team",
+      "source_commit": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "historical_dirty_identity": "source_commit is actual recorded Git parent only; original source_before/source_snapshot SHA binds complete dirty capture"
+    },
+    {
+      "id": "first04-review",
+      "path": "docs/evidence/painted_terrain/independent-05-first-space-art-sample.md",
+      "sha256": "1885285a8c22d5654186b6db4ed5d1e14a2abf7a3127a2e42d163dcc6210773b",
+      "kind": "review",
+      "method": "readonly full screens and time-sequence sampling",
+      "observed": "first static/sampled art ACCEPT_SCOPED, not full playback/hearing",
+      "producer": "/root/pr_cost_audit",
+      "source_commit": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/plains_slice",
+        "/root/painted_reuse",
+        "/root/observer_fix"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Readonly different agent actually opened listed native fullscreens; no production writes or human approval",
+      "scope": "ACCEPT only scoped first static/sampled or second actual local-pair art, not completeG2/commercial/user",
+      "historical_dirty_identity": "source_commit is actual recorded Git parent only; original source_before/source_snapshot SHA binds complete dirty capture"
+    },
+    {
+      "id": "second03-review",
+      "path": "docs/evidence/painted_terrain/independent-08-second-structure-scoped-review.md",
+      "sha256": "48ddc64eea520121bb9ea3384a66b56dc6931b433eaa2427a717d031695be477",
+      "kind": "review",
+      "method": "readonly six actual fullscreens plus two actual Motor contact images",
+      "observed": "two thin-bank local use ACCEPT_SCOPED, remaining flat bottom/weak memory",
+      "producer": "/root/pr_cost_audit",
+      "source_commit": "df197eb773aa3d3d89078616d7523da1d3922724",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/plains_slice",
+        "/root/painted_reuse",
+        "/root/observer_fix"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Readonly different agent actually opened listed native fullscreens; no production writes or human approval",
+      "scope": "ACCEPT only scoped first static/sampled or second actual local-pair art, not completeG2/commercial/user",
+      "historical_dirty_identity": "source_commit is actual recorded Git parent only; original source_before/source_snapshot SHA binds complete dirty capture"
+    },
+    {
+      "id": "family",
+      "path": "docs/evidence/painted_terrain/asset-consumer-inventory.json",
+      "sha256": "3e737055a93dbc09d1a452f361ef25e5c177de479371b673a9912b9da18f1aa3",
+      "kind": "spec",
+      "method": "actual SHA/raw image records and consumer fields",
+      "observed": "finite genuine painted source roles, common four sources, no perSeed scene image",
+      "producer": "/root team",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review"
+    },
+    {
+      "id": "recipe",
+      "path": "docs/evidence/painted_terrain/recipe.md",
+      "sha256": "3a044a26f165df957eb23feec24e91f9468a909aca2e4648dbb1bd3599357607",
+      "kind": "spec",
+      "method": "image-led actual method plus existing runnable entries",
+      "observed": "short task route, native consumer and scoped review boundaries",
+      "producer": "/root team",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review"
+    },
+    {
+      "id": "final-art-review",
+      "path": "docs/evidence/painted_terrain/verification/final-art-review-confirmation.json",
+      "sha256": "c7b1e2b7ff866bc412b14485f3e7aa8a29955cb969c13ad140e1419873f5cfea",
+      "kind": "review",
+      "producer": "/root records actual agent evidence",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "method": "Actual native records, not conceptual score",
+      "observed": "See exact scope and failures in referenced original record",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/plains_slice",
+        "/root/painted_reuse",
+        "/root/observer_fix"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Readonly different agent actually opened listed native fullscreens; no production writes or human approval",
+      "scope": "ACCEPT only scoped first static/sampled or second actual local-pair art, not completeG2/commercial/user"
+    },
+    {
+      "id": "targeted-checks",
+      "path": "docs/evidence/painted_terrain/verification/targeted-harness-report.json",
+      "sha256": "71ed1b69d96fb80583edd9bb338c514b269e07b7e7e1cae0f32d4e14e51e98f2",
+      "kind": "command",
+      "producer": "/root records actual agent evidence",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "method": "Actual native records, not conceptual score",
+      "observed": "See exact scope and failures in referenced original record",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "command": "python3 tools/harness.py --check docs --check visual-director-tests --check level-design-routing --check art-art --check capture-tests --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux managed workspace, Python3, frozen3ebb source and then-current docs; targeted development checks only"
+    },
+    {
+      "id": "local-pack",
+      "path": "docs/evidence/painted_terrain/delivery/summary.json",
+      "sha256": "c192a384ffede33470ccdc06f1534bc4b6fed0ee4113eff356374ad1765e3a77",
+      "kind": "runtime_trace",
+      "producer": "/root records actual agent evidence",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "method": "Actual native records, not conceptual score",
+      "observed": "See exact scope and failures in referenced original record",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review"
+    },
+    {
+      "id": "seed-results",
+      "path": "docs/evidence/painted_terrain/records/reuse_registered_results.json",
+      "sha256": "12f44ceb8b73c44d3f6e90eb23a4f39826f4b9fedf8276a92c5a1e32e96e994b",
+      "kind": "runtime_trace",
+      "producer": "/root records actual agent evidence",
+      "source_commit": "df197eb773aa3d3d89078616d7523da1d3922724",
+      "method": "Actual native records, not conceptual score",
+      "observed": "See exact scope and failures in referenced original record",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "historical_dirty_identity": "source_commit is actual recorded Git parent only; original source_before/source_snapshot SHA binds complete dirty capture"
+    },
+    {
+      "id": "final-first-native",
+      "path": "docs/evidence/painted_terrain/records/final_e_01/capture.json",
+      "sha256": "5415a6b85182e7f3526145ec07469bfad1fe7f8d57b7f43c329fcbc235d96740",
+      "kind": "runtime_trace",
+      "producer": "/root/observer_fix",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "method": "Actual native normal camera 60fps collection, frozen source strict exit and guard",
+      "observed": "1116 ticks HP5 four accepted shots zero recovery; final sampled art remains ACCEPT_SCOPED"
+    },
+    {
+      "id": "final-first-pixels",
+      "path": "docs/evidence/painted_terrain/media/candidate-encounter.png",
+      "sha256": "6cf1c5033242aba8a1d317e340f9781459b335e1fc556c2ba0d008e167ab20a3",
+      "kind": "screenshot",
+      "producer": "/root/observer_fix",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "method": "Actual native normal camera 60fps collection, frozen source strict exit and guard",
+      "observed": "1116 ticks HP5 four accepted shots zero recovery; final sampled art remains ACCEPT_SCOPED"
+    },
+    {
+      "id": "final-first-movie",
+      "path": "docs/evidence/painted_terrain/media/candidate-normal.mp4",
+      "sha256": "65bfe2834a43d94fc35f17f3e05ea5a10299134a8f71aa0c2b5479fe71388ade",
+      "kind": "video",
+      "producer": "/root/observer_fix",
+      "source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+      "content_version": "painted-bank-v2-thin-bank-per-column-underside-local-review",
+      "method": "Actual native normal camera 60fps collection, frozen source strict exit and guard",
+      "observed": "1116 ticks HP5 four accepted shots zero recovery; final sampled art remains ACCEPT_SCOPED"
+    }
+  ],
+  "consumer_coverage": {
+    "first": "existing three-bank open-meadow art experiment unchanged collision",
+    "second": "nearest two finite rooted unions in actual formal generated map",
+    "unsupported": "other unions/floating/oneway/moving retain baseline; no generic terrain replacement",
+    "default_formal_pool_changed": false,
+    "registration": "docs/evidence/painted_terrain/seed-registration.json",
+    "actual_registered_local_distinct_count": 1
+  },
+  "unverified_items": [
+    "First static/sampled art pilot accepted_scoped; no commercial golden/user approval",
+    "Second actual different thin-bank structure only local reuse; flat underside/weak memory composition remain",
+    "Registered three seeds local consumed geometry identical; no random topology generalization",
+    "FullG2/full animation/audio/human gamefeel, actual hearing, physical devices/controller/mobile/performance/market remain unverified",
+    "Full CI/formal release not run; final Linux local review PCK strict smoke/actual GUI passed, not real-device playtest",
+    "Image models/tokens/price/commercial licenses unknown"
+  ],
+  "reviewed_source_identity": "0905516 is Git parent only; 04 actual source inventory8cad0dabddd5ecc9d362d9d1eb1be672b2eb1a69e518cde0ec99818cfb9c40cd plus43-file source_snapshot; catalog7af9a4a77b9fc9a6042bad7effe7eccb3ec7769540169706a0e42397c93c664e",
+  "first_space_art_admission": {
+    "status": "accepted_scoped",
+    "scope": "First representative space static/sampled overall art; one limited different existing formal structure may test same family",
+    "not_claimed": [
+      "completeG2",
+      "commercial golden",
+      "user final approval",
+      "human playtest",
+      "device acceptance",
+      "all seeds"
+    ],
+    "capture": "docs/evidence/painted_terrain/first04/visual_capture.json",
+    "independent_reviewer": "/root/pr_cost_audit",
+    "review_report": "docs/evidence/painted_terrain/independent-05-first-space-art-sample.md"
+  },
+  "second_space_art_admission": {
+    "status": "accepted_scoped",
+    "scope": "actual existing formal pair local thin-bank appearance and out/return only",
+    "review_report": "docs/evidence/painted_terrain/independent-08-second-structure-scoped-review.md",
+    "seed": "level-design-v2-baseline/08",
+    "not_claimed": [
+      "second polished commercial golden",
+      "whole generated map",
+      "all enemies onscreen",
+      "different registered random topologies"
+    ]
+  },
+  "final_runtime_source_identity": {
+    "commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+    "scope": "final same-source first A/E and local review PCK; earlier04 and second03 remain their own actual dirty snapshots",
+    "first_a": "build/painted_terrain/final_a_01/visual_capture.json",
+    "first_e": "build/painted_terrain/final_e_01/visual_capture.json",
+    "pck_runtime_inventory_sha256": "1530568b890614ac0370b5f04e08666ffdc7a70b7b2c22a30e21be84d06e51b5",
+    "pck_build_id": "e5e7d535b742"
+  }
+}

@@ -1,0 +1,795 @@
+{
+  "review_kind": "independent static and existing-native-trace causal analysis; no engine execution; no main writes",
+  "source_trace": "/workspace/refactor-evidence/r3-formal-map1-observer-02/full_fight_map1.json",
+  "trace_sha256": "0a7312bb5efdad12a66f3359fcdeea431783b24b79fb7b1580daf601bfd608ac",
+  "result_preserved": {
+    "status": "failed",
+    "frames": 1608,
+    "failures": [
+      "actual continuous full fight did not defeat Boss",
+      "player failed actual continuous battle",
+      "actual Bell full battle released its arena before successful settlement"
+    ],
+    "boss_hp": 26.0,
+    "player_hp": 0.0,
+    "lifecycle_events": [
+      {
+        "event": "run_ended",
+        "event_id": "death_4_1",
+        "reason": "failure",
+        "run_epoch": 4,
+        "stage_epoch": 4,
+        "stage_index": 1,
+        "status": 0,
+        "tick": 1621
+      },
+      {
+        "event": "player_fatal",
+        "tick": 1621
+      }
+    ]
+  },
+  "rolls": [
+    {
+      "group": 1,
+      "roll_first_trace_tick": 270,
+      "roll_end_first_other_state_tick": 334,
+      "jump_input": [
+        {
+          "action": "jump_hold",
+          "frame": 254,
+          "group": 1,
+          "intent": "approach and plant during charge warning; jump and cross",
+          "movie_frame": 266
+        }
+      ],
+      "player_hits": [
+        {
+          "event": {
+            "amount": 1.0,
+            "event": "boss_contact:3:1:1",
+            "health": 4.0,
+            "target": "player",
+            "tick": 286
+          },
+          "same_tick_pre_resolution_row": {
+            "axis": 1.0,
+            "boss": [
+              6537.33740234375,
+              1353.0
+            ],
+            "boss_hp": 40.0,
+            "clock": 1.08333333333333,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 4.53333333333333,
+            "phase": 1,
+            "player": [
+              6510.33056640625,
+              1252.14636230469
+            ],
+            "player_hp": 5.0,
+            "requested_shots": 0,
+            "stamina": 100.0,
+            "tick": 286
+          },
+          "next_tick_row": {
+            "axis": 1.0,
+            "boss": [
+              6531.00390625,
+              1353.0
+            ],
+            "boss_hp": 40.0,
+            "clock": 1.06666666666667,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 4.55,
+            "phase": 1,
+            "player": [
+              6514.6640625,
+              1250.57971191406
+            ],
+            "player_hp": 4.0,
+            "requested_shots": 0,
+            "stamina": 100.0,
+            "tick": 287
+          },
+          "relative_player_center_to_boss": [
+            -27.0068359375,
+            -100.85363769531
+          ],
+          "source_attribution": "actual policy accepted boss_contact; actual trace mode roll; exact rig part not recorded"
+        }
+      ],
+      "side_crossings": [
+        {
+          "axis": 1.0,
+          "boss": [
+            6486.66943359375,
+            1353.0
+          ],
+          "boss_hp": 40.0,
+          "clock": 0.950000000000001,
+          "cross": 0,
+          "grounded": false,
+          "mode": "roll",
+          "movie_seconds": 4.66666666666667,
+          "phase": 1,
+          "player": [
+            6487.82958984375,
+            1253.88525390625
+          ],
+          "player_hp": 4.0,
+          "requested_shots": 0,
+          "stamina": 100.0,
+          "tick": 294
+        }
+      ],
+      "recovery_shot_inputs": [
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            -0.902267336845398,
+            -0.431177198886871
+          ],
+          "frame": 326,
+          "group": 1,
+          "intent": "cautious2",
+          "movie_frame": 338,
+          "ordinal": 1,
+          "recovery_age": 0.0833333333333333,
+          "submitted": true
+        },
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            -0.938722312450409,
+            -0.344674319028854
+          ],
+          "frame": 343,
+          "group": 1,
+          "intent": "cautious2",
+          "movie_frame": 355,
+          "ordinal": 2,
+          "recovery_age": 0.366666666666667,
+          "submitted": true
+        }
+      ]
+    },
+    {
+      "group": 2,
+      "roll_first_trace_tick": 464,
+      "roll_end_first_other_state_tick": 545,
+      "jump_input": [
+        {
+          "action": "jump_hold",
+          "frame": 448,
+          "group": 2,
+          "intent": "approach and plant during charge warning; jump and cross",
+          "movie_frame": 460
+        }
+      ],
+      "player_hits": [
+        {
+          "event": {
+            "amount": 1.0,
+            "event": "boss_contact:3:3:1",
+            "health": 3.0,
+            "target": "player",
+            "tick": 482
+          },
+          "same_tick_pre_resolution_row": {
+            "axis": -1.0,
+            "boss": [
+              6310.32958984375,
+              1353.0
+            ],
+            "boss_hp": 38.0,
+            "clock": 1.05,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 7.8,
+            "phase": 1,
+            "player": [
+              6335.40869140625,
+              1248.86120605469
+            ],
+            "player_hp": 4.0,
+            "requested_shots": 2,
+            "stamina": 100.0,
+            "tick": 482
+          },
+          "next_tick_row": {
+            "axis": -1.0,
+            "boss": [
+              6316.6630859375,
+              1353.0
+            ],
+            "boss_hp": 38.0,
+            "clock": 1.03333333333333,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 7.81666666666667,
+            "phase": 1,
+            "player": [
+              6331.0751953125,
+              1248.73901367188
+            ],
+            "player_hp": 3.0,
+            "requested_shots": 2,
+            "stamina": 100.0,
+            "tick": 483
+          },
+          "relative_player_center_to_boss": [
+            25.0791015625,
+            -104.13879394531
+          ],
+          "source_attribution": "actual policy accepted boss_contact; actual trace mode roll; exact rig part not recorded"
+        }
+      ],
+      "side_crossings": [
+        {
+          "axis": -1.0,
+          "boss": [
+            6354.6640625,
+            1353.0
+          ],
+          "boss_hp": 38.0,
+          "clock": 0.933333333333334,
+          "cross": 0,
+          "grounded": false,
+          "mode": "roll",
+          "movie_seconds": 7.91666666666667,
+          "phase": 1,
+          "player": [
+            6354.076171875,
+            1249.40563964844
+          ],
+          "player_hp": 3.0,
+          "requested_shots": 2,
+          "stamina": 100.0,
+          "tick": 489
+        }
+      ],
+      "recovery_shot_inputs": [
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            0.920449137687683,
+            -0.390862554311752
+          ],
+          "frame": 537,
+          "group": 2,
+          "intent": "cautious2",
+          "movie_frame": 549,
+          "ordinal": 1,
+          "recovery_age": 0.0833333333333333,
+          "submitted": true
+        },
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            0.946037471294403,
+            -0.324057191610336
+          ],
+          "frame": 554,
+          "group": 2,
+          "intent": "cautious2",
+          "movie_frame": 566,
+          "ordinal": 2,
+          "recovery_age": 0.366666666666667,
+          "submitted": true
+        }
+      ]
+    },
+    {
+      "group": 4,
+      "roll_first_trace_tick": 809,
+      "roll_end_first_other_state_tick": 890,
+      "jump_input": [
+        {
+          "action": "jump_hold",
+          "frame": 793,
+          "group": 4,
+          "intent": "approach and plant during charge warning; jump and cross",
+          "movie_frame": 805
+        }
+      ],
+      "player_hits": [
+        {
+          "event": {
+            "amount": 1.0,
+            "event": "boss_contact:3:4:1",
+            "health": 2.0,
+            "target": "player",
+            "tick": 826
+          },
+          "same_tick_pre_resolution_row": {
+            "axis": 1.0,
+            "boss": [
+              6640.34375,
+              1353.0
+            ],
+            "boss_hp": 34.0,
+            "clock": 1.06666666666667,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 13.5333333333333,
+            "phase": 1,
+            "player": [
+              6606.23876953125,
+              1250.57971191406
+            ],
+            "player_hp": 3.0,
+            "requested_shots": 6,
+            "stamina": 100.0,
+            "tick": 826
+          },
+          "next_tick_row": {
+            "axis": 1.0,
+            "boss": [
+              6634.01025390625,
+              1353.0
+            ],
+            "boss_hp": 34.0,
+            "clock": 1.05,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 13.55,
+            "phase": 1,
+            "player": [
+              6610.572265625,
+              1249.73522949219
+            ],
+            "player_hp": 2.0,
+            "requested_shots": 6,
+            "stamina": 100.0,
+            "tick": 827
+          },
+          "relative_player_center_to_boss": [
+            -34.10498046875,
+            -102.42028808594
+          ],
+          "source_attribution": "actual policy accepted boss_contact; actual trace mode roll; exact rig part not recorded"
+        }
+      ],
+      "side_crossings": [
+        {
+          "axis": 1.0,
+          "boss": [
+            6570.67529296875,
+            1353.0
+          ],
+          "boss_hp": 34.0,
+          "clock": 0.883333333333334,
+          "cross": 0,
+          "grounded": false,
+          "mode": "roll",
+          "movie_seconds": 13.7166666666667,
+          "phase": 1,
+          "player": [
+            6572.2373046875,
+            1265.29077148438
+          ],
+          "player_hp": 2.0,
+          "requested_shots": 6,
+          "stamina": 100.0,
+          "tick": 837
+        }
+      ],
+      "recovery_shot_inputs": [
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            -0.929043292999268,
+            -0.369971066713333
+          ],
+          "frame": 882,
+          "group": 4,
+          "intent": "cautious2",
+          "movie_frame": 894,
+          "ordinal": 1,
+          "recovery_age": 0.0833333333333333,
+          "submitted": true
+        },
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            -0.945487678050995,
+            -0.325657963752747
+          ],
+          "frame": 899,
+          "group": 4,
+          "intent": "cautious2",
+          "movie_frame": 911,
+          "ordinal": 2,
+          "recovery_age": 0.366666666666667,
+          "submitted": true
+        }
+      ]
+    },
+    {
+      "group": 5,
+      "roll_first_trace_tick": 1020,
+      "roll_end_first_other_state_tick": 1101,
+      "jump_input": [
+        {
+          "action": "jump_hold",
+          "frame": 1004,
+          "group": 5,
+          "intent": "approach and plant during charge warning; jump and cross",
+          "movie_frame": 1016
+        }
+      ],
+      "player_hits": [
+        {
+          "event": {
+            "amount": 1.0,
+            "event": "boss_contact:3:6:1",
+            "health": 1.0,
+            "target": "player",
+            "tick": 1039
+          },
+          "same_tick_pre_resolution_row": {
+            "axis": -1.0,
+            "boss": [
+              6316.6630859375,
+              1353.0
+            ],
+            "boss_hp": 32.0,
+            "clock": 1.03333333333333,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 17.0833333333333,
+            "phase": 1,
+            "player": [
+              6351.8173828125,
+              1248.73901367188
+            ],
+            "player_hp": 2.0,
+            "requested_shots": 8,
+            "stamina": 100.0,
+            "tick": 1039
+          },
+          "next_tick_row": {
+            "axis": -1.0,
+            "boss": [
+              6322.99658203125,
+              1353.0
+            ],
+            "boss_hp": 32.0,
+            "clock": 1.01666666666667,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 17.1,
+            "phase": 1,
+            "player": [
+              6347.48388671875,
+              1249.33898925781
+            ],
+            "player_hp": 1.0,
+            "requested_shots": 8,
+            "stamina": 100.0,
+            "tick": 1040
+          },
+          "relative_player_center_to_boss": [
+            35.154296875,
+            -104.26098632812
+          ],
+          "source_attribution": "actual policy accepted boss_contact; actual trace mode roll; exact rig part not recorded"
+        }
+      ],
+      "side_crossings": [
+        {
+          "axis": -1.0,
+          "boss": [
+            6386.33154296875,
+            1353.0
+          ],
+          "boss_hp": 32.0,
+          "clock": 0.850000000000001,
+          "cross": 0,
+          "grounded": false,
+          "mode": "roll",
+          "movie_seconds": 17.2666666666667,
+          "phase": 1,
+          "player": [
+            6385.81884765625,
+            1264.89453125
+          ],
+          "player_hp": 1.0,
+          "requested_shots": 8,
+          "stamina": 100.0,
+          "tick": 1050
+        }
+      ],
+      "recovery_shot_inputs": [
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            0.999959468841553,
+            0.00900963880121708
+          ],
+          "frame": 1093,
+          "group": 5,
+          "intent": "cautious2",
+          "movie_frame": 1105,
+          "ordinal": 1,
+          "recovery_age": 0.0833333333333333,
+          "submitted": true
+        },
+        {
+          "action": "shoot_release",
+          "actual_state": "neck",
+          "direction": [
+            0.999804019927979,
+            0.0197944305837154
+          ],
+          "frame": 1111,
+          "group": 5,
+          "intent": "cautious2",
+          "movie_frame": 1123,
+          "ordinal": 2,
+          "recovery_age": 0.383333333333333,
+          "submitted": true
+        }
+      ]
+    },
+    {
+      "group": 8,
+      "roll_first_trace_tick": 1603,
+      "roll_end_first_other_state_tick": null,
+      "jump_input": [
+        {
+          "action": "jump_hold",
+          "frame": 1587,
+          "group": 8,
+          "intent": "approach and plant during charge warning; jump and cross",
+          "movie_frame": 1599
+        }
+      ],
+      "player_hits": [
+        {
+          "event": {
+            "amount": 1.0,
+            "event": "boss_contact:3:7:1",
+            "health": 0.0,
+            "target": "player",
+            "tick": 1621
+          },
+          "same_tick_pre_resolution_row": {
+            "axis": 1.0,
+            "boss": [
+              6583.32861328125,
+              1353.0
+            ],
+            "boss_hp": 26.0,
+            "clock": 1.05,
+            "cross": 0,
+            "grounded": false,
+            "mode": "roll",
+            "movie_seconds": 26.7833333333333,
+            "phase": 1,
+            "player": [
+              6550.72265625,
+              1249.73522949219
+            ],
+            "player_hp": 1.0,
+            "requested_shots": 14,
+            "stamina": 100.0,
+            "tick": 1621
+          },
+          "next_tick_row": null,
+          "relative_player_center_to_boss": [
+            -32.60595703125,
+            -103.26477050781
+          ],
+          "source_attribution": "actual policy accepted boss_contact; actual trace mode roll; exact rig part not recorded"
+        }
+      ],
+      "side_crossings": [],
+      "recovery_shot_inputs": []
+    }
+  ],
+  "all_player_hits_in_actual_roll_rows": true,
+  "all_crossings_occur_after_damage": true,
+  "accepted_shots": 14,
+  "requested_shots": 14,
+  "actual_hp_changing_boss_events": 14,
+  "group_shot_input_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2,
+    "5": 2,
+    "6": 2,
+    "7": 2,
+    "8": 0
+  },
+  "other_groups": [
+    {
+      "group": 3,
+      "kind": "ring",
+      "player_damage": 0
+    },
+    {
+      "group": 6,
+      "kind": "ring",
+      "player_damage": 0
+    },
+    {
+      "group": 7,
+      "kind": "lob",
+      "player_damage": 0
+    }
+  ],
+  "frame_alignment_limit": "pilot movie_frame is process-frame counter; trace tick is physics-frame counter. Exact physics launch established by grounded true->false, not by treating these clocks as identical. Damage event same-tick trace may precede policy resolution; next row reflects loss, final terminal event replaces absent next row.",
+  "platform_findings": {
+    "generator_inferred_module_origin": [
+      6040,
+      818
+    ],
+    "authority_local_low_platform": [
+      290,
+      470,
+      120,
+      20
+    ],
+    "derived_world_low_platform": [
+      6330,
+      1288,
+      120,
+      20
+    ],
+    "first_warning_trace": {
+      "axis": 1.0,
+      "boss": [
+        6600.0,
+        1353.0
+      ],
+      "boss_hp": 40.0,
+      "clock": 0.85,
+      "cross": 0,
+      "grounded": true,
+      "mode": "roll_warning",
+      "movie_seconds": 3.41666666666667,
+      "phase": 1,
+      "player": [
+        6358.66552734375,
+        1399.92529296875
+      ],
+      "player_hp": 5.0,
+      "requested_shots": 0,
+      "stamina": 100.0,
+      "tick": 219
+    },
+    "actual_late_grounded_low_platform_trace": {
+      "axis": 0.0,
+      "boss": [
+        6709.33984375,
+        1353.0
+      ],
+      "boss_hp": 32.0,
+      "clock": 1.05,
+      "cross": 0,
+      "grounded": true,
+      "mode": "neck",
+      "movie_seconds": 18.1166666666667,
+      "phase": 1,
+      "player": [
+        6414.01708984375,
+        1269.92529296875
+      ],
+      "player_hp": 1.0,
+      "requested_shots": 8,
+      "stamina": 100.0,
+      "tick": 1101
+    },
+    "misleading_platform_intent_input": {
+      "action": "jump_hold",
+      "frame": 940,
+      "group": 4,
+      "intent": "legal jump toward existing platform; selection remains autonomous",
+      "movie_frame": 952
+    },
+    "that_input_did_not_prove_platform_landing": "x6655 lies outside actual low support6330..6450 and high support6790..6890; later landed ground at tick1003. Tick1101 is actual grounded elevated trace after roll5 injury.",
+    "derivation_limit": "world platform positions derived from current generator/adapter/Definition and recorded initial Boss pose, not a new native collision query; candidate must read actual installed module/support."
+  },
+  "hypothesis": {
+    "id": "ONE-LOW-SUPPORT-BASE-JUMP",
+    "status": "UNVERIFIED_PROPOSAL_NOT_IMPLEMENTED",
+    "claim": "For the first naturally committed phase1 roll in this exact existing App/seed, use the already authored adjacent low platform as a real grounded launch point, instead of running off its footprint and jumping from floor into the tall upper bell. Then one normal grounded jump when the incoming real rig enters the support horizontal span may allow a damage-free pass-under/side-crossing.",
+    "why_causal": [
+      "Every observed floor-jump roll lost one HP near upper-bell height; four later side crossings were damaged, not evasions.",
+      "First committed roll warning starts while player x6358.665 is within actual low platform footprint; current pilot instead runs toward Boss until beyond its right edge.",
+      "The low platform is130 above floor and already physically supports this same base player later in trace; no extra jump charge is required if ordinary floor->platform landing genuinely occurs.",
+      "Act only after actual group selection so the initial roll cannot be obtained by changing RNG or forcing its state."
+    ],
+    "steps": [
+      "Read existing installed plains_bellstrider_arena module Definition and its actual world transform; select its existing lower support under/adjacent to player. Do not copy geometry or build collision proxies.",
+      "On the first naturally observed phase1 roll_warning, use ordinary axis toward that support center and original held jump input; require a real grounded landing on that support. No reset_at, snap, clock write, health/resource reset or artificial used_jumps reset.",
+      "While supported, keep the actor over the platform instead of original approach sprint. When the incoming current body_contact_rect leading horizontal edge reaches the support span, issue one ordinary grounded held jump and keep horizontal intent over the support. This uses existing threat geometry for input choice only; damage remains native body_contact_sweep/policy. No sweep over thresholds/timings.",
+      "Require actual airborne Boss side crossing and landing with unchanged HP for the whole committed group. Reuse original recovery firing and its two-shot maximum, no extra defensive shot. Resume the existing observer and preserve all later failures; do not call a first-group success a completed fight."
+    ],
+    "failure_conditions": [
+      "No eligible actual support or cannot physically land on it before attack: hypothesis fails rather than teleport/fallback grant.",
+      "Any accepted player damage, no actual airborne pass-under/crossing, no landing, or altered normal HP/energy/ability/ammo state: fail.",
+      "No naturally selected eligible roll within unchanged battle budget: missing proof, not pass.",
+      "Original later full-fight failure remains failed. Phase2 return-roll/other maps/corners and repeating this route are unverified until separately observed."
+    ],
+    "success_scope": "At most one actual phase1 support-assisted basic-jump roll counterplay demonstration, with real pre-landing and no added ability. It does not prove unchanged floor-only old68-frame promise or complete full185/formal fairness.",
+    "migration_gate": "Only frozen candidate plus independent review plus actual no-damage/crossing/landing and unchanged original whole-fight predicates may justify a declared test-input contract migration. A one-group success alone cannot replace full combat CI.",
+    "unchanged": [
+      "current adopted Boss/rig/physical rules",
+      "initial fixture position",
+      "max_jumps1/no hook or new grants",
+      "original HP/ammo/energy and recovery",
+      "two shots per group maximum",
+      "7200 combat frames",
+      "180 native seconds",
+      "original fixed68/78 failure provenance"
+    ]
+  },
+  "reviewed_sources": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794"
+    },
+    {
+      "path": "game/player/player_motor.gd",
+      "sha256": "4d093a7c631ab18ee10bc9c90a01d15716cb4ac3dcbe75508b8d8c3f552a3b7f"
+    },
+    {
+      "path": "game/player/actions/jump_ability.gd",
+      "sha256": "0214cea7035d855185b74ebae81e43a3cfb0e14568616eede9d05aa3b327cd6a"
+    },
+    {
+      "path": "game/platform/input/input_router.gd",
+      "sha256": "04409e9e2e060ebf3333624b67d3ff031ea73fb751457b94c1c57045d8b7edc5"
+    },
+    {
+      "path": "resources/generation/modules/plains_bellstrider_arena.tres",
+      "sha256": "6ca68b89d7c34fe90d48fe3440391480bf48de2b3436ca0748960dbb06a8b34b"
+    },
+    {
+      "path": "game/world/generation/plains_region_generator.gd",
+      "sha256": "6e16c288e5e9c48631f69bfa0ceb302a3b72fc14fff15c01c1fe4b778c36c68c"
+    },
+    {
+      "path": "game/world/levels/providers/legacy_region_plan_adapter.gd",
+      "sha256": "33509c923b6cfc87fe5f7b24041eaa1c3f58e7e90da11865c750aa7b0dc51441"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "game/bosses/bellstrider/bellstrider_encounter.gd",
+      "sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9"
+    }
+  ],
+  "unchanged_trigger_followup": {
+    "evidence": "unchanged-trigger-platform-boundary.json",
+    "verdict": "Original-x/low-platform-center with unchanged original warning trigger is not supported: source/observed-curve projection contains upper-bell overlap; reject as a justified safe plan, not as a universal native impossibility claim.",
+    "alternative_remains": "one actual rig-edge arrival trigger after real low-platform landing; estimate only, no native success"
+  }
+}

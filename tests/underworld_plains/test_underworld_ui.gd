@@ -71,6 +71,7 @@ func run() -> void:
 	check(menu.visible_panel==&"settings","actual native touch activates regular menu control without mouse emulation")
 	if menu.visible_panel==&"settings":await click(button(menu._content,"BACK"))
 	await click(button(menu._content,"SETTINGS"));check(menu.visible_panel==&"settings","native title mouse opens settings")
+	await popup_touch_pairing_contract(menu._movement_mode.get_popup())
 	menu._sliders.right_enter_deadzone.value=.2;menu._sliders.right_exit_deadzone.value=.3
 	await click(button(menu._content,"APPLY"));check(patches.is_empty() and not menu._settings_error.text.is_empty(),"native invalid settings never submit")
 	await click(button(menu._content,"RESTORE DEFAULTS"));check(patches.is_empty(),"restore remains preview")
@@ -95,11 +96,11 @@ func run() -> void:
 	menu.show_pause();await click(button(menu._content,"PausePage"));await click(button(menu._content,"RETURN TO HOME"));await observe("leave_confirmation",menu._root);await click(button(menu._content,"LEAVE RUN"));check(leaves.size()==1,"confirmed native leave emits once")
 	menu.hide_home()
 	var item: ItemDefinition=load("res://resources/items/jump_blue.tres")
-	var offer: RefCounted=load("res://scripts/shops/shop_offer.gd").new();offer.item=item;offer.price=10;offer.stock=1
+	var offer: RefCounted=load("res://game/economy/shops/shop_offer.gd").new();offer.item=item;offer.price=10;offer.stock=1
 	var shop:=ItemShopModal.new();root.add_child(shop);var buys:Array[int]=[];shop.purchase_requested.connect(func():buys.append(1))
 	shop.show_offer(offer,0,true);await frames();await observe("shop_unaffordable",shop._root);await click(button(shop._root,"BUY"));check(buys.is_empty(),"actual unaffordable shop button rejects click")
 	shop.show_offer(offer,10,true);await click(button(shop._root,"BUY"));check(buys.size()==1,"actual affordable button emits original purchase request");await observe("shop",shop._root);shop.close();check(not shop.opened and shop._root==null,"shop close disposes root");shop.show_offer(offer,10,false);check(button(shop._root,"BUY").disabled,"reopened ineligible quote stays disabled");shop.close();shop.free()
-	var reward:=StageRewardModal.new();root.add_child(reward);var reward_offer: RefCounted=load("res://scripts/rewards/reward_offer.gd").new();reward_offer.candidates.append(item);reward_offer.candidates.append(load("res://resources/items/damage_blue.tres"));reward.show_offer(reward_offer,"MAP 2");await frames();await observe("reward",reward._root);var choices:Array[StringName]=[];reward.item_selected.connect(func(id:StringName):choices.append(id));await click(button(reward._root,"选择 / PICK"));check(choices==[item.stable_id],"actual reward button preserves accepted stable item ID");reward.close();reward.free()
+	var reward:=StageRewardModal.new();root.add_child(reward);var reward_offer: RefCounted=load("res://game/rewards/offers/reward_offer.gd").new();reward_offer.candidates.append(item);reward_offer.candidates.append(load("res://resources/items/damage_blue.tres"));reward.show_offer(reward_offer,"MAP 2");await frames();await observe("reward",reward._root);var choices:Array[StringName]=[];reward.item_selected.connect(func(id:StringName):choices.append(id));await click(button(reward._root,"选择 / PICK"));check(choices==[item.stable_id],"actual reward button preserves accepted stable item ID");reward.close();reward.free()
 	var exit:=StageExitModal.new();root.add_child(exit);exit.show_exit("MAP 2","Reward remains owned by gameplay service");await frames();await observe("stage_exit",exit._root);exit.close();exit.free()
 	menu.free();await frames(3)
 	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(4)
@@ -155,3 +156,80 @@ func finish() -> void:
 	await frames(6)
 	print("UNDERWORLD UI: %s checks, %s failures" % [checks,failures])
 	quit(1 if failures else 0)
+
+func popup_pairing_point(popup: PopupMenu) -> Vector2:
+	await frames(2) # Let the previous native Window hide notification settle.
+	popup.popup(Rect2i(80,80,300,0))
+	await frames(3)
+	return Vector2(popup.position)+Vector2(popup.size)*.5
+
+func popup_pairing_touch(popup: PopupMenu, point: Vector2, finger: int, pressed: bool, canceled := false) -> bool:
+	var event := InputEventScreenTouch.new()
+	event.position=point;event.index=finger;event.pressed=pressed;event.canceled=canceled
+	root.push_input(event,true)
+	var consumed := popup.is_input_handled()
+	await frames(2)
+	return consumed
+
+func popup_touch_pairing_contract(popup: PopupMenu) -> void:
+	var adapter := popup.get_child(0) as PopupTouchAdapter
+	check(adapter!=null,"actual embedded PopupMenu owns the production touch adapter")
+	if adapter==null: return
+	var selected: Array[int]=[]
+	var phases: Array[StringName]=[]
+	popup.id_pressed.connect(func(id: int) -> void: selected.append(id))
+	adapter.forwarded.connect(func(value: StringName) -> void: phases.append(value))
+	var point: Vector2=await popup_pairing_point(popup)
+	# Explicit lifecycle fixture: the opening press was outside this popup.
+	var opener_consumed: bool = await popup_pairing_touch(popup,point,91,false)
+	check(opener_consumed and popup.visible and selected.is_empty() and phases.is_empty(),"unpaired opening release is consumed without selecting or forwarding a root mouse release")
+	await popup_pairing_touch(popup,point,92,true)
+	await popup_pairing_touch(popup,point,93,true)
+	await popup_pairing_touch(popup,point,93,false)
+	var drag := InputEventScreenDrag.new();drag.index=93;drag.position=point;drag.relative=Vector2(0,10)
+	root.push_input(drag,true)
+	var drag_consumed := popup.is_input_handled()
+	await frames(2)
+	check(drag_consumed and popup.visible and selected.is_empty() and phases==[&"press"],"another finger cannot acquire, release or drag the active popup mouse gesture")
+	await popup_pairing_touch(popup,point,92,false)
+	check(not popup.visible and selected.size()==1 and phases==[&"press",&"release"],"matching second tap selects exactly once through native PopupMenu")
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,94,true)
+	await popup_pairing_touch(popup,point,94,false)
+	check(not popup.visible and selected.size()==2,"a later legitimate popup tap still selects; the adapter does not blindly swallow a first release")
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,95,true)
+	popup.hide()
+	point=await popup_pairing_point(popup)
+	var phase_count := phases.size()
+	await popup_pairing_touch(popup,point,95,false)
+	check(popup.visible and selected.size()==2 and phases.size()==phase_count,"hide/reopen invalidates the previous lifecycle finger release")
+	await popup_pairing_touch(popup,point,96,true)
+	await popup_pairing_touch(popup,point,97,false,true)
+	check(not popup.visible and selected.size()==2 and phases.back()==&"cancel","foreign-finger canceled touch preserves the original cancel-and-hide policy without selecting")
+	point=await popup_pairing_point(popup)
+	phase_count=phases.size()
+	await popup_pairing_touch(popup,point,96,false)
+	check(popup.visible and selected.size()==2 and phases.size()==phase_count,"canceled gesture cannot release into a later popup lifecycle")
+	await popup_pairing_touch(popup,point,98,true)
+	# Native callback entry verifies the existing Web bridge's cancellation policy;
+	# actual DOM dispatch remains a separate browser check.
+	adapter._web_touch_cancel([])
+	check(not popup.visible and selected.size()==2 and phases.back()==&"cancel","existing DOM-cancel callback entry clears touch ownership and hides without selecting")
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,98,false)
+	phase_count=phases.size()
+	for pressed: bool in [true,false]:
+		var mouse := InputEventMouseButton.new()
+		mouse.position=point;mouse.global_position=point;mouse.button_index=MOUSE_BUTTON_LEFT;mouse.pressed=pressed
+		Input.parse_input_event(mouse);await frames(2)
+	check(not popup.visible and selected.size()==3 and phases.size()==phase_count,"unpaired touch release does not prevent the original native mouse selection path")
+	# Reusing an adapter after remove/add exercises its local exit cleanup.
+	point=await popup_pairing_point(popup)
+	await popup_pairing_touch(popup,point,99,true)
+	popup.remove_child(adapter)
+	popup.add_child(adapter)
+	phase_count=phases.size()
+	await popup_pairing_touch(popup,point,99,false)
+	check(popup.visible and selected.size()==3 and phases.size()==phase_count,"adapter tree exit invalidates its pending touch pair")
+	popup.hide()

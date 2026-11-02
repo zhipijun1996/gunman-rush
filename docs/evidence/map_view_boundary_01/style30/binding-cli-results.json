@@ -1,0 +1,29 @@
+[
+  {
+    "check": "region-bible-contract",
+    "argv": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--check-bibles"
+    ],
+    "timeout_seconds": 30,
+    "seconds": 0.09611289699932968,
+    "exit_code": 0,
+    "scope": "Original command in finite external overlay, not main Harness or full CI",
+    "log_sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616"
+  },
+  {
+    "check": "creative-direction",
+    "argv": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--directory",
+      "docs/creative_direction"
+    ],
+    "timeout_seconds": 30,
+    "seconds": 0.10212437399968621,
+    "exit_code": 0,
+    "scope": "Original command in finite external overlay, not main Harness or full CI",
+    "log_sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73"
+  }
+]

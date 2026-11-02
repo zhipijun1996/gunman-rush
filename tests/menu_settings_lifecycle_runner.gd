@@ -11,7 +11,7 @@ func check(value: bool, message: String) -> void:
 		push_error(message)
 
 func run() -> void:
-	var app := preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	var app := preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var audio := app.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
@@ -42,7 +42,7 @@ func run() -> void:
 	check(audio.volume == 1.0, "Real audio setter keeps its upper clamp")
 	audio.volume = -1.0
 	check(audio.volume == 0.0, "Real audio setter keeps its lower clamp")
-	var theme := preload("res://scripts/ui/menu_theme.gd").create_theme()
+	var theme := preload("res://game/presentation/ui/menu_theme.gd").create_theme()
 	var original := DemoMenu.create_theme()
 	check(theme.default_font is FontVariation and original.default_font is FontVariation, "Leaf and public menu themes retain font variations")
 	var font := theme.default_font as FontVariation

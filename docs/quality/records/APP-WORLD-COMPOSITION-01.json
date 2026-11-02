@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "task_id": "APP-WORLD-COMPOSITION-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "c8d39551bbe79b40895e96bdcdf8250c56939813",
+  "reviewed_commit": "254b600337c8adee5e8938e430650e34e7257cf9",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "将攻击取消、地图伤害装配和Boss场地/恢复接线交回实际所有者，消除App对地图内部构造的依赖。",
+  "player_experience": "保留原敌人/玩家/Boss行为、接触伤害、机关、结算、重载和输入流程。",
+  "constraints": [
+    "原敌人先Boss取消顺序、Boss存在方法调用完成后的shots/projectiles清理条件保持；reset不变。",
+    "伤害装配原anchor→danger/setup→latch拒绝→epochconnect→Manifest→静态emitter顺序保持，共用唯一接触器构造。",
+    "Boss配置、恢复、Windkeeper几何、Pressure终态、封印和anchor时点/坐标/两错误保持；base不反依赖Forest子类。",
+    "不改图声、物理、碰撞、伤害、资源、随机或存档，不传App/Director/Session全容器。"
+  ],
+  "affected_paths": [
+    "game/application/demo_app.gd",
+    "game/combat/damage/demo_contact_emitter.gd",
+    "game/enemies/enemy_actor.gd",
+    "game/world/levels/providers/generated_demo_stage.gd",
+    "game/world/levels/providers/plains_region_stage.gd",
+    "game/world/levels/providers/thorn_forest_region_stage.gd"
+  ],
+  "deliverables": [
+    "Stage/Actor取消攻击命令及三个真实消费者",
+    "Generated地图伤害装配与DemoContactEmitter.attach共用构造",
+    "Stage Boss场地/恢复/封印命令及Forest小override",
+    "精确旧源码、独审、实际原消费者回归和失败记录"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

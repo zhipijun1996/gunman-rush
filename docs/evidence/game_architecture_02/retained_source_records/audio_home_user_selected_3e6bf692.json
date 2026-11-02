@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "task": "AUDIO-HOME-01",
+  "selection_id": "home-quiet-01-user-20261029-life",
+  "content_version": "audio-home-v1",
+  "mix_revision": "home-quiet-01",
+  "mode": "life",
+  "mode_label": "底声＋稀疏生活音",
+  "selection_method": "explicit_chat_confirmation",
+  "user_confirmation": {
+    "source": "Current conversation, after the Home workshop three-mode delivery",
+    "date": "2026-10-29",
+    "quote": "底音+生活音"
+  },
+  "manifest_path": "assets/audio/ambience_v1/home/manifest.json",
+  "manifest_sha256": "9da87898c0f3d924af67eb011d7427213a20754384eb375e9b61cbc79e25f90e",
+  "native_producer_commit": "a4b2113aa786193a1d653080365f6067dd020880",
+  "ui_source_commit": "745097b8c390502257a55c727444104c4f64cecf",
+  "movie_sha256": "d56076d5610af5f50b7f835046e28b51f8b6286c6d195b299b164bd86cf843a4",
+  "bed": {
+    "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+    "sha256": "ecee435be5c38c77b3bac2d9e728e4ce480abbac07fac37133abd101a5e330d0",
+    "selection_path": "config/audio_director/ambience/user-selected.json",
+    "selection_sha256": "8eb9d5aa950fdd1f729de56b396d10980459fb7ce48ff132ed13dba3c13083b5",
+    "manifest_path": "assets/audio/ambience_v1/manifest.json",
+    "manifest_sha256": "70ec7a2ade5ab5c5a514598a182a31eaca37f56d61a7d1693595399f080ab918",
+    "scope": "Byte-identical selected quiet-02 plains_a; borrowed bed, no new bed render",
+    "runtime_gain_db": -2.0
+  },
+  "point_takes": [
+    {
+      "id": "home_cloth_1",
+      "path": "res://assets/audio/ambience_v1/home/home_cloth_1.wav",
+      "sha256": "a93e6c5f72d3afd4653341ef8c19ef6c7f7960079a382d7d172cf0e150dc3091"
+    },
+    {
+      "id": "home_cloth_2",
+      "path": "res://assets/audio/ambience_v1/home/home_cloth_2.wav",
+      "sha256": "68d4d20d21d7cba2efd41b1c4012d4e4476b228d845443828f3e71363ff73b01"
+    },
+    {
+      "id": "home_wood_1",
+      "path": "res://assets/audio/ambience_v1/home/home_wood_1.wav",
+      "sha256": "3ee68e07e6aeaccf14f4071de038eb093cfce497d464720870428cc91dc628a4"
+    },
+    {
+      "id": "home_wood_2",
+      "path": "res://assets/audio/ambience_v1/home/home_wood_2.wav",
+      "sha256": "ffef73b48c6de63908d3e1fa98abc8a6d4668957ec26b86b7a919d0ab569e7b9"
+    },
+    {
+      "id": "home_tools_1",
+      "path": "res://assets/audio/ambience_v1/home/home_tools_1.wav",
+      "sha256": "a89f9cac2aa18fabb2868da7643895c754dddd93db41088691145984a19e70e2"
+    },
+    {
+      "id": "home_tools_2",
+      "path": "res://assets/audio/ambience_v1/home/home_tools_2.wav",
+      "sha256": "3febe215f006f031f55c15d2a0386a190be152ac1cfe95af1a0863d1bf19a41f"
+    },
+    {
+      "id": "home_page_1",
+      "path": "res://assets/audio/ambience_v1/home/home_page_1.wav",
+      "sha256": "dc6e09413d8f38eec39bd9233db92ff92c4b8c9f7a5e964a82d67e56b64c6d85"
+    },
+    {
+      "id": "home_page_2",
+      "path": "res://assets/audio/ambience_v1/home/home_page_2.wav",
+      "sha256": "5894d5656a32613237c155e1471e18199091615d6d957763c5f5147197845dc0"
+    }
+  ],
+  "schedule": {
+    "source_interval_seconds": [
+      12,
+      22
+    ],
+    "global_gap_seconds": 6,
+    "max_simultaneous_life_cues": 1,
+    "runtime_source": "scripts/audio/home_ambience_audition.gd"
+  },
+  "scope": "Explicit overall Home life-mode selection of the current mix/palette and sparse schedule; separate take rankings were not provided. Does not claim every take naturally played in the short reel, device acceptance, or completed formal rollout.",
+  "runtime_status": "selection_recorded; formal default still original"
+}

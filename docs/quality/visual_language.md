@@ -36,7 +36,7 @@
 
 ## 实际消费者、连接和世界关系
 
-[候选catalog](../../resources/visual_development/candidate.json)是唯一显式入口，默认空字符串，普通流程不加载候选；[实际图片依赖清单](../evidence/visual_language/asset-consumer-inventory.json)追踪角色/敌人/锯、地形lip与端头、树棚、装置和两远层。11个被引用源文件中含1个JSON，即10张图片；20,271,682字节是源依赖总量，不能称纹理GPU占用。19张全部源图共44,561,803字节，未用候选留在实验库，正常三平台export均排除整个实验目录。
+[候选catalog](https://github.com/zhipijun1996/gunman-rush/blob/0905516bb8c996a5f79ee4ac242ea0a0ab2205de/resources/visual_development/candidate.json)是唯一显式入口，默认空字符串，普通流程不加载候选；[实际图片依赖清单](../evidence/visual_language/asset-consumer-inventory.json)追踪角色/敌人/锯、地形lip与端头、树棚、装置和两远层。11个被引用源文件中含1个JSON，即10张图片；20,271,682字节是源依赖总量，不能称纹理GPU占用。19张全部源图共44,561,803字节，未用候选留在实验库，正常三平台export均排除整个实验目录。
 
 真实站面来自同一3岸polygon，显式open-meadow实际删除两旧钟肋碰撞并派生Manifest，不是藏图留碰撞。原PlayerMotor/武器能力/资源/RNG/存档的133项声明核心源与PR73基线逐字节不变。原安全锚确认→装置保存的蓝色内片回响，射击/敌人pulse→簧片响应；布采用惯性响应，树/土/陶不共同正弦摆动。只读接受事件与原安全锚历史，不越权给奖励或改资源。装置是原收集/维持用途、风化破损、仍保存一次经过者节奏的局部关系；实际听感未验，不能因此签环境叙事完成。
 

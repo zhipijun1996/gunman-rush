@@ -44,6 +44,104 @@ class Source:
                 "source": self.ref(start + 1, end)}
 
 
+def _gd_source_lines(source):
+    """Admit single-line quoted literals/comments; reject unsupported continuations.
+
+    This finite source observer intentionally does not interpret multiline
+    strings. Reject them before looking for any function or inheritance edge.
+    """
+    lines = []
+    for line in source.lines:
+        quote = None
+        index = 0
+        while index < len(line):
+            char = line[index]
+            if quote is not None:
+                if char == "\\":
+                    index += 2
+                    continue
+                if char == quote:
+                    quote = None
+            elif char == "#":
+                break
+            elif char in ("'", '\"'):
+                if line[index:index + 3] == char * 3:
+                    return None
+                quote = char
+            elif char == "\\":
+                return None
+            index += 1
+        if quote is not None:
+            return None
+        lines.append(line[:index].rstrip())
+    return lines
+
+
+def _gd_function_has_statements(source, name, statements):
+    """Bounded source observation, not execution/reachability or a GDScript parser.
+
+    Match complete statements inside one named top-level function, in order.
+    Unsupported source shapes fail closed and require a new source review.
+    """
+    lines = _gd_source_lines(source)
+    if lines is None:
+        return False
+    starts = [i for i, line in enumerate(lines)
+              if re.match(r"^(?:static )?func " + re.escape(name) + r"\(", line)]
+    if len(starts) != 1:
+        return False
+    start = starts[0] + 1
+    end = next((i for i in range(start, len(lines))
+                if lines[i] and not lines[i][0].isspace()), len(lines))
+    observed = iter(line.strip() for line in lines[start:end] if line.strip())
+    return all(any(line == expected.strip() for line in observed)
+               for expected in statements)
+
+
+def _forest_consumer_observed(root, app):
+    """Follow the existing forest provider/plan/runtime source edges, not a registry."""
+    provider = Source(root, "game/world/levels/providers/forest_level_provider.gd")
+    adapter = Source(root, "game/world/levels/providers/legacy_region_plan_adapter.gd")
+    configured = Source(root, "game/world/levels/providers/generated_demo_stage.gd")
+    stage = Source(root, "game/world/levels/providers/thorn_forest_region_stage.gd")
+    inherited = Source(root, "game/world/levels/providers/plains_region_stage.gd")
+    runtime = Source(root, "game/world/levels/level_runtime.gd")
+    assembler = Source(root, "game/world/generation/thorn_forest_region_assembler.gd")
+    generator = Source(root, "game/world/generation/thorn_forest_region_generator.gd")
+    observed = all((
+        _gd_function_has_statements(app, "start_debug_region", [
+            "_debug_region = region", "var accepted := start_demo(seed_value,true)"]),
+        _gd_function_has_statements(app, "_select_next_region", [
+            "active_region_id = id",
+            "director.continue_region(_progression_token,id,_next_id(\"enter_thorn_forest\"),campaign.abilities)"]),
+        _gd_function_has_statements(app, "_load_stage", [
+            "var request := LevelRequest.new()", "request.region_id=active_region_id",
+            'var loaded := ForestLevelProvider.load_level(request) if active_region_id==&"thorn_forest" else PlainsLevelProvider.load_level(request)',
+            'stage = ThornForestRegionStage.new() if active_region_id == &"thorn_forest" else PlainsRegionStage.new()',
+            "(stage as GeneratedDemoStage).configure_level(loaded.plan,loaded.legacy_generated,controller.motor.tuning)"]),
+        _gd_function_has_statements(provider, "load_level", [
+            "var generated := ThornForestRegionGenerator.new().generate(seed_value,request.tuning,request.map_index,capabilities)",
+            "var result := LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,true)", "return result"]),
+        _gd_function_has_statements(adapter, "generated", [
+            "var result := geometry(data.manifest,tuning,forest_region)", "var plan := result.plan", "return result"]),
+        _gd_function_has_statements(adapter, "geometry", [
+            "var plan := LevelPlan.new()", "if forest_region:", "var forest := ForestLevelGeometry.new()",
+            "plan.forest=forest", "result.plan=plan", "return result"]),
+        _gd_function_has_statements(configured, "configure_level", ["level_plan=plan"]),
+        "extends PlainsRegionStage" in (_gd_source_lines(stage) or []),
+        "extends GeneratedDemoStage" in (_gd_source_lines(inherited) or []),
+        _gd_function_has_statements(stage, "_ready", [
+            "var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)"]),
+        _gd_function_has_statements(runtime, "assemble", [
+            "var assembler: PlainsRegionAssembler = ThornForestRegionAssembler.new() if plan.forest!=null else PlainsRegionAssembler.new()",
+            "parent.add_child(assembler)", "var result := assembler.build_plan(plan,presentation)", "return result"]),
+        _gd_function_has_statements(assembler, "build_plan", ["level_plan=plan", "forest_geometry=plan.forest"]),
+        _gd_function_has_statements(generator, "generate", [
+            'return generate_version(str(capability_snapshot.get("forest_content_version",VERSION)),seed_value,tuning,map_index,capability_snapshot)']),
+    ))
+    return observed, [source.ref() for source in (provider, adapter, configured, stage, inherited, runtime, assembler, generator)]
+
+
 def _clean(value):
     return value.replace("**", "").replace("`", "").strip()
 
@@ -108,7 +206,7 @@ def _properties(source):
 
 
 def _weapon_inventory(root, sources):
-    catalog = Source(root, "scripts/combat/weapon_catalog.gd")
+    catalog = Source(root, "game/combat/weapons/weapon_catalog.gd")
     definition = Source(root, "scripts/combat/weapon_definition.gd")
     sources.extend([catalog.ref(), definition.ref()])
     ids_match = re.search(r"const IDS: Array\[String\] = \[([^\]]+)\]", catalog.text)
@@ -177,7 +275,20 @@ def region_write_scope(paths, root=ROOT):
         families.setdefault(region, set()).update(names)
     production = ("scripts/generation/", "scripts/demo/", "scripts/art/", "scripts/enemies/",
                   "scripts/bosses/", "scripts/world/", "scenes/", "resources/generation/",
-                  "resources/art/", "resources/enemies/", "resources/bosses/", "assets/", "shaders/")
+                  "resources/art/", "resources/enemies/", "resources/bosses/", "assets/", "shaders/",
+                  # Current homes of the same regional content and scene entry
+                  # scopes. Shared player physics, persistence and loadout are
+                  # deliberately not blanket regional write permissions.
+                  "game/world/generation/", "game/world/components/", "game/world/levels/",
+                  "game/presentation/actors/", "game/presentation/effects/", "game/presentation/world/",
+                  "game/enemies/", "game/bosses/", "game/progression/home/",
+                  "experiments/generation/", "experiments/terrain/art/",
+                  "experiments/audio/entries/", "experiments/motion/entries/", "experiments/terrain/entries/", "experiments/platform/entries/",
+                  "experiments/audio/audio_ambience_lab.gd", "experiments/audio/audio_home_lab.gd",
+                  "experiments/motion/action_studio.gd", "game/application/demo.tscn",
+                  "game/application/demo_app.gd", "game/player/player.tscn",
+                  "game/player/presentation/demo_aim_guide.gd",
+                  "game/world/state/world_context.gd", "game/world/state/world_definition.gd")
     regions, unresolved = set(), []
     for raw in paths:
         relative = Path(raw)
@@ -187,7 +298,7 @@ def region_write_scope(paths, root=ROOT):
         # Ownership is checked across *all* runtime domains before the
         # shared/unknown production-prefix fallback. Regional presentation,
         # item Definitions or a new consumer directory cannot escape this map.
-        runtime = name.startswith(("scripts/", "resources/", "scenes/", "assets/", "shaders/", "config/"))
+        runtime = name.startswith(("scripts/", "game/", "experiments/", "resources/", "scenes/", "assets/", "shaders/", "config/"))
         parts = [*relative.parts[:-1], relative.stem]
         owners = ({region for region, aliases in families.items()
                    if any(part == alias or part.startswith(alias + "_") for part in parts for alias in aliases)}
@@ -197,7 +308,7 @@ def region_write_scope(paths, root=ROOT):
             continue  # Exact shared Player/physics files are not region content.
         # Controller-only asset fixtures without a world catalog have no game
         # consumer identity. Known regional families and generation still bind.
-        if not owners and not catalog_path.is_file() and "scripts/generation/" not in relevant:
+        if not owners and not catalog_path.is_file() and not {"scripts/generation/", "game/world/generation/"}.intersection(relevant):
             continue
         target = root / relative
         if any(p.is_symlink() for p in [target, *target.parents] if p == root or p.is_relative_to(root)):
@@ -268,10 +379,10 @@ def build_region_context(region_id, root=ROOT):
             override["linked_sources"].append(revised.ref())
             sources.append(revised.ref())
     inventory = _weapon_inventory(root, sources)
-    traversal = Source(root, "scripts/player/traversal_ability.gd")
-    studio = Source(root, "scripts/demo/action_studio.gd")
-    app = Source(root, "scripts/demo/demo_app.gd")
-    profile = Source(root, "scripts/run/run_profile.gd")
+    traversal = Source(root, "game/player/actions/traversal_ability.gd")
+    studio = Source(root, "experiments/motion/action_studio.gd")
+    app = Source(root, "game/application/demo_app.gd")
+    profile = Source(root, "game/world/state/run_profile.gd")
     current = Source(root, "docs/current_state.md")
     sources.extend(s.ref() for s in (traversal, studio, app, profile, current))
     ability_observations = {}
@@ -283,10 +394,10 @@ def build_region_context(region_id, root=ROOT):
             "studio_grant_call_present": studio_grant, "formal_grant": "not_inferred",
             "source": traversal.ref(), "studio_source": studio.ref()}
     resources = []
-    for path in ("scripts/resources/definitions/shot_energy_definition.gd", "scripts/resources/definitions/combat_energy_definition.gd",
-                 "scripts/resources/state/combat_energy_state.gd", "scripts/combat/shot_energy_policy.gd",
-                 "scripts/player/jump_ability.gd", "scripts/builds/build_state.gd", "resources/player/plains_shot_energy.tres",
-                 "resources/player/combat_energy.tres", "resources/player/traversal.tres", "resources/weapons/motion.tres"):
+    for path in ("game/combat/resources/definitions/shot_energy_definition.gd", "game/combat/resources/definitions/combat_energy_definition.gd",
+                 "game/combat/resources/state/combat_energy_state.gd", "game/combat/resources/shot_energy_policy.gd",
+                 "game/player/actions/jump_ability.gd", "game/loadout/stats/build_state.gd", "game/player/resources/plains_shot_energy.tres",
+                 "game/player/resources/combat_energy.tres", "resources/player/traversal.tres", "resources/weapons/motion.tres"):
         source = Source(root, path)
         resources.append({"status": "source_present_not_actor_snapshot", "source": source.ref()})
         sources.append(source.ref())
@@ -294,15 +405,9 @@ def build_region_context(region_id, root=ROOT):
     formal_observed = (region_id == "windchime_plains" and "func start_plains(" in app.text
                        and 'profile_id == &"formal_plains_region"' in profile.text)
     if region_id == "thorn_forest":
-        chain = [Source(root, path) for path in (
-            "scripts/generation/thorn_forest_region_generator.gd",
-            "scripts/demo/thorn_forest_region_stage.gd",
-            "scripts/generation/thorn_forest_region_assembler.gd")]
-        consumer_sources.extend(source.ref() for source in chain)
-        sources.extend(source.ref() for source in chain)
-        formal_observed = ("func _select_next_region(" in app.text and "func start_debug_region(" in app.text and "ThornForestRegionGenerator.new().generate(" in app.text
-                           and "ThornForestRegionStage.new()" in app.text
-                           and "ThornForestRegionAssembler" in chain[1].text)
+        formal_observed, chain_sources = _forest_consumer_observed(root, app)
+        consumer_sources.extend(chain_sources)
+        sources.extend(chain_sources)
     from region_creative_direction import bind_region_bible, MissingBible
     try:
         _, bible_binding = bind_region_bible(region_id, root)

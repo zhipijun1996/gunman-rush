@@ -1,0 +1,9 @@
+# ASSET-METADATA-LAYOUT-01：当前资产登记SHA遗漏
+
+独立small_fix，formal_impact=true；本文件是外部待应用草稿。[质量卡](../../quality/records/ASSET-METADATA-LAYOUT-01.json)以11254a6647dbb4d842feb4d21de9e2d8bd9accd3为基点，修复范围只允许assets/manifest.json三个既有row.sha256。无新美术/音效、无版本选择、无玩法或资源字节改变。
+
+原remote run41195033622 parallel在art-art失败，原job日志已保留，不签full185。实际三项为hazard_fine_build.json、scenery_build.json、terrain/fine_32/terrain_build.json，登记仍指向目录迁移前SHA，当前JSON只在已有迁移中修改consumer脚本路径。原tools/check_art.py对实际字节的拒绝正确，本次不放宽checker。
+
+[权威调查](../../evidence/game_architecture_02/asset-metadata-layout-01/authority-audit.json)核原quality规范、manifest、asset_records和style27：现有共享scenery记录及underworld生产记录已经使用当前scenerySHA，style27 tile_build也已是当前terrainSHA。因此新增本任务质量卡记录登记遗漏即可，不应另造asset_records或更改旧生成/许可证明；原旧源/历史ACCEPT和有限旧快照保持。修复只使当前三登记匹配既有当前JSON，不刷新任何历史失败或接受。
+
+三row位于assets索引261、267、271，具体旧/新SHA见卡与调查收据；id/path/顺序/content_version和所有其余字段保持。ci作者准备外部最小manifest候选，structure独立审查；当前尚未应用/验收本卡候选。原art-art与相关有限检查、精确最终源绑定待root提供；不签其他lane、剩余preflight、full185、实际导出、GUI/设备或新图声用户接受。

@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "task_id": "GAME-ARCH-BOSS-STATE-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "6584d48bca916de100eed3801af6f0973ae49767",
+  "reviewed_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "content_version": "candidate-v1",
+  "owner": "/root/items_refactor",
+  "purpose": "Boss实体收回地图快照、生命与决斗恢复的真实状态操作",
+  "player_experience": "跨图和重载保持Boss生命、阶段、死亡姿态及独立随机状态",
+  "constraints": [
+    "原存档字段、String/StringName键类型与插入/覆盖顺序不变",
+    "Bell终态准备先于生命重建；两次森林恢复仍在原绑定/激活时点",
+    "不改玩家物理、伤害、奖励、随机、素材和预算；不合并Boss专属状态机"
+  ],
+  "affected_paths": [
+    "game/application/demo_app.gd",
+    "game/bosses/bellstrider/bellstrider_encounter.gd",
+    "game/bosses/encounter/boss_encounter.gd",
+    "game/bosses/thorn_forest/thorn_forest_encounter.gd",
+    "game/bosses/windkeeper/windkeeper_encounter.gd",
+    "game/world/levels/providers/plains_region_stage.gd",
+    "game/world/levels/providers/thorn_forest_region_stage.gd",
+    "tests/forest_depth_restore_runner.gd"
+  ],
+  "deliverables": [
+    "现有BossEncounter共享生命恢复，Windkeeper/ThornForest各自拥有原快照协议",
+    "App和两个Stage实际委托，原森林恢复测试三处消费者迁移，删除App重复规则"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "8文件静态所有权迁移与原契约保留获得独立限定接受；不覆盖原生或发布。",
+      "evidence": [
+        "boss-owner-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "boss-owner-independent",
+      "path": "docs/evidence/game_architecture_02/boss-owner-01/p6-boss-owner-independent-review.md",
+      "sha256": "9cb427d8c790ac2fa892282a2a3dffa2a6a3def4bbe534a215b901f7d684c0ce",
+      "kind": "review",
+      "producer": "/root/ci_audit",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "candidate-v1",
+      "method": "独立比对6584与8文件候选，核逐方法原文、键类型/顺序、原41检查和9场景Motor绑定，提交后核8/8 blob一致。",
+      "observed": "限定静态ACCEPT；真实原生/full182/导出未运行，不签全部Boss字段零跨域。",
+      "reviewer": "/root/ci_audit",
+      "implementers": [
+        "/root/items_refactor",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者只读生产候选，没有实现或修改被审查的8个文件。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "063d6ccb后原Bell/Pressure/forest-depth-restore/core已通过，精确报告见closeout-02；固定引擎完整验证待验",
+    "先前6584正式道具191/0后退出57 ObjectDB/25 resources失败仍须解决，不能以本补丁或custom诊断签官方CI",
+    "完整182/实际PCK/GUI待验；设备和用户认可未签",
+    "App的intro_seen注入、Arena阶段编排与普通敌人Stage位置装配仍是现有边界，未宣称零外部字段访问"
+  ],
+  "test_change_justification": "原forest_depth_restore_runner三组负例从App私有wrapper迁到同一个真实duel实例的restore_bound_duel；只更新三处调用和四处诊断文案。原41个check、所有循环/负例数据、实际App重载、等待和预算不变；App在原两处时点仍委托此唯一实现。独立原文与提交SHA核对见所引审查。"
+}

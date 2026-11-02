@@ -1,0 +1,174 @@
+{
+  "head": "6584d48bca916de100eed3801af6f0973ae49767",
+  "rows": [
+    {
+      "path": "game/presentation/world/art/plains_connected_landscape.gd",
+      "baseline_path": "scripts/art/plains_connected_landscape.gd",
+      "baseline_sha256": "2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d",
+      "pinned_sha256": "2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d",
+      "current_sha256": "2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": []
+    },
+    {
+      "path": "game/presentation/world/art/plains_region_composition.gd",
+      "baseline_path": "scripts/art/plains_region_composition.gd",
+      "baseline_sha256": "0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745",
+      "pinned_sha256": "0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745",
+      "current_sha256": "0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": []
+    },
+    {
+      "path": "game/presentation/world/art/plains_landscape_observer.gd",
+      "baseline_path": "scripts/art/plains_landscape_observer.gd",
+      "baseline_sha256": "19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e",
+      "pinned_sha256": "19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e",
+      "current_sha256": "f017e38da1d03790432ed5389e217bcb9b82b6c0af62475ccd07c9e9ba31c782",
+      "pinned_matches_current": false,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": [
+        "--- scripts/art/plains_landscape_observer.gd\n",
+        "+++ game/presentation/world/art/plains_landscape_observer.gd\n",
+        "@@ -1,7 +1,7 @@\n",
+        " class_name PlainsLandscapeObserver",
+        " extends Node",
+        " ## Read-only observer of the actual default consumer; no input, camera or pixels.",
+        "-const OBSERVER_PATH := \"scripts/art/plains_landscape_observer.gd\"",
+        "+const OBSERVER_PATH := \"game/presentation/world/art/plains_landscape_observer.gd\"",
+        " var stage: PlainsRegionStage",
+        " var landscape: PlainsSemanticLandscape",
+        " var _output := \"\""
+      ]
+    },
+    {
+      "path": "game/presentation/world/style_exploration/style_terrain.gd",
+      "baseline_path": "scripts/style_exploration/style_terrain.gd",
+      "baseline_sha256": "cb7d47f17554e91e0decfcbd0c143d3234a0aa302e3fe6a61f78ce659ff25b64",
+      "pinned_sha256": "cb7d47f17554e91e0decfcbd0c143d3234a0aa302e3fe6a61f78ce659ff25b64",
+      "current_sha256": "cb7d47f17554e91e0decfcbd0c143d3234a0aa302e3fe6a61f78ce659ff25b64",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": []
+    },
+    {
+      "path": "game/presentation/actors/style_exploration/style_actor_visual.gd",
+      "baseline_path": "scripts/style_exploration/style_actor_visual.gd",
+      "baseline_sha256": "1f3806605ef56a9ef473f8d54002ea0688d811cd07e0a7bdbcf80a2aff8a0f16",
+      "pinned_sha256": "1f3806605ef56a9ef473f8d54002ea0688d811cd07e0a7bdbcf80a2aff8a0f16",
+      "current_sha256": "1f3806605ef56a9ef473f8d54002ea0688d811cd07e0a7bdbcf80a2aff8a0f16",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": []
+    },
+    {
+      "path": "game/presentation/world/style_exploration/style_scenery.gd",
+      "baseline_path": "scripts/style_exploration/style_scenery.gd",
+      "baseline_sha256": "55cbdfd22ac193162cae6ab6a14b27e8c6a88aad9de0d4e5991744fd97a365b7",
+      "pinned_sha256": "c22a5f5174e255f7a460f56e32ed971f26d2719be9851de437bf1d6450543f07",
+      "current_sha256": "c22a5f5174e255f7a460f56e32ed971f26d2719be9851de437bf1d6450543f07",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": [
+        "--- scripts/style_exploration/style_scenery.gd\n",
+        "+++ game/presentation/world/style_exploration/style_scenery.gd\n",
+        "@@ -2,7 +2,7 @@\n",
+        " extends Node2D",
+        " ## Source-native layered art. All set dressing is non-colliding and owns a separate RNG.",
+        " const ROOT := \"res://assets/style_exploration/\"",
+        "-const REGION_PALETTE := preload(\"res://scripts/style_exploration/style_palette.gd\")",
+        "+const REGION_PALETTE := preload(\"res://game/presentation/world/style_exploration/style_palette.gd\")",
+        " const CELL := 32.0",
+        " const COLORS := {",
+        " \t\"retro\": [Color(\"081524\"), Color(\"111d35\"), Color(\"1f3951\"), Color(\"74eff2\")],"
+      ]
+    },
+    {
+      "path": "game/loadout/effects/item_art_library.gd",
+      "baseline_path": "scripts/items/v5/item_art_library.gd",
+      "baseline_sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+      "pinned_sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+      "current_sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": []
+    },
+    {
+      "path": "game/presentation/audio/game_ambience.gd",
+      "baseline_path": "scripts/audio/game_ambience.gd",
+      "baseline_sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48",
+      "pinned_sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48",
+      "current_sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48",
+      "pinned_matches_current": true,
+      "current_equals_baseline_after_only_declared_path_substitutions": true,
+      "diff": []
+    }
+  ],
+  "chest_record_errors": [
+    "Missing or external evidence: docs/evidence/chest_art_01/raw/generation/request-04.json",
+    "Missing or external evidence: docs/evidence/chest_art_01/raw/generation/prompt-04.txt"
+  ],
+  "in_memory_candidate_probe": {
+    "old_error": null,
+    "candidate_error": null,
+    "known_assets": 590,
+    "production_edited": false,
+    "note": "Final import already saw concurrent worker exact proposed hash change: old_error=None is final-current success, not a replay of original failure. Assigning same value in memory was a no-op; initial rows record original mismatch."
+  },
+  "checker_sha256": "9c092bc735654e38f39c308fd3b457bfdfb1a8c4b6deb80920b734cbb287230c",
+  "mapping_sha256": "fed84f7c345bc914f9a302cb670fc36038cf5481dfab9f1b0373487ec47af1d5",
+  "chest_manifest": {
+    "path": "assets/objects/chests/manifest.json",
+    "actual_sha256": "21db7e569f2c6958504a391c139bd3ba7f09853e4e5144567f65728c6c478f7f",
+    "existing_record": "docs/quality/asset_records/CHEST-ART-01-source04.json",
+    "record_sha256": "b5a08f5c38e6a798786567172da0b8135e5f89622fd5612b2fe58fb7c66ceab7",
+    "record_role": "associated_files source_contract",
+    "changes": "Exactly six runtime_consumers paths relocated; art/adoption/config/reward metadata otherwise unchanged.",
+    "sparse_missing": [
+      {
+        "path": "docs/evidence/chest_art_01/raw/generation/request-04.json",
+        "git_ls_files_v": "H docs/evidence/chest_art_01/raw/generation/request-04.json",
+        "sha256": {
+          "2ce4ffa6": "244015dfe9b428e1374d7171661f604d2e8e95b7c367de86712a65b49ffbdd71",
+          "HEAD": "244015dfe9b428e1374d7171661f604d2e8e95b7c367de86712a65b49ffbdd71"
+        },
+        "exists_on_disk": true
+      },
+      {
+        "path": "docs/evidence/chest_art_01/raw/generation/prompt-04.txt",
+        "git_ls_files_v": "H docs/evidence/chest_art_01/raw/generation/prompt-04.txt",
+        "sha256": {
+          "2ce4ffa6": "3ecf6291992283e8757306cc004717fa64106824458cf71c14244362d14badc7",
+          "HEAD": "3ecf6291992283e8757306cc004717fa64106824458cf71c14244362d14badc7"
+        },
+        "exists_on_disk": true
+      }
+    ]
+  },
+  "proposed_patch": {
+    "file": "tools/check_quality_diff.py",
+    "binding": "CONNECTED_CONSUMER_SHA256[game/presentation/world/art/plains_landscape_observer.gd]",
+    "old": "19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e",
+    "new": "f017e38da1d03790432ed5389e217bcb9b82b6c0af62475ccd07c9e9ba31c782",
+    "permitted_reason": "Only OBSERVER_PATH self-receipt string relocated, all remaining source bytes unchanged; binding remains exact, not relaxed.",
+    "other_bindings": "Keep all other seven values unchanged.",
+    "metadata_action": "No new record or modified metadata required. Materialize existing two sparse-omitted Git blobs and rerun validate_asset; do not drop their provenance associations."
+  },
+  "limits": [
+    "Read-only source/hash/path/provenance review, no production or metadata write; no engine execution.",
+    "Exact finite binding validates registered source identity, not all dynamic runtime reachability or GUI acceptance.",
+    "Candidate known_asset_consumers probe changes only in-memory hash; does not make broader quality diff pass.",
+    "Current source head6584 with concurrent worktree changes; evidence binds each actually read file SHA rather than claiming clean HEAD tree."
+  ],
+  "concurrent_followup": {
+    "observed": "Between the initial read-only probe and final validation, another worker applied exactly the proposed one-hash source edit and materialized both existing sparse Git files. This reviewer made neither edit.",
+    "checker_diff": "Only landscape_observer SHA binding changed from19cd to f017; all other bindings unchanged.",
+    "known_asset_consumers_count": 590,
+    "known_asset_consumers_errors": [],
+    "chest_validate_asset_errors": [],
+    "root": "/workspace/gunman-rush-refactor",
+    "production_readonly_by_this_reviewer": true
+  }
+}

@@ -80,7 +80,7 @@ func terrace_drop() -> void:
 func run() -> void:
 	root.size=Vector2i(1280,720)
 	if output.is_empty() or FileAccess.file_exists(output): quit(1);return
-	app=preload("res://scenes/dev/player_presentation_01/landing_feel.tscn").instantiate()
+	app=preload("res://experiments/motion/entries/landing_feel.tscn").instantiate()
 	app.motion_enabled=enabled_candidate
 	root.add_child(app)
 	for unused: int in 120:

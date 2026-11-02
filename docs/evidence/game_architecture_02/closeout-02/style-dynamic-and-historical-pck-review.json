@@ -1,0 +1,183 @@
+{
+  "scope": "Static read-only review; no package rewrite/engine/browser/download",
+  "head": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "style_dynamic_repair": {
+    "file": "tests/style_exploration/test_style_biomes.gd:141",
+    "diff": "one load literal only; loop/assertions unchanged",
+    "verdict": "STATIC_ACCEPT_NATIVE_PENDING",
+    "targets": [
+      {
+        "path": "experiments/terrain/entries/underworld_forest.tscn",
+        "exists": true,
+        "default_style": "underworld",
+        "default_biome": "forest",
+        "root_script": "experiments/terrain/style_exploration/style_lab.gd"
+      },
+      {
+        "path": "experiments/terrain/entries/underworld_gear.tscn",
+        "exists": true,
+        "default_style": "underworld",
+        "default_biome": "gear",
+        "root_script": "experiments/terrain/style_exploration/style_lab.gd"
+      },
+      {
+        "path": "experiments/terrain/entries/cavern_forest.tscn",
+        "exists": true,
+        "default_style": "cavern",
+        "default_biome": "forest",
+        "root_script": "experiments/terrain/style_exploration/style_lab.gd"
+      },
+      {
+        "path": "experiments/terrain/entries/cavern_gear.tscn",
+        "exists": true,
+        "default_style": "cavern",
+        "default_biome": "gear",
+        "root_script": "experiments/terrain/style_exploration/style_lab.gd"
+      }
+    ],
+    "previous_matrix_correction": "The prior reviewer overlooked trailing four packed-scene cases in biome runner. Full corrected biome runner DOES instantiate four named underworld/cavern forest/gear scenes; prior after-wrappers exact-scene gap14 reduces to10 when this native passes, not before."
+  },
+  "frozen_diagnostics": {
+    "files": [
+      "tools/mobile_web_perf/run_minimal.py",
+      "tools/mobile_web_perf/build_formal_audio_ab.py"
+    ],
+    "source_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+    "pack_sha256": "618eb97114e6715fc33856823c9bf23141e8e51802a886596bc9f223ed7ca691",
+    "engine": "index.d20938d2db49.engine",
+    "three_old_remap_literals": "CORRECT_HISTORICAL_PIN_KEEP",
+    "actual_pack_available_at_default_path": false,
+    "source_game_audio_sha_matches_pin": true,
+    "migration_regressions": {
+      "run_minimal": [
+        "git show fixed1b must use scripts/audio/game_audio.gd, not current game/presentation/audio/game_audio.gd",
+        "replacement key must remain scenes/demo/demo.tscn to match fixed PCK; retain scenes/demo/demo.tscn.remap and scripts/audio/game_audio.gdc"
+      ],
+      "build_formal_audio_ab": [
+        "Do not borrow migrated MEASURE from current-source build_probe.py; freeze its original16 historical source keys for this pinned diagnostic only. Keep shared AUDIO/HELPER/write_pack (unchanged) reusable.",
+        "Restore4 treatment/observe path predicates to scripts/audio/{game_audio,game_ambience,selected_ambience_runtime}.gd",
+        "Restore project main string check, git_source formal scene and descriptive original_entry_main to scenes/demo/demo.tscn",
+        "Keep original COMMIT/PACK_SHA/engine/template pins and .tscn.remap unchanged; no update frozen receipts."
+      ]
+    },
+    "historical_measure_entries": [
+      {
+        "historical_path": "scripts/underworld_plains/underworld_foreground.gd",
+        "current_path": "game/presentation/world/underworld_plains/underworld_foreground.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/underworld_plains/underworld_presentation.gd",
+        "current_path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/underworld_plains/underworld_parallax.gd",
+        "current_path": "game/presentation/world/underworld_plains/underworld_parallax.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/underworld_plains/underworld_home_world.gd",
+        "current_path": "game/presentation/world/underworld_plains/underworld_home_world.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/demo/generated_demo_stage.gd",
+        "current_path": "game/world/levels/providers/generated_demo_stage.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/demo/plains_region_stage.gd",
+        "current_path": "game/world/levels/providers/plains_region_stage.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/enemies/enemy_actor.gd",
+        "current_path": "game/enemies/enemy_actor.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/demo/home_scene.gd",
+        "current_path": "game/progression/home/home_scene.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/player/player_controller.gd",
+        "current_path": "game/player/player_controller.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/demo/demo_app.gd",
+        "current_path": "game/application/demo_app.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/ui/demo_ui_01/game_hud.gd",
+        "current_path": "game/presentation/ui/demo_ui_01/game_hud.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/audio/game_audio.gd",
+        "current_path": "game/presentation/audio/game_audio.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/audio/game_music.gd",
+        "current_path": "game/presentation/audio/game_music.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/audio/game_ambience.gd",
+        "current_path": "game/presentation/audio/game_ambience.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/audio/selected_ambience_runtime.gd",
+        "current_path": "game/presentation/audio/selected_ambience_runtime.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      },
+      {
+        "historical_path": "scripts/audio/home_ambience_audition.gd",
+        "current_path": "game/presentation/audio/home_ambience_audition.gd",
+        "methods_unchanged": true,
+        "historical_exists_in_pinned_commit": true,
+        "current_exists_in_pinned_commit": false
+      }
+    ],
+    "verification_next": [
+      "Statically verify each of16 old paths at fixedCOMMIT and GameAudio source pinned SHA (done here).",
+      "Pure Edits/treatments/observe on fixed git_source may prove reverse exactness without writing a package; full original command needs absent frozen pack+matching engine bundle/template.",
+      "When original historical inputs supplied, run unchanged original diagnostic builder to new output directory; preserve pack directory/remap unchanged-entry comparisons and independent browser receipts. Current formal Web acceptance uses existing build.py/check_web_bundle/check_recorded_enemy_pack, not these old experiments."
+    ]
+  }
+}

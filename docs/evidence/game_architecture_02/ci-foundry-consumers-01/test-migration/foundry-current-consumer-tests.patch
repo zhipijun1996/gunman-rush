@@ -1,0 +1,60 @@
+--- a/tests/foundry_lab_runner.gd
++++ b/tests/foundry_lab_runner.gd
+@@ -40,7 +40,9 @@
+ 	await ticks(7)
+ 	lab = app._foundry
+ 	check(is_instance_valid(lab) and lab.ready_for_play, "main menu consumer loads shared actual player")
+-	check(lab.player.tuning.max_jumps == 1 and lab.player.tuning.max_air_shots == 2, "base profile leaves default movement contract intact")
++	var default_tuning := PlayerTuning.load_default()
++	var base_tuning := FoundryCatalog.tuning_for("base")
++	check(base_tuning != null and lab.player.tuning.max_jumps == 1 and lab.player.tuning.max_jumps == base_tuning.max_jumps and base_tuning.max_jumps == default_tuning.max_jumps and lab.player.tuning.max_air_shots == base_tuning.max_air_shots and base_tuning.max_air_shots == default_tuning.max_air_shots, "base profile leaves default movement contract intact")
+ 	check(lab.player.is_on_floor(), "initial spawn has real support")
+ 	for index: int in mini(6, lab.entries.size()):
+ 		lab.choose(index, true)
+@@ -64,7 +66,8 @@
+ 	check(app.meta.snapshot() == before, "practice and feedback never settle permanent rewards")
+ 	lab.select_profile(1)
+ 	await ticks(7)
+-	check(lab.player.tuning.max_jumps == 2 and lab.player.tuning.max_air_shots == 2, "double jump profile uses existing ability configuration")
++	var double_jump_tuning := FoundryCatalog.tuning_for("double_jump")
++	check(double_jump_tuning != null and lab.player.tuning.max_jumps == 2 and lab.player.tuning.max_jumps == double_jump_tuning.max_jumps and lab.player.tuning.max_air_shots == double_jump_tuning.max_air_shots and double_jump_tuning.max_air_shots == default_tuning.max_air_shots, "double jump profile uses existing ability configuration")
+ 	await controller_jump_check(lab.controller)
+ 	await ticks(4)
+ 	check(lab.controller.jump_ability.used_jumps == 2, "second jump actually executes in the air")
+@@ -83,8 +86,8 @@
+ 	check(not is_instance_valid(app._foundry) and not paused, "leaving releases isolated consumer and returns Home")
+ 	check(PlayerTuning.load_default().max_jumps == 1 and PlayerTuning.load_default().max_air_shots == 1, "development profiles never mutate current one-round default configuration")
+ 	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+-		var audio := get_first_node_in_group(&"game_audio") as GameAudio
+-		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
++		var audio := GameAudio.for_origin(app) as GameAudio
++		check(audio != null and await preload("res://tests/audio_teardown.gd").drain_world(app), "audio playback actually releases before host exit")
+ 	app.free()
+ 	await process_frame
+ 	print("FOUNDRY LAB: %d assertions, %d failures" % [assertions, failures])
+--- a/tests/foundry_touch_runner.gd
++++ b/tests/foundry_touch_runner.gd
+@@ -81,8 +81,8 @@
+ 	await ticks(3)
+ 	check(not paused and not is_instance_valid(app._foundry), "leave releases practice and pause")
+ 	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+-		var audio := get_first_node_in_group(&"game_audio") as GameAudio
+-		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
++		var audio := GameAudio.for_origin(app) as GameAudio
++		check(audio != null and await preload("res://tests/audio_teardown.gd").drain_world(app), "audio playback actually releases before host exit")
+ 	app.free()
+ 	await process_frame
+ 	print("FOUNDRY TOUCH: %d assertions, %d failures" % [assertions, failures])
+--- a/tests/foundry_feedback_runner.gd
++++ b/tests/foundry_feedback_runner.gd
+@@ -55,8 +55,8 @@
+ 	lab.leave()
+ 	await ticks(4)
+ 	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+-		var audio := get_first_node_in_group(&"game_audio") as GameAudio
+-		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
++		var audio := GameAudio.for_origin(app) as GameAudio
++		check(audio != null and await preload("res://tests/audio_teardown.gd").drain_world(app), "audio playback actually releases before host exit")
+ 	app.free()
+ 	await process_frame
+ 	print("LAB FEEDBACK: %d assertions, %d failures" % [assertions, failures])

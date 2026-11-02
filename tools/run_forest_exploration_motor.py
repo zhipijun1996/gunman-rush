@@ -435,9 +435,9 @@ def actual_hook_combat_packets(data,frame,previous,events,target_gain):
 
 def _energy(data,need):
     tuning=json.loads((ROOT/'config/player_tuning.json').read_text());dt=1/tuning['physics_hz']
-    resource='resources/player/plains_shot_energy.tres';definition='scripts/resources/definitions/shot_energy_definition.gd'
+    resource='game/player/resources/plains_shot_energy.tres';definition='game/combat/resources/definitions/shot_energy_definition.gd'
     capacity,cost,recover,delay_limit,hit_recovery=[number(k,resource,definition) for k in ('capacity','shot_energy_cost','ground_recovery','recovery_delay','hit_energy_recovery')]
-    gain=number('target_gain','resources/player/combat_energy.tres','scripts/resources/definitions/combat_energy_definition.gd')
+    gain=number('target_gain','game/player/resources/combat_energy.tres','game/combat/resources/definitions/combat_energy_definition.gd')
     previous=data['initial_snapshot'];energy=previous['energy'];delay=previous['shot_energy_delay'];charges=previous['shots'];grounded=previous['grounded']
     events=data['events']
     for f in data['frames']:

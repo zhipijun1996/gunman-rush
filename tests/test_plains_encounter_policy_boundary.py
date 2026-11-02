@@ -170,11 +170,11 @@ class FrozenEndpointTests(unittest.TestCase):
                "driver_sources":{"res://"+p:sources[p] for p in runner.formal.driver_source_paths()},
                "core_invariants":{"res://"+p:sources[p] for p in runner.formal.core_source_paths()}}
         data={"capture_contract_version":3,"encounter_policy":"kill_from_bank_v1","policy_basis":basis,
-              "capture_source_hashes":{p:"0"*64 for p in ["res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://scripts/art/plains_region_scenery.gd"]},
-              "runtime_source_hashes":{"res://"+p:h for p,h in sources.items() if p=="project.godot" or p.startswith(("scripts/","scenes/","resources/","config/","shaders/","assets/"))},
+              "capture_source_hashes":{p:"0"*64 for p in ["res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://game/presentation/world/art/plains_region_scenery.gd"]},
+              "runtime_source_hashes":{"res://"+p:h for p,h in sources.items() if p=="project.godot" or p.startswith(("scripts/","game/","experiments/","scenes/","resources/","config/","shaders/","assets/"))},
               "resource_receipts":[],"policy_observations":[]}
         self.assertEqual(runner.formal.validate_policy_basis(data,sources),[])
-        for name in ["scripts/run/run_campaign_progression.gd","resources/items/forest_heart_gold.tres"]:
+        for name in ["game/application/run_campaign_progression.gd","resources/items/forest_heart_gold.tres"]:
             with self.subTest(path=name):
                 bad=copy.deepcopy(data);del bad["policy_basis"]["core_invariants"]["res://"+name]
                 self.assertIn("missing/changed actual source basis/core_invariants",runner.formal.validate_policy_basis(bad,sources))

@@ -33,7 +33,7 @@ func start() -> void:
 		print("AUDIO_REELS_SMOKE frames=120")
 		quit()
 		return
-	var lab: Node = load("res://scenes/dev/audio_director_reels.tscn").instantiate()
+	var lab: Node = load("res://experiments/audio/entries/audio_director_reels.tscn").instantiate()
 	lab.movie_frame_clock = func() -> int: return movie_frames_drawn
 	root.add_child(lab)
 	for unused: int in 240:

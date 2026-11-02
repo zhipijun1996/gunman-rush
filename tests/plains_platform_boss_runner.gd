@@ -24,7 +24,7 @@ func run()->void:
 	trace.world=Node2D.new();root.add_child(trace.world);world=trace.world
 	trace.stage=PlainsRegionAssembler.new();world.add_child(trace.stage)
 	var module:=PlatformingModule.new();module.definition=preload("res://resources/generation/modules/plains_boss_arena.tres");trace.stage.add_child(module);trace.stage.modules.append(module)
-	trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=Vector2(400,582);world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
+	trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=Vector2(400,582);world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 	trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
 	boss=preload("res://scenes/bosses/windkeeper.tscn").instantiate();e=boss.get_node("Encounter");e.definition=preload("res://resources/bosses/legacy/windkeeper_storm_window_v4.tres");boss.position=Vector2(650,535);world.add_child(boss);e.set_physics_process(false);e.configure_arena(255,1000,trace.motor);e.activate()
 	var policy:=FrameDamagePolicy.new();policy.lifetime=trace.lifetime;world.add_child(policy);policy.register_target(&"player",trace.controller.actor_resources.health,true)

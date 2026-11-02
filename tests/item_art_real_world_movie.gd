@@ -153,7 +153,7 @@ func _run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
 	fixture_note = WATERMARK
-	app = preload("res://scenes/demo/demo.tscn").instantiate()
+	app = preload("res://game/application/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	add_captions()

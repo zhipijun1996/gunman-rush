@@ -1,6 +1,6 @@
 extends RefCounted
 
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var tree: SceneTree
 var check: Callable
@@ -18,7 +18,7 @@ var previous_hazards: Dictionary = {}
 func run(p_tree: SceneTree, p_check: Callable) -> void:
 	tree = p_tree
 	check = p_check
-	var generator_script: Script = load("res://scripts/generation/random_stage_generator.gd")
+	var generator_script: Script = load("res://game/world/generation/random_stage_generator.gd")
 	check.call(generator_script != null and generator_script.can_instantiate(), "production generator script must compile before runtime proof")
 	if generator_script == null or not generator_script.can_instantiate():
 		return
@@ -250,7 +250,7 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 		world.free()
 	world = Node2D.new()
 	tree.root.add_child(world)
-	var assembler_script: Script = load("res://scripts/generation/random_stage_assembler.gd")
+	var assembler_script: Script = load("res://game/world/generation/random_stage_assembler.gd")
 	check.call(assembler_script != null and assembler_script.can_instantiate(), "production assembler must compile; missing runtime cannot count as successful route")
 	if assembler_script == null or not assembler_script.can_instantiate():
 		return false

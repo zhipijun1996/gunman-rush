@@ -1,0 +1,110 @@
+{
+  "verdict": "LIMITED_ACCEPT_FINITE_FOREST_SOURCE_CONSUMER_CORRECTION",
+  "reviewer": "structure_audit",
+  "base_head": "bc576b63e11e6f020eff8c309505677321895f13",
+  "candidate_files": [
+    {
+      "path": "tools/level_region_context.py",
+      "main_before_sha256": "13c4bc37b66c6563d45ca8188eff4782f487d51be7246b6b47e638d631148a0f",
+      "candidate_sha256": "226324bdfc108eebd0821bf2d18ade3dfdab8703a41da2c1ff01e9ccafddc848"
+    },
+    {
+      "path": "tests/test_level_region_context.py",
+      "main_before_sha256": "17381b04119122015890f3158a7d5eb275bf86babd47708aed8b179e3b9f1715",
+      "candidate_sha256": "4a045853c66bc9efe7d861caa05b9a922630f861d5a486042dd45fd292d6323d"
+    }
+  ],
+  "independent_tests": {
+    "command": "python -B /workspace/refactor-evidence/level-region-consumer-candidate/run_external_tests.py",
+    "tests": 42,
+    "failures": 0,
+    "duration_seconds": 12.668,
+    "log": "level-region-consumer-independent-tests-42.log",
+    "log_sha256": "492fee0a53ae325840ddd52832b9d029fe654001d202649dd4ce95698a2fb415"
+  },
+  "original_contract_preservation": {
+    "context_original_class_byte_equal": true,
+    "context_original_methods": 11,
+    "routing_original_tests": 25,
+    "routing_file_unchanged_sha256": "75a30cc20770fbb903a184f1297d494af99f4ce239fa07cd765460e233712b81",
+    "new_methods": 6
+  },
+  "closed_finding": {
+    "id": "FOREST-CONSUMER-STRING-01",
+    "old_full_chain_false_positive_retained": "level-region-consumer-independent-string-spoof.json",
+    "same_full_chain_attack_now_rejected": true,
+    "fix": "Shared whole-source scanner excludes comments, tracks single-line quote/escape state; rejects triplequotes, unclosed string/continuation before both function and extends observation."
+  },
+  "source_closure": {
+    "actual_observation": true,
+    "extra_consumers": [
+      {
+        "path": "game/world/levels/providers/forest_level_provider.gd",
+        "version": "content_sha256",
+        "sha256": "1c8258160569b8fca30d2eb3f0936b51cefa891cad86214232aac075b8ff0cec",
+        "line_start": 1,
+        "line_end": 29
+      },
+      {
+        "path": "game/world/levels/providers/legacy_region_plan_adapter.gd",
+        "version": "content_sha256",
+        "sha256": "33509c923b6cfc87fe5f7b24041eaa1c3f58e7e90da11865c750aa7b0dc51441",
+        "line_start": 1,
+        "line_end": 104
+      },
+      {
+        "path": "game/world/levels/providers/generated_demo_stage.gd",
+        "version": "content_sha256",
+        "sha256": "d90bc49bbb8a486f04c35adbcde6d9978abfa216b81c8e07be8edfde62bd58fa",
+        "line_start": 1,
+        "line_end": 318
+      },
+      {
+        "path": "game/world/levels/providers/thorn_forest_region_stage.gd",
+        "version": "content_sha256",
+        "sha256": "74e1959bc5ceec2aac77d8659a92ab968f16c49d0fff8c8f5d8012f256be17f4",
+        "line_start": 1,
+        "line_end": 289
+      },
+      {
+        "path": "game/world/levels/providers/plains_region_stage.gd",
+        "version": "content_sha256",
+        "sha256": "a98521042831129c796cd03b497b977efe95546c43a8960735623993867c93ba",
+        "line_start": 1,
+        "line_end": 343
+      },
+      {
+        "path": "game/world/levels/level_runtime.gd",
+        "version": "content_sha256",
+        "sha256": "10db1418bf4d55cbf30009e1d0b98acc7e2e34d25dc31ae213718eb5fa1fd85c",
+        "line_start": 1,
+        "line_end": 42
+      },
+      {
+        "path": "game/world/generation/thorn_forest_region_assembler.gd",
+        "version": "content_sha256",
+        "sha256": "0a77d61bc66879e6efe4305e3ce0418cc674e6d06a9010dadc8b20e95d2c96f2",
+        "line_start": 1,
+        "line_end": 296
+      },
+      {
+        "path": "game/world/generation/thorn_forest_region_generator.gd",
+        "version": "content_sha256",
+        "sha256": "203e3fc032d3ec3b6dd6fb81cb967533773797e14d580628964ef74e3faac1e6",
+        "line_start": 1,
+        "line_end": 112
+      }
+    ],
+    "routing_explicit_inputs_cover_all_consumers": true,
+    "context_uses_all_tracked_and_untracked_nonignored_inputs": true
+  },
+  "boundaries": [
+    "No runtime/physics/RNG/assets/entry changes; candidate only tool plus added tests",
+    "runtime_available remains null, validation_status unverified, catalog flag non-authoritative, formal_opening_authorized false",
+    "Finite named-function ordered-statement observation; not full GDScript parsing, arbitrary control-flow/data-flow or runtime reachability proof",
+    "All 8 additional files actually read are cited by existing Source.ref SHA/version/line ranges; this does not claim whole transitive implementation correctness",
+    "Unknown source lexical shapes conservatively fail closed, including otherwise valid multiline strings; future source shape changes need review",
+    "Original routing25/context11 failures retained, original rejected40 candidate archived; only corrected42 is accepted",
+    "No Godot, export/PCK, GUI, full182 or runtime availability acceptance"
+  ]
+}

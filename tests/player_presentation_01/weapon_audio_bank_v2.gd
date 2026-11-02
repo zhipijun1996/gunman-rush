@@ -1,6 +1,6 @@
 extends SceneTree
 ## Loaded import facts,not listening or proof of weapon-trigger lifecycle.
-const BANK := preload("res://resources/player_presentation_01/weapon_sound_data_v2.gd").CLIPS
+const BANK := preload("res://game/combat/weapons/presentation/resources/weapon_sound_data_v2.gd").CLIPS
 const EXPECTED: Array[StringName] = [&"pulse",&"machine",&"blade",&"hit",&"wall",&"blast",&"ion_start",&"ion_loop",&"ion_tail",&"blackhole_start",&"blackhole_loop",&"blackhole_burst",&"mine_beep",&"boomerang_return"]
 const LOOPS: Array[StringName] = [&"ion_loop",&"blackhole_loop"]
 var output := ""

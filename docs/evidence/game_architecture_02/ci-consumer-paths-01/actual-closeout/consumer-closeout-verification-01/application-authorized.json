@@ -1,0 +1,744 @@
+{
+  "head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "prior_coordinator_summary": {
+    "scope": "diagnostic only; not full185",
+    "executed": 157,
+    "passed": 151,
+    "failures": [
+      {
+        "id": "art-plains_spatial_art",
+        "status": "failed",
+        "duration_seconds": 0.288,
+        "reason": null,
+        "failure_reason": "nonzero_exit",
+        "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-plains_spatial_art.log"
+      },
+      {
+        "id": "production-loop-tests",
+        "status": "failed",
+        "duration_seconds": 59.236,
+        "reason": null,
+        "failure_reason": "nonzero_exit",
+        "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115015.022507Z/production-loop-tests.log"
+      },
+      {
+        "id": "forest-region-scheduler-tests",
+        "status": "failed",
+        "duration_seconds": 0.298,
+        "reason": null,
+        "failure_reason": "nonzero_exit",
+        "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-region-scheduler-tests.log"
+      },
+      {
+        "id": "forest-bible-reader-tests",
+        "status": "failed",
+        "duration_seconds": 1.885,
+        "reason": null,
+        "failure_reason": "nonzero_exit",
+        "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/forest-bible-reader-tests.log"
+      },
+      {
+        "id": "underworld-continuous-bosses",
+        "status": "failed",
+        "duration_seconds": 15.967,
+        "reason": null,
+        "failure_reason": "nonzero_exit",
+        "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-continuous-bosses.log"
+      },
+      {
+        "id": "audio-feedback",
+        "status": "failed",
+        "duration_seconds": 26.67,
+        "reason": null,
+        "failure_reason": "nonzero_exit",
+        "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/audio-feedback.log"
+      }
+    ],
+    "source_unchanged": true
+  },
+  "prior_source_digest": "0b856a7c8b1922c09efbdb25451858a5e924d69a74136273a4050ca78c68868e",
+  "patches": [
+    {
+      "patch": "plains-spatial-art-consumer-candidate/plains-spatial-art.patch",
+      "sha256": "4a9cd454ec93b7af479303b02c129791b8a6f7f395a810fb9636027fe0786315",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "production-loop-fixture-closure-candidate/candidate.patch",
+      "sha256": "79a115566d0102a25fb6ba6a1ca15bce538ccacef0e9c43a465e62bd2ce38973",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "remaining-check-input-audit-02/input-binding-gap-candidate.patch",
+      "sha256": "6865c8d46b1538a723ab666fde4e11e24f9739979b43701c920df7e507cb2ffa",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "identity-cli-fixture-audit-02/audio-reels-loader-candidate.patch",
+      "sha256": "fc7e13fc896537fc94c37e3aafd233a80fe193301a39a6010a999856b011fb65",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "forest-scheduler-loader-candidate/candidate.patch",
+      "sha256": "48d0c30a55adea24195b0b99f3fdda3cffcaf5b0f5e36adf4a4b5aee168fea14",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "forest-trace-guard-layout-candidate/forest-trace-guard-layout.patch",
+      "sha256": "9cd010136f1b6b91c5326fd704d7d74951fe0d3878b439fabff790a59c16155a",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "forest-scheduler-loader-candidate/directional-unregistered-followup/candidate.patch",
+      "sha256": "7ba134f2c93c196dc3a6c5f7114ed2dcb98e924907c33d4138067f171da6557e",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "current-docs-closeout-04/candidate.patch",
+      "sha256": "d0080c69452c3f93d29e4e87865cbd7f8b8a67b9ecb4772ebb69edfeb8f4b433",
+      "apply_check_exit": 0,
+      "stderr": ""
+    },
+    {
+      "patch": "underworld-r3-roll-baseline-audit/r3-precise-contact-fixture.patch",
+      "sha256": "49d550fc902ee98b76bd88c585bbc96651f6ee75ff09c544892bb5a4dea05486"
+    }
+  ],
+  "source16_actual": {
+    "tests/forest_ecology_runner.gd": "c34c51f5638b0a7674276e846af0adbc1b7e8a4306fbc3ee0fc857a78455e9c1",
+    "tests/forest_depth_enemy_runner.gd": "c0278f6f5d9be2086a94b0e3e483a9333ec8a0700774dc6aff91f8f645a9ef9f",
+    "tests/forest_depth_version_app_case.gd": "b9bf8bf1b38f7cf774463da9124de0a4855e3b46c34ba60e97cb728d79308b94",
+    "tests/enemy_all_02_motion_lifecycle.gd": "2c19befb84ea03c11d803abf1e17a7551adbe4d48256bdfeeb0408e55d741bcb",
+    "tests/enemy_hit_template_tests.gd": "122af06da2760afd6da88121d5e5cc308554e6e81a1acfd823dd723053c2aa29",
+    "tools/enemy_all_review_02_capture.gd": "377e77830eac4d64fbc3147c38071322e2598aedb5cbb484c6cfbdc0374f71a1",
+    "tools/enemy_all_review_02_inventory.py": "db167388c27c05d4cf3a2b8a9cbae09d81c9c94c011b54d9cacec85a7eb92165",
+    "tools/check_plains_item_art.py": "75da697c8879dccb48fb43cfca9f65cb97079dbcfb936cff13799d409c3f1c68",
+    "tools/harness/profiles.json": "55b9d6f1561fb3c46c0a520dee5e4192a4670504199685558ae678fccf468ee7",
+    "tools/check_plains_spatial_art.py": "8732fcb60ef3ad201dc175c3ea715e7bd0b943f8abd0b872f0184e103a700108",
+    "tests/test_production_loop.py": "239d0e2d23d75ffd6d88f8364f123cabea16f452e1a55a5de4b91e23d12d9998",
+    "tests/test_audio_reels_capture.py": "5533d952d752c4e1e8946cafee885cf42c961e4f593ac8d0f3844311e75b6d21",
+    "tests/test_forest_region_scheduler.py": "940ce99a5549f22d0cb4558312f212903662e771d9186ef9e96243d410b6059a",
+    "tests/test_forest_bible_trace_consumers.py": "0a5610263975198b125d8602afd275cc0173630a3c214eb067f5c5ef5b6e397e",
+    "tests/test_forest_directional_validator.py": "37069dcfb2165c7ec12567b5bb0c106ae3bcbc506c6c3ca12379005941cd966c",
+    "tests/underworld_plains/test_underworld_r3_boss.gd": "de1ba7be3db8b056f6ebc0e3c4ab68e5c574af137d6156547f37116f9a474f59"
+  },
+  "copied_quality_files": [
+    {
+      "path": "docs/worklines/game_architecture_01/ci_consumer_paths_01.md",
+      "sha256": "14e7916197753f8c52643197222a35ca3cc6cb5b1716a30b5d5ea5344a2f87d0"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/initial-scope.md.source",
+      "sha256": "1f3d56ffc52fc2c867ab44420702206b13fe79f81bd3b744976d6f28c265896e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/baseline/ci41195033622-parallel-job.log",
+      "sha256": "e10ae8fc3f278807b8fc08a79a417d4458a87f99ad7a645512c0b9c13b672daf"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/delta6-candidate.json",
+      "sha256": "81846800fdee1f2b074f908dee6d512cd4bf8f34d1524d2711b11a94757ab388"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/delta6.patch",
+      "sha256": "74e07232d1d9228bfcdbedff879a93f147cabb504fc37e1bc9b19565334fef89"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/computed-consumer-audit.json",
+      "sha256": "49a85b78745d2ab8b6287ef4f089e625e3c68653b195b62394c22f41be3f396c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/forest-candidate.json",
+      "sha256": "73554e5d17ad81a365a0b92c4f1cb78a96d3fab4661d8cac9f89734f16a7044e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/delta6-README.md.source",
+      "sha256": "143b9e31cc0c317e095ad67eba3b74b4ae572809f83b7d46fe1e61c618d0c932"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/forest-ecology-path.patch",
+      "sha256": "db13b1a06d61912015bc93bfae27f92b27ab4eec1fe0147966b368687286737c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/computed/delta6-inventory-result.json",
+      "sha256": "681d5082027c0545a7bcc9781d4c68f69b3e73dd8dd0e48b3647acd37193aac1"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/consumer-audit.json",
+      "sha256": "deb0c5d7d0fb71460d924335e06b501b32102ef6b78868cf3af48d4fe209744d"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-missing-drone-consumer.log",
+      "sha256": "d41706f0d26e0f937d89070da494f9dbc47039a8b5084ced0f32976022906759"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/candidate-positive.log",
+      "sha256": "8aad93a36f4c29b39237cb37de261669e5a93c4cd258ba1addaf919cd8aec38e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-legacy-svg-return.log",
+      "sha256": "c50c047004919dae50ae10ce9e6d6c1c4b435e8425dd2bfb6ebe2a10183b2a32"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-missing-current-bell.log",
+      "sha256": "5ea6bca07ddf73f61aca2a806147c0052a28c80a62422daeea0d2fbb0a24fdf3"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/baseline-2ce-report.json",
+      "sha256": "61e57f8d1cc9881bc4c81f56fabfccb144a1925510c8e753e1e35594c6035f4d"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-missing-current-machine.log",
+      "sha256": "f5675a4f5608ff484d4b75152ab48b9390bbcbb8e8e723912f3590430cfc50ee"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/baseline-2ce.log",
+      "sha256": "9dfd2326eb092ca73137a08f93c38101e3186d492555d0352167270e13689f6c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-missing-rig-pose.log",
+      "sha256": "ef79bdca036d8aacfb13de46adf74330c1734e86a545e4f1264b5fd859285601"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/README.md.source",
+      "sha256": "6f1a9fc6f402e56b96d2fbe2c1f2f3f3a83b87acc569cfa8f75c28abe72ba92a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-disconnected-presentation.log",
+      "sha256": "ac147201fac2afb405282b0d358e7cfe952d2879fb46a5aebbb5f1754774e3ad"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/candidate.json",
+      "sha256": "ffc03182c249fe40e49b8d9e2a44fbcea749617dc9ecc4bbed70ebe1cbc595d0"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/plains-spatial-art.patch",
+      "sha256": "4a9cd454ec93b7af479303b02c129791b8a6f7f395a810fb9636027fe0786315"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-missing-projectile-consumer.log",
+      "sha256": "1c39fc39547953cdc1935bf1ceab92d7d7bc8967b28195b19cb8b42f05bb7ef6"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/negative-historical-chassis-bytes.log",
+      "sha256": "9525c3d047fe37b834720822eb178592dd598df59e374968064337d826b95d1a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-inputs/audit-report.json",
+      "sha256": "0bab3b427b8ff94858b7bc1a598c6490d3b19ad9d6937fde2bd4b66fb9cabad9"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-inputs/input-binding-digest-negative-controls.json",
+      "sha256": "fe13b4891b1c48d7eb1d4de5c4cbf5941b1c1f926a5067a88a24b8ef0d3811ce"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-inputs/input-binding-gap-candidate.json",
+      "sha256": "d72b6ee469b67161923ef9549f5da8258243fbeb8d2434ffdf1f48028fe3c67f"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-inputs/input-binding-gap-candidate.patch",
+      "sha256": "6865c8d46b1538a723ab666fde4e11e24f9739979b43701c920df7e507cb2ffa"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-inputs/README.md.source",
+      "sha256": "b66ee4c79ef3e833dbf3c22290eeb56806f07ab5c6fcadb521e8f1538e016781"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/serial-forest-ecology.log",
+      "sha256": "f186bd2e5a2b1d61c35a45abab316ba85106eee634a283da646dac028525e513"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/index.json",
+      "sha256": "7273ca4b00b7584c8de06cec10fb85235b8af5ba460ddf029724cb997dccdfda"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/parallel-art-art.log",
+      "sha256": "1b0d952f321f0575f337b32ab2adec57e54979178c3aba072b7692746aa95bf7"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/parallel-report.json.gz",
+      "sha256": "67ef1ae82fc72a08865d2a526b367cf4347a1efc871832825ebf80352bf53c60"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/run-api.json",
+      "sha256": "eeb531f9458759c1371ff3960a6b342d9a9c8097846af40fae7d628ec8b25706"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/serial-report.json.gz",
+      "sha256": "60a0fab275b174c5939e4db6d8cce34e851f92286b98948d13f1b05c73b78c7b"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/failed-full11254/jobs-api.json",
+      "sha256": "26b0c58613bf83a4dd3967dfdd25c41324f24ce7770d76e1fff554f5a80de3f1"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/actual-115-suite-01.json",
+      "sha256": "547bb7759dd014668381587fa20a8baf4792ffa68fae9dbff5564ac765a75374"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/candidate.patch",
+      "sha256": "79a115566d0102a25fb6ba6a1ca15bce538ccacef0e9c43a465e62bd2ce38973"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/proof.json",
+      "sha256": "6bd3468ec36d715bafc24a6a93fc800361f6292eab247179260f7247acf97242"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/actual-115-suite-01.log",
+      "sha256": "6f588e9671b574010dcbeaf3a1e3ec1494247a863c48c8345c801536b0af4f12"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/actual-seven-cli-02.log",
+      "sha256": "8fc9143f555b5d6ddebad5393de637e07446681c46354c762b8951661a0a9b90"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/actual-seven-cli-02.json",
+      "sha256": "623e1dd9cae7291ce204e2d0bdf7d2853cef514c652c88e4d0bd5a754d893766"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/item/candidate.patch",
+      "sha256": "b7b5d5553a91259baed6bab8b980c02c768035bdce5dc47e5696201696739848"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/item/candidate.json",
+      "sha256": "a6162fafc1a43c3e685d4f85d9e5107fbe0c0eea3ba8dcc39a222a43f4bd8703"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/v3/candidate.patch",
+      "sha256": "e46c53f2f0a51a2852d3b7f10eea7fa04fc7bf6803831442c719ca2001e66ea8"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/v3/proof.json",
+      "sha256": "669aff707d95d426bef2b9df8db68936abcfe0d0154735c9b13bc9bbf7263eeb"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/independent-candidate.log",
+      "sha256": "1635a6194f78c5e89329e41ae3b95909ced52dd425f9291840b91d6deaa41ba0"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/candidate-source-closure.log",
+      "sha256": "d0bbd3fb4fcf80c9cbf5ce59bf4ce44bb927e9e40a6269d0b33dc8c4a94c4755"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/audio-reels-loader-candidate.json",
+      "sha256": "310181c6094b1eedd145a5fc169e490148bff3c4c590a46f227031962b5fd267"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/audit.json",
+      "sha256": "3dabc74d17d897d173325bf5e73fe0c704e9f7dd9bc6e1c77a536f5f4c4cd92c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/independent-original.log",
+      "sha256": "81eaaab16973b541f0a564b33ba85aad9ed8d332e7c4c117c2347d86cafc0134"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/original-source-closure.log",
+      "sha256": "81eaaab16973b541f0a564b33ba85aad9ed8d332e7c4c117c2347d86cafc0134"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/audio-reels-loader-candidate.patch",
+      "sha256": "fc7e13fc896537fc94c37e3aafd233a80fe193301a39a6010a999856b011fb65"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/independent-no_real_trace.log",
+      "sha256": "4c350ffe66d91d3f8d5db6340c5269edf447da0dc018371bf8227efb71ce81ae"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/baseline-app-binding.txt",
+      "sha256": "98182751cc6c8a5b6c16622aca15397da5c0c9680464badce88891ae3d2463f8"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/sampled-geometry-analysis.json",
+      "sha256": "c8560bbba3e4c1f2c102a00ec60f6dc5727dc443f16cd98976df65ee637fd575"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/original-continuous-combat.json",
+      "sha256": "aa462b2c6decc3afff69ae2fb84257f0b270e2f473ce49890332abfe361333c7"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/candidate.json",
+      "sha256": "78d43af5a7977083f8461d42dcc8ebe8d371259bebf98491224b9b591dd48d52"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/r3-precise-contact-fixture.patch",
+      "sha256": "49d550fc902ee98b76bd88c585bbc96651f6ee75ff09c544892bb5a4dea05486"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/original-full-native-failure.log",
+      "sha256": "6b8395987231712271de7f9a3adc81d6ab8a8640184d00d82a37ab18aab55daa"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/current-app-binding.txt",
+      "sha256": "98182751cc6c8a5b6c16622aca15397da5c0c9680464badce88891ae3d2463f8"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/forest-trace-guard-layout-independent-review.json",
+      "sha256": "115e3be175fdb7e545da586706c28b63f3ead9afdaf6f15f2ff86f2f5a667d7d"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/underworld-r3-precise-contact-fixture-independent-review.json",
+      "sha256": "cc12837b5efaa48a0659699ead9323c501348a9ee54f3100675ca420342b8633"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/art-item-candidate-independent-check.log",
+      "sha256": "44d0fe6579b2a06d53b54db59c07983637418a263c40c7e7d251b83daae5ad81"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/art-v3-candidate-independent-check.log",
+      "sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/plains-spatial-art-consumer-independent-review.json",
+      "sha256": "b58919744253f3183ab391363db518fad812c4bf26eda10e03527c969999c417"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/production-loop-fixture-runtime-independent-review.json",
+      "sha256": "86d0997f74572d4c4bf566b5a7c6bee681b36a8f2cc53b4eb95fe857aa498586"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/input-binding-gap-runtime-independent-review.json",
+      "sha256": "1425824dd19ecc480a5b395ec02229072f1afc1bdf465227d39dc822cb23acba"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/forest-ecology-computed-path-independent-review.json",
+      "sha256": "a868470190137b85bc50305ec2f9b22e00efa99080ab7dd696d201a29537dc47"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/forest-scheduler-loader-runtime-independent-review.json",
+      "sha256": "67742198838765a054dfb579250b687798b9d52899ffaf01469039f8f7d9bb95"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/art-consumer-and-input-closure-independent-review.json",
+      "sha256": "efbfa6c062daf1cc23fde548b1f5e351c2deaf9645cee71ded2922c16936fead"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/audio-reels-loader-runtime-independent-review.json",
+      "sha256": "e45ed6a689bb08a23baf23e0065e5748590f13e0d19e323f5f250bf6650a8824"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/directional-loader-runtime-independent-review.json",
+      "sha256": "8b843c47731261a6f7a65af6f9fbd1ee76f498b49366bf35319898985f7f32df"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/reviews/computed-test-paths-delta6-independent-review.json",
+      "sha256": "180b95aec12e18e59af1c046f0632ca17bc2913c0e6d32a3733342e9e8a3ea3f"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tests/enemy_all_02_motion_lifecycle.gd.source",
+      "sha256": "2c19befb84ea03c11d803abf1e17a7551adbe4d48256bdfeeb0408e55d741bcb"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tests/forest_depth_enemy_runner.gd.source",
+      "sha256": "c0278f6f5d9be2086a94b0e3e483a9333ec8a0700774dc6aff91f8f645a9ef9f"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tests/forest_ecology_runner.gd.source",
+      "sha256": "c34c51f5638b0a7674276e846af0adbc1b7e8a4306fbc3ee0fc857a78455e9c1"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tests/enemy_hit_template_tests.gd.source",
+      "sha256": "122af06da2760afd6da88121d5e5cc308554e6e81a1acfd823dd723053c2aa29"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tests/forest_depth_version_app_case.gd.source",
+      "sha256": "b9bf8bf1b38f7cf774463da9124de0a4855e3b46c34ba60e97cb728d79308b94"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tools/enemy_all_review_02_capture.gd.source",
+      "sha256": "377e77830eac4d64fbc3147c38071322e2598aedb5cbb484c6cfbdc0374f71a1"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tools/check_plains_item_art.py.source",
+      "sha256": "75da697c8879dccb48fb43cfca9f65cb97079dbcfb936cff13799d409c3f1c68"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/candidate-source/tools/enemy_all_review_02_inventory.py.source",
+      "sha256": "db167388c27c05d4cf3a2b8a9cbae09d81c9c94c011b54d9cacec85a7eb92165"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-spatial/source/tools/check_plains_spatial_art.py.source",
+      "sha256": "8732fcb60ef3ad201dc175c3ea715e7bd0b943f8abd0b872f0184e103a700108"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/art-checks/art-plains_v3.log",
+      "sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/art-checks/art-plains_item_art.log",
+      "sha256": "44d0fe6579b2a06d53b54db59c07983637418a263c40c7e7d251b83daae5ad81"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/art-checks/report.json",
+      "sha256": "495cbb77ce7351f09bc4c0883bb4d5f82e66c69ba446735bdfd47797d2b66177"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/art-checks/coordinator.log",
+      "sha256": "51db27cbd75935462a7d774035db8360d97ff39ece9dacbf36e257608244c3a2"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/forest-ecology/forest-ecology.log",
+      "sha256": "a91dd1d234b85e09b61d5d6376ce6d58ecb985c6aff5c24cf32d2a9466d95aec"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/forest-ecology/report.json",
+      "sha256": "f42b1017a593ce586f625a9e2d332ac40a6cc48719a8e4f3b1e8900a58c583e3"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/root-targeted/forest-ecology/coordinator.log",
+      "sha256": "799fdde272718031acb0a847f5be03dd4949c20410f8205bcb89e4dbd707ec74"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-loop/source/tests/test_production_loop.py.source",
+      "sha256": "239d0e2d23d75ffd6d88f8364f123cabea16f452e1a55a5de4b91e23d12d9998"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/trace-guard/forest-trace-guard-layout.patch",
+      "sha256": "9cd010136f1b6b91c5326fd704d7d74951fe0d3878b439fabff790a59c16155a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/trace-guard/candidate-58.log",
+      "sha256": "70024dd1fa5edea58898b2d5b6277e74596dbca817dcdd44e9ae97c28aa28449"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/trace-guard/candidate.json",
+      "sha256": "c7616edaa0ad26cb9727fb0de9cd96594c4a8e01853793605c4303ac9680df89"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/trace-guard/original-58-failure.log",
+      "sha256": "e3571f1623fde92aa783a7fd949197d877bb988684708a01c0468c81b1bcdbb0"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/before.log",
+      "sha256": "9ce8a0a3f1b35af40c2fac8d4436d00997250c363f9efd531c27ac6a91199cd6"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/before-baseline-candidate.json",
+      "sha256": "611d77a8d7f353b3929bf3a4b94be57ef8be81d4f540914e1ce6a02179d90e28"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/independent-baseline-repeat.log",
+      "sha256": "1068734e8e915a0b3d4ac98033d77e480ca11166926240eb82c7e16fab8a3f32"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce-report.json",
+      "sha256": "7a98b641572977258f7addb853391abc5661c9b2df495012f225e810443a4eb4"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce-23.log",
+      "sha256": "70c0b9e3e8ff05bc1c909fe2539f0ce1e6384f2141687595a5bd935df92373bc"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/candidate.patch",
+      "sha256": "7ba134f2c93c196dc3a6c5f7114ed2dcb98e924907c33d4138067f171da6557e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/after.log",
+      "sha256": "73b7eff6dd23d970b1487416b9f24997e5362e9c5ffa7a9f3ab4787d0d0fd879"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/candidate.json",
+      "sha256": "476b7245e96f73fda15e705c075f0c9aed9c018bb0193c914dd5110f6424b8ea"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/independent-baseline-first.log",
+      "sha256": "70c0b9e3e8ff05bc1c909fe2539f0ce1e6384f2141687595a5bd935df92373bc"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/independent-current_loader_fixed.log",
+      "sha256": "e1896828ae573a96678741422369018d58b716260d818c3769d81c95a5a49723"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/before.log",
+      "sha256": "11658554caad8d1a8cfc50256f87e2f34e7fcf7c8278c05ced85f7f4c14a8fc8"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/independent-candidate.log",
+      "sha256": "4cf8ae7f148451c6768f82f29bc719f63df66c2529a6f8be0139460d796a484a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/candidate.patch",
+      "sha256": "48d0c30a55adea24195b0b99f3fdda3cffcaf5b0f5e36adf4a4b5aee168fea14"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/independent-before.log",
+      "sha256": "11658554caad8d1a8cfc50256f87e2f34e7fcf7c8278c05ced85f7f4c14a8fc8"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/same-directory-loader-audit.json",
+      "sha256": "df33611c474199dc29bdd61c6401c4a34670d65240a577c8cb20c124d9f32fd6"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/after.log",
+      "sha256": "5521904062cdf0827746d288d9560c1250746892f23eec6e8353563f5d6e81bb"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/candidate.json",
+      "sha256": "555c2f3df66352ebf2ecc91875addd0542ab52f6ffc7feaaa285c695745bafc2"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/trace-guard/originals/tests/test_forest_bible_trace_consumers.py.source",
+      "sha256": "879d268961f110249fcb5b3e98db83af939bc33b62a0b7aa7a6b49fb0bcaeac2"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/trace-guard/candidate/tests/test_forest_bible_trace_consumers.py.source",
+      "sha256": "0a5610263975198b125d8602afd275cc0173630a3c214eb067f5c5ef5b6e397e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/originals/tests/test_forest_directional_validator.py.source",
+      "sha256": "7597c5abb9488ac06d44cfaa4d0c01798ef51c87297cb39af05ea04b94106281"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/tests/test_forest_directional_validator.py.source",
+      "sha256": "7597c5abb9488ac06d44cfaa4d0c01798ef51c87297cb39af05ea04b94106281"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/tools/run_forest_directional_golden.py.source",
+      "sha256": "eb35df0108540f0526de3899df0b99b97163fe0114124d22f24c902e77cb0bf0"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/config/player_tuning.json.source",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/scripts/generation/forest_directional_geometry.gd.source",
+      "sha256": "ea44b33daa27cfc8c46eba54648cf99cc7f4b7fa6391e57caa6ce48b15407bd7"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/scripts/player/traversal_definition.gd.source",
+      "sha256": "5d212b12fd4ac72422addfa6d35de176ccae9e5f08593a8064a7f71be6183c49"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/scripts/resources/definitions/shot_energy_definition.gd.source",
+      "sha256": "ecf7bb786c83652775cf11eb398eb3011462a73936c81defcb1cf0366896d17e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/resources/actors/prototype_health.tres.source",
+      "sha256": "75299fd7f1e089fbf82082652114789c8e503d942f5ad842991e317b4bf4dd41"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/resources/player/traversal.tres.source",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/baseline-2ce/resources/player/plains_shot_energy.tres.source",
+      "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/directional/candidate/tests/test_forest_directional_validator.py.source",
+      "sha256": "37069dcfb2165c7ec12567b5bb0c106ae3bcbc506c6c3ca12379005941cd966c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/originals/tests/test_forest_region_scheduler.py.source",
+      "sha256": "d90f9d5b0a49ec4b278b54e9339b97bbb4d8b27914942f834aa85fbb1a99bb5c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-final15/scheduler/candidate/tests/test_forest_region_scheduler.py.source",
+      "sha256": "940ce99a5549f22d0cb4558312f212903662e771d9186ef9e96243d410b6059a"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/originals/tests/test_audio_reels_capture.py.source",
+      "sha256": "cb5f21f6914ffb99056223567a1450d45b7bca3ca325741130f9598b3aa19e5f"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-audio-loader/candidate/tests/test_audio_reels_capture.py.source",
+      "sha256": "5533d952d752c4e1e8946cafee885cf42c961e4f593ac8d0f3844311e75b6d21"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/originals/tests/underworld_plains/test_underworld_r3_boss.gd.source",
+      "sha256": "d7fa9aaa698fd5fc8116697e09ff8ca4547fc67eaa86ff354ac09b12c2998e87"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/baseline-2ce/tests/underworld_plains/test_underworld_r3_boss.gd.source",
+      "sha256": "8d0abea0f608a09b2aee5a72e6c332bb4aac1bbabfb2c7e2ba950760326e35cd"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/ci-consumer-paths-01/pending-r3/candidate/tests/underworld_plains/test_underworld_r3_boss.gd.source",
+      "sha256": "de1ba7be3db8b056f6ebc0e3c4ab68e5c574af137d6156547f37116f9a474f59"
+    },
+    {
+      "path": "docs/quality/records/CI-CONSUMER-PATHS-01.json",
+      "sha256": "545ea261ea93b7efaa463ab7a5c55a3729af984a6bedd9e1cd118520a2d2a898"
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/asset_metadata_layout_01.md",
+      "sha256": "791bf63118e5b11af505755842f524c9ad5627f34a6f5bfa8d0446c9e68266af"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/ci41195033622-parallel-job.log",
+      "sha256": "e10ae8fc3f278807b8fc08a79a417d4458a87f99ad7a645512c0b9c13b672daf"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/prior-layout-metadata-rebinding.json",
+      "sha256": "14d6a661e738357307e4af98ecf93f7dc02a43922cf0d718e89eedaea3496bbb"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/initial-scope.md.source",
+      "sha256": "9e1ccefd6a90bb69beae80e31ba2702a6013f11b1b092f2305714cfd5ae5b291"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/authority-audit.json",
+      "sha256": "0eaba9fbc625c40b46b73d655ccab0bae3a680ab22971b1f86ece0e01cb2817e"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/root-targeted/art-plains_v3-failed.log",
+      "sha256": "36ccf03536ad330d03ee9c0fa4796cf2283fc06dc423fe3275faf66dd6cf92b4"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/root-targeted/report.json",
+      "sha256": "05c27aac0aaa184940faf315674524efcae34582db9e33318e7ce42410074702"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/root-targeted/art-art.log",
+      "sha256": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/candidate-check-art.log",
+      "sha256": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/candidate.patch",
+      "sha256": "8b3d7fc64e5198c6c218570d930bbb740d50213c72f6e8c09d8a40feefa47b9d"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/proof.json",
+      "sha256": "91cc8da4e10d1ba7b43d1b12fd087c6ee94fdfcf88e8b7a7a0fa89508bcd90a9"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/actual-assets-media-byte-proof.json",
+      "sha256": "5b5450d084c0129017ca375b98f1f7eb567c62be8975156a2b1c8bdabfd71f0d"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/before-check-art.log",
+      "sha256": "1b0d952f321f0575f337b32ab2adec57e54979178c3aba072b7692746aa95bf7"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/terrain_build.json.source",
+      "sha256": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/hazard_fine_build.json.source",
+      "sha256": "914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/scenery_build.json.source",
+      "sha256": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2"
+    },
+    {
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/review/independent-review.json",
+      "sha256": "f0150ab917749ea68599a2ee6d5b3579c6f3e780ceedab9ddb5a2f9ce4f198af"
+    },
+    {
+      "path": "docs/quality/records/ASSET-METADATA-LAYOUT-01.json",
+      "sha256": "ca95f2b609386656644c394198323c275657b673a81d08ae316ddf1f2f8e4012"
+    }
+  ],
+  "tasks_sha256": "b78bd3879f3a9a1e20c6da4f830056492fac933d16c96d6f4c8d622c833a8742",
+  "scope": "Reviewed consumer/test/docs only; no production change, no commit/push."
+}

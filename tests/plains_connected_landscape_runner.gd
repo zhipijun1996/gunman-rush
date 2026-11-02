@@ -5,7 +5,7 @@ var root_seed := "v3-root-bell-pilot-1"
 var rows: Array[Dictionary] = []
 var edge_windows:=false
 var _source_before:Dictionary={}
-const BOUND_SOURCES:=["scripts/art/plains_connected_landscape.gd","scripts/art/plains_region_composition.gd","scripts/art/plains_terrain_family_sampler.gd","scripts/art/plains_tile_composer.gd","shaders/plains_tile_material.gdshader","assets/production_repair/rooted_plants_v1/family.json","assets/production_repair/rooted_plants_v1/raw.png","assets/production_repair/connected_cliff_v2/family.json","assets/production_repair/connected_cliff_v2/raw.png","tests/plains_connected_landscape_runner.gd"]
+const BOUND_SOURCES:=["game/presentation/world/art/plains_connected_landscape.gd","game/presentation/world/art/plains_region_composition.gd","game/presentation/world/art/plains_terrain_family_sampler.gd","game/presentation/world/art/plains_tile_composer.gd","shaders/plains_tile_material.gdshader","assets/production_repair/rooted_plants_v1/family.json","assets/production_repair/rooted_plants_v1/raw.png","assets/production_repair/connected_cliff_v2/family.json","assets/production_repair/connected_cliff_v2/raw.png","tests/plains_connected_landscape_runner.gd"]
 func bound_sources()->Dictionary:
 	var result:Dictionary={}
 	for path:String in BOUND_SOURCES:

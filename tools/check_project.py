@@ -4,6 +4,7 @@ import re
 import sys
 from harness import load_manifest
 from quality import policy
+from project_dependencies import inspect as inspect_dependencies
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = ["AGENTS.md", "README.md", "docs/current_state.md", "docs/harness.md",
@@ -14,6 +15,7 @@ SKILLS = policy()["core_skills"] + ["project-integration"]
 
 def main():
     errors = []
+    errors.extend(inspect_dependencies(ROOT)["errors"])
     for path in REQUIRED:
         if not (ROOT / path).is_file():
             errors.append(f"Missing entry: {path}")

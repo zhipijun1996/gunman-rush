@@ -23,10 +23,33 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_web_bundle import Pack
-from build_probe import AUDIO, HELPER, MEASURE, write_pack
+from build_probe import AUDIO, HELPER, write_pack
 
 COMMIT = '1b29932c5333a9dad50759afc635762163ed79f5'
 PACK_SHA = '618eb97114e6715fc33856823c9bf23141e8e51802a886596bc9f223ed7ca691'
+
+# Fixed main1b source/pack protocol; current build_probe consumes a different layout.
+MEASURE_COMMIT = "1b29932c5333a9dad50759afc635762163ed79f5"
+if MEASURE_COMMIT != COMMIT:
+    raise ValueError("Recorded measurement paths require their original source commit")
+MEASURE = {
+    'scripts/underworld_plains/underworld_foreground.gd': ['_refresh', '_protection', '_sync_residents', '_render_receipt'],
+    'scripts/underworld_plains/underworld_presentation.gd': ['refresh'],
+    'scripts/underworld_plains/underworld_parallax.gd': ['_update'],
+    'scripts/underworld_plains/underworld_home_world.gd': ['update_focus'],
+    'scripts/demo/generated_demo_stage.gd': ['_physics_process'],
+    'scripts/demo/plains_region_stage.gd': ['_physics_process', 'capture_state', '_update_context_signs'],
+    'scripts/enemies/enemy_actor.gd': ['_physics_process'],
+    'scripts/demo/home_scene.gd': ['_physics_process', '_process'],
+    'scripts/player/player_controller.gd': ['_physics_process'],
+    'scripts/demo/demo_app.gd': ['_process', '_physics_process', '_layout_region_hud', '_sync_music'],
+    'scripts/ui/demo_ui_01/game_hud.gd': ['_process', '_refresh', 'present_context'],
+    'scripts/audio/game_audio.gd': ['_process'],
+    'scripts/audio/game_music.gd': ['_process'],
+    'scripts/audio/game_ambience.gd': ['_process'],
+    'scripts/audio/selected_ambience_runtime.gd': ['_process'],
+    'scripts/audio/home_ambience_audition.gd': ['_process'],
+}
 ENGINE = 'index.d20938d2db49.engine'
 CASES = ['original', 'bus_only', 'pause_only', 'ambience_off']
 CASE_PATH = 'mobile_formal_audio_case.gd'

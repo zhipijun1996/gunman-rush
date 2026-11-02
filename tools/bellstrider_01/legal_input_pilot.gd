@@ -2,6 +2,12 @@ extends RefCounted
 ## Disclosed automated player. Observations are read-only; all writes are normal
 ## Router inputs or actual mouse-motion events. Never advances Encounter clocks.
 var mode := "cautious2"
+# Empty keeps original navigation. first/all select the same diagnostic procedure.
+var platform_scope := ""
+var platform_observation: Dictionary = {}
+var platform_trial: Dictionary = {}
+var platform_trials: Array[Dictionary] = []
+var platform_failure := ""
 var input_rows: Array[Dictionary] = []
 var frame := 0
 var group := -1
@@ -195,6 +201,12 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			if player.is_on_floor() and absf(dx) > 180.0:
 				jump = true
 				intent = "legal jump toward existing platform; selection remains autonomous"
+	if not platform_scope.is_empty():
+		var platform_input := _platform_counterplay_input(app, encounter, metrics, wave_jump)
+		if bool(platform_input.get("override", false)):
+			axis = float(platform_input.axis)
+			jump = bool(platform_input.jump)
+			intent = "actual platform counterplay / " + str(platform_snapshot().get("leg_phase", "waiting"))
 	if wave_jump:
 		jump = true
 		intent = "actual approaching wave takes priority across every state"
@@ -348,3 +360,245 @@ func _shot_clear(app: Node, origin: Vector2, target: Vector2) -> bool:
 	query.motion = target - muzzle
 	var travel: PackedFloat32Array = space.cast_motion(query)
 	return travel.size() == 2 and float(travel[0]) >= .999
+
+
+func _platform_counterplay_input(app: Node, encounter: Node, metrics: Dictionary, wave_jump: bool) -> Dictionary:
+	# One group owner and one leg procedure serve both diagnostic scopes.
+	var player: PlayerMotor = app.player
+	var current_group := int(metrics.get("groups_started", 0))
+	var plan: Dictionary = metrics.get("group_plan", {})
+	var state := str(encounter.mode)
+	if not platform_failure.is_empty():
+		return {}
+	if str(platform_trial.get("phase", "")) == "active":
+		platform_trial.HP_min = minf(float(platform_trial.HP_min), app.controller.actor_resources.health.current)
+		if float(platform_trial.HP_min) < float(platform_trial.HP_start):
+			return _platform_fail("actual HP decreased during a committed roll group")
+		if not _platform_base_observation_valid():
+			return _platform_fail("actual installed support or base-only ability observation unavailable")
+		if not platform_trial.legs.is_empty():
+			_observe_platform_leg(app, encounter)
+			if not platform_failure.is_empty():
+				return {}
+		if encounter.health.terminal or int(metrics.get("groups_completed", 0)) >= int(platform_trial.group):
+			_finish_platform_group(encounter.health.terminal)
+			if not platform_failure.is_empty():
+				return {}
+	if str(platform_trial.get("phase", "")) == "complete" and current_group == int(platform_trial.group):
+		return {} # Never re-admit a completed group, even if its plan is still exposed.
+	if encounter.health.terminal:
+		return {}
+	if platform_scope == "first" and not platform_trials.is_empty() and str(platform_trial.phase) == "complete":
+		return {}
+	if current_group <= 0:
+		return {}
+	if str(platform_trial.get("phase", "")) != "active":
+		if str(plan.get("kind", "")) != "roll":
+			if platform_scope == "first" and platform_trials.is_empty():
+				return _platform_fail("first autonomous group was not the specified phase1 roll")
+			return {}
+		if state != "roll_warning" or int(plan.get("roll_index", -1)) != 0:
+			return _platform_fail("missed actual initial roll warning; no inferred or replayed leg")
+		if platform_scope == "first" and (current_group != 1 or int(plan.get("phase", -1)) != 1):
+			return _platform_fail("first scope requires the original first phase1 group")
+		if not _platform_base_observation_valid():
+			return _platform_fail("roll warning has no valid actual support/base capability observation")
+		var hp: float = app.controller.actor_resources.health.current
+		platform_trial = {"phase": "active", "group": current_group, "plan": plan.duplicate(true), "first_tick": Engine.get_physics_frames(), "HP_start": hp, "HP_min": hp, "legs": [], "failure": ""}
+		platform_trials.append(platform_trial)
+	if int(platform_trial.group) != current_group:
+		return _platform_fail("new group arrived before actual preceding roll group closure")
+	var index := int(plan.get("roll_index", -1))
+	if platform_trial.legs.is_empty():
+		_begin_platform_leg(app, encounter, 0)
+	elif index == 1 and platform_trial.legs.size() == 1:
+		if not bool(platform_trial.plan.get("return_roll", false)):
+			return _platform_fail("return warning lacks its frozen return commitment")
+		if state == "combo_warning":
+			if not platform_trial.has("return_warning_tick"):
+				platform_trial.return_warning_tick = Engine.get_physics_frames()
+			if bool(platform_trial.legs[0].landed):
+				_begin_platform_leg(app, encounter, 1)
+		elif state == "roll":
+			return _platform_fail("return warning ended before actual previous landing and new leg admission")
+	if not platform_failure.is_empty():
+		return {}
+	# Keep the existing wave decision higher priority than any new action or
+	# board/evade-request state change. Losing support afterwards fails honestly.
+	if wave_jump:
+		_platform_event("actual_wave_priority_platform_action_deferred")
+		return {}
+	return _advance_platform_leg(app, encounter)
+
+
+func _platform_base_observation_valid() -> bool:
+	return bool(platform_observation.get("valid", false)) and int(platform_observation.get("max_jumps", 0)) == 1 and int(platform_observation.get("effective_max_jumps", 0)) == 1 and not bool(platform_observation.get("hook_enabled", true))
+
+
+func _platform_supported(player: PlayerMotor, target: Dictionary) -> bool:
+	if not player.is_on_floor():
+		return false
+	for support: Dictionary in platform_observation.floor_contacts:
+		if support.body_id == target.body_id and support.path == target.path:
+			return true
+	return false
+
+
+func _begin_platform_leg(app: Node, encounter: Node, index: int) -> void:
+	var player: PlayerMotor = app.player
+	var state := str(encounter.mode)
+	var expected := "roll_warning" if index == 0 else "combo_warning"
+	if state != expected:
+		_platform_fail("leg admission requires its actual warning mode")
+		return
+	var selected: Dictionary = {}
+	if index == 1:
+		# Reuse the same installed support after the actual previous landing.
+		selected = platform_trial.legs[0].target.duplicate(true)
+	else:
+		for candidate: Dictionary in platform_observation.platforms:
+			var rect: Rect2 = candidate.rect
+			if selected.is_empty() or rect.position.y > (selected.rect as Rect2).position.y or (is_equal_approx(rect.position.y, (selected.rect as Rect2).position.y) and absf(rect.get_center().x - player.global_position.x) < absf((selected.rect as Rect2).get_center().x - player.global_position.x)):
+				selected = candidate.duplicate(true)
+	if selected.is_empty():
+		_platform_fail("no existing low support; no synthetic or alternate platform")
+		return
+	var supported := _platform_supported(player, selected)
+	var leg: Dictionary = {"index": index, "phase": "supported" if supported else "boarding", "warning": expected, "warning_tick": int(platform_trial.get("return_warning_tick", Engine.get_physics_frames())) if index == 1 else Engine.get_physics_frames(), "target": selected, "support_source": "already_supported" if supported else "pending", "support_tick": Engine.get_physics_frames() if supported else -1, "board_jump_requested": false, "board_airborne": not player.is_on_floor(), "evade_requested": false, "evade_airborne": false, "crossed_airborne": false, "landed": false, "previous_grounded": player.is_on_floor(), "initial_side": signf(app.stage.boss.global_position.x - player.global_position.x)}
+	platform_trial.legs.append(leg)
+	_platform_event("leg_actual_warning_admitted")
+
+
+func _observe_platform_leg(app: Node, encounter: Node) -> void:
+	# Observations never grant a jump or infer a landing from an input label.
+	var player: PlayerMotor = app.player
+	var leg: Dictionary = platform_trial.legs.back()
+	var target: Dictionary = leg.target
+	var installed := false
+	for candidate: Dictionary in platform_observation.platforms:
+		if candidate.body_id == target.body_id and candidate.path == target.path and candidate.rect == target.rect:
+			installed = true
+	if not installed:
+		_platform_fail("selected installed support changed or disappeared")
+		return
+	var grounded := player.is_on_floor()
+	var supported := _platform_supported(player, target)
+	if str(leg.phase) == "boarding":
+		if not grounded:
+			leg.board_airborne = true
+			if bool(leg.previous_grounded):
+				_platform_event("actual_boarding_takeoff")
+		if supported:
+			if str(encounter.mode) != str(leg.warning):
+				_platform_fail("did not actually reach support inside this leg warning")
+				return
+			leg.phase = "supported"
+			leg.support_source = "boarded" if bool(leg.board_jump_requested) else "arrived_from_existing_motion"
+			leg.support_tick = Engine.get_physics_frames()
+			jump_until = frame # Release only the ordinary held input after real landing.
+			_platform_event("actual_platform_landing")
+		elif grounded and bool(leg.board_jump_requested) and bool(leg.board_airborne):
+			_platform_fail("one boarding jump landed elsewhere; no retry")
+			return
+	elif str(leg.phase) == "evading":
+		if not grounded:
+			if not bool(leg.evade_airborne):
+				leg.evade_airborne = true
+				leg.takeoff_tick = Engine.get_physics_frames()
+				_platform_event("actual_evade_takeoff")
+			var side := signf(app.stage.boss.global_position.x - player.global_position.x)
+			if side != 0 and side != float(leg.initial_side) and str(encounter.mode) == "roll" and not bool(leg.crossed_airborne):
+				leg.crossed_airborne = true
+				leg.crossing_tick = Engine.get_physics_frames()
+				_platform_event("actual_airborne_side_crossing")
+		elif bool(leg.evade_airborne) and not bool(leg.previous_grounded):
+			if not supported:
+				_platform_fail("vertical evade did not actually land back on the selected support")
+				return
+			leg.landed = true
+			leg.phase = "landed"
+			leg.landing_tick = Engine.get_physics_frames()
+			_platform_event("actual_evade_landing")
+	leg.previous_grounded = grounded
+
+
+func _advance_platform_leg(app: Node, encounter: Node) -> Dictionary:
+	# The sole action procedure, shared by first/all, every group and both legs.
+	var player: PlayerMotor = app.player
+	var leg: Dictionary = platform_trial.legs.back()
+	var state := str(encounter.mode)
+	var target: Dictionary = leg.target
+	var rect: Rect2 = target.rect
+	var axis := 0.0
+	var jump := false
+	match str(leg.phase):
+		"boarding":
+			if state != str(leg.warning):
+				return _platform_fail("warning ended before actual support; no clock extension")
+			axis = _toward(player.global_position.x, rect.get_center().x, 7.0)
+			if player.is_on_floor() and not bool(leg.board_jump_requested):
+				jump = true
+				leg.board_jump_requested = true
+				_platform_event("boarding_jump_requested")
+		"supported":
+			if not _platform_supported(player, target):
+				return _platform_fail("lost actual support before ordinary evade jump")
+			var bounds: Rect2 = platform_observation.rig_bounds
+			var direction: float = encounter.direction # Current direction reverses for leg1.
+			var incoming: bool = (app.stage.boss.global_position.x - player.global_position.x) * direction < 0.0
+			var front := bounds.position.x if direction < 0 else bounds.end.x
+			if state == "roll" and incoming and front >= rect.position.x and front <= rect.end.x:
+				if not is_zero_approx(player.normal_velocity.x):
+					return _platform_fail("rig arrived before actual horizontal motion stopped")
+				jump = true
+				leg.phase = "evading"
+				leg.evade_requested = true
+				leg.trigger_tick = Engine.get_physics_frames()
+				leg.trigger_front = front
+				_platform_event("incoming_front_jump_requested")
+			elif state not in [str(leg.warning), "roll"]:
+				return _platform_fail("incoming rig event not observed during this actual leg")
+		"evading":
+			pass # Keep original jump hold and zero axis; observe actual transitions.
+		"landed":
+			if state in ["neck", "observe"]:
+				return {} # Original two-shot recovery and repositioning stay unchanged.
+			if not _platform_supported(player, target):
+				return _platform_fail("lost actual support while waiting through combo states")
+			# Hold the same real support through roll/combo_brake/turn/warning.
+			# Never fall back to the old chase axis before a return leg.
+	return {"override": true, "axis": axis, "jump": jump}
+
+
+func _finish_platform_group(terminal: bool) -> void:
+	var expected := 2 if bool(platform_trial.plan.get("return_roll", false)) else 1
+	if platform_trial.legs.size() != expected:
+		_platform_fail("group ended without every committed actual roll leg")
+		return
+	for leg: Dictionary in platform_trial.legs:
+		if not bool(leg.evade_requested) or not bool(leg.evade_airborne) or not bool(leg.crossed_airborne) or not bool(leg.landed):
+			_platform_fail("group ended without each actual takeoff/crossing/landing")
+			return
+	platform_trial.phase = "complete"
+	platform_trial.complete_tick = Engine.get_physics_frames()
+	platform_trial.completion_reason = "actual_terminal_pending_receipt_proof" if terminal else "actual_groups_completed"
+	_platform_event("group_motion_complete_NOT_full_fight_acceptance")
+
+
+func _platform_fail(reason: String) -> Dictionary:
+	platform_failure = reason
+	if not platform_trial.is_empty():
+		platform_trial.phase = "failed"
+		platform_trial.failure = reason
+	_platform_event("platform_hypothesis_failed_NO_retry")
+	return {}
+
+
+func platform_snapshot() -> Dictionary:
+	# Bounded current-state projection; never duplicate the historical ledger here.
+	var leg: Dictionary = platform_trial.legs.back() if not platform_trial.get("legs", []).is_empty() else {}
+	return {"scope": platform_scope, "failure": platform_failure, "group": platform_trial.get("group", -1), "group_phase": platform_trial.get("phase", "waiting"), "HP_start": platform_trial.get("HP_start", -1), "HP_min": platform_trial.get("HP_min", -1), "leg": leg.get("index", -1), "leg_phase": leg.get("phase", "waiting"), "support_tick": leg.get("support_tick", -1), "target": leg.get("target", {}), "evade_requested": leg.get("evade_requested", false), "evade_airborne": leg.get("evade_airborne", false), "crossed_airborne": leg.get("crossed_airborne", false), "landed": leg.get("landed", false)}
+
+
+func _platform_event(action: String) -> void:
+	input_rows.append({"frame": frame, "physics_tick": Engine.get_physics_frames(), "action": action, "group": group, "trial": platform_snapshot(), "actual_support_observation": platform_observation.duplicate(true)})

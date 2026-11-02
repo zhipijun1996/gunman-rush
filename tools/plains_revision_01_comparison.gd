@@ -7,19 +7,19 @@ const STARTUP_FRAME_BUDGET := 3600
 const SPECIES: Array[StringName] = [&"patrol",&"charger",&"hopper",&"sentry",&"fan_sentry",&"root_bell"]
 const SOURCE_PATHS: Array[String] = [
 	"res://tools/plains_revision_01_comparison.gd",
-	"res://scripts/audio/game_audio.gd",
-	"res://scripts/demo/demo_app.gd", "res://scripts/demo/plains_region_stage.gd",
-	"res://scripts/generation/stage_camera_rig.gd",
-	"res://scripts/enemies/enemy_factory.gd", "res://scripts/enemies/enemy_actor.gd",
-	"res://scripts/enemies/enemy_motor.gd", "res://scripts/presentation/enemy_presentation_binding.gd",
-	"res://scripts/underworld_plains/underworld_actor_installer.gd",
-	"res://scripts/underworld_plains/underworld_enemy.gd",
-	"res://scripts/underworld_plains/underworld_player.gd",
-	"res://scripts/enemies/plains_revision_skin.gd", "res://scripts/enemies/plains_revision_visual.gd",
-	"res://scripts/enemies/plains_revision_ground.gd", "res://scripts/enemies/plains_revision_flora.gd",
-	"res://scripts/enemies/plains_revision_skin.gdshader", "res://scripts/enemies/plains_motion_02.gd",
-	"res://scripts/enemies/enemy_feedback_01_body.gd", "res://scripts/enemies/enemy_feedback_01_frames.gd",
-	"res://scripts/enemies/enemy_feedback_01_flash.gdshader",
+	"res://game/presentation/audio/game_audio.gd",
+	"res://game/application/demo_app.gd", "res://game/world/levels/providers/plains_region_stage.gd",
+	"res://game/world/generation/stage_camera_rig.gd",
+	"res://game/enemies/enemy_factory.gd", "res://game/enemies/enemy_actor.gd",
+	"res://game/enemies/enemy_motor.gd", "res://game/presentation/actors/presentation/enemy_presentation_binding.gd",
+	"res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd",
+	"res://game/presentation/actors/underworld_plains/underworld_enemy.gd",
+	"res://game/presentation/actors/underworld_plains/underworld_player.gd",
+	"res://game/enemies/presentation/plains_revision_skin.gd", "res://game/enemies/presentation/plains_revision_visual.gd",
+	"res://game/enemies/presentation/plains_revision_ground.gd", "res://game/enemies/presentation/plains_revision_flora.gd",
+	"res://game/enemies/presentation/plains_revision_skin.gdshader", "res://game/enemies/presentation/plains_motion_02.gd",
+	"res://game/enemies/presentation/enemy_feedback_01_body.gd", "res://game/enemies/presentation/enemy_feedback_01_frames.gd",
+	"res://game/enemies/presentation/enemy_feedback_01_flash.gdshader",
 	"res://assets/enemy_feedback_01/frames_v8/manifest.json",
 	"res://assets/enemy_feedback_01/frames_v8/underworld_diver.png",
 	"res://assets/underworld_plains/actors/aerial.png",
@@ -85,10 +85,10 @@ func start() -> void:
 	git_before = _git_source()
 	# Keep this dynamic formal consumer's dependency one-way, as with the
 	# runtime body observations below. This is the same actual owned service.
-	var audio_source: Script = load("res://scripts/audio/game_audio.gd") as Script
+	var audio_source: Script = load("res://game/presentation/audio/game_audio.gd") as Script
 	audio = audio_source.new() as Node
 	root.add_child(audio)
-	if audio.get_script().resource_path!="res://scripts/audio/game_audio.gd" or not audio.has_method("shutdown"):
+	if audio.get_script().resource_path!="res://game/presentation/audio/game_audio.gd" or not audio.has_method("shutdown"):
 		failures.append("Owned audio service does not match actual GameAudio implementation")
 	app = DemoApp.new()
 	app.meta_persistence_enabled = false
@@ -361,13 +361,13 @@ func _motion_clock(motor: EnemyMotor) -> Variant:
 
 func _player_report() -> Dictionary:
 	var collision := app.player.get_node("CollisionShape2D") as CollisionShape2D
-	return {"scene":"res://scenes/player/player.tscn","position":_vec(app.player.global_position),"actual_shape_class":collision.shape.get_class(),"actual_shape_world_aabb":_rect(collision.global_transform*collision.shape.get_rect()),"actual_on_floor":app.player.is_on_floor(),"underworld_stature_world_units":UnderworldActors.HUMANOID_HEIGHT,"source":"unchanged actual DemoApp player and UnderworldPlayer; no visual scale override"}
+	return {"scene":"res://game/player/player.tscn","position":_vec(app.player.global_position),"actual_shape_class":collision.shape.get_class(),"actual_shape_world_aabb":_rect(collision.global_transform*collision.shape.get_rect()),"actual_on_floor":app.player.is_on_floor(),"underworld_stature_world_units":UnderworldActors.HUMANOID_HEIGHT,"source":"unchanged actual DemoApp player and UnderworldPlayer; no visual scale override"}
 
 func _visible_body_bounds(texture: Texture2D, destination: Rect2) -> Rect2:
 	# Preserve the real alpha>16 measurement while avoiding a compiled nested
 	# Frames/Body dependency edge in this dynamic formal consumer. The original
 	# formal teardown repair uses the same Object.get/runtime-call boundary.
-	var library: Script = load("res://scripts/enemies/enemy_feedback_01_frames.gd") as Script
+	var library: Script = load("res://game/enemies/presentation/enemy_feedback_01_frames.gd") as Script
 	var visible: Rect2 = library.call("visible_bounds",texture,destination)
 	return visible
 
@@ -444,7 +444,7 @@ func finish() -> void:
 	else: failures.append("Actual GameAudio played-event dictionary is unavailable")
 	var audio_released: Variant = await audio.call("shutdown")
 	if audio_released!=true: failures.append("GameAudio ownership did not release")
-	var output := {"task":"PLAINS-MONSTER-REVISION-01","kind":"staged_scale_comparison","complete":failures.is_empty(),"seed":seed_label,"entry":"DemoApp.start_plains","stage_script":"res://scripts/demo/plains_region_stage.gd","resolution":[1280,720],"fps":60,"playback_speed":1,"pages":pages,"frames":frames,"failures":failures,"camera":camera_receipt,"player":player_receipt,"support":support,"stand_search":stand_search,"physics_space_sync":space_sync_receipt,"original_spawn":_vec(original_spawn),"staged_player_stand":_vec(stand),"original_manifest_sha256":manifest_json.sha256_text(),"original_manifest_unchanged":manifest_same,"original_enemy_inventory":native_inventory,"source_before":source_before,"source_after":source_after,"git_before":git_before,"git_after":git_after,"source_stable":source_before==source_after and git_before.head==git_after.head and git_before.status==git_after.status,"source_guard_scope":"Finite direct driver/player/renderer/body/definition resources listed in source_before; not a claim to a complete project dependency closure","audio_events":sound_events,"disclosed_differences":["initial player review relocation to nearest verified original wide static shore; full same-stage static/manifest candidate search disclosed in stand_search","six page-cut placements of factory-created display samples on one original safe static shore","comparison sample Actor physics disabled; original body process clocks continue","comparison samples have no combat/encounter/drop binding","original player initial reset_at, four real physics settling ticks, then controller/input held inactive","original camera/zoom retained and camera following held fixed","permanent meta persistence disabled"],"not_verified":["combat readability","attack or death continuity","natural campaign traversal","human scale/color approval","physical device performance"]}
+	var output := {"task":"PLAINS-MONSTER-REVISION-01","kind":"staged_scale_comparison","complete":failures.is_empty(),"seed":seed_label,"entry":"DemoApp.start_plains","stage_script":"res://game/world/levels/providers/plains_region_stage.gd","resolution":[1280,720],"fps":60,"playback_speed":1,"pages":pages,"frames":frames,"failures":failures,"camera":camera_receipt,"player":player_receipt,"support":support,"stand_search":stand_search,"physics_space_sync":space_sync_receipt,"original_spawn":_vec(original_spawn),"staged_player_stand":_vec(stand),"original_manifest_sha256":manifest_json.sha256_text(),"original_manifest_unchanged":manifest_same,"original_enemy_inventory":native_inventory,"source_before":source_before,"source_after":source_after,"git_before":git_before,"git_after":git_after,"source_stable":source_before==source_after and git_before.head==git_after.head and git_before.status==git_after.status,"source_guard_scope":"Finite direct driver/player/renderer/body/definition resources listed in source_before; not a claim to a complete project dependency closure","audio_events":sound_events,"disclosed_differences":["initial player review relocation to nearest verified original wide static shore; full same-stage static/manifest candidate search disclosed in stand_search","six page-cut placements of factory-created display samples on one original safe static shore","comparison sample Actor physics disabled; original body process clocks continue","comparison samples have no combat/encounter/drop binding","original player initial reset_at, four real physics settling ticks, then controller/input held inactive","original camera/zoom retained and camera following held fixed","permanent meta persistence disabled"],"not_verified":["combat readability","attack or death continuity","natural campaign traversal","human scale/color approval","physical device performance"]}
 	var file := FileAccess.open(trace_path,FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write staged scale comparison trace")

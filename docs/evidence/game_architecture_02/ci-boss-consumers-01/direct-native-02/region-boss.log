@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=273 setup_ms=46
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"491e38dd2a3754573947f683138b23653d15abd9e9f9d75ef7c92e180639fe07","map_index":1,"region":"plains","seed":"region-windkeeper-fixture"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=84 pieces=329 setup_ms=45
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/windkeeper_storm.tres","boss_scene":"res://scenes/bosses/windkeeper_pressure.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"b240d5671f1fabd47361d8aabe253726f5cbde3f000eb8ae620d324b57108d12","map_index":2,"region":"plains","seed":"region-windkeeper-fixture/plains/map_2"}
+ERROR: formal phaseIII lifecycle executes
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/plains_region_boss_runner.gd:11)
+       [1] fixture (res://tests/plains_region_boss_runner.gd:35)
+       [2] frames (res://tests/plains_region_boss_runner.gd:13)
+FOREST_UI_EVENT {"ability":"grapple","event":"ability_selected","source_region":"plains","token":"3/4/5"}
+FOREST_UI_EVENT {"event":"region_selected","region":"thorn_forest","token":"3/4/5"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":false,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"a6e5cad64e05b41b2b5ed8cee2e2280e874f1ce61211dca68fe1a47cd01a0455","map_index":1,"region":"thorn_forest","seed":"region-windkeeper-fixture/thorn_forest/map_1"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"armour":1,"bellstrider_death":1,"bellstrider_death_final":1,"bellstrider_death_impact":1,"bellstrider_death_jam":1,"boss_impact":1,"death":2,"director_coin":2,"director_item_get":1,"door":2,"motion_land":1,"warning":2},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"forest":1,"home":1,"plains":2,"plains_boss":2},"track":"forest"}],"released":true,"seconds":0.144}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=273 setup_ms=40
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"491e38dd2a3754573947f683138b23653d15abd9e9f9d75ef7c92e180639fe07","map_index":1,"region":"plains","seed":"region-windkeeper-fixture"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=84 pieces=329 setup_ms=44
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/windkeeper_storm.tres","boss_scene":"res://scenes/bosses/windkeeper_pressure.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"b240d5671f1fabd47361d8aabe253726f5cbde3f000eb8ae620d324b57108d12","map_index":2,"region":"plains","seed":"region-windkeeper-fixture/plains/map_2"}
+ERROR: formal phaseIII lifecycle executes
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/plains_region_boss_runner.gd:11)
+       [1] fixture (res://tests/plains_region_boss_runner.gd:35)
+       [2] frames (res://tests/plains_region_boss_runner.gd:13)
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@1944","played":{"armour":1,"bellstrider_death":1,"bellstrider_death_final":1,"bellstrider_death_impact":1,"bellstrider_death_jam":1,"boss_impact":1,"death":1,"director_coin":1,"director_hurt":1,"door":1,"motion_land":1,"warning":2},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@1957","service":"GameMusic","starts":{"home":2,"plains":2,"plains_boss":2},"track":"home"}],"released":true,"seconds":0.108}
+REGION BOSS: 29 assertions, 2 failures

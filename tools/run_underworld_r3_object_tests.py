@@ -8,20 +8,20 @@ from pathlib import Path
 from run_tests import run_engine
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'build/underworld_r3/objects'
-OWNED = ['scripts/world/shot_latch.gd','scripts/world/backside_shot_latch.gd',
-    'scripts/generation/plains_region_assembler.gd','scripts/bosses/boss_arena_seal.gd',
-    'scripts/underworld_plains/underworld_objects.gd',
+OWNED = ['game/world/components/shot_latch.gd','game/world/components/backside_shot_latch.gd',
+    'game/world/generation/plains_region_assembler.gd','game/bosses/encounter/boss_arena_seal.gd',
+    'game/presentation/world/underworld_plains/underworld_objects.gd',
     'tests/underworld_plains/test_underworld_r3_objects.gd','tools/run_underworld_r3_object_tests.py',
     'tools/build_underworld_r3_objects.py']
 OWNED += [str(p.relative_to(ROOT)) for p in sorted((ROOT/'assets/underworld_plains/objects').glob('*')) if p.suffix in ('.png','.json')]
 CHEST_OWNED = [
-    'scripts/art/chest_art_library.gd','scripts/art/chest_art_library.gd.uid',
-    'scripts/art/chest_art_layer.gd','scripts/art/chest_art_layer.gd.uid',
+    'game/presentation/effects/art/chest_art_library.gd','game/presentation/effects/art/chest_art_library.gd.uid',
+    'game/presentation/effects/art/chest_art_layer.gd','game/presentation/effects/art/chest_art_layer.gd.uid',
     'config/chest_art.json',
     'assets/objects/chests/chest-tiers-v1.source.png',
     'assets/objects/chests/chest-tiers-v1.source.png.import',
-    'scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd',
-    'scripts/presentation/forest_bible_presentation.gd','scripts/art/p1_unity_props.gd',
+    'game/world/levels/providers/plains_region_stage.gd','game/world/levels/providers/thorn_forest_region_stage.gd',
+    'game/presentation/world/presentation/forest_bible_presentation.gd','game/presentation/world/art/p1_unity_props.gd',
     'shaders/item_v5_world_sprite.gdshader','shaders/item_v5_world_sprite.gdshader.uid',
     'tests/chest_art_runner.gd','tests/chest_art_runner.gd.uid']
 OWNED += CHEST_OWNED

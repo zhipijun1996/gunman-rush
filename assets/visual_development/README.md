@@ -1,8 +1,10 @@
 # 视觉开发唯一入口
 
+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt)。
+
 当前用户选择为 **B「雨釉与偏心」**。这是风格方向选择；全局母版仍是候选；04首空间另有静态/运动抽帧整体艺术限定接受，不代表完整G2、玩家认可或正式发布。这里是实验来源库，不能自动加入正式资产池。
 
-新 worker 默认只读 [style_master](../../resources/visual_development/style_master.json)、[B1 母版](master/b1_master.png)、[B 方向板](proposals/b_board.png) 与[两个短制作范例](../../docs/evidence/visual_language/recipes.md)。具体任务再按需读该素材自己的 prompt、record 与测量数据，不加载全部 PR 历史。
+新 worker 默认只读 [style_master](../../game/presentation/world/resources/visual_development/style_master.json)、[B1 母版](master/b1_master.png)、[B 方向板](proposals/b_board.png) 与[两个短制作范例](../../docs/evidence/visual_language/recipes.md)。具体任务再按需读该素材自己的 prompt、record 与测量数据，不加载全部 PR 历史。
 
 [provenance_index.json](provenance_index.json) 统一索引原图、实际文件 SHA、prompt、参考来源、已有时钟与原始记录。未记录的模型、许可、工具参数、时间保持未知；相同字节原图的定位不能补造调用历史。旧记录中的“未批准”是生成当时状态，不能删改为当前已批准。所有商业许可仍未知。
 

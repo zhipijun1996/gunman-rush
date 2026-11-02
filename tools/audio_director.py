@@ -134,7 +134,7 @@ def brief(request,output):
         result['user_selection']={'path':selected_path,'event_profiles':selection['event_profiles'],'provenance':selection['provenance'],'scope':'User selected individual event sounds on 2026-10-28; combined mix, formal rollout and device quality remain unapproved. Preserve original shuriken, bomb, jump and landing.'}
     home_request = ('家园' in request and any(word in request for word in ['音', '声音', '生活', '氛围'])) or ('home' in request.lower() and any(word in request.lower() for word in ['audio', 'sound', 'ambien'])) or ('npc' in request.lower() and '生活' in request)
     if home_request or any(word in request.lower() for word in ['环境', 'ambien', '风声', '鸟鸣', '叶声', '氛围声']):
-        ambience_inputs=['docs/audio_director/ambience_event_catalog.json','docs/audio_director/ambience.md','docs/audio_director/ambience_sources.md','docs/audio_director/ambience_runtime.md','docs/worklines/audio_ambience_01/authority.json','config/audio_director/ambience/sources.json','config/audio_director/ambience/recipes.json','assets/audio/ambience_v1/manifest.json','scripts/audio/game_ambience.gd']
+        ambience_inputs=['docs/audio_director/ambience_event_catalog.json','docs/audio_director/ambience.md','docs/audio_director/ambience_sources.md','docs/audio_director/ambience_runtime.md','docs/worklines/audio_ambience_01/authority.json','config/audio_director/ambience/sources.json','config/audio_director/ambience/recipes.json','assets/audio/ambience_v1/manifest.json','game/presentation/audio/game_ambience.gd']
         result['family']='regional_ambience'
         result['task']='AUDIO-AMBIENCE-01'
         result['selected_events']=['ambience_plains','ambience_forest']
@@ -156,7 +156,7 @@ def brief(request,output):
             result['inputs'].append({'path':ambience_selection_path,'sha256':sha(ROOT/ambience_selection_path)})
         if 'user_selection' in result: result['user_selection']['scope'] += ' No regional ambience choice is inferred.'
         if home_request:
-            home_inputs=['docs/audio_director/home_event_catalog.json','docs/worklines/audio_home_01/scope.md','docs/worklines/audio_home_01/authority.json','docs/audio_director/home_ambience.md','docs/audio_director/home_sources.md','docs/audio_director/home_runtime.md','config/audio_director/home/recipes.json','config/audio_director/home/sources.json','assets/audio/ambience_v1/home/manifest.json','scripts/audio/home_ambience_audition.gd']
+            home_inputs=['docs/audio_director/home_event_catalog.json','docs/worklines/audio_home_01/scope.md','docs/worklines/audio_home_01/authority.json','docs/audio_director/home_ambience.md','docs/audio_director/home_sources.md','docs/audio_director/home_runtime.md','config/audio_director/home/recipes.json','config/audio_director/home/sources.json','assets/audio/ambience_v1/home/manifest.json','game/presentation/audio/home_ambience_audition.gd']
             result['task']='AUDIO-HOME-01'
             result['family']='home_ambience'
             result['candidate_version']='audio-home-v1'
@@ -181,7 +181,7 @@ def brief(request,output):
                 result['home_selection']=selection
                 result['inputs'].append({'path':home_selection_path,'sha256':sha(ROOT/home_selection_path)})
                 result['runtime_scope']='User selected the exact Home '+selection['mix_revision']+' '+selection['mode']+' mix; preserve low gains, sparse schedule, original BGM and prior regional A/A. Formal rollout and device validation are separate.'
-    feedback_paths=['docs/audio_director/feedback_05.md','config/audio_director/feedback_05/recipes.json','config/audio_director/feedback_05/sources.json','assets/audio/feedback_05/manifest.json','scripts/audio/selected_sfx_runtime.gd','scripts/dev/player_presentation_01/weapon_audio_v2.gd']
+    feedback_paths=['docs/audio_director/feedback_05.md','config/audio_director/feedback_05/recipes.json','config/audio_director/feedback_05/sources.json','assets/audio/feedback_05/manifest.json','game/presentation/audio/selected_sfx_runtime.gd','game/combat/weapons/presentation/weapon_audio_v2.gd']
     if all((ROOT/path).is_file() for path in feedback_paths):
         result['current_feedback_revision']={'task':'AUDIO-FEEDBACK-05','version':'audio-feedback-v1','status':'implemented candidate; awaiting user hearing','rejected_in_real_play':['hero hurt C','Freedoom solid-wall timbre'],'runtime':'Selected default hurt uses separately named hurt_feedback_05; explicit old C remains an audition. Solid contact is a separate family with three takes, not enemy_hit B.','scope':'Title/Home BGM startup, committed chest/item rewards and mechanism audibility are also revised. Five BGM files, prior choices and regional/home selections remain unchanged.','manifest':'assets/audio/feedback_05/manifest.json'}
         result['inputs'] += [{'path':path,'sha256':sha(ROOT/path)} for path in feedback_paths]

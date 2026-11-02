@@ -1,0 +1,17 @@
+# Six-consumer follow-up candidate
+
+`delta6.patch` is separate from the first independently reviewed `forest-ecology-path.patch`. It changes exactly the six remaining consumer sources listed in `delta6-candidate.json`.
+
+Four GDScript fixture paths now use the existing EnemyBehaviorRegistry.scene_path resolver: forest IDs retain their corresponding forest scene; the previous generic/prototype branch resolves `patrol`. Each original PackedScene.instantiate, definition assignment, duplicate operation, actor binding and ordering remains byte-identical. This does not call EnemyFactory.create_for_behavior or change any recipe.
+
+The current-engine legacy v1 App assertion preserves its behavior allowlist, version/manifest/replay checks and Boss scene checks. Only the expected migrated enemy scene prefix changes. Python inventory retains its exact existing two-category selection and CLI, reading generic patrol and forest species from their actual directories.
+
+Verification performed without Godot:
+
+- All six candidates reverse byte-for-byte to archived main originals; every original assertion line is unchanged.
+- Eight resolver results match the proven P8 scene identities, including the distinct generic patrol directory.
+- The actual candidate inventory function completes with 14 ordinary species, 22 renderer chains and 8 Boss scenes.
+- A controlled replay of the original inventory redirects only missing old scene reads to proven migrated identities; after relocating emitted scene paths, its entire result equals the candidate result. This does not claim that the unmodified original CLI passed.
+- `git apply --check delta6.patch` passed. No main files, production source, registry, data or engine budget were changed.
+
+Independent review and root-owned native runs remain pending. Existing runners and their original wrapper budgets must be retained. The MovieMaker capture change needs appropriate actual capture evidence before any media/visual claim; this static path repair does not provide that evidence.

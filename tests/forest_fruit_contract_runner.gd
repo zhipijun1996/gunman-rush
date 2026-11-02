@@ -3,7 +3,7 @@ extends SceneTree
 const OLD := preload("res://scripts/generation/thorn_forest_region_v2_v13.gd")
 const NEW := preload("res://scripts/generation/thorn_forest_region_v2_v14.gd")
 const FRUIT := preload("res://scripts/generation/forest_fruit_routes.gd")
-const TARGET := preload("res://scripts/world/forest_fruit_anchor.gd")
+const TARGET := preload("res://game/world/components/forest_fruit_anchor.gd")
 var checks: Array[Dictionary] = []
 var cases: Array[Dictionary] = []
 var output := "res://build/forest_fruit/contract.json"

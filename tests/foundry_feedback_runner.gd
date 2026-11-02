@@ -55,8 +55,8 @@ func run() -> void:
 	lab.leave()
 	await ticks(4)
 	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
-		var audio := get_first_node_in_group(&"game_audio") as GameAudio
-		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
+		var audio := GameAudio.for_origin(app) as GameAudio
+		check(audio != null and await preload("res://tests/audio_teardown.gd").drain_world(app), "audio playback actually releases before host exit")
 	app.free()
 	await process_frame
 	print("LAB FEEDBACK: %d assertions, %d failures" % [assertions, failures])

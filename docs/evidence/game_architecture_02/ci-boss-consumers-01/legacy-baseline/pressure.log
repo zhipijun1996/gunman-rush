@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+ERROR: Bellstrider requires BellstriderDefinition
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/bosses/bellstrider/bellstrider_encounter.gd:50)
+       [1] fixture (res://tests/plains_pressure_boss_runner.gd:32)
+       [2] run (res://tests/plains_pressure_boss_runner.gd:49)
+FAIL: actual redesigned Boss activates
+FAIL: mini is independent machine with sixteen HP
+FAIL: closed machine blocks a real shot with armour feedback, without damage
+FAIL: redesigned actual core accepts one real shot
+FAIL: return cancels obsolete bell attacks
+ERROR: Bellstrider requires BellstriderDefinition
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/bosses/bellstrider/bellstrider_encounter.gd:50)
+       [1] fixture (res://tests/plains_pressure_boss_runner.gd:32)
+       [2] run (res://tests/plains_pressure_boss_runner.gd:78)
+       [3] frames (res://tests/plains_pressure_boss_runner.gd:19)
+FAIL: actual redesigned Boss activates
+FAIL: real ring wave damages grounded target
+ERROR: Bellstrider requires BellstriderDefinition
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/bosses/bellstrider/bellstrider_encounter.gd:50)
+       [1] fixture (res://tests/plains_pressure_boss_runner.gd:32)
+       [2] run (res://tests/plains_pressure_boss_runner.gd:82)
+       [3] frames (res://tests/plains_pressure_boss_runner.gd:19)
+FAIL: actual redesigned Boss activates
+ERROR: Bellstrider requires BellstriderDefinition
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/bosses/bellstrider/bellstrider_encounter.gd:50)
+       [1] fixture (res://tests/plains_pressure_boss_runner.gd:32)
+       [2] run (res://tests/plains_pressure_boss_runner.gd:90)
+       [3] frames (res://tests/plains_pressure_boss_runner.gd:19)
+FAIL: actual redesigned Boss activates
+SCRIPT ERROR: Invalid access to property or key 'charge_speed' on a base object of type 'Nil'.
+          at: BellstriderEncounter.roll_warning_distance (res://game/bosses/bellstrider/bellstrider_encounter.gd:1027)
+          GDScript backtrace (most recent call first):
+              [0] roll_warning_distance (res://game/bosses/bellstrider/bellstrider_encounter.gd:1027)
+              [1] run (res://tests/plains_pressure_boss_runner.gd:94)
+              [2] fixture (res://tests/plains_pressure_boss_runner.gd:47)
+              [3] frames (res://tests/plains_pressure_boss_runner.gd:19)
+FAIL: physical rolling dash travels then exposes core
+SCRIPT ERROR: Invalid access to property or key 'wheel_angle' on a base object of type 'Node2D (BellstriderPresentation)'.
+          at: run (res://tests/plains_pressure_boss_runner.gd:97)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/plains_pressure_boss_runner.gd:97)
+              [1] frames (res://tests/plains_pressure_boss_runner.gd:19)

@@ -1,0 +1,57 @@
+{
+  "task": "P11-CACHE-COMPOSITION",
+  "source_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "app_base": "frozen P10 external candidate",
+  "p10_candidate_json_sha256": "30d5795b12672195bf9e0021a85cb39bd163baadb879053cdd46130f19a4ac79",
+  "files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+      "candidate_sha256": "47c3158f8268aad9125e42f102fe5fc9bdd82e9b98909fb43702381c4416e6eb"
+    },
+    {
+      "path": "game/world/generation/plains_region_generator.gd",
+      "before_sha256": "6e16c288e5e9c48631f69bfa0ceb302a3b72fc14fff15c01c1fe4b778c36c68c",
+      "candidate_sha256": "ac6e5a364306c4e768a2de148c9d21ae8e9daba0f0aecf7c934e389081e74477"
+    },
+    {
+      "path": "tests/plains_exploration_expansion_runner.gd",
+      "before_sha256": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "candidate_sha256": "7907c629c856ed4e7288d3b153fb946f644181df88d44aa6bb089f76cfc3b4bc"
+    },
+    {
+      "path": "game/rewards/offers/cache_reward_policy.gd",
+      "before_sha256": null,
+      "candidate_sha256": "12dc715619c1d36c7fbb074f43da7954952ca24cc1700f41a9b8eeab5c17361e"
+    },
+    {
+      "path": "game/rewards/offers/cache_reward_policy.gd.uid",
+      "before_sha256": null,
+      "candidate_sha256": "dcbd071cfed5c1cbb6afc4e459bd9366744a2c5a6da0326451b14c35b1ad41bf"
+    }
+  ],
+  "relative_p10_patch_sha256": "fafccd439de88d0118d8dfdd438ce66d676c1a6b9f980b6e53475983d3a6cd93",
+  "full_c59_proof_patch_sha256": "6a8168806021c876416eca78991a63c9092f937de51c46546a6bc0ce86c85333",
+  "source_evidence_sha256": {
+    "game/combat/resources/state/health_state.gd": "ec2c1c6c7b8f7821ae7eed20f17364e4701410158a5f344436f3081509bdc2ec",
+    "game/combat/resources/state/actor_resource_state.gd": "16860c344cbe0c3bae68040c6841b69dc67f15025e15c1f1d4e1ef4d0e3d3878",
+    "game/rewards/offers/resource_reward_choice.gd": "7e3c6fd9fba12d7cb2d857fcfc3c0523b713a157c396ac97441fc98a6cfd9304",
+    "scripts/builds/item_definition.gd": "8d31f27f2dbebb6745727741a39be36b24307f85f17ff415da626fac789fe61c",
+    "game/rewards/grants/reward_service.gd": "ff16abef0e835537f4bc2fa3945f2de0efa9fcb1da9136a81263b9c063790a7d",
+    "tools/harness/profiles.json": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c"
+  },
+  "proofs": {
+    "relative_p10_apply_and_reverse_exact": true,
+    "full_c59_stack_apply_and_reverse_exact": true,
+    "app_noncomposition_prefix_suffix_byte_exact": true,
+    "p10_claim_changes_preserved": true,
+    "generator_only_note_expression_changed": true,
+    "original_test_entire_body_preserved": true,
+    "original_test_check_call_count": 93,
+    "new_check_call_sites": 12,
+    "engine_run": false,
+    "main_written": false
+  },
+  "health_snapshot_correction": "current/capacity are pure getters in ActorResourceState, not direct public fields: get:return _current/_capacity. Same synchronous composition has no await/signals/callbacks; ResourceRewardChoice/ItemDefinition have no custom _init.",
+  "status": "external candidate awaiting independent review; no native pass claimed"
+}

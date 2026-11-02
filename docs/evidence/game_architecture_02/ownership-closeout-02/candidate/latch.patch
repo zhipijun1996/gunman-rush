@@ -1,0 +1,89 @@
+--- a/game/world/components/shot_latch.gd
++++ b/game/world/components/shot_latch.gd
+@@ -44,6 +44,25 @@
+ var _eligible_shots: Dictionary = {}
+ var _cancelled := false
+ var _request_epoch := 0
++
++func region_snapshot() -> Dictionary:
++	return {"clock":_clock,"opened_at":_opened_at,"is_open":is_open,"sequence_step":sequence_step,"open_count":open_count,"motion_clock":motion_target.motion_clock if motion_mode else 0.0,"motion_running":motion_target.motion_running if motion_mode else false}
++
++func restore_region_state(data: Dictionary) -> void:
++	_clock=float(data.clock)
++	_opened_at=float(data.opened_at)
++	sequence_step=int(data.sequence_step)
++	restore_sequence_gate()
++	open_count=int(data.open_count)
++	is_open=bool(data.is_open)
++	if motion_mode:
++		motion_target.restore_motion(float(data.get("motion_clock",0)),bool(data.get("motion_running",false)))
++
++func restore_region_opened(recorded_open: bool) -> void:
++	# The region's permanent-open ledger is applied after optional saved state.
++	if recorded_open or is_open:
++		is_open = true
++		gate_shape.set_deferred("disabled",true)
+ 
+ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: Rect2) -> void:
+ 	controller = player
+--- a/game/world/levels/providers/plains_region_stage.gd
++++ b/game/world/levels/providers/plains_region_stage.gd
+@@ -283,7 +283,7 @@
+ 	region_state.boss_state.seal_closed=is_instance_valid(boss_seal) and boss_seal.closed
+ 	for i: int in shot_latches.size():
+ 		var latch := shot_latches[i]
+-		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]={"clock":latch._clock,"opened_at":latch._opened_at,"is_open":latch.is_open,"sequence_step":latch.sequence_step,"open_count":latch.open_count,"motion_clock":latch.motion_target.motion_clock if latch.motion_mode else 0.0,"motion_running":latch.motion_target.motion_running if latch.motion_mode else false}
++		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]=latch.region_snapshot()
+ 		if shot_latches[i].is_open and shot_latches[i].open_seconds == 0 and not shot_latches[i].motion_mode:
+ 			region_state.opened[generated.manifest.shot_latch_plan.latches[i].id] = true
+ 
+@@ -303,19 +303,8 @@
+ 		var id: String=generated.manifest.shot_latch_plan.latches[i].id
+ 		if region_state.mechanisms.has(id):
+ 			var data: Dictionary=region_state.mechanisms[id]
+-			shot_latches[i]._clock=float(data.clock)
+-			shot_latches[i]._opened_at=float(data.opened_at)
+-			shot_latches[i].sequence_step=int(data.sequence_step)
+-			shot_latches[i].restore_sequence_gate()
+-			shot_latches[i].open_count=int(data.open_count)
+-			shot_latches[i].is_open=bool(data.is_open)
+-			if shot_latches[i].motion_mode:
+-				shot_latches[i].motion_target.motion_clock=float(data.get("motion_clock",0))
+-				shot_latches[i].motion_target.motion_running=bool(data.get("motion_running",false))
+-				shot_latches[i].motion_target.restore_motion(shot_latches[i].motion_target.motion_clock,shot_latches[i].motion_target.motion_running)
+-		if region_state.opened.has(id) or shot_latches[i].is_open:
+-			shot_latches[i].is_open = true
+-			shot_latches[i].gate_shape.set_deferred("disabled",true)
++			shot_latches[i].restore_region_state(data)
++		shot_latches[i].restore_region_opened(region_state.opened.has(id))
+ 	return true
+ 
+ func nearby_chest(location: Vector2) -> int:
+--- a/tests/plains_interactive_lifecycle_runner.gd
++++ b/tests/plains_interactive_lifecycle_runner.gd
+@@ -52,6 +52,7 @@
+  print('DELTA phase=',latch.motion_target.motion_clock-before,' position=',latch.motion_target.position-pos)
+  check(is_equal_approx(latch.motion_target.motion_clock,before) and latch.motion_target.position.distance_to(pos)<.001,'paused real unload and rebuild retains phase and position within 0.001px float tolerance')
+  check(latch._pending.is_empty() and latch._eligible_shots.is_empty(),'reload restores no old accepted requests or shot eligibility')
++ check_latch_region_state(latch,data)
+  paused=false;await frames(8)
+  check(latch.motion_target.motion_clock>before,'restored ferry advances from saved phase')
+  print('RELOAD assertions=',assertions,' failures=',failures,' before=',before,' after=',latch.motion_target.motion_clock,' snapshot=',data)
+@@ -102,3 +103,17 @@
+  await pending_death()
+  print("PLAINS INTERACTIVE LIFECYCLE: %s assertions, %s failures"%[assertions,failures])
+  quit(1 if failures else 0)
++
++func check_latch_region_state(latch:ShotLatch,recorded:Dictionary)->void:
++ # The caller is the actual paused App unload/rebuild fixture above.
++ var saved:Dictionary=latch.region_snapshot()
++ check(saved.keys()==["clock","opened_at","is_open","sequence_step","open_count","motion_clock","motion_running"] and saved.keys().all(func(key:Variant)->bool:return key is String),'actual mechanism snapshot keeps seven String keys in original insertion order')
++ check(saved==recorded and saved.clock is float and saved.opened_at is float and saved.is_open is bool and saved.sequence_step is int and saved.open_count is int and saved.motion_clock is float and saved.motion_running is bool,'actual Stage reload preserves complete recorded values and scalar types')
++ check(latch.is_open and latch.gate_shape.disabled,'actual Stage reload reapplies saved open state with deferred gate disable')
++ var position_before:Vector2=latch.motion_target.position
++ var legacy:Dictionary=saved.duplicate(true)
++ legacy.erase("motion_clock");legacy.erase("motion_running")
++ latch.restore_region_state(legacy)
++ check(latch.motion_target.motion_clock==0.0 and not latch.motion_target.motion_running and latch.motion_target.position.distance_to(latch.motion_target.definition.at_time(0.0))<.001,'missing optional motion fields retain zero stopped defaults and immediately restore platform position')
++ latch.restore_region_state(saved)
++ check(latch.region_snapshot()==saved and latch.motion_target.position.distance_to(position_before)<.001,'entity restore returns the real paused ferry to its exact recorded state and phase')

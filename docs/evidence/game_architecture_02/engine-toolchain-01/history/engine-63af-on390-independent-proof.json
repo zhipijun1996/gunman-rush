@@ -1,0 +1,35 @@
+{
+  "source_commit": "63afcb1ba43c7d16c85745478cd3617037f20848",
+  "retry_baseline": "3909a146f0f43f4bc8574dfa1a219ce8ed96d5b2",
+  "snapshot": "/workspace/refactor-evidence/engine-63af-on390-b63fzj6k",
+  "files": 10,
+  "copied_only_two_reviewed_commit_files": [
+    "tools/engine/build.py",
+    "tools/engine/test_build_contract.py"
+  ],
+  "build_existing_function_changes": [
+    "prepare_dependencies"
+  ],
+  "new_functions": [
+    "install_scons_cli"
+  ],
+  "tests_exit": 0,
+  "tests_output": "........\n----------------------------------------------------------------------\nRan 8 tests in 0.109s\n\nOK\n",
+  "recipe_and_package_unchanged": true,
+  "files_sha256": {
+    "tools/engine/build.py": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+    "tools/engine/test_build_contract.py": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a"
+  },
+  "verdict": "LIMITED_ACCEPT_RETRY_FIXED_10_LANES_FROM_ONE_NEW_COMMIT_AND_RUN",
+  "reviewer": "ci_audit independent; not implementation author",
+  "failure_evidence": "engine-390-android-failed-job.log lines268/328 native done; line359 Gradle unable to find scons",
+  "scope": "Only Android dependency CLI discovery. No engine execution or Gradle/APK success signed.",
+  "gradle_native_recompile": "Inspected fixed upstream build.gradle excludeSconsBuildTasks and generateGodotTemplates: native tasks remain excluded without generateNativeLibs; original exact Gradle command unchanged.",
+  "budgets": "No profile, native/export or original full182 budget changes.",
+  "not_signed": [
+    "Actual corrected remote Gradle completion",
+    "APK artifacts",
+    "Full10lane candidate packaging",
+    "Activation of inactive installer or toolchain config"
+  ]
+}

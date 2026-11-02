@@ -1,7 +1,7 @@
 @tool
 extends EditorExportPlugin
 ## The preset is the one explicit raw-file list. Family manifests bind its bytes.
-## add_file never skips/remaps the normal Texture2D export/imported derivatives.
+## add_file never skips/remaps normal ResourceLoader/imported derivatives.
 var editor_tree: SceneTree
 const SELECTED_AUDIO_SOURCES: Array[String] = [
 	"assets/audio/ambience_v1/plains_a.ogg", "assets/audio/ambience_v1/plains_b.ogg",
@@ -113,6 +113,41 @@ static func selected_audio_plan(includes: String, excludes: String, bindings: Va
 		return {"ok": false, "error": "Selected audio export requires the complete explicit sixteen-file closure"}
 	return {"ok": true, "sources": sources}
 
+static func recorded_enemy_contract() -> Dictionary:
+	# The gameplay registry owns revision admission; the exporter only preserves
+	# the bytes its resolver reads. No independent revision/path registry.
+	var contract: Dictionary = {}
+	for behavior: StringName in EnemyBehaviorRegistry.BEHAVIORS:
+		var revisions: Dictionary=EnemyBehaviorRegistry.BEHAVIORS[behavior].get("revisions",{})
+		for revision: String in revisions:
+			var path := str(revisions[revision]).trim_prefix("res://")
+			if contract.has(path): return {}
+			contract[path]=revision
+	return contract
+
+static func source_bytes_sha256(bytes: PackedByteArray) -> String:
+	var context := HashingContext.new()
+	context.start(HashingContext.HASH_SHA256)
+	context.update(bytes)
+	return context.finish().hex_encode()
+
+static func recorded_enemy_plan(includes: String, excludes: String, bindings: Variant = null) -> Dictionary:
+	var contract: Dictionary=recorded_enemy_contract() if bindings==null else bindings
+	if contract.is_empty(): return {"ok":false,"error":"Missing recorded enemy source contract"}
+	var sources: Array[String] = []
+	for entry: String in includes.split(",",false):
+		var path := entry.strip_edges()
+		if not path.begins_with("resources/enemies/legacy/"): continue
+		if not contract.has(path) or sources.has(path): return {"ok":false,"error":"Recorded enemy source must be one unique admitted file: "+path}
+		for excluded: String in excludes.split(",",false):
+			if path.matchn(excluded.strip_edges()): return {"ok":false,"error":"Recorded enemy source conflicts with exclusion: "+path}
+		var expected: Variant=contract[path]
+		if not expected is String or expected.length()!=64 or FileAccess.get_sha256("res://"+path)!=expected:
+			return {"ok":false,"error":"Recorded enemy source differs from its registered revision: "+path}
+		sources.append(path)
+	if sources.size()!=contract.size(): return {"ok":false,"error":"Recorded enemy export requires every explicit registered source"}
+	return {"ok":true,"sources":sources}
+
 func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String, _flags: int) -> void:
 	var preset := get_export_preset()
 	var planned := source_plan(preset.get_include_filter(), preset.get_exclude_filter())
@@ -141,3 +176,19 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 			return
 		add_file("res://" + path, bytes, false)
 	print("SELECTED AUDIO RAW EXPORT: %d original audio files preserved alongside normal imports" % audio.sources.size())
+
+	var recorded := recorded_enemy_plan(preset.get_include_filter(),preset.get_exclude_filter())
+	if not recorded.ok:
+		push_error(str(recorded.error))
+		editor_tree.quit(1)
+		return
+	for path: String in recorded.sources:
+		var bytes := FileAccess.get_file_as_bytes("res://"+path)
+		if bytes.is_empty() or source_bytes_sha256(bytes)!=str(recorded_enemy_contract().get(path,"")):
+			push_error("Recorded enemy source changed during export: "+path)
+			editor_tree.quit(1)
+			return
+		# Keep the exact FileAccess source alongside Godot's normal .remap/.res.
+		# False deliberately does not redirect ResourceLoader to this raw member.
+		add_file("res://"+path,bytes,false)
+	print("RECORDED ENEMY RAW EXPORT: %d exact Definition sources preserved alongside normal resources" % recorded.sources.size())

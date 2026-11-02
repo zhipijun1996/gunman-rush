@@ -1,0 +1,54 @@
+{
+  "source_commit": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+  "script_sha256": {
+    "tests/plains_experience_energy_runner.gd": "0483b498a76b93fb8e641ccb851355bafa251f2daaac0f6d61073ceb81c014ec",
+    "tests/plains_pressure_boss_runner.gd": "a1c8f070351005483cc2c6892a7e1b5ce75ca3e6d8139030b76a53c4c5b2aa91"
+  },
+  "source_clean_after": true,
+  "scope": "Exact pre-P9 ed95, same optimized editor, two original explicitly historical Boss fixture scripts and original native budgets",
+  "results": [
+    {
+      "case": "import",
+      "exit_code": 0,
+      "seconds": 8.939196278999589,
+      "timeout_seconds": 90,
+      "log_sha256": "ffc9f18b2ae66752ebe2cbb89b73807a216c7f6c583ba972a3711e0ab283bda5",
+      "failures": [],
+      "marker": []
+    },
+    {
+      "case": "energy",
+      "exit_code": 1,
+      "seconds": 10.093604603996937,
+      "timeout_seconds": 90,
+      "log_sha256": "b99111f500e86f50937471ffae28fd147e6ca9a8c94a578469f3e8001bbd191f",
+      "failures": [
+        "FAIL: actual closed Boss armour never refunds energy or a round"
+      ],
+      "marker": [
+        "PLAINS EXPERIENCE ENERGY: 540 assertions, 1 failures"
+      ]
+    },
+    {
+      "case": "pressure",
+      "exit_code": 124,
+      "seconds": 90.02591941300125,
+      "timeout_seconds": 90,
+      "log_sha256": "13b0b2492d7e620e76b8bd3473e1734fa5ae28be2f19788f5fb90d0d78cb543e",
+      "failures": [
+        "FAIL: actual redesigned Boss activates",
+        "FAIL: mini is independent machine with sixteen HP",
+        "FAIL: closed machine blocks a real shot with armour feedback, without damage",
+        "FAIL: redesigned actual core accepts one real shot",
+        "FAIL: return cancels obsolete bell attacks",
+        "FAIL: actual redesigned Boss activates",
+        "FAIL: real ring wave damages grounded target",
+        "FAIL: actual redesigned Boss activates",
+        "FAIL: actual redesigned Boss activates",
+        "FAIL: physical rolling dash travels then exposes core"
+      ],
+      "marker": []
+    }
+  ]
+}

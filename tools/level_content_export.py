@@ -51,9 +51,9 @@ def legacy_content(row):
     difficulty = row.get('difficulty') or {}
     content['design']['difficulty'].update(score=difficulty.get('score'), basis=difficulty.get('note', ''))
     kind = source['kind']
-    consumer = {'resource': 'scripts/generation/platforming_module.gd',
-                'forest': 'scripts/generation/thorn_forest_region_assembler.gd',
-                'foundry': 'scripts/generation/foundry_world.gd'}.get(kind, source_file)
+    consumer = {'resource': 'game/world/components/platforming_module.gd',
+                'forest': 'game/world/generation/thorn_forest_region_assembler.gd',
+                'foundry': 'game/world/generation/foundry_world.gd'}.get(kind, source_file)
     content['runtime'].update(consumer=consumer, format='source_' + kind,
                               binding=source_file, integration='unverified',
                               note='保留原消费者；旧接入签名已漂移。此sidecar不反写mapnote，也不声明新准入。')
@@ -242,16 +242,16 @@ def build(args):
     macro['identity']['elements'] = [{'id': 'manifest', 'kind': 'existing_foundry_itinerary',
                                       'parameters': {'id': itinerary['id'], 'hash': itinerary['hash'],
                                                      'boundaries': itinerary['boundaries'], 'capability_profile': itinerary['capability_profile']}}]
-    macro['runtime'].update(consumer='scripts/generation/foundry_world.gd', format='Foundry itinerary schema1',
+    macro['runtime'].update(consumer='game/world/generation/foundry_world.gd', format='Foundry itinerary schema1',
                             binding=batch_path + '#' + itinerary['id'], integration='development_source',
                             note='只解释现有扁平nodes，不新增Macro消费者；旧batch证据不重签为本轮fresh物理。')
     macro['quality']['reason'] = 'Macro设计映射样例；当前仅来源/结构提取，连续Motor与趣味仍未验。'
     contents.append(macro)
-    map_path = 'scripts/generation/plains_region_generator.gd'
+    map_path = 'game/world/generation/plains_region_generator.gd'
     area = make_content('example/windchime_plains_map', 'map', '风铃平原', map_path, commit, artifact(map_path)['sha256'])
     area['identity'].update(name='现有风铃平原Map消费者绑定',
                              player_experience='完整地区的探索拓扑、能力锁与区域节奏；保留既有生成器负责。')
-    area['runtime'].update(consumer='scripts/generation/plains_region_assembler.gd', format='PlainsRegionGenerator Manifest',
+    area['runtime'].update(consumer='game/world/generation/plains_region_assembler.gd', format='PlainsRegionGenerator Manifest',
                            binding=map_path + '#generate', integration='formal_source',
                            note='此导出未运行整图生成器，故不伪造Seed、拓扑或Map物理。Map可直接引用Module/Cell；不强制经过Macro。')
     area['quality']['reason'] = '仅真实生成器/装配器绑定；未提取某个Map实例，拓扑留空，不作运行验收。'

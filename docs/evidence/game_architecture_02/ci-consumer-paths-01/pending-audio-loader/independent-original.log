@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_audio_reels_capture.py", line 14, in <module>
+    capture=importlib.util.module_from_spec(spec);spec.loader.exec_module(capture)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/workspace/gunman-rush-refactor/tools/capture_audio_reels.py", line 4, in <module>
+    from godot_identity import verified_engine
+ModuleNotFoundError: No module named 'godot_identity'

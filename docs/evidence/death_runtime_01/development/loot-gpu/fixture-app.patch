@@ -1,0 +1,17 @@
+--- a/game/application/demo_app.gd
++++ b/game/application/demo_app.gd
+@@ -130,6 +130,14 @@
+ var _equipment_sequence := 0
+ 
+ func _ready() -> void:
++	# External loot rendering fixture only; original main scene is retained.
++	set_process(false)
++	set_physics_process(false)
++	set_process_input(false)
++	set_process_unhandled_input(false)
++	set_process_unhandled_key_input(false)
++	add_child(load("res://loot_fixture.gd").new())
++	return
+ 	# Official Web templates forbid command-line scene overrides. Only an explicit
+ 	# development launch redirects; bootstrap-owned Apps keep the real menu/loop.
+ 	if "--cloud-preview" in OS.get_cmdline_user_args() and not has_meta("cloud_preview_host"):

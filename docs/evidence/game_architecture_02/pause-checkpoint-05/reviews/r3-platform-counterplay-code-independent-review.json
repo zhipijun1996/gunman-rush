@@ -1,0 +1,31 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_ONE_OPT_IN_DIAGNOSTIC_NATIVE_PENDING",
+  "files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "d8e29025a9544884d90367639cb78b280dab73044d00a0525da943a8b3c5d62a"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "94ea65362019f5dfcab522e92e611de74d58ba841ea41a63615feacaa953cac9"
+    }
+  ],
+  "patch_sha256": "4715b69e51932d74f163b3f2b598509a40821fd8d4fcdb83265a6843cbd72665",
+  "verified": [
+    "Both entire files reverse-patch exactly to original; current main original bytes match.",
+    "25 original failure predicate lines, all original frame waits/7200 combat/300 terminal loops and placements unchanged.",
+    "Real PlayerMotor type now owns normal_velocity; JumpAbility.maximum_jumps exists and includes effective capacity.",
+    "PlatformingModule actually installs named StaticBody2D/CollisionShape2D RectangleShape2D with one_way flag and group; authored transform-vs-installed shape comparison uses real Godot APIs. Landing requires actual slide collider body ID/path and upward normal plus is_on_floor.",
+    "Opt-in finalizer executes before both normal and released receipts. Failed/incomplete first group produces added failures; cannot be hidden by later original-pilot victory. Inclusive complete tick checked at receipt time.",
+    "Original two-shot recovery input block remains; actual Bell accepted health-change event records amount and group, and finalizer requires exactly2 original submitted shots and2 actual base-one hits.",
+    "No collision/physics/damage/HP/seed/RNG/resource writes or alternate retry added. New state changes only input-pilot observations/decisions; default flagfalse retains original path."
+  ],
+  "limits": [
+    "Not engine-parsed or executed by reviewer. This diagnostic must retain original180 seconds and7200 frames.",
+    "One first-autonomous-phase1-roll diagnostic only; neither proof platform jump succeeds nor strategy approval/full-fight orfull185 pass.",
+    "Whole-group player event guard counts all existing recorded player batch events, which lack acceptance/status fields; this is conservative and may reject non-damaging events, never evidence that such events necessarily caused HP loss.",
+    "Incoming rig bounds are observed geometry, not collision simulation or predicted clearance; airborne/landing/HP outcomes require actual run."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "classification": "explicit audio-routing bug fix; not behavior-preserving extraction",
+  "base_lifecycle_commit": "e73eee9d",
+  "changes": [
+    "All production cue/service lookups use nearest ancestor-owned existing game_audio registration instead of first global group member.",
+    "A closing service remains the resolved owner; playback rejection cannot cause ancestor, sibling or ShotLatch local fallback.",
+    "Generic button observation routes at press time, so only its actual owner plays, including after reparenting.",
+    "CloudPreview does not inject a second generic service into DemoApp-derived entrances. Other standalone scenes retain the original generic bootstrap service.",
+    "The CloudPreview host button explicitly delegates its click to the active entry; it is outside that entry subtree."
+  ],
+  "preserved": [
+    "No audio asset or selected receipt changes",
+    "Original12voice pools, event mapping, cooldowns and playback rules",
+    "Paused committed reward behavior",
+    "Existing group-registered Bellstrider test service contract",
+    "Synchronous CloudPreview switching and existing persistence isolation",
+    "All gameplay state, damage, movement, resource, reward and RNG rules"
+  ],
+  "tests": [
+    "tests/entry_audio_owner_runner.gd",
+    "tests/cloud_preview_runner.gd",
+    "tests/bellstrider_01_audio.gd",
+    "tests/audio_director_lab.gd",
+    "tests/audio_director_v2_scene.gd",
+    "tests/audio_director_selected.gd"
+  ],
+  "runtime_validation": "pending root engine lease",
+  "preserved_limitations": [
+    "When more than one service is a direct child of the same scope, routing retains child-order selection. This change does not introduce ambiguity rejection; formal selected adapters still perform their separate exact-one validation.",
+    "The unchanged WorldAudioLifecycle typed GameAudio enumeration does not support a group-registered Node-only FakeAudio. Bellstrider lookup retains that existing test-double API; those test fixtures retain their own cleanup."
+  ],
+  "static_review": "ACCEPT by independent runtime_audit; native validation still pending root engine lease"
+}

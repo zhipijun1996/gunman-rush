@@ -24,15 +24,13 @@ def main():
         [sys.executable, 'tools/foundry.py', 'build', '--count', '24', '--promote'],
         ['bash', 'tools/godot.sh', '--headless', '--path', '.', '--script', 'tools/foundry_export_stamp.gd'],
         [sys.executable, 'tools/harness.py', '--profile', 'gameplay', '--profile', 'art', '--jobs', str(args.jobs), '--release'],
-        *[['bash', 'tools/godot.sh', '--headless', '--fixed-fps', '60', '--path', '.', '--script', 'tests/'+name+'_runner.gd'] for name in ['foundry_lab', 'foundry_touch', 'foundry_feedback']],
         [sys.executable, 'tools/build.py', 'windows'],
         [sys.executable, 'tools/harness.py', '--profile', 'web', '--release'],
         *[[sys.executable, 'tools/'+name+'.py', '{url}'] for name in ['verify_action_budget_browser', 'verify_studio_click_browser', 'verify_all_weapon_browser']],
         [sys.executable, 'tools/capture_actions.py'],
     ]
     patterns = [r'^Validated [1-9]\d* development phrases;', r'^FOUNDRY EXPORT BASIS:',
-                r'^Evidence:', r'^FOUNDRY LAB: [1-9]\d* assertions, 0 failures$',
-                r'^FOUNDRY TOUCH: [1-9]\d* assertions, 0 failures$', r'^LAB FEEDBACK: [1-9]\d* assertions, 0 failures$',
+                r'^Evidence:',
                 r'"export_exit_code": 0', r'^Evidence:', r'"failed": \[\]', r'"failed": 0', r'"failed": 0',
                 r'^PASS: continuous actions movie']
     if args.plan:

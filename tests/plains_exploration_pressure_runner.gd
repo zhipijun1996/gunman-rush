@@ -17,7 +17,7 @@ func run()->void:
   trace.world=Node2D.new();root.add_child(trace.world);trace.stage=PlainsRegionAssembler.new();trace.region_state=PlainsRegionState.new();trace.region_state.bind_map(str(m.manifest_hash));trace.stage.region_state=trace.region_state;trace.world.add_child(trace.stage)
   check(trace.stage.build(m,PlayerTuning.load_default()).ok,"actual whole-map geometry builds")
   var module:PlatformingModule=trace.named(str(selected.id))
-  trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=module.world_entry();trace.world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
+  trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=module.world_entry();trace.world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
   trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
   for p:PlatformingModule in trace.stage.modules:
    for saw:ModuleSawHazard in p.hazards:trace.previous_hazards[saw.get_instance_id()]=saw.global_position
@@ -25,7 +25,7 @@ func run()->void:
   var enemies:Array[EnemyActor]=[]
   for e:Dictionary in m.enemies:
    if e.area!=selected.id:continue
-   var drone:=preload("res://scenes/enemies/patrol_drone.tscn").instantiate() as EnemyMotor;drone.position=Vector2(e.position[0],e.position[1]);var actor:=drone.get_node("Actor") as EnemyActor;actor.definition=PlainsEncounterPlanner.definition_for_behavior(str(e.behavior_id)).duplicate(true);actor.definition.patrol_half_width=e.patrol_radius;actor.definition.aerial=e.aerial
+   var drone:=preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate() as EnemyMotor;drone.position=Vector2(e.position[0],e.position[1]);var actor:=drone.get_node("Actor") as EnemyActor;actor.definition=PlainsEncounterPlanner.definition_for_behavior(str(e.behavior_id)).duplicate(true);actor.definition.patrol_half_width=e.patrol_radius;actor.definition.aerial=e.aerial
    if e.has("dive_depth"):actor.definition.dive_depth=e.dive_depth
    trace.world.add_child(drone);policy.bind_damageable(StringName(e.id),actor.damageable,actor.health);actor.bind_encounter(trace.controller,policy,life,StringName(e.id),trace.stage.world_anchors());actor.attack_behavior.max_concurrent_attacks=2;enemies.append(actor)
    var emitter:=DemoContactEmitter.new();emitter.policy=policy;emitter.controller=trace.controller;emitter.source_id=StringName(e.id+"_contact");emitter.kind=DamageRequest.Kind.MONSTER;emitter.half_size=actor.definition.collision_size/2+Vector2.ONE;drone.add_child(emitter)

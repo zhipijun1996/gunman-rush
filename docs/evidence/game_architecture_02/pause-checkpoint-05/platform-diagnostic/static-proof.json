@@ -1,0 +1,73 @@
+{
+  "kind": "author_static_only_not_engine_or_independent_acceptance",
+  "checks": {
+    "forward_exact": true,
+    "reverse_exact": true,
+    "main_source_still_original": true,
+    "only_two_existing_files": true,
+    "no_original_lines_removed": true,
+    "original_two_shot_block_byte_equal": true,
+    "original_25_failure_predicates_byte_equal": true,
+    "original_initial_and_postfight_position_assignments_exact": true,
+    "original_all_loop_headers_exact": true,
+    "two_final_receipts_get_optin_verdict": true
+  },
+  "source_bindings": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794"
+    },
+    {
+      "path": "game/world/components/platforming_module.gd",
+      "sha256": "705af1d3d9354d8bf4ba86ea3b1d1b4eea33ae414019dc122c32e0aed1c08a30"
+    },
+    {
+      "path": "resources/generation/modules/plains_bellstrider_arena.tres",
+      "sha256": "6ca68b89d7c34fe90d48fe3440391480bf48de2b3436ca0748960dbb06a8b34b"
+    },
+    {
+      "path": "game/player/player_motor.gd",
+      "sha256": "4d093a7c631ab18ee10bc9c90a01d15716cb4ac3dcbe75508b8d8c3f552a3b7f"
+    },
+    {
+      "path": "game/player/player_controller.gd",
+      "sha256": "022263cb4c62880e5e936908553d5638ef409fcb479f54903463b6cb7a641eea"
+    },
+    {
+      "path": "game/player/actions/jump_ability.gd",
+      "sha256": "0214cea7035d855185b74ebae81e43a3cfb0e14568616eede9d05aa3b327cd6a"
+    },
+    {
+      "path": "game/platform/input/input_router.gd",
+      "sha256": "04409e9e2e060ebf3333624b67d3ff031ea73fb751457b94c1c57045d8b7edc5"
+    },
+    {
+      "path": "game/bosses/bellstrider/bellstrider_encounter.gd",
+      "sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9"
+    },
+    {
+      "path": "game/combat/damage/frame_damage_policy.gd",
+      "sha256": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "tools/run_underworld_r3_boss_tests.py",
+      "sha256": "1db931a4eeb3d39d195b1c0a2589f7e99e2e6edf4a750810190a1f01ea841248"
+    }
+  ],
+  "budgets": {
+    "combat_physics_iterations": 7200,
+    "native_seconds": 180,
+    "seed": "underworld-r3-continuous-boss",
+    "map": 1
+  },
+  "engine_run": false,
+  "original_21_predicates": "All current25 failure append source lines preserved byte-for-byte, containing original21 and previously integrated fixture/lifecycle guards."
+}

@@ -1,0 +1,512 @@
+{
+  "scope": "Finite static scan of file-spec loaders in current tests/*.py, actual sibling imports in referenced tools, manual distinction of current and frozen loaders. Complements identity-only audit; no claim of arbitrary dynamic-loader exhaustion.",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "file_spec_test_files": 25,
+  "inventory": [
+    {
+      "test": "tests/test_asset_family.py",
+      "sha256": "475b0b74a44babe692df1c41993f26577ddf5add7f7ef8ceba7d519b1f67f78a",
+      "direct_full185_checks": [
+        "asset-family-tests"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/asset_family.py",
+          "sha256": "b43e75ac81ada7f803842e4220425815f517f529b46c65044ed36026973ebf03",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_ambience_design.py",
+      "sha256": "7652e121a139859dd278efce9b498626e7d0cbec4e508ff9cd18932c3caa57db",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_ambience_design.py",
+          "sha256": "94a7583be09b9ba9ccb0e2cbee860af35d51f21355ef4c8db1a0b6921819ef90",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_candidates_v2.py",
+      "sha256": "d557b5e2098cdc0463d7cab449cce45331ab39e24cc8cb924c7d23e1d4739d47",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_candidates_v2.py",
+          "sha256": "098260d93521f8204c02847cf00422800100ef3c024fa057cd24c0f1a2fc952f",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_candidates_v3.py",
+      "sha256": "32f613ed40e20dc4575c2a372219184a0452d309044416b0b0a1dbeea2c9a964",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_candidates_v3.py",
+          "sha256": "ea6bc4818f193004f6f824c3e0ad431fc3c8142e97f764cc1593018b4c7a23ed",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_design.py",
+      "sha256": "cc293b25617f56ae4f948deaffdd67e10bf94442c335c28b8106561e69f0c1ac",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_design.py",
+          "sha256": "1eba26f41f7ef0d7db55a15611586b10864a52d3cb44354679c6084abb3dcd08",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_home_design.py",
+      "sha256": "59beedfe264fd7817f8e37e08cb63896ea5daeac68f8d12a3fdf26e92cdecb1c",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_ambience_design.py",
+          "sha256": "94a7583be09b9ba9ccb0e2cbee860af35d51f21355ef4c8db1a0b6921819ef90",
+          "top_level_sibling_imports": []
+        },
+        {
+          "path": "tools/audio_home_design.py",
+          "sha256": "9bf3a3c5946867281e3669d2d484e3a8ede352f63f6a5df64d3cd7b25f2c9110",
+          "top_level_sibling_imports": [
+            {
+              "line": 14,
+              "module": "audio_ambience_design"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_reel_choices.py",
+      "sha256": "a9228ccc8464ff6a3a04143fac19d875023253df91280f4eeb94f7e4cddfe1fe",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_reel_choices.py",
+          "sha256": "63620d3527c0564daf3e46ceb53aa8bf491bfd2096b67a3f1b690c383945621b",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_audio_reels_capture.py",
+      "sha256": "cb5f21f6914ffb99056223567a1450d45b7bca3ca325741130f9598b3aa19e5f",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/audio_reels_validation.py",
+          "sha256": "8b395d5da9cf3bc8c800eec81ec5a38bd51e7df7cc259dbec256ac002fac8144",
+          "top_level_sibling_imports": []
+        },
+        {
+          "path": "tools/capture_audio_reels.py",
+          "sha256": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+          "top_level_sibling_imports": [
+            {
+              "line": 4,
+              "module": "godot_identity"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_capture_actions.py",
+      "sha256": "b47bde5d1320ae197880400d07dec278efb00ecb3928b1695396b525a2700ddc",
+      "direct_full185_checks": [
+        "capture-tests"
+      ],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/capture_actions.py",
+          "sha256": "cfced02971147684930e12eaeb34b7870c3f69ccecdb17337b0a36b41b02a8bb",
+          "top_level_sibling_imports": [
+            {
+              "line": 10,
+              "module": "harness"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_directional_validator.py",
+      "sha256": "7597c5abb9488ac06d44cfaa4d0c01798ef51c87297cb39af05ea04b94106281",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/run_forest_directional_golden.py",
+          "sha256": "d487c967a185fa15456a357590c4a4f896f537bf5e7363fe74db1cb091809af3",
+          "top_level_sibling_imports": [
+            {
+              "line": 3,
+              "module": "forest_bible_world_sources"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_exploration_body_reader.py",
+      "sha256": "f2473162be8c0f3f881c2ccc02014b3b2410d0ee300ac38ddc94edf16c46f803",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/run_forest_exploration_motor.py",
+          "sha256": "27e58876341703599850ae0dee7eb7dbd6a8d0de2b1d4dfc038b3516ad2681c0",
+          "top_level_sibling_imports": [
+            {
+              "line": 23,
+              "module": "run_forest_depth_region"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_exploration_exchange_reader.py",
+      "sha256": "4dd1a9bfe11c03d2457b3fe452e54e172657e76db53610f3812f3600349e159a",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/run_forest_exploration_motor.py",
+          "sha256": "27e58876341703599850ae0dee7eb7dbd6a8d0de2b1d4dfc038b3516ad2681c0",
+          "top_level_sibling_imports": [
+            {
+              "line": 23,
+              "module": "run_forest_depth_region"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_exploration_live_credit_reader.py",
+      "sha256": "80fdc2aeac5dcab2f244bee7304d19d0695190e4e029cbe253c8824bd06383c6",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/run_forest_exploration_motor.py",
+          "sha256": "27e58876341703599850ae0dee7eb7dbd6a8d0de2b1d4dfc038b3516ad2681c0",
+          "top_level_sibling_imports": [
+            {
+              "line": 23,
+              "module": "run_forest_depth_region"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_legacy_fixture.py",
+      "sha256": "70c077ad361a450d7114bad45611f58d323abda6ef8fcaac4f02806ccd5b7210",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/forest_legacy_fixture.py",
+          "sha256": "db7532794817c7200a718b7f15d121e6e45d32d95a102055ebf5832f8a3a28bd",
+          "top_level_sibling_imports": []
+        },
+        {
+          "path": "tools/harness.py",
+          "sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+          "top_level_sibling_imports": []
+        },
+        {
+          "path": "tools/run_forest_v1_regressions.py",
+          "sha256": "ad9647563c222a16b505ad0e781696f20f8610d97b8f2cc6cdc1d54fc713f985",
+          "top_level_sibling_imports": [
+            {
+              "line": 17,
+              "module": "forest_legacy_fixture"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_region_scheduler.py",
+      "sha256": "d90f9d5b0a49ec4b278b54e9339b97bbb4d8b27914942f834aa85fbb1a99bb5c",
+      "direct_full185_checks": [
+        "forest-region-scheduler-tests"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/run_forest_depth_region.py",
+          "sha256": "eb67f515effba5549b20d921a12cc000973360e52e8982a4f5138e1f36acf8bf",
+          "top_level_sibling_imports": [
+            {
+              "line": 24,
+              "module": "forest_bible_world_sources"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_forest_vertical_shortcut.py",
+      "sha256": "c095a3159b11dbaf0d36c95ade16fa6d4fc58d61d08fb11c2e84fc78ca62a473",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/run_forest_vertical_shortcut.py",
+          "sha256": "a803b0fffbf5224ad61d120e91dce10944b0fa77974bfecf3ee0df4491de663b",
+          "top_level_sibling_imports": [
+            {
+              "line": 18,
+              "module": "run_forest_depth_region"
+            },
+            {
+              "line": 19,
+              "module": "run_forest_directional_golden"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_godot_identity.py",
+      "sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/build.py",
+          "sha256": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+          "top_level_sibling_imports": [
+            {
+              "line": 13,
+              "module": "check_environment"
+            },
+            {
+              "line": 14,
+              "module": "run_tests"
+            },
+            {
+              "line": 15,
+              "module": "godot_identity"
+            }
+          ]
+        },
+        {
+          "path": "tools/check_environment.py",
+          "sha256": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+          "top_level_sibling_imports": [
+            {
+              "line": 12,
+              "module": "godot_identity"
+            }
+          ]
+        },
+        {
+          "path": "tools/engine/package.py",
+          "sha256": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+          "top_level_sibling_imports": [
+            {
+              "line": 19,
+              "module": "build"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_grapple_feel_wrapper.py",
+      "sha256": "dc5ad360913ff80277d08f4ab16192b0a7c066dacbcfc2d2617ad5f604a4860f",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/run_grapple_feel_tests.py",
+          "sha256": "9ce63361527950de8f6b8af572080d6d3898e7e26b13c81c7ac0298e0bdfb2a6",
+          "top_level_sibling_imports": [
+            {
+              "line": 3,
+              "module": "run_tests"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_harness.py",
+      "sha256": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+      "direct_full185_checks": [
+        "harness-tests"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/harness.py",
+          "sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+          "top_level_sibling_imports": []
+        },
+        {
+          "path": "tools/production_timing.py",
+          "sha256": "533a7dcfec14e5706381feb41b9211a4db7ccbb50f59c8474a23fcc81014dd43",
+          "top_level_sibling_imports": []
+        },
+        {
+          "path": "tools/test_frozen_assets.py",
+          "sha256": "acb5a2bbbd7d15454841f4fb950bbb407fb91f3027ebe3e3b050e3990d92c8e1",
+          "top_level_sibling_imports": [
+            {
+              "line": 9,
+              "module": "run_plains_action_golden_tests"
+            },
+            {
+              "line": 10,
+              "module": "run_tests"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test": "tests/test_harness_artifact_archive.py",
+      "sha256": "2ed6724e18a84e34d4c219987697ec7aaa4905a37a8789ebfc2d940deb91ebee",
+      "direct_full185_checks": [
+        "harness-artifact-archive-tests"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/harness.py",
+          "sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_item_v5_catalog.py",
+      "sha256": "70e42e3c652d24952f91b5fa1ee6772c9625982c7572be0a1bd732bd8ee0efe9",
+      "direct_full185_checks": [
+        "item-v5-data"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/import_items_v5.py",
+          "sha256": "3e32a14a9a6e97a64085b8e4b58624d3096710ddc6e55c95dc841d8ec3fc7cbc",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_level_content_contract.py",
+      "sha256": "3c79731cba46066f1a7573c79586663ba8f0abd4c774feb0bbc537229f5756ef",
+      "direct_full185_checks": [],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/level_content_contract.py",
+          "sha256": "04fc661e609279a12e0d44add73060a68afc3ad3c1d3296e895b2d726e4cf882",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_runtime_raw_export.py",
+      "sha256": "c3a1b478e4af4041e7362efafb18de6762a7de63abfc89d05e772301f63ab5a6",
+      "direct_full185_checks": [
+        "runtime-raw-export-tests"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/check_web_bundle.py",
+          "sha256": "32f6f5357258782a9f12ffc233142771c49a763169d7386656572194829aa34f",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_underworld_raw_export.py",
+      "sha256": "ffb19139d1c34aea1868dbe7039d9050741142a7af1ebfd76b5a1f3670b788ae",
+      "direct_full185_checks": [
+        "underworld-raw-export"
+      ],
+      "explicit_test_tools_path": true,
+      "referenced_tools": [
+        {
+          "path": "tools/underworld_delivery.py",
+          "sha256": "09c3730c252b18dce6d96a56e56182bab0173ec6dd589aa13cc7507635e98939",
+          "top_level_sibling_imports": []
+        }
+      ]
+    },
+    {
+      "test": "tests/test_web_bundle.py",
+      "sha256": "a799f9e0849358e750383f10f25c07e49bfa11b66a4770a56a3b1c3fc154e63f",
+      "direct_full185_checks": [
+        "web-resource-contract-tests"
+      ],
+      "explicit_test_tools_path": false,
+      "referenced_tools": [
+        {
+          "path": "tools/check_web_bundle.py",
+          "sha256": "32f6f5357258782a9f12ffc233142771c49a763169d7386656572194829aa34f",
+          "top_level_sibling_imports": []
+        }
+      ]
+    }
+  ],
+  "confirmed_findings": [
+    {
+      "check": "forest-region-scheduler-tests",
+      "registered_full185": true,
+      "status": "candidate one-line path repair; actual original 27 Python scheduler tests passed; independent review pending",
+      "proof": "candidate.json"
+    },
+    {
+      "check": "test_audio_reels_capture.py",
+      "registered_full185": false,
+      "status": "previous independent-loader finding; SourceClosure passed; real captured-media tests not run",
+      "proof": "../identity-cli-fixture-audit-02/audio-reels-loader-candidate.json"
+    },
+    {
+      "check": "test_forest_directional_validator.py",
+      "registered_full185": false,
+      "status": "new loader defect exposed four existing historical-receipt validation failures; keep FAILED, no validator/payload mutation",
+      "proof": "directional-unregistered-followup/candidate.json"
+    }
+  ],
+  "non_findings": [
+    "Forest exploration body/exchange/live-credit and vertical shortcut readers already add real tools before loading dependent modules.",
+    "Grapple wrapper and capture-actions loaders already install real tools path.",
+    "Current Harness loaders rely on the existing Harness self-directory import boundary; historical archived Harness remains exact original and is not upgraded.",
+    "Other inspected asset/audio/import-item/web bundle file-loaded modules have no top-level same-directory import dependency; audio-home already adds tools path.",
+    "Synthetic/format fixtures are not treated as child tool execution; no blanket helper/config copies added."
+  ],
+  "main_written": false,
+  "engine_run": false,
+  "full185_or91_or26_or115_rerun": false,
+  "new_production_or_registry_changes": false
+}

@@ -1,0 +1,164 @@
+@static_unload
+class_name PlainsRevisionSkin
+extends RefCounted
+## One authored body and continuous joints through live, hurt and death.
+## Coordinates are in world units; source resolution never sets pixel size.
+const GRID := 24
+const TEXTURES := {
+	&"patrol": preload("res://assets/plains_revision_01/patrol.png"),
+	&"charger": preload("res://assets/plains_revision_01/charger.png"),
+	&"hopper": preload("res://assets/plains_revision_01/hopper.png"),
+	&"sentry": preload("res://assets/plains_revision_01/sentry.png"),
+	&"fan_sentry": preload("res://assets/plains_revision_01/fan_sentry.png"),
+	&"root_bell": preload("res://assets/plains_revision_01/root_bell.png")
+}
+# Relative to the measured visible bodies, not the source PNG dimensions.
+const SIZES := {&"patrol":Vector2(41.4,39.33),&"charger":Vector2(40.5,30.375),&"hopper":Vector2(41.4,33.12),&"sentry":Vector2(41.4,42.46),&"fan_sentry":Vector2(41.4,30),&"root_bell":Vector2(49.5,60)}
+var texture: Texture2D
+var bounds := Rect2()
+var kind: StringName
+var _mesh := ArrayMesh.new()
+var _points := PackedVector2Array()
+var _units := PackedVector2Array()
+var _weights: Array[PlainsRevisionWeights] = []
+var _weights_kind: StringName
+# Topology and UV-only anatomy are identical across instances. Each body keeps
+# its own mutable points, GPU mesh and pose; shared weights are read-only inputs.
+static var _unit_template := PackedVector2Array()
+static var _index_template := PackedInt32Array()
+static var _point_templates: Dictionary = {}
+static var _weight_templates: Dictionary = {}
+# A settled body's local vertices are independent of its continuing corpse age.
+# Keep every draw/shader/tint and world-support transform with its existing host.
+var _rest_cached := false
+var _rest_kind: StringName
+var _rest_bounds := Rect2()
+var _rest_texture: Texture2D
+var _rest_pose: Dictionary = {}
+# Ground's captured live prefix is independent of death progress and corpse age.
+# Sources are copied; canonical anatomy is read-only. No host is retained.
+var _live_prefix_vertices := PackedVector2Array()
+var _live_prefix_pose: Dictionary = {}
+var _live_prefix_kind: StringName
+var _live_prefix_bounds := Rect2()
+var _live_prefix_texture: Texture2D
+var _live_prefix_sources := PackedVector2Array()
+var _live_prefix_units := PackedVector2Array()
+var _live_prefix_weights: Array[PlainsRevisionWeights] = []
+
+static func supports(definition: EnemyDefinition) -> bool:
+	return definition != null and definition.stable_id in [&"patrol_drone",&"graybox_patrol_drone",&"plains_charger",&"plains_hopper",&"plains_sentry",&"plains_fan_sentry",&"plains_root_bell"]
+
+func _init(behavior: StringName = &"patrol") -> void:
+	kind = behavior
+	texture = TEXTURES.get(kind)
+	var size: Vector2 = SIZES.get(kind,Vector2(36,36))
+	bounds = Rect2(Vector2(-size.x*.5,-size.y),size)
+	_prepare_topology()
+	_units = _unit_template.duplicate()
+	if not _point_templates.has(bounds):
+		var points := PackedVector2Array()
+		for uv: Vector2 in _unit_template: points.append(bounds.position+uv*size)
+		_point_templates[bounds] = points
+	var neutral_points: PackedVector2Array = _point_templates[bounds]
+	_points = neutral_points.duplicate()
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = _points
+	arrays[Mesh.ARRAY_TEX_UV] = _units
+	arrays[Mesh.ARRAY_INDEX] = _index_template.duplicate()
+	_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES|Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
+
+static func _prepare_topology() -> void:
+	if not _unit_template.is_empty(): return
+	for y: int in GRID+1:
+		for x: int in GRID+1:
+			var uv := Vector2(float(x)/GRID,float(y)/GRID)
+			_unit_template.append(uv)
+	for y: int in GRID:
+		for x: int in GRID:
+			var i := y*(GRID+1)+x
+			_index_template.append_array(PackedInt32Array([i,i+1,i+GRID+2,i,i+GRID+2,i+GRID+1]))
+
+static func _anatomy_weights(behavior: StringName) -> Array[PlainsRevisionWeights]:
+	if not _weight_templates.has(behavior):
+		_prepare_topology()
+		var weights: Array[PlainsRevisionWeights] = []
+		for uv: Vector2 in _unit_template: weights.append(PlainsRevisionWeights.new(uv,behavior))
+		weights.make_read_only()
+		_weight_templates[behavior] = weights
+	return _weight_templates[behavior]
+
+func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
+	return deform_prepared(point, uv, PlainsRevisionPose.prepare(pose), PlainsRevisionWeights.new(uv, kind))
+
+func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights, live_point: Variant = null) -> Vector2:
+	var master := point
+	if kind==&"fan_sentry":
+		# The new broad fan source devotes more area to wings. Fit its copper
+		# abdomen to the previous body's ~13wu mass (+about 7.5%), independently
+		# of the wing envelope's +15%. Stretching the entire source made it small.
+		var body := weights.fan_body_fit
+		var center := Vector2((.42-.5)*bounds.size.x,(.70-1.0)*bounds.size.y)
+		master = point.lerp(center+(point-center)*1.55,body)
+	var p := PlainsRevisionGround.deform_prepared(master,uv,bounds.size,pose,kind,weights,live_point) if kind in [&"patrol",&"charger",&"hopper"] else PlainsRevisionFlora.deform_prepared(master,uv,bounds.size,pose,kind,weights)
+	# Contact impulse moves the mass, while the supporting feet retain the floor.
+	if pose.dead:
+		p.y -= pose.landing*bounds.size.y*.025*weights.landing
+	return p
+
+func _live_prefix_matches(key: Dictionary) -> bool:
+	return _live_prefix_vertices.size() == _points.size() and _live_prefix_kind == kind and _live_prefix_bounds == bounds and _live_prefix_texture == texture and _live_prefix_pose == key and _live_prefix_sources == _points and _live_prefix_units == _units and _weights.is_read_only() and is_same(_live_prefix_weights, _weights)
+
+func _store_live_prefix(vertices: PackedVector2Array, key: Dictionary) -> void:
+	_live_prefix_vertices = vertices
+	_live_prefix_pose = key
+	_live_prefix_kind = kind
+	_live_prefix_bounds = bounds
+	_live_prefix_texture = texture
+	if _live_prefix_sources != _points: _live_prefix_sources = _points.duplicate()
+	if _live_prefix_units != _units: _live_prefix_units = _units.duplicate()
+	_live_prefix_weights = _weights
+
+func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> void:
+	if texture == null: return
+	if not PlainsMotion02.body_mesh_visible(canvas,bounds): return
+	var at_rest := bool(pose.get("dead",false)) and float(pose.get("death",0.0)) >= 1.0 and float(pose.get("landing",0.0)) == 0.0
+	var rest_pose: Dictionary = pose.duplicate(true) if at_rest else {}
+	rest_pose.erase("death_clock")
+	if not (at_rest and _rest_cached and _rest_kind == kind and _rest_bounds == bounds and _rest_texture == texture and _rest_pose == rest_pose):
+		var vertices := PackedVector2Array()
+		vertices.resize(_points.size())
+		# Only UV and kind determine these masks. Bounds and texture remain live
+		# inputs to the unchanged kernel and existing settled-mesh invalidation.
+		if _weights.size() != _units.size() or _weights_kind != kind:
+			_weights = _anatomy_weights(kind)
+			_weights_kind = kind
+		var prepared := PlainsRevisionPose.prepare(pose)
+		if kind in [&"patrol",&"charger",&"hopper"] and _weights.is_read_only():
+			var live_key := pose.duplicate(true)
+			for key: String in ["dead", "death", "death_clock", "landing"]: live_key.erase(key)
+			if prepared.dead:
+				if not _live_prefix_matches(live_key):
+					var live_vertices := PackedVector2Array()
+					live_vertices.resize(_points.size())
+					for i: int in _points.size(): live_vertices[i] = PlainsRevisionGround.deform_prepared(_points[i],_units[i],bounds.size,prepared.live,kind,_weights[i])
+					_store_live_prefix(live_vertices, live_key)
+				for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i],_live_prefix_vertices[i])
+			else:
+				for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
+				_store_live_prefix(vertices, live_key)
+		else:
+			for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
+		_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
+		_rest_cached = at_rest
+		_rest_pose = rest_pose
+		_rest_kind = kind
+		_rest_bounds = bounds
+		_rest_texture = texture if at_rest else null
+	if canvas.material is ShaderMaterial:
+		canvas.material.set_shader_parameter("death_progress",float(pose.get("death",0.0)) if bool(pose.get("dead",false)) else 0.0)
+		canvas.material.set_shader_parameter("eye_center",Vector2(.86,.39) if kind==&"patrol" else Vector2(.87,.52) if kind==&"hopper" else Vector2(.79,.46))
+		canvas.material.set_shader_parameter("plant_body",kind in [&"root_bell",&"sentry"])
+		canvas.material.set_shader_parameter("kind_code",1 if kind==&"fan_sentry" else 2 if kind==&"root_bell" else 0)
+	canvas.draw_mesh(_mesh,texture,Transform2D.IDENTITY,tint)

@@ -17,7 +17,7 @@ def paid_policy(frame):
     configured_free=bool(re.search(rb'^shooting_consumes_energy\s*=\s*false\s*$',raw,re.M))
     assert policy['shooting_consumes_energy'] is (not configured_free)
     if configured_free:
-        assert path=='res://resources/player/demo_ui_01/time_energy_v2.tres'
+        assert path=='res://game/player/resources/demo_ui_01/time_energy_v2.tres'
         assert frame['max_air_shots']==json.loads((REPO/'config/player_tuning.json').read_text())['max_air_shots']==1
     return not configured_free
 

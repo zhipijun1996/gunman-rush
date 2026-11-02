@@ -1,0 +1,1266 @@
+{
+  "scope": "diagnostic only",
+  "source": {
+    "head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+    "status": " M assets/manifest.json\n M docs/tasks.md\n M tests/enemy_all_02_motion_lifecycle.gd\n M tests/enemy_hit_template_tests.gd\n M tests/forest_depth_enemy_runner.gd\n M tests/forest_depth_version_app_case.gd\n M tests/forest_ecology_runner.gd\n M tools/check_plains_item_art.py\n M tools/enemy_all_review_02_capture.gd\n M tools/enemy_all_review_02_inventory.py\n M tools/harness/profiles.json\n?? docs/evidence/game_architecture_02/asset-metadata-layout-01/\n?? docs/evidence/game_architecture_02/ci-consumer-paths-01/\n?? docs/quality/records/ASSET-METADATA-LAYOUT-01.json\n?? docs/quality/records/CI-CONSUMER-PATHS-01.json\n?? docs/worklines/game_architecture_01/asset_metadata_layout_01.md\n?? docs/worklines/game_architecture_01/ci_consumer_paths_01.md\n",
+    "source_digest": "0b856a7c8b1922c09efbdb25451858a5e924d69a74136273a4050ca78c68868e"
+  },
+  "results": [
+    {
+      "id": "art-meadow_enemy_art",
+      "status": "passed",
+      "duration_seconds": 0.35,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-meadow_enemy_art.log"
+    },
+    {
+      "id": "art-plains_ground_art",
+      "status": "passed",
+      "duration_seconds": 0.295,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-plains_ground_art.log"
+    },
+    {
+      "id": "art-windkeeper_art",
+      "status": "passed",
+      "duration_seconds": 0.336,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-windkeeper_art.log"
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "status": "failed",
+      "duration_seconds": 0.288,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T114956.955877Z/art-plains_spatial_art.log"
+    },
+    {
+      "id": "web-cache",
+      "status": "passed",
+      "duration_seconds": 0.29,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115015.022507Z/web-cache.log"
+    },
+    {
+      "id": "production-loop-tests",
+      "status": "failed",
+      "duration_seconds": 59.236,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115015.022507Z/production-loop-tests.log"
+    },
+    {
+      "id": "quality-review-engine",
+      "status": "passed",
+      "duration_seconds": 15.677,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/quality-review-engine.log"
+    },
+    {
+      "id": "terrain-tile-tests",
+      "status": "passed",
+      "duration_seconds": 0.307,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/terrain-tile-tests.log"
+    },
+    {
+      "id": "terrain-production",
+      "status": "passed",
+      "duration_seconds": 15.122,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/terrain-production.log"
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "status": "passed",
+      "duration_seconds": 0.246,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/consumer-coverage-tests.log"
+    },
+    {
+      "id": "wood-platforms",
+      "status": "passed",
+      "duration_seconds": 15.673,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/wood-platforms.log"
+    },
+    {
+      "id": "actor-actions",
+      "status": "passed",
+      "duration_seconds": 43.804,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/actor-actions.log"
+    },
+    {
+      "id": "grapple-feel",
+      "status": "passed",
+      "duration_seconds": 45.412,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/grapple-feel.log"
+    },
+    {
+      "id": "forest-interwoven-contract",
+      "status": "passed",
+      "duration_seconds": 16.749,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-interwoven-contract.log"
+    },
+    {
+      "id": "forest-player-aim",
+      "status": "passed",
+      "duration_seconds": 23.376,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-player-aim.log"
+    },
+    {
+      "id": "all-weapons",
+      "status": "passed",
+      "duration_seconds": 49.124,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/all-weapons.log"
+    },
+    {
+      "id": "studio-input",
+      "status": "passed",
+      "duration_seconds": 14.708,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/studio-input.log"
+    },
+    {
+      "id": "weapon-feel",
+      "status": "passed",
+      "duration_seconds": 30.56,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/weapon-feel.log"
+    },
+    {
+      "id": "action-budget",
+      "status": "passed",
+      "duration_seconds": 115.161,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/action-budget.log"
+    },
+    {
+      "id": "capture-tests",
+      "status": "passed",
+      "duration_seconds": 0.322,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/capture-tests.log"
+    },
+    {
+      "id": "level-design-contracts",
+      "status": "passed",
+      "duration_seconds": 8.084,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-design-contracts.log"
+    },
+    {
+      "id": "mechanism-comparisons",
+      "status": "passed",
+      "duration_seconds": 0.367,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/mechanism-comparisons.log"
+    },
+    {
+      "id": "level-design-analysis",
+      "status": "passed",
+      "duration_seconds": 0.597,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-design-analysis.log"
+    },
+    {
+      "id": "level-design-routing",
+      "status": "passed",
+      "duration_seconds": 10.88,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-design-routing.log"
+    },
+    {
+      "id": "level-design-golden-tests",
+      "status": "passed",
+      "duration_seconds": 0.856,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-design-golden-tests.log"
+    },
+    {
+      "id": "level-region-context",
+      "status": "passed",
+      "duration_seconds": 4.356,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-region-context.log"
+    },
+    {
+      "id": "level-experience",
+      "status": "passed",
+      "duration_seconds": 4.61,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-experience.log"
+    },
+    {
+      "id": "level-formal-receipts",
+      "status": "passed",
+      "duration_seconds": 2.884,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/level-formal-receipts.log"
+    },
+    {
+      "id": "plains-redesign-golden",
+      "status": "passed",
+      "duration_seconds": 44.135,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/plains-redesign-golden.log"
+    },
+    {
+      "id": "visual-director-tests",
+      "status": "passed",
+      "duration_seconds": 15.389,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/visual-director-tests.log"
+    },
+    {
+      "id": "visual-director-space",
+      "status": "passed",
+      "duration_seconds": 87.554,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/visual-director-space.log"
+    },
+    {
+      "id": "directed-space-tests",
+      "status": "passed",
+      "duration_seconds": 86.456,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/directed-space-tests.log"
+    },
+    {
+      "id": "root-bell-current",
+      "status": "passed",
+      "duration_seconds": 43.769,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/root-bell-current.log"
+    },
+    {
+      "id": "root-bell-spaces",
+      "status": "passed",
+      "duration_seconds": 53.126,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/root-bell-spaces.log"
+    },
+    {
+      "id": "root-bell-ecology",
+      "status": "passed",
+      "duration_seconds": 79.167,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/root-bell-ecology.log"
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "status": "passed",
+      "duration_seconds": 0.502,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/web-resource-contract-tests.log"
+    },
+    {
+      "id": "runtime-raw-export-tests",
+      "status": "passed",
+      "duration_seconds": 0.339,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/runtime-raw-export-tests.log"
+    },
+    {
+      "id": "asset-family-tests",
+      "status": "passed",
+      "duration_seconds": 0.303,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/asset-family-tests.log"
+    },
+    {
+      "id": "connected-family-tests",
+      "status": "passed",
+      "duration_seconds": 7.279,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/connected-family-tests.log"
+    },
+    {
+      "id": "forest-depth-guardian",
+      "status": "passed",
+      "duration_seconds": 15.258,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-guardian.log"
+    },
+    {
+      "id": "forest-depth-guardian-tolerance",
+      "status": "passed",
+      "duration_seconds": 12.932,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-guardian-tolerance.log"
+    },
+    {
+      "id": "forest-depth-enemies",
+      "status": "passed",
+      "duration_seconds": 18.628,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-enemies.log"
+    },
+    {
+      "id": "forest-current-registry",
+      "status": "passed",
+      "duration_seconds": 24.07,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-current-registry.log"
+    },
+    {
+      "id": "forest-depth-restore",
+      "status": "passed",
+      "duration_seconds": 36.056,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-restore.log"
+    },
+    {
+      "id": "forest-depth-campaign-guardian",
+      "status": "passed",
+      "duration_seconds": 38.258,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-campaign-guardian.log"
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle",
+      "status": "passed",
+      "duration_seconds": 15.621,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-crossbranch-lifecycle.log"
+    },
+    {
+      "id": "forest-depth-queen-canopy",
+      "status": "passed",
+      "duration_seconds": 14.294,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-queen-canopy.log"
+    },
+    {
+      "id": "forest-depth-campaign-canopy",
+      "status": "passed",
+      "duration_seconds": 41.69,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-depth-campaign-canopy.log"
+    },
+    {
+      "id": "forest-vertical-shortcut",
+      "status": "passed",
+      "duration_seconds": 26.758,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-vertical-shortcut.log"
+    },
+    {
+      "id": "blob47-foundation",
+      "status": "passed",
+      "duration_seconds": 2.501,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/blob47-foundation.log"
+    },
+    {
+      "id": "creative-direction",
+      "status": "passed",
+      "duration_seconds": 0.353,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/creative-direction.log"
+    },
+    {
+      "id": "creative-direction-tests",
+      "status": "passed",
+      "duration_seconds": 7.466,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/creative-direction-tests.log"
+    },
+    {
+      "id": "visual-director-terrain",
+      "status": "passed",
+      "duration_seconds": 12.342,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/visual-director-terrain.log"
+    },
+    {
+      "id": "parallel-region-presentation",
+      "status": "passed",
+      "duration_seconds": 40.479,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/parallel-region-presentation.log"
+    },
+    {
+      "id": "underworld-pipeline",
+      "status": "passed",
+      "duration_seconds": 97.605,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/underworld-pipeline.log"
+    },
+    {
+      "id": "forest-region-scheduler-tests",
+      "status": "failed",
+      "duration_seconds": 0.298,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T115129.700965Z/forest-region-scheduler-tests.log"
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "status": "passed",
+      "duration_seconds": 0.313,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/underworld-home-guard-tests.log"
+    },
+    {
+      "id": "region-bible-contract",
+      "status": "passed",
+      "duration_seconds": 0.305,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/region-bible-contract.log"
+    },
+    {
+      "id": "region-bible-tests",
+      "status": "passed",
+      "duration_seconds": 30.149,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/region-bible-tests.log"
+    },
+    {
+      "id": "forest-bible-reader-tests",
+      "status": "failed",
+      "duration_seconds": 1.885,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121316.334741Z/forest-bible-reader-tests.log"
+    },
+    {
+      "id": "forest-bible-av-reader-tests",
+      "status": "passed",
+      "duration_seconds": 1.047,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/forest-bible-av-reader-tests.log"
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "status": "passed",
+      "duration_seconds": 3.002,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/harness-artifact-archive-tests.log"
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "status": "passed",
+      "duration_seconds": 0.441,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/cloud-production-planner-tests.log"
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "status": "passed",
+      "duration_seconds": 2.803,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/cloud-delivery-tests.log"
+    },
+    {
+      "id": "cloud-inputs-tests",
+      "status": "passed",
+      "duration_seconds": 2.259,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/cloud-inputs-tests.log"
+    },
+    {
+      "id": "portable-frozen-assets",
+      "status": "passed",
+      "duration_seconds": 0.998,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/portable-frozen-assets.log"
+    },
+    {
+      "id": "demo-ui-time-energy",
+      "status": "passed",
+      "duration_seconds": 10.645,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/demo-ui-time-energy.log"
+    },
+    {
+      "id": "enemy-feedback-native",
+      "status": "passed",
+      "duration_seconds": 13.3,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/enemy-feedback-native.log"
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "status": "passed",
+      "duration_seconds": 19.541,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/enemy-feedback-formal.log"
+    },
+    {
+      "id": "enemy-feedback-support",
+      "status": "passed",
+      "duration_seconds": 15.279,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/enemy-feedback-support.log"
+    },
+    {
+      "id": "enemy-corpse-save",
+      "status": "passed",
+      "duration_seconds": 19.627,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/enemy-corpse-save.log"
+    },
+    {
+      "id": "enemy-corpse-snapshot",
+      "status": "passed",
+      "duration_seconds": 13.095,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/enemy-corpse-snapshot.log"
+    },
+    {
+      "id": "bgm-integration",
+      "status": "passed",
+      "duration_seconds": 23.78,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/bgm-integration.log"
+    },
+    {
+      "id": "player-default-integration",
+      "status": "passed",
+      "duration_seconds": 12.389,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/player-default-integration.log"
+    },
+    {
+      "id": "item-v5-data",
+      "status": "passed",
+      "duration_seconds": 3.115,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/item-v5-data.log"
+    },
+    {
+      "id": "item-authoring-tools",
+      "status": "passed",
+      "duration_seconds": 2.072,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/item-authoring-tools.log"
+    },
+    {
+      "id": "plains-motion-loot-02",
+      "status": "passed",
+      "duration_seconds": 18.006,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/plains-motion-loot-02.log"
+    },
+    {
+      "id": "bellstrider-rework-01",
+      "status": "passed",
+      "duration_seconds": 148.779,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/bellstrider-rework-01.log"
+    },
+    {
+      "id": "ai-level-content",
+      "status": "passed",
+      "duration_seconds": 0.409,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/ai-level-content.log"
+    },
+    {
+      "id": "architecture-tests",
+      "status": "passed",
+      "duration_seconds": 0.324,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121410.160097Z/architecture-tests.log"
+    },
+    {
+      "id": "forest-progression",
+      "status": "passed",
+      "duration_seconds": 1.713,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/forest-progression.log"
+    },
+    {
+      "id": "forest-campaign",
+      "status": "passed",
+      "duration_seconds": 11.91,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/forest-campaign.log"
+    },
+    {
+      "id": "forest-debug",
+      "status": "passed",
+      "duration_seconds": 9.887,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/forest-debug.log"
+    },
+    {
+      "id": "forest-traversal",
+      "status": "passed",
+      "duration_seconds": 9.242,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/forest-traversal.log"
+    },
+    {
+      "id": "forest-depth-region",
+      "status": "passed",
+      "duration_seconds": 527.28,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/forest-depth-region.log"
+    },
+    {
+      "id": "windchime-plains",
+      "status": "passed",
+      "duration_seconds": 4.273,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/windchime-plains.log"
+    },
+    {
+      "id": "pixel-plains",
+      "status": "passed",
+      "duration_seconds": 2.971,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/pixel-plains.log"
+    },
+    {
+      "id": "pixel-formal",
+      "status": "passed",
+      "duration_seconds": 1.522,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/pixel-formal.log"
+    },
+    {
+      "id": "style-exploration",
+      "status": "passed",
+      "duration_seconds": 36.593,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/style-exploration.log"
+    },
+    {
+      "id": "underworld-scenery",
+      "status": "passed",
+      "duration_seconds": 31.298,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-scenery.log"
+    },
+    {
+      "id": "underworld-hazards",
+      "status": "passed",
+      "duration_seconds": 7.947,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-hazards.log"
+    },
+    {
+      "id": "underworld-terrain",
+      "status": "passed",
+      "duration_seconds": 2.453,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-terrain.log"
+    },
+    {
+      "id": "underworld-formal-terrain",
+      "status": "passed",
+      "duration_seconds": 19.92,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-formal-terrain.log"
+    },
+    {
+      "id": "underworld-formal",
+      "status": "passed",
+      "duration_seconds": 12.149,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-formal.log"
+    },
+    {
+      "id": "underworld-raw-export",
+      "status": "passed",
+      "duration_seconds": 0.466,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-raw-export.log"
+    },
+    {
+      "id": "underworld-player-animation",
+      "status": "passed",
+      "duration_seconds": 1.204,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-player-animation.log"
+    },
+    {
+      "id": "underworld-mechanisms",
+      "status": "passed",
+      "duration_seconds": 17.562,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-mechanisms.log"
+    },
+    {
+      "id": "underworld-home",
+      "status": "passed",
+      "duration_seconds": 12.149,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-home.log"
+    },
+    {
+      "id": "underworld-ui",
+      "status": "passed",
+      "duration_seconds": 18.063,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-ui.log"
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "status": "passed",
+      "duration_seconds": 5.748,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-damage-feedback.log"
+    },
+    {
+      "id": "underworld-projectile-vfx",
+      "status": "passed",
+      "duration_seconds": 7.423,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-projectile-vfx.log"
+    },
+    {
+      "id": "underworld-world-objects",
+      "status": "passed",
+      "duration_seconds": 26.437,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-world-objects.log"
+    },
+    {
+      "id": "underworld-continuous-bosses",
+      "status": "failed",
+      "duration_seconds": 15.967,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T121956.284011Z/underworld-continuous-bosses.log"
+    },
+    {
+      "id": "forest-camera-stability",
+      "status": "passed",
+      "duration_seconds": 7.178,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-camera-stability.log"
+    },
+    {
+      "id": "forest-hazard-records",
+      "status": "passed",
+      "duration_seconds": 8.375,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-hazard-records.log"
+    },
+    {
+      "id": "forest-fruit-contract",
+      "status": "passed",
+      "duration_seconds": 21.436,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-fruit-contract.log"
+    },
+    {
+      "id": "forest-bible-weaver-tests",
+      "status": "passed",
+      "duration_seconds": 3.506,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-weaver-tests.log"
+    },
+    {
+      "id": "forest-bible-discoveries-tests",
+      "status": "passed",
+      "duration_seconds": 9.582,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-discoveries-tests.log"
+    },
+    {
+      "id": "forest-bible-integration-tests",
+      "status": "passed",
+      "duration_seconds": 10.878,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-integration-tests.log"
+    },
+    {
+      "id": "forest-bible-world-contract",
+      "status": "passed",
+      "duration_seconds": 38.721,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-world-contract.log"
+    },
+    {
+      "id": "forest-bible-world-connection",
+      "status": "passed",
+      "duration_seconds": 77.066,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-world-connection.log"
+    },
+    {
+      "id": "forest-bible-world-backbranch",
+      "status": "passed",
+      "duration_seconds": 89.095,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-world-backbranch.log"
+    },
+    {
+      "id": "forest-bible-ambience",
+      "status": "passed",
+      "duration_seconds": 8.972,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-ambience.log"
+    },
+    {
+      "id": "forest-bible-app-discoveries",
+      "status": "passed",
+      "duration_seconds": 13.502,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-app-discoveries.log"
+    },
+    {
+      "id": "forest-practice-bell-restore",
+      "status": "passed",
+      "duration_seconds": 8.288,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-practice-bell-restore.log"
+    },
+    {
+      "id": "forest-bible-world-connection-map1",
+      "status": "passed",
+      "duration_seconds": 55.829,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-world-connection-map1.log"
+    },
+    {
+      "id": "forest-bible-world-backbranch-map1",
+      "status": "passed",
+      "duration_seconds": 68.267,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-world-backbranch-map1.log"
+    },
+    {
+      "id": "forest-bible-world-spiral",
+      "status": "passed",
+      "duration_seconds": 76.779,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-world-spiral.log"
+    },
+    {
+      "id": "forest-bible-versions",
+      "status": "passed",
+      "duration_seconds": 31.461,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/forest-bible-versions.log"
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "status": "passed",
+      "duration_seconds": 6.223,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/cloud-preview-runtime.log"
+    },
+    {
+      "id": "gear-inventory",
+      "status": "passed",
+      "duration_seconds": 8.895,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/gear-inventory.log"
+    },
+    {
+      "id": "gear-ui",
+      "status": "passed",
+      "duration_seconds": 17.992,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/gear-ui.log"
+    },
+    {
+      "id": "item-v5-catalog",
+      "status": "passed",
+      "duration_seconds": 8.388,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-catalog.log"
+    },
+    {
+      "id": "item-v5-pool",
+      "status": "passed",
+      "duration_seconds": 9.091,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-pool.log"
+    },
+    {
+      "id": "item-v5-inventory",
+      "status": "passed",
+      "duration_seconds": 8.713,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-inventory.log"
+    },
+    {
+      "id": "item-v5-combat",
+      "status": "passed",
+      "duration_seconds": 9.514,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-combat.log"
+    },
+    {
+      "id": "item-v5-actives",
+      "status": "passed",
+      "duration_seconds": 14.288,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-actives.log"
+    },
+    {
+      "id": "item-v5-economy",
+      "status": "passed",
+      "duration_seconds": 9.232,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-economy.log"
+    },
+    {
+      "id": "item-v5-defense",
+      "status": "passed",
+      "duration_seconds": 10.348,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-defense.log"
+    },
+    {
+      "id": "item-v5-ui",
+      "status": "passed",
+      "duration_seconds": 9.13,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-ui.log"
+    },
+    {
+      "id": "item-v5-formal",
+      "status": "passed",
+      "duration_seconds": 18.512,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-formal.log"
+    },
+    {
+      "id": "item-v5-review",
+      "status": "passed",
+      "duration_seconds": 14.925,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-review.log"
+    },
+    {
+      "id": "item-v5-boss-time",
+      "status": "passed",
+      "duration_seconds": 25.638,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-boss-time.log"
+    },
+    {
+      "id": "item-v5-core-effects",
+      "status": "passed",
+      "duration_seconds": 16.679,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-core-effects.log"
+    },
+    {
+      "id": "item-v5-synergy-economy",
+      "status": "passed",
+      "duration_seconds": 9.511,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-synergy-economy.log"
+    },
+    {
+      "id": "item-v5-pause-escape",
+      "status": "passed",
+      "duration_seconds": 14.804,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-pause-escape.log"
+    },
+    {
+      "id": "item-v5-random-context",
+      "status": "passed",
+      "duration_seconds": 14.352,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-random-context.log"
+    },
+    {
+      "id": "item-v5-manifest",
+      "status": "passed",
+      "duration_seconds": 12.686,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-manifest.log"
+    },
+    {
+      "id": "item-v5-authoring",
+      "status": "passed",
+      "duration_seconds": 9.337,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-authoring.log"
+    },
+    {
+      "id": "item-v5-art",
+      "status": "passed",
+      "duration_seconds": 10.302,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/item-v5-art.log"
+    },
+    {
+      "id": "home-codex",
+      "status": "passed",
+      "duration_seconds": 22.183,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/home-codex.log"
+    },
+    {
+      "id": "enemy-structure-native",
+      "status": "passed",
+      "duration_seconds": 14.161,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/enemy-structure-native.log"
+    },
+    {
+      "id": "audio-feedback",
+      "status": "failed",
+      "duration_seconds": 26.67,
+      "reason": null,
+      "failure_reason": "nonzero_exit",
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T123344.821392Z/audio-feedback.log"
+    },
+    {
+      "id": "windkeeper-pressure-01",
+      "status": "passed",
+      "duration_seconds": 65.669,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/windkeeper-pressure-01.log"
+    },
+    {
+      "id": "ai-level-pilot",
+      "status": "passed",
+      "duration_seconds": 52.291,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/ai-level-pilot.log"
+    },
+    {
+      "id": "run-session",
+      "status": "passed",
+      "duration_seconds": 7.474,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/run-session.log"
+    },
+    {
+      "id": "level-plan",
+      "status": "passed",
+      "duration_seconds": 19.297,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/level-plan.log"
+    },
+    {
+      "id": "enemy-region-state",
+      "status": "passed",
+      "duration_seconds": 2.27,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/enemy-region-state.log"
+    },
+    {
+      "id": "game-architecture-effects",
+      "status": "passed",
+      "duration_seconds": 0.904,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/game-architecture-effects.log"
+    },
+    {
+      "id": "plains-revision-deform-equivalence",
+      "status": "passed",
+      "duration_seconds": 16.226,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/plains-revision-deform-equivalence.log"
+    },
+    {
+      "id": "entry-audio-lifecycle",
+      "status": "passed",
+      "duration_seconds": 12.147,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/entry-audio-lifecycle.log"
+    },
+    {
+      "id": "entry-audio-lifecycle-comparison",
+      "status": "passed",
+      "duration_seconds": 9.28,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/entry-audio-lifecycle-comparison.log"
+    },
+    {
+      "id": "entry-audio-owners",
+      "status": "passed",
+      "duration_seconds": 11.645,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/entry-audio-owners.log"
+    },
+    {
+      "id": "forest-v11-definition",
+      "status": "passed",
+      "duration_seconds": 15.11,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/forest-v11-definition.log"
+    },
+    {
+      "id": "foundry-lab",
+      "status": "passed",
+      "duration_seconds": 9.002,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/foundry-lab.log"
+    },
+    {
+      "id": "foundry-touch",
+      "status": "passed",
+      "duration_seconds": 6.943,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/foundry-touch.log"
+    },
+    {
+      "id": "foundry-feedback",
+      "status": "passed",
+      "duration_seconds": 6.074,
+      "reason": null,
+      "failure_reason": null,
+      "log": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T124906.513306Z/foundry-feedback.log"
+    }
+  ]
+}

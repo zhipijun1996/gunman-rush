@@ -21,7 +21,7 @@ func run() -> void:
 			profile.set(property,bad)
 			check(not profile.valid(),"invalid heavy profile rejects "+property)
 		profile.set(property,original)
-	app=preload("res://scenes/dev/player_presentation_01/landing_feel.tscn").instantiate()
+	app=preload("res://experiments/motion/entries/landing_feel.tscn").instantiate()
 	root.add_child(app)
 	await ready_home()
 	await terrace_drop()

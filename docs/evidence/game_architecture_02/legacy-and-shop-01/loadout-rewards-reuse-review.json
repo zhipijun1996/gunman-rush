@@ -1,0 +1,122 @@
+{
+  "scope": "Read-only loadout/item/reward consumer and reuse review",
+  "reviewer": "items_refactor",
+  "reviewed_tree": "/workspace/gunman-rush-migration",
+  "observed_head": "986bb75d68213879366b824485f482e553158944",
+  "tree_state": "Concurrent asset migration was in progress; no files in the reviewed tree were modified by this reviewer.",
+  "verification": "Static source tracing only; no Godot invocation.",
+  "conclusion": "No new blocking loadout/reward ownership defect found in this bounded static review. This is not an engine or release approval. Formal teardown leak investigation remains separate and unresolved.",
+  "confirmed_shared": [
+    {
+      "rule": "Acquisition and same-instance upgrade",
+      "chain": "RewardService.claim / ShopService.purchase / DemoApp home carry -> BuildState.add_item -> RunInventory.add_item_checked",
+      "evidence": [
+        "game/rewards/grants/reward_service.gd:81",
+        "game/economy/shops/shop_service.gd:63",
+        "game/loadout/stats/build_state.gd:66"
+      ]
+    },
+    {
+      "rule": "Inventory rollback",
+      "chain": "BuildState.repair_item / ItemRuntime.award_item_coins -> RunInventory.patch_effect_state_checked; no external private snapshots remain",
+      "evidence": [
+        "game/loadout/stats/build_state.gd:72",
+        "game/loadout/effects/item_runtime.gd:122"
+      ]
+    },
+    {
+      "rule": "Currency, healing and permanent notes",
+      "chain": "RunWallet.grant / SupplyHealEffect.apply -> HealthState.heal / MetaProgression.grant_notes",
+      "note": "Pickup and chest dispatch repetition is not a second balance/healing/persistence algorithm."
+    },
+    {
+      "rule": "Modifier arithmetic",
+      "chain": "BuildState and RunManifest both call BuildState.resolve_item_modifiers / resolve_modifier_sources",
+      "evidence": [
+        "game/loadout/stats/build_state.gd:152",
+        "game/application/run_manifest.gd:206",
+        "game/application/run_manifest.gd:268"
+      ]
+    },
+    {
+      "rule": "Paid active cast commit",
+      "chain": "ItemActiveEffects.activate and ItemCompanionEffects.activate -> ItemActiveCast.prepare/commit",
+      "evidence": [
+        "game/loadout/effects/item_active_effects.gd:84",
+        "game/loadout/effects/item_companion_effects.gd:99"
+      ]
+    },
+    {
+      "rule": "Wallet balance authority",
+      "chain": "Shop uses spend/refund; RunSession uses discard_balance; no production external balance assignments found"
+    }
+  ],
+  "narrow_completed_followup": {
+    "commit": "3a8e0efb",
+    "base": "d8144d39",
+    "isolated_tree": "/workspace/gunman-rush-loadout",
+    "file": "scripts/shops/shop_service.gd",
+    "change": "purchase and purchase_gear_upgrade reuse existing _transaction_replay, already used by repair/reroll",
+    "static_evidence": "Invalid-request guards and payload prefixes, all code from stale/committing guards onwards, and the existing helper are byte-identical to the parent. Four real callers now use one replay implementation.",
+    "independent_review": "structure_audit reported bounded static ACCEPT; native execution still belongs to root."
+  },
+  "deferred_trace_required": [
+    {
+      "files": [
+        "game/loadout/equipment/equipment_service.gd:96",
+        "game/loadout/catalog/item_v5_eligibility.gd:42",
+        "game/loadout/catalog/item_v5_eligibility.gd:63"
+      ],
+      "finding": "V5 preview invokes the eligibility policy and then repeats required tags/capabilities/weapon checks. Legacy definitions still need the generic checks.",
+      "action": "Consider a version-specific reduction preserving refusal precedence; do not introduce another rule engine."
+    },
+    {
+      "files": [
+        "game/presentation/ui/item_v5_shop_presenter.gd:243",
+        "game/loadout/effects/item_defense_effects.gd:218",
+        "game/loadout/effects/item_runtime.gd:129"
+      ],
+      "finding": "Presenter refreshes after purchase; defense refreshes after per-broken-state patch refresh. These cross-layer refreshes may observe intervening synchronous resource callbacks.",
+      "action": "Require event/revision/authorization traces before removal; do not blindly deduplicate in the current batch."
+    }
+  ],
+  "resource_consumer_comparison": [
+    {
+      "consumer": "DemoApp._commit_pickup",
+      "file": "game/application/demo_app.gd:2154",
+      "receipt": "run/stage/id",
+      "admission": "Reach/readiness/claimed checks; full-health guard; unknown kind rejects.",
+      "commit": "Uses existing wallet/heal/meta authorities; save failure leaves pickup unclaimed.",
+      "feedback": "On accepted grant always plays pickup cue; updates coins_collected/supply use/motion/position/time/feedback."
+    },
+    {
+      "consumer": "DemoApp._claim_region_chest",
+      "file": "game/application/demo_app.gd:2585",
+      "receipt": "run/chest/resource",
+      "admission": "Offer token/modal/choice/claimed checks; full-health guard; all non-coin/non-heart resource kinds follow existing note branch.",
+      "commit": "Uses the same authorities; save failure leaves chest unclaimed.",
+      "feedback": "Coin balance delta, applied healing and non-replayed notes decide committed audio; owns toast/modal/shortcut/region manifest behavior."
+    },
+    {
+      "consumer": "SimpleRoomReward.claim",
+      "file": "game/rewards/grants/simple_room_reward.gd:29",
+      "difference": "Independent source and event receipt replay, no identical pre-heal full-health guard; cannot substitute the App claim policy."
+    },
+    {
+      "consumer": "ForestBibleDiscoveries.commit_pending",
+      "file": "game/world/components/forest_bible_discoveries.gd:190",
+      "difference": "Healing acceptance requires positive amount_applied and story is a valid no-resource outcome; owns reading/route/discovery lifecycle."
+    }
+  ],
+  "do_not_merge": [
+    "Resource dispatch and caller receipt/feedback protocols differ while the actual three resource algorithms are already shared. Do not add RewardManager or a universal return structure merely to remove a few switch branches.",
+    "Shop sampling draws rarity then item (two RNG draws per slot); ItemV5Pool uses one normalized weighted draw per item. Combining these would alter random streams/manifests.",
+    "Defense actives use ready_at/map_uses and different receipt/resource rules; only projectile actives and G05 share cooldown_until/cast_sequence submission.",
+    "B16/G10 already share _kill_bonus; their award-count budget differs from B20 total-map-coin cap.",
+    "Run/Meta currency, reward offer receipts, purchase receipts and item source receipts represent different authority and must not be replaced by a second global ledger."
+  ],
+  "preexisting_defects_not_fixed": [
+    "ItemRuntime.patch_state writes owned broken state before refresh; a rejected refresh does not restore that state.",
+    "Paid active casts retain the original behavior where a refused subsequent progress patch does not refund/reject the paid cast."
+  ]
+}

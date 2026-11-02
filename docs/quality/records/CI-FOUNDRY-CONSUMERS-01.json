@@ -1,0 +1,1282 @@
+{
+  "schema_version": 1,
+  "task_id": "CI-FOUNDRY-CONSUMERS-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "reviewed_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "content_version": "candidate-v1-rebuilt-await-review",
+  "owner": "/root",
+  "purpose": "修复Android独立checkout漏收同一次CI已验证Foundry产物，并沿既有验证流程重建过期canonical开发池。",
+  "player_experience": "所有导出消费者取得同源验证池且继续受原stamp拒绝过期源守门；不改变生成算法、物理或正式资源选择。",
+  "constraints": [
+    "只追加Android既有download-artifact4行；needs、manual条件、30分钟、原命令与stamp/source守门保持。",
+    "不建第二套CI或Foundry registry；现有三入口测试最小迁移。root授权原full182/gameplay167保持有序前缀，尾追加3serial为185=95+90，注册已实施/独审限定接受，3selectedfresh过，不预签full。",
+    "只使用原python3 tools/foundry.py build --count 24 --promote及原stamper真实产出，不手改basis/回放SHA。",
+    "--count24沿base/double_jump/air_chain原默认生成24+6+6=36开发短句与18连接证明；不是--count36。",
+    "不改玩家/碰撞/伤害/资源/奖励/RNG/存档，不生成图声，不将开发池提升为production_pool。",
+    "保旧b89356文件Git原件与外部备份，不重复复制4.8MB旧replays；新旧frames等价须独审，不先假定。",
+    "取消run不是完整CI通过或失败；原stamper实际拒绝旧池保为失败。"
+  ],
+  "affected_paths": [
+    ".github/workflows/environment.yml",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "tests/foundry_lab_runner.gd",
+    "tests/foundry_touch_runner.gd",
+    "tests/foundry_feedback_runner.gd",
+    "tests/test_production_plan.py",
+    "tools/deliver.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "同一次workflow validated-foundry传给Android实际消费者",
+    "原guard验证生成36开发短句+18连接并真实stamp",
+    "旧拒绝/取消与当前候选独审/后续原测试分开记录",
+    "3现有Foundry UI测试按实际当前配置及既有world音频drain迁移，保持断言数/6replays/180预算；独立记录coverage追加待审"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "仅当前185注册树上原91/37及三个新增checks经原Harness fresh通过，内外180守门无放宽；原35/439/12strict clean、56JSONguard重建另有实际证据。完整185未运行。",
+      "evidence": [
+        "selected-native-foundry-lab-native-log",
+        "selected-native-foundry-touch-native-log",
+        "selected-native-foundry-feedback-native-log",
+        "registration-foundry185-original-harness-tests-01-log",
+        "registration-foundry185-original-production-plan-tests-01-log"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "分别限定接受56JSON刷新、3既有test合同/cleanup迁移及4文件185注册/调度归属；不签full185/实际平台/GUI。",
+      "evidence": [
+        "review-foundry-current-basis-independent-review-json",
+        "review-foundry-current-consumer-tests-independent-review-json",
+        "registration-independent-review-json"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "真实guard重建/stamp已执行；JSON独审、原91/3专项及远端实际运行待验，不签全量。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "handoff",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Android同一次已验证Foundry产物传递",
+      "method": "4行diff和producer/consumer独审",
+      "expected": "保原needs/条件/预算/守门，missingartifact失败",
+      "failure": "跨run恢复、回退旧池或放宽source guard",
+      "status": "unverified",
+      "reason": "等待当前最终独审与原测试实际证据。",
+      "evidence": []
+    },
+    {
+      "id": "guarded-refresh",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "过期池拒绝和真实重新验证",
+      "method": "原buildcount24/promote+stamper及原91/3专项",
+      "expected": "36开发+18连接实验证后生成新stamp，原测试过",
+      "failure": "手改basis/SHA、减少原验证或复用旧通过",
+      "status": "passed",
+      "reason": "原build/stamp36+18完成；当前185树原91/37与三个真实selectedconsumer均过，依然不签全量。",
+      "evidence": [
+        "selected-native-foundry-lab-native-log",
+        "selected-native-foundry-touch-native-log",
+        "selected-native-foundry-feedback-native-log"
+      ]
+    },
+    {
+      "id": "review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "56JSON实际差异及workflow消费者",
+      "method": "非作者逐项原新字段/frames核查",
+      "expected": "明确实际metadata/派生hash与任何内容差异，不隐瞒",
+      "failure": "未审就宣称frames相同或把产物当生产资源选择",
+      "status": "passed",
+      "reason": "原56逐Gitblob/备份核；当前436metadata叶，54重放56113帧和108manifest几何等实核相同，仅开发池限定。",
+      "evidence": [
+        "review-foundry-current-basis-independent-review-json"
+      ]
+    },
+    {
+      "id": "remote",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "scenario": "实际远端及平台导出消费者",
+      "method": "原工作流full182和平台验证",
+      "expected": "精确新提交完整执行并有真实产物",
+      "failure": "取消未跑当绿灯，静态handoff代签APK或设备",
+      "status": "unverified",
+      "reason": "等待当前最终独审与原测试实际证据。",
+      "evidence": []
+    },
+    {
+      "id": "original-ui-consumers",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原Lab/Touch/Feedback实际入口消费者",
+      "method": "原runner原180native预算，原strict audio lifecycle wrapper",
+      "expected": "全部原断言、真实回放与退出无ERROR",
+      "failure": "断言错误或nativeexit0仍有资源/音频退出ERROR",
+      "status": "passed",
+      "reason": "原三UI迁移后35/439/12strict clean，注册后再由原Harness3freshpass；旧fail与skip-drain未构成反例如实保留。",
+      "evidence": [
+        "selected-native-foundry-lab-native-log",
+        "selected-native-foundry-touch-native-log",
+        "selected-native-foundry-feedback-native-log"
+      ]
+    },
+    {
+      "id": "registered-coverage",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原182/167前缀和三真实入口唯一调度",
+      "method": "原production_plan37及原Harness91，原Harness3selectedfresh",
+      "expected": "185=95+90，原182及gameplay167有序前缀/215旧check字典/历史guards保持；取消两处重复排程由同一Harness覆盖",
+      "failure": "删除历史guard、减少原集合/预算、重复跑或新check缺真实输入",
+      "status": "passed",
+      "reason": "独审确核和原91/37通过；3selectedfresh，无full185声明。",
+      "evidence": [
+        "registration-foundry185-original-production-plan-tests-01-log",
+        "registration-foundry185-original-harness-tests-01-log"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "foundry-b893-preexisting-stamp-check-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/foundry-b893-preexisting-stamp-check.log",
+      "sha256": "07a6f7f45005851ffab49ba620ca8e006260e8183b3c2eefdfc6298fe7291410",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Old stamp actual exit1 retained; workflow independent static limited acceptance does not prove remote Android export or full182."
+    },
+    {
+      "id": "android-foundry-consumer-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/android-foundry-consumer-candidate.patch",
+      "sha256": "60700c18c7b02e79dea0e5f0ba4edbd6f1797d07cd9ba9643a76e0f6b1e684a9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Old stamp actual exit1 retained; workflow independent static limited acceptance does not prove remote Android export or full182."
+    },
+    {
+      "id": "android-foundry-consumer-candidate-reason-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/android-foundry-consumer-candidate-reason.json",
+      "sha256": "3f4e928d11dfac86f904a7fb1ad13cd457f9f8d4c9c48db367c705c2234471fb",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Old stamp actual exit1 retained; workflow independent static limited acceptance does not prove remote Android export or full182."
+    },
+    {
+      "id": "android-foundry-consumer-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/android-foundry-consumer-independent-review.json",
+      "sha256": "60e04c3edaa8aa68a68137264c8f399e2c5ca0e6210ff02db8be5d10a7c39fcf",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Old stamp actual exit1 retained; workflow independent static limited acceptance does not prove remote Android export or full182."
+    },
+    {
+      "id": "refresh-before-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refresh/before.json",
+      "sha256": "0b9de66138e745a33ec9acc03d03fdb49a00fd0fef9cf514b59fc73d5885a31b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Actual original guarded rebuild/stamp36+18; derived JSON metadata/frame equivalence review pending."
+    },
+    {
+      "id": "refresh-after-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refresh/after.json",
+      "sha256": "e460e43c3cf2e363ec67db76010dd9f1862ddb0466c4a8c2a7de93012feeb69c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Actual original guarded rebuild/stamp36+18; derived JSON metadata/frame equivalence review pending."
+    },
+    {
+      "id": "refresh-build-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refresh/build.log",
+      "sha256": "bbf631dcdf470faf7a31ace4a3ebfbfee65dde96bd761b662ea767c4db292caa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Actual original guarded rebuild/stamp36+18; derived JSON metadata/frame equivalence review pending."
+    },
+    {
+      "id": "refresh-stamp-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refresh/stamp.log",
+      "sha256": "7861441f4c59dac8d76f08480a3109d5bc8d186ef9c6d31eb6b8109608fb2303",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Actual original guarded rebuild/stamp36+18; derived JSON metadata/frame equivalence review pending."
+    },
+    {
+      "id": "refresh-old56-git-preservation-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refresh/old56-git-preservation.json",
+      "sha256": "d946a98049509b4d7a3493d6f169b496984459fe9553280896db9e379d254a02",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Original56 hashes match exact b893 Git blobs; no duplicate4.8MB archive required."
+    },
+    {
+      "id": "scope-md-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/scope.md.source",
+      "sha256": "269058284ea4b179c27e1fed2c91268c2eeda56c7a640cdd657a3c4d7ff21449",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实有限原件逐字归档；不把独审pending或失败追改为通过。",
+      "observed": "Initial pending scope, sourceb893+WIP; no full acceptance."
+    },
+    {
+      "id": "refactor-b893b45e-cancelled-run-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refactor-b893b45e-cancelled-run.json",
+      "sha256": "522ef29087ccdc31edd0693a9763e5b6f8f1dd441ab906ff2b36604e02c25ded",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "Exact actual run/jobs/CLI or original91 log; no full182 result inferred.",
+      "observed": "Remote cancelled with aggregator failure; no full182 lanes executed."
+    },
+    {
+      "id": "refactor-b893b45e-cancelled-jobs-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refactor-b893b45e-cancelled-jobs.json",
+      "sha256": "8c6b43cda2074e105b9b163b304fa3e6bb32e205f57a90edd481297339fcfc84",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "Exact actual run/jobs/CLI or original91 log; no full182 result inferred.",
+      "observed": "Remote cancelled with aggregator failure; no full182 lanes executed."
+    },
+    {
+      "id": "refactor-b893b45e-cancel-stale-foundry-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/refactor-b893b45e-cancel-stale-foundry.log",
+      "sha256": "35d1b3597514f450886df2a04d886525410ec3c4c69cb4d3e095240e4a45e416",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "Exact actual run/jobs/CLI or original91 log; no full182 result inferred.",
+      "observed": "Remote cancelled with aggregator failure; no full182 lanes executed."
+    },
+    {
+      "id": "android-foundry-original-harness-tests-01-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/android-foundry-original-harness-tests-01.log",
+      "sha256": "baa6ef75f275bc6437f61687d09e2ea7ff41b2a7df3bbf061bd3f75af8cbeb61",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "Exact actual run/jobs/CLI or original91 log; no full182 result inferred.",
+      "observed": "Original91 tests OK20.024s; only harness unit scope, native/remote pending."
+    },
+    {
+      "id": "original-consumers-01-foundry-lab-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/01/foundry-lab.log",
+      "sha256": "5dbcd583cff3334ee58284a6608c24e84bcc761d4f3f7fc2a7e69031fadeacae",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-01-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/01/report.json",
+      "sha256": "779d9ab7164b195a59cc1121d143fe1d4e69743c84318fa59b6e2c5ded5ff66f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-01-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/01/run.py",
+      "sha256": "9dc7b7a22883e27637bbd549dae8fbabb9a74c3fbb2b5a24dda60b56125611d3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-01-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/01/runner.log",
+      "sha256": "4c61c2fdbf34457ba0d199fafab0df98fbb19acb8f5aa2d7f2213daf1f7e24a4",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-native-foundry-lab-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/native/foundry-lab/native.log",
+      "sha256": "0ba5abfbb2b05a11c9328a056ad810f047a0581f3ed41d38b36a82a43ee8d906",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-native-foundry-lab-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/native/foundry-lab/report.json",
+      "sha256": "5d8b2bf3af2f94d0a36fc3c844614d1ff1df52eaf10555cb7e5c07e089a6f398",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-02-foundry-feedback-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/02/foundry-feedback.log",
+      "sha256": "b63b2b1d62891e61d1665828d651526ab44aed35f1f916789406610478a40bf5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-02-foundry-touch-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/02/foundry-touch.log",
+      "sha256": "ceb02433645eceb8cf80945880c7c841079218da4bb58fbb6189069c87b78217",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-02-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/02/report.json",
+      "sha256": "0261769c537da5ff7098f20f3dffd57c5c84584e74cfe7d5c48adf52fa026d77",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-02-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/02/run.py",
+      "sha256": "470aac0d40ef694097b02557ff52cef61b87c11507654a2fa75ab849acfbd1c0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-02-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/02/runner.log",
+      "sha256": "3bca3560ff77bbea31ca74f5b9aae6c0221afa9ecbae97fd08f0555d408f349c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-native-foundry-touch-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/native/foundry-touch/native.log",
+      "sha256": "6391bc488fdd0b80e8af3f8c0ad269091746cbded72e15d97a07e8d04bed9e60",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-native-foundry-touch-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/native/foundry-touch/report.json",
+      "sha256": "6db3b84127df66b745a63e1e8d9a966c717704151b8395429f15af0e689f5c3c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-native-foundry-feedback-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/native/foundry-feedback/native.log",
+      "sha256": "e0f366f450b568ef3417612983e76c101e9e7354de021ae0fdf331c72121f51c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "original-consumers-native-foundry-feedback-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/original-consumers/native/foundry-feedback/report.json",
+      "sha256": "38e7e7ff9f67de16490c2c18775c02f196a0e111fbe0f978c7861c109ade79f1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Original Foundry UI consumer failure, not current fix acceptance."
+    },
+    {
+      "id": "review-foundry-current-basis-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/review/foundry-current-basis-independent-review.json",
+      "sha256": "ec3295c453c80303b681e3debc7047e02d675c788673cc3852f7ae239dc72a13",
+      "kind": "review",
+      "producer": "runtime_audit",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "实际原件逐字归档，原strict wrapper失败保持，不被nativeexit0覆盖。",
+      "observed": "Limited canonical devpool acceptance:436 metadata leaves only,54replays56113frames equal; not UI runtime/fullCI/fun acceptance.",
+      "reviewer": "runtime_audit",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author read-only review of56JSON versus exact b893/backup and existing273-source basis; no Godot or source/JSON edits."
+    },
+    {
+      "id": "fixed-consumers-foundry-feedback-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/foundry-feedback.log",
+      "sha256": "68d584f945efd3b8ff2d34f69354b59a9b1036595ae7837874a97007585138c9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-foundry-lab-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/foundry-lab.log",
+      "sha256": "8789db17d11562bb9155f86e5169bf0694a2f70670b2ce26bad95128afc96cc3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-foundry-touch-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/foundry-touch.log",
+      "sha256": "31837a5f35d3f72040a416b9a7b43823d11ce6432c9cf58465f5c85310bc53b5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/report.json",
+      "sha256": "f909f3a3a047e1606c87585c3797711eb25d8c092ccaa00a2c0daa16eecdd1b0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-run-py",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/run.py",
+      "sha256": "20f902f43dbcca5f83ca49b4986eada592b583126bc2d797f5a5c7003013010c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-runner-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/runner.log",
+      "sha256": "2adec646f3ad579ecd84600eb07f2689f4e829b5d6ab04ddae612770df7e0f72",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-native-foundry-lab-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/native/foundry-lab/native.log",
+      "sha256": "cc22bbf6e18bd3437c4fe7e13967f4580df5eff08f13412e2d9074ec33f2efbb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance.",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_lab_runner.gd --marker ^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$ --timeout 180 --output build/entry-final-foundry-fixed/foundry-lab",
+      "exit_code": 0,
+      "environment": "Actual optimized Godot4.7.2 gunman_sd1; native timeout180s, coordinator190s only wrapper I/O; actual source and pool frozen unchanged."
+    },
+    {
+      "id": "fixed-consumers-native-foundry-lab-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/native/foundry-lab/report.json",
+      "sha256": "7fd9825d4d32ba1c7ddfc0786eebd5adaf4a660169d4a0ff4d533a455bfc712f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-native-foundry-touch-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/native/foundry-touch/native.log",
+      "sha256": "3283882810759f24c3b9af6bf4cd39a636a5889cddeffefb2a9385db08c24d3b",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance.",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_touch_runner.gd --marker ^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$ --timeout 180 --output build/entry-final-foundry-fixed/foundry-touch",
+      "exit_code": 0,
+      "environment": "Actual optimized Godot4.7.2 gunman_sd1; native timeout180s, coordinator190s only wrapper I/O; actual source and pool frozen unchanged."
+    },
+    {
+      "id": "fixed-consumers-native-foundry-touch-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/native/foundry-touch/report.json",
+      "sha256": "c6c7f367ef395834878c6a73ce72b24145ccdc7757815037e217b499caf3a8e8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "fixed-consumers-native-foundry-feedback-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/native/foundry-feedback/native.log",
+      "sha256": "3a1e51a1116cd1e4feb3eeafccc81c769210dc078d364187d7f98533f245fb0d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance.",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_feedback_runner.gd --marker ^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$ --timeout 180 --output build/entry-final-foundry-fixed/foundry-feedback",
+      "exit_code": 0,
+      "environment": "Actual optimized Godot4.7.2 gunman_sd1; native timeout180s, coordinator190s only wrapper I/O; actual source and pool frozen unchanged."
+    },
+    {
+      "id": "fixed-consumers-native-foundry-feedback-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/fixed-consumers/native/foundry-feedback/report.json",
+      "sha256": "8630b4820a273e2705c38269a461a37b9f05327768a9cedc1f66e1d170975acf",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-candidate-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/candidate.json",
+      "sha256": "472708110082791f9f6b31e6af63507213680b77055aea7639ca07eb22f9c6a5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-foundry-current-consumer-tests-patch",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/foundry-current-consumer-tests.patch",
+      "sha256": "11264fcc3b5881e522f39bbbfe3779f3129db8e4f7e694503842713fe4b0fc0b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-README-md-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/README.md.source",
+      "sha256": "b4841ee3dbea37a415d2bcc970d597fbf8cc879fd313d90d1dcc572e6f978f0d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-originals-tests-foundry_lab_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/originals/tests/foundry_lab_runner.gd.source",
+      "sha256": "1ce000aed63c56f6eff3d483120e25bdbc921151f66ee6d445f237d3c956d45f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-candidate-tests-foundry_lab_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/candidate/tests/foundry_lab_runner.gd.source",
+      "sha256": "bc8d8757b09c04f00229b2767e86b6734b40d99917690ce754948f431093c08c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-originals-tests-foundry_touch_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/originals/tests/foundry_touch_runner.gd.source",
+      "sha256": "1521ce68d0680c541546e74e8c1f20b7e868d358502495259616c89a4ac524a6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-candidate-tests-foundry_touch_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/candidate/tests/foundry_touch_runner.gd.source",
+      "sha256": "d063993cefb8ae2136d4a61245fdeb183aaf2c55ea51645bdd24784ea748cfae",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-originals-tests-foundry_feedback_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/originals/tests/foundry_feedback_runner.gd.source",
+      "sha256": "1dc200bdab42d0b82df7b5bbbcd05ef94ac0305dfcf15c5edc5a0069443c3c81",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "test-migration-candidate-tests-foundry_feedback_runner-gd-source",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/test-migration/candidate/tests/foundry_feedback_runner.gd.source",
+      "sha256": "0b02c69a1785c65c259906a81f9a9811aafc11fc4bb4f37ed7302b3fcdc57a9b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited original UI consumer result, not full185/remote/GUI acceptance."
+    },
+    {
+      "id": "review-foundry-current-consumer-tests-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/review/foundry-current-consumer-tests-independent-review.json",
+      "sha256": "124296e368b220e08dfeee2c2ccdfc2dd7efd74118000007045772306cb1ec13",
+      "kind": "review",
+      "producer": "structure_audit",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实既有wrapper/原180native预算与strict错误拒绝；阶段源向量按原报告。",
+      "observed": "Limited static acceptance for3tests; original review nativepending preserved, actual native follows in separate receipt.",
+      "reviewer": "structure_audit",
+      "implementers": [
+        "items_refactor",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author exact inverse source/test change review, no Godot by reviewer."
+    },
+    {
+      "id": "skip-drain-attempt-coordinator-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/skip-drain-attempt-01/coordinator.log",
+      "sha256": "1a59dd39d965cc9278aa8a33c4ceb15f8196d1349cf01bea24c55de95d9f6f4a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实单次省略drain运行原件；保passed原report，不修改或挑选重试。",
+      "observed": "34assertions0fail/exit0/noERROR/strict wrapperpassed8.144s; NOT_A_COUNTEREXAMPLE. No rejected-negative claim."
+    },
+    {
+      "id": "skip-drain-attempt-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/skip-drain-attempt-01/native.log",
+      "sha256": "d1599bda455c94a15a7c64f2230da50e386c536b884d70495b9cf66d14578099",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实单次省略drain运行原件；保passed原report，不修改或挑选重试。",
+      "observed": "34assertions0fail/exit0/noERROR/strict wrapperpassed8.144s; NOT_A_COUNTEREXAMPLE. No rejected-negative claim."
+    },
+    {
+      "id": "skip-drain-attempt-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/skip-drain-attempt-01/report.json",
+      "sha256": "0d97406225c2576ee9f9901a66cd30247d66fdcbc0182decd16208c83df48d33",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实单次省略drain运行原件；保passed原report，不修改或挑选重试。",
+      "observed": "34assertions0fail/exit0/noERROR/strict wrapperpassed8.144s; NOT_A_COUNTEREXAMPLE. No rejected-negative claim."
+    },
+    {
+      "id": "registration-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/independent-review.json",
+      "sha256": "06663b6c2decfd08ac2bc0fa2a116d5a2f2fc43b49a365a9de0d0d13026b4e79",
+      "kind": "review",
+      "producer": "structure_audit",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "Limited static acceptance of registration/duplicate scheduling consolidation, not full185.",
+      "reviewer": "structure_audit",
+      "implementers": [
+        "ci_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author read-only exact4file diff, original215check dictionaries and ordered182/167prefix/history assertions review; no engine run."
+    },
+    {
+      "id": "registration-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/candidate.patch",
+      "sha256": "d151a2f251f6b87a7864b4ea8022ec1f54940c377fd4c948af25340bfba8d74a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "registration-static-proof-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/static-proof.json",
+      "sha256": "e14e1297d9249cca27c4b1bf95829c80a612f6a665f1a9118ab5769971d8c198",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "registration-freeze-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/freeze.json",
+      "sha256": "59cb0f1e3087739e2c378bf60b6f32bc1281c5a6dd267d35fdf6bc19ef8a4190",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "registration-write-set-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/write-set.json",
+      "sha256": "88c3838fe8035bdda20b37d65fe91392329489fdfc32b42f3c4b68d7de87868d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "registration-foundry185-original-harness-tests-01-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/foundry185-original-harness-tests-01.log",
+      "sha256": "734eb62c6e64bf1b69f1782bc85f7cd46e4ab44050ee9db1ef51f830f0cd4efb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "Original91 OK19.353s",
+      "command": "python3 tests/test_harness.py",
+      "exit_code": 0,
+      "environment": "Actual current185 working tree; original suite and assertions, no budget change."
+    },
+    {
+      "id": "registration-foundry185-original-production-plan-tests-01-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/registration/foundry185-original-production-plan-tests-01.log",
+      "sha256": "d3553b11ab939b7863007323989fb185d92b6ce19bb401afa015a9ffeb42f332",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "Original37 OK0.119s",
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "environment": "Actual current185 working tree; original suite and assertions, no budget change."
+    },
+    {
+      "id": "selected-foundry185-selected-harness-01-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/foundry185-selected-harness-01.log",
+      "sha256": "c107c53669c0c61872b72ef8a8ff1197a0b9c713f871de8aa1adcc116db02246",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-foundry185-selected-inputs-01-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/foundry185-selected-inputs-01.log",
+      "sha256": "f1df8e1cf202937faddf995ff756392dbcd9e5c07bbf307233d5d5644363b452",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/report.json.gz",
+      "sha256": "b672876982300f64b3015cd712dfa0ba2f27889c1e908f4dcc4393b1acd76909",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "Lossless gzip of actual original11MB Harnessreport; decompress bytes exactly match original SHA a471429e859cde29bf68744adcf5549e08fd2d08d3ed094773cd474464939257. No fields rewritten or omitted.",
+      "observed": "Original full targeted report retained losslessly; 3freshpass, full185notrun.",
+      "uncompressed_sha256": "a471429e859cde29bf68744adcf5549e08fd2d08d3ed094773cd474464939257",
+      "uncompressed_bytes": 10560906
+    },
+    {
+      "id": "selected-foundry-lab-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/foundry-lab.log",
+      "sha256": "803c1a46aa377d58043dd14b4871e0a7b6ee86e7a8ec1133e91408c00f980ed5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-native-foundry-lab-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/native/foundry-lab/native.log",
+      "sha256": "904359564bd577202656d2f0434905d7f16d4cddefc081c2c729360da739785a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "Actual selected check foundry-lab passed; not full185.",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_lab_runner.gd --marker ^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$ --timeout 180 --output build/verification/audio-lifecycle/lab/595ebd5ca4c44f9f9f745f2641b17cb5",
+      "exit_code": 0,
+      "environment": "Actual existing Harness targeted selected3; fresh=true; outer180 and native180; originalstrict runtime/leak guard and frozen input digest."
+    },
+    {
+      "id": "selected-native-foundry-lab-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/native/foundry-lab/report.json",
+      "sha256": "df4abaea97052b87f5c40eeaf9c725daa794f8a14e784899a10347ccb324ea15",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-foundry-touch-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/foundry-touch.log",
+      "sha256": "3890c963455ebd00b08a9e6cf61b0f73a0f7d4bcf0eae26fbae4c13bac685100",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-native-foundry-touch-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/native/foundry-touch/native.log",
+      "sha256": "332d63d4a71839803da7a3bdba7503062e5414a54b0a8e167b4c0b9e37ccaa91",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "Actual selected check foundry-touch passed; not full185.",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_touch_runner.gd --marker ^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$ --timeout 180 --output build/verification/audio-lifecycle/touch/215cb5ab494c44c3a8a21ec9c8a5171e",
+      "exit_code": 0,
+      "environment": "Actual existing Harness targeted selected3; fresh=true; outer180 and native180; originalstrict runtime/leak guard and frozen input digest."
+    },
+    {
+      "id": "selected-native-foundry-touch-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/native/foundry-touch/report.json",
+      "sha256": "d05ea74d5835b5d4ca604a3d534c88d533910b290cca62871f40f607862a1de5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-foundry-feedback-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/foundry-feedback.log",
+      "sha256": "3fa101eb7adceb219ec4429f81535bf827152176dcf15d704105d963a89c9918",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    },
+    {
+      "id": "selected-native-foundry-feedback-native-log",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/native/foundry-feedback/native.log",
+      "sha256": "bcecfdfde940d4d8aeadb3ddd07f180f1e86117c54ecfc6a9adfcca201fb85cb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "Actual selected check foundry-feedback passed; not full185.",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_feedback_runner.gd --marker ^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$ --timeout 180 --output build/verification/audio-lifecycle/feedback/938bad4f4bc14af7b58cd642583acc50",
+      "exit_code": 0,
+      "environment": "Actual existing Harness targeted selected3; fresh=true; outer180 and native180; originalstrict runtime/leak guard and frozen input digest."
+    },
+    {
+      "id": "selected-native-foundry-feedback-report-json",
+      "path": "docs/evidence/game_architecture_02/ci-foundry-consumers-01/selected/native/foundry-feedback/report.json",
+      "sha256": "57482b6650d4bdf22b23d80bc24a6999464f397d741b209a7872b7f82d6e4ac3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+      "content_version": "candidate-v1-rebuilt-await-review",
+      "method": "真实原件逐字归档；只登记本轮selected/原单元范围，不签full185。",
+      "observed": "185 registered95+90;3selected actualfreshpass; full185 not run."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整185未运行；95+90仅注册库存与三个selectedfresh通过，不代签远端full。",
+    "实际Android/Web/Windows导出、GUI/设备/用户趣味性仍未验。",
+    "旧Lab35/2、Touch/Feedback退出ERROR、b893stamp拒绝、远端取消/聚合失败全部原件保留。",
+    "skip-drain单次34/0无ERROR并passed，NOT_A_COUNTEREXAMPLE；不声称负例被拒。",
+    "原91在注册前20.024s与注册后19.353s分别保真实时点；后者配原37/0和三个selected结果，不等于完整185。",
+    "63files为b893基点WIP，实际提交身份待rootcommit后绑定；旧来源不追改。"
+  ],
+  "candidate_source": {
+    "base_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+    "state": "Final63-file WIP candidate atb893:56guard-generatedJSON+3existingGDtests+environment/profiles/deliver/existingplan-test; independently reviewed, original91/37 and3selectedfreshpassed; full185 pending",
+    "files_sha256": {
+      ".github/workflows/environment.yml": "a7b228a51e7ff1a32a399075a8d09f8a3c3c09e82b891b7d695fbfce0f254cf1",
+      "resources/foundry/batch.json": "938d8b75fb3c5ce330d084cfef7914f3f4b2e6db2af869be18bf010b20f17ad0",
+      "resources/foundry/export_basis.json": "fd5a68ed4ff0025d5f54fc1680dc7a6035189bbd63e661afc2a2a1b009bff130",
+      "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json": "1eb3fe7bdbb5969e4791d69b2e1d051167fa30503567063ad4db01eabd29b86e",
+      "resources/foundry/replays/climb_change_height-base-v0-p0.json": "a1d563dad3c02daec4ff73dea37b95ef32f6fe77bb4ac294e807e5b0163a79e0",
+      "resources/foundry/replays/climb_change_height-base-v0-p1.json": "38bf8a41e1962aeb710be9b716e67f91b91dfaa2fc6d606c6ec824e9de803c0a",
+      "resources/foundry/replays/climb_change_height-base-v1-p0.json": "9fcca4fd0508632f6808077e19afd092a0cb1ede2fbdeb4431fbaf731e109e16",
+      "resources/foundry/replays/climb_change_height-base-v1-p1.json": "3be89140bfab9e1081cf4b21f891d224adc405327dad89ddd9aec017bd66792f",
+      "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json": "6344c07d7b33252a0d09e4ce10f9805131f739dc8e7c7018e350576b7b34bd03",
+      "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json": "af4a4b9ce2dae20eb2b73ed7ab1a5abecdb8e2fd2f15a29bc402cc8ba98c28f5",
+      "resources/foundry/replays/height_then_precision-base-v0-p0.json": "b8b8e8e4acb8f350faf6a4828275a85a67769940ae88e6d99f627183d5463341",
+      "resources/foundry/replays/height_then_precision-base-v0-p1.json": "b33d6ce0eeae0cd39906a39902148728a3539af622b918b26c9f3dfebc10a793",
+      "resources/foundry/replays/height_then_precision-base-v1-p0.json": "d6c022444db49afcb1d998b05356d84e21f38dddf629b372a10840a92d42a433",
+      "resources/foundry/replays/height_then_precision-base-v1-p1.json": "db8ddd4c5d5eecd9d149ac1c42c82cf7af8f248b09181c2efca457d406071d53",
+      "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json": "916e2f6fd0464530ab5edf71fd0e4d001f170a45be5e320381ab9dd760f3cc8a",
+      "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json": "f000ea170d121e6d17259fba76e20907cea10ab2093920418200b80b74eab216",
+      "resources/foundry/replays/precision_to_transfer-base-v0-p0.json": "0b29ff670230462c3ed8e8dac5e8760836edeb1eb7ce7562da5533390e805024",
+      "resources/foundry/replays/precision_to_transfer-base-v0-p1.json": "166e2378ff465aeef60cf0d94a8f8a481dad4df19735333d02733e67b12a0040",
+      "resources/foundry/replays/precision_to_transfer-base-v1-p0.json": "115f024186fb4eefb857483aa435283cad8dd39f6f26f37dbc731b895f6ef961",
+      "resources/foundry/replays/precision_to_transfer-base-v1-p1.json": "312ae313be09402c1ad1a711f1f506ad6641a17c1304ddadf0d0cc7676979a22",
+      "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json": "6d50d56d3a05e4cc678a8217025731ce763eea5c7df4d70ba3f4f7adabf90a1f",
+      "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json": "dd6c38ed140c27bc5f9b7ba43d7313034e993153b4f51d7eb079841aba90323f",
+      "resources/foundry/replays/read_ride_release-base-v0-p0.json": "1d8489c61fa1f6f4c51a7edb5601413b84240bfdc9d0d386a4d1eea27de22070",
+      "resources/foundry/replays/read_ride_release-base-v0-p1.json": "149928710d76f7ce382325edbef3ca9b9f07702ba5195f181ec97fe488cf057f",
+      "resources/foundry/replays/read_ride_release-base-v1-p0.json": "76f9d9a168b24d6343d14119512aec951c34f35e1766ebb574fe6ec60f3c3418",
+      "resources/foundry/replays/read_ride_release-base-v1-p1.json": "2b4b02a96475501f34164404d285f2b23b71d6eee9a4e99ada31ba10d4cb3d6f",
+      "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json": "e7e9748b57e7fb929ec5e3d3d83789342e2faae30a40f531e212d29975413a55",
+      "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json": "18ef20698177842a7670810f8aff2a4d8190c3e0216968373662e7c4889f855e",
+      "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json": "a219dec9df8cedd7d6f82f7c44d717869a912293449aa98c4910d755556fde2f",
+      "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json": "0241c5e4fc6889604b643a161754e2a96d78e5f0d6b3860d72a3f58b6f04d150",
+      "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json": "217b35f0373adfb7cf8062fa195deb0c1f4ab9891eea7e82703af7f92fd2da3e",
+      "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json": "67575045e6845d7343f06f18b170d0655a3d17afdd856e199c74bde9454721cb",
+      "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json": "0a7c7fc248f7fa16042208f767a73e7655fb718066f8f96f428247f2323dc35b",
+      "resources/foundry/replays/route-0e61faed40.json": "b0e6d8db9be9a1ccaf23a74993ff721bec835d93ae98d5839105af1eb9e4f1a0",
+      "resources/foundry/replays/route-0efaee5828.json": "b482ab1d22eff402b7da74ef1bba913bd05804bc27a3d315f98017dab844961e",
+      "resources/foundry/replays/route-122d7f6e2a.json": "17e623f7de1b6e4779e343c43ffe65c13b6a00fcc7ae93cd5fd25e4cf79aca9f",
+      "resources/foundry/replays/route-1521b6b7c3.json": "6bf1fbebd876755d8eca17faa02e7eaa75c8f01ebb706cd39168bf47eeead716",
+      "resources/foundry/replays/route-2860deda61.json": "258629d6b43a4eeb96d650f354d7695bfde1a77afe1cfe92963ccbbed53e1111",
+      "resources/foundry/replays/route-2d706b6f11.json": "31db8c6209c848a571cc8f3e405ca8cd661a38bbe9362d3e14260ed0a3539da8",
+      "resources/foundry/replays/route-2d7d2e4612.json": "5271d985756fc4ddba307a66236793ab1b718daab6883b3c91c303ea7d329eaf",
+      "resources/foundry/replays/route-2f6354523f.json": "05f124e5a2dba6e3fb1642075e091e0e0944763a0e734a76ae187e1975abdd77",
+      "resources/foundry/replays/route-3aa2ad4cba.json": "fd0b6772a62810434991d9db1cfea0be99ae1f327e5685a1b111b1ceb3fd6bcb",
+      "resources/foundry/replays/route-4bec60578b.json": "a0f4c7e4adf29c2c22b74d3f4cfcee897cceb6e837fbe4e848cd2191704504f0",
+      "resources/foundry/replays/route-5798c84cea.json": "0d6f035dc3066862a92fd816de4930dcb86842e439229aaadea728e7ef880472",
+      "resources/foundry/replays/route-7da5a6c16f.json": "9dcbf2192fe9ce3c7c12e80b3c25711a8fbfed632eb406f4eebaee16207c97af",
+      "resources/foundry/replays/route-908c475df3.json": "6ce6f0c8f8a6285a161a7fa1c7283fc921fd277bbcdff136b92dd040335b4e95",
+      "resources/foundry/replays/route-93acd6603f.json": "1aa6f24f8890e3936ff700b30dc1a7ac58fe3bb75c3e2875d5256a67b5b5b8cd",
+      "resources/foundry/replays/route-ad7b9db895.json": "93ba7ce3a0a07b5dc7b44c4067c19a0977e3fcbed0719339629d9b962bc42c1f",
+      "resources/foundry/replays/route-b4df2effd8.json": "c3d99d8a3fcbaf78b4cf788fc9515b38a9569cda81ef54a5472588b419e93f48",
+      "resources/foundry/replays/route-cf73f3c620.json": "5ca641bfd84a42d2e681fd18b64e9f45d345563ca6d75f953d251d11f672887d",
+      "resources/foundry/replays/route-f91361b454.json": "3352125f7b1eb076c0e46d669aef70672deda69c32ba480493d30a8f33f3238a",
+      "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json": "e4d840b6385b842d55f04f5efe8b8139b1d315b8fbc38890800c9486a5b4eb6c",
+      "resources/foundry/replays/short_long_rise-base-v0-p0.json": "c5cca1f342379119d1320573a2157b9497cb0550da3c88b36c724c29cb97d0ac",
+      "resources/foundry/replays/short_long_rise-base-v0-p1.json": "a81ca83f3a196a441ce5bf260d3780fc979c09e36a2e4f56d1c4fad65d5eac88",
+      "resources/foundry/replays/short_long_rise-base-v1-p0.json": "d0c56b2fd4e92e4ab1d0f74c31071fcfce9ac58babdd915087f76d359dedf204",
+      "resources/foundry/replays/short_long_rise-base-v1-p1.json": "a3f5d9a773bd656f51c8d9a99a7ed979694e38eaba95686e0f0ffc8d8db19b55",
+      "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json": "17c53cb865710296f345c2bc19ccf910d14d843494bae56574f26725f3f9d0d7",
+      "tests/foundry_lab_runner.gd": "bc8d8757b09c04f00229b2767e86b6734b40d99917690ce754948f431093c08c",
+      "tests/foundry_touch_runner.gd": "d063993cefb8ae2136d4a61245fdeb183aaf2c55ea51645bdd24784ea748cfae",
+      "tests/foundry_feedback_runner.gd": "0b02c69a1785c65c259906a81f9a9811aafc11fc4bb4f37ed7302b3fcdc57a9b",
+      "tests/test_production_plan.py": "374347807aa9f7ae73fe8f467bc256fe55079243b5319c3160b407a82c9adeae",
+      "tools/deliver.py": "f90e7115d4a65bc8a27f8196e8d32efd47cb4a337eaa71dab7305851fdf5ea26",
+      "tools/harness/profiles.json": "e4becd029357e36309564008b6735f4d0c2a3759bd73633c00dd0ad13f67ba71"
+    },
+    "new_basis": "4b8bf84672a16f455651397c900287f1d8ba605c34bbf6d8b6ddc5c20f716e19",
+    "harness_manifest_sha256": "e4becd029357e36309564008b6735f4d0c2a3759bd73633c00dd0ad13f67ba71"
+  },
+  "remote_observation": {
+    "run_id": 41192769750,
+    "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+    "status": "cancelled",
+    "actual_prepare_stage": "Checkout/path/Python completed; committed quality evidence check cancelled; downstream toolchain and Foundry steps skipped.",
+    "aggregator": "core job failed Require both matrix lanes to have succeeded; remaining core steps skipped.",
+    "other_jobs": "core_checks/windows/android/deploy_web/verify_public/web cancelled with no steps.",
+    "full182_executed": false,
+    "evidence": [
+      "refactor-b893b45e-cancelled-run-json",
+      "refactor-b893b45e-cancelled-jobs-json",
+      "refactor-b893b45e-cancel-stale-foundry-log"
+    ]
+  },
+  "skip_drain_observation": {
+    "status": "NOT_A_COUNTEREXAMPLE",
+    "wrapper_status": "passed",
+    "assertions": 34,
+    "failures": 0,
+    "exit_code": 0,
+    "seconds": 8.144435415997577,
+    "runtime_errors": false,
+    "evidence": [
+      "skip-drain-attempt-report-json",
+      "skip-drain-attempt-native-log"
+    ],
+    "interpretation": "Single omitted-drain trial did not reproduce leakage. Preserve actual passed result; not evidence of rejection or universal safety, no retries selected for failure.",
+    "existing_rejection_evidence": [
+      "original-consumers-native-foundry-touch-report-json",
+      "original-consumers-native-foundry-feedback-report-json"
+    ]
+  },
+  "test_change_justification": {
+    "three_existing_gd_tests": {
+      "changed": [
+        "tests/foundry_lab_runner.gd",
+        "tests/foundry_touch_runner.gd",
+        "tests/foundry_feedback_runner.gd"
+      ],
+      "reason": "Lab两条过时2shot期望迁为既有FoundryCatalog与PlayerTuning当前配置；真实Player、字面1/2jump和尾部default1、实际第二跳及air_chain4均保留，不仅值自比。三cleanup复用既有scoped GameAudio.for_origin+audio_teardown.drain_world。",
+      "preserved": "全部原check数/标签、6replay循环、输入/帧等待/fixture/回放/暂停返回顺序、marker和skip-drainguard；35/439/12原计数、内外180、strict ERROR/leak拒绝不减。",
+      "scope": "明确旧期望迁移，不声称两条件语义等价；未改生产能力/物理/音频算法。"
+    },
+    "existing_plan_method": {
+      "path": "tests/test_production_plan.py",
+      "method": "test_physical_lanes_require_the_exact_original_full_set",
+      "reason": "现库存尾追加3，历史投影只排除后继新增这3项；保168/170/172/173/174/180/181/182原split断言。",
+      "strengthening": "原b893 full182与gameplay167有序前缀固定hash；显式182/95/87保留，再断言185/95/90及gameplay尾3。所有原method/旧215checkdict和预算保持，不删guard。"
+    },
+    "single_scheduling_owner": {
+      "authority": "Existing tools/harness/profiles.json;3serial appended to full/gameplay, no parallelregistry.",
+      "environment": "删除core_checks serial下相同3wrapper的额外块；它们现在通过原Harness注册运行，保独立service测试/GPU/artifacts/Androidartifactstep。",
+      "deliver": "删除gameplay+art Harness之后3条重复直接GD命令与对应marker；保其余AST、sourcefreeze索引1、build/stamp/export/browser/capture。",
+      "result": "两个调度入口都统一交原Harness登记一次，不丢入口或减少原断言。"
+    },
+    "evidence_scope": "Static authorship review separate from root original91/37 and3selectedfresh actual runs; no full185/GUI/device claim."
+  }
+}

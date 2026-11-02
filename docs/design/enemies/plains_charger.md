@@ -1,5 +1,7 @@
 # plains_charger 制作与完成度卡
 
+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/design/enemies/plains_charger.md.txt)。
+
 任务 `ENEMY-CONTINUITY-01`，内容版本 `charger-audit-v1`；基线 `45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc`，分支 `docs/enemy-continuity-01`。使用[怪物完成标准](../../quality/enemy_completion_standard.md)和原[Enemy Design Sheet](../../templates/enemy_design.md)；[质量记录](../../quality/records/ENEMY-CONTINUITY-01.json)。
 
 ## 当前范围
@@ -19,9 +21,9 @@
 
 | 范围 | 路径与事实 | 本轮验证边界 |
 | --- | --- | --- |
-| 正式Underworld链 | [安装器](../../../scripts/underworld_plains/underworld_actor_installer.gd)替换旧Presentation，装[UnderworldEnemy](../../../scripts/underworld_plains/underworld_enemy.gd)；继承PixelPlainsEnemy／WindchimeEnemyVisual的时钟和预警，实际身体由UnderworldEnemy绘制 | 父类存在动作代码不等于最终身体使用那些姿态；逐帧应观察实际feedback_body |
-| 原始链 | [EnemyPresentation](../../../scripts/enemies/enemy_presentation.gd)，由patrol_drone场景组装后配置为该Definition | 单独用于保留链对照，不把它的画面冒称正式Underworld |
-| 正式实例 | [PlainsRegionStage](../../../scripts/demo/plains_region_stage.gd)创建／恢复敌人，并经正式安装器；实际随机实例及镜头需新运行发现 | 源码接入存在，尚不等于本轮正式遭遇通过 |
+| 正式Underworld链 | [安装器](../../../game/presentation/actors/underworld_plains/underworld_actor_installer.gd)替换旧Presentation，装[UnderworldEnemy](../../../game/presentation/actors/underworld_plains/underworld_enemy.gd)；继承PixelPlainsEnemy／WindchimeEnemyVisual的时钟和预警，实际身体由UnderworldEnemy绘制 | 父类存在动作代码不等于最终身体使用那些姿态；逐帧应观察实际feedback_body |
+| 原始链 | [EnemyPresentation](../../../game/enemies/presentation/enemy_presentation.gd)，由patrol_drone场景组装后配置为该Definition | 单独用于保留链对照，不把它的画面冒称正式Underworld |
+| 正式实例 | [PlainsRegionStage](../../../game/world/levels/providers/plains_region_stage.gd)创建／恢复敌人，并经正式安装器；实际随机实例及镜头需新运行发现 | 源码接入存在，尚不等于本轮正式遭遇通过 |
 | 现有录制fixture | [remains capture](../../../tools/enemy_feedback_01_remains_capture.gd)使用真实PlayerController／InputRouter、弹体、AI与伤害；初始站位、地形、镜头及关闭AirFocus显式设置 | 仅局部两物种／两链样板，不能代表自然路线、完整攻击组合、正常玩家资源或设备表现 |
 
 Underworld活体参考为`assets/underworld_plains/actors/charger.png`；受伤／死亡为`assets/enemy_feedback_01/frames_v8/underworld_charger.png`及同目录manifest。原始链使用其原活体素材与`legacy_charger.png`，两链材质不混签。原PNG与导入不改。

@@ -1,0 +1,24 @@
+{
+  "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "scope": "Frozen test-only numeric oracle. Never loaded by production.",
+  "files": {
+    "ground": {
+      "source": "scripts/enemies/plains_revision_ground.gd",
+      "source_sha256": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+      "fixture_sha256": "6dd23715751c83d9e0c2a6a58b08231fb7cd05c2bd43e7fe698351213bd74504",
+      "extraction": "entire source without class_name; test-only provenance comment"
+    },
+    "flora": {
+      "source": "scripts/enemies/plains_revision_flora.gd",
+      "source_sha256": "6e07954a52ccab1e268e6b53b3dc007017e94037c67c463a8592d38f7c748b3d",
+      "fixture_sha256": "41c3b24e56efbabbe18c4d691fa8fa3ba55d54b2ffbe900a5bb9ae7dba62e087",
+      "extraction": "entire source without class_name; test-only provenance comment"
+    },
+    "skin": {
+      "source": "scripts/enemies/plains_revision_skin.gd",
+      "source_sha256": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+      "fixture_sha256": "0f6866cdcee1096b45f73789712feff4fdaf3665bd46f310b235198f7b41a013",
+      "extraction": "exact deform method, isolated properties and frozen Ground/Flora preload aliases"
+    }
+  }
+}

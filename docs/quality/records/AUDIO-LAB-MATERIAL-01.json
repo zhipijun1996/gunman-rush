@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-LAB-MATERIAL-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+  "content_version": "candidate-v1-native154",
+  "owner": "/root",
+  "purpose": "独立修复原有七怪材质反馈绕过显式 Lab enemy_hurt ABC 候选试听的兼容缺陷。",
+  "player_experience": "显式 ABC 受伤试听播放实际选中候选；普通游戏及 original 试听仍使用当前怪物材质音效。",
+  "constraints": [
+    "不改图声资源字节、正式默认音效或候选选择规则",
+    "仅显式 enemy_hurt audition focus 且非 original profile 可走既有候选播放",
+    "保留真实伤害准入、去重、暂停/关闭/owner 守门、声部池和 death/land 行为",
+    "不改玩家/碰撞/伤害/随机/存档，不弱化原断言或预算",
+    "独立原缺陷修复，不记作保持行为不变的目录重构"
+  ],
+  "affected_paths": [
+    "game/presentation/audio/game_audio.gd",
+    "tests/audio_director_reels.gd"
+  ],
+  "deliverables": [
+    "现有 GameAudio 内显式试听路由的最小修复",
+    "保留原 126 项 Reels 检查并追加材质/试听边界负例",
+    "精确基线失败、候选运行和独审证据分别记录"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "仅原 Reels126 加28材质边界检查：同一精确两文件候选在诊断 C 与实际 optimized editor 各154/0、原180秒预算内，无 strict exit error；不代表相关全部音频/正式/full182通过。",
+      "evidence": [
+        "native-native-log",
+        "optimized-native-log"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "仅精确两文件试听修复与两次154原生证据的限定独审接受；不签其他音频套件、formal/full182/GUI/设备。",
+      "evidence": [
+        "fresh-native-review-json"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "候选修复尚未完成实际验收；基线失败仅用于独立缺陷定位。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "显式 Lab 试听与普通正式播放边界",
+      "method": "独立检查最终补丁及真实调用路径",
+      "expected": "只在既有显式 focus 与非 original 条件下委托既有候选方法",
+      "status": "unverified",
+      "reason": "待候选冻结后的实际证据。",
+      "evidence": [],
+      "failure": "候选覆盖普通正式音效、引入第二套音频服务或绕过真实伤害准入。"
+    },
+    {
+      "id": "reels-original",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "真实伤害触发 enemy_hurt ABC",
+      "method": "原 Reels 126 项及原 180 秒预算；保全部旧断言并追加负例",
+      "expected": "ABC 各 accepted target 实播一次；原种子/其他场景不变",
+      "status": "passed",
+      "reason": "原126断言全部保留，新增28边界检查；两次154/0在各自原180秒预算内。",
+      "evidence": [
+        "native-native-log",
+        "optimized-native-log"
+      ],
+      "failure": "任何原断言失败、预算超时、ABC 漏播/双播或用弱化断言取得通过。"
+    },
+    {
+      "id": "material-defaults",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "scenario": "无 focus、清除 focus、original、selected、death/land 与 suppress",
+      "method": "原材质/音频/owner 回归加实际路由负例",
+      "expected": "正式保当前材质 WAV；无双播或试听状态泄漏；原暂停/关闭/容量/优先级规则保留",
+      "status": "unverified",
+      "reason": "待候选冻结后的实际证据。",
+      "evidence": [],
+      "failure": "普通/original/selected 材质被替换、试听状态残留或暂停/owner/清理规则变化。"
+    },
+    {
+      "id": "review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "候选最终 source 和原断言保留",
+      "method": "冻结后独立语义/测试审查",
+      "expected": "无更换 fixture 或伪造播放计数，修复范围与原缺陷分开",
+      "status": "passed",
+      "reason": "原126脚本可逐字恢复，独审确认最小显式试听分支与原守门顺序；fresh证据绑定两次154及精确候选SHA。",
+      "evidence": [
+        "fresh-native-review-json"
+      ],
+      "failure": "最终 source 未经独立复核，或存在隐藏玩法/正式资源选择变更。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "baseline-report-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/report.json",
+      "sha256": "c9f367513818156158013e32c4856f8bae70b8571baf2b7d94f1e5244902c7da",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "baseline-2ce-original-reels",
+      "method": "精确 2ce main 原 Reels 脚本与诊断 C 引擎的失败对照；原件逐字归档。",
+      "observed": "缺陷定位证据，不是候选修复通过或正式工具链激活证据。"
+    },
+    {
+      "id": "baseline-reels-log",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/reels.log",
+      "sha256": "ea5e7df92752941d3c0d60d903f844d82f0d029f1f1a32a46c1e0a4688f03e90",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "baseline-2ce-original-reels",
+      "method": "精确 2ce main 原 Reels 脚本与诊断 C 引擎的失败对照；原件逐字归档。",
+      "observed": "AUDIO_DIRECTOR_REELS checks=126 failures=3；enemy_hurt A/B/C 各失败一次。",
+      "command": "/workspace/engine-diagnostics/godot-4.7.2-standard-shutdown-c --headless --verbose --fixed-fps 60 --path /workspace/gunman-rush-integration --script tests/audio_director_reels.gd",
+      "exit_code": 1,
+      "environment": "诊断 C 引擎 SHA256 c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311；原 180 秒预算；133.340010 秒。"
+    },
+    {
+      "id": "baseline-import-log",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/import.log",
+      "sha256": "f9b01bd0459eb730451880d4ea511e02665df968731f592afb05ea062629f559",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "baseline-2ce-original-reels",
+      "method": "精确 2ce main 原 Reels 脚本与诊断 C 引擎的失败对照；原件逐字归档。",
+      "observed": "缺陷定位证据，不是候选修复通过或正式工具链激活证据。"
+    },
+    {
+      "id": "baseline-before-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/before.json",
+      "sha256": "04b23fef8995a4fa4afaf02574bc4705674e70b5d7d62d43d61e361431baf7e6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "baseline-2ce-original-reels",
+      "method": "精确 2ce main 原 Reels 脚本与诊断 C 引擎的失败对照；原件逐字归档。",
+      "observed": "缺陷定位证据，不是候选修复通过或正式工具链激活证据。"
+    },
+    {
+      "id": "baseline-restore-log",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/restore.log",
+      "sha256": "0732a20d5a066dca0be9fb99fbea7391a9f79e3403b05a24012242acc9fe7ab3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "baseline-2ce-original-reels",
+      "method": "精确 2ce main 原 Reels 脚本与诊断 C 引擎的失败对照；原件逐字归档。",
+      "observed": "缺陷定位证据，不是候选修复通过或正式工具链激活证据。"
+    },
+    {
+      "id": "baseline-checkout-log",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/checkout.log",
+      "sha256": "414a7c5951202407b73a947e536a991e50d9be584734f093c644bc02235d3d27",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "content_version": "baseline-2ce-original-reels",
+      "method": "精确 2ce main 原 Reels 脚本与诊断 C 引擎的失败对照；原件逐字归档。",
+      "observed": "缺陷定位证据，不是候选修复通过或正式工具链激活证据。"
+    },
+    {
+      "id": "baseline-readonly-report-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/baseline/readonly-report.json",
+      "sha256": "506efbb74c617a1a575b49ffe478819dde1f6021ba9286a2e2641790beb0aaef",
+      "kind": "runtime_trace",
+      "producer": "readonly-source-review",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "pre-fix-source-comparison",
+      "method": "原报告仅静态对照与既有 receipts；其未运行历史基线的限制保留，后续基线复现另见 report.json。",
+      "observed": "缺陷定位证据，不是候选修复通过或正式工具链激活证据。"
+    },
+    {
+      "id": "native-report-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/native/report.json",
+      "sha256": "d082430f1033d3ca28f92887714b7c2324d0231f9e64838efabeeed84d6c6c5e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "native-native-log",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/native/native.log",
+      "sha256": "6386943c2b6fcedbcdceae52d7d783475411fbdafb1b18e471d6e43f79abb5f1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "154 checks / 0 failures; 116.478413/180 seconds; no strict exit error; 1905 source files unchanged. Original126 plus28 added checks only.",
+      "command": "/workspace/engine-diagnostics/godot-4.7.2-standard-shutdown-c --headless --verbose --fixed-fps 60 --path /workspace/gunman-rush-refactor --script tests/audio_director_reels.gd",
+      "exit_code": 0,
+      "environment": "native lane; engine SHA256 c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311; timeout 180 seconds"
+    },
+    {
+      "id": "native-source-before-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/native/source-before.json",
+      "sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "native-source-after-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/native/source-after.json",
+      "sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "native-candidate-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/native/candidate.json",
+      "sha256": "40b771f2d479a4d1ee9e467679dbf223458c9e6d8847b9abb67b18abd725d259",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "optimized-report-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/optimized/report.json",
+      "sha256": "694c5b4f3ca5600d13bc6ff3a0c3ea5229d642ea69fc3dece197fabc26b65b0b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "optimized-native-log",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/optimized/native.log",
+      "sha256": "9f363a69651505256014971d9d12f7480dccb83289b8c175b15a52c563d61a3d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "154 checks / 0 failures; 32.176127/180 seconds; no strict exit error; 1905 source files unchanged. Original126 plus28 added checks only.",
+      "command": "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64 --headless --verbose --fixed-fps 60 --path /workspace/gunman-rush-refactor --script tests/audio_director_reels.gd",
+      "exit_code": 0,
+      "environment": "optimized lane; engine SHA256 eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638; timeout 180 seconds"
+    },
+    {
+      "id": "optimized-source-before-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/optimized/source-before.json",
+      "sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "optimized-source-after-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/optimized/source-after.json",
+      "sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "optimized-candidate-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/optimized/candidate.json",
+      "sha256": "40b771f2d479a4d1ee9e467679dbf223458c9e6d8847b9abb67b18abd725d259",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "optimized-report-raw-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/optimized/report.raw.json",
+      "sha256": "96904a15007c8badf2a19703d389de12c82c6dc06fa1f7fbf24e2318d57d3f37",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "限定候选证据，不继承完整集成、GUI、听音或设备验收。"
+    },
+    {
+      "id": "audio-lab-material-independent-review",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/review/audio-lab-material-independent-review.json",
+      "sha256": "4c2846fc7f426bdab6b153c76fc6b765e1f6f4dfdb601c02105b2baa7652680d",
+      "kind": "review",
+      "producer": "structure_audit",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "原静态限定接受；原文仍标 native pending，后续实际两次运行另有独立归档，不改旧报告结论。",
+      "reviewer": "structure_audit",
+      "implementers": [
+        "items_refactor"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立静态审查者未实现生产补丁；原报告的有限接受含尚待 native/相关回归条件。"
+    },
+    {
+      "id": "audio-lab-material-independent-review-md",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/review/audio-lab-material-independent-review.md",
+      "sha256": "98c23f0b50ef7b35193e59b155fbacf618a20314162dd0a2a0186cc12f4104dd",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "原静态限定接受；原文仍标 native pending，后续实际两次运行另有独立归档，不改旧报告结论。"
+    },
+    {
+      "id": "audio-lab-material-test-change-justification",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/review/audio-lab-material-test-change-justification.json",
+      "sha256": "5c0bf7e59d729e1dcb078833849328fde7d91e2afdfaf29609d7396e3379674d",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "原件逐字归档；仅适用于基点加 candidate.json 所列两个文件 SHA 的候选。",
+      "observed": "原静态限定接受；原文仍标 native pending，后续实际两次运行另有独立归档，不改旧报告结论。"
+    },
+    {
+      "id": "fresh-native-review-json",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/review/audio-lab-material-native-independent-binding.json",
+      "sha256": "89137d8a8589e55b127e663af42353854f2db93df66cb0a858e03b7108f92fe4",
+      "kind": "review",
+      "producer": "structure_audit",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "独立核两文件候选 SHA、原126可逐字恢复、两次原154日志和1905项有限源向量；审查者未运行引擎。",
+      "observed": "仅接受显式试听修复的精确候选与154原生证据绑定；原报告另含生命周期结果，不据此扩大本修复卡范围。",
+      "reviewer": "structure_audit",
+      "implementers": [
+        "items_refactor"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "structure_audit未实现GameAudio/Reels候选；只读对照实际文件、日志及引擎SHA；root执行原生进程。"
+    },
+    {
+      "id": "fresh-native-review-md",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/review/audio-lab-material-native-independent-binding.md",
+      "sha256": "5dc9426b5e27fccbaa2fea180417901f0fa968b90adf9eb8daf52803c772704c",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "candidate-v1-native154",
+      "method": "独立核两文件候选 SHA、原126可逐字恢复、两次原154日志和1905项有限源向量；审查者未运行引擎。",
+      "observed": "仅接受显式试听修复的精确候选与154原生证据绑定；原报告另含生命周期结果，不据此扩大本修复卡范围。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终提交尚待 root 绑定；当前 reviewed_commit 仅候选基点，真实测试源由 candidate_source 两文件 SHA 及 before/after清单确定",
+    "原材质/owner/其他音频套件与全部正式消费者尚未由本记录完整验证",
+    "GUI 听音、玩家/设备验收、完整 Harness/full182 与最终导出未验证",
+    "formal_impact=true 表示共享 GameAudio 正式回归责任，不授权改变正式音效",
+    "optimized editor 仅此实际单 lane 154检查；不代签整个引擎分发激活或整体性能优化"
+  ],
+  "candidate_source": {
+    "base_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+    "state": "uncommitted candidate on base; base commit alone does not identify tested source",
+    "files_sha256": {
+      "game/presentation/audio/game_audio.gd": "79bd8fc3aacad831947f1035d40930b35e91ba5c03cbfbad4ef09a1f25a27235",
+      "tests/audio_director_reels.gd": "93f93e1123c5f7ab650a3b69cbe8f67294ba00df39f33e4f7a0549f602270a11"
+    }
+  }
+}

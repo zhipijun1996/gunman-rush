@@ -1,6 +1,6 @@
 extends SceneTree
 ## Explicit initial-spawn golden fixture, never formal full-route admission.
-class FixtureApp extends "res://scripts/demo/demo_app.gd":
+class FixtureApp extends "res://game/application/demo_app.gd":
 	var fixture_data: Dictionary = {}
 	var fixture_error := ""
 	var fixture_kind := "arch"
@@ -19,7 +19,7 @@ class FixtureTrace extends "res://tests/forest_player_aim_trace.gd":
 	var fixture_data: Dictionary = {}
 	var fixture_kind := "arch"
 	func begin() -> void:
-		var script: Script=load("res://scripts/demo/demo_app.gd")
+		var script: Script=load("res://game/application/demo_app.gd")
 		if script==null or not script.can_instantiate(): fail("DemoApp_compile_failed");setup_done=true;return
 		app=FixtureApp.new();app.fixture_kind=fixture_kind;app.meta_persistence_enabled=false;add_child(app)
 		if not app.start_debug_region(&"thorn_forest",map_index,seed_value,ThornForestRegionGenerator.DEPTH_VERSION,recorded_layout_version): fail("formal_debug_entry_rejected");setup_done=true;return
@@ -87,7 +87,7 @@ func run() -> void:
 	trace.set_physics_process(false);trace.set_process(false)
 	if is_instance_valid(trace.controller):trace.controller.router.clear("midloop_contrast_capture_sealed")
 	var data := {"scope":"candidate_deep_root_initial_spawn_fixture_no_formal_prefix_not_admission","strategy":strategy,"fixture_kind":fixture_kind,"completed":trace.completed.duplicate(true),"events":trace.events.duplicate(true),"frames":trace.frames.duplicate(true),"manifest":trace.manifest.duplicate(true),"failures":trace.failures.duplicate(),"aim_samples":trace.aim_samples.duplicate(true),"initial_snapshot":trace.initial.duplicate(true),"final_snapshot":trace.snapshot(),"manual_motor_step":false,"midroute_position_or_resource_injection":false,"initial_fixture_spawn_override":true,"fixture":trace.fixture_data.duplicate(true),"source_hashes":{}}
-	for path: String in [get_script().resource_path,"res://scripts/generation/forest_interwoven_expedition.gd","res://scripts/generation/thorn_forest_region_v2_v13.gd","res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://tests/forest_depth_air_chain_case.gd","res://scripts/player/player_motor.gd","res://scripts/player/traversal_ability.gd","res://resources/player/traversal.tres","res://config/player_tuning.json"]:
+	for path: String in [get_script().resource_path,"res://scripts/generation/forest_interwoven_expedition.gd","res://scripts/generation/thorn_forest_region_v2_v13.gd","res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://tests/forest_depth_air_chain_case.gd","res://game/player/player_motor.gd","res://game/player/actions/traversal_ability.gd","res://resources/player/traversal.tres","res://config/player_tuning.json"]:
 		data.source_hashes[path]=FileAccess.get_sha256(path)
 	var clean := true
 	if is_instance_valid(trace.app):

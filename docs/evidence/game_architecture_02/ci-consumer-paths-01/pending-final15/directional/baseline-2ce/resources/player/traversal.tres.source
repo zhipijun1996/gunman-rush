@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TraversalDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/player/traversal_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+; 1.5 times the default airborne recoil distance (1100 * 0.14).
+hook_range = 231.0
+; A short diagonal hop: 24 world pixels per axis before ordinary movement resumes.
+hook_kick = Vector2(240, -240)
+hook_launch_seconds = 0.10

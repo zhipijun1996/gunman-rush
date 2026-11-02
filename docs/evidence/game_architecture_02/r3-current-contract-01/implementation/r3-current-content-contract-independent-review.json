@@ -1,0 +1,60 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_NATIVE_PENDING",
+  "reviewer": "ci_audit (non-author of all six candidate files)",
+  "scope": "R3-CURRENT-CONTENT-CONTRACT-01 six-file frozen candidate; explicit current-content test contract migration, not behavior-equivalent restoration of the old flat-floor no-damage expectation",
+  "patch_sha256": "24528f48e066e8109875b9f0501adfe431b94135278e5e442c9e564aea86e1e0",
+  "freeze_sha256": "d9b6f4dde8df1adc11c632290cfefb472735f1416ff87cf4ceeea7c48fe03e35",
+  "source_files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "c519d16772922e818224a9de71d010a50e58ec7c5e1665a3d37ed8f6d0dacf84"
+    },
+    {
+      "path": "tests/underworld_plains/test_underworld_r3_boss.gd",
+      "before_sha256": "de1ba7be3db8b056f6ebc0e3c4ab68e5c574af137d6156547f37116f9a474f59",
+      "candidate_sha256": "abd20b7a7668495d996c91492fbd2240ab41c5ab7e7dc7aa51fdba16c4420479"
+    },
+    {
+      "path": "tests/underworld_plains/bell_platform_fixture.gd",
+      "before_sha256": null,
+      "candidate_sha256": "c4c109849014954073f7913626f2d5c350e2929d464ed48b7e4e439f2bd569fe"
+    },
+    {
+      "path": "tests/underworld_plains/bell_platform_fixture.gd.uid",
+      "before_sha256": null,
+      "candidate_sha256": "0180753e0901dc6c93170378f8e8581166081378277de67f839083eea0d311c5"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "before_sha256": "55b9d6f1561fb3c46c0a520dee5e4192a4670504199685558ae678fccf468ee7",
+      "candidate_sha256": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c"
+    }
+  ],
+  "static_proof": {
+    "path": "/workspace/refactor-evidence/r3-current-content-contract-independent-static-proof.json",
+    "sha256": "274f71b7f71ee8222b0f31970816cfc0c9fe3d9214a45324b83723b43a7d0ff9"
+  },
+  "findings": [
+    "Original 150-frame standing and 68+78-frame late held-jump fixture actions are unchanged; original late-jump no-damage expectation is deliberately replaced by current HP loss plus a genuine player/body FrameDamagePolicy settlement. Old failing receipts remain evidence of the former contract.",
+    "Original no-damage label is now backed by the actual DemoApp, campaign map1 seed, installed PlatformingModule shapes and native floor-body contacts, current 40-HP Bell, base-one weapon, effective one-jump/no-hook capability, unchanged a770 pilot first-group procedure, unchanged player HP and zero player policy settlements.",
+    "Positive fixture observes real group, fired-shot, committed Damageable context and policy batch signals before entry; first-group completion drains one real physics tick before acceptance. Both positive result and all shared predicates must pass; failure metadata cannot produce a successful marker.",
+    "One test-only RefCounted helper owns the installed support reader and the four-source opaque-event/real-shot identity join. Public first/full consumers fix expected hits at 2/40. First requires only group1 and actual live Boss40->38; full specialization normalizes exactly to the previously reviewed 40-hit join. No event-ID parsing, ordinal inference, damage injection or alternative collision system was added.",
+    "Capture parses map/scope before deciding default: map1 defaults all; explicit off retains original navigation; map2 with no platform flag retains its original pilot/logic. All 25 original failure.append predicate lines are exact. All three original Bell pilot steps refresh support observation.",
+    "Shared App creation retains original seed and eight physics waits; initial placement retains the one original boss-relative reset and five physics waits. Terminal and released receipts both run the helper; existing release failure/unknown-HP handling remains. New positive has live guards before and after frame waits, caches actual RefCounted HealthState rather than freed scene owners, and cleans up through normal App abandonment and audio drain.",
+    "Checked actual interfaces: BellstriderEncounter.combat_metrics, PlayerMotor normal velocity/tuning, jump maximum_jumps, ActorResourceResult snapshot/status, DemoApp abandonment, module CollisionShape2D/RectangleShape2D and transform access. No definite static type/API blocker found; GDScript compilation and native cleanup are not signed by this review.",
+    "Harness full185=95 parallel+90 serial and all original fields/commands/budgets are exact. Only underworld-continuous-bosses inputs append four existing Bell/Pressure pilot gd/uid leaves after its complete ordered 37-item prefix. Existing tests/underworld_plains directory input covers the new helper and UID."
+  ],
+  "scope_boundaries": [
+    "No production file, game rule, media, damage amount, resource rule, seed, action budget or engine configuration changes.",
+    "This review ran only bounded Python source/hash comparisons and read actual implementation sources; no Godot, no main writes and no candidate edits.",
+    "Prior 278/1 and 4954/3 remain failed; previous diagnostic 4954/0 does not certify this extracted helper/new component/default-capture combination.",
+    "Accept exact candidate for root controlled application and original roll-only180 followed by original full registered wrapper/Harness360. Neither native pass nor full185 acceptance is claimed."
+  ],
+  "blockers": []
+}

@@ -1,0 +1,46 @@
+{
+  "scope_revision": "Additional sixth test fixture migration beyond the previous five current-consumer files. Historical D079 contract retained; not a migration to current 40 HP Bellstrider. Adds only test-only health data and provenance.",
+  "head_at_read": "59537400af06a26046037840e28989f75933a265",
+  "files": [
+    {
+      "path": "tests/plains_experience_energy_runner.gd",
+      "before_sha256": "0483b498a76b93fb8e641ccb851355bafa251f2daaac0f6d61073ceb81c014ec",
+      "candidate_sha256": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b"
+    },
+    {
+      "path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres",
+      "before_sha256": null,
+      "candidate_sha256": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2"
+    },
+    {
+      "path": "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json",
+      "before_sha256": null,
+      "candidate_sha256": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7"
+    }
+  ],
+  "preservation": {
+    "entire_original_test_restored_by_reversing_only_four_fixture_edits": true,
+    "all_assertions_unchanged": true,
+    "all_loops_and_frame_budgets_unchanged": true,
+    "expected_original_assertion_count": 540,
+    "old_required_values": "health==16; stamina==80; real armour_hit>0; no received resource grants",
+    "current_production_health_not_written": true,
+    "frozen_health_exact_git_blob": true
+  },
+  "shared_runtime_path": [
+    "Existing Windkeeper scene instantiation",
+    "Instance-only duplicate of the existing legacy Bell WindkeeperDefinition",
+    "Exact historical 16 HP HealthDefinition assigned before add_child/_ready",
+    "Same BossMotor configured with legacy collision_size 104x92",
+    "Same WindkeeperDamageable receives actual swept projectile; observe closed body emits armour_hit and returns false",
+    "Original policy/energy consumer sees no accepted damage and no refund"
+  ],
+  "runtime_status": "unverified; no Godot invoked by author",
+  "baseline_evidence": "/workspace/refactor-evidence/legacy-boss-fixture-baseline-01/report.json",
+  "required_test": "Existing tests/plains_experience_energy_runner.gd through original run_plains_region_tests.py 90-second case/strict native guard; all 540 assertions retained",
+  "not_covered": [
+    "No replacement claim for the removed historical Bell lob/ring/roll/Presentation algorithms in plains_pressure_boss_runner.",
+    "No default CI deletion or waiver prepared here.",
+    "No current Boss HP, definition, damage, refund, scene, implementation or resource mutation."
+  ]
+}

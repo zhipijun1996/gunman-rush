@@ -82,7 +82,7 @@ func contact_fixture(face: int, length: float) -> void:
 	thorn.start_offset = 30 if face in [1,2] else 64
 	thorn.depth = 24
 	var danger := thorn.danger([host])
-	var motor: PlayerMotor = preload("res://scenes/player/player.tscn").instantiate()
+	var motor: PlayerMotor = preload("res://game/player/player.tscn").instantiate()
 	if face==0: motor.position = Vector2(danger.position.x-13,82)
 	elif face==3: motor.position = Vector2(danger.get_center().x,236)
 	elif face==1: motor.position = Vector2(danger.position.x-35,146)

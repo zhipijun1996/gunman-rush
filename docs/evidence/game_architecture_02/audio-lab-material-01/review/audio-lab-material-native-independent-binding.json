@@ -1,0 +1,115 @@
+{
+  "task_id": "AUDIO-LAB-MATERIAL-01",
+  "verdict": "LIMITED_ACCEPT_EXACT_FIX_NATIVE154_AND_OPTIMIZED_EDITOR_LIFECYCLE",
+  "reviewer": "structure_audit; no engine execution",
+  "candidate_files": [
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "before_sha256": "2166334db25bd464b50eefac32cddd4ed0a8816a1a93de7948511c0c96a38aca",
+      "candidate_sha256": "79bd8fc3aacad831947f1035d40930b35e91ba5c03cbfbad4ef09a1f25a27235"
+    },
+    {
+      "path": "tests/audio_director_reels.gd",
+      "before_sha256": "2f5547b3cf0eee2632280cd1afcb8f2a5f8705c65e7937d7cc25e337ea1d9c97",
+      "candidate_sha256": "93f93e1123c5f7ab650a3b69cbe8f67294ba00df39f33e4f7a0549f602270a11"
+    }
+  ],
+  "prior_static_review": "audio-lab-material-independent-review.json",
+  "original126_test_script_still_exactly_restorable": true,
+  "actual_reels_runs": [
+    {
+      "directory": "reels-material-fix-native-01",
+      "report_sha256": "d082430f1033d3ca28f92887714b7c2324d0231f9e64838efabeeed84d6c6c5e",
+      "raw_log_sha256": "6386943c2b6fcedbcdceae52d7d783475411fbdafb1b18e471d6e43f79abb5f1",
+      "source_before_sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "source_after_sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "source_entries": 1905,
+      "before_after_equal": true,
+      "candidate_exactly_matches_independently_reviewed_sha": true,
+      "marker": "AUDIO_DIRECTOR_REELS checks=154 failures=0",
+      "exit_code": 0,
+      "seconds": 116.4784126759987,
+      "original_timeout_seconds": 180,
+      "engine_sha256": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311",
+      "engine_actual_file_hash_verified": true
+    },
+    {
+      "directory": "reels-material-fix-optimized-01",
+      "report_sha256": "694c5b4f3ca5600d13bc6ff3a0c3ea5229d642ea69fc3dece197fabc26b65b0b",
+      "raw_log_sha256": "9f363a69651505256014971d9d12f7480dccb83289b8c175b15a52c563d61a3d",
+      "source_before_sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "source_after_sha256": "4c47d5fbf34c9c4532573cdc760358ca6c8476a343c1d0ba726ecabb204dd084",
+      "source_entries": 1905,
+      "before_after_equal": true,
+      "candidate_exactly_matches_independently_reviewed_sha": true,
+      "marker": "AUDIO_DIRECTOR_REELS checks=154 failures=0",
+      "exit_code": 0,
+      "seconds": 32.176126780999766,
+      "original_timeout_seconds": 180,
+      "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+      "engine_actual_file_hash_verified": true,
+      "original_report_sha256": "96904a15007c8badf2a19703d389de12c82c6dc06fa1f7fbf24e2318d57d3f37",
+      "report_change_only_scope_and_scope_note": true
+    }
+  ],
+  "both_runs_same1905_source_vector": true,
+  "source_vector_limit": "Tracked existing files of selected text/resource extensions across runner roots; not all bytes/assets/imports/tools or a complete exported dependency closure",
+  "optimized_binary_provenance": {
+    "review": "engine-184-editor-independent-review.json",
+    "review_sha256": "7f15311dd1f3333f7e80f91b1c3ddc243a08f651941f8fef9028d1aaae1f392b",
+    "commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+    "workflow_run": 41180438395,
+    "artifact_id": 13035588449,
+    "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "scope": "ci_audit independent actual Linux editor lane provenance reused; whole distribution not accepted"
+  },
+  "optimized_lifecycle": {
+    "report_path": "/workspace/refactor-evidence/engine-lifecycle-candidate/results/fixed-1793433992124826153/report.json",
+    "report_sha256": "df6246fd7d941ba090c2631ac62505219bab7b29b5241ef4a595f701e6a534e7",
+    "all8_fixture_files_match_report": true,
+    "original_reviewed28_contract_and_runner_sha_unchanged": true,
+    "cases": [
+      {
+        "case": "upstream",
+        "checks": 0,
+        "exit_code": 0,
+        "log_sha256": "afecebefb861c6decac1980aa3840832d874ec2e61f9f3aad0b6a4aa547085c1",
+        "known_reload_warning_count": 0,
+        "seconds": 0.15840239599856432
+      },
+      {
+        "case": "runtime",
+        "checks": 28,
+        "exit_code": 0,
+        "log_sha256": "bc51c3ac1d04f880c76de1d48a8d4db907f0cad9953dd14ec8be763298233653",
+        "known_reload_warning_count": 1,
+        "seconds": 0.1553583710010571
+      },
+      {
+        "case": "shutdown",
+        "checks": 1,
+        "exit_code": 0,
+        "log_sha256": "d86b74b8202411300c675f7ed500bda86abab1a91c893269186cdccdb2ac2341",
+        "known_reload_warning_count": 0,
+        "seconds": 0.1556677690023207
+      }
+    ],
+    "predelete_side_effect_sha256": "45dc110734222579e31b209ab4f27fe1920fc20a40d1ef82d663da39f7b80cf0",
+    "negative_control": {
+      "report_sha256": "eec2b11a180d9f14aa9dc09e5c0449c76c37f0b0e1616f70d254c4621474a32b",
+      "log_sha256": "97bcd8b179cfe7196d1bf159845558522cd0c84a7e2144bfbea2b669cc8eb746",
+      "actual_checks": 4,
+      "exit_code": 0,
+      "fixture_sha256": "12d157da9062dfa71928423be5c849495973c8fbc18e26a9738e37e11a3d0a27",
+      "binary_binding": "Same argv binary path as optimized lifecycle; actual file SHA checked. Negative report itself contains no explicit binary SHA."
+    }
+  },
+  "scope_limits": [
+    "Root executed all native processes; reviewer only inspected exact sources, receipts, logs and binary hashes",
+    "Original2ce126/3 and C original26 fixture failures retained; no retroactive passing or claim equivalent original26 assertions",
+    "Static review plus actual154 validates this narrow explicit-audition correction; related V2/selected/material suites not newly signed by this receipt",
+    "Lifecycle acceptance is revised28+original upstream sequence+PREDELETE once+4 negative controls on actual optimized Linux editor lane",
+    "No full182,complete template matrix,artifact distribution/release lock,installer activation,Web/PCK,GUI/device or audible quality acceptance",
+    "No committed candidate binding inferred: runs explicitly use dirty reviewed two-file candidate atop59a6; future commit requires samebytes binding"
+  ]
+}

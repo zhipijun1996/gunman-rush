@@ -1,0 +1,63 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_V4_SINGLE_TEST_LEAF_NATIVE_PENDING",
+  "candidate_source_head": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "observed_main_head": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "file": "tests/plains_region_boss_runner.gd",
+  "before_sha256": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086",
+  "candidate_sha256": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+  "patch_sha256": "8eac1ac5559bcb4274bdb51e9cd19d4b774ebfe24a9003e12673c0105a442ec7",
+  "checks": {
+    "exactly_seven_inserted_lines": true,
+    "remove_insert_restores_entire_V3_file_bytes": true,
+    "original_damage_transaction_three_frame_wait_and_phase_assertion_preserved": true,
+    "no_production_or_threshold_change": true,
+    "original_runner_90_second_budget_unchanged_by_patch": true,
+    "failure_archive_matches_actual_raw_log": true
+  },
+  "production_proof": {
+    "scripts/bosses/windkeeper_definition.gd": {
+      "sha256": "1a02f38f0044ff1a0954fb4d3f3ea952400445953c2e6df9298cc948086f2274",
+      "matches_author_frozen": true
+    },
+    "scripts/bosses/windkeeper_pressure_definition.gd": {
+      "sha256": "afaf0fb90b8b3ac2e87e11c550eb2bb154892f1bf837bd5d8f74dd9263c4ecb2",
+      "matches_author_frozen": true
+    },
+    "resources/bosses/windkeeper_storm.tres": {
+      "sha256": "c6ae603a2fc5c8fc2dddbf1dd4d8a044b3e0bab136ef765a75261cc3460a47e8",
+      "matches_author_frozen": true
+    },
+    "game/bosses/windkeeper/windkeeper_encounter.gd": {
+      "sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a",
+      "matches_author_frozen": true
+    },
+    "game/bosses/windkeeper/windkeeper_pressure_encounter.gd": {
+      "sha256": "792753e7f9db6a7b8c6359ed06d609bf305d97492bdaf1734b9527dcc36f4a26",
+      "matches_author_frozen": true
+    },
+    "tests/windkeeper_pressure_01/formal_app.gd": {
+      "sha256": "e66d818d7203a51c100a1f1dda720c13569a403afe5d5c4cdbea86b6d4cf6ea4",
+      "matches_author_frozen": true
+    }
+  },
+  "prior_failure": {
+    "path": "/workspace/refactor-evidence/ci-boss-consumers-native-02/region-boss.log",
+    "sha256": "2de51d4ef99820c6b18a4af1c030aeb71dfcf59eb11d840b548e94e915f3834a",
+    "result": "29 assertions, 2 failures; both formal phaseIII fixture checks",
+    "retained": true
+  },
+  "reasoning": [
+    "Current Pressure inherits phase_three_health=0.34 and uses 60 HP. Original damage leaves 20 HP, already below 20.4: threshold conjecture rejected.",
+    "Pressure computes pending phase in intro but commits it in observe/recover; intro itself only enters observe after its real duration. Original ordinary Windkeeper computes/starts phase transition before intro dispatch.",
+    "Wait observes actual mode at bounded 360 physics frames without setting HP/clock/phase; added active, nonterminal and non-intro readiness assertion cannot silently pass a stuck intro.",
+    "Existing formal_app supplies the same 360 bound and readiness predicate. Its ticks also awaits process_frame; this candidate retains its own physics-only frames helper, so this is condition/bound reuse, not a byte-identical scheduling helper.",
+    "The test still directly submits its declared fixture health transaction; it is not evidence of natural combat/input damage.",
+    "The added readiness check executes in both existing fixtures; expected 31 total checks remains an expectation until actual native execution."
+  ],
+  "limits": [
+    "No engine or tests executed in this review.",
+    "Native frame ordering and runtime budget must be confirmed by root under the original 90-second wrapper budget.",
+    "Does not sign other six pending native cases, full182, template activation, GUI, or toolchain installation."
+  ]
+}

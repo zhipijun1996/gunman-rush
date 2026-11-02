@@ -70,7 +70,7 @@ func setup() -> bool:
 	player_results.clear()
 	packet_events.clear()
 	hook_negatives_done = false
-	app = load("res://scripts/demo/demo_app.gd").new()
+	app = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("level-design-v2-baseline/08"), "SETUP formal map1 starts through actual App")

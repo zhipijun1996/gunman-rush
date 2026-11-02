@@ -1,0 +1,76 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "kind": "Separate pre-existing production restoration bug; not fixture-only migration or behavior-equivalent refactor",
+  "file": "game/enemies/presentation/root_bell_presentation.gd",
+  "original_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+  "candidate_sha256": "e68c50153c882b06e8c61aef82dfef997cb6f8bde9246506649008ffb9b7267b",
+  "patch_sha256": "31c312dd4488f42148fb92ce4ed9f7131a3c94c8adcfd3f882306418bcaeb58e",
+  "inverse_entire_source_equal": true,
+  "baseline_evidence": [
+    {
+      "baseline_path": "scripts/enemies/root_bell_presentation.gd",
+      "current_path": "game/enemies/presentation/root_bell_presentation.gd",
+      "baseline_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+      "current_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+      "whole_file_equal": true,
+      "equal_after_damage_resource_path_relocation": true
+    },
+    {
+      "baseline_path": "scripts/enemies/enemy_feedback_01_particles.gd",
+      "current_path": "game/enemies/presentation/enemy_feedback_01_particles.gd",
+      "baseline_sha256": "72947c344bd14864015ae5e5a4313fa478adf28eef0aea9de76577e3ca1cafbb",
+      "current_sha256": "72947c344bd14864015ae5e5a4313fa478adf28eef0aea9de76577e3ca1cafbb",
+      "whole_file_equal": true,
+      "equal_after_damage_resource_path_relocation": true
+    },
+    {
+      "baseline_path": "scripts/enemies/enemy_feedback_01.gd",
+      "current_path": "game/enemies/presentation/enemy_feedback_01.gd",
+      "baseline_sha256": "b905e9ded3a2ceb14b488280cd8ced6b386bb013603c27c1dca829abd70ced27",
+      "current_sha256": "18c8d446aa6cda7f8e3135b744d1f8c1a1dd338c5589b65b8dbed1a94dc2a897",
+      "whole_file_equal": false,
+      "equal_after_damage_resource_path_relocation": true
+    }
+  ],
+  "current_sources": [
+    {
+      "path": "game/enemies/presentation/plains_revision_visual.gd",
+      "sha256": "28faf90ec5c9a9872bea04797ec780ce0a8a4beaf9b2df3bb05027bbf9bb71df"
+    },
+    {
+      "path": "game/enemies/presentation/enemy_presentation.gd",
+      "sha256": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e"
+    },
+    {
+      "path": "game/presentation/actors/underworld_plains/underworld_enemy.gd",
+      "sha256": "af0530bac0a23fa8f5d59307c83710a16fd651af2b9bef686021b5665298e6bb"
+    },
+    {
+      "path": "game/presentation/actors/presentation/enemy_presentation_lifecycle.gd",
+      "sha256": "286db9b2074518fb65b4c0db15babb480b605d42d1c0e7c361b5ba4c12893828"
+    },
+    {
+      "path": "tests/enemy_hit_template_tests.gd",
+      "sha256": "afcd040b0903e52dfc336009f93d07e2ed07edb84b8d48957241572011dfc026"
+    }
+  ],
+  "failure": {
+    "checks": 393,
+    "failures": 1,
+    "label": "plains_root_bell/root_bell paused restoration clears all hit state without touching material",
+    "log_sha256": "6aad88dcb6facf35cca5e1c0b97354c5280794495d7b27dd274268947ec094ea",
+    "subcondition_analysis": "Source-derived: EnemyFeedback01 initialize clears hurt/flash synchronously; RootBell does not reassign host material; particles retain previous burst because callback omits clear_for_epoch and their _process returns on paused before epoch check. The real log reports the combined assertion only; no per-conjunct engine probe run by author."
+  },
+  "actual_restore_chain": [
+    "EnemyActor.restore_instance_health -> HealthState.configure initialize signal",
+    "EnemyFeedback01._changed -> _synchronize clears hurt_remaining/impact_remaining",
+    "EnemyPresentationLifecycle._resource_changed -> sync_initialize -> RootBellPresentation._presentation_initialized",
+    "Before: revision_visual.refresh(0) updates rig/shader but not particles",
+    "After: existing revision_visual.particles.clear_for_epoch() then same refresh(0)"
+  ],
+  "shared_method_effect": "clear_for_epoch updates particle epoch, clears transient bursts, disables idle processing and redraws. It does not change HealthState, event/impact serial, emitted_bursts total, source assets, material objects, damage, collision, timers or RNG.",
+  "precedent": "Existing EnemyPresentation and UnderworldEnemy initialization callbacks already call the same particles.clear_for_epoch. RootBell now participates in that existing lifecycle operation; no parallel manager/helper created.",
+  "unchanged": "Original hit-template tests and assertions not edited; active hit/death policy, repeated same-epoch synchronize, pause rules and materials preserved. Only accepted new-epoch initialization now clears stale particles immediately while paused.",
+  "validation": "Static only; git apply --check. No main or test edits, no engine run. Runtime-owned unchanged90-second hit fixture must pass its complete original assertions; prior380/4 and393/1 remain evidence.",
+  "independent_review": "pending"
+}

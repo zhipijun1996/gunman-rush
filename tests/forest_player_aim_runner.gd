@@ -40,7 +40,7 @@ func run() -> void:
 		"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"aim_samples":trace.aim_samples.duplicate(true),
 		"failures":trace.failures.duplicate(),"manual_motor_step":false,"midroute_position_or_resource_injection":false,
 		"initial_snapshot":trace.initial.duplicate(true),"final_snapshot":trace.snapshot(),"source_hashes":{}}
-	for path: String in [get_script().resource_path,"res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://scripts/player/traversal_ability.gd","res://scripts/player/air_focus_ability.gd","res://scripts/input/keyboard_mouse_adapter.gd","res://config/player_tuning.json"]:
+	for path: String in [get_script().resource_path,"res://tests/forest_player_aim_trace.gd","res://tests/forest_depth_region_trace.gd","res://game/player/actions/traversal_ability.gd","res://game/player/actions/air_focus_ability.gd","res://game/platform/input/keyboard_mouse_adapter.gd","res://config/player_tuning.json"]:
 		data.source_hashes[path] = FileAccess.get_sha256(path)
 	var clean := true
 	if is_instance_valid(trace.app):

@@ -25,7 +25,7 @@ func owned_audio(app: DemoApp) -> Variant:
 	for child: Node in app.get_children():
 		var script := child.get_script() as Script
 		while script != null:
-			if script.resource_path == "res://scripts/audio/game_audio.gd": return child
+			if script.resource_path == "res://game/presentation/audio/game_audio.gd": return child
 			script = script.get_base_script()
 	return null
 
@@ -145,7 +145,7 @@ func run() -> void:
 
 func exercise() -> void:
 	root.size = Vector2i(1280, 720)
-	var app := (load("res://scenes/demo/demo.tscn") as PackedScene).instantiate() as DemoApp
+	var app := (load("res://game/application/demo.tscn") as PackedScene).instantiate() as DemoApp
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(6)

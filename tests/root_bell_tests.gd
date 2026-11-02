@@ -1,6 +1,6 @@
 extends RefCounted
-const PLAYER := preload("res://scenes/player/player.tscn")
-const ENEMY := preload("res://scenes/enemies/patrol_drone.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
+const ENEMY := preload("res://game/enemies/scenes/patrol_drone.tscn")
 var output_dir := "res://build/root_bell/unmanaged"
 var tree: SceneTree
 var check: Callable

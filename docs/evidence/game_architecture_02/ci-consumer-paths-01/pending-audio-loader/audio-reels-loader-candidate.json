@@ -1,0 +1,38 @@
+{
+  "path": "tests/test_audio_reels_capture.py",
+  "original_sha256": "cb5f21f6914ffb99056223567a1450d45b7bca3ca325741130f9598b3aa19e5f",
+  "candidate_sha256": "5533d952d752c4e1e8946cafee885cf42c961e4f593ac8d0f3844311e75b6d21",
+  "patch_sha256": "fc7e13fc896537fc94c37e3aafd233a80fe193301a39a6010a999856b011fb65",
+  "all_class_and_function_ast_unchanged": true,
+  "scope": "Existing direct-file test loader only: add real tools directory to sys.path before spec.exec_module. No production code or identity/config stubs. Does not add this test to full185.",
+  "tests": [
+    {
+      "label": "original",
+      "command": [
+        "python3",
+        "tests/test_audio_reels_capture.py",
+        "SourceClosure"
+      ],
+      "cwd": "/workspace/gunman-rush-refactor",
+      "exit_code": 1,
+      "seconds": 0.0985363080035313,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/gunman-rush-refactor/tests/test_audio_reels_capture.py\", line 14, in <module>\n    capture=importlib.util.module_from_spec(spec);spec.loader.exec_module(capture)\n                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/workspace/gunman-rush-refactor/tools/capture_audio_reels.py\", line 4, in <module>\n    from godot_identity import verified_engine\nModuleNotFoundError: No module named 'godot_identity'\n"
+    },
+    {
+      "label": "candidate",
+      "command": [
+        "python3",
+        "tests/test_audio_reels_capture.py",
+        "SourceClosure"
+      ],
+      "cwd": "/workspace/refactor-evidence/identity-cli-fixture-audit-02/overlay",
+      "exit_code": 0,
+      "seconds": 0.11085652600013418,
+      "stdout": "",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nOK\n"
+    }
+  ],
+  "PYTHONPATH_removed": true,
+  "not_run": "ActualMovieReceipt needs explicitly supplied real trace; no full recording/engine tests executed."
+}

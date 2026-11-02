@@ -1,0 +1,31 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_ACCEPT_EXTERNAL_CANDIDATE_NOT_YET_APPLIED",
+  "source_head": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "files": [
+    {
+      "path": "tools/audio_inventory.py",
+      "sha256": "96cee36289ed146c1193ded58efccdb85a989221d55689940c6dd8394e7f9a68"
+    }
+  ],
+  "patch_sha256": "99c7eafd54398d58d6989c8daee1f60141ded92ebe75d053ccc17043a6a22c0c",
+  "patch_replay_matches": true,
+  "findings": [
+    "Eight finite audit roles resolve against the requested Git tree; missing/ambiguous aliases reject; no working-tree fallback.",
+    "Default pinned baseline retained. Actual baseline code collection equals original 2ce consumer; both default rendered Markdown outputs byte-identical with code-only media-empty test inputs. Original consumer fixture independently verified against git2ce.",
+    "Current weapon references include game/experiments and actual _sync_music function plus request_track. Legacy baseline line window retained. Selected nonbaseline reports explicitly label unchanged behavior/conflict prose as historical annotation.",
+    "No media-generation, game-runtime or registry mechanism introduced; existing read/media/provenance processing unchanged."
+  ],
+  "independent_tests": {
+    "command": "python /workspace/refactor-evidence/audio-inventory-candidate/test_candidate.py",
+    "result": "10/0, 1.957s",
+    "log": "audio-inventory-independent-candidate-tests.log",
+    "log_sha256": "0aba6fcad1450265e08ab93972b53722bd439bb1cf49d575a286fd4c8fa511cb"
+  },
+  "limits": [
+    "Not a full audio/media CLI execution or listening/native acceptance.",
+    "Reference extraction remains finite lexical/static scanning, not a general GDScript AST or runtime reachability proof.",
+    "Nonbaseline static descriptions are explicitly historical rather than freshly verified behavior.",
+    "Candidate has not been applied; same-byte check required after application/commit."
+  ]
+}

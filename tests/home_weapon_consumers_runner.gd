@@ -15,7 +15,7 @@ func fixture(at: Vector2 = Vector2(100, 682)) -> void:
 	world = Node2D.new()
 	root.add_child(world)
 	body(Rect2(-500, 700, 2000, 100))
-	motor = preload("res://scenes/player/player.tscn").instantiate()
+	motor = preload("res://game/player/player.tscn").instantiate()
 	motor.position = at
 	world.add_child(motor)
 	controller = motor.get_node("Controller")

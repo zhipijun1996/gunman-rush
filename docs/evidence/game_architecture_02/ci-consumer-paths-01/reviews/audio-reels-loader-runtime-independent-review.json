@@ -1,0 +1,62 @@
+{
+  "decision": "ACCEPT_LIMITED_DIRECT_TEST_LOADER_FIX",
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "candidate_sha256": "5533d952d752c4e1e8946cafee885cf42c961e4f593ac8d0f3844311e75b6d21",
+  "original_sha256": "cb5f21f6914ffb99056223567a1450d45b7bca3ca325741130f9598b3aa19e5f",
+  "patch_sha256": "fc7e13fc896537fc94c37e3aafd233a80fe193301a39a6010a999856b011fb65",
+  "only_two_added_statements": true,
+  "all_function_and_method_ast_unchanged": true,
+  "methods_count": 14,
+  "full185_registration_added": false,
+  "registry_sha256": "95e4e288dccd7a0acc72c00581474b591f91009dde0cb4d699780097a337d2b0",
+  "dependency": "capture_audio_reels.py top-level imports godot_identity. Direct-file spec loader requires real sibling tools path; identity is actual stdlib-only helper, no stub or environmental PYTHONPATH.",
+  "env_removed": [
+    "PYTHONPATH",
+    "AUDIO_REELS_TEST_TRACE"
+  ],
+  "tests": [
+    {
+      "label": "original",
+      "argv": [
+        "python3",
+        "tests/test_audio_reels_capture.py",
+        "SourceClosure"
+      ],
+      "cwd": "/workspace/gunman-rush-refactor",
+      "returncode": 1,
+      "seconds": 0.13387670800148044,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/gunman-rush-refactor/tests/test_audio_reels_capture.py\", line 14, in <module>\n    capture=importlib.util.module_from_spec(spec);spec.loader.exec_module(capture)\n                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/workspace/gunman-rush-refactor/tools/capture_audio_reels.py\", line 4, in <module>\n    from godot_identity import verified_engine\nModuleNotFoundError: No module named 'godot_identity'\n",
+      "log": "/workspace/refactor-evidence/audio-reels-loader-runtime-original.log",
+      "log_sha256": "81eaaab16973b541f0a564b33ba85aad9ed8d332e7c4c117c2347d86cafc0134"
+    },
+    {
+      "label": "candidate",
+      "argv": [
+        "python3",
+        "tests/test_audio_reels_capture.py",
+        "SourceClosure"
+      ],
+      "cwd": "/workspace/refactor-evidence/identity-cli-fixture-audit-02/overlay",
+      "returncode": 0,
+      "seconds": 0.14707389400427928,
+      "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.012s\n\nOK\n",
+      "log": "/workspace/refactor-evidence/audio-reels-loader-runtime-candidate.log",
+      "log_sha256": "1635a6194f78c5e89329e41ae3b95909ced52dd425f9291840b91d6deaa41ba0"
+    },
+    {
+      "label": "no_real_trace",
+      "argv": [
+        "python3",
+        "tests/test_audio_reels_capture.py",
+        "ActualMovieReceipt"
+      ],
+      "cwd": "/workspace/refactor-evidence/identity-cli-fixture-audit-02/overlay",
+      "returncode": 0,
+      "seconds": 0.11035190099937608,
+      "output": "s\n----------------------------------------------------------------------\nRan 0 tests in 0.000s\n\nOK (skipped=1)\n",
+      "log": "/workspace/refactor-evidence/audio-reels-loader-runtime-no_real_trace.log",
+      "log_sha256": "4c350ffe66d91d3f8d5db6340c5269edf447da0dc018371bf8227efb71ce81ae"
+    }
+  ],
+  "scope": "No Godot, real movie capture, GUI, audio acceptance or full185 coverage certified. ActualMovieReceipt retains real trace+report+ffprobe requirements; absent explicit trace skips class. No main files edited."
+}

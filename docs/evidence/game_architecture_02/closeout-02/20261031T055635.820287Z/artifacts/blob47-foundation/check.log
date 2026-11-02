@@ -1,0 +1,7 @@
+STALE blob47 art: manifest.json
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tools/run_blob47_tests.py", line 6, in <module>
+    subprocess.run(['python3', 'tools/build_blob47_art.py', '--check'], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', 'tools/build_blob47_art.py', '--check']' returned non-zero exit status 1.

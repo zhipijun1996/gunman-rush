@@ -1,0 +1,194 @@
+diff --git a/game/loadout/effects/item_companion_effects.gd b/game/loadout/effects/item_companion_effects.gd
+index b79c0187..355fa978 100644
+--- a/game/loadout/effects/item_companion_effects.gd
++++ b/game/loadout/effects/item_companion_effects.gd
+@@ -242,6 +242,9 @@ func _target(point: Vector2) -> Dictionary:
+ 		var receiver := value.receiver as Damageable
+ 		if not is_instance_valid(receiver) or not receiver.can_receive_effects(): continue
+ 		if not bool(host.call("clear_line", point, (value.node as Node2D).global_position)): continue
++		# targets already has the original deterministic distance order. Without
++		# pursuit priority, later candidates cannot replace this legal target.
++		if not prioritise: return value
+ 		if ordinary.is_empty(): ordinary = value
+ 		if prioritise and bool(host.call("is_marked", value.receiver)): return value
+ 	return ordinary
+diff --git a/game/loadout/effects/item_runtime.gd b/game/loadout/effects/item_runtime.gd
+index c6ce3852..ddab72a3 100644
+--- a/game/loadout/effects/item_runtime.gd
++++ b/game/loadout/effects/item_runtime.gd
+@@ -310,7 +310,7 @@ func barrier_count() -> int:
+ func targets(point: Vector2, radius: float) -> Array[Dictionary]:
+ 	if not is_live() or radius <= 0 or not is_finite(radius): return []
+ 	var result := actor().shoot_ability.behavior().receivers(point, radius)
+-	result.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
++	var precedes: Callable = func(a: Dictionary, b: Dictionary) -> bool:
+ 		var da := point.distance_squared_to((a.node as Node2D).global_position)
+ 		var db := point.distance_squared_to((b.node as Node2D).global_position)
+ 		if da != db: return da < db
+@@ -320,7 +320,14 @@ func targets(point: Vector2, radius: float) -> Array[Dictionary]:
+ 		var right_id := b_receiver.actor_id if b_receiver.actor_id != 0 else b_receiver.get_instance_id()
+ 		var left := str((a.node as Node).get_meta("item_v5_enemy_id", "%020d" % left_id))
+ 		var right := str((b.node as Node).get_meta("item_v5_enemy_id", "%020d" % right_id))
+-		return left < right)
++		return left < right
++	# receivers already sorts by distance. A strictly ordered result has one
++	# unique final order, so it needs no second sort. Equal complete keys still
++	# take the original sort: Godot does not promise stable ordering for ties.
++	for index: int in range(1, result.size()):
++		if not precedes.call(result[index-1], result[index]):
++			result.sort_custom(precedes)
++			break
+ 	return result
+ 
+ func clear_line(a: Vector2, b: Vector2) -> bool:
+diff --git a/tests/item_v5_actives_runner.gd b/tests/item_v5_actives_runner.gd
+index 2e661800..2186198a 100644
+--- a/tests/item_v5_actives_runner.gd
++++ b/tests/item_v5_actives_runner.gd
+@@ -26,6 +26,8 @@ class ModuleHost extends RefCounted:
+ 	# One deliberate local bridge refusal checks that G08 consumes its mark only
+ 	# after accepted Damageable HP settlement, not merely after target selection.
+ 	var reject_deals: int = 0
++	var line_queries := 0
++	var target_queries := 0
+ 	var clock := 0.0
+ 	var map_id: StringName = &"fixture/map1"
+ 	var live := true
+@@ -52,8 +54,10 @@ class ModuleHost extends RefCounted:
+ 		if companion_module != null: companion_module.call("on_energy_spent", skill_cost(amount), receipt)
+ 		return true
+ 	func clear_line(start: Vector2, finish: Vector2) -> bool:
++		line_queries += 1
+ 		return controller.motor.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(start, finish, 1, [controller.motor.get_rid()])).is_empty()
+ 	func targets(point: Vector2, radius: float) -> Array[Dictionary]:
++		target_queries += 1
+ 		var result: Array[Dictionary] = []
+ 		for node: Node2D in targets_list:
+ 			if not is_instance_valid(node): continue
+@@ -254,6 +258,50 @@ func growth_damage_and_s12() -> void:
+ 	check(is_equal_approx(marked.health,80.68),"S12 a new accepted mark identity grants exactly one fresh grown first-hit bonus")
+ 	check(nearby.health == nearby_before and host.controller.combat_energy.current == 10 and host.events.all(func(row: Dictionary) -> bool: return row.origin == &"G19" and row.derived),"S12 all actual grown hits remain derived, preserve mark priority and never generate resonance")
+ 
++func companion_target_query_regression() -> void:
++	await fresh()
++	var blocked := enemy(Vector2(120,150))
++	var visible := enemy(Vector2(80,70))
++	var distant := enemy(Vector2(80,-70))
++	fixture.body(Rect2(98,130,4,40))
++	await physics_frame
++	host.line_queries = 0
++	var selected := companions._target(Vector2(80,150))
++	check(selected.get("receiver") == visible and selected.get("receiver") != blocked, "ordinary companion skips the nearer real occluded receiver and keeps the first visible target")
++	check(host.line_queries == 2, "ordinary companion stops real LOS queries after the first visible target")
++	equip(&"G08")
++	host.marks[distant.get_instance_id()] = &"target_query/pursuit"
++	host.line_queries = 0
++	selected = companions._target(Vector2(80,150))
++	check(selected.get("receiver") == distant and host.line_queries == 3, "G08 still searches past the ordinary target for a later visible pursuit mark")
++	host.marks.clear()
++	host.line_queries = 0
++	selected = companions._target(Vector2(80,150))
++	check(selected.get("receiver") == visible and host.line_queries == 3, "G08 without a visible mark retains the original first-target fallback after checking all candidates")
++	host.targets_list.clear()
++	host.line_queries = 0
++	check(companions._target(Vector2(80,150)).is_empty() and host.line_queries == 0, "empty companion candidates produce no LOS query or invented target")
++
++	# S02 intentionally remains eager when one device has no legal allocation:
++	# a new higher-ranked mark can invalidate locks even during attack cooldown.
++	await fresh()
++	equip(&"P14"); equip(&"B19")
++	var only := enemy(Vector2(180,150))
++	await physics_frame
++	companions.sync()
++	host.target_queries = 0
++	advance(1.5,1.5)
++	check(host.target_queries == 3 and int(patrol_locks().get(only.get_instance_id(),0)) == 2, "S02 original allocation queries all three devices and caps one receiver at two locks")
++	host.target_queries = 0
++	advance(DT,DT)
++	check(host.target_queries == 3 and host.events.size() == 2, "S02 idle third device keeps immediate retry while the two actual attack deadlines remain unchanged")
++	var new_mark := enemy(Vector2(220,150))
++	host.dream_marks[new_mark.get_instance_id()] = {"key":&"target_query/new_dream","expires_at":host.clock+4.0}
++	await physics_frame
++	host.target_queries = 0
++	advance(DT,DT)
++	check(host.target_queries == 3 and int(patrol_locks().get(new_mark.get_instance_id(),0)) == 2, "new dream priority still revalidates all S02 locks before their next attacks")
++
+ func _run() -> void:
+ 	await fresh()
+ 	check(not actives.activate(&"B33",Vector2.RIGHT).accepted and is_equal_approx(host.controller.combat_energy.current,100), "unowned active cannot spend")
+@@ -400,6 +448,7 @@ func _run() -> void:
+ 	check(int(patrol_locks().get(0,0))==3, "unloadingdreamitemclearsS02locks")
+ 	await companion_lifetimes_and_damage()
+ 	await growth_damage_and_s12()
++	await companion_target_query_regression()
+ 	actives.clear();companions.clear()
+ 	fixture.world.free()
+ 	await process_frame
+diff --git a/tests/item_v5_formal_runner.gd b/tests/item_v5_formal_runner.gd
+index 18614413..33301881 100644
+--- a/tests/item_v5_formal_runner.gd
++++ b/tests/item_v5_formal_runner.gd
+@@ -171,6 +171,55 @@ func training_fixture() -> void:
+ 	check(app.player.is_on_floor(), "SETUP platform supports the actual Motor without changing gravity or tuning")
+ 	check(app._item_runtime.targets(training_point,130).size() == 2, "runtime shape query discovers both actual training hurtboxes")
+ 
++func target_order_regression() -> void:
++	# The expected order is the original two-sort path over real physics results,
++	# including complete-key ties where Array.sort_custom is not stable.
++	var point := training_point
++	var first := target_a.get_parent() as Node2D
++	var second := target_b.get_parent() as Node2D
++	var previous_position := second.global_position
++	var first_id := target_a.actor_id
++	var second_id := target_b.actor_id
++	for case_name: String in ["distinct_distance", "reversed_tie_ids", "ordered_tie_ids", "equal_complete_keys", "instance_id_fallback"]:
++		if case_name != "distinct_distance":
++			second.global_position = point+Vector2(-60,0)
++			await ticks(1)
++		var expected: Array[Dictionary] = app.controller.shoot_ability.behavior().receivers(point,130)
++		check(expected.size() == 2, "target-order regression uses both actual physics receivers: "+case_name)
++		if expected.size() != 2: continue
++		if case_name == "reversed_tie_ids":
++			(expected[0].node as Node).set_meta("item_v5_enemy_id","z")
++			(expected[1].node as Node).set_meta("item_v5_enemy_id","a")
++		elif case_name == "ordered_tie_ids":
++			(expected[0].node as Node).set_meta("item_v5_enemy_id","a")
++			(expected[1].node as Node).set_meta("item_v5_enemy_id","z")
++		elif case_name == "equal_complete_keys":
++			first.set_meta("item_v5_enemy_id","same")
++			second.set_meta("item_v5_enemy_id","same")
++		elif case_name == "instance_id_fallback":
++			first.remove_meta("item_v5_enemy_id")
++			second.remove_meta("item_v5_enemy_id")
++			target_a.actor_id = 0
++			target_b.actor_id = 0
++		expected.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
++			var da := point.distance_squared_to((a.node as Node2D).global_position)
++			var db := point.distance_squared_to((b.node as Node2D).global_position)
++			if da != db: return da < db
++			var a_receiver := a.receiver as Damageable
++			var b_receiver := b.receiver as Damageable
++			var left_id := a_receiver.actor_id if a_receiver.actor_id != 0 else a_receiver.get_instance_id()
++			var right_id := b_receiver.actor_id if b_receiver.actor_id != 0 else b_receiver.get_instance_id()
++			var left := str((a.node as Node).get_meta("item_v5_enemy_id", "%020d" % left_id))
++			var right := str((b.node as Node).get_meta("item_v5_enemy_id", "%020d" % right_id))
++			return left < right)
++		check(app._item_runtime.targets(point,130) == expected, "actual ItemRuntime preserves original complete target order: "+case_name)
++		target_a.actor_id = first_id
++		target_b.actor_id = second_id
++	if first.has_meta("item_v5_enemy_id"): first.remove_meta("item_v5_enemy_id")
++	if second.has_meta("item_v5_enemy_id"): second.remove_meta("item_v5_enemy_id")
++	second.global_position = previous_position
++	await ticks(1)
++
+ func position_training() -> void:
+ 	# Relocation is setup only; it does not count as traversal evidence.
+ 	app.player.global_position = training_point
+@@ -380,6 +429,7 @@ func _exercise() -> void:
+ 	check(not app._item_runtime.has(&"B03"), "known RewardService grant remains inactive in the backpack")
+ 	attach_observers()
+ 	await training_fixture()
++	await target_order_regression()
+ 	await primary("unequipped baseline",1.0)
+ 	var hp_before: float = app.controller.actor_resources.health.current
+ 	var energy_before: float = app.controller.combat_energy.current

@@ -1,0 +1,27 @@
+{
+  "diagnostic_only": true,
+  "official_toolchain_unchanged": true,
+  "project_head": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "runtime_files": 4186,
+  "runtime_same_across_A_B_C": true,
+  "runtime_aggregate_sha256": "5bbd938957c0bdb37f1362a1bab46b0fad3c70191272bffe0892613303f9eba1",
+  "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "patch_C": "117991-120976-combined-on-official.patch",
+  "patch_C_sha256": "b7b3402abce12d02cbcb517f7e852695c951e98e5d9aee1891bf5f24e4b64edb",
+  "binaries": {
+    "A": "003f55cec51ecfd46dd2b1728ceb5525702d4d55ce999c31bfb583720849741c",
+    "B": "41f255198b6fc782d2e6eaf93bd851649ef235a821a4c6739595f0b5890a8222",
+    "C": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311"
+  },
+  "minimal": {
+    "A": "strict rejection: 4 ObjectDB / 1 resource",
+    "B": "clean",
+    "C": "clean"
+  },
+  "formal": {
+    "A": "191/0; strict rejection 57 ObjectDB / 25 resources / 12 RIDs",
+    "B": "191/0; strict rejection 57 ObjectDB / 25 resources / 12 RIDs",
+    "C": "191/0; strict clean, 28.35 seconds; original timeout 120"
+  },
+  "conclusion": "The exact, independently reviewed upstream117991+120976 backport resolves the observed native formal teardown failure under this custom diagnostic build. It does not establish official toolchain acceptance, all-suite equivalence, hot-reload/await cancellation regression coverage, export-template or Web behavior."
+}

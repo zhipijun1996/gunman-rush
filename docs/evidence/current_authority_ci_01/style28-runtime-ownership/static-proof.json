@@ -1,0 +1,118 @@
+{
+  "source_commit": "23887fe5c9d32afa8bcba8725fd7895b6266aa5d",
+  "old_style_original_exact": true,
+  "references": 206,
+  "non_gd_references_unchanged": 86,
+  "changed_gd": 5,
+  "archive_sources": 5,
+  "archive_files": 11,
+  "negative_probes": [
+    {
+      "probe": "live_old:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/world/levels/providers/plains_region_stage.gd"
+    },
+    {
+      "probe": "live_missing:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/world/levels/providers/plains_region_stage.gd"
+    },
+    {
+      "probe": "archive_missing:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/runtime-ownership-before-style28/sources/game/world/levels/providers/plains_region_stage.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/world/levels/providers/plains_region_stage.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/world/levels/providers/plains_region_stage.gd"
+    },
+    {
+      "probe": "live_old:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/application/demo_app.gd"
+    },
+    {
+      "probe": "live_missing:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/application/demo_app.gd"
+    },
+    {
+      "probe": "archive_missing:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/runtime-ownership-before-style28/sources/game/application/demo_app.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/application/demo_app.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/application/demo_app.gd"
+    },
+    {
+      "probe": "live_old:game/world/levels/providers/thorn_forest_region_stage.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/world/levels/providers/thorn_forest_region_stage.gd"
+    },
+    {
+      "probe": "live_missing:game/world/levels/providers/thorn_forest_region_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/world/levels/providers/thorn_forest_region_stage.gd"
+    },
+    {
+      "probe": "archive_missing:game/world/levels/providers/thorn_forest_region_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/runtime-ownership-before-style28/sources/game/world/levels/providers/thorn_forest_region_stage.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/world/levels/providers/thorn_forest_region_stage.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/world/levels/providers/thorn_forest_region_stage.gd"
+    },
+    {
+      "probe": "live_old:game/enemies/enemy_actor.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/enemies/enemy_actor.gd"
+    },
+    {
+      "probe": "live_missing:game/enemies/enemy_actor.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/enemies/enemy_actor.gd"
+    },
+    {
+      "probe": "archive_missing:game/enemies/enemy_actor.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/runtime-ownership-before-style28/sources/game/enemies/enemy_actor.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/enemies/enemy_actor.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/enemies/enemy_actor.gd"
+    },
+    {
+      "probe": "live_old:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Shared Plains style reference SHA changed; impact analysis and revalidation required: game/world/levels/providers/generated_demo_stage.gd"
+    },
+    {
+      "probe": "live_missing:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: game/world/levels/providers/generated_demo_stage.gd"
+    },
+    {
+      "probe": "archive_missing:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Missing/unsafe Bible source: docs/creative_direction/archive/runtime-ownership-before-style28/sources/game/world/levels/providers/generated_demo_stage.gd.txt"
+    },
+    {
+      "probe": "archive_corrupt:game/world/levels/providers/generated_demo_stage.gd",
+      "result": "rejected",
+      "error": "Frozen combination parent source changed: game/world/levels/providers/generated_demo_stage.gd"
+    },
+    {
+      "probe": "archive_manifest_drift",
+      "result": "rejected",
+      "error": "Frozen source manifest changed: docs/creative_direction/archive/runtime-ownership-before-style28"
+    }
+  ],
+  "live_does_not_read_archive": true,
+  "scope": "Static finite identity/probe verification; no native/art/full-CI acceptance"
+}

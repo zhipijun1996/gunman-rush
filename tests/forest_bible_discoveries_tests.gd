@@ -1,8 +1,8 @@
 extends SceneTree
 ## Local transaction/reader contract only; no claim of Motor route admission.
 const GEAR := preload("res://tests/gear_inventory_support.gd")
-const READER := preload("res://scripts/world/forest_bible_discoveries.gd")
-const CATALOG := preload("res://scripts/world/forest_bible_discovery_catalog.gd")
+const READER := preload("res://game/world/components/forest_bible_discoveries.gd")
+const CATALOG := preload("res://game/world/components/forest_bible_discovery_catalog.gd")
 var assertions := 0
 var failures := 0
 

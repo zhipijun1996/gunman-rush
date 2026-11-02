@@ -1,0 +1,267 @@
+{
+  "status": "EXTERNAL_COMPLETE_VALIDATED_CANDIDATE_NOT_APPLIED",
+  "baseline_commit": "5d3303b78d4db374300d4a0266bde8eb1a6de5b2",
+  "candidate_source_root": "/tmp/gunman-first-use-web-source",
+  "candidate_source": [
+    {
+      "role": "windkeeper_pressure_stage_visual",
+      "path": "game/presentation/world/art/plains_stage_visual.gd",
+      "previous_sha256": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8",
+      "sha256": "b6b85b4d27973109b69fe0a9be4bb86d6c944a8c3f13be2373d74cf5e1f78855"
+    },
+    {
+      "role": "architecture_plains_revision_flora",
+      "path": "game/enemies/presentation/plains_revision_flora.gd",
+      "previous_sha256": "8ecb41f063aba37cc398a0b41d954c9f09c4b1056718619cd14f5d40719fdb47",
+      "sha256": "a408e24800fb0e491b573e8e1b635f98d9224f9d4dbf0a5d5ce8b552714a56a9"
+    },
+    {
+      "role": "architecture_plains_revision_ground",
+      "path": "game/enemies/presentation/plains_revision_ground.gd",
+      "previous_sha256": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54",
+      "sha256": "d871a81f16371fb9cf9666074c027d3e86380218907e1b8fb8e9020bf9e8a4d2"
+    },
+    {
+      "role": "architecture_plains_revision_pose",
+      "path": "game/enemies/presentation/plains_revision_pose.gd",
+      "previous_sha256": "7d896cb27f9722a279904164c9217a148325f4648744285a9d47a358910b558d",
+      "sha256": "bdcbda3ebbad9f8a5a04798a798ba5aeb0d30fdf6e0a686f19a767c28a54d2d8"
+    },
+    {
+      "role": "architecture_plains_revision_skin",
+      "path": "game/enemies/presentation/plains_revision_skin.gd",
+      "previous_sha256": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50",
+      "sha256": "360228b65702ef218cad9a22d0decf25cef6b835670025446deca288536e2805"
+    }
+  ],
+  "reference_count": 206,
+  "changed_reference_count": 5,
+  "unchanged_references": 201,
+  "non_gd_references": 86,
+  "role_path_order_unchanged": true,
+  "optional_loot_warming": false,
+  "old_original_methods_retained": {
+    "bible": 94,
+    "creative": 30
+  },
+  "changed_original_method_count": 8,
+  "all_original_method_assertion_counts_exact": true,
+  "all_unadapted_original_method_ast_exact": true,
+  "complete_before_after_method_sources": "method-migrations.json",
+  "old_history_partition_is_exact_prefix": true,
+  "partition": {
+    "current": 46,
+    "history": 52,
+    "creative": 31
+  },
+  "old_inputs_prefix_exact": {
+    "region-bible-contract": {
+      "old_count": 329,
+      "new_count": 331
+    },
+    "region-bible-tests": {
+      "old_count": 671,
+      "new_count": 673
+    }
+  },
+  "old_commands_budgets_profile_groups_unchanged": true,
+  "executions": [
+    {
+      "name": "current",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "budget_seconds": 30,
+      "elapsed_seconds": 19.987,
+      "exit_code": 0,
+      "timeout": false,
+      "log": "/workspace/refactor-evidence/death-runtime-01/style34-preparation/checks-02/current.log",
+      "candidate_patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b"
+    },
+    {
+      "name": "history",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py",
+        "--history"
+      ],
+      "budget_seconds": 30,
+      "elapsed_seconds": 22.786,
+      "exit_code": 0,
+      "timeout": false,
+      "log": "/workspace/refactor-evidence/death-runtime-01/style34-preparation/checks-02/history.log",
+      "candidate_patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b"
+    },
+    {
+      "name": "creative",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "budget_seconds": 60,
+      "elapsed_seconds": 12.161,
+      "exit_code": 0,
+      "timeout": false,
+      "log": "/workspace/refactor-evidence/death-runtime-01/style34-preparation/checks-02/creative.log",
+      "candidate_patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b"
+    },
+    {
+      "name": "bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "budget_seconds": 30,
+      "elapsed_seconds": 0.165,
+      "exit_code": 0,
+      "timeout": false,
+      "log": "/workspace/refactor-evidence/death-runtime-01/style34-preparation/checks-01/bible-contract.log",
+      "candidate_patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b"
+    },
+    {
+      "name": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "budget_seconds": 30,
+      "elapsed_seconds": 0.166,
+      "exit_code": 0,
+      "timeout": false,
+      "log": "/workspace/refactor-evidence/death-runtime-01/style34-preparation/checks-01/creative-direction.log",
+      "candidate_patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b"
+    }
+  ],
+  "main_tree_writes": [],
+  "files": [
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/docs/creative_direction/bibles/registry.json",
+      "previous_sha256": null,
+      "sha256": "d42a793d2ddd1d36c3ba89d9a854d77b6eba2b505a2fd36400d660e85122d643",
+      "bytes": 2958
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/docs/creative_direction/thorn_forest.json",
+      "previous_sha256": null,
+      "sha256": "765a2ee94496661ae99fa37e307ea931f963a638d763c9eec24189c9a8034c93",
+      "bytes": 17510
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/docs/creative_direction/windchime_plains.json",
+      "previous_sha256": null,
+      "sha256": "79967d39f3f766e9e75dbc98674860e1ea2a1b75bb7c513bb06fd7781b600802",
+      "bytes": 17206
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/manifest.json",
+      "previous_sha256": null,
+      "sha256": "0f2e6ae2da8bf141a46b1ca5beb0621cce26d1c3f18138a76b0adc2a85291d8b",
+      "bytes": 5192
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/sources/game/enemies/presentation/plains_revision_flora.gd.txt",
+      "previous_sha256": null,
+      "sha256": "8ecb41f063aba37cc398a0b41d954c9f09c4b1056718619cd14f5d40719fdb47",
+      "bytes": 17652
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/sources/game/enemies/presentation/plains_revision_ground.gd.txt",
+      "previous_sha256": null,
+      "sha256": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54",
+      "bytes": 17086
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/sources/game/enemies/presentation/plains_revision_pose.gd.txt",
+      "previous_sha256": null,
+      "sha256": "7d896cb27f9722a279904164c9217a148325f4648744285a9d47a358910b558d",
+      "bytes": 5403
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/sources/game/enemies/presentation/plains_revision_skin.gd.txt",
+      "previous_sha256": null,
+      "sha256": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50",
+      "bytes": 6668
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/sources/game/presentation/world/art/plains_stage_visual.gd.txt",
+      "previous_sha256": null,
+      "sha256": "e6291eda2507a92d81e61c044f0e08c16f494a0334724837becefbd7ffd8b2e8",
+      "bytes": 9796
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/tests/test_region_bible.py",
+      "previous_sha256": null,
+      "sha256": "9226a4af95b3de80039aba0c4d7891ffaf342466f4db35dd17049203fc967f7f",
+      "bytes": 314451
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/tests/test_region_creative_direction.py",
+      "previous_sha256": null,
+      "sha256": "1b9eab8b51eaa17bfe60169fa1137eaeb32d9707d8f5f6f8bfc59b4964458bb1",
+      "bytes": 77562
+    },
+    {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/tools/harness/profiles.json",
+      "previous_sha256": null,
+      "sha256": "d1af9ad772f2062a0c88e4e4b03cb84a6ec62fa9492875c2f519763dc47e31a4",
+      "bytes": 452245
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "previous_sha256": "d42a793d2ddd1d36c3ba89d9a854d77b6eba2b505a2fd36400d660e85122d643",
+      "sha256": "2dd917ccfbbe4a59c3eb63a3b047b86731325c5c07071cbab91f1899fc07eaa6",
+      "bytes": 2953
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+      "previous_sha256": null,
+      "sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14",
+      "bytes": 53492
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "previous_sha256": "765a2ee94496661ae99fa37e307ea931f963a638d763c9eec24189c9a8034c93",
+      "sha256": "4630d15bace4cbd0d3c0825da14b80e31066ace2aa7c6b7332172ef7ff012aa6",
+      "bytes": 19004
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "previous_sha256": "79967d39f3f766e9e75dbc98674860e1ea2a1b75bb7c513bb06fd7781b600802",
+      "sha256": "732cf88a577b078d675fb5c77b64e6b54d3d3c38a375e3dcd059db33043e60ec",
+      "bytes": 18700
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "previous_sha256": "9226a4af95b3de80039aba0c4d7891ffaf342466f4db35dd17049203fc967f7f",
+      "sha256": "2457fb7bcd1d69327b4851de6923da508e93ee62a86cf488dfafee480ebdbf8f",
+      "bytes": 329663
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "previous_sha256": "1b9eab8b51eaa17bfe60169fa1137eaeb32d9707d8f5f6f8bfc59b4964458bb1",
+      "sha256": "8b73be4274021088e7316e6d41d029af47d9356fb4a6afe08ea51fbf5a61a223",
+      "bytes": 79160
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "previous_sha256": "d1af9ad772f2062a0c88e4e4b03cb84a6ec62fa9492875c2f519763dc47e31a4",
+      "sha256": "a8884dfd811aa3ae10cc50e25cc354ea7f3c486e79a339dce003b8ae56767085",
+      "bytes": 452571
+    },
+    {
+      "path": "tools/region_style_history.py",
+      "previous_sha256": "309d573952812244326257c818890bf9175a4b7a136cde675f83ab209dfc4202",
+      "sha256": "b95de056e2656e187cc93caf3082e54e2efb43734059d6ae1921322c9075da94",
+      "bytes": 6543
+    }
+  ],
+  "patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b",
+  "inverse_patch_sha256": "726462481bdaee8a520cd9d10843d30d0331a9d594a44337df1e1f05d55ba8fc",
+  "first_failures_preserved": "checks-01/ (current6/history5/creative4 missing fixture/evidence errors; unchanged code candidate)",
+  "validation_input_materialization": "validation-input-materialization.json",
+  "actual_patch_inverse_forward_roundtrip": "roundtrip-proof.json"
+}

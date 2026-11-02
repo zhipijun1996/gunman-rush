@@ -17,7 +17,7 @@ func run() -> void:
 				for saw: ModuleSawDefinition in module.definition.saws: saw.initial_phase=phase
 				for ferry: ModuleMovingPlatformDefinition in module.definition.ferries: ferry.initial_phase=phase
 				trace.stage.add_child(module);trace.stage.modules.append(module)
-				trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor)
+				trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=module.world_entry() if forward else module.world_exit();trace.world.add_child(trace.motor)
 				trace.controller=trace.motor.get_node("Controller");trace.controller.set_physics_process(false);trace.controller.enable_shot_energy();trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 				trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
 				for saw: ModuleSawHazard in module.hazards: trace.previous_hazards[saw.get_instance_id()]=saw.global_position
@@ -39,7 +39,7 @@ func return_bell_guard() -> void:
 	var trace=load("res://tests/plains_region_trace.gd").new();trace.tree=self;trace.check=check
 	trace.world=Node2D.new();root.add_child(trace.world);trace.stage=PlainsRegionAssembler.new();trace.world.add_child(trace.stage)
 	var module:=PlatformingModule.new();module.definition=RandomStageGenerator.new().definition_for("plains_windchime_well");trace.stage.add_child(module);trace.stage.modules.append(module)
-	trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=Vector2(450,-190);trace.world.add_child(trace.motor)
+	trace.motor=preload("res://game/player/player.tscn").instantiate();trace.motor.position=Vector2(450,-190);trace.world.add_child(trace.motor)
 	trace.controller=trace.motor.get_node("Controller");trace.controller.set_physics_process(false);trace.controller.enable_shot_energy()
 	# Explicit firing-origin fixture; real projectile, wall query and latch consumer.
 	var m: Dictionary={"layout_id":"connected_region","nodes":[{"id":"probe","module_id":"plains_windchime_well","offset":[0,0],"mirrored":false,"reverse_traversal":false}]};m.shot_latch_plan=PlainsShotLatchPlanner.recorded_plan(m)

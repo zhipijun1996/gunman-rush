@@ -85,7 +85,7 @@ func run() -> void:
 		for after_frames: int in EXTENT_FRAMES:
 			await extent_pair(path, after_frames)
 	var hashes: Dictionary = {}
-	for path: String in ["res://tests/enemy_feedback_01_particle_extent.gd", "res://tests/enemy_feedback_01_tests.gd", "res://scripts/enemies/enemy_feedback_01_particles.gd", "res://scripts/underworld_plains/underworld_enemy.gd"]:
+	for path: String in ["res://tests/enemy_feedback_01_particle_extent.gd", "res://tests/enemy_feedback_01_tests.gd", "res://game/enemies/presentation/enemy_feedback_01_particles.gd", "res://game/presentation/actors/underworld_plains/underworld_enemy.gd"]:
 		hashes[path] = FileAccess.get_sha256(path)
 	var output := {"task": "ENEMY-FEEDBACK-01", "label": extent_label, "checks": checks, "failures": failures, "viewport": [1280, 720], "fixed_fps_expected": 60, "fixture": "same base supported arena and original species Definition; fresh equivalent fixture for each observation age; no gameplay RNG draw or seed override", "driver_source_sha256": hashes["res://tests/enemy_feedback_01_particle_extent.gd"], "source_sha256": hashes, "measurements": extent_rows, "scope": "real Router projectile then 2/6 ordinary ticks; same-burst-age visibility-only GPU difference; pair with identical driver/fixture/actual ages across v3/v4 before claiming envelope gain; not quality or device approval"}
 	var file := FileAccess.open(extent_output.path_join("report.json"), FileAccess.WRITE)

@@ -1,3 +1,45 @@
+## 2026-11-02 首次使用与敌战卡顿调查
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MAIN-REFACTOR-MERGE-01 | 验证并合入累积重构到main | DEATH-RUNTIME-01 | in_progress | [范围](worklines/main_refactor_merge_01/scope.md) · [质量](quality/records/MAIN-REFACTOR-MERGE-01.json)；按精确PR head原171双通道及affected合流后普通merge |
+| DEATH-RUNTIME-01 | 保持死亡动画，优化死亡运行成本 | FIRST-USE-STUTTER-01 | review | [范围](worklines/death_runtime_01/scope.md) · [质量](quality/records/DEATH-RUNTIME-01.json)；7899/0逐字节、core5686/0及公开58ef14b41f57通过；死亡绘制CPU降50–61%，手机待验 |
+| FIRST-USE-STUTTER-01 | 定位Chrome首次air与敌战卡顿，证据驱动最小修复 | COMBAT-PERF-DEPLOY-01 | review | [范围](worklines/first_use_stutter_01/scope.md) · [质量记录](quality/records/FIRST-USE-STUTTER-01.json)；V2拒绝保留；V3冷air零编译、GPU50/0；共用准备已在Home消费，fresh10通过；[结果／回退](worklines/first_use_stutter_01/results.md)，正式首hit剩余耗时和设备性能未签 |
+
+## 2026-11-02 战斗性能优化后部署
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| COMBAT-PERF-DEPLOY-01 | 原所有者内优化战斗热点并部署同源试玩 | MOBILE-COMBAT-MESH-02 | review | [结果](worklines/combat_perf_deploy_01/results.md) · [范围](worklines/combat_perf_deploy_01/scope.md) · [质量记录](quality/records/COMBAT-PERF-DEPLOY-01.json)；F60f44：171 fresh、原3浏览器73、PCK13、同源影片与公开完整SHA/入口GUI通过；技术已部署，待真机/玩家，非整体FPS或G5通过 |
+
+## 2026-11-01 网格性能与后续功能架构
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MOBILE-COMBAT-MESH-02 | 复用现Pose派生量及实际零权重叶子计算 | MOBILE-COMBAT-PRESENTATION-01 | review | [结果／回退](worklines/mobile_combat_mesh_02/results.md) · [质量记录](quality/records/MOBILE-COMBAT-MESH-02.json)；32局部通过，Root dying+2.95%，full171／手机未验 |
+| FUTURE-FEATURE-ARCHITECTURE-01 | 教程／短片、map-gen／区域、剧情NPC／家园、永久升级接入审计 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | review | [接入方案](architecture_extensions.md) · [源码审计](worklines/future_feature_architecture_01/assessment.md) · [质量记录](quality/records/FUTURE-FEATURE-ARCHITECTURE-01.json)；文档审查，不声称新功能已实施 |
+
+## 2026-11-01 手机战斗表现性能
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MOBILE-COMBAT-PRESENTATION-01 | 两怪物宿主单帧重复同步收敛，保原表现契约 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | review | [结果／回退](worklines/mobile_combat_presentation_01/results.md) · [质量记录](quality/records/MOBILE-COMBAT-PRESENTATION-01.json)；原Development16＋四专项通过，手机掉帧及完整Integration未验 |
+
+## 2026-11-01 最终维护批次
+
+实现及技术验证已保存；review状态不代表玩家／设备／艺术G5通过。旧任务行保留其历史来源，最终结果按以下精确来源读取。
+
+| 任务 | 目标 | 依赖 | 状态 | 结果 |
+| --- | --- | --- | --- | --- |
+| GAME-ARCH-TECHNICAL-CLOSEOUT-01 | 架构技术收口 | GAME-ARCH-LAYOUT-01 | review | [质量记录](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json)，379完整171／平台／公开基本验证 |
+| POPUP-TOUCH-PAIRING-01 | 独立弹窗触摸配对修复 | GAME-ARCH-TECHNICAL-CLOSEOUT-01 | review | [质量记录](quality/records/POPUP-TOUCH-PAIRING-01.json)，ab263 UI24／真实触屏／Web／公开基本GUI |
+| BROWSER-CONSUMER-REFRESH-01 | 当前浏览器消费者与严格共用定位 | POPUP-TOUCH-PAIRING-01 | review | [质量记录](quality/records/BROWSER-CONSUMER-REFRESH-01.json)，e8c578工具60＋28及原3实际73项 |
+| UI-CI-OWNERSHIP-01 | 真实UI测试叶与模块责任映射 | MODULE-CALL-BOUNDARIES-01 | review | [质量记录](quality/records/UI-CI-OWNERSHIP-01.json)，2d64映射原48项，未知与selector自身仍full |
+
+## 2026-11-01 当前技术收口
+
+本轮架构职责迁移与冻结源37950e08的full171／平台／公开基本验证已经完成；run41280956930仅对attempt1 checkout失败jobs作attempt2重跑，最终九jobs成功。下方历史任务行仍记录各自当时来源，不据此追改旧失败。最终技术收口以独立继任记录GAME-ARCH-TECHNICAL-CLOSEOUT-01补379证据并保持review边界；旧质量卡不批量改写；完整任意新地图接入、物理设备与玩家认可不属于本次已验收范围。PopupTouchAdapter触屏缺陷及工具v3 locator更新单列，不归入等价架构迁移，最终结果待绑定。
+
 # CI-CURRENT-01 · PR124 合入后的当前测试契约
 
 用户明确先合 PR124，再重构修复。PR124 已合入 main `bd862374`，原 CI 红灯保留；本批从新 main 独立修复旧视觉测试宿主缺少 nullable boss 字段，并审计历史/当前检查范围。
@@ -722,3 +764,51 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | AI-LEVEL-PILOT-01 | 平原/森林小样、强替代、几何对照及失败回流 | AI-LEVEL-DESIGN-01 | review | [小样与失败](ai_level_design_v1/pilot_design.md)；无正式准入，高路编舞被直取奖励反证，真人/设备未验 |
 
 | LEVEL-TOOLS-INTEGRATION-01 | PR107离线工具与两Boss主线并集 | MAIN-UNIFY-20261031 | in_progress | [组合证据](evidence/main_unify_20261031/level-tools/README.md)；28/41通过，native pilot/full172未签，不切正式地图 |
+
+| GAME-ARCH-CI-01 | CI去重与game源码/导出守门 | MAIN-UNIFY-20261031 | in_progress | [执行记录](worklines/game_architecture_01/execution.md)；原lane前缀与预算保持；full182注册获有限独审，尚未完整执行；formal191/0退出57/25仍阻塞；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+
+| GAME-ARCH-SESSION-01 | mechanic | GAME-ARCH-CI-01 | in_progress | RunSession owns actual App services; bounded original regressions pass; full integration pending |
+
+| GAME-ARCH-LEVEL-01 | 纯值地图请求、已解析Plan与实际运行装配；四正式地图接入并保留旧格式适配 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LEVEL-01.json) |
+
+| GAME-ARCH-ENTITY-01 | 三个地图消费者共用敌人快照与恢复，候选行为归现有Registry | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENTITY-01.json) |
+
+| GAME-ARCH-LOADOUT-01 | 库存修复及回滚、钱包余额、道具收益和主动施放的真实消费者收敛 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LOADOUT-01.json) |
+
+| GAME-ARCH-ENTRY-01 | 正式预览与测试共用生产音频生命周期，保留同帧停止既有限制 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENTRY-01.json) |
+
+| GAME-ARCH-AUDIO-01 | 单独修复已知音频宿主串用与按钮重复触发；不改音频资源 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-AUDIO-01.json) |
+
+| GAME-ARCH-MESH-01 | 同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-MESH-01.json) |
+
+| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | GAME-ARCH-LEVEL-01 | in_progress | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |
+
+| GAME-ARCH-LAYOUT-01 | 实际功能目录、资源引用及测试/CI输入迁移 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LAYOUT-01.json)；6584六项fresh通过，formal清理57/25仍失败；style26与最终GUI/PCK/全量未验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+
+| GAME-ARCH-BOSS-STATE-01 | Boss自身快照、生命与决斗恢复所有权收口 | GAME-ARCH-ENTITY-01 | in_progress | [质量记录](quality/records/GAME-ARCH-BOSS-STATE-01.json)；063d6ccb静态独审限定接受，原生待验 |
+
+| GAME-ARCH-TEST-MIGRATION-01 | 当前与历史测试消费者迁移收口；62文件限定独审 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/GAME-ARCH-TEST-MIGRATION-01.json) |
+
+| AUDIO-LAB-MATERIAL-01 | 显式 Lab enemy_hurt ABC 试听与七怪材质路由兼容缺陷独立修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/AUDIO-LAB-MATERIAL-01.json)；精确 2ce 原 126/3 保留；候选 C/optimized 原生各154/0限定通过，正式集成与完整验收待验 |
+
+| GAME-ARCH-OWNERSHIP-02 | Latch、terminal reentry 与 Boss Arena 状态恢复所有权有限收口 | GAME-ARCH-BOSS-STATE-01 | in_progress | [质量记录](quality/records/GAME-ARCH-OWNERSHIP-02.json)；7生产/4测试候选实现，11原生+Bell8限定通过；region第三19/5与ed95相同，CI-BOSS-CONSUMERS-01独立处理，完整验收待验 |
+
+| GAME-ARCH-ENGINE-01 | 固定上游Godot回补构建、八文件推广与严格工具链安装整合 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENGINE-01.json)；build184/public84522与安装、原26+91限定通过；完整游戏/平台/设备未验 |
+
+| CI-BOSS-CONSUMERS-01 | 当前Boss测试消费者与历史fixture边界迁移 | GAME-ARCH-OWNERSHIP-02 | in_progress | [质量记录](quality/records/CI-BOSS-CONSUMERS-01.json)；八测试+两fixture已49a298提交，current15原wrapper224.151秒通过；共享五消费者分次通过，旧失败/27legacy未验保留，全量未验 |
+
+| UNDERWORLD-DEFERRED-LIFETIME-01 | Underworld延迟节点释放与world归属缺陷修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)；原main2ce319 ERROR保留；两文件a671已提交，formal104/cache444及同probe错误0有限通过；全量未验 |
+
+| CI-FOUNDRY-CONSUMERS-01 | Android同源Foundry消费者、开发池刷新与三入口统一CI覆盖 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/CI-FOUNDRY-CONSUMERS-01.json)；63文件WIP限定独审通过，原91/37及3selected fresh过；185已注册未全跑，旧失败/未构成反例保留 |
+
+| ASSET-METADATA-LAYOUT-01 | 功能目录迁移后的三条当前资产登记SHA修复 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/ASSET-METADATA-LAYOUT-01.json)；实际三SHA已应用，原art-art310及独审限定过；同batchv3失败保留，full185/GUI未验 |
+| CI-CONSUMER-PATHS-01 | 既有18消费者装配、输入闭包与真实失败收据 | GAME-ARCH-LAYOUT-01 | in_progress | [原质量记录](quality/records/CI-CONSUMER-PATHS-01.json)；旧278/1历史不覆写，当前R3合同迁移已单列并在760e原完整检查通过；完整185待验 |
+| ROOT-BELL-PAUSED-RESTORE-01 | 暂停恢复新epoch时同步清RootBell旧命中颗粒 | CI-CONSUMER-PATHS-01 | in_progress | [独立原缺陷质量记录](quality/records/ROOT-BELL-PAUSED-RESTORE-01.json)；原393/1保留；独审后hit393/0、lifecycle112/0与原RootBell/deform均通过，整体未验；不改玩法/素材，R3另行阻断 |
+| R3-CURRENT-CONTENT-CONTRACT-01 | 当前Bell真实平台正例、共享夹具与默认完整战斗消费者迁移 | CI-CONSUMER-PATHS-01 | done | [独立质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)；760e同源原registeredcheck313/16/65与两图4954/5053全0，旧失败不改签；仅该原检查，非full185 |
+| STAGE-CLAIM-CACHE-OWNER-01 | Stage领取状态归属与共用宝箱候选规则 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/STAGE-CLAIM-CACHE-OWNER-01.json)；P10/P11实际专项通过；资源权威技术重绑和完整171仍待；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| MODULE-CALL-BOUNDARIES-01 | 收紧App/地图/怪物调用边界与模块CI责任 | GAME-ARCH-LAYOUT-01 | in_progress | [质量记录](quality/records/MODULE-CALL-BOUNDARIES-01.json)；专项与选择器已验，完整集成另验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| CURRENT-AUTHORITY-CI-01 | 当前技术绑定与当前/历史CI分区 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/CURRENT-AUTHORITY-CI-01.json)；两个P0专项已过，完整171另验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| BIBLE-VALIDATION-COST-01 | 单次验证共享路径与读取上下文 | CURRENT-AUTHORITY-CI-01 | in_progress | [质量记录](quality/records/BIBLE-VALIDATION-COST-01.json)；原CI超时保留，当前专项及独审通过；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+| APP-WORLD-COMPOSITION-01 | Stage/Actor取消、地图伤害与Boss场地接线 | MODULE-CALL-BOUNDARIES-01 | in_progress | [质量记录](quality/records/APP-WORLD-COMPOSITION-01.json)；六源码静审及原9项回归通过，完整集成/交付待验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |
+
+| MAP-VIEW-BOUNDARY-01 | App最后两处旧地图展示查询归Stage | APP-WORLD-COMPOSITION-01 | in_progress | [质量记录](quality/records/MAP-VIEW-BOUNDARY-01.json)；原HUD61及五布局前后相同，三叶独审通过；最终CI/平台另验；历史节点，最终技术收口见 [GAME-ARCH-TECHNICAL-CLOSEOUT-01](quality/records/GAME-ARCH-TECHNICAL-CLOSEOUT-01.json) |

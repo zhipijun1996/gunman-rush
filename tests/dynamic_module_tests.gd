@@ -1,6 +1,6 @@
 extends RefCounted
 
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var tree: SceneTree
 var check: Callable
@@ -21,7 +21,7 @@ func fixture(id: String, phase: float, jump_count: int) -> void:
 		world.free()
 	world = Node2D.new()
 	tree.root.add_child(world)
-	module = load("res://scenes/generation/modules/" + id + ".tscn").instantiate()
+	module = load("res://game/world/generation/scenes/modules/" + id + ".tscn").instantiate()
 	module.definition = module.definition.duplicate(true)
 	if id == "timed_gallery":
 		module.definition.saws[0].initial_phase = phase
@@ -246,8 +246,8 @@ func negative_definitions() -> void:
 	invalid = load("res://resources/generation/modules/timed_gallery.tres").duplicate(true)
 	invalid.saws[0].period = 0.0
 	check.call(not invalid.is_valid(), "definition rejects instantaneous hazard cycle")
-	var first: PlatformingModule = load("res://scenes/generation/modules/timed_gallery.tscn").instantiate()
-	var second: PlatformingModule = load("res://scenes/generation/modules/timed_gallery.tscn").instantiate()
+	var first: PlatformingModule = load("res://game/world/generation/scenes/modules/timed_gallery.tscn").instantiate()
+	var second: PlatformingModule = load("res://game/world/generation/scenes/modules/timed_gallery.tscn").instantiate()
 	world.add_child(first)
 	second.position = Vector2(1400, 0)
 	world.add_child(second)

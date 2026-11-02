@@ -88,6 +88,7 @@ func run() -> void:
 		check(old_manifest==JSON.stringify(stage.generated.manifest),"pause/cosmetics never alter generation")
 		check(old_actor_epoch==app.lifetime.actor_epoch and old_stage_epoch==app.lifetime.stage_epoch,"presentation/pause retains current lifecycle")
 		inventory.append({"map":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"enemy_behaviors":kinds.keys(),"enemies":stage.enemies.size(),"chests":stage.chests.size(),"decor":scene.placements.size(),"tilemap_cells":(stage.terrain_art.art as UnderworldTerrain).core_cells.size(),"backgrounds":bg.measured_nodes(),"scope":"actual consumers and lifecycle, not complete human traversal or commercial animation"})
+	await deferred_presentation_contract(app)
 	check(tuning_hash==FileAccess.get_sha256("res://config/player_tuning.json"),"unique physics source unchanged")
 	app.abandon_run()
 	check(await load("res://tests/audio_teardown.gd").drain_world(app),"complete consumer teardown drains audio")
@@ -97,3 +98,35 @@ func run() -> void:
 	FileAccess.open("res://build/underworld_plains/formal_integration.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"inventory":inventory},"  "))
 	print("UNDERWORLD_FORMAL checks=%d failures=%d maps=2"%[checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+func deferred_presentation_contract(app: DemoApp) -> void:
+	var stage: Node=app.stage
+	var presentation:=stage.get_node("FineWorldPresentation") as UnderworldPresentation
+	check(presentation!=null,"actual formal presentation owns deferred additions")
+	if presentation==null:return
+	var other:=Node2D.new();root.add_child(other)
+	var live:=Sprite2D.new();stage.add_child(live)
+	check(live.material==null,"late live node retains deferred installation timing")
+	var retired:=Sprite2D.new();stage.add_child(retired)
+	var retired_id:=retired.get_instance_id()
+	retired.free()
+	var foreign:=Sprite2D.new();other.add_child(foreign)
+	var moved:=Sprite2D.new();stage.add_child(moved);moved.reparent(other)
+	await process_frame
+	check(live.material==presentation._sprite_material,"live late sprite receives original formal material")
+	check(not presentation._seen.has(retired_id),"freed pending node never enters typed installer")
+	check(foreign.material==null and moved.material==null,"foreign and moved-out nodes are not installed by original world")
+	var previous_context:=Sprite2D.new();stage.add_child(previous_context)
+	previous_context.reparent(other)
+	presentation.world=other
+	var current_context:=Sprite2D.new();other.add_child(current_context)
+	await process_frame
+	check(previous_context.material==null,"old queued context cannot install after world replacement even when node is now in new world")
+	check(current_context.material==presentation._sprite_material,"new current world additions still install normally")
+	var disappearing:=Sprite2D.new();other.add_child(disappearing)
+	var disappearing_id:=disappearing.get_instance_id()
+	other.free()
+	await process_frame
+	check(not presentation._seen.has(disappearing_id),"freed world and pending child drain without typed-object calls")
+	presentation.world=stage
+	live.free()

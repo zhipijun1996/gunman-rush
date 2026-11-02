@@ -1,0 +1,49 @@
+{
+  "kind": "targeted_original_commands_not_full_harness",
+  "head_start": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "helper_sha256": "f00ca5b608b1603555dfc5da31fb8d99c7afc456f327f433074aee26076c5d6f",
+  "only_delta_this_run": "repository_file ancestor enumeration; no cache/test/input/budget edits",
+  "checks": [
+    {
+      "check": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "elapsed_seconds": 25.94,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "/workspace/refactor-evidence/region-bible-tests-ancestor-optimization-20261031T060933Z.log",
+      "log_sha256": "779b314e20db92b2677ef439ebe964d73a9d98697ab250f300d6b1cf763ffda8"
+    },
+    {
+      "check": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "elapsed_seconds": 6.23,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "/workspace/refactor-evidence/creative-direction-tests-ancestor-optimization-20261031T060933Z.log",
+      "log_sha256": "0ecc1cb4e05875f550b1d1e32136383db16a3de817314adca403879e5da4e950"
+    },
+    {
+      "check": "repository-file-existing-safety",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py",
+        "BibleTests.test_path_escape_absolute_and_symlink_ancestors_rejected"
+      ],
+      "timeout_seconds": 30,
+      "elapsed_seconds": 0.216,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "/workspace/refactor-evidence/repository-file-existing-safety-ancestor-optimization-20261031T060933Z.log",
+      "log_sha256": "7f3d458e373a6b50da562466bf3fe22f0d1a7f547e923a31ae2eaf2d308c2b17"
+    }
+  ],
+  "head_end": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53"
+}

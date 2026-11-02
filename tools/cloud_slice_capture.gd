@@ -15,7 +15,7 @@ func _initialize() -> void:
 
 func start() -> void:
 	root.size = Vector2i(1280, 720)
-	preview = preload("res://scenes/dev/cloud_preview.tscn").instantiate()
+	preview = preload("res://experiments/platform/entries/cloud_preview.tscn").instantiate()
 	root.add_child(preview)
 	await process_frame
 	await process_frame

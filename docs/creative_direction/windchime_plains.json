@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v28",
+  "version": "creative-v37",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
-    "supplemental_authority_sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+    "supplemental_authority_sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "cd5a988a1c0e2ddf6e4e4e2a4852029ee9b64d005a35a3603b133ffeabeefbe4",
+    "registry_sha256": "2dd917ccfbbe4a59c3eb63a3b047b86731325c5c07071cbab91f1899fc07eaa6",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -234,6 +234,42 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
       "sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json",
+      "sha256": "f2ef7c7f3cf3ae3f81e129db1f1d6669fb9ad7b654f010cdceeeacbf62619bad"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+      "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+      "sha256": "ef0d705cdce0d49d61a76de664411f58b6973d1aa54fabf77c90a39402e3a6b7"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v29-composition-closeout.json",
+      "sha256": "f1cc00a875508e3e52ccc4e228ff10e2181da9ef46050e2335faf0f56823dd4c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v30-map-query-boundary.json",
+      "sha256": "a2677a9a383b8f99213a5e5a5fde3715b4e65a6fd419d48192a24e264b8d0d0e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
+      "sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
+      "sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
+      "sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+      "sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14"
     }
   ],
   "historical_direction": {
@@ -242,107 +278,47 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "MAIN-INTEGRATION-122-124-125",
-    "scope": "Combined technical identity for Bellstrider and Windkeeper Pressure. Original selected regional content remains; forest only shares source identity.",
-    "parent_directions": [
+    "task_id": "DEATH-RUNTIME-01",
+    "source_commit": "5d3303b78d4db374300d4a0266bde8eb1a6de5b2",
+    "source_identity": "Baseline5d3303 plus exact external uncommitted candidate_source; candidate not present in baseline Git. Root accepted the exact five-source freeze after controlled A/A+AB draw measurements; this metadata does not inherit runtime, browser or device acceptance.",
+    "candidate_source": [
       {
-        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/docs/creative_direction/windchime_plains.json",
-        "sha256": "f6a36e7363ff79e7f297b0339f0123ceed3832ba7d0eb545181130a8e6c1ab5e"
+        "path": "game/presentation/world/art/plains_stage_visual.gd",
+        "sha256": "b6b85b4d27973109b69fe0a9be4bb86d6c944a8c3f13be2373d74cf5e1f78855"
       },
       {
-        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/docs/creative_direction/windchime_plains.json",
-        "sha256": "21bcb094037e433ea597004928b81df60e23013f8f82e4bbd1bd30db46dd88b1"
-      }
-    ],
-    "parent_manifests": [
-      {
-        "path": "docs/creative_direction/archive/merge-20261031-style25/bellstrider/manifest.json",
-        "sha256": "c6e8c5ccc283900a84d3d5f8078ce599e9e9ef35acc9a1cdf8ae38cfacb43159",
-        "source_commit": "66c6c41d1a77e6b2f034999b6111c272a11f2d76"
+        "path": "game/enemies/presentation/plains_revision_flora.gd",
+        "sha256": "a408e24800fb0e491b573e8e1b635f98d9224f9d4dbf0a5d5ce8b552714a56a9"
       },
       {
-        "path": "docs/creative_direction/archive/merge-20261031-style25/windkeeper/manifest.json",
-        "sha256": "bebfb3cd755699bd66deda0ed3d7a9969bb461c177aad4da89c9fd509129132b",
-        "source_commit": "b8ada996b77bdfc6bdf36a9961b9d460ab1f0323"
+        "path": "game/enemies/presentation/plains_revision_ground.gd",
+        "sha256": "d871a81f16371fb9cf9666074c027d3e86380218907e1b8fb8e9020bf9e8a4d2"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_pose.gd",
+        "sha256": "bdcbda3ebbad9f8a5a04798a798ba5aeb0d30fdf6e0a686f19a767c28a54d2d8"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_skin.gd",
+        "sha256": "360228b65702ef218cad9a22d0decf25cef6b835670025446deca288536e2805"
       }
     ],
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json",
-    "shared_style_sha256": "255c3f2edb79ecf6c6898bfb0f7ea04d3ebf2a0443bdb80a6a52c633b17c7f25",
+    "scope": "Technical binding of five existing GD leaves only: Pose/Ground/Flora/Skin and StageVisual shared loot material; optional loot warming excluded.",
+    "previous_binding_manifest": {
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/manifest.json",
+      "sha256": "0f2e6ae2da8bf141a46b1ca5beb0621cce26d1c3f18138a76b0adc2a85291d8b"
+    },
+    "validation": "Root reported frozen oracle7899/0 with442442vertices, motion603/support145/save156/snapshot129 passed; Skin/Ground independent review and existing nonauthor Flora review. These are external exact-source evidence to be linked by root, not checks executed here; Root subsequently reported accepted A/A+AB draw timing with bit-identical uploads; browser, device, full CI and user outcomes are not certified by this binding.",
+    "previous_direction": "docs/creative_direction/archive/death-runtime-before-style34/docs/creative_direction/windchime_plains.json",
+    "previous_sha256": "79967d39f3f766e9e75dbc98674860e1ea2a1b75bb7c513bb06fd7781b600802",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+    "shared_style_sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14",
     "affected_consumers": [
-      "scripts/demo/plains_region_stage.gd",
-      "scripts/demo/demo_app.gd",
-      "scripts/combat/weapon_action_runtime.gd",
-      "scripts/bosses/bellstrider_presentation.gd",
-      "scripts/bosses/bellstrider_rig_pose.gd",
-      "scripts/bosses/bellstrider_encounter.gd",
-      "scripts/bosses/bellstrider_definition.gd",
-      "resources/bosses/bellstrider.tres",
-      "assets/underworld_plains/actors/bellstrider.png",
-      "assets/underworld_plains/actors/bell.png",
-      "scripts/audio/bellstrider_audio.gd",
-      "assets/audio/bellstrider_01/manifest.json",
-      "assets/audio/bellstrider_01/sources.json",
-      "assets/audio/bellstrider_01/recipes.json",
-      "scripts/bosses/bellstrider_ring_projectile.gd",
-      "scripts/bosses/bellstrider_bell_projectile.gd",
-      "scripts/bosses/boss_factory.gd",
-      "scenes/bosses/windkeeper_pressure.tscn",
-      "scripts/bosses/windkeeper_pressure_definition.gd",
-      "resources/bosses/windkeeper_storm.tres",
-      "resources/bosses/windkeeper_pressure_health.tres",
-      "scripts/bosses/windkeeper_pressure_encounter.gd",
-      "scripts/bosses/windkeeper_pressure_rig.gd",
-      "scripts/bosses/windkeeper_pressure_presentation.gd",
-      "scripts/bosses/windkeeper_pressure_projectile.gd",
-      "scripts/bosses/windkeeper_pressure_strike.gd",
-      "scripts/audio/windkeeper_pressure_audio.gd",
-      "scripts/rewards/windkeeper_pressure_rewards.gd",
-      "scripts/ui/windkeeper_hud.gd",
-      "scripts/damage/demo_contact_emitter.gd",
-      "scripts/art_foundation/pixel_formal_style_installer.gd",
-      "scripts/underworld_plains/underworld_actor_installer.gd",
-      "scripts/demo/module_lab.gd",
-      "scripts/run/run_manifest.gd",
-      "scripts/art/plains_stage_visual.gd",
-      "scripts/bosses/windkeeper_pressure_wind.gd",
-      "shaders/windkeeper_pressure_foreground.gdshader",
-      "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
-      "assets/audio/windkeeper_pressure_01/README.md",
-      "assets/audio/windkeeper_pressure_01/death.wav",
-      "assets/audio/windkeeper_pressure_01/death_final.wav",
-      "assets/audio/windkeeper_pressure_01/death_impact.wav",
-      "assets/audio/windkeeper_pressure_01/gust_release.wav",
-      "assets/audio/windkeeper_pressure_01/gust_warning.wav",
-      "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
-      "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
-      "assets/audio/windkeeper_pressure_01/hit.wav",
-      "assets/audio/windkeeper_pressure_01/link.wav",
-      "assets/audio/windkeeper_pressure_01/lunge_land.wav",
-      "assets/audio/windkeeper_pressure_01/lunge_start.wav",
-      "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
-      "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
-      "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
-      "assets/audio/windkeeper_pressure_01/manifest.json",
-      "assets/audio/windkeeper_pressure_01/phase.wav",
-      "assets/audio/windkeeper_pressure_01/platform_impact.wav",
-      "assets/audio/windkeeper_pressure_01/platform_warning.wav",
-      "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
-      "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
-      "assets/audio/windkeeper_pressure_01/recover.wav",
-      "assets/audio/windkeeper_pressure_01/seeds_release.wav",
-      "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
-      "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
-      "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
-      "assets/audio/windkeeper_pressure_01/sources.json",
-      "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
-      "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
-      "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
-      "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
-      "assets/audio/windkeeper_pressure_01/sweep_release.wav",
-      "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
-      "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
-      "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav"
-    ],
-    "validation": "Fresh combination checks required. Original user confirmation remains direction-only; no previous technical PASS, independent ACCEPT, gameplay/art/audio/device/user acceptance inherited."
+      "game/presentation/world/art/plains_stage_visual.gd",
+      "game/enemies/presentation/plains_revision_flora.gd",
+      "game/enemies/presentation/plains_revision_ground.gd",
+      "game/enemies/presentation/plains_revision_pose.gd",
+      "game/enemies/presentation/plains_revision_skin.gd"
+    ]
   }
 }

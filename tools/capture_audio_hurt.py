@@ -2,6 +2,7 @@
 """Capture three actual Home hurt revisions with the untouched MovieMaker mix."""
 from __future__ import annotations
 import argparse
+from godot_identity import verified_engine
 from contextlib import contextmanager
 import fcntl
 import hashlib
@@ -151,8 +152,8 @@ def capture(output):
     try:
         if shutil.disk_usage(ROOT).free < 512 * 1024 * 1024: raise ValueError('Less than 512MiB free; no prior evidence is deleted')
         with owned_renderer(output, report) as env:
-            engine = Path(env.get('GODOT_BIN', str(ROOT.parent / 'toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64')))
-            report['engine'] = {'version': subprocess.check_output(['bash', 'tools/godot.sh', '--version'], cwd=ROOT, text=True).strip(), 'sha256': sha(engine)}
+            engine_identity = verified_engine(repo=ROOT)
+            report['engine'] = {'version': engine_identity['version'], 'sha256': engine_identity['binary_sha256']}
             report['source_before'] = frozen_sources()
             command = ['bash', 'tools/godot.sh', '--path', '.', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility', '--write-movie', str(native), '--fixed-fps', '60', '--resolution', '960x540', '--script', 'res://tools/audio_feedback_06_capture.gd', '--', '--output=' + str(output)]
             report['command'] = command

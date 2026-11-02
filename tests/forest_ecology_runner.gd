@@ -34,7 +34,7 @@ func fixture(upper_branch := false) -> void:
 	root.add_child(world)
 	slab(Rect2(-400,300,1600,40))
 	if upper_branch: slab(Rect2(100,210,180,12),true)
-	player = preload("res://scenes/player/player.tscn").instantiate()
+	player = preload("res://game/player/player.tscn").instantiate()
 	player.position = Vector2(180,192) if upper_branch else Vector2(180,282)
 	world.add_child(player)
 	controller = player.get_node("Controller")
@@ -56,7 +56,7 @@ func frames(count: int) -> void:
 		await process_frame
 		tick += 1
 func enemy(name_id: String, position_value: Vector2) -> EnemyActor:
-	var scene := load("res://scenes/enemies/%s.tscn" % name_id) as PackedScene
+	var scene := load("res://game/enemies/species/scenes/%s.tscn" % name_id) as PackedScene
 	var body := scene.instantiate() as EnemyMotor
 	body.position = position_value
 	world.add_child(body)
@@ -202,7 +202,7 @@ func run() -> void:
 		await fixture()
 		var encounter := boss(boss_id)
 		check(encounter.definition.is_valid(),boss_id+" self-contained forest Definition valid")
-		check(encounter.get_script().resource_path=="res://scripts/bosses/thorn_forest_encounter.gd",boss_id+" is independent forest encounter")
+		check(encounter.get_script().resource_path=="res://game/bosses/thorn_forest/thorn_forest_encounter.gd",boss_id+" is independent forest encounter")
 		var loops := 0
 		while not encounter.core_open and loops<300:
 			await frames(1)

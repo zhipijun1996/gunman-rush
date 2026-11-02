@@ -1,0 +1,104 @@
+{
+  "status": "LIMITED_ACCEPT_CALL_LOCAL_VALIDATION_READER",
+  "reviewer": "runtime_audit (non-author)",
+  "base_commit": "c8d39551bbe79b40895e96bdcdf8250c56939813",
+  "files": {
+    "tools/region_creative_direction.py": "03b2a608432371a3944b83b667015a0a253bdab5ce5c7f16e3a6987f95a2d311",
+    "tests/test_region_creative_direction.py": "83d6bb7c5e0c14ac5db93a9a756f25f735f8c44986edf30b0190f6daab1919c1"
+  },
+  "patch_sha256": "e3255c19618a9c353ef9c9a6355394ebf86ec18e7437a0eb946e6445be7213ab",
+  "source_unchanged": true,
+  "independent_execution": {
+    "command": [
+      "python3",
+      "tests/test_region_creative_direction.py",
+      "ValidationReadScopeTests"
+    ],
+    "timeout_seconds": 30,
+    "tests": 2,
+    "failures": 0,
+    "reported_seconds": 0.74,
+    "exit_code": 0,
+    "covered": [
+      "same-size mutation across bind/validate/supplement public calls",
+      "missing source across public calls",
+      "parent symlink across calls and within same reader",
+      "changed content re-signed in new registry rejected by old binding",
+      "one physical read per path per public bind; new bind reads again",
+      "Windows rooted, absolute and drive-relative paths rejected"
+    ]
+  },
+  "additional_finite_controls": [
+    "new-reader-rereads-same-size",
+    "reject:",
+    "reject:.",
+    "reject:..",
+    "reject:../leaf",
+    "reject:/tmp/bible-independent-rd4jd9tk/d/leaf",
+    "reject:d",
+    "reject:missing",
+    "reject:d/leaf/child",
+    "reject:parent-symlink",
+    "reject:cached-leaf-deleted"
+  ],
+  "static_findings": [
+    "Reader bytes live in a new private object on every public boundary; no global or cross-call cache.",
+    "Each read still rechecks lstat of root and every component before retrieving cached bytes.",
+    "Single bind shares exact parsed registry and raw bytes with private supplement validation; all runtime reference hashes remain checked.",
+    "Public supplemental signature retained; existing unused bible/region parameters were already not consulted.",
+    "All23 existing test method ASTs exactly match base; only2 meaningful new tests added.",
+    "No profile selection, timeout, history fixture, production GD or gameplay rule changed."
+  ],
+  "author_full_results": {
+    "current46": {
+      "command": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "returncode": 0,
+      "seconds": 15.80501596799877,
+      "source_before": {
+        "tools/region_creative_direction.py": "15df2acdd0e1577c7ac90a079bd6fc1f1786744ff02a83d7432ccabc114eaa77",
+        "tests/test_region_creative_direction.py": "f76281e656c3f63f82ce8f45155eb13680a7a6e0e35ffeca612509246849cbf6",
+        "tests/test_region_bible.py": "8a67f57dcf557d5e39ae28573c9c154eb266ef7a42d72c67fad798b4f3f792b0",
+        "tools/harness/profiles.json": "93f670eb324f69f6582a11afa4518d4a0777bf0bf2784a37af0fefaaa47922fc"
+      },
+      "source_after": {
+        "tools/region_creative_direction.py": "15df2acdd0e1577c7ac90a079bd6fc1f1786744ff02a83d7432ccabc114eaa77",
+        "tests/test_region_creative_direction.py": "f76281e656c3f63f82ce8f45155eb13680a7a6e0e35ffeca612509246849cbf6",
+        "tests/test_region_bible.py": "8a67f57dcf557d5e39ae28573c9c154eb266ef7a42d72c67fad798b4f3f792b0",
+        "tools/harness/profiles.json": "93f670eb324f69f6582a11afa4518d4a0777bf0bf2784a37af0fefaaa47922fc"
+      },
+      "source_unchanged": true
+    },
+    "creative25": {
+      "command": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "returncode": 0,
+      "seconds": 6.884330709999631,
+      "source_before": {
+        "tools/region_creative_direction.py": "15df2acdd0e1577c7ac90a079bd6fc1f1786744ff02a83d7432ccabc114eaa77",
+        "tests/test_region_creative_direction.py": "f76281e656c3f63f82ce8f45155eb13680a7a6e0e35ffeca612509246849cbf6",
+        "tests/test_region_bible.py": "8a67f57dcf557d5e39ae28573c9c154eb266ef7a42d72c67fad798b4f3f792b0",
+        "tools/harness/profiles.json": "93f670eb324f69f6582a11afa4518d4a0777bf0bf2784a37af0fefaaa47922fc"
+      },
+      "source_after": {
+        "tools/region_creative_direction.py": "15df2acdd0e1577c7ac90a079bd6fc1f1786744ff02a83d7432ccabc114eaa77",
+        "tests/test_region_creative_direction.py": "f76281e656c3f63f82ce8f45155eb13680a7a6e0e35ffeca612509246849cbf6",
+        "tests/test_region_bible.py": "8a67f57dcf557d5e39ae28573c9c154eb266ef7a42d72c67fad798b4f3f792b0",
+        "tools/harness/profiles.json": "93f670eb324f69f6582a11afa4518d4a0777bf0bf2784a37af0fefaaa47922fc"
+      },
+      "source_unchanged": true
+    }
+  },
+  "validation_scope": "Author full46/current and25/creative runs were on explicitly identified pre-Windows-guard source. Independent final-byte run covers two new guards only; no claim final full suite was rerun.",
+  "limitations": [
+    "No Godot, remote CI, full171 or native acceptance.",
+    "Call-local byte snapshot deliberately reuses a leaf within one validation; concurrent regular-file replacement inside that call is not a supported atomic filesystem snapshot or newly claimed guarantee.",
+    "Original filesystem TOCTOU race is not resolved or claimed resolved."
+  ]
+}

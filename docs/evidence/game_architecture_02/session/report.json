@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "started_at": "20261031T033412.416052Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "bf6c42a3f32707948695c55b56b0e8fe1d3976272e68234c6d5c9520001266be",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793417653.913388,
+      "ended_at_unix": 1793417688.811651,
+      "duration_seconds": 34.898,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_tests.py"
+      ],
+      "check_token": "5d04c9afae544a0e91c8001d28faa863",
+      "artifact_directory": "/workspace/gunman-rush-runtime/build/verification/harness/20261031T033412.416052Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "forest-campaign",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "b5c88fbf90009fb4637c2a9bfe275fba9a121aff1209c8fd7d124e67bd8dd298",
+      "log": "forest-campaign.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793417848.486489,
+      "ended_at_unix": 1793417859.4700358,
+      "duration_seconds": 10.984,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "check_token": "f957d4f17f2d4ef4a5a78b5d2e6f463d",
+      "artifact_directory": "/workspace/gunman-rush-runtime/build/verification/harness/20261031T033412.416052Z/artifacts/forest-campaign",
+      "reused": false
+    },
+    {
+      "id": "generated-consumers",
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "input_digest": "3e971bdbec11dc1cd10c3556bf14a178c3a47c1f282a025be50c903eb1d3eb2a",
+      "log": "generated-consumers.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793417689.5385895,
+      "ended_at_unix": 1793417847.795992,
+      "duration_seconds": 158.257,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "check_token": "bb131221ad3b4e6599a622fa5b9ca7a4",
+      "artifact_directory": "/workspace/gunman-rush-runtime/build/verification/harness/20261031T033412.416052Z/artifacts/generated-consumers",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "6422b87f163a237f83f7d0955629377e0832bc4797f8cd49000cc69181b15a55",
+  "working_files": {
+    "tests/run_session_runner.gd": "a0061e72717b0c02e9be14dd6e462026c8233720c4e56b972942197bd5d40868"
+  },
+  "commit": "bcdc28d4be18759d8d0875dea04e0da910c03e84",
+  "git_status": "M tests/run_session_runner.gd",
+  "diff": "diff --git a/tests/run_session_runner.gd b/tests/run_session_runner.gd\nindex ecc9dd20..02808726 100644\n--- a/tests/run_session_runner.gd\n+++ b/tests/run_session_runner.gd\n@@ -35,9 +35,9 @@ func check_same_services(before: Dictionary, label: String) -> void:\n \tcheck(app.wallet==before.wallet and app.rewards==before.rewards and app.shop==before.shop, label+\": same economy and transaction owners\")\n \n func clear_run(label: String) -> void:\n-\tvar player_ref := weakref(app.player)\n-\tvar stage_ref := weakref(app.stage)\n-\tvar policy_ref := weakref(app.policy)\n+\tvar player_ref: WeakRef = weakref(app.player)\n+\tvar stage_ref: WeakRef = weakref(app.stage)\n+\tvar policy_ref: WeakRef = weakref(app.policy)\n \tvar old_wallet := app.wallet\n \tvar old_build := app.build\n \tvar old_token := app.lifetime.token()\n@@ -69,7 +69,7 @@ func run() -> void:\n \tcheck(app._item_runtime==null and app._item_v5_pool==null and app.region_state==null, \"fixed departure retains its original non-region service policy\")\n \tcheck(not app.start_demo(\"duplicate\") and app.wallet==first.wallet and app.player.get_instance_id()==first.player_id, \"duplicate departure cannot replace the active run\")\n \t# A real fixed-room exit, without defeating or changing the room's enemy.\n-\tvar old_policy := weakref(app.policy)\n+\tvar old_policy: WeakRef = weakref(app.policy)\n \tvar exit: ExitOffer = app.director.offers[0]\n \tcheck(exit.next_stage_type_id==&\"shop\", \"existing fixed route supplies the shop consumer\")\n \tapp.player.reset_at(app.stage.exit_positions[0])",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 208.275,
+  "jobs": 1,
+  "release": true
+}

@@ -1,0 +1,838 @@
+{
+  "schema_version": 1,
+  "started_at": "20261031T072149.039640Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "478807ffe4f09f16e15129558a3dd38d879b8c3855b6dbd978f07eb74646519f",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431314.217171,
+      "ended_at_unix": 1793431314.5768657,
+      "duration_seconds": 0.36,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "3dc1680b3735413b8d75e9e1ba1d37e1",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3acab7f9feb86ef86642be48d3fdda57f8391691ea9f20d0e67816afa2a838aa",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431315.4218297,
+      "ended_at_unix": 1793431315.5970562,
+      "duration_seconds": 0.175,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "ae305703e7014f10a77e8b7650ccdc24",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "368d563b5e9aa1c0f547b96f3216fef11629045f6f920b6a3a59cbefa259e24d",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431316.4459472,
+      "ended_at_unix": 1793431316.712343,
+      "duration_seconds": 0.266,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "a60374dd94e14bf89f4f3c119b7c8173",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b5376a36965b9bddbed11f74f0b84940e11a841d1313c3bce92a446079944288",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431317.615523,
+      "ended_at_unix": 1793431318.5352385,
+      "duration_seconds": 0.92,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "cde1d871cdcc47299c433ad25658645e",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "66afdadf3b200b83022965f96e5d73c2406ee31e0fb05574d6c13ba40e7b9fb0",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431319.4856036,
+      "ended_at_unix": 1793431338.6391609,
+      "duration_seconds": 19.154,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness.py"
+      ],
+      "check_token": "637274888ac74532ba8409e81d3a3c53",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "224ca82588fb7b2518fafef83bf2d9a62fa01b40763ca65131953d8ad1bb7b41",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431339.5637558,
+      "ended_at_unix": 1793431339.7542427,
+      "duration_seconds": 0.19,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/quality_drills.py"
+      ],
+      "check_token": "97df788eb7974005a152cb4b7efa8d6c",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "010893f465c6f8edcfb326ee60196067d51f5ce8f36a2d542565f7ca7a2001dd",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431340.6835282,
+      "ended_at_unix": 1793431341.6539884,
+      "duration_seconds": 0.97,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_quality.py"
+      ],
+      "check_token": "a74a51bec5e243a08302c180c3660dab",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0ef2472686991001d4ea0f8f44d5ee741f7a4829f24a844ab12af02fe4b8ab8c",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431342.5475156,
+      "ended_at_unix": 1793431345.8698592,
+      "duration_seconds": 3.322,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_quality.py"
+      ],
+      "check_token": "dd9a8d313ae246d59ff82c7301e1e621",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "30ffacf12e57251ff2efc0d78089ecd790f5bdb283510a627cb0e7b9611d8ca8",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431346.799606,
+      "ended_at_unix": 1793431409.441812,
+      "duration_seconds": 62.642,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "check_token": "10b3c47965d24863be723a100d30a82a",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3c7011f8e7505226c7677715f394c4756e13034017080f7b58f610dd0f4863b1",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431410.3163176,
+      "ended_at_unix": 1793431410.5846305,
+      "duration_seconds": 0.268,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "check_token": "3517705f8b0948c5ba4df118aa553f2c",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "af0468cdf3a85fe2123797b8c996705d1552a55903d5ce748e63efa144129a3c",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431411.43452,
+      "ended_at_unix": 1793431411.6463182,
+      "duration_seconds": 0.212,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "check_token": "bdfe771bd9ad4e0899de2a69ae01f915",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "8d580f00e334b0e458324f12d72176e79ffb22318372770d7b6c8e1279afbe45",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431412.5302856,
+      "ended_at_unix": 1793431412.7935755,
+      "duration_seconds": 0.263,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_capture_actions.py"
+      ],
+      "check_token": "97d5d061c6424c0f84914ced2fe0a693",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c02203ded32fa7f3ed1c0ac8147bdac6a7fdfc32ad3ff84bf0cd47a2527eb336",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431413.6867251,
+      "ended_at_unix": 1793431421.0655642,
+      "duration_seconds": 7.379,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "check_token": "54727a0a79c84d929accb0de0c308423",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "mechanism-comparisons",
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "08d481c85a4c5e1b360c8dd0ab31133dcc0792b9362993fa14971b304757e757",
+      "log": "mechanism-comparisons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431421.8986611,
+      "ended_at_unix": 1793431422.175237,
+      "duration_seconds": 0.277,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "check_token": "3037c9545b6b407ca330279678a5b764",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/mechanism-comparisons",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "fb1d7514b9bb51672cfd6cfaf12cdf01751cccca11ea5c03f0a7d39e1eb56329",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431423.0546436,
+      "ended_at_unix": 1793431423.6304297,
+      "duration_seconds": 0.576,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "check_token": "71ac78e02abb43d2a15fed8e5d6b7a84",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "383f00976abfd7545a7194546ab22808ff7f0ff7b3d7061f62d223f556e5c729",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431424.6141496,
+      "ended_at_unix": 1793431433.8819902,
+      "duration_seconds": 9.268,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "check_token": "4492c79e03bd4726949119de48e73b30",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "88a3c0e9e7bb4d0dcca2fbe22c50452483c29633166ce9aa704538eaa7eee0df",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431434.8283808,
+      "ended_at_unix": 1793431435.7041116,
+      "duration_seconds": 0.876,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "check_token": "fed0ac3e1ea543b8ae2b1f4f145e6dc1",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "459320d902d5414022ae5ec83608503ed634bdf36f6c69aa8082c994bb2c322e",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431436.6086364,
+      "ended_at_unix": 1793431441.0455003,
+      "duration_seconds": 4.437,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "check_token": "302623eaffa3458d8ec63806943fd874",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "14c750a83ed1771320e42224251d61059f1a3824e85266a086868eed3b13a09b",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431441.9696152,
+      "ended_at_unix": 1793431446.54748,
+      "duration_seconds": 4.578,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "check_token": "1e03df59d4904786bf64ff8fe4e63f7d",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1b029d7ade5bcb278b46a271758731270132c3fd5c01ed08218031ab9b83537a",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431447.4513636,
+      "ended_at_unix": 1793431450.3182113,
+      "duration_seconds": 2.867,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "check_token": "06daf8e4499849b2aba84ee677443425",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3cb1d3b6cf269f1a6269b7969d2b96a9fbc66c4e4f4e341261907ab28f846261",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431451.1925275,
+      "ended_at_unix": 1793431466.7443187,
+      "duration_seconds": 15.552,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_visual_director.py"
+      ],
+      "check_token": "64bca4c00c904dd688bbfbafd9652ff4",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e4aa2acffcb7a4408e92867324d8ab8a02e1c20c8ec1c9e4871b857d4fefcfeb",
+      "log": "asset-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431467.5785296,
+      "ended_at_unix": 1793431467.8350263,
+      "duration_seconds": 0.256,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_asset_family.py"
+      ],
+      "check_token": "911555623c604d22a5ca5371da1338b5",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/asset-family-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "180cf319580879ec264dccc421ecf2b1fee059dbdd052cabb6f5828c770228d3",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431468.6797936,
+      "ended_at_unix": 1793431468.9445217,
+      "duration_seconds": 0.265,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "29dc2a887c26456790b880ce911c9b76",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "428a9e77aa974ef3bab46c0564b9941da5bba63f0ccd139526eb1dd1dbb01af4",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431469.8227012,
+      "ended_at_unix": 1793431476.547531,
+      "duration_seconds": 6.725,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "6e659f98a9af4571be44bb719a1c3ceb",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/creative-direction-tests",
+      "reused": false
+    },
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "04d931a37db8ad2d7b868126af07fc61dcc85fa76f57a291fa3d3fbfdac75de3",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431477.4377885,
+      "ended_at_unix": 1793431575.4637883,
+      "duration_seconds": 98.026,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "check_token": "0efb401cc7674fb9bc84f8d37a6adae1",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "69b3c83e10b96646500988d2e07e4453309378db09e66c1e806f3ef727f63ea5",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431576.318124,
+      "ended_at_unix": 1793431576.583461,
+      "duration_seconds": 0.265,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "check_token": "bf9e884dd9aa4d9880a19a9a13f0d5f5",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "21d395204923016e1ff428b85670fbbaa47d7e49323e4cda3a2e5d967a4e4263",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431578.6879616,
+      "ended_at_unix": 1793431578.9469626,
+      "duration_seconds": 0.259,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "a6dfcd993aa7492790c9c2e207e5f50a",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "18430bd6f382178a41095cedf160e75f124b9eacc1ed7a480c88ee9c61974d9b",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431582.4341533,
+      "ended_at_unix": 1793431609.4842632,
+      "duration_seconds": 27.05,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "98797c09ed7943f3b509c1a30e858cab",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "88ea9942d8ba63bc93a227b5110186fe433d19861cc61a62129356c4c354496a",
+      "log": "harness-artifact-archive-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431610.317252,
+      "ended_at_unix": 1793431613.2367754,
+      "duration_seconds": 2.92,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "check_token": "4a2427b1c1284653b2bfa1fa2b03aef4",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/harness-artifact-archive-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "5ce3f273905470032ce2622f1af8ec728cc314956376ee9066c5efb374a5b466",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431614.1284857,
+      "ended_at_unix": 1793431614.5435975,
+      "duration_seconds": 0.415,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "57f8afe895a6456bad37d002462f939f",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/cloud-production-planner-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9be728c0f0e138e789db83c368cc8a206f3ef0cb06e07a9d01693c4e540df40b",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431615.4242408,
+      "ended_at_unix": 1793431618.096488,
+      "duration_seconds": 2.672,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "e3150c31e3204741a6d4423c1f7021e1",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/cloud-delivery-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-inputs-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e8b506b0da61faf7727e16f3111e6615009baaa157dc0c4af7d88ac6c281a02c",
+      "log": "cloud-inputs-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431618.9694903,
+      "ended_at_unix": 1793431621.192584,
+      "duration_seconds": 2.223,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "check_token": "e677b9db1a43495692f22f2b2099627b",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/cloud-inputs-tests",
+      "reused": false
+    },
+    {
+      "id": "portable-frozen-assets",
+      "argv": [
+        "python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7fd214bf2941e673f0371675c9a5d92e3a68813e90028c51124bd13a955b15b2",
+      "log": "portable-frozen-assets.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793431621.9943757,
+      "ended_at_unix": 1793431622.9109964,
+      "duration_seconds": 0.917,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "check_token": "651f61b9a9da48d2b87febafacc0e0ff",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261031T072149.039640Z/artifacts/portable-frozen-assets",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "d132627afa0994ca56d5f0a9435bc3c6bde9b23c22917c0948d6363f2534de03",
+  "working_files": {
+    ".agents/skills/boss-creator/SKILL.md": "8544cfa5c6246edc59edda67ee22d718a648f83031d9bde7c83505841f60d818",
+    ".agents/skills/enemy-creator/SKILL.md": "60537d420ae6d2263d947ebd1991b3e555c2abac695e17b3a63a1357a1f18723",
+    ".agents/skills/level-module-creator/SKILL.md": "5f53239401b190a02de0a7517d74bea476346716238f7d424ae6ea1ae20f4997",
+    "assets/visual_development/README.md": "917f17041faba685e0d6eeaad457ff5218b92200d7fe34d006674d1c1cd1d17a",
+    "docs/audio_director/event_catalog_v3.md": "a6f2c082a7c9bee3975bc5759708c9198ab167d3a76606b43e33904557f247c1",
+    "docs/design/enemies/plains_charger.md": "13d237366c5efdebb5d693e405a228036e27d4d3e8cce2e1211d24ab152f0426",
+    "docs/design/thorn_queen_canopy_v3.md": "42e884a49e29b95b866109eceb0ae431611139c30ab8e7c1fe87505506adf070",
+    "docs/evidence/game_architecture_02/retained_source_records/audio_home_user_selected_3e6bf692.json": "2219390277435c2e8d861dd49f16917d2cc32119cf0e4735c2643d5e7cba069e",
+    "docs/evidence/game_architecture_02/retained_source_records/p1_actor_calibration_2be5e1f6.json": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3",
+    "docs/evidence/painted_terrain/recipe.md": "b36e59aa21bbe706e416f4a63d56074e54027ca76d2cf48f005a7b2c90ccc7da",
+    "docs/evidence/plains_art_language/recipe.md": "e7fd89f4c6cf649253405f29f07eca7bc5d39c4776206c7d7ca14c10c87e0526",
+    "docs/evidence/plains_world_rebuild/findings.md": "64a5446e59bff1ecc7fb634a89f3d2ad6e47e8b347768099d79e496bda657955",
+    "docs/evidence/visual_language/recipes.md": "4a8aab1b4fdba446430768412868558eb6c572aa24d5f0f4691cc9c259b666f4",
+    "docs/generation_current.md": "473e19d8c8063883a5ce60ac40bb9520bb3fa8cf5da1407e8cac8718a6f455f0",
+    "docs/platforming_foundry.md": "aa5856499d5872276875f85674c680c657df08c96ad441ff3fcdacfdb6cb96ed",
+    "docs/quality/asset_records/bellstrider-rework-01-material-audio.json": "903b242015be7fce60c1b15c3572f39f38096f707a344f93def74ce3b4a530ac",
+    "docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json": "36e41b11523d66e9ae18abe2633edab3b014674410bea2277adc9510534ba007",
+    "docs/quality/plains_regional.md": "193dc8d793f7a8fa7fb822a4d2522eecc171f2c54ae95dfc019ae18573422217",
+    "docs/quality/records/AUDIO-HOME-01.json": "af3fde08a5986a64993b690467d01353c1c6a633418c5d2a6525b67e25fcc9a1",
+    "docs/quality/records/ENEMY-CONTINUITY-01.json": "792e3663874aea71b1deb5ada398c77875f8d67e1cc1ea51529d9e5e57251f10",
+    "docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json": "9ebf8b6f29f7da1a920d8fdf0129418b2d15dc7112d5bb058eafcff1b03a12f1",
+    "docs/quality/records/P1-NATIVE-01.json": "a4a936272b188e3470f5aa433f63dcd2e415b4cb764cf01cc179412e00ae9f68",
+    "docs/quality/records/PAINTED-TERRAIN-01.json": "ea75fda01323e78c93ecf84fc70a18a76ae33a365671227054deac0296377ef8",
+    "docs/quality/records/PLAINS-ART-LANGUAGE-01.json": "f05f078c8fe3df3772730ba23cb6e436ff1dafc27fb44d7a392a775e6bffed00",
+    "docs/quality/records/PLAINS-WORLD-REBUILD-01.json": "c9481846891769ea48cc9aa1db026f52ced2d52dcb5c09882ac5713f089c4259",
+    "docs/quality/visual_language.md": "456b72125b6bc68c5920abd14440c70e8524a61268db4f748b477906c7b0a5dc",
+    "docs/tasks.md": "fc469c85c2821fbd7f45209e23516c44ebfd96dd7a00ca87e3cf066b90ae63a7",
+    "docs/visual_bible.md": "1dc221ecf16c51d4643444599600cf97ef7a3081f12ffe0d11dac11dfd654254",
+    "docs/worklines/enemy_asset_audit_01/forest-details.md": "71f429b7fbe344b22dd67a6a13aceba2671fbd23874bedf5f1621640e840966d",
+    "docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md": "a92f4974e88cb10fd1c65a88693ff9ce2f54422b74260b752448225840028057",
+    "docs/worklines/enemy_structure_01/runtime-map.md": "063c50359ab6a6e4af8a737b66bc0ec1ca8937b3341f9b284890ed7e52636624",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/manifest.json": "521db07a3414e412225e2e597d60ce407cc42934f02d573f02d17391c0e6175b",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt": "28622e120d59a62ff7cf647e3692593928210e08567ce58b325386ffaa144fe8",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/design/enemies/plains_charger.md.txt": "10b740e2ec117e71ea7692dbae2d64e7fdd460f4f6b79d49dbd91eef77baca92",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/painted_terrain/recipe.md.txt": "3a044a26f165df957eb23feec24e91f9468a909aca2e4648dbb1bd3599357607",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_art_language/recipe.md.txt": "ac1b0f86faedfdfa7f912fa9ae15827bc3a1add80884096ce68faa6f7b17e707",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_world_rebuild/findings.md.txt": "81d78a8e9c2179eaa7b278c873ae4a41cba0db01c7049f2264f8b6862d2eeebf",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json.txt": "da0c206dd1a1ef960a381bfdc589f319902520deca93e8598e8904a92580f869",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/ENEMY-CONTINUITY-01.json.txt": "f6b768f247a1d3e8c499fb887888a75e8a0bf587bcb69167daba03ecc45fb5a5",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/PAINTED-TERRAIN-01.json.txt": "18d84089c63274e0183b17414083cfd611b190a5c0a0868dd623dc25b20b237b",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/PLAINS-ART-LANGUAGE-01.json.txt": "88df30954380f751282767c94a47e09c065356c67d77a7350406fe81245c5753",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/PLAINS-WORLD-REBUILD-01.json.txt": "30665e192a558da3695b0303c66879ae61db831cb59a44978b2a3903dd8f6c92",
+    "docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/visual_bible.md.txt": "0146616d6738df803d0b194029fe2d366473194334db09c3d4b31f5cb9adaefd",
+    "docs/worklines/item_v5_01/consumer_coverage.md": "cbeb8980cf8476ebeae1d071c56f88885e7e808bdadedd1668c6755b01977aac",
+    "tests/test_level_region_context.py": "4a045853c66bc9efe7d861caa05b9a922630f861d5a486042dd45fd292d6323d",
+    "tests/test_visual_director.py": "de0f38f1bfcb9af9c6f4df910e535d64b8c766c3bcaf0812aede1a74972e3209",
+    "tools/level_region_context.py": "226324bdfc108eebd0821bf2d18ade3dfdab8703a41da2c1ff01e9ccafddc848",
+    "tools/visual_director.py": "febf1d653bd8f39bd23b3be00fef56e03158840fba946d117d0e69da67e3d486"
+  },
+  "commit": "bc576b63e11e6f020eff8c309505677321895f13",
+  "git_status": "M .agents/skills/boss-creator/SKILL.md\n M .agents/skills/enemy-creator/SKILL.md\n M .agents/skills/level-module-creator/SKILL.md\n M assets/visual_development/README.md\n M docs/audio_director/event_catalog_v3.md\n M docs/design/enemies/plains_charger.md\n M docs/design/thorn_queen_canopy_v3.md\n M docs/evidence/painted_terrain/recipe.md\n M docs/evidence/plains_art_language/recipe.md\n M docs/evidence/plains_world_rebuild/findings.md\n M docs/evidence/visual_language/recipes.md\n M docs/generation_current.md\n M docs/platforming_foundry.md\n M docs/quality/asset_records/bellstrider-rework-01-material-audio.json\n M docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json\n M docs/quality/plains_regional.md\n M docs/quality/records/AUDIO-HOME-01.json\n M docs/quality/records/ENEMY-CONTINUITY-01.json\n M docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\n M docs/quality/records/P1-NATIVE-01.json\n M docs/quality/records/PAINTED-TERRAIN-01.json\n M docs/quality/records/PLAINS-ART-LANGUAGE-01.json\n M docs/quality/records/PLAINS-WORLD-REBUILD-01.json\n M docs/quality/visual_language.md\n M docs/tasks.md\n M docs/visual_bible.md\n M docs/worklines/enemy_asset_audit_01/forest-details.md\n M docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md\n M docs/worklines/enemy_structure_01/runtime-map.md\n M docs/worklines/item_v5_01/consumer_coverage.md\n M tests/test_level_region_context.py\n M tests/test_visual_director.py\n M tools/level_region_context.py\n M tools/visual_director.py\n?? docs/evidence/game_architecture_02/retained_source_records/\n?? docs/worklines/game_architecture_01/archive/",
+  "diff": "diff --git a/.agents/skills/boss-creator/SKILL.md b/.agents/skills/boss-creator/SKILL.md\nindex b18dfa46..9456185a 100644\n--- a/.agents/skills/boss-creator/SKILL.md\n+++ b/.agents/skills/boss-creator/SKILL.md\n@@ -22,7 +22,7 @@ description: 制作新 Boss 或重构 Boss 核心机制/阶段；现有 Boss 可\n G0：写叙事/地区联系、轮廓剪影、独特核心机制、射击反冲互动、竞技场、AI 状态图、阶段行为、预警/攻击判定/弱点/反击窗口、转换、演出镜头、动画特效音效音乐、死亡胜利奖励、公平失败。每阶段必须改变玩家决策并有学习过程；只加 HP/速度/弹幕退回设计。\n G1：为每个阶段各做完整可玩样板。真实攻击、真实躲避、真实弱点命中，记录前摇/判定/恢复 tick、反冲位移空间和失败恢复；再从正式入口连续打完整场战斗，不能拼几段孤立录像。\n G2：art-director 做区域黄金合屏和 Boss 母版；animation-vfx 做各阶段正常速度连续动作。视觉和判定、镜头/弱点可读性、音乐转段与攻击事件对齐。\n-G3：沿 [现有 Boss 契约](../../../docs/enemies_and_bosses.md) 和 [BossMotor](../../../scripts/bosses/boss_motor.gd) 接入封场、血量、阶段切换、死亡优先/唯一奖励、保存回家、暂停重载、epoch 和取消。正式池与接近区域一起验收。\n+G3：沿 [现有 Boss 契约](../../../docs/enemies_and_bosses.md) 和 [BossMotor](../../../game/bosses/encounter/boss_motor.gd) 接入封场、血量、阶段切换、死亡优先/唯一奖励、保存回家、暂停重载、epoch 和取消。正式池与接近区域一起验收。\n G4：gameplay-reviewer 构造阶段切换同帧死亡、迟到弹体、多次奖励、不可避攻击、无意义等待、镜头遮挡反例。逐阶段和完整战斗分别出结论，失败可 REJECT。比较持续重复单一动作的强普通解，核其真实命中返还与目标限定接触保护覆盖的对象、阶段和时长，保留其他身体、危险区及弹体伤害，不把局部保护当全局无敌或忽略其合法收益。完整战斗失败须分清进攻、脱离与恢复各段因果；恢复段失败不证明前段抗重复打法成立，也不撤销整体失败。\n G5：真实设备长战斗性能、控制方式、玩家学习/掌握与记忆点评价。牧风者、鸣铃巡游机作为既有契约案例，本轮规范验证不得擅自改其设计。\n 交付：Boss Design Sheet、竞技场与状态时序图、各阶段样板/连续战斗、资源配置、素材谱系、审查与证据。\ndiff --git a/.agents/skills/enemy-creator/SKILL.md b/.agents/skills/enemy-creator/SKILL.md\nindex c3c73635..9fb2ec72 100644\n--- a/.agents/skills/enemy-creator/SKILL.md\n+++ b/.agents/skills/enemy-creator/SKILL.md\n@@ -30,7 +30,7 @@ enemy-creator负责整怪制作次序与正式消费者，art-director交身体\n ## 阶段流程与交付物\n \n A / G0 敌人策划：Enemy Design Sheet 写名称/背景/地区、战斗职责、独特操作压力、对射击反冲跳跃落点的影响、AI 状态机、移动/攻击、预警/判定/恢复时间、反制、受伤死亡奖励、旧敌人对照、地形/同伴组合。新物种必须新增玩家操作或策略，换图/HP/速度不成立；旧怪纯表现补齐引用既有机制及未变依据，不强制新增AI。\n-B / G1 灰盒：复用 [EnemyDefinition](../../../scripts/enemies/enemy_definition.gd)、[AI](../../../scripts/enemies/enemy_patrol_ai.gd)、[Motor](../../../scripts/enemies/enemy_motor.gd) 与既有 Health/[DamagePolicy](../../../scripts/damage/frame_damage_policy.gd)。让真实输入和弹体产生攻击/命中/死亡；含暂停、中断、无目标及失败反例，不旁路正式伤害。\n+B / G1 灰盒：复用 [EnemyDefinition](../../../scripts/enemies/enemy_definition.gd)、[AI](../../../game/enemies/behaviors/enemy_patrol_ai.gd)、[Motor](../../../game/enemies/enemy_motor.gd) 与既有 Health/[DamagePolicy](../../../game/combat/damage/frame_damage_policy.gd)。让真实输入和弹体产生攻击/命中/死亡；含暂停、中断、无目标及失败反例，不旁路正式伤害。\n C / G2 美术动作：用 art-director 区域母版和 animation-vfx 状态表，按需求完成待机/移动/预警/攻击/恢复/受伤/死亡；锚点、连续转向和动作过渡需正常速度录像，无统一帧数门槛。\n D / G1–G3 遭遇：平地、多平台、落差、机关与其他敌人组合；写生成区域/机制标签、禁用组合、安全空间、同时压力预算。检查镜头外攻击、出口堵塞和落点公平性。\n 从实际接敌函数逐项核距离、视线、目标保护区、并发上限与落地等前提：敌人允许生成，不等于它能在拟定观察岸发动攻击。站位无攻击时先记录哪项真实谓词拒绝；不要先移动敌人、加射程或削弱安全保护。普通弹、钩头与身体各按实际形状扫掠，中心射线可通不代签可射杀。\ndiff --git a/.agents/skills/level-module-creator/SKILL.md b/.agents/skills/level-module-creator/SKILL.md\nindex c020f99a..8cebc809 100644\n--- a/.agents/skills/level-module-creator/SKILL.md\n+++ b/.agents/skills/level-module-creator/SKILL.md\n@@ -32,7 +32,7 @@ description: 制作或修改平台模块、连续挑战的物理实现、入口\n ## 阶段流程与交付物\n \n G0：联合关卡美术任务先将动作目标与环境构造共同表达：地貌归属/基质和表层、支承/背接、实体与可走空腔、暴露轮廓、前后景开口、绘画家族的合法画尺与连接接口；共同源先于跨度、坐标和Definition，不能先生成Rect再补身份标签。实际入口与已失败方法见[当前实验](../../../docs/evidence/plains_landform/recipe.md)，工程前置已运行不等于艺术准入。模块名称、玩法目标、必需动作、真实能力要求、进入位置/速度/资源/冷却、入出口端口、操作序列、机关时序、观察区、安全落点、失败恢复、接缝净空、敌人允许点、镜头提示、美术语义、难度收益。先读 [模块契约](../../../docs/platforming_modules.md) 和 [能力](../../../docs/ability_components.md)，不能使用未授予能力。\n-G1：用现有 [PlayerMotor](../../../scripts/player/player_motor.gd)、实际能力/动作次数和反冲弹体执行。正向、需要的反向、动态相位、资源能力边界、完整身体碰撞/危险扫掠、接缝、失败恢复分别验证。入口速度/冷却写在证据里，不靠传送/手改坐标或几何路径冒充成功。\n+G1：用现有 [PlayerMotor](../../../game/player/player_motor.gd)、实际能力/动作次数和反冲弹体执行。正向、需要的反向、动态相位、资源能力边界、完整身体碰撞/危险扫掠、接缝、失败恢复分别验证。入口速度/冷却写在证据里，不靠传送/手改坐标或几何路径冒充成功。\n G2：art-director/scene-composer从G0共同设计完整画面和结构绘画，此阶段验证视觉意图是否留在正常实机中；涉及动作/特效调用animation-vfx。普通覆材不得偷改碰撞；用户授权的联合模块重设计应版本化几何并重跑受影响真实操作和原负例，不能把旧矩形厚度当作不可改艺术前提。\n G3：Module Lab 只作为定位工具；在真实邻接模块、不同端口/镜像/高差和正式随机池验证连接。单模块成功不代表拼接成功。核对正式能力/资源、存档回退和恢复位置。\n G4：运行真实 Motor 专项及生成回归；gameplay-reviewer 主动检查危险扫掠、不可见落点、偶然相位和不可恢复状态。禁止擅自调整 PlayerMotor 基础参数使模块过关。\ndiff --git a/assets/visual_development/README.md b/assets/visual_development/README.md\nindex bbd4d73f..ecd3d763 100644\n--- a/assets/visual_development/README.md\n+++ b/assets/visual_development/README.md\n@@ -1,8 +1,10 @@\n # 视觉开发唯一入口\n \n+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt)。\n+\n 当前用户选择为 **B「雨釉与偏心」**。这是风格方向选择；全局母版仍是候选；04首空间另有静态/运动抽帧整体艺术限定接受，不代表完整G2、玩家认可或正式发布。这里是实验来源库，不能自动加入正式资产池。\n \n-新 worker 默认只读 [style_master](../../resources/visual_development/style_master.json)、[B1 母版](master/b1_master.png)、[B 方向板](proposals/b_board.png) 与[两个短制作范例](../../docs/evidence/visual_language/recipes.md)。具体任务再按需读该素材自己的 prompt、record 与测量数据，不加载全部 PR 历史。\n+新 worker 默认只读 [style_master](../../game/presentation/world/resources/visual_development/style_master.json)、[B1 母版](master/b1_master.png)、[B 方向板](proposals/b_board.png) 与[两个短制作范例](../../docs/evidence/visual_language/recipes.md)。具体任务再按需读该素材自己的 prompt、record 与测量数据，不加载全部 PR 历史。\n \n [provenance_index.json](provenance_index.json) 统一索引原图、实际文件 SHA、prompt、参考来源、已有时钟与原始记录。未记录的模型、许可、工具参数、时间保持未知；相同字节原图的定位不能补造调用历史。旧记录中的“未批准”是生成当时状态，不能删改为当前已批准。所有商业许可仍未知。\n \ndiff --git a/docs/audio_director/event_catalog_v3.md b/docs/audio_director/event_catalog_v3.md\nindex 65b48f4d..9249c64d 100644\n--- a/docs/audio_director/event_catalog_v3.md\n+++ b/docs/audio_director/event_catalog_v3.md\n@@ -4,17 +4,17 @@\n \n | 事件/录屏 | 接受时点及真实代码消费者 | 原版/新方案边界 |\n | --- | --- | --- |\n-| coin / heal | [真实Area接触](../../scripts/dev/audio_director_lab_pickup.gd#L27)→[钱包或SupplyHealEffect接受](../../scripts/dev/audio_director_lab_v2.gd#L304)→GameAudio | 原版旧cue；V3 bank显式选择清脆收集/液体主体 |\n-| chest_open | [靠近后的Router交互、RewardService接受及可见开盖](../../scripts/dev/audio_director_reels.gd#L141) | 原版沿旧confirm通用音；新ID独立，不代表所有正式区域宝箱已改 |\n-| item_get | [Area接触及RewardService.claim成功](../../scripts/dev/audio_director_reels.gd#L117)→[真实ItemAcquiredToast](../../scripts/dev/audio_director_reels.gd#L127) | 原版旧note通用音；新获得乐句独立，重复领取不发 |\n-| click / confirm / denied | [实际选择按钮及ShopService购买回执](../../scripts/dev/audio_director_lab_v2.gd#L237) | generic点击不等于成功交易，profile控制钮不额外叠点击 |\n-| enemy_hit | 原[武器伤害提交信号](../../scripts/dev/player_presentation_01/weapon_feel_v2.gd#L60)→[weapon_cue](../../scripts/dev/player_presentation_01/weapon_audio.gd#L11) | 只在accepted enemy HP伤害后；墙接触独立。录屏与enemy_hurt分焦点 |\n-| enemy_hurt | [真实敌人/FrameDamagePolicy损伤接受](../../scripts/dev/audio_director_lab_v2.gd#L326) | 身体反应层；同次损伤的武器层在本片暂隔离，原版与候选条件一致 |\n-| hurt | [原敌弹发射](../../scripts/dev/audio_director_lab_v2.gd#L358)→[真实HealthState APPLIED damage](../../scripts/dev/audio_director_lab_v2.gd#L384) | 无直接改HP伪装受伤；拾取初始缺血静默，不夹杂准备伤音 |\n-| shot_pulse / shot_shuriken | 原ShootAbility.shot_fired→[真实当前weapon.id传给音频](../../scripts/dev/player_presentation_01/weapon_feel.gd#L63)→[按精确武器ID路由](../../scripts/dev/player_presentation_01/weapon_audio.gd#L69) | 仅pulse_gun/shadow_shuriken；其他blade/pulse类不误用这两个ID |\n-| shot_bomb | [新Lab只订阅原accepted shot_fired](../../scripts/dev/audio_director_reels.gd#L289) | 正式原版launch无专用音；仅V3 Lab新profile加发射声，原版保安静 |\n-| bomb_explode | 原WeaponActionRuntime.blast_fired→[原Feel爆炸消费者](../../scripts/dev/player_presentation_01/weapon_feel_v2.gd#L96)→同服务路由 | 与发射是独立接受信号，Lv1可同帧；实际爆破后才发，其他blast模式不误用bomb |\n-| mix | [原Home BGM＋真实拾取/弹体/HP序列](../../scripts/dev/audio_director_reels.gd#L198) | 每profile同曲起点，Godot现场混音录出，页面不再叠BGM |\n+| coin / heal | [真实Area接触](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_lab_pickup.gd#L27)→[钱包或SupplyHealEffect接受](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_lab_v2.gd#L304)→GameAudio | 原版旧cue；V3 bank显式选择清脆收集/液体主体 |\n+| chest_open | [靠近后的Router交互、RewardService接受及可见开盖](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_reels.gd#L141) | 原版沿旧confirm通用音；新ID独立，不代表所有正式区域宝箱已改 |\n+| item_get | [Area接触及RewardService.claim成功](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_reels.gd#L117)→[真实ItemAcquiredToast](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_reels.gd#L127) | 原版旧note通用音；新获得乐句独立，重复领取不发 |\n+| click / confirm / denied | [实际选择按钮及ShopService购买回执](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_lab_v2.gd#L237) | generic点击不等于成功交易，profile控制钮不额外叠点击 |\n+| enemy_hit | 原[武器伤害提交信号](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/player_presentation_01/weapon_feel_v2.gd#L60)→[weapon_cue](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/player_presentation_01/weapon_audio.gd#L11) | 只在accepted enemy HP伤害后；墙接触独立。录屏与enemy_hurt分焦点 |\n+| enemy_hurt | [真实敌人/FrameDamagePolicy损伤接受](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_lab_v2.gd#L326) | 身体反应层；同次损伤的武器层在本片暂隔离，原版与候选条件一致 |\n+| hurt | [原敌弹发射](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_lab_v2.gd#L358)→[真实HealthState APPLIED damage](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_lab_v2.gd#L384) | 无直接改HP伪装受伤；拾取初始缺血静默，不夹杂准备伤音 |\n+| shot_pulse / shot_shuriken | 原ShootAbility.shot_fired→[真实当前weapon.id传给音频](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/player_presentation_01/weapon_feel.gd#L63)→[按精确武器ID路由](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/player_presentation_01/weapon_audio.gd#L69) | 仅pulse_gun/shadow_shuriken；其他blade/pulse类不误用这两个ID |\n+| shot_bomb | [新Lab只订阅原accepted shot_fired](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_reels.gd#L289) | 正式原版launch无专用音；仅V3 Lab新profile加发射声，原版保安静 |\n+| bomb_explode | 原WeaponActionRuntime.blast_fired→[原Feel爆炸消费者](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/player_presentation_01/weapon_feel_v2.gd#L96)→同服务路由 | 与发射是独立接受信号，Lv1可同帧；实际爆破后才发，其他blast模式不误用bomb |\n+| mix | [原Home BGM＋真实拾取/弹体/HP序列](https://github.com/zhipijun1996/gunman-rush/blob/e8f7e36595a291d488e092b86a7f98c156a2cd18/scripts/dev/audio_director_reels.gd#L198) | 每profile同曲起点，Godot现场混音录出，页面不再叠BGM |\n \n `weapon_cue`末尾新增可选weapon_id，旧调用兼容。新weapon声音沿原12voice、owner family清理，缺V3 bank或original不改旧音色。未增加伤害、反冲、弹药、输入TTL、命中范围、物理或存档规则；固定开发初始条件与摄影机仅在reels fixture。\n \ndiff --git a/docs/design/enemies/plains_charger.md b/docs/design/enemies/plains_charger.md\nindex 3b45f156..0f51c84a 100644\n--- a/docs/design/enemies/plains_charger.md\n+++ b/docs/design/enemies/plains_charger.md\n@@ -1,5 +1,7 @@\n # plains_charger 制作与完成度卡\n \n+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/design/enemies/plains_charger.md.txt)。\n+\n 任务 `ENEMY-CONTINUITY-01`，内容版本 `charger-audit-v1`；基线 `45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc`，分支 `docs/enemy-continuity-01`。使用[怪物完成标准](../../quality/enemy_completion_standard.md)和原[Enemy Design Sheet](../../templates/enemy_design.md)；[质量记录](../../quality/records/ENEMY-CONTINUITY-01.json)。\n \n ## 当前范围\n@@ -19,9 +21,9 @@\n \n | 范围 | 路径与事实 | 本轮验证边界 |\n | --- | --- | --- |\n-| 正式Underworld链 | [安装器](../../../scripts/underworld_plains/underworld_actor_installer.gd)替换旧Presentation，装[UnderworldEnemy](../../../scripts/underworld_plains/underworld_enemy.gd)；继承PixelPlainsEnemy／WindchimeEnemyVisual的时钟和预警，实际身体由UnderworldEnemy绘制 | 父类存在动作代码不等于最终身体使用那些姿态；逐帧应观察实际feedback_body |\n-| 原始链 | [EnemyPresentation](../../../scripts/enemies/enemy_presentation.gd)，由patrol_drone场景组装后配置为该Definition | 单独用于保留链对照，不把它的画面冒称正式Underworld |\n-| 正式实例 | [PlainsRegionStage](../../../scripts/demo/plains_region_stage.gd)创建／恢复敌人，并经正式安装器；实际随机实例及镜头需新运行发现 | 源码接入存在，尚不等于本轮正式遭遇通过 |\n+| 正式Underworld链 | [安装器](../../../game/presentation/actors/underworld_plains/underworld_actor_installer.gd)替换旧Presentation，装[UnderworldEnemy](../../../game/presentation/actors/underworld_plains/underworld_enemy.gd)；继承PixelPlainsEnemy／WindchimeEnemyVisual的时钟和预警，实际身体由UnderworldEnemy绘制 | 父类存在动作代码不等于最终身体使用那些姿态；逐帧应观察实际feedback_body |\n+| 原始链 | [EnemyPresentation](../../../game/enemies/presentation/enemy_presentation.gd)，由patrol_drone场景组装后配置为该Definition | 单独用于保留链对照，不把它的画面冒称正式Underworld |\n+| 正式实例 | [PlainsRegionStage](../../../game/world/levels/providers/plains_region_stage.gd)创建／恢复敌人，并经正式安装器；实际随机实例及镜头需新运行发现 | 源码接入存在，尚不等于本轮正式遭遇通过 |\n | 现有录制fixture | [remains capture](../../../tools/enemy_feedback_01_remains_capture.gd)使用真实PlayerController／InputRouter、弹体、AI与伤害；初始站位、地形、镜头及关闭AirFocus显式设置 | 仅局部两物种／两链样板，不能代表自然路线、完整攻击组合、正常玩家资源或设备表现 |\n \n Underworld活体参考为`assets/underworld_plains/actors/charger.png`；受伤／死亡为`assets/enemy_feedback_01/frames_v8/underworld_charger.png`及同目录manifest。原始链使用其原活体素材与`legacy_charger.png`，两链材质不混签。原PNG与导入不改。\ndiff --git a/docs/design/thorn_queen_canopy_v3.md b/docs/design/thorn_queen_canopy_v3.md\nindex 40d7c2ba..493af9b9 100644\n--- a/docs/design/thorn_queen_canopy_v3.md\n+++ b/docs/design/thorn_queen_canopy_v3.md\n@@ -12,7 +12,7 @@ FOREST-DEPTH-02 的新 Boss 内容设计记录，合同 `forest-queen-canopy-v3`\n \n ## 权威源与参数范围\n \n-数值唯一运行来源是 [Canopy Definition](../../scripts/bosses/thorn_queen_canopy_definition.gd)、[实际 Resource](../../resources/bosses/thorn_queen_canopy.tres)与[Encounter](../../scripts/bosses/thorn_queen_canopy_encounter.gd)。下表是当前读取值的设计说明，不是另一套默认配置。Definition 继承旧 Weave 类型以复用 Knot/Band；旧 perches、旧三网旋转／升降、seed 弹、heart_open、弱侧点积、旧迁巢速度等字段并未成为本 Boss 的行为，不能按继承字段名虚构攻击。\n+数值唯一运行来源是 [Canopy Definition](../../scripts/bosses/thorn_queen_canopy_definition.gd)、[实际 Resource](../../resources/bosses/thorn_queen_canopy.tres)与[Encounter](../../game/bosses/thorn_forest/thorn_queen_canopy_encounter.gd)。下表是当前读取值的设计说明，不是另一套默认配置。Definition 继承旧 Weave 类型以复用 Knot/Band；旧 perches、旧三网旋转／升降、seed 弹、heart_open、弱侧点积、旧迁巢速度等字段并未成为本 Boss 的行为，不能按继承字段名虚构攻击。\n \n | 当前消费参数 | 值与作用 |\n |---|---|\n@@ -108,7 +108,7 @@ Queen生命归零后既有Encounter终态与正式Stage接管封场、清理、\n \n ## 证据、反例与下一结论\n \n-原件字面路径：`build/forest_depth/queen/canopy-v3-01/RESULT.md`、`build/forest_depth/queen/canopy-v3-02/RESULT.md`；独审路径见开头。它们是当前存在的build材料，不伪造将来portable链接。运行源入口为[场景](../../scenes/bosses/thorn_queen_canopy.tscn)、[表现](../../scripts/bosses/thorn_queen_canopy_presentation.gd)、[原生runner](../../tests/thorn_queen_canopy_runner.gd)、[真实fixture](../../tests/support/forest_queen_canopy_fixture.gd)、[wrapper](../../tools/run_thorn_queen_canopy.py)。旧[整体REVISE](../evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)不因局部继续而撤销。\n+原件字面路径：`build/forest_depth/queen/canopy-v3-01/RESULT.md`、`build/forest_depth/queen/canopy-v3-02/RESULT.md`；独审路径见开头。它们是当前存在的build材料，不伪造将来portable链接。运行源入口为[场景](../../scenes/bosses/thorn_queen_canopy.tscn)、[表现](../../game/bosses/thorn_forest/thorn_queen_canopy_presentation.gd)、[原生runner](../../tests/thorn_queen_canopy_runner.gd)、[真实fixture](../../tests/support/forest_queen_canopy_fixture.gd)、[wrapper](../../tools/run_thorn_queen_canopy.py)。旧[整体REVISE](../evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)不因局部继续而撤销。\n \n 已保留的内容差异是身体持续压力、可留可剪的持久路线、真实历史支持岸锁定与反枪换岸。H尚未证明创造普通jump/R之外的新有效输出窗口，既不最快也不最安全，保高结后继收益亦未明。不能为显H重要而禁掉强普通cut、收紧旧岸或锁HP；也不能机械因H非最快就否定不同运动表达。下一结论应来自正式完整消费者与正常影片的实际可读性、反枪余量、弱结反馈和策略学习，而非更多断言／H计数。没有作者自签fun、商业品质、G5或发布完成。\n \ndiff --git a/docs/evidence/painted_terrain/recipe.md b/docs/evidence/painted_terrain/recipe.md\nindex dae0a174..69dcb8f9 100644\n--- a/docs/evidence/painted_terrain/recipe.md\n+++ b/docs/evidence/painted_terrain/recipe.md\n@@ -1,5 +1,7 @@\n # 连续绘画截面：当前候选制作范例\n \n+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/painted_terrain/recipe.md.txt)。\n+\n 04首代表空间已获静态/运动抽帧整体艺术ACCEPT_SCOPED，仅允许一次同家族、结构明显不同的实际迁移；第二空间仅实际两薄岸局部复用获[限定接受](independent-08-second-structure-scoped-review.md)，不是第二商业黄金或整map准入。不是完整G2、用户、设备、商业或正式生产池认可。Git父0905516不是本轮dirty运行树，原采证source_snapshot与catalog SHA才绑定每次实际画面。\n \n - 母版：[B1](../../../assets/visual_development/master/b1_master.png)、[方向板](../../../assets/visual_development/proposals/b_board.png)。保持盘筑低重心与蛋彩大明暗，不把所有土体画成陶器。\n@@ -8,7 +10,7 @@\n - 左右转面：[左](../../../assets/visual_development/painted_terrain/left_end_v1.png)、[右](../../../assets/visual_development/painted_terrain/right_end_v1.png)。独立编辑实际折转、光线及内接，不旋转顶条假造转面。\n - 维护记忆点：[接收岸陶片与木销](../../../assets/visual_development/painted_terrain/left_end_repair_v1.png)只在真实端部与碰撞线以下，不添加假落脚或交互信号。\n \n-[当前catalog](../../../resources/visual_development/painted_terrain_candidate.json)的terrain.grammar保存真实source_surface_profile、ends.outer_profile与分带深度；[消费者](../../../scripts/art/painted_terrain_grammar.gd)沿真实顶轮廓弧长有限取源，并按真实侧轮廓接端面。顶/根肩保笔触尺度，深部使用安静体块；源长度不足明确拒绝，不repeat或全片挤压。具体数值是本源图/本样板校准，不能推广为任意素材硬值。\n+[当前catalog](../../../game/presentation/world/resources/visual_development/painted_terrain_candidate.json)的terrain.grammar保存真实source_surface_profile、ends.outer_profile与分带深度；[消费者](../../../game/presentation/world/art/painted_terrain_grammar.gd)沿真实顶轮廓弧长有限取源，并按真实侧轮廓接端面。顶/根肩保笔触尺度，深部使用安静体块；源长度不足明确拒绝，不repeat或全片挤压。具体数值是本源图/本样板校准，不能推广为任意素材硬值。\n \n [首次实景独审](independent-02-first-live-review.md)确认体积进步并支持制作转面，但记录坡顶明线、纵拉和缺端部；660tick不是完整路线。[后续端深独审](independent-03-end-depth-live-review.md)保留下一轮实际缺陷。这些历史缺陷及原始红灯保留；04新范围以随后独审为准，不能按mesh或文件数量批准。\n \ndiff --git a/docs/evidence/plains_art_language/recipe.md b/docs/evidence/plains_art_language/recipe.md\nindex e34e5fa7..61e68792 100644\n--- a/docs/evidence/plains_art_language/recipe.md\n+++ b/docs/evidence/plains_art_language/recipe.md\n@@ -1,5 +1,7 @@\n # 风铃平原：生成阶段的美术语言候选\n \n+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_art_language/recipe.md.txt)。\n+\n 本轮任务 `PLAINS-ART-LANGUAGE-01`，从 PR88/`07ffe3f3` 开始，独立分支 `feature/plains-art-language`。这是参数和消费者实验，不是新风格定稿、整区黄金或正式池准入。森林、核心操作、资源与保存不在写集。\n \n ## 为什么过去对接不好\n@@ -13,7 +15,7 @@\n 3. 坐标嵌入后、模块实例化前解析世界轮廓；物理继续使用真实 Definition。横向模块携带预先表达；生成内联 junction/connection 在其几何已确定、场景实例化之前绑定同一语法，并用外部实际源节点重新校验。\n 4. `PlainsRegionArtPlan` 验证表达，`PlainsRegionalComposer` 直接消费有限后山体轮廓、世界 UV 和源画 SHA。前景只将表达绑定到实际相交的源平台区域，仍使用旧材质；**未实例化新绘画件**。\n \n-源接口：[目录](../../../resources/generation/plains_art_language.json)、[实现](../../../scripts/generation/plains_art_language.gd)。四家族为草原母岩、裂隙岸体、溪流栈道、修补砌体。9 档完整挑战占地与9件拟议岸端/梁端/墙端及芯段是两种不同尺度，不能混称九件可用资产。固定画件按源像素分配有限重叠，禁止随跨度拉伸；实际画源仍缺失。\n+源接口：[目录](../../../resources/generation/plains_art_language.json)、[实现](../../../game/world/generation/plains_art_language.gd)。四家族为草原母岩、裂隙岸体、溪流栈道、修补砌体。9 档完整挑战占地与9件拟议岸端/梁端/墙端及芯段是两种不同尺度，不能混称九件可用资产。固定画件按源像素分配有限重叠，禁止随跨度拉伸；实际画源仍缺失。\n \n 支座/根部/吊挂目前是可核验要求和待生产接口，不是已完成支承求解。家族连接只覆盖同站面初版，不是任意墙脚/材质过渡。配方依旧先由玩法选择再映射家族，尚未实现地貌反选挑战、局部修复或通用连续地质场。\n \ndiff --git a/docs/evidence/plains_world_rebuild/findings.md b/docs/evidence/plains_world_rebuild/findings.md\nindex 16cb6f9a..05e5cbc7 100644\n--- a/docs/evidence/plains_world_rebuild/findings.md\n+++ b/docs/evidence/plains_world_rebuild/findings.md\n@@ -1,5 +1,7 @@\n # 实际结果：让绘画构造与玩法共同定义世界\n \n+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_world_rebuild/findings.md.txt)。\n+\n 先看 [正常游戏画面与电影](gallery.html)，再看[独审03](independent-art-03.md)与[独审04](independent-art-04.md)。运行冻结 `ba787df7261dba40f75409a3b99457dd9bbef985`；首准入完整电影保留其真实来源 `97703a8f`。本轮交付两种有限连续地貌布局，均为内部 ACCEPT_SCOPED。未完成完整随机区域，未获得用户最终风格认可，不进入正式池。\n \n ## 为什么以前持续失败\n@@ -20,7 +22,7 @@ v1/v2 的源码、原始报告与独审保留在 Git 和 [records](records/index\n \n 1. 从一段开敞草岸—裂隙—溪床世界截面出发，画完整可承重的顶面、转肩、侧壁与根须。源图是地貌实体，不含角色、HUD或整屏场景。\n 2. 在原图坐标标定可信可站线和语义轮廓；画幅、比例、方向、源SHA构成 `paint_frame`。不将每片草叶做碰撞，也不把任意多边形反投影回图像。\n-3. [生成器](../../../scripts/generation/plains_world_rebuild.gd)从同frame变换出实体、站面、路线、出生点、敌人和树棚依附；[前景消费者](../../../scripts/art/plains_world_rebuild_composer.gd)直接呈现完整源图，[舞台](../../../scripts/demo/plains_world_rebuild_stage.gd)安装实际多边形与原敌人。无法匹配已登记源构造的尺寸、源、变换、接触或碰撞必须拒绝。\n+3. [生成器](../../../game/world/generation/plains_world_rebuild.gd)从同frame变换出实体、站面、路线、出生点、敌人和树棚依附；[前景消费者](../../../game/presentation/world/art/plains_world_rebuild_composer.gd)直接呈现完整源图，[舞台](../../../game/world/levels/providers/plains_world_rebuild_stage.gd)安装实际多边形与原敌人。无法匹配已登记源构造的尺寸、源、变换、接触或碰撞必须拒绝。\n 4. 先真实输入试操作，再正常镜头拍片。连续两轮绘画映射不成立后换方法，没有用更长缺陷清单继续原映射。v3还真实修复了斜坡出生全脚宽安全、源图后绘吞角色和未接延展口进入正常镜头的问题；各失败帧保留。\n 5. 首构造内部准入后，保持四张主要画源及尺度不变，改变东岸相对位置与高差、拓宽溪床，把上跨路线改为下溪—行走—反冲攀岸，再实际去返验证与独审。\n \ndiff --git a/docs/evidence/visual_language/recipes.md b/docs/evidence/visual_language/recipes.md\nindex 66877ab0..02759032 100644\n--- a/docs/evidence/visual_language/recipes.md\n+++ b/docs/evidence/visual_language/recipes.md\n@@ -1,6 +1,6 @@\n # B 方向：两个最小制作范例\n \n-先读 [style_master](../../../resources/visual_development/style_master.json)，并实际看 [B1 母版](../../../assets/visual_development/master/b1_master.png) 与 [B 方向板](../../../assets/visual_development/proposals/b_board.png)。以后只按任务补读对应 record；不需要全部 PR 历史。母版四格是教学示意，不能列作真实编辑步骤。以下为真实素材生产经过，均尚未获得正式整屏艺术准入。\n+先读 [style_master](../../../game/presentation/world/resources/visual_development/style_master.json)，并实际看 [B1 母版](../../../assets/visual_development/master/b1_master.png) 与 [B 方向板](../../../assets/visual_development/proposals/b_board.png)。以后只按任务补读对应 record；不需要全部 PR 历史。母版四格是教学示意，不能列作真实编辑步骤。以下为真实素材生产经过，均尚未获得正式整屏艺术准入。\n \n ## 1. 大明暗体块 → 真正的材质编辑\n \ndiff --git a/docs/generation_current.md b/docs/generation_current.md\nindex 9660672f..1f0c121b 100644\n--- a/docs/generation_current.md\n+++ b/docs/generation_current.md\n@@ -54,12 +54,12 @@ v10使用三种手工宏观骨架的受约束变体、按身份变化的共享\n \n | 实际模块 | 职责与版本 |\n | --- | --- |\n-| [PlainsRegionGenerator](../scripts/generation/plains_region_generator.gd) | plains-region-v8，RNG plains-region-v4；最多 4 次候选，验证失败用 verified_fallback，记录 tuning hash、布局和预算 |\n-| [PlainsExplorationTopology](../scripts/generation/plains_exploration_topology.gd) | woven_layers / linked_rings / crossroads；网格删选保连通/环路与 Boss 邻接，保留教学/可选入口，失败有界保底 |\n-| [PlainsRouteRecipes](../scripts/generation/plains_route_recipes.gd) | 以 actions/pressure/decision 描述实际操作，历史使用次数和重复限制影响选择，初图过滤部分复合配方 |\n-| [PlainsRegionAssembler](../scripts/generation/plains_region_assembler.gd) | Manifest 实例化、模块对接和捷径状态，不能依外观重新抽图 |\n-| [RunRandomStream](../scripts/run/run_random_stream.gd) | sha256_counter_52_v1，命名流分离；拓扑/内容/奖励/机关相位等可复现 |\n-| [PlainsRegionCampaign](../scripts/run/plains_region_campaign.gd) | plains-two-maps-v1，两图独立 seed/实例前缀与 Boss 角色 |\n+| [PlainsRegionGenerator](../game/world/generation/plains_region_generator.gd) | plains-region-v8，RNG plains-region-v4；最多 4 次候选，验证失败用 verified_fallback，记录 tuning hash、布局和预算 |\n+| [PlainsExplorationTopology](../game/world/generation/plains_exploration_topology.gd) | woven_layers / linked_rings / crossroads；网格删选保连通/环路与 Boss 邻接，保留教学/可选入口，失败有界保底 |\n+| [PlainsRouteRecipes](../game/world/generation/plains_route_recipes.gd) | 以 actions/pressure/decision 描述实际操作，历史使用次数和重复限制影响选择，初图过滤部分复合配方 |\n+| [PlainsRegionAssembler](../game/world/generation/plains_region_assembler.gd) | Manifest 实例化、模块对接和捷径状态，不能依外观重新抽图 |\n+| [RunRandomStream](../game/world/state/run_random_stream.gd) | sha256_counter_52_v1，命名流分离；拓扑/内容/奖励/机关相位等可复现 |\n+| [PlainsRegionCampaign](../game/world/state/plains_region_campaign.gd) | plains-two-maps-v1，两图独立 seed/实例前缀与 Boss 角色 |\n \n 当前已实现能力包络筛选、输入轨迹、预算与账本、三种拓扑家族及 Boss 快行/探索/深层奖励等专项验证。ActionStudio 已有15种装备与H/W/D实现；正式平原仍基础单武器/一跳，正式成长、区域结束授予与后续能力锁尚未开放。V2旁路 CapabilitySnapshot 读取实际装备、授予、精力、共鸣和冷却，绑定原 RunManifest；不改保存合同，也不把Studio目录当正式解锁列表。\n \ndiff --git a/docs/platforming_foundry.md b/docs/platforming_foundry.md\nindex c8e72bc5..2b036bb7 100644\n--- a/docs/platforming_foundry.md\n+++ b/docs/platforming_foundry.md\n@@ -38,10 +38,10 @@ python3 tools/foundry.py next --feedback /path/to/foundry-feedback.json\n | --- | --- |\n | [模板配置](../config/platforming_foundry.json) | 动作顺序、判断、依赖、参考与压力记录 |\n | [能力配置](../config/foundry_capabilities.json) | 生成/验证/试玩使用同一能力条件 |\n-| [生成器](../scripts/generation/foundry_catalog.gd) | 端口直接重合、能力筛选、版本与规范JSON校验 |\n-| [实际世界](../scripts/generation/foundry_world.gd) | 实例化原有模块和碰撞，不添加接桥 |\n+| [生成器](../game/world/generation/foundry_catalog.gd) | 端口直接重合、能力筛选、版本与规范JSON校验 |\n+| [实际世界](../game/world/generation/foundry_world.gd) | 实例化原有模块和碰撞，不添加接桥 |\n | [验证器](../tools/foundry_validate.gd) | 单角色连续动作、静态/动态全体积扫掠与回放 |\n-| [试玩消费者](../scripts/demo/foundry_lab.gd) | 试玩、输入回放、暂停、评价、随机已验证路线 |\n+| [试玩消费者](../experiments/generation/foundry_lab.gd) | 试玩、输入回放、暂停、评价、随机已验证路线 |\n \n 能力配置 `base`读取唯一默认调参；`double_jump`仅在开发玩家上设为二跳；`air_chain`开发玩家二跳/四发容量，仍受精力与冷却约束。高级配置本轮只验证现有组合的兼容性，并没有声称完成必须四发的专属动作链。正式能力发放仍未接入。\n \ndiff --git a/docs/quality/asset_records/bellstrider-rework-01-material-audio.json b/docs/quality/asset_records/bellstrider-rework-01-material-audio.json\nindex 42ffa1d2..4bed65be 100644\n--- a/docs/quality/asset_records/bellstrider-rework-01-material-audio.json\n+++ b/docs/quality/asset_records/bellstrider-rework-01-material-audio.json\n@@ -25,7 +25,7 @@\n     \"assets/audio/bellstrider_01/death_final.wav\"\n   ],\n   \"consumer_scripts\": [\n-    \"scripts/audio/bellstrider_audio.gd\"\n+    \"game/presentation/audio/bellstrider_audio.gd\"\n   ],\n   \"tool\": \"tools/build_bellstrider_01_audio.py; declared ffmpeg filters/trim/layer/peak normalization\",\n   \"model\": \"not_applicable: deterministic processing of preserved licensed recordings; no oscillator/noise synthesis\",\n@@ -145,12 +145,12 @@\n       \"role\": \"processing_record\"\n     },\n     {\n-      \"path\": \"scripts/audio/bellstrider_audio.gd\",\n+      \"path\": \"docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/audio/bellstrider_audio.gd.txt\",\n       \"sha256\": \"8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207\",\n       \"role\": \"source_contract\"\n     },\n     {\n-      \"path\": \"scripts/bosses/bellstrider_presentation.gd\",\n+      \"path\": \"docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/bosses/bellstrider_presentation.gd.txt\",\n       \"sha256\": \"55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee\",\n       \"role\": \"source_contract\"\n     },\n@@ -234,5 +234,35 @@\n       \"sha256\": \"6f4544d248768b3ed52a2547df111cebe522c7177eff3c6f799fb9295d9d1c6c\",\n       \"role\": \"documentation\"\n     }\n-  ]\n+  ],\n+  \"revision_impact\": {\n+    \"revision\": \"retain-historical-source-contracts-after-feature-layout-20261031\",\n+    \"scope\": \"Associated source_contract rows are the original derivative asset/source provenance, now located at existing byte-identical archives; current consumer_scripts identifies the live owner only. No original source hash, visual/audio verdict or user acceptance is rebound to new runtime code.\",\n+    \"source_contracts\": [\n+      {\n+        \"original_source_path\": \"scripts/audio/bellstrider_audio.gd\",\n+        \"original_source_sha256\": \"8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207\",\n+        \"retained_source_path\": \"docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/audio/bellstrider_audio.gd.txt\",\n+        \"current_consumer_path\": \"game/presentation/audio/bellstrider_audio.gd\",\n+        \"current_source_sha256\": \"cefb3a53bcbde3b447d555b2fe9a3a1fbc4d84168527793d54eadd3063d09a1d\",\n+        \"current_bytes_equal_original\": false\n+      },\n+      {\n+        \"original_source_path\": \"scripts/bosses/bellstrider_presentation.gd\",\n+        \"original_source_sha256\": \"55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee\",\n+        \"retained_source_path\": \"docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/bosses/bellstrider_presentation.gd.txt\",\n+        \"current_consumer_path\": \"game/bosses/bellstrider/bellstrider_presentation.gd\",\n+        \"current_source_sha256\": \"f8b2372b444dcfc79e43fd886a6973fa78b4488430112f04ef0ea7a67b8648ca\",\n+        \"current_bytes_equal_original\": false\n+      }\n+    ],\n+    \"preexisting_runtime_source_drift\": {\n+      \"path\": \"scripts/audio/bellstrider_audio.gd\",\n+      \"introduced_by\": \"317b755c829bbf2858ed908c6aff9381db08f77e\",\n+      \"actual_change\": \"P7 owner-resolution fix changes _origin.get_tree().get_first_node_in_group(&\\\"game_audio\\\") to GameAudio.for_origin(_origin). This precedes P8 path migration and is not byte-only relocation.\",\n+      \"status\": \"Current behavior evidence is separate; this asset provenance relocation does not revalidate nearest-owner behavior.\"\n+    },\n+    \"presentation_path_relocation\": \"The current BellstriderPresentation source differs from retained source only by its AUDIO preload path. Original source_contract SHA is preserved against the archived original, not refreshed against current source.\",\n+    \"current_consumer_scope\": \"Actual live audio consumer retains all17 literal WAV preloads and their manifest bytes. Owner selection, natural combat, audiovisual output and device acceptance are not proved by this metadata patch.\"\n+  }\n }\ndiff --git a/docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json b/docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json\nindex 2c82147e..17452271 100644\n--- a/docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json\n+++ b/docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json\n@@ -2,7 +2,7 @@\n   \"schema_version\": 1,\n   \"asset_id\": \"parallel-integration-carrier-f5478d9702604b48\",\n   \"content_version\": \"inherited-parallel-carrier-20261019\",\n-  \"source_path\": \"assets/visual_development/README.md\",\n+  \"source_path\": \"docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt\",\n   \"source_sha256\": \"28622e120d59a62ff7cf647e3692593928210e08567ce58b325386ffaa144fe8\",\n   \"runtime_paths\": [],\n   \"tool\": \"Inherited Git carrier; originating generation/authoring tool must be read from the original per-asset record, not inferred by this integration\",\n@@ -20,7 +20,17 @@\n       \"path\": \"assets/visual_development/provenance_index.json\",\n       \"sha256\": \"49b41286fe0c007aabdd0a01d0513de4684805250221e26c130dc39bf1d467d1\",\n       \"role\": \"generation_record\"\n+    },\n+    {\n+      \"path\": \"assets/visual_development/README.md\",\n+      \"sha256\": \"917f17041faba685e0d6eeaad457ff5218b92200d7fe34d006674d1c1cd1d17a\",\n+      \"role\": \"documentation\"\n     }\n   ],\n-  \"non_runtime_reason\": \"No conservative static production literal/finite consumer found; retained source/evidence carrier, not a rendered-output acceptance. Unknown indirect consumption is not proved absent.\"\n+  \"non_runtime_reason\": \"No conservative static production literal/finite consumer found; retained source/evidence carrier, not a rendered-output acceptance. Unknown indirect consumption is not proved absent.\",\n+  \"navigation_update\": {\n+    \"scope\": \"Current README link destinations and original-text archive notice only; no rendered media or runtime registration change.\",\n+    \"historical_source\": \"source_path/source_sha256 retain the exact original README; existing custody and visual/license/user acceptance fields are unchanged.\",\n+    \"current_documentation\": \"The associated documentation hash binds the updated navigation, not new artistic or runtime acceptance.\"\n+  }\n }\ndiff --git a/docs/quality/plains_regional.md b/docs/quality/plains_regional.md\nindex e53cac9f..47d4e0cd 100644\n--- a/docs/quality/plains_regional.md\n+++ b/docs/quality/plains_regional.md\n@@ -59,7 +59,7 @@ PR85候选`PlainsPlacePlan`绕过正式区域生成，只有有限场所链，\n \n v2在实际图源尺寸/统一尺度下求完整脚距的可行锚点区间；安装后以真实节点global_transform逐脚与声明站面及实际StaticBody2D/CollisionShape2D的SOLID顶边独立复核。三个真实棚屋的52项节点变异断言通过：故意让锚点仍在实际地面内、脚越界，消费者隐藏并报告遗漏/not-ready；恢复节点恢复ready。实际碰撞全清单与完整Manifest前后相同；六Seed合同193项通过。修复后Seed02再次真实Motor完成15626tick、17/17节点、30次穿越、61枪、零恢复、HP最低/最终3；完整Manifest与修复前逐字节相等，45.14秒headless。独立审查仅[接受保护修复](../evidence/plains_regional/independent-foundation-fix.md)，实机艺术继续REJECT，非第三种艺术迭代。\n \n-定位可直接复查：[生成器的先嵌入后填岩体](../../scripts/generation/plains_region_generator.gd)、[计划的碰撞并集及12像素内缩轮廓](../../scripts/generation/plains_region_art_plan.gd)、[实际消费者](../../scripts/art/plains_regional_composer.gd)。当前布局只把180安静空间和列间距反向约束到生成，未实现完整地貌与探索路线的联合求解；不能把新增计划中的focus/light/wind字段当成已生产的艺术设计。\n+定位可直接复查：[生成器的先嵌入后填岩体](https://github.com/zhipijun1996/gunman-rush/blob/46c3c0993b2ea69293f60161a1c2a95cc6677942/scripts/generation/plains_region_generator.gd)、[计划的碰撞并集及12像素内缩轮廓](https://github.com/zhipijun1996/gunman-rush/blob/46c3c0993b2ea69293f60161a1c2a95cc6677942/scripts/generation/plains_region_art_plan.gd)、[实际消费者](https://github.com/zhipijun1996/gunman-rush/blob/46c3c0993b2ea69293f60161a1c2a95cc6677942/scripts/art/plains_regional_composer.gd)。当前布局只把180安静空间和列间距反向约束到生成，未实现完整地貌与探索路线的联合求解；不能把新增计划中的focus/light/wind字段当成已生产的艺术设计。\n \n \n 下一项关键实验只验证一个不同假设：先生成跨全图的主岩脊/草坡实体及可穿越空腔场，再将真实探索图的分岔和环路约束嵌入其中；挑战站面仍精准平整，但崖肩、转面、底部和洞口应从地貌场派生，不能再次直接复制模块AABB。先以两个非同构图的全图与正常相机检查形体，未成立不生产精细素材。这个实验尚未执行，不能作为本轮交付能力。\ndiff --git a/docs/quality/records/AUDIO-HOME-01.json b/docs/quality/records/AUDIO-HOME-01.json\nindex 49960036..489c36ed 100644\n--- a/docs/quality/records/AUDIO-HOME-01.json\n+++ b/docs/quality/records/AUDIO-HOME-01.json\n@@ -409,7 +409,7 @@\n     },\n     {\n       \"id\": \"home-user-life\",\n-      \"path\": \"config/audio_director/home/user-selected.json\",\n+      \"path\": \"docs/evidence/game_architecture_02/retained_source_records/audio_home_user_selected_3e6bf692.json\",\n       \"sha256\": \"2219390277435c2e8d861dd49f16917d2cc32119cf0e4735c2643d5e7cba069e\",\n       \"kind\": \"user_feedback\",\n       \"producer\": \"user\",\ndiff --git a/docs/quality/records/ENEMY-CONTINUITY-01.json b/docs/quality/records/ENEMY-CONTINUITY-01.json\nindex 6e2a898e..86f4fb67 100644\n--- a/docs/quality/records/ENEMY-CONTINUITY-01.json\n+++ b/docs/quality/records/ENEMY-CONTINUITY-01.json\n@@ -204,7 +204,7 @@\n   \"evidence\": [\n     {\n       \"id\": \"spec\",\n-      \"path\": \"docs/design/enemies/plains_charger.md\",\n+      \"path\": \"docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/design/enemies/plains_charger.md.txt\",\n       \"sha256\": \"10b740e2ec117e71ea7692dbae2d64e7fdd460f4f6b79d49dbd91eef77baca92\",\n       \"kind\": \"spec\",\n       \"producer\": \"/root\",\ndiff --git a/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json b/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\nindex 21f2d743..8559fcad 100644\n--- a/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\n+++ b/docs/quality/records/GAME-ARCH-TEST-MIGRATION-01.json\n@@ -160,7 +160,7 @@\n       \"status\": \"passed\",\n       \"reason\": \"所引62文件审查中本记录覆盖60个测试/工具/文档技术文件，限定静态迁移接受；两份assets manifest由原资产记录另管。精确6f743953已逐Git blob绑定62文件；原不可变报告保留候选状态，新增commit-binding收据证明一致；不覆盖整个P8、118动态加载、35GUI或完整CI。\",\n       \"evidence\": [\n-        \"test-migration-independent\"\n+        \"test-migration-commit-binding\"\n       ]\n     },\n     \"device\": {\n@@ -196,6 +196,27 @@\n       \"verdict\": \"ACCEPT\",\n       \"independent\": true,\n       \"independence_basis\": \"审查者未实施被审62文件，只读比对并独立运行有限纯Python反例。\"\n+    },\n+    {\n+      \"id\": \"test-migration-commit-binding\",\n+      \"path\": \"docs/evidence/game_architecture_02/closeout-02/architecture-closeout-6f743953-independent-commit-binding.json\",\n+      \"sha256\": \"f2c0ca23baeba3b61af3bea462a8710d928c904e2543e313d5328d69aecb5a8c\",\n+      \"kind\": \"review\",\n+      \"producer\": \"/root/structure_audit\",\n+      \"source_commit\": \"6f743953d6c70c63d4d366a3e84cbe2a571b29d7\",\n+      \"content_version\": \"candidate-v1\",\n+      \"method\": \"审查者在6f743953提交后逐Git blob核62文件、23代码写集及12敏感guard，并核本process精确60路径范围。\",\n+      \"observed\": \"精确提交与原独审候选逐SHA一致；只绑定原限定静态接受，不扩大至全量运行。\",\n+      \"reviewer\": \"/root/structure_audit\",\n+      \"implementers\": [\n+        \"/root\",\n+        \"/root/asset_audit\",\n+        \"/root/ci_audit\",\n+        \"/root/preview_audit\"\n+      ],\n+      \"verdict\": \"ACCEPT\",\n+      \"independent\": true,\n+      \"independence_basis\": \"审查者未实施被审62文件，只读比对并独立运行有限纯Python反例。\"\n     }\n   ],\n   \"consumer_coverage\": null,\ndiff --git a/docs/quality/records/P1-NATIVE-01.json b/docs/quality/records/P1-NATIVE-01.json\nindex cb71fdf5..c7f9ee19 100644\n--- a/docs/quality/records/P1-NATIVE-01.json\n+++ b/docs/quality/records/P1-NATIVE-01.json\n@@ -270,7 +270,7 @@\n     },\n     {\n       \"id\": \"actor-calibration\",\n-      \"path\": \"resources/visual_development/p1_actor_calibration.json\",\n+      \"path\": \"docs/evidence/game_architecture_02/retained_source_records/p1_actor_calibration_2be5e1f6.json\",\n       \"sha256\": \"a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3\",\n       \"kind\": \"measurement\",\n       \"method\": \"Actual retained artifact; exact source and scope, not a subjective score\",\ndiff --git a/docs/quality/records/PAINTED-TERRAIN-01.json b/docs/quality/records/PAINTED-TERRAIN-01.json\nindex ce617c31..c6267614 100644\n--- a/docs/quality/records/PAINTED-TERRAIN-01.json\n+++ b/docs/quality/records/PAINTED-TERRAIN-01.json\n@@ -297,7 +297,7 @@\n     },\n     {\n       \"id\": \"recipe\",\n-      \"path\": \"docs/evidence/painted_terrain/recipe.md\",\n+      \"path\": \"docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/painted_terrain/recipe.md.txt\",\n       \"sha256\": \"3a044a26f165df957eb23feec24e91f9468a909aca2e4648dbb1bd3599357607\",\n       \"kind\": \"spec\",\n       \"method\": \"image-led actual method plus existing runnable entries\",\ndiff --git a/docs/quality/records/PLAINS-ART-LANGUAGE-01.json b/docs/quality/records/PLAINS-ART-LANGUAGE-01.json\nindex 10f82879..65896a54 100644\n--- a/docs/quality/records/PLAINS-ART-LANGUAGE-01.json\n+++ b/docs/quality/records/PLAINS-ART-LANGUAGE-01.json\n@@ -187,7 +187,7 @@\n     },\n     {\n       \"id\": \"recipe\",\n-      \"path\": \"docs/evidence/plains_art_language/recipe.md\",\n+      \"path\": \"docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_art_language/recipe.md.txt\",\n       \"sha256\": \"ac1b0f86faedfdfa7f912fa9ae15827bc3a1add80884096ce68faa6f7b17e707\",\n       \"kind\": \"spec\",\n       \"producer\": \"root\",\ndiff --git a/docs/quality/records/PLAINS-WORLD-REBUILD-01.json b/docs/quality/records/PLAINS-WORLD-REBUILD-01.json\nindex 56b6c4b1..f11a5875 100644\n--- a/docs/quality/records/PLAINS-WORLD-REBUILD-01.json\n+++ b/docs/quality/records/PLAINS-WORLD-REBUILD-01.json\n@@ -213,7 +213,7 @@\n   \"evidence\": [\n     {\n       \"id\": \"design\",\n-      \"path\": \"docs/evidence/plains_world_rebuild/findings.md\",\n+      \"path\": \"docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_world_rebuild/findings.md.txt\",\n       \"sha256\": \"81d78a8e9c2179eaa7b278c873ae4a41cba0db01c7049f2264f8b6862d2eeebf\",\n       \"kind\": \"spec\",\n       \"producer\": \"root\",\ndiff --git a/docs/quality/visual_language.md b/docs/quality/visual_language.md\nindex 138b7ba9..397f8b4b 100644\n--- a/docs/quality/visual_language.md\n+++ b/docs/quality/visual_language.md\n@@ -36,7 +36,7 @@\n \n ## 实际消费者、连接和世界关系\n \n-[候选catalog](../../resources/visual_development/candidate.json)是唯一显式入口，默认空字符串，普通流程不加载候选；[实际图片依赖清单](../evidence/visual_language/asset-consumer-inventory.json)追踪角色/敌人/锯、地形lip与端头、树棚、装置和两远层。11个被引用源文件中含1个JSON，即10张图片；20,271,682字节是源依赖总量，不能称纹理GPU占用。19张全部源图共44,561,803字节，未用候选留在实验库，正常三平台export均排除整个实验目录。\n+[候选catalog](https://github.com/zhipijun1996/gunman-rush/blob/0905516bb8c996a5f79ee4ac242ea0a0ab2205de/resources/visual_development/candidate.json)是唯一显式入口，默认空字符串，普通流程不加载候选；[实际图片依赖清单](../evidence/visual_language/asset-consumer-inventory.json)追踪角色/敌人/锯、地形lip与端头、树棚、装置和两远层。11个被引用源文件中含1个JSON，即10张图片；20,271,682字节是源依赖总量，不能称纹理GPU占用。19张全部源图共44,561,803字节，未用候选留在实验库，正常三平台export均排除整个实验目录。\n \n 真实站面来自同一3岸polygon，显式open-meadow实际删除两旧钟肋碰撞并派生Manifest，不是藏图留碰撞。原PlayerMotor/武器能力/资源/RNG/存档的133项声明核心源与PR73基线逐字节不变。原安全锚确认→装置保存的蓝色内片回响，射击/敌人pulse→簧片响应；布采用惯性响应，树/土/陶不共同正弦摆动。只读接受事件与原安全锚历史，不越权给奖励或改资源。装置是原收集/维持用途、风化破损、仍保存一次经过者节奏的局部关系；实际听感未验，不能因此签环境叙事完成。\n \ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 55afd2bb..fcaa22aa 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -739,7 +739,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；\n \n | GAME-ARCH-MESH-01 | 同一次绘制共用姿态解析及UV权重，逐顶点字节等价优化 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-MESH-01.json) |\n \n-| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | in_progress | /root/runtime_audit | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |\n+| FOREST-V11-DEFINITION-01 | 历史v11定义版本混用独立修复 | GAME-ARCH-LEVEL-01 | in_progress | 旧源森林80/80与新45/0/导出计划19/0仅各原source；6584六项含v11 fresh通过，最终实际PCK待验 |\n \n | GAME-ARCH-LAYOUT-01 | 实际功能目录、资源引用及测试/CI输入迁移 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-LAYOUT-01.json)；6584六项fresh通过，formal清理57/25仍失败；style26与最终GUI/PCK/全量未验 |\n \ndiff --git a/docs/visual_bible.md b/docs/visual_bible.md\nindex b198c172..6a8385e5 100644\n--- a/docs/visual_bible.md\n+++ b/docs/visual_bible.md\n@@ -1,5 +1,7 @@\n # Visual Bible：新美术地基入口\n \n+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/visual_bible.md.txt)。\n+\n ## 2026-10-22 最新用户选择：统一细粒度\n \n 用户原话：“细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。”共享规范现为 [style-v5](creative_direction/bibles/style-continuity-20261022-v5.json)：正式地形原生32px/32wu，世界表现1wu采样/nearest，47邻接和精确边界/物理语义保留；从高分母版整理细源，不能放大旧16px冒充。家园、平原及森林共享消费者同步；材质/生态/光色表达区域差异。新采用暖光、清透空气透视和稀疏前景，以正式合屏评价。旧v4的16px描述属于历史，原文、许可与原Bible字节保持不动。用户确认的是粒度方向，不是新内容最终美术或真机认可。实际范围与剩余问题见 [FINE-SPACE-05](evidence/fine_space_05/README.md)。\n@@ -53,12 +55,12 @@\n \n ## B方向实际制作范例\n \n-用户选定B“雨釉与偏心”：圆润低重心、盘筑陶形、蛋彩明暗；[版本与认可范围](../resources/visual_development/style_master.json)区分用户方向与候选母版。上节v5/v8是既有正式版本的历史认可，不强制新授权B实验继承石灰岩，也不表示B已替换正式生产池。\n+用户选定B“雨釉与偏心”：圆润低重心、盘筑陶形、蛋彩明暗；[版本与认可范围](../game/presentation/world/resources/visual_development/style_master.json)区分用户方向与候选母版。上节v5/v8是既有正式版本的历史认可，不强制新授权B实验继承石灰岩，也不表示B已替换正式生产池。\n \n - 源参考：[B方向板](../assets/visual_development/proposals/b_board.png)与[B1源母版](../assets/visual_development/master/b1_master.png)。派生保持两者可追溯；单物继续编辑可增加上一步原图，不用它替代源母版。\n - 同题对象板：[实际明暗原图](../assets/visual_development/props/value_block.png)→[实际材质编辑](../assets/visual_development/props/material_pass.png)，先固定大形/功能开口/重心，再画木、陶、金属差异。母版图内印出的步骤只是示意，不算真实多轮制作。\n-- [原生画面paintover目标](../assets/visual_development/master/paintover_target.png)来自实际画面，但仍是目标图；由[候选catalog](../resources/visual_development/candidate.json)逐项映射独立源图、region、比例、pivot/socket及真实节点，不能把目标图贴满游戏屏幕宣称实现。\n+- [原生画面paintover目标](../assets/visual_development/master/paintover_target.png)来自实际画面，但仍是目标图；由[候选catalog](../game/presentation/world/resources/visual_development/candidate.json)逐项映射独立源图、region、比例、pivot/socket及真实节点，不能把目标图贴满游戏屏幕宣称实现。\n - [对象家族原始规格](../assets/visual_development/props/family.json)保留两次多物打包失败后改独立树/屋派生的原因。尺寸/alpha实测决定非网格region；内接socket不是最外可站边，必须与真实碰撞端分别校准。\n - [环境原始连接规格](../assets/visual_development/environment/connections_family.json)保留等格/padding失败、误画underside及未校准端头。两个同法失败后改为单功能生成，不能再堆atlas或降阈值追认；[新连续草甸原图](../assets/visual_development/environment/continuous_meadow.png)及[来源](../assets/visual_development/environment/continuous_meadow.record.json)只承担远层连续地面，不承担碰撞或整屏关卡。\n \n-当前地形制作入口为[连续截面与端转面范例](evidence/painted_terrain/recipe.md)及[候选catalog](../resources/visual_development/painted_terrain_candidate.json)，不是默认沿旧texture+rect覆材。04采用section_v2与meadow_v2的首整屏已获[静态/运动抽帧整体艺术限定接受](evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅允许一次第二真实结构同家族验证，不强制重生成有效源；不是完整G2、用户或商业品质。\n+当前地形制作入口为[连续截面与端转面范例](evidence/painted_terrain/recipe.md)及[候选catalog](../game/presentation/world/resources/visual_development/painted_terrain_candidate.json)，不是默认沿旧texture+rect覆材。04采用section_v2与meadow_v2的首整屏已获[静态/运动抽帧整体艺术限定接受](evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅允许一次第二真实结构同家族验证，不强制重生成有效源；不是完整G2、用户或商业品质。\ndiff --git a/docs/worklines/enemy_asset_audit_01/forest-details.md b/docs/worklines/enemy_asset_audit_01/forest-details.md\nindex 9fbf1b9f..18066186 100644\n--- a/docs/worklines/enemy_asset_audit_01/forest-details.md\n+++ b/docs/worklines/enemy_asset_audit_01/forest-details.md\n@@ -170,7 +170,7 @@\n 设计资料：\n - [docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md](../../creative_direction/bibles/2-thorn_forest_region_bible_v2.md) · grouped_design_chapter\n - [docs/worklines/enemy_all_02/forest-production-cards.md](../enemy_all_02/forest-production-cards.md) · late_implementation_card_not_original_art_design\n-- [scripts/enemies/forest_bible_weaver_behavior.gd](../../../scripts/enemies/forest_bible_weaver_behavior.gd) · behavior identity differentiator\n+- [scripts/enemies/forest_bible_weaver_behavior.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/forest_bible_weaver_behavior.gd) · behavior identity differentiator\n \n 当前身体：[assets/forest_bible_v2/native/weaver_silk_bell_v5.png](../../../assets/forest_bible_v2/native/weaver_silk_bell_v5.png)；源图尺寸[32, 32]。\n \n@@ -198,7 +198,7 @@\n - [docs/quality/actor_inventory.md](../../quality/actor_inventory.md) · shared actor coverage/inventory\n - [docs/quality/asset_generation_notes.md](../../quality/asset_generation_notes.md) · old six-pose-per-species art generation brief\n - [docs/worklines/enemy_all_02/forest-production-cards.md](../enemy_all_02/forest-production-cards.md) · late implementation card\n-- [scripts/demo/module_enemy_prototypes.gd](../../../scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides\n+- [scripts/demo/module_enemy_prototypes.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides\n \n 当前身体：[assets/enemy_all_02/prototype_sheet.png](../../../assets/enemy_all_02/prototype_sheet.png)；源图尺寸[2172, 724]。\n \n@@ -225,7 +225,7 @@\n - [docs/quality/actor_inventory.md](../../quality/actor_inventory.md) · shared actor coverage/inventory\n - [docs/quality/asset_generation_notes.md](../../quality/asset_generation_notes.md) · old six-pose-per-species art generation brief\n - [docs/worklines/enemy_all_02/forest-production-cards.md](../enemy_all_02/forest-production-cards.md) · late implementation card\n-- [scripts/demo/module_enemy_prototypes.gd](../../../scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides\n+- [scripts/demo/module_enemy_prototypes.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/demo/module_enemy_prototypes.gd) · actual encounter/player-pressure labels and definition overrides\n \n 当前身体：[assets/enemy_all_02/prototype_sheet.png](../../../assets/enemy_all_02/prototype_sheet.png)；源图尺寸[2172, 724]。\n \ndiff --git a/docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md b/docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md\nindex 18ff154d..f2e26eab 100644\n--- a/docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md\n+++ b/docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md\n@@ -6,18 +6,18 @@\n \n | 层 | 现有资料／素材 | 当前消费边界 |\n | --- | --- | --- |\n-| 专用受伤／死亡姿态 | [frames_v8 manifest](../../../assets/enemy_feedback_01/frames_v8/manifest.json)、[反馈帧说明](../../enemy_feedback_01_frames.md)、[美术方向](../../enemy_feedback_01_art_direction.md) | [EnemyFeedback01.PROFILES](../../../scripts/enemies/enemy_feedback_01.gd)只登记charger／diver专属配置；两skin各4H／4D，live复用H3 |\n-| 通用受伤状态与闪色／形变 | [EnemyHitTemplate](../../../scripts/enemies/enemy_hit_template.gd)、[feedback状态](../../../scripts/enemies/enemy_feedback_01.gd)、[参数](../../../resources/damage/feedback.tres) | 大量普通怪与Boss共用；它们不是每只怪独有的受伤动画素材 |\n-| 接触扇与碎屑 | [EnemyFeedback01Particles](../../../scripts/enemies/enemy_feedback_01_particles.gd) | 代码绘制奶白／黄铜射线及碎屑，无逐怪专用PNG特效页；受accepted事件驱动，不能据此断言表现到位 |\n-| charger／diver身体材质 | [body](../../../scripts/enemies/enemy_feedback_01_body.gd)、[flash shader](../../../scripts/enemies/enemy_feedback_01_flash.gdshader) | 专用身体绘制与材质处理；不等于其他物种也有同套H/D资源 |\n+| 专用受伤／死亡姿态 | [frames_v8 manifest](../../../assets/enemy_feedback_01/frames_v8/manifest.json)、[反馈帧说明](../../enemy_feedback_01_frames.md)、[美术方向](../../enemy_feedback_01_art_direction.md) | [EnemyFeedback01.PROFILES](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_feedback_01.gd)只登记charger／diver专属配置；两skin各4H／4D，live复用H3 |\n+| 通用受伤状态与闪色／形变 | [EnemyHitTemplate](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_hit_template.gd)、[feedback状态](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_feedback_01.gd)、[参数](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/resources/damage/feedback.tres) | 大量普通怪与Boss共用；它们不是每只怪独有的受伤动画素材 |\n+| 接触扇与碎屑 | [EnemyFeedback01Particles](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_feedback_01_particles.gd) | 代码绘制奶白／黄铜射线及碎屑，无逐怪专用PNG特效页；受accepted事件驱动，不能据此断言表现到位 |\n+| charger／diver身体材质 | [body](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_feedback_01_body.gd)、[flash shader](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_feedback_01_flash.gdshader) | 专用身体绘制与材质处理；不等于其他物种也有同套H/D资源 |\n | 各怪专有预告／机关表现 | 各Presentation和Encounter里的盾面线、落点、蛛线／网带、绳、铃、波纹、胸心等 | 多为程序绘制与共享机关；每只怪的具体入口在三份逐怪JSON，不重复记成独有美术资产包 |\n \n ## 声音文件与选择配置\n \n-- [GameAudio](../../../scripts/audio/game_audio.gd)维护共享cue和12声部池；初始化`audio_profile=\"original\"`，原cue按`assets/audio/kenney/<cue>.ogg`加载。EnemyActor现有受伤与死亡调用见[Actor](../../../scripts/enemies/enemy_actor.gd)。\n+- [GameAudio](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/audio/game_audio.gd)维护共享cue和12声部池；初始化`audio_profile=\"original\"`，原cue按`assets/audio/kenney/<cue>.ogg`加载。EnemyActor现有受伤与死亡调用见[Actor](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_actor.gd)。\n - [已选配置](../../../config/audio_director/selected/selected.json)确有用户选择的`enemy_hit_b`／`enemy_hurt_b`；对应[命中WAV](../../../assets/audio/director_v3/enemy_hit_b.wav)与[受伤WAV](../../../assets/audio/director_v3/enemy_hurt_b.wav)实际存在。它是全局事件选择，不是每个物种的独立声音包。\n-- **是否在当前默认游戏中播放，不能从选择单推定。** 本次Git完整树搜索`configure_selected_profiles`／`selected.json`，定位到GameAudio定义和[scripts/dev/audio_director_reels.gd](../../../scripts/dev/audio_director_reels.gd)开发消费，未在所检生产源找到安装该选择单的调用。未重新启动游戏核动态注入，因此这里不声称当前正式影片实际使用了这两条已选声。\n-- 库里还有[专用death_burst.wav](../../../assets/audio/enemy_feedback_01/death_burst.wav)、[来源／处理](../../../assets/audio/enemy_feedback_01/provenance.json)、[历史音色接口说明](../../enemy_feedback_01_audio_interface.md)及[helper](../../../scripts/enemies/enemy_feedback_01_death_audio.gd)。**当前生产源只检索到helper自身声明与内部引用，没有找到外部configure调用**；不能沿历史文档称它现在已对冲锋／俯冲生效。测试或历史说明不等于当前接线。\n+- **是否在当前默认游戏中播放，不能从选择单推定。** 本次Git完整树搜索`configure_selected_profiles`／`selected.json`，定位到GameAudio定义和[scripts/dev/audio_director_reels.gd](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/dev/audio_director_reels.gd)开发消费，未在所检生产源找到安装该选择单的调用。未重新启动游戏核动态注入，因此这里不声称当前正式影片实际使用了这两条已选声。\n+- 库里还有[专用death_burst.wav](../../../assets/audio/enemy_feedback_01/death_burst.wav)、[来源／处理](../../../assets/audio/enemy_feedback_01/provenance.json)、[历史音色接口说明](../../enemy_feedback_01_audio_interface.md)及[helper](https://github.com/zhipijun1996/gunman-rush/blob/310c0421e18829088a4d2208c5f1b6cba3db35dc/scripts/enemies/enemy_feedback_01_death_audio.gd)。**当前生产源只检索到helper自身声明与内部引用，没有找到外部configure调用**；不能沿历史文档称它现在已对冲锋／俯冲生效。测试或历史说明不等于当前接线。\n - `forest_wind`／`forest_fruit`／`forest_web`有[区域WAV](../../../assets/forest_bible_v2/audio/)和GameAudio路径；蛛extend的Stage调用与区域音色共用关系见森林原始审计。甲虫盾面视觉订阅不等于有独有盾声。\n - Boss的warning／armour／core／boss_impact／roar等大多共享cue。资料中出现windkeeper_roar等命名文件，不代表当前Boss脚本直接加载它；完整原图／声音目录与个体声景设计仍需分开看。\n \ndiff --git a/docs/worklines/enemy_structure_01/runtime-map.md b/docs/worklines/enemy_structure_01/runtime-map.md\nindex 8e00e21f..c5b84a5c 100644\n--- a/docs/worklines/enemy_structure_01/runtime-map.md\n+++ b/docs/worklines/enemy_structure_01/runtime-map.md\n@@ -1,6 +1,6 @@\n # 逐怪程序入口索引\n \n-源码快照：`596a2eee230eb1b9d23dc2ff878c1ff3259cf293`。这是当前程序入口导航，运行登记仍以[EnemyBehaviorRegistry](../../../scripts/enemies/enemy_behavior_registry.gd)、[EnemyFactory](../../../scripts/enemies/enemy_factory.gd)和[BossFactory](../../../scripts/bosses/boss_factory.gd)为唯一来源；表格不参与运行。\n+源码快照：`596a2eee230eb1b9d23dc2ff878c1ff3259cf293`。这是当前程序入口导航，运行登记仍以[EnemyBehaviorRegistry](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/enemy_behavior_registry.gd)、[EnemyFactory](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/enemy_factory.gd)和[BossFactory](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/bosses/boss_factory.gd)为唯一来源；表格不参与运行。\n \n [同源原生结构结果](../../evidence/enemy_structure_01/native-09/runtime.json)包含40个结构case／733断言，全部通过。表中profile是这些fixture实际装配的分支；它不能替代正式关卡的连续玩法、美术、声音或用户验收。原[资料／素材盘点](../enemy_asset_audit_01/README.md)仍按原快照保留。\n \n@@ -11,21 +11,21 @@\n | 怪物／行为ID | Definition | 攻击策略或专有行为 | 原生实际profile |\n | --- | --- | --- | --- |\n | 巡逻怪 `patrol` | [patrol_drone](../../../resources/enemies/patrol_drone.tres) | 无攻击Behavior | scene、underworld |\n-| 冲锋怪 `charger` | [plains_charger](../../../resources/enemies/plains_charger.tres) | [charger_attack_strategy](../../../scripts/enemies/charger_attack_strategy.gd) | scene、underworld |\n-| 俯冲怪 `diver` | [plains_diver](../../../resources/enemies/plains_diver.tres) | [diver_attack_strategy](../../../scripts/enemies/diver_attack_strategy.gd) | scene、underworld |\n-| 跳扑怪 `hopper` | [plains_hopper](../../../resources/enemies/plains_hopper.tres) | [hopper_attack_strategy](../../../scripts/enemies/hopper_attack_strategy.gd) | scene、underworld |\n-| 炮哨 `sentry` | [plains_sentry](../../../resources/enemies/plains_sentry.tres) | [sentry_attack_strategy](../../../scripts/enemies/sentry_attack_strategy.gd) | scene、underworld |\n-| 扇射哨 `fan_sentry` | [plains_fan_sentry](../../../resources/enemies/plains_fan_sentry.tres) | [fan_sentry_attack_strategy](../../../scripts/enemies/fan_sentry_attack_strategy.gd) | scene、underworld |\n-| 根铃 `root_bell` | [plains_root_bell](../../../resources/enemies/plains_root_bell.tres) | [root_bell_behavior](../../../scripts/enemies/root_bell_behavior.gd) | scene、underworld、root_bell |\n-| 铃囊萤 `forest_lantern` | [forest_lantern](../../../resources/enemies/forest_lantern.tres) | [forest_lantern_behavior](../../../scripts/enemies/forest_lantern_behavior.gd) | forest |\n-| 棘籽哨 `forest_seed_sentry` | [forest_seed_sentry](../../../resources/enemies/forest_seed_sentry.tres) | [forest_seed_sentry_behavior](../../../scripts/enemies/forest_seed_sentry_behavior.gd) | forest |\n-| 树皮甲虫 `forest_bark_beetle` | [forest_bark_beetle](../../../resources/enemies/forest_bark_beetle.tres) | [forest_bark_beetle_behavior](../../../scripts/enemies/forest_bark_beetle_behavior.gd) | forest |\n-| 吊荚摆锚 `forest_swing_pod` | [forest_swing_pod](../../../resources/enemies/forest_swing_pod.tres) | [forest_swing_pod_behavior](../../../scripts/enemies/forest_swing_pod_behavior.gd) | forest |\n-| 织棘蛛/单有限线 `forest_thread_spider` | [forest_thread_spider](../../../resources/enemies/forest_thread_spider.tres) | [forest_thread_spider_behavior](../../../scripts/enemies/forest_thread_spider_behavior.gd) | forest |\n-| 跨枝移动体 `forest_crossbranch` | [forest_crossbranch](../../../resources/enemies/forest_crossbranch.tres) | [forest_crossbranch_behavior](../../../scripts/enemies/forest_crossbranch_behavior.gd) | forest |\n-| 织棘蛛/双入口织线变体 `forest_bible_weaver` | [forest_bible_weaver](../../../resources/enemies/forest_bible_weaver.tres) | [forest_bible_weaver_behavior](../../../scripts/enemies/forest_bible_weaver_behavior.gd) | forest |\n-\n-Scene路径也由同一登记读取：平原7种沿原`patrol_drone.tscn`骨架，森林7种沿各自原场景。运动参数`aerial`不再直接选择身体；最终身体由[EnemyPresentationBinding](../../../scripts/presentation/enemy_presentation_binding.gd)明确登记。森林fine身体还要求实际Bible安装的`forest_bible`主题；Lab默认身体保持自身上下文。\n+| 冲锋怪 `charger` | [plains_charger](../../../resources/enemies/plains_charger.tres) | [charger_attack_strategy](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/charger_attack_strategy.gd) | scene、underworld |\n+| 俯冲怪 `diver` | [plains_diver](../../../resources/enemies/plains_diver.tres) | [diver_attack_strategy](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/diver_attack_strategy.gd) | scene、underworld |\n+| 跳扑怪 `hopper` | [plains_hopper](../../../resources/enemies/plains_hopper.tres) | [hopper_attack_strategy](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/hopper_attack_strategy.gd) | scene、underworld |\n+| 炮哨 `sentry` | [plains_sentry](../../../resources/enemies/plains_sentry.tres) | [sentry_attack_strategy](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/sentry_attack_strategy.gd) | scene、underworld |\n+| 扇射哨 `fan_sentry` | [plains_fan_sentry](../../../resources/enemies/plains_fan_sentry.tres) | [fan_sentry_attack_strategy](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/fan_sentry_attack_strategy.gd) | scene、underworld |\n+| 根铃 `root_bell` | [plains_root_bell](../../../resources/enemies/plains_root_bell.tres) | [root_bell_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/root_bell_behavior.gd) | scene、underworld、root_bell |\n+| 铃囊萤 `forest_lantern` | [forest_lantern](../../../resources/enemies/forest_lantern.tres) | [forest_lantern_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_lantern_behavior.gd) | forest |\n+| 棘籽哨 `forest_seed_sentry` | [forest_seed_sentry](../../../resources/enemies/forest_seed_sentry.tres) | [forest_seed_sentry_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_seed_sentry_behavior.gd) | forest |\n+| 树皮甲虫 `forest_bark_beetle` | [forest_bark_beetle](../../../resources/enemies/forest_bark_beetle.tres) | [forest_bark_beetle_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_bark_beetle_behavior.gd) | forest |\n+| 吊荚摆锚 `forest_swing_pod` | [forest_swing_pod](../../../resources/enemies/forest_swing_pod.tres) | [forest_swing_pod_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_swing_pod_behavior.gd) | forest |\n+| 织棘蛛/单有限线 `forest_thread_spider` | [forest_thread_spider](../../../resources/enemies/forest_thread_spider.tres) | [forest_thread_spider_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_thread_spider_behavior.gd) | forest |\n+| 跨枝移动体 `forest_crossbranch` | [forest_crossbranch](../../../resources/enemies/forest_crossbranch.tres) | [forest_crossbranch_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_crossbranch_behavior.gd) | forest |\n+| 织棘蛛/双入口织线变体 `forest_bible_weaver` | [forest_bible_weaver](../../../resources/enemies/forest_bible_weaver.tres) | [forest_bible_weaver_behavior](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/enemies/forest_bible_weaver_behavior.gd) | forest |\n+\n+Scene路径也由同一登记读取：平原7种沿原`patrol_drone.tscn`骨架，森林7种沿各自原场景。运动参数`aerial`不再直接选择身体；最终身体由[EnemyPresentationBinding](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/presentation/enemy_presentation_binding.gd)明确登记。森林fine身体还要求实际Bible安装的`forest_bible`主题；Lab默认身体保持自身上下文。\n \n ## 2个开发候选\n \n@@ -56,6 +56,6 @@ Scene路径也由同一登记读取：平原7种沿原`patrol_drone.tscn`骨架\n \n ## 后续修改从哪里进入\n \n-新增或调整物种先改实际Definition及登记；已有基础攻击的运动公式进对应策略，专有机制留在自身Behavior／Encounter。表现读取`presentation_state()`，通过最终绑定取身体；普通表现的bind／epoch同步／暂停／单次推进／dispose走[EnemyPresentationLifecycle](../../../scripts/presentation/enemy_presentation_lifecycle.gd)。完整恢复完成后再同步表现，留尸通过`presentation_remains()`能力取得。\n+新增或调整物种先改实际Definition及登记；已有基础攻击的运动公式进对应策略，专有机制留在自身Behavior／Encounter。表现读取`presentation_state()`，通过最终绑定取身体；普通表现的bind／epoch同步／暂停／单次推进／dispose走[EnemyPresentationLifecycle](https://github.com/zhipijun1996/gunman-rush/blob/596a2eee230eb1b9d23dc2ff878c1ff3259cf293/scripts/presentation/enemy_presentation_lifecycle.gd)。完整恢复完成后再同步表现，留尸通过`presentation_remains()`能力取得。\n \n 本轮修复了实例健康配置共享、未知身体路由静默接受及盾反馈解绑遗漏。素材、动作设计与验收流程仍需按用户要求逐怪发现问题；验收机制仍待与用户共同修订，旧美术拒绝保留。\ndiff --git a/docs/worklines/item_v5_01/consumer_coverage.md b/docs/worklines/item_v5_01/consumer_coverage.md\nindex 4e3bacfd..c53908d2 100644\n--- a/docs/worklines/item_v5_01/consumer_coverage.md\n+++ b/docs/worklines/item_v5_01/consumer_coverage.md\n@@ -30,9 +30,9 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01\n \n ## 正式公共接线\n \n-正式起局在 [DemoApp](../../../scripts/demo/demo_app.gd) 创建 ItemRuntime／ItemV5Pool／ItemV5ShopPresenter；实际 stage 完成后 `bind_world()`、`map_ready()`，并创建 [ItemEffectView](../../../scripts/items/v5/item_effect_view.gd)。只有已装备且未损坏的拥有实例进入 [ItemRuntime.sync()](../../../scripts/items/v5/item_runtime.gd) 缓存。\n+正式起局在 [DemoApp](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/demo/demo_app.gd) 创建 ItemRuntime／ItemV5Pool／ItemV5ShopPresenter；实际 stage 完成后 `bind_world()`、`map_ready()`，并创建 [ItemEffectView](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_effect_view.gd)。只有已装备且未损坏的拥有实例进入 [ItemRuntime.sync()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_runtime.gd) 缓存。\n \n-主攻与武器技能通过 [ShootAbility](../../../scripts/combat/shoot_ability.gd)、[PlayerProjectile](../../../scripts/combat/player_projectile.gd)或 [WeaponActionRuntime](../../../scripts/combat/weapon_action_runtime.gd)提交伤害；策略成功后 `item_hit_committed()`→[PlayerController.on_weapon_damage()](../../../scripts/player/player_controller.gd)→`ItemRuntime.on_hit()`。防御由 [FrameDamagePolicy](../../../scripts/damage/frame_damage_policy.gd) 的 `defend_request()`／`on_damage()`插点接入。道具主动用独立 `item_skill` 输入，召唤／连锁／DOT 等派生通过 Runtime 授权与原策略结算，不走主攻回能。\n+主攻与武器技能通过 [ShootAbility](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/combat/shoot_ability.gd)、[PlayerProjectile](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/combat/player_projectile.gd)或 [WeaponActionRuntime](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/combat/weapon_action_runtime.gd)提交伤害；策略成功后 `item_hit_committed()`→[PlayerController.on_weapon_damage()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/player/player_controller.gd)→`ItemRuntime.on_hit()`。防御由 [FrameDamagePolicy](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/damage/frame_damage_policy.gd) 的 `defend_request()`／`on_damage()`插点接入。道具主动用独立 `item_skill` 输入，召唤／连锁／DOT 等派生通过 Runtime 授权与原策略结算，不走主攻回能。\n \n 表中 `缺` 表示尚未找到所述**行为断言**，不表示配置无定义。`部分`明确指出已测与未测的边界。当前逐件均找到候选生产消费者。初扫发现的 S10“蓄成钟摆提示”缺口已补入cue／View分支并有SE回执，但GL观察仍未验。\n \n@@ -40,24 +40,24 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01\n \n | ID／名称／最高等级 | 实际 module → 正式 consumer／callback | 已有逐件行为断言 | 尚缺或证据边界 |\n | --- | --- | --- | --- |\n-| B01 拾铃磁盘／1 | [Economy](../../../scripts/items/v5/item_economy_effects.gd) `can_magnet_pickup()` → DemoApp `_physics_process()`／`_commit_pickup()`原领取流程 | E.`magnet_policy`：半径、ready_at、coin/note/heart/energy、实墙 LOS、拒绝宝箱／商品／奖励对象、卸装撤销 | 没有正式 App 磁吸领取正例；S07 弧线组合与 GL 未验 |\n-| B03 薄暮枪管／3 | [Combat](../../../scripts/items/v5/item_combat_effects.gd) `modify_direct_damage()` → Projectile／WeaponActionRuntime | C.`multipliers`：Lv3 1.32 与技能排除；F.`primary`：真实主攻 Lv1 1.12、Lv2 1.22、卸装恢复；同实例成长／不增负荷 | Lv3 的正式输入链仍仅局部倍率查询；没有自然平衡认可 |\n-| B04 省力扳簧／3 | [BuildState](../../../scripts/builds/build_state.gd) `_modifiers_for()` → AirFocusAbility 的 tuning 消耗 | I.`broken_and_static_sources`：Lv1 .82、升级 Lv2 .72、卸装还原实际 tuning | Lv3、实际持续瞄准的总消耗与正式关卡组合未断言 |\n+| B01 拾铃磁盘／1 | [Economy](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_economy_effects.gd) `can_magnet_pickup()` → DemoApp `_physics_process()`／`_commit_pickup()`原领取流程 | E.`magnet_policy`：半径、ready_at、coin/note/heart/energy、实墙 LOS、拒绝宝箱／商品／奖励对象、卸装撤销 | 没有正式 App 磁吸领取正例；S07 弧线组合与 GL 未验 |\n+| B03 薄暮枪管／3 | [Combat](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_combat_effects.gd) `modify_direct_damage()` → Projectile／WeaponActionRuntime | C.`multipliers`：Lv3 1.32 与技能排除；F.`primary`：真实主攻 Lv1 1.12、Lv2 1.22、卸装恢复；同实例成长／不增负荷 | Lv3 的正式输入链仍仅局部倍率查询；没有自然平衡认可 |\n+| B04 省力扳簧／3 | [BuildState](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/builds/build_state.gd) `_modifiers_for()` → AirFocusAbility 的 tuning 消耗 | I.`broken_and_static_sources`：Lv1 .82、升级 Lv2 .72、卸装还原实际 tuning | Lv3、实际持续瞄准的总消耗与正式关卡组合未断言 |\n | B05 疾鸣撞针／1 | Combat `weapon_cooldown_multiplier()` → ShootAbility `try_fire()`／`reserve_packet()` | C.`multipliers` 返回 .88 | 仅查询；未量实际发射间隔／冷却下限 |\n-| B06 回声小匣／3 | [Time](../../../scripts/items/v5/item_time_effects.gd) `on_hit()` → 成功回执、AirFocus stamina 原 grant 账本 | D.`air_refund_committed_pipeline`：真实局部主攻命中返时间能量、单次腾空 20 封顶、不延长 AirFocus 时长、换装不重置 | Lv2／3 数值与正式 App 空中操作未逐级验证 |\n+| B06 回声小匣／3 | [Time](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_time_effects.gd) `on_hit()` → 成功回执、AirFocus stamina 原 grant 账本 | D.`air_refund_committed_pipeline`：真实局部主攻命中返时间能量、单次腾空 20 封顶、不延长 AirFocus 时长、换装不重置 | Lv2／3 数值与正式 App 空中操作未逐级验证 |\n | B07 定脚支架／1 | BuildState 参数映射 → RecoilAbility／WeaponMotionDefinition 使用实际 `ground_recoil_multiplier` | I.`broken_and_static_sources`：实际 tuning ×.7、卸装恢复 | 实际地面位移／反冲距离对照未测 |\n | B08 止滑钟靴／1 | BuildState 参数映射 → JumpAbility `advance()`／`try_jump()`读取 coyote_time | I 同段：coyote_time +.05、卸装恢复 | 真正离边宽限帧内／外跳跃反例未测 |\n | B09 接地回路／1 | BuildState 参数映射 → AirFocusAbility 地面恢复 | I 同段：恢复 tuning ×1.25、卸装恢复 | 实际地面恢复总量／暂停条件未测 |\n | B11 心室木匣／3 | BuildState `_commit()` → HealthState `set_max()` | I.`equipped_growth_and_rollback`：三等级 +1/+2/+3、不免费治疗、卸装、组合溢出原子回滚；I.`growth_and_receipts` 覆盖同实例／来源幂等／满级拒绝 | 正式自然领取／装备三等级未演练；U 等级展示只是显示证据 |\n-| B13 晨露护片／1 | [Defense](../../../scripts/items/v5/item_defense_effects.gd) `map_entered()`／`_commit_entry()` → 共享盾 | D.`barriers_and_map_receipts`：与 B32 入图合计 3、失焦延后、同图防刷、卸装清除；`guard_synergy_geometry` S09 | 正式 App 两图入图盾路径与 GL 未验 |\n+| B13 晨露护片／1 | [Defense](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_defense_effects.gd) `map_entered()`／`_commit_entry()` → 共享盾 | D.`barriers_and_map_receipts`：与 B32 入图合计 3、失焦延后、同图防刷、卸装清除；`guard_synergy_geometry` S09 | 正式 App 两图入图盾路径与 GL 未验 |\n | B14 苦痛铃歌／1 | Defense `on_damage()` → Runtime `grant_energy()` | D.`breakage_and_one_bell`：真实 HP 伤害每次回能、第三次破损 S15 单铃、修复不重领铃 | 正式敌伤／致死边界的逐件自然组合未验 |\n | B15 荆棘铜衣／1 | Defense `on_damage()` → Runtime `burst()` → 策略派生 HP | D.`retaliation_and_crystal_contacts`：真实HP受伤→B15自动派生、表内7秒CD、实际目标HP；另保策略授权／致死优先反例 | 真实局部场景与伤害初始化fixture；正式自然战斗／GL未验 |\n | B16 裂纹钱袋／1 | Economy `on_kill()`／`_kill_bonus()`；Defense 破损计数；ShopService 维修 | E.`bonus_and_remainder`／`bonus_rollback`：实际钱包逐敌 8 次预算、换装不刷、冲突回滚 | 未测 B16 自身第三次伤害破损与其维修价格；正式击杀→额外收入、S07 表现未验 |\n | B17 裂纹强击栓／1 | Combat `primary_damage_multiplier()`；Defense `on_damage()`破损撤销；ShopService 维修 | D.`breakage_and_one_bell`：第三次 HP 伤害破损、仍占负荷、修复不重发 S15 | **部分：缺主攻增伤数值及破损后实伤撤销**；维修交易价未逐件测 |\n-| B18 捕魂音叉／3 | PlayerController `on_weapon_damage()`读取额外gain→[CombatEnergyState.committed_hit()](../../../scripts/resources/state/combat_energy_state.gd)共享包上限 | K.`resonance_fork`：实际HP提交后回执，三等级每敌9/10/11、同包多敌仍12、同目标去重、技能/session/weapon epoch排除、卸装撤销 | 成功回执envelope为初始化fixture，未装备B18走完整真实弹体路线；GL未验 |\n+| B18 捕魂音叉／3 | PlayerController `on_weapon_damage()`读取额外gain→[CombatEnergyState.committed_hit()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/resources/state/combat_energy_state.gd)共享包上限 | K.`resonance_fork`：实际HP提交后回执，三等级每敌9/10/11、同包多敌仍12、同目标去重、技能/session/weapon epoch排除、卸装撤销 | 成功回执envelope为初始化fixture，未装备B18走完整真实弹体路线；GL未验 |\n | B19 梦读铭片／1 | PlayerController `on_grapple_damage()`额外回能；Combat `on_hook_hit()`梦读标记；Companion S02 锁定 | C.`explicit_synergies`：独立梦读标记、4 世界秒、回执防刷新／卸装撤销；A.`_run` S02 单目标最多两机 | **部分：额外钩索共鸣没有数值断言**；钩索→正式标记→机体闭环没有 App 输入链 |\n | B20 盗铃钩齿／1 | Runtime `on_hook_hit()` → Economy `on_hook()` → 原钱包 | E.`bonus_and_remainder`：每敌一次、每图 10 金封顶、重复／Boss 排除 | 接受钩索伤害回执的正式输入链未验 |\n-| B21 长索绕轮／3 | [TraversalAbility._effective_hook_range()](../../../scripts/player/traversal_ability.gd)→request_hook／guide | K.`long_hook`：真实Router/Traversal基线触不到，Lv1的1.15范围触到同一真实anchor、仅入包无效、卸装再触不到且核心权利保留 | Lv2/3实际钩距边界、正式地图路线未验 |\n+| B21 长索绕轮／3 | [TraversalAbility._effective_hook_range()](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/player/traversal_ability.gd)→request_hook／guide | K.`long_hook`：真实Router/Traversal基线触不到，Lv1的1.15范围触到同一真实anchor、仅入包无效、卸装再触不到且核心权利保留 | Lv2/3实际钩距边界、正式地图路线未验 |\n | B22 扩震钟环／3 | Combat `bomb_radius_multiplier()` → WeaponActionRuntime `explode()`／`damage_burst()` | C.`multipliers`：Lv3 返回 1.28 | 仅查询，缺真实炸弹范围边缘伤害／LOS；S14 仍禁用，不作用针雷的设计不能冒称已通过组合 |\n | B23 尾摆齿环／1 | Combat `_end_recoil()`／`on_blink()` → ring 实际范围派生 | C.`recoil_and_cooldown`：.4D 端点环、CD／重复／卸装重装防刷 | 路径来自明确接受-Motor通知 fixture；未有正式实际移动输入证明 |\n | B24 余火枪片／1 | Combat `on_hit()`建 DOT，`advance()`按世界时间派生 | C.`dots_cloud_and_unload`：3 世界秒总 .35D、零 delta 不结算、到期／卸装取消 | 事件是已接受命中 fixture；正式主攻→DOT、GL 未验 |\n@@ -66,9 +66,9 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01\n | B28 逐风鞋簧／1 | PlayerController `physics_tick()`地面move_axis×倍率→唯一PlayerMotor.step() | K.`ground_shoes`：同输入实际地面速度与10 tick位移均×1.05、背包无效、空中不加、卸装恢复、重装不改基础tuning | 局部初始化位置／Controller tick，非正式自然路线／手感认可 |\n | B29 薄钟长管／3 | Combat `projectile_range_multiplier()` → Projectile 寿命与 ShootAbility 发射 | C.`multipliers`：Lv3 返回 1.5 | 仅查询；未验证真实射程边缘／飞行中卸装撤销、Lv1/2 |\n | B30 易裂心匣／1 | BuildState HP +3；Defense 第三次 HP 损伤破损；ShopService 修理 | I.`broken_and_static_sources` 破损最大 HP 撤销／仍占负荷；D 第三次伤害破损；E.`repairs` 原价 18、重放／余额不足／回滚、不免费治疗；F 近店修理授权 | F 的破损是显式状态 fixture，并未自然打裂；其他三件破损道具不自动继承 B30 各自价格验证 |\n-| B31 敲钟重锤／1 | Combat `enemy_stagger_multiplier()` → 弹体／武器 context → [EnemyActor](../../../scripts/enemies/enemy_actor.gd)受击硬直 | C.`multipliers`：返回 1.3 | 仅查询；缺真实 EnemyActor 硬直持续时间、Boss／普通敌人边界 |\n+| B31 敲钟重锤／1 | Combat `enemy_stagger_multiplier()` → 弹体／武器 context → [EnemyActor](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/enemies/enemy_actor.gd)受击硬直 | C.`multipliers`：返回 1.3 | 仅查询；缺真实 EnemyActor 硬直持续时间、Boss／普通敌人边界 |\n | B32 晨蓝洪流／1 | Defense `map_entered()`／`_commit_entry()` → 共享盾 | D 与 B13 合计 3、同图防刷／卸装撤销 | 没有正式 App 新图自动授盾／GL |\n-| B33 小焰触片／3 | [Active](../../../scripts/items/v5/item_active_effects.gd) `preview()`／`activate()` → Runtime 授权 burst | A.`_run`：Lv3 1.9D、实际 LOS、无所有权／零方向／CD拒绝；F：Lv1 原生 R、30 自然共鸣消费、真实 1.10D、无附送普攻／状态跨图保留 | Lv2 未逐级测；F 为训练场 fixture，不是自然路线或手感认可 |\n+| B33 小焰触片／3 | [Active](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_active_effects.gd) `preview()`／`activate()` → Runtime 授权 burst | A.`_run`：Lv3 1.9D、实际 LOS、无所有权／零方向／CD拒绝；F：Lv1 原生 R、30 自然共鸣消费、真实 1.10D、无附送普攻／状态跨图保留 | Lv2 未逐级测；F 为训练场 fixture，不是自然路线或手感认可 |\n \n ## P 系列：26 件\n \n@@ -84,7 +84,7 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01\n | P10 腐蚀尾铃／1 | Runtime `on_skill_started()` → Combat 布置 primed 窗口，后继主攻一团 cloud | C.`dots_cloud_and_unload`：一次技能仅一云、3 秒总 .45D、表现 cue 一次 | 技能开始通知／命中为 fixture；实际主动→主攻→云与窗口边界未验 |\n | P12 刃影回纹／1 | Combat `_observe_path()`／`_path_committed()`／`on_blink()` | C.`recoil_and_cooldown` 实际目标接触 .25D、重复／CD；`explicit_synergies` S06 后继包才可引爆 | 位移通知由 fixture 提供，未真实 Router→Motor 反冲路径验收 |\n | P13 追索徽记／1 | Combat `on_hook_hit()`普通钩索标记→`modify_direct_damage()`；Companion `mark_key()` | C.`next_shot_and_marks`：标记回执、倍率 1.2、技能排除、过期、换图清除；A G08 标记 fixture | 真钩索物理回执→主弹的正式输入链未验；与 B19 梦读标记明确分离 |\n-| P14 游钟机群／1 | [Companion](../../../scripts/items/v5/item_companion_effects.gd) `sync()`三机→`advance()`／`_fire()`实际派生 | A：三机数量、世界停时不攻击、G08 标记首击、S02 独立目标锁；M/dbf3a154已采集真实正式配置路径（已知奖励和训练靶fixture） | A Host 手动标记／效果集合不等于正式准入；K2影片采样／实际收据已观察三机攻击；并非自然全路线 |\n+| P14 游钟机群／1 | [Companion](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/items/v5/item_companion_effects.gd) `sync()`三机→`advance()`／`_fire()`实际派生 | A：三机数量、世界停时不攻击、G08 标记首击、S02 独立目标锁；M/dbf3a154已采集真实正式配置路径（已知奖励和训练靶fixture） | A Host 手动标记／效果集合不等于正式准入；K2影片采样／实际收据已观察三机攻击；并非自然全路线 |\n | P15 续鸣装配匣／1 | Runtime `combat_energy.spent`→`_energy_spent()`→Companion `on_energy_spent()` | K.`assembly_threshold_and_s01`：真实44+1 debit/spent信号召机、去重／不足／上限、.35D真HP、8世界秒到期、不自充／递归、卸装保部分进度；A新增生命周期源码补边界和节点释放 | K已开发79/0；A新增已在K2原Harness102/0执行；正式App自然供能／召唤链及GL未验 |\n | P16 循时梦盾／1 | Defense `_advance_guard()`真实扫掠拦截 EnemyAttackProjectile／允许的 BossProjectile | D.`guard_synergy_geometry`：实际弹体拦截、12 秒／S09 .9CD、unblockable与不可见Boss攻击代理排除 | 正式 Boss 实战与 GL 读性／同帧多弹边界未验 |\n | P17 游鸣聚能体／3 | Combat `charge_move_multiplier()`→PlayerController真实charge phase的move_axis | C.`multipliers`：仅Lv3查询.7；pool拒绝不存在蓄力技能的武器；K显式输出UNVERIFIED | **用户基础蓄力选择pending；无真实蓄力移动正例**。root已把未装备fallback从实际0修为1以保旧baseline；装备.4/.55/.7仍是表值候选，不是用户或实发验证 |\n@@ -115,7 +115,7 @@ F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01\n | G08 空白钟芯／1 | Companion `_target()`／`_fire()`→标记优先、实际提交后一次首击信用 | 原A的P14组合；新增A.`growth_damage_and_s12`：G19远处标记优先、首次桥拒绝不消费信用、首真HP命中×1.3、同标记重装不刷、新标记一次 | 新增S12断言K2原Harness A102/0；标记仍为初始化身份，非正式钩索回执链 |\n | G10 不朽钱袋／1 | Economy `_kill_bonus()`唯一每图敌人账本，与B16装备互斥 | E：新图六次每次 2 金、不重领、失活拒绝、背包共存而装备互斥 | 正式击杀原回执／稳定掉落展示未验 |\n | G11 不朽心匣／1 | BuildState通用`max_hp_add`映射→HealthState；与B30装备互斥 | K.`immortal_health`：G11仅入包无效、装备+3不补HP、卸装撤销／实际current钳制、重装不找回损失HP／不叠加 | G11/B30互斥的逐件正反例、正式App自然配置未验 |\n-| G12 错位命运骰／1 | [ShopService](../../../scripts/shops/shop_service.gd)冻结概率／刷新账本；正式 Presenter 读取 Runtime effect | E.`rerolls`：真实权重转移、负蓝概率拒绝、首免费／次收费、同收据／旧报价、失败不改库存或RNG、卸装不得伪造免费 | F 实际 8 金刷新没有装备 G12；近店 UI 下的 G12 组合尚未正式验证 |\n+| G12 错位命运骰／1 | [ShopService](https://github.com/zhipijun1996/gunman-rush/blob/979dbb9ab5f04c82f9c605c775a5e92ee14f7141/scripts/shops/shop_service.gd)冻结概率／刷新账本；正式 Presenter 读取 Runtime effect | E.`rerolls`：真实权重转移、负蓝概率拒绝、首免费／次收费、同收据／旧报价、失败不改库存或RNG、卸装不得伪造免费 | F 实际 8 金刷新没有装备 G12；近店 UI 下的 G12 组合尚未正式验证 |\n | G14 飞雷钟樽／1 | Active `_step_throw()`／`_explode_throw()`→Runtime 原 G14 origin 的命中与传导 | A：1.3D直击＋.35D传导、墙阻挡／不回能；R.`g14_real_runtime_chain`：实际Runtime／policy两额外目标 .35D，补原Host掩盖的来源授权问题 | 正式 App R 输入与 GL 未验；仅 THROW 模式，不能声称部署模式 |\n | G15 双响投架／1 | Active `activate()`分裂P24/G14，一次消费／总预算；P24第二方向取负向 | A：真实两侧往返总 1.4D×1.15、共一包／单扣35；R.`s13_opposite_trajectories`；M/dbf3a154已实际采集 | G14分裂预算/方向独立反例尚缺；不是全类型主动都复制 |\n | G16 钟匠裁决／1 | Active `_step_pulses()`锥形筛选／LOS → 三段真实派生 | A：3×.9D、一次65、不搬角色、不被G15复制 | 锥体边角／遮挡更多反例、正式 App 与 GL 未验 |\ndiff --git a/tests/test_level_region_context.py b/tests/test_level_region_context.py\nindex dcba3d09..ddaac1bd 100644\n--- a/tests/test_level_region_context.py\n+++ b/tests/test_level_region_context.py\n@@ -150,5 +150,145 @@ class RegionContextTests(unittest.TestCase):\n             build_region_context(\"thorn_forest\", root)\n \n \n+# Finite source-chain negatives; no runtime or region authorization.\n+from level_region_context import Source, _forest_consumer_observed\n+\n+APP = 'game/application/demo_app.gd'\n+PROVIDER = 'game/world/levels/providers/forest_level_provider.gd'\n+ADAPTER = 'game/world/levels/providers/legacy_region_plan_adapter.gd'\n+CONFIGURED = 'game/world/levels/providers/generated_demo_stage.gd'\n+STAGE = 'game/world/levels/providers/thorn_forest_region_stage.gd'\n+INHERITED = 'game/world/levels/providers/plains_region_stage.gd'\n+RUNTIME = 'game/world/levels/level_runtime.gd'\n+ASSEMBLER = 'game/world/generation/thorn_forest_region_assembler.gd'\n+GENERATOR = 'game/world/generation/thorn_forest_region_generator.gd'\n+\n+\n+class ForestConsumerEdgeTests(unittest.TestCase):\n+    def fixture(self):\n+        temporary = tempfile.TemporaryDirectory()\n+        self.addCleanup(temporary.cleanup)\n+        root = Path(temporary.name)\n+        observed, references = _forest_consumer_observed(ROOT, Source(ROOT, APP))\n+        self.assertTrue(observed)\n+        for name in [APP, *[ref['path'] for ref in references]]:\n+            path = root / name\n+            path.parent.mkdir(parents=True, exist_ok=True)\n+            shutil.copyfile(ROOT / name, path)\n+        return root\n+\n+    def test_each_real_chain_edge_is_required(self):\n+        mutations = [\n+            (APP, 'var request := LevelRequest.new()', 'var request := WrongRequest.new()'),\n+            (APP, 'request.region_id=active_region_id', 'request.region_id=&\"plains\"'),\n+            (APP, 'ForestLevelProvider.load_level(request)', 'PlainsLevelProvider.load_level(request)'),\n+            (APP, 'ThornForestRegionStage.new()', 'PlainsRegionStage.new()'),\n+            (APP, 'configure_level(loaded.plan,loaded.legacy_generated,controller.motor.tuning)', 'configure_generated(loaded.legacy_generated,controller.motor.tuning)'),\n+            (APP, 'func _select_next_region(', 'func _unused_select_next_region('),\n+            (APP, 'func start_debug_region(', 'func unused_start_debug_region('),\n+            (PROVIDER, 'ThornForestRegionGenerator.new().generate(', 'PlainsRegionGenerator.new().generate('),\n+            (PROVIDER, 'LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,true)', 'LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,false)'),\n+            (ADAPTER, 'var result := geometry(data.manifest,tuning,forest_region)', 'var result := LevelBuildResult.new()'),\n+            (ADAPTER, 'plan.forest=forest', 'plan.forest=null'),\n+            (ADAPTER, 'result.plan=plan', 'result.plan=null'),\n+            (CONFIGURED, 'level_plan=plan', 'level_plan=null'),\n+            (STAGE, 'LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)', 'OtherRuntime.assemble(self,level_plan,region_state,generated.manifest)'),\n+            (STAGE, 'extends PlainsRegionStage', 'extends DemoStage'),\n+            (INHERITED, 'extends GeneratedDemoStage', 'extends DemoStage'),\n+            (RUNTIME, 'ThornForestRegionAssembler.new() if plan.forest!=null', 'PlainsRegionAssembler.new() if plan.forest!=null'),\n+            (RUNTIME, 'parent.add_child(assembler)', 'pass'),\n+            (RUNTIME, 'assembler.build_plan(plan,presentation)', 'assembler.build({},null)'),\n+            (ASSEMBLER, 'forest_geometry=plan.forest', 'forest_geometry=null'),\n+            (GENERATOR, 'return generate_version(str(capability_snapshot.get(\"forest_content_version\",VERSION)),seed_value,tuning,map_index,capability_snapshot)', 'return {}'),\n+        ]\n+        root = self.fixture()\n+        for name, old, new in mutations:\n+            with self.subTest(path=name, removed=old):\n+                path = root / name\n+                original = path.read_text()\n+                self.assertIn(old, original)\n+                try:\n+                    path.write_text(original.replace(old, new))\n+                    self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])\n+                finally:\n+                    path.write_text(original)\n+\n+    def test_comments_strings_and_other_function_do_not_supply_missing_call(self):\n+        root = self.fixture()\n+        path = root / STAGE\n+        original = path.read_text()\n+        statement = 'var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)'\n+        for replacement in ['# ' + statement, 'var example = \"' + statement + '\"',\n+                            'var example = \"\"\"\\n' + statement + '\\n\\t\"\"\"']:\n+            with self.subTest(replacement=replacement):\n+                path.write_text(original.replace(statement, replacement))\n+                self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])\n+        path.write_text(original.replace(statement, 'var built := {}') + '\\nfunc unused_example():\\n\\t' + statement + '\\n')\n+        self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])\n+\n+    def test_top_level_multiline_strings_cannot_forge_consumer_edges(self):\n+        root = self.fixture()\n+        statement = 'var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)'\n+        cases = [\n+            (STAGE, 'func _ready(', 'func _unused_ready(', 'func _ready() -> void:\\n\\t' + statement),\n+            (STAGE, 'extends PlainsRegionStage', 'extends DemoStage', 'extends PlainsRegionStage'),\n+            (INHERITED, 'extends GeneratedDemoStage', 'extends DemoStage', 'extends GeneratedDemoStage'),\n+        ]\n+        for name, old, new, fake_edge in cases:\n+            path = root / name\n+            original = path.read_text()\n+            self.assertIn(old, original)\n+            for quote in ['\"\"\"', \"'''\", '\"', \"'\"]:\n+                with self.subTest(path=name, fake=fake_edge, quote=quote):\n+                    if len(quote) == 3:\n+                        fake = 'const EXAMPLE = ' + quote + '\\n' + fake_edge + '\\n' + quote + '\\n'\n+                    else:\n+                        # Godot accepts backslash-newline inside ordinary strings.\n+                        fake = 'const EXAMPLE = ' + quote + 'example\\\\\\n' + fake_edge.replace('\\n', '\\\\\\n') + '\\\\\\n' + quote + '\\n'\n+                    try:\n+                        path.write_text(original.replace(old, new) + '\\n' + fake)\n+                        self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])\n+                    finally:\n+                        path.write_text(original)\n+\n+    def test_source_quote_examples_in_comments_are_not_string_context(self):\n+        root = self.fixture()\n+        path = root / STAGE\n+        original = path.read_text()\n+        examples = ['# Example triple quote: \"\"\"', \"# Example triple quote: '''\",\n+                    '# Example continuation: \\\\', 'const EXAMPLE = \"# is inside a string\"',\n+                    'const ESCAPED_EXAMPLE = \"escaped quote: \\\\\" and hash #\"']\n+        path.write_text(original + '\\n' + '\\n'.join(examples) + '\\n')\n+        self.assertTrue(_forest_consumer_observed(root, Source(root, APP))[0])\n+\n+    def test_order_and_missing_source_fail_closed(self):\n+        root = self.fixture()\n+        path = root / RUNTIME\n+        original = path.read_text()\n+        before = '\\tparent.add_child(assembler)\\n\\tvar result := assembler.build_plan(plan,presentation)'\n+        self.assertIn(before, original)\n+        path.write_text(original.replace(before, '\\tvar result := assembler.build_plan(plan,presentation)\\n\\tparent.add_child(assembler)'))\n+        self.assertFalse(_forest_consumer_observed(root, Source(root, APP))[0])\n+        path.unlink()\n+        with self.assertRaises(FileNotFoundError):\n+            _forest_consumer_observed(root, Source(root, APP))\n+\n+    def test_chain_sources_are_cited_without_claiming_runtime_or_grants(self):\n+        context = build_region_context('thorn_forest')\n+        implementation = context['implementation']\n+        self.assertEqual(implementation['formal_region'], 'consumer_present_in_source')\n+        self.assertIsNone(implementation['runtime_available'])\n+        self.assertEqual(implementation['validation_status'], 'unverified')\n+        self.assertFalse(implementation['catalog_flag_is_authoritative'])\n+        expected = {APP, PROVIDER, ADAPTER, CONFIGURED, STAGE, INHERITED, RUNTIME, ASSEMBLER, GENERATOR}\n+        refs = {ref['path']: ref for ref in implementation['formal_consumer_sources']}\n+        self.assertTrue(expected.issubset(refs))\n+        for name in expected:\n+            self.assertEqual(refs[name]['sha256'], hashlib.sha256((ROOT / name).read_bytes()).hexdigest())\n+        import level_design\n+        mission = level_design.route_request('制作荆棘森林')\n+        self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])\n+\n+\n if __name__ == \"__main__\":\n     unittest.main()\ndiff --git a/tests/test_visual_director.py b/tests/test_visual_director.py\nindex b492aaf7..d89afbab 100644\n--- a/tests/test_visual_director.py\n+++ b/tests/test_visual_director.py\n@@ -20,7 +20,7 @@ class VisualDirectorTests(unittest.TestCase):\n         self.source['tests/observer_fixture.gd']='b'*64\n         self.source['assets/fixture-bitmap.png']='e'*64\n         self.request=dict(source_commit='c'*40,root_seed='SYNTHETIC-NOT-MOTOR',map_index=2,strategy='growth',phase_wait_ticks=0,max_ticks=60,encounter_policy='kill_from_bank_v1')\n-        runtime={'res://'+k:v for k,v in vd.formal_source_projection(self.source).items() if k=='project.godot' or k.startswith(('scripts/','scenes/','resources/','config/','shaders/','assets/'))}\n+        runtime={'res://'+k:v for k,v in vd.formal_source_projection(self.source).items() if k=='project.godot' or k.startswith(('game/','experiments/','scripts/','scenes/','resources/','config/','shaders/','assets/'))}\n         basis={'schema_version':1,'encounter_policy':'kill_from_bank_v1','reward_policy':'two_actual_medium_and_camp_v1',\n                'driver_sources':{'res://'+k:self.source[k] for k in vd.level_formal.driver_source_paths()},\n                'core_invariants':{'res://'+k:self.source[k] for k in vd.level_formal.core_source_paths()}}\n@@ -160,6 +160,9 @@ class VisualDirectorTests(unittest.TestCase):\n     def test_full_bitmap_guard_is_separate_from_original_formal_projection(self):\n         # Original GDScript observer never lists PNG: keep that contract while retaining bitmap provenance.\n         self.assertNotIn('assets/fixture-bitmap.png',vd.formal_source_projection(self.source))\n+        for root in ('game','experiments'):\n+            projection=vd.formal_source_projection({root+'/fixture.gd':'a'*64,root+'/fixture.gd.uid':'b'*64,root+'/fixture.png':'c'*64})\n+            self.assertEqual(projection,{root+'/fixture.gd':'a'*64})\n         self.assertIn('game/presentation/world/art/plains_region_scenery.gd',vd.formal_source_projection(self.source))\n         self.assertEqual(vd.validate_native(self.data,self.report,self.log),[])\n         self.report['source_after']['assets/fixture-bitmap.png']='f'*64\ndiff --git a/tools/level_region_context.py b/tools/level_region_context.py\nindex fdf1d470..7eee37d4 100644\n--- a/tools/level_region_context.py\n+++ b/tools/level_region_context.py\n@@ -44,6 +44,104 @@ class Source:\n                 \"source\": self.ref(start + 1, end)}\n \n \n+def _gd_source_lines(source):\n+    \"\"\"Admit single-line quoted literals/comments; reject unsupported continuations.\n+\n+    This finite source observer intentionally does not interpret multiline\n+    strings. Reject them before looking for any function or inheritance edge.\n+    \"\"\"\n+    lines = []\n+    for line in source.lines:\n+        quote = None\n+        index = 0\n+        while index < len(line):\n+            char = line[index]\n+            if quote is not None:\n+                if char == \"\\\\\":\n+                    index += 2\n+                    continue\n+                if char == quote:\n+                    quote = None\n+            elif char == \"#\":\n+                break\n+            elif char in (\"'\", '\\\"'):\n+                if line[index:index + 3] == char * 3:\n+                    return None\n+                quote = char\n+            elif char == \"\\\\\":\n+                return None\n+            index += 1\n+        if quote is not None:\n+            return None\n+        lines.append(line[:index].rstrip())\n+    return lines\n+\n+\n+def _gd_function_has_statements(source, name, statements):\n+    \"\"\"Bounded source observation, not execution/reachability or a GDScript parser.\n+\n+    Match complete statements inside one named top-level function, in order.\n+    Unsupported source shapes fail closed and require a new source review.\n+    \"\"\"\n+    lines = _gd_source_lines(source)\n+    if lines is None:\n+        return False\n+    starts = [i for i, line in enumerate(lines)\n+              if re.match(r\"^(?:static )?func \" + re.escape(name) + r\"\\(\", line)]\n+    if len(starts) != 1:\n+        return False\n+    start = starts[0] + 1\n+    end = next((i for i in range(start, len(lines))\n+                if lines[i] and not lines[i][0].isspace()), len(lines))\n+    observed = iter(line.strip() for line in lines[start:end] if line.strip())\n+    return all(any(line == expected.strip() for line in observed)\n+               for expected in statements)\n+\n+\n+def _forest_consumer_observed(root, app):\n+    \"\"\"Follow the existing forest provider/plan/runtime source edges, not a registry.\"\"\"\n+    provider = Source(root, \"game/world/levels/providers/forest_level_provider.gd\")\n+    adapter = Source(root, \"game/world/levels/providers/legacy_region_plan_adapter.gd\")\n+    configured = Source(root, \"game/world/levels/providers/generated_demo_stage.gd\")\n+    stage = Source(root, \"game/world/levels/providers/thorn_forest_region_stage.gd\")\n+    inherited = Source(root, \"game/world/levels/providers/plains_region_stage.gd\")\n+    runtime = Source(root, \"game/world/levels/level_runtime.gd\")\n+    assembler = Source(root, \"game/world/generation/thorn_forest_region_assembler.gd\")\n+    generator = Source(root, \"game/world/generation/thorn_forest_region_generator.gd\")\n+    observed = all((\n+        _gd_function_has_statements(app, \"start_debug_region\", [\n+            \"_debug_region = region\", \"var accepted := start_demo(seed_value,true)\"]),\n+        _gd_function_has_statements(app, \"_select_next_region\", [\n+            \"active_region_id = id\",\n+            \"director.continue_region(_progression_token,id,_next_id(\\\"enter_thorn_forest\\\"),campaign.abilities)\"]),\n+        _gd_function_has_statements(app, \"_load_stage\", [\n+            \"var request := LevelRequest.new()\", \"request.region_id=active_region_id\",\n+            'var loaded := ForestLevelProvider.load_level(request) if active_region_id==&\"thorn_forest\" else PlainsLevelProvider.load_level(request)',\n+            'stage = ThornForestRegionStage.new() if active_region_id == &\"thorn_forest\" else PlainsRegionStage.new()',\n+            \"(stage as GeneratedDemoStage).configure_level(loaded.plan,loaded.legacy_generated,controller.motor.tuning)\"]),\n+        _gd_function_has_statements(provider, \"load_level\", [\n+            \"var generated := ThornForestRegionGenerator.new().generate(seed_value,request.tuning,request.map_index,capabilities)\",\n+            \"var result := LegacyRegionPlanAdapter.generated(generated,request.tuning,request.map_index,true)\", \"return result\"]),\n+        _gd_function_has_statements(adapter, \"generated\", [\n+            \"var result := geometry(data.manifest,tuning,forest_region)\", \"var plan := result.plan\", \"return result\"]),\n+        _gd_function_has_statements(adapter, \"geometry\", [\n+            \"var plan := LevelPlan.new()\", \"if forest_region:\", \"var forest := ForestLevelGeometry.new()\",\n+            \"plan.forest=forest\", \"result.plan=plan\", \"return result\"]),\n+        _gd_function_has_statements(configured, \"configure_level\", [\"level_plan=plan\"]),\n+        \"extends PlainsRegionStage\" in (_gd_source_lines(stage) or []),\n+        \"extends GeneratedDemoStage\" in (_gd_source_lines(inherited) or []),\n+        _gd_function_has_statements(stage, \"_ready\", [\n+            \"var built := LevelRuntime.assemble(self,level_plan,region_state,generated.manifest)\"]),\n+        _gd_function_has_statements(runtime, \"assemble\", [\n+            \"var assembler: PlainsRegionAssembler = ThornForestRegionAssembler.new() if plan.forest!=null else PlainsRegionAssembler.new()\",\n+            \"parent.add_child(assembler)\", \"var result := assembler.build_plan(plan,presentation)\", \"return result\"]),\n+        _gd_function_has_statements(assembler, \"build_plan\", [\"level_plan=plan\", \"forest_geometry=plan.forest\"]),\n+        _gd_function_has_statements(generator, \"generate\", [\n+            'return generate_version(str(capability_snapshot.get(\"forest_content_version\",VERSION)),seed_value,tuning,map_index,capability_snapshot)']),\n+    ))\n+    return observed, [source.ref() for source in (provider, adapter, configured, stage, inherited, runtime, assembler, generator)]\n+\n+\n def _clean(value):\n     return value.replace(\"**\", \"\").replace(\"`\", \"\").strip()\n \n@@ -307,15 +405,9 @@ def build_region_context(region_id, root=ROOT):\n     formal_observed = (region_id == \"windchime_plains\" and \"func start_plains(\" in app.text\n                        and 'profile_id == &\"formal_plains_region\"' in profile.text)\n     if region_id == \"thorn_forest\":\n-        chain = [Source(root, path) for path in (\n-            \"game/world/generation/thorn_forest_region_generator.gd\",\n-            \"game/world/levels/providers/thorn_forest_region_stage.gd\",\n-            \"game/world/generation/thorn_forest_region_assembler.gd\")]\n-        consumer_sources.extend(source.ref() for source in chain)\n-        sources.extend(source.ref() for source in chain)\n-        formal_observed = (\"func _select_next_region(\" in app.text and \"func start_debug_region(\" in app.text and \"ThornForestRegionGenerator.new().generate(\" in app.text\n-                           and \"ThornForestRegionStage.new()\" in app.text\n-                           and \"ThornForestRegionAssembler\" in chain[1].text)\n+        formal_observed, chain_sources = _forest_consumer_observed(root, app)\n+        consumer_sources.extend(chain_sources)\n+        sources.extend(chain_sources)\n     from region_creative_direction import bind_region_bible, MissingBible\n     try:\n         _, bible_binding = bind_region_bible(region_id, root)\ndiff --git a/tools/visual_director.py b/tools/visual_director.py\nindex 97b7c407..68f26365 100644\n--- a/tools/visual_director.py\n+++ b/tools/visual_director.py\n@@ -351,7 +351,7 @@ def formal_source_projection(inventory):\n     Full bitmap + producer inventories remain separately bound by before/after equality.\n     Never replace the full original runtime inventory with the small driver/core subset.\n     \"\"\"\n-    runtime_folders=('scripts/','scenes/','resources/','config/','shaders/','assets/')\n+    runtime_folders=('game/','experiments/','scripts/','scenes/','resources/','config/','shaders/','assets/')\n     suffixes={'.gd','.tscn','.tres','.json','.gdshader'}\n     return {k:v for k,v in inventory.items() if not k.startswith(runtime_folders) or Path(k).suffix in suffixes}\n \n@@ -1327,7 +1327,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call\n                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-regional-art-contract', 'plains-regional-art-counterexamples', 'plains-regional-art-graph-counterexamples']))\n             task['goal'] += ' Before a long movie, execute this same MovieWriter adapter with max_ticks=60; require capture integrity and label frame_budget_exhausted as a bounded preflight, never route acceptance. Read the current full-region recipe and actual independent rejection first. Use the formal complete map, not fixed place reordering. Structural checks cannot sign art. Show whole-world terrain/routes/layers plus normal-camera actual full-route footage; preserve failed Seeds. Do not repeat the two rejected landmass methods or silently change collision in an art-only task.'\n     elif region_id == 'windchime_plains':\n-        catalog_path = 'game/presentation/world/resources/visual_development/p1_places_assets.json'\n+        catalog_path = 'resources/visual_development/p1_places_assets.json'\n         catalog = read(ROOT / catalog_path)\n         paths = [catalog_path, catalog['master'],\n                  'resources/generation/environment_grammar/places_v1.json',",
+  "untracked": "docs/evidence/game_architecture_02/retained_source_records/audio_home_user_selected_3e6bf692.json\ndocs/evidence/game_architecture_02/retained_source_records/p1_actor_calibration_2be5e1f6.json\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/manifest.json\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/design/enemies/plains_charger.md.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/painted_terrain/recipe.md.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_art_language/recipe.md.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/evidence/plains_world_rebuild/findings.md.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/ENEMY-CONTINUITY-01.json.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/PAINTED-TERRAIN-01.json.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/PLAINS-ART-LANGUAGE-01.json.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/quality/records/PLAINS-WORLD-REBUILD-01.json.txt\ndocs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/docs/visual_bible.md.txt",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 318.136,
+  "jobs": 1,
+  "release": true
+}

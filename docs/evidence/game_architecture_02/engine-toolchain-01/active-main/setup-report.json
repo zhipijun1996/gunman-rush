@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "seconds": 11.200801798000612,
+  "events": [
+    {
+      "phase": "download_attempt",
+      "artifact": "godot-4.7.2-gunman-sd1-provenance.json",
+      "status": "verified_download",
+      "attempt": 1,
+      "exit_code": 0,
+      "http_status": "200",
+      "resume_bytes": 0,
+      "bytes": 39123,
+      "seconds": 0.34644195399960154,
+      "diagnostic": ""
+    },
+    {
+      "phase": "download_attempt",
+      "artifact": "godot-4.7.2-gunman-sd1-linux-x86_64.zip",
+      "status": "verified_download",
+      "attempt": 1,
+      "exit_code": 0,
+      "http_status": "200",
+      "resume_bytes": 0,
+      "bytes": 86018425,
+      "seconds": 1.6849341929992079,
+      "diagnostic": ""
+    },
+    {
+      "phase": "archive_extraction",
+      "artifact": "godot-4.7.2-gunman-sd1-linux-x86_64.zip",
+      "seconds": 0.6565481299985549
+    },
+    {
+      "phase": "download_attempt",
+      "artifact": "godot-4.7.2-gunman-sd1-export-templates.tpz",
+      "status": "verified_download",
+      "attempt": 1,
+      "exit_code": 0,
+      "http_status": "200",
+      "resume_bytes": 0,
+      "bytes": 295644858,
+      "seconds": 5.049761156999011,
+      "diagnostic": ""
+    },
+    {
+      "phase": "archive_extraction",
+      "artifact": "godot-4.7.2-gunman-sd1-export-templates.tpz",
+      "seconds": 1.9091388439992443
+    }
+  ],
+  "error": null,
+  "tokens": "not_exposed",
+  "price": "not_exposed",
+  "timing_scope": "toolchain installation/checks only; transfer attempts are actual subprocess wall time"
+}

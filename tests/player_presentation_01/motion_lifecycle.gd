@@ -18,7 +18,7 @@ func wait_ready() -> void:
 
 func run() -> void:
 	var measured: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/player_presentation_01/motion_v1/idle_fall.json"))
-	var exported: Dictionary = JSON.parse_string(JSON.stringify(preload("res://resources/player_presentation_01/motion_clip_data.gd").DATA))
+	var exported: Dictionary = JSON.parse_string(JSON.stringify(preload("res://game/player/presentation/resources/motion_clip_data.gd").DATA))
 	check(measured == exported,"export-safe clips exactly match measured JSON with normalized JSON number types")
 	var profile := PlayerMotionCandidateProfile.new()
 	check(profile.valid(),"default cosmetic profile valid")
@@ -28,7 +28,7 @@ func run() -> void:
 	profile.landing_seconds = 0.32
 	profile.takeoff_particles = 17
 	check(not profile.valid(),"out-of-budget emission rejected")
-	app = preload("res://scenes/dev/player_presentation_01/motion_candidate.tscn").instantiate()
+	app = preload("res://experiments/motion/entries/motion_candidate.tscn").instantiate()
 	root.add_child(app)
 	await wait_ready()
 	if errors.size() > 0:

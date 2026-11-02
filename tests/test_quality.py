@@ -177,7 +177,7 @@ class QualityTests(unittest.TestCase):
         self.rejected(data)
 
     def test_process_cannot_hide_game_changes(self):
-        for path in ('scripts/game.gd', 'config/player_tuning.json', 'project.godot'):
+        for path in ('game/player/player.gd', 'scripts/game.gd', 'config/player_tuning.json', 'project.godot'):
             with self.subTest(path=path):
                 data = copy.deepcopy(self.record)
                 data['affected_paths'] = [path]
@@ -412,6 +412,72 @@ class QualityTests(unittest.TestCase):
         self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
         self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
 
+    def test_game_production_change_requires_non_process_record(self):
+        base, asset = self.asset_diff_fixture()
+        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+        name = 'game/combat/actor.gd'
+        consumer = self.root / name
+        consumer.parent.mkdir(parents=True)
+        consumer.write_text('extends Node\n')
+        errors, changed = validate_diff(base, self.root)
+        self.assertIn(name, changed)
+        self.assertIn('Production change lacks non-process task record: ' + name, errors)
+        record_path = self.root / 'docs/quality/records/test.json'
+        record = json.loads(record_path.read_text())
+        record['affected_paths'].append(name)
+        record_path.write_text(json.dumps(record))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+
+
+    def test_experiment_production_change_requires_non_process_record(self):
+        base, asset = self.asset_diff_fixture()
+        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+        name = 'experiments/combat/actor.gd'
+        consumer = self.root / name
+        consumer.parent.mkdir(parents=True)
+        consumer.write_text('extends Node\n')
+        errors, changed = validate_diff(base, self.root)
+        self.assertIn(name, changed)
+        self.assertIn('Production change lacks non-process task record: ' + name, errors)
+        record_path = self.root / 'docs/quality/records/test.json'
+        record = json.loads(record_path.read_text())
+        record['affected_paths'].append(name)
+        record_path.write_text(json.dumps(record))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+
+    def test_game_asset_consumer_cannot_bypass_literal_or_dynamic_audit(self):
+        from check_quality_diff import known_asset_consumers
+        asset = self.root / 'assets/fixture.png'
+        asset.parent.mkdir()
+        asset.write_bytes(b'synthetic source bytes, not rendered')
+        consumer = self.root / 'game/presentation/actor.gd'
+        consumer.parent.mkdir(parents=True)
+        consumer.write_text('var texture = preload("res://assets/fixture.png")\n')
+        self.assertIn('assets/fixture.png', known_asset_consumers(self.root))
+        for reference in ('res://assets/missing.png', 'res://assets/%s.png'):
+            with self.subTest(reference=reference):
+                consumer.write_text('var texture = load("' + reference + '")\n')
+                with self.assertRaisesRegex(ValueError, 'Unresolved asset reference needs finite consumer adapter'):
+                    known_asset_consumers(self.root)
+
+
+    def test_experiment_asset_consumer_cannot_bypass_literal_or_dynamic_audit(self):
+        from check_quality_diff import known_asset_consumers
+        asset = self.root / 'assets/fixture.png'
+        asset.parent.mkdir()
+        asset.write_bytes(b'synthetic source bytes, not rendered')
+        consumer = self.root / 'experiments/presentation/actor.gd'
+        consumer.parent.mkdir(parents=True)
+        consumer.write_text('var texture = preload("res://assets/fixture.png")\n')
+        self.assertIn('assets/fixture.png', known_asset_consumers(self.root))
+        for reference in ('res://assets/missing.png', 'res://assets/%s.png'):
+            with self.subTest(reference=reference):
+                consumer.write_text('var texture = load("' + reference + '")\n')
+                with self.assertRaisesRegex(ValueError, 'Unresolved asset reference needs finite consumer adapter'):
+                    known_asset_consumers(self.root)
+
     def test_diff_asset_omitted_file_never_inherits_directory_coverage(self):
         base, asset = self.asset_diff_fixture()
         (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
@@ -462,7 +528,7 @@ class QualityTests(unittest.TestCase):
         source = (family / 'source.png').relative_to(self.root).as_posix()
         family_json = (family / 'family.json').relative_to(self.root).as_posix()
         (family / 'family.json').write_text(json.dumps({'path': source, 'sha256': hashlib.sha256((family / 'source.png').read_bytes()).hexdigest()}))
-        script = self.root / 'scripts/art/plains_semantic_landscape.gd'
+        script = self.root / 'game/presentation/world/art/plains_semantic_landscape.gd'
         script.parent.mkdir(parents=True)
         script.write_text('extends RefCounted\nconst PILOT_FAMILIES := ["unit_family"]\nconst FAMILY_ROOT := "res://assets/region_production_v3/spaces/"\nfunc read_family(family_id):\n\treturn JSON.parse_string(FileAccess.get_file_as_string(FAMILY_ROOT + family_id + "/family.json"))\n')
         asset.update(source_path=source, source_sha256=hashlib.sha256((family / 'source.png').read_bytes()).hexdigest(),
@@ -503,9 +569,9 @@ class QualityTests(unittest.TestCase):
         manifest = family / 'family.json'
         manifest.write_text(json.dumps({'path':'res://assets/production_repair/rooted_plants_v1/raw.png',
             'sha256':hashlib.sha256(source.read_bytes()).hexdigest()}))
-        script = self.root / 'scripts/art/plains_connected_landscape.gd'
+        script = self.root / 'game/presentation/world/art/plains_connected_landscape.gd'
         script.parent.mkdir(parents=True)
-        script.write_bytes((Path(__file__).resolve().parents[1]/'scripts/art/plains_connected_landscape.gd').read_bytes())
+        script.write_bytes((Path(__file__).resolve().parents[1]/'game/presentation/world/art/plains_connected_landscape.gd').read_bytes())
         return script, manifest, source
 
     def test_diff_connected_directory_resolves_only_verified_files(self):
@@ -535,10 +601,11 @@ class QualityTests(unittest.TestCase):
         from check_quality_diff import known_asset_consumers
         self.connected_runtime_fixture()
         external = self.root/'scripts/external.gd'
+        external.parent.mkdir(parents=True, exist_ok=True)
         for code in (
             'return PlainsConnectedLandscape.read_family("hidden")',
             'var reader = PlainsConnectedLandscape; return reader.read_family("hidden")',
-            'return load("res://scripts/art/plains_connected_landscape.gd").read_family("hidden")',
+            'return load("res://game/presentation/world/art/plains_connected_landscape.gd").read_family("hidden")',
             'return instance.call("read_family", "hidden")',
         ):
             with self.subTest(code=code):
@@ -614,13 +681,13 @@ class QualityTests(unittest.TestCase):
     def test_diff_style_partial_consumers_are_rejected(self):
         from check_quality_diff import known_asset_consumers
         self.style_runtime_fixture()
-        (self.root / 'scripts/style_exploration/style_scenery.gd').unlink()
+        (self.root / 'game/presentation/world/style_exploration/style_scenery.gd').unlink()
         with self.assertRaises(ValueError): known_asset_consumers(self.root)
 
     def test_diff_style_changed_dynamic_alias_reflection_and_even_comment_rejected(self):
         from check_quality_diff import known_asset_consumers
         self.style_runtime_fixture()
-        path = self.root / 'scripts/style_exploration/style_actor_visual.gd'
+        path = self.root / 'game/presentation/actors/style_exploration/style_actor_visual.gd'
         original = path.read_text()
         for extra in ('\n# caller changed\n', '\nvar hidden = ROOT + "secret.png"\n',
                       '\nvar reader_alias = _load_generated\n',
@@ -634,6 +701,7 @@ class QualityTests(unittest.TestCase):
         from check_quality_diff import known_asset_consumers
         self.style_runtime_fixture()
         caller = self.root / 'scripts/unknown_style.gd'
+        caller.parent.mkdir(parents=True, exist_ok=True)
         for code in ('const ROOT = "res://assets/style_exploration/"',
                      'func hidden(id):\n\treturn load("res://assets/style_exploration/%s/secret.png" % id)'):
             with self.subTest(code=code):
@@ -746,6 +814,7 @@ class QualityTests(unittest.TestCase):
         with self.assertRaises(ValueError): known_asset_consumers(self.root)
         loader.write_bytes(original)
         unknown = self.root / 'scripts/unknown.gd'
+        unknown.parent.mkdir(parents=True, exist_ok=True)
         unknown.write_text('const ROOT = "res://assets/items/v5/"')
         with self.assertRaises(ValueError): known_asset_consumers(self.root)
         unknown.unlink()

@@ -1,0 +1,317 @@
+{
+  "decision": "LIMITED_ACCEPT_COMMIT_BOUND",
+  "reviewed_commit": "59537400af06a26046037840e28989f75933a265",
+  "source_commit": "59537400af06a26046037840e28989f75933a265",
+  "parents": [
+    "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+    "63afcb1ba43c7d16c85745478cd3617037f20848"
+  ],
+  "bound_at_utc": "2026-10-31T09:58:16.220267+00:00",
+  "prior_independent_review": {
+    "path": "/workspace/refactor-evidence/active-toolchain-main-integration-independent-review.json",
+    "sha256": "377572eaa0a05fa2afec406ce8c933528956c5b00e1b00042d6c8dca73fbcf5f",
+    "committed_copy_same_bytes": true
+  },
+  "scope": "Bind the previously independently reviewed pending integration source to exact Git blobs. No new behavior review of unrelated quality/task evidence implied.",
+  "unique_reviewed_files_bound": 35,
+  "bindings": [
+    {
+      "path": ".github/workflows/environment.yml",
+      "reviewed_sha256": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+      "git_blob_sha256": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+      "same_bytes": true
+    },
+    {
+      "path": ".github/workflows/production.yml",
+      "reviewed_sha256": "72fb4fd4fd8fc04b079515f25cc67ae85bf86600e0b86128189cce5b5308b931",
+      "git_blob_sha256": "72fb4fd4fd8fc04b079515f25cc67ae85bf86600e0b86128189cce5b5308b931",
+      "same_bytes": true
+    },
+    {
+      "path": "tests/test_godot_identity.py",
+      "reviewed_sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+      "git_blob_sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+      "same_bytes": true
+    },
+    {
+      "path": "tests/test_harness.py",
+      "reviewed_sha256": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+      "git_blob_sha256": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+      "same_bytes": true
+    },
+    {
+      "path": "tests/test_level_design_routing.py",
+      "reviewed_sha256": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+      "git_blob_sha256": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/build.py",
+      "reviewed_sha256": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+      "git_blob_sha256": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_audio_ambience.py",
+      "reviewed_sha256": "e1c17ee07a6aa4eadabced3f0e2a8f6b1f14f49e1c58f7a908d7537340667bd4",
+      "git_blob_sha256": "e1c17ee07a6aa4eadabced3f0e2a8f6b1f14f49e1c58f7a908d7537340667bd4",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_audio_feedback.py",
+      "reviewed_sha256": "f69b824b004f8e2d36ce3fa8466268b42f3a7e6bff4cc23880d94f2a2678625c",
+      "git_blob_sha256": "f69b824b004f8e2d36ce3fa8466268b42f3a7e6bff4cc23880d94f2a2678625c",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_audio_home.py",
+      "reviewed_sha256": "de88eefb125819416e0ce2a8745cc232dc8592453f9cad1a7e8805f6b6f7eed0",
+      "git_blob_sha256": "de88eefb125819416e0ce2a8745cc232dc8592453f9cad1a7e8805f6b6f7eed0",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_audio_hurt.py",
+      "reviewed_sha256": "e493fc50ec092d749522f6eb9ff83b8e5b4799e6ed1edd9a68bbdc53b9281195",
+      "git_blob_sha256": "e493fc50ec092d749522f6eb9ff83b8e5b4799e6ed1edd9a68bbdc53b9281195",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_audio_reels.py",
+      "reviewed_sha256": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+      "git_blob_sha256": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_forest_bible_route.py",
+      "reviewed_sha256": "9400c901d1d12d22b21957d7a4a40f3c8c53169bfbb0ecf4890e82168da01eaf",
+      "git_blob_sha256": "9400c901d1d12d22b21957d7a4a40f3c8c53169bfbb0ecf4890e82168da01eaf",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/capture_selected_audio.py",
+      "reviewed_sha256": "96a4a1c77ccf81f0a9f727b7b51c89078ccf7f9e74b291ce05eb1fcd8554473c",
+      "git_blob_sha256": "96a4a1c77ccf81f0a9f727b7b51c89078ccf7f9e74b291ce05eb1fcd8554473c",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/check_environment.py",
+      "reviewed_sha256": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+      "git_blob_sha256": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/build.py",
+      "reviewed_sha256": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+      "git_blob_sha256": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/test_build_contract.py",
+      "reviewed_sha256": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a",
+      "git_blob_sha256": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/godot.sh",
+      "reviewed_sha256": "eb526a93e85d880573fa29d55eb7caa6fc4b566b93767849f5c3e3c9e0719246",
+      "git_blob_sha256": "eb526a93e85d880573fa29d55eb7caa6fc4b566b93767849f5c3e3c9e0719246",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/godot_identity.py",
+      "reviewed_sha256": "2fbd7cafa04de54fd95bc4d83fcadc2345f0f3165c3d351f2d083c4cd36fa07e",
+      "git_blob_sha256": "2fbd7cafa04de54fd95bc4d83fcadc2345f0f3165c3d351f2d083c4cd36fa07e",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/harness.py",
+      "reviewed_sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+      "git_blob_sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/level_content_pilot.py",
+      "reviewed_sha256": "826ca08ed2c110354333c9af9a9a2567e0fc885a574941e501335e53c6bdf8a1",
+      "git_blob_sha256": "826ca08ed2c110354333c9af9a9a2567e0fc885a574941e501335e53c6bdf8a1",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/level_design.py",
+      "reviewed_sha256": "529107c00485d770526d1fdf898cb7e25f7a1ecdaa88cd584f78b129db824ff8",
+      "git_blob_sha256": "529107c00485d770526d1fdf898cb7e25f7a1ecdaa88cd584f78b129db824ff8",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_frame_pair.py",
+      "reviewed_sha256": "2c6b247845c34033c39cac8c1713c5399463b572a1391c4d8252c367a94aa579",
+      "git_blob_sha256": "2c6b247845c34033c39cac8c1713c5399463b572a1391c4d8252c367a94aa579",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/production_loop.py",
+      "reviewed_sha256": "874a3545d3bdcb2c666389fef118c7c0e8b6046dfd0069d472e6dd1705472f77",
+      "git_blob_sha256": "874a3545d3bdcb2c666389fef118c7c0e8b6046dfd0069d472e6dd1705472f77",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/run_plains_action_golden_tests.py",
+      "reviewed_sha256": "296a45bab64deac0524828cdd5ff2c54f07bc314696c6cf025b82202834e6f7c",
+      "git_blob_sha256": "296a45bab64deac0524828cdd5ff2c54f07bc314696c6cf025b82202834e6f7c",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/setup_environment.py",
+      "reviewed_sha256": "1f67e3395ac8513153203136046ceec0b5753ff9e60ddcde7816c48322c611c0",
+      "git_blob_sha256": "1f67e3395ac8513153203136046ceec0b5753ff9e60ddcde7816c48322c611c0",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/test_toolchain_download.py",
+      "reviewed_sha256": "e72b07c6776b5ddfaf58997fdc5013d839315a5cfc8399b0b79bcd86cbea78f9",
+      "git_blob_sha256": "e72b07c6776b5ddfaf58997fdc5013d839315a5cfc8399b0b79bcd86cbea78f9",
+      "same_bytes": true
+    },
+    {
+      "path": "config/godot_build.json",
+      "reviewed_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "git_blob_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/package.py",
+      "reviewed_sha256": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+      "git_blob_sha256": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/patches/117991-clear-base.patch",
+      "reviewed_sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+      "git_blob_sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/patches/120976-language-shutdown.patch",
+      "reviewed_sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+      "git_blob_sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+      "same_bytes": true
+    },
+    {
+      "path": ".github/workflows/engine-backport-build.yml",
+      "reviewed_sha256": "9af95abd60471f6fdbf66938261ae7656d8b0930905812981b914a7fea8f48d3",
+      "git_blob_sha256": "9af95abd60471f6fdbf66938261ae7656d8b0930905812981b914a7fea8f48d3",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/promote.py",
+      "reviewed_sha256": "23038992ca967ebd471d32247b67551ff5aba1693b87247343feef0ccb0e2f68",
+      "git_blob_sha256": "23038992ca967ebd471d32247b67551ff5aba1693b87247343feef0ccb0e2f68",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/test_promotion.py",
+      "reviewed_sha256": "7cf334180212902ea25ed2a086e6c36f7285caed7b9435be9c0b59aa97acf145",
+      "git_blob_sha256": "7cf334180212902ea25ed2a086e6c36f7285caed7b9435be9c0b59aa97acf145",
+      "same_bytes": true
+    },
+    {
+      "path": "config/toolchain.json",
+      "reviewed_sha256": "9a5e8ae804bea1c742b03bb6cc5b01e006bab768d5146b6748ba104e1049278e",
+      "git_blob_sha256": "9a5e8ae804bea1c742b03bb6cc5b01e006bab768d5146b6748ba104e1049278e",
+      "same_bytes": true
+    },
+    {
+      "path": "tools/engine/README.md",
+      "reviewed_sha256": "705f1bfc9b228ef7413a2baedb9795f45639c301003dbd7c3800e35a9ee9f905",
+      "git_blob_sha256": "705f1bfc9b228ef7413a2baedb9795f45639c301003dbd7c3800e35a9ee9f905",
+      "same_bytes": true
+    }
+  ],
+  "published_lock_sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+  "godot_equals_published_lock": true,
+  "profile_state": {
+    "commit_equals_first_parent": true,
+    "full_checks": 182,
+    "prior_reviewed_style27_input_append_still_outside_commit": true
+  },
+  "merge_file_count": 88,
+  "whitespace": {
+    "git_diff_check_exit": 2,
+    "warning_count": 65,
+    "locations": [
+      {
+        "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-promotion-41187929215-job.log",
+        "diagnostic": "trailing whitespace.",
+        "count": 5
+      },
+      {
+        "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-promotion-41187929215-job.log",
+        "diagnostic": "new blank line at EOF.",
+        "count": 1
+      },
+      {
+        "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-promotion-41188433036-job.log",
+        "diagnostic": "trailing whitespace.",
+        "count": 5
+      },
+      {
+        "path": "tools/engine/patches/117991-clear-base.patch",
+        "diagnostic": "space before tab in indent.",
+        "count": 3
+      },
+      {
+        "path": "tools/engine/patches/117991-clear-base.patch",
+        "diagnostic": "trailing whitespace.",
+        "count": 1
+      },
+      {
+        "path": "tools/engine/patches/120976-language-shutdown.patch",
+        "diagnostic": "space before tab in indent.",
+        "count": 29
+      },
+      {
+        "path": "tools/engine/patches/120976-language-shutdown.patch",
+        "diagnostic": "trailing whitespace.",
+        "count": 20
+      },
+      {
+        "path": "tools/engine/patches/120976-language-shutdown.patch",
+        "diagnostic": "new blank line at EOF.",
+        "count": 1
+      }
+    ],
+    "original_byte_identity": [
+      {
+        "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-promotion-41187929215-job.log",
+        "original_source": "/workspace/refactor-evidence/engine-promotion-41187929215-job.log",
+        "original_sha256": "c2f7195fc94fb9ff671226f54751c5a994347bda5b33e488c92c1febe5def479",
+        "same_bytes": true
+      },
+      {
+        "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-promotion-41188433036-job.log",
+        "original_source": "/workspace/refactor-evidence/engine-promotion-41188433036-job.log",
+        "original_sha256": "86e29c165076ae8e2b81b9df846b7d16d62cb0c781dd27d06bb33ae1748528f8",
+        "same_bytes": true
+      },
+      {
+        "path": "tools/engine/patches/117991-clear-base.patch",
+        "original_source": "184970c7:tools/engine/patches/117991-clear-base.patch",
+        "original_sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+        "same_bytes": true
+      },
+      {
+        "path": "tools/engine/patches/120976-language-shutdown.patch",
+        "original_source": "184970c7:tools/engine/patches/120976-language-shutdown.patch",
+        "original_sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+        "same_bytes": true
+      }
+    ],
+    "classification": "All diagnostics are preserved upstream raw patch context or original Actions log bytes; none are newly authored production source whitespace errors. Originals were not normalized to silence diff --check.",
+    "raw_log": "/workspace/refactor-evidence/active-toolchain-59537400-whitespace-check.log"
+  },
+  "limitations": [
+    "No engine, downloader26 or Harness91 rerun; prior validation scope is unchanged.",
+    "No claim of full182 or exports passing.",
+    "Style27, five native-test consumer migrations and other current WIP were not included in this commit binding.",
+    "Main sparse materialization recovery is ongoing; Git blob comparisons are independent of worktree omissions."
+  ]
+}

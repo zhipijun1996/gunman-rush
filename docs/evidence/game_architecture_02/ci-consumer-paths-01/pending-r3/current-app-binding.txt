@@ -1,0 +1,10 @@
+on.collision_size/2
+		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER,boss_contact_half)
+		if encounter is WindkeeperEncounter:
+			_boss_contact.contact_rect_provider = encounter.body_contact_rect
+		if encounter is BellstriderEncounter:
+			_boss_contact.contact_test_provider = encounter.body_contact_sweep
+		if encounter is WindkeeperPressureEncounter:
+			_boss_contact.contact_test_provider = encounter.body_contact_sweep
+			_bind_windkeeper_pressure_rewards(encounter)
+		_boss_contac

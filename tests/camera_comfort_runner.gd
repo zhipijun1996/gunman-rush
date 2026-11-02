@@ -1,5 +1,5 @@
 extends SceneTree
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 var checks := 0
 var failures := 0
 func check(ok: bool, message: String) -> void:

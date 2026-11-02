@@ -56,6 +56,8 @@ func run() -> void:
 	for kind: String in ["coin","heart","note"]: await resource_cache(kind)
 	await save_failure_cache()
 	await eligible_item_cache()
+	cache_policy_boundaries()
+	await cache_policy_actual_app()
 	await death_cache()
 	await mini_rays()
 	await enemy_behaviors()
@@ -65,9 +67,9 @@ func run() -> void:
 func item_effects() -> void:
 	# Explicit D079 item-policy fixture; preserve its original numerical checks.
 	# Current one-round/AirFocus items are exercised separately below.
-	var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	root.add_child(player)
-	var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres"))
+	var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy(preload("res://game/player/resources/plains_shot_energy.tres"))
 	var build:=BuildState.new();build.configure(actor)
 	var base_recoil:=player.tuning.ground_recoil_multiplier
 	var base_burst:=player.tuning.shot_burst_speed
@@ -94,7 +96,7 @@ func current_focus_items() -> void:
 	# The exhausted-resource boundary below is explicit; no shadow policy/state.
 	for cooling_enabled: bool in [false,true]:
 		var world:=Node2D.new();root.add_child(world)
-		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+		var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 		player.position=Vector2(200,-1000);world.add_child(player)
 		var actor:=player.get_node("Controller") as PlayerController
 		actor.set_physics_process(false)
@@ -160,7 +162,7 @@ func current_focus_items() -> void:
 		check(await load("res://tests/audio_teardown.gd").drain_world(world),"current item fixture observes bounded actual audio release")
 		world.free();await physics_frame
 func cache_app(kind: String):
-	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("cache-kind-"+kind),"formal cache fixture starts")
 	# Let actual spawn protection expire before damage-race fixtures.
 	await frames(64)
@@ -223,7 +225,7 @@ func save_failure_cache() -> void:
 	app.free();await frames(2)
 	for suffix: String in ["",".backup",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path+suffix))
 func eligible_item_cache() -> void:
-	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
+	var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
 	var chest: Dictionary=(app.stage as PlainsRegionStage).chests.filter(func(c: Dictionary): return c.tier=="medium")[0]
 	# Explicit two-definition fixture through the existing V5 provider seam.
 	# Generate the actual frozen cache first, then advance one owned item to its
@@ -278,7 +280,7 @@ func mini_rays() -> void:
 	for source: Vector2 in [Vector2(350,452),Vector2(770,452),Vector2(450,400),Vector2(670,400),Vector2(440,530),Vector2(680,530),Vector2(540,570),Vector2(580,570)]:
 		var world:=Node2D.new();root.add_child(world)
 		var module:=PlatformingModule.new();module.definition=preload("res://resources/generation/modules/plains_bellstrider_arena.tres");world.add_child(module)
-		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor;player.position=source;world.add_child(player)
+		var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor;player.position=source;world.add_child(player)
 		var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false);actor.enable_shot_energy()
 		var boss:=load("res://scenes/bosses/bellstrider.tscn").instantiate() as BossMotor;boss.position=Vector2(560,535);world.add_child(boss)
 		var encounter=boss.get_node("Encounter");encounter.set_physics_process(false);encounter.configure_arena(300,1220,player);encounter.activate();encounter._enter(&"neck",10)
@@ -286,12 +288,46 @@ func mini_rays() -> void:
 		var life:=DemoLifetime.new();var policy:=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy);policy.register_target(&"player",actor.actor_resources.health,true);policy.bind_damageable(&"mini",boss.get_node("Damageable"),encounter.health)
 		await frames(2)
 		var core: Vector2=encounter.motor.global_position+encounter.core_offset()
+		check(encounter.definition.resource_path=="res://resources/bosses/bellstrider.tres" and encounter.health.capacity==40 and encounter.health.capacity==encounter.definition.health_definition.max_health,"mini ray fixture uses the current authoritative forty-HP Boss")
+		# Fixed current-contract counterexamples: these original bottom sources
+		# start inside the low hull (Boss-local +/-20,35), below the sole bell.
+		# Expected routing is declared before observing any hit or HP result.
+		var armour_expected := source in [Vector2(540,570),Vector2(580,570)]
+		var armour_contacts: Array[Vector2] = []
+		var committed: Array[Dictionary] = []
+		encounter.armour_hit.connect(func(point: Vector2) -> void: armour_contacts.append(point))
+		var primary := boss.get_node("Damageable") as Damageable
+		var upper := encounter._core.get_node("Damageable") as Damageable
+		check(encounter.weakpoint_only() and upper.can_receive_effects() and not primary.can_receive_effects() and upper.damage_policy_owner()==primary,"current upper bell is the sole spatial damage receiver with the original shared HP owner")
+		primary.damaged.connect(func(context: Dictionary) -> void: committed.append(context.duplicate()))
+		var ray := PhysicsRayQueryParameters2D.create(player.global_position,core,4,[player.get_rid()])
+		ray.collide_with_areas=true
+		ray.hit_from_inside=true
+		var first: Dictionary=player.get_world_2d().direct_space_state.intersect_ray(ray)
+		check(not first.is_empty() and first.collider==(boss if armour_expected else encounter._core),"original source has its declared physical armour/upper-bell first contact "+str(source))
+		if armour_expected:
+			var point_query:=PhysicsPointQueryParameters2D.new()
+			point_query.position=player.global_position
+			point_query.collision_mask=4
+			point_query.collide_with_areas=false
+			var overlaps:=player.get_world_2d().direct_space_state.intersect_point(point_query)
+			check(overlaps.any(func(row: Dictionary) -> bool: return row.collider==boss),"bottom source starts inside actual installed armour, not a clear upper-bell route "+str(source))
+		var before_hp: float=encounter.health.current
+		var shot_damage: float=actor.motor.tuning.projectile_damage
 		check(actor.shoot_ability.try_fire((core-player.global_position).normalized(),false),"real projectile launched at open mini core")
 		await frames(45)
-		check(encounter.health.current==15,"mini core accepts actual visible shot from "+str(source))
+		if armour_expected:
+			check(shot_damage==1.0 and encounter.health.current==before_hp and armour_contacts.size()==1 and committed.is_empty(),"actual bottom projectile is intercepted once by armour with zero HP loss and no damage receipt "+str(source))
+			check(armour_contacts[0].is_finite() if armour_contacts.size()==1 else false,"actual armour contact reports a finite physical impact point "+str(source))
+		else:
+			check(shot_damage==1.0 and encounter.health.current==before_hp-shot_damage,"mini core accepts exactly one real current projectile from "+str(source))
+			check(committed.size()==1 and armour_contacts.is_empty(),"clear upper-bell route commits once through the primary without an armour hit "+str(source))
+			if committed.size()==1:
+				check(committed[0].damage_type==&"projectile" and committed[0].source_actor_id==player.get_instance_id() and is_equal_approx(float(committed[0].amount),shot_damage),"upper-bell HP receipt belongs to the actual player's unchanged projectile "+str(source))
+		check(actor.shoot_ability.get_projectiles().is_empty(),"actual collided projectile is consumed instead of silently flying past "+str(source))
 		world.free()
 	# Names use actual definition, including in the development encounter.
-	var lab=load("res://scripts/demo/module_lab.gd").new();root.add_child(lab);lab.request_module(&"bellstrider_trial");await frames(7)
+	var lab=load("res://experiments/generation/module_lab.gd").new();root.add_child(lab);lab.request_module(&"bellstrider_trial");await frames(7)
 	check(lab.module.definition.module_id==&"plains_bellstrider_arena","mini practice consumes its independent arena")
 	var intro=lab.boss_trial.encounter;intro.activate()
 	var hud: Array[Node]=lab.boss_trial.find_children("*","WindkeeperHud",true,false)
@@ -304,9 +340,9 @@ func enemy_behaviors() -> void:
 	for id: String in ["fan_sentry","hopper"]:
 		var world:=Node2D.new();root.add_child(world)
 		var floor_body:=StaticBody2D.new();var shape:=CollisionShape2D.new();var rect:=RectangleShape2D.new();rect.size=Vector2(1000,32);shape.shape=rect;floor_body.position=Vector2(300,618);floor_body.add_child(shape);world.add_child(floor_body)
-		var player:=preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor;player.position=Vector2(350,582);world.add_child(player)
+		var player:=preload("res://game/player/player.tscn").instantiate() as PlayerMotor;player.position=Vector2(350,582);world.add_child(player)
 		var actor:=player.get_node("Controller") as PlayerController;actor.set_physics_process(false)
-		var enemy:=preload("res://scenes/enemies/patrol_drone.tscn").instantiate() as EnemyMotor
+		var enemy:=preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate() as EnemyMotor
 		(enemy.get_node("Actor") as EnemyActor).definition=PlainsEncounterPlanner.definition_for_behavior(id);enemy.position=Vector2(200,470 if id=="fan_sentry" else 582);world.add_child(enemy)
 		var owner:=enemy.get_node("Actor") as EnemyActor;owner.set_physics_process(false)
 		var life:=DemoLifetime.new();var policy:=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy);policy.register_target(&"player",actor.actor_resources.health,true)
@@ -328,7 +364,7 @@ func enemy_behaviors() -> void:
 func formal_consumers() -> void:
 	var seen: Dictionary={};var hopper_checked:=false;var fan_checked:=false
 	for i: int in 12:
-		var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("formal-consumer/%s" % i);await frames(5)
+		var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("formal-consumer/%s" % i);await frames(5)
 		app.set_physics_process(false);app.controller.set_physics_process(false)
 		for contact: DemoContactEmitter in app._enemy_contacts: contact.enabled=false
 		for enemy: EnemyMotor in app.stage.enemies: (enemy.get_node("Actor") as EnemyActor).set_physics_process(false)
@@ -367,3 +403,52 @@ func formal_consumers() -> void:
 	check(seen.has("coin") and seen.has("heart") and seen.has("note"),"normal generated high/top cards actually offer all three resource categories")
 	check(hopper_checked and fan_checked,"new enemy roles exist in formal randomized instances")
 	var proof:=FileAccess.open("res://build/verification/generated/plains_cohesion/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()
+
+func cache_policy_boundaries() -> void:
+	var first:=ItemCatalogV5.get_item(&"B03")
+	var second:=ItemCatalogV5.get_item(&"B11")
+	var selected: Array[ItemDefinition]=[first]
+	var eligible: Array[ItemDefinition]=[first,second]
+	var none: Array[ItemDefinition]=[]
+	var resources: Array=[{"kind":"heart","amount":2},{"kind":"coin","amount":16}]
+	var resources_before: Array=resources.duplicate(true)
+	var full: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(selected,eligible,"policy/full","medium",resources,true)
+	check(full.size()==2 and is_same(full[0],first) and full[1] is ResourceRewardChoice and (full[1] as ResourceRewardChoice).resource_kind=="coin","cache policy keeps the selected definition identity and skips only full-health heart")
+	var hurt: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(selected,eligible,"policy/hurt","medium",resources,false)
+	check(hurt.size()==2 and is_same(hurt[0],first) and (hurt[1] as ResourceRewardChoice).resource_kind=="heart","cache policy retains resource order and stops after the first eligible alternative")
+	check(resources==resources_before and selected.size()==1 and is_same(selected[0],first) and eligible.size()==2 and is_same(eligible[1],second),"cache composition does not mutate its declaration arrays or clone eligible definitions")
+	var second_item: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(none,eligible,"policy/second","medium",[{"kind":"coin","amount":16},{"kind":"heart","amount":2}],true)
+	check(second_item.size()==2 and is_same(second_item[1],second),"characterization: resource-only second-item fallback precedes note; registration defect remains separate")
+	var empty: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(none,none,"policy/empty","unknown",[],true)
+	check(empty.size()==1 and empty[0].stable_id==&"policy/empty/resource/note" and empty[0].rarity==ItemDefinition.Rarity.GOLD and (empty[0] as ResourceRewardChoice).amount==4,"empty declaration appends only one note and unknown tier keeps the original gold/four fallback")
+	var duplicate_note: Array[ItemDefinition]=CacheRewardPolicy.complete_choices(none,none,"policy/duplicate","medium",[{"kind":"note","amount":9}],true)
+	check(duplicate_note.size()==2 and duplicate_note[0].stable_id==duplicate_note[1].stable_id and (duplicate_note[0] as ResourceRewardChoice).amount==9 and (duplicate_note[1] as ResourceRewardChoice).amount==1,"characterization: composition preserves duplicate note IDs and both original quantities")
+
+func cache_policy_actual_app() -> void:
+	# Empty actual provider is an explicit eligibility boundary, not a generated-seed claim.
+	for row: Array in [["medium",1,ItemDefinition.Rarity.BLUE],["high",2,ItemDefinition.Rarity.PURPLE],["region_top",4,ItemDefinition.Rarity.GOLD],["unknown",4,ItemDefinition.Rarity.GOLD]]:
+		var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
+		check(app.start_plains("cache-policy-"+str(row[0])),"cache policy consumer starts the actual App")
+		await frames(4)
+		app.set_physics_process(false)
+		for contact: DemoContactEmitter in app.stage.find_children("*","DemoContactEmitter",true,false): contact.enabled=false
+		for module: PlatformingModule in app.stage.assembler.modules:
+			for hazard: ModuleSawHazard in module.hazards: hazard.enabled=false
+		app._item_v5_pool.configure(app.build,func() -> Array[ItemDefinition]: return [])
+		var chest: Dictionary=(app.stage as PlainsRegionStage).chests.filter(func(c: Dictionary): return c.tier=="medium")[0]
+		chest.tier=row[0];chest.reward_mode="resources";chest.resources=[{"kind":"coin","amount":16},{"kind":"heart","amount":2}]
+		var declaration: Dictionary=chest.duplicate(true)
+		check(app.controller.actor_resources.health.current==app.controller.actor_resources.health.capacity,"cache policy fixture observes actual full health without changing its value")
+		app.player.position=chest.position;app._region_interact()
+		check(app.reward_modal.opened and paused and app._region_offer!=null and app._region_offer.candidates.size()==2,"actual App displays full-health resource alternatives")
+		if app._region_offer!=null and app._region_offer.candidates.size()==2:
+			var coin:=app._region_offer.candidates[0] as ResourceRewardChoice
+			var note:=app._region_offer.candidates[1] as ResourceRewardChoice
+			check(coin!=null and coin.resource_kind=="coin" and coin.amount==16 and coin.stable_id==StringName(chest.id+"/resource/coin"),"actual App keeps original first coin ID and amount")
+			check(note!=null and note.resource_kind=="note" and note.amount==int(row[1]) and note.rarity==int(row[2]) and note.stable_id==StringName(chest.id+"/resource/note"),"actual App uses the shared tier note alternative after filtering full-health heart")
+		check(app.rewards.get_offer(StringName(chest.id))==null and chest==declaration,"resource-only composition does not register an item offer or mutate the cache declaration")
+		app.reward_modal.close();paused=false
+		app.abandon_run()
+		if not await load("res://tests/audio_teardown.gd").drain_world(app):
+			failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+		app.free();await frames(2)

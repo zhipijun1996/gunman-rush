@@ -25,7 +25,7 @@
     "assets/audio/bellstrider_01/death_final.wav"
   ],
   "consumer_scripts": [
-    "scripts/audio/bellstrider_audio.gd"
+    "game/presentation/audio/bellstrider_audio.gd"
   ],
   "tool": "tools/build_bellstrider_01_audio.py; declared ffmpeg filters/trim/layer/peak normalization",
   "model": "not_applicable: deterministic processing of preserved licensed recordings; no oscillator/noise synthesis",
@@ -145,12 +145,12 @@
       "role": "processing_record"
     },
     {
-      "path": "scripts/audio/bellstrider_audio.gd",
+      "path": "docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/audio/bellstrider_audio.gd.txt",
       "sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207",
       "role": "source_contract"
     },
     {
-      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "path": "docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/bosses/bellstrider_presentation.gd.txt",
       "sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee",
       "role": "source_contract"
     },
@@ -234,5 +234,35 @@
       "sha256": "6f4544d248768b3ed52a2547df111cebe522c7177eff3c6f799fb9295d9d1c6c",
       "role": "documentation"
     }
-  ]
+  ],
+  "revision_impact": {
+    "revision": "retain-historical-source-contracts-after-feature-layout-20261031",
+    "scope": "Associated source_contract rows are the original derivative asset/source provenance, now located at existing byte-identical archives; current consumer_scripts identifies the live owner only. No original source hash, visual/audio verdict or user acceptance is rebound to new runtime code.",
+    "source_contracts": [
+      {
+        "original_source_path": "scripts/audio/bellstrider_audio.gd",
+        "original_source_sha256": "8d52583cdeaf08c52a3fe2ca4a099a58c353fb1373297fd0cdcbcaf8c3e66207",
+        "retained_source_path": "docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/audio/bellstrider_audio.gd.txt",
+        "current_consumer_path": "game/presentation/audio/bellstrider_audio.gd",
+        "current_source_sha256": "cefb3a53bcbde3b447d555b2fe9a3a1fbc4d84168527793d54eadd3063d09a1d",
+        "current_bytes_equal_original": false
+      },
+      {
+        "original_source_path": "scripts/bosses/bellstrider_presentation.gd",
+        "original_source_sha256": "55e52d3c1672f86463f287e3ebf4040a489a1f56895a2b7c725b6c5a802128ee",
+        "retained_source_path": "docs/creative_direction/archive/feature-layout-before-style26/sources/scripts/bosses/bellstrider_presentation.gd.txt",
+        "current_consumer_path": "game/bosses/bellstrider/bellstrider_presentation.gd",
+        "current_source_sha256": "f8b2372b444dcfc79e43fd886a6973fa78b4488430112f04ef0ea7a67b8648ca",
+        "current_bytes_equal_original": false
+      }
+    ],
+    "preexisting_runtime_source_drift": {
+      "path": "scripts/audio/bellstrider_audio.gd",
+      "introduced_by": "317b755c829bbf2858ed908c6aff9381db08f77e",
+      "actual_change": "P7 owner-resolution fix changes _origin.get_tree().get_first_node_in_group(&\"game_audio\") to GameAudio.for_origin(_origin). This precedes P8 path migration and is not byte-only relocation.",
+      "status": "Current behavior evidence is separate; this asset provenance relocation does not revalidate nearest-owner behavior."
+    },
+    "presentation_path_relocation": "The current BellstriderPresentation source differs from retained source only by its AUDIO preload path. Original source_contract SHA is preserved against the archived original, not refreshed against current source.",
+    "current_consumer_scope": "Actual live audio consumer retains all17 literal WAV preloads and their manifest bytes. Owner selection, natural combat, audiovisual output and device acceptance are not proved by this metadata patch."
+  }
 }

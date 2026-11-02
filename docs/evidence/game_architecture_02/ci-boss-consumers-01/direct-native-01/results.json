@@ -1,0 +1,83 @@
+[
+  {
+    "case": "import",
+    "argv": [
+      "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--quit"
+    ],
+    "timeout_seconds": 90,
+    "seconds": 7.98844326499966,
+    "exit_code": 0,
+    "errors": [],
+    "log_sha256": "dfcd18d877b603456eda4a89e1f0ac92ebe9c425004882b4259783eb040a9c32",
+    "completion": []
+  },
+  {
+    "case": "cohesion",
+    "argv": [
+      "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/plains_cohesion_lifecycle_runner.gd"
+    ],
+    "timeout_seconds": 120,
+    "seconds": 9.340917837998859,
+    "exit_code": 0,
+    "errors": [],
+    "log_sha256": "f4a32dfc6cb141bff105996206396161bc1315f90b78d866becdb056bdba6305",
+    "completion": [
+      "PLAINS COHESION LIFECYCLE: 28 assertions, 0 failures"
+    ]
+  },
+  {
+    "case": "campaign",
+    "argv": [
+      "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/plains_campaign_map_runner.gd"
+    ],
+    "timeout_seconds": 90,
+    "seconds": 23.88979941800062,
+    "exit_code": 0,
+    "errors": [],
+    "log_sha256": "1c910b3ed4f1e43cec83f27d9ba874be7d44589025364df256b485df9b644c94",
+    "completion": [
+      "PLAINS CAMPAIGN MAP: 3721 assertions, 0 failures"
+    ]
+  },
+  {
+    "case": "expansion",
+    "argv": [
+      "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/plains_exploration_expansion_runner.gd"
+    ],
+    "timeout_seconds": 150,
+    "seconds": 38.879071797000506,
+    "exit_code": 1,
+    "errors": [
+      "exit=1",
+      "original complete marker missing"
+    ],
+    "log_sha256": "dd4e36d9af60303dfa850f0f8c4dc76651186dcedc60271b2e97242d5b846ee8",
+    "completion": []
+  }
+]

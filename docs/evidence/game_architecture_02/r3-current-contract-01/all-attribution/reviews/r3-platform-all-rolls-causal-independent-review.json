@@ -1,0 +1,67 @@
+{
+  "reviewer": "structure_audit",
+  "status": "LIMITED_ACCEPT_CONTROLLED_DIAGNOSTIC_ONLY",
+  "reviewed_at_utc": "2026-10-31T14:46:59.972739+00:00",
+  "source_base": "e564aeae849311a9c1847de24ad579be2a010aeb",
+  "candidate_files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "a77017e1bd48c8d2dd57fff65ddf177d535cd770f5e98fd29b951f7826ca1122"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "c6a5a8008171d7e9ca4234c4bdfc09020eb548844759af920653dc374ffc63ed"
+    }
+  ],
+  "patch_sha256": "07c637c16745845adcda390071304335e94ccbdbd6d1f54c7da77b2247bb9720",
+  "review_method": "Read actual frozen two candidate sources and patch; compare current BellstriderEncounter state transitions and PlatformingModule installation; independently hash candidates and compare original failure/await/loop/recovery text. No engine or main modification.",
+  "findings": [
+    {
+      "topic": "Actual support and rig causality",
+      "result": "ACCEPT",
+      "detail": "Capture reads exactly the installed plains_bellstrider_arena module, validates authored versus installed one-way rectangle transforms and body IDs, and observes PlayerMotor slide normals/is_on_floor. Pilot uses installed low-tier nearest support and actual body_contact_rect front only as input timing; it does not replace collision evaluation or manufacture support. True effective maximum_jumps==1 and no hook are checked."
+    },
+    {
+      "topic": "Single leg ownership and return direction",
+      "result": "ACCEPT",
+      "detail": "first/all use one group owner and one leg action procedure. Return reuses prior support. Actual Encounter direction flips at combo_brake end with roll_index=1; candidate reads live direction, not immutable initial plan.direction. Landed legs keep zero axis through combo states; pending landing may finish during the original combo_warning, with no new warning time. Actual index1 roll without admission fails."
+    },
+    {
+      "topic": "Completed group readmission",
+      "result": "ACCEPT_AFTER_DRAFT_CORRECTION",
+      "detail": "Final source returns for the same already-completed group and for terminal; it does not re-admit its exposed plan from observe/dead. Earlier draft hashes are excluded."
+    },
+    {
+      "topic": "Wave and recovery behavior",
+      "result": "ACCEPT",
+      "detail": "New action procedure returns before board/evade input decisions when original wave_jump is true; original wave block remains later and wins. Existing recovery two-shot code is byte-identical. Natural wave/recoil may make support or chain proof fail; latched failure is retained and does not retry targets or fake a jump."
+    },
+    {
+      "topic": "Complete group and terminal proof",
+      "result": "ACCEPT",
+      "detail": "Active group HP observation extends through groups_completed or real terminal. Both receipt paths share validator with inclusive completion-tick player events, actual warning/support/takeoff/cross/landing, exact observed roll group ledger and real presentation_event stream. Terminal requires cached actual health terminal/zero, actual death and defeated evidence. Invalid object never implies victory. Event stream avoids production history truncation without changing production storage."
+    },
+    {
+      "topic": "Original scope preservation",
+      "result": "ACCEPT",
+      "detail": "25 original failure.append source lines, await/selected loop lines and original recovery-shot block independently compare equal. Original 7200 combat loop/180 wrapper budget, input adapter, initial placement, health/resources and production source are not changed by this patch."
+    }
+  ],
+  "result_interpretation_limits": [
+    "Not compiled or executed by this reviewer. Only accepts the exact external candidate for one bounded root-run experiment; does not establish full-fight success, fairness, GUI behavior or CI migration.",
+    "All scope validates every actually selected roll group, but does not assert that phase2 return_roll occurred at least once. A later review must inspect actual committed plan/ledger for a completed two-leg phase2 group before claiming return-roll coverage; absence is unexercised, not a passed return-roll test.",
+    "Exact two requests and two real base-one hits in each roll and terminal group are additional diagnostic premises. An early terminal first hit may fail this premise; never add a postmortem shot or silently weaken it.",
+    "Nearest support reachability within each natural warning and higher-speed return-front timing remain runtime hypotheses; no offline estimate proves success.",
+    "Original flat-floor late-jump and full-fight failures remain failed evidence. This acceptance does not authorize changing their assertions or replacing a no-damage positive with an expected failure."
+  ],
+  "independent_static_checks": {
+    "candidate_sha_match": true,
+    "patch_sha_match": true,
+    "original_failure_predicate_lines_equal": 25,
+    "await_and_selected_loop_lines_equal": true,
+    "two_shot_recovery_block_byte_equal": true
+  },
+  "blockers": []
+}

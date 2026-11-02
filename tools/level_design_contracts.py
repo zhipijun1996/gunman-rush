@@ -44,7 +44,7 @@ def validate_region_production_proof(data, contract):
             or data.get("failures") != [] or not isinstance(data.get("observations"), list) or not data["observations"]):
         errors.append("Region proof lacks nonempty native assertions/observations")
     consumer = data.get("consumer")
-    if (not isinstance(consumer, str) or not consumer.startswith(("scripts/", "scenes/"))
+    if (not isinstance(consumer, str) or not consumer.startswith(("scripts/", "game/", "experiments/", "scenes/"))
             or ".." in consumer.split("/") or not re.fullmatch(r"[0-9a-f]{40}", str(data.get("source_commit", "")))):
         errors.append("Region proof lacks real consumer/source binding")
     capabilities = data.get("capability_snapshot", {})

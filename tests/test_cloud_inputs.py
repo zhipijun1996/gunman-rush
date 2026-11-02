@@ -74,6 +74,30 @@ class CloudInputsTests(unittest.TestCase):
     def hydrate(self):
         return inputs.materialize(self.target, checks=['historical'])
 
+    def test_registered_game_directory_materializes_only_selected_application_inputs(self):
+        selected = 'game/application/run_session.gd'
+        unrelated = 'game/presentation/not_selected.gd'
+        for name in (selected, unrelated):
+            path = self.source/name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text('extends RefCounted\n')
+        manifest = copy.deepcopy(self.manifest)
+        # Test the existing materializer with a finite application source prefix;
+        # no engine executes and the fixture does not claim runtime approval.
+        manifest['checks']['run-session'] = {**manifest['checks']['historical'], 'inputs': ['game/application']}
+        (self.source/'tools/harness/profiles.json').write_text(json.dumps(manifest))
+        self.git(self.source, 'add', '.')
+        self.git(self.source, 'commit', '-qm', 'fixture application input contract')
+        self.git(self.target, 'fetch', '-q', 'origin')
+        self.git(self.target, 'merge', '-q', '--ff-only', 'FETCH_HEAD')
+        self.set_sparse('/*\n!/docs/evidence/**\n!/game/**\n')
+        plan = inputs.make_plan(self.target, checks=['run-session'])
+        self.assertEqual({row['path'] for row in plan['inputs']}, {selected})
+        self.assertEqual(plan['status'], 'needs_materialization')
+        report = inputs.materialize(self.target, checks=['run-session'])
+        self.assertEqual(report['status'], 'ready')
+        self.assertFalse(report['tests_executed'])
+        self.assertEqual((self.target/selected).read_bytes(), (self.source/selected).read_bytes())
+        self.assertFalse((self.target/unrelated).exists())
+
     def test_plan_reports_exact_historical_blob_size_without_hydrating(self):
         plan = self.plan()
         self.assertEqual(plan['status'], 'needs_materialization')

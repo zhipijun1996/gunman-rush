@@ -57,7 +57,7 @@ func run() -> Dictionary:
 	failures.clear()
 	compared_cases=0
 	compared_vertices=0
-	var source:=FileAccess.get_file_as_string("res://scripts/enemies/forest_motion_02.gd")
+	var source:=FileAccess.get_file_as_string("res://game/enemies/presentation/forest_motion_02.gd")
 	check(original_method(source,"_deform_connected").sha256_text()==REFERENCE_DEFORM_SHA,"original5b reference math is immutable; changing both paths cannot self-pass")
 	var preparation:=original_method(source,"_prepare_mesh").replace("\n\t_influence_ready = false","")
 	check(preparation.sha256_text()==REFERENCE_PREPARE_SHA,"original topology/UV/grid preparation retained except cache invalidation")

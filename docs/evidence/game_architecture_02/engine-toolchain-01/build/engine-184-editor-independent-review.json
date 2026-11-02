@@ -1,0 +1,75 @@
+{
+  "verdict": "LIMITED_ACCEPT_ACTUAL_LINUX_EDITOR_LANE_BYTES_AND_BUILD_PROVENANCE",
+  "reviewer": "ci_audit independent, no engine execution",
+  "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+  "workflow_run": 41180438395,
+  "artifact_id": 13035588449,
+  "artifact_zip_sha256": "a99ac61b5d217ae456152919407f4dc81075444e0626ff78b576b4409f39007f",
+  "artifact_zip_bytes": 90082019,
+  "api_binding_verified": true,
+  "receipt_sha256": "c4705025ca9d8bc62eadcab2a6c54293d36438db4264e0a7f5a416246180fa2f",
+  "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+  "exact_compilation_contract_verified": [
+    {
+      "argv": [
+        "/usr/local/bin/python3",
+        "-m",
+        "SCons",
+        "platform=linuxbsd",
+        "target=editor",
+        "-j2",
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes",
+        "accesskit=yes",
+        "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+        "arch=x86_64",
+        "wayland=yes",
+        "x11=yes"
+      ],
+      "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+    }
+  ],
+  "compile_log_sha256": "4712161729833eba21bddf9ed46706d9dcd73f9be1e9986abe98c9107e0ec32d",
+  "compile_exit_code": 0,
+  "compile_seconds": 2138.259802834,
+  "observed_outputs": {
+    "godot-linux-x86_64": {
+      "sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+      "bytes": 171575448
+    },
+    "icudt_godot.dat": {
+      "sha256": "64e407b570a21a4b740531a14cd95f0cefc46cef3d8224fd09a0dd386fb7016a",
+      "bytes": 4797472
+    },
+    "LICENSE.txt": {
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "bytes": 1149
+    },
+    "COPYRIGHT.txt": {
+      "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+      "bytes": 100108
+    }
+  },
+  "archive_exact_members_and_extracted_bytes_verified": true,
+  "source_license_copyright_icu_bytes_exact_verified": true,
+  "runtime_embed_check": "Existing build.verify_runtime_payload passed: complete custom build prefix and full source commit in actual editor bytes. No --version execution by reviewer.",
+  "reported_editor_version_from_builder_smoke": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+  "production_optimization": "Exact production=yes optimize=speed debug_symbols=no lto=none command; locked upstream SConstruct890-891 maps speed to -O3. No O0 override.",
+  "capabilities": "Exact accesskit=yes wayland=yes x11=yes platform contract, Standard mono disabled",
+  "limitations": [
+    "Single Linux editor lane only; other9 lanes unreviewed",
+    "No engine/lifecycle/gameplay/native execution",
+    "No complete template package/release lock/installer activation",
+    "Compiler log retains upstream source-archive git discovery fatal line; build/record exit0 and actual full source identity verified; not erased or reclassified as native evidence"
+  ],
+  "evidence_files": [
+    "engine-184-editor-artifact-api.json",
+    "engine-retry-1849-editor-connector-job.log",
+    "engine-184-download/lanes/engine-built-linux-editor/provenance.json",
+    "engine-184-download/lanes/engine-built-linux-editor/editor.log"
+  ]
+}

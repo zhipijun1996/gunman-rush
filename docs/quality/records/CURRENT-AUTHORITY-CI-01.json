@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "task_id": "CURRENT-AUTHORITY-CI-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "23887fe5c9d32afa8bcba8725fd7895b6266aa5d",
+  "reviewed_commit": "23887fe5c9d32afa8bcba8725fd7895b6266aa5d",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "闭合重构后的当前技术源码绑定，并按当前/历史消费者分开Bible检查，恢复可用CI基线。",
+  "player_experience": "保持现有游戏与已选图声，避免旧版本回放阻塞当前开发；当前缺件和篡改仍拒绝。",
+  "constraints": [
+    "不改生产GD、图声、资源路径顺序、物理、伤害、奖励、随机或存档。",
+    "旧style27及旧SHA保留；style28/creative31仅为5源码技术绑定，不继承艺术/设备/玩家接受。",
+    "原67方法保留；46当前与28历史互斥穷尽，缺失/未知/重复/空分区拒绝。",
+    "原full171与各检查预算保持，历史仅新增到已有legacy-compat；不追签旧超时。"
+  ],
+  "affected_paths": [
+    "docs/creative_direction/bibles/style-continuity-20261101-v28-runtime-ownership.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "tools/region_style_history.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/harness/profiles.json",
+    "tests/test_production_plan.py"
+  ],
+  "deliverables": [
+    "当前style28技术绑定与有限旧源码归档",
+    "默认当前46/显式历史28及全部74分区守门",
+    "四项原Harness及独审、保持原预算",
+    "同源完整集成另行执行，未验不签"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS_LIMITED_LOCAL_EXPORT_ORIGINAL_THREE_CONSUMERS",
+  "author_role": "Execution receipt author, not an independent source-code reviewer",
+  "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "tool_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+  "artifact_kind": "actual_local_web_export_not_CI_API_artifact",
+  "pack_sha256": "2e1274f622102b34f18ab2fdb0f41584b06b518c097497999608c20f7803b2f6",
+  "pack_bytes": 216386008,
+  "served_file_count": 537,
+  "receipt": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/receipt.json",
+  "receipt_sha256": "fdf095d1b0b8a61c525219778a016f3d7168a8db61ef7965174493a578832c99",
+  "business_reports": [
+    {
+      "path": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/browser-cwd/build/action_budget/browser/report.json",
+      "sha256": "09597867e20986def5863f0db6fc216a0fd7a74f4338b514606e3daa08ce9c1d",
+      "checks": 25,
+      "all_true": true,
+      "errors": [],
+      "scope": "actual desktop canvas + CDP multitouch; touch skill insufficient-resource request uses shared rod; accepted skill boundary separately native; not physical devices"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/browser-cwd/build/studio_input/browser/report.json",
+      "sha256": "031c02a7b7751423efe4c4c7de4ab4c9a46d8bb2421344f4706df1bc43c60dc4",
+      "checks": 40,
+      "all_true": true,
+      "errors": [],
+      "scope": "all15 items each by real mouse/touch click, no keyboard item selection; actual read-only enemy position samples and native Motor tests; no engine state injection or physical-device acceptance"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/browser-cwd/build/weapons/browser/report.json",
+      "sha256": "98b397f38bac09b7d479523ac35bc0ba36e63b52f7342a05ab45eab0b55db1db",
+      "checks": 8,
+      "all_true": true,
+      "errors": [],
+      "scope": "actual GUI/keyboard/CDP touchscreen; accepted-event logs are read-only; no engine-state injection, physical device or subjective acceptance"
+    }
+  ],
+  "checks_total": 73,
+  "runs": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/gunman-rush-browser-tools/tools/verify_action_budget_browser.py",
+        "http://127.0.0.1:38701/"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "\"failed\": \\[\\]",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 151.481,
+      "script_sha256": "f95db7d7691231e82e72530553e02a3b4a5c5809f9eda4f9d4c1ec3e7ac372d3",
+      "log": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/verify_action_budget_browser.log",
+      "log_sha256": "aa00ab791e5b9642d3c5b80a96a058b3e5696fe701a945bdf607b2b84435a6fe",
+      "check_token": "cce0538bd6e141fc8645d662b867a587"
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/gunman-rush-browser-tools/tools/verify_studio_click_browser.py",
+        "http://127.0.0.1:38701/"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "\"failed\": 0",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 225.579,
+      "script_sha256": "675b97ec54e961492c770fa068bd478ad78cbd3a65faef0917588929a367cc71",
+      "log": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/verify_studio_click_browser.log",
+      "log_sha256": "05de5a9d719c3032af46254fbcbbdb959aec233b4c6af4d57697351733ecfae4",
+      "check_token": "47aea247003f4dbf9f83cdc5879c602e"
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/gunman-rush-browser-tools/tools/verify_all_weapon_browser.py",
+        "http://127.0.0.1:38701/"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "\"failed\": 0",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 129.045,
+      "script_sha256": "7905cc12f0224b8512f3268aac14abc0de9b4a99eea609dd1c0f88d72eb0fd10",
+      "log": "/workspace/gunman-rush-refactor/build/verification/final-ab263-local-browser-05/verify_all_weapon_browser.log",
+      "log_sha256": "8ccad57287730656cd3d20071ae3559bd24d932bc46aa4088936ece3e39279d0",
+      "check_token": "22d74875ddec47838ac3bf769b3649fd"
+    }
+  ],
+  "custody": {
+    "served_files_stable": true,
+    "production_source_stable": true,
+    "consumer_tools_stable": true,
+    "ocr_inputs_stable": true,
+    "browser_process_scope": "Original harness owns/terminates tagged descendants; no independent browser remains"
+  },
+  "limits": [
+    "Actual local ab263 Web export, not original379 CI API artifact ZIP.",
+    "Synthetic desktop/CDP touch input through actual visible controls; no physical-device or subjective acceptance.",
+    "Prior01/02 failures and03/04 timeout remain failures; final05 does not rewrite those receipts.",
+    "Current desktop title/actions click centers migrate within same complete source-bound control; not exact legacy numerical points."
+  ]
+}

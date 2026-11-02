@@ -1,0 +1,100 @@
+{
+  "scope": "Three existing Foundry current-entry test consumers only; no production/config/generated artifact changes. No engine execution by author.",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "files": [
+    {
+      "path": "tests/foundry_lab_runner.gd",
+      "original_sha256": "1ce000aed63c56f6eff3d483120e25bdbc921151f66ee6d445f237d3c956d45f",
+      "candidate_sha256": "bc8d8757b09c04f00229b2767e86b6734b40d99917690ce754948f431093c08c",
+      "reverse_exact": true,
+      "check_call_sites_before": 27,
+      "check_call_sites_after": 27,
+      "changes": 4,
+      "main_unchanged": true
+    },
+    {
+      "path": "tests/foundry_touch_runner.gd",
+      "original_sha256": "1521ce68d0680c541546e74e8c1f20b7e868d358502495259616c89a4ac524a6",
+      "candidate_sha256": "d063993cefb8ae2136d4a61245fdeb183aaf2c55ea51645bdd24784ea748cfae",
+      "reverse_exact": true,
+      "check_call_sites_before": 20,
+      "check_call_sites_after": 20,
+      "changes": 2,
+      "main_unchanged": true
+    },
+    {
+      "path": "tests/foundry_feedback_runner.gd",
+      "original_sha256": "1dc200bdab42d0b82df7b5bbbcd05ef94ac0305dfcf15c5edc5a0069443c3c81",
+      "candidate_sha256": "0b02c69a1785c65c259906a81f9a9811aafc11fc4bb4f37ed7302b3fcdc57a9b",
+      "reverse_exact": true,
+      "check_call_sites_before": 12,
+      "check_call_sites_after": 12,
+      "changes": 2,
+      "main_unchanged": true
+    }
+  ],
+  "source_evidence": [
+    {
+      "path": "game/world/generation/foundry_catalog.gd",
+      "sha256": "f29157e9fa36bf348ffa258a821d3227cdaa3385d587bdf57b41cff385de0fee"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "config/foundry_capabilities.json",
+      "sha256": "8486a94ba242f341d7bd53f175477d26bfd965d5f165feac9919c4ca2723b751"
+    },
+    {
+      "path": "experiments/generation/foundry_lab.gd",
+      "sha256": "e09e2a3475e12c902a98ad1fb70a58f39cde5eb8b026eaf31765fb176f579838"
+    },
+    {
+      "path": "tests/audio_teardown.gd",
+      "sha256": "0cfa8959bef31d171cee212ca0878a31df5b1c76cdf976e2d0efe9c2c59c40f2"
+    },
+    {
+      "path": "game/presentation/audio/world_audio_lifecycle.gd",
+      "sha256": "54138348ec092b3f9c7dac9afeec8b272e65baed91caab65fb55d0c2e0b7a46f"
+    },
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "sha256": "79bd8fc3aacad831947f1035d40930b35e91ba5c03cbfbad4ef09a1f25a27235"
+    },
+    {
+      "path": "tools/run_audio_lifecycle_tests.py",
+      "sha256": "e93b5d235d9e13d376706915e87293e6442480e3b94bfb0a551eb71445fb6214"
+    }
+  ],
+  "old_failure_evidence": [
+    {
+      "path": "build/entry-final-b893/foundry-lab/native.log",
+      "sha256": "0ba5abfbb2b05a11c9328a056ad810f047a0581f3ed41d38b36a82a43ee8d906"
+    },
+    {
+      "path": "build/entry-final-b893/foundry-touch/native.log",
+      "sha256": "6391bc488fdd0b80e8af3f8c0ad269091746cbded72e15d97a07e8d04bed9e60"
+    },
+    {
+      "path": "build/entry-final-b893/foundry-feedback/native.log",
+      "sha256": "e0f366f450b568ef3417612983e76c101e9e7354de021ae0fdf331c72121f51c"
+    }
+  ],
+  "original_results": {
+    "lab": "35 assertions, 2 failures; 2 ObjectDB instances and 1 MP3 resource leaked",
+    "touch": "439 assertions, 0 failures; strict wrapper rejected 2 ObjectDB instances and 1 MP3 resource leaked",
+    "feedback": "12 assertions, 0 failures; strict wrapper rejected 2 ObjectDB instances and 1 MP3 resource leaked"
+  },
+  "test_change_justification": {
+    "lab_two_expectations": "Migrate obsolete hardcoded two-shot assumptions to existing FoundryCatalog.tuning_for(base/double_jump) and current PlayerTuning.load_default, still requiring actual one/two jumps and current configuration wiring. Original tail explicit 1-shot default guard remains. This changes outdated test contracts, not behavior-equivalent assertions.",
+    "all_three_teardowns": "Keep service-presence and original skip-drain negative-control guard. Resolve owner via existing GameAudio.for_origin(app), then use existing tests/audio_teardown.drain_world(app) to observe all descendant GameAudio, GameMusic and fallback playback release within original shared 1000ms default. No sleeps, budget change, relaxed marker or log filter.",
+    "preserved": "All original assertion call counts and labels, six real Lab replay iterations, exact movement/damage/feedback/touch actions, frame waits, pause and leave order, actual second jump, explicit air_chain four-shot capability, forged manifest negatives and terminal strict quit markers. Only listed two conditions and cleanup expressions differ."
+  },
+  "native_validation": "PENDING root-owned engine; independent static review pending",
+  "commands": [
+    "python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_lab_runner.gd --marker \"^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$\" --timeout 180 --output build/foundry-current-consumer-tests-01/lab",
+    "python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_touch_runner.gd --marker \"^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$\" --timeout 180 --output build/foundry-current-consumer-tests-01/touch",
+    "python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_feedback_runner.gd --marker \"^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$\" --timeout 180 --output build/foundry-current-consumer-tests-01/feedback"
+  ]
+}

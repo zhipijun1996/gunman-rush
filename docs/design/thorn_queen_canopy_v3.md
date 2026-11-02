@@ -12,7 +12,7 @@ FOREST-DEPTH-02 的新 Boss 内容设计记录，合同 `forest-queen-canopy-v3`
 
 ## 权威源与参数范围
 
-数值唯一运行来源是 [Canopy Definition](../../scripts/bosses/thorn_queen_canopy_definition.gd)、[实际 Resource](../../resources/bosses/thorn_queen_canopy.tres)与[Encounter](../../scripts/bosses/thorn_queen_canopy_encounter.gd)。下表是当前读取值的设计说明，不是另一套默认配置。Definition 继承旧 Weave 类型以复用 Knot/Band；旧 perches、旧三网旋转／升降、seed 弹、heart_open、弱侧点积、旧迁巢速度等字段并未成为本 Boss 的行为，不能按继承字段名虚构攻击。
+数值唯一运行来源是 [Canopy Definition](../../scripts/bosses/thorn_queen_canopy_definition.gd)、[实际 Resource](../../resources/bosses/thorn_queen_canopy.tres)与[Encounter](../../game/bosses/thorn_forest/thorn_queen_canopy_encounter.gd)。下表是当前读取值的设计说明，不是另一套默认配置。Definition 继承旧 Weave 类型以复用 Knot/Band；旧 perches、旧三网旋转／升降、seed 弹、heart_open、弱侧点积、旧迁巢速度等字段并未成为本 Boss 的行为，不能按继承字段名虚构攻击。
 
 | 当前消费参数 | 值与作用 |
 |---|---|
@@ -108,7 +108,7 @@ Queen生命归零后既有Encounter终态与正式Stage接管封场、清理、�
 
 ## 证据、反例与下一结论
 
-原件字面路径：`build/forest_depth/queen/canopy-v3-01/RESULT.md`、`build/forest_depth/queen/canopy-v3-02/RESULT.md`；独审路径见开头。它们是当前存在的build材料，不伪造将来portable链接。运行源入口为[场景](../../scenes/bosses/thorn_queen_canopy.tscn)、[表现](../../scripts/bosses/thorn_queen_canopy_presentation.gd)、[原生runner](../../tests/thorn_queen_canopy_runner.gd)、[真实fixture](../../tests/support/forest_queen_canopy_fixture.gd)、[wrapper](../../tools/run_thorn_queen_canopy.py)。旧[整体REVISE](../evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)不因局部继续而撤销。
+原件字面路径：`build/forest_depth/queen/canopy-v3-01/RESULT.md`、`build/forest_depth/queen/canopy-v3-02/RESULT.md`；独审路径见开头。它们是当前存在的build材料，不伪造将来portable链接。运行源入口为[场景](../../scenes/bosses/thorn_queen_canopy.tscn)、[表现](../../game/bosses/thorn_forest/thorn_queen_canopy_presentation.gd)、[原生runner](../../tests/thorn_queen_canopy_runner.gd)、[真实fixture](../../tests/support/forest_queen_canopy_fixture.gd)、[wrapper](../../tools/run_thorn_queen_canopy.py)。旧[整体REVISE](../evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)不因局部继续而撤销。
 
 已保留的内容差异是身体持续压力、可留可剪的持久路线、真实历史支持岸锁定与反枪换岸。H尚未证明创造普通jump/R之外的新有效输出窗口，既不最快也不最安全，保高结后继收益亦未明。不能为显H重要而禁掉强普通cut、收紧旧岸或锁HP；也不能机械因H非最快就否定不同运动表达。下一结论应来自正式完整消费者与正常影片的实际可读性、反枪余量、弱结反馈和策略学习，而非更多断言／H计数。没有作者自签fun、商业品质、G5或发布完成。
 

@@ -9,7 +9,7 @@ func _run() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--expect-style="): expected_style = arg.trim_prefix("--expect-style=")
 		if arg.begins_with("--expect-biome="): expected_biome = arg.trim_prefix("--expect-biome=")
-	var lab := preload("res://scenes/style_exploration/style_lab.tscn").instantiate() as StyleLab
+	var lab := preload("res://experiments/terrain/entries/style_lab.tscn").instantiate() as StyleLab
 	root.add_child(lab)
 	var failures := 0
 	if lab.style_id != expected_style or lab.biome_id != expected_biome or lab.scenery.get("biome_id") != expected_biome:

@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "task_id": "ASSET-METADATA-LAYOUT-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "reviewed_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "content_version": "candidate-v1-unverified",
+  "owner": "/root",
+  "purpose": "修复功能目录迁移后三个当前buildJSON的既有assets manifest登记SHA遗漏；不重写生成事实或正式资源。 同卡后继补齐两条既有production_record_only记录对该唯一manifest的sourceSHA关联。",
+  "player_experience": "恢复原资产完整性检查对实际当前metadata字节的准确登记，视觉/音效/玩法与版本选择均不改变。",
+  "constraints": [
+    "原三条manifest row.sha256技术修复边界不变；后继仅两既有production_record_only记录source_sha256及technical_followup，不改原条目/生成事实/状态/content_version/revision_impact。",
+    "三buildJSON已在目录迁移中只改consumer路径，本次不再改JSON源、图声或正式选择。",
+    "不修改原check_art、Harness预算/注册或旧冻结style引用与ACCEPT证据；历史SHA原件保留。",
+    "不新增平行资产登记或新的asset_records素材记录；沿原assets/manifest.json authority。",
+    "原manifest三SHA已应用并有限验证；本次两record后继仅外部候选，原quality60秒前后真实对照，独审/主树应用验证仍分开。"
+  ],
+  "affected_paths": [
+    "assets/manifest.json",
+    "docs/quality/asset_records/demo_ui_01_r2_registry.json",
+    "docs/quality/asset_records/fine-space-05-asset-registry.json"
+  ],
+  "deliverables": [
+    "既有manifest三SHA元数据最小修复",
+    "原远端art-art失败与实际当前三JSON旧/新hash对照",
+    "权威边界和最终独审/原checker运行证据分开记录",
+    "两既有registry sourceSHA技术后继、完整原件与原quality失败/外部前后验证证据；不新增素材记录"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "仅已应用三SHA登记的原art-art完整310assets通过，0.399/120；同报告后续artv3缺件失败保留，不签整体batch或185。 两既有record外部后继原quality60秒前测两mismatch，完整overlay后测静态PASS；首镜像缺件失败保留，主树尚待应用。",
+      "evidence": [
+        "root-targeted-art-art-log",
+        "registry-followup-candidate-quality-complete-overlay-log"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "限定三primarySHA技术绑定接受；1041media路径/Gitblob与2ce一致，作者完整字节流收据已审；无新图声/用户/全量接受。 后继两既有record已非作者限定接受：仅sourceSHA+technical_followup，原父字节/当前三row逆向核实；不签艺术/完整包或full185。",
+      "evidence": [
+        "review-independent-review-json",
+        "registry-followup-independent-review-json"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "外部候选准备；三字段最终独审、原checker及全量CI尚未验收。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "既有登记与历史证明边界",
+      "method": "三row精确diff及原authority检查",
+      "expected": "只改当前登记3SHA，旧生成/图声/版本不动",
+      "failure": "篡改历史SHA/ACCEPT或重生成素材",
+      "status": "unverified",
+      "reason": "等待最终候选及实际原检查结果。",
+      "evidence": []
+    },
+    {
+      "id": "native-independent",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原art-art完整清单验证",
+      "method": "原python3 tools/check_art.py/原120s",
+      "expected": "原检查与完整旧断言通过，无忽略项",
+      "failure": "改checker、跳路径或删资产过测",
+      "status": "passed",
+      "reason": "原art-art310assets freshpassed，旧checker未改；同batchartv3failed单列保留。",
+      "evidence": [
+        "root-targeted-art-art-log"
+      ]
+    },
+    {
+      "id": "review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "最终候选仅3叶",
+      "method": "非作者精确结构与字节审查",
+      "expected": "原其他rows/字段/当前metadata字节保持",
+      "failure": "未经最终独审或隐藏资源变更",
+      "status": "passed",
+      "reason": "三rowhash精确逆变换和原其他310row/历史provenance保持；media1041samebytes限定核。",
+      "evidence": [
+        "review-independent-review-json"
+      ]
+    },
+    {
+      "id": "registry-source-followup",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "两既有中央登记记录绑定当前唯一manifest源",
+      "method": "原check_quality.py/60秒before与完整外部overlay candidate，对照只source_sha和technical_followup",
+      "expected": "原两source mismatch被准确修复，旧事实/状态/历史SHA不改，完整原quality静态通过",
+      "failure": "新增平行登记、追签美术接受、修改生成事实或放宽checker",
+      "status": "passed",
+      "reason": "原main前测exit1同2mismatch；完整overlay后测exit0静态通过。首overlay缺6嵌套build证据的失败保留；不等同主树应用或全量CI。",
+      "evidence": [
+        "registry-followup-candidate-quality-complete-overlay-log"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "authority-audit-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/authority-audit.json",
+      "sha256": "0eaba9fbc625c40b46b73d655ccab0bae3a680ab22971b1f86ece0e01cb2817e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Read-only exact three currenthash mismatches and existingauthority evidence; no artwork acceptance."
+    },
+    {
+      "id": "prior-layout-metadata-rebinding-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/prior-layout-metadata-rebinding.json",
+      "sha256": "14d6a661e738357307e4af98ecf93f7dc02a43922cf0d718e89eedaea3496bbb",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Original existing relocation receipt retained exactly; no old SHA refreshed in place."
+    },
+    {
+      "id": "ci41195033622-parallel-job-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/ci41195033622-parallel-job.log",
+      "sha256": "e10ae8fc3f278807b8fc08a79a417d4458a87f99ad7a645512c0b9c13b672daf",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Actual remote paralleljob art-art failed/nonzero; earlier/later lane status not inferred. Full185 not passed."
+    },
+    {
+      "id": "current-metadata-hazard_fine_build-json-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/hazard_fine_build.json.source",
+      "sha256": "914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Exact current metadata bytes; expected destinationSHA, not rewritten by this task."
+    },
+    {
+      "id": "current-metadata-scenery_build-json-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/scenery_build.json.source",
+      "sha256": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Exact current metadata bytes; expected destinationSHA, not rewritten by this task."
+    },
+    {
+      "id": "current-metadata-terrain_build-json-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/current-metadata/terrain_build.json.source",
+      "sha256": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Exact current metadata bytes; expected destinationSHA, not rewritten by this task."
+    },
+    {
+      "id": "initial-scope-md-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/initial-scope.md.source",
+      "sha256": "9e1ccefd6a90bb69beae80e31ba2702a6013f11b1b092f2305714cfd5ae5b291",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件有限归档，外部候选，未改main。",
+      "observed": "Initial pending scope only; no candidate acceptance."
+    },
+    {
+      "id": "review-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/review/independent-review.json",
+      "sha256": "f0150ab917749ea68599a2ee6d5b3579c6f3e780ceedab9ddb5a2f9ce4f198af",
+      "kind": "review",
+      "producer": "structure_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Only technical metadata binding; all310rows except3primarySHA and oldprovenance unchanged, noart/audio/useraccept.",
+      "reviewer": "structure_audit",
+      "implementers": [
+        "ci_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author exactthree-row inverse, 1041Gitmediaidentity and authorstreamreceipt review; didnot rehash allmedia herself."
+    },
+    {
+      "id": "applied-candidate-patch",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/candidate.patch",
+      "sha256": "8b3d7fc64e5198c6c218570d930bbb740d50213c72f6e8c09d8a40feefa47b9d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Existingauthor actual310assetchecker and1041media stream proof; no media copied/generated or historicalacceptance rewritten."
+    },
+    {
+      "id": "applied-proof-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/proof.json",
+      "sha256": "91cc8da4e10d1ba7b43d1b12fd087c6ee94fdfcf88e8b7a7a0fa89508bcd90a9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Existingauthor actual310assetchecker and1041media stream proof; no media copied/generated or historicalacceptance rewritten."
+    },
+    {
+      "id": "applied-actual-assets-media-byte-proof-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/actual-assets-media-byte-proof.json",
+      "sha256": "5b5450d084c0129017ca375b98f1f7eb567c62be8975156a2b1c8bdabfd71f0d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Existingauthor actual310assetchecker and1041media stream proof; no media copied/generated or historicalacceptance rewritten."
+    },
+    {
+      "id": "applied-before-check-art-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/before-check-art.log",
+      "sha256": "1b0d952f321f0575f337b32ab2adec57e54979178c3aba072b7692746aa95bf7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Existingauthor actual310assetchecker and1041media stream proof; no media copied/generated or historicalacceptance rewritten."
+    },
+    {
+      "id": "applied-candidate-check-art-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/applied/candidate-check-art.log",
+      "sha256": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Existingauthor actual310assetchecker and1041media stream proof; no media copied/generated or historicalacceptance rewritten."
+    },
+    {
+      "id": "root-targeted-report-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/root-targeted/report.json",
+      "sha256": "05c27aac0aaa184940faf315674524efcae34582db9e33318e7ce42410074702",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Whole3check reportFAILED because later artv3 missing sparseinput; art-art itself passed. Preserve failure, no wholebatchPASS."
+    },
+    {
+      "id": "root-targeted-art-art-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/root-targeted/art-art.log",
+      "sha256": "e4df5a286771430e09ab4e719c5026216cfa92a60557b4a010a374afb6ffc620",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "PASS310assets; technicalmetadata only, subjective/device unverified.",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "ActualoriginalHarness art-art fresh,120s budget,0.399s; source11254+applied3hash WIP."
+    },
+    {
+      "id": "root-targeted-art-plains_v3-failed-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/root-targeted/art-plains_v3-failed.log",
+      "sha256": "36ccf03536ad330d03ee9c0fa4796cf2283fc06dc423fe3275faf66dd6cf92b4",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "实际原件精确归档；外部质量更新不写main。",
+      "observed": "Original samebatch sparsecatalog failure retained; separate laterCIconsumer fix not claimed by thiscard."
+    },
+    {
+      "id": "registry-followup-before-assets-manifest-json-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/before/assets-manifest.json.source",
+      "sha256": "ffca09afe4e5eca7e9ab5f298f4bf9ec5453b4dd5b1f190db1b0c9874b885d3c",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-before-original-quality-failure-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/before/original-quality-failure.log",
+      "sha256": "a92928c9137986eca80208fded97b0d4b52a69f555d0419d1025384d2edecb5d",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-before-demo_ui_01_r2_registry-json-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/before/demo_ui_01_r2_registry.json.source",
+      "sha256": "4dfd57c0eed52bf6918a655eacbcd9ad2b088d493e1739b25ef5a0cc83241289",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-before-fine-space-05-asset-registry-json-source",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/before/fine-space-05-asset-registry.json.source",
+      "sha256": "8726c0fd7383f48b37b78561a74f4598e816674b902ce35479e1b29e2df6bddb",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-binding-proof-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/binding-proof.json",
+      "sha256": "85400c38613e4de320d6feabb3f98c968a7cc04d8f93a0299b53753a20eaf41f",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-records-only-patch",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/records-only.patch",
+      "sha256": "8b0c24405211cbca2a01df5ddb4294a8b56b37190bb8cd37a5e346fd65b45cd1",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-snapshot-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/snapshot.json",
+      "sha256": "9a1058a16c643d36acc316203d37d47e19c125020f4bcce4c1d0e262b5604257",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-quality-before-after-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/quality-before-after.json",
+      "sha256": "9a17283935504af64a11d80bdc41b0ddcbf5123f595de4a26e2a5596fefdbd09",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-before-quality-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/before-quality.log",
+      "sha256": "a92928c9137986eca80208fded97b0d4b52a69f555d0419d1025384d2edecb5d",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-candidate-quality-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/candidate-quality.log",
+      "sha256": "c59590c2b1ed334203c8557baf4877c0298bae1377e69cf9ae1f61e8b00e9317",
+      "kind": "runtime_trace",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "Two existing production_record_only records rebind to unchanged current manifest; original facts/status/acceptance preserved."
+    },
+    {
+      "id": "registry-followup-candidate-quality-complete-overlay-log",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/candidate-quality-complete-overlay.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "kind": "command",
+      "producer": "asset_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact metadata-only followup source/proof/log archive; no media regeneration or main writes.",
+      "observed": "PASS14 core skills/17templates/quality+assetmetadata. Initial incomplete overlay failed six missing nested-build evidence and remains archived.",
+      "command": "python3 tools/check_quality.py",
+      "exit_code": 0,
+      "environment": "External complete hardlink snapshot overlay, candidate2 records only, PYTHONDONTWRITEBYTECODE=1, original60-second timeout; no Harness/full185."
+    },
+    {
+      "id": "registry-followup-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/asset-metadata-layout-01/registry-followup/independent-review.json",
+      "sha256": "5f80135de0a9a9d442af3444591fee19699c8a1f8fa6f242f30ff272e1d878bc",
+      "kind": "review",
+      "producer": "ci_audit",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "content_version": "candidate-v1-unverified",
+      "method": "Exact non-author finite two-record/parent/source comparison and existing original-quality run-receipt verification.",
+      "observed": "Only source_sha256 + technical_followup; all old fields exact; archived precise parents/Gitffca and current62a1 three-row inverse verified. No art/media/full185 approval.",
+      "reviewer": "ci_audit",
+      "implementers": [
+        "asset_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Non-author source and exact prior-byte verification. Reviewer did not rerun quality/native or rehash all media; checked genuine existing original60s receipt/log."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "full185/其他lane与实际交付/GUI/设备/主观视觉音效仍未验。",
+    "同次root报告因后继artv3缺件整体failed，不能把局部art-artpass冒充batchPASS。",
+    "本external卡更新不修改main；source11254+实际appliedmanifestWIP，最终commit另绑定。",
+    "1041media作者实际581123832bytes流SHA，独审核Gitblob与该receipt，并未自行重读全部媒体；无生成或资源版本替换。",
+    "两registry技术后继已限定独审接受、外部原quality60通过；root精确应用后原quality复验仍待。原310/1041有限成果保持，不签whole185/图声/用户。"
+  ],
+  "candidate_source": {
+    "base_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+    "state": "Applied actual currentmanifest3SHA change; this externalfinalqualityupdate doesnotapply code or rerun checks",
+    "current_manifest_sha256": "ffca09afe4e5eca7e9ab5f298f4bf9ec5453b4dd5b1f190db1b0c9874b885d3c",
+    "expected_three_rows": [
+      {
+        "index": 261,
+        "id": "fine_space_05.underworld_plains.hazards.hazard_fine_build.json",
+        "path": "assets/underworld_plains/hazards/hazard_fine_build.json",
+        "registered_sha256": "715ada54667b8eb8be709a0aa0f0c61f849f586fb1a5693759a52e168b613d1e",
+        "actual_sha256": "914f5f8997fa4a8dcea14bcc760052a7c4227bf92ef0f6ecb425b418be14be6c"
+      },
+      {
+        "index": 267,
+        "id": "fine_space_05.underworld_plains.scenery_build.json",
+        "path": "assets/underworld_plains/scenery_build.json",
+        "registered_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+        "actual_sha256": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2"
+      },
+      {
+        "index": 271,
+        "id": "fine_space_05.underworld_plains.terrain.fine_32.terrain_build.json",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "registered_sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410",
+        "actual_sha256": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c"
+      }
+    ],
+    "candidate_manifest_sha256": "62a1c2a8f5ea4f3a4df7466b923a912c6da4536210b5d75b1636910814d8e83f"
+  },
+  "registry_technical_followup": {
+    "state": "EXTERNAL_TWO_EXISTING_RECORDS_LIMITED_REVIEW_ACCEPTED; original quality60 external overlay passed; main application/verification pending",
+    "base_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+    "previous_manifest_source_sha256": "ffca09afe4e5eca7e9ab5f298f4bf9ec5453b4dd5b1f190db1b0c9874b885d3c",
+    "actual_current_manifest_sha256": "62a1c2a8f5ea4f3a4df7466b923a912c6da4536210b5d75b1636910814d8e83f",
+    "files_sha256": {
+      "docs/quality/asset_records/demo_ui_01_r2_registry.json": "a36fa76b56f23d997a8c6bdd9748e8fd66d1f668fcbbfe585488638c07c5f5cb",
+      "docs/quality/asset_records/fine-space-05-asset-registry.json": "bbc4f19b7ce19632e01035140630b1dc39d80848d2b1c3f51f1684b33e7d38f5"
+    },
+    "prior_candidate_source_note": "candidate_source.current_manifest_sha256 retains the original ffca source observation of the earlier3-row repair; current actual authority now62a1 as this distinct followup records.",
+    "original_archive_exact": [
+      {
+        "path": "docs/creative_direction/archive/feature-layout-before-style26/scene-reference-supplement/original_current_metadata/docs/quality/asset_records/demo_ui_01_r2_registry.json.txt",
+        "sha256": "0a02c2e75854a1ce498fbcc42ab86e66e5bed925c09f8294bcbc035ce95d2fac",
+        "current_original_sha256": "4dfd57c0eed52bf6918a655eacbcd9ad2b088d493e1739b25ef5a0cc83241289",
+        "exact_current_original": false
+      },
+      {
+        "path": "docs/creative_direction/archive/feature-layout-before-style26/scene-reference-supplement/original_current_metadata/docs/quality/asset_records/fine-space-05-asset-registry.json.txt",
+        "sha256": "b090603e1da08f2dbffe1bcdbfffe33ca481dc4c43bbcb3f7a585a88e96750e2",
+        "current_original_sha256": "8726c0fd7383f48b37b78561a74f4598e816674b902ce35479e1b29e2df6bddb",
+        "exact_current_original": false
+      }
+    ],
+    "previous_current_records_archived": true,
+    "all_original_generation_fields_statuses_revision_impact_content_version_preserved": true,
+    "same310_rows_except_prior3sha": true,
+    "media1041_proof_reused_not_new_rehash": true
+  }
+}

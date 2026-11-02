@@ -1,0 +1,31 @@
+{
+  "reviewer": "/root/preview_audit",
+  "status": "LIMITED_ACCEPT_MESH_TEMPLATE_PERFORMANCE_WORDING",
+  "non_author_scope": "Root-authored Skin template constructor cost/cold-cost interpretation only; not correctness/aliasing/teardown review.",
+  "author_measurements": "Reviewer authored Root Bell geometry and external benchmark; those results require separate runtime review, not called independent.",
+  "source_vector_sha256": "78872bad59a643188f0a1efcc554adb147bf35ab1b7855d4e202c9a6da1683db",
+  "receipt_sha256": "0f474b2ddf9d98abdb03e9daa00802992c2f4f0c2d210d347aa79be6f9bfec01",
+  "summary_sha256": "894bbd87198d51295a2f63d54fec2e37856aca08efa061fcfc25a29c145df1b2",
+  "readme_sha256": "e51256741c9567fe03f3c43ad3ee6cf996592d0f8cd3c3bf640894debba1f391",
+  "findings": {
+    "repeated_constructor_cpu_reduction_percent": {
+      "root_bell": 96.38291105692781,
+      "patrol": 95.67617488403333
+    },
+    "first_root_bell_constructor_ms": {
+      "e42": 0.307,
+      "candidate": 0.491,
+      "samples_each": 1,
+      "candidate_slower_retained": true
+    },
+    "repeated_constructor_excludes": [
+      "rig disposal",
+      "script/texture preload",
+      "GPU completion",
+      "map assembly"
+    ],
+    "first_draw_samples_only": 2,
+    "no_mobile_fps_or_total_startup_percentage_claim": true
+  },
+  "no_additional_engine_run": true
+}

@@ -1,0 +1,548 @@
+--- a/docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json
++++ b/docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json
+@@ -2,10 +2,10 @@
+   "schema_version": 1,
+   "parent": "style26-creative29",
+   "source_commit": "6f743953d6c70c63d4d366a3e84cbe2a571b29d7",
+-  "scope": "Exact finite prior-source replay only. Original selected media/acceptance/failures are not refreshed. Six old modified text leaves plus original registry/directions/tests/profiles; unchanged206 dependencies stay in their original paths.",
++  "scope": "Exact finite prior-source replay only. Original selected media/acceptance/failures are not refreshed. Seven old modified text leaves plus original registry/directions/tests/profiles; unchanged206 dependencies stay in their original paths.",
+   "selection": {
+     "original_reference_count": 206,
+-    "changed_source_count": 6,
++    "changed_source_count": 7,
+     "media_copied": false,
+     "runtime_uid_copied": false
+   },
+@@ -50,6 +50,13 @@
+       "archive_path": "sources/game/bosses/windkeeper/windkeeper_encounter.gd.txt",
+       "sha256": "b6bad0306339152167dade9458c0d8547d9154a3c377c767865a81c392127566",
+       "role": "architecture_windkeeper_encounter",
++      "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json"
++    },
++    {
++      "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
++      "archive_path": "sources/game/presentation/world/underworld_plains/underworld_presentation.gd.txt",
++      "sha256": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
++      "role": "world_presentation",
+       "consumer": "docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json"
+     }
+   ],
+@@ -113,6 +120,11 @@
+       "path": "tools/harness/profiles.json",
+       "sha256": "d132627afa0994ca56d5f0a9435bc3c6bde9b23c22917c0948d6363f2534de03",
+       "bytes": 308804
++    },
++    {
++      "path": "sources/game/presentation/world/underworld_plains/underworld_presentation.gd.txt",
++      "sha256": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
++      "bytes": 8649
+     }
+   ]
+ }
+--- /dev/null
++++ b/docs/creative_direction/archive/ownership-closeout-before-style27/sources/game/presentation/world/underworld_plains/underworld_presentation.gd.txt
+@@ -0,0 +1,164 @@
++class_name UnderworldPresentation
++extends Node2D
++## Selected production fine-pixel and warm-light presentation. No gameplay writes.
++const SPRITE_SHADER := preload("res://shaders/underworld_fine_sprite.gdshader")
++const SURFACE_SHADER := preload("res://shaders/formal_fine_lit.gdshader")
++const MAX_VISIBLE_LIGHTS := 8
++var world: Node
++var actor: PlayerMotor
++var emitters: Array[Dictionary]=[]
++var _materials: Array[ShaderMaterial]=[]
++var _seen: Dictionary={}
++var _latches: Array[WeakRef]=[]
++var _terrain_materials: Array[ShaderMaterial]=[]
++var _clock := 0.0
++var _sprite_material: ShaderMaterial
++var _surface_material: ShaderMaterial
++var _light_texture: GradientTexture2D
++var foreground: Node
++
++static func attach(owner: Node,context: Node,player: PlayerMotor) -> UnderworldPresentation:
++	var prior:=owner.get_node_or_null("FineWorldPresentation") as UnderworldPresentation
++	if prior!=null: return prior
++	var result:=UnderworldPresentation.new()
++	result.name="FineWorldPresentation";result.world=context;result.actor=player
++	owner.add_child(result)
++	return result
++
++func _ready() -> void:
++	texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
++	_sprite_material=ShaderMaterial.new();_sprite_material.shader=SPRITE_SHADER
++	_surface_material=ShaderMaterial.new();_surface_material.shader=SURFACE_SHADER
++	install_item(world)
++	if not world.is_ancestor_of(actor): install_item(actor)
++	install_lights()
++	install_occluders(world)
++	var ambient:=CanvasModulate.new();ambient.color=Color(.98,.98,1)
++	add_child(ambient)
++	get_tree().node_added.connect(_node_added)
++	# Optional foreground has no collision and independently protects gameplay/UI.
++	var script:=load("res://game/presentation/world/underworld_plains/underworld_foreground.gd") as Script
++	if script!=null: foreground=script.attach(get_parent(),world,actor)
++	refresh()
++
++func _node_added(node: Node) -> void:
++	if node==self or is_ancestor_of(node): return
++	if world.is_ancestor_of(node) or (is_instance_valid(actor) and actor.is_ancestor_of(node)):
++		install_item.call_deferred(node)
++
++func install_item(node: Node) -> void:
++	if not is_instance_valid(node) or node==self or node is CanvasLayer or node is Control: return
++	if not _seen.has(node.get_instance_id()):
++		_seen[node.get_instance_id()]=true
++		if node is CanvasItem:
++			var item:=node as CanvasItem
++			item.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
++			if item.material==null:
++				if item is Sprite2D or item is UnderworldPlayer or item is UnderworldEnemy:
++					item.material=_sprite_material
++				elif item is PlainsWoodPlatformArt.PixelOneWayPaint or item is ShotLatch:
++					item.material=_surface_material
++			if item.material is ShaderMaterial and item.get_parent() is UnderworldTerrain:
++				var material:=item.material as ShaderMaterial
++				if "wind_clock" in material.shader.code and material not in _terrain_materials:
++					_terrain_materials.append(material)
++		if node is ShotLatch:
++			node.set_meta("fine_space_presentation",true)
++			_latches.append(weakref(node))
++	for child: Node in node.get_children(): install_item(child)
++
++func install_lights() -> void:
++	if world is UnderworldHomeWorld:
++		var home:=world as UnderworldHomeWorld
++		var sockets: Dictionary={"character":[Vector2(168,381),Vector2(462,354)],"upgrade":[Vector2(829,425),Vector2(975,341)],"achievements":[Vector2(1197,370),Vector2(1098,377)]}
++		for slot: Dictionary in home.specification.slots:
++			var id:=str(slot.id)
++			if not sockets.has(id): continue
++			var sprite:=home.get_node_or_null(id+"_building") as Sprite2D
++			if sprite==null: continue
++			var atlas:=sprite.texture as AtlasTexture
++			for pixel: Vector2 in sockets[id]:
++				add_lamp(sprite.to_global(pixel-atlas.region.position),150.0,id+"_window")
++	collect_lamps(world)
++
++func collect_lamps(node: Node) -> void:
++	if node is UnderworldScenery:
++		var props: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/decor/chime_props.json")).regions
++		for row: Dictionary in (node as UnderworldScenery).placements:
++			var kind:=str(row.kind)
++			var region: Dictionary=props.get(kind,{})
++			if not region.has("light_anchor"): continue
++			var sprite:=node.get_node_or_null(str(row.node)) as Sprite2D
++			if sprite==null: continue
++			add_lamp(sprite.to_global(Vector2(region.light_anchor[0],region.light_anchor[1])),135.0,kind+"_lantern")
++			if kind=="tower":
++				var script:=load("res://game/presentation/world/underworld_plains/underworld_windmill.gd") as Script
++				if script!=null: script.attach(sprite,row.position)
++	if node is ShotLatch:
++		var latch:=node as ShotLatch
++		add_lamp(latch.to_global(latch.bell_position),120.0,"functional_bell")
++		if not latch.sequence_offset.is_zero_approx(): add_lamp(latch.to_global(latch.bell_position+latch.sequence_offset),100.0,"sequence_bell")
++	for child: Node in node.get_children():
++		if child!=self: collect_lamps(child)
++
++func lamp_texture() -> GradientTexture2D:
++	if _light_texture!=null: return _light_texture
++	_light_texture=GradientTexture2D.new();_light_texture.width=256;_light_texture.height=256
++	_light_texture.fill=GradientTexture2D.FILL_RADIAL
++	_light_texture.fill_from=Vector2(.5,.5);_light_texture.fill_to=Vector2(1,.5)
++	var ramp:=Gradient.new();ramp.offsets=PackedFloat32Array([0,.12,.35,.7,1])
++	ramp.colors=PackedColorArray([Color.WHITE,Color(.92,.92,.92,1),Color(.55,.55,.55,1),Color(.12,.12,.12,1),Color(0,0,0,1)])
++	_light_texture.gradient=ramp
++	return _light_texture
++
++func add_lamp(point: Vector2,radius: float,kind: String) -> void:
++	var lamp:=PointLight2D.new();lamp.position=to_local(point);lamp.texture=lamp_texture()
++	lamp.texture_scale=radius/128.0;lamp.color=Color("ffbc69");lamp.energy=.85
++	lamp.shadow_enabled=true;lamp.shadow_filter=Light2D.SHADOW_FILTER_PCF5;lamp.shadow_filter_smooth=1.0
++	lamp.range_z_min=-100;lamp.range_z_max=100
++	add_child(lamp)
++	var bloom:=Sprite2D.new();bloom.texture=lamp_texture();bloom.position=lamp.position
++	bloom.scale=Vector2.ONE*12.0/128.0;bloom.modulate=Color(1,.62,.28,.10)
++	bloom.z_index=12
++	var material:=CanvasItemMaterial.new();material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;material.blend_mode=CanvasItemMaterial.BLEND_MODE_ADD
++	bloom.material=material;add_child(bloom)
++	emitters.append({"light":lamp,"bloom":bloom,"world_position":point,"radius":radius,"kind":kind,"color":"ffbc69","energy":.85})
++
++func install_occluders(node: Node) -> void:
++	if node is UnderworldTerrain:
++		for rect: Rect2 in (node as UnderworldTerrain).union_pieces:
++			var polygon:=OccluderPolygon2D.new()
++			polygon.polygon=PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
++			var shade:=LightOccluder2D.new();shade.occluder=polygon
++			shade.position=to_local((node as Node2D).global_position)
++			add_child(shade)
++	for child: Node in node.get_children():
++		if child!=self: install_occluders(child)
++
++func _process(delta: float) -> void:
++	_clock+=delta
++	refresh(false)
++
++func refresh(update_foreground: bool=true) -> void:
++	var camera:=get_viewport().get_camera_2d()
++	var center:=camera.get_screen_center_position() if camera!=null else Vector2.ZERO
++	var size:=get_viewport_rect().size/(camera.zoom if camera!=null else Vector2.ONE)
++	var view:=Rect2(center-size*.5,size).grow(180)
++	var sorted: Array[Dictionary]=emitters.duplicate()
++	sorted.sort_custom(func(a: Dictionary,b: Dictionary)->bool:return (a.world_position as Vector2).distance_squared_to(center)<(b.world_position as Vector2).distance_squared_to(center))
++	var live:=0
++	for row: Dictionary in sorted:
++		var shown:=live<MAX_VISIBLE_LIGHTS and view.has_point(row.world_position)
++		(row.light as PointLight2D).visible=shown;(row.bloom as Sprite2D).visible=shown
++		if shown:live+=1
++	for material: ShaderMaterial in _terrain_materials: material.set_shader_parameter("wind_clock",_clock)
++	for ref: WeakRef in _latches:
++		var latch:=ref.get_ref() as CanvasItem
++		if latch!=null and view.has_point((latch as Node2D).to_global((latch as ShotLatch).bell_position)): latch.queue_redraw()
++	if update_foreground and is_instance_valid(foreground): foreground.call("refresh")
++
++func receipt() -> Dictionary:
++	var lights: Array[Dictionary]=[]
++	for row: Dictionary in emitters:
++		lights.append({"kind":row.kind,"position":[row.world_position.x,row.world_position.y],"radius":row.radius,"color":row.color,"energy":row.energy,"visible":(row.light as PointLight2D).visible})
++	return {"style":"fine1wu_warm","world_art_step":1,"terrain_tile_px":32,"world_tile_wu":32,"scene":"formal_home" if world is UnderworldHomeWorld else "formal_region","light_budget":MAX_VISIBLE_LIGHTS,"lights":lights,"foreground":foreground.call("receipt") if is_instance_valid(foreground) else {},"time":_clock}
+--- a/docs/creative_direction/bibles/registry.json
++++ b/docs/creative_direction/bibles/registry.json
+@@ -101,6 +101,6 @@
+   ],
+   "shared_style_authority": {
+     "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-    "sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742"
++    "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+   }
+ }
+--- a/docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json
++++ b/docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json
+@@ -115,7 +115,7 @@
+       {
+         "role": "world_presentation",
+         "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
+-        "sha256": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77"
++        "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18"
+       },
+       {
+         "role": "sprite_grid",
+@@ -1124,7 +1124,7 @@
+     "scope": "Technical source version only. AUDIO-LAB-MATERIAL-01 (ed95) is an independent original-defect correction limited to explicit enemy_hurt auditions; GAME-ARCH-OWNERSHIP-02 moves existing Latch, terminal reentry and Boss arena restore operations to existing owners without new gameplay rules.",
+     "previous_binding_manifest": {
+       "path": "docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json",
+-      "sha256": "3fb419cb79a4e01992af4b2ea8e939589c7f26cf0030190768eb7f6b485aab72"
++      "sha256": "28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229"
+     },
+     "original_reference_count": 206,
+     "changed_references": [
+@@ -1133,6 +1133,12 @@
+         "path": "game/world/levels/providers/plains_region_stage.gd",
+         "previous_sha256": "a98521042831129c796cd03b497b977efe95546c43a8960735623993867c93ba",
+         "sha256": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275"
++      },
++      {
++        "role": "world_presentation",
++        "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
++        "previous_sha256": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
++        "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18"
+       },
+       {
+         "role": "default_player_4",
+@@ -1169,6 +1175,30 @@
+     "preserved": "Exact206 role/path/order, selected art/audio/media bytes, dictionary/save/physics/damage/reward/resource/RNG rules and historical acceptance/failure evidence.",
+     "binding_scope_limit": "Existing206 roles retained. DemoRunDirector and WindkeeperArena are actual dependency/native consumers but do not become new independently hashed style roles.",
+     "validation": "P9 exact11-file static review is limited acceptance pending original native reload regressions. Audio candidate154 passed two actual lanes in its separate record. This new binding has not yet passed original four checks, full182, exports, GUI, listening, player or device acceptance.",
+-    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
++    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result.",
++    "lifecycle_followup": {
++      "task_id": "UNDERWORLD-DEFERRED-LIFETIME-01",
++      "base_commit": "59537400af06a26046037840e28989f75933a265",
++      "source_commit": "49a298b40890ccf4d9d2326d051f12a0ffe63c27",
++      "source_status": "committed_samebytes",
++      "source_identity": "Independent lifecycle follow-up committed at49a298b40890ccf4d9d2326d051f12a0ffe63c27; all three Git blobs equal the originally frozen59537400-based candidate. This source is separate from P9 source_commit4e91; no new acceptance.",
++      "frozen_candidate": [
++        {
++          "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
++          "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18"
++        },
++        {
++          "path": "tests/underworld_plains/test_underworld_formal.gd",
++          "sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a"
++        },
++        {
++          "path": "tests/quality_review_runner.gd",
++          "sha256": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
++        }
++      ],
++      "quality_record": "docs/quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json",
++      "scope": "Original deferred-node lifetime defect: WeakRef/context admission calls the existing typed installer only for still-live nodes in the current world. No new art/audio/visual acceptance.",
++      "validation": "Independent lifecycle native receipts are owned by the separate quality record. Prior six-leaf style27 four-check passes do not cover this seven-leaf R2; its four checks remain pending. Commit identity binds the same frozen bytes and does not add runtime or visual acceptance."
++    }
+   }
+ }
+--- a/docs/creative_direction/thorn_forest.json
++++ b/docs/creative_direction/thorn_forest.json
+@@ -16,10 +16,10 @@
+     "version": "2.0",
+     "status": "user_selected_direction_only",
+     "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-    "supplemental_authority_sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742",
++    "supplemental_authority_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+     "region_id": "thorn_forest",
+     "registry_path": "docs/creative_direction/bibles/registry.json",
+-    "registry_sha256": "1bcc8d395b8f5052a6c70932a5c4dadc29b977217b23c080678651ba700b5ef5",
++    "registry_sha256": "b752da79e0cd969b31a67674b1dd39e356871eee1bf4f3a6f827475c2d9a0ab2",
+     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+   },
+@@ -236,7 +236,7 @@
+     },
+     {
+       "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-      "sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742"
++      "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+     }
+   ],
+   "historical_direction": {
+@@ -252,13 +252,14 @@
+     "previous_direction": "docs/creative_direction/archive/ownership-closeout-before-style27/docs/creative_direction/thorn_forest.json",
+     "previous_sha256": "f4455c54896ab1191870fae09628e83a2059c21cf167110c224a1bbbf09a4896",
+     "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-    "shared_style_sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742",
++    "shared_style_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+     "previous_binding_manifest": {
+       "path": "docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json",
+-      "sha256": "3fb419cb79a4e01992af4b2ea8e939589c7f26cf0030190768eb7f6b485aab72"
++      "sha256": "28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229"
+     },
+     "affected_consumers": [
+       "game/world/levels/providers/plains_region_stage.gd",
++      "game/presentation/world/underworld_plains/underworld_presentation.gd",
+       "game/application/demo_app.gd",
+       "game/bosses/windkeeper/windkeeper_pressure_encounter.gd",
+       "game/presentation/audio/game_audio.gd",
+@@ -266,6 +267,30 @@
+       "game/bosses/windkeeper/windkeeper_encounter.gd"
+     ],
+     "validation": "P9 exact11-file static review is limited acceptance pending original native reload regressions. Audio candidate154 passed two actual lanes in its separate record. This new binding has not yet passed original four checks, full182, exports, GUI, listening, player or device acceptance.",
+-    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
++    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result.",
++    "lifecycle_followup": {
++      "task_id": "UNDERWORLD-DEFERRED-LIFETIME-01",
++      "base_commit": "59537400af06a26046037840e28989f75933a265",
++      "source_commit": "49a298b40890ccf4d9d2326d051f12a0ffe63c27",
++      "source_status": "committed_samebytes",
++      "source_identity": "Independent lifecycle follow-up committed at49a298b40890ccf4d9d2326d051f12a0ffe63c27; all three Git blobs equal the originally frozen59537400-based candidate. This source is separate from P9 source_commit4e91; no new acceptance.",
++      "frozen_candidate": [
++        {
++          "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
++          "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18"
++        },
++        {
++          "path": "tests/underworld_plains/test_underworld_formal.gd",
++          "sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a"
++        },
++        {
++          "path": "tests/quality_review_runner.gd",
++          "sha256": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
++        }
++      ],
++      "quality_record": "docs/quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json",
++      "scope": "Original deferred-node lifetime defect: WeakRef/context admission calls the existing typed installer only for still-live nodes in the current world. No new art/audio/visual acceptance.",
++      "validation": "Independent lifecycle native receipts are owned by the separate quality record. Prior six-leaf style27 four-check passes do not cover this seven-leaf R2; its four checks remain pending. Commit identity binds the same frozen bytes and does not add runtime or visual acceptance."
++    }
+   }
+ }
+--- a/docs/creative_direction/windchime_plains.json
++++ b/docs/creative_direction/windchime_plains.json
+@@ -16,10 +16,10 @@
+     "version": "2.0",
+     "status": "user_selected_direction_only",
+     "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-    "supplemental_authority_sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742",
++    "supplemental_authority_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+     "region_id": "windchime_plains",
+     "registry_path": "docs/creative_direction/bibles/registry.json",
+-    "registry_sha256": "1bcc8d395b8f5052a6c70932a5c4dadc29b977217b23c080678651ba700b5ef5",
++    "registry_sha256": "b752da79e0cd969b31a67674b1dd39e356871eee1bf4f3a6f827475c2d9a0ab2",
+     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+   },
+@@ -241,7 +241,7 @@
+     },
+     {
+       "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-      "sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742"
++      "sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64"
+     }
+   ],
+   "historical_direction": {
+@@ -257,13 +257,14 @@
+     "previous_direction": "docs/creative_direction/archive/ownership-closeout-before-style27/docs/creative_direction/windchime_plains.json",
+     "previous_sha256": "372a2824516416f9dabf6396e8464bb34f55ddc3283b9c30d56374e082b762c1",
+     "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+-    "shared_style_sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742",
++    "shared_style_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+     "previous_binding_manifest": {
+       "path": "docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json",
+-      "sha256": "3fb419cb79a4e01992af4b2ea8e939589c7f26cf0030190768eb7f6b485aab72"
++      "sha256": "28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229"
+     },
+     "affected_consumers": [
+       "game/world/levels/providers/plains_region_stage.gd",
++      "game/presentation/world/underworld_plains/underworld_presentation.gd",
+       "game/application/demo_app.gd",
+       "game/bosses/windkeeper/windkeeper_pressure_encounter.gd",
+       "game/presentation/audio/game_audio.gd",
+@@ -271,6 +272,30 @@
+       "game/bosses/windkeeper/windkeeper_encounter.gd"
+     ],
+     "validation": "P9 exact11-file static review is limited acceptance pending original native reload regressions. Audio candidate154 passed two actual lanes in its separate record. This new binding has not yet passed original four checks, full182, exports, GUI, listening, player or device acceptance.",
+-    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
++    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result.",
++    "lifecycle_followup": {
++      "task_id": "UNDERWORLD-DEFERRED-LIFETIME-01",
++      "base_commit": "59537400af06a26046037840e28989f75933a265",
++      "source_commit": "49a298b40890ccf4d9d2326d051f12a0ffe63c27",
++      "source_status": "committed_samebytes",
++      "source_identity": "Independent lifecycle follow-up committed at49a298b40890ccf4d9d2326d051f12a0ffe63c27; all three Git blobs equal the originally frozen59537400-based candidate. This source is separate from P9 source_commit4e91; no new acceptance.",
++      "frozen_candidate": [
++        {
++          "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
++          "sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18"
++        },
++        {
++          "path": "tests/underworld_plains/test_underworld_formal.gd",
++          "sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a"
++        },
++        {
++          "path": "tests/quality_review_runner.gd",
++          "sha256": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
++        }
++      ],
++      "quality_record": "docs/quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json",
++      "scope": "Original deferred-node lifetime defect: WeakRef/context admission calls the existing typed installer only for still-live nodes in the current world. No new art/audio/visual acceptance.",
++      "validation": "Independent lifecycle native receipts are owned by the separate quality record. Prior six-leaf style27 four-check passes do not cover this seven-leaf R2; its four checks remain pending. Commit identity binds the same frozen bytes and does not add runtime or visual acceptance."
++    }
+   }
+ }
+--- a/docs/worklines/game_architecture_01/style27_binding.md
++++ b/docs/worklines/game_architecture_01/style27_binding.md
+@@ -1,6 +1,6 @@
+ # style27 / creative30：有限所有权收口的技术源码绑定
+ 
+-这是技术候选，尚未通过原四项绑定检查或完整验收。唯一当前选择仍由 Bible registry 的 shared_style_authority 和两区 creative direction 指向，没有新增运行版本选择器。原 style26/creative29、所有更早 SHA、艺术/声音接受记录及失败原件保留。
++这是同一未提交style27/creative30的R2技术候选。六叶初版的原四项通过记录只属于初版；R2原四项绑定检查与完整验收仍待验证。唯一当前选择仍由 Bible registry 的 shared_style_authority 和两区 creative direction 指向，没有新增运行版本选择器。原 style26/creative29、所有更早 SHA、艺术/声音接受记录及失败原件保留。
+ 
+ 来源已绑定实际 P9 提交 `4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a`：该提交的七个生产文件和四个测试文件 Git blob 逐项等于原2e1c基点上的冻结候选SHA，六个style变化叶也保持相同字节。style27 的 revision_impact.frozen_candidate 保留原冻结向量。这只是来源身份确认，不新增运行、艺术或用户接受；原2e1c候选外部原件保留。
+ 
+@@ -11,9 +11,9 @@
+ | P9 Flow | terminal reentry 完成标记写入收回 DemoRunDirector | 同一触发和时点，不新增准入、重置其他状态或改变奖励 |
+ | P9 Arena | App 两处恢复委托 Encounter/Arena | 普通 phase3 与 Pressure bridge_break_ready 各自政策及 deferred 破桥时序 |
+ 
+-新绑定保留原206个角色、路径和顺序，新增角色为零。只有 App、PlainsStage、ShotLatch、WindkeeperEncounter、WindkeeperPressureEncounter、GameAudio 六个既有源码叶 SHA 推进。全部媒体、许可和正式资源选择保持原字节。DemoRunDirector 与 WindkeeperArena 是真实生产依赖，但原206未单独逐叶绑定它们；其实际改动仍需原CI/原生回归，不能用“可达”冒充独立摘要覆盖。
++新绑定保留原206个角色、路径和顺序，新增角色为零。App、PlainsStage、ShotLatch、WindkeeperEncounter、WindkeeperPressureEncounter、GameAudio 原六个既有源码叶保持初版SHA；R2另推进 world_presentation 对应 UnderworldPresentation 一个叶，共七叶。全部媒体、许可和正式资源选择保持原字节。DemoRunDirector 与 WindkeeperArena 是真实生产依赖，但原206未单独逐叶绑定它们；其实际改动仍需原CI/原生回归，不能用“可达”冒充独立摘要覆盖。
+ 
+-[有限历史清单](../../creative_direction/archive/ownership-closeout-before-style27/manifest.json)从 `6f743953d6c70c63d4d366a3e84cbe2a571b29d7` 逐字保留六个旧源码叶及旧registry、两个creative29、两份原测试和原profiles。该提交全部206引用逐项匹配style26原SHA。无媒体复制、无全仓快照；使用原 archived_source 的路径/清单/叶摘要校验。已索引历史叶缺失或篡改必须失败，当前27直接检查当前源，不以历史字节遮蔽红灯。
++[有限历史清单](../../creative_direction/archive/ownership-closeout-before-style27/manifest.json)从 `6f743953d6c70c63d4d366a3e84cbe2a571b29d7` 逐字保留七个旧源码叶及旧registry、两个creative29、两份原测试和原profiles。该提交全部206引用逐项匹配style26原SHA。无媒体复制、无全仓快照；使用原 archived_source 的路径/清单/叶摘要校验。已索引历史叶缺失或篡改必须失败，当前27直接检查当前源，不以历史字节遮蔽红灯。
+ 
+ 旧26/29测试改为有限原源重放，新增27/30当前守门。原方法和循环保留；七处必要迁移有完整old/new AST身份及有限差分，不仅比较assert字面量。原25整method校验和return、if False、空loop反例保留，26重放边界追加同类守门。目录迁移layout_path继续读取原26迁移表，不误用27的SHA差异表。
+ 
+@@ -22,3 +22,7 @@
+ 准备时P9只有限定静态独审接受，原生重载回归待root；音频154两lane结果仅属于独立音频卡。style26旧官方formal191/0但57 ObjectDB/25resources严格退出失败的原文保持，后续引擎结果另按实际来源记录。此版本不签新美术、听音、玩法、用户、设备、full182、最终PCK或工具链整体激活。
+ 
+ 未生成图像/音效，未修改运行源码。回退本绑定需整体恢复旧registry和两份creative29；生产源码已变化时，旧26应重新报源漂移，不能将元数据回退冒称兼容通过。P9整体回退按原计划ed95及独立提交执行，保留所有失败和接受证据。
++
++R2独立生命周期来源：`UNDERWORLD-DEFERRED-LIFETIME-01` 是 `59537400af06a26046037840e28989f75933a265` 基点上的三文件冻结候选，现已以完全相同Git字节提交为 `49a298b40890ccf4d9d2326d051f12a0ffe63c27`，实际SHA记于 `revision_impact.lifecycle_followup`；不声称该修复已在4e91。P9的11文件冻结向量与4e91身份原样保留。独立[技术质量记录](../../quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)负责原生生命周期证据；R2不继承初版四项通过或新增视觉认可。当前实际world_presentation必须匹配新SHA，旧style26通过同一有限manifest重放其原6fa84字节。初版完整候选及通过日志保留在原外部目录，最终来源绑定只确认上述同字节，不新增验收。
++
++R2新增生命周期来源测试实际读取三份冻结源码，Bible tests的原656项输入完整保留，仅尾部追加 `tests/underworld_plains/test_underworld_formal.gd` 与 `tests/quality_review_runner.gd` 两项；原条目重数、其他check参数和full182不变。原null/未提交R2候选及验证原件保存在独立外部历史目录。
+--- a/tests/test_region_bible.py
++++ b/tests/test_region_bible.py
+@@ -35,7 +35,7 @@
+ 
+ 
+ def frozen26_root(testcase):
+-    """Replay only old26/29 authority with six pinned source overrides."""
++    """Replay only old26/29 authority with seven pinned source overrides."""
+     folder = tempfile.TemporaryDirectory()
+     testcase.addCleanup(folder.cleanup)
+     root = Path(folder.name)
+@@ -2735,7 +2735,29 @@
+ 
+ 
+ class OwnershipBindingTests(unittest.TestCase):
++    def test_lifecycle_r2_source_is_separate_from_the_original_p9_vector(self):
++        current = json.loads((ROOT/OWNERSHIP_STYLE).read_bytes())
++        impact = current['revision_impact']
++        self.assertEqual(impact['source_commit'], '4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a')
++        self.assertEqual(len(impact['frozen_candidate']), 11)
++        followup = impact['lifecycle_followup']
++        self.assertEqual(followup['base_commit'], '59537400af06a26046037840e28989f75933a265')
++        self.assertEqual(followup['source_commit'], '49a298b40890ccf4d9d2326d051f12a0ffe63c27')
++        self.assertEqual(followup['source_status'], 'committed_samebytes')
++        self.assertEqual(followup['quality_record'], 'docs/quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json')
++        self.assertEqual(followup['frozen_candidate'], [{'path': 'game/presentation/world/underworld_plains/underworld_presentation.gd', 'sha256': '1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18'}, {'path': 'tests/underworld_plains/test_underworld_formal.gd', 'sha256': '8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a'}, {'path': 'tests/quality_review_runner.gd', 'sha256': '58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f'}])
++        for source in followup['frozen_candidate']:
++            with self.subTest(source=source['path']):
++                self.assertEqual(hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest(), source['sha256'])
++        path = followup['frozen_candidate'][0]['path']
++        self.assertNotIn(path, [row['path'] for row in impact['frozen_candidate']])
++        role = next(row for row in current['runtime_reference']['references'] if row['path'] == path)
++        self.assertEqual(role['role'], 'world_presentation')
++        self.assertEqual(role['sha256'], followup['frozen_candidate'][0]['sha256'])
++        self.assertEqual(role['sha256'], hashlib.sha256((ROOT/path).read_bytes()).hexdigest())
++
+     def test_current27_preserves206_roles_media_and_only_six_source_changes(self):
++        # R2 extends the uncommitted technical binding by one independently tracked lifecycle leaf.
+         old = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+         new = json.loads((ROOT/OWNERSHIP_STYLE).read_bytes())
+         before = old['runtime_reference']['references']
+@@ -2751,7 +2773,7 @@
+                 actual_changes.append({'role':current['role'], 'path':current['path'],
+                                        'previous_sha256':previous['sha256'], 'sha256':current['sha256']})
+         self.assertEqual(new['revision_impact']['changed_references'], actual_changes)
+-        self.assertEqual(len(actual_changes), 6)
++        self.assertEqual(len(actual_changes), 7)
+         self.assertEqual(new['revision_impact']['added_references'], [])
+         self.assertEqual(new['supersedes'], {'path':FEATURE_LAYOUT_STYLE, 'sha256':hashlib.sha256((ROOT/FEATURE_LAYOUT_STYLE).read_bytes()).hexdigest()})
+         self.assertIn('no_inherited', new['runtime_reference']['status'])
+@@ -2762,8 +2784,8 @@
+         self.assertEqual(hashlib.sha256(raw).hexdigest(), history.STYLE26_MANIFEST_SHA)
+         manifest = json.loads(raw)
+         self.assertEqual(manifest['source_commit'], '6f743953d6c70c63d4d366a3e84cbe2a571b29d7')
+-        self.assertEqual(len(manifest['sources']), 6)
+-        self.assertEqual(len(manifest['files']), 12)
++        self.assertEqual(len(manifest['sources']), 7)
++        self.assertEqual(len(manifest['files']), 13)
+         self.assertFalse(manifest['selection']['media_copied'])
+         style = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
+         prior = {r['path']:r for r in style['runtime_reference']['references']}
+--- a/tools/harness/profiles.json
++++ b/tools/harness/profiles.json
+@@ -4503,7 +4503,9 @@
+         "game/bosses/windkeeper/windkeeper_encounter.gd",
+         "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+         "docs/creative_direction/archive/ownership-closeout-before-style27",
+-        "tests/test_region_creative_direction.py"
++        "tests/test_region_creative_direction.py",
++        "tests/underworld_plains/test_underworld_formal.gd",
++        "tests/quality_review_runner.gd"
+       ],
+       "weight_seconds": 0.5
+     },
+--- a/tools/region_style_history.py
++++ b/tools/region_style_history.py
+@@ -42,10 +42,10 @@
+ 
+ 
+ STYLE26_ARCHIVE = 'docs/creative_direction/archive/ownership-closeout-before-style27'
+-STYLE26_MANIFEST_SHA = '3fb419cb79a4e01992af4b2ea8e939589c7f26cf0030190768eb7f6b485aab72'
++STYLE26_MANIFEST_SHA = '28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229'
+ 
+ 
+ def style26_source(root, path):
+-    """Six prior26 leaves only; never used by current binding validators."""
++    """Seven prior26 leaves only; never used by current binding validators."""
+     raw = archived_source(root, STYLE26_ARCHIVE, path, STYLE26_MANIFEST_SHA)
+     return repository_file(path, root).read_bytes() if raw is None else raw

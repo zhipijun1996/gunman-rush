@@ -23,7 +23,7 @@ func visible_bodies(player: PlayerMotor) -> int:
 	return count
 
 func run() -> void:
-	var app := preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	var app := preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(3)

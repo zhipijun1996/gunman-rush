@@ -1,0 +1,45 @@
+{
+  "decision": "LIMITED_STATIC_ACCEPT_NATIVE_PENDING",
+  "reviewer": "preview_audit; non-author",
+  "candidate_patch_sha256": "7b4ca67a4ca1ca94b1fa0fd918df75920d2c3355f490bd477da5f74bc5d781ec",
+  "candidate_freeze_sha256": "0c92327eb9bb0c4c73a23842c8ad7403e136869230451c8e643dbef0f7fd5a85",
+  "files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "9b2c23b0bdc0f33c3323f086335c9d688a75e42900766743f9906aaa45ad29a7",
+      "after_sha256": "f2a034d09e501e0f08b2c7c4a028b05d41a6ba93e1e3945fac84c04b9bcd8684"
+    },
+    {
+      "path": "game/enemies/enemy_actor.gd",
+      "before_sha256": "8a6a9d26976fee259b5e015616ac5a1e315249b9d536e098e5ed33a5e957f07b",
+      "after_sha256": "7be84347496bb32de0bb7636af0cc065207636b60fd4123682edcd2c364e4f3a"
+    }
+  ],
+  "verified": {
+    "all_frozen_hashes": true,
+    "whole_app_inverse_byte_exact_including_prior_forest_migration": true,
+    "whole_actor_inverse_byte_exact": true,
+    "moved_logic_inverse_byte_exact": true,
+    "original_six_errors_order": [
+      "Recorded forest migration shores rejected",
+      "Recorded forest migration state missing",
+      "Recorded forest alternating web geometry rejected",
+      "Recorded forest alternating web state missing",
+      "Recorded forest thread geometry rejected",
+      "Recorded forest actor state rejected"
+    ],
+    "branch_order": "shores validation/configuration/presence -> optional transfer -> Weaver strands/state OR thread line -> saved-state restoration -> attack limit -> App presentation/contact",
+    "short_circuit_and_presence": "Original and/or, has(String(id)), has(depth_state), get(depth_state) is Dictionary, typed saved Dictionary preserved. Empty/present/malformed state is not normalized.",
+    "disconnected": "Conditional argument does not evaluate region_state.actors when disconnected; owner checks still short-circuit on connected_region.",
+    "attack_limit": "Same expression, one synchronous call only after successful configuration/restoration and only with behavior. No await, retained Callable, or direct App/director object parameter. Lambda transiently evaluates caller policy; not a stored owner reference.",
+    "error_consumer": "App push_error/abandon_run/return preserved synchronously before presentation/contact.",
+    "prebinding": "policy, protected points, bind_encounter untouched"
+  },
+  "limits": [
+    "Static source equivalence only; no Godot execution or parsing acceptance.",
+    "Borrowed actor-record Dictionary preserves current ordinary-field access contract; no new malformed-record recovery introduced.",
+    "Existing native owner/restore/forest integration checks remain required by root."
+  ],
+  "main_modified": false,
+  "engine_run": false
+}

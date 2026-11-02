@@ -88,7 +88,7 @@ func fixture(id: String,h_enabled := true,hazard_probe := false,body_probe := fa
 		var anchor := GrappleAnchor.new();anchor.position=Vector2(row.position[0],row.position[1]);world.add_child(anchor)
 	var camera := Camera2D.new();camera.position=Vector2(400,250);world.add_child(camera);camera.make_current()
 	var canvas := CanvasLayer.new();world.add_child(canvas);caption=Label.new();caption.position=Vector2(16,16);canvas.add_child(caption)
-	player=load("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	player=load("res://game/player/player.tscn").instantiate() as PlayerMotor
 	player.position=fixture_spawn(hazard_probe,body_probe) # Initial fixture spawn only.
 	world.add_child(player)
 	controller=player.get_node("Controller") as PlayerController

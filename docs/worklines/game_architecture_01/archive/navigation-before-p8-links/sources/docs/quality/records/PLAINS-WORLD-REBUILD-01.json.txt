@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-WORLD-REBUILD-01",
+  "task_type": "region",
+  "workflow": "review",
+  "baseline_commit": "28236ef9e5546c7c3d588f67e8e99813b5ac6e9f",
+  "reviewed_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+  "content_version": "plains-world-rebuild-v3",
+  "owner": "root",
+  "purpose": "Start from continuous world structure, jointly derive playable surfaces and actual painted volume; no old plains geometry compatibility required",
+  "player_experience": "Two finite continuous plains layouts with actual crossing, creek recovery, climbing and combat; not a whole random region or final user-approved style.",
+  "constraints": [
+    "Preserve Motor/combat/input/resources/save/enemy base and forest",
+    "Explicit isolated candidate, no formal pool promotion",
+    "First continuous body art/play admission before second layout",
+    "First checkpoint 90 minutes; two no-progress art rounds stop method"
+  ],
+  "affected_paths": [
+    "resources/generation/plains_world_rebuild.json",
+    "scripts/generation/plains_world_rebuild.gd",
+    "scripts/art/plains_world_rebuild_composer.gd",
+    "scripts/demo/plains_world_rebuild_stage.gd",
+    "scripts/demo/demo_app.gd",
+    "tools/plains_world_rebuild_preview.gd",
+    "tools/run_plains_world_rebuild_tests.py",
+    "tools/level_design.py",
+    "tools/visual_director.py",
+    "tools/harness/profiles.json",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/visual-director/SKILL.md"
+  ],
+  "deliverables": [
+    "Source-authoritative whole-landform construction jointly consumed by actual collision, painting, routes and composition.",
+    "Two actually played finite layouts using the same four painted source images; scoped independent admission.",
+    "Strict matching-source Linux package, original failures, normal movies and explicit unverified extension/random-region boundaries."
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "P1-derived current pen/watercolor plains source family remains a candidate, not mandatory global visual authority",
+      "basis": "User leaned P1; the latest actual engine frames have not received final user style approval."
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Scoped source-authoritative continuous-landform intent, real producers and explicit boundaries.",
+      "evidence": [
+        "design"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Finite candidate proof exists; full region/formal/user/device gate not completed.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Finite candidate proof exists; full region/formal/user/device gate not completed.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Finite candidate proof exists; full region/formal/user/device gate not completed.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Finite candidate proof exists; full region/formal/user/device gate not completed.",
+      "evidence": [
+        "native",
+        "independent"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Finite candidate proof exists; full region/formal/user/device gate not completed.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Finite joint construction designed and consumed; not complete-region approval.",
+      "evidence": [
+        "design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Scoped native/unchanged-core and package verification passed with current runtime. Full CI/Web not run.",
+      "evidence": [
+        "native",
+        "package"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Explicit candidate only; not promoted to formal plains resource pool.",
+      "evidence": [
+        "package"
+      ]
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "Internal limited normal-view painting/readability acceptance for two constructions; user style remains unapproved.",
+      "evidence": [
+        "visual"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Actual actor/weapon motion filmed; no new complete animation style or full-film playback acceptance.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "48k stereo encoded; no actual listening or complete audiovisual review.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Actual Motor routes passed, but human enjoyment/hand-feel acceptance absent.",
+      "evidence": [
+        "native"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Not independently verified for complete region or user/device acceptance.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Read-only independent art reviewer admitted second layout within explicit finite bounds.",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Not independently verified for complete region or user/device acceptance.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Not independently verified for complete region or user/device acceptance.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "source-world",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Full source body jointly defines route/contact/collider/painting",
+      "method": "Actual execution/review described in linked evidence; scope is finite constructions",
+      "expected": "One registered paint frame is consumed by real world systems",
+      "failure": "Wrong source, broken contact, unsafe route, occluded actor, bad connection or unsupported extrapolation rejects the relevant scope",
+      "status": "passed",
+      "reason": "Observed within explicitly finite candidate scope; does not pass whole-region gate",
+      "evidence": [
+        "design"
+      ]
+    },
+    {
+      "id": "actual-contracts",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Two registered layouts, core branch regressions and current PCK",
+      "method": "Actual execution/review described in linked evidence; scope is finite constructions",
+      "expected": "124/138/1310 checks, source stable and strict exits",
+      "failure": "Wrong source, broken contact, unsafe route, occluded actor, bad connection or unsupported extrapolation rejects the relevant scope",
+      "status": "passed",
+      "reason": "Observed within explicitly finite candidate scope; does not pass whole-region gate",
+      "evidence": [
+        "native",
+        "package"
+      ]
+    },
+    {
+      "id": "normal-frame",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Actual normal-view source rendering after UV rejection",
+      "method": "Actual execution/review described in linked evidence; scope is finite constructions",
+      "expected": "Whole shoulder/strata remain painted, actual actor visible within finite domain",
+      "failure": "Wrong source, broken contact, unsafe route, occluded actor, bad connection or unsupported extrapolation rejects the relevant scope",
+      "status": "passed",
+      "reason": "Observed within explicitly finite candidate scope; does not pass whole-region gate",
+      "evidence": [
+        "visual"
+      ]
+    },
+    {
+      "id": "independent-transfer",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Read-only comparison of new wide/high-low layout and first admission",
+      "method": "Actual execution/review described in linked evidence; scope is finite constructions",
+      "expected": "Limited four-source reuse admitted without full-region inference",
+      "failure": "Wrong source, broken contact, unsafe route, occluded actor, bad connection or unsupported extrapolation rejects the relevant scope",
+      "status": "passed",
+      "reason": "Observed within explicitly finite candidate scope; does not pass whole-region gate",
+      "evidence": [
+        "independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design",
+      "path": "docs/evidence/plains_world_rebuild/findings.md",
+      "sha256": "81d78a8e9c2179eaa7b278c873ae4a41cba0db01c7049f2264f8b6862d2eeebf",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "content_version": "plains-world-rebuild-v3",
+      "method": "Actual source/consumer and three-method comparison",
+      "observed": "Two finite layouts; source frame constrains contacts, collision, route and direct painting; external extension untested."
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/plains_world_rebuild/final-validation.json",
+      "sha256": "82fe7e1de63dbc6187331ecb4b47bc7f0e420562f17834e9bbc1594689e47d45",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "content_version": "plains-world-rebuild-v3",
+      "method": "Derived exact original-report command/status/hash summary; originals preserved separately",
+      "observed": "Native0 124, native1 138, unchanged branch library1310, normal GUI/route and source stability passed.",
+      "command": "python3 tools/run_plains_world_rebuild_tests.py; bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/branch_library_runner.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux cloud software renderer/Dummy audio; no hardware claim"
+    },
+    {
+      "id": "visual",
+      "path": "docs/evidence/plains_world_rebuild/delivery/actual_packed_gui.png",
+      "sha256": "0771e957527af9469bf72d32d130c15f770a3bd6c275119a9e11b03329487829",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "content_version": "plains-world-rebuild-v3",
+      "method": "Actual packed normal-camera GUI, matching current source snapshot",
+      "observed": "Finite first construction in packed game; final two-layout review separate, not user preference approval."
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/plains_world_rebuild/independent-art-04.md",
+      "sha256": "b83f688d2a8ffad37c64145624e3652fea871c78c8d20197dfc6da19db300833",
+      "kind": "review",
+      "producer": "rebuild_art_review",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "content_version": "plains-world-rebuild-v3",
+      "method": "Read-only independent actual normal frames and battle movie extracts",
+      "observed": "ACCEPT_SCOPED same four source images in distinct creek/high-low layout; no random-region inference.",
+      "reviewer": "rebuild_art_review",
+      "implementers": [
+        "root",
+        "rebuild_runtime",
+        "rebuild_structure",
+        "rebuild_verification"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not edit production assets, runtime, generation or tests and did not operate the engine; only review reports."
+    },
+    {
+      "id": "package",
+      "path": "docs/evidence/plains_world_rebuild/delivery/version.json",
+      "sha256": "f39a21c73f0c77feeed5ff683d7a4250ddf4b652c89cb2c0aeb6320b749d3de0",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "content_version": "plains-world-rebuild-v3",
+      "method": "PCK byte verification, empty-cwd headless/GUI full actual snapshot and strict exit",
+      "observed": "1529 input byte matches; current ba787 PCK/ZIP; manual candidate not formal release.",
+      "command": "python3 /tmp/plains_world_rebuild/delivery/prepare_bundle.py --expected-commit ba787df7261dba40f75409a3b99457dd9bbef985 --capture-report /tmp/plains_world_rebuild/render_layout0_final/report.json --output /tmp/plains_world_rebuild/delivery/build_01 --execute",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2; cloud software GUI; Dummy audio"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "External extension port actual consumption and seamless bank-to-bank source joining",
+    "Seed-driven structural randomization; full region topology/exploration/Boss flow",
+    "Global depth/parallax/art coordination and complete HUD style",
+    "Full CI/Web, real-time hardware performance, actual listening",
+    "User style approval, human playtest/mobile/controller and commercial image license"
+  ]
+}

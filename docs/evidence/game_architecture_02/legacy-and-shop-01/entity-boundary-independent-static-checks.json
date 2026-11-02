@@ -1,0 +1,14 @@
+{
+  "base": "2ce4ffa6",
+  "reviewed_head": "d8144d39",
+  "status": "passed",
+  "checks": [
+    "Generic restore assignments exactly match old App statements after owner qualification removal, including ordering and optional vectors.",
+    "Crossbranch and Weaver depth restore implementations are unchanged from 2ce.",
+    "All three real Stage capture consumers use the shared Actor snapshot; no old per-Stage enemy snapshot algorithm remains.",
+    "Appended outer snapshot fields use bracketed String keys; depth_state intentionally retains original dot-inserted StringName key.",
+    "All eight registered enemy scenes bind Actor.motor to the parent EnemyMotor; local position source is unchanged.",
+    "Registry tables, refusal rules, construction and strategy lookup are unchanged; candidate_behavior only exposes the existing mapping.",
+    "Actual ModuleEnemyPrototypes and ActionStudio candidate consumers continue through EnemyFactory into the one registry."
+  ]
+}

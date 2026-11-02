@@ -1,0 +1,201 @@
+{
+  "status": "passed",
+  "seconds": 4.7563708660018165,
+  "strict_errors": [],
+  "source_stable": true,
+  "baseline_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+  "baseline_generated_from_exact_git": true,
+  "candidate_four_source_vector": [
+    {
+      "path": "game/enemies/presentation/plains_revision_pose.gd",
+      "baseline_sha256": "41ce2a2192376551ec9eb21b0134437c23036361d79d7640758cc0329e5ac972",
+      "candidate_sha256": "7d896cb27f9722a279904164c9217a148325f4648744285a9d47a358910b558d",
+      "lexical_inverse_exact": true
+    },
+    {
+      "path": "game/enemies/presentation/plains_revision_ground.gd",
+      "baseline_sha256": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54",
+      "candidate_sha256": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54",
+      "lexical_inverse_exact": true
+    },
+    {
+      "path": "game/enemies/presentation/plains_revision_flora.gd",
+      "baseline_sha256": "1bfcaa098d9c00464a308fdd1c2972f518837ee1ccb91e64eae4b48724812cb3",
+      "candidate_sha256": "8ecb41f063aba37cc398a0b41d954c9f09c4b1056718619cd14f5d40719fdb47",
+      "lexical_inverse_exact": true
+    },
+    {
+      "path": "game/enemies/presentation/plains_revision_skin.gd",
+      "baseline_sha256": "46b8f653f20f5f5601f1c003f405775f064a4549788bc01a705d9e4978102b99",
+      "candidate_sha256": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50",
+      "lexical_inverse_exact": true
+    }
+  ],
+  "checked_kernel_vertices": 354375,
+  "kernel_byte_failures": 0,
+  "first_constructor": [
+    {
+      "cold_kind": true,
+      "cold_topology": true,
+      "kind": "root_bell",
+      "ms": 0.307,
+      "scope": "first_constructor",
+      "variant": "e42",
+      "vertices": 625
+    },
+    {
+      "cold_kind": true,
+      "cold_topology": true,
+      "kind": "root_bell",
+      "ms": 0.491,
+      "scope": "first_constructor",
+      "variant": "candidate",
+      "vertices": 625
+    },
+    {
+      "cold_kind": true,
+      "cold_topology": false,
+      "kind": "patrol",
+      "ms": 0.258,
+      "scope": "first_constructor",
+      "variant": "e42",
+      "vertices": 625
+    },
+    {
+      "cold_kind": true,
+      "cold_topology": false,
+      "kind": "patrol",
+      "ms": 0.036,
+      "scope": "first_constructor",
+      "variant": "candidate",
+      "vertices": 625
+    }
+  ],
+  "first_and_repeat_draw": [
+    {
+      "case": "moving",
+      "cold_weight_template": false,
+      "samples_ms": [
+        6.6,
+        4.119
+      ],
+      "scope": "new_instance_first_draw_and_repeat_cpu",
+      "topology_already_warm": true,
+      "variant": "e42"
+    },
+    {
+      "case": "moving",
+      "cold_weight_template": true,
+      "samples_ms": [
+        3.902,
+        1.97
+      ],
+      "scope": "new_instance_first_draw_and_repeat_cpu",
+      "topology_already_warm": true,
+      "variant": "candidate"
+    },
+    {
+      "case": "hurt_attack",
+      "cold_weight_template": false,
+      "samples_ms": [
+        5.177,
+        3.227
+      ],
+      "scope": "new_instance_first_draw_and_repeat_cpu",
+      "topology_already_warm": true,
+      "variant": "e42"
+    },
+    {
+      "case": "hurt_attack",
+      "cold_weight_template": false,
+      "samples_ms": [
+        2.228,
+        1.708
+      ],
+      "scope": "new_instance_first_draw_and_repeat_cpu",
+      "topology_already_warm": true,
+      "variant": "candidate"
+    },
+    {
+      "case": "dying",
+      "cold_weight_template": false,
+      "samples_ms": [
+        5.296,
+        3.499
+      ],
+      "scope": "new_instance_first_draw_and_repeat_cpu",
+      "topology_already_warm": true,
+      "variant": "e42"
+    },
+    {
+      "case": "dying",
+      "cold_weight_template": false,
+      "samples_ms": [
+        3.041,
+        3.334
+      ],
+      "scope": "new_instance_first_draw_and_repeat_cpu",
+      "topology_already_warm": true,
+      "variant": "candidate"
+    }
+  ],
+  "summary": [
+    {
+      "scope": "repeat_constructor",
+      "label": "root_bell",
+      "samples_each": 240,
+      "baseline_mean_ms": 0.19652083333333337,
+      "candidate_mean_ms": 0.007108333333333333,
+      "reduction_percent": 96.38291105692781,
+      "speedup": 27.646541617819466,
+      "round_speedup_min": 26.001557632398757,
+      "round_speedup_max": 28.867403314917123
+    },
+    {
+      "scope": "repeat_constructor",
+      "label": "patrol",
+      "samples_each": 240,
+      "baseline_mean_ms": 0.1985125,
+      "candidate_mean_ms": 0.008583333333333333,
+      "reduction_percent": 95.67617488403333,
+      "speedup": 23.127669902912622,
+      "round_speedup_min": 21.24146649810364,
+      "round_speedup_max": 24.736666666666668
+    },
+    {
+      "scope": "prepare_and625_kernel",
+      "label": "moving",
+      "samples_each": 180,
+      "baseline_mean_ms": 3.471477777777778,
+      "candidate_mean_ms": 1.905688888888889,
+      "reduction_percent": 45.104390381297755,
+      "speedup": 1.8216393022062596,
+      "round_speedup_min": 1.808790350572713,
+      "round_speedup_max": 1.8315410916434873
+    },
+    {
+      "scope": "prepare_and625_kernel",
+      "label": "hurt_attack",
+      "samples_each": 180,
+      "baseline_mean_ms": 3.3366055555555554,
+      "candidate_mean_ms": 1.905888888888889,
+      "reduction_percent": 42.87940671574071,
+      "speedup": 1.750682096426281,
+      "round_speedup_min": 1.6894451520198541,
+      "round_speedup_max": 1.8216327885785975
+    },
+    {
+      "scope": "prepare_and625_kernel",
+      "label": "dying",
+      "samples_each": 180,
+      "baseline_mean_ms": 4.085016666666666,
+      "candidate_mean_ms": 3.2160111111111114,
+      "reduction_percent": 21.272999022171803,
+      "speedup": 1.2702122366907243,
+      "round_speedup_min": 1.2548504362276696,
+      "round_speedup_max": 1.2857121743585687
+    }
+  ],
+  "limitation": "Native single-process synthetic CPU cost on this host. Cold firstconstructor/draw are individual samples, not statistical claims. No mobile/Web/GPU/fullmap end-to-end FPS evidence.",
+  "receipt_sha256": "0f474b2ddf9d98abdb03e9daa00802992c2f4f0c2d210d347aa79be6f9bfec01"
+}

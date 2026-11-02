@@ -1,0 +1,31 @@
+{
+  "binding_author": "/root/structure_audit",
+  "scope": "Same-byte inheritance of existing limited independent reviews; no fabricated new browser/engine execution or change of original review fields.",
+  "browser": {
+    "tool_commit": "e8c578ebc82cce7f699e85f41a605a8eb5d8fa68",
+    "game_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+    "original_review": "final-ab263-three-browser-independent-review.json",
+    "original_review_sha256": "44a3ff97b0289b190f488cbe0946785b40dd7735562bc5755e4f4e5f1d2a9f92",
+    "original_review_status": "LIMITED_ACCEPT_ACTUAL_THREE_BROWSER_CONSUMERS_LOCAL_EXPORT",
+    "binding": "final-source-binding.json",
+    "binding_sha256": "d6da713ab73dc9cb051d1ff16f5650c719e980f2e52d7693a5bfaec9a48e4e96",
+    "verdict": "ACCEPT",
+    "limits": "Only existing original3 local export execution, current tool bytes and declared source/budget guards; not API artifact/device/content acceptance."
+  },
+  "ci": {
+    "reviewed_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+    "original_review": "popup-ui-impact-mapping-independent-review.json",
+    "original_review_sha256": "7dc19898a45a0427f4a7767ecb1169a842692628227de9939ce364218fbc5aec",
+    "candidate_patch_sha256": "9df6a46270f1c42b0e7b5c93f581564b606c116e6fd99ad6438263bd61392992",
+    "files": {
+      "config/production_impact.json": "bea5176ed22e7d62cb3c8e570b9ddf9bebe5033c67e7ffbdf815b1971c5c9cac",
+      "tests/test_production_plan.py": "b508bc9d5936aaee235b266e20cb2dab52b33c7f50a77f5ec56bdf3ba84bb9fe"
+    },
+    "same_bytes_as_reviewed_candidate": true,
+    "profiles_bytes_same_as_ab263": true,
+    "actual48_log": "final-ui-ci-ownership-48-02.log",
+    "actual48_log_sha256": "1dbccba57f14de829107e667fdb4fd9dec09f7739e65411e6fd2ee5a1b2f16f3",
+    "verdict": "ACCEPT",
+    "limits": "Only current selector/config mapping and48pure checks; no current full171 claim. Original independent candidate review retains its original baseline."
+  }
+}

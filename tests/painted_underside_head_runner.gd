@@ -1,7 +1,7 @@
 extends SceneTree
 ## Isolated legal initial-spawn fixture over actual generated formal geometry.
 ## Not evidence that the normal route reaches the banks' undersides.
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 var output := "res://build/painted_terrain/underside_head"
 var world: Node2D
 var results: Array=[]
@@ -38,11 +38,11 @@ func probe(source_column: int) -> void:
 	groups.sort_custom(func(a: Dictionary,b: Dictionary)->bool:return a.bounds.get_center().distance_to(spawn)<b.bounds.get_center().distance_to(spawn))
 	var group: Dictionary=groups[1]
 	var bounds: Rect2=group.bounds
-	var adapter := load("res://scripts/art/painted_formal_terrain_sample.gd").new() as Node2D
+	var adapter := load("res://experiments/terrain/art/painted_formal_terrain_sample.gd").new() as Node2D
 	var outline: Array=adapter.call("_outline",group.faces);adapter.free()
-	var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://resources/visual_development/painted_terrain_candidate.json"))
+	var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json"))
 	var spec: Dictionary=catalog.terrain.grammar.duplicate(true);spec.source_x_offsets={"head_shore":287};spec.face_patches=[];spec.visible_underside=catalog.formal_second_space.visible_underside
-	var grammar := load("res://scripts/art/painted_terrain_grammar.gd").new() as Node2D
+	var grammar := load("res://game/presentation/world/art/painted_terrain_grammar.gd").new() as Node2D
 	grammar.call("configure",{"solid_polygons":[{"id":"head_shore","points":outline}],"top_polylines":[{"id":"head_grass","points":[[bounds.position.x,bounds.position.y],[bounds.end.x,bounds.position.y]]}]},spec);world.add_child(grammar)
 	var x := bounds.position.x+(source_column-float(spec.visible_underside.source_start))/float(spec.source_pixels_per_world_unit)
 	var floor_body := StaticBody2D.new();floor_body.position=Vector2(x,bounds.end.y+110)

@@ -349,7 +349,7 @@ func begin() -> void:
 		{"id":"candidate_return_step1","rect":[-60.0,618.0,100.0,20.0],"one_way":true}],"reward_position":[-525.0,250.0],"observation_rect":[96.0,420.0,64.0,60.0],"observation_focus":[-350.0,252.0]}
 	for row: Dictionary in crossbranch_candidate.support_rows:
 		_candidate_support(row)
-	var scene: PackedScene=load("res://scenes/enemies/forest_crossbranch.tscn")
+	var scene: PackedScene=load("res://game/enemies/species/scenes/forest_crossbranch.tscn")
 	var npc:=scene.instantiate() as EnemyMotor
 	npc.position=Vector2(76,452);stage.add_child(npc)
 	crossbranch_actor=npc.get_node("Actor") as EnemyActor

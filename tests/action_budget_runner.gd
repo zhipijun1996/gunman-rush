@@ -157,7 +157,7 @@ func hook_assist(hz: int) -> void:
 	check(retract_ticks*dt<=safe_reel_time+.001 and controller.traversal.state==&"free" and controller.traversal.hook_used,"miss retracts fast without refunding air hook %s ticks=%s state=%s used=%s" % [hz,retract_ticks,controller.traversal.state,controller.traversal.hook_used])
 
 func hook_patrol(point: Vector2, direction: int) -> EnemyActor:
-	var target: EnemyMotor=preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
+	var target: EnemyMotor=preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate()
 	var actor: EnemyActor=target.get_node("Actor")
 	actor.definition=preload("res://resources/enemies/patrol_drone.tres").duplicate(true)
 	actor.definition.health_definition.max_health=100;actor.definition.health_definition.initial_current=100

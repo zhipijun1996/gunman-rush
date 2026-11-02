@@ -36,7 +36,7 @@ def main():
             part = part.resize(size, Image.Resampling.NEAREST)
             part.save(OUT / (name+'.png'))
             recipes.append({'id': name, 'source': filename, 'source_region': [a+bounds[0],bounds[1],bounds[2]-bounds[0],bounds[3]-bounds[1]], 'operation': 'RGBA crop at alpha>8 bounds then nearest resize; retained RGBA unchanged before resizing, no recolor or repaint', 'output_size': list(size), 'sha256': hashlib.sha256((OUT/(name+'.png')).read_bytes()).hexdigest()})
-    (OUT/'actors_build.json').write_text(json.dumps({'schema':'underworld-actors-v1','recipes':recipes,'consumer_scripts':['scripts/underworld_plains/underworld_actors.gd','scripts/underworld_plains/underworld_enemy.gd'], 'animation_scope':'state-driven pose, squash, stride and overlay; not a complete painted frame animation set'},indent=2)+'\n')
+    (OUT/'actors_build.json').write_text(json.dumps({'schema':'underworld-actors-v1','recipes':recipes,'consumer_scripts':['game/presentation/actors/underworld_plains/underworld_actors.gd','game/presentation/actors/underworld_plains/underworld_enemy.gd'], 'animation_scope':'state-driven pose, squash, stride and overlay; not a complete painted frame animation set'},indent=2)+'\n')
 
 if __name__ == '__main__':
     main()

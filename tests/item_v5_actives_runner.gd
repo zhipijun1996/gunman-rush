@@ -2,8 +2,8 @@ extends SceneTree
 ## Isolated module fixture, not a formal run or natural-route acceptance.
 ## Uses the actual Player scene, Motor floor contact, physics rays and Damageable;
 ## only the host's catalog/equipment and committed-damage bridge are isolated.
-const ACTIVE := preload("res://scripts/items/v5/item_active_effects.gd")
-const COMPANIONS := preload("res://scripts/items/v5/item_companion_effects.gd")
+const ACTIVE := preload("res://game/loadout/effects/item_active_effects.gd")
+const COMPANIONS := preload("res://game/loadout/effects/item_companion_effects.gd")
 const DT := 1.0/60.0
 var assertions := 0
 var failures := 0
@@ -26,6 +26,8 @@ class ModuleHost extends RefCounted:
 	# One deliberate local bridge refusal checks that G08 consumes its mark only
 	# after accepted Damageable HP settlement, not merely after target selection.
 	var reject_deals: int = 0
+	var line_queries := 0
+	var target_queries := 0
 	var clock := 0.0
 	var map_id: StringName = &"fixture/map1"
 	var live := true
@@ -52,8 +54,10 @@ class ModuleHost extends RefCounted:
 		if companion_module != null: companion_module.call("on_energy_spent", skill_cost(amount), receipt)
 		return true
 	func clear_line(start: Vector2, finish: Vector2) -> bool:
+		line_queries += 1
 		return controller.motor.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(start, finish, 1, [controller.motor.get_rid()])).is_empty()
 	func targets(point: Vector2, radius: float) -> Array[Dictionary]:
+		target_queries += 1
 		var result: Array[Dictionary] = []
 		for node: Node2D in targets_list:
 			if not is_instance_valid(node): continue
@@ -254,6 +258,50 @@ func growth_damage_and_s12() -> void:
 	check(is_equal_approx(marked.health,80.68),"S12 a new accepted mark identity grants exactly one fresh grown first-hit bonus")
 	check(nearby.health == nearby_before and host.controller.combat_energy.current == 10 and host.events.all(func(row: Dictionary) -> bool: return row.origin == &"G19" and row.derived),"S12 all actual grown hits remain derived, preserve mark priority and never generate resonance")
 
+func companion_target_query_regression() -> void:
+	await fresh()
+	var blocked := enemy(Vector2(120,150))
+	var visible := enemy(Vector2(80,70))
+	var distant := enemy(Vector2(80,-70))
+	fixture.body(Rect2(98,130,4,40))
+	await physics_frame
+	host.line_queries = 0
+	var selected := companions._target(Vector2(80,150))
+	check(selected.get("receiver") == visible and selected.get("receiver") != blocked, "ordinary companion skips the nearer real occluded receiver and keeps the first visible target")
+	check(host.line_queries == 2, "ordinary companion stops real LOS queries after the first visible target")
+	equip(&"G08")
+	host.marks[distant.get_instance_id()] = &"target_query/pursuit"
+	host.line_queries = 0
+	selected = companions._target(Vector2(80,150))
+	check(selected.get("receiver") == distant and host.line_queries == 3, "G08 still searches past the ordinary target for a later visible pursuit mark")
+	host.marks.clear()
+	host.line_queries = 0
+	selected = companions._target(Vector2(80,150))
+	check(selected.get("receiver") == visible and host.line_queries == 3, "G08 without a visible mark retains the original first-target fallback after checking all candidates")
+	host.targets_list.clear()
+	host.line_queries = 0
+	check(companions._target(Vector2(80,150)).is_empty() and host.line_queries == 0, "empty companion candidates produce no LOS query or invented target")
+
+	# S02 intentionally remains eager when one device has no legal allocation:
+	# a new higher-ranked mark can invalidate locks even during attack cooldown.
+	await fresh()
+	equip(&"P14"); equip(&"B19")
+	var only := enemy(Vector2(180,150))
+	await physics_frame
+	companions.sync()
+	host.target_queries = 0
+	advance(1.5,1.5)
+	check(host.target_queries == 3 and int(patrol_locks().get(only.get_instance_id(),0)) == 2, "S02 original allocation queries all three devices and caps one receiver at two locks")
+	host.target_queries = 0
+	advance(DT,DT)
+	check(host.target_queries == 3 and host.events.size() == 2, "S02 idle third device keeps immediate retry while the two actual attack deadlines remain unchanged")
+	var new_mark := enemy(Vector2(220,150))
+	host.dream_marks[new_mark.get_instance_id()] = {"key":&"target_query/new_dream","expires_at":host.clock+4.0}
+	await physics_frame
+	host.target_queries = 0
+	advance(DT,DT)
+	check(host.target_queries == 3 and int(patrol_locks().get(new_mark.get_instance_id(),0)) == 2, "new dream priority still revalidates all S02 locks before their next attacks")
+
 func _run() -> void:
 	await fresh()
 	check(not actives.activate(&"B33",Vector2.RIGHT).accepted and is_equal_approx(host.controller.combat_energy.current,100), "unowned active cannot spend")
@@ -400,6 +448,7 @@ func _run() -> void:
 	check(int(patrol_locks().get(0,0))==3, "unloadingdreamitemclearsS02locks")
 	await companion_lifetimes_and_damage()
 	await growth_damage_and_s12()
+	await companion_target_query_regression()
 	actives.clear();companions.clear()
 	fixture.world.free()
 	await process_frame

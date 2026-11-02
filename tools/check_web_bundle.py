@@ -1,4 +1,5 @@
 """Verify cached bytes and the runtime resource closure inside the actual Web PCK."""
+import ast
 import gzip
 import fnmatch
 import hashlib
@@ -10,17 +11,43 @@ import sys
 
 REPO = Path(__file__).resolve().parents[1]
 SPACES = 'assets/region_production_v3/spaces/'
-LANDSCAPE = 'scripts/art/plains_semantic_landscape.gd'
-ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
-TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
-BACKGROUND = 'scripts/art/plains_background.gd'
-CONNECTED = 'scripts/art/plains_connected_landscape.gd'
+LANDSCAPE = 'game/presentation/world/art/plains_semantic_landscape.gd'
+ROOT_BELL = 'game/enemies/presentation/root_bell_presentation.gd'
+TERRAIN = 'game/presentation/world/art/plains_terrain_family_sampler.gd'
+BACKGROUND = 'game/presentation/world/art/plains_background.gd'
+CONNECTED = 'game/presentation/world/art/plains_connected_landscape.gd'
 CONNECTED_ROOT = 'assets/production_repair/'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
                                                         SPACES + 'supported_overhang_limestone_bank_v1/',
                                                         CONNECTED_ROOT + 'connected_cliff_v1/',
                                                         CONNECTED_ROOT + 'connected_cliff_v2/')
+
+
+def verify_delivery_metadata(root, commit):
+    """Check transported metadata after full Harness output custody verification.
+
+    This does not replace the original PCK/runtime-closure check; the full
+    release proof must already bind every transported byte, including metadata.
+    """
+    root = Path(root)
+    metadata = json.loads((root / "build-info.json").read_text())
+    if not re.fullmatch(r"[0-9a-f]{40}", commit) or metadata.get("source_commit") != commit:
+        raise ValueError("Transferred Web metadata belongs to a different source commit")
+    name = metadata.get("pack")
+    if (not isinstance(name, str) or not name or name != Path(name).name
+            or "\\" in name or not name.endswith(".pck")):
+        raise ValueError("Invalid transferred Web pack path")
+    pack = root / name
+    if pack.is_symlink() or not pack.is_file():
+        raise ValueError("Missing/linked transferred Web pack")
+    with pack.open("rb") as stream:
+        digest = hashlib.file_digest(stream, "sha256").hexdigest()
+    if (metadata.get("build_id") != digest[:12]
+            or type(metadata.get("pack_bytes")) is not int
+            or metadata["pack_bytes"] != pack.stat().st_size):
+        raise ValueError("Transferred Web pack bytes disagree with metadata")
+    return metadata
 
 
 def excluded_evidence_families(repo):
@@ -38,7 +65,7 @@ def check_excluded_consumers(repo):
     families = excluded_evidence_families(repo)
     suffixes = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc', '.cfg',
                 '.gdextension', '.cs', '.glsl', '.shader', '.res', '.scn'}
-    for directory in ('scripts', 'scenes', 'resources', 'config'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'game', 'experiments'):
         for source in (Path(repo) / directory).rglob('*'):
             if source.is_file() and source.suffix in suffixes:
                 data = source.read_bytes()
@@ -267,6 +294,92 @@ def texture_import_targets(text):
     return targets
 
 
+def recorded_enemy_contract(repo):
+    """Read only the finite revision maps in the actual construction registry.
+
+    Resource paths/hashes remain owned by BEHAVIORS, shared with the raw-export
+    addon. Unsupported expressions fail closed instead of omitting a revision.
+    """
+    registry = Path(repo) / 'game/enemies/enemy_behavior_registry.gd'
+    if not registry.is_file():
+        return {}  # Small unrelated asset fixtures have no enemy consumer.
+    source = registry.read_text()
+    # Canonicalize both legal quote forms before reading finite dictionaries.
+    # Single-quoted revision keys must not silently become an empty contract.
+    strings_or_comments = re.compile(r"&?\"(?:\\.|[^\"\\])*\"|&?'(?:\\.|[^'\\])*'|\#[^\n]*")
+    def normalized(match):
+        token = match.group()
+        if token.startswith('#'):
+            return ''
+        try:
+            return json.dumps(ast.literal_eval(token.removeprefix("&")))
+        except (ValueError, SyntaxError) as error:
+            raise ValueError('Recorded enemy registry has unsupported string syntax') from error
+    source = strings_or_comments.sub(normalized, source)
+    body = re.search(r'(?ms)^const BEHAVIORS\s*:?=\s*({.*?})\s*^const CANDIDATES\b', source)
+    if not body:
+        raise ValueError('Recorded enemy registry needs finite BEHAVIORS dictionary')
+    declarations = re.findall(r'(?m)^const ([A-Z][A-Z0-9_]*)\s*:?=\s*("(?:\\.|[^"\\])*")\s*$', source)
+    if len({name for name, _ in declarations}) != len(declarations):
+        raise ValueError('Duplicate recorded enemy registry constant')
+    constants = {name: json.loads(value) for name, value in declarations}
+
+    def finite(node):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if isinstance(node, ast.Name) and node.id in constants:
+            return constants[node.id]
+        if isinstance(node, ast.Dict):
+            result = {}
+            for key, value in zip(node.keys, node.values):
+                name = finite(key)
+                if not isinstance(name, str) or name in result:
+                    raise ValueError('Unknown/duplicate recorded enemy registry key')
+                result[name] = finite(value)
+            return result
+        raise ValueError('Recorded enemy registry must remain a finite literal dictionary')
+
+    try:
+        behaviors = finite(ast.parse(body.group(1), mode='eval').body)
+    except SyntaxError as error:
+        raise ValueError('Recorded enemy registry must remain a finite literal dictionary') from error
+    if not isinstance(behaviors, dict):
+        raise ValueError('Recorded enemy registry needs finite BEHAVIORS dictionary')
+    result = {}
+    for behavior in behaviors.values():
+        if not isinstance(behavior, dict) or not isinstance(behavior.get('revisions', {}), dict):
+            raise ValueError('Recorded enemy revision map must be a finite literal dictionary')
+        for digest, path in behavior.get('revisions', {}).items():
+            if not re.fullmatch(r'[0-9a-f]{64}', digest):
+                raise ValueError('Unknown/duplicate recorded enemy revision SHA')
+            name = resource_path(path)
+            if not name.endswith('.tres') or (name in result and result[name] != digest):
+                raise ValueError('Invalid/conflicting recorded enemy resource')
+            local = Path(repo) / name
+            if not local.resolve().is_relative_to(Path(repo).resolve()) or not local.is_file():
+                raise ValueError('Missing/unsafe recorded enemy source: ' + name)
+            if hashlib.sha256(local.read_bytes()).hexdigest() != digest:
+                raise ValueError('Recorded enemy source SHA changed: ' + name)
+            result[name] = digest
+    return result
+
+
+def check_recorded_enemy_resources(pack, repo):
+    contract = recorded_enemy_contract(repo)
+    for name, digest in contract.items():
+        raw = pack.read(name)
+        if raw != (Path(repo) / name).read_bytes() or hashlib.sha256(raw).hexdigest() != digest:
+            raise ValueError('PCK raw enemy Definition differs from registered revision: ' + name)
+        mapping = pack.read(name + '.remap').decode('utf-8')
+        matches = re.findall(r'^path="(res://[^"\n]+)"$', mapping, re.MULTILINE)
+        if len(matches) != 1:
+            raise ValueError('Recorded enemy Definition needs normal ResourceLoader remap: ' + name)
+        target = resource_path(matches[0])
+        if not target.endswith('.res') or not pack.read(target):
+            raise ValueError('Recorded enemy Definition lacks converted resource: ' + name)
+    return sorted(contract)
+
+
 def check_runtime_closure(path, repo=REPO):
     excluded = check_excluded_consumers(repo)
     pack = Pack(path)
@@ -280,6 +393,7 @@ def check_runtime_closure(path, repo=REPO):
                                  source.read_text(), re.MULTILINE)
             if any(target in pack.entries for target in targets):
                 raise ValueError('PCK contains excluded evidence-only imported texture: ' + str(source))
+    recorded_definitions = check_recorded_enemy_resources(pack, repo)
     manifests, textures, pending = runtime_contract(repo)
     for name, expected in manifests.items():
         data = pack.read(name)
@@ -309,6 +423,7 @@ def check_runtime_closure(path, repo=REPO):
                 raise ValueError('PCK imported texture bytes differ from local target: ' + name)
     return {'json': sorted(manifests), 'raw_png': sorted(n for n, t in textures.items() if t['raw']),
             'textures': sorted(textures), 'pending_consumers': pending,
+            'recorded_enemy_definitions': recorded_definitions,
             'excluded_evidence_families': list(excluded),
             'scope': 'Actual PCK closure for integrated consumers only; no rendering/device/content acceptance'}
 
@@ -337,7 +452,7 @@ def check(root, repo=REPO):
     assert metadata['build_id'] == hashlib.sha256((root / metadata['pack']).read_bytes()).hexdigest()[:12]
     closure = check_runtime_closure(root / metadata['pack'], repo)
     # Excluded candidates have no runtime consumer. New consumers must revisit this export policy.
-    for directory in ('scripts', 'scenes', 'resources', 'config'):
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'game', 'experiments'):
         for source in (repo / directory).rglob('*'):
             if source.suffix in ('.gd', '.tscn', '.tres', '.json'):
                 assert 'assets/painterly_v2/' not in source.read_text(), str(source)

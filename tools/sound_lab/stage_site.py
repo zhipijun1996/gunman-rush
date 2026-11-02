@@ -18,10 +18,10 @@ from audio_director import lab
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--bundle',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
  if a.output.exists():raise ValueError('Output must be new')
- info,receipt=validate_bundle(a.bundle,ROOT,'res://scenes/dev/audio_director_lab.tscn')
+ info,receipt=validate_bundle(a.bundle,ROOT,'res://experiments/audio/entries/audio_director_lab.tscn')
  lab(a.output,'game/')
  game=a.output/'game';shutil.copytree(a.bundle,game)
- html=game/'index.html';page=inject_entry(html.read_text(),'AUDIO-DIRECTOR-01','audio-director-v1/listen-01','scene','res://scenes/dev/audio_director_lab.tscn')
+ html=game/'index.html';page=inject_entry(html.read_text(),'AUDIO-DIRECTOR-01','audio-director-v1/listen-01','scene','res://experiments/audio/entries/audio_director_lab.tscn')
  old='window.PLAYTEST_CACHE_READY.then(() => engine.startGame({'
  new="window.PLAYTEST_CACHE_READY.then(ready => { if (!ready || typeof DecompressionStream === 'undefined') throw new Error('此独立试玩需要支持 Service Worker 与 DecompressionStream 的现代浏览器；请使用手机最新版 Chrome / Safari。音效单声试听不受影响。'); return engine.startGame({"
  if page.count(old)!=1:raise ValueError('Original chunk loader changed')

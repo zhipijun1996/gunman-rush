@@ -171,6 +171,55 @@ func training_fixture() -> void:
 	check(app.player.is_on_floor(), "SETUP platform supports the actual Motor without changing gravity or tuning")
 	check(app._item_runtime.targets(training_point,130).size() == 2, "runtime shape query discovers both actual training hurtboxes")
 
+func target_order_regression() -> void:
+	# The expected order is the original two-sort path over real physics results,
+	# including complete-key ties where Array.sort_custom is not stable.
+	var point := training_point
+	var first := target_a.get_parent() as Node2D
+	var second := target_b.get_parent() as Node2D
+	var previous_position := second.global_position
+	var first_id := target_a.actor_id
+	var second_id := target_b.actor_id
+	for case_name: String in ["distinct_distance", "reversed_tie_ids", "ordered_tie_ids", "equal_complete_keys", "instance_id_fallback"]:
+		if case_name != "distinct_distance":
+			second.global_position = point+Vector2(-60,0)
+			await ticks(1)
+		var expected: Array[Dictionary] = app.controller.shoot_ability.behavior().receivers(point,130)
+		check(expected.size() == 2, "target-order regression uses both actual physics receivers: "+case_name)
+		if expected.size() != 2: continue
+		if case_name == "reversed_tie_ids":
+			(expected[0].node as Node).set_meta("item_v5_enemy_id","z")
+			(expected[1].node as Node).set_meta("item_v5_enemy_id","a")
+		elif case_name == "ordered_tie_ids":
+			(expected[0].node as Node).set_meta("item_v5_enemy_id","a")
+			(expected[1].node as Node).set_meta("item_v5_enemy_id","z")
+		elif case_name == "equal_complete_keys":
+			first.set_meta("item_v5_enemy_id","same")
+			second.set_meta("item_v5_enemy_id","same")
+		elif case_name == "instance_id_fallback":
+			first.remove_meta("item_v5_enemy_id")
+			second.remove_meta("item_v5_enemy_id")
+			target_a.actor_id = 0
+			target_b.actor_id = 0
+		expected.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+			var da := point.distance_squared_to((a.node as Node2D).global_position)
+			var db := point.distance_squared_to((b.node as Node2D).global_position)
+			if da != db: return da < db
+			var a_receiver := a.receiver as Damageable
+			var b_receiver := b.receiver as Damageable
+			var left_id := a_receiver.actor_id if a_receiver.actor_id != 0 else a_receiver.get_instance_id()
+			var right_id := b_receiver.actor_id if b_receiver.actor_id != 0 else b_receiver.get_instance_id()
+			var left := str((a.node as Node).get_meta("item_v5_enemy_id", "%020d" % left_id))
+			var right := str((b.node as Node).get_meta("item_v5_enemy_id", "%020d" % right_id))
+			return left < right)
+		check(app._item_runtime.targets(point,130) == expected, "actual ItemRuntime preserves original complete target order: "+case_name)
+		target_a.actor_id = first_id
+		target_b.actor_id = second_id
+	if first.has_meta("item_v5_enemy_id"): first.remove_meta("item_v5_enemy_id")
+	if second.has_meta("item_v5_enemy_id"): second.remove_meta("item_v5_enemy_id")
+	second.global_position = previous_position
+	await ticks(1)
+
 func position_training() -> void:
 	# Relocation is setup only; it does not count as traversal evidence.
 	app.player.global_position = training_point
@@ -380,6 +429,7 @@ func _exercise() -> void:
 	check(not app._item_runtime.has(&"B03"), "known RewardService grant remains inactive in the backpack")
 	attach_observers()
 	await training_fixture()
+	await target_order_regression()
 	await primary("unequipped baseline",1.0)
 	var hp_before: float = app.controller.actor_resources.health.current
 	var energy_before: float = app.controller.combat_energy.current

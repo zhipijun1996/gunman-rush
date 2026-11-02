@@ -1,0 +1,42 @@
+{
+  "source_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "working_source_note": "HEAD is C59; root may have independently applied reviewed P10 WIP. Exact read-source SHA below is authoritative, not an all-files C59 claim.",
+  "task": "CACHE-UI-GENERIC-CARRYOVER",
+  "files": [
+    {
+      "path": "tests/chest_art_runner.gd",
+      "original_sha256": "8a819304d2e181fc9f913e93ae1f48ec15130651983717dd441c4195aa1be391",
+      "candidate_sha256": "e55b63b337e726b4c8d399feb5008e5342af60b6334563eba81f5913088ead3d"
+    }
+  ],
+  "patch_sha256": "2d4931c92d130b32d31eea74bdbdf08fb6246c8415742cacee323f0a74d87872",
+  "original_entire_body_inverse_exact": true,
+  "patch_apply_reverse_exact": true,
+  "original_check_call_sites": 52,
+  "added_check_call_sites": 11,
+  "original_assertions_or_actions_removed": false,
+  "source_sha256": {
+    "tests/forest_depth_region_trace.gd": "591c50faefaba321f0b2f56ca7d0e43cc23cde7b35128fbb715a930f1c9a2fa3",
+    "tools/run_forest_depth_region.py": "eb67f515effba5549b20d921a12cc000973360e52e8982a4f5138e1f36acf8bf",
+    "game/application/demo_app.gd": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+    "game/presentation/ui/stage_reward_modal.gd": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5",
+    "game/presentation/ui/item_card.gd": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8",
+    "game/player/player_controller.gd": "022263cb4c62880e5e936908553d5638ef409fcb479f54903463b6cb7a641eea",
+    "game/platform/input/keyboard_mouse_adapter.gd": "cb64f724d0fe5dd4e68cdb65a1890343ae377dd7e3447de995f304ce326dab1d",
+    "tools/run_underworld_r3_object_tests.py": "3f81d5186e1e9dcd08c086fe5c36a3be685757b3bfdd6157e5a66addd7697531",
+    "tools/harness/profiles.json": "5effbf4e9d7a566d07269f0fd1ac70de45d6e3bbe4223b70cc5650efc4cf557c"
+  },
+  "wrapper": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_r3_object_tests.py"
+    ],
+    "outer_timeout": 240,
+    "native_shared_timeout": 150,
+    "editor_timeout": 90,
+    "inputs_cover_test": true
+  },
+  "native": "NOT_RUN",
+  "main_written": false,
+  "p11_candidate_changed": false
+}

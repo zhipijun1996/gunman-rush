@@ -18,8 +18,8 @@ func ticks(count: int) -> void:
 
 func make_actor(id: String,initial_terminal: bool) -> EnemyActor:
 	var prototype := id.begins_with("candidate_")
-	var source := "patrol_drone" if prototype else id
-	var motor := (load("res://scenes/enemies/%s.tscn" % source) as PackedScene).instantiate() as EnemyMotor
+	var source := EnemyBehaviorRegistry.scene_path(&"patrol" if prototype else StringName(id))
+	var motor := (load(source) as PackedScene).instantiate() as EnemyMotor
 	var actor := motor.get_node("Actor") as EnemyActor
 	# Candidate identity/behavior must come from the same review recipe as its actual factory.
 	actor.definition = EnemyFactory.candidate_definition(StringName(id),&"review") if prototype else (load("res://resources/enemies/%s.tres" % id) as EnemyDefinition).duplicate(true)

@@ -39,7 +39,7 @@ func lower_route_fixture(use_semantics: bool, lower_present: bool = true) -> Dic
 	var shape := CollisionShape2D.new();var box := RectangleShape2D.new();box.size=Vector2(400,24);shape.shape=box;landing.add_child(shape)
 	if lower_present: fixture.add_child(landing)
 	else: landing.free()
-	var body: PlayerMotor=preload("res://scenes/player/player.tscn").instantiate();body.position=Vector2(400,390);fixture.add_child(body)
+	var body: PlayerMotor=preload("res://game/player/player.tscn").instantiate();body.position=Vector2(400,390);fixture.add_child(body)
 	var target := body.get_node("Controller") as PlayerController
 	body.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	var damage := FrameDamagePolicy.new();damage.lifetime=DemoLifetime.new();damage.register_target(&"player",target.actor_resources.health,true);fixture.add_child(damage)
@@ -60,7 +60,7 @@ func lower_route_fixture(use_semantics: bool, lower_present: bool = true) -> Dic
 func wall_knockback_fixture() -> void:
 	floor_at(Vector2(1650,400),Vector2(400,40))
 	floor_at(Vector2(1640,320),Vector2(20,120))
-	var body: PlayerMotor=preload("res://scenes/player/player.tscn").instantiate();body.position=Vector2(1600,362);world.add_child(body)
+	var body: PlayerMotor=preload("res://game/player/player.tscn").instantiate();body.position=Vector2(1600,362);world.add_child(body)
 	body.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	for i: int in 4: await physics_frame;await process_frame
 	var before := body.position
@@ -74,7 +74,7 @@ func wall_knockback_fixture() -> void:
 	body.queue_free();await process_frame
 
 func real_enemy_projectile_fixture() -> void:
-	var enemy: EnemyMotor=preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
+	var enemy: EnemyMotor=preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate()
 	enemy.position=motor.position+Vector2(110,0)
 	var old := enemy.get_node("Presentation");enemy.remove_child(old);old.free()
 	var actor := enemy.get_node("Actor") as EnemyActor
@@ -112,7 +112,7 @@ func settle_audio_voices() -> void:
 func actual_module_hurt_fixture(path: String, is_gear: bool) -> Dictionary:
 	var fixture := Node2D.new();fixture.position=Vector2(5000,0);world.add_child(fixture)
 	var module := PlatformingModule.new();module.definition=load(path);module.authoring_debug=false;fixture.add_child(module)
-	var body: PlayerMotor=preload("res://scenes/player/player.tscn").instantiate();body.position=module.definition.entry_port.position;fixture.add_child(body)
+	var body: PlayerMotor=preload("res://game/player/player.tscn").instantiate();body.position=module.definition.entry_port.position;fixture.add_child(body)
 	var target := body.get_node("Controller") as PlayerController
 	body.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	body.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
@@ -161,7 +161,7 @@ func hurt_shoot_order_fixture(order: String) -> Dictionary:
 	var fixture := Node2D.new();fixture.position=Vector2(7000,0);world.add_child(fixture)
 	var landing := StaticBody2D.new();landing.position=Vector2(300,400)
 	var shape := CollisionShape2D.new();var box := RectangleShape2D.new();box.size=Vector2(1000,40);shape.shape=box;landing.add_child(shape);fixture.add_child(landing)
-	var body: PlayerMotor=preload("res://scenes/player/player.tscn").instantiate();body.position=Vector2(200,362);fixture.add_child(body)
+	var body: PlayerMotor=preload("res://game/player/player.tscn").instantiate();body.position=Vector2(200,362);fixture.add_child(body)
 	var target := body.get_node("Controller") as PlayerController
 	target.set_physics_process(false);body.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	var damage := FrameDamagePolicy.new();damage.lifetime=DemoLifetime.new();damage.register_target(&"player",target.actor_resources.health,true);damage.register_player_controller(target)
@@ -198,7 +198,7 @@ func run() -> void:
 	world=Node2D.new();root.add_child(world)
 	audio=GameAudio.new();world.add_child(audio)
 	floor_at(Vector2(500,400),Vector2(1600,40))
-	motor=preload("res://scenes/player/player.tscn").instantiate();motor.position=Vector2(200,362);world.add_child(motor)
+	motor=preload("res://game/player/player.tscn").instantiate();motor.position=Vector2(200,362);world.add_child(motor)
 	controller=motor.get_node("Controller")
 	motor.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	motor.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
@@ -266,7 +266,7 @@ func run() -> void:
 	check(not DamageBoundary.should_return(motor,Rect2(800,100,10,10)),"offside framing edge cannot damage a supported actor")
 	check(not DamageBoundary.should_return(motor,Rect2(-100,-900,1000,100)),"lower real floor outside recorded bounds cannot cause false return")
 	var lower_floor := floor_at(Vector2(200,1100),Vector2(180,20))
-	var probe: PlayerMotor=preload("res://scenes/player/player.tscn").instantiate();probe.position=Vector2(200,850);world.add_child(probe)
+	var probe: PlayerMotor=preload("res://game/player/player.tscn").instantiate();probe.position=Vector2(200,850);world.add_child(probe)
 	(probe.get_node("Controller") as PlayerController).set_physics_process(false)
 	await physics_frame;await physics_frame
 	check(not DamageBoundary.should_return(probe,Rect2(0,0,600,500)),"airborne above actual lower landing outside manifest is protected")

@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-COMBAT-PRESENTATION-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "9da210e0cdf61e5af6f383738445985707968851",
+  "reviewed_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+  "content_version": "presentation-single-tick-v1",
+  "owner": "/root",
+  "purpose": "移除两真实怪物宿主正常帧的重复表现刷新，复用本tick生命周期状态。",
+  "player_experience": "保留现有怪物图声及转向/受伤/死亡/恢复行为，减少重复CPU工作；不承诺手机卡顿已解决。",
+  "constraints": [
+    "不改物理/碰撞/伤害/资源/奖励/RNG/保存/图声",
+    "保留初始化/恢复独立零时间刷新及终态早退",
+    "微基准不冒称自然战斗/浏览器/手机FPS"
+  ],
+  "affected_paths": [
+    "game/enemies/presentation/enemy_presentation.gd",
+    "game/enemies/presentation/plains_revision_visual.gd",
+    "game/presentation/actors/underworld_plains/underworld_enemy.gd",
+    "tests/plains_motion_loot_02_motion.gd",
+    "tests/plains_motion_loot_02_presentation.gd",
+    "tests/plains_motion_loot_02_presentation.gd.uid"
+  ],
+  "deliverables": [
+    "单次正常帧表现更新",
+    "既有消费者新增快照/转向/暂停/恢复回归",
+    "同脚本受控原生CPU与姿态前后对照"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "三叶与恢复/转向/时钟保持范围明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "本small_fix的局部技术回归和独审通过；不代替full171或设备。",
+      "evidence": [
+        "technical",
+        "independent"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "small_fix只申请G0/G4；不制作新内容或签玩家验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "有明确保持边界与有限验收。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "原16项Development和4原命令通过，保存字节与实际执行证据绑定。",
+      "evidence": [
+        "technical"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "原Integration选择full171，尚未执行；Development和真实正式专项不是完整集成。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "未进行本候选真实GPU画面或用户观感验收。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "108姿态精确一致及原动作回归通过，正常速度观感仍未验。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "图声资源未修改；本候选正常速度听感/视听体验未验。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "原核心/伤害/正式命中与尸体回归通过，手机实际游玩未验。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "只有微秒级管线CPU受控改善；整帧、mesh、真实交战和手机P95/P99未验。",
+      "evidence": [
+        "cpu-comparison"
+      ]
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立只读审查限定接受源码、追加回归和测量归因。",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "用户手机未采样；不以云端结果签设备。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "未请求或取得用户对当前候选的认可。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-owner-contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "两怪物宿主正常帧与显式恢复分离",
+      "method": "实际调用与三叶diff审查",
+      "expected": "正常帧单次刷新，初始化/恢复读取当前值；终态与转向保持",
+      "failure": "跨帧状态缓存、删恢复同步或改玩法数值",
+      "status": "passed",
+      "reason": "写集与调用边界已冻结并审查。",
+      "evidence": [
+        "scope",
+        "independent"
+      ]
+    },
+    {
+      "id": "same-tick-regression",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "正常帧、快速转向、暂停、epoch/终态以及正式命中与尸体",
+      "method": "原四命令和干净冻结Development16项；精确字节绑定",
+      "expected": "保原断言/预算/严格退出；全部实际执行范围通过",
+      "failure": "原测试失败、缺标记、脚本/泄漏错误、源不符或把局部证据升签手机",
+      "status": "passed",
+      "reason": "原检查全部通过，整帧/完整集成/设备边界明确。",
+      "evidence": [
+        "technical",
+        "independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_combat_presentation_01/scope.md",
+      "sha256": "fa54391dba44724fb1e62b148d11ee8e8835b68553ac99329fa5ab780525074c",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+      "content_version": "presentation-single-tick-v1",
+      "method": "审计原权威、两实际宿主及允许写集。",
+      "observed": "三生产叶保持原契约；不签手机卡顿已解。"
+    },
+    {
+      "id": "technical",
+      "path": "docs/evidence/mobile_combat_presentation_01/receipt.json",
+      "sha256": "0c28601ae14e444d780a78de3f402a446d63c7efdf9a33e4ad864b87b3ce369f",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+      "content_version": "presentation-single-tick-v1",
+      "method": "原Development计划实际执行；四原命令通过原run_check执行，候选五文件SHA逐项匹配cd12。原ZIP保预算/失败/日志。",
+      "observed": "干净cd12原16项fresh；另4命令563/150/129/5796全过。后者执行时HEAD9da+候选字节，不冒称干净cd12 full。",
+      "command": "python3 tools/production_plan.py --stage development --base 9da210e0cdf61e5af6f383738445985707968851 --execute --jobs 1 --output build/mobile_combat_presentation_01/development-frozen-cd12.json",
+      "exit_code": 0,
+      "environment": "Managed cloud, approved fixed Godot4.7.2 custom build; 1 engine at a time; no physical phone."
+    },
+    {
+      "id": "cpu-comparison",
+      "path": "docs/evidence/mobile_combat_presentation_01/comparison.json",
+      "sha256": "8e792d6713e57fc3290934dcdd5c24df1680cb41eed3c40e46b8f15cd411fb03",
+      "kind": "measurement",
+      "producer": "/root",
+      "source_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+      "content_version": "presentation-single-tick-v1",
+      "method": "同脚本两宿主六物种，每组25批x150tick，暖机2批；比较完整姿态轨迹。",
+      "observed": "12组CPU平均段耗时减少31.9%–49.3%，108轨迹精确相同；微秒级管线，不代表游戏帧率。",
+      "device": "Cloud native CPU, not Honor phone",
+      "environment": "Godot4.7.2 custom native headless; original source/factory/host; draw/GPU/browser/AI excluded",
+      "scenario": "Explicit Motor/facing inputs through real normal host ticks",
+      "budget_source": "本批原生受控前后比较；没有手机FPS或整帧预算验收。"
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/mobile_combat_presentation_01/independent-review.json",
+      "sha256": "0fd0229317d74a14482decdbd41f28212d6a871b324a18a111ef609bc16f25de",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503",
+      "content_version": "presentation-single-tick-v1",
+      "method": "只读源码/原测试/实际日志/保存SHA/独立解析108轨迹；不重跑引擎或代签设备。",
+      "observed": "限定cd12源码、回归和受控CPU证据接受；全量Integration/手机未验。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者未修改生产或测试，仅独立只读审查。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整integration按原规则升级full171，尚未执行",
+    "手机浏览器实机P95/P99、用户认可及当前候选Web未验证",
+    "网格变形及其他战斗热点尚未优化"
+  ]
+}

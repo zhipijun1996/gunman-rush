@@ -1,0 +1,21 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_ACTUAL_CONSUMERS_NATIVE_PENDING",
+  "source_sha256": {
+    "game/enemies/presentation/plains_revision_skin.gd": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50",
+    "tests/plains_motion_loot_02_motion.gd": "d3a95dac78b3e5030a078f662ac4b2c131a3416717fb717737adaf089bbb6b1e"
+  },
+  "reasoning": [
+    "Original GRID24 row/column traversal, UV formula, point formula and triangle index order retained. Templates contain topology/neutral points/UV-only anatomy, not live pose or GPU state.",
+    "Points and units are duplicated into each instance, indices duplicated into each new ArrayMesh. bounds still used dynamically by deformation; no per-instance mesh or pose shared.",
+    "Kind-specific weights built by original PlainsRevisionWeights constructor and only shared after array.make_read_only. Actual production writes to weight fields occur only in constructor; consumers read them.",
+    "Existing _weights_kind invalidation still switches to the matching anatomy; rest cache keys/material refresh/draw call remain unchanged.",
+    "@static_unload limits static cache to script lifetime, and contents have no Node/actor/world references or back-reference to Skin. Strict engine teardown still needs actual verification.",
+    "New tests run actual CanvasItem draws and compare canonical vertex bytes, verify two rigs share weight objects while ArrayMesh instances differ, and mutate one instance point array then verify peer/later-template bodies unchanged."
+  ],
+  "limitations": [
+    "Array.make_read_only is shallow: it prevents array structural edits, not mutation of RefCounted weight object fields. Safety is actual read-only consumer discipline, not deep immutability.",
+    "Custom external mutation of private _units or weight fields is not an admitted tested contract; current source consumers only read these. No new broad mutation API should be introduced without revisiting cache invalidation.",
+    "Mesh-instance isolation checks are not GPU pixel readback/device rendering evidence.",
+    "No engine/browser/benchmark run by reviewer, no final performance/frame-time claim."
+  ]
+}

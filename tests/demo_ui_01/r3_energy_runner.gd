@@ -34,7 +34,7 @@ func fixture() -> void:
 	check(is_equal_approx(Engine.time_scale, 1.0), "previous actor teardown releases time-scale ownership")
 	world = Node2D.new()
 	root.add_child(world)
-	player = load("res://scenes/player/player.tscn").instantiate()
+	player = load("res://game/player/player.tscn").instantiate()
 	player.position = Vector2(200, -1000)
 	world.add_child(player)
 	actor = player.get_node("Controller")

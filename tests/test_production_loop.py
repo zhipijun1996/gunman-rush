@@ -848,7 +848,7 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         self.git('config', 'user.name', 'SIMULATED contract fixture')
         self.git('config', 'user.email', 'fixture@example.invalid')
         (self.main / 'tools').mkdir()
-        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py', 'level_region_context.py'):
+        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py', 'level_region_context.py', 'godot_identity.py'):
             (self.main / 'tools' / name).write_bytes((self.repo / 'tools' / name).read_bytes())
         (self.main / '.gitignore').write_text('build/\n__pycache__/\n')
         skill = self.main / '.agents/skills/gameplay-reviewer/SKILL.md'
@@ -1709,7 +1709,7 @@ class SpatialLeaseBoundaryTests(unittest.TestCase):
                 _, binding=level_design.load_spatial_experiment('experiment.json',direction['region_id'],root)
                 task={**copy.deepcopy(MISSION['tasks'][0]), 'read_only':False, 'completion':'stage', 'required_gates':['G0'],
                     'creative_direction':direction, 'region_bible':fixture_bible(direction, root), 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
-                if case=='core_quality_record':task['quality_record']='scripts/player/player_motor.gd'
+                if case=='core_quality_record':task['quality_record']='game/player/player_motor.gd'
                 task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/tasks.md']
                 if case=='valid':
                     self.assertEqual(loop.spatial_experiment_input(task)['content'],experiment)

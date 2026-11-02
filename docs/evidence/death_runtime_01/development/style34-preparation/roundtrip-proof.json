@@ -1,0 +1,31 @@
+{
+  "scope": "Disposable external20-file copy only; no source root or main-tree mutation",
+  "results": [
+    {
+      "direction": "inverse",
+      "argv": [
+        "git",
+        "apply",
+        "--unsafe-paths",
+        "/workspace/refactor-evidence/death-runtime-01/style34-preparation/inverse.patch"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "direction": "forward",
+      "argv": [
+        "git",
+        "apply",
+        "--unsafe-paths",
+        "/workspace/refactor-evidence/death-runtime-01/style34-preparation/candidate.patch"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "inverse_restores_all7_original_file_sha_exact_and_removes13_new_files": true,
+  "forward_restores_all20_candidate_file_sha_exact": true,
+  "candidate_patch_sha256": "7e3a2f6260f9f29c15675b62f74c88122e4d3924365cfca4dfacecbbaeb2ae5b",
+  "inverse_patch_sha256": "726462481bdaee8a520cd9d10843d30d0331a9d594a44337df1e1f05d55ba8fc"
+}

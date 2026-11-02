@@ -56,7 +56,7 @@ func touch(index: int, point: Vector2, pressed: bool, canceled := false) -> void
 func actions_accepted() -> void:
 	accepted += 1
 	if not spawn_consumer: return
-	player = load("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	player = load("res://game/player/player.tscn").instantiate() as PlayerMotor
 	app.add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	controller.traversal.grant(&"grapple")
@@ -82,7 +82,7 @@ func run() -> void:
 	canceled.pressed = false
 	canceled.canceled = true
 	check(not canceled.is_pressed() and not canceled.is_released(),"actual native canceled mouse is neither press nor release")
-	app = preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	menu = app.menu

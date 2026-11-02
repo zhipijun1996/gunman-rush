@@ -219,7 +219,7 @@ func run() -> void:
 	app.free()
 	await frames(3)
 	# Same production PlatformingModule, systematic length and translation sweep.
-	var original: PlatformingModule = load("res://scenes/generation/modules/safe_hub.tscn").instantiate()
+	var original: PlatformingModule = load("res://game/world/generation/scenes/modules/safe_hub.tscn").instantiate()
 	var definition: PlatformingModuleDefinition = original.definition
 	original.free()
 	if definition == null:

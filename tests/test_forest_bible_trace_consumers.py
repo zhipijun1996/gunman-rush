@@ -102,6 +102,14 @@ class BibleTraceConsumerTests(unittest.TestCase):
         previous = b'app.build.item_ids()'
         for name, (digest, count) in expected.items():
             source = (ROOT / 'tests' / name).read_bytes()
+            # P8 moved this exact scene consumer in 4f2fb531. Reverse only
+            # this single complete line before the original inventory guard.
+            if name == 'forest_depth_ecology_trace.gd':
+                current_scene = b'\tvar scene: PackedScene=load("res://game/enemies/species/scenes/forest_crossbranch.tscn")\n'
+                previous_scene = b'\tvar scene: PackedScene=load("res://scenes/enemies/forest_crossbranch.tscn")\n'
+                self.assertEqual(source.count(current_scene), 1)
+                self.assertNotIn(previous_scene, source)
+                source = source.replace(current_scene, previous_scene, 1)
             self.assertEqual(source.count(owned), count)
             self.assertNotIn(previous, source)
             self.assertEqual(hashlib.sha256(source.replace(owned, previous)).hexdigest(), digest)

@@ -91,7 +91,7 @@ def main():
         raise RuntimeError('Expected four original and eight reserved sockets')
     if {x['id'] for x in spec['slots'] if x['active']} != {'character', 'upgrade', 'achievements', 'departure'}:
         raise RuntimeError('Home cannot invent new active function IDs')
-    tracked = ['scripts/demo/home_scene.gd', 'scripts/underworld_plains/underworld_home_world.gd', 'assets/underworld_plains/home/home_build.json', 'assets/underworld_plains/home/generation_record.json', 'assets/underworld_plains/home/home_props.png', 'scripts/underworld_plains/underworld_player.gd', 'scripts/underworld_plains/underworld_actors.gd', 'scripts/ui/underworld_ui.gd', 'tests/underworld_plains/test_underworld_home.gd', 'tools/run_underworld_home_tests.py']
+    tracked = ['game/progression/home/home_scene.gd', 'game/presentation/world/underworld_plains/underworld_home_world.gd', 'assets/underworld_plains/home/home_build.json', 'assets/underworld_plains/home/generation_record.json', 'assets/underworld_plains/home/home_props.png', 'game/presentation/actors/underworld_plains/underworld_player.gd', 'game/presentation/actors/underworld_plains/underworld_actors.gd', 'game/presentation/ui/underworld_ui.gd', 'tests/underworld_plains/test_underworld_home.gd', 'tools/run_underworld_home_tests.py']
     before = {path: digest(ROOT / path) for path in tracked}
     arguments = ['--path', '.', '--audio-driver', 'Dummy']
     arguments += ['--rendering-method', 'gl_compatibility'] if args.capture else ['--headless']

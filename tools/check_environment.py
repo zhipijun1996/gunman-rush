@@ -9,21 +9,18 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import godot_identity
+
 REPO = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((REPO / "config/toolchain.json").read_text())
 ROOT = Path(os.environ.get("GUNMAN_TOOLCHAIN_ROOT", str(REPO.parent / "toolchains")))
 SDK = Path(os.environ.get("ANDROID_HOME", str(ROOT / "android-sdk")))
 JAVA = Path(os.environ.get("JAVA_HOME", str(ROOT / "jdk17")))
-DATA = Path(os.environ.get("GUNMAN_DATA_HOME", str(ROOT / "user-data")))
+DATA = godot_identity.data_root(CONFIG, REPO)
 
 
 def environment():
-    env = os.environ.copy()
-    env.update(ANDROID_HOME=str(SDK), ANDROID_SDK_ROOT=str(SDK), XDG_DATA_HOME=str(DATA))
-    if (JAVA / "bin/java").is_file():
-        env["JAVA_HOME"] = str(JAVA)
-        env["PATH"] = str(JAVA / "bin") + os.pathsep + env.get("PATH", "")
-    return env
+    return godot_identity.environment(CONFIG, REPO)
 
 
 def portable(text):
@@ -61,22 +58,18 @@ def main():
     checks = [command_check("git", ["git", "--version"], lambda s: version_at_least(s, CONFIG["git_minimum"])),
               command_check("python", ["python3", "--version"], lambda s: version_at_least(s, CONFIG["python_minimum"])),
               command_check("godot_standard", ["bash", str(REPO / "tools/godot.sh"), "--version"],
-                            lambda s: s.startswith(CONFIG["godot"]["version_prefix"]) and "mono" not in s)]
-    templates = DATA / "godot/export_templates" / (CONFIG["godot"]["version"] + ".stable")
-    version_file = templates / "version.txt"
-    template_version = version_file.read_text().strip() if version_file.is_file() else "missing"
-    template_matches = template_version == CONFIG["godot"]["version"] + ".stable"
-    checks.append({"name": "templates_version", "command": "read templates/version.txt",
-                   "exit_code": 0 if template_matches else 1, "passed": template_matches,
-                   "output": template_version})
-    files = CONFIG["windows"]["templates"] + ["linux_debug.x86_64", "linux_release.x86_64"]
-    if not args.godot_only:
-        files += ["android_debug.apk", "android_release.apk", "android_source.zip"]
-    for filename in files:
-        path = templates / filename
-        checks.append({"name": "template:" + filename, "command": "file exists and nonempty",
-                       "exit_code": 0 if path.is_file() and path.stat().st_size else 1,
-                       "passed": path.is_file() and bool(path.stat().st_size)})
+                            lambda s: s == CONFIG["godot"]["version_exact"])]
+    try:
+        lock = godot_identity.validate_lock(CONFIG, REPO)
+        templates = godot_identity.verify_templates(CONFIG, REPO)
+        checks.append({"name": "templates_source_and_member_sha256", "command": "verify complete fixed template distribution",
+                       "exit_code": 0, "passed": True, "output": lock["build_id"]})
+        for filename, digest in lock["templates"]["files"].items():
+            checks.append({"name": "template:" + filename, "command": "verify locked SHA256",
+                           "exit_code": 0, "passed": True, "sha256": digest})
+    except (OSError, RuntimeError, KeyError, ValueError) as error:
+        checks.append({"name": "templates_source_and_member_sha256", "command": "verify complete fixed template distribution",
+                       "exit_code": 1, "passed": False, "output": portable(str(error))})
     if not args.godot_only:
         java = str(JAVA / "bin/java") if (JAVA / "bin/java").is_file() else "java"
         checks.extend([command_check("java", [java, "-version"],
@@ -104,7 +97,7 @@ def main():
                            "exit_code": 0 if passed else 1, "passed": passed,
                            "output": "Pkg.Revision=" + revision + "; AndroidVersion.ApiLevel=" + properties.get("AndroidVersion.ApiLevel", "n/a")})
     report = {"system": platform.system(), "architecture": platform.machine(),
-              "scope": "godot-windows" if args.godot_only else "godot-android-windows",
+              "scope": "godot-all-templates" if args.godot_only else "godot-all-templates-android-sdk",
               "checks": checks, "missing_or_failed": [c["name"] for c in checks if not c["passed"]],
               "limitations": ["Windows execution requires separate Windows validation",
                               "Android device input, performance and feel require physical-device validation",

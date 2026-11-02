@@ -1,0 +1,59 @@
+{
+  "kind": "readonly-app-stage-owner-closeout",
+  "source_head": "ed95d67d8c19988ab6af3b720aa07a17fd1f59cf",
+  "created_utc": "2026-10-31T08:21:10.271987+00:00",
+  "production_mutations": false,
+  "godot_executed": false,
+  "findings": [
+    {
+      "priority": 1,
+      "id": "shot-latch-region-state",
+      "classification": "preexisting_remaining_owner_bypass",
+      "consumers": [
+        "PlainsRegionStage.capture_state",
+        "PlainsRegionStage.setup_shot_latches"
+      ],
+      "old_source": "2ce4ffa6:scripts/demo/plains_region_stage.gd:319"
+    },
+    {
+      "priority": 2,
+      "id": "director-completion-reentry",
+      "classification": "preexisting_remaining_owner_bypass",
+      "consumers": [
+        "DemoApp._load_stage"
+      ],
+      "old_source": "2ce4ffa6:scripts/demo/demo_app.gd:656"
+    },
+    {
+      "priority": 3,
+      "id": "windkeeper-arena-private-restore",
+      "classification": "preexisting_remaining_owner_bypass",
+      "consumers": [
+        "DemoApp._load_stage",
+        "DemoApp._start_generated_boss",
+        "DemoApp._restore_windkeeper_pressure_bridge"
+      ],
+      "old_source": [
+        "2ce4ffa6:scripts/demo/demo_app.gd:783",
+        "2ce4ffa6:scripts/demo/demo_app.gd:2976"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "game/application/demo_app.gd": "77674db1b78a94b2ab25ffa679282e9bf7ba9da396165fc84fa095f69bb34f85",
+    "game/application/demo_run_director.gd": "ae4c25fa9805d1d6ebf428f41139cc2fac093e11ee0314925016dc07b30ff6aa",
+    "game/application/run_session.gd": "02162d91ff9516794ad13e0014eaafc7a17668608fa91d4e8b6dae2ad0f6f76f",
+    "game/world/levels/providers/plains_region_stage.gd": "a98521042831129c796cd03b497b977efe95546c43a8960735623993867c93ba",
+    "game/world/levels/providers/thorn_forest_region_stage.gd": "74e1959bc5ceec2aac77d8659a92ab968f16c49d0fff8c8f5d8012f256be17f4",
+    "game/world/components/shot_latch.gd": "df12cfb9c62fd6711b4e0af5a7f3147dbf1a97b5d4c7830da50c6880882b4cb9",
+    "game/world/components/module_moving_platform.gd": "c3c3c7d068f5bcef692eabe4a2110aaa6308d4379623b09e652062f29c0f0fd5",
+    "game/enemies/enemy_actor.gd": "8a6a9d26976fee259b5e015616ac5a1e315249b9d536e098e5ed33a5e957f07b",
+    "game/enemies/behaviors/enemy_attack_behavior.gd": "22d5c17e73f11d002781f0ece2e851f14631b7173bb88d043a087c80a6b0bfcb",
+    "game/bosses/windkeeper/windkeeper_encounter.gd": "b6bad0306339152167dade9458c0d8547d9154a3c377c767865a81c392127566",
+    "game/bosses/windkeeper/windkeeper_pressure_encounter.gd": "cfb76b613f4b6208861f57094ddea8ea2072d3fb0c289cd078ae168991eaf3ef",
+    "game/bosses/windkeeper/windkeeper_arena.gd": "cee2dcaa54879b86f76f1646dac0038797d065f8443f5f502dfde54f7a5c13f4"
+  },
+  "report": "/workspace/refactor-evidence/app-stage-ownership-closeout-review.md",
+  "runtime_acceptance": "NOT_RUN",
+  "new_regression_proven": false
+}

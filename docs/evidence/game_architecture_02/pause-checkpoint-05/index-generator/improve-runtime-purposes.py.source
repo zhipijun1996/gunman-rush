@@ -1,0 +1,65 @@
+from pathlib import Path
+import csv,json,re,subprocess,hashlib
+root=Path('/workspace/gunman-rush-refactor');base=root/'docs/worklines/game_architecture_01';inventory=json.loads((base/'runtime_inventory.json').read_text());source=inventory['source_commit'];rows=list(csv.DictReader((base/'file_inventory.csv').open()));fields=list(rows[0]);by_path={r['path']:r for r in rows};changes=[]
+manual={
+'game/application/demo_app.gd':'正式游戏的跨模块流程协调入口 DemoApp：连接家园出发、RunSession/RunComposition、两区关卡加载、伤害结算与复位、奖励/商店/配装UI及实验导航；组织真实服务与场景之间的调用和生命周期。',
+'game/application/run_session.gd':'本局服务与状态引用的所有者 RunSession：创建并保留钱包、构筑/库存/装备、奖励/商店与道具服务，选择地图状态，汇总结束结果并按原规则清理本局。',
+'game/application/run_composition.gd':'玩家节点装配 RunComposition：在应用提供的父节点下创建玩家，将controller接入当前RunSession，配置已授予能力与资源开关，并安装玩家引导表现。',
+'game/world/levels/level_runtime.gd':'公共关卡装配入口 LevelRuntime：消费已解析LevelPlan调用原Assembler，按placement创建怪物/Boss，并按claimed账本恢复拾取与宝箱记录；随机生成与运行中状态由原Provider/Stage负责。',
+'game/world/levels/level_plan.gd':'暂态关卡内容数据 LevelPlan：携带已解析几何、模块、实体、拾取、宝箱和Boss位置/定义，为原生成结果与实际装配提供共同接口。',
+'game/world/levels/level_request.gd':'关卡请求 LevelRequest：携带地图身份、种子/版本、调参及已授予能力，用于选择Provider并生成或恢复本次关卡。',
+'game/world/levels/level_build_result.gd':'关卡构建结果 LevelBuildResult：返回Provider的成功/失败、解析后的Plan及构建信息，供应用在装配前处理失败。',
+'game/world/levels/providers/plains_level_provider.gd':'风铃平原关卡Provider：按请求调用现有平原生成器和Manifest恢复校验，将结果交适配器转换为LevelPlan，保留原版本选择与失败政策。',
+'game/world/levels/providers/forest_level_provider.gd':'荆棘森林关卡Provider：按请求选择现有森林版本/记录，执行原生成与Manifest准入，再输出统一LevelPlan供现有森林装配消费。',
+'game/world/levels/providers/legacy_region_plan_adapter.gd':'旧区域Manifest适配器：把原生成器的几何、敌人定义/版本、模块、机关、奖励与Boss记录解析为暂态LevelPlan，连接旧内容协议与当前共同装配。',
+'game/world/levels/providers/plains_region_stage.gd':'平原运行场景 PlainsRegionStage：准备/消费LevelPlan，建立平台、怪物、Boss与奖励表现，维护本图状态快照、掉落运动、射击锁和上下文提示，连接App提供的玩家及生命周期。',
+'game/world/levels/providers/thorn_forest_region_stage.gd':'森林运行场景 ThornForestRegionStage：复用平原奖励/地图/复位契约，接入森林几何、敌人生态与冠层Boss，维护森林专属记录、观察焦点与区域提示。',
+'game/world/levels/providers/generated_demo_stage.gd':'生成地图的公共运行宿主 GeneratedDemoStage：消费原生成/模块结果，装配地图实体和机关并提供环境返回、状态保存与玩家接入接口，供正式区域Stage继承。',
+'game/world/levels/providers/demo_stage.gd':'固定开发房间运行宿主 DemoStage：按原房间定义装配敌人、机关、奖励与出口，并接入同一玩家、伤害与本局生命周期契约。',
+'game/world/levels/providers/plains_environment_stage.gd':'平原环境候选宿主 PlainsEnvironmentStage：把环境计划、边界与表现装入现有Stage接口，供明确候选/独立预览消费者检查地图内容。',
+'game/world/generation/plains_region_assembler.gd':'平原实际地图Assembler：把已解析Plan装配为模块与平台，建立接缝岸体和碰撞，安装攻击捷径/射击锁，并提供入口、锚点及连接记录。',
+'game/world/generation/thorn_forest_region_assembler.gd':'森林实际地图Assembler：消费解析后的森林支撑几何、树体、荆棘和危险记录，创建地图结构并提供钩索/奖励捷径、锚点与危险查询。',
+'game/world/generation/foundry_catalog.gd':'Foundry开发池目录与技术source-basis：枚举实际模块/调参/能力来源及必要运行源，查询候选条目并形成可重放的来源身份，供原build/promote与回放流程使用。',
+'game/enemies/enemy_factory.gd':'普通怪创建边界 EnemyFactory：依据唯一行为Registry、定义版本与合法覆盖参数创建未挂父节点的EnemyMotor；解析有限候选身份，调用者负责落点、遭遇绑定与表现安装。',
+'game/enemies/enemy_behavior_registry.gd':'普通怪行为与候选身份权威：登记行为对应的场景/Definition、有限历史revision和候选映射，供Factory与生成/恢复消费者共同解析并拒绝未知身份。',
+'game/enemies/enemy_actor.gd':'怪物实体状态组件 EnemyActor：协调生命、行为与已接受的事件，公开区域快照/恢复所需状态，供真实Stage保存消费者调用。',
+'game/enemies/state/enemy_intent.gd':'怪物移动意图值 EnemyIntent：携带move_axis和travel_limit，将行为决策传给唯一运动执行组件。',
+'game/bosses/encounter/boss_factory.gd':'Boss有限创建边界 BossFactory：按已知身份或记录的scene/Definition创建未激活的BossMotor；父子关系、激活和生命初始化仍由实际遭遇装配负责。',
+'game/bosses/encounter/boss_encounter.gd':'Boss共同遭遇基类 BossEncounter：提供遭遇开始/结束、生命与epoch生命周期的共有契约，供具体Boss保留各自招式、相位和终态行为。',
+'game/economy/shops/shop_service.gd':'商店业务服务 ShopService：管理报价、库存、购买/装备容量升级/修理/重抽；验证请求并通过Wallet与Build提交交易，保存幂等收据和按原随机序列抽出的货架。',
+'game/economy/shops/run_wallet.gd':'本局金币余额权威 RunWallet：处理授予、消费、退款和清空命令，保存事务收据与生命周期边界，供商店和奖励等真实服务共同使用。',
+'game/loadout/inventory/run_inventory.gd':'本局物品实例库存 RunInventory：持有实例、数量和效果进度，执行受限变更/恢复及修理事务回滚，供Build与装备服务消费。',
+'game/loadout/stats/build_state.gd':'构筑生效状态 BuildState：连接库存、已装备实例和modifier，按原基础值计算当前效果/属性并提交装备或修理相关变更。',
+'game/loadout/equipment/equipment_service.gd':'配装操作服务 EquipmentService：检查装备实例、槽位/容量与构筑约束，提交装备、卸装和容量变化并维持原结果事件。',
+'game/loadout/effects/item_active_cast.gd':'主动道具共同施放流程 ItemActiveCast：供主动/随从两个真实效果族复用支付、准入与接受结果处理，保留原失败、冷却和重复调用语义。',
+'game/loadout/effects/item_time_context.gd':'时间类道具窄能力上下文 ItemTimeContext：只暴露时间效果实际需要的运行操作，隔离其对通用ItemRuntime内部状态的任意访问。',
+'game/rewards/grants/reward_service.gd':'奖励提交服务 RewardService：依据来源身份、生命周期和已领取收据向本局钱包/生命/构筑提交原奖励，保证重复领取与失败结果沿原账本处理。',
+'game/rewards/grants/simple_room_reward.gd':'开发房间的简单奖励应用：把房间完成结果接入现有奖励提交与领取反馈，供固定/生成房间共同调用。',
+'game/rewards/grants/supply_heal_effect.gd':'共同治疗请求适配：把数量、事件ID、HealthState的epoch与实例身份封成ActorResourceRequest，再调用HealthState.heal返回实际结果。',
+'game/presentation/audio/game_audio.gd':'局部音效宿主 GameAudio：管理语音实例、限流/播放与停止，按声音来源定位最近所属宿主，供玩家、敌人、机关及界面表现提交音效。',
+'game/presentation/audio/world_audio_lifecycle.gd':'世界音频释放工具 WorldAudioLifecycle：供四个Study及测试共同等待/清理其世界声音与场景生命周期；原同帧play→stop限制另有明确测试边界。',
+'game/presentation/ui/foundry_pause_input.gd':'暂停键输入适配 FoundryPauseInput：即使场景暂停也监听非重复Esc按下，发出toggle_requested并消费该输入事件。',
+'game/platform/input/input_setup.gd':'共同输入装配 InputSetup：为真实入口挂接既有玩家输入与菜单输入节点，统一接线顺序并保留各入口自己的操作/重置政策。',
+'game/combat/weapons/weapon_catalog.gd':'武器目录 WeaponCatalog：固定已支持武器ID顺序，将合法loadout索引解析为原resources/weapons中的WeaponDefinition，越界返回空。',
+'game/combat/weapons/presentation/resources/weapon_sound_data.gd':'武器表现声音片段数据：保存CLIPS常量供武器音效表现选择既有片段，不拥有伤害、弹药或奖励规则。',
+'game/presentation/world/art_foundation/pixel_plains_platform.gd':'像素平原平台绘制专用类：继承Blob47Platform的几何/平台契约，提供该比较风格的_draw表现。',
+'shaders/dense_material.gdshaderinc':'共享高密度地形材质shader include：按原母版边缘重叠采样岩石/草面，依据距离与朝向混合边缘材质，并定义受限光照响应。'
+}
+proc=subprocess.Popen(['git','cat-file','--batch'],cwd=root,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+def blob(p):
+ proc.stdin.write((source+':'+p+'\n').encode());proc.stdin.flush();head=proc.stdout.readline().split()
+ if len(head)!=3:return None
+ raw=proc.stdout.read(int(head[2]));assert proc.stdout.read(1)==b'\n';return raw
+for row in inventory['files']:
+ p=row['path'];raw=blob(p) if p.endswith(('.gd','.gdshaderinc')) else None
+ if raw is not None:
+  text=raw.decode();class_m=re.search(r'^class_name\s+(\w+)',text,re.M);parent=re.search(r'^extends\s+([^\n]+)',text,re.M)
+  row['code_summary']={'source_commit':source,'class_name':class_m[1] if class_m else None,'extends':parent[1] if parent else None,'public_operations':re.findall(r'^(?:static\s+)?func\s+([A-Za-z]\w*)',text,re.M),'declared_fields':re.findall(r'^(?:@export[^\n]*?\s+)?var\s+(\w+)',text,re.M)}
+ if p in manual:
+  previous=row['purpose'];row['purpose']=manual[p];by_path[p]['purpose']=manual[p];changes.append({'path':p,'before':previous,'after':manual[p],'source_commit':source})
+ elif p.endswith('.gd') and len(row['purpose'])<30:
+  raise AssertionError('Unexplained executable purpose fallback: '+p)
+proc.stdin.close();proc.wait();inventory['purpose_review']={'source_commit':source,'scope':'Read complete executable text even above100KB; manually describe App/Stage/Assembler/Factory and state/service owners. Existing snapshot path/version unchanged. Boss tail changes remain pending a later source freeze.','manual_semantic_purposes':len(changes)};(base/'runtime_inventory.json').write_text(json.dumps(inventory,ensure_ascii=False,indent=2)+'\n')
+with (base/'file_inventory.csv').open('w',newline='') as out:
+ w=csv.DictWriter(out,fieldnames=fields);w.writeheader();w.writerows(rows)
+Path('/workspace/refactor-evidence/runtime-purpose-corrections.json').write_text(json.dumps(changes,ensure_ascii=False,indent=2)+'\n');print('semantic purposes',len(changes),'App class',next(r['code_summary']['class_name'] for r in inventory['files'] if r['path']=='game/application/demo_app.gd'));print('source',source)

@@ -79,4 +79,17 @@ class Downloads(unittest.TestCase):
         self.assertEqual(Handler.requests, [('/ok', 'bytes=251-')])
 
 
+def load_tests(loader, tests, pattern):
+    # Keep this existing CI check as the complete non-engine installation gate.
+    import importlib.util
+    root = Path(__file__).resolve().parent.parent
+    for name, path in [('engine_build_contract_tests', root / 'tools/engine/test_build_contract.py'),
+                       ('godot_identity_tests', root / 'tests/test_godot_identity.py')]:
+        spec = importlib.util.spec_from_file_location(name, path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        tests.addTests(loader.loadTestsFromModule(module))
+    return tests
+
+
 if __name__ == '__main__': unittest.main()

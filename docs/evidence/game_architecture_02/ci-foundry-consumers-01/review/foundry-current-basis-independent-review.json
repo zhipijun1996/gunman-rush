@@ -1,0 +1,3342 @@
+{
+  "decision": "ACCEPT_LIMITED_CANONICAL_DEVELOPMENT_POOL_REFRESH",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "head_at_review": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "source_scope": "b893 production/tool source plus generated resources/foundry pool WIP; does not claim old pool valid under current engine",
+  "reviewer": "runtime_audit independent read-only review; no Godot run, no main edits or JSON/hash rewriting",
+  "generated_by": "python3 tools/foundry.py build --count 24 --promote; bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd",
+  "old_basis": "48c6a6df26e4dade7dff25008968cb390dab06d143c83c2ab1d57dd80ca04bfb",
+  "new_basis": "4b8bf84672a16f455651397c900287f1d8ba605c34bbf6d8b6ddc5c20f716e19",
+  "old_engine": "4.7.2-stable (official)",
+  "new_engine": "4.7.2-stable (custom_build.gunman_sd1)",
+  "file_count": 56,
+  "json_leaf_changes": 436,
+  "changed_leaf_types": {
+    "basis": 164,
+    "engine": 110,
+    "hash": 108,
+    "manifest_hash": 54
+  },
+  "json_keys_and_array_lengths_unchanged": true,
+  "no_changes_to": [
+    "Manifest geometry/nodes/offsets",
+    "seeds and random selections",
+    "all frame input/action/position/shot sequences",
+    "capability profiles",
+    "repair attempts/ticks/shot counts and replay errors",
+    "connection selection/proofs",
+    "config resource rules",
+    "production_pool=false and awaiting_playtest design status"
+  ],
+  "replays_checked": 54,
+  "replay_frames_total": 56113,
+  "replays_with_changed_frames": [],
+  "manifests_including_nested_checked": 108,
+  "accepted_by_profile": {
+    "base": 24,
+    "double_jump": 6,
+    "air_chain": 6
+  },
+  "itineraries": 18,
+  "backup_all56_match_before_and_exact_b893_git_bytes": true,
+  "rollback": "Every original tracked resources/foundry file remains byte-exact in foundry-current-basis-refresh-01/original-tracked-pool; same finite set as Git b893. This review performs no rollback.",
+  "cross_reference_validation": "Every replay basis/profile/hash and tick count matches corresponding manifest/proof; every nested phrase equals accepted manifest; four stamp config hashes unchanged and match real files.",
+  "checksum_validation": "Independent stdlib transcription of existing FoundryCatalog.canonical/checksum: sorted keys, integral numbers normalized; all108 SHA match. No Godot call.",
+  "basis_validation": {
+    "existing_algorithm": "FoundryCatalog.basis: exact finite lists/templates/tree suffix filter then path:SHA lines prefixed by exact engine string",
+    "source_file_count": 273,
+    "recomputed_matches": true,
+    "source_file_sha256": {
+      "res://assets/actor_actions/courier_manifest.json": "194630a93a8b5fd96e70584de0e2246dd67387eade54709c56ca51114de3526b",
+      "res://assets/actor_actions/weapon_catalog.json": "828933322a323e9c65edbcfacd12a06221b832d30c5c2d312bf27bc65fd3f358",
+      "res://assets/characters/courier/courier_visual.gd": "fd07fc967903aeda0c952192ecd4d37adffa944fa3fcaae9a1092e0f58919378",
+      "res://assets/plains_v3/hero/manifest.json": "84ff6fdfc1631d4f7b5ceef3e37d70ae2b17f87bab446bd0d872cbe0ea395fa0",
+      "res://config/foundry_capabilities.json": "8486a94ba242f341d7bd53f175477d26bfd965d5f165feac9919c4ca2723b751",
+      "res://config/input_profile.json": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+      "res://config/platforming_foundry.json": "c5f86784cf70839acbe1430a1a75fca581a29ab809e42fb9e7135ea412f63e91",
+      "res://config/player_tuning.json": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+      "res://experiments/generation/foundry_lab.gd": "e09e2a3475e12c902a98ad1fb70a58f39cde5eb8b026eaf31765fb176f579838",
+      "res://experiments/motion/graybox.gd": "d8284dc6b1c26d8fbb53b4b05041c5670af0ed49d609a84070d5866de90e48d7",
+      "res://game/application/demo_run_director.gd": "09a902df1839a0156150a703025f88aa92c027729d721b185a107607f168151c",
+      "res://game/application/demo_run_result.gd": "8eafef50a10bcf93c4679ec9cc32583f9de8b15ed1ee888e9b1ab2b1f666eb93",
+      "res://game/application/run_campaign_progression.gd": "c4ec91e9d9fe86a13efea5bbdfceff1dd516ae14a44d3fc3c16798a3ecd84131",
+      "res://game/application/run_composition.gd": "ba962b203caf85cf05d988dc6b55b3e2ca3255f36d1324a52283dffa89b96f79",
+      "res://game/application/run_manifest.gd": "119273455df4c38d359456edc63dd9fa8a0eb15dc317d3928b2b945d93bbdd8e",
+      "res://game/application/run_session.gd": "02162d91ff9516794ad13e0014eaafc7a17668608fa91d4e8b6dae2ad0f6f76f",
+      "res://game/combat/damage/damage_boundary.gd": "6dc0c130edc18555fc01ab0fb156c383ffc16a3a3e4970176cbef9a1bfc1c221",
+      "res://game/combat/damage/damage_feedback_definition.gd": "b509c1437d5e9035b5fa2942eb8e60b16c104974d1cf4fc69beb80d86765c636",
+      "res://game/combat/damage/damage_request.gd": "e7dcf33ff008f8d218fcfb5c402483faaf045dfa2453575e42f26586e3358345",
+      "res://game/combat/damage/damage_result.gd": "1ede0568f4a48df0dd4e0f791b6958553b7cbdb0664dd7241d42ea748e75dc4e",
+      "res://game/combat/damage/damageable.gd": "6818f7d9744459eada05175b84aedb6c5f3a880d68dfb701c03b4c30ac27c31c",
+      "res://game/combat/damage/demo_contact_emitter.gd": "f8a35c951b1e239c2ba4d062f5692e5d623abe6f1b139cbac59590bcda299994",
+      "res://game/combat/damage/frame_damage_policy.gd": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+      "res://game/combat/projectiles/player_projectile.gd": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+      "res://game/combat/resources/action_resources.gd": "47749c70034612333d6f6270494ff16107c23c1754cf5d02342272e61f664252",
+      "res://game/combat/resources/contracts/action_resource_snapshot.gd": "5ae0345fed2983e3dba12994cb3672abf113b777984f3f81e1a35d7c7432b9aa",
+      "res://game/combat/resources/contracts/actor_resource_request.gd": "a4103027a53b717ee821b38c9b12bdf6fe61aa5bf9fb596ac096835d56eb43f5",
+      "res://game/combat/resources/contracts/actor_resource_result.gd": "dd6ba3419b0bd5faa28ae6fc158e444ee11d134ef6ad3d4979355fd78b954e4e",
+      "res://game/combat/resources/contracts/actor_resource_snapshot.gd": "90e147b6e3328e15425a7a9e3a83b16a4c52cf3af4bd30d494b5f957b1754917",
+      "res://game/combat/resources/definitions/combat_energy_definition.gd": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+      "res://game/combat/resources/definitions/shot_energy_definition.gd": "ecf7bb786c83652775cf11eb398eb3011462a73936c81defcb1cf0366896d17e",
+      "res://game/combat/resources/definitions/stamina_definition.gd": "03f2361e278908483fa03a22aba621ae474f7e1c77efd7dbef0baf48adf577b7",
+      "res://game/combat/resources/shot_energy_policy.gd": "d1abb19e0441cda5dc58ca6dd2d46ad2ca3dee6cab0b666dd69039ea681b9990",
+      "res://game/combat/resources/state/actor_resource_state.gd": "16860c344cbe0c3bae68040c6841b69dc67f15025e15c1f1d4e1ef4d0e3d3878",
+      "res://game/combat/resources/state/combat_energy_state.gd": "5ebb2f83702c9d7114439a6c9381f3476069c4a3d8392820119a4c8b932ce365",
+      "res://game/combat/resources/state/health_state.gd": "ec2c1c6c7b8f7821ae7eed20f17364e4701410158a5f344436f3081509bdc2ec",
+      "res://game/combat/resources/state/stamina_state.gd": "1ccda3df78f66b4c2a4950cb5504e0e5668cd595e1ad7a86a5e5e9d00072e1d8",
+      "res://game/combat/respawn/segment_respawn.gd": "b59de0a7b28af9e6892d55d5a07b465a936c4b0ec308d73d583e42903c19872f",
+      "res://game/combat/weapons/recoil_ability.gd": "6563b48450568c7ebcf37d6f0bc003cb1040795ec5c6f4bd43df0d1d1616b0dc",
+      "res://game/combat/weapons/shoot_ability.gd": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+      "res://game/combat/weapons/weapon_action_runtime.gd": "bc1c5a72db89166f4fc01796ae7ec21fb084d7cae49f2a5f5be2e611e9ecb3d6",
+      "res://game/combat/weapons/weapon_catalog.gd": "efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4",
+      "res://game/combat/weapons/weapon_entity.gd": "92100532822257979e5d8d24533d36a6e59dc559395164838418eb9e5508442b",
+      "res://game/enemies/behaviors/charger_attack_strategy.gd": "860316235ad00257760b27ad9211cf8f01f67dd947d021aead779031fceed17f",
+      "res://game/enemies/behaviors/diver_attack_strategy.gd": "845d6aa12487a0a0f26d2fc7e8b5e14d4caa205b26f299c5be2d1c5b40e940bd",
+      "res://game/enemies/behaviors/enemy_attack_behavior.gd": "22d5c17e73f11d002781f0ece2e851f14631b7173bb88d043a087c80a6b0bfcb",
+      "res://game/enemies/behaviors/enemy_attack_strategy.gd": "46e7703a2081a1cdb0985cd88ae4bed51d500ca7b0a81ef5bedd979ff3c7ef81",
+      "res://game/enemies/behaviors/enemy_patrol_ai.gd": "e8dbac5de005df6b422d8b940fd06ffea75e56cec9745ffc8cf6f851f1d91ff8",
+      "res://game/enemies/behaviors/fan_sentry_attack_strategy.gd": "be83d50849a3511f5e24f69649481b342e8365fe264cb0fca8963635924321f1",
+      "res://game/enemies/behaviors/forest_bark_beetle_behavior.gd": "9bd01db121126c02794afae22227f33a71426cce07fdb8247522df3dfbe68be2",
+      "res://game/enemies/behaviors/forest_bible_weaver_behavior.gd": "f5414fed8e9814db74b74266317606d803e8cd97428ca71098f865ccd5a9bfde",
+      "res://game/enemies/behaviors/forest_crossbranch_behavior.gd": "fb399626ef1d79681eba74ca16c82a584cf1d224463e7a4a3ad8e64fdfe868af",
+      "res://game/enemies/behaviors/forest_lantern_behavior.gd": "a86e6eeba1d40cb19058779382aef02f52c61d2d7376751bfda90ae3ffe972c4",
+      "res://game/enemies/behaviors/forest_seed_sentry_behavior.gd": "9351a00f6c2cd3d8a86b7f6996e15e53ce2c7144f7539bf5935d3e9d32a5224e",
+      "res://game/enemies/behaviors/forest_swing_pod_behavior.gd": "2fb2acf2ad56a553ddc70438cd87ba844b436a27a52d4af79f10255d97a14358",
+      "res://game/enemies/behaviors/forest_thread_spider_behavior.gd": "9c855bb2797ddbe6da2a0fa47818a0c05e93562b627df73c55cf59d1a7c01c11",
+      "res://game/enemies/behaviors/hopper_attack_strategy.gd": "cac9c90c8b64aaa4a9e7625f5f1e88f384fb4c2006274b41bc297655f1e03638",
+      "res://game/enemies/behaviors/prototype_moth_behavior.gd": "dd9fa8b62e1dbd514191f34ea4b4f57bda473d6d588150842109ff922796be4e",
+      "res://game/enemies/behaviors/root_bell_behavior.gd": "e6b84a0c8da1a22be91f5a83310b21a26d5336ba85609980816fa3225ed7c3b5",
+      "res://game/enemies/behaviors/sentry_attack_strategy.gd": "f1f71c061d326cff970166cd6d0f88d6a8ce72b94879e36e2078bdc21924ee2c",
+      "res://game/enemies/enemy_actor.gd": "8a6a9d26976fee259b5e015616ac5a1e315249b9d536e098e5ed33a5e957f07b",
+      "res://game/enemies/enemy_behavior_registry.gd": "cfad0e810e0ea17e332260138b91493895ddefd80640841642173d5417c24f15",
+      "res://game/enemies/enemy_factory.gd": "951670015b6f5f4b19d23421db70c7d27a308dfeff67fa38b03acbe769b03c45",
+      "res://game/enemies/enemy_motor.gd": "f5c95f122662e4d52689d4c8513948bc57a77035e2f1c52619b6f4a6be20b6df",
+      "res://game/enemies/presentation/enemy_feedback_01.gd": "18c8d446aa6cda7f8e3135b744d1f8c1a1dd338c5589b65b8dbed1a94dc2a897",
+      "res://game/enemies/presentation/enemy_feedback_01_body.gd": "45cebea0c8715179870bb426bb334be575b5c8fa8fffe26a95c3b64de9e9a797",
+      "res://game/enemies/presentation/enemy_feedback_01_death_audio.gd": "918866459198b310d660fba2a4116f9f7b14e148a26310f13f2c343723023c81",
+      "res://game/enemies/presentation/enemy_feedback_01_frames.gd": "5c57bef936f8cf3d5e2ab608071b90ddf984c7825fc272a8d47791022e9526e1",
+      "res://game/enemies/presentation/enemy_feedback_01_particles.gd": "72947c344bd14864015ae5e5a4313fa478adf28eef0aea9de76577e3ca1cafbb",
+      "res://game/enemies/presentation/enemy_feedback_01_remains.gd": "f63f611598da556e3940472952e81413c46f895a3eddd4d25f5c22f3df1c504e",
+      "res://game/enemies/presentation/enemy_hit_template.gd": "94c0f665f8397ddff0db3929c004c6d7696f2fbc84989a21841f0acf91492d86",
+      "res://game/enemies/presentation/enemy_presentation.gd": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e",
+      "res://game/enemies/presentation/forest_crossbranch_presentation.gd": "02bc9feb1c08a240dd450a4564170c57211ca12b8b3fbf5554b1e7a1fad71495",
+      "res://game/enemies/presentation/forest_depth_enemy_presentation.gd": "95fdfc9a19a86257110806227bb811e5ae7423dec5193b77a1a4f81e6d204c9d",
+      "res://game/enemies/presentation/forest_enemy_presentation.gd": "6c44d51062538c6ca2184015bddf5659f846c610f6db56be69f620ba81659847",
+      "res://game/enemies/presentation/forest_feedback_enemy_presentation.gd": "7a394505c3507de54457ec0bccd8563dbd04a349c83c05ffd1e5010f87fe5e3e",
+      "res://game/enemies/presentation/forest_motion_02.gd": "3fac77a231eb8dd6475ea5e80c02963eef44158b720a60525362113f50234ca7",
+      "res://game/enemies/presentation/plains_motion_02.gd": "82394b547e5e769a4a8b981a2028834d7f21a6ff0f9d863554a259084aad3f60",
+      "res://game/enemies/presentation/plains_revision_flora.gd": "05869fa7ce09b2dbdd024420260d8aefbff7575ddb284c2aa6070d8bfb2f9887",
+      "res://game/enemies/presentation/plains_revision_ground.gd": "0efe44d0c613a65f7292cb2a9b365f0fedbfd8e8245fd8e120b221e7ef9f06f2",
+      "res://game/enemies/presentation/plains_revision_pose.gd": "b5ff0bebd879581c8c5d9961bb6ad7368653e9575302637ccbe231407342624f",
+      "res://game/enemies/presentation/plains_revision_remains.gd": "a224c57c96a073364cc53d23843a65143a40bb254451954914ba3afab5d828e6",
+      "res://game/enemies/presentation/plains_revision_skin.gd": "46b8f653f20f5f5601f1c003f405775f064a4549788bc01a705d9e4978102b99",
+      "res://game/enemies/presentation/plains_revision_visual.gd": "28faf90ec5c9a9872bea04797ec780ce0a8a4beaf9b2df3bb05027bbf9bb71df",
+      "res://game/enemies/presentation/plains_revision_weights.gd": "24da3f7def7983b42c02ce04c52daf40689297be7f2d1e64bbbed761b804220f",
+      "res://game/enemies/presentation/prototype_enemy_presentation.gd": "cebb1480256be028f66882eef6630581e110d95d4ae0fa2ae58ee981a22a9f85",
+      "res://game/enemies/presentation/root_bell_presentation.gd": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+      "res://game/enemies/presentation/root_bell_pulse_art.gd": "4b803dee19516b52185ef2f586ffc38c102a3fe1444391b7fd0ef3c8ba0f4bdb",
+      "res://game/enemies/projectiles/enemy_attack_projectile.gd": "2095c5ec63ec9d710ef0d8f617a575413e0674a0352d84726eed0dba02573eb7",
+      "res://game/enemies/projectiles/forest_seed_projectile.gd": "3ef474c8b9b7b70ef1908456e40c2ce20c5bc427898f398bd919ca88f7dc19c0",
+      "res://game/enemies/prototype_enemy_damageable.gd": "62015764cd962c1d05d859c8e86a7f088daf5499bca74ba1e4f529b795c524e0",
+      "res://game/enemies/species/forest_bark_damageable.gd": "6811dc155833fc6c9a26b5aef2f41eff443e4fd73907b59655b962a170f17569",
+      "res://game/enemies/state/enemy_intent.gd": "36ed722eff120418be83c791d9e37d286c4d2b75871683b53fbae48625b596a1",
+      "res://game/platform/input/gamepad_adapter.gd": "6fd2830f68e74909ac2652b703c2205072a29cf9e217ea5855172d37f3500856",
+      "res://game/platform/input/input_profile.gd": "1c36a6b4e65f4430de820ae9dbe5581e5de0b6ef39bea342ad551ed1b4f95028",
+      "res://game/platform/input/input_router.gd": "04409e9e2e060ebf3333624b67d3ff031ea73fb751457b94c1c57045d8b7edc5",
+      "res://game/platform/input/input_setup.gd": "11701f3f468f9be4917d023639d7dbc29dc0ae138ebf398eb789e751fddf3a03",
+      "res://game/platform/input/keyboard_mouse_adapter.gd": "cb64f724d0fe5dd4e68cdb65a1890343ae377dd7e3447de995f304ce326dab1d",
+      "res://game/player/actions/air_focus_ability.gd": "78f43df69668ce48ec578ea56baa20b7843a014edf8a09bb0341fbd90f05af23",
+      "res://game/player/actions/jump_ability.gd": "0214cea7035d855185b74ebae81e43a3cfb0e14568616eede9d05aa3b327cd6a",
+      "res://game/player/actions/traversal_ability.gd": "36aae4b822563f6b2e391af2da1948564c934ab8e73f26578a9545b5b2eab369",
+      "res://game/player/player.tscn": "5b934cc4a8426d6dcbcac1053011939105482d4d13793283a9d5dd66127b9438",
+      "res://game/player/player_controller.gd": "022263cb4c62880e5e936908553d5638ef409fcb479f54903463b6cb7a641eea",
+      "res://game/player/player_motor.gd": "4d093a7c631ab18ee10bc9c90a01d15716cb4ac3dcbe75508b8d8c3f552a3b7f",
+      "res://game/player/player_tuning.gd": "4cd18aefd536247d6665b5e3d6e0709cd479eebdb248231de758de500226d0c7",
+      "res://game/player/resources/combat_energy.tres": "60c140079ba8005b86cee18ee90e4b3df7d9ee9ebf7da2641ba3896c29e4c5f5",
+      "res://game/player/resources/demo_ui_01/time_energy_v2.tres": "d84069eb238a64f19c56a63fa200b58b1c2ddb4c2ba08811c4bde8908b03f23f",
+      "res://game/player/resources/plains_shot_energy.tres": "da1e3150e582d89b6a748324cb7e2ec9cbbcec93974baa7127acf75f93ed0dea",
+      "res://game/presentation/actors/art/player_visual_adapter.gd": "8df647e0cab625f932be6efa45b5b13ced4693f6e763c5e82e882027906d3fe9",
+      "res://game/presentation/effects/damage_return_echo.gd": "899f629991904f158332200ba76c76e542be371df57f041c3ee4e031dcb40215",
+      "res://game/presentation/ui/foundry_pause_input.gd": "76400e8fbafbf509ad777a0b987df1e6fc36dfd0272d75b3f872a50f55702fec",
+      "res://game/world/components/module_moving_platform.gd": "c3c3c7d068f5bcef692eabe4a2110aaa6308d4379623b09e652062f29c0f0fd5",
+      "res://game/world/components/module_saw_hazard.gd": "5b95898b72464e15795c85cb72f12f1c53ac897885455c34655c7c2d0bfd343c",
+      "res://game/world/components/platforming_module.gd": "705af1d3d9354d8bf4ba86ea3b1d1b4eea33ae414019dc122c32e0aed1c08a30",
+      "res://game/world/generation/forest_ecology_geometry.gd": "449d4ba050bb9396d0c11bdc23f52ca7f6b4a8010837147ee714cff48095b99d",
+      "res://game/world/generation/forest_hollow_upper_candidate.gd": "64481430743a4b66726533d208d3dc73b5f9bb9fa4b0635fe495fb0b835d0689",
+      "res://game/world/generation/foundry_catalog.gd": "f29157e9fa36bf348ffa258a821d3227cdaa3385d587bdf57b41cff385de0fee",
+      "res://game/world/generation/foundry_route_player.gd": "5a859d9eb579ca9588426ce074132ea19c2e5ca2597952a26883dbdfdd66b344",
+      "res://game/world/generation/foundry_world.gd": "3196c6692cd65d777c698a4ce25ce96b6f1916b9a4a18176af22b330391a2f45",
+      "res://game/world/generation/module_reflection.gd": "6fe8c9fec94015f249832c20508043db2ab421e6ec27702eed5eb412a84fce3b",
+      "res://game/world/generation/movement_capability_envelope.gd": "512d2100c47aa291968f80e189c7e3cae9f417ce00e4d92ebfb979608ade6cf8",
+      "res://game/world/generation/plains_art_language.gd": "2894ef3f5eb307ebbed02b67eeb1cd2c8a50d24fd66ff13297092947f77d8643",
+      "res://game/world/generation/plains_encounter_planner.gd": "e5ae4edfdd377c63d8632c08acc3fb61898bb644660702b65d64e28d65fa2b30",
+      "res://game/world/generation/plains_environment_assembler.gd": "f9bf487d4b282984109ccee7449f8861c9648263f8f91a02608b43c6cb6029ac",
+      "res://game/world/generation/plains_environment_module.gd": "1d1777909e7e4cecbf341d1f8acbf9e97284396b4ef3e7120fb9db1754e9419c",
+      "res://game/world/generation/plains_environment_plan.gd": "ca31b291ee2c140be6981ed556e281d039f211eb14765ef1dc60625399ae8521",
+      "res://game/world/generation/plains_exploration_topology.gd": "1473fcc908f1088b4a08827142c876931602425ebf5c28dfb7c24ea97ebba1b0",
+      "res://game/world/generation/plains_ground_supports.gd": "cc2057c3c1779fa78d322dbf2eedaaa75c769aeba0e667cb88c8a0020662d5bc",
+      "res://game/world/generation/plains_joint_recoil_plan.gd": "be300722d876cd7a67ed7015274336e482d05efd670d79ebe31484d707a0d9c0",
+      "res://game/world/generation/plains_place_plan.gd": "7322d278fc87cec73c088bcf118e26fb2876c581f6bd5b989b098248f709e107",
+      "res://game/world/generation/plains_region_art_plan.gd": "e6e3485f19aecbe424806456ddc3092230cc2e016f6307e0d5efeff1f2cf61f8",
+      "res://game/world/generation/plains_region_assembler.gd": "8252291391985ab5e1681fb8c9754f3e1dfb1a191756914307919dd46427ab87",
+      "res://game/world/generation/plains_region_generator.gd": "6e16c288e5e9c48631f69bfa0ceb302a3b72fc14fff15c01c1fe4b778c36c68c",
+      "res://game/world/generation/plains_root_bell_encounter_v2.gd": "016ee6d70c64dc3d9b2059a9cbc8a554af296a917e206fee71826dfd82102e48",
+      "res://game/world/generation/plains_root_bell_encounter_v3.gd": "b2c9053599255513a625fa1f5b30fd3d91435b03c020a9ef8b2dd78180ac74cb",
+      "res://game/world/generation/plains_root_bell_placement.gd": "fe7ad2cc953c70c089bf6be71b66ce9800b3f32c77146b45a72fb4dd1af773be",
+      "res://game/world/generation/plains_route_recipes.gd": "d9cbf0b29d2d40757469e42ba61e4eb8488dbfcef17715f58913d08420e9c602",
+      "res://game/world/generation/plains_shot_latch_planner.gd": "239cf87fc4c12947e6c8728bfca0f601394a65408b73e0998eb87adf74e1b06d",
+      "res://game/world/generation/plains_spatial_golden.gd": "bd8957b8374ae478bddd3c11de26857c2e65b1d7448817c525126c2119fcb77f",
+      "res://game/world/generation/plains_world_rebuild.gd": "3023b42008ba89e423e85f2e077f1c2432276d9673a1ae56fb33630f9d8f50f5",
+      "res://game/world/generation/random_stage_assembler.gd": "afc2c2a3d5909f840f8e349d4c4ea1f7634bdb773f1efdebcd270016c1228bfb",
+      "res://game/world/generation/random_stage_generator.gd": "1b000ec46a2384e47da9477de4cb90b6e6b00a0ec7d744ce008f9694c4bef144",
+      "res://game/world/generation/stage_camera_rig.gd": "95e26bc443814386a205a528286acefb2e3a0e615c63eb4df4608a4ae4985c4c",
+      "res://game/world/generation/thorn_forest_region_assembler.gd": "0a77d61bc66879e6efe4305e3ce0418cc674e6d06a9010dadc8b20e95d2c96f2",
+      "res://game/world/generation/thorn_forest_region_generator.gd": "203e3fc032d3ec3b6dd6fb81cb967533773797e14d580628964ef74e3faac1e6",
+      "res://game/world/levels/content/level_module_catalog.gd": "daed910f57b091cdbe707d80b89243ced82cc0758744dae4ae659a0ae7c5ba9b",
+      "res://game/world/levels/forest_level_geometry.gd": "8d2714170a8fe63e5ced650682b4502e5d2ca34ae2122913229df5cd69eec992",
+      "res://game/world/levels/level_build_result.gd": "661410e2668abefaa5d1efcd639ed2cfcce0018048ced49aa743772559b6d3ff",
+      "res://game/world/levels/level_content_validation.gd": "2577da53601cb7a798e8814a2f183064e4e60e090e0296c05fadfc0346327796",
+      "res://game/world/levels/level_module_placement.gd": "1ecaaf6dd0e9255894e977df74a700aeaf820c2845ea3382aa53acb0100218f7",
+      "res://game/world/levels/level_plan.gd": "fc696eaa025d591f4f5b6fb4e3611975695e4ace5a118db5bccd4e26810038f1",
+      "res://game/world/levels/level_request.gd": "eb26a26e91f8cbd0893bb27c6de63965edf02709dbed4cc618cdb5eceb206dcd",
+      "res://game/world/levels/level_runtime.gd": "10db1418bf4d55cbf30009e1d0b98acc7e2e34d25dc31ae213718eb5fa1fd85c",
+      "res://game/world/levels/providers/demo_stage.gd": "72c730bc606dc52d617a95d39c2f7f21cb7d85d8d24c37f352729361c9f3d082",
+      "res://game/world/levels/providers/forest_level_provider.gd": "1c8258160569b8fca30d2eb3f0936b51cefa891cad86214232aac075b8ff0cec",
+      "res://game/world/levels/providers/generated_demo_stage.gd": "d90bc49bbb8a486f04c35adbcde6d9978abfa216b81c8e07be8edfde62bd58fa",
+      "res://game/world/levels/providers/legacy_region_plan_adapter.gd": "33509c923b6cfc87fe5f7b24041eaa1c3f58e7e90da11865c750aa7b0dc51441",
+      "res://game/world/levels/providers/plains_environment_stage.gd": "6b81eefa6b6dc8eef1a1cb8176a27874b545a854cfbbd05da15a6dee12ab304e",
+      "res://game/world/levels/providers/plains_level_provider.gd": "392c705ae4977596d515a690c75cb567261e8dcad78cd30103f597b5161ce12a",
+      "res://game/world/levels/providers/plains_region_stage.gd": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275",
+      "res://game/world/levels/providers/plains_world_rebuild_stage.gd": "545b9cb3e14f4f72ccf470cb6dc5dd3d0647c3da912d83372bfe071de781aebe",
+      "res://game/world/levels/providers/thorn_forest_current_slice.gd": "c3673e88a72fec3db6630d82efc2d3425e308eb0100699d06c7512ccac3177cb",
+      "res://game/world/levels/providers/thorn_forest_h_slice.gd": "d144e52fc78336dd4c81e769ade1324aca04afe477b34ce0db86a58eeaee980c",
+      "res://game/world/levels/providers/thorn_forest_region_stage.gd": "74e1959bc5ceec2aac77d8659a92ab968f16c49d0fff8c8f5d8012f256be17f4",
+      "res://game/world/state/biome_definition.gd": "532218dc264dc020cd4b97574e45f01eed0866a0775ae884bc0d2aef17705aa4",
+      "res://game/world/state/demo_lifetime.gd": "58c504ff5be7f38debd71ec2f45a58853f748f9e4ccb3b4558ac1fbd9da8ecc7",
+      "res://game/world/state/demo_token.gd": "aeffbe52c2f65993f8ac3075f3dd834db671982076013724266f12362949bcb1",
+      "res://game/world/state/exit_offer.gd": "d0ed7abfd47a86c9fee0fd2f8949030e19c726cfdc3e99bd617b5ae79e2aca08",
+      "res://game/world/state/plains_region_campaign.gd": "a05ab2350cadd9e7377630ea482886b58b3e8c5bf0630ff91db6662402f66bfc",
+      "res://game/world/state/plains_region_state.gd": "b0621e7b55d7653f0c9a3a567b229b8282e62672d3474bba99645950d2a1c006",
+      "res://game/world/state/route_planner.gd": "930c5759478dc23876a6dc082e90271e6e3153720ae5ff244a30c1620432f7e9",
+      "res://game/world/state/run_profile.gd": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+      "res://game/world/state/run_random_stream.gd": "dc8a96b5f72edecaa9d3308223578179d8f955fff70dd36cc6a69a637a540b56",
+      "res://game/world/state/stage_completion_rule.gd": "1e5dda618f0cae876bc02d3290cccb0e1b7dc256d3b05c3cbe0fcd5f83773aaa",
+      "res://game/world/state/stage_type_definition.gd": "80f6024258368512693b75a8fd00b3fefac86a379a4168a8f7732186e012e2de",
+      "res://resources/enemies/forest_bark_beetle.tres": "8154ef5c1e857f52e17343024626205e9115fb26fc77ea942effae61b48e803d",
+      "res://resources/enemies/forest_bible_weaver.tres": "24e30294f4ab322116119d8165d0056c1d6eb02d16e11fd284904fc0ff415f6d",
+      "res://resources/enemies/forest_crossbranch.tres": "01a836c7bacbd1900391f9fdafb167d008e40dbd158aa1af3369b4eab03a3d56",
+      "res://resources/enemies/forest_lantern.tres": "6858b90b00a1b2d04e33bb1784e42ad1e8617f40be4500d6d0fae0d5c6c789ae",
+      "res://resources/enemies/forest_seed_sentry.tres": "8c48ab8a873de121569d9b67419005f58dd3719c525162c7d1ddd8da22789a28",
+      "res://resources/enemies/forest_swing_pod.tres": "55803c44fd97c04c681a2462d57ced90bdfc6d0c575365787eea6833372f3a67",
+      "res://resources/enemies/forest_thread_spider.tres": "1726c3629fa6fa7c57d55f2b806e14f9e4580c998fab557ce145c7e7a275a928",
+      "res://resources/enemies/legacy/plains_charger_v2.tres": "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+      "res://resources/enemies/patrol_drone.tres": "833c276b6307cd098dcd41f229327189bf7b68f9d7bc895d562d392a6120398e",
+      "res://resources/enemies/patrol_health.tres": "c709aeb2cf6ff21f925dfe26b0c5e78e76530ab57995ce060f63da4f6155962d",
+      "res://resources/enemies/plains_charger.tres": "39513bce9f2d604514a88838d733db24b723ce965402ce5579e8260f5a83a232",
+      "res://resources/enemies/plains_diver.tres": "35421393d53fcfba09e6702ef17180e5761065fa43f95e797b1a547038fddf54",
+      "res://resources/enemies/plains_fan_sentry.tres": "46d9b74618f024666788bd8daf48c25efbe62e41aed16cc94adfa74fa66c94c4",
+      "res://resources/enemies/plains_hopper.tres": "b8a6aac30ee9c102941fea50b1c975e3925b18e3d669bb13ed0e0de0c3591a11",
+      "res://resources/enemies/plains_root_bell.tres": "8b063c74820570a8be89841c83993299c2afa9e9b317aaa453d8c295c95167c8",
+      "res://resources/enemies/plains_sentry.tres": "cd8defc9e43624a38a1a3184cf9a3815b87241eed4d671c650669cd1f4595768",
+      "res://resources/generation/modules/plains_ferry_channel.tres": "84e27cf2e0e25d55af1d22f7cc5ff1f72df12534886f5118baa456adcc237305",
+      "res://resources/generation/modules/plains_low_arch.tres": "a4acd90cab751be933b8a4d83ae3b03fbdb7a297a6ab80e72945318c5a6b1070",
+      "res://resources/generation/modules/plains_perch_rise.tres": "0aa1b0a33aff5752f877d25ebbdd5f5aa97432caafa570b6955811e04c427848",
+      "res://resources/generation/modules/plains_recoil_double.tres": "f76e8ffa564e02350a541ce8d79f5002cdcfa3722b9608ef5483f5c704bc8b55",
+      "res://resources/generation/modules/plains_recoil_span.tres": "1eedb1159fcad07e753cbcfe89ec322d1ffda9fa3ee0304054cb6fa52770d42a",
+      "res://resources/generation/modules/plains_recoil_step.tres": "64def4ea344dbca08f29d830a3243956ea6156dfd3d04d3ac6eb1f729a25bbda",
+      "res://resources/generation/modules/plains_skip_stones.tres": "09f1d318060e821faac40041d8a3877a068c386f87b4c93af719cc70616ff870",
+      "res://resources/generation/modules/plains_thorn_cells.tres": "23a4fd926a10b6dd325894a903a0e9585ac848198acebe2f3a6d6440de63310d",
+      "res://resources/generation/modules/plains_thorn_wall.tres": "2c651cb07b7e86d4a0f2288b0bc6f26a81b41adafee2a4b866b5dd1cd776d385",
+      "res://resources/generation/modules/plains_twin_gears.tres": "393ba83645d6479e24359c400057327a1a6abb2a73b0f2ec19a8a2d79e41f63c",
+      "res://resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "res://resources/weapons/blade_bloom.tres": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+      "res://resources/weapons/collapse_singularity.tres": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+      "res://resources/weapons/fan_shuriken.tres": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+      "res://resources/weapons/laser_cannon.tres": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+      "res://resources/weapons/machine_storm.tres": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+      "res://resources/weapons/magnetic_mine.tres": "aa25a81862e2fc1d19ac766a28b947f259e5933092a6a790eaa242da8825a897",
+      "res://resources/weapons/magnetic_storm.tres": "e83da8ec575f745017d9fce0bca590860341e39dc1b89936c23c477bfc46037f",
+      "res://resources/weapons/moon_boomerang.tres": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+      "res://resources/weapons/motion.tres": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+      "res://resources/weapons/pulse_gun.tres": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+      "res://resources/weapons/recoil_bomb.tres": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+      "res://resources/weapons/remote_boomerang.tres": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+      "res://resources/weapons/shadow_shuriken.tres": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+      "res://resources/weapons/star_collapse.tres": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+      "res://resources/weapons/sustained_laser.tres": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+      "res://resources/weapons/triple_machine_gun.tres": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+      "res://scripts/combat/weapon_definition.gd": "5c4d8be2021279e1eb4f6e981116ba80e49811a8318681c15e6e241b2c70ec1b",
+      "res://scripts/combat/weapon_motion_definition.gd": "0cf44896ac61ec146ac6c646f51f4fd7f7b5b1b223c2481ba7de5fd27ac61545",
+      "res://scripts/enemies/enemy_definition.gd": "7c0b0d9f0a820ee9aafb6169594dc59fe66d0e34bad5bd25ff738f154a5e57a9",
+      "res://scripts/enemies/forest_bible_weaver_definition.gd": "b747933685add1de12c4396f95a3df40de02455d4811f21abcb7f4e00002f7a4",
+      "res://scripts/enemies/forest_enemy_definition.gd": "46c239a01aa88e051efcde389dff7fed9eaf4bb7d97cd6bfcc20d67b1ff64199",
+      "res://scripts/generation/forest_air_chain_geometry.gd": "4d900bcbf8303a43ac73e9a75ac1d58a1dbde6e7616f83ace48e73f252a4543a",
+      "res://scripts/generation/forest_bible_backbranch_geometry.gd": "96084a69a79da7693a0a37a919a9277dec79776485e3c68b499610f67cef3e70",
+      "res://scripts/generation/forest_bible_thorn_surfaces.gd": "cba2711b9454b87b3bfa8445498f0047842ec9ac0ae2d7d3fecdcbe5c71a5187",
+      "res://scripts/generation/forest_bible_v2_layout.gd": "951d4e9f3eb61817570f88ed3f3097ebecbcdc8269e554034b89f8389f0cacf2",
+      "res://scripts/generation/forest_boss_arena_factory.gd": "b406f489c5e6ab0b93d2a8150897ee02da97d6b71f3afec099a89718c0b7e4ef",
+      "res://scripts/generation/forest_directional_geometry.gd": "ea44b33daa27cfc8c46eba54648cf99cc7f4b7fa6391e57caa6ce48b15407bd7",
+      "res://scripts/generation/forest_entry_rest_bay.gd": "e3511a60d7a2d1b85537768458424503abb2ba8fefa4e997daf914f87444f220",
+      "res://scripts/generation/forest_expedition_layout.gd": "783c9f908a6b380b247cc3f68b2e4de4ef6e270311ed10a01f78081867ecdd06",
+      "res://scripts/generation/forest_exploration_ecology.gd": "cd9d8b0837a33358bca3bc1e3ec3b18355004e1e27660d9edf275ad25d663897",
+      "res://scripts/generation/forest_exploration_fallen_trunk.gd": "7a6df9608c840b512d361b2c22425fc8cf3dba1d169bbdb8a57355387dc9fd5d",
+      "res://scripts/generation/forest_exploration_fruit_crossing.gd": "76f5fd17bd01754c9ed9bc5b7d37d7822754c195996e63fd2908c367da92bc7b",
+      "res://scripts/generation/forest_exploration_modules.gd": "951123639e721c5f5f422b9c3b1c06bbcd04d9fcb46b4dc82e39cecefc372641",
+      "res://scripts/generation/forest_exploration_network.gd": "64ac23d3e38a5983360e53fcc986dc4f27c1b02b10ee788a8b3862a02c719c88",
+      "res://scripts/generation/forest_exploration_place_embedding.gd": "cdf5288f8e585bb4acc6cb435514a545a3437abe27246a74e6a53560227954fc",
+      "res://scripts/generation/forest_exploration_places.gd": "a63029a82af552b3782165901abfea8e5b99f9287a83bc35741e9d0cfa0a2f1f",
+      "res://scripts/generation/forest_exploration_world.gd": "28f2a8f3752347268b8d3107a5c5752c8d874134d94267e363d4682b145441ea",
+      "res://scripts/generation/forest_fruit_routes.gd": "b8944aa8ce5ea0bacb4a9258dc354282dd33cfac30f65da9eced501bfa625c32",
+      "res://scripts/generation/forest_hollow_trunk_geometry.gd": "17e4f89d4180a03a20e01f0cec68738971769c99846b41b3210e26d50f4d4a4c",
+      "res://scripts/generation/forest_interwoven_expedition.gd": "6c7fd60c1cf5419528e117c52ec2445001ae6a5cecb1bcd3dcf83352f09e31a3",
+      "res://scripts/generation/forest_playful_module_variants.gd": "c6f258e5bddad4fc8877b8a34753238d0f74a86f7a5120652b19bc062375cac2",
+      "res://scripts/generation/forest_scene_language.gd": "e89be8cfd30f77f2adc1a1d99c9e1b26ddd03a7b52ce36bcae27696c33bc4cda",
+      "res://scripts/generation/forest_thorn_corridor_modules.gd": "4f3e95f5303853b179473399ed3e48727fe4aeb482689a717dbf5267a42bcad4",
+      "res://scripts/generation/forest_thorn_mouth_geometry.gd": "7d95f34daacd91b0efe8d185bd1c67a7dd4ed2477b85d464b71807be2ec34ee2",
+      "res://scripts/generation/forest_varied_bible_layout.gd": "65991bfdbc2d62ad82ef4be21f69974aa86d44743927972d867a41f606d35897",
+      "res://scripts/generation/forest_vertical_chain_geometry.gd": "c1868e8d032bac8ff0ea6a0fa6e803424a293eed7b41ff0b140859d6a8683a80",
+      "res://scripts/generation/forest_vertical_expedition.gd": "3dba0ecaa0f4d1037e6560c5653857de0d0058a15dda16d8a642907c76dacd54",
+      "res://scripts/generation/forest_western_grove.gd": "68db932ffa1538951ea09b82309628110dc0ba4e1f1bbd38af7f8cb62ae86fa8",
+      "res://scripts/generation/module_moving_platform_definition.gd": "46575fc0350d2961006d4ddc78884e20d1eb5fcbf133aa23d0690603b7664954",
+      "res://scripts/generation/module_saw_definition.gd": "ca864cb2c00e78b6088b61dc1f042b64372e6fe97115619d72390c005981087b",
+      "res://scripts/generation/platform_thorn_definition.gd": "10b62dfc8c66e4c804a08d50d69c5f9da96f54dd5600f400daa6e4751d1f3fc5",
+      "res://scripts/generation/platforming_module_definition.gd": "7ae4bab73990c01f5cfc1d2e06a54e635dbaa71a2951b912b7d46d2eee1cbb96",
+      "res://scripts/generation/platforming_module_port.gd": "de6371666089ac43374dbbbe62b0ada56c71524f79ada9d92fb8130664db98c9",
+      "res://scripts/generation/thorn_forest_region_v1.gd": "9c45a71ec0a2a5d2d3194c7b93a63f4e4a8a1b9b1741202a4d9e5b358acca0c7",
+      "res://scripts/generation/thorn_forest_region_v2.gd": "c449be2883d8590d2db01483889522f5f9b0a1e62e8421733ff71aeeac6185f8",
+      "res://scripts/generation/thorn_forest_region_v2_v10.gd": "77b39eb6a69c4fc1a9653d4837aea4aaab1822f4063a348add9f68030b194ee3",
+      "res://scripts/generation/thorn_forest_region_v2_v11.gd": "712eb576bfab9330f9c9255181a14660bc93a79112768d415f7623f7f77e8e3c",
+      "res://scripts/generation/thorn_forest_region_v2_v13.gd": "890b6ff6fd290f171bce6da7be077f0e1b73d815fab78a358e0ea8384301b088",
+      "res://scripts/generation/thorn_forest_region_v2_v14.gd": "cedc089b4fbb0ac7e31de4bbe545264a9f933c4a90dd3910d4c070f0563cf86f",
+      "res://scripts/generation/thorn_forest_region_v2_v15.gd": "8fbe2f3684dc66c27422819cec873588f82853ecaaa4f9a6bdf2024b39fa01f7",
+      "res://scripts/generation/thorn_forest_region_v2_v16.gd": "bfb6ee95c7dc41c623f112fbf9ce5cee0fdc5ea958ac0a7dd2f51bcd1d0a6020",
+      "res://scripts/generation/thorn_forest_region_v2_v17.gd": "51251a0f695c5e95898ec0d5d07d7686f044111426890c027a79cb28681d24a0",
+      "res://scripts/generation/thorn_forest_region_v2_v18.gd": "8731601fa22075596f90a9885163864db9059f0f14272af0eb042d14f8c573c7",
+      "res://scripts/generation/thorn_forest_region_v2_v7.gd": "84f6b1cf29186cfeb90c4139e8d9d305eb6b6c022358d532c25f4bacef26d314",
+      "res://scripts/generation/thorn_forest_region_v2_v9.gd": "5c5acbd73dcbda1f9ccd3a2452b56cff70d53f4518b6de01530913c9f960ff13",
+      "res://scripts/player/traversal_definition.gd": "5d212b12fd4ac72422addfa6d35de176ccae9e5f08593a8064a7f71be6183c49",
+      "res://scripts/resources/definitions/health_definition.gd": "3ab78102f977e9f651fd07cc243d896af714443721b501d7ba5f627ee6c787e8",
+      "res://tests/branch_module_driver.gd": "bbb38add7fcb2d7d579adfd4c2f30ce8e21c77c7f84166923929633751b9568f",
+      "res://tests/plains_exploration_motion.gd": "6393fb33b6ef579b1433ba576d769902f05500ad73c04718b3117bf1376f28be",
+      "res://tests/plains_interactive_motion.gd": "5610ae3a19c317d7a22d33ab6ce662a336b5939cd748fb11372c3c8168b2dc14",
+      "res://tools/foundry_validate.gd": "0d28b9637a81726ac548259276b6f5a05338b892837ca596b8aa8f58e66f218d"
+    }
+  },
+  "logs": {
+    "before.json": "0b9de66138e745a33ec9acc03d03fdb49a00fd0fef9cf514b59fc73d5885a31b",
+    "after.json": "e460e43c3cf2e363ec67db76010dd9f1862ddb0466c4a8c2a7de93012feeb69c",
+    "build.log": "bbf631dcdf470faf7a31ace4a3ebfbfee65dde96bd761b662ea767c4db292caa",
+    "stamp.log": "7861441f4c59dac8d76f08480a3109d5bc8d186ef9c6d31eb6b8109608fb2303"
+  },
+  "log_scope_note": "Original build log includes Unable to open Android build-tools directory during editor import. No Foundry ERROR/strict teardown failure present; this is not Android environment/export acceptance.",
+  "not_accepted": [
+    "artistic quality",
+    "fun/playtest approval",
+    "formal production pool replacement",
+    "new unified level library or algorithm",
+    "full182 or Android/Web/Windows exported gameplay",
+    "Foundry UI interaction or exported PCK stamp consumption"
+  ],
+  "file_review": [
+    {
+      "path": "resources/foundry/batch.json",
+      "old_sha256": "9487ba0d8d0010f4b5e499c13e7fec6fee7823e7955463a2ded7c14d7250f45c",
+      "new_sha256": "938d8b75fb3c5ce330d084cfef7914f3f4b2e6db2af869be18bf010b20f17ad0",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "engine"
+        ],
+        [
+          "accepted",
+          0,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          0,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          0,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          1,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          1,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          1,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          2,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          2,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          2,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          3,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          3,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          3,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          4,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          4,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          4,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          5,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          5,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          5,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          6,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          6,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          6,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          7,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          7,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          7,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          8,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          8,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          8,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          9,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          9,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          9,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          10,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          10,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          10,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          11,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          11,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          11,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          12,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          12,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          12,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          13,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          13,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          13,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          14,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          14,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          14,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          15,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          15,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          15,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          16,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          16,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          16,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          17,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          17,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          17,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          18,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          18,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          18,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          19,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          19,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          19,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          20,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          20,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          20,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          21,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          21,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          21,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          22,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          22,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          22,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          23,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          23,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          23,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          24,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          24,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          24,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          25,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          25,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          25,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          26,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          26,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          26,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          27,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          27,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          27,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          28,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          28,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          28,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          29,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          29,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          29,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          30,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          30,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          30,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          31,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          31,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          31,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          32,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          32,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          32,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          33,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          33,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          33,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          34,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          34,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          34,
+          "manifest",
+          "hash"
+        ],
+        [
+          "accepted",
+          35,
+          "manifest",
+          "basis"
+        ],
+        [
+          "accepted",
+          35,
+          "manifest",
+          "engine"
+        ],
+        [
+          "accepted",
+          35,
+          "manifest",
+          "hash"
+        ],
+        [
+          "itineraries",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          0,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          1,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          2,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          3,
+          "basis"
+        ],
+        [
+          "itineraries",
+          3,
+          "engine"
+        ],
+        [
+          "itineraries",
+          3,
+          "hash"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          3,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          4,
+          "basis"
+        ],
+        [
+          "itineraries",
+          4,
+          "engine"
+        ],
+        [
+          "itineraries",
+          4,
+          "hash"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          4,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          5,
+          "basis"
+        ],
+        [
+          "itineraries",
+          5,
+          "engine"
+        ],
+        [
+          "itineraries",
+          5,
+          "hash"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          5,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          6,
+          "basis"
+        ],
+        [
+          "itineraries",
+          6,
+          "engine"
+        ],
+        [
+          "itineraries",
+          6,
+          "hash"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          6,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          7,
+          "basis"
+        ],
+        [
+          "itineraries",
+          7,
+          "engine"
+        ],
+        [
+          "itineraries",
+          7,
+          "hash"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          7,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          8,
+          "basis"
+        ],
+        [
+          "itineraries",
+          8,
+          "engine"
+        ],
+        [
+          "itineraries",
+          8,
+          "hash"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          8,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          9,
+          "basis"
+        ],
+        [
+          "itineraries",
+          9,
+          "engine"
+        ],
+        [
+          "itineraries",
+          9,
+          "hash"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          9,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          10,
+          "basis"
+        ],
+        [
+          "itineraries",
+          10,
+          "engine"
+        ],
+        [
+          "itineraries",
+          10,
+          "hash"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          10,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          11,
+          "basis"
+        ],
+        [
+          "itineraries",
+          11,
+          "engine"
+        ],
+        [
+          "itineraries",
+          11,
+          "hash"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          11,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          12,
+          "basis"
+        ],
+        [
+          "itineraries",
+          12,
+          "engine"
+        ],
+        [
+          "itineraries",
+          12,
+          "hash"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          12,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          13,
+          "basis"
+        ],
+        [
+          "itineraries",
+          13,
+          "engine"
+        ],
+        [
+          "itineraries",
+          13,
+          "hash"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          13,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          14,
+          "basis"
+        ],
+        [
+          "itineraries",
+          14,
+          "engine"
+        ],
+        [
+          "itineraries",
+          14,
+          "hash"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          14,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          15,
+          "basis"
+        ],
+        [
+          "itineraries",
+          15,
+          "engine"
+        ],
+        [
+          "itineraries",
+          15,
+          "hash"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          15,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          16,
+          "basis"
+        ],
+        [
+          "itineraries",
+          16,
+          "engine"
+        ],
+        [
+          "itineraries",
+          16,
+          "hash"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          16,
+          "phrases",
+          2,
+          "hash"
+        ],
+        [
+          "itineraries",
+          17,
+          "basis"
+        ],
+        [
+          "itineraries",
+          17,
+          "engine"
+        ],
+        [
+          "itineraries",
+          17,
+          "hash"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          0,
+          "basis"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          0,
+          "engine"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          0,
+          "hash"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          1,
+          "basis"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          1,
+          "engine"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          1,
+          "hash"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          2,
+          "basis"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          2,
+          "engine"
+        ],
+        [
+          "itineraries",
+          17,
+          "phrases",
+          2,
+          "hash"
+        ]
+      ]
+    },
+    {
+      "path": "resources/foundry/export_basis.json",
+      "old_sha256": "0969120617608f1c5c7bbfda15f8aaae80bac4b6373b7afc96d25d7da2438652",
+      "new_sha256": "fd5a68ed4ff0025d5f54fc1680dc7a6035189bbd63e661afc2a2a1b009bff130",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "engine"
+        ]
+      ]
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+      "old_sha256": "2847cf69709b04f7239aa6de0497352be389ef2ab795829ae94c5fdace2e670d",
+      "new_sha256": "1eb3fe7bdbb5969e4791d69b2e1d051167fa30503567063ad4db01eabd29b86e",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 471,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+      "old_sha256": "4204391a9c7af1870214affc964ecdbf8434dc573278454e9da8bfc6a177c226",
+      "new_sha256": "a1d563dad3c02daec4ff73dea37b95ef32f6fe77bb4ac294e807e5b0163a79e0",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 471,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+      "old_sha256": "3d11ea39ee54b319eeeb82fe06704197ca660f71b627d38377d15e011eb296f5",
+      "new_sha256": "38bf8a41e1962aeb710be9b716e67f91b91dfaa2fc6d606c6ec824e9de803c0a",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 471,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+      "old_sha256": "ed1049c5de67d3f67ccebb6c5cecb13b62c2a91eeb55b9cc5e136f099ccc1f55",
+      "new_sha256": "9fcca4fd0508632f6808077e19afd092a0cb1ede2fbdeb4431fbaf731e109e16",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 506,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+      "old_sha256": "072f23cf37862bdefec75b7de479de35546d2b5b0cff036fab4014708eca319c",
+      "new_sha256": "3be89140bfab9e1081cf4b21f891d224adc405327dad89ddd9aec017bd66792f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 506,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+      "old_sha256": "14028441853c25916257f362c930be9cae3456c642bd6b89a049d949a2f214b1",
+      "new_sha256": "6344c07d7b33252a0d09e4ce10f9805131f739dc8e7c7018e350576b7b34bd03",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 471,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+      "old_sha256": "9a6420a5ba17ddb61cd2184a08e5d9d3dba96ac2fbe52cc20c690ca7d7aa41e3",
+      "new_sha256": "af4a4b9ce2dae20eb2b73ed7ab1a5abecdb8e2fd2f15a29bc402cc8ba98c28f5",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 444,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+      "old_sha256": "065304c0a01ab3003b52a7f95b6871756dd7b794a61b4d207ea897f0b83a4f82",
+      "new_sha256": "b8b8e8e4acb8f350faf6a4828275a85a67769940ae88e6d99f627183d5463341",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 444,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+      "old_sha256": "d780b27ed4037f27fb6fa19821bdee6400e1ec2af39aa5a46d67907f25bc5090",
+      "new_sha256": "b33d6ce0eeae0cd39906a39902148728a3539af622b918b26c9f3dfebc10a793",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 444,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+      "old_sha256": "e48c3e5704678658b62b6a5077480e9ebdbb879400bc0d525c9eb44e37c39693",
+      "new_sha256": "d6c022444db49afcb1d998b05356d84e21f38dddf629b372a10840a92d42a433",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 456,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+      "old_sha256": "482f8a93ecd332ebb7c23218af953079460068d8e8d2ed85f8beb88af27c4ad3",
+      "new_sha256": "db8ddd4c5d5eecd9d149ac1c42c82cf7af8f248b09181c2efca457d406071d53",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 456,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+      "old_sha256": "10b2ba8a252af3faefb01ef4f3303f7f4dd91f274572251bd1983271410fce7e",
+      "new_sha256": "916e2f6fd0464530ab5edf71fd0e4d001f170a45be5e320381ab9dd760f3cc8a",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 444,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+      "old_sha256": "8ad8fb0ab8ba97eb97a2440241ba294dce318b1171e604c509bf8c66328e7a89",
+      "new_sha256": "f000ea170d121e6d17259fba76e20907cea10ab2093920418200b80b74eab216",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 905,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+      "old_sha256": "37cfdbe21d6fdc402d66cc3d43119012147363aa349e93bc38603d69cdabdfc6",
+      "new_sha256": "0b29ff670230462c3ed8e8dac5e8760836edeb1eb7ce7562da5533390e805024",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 905,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+      "old_sha256": "922fe10f86016756ba22b4c8c39a9d324bc9b35acd0c49924423a5e3b03db1d3",
+      "new_sha256": "166e2378ff465aeef60cf0d94a8f8a481dad4df19735333d02733e67b12a0040",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 794,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+      "old_sha256": "85291ecba69e057041c5187a4ed34d2327c5b98c44ab8f401c6efda3d46e9bc0",
+      "new_sha256": "115f024186fb4eefb857483aa435283cad8dd39f6f26f37dbc731b895f6ef961",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 941,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+      "old_sha256": "77d7d5712944c471dcb3176ce6c61fa48619af109c288fd912950e76ec74c578",
+      "new_sha256": "312ae313be09402c1ad1a711f1f506ad6641a17c1304ddadf0d0cc7676979a22",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 830,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+      "old_sha256": "47a19f4ab4a208cc0a6276c00e1a4ef6b87ee264d54ed29219ca13c2155d3f1d",
+      "new_sha256": "6d50d56d3a05e4cc678a8217025731ce763eea5c7df4d70ba3f4f7adabf90a1f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 905,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+      "old_sha256": "26234110e765427589e633928419015527de96fd80d0a13ee5864f277068f251",
+      "new_sha256": "dd6c38ed140c27bc5f9b7ba43d7313034e993153b4f51d7eb079841aba90323f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 916,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+      "old_sha256": "36a9eaca5f0489a20a94eb99dc47a240bb9d0e1bbb1a028a7da5996f20e4126f",
+      "new_sha256": "1d8489c61fa1f6f4c51a7edb5601413b84240bfdc9d0d386a4d1eea27de22070",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 916,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+      "old_sha256": "0db739511c67226e6c87fb995261dc326ad0deaad14c11248ab2948a4552575b",
+      "new_sha256": "149928710d76f7ce382325edbef3ca9b9f07702ba5195f181ec97fe488cf057f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1249,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+      "old_sha256": "d5dfcdae639e0d62f8b26ca09cf88b1a2e93eac3bd3536293e10323344a31ac7",
+      "new_sha256": "76f9d9a168b24d6343d14119512aec951c34f35e1766ebb574fe6ec60f3c3418",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1106,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+      "old_sha256": "521216400e67c36b4ce71879ca8eb59a989e017ff05ad8c4f6b02b485fb33296",
+      "new_sha256": "2b4b02a96475501f34164404d285f2b23b71d6eee9a4e99ada31ba10d4cb3d6f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1040,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+      "old_sha256": "1df08c5ad5f722c9d45d8453c7598caae1b142b58a9f7f2ab2b90d3215be3318",
+      "new_sha256": "e7e9748b57e7fb929ec5e3d3d83789342e2faae30a40f531e212d29975413a55",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 916,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+      "old_sha256": "f86d3f8aa80d3b9f551cd8f64ea0a763c6e991526fc01097892e16342c5fc204",
+      "new_sha256": "18ef20698177842a7670810f8aff2a4d8190c3e0216968373662e7c4889f855e",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 578,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+      "old_sha256": "9a3171ddaf25df53b6c0ff6d9ee0f56e2cb3db01680dd44f955bc54228a256d4",
+      "new_sha256": "a219dec9df8cedd7d6f82f7c44d717869a912293449aa98c4910d755556fde2f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 578,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+      "old_sha256": "5ddc4d545d6528636f623f8aea5d5092c19dc10967f242c0e3f94b2a70e3eef8",
+      "new_sha256": "0241c5e4fc6889604b643a161754e2a96d78e5f0d6b3860d72a3f58b6f04d150",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 776,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+      "old_sha256": "dbd31e57a64a3d4726498e60dec1adbc45e8adf1525d32445096ec5955a8009e",
+      "new_sha256": "217b35f0373adfb7cf8062fa195deb0c1f4ab9891eea7e82703af7f92fd2da3e",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 746,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+      "old_sha256": "3fcabef1cf63d383326aabebe9553cbf3672826585d3494fe86e8e67a3c92194",
+      "new_sha256": "67575045e6845d7343f06f18b170d0655a3d17afdd856e199c74bde9454721cb",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 680,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+      "old_sha256": "eb9a2d284149c2bed714d0a89630df1a993fd1fd08396ddbed5e3df76265d4f7",
+      "new_sha256": "0a7c7fc248f7fa16042208f767a73e7655fb718066f8f96f428247f2323dc35b",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 578,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-0e61faed40.json",
+      "old_sha256": "e938d6a4ea36f862ff2295db2ff0e01d9d36097102e8937919db4ae0dd2bc93d",
+      "new_sha256": "b0e6d8db9be9a1ccaf23a74993ff721bec835d93ae98d5839105af1eb9e4f1a0",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1505,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-0efaee5828.json",
+      "old_sha256": "6dc686fd94ff1b26078bbaa75244a584ac3ff7cb26d8118e48148c5f6caa73af",
+      "new_sha256": "b482ab1d22eff402b7da74ef1bba913bd05804bc27a3d315f98017dab844961e",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1823,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-122d7f6e2a.json",
+      "old_sha256": "5e5afc8ca43d1c12e59cb4b174845308ebd247b0e55a910e80354ffc806424e3",
+      "new_sha256": "17e623f7de1b6e4779e343c43ffe65c13b6a00fcc7ae93cd5fd25e4cf79aca9f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1836,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-1521b6b7c3.json",
+      "old_sha256": "76335df90b17ef5a07a330c5267cb77064c1a38171869c01cdc3462c8268a5a0",
+      "new_sha256": "6bf1fbebd876755d8eca17faa02e7eaa75c8f01ebb706cd39168bf47eeead716",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 2237,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2860deda61.json",
+      "old_sha256": "623ab7ca1fddaa5c10a14f25e494e033493e250c6c14fabd851c49ca0c435ff4",
+      "new_sha256": "258629d6b43a4eeb96d650f354d7695bfde1a77afe1cfe92963ccbbed53e1111",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1674,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2d706b6f11.json",
+      "old_sha256": "52d5ab6e402986beb36b399cc931819700dd6516e5a5408db0933261ed9ca90d",
+      "new_sha256": "31db8c6209c848a571cc8f3e405ca8cd661a38bbe9362d3e14260ed0a3539da8",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1793,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2d7d2e4612.json",
+      "old_sha256": "6dcb63eb74a3f164bf518703256747f77c2cb51a973bf1b4e9e09ad4fd57ba9d",
+      "new_sha256": "5271d985756fc4ddba307a66236793ab1b718daab6883b3c91c303ea7d329eaf",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1520,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2f6354523f.json",
+      "old_sha256": "8c869c983e6dcbdfe3ee8808479a2263c4fc5ffd26350c8db477dddf924badcd",
+      "new_sha256": "05f124e5a2dba6e3fb1642075e091e0e0944763a0e734a76ae187e1975abdd77",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1397,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-3aa2ad4cba.json",
+      "old_sha256": "b7be5c4cea84f575b3bf7a6a24e4b97acab9b0cd44dce017bdddca67593e2d48",
+      "new_sha256": "fd0b6772a62810434991d9db1cfea0be99ae1f327e5685a1b111b1ceb3fd6bcb",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1834,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-4bec60578b.json",
+      "old_sha256": "de96cf63e1b8a789af632395ca93a5b2e6d67789cb4a299f19592dd38a49ac81",
+      "new_sha256": "a0f4c7e4adf29c2c22b74d3f4cfcee897cceb6e837fbe4e848cd2191704504f0",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1444,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-5798c84cea.json",
+      "old_sha256": "fa9c02303bd79f28ba9d5c7649b253a7488f7b292e3174cd594f1da44ca6bc15",
+      "new_sha256": "0d6f035dc3066862a92fd816de4930dcb86842e439229aaadea728e7ef880472",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1815,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-7da5a6c16f.json",
+      "old_sha256": "b3b95193e92daab9cbdd25b284657c9d2bbb74390209b472edeebc3fb2062a3b",
+      "new_sha256": "9dcbf2192fe9ce3c7c12e80b3c25711a8fbfed632eb406f4eebaee16207c97af",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 2692,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-908c475df3.json",
+      "old_sha256": "775602196c0ee365aaf84c0cdf8369c6fe01b3f8ca63f4770353538def134349",
+      "new_sha256": "6ce6f0c8f8a6285a161a7fa1c7283fc921fd277bbcdff136b92dd040335b4e95",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1868,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-93acd6603f.json",
+      "old_sha256": "5ba76cbd136ecbd267d6ccb06dd4d548c9be66ab64c70a3ac0a91cfe22ecdb2c",
+      "new_sha256": "1aa6f24f8890e3936ff700b30dc1a7ac58fe3bb75c3e2875d5256a67b5b5b8cd",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1760,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-ad7b9db895.json",
+      "old_sha256": "4f4bebaf6174253261e06b02df30fc8c35422840d6cbcb4c1e5e384759a86fdc",
+      "new_sha256": "93ba7ce3a0a07b5dc7b44c4067c19a0977e3fcbed0719339629d9b962bc42c1f",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1793,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-b4df2effd8.json",
+      "old_sha256": "05b3a458b185975deacf74c2693f1c41ca90ec7f83a2a6f27c16628a33360207",
+      "new_sha256": "c3d99d8a3fcbaf78b4cf788fc9515b38a9569cda81ef54a5472588b419e93f48",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1530,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-cf73f3c620.json",
+      "old_sha256": "8e4ccf72d7dd00646c9b4194e6bb619921bf1f74bad2f3cf01ff8c473f4ab0be",
+      "new_sha256": "5ca641bfd84a42d2e681fd18b64e9f45d345563ca6d75f953d251d11f672887d",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 1485,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/route-f91361b454.json",
+      "old_sha256": "4f7f6da56fc406e725d78e748265063756c0b6c5841a6dcad0d36f7b53c82636",
+      "new_sha256": "3352125f7b1eb076c0e46d669aef70672deda69c32ba480493d30a8f33f3238a",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 2248,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+      "old_sha256": "d4d790fecaa6bc1521be9d50173ca430a64b68f3edabf26df0244154e6a5701a",
+      "new_sha256": "e4d840b6385b842d55f04f5efe8b8139b1d315b8fbc38890800c9486a5b4eb6c",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 490,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+      "old_sha256": "ea1f4328fb429302d382309feb4d21c9cd750f0e2973873f7515bb8af5eb43d0",
+      "new_sha256": "c5cca1f342379119d1320573a2157b9497cb0550da3c88b36c724c29cb97d0ac",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 490,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+      "old_sha256": "bd99974726442e755e302065e4294285d6ec72e81c98df234bfb985800edb40c",
+      "new_sha256": "a81ca83f3a196a441ce5bf260d3780fc979c09e36a2e4f56d1c4fad65d5eac88",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 490,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+      "old_sha256": "4333fe67e88609f8bd8515bbba76867efe611b9c8577d7dc8d170272a9385ee9",
+      "new_sha256": "d0c56b2fd4e92e4ab1d0f74c31071fcfce9ac58babdd915087f76d359dedf204",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 478,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+      "old_sha256": "6b6881d1a51c6ff9a745b574c11959d54f0aee2040db34ce9c0b945500f47f80",
+      "new_sha256": "a3f5d9a773bd656f51c8d9a99a7ed979694e38eaba95686e0f0ffc8d8db19b55",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 478,
+      "frames_equal": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+      "old_sha256": "f885a92bfd0aee3fb33a4e0446d467125be6b3c470f2f34131dd6b6bc472a364",
+      "new_sha256": "17c53cb865710296f345c2bc19ccf910d14d843494bae56574f26725f3f9d0d7",
+      "backup_matches_before_and_git": true,
+      "current_matches_after_receipt": true,
+      "changed_json_paths": [
+        [
+          "basis"
+        ],
+        [
+          "manifest_hash"
+        ]
+      ],
+      "frames": 490,
+      "frames_equal": true
+    }
+  ]
+}

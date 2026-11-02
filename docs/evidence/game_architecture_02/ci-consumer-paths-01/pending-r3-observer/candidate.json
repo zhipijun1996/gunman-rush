@@ -1,0 +1,111 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+  "before_sha256": "3b88e93aa8649f7723a56125e66d5534955b3d96fbf905ef49e2ec5469428c75",
+  "candidate_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+  "patch_sha256": "5e37b450ece810fb4626fffce37ac7275ca694174ab4821d5c88103f93a510c8",
+  "scope": "observer only, no engine execution, no main changes",
+  "changes": [
+    {
+      "before": "pressure_boss_health",
+      "after": "battle_boss_health",
+      "count": 4
+    },
+    {
+      "before": "pressure_player_health",
+      "after": "battle_player_health",
+      "count": 4
+    },
+    {
+      "before": "pressure_last_live",
+      "after": "battle_last_live",
+      "count": 5
+    },
+    {
+      "before": "_finish_pressure_released_receipt",
+      "after": "_finish_released_receipt",
+      "count": 4
+    },
+    {
+      "before": "var battle_last_live:Dictionary={}\n",
+      "after": "var battle_last_live:Dictionary={}\nvar lifecycle_events:Array[Dictionary]=[]\n",
+      "count": 1
+    },
+    {
+      "before": "\tstart_meta=app.meta.snapshot()\n",
+      "after": "\tstart_meta=app.meta.snapshot()\n\t# Cache only actual RefCounted resource owners; never retain scene nodes.\n\tbattle_boss_health=encounter.health\n\tbattle_player_health=app.controller.actor_resources.health\n\tapp.director.run_ended.connect(_observe_run_ended)\n\tapp.policy.player_fatal.connect(func()->void:lifecycle_events.append({\"tick\":Engine.get_physics_frames(),\"event\":\"player_fatal\"}))\n\tencounter.defeated.connect(func(_owner:BossEncounter)->void:lifecycle_events.append({\"tick\":Engine.get_physics_frames(),\"event\":\"boss_defeated\",\"health\":battle_boss_health.current,\"terminal\":battle_boss_health.terminal}))\n",
+      "count": 1
+    },
+    {
+      "before": "\t\tbattle_boss_health=encounter.health\n\t\tbattle_player_health=app.controller.actor_resources.health\n",
+      "after": "",
+      "count": 1
+    },
+    {
+      "before": "\tawait frames(5)\n\tif not app._boss_started:",
+      "after": "\tawait frames(5)\n\tif not _battle_available(encounter,stage,boss):\n\t\tawait _finish_released_receipt(actual_map_identity)\n\t\treturn\n\tif not app._boss_started:",
+      "count": 1
+    },
+    {
+      "before": "\t\tif not is_instance_valid(app.controller) or app.director.state!=DemoRunDirector.State.IN_STAGE:break\n\t\tif pressure_pilot!=null and (not is_instance_valid(encounter) or not is_instance_valid(stage) or not is_instance_valid(boss)):break\n",
+      "after": "\t\tif not _battle_available(encounter,stage,boss):break\n",
+      "count": 1
+    },
+    {
+      "before": "if pressure_pilot!=null and (not is_instance_valid(encounter) or not is_instance_valid(stage) or not is_instance_valid(app.controller) or not app.lifetime.active or app.director.state!=DemoRunDirector.State.IN_STAGE):",
+      "after": "if not _battle_available(encounter,stage,boss):",
+      "count": 3
+    },
+    {
+      "before": "\t\ttrace.append({\"tick\":Engine.get_physics_frames(),\"movie_seconds\":float(Engine.get_physics_frames()-start_tick)/60,\"player\":[player.global_position.x,player.global_position.y],\"boss\":[boss.global_position.x,boss.global_position.y],\"player_hp\":controller.actor_resources.health.current,\"boss_hp\":encounter.health.current,\"stamina\":controller.actor_resources.stamina.current,\"phase\":encounter.stage_phase,\"mode\":String(encounter.mode),\"clock\":encounter.clock,\"axis\":axis,\"cross\":cross_axis,\"grounded\":grounded,\"requested_shots\":shots})\n",
+      "after": "\t\ttrace.append({\"tick\":Engine.get_physics_frames(),\"movie_seconds\":float(Engine.get_physics_frames()-start_tick)/60,\"player\":[player.global_position.x,player.global_position.y],\"boss\":[boss.global_position.x,boss.global_position.y],\"player_hp\":controller.actor_resources.health.current,\"boss_hp\":encounter.health.current,\"stamina\":controller.actor_resources.stamina.current,\"phase\":encounter.stage_phase,\"mode\":String(encounter.mode),\"clock\":encounter.clock,\"axis\":axis,\"cross\":cross_axis,\"grounded\":grounded,\"requested_shots\":shots})\n\t\tbattle_last_live=trace.back().duplicate(true)\n",
+      "count": 1
+    },
+    {
+      "before": "\t\tfor tick: int in 300:\n",
+      "after": "\t\tfor tick: int in 300:\n\t\t\tif not _battle_available(encounter,stage,boss):\n\t\t\t\tawait _finish_released_receipt(actual_map_identity)\n\t\t\t\treturn\n",
+      "count": 1
+    },
+    {
+      "before": "\t\tstop_bell_inputs()\n",
+      "after": "\t\tif not _battle_available(encounter,stage,boss):\n\t\t\tawait _finish_released_receipt(actual_map_identity)\n\t\t\treturn\n\t\tstop_bell_inputs()\n",
+      "count": 1
+    },
+    {
+      "before": "\t\tawait frames(3)\n\t\tsettlement[\"mini_exit_open\"]",
+      "after": "\t\tawait frames(3)\n\t\tif not _battle_available(encounter,stage,boss):\n\t\t\tawait _finish_released_receipt(actual_map_identity)\n\t\t\treturn\n\t\tsettlement[\"mini_exit_open\"]",
+      "count": 1
+    },
+    {
+      "before": "\tvar hp:float=battle_boss_health.current if battle_boss_health!=null else float(battle_last_live.get(\"boss_hp\",0))\n\tvar actor_hp:float=battle_player_health.current if battle_player_health!=null else float(battle_last_live.get(\"player_hp\",0))\n\tif hp>0 and not failure.has(\"actual continuous full fight did not defeat Boss\"):",
+      "after": "\tvar hp:Variant=battle_boss_health.current if battle_boss_health!=null else null\n\tvar actor_hp:Variant=battle_player_health.current if battle_player_health!=null else null\n\tif battle_boss_health==null or battle_player_health==null:\n\t\tfailure.append(\"released battle missing actual health observations; outcome unknown\")\n\tif battle_boss_health!=null and not battle_boss_health.terminal and not failure.has(\"actual continuous full fight did not defeat Boss\"):",
+      "count": 1
+    },
+    {
+      "before": "\tif actor_hp<=0 or not app.lifetime.active:\n\t\tif not failure.has(\"player failed actual continuous battle\"):failure.append(\"player failed actual continuous battle\")\n\tfailure.append(\"actual Pressure full battle released its arena before successful settlement\")",
+      "after": "\tvar app_state:=_app_lifecycle_snapshot()\n\tif (battle_player_health!=null and battle_player_health.terminal) or (app_state.has(\"lifetime_active\") and not bool(app_state.lifetime_active)):\n\t\tif not failure.has(\"player failed actual continuous battle\"):failure.append(\"player failed actual continuous battle\")\n\tfailure.append(\"actual Pressure full battle released its arena before successful settlement\" if pressure_pilot!=null else \"actual Bell full battle released its arena before successful settlement\")",
+      "count": 1
+    },
+    {
+      "before": "\t\t\tbell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),bell_units(stage))\n",
+      "after": "\t\t\tbell_pilot.step(app,encounter,(encounter as BellstriderEncounter).combat_metrics(),bell_units(stage))\n\t\t\tfinal_bell_metrics=(encounter as BellstriderEncounter).combat_metrics()\n",
+      "count": 1
+    },
+    {
+      "before": "\"pressure_input_adapter\":true,\"pressure_navigation_sha256\":FileAccess.get_sha256(\"res://tools/windkeeper_pressure_01/legal_input_pilot.gd\"),\"pressure_input_profile\":\"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof\",\"pressure_extra_inputs\":pressure_extra_inputs,\"pressure_pilot_inputs\":pressure_pilot.input_rows,\"arena_released\":true,\"last_live_snapshot\":battle_last_live,\"combat_frame_limit\":7200",
+      "after": "\"pressure_input_adapter\":pressure_pilot!=null,\"pressure_navigation_sha256\":FileAccess.get_sha256(\"res://tools/windkeeper_pressure_01/legal_input_pilot.gd\") if pressure_pilot!=null else \"\",\"pressure_input_profile\":\"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof\" if pressure_pilot!=null else \"not used\",\"pressure_extra_inputs\":pressure_extra_inputs,\"pressure_pilot_inputs\":pressure_pilot.input_rows if pressure_pilot!=null else [],\"arena_released\":true,\"last_live_snapshot\":battle_last_live,\"combat_frame_limit\":7200,\"terminal_trace\":terminal_trace,\"bell_metrics\":final_bell_metrics,\"bell_units\":final_bell_units,\"bell_inputs\":bell_pilot.input_rows if bell_pilot!=null else [],\"automated_player\":\"read-only legal_input_pilot cautious2 for current Bell\" if bell_pilot!=null else \"canonical active_assault legal-input pilot for current Pressure\",\"boss_terminal_observed\":battle_boss_health.terminal if battle_boss_health!=null else null,\"player_terminal_observed\":battle_player_health.terminal if battle_player_health!=null else null,\"lifecycle_events\":lifecycle_events,\"app_lifecycle\":app_state",
+      "count": 1
+    },
+    {
+      "before": "\tif is_instance_valid(app):\n\t\tapp.abandon_run()\n",
+      "after": "\tif is_instance_valid(app):\n\t\tif is_instance_valid(app.controller):app.abandon_run()\n",
+      "count": 1
+    }
+  ],
+  "original_signal_handlers_unmodified": true,
+  "engine_run": false,
+  "native_result": "UNVERIFIED",
+  "pilot_modified": false,
+  "combat_frame_limit": 7200,
+  "native_timeout_seconds": 180
+}

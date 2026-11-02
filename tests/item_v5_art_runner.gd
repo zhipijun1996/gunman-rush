@@ -107,7 +107,7 @@ func resources_and_grammar() -> void:
 		row.fps = value
 		bad.clips = {"test":row}
 		check(not ItemArtLibrary.validate_payload(bad).is_empty(),"invalid clip speed rejected: "+str(value))
-	for path: String in ["res://scripts/player/player_controller.gd","https://example.com/test.png","res://assets/items/v5/../other.png"]:
+	for path: String in ["res://game/player/player_controller.gd","https://example.com/test.png","res://assets/items/v5/../other.png"]:
 		var bad := empty.duplicate(true)
 		bad.icons = {"item_bad":{"texture":path,"region":[0,0,16,16]}}
 		check(not ItemArtLibrary.validate_payload(bad).is_empty(),"art data cannot load scripts, network paths or escaped files: "+path)
@@ -279,6 +279,7 @@ func _unload_callback() -> void:
 
 func run() -> void:
 	resources_and_grammar()
+	cache_lifecycle()
 	recipe_geometry_cases()
 	await committed_impacts()
 	await actual_resource_and_mark_hooks()
@@ -606,3 +607,31 @@ func publication_receipt_epochs() -> void:
 	for kind: StringName in [&"item_committed_impact",&"barrier",&"heal",&"item_guard_active",&"item_rescue_committed",&"item_break_bell_committed"]:
 		runtime.cue(kind,point,{"definition_id":&"P14","event_id":StringName("fake/"+String(kind))})
 		check(not events_of(kind).back().detail.has("session"),"publication cannot mint a missing actual commit proof for "+String(kind))
+
+func cache_lifecycle() -> void:
+	var payload: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ItemArtLibrary.CONFIG_PATH))
+	var icon_key := StringName(payload.icons.keys()[0])
+	var clip := ItemArtLibrary.entity_clip(&"small_drone",&"P14")
+	var icon := ItemArtLibrary.icon_texture(icon_key) as AtlasTexture
+	var frame := ItemArtLibrary.frame_texture(clip,0.0) as AtlasTexture
+	check(icon != null and frame != null and clip == &"p14.body","cache fixture consumes actual registered icon and P14 body")
+	var same_queries := true
+	for _sample: int in 16:
+		same_queries = same_queries and ItemArtLibrary.entity_clip(&"small_drone",&"P14") == clip
+		same_queries = same_queries and ItemArtLibrary.icon_texture(icon_key) == icon
+		same_queries = same_queries and ItemArtLibrary.frame_texture(clip,0.0) == frame
+	check(same_queries,"warm registry queries preserve mappings and reuse actual atlas objects")
+	var duration := ItemArtLibrary.clip_duration(clip)
+	check(ItemArtLibrary.reload_registry(),"explicit registry reload still validates actual resources")
+	var reloaded_icon := ItemArtLibrary.icon_texture(icon_key) as AtlasTexture
+	var reloaded_frame := ItemArtLibrary.frame_texture(clip,0.0) as AtlasTexture
+	check(reloaded_icon != null and reloaded_icon != icon and reloaded_icon.atlas == icon.atlas,"reload replaces cached icon atlas while retaining the same source texture")
+	check(reloaded_frame != null and reloaded_frame != frame and reloaded_frame.atlas == frame.atlas,"reload replaces cached animation atlas while retaining the same source texture")
+	check(ItemArtLibrary.entity_clip(&"small_drone",&"P14") == clip and ItemArtLibrary.clip_duration(clip) == duration,"explicit reload preserves actual mapping and animation timing")
+	var material := ItemArtLibrary.world_material()
+	ItemArtLibrary.clear_cache()
+	var cleared_icon := ItemArtLibrary.icon_texture(icon_key)
+	var cleared_frame := ItemArtLibrary.frame_texture(clip,0.0)
+	check(cleared_icon != null and cleared_icon != reloaded_icon and cleared_frame != null and cleared_frame != reloaded_frame,"clear_cache forces fresh atlas construction on the next real queries")
+	check(ItemArtLibrary.world_material() != material,"clear_cache also releases the shared world material cache")
+	check(ItemArtLibrary.diagnostics().valid and ItemArtLibrary.entity_clip(&"small_drone",&"P14") == clip and ItemArtLibrary.clip_duration(clip) == duration,"cold rebuild after clear keeps registry validity mapping and timing")

@@ -1,0 +1,124 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_ACCEPT_PROPOSED_NEW_FIXTURE_CONTRACT_CORRECTION_IMPLEMENTATION_PENDING",
+  "proposal_sha256": "46df9b5b9936d87a440898c5f2bed584fb108e91e528c875bb8fbb1b38287b22",
+  "original_candidate_main_sha256": "ae60ff4ecb026f2a0ef86bd564a61f2e2f0e3683c940e33d133ac5aa59b03859",
+  "original_runner_sha256": "2db16cf13e0a3e83fca2084e4532c7d51386ae590d276a2e2c8b5f35754ee4af",
+  "observations_read": [
+    {
+      "label": "official-01",
+      "sha256": "1ce5b8041438b5f8c4473f1f00069dca2cd30f66dd9ebc379afa2c4d2230a5cf",
+      "after_helper_rows": [
+        {
+          "alive": false,
+          "case": "uncompiled",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 0
+        },
+        {
+          "alive": true,
+          "case": "empty_compiled",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "sync",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_unstarted",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_cancelled",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_completed",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_reloaded",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        }
+      ]
+    },
+    {
+      "label": "diagnostic-C-01",
+      "sha256": "bb0c68ace26eb7c929dfb6106831f1c34422b7d437b8edf75697023b59167c96",
+      "after_helper_rows": [
+        {
+          "alive": false,
+          "case": "uncompiled",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 0
+        },
+        {
+          "alive": true,
+          "case": "empty_compiled",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "sync",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_unstarted",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_cancelled",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_completed",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        },
+        {
+          "alive": true,
+          "case": "await_reloaded",
+          "compile_failed": false,
+          "refs_including_one_probe_local": 2
+        }
+      ]
+    }
+  ],
+  "reason": [
+    "Both official and diagnosticC controls retain one residual reference for empty pathless compiled Script with no instance or await, whereas uncompiled control disappears. Thus immediate Script destruction is not a justified discriminator for these await/free/reload scenarios.",
+    "Read compiler/codegen confirms NIL implicit-initializer return and raw function script pointer; pathless reload lacks the shown cache key. Exact hidden owner remains unresolved; no cache/return-type self-cycle attribution accepted.",
+    "PR120976 explicitly handles still-referenced scripts at shutdown and separately cleans await connections/stack. The remaining23 payload, PREDELETE, connection, no-old-resume, new-resume and compilation/reload checks exercise those effects."
+  ],
+  "implementation_conditions": [
+    "Preserve original23 behavior checks and their ordering/expressions verbatim. Replace only3 explicitly documented Script-immediate-disappearance conditions.",
+    "Measure independent empty-compiled control after helper returns and before lifecycle cases; keep compilation failure fatal and uncompiled-control disappearance check.",
+    "Each of3 comparisons requires valid nonnull WeakRef; observation holds only one local strong reference, subtracts exactly one, returns integer before comparing, with missing target reporting0.",
+    "Keep strict process exit, BAD regex, expected upstream output/order, shutdown PREDELETE side effect, original30s timeout and warning filter unchanged; only runtime marker26→28 reflects deliberate contract change.",
+    "Archive old26/3 source/logs as failed under original contract; no waiting/cache clear/forcedunref/warning bypass."
+  ],
+  "recommended_negative_calibration": "An external extra-strong-reference probe should show count baseline+1 fails equality, then returns to baseline when released; can remain outside formal28 assertion count.",
+  "limits": [
+    "This is a deliberate justified change to3 new-fixture acceptance conditions, not equivalent assertions and not retroactive PASS for original26.",
+    "Relative baseline equality only detects additional retention compared with empty compilation. It cannot rule out a retention defect shared by both controls and cases or establish all Script objects were released.",
+    "No engine executed by reviewer. Actual revised28 source diff and official/diagnosticC/fixed-binary runs remain required.",
+    "Official shutdown -6 and original runtime failures remain failed evidence; optimized official fixed artifact/full suite/Web separate."
+  ]
+}

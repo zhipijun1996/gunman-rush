@@ -1,0 +1,16 @@
+--- a/tests/plains_region_boss_runner.gd
++++ b/tests/plains_region_boss_runner.gd
+@@ -30,6 +30,13 @@
+ 	await frames(2)
+ 	check(app._boss_started, "formal core entry activates actual sheep")
+ 	var encounter := stage.boss.get_node("Encounter") as WindkeeperEncounter
++	# Current Pressure defers phase changes until its real intro has ended.
++	# Reuse the existing formal_app setup bound; retain the original health
++	# transaction and its separate three-frame phase-transition assertion below.
++	for _intro_frame: int in 360:
++		if encounter.mode != &"intro": break
++		await frames(1)
++	check(encounter.mode != &"intro" and encounter.accepts_combat_damage(), "actual current Boss intro completes before the original phase fixture transaction")
+ 	encounter.health.apply_damage(ActorResourceRequest.new(&"fixture_phase3",encounter.health.epoch,encounter.health.capacity*2/3,encounter.health.get_instance_id()))
+ 	await frames(3)
+ 	check(encounter.stage_phase == 3, "formal phaseIII lifecycle executes")

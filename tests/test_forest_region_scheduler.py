@@ -10,6 +10,7 @@ import unittest
 from unittest import mock
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
 spec=importlib.util.spec_from_file_location('forest_region_scheduler',ROOT/'tools/run_forest_depth_region.py')
 region=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(region)

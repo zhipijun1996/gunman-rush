@@ -11,6 +11,11 @@ static func run(tree: SceneTree) -> Dictionary:
 	for style: StringName in [&"legacy",&"underworld"]:
 		await _diver(tree,style,report)
 	await _settled_cache(tree,report)
+	var presentation: Dictionary = await preload("res://tests/plains_motion_loot_02_presentation.gd").run(tree)
+	report.assertions += int(presentation.assertions)
+	report.failures.append_array(presentation.failures)
+	report.checks.append_array(presentation.checks)
+	report.samples.append(presentation)
 	return report
 
 static func _check(report: Dictionary, ok: bool, label: String) -> void:
@@ -217,7 +222,7 @@ static func _diver(tree: SceneTree, style: StringName, report: Dictionary) -> vo
 	actor.set_physics_process(false)
 	actor.brain.enabled=false
 	if style==&"underworld":
-		var installer: Script=load("res://scripts/underworld_plains/underworld_actor_installer.gd")
+		var installer: Script=load("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 		var installed: Dictionary=installer.call("install",world)
 		_check(report,int(installed.get("enemies",0))==1,"diver uses actual formal Underworld installer")
 	var host := motor.get_node("Presentation") as Node2D
@@ -281,9 +286,9 @@ class CacheSkin:
 	var observed := PackedVector2Array()
 	func _init(behavior: StringName = &"patrol") -> void:
 		super(behavior)
-	func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
+	func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights, live_point: Variant = null) -> Vector2:
 		calls += 1
-		var result := super.deform(point, uv, pose)
+		var result := super.deform_prepared(point, uv, pose, weights, live_point)
 		observed.append(result)
 		return result
 
@@ -388,6 +393,29 @@ static func _settled_cache(tree: SceneTree, report: Dictionary) -> void:
 			await _cache_draw(tree, second, canonical, shared_live, 625, report, "shared rig second canvas overwrites with live vertices")
 			await _cache_draw(tree, canvas, canonical, rest, 625, report, "shared rig first canvas restores canonical rest after live overwrite")
 			await _cache_draw(tree, second, canonical, aged, 0, report, "shared rig second canvas reuses restored canonical rest")
+		var peer := CacheCanvas.new()
+		peer.rig = CacheSkin.new(kind)
+		peer.material = _cache_material()
+		peer.position = Vector2(40, 56)
+		peer.pose = _pose(.51)
+		tree.root.add_child(peer)
+		await _cache_draw(tree, peer, canonical, peer.pose, 625, report, String(kind)+" independent body with shared immutable anatomy")
+		var first_weights: Array = rig.get("_weights")
+		var peer_weights: Array = peer.rig.get("_weights")
+		_check(report, first_weights.is_read_only() and peer_weights.is_read_only() and is_same(first_weights[0], peer_weights[0]), String(kind)+" bodies share read-only UV weights")
+		_check(report, (rig.get("_mesh") as ArrayMesh).get_instance_id() != (peer.rig.get("_mesh") as ArrayMesh).get_instance_id(), String(kind)+" bodies retain independent dynamic GPU meshes")
+		var left := PlainsRevisionSkin.new(kind)
+		var right := PlainsRevisionSkin.new(kind)
+		var right_points: PackedVector2Array = right.get("_points")
+		var before_point := right_points[0]
+		var left_points: PackedVector2Array = left.get("_points")
+		left_points[0] += Vector2(.125, .25)
+		left.set("_points", left_points)
+		var later := PlainsRevisionSkin.new(kind)
+		var later_points: PackedVector2Array = later.get("_points")
+		_check(report, right_points[0] == before_point and later_points[0] == before_point, String(kind)+" instance point edits cannot corrupt another body or the template")
+		peer.rig = null
+		peer.free()
 		report.samples.append({"id":"settled_mesh_cache/" + String(kind), "vertices":625, "invalidation":["live","partial","landing","clock","air","bounds","texture","kind"], "scope":"Actual CanvasItem._draw, counted production deformations and bit-identical canonical local vertices; cache hit material refresh; no renderer/GPU pixel readback or visual acceptance"})
 		second.rig = null
 		canvas.rig = null

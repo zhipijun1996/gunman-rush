@@ -1,0 +1,243 @@
+{
+  "status": "ACCEPT_LIMITED_PUBLIC_ENTRY_GUI",
+  "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "source_before": {
+    "head": "ab263ea6ca24f055f889e79116c75c89acb14567",
+    "tracked_status_porcelain": ""
+  },
+  "source_after": {
+    "head": "ab263ea6ca24f055f889e79116c75c89acb14567",
+    "tracked_status_porcelain": ""
+  },
+  "url": "https://zhipijun1996.github.io/gunman-rush/",
+  "identity": {
+    "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+    "build_id": "2e1274f62210",
+    "pack": "index.2e1274f62210.pck",
+    "pack_sha256": "2e1274f622102b34f18ab2fdb0f41584b06b518c097497999608c20f7803b2f6",
+    "pack_bytes": 216386008
+  },
+  "identity_source_sha256": {
+    "build-info.json": "481e54f2ecf58edbbe8d13e4cf5a681c0270ba52928537cd4c9d5950d2ef4c71",
+    "worker": "5e825f0faa18438e71d45dd7f54356f1183f0e7a834bbdbbaf4ab94352cb25bc",
+    "html": "22e9786b8caf90df181274adf172355dc4433c7e9100547cf08e72476006f5d0"
+  },
+  "browser": {
+    "version": "154.0.8037.57",
+    "headless": true,
+    "viewport": [
+      1280,
+      720
+    ],
+    "renderer": "Chromium SwiftShader WebGL2",
+    "process_exit_code": 0,
+    "closed": true,
+    "chrome_gpu_lease_released": true
+  },
+  "actions": [
+    {
+      "command": {
+        "id": 1,
+        "action": "click_text",
+        "text": "开始游戏",
+        "label": "02-home",
+        "wait_ms": 1800
+      },
+      "at": 1793525893.1109333,
+      "actual_ocr_or_native_surface_point": [
+        231.5,
+        189.0
+      ]
+    },
+    {
+      "command": {
+        "id": 2,
+        "action": "hold",
+        "key": "d",
+        "ms": 9000,
+        "label": "03-home-east",
+        "wait_ms": 250
+      },
+      "at": 1793525910.7533374
+    },
+    {
+      "command": {
+        "id": 3,
+        "action": "hold",
+        "key": "d",
+        "ms": 2200,
+        "label": "04-departure-gate",
+        "wait_ms": 250
+      },
+      "at": 1793525926.7797518
+    },
+    {
+      "command": {
+        "id": 4,
+        "action": "key",
+        "key": "w",
+        "label": "05-departure-menu",
+        "wait_ms": 700
+      },
+      "at": 1793525936.45658
+    },
+    {
+      "command": {
+        "id": 5,
+        "action": "click_text",
+        "text": "BEGIN / WINDCHIME PLAINS",
+        "label": "06-formal-plains",
+        "wait_ms": 1800
+      },
+      "at": 1793525947.8865283,
+      "actual_ocr_or_native_surface_point": [
+        640.0,
+        281.5
+      ]
+    },
+    {
+      "command": {
+        "id": 6,
+        "action": "hold",
+        "key": "d",
+        "ms": 350,
+        "label": "07-formal-move",
+        "wait_ms": 100
+      },
+      "at": 1793525961.1337256
+    },
+    {
+      "command": {
+        "id": 7,
+        "action": "close",
+        "label": "08-close"
+      },
+      "at": 1793525972.7552865
+    }
+  ],
+  "title_to_close_seconds": 101.192,
+  "visually_reviewed_frames": [
+    {
+      "path": "01-title.png",
+      "sha256": "19987ae491cf332b6649f112779f623878463d6cf3845b87e56dc0bc3d578c24",
+      "observation": "实际失序之钟标题及开始游戏按钮，footer试玩2e1274f6。",
+      "method": "Actual view_image inspection of original browser PNG"
+    },
+    {
+      "path": "02-home.png",
+      "sha256": "90caae7abcc502e915422925504fef084925e29b14d10b3572125ec06ef86b41",
+      "observation": "真实点击开始游戏进入风铃聚落；信使主角可见，HP5/5，提示向右走出聚落。",
+      "method": "Actual view_image inspection of original browser PNG"
+    },
+    {
+      "path": "03-home-east.png",
+      "sha256": "dfdf8900c61bb13fe01620317b86cb21a544e23ee5b2bead4073427335b7129b",
+      "observation": "D9000ms后实际主角/相机移动至家园东侧，右方出发门可见。",
+      "method": "Actual view_image inspection of original browser PNG"
+    },
+    {
+      "path": "04-departure-gate.png",
+      "sha256": "4c5125b1913f918f826da6527c3e186e4c7c0e29071f05868b116b120ceb4525",
+      "observation": "额外D2200ms到风铃平原门，实际屏显W/INTERACT提示。",
+      "method": "Actual view_image inspection of original browser PNG"
+    },
+    {
+      "path": "05-departure-menu.png",
+      "sha256": "3351aa2f1678953eedaffded007a29ce9d8cf1a43a0a55618f1b93dea249ebe7",
+      "observation": "实际W打开The plains await与BEGIN / WINDCHIME PLAINS按钮。",
+      "method": "Actual view_image inspection of original browser PNG"
+    },
+    {
+      "path": "06-formal-plains.png",
+      "sha256": "c221335e88ab2c0bd380086551075a0c44b9c67522f80feb565a0e3ca5957152",
+      "observation": "真实OCR定位点击出发按钮后正式风铃平原1/2初行，MAP1/2 EXPLORE与主角可见。",
+      "method": "Actual view_image inspection of original browser PNG"
+    },
+    {
+      "path": "07-formal-move.png",
+      "sha256": "b187fbca5a3185288931370489848a185d3e1e2f76e0bf87117d95eca96f91a1",
+      "observation": "正式平原D350ms后主角/相机可见位移，HP仍5/5。",
+      "method": "Actual view_image inspection of original browser PNG"
+    }
+  ],
+  "readonly_region_events": [
+    {
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": false,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "3640bc9c99cfc9b297bba3b3d0a77017af942afd1aed7f8e2ab4ee084b1fe6f4",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "plains-996ca09757b11e6ece84fa037b4013d4"
+    }
+  ],
+  "console": {
+    "script_parse_shader_errors": [],
+    "page_errors": [],
+    "response_listener_failed_entries": [],
+    "console_error_level_entries": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 ()",
+        "location": {
+          "url": "https://zhipijun1996.github.io/favicon.ico",
+          "line": 0,
+          "column": 0,
+          "lineNumber": 0,
+          "columnNumber": 0
+        }
+      },
+      {
+        "type": "error",
+        "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+        "location": {
+          "url": "https://zhipijun1996.github.io/gunman-rush/index.c410089b390c.engine.js",
+          "line": 466,
+          "column": 17,
+          "lineNumber": 466,
+          "columnNumber": 17
+        }
+      }
+    ],
+    "qualification": "Two console.error entries retained: origin-root favicon.ico HTTP404 and Emscripten main-thread blocking advisory. Response listener did not separately capture favicon; empty response list is not a claim of zero HTTP404. No SCRIPT/Parse/Shader failure observed."
+  },
+  "pck_verification_scope": "This driver downloaded small public identity metadata and used normal public browser loading. It neither explicitly downloaded/persisted a PCK file nor independently stream-hashed the loaded browser PCK. Expected full SHA/size supplied by root are matched to public metadata; root separately owns the complete public streaming-hash receipt.",
+  "checks": [
+    {
+      "id": "source_and_public_metadata",
+      "result": "passed"
+    },
+    {
+      "id": "actual_title_home_gate_formal_plains",
+      "result": "passed"
+    },
+    {
+      "id": "actual_home_and_plains_keyboard_motion",
+      "result": "passed"
+    },
+    {
+      "id": "readonly_formal_plains_event_debug_false",
+      "result": "passed"
+    },
+    {
+      "id": "no_script_parse_shader_pageerror_observed",
+      "result": "passed"
+    }
+  ],
+  "scope_exclusions": [
+    "No main writes, Godot/CI execution, state injection, asset generation or publishing.",
+    "Not a full171 rerun or reuse of 37950 API/ZIP proof for this new source.",
+    "This desktop basic route does not independently verify popup touch fix, hook/touch flow, full gameplay, listening, art, physical-device or user acceptance. Preview owns separate bounded touch results."
+  ],
+  "artifacts": {
+    "run.py": "9fd83991778048fd30174f16d78702683a4d347f38528526634ef04922d793e0",
+    "receipt.json": "24b714103d6a816f6205447ea51d58ac8994bae1c6975d6e31b6a10106778570",
+    "build-info.json": "481e54f2ecf58edbbe8d13e4cf5a681c0270ba52928537cd4c9d5950d2ef4c71",
+    "index.cache-sw.js.source": "5e825f0faa18438e71d45dd7f54356f1183f0e7a834bbdbbaf4ab94352cb25bc",
+    "index.html.source": "22e9786b8caf90df181274adf172355dc4433c7e9100547cf08e72476006f5d0"
+  }
+}

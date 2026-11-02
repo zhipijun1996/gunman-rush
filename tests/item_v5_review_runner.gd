@@ -134,7 +134,7 @@ func pending_lethal_equipment() -> void:
 	var session := build.equipment.open_session(token)
 	check(session > 0,"healthy paused actor first opens legitimate equipment session")
 	var hp := actor.actor_resources.health.current
-	var request: Variant = load("res://scripts/damage/damage_request.gd").new()
+	var request: Variant = load("res://game/combat/damage/damage_request.gd").new()
 	request.token = token
 	request.actor_epoch = life.actor_epoch
 	request.health_epoch = actor.actor_resources.health.epoch
@@ -212,7 +212,7 @@ func source_revocation_before_derived_commit() -> void:
 
 func pending_lethal_formal_shop() -> void:
 	paused = false
-	var app: Variant = load("res://scripts/demo/demo_app.gd").new()
+	var app: Variant = load("res://game/application/demo_app.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	for _frame: int in 5: await process_frame
@@ -310,7 +310,7 @@ func real_primary_p09_and_b17_break() -> void:
 	check(is_equal_approx(energy_after_primary,actor.combat_energy.definition.target_gain) and actor.combat_energy.current == energy_after_primary,"P09 secondary commits produce no extra energy or recursive primary refunds")
 	check(policy.resolve_batch().is_empty(),"P09 secondary blast creates no recursive damage requests")
 	for index: int in 3:
-		var request: Variant = load("res://scripts/damage/damage_request.gd").new()
+		var request: Variant = load("res://game/combat/damage/damage_request.gd").new()
 		request.token = life.token()
 		request.actor_epoch = life.actor_epoch
 		request.health_epoch = actor.actor_resources.health.epoch
@@ -346,7 +346,7 @@ func _run() -> void:
 			await deferred_source_revocation_without_sync()
 			await real_primary_p09_and_b17_break()
 	var sources := {}
-	for path: String in ["res://scripts/items/v5/item_runtime.gd","res://scripts/items/v5/item_active_effects.gd","res://scripts/combat/weapon_action_runtime.gd","res://scripts/damage/frame_damage_policy.gd","res://tests/item_v5_review_runner.gd"]:
+	for path: String in ["res://game/loadout/effects/item_runtime.gd","res://game/loadout/effects/item_active_effects.gd","res://game/combat/weapons/weapon_action_runtime.gd","res://game/combat/damage/frame_damage_policy.gd","res://tests/item_v5_review_runner.gd"]:
 		sources[path] = FileAccess.get_sha256(path)
 	DirAccess.make_dir_recursive_absolute("res://build/item_v5/review")
 	var filename := "res://build/item_v5/review/independent_review_source_lifetime.json" if source_lifetime_only else "res://build/item_v5/review/independent_review_pre_fix.json" if pre_fix else "res://build/item_v5/review/independent_review_after_fixes.json"

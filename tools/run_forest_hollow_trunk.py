@@ -20,7 +20,7 @@ from run_forest_directional_golden import _resource_errors
 ROOT = Path(__file__).resolve().parents[1]
 VARIANTS = ('airH_recoil', 'deepH_zeroR', 'return_R', 'return_none')
 OWN = ('scripts/generation/forest_hollow_trunk_geometry.gd',
-       'scripts/demo/forest_hollow_trunk_golden.gd',
+       'experiments/generation/forest_hollow_trunk_golden.gd',
        'tests/forest_hollow_trunk_runner.gd', 'tools/run_forest_hollow_trunk.py')
 
 

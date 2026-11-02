@@ -2,7 +2,7 @@
 import asyncio,io,json,math,shutil,sys,time
 from pathlib import Path
 from PIL import Image
-from studio_gui_pointer import weapon_row_y, select_weapon, open_weapon_picker, enter_action_studio
+from studio_gui_pointer import studio_control_point, select_weapon, open_weapon_picker, enter_action_studio
 from playwright.async_api import async_playwright
 IDS=['pulse_gun','shadow_shuriken','recoil_bomb','triple_machine_gun','sustained_laser','fan_shuriken','remote_boomerang','magnetic_mine','collapse_singularity','machine_storm','laser_cannon','blade_bloom','moon_boomerang','magnetic_storm','star_collapse']
 OUT=Path('build/studio_input/browser');OUT.mkdir(parents=True,exist_ok=True)
@@ -50,11 +50,11 @@ async def main():
    rows=[e for e in events[n:]if e['context_device']==name and e['action']=='training_motion'];
    if len(rows)<2:await wait(lambda:sum(e['context_device']==name and e['action']=='training_motion'for e in events[n:])>=2);rows=[e for e in events[n:]if e['context_device']==name and e['action']=='training_motion']
    checks[name+'_default_enemies_move']=len(rows)>=2 and all(math.dist(a,b)>3 for a,b in zip(rows[0]['detail']['positions'],rows[-1]['detail']['positions']))and not rows[-1]['detail']['static']
-   y=await weapon_row_y(page);n=len(events);await click(pad+710*scale,y)
+   point=await studio_control_point(page,'training');n=len(events);await click(*point)
    checks[name+'_static_mode_accepted']=await wait(lambda:any(e['context_device']==name and e['action']=='training_mode'and e['detail']['static']for e in events[n:]))
    n=len(events);await wait(lambda:sum(e['context_device']==name and e['action']=='training_motion'for e in events[n:])>=2)
    rows=[e for e in events[n:]if e['context_device']==name and e['action']=='training_motion'];checks[name+'_static_enemies_stop']=len(rows)>=2 and all(math.dist(a,b)<.01 for a,b in zip(rows[0]['detail']['positions'],rows[-1]['detail']['positions']))
-   await page.screenshot(path=str(OUT/f'{name}-stationary-targets.png'));y=await weapon_row_y(page);n=len(events);await click(pad+710*scale,y)
+   await page.screenshot(path=str(OUT/f'{name}-stationary-targets.png'));point=await studio_control_point(page,'training');n=len(events);await click(*point)
    checks[name+'_patrol_restored']=await wait(lambda:any(e['context_device']==name and e['action']=='training_mode'and not e['detail']['static']for e in events[n:]))
    n=len(events);x,rows=await open_weapon_picker(page,touch)
    if touch:

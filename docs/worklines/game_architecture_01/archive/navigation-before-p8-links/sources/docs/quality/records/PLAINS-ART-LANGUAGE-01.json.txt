@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-ART-LANGUAGE-01",
+  "task_type": "region",
+  "workflow": "review",
+  "baseline_commit": "07ffe3f3cf6972910e0d4eedd12addf1b00cd9ae",
+  "reviewed_commit": "5d5d31f0456168db3edba2d6dfe7ed05cddb92ee",
+  "content_version": "bounded-plains-art-language-v1",
+  "owner": "root",
+  "purpose": "Introduce executable art-language parameters before module/world embedding; finite size families, support/interfaces, finite mountain silhouettes and open valleys feed existing art consumers.",
+  "player_experience": "Coherent plains world generation with predictable hand-painted asset interfaces; technical candidate, not a new artistic gold claim.",
+  "constraints": [
+    "No forest/core/weapon/resource/RNG implementation/save changes.",
+    "Default and old joint Manifest signatures unchanged; explicit candidate profile only.",
+    "New physical module mechanics unchanged; art planning may alter candidate embedding/quiet intervals. Design volumes are not newly installed colliders.",
+    "Finite world silhouettes and open sky relations come from pre-embedding intent, never world rectangle minus local holes.",
+    "90 minute first checkpoint; testing/source-parameter expansion only. No new imagery or full art expansion before admission."
+  ],
+  "affected_paths": [
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    "docs/tasks.md",
+    "resources/generation/plains_art_language.json",
+    "scripts/art/plains_regional_composer.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/generation/plains_art_language.gd",
+    "scripts/generation/plains_art_language.gd.uid",
+    "scripts/generation/plains_region_art_plan.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "tests/plains_art_language_runner.gd",
+    "tests/plains_art_language_runner.gd.uid",
+    "tests/test_level_design_routing.py",
+    "tools/harness/profiles.json",
+    "tools/level_design.py",
+    "tools/plains_art_language_preview.gd",
+    "tools/plains_art_language_preview.gd.uid",
+    "tools/plains_regional_art_preview.gd",
+    "tools/run_plains_art_language_tests.py",
+    "tools/visual_director.py"
+  ],
+  "deliverables": [
+    "Module art expressions and actual pre-embedding regional contract consumed by generator and composer.",
+    "Bounded size/compatibility/space rejection and actual multi-Seed/consumer verification.",
+    "Relevant unchanged-core regression and explicit remaining asset/golden/device boundaries."
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Scoped generation contract documented; whole-region design not admitted.",
+      "evidence": [
+        "recipe"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Actual pixels not art-admitted",
+      "evidence": [
+        "review"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Art-led topology selection, local regeneration and complete support/transition solver remain incomplete",
+      "evidence": [
+        "review"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Scoped 2503 native contracts, original1310 Motor regression,77 Python checks; not full CI",
+      "evidence": [
+        "records"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Actual foreground still rectangular and old repeated material; missing painted family and support realization",
+      "evidence": [
+        "review"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Original module Motor1310 passed, candidate full-region input routes not executed",
+      "evidence": [
+        "records"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "Independent review completed; accepts scoped mechanism but rejects actual art. Not user admission.",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "records",
+      "path": "docs/evidence/plains_art_language/records/index.json",
+      "sha256": "962b6195a0fee45242a30e2ebbe49d2767d9c9ce8c13fd0afd76fd6d8be5c128",
+      "kind": "command",
+      "producer": "language_native",
+      "source_commit": "5d5d31f0456168db3edba2d6dfe7ed05cddb92ee",
+      "content_version": "bounded-plains-art-language-v1",
+      "method": "See exact source/command/exit/failure records in indexed raw evidence; scope-limited parameter verification.",
+      "observed": "2503 scoped native / original1310 /77 Python passed; actual art remains rejected.",
+      "command": "python3 tools/run_plains_art_language_tests.py --output /tmp/plains_art_language/native_10",
+      "exit_code": 0,
+      "environment": "Linux sandbox; Godot 4.7.2 Standard; headless; strict source before/after and native errors/leak checks; see raw native10 report"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/plains_art_language/independent-review.md",
+      "sha256": "b3da1b4d0bc0cefa2dd070be159b95514be89323494047c699e548c224f2afe8",
+      "kind": "review",
+      "producer": "language_review",
+      "source_commit": "5d5d31f0456168db3edba2d6dfe7ed05cddb92ee",
+      "content_version": "bounded-plains-art-language-v1",
+      "method": "See exact source/command/exit/failure records in indexed raw evidence; scope-limited parameter verification.",
+      "observed": "2503 scoped native / original1310 /77 Python passed; actual art remains rejected.",
+      "reviewer": "language_review",
+      "implementers": [
+        "root",
+        "language_native",
+        "language_contract",
+        "language_consumer"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "Read-only production/native/actual PNG review; wrote only independent-review.md"
+    },
+    {
+      "id": "recipe",
+      "path": "docs/evidence/plains_art_language/recipe.md",
+      "sha256": "ac1b0f86faedfdfa7f912fa9ae15827bc3a1add80884096ce68faa6f7b17e707",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "5d5d31f0456168db3edba2d6dfe7ed05cddb92ee",
+      "content_version": "bounded-plains-art-language-v1",
+      "method": "See exact source/command/exit/failure records in indexed raw evidence; scope-limited parameter verification.",
+      "observed": "2503 scoped native / original1310 /77 Python passed; actual art remains rejected."
+    }
+  ],
+  "consumer_coverage": {
+    "planned_nodes": [
+      34,
+      36,
+      35,
+      35
+    ],
+    "total_nodes": [
+      59,
+      61,
+      60,
+      59
+    ],
+    "unresolved_nodes": [
+      25,
+      25,
+      25,
+      24
+    ],
+    "foreground_painting_ready": false
+  },
+  "unverified_items": [
+    "Actual new foreground painting parts and structural support",
+    "Whole candidate-region Motor routes and normal-speed movie",
+    "Full CI, Web/package delivery, performance, real audio listening",
+    "User style approval, human playtest and hardware"
+  ]
+}

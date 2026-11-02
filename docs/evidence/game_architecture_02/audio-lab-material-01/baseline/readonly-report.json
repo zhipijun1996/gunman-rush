@@ -1,0 +1,363 @@
+{
+  "scope": "Read-only source comparison plus existing root-run receipts. No engine invocation, production edits or test changes.",
+  "read_head": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+  "baseline": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "conclusion": "Pre-existing audio-audition compatibility defect present in baseline source, not introduced by architecture refactor. Baseline engine reproduction was not run by this reviewer.",
+  "cause": "Supported plains_sentry routes accepted damage through PlainsEnemyAudio.hurt to GameAudio.play_enemy_material, which never consults director_profile_for_event/play_director_event. It plays the current plant_hurt WAV and increments legacy hurt. Lab accepted-event labels still name ABC candidates, but actual played_delta has no director_enemy_hurt.",
+  "preserved_exact_functions": [
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "baseline_path": "scripts/audio/game_audio.gd",
+      "function": "play_enemy_material",
+      "line_start": 246,
+      "line_end": 306,
+      "baseline_sha256": "bf287d45b18bb22afcc912ddaa018af40c3da6f491d81d4f4cb0ac278c785f27",
+      "current_sha256": "bf287d45b18bb22afcc912ddaa018af40c3da6f491d81d4f4cb0ac278c785f27",
+      "byte_equal": true
+    },
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "baseline_path": "scripts/audio/game_audio.gd",
+      "function": "set_audition_focus",
+      "line_start": 435,
+      "line_end": 441,
+      "baseline_sha256": "450f8cfbe9c8c14eb9422e620f0b8d5f3af5be08bf56da765769d515886fd719",
+      "current_sha256": "450f8cfbe9c8c14eb9422e620f0b8d5f3af5be08bf56da765769d515886fd719",
+      "byte_equal": true
+    },
+    {
+      "path": "game/presentation/audio/game_audio.gd",
+      "baseline_path": "scripts/audio/game_audio.gd",
+      "function": "director_profile_for_event",
+      "line_start": 401,
+      "line_end": 405,
+      "baseline_sha256": "1840eaa72868a4d7593f8d621e78d9be80d870742a1fcf271f4b5e2271989a40",
+      "current_sha256": "1840eaa72868a4d7593f8d621e78d9be80d870742a1fcf271f4b5e2271989a40",
+      "byte_equal": true
+    },
+    {
+      "path": "game/presentation/audio/plains_enemy_audio.gd",
+      "baseline_path": "scripts/audio/plains_enemy_audio.gd",
+      "function": "family",
+      "line_start": 28,
+      "line_end": 30,
+      "baseline_sha256": "2ce3be5592bdb3eed3a6b5082a18b6441260401c80035751c9defa1b53980ef4",
+      "current_sha256": "2ce3be5592bdb3eed3a6b5082a18b6441260401c80035751c9defa1b53980ef4",
+      "byte_equal": true
+    },
+    {
+      "path": "game/presentation/audio/plains_enemy_audio.gd",
+      "baseline_path": "scripts/audio/plains_enemy_audio.gd",
+      "function": "supports",
+      "line_start": 31,
+      "line_end": 33,
+      "baseline_sha256": "3b6217b9f984dc8f657ea1bf0ef9e083b47cdeab45325c5e8eb4ca6003791468",
+      "current_sha256": "3b6217b9f984dc8f657ea1bf0ef9e083b47cdeab45325c5e8eb4ca6003791468",
+      "byte_equal": true
+    },
+    {
+      "path": "game/presentation/audio/plains_enemy_audio.gd",
+      "baseline_path": "scripts/audio/plains_enemy_audio.gd",
+      "function": "hurt",
+      "line_start": 49,
+      "line_end": 61,
+      "baseline_sha256": "d357e12e997c4d9382856ad0899161d4982ba2f6b1c31944d7b04aad2814f467",
+      "current_sha256": "d357e12e997c4d9382856ad0899161d4982ba2f6b1c31944d7b04aad2814f467",
+      "byte_equal": true
+    },
+    {
+      "path": "game/enemies/enemy_actor.gd",
+      "baseline_path": "scripts/enemies/enemy_actor.gd",
+      "function": "_accepted_hit",
+      "line_start": 171,
+      "line_end": 188,
+      "baseline_sha256": "8c70405d3b9dd32216b77bb4a8c357a65746628680ffa0c29ebb9c2cfe9cbc3e",
+      "current_sha256": "8c70405d3b9dd32216b77bb4a8c357a65746628680ffa0c29ebb9c2cfe9cbc3e",
+      "byte_equal": true
+    },
+    {
+      "path": "experiments/audio/audio_director_reels.gd",
+      "baseline_path": "scripts/dev/audio_director_reels.gd",
+      "function": "capture_reel",
+      "line_start": 242,
+      "line_end": 332,
+      "baseline_sha256": "19cd5101631d261c30d7d5ed551f21c7c7f4859743ce37b0b2b2dc6870fb8ce9",
+      "current_sha256": "19cd5101631d261c30d7d5ed551f21c7c7f4859743ce37b0b2b2dc6870fb8ce9",
+      "byte_equal": true
+    }
+  ],
+  "test_only_entry_path_changed": true,
+  "full_reels_production_byte_equal": true,
+  "current_evidence": {
+    "log_path": "/workspace/refactor-evidence/audio-entry-interaction-diagnostic-C-01/3.log",
+    "log_sha256": "efc2d4ac228e95b29289a1adbf63ebad6ffeb12fb6d02b7561d9ca9e7413a4f4",
+    "markers": [
+      "ERROR: enemy_hurt A actually plays exactly one candidate for each accepted target",
+      "ERROR: enemy_hurt B actually plays exactly one candidate for each accepted target",
+      "ERROR: enemy_hurt C actually plays exactly one candidate for each accepted target",
+      "AUDIO_DIRECTOR_REELS checks=126 failures=3"
+    ],
+    "trace_path": "/workspace/gunman-rush-refactor/build/audio_director_v3/reels-runtime/enemy_hurt/trace.json",
+    "trace_sha256": "7a146a86c077353a724de9d6b0aca1ca3f42561543669358139d96f49870e700",
+    "segments": [
+      {
+        "profile": "original",
+        "events": [
+          {
+            "candidate_id": "original",
+            "context": "combat",
+            "details": {
+              "health": 2.0,
+              "scope": "actual_enemy_damage_receipt"
+            },
+            "event_id": "enemy_hurt",
+            "fixture": 26,
+            "focus": "enemy_hurt",
+            "movie_frame": 4884,
+            "process_frame": 4884,
+            "profile": "original",
+            "tick": 4885
+          }
+        ],
+        "played_delta": {
+          "click": 0,
+          "coin": 0,
+          "confirm": 0,
+          "denied": 0,
+          "director_chest_open": 0,
+          "director_click": 0,
+          "director_coin": 0,
+          "director_confirm": 0,
+          "director_denied": 0,
+          "director_enemy_hit": 0,
+          "director_heal": 0,
+          "director_item_get": 0,
+          "director_shot_pulse": 0,
+          "heal": 0,
+          "hurt": 1,
+          "note": 0,
+          "step": 0,
+          "weapon_hit": 0,
+          "weapon_pulse": 1
+        },
+        "director_events": [],
+        "state": {
+          "build_count": 0,
+          "chest_open": false,
+          "enemy_health": 2.0,
+          "health": 5.0,
+          "wallet": 0
+        }
+      },
+      {
+        "profile": "A",
+        "events": [
+          {
+            "candidate_id": "enemy_hurt_a",
+            "context": "combat",
+            "details": {
+              "health": 2.0,
+              "scope": "actual_enemy_damage_receipt"
+            },
+            "event_id": "enemy_hurt",
+            "fixture": 27,
+            "focus": "enemy_hurt",
+            "movie_frame": 5058,
+            "process_frame": 5058,
+            "profile": "A",
+            "tick": 5059
+          }
+        ],
+        "played_delta": {
+          "click": 0,
+          "coin": 0,
+          "confirm": 0,
+          "denied": 0,
+          "director_chest_open": 0,
+          "director_click": 0,
+          "director_coin": 0,
+          "director_confirm": 0,
+          "director_denied": 0,
+          "director_enemy_hit": 0,
+          "director_heal": 0,
+          "director_item_get": 0,
+          "director_shot_pulse": 1,
+          "heal": 0,
+          "hurt": 1,
+          "note": 0,
+          "step": 0,
+          "weapon_hit": 0,
+          "weapon_pulse": 0
+        },
+        "director_events": [
+          {
+            "bus": "SFX",
+            "candidate": "shot_pulse_a",
+            "id": "shot_pulse",
+            "movie_frame": 5051,
+            "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+            "priority": 70,
+            "tick": 5052,
+            "variant": 0
+          }
+        ],
+        "state": {
+          "build_count": 0,
+          "chest_open": false,
+          "enemy_health": 2.0,
+          "health": 5.0,
+          "wallet": 0
+        }
+      },
+      {
+        "profile": "B",
+        "events": [
+          {
+            "candidate_id": "enemy_hurt_b",
+            "context": "combat",
+            "details": {
+              "health": 2.0,
+              "scope": "actual_enemy_damage_receipt"
+            },
+            "event_id": "enemy_hurt",
+            "fixture": 28,
+            "focus": "enemy_hurt",
+            "movie_frame": 5232,
+            "process_frame": 5232,
+            "profile": "B",
+            "tick": 5233
+          }
+        ],
+        "played_delta": {
+          "click": 0,
+          "coin": 0,
+          "confirm": 0,
+          "denied": 0,
+          "director_chest_open": 0,
+          "director_click": 0,
+          "director_coin": 0,
+          "director_confirm": 0,
+          "director_denied": 0,
+          "director_enemy_hit": 0,
+          "director_heal": 0,
+          "director_item_get": 0,
+          "director_shot_pulse": 1,
+          "heal": 0,
+          "hurt": 1,
+          "note": 0,
+          "step": 0,
+          "weapon_hit": 0,
+          "weapon_pulse": 0
+        },
+        "director_events": [
+          {
+            "bus": "SFX",
+            "candidate": "shot_pulse_b",
+            "id": "shot_pulse",
+            "movie_frame": 5225,
+            "path": "res://assets/audio/director_v3/shot_pulse_b.wav",
+            "priority": 70,
+            "tick": 5226,
+            "variant": 0
+          }
+        ],
+        "state": {
+          "build_count": 0,
+          "chest_open": false,
+          "enemy_health": 2.0,
+          "health": 5.0,
+          "wallet": 0
+        }
+      },
+      {
+        "profile": "C",
+        "events": [
+          {
+            "candidate_id": "enemy_hurt_c",
+            "context": "combat",
+            "details": {
+              "health": 2.0,
+              "scope": "actual_enemy_damage_receipt"
+            },
+            "event_id": "enemy_hurt",
+            "fixture": 29,
+            "focus": "enemy_hurt",
+            "movie_frame": 5406,
+            "process_frame": 5406,
+            "profile": "C",
+            "tick": 5407
+          }
+        ],
+        "played_delta": {
+          "click": 0,
+          "coin": 0,
+          "confirm": 0,
+          "denied": 0,
+          "director_chest_open": 0,
+          "director_click": 0,
+          "director_coin": 0,
+          "director_confirm": 0,
+          "director_denied": 0,
+          "director_enemy_hit": 0,
+          "director_heal": 0,
+          "director_item_get": 0,
+          "director_shot_pulse": 1,
+          "heal": 0,
+          "hurt": 1,
+          "note": 0,
+          "step": 0,
+          "weapon_hit": 0,
+          "weapon_pulse": 0
+        },
+        "director_events": [
+          {
+            "bus": "SFX",
+            "candidate": "shot_pulse_c",
+            "id": "shot_pulse",
+            "movie_frame": 5399,
+            "path": "res://assets/audio/director_v3/shot_pulse_c.wav",
+            "priority": 70,
+            "tick": 5400,
+            "variant": 0
+          }
+        ],
+        "state": {
+          "build_count": 0,
+          "chest_open": false,
+          "enemy_health": 2.0,
+          "health": 5.0,
+          "wallet": 0
+        }
+      }
+    ]
+  },
+  "history": {
+    "material_route_introduced": "5332137a6e781b7195bb6633df789f5f366bebc6",
+    "material_route_is_baseline_ancestor": true,
+    "older_passing_reels_report": "docs/evidence/audio_director_04/native-reels/report.json",
+    "older_report_commit": "9ef0d5c566d206ab80deaf17bb8575d3584c06e9",
+    "chronology": "Passing reels report committed 2026-10-28; material route introduced 2026-10-30. Old report is not evidence this newer baseline passes."
+  },
+  "changed_but_not_cause": [
+    "PlainsEnemyAudio._service now calls GameAudio.for_origin instead of first global group service. The material selection/playback method is byte-identical and current lab counts its hurt playback.",
+    "AudioDirectorLabV2 now retains the parent preview service and resolves its own service by ancestry; fixture still instantiates original Sentry definition and accepted Damageable/Health route."
+  ],
+  "suggested_fix_boundary": [
+    "Treat as original defect separately from behavior-preserving refactor; retain failure and all 126 original checks.",
+    "Honor candidate playback only in explicit existing audition-focus context, with real accepted hurt still the sole trigger and existing material receipt dedup retained. Use existing GameAudio candidate selection/shared voices; do not add a parallel audio manager or fake receipt.",
+    "Keep ordinary gameplay and original audition profile on latest material WAVs; do not globally switch play_enemy_material to selected enemy_hurt B, which would replace currently adopted material audio.",
+    "Preserve suppression, owner/pause/teardown guards, death/contact paths, pool limits and priorities. Any candidate dispatch should be gated by explicit audition selection, not inferred merely from a suppressed opposite event.",
+    "Do not change the fixture definition/stable_id to evade material support, forge played_delta, relabel physical playback as a candidate, or weaken expected candidate count."
+  ],
+  "required_validation": [
+    "Original audio_director_reels 126 assertions including exact ABC counts and equal seeded traces; unchanged script except existing path migration.",
+    "Original plains_motion_loot_02_audio material/pool/lifecycle suite proves normal and selected production profiles retain latest material audio and unchanged death/contact behavior.",
+    "Original audio_director_v2_scene, audio_director_runtime, audio_director_selected and selected_sfx_runtime where affected; local owner isolation/native strict shutdown.",
+    "Explicit audition focus enters/exits cleanly; original profile and ordinary gameplay after leaving audition cannot retain candidate override."
+  ],
+  "limits": [
+    "No baseline engine run: classification is exact-source proof plus current runtime receipts, not a claimed historical test run.",
+    "No GUI/listening or device acceptance.",
+    "No repair implemented by this reviewer."
+  ]
+}

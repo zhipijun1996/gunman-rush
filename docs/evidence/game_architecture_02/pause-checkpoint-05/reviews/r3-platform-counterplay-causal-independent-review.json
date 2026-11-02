@@ -1,0 +1,60 @@
+{
+  "reviewer": "structure_audit",
+  "time_utc": "2026-10-31T14:05:18.557913+00:00",
+  "verdict": "LIMITED_ACCEPT_FOR_ONE_CONTROLLED_DIAGNOSTIC_ONLY",
+  "scope": "Independent causal/boundary review of external opt-in first-group input strategy; no authorship of candidate, no engine/main writes, no gameplay/CI-contract acceptance",
+  "files": [
+    {
+      "path": "tools/bellstrider_01/legal_input_pilot.gd",
+      "before_sha256": "932dd322959c4653206e9860afd002622c2df402cc2489569248ae1c5fa6607c",
+      "candidate_sha256": "d8e29025a9544884d90367639cb78b280dab73044d00a0525da943a8b3c5d62a"
+    },
+    {
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "before_sha256": "e5150461715e28abd68444d9a60bbacc8dfb716c7c3afada59c37da8f69af794",
+      "candidate_sha256": "94ea65362019f5dfcab522e92e611de74d58ba841ea41a63615feacaa953cac9"
+    }
+  ],
+  "patch_sha256": "4715b69e51932d74f163b3f2b598509a40821fd8d4fcdb83265a6843cbd72665",
+  "verified_static_preservation": {
+    "original_recovery_shot_block_exact": true,
+    "original_failure_predicates_count": 25,
+    "all_original_failure_predicate_lines_preserved": true,
+    "await_frames_sequence_exact": true,
+    "two_receipt_finalizer_calls": true,
+    "real_effective_capacity_read": true,
+    "patch_sha256_matches": true
+  },
+  "prior_findings_closed": [
+    {
+      "id": "PLATFORM-CAP-01",
+      "old_issue": "tuning.max_jumps alone omits actual ability capacity_floor",
+      "resolution": "Reads and requires actual jump_ability.maximum_jumps()==1 as well as tuning max1 and no hook."
+    },
+    {
+      "id": "PLATFORM-VERDICT-01",
+      "old_issue": "phasefailed was only metadata and could coexist with0failure marker",
+      "resolution": "Opt-in finalizer called at both original receipts; absence/failure adds failure predicates. Checks whole first-group player damage inclusive completion tick, HP, actual board/evade/cross/land and two submitted original shots plus two recorded group1 base-one bell_hit events."
+    }
+  ],
+  "causal_acceptance": [
+    "No inputs overridden before actual first autonomous group; rejects non-roll/non-phase1, no RNG forcing or retry.",
+    "Chooses existing lowest authored one-way tier nearest center, derives actual world rect from installed Module/shape; verifies equality, body identity, live shape and real slide floor normal. No copied offline world coordinates.",
+    "Boarding requires actual airborne then grounded on chosen real body during original warning. Landing releases held input through existingRouter flow; does not reset used_jumps or physics.",
+    "Supported phase preserves real platform contact and zero horizontal movement; one incoming actual rig leading-edge-to-support-span event triggers normal jump. No timing sweep, mock collision or new primitive.",
+    "Observed native airborne side crossing and real landing required before groups_completed1; any accepted HP loss fails.",
+    "One first-group hypothesis only; after complete/failure original pilot resumes. All later original fight failures remain failed.",
+    "Recovery shooting is unchanged, no extra defensive shot; two real hits enforced rather than input labels."
+  ],
+  "limitations": [
+    "No syntax compile/native run by this reviewer; Godot parse/real support landing still unverified.",
+    "Actual physics collision ordering and damage arbitration must be verified in root native receipt; source trajectory estimates are not acceptance.",
+    "A first-group diagnostic success does not imply full fight fairness, phase2 return-roll safety or valid replacement of original floor-only jump guarantee.",
+    "Original fixed68/78 failures, exact2ce8/1, event8/2, current278/1 and original cautious2 death remain failures.",
+    "If candidate cannot board/support/jump/land, no position/ability/timer fallback or timing search allowed; preserve failure.",
+    "No full185/GUI/device/public-site acceptance."
+  ],
+  "suggested_execution": "Original map1 call plus only --platform-counterplay; same frozen source/toolchain,7200combat frames and180native seconds. Source and before/after vector must be recorded by root/CI reviewer.",
+  "engine_run": false,
+  "repository_modified": false
+}

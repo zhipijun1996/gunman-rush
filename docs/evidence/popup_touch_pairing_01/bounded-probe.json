@@ -1,0 +1,88 @@
+{
+  "engine": "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+  "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+  "source_sha256": {
+    "before": "aea25b377ef6d242313cfb1c4b9addd83e89ca572cba02e498fced1134f0a012",
+    "after": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de"
+  },
+  "actual_test_addition_sha256": "76056299ff455492961aafaa671a552c336bba4e404e834b5130802421bad8c7",
+  "results": [
+    {
+      "version": "before",
+      "phase": "import",
+      "argv": [
+        "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-05-final/before",
+        "--audio-driver",
+        "Dummy",
+        "--editor",
+        "--quit"
+      ],
+      "exit_code": 0,
+      "seconds": 3.8804514670009667,
+      "log": "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-05-final/before/import.log",
+      "log_sha256": "ade3c107d1134d2ea568b98d706ebe4fb7e0c6340abb3ea3f3588249e80a8af8"
+    },
+    {
+      "version": "before",
+      "phase": "runtime",
+      "argv": [
+        "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-05-final/before",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "main.gd"
+      ],
+      "exit_code": 1,
+      "seconds": 0.15874274499947205,
+      "log": "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-05-final/before/runtime.log",
+      "log_sha256": "39021f10aea014e644c60bf8284a1e90eee4a3a067d6a2b29436e7eab439058c"
+    },
+    {
+      "version": "after",
+      "phase": "import",
+      "argv": [
+        "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-05-final/after",
+        "--audio-driver",
+        "Dummy",
+        "--editor",
+        "--quit"
+      ],
+      "exit_code": 0,
+      "seconds": 3.875219905999984,
+      "log": "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-05-final/after/import.log",
+      "log_sha256": "ade3c107d1134d2ea568b98d706ebe4fb7e0c6340abb3ea3f3588249e80a8af8"
+    },
+    {
+      "version": "after",
+      "phase": "runtime",
+      "argv": [
+        "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+        "--headless",
+        "--path",
+        "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-06-final/after",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "main.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 0.15339535999737564,
+      "log": "/workspace/refactor-evidence/popup-touch-pairing-candidate/probe-06-final/after/runtime.log",
+      "log_sha256": "f79f8a2f1bfcd15f42cb03606fe05043264a27300c24d98d1134de98232ba1f3"
+    }
+  ],
+  "scope_note": "Before/import entries explicitly retain their original probe05 paths; final after runtime uses guarded candidate in probe06."
+}

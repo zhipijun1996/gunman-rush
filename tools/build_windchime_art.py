@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "assets/windchime_plains"
-RULES = ROOT / "scripts/art_foundation/blob47_rules.gd"
+RULES = ROOT / "game/presentation/world/art_foundation/blob47_rules.gd"
 PALETTE = {"stone": "#676b55", "recess": "#485543", "face": "#85866a",
            "masonry": "#74795e", "edge": "#a4ab80", "grass": "#9fa66c",
            "cream": "#efe0ab", "gold": "#a98949", "dark_gold": "#74623e",

@@ -28,7 +28,10 @@ func generate_spatial_candidate(seed_value: String,tuning: PlayerTuning,map_inde
 	return {"ok":true,"manifest":m,"stage_generator_version":VERSION,"boss_arena":BASE._rect(m.boss_arena),"placement_points":points,"encounter_plan":{"version":VERSION,"enemies":m.enemies.duplicate(true)},"exit_points":[],"admission":"expanded_candidate_pending_formal_experience","production_pool":false}
 
 func _candidate(seed_value: String,map_index: int) -> Dictionary:
-	var m: Dictionary=BASE.new()._candidate(seed_value,map_index)
+	var source := BASE.new()
+	source.charger_definition_revision=EnemyBehaviorRegistry.CHARGER_V2_REVISION
+	var m: Dictionary=source._candidate(seed_value,map_index)
+	if m.is_empty(): return {}
 	m.layout_version=LAYOUT_VERSION
 	EXPEDITION.install(m)
 	LANGUAGE.annotate(m)

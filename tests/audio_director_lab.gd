@@ -21,7 +21,7 @@ func run() -> void:
 	root.size = Vector2i(1280, 720)
 	var host := CloudPreviewBootstrap.new()
 	host.entry = "scene"
-	host.entry_scene = "res://scenes/dev/audio_director_lab.tscn"
+	host.entry_scene = "res://experiments/audio/entries/audio_director_lab.tscn"
 	root.add_child(host)
 	for unused: int in 120:
 		await physics_frame

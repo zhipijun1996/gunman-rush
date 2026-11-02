@@ -1,3 +1,191 @@
+## 2026-11-02 用户已授权当前重构分支合入main
+
+授权覆盖此前阶段“不自动合main”。当前待合入源码35881a6e，目标main2ce4ffa6；原Integration要求full171，创建PR后由精确head的prepare／parallel／serial／affected全部通过才普通merge。实际PR／head／合并结果以GitHub和main ancestry为准，恢复先查，已merged不要重复执行。合入后main自动完整构建／Pages另核实际结果；旧试玩与旧完整CI不冒充本轮新head通过。执行合同见[合入范围](worklines/main_refactor_merge_01/scope.md)。
+
+本轮无新的生产行为或图声修改。手机Chrome死亡性能和用户认可仍未验；源码合入不将历史review任务自动标done。以下保留原阶段事实及失败，旧“不合main”已经被本条用户授权覆盖。
+
+## 2026-11-02 DEATH-RUNTIME-01 已部署，手机仍待复测
+
+运行源 `10dcd39abd8dd8be57cf838167989dd0ca93502b`，生产修改d8c9686c；build `58ef14b41f57`，prepared `29a4edd5f7851b689effdf481d9006e238f3e585`，Pages41453285376成功。保留死亡动画／图声／所有玩法，Ground复用冻结活体顶点，Hopper／Sentry／Fan每draw准备死亡几何，StageVisual共享无uniform掉落材质。原Oracle7899／442442顶点完全一致，真实App603、支撑145／保存156／snapshot129、core5686均通过且严格clean。实际draw A/A+AB各1836对相等，Ground死亡持续CPU路径约降50–61%；不是手机整帧FPS。
+
+style34／creative37仅206中五GD变化，201条及86非GD保持；current46／history52／creative31、两binder及相关docs／structure／quality／architecture通过，原失败和预算保留。实际原Foundry36＋18及stamp、Web闭包／重建／PCK13通过；精确clean F后明确56个派生输入，其他源不变。完整公网64位SHA和真实Title→Home→门→BEGIN→Plains→D200ms通过（204.287秒／300，13图、无注入、最后仍在初始地面）。非full171／Windows／CI API artifact，不合main。
+
+下一步只收手机Chrome首次死亡／连续击杀复测或实际帧时，先证实剩余CPU／GPU／首次LOOT编译，勿重复既有缓存。额外LOOT预热未采用，Web候选观测超时保留；手机、玩家、完整正式性能采样与consumer inventory仍未签，任务review。详见[本批结果与回退](worklines/death_runtime_01/results.md)。源码和绑定成组回到5d3303b7，公开回退prepared2f0b3089／build9dd。以下保留原阶段状态，不追签旧证据。
+
+## 2026-11-02 FIRST-USE-STUTTER-01 技术已部署，设备仍待复测
+
+运行源 `b5c7bf65cf7a551cb0783f44f6fa594804bf94ee`；build `9dd3a9a2ecd8`，prepared `2f0b308952145b4f8f522b10925782e4ae21f3ac`，Pages41423846094成功。两个实际表现宿主共用离屏Canvas准备；真实Home首jump/pulse被接受且全program新增编译／链接0，原生GPU50和同版相关10项fresh通过。style33／creative36只技术重绑一GD，图声与玩法规则保持，不自动合main。
+
+原Web构建／精确原Foundry56派生输入守门／实际PCK13／完整公网SHA及本地和公网Title→Home→真实BEGIN→正式平原入口均通过。公网179.016秒／原300，末尾短移动下落仅签输入响应；原favicon404和Emscripten提示保留。此为快速试玩，不是新full171／Windows或手机FPS。
+
+正式新4pulse／3hit／kill性能采样NOT_RUN，原首hit220ms尚有未归因耗时，draw／buffer仍是计时盲区；用户设备、完整consumer inventory和formal integration未签，任务review。下一步优先手机Chrome及上述实际帧盲区，不能用已证明的编译准备宣称全部战斗消卡。版本、原失败、缓存恢复和成组回退见[本批结果](worklines/first_use_stutter_01/results.md)。
+
+## 2026-11-02 COMBAT-PERF-DEPLOY-01 技术已部署，待真机
+
+运行源码 F `60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50`，运行补丁 `70edb686`，prepared `f55e3cfc7d7867c672d76f5887fc3694c62502c8`；公开 build `506a4e40a1ee`。原 CI 41382432305 attempt1 的 171 项 fresh／0 复用和 Windows/Web/GPU/audio 通过；同次 prepare 56 个生成路径保持实际 dirty 记录，不声称 CI Git-clean。原3浏览器73、空目录PCK13、第二次同源连续影片2300帧、Pages41390679708、公开完整PCK SHA及真实Title→Home→正式平原入口GUI均已通过。
+
+源码／图声／玩法规则没有因交付改写；这次收口仅文档证据。局部 CPU 改善并不等于手机FPS，Root首次构造0.307→0.491ms冷代价保留。公开GUI保留favicon404与Emscripten blocking诊断，未验战斗/死亡/无人机实机；手机、玩家、审美听感及完整consumer inventory仍未验。任务保持review，formal_integration未签，非G5或main合并。
+
+详见[结果、版本与回退](worklines/combat_perf_deploy_01/results.md)和[精选交付证据](evidence/combat_perf_deploy_01/delivery/index.json)。下一步只做文档/结构/质量与精确提交证据守门后提交收口；无需因文档再跑171。继续性能工作先补真实设备证据，不用局部核测量代替。旧公开回退P为ab57c6d5cc14e279aa074f54fd1e0854ae97a750；源码回退须成组回到e42批次，不能单退GD。以下保留各阶段原状态和失败，不追签历史。
+
+## 2026-11-02 COMBAT-PERF-DEPLOY-01 正在实施
+
+用户已明确授权优化后部署；当前从 `e42b277f37425458a2920815258d1cfc817acfc3` 推进反馈／足部／网格／ItemArt与实际同伴查询热点。候选与有限测试由root收口，最终F尚未冻结；没有本轮完整171、同源新Web或手机FPS通过声明。公开仍是ab263／build2e1274f62210，不拿旧包展示本轮效果，不自动合main。
+
+[范围与约束](worklines/combat_perf_deploy_01/scope.md)及[现有发布步骤](worklines/combat_perf_deploy_01/delivery.md)已记录；冻结后原environment完整171＋Windows/Web，再验同run唯一API ZIP／原3浏览器／实际PCK并prepared发布。原失败、真机和玩家未验保持。root授权的可逆重复文件回收已完成，三ZIP／恢复清单保全，净回收846944035字节；未删源码、原ZIP或旧证据。以下旧节点保留原来源。
+
+## 2026-11-01 第二批网格性能与扩展能力审计
+
+运行实现ca505102、任务表修正119f4a7e、技术绑定及局部验证源 `4ed961113a65068e3d488c0370cb573154a2bd14`；之后仅证据／文档收口。原Pose复用33个64位波形与两quiet，实际叶子跳过零权重计算，原数学、图声和玩法保留。干净4ed的32项显式局部检查fresh通过（403.276秒），7101断言／371801顶点逐字节等价通过；style31／creative34只重绑三GD，其他203引用与原预算保持。两次实际Development失败及旧候选均保留。
+
+受控原生核：地面活体约快5%–9%、哨兵约13%、扇翼约29%–30%；根铃死亡核约慢2.95%，单列后续，不当整帧或手机FPS。原最终Integration仍要求full171，本批未执行，未合main／更新公开Web；公开身份仍ab263／build2e1274f62210。见[本批结果／回退](worklines/mobile_combat_mesh_02/results.md)。
+
+四类未来功能已有基础但未全部完成接入：教程／演出缺流程层，map-gen当前是Python静态原型且正式模块未导入，剧情缺条件／对话状态，永久升级事务已通但UI／效果仍单项。实际缺口、归属与批次见[扩展接入方案](architecture_extensions.md)；没有新建运行空壳或改存档。下方旧节点保留其原来源。
+
+## 2026-11-01 手机战斗性能第一批
+
+代码提交 `cd12edc4ef35fe06ca6b6e8f5fd418addc3a0503`，分支 `refactor/game-architecture-02`。两怪物宿主正常帧合并重复 revision 刷新，复用本帧生命周期快照；保持初始化／恢复／终态及原图声玩法。干净cd12的原Development16项fresh通过，另四原命令按实际候选字节通过；108姿态完全一致，受控微秒级CPU段减少31.9%–49.3%，不是游戏FPS或手机卡顿消缺证明。
+
+完整Integration仍由原规则选择full171，本批未执行，未合main或更新公开Web。手机型号自述“荣耀magic60”，浏览器未知。下一批优先625顶点核与实际交战帧耗时；细节、归因和回退见[本批结果](worklines/mobile_combat_presentation_01/results.md)。下方架构收口及公开ab263包身份保持有效。
+
+## 2026-11-01 本轮架构实现与技术验证收口
+
+分支 `refactor/game-architecture-02`，实现提交 `2d64fbbbbeea120b5c64add5a2af801a81fe7797`；之后文档保存提交以Git HEAD为准。main仍为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`，PR122／124等已含，PR123关闭未合入，本重构未自动合main。代码和调用边界见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。
+
+架构冻结源37950e08已完成fresh171与Windows／Web／Android／Pages验证；原run41280956930的checkout超时仅重跑失败jobs，旧失败保留。独立UI修复ab263ea6完成干净源24项受影响检查、302项UI／37项Studio输入、Web构建／包检查与空目录PCK探针。工具e8c578eb完成60项纯回归、28项守门及原三个真实浏览器消费者73项检查，151.481／225.579／129.045秒均在原300秒内。最终CI映射2d64fbbb的原48项选择器测试通过；选择器自身变动仍触发full，未把这些分源结果拼成最终HEAD fresh171。
+
+[当前试玩](https://zhipijun1996.github.io/gunman-rush/?v=2e1274f62210)对应运行源码ab263ea6／build2e1274f62210，完整PCK216386008字节／SHA2e1274f622102b34f18ab2fdb0f41584b06b518c097497999608c20f7803b2f6。公开Title→Home→出发门→正式Plains→移动实际通过；DOM自然两次tap／取消亦通过。图声与其它游戏源码保持379字节，新UI之后仅测试／CI／文档。未代签物理设备、用户或完整内容G5。
+
+下一工作是新地图库／算法的真实来源适配与正式消费者迁移；本轮没有制作新地图，也不声称任意裸Plan已经无缝接完整App。历史未注册directional capture合同、旧four-line GUI主按钮仍预期直达Plains等问题单列保留，不能通过改物理或删入口处理。下方旧节点保持原时间／来源。
+
+## 2026-11-01 架构基线已完成同源CI与平台验证，触屏缺陷另行收口
+
+冻结源 `37950e0896a91c6b812a11c323ec3d5fd1800bb0`：run41280956930的原full171（92＋79）全fresh通过，Windows／Web／Android及公开基本验证完成。attempt1的core checkout十分钟超时；attempt2只重跑失败jobs，最终九jobs成功，旧失败原件保留。不是把两次完整运行拼接成一次，也不追签旧C8或2d44结果。
+
+已约定的架构职责与真实消费者迁移完成；新模块库／算法及完整新Provider正式接入另属后续内容，不扩大本轮。共享Runtime能消费裸Plan，但旧App／Stage仍有明确来源适配。地图实际链路为Provider返回Plan给App，App配置Stage，再由Stage调用Runtime。三索引继续是其metadata声明的b69冻结快照，本次不再生成。
+
+当前仅收尾独立的PopupTouchAdapter触屏opener-release缺陷与浏览器工具v3的真实locator更新。最终修复源码／工具SHA、专项结果及发布身份需按新证据记录，379的全量／基本GUI不能替它们验收；旧R3 locator失败保留。设备、玩家与主观图声认可仍未代签。以下历史节点保留原来源。
+
+## 2026-11-01 最终生产源码已保存，收口后只做同源交付
+
+代码提交 `b69ca2933b1739226e9edc37cc5621d47443e322`，分支 `refactor/game-architecture-02`。Stage最后两处路线/HUD值查询已替代App的assembler读取；P1取消/伤害/Boss接线、共用规则及模块CI已保存。三索引已按b69冻结源刷新（34,487路径／1,556runtime／35入口，843源／3,462边／118未解析dynamic，errors0），不是全量引擎/设备证明。当前style30/creative33仅技术重绑三叶，图声保持。
+
+原HUD61/0及五布局前后相同；当前46、creative27、历史36原预算通过，代码/绑定/测试分别独审。新Provider完整App仍须迁移旧来源记录与恢复适配，新算法/库为后续内容，准确边界见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。本轮不再扩大重构、旧地图矩阵或素材清理。
+
+下一步：确认干净最终HEAD、release-evidence、实际main2ce quality-diff和impact计划，推送后只启动一次原environment.yml（full171＋Windows/Web，Android按实际input）及已授权试玩。随后取同run唯一API摘要原ZIP→原三浏览器/PCK隔离加载/同源连续原生音画→公网metadata与完整PCK SHA/基本GUI。未执行不能签通过；2d44 run41279913906是prepare主动取消，旧C8仍失败。当前无本地Godot或CI租约；启动后必须在外部checkpoint记实际run/head，冻结源至后验完毕，不合main。后续历史节点保留原来源。
+
+## 2026-11-01 最后两处地图查询已收口，准备最终同源验证
+
+分支 `refactor/game-architecture-02`；P1六源码已存 `2d44aaeb`，其后最后三源码查询迁移与style30/creative33按[精确收据](evidence/map_view_boundary_01/receipt.json)记录，三源码静审通过，HUD61/0及五布局前后相同，current46／creative27／history36均在原预算通过。三处Stage值查询已接实际App，App assembler访问归零；不承诺任意新Provider已直接接通正式流程。见[架构收口与新地图门槛](worklines/game_architecture_01/architecture_closeout.md)。
+
+2d44的run41279913906已在prepare取消，不计通过。当前无本地Godot；所有代码/绑定/测试保存并刷新三索引后，冻结干净最终HEAD，只执行一次原environment.yml完整171＋Windows/Web（Android按本轮设置）＋授权试玩，补实际impact计划、quality-diff及exact release-evidence。不得把旧C8失败、限定专项或排队当全量通过；不合main。当前main经远端核仍2ce4ffa6，PR122/124已含，PR123排除。以下历史节点按各自精确来源保留。
+
+## 2026-11-01 App地图接线六源码已收口，原9项相关回归通过
+
+攻击取消、地图伤害/接触器构造、Boss场地/恢复/封印已归Stage与Actor。核心5686与原9项相关Harness全fresh通过；style29/creative32技术绑定及当前46/历史32/creative26均在原预算通过。旧C8完整CI是79+70通过、Bible超时、21未执行，仍记失败；性能修复254已独立保存，最终完整171待验。具体调用、证据、回退及剩余地图接口/交付工作见[本批说明](worklines/game_architecture_01/composition_closeout.md)。以下为历史节点。
+
+## 2026-11-01 当前绑定与历史CI两个P0已收口
+
+当前style28／creative31只技术重绑5源码，原206角色／路径及图声保留。当前46和历史28均在原30秒通过，四项原Harness已fresh通过；full171不变，历史加入原手动集合。完整同源集成仍须执行，不以局部绿灯代签。下一步优先验证完整基线，再收App伤害／取消／Boss接线，随后地图替换边界与平台交付。见[本批结果与优先级](worklines/game_architecture_01/current_authority_ci.md)。以下为历史快照。
+
+## 2026-10-31 模块边界与责任CI已实施
+
+森林地方装配归Stage，怪物地方几何／恢复归EnemyActor；App保流程协调。实际95／54／61／61／69专项及source guard通过。CI沿原planner按12模块和实际下游选择，普通文档3门禁，未知／共享／构建full171；选择器46和Harness91通过。完整集成、内容源码权威技术绑定与历史Bible30秒仍待，不宣称全绿或发布。具体调用、责任、证据与回退见[本批说明](worklines/game_architecture_01/module_boundaries_and_ci.md)。下方为历史节点。
+
+## 2026-10-31 高效率重构节点：P10/P11与默认CI范围已保存
+
+已提交P10领取状态归属、P11共用宝箱候选和14项旧地图默认CI退役；实际专项通过，默认171＝92＋79。完整验收仍被现有资源权威四源码技术绑定、历史Bible检查30秒超时阻断，没有合main或发布。下一步只处理这两项，不再扩大审计或资源清理。准确提交、结果、失败与继续顺序见[高效率交接](worklines/game_architecture_01/efficient_continuation.md)。下方是历史快照。
+
+## 2026-10-31 R3原完整回归已收口，进入完整185与导出验收
+
+当前重构实现源为760e0cda93a3e14533bab945eb9bd3cb53a8d59c，分支refactor/game-architecture-02；后继保存提交以Git为准。main再次核为2ce4ffa6，PR122/124已合入、PR123关闭未合入。尚未合main或更新公开游戏。
+
+R3两个真实消费者已共用唯一pilot、平台观察和四源命中关联。原registered检查同源fresh通过：组件313、方向16、生命周期65均0失败，默认map1 4954/0、map2 5053/0，检查134.931秒/原360，源与Git前后相同。独审确认Bell40真实1伤/玩家5HP/两组回冲/12金币，Pressure60真实命中/玩家3HP/20金币及原森林结算。原278/1与历次失败保持原状态，没有重绑旧证据签当前PASS。
+
+三份审计索引已在2fa2daac冻结源更新并独审，覆盖34,200文件、1,554运行文件、3,447静态边及118处动态未解析。下一步执行同源完整185、最终三平台导出、真实GUI/PCK与连续影片；单次现有工作流按门槛发布试玩。新地图模块库/算法仍属后续，现接口适配旧算法。详见[本批共享消费者与回退](worklines/game_architecture_01/r3_current_content_contract_01.md)及[该原检查的质量记录](quality/records/R3-CURRENT-CONTENT-CONTRACT-01.json)。下方暂停与阶段结果为历史快照。
+
+## 2026-10-31 按用户要求再次暂停：从此处恢复
+
+已停止全部子代理、引擎和验证任务。本次只保存已审代码与交接，没有运行待验平台策略、启动新完整CI、合main或发布游戏。
+
+代码已拆两提交：消费者/CI收口 dce431120e1ad7c0cb69ff1d189490bf9fa47b8e；独立RootBell暂停视觉恢复修复 61c4fac9e3f5674787cecc963a8ac1d9b675480d。后者回退基点为前者，消费者批次回退基点11254a66。当前实际HEAD应以Git核实（其后仅本暂停文档/证据提交）。main仍2ce4ffa6，PR123排除；本重构未合main，公开游戏仍是上次核验的55b07609。
+
+核心架构已落地，但完整验收未完成：原157预检151/6与所有失败保留；后继原115/27/58/91、audio四case、motion708、hit393、lifecycle112及RootBell相关检查通过；原docs/quality静态门禁在两asset record技术重绑后通过。R3仍278/1，精确main两次roll-only均8/1且296行物理轨迹等价；正式App旧策略实际1608帧后player0/Boss26，不能签通过。
+
+下一步只允许先做已双静审、未编译/未原生的平台输入策略诊断，再根据真实结果审查CI契约。不能删除旧断言、标expected-fail、加能力、改物理或放预算。完整185、同源导出/PCK/真实GUI/原声影片仍待；新地图库/新算法未实现。当前三个全文件/依赖索引仍明确标旧acb快照，恢复后用已保存05生成器更新。
+
+完整命令、SHA、源备份/恢复、成功失败边界及可移植候选见[第二次暂停交接](evidence/game_architecture_02/pause-checkpoint-05/README.md)。本段优先于下方历史阶段记录。
+
+## 2026-10-31 后继有限预检完成，R3仍阻断完整验收
+
+当前基点仍为 `11254a6647dbb4d842feb4d21de9e2d8bd9accd3`，后继工作区尚未提交，未合main或发布游戏。18个既有测试/工具消费者已按精确独审候选接回实际所有者，资产manifest仅修3份当前元数据SHA。独立的RootBell暂停恢复缺陷另改1个生产文件，不混作保持行为不变的重构。
+
+原剩余157项诊断为151通过、6失败，原状态与8份压缩报告保留。后继原检查中，spatial、production-loop115、scheduler27、forest-bible-reader58、Harness91通过；audio-feedback原四case另通过。原R3完整wrapper仍在278条中的1条跳跃断言失败，不能把不同冻结源的分次结果拼成full185通过。独立motion708/0与未注册Audio SourceClosure1/0只覆盖各自入口；未注册directional仍23/4，与精确2ce旧capture合同同失败，保留为独立历史问题，未改旧payload/容量规则或注册新覆盖。
+
+R3先补齐正式App既有的精确接触回调，仍278/1。相同固定引擎下，精确2ce的5637个普通运行文件原探针和仅补回调探针均8/1；两组296行轨迹逐字段与当前相同，仅全局tick差6759。一次实际状态转换起跳诊断仍8/2，不采用其时序变更。正式App现有cautious2策略随后因玩家死亡而释放场景；观察者修复后保存真实1608帧/3失败、Boss26HP/player0及fatal/run_ended事件，严格退出1。它证明该策略失败，不能推论全部合法counterplay不可行；没有修改碰撞、伤害、能力、随机、180秒/7200帧预算或胜利判据。
+
+hit测试接实际表现/受伤所有者后由380/4到393/1，揭示RootBell原有的暂停恢复粒子遗漏。独立修复只调用现有`particles.clear_for_epoch()`；hit393/0、plains lifecycle112/0、原root-bell-current与deformation检查通过，冻结源前后相同。此为独立生产缺陷修复，原失败保留，没有更换图声或重绑style/creative版本，见[独立质量记录](quality/records/ROOT-BELL-PAUSED-RESTORE-01.json)。
+
+完整185、后继同源Web/Windows/Android交付、Foundry完整UI、实际连续影片及GUI/设备/用户认可尚未通过本轮最终验收；R3仍列阻断。此前Windows job和serial Web构建/包检查有限通过不等于最终交付。公开网页未更新，上次核实源仍为`55b07609ea756c6faee771aaa84f080b249917fe`；统一新地图库/算法尚未实现，当前Provider仍适配旧算法。实际证据与不同源向量见[消费者收口](worklines/game_architecture_01/ci_consumer_paths_01.md)。下方历史记录保留当时状态。
+
+## 2026-10-31 完整185首次运行失败，当前修复与剩余预检进行中
+
+已执行的远端源为 `11254a6647dbb4d842feb4d21de9e2d8bd9accd3`，分支 `refactor/game-architecture-02`，内容底座仍为 main `2ce4ffa6`（PR122/124/125/107，排除PR123）。[环境运行41195033622](https://github.com/zhipijun1996/gunman-rush/actions/runs/41195033622)没有完成完整185验收：parallel的11项通过后，`art-art`因3份已迁路径的资产元数据SHA未重绑而失败；serial的12项通过后，`forest-ecology`因测试动态加载旧敌人场景路径报错并超时。两个失败和未运行项均保留，不能把注册数量或局部通过数记成全量成功。
+
+Windows导出job成功。serial中`web-build`、`web-bundle`也已执行通过，但后续Web交付、合流和发布job跳过，没有形成最终同源交付证明；这不等于公开游戏网页已更新。本轮未发布游戏网页；上次已核公开源为 `55b07609ea756c6faee771aaa84f080b249917fe`，最终交付时须再核网页metadata与完整PCK。此前固定工具链完整产物、Foundry36条挑战/18条路线和三个入口检查的有限证据继续有效，范围见[Foundry收口](worklines/game_architecture_01/ci_foundry_consumers_01.md)与[工具链收口](worklines/game_architecture_01/engine_toolchain_01.md)。
+
+目前正在把已独审的元数据绑定、真实测试消费者旧路径及声明输入漏项分批收口，并逐个执行原Harness检查提前排查其余失败。`preview/plains_v3_catalog.json`属于稀疏检出缺件，按精确Git原件恢复并补真实读取闭包，不是重新生成美术。正在进行的本地预检与远端旧源结果不能拼成一个通过的185报告；修复后的最终提交、剩余检查和交付结果须另行冻结并核验。
+
+同一11254源的原38项启动探针已全部加载并干净退出，包括35场景及正式App的Home/平原/森林三模式；Foundry本次实际出现Player和FoundryWorld。这只证明有限启动与清理，不代表全部交互、设备、GUI或完整185。地图公共接口仍通过旧Provider和Manifest适配当前内容，新模块库与新算法尚未接入；已实现调用方向和后续范围见[迁移报告](worklines/game_architecture_01/migration_report.md)及[目标架构第5节](worklines/game_architecture_01/target_architecture.md)。下方历史记录按当时状态保留。
+
+## 2026-10-31 Foundry消费者收口完成，下一步完整185与导出
+
+当前实现提交 `becd0099b161f57cd919e7492f9f99752d377935`，继承工具链595、独立生命周期a671、Boss八测试49a和技术绑定ad3/b893。内容基线main仍为2ce4ffa6（PR122/124/125/107，排除123）。本重构未合main；游戏公开网页尚未更新。
+
+原current15地域检查224.151秒全部通过，五共享消费者分次通过。Foundry原流程真实验证36条开发挑战和18连续路线，再生成当前导出basis；独审确认56份JSON仅来源/引擎/派生hash变化，54份回放56113帧完全不变。三个原工坊入口修旧默认弹药预期及复用全world音频清理后35/439/12均0失败，原Harness三个新check全部fresh通过；原Harness91与生产计划37也通过。见[Foundry收口](worklines/game_architecture_01/ci_foundry_consumers_01.md)、[Boss测试迁移](worklines/game_architecture_01/ci_boss_consumers_01.md)。
+
+CI现为185=95parallel+90serial：保留原full182/gameplay167有序前缀，将三个既有Foundry回归归入统一Harness并从environment/deliver移除重复执行。Android同样消费该次prepare的validated-foundry，原stamp拒绝、180秒原预算及双lane合流不变。首环境run41192769750因实测旧池/缺Android产物交接而在工具链前取消：实际取消点已过checkout进入质量证据步骤，core聚合因缺lane证明失败，不是full185已执行；原API/失败均保留。skip-drain本次未复现泄漏，保持原passed/noERROR并明确不作为反向通过。
+
+固定引擎10lane+package、八个公开分发文件/真实84522锁与安装已完成；原26下载身份测试、91Harness及优化引擎有限生命周期/正式测试证据保留，详见[工具链](worklines/game_architecture_01/engine_toolchain_01.md)。当前正最终更新索引后重新冻结源，完整185、最终Windows/Web/Android游戏导出、PCK/实际GUI与公开试玩仍未通过本轮验收；不得将selected或注册项数冒称全量成功。新地图模块库与新算法仍属后续，现接口调用旧Provider。下方阶段记录保留当时状态。
+
+## 2026-10-31 状态恢复所有权补批已实现，CI旧Boss夹具单列迁移
+
+在ed95音频修复之后，按已提交范围2e1c完成7生产/4测试有限迁移：Stage通过ShotLatch保存/恢复原7字段并复用平台restore_motion；App通过Director复位terminal重入完成标记；普通Windkeeper与Pressure分别通过Encounter/Arena恢复断桥，两个Pressure调用者都迁移。原政策、字段、顺序和旧测试均保留，见[范围与结果](worklines/game_architecture_01/ownership_closeout_02.md)。
+
+实际优化editor下11次原生预检（含Session54、机关重载26、Windkeeper175、Pressure6、core5686）及Bell8套均通过且11冻结源码未漂移；不是Harness完整182。扩大region在第3套旧cohesion19/5停止，同优化editor上的精确迁移前ed95也19/5，原失败和第一次UID缓存阻塞均归档；后续按[独立测试迁移](worklines/game_architecture_01/current_boss_test_migration.md)修当前Boss消费者，不能归咎新owner迁移或删除失败。
+
+引擎41180438395的10构建+package已全部成功，完整分发8文件与重包逐字一致并独审。Release草稿429822541、tag固定184已创建，但本地uploads域名401，尚未发布；正准备原engine workflow中受限Actions推广候选，独审后才执行。主工具链仍官方，禁止提前半套激活；完整182/最终PCK/GUI仍待完成。下方记录按时间保留。
+
+## 2026-10-31 已恢复工作：原音频试听缺陷已修，完整工具链仍待齐备
+
+用户换模型后要求继续。候选基点59a6上，精确main2ce同诊断C原测试复现126/3，独立确认旧材质路由绕过ABC试听。最小修复只允许显式enemy_hurt focus的非original候选；原126保留并新增28边界检查。C154/0、实际优化编辑器154/0及source一致均有独审，见[独立修复](worklines/game_architecture_01/audio_lab_material_fix.md)。当前修改已进入独立提交收口，不扩大成玩法或资源更换。
+
+实际优化editor184单lane产物已独审，生命周期28/0+负例4/0、正式191/0严格退出、V2 66/0均通过。主config仍官方，等待同run全部模板与package才原子接入；不能把这些外部单lane预检称主Harness182通过。当前远端Windowsdebug、Webthreadeddebug、Linuxeditor、Android已成功，其余接手查[41180438395](https://github.com/zhipijun1996/gunman-rush/actions/runs/41180438395)。后续仍按[指导](worklines/game_architecture_01/continuation_guide.md)完成工具链、Foundry、full182/PCK/GUI和可玩预览；下方暂停记录保留为历史。
+
+## 2026-10-31 用户要求暂停换模型：从此处接手
+
+本地工作已在诊断节点结束，暂不继续重构/全量测试。详细事实、分支、下一步命令和不可重复事项见 [后续重构指导](worklines/game_architecture_01/continuation_guide.md)。暂停前源码 `05c3e3db`；本次仅补指导与证据归档，正式工具链仍未切换，本重构未推送/合 main/发布。
+
+35入口加3正式模式的诊断C启动38/38通过，已有独审；AudioDirectorLab25/0、V2 66/0通过，Reels126条中3条失败（enemy_hurt A/B/C播放次数），尚未判断原缺陷或重构回归，原失败保留。它们均为O0诊断，不能代签优化引擎或full182。见 [暂停证据](evidence/game_architecture_02/pause-checkpoint-04/index.json)。
+
+远端固定引擎 [41180438395](https://github.com/zhipijun1996/gunman-rush/actions/runs/41180438395) 保持运行，精确源184970c7；暂停时Windows debug成功，Linux editor/debug、Web threaded debug及Android构建中，其余5lane排队。接手查询实际新状态，不重复开build、不混旧run产物；代理监测与本地Godot已结束。先定位Reels失败并核完整产物，再原子接入已审安装器+真实锁、Foundry重建与完整182/PCK/GUI验证。用户已批准固定上游双补丁方案，不再重复询问。
+
+## 2026-10-31 固定工具链验证的此前阶段记录（由上方暂停节点覆盖）
+
+当前候选分支 `refactor/game-architecture-02`，生产整合源 `063d6ccbd7a6ab659fd27abcb20a5c59c7308c53`；后续技术绑定和消费者修复待提交。内容底座 main 为 `2ce4ffa64ef65dd5fba892776eea019c9e2841d4`（PR122/124/125/107），PR123 排除。公开网页仍是已核完整 PCK 的 `55b07609ea756c6faee771aaa84f080b249917fe`；本重构未合 main、未发布。
+
+1,124 个文件已按功能迁移；Session、地图 Provider/Plan/装配、库存/钱包事务、主动施放、实体与 Boss 状态、音频及入口辅助均有真实调用者。原地图算法仍由 Provider 包装，Stage 表现/记录仍依赖旧 Manifest 适配；新模块库与算法尚未接入。文件职责、实际依赖和回退批次见[迁移报告](worklines/game_architecture_01/migration_report.md)。
+
+063 源之后四批原定向 Harness 的 11 个不同检查最终通过：Bell、Pressure、forest-depth-restore、core、Blob47、Windchime、Pixel、Style、CloudPreview、player-default-integration、studio-input；前三批发现的元数据/动态旧路径失败均保留，修复不改原图声。此前 6584 源的 Plan、enemy structure、Study、audio owner、v11 专项通过仍有独立收据。完整 182 项、35 入口全部真实覆盖、Foundry 与最终 PCK/GUI 尚未完成。
+
+官方 Godot 4.7.2 的正式道具 191 条行为断言通过，但退出 57 ObjectDB/25 资源泄漏。相同 063 源和 4,186 个运行文件下，独立诊断构建 C 采用上游 PR117991＋PR120976 后 191/0 且严格退出通过；A 原源码和 B 单补丁失败保留。用户已明确选择“采用固定的上游修复版，继续完整验证（推荐）”。正在独立工具链分支构建优化版及配套平台模板；诊断 O0 二进制不是交付版本，原工具链锁尚未替换。
+
+style26/creative29 只作技术绑定：206 引用、原媒体与历史原件保留，原598输入映射前缀完整；原 Bible61 在30秒预算内25.94秒通过，无缓存、删测试或放预算。代理按职责并行，root 协调唯一 Godot 租约；原 dirty `/workspace/gunman-rush` 未动。恢复先查真实 HEAD、工作区、远端构建及进程，再按[执行记录](worklines/game_architecture_01/execution.md)继续。
+
+后续原 docs33 已在同一候选写集全部 fresh 通过（318.136秒），原命令/预算未改。修复当前/历史导航及证据路径、视觉 source projection 与fixture漏掉功能根、P1刻意保留路径和森林 Provider 调用链识别；原断链、误判和字符串伪造反例均保留，详见 [静态收口](evidence/game_architecture_02/static-closeout-03/archive-index.json)。这不代表完整182或实际导出已完成。
+
+固定引擎构建390的Windows调试/Web多线程调试成功；Android两份native库完成后Gradle因缺SCons CLI失败，原run已取消保留失败及成功产物。只补锁定SCons命令入口的184970c7正完整同源重建，见[当前构建](https://github.com/zhipijun1996/gunman-rush/actions/runs/41180438395)；不混入旧run产物。安装器62eceec4已限定独审，须和真实完整artifact lock原子激活，当前官方配置未切换。
+
 ## 2026-10-31 PR122已合入，PR107离线工具组合完成（最新）
 
 PR122已普通合入main `a22b8f76f784da044bf2e4fa018ec274f12eab3f`，此前124/125保留；Bell八组、Pressure六组及四绑定分别通过，原输入顺序失败已修且保留。PR107本分支已与该main整合，原正式scripts/scenes/resources/assets无差异；Python28/28及41/41通过，原九条件native pilot/完整172未签。远端合并状态以PR为准；PR123排除。之后从统一main修CI基线，再按既定架构批次迁移。地图目标是统一新库/新算法，接口先行，旧算法只是过渡，当前未切换正式地图。见[组合证据](evidence/main_unify_20261031/level-tools/README.md)。

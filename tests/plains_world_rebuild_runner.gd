@@ -1,7 +1,7 @@
 extends SceneTree
 ## Complete-world source and real installed consumer; not artistic admission.
-const WORLD := preload("res://scripts/generation/plains_world_rebuild.gd")
-const STAGE := preload("res://scripts/demo/plains_world_rebuild_stage.gd")
+const WORLD := preload("res://game/world/generation/plains_world_rebuild.gd")
+const STAGE := preload("res://game/world/levels/providers/plains_world_rebuild_stage.gd")
 const PRIOR_DEFAULT := "98a71fc9d52471dfbc8ec6b25dfb09d1a1326d158cd9dbc71367966ef0ec2a51"
 const PRE_FOCUS := preload("res://tests/plains_pre_focus_baseline.gd")
 var assertions := 0
@@ -126,7 +126,7 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 			var hit := stage.get_world_2d().direct_space_state.intersect_ray(query)
 			check(not hit.is_empty() and hit.collider == collider.get_parent(), "Actual physics ray finds declared complete-body standing surface")
 
-	var actual_player := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	var actual_player := preload("res://game/player/player.tscn").instantiate() as PlayerMotor
 	actual_player.position = Vector2(float(plan.spawn[0]),float(plan.spawn[1]))
 	root.add_child(actual_player)
 	await physics_frame

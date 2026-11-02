@@ -1,0 +1,219 @@
+{
+  "status": "PASS_LIMITED_PUBLIC_ENTRY_GUI",
+  "review_role": "Actual execution and direct image review by driver adapter author; independent from production/deployment author, not independent review of own external driver",
+  "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "identity": {
+    "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+    "build_id": "506a4e40a1ee",
+    "pack": "index.506a4e40a1ee.pck",
+    "pack_sha256": "506a4e40a1ee711362f9f701b64f39ba68f9015c0922c102bf87ccc29dc74d59",
+    "pack_bytes": 216391560
+  },
+  "driver_exit_code": 0,
+  "chrome_closed": true,
+  "interaction_seconds_first_to_final_screenshot": 100.16299939155579,
+  "original_interaction_budget_seconds": 300,
+  "actual_actions": [
+    {
+      "command": {
+        "id": 1,
+        "action": "click_text",
+        "text": "开始游戏",
+        "label": "02-home",
+        "wait_ms": 1800
+      },
+      "at": 1793595256.1165745,
+      "actual_ocr_or_native_surface_point": [
+        231.5,
+        189.0
+      ]
+    },
+    {
+      "command": {
+        "id": 2,
+        "action": "hold",
+        "key": "d",
+        "ms": 9000,
+        "label": "03-home-east",
+        "wait_ms": 250
+      },
+      "at": 1793595270.1949828
+    },
+    {
+      "command": {
+        "id": 3,
+        "action": "hold",
+        "key": "d",
+        "ms": 2200,
+        "label": "04-departure-gate",
+        "wait_ms": 250
+      },
+      "at": 1793595292.2571962
+    },
+    {
+      "command": {
+        "id": 4,
+        "action": "key",
+        "key": "w",
+        "label": "05-departure-menu",
+        "wait_ms": 700
+      },
+      "at": 1793595303.4672472
+    },
+    {
+      "command": {
+        "id": 5,
+        "action": "click_text",
+        "text": "BEGIN / WINDCHIME PLAINS",
+        "label": "06-formal-plains",
+        "wait_ms": 1800
+      },
+      "at": 1793595315.656027,
+      "actual_ocr_or_native_surface_point": [
+        640.0,
+        281.5
+      ]
+    },
+    {
+      "command": {
+        "id": 6,
+        "action": "hold",
+        "key": "d",
+        "ms": 350,
+        "label": "07-formal-move",
+        "wait_ms": 100
+      },
+      "at": 1793595335.0986757
+    },
+    {
+      "command": {
+        "id": 7,
+        "action": "close",
+        "label": "08-close"
+      },
+      "at": 1793595344.7518241
+    }
+  ],
+  "screenshots_directly_viewed": [
+    {
+      "path": "01-title.png",
+      "sha256": "2f55e0ffa79db0263531d6065844a980d0038b4ded380448eed9b46d5fe164a0",
+      "time": 1793595245.449715
+    },
+    {
+      "path": "02-home-before.png",
+      "sha256": "2f55e0ffa79db0263531d6065844a980d0038b4ded380448eed9b46d5fe164a0",
+      "time": 1793595257.2039208
+    },
+    {
+      "path": "02-home.png",
+      "sha256": "2b02791448c0ab5ed69a8f4949cd381dcbf1d88cda5f8066d3568cb554894de6",
+      "time": 1793595260.7768915
+    },
+    {
+      "path": "03-home-east.png",
+      "sha256": "6f4cf6d2e77c6725704f708a610fb4f2bd82eae6e0a2fb81e66f7edbe609c4b3",
+      "time": 1793595280.449882
+    },
+    {
+      "path": "04-departure-gate.png",
+      "sha256": "811c1ca02dc69897d1e24cf3fd4473a009ee58de4dbfd008b192143f02448103",
+      "time": 1793595295.5953987
+    },
+    {
+      "path": "05-departure-menu.png",
+      "sha256": "865bcc728a64331103e9785acd2006517126736b2f9798139021c552de8234d0",
+      "time": 1793595304.9637125
+    },
+    {
+      "path": "06-formal-plains-before.png",
+      "sha256": "865bcc728a64331103e9785acd2006517126736b2f9798139021c552de8234d0",
+      "time": 1793595316.2065144
+    },
+    {
+      "path": "06-formal-plains.png",
+      "sha256": "38aa8fa7f421314e1691144cf66a1379119ab7705bde4837eb6b4c45bfcb1c27",
+      "time": 1793595319.9356337
+    },
+    {
+      "path": "07-formal-move.png",
+      "sha256": "0b9766f061fbf50941d3265bf580605ab37b399b2b8a310c7745857a09ca04f6",
+      "time": 1793595336.468141
+    },
+    {
+      "path": "final.png",
+      "sha256": "b4125f4420d4c89a027c86ce34d403b6d8a768097505ed4bc7dfcb912d39360e",
+      "time": 1793595345.6127143
+    }
+  ],
+  "visual_findings": [
+    "Title shows complete Chinese start menu and build watermark506a4e40",
+    "Actual start click reaches Home; player/HUD and settlement buildings render",
+    "Actual D9000+D2200 walks to departure gate; W opens The plains await menu",
+    "Actual BEGIN button reaches map1/2 Windchime Plains with player and platform terrain",
+    "D350 moves player across starting platform; screenshot and camera-relative background change while health5/5 persists"
+  ],
+  "readonly_region_events": [
+    {
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": false,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "266f506ea09b6228696381beebf47eb7c0aa1d84713dfb0178852d3d77d8e751",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "plains-73bad8cc1c560bb0af534bdadab0e222"
+    }
+  ],
+  "guards": {
+    "source_clean_and_identical_before_after": true,
+    "driver_helpers_ocr_before_after_identical": true,
+    "all_screenshot_hashes_verified": true,
+    "runtime_error_filter_empty": true,
+    "page_errors_empty": true,
+    "response_listener_errors_empty": true
+  },
+  "console_error_or_warning_messages": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://zhipijun1996.github.io/favicon.ico",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+      "location": {
+        "url": "https://zhipijun1996.github.io/gunman-rush/index.c410089b390c.engine.js",
+        "line": 466,
+        "column": 17,
+        "lineNumber": 466,
+        "columnNumber": 17
+      }
+    }
+  ],
+  "console_limitations": "Console is not wholly empty: favicon404 and Emscripten main-thread blocking diagnostic retained; no Godot SCRIPT ERROR/Parse Error/Shader compilation/ERROR: matched. Empty HTTP response listener is not a claim that favicon succeeded.",
+  "scope_exclusions": [
+    "No physical-device FPS or performance acceptance; headless SwiftShader only",
+    "No combat/death/drone interaction exercised",
+    "No subjective art/audio acceptance or listening test",
+    "No movie recorded; ten actual PNGs reviewed",
+    "Public PCK metadata checked against root-supplied SHA; independent stream-hash belongs to root receipt"
+  ],
+  "evidence_sha256": {
+    "receipt.json": "3dade2cb66896c21eaa70a11520a7a9e23d15a2ebc3012dc03cb4dd6352f6b76",
+    "driver.log": "415f9923419007a14606abc33c0673311b2d854848fdc38f467add4b0950dbc1",
+    "run.py": "393e1d5b9f652435ec60b47d8c922b5667ffa01ced0e873d455285ec721628f0",
+    "expected-identity.json": "f9968b01df56582a4ec0f57a378e6083cd6468fb7b2ae1973f27a6394982534b",
+    "preparation.json": "12eabfdda1c8398a0e0284e3ec3cbda764b04836139ec1d266fb757db0eef8aa",
+    "driver.diff": "51b6b659acc08d0465d9afa04bd5a68ddee24b5f134223793ba39b0a8fb0e4c5"
+  }
+}

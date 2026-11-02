@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_forest_directional_validator.py", line 9, in <module>
+    MODULE=importlib.util.module_from_spec(SPEC);SPEC.loader.exec_module(MODULE)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/workspace/gunman-rush-refactor/tools/run_forest_directional_golden.py", line 3, in <module>
+    from forest_bible_world_sources import inventory as source_inventory
+ModuleNotFoundError: No module named 'forest_bible_world_sources'

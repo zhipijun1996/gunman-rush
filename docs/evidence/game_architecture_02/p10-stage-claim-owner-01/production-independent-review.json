@@ -1,0 +1,92 @@
+{
+  "status": "LIMITED_STATIC_ACCEPT_PRODUCTION_AND_RUN_SESSION_GUARD_CLOSURE_PENDING",
+  "reviewer": "ci_audit non-author",
+  "source_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "patch_sha256": "27a6c24f2b11e8d5d91c3297c904aa52a1c3fbb89456214e96a0ee752d7df4c6",
+  "files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "before_sha256": "e030779b727f4568e3e4604d0e118c9d46304104b77df31d7498959fa453228f",
+      "candidate_sha256": "be61aebd352ea6b9bdc66ae5b6ce21436ea8ae59cc0461ecf674f65082d514bc",
+      "exact_inverse_restores_original": true,
+      "original_check_calls": null,
+      "candidate_check_calls": null
+    },
+    {
+      "path": "game/world/levels/providers/generated_demo_stage.gd",
+      "before_sha256": "d90bc49bbb8a486f04c35adbcde6d9978abfa216b81c8e07be8edfde62bd58fa",
+      "candidate_sha256": "bfd9c4db6f881c2cbae1155ff4c6e266130124d9da21f082739600fe38d3a971",
+      "exact_inverse_restores_original": true,
+      "original_check_calls": null,
+      "candidate_check_calls": null
+    },
+    {
+      "path": "game/world/levels/providers/plains_region_stage.gd",
+      "before_sha256": "1c0d8d4fe6bd0fb2045bce3df4fe0438269fcd78daf5b0b6adc9cfdcc4855275",
+      "candidate_sha256": "10187f75235c6400e447f2bfec2ca6e4c81ea5e85671da30c52273925ec8e3dd",
+      "exact_inverse_restores_original": true,
+      "original_check_calls": null,
+      "candidate_check_calls": null
+    },
+    {
+      "path": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "before_sha256": "74e1959bc5ceec2aac77d8659a92ab968f16c49d0fff8c8f5d8012f256be17f4",
+      "candidate_sha256": "15c1d22d930e553832f3a858ccbd44366928937659e2ae455cff4e206fab767b",
+      "exact_inverse_restores_original": true,
+      "original_check_calls": null,
+      "candidate_check_calls": null
+    },
+    {
+      "path": "tests/run_session_runner.gd",
+      "before_sha256": "1bb1f260f2bc964fe781d28f1ba498f6d40a746196545302f3fa406c245bab9f",
+      "candidate_sha256": "efde63a0cb08b2061c056b205ec9d47b3bf541e9a3579b872ea61c772d376e92",
+      "exact_inverse_restores_original": true,
+      "original_check_calls": 51,
+      "candidate_check_calls": 58
+    }
+  ],
+  "frozen_metadata_sha256s_verified": true,
+  "all_five_before_bytes_match_actual_C59_git_blobs": true,
+  "independent_reverse_patch_all_five_exact": true,
+  "all_original_run_session_check_lines_preserved_in_order": 50,
+  "new_check_lines": 7,
+  "actual_inheritance_and_bindings": [
+    {
+      "consumer": "formal PlainsRegionStage / ThornForestRegionStage",
+      "path": "game/application/demo_app.gd:473",
+      "ownership": "when original connected_region is true, same RunSession-backed App.region_state object assigned directly to Stage before configure/ready; Forest inherits the single ledger method"
+    },
+    {
+      "consumer": "regional art / PlainsEnvironmentStage / PlainsSpatialGolden.GoldenStage",
+      "path": "game/application/demo_app.gd:429",
+      "ownership": "all three existing load branches assign same App.region_state directly; child state initialization only when null"
+    },
+    {
+      "consumer": "PlainsWorldRebuildStage",
+      "path": "game/application/demo_app.gd:406",
+      "ownership": "existing branch explicitly sets connected_region=false before base-derived construction; base no-op ledger hook preserves no region claim"
+    },
+    {
+      "consumer": "bare GeneratedDemoStage via encounter planner / standalone Stage tests",
+      "ownership": "no actual connected App pickup consumer found; base owner operations remain usable with explicit false. Unsupported synthetic connected=true+bareGenerated or deliberately split App/Stage states are not represented as proven equivalent."
+    }
+  ],
+  "semantic_proof": [
+    "App rollback/refusal/duplicate/range/ready/reach/wallet/heal/meta-save branches remain byte-identical outside four call-site substitutions. Coin counter method executes immediately after original wallet.grant success, before all subsequent claim/audio/feedback/persist operations.",
+    "Borrowed Dictionary is passed without lookup or duplicate. Same three pickup field writes in same order; clock read remains third. Explicit original connected_region argument retains false policy for Plains-derived Stage. Variant claim key is used directly without str/StringName conversion.",
+    "Actual coin definitions/drop restoration use positive integer amounts accepted by existing wallet; coins_collected already inferred int. No new conversion is applied to pickup ID, position or claimed time.",
+    "persist_pickup_motion is a thin delegate to the existing dynamically dispatched _persist_pickup_motion, called after the original audio and feedback and before original Manifest. Existing per-frame _advance_pickup_motion still invokes the private hook once in the same place.",
+    "Cache owner writes chest.claimed, then shared ledger, then Forest-only existing resolve_reward_shortcuts hook. No connected predicate added. App item toast/HUD/status remain before owner call; Manifest and subsequent UI/audio remain afterward.",
+    "New run-session checks cover same-reference formal and Forest states, borrowed pickup row/pose/time, counter plus ledger, duplicate no-credit, and a synchronous explicit connected=false Forest policy fixture restored before any await. No original wait/budget/assertion is removed."
+  ],
+  "remaining_dependency": {
+    "file": "tools/underworld_pipeline.py",
+    "function": "formal_chest_alpha_isolated",
+    "status": "Original finite claimed-write ban rejects the newly legitimate owner methods. Runtime agent is preparing independent external finite caller/body/order validation and retained negatives. This review does not approve dropping that guard or apply readiness."
+  },
+  "required_next_validation": [
+    "Complete independently reviewed finite static-guard migration before applying package.",
+    "Root-controlled original actual run-session and existing pickup/cache/audio/region/Forest consumers under unchanged budgets after current C59 baseline work.",
+    "Native source/state/RNG/manifest equivalence remains pending; no engine execution or main changes by reviewer."
+  ]
+}

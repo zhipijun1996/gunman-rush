@@ -1,0 +1,155 @@
+{
+  "scope": "Exact5 test migration, original four region checks and7 shared helper actual callers (two overlap); direct optimized native only, not Harness/full182/GUI",
+  "frozen_files": {
+    "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+    "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+    "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+    "tests/plains_exploration_expansion_runner.gd": "f751a67aaaf2f97037c2f7cd5068d67333eb72a7bf0ceb21196cde4ecab08df5",
+    "tests/plains_region_boss_runner.gd": "0d3238695d5e90d7577514cf0d8bcdd6b3a6eced93dc06bc0f32fd03d943e086"
+  },
+  "cases": [
+    [
+      "import",
+      [
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      90,
+      null
+    ],
+    [
+      "cohesion",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_cohesion_lifecycle_runner.gd"
+      ],
+      120,
+      "^PLAINS COHESION LIFECYCLE: [1-9][0-9]* assertions, 0 failures$"
+    ],
+    [
+      "campaign",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_campaign_map_runner.gd"
+      ],
+      90,
+      "^PLAINS CAMPAIGN MAP: [1-9][0-9]* assertions, 0 failures$"
+    ],
+    [
+      "expansion",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_exploration_expansion_runner.gd"
+      ],
+      150,
+      "^PLAINS EXPLORATION EXPANSION: [1-9][0-9]* assertions, 0 failures$"
+    ],
+    [
+      "region-boss",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_region_boss_runner.gd"
+      ],
+      90,
+      "^REGION BOSS: [1-9][0-9]* assertions, 0 failures$"
+    ],
+    [
+      "root-bell-formal",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_formal_runner.gd",
+        "--",
+        "--current-g1",
+        "--output=res://build/verification/ci-boss-consumers-native-01/formal.json"
+      ],
+      300,
+      "^ROOT BELL V2 AUDIT: .*failures=0$"
+    ],
+    [
+      "wood",
+      [
+        "--headless",
+        "--max-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/wood_platform_runner.gd"
+      ],
+      180,
+      "^WOOD PLATFORMS: [1-9][0-9]* assertions, 0 failures$"
+    ],
+    [
+      "quality-review",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/quality_review_runner.gd"
+      ],
+      120,
+      "^QUALITY REVIEW: [1-9][0-9]* assertions, 0 failures$"
+    ],
+    [
+      "root-bell-spaces",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_spaces_runner.gd",
+        "--",
+        "--output=res://build/verification/ci-boss-consumers-native-01/spaces.json"
+      ],
+      240,
+      "^ROOT BELL SPACES: .*failures=0$"
+    ],
+    [
+      "terrain",
+      [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/terrain_production_runner.gd"
+      ],
+      180,
+      "^TERRAIN PRODUCTION: [1-9][0-9]* assertions, 0 failures$"
+    ]
+  ]
+}

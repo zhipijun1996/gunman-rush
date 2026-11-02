@@ -1,0 +1,30 @@
+{
+  "status": "BLOCKED_FINITE_BORROWED_RECEIVER_GUARD",
+  "candidate_patch_sha256": "05d17eb86a3e77060c57336d5e0cf689556d9790d5b6b019f155032ab977c100",
+  "candidate_files": {
+    "tools/underworld_pipeline.py": {
+      "original_sha256": "7da7b312ce8fb7a4fd178a51219138fa2186ca724022607130f499a34370be67",
+      "candidate_sha256": "9041b57babcd9b7c2ea3732afd182b1d0573b8fd228302af3ad3fed2cdd0e72c"
+    },
+    "tests/test_underworld_pipeline.py": {
+      "original_sha256": "3a9ef43031d049cdf6fc22fe1ca7d152434e1eafc690ceee35865713d7ae9c64",
+      "candidate_sha256": "edcc2d38e116888329564cfc8157735a7761331cf0f160e0b6789f7d87b209bb"
+    }
+  },
+  "original_methods_AST_preserved_after_removing_only_new_claim_sources_keyword": 172,
+  "original_test_methods": 164,
+  "new_test_methods": 10,
+  "author_actual_full_suite": "174/0 under original180 on finite P10 overlay; logs preserved; this does not negate the independent new counterexamples. No broad rerun by reviewer.",
+  "independent_probe": {
+    "path": "/workspace/refactor-evidence/p10-claim-guard-independent-receiver-probe.json",
+    "sha256": "a144bd23420bafe449c82d8304672203690df13f8120a2852e584ba235c0b3a7"
+  },
+  "blocking_findings": [
+    "Borrowed pickup declaration can be changed to random_stage.pickups[index].duplicate() while guard still accepts. Correct-looking owner call then mutates a detached row.",
+    "Borrowed cache declaration can similarly clone rs.chests[_region_chest] and still pass.",
+    "After correct rs cast, reassignment rs=PlainsRegionStage.new() still passes; finite caller evidence no longer binds actual Stage receiver."
+  ],
+  "minimal_correction": "Bind exact executable borrowed-row declarations and their ordering after actual casts, reject reassignment/shadowing of these finite receiver/row locals within their real functions, preserve unrelated App changes. Add these actual-source mutation negatives after a passing complete context; do not pin whole App or weaken previous claimed-state negatives.",
+  "production_review_unchanged": "P10 actual frozen production source does not contain these faults; previous limited production acceptance remains. P11 candidate also remains separately pending native.",
+  "scope": "External pure source predicates and AST/hash reads only; no engine or main source writes. New candidate freeze required before integration approval."
+}

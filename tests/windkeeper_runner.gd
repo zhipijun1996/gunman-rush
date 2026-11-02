@@ -23,9 +23,9 @@ func fixture(at: Vector2 = Vector2(350,582)) -> void:
 	if is_instance_valid(world): world.free()
 	world = Node2D.new()
 	root.add_child(world)
-	module = preload("res://scenes/generation/modules/plains_boss_arena.tscn").instantiate()
+	module = preload("res://game/world/generation/scenes/modules/plains_boss_arena.tscn").instantiate()
 	world.add_child(module)
-	player = preload("res://scenes/player/player.tscn").instantiate()
+	player = preload("res://game/player/player.tscn").instantiate()
 	player.position = at
 	world.add_child(player)
 	controller = player.get_node("Controller")
@@ -211,6 +211,21 @@ func run() -> void:
 		await frames(1)
 		encounter._prune_attacks()
 		check(encounter._projectiles.is_empty(), "disposed attack references pruned during long encounter")
+	# Explicit restored phase fixture, on the same real unbroken Arena. No phase
+	# signal is emitted: this exercises the owner entry used by App reload.
+	paused = true
+	check(encounter.stage_phase==1 and not arena_consumer.broken, "ordinary restore fixture retains its actual initial bridge")
+	encounter.restore_stage_geometry(arena_consumer)
+	await process_frame
+	check(not arena_consumer.broken and module.get_node("Platform0").collision_layer==1, "ordinary non-third-phase restore leaves real ground intact")
+	encounter.stage_phase = 3
+	encounter.restore_stage_geometry(arena_consumer)
+	check(not arena_consumer.broken, "ordinary restored bridge keeps the existing deferred removal boundary")
+	await process_frame
+	await process_frame
+	check(arena_consumer.broken and module.get_node("Platform0").collision_layer==0, "ordinary third-phase owner restore removes the actual original ground")
+	check(module.definition.platforms[0]==Rect2(0,600,290,80) and module.definition.platforms[-1]==Rect2(1000,600,120,80), "ordinary restored bridge preserves the original two ground remnants")
+	paused = false
 	world.free()
 	await process_frame
 	if "--failure-probe" in OS.get_cmdline_user_args(): check(false, "intentional Windkeeper failure probe")

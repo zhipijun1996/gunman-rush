@@ -1,0 +1,38 @@
+SCRIPT tests/game_architecture_effects_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GAME ARCHITECTURE EFFECTS: 13 assertions, 0 failures
+SCRIPT tests/enemy_region_state_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: plains record retains every original field in original order
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/enemy_region_state_runner.gd:29)
+       [1] schema_and_isolation (res://tests/enemy_region_state_runner.gd:57)
+       [2] run (res://tests/enemy_region_state_runner.gd:180)
+ERROR: forest ordinary schema omits attack vectors and absent depth methods
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/enemy_region_state_runner.gd:29)
+       [1] schema_and_isolation (res://tests/enemy_region_state_runner.gd:61)
+       [2] run (res://tests/enemy_region_state_runner.gd:180)
+ERROR: patrol keeps the original no-behavior schema
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/enemy_region_state_runner.gd:29)
+       [1] schema_and_isolation (res://tests/enemy_region_state_runner.gd:72)
+       [2] run (res://tests/enemy_region_state_runner.gd:180)
+ERROR: forest appends species depth after its unchanged outer schema
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/enemy_region_state_runner.gd:29)
+       [1] crossbranch_depth_authority (res://tests/enemy_region_state_runner.gd:113)
+       [2] run (res://tests/enemy_region_state_runner.gd:182)
+TEST AUDIO TEARDOWN: {"owners":[],"released":true,"seconds":0.0}
+ENEMY REGION STATE: 58 checks, 4 failures
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/workspace/gunman-rush-refactor/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

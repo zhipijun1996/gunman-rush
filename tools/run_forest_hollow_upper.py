@@ -12,8 +12,8 @@ def _cavity_resource_errors(frames,events,tuning,reset_ticks):
     Reset ticks come only from the independently checked ENV/epoch/body/HP facts.
     Stamina and recovery delay survive; no energy boost is permitted by a return.
     """
-    resource=(ROOT/'resources/player/plains_shot_energy.tres').read_text()
-    definition=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
+    resource=(ROOT/'game/player/resources/plains_shot_energy.tres').read_text()
+    definition=(ROOT/'game/combat/resources/definitions/shot_energy_definition.gd').read_text()
     def number(name):
         found=re.search(r'(?m)^'+name+r'\s*=\s*([\d.]+)',resource) or re.search(r'var '+name+r'\s*:=\s*([\d.]+)',definition)
         return float(found.group(1))
@@ -65,7 +65,7 @@ def validate_cavity(d):
             if not any(any(x+12>row['rect'][0]-.2 and x-12<row['rect'][0]+row['rect'][2]+.2 and abs(y+18-row['rect'][1])<=1 for x,y in poses) for row in ps.values()):errors.append('grounded without real support')
     by_tick={f['tick']:f for f in fs};reset_ticks=set()
     damages=d.get('damage_events',[]);returns=d.get('policy_returns',[])
-    enum_source=(ROOT/'scripts/damage/damage_request.gd').read_text()
+    enum_source=(ROOT/'game/combat/damage/damage_request.gd').read_text()
     kinds=[x.strip() for x in re.search(r'enum Kind \{([^}]+)\}',enum_source).group(1).split(',')]
     environment_kind=kinds.index('ENVIRONMENT')
     for r in returns:

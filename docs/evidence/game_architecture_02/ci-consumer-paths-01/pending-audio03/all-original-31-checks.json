@@ -1,0 +1,157 @@
+[
+  {
+    "index": 1,
+    "sha256": "8a0816b0d3134ede53febe9742a4168cbaafc6c3da583642dcd3ba700a9d368b",
+    "expression": "check(audio != null and audio.audio_profile == \"selected\" and audio._voices.size() == 12, \"Real formal assembly retains selected profile and original12-voice pool\")"
+  },
+  {
+    "index": 2,
+    "sha256": "815f219d7d1c54312b3dcd3cdd0106e9de69b0471e43e93255fe0ef1408b027f",
+    "expression": "check(audio._selected_profiles == selection.event_profiles, \"All14 retained workshop choices remain exact\")"
+  },
+  {
+    "index": 3,
+    "sha256": "59c24cc5c5b93069f06d9ec164ccb1cccbcacc4a2ffc432b245d7238f1c17a07",
+    "expression": "check(audio.director_profile_for_event(&\"shot_pulse\") == \"A\", \"Selected Pulse A remains active\")"
+  },
+  {
+    "index": 4,
+    "sha256": "1ebdb1afcf0a32f1a40b98968590be66efcd88e964e3e31b9294d6068b4fb597",
+    "expression": "check(GameMusic.TRACKS.size() == 5, \"Five original BGM options remain\")"
+  },
+  {
+    "index": 5,
+    "sha256": "773f688e92c62bd0fec5cde98daa5a475f47e5eeaa145afdcccf01909c834f26",
+    "expression": "check(controller.shoot_ability.weapon.id == &\"pulse_gun\", \"Fresh formal Home uses actual original pulse weapon\")"
+  },
+  {
+    "index": 6,
+    "sha256": "6149e55e8a874d11f31aa23bb46ecf9f5892692b38e73dc20f291630fc9ca26b",
+    "expression": "check(not motor.is_on_floor(), \"Actual Home Router jump creates the airborne focus fixture\")"
+  },
+  {
+    "index": 7,
+    "sha256": "b5f3cf14cd75ac1d75ab5cd765dcbcf0f3aa6d0030a2c54a2d841ecdcf1e3d6c",
+    "expression": "check(focus.active and is_equal_approx(Engine.time_scale, motor.tuning.focus_time_scale), \"Accepted airborne aim still starts original slow time\")"
+  },
+  {
+    "index": 8,
+    "sha256": "942ecf9ba2dea38d3983fed54bf25aa2a26bd6dd44aed080d9fa3d249eafda9d",
+    "expression": "check(played_total(audio) == before_focus, \"Entering actual focus adds no sound\")"
+  },
+  {
+    "index": 9,
+    "sha256": "7bc8a1e362e77360bdb0906b116edc6ad07612095afb3fd3471b08def61cb6ad",
+    "expression": "check(not focus.active and is_equal_approx(Engine.time_scale, 1.0), \"Aim cancellation restores original time scale\")"
+  },
+  {
+    "index": 10,
+    "sha256": "091f059ab0c6d2a31fbaf6df7a5efd78b1ce2580b0b75e9daa37455065c19675",
+    "expression": "check(played_total(audio) == before_focus, \"Leaving actual focus adds no sound\")"
+  },
+  {
+    "index": 11,
+    "sha256": "121f32cfa6941925679693366c17ab436feebad0d57e6ac71456b6d24aa9ab38",
+    "expression": "check(controller.shoot_ability.try_fire(Vector2.DOWN, false), \"Actual airborne pulse shot is accepted\")"
+  },
+  {
+    "index": 12,
+    "sha256": "4786cdbeb654a7bc26056e0b565a7f01d712a288e90ac46746d3355d3cd52a64",
+    "expression": "check(not focus.active and is_equal_approx(Engine.time_scale, 1.0), \"Accepted shot ends focus without altering its gameplay contract\")"
+  },
+  {
+    "index": 13,
+    "sha256": "1d0f2e2b85f8c3b33147055941f60b0914fa0c656c1c7f9adc1afeba53ab29c6",
+    "expression": "check(motor.recoil_burst_remaining > 0.0 and motor.recoil_velocity.y < 0.0, \"Original physical upward recoil still executes\")"
+  },
+  {
+    "index": 14,
+    "sha256": "659589bef894dd1c138b3b203c136836639cd968233dc87eeab4041f1849957a",
+    "expression": "check(events.size() == 1 and events[0].id == \"shot_pulse\" and events[0].candidate == \"shot_pulse_a\" and events[0].path == \"res://assets/audio/director_v3/shot_pulse_a.wav\", \"One accepted shot retains exact selected Pulse A without an extra recoil event\")"
+  },
+  {
+    "index": 15,
+    "sha256": "9cca2f86292db7c4e22905ec35f33beb1306f6738149f36ed71fcd1217986fb8",
+    "expression": "check(played_total(audio) == before_shot + 1 and int(audio.played.get(&\"focus_start\", 0)) == focus_start and int(audio.played.get(&\"focus_end\", 0)) == focus_end, \"Aim exit and recoil add no extra cue to the selected shot\")"
+  },
+  {
+    "index": 16,
+    "sha256": "5ed567f948fcb72c4a8b15c5d8ce1266dc3cea85c77ab5d2e05fbf5e9f662e00",
+    "expression": "check(app._music.get_instance_id() == music_id and app._music.starts == music_starts, \"Aim/shot audio changes do not restart or replace BGM\")"
+  },
+  {
+    "index": 17,
+    "sha256": "fff4e08b171a9bb939dea0db6c8a7058e72b52f50dbe35b9bbe6a550427cd8a1",
+    "expression": "check(latch.BELL_SOUND == GameAudio.MECHANISM_BELL_SOUND and latch._bell_audio.stream == GameAudio.MECHANISM_BELL_SOUND, \"Mechanism and isolated fallback bind the exact existing plains_chime_a source\")"
+  },
+  {
+    "index": 18,
+    "sha256": "7595a04556e104d8984c98c565bfcbf0f6be050aa3e3db74f67ba352db792b4d",
+    "expression": "check(audio._streams[&\"mechanism_bell\"] == GameAudio.MECHANISM_BELL_SOUND, \"Formal service registers dedicated mechanism cue independently of selected14-event bank\")"
+  },
+  {
+    "index": 19,
+    "sha256": "4ccb2e1a10223a15cdc8f99b967addd0a4375e2d839ce35b9a60c09478963865",
+    "expression": "check(fixture_controller.shoot_ability.try_fire(Vector2.UP, true), \"Real miss fixture fires an accepted projectile\")"
+  },
+  {
+    "index": 20,
+    "sha256": "1a2c9494a5cc90d9949b48934c16dac4cbcce1181f927bb20da0202122c1ad8d",
+    "expression": "check(not latch.is_open and int(audio.played.get(&\"mechanism_bell\", 0)) == rings, \"A real shot that misses the mechanism does not ring\")"
+  },
+  {
+    "index": 21,
+    "sha256": "445ecdf76f3c655ddc2611b1594bdafd8dd5722bc77e96d8204c9ae60090b9df",
+    "expression": "check(fixture_controller.shoot_ability.try_fire(aim, true), \"Real bell-directed projectile is accepted\")"
+  },
+  {
+    "index": 22,
+    "sha256": "616c705cf1cae8bd59b1a2eff1b27e140aa8aa668a3886c8065b8cf64f335e84",
+    "expression": "check(latch.is_open and latch.open_count == 1 and int(audio.played.get(&\"mechanism_bell\", 0)) == rings + 1, \"Actual projectile collision commits one opening and one dedicated chime\")"
+  },
+  {
+    "index": 23,
+    "sha256": "8769c06df5b24db3bfbc49b10fb907434a9a51df4a239b7825d69d0dcf3e2015",
+    "expression": "check(audio._voices.any(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.get_meta(\"cue_id\", &\"\") == &\"mechanism_bell\" and voice.stream == GameAudio.MECHANISM_BELL_SOUND), \"Accepted mechanism uses the new source in the unchanged shared pool\")"
+  },
+  {
+    "index": 24,
+    "sha256": "a55e82456b1dea4c62a928e96b9aa07c60ea0fa1c35f8ef1fca734f9ffd83444",
+    "expression": "check(int(audio.played.get(&\"bell\", 0)) == old_bell and not latch._bell_audio.playing, \"Formal chime neither plays generic hook bell nor doubles the fallback voice\")"
+  },
+  {
+    "index": 25,
+    "sha256": "d3ad038ca26f21428538885a97a6dd81087989205a774e36b2c01964c3fba0dc",
+    "expression": "check(latch.open_count == 1 and int(audio.played.get(&\"mechanism_bell\", 0)) == rings + 1, \"Rejected duplicate committed request cannot ring again\")"
+  },
+  {
+    "index": 26,
+    "sha256": "8760239a949c27383ba965a9cece67dacbfca3a664462504ef7be1cc653dfcf7",
+    "expression": "check(not cancelled.is_open and int(audio.played.get(&\"mechanism_bell\", 0)) == rings + 1, \"Cancelled mechanism's deferred request adds no chime\")"
+  },
+  {
+    "index": 27,
+    "sha256": "f03e22f6d5a1cb56b573873d1e5079abd278d780c5944f7f83fae43b654109a6",
+    "expression": "check(not audio.play(&\"mechanism_bell\"), \"SceneTree pause blocks new world chimes\")"
+  },
+  {
+    "index": 28,
+    "sha256": "f27140ebf927e208087496c51a9fd36f5656990090a91147ef0e9eb7d7000515",
+    "expression": "check(not audio.play(&\"mechanism_bell\"), \"Session mute blocks new chimes\")"
+  },
+  {
+    "index": 29,
+    "sha256": "7949d9af6346be07b5c77882252e1c619d609a564c3191c458b451a09f2cfe6b",
+    "expression": "check(audio._voices.size() == 12 and audio._selected_profiles == selection.event_profiles, \"New mechanism feedback preserves shared budget and all existing selections\")"
+  },
+  {
+    "index": 30,
+    "sha256": "bf371ff9ef1b3bbc0544d4a3fe24f551db4227624c8cc0cd0d4c98baebf111d2",
+    "expression": "check(await TEARDOWN.drain_world(world), \"Isolated fallback voices drain within existing teardown budget\")"
+  },
+  {
+    "index": 31,
+    "sha256": "3b8828bc600323bc6ac2d683bb8fc102f978ba9dd05e6a4a69fad07908136326",
+    "expression": "check(await TEARDOWN.drain_world(app), \"Formal SFX/BGM drain within existing teardown budget\")"
+  }
+]

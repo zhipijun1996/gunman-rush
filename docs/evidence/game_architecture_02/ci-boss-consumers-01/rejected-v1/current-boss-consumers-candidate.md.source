@@ -1,0 +1,30 @@
+# CI-BOSS-CONSUMERS-01 外部候选冻结
+
+未写 main，未运行 Godot，未提交。仅五个原有测试文件；当前 source SHA、原件和候选 SHA 见同名 JSON。原 15-suite/182 调度、每项预算、所有显式 legacy16/36/window夹具均未修改。`git apply --check` 对当前主树通过；该结果不是 GDScript parse/native 通过。
+
+原件在 `current-boss-consumers-originals/tests/`，逐字 SHA 已核；精确 ed95 + 同优化 editor 的原 19/5 结果及日志归档于其 `baseline-02/`。此前 baseline-01 只有 import/UID 缓存失败，原证据不覆盖、不冒充执行了原case。
+
+## 有效断言与内容迁移对应
+
+| 原位置/意图 | 候选真实检查 | 处理性质 |
+|---|---|---|
+| cohesion 封墙、锚点、穿墙拒绝、paused重载、高跳/射击、落地 containment | 原检查原样保留；high_jump 只恢复先前 is_physics_processing | 修 fixture 悬挂暂停，不改 Boss 时长 |
+| 3帧 defeat opens walls and guarantees reward | 3帧真实 terminal+complete+seal释放，impact前无reward/ledger；之后真正impact和支撑创建实体奖励 | 将旧一个混合时点拆为两阶段，不放宽早期检查 |
+| `_boss_loot` guaranteed visible object | 真实4个[5,5,1,1]单位，原live Sprite texture/visibility/位置、loot_motion/origin；真实App领取及收据重复拒绝 | 旧对象合同被当前正式内容替换，原文归档，不声称逐字通过 |
+| `DefeatBurst && mini` finite explosion | 实际绑定的可见 BellstriderPresentation、Definition死亡终值、rig progress1、impact/final各一次、持续残骸不再推进clock；同时无通用burst/额外loot | 当前正式死亡合同替换，绝不手工制造预期对象 |
+| visual does not pay; manual early exit rejects | 两条原语义保持，并检查未捡币不自动弹门 | 未添加“死亡结束后未捡完手动也必拒绝”规则 |
+| settled loot confirmation＋12 once | 真正死亡结束、每个原App pickup一次、总额12在过门前到账，再经原UI确认切图后仍12 | 保证额与幂等更强；不再谎称 portal grant |
+| campaign 当前Bell16 | 当前Definition绑定＋40HP＋intro difficulty | 跟随已合入当前资源，未改任何资源/旧pin |
+| expansion 八位置一发后15 | 八位置原 projectile路径保留，明确当前40及原单发伤害1，射前HP减该真实伤害 | 不直接改HP、不换旧Boss、不跳过射线 |
+| region Boss60帧gold offer、后续门/奖励/能力/转图/死亡tie | 原60帧 offer 及后续检查保留；增加Pressure真实落地后死亡clock1.9完成、20物理币真实App领取后才进入原门流程 | 补当前前置，不删原gold/能力/死亡优先检查 |
+
+`plains_campaign_fixture.second_map` 仍是7消费者唯一入口。新增窄方法也在该现有helper：`wait_bell_reward`、`wait_pressure_reward`、`collect_boss_coins`。两种等待分别检查真实owner状态，局部上界为该Definition死亡时长+5秒的physics ticks；不更改原总预算。共用收币方法只遍历实际stage单位、唯一ID/总额/锁期/原App commit/原claimed账本及重复拒绝；不写任何游戏账本、余额、Bossclock或造drop。
+
+位置夹具沿原 plains_cohesion_drops 的方法：把真实玩家放到实际单位当前位置再调用原App准入，不声称自然步行/完整战斗覆盖。second_map 把观察玩家放回真实safe spawn以等实体币；cohesion回到高跳后的实际原位置；Pressure保其原位置。普通怪顺路拾币若出现仍可能改变金额，精确金额断言会据实失败，不屏蔽/抹账。实际timer/支撑/动画有待原生确认。
+
+## 验证交付
+
+1. structure 独审5文件diff和SHA；root应用后原生解析。
+2. 原 cohesion lifecycle（120秒）、campaign map（90）、expansion（150）、region boss（90）原wrapper条目不变；相关原Bell8/Pressure6不替换。
+3. 原全部15个region suites及28路线ledger；共享helper另外5调用者：root_bell_formal_tests、wood_platform_runner、quality_review_runner、root_bell_spaces_runner、terrain_production_runner，沿其原检查执行。
+4. 最终full182/导出/GUI仍是独立未完成验收，不能由此候选签PASS。

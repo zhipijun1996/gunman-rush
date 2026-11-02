@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCENE := preload("res://scenes/demo/random_stage_preview.tscn")
+const SCENE := preload("res://experiments/generation/entries/random_stage_preview.tscn")
 var tree: SceneTree
 var check: Callable
 var preview: RandomStagePreview

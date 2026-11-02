@@ -1,0 +1,3 @@
+# UI check ownership maintenance
+
+Only config/production_impact.json and tests/test_production_plan.py. small_fix formalfalse, not process: config is a production path. Append only two exact fixture leaves and existing studio-input to the actual presentation integration owner. Preserve old46 methods, add2=48;219registered/full171, allcommands/budgets and unknown/selector full fallback remain. Candidate patch9df6 and independentreview7dc are historical candidate evidence. Actual final reviewed_commit is null until root saves code and binds exact twoGitblobs. Final48 must run there; UIab26324fresh results are another card, not this code acceptance.

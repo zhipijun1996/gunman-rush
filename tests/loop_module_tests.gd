@@ -1,6 +1,6 @@
 extends RefCounted
 
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var tree: SceneTree
 var check: Callable
@@ -19,7 +19,7 @@ func fixture(id: String, jumps: int) -> void:
 		world.free()
 	world = Node2D.new()
 	tree.root.add_child(world)
-	module = load("res://scenes/generation/modules/" + id + ".tscn").instantiate()
+	module = load("res://game/world/generation/scenes/modules/" + id + ".tscn").instantiate()
 	world.add_child(module)
 	motor = PLAYER.instantiate()
 	motor.position = module.world_entry()
@@ -134,8 +134,8 @@ func contracts() -> void:
 				tuning.max_jumps = jumps
 				tuning.max_air_shots = shots
 				check.call(definition.supports(tuning), id + " independent capability screen accepts %d jumps/%d shots via optional-free baseline" % [jumps, shots])
-		var first: PlatformingModule = load("res://scenes/generation/modules/" + id + ".tscn").instantiate()
-		var second: PlatformingModule = load("res://scenes/generation/modules/" + id + ".tscn").instantiate()
+		var first: PlatformingModule = load("res://game/world/generation/scenes/modules/" + id + ".tscn").instantiate()
+		var second: PlatformingModule = load("res://game/world/generation/scenes/modules/" + id + ".tscn").instantiate()
 		world.add_child(first)
 		world.add_child(second)
 		check.call(first.definition != second.definition and first.definition.entry_port != second.definition.entry_port, id + " sibling instances isolate definition and port state")

@@ -1,0 +1,92 @@
+{
+  "source_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "path": "tests/test_forest_bible_trace_consumers.py",
+  "original_sha256": "879d268961f110249fcb5b3e98db83af939bc33b62a0b7aa7a6b49fb0bcaeac2",
+  "candidate_sha256": "0a5610263975198b125d8602afd275cc0173630a3c214eb067f5c5ef5b6e397e",
+  "patch_sha256": "9cd010136f1b6b91c5326fd704d7d74951fe0d3878b439fabff790a59c16155a",
+  "original_digest_constants_unchanged": true,
+  "all_original_lines_preserved": true,
+  "scope_correction": "The mismatch is the P8 fixed crossbranch path in forest_depth_ecology_trace.gd:352, not the newly migrated dynamic forest_ecology_runner.gd. Lift has no path exception.",
+  "whole_file_provenance": [
+    {
+      "path": "tests/forest_depth_ecology_trace.gd",
+      "current_sha256": "44f2cf78ba1eb6903d612508e63a51de480b0c39d5c7dd0d1bdc9d38e8385cf8",
+      "original_guard_digest": "ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016",
+      "owned_observations": 1,
+      "inventory_git_commit": "582c8167",
+      "layout_git_commit": "4f2fb531",
+      "layout_changes": 1,
+      "whole_file_exact_after_only_declared_inverse": true,
+      "current_matches_layout_commit": true
+    },
+    {
+      "path": "tests/forest_depth_lift_trace.gd",
+      "current_sha256": "82f28dee418fb765dc02724f7c4b283ca876e663bbfb353a5ac22b93bc9ccfd3",
+      "original_guard_digest": "d973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762",
+      "owned_observations": 3,
+      "inventory_git_commit": "582c8167",
+      "layout_git_commit": "4f2fb531",
+      "layout_changes": 0,
+      "whole_file_exact_after_only_declared_inverse": true,
+      "current_matches_layout_commit": true
+    }
+  ],
+  "before": {
+    "label": "original-58-failure",
+    "exit_code": 1,
+    "log": "original-58-failure.log",
+    "log_sha256": "e3571f1623fde92aa783a7fd949197d877bb988684708a01c0468c81b1bcdbb0",
+    "output": ".......................................F..................\n======================================================================\nFAIL: test_ecology_and_lift_only_migrate_owned_item_observations (test_forest_bible_trace_consumers.BibleTraceConsumerTests.test_ecology_and_lift_only_migrate_owned_item_observations)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/refactor-evidence/forest-trace-guard-layout-candidate/overlay/tests/test_forest_bible_trace_consumers.py\", line 107, in test_ecology_and_lift_only_migrate_owned_item_observations\n    self.assertEqual(hashlib.sha256(source.replace(owned, previous)).hexdigest(), digest)\nAssertionError: 'ccc45a5bd43f0e0c3c66effd0105d6100549d218e790accfe1c64b59acd1a0e9' != 'ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016'\n- ccc45a5bd43f0e0c3c66effd0105d6100549d218e790accfe1c64b59acd1a0e9\n+ ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016\n\n\n----------------------------------------------------------------------\nRan 58 tests in 1.448s\n\nFAILED (failures=1)\n"
+  },
+  "after": {
+    "label": "candidate-58",
+    "exit_code": 0,
+    "log": "candidate-58.log",
+    "log_sha256": "70024dd1fa5edea58898b2d5b6277e74596dbca817dcdd44e9ae97c28aa28449",
+    "output": "..........................................................\n----------------------------------------------------------------------\nRan 58 tests in 1.458s\n\nOK\n"
+  },
+  "negative_mutations": [
+    {
+      "case": "ecology-unrelated-byte",
+      "rejected": true,
+      "failure": "'108dd1c022aaa703ea6fc4efda17ce43d95145d85c26ff6eec9f9e499b137683' != 'ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016'\n- 108dd1c022aaa703ea6fc4efda17ce43d95145d85c26ff6eec9f9e499b137683\n+ ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016\n"
+    },
+    {
+      "case": "lift-unrelated-byte",
+      "rejected": true,
+      "failure": "'ca2599ee14e1e55d816cd2b1327115c2fb2f5307eaf59a6f0b0277d3c382daa2' != 'd973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762'\n- ca2599ee14e1e55d816cd2b1327115c2fb2f5307eaf59a6f0b0277d3c382daa2\n+ d973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762\n"
+    },
+    {
+      "case": "duplicate-approved-scene-line",
+      "rejected": true,
+      "failure": "2 != 1"
+    },
+    {
+      "case": "revert-old-scene-line",
+      "rejected": true,
+      "failure": "0 != 1"
+    },
+    {
+      "case": "foreign-scene-line",
+      "rejected": true,
+      "failure": "0 != 1"
+    },
+    {
+      "case": "missing-owned-observation",
+      "rejected": true,
+      "failure": "0 != 1"
+    },
+    {
+      "case": "additional-owned-observation",
+      "rejected": true,
+      "failure": "4 != 3"
+    },
+    {
+      "case": "scene-exception-in-lift",
+      "rejected": true,
+      "failure": "'4ab853bdb2db29ea108a16894ec544c62bab3438bb83235b9f4ff4654c293abe' != 'd973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762'\n- 4ab853bdb2db29ea108a16894ec544c62bab3438bb83235b9f4ff4654c293abe\n+ d973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762\n"
+    }
+  ],
+  "native_status": "No engine; original pure Python58 suite only. No main writes. All source mutations in external overlay or patched read bytes.",
+  "independent_review": "pending"
+}

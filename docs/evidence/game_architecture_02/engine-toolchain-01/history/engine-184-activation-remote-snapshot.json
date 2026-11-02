@@ -1,0 +1,83 @@
+{
+  "read_at_utc": "2026-10-31T07:37:17.312Z",
+  "run": {
+    "id": 41180438395,
+    "head_sha": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+    "event": "push",
+    "branch": "fix/godot-shutdown-toolchain-01",
+    "attempt": 1,
+    "status": "queued",
+    "conclusion": null,
+    "updated_at": "2026-10-31T07:26:12Z"
+  },
+  "jobs": [
+    {
+      "id": 124476935357,
+      "name": "plan",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124477016919,
+      "name": "compile (web-threaded-debug, docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017...",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124477016923,
+      "name": "compile (linux-release, docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11ed...",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124477016937,
+      "name": "compile (android-arm64, ghcr.io/cirruslabs/android-sdk@sha256:d9c965f2373f9c8cc023b207cdcc7d21508...",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124477016956,
+      "name": "compile (windows-release, docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11...",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124477016982,
+      "name": "compile (linux-debug, docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf...",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124477016989,
+      "name": "compile (web-threaded-release, docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa0...",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124477016991,
+      "name": "compile (linux-editor, docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edc...",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124477017010,
+      "name": "compile (web-single-debug, docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa01713...",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124477017016,
+      "name": "compile (web-single-release, docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017...",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124477017106,
+      "name": "compile (windows-debug, docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11ed...",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "artifacts": [],
+  "release_tag_lookup": "404 Not Found at audit snapshot; not a release authorization"
+}

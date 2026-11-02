@@ -30,6 +30,8 @@ CASES = {
         "tests/enemy_corpse_snapshot_cases.gd", r"ENEMY_CORPSE_SNAPSHOT checks=[1-9]\d* failures=0", 180),
     "bgm-integration": (
         "tests/bgm_integration/runner.gd", r"BGM INTEGRATION: [1-9]\d* checks, 0 failures", 360),
+    "forest-v11-definition": (
+        "tests/forest_v11_definition_runner.gd", r"FOREST V11 DEFINITION: [1-9]\d* assertions, 0 failures", 180),
 }
 
 

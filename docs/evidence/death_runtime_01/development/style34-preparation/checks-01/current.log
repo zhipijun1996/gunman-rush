@@ -1,0 +1,110 @@
+.............E..E.EE.......E..E...............
+======================================================================
+ERROR: test_future_proposed_worker_gets_shared_style_without_visual_gate (__main__.BibleTests.test_future_proposed_worker_gets_shared_style_without_visual_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/style34-validation-root/tests/test_region_bible.py", line 614, in test_future_proposed_worker_gets_shared_style_without_visual_gate
+    mission = level_design.route_request('制作萤雾沼泽')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 439, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 211, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume (__main__.BibleTests.test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/style34-validation-root/tests/test_region_bible.py", line 1210, in test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume
+    proposed = level_design.route_request('create firefly_marsh')['tasks'][0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 439, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 211, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_default_current_bibles_skip_election (__main__.BibleTests.test_default_current_bibles_skip_election)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/style34-validation-root/tests/test_region_bible.py", line 1309, in test_default_current_bibles_skip_election
+    mission = level_design.route_request(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 439, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 211, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_no_bible_proposal_only_and_explicit_production_rejected (__main__.BibleTests.test_no_bible_proposal_only_and_explicit_production_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/style34-validation-root/tests/test_region_bible.py", line 1322, in test_no_bible_proposal_only_and_explicit_production_rejected
+    mission = level_design.route_request('制作萤雾沼泽')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 439, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 211, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_worker_prompt_contains_full_original_and_audio_scope (__main__.BibleTests.test_worker_prompt_contains_full_original_and_audio_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/style34-validation-root/tests/test_region_bible.py", line 1439, in test_worker_prompt_contains_full_original_and_audio_scope
+    mission = level_design.route_request('制作荆棘森林')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 439, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 211, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_visual_director_uses_current_bible_and_exact_caller_scope (__main__.BibleTests.test_visual_director_uses_current_bible_and_exact_caller_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/style34-validation-root/tests/test_region_bible.py", line 1474, in test_visual_director_uses_current_bible_and_exact_caller_scope
+    m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/visual_director.py", line 1385, in route
+    mission = route_request(request, mode='new_region' if re.search(r'制作|create|new region', request, re.I) else 'optimize')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 439, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_design.py", line 211, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/style34-validation-root/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+----------------------------------------------------------------------
+Ran 46 tests in 17.821s
+
+FAILED (errors=6)

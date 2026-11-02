@@ -17,11 +17,11 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE_PATHS = tuple(dict.fromkeys((*WEAVER_SOURCES,
     "tests/forest_bible_integration_runner.gd",
     "tools/run_forest_bible_integration.py",
-    "scripts/generation/thorn_forest_region_generator.gd",
+    "game/world/generation/thorn_forest_region_generator.gd",
     "scripts/generation/thorn_forest_region_v2_v15.gd",
     "scripts/generation/forest_bible_v2_layout.gd",
-    "scripts/generation/thorn_forest_region_assembler.gd",
-    "scripts/run/plains_region_state.gd",
+    "game/world/generation/thorn_forest_region_assembler.gd",
+    "game/world/state/plains_region_state.gd",
 )))
 MISSING = {"health", "position", "state", "state_time", "cooldown", "serial", "home", "direction", "depth_state"}
 REFUSALS = {"missing_" + field for field in MISSING} | {"serial_fraction", "serial_string", "state_time_string", "cooldown_string"}
@@ -48,7 +48,7 @@ def validate(data, native):
     by_id = {row["id"]: row for row in rows}
     configured = by_id["app_configure"]
     if (configured.get("layout") != "forest-bible-world-v15"
-            or configured.get("scene") != "res://scenes/enemies/forest_bible_weaver.tscn"
+            or configured.get("scene") != "res://game/enemies/species/scenes/forest_bible_weaver.tscn"
             or configured.get("behavior") != "forest_bible_weaver"
             or configured.get("configured") is not True
             or [row.get("id") for row in configured.get("strands", [])] != ["upper", "lower"]):

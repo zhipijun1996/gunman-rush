@@ -1,0 +1,30 @@
+{
+  "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+  "probe_sha256": "71a613adedaf1247d993e4094decae91c3a9a15600b05d608cbb72e93cda27de",
+  "runtime_error_count": 319,
+  "source_clean_after": true,
+  "scope": "Exact original main2ce production, same optimized editor; new diagnostic probe reproduces existing real App/TerrainStudy freed-node scenario; no current campaign-fixture migration or production changes; engine exit0 does not waive error logs",
+  "results": [
+    {
+      "case": "import",
+      "exit_code": 0,
+      "seconds": 7.937347867999051,
+      "timeout_seconds": 90,
+      "log_sha256": "8dcbf67bc3830df841b1106abbbbc06f0960b7f3a9fdcb4800179bea5d7e5218",
+      "failures": [],
+      "marker": []
+    },
+    {
+      "case": "freed-node",
+      "exit_code": 0,
+      "seconds": 4.8274181759989006,
+      "timeout_seconds": 120,
+      "log_sha256": "be4f7052be338c22573a9d89a8750b24e80afae117841a38552e39e2194122a8",
+      "failures": [],
+      "marker": [
+        "UNDERWORLD FREED NODE PROBE: actual App and TerrainStudy freed before deferred queue; errors remain failures"
+      ]
+    }
+  ]
+}

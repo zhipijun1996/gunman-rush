@@ -90,7 +90,7 @@ def verify_pilot_summary(summary, expected, root=ROOT):
             content = contract.make_content(key[0], "module", "pilot", "tools/level_pilot_validate.gd",
                                             summary.get("source_commit", "0" * 40),
                                             sha(root / "tools/level_pilot_validate.gd"))
-            content["runtime"]["consumer"] = "scripts/generation/platforming_module.gd"
+            content["runtime"]["consumer"] = "game/world/components/platforming_module.gd"
             evidence = {"scope": contract.PILOT_SCOPE}
             if not contract._physics_receipt(raw_path, content, evidence, root):
                 raise ValueError("Native positive receipt rejected by content contract")

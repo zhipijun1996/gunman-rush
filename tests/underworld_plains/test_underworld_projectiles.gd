@@ -179,7 +179,7 @@ func run() -> void:
 func enemy_cases() -> void:
 	for stale: bool in [false,true]:
 		await setup()
-		var enemy: EnemyMotor=load("res://scenes/enemies/patrol_drone.tscn").instantiate()
+		var enemy: EnemyMotor=load("res://game/enemies/scenes/patrol_drone.tscn").instantiate()
 		enemy.position=Vector2(20,100);world.add_child(enemy)
 		var actor:=enemy.get_node("Actor") as EnemyActor;actor.set_physics_process(false)
 		actor.definition=load("res://resources/enemies/plains_sentry.tres")

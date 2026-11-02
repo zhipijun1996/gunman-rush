@@ -1,0 +1,43 @@
+{
+  "source_head": "59537400af06a26046037840e28989f75933a265",
+  "scope": "external-only candidate; no engine executed, no main files edited",
+  "source_sha256": {
+    "game/presentation/world/underworld_plains/underworld_presentation.gd": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
+    "tests/underworld_plains/test_underworld_formal.gd": "b59c854c8a42644af3e70cbd9992aa7f994eb7e99a0ed899ff5bd5fc980d3567",
+    "tests/quality_review_runner.gd": "b4cf9170d5131c6a8e41acff89bc987bb902366efccc2537fe1db62a64e20d1a"
+  },
+  "candidate_sha256": {
+    "game/presentation/world/underworld_plains/underworld_presentation.gd": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+    "tests/underworld_plains/test_underworld_formal.gd": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a",
+    "tests/quality_review_runner.gd": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
+  },
+  "patches": {
+    "underworld-deferred-lifecycle.patch": "Independent existing lifecycle defect fix plus original formal runner extension. No media/physics/collision/game rules changed.",
+    "quality-current-boss-fixture.patch": "Independent current Boss consumer fixture migration. Existing six modes retained; transition expects current solid copper, extra concrete Bell type and dead negative; original inactive check restored to neck before disabling."
+  },
+  "existing_checks": [
+    {
+      "id": "underworld-formal",
+      "command": "python3 tools/run_underworld_formal_tests.py",
+      "harness_timeout_seconds": 150,
+      "wrapper_shared_budget_seconds": 120,
+      "original_formal_and_cache_assertions_preserved": true
+    },
+    {
+      "id": "quality-review-engine",
+      "command": "python3 tools/run_quality_review_tests.py",
+      "harness_timeout_seconds": 240,
+      "original_import_seconds": 90,
+      "original_native_seconds": 120
+    }
+  ],
+  "new_cases": [
+    "real formal late live sprite remains deferred then receives existing material",
+    "freed pending sprite never enters typed installer",
+    "foreign-world node and moved-out node remain untouched",
+    "queued previous world identity cannot contaminate new world even if same node moved there",
+    "new current world still installs its late sprite",
+    "freed world and its pending sprite drain safely"
+  ],
+  "helper_review": "Existing weak callback patterns found in UI/audio but have unrelated ownership contracts; no generic reusable deferred-world helper exists. Use engine WeakRef in one actual UnderworldPresentation callback, no registry/event bus."
+}

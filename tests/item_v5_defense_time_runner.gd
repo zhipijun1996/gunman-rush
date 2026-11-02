@@ -459,7 +459,7 @@ func retaliation_and_crystal_contacts() -> void:
 
 func frozen_seed_preserves_safe_square() -> void:
 	await fresh()
-	var sentry := preload("res://scenes/enemies/patrol_drone.tscn").instantiate() as EnemyMotor
+	var sentry := preload("res://game/enemies/scenes/patrol_drone.tscn").instantiate() as EnemyMotor
 	(fixture.get("world") as Node).add_child(sentry)
 	var enemy_actor := sentry.get_node("Actor") as EnemyActor
 	enemy_actor.set_physics_process(false)

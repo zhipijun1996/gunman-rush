@@ -1,0 +1,204 @@
+"""Refresh exactly the three report indexes after the technical closeout commit.
+
+This is an external report generator, not runtime/CI authority. The narrative
+migration_report.md is root-owned and must remain byte-for-byte untouched.
+No execution occurs on import; --expected-head and --technical-closeout are
+required, and uncommitted tracked source changes are rejected before writing.
+Optional --consumer-closeout records one explicitly supplied committed metadata/
+consumer/input closure batch; it does not redefine production or generated content.
+Optional --root-bell-paused-fix records an actual ancestor code commit for the
+separate paused-restore defect fix; it does not relabel historical batches.
+"""
+from pathlib import Path
+import argparse,ast,collections,csv,datetime,hashlib,io,json,re,subprocess,sys
+ROOT=Path('/workspace/gunman-rush-refactor')
+EVIDENCE=Path('/workspace/refactor-evidence')
+REPORT='docs/worklines/game_architecture_01/'
+OUTPUTS=('file_inventory.csv','runtime_inventory.json','dependency_graph.json')
+PRODUCTION_BASELINE='063d6ccbd7a6ab659fd27abcb20a5c59c7308c53'
+# Historical integrated architecture snapshot, not the latest production source.
+UNDERWORLD_DEFERRED_LIFETIME_SOURCE='a6714757ed59aa698027669ed2f11d8f346d4a93'
+LATEST_PRODUCTION_SOURCE=UNDERWORLD_DEFERRED_LIFETIME_SOURCE
+LATEST_GENERATED_DEVELOPMENT_SOURCE='becd0099b161f57cd919e7492f9f99752d377935'
+NEW_BATCHES=[
+ ('AUDIO-LAB-MATERIAL',['ed95d67d8c19988ab6af3b720aa07a17fd1f59cf']),
+ ('P9-OWNERSHIP',['4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a']),
+ ('ENGINE-TOOLCHAIN',['59537400af06a26046037840e28989f75933a265']),
+ ('UNDERWORLD-DEFERRED-LIFETIME',[UNDERWORLD_DEFERRED_LIFETIME_SOURCE]),
+ ('CI-BOSS-CONSUMERS',['49a298b40890ccf4d9d2326d051f12a0ffe63c27']),
+]
+NEW_BATCHES.append(('FOUNDRY-CI-CONSUMERS',[LATEST_GENERATED_DEVELOPMENT_SOURCE]))
+BATCHES=[
+ ('P1',['5ff4cb7a']),('P2',['41ba5e15','170fe37d','86a28815','7a7883a3']),
+ ('P6-ENTITY',['f44f8eec','efb202db']),
+ ('P3',['761adec5','39ac5cf2','7ed794c6','7b5ad80d']),
+ ('P4',['9c0414ea','7be23e5a']),('P5',['7df9b40b','3e0940b9']),
+ ('MESH',['b24d7b9b']),('P7',['bbd9f26a','317b755c','1bd59390','e8dcd530']),
+ ('P8',['9601bbec','5589c284','d58b72b6','4f2fb531','1cd95f3f','9d08d7f1','c4a317ef','e4915fa8','6069b6b4','6584d48b']),
+ ('FIX-V11',['afca59ec','5a15414a','b991bff6','f8a0c94d']),
+ ('BOSS-EPOCH',['93dcf867','6677235f']),('P6B-BOSS-STATE',[PRODUCTION_BASELINE]),
+ *NEW_BATCHES,
+]
+SELF_PURPOSES={
+ 'file_inventory.csv':'全部受跟踪文件的路径、职责、用途、迁移来源与批次检索表；自身元数据留空以避免循环自绑定。',
+ 'runtime_inventory.json':'每个运行文件的具体用途、所属功能、代码接口、入口可达性和静态依赖详单；仅审计快照。',
+ 'dependency_graph.json':'复用project_dependencies.inspect生成的实际依赖边、功能间边、未解析动态加载与边界错误；不是运行注册表。',
+}
+
+def git(*args):
+ return subprocess.check_output(['git',*args],cwd=ROOT).decode()
+
+def manual_purposes(root_bell_paused_fix=None, r3_current_contract=None):
+ result={}
+ # Reuse the already reviewed 42 key purposes, then the seven P6B corrections;
+ # parse literal data only: neither old script may execute or overwrite reports.
+ for name in ('improve-runtime-purposes.py','refresh-boss-tail-index.py'):
+  tree=ast.parse((EVIDENCE/name).read_text())
+  assignment=next(n for n in tree.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='manual' for t in n.targets))
+  result.update(ast.literal_eval(assignment.value))
+ # Preserve all 45 original reviewed purposes, including their full text.
+ # Append only later owner responsibilities; these descriptions never drive runtime.
+ additions={
+  'game/application/demo_app.gd':'P9终态重入复位委托Director，普通/Pressure场地恢复委托各自Encounter，不再跨所有者写恢复字段。',
+  'game/world/levels/providers/plains_region_stage.gd':'P9机关七字段快照、恢复与永久打开账本应用委托ShotLatch，平台时钟复用其原restore_motion。',
+  'game/bosses/windkeeper/windkeeper_encounter.gd':'P9普通Windkeeper按原phase3规则委托Arena恢复断桥，与Pressure实际桥释放规则分离。',
+ }
+ for path,purpose in additions.items():
+  if path not in result:raise ValueError('Existing reviewed owner purpose missing: '+path)
+  result[path]+=purpose
+ new={
+  'game/world/components/shot_latch.gd':'射击机关ShotLatch管理原钟、序列、打开状态及请求准入；拥有七字段区域快照与恢复、永久打开记录应用，运动平台恢复复用原restore_motion。',
+  'game/world/components/module_moving_platform.gd':'模块运动平台执行原移动轨迹、停留与钟控；通过restore_motion恢复原时钟和运行状态，供ShotLatch共享调用，不重复写平台位置。',
+  'game/application/demo_run_director.gd':'局内流程DemoRunDirector持有原阶段与完成状态，接入既有Lifetime/Manifest；terminal重入经prepare_terminal_stage_reentry在原时点复位完成标记。',
+  'game/bosses/windkeeper/windkeeper_arena.gd':'WindkeeperArena拥有可变场地与断桥实例；提供原断桥恢复操作供对应Encounter调用，保留正式支撑和地形变更顺序。',
+  'game/bosses/windkeeper/windkeeper_pressure_encounter.gd':'Pressure遭遇执行现行招式、组件与场地绑定；restore_bridge_geometry读取实际桥释放状态并委托Arena恢复，两个App恢复消费者复用同一规则。',
+  'game/presentation/world/underworld_plains/underworld_presentation.gd':'正式Underworld材质、灯光与前景装配；晚加节点经节点/world弱引用延迟校验存活、原上下文及当前归属后进入唯一typed installer，避免过期队列污染。',
+  'tools/godot_identity.py':'固定custom工具链的唯一身份校验入口：核锁、配方、编辑器实际SHA/版本与模板成员，隔离本build数据目录并保护原官方控制安装。',
+  'tools/godot.sh':'项目Godot实际执行入口，委托唯一identity校验选定引擎；实际导出参数同时验证同源模板，不允许任意custom绕过锁。',
+  'tools/engine/build.py':'固定Godot源与两份上游补丁的多平台构建配方执行器；核源、SDK、容器参数及输出，保存实际命令、日志与来源收据。',
+  'tools/engine/package.py':'将同commit/run的十lane产物按现有配方严格验来源、命令、成员和实际字节，生成editor、18模板及唯一候选锁；拒绝混源分发。',
+  'tools/engine/promote.py':'既有engine workflow的有限推广消费者；核固定run/artifact及原packager全部守门，逐字读回八Release资产后发布既有draft，拒绝不同字节覆盖并保持tag来源。',
+  'tools/setup_environment.py':'项目环境安装器，消费唯一锁及精确预编译分发，核下载/提取/身份并保留官方控制目录；不在安装期间重编引擎或混用官方模板。',
+  'tools/check_environment.py':'既有环境检查入口，复用唯一Godot identity及模板守门并核原平台依赖；报告实际安装状态，不代签游戏导出与设备体验。',
+  'tools/build.py':'原Web/Windows/Android游戏构建入口，使用已锁引擎及同源模板，保原导出设置与Web启动结构校验，记录实际custom身份而不冒称official。',
+  'config/godot_build.json':'固定Godot4.7.2上游源、两补丁、镜像、SDK与十lane目标的唯一构建配方；工具读取该合同，不建立运行游戏注册表。',
+  'config/toolchain.json':'项目工具链唯一锁配置，记录已发布custom editor/模板/来源的精确地址与SHA及原非Godot平台约束，安装和执行共用。',
+  'tests/plains_campaign_fixture.gd':'当前平原共享切图测试夹具，复用正式Boss死亡与实体币领取路径及原账本结算，供原多个测试真实消费者调用，不创建生产奖励规则。',
+ }
+ if set(new)&set(result):raise ValueError('New purpose would replace an existing reviewed purpose')
+ result.update(new)
+ if r3_current_contract:
+  result['tests/underworld_plains/bell_platform_fixture.gd']='R3两个真实测试消费者共用的正式App入场、实际Module/slide支撑读取和现有信号四源命中关联；只持有Health和纯证据值，不拥有玩法系统或替代碰撞。'
+  result['tests/underworld_plains/test_underworld_r3_boss.gd']='实际组件回归：保原状态/装甲/暂停/恢复/死亡和两段平地动作；以同一App平台first正例承接基础能力无伤跨越，另存原平地接触负例原policy快照。'
+  result['tests/underworld_plains/capture_underworld_r3_boss_fight.gd']='原正式两图完整战斗消费者：Bell默认复用唯一all平台输入与共享fixture，Pressure原profile保持；原40/60HP、伤害/金币/门户及原帧/秒预算继续验收，off保历史失败诊断。'
+  result['tools/bellstrider_01/legal_input_pilot.gd']='只经真实Router输入驱动Bell；first/all共用一份实际group/leg平台流程，保波浪优先和原两枪；只观察真实支撑/碰撞前缘，不改变Boss时钟/资源或复制物理。'
+ if root_bell_paused_fix:
+  result['game/enemies/presentation/root_bell_presentation.gd']='RootBell独有表现绑定实际EnemyActor与现有受击/死亡反馈；暂停期间收到新epoch初始化时复用既有particles.clear_for_epoch清除旧粒子，修复原恢复缺陷，不是保持行为不变的迁移，也不新增平行粒子生命周期机制。'
+ return result
+
+def read_existing_indexer():
+ source=(EVIDENCE/'build-final-file-index.py').read_text()
+ source=source.replace("root=Path('/workspace/gunman-rush-migration')",'root=Path('+repr(str(ROOT))+')')
+ source=source.replace("mapping=execution['map'];","mapping={k:Path(v).as_posix() for k,v in execution['map'].items()};")
+ # No untracked build/temp artifacts: after the closeout all intended additions
+ # are Git tracked. Explicitly include our three outputs below if first-created.
+ old="paths=sorted((set(blobs)-deleted)|untracked)"
+ assert old in source
+ source=source.replace(old,"paths=sorted(set(G('ls-files','-z').decode().split('\\0'))-{''}-deleted)")
+ # Executable text is read completely, including DemoApp (>100KB), shaders and
+ # includes; no media body is read. Preserve sparse historical metadata limits.
+ old=" if size is None or size>limit or Path(p).suffix.lower() not in text_ext:return ''"
+ assert old in source
+ source=source.replace(old," if Path(p).suffix.lower() in ('.gd','.gdshader','.gdshaderinc') and f.is_file():return f.read_text()\n"+old)
+ source=source.replace("if ext=='.gdshader':","if ext in ('.gdshader','.gdshaderinc'):")
+ # Reuse extraction only. Do not generate redundant full JSONL/CSV copies or
+ # call any legacy report writer: the final write-set is exactly OUTPUTS.
+ marker="with (out/'repository-file-index-candidate.jsonl')"
+ assert marker in source
+ return source.split(marker,1)[0]
+
+def main():
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--expected-head',required=True)
+ parser.add_argument('--technical-closeout',required=True)
+ parser.add_argument('--consumer-closeout',help='Committed metadata, real consumer and input-binding closeout; must be an ancestor of expected HEAD')
+ parser.add_argument('--root-bell-paused-fix',help='Actual committed RootBell paused-restore production fix; must be an ancestor of expected HEAD')
+ parser.add_argument('--r3-current-contract',help='Actual committed R3 shared test-consumer contract migration; must be an ancestor of expected HEAD')
+ parser.add_argument('--output-dir',type=Path,default=ROOT/REPORT)
+ args=parser.parse_args()
+ start=git('rev-parse','HEAD').strip();expected=git('rev-parse',args.expected_head).strip();closeout=git('rev-parse',args.technical_closeout).strip()
+ if start!=expected:raise ValueError('HEAD changed from explicitly supplied final source')
+ consumer=git('rev-parse','--verify',args.consumer_closeout+'^{commit}').strip() if args.consumer_closeout else None
+ consumer_batches=[('CONSUMER-INPUT-CLOSEOUT',[consumer])] if consumer else []
+ root_bell=git('rev-parse','--verify',args.root_bell_paused_fix+'^{commit}').strip() if args.root_bell_paused_fix else None
+ root_bell_batches=[('ROOT-BELL-PAUSED-RESTORE',[root_bell])] if root_bell else []
+ r3_contract=git('rev-parse','--verify',args.r3_current_contract+'^{commit}').strip() if args.r3_current_contract else None
+ r3_batches=[('R3-CURRENT-CONTENT-CONTRACT',[r3_contract])] if r3_contract else []
+ latest_production_source=root_bell or LATEST_PRODUCTION_SOURCE
+ if root_bell:
+  fix_parents=git('rev-list','--parents','-n','1',root_bell).split()[1:]
+  fix_files=git('diff','--name-only',fix_parents[0],root_bell).splitlines() if fix_parents else git('ls-tree','-r','--name-only',root_bell).splitlines()
+  if 'game/enemies/presentation/root_bell_presentation.gd' not in fix_files:
+   raise ValueError('RootBell fix commit must actually change its production consumer')
+ for ancestor in (PRODUCTION_BASELINE,LATEST_PRODUCTION_SOURCE,closeout,*(commit for _,commits in [*NEW_BATCHES,*consumer_batches,*root_bell_batches,*r3_batches] for commit in commits)):
+  subprocess.run(['git','merge-base','--is-ancestor',ancestor,start],cwd=ROOT,check=True)
+ tracked_dirty=set(git('diff','HEAD','--name-only').splitlines())
+ untracked=git('ls-files','--others','--exclude-standard').splitlines()
+ pending_sources=[name for name in untracked if name.startswith(('game/','experiments/','scripts/','scenes/','resources/','tools/','tests/','addons/'))]
+ if pending_sources:raise ValueError('Track intended new source/test/tool files before final indexing: '+repr(pending_sources))
+ if tracked_dirty-{REPORT+name for name in OUTPUTS}:
+  raise ValueError('Commit all tracked source/report/record changes before indexing: '+repr(sorted(tracked_dirty)))
+ narrative=ROOT/REPORT/'migration_report.md';narrative_before=narrative.read_bytes()
+ namespace={'__name__':'report_extraction_only'}
+ exec(compile(read_existing_indexer(),'existing-file-index-extractor','exec'),namespace)
+ rows=namespace['rows'];actual=namespace['dep'];mapping=namespace['mapping'];entries=namespace['entries']
+ batches=[];changed=collections.defaultdict(list)
+ for batch,commits in [*BATCHES,*consumer_batches,*root_bell_batches,*r3_batches,('TECHNICAL-CLOSEOUT',[closeout])]:
+  records=[];all_files=set()
+  for commit in commits:
+   full=git('rev-parse',commit).strip();parents=git('rev-list','--parents','-n','1',full).split()[1:]
+   # Merge first-parent delta represents the actual integration, not an empty
+   # default diff-tree result. Keep all other individual batch SHAs reviewable.
+   files=git('diff','--name-only',parents[0],full).splitlines() if parents else git('ls-tree','-r','--name-only',full).splitlines()
+   all_files.update(mapping.get(p,p) for p in files)
+   records.append({'commit':full,'parents':parents,'rollback_parent':parents[0] if parents else None})
+  for path in all_files:changed[path].append(batch)
+  batches.append({'batch':batch,'commits':records,'current_changed_files':sorted(all_files),'validation_source':REPORT+'migration_report.md'})
+ manual=manual_purposes(root_bell,r3_contract);missing=set(manual)-{r['path'] for r in rows}
+ if missing:raise ValueError('Reviewed semantic purpose lost its real consumer: '+repr(sorted(missing)))
+ for row in rows:
+  path=row['path'];row['change_batches']=changed.get(path,[])
+  if path in manual:row['purpose']=manual[path]
+  if Path(path).suffix in ('.gd','.gdshaderinc') and (ROOT/path).is_file():
+   text=(ROOT/path).read_text();cl=re.search(r'^class_name\s+(\w+)',text,re.M);ex=re.search(r'^extends\s+([^\n]+)',text,re.M)
+   row['code_summary']={'source_commit':start,'class_name':cl[1] if cl else None,'extends':ex[1] if ex else None,'public_operations':re.findall(r'^(?:static\s+)?func\s+([A-Za-z]\w*)',text,re.M),'declared_fields':re.findall(r'^(?:@export[^\n]*?\s+)?var\s+(\w+)',text,re.M)}
+  if row['role']=='runtime' and path.endswith('.gd') and len(row['purpose'])<30:raise ValueError('Unexplained executable purpose fallback: '+path)
+ for name in OUTPUTS:
+  path=REPORT+name;rows=[r for r in rows if r['path']!=path]
+  rows.append({'path':path,'previous_path':None,'owner':'docs','role':'project','purpose':SELF_PURPOSES[name],'bytes':None,'git_blob':None,'entrypoint_kind':None,'protocol_path_hold':False,'byte_hold':False,'change_batches':['REPORT'],'source_or_manifest_candidates':[]})
+ rows.sort(key=lambda r:r['path'])
+ registered=set(git('ls-files','-z').split('\0'))-{''}
+ if registered-{r['path'] for r in rows}:raise ValueError('Tracked files omitted from report')
+ authority=json.loads((ROOT/'docs/creative_direction/bibles/registry.json').read_text())['shared_style_authority']
+ binding={'registry':'docs/creative_direction/bibles/registry.json','style':authority,'creative_versions':{region:json.loads((ROOT/('docs/creative_direction/'+region+'.json')).read_text())['version'] for region in ('windchime_plains','thorn_forest')},'scope':'Technical source binding only; no inherited artwork/gameplay/audio/device acceptance.'}
+ if hashlib.sha256((ROOT/authority['path']).read_bytes()).hexdigest()!=authority['sha256']:raise ValueError('Current authority digest mismatch')
+ metadata={'schema_version':1,'kind':'audit_snapshot_not_runtime_registry','source_commit':start,'production_baseline':PRODUCTION_BASELINE,'production_baseline_role':'original_integrated_architecture_snapshot','latest_production_source':latest_production_source,'latest_generated_development_source':LATEST_GENERATED_DEVELOPMENT_SOURCE,'technical_closeout_commit':closeout,'consumer_closeout_commit':consumer,'root_bell_paused_fix_commit':root_bell,'r3_current_contract_commit':r3_contract,'generated_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'freeze_status':'committed_technical_source_snapshot_not_full_ci_or_release_acceptance','source_status_at_start':'All tracked source and narrative committed; only index outputs may differ.','technical_binding':binding,'method':'Git tracked metadata and existing project_dependencies.inspect. Complete executable source parsing; no media bodies read. Sparse historical metadata remains explicit.','limitations':['Static entry reachability includes explicit App experiment navigation; it does not prove startup loading.','Computed paths remain unresolved and require original native/PCK checks.','See root-owned migration_report.md and original receipts for validation failures/results; this generator does not infer test acceptance.','Shader and metadata selections require existing validators and native/PCK checks.','Protocol/Manifest identity holds remain sole implementations, not copied compatibility layers.','The three generated index files deliberately omit their own size/blob hashes to avoid circular self-binding.']}
+ runtime=[r for r in rows if r['role']=='runtime' or r['path'].startswith('shaders/') or (r['path'].startswith('assets/') and Path(r['path'].removesuffix('.uid')).suffix in {'.gd','.tscn','.tres','.gdshader','.gdshaderinc'})]
+ runtime_data={**metadata,'count':len(runtime),'entries':[{'path':p,'kind':k} for p,k in entries.items()],'batches':batches,'purpose_review':{'source_commit':start,'manual_semantic_purposes':len(manual),'scope':'All 45 prior semantic purposes retained; later owner responsibilities appended and tracked P9/toolchain/lifecycle/CI purposes added. Complete executable text including scripts over100KB.'},'files':runtime}
+ feature=lambda p:'/'.join(Path(p).parts[:2]) if p.startswith(('game/','experiments/')) else Path(p).parts[0]
+ feature_edges=collections.Counter((feature(e['source']),feature(e['target']),e['kind']) for e in actual['edges'])
+ graph_data={**metadata,'extractor':'tools/project_dependencies.py:inspect','source_count':actual['files'],'classes':actual['classes'],'edges':actual['edges'],'feature_edges':[{'source':a,'target':b,'kind':kind,'count':count} for (a,b,kind),count in sorted(feature_edges.items())],'dynamic_loads':actual['dynamic_loads'],'errors':actual['errors']}
+ csvout=io.StringIO();fields=['path','previous_path','owner','role','purpose','bytes','entrypoint_kind','protocol_path_hold','byte_hold','change_batches','source_or_manifest_candidates'];writer=csv.DictWriter(csvout,fieldnames=fields,extrasaction='ignore',lineterminator='\n');writer.writeheader()
+ for row in rows:
+  record=dict(row)
+  for key in ('change_batches','source_or_manifest_candidates'):record[key]=';'.join(record.get(key,[]))
+  writer.writerow(record)
+ if git('rev-parse','HEAD').strip()!=start or narrative.read_bytes()!=narrative_before:raise ValueError('Source or narrative changed during extraction')
+ args.output_dir.mkdir(parents=True,exist_ok=True)
+ outputs={'file_inventory.csv':csvout.getvalue(),'runtime_inventory.json':json.dumps(runtime_data,ensure_ascii=False,indent=2)+'\n','dependency_graph.json':json.dumps(graph_data,ensure_ascii=False,indent=2)+'\n'}
+ for name,text in outputs.items():(args.output_dir/name).write_text(text)
+ assert narrative.read_bytes()==narrative_before,'Root-owned narrative changed'
+ summary={'source_commit':start,'production_baseline':PRODUCTION_BASELINE,'production_baseline_role':'original_integrated_architecture_snapshot','latest_production_source':latest_production_source,'latest_generated_development_source':LATEST_GENERATED_DEVELOPMENT_SOURCE,'technical_closeout_commit':closeout,'consumer_closeout_commit':consumer,'root_bell_paused_fix_commit':root_bell,'r3_current_contract_commit':r3_contract,'tracked_files':len(registered),'excluded_untracked_files':untracked,'all_files':len(rows),'runtime_files':len(runtime),'manual_purposes':len(manual),'static_sources':actual['files'],'classes':len(actual['classes']),'edges':len(actual['edges']),'dynamic':len(actual['dynamic_loads']),'errors':actual['errors'],'narrative_sha256_unchanged':hashlib.sha256(narrative_before).hexdigest(),'written':[str(args.output_dir/name) for name in OUTPUTS]}
+ (EVIDENCE/'main-file-index-report-summary-06.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2))
+
+if __name__=='__main__':main()

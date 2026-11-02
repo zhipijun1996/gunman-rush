@@ -1,0 +1,262 @@
+{
+  "id": "P8-independent-entry-path-review",
+  "created_utc": "2026-10-31T04:55:56.872188+00:00",
+  "reviewer": "preview_audit",
+  "repository": "/workspace/gunman-rush-migration",
+  "source_anchor": "986bb75d68213879366b824485f482e553158944",
+  "production_freeze": "4f2fb531e12dce576d144800904799a1cf95d50a",
+  "review_head": "9e42173d07965f47a8dd688d1ae664ca33aaa519",
+  "verdict": "STATIC_ACCEPT_AFTER_9d08d7f_CORRECTION; NATIVE_AND_PCK_NOT_RUN",
+  "scope": "Read-only actual path/owner/UID/metadata and 35-entry source audit; no engine, production edits, fresh registry or dynamic runtime success claims.",
+  "blocking_findings": [],
+  "resolved_findings": [
+    {
+      "id": "lab-only-ui-reverse-ownership",
+      "original_files": [
+        "game/presentation/ui/action_studio_pause_input.gd",
+        "game/presentation/ui/demo_ui_01/preview_affordance.gd"
+      ],
+      "resolution_commit": "9d08d7f19b0c35b85fdcb70e02d8e4c38e22ac98",
+      "current_files": [
+        "experiments/motion/action_studio_pause_input.gd",
+        "experiments/platform/preview_affordance.gd"
+      ],
+      "evidence": "Both code and UID are byte-identical relocations; sole Cloud preload updated; actual dependency graph no longer has non-application game->experiment edges. c4a317ef preserves harness input closure."
+    }
+  ],
+  "mapping": {
+    "mapped": 1124,
+    "missing_targets": 0,
+    "duplicate_destinations": 0,
+    "old_moved_sources_remaining": 0,
+    "unchanged_moved_files": 873,
+    "exact_path_substitutions": 237,
+    "separately_reviewed_independent_fix_deltas": [
+      "game/bosses/bellstrider/bellstrider_bell_projectile.gd",
+      "game/bosses/bellstrider/bellstrider_ring_projectile.gd",
+      "game/bosses/encounter/boss_projectile.gd",
+      "game/enemies/enemy_behavior_registry.gd",
+      "game/enemies/enemy_factory.gd",
+      "game/world/generation/plains_region_assembler.gd",
+      "game/world/generation/thorn_forest_region_assembler.gd",
+      "game/world/levels/level_content_validation.gd",
+      "game/world/levels/level_plan.gd",
+      "game/world/levels/level_runtime.gd",
+      "game/world/levels/providers/legacy_region_plan_adapter.gd"
+    ],
+    "three_additional_explicit_adaptations": [
+      {
+        "path": "game/presentation/world/art/plains_environment_composer.gd",
+        "finding": "DEFAULT_CATALOG remains resources/visual_development/p1_environment_assets.json because that exact source is protocol-held. Naive directory-prefix replacement would invent a moved path. Current path exists.",
+        "classification": "correct_protocol_path_hold"
+      },
+      {
+        "path": "experiments/platform/cloud_preview.gd",
+        "finding": "allowlist gains game/ and experiments/ canonical entry roots; traversal/backslash/non-tscn/self-entry rejection retained. Required entry launch compatibility behavior, not byte-only relocation.",
+        "classification": "explicit_launch_path_adaptation"
+      },
+      {
+        "path": "game/world/generation/foundry_catalog.gd",
+        "finding": "Old source-root scan replaced by finite current selectors. Independent expansion incl CONFIG/template definitions finds251 original mapped input files all retained,273 current (22 additions incl shared level API). Actual basis hash/batch regeneration not run.",
+        "classification": "current_provenance_selector_adaptation"
+      }
+    ]
+  },
+  "uid_and_protocol": {
+    "moved_uid_files": 491,
+    "uid_byte_errors": [],
+    "uid_pair_errors": [],
+    "active_uid_files": 556,
+    "duplicate_runtime_uids": {},
+    "path_holds": 357,
+    "byte_holds": 366,
+    "explicit_hold_deltas": [
+      {
+        "path": "scripts/generation/thorn_forest_region_v2_v10.gd",
+        "status": "independent_fix",
+        "before": "eb03a34d24079ae22c5b87e635b16ee5d33de05cb496dcbc839e663c2da12acd",
+        "after": "77b39eb6a69c4fc1a9653d4837aea4aaab1822f4063a348add9f68030b194ee3"
+      },
+      {
+        "path": "scripts/generation/thorn_forest_region_v2_v11.gd",
+        "status": "independent_fix",
+        "before": "450e0bd097ebf9a4284ef98aa2d96539cee5ffe0fcb797e59a525b0532b64179",
+        "after": "712eb576bfab9330f9c9255181a14660bc93a79112768d415f7623f7f77e8e3c"
+      }
+    ],
+    "explanation": "Old paths are finite protocol/dependency holds, not duplicate moved owners. Two v10/v11 source changes are the separately approved legacy charger definition fix, not P8 equivalence."
+  },
+  "dependency_boundary": {
+    "files": 842,
+    "edges": 3450,
+    "runtime_test_implementation_load_edges": [],
+    "nonapplication_game_to_experiment_edges": [],
+    "application_to_experiment_edges": 13,
+    "source_only_test_dependencies": {
+      "path": "game/world/generation/foundry_catalog.gd",
+      "files": [
+        "tests/branch_module_driver.gd",
+        "tests/plains_exploration_motion.gd",
+        "tests/plains_interactive_motion.gd"
+      ],
+      "scope": "Native provenance hashing only; template path reads export stamp. Do not claim all tests/ strings removed."
+    },
+    "static_checker_limitation": "CORE excludes presentation; this reviewer separately examined all game->experiments edges and discovered the two fixed helpers."
+  },
+  "dynamic": {
+    "count": 118,
+    "by_root": {
+      "assets": 1,
+      "experiments": 8,
+      "game": 88,
+      "scripts": 21
+    },
+    "verdict": "UNVERIFIED_NOT_PASS",
+    "native_executions": 0,
+    "expressions_evidence": "p8-entry-independent-dependency-snapshot.json",
+    "critical_routes": [
+      "Cloud entry_scene canonical moved PackedScene",
+      "BossFactory/EnemyBehaviorRegistry recorded definitions and raw converted PCK resources",
+      "ThornForestRegionGenerator version registry old-path generators",
+      "Foundry/LevelModuleCatalog dynamic module IDs and relocated scene directory",
+      "Avatar/Style/Underworld asset JSON textures, selected SFX imported .sample paths"
+    ]
+  },
+  "assets": {
+    "changed_technical_json_files": 11,
+    "changed_json_leaf_fields": 41,
+    "all_exact_declared_pointer_diffs_and_archived_originals": true,
+    "extra_changed_asset_paths": [],
+    "art_audio_version_selection_changed": false,
+    "evidence": "p8-entry-independent-integrity.json"
+  },
+  "finite_archive": {
+    "original_style25_manifest_sha256": "e7d7c7b016dea2f8a42f30736a40ecc89a625ec90715d0258a04ca42d1cb3ca9",
+    "expected_e7d7_preserved": true,
+    "original_protected_list_not_all_unchanged": [
+      {
+        "path": "tests/test_region_bible.py",
+        "classification": "explicit_finite_archive_test_update",
+        "evidence": "Adds supplement leaf corruption/missing rejection test. Two setup reads switch to original archived item_card; existing assertRaises assertions retained."
+      },
+      {
+        "path": "tools/forest_legacy_fixture.py",
+        "classification": "source_inventory_expansion",
+        "evidence": "SOURCE_DIRS adds experiments; no original root removed."
+      },
+      {
+        "path": "tools/region_style_history.py",
+        "classification": "explicit_finite_archive_adapter",
+        "evidence": "Adds separately SHA-pinned three-source scene supplement; original e7d7 manifest SHA unchanged; indexed corrupt/missing source still raises before live fallback."
+      }
+    ],
+    "do_not_claim": "Initial protected_files list7 is not a byte-identical7 claim: these3 allowed technical adapter/test changes are explicit."
+  },
+  "source_input_mapping": {
+    "baseline": "986bb75d",
+    "candidate": "9e42173d07965f47a8dd688d1ae664ca33aaa519",
+    "mapping_sha256": "d63890b9eb3957581faffa1ff373e893f02376d867f80828411ca5ac6f125a72",
+    "mapping_count": 1124,
+    "checked_mapped_input_edges": 120072,
+    "missing": [],
+    "profiles_identical": true,
+    "noninput_fields_identical": true
+  },
+  "foundry_basis": {
+    "old_static_basis_count": 251,
+    "expected_mapped_count": 251,
+    "current_expanded_count": 273,
+    "missing_from_expanded_basis": [],
+    "added": [
+      "game/application/run_composition.gd",
+      "game/application/run_session.gd",
+      "game/world/levels/content/level_module_catalog.gd",
+      "game/world/levels/forest_level_geometry.gd",
+      "game/world/levels/level_build_result.gd",
+      "game/world/levels/level_content_validation.gd",
+      "game/world/levels/level_module_placement.gd",
+      "game/world/levels/level_plan.gd",
+      "game/world/levels/level_request.gd",
+      "game/world/levels/level_runtime.gd",
+      "game/world/levels/providers/demo_stage.gd",
+      "game/world/levels/providers/forest_level_provider.gd",
+      "game/world/levels/providers/generated_demo_stage.gd",
+      "game/world/levels/providers/legacy_region_plan_adapter.gd",
+      "game/world/levels/providers/plains_environment_stage.gd",
+      "game/world/levels/providers/plains_level_provider.gd",
+      "game/world/levels/providers/plains_region_stage.gd",
+      "game/world/levels/providers/plains_world_rebuild_stage.gd",
+      "game/world/levels/providers/thorn_forest_current_slice.gd",
+      "game/world/levels/providers/thorn_forest_h_slice.gd",
+      "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "resources/enemies/legacy/plains_charger_v2.tres"
+    ],
+    "config_unchanged": true,
+    "source_hash_test_inputs": [
+      "tests/branch_module_driver.gd",
+      "tests/plains_exploration_motion.gd",
+      "tests/plains_interactive_motion.gd"
+    ],
+    "scope": "Full finite file expansion incl initial files, CONFIG/template module definitions, explicit append and old/new directories. Tests paths are source hashing inputs only, bypassed by template export stamp; not runtime test implementation loads. No engine hash/batch regeneration executed."
+  },
+  "entry_matrix": {
+    "path": "final-entry-matrix-frozen-candidate.json",
+    "entries": 35,
+    "scene_exists": 35,
+    "missing_scene_ext_resources": 0,
+    "refreshed_source_receipts": 95,
+    "receipt_changes_since_previous_candidate": [
+      {
+        "path": "game/world/levels/providers/legacy_region_plan_adapter.gd",
+        "old_sha256": "a29eef595e6e121a0b74cc84e4e7276dac16b7d8a7da2674e8fefd1e1470899f",
+        "new_sha256": "33509c923b6cfc87fe5f7b24041eaa1c3f58e7e90da11865c750aa7b0dc51441"
+      },
+      {
+        "path": "game/world/levels/level_plan.gd",
+        "old_sha256": "f8d80b4de517230e92745965fd6cf3607d344b918b3561a82d4eade9bae6e4a2",
+        "new_sha256": "fc696eaa025d591f4f5b6fb4e3611975695e4ace5a118db5bccd4e26810038f1"
+      },
+      {
+        "path": "experiments/platform/cloud_preview.gd",
+        "old_sha256": "3dcbfef88fbe153a185cf44b4e38158bf7cb34b5519279287257f050b9ac7fad",
+        "new_sha256": "532803b7c2c37842fdfd3ddb27b1cb4b92d29c002be17a65969979cd1883ea28"
+      },
+      {
+        "path": "experiments/motion/graybox.gd",
+        "old_sha256": "bbe26681f7b798ac59d847ce9c4ff1ec4aee23168b13f06d298fc0275aef17d5",
+        "new_sha256": "d8284dc6b1c26d8fbb53b4b05041c5670af0ed49d609a84070d5866de90e48d7"
+      },
+      {
+        "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "old_sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410",
+        "new_sha256": "82f4dbbb2c9c3bec09887188233ed94cf6dbd38f8bbbd3be055ef88f9a13ac5c"
+      }
+    ],
+    "native_status": "NOT_RUN"
+  },
+  "remaining_acceptance_gates": [
+    "Cold import + 35 current canonical entries ready/action/lifecycle checks; old840108da startup results are not inherited.",
+    "Actual moved Cloud scene launch, browser launcher/deep links and guarded PCK contents.",
+    "All118 dynamic loads stay pending until their real consumers/versions/export paths are exercised; no lexical PASS substitution.",
+    "Selected audio source/imported fingerprints and actual recorded EnemyFactory raw/converted legacy ResourceLoader native PCK probes.",
+    "Existing formal both-region physics/damage/reward/random/save gates; no gameplay equivalence verdict inferred from file movement."
+  ],
+  "working_tree_clean_at_end": true,
+  "head_at_end": "9e42173d07965f47a8dd688d1ae664ca33aaa519",
+  "evidence": [
+    "p8-entry-independent-integrity.json",
+    "p8-entry-independent-dependency-snapshot.json",
+    "p8-entry-independent-input-map.json",
+    "p8-entry-foundry-basis-static.json",
+    "final-entry-matrix-frozen-candidate.json",
+    "feature-layout-lab-ui-delta.json"
+  ],
+  "excluded_followup_review_scope": {
+    "commit": "9e42173d07965f47a8dd688d1ae664ca33aaa519",
+    "files": [
+      "tools/check_web_bundle.py",
+      "tests/test_web_bundle.py"
+    ],
+    "reason": "CI agent independent review covers parser/test semantics; this entry/path review only reconfirms unaffected production source and input maps at this HEAD."
+  }
+}

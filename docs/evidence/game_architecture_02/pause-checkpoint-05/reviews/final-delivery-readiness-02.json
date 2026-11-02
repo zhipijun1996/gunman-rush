@@ -1,0 +1,325 @@
+{
+  "task": "Final delivery readiness 02",
+  "status": "PLAN_ONLY_PENDING_COMMITTED_SOURCE_NATIVE_CI_AND_ARTIFACT_VALIDATION",
+  "created_at_utc": "2026-10-31T11:52:37.471906+00:00",
+  "observed_head": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "worktree_status_at_review": " M assets/manifest.json\n M docs/tasks.md\n M tests/enemy_all_02_motion_lifecycle.gd\n M tests/enemy_hit_template_tests.gd\n M tests/forest_depth_enemy_runner.gd\n M tests/forest_depth_version_app_case.gd\n M tests/forest_ecology_runner.gd\n M tools/check_plains_item_art.py\n M tools/enemy_all_review_02_capture.gd\n M tools/enemy_all_review_02_inventory.py\n M tools/harness/profiles.json\n?? docs/evidence/game_architecture_02/asset-metadata-layout-01/\n?? docs/evidence/game_architecture_02/ci-consumer-paths-01/\n?? docs/quality/records/ASSET-METADATA-LAYOUT-01.json\n?? docs/quality/records/CI-CONSUMER-PATHS-01.json\n?? docs/worklines/game_architecture_01/asset_metadata_layout_01.md\n?? docs/worklines/game_architecture_01/ci_consumer_paths_01.md\n",
+  "actions": {
+    "main_written": false,
+    "engine_invoked": false,
+    "artifacts_downloaded": false,
+    "published": false
+  },
+  "proof_sources": [
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/verify_ci_artifact_browser.py",
+      "sha256": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/check_recorded_enemy_pack.gd",
+      "sha256": "381607a381e3fa5d5c1594b27ccb31087be7f62562052b03109782d2b99ed1f0"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/capture_plains_motion_loot_02.py",
+      "sha256": "abdbe369bcc495b97484a0c1bcd6b9fa47d8dda62c47ccf184f6800b0d7425e0"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/plains_motion_loot_02_capture.gd",
+      "sha256": "f18bff0256388c2b7664defae6009e6c63b8fd6896110c443678820f9ebc0fe1"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/publish_playtest.py",
+      "sha256": "e8db8cad6b07a8e92c293906bdfe973d67d8699ea84f48fef823d443a5666bdd"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/run_integration_four_tests.py",
+      "sha256": "3b097844501c074d3f086366c7706a08c34cb8221c1b79e6e455ca426dd09ee2"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/harness/profiles.json",
+      "sha256": "95e4e288dccd7a0acc72c00581474b591f91009dde0cb4d699780097a337d2b0"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/tools/build.py",
+      "sha256": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/.github/workflows/production.yml",
+      "sha256": "72fb4fd4fd8fc04b079515f25cc67ae85bf86600e0b86128189cce5b5308b931"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/config/toolchain.json",
+      "sha256": "9a5e8ae804bea1c742b03bb6cc5b01e006bab768d5146b6748ba104e1049278e"
+    }
+  ],
+  "known_failed_ci": {
+    "run_id": 41195033622,
+    "lanes": [
+      {
+        "lane": "parallel",
+        "report": {
+          "path": "/workspace/refactor-evidence/ci41195033622-parallel-proof/extracted/report.json",
+          "sha256": "abdc5f5fb6196962d3d95a5b18af32d77ebd8d7fea0a890088337fb8f2968709"
+        },
+        "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+        "status": "failed",
+        "failures": [
+          {
+            "id": "art-art",
+            "status": "failed",
+            "exit_code": 1
+          }
+        ]
+      },
+      {
+        "lane": "serial",
+        "report": {
+          "path": "/workspace/refactor-evidence/ci41195033622-serial-proof/extracted/report.json",
+          "sha256": "7335777ac82e6dd25cd4f856b8f87c8ce63905b07e54ee05f12fcc138d331776"
+        },
+        "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+        "status": "failed",
+        "failures": [
+          {
+            "id": "forest-ecology",
+            "status": "timeout",
+            "exit_code": null
+          }
+        ]
+      }
+    ],
+    "full_pass": false,
+    "publication": "not published per root execution context; no remote publication action by this review"
+  },
+  "full185": {
+    "declared_checks": 185,
+    "plains_motion_loot_02": {
+      "registered": true,
+      "command": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "plains-motion-loot-02"
+      ],
+      "harness_timeout_seconds": 360,
+      "adapter_import_timeout_seconds": 90,
+      "native_timeout_seconds": 240,
+      "native_runner": "tests/plains_motion_loot_02_runner.gd",
+      "not_the_delta6_motion_hit_runners": true
+    },
+    "delta6_missing_required_direct_consumers": [
+      {
+        "path": "tests/enemy_all_02_motion_lifecycle.gd",
+        "current_sha256": "2c19befb84ea03c11d803abf1e17a7551adbe4d48256bdfeeb0408e55d741bcb",
+        "original_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          ".",
+          "--script",
+          "tests/enemy_all_02_motion_lifecycle.gd"
+        ],
+        "success_pattern": "^ENEMY-ALL-02 MOTION LIFECYCLE: [1-9]\\d* assertions, 0 failures$",
+        "historical_count": 708,
+        "historical_count_is_current_pass": false,
+        "full185_includes": false,
+        "original_external_timeout_seconds": null,
+        "budget_reason": "Neither existing standalone runner nor preserved current-4/prior-11 job receipts records an external timeout. Retain original loops/frame budgets; do not label an invented timeout as historical.",
+        "suggested_new_diagnostic_timeout_seconds": 90,
+        "suggestion_is_new_operational_cap_not_original_budget": true,
+        "original_evidence": {
+          "path": "/workspace/gunman-rush-refactor/docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+          "sha256": "4230083232c619171c1b29113e1288df1544407f616a6fcc1da285837f5e98c6"
+        }
+      },
+      {
+        "path": "tests/enemy_hit_template_tests.gd",
+        "current_sha256": "122af06da2760afd6da88121d5e5cc308554e6e81a1acfd823dd723053c2aa29",
+        "original_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          ".",
+          "--script",
+          "tests/enemy_hit_template_tests.gd"
+        ],
+        "success_pattern": "^ENEMY HIT TEMPLATE: [1-9]\\d* assertions, 0 failures$",
+        "historical_count": 426,
+        "historical_count_is_current_pass": false,
+        "full185_includes": false,
+        "original_external_timeout_seconds": null,
+        "budget_reason": "Neither existing standalone runner nor preserved current-4/prior-11 job receipts records an external timeout. Retain original loops/frame budgets; do not label an invented timeout as historical.",
+        "suggested_new_diagnostic_timeout_seconds": 90,
+        "suggestion_is_new_operational_cap_not_original_budget": true,
+        "original_evidence": {
+          "path": "/workspace/gunman-rush-refactor/docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+          "sha256": "4230083232c619171c1b29113e1288df1544407f616a6fcc1da285837f5e98c6"
+        }
+      }
+    ],
+    "reference_search_scope": "All current tools/*.py recursively and tests/*.gd recursively plus Harness checks; no call to either standalone runner. Profile broad inputs do not mean execution.",
+    "new_formal_check_requested": false
+  },
+  "browser": {
+    "tool": "tools/verify_ci_artifact_browser.py",
+    "required_arguments": [
+      "--run-api PATH",
+      "--artifact-api PATH",
+      "--artifact-zip PATH",
+      "--commit EXACT40SHA",
+      "--run-id INTEGER",
+      "--output NEW_PATH_UNDER_BUILD"
+    ],
+    "optional": "--attempt INTEGER defaults1; must match real run_attempt",
+    "guards": [
+      "HEAD equals requested commit and git status porcelain empty before and after",
+      "runAPI id/head_sha/run_attempt; artifactAPI workflow_run id/head_sha",
+      "artifact API mandatory sha256 digest equals original whole downloaded ZIP; size and safe bounded unique members",
+      "unique build-info source_commit and12hex build_id; exact pack size; real full PCK SHA prefix equals build_id",
+      "serves extracted exact Web bytes; each whole web file inventory before/after equal"
+    ],
+    "actual_consumers": [
+      "verify_action_budget_browser",
+      "verify_studio_click_browser",
+      "verify_all_weapon_browser"
+    ],
+    "per_consumer_timeout_seconds": 300,
+    "scope": "actual desktop canvas input and Chromium CDP touch on immutable CI artifact; not native movie/full game/device acceptance",
+    "external_gate": "Coordinator does not itself require run conclusion success or verify full185 completeness. Require independently successful same-commit full lane proof first. CI41195033622 failures cannot be relabeled passed by a successful browser check.",
+    "output": "receipt.json,3 strict browser logs and original browser screenshots/JSON under output/browser-cwd"
+  },
+  "pck": {
+    "tool": "tools/check_recorded_enemy_pack.gd",
+    "script_arguments": [],
+    "run_from": "new empty directory, absolute tool path and absolute actual artifact PCK, no --path repo",
+    "chain": "Use exact PCK already validated by browser coordinator artifact_receipt.pack_sha256 (same extracted build-info.pack); separately bind SHA before/after native probe. Do not substitute local export or public PR123 pack.",
+    "scope": [
+      "no repository res root",
+      ".tres raw historical bytes SHA1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+      "source.remap present and binary.res exists",
+      "ResourceLoader actual source+converted identity",
+      "EnemyBehaviorRegistry actual recorded revision and unknown-refusal",
+      "EnemyFactory real historical28x32 vs current28x28 collision actors"
+    ],
+    "success_pattern": "^RECORDED ENEMY PACK TESTS: [1-9]\\d* assertions, 0 failures$",
+    "original_external_timeout_seconds": null,
+    "limits": "Probe verifies selected raw resource/remap/resolver/actor chain; it is not a full gameplay or full pack-contents audit."
+  },
+  "capture": {
+    "tool": "tools/capture_plains_motion_loot_02.py",
+    "required": "--output NEW_DIRECTORY",
+    "optional": [
+      "--seed STRING default plains-motion-loot-02",
+      "--species COMMA_LIST or --behaviors COMMA_LIST mutually exclusive",
+      "--retain-avi"
+    ],
+    "full_roster": [
+      "patrol",
+      "charger",
+      "diver",
+      "hopper",
+      "sentry",
+      "fan_sentry",
+      "root_bell"
+    ],
+    "full_capture_command": "python3 tools/capture_plains_motion_loot_02.py --output build/final-delivery-motion-02 --retain-avi",
+    "native_full_timeout_seconds": 840,
+    "native_subset_timeout_formula": "max(240,len(selected)*120)",
+    "encoding_full_timeout_seconds": 210,
+    "driver_frame_limits": {
+      "idle_hold": 48,
+      "case_min": 420,
+      "case_max": 1080,
+      "startup_budget": 3600
+    },
+    "same_source": "Bind final committed source same as tested CI artifact and capture source_files_before/source_files_after plus git metadata; must remain stable through native and encoding. Capture runs checkout, NOT the extracted Web PCK.",
+    "actual_consumers": "real DemoApp/current generated plains terrain; disclosed removes original roster and installs selected real Factory actor; original AI after0.8s idle hold; real Router/projectile damage then App reward/heal transactions; original engine audio",
+    "acceptance": "complete7chapters/contiguous trace/postdraw coverage/actual nonlethal then single lethal/wallet denomination andheal proof, no coverage gaps",
+    "limitations": [
+      "not natural original generated roster/traversal",
+      "does not cover delta6 forest/template/prototype capture consumers",
+      "movie status recorded_complete_coverage is not human visual/listening/device/player approval"
+    ],
+    "retain_evidence": [
+      "raw AVI with original PCM",
+      "review.mp4",
+      "trace.json",
+      "chapters.json",
+      "capture.log",
+      "report.json",
+      "audio statistics"
+    ]
+  },
+  "export_preparation": {
+    "original_commands": [
+      "python3 tools/foundry.py build --count 24 --promote",
+      "bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd",
+      "python3 tools/build.py web"
+    ],
+    "why": "Production workflow prepares validated Foundry dependency, re-plans after resource changes, transfers identical resources into lanes. build.py only stamps existing batch; it does not rebuild stale authoritative Foundry input.",
+    "budgets": {
+      "web_build_harness": 600,
+      "environment_check": 120,
+      "native_import": 90,
+      "foundry_stamp_inside_build": 30,
+      "native_export": 180
+    },
+    "not_done_here": true,
+    "scope_warning": "Local export is a distinct artifact; final browser/PCK delivery chain uses actual same-commit CI artifact rather than substituting it."
+  },
+  "available_dependencies_read_only": {
+    "engine_exists": true,
+    "engine_sha_matches_locked_binary": true,
+    "engine_runtime_identity_not_invoked": true,
+    "web_templates": {
+      "web_debug.zip": {
+        "exists": true,
+        "matches_lock": true
+      },
+      "web_nothreads_debug.zip": {
+        "exists": true,
+        "matches_lock": true
+      },
+      "web_nothreads_release.zip": {
+        "exists": true,
+        "matches_lock": true
+      },
+      "web_release.zip": {
+        "exists": true,
+        "matches_lock": true
+      }
+    },
+    "chromium": "/usr/bin/chromium",
+    "playwright_module": true,
+    "ffmpeg": "/usr/bin/ffmpeg",
+    "ffprobe": "/usr/bin/ffprobe",
+    "xvfb_on_path": null,
+    "xvfb_supported_toolchain_fallback_exists": true
+  },
+  "ordered_remaining": [
+    "Commit reviewed WIP test/tool/path/manifest changes and freeze final source; verify main consumers on original commands.",
+    "Run the two missing standalone delta6 consumers with strict original markers and clean error/leak output; retain sourceSHA and fresh runtime outputs.",
+    "Rerun exact full185 with original lanes/Foundry prerequisites and budgets; preserve failed41195033622 receipts.",
+    "Get exact successful run API, unique Web artifact API, original ZIP with digest; clean checkout at identical final commit.",
+    "Run existing browser coordinator on unchanged actual CI Web artifact; use its extracted identical PCK for empty-directory actual-pack probe.",
+    "Capture7native motion/loot chapters at same source with original audio/rawAVI, preserving source hashes; disclose sampled roster and pending human/device acceptance."
+  ],
+  "unverified": [
+    "Final candidate direct motion/hit native execution",
+    "Final committed full185",
+    "Same-source new CI artifact browser input",
+    "Actual final PCK raw/remap actor probe",
+    "Fresh final7chapter movie/audio",
+    "Human aesthetics/listening/real device/player acceptance"
+  ]
+}

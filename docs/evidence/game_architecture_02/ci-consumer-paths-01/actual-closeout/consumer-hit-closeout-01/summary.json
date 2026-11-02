@@ -1,0 +1,29 @@
+{
+  "status": "failed",
+  "exit_code": 1,
+  "seconds": 7.028875010997581,
+  "argv": [
+    "python3",
+    "-c",
+    "import sys,re;sys.path.insert(0,'tools');from run_tests import run_engine;out=run_engine(['--headless', '--fixed-fps', '60', '--audio-driver', 'Dummy', '--path', '.', '--script', 'tests/enemy_hit_template_tests.gd'],90);assert re.search(r'ENEMY HIT TEMPLATE: [1-9]\\d* assertions, 0 failures',out);assert not re.search(r'(?m)^ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit',out)"
+  ],
+  "original_engine_arguments": [
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/enemy_hit_template_tests.gd"
+  ],
+  "diagnostic_cap_seconds": 90,
+  "original_registered_budget": null,
+  "registered_in_full185": false,
+  "source_unchanged": true,
+  "source_digest": "24eb4aa77dacbb258969fe5a662b6673557b44efda3be50177a2fdce32b00768",
+  "log": "/workspace/refactor-evidence/consumer-hit-closeout-01/native.log",
+  "log_sha256": "6aad88dcb6facf35cca5e1c0b97354c5280794495d7b27dd274268947ec094ea",
+  "scope": "Standalone original hit-template consumer with reviewed fixture correction. Newly disclosed90second cap; not full185 or whole game acceptance."
+}

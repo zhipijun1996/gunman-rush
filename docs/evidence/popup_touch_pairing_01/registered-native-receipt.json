@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "started_at": "20261101T091443.456956Z",
+  "status": "passed",
+  "commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "git_status": "M game/presentation/ui/popup_touch_adapter.gd\n M tests/underworld_plains/test_underworld_ui.gd",
+  "manifest_sha256": "c9c961470239deafa291240ad95fc6c1b85b20aba86dc204bd9d9a8196c8a95a",
+  "checks": [
+    {
+      "id": "underworld-ui",
+      "argv": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "61574d973e1897e6b29ff7f753173befbc7e9fcb17bbc8d0efaea64aab4b4dea",
+      "log": "underworld-ui.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793524507.0272098,
+      "ended_at_unix": 1793524525.1364322,
+      "duration_seconds": 18.109,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "check_token": "583fb5af839941878add14dcb02a4463",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261101T091443.456956Z/artifacts/underworld-ui",
+      "reused": false
+    },
+    {
+      "id": "studio-input",
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "72acb2c0dfd010ab45a071f1f79ccf2a6b6b73c554172ae4636afca64a0f2aca",
+      "log": "studio-input.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793524490.140473,
+      "ended_at_unix": 1793524504.590198,
+      "duration_seconds": 14.45,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "check_token": "d690ac429dca48489369a5e6867649f7",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261101T091443.456956Z/artifacts/studio-input",
+      "reused": false
+    }
+  ],
+  "wall_seconds": 47.081,
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "original_report": "/workspace/gunman-rush-refactor/build/verification/harness/20261101T091443.456956Z/report.json",
+  "original_report_sha256": "0afa99bf1d2951957ad25eeb459fd3ff8a6a1a88582aff36bf58e3ef4f681ad3",
+  "original_report_bytes": 11518,
+  "record_kind": "exact selected fields from original harness report, not a replacement full report",
+  "reviewed_code_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "reviewed_code_file_sha256": {
+    "game/presentation/ui/popup_touch_adapter.gd": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de",
+    "tests/underworld_plains/test_underworld_ui.gd": "1de2d2cddd2dd51e0868a645c462be9827bdda8ab47cc68d18b52872b8f0ef8d"
+  },
+  "source_binding_note": "Original receipt HEAD remains379 with exactly two dirty files, whose recorded hashes independently equal Git ab263ea6. Execution preceded commit; no claim it read ab263ea6 at runtime.",
+  "working_files": {
+    "game/presentation/ui/popup_touch_adapter.gd": "b53de2a860a8c0b884bbe754f04fe259bfb02640848d2cdc1916e23e4e90c9de",
+    "tests/underworld_plains/test_underworld_ui.gd": "1de2d2cddd2dd51e0868a645c462be9827bdda8ab47cc68d18b52872b8f0ef8d"
+  }
+}

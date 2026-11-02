@@ -1,0 +1,62 @@
+{
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "file": "tests/test_forest_region_scheduler.py",
+  "original_sha256": "d90f9d5b0a49ec4b278b54e9339b97bbb4d8b27914942f834aa85fbb1a99bb5c",
+  "candidate_sha256": "940ce99a5549f22d0cb4558312f212903662e771d9186ef9e96243d410b6059a",
+  "patch_sha256": "48d0c30a55adea24195b0b99f3fdda3cffcaf5b0f5e36adf4a4b5aee168fea14",
+  "exact_one_line_inverse": true,
+  "all_method_class_ast_unchanged": true,
+  "test_method_count": 27,
+  "original_check_unchanged": {
+    "argv": [
+      "python3",
+      "tests/test_forest_region_scheduler.py"
+    ],
+    "timeout_seconds": 30,
+    "success_pattern": "^OK$",
+    "weight_seconds": 2,
+    "cacheable": false,
+    "inputs": [
+      "tools/run_forest_depth_region.py",
+      "tests/test_forest_region_scheduler.py",
+      "tools/harness/profiles.json"
+    ]
+  },
+  "dependency": {
+    "path": "tools/forest_bible_world_sources.py",
+    "sha256": "37b5d55e15f75e22cd43eb88d7f117a0edac3d857929b183b2160efc8d68deb9",
+    "top_level_imports": "hashlib and pathlib only; no config or engine execution at import"
+  },
+  "results": [
+    {
+      "case": "before",
+      "argv": [
+        "python3",
+        "tests/test_forest_region_scheduler.py"
+      ],
+      "cwd": "/workspace/gunman-rush-refactor",
+      "timeout_seconds": 30,
+      "exit_code": 1,
+      "seconds": 0.12160365500312764,
+      "log_sha256": "11658554caad8d1a8cfc50256f87e2f34e7fcf7c8278c05ced85f7f4c14a8fc8",
+      "log": "Traceback (most recent call last):\n  File \"/workspace/gunman-rush-refactor/tests/test_forest_region_scheduler.py\", line 15, in <module>\n    spec.loader.exec_module(region)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/workspace/gunman-rush-refactor/tools/run_forest_depth_region.py\", line 24, in <module>\n    from forest_bible_world_sources import inventory as source_inventory\nModuleNotFoundError: No module named 'forest_bible_world_sources'\n"
+    },
+    {
+      "case": "after",
+      "argv": [
+        "python3",
+        "tests/test_forest_region_scheduler.py"
+      ],
+      "cwd": "/workspace/refactor-evidence/forest-scheduler-loader-candidate/overlay",
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 1.8740603090045624,
+      "log_sha256": "5521904062cdf0827746d288d9560c1250746892f23eec6e8353563f5d6e81bb",
+      "log": "...........................\n----------------------------------------------------------------------\nRan 27 tests in 1.759s\n\nOK\n"
+    }
+  ],
+  "main_written": false,
+  "Godot_executed": false,
+  "no_PYTHONPATH": true,
+  "scope": "Only current existing test file-spec loader. Actual tests retain real small Python subprocess scheduling and explicit mock native boundary; no native result claimed."
+}

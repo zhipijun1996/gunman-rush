@@ -1,0 +1,43 @@
+{
+  "run_id": 41195033622,
+  "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+  "scope": "original failed full185 run, no release acceptance",
+  "lanes": [
+    {
+      "lane": "parallel",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "status": "failed",
+      "executed": 12,
+      "passed": 11,
+      "failures": [
+        {
+          "id": "art-art",
+          "status": "failed",
+          "budget": 120,
+          "duration": 0.245
+        }
+      ],
+      "raw_report_sha256": "abdc5f5fb6196962d3d95a5b18af32d77ebd8d7fea0a890088337fb8f2968709",
+      "lossless_gzip_sha256": "67ef1ae82fc72a08865d2a526b367cf4347a1efc871832825ebf80352bf53c60",
+      "original_bytes": 10430058
+    },
+    {
+      "lane": "serial",
+      "source_commit": "11254a6647dbb4d842feb4d21de9e2d8bd9accd3",
+      "status": "failed",
+      "executed": 13,
+      "passed": 12,
+      "failures": [
+        {
+          "id": "forest-ecology",
+          "status": "timeout",
+          "budget": 180,
+          "duration": 180.035
+        }
+      ],
+      "raw_report_sha256": "7335777ac82e6dd25cd4f856b8f87c8ce63905b07e54ee05f12fcc138d331776",
+      "lossless_gzip_sha256": "60a0fab275b174c5939e4db6d8cce34e851f92286b98948d13f1b05c73b78c7b",
+      "original_bytes": 10553770
+    }
+  ]
+}

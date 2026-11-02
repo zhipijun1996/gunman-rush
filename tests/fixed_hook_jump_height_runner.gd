@@ -1,7 +1,7 @@
 extends SceneTree
 ## Real Router -> Controller -> JumpAbility -> sole Motor. Position writes only
 ## initialise each fixture; the grapple and every ascent are actually simulated.
-const PLAYER := preload("res://scenes/player/player.tscn")
+const PLAYER := preload("res://game/player/player.tscn")
 const DT := 1.0 / 60.0
 var world: Node2D
 var player: PlayerMotor

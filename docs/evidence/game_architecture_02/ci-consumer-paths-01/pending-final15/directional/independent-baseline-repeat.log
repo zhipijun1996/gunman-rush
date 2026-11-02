@@ -1,0 +1,73 @@
+FFFF......................
+======================================================================
+FAIL: test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='intended')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/baseline-2ce/tests/test_forest_directional_validator.py", line 23, in test_actual_four_captures
+    with self.subTest(variant=variant):self.assertEqual(MODULE.validate(data),[])
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['resource_outside_real_capacity', 'charge[40 chars]set'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'resource_outside_real_capacity'
+
++ []
+- ['resource_outside_real_capacity',
+-  'charges_not_actual_accepted_shot_and_ground_reset']
+
+======================================================================
+FAIL: test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='noH')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/baseline-2ce/tests/test_forest_directional_validator.py", line 23, in test_actual_four_captures
+    with self.subTest(variant=variant):self.assertEqual(MODULE.validate(data),[])
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['resource_outside_real_capacity', 'charge[40 chars]set'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'resource_outside_real_capacity'
+
++ []
+- ['resource_outside_real_capacity',
+-  'charges_not_actual_accepted_shot_and_ground_reset']
+
+======================================================================
+FAIL: test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='naivejump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/baseline-2ce/tests/test_forest_directional_validator.py", line 23, in test_actual_four_captures
+    with self.subTest(variant=variant):self.assertEqual(MODULE.validate(data),[])
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['resource_outside_real_capacity', 'charge[40 chars]set'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'resource_outside_real_capacity'
+
++ []
+- ['resource_outside_real_capacity',
+-  'charges_not_actual_accepted_shot_and_ground_reset']
+
+======================================================================
+FAIL: test_actual_four_captures (__main__.DirectionalValidatorTests.test_actual_four_captures) (variant='onlyR')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/refactor-evidence/forest-scheduler-loader-candidate/directional-unregistered-followup/baseline-2ce/tests/test_forest_directional_validator.py", line 23, in test_actual_four_captures
+    with self.subTest(variant=variant):self.assertEqual(MODULE.validate(data),[])
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['resource_outside_real_capacity', 'charge[40 chars]set'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'resource_outside_real_capacity'
+
++ []
+- ['resource_outside_real_capacity',
+-  'charges_not_actual_accepted_shot_and_ground_reset']
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.221s
+
+FAILED (failures=4)

@@ -11,46 +11,46 @@
     "16 regional identities share style, never one palette",
     "hazards use same rooted terrain material, semantic damage independent"
   ],
-  "runtime_entry": "scripts/demo/plains_region_stage.gd",
+  "runtime_entry": "game/world/levels/providers/plains_region_stage.gd",
   "player_animation_manifest": "assets/underworld_plains/player_animation/animation_build.json",
   "mechanisms_manifest": "assets/underworld_plains/mechanisms/mechanisms_build.json",
   "home_manifest": "assets/underworld_plains/home/home_build.json",
   "ui_manifest": "assets/underworld_plains/ui/ui_build.json",
   "runtime_entries": [
-    "scripts/demo/plains_region_stage.gd",
-    "scripts/demo/home_scene.gd",
-    "scripts/ui/demo_menu.gd",
-    "scripts/demo/demo_app.gd"
+    "game/world/levels/providers/plains_region_stage.gd",
+    "game/progression/home/home_scene.gd",
+    "game/presentation/ui/demo_menu.gd",
+    "game/application/demo_app.gd"
   ],
   "consumers": {
     "player_animation": [
-      "scripts/underworld_plains/underworld_player.gd"
+      "game/presentation/actors/underworld_plains/underworld_player.gd"
     ],
     "mechanisms": [
-      "scripts/generation/module_moving_platform.gd",
-      "scripts/world/shot_latch.gd",
-      "scripts/underworld_plains/underworld_terrain.gd"
+      "game/world/components/module_moving_platform.gd",
+      "game/world/components/shot_latch.gd",
+      "game/presentation/world/underworld_plains/underworld_terrain.gd"
     ],
     "home": [
-      "scripts/demo/home_scene.gd",
-      "scripts/underworld_plains/underworld_home_world.gd"
+      "game/progression/home/home_scene.gd",
+      "game/presentation/world/underworld_plains/underworld_home_world.gd"
     ],
     "ui": [
-      "scripts/ui/underworld_ui.gd",
-      "scripts/ui/demo_menu.gd",
-      "scripts/demo/demo_app.gd"
+      "game/presentation/ui/underworld_ui.gd",
+      "game/presentation/ui/demo_menu.gd",
+      "game/application/demo_app.gd"
     ],
     "objects": [
-      "scripts/underworld_plains/underworld_objects.gd",
-      "scripts/demo/plains_region_stage.gd",
-      "scripts/world/backside_shot_latch.gd",
-      "scripts/bosses/boss_arena_seal.gd"
+      "game/presentation/world/underworld_plains/underworld_objects.gd",
+      "game/world/levels/providers/plains_region_stage.gd",
+      "game/world/components/backside_shot_latch.gd",
+      "game/bosses/encounter/boss_arena_seal.gd"
     ]
   },
   "objects_manifest": "assets/underworld_plains/objects/objects_build.json",
   "procedural_vfx": {
     "disclosure": "Native CanvasItem lines/polygons and bounded transients, reusing existing real weapon/bell images; no new image generation claimed",
-    "consumer": "scripts/underworld_plains/underworld_projectile_visual.gd",
+    "consumer": "game/presentation/effects/underworld_plains/underworld_projectile_visual.gd",
     "damage_owner": "Existing actual projectile/collision and accepted DamagePolicy; visual never decides HP"
   }
 }

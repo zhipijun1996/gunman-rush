@@ -15,7 +15,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets/pixel_plains"
-RULES = ROOT / "scripts/art_foundation/blob47_rules.gd"
+RULES = ROOT / "game/presentation/world/art_foundation/blob47_rules.gd"
 PALETTE = {
     "ink": "#111e2b", "deep": "#203b46", "stone": "#365a59",
     "light": "#6e9180", "lichen": "#b0b97b", "cream": "#ead39a",
@@ -278,7 +278,7 @@ def build():
             "method":"original AI-authored explicit rectangular pixel-cluster program",
             "generator":"tools/build_pixel_plains_art.py",
             "generator_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-            "technical_input":"scripts/art_foundation/blob47_rules.gd (grid/topology only)",
+            "technical_input":"game/presentation/world/art_foundation/blob47_rules.gd (grid/topology only)",
             "technical_input_sha256":hashlib.sha256(RULES.read_bytes()).hexdigest(),
             "art_inputs":[],
             "inspiration":"user requested Animal Well-like pixel materials, lighting and environmental life; no source assets copied",

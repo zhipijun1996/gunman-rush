@@ -1,0 +1,18 @@
+# 独立限定接受：两个补丁分别判定
+
+**ACCEPT，无阻断。** 独审读取精确候选SHA、Git原源码与root实际原wrapper日志；未修改生产/作者文件，未运行引擎。
+
+1. **Underworld延迟生命周期修复**：原 typed 同步 `install_item` 整函数及所有其他生产逻辑逐字不变。仍只排一次deferred，bridge内同步调用原installer，没有新增帧等待。payload改为node/world弱引用；执行前拒绝释放、出树、换world或当前归属不符的对象，避免Node参数校验在函数内部守门之前失败。正常存活、归属未变对象继续在原deferred位置安装同一材质。既有冻结世界/道具/音频WeakRef辅助代码不是同一呈现职责，直接复用引擎WeakRef比新增万能helper合适。
+
+2. **当前Boss测试夹具迁移**：仍测试原六mode，只将实际map1 Bellstrider的phase_transition期望改为当前已存在的实体铜壳接触规则。新增具体Bell类型和dead负例，随后恢复neck再测inactive，避免后者被dead条件掩盖。生产接触代码、资源、数值不变。现有真实App接触专项 `contact_edges.gd:173` 及 `ground_side(-1,true)` 支持该当前合同；不能称这是旧Windkeeper窗口规则的等价变化。
+
+原Underworld测试全部保留，新增函数实际 **8** 个check（不是任务文字中的9个），真实操作正式App的FineWorldPresentation：late live、立即free、foreign/reparent、替换world后同node、当前新world、world及child同时free。它通过SceneTree真实信号和延迟队列触发，不直接调用新guard。原quality其他断言/循环/预算逐字保留。
+
+root原命令已实际通过，日志SHA与精确候选三文件一致：
+
+- `run_underworld_formal_tests.py`：formal104/0（原96+8）、原cache444/0，11.549s。
+- `run_quality_review_tests.py`：1046/0（原1044+2），14.714s，无317条延迟错误。
+
+旧失败不改签：原quality为1044/1并有317条install_item错误；精确main2ce的新App/TerrainStudy诊断probe有319条同类错误，原生exit0不能豁免。两者不同情境，数字不混用。main2ce probe是新诊断反例，不是原fullsuite；第一次UID/cache路径阻塞的失败也独立保留。
+
+详细JSON记录所有SHA、逐字变换证明、native收据和边界。本接受不代签full182、自然完整游戏、视觉、GUI或实体设备。

@@ -34,21 +34,55 @@ func run()->void:
  paused=false;await frames(8);isolate(app)
  await warning_jump(stage)
  await high_jump(stage)
- var boss:BossEncounter=stage.boss.get_node("Encounter")
+ var boss:=stage.boss.get_node("Encounter") as BellstriderEncounter
+ var definition:=boss.definition as BellstriderDefinition
  var before:float=app.wallet.balance
+ var observation_point:Vector2=app.player.global_position
+ var death_events:Array[StringName]=[]
+ boss.presentation_event.connect(func(event:Dictionary)->void:death_events.append(StringName(event.event)))
  var request:=DamageRequest.new();request.token=app.lifetime.token();request.actor_epoch=app.lifetime.actor_epoch;request.health_epoch=boss.health.epoch;request.target_id=&"boss";request.source_id=&"explicit_cohesion_fixture";request.event_id=&"mini_fx_fixture";request.amount=boss.health.current
  check(app.policy.submit(request),"explicit defeat fixture enters real death-priority batch")
  await frames(3)
- check(stage.reward_available and not seal.closed,"defeat opens actual walls and guarantees reward")
- check(is_instance_valid((stage.visual_layer as PlainsStageVisual)._boss_loot),"mini defeat has a visible guaranteed loot object")
- check(stage.get_children().any(func(n):return n is DefeatBurst and n.mini),"mini defeat uses finite AI explosion object")
+ check(boss.health.terminal and app.director.stage_complete and not seal.closed,"actual accepted defeat immediately opens walls and records completion")
+ check(not stage.reward_available and not stage.region_state.drops.has(BellstriderRewards.source_id(stage)),"terminal health cannot produce physical reward before the real major impact")
  check(app.wallet.balance==before,"visual loot does not duplicate fixed reward payout")
  app.player.reset_at(stage.reward_position)
  check(not app._offer_generated_exit(&"boss_home"),"manual exit cannot pause death animation early")
- await frames(60)
- check(app.exit_modal.opened,"settled loot opens actual reward confirmation")
+ app.player.reset_at(observation_point)
+ var ready:bool=await load("res://tests/plains_campaign_fixture.gd").wait_bell_reward(app,self,false)
+ check(ready and stage.reward_available,"actual death impact and supported physical entitlement make the guaranteed reward available")
+ var units:Array=stage.pickups.filter(func(p:Dictionary)->bool:return str(p.get("source",""))==BellstriderRewards.source_id(stage))
+ var visual:=stage.visual_layer as PlainsStageVisual
+ # Observe natural rendering updates, never repair the production consumer.
+ await process_frame
+ # SceneTree timers run after Node._process, so the observed positions belong
+ # to the same completed frame as the live physical pickup data.
+ await create_timer(0.0).timeout
+ var values:Array[int]=[]
+ var all_visible:=true
+ var physical:=true
+ for unit:Dictionary in units:
+  values.append(int(unit.amount))
+  var sprite:=visual._pickup_by_id.get(str(unit.id)) as Sprite2D
+  all_visible=all_visible and is_instance_valid(sprite) and sprite.is_visible_in_tree() and sprite.texture!=null and sprite.position.is_equal_approx(unit.position)
+  physical=physical and bool(unit.get("loot_motion",false)) and (unit.get("spawn_origin",Vector2.INF) as Vector2).is_finite()
+ check(values==[5,5,1,1] and definition.reward_coin_total==12 and physical and all_visible,"guaranteed mini loot is four actual visible physical denominations at their live positions")
+ var presentation:=stage.boss.get_node("Presentation") as BellstriderPresentation
+ check(is_instance_valid(presentation) and presentation.is_visible_in_tree() and presentation.encounter==boss,"current mini death is rendered by its actual bound articulated presentation")
+ check(not is_instance_valid(visual._boss_loot) and not stage.get_children().any(func(n):return n is DefeatBurst and n.mini),"current Bell cannot overlay a duplicate generic loot object or historical mini burst")
+ check(app.wallet.balance==before and not app.exit_modal.opened,"visible physical reward does not credit money or open the automatic door before collection")
+ check(await load("res://tests/plains_campaign_fixture.gd").wait_bell_reward(app,self),"current mini death reaches its bounded Definition duration through actual physics")
+ var pose:Dictionary=boss.rig_pose()
+ check(is_equal_approx(float(pose.death_age),definition.death_seconds) and is_equal_approx(float(pose.death_progress),1.0) and death_events.count(&"bellstrider_death_final")==1,"articulated death reaches its exact finite end and emits one final event")
+ await frames(4)
+ check(is_equal_approx(float(boss.rig_pose().death_age),float(pose.death_age)) and death_events.count(&"bellstrider_death_impact")==1 and death_events.count(&"bellstrider_death_final")==1 and presentation.is_visible_in_tree(),"finished wreck persists without advancing its death clock or repeating impact/final events")
+ check(load("res://tests/plains_campaign_fixture.gd").collect_boss_coins(app,BellstriderRewards.source_id(stage),definition.reward_coin_total),"original App admits every physical coin once and rejects each repeated receipt")
+ check(app.wallet.balance==before+12 and not app._bellstrider_coins_pending(),"guaranteed twelve coins are fully credited by pickups before the portal")
+ app.player.reset_at(stage.reward_position)
+ await frames(2)
+ check(app.exit_modal.opened,"settled and collected loot opens actual reward confirmation")
  app._confirm_generated_exit();await frames(8)
- check(app.director.stage_index==2 and app.wallet.balance==before+12,"mini loot settles existing guaranteed 12 coins exactly once")
+ check(app.director.stage_index==2 and app.wallet.balance==before+12,"mini loot settles existing guaranteed 12 coins exactly once without a portal double grant")
  if not await load("res://tests/audio_teardown.gd").drain_world(app):
   failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
  app.free();await process_frame;paused=false
@@ -59,7 +93,9 @@ func high_jump(stage:PlainsRegionStage)->void:
  for candidate:PlatformingModule in stage.assembler.modules:
   if candidate.definition.module_id==&"plains_bellstrider_arena":module=candidate
  # Only this probe starts on the actual upper shelf; motion thereafter is input.
- var boss:BossEncounter=stage.boss.get_node("Encounter");boss.set_physics_process(false)
+ var boss:BossEncounter=stage.boss.get_node("Encounter")
+ var was_processing:=boss.is_physics_processing()
+ boss.set_physics_process(false)
  app.player.reset_at(module.to_global(Vector2(800,392)));await frames(4)
  app.controller.router.set_jump_held(&"ceiling_probe",true);app.controller.router.request_action(&"jump")
  var crossed:=false
@@ -79,6 +115,7 @@ func high_jump(stage:PlainsRegionStage)->void:
  check(crossed and fired and preserved,"actual upper-shelf jump crosses old top while preserving sealed shot eligibility")
  await frames(45)
  check(stage.boss_seal.closed and app._in_boss_core(),"landing keeps real sealed containment")
+ boss.set_physics_process(was_processing) # End the local jump fixture before the real death clock.
 
 func warning_jump(stage:PlainsRegionStage)->void:
  var module:PlatformingModule

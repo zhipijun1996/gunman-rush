@@ -1,0 +1,22 @@
+{
+  "verdict": "LIMITED_ACCEPT_DOCUMENTATION_PROVENANCE_INCREMENT",
+  "source_head": "bc576b63e11e6f020eff8c309505677321895f13",
+  "path": "docs/quality/asset_records/parallel-integration-carrier-f5478d9702604b48.json",
+  "prior_37_candidate_sha256": "bce4319a5ff6ae82a42f9eda769e607d08f26a9d72fdadbcbe3538a1db7ad758",
+  "current_sha256": "36e41b11523d66e9ae18abe2633edab3b014674410bea2277adc9510534ba007",
+  "current_documentation": {
+    "path": "assets/visual_development/README.md",
+    "sha256": "917f17041faba685e0d6eeaad457ff5218b92200d7fe34d006674d1c1cd1d17a",
+    "role": "documentation"
+  },
+  "checks": [
+    "Exactly one documentation associated_file and navigation_update added relative to independently reviewed 37-file candidate",
+    "Existing source SHA, source path to frozen original, all custody/visual/license/user fields unchanged",
+    "Both original archived README and current README actual bytes match their separate SHA",
+    "Runtime paths remain empty; no validator changes included"
+  ],
+  "limits": [
+    "Documentation navigation provenance only; no media/rendered/runtime acceptance",
+    "Prior 37-file samebytes receipt remains stage-specific and is not overwritten"
+  ]
+}

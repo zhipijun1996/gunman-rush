@@ -71,7 +71,7 @@ def check_pack(pack_path):
         else:
             resource(pack, name)
             checked["resource"].append(name)
-    for directory in ("scripts/style_exploration", "scenes/style_exploration"):
+    for directory in ("scripts/style_exploration", "scenes/style_exploration", "game/presentation/actors/style_exploration", "game/presentation/world/style_exploration", "experiments/terrain/style_exploration", "experiments/terrain/entries"):
         for source in sorted((REPO / directory).rglob("*")):
             if source.suffix in {".gd", ".gdshader", ".tscn"}:
                 resource(pack, relative(source))

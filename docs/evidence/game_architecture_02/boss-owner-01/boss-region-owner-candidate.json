@@ -1,0 +1,76 @@
+{
+  "schema": "boss-region-owner-candidate-v1",
+  "baseline_head": "6584d48bca916de100eed3801af6f0973ae49767",
+  "current_head": "6584d48bca916de100eed3801af6f0973ae49767",
+  "frozen_working_files": {
+    "game/bosses/encounter/boss_encounter.gd": "86f6df7f8a80a8fab03d4fbbd7d6d0ac96ebb7aa5add4dba4d78ff4fc070641f",
+    "game/bosses/windkeeper/windkeeper_encounter.gd": "b6bad0306339152167dade9458c0d8547d9154a3c377c767865a81c392127566",
+    "game/bosses/bellstrider/bellstrider_encounter.gd": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+    "game/bosses/thorn_forest/thorn_forest_encounter.gd": "6e4b5064dd3a4402c9490fceeec2700dd80d550d9d5b192a86cf39aecaf91432",
+    "game/world/levels/providers/plains_region_stage.gd": "a98521042831129c796cd03b497b977efe95546c43a8960735623993867c93ba",
+    "game/world/levels/providers/thorn_forest_region_stage.gd": "74e1959bc5ceec2aac77d8659a92ab968f16c49d0fff8c8f5d8012f256be17f4",
+    "game/application/demo_app.gd": "77674db1b78a94b2ab25ffa679282e9bf7ba9da396165fc84fa095f69bb34f85",
+    "tests/forest_depth_restore_runner.gd": "1eb6cabaae222619a49c1eb44ff2bcfbbf6114b64679b1604727d2a1579ecbc9"
+  },
+  "before_sha256": {
+    "game/bosses/encounter/boss_encounter.gd": "dd30fb04de7445bc9eead27f7e315194bc9a8f9bf016761bb3c2072c4aff7e48",
+    "game/bosses/windkeeper/windkeeper_encounter.gd": "432d6cb2441ef740e6ed5b16241494b58ca74bec3464051e21d2bec813cf9e24",
+    "game/bosses/bellstrider/bellstrider_encounter.gd": "601f64561b97e2fb23a4f7f21d1fab47193baf74208bdf70025e157e2e883e3d",
+    "game/bosses/thorn_forest/thorn_forest_encounter.gd": "7b14922bdd1fc64876092eced2c563d0691bfcc001248a88f12d48eda9c2ac12",
+    "game/world/levels/providers/plains_region_stage.gd": "8215ebc086002eff0439b7c2467e0c3f109ef6cce34bb919666352cfa1294ca0",
+    "game/world/levels/providers/thorn_forest_region_stage.gd": "9c92885fb1eed4b7df35d912f0946e3ec293cce3b9350856c1691ac6e876c2a4",
+    "game/application/demo_app.gd": "fece2f2811a998dd00f1df92df9bea75e58a5106e1509dd27329278cb8d83da1",
+    "tests/forest_depth_restore_runner.gd": "6d26987abc7e5a6f5d3dab571b852eda25e141191e29df3840ca941f1a86788a"
+  },
+  "checks": [
+    "bound_duel complete original body exact after owner qualification and exact health extraction",
+    "game/bosses/encounter/boss_encounter.gd: every pre-existing method unchanged; only declared owner methods added",
+    "game/bosses/windkeeper/windkeeper_encounter.gd: every pre-existing method unchanged; only declared owner methods added",
+    "game/bosses/bellstrider/bellstrider_encounter.gd: every pre-existing method unchanged; only declared owner methods added",
+    "game/bosses/thorn_forest/thorn_forest_encounter.gd: every pre-existing method unchanged; only declared owner methods added",
+    "existing test exact 3 caller and 4 diagnostic-text substitutions; all check conditions/loop cases/loads/frames unchanged",
+    "old App wrapper fully removed; both original dispatch sites use owner",
+    "game/world/levels/providers/plains_region_stage.gd: no private serial read or health configuration remains",
+    "game/world/levels/providers/thorn_forest_region_stage.gd: no private serial read or health configuration remains",
+    "Additional approved restore_region_position copies original direct array→Vector2 assignment; App calls it in the same nonduel branch before terminal restore. No new has(position) guard added because this original site has none.",
+    "All nine existing Boss scene Encounter.motor NodePath(..) proves entity motor is stage.boss; BossFactory instantiates those same scene roots.",
+    "Forest Stage comment corrected: App schedules, encounter owns validation/restoration; no behavior changed."
+  ],
+  "test_check_call_count": 41,
+  "motor_is_scene_root": [
+    "scenes/bosses/bellstrider.tscn",
+    "scenes/bosses/clockwork_guardian.tscn",
+    "scenes/bosses/rootbell_guardian_v2.tscn",
+    "scenes/bosses/thorn_guardian.tscn",
+    "scenes/bosses/thorn_queen.tscn",
+    "scenes/bosses/thorn_queen_canopy.tscn",
+    "scenes/bosses/thorn_queen_v2.tscn",
+    "scenes/bosses/windkeeper.tscn",
+    "scenes/bosses/windkeeper_pressure.tscn"
+  ],
+  "engine_run": false,
+  "commit_created": false,
+  "preserved_boundaries": [
+    "Plains String literal 10-field order then dynamic combat merge(true); Bell-only pattern getter supplies the original slot without base→derived reference.",
+    "Forest dynamic combat snapshot then four dot-assigned StringName keys; Stage alone appends seal_closed.",
+    "Bell terminal prepare before shared health reconstruction; no early full combat restore.",
+    "App geometry/floor→bind→bound_duel and activate→second bound_duel remain original positions.",
+    "Legacy forest restores before binding only when no bind_duel; concrete duel/Pressure policies unchanged.",
+    "Snapshot object is assembled locally before assigning Stage state; current combat_snapshot methods only read fields/create value dictionaries, with no callbacks reading Stage state. No claim of arbitrary monkeypatched override equivalence.",
+    "App intro_seen and Arena phase policy unchanged; ordinary enemy Stage position restore remains. Acceptance is health/snapshot/duel ownership, not a claim of zero external field writes."
+  ],
+  "needed_native": [
+    "Original plains-region Boss restore",
+    "Original forest-depth-restore runner including unchanged malformed loops and actual App reload/activation",
+    "Original Bellstrider rework + Windkeeper pressure family",
+    "Original forest boss duel/canopy campaigns and level-plan/state",
+    "Strict engine exit/leak guard remains required"
+  ],
+  "position_write_migration": {
+    "old": "stage.boss.position=Vector2(saved.position[0],saved.position[1])",
+    "new": "encounter.restore_region_position(saved)",
+    "body": "motor.position = Vector2(data.position[0],data.position[1])",
+    "branch": "same App non-bind_duel branch after configure_arena/floor and before terminal combat restore",
+    "new_validation": false
+  }
+}

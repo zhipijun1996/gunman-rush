@@ -13,11 +13,51 @@ import json
 import re
 from pathlib import Path
 import sys
+import shutil
+import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from underworld_pipeline import ROOT, DEFAULT_MANIFEST, audit, canonical_mask
 import underworld_pipeline as pipeline
+
+
+class GameUiDiscoveryTests(unittest.TestCase):
+    def test_moved_game_ui_class_keeps_actual_theme_guard(self):
+        manifest = json.loads((ROOT/DEFAULT_MANIFEST).read_text())
+        ui_path = manifest['ui_manifest']
+        ui = json.loads((ROOT/ui_path).read_text())
+        source = pipeline.Audit(ROOT)
+        source.consumption(ui_path, manifest['consumers']['ui'], 'ui')
+        pipeline.audit_ui(source, ui)
+        self.assertTrue(source.result()['passed'], source.result())
+        paths = set(source.measurements['files'])
+        names = {name.split('.')[0] for name in ui['production_roots']} | {
+            'ItemCard', 'ItemAcquiredToast', 'DemoMenu', 'ItemPresentation',
+            'DemoUiModalShell', 'DemoClockworkTheme'}
+        for path in (p for folder in ('scripts','game','experiments') for p in (ROOT/folder).rglob('*.gd')):
+            match = re.search(r'^class_name\s+(\w+)', path.read_text(), re.MULTILINE)
+            if match and match.group(1) in names:
+                paths.add(path.relative_to(ROOT).as_posix())
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for name in paths:
+                target = root/name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT/name, target)
+            target = root/'game/ui/item_card.gd'
+            target.parent.mkdir(parents=True)
+            (root/'game/presentation/ui/item_card.gd').rename(target)
+            def inspect():
+                current = pipeline.Audit(root)
+                current.consumption(ui_path, manifest['consumers']['ui'], 'ui')
+                pipeline.audit_ui(current, ui)
+                return current.result()
+            result = inspect()
+            self.assertTrue(result['passed'], result)
+            target.write_text(target.read_text().replace('UnderworldUI', 'MissingTheme'))
+            failures = {item['code'] for item in inspect()['checks'] if not item['passed']}
+            self.assertIn('ui.root.ItemCard.actual_theme', failures)
 
 
 class UnderworldPipelineTest(unittest.TestCase):
@@ -75,7 +115,7 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('terrain', lambda v: v.update(mode='complete_47_tilemap'), 'terrain.honest_geometry_mode')
 
     def test_manifest_must_reach_runtime(self):
-        self.reject('terrain', lambda v: v.update(consumer_scripts=['scripts/art_foundation/pixel_formal_terrain.gd']), 'terrain.read_by_runtime')
+        self.reject('terrain', lambda v: v.update(consumer_scripts=['game/presentation/world/art_foundation/pixel_formal_terrain.gd']), 'terrain.read_by_runtime')
 
     def test_one_panorama_copied_three_times(self):
         def mutate(v):
@@ -197,7 +237,7 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('scenery', lambda v: v['decor']['local_composition']['painted_base'].update(description=''), 'local.painted_base.description')
 
     def test_local_architecture_actual_runtime_consumer_required(self):
-        self.reject('scenery', lambda v: v['decor']['local_composition'].update(consumer_script='scripts/art_foundation/pixel_formal_terrain.gd'), 'local.read_by_runtime')
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(consumer_script='game/presentation/world/art_foundation/pixel_formal_terrain.gd'), 'local.read_by_runtime')
 
     def test_local_architecture_no_bright_playable_rim(self):
         self.reject('scenery', lambda v: v['decor']['local_composition'].update(fog_highlight='ffffff'), 'local.fog_highlight.runtime_readability')
@@ -245,7 +285,7 @@ class UnderworldPipelineTest(unittest.TestCase):
     def test_new_sections_must_reach_real_json_consumers(self):
         for key in ['player_animation','mechanisms','home','ui']:
             with self.subTest(key=key):
-                self.reject_json(DEFAULT_MANIFEST,lambda v,k=key:v['consumers'].update({k:['scripts/art_foundation/pixel_formal_terrain.gd']}),key+'.read_by_runtime')
+                self.reject_json(DEFAULT_MANIFEST,lambda v,k=key:v['consumers'].update({k:['game/presentation/world/art_foundation/pixel_formal_terrain.gd']}),key+'.read_by_runtime')
 
     def test_consumer_png_is_rejected_as_non_script_without_crashing(self):
         self.reject_json(DEFAULT_MANIFEST,lambda v:v['consumers'].update(player_animation=['assets/underworld_plains/player_animation/run_sheet.png']),'player_animation.consumer.decode')
@@ -295,10 +335,10 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject_json('assets/underworld_plains/player_animation/recipe.json',lambda v:v['pages'][0]['frames'][0].update(pivot_x=0),'player.source_reconstruction.run_sheet.png')
 
     def test_player_missing_runtime_left_mirror_is_rejected(self):
-        self.reject_text('scripts/underworld_plains/underworld_player.gd','Vector2(facing,1.0)','Vector2.ONE','player.left_mirror')
+        self.reject_text('game/presentation/actors/underworld_plains/underworld_player.gd','Vector2(facing,1.0)','Vector2.ONE','player.left_mirror')
 
     def test_player_aim_must_not_replace_move_facing(self):
-        self.reject_text('scripts/underworld_plains/underworld_player.gd','facing = signf(motor.normal_velocity.x)','facing = signf(controller.router.aim_direction.x)','player.move_facing')
+        self.reject_text('game/presentation/actors/underworld_plains/underworld_player.gd','facing = signf(motor.normal_velocity.x)','facing = signf(controller.router.aim_direction.x)','player.move_facing')
 
     def test_mechanism_source_hash_required(self):
         self.reject('mechanisms',lambda v:v['carrier'].pop('source_sha256'),'mechanisms.carrier.source.sha256')
@@ -319,7 +359,7 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('mechanisms',lambda v:v['bell'].update(sampling='stretch independent axes'),'mechanisms.bell.aspect')
 
     def test_mechanism_runtime_aspect_cannot_be_an_unused_label(self):
-        self.reject_text('scripts/underworld_plains/underworld_terrain.gd','source * minf(','source * maxf(','mechanisms.runtime_bell_aspect')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_terrain.gd','source * minf(','source * maxf(','mechanisms.runtime_bell_aspect')
 
     def test_mechanism_generation_record_is_real(self):
         self.reject_json('assets/underworld_plains/mechanisms/generation_call.json',lambda v:v.update(prompt=''),'mechanisms.generation.prompt')
@@ -355,7 +395,7 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('home',lambda v:v.update(player_height_source='104px_guess'),'home.safe_shared_height')
 
     def test_home_actual_uniform_scale_code(self):
-        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','sprite.scale=Vector2.ONE*factor','sprite.scale=Vector2(2,1)*factor','home.runtime_uniform_aspect')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_home_world.gd','sprite.scale=Vector2.ONE*factor','sprite.scale=Vector2(2,1)*factor','home.runtime_uniform_aspect')
 
     def test_ui_generated_source_missing(self):
         self.reject_json('assets/underworld_plains/ui/provenance.json',lambda v:v.update(original='missing_ui_source.png'),'ui.generated_original.exists')
@@ -391,10 +431,10 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('ui',lambda v:v['production_roots'].__setitem__(0,'NonexistentMenu'),'ui.root.NonexistentMenu.actual_theme')
 
     def test_ui_aspect_is_actual_code(self):
-        self.reject_text('scripts/ui/item_card.gd','STRETCH_KEEP_ASPECT_CENTERED','STRETCH_SCALE','ui.aspect.ItemCard')
+        self.reject_text('game/presentation/ui/item_card.gd','STRETCH_KEEP_ASPECT_CENTERED','STRETCH_SCALE','ui.aspect.ItemCard')
 
     def test_ui_real_item_source_dispatch(self):
-        self.reject_text('scripts/ui/item_presentation.gd','return UnderworldUI.icon(key)','return null','ui.actual_item_dispatch')
+        self.reject_text('game/presentation/ui/item_presentation.gd','return UnderworldUI.icon(key)','return null','ui.actual_item_dispatch')
 
     def test_actual_entry_inventory_is_not_empty(self):
         self.reject_json(DEFAULT_MANIFEST,lambda v:v.update(runtime_entries=[]),'production.runtime_entries')
@@ -430,12 +470,16 @@ class UnderworldPipelineTest(unittest.TestCase):
             self.assertEqual(hashlib.sha256(data).hexdigest(), fingerprint)
             self.assertEqual(entries[name]['sha256'], fingerprint)
             self.assertEqual(entries[name]['bytes'], len(data))
-        return (ROOT / entries[path]['fixture_path']).read_text()
+        original_path = {
+            'game/world/levels/providers/plains_region_stage.gd': 'scripts/demo/plains_region_stage.gd',
+            'game/presentation/world/underworld_plains/underworld_objects.gd': 'scripts/underworld_plains/underworld_objects.gd',
+        }.get(path, path)
+        return (ROOT / entries[original_path]['fixture_path']).read_text()
 
     def legacy_chest_result(self, source):
         # Retest the original finite gate only. This is explicitly historical,
         # not an audit/pass of the new production path or generated source04.
-        original = self.legacy_chest_source('scripts/demo/plains_region_stage.gd')
+        original = self.legacy_chest_source('game/world/levels/providers/plains_region_stage.gd')
         self.assertTrue(pipeline.legacy_chest_alpha_isolated(original))
         result = pipeline.Audit(ROOT)
         result.check(pipeline.legacy_chest_alpha_isolated(source), 'objects.no_grey_claimed', 'Frozen pre-tier historical capture consumer only')
@@ -448,24 +492,273 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.assertFalse(result['passed'])
         self.assertIn(expected, {item['code'] for item in result['checks'] if not item['passed']})
 
+    def current_claim_sources(self):
+        return {key: (ROOT/path).read_text() for key, path in pipeline.CHEST_CLAIM_SOURCES.items()}
+
     def current_chest_sources(self):
-        return ((ROOT / 'scripts/underworld_plains/underworld_objects.gd').read_text(),
-                (ROOT / 'scripts/demo/plains_region_stage.gd').read_text(),
-                (ROOT / pipeline.CHEST_LIBRARY).read_text())
+        return ((ROOT / 'game/presentation/world/underworld_plains/underworld_objects.gd').read_text(),
+                (ROOT / 'game/world/levels/providers/plains_region_stage.gd').read_text(),
+                (ROOT / pipeline.CHEST_LIBRARY).read_text(),
+                (ROOT / pipeline.CHEST_RUNTIME).read_text())
+
+    def reject_claim_owner_change(self, key, old, new):
+        objects, stage, library, runtime = self.current_chest_sources()
+        sources = self.current_claim_sources()
+        self.assertTrue(pipeline.current_chest_dispatch(objects, stage, library,
+            'assets/underworld_plains/objects/opened_chest.png', runtime, claim_sources=sources))
+        original = stage if key == 'stage' else sources[key]
+        self.assertIn(old, original)
+        changed = original.replace(old, new, 1)
+        self.assertNotEqual(original, changed)
+        if key == 'stage':
+            stage = changed
+        else:
+            sources[key] = changed
+        self.assertFalse(pipeline.current_chest_dispatch(objects, stage, library,
+            'assets/underworld_plains/objects/opened_chest.png', runtime, claim_sources=sources))
+
+    def test_claim_owner_context_is_complete_actual_source(self):
+        objects, stage, library, runtime = self.current_chest_sources()
+        source = self.current_claim_sources()
+        for broken in [None, {}, dict(source, unexpected='not a source'),
+                       *[{k: v for k, v in source.items() if k != missing} for missing in source],
+                       *[dict(source, **{k: ''}) for k in source],
+                       *[dict(source, **{k: 1}) for k in source]]:
+            with self.subTest(context=broken):
+                self.assertTrue(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=source))
+                self.assertFalse(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=broken))
+
+    def test_claim_owner_short_bodies_preserve_fields_order_and_condition(self):
+        mutations = [
+            ('generated', 'coins_collected += amount', 'coins_collected += amount + 1'),
+            ('generated', 'pickup.claimed_position=pickup.position', 'pickup.claimed_position=Vector2.ZERO'),
+            ('generated', 'pickup.claimed_at=clock', 'pickup.claimed_at=0'),
+            ('generated', 'if record_region_claim: _record_claim(pickup.id)', '_record_claim(pickup.id)'),
+            ('generated', 'if record_region_claim: _record_claim(pickup.id)', 'if self is PlainsRegionStage: _record_claim(pickup.id)'),
+            ('generated', 'func _record_claim(_id: Variant) -> void:\n\tpass', 'func _record_claim(_id: Variant) -> void:\n\tcoins_collected += 1'),
+            ('generated', 'func persist_pickup_motion() -> void:\n\t_persist_pickup_motion()', 'func persist_pickup_motion() -> void:\n\tpass'),
+            ('stage', 'region_state.claimed[id] = true', 'region_state.claimed[id] = false'),
+            ('stage', 'region_state.claimed[id] = true', 'region_state.claimed[id] = true\n\tregion_state.claimed.clear()'),
+            ('stage', 'chest.claimed = true\n\t_record_claim(chest.id)', '_record_claim(chest.id)\n\tchest.claimed = true'),
+            ('stage', '_record_claim(chest.id)\n\t_after_cache_claim()', '_after_cache_claim()\n\t_record_claim(chest.id)'),
+            ('stage', '_record_claim(chest.id)', '_record_claim(chest.tier)'),
+            ('stage', 'var region_state: PlainsRegionState', 'var region_state: Dictionary'),
+            ('forest', '(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()', '(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()\n\tregion_state.claimed.clear()'),
+            ('forest', '(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()', 'pass'),
+            ('forest', 'func _after_cache_claim() -> void:\n\tresolve_reward_shortcuts()', 'func _after_cache_claim() -> void:\n\tpass'),
+            ('forest', 'extends PlainsRegionStage', 'extends GeneratedDemoStage'),
+        ]
+        for key, old, new in mutations:
+            with self.subTest(key=key, new=new):
+                self.reject_claim_owner_change(key, old, new)
+
+    def test_claim_owner_functions_are_unique_live_definitions(self):
+        sources = self.current_claim_sources()
+        sources['stage'] = self.current_chest_sources()[1]
+        for key, functions in pipeline.CHEST_OWNER_FUNCTIONS.items():
+            for name in functions:
+                block = pipeline.chest_function(sources[key], name)
+                for replacement in ['', block.replace('func '+name+'(', 'func fake_'+name+'(', 1),
+                                    block+block, 'var fake_owner = """\n'+block+'"""\n']:
+                    with self.subTest(owner=key, name=name, replacement=replacement):
+                        self.reject_claim_owner_change(key, block, replacement)
+
+    def test_claim_owner_real_calls_cannot_be_missing_dead_or_duplicated(self):
+        for line in ['\t\trandom_stage.record_collected_coins(pickup.amount)',
+                     '\trandom_stage.commit_pickup_claim(pickup, connected_region)',
+                     '\trandom_stage.persist_pickup_motion()', '\trs.commit_cache_claim(chest)']:
+            indent = line[:len(line)-len(line.lstrip())]
+            for replacement in ['', line+'\n'+line,
+                                indent+'var fake_call = """\n'+line+'\n'+indent+'"""',
+                                line.replace('.', '.fake_', 1)]:
+                with self.subTest(call=line, replacement=replacement):
+                    self.reject_claim_owner_change('app', line, replacement)
+        line = '\trandom_stage.commit_pickup_claim(pickup, connected_region)'
+        self.reject_claim_owner_change('app', line, '')
+        app = self.current_claim_sources()['app']
+        moved = app.replace(line, '', 1)+'\nfunc unused_claim() -> void:\n'+line+'\n'
+        objects, stage, library, runtime = self.current_chest_sources()
+        context = self.current_claim_sources()
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=context))
+        context['app'] = moved
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=context))
+
+    def test_claim_owner_coin_count_only_follows_successful_coin_grant(self):
+        coin = '\tif pickup.kind == "coin":\n\t\tif not wallet.grant(pickup.amount, receipt_id):\n\t\t\treturn false\n\t\trandom_stage.record_collected_coins(pickup.amount)'
+        changes = [coin.replace('if not wallet.grant', 'if wallet.grant'),
+                   coin.replace('\t\trandom_stage.record_collected_coins(pickup.amount)', '\t\t\trandom_stage.record_collected_coins(pickup.amount)'),
+                   '\tif pickup.kind == "coin":\n\t\trandom_stage.record_collected_coins(pickup.amount)\n\t\tif not wallet.grant(pickup.amount, receipt_id):\n\t\t\treturn false']
+        for changed in changes:
+            with self.subTest(branch=changed):
+                self.reject_claim_owner_change('app', coin, changed)
+        old = coin+'\n\telif pickup.kind == "heart":'
+        new = coin.replace('\n\t\trandom_stage.record_collected_coins(pickup.amount)', '')+'\n\telif pickup.kind == "heart":\n\t\trandom_stage.record_collected_coins(pickup.amount)'
+        self.reject_claim_owner_change('app', old, new)
+
+    def test_claim_owner_pickup_order_and_indent_are_actual(self):
+        app = self.current_claim_sources()['app']
+        claim = '\trandom_stage.commit_pickup_claim(pickup, connected_region)'
+        audio = next(line for line in pipeline.chest_body_lines(pipeline.chest_function(app, '_commit_pickup')) if line.startswith('\tGameAudio.cue('))
+        persist = '\trandom_stage.persist_pickup_motion()'
+        manifest = next(line for line in pipeline.chest_body_lines(pipeline.chest_function(app, '_commit_pickup')) if line.startswith('\tdirector.manifest.record_output('))
+        changes = [(claim, claim.replace('connected_region', 'true')),
+                   (claim, claim.replace('random_stage.', 'stage.')),
+                   (claim, '\treturn false\n'+claim),
+                   (claim, '\tif false:\n\t'+claim),
+                   (claim+'\n'+audio, audio+'\n'+claim),
+                   (persist, '\t'+persist),
+                   (persist+'\n'+manifest, manifest+'\n'+persist)]
+        for old, new in changes:
+            with self.subTest(new=new):
+                self.reject_claim_owner_change('app', old, new)
+        feedback = '\tif feedback != null:\n\t\tif pickup.kind=="heart":feedback.healing_received(healed_amount)\n\t\telse:feedback.reward_received(random_stage.to_global(pickup.position), pickup.kind == "note")'
+        self.reject_claim_owner_change('app', feedback+'\n'+persist, persist+'\n'+feedback)
+
+    def test_claim_owner_cache_order_and_receiver_are_actual(self):
+        app = self.current_claim_sources()['app']
+        claim = '\trs.commit_cache_claim(chest)'
+        lines = pipeline.chest_body_lines(pipeline.chest_function(app, '_claim_region_chest'))
+        status = next(line for line in lines if line.startswith('\t_status="CACHE CLAIMED'))
+        manifest = next(line for line in lines if line.startswith('\tdirector.manifest.record_output'))
+        for old, new in [(claim, claim.replace('rs.', 'stage.')), (claim, claim.replace('(chest)', '(chest.duplicate())')),
+                         (status+'\n'+claim, claim+'\n'+status), (claim+'\n'+manifest, manifest+'\n'+claim),
+                         (claim, '\tif false:\n\t'+claim), (claim, '\treturn false\n'+claim)]:
+            with self.subTest(new=new):
+                self.reject_claim_owner_change('app', old, new)
+
+    def test_claim_owner_no_extra_external_private_hooks_or_reflection(self):
+        base = self.current_claim_sources()
+        base['stage'] = self.current_chest_sources()[1]
+        for key in base:
+            for extra in ['\nfunc fake_claim_owner() -> void:\n\t_record_claim("fake")\n',
+                          '\nfunc fake_claim_owner() -> void:\n\t_after_cache_claim()\n',
+                          '\nvar alias_claim = commit_cache_claim\n',
+                          '\nfunc fake_claim_owner() -> void:\n\tcall("commit_cache_claim", {})\n']:
+                with self.subTest(key=key, extra=extra):
+                    self.reject_claim_owner_change(key, base[key], base[key]+extra)
+        self.reject_claim_owner_change('forest', base['forest'], base['forest']+'\nfunc _record_claim(id: Variant) -> void:\n\tregion_state.claimed[id] = true\n')
+        self.reject_claim_owner_change('app', '\trandom_stage.persist_pickup_motion()', '\trandom_stage._persist_pickup_motion()')
+
+    def test_claim_owner_other_stage_writes_are_still_rejected(self):
+        stage = self.current_chest_sources()[1]
+        for statement in ['chest.claimed = true', 'c["claimed"] = true', 'region_state.claimed[c.id] = true']:
+            with self.subTest(write=statement):
+                self.reject_claim_owner_change('stage', stage, stage+'\nfunc another_real_function() -> void:\n\t'+statement+'\n')
+
+    def reject_claim_function_change(self, name, old, new):
+        app = self.current_claim_sources()['app']
+        body = pipeline.chest_function(app, name)
+        self.assertTrue(body)
+        self.assertEqual(app.count(body), 1)
+        self.assertIn(old, body)
+        self.reject_claim_owner_change('app', body, body.replace(old, new, 1))
+
+    def test_claim_owner_borrows_exact_array_rows_without_copy(self):
+        # These two real counterexamples passed the first reviewed guard.
+        for name, old in [('_commit_pickup', 'var pickup: Dictionary = random_stage.pickups[index]'),
+                          ('_claim_region_chest', 'var chest: Dictionary = rs.chests[_region_chest]')]:
+            for suffix in ['.duplicate()', '.duplicate(true)']:
+                with self.subTest(row=old, suffix=suffix):
+                    self.reject_claim_function_change(name, old, old+suffix)
+        self.reject_claim_function_change('_commit_pickup', 'random_stage.pickups[index]', 'random_stage.pickups[index+1]')
+        self.reject_claim_function_change('_claim_region_chest', 'rs.chests[_region_chest]', 'rs.chests[_region_chest+1]')
+
+    def test_claim_owner_actual_receiver_and_rows_cannot_rebind(self):
+        # Each mutation starts from the complete passing P10 source context.
+        for name, declaration, assignment in [
+                ('_claim_region_chest', 'var rs := stage as PlainsRegionStage', 'rs = PlainsRegionStage.new()'),
+                ('_commit_pickup', 'var random_stage := stage as GeneratedDemoStage', 'random_stage = GeneratedDemoStage.new()'),
+                ('_commit_pickup', 'var pickup: Dictionary = random_stage.pickups[index]', 'pickup = pickup.duplicate()'),
+                ('_claim_region_chest', 'var chest: Dictionary = rs.chests[_region_chest]', 'chest = chest.duplicate()')]:
+            with self.subTest(rebind=assignment):
+                self.reject_claim_function_change(name, declaration, declaration+'\n\t'+assignment)
+        declaration = 'var pickup: Dictionary = random_stage.pickups[index]'
+        for statement in ['var pickup: Dictionary = {}',
+                          'if true: pickup = {}',
+                          'var marker = 0; pickup = {}',
+                          'for pickup in []:\n\t\tpass']:
+            with self.subTest(shadow=statement):
+                self.reject_claim_function_change('_commit_pickup', declaration, declaration+'\n\t'+statement)
+        objects, stage, library, runtime = self.current_chest_sources()
+        sources = self.current_claim_sources()
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=sources))
+        # An assignment-shaped string is not a reassignment of the local.
+        old = '_status = "NOTES SAVE FAILED / " + str(receipt.reason)'
+        self.assertIn(old, sources['app'])
+        sources['app'] = sources['app'].replace(old, '_status = "pickup = detached; rs = detached" + str(receipt.reason)', 1)
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=sources))
+
+    def test_claim_owner_borrowed_declarations_follow_actual_casts(self):
+        app = self.current_claim_sources()['app']
+        for name, cast, borrowed in [
+                ('_commit_pickup', '\tvar random_stage := stage as GeneratedDemoStage', '\tvar pickup: Dictionary = random_stage.pickups[index]'),
+                ('_claim_region_chest', '\tvar rs := stage as PlainsRegionStage', '\tvar chest: Dictionary = rs.chests[_region_chest]')]:
+            block = pipeline.chest_function(app, name)
+            self.assertIn(cast, block)
+            self.assertIn(borrowed, block)
+            changed = block.replace(borrowed+'\n', '', 1).replace(cast, borrowed+'\n'+cast, 1)
+            with self.subTest(function=name):
+                self.reject_claim_owner_change('app', block, changed)
+
+    def test_claim_owner_does_not_freeze_whole_app_transaction_text(self):
+        # This gate owns P10 call relationships, not unrelated note error copy.
+        objects, stage, library, runtime = self.current_chest_sources()
+        sources = self.current_claim_sources()
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=sources))
+        old = '_status = "NOTES SAVE FAILED / " + str(receipt.reason)'
+        self.assertIn(old, sources['app'])
+        sources['app'] = sources['app'].replace(old, '_status = "NOTES SAVE FAILED / Retry / " + str(receipt.reason)', 1)
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage, runtime, claim_sources=sources))
 
     def test_objects_current_tier_dispatch_is_actual_and_legacy_is_frozen(self):
-        objects, stage, library = self.current_chest_sources()
-        self.assertTrue(pipeline.current_chest_dispatch(objects,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
-        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage))
-        old = self.legacy_chest_source('scripts/demo/plains_region_stage.gd')
+        objects, stage, library, runtime = self.current_chest_sources()
+        self.assertTrue(pipeline.current_chest_dispatch(objects,stage,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage,runtime,claim_sources=self.current_claim_sources()))
+        old = self.legacy_chest_source('game/world/levels/providers/plains_region_stage.gd')
         self.assertTrue(pipeline.legacy_chest_alpha_isolated(old))
-        self.assertFalse(pipeline.formal_chest_alpha_isolated(old))
-        old_objects = self.legacy_chest_source('scripts/underworld_plains/underworld_objects.gd')
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(old,claim_sources=self.current_claim_sources()))
+        old_objects = self.legacy_chest_source('game/presentation/world/underworld_plains/underworld_objects.gd')
         self.assertNotEqual(old_objects, objects)
         self.assertIn('OPEN_CHEST if claimed else CLOSED_CHEST', old_objects)
 
+    def test_shared_restore_checks_real_helper_body_and_actual_stage_call(self):
+        objects, stage, library, runtime = self.current_chest_sources()
+        self.assertIn(pipeline.CHEST_RESTORE_CALL, stage)
+        self.assertIn(pipeline.CHEST_RESTORE, runtime)
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage,runtime,claim_sources=self.current_claim_sources()))
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(stage,claim_sources=self.current_claim_sources()))
+        for before,after in [('row.duplicate(true)','row.duplicate(false)'),
+                             ('claims.has(chest.id)','false'), ('claims.has(chest.id)','claims.has(row.tier)'),
+                             ('result.append(chest)','result.append(row)'),
+                             ('return result','claims.clear()\n\treturn result')]:
+            with self.subTest(helper=after):
+                self.assertIn(before,pipeline.CHEST_RESTORE)
+                changed=runtime.replace(pipeline.CHEST_RESTORE,pipeline.CHEST_RESTORE.replace(before,after))
+                self.assertFalse(pipeline.formal_chest_alpha_isolated(stage,changed,claim_sources=self.current_claim_sources()))
+        for replacement in ('', '\tvar dead = """'+pipeline.CHEST_RESTORE_CALL+'"""\n',
+                            pipeline.CHEST_RESTORE_CALL*2,
+                            pipeline.CHEST_RESTORE_CALL.replace('region_state.claimed','{}'),
+                            pipeline.CHEST_RESTORE_CALL+'\tchests.clear()\n',
+                            pipeline.CHEST_RESTORE_CALL+'\tchests[0].claimed=true\n'):
+            with self.subTest(call=replacement):
+                self.assertFalse(pipeline.formal_chest_alpha_isolated(stage.replace(pipeline.CHEST_RESTORE_CALL,replacement),runtime,claim_sources=self.current_claim_sources()))
+        moved=stage.replace(pipeline.CHEST_RESTORE_CALL,'')+'\nfunc unused_restore() -> void:\n'+pipeline.CHEST_RESTORE_CALL
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(moved,runtime,claim_sources=self.current_claim_sources()))
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(stage,runtime+'\n'+pipeline.CHEST_RESTORE,claim_sources=self.current_claim_sources()))
+        dead='var fake = """\n'+pipeline.CHEST_RESTORE+'"""\n'
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(stage,runtime.replace(pipeline.CHEST_RESTORE,dead),claim_sources=self.current_claim_sources()))
+        self.reject_text(pipeline.CHEST_RUNTIME,'chest.claimed=claims.has(chest.id)','chest.claimed=false','objects.actual_dispatch')
+
+    def test_original_inline_restore_contract_keeps_its_ledger_rejection(self):
+        # Shape fixture for the retained inline contract, not native execution.
+        objects, stage, library, runtime = self.current_chest_sources()
+        inline=stage.replace(pipeline.CHEST_RESTORE_CALL,pipeline.CHEST_INITIALIZATION)
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(inline,claim_sources=self.current_claim_sources()))
+        self.assertTrue(pipeline.current_chest_dispatch(objects,inline,library,'assets/underworld_plains/objects/opened_chest.png',claim_sources=self.current_claim_sources()))
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(inline.replace('chest.claimed = region_state.claimed.has(chest.id)','chest.claimed = false'),claim_sources=self.current_claim_sources()))
+
     def test_objects_current_dispatch_rejects_wrong_actual_tier_claim_and_foot(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         for old, new in [('StringName(str(c.tier))','&"medium"'),
                          ('bool(c.claimed)','false'),
                          ('c.position+Vector2(0,21)','c.position+Vector2(0,22)'),
@@ -476,33 +769,33 @@ class UnderworldPipelineTest(unittest.TestCase):
                     self.assertEqual(len(points),2)
                     at = points[index]
                     changed = stage[:at]+new+stage[at+len(old):]
-                    self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+                    self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_current_dispatch_rejects_duplicates_aliases_and_reflection(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         for extra in ('\nfunc extra_chest() -> void:\n\tUnderworldObjects.place_chest(null,Vector2.ZERO,false,&"medium")\n',
                       '\nvar alias = UnderworldObjects.place_chest\n',
                       '\nfunc reflect() -> void:\n\tUnderworldObjects.call("place_chest",null,Vector2.ZERO,false,&"medium")\n'):
             with self.subTest(extra=extra):
-                self.assertFalse(pipeline.current_chest_dispatch(objects,stage+extra,library,'assets/underworld_plains/objects/opened_chest.png'))
-        self.assertFalse(pipeline.current_chest_dispatch(objects+'\n'+pipeline.CHEST_DISPATCH,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+                self.assertFalse(pipeline.current_chest_dispatch(objects,stage+extra,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
+        self.assertFalse(pipeline.current_chest_dispatch(objects+'\n'+pipeline.CHEST_DISPATCH,stage,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_current_dispatch_cannot_move_or_hide_as_dead_string(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         for block in [pipeline.CHEST_READY,pipeline.CHEST_CAPTURE]:
             self.assertIn(block,stage)
             for replacement in ('', '\tvar dead = """\n'+block+'\t"""\n'):
                 with self.subTest(block=block,replacement=replacement):
                     changed = stage.replace(block,replacement,1)
                     changed += '\nfunc unrelated() -> void:\n'+block
-                    self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+                    self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_current_stage_rejects_literal_fake_function_headers(self):
         # Independent review's real counterexample: the whole-source call count
         # was masked, but the old extractor could choose a fake literal header.
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         wrong = stage.replace(pipeline.CHEST_INITIALIZATION,'',1).replace('StringName(str(c.tier))','&"medium"')
-        self.assertFalse(pipeline.current_chest_dispatch(objects,wrong,library,'assets/underworld_plains/objects/opened_chest.png'))
+        self.assertFalse(pipeline.current_chest_dispatch(objects,wrong,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
         for quote in ['"""', "'''"]:
             with self.subTest(quote=quote):
                 dead = ('var _dead_chest_guard = '+quote+'\nfunc _ready() -> void:\n'+
@@ -512,13 +805,13 @@ class UnderworldPipelineTest(unittest.TestCase):
                 changed = wrong[:at]+dead+'\n'+wrong[at:]
                 self.assertEqual(pipeline.chest_function(changed,'_ready'),pipeline.chest_function(wrong,'_ready'))
                 self.assertEqual(pipeline.chest_function(changed,'capture_state'),pipeline.chest_function(wrong,'capture_state'))
-                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_current_dispatch_rejects_literal_fake_function_boundary(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         wrong = objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)',
                                 'ChestArtLibrary.place_sprite(sprite,foot,tier,false)')
-        self.assertFalse(pipeline.current_chest_dispatch(wrong,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+        self.assertFalse(pipeline.current_chest_dispatch(wrong,stage,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
         for quote in ['"""', "'''"]:
             with self.subTest(quote=quote):
                 dead = ('var _dead_dispatch = '+quote+'\n'+pipeline.CHEST_DISPATCH+
@@ -526,27 +819,28 @@ class UnderworldPipelineTest(unittest.TestCase):
                 at = wrong.index('static func place_chest(')
                 changed = wrong[:at]+dead+'\n'+wrong[at:]
                 self.assertEqual(pipeline.chest_function(changed,'place_chest'),pipeline.chest_function(wrong,'place_chest'))
-                self.assertFalse(pipeline.current_chest_dispatch(changed,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+                self.assertFalse(pipeline.current_chest_dispatch(changed,stage,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_current_dispatch_rejects_gray_alpha_and_position_overrides(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         for extra in ['(c.sprite as Sprite2D).modulate.a=0.35', '(c.sprite as Sprite2D).modulate . a *=0.35',
                       '(c.sprite as Sprite2D).modulate.a += -0.65', '(c.sprite as Sprite2D).modulate=Color.GRAY',
                       '(c.sprite as Sprite2D).position += Vector2(0,1)', 'c.position=Vector2.ZERO']:
             with self.subTest(extra=extra):
                 changed = stage.replace(pipeline.CHEST_CAPTURE,pipeline.CHEST_CAPTURE+'\t\t\t'+extra+'\n')
-                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_current_dispatch_cannot_manufacture_claimed_state(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         for extra in ['c.claimed=true', 'c["claimed"]=true', 'region_state.claimed[c.id]=true', 'chest.claimed=true']:
             with self.subTest(extra=extra):
                 changed = stage+'\nfunc fake_claim() -> void:\n\t'+extra+'\n'
-                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
-        self.assertFalse(pipeline.current_chest_dispatch(objects,stage.replace('chest.claimed = region_state.claimed.has(chest.id)','chest.claimed = false'),library,'assets/underworld_plains/objects/opened_chest.png'))
+                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
+        self.assertIn('chest.claimed=claims.has(chest.id)',runtime)
+        self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime.replace('chest.claimed=claims.has(chest.id)','chest.claimed=false'),claim_sources=self.current_claim_sources()))
 
     def test_objects_current_library_white_atlas_and_readonly_dispatch_are_bound(self):
-        objects, stage, library = self.current_chest_sources()
+        objects, stage, library, runtime = self.current_chest_sources()
         for old,new in [('sprite.modulate = Color.WHITE','sprite.modulate = Color.GRAY'),
                         ('sprite.position = foot','sprite.position = foot+Vector2(0,1)'),
                         ('"open" if claimed else "closed"','"closed" if claimed else "open"'),
@@ -554,9 +848,9 @@ class UnderworldPipelineTest(unittest.TestCase):
                         ('sprite.texture = texture(tier,claimed)','sprite.texture = null')]:
             with self.subTest(old=old):
                 self.assertIn(old,library)
-                self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library.replace(old,new),'assets/underworld_plains/objects/opened_chest.png'))
-        self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library+'\n# unreviewed loader change\n','assets/underworld_plains/objects/opened_chest.png'))
-        self.assertFalse(pipeline.current_chest_dispatch(objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)','ChestArtLibrary.place_sprite(sprite,foot,tier,false)'),stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+                self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library.replace(old,new),'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
+        self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library+'\n# unreviewed loader change\n','assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
+        self.assertFalse(pipeline.current_chest_dispatch(objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)','ChestArtLibrary.place_sprite(sprite,foot,tier,false)'),stage,library,'assets/underworld_plains/objects/opened_chest.png',cache_source=runtime,claim_sources=self.current_claim_sources()))
 
     def test_objects_raw_generation_hash(self):
         self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['generation'].update(source_sha256='0'*64),'objects.original.sha256')
@@ -568,27 +862,27 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['opened_chest'].update(crop=[241,300,1272,977]),'objects.whole_pose')
 
     def test_objects_runtime_requires_the_actual_open_pose(self):
-        self.reject_text('scripts/underworld_plains/underworld_objects.gd','OPEN_CHEST if claimed else CLOSED_CHEST','CLOSED_CHEST if claimed else CLOSED_CHEST','objects.actual_dispatch')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_objects.gd','OPEN_CHEST if claimed else CLOSED_CHEST','CLOSED_CHEST if claimed else CLOSED_CHEST','objects.actual_dispatch')
 
     def test_objects_legacy_alpha_cannot_move_into_formal_branch(self):
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd',
                          '\t\t\telse:\n\t\t\t\tUnderworldObjects.place_chest',
                          '\t\t\telse:\n\t\t\t\t(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0\n\t\t\t\tUnderworldObjects.place_chest',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_guard_cannot_invert(self):
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd',
                          '\t\t\tif generated.has("regional_art_plan"):',
                          '\t\t\tif not generated.has("regional_art_plan"):',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_guard_cannot_disappear(self):
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd',
                          '\t\t\tif generated.has("regional_art_plan"):\n',
                          '', 'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_cannot_leave_capture_consumer(self):
-        path = 'scripts/demo/plains_region_stage.gd'
+        path = 'game/world/levels/providers/plains_region_stage.gd'
         source = self.legacy_chest_source(path)
         start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
         end = source.index('\tfor p: Dictionary in pickups:', start)
@@ -600,30 +894,30 @@ class UnderworldPipelineTest(unittest.TestCase):
 
     def test_objects_duplicate_legacy_alpha_is_rejected(self):
         call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd',
                          call, call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate . a = 0.8 if c.claimed else 1.0',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_value_cannot_change(self):
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd',
                          '.modulate.a=0.35 if c.claimed',
                          '.modulate.a=0.9 if c.claimed',
                          'objects.no_grey_claimed')
 
     def test_objects_formal_alpha_multiply_is_rejected(self):
         call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd', call,
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd', call,
                          call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a *= 0.35 if c.claimed else 1.0',
                          'objects.no_grey_claimed')
 
     def test_objects_formal_alpha_addition_is_rejected(self):
         call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
-        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd', call,
+        self.reject_legacy_alpha('game/world/levels/providers/plains_region_stage.gd', call,
                          call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a += -0.65 if c.claimed else 0.0',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_block_cannot_duplicate(self):
-        path = 'scripts/demo/plains_region_stage.gd'
+        path = 'game/world/levels/providers/plains_region_stage.gd'
         source = self.legacy_chest_source(path)
         start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
         end = source.index('\tfor p: Dictionary in pickups:', start)
@@ -664,13 +958,13 @@ class UnderworldPipelineTest(unittest.TestCase):
                     self.reject_text(path,(ROOT/path).read_text(),value,f'background.{index}.generation_record.prompt')
 
     def test_selected_loaders_require_actual_paths(self):
-        self.reject_text('scripts/underworld_plains/underworld_hazard_tiles.gd','res://assets/underworld_plains/hazards/hazard_fine_build.json','res://assets/underworld_plains/hazards/hazard_build.json','hazards.read_by_runtime')
-        self.reject_text('scripts/underworld_plains/underworld_terrain.gd','res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json','res://assets/underworld_plains/mechanisms/mechanisms_build.json','mechanisms.read_by_runtime')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_hazard_tiles.gd','res://assets/underworld_plains/hazards/hazard_fine_build.json','res://assets/underworld_plains/hazards/hazard_build.json','hazards.read_by_runtime')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_terrain.gd','res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json','res://assets/underworld_plains/mechanisms/mechanisms_build.json','mechanisms.read_by_runtime')
 
     def test_selected_loaders_cannot_be_a_comment_or_other_function(self):
         for path,expression,key in [
-            ('scripts/underworld_plains/underworld_hazard_tiles.gd','JSON.parse_string(FileAccess.get_file_as_string(SPEC_PATH))','hazards'),
-            ('scripts/underworld_plains/underworld_terrain.gd','JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json"))','mechanisms')]:
+            ('game/presentation/world/underworld_plains/underworld_hazard_tiles.gd','JSON.parse_string(FileAccess.get_file_as_string(SPEC_PATH))','hazards'),
+            ('game/presentation/world/underworld_plains/underworld_terrain.gd','JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json"))','mechanisms')]:
             with self.subTest(key=key):
                 source=(ROOT/path).read_text()
                 self.assertIn(expression,source)
@@ -703,30 +997,30 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject_text('tools/build_formal_fine.gd','image.resize(192,22,Image.INTERPOLATE_NEAREST)','image.resize(192,22,Image.INTERPOLATE_BILINEAR)','mechanisms.selected.builder_nearest')
 
     def test_home_actual_grounding_call_required(self):
-        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','sprite.position=CONTACT.origin(root,Vector2(foot[0],foot[1]),factor,contact_depth)','sprite.position=CONTACT.origin(Vector2.ZERO,Vector2(foot[0],foot[1]),factor,contact_depth)','home.actual_asset_slots')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_home_world.gd','sprite.position=CONTACT.origin(root,Vector2(foot[0],foot[1]),factor,contact_depth)','sprite.position=CONTACT.origin(Vector2.ZERO,Vector2(foot[0],foot[1]),factor,contact_depth)','home.actual_asset_slots')
 
     def test_home_shared_grounding_must_retain_source_foot(self):
-        self.reject_text('scripts/underworld_plains/grounded_contact.gd','foot+Vector2(0,inset)-source_foot*scale_value','foot+Vector2(0,inset)+source_foot*scale_value','home.actual_asset_slots')
+        self.reject_text('game/presentation/world/underworld_plains/grounded_contact.gd','foot+Vector2(0,inset)-source_foot*scale_value','foot+Vector2(0,inset)+source_foot*scale_value','home.actual_asset_slots')
 
     def test_home_real_slot_loop_cannot_be_disconnected(self):
-        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','\t\t_build_slot(entry)','\t\tpass','home.actual_asset_slots')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_home_world.gd','\t\t_build_slot(entry)','\t\tpass','home.actual_asset_slots')
 
     def test_ui_modal_root_requires_actual_shell_install(self):
         for path,name in [('item_shop_modal.gd','ItemShopModal'),('stage_reward_modal.gd','StageRewardModal'),('stage_exit_modal.gd','StageExitModal')]:
             with self.subTest(name=name):
-                self.reject_text('scripts/ui/'+path,'_shell = DemoUiModalShell.new()','_shell = Control.new()','ui.root.'+name+'.actual_theme')
+                self.reject_text('game/presentation/ui/'+path,'_shell = DemoUiModalShell.new()','_shell = Control.new()','ui.root.'+name+'.actual_theme')
 
     def test_ui_shell_requires_real_ready_theme_injection(self):
-        path='scripts/ui/demo_ui_01/modal_shell.gd';source=(ROOT/path).read_text()
+        path='game/presentation/ui/demo_ui_01/modal_shell.gd';source=(ROOT/path).read_text()
         result=audit(text_overrides={path:source.replace('theme = DemoClockworkTheme.create_theme()','theme = null')})
         failures={c['code'] for c in result['checks'] if not c['passed']}
         self.assertTrue({'ui.root.'+name+'.actual_theme' for name in ['ItemShopModal','StageRewardModal','StageExitModal']}<=failures)
 
     def test_ui_map_requires_actual_control_theme_assignment(self):
-        self.reject_text('scripts/ui/plains_region_map_modal.gd','_root.theme = DemoClockworkTheme.create_theme()','_root.theme = null','ui.root.PlainsRegionMapModal.actual_theme')
+        self.reject_text('game/presentation/ui/plains_region_map_modal.gd','_root.theme = DemoClockworkTheme.create_theme()','_root.theme = null','ui.root.PlainsRegionMapModal.actual_theme')
 
     def test_ui_theme_factory_cannot_only_be_a_name(self):
-        self.reject_text('scripts/ui/demo_ui_01/clockwork_theme.gd','result.default_font = FONT','result.default_font = null','ui.root.PlainsRegionMapModal.actual_theme')
+        self.reject_text('game/presentation/ui/demo_ui_01/clockwork_theme.gd','result.default_font = FONT','result.default_font = null','ui.root.PlainsRegionMapModal.actual_theme')
 
     def test_selected_fine_hazard_root_and_tip_dimensions_required(self):
         for values in [{'embedded_root_px':0},{'external_depth_px':0},{'embedded_root_px':9}]:
@@ -751,16 +1045,16 @@ class UnderworldPipelineTest(unittest.TestCase):
                 self.assertIn('hazards.selected.material_continuity',{c['code'] for c in result['checks'] if not c['passed']})
 
     def test_home_build_slot_must_pass_actual_asset_and_root_parameters(self):
-        path='scripts/underworld_plains/underworld_home_world.gd'
+        path='game/presentation/world/underworld_plains/underworld_home_world.gd'
         for old,new in [('building.region,building.foot,root,float(entry.building_height)','building.region,building.foot,Vector2.ZERO,float(entry.building_height)'),('str(building.image),building.region','"wrong.png",building.region'),('building.region,building.foot','building.region,[0,0]'),('root,float(entry.building_height)','root,1.0'),('var root:=Vector2(x,float(entry.get("y",floor_y)))','var root:=Vector2.ZERO')]:
             with self.subTest(old=old):
                 self.reject_text(path,old,new,'home.actual_asset_slots')
 
     def test_home_build_slot_cannot_disconnect_actual_place_call(self):
-        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','_place(str(entry.id)+"_building"','_unrelated_place(str(entry.id)+"_building"','home.actual_asset_slots')
+        self.reject_text('game/presentation/world/underworld_plains/underworld_home_world.gd','_place(str(entry.id)+"_building"','_unrelated_place(str(entry.id)+"_building"','home.actual_asset_slots')
 
     def test_ui_modal_shell_must_be_an_actual_control(self):
-        path='scripts/ui/demo_ui_01/modal_shell.gd';source=(ROOT/path).read_text()
+        path='game/presentation/ui/demo_ui_01/modal_shell.gd';source=(ROOT/path).read_text()
         self.assertIn('extends Control',source)
         result=audit(text_overrides={path:source.replace('extends Control','extends CanvasLayer')})
         self.assertFalse(result['passed'])

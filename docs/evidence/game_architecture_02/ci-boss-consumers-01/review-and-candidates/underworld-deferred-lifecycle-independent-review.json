@@ -1,0 +1,150 @@
+{
+  "reviewer": "items_refactor (independent of candidate author)",
+  "decision": "ACCEPT",
+  "acceptance_scope": "Limited independent static source/test-change review plus independently read root-run original native wrapper receipts for the exact three candidate SHA. Full CI/GUI/device remain unverified by this review.",
+  "source_head": "59537400af06a26046037840e28989f75933a265",
+  "source_sha256": {
+    "game/presentation/world/underworld_plains/underworld_presentation.gd": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
+    "tests/underworld_plains/test_underworld_formal.gd": "b59c854c8a42644af3e70cbd9992aa7f994eb7e99a0ed899ff5bd5fc980d3567",
+    "tests/quality_review_runner.gd": "b4cf9170d5131c6a8e41acff89bc987bb902366efccc2537fe1db62a64e20d1a"
+  },
+  "reviewed_candidate_sha256": {
+    "game/presentation/world/underworld_plains/underworld_presentation.gd": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+    "tests/underworld_plains/test_underworld_formal.gd": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a",
+    "tests/quality_review_runner.gd": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
+  },
+  "patch_sha256": {
+    "underworld-deferred-lifecycle.patch": "666ea4df18537d8c08c8659aba9fa3f5ef901e2f0dd559ea0773d6d5829bbfd4",
+    "quality-current-boss-fixture.patch": "a730fb5251f0273b63788ede6bbd942889a4aa59461feee227bc48bc6238d0fa"
+  },
+  "patch_reviews": [
+    {
+      "patch": "underworld-deferred-lifecycle.patch",
+      "decision": "ACCEPT",
+      "classification": "Fix of existing deferred typed-Node lifetime defect, not an assertion that invalid lifetime behavior remains equivalent",
+      "findings": [
+        "All production outside _node_added and its new narrow bridge is byte-identical; typed synchronous install_item whole function is byte-identical.",
+        "One deferred queue operation remains one: old direct installer enqueue becomes one bridge enqueue, then synchronous installer call. No extra await/frame/deferred hop or normal live installation ordering change.",
+        "Deferred arguments are WeakRef for node and captured world identity. Expired node resolves null before any typed Node installer call. Invalid/current-world mismatch/out-of-tree/foreign ancestry rejects before installation.",
+        "World/actor descendant policy is preserved and reevaluated at execution. Capture-time world identity prevents a queued old-world node from being accepted merely because it now belongs to the replacement world.",
+        "No Node/resource retention added through deferred payload; no shader/material/light/asset/physics/collision/random configuration changes.",
+        "Existing WorldFreezeScope, ItemRuntime and audio WeakRef code have different business/lifetime contracts, not a reusable deferred presentation installer. Engine WeakRef is the appropriate shared primitive; no generic manager/helper/registry added."
+      ],
+      "test_review": {
+        "original_formal_entire_file_preserved_after_removing_one_call_and_new_method": true,
+        "new_check_calls": 8,
+        "correction": "Task wording said nine; exact candidate has eight added check invocations. No author file edited.",
+        "real_consumer": "Existing actual formal DemoApp map2 FineWorldPresentation; actual SceneTree node_added/free/reparent and deferred flush, not direct calls into the new guard.",
+        "cases": [
+          "Live late Sprite remains unmaterialed synchronously, then receives actual shared material",
+          "Freed queued Sprite never enters _seen (plus strict native ERROR rejection required)",
+          "Foreign and moved-out nodes retain no material",
+          "Same node moved into replacement world cannot reuse queued old-world identity",
+          "New replacement-world Sprite still receives material",
+          "World+child freed before queued callback drain safely"
+        ],
+        "not_claimed": [
+          "Actor-subtree replacement branch is statically reviewed, not separately dynamically probed",
+          "No natural full traversal/art acceptance or exact timing measurement has been run"
+        ]
+      },
+      "native_scope": "Root original Underworld wrapper PASS: formal104/0 (original96+8), existing cache444/0; no deferred ERROR/cleanup errors in reviewed log."
+    },
+    {
+      "patch": "quality-current-boss-fixture.patch",
+      "decision": "ACCEPT",
+      "classification": "Current concrete Bellstrider test contract migration, not a production contact-policy change",
+      "findings": [
+        "Original six modes are retained exactly: intro, phase_transition, observe, roll_warning, roll, neck. Only transition expectation changes for the actual map1 Bellstrider.",
+        "Concrete Bellstrider identity assertion added. Existing production predicate explicitly enables solid copper during transition, excludes intro/dead and requires active/nonterminal.",
+        "Dead-mode negative added; mode then reset to neck before inactive check so original inactive assertion is not vacuously satisfied by dead mode.",
+        "All other original test bytes, cases, loops and frame budgets are unchanged. The two extra checks do not purport to replace natural contact execution.",
+        "Existing tests/bellstrider_rework_01/contact_edges.gd ground_side(-1,true) already uses the actual App physical contact path for phase transition, supporting concrete-family interpretation."
+      ],
+      "production_contact_source": {
+        "path": "game/bosses/bellstrider/bellstrider_encounter.gd",
+        "sha256": "58c682404af6e9279099f6d2d63982702d4d001b0b4b6b56817b366400eaf6e9",
+        "method": "func body_contact_enabled() -> bool:\n\t# Transition pressure still has real solid copper. Only intro, inactivity\n\t# and terminal wrecks suppress contact; the base Windkeeper window differs.\n\treturn active and not health.terminal and mode not in [&\"intro\",&\"dead\"]"
+      },
+      "original_full_file_reverse_transform_equal": true,
+      "native_scope": "Root original quality wrapper PASS:1046/0 (original1044+2); prior317 deferred errors absent. Production contact predicate unchanged."
+    }
+  ],
+  "preserved_failures": [
+    {
+      "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/quality-review-engine.log",
+      "sha256": "1c30c741cad9a139d8fd0d33927b8dfdcdf471885fc590fd19812fdfcf5c1aff",
+      "old_assertions": 1044,
+      "old_assertion_failures": 1,
+      "deferred_install_errors": 317,
+      "status": "failed; never relabeled passed"
+    },
+    {
+      "path": "/workspace/refactor-evidence/underworld-main2ce-freed-node-baseline-02/report.json",
+      "sha256": "03d219d626401e1c203fcc4112f56914cb24b21a6c864f7da1a1330c118cf6df",
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "engine_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+      "deferred_install_errors": 319,
+      "scope": "New diagnostic probe on exact clean main2ce using real original App and TerrainStudy; not a run of an original full suite. Native exit0 does not waive ERROR logs.",
+      "probe_sha256": "71a613adedaf1247d993e4094decae91c3a9a15600b05d608cbb72e93cda27de",
+      "probe_log_sha256": "be4f7052be338c22573a9d89a8750b24e80afae117841a38552e39e2194122a8"
+    },
+    {
+      "path": "/workspace/refactor-evidence/underworld-main2ce-freed-node-baseline-01/",
+      "scope": "Earlier attempt blocked by old UID/cache autoload path; did not reach target test; retained separately"
+    }
+  ],
+  "validation_performed": {
+    "candidate_and_source_hashes_independently_verified": true,
+    "production_and_test_exact_transform_assertions": true,
+    "git_apply_reverse_check_after_root_applied_identical_candidate": {
+      "underworld-deferred-lifecycle.patch": 0,
+      "quality-current-boss-fixture.patch": 0
+    },
+    "source_basis": "Root applied the reviewed external candidate during independent review. Original source was independently verified against exact Git blobs at manifest.source_head; current main three hashes equal candidate hashes. Initial forward apply checks also returned0 before root application.",
+    "engine_run_by_reviewer": false,
+    "main_or_author_files_written": false
+  },
+  "required_root_validation": [
+    "The two requested original wrappers passed on exact reviewed WIP hashes; do not replay merely for this review.",
+    "Continue separately authorized region/full182 CI and GUI/device gates; this review does not certify them."
+  ],
+  "blockers": [],
+  "root_native_evidence_review": {
+    "report_path": "/workspace/refactor-evidence/underworld-lifecycle-quality-native-01/report.json",
+    "report_sha256": "8e15a529d9035c2f0bc8059c794474703ccf9fed00065c7fad98de1347c98239",
+    "reviewed_three_source_hashes_match": true,
+    "source_is_wip": true,
+    "source_unchanged_at_end": true,
+    "runs": [
+      {
+        "case": "underworld-formal",
+        "log_path": "/workspace/refactor-evidence/underworld-lifecycle-quality-native-01/underworld-formal.log",
+        "sha256": "eb063c4a7d33b363d0e9498caa1a8db0496bb485bc62ede6a04baf859bac4550",
+        "exit_code": 0,
+        "seconds": 11.549,
+        "timeout_seconds": 150,
+        "markers_independently_read": [
+          "UNDERWORLD_FORMAL checks=104 failures=0 maps=2",
+          "FOREGROUND_FIXED_CACHE checks=444 failures=0 output=/workspace/gunman-rush-refactor/build/mobile_web_fps_04/native-cache-1793441231-3657203",
+          "PASS: Underworld default formal actor/UI consumers and lifecycle"
+        ],
+        "strict_error_lines_observed": false
+      },
+      {
+        "case": "quality-review-engine",
+        "log_path": "/workspace/refactor-evidence/underworld-lifecycle-quality-native-01/quality-review-engine.log",
+        "sha256": "0808b0f7a02f97e731efa4cfb934c66378c42fbef01f0584786196fe9e662209",
+        "exit_code": 0,
+        "seconds": 14.714,
+        "timeout_seconds": 240,
+        "markers_independently_read": [
+          "QUALITY REVIEW: 1046 assertions, 0 failures",
+          "PASS: quality review engine regression"
+        ],
+        "strict_error_lines_observed": false
+      }
+    ],
+    "other_five_frozen_test_files": "Recorded in root native report but not included in this two-patch independent implementation review."
+  }
+}

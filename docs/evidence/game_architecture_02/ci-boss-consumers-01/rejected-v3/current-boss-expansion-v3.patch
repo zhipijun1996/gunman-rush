@@ -1,0 +1,46 @@
+--- a/tests/plains_exploration_expansion_runner.gd
++++ b/tests/plains_exploration_expansion_runner.gd
+@@ -287,11 +287,42 @@
+ 		await frames(2)
+ 		var core: Vector2=encounter.motor.global_position+encounter.core_offset()
+ 		check(encounter.definition.resource_path=="res://resources/bosses/bellstrider.tres" and encounter.health.capacity==40 and encounter.health.capacity==encounter.definition.health_definition.max_health,"mini ray fixture uses the current authoritative forty-HP Boss")
++		# Fixed current-contract counterexamples: these original bottom sources
++		# start inside the low hull (Boss-local +/-20,35), below the sole bell.
++		# Expected routing is declared before observing any hit or HP result.
++		var armour_expected := source in [Vector2(540,570),Vector2(580,570)]
++		var armour_contacts: Array[Vector2] = []
++		var committed: Array[Dictionary] = []
++		encounter.armour_hit.connect(func(point: Vector2) -> void: armour_contacts.append(point))
++		var primary := boss.get_node("Damageable") as Damageable
++		var upper := encounter._core.get_node("Damageable") as Damageable
++		check(encounter.weakpoint_only() and upper.can_receive_effects() and not primary.can_receive_effects() and upper.damage_policy_owner()==primary,"current upper bell is the sole spatial damage receiver with the original shared HP owner")
++		primary.damaged.connect(func(context: Dictionary) -> void: committed.append(context.duplicate()))
++		var ray := PhysicsRayQueryParameters2D.create(player.global_position,core,4,[player.get_rid()])
++		ray.collide_with_areas=true
++		ray.hit_from_inside=true
++		var first: Dictionary=player.get_world_2d().direct_space_state.intersect_ray(ray)
++		check(not first.is_empty() and first.collider==(boss if armour_expected else encounter._core),"original source has its declared physical armour/upper-bell first contact "+str(source))
++		if armour_expected:
++			var point_query:=PhysicsPointQueryParameters2D.new()
++			point_query.position=player.global_position
++			point_query.collision_mask=4
++			point_query.collide_with_areas=false
++			var overlaps:=player.get_world_2d().direct_space_state.intersect_point(point_query)
++			check(overlaps.any(func(row: Dictionary) -> bool: return row.collider==boss),"bottom source starts inside actual installed armour, not a clear upper-bell route "+str(source))
+ 		var before_hp: float=encounter.health.current
+ 		var shot_damage: float=actor.motor.tuning.projectile_damage
+ 		check(actor.shoot_ability.try_fire((core-player.global_position).normalized(),false),"real projectile launched at open mini core")
+ 		await frames(45)
+-		check(shot_damage==1.0 and encounter.health.current==before_hp-shot_damage,"mini core accepts exactly one real current projectile from "+str(source))
++		if armour_expected:
++			check(shot_damage==1.0 and encounter.health.current==before_hp and armour_contacts.size()==1 and committed.is_empty(),"actual bottom projectile is intercepted once by armour with zero HP loss and no damage receipt "+str(source))
++			check(armour_contacts[0].is_finite() if armour_contacts.size()==1 else false,"actual armour contact reports a finite physical impact point "+str(source))
++		else:
++			check(shot_damage==1.0 and encounter.health.current==before_hp-shot_damage,"mini core accepts exactly one real current projectile from "+str(source))
++			check(committed.size()==1 and armour_contacts.is_empty(),"clear upper-bell route commits once through the primary without an armour hit "+str(source))
++			if committed.size()==1:
++				check(committed[0].damage_type==&"projectile" and committed[0].source_actor_id==player.get_instance_id() and is_equal_approx(float(committed[0].amount),shot_damage),"upper-bell HP receipt belongs to the actual player's unchanged projectile "+str(source))
++		check(actor.shoot_ability.get_projectiles().is_empty(),"actual collided projectile is consumed instead of silently flying past "+str(source))
+ 		world.free()
+ 	# Names use actual definition, including in the development encounter.
+ 	var lab=load("res://experiments/generation/module_lab.gd").new();root.add_child(lab);lab.request_module(&"bellstrider_trial");await frames(7)

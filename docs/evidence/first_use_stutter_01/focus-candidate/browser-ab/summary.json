@@ -1,0 +1,1559 @@
+{
+  "status": "REJECT_FIRST_AIR_ZERO_COMPILE_GATE",
+  "review_role": "Candidate non-author actual execution review; author of passive observer/driver. Not independent review of own instrumentation.",
+  "source_F": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "candidate_identity": {
+    "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+    "build_id": "52f83e4c96d1",
+    "pack": "index.52f83e4c96d1.pck",
+    "pack_sha256": "52f83e4c96d171a705e196f1dd29d68b50545f38878f984161321f9b2b807866",
+    "pack_bytes": 216753220
+  },
+  "candidate_source_sha256": "083b1c8a91a609f9a370b2349757163cdb8d894ce0faf7fb35b1f031879f6045",
+  "engine_id": "c410089b390c",
+  "candidate_proofs_before_after_same": true,
+  "source_and_helper_stable": true,
+  "browser_closed": true,
+  "actual_candidate_phases": [
+    {
+      "stage": "startup",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [],
+      "events": []
+    },
+    {
+      "stage": "home-transition",
+      "shaderSource_calls": 2,
+      "compileShader_calls": 2,
+      "linkProgram_calls": 1,
+      "slow_existing_LINK_STATUS_ms": [
+        5.989990234375
+      ],
+      "programs_used": [
+        {
+          "program": {
+            "id": 25,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 2
+        }
+      ],
+      "events": [
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793605289784.295,
+          "duration_ms": 0.130126953125,
+          "pname": null,
+          "shader": {
+            "id": 49,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14495,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793605289784.445,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 49,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14495,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793605289791.135,
+          "duration_ms": 1.530029296875,
+          "pname": null,
+          "shader": {
+            "id": 50,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25625,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793605289792.675,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 50,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25625,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793605289797.545,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793605289797.565,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 49,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793605289797.575,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 49,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793605289797.5898,
+          "duration_ms": 5.989990234375,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 49,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "stage": "jump-only",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [],
+      "events": []
+    },
+    {
+      "stage": "first-air",
+      "shaderSource_calls": 2,
+      "compileShader_calls": 2,
+      "linkProgram_calls": 1,
+      "slow_existing_LINK_STATUS_ms": [
+        47.284912109375
+      ],
+      "programs_used": [
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 7
+        }
+      ],
+      "events": [
+        {
+          "stage": "first-air",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793605305230.365,
+          "duration_ms": 0.139892578125,
+          "pname": null,
+          "shader": {
+            "id": 81,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14470,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793605305230.51,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 81,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14470,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793605305322.75,
+          "duration_ms": 0.18505859375,
+          "pname": null,
+          "shader": {
+            "id": 82,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25600,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793605305322.94,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 82,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25600,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793605305329.44,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793605305329.45,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 81,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14470,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793605305329.45,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 81,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14470,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793605305329.46,
+          "duration_ms": 47.284912109375,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 81,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14470,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "stage": "repeat-air-2",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 6
+        }
+      ],
+      "events": []
+    },
+    {
+      "stage": "repeat-air-3",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 6
+        }
+      ],
+      "events": []
+    },
+    {
+      "stage": "outside-window-visual-corroboration",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 13
+        }
+      ],
+      "events": []
+    }
+  ],
+  "original_baseline_phases": [
+    {
+      "stage": "startup",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [],
+      "events": []
+    },
+    {
+      "stage": "jump-only",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [],
+      "events": []
+    },
+    {
+      "stage": "first-air",
+      "shaderSource_calls": 4,
+      "compileShader_calls": 4,
+      "linkProgram_calls": 2,
+      "slow_existing_LINK_STATUS_ms": [
+        15.735107421875
+      ],
+      "programs_used": [
+        {
+          "program": {
+            "id": 40,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 1
+        },
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 7
+        }
+      ],
+      "events": [
+        {
+          "stage": "first-air",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793603510101.165,
+          "duration_ms": 0.14501953125,
+          "pname": null,
+          "shader": {
+            "id": 79,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14495,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510101.33,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 79,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14495,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793603510188.01,
+          "duration_ms": 0.175048828125,
+          "pname": null,
+          "shader": {
+            "id": 80,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25625,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510188.195,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 80,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25625,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510193.945,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 40,
+            "shaders": [
+              {
+                "id": 80,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510193.96,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 40,
+            "shaders": [
+              {
+                "id": 80,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 79,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793603510193.965,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 40,
+            "shaders": [
+              {
+                "id": 80,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 79,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793603510196.095,
+          "duration_ms": 0.10498046875,
+          "pname": null,
+          "shader": {
+            "id": 81,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14470,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510196.205,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 81,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14470,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793603510203.44,
+          "duration_ms": 0.2900390625,
+          "pname": null,
+          "shader": {
+            "id": 82,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25600,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510203.74,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 82,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25600,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "first-air",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510211.315,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793603510211.325,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 81,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14470,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793603510211.325,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 81,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14470,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "first-air",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793603510211.335,
+          "duration_ms": 15.735107421875,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 41,
+            "shaders": [
+              {
+                "id": 82,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25600,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 81,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14470,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "stage": "repeat-air-2",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 6
+        }
+      ],
+      "events": []
+    },
+    {
+      "stage": "repeat-air-3",
+      "shaderSource_calls": 0,
+      "compileShader_calls": 0,
+      "linkProgram_calls": 0,
+      "slow_existing_LINK_STATUS_ms": [],
+      "programs_used": [
+        {
+          "program": {
+            "id": 41,
+            "tags": [
+              "edge_width"
+            ]
+          },
+          "calls": 6
+        }
+      ],
+      "events": []
+    }
+  ],
+  "baseline_report_sha256": "88ed006206076757305ee6350fe3940fc059d826d5d5cff1b618c88683f5f7ed",
+  "candidate_timing": [
+    {
+      "name": "jump-only",
+      "summary": {
+        "intervals": 9,
+        "sampled_interval_ms": 1133.2900000000009,
+        "wall_capture_ms": 1230.9150000065565,
+        "raf_callbacks": 10,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 8.12403780922869,
+        "completed_interval_fps": 7.941480115416171,
+        "interval_span_within_window_ms": 1133.2900000000009,
+        "interval_coverage_fraction": 0.9206890808820791,
+        "first_raf_minus_begin_ms": 93.27500001132285,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 93.27500001132285,
+        "final_uncovered_ms": 4.349999995232793,
+        "total_uncovered_ms": 97.62500000655564,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 101.8350000071514,
+        "closure_after_request_ms": 106.18500000238419,
+        "p50_ms": 116.66500000000087,
+        "p95_ms": 150,
+        "max_ms": 150,
+        "long_task_count": 10,
+        "long_task_total_ms": 1218,
+        "long_task_max_ms": 149,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshot_overlaps": []
+    },
+    {
+      "name": "first-air",
+      "summary": {
+        "intervals": 12,
+        "sampled_interval_ms": 1433.2750000000015,
+        "wall_capture_ms": 1578.515000000596,
+        "raf_callbacks": 13,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 8.235588511984423,
+        "completed_interval_fps": 8.372433761839137,
+        "interval_span_within_window_ms": 1433.2750000000015,
+        "interval_coverage_fraction": 0.9079894711164989,
+        "first_raf_minus_begin_ms": 137.75000000894215,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 137.75000000894215,
+        "final_uncovered_ms": 7.489999991652439,
+        "total_uncovered_ms": 145.2400000005946,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 146.49000001251989,
+        "closure_after_request_ms": 153.98000000417233,
+        "p50_ms": 116.66500000000087,
+        "p95_ms": 149.99000000000524,
+        "max_ms": 199.99500000000262,
+        "long_task_count": 13,
+        "long_task_total_ms": 1563,
+        "long_task_max_ms": 198,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshot_overlaps": []
+    },
+    {
+      "name": "repeat-air-2",
+      "summary": {
+        "intervals": 11,
+        "sampled_interval_ms": 1416.6100000000006,
+        "wall_capture_ms": 1543.094999998808,
+        "raf_callbacks": 12,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 7.77657888853847,
+        "completed_interval_fps": 7.765016483012259,
+        "interval_span_within_window_ms": 1416.6100000000006,
+        "interval_coverage_fraction": 0.9180316182743739,
+        "first_raf_minus_begin_ms": 110.79000000297674,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 110.79000000297674,
+        "final_uncovered_ms": 15.694999995830585,
+        "total_uncovered_ms": 126.48499999880733,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 99.82499999999709,
+        "closure_after_request_ms": 115.51999999582767,
+        "p50_ms": 133.32500000000437,
+        "p95_ms": 150,
+        "max_ms": 150,
+        "long_task_count": 12,
+        "long_task_total_ms": 1506,
+        "long_task_max_ms": 147,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshot_overlaps": []
+    },
+    {
+      "name": "repeat-air-3",
+      "summary": {
+        "intervals": 12,
+        "sampled_interval_ms": 1533.2750000000087,
+        "wall_capture_ms": 1689.1700000017881,
+        "raf_callbacks": 13,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 7.69608742754503,
+        "completed_interval_fps": 7.826384699417868,
+        "interval_span_within_window_ms": 1533.2750000000087,
+        "interval_coverage_fraction": 0.9077091115745518,
+        "first_raf_minus_begin_ms": 146.28000001370674,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 146.28000001370674,
+        "final_uncovered_ms": 9.614999988072668,
+        "total_uncovered_ms": 155.8950000017794,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 131.01000001192733,
+        "closure_after_request_ms": 140.625,
+        "p50_ms": 133.3299999999872,
+        "p95_ms": 149.9950000000099,
+        "max_ms": 166.65499999999884,
+        "long_task_count": 13,
+        "long_task_total_ms": 1676,
+        "long_task_max_ms": 162,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshot_overlaps": []
+    }
+  ],
+  "failure": "Home preparation compiled2edge_width shaders and linked1program(id25), used twice. First actual airborne aim still compiled2edge_width shaders and linked1newprogram(id41), then used it7times; original LINK_STATUS waited47.285ms. This fails requested0compile/0link on first real aim. IDs are local to this context, not comparable numerically across contexts.",
+  "causal_limits": [
+    "Partial preparation is observed, but no complete variant warming. Shader/program source lengths and tags are recorded; full generatedGLSL is not retained, so do not name the precise remaining specialization without additional evidence.",
+    "Baseline firstair4compile/2link and15.735ms LINK_STATUS vs candidatefirstair2compile/1link and47.285ms are single measurements on different page origins/fresh browser processes. Do not quantify regression or improvement from those durations. The objective remaining-compilation gate alone is enough to reject effectiveness.",
+    "Baseline firstair maxRAF199.990ms and candidate199.995ms; no convincing hitch removal in this small softwareGPU sample.",
+    "This is cloudSwiftShader, not user/deviceFPS; no full-route/combat or new native results."
+  ],
+  "visual_review": {
+    "images_viewed": [
+      "candidate-cold-air-home-early.png",
+      "candidate-cold-air-home-before.png",
+      "candidate-cold-air-actual-air-aim.png",
+      "candidate-cold-air-actual-air-release.png"
+    ],
+    "observed": "Both sampled Home images have no yellow edge flash; actual airborne aim image shows player abovefloor, focusring and warmedges, afterrelease image has normaledges.",
+    "limits": "Finite screenshots do not prove absence of a transient flash between sampledframes. Visible on/off behavior is preserved in samples, but continuous fade curve/timing is not measured."
+  },
+  "coverage": {
+    "main_gl": {
+      "contexts": [
+        {
+          "id": 1,
+          "first_observed_epoch_ms": 1793605277714.16,
+          "constructor": "WebGL2RenderingContext"
+        }
+      ],
+      "installed_epoch_ms": 1793605251708.425,
+      "prototypes": [
+        {
+          "type": "WebGLRenderingContext",
+          "available": true,
+          "wrapped": [
+            "shaderSource",
+            "compileShader",
+            "attachShader",
+            "linkProgram",
+            "getProgramParameter",
+            "texImage2D",
+            "texSubImage2D",
+            "readPixels",
+            "drawArrays",
+            "drawElements",
+            "bufferData",
+            "bufferSubData",
+            "useProgram"
+          ]
+        },
+        {
+          "type": "WebGL2RenderingContext",
+          "available": true,
+          "wrapped": [
+            "shaderSource",
+            "compileShader",
+            "attachShader",
+            "linkProgram",
+            "getProgramParameter",
+            "texImage2D",
+            "texSubImage2D",
+            "readPixels",
+            "drawArrays",
+            "drawElements",
+            "drawArraysInstanced",
+            "drawElementsInstanced",
+            "bufferData",
+            "bufferSubData",
+            "useProgram"
+          ]
+        }
+      ],
+      "overflow": false
+    },
+    "workers": [
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260360.47,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": [],
+        "snapshot_error": null
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260326.275,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": [],
+        "snapshot_error": null
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260374.3801,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": null,
+        "snapshot_error": "TimeoutError()"
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260340.28,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": null,
+        "snapshot_error": "TimeoutError()"
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260368.4749,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": null,
+        "snapshot_error": "TimeoutError()"
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260368.48,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": null,
+        "snapshot_error": "TimeoutError()"
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260377.595,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": null,
+        "snapshot_error": "TimeoutError()"
+      },
+      {
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793605260340.485,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "installation_error": null,
+        "contexts": null,
+        "snapshot_error": "TimeoutError()"
+      }
+    ]
+  },
+  "exit_observation": {
+    "context_and_browser_closed": true,
+    "page_errors": [],
+    "script_parse_shader_error_matches": [],
+    "console_errors_or_warnings": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "epoch_ms": 1793605251823.5618
+      },
+      {
+        "type": "error",
+        "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+        "epoch_ms": 1793605289738.8765
+      }
+    ],
+    "leak_scope": "Only browserclose/error observation. No engineObjectDB/native shutdown leak report or directSubViewport-free receipt; cannot sign leak-free cleanup."
+  },
+  "proof_sha256": {
+    "run.py": "f76acb2bcb1b9dfbf6c4fc90b0482af18c47728b4085ee040836ba4a247ed620",
+    "gl-observer.js": "cce16e422663f48a953eb491c4f79b1e5a24eaa7bfb7b59d7ad5ca51c67ac0fe",
+    "actual01/report.json": "7477183d8bdaeef1a7d2c698183882ff3cfe7fd134ae791f6e39f4493511a2bc",
+    "driver.log": "909bee12df1c146f8a2f134fea3ddfe896d6a079d400d6d38bad7a71e2e1b306",
+    "expected-identity.json": "1695ebde3660df5c2ae9b667c9faf2c99a22622313fc48ed96a05beb2fda8393"
+  }
+}

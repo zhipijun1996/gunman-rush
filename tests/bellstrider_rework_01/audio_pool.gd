@@ -2,7 +2,7 @@ extends SceneTree
 ## Real GameAudio and actual Bellstrider scene regressions. Pool saturation and
 ## forced mode transitions are explicit component fixtures, not natural combat,
 ## audible mix, human listening or device-performance evidence.
-const CONSUMER := preload("res://scripts/audio/bellstrider_audio.gd")
+const CONSUMER := preload("res://game/presentation/audio/bellstrider_audio.gd")
 const TEARDOWN := preload("res://tests/audio_teardown.gd")
 const HOLD: AudioStream = preload("res://assets/audio/bellstrider_01/death_final.wav")
 var assertions := 0

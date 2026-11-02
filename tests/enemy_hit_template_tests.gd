@@ -25,7 +25,7 @@ func ticks(count: int) -> void:
 	for _index: int in count: await process_frame
 
 func ordinary(id: String, chain: String) -> void:
-	var source := "res://scenes/enemies/%s.tscn" % (id if id in FOREST else "patrol_drone")
+	var source := EnemyBehaviorRegistry.scene_path(StringName(id) if id in FOREST else &"patrol")
 	var motor := (load(source) as PackedScene).instantiate() as EnemyMotor
 	var actor := motor.get_node("Actor") as EnemyActor
 	actor.definition = load("res://resources/enemies/%s.tres" % id) as EnemyDefinition
@@ -41,12 +41,13 @@ func ordinary(id: String, chain: String) -> void:
 	var script_before: Script = host.get_script()
 	var material_before := host.material
 	var generic: EnemyHitTemplate = host.get_meta(EnemyHitTemplate.METADATA) as EnemyHitTemplate if host.has_meta(EnemyHitTemplate.METADATA) else null
-	var sample := generic.sample if generic != null else host.get("feedback_sample") as EnemyFeedback01
+	var revision: PlainsRevisionVisual = (host as RootBellPresentation).revision_visual if host is RootBellPresentation else null
+	var sample := revision.sample if revision != null else (generic.sample if generic != null else host.get("feedback_sample") as EnemyFeedback01)
 	var label := id + "/" + chain
 	check(sample != null, label + " owns the shared accepted-hit state")
 	if sample == null:
 		motor.queue_free(); await ticks(2); return
-	var particles := generic.particles if generic != null else host.get("feedback_particles") as EnemyFeedback01Particles
+	var particles := revision.particles if revision != null else (generic.particles if generic != null else host.get("feedback_particles") as EnemyFeedback01Particles)
 	check(not particles.is_processing(), label + " no idle particle polling")
 	if generic != null: check(not generic.is_processing(), label + " no idle hit polling")
 	var position_before := motor.position
@@ -103,18 +104,25 @@ func boss(id: String) -> void:
 	if encounter is ThornForestEncounter:
 		encounter.mode = &"exposed"
 		encounter.core_open = true
-	var context := packet(encounter.damageable,id+"/accepted",minf(1,encounter.health.current*.5),motor.global_position,Vector2.DOWN)
-	var accepted := (encounter.damageable as WindkeeperDamageable).receive_core(context) if encounter.damageable is WindkeeperDamageable and not (encounter as WindkeeperEncounter).continuous_combat() else encounter.damageable.receive_damage(context)
+	# The current Bell accepts damage through its installed upper receiver;
+	# armour remains the shared policy/Health owner and keeps rejecting hits.
+	var receiver: Damageable = encounter.damageable
+	var target_point := motor.global_position
+	if encounter is BellstriderEncounter:
+		receiver = encounter._core.get_node("Damageable") as Damageable
+		target_point = motor.to_global(encounter.core_offset())
+	var context := packet(receiver,id+"/accepted",minf(1,encounter.health.current*.5),target_point,Vector2.DOWN)
+	var accepted := (receiver as WindkeeperDamageable).receive_core(context) if receiver is WindkeeperDamageable and not (encounter as WindkeeperEncounter).continuous_combat() else receiver.receive_damage(context)
 	check(accepted,id + " actual vulnerable receiver accepts hit")
 	check(template.sample.accepted_hit_count == 1 and template.tint() != Color.WHITE,id + " accepted Boss hit shares common state/tint")
 	check(template.pose() == Vector2.ONE and host.material == initial_material and host.get_script() == renderer,id + " Boss weakpoint transform, material and species renderer remain owned by Boss")
 	var serial := template.sample.impact_serial
-	if encounter.damageable is WindkeeperDamageable and not (encounter as WindkeeperEncounter).continuous_combat():
-		(encounter.damageable as WindkeeperDamageable).receive_core(context)
-	else: encounter.damageable.receive_damage(context)
+	if receiver is WindkeeperDamageable and not (encounter as WindkeeperEncounter).continuous_combat():
+		(receiver as WindkeeperDamageable).receive_core(context)
+	else: receiver.receive_damage(context)
 	check(template.sample.impact_serial == serial,id + " duplicate Boss hit cannot replay feedback")
-	var lethal := packet(encounter.damageable,id+"/lethal",encounter.health.current,motor.global_position,Vector2.DOWN)
-	var killed := (encounter.damageable as WindkeeperDamageable).receive_core(lethal) if encounter.damageable is WindkeeperDamageable and not (encounter as WindkeeperEncounter).continuous_combat() else encounter.damageable.receive_damage(lethal)
+	var lethal := packet(receiver,id+"/lethal",encounter.health.current,target_point,Vector2.DOWN)
+	var killed := (receiver as WindkeeperDamageable).receive_core(lethal) if receiver is WindkeeperDamageable and not (encounter as WindkeeperEncounter).continuous_combat() else receiver.receive_damage(lethal)
 	check(killed and encounter.health.terminal and template.sample.accepted_death_count == 1,id + " actual lethal receiver commits its existing Boss death once")
 	check(template.tint(Color(.3,.4,.5,.6)) == Color(.3,.4,.5,.6) and template.pose() == Vector2.ONE and host.material == initial_material and host.get_script() == renderer,id + " common template imposes no Boss death pose, tint, material or replacement renderer")
 	cases.append({"kind":"boss", "id":id, "accepted":accepted, "renderer":(renderer as Script).resource_path, "scope":"explicit vulnerable actual receiver, not complete battle"})

@@ -7,7 +7,7 @@
   "disposition": "runtime_candidate",
   "asset_id": "windchime_warm_limestone_vectors",
   "source_path": "tools/build_windchime_art.py",
-  "source_sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89",
+  "source_sha256": "0483aac365e97058b469363573ba3b1fb271272443640f05cf627fba03904d37",
   "runtime_paths": [
     "assets/windchime_plains/limestone_blob47.svg",
     "assets/windchime_plains/props.svg"
@@ -29,5 +29,23 @@
       "sha256": "e9dfefba07afabe9221634b3460fecdd1fd1f22755bf3db2df60c3a0cb1bc74a",
       "role": "source_contract"
     }
-  ]
+  ],
+  "revision_impact": {
+    "revision": "feature-layout-technical-pointer-rebind-20261031",
+    "previous_record_path": "docs/evidence/game_architecture_02/windchime_metadata_before_layout/windchime_limestone_v2.json",
+    "previous_record_sha256": "00bada2a771c5bde8373c9e6581940a3ad0988d5281c5db4e08b2373dbdfb815",
+    "original_builder_path": "docs/evidence/game_architecture_02/windchime_metadata_before_layout/build_windchime_art.py",
+    "original_builder_sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89",
+    "source_changes": [
+      {
+        "path": "tools/build_windchime_art.py",
+        "old_sha256": "380d00a6c9100ae75a16754756b210ee784fdaa5a5290ec0d297132384e46a89",
+        "new_sha256": "0483aac365e97058b469363573ba3b1fb271272443640f05cf627fba03904d37",
+        "actual_change": "P8 commit5589c284 moves only the shared Blob47Rules file lookup; no authoring algorithm or output changes."
+      }
+    ],
+    "metadata_changes": [],
+    "verification": "Existing producer evaluated only in memory: both SVG output strings exactly match existing files. Shared Blob47Rules at current game path is byte-identical to2ce4ffa6 original. No image/audio files or generation writer used.",
+    "acceptance_scope": "Technical source/metadata rebinding only; original content_version, runtime_paths, visual_status, user_acceptance_evidence, processing, license and historical reference fields unchanged. Original native wrapper not run by this reviewer."
+  }
 }

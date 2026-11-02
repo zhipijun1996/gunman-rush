@@ -1,0 +1,30 @@
+{
+  "source_commit": "c59c24fb76762a0f66033e0f79d7b2cba7a84444",
+  "checks_block_text_before_profiles_byte_equal": true,
+  "checks_dictionary_semantic_equal": true,
+  "actual_python_results": {
+    "planner-37.log": {
+      "sha256": "1a89a2a2da83a87e1f98c8e91bba6b36a506fb8f8216e0f00731aa04bed2992c",
+      "test_count": 37,
+      "seconds": 0.146,
+      "exit_code": 0
+    },
+    "harness-91.log": {
+      "sha256": "b9035f47f413c5337c7c31c1c40899b9464d2aa64c896a683a9aab3048e5ad84",
+      "test_count": 91,
+      "seconds": 22.015,
+      "exit_code": 0
+    }
+  },
+  "overlay_runtime_sources": {
+    "tools/harness.py": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+    "tools/production_plan.py": "22d8d9c18f016f1203848982e6b2e03562872a24d1ce787ac8276d33fadc50d3",
+    "tests/test_harness.py": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+    "tools/harness/profiles.json": "fac16e75fe867cfab5ff30708cc7d1413462a760fa7d34b747d81440d74d3063",
+    "tests/test_production_plan.py": "f96387125c6d2c3f2218850df83f4dd884507308ca4557ae3be173294c03b502"
+  },
+  "scope": "external actual pure Python suites, not native/full CI; other inputs linked current worktree",
+  "no_engine": true,
+  "main_written_by_author": false,
+  "patch_sha256": "085a6f18e68b31bcb457fcf35c54c8541aa835aeddb0a4a0a1d8c6dbbcf143cd"
+}

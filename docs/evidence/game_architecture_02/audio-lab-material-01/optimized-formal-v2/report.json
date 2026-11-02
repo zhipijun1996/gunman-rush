@@ -1,0 +1,64 @@
+{
+  "scope": "Actual independently reviewed optimized editor184 native preflight. Installed lock/templates and full182 acceptance pending.",
+  "results": [
+    {
+      "case": "import",
+      "argv": [
+        "python3",
+        "/workspace/engine-diagnostics/run_custom_diagnostic.py",
+        "--binary",
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--project",
+        "/workspace/gunman-rush-refactor",
+        "--case",
+        "import"
+      ],
+      "outer_limit_seconds": 100,
+      "note": "Import/formal original inner90/120-second budgets retained by unchanged diagnostic strict runner",
+      "seconds": 8.189687353002228,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "58a342f9cea0fc250ab1a994f838268644cd33600faf2d9dc73442b665c6b937"
+    },
+    {
+      "case": "formal191",
+      "argv": [
+        "python3",
+        "/workspace/engine-diagnostics/run_custom_diagnostic.py",
+        "--binary",
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--project",
+        "/workspace/gunman-rush-refactor",
+        "--case",
+        "formal"
+      ],
+      "outer_limit_seconds": 130,
+      "note": "Import/formal original inner90/120-second budgets retained by unchanged diagnostic strict runner",
+      "seconds": 10.043842869999935,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "626e0172fa0baf4a9b59350b582399c29cdb5f99da9126aebee29edc9d011b5d"
+    },
+    {
+      "case": "audio-v2",
+      "argv": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/workspace/gunman-rush-refactor",
+        "--script",
+        "tests/audio_director_v2_scene.gd"
+      ],
+      "outer_limit_seconds": 180,
+      "note": "Import/formal original inner90/120-second budgets retained by unchanged diagnostic strict runner",
+      "seconds": 19.826306262999424,
+      "exit_code": 0,
+      "errors": [],
+      "log_sha256": "db3705cd5131c03c0fff58ae59226bd3b257b6c7048676308e451783851dadcb"
+    }
+  ],
+  "passed": true
+}

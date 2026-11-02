@@ -6,7 +6,7 @@ func drive(trace: Node, leg: Dictionary) -> void:
 	# Current base-one R/HANG phrases use the real held first jump. The common
 	# tap remains unchanged for every other consumer and policy.
 	if str(leg.get("kind","")) == "hanging_chain" and trace.phase == "air_chain_launch" and trace.age == 6 and not program.is_empty() and str(program[0].action) == "R":
-		var current_free: bool = trace.controller.shot_energy != null and trace.controller.shot_energy.definition.resource_path == "res://resources/player/demo_ui_01/time_energy_v2.tres" and not trace.controller.shot_energy.definition.shooting_consumes_energy and trace.player.tuning.max_air_shots == 1 and trace.controller.shoot_ability.weapon.id == &"pulse_gun" and trace.controller.shoot_ability.weapon.tier == 1
+		var current_free: bool = trace.controller.shot_energy != null and trace.controller.shot_energy.definition.resource_path == "res://game/player/resources/demo_ui_01/time_energy_v2.tres" and not trace.controller.shot_energy.definition.shooting_consumes_energy and trace.player.tuning.max_air_shots == 1 and trace.controller.shoot_ability.weapon.id == &"pulse_gun" and trace.controller.shoot_ability.weapon.tier == 1
 		if current_free:
 			trace.jump(true)
 			trace.event("Bible_current_first_R_jump_held", {"source_program":source_program.duplicate(true), "executed_input":"hold_jump_until_actual_first_shot_burst_completed", "source_release_frame":6, "grounded":trace.player.is_on_floor(), "position":trace.pair(trace.player.global_position)})

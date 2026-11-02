@@ -87,7 +87,7 @@ func _run() -> void:
 	# Real PlayerMotor with accepted InputRouter requests. No position writes in
 	# the route: only the initial spawn. This is a simple sample route, not a
 	# proof for all production levels or all optional upper routes.
-	var lab := preload("res://scenes/demo/blob47_lab.tscn").instantiate() as Blob47Lab
+	var lab := preload("res://experiments/terrain/entries/blob47_lab.tscn").instantiate() as Blob47Lab
 	root.add_child(lab)
 	for adapter: String in ["KeyboardMouseAdapter", "GamepadAdapter"]:
 		lab.player.get_node(adapter).process_mode = Node.PROCESS_MODE_DISABLED

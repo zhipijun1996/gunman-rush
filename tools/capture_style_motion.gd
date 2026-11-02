@@ -13,7 +13,7 @@ func _run() -> void:
 		if arg.begins_with("--style="): style_id = arg.trim_prefix("--style=")
 		elif arg.begins_with("--biome="): biome_id = arg.trim_prefix("--biome=")
 		elif arg.begins_with("--motion-report="): report_path = arg.trim_prefix("--motion-report=")
-	var lab := preload("res://scenes/style_exploration/style_lab.tscn").instantiate() as StyleLab
+	var lab := preload("res://experiments/terrain/entries/style_lab.tscn").instantiate() as StyleLab
 	lab.default_style = style_id
 	root.add_child(lab)
 	lab.select_biome(biome_id)

@@ -1,4 +1,4 @@
-extends "res://scripts/demo/demo_app.gd"
+extends "res://game/application/demo_app.gd"
 ## Explicit local feedback only. One authored initial pose before Motor tick 1.
 var fixture_area := "varied_observation"
 var fixture_data: Dictionary = {}

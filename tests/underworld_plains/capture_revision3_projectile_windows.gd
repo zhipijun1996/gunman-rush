@@ -100,7 +100,7 @@ func run() -> void:
 		if argument.begins_with("--frames="):frame_budget=int(argument.trim_prefix("--frames="))
 		if argument.begins_with("--output="):output=argument.trim_prefix("--output=")
 	root.size=Vector2i(1280,720)
-	app=preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
 	app.meta_persistence_enabled=false;root.add_child(app)
 	for i: int in 8: await tick()
 	if not app.start_plains(seed): failures.append("formal ordinary start failed")

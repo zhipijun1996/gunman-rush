@@ -83,7 +83,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	collision.shape = shape
 	floor_body.add_child(collision)
 	world.add_child(floor_body)
-	var motor: PlayerMotor = preload("res://scenes/player/player.tscn").instantiate()
+	var motor: PlayerMotor = preload("res://game/player/player.tscn").instantiate()
 	motor.position = Vector2(100, 580)
 	world.add_child(motor)
 	var controller := motor.get_node("Controller") as PlayerController

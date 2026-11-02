@@ -11,10 +11,10 @@ func run(tree: SceneTree, check: Callable) -> Array[Dictionary]:
 		var world := Node2D.new();world.position=Vector2(9000,0);tree.root.add_child(world)
 		var floor_body := StaticBody2D.new();floor_body.position=Vector2(float(specification.width)*.5,400)
 		var collision := CollisionShape2D.new();var shape := RectangleShape2D.new();shape.size=Vector2(float(specification.width),24);collision.shape=shape;floor_body.add_child(collision);world.add_child(floor_body)
-		var player: PlayerMotor=load("res://scenes/player/player.tscn").instantiate();player.position=Vector2(float(specification.player_x),370);world.add_child(player)
+		var player: PlayerMotor=load("res://game/player/player.tscn").instantiate();player.position=Vector2(float(specification.player_x),370);world.add_child(player)
 		player.get_node("KeyboardMouseAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 		var controller := player.get_node("Controller") as PlayerController
-		var enemy: EnemyMotor=load("res://scenes/enemies/patrol_drone.tscn").instantiate()
+		var enemy: EnemyMotor=load("res://game/enemies/scenes/patrol_drone.tscn").instantiate()
 		enemy.position=Vector2(float(specification.enemy_x),372)
 		var actor := enemy.get_node("Actor") as EnemyActor
 		actor.definition=load("res://resources/enemies/plains_diver.tres" if bool(specification.aerial) else "res://resources/enemies/plains_sentry.tres")

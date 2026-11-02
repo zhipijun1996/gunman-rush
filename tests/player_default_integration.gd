@@ -85,7 +85,7 @@ func accepted_jump(id: String) -> void:
 	check(int(audio.played.get(land_cue, 0)) == land_before + 1, id+" accepted landing has exactly one selected/original cue")
 
 func run() -> void:
-	app = preload("res://scenes/demo/demo.tscn").instantiate()
+	app = preload("res://game/application/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	audio = app.get_children().filter(func(node: Node) -> bool: return node is GameAudio)[0] as PlayerWeaponFeelAudioV2

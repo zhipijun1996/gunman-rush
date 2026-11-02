@@ -1,0 +1,46 @@
+[
+  {
+    "case": "expansion",
+    "argv": [
+      "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/plains_exploration_expansion_runner.gd"
+    ],
+    "timeout_seconds": 150,
+    "seconds": 39.03452241800187,
+    "exit_code": 0,
+    "errors": [],
+    "log_sha256": "64e4e4cfe8538598efce32935d79320e670d149e84af1ca6b08daa87b42ae569",
+    "completion": [
+      "PLAINS EXPLORATION EXPANSION: 2959 assertions, 0 failures"
+    ]
+  },
+  {
+    "case": "region-boss",
+    "argv": [
+      "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/plains_region_boss_runner.gd"
+    ],
+    "timeout_seconds": 90,
+    "seconds": 11.250055911001255,
+    "exit_code": 1,
+    "errors": [
+      "exit=1",
+      "native/script/resource/exit error",
+      "original complete marker missing"
+    ],
+    "log_sha256": "2de51d4ef99820c6b18a4af1c030aeb71dfcf59eb11d840b548e94e915f3834a",
+    "completion": []
+  }
+]

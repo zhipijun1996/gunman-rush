@@ -1,0 +1,37 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_ANDROID_SAME_RUN_FOUNDRY_HANDOFF",
+  "source_commit": "b893b45e0039e73eb2cb8606964efdd73b53f19a",
+  "file": ".github/workflows/environment.yml",
+  "before_sha256": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+  "candidate_sha256": "a6c070826a9a33d76b8ba87fdec9028d843e4cdff0366eaaa9e904866e44a0a5",
+  "patch_sha256": "60700c18c7b02e79dea0e5f0ba4edbd6f1797d07cd9ba9643a76e0f6b1e684a9",
+  "exact_change": "Only four inserted download-artifact lines in Android after Python setup and before existing cloud setup/build. Original remainder byte-identical.",
+  "producer_consumer_proof": [
+    "prepare runs existing Foundry validation/promote count24 (24+6+6 development phrases), then original export stamp and uploads validated-foundry resources/foundry only on successful preceding steps.",
+    "Android is already transitively gated by prepare through core/windows/web. needs transfers success dependency only; separate checkout does not inherit generated resources.",
+    "New download selects validated-foundry in the same workflow run because no cross-run run-id/repository/token selector is supplied. Name/path/action match the four existing consumers. Missing artifact fails before SDK/build rather than falling back to tracked pool.",
+    "Android retains exact source checkout expression. Existing tools/build.py android verifies toolchain, imports source and calls original Foundry stamp before export. Catalog still requires actual batch basis equality, so stale/mismatched source is rejected."
+  ],
+  "unchanged": [
+    "all original workflow bytes except four-line insertion",
+    "needs and manual build_android condition",
+    "30-minute Android job limit",
+    "all existing install/build/export commands and stamp/source guard",
+    "other jobs and full182/profile/check budgets"
+  ],
+  "original_failure": {
+    "path": "/workspace/refactor-evidence/foundry-b893-preexisting-stamp-check.log",
+    "sha256": "07a6f7f45005851ffab49ba620ca8e006260e8183b3c2eefdfc6298fe7291410",
+    "observed": "Recorded actual stamp rejects stale Foundry and returns1. This reviewer read/hash-verified the log only; no Android export failure was independently executed."
+  },
+  "scope_limits": [
+    "This fixes artifact handoff, not proof Android SDK installation, signing, actual APK export/runtime or full CI succeeds.",
+    "Artifact download overlays the directory, as existing four consumers do; this patch alone does not claim an exact-pruned directory mirror. Actual referenced batch/replays remain governed by original source/basis checks. Root canonical guarded rebuild/committed file inventory is separate evidence.",
+    "No source/manual basis rewriting, production-pool change, art/device/fun acceptance or remote workflow execution by reviewer.",
+    "The cancelled remote run did not reach lane execution; it is not a failed or passed full182 run from this review."
+  ],
+  "engine_invoked": false,
+  "main_modified": false,
+  "tests_run": "None; exact bytes, original producer/consumer/build guards and recorded stale rejection inspected."
+}

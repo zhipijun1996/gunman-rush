@@ -1,0 +1,38 @@
+{
+  "decision": "static_accept_with_current_canonical_input_contract",
+  "blocking_findings": [],
+  "reviewed_sha256": {
+    "game/enemies/presentation/plains_revision_skin.gd": "360228b65702ef218cad9a22d0decf25cef6b835670025446deca288536e2805",
+    "game/enemies/presentation/plains_revision_ground.gd": "d871a81f16371fb9cf9666074c027d3e86380218907e1b8fb8e9020bf9e8a4d2",
+    "tests/plains_revision_deform_equivalence_runner.gd": "ffe9a2856cc6f06d8f1465c524fe0f1575293689111b9f2c9b71f2cc8c87e2a7",
+    "tests/plains_motion_loot_02_motion.gd": "0e6affde4759187a837dae5abd6a89cb73f483d1752d045c5c729fd79be622c7"
+  },
+  "independent_scope": [
+    "Skin live-prefix",
+    "Ground Hopper-only cache and optional live point",
+    "Pose two end fields",
+    "Oracle cache-invalidation/live-draw additions",
+    "CacheSkin compatibility"
+  ],
+  "excluded_author_work": [
+    "Flora a408 implementation",
+    "shared loot material and App checks",
+    "optional warming"
+  ],
+  "production_writes": 0,
+  "engine_run": false,
+  "chrome_run": false,
+  "canonical_weights_in_place_mask_mutation_supported": false,
+  "original_check_source_lines_preserved": {
+    "oracle_runner": 14,
+    "motion": 42
+  },
+  "reported_root_results": {
+    "oracle": "7899/0,442442 vertices,exit0,clean per root message",
+    "motion_wrapper": "603/0 per root message"
+  },
+  "independently_read_new_execution_logs": false,
+  "performance_acceptance": "pending root actual draw paired and A/A benchmark",
+  "nonblocking_evidence_limit": "supplied625 counts parameter use, not all cache-miss branch recomputations",
+  "review_sha256": "0150b8fa0d02d4e411d3828e4b42dbcd659f780b67f6f9074d9b6e5dc70e2f7c"
+}

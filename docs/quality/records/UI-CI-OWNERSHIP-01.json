@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "task_id": "UI-CI-OWNERSHIP-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+  "reviewed_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+  "content_version": "ui-ci-owner-2d64fbbb",
+  "owner": "/root",
+  "purpose": "将两个精确UI测试叶及既有studio-input消费者接入现有模块责任映射。",
+  "player_experience": "维护既有消费者与检查归属；不签内容、设备或玩家认可。",
+  "constraints": [
+    "原失败及历史来源保留",
+    "不降低原断言/预算",
+    "GameSource与ToolSource分别绑定"
+  ],
+  "affected_paths": [
+    "config/production_impact.json",
+    "tests/test_production_plan.py"
+  ],
+  "deliverables": [
+    "现有维护源码与精确SHA",
+    "有限原测试和独审证据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "限定两文件owner映射。",
+      "evidence": [
+        "final-scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "原48纯selector实际通过。",
+      "evidence": [
+        "final48-runtime"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "同源48与候选独审继承绑定。",
+      "evidence": [
+        "final48",
+        "final-ci-binding"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "两路径和消费者实际责任明确，无新注册/预算。",
+      "evidence": [
+        "final-scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "原46+2=48在实际cleanCI提交通过，其他预算/selector完整保。",
+      "evidence": [
+        "final48"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "当前两Gitblob与已独审候选同字节，有限selector范围。",
+      "evidence": [
+        "final-ci-binding"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "当前维护范围未提供此维度验收；不外推。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "final-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "两测试叶及真实studio-input接既有owner",
+      "scenario": "两测试叶及真实studio-input接既有owner",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final-scope"
+      ]
+    },
+    {
+      "id": "final48",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "原48纯selector实际通过",
+      "scenario": "原48纯selector实际通过",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final48"
+      ]
+    },
+    {
+      "id": "final-ci-independent",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "原独审候选与实际Gitblob一致",
+      "scenario": "原独审候选与实际Gitblob一致",
+      "method": "原记录精确SHA与实际Gitblob绑定；读取现成完成结果。",
+      "expected": "只接受同源实际范围，保原预算和旧失败",
+      "failure": "源不符、缺项、超预算、错误退出或外推未验范围",
+      "evidence": [
+        "final-ci-binding"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/final_maintenance_01/ci-spec.md",
+      "sha256": "b78ef39b99c04942a71e37d598dbfbdbefc54df10c9de088ceb4e7b053dc4a0b",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "有限维护范围及明确不代签项。"
+    },
+    {
+      "id": "candidate-review",
+      "path": "docs/evidence/final_maintenance_01/popup-ui-impact-mapping-independent-review.json",
+      "sha256": "7dc19898a45a0427f4a7767ecb1169a842692628227de9939ce364218fbc5aec",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "ab263ea6ca24f055f889e79116c75c89acb14567",
+      "content_version": "maintenance-v1",
+      "method": "原件复制及Git字节绑定；不新执行或把旧结果换源。",
+      "observed": "仅9df6两叶候选静态/两新case独审；最终commit及其48仍待，不能据此置最终technical passed。",
+      "reviewer": "/root/runtime_audit",
+      "implementers": [
+        "/root/preview_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Runtime非候选作者，仅验证有限映射与原46保持。",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "final-scope",
+      "path": "docs/evidence/final_maintenance_01/ci-final-spec.md",
+      "sha256": "02ab066fd5dc8237944e79fbe47871a3d38b9dd5dc4f3bc937b184834984198a",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+      "content_version": "ui-ci-owner-2d64fbbb",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "两精确leaf+既有studio-input，原fullfallback和预算不变。"
+    },
+    {
+      "id": "final48",
+      "path": "docs/evidence/final_maintenance_01/final-ui-ci-ownership-48-02.log",
+      "sha256": "1dbccba57f14de829107e667fdb4fd9dec09f7739e65411e6fd2ee5a1b2f16f3",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+      "content_version": "ui-ci-owner-2d64fbbb",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "cleanCI提交原48/0，0.161s；非full171/native。",
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "environment": "Existing exact clean 2d64 CI code pure Python run; original01 wrong working directory retained separately"
+    },
+    {
+      "id": "final-ci-binding",
+      "path": "docs/evidence/final_maintenance_01/final-review-source-bindings.json",
+      "sha256": "c3da6ce849f5b2bd75bef410f903a7b1a9847876197d0cf6f048200ca2aff21e",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+      "content_version": "ui-ci-owner-2d64fbbb",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "实际两Gitblob精确同Runtime独审9df6候选；原review7dc198未改源字段，追加当前代码绑定。",
+      "reviewer": "/root/structure_audit",
+      "implementers": [
+        "/root",
+        "/root/preview_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Binding editor did not author the policy candidate; verified current Git bytes against original non-author Runtime review and its two frozen candidate blobs. No new code-logic review claimed beyond identical reviewed source.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "final-source-vector",
+      "path": "docs/evidence/final_maintenance_01/final-source-binding.json",
+      "sha256": "d6da713ab73dc9cb051d1ff16f5650c719e980f2e52d7693a5bfaec9a48e4e96",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+      "content_version": "ui-ci-owner-2d64fbbb",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "CI两个Gitblob与工作文件一致；profiles与ab263全字节同。"
+    },
+    {
+      "id": "final48-runtime",
+      "path": "docs/evidence/final_maintenance_01/final-ui-ci-ownership-48-02.log",
+      "sha256": "1dbccba57f14de829107e667fdb4fd9dec09f7739e65411e6fd2ee5a1b2f16f3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "2d64fbbbbeea120b5c64add5a2af801a81fe7797",
+      "content_version": "ui-ci-owner-2d64fbbb",
+      "method": "Use exact existing final source/log/review bytes with separately recorded same-byte binding; no new engine/browser/CI execution by record editor.",
+      "observed": "cleanCI提交原48/0，0.161s；非full171/native。",
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "environment": "Existing exact clean 2d64 CI code pure Python run; original01 wrong working directory retained separately"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "此记录只验CI选择/责任映射，不称2d64跑过full171",
+    "UIab26324fresh属于独立UI代码卡，不借作本CI验收",
+    "内容、设备、玩家认可未签，workflow保持review"
+  ]
+}

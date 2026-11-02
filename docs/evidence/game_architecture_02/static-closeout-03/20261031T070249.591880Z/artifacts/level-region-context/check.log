@@ -1,0 +1,16 @@
+....F......
+======================================================================
+FAIL: test_forest_has_only_hook_gate_and_separate_runtime_scope (__main__.RegionContextTests.test_forest_has_only_hook_gate_and_separate_runtime_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-refactor/tests/test_level_region_context.py", line 70, in test_forest_has_only_hook_gate_and_separate_runtime_scope
+    self.assertEqual(context["implementation"]["formal_region"], "consumer_present_in_source")
+AssertionError: 'no_formal_consumer_observed' != 'consumer_present_in_source'
+- no_formal_consumer_observed
++ consumer_present_in_source
+
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.695s
+
+FAILED (failures=1)

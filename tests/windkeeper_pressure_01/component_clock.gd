@@ -40,7 +40,7 @@ func fixture(at: Vector2 = Vector2(820, 452), restored_health: float = -1, activ
 	actual_hits.clear()
 	world = Node2D.new()
 	root.add_child(world)
-	module = load("res://scenes/generation/modules/plains_boss_arena.tscn").instantiate() as PlatformingModule
+	module = load("res://game/world/generation/scenes/modules/plains_boss_arena.tscn").instantiate() as PlatformingModule
 	world.add_child(module)
 	target = PlayerMotor.new() if use_real_motor else CharacterBody2D.new()
 	if target is PlayerMotor: (target as PlayerMotor).tuning = PlayerTuning.load_default()

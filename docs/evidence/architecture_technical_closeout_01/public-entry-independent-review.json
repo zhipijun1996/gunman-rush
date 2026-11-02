@@ -1,0 +1,242 @@
+{
+  "status": "PASS_LIMITED_PUBLIC_TITLE_HOME_FORMAL_PLAINS_INPUT",
+  "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+  "source_identity_before": "run.py asserted exact HEAD before browser launch; root supplied clean freeze; no independent pre-run porcelain capture",
+  "source_after": {
+    "head": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+    "tracked_status_porcelain": ""
+  },
+  "url": "https://zhipijun1996.github.io/gunman-rush/",
+  "identity": {
+    "source_commit": "37950e0896a91c6b812a11c323ec3d5fd1800bb0",
+    "build_id": "ba3d5e6da7a2",
+    "pack": "index.ba3d5e6da7a2.pck",
+    "pack_sha256": "ba3d5e6da7a262adbf16c3c61fec9c5e411eed28c7931e9ee83f90823a084ec0",
+    "pack_bytes": 216385656
+  },
+  "identity_source_sha256": {
+    "build-info.json": "27925248014669fa2d4c5e075e4383dbb2607d0ebe141d7def3902c592045c74",
+    "worker": "bf8e02554db232bc0c7d6644b969ec39ee2325a901b0f58412b016bcb07e28ae",
+    "html": "7308e1c4d706bc3b2ab931791a5ce0cc37d39fc75dc5ad6d5b7724e2e753abd2"
+  },
+  "browser": {
+    "version": "154.0.8037.57",
+    "viewport": [
+      1280,
+      720
+    ],
+    "headless": true,
+    "renderer": "Chromium SwiftShader WebGL2",
+    "lease_released": true,
+    "process_exit_code": 0
+  },
+  "actions": [
+    {
+      "command": {
+        "id": 1,
+        "action": "click_text",
+        "text": "开始游戏",
+        "label": "02-home",
+        "wait_ms": 1800
+      },
+      "at": 1793521053.8796377,
+      "actual_ocr_or_native_surface_point": [
+        231.5,
+        189.0
+      ]
+    },
+    {
+      "command": {
+        "id": 2,
+        "action": "hold",
+        "key": "d",
+        "ms": 3000,
+        "label": "03-home-walk-right",
+        "wait_ms": 250
+      },
+      "at": 1793521070.5037384
+    },
+    {
+      "command": {
+        "id": 3,
+        "action": "hold",
+        "key": "d",
+        "ms": 6000,
+        "label": "04-home-east",
+        "wait_ms": 250
+      },
+      "at": 1793521100.9837508
+    },
+    {
+      "command": {
+        "id": 4,
+        "action": "hold",
+        "key": "d",
+        "ms": 2200,
+        "label": "05-departure-gate",
+        "wait_ms": 250
+      },
+      "at": 1793521205.2700002
+    },
+    {
+      "command": {
+        "id": 5,
+        "action": "key",
+        "key": "w",
+        "label": "06-departure-menu",
+        "wait_ms": 700
+      },
+      "at": 1793521219.1052334
+    },
+    {
+      "command": {
+        "id": 6,
+        "action": "click_text",
+        "text": "BEGIN / WINDCHIME PLAINS",
+        "label": "07-formal-plains",
+        "wait_ms": 1800
+      },
+      "at": 1793521235.4140277,
+      "actual_ocr_or_native_surface_point": [
+        640.0,
+        281.5
+      ]
+    },
+    {
+      "command": {
+        "id": 7,
+        "action": "hold",
+        "key": "d",
+        "ms": 350,
+        "label": "08-formal-move",
+        "wait_ms": 100
+      },
+      "at": 1793521253.998612
+    },
+    {
+      "command": {
+        "id": 8,
+        "action": "close",
+        "label": "09-final"
+      },
+      "at": 1793521262.7833283
+    }
+  ],
+  "elapsed_title_to_close_seconds": 219.078,
+  "visually_reviewed_frames": [
+    {
+      "path": "01-title.png",
+      "sha256": "6639e6cb46f0f373897e4cc4297218f39ba94ee49a2ccbaf8412794f502eb369",
+      "observation": "Actual title 失序之钟 with 开始游戏, continue, settings, tutorial and development entry. Footer build ba3d5e6d.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "02-home.png",
+      "sha256": "e3c5ccf659e7f43de68115e0064550162cc0d6e7546b65087b914845e5ef3c0f",
+      "observation": "Start enters 风铃聚落 Home. Courier visible with 5/5 HP and zero currency. Prompt explicitly points right to plains.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "03-home-walk-right.png",
+      "sha256": "8e714acd21040cbcdf4b1b82c68b1e8290e9d231a2b87b88a24b07384af938d8",
+      "observation": "D3000ms moves courier/camera through actual Home building art; input response visible.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "04-home-east.png",
+      "sha256": "a9a0f575e9fa8b0cd16c1d73232ca13d266bd4b746d9cf147b711e4b6dcf81f5",
+      "observation": "Further D6000ms advances to east Home; departure arch visible at right.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "05-departure-gate.png",
+      "sha256": "aff84b98716eed9388514a391e1dbc4c9e08790cd48d1c1bbf778011092c3c37",
+      "observation": "D2200ms reaches actual 风铃平原 arch. Rendered prompt asks W / Left stick up / INTERACT.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "06-departure-menu.png",
+      "sha256": "d905b44450fb910217175762a0397ebd33fcc4090672191728a237ae77152f6c",
+      "observation": "Real W opens The plains await, with BEGIN / WINDCHIME PLAINS and BACK TO HOME.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "07-formal-plains.png",
+      "sha256": "39ded2eae514db264c59cb02f448d6d4269e932f795ec81e4cb108c5c3e90ea1",
+      "observation": "Real OCR-located pointer click opens formal 风铃平原 1/2 初行; MAP 1/2 EXPLORE HUD and courier visible on platform.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    },
+    {
+      "path": "08-formal-move.png",
+      "sha256": "bcf0a64e1952f958bcc9ffe537f7a66089dbc6140a016fd86277e6cdcff7531c",
+      "observation": "D350ms produces visible courier and camera displacement in formal Plains; HP remains 5/5.",
+      "review_method": "Direct view_image visual inspection, not generated/simulated frame"
+    }
+  ],
+  "formal_event": [
+    {
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": false,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "a2d3779ad52e516a85629cddc4ddc5b85e80dbabdb67b5fef0410117b11d2ce6",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "plains-8476f6bf877e23270c81c2857556ccf3"
+    }
+  ],
+  "console": {
+    "script_parse_shader_errors": [],
+    "page_errors": [],
+    "failed_http_responses_observed": [],
+    "console_error_level_entries": [
+      {
+        "type": "error",
+        "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+        "location": {
+          "url": "https://zhipijun1996.github.io/gunman-rush/index.c410089b390c.engine.js",
+          "line": 466,
+          "column": 17,
+          "lineNumber": 466,
+          "columnNumber": 17
+        }
+      }
+    ],
+    "qualification": "One Emscripten main-thread-blocking advisory was logged at console.error level; preserved, not classified as script/shader failure. No claim of zero console errors."
+  },
+  "pack_identity_and_transport": {
+    "prior_public_pack_path": "/workspace/gunman-rush-refactor/build/verification/final-37950e08-public-gui/index.ba3d5e6da7a2.pck",
+    "local_preflight_full_sha256": "ba3d5e6da7a262adbf16c3c61fec9c5e411eed28c7931e9ee83f90823a084ec0",
+    "expected_bytes": 216385656,
+    "local_route_callback_observed": false,
+    "qualification": "Exact prior downloaded public PCK was hashed, and an exact URL route was installed to reuse it. Successful SW-enabled run did not observe the route callback. Therefore browser reuse or transfer byte count is unverified; public build-info/SW identity and actual rendered build footer are verified, but this run does not independently hash the browser-loaded PCK."
+  },
+  "preserved_failures": [
+    {
+      "path": "/workspace/gunman-rush-refactor/build/verification/final-37950e08-public-gui/partial-report.json",
+      "sha256": "04bfcebd7fb64d6c0306f30723a81d30f4b1bd8f9a4ff45b18c2a3d5a3071f89",
+      "classification": "Earlier four-line driver wrongly expected Start directly opens Plains; actual menu current source line184-186 enters Home. Prior failure is preserved, not reclassified as passing."
+    },
+    {
+      "path": "attempt01-driver-sw-block/receipt.json",
+      "sha256": "e7c076ec7a7fc4226152f97244769256efc1a18af5f0dcb0660993d9b208e4f7",
+      "classification": "Our first browser context blocked Service Workers, preventing public COI/SharedArrayBuffer boot. No game started; driver failure. Corrected only external driver setting, original receipt retained."
+    }
+  ],
+  "boundaries": [
+    "No main/source writes, Godot execution, engine state injection, resource generation or publishing.",
+    "Only real mouse and keyboard input; existing public browser helper functions reused. Read-only public loading flag used.",
+    "Limited desktop headless entry and movement acceptance; not full171 rerun, full campaign/boss/rewards/save test, physical-device acceptance, artistic judgment or listening review.",
+    "Root-provided full CI success is not independently signed by this GUI test."
+  ],
+  "artifacts": {
+    "run.py": "7af2f258e6bc71e3a99153481cf063e395ceb3caa0b21401b001030739c823e4",
+    "receipt.json": "b7d5a685afafbda654621061426e32b50976dfc1b88c26d6819a6e8ae6f659bb",
+    "build-info.json": "27925248014669fa2d4c5e075e4383dbb2607d0ebe141d7def3902c592045c74",
+    "index.cache-sw.js.source": "bf8e02554db232bc0c7d6644b969ec39ee2325a901b0f58412b016bcb07e28ae",
+    "index.html.source": "7308e1c4d706bc3b2ab931791a5ce0cc37d39fc75dc5ad6d5b7724e2e753abd2"
+  }
+}

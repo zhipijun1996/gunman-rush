@@ -21,9 +21,16 @@ class DesignContractTests(unittest.TestCase):
                   'capability_gate':{'alternatives':[['H']]},'allowed_capabilities':['H']}
         data={'artifact_kind':'region_production_capture','region_id':'thorn_forest','proof_kind':'boss',
               'scope':'actual_region_prototype','assertions':1,'failures':[],'observations':[{'kind':'SIMULATED contract fixture'}],
-              'consumer':'scripts/demo/thorn_forest_h_slice.gd','source_commit':'a'*40,
+              'consumer':'game/world/levels/providers/thorn_forest_h_slice.gd','source_commit':'a'*40,
               'capability_snapshot':{'abilities':['H'],'equipped_weapon':'pulse_gun','current_weapon_count':1}}
         self.assertEqual(validate_region_production_proof(data,contract),[])
+        for consumer in ('game/world/levels/providers/thorn_forest_h_slice.gd',
+                         'experiments/generation/forest_golden.gd', 'scripts/legacy_region.gd', 'scenes/legacy.tscn'):
+            candidate=copy.deepcopy(data);candidate['consumer']=consumer
+            self.assertEqual(validate_region_production_proof(candidate,contract),[])
+        for consumer in ('game/../tests/fake.gd', 'experiments/../tests/fake.gd', 'tests/fake.gd'):
+            candidate=copy.deepcopy(data);candidate['consumer']=consumer
+            self.assertTrue(validate_region_production_proof(candidate,contract))
         for extra in ('W','D','U1','U2'):
             with self.subTest(extra=extra):
                 candidate=copy.deepcopy(data);candidate['capability_snapshot']['abilities'].append(extra)
@@ -182,7 +189,12 @@ class DesignContractTests(unittest.TestCase):
             log.write_bytes((folder/'capture.log').read_bytes())
             for name,change in changes.items():
                 with self.subTest(name=name):
-                    data=copy.deepcopy(original);change(data);capture.write_text(json.dumps(data))
+                    data=copy.deepcopy(original)
+                    # This existing simulated consistency fixture binds the
+                    # moved live consumer, not the retained historical capture.
+                    # Original native JSON/log/commit bytes remain untouched.
+                    data['consumer']='game/world/levels/providers/thorn_forest_h_slice.gd'
+                    change(data);capture.write_text(json.dumps(data))
                     checksum=hashlib.sha256(capture.read_bytes()).hexdigest()
                     invocation=copy.deepcopy(receipt)
                     invocation.update(capture=str(capture.relative_to(ROOT)),capture_sha256=checksum,source_files=level_design.source_files())

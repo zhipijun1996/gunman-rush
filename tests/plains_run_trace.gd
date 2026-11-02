@@ -6,7 +6,7 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	shot_latch_encounter = null
 	if not await super.fixture(manifest, tuning): return false
 	if manifest.nodes.any(func(n: Dictionary): return str(n.module_id).begins_with("plains_windchime_")):
-		shot_latch_encounter = load("res://scripts/world/generated_shot_latch_encounter.gd").new()
+		shot_latch_encounter = load("res://game/world/components/generated_shot_latch_encounter.gd").new()
 		world.add_child(shot_latch_encounter)
 		var installed: bool = shot_latch_encounter.setup(manifest, stage, controller, DemoLifetime.new())
 		check.call(installed, "whole-world trace uses production recorded windchime consumer")

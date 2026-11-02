@@ -1,0 +1,71 @@
+[
+  {
+    "name": "region-bible-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_bible.py"
+    ],
+    "timeout_seconds": 30,
+    "elapsed_seconds": 17.1406548859959,
+    "exit_code": 0,
+    "timed_out": false,
+    "log": "/workspace/refactor-evidence/combat-perf-deploy-01/style32/region-bible-tests-01.log",
+    "log_sha256": "8b90bc5b84893baa839c5ac6d6a7a85580275698a8a57cadf1b47c200acc26bd"
+  },
+  {
+    "name": "region-bible-contract",
+    "argv": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--check-bibles"
+    ],
+    "timeout_seconds": 30,
+    "elapsed_seconds": 0.10763990000123158,
+    "exit_code": 0,
+    "timed_out": false,
+    "log": "/workspace/refactor-evidence/combat-perf-deploy-01/style32/region-bible-contract-01.log",
+    "log_sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616"
+  },
+  {
+    "name": "creative-direction",
+    "argv": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--directory",
+      "docs/creative_direction"
+    ],
+    "timeout_seconds": 30,
+    "elapsed_seconds": 0.11297517300408799,
+    "exit_code": 0,
+    "timed_out": false,
+    "log": "/workspace/refactor-evidence/combat-perf-deploy-01/style32/creative-direction-01.log",
+    "log_sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73"
+  },
+  {
+    "name": "creative-direction-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "timeout_seconds": 60,
+    "elapsed_seconds": 10.209829165993142,
+    "exit_code": 0,
+    "timed_out": false,
+    "log": "/workspace/refactor-evidence/combat-perf-deploy-01/style32/creative-direction-tests-01.log",
+    "log_sha256": "a0ff24ae2470d89170422e6f0d42912ce6daf9ad9348ef55f1057dd37a499c5f"
+  },
+  {
+    "name": "region-bible-history-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_bible.py",
+      "--history"
+    ],
+    "timeout_seconds": 30,
+    "elapsed_seconds": 18.76007931199274,
+    "exit_code": 0,
+    "timed_out": false,
+    "log": "/workspace/refactor-evidence/combat-perf-deploy-01/style32/region-bible-history-tests-01.log",
+    "log_sha256": "afe2c9458fd30ff72e598591834041b44e173102fa475b9b301ca5626105dc78"
+  }
+]

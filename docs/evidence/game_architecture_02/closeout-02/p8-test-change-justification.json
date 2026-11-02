@@ -1,0 +1,399 @@
+{
+  "commit": "5589c284237277e963c424eeb4cce9eaf334630a",
+  "baseline": "986bb75d68213879366b824485f482e553158944",
+  "old_check_count": 213,
+  "new_check_count": 213,
+  "profiles_exact_equal": true,
+  "check_non_input_fields_exact_equal": true,
+  "test_syntax_inventory": [
+    {
+      "path": "tests/plains_regional_art_capture_test.py",
+      "old_tests": 4,
+      "new_tests": 4,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/player_presentation_01/build_weapon_audio.py",
+      "old_tests": 0,
+      "new_tests": 0,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/player_presentation_01/build_weapon_audio_v2.py",
+      "old_tests": 0,
+      "new_tests": 0,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_cloud_delivery.py",
+      "old_tests": 30,
+      "new_tests": 31,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_forest_bible_region_admission.py",
+      "old_tests": 28,
+      "new_tests": 28,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_forest_bible_world_sources.py",
+      "old_tests": 7,
+      "new_tests": 8,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_content_contract.py",
+      "old_tests": 16,
+      "new_tests": 16,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_design_analysis.py",
+      "old_tests": 33,
+      "new_tests": 33,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_design_contracts.py",
+      "old_tests": 31,
+      "new_tests": 31,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_design_routing.py",
+      "old_tests": 25,
+      "new_tests": 25,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_experience.py",
+      "old_tests": 29,
+      "new_tests": 29,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_formal_receipts.py",
+      "old_tests": 17,
+      "new_tests": 17,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_level_region_context.py",
+      "old_tests": 10,
+      "new_tests": 11,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_plains_encounter_policy_boundary.py",
+      "old_tests": 24,
+      "new_tests": 24,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "old_tests": 110,
+      "new_tests": 110,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "old_tests": 33,
+      "new_tests": 34,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_project_dependencies.py",
+      "old_tests": 12,
+      "new_tests": 12,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_quality.py",
+      "old_tests": 59,
+      "new_tests": 61,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_terrain_tiles.py",
+      "old_tests": 5,
+      "new_tests": 5,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_underworld_pipeline.py",
+      "old_tests": 162,
+      "new_tests": 162,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_underworld_raw_export.py",
+      "old_tests": 9,
+      "new_tests": 12,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_visual_director.py",
+      "old_tests": 24,
+      "new_tests": 24,
+      "removed": [],
+      "assertion_count_reductions": []
+    },
+    {
+      "path": "tests/test_web_bundle.py",
+      "old_tests": 47,
+      "new_tests": 51,
+      "removed": [],
+      "assertion_count_reductions": []
+    }
+  ],
+  "justification": "Existing tests migrate real paths and matching fixtures; new cases cover moved roots, mapped input digests and actual synthetic PCK raw/remap failures. No old method removed or assertion-call count lowered. Syntactic counts do not prove semantic equivalence; targeted source review found separate production guard widening in level_design and parser fail-open, both blocking 5589 acceptance.",
+  "limits": [
+    "Reviewer ran no Godot.",
+    "Old paths and content fixtures are not licenses to delete guards.",
+    "Only frozen CI/tools commit reviewed; surrounding production migration is WIP."
+  ],
+  "followup_commit": "d58b72b69f1cdd9ac62e3d3a6a37c4080191e38e",
+  "followup_justification": "d58b72b6 preserves all existing assertions, appends exact original/mapped spatial permission positives+negatives, and adds actual PCK single-quote revision positive+three missing-entry negatives. Fixes production guards instead of weakening existing expectations.",
+  "resolved_findings": [
+    "P8-SCOPE-R1",
+    "P8-PARSER-R2"
+  ],
+  "closeout_commits": {
+    "finite_registry": "9e42173d07965f47a8dd688d1ae664ca33aaa519",
+    "main_finite_registry": "f8a0c94d",
+    "chest_checker": "1cd95f3f68c6595d5e5167135e449f9f8b9cfac0",
+    "preview_inputs": "c4a317ef8df10f1e14186cf5735211ba49718eb6",
+    "shared_boundary_and_entry_paths": "6069b6b44fa2fb371f6eee126b7c2accbd5a024a",
+    "full182_registration": "6584d48bca916de100eed3801af6f0973ae49767"
+  },
+  "closeout_justification": [
+    {
+      "commit": "9e42173d/f8a0",
+      "reason": "Unknown-SHA negative still rejects; expected error text updated because whole-AST rejection now precedes old row matcher. Adds real constant-key/unknown-expression/StringName negatives; no assertion removed."
+    },
+    {
+      "commit": "1cd95f3f",
+      "reason": "Tests now supply the actual cache restore helper whose implementation moved out of Stage. Original claimed-state negative moved to real helper assignment and asserts target exists. Original162 methods retained;2 groups add altered/missing/duplicate/dead helper and old inline ledger negatives. Immutable fixture original paths/SHA restored rather than rebased."
+    },
+    {
+      "commit": "c4a317ef",
+      "reason": "Adds preview source digest mutation assertion matching newly appended twoinputs; no old assertion or harness check removed."
+    },
+    {
+      "commit": "6069b6b4",
+      "reason": "Adds shared UI/platform dependency rejection test while explicit app composition remains positive.13 entry resource paths merely relocated; check counts and all behavior assertions retained."
+    },
+    {
+      "commit": "6584d48b",
+      "reason": "Appends forest-v11-definition to181 original prefix, preserves every earlier lane-count prefix including181, adds positive/negative wrapper and mapped-entry digest tests. Original forest-depth legacy profile membership corrected in a newly written test only; no original test removed/relaxed.34→37 methods."
+    }
+  ],
+  "closeout_evidence": [
+    "p8-closeout-independent-static.json",
+    "p8-web-finite-independent-53.log",
+    "p8-chest-independent-targeted-normal.log",
+    "p8-underworld-shared-cache-frozen1cd95.log",
+    "p8-boundary6069-independent-13.log",
+    "p8-entry-dynamic-path-independent.json",
+    "p8-plan182-independent-static.json",
+    "p8-plan182-independent-37.log"
+  ],
+  "closeout_limits": [
+    "No Godot/native/export/actual Web ResourceLoader execution by reviewer.",
+    "Finite checker is not arbitrary GDScript evaluator; unsupported future registry shapes deliberately reject.",
+    "Chest finite source checker is not general execution/reachability proof; full runtime semantics require native tests.",
+    "Full182 registration accepted, execution not claimed.",
+    "Initial reviewer -S chest invocation could not import Pillow; log preserved, corrected normal-Python two-case run passed. Earlier migration-tree12 boundary suite log remains distinct from actual6069 main13 suite."
+  ],
+  "historical_guard_repair": {
+    "review": "p8-historical-consumer-independent-fixed.json",
+    "reason": "Restore originalhistorical fixturepath/SHA identity rather than changing frozenbytes; current sourceinventory now includesactualgame/experiments; preserve old one-shot/focus cases inexplicit synthetic oldresource/currenttuning reader becausecurrentPR122 geometry rejects earlier. Original27+9 cases kept; added profile3positive13negative tests. Original24 boundary independentlypass."
+  },
+  "final_unified_review": "p8-final-unified-independent-review.json",
+  "final_production_source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "final_reviewed_files_sha256": "fe23b43040f351d26a2371df0b77b8f28d6b3e0aaf51d3e1ca5d3099f9810fbf",
+  "final_sensitive_file_justifications": [
+    {
+      "path": "tests/aim_save_compat_case.gd",
+      "sha256": "cdc9d37dd04b1187f897ae830fb621edc54513217086f8f498d3472674df6506",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Whole file equals2ce after exact effective path substitutions; historical fullManifest equality,tamper cases andstate checks retained."
+    },
+    {
+      "path": "tests/forest_exploration_modules_runner.gd",
+      "sha256": "a2a211349104c9381ec5bc47d153391d274e0250d98906152197327c304550f4",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Only actual Player scene path and emitted body-source identity moved; shape/assertion data and structural scope unchanged."
+    },
+    {
+      "path": "tests/test_cloud_delivery.py",
+      "sha256": "f14700644be80fed9d09d7c51fd3eebd0ce878a48db21be375dacc79ea791e17",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Actual bootstrap path/fixture directory migrated; original absent-bootstrap assertion retained; addsnew-root dirty/new/deleted cases."
+    },
+    {
+      "path": "tests/test_forest_vine_gate.gd",
+      "sha256": "ad4345676af15ea91ff324f8c9d1697f9c850ce8f81fbe904be6441c391fbdca",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Whole file equals2ce after effective path substitutions; generator sourcehash follows actual current source; allcases remain."
+    },
+    {
+      "path": "tests/test_level_design_routing.py",
+      "sha256": "75a30cc20770fbb903a184f1297d494af99f4ce239fa07cd765460e233712b81",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Finite path updates plus addedsourceinventory/spatial permission negatives; originalgates preserved; independentlyproved1124 mappedold admission results identical afterd58."
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "sha256": "b8845ec6b5b55a057e116d8e811881871b47b88b796cc0fb4a75bc3d558238fc",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Full172 baseline sequence remains exact prefix of182; every intermediate168/170/172/173/174/180/181 lane count retained; original34 methods plus3 registration negatives.Onlyappend ownerinputs andnewforest-v11case."
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "sha256": "e96c10b5a2a26de7e59be61ea561fe51354cee3ded09b1920c984ea1dd939f83",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Original testfiles pinnedunchanged;16 explicitlyreviewedmethod adaptations fixed byboth original/current completeAST hashes; others exactAST. Allold assertions retained after finite path/version adaptation. Return/ifFalse/emptyloop rejected. Current598 mappedinputprefix,original3duplicates and206source digestcoverage tested."
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "sha256": "271157f4051700f0843e41145ae71d388332bb47e2a9a39717ae0a0b51a6d98a",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Historical28 replay uses existing finite pinnedarchive; current29 separatevalidation retains selectedcontent anddirection-only acceptance. Oldmethod bodies pinned withfinite approved adaptations; frozen28 rejectedascurrent."
+    },
+    {
+      "path": "tests/test_underworld_pipeline.py",
+      "sha256": "3a9ef43031d049cdf6fc22fe1ca7d152434e1eafc690ceee35865713d7ae9c64",
+      "review_scope": "sensitive_guard_review",
+      "justification": "All162 originalmethods retained plus2 groups; helper movedfromStage verifiedasunique fullbody atactualready call. Oldtier/claimed/foot/white/noalias/nodeadstring negatives remain; claimedtamper nowtargetsrealhelper. Historicalfixture paths/SHA restored."
+    },
+    {
+      "path": "tests/test_visual_director.py",
+      "sha256": "e396a5dd625755def46512d056ce3746690742eecdd435973578dae320cadad4",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Wholefile equals2ce after exactreal path substitutions plus3 explicit unsafe-path fixture migrations; unsupportedcatalog andpath traversal assertions unchanged."
+    },
+    {
+      "path": "tools/run_plains_experience_golden_tests.py",
+      "sha256": "c3bab5e19d8f7fc0fa16b8880592f85c66927b78ea43311e1fd415e0e2ed9162",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Wholefile equals2ce afterexactpaid/freeDefinition path migration; resourceconsumption/maxairshots assertions unchanged."
+    },
+    {
+      "path": "tools/run_root_bell_formal.py",
+      "sha256": "082aae36bd73af429bc186732f094c8c5263db381bb741835de7e39488c8c82d",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Current schema2 follows relocatedactual Definitions;historicalschema1 usesoriginalpinnedc4f557resource+oldscript/player withbothcapabilityhashes. No updatingoldcapture/SHA orfallback tocurrentbytes."
+    }
+  ],
+  "final_original598_prefix_and_duplicates_preserved": true,
+  "final_style_method_guard": "16fixedold+newfullmethodAST; allotheroriginalmethods exactAST; extraassertmultisetonlysupplementary; return/ifFalse/emptyloopreject",
+  "latest_quality_guard_scan": {
+    "log": "quality-diff-precloseout-03.log",
+    "count": 12,
+    "paths": [
+      "tests/aim_save_compat_case.gd",
+      "tests/forest_exploration_modules_runner.gd",
+      "tests/test_cloud_delivery.py",
+      "tests/test_forest_vine_gate.gd",
+      "tests/test_level_design_routing.py",
+      "tests/test_production_plan.py",
+      "tests/test_region_bible.py",
+      "tests/test_region_creative_direction.py",
+      "tests/test_underworld_pipeline.py",
+      "tests/test_visual_director.py",
+      "tools/run_plains_experience_golden_tests.py",
+      "tools/run_root_bell_formal.py"
+    ],
+    "G2_status": "NOT_PASSED_BY_REVIEWER"
+  },
+  "additional_test_change_justification": [
+    {
+      "path": "tests/cloud_preview_runner.gd",
+      "sha256": "271666931addb784b6e448328e4d33a7b6aa31a18a8027d8ed6c23b766505f7e",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/demo_ui_01/contract_runner.gd",
+      "sha256": "6c3d90c4d50866ef91227eff068ad6121670d8d06599075df14c03abacac83fb",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/style_exploration/test_style_biomes.gd",
+      "sha256": "78a698fc974f29d53dbaf68e7ce09488dc9069c62c5951c2811fccc6927b6bb4",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Exact one-line path corrections; original assertions/budgets retained; current four scene defaults bound and fixed148d old Git source exists."
+    },
+    {
+      "path": "tests/test_blob47_layout.gd",
+      "sha256": "fdb43240b2fca6d56dda9618ec788f251d0331302198f6eb91f1d8d494f79d53",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/test_plains_encounter_policy_boundary.py",
+      "sha256": "25442b936ae84f68b288d93b441005d7628f36a303c8ec83e908d1b187db7a2c",
+      "review_scope": "sensitive_guard_review",
+      "justification": "Frozen fixture uses originalold paths; currentfullinventory includesgame/experiments.24 independentlypassed; historicalSHA/1668member contract unchanged."
+    },
+    {
+      "path": "tests/test_windchime_layout.gd",
+      "sha256": "90c209e47ffb7397cb004f08cf526149a85c6c9e622f40be5f764cb8e10567d1",
+      "review_scope": "related_guard_or_path_review",
+      "justification": "Scoped review documented in referenced independent evidence; not a claim ofnative execution."
+    },
+    {
+      "path": "tests/test_mobile_web_recorded_paths.py",
+      "sha256": "3cee858963a1aebfb9f4b043043d0797fede533047ac6737e3b30530e6770ba6",
+      "review_scope": "closeout_additional_independent_review",
+      "justification": "Fixed historical measurement protocol and finite selected-source/PCK-layout adaptation; exact frozen candidate applied, independent10/10; no actual historical PCK/device acceptance."
+    }
+  ],
+  "closeout_current_code_write_set": "architecture-final-code-write-set.json",
+  "scope_conclusion": "All12 flagged files have independent same-byte static review; historical/current guards preserved or finite explicit adaptations/new checks reviewed. Original full172 sequence retained as full182 prefix, append-only real checks. This is test-change justification, not G2/quality/native/full182 pass.",
+  "final172_to182_rechecked": {
+    "baseline": "2ce4ffa6",
+    "original_count": 172,
+    "current_count": 182,
+    "original_order_exact_prefix": true,
+    "real_registered_appended_checks": [
+      "run-session",
+      "architecture-tests",
+      "level-plan",
+      "enemy-region-state",
+      "game-architecture-effects",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle",
+      "entry-audio-lifecycle-comparison",
+      "entry-audio-owners",
+      "forest-v11-definition"
+    ],
+    "all_appended_registered": true,
+    "old_172_lane_assertion_retained": "(172,94,78)",
+    "current_lane_assertion": "(182,95,87)"
+  }
+}

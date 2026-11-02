@@ -1,0 +1,73 @@
+from pathlib import Path
+import subprocess,json,re,sys,collections,csv,hashlib
+root=Path('/workspace/gunman-rush-migration');out=Path('/workspace/refactor-evidence');sys.path.insert(0,str(root/'tools'))
+from project_dependencies import inspect
+G=lambda *a:subprocess.check_output(['git',*a],cwd=root)
+head=G('rev-parse','HEAD').decode().strip();execution=json.loads((out/'feature-layout-execution.json').read_text());mapping=execution['map'];old_for={v:k for k,v in mapping.items()};owners={r.get('actual_path_after',mapping.get(r['path'],r['path'])):r for r in execution['file_ownership']}
+blobs={}
+for line in G('ls-tree','-r','HEAD').decode().splitlines():
+ meta,path=line.split('\t',1);mode,kind,oid=meta.split();blobs[path]=(oid,(root/path).stat().st_size if (root/path).is_file() else None)
+deleted=set(G('diff','--name-only','--diff-filter=D').decode().splitlines());untracked=set(G('ls-files','--others','--exclude-standard').decode().splitlines());paths=sorted((set(blobs)-deleted)|untracked);modified=set(G('diff','--name-only').decode().splitlines())|untracked
+dep=inspect(root);adj=collections.defaultdict(set);incoming=collections.defaultdict(set)
+for edge in dep['edges']:adj[edge['source']].add(edge['target']);incoming[edge['target']].add(edge['source'])
+plan=json.loads((out/'feature-migration-plan.json').read_text());entries={mapping.get(e['path'],e['path']):e['type'] for e in plan['entrypoints']};reach=collections.defaultdict(list)
+for entry in entries:
+ seen=set();todo=[entry]
+ while todo:
+  p=todo.pop()
+  if p in seen:continue
+  seen.add(p);todo.extend(adj[p]-seen)
+ for p in seen:reach[p].append(entry)
+metadata_names={'manifest.json','family.json','source.json','provenance.json','LICENSE','LICENSE.txt','LICENSE.md','COPYING','source_map.json','terrain_build.json','actors_build.json','ui_build.json'}
+metas=collections.defaultdict(list)
+for p in paths:
+ if Path(p).name in metadata_names:metas[str(Path(p).parent)].append(p)
+text_ext={'.gd','.gdshader','.tscn','.tres','.py','.sh','.json','.md','.txt','.yaml','.yml','.cfg','.godot','.toml'}
+def read_small(p,limit=100000):
+ f=root/p;size=f.stat().st_size if f.is_file() else blobs.get(p,('',0))[1]
+ if size is None or size>limit or Path(p).suffix.lower() not in text_ext:return ''
+ try:return (f.read_bytes() if f.is_file() else G('show','HEAD:'+p)).decode('utf-8')
+ except (UnicodeError,subprocess.CalledProcessError):return ''
+def provenance(p):
+ a=Path(p).parent;found=[]
+ for _ in range(5):
+  found.extend(metas.get(str(a),[]))
+  if str(a) in ('.','assets','docs'):break
+  a=a.parent
+ return sorted(set(found))
+def purpose(p,t):
+ ext=Path(p).suffix.lower();name=Path(p).stem;class_m=re.search(r'^class_name\s+(\w+)',t,re.M);functions=re.findall(r'^(?:static\s+)?func\s+(\w+)',t,re.M)
+ if ext=='.uid':return 'Stable Godot UID sidecar for '+p[:-4]+'; preserves resource identity across path relocation.'
+ if ext=='.gd':
+  comments=[x.lstrip('# ').strip() for x in t.splitlines()[:20] if x.startswith('#')];base=re.search(r'^extends\s+([^\n]+)',t,re.M);fields=re.findall(r'^(?:@export[^\n]*?\s+)?var\s+(\w+)',t,re.M);constants=re.findall(r'^const\s+(\w+)',t,re.M);return ('GDScript '+(class_m[1] if class_m else name)+(' extends '+base[1] if base else '')+'. '+(' '.join(comments)[:240]+' ' if comments else '')+('Operations: '+', '.join(functions[:12])+'. ' if functions else '')+('Fields: '+', '.join(fields[:8])+'. ' if fields else '')+('Constants: '+', '.join(constants[:8])+'.' if constants and not functions else '')).strip()
+ if ext in ('.tscn','.tres'):
+  header=t.splitlines()[0] if t else '';node=re.search(r'^\[node[^\n]*',t,re.M);refs=re.findall(r'path="(res://[^"\n]+)"',t)
+  return ('Scene '+name+'; '+(node[0] if node else header) if ext=='.tscn' else 'Authored resource '+name+'; '+header)+('; references '+', '.join(refs[:5]) if refs else '')
+ if ext in ('.png','.jpg','.jpeg','.webp','.svg','.ogg','.wav','.mp3','.ttf','.otf','.woff','.woff2'):
+  kind='audio sample' if ext in ('.ogg','.wav','.mp3') else 'font' if ext in ('.ttf','.otf','.woff','.woff2') else 'visual asset'
+  return kind.capitalize()+' '+Path(p).name+' in '+str(Path(p).parent)+'. Version/selection must follow listed provenance and actual consumers; path alone is not current-production acceptance.'
+ if ext=='.py':
+  doc=re.search(r'\A(?:#![^\n]*\n)?(?:\s*#[^\n]*\n)*\s*(?:"""|\x27\x27\x27)(.*?)(?:"""|\x27\x27\x27)',t,re.S);funcs=re.findall(r'^\s*def\s+(\w+)',t,re.M);return ('Python validation/test '+name if p.startswith('tests/') else 'Python tool '+name)+'. '+(re.sub(r'\s+',' ',doc[1])[:350] if doc else 'Operations: '+', '.join(funcs[:12]))
+ if ext=='.json':
+  try:d=json.loads(t);desc=d.get('description') or d.get('purpose') or d.get('summary') if isinstance(d,dict) else None;keys=list(d)[:15] if isinstance(d,dict) else ['array']
+  except (ValueError,TypeError):desc=None;keys=[]
+  return ('Historical evidence/configuration ' if any(x in p for x in ('archive/','evidence/','provenance','receipt')) else 'Structured configuration/manifest ')+name+'. '+(str(desc)[:300] if desc else 'Fields: '+', '.join(keys))
+ if ext=='.md':
+  title=re.search(r'^#{1,3}\s+(.+)',t,re.M);return ('Historical document: ' if '/archive/' in p or '/evidence/' in p else 'Project document: ')+(title[1] if title else name)
+ if p.endswith('.txt') and '/sources/' in p:return 'Immutable historical source snapshot '+name+'; read only by finite archive manifest, never registered as runtime code.'
+ if 'LICENSE' in p.upper() or 'COPYING' in p.upper():return 'Original license/attribution evidence for '+str(Path(p).parent)+'. Retained independent of current production selection.'
+ if p.startswith('.github/'):return 'Repository automation '+name+'; '+', '.join(re.findall(r'^\s*name:\s*(.+)',t,re.M)[:4])
+ if ext=='.import':return 'Godot import settings for '+p[:-7]+'.'
+ if ext=='.gdshader':return 'Godot shader '+name+'; rendering program with declared uniforms '+', '.join(re.findall(r'uniform\s+\w+\s+(\w+)',t)[:12])+'.'
+ if ext in ('.jsonl','.csv'):return 'Structured recorded data '+name+' in '+str(Path(p).parent)+'.'
+ return 'Project '+(ext[1:] or 'configuration')+' file '+Path(p).name+' in '+str(Path(p).parent)+'.'
+rows=[];dups=collections.defaultdict(list)
+for p in paths:
+ f=root/p;oid,size=blobs.get(p,('',f.stat().st_size if f.is_file() else 0));size=f.stat().st_size if p in modified and f.is_file() else size;t=read_small(p);owner=owners.get(p,{}).get('owner') or ('/'.join(Path(p).parts[:2]) if p.startswith(('game/','experiments/')) else Path(p).parts[0]);role=('history' if any(s in p for s in ('/archive/','/evidence/')) else 'runtime' if p.startswith(('game/','scripts/','scenes/','resources/','experiments/')) else 'test' if p.startswith('tests/') else 'tool' if p.startswith('tools/') else 'asset' if p.startswith('assets/') else 'project')
+ row={'path':p,'previous_path':old_for.get(p),'owner':owner,'role':role,'purpose':purpose(p,t),'bytes':size,'git_blob':oid if p not in modified else None,'local_materialized':f.is_file(),'entrypoint_kind':entries.get(p),'possible_static_entrypoints':sorted(reach[p]),'static_dependencies':sorted(adj[p]),'static_consumers':sorted(incoming[p]),'source_or_manifest_candidates':provenance(p),'protocol_path_hold':p in execution['path_holds'],'byte_hold':p in execution['byte_holds'],'entry_scope_note':'Static possible reachability, including explicit App experiment navigation; not proof of startup load. Dynamic paths remain unresolved.'};rows.append(row)
+ if oid and p not in modified:dups[oid].append(p)
+with (out/'repository-file-index-candidate.jsonl').open('w') as fh:
+ for row in rows:fh.write(json.dumps(row,ensure_ascii=False)+'\n')
+with (out/'repository-file-index-candidate.csv').open('w',newline='') as fh:
+ fields=['path','previous_path','owner','role','purpose','bytes','entrypoint_kind','protocol_path_hold','byte_hold'];w=csv.DictWriter(fh,fieldnames=fields,extrasaction='ignore');w.writeheader();w.writerows(rows)
+summary={'head':head,'status':'candidate_worktree_not_frozen','files':len(rows),'role_counts':dict(collections.Counter(r['role'] for r in rows)),'runtime_files_with_purpose':sum(r['role']=='runtime' and bool(r['purpose']) for r in rows),'static_source_files':dep['files'],'classes':len(dep['classes']),'edges':len(dep['edges']),'dynamic_loads_unresolved':len(dep['dynamic_loads']),'errors':dep['errors'],'identical_unmodified_blob_groups':[{'blob':b,'paths':p} for b,p in dups.items() if len(p)>1],'limitations':['Candidate includes all tracked files even when sparse; untracked intended migration additions included; deleted old paths excluded.','No media file bodies read. Git object metadata used for unchanged files.','Identical blobs alone do not justify deleting protocol, license, historical or independently named resources.','Dependencies use existing project_dependencies.inspect; dynamic loads require actual native/PCK validation.']};(out/'repository-file-index-candidate-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n');print({k:v for k,v in summary.items() if k not in ('identical_unmodified_blob_groups','limitations')})
