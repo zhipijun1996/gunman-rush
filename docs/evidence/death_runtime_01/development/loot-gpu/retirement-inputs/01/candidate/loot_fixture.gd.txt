@@ -1,0 +1,153 @@
+extends Node2D
+## External technical fixture only. No combat, wallet, App gameplay or claims.
+const STAGE_SCRIPT := preload("res://game/presentation/world/art/plains_stage_visual.gd")
+const REFERENCE_SCRIPT := preload("res://loot_baseline_reference.gd")
+var stage: Node2D
+var visual: Node2D
+var batch := 0
+var native_output := ""
+
+class StubStage extends Node2D:
+	var pickups: Array[Dictionary] = []
+	var exit_positions: Array[Vector2] = []
+	var stage_type := &"normal"
+	var reward_position := Vector2.ZERO
+	var clock := 0.0
+	var completed := false
+
+func _ready() -> void:
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--loot-native-output="):
+			native_output = argument.trim_prefix("--loot-native-output=")
+	if not native_output.is_empty():
+		_native_compare.call_deferred()
+		set_process(false)
+		return
+	stage = _make_stage(STAGE_SCRIPT, self)
+	visual = stage.get_child(1)
+	_publish("initial")
+
+func _make_stage(script: Script, parent: Node) -> Node2D:
+	var source := StubStage.new()
+	source.set_meta("underworld_formal_style", true)
+	# Identical isolated fixture light, so first spawn exercises both masks.
+	var ramp := Gradient.new()
+	ramp.colors = PackedColorArray([Color.WHITE, Color(0, 0, 0, 1)])
+	var texture := GradientTexture2D.new()
+	texture.width = 16
+	texture.height = 16
+	texture.fill = GradientTexture2D.FILL_RADIAL
+	texture.fill_from = Vector2(.5, .5)
+	texture.fill_to = Vector2(1, .5)
+	texture.gradient = ramp
+	var light := PointLight2D.new()
+	light.position = Vector2(180, 170)
+	light.texture = texture
+	light.texture_scale = 32.0
+	source.add_child(light)
+	var art: Node2D = script.new()
+	art.configure(source)
+	art.set_process(false)
+	source.add_child(art)
+	parent.add_child(source)
+	art._time = 1.25
+	return source
+
+func _spawn(source: Node2D, number: int) -> void:
+	var output := {"kind":"coin", "amount":7}
+	if number == 2:
+		output = {"rewards":[{"kind":"coin","amount":7},{"kind":"heart","amount":1},{"kind":"note","amount":1}]}
+	var origin := Vector2(140, 140 + 70 * (number - 1))
+	var units: Array[Dictionary] = PlainsLootMotion.units(output, "fixture_%s" % number, origin, origin, source.clock)
+	for index: int in units.size():
+		# Technical fixture spatial separation; no natural-death claim.
+		units[index].position += Vector2(index * 40, 0)
+	source.pickups.append_array(units)
+	var art: Node2D = source.get_child(1)
+	art._process(0.0)
+	for index: int in source.pickups.size():
+		var sprite: Sprite2D = art._pickups[index]
+		sprite.light_mask = 1 if index % 2 == 0 else 0
+
+func _model(source: Node2D) -> Dictionary:
+	var art: Node2D = source.get_child(1)
+	var materials := {}
+	var sprites := []
+	for index: int in source.pickups.size():
+		var sprite: Sprite2D = art._pickups[index]
+		materials[sprite.material.get_instance_id()] = true
+		var color := sprite.modulate
+		sprites.append({"id":source.pickups[index].id,"kind":source.pickups[index].kind,"amount":source.pickups[index].amount,
+			"position":[sprite.position.x,sprite.position.y],"scale":[sprite.scale.x,sprite.scale.y],"rotation":sprite.rotation,
+			"tint":[color.r,color.g,color.b,color.a],"visible":sprite.visible,"mask":sprite.light_mask,
+			"texture":sprite.texture.resource_path,"shader":sprite.material.shader.resource_path})
+	return {"batch":batch,"pickups":source.pickups.size(),"materials":materials.size(),"time":art._time,"sprites":sprites}
+
+func _publish(label: String) -> void:
+	if not OS.has_feature("web"): return
+	var model := _model(stage)
+	model["label"] = label
+	JavaScriptBridge.eval("window.LOOT_FIXTURE_STATE=" + JSON.stringify(model) + ";window.LOOT_FIXTURE_READY=true;", true)
+
+func _process(_delta: float) -> void:
+	if not OS.has_feature("web"): return
+	var command: String = str(JavaScriptBridge.eval("window.LOOT_FIXTURE_COMMAND||''", true))
+	if command == "spawn" and batch < 2:
+		JavaScriptBridge.eval("window.LOOT_FIXTURE_COMMAND='';", true)
+		batch += 1
+		_spawn(stage, batch)
+		_publish("spawn_%s" % batch)
+
+func _viewport() -> SubViewport:
+	var view := SubViewport.new()
+	view.size = Vector2i(640, 360)
+	view.disable_3d = true
+	view.world_2d = World2D.new()
+	view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(view)
+	return view
+
+func _native_compare() -> void:
+	var reference_view := _viewport()
+	var candidate_view := _viewport()
+	var reference := _make_stage(REFERENCE_SCRIPT, reference_view)
+	var candidate := _make_stage(STAGE_SCRIPT, candidate_view)
+	var result := {"scope":"isolated actual PlainsStageVisual technical fixture; no natural death or phone performance claim", "display":DisplayServer.get_name(),"phases":[],"failures":[]}
+	for number: int in 3:
+		batch = number
+		if number > 0:
+			_spawn(reference, number)
+			_spawn(candidate, number)
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var a := reference_view.get_texture().get_image()
+		var b := candidate_view.get_texture().get_image()
+		var equal := a.get_data() == b.get_data()
+		a.save_png(native_output + "/native_baseline_%s.png" % number)
+		b.save_png(native_output + "/native_candidate_%s.png" % number)
+		var left := _model(reference)
+		var right := _model(candidate)
+		var model_equal: bool = left.sprites == right.sprites and left.time == right.time
+		result.phases.append({"batch":number,"pixel_equal":equal,"model_equal":model_equal,"baseline":left,"candidate":right})
+		if not equal or not model_equal: result.failures.append("phase_%s_equivalence" % number)
+		if number > 0 and (left.materials != left.pickups or right.materials != 1): result.failures.append("phase_%s_material_count" % number)
+	var refs: Array[WeakRef] = []
+	for sprite: Sprite2D in candidate.get_child(1)._pickups: refs.append(weakref(sprite.material))
+	reference_view.queue_free()
+	candidate_view.queue_free()
+	reference = null
+	candidate = null
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var released := true
+	for ref: WeakRef in refs: released = released and ref.get_ref() == null
+	result["material_released"] = released
+	if not released: result.failures.append("material_not_released")
+	result["status"] = "PASS" if result.failures.is_empty() else "FAIL"
+	var file := FileAccess.open(native_output + "/native-result.json", FileAccess.WRITE)
+	file.store_string(JSON.stringify(result, "\t"))
+	file.close()
+	print("LOOT_NATIVE_RESULT ", JSON.stringify(result))
+	get_tree().quit(0 if result.failures.is_empty() else 1)

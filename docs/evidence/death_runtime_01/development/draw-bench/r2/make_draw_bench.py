@@ -1,0 +1,129 @@
+from pathlib import Path
+import re,hashlib,json
+out=Path('/tmp/death-runtime-01/draw-bench/r2'); baseline=Path('/tmp/death-runtime-01/baseline'); candidate=Path('/tmp/gunman-first-use-web-source/game/enemies/presentation')
+names={'pose':'PlainsRevisionPose','ground':'PlainsRevisionGround','flora':'PlainsRevisionFlora','skin':'PlainsRevisionSkin'}
+source_receipts=[]
+def nested(owner,root):
+ parts=['extends RefCounted\n# Test-only symmetric lexical classes; no numerical expression changes.\n']
+ for short,globalname in names.items():
+  path=root/('plains_revision_'+short+'.gd'); raw=path.read_text(); text=raw
+  source_receipts.append({'side':owner,'path':str(path),'sha256':hashlib.sha256(raw.encode()).hexdigest()})
+  text=text.replace('@static_unload\n','').replace('class_name '+globalname+'\n','',1)
+  for name,old in names.items(): text=re.sub(r'\b'+old+r'\b','Draw'+name.capitalize(),text)
+  assert text.startswith('extends RefCounted\n')
+  if short=='skin':
+   draw='\tcanvas.draw_mesh(_mesh,texture,Transform2D.IDENTITY,tint)\n'; assert text.count(draw)==1
+   text=text.replace(draw,'',1)
+   upload='\t\t_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())\n';assert text.count(upload)==1
+   text=text.replace(upload,'\t\tobserved_vertices = vertices\n'+upload,1)
+   text=text.replace('var texture: Texture2D\n','var observed_vertices := PackedVector2Array()\nvar texture: Texture2D\n',1)
+  parts.append('\nclass Draw'+short.capitalize()+':\n'+''.join('\t'+line if line.strip() else line for line in text.splitlines(True)))
+ return ''.join(parts)
+base=nested('A-original5d',baseline); actual=nested('B-current-candidate',candidate)
+(out/'base.gd').write_text(base);(out/'control.gd').write_text(base);(out/'candidate.gd').write_text(actual)
+runner='''extends SceneTree
+const A = preload("/tmp/death-runtime-01/draw-bench/r2/base.gd")
+const B = preload("__RIGHT__")
+const MODE := "__MODE__"
+const OUTPUT := "/tmp/death-runtime-01/draw-bench/r2/__MODE__-results.json"
+const STEPS := 20
+const KINDS: Array[StringName] = [&"patrol", &"charger", &"hopper", &"sentry", &"fan_sentry", &"root_bell"]
+var rows: Array = []
+var mismatches := 0
+var ordinal := 0
+
+func _initialize() -> void:
+	_run.call_deferred()
+
+func _pose() -> Dictionary:
+	return {"clock":.731,"stride":1.17,"travel":.73,"load":.61,"strike":.39,"recovery":.28,"hurt":.41,"turn":-.73,"air":false,"vertical":-173.5,"dead":false,"death":0.0,"drive":-.67,"appendage_follow":.23,"aim":-.31,"landing":0.0,"death_clock":0.0}
+
+func _canvas() -> Node2D:
+	var canvas := Node2D.new()
+	canvas.position = Vector2(100,180)
+	var material := ShaderMaterial.new()
+	material.shader = preload("res://game/enemies/presentation/plains_revision_skin.gdshader")
+	canvas.material = material
+	root.add_child(canvas)
+	return canvas
+
+func _draw_pair(left: RefCounted, right: RefCounted, left_canvas: Node2D, right_canvas: Node2D, values: Dictionary, round_index: int, kind: StringName, situation: String, phase: String, frame: int) -> void:
+	left.set("observed_vertices",PackedVector2Array())
+	right.set("observed_vertices",PackedVector2Array())
+	var a_us := 0
+	var b_us := 0
+	# Every adjacent pair reverses order; rounds also reverse the first side.
+	var a_first := (ordinal + round_index) % 2 == 0
+	for side: int in ([0,1] if a_first else [1,0]):
+		var started := Time.get_ticks_usec()
+		if side == 0:
+			left.call("draw_pose",left_canvas,values)
+			a_us = Time.get_ticks_usec()-started
+		else:
+			right.call("draw_pose",right_canvas,values)
+			b_us = Time.get_ticks_usec()-started
+	# Byte serialization, checksums, records and resets are outside timing.
+	var a_vertices: PackedVector2Array = left.get("observed_vertices")
+	var b_vertices: PackedVector2Array = right.get("observed_vertices")
+	var a_bytes := a_vertices.to_byte_array()
+	var b_bytes := b_vertices.to_byte_array()
+	var equal := a_bytes == b_bytes
+	var expected_count := 0 if phase == "settled_cache" else 625
+	var upload_contract := a_vertices.size() == expected_count and b_vertices.size() == expected_count
+	if not equal or not upload_contract: mismatches += 1
+	var row := {"ordinal":ordinal,"round":round_index,"kind":String(kind),"case":situation,"phase":phase,"frame":frame,"order":"AB" if a_first else "BA","death":values.death,"death_clock":values.death_clock,"clock":values.clock,"air":values.air,"landing":values.landing,"a_us":a_us,"b_us":b_us,"a_uploaded_vertices":a_vertices.size(),"b_uploaded_vertices":b_vertices.size(),"byte_equal":equal,"expected_uploaded_vertices":expected_count,"upload_contract":upload_contract,"a_vertex_bytes_hex_if_mismatch":a_bytes.hex_encode() if not equal else "","b_vertex_bytes_hex_if_mismatch":b_bytes.hex_encode() if not equal else ""}
+	# On failure preserve exact vertex bytes; successful samples need no bulk copy.
+	rows.append(row)
+	ordinal += 1
+
+func _run() -> void:
+	root.size = Vector2i(1280,720)
+	for round_index: int in 3:
+		for kind: StringName in KINDS:
+			for situation: String in ["live", "death_ground", "death_air", "death_air_contact"]:
+				var left := A.DrawSkin.new(kind)
+				var right := B.DrawSkin.new(kind)
+				var left_canvas := _canvas()
+				var right_canvas := _canvas()
+				var values := _pose()
+				values.air = situation == "death_air"
+				if situation == "live":
+					for frame: int in STEPS+1:
+						values.clock = .731+float(frame)/60.0
+						values.stride = 1.17+float(frame)*.09
+						_draw_pair(left,right,left_canvas,right_canvas,values,round_index,kind,situation,"live_first" if frame == 0 else "live_steady",frame)
+				else:
+					# Retain the last actual alive pose, then freeze all motion scalars.
+					for frame: int in 3:
+						values.clock = .731+float(frame)/60.0
+						values.stride = 1.17+float(frame)*.09
+						_draw_pair(left,right,left_canvas,right_canvas,values,round_index,kind,situation,"prime_live",frame)
+					values.dead = true
+					for frame: int in STEPS+1:
+						var progress := float(frame)/STEPS
+						values.death = progress
+						values.death_clock = progress*1.1
+						values.landing = sin(PI*progress/.2) if progress > 0.0 and progress < .2 else 0.0
+						if situation == "death_air_contact": values.air = frame >= 7 and frame < 14
+						_draw_pair(left,right,left_canvas,right_canvas,values,round_index,kind,situation,"first_death" if frame == 0 else "collapse_steady",frame)
+					for frame: int in 3:
+						values.death_clock += 1.0/60.0
+						_draw_pair(left,right,left_canvas,right_canvas,values,round_index,kind,situation,"settled_cache",frame)
+				left_canvas.free()
+				right_canvas.free()
+	var output := {"mode":MODE,"rounds":3,"steps":STEPS,"pairs":rows.size(),"mismatches":mismatches,"all_uploaded_vertices_bit_equal":mismatches == 0,"rows":rows,"scope":"Symmetric nested original/candidate Skin.draw_pose including visibility, pose preparation, caches, vertices allocation, actual ArrayMesh.surface_update_vertex_region, four material parameter writes and identical test-only observation. Final canvas.draw_mesh removed only in test copies; excludes actual GPU draw, AI, audio, loot, browser and phone. Mesh/skin creation and row serialization are outside per-draw timing."}
+	var file := FileAccess.open(OUTPUT,FileAccess.WRITE)
+	if file == null:
+		push_error("DRAW_PIPELINE unable to write "+OUTPUT)
+		quit(2)
+		return
+	file.store_string(JSON.stringify(output))
+	file.close()
+	print("DEATH_DRAW_PIPELINE "+JSON.stringify({"mode":MODE,"pairs":rows.size(),"mismatches":mismatches,"all_uploaded_vertices_bit_equal":mismatches == 0,"output":OUTPUT}))
+	quit(1 if mismatches else 0)
+'''
+for mode,right in [('ab','candidate.gd'),('aa','control.gd')]:
+ (out/(mode+'_bench.gd')).write_text(runner.replace('__RIGHT__',str(out/right)).replace('__MODE__',mode))
+manifest={'source_inventory':source_receipts,'symmetric_lexical_class_names':['DrawPose','DrawGround','DrawFlora','DrawSkin'],'test_only_edits':['drop static_unload/class_name for lexical wrapping','remove final canvas.draw_mesh line from each Skin copy','inject observed_vertices assignment immediately before unchanged upload','add observed_vertices packed-array field'],'aa_independent_resources_with_identical_bytes':(out/'base.gd').read_bytes()==(out/'control.gd').read_bytes(),'rounds':3,'steps':20,'expected_pairs_per_run':1836,'expected_individual_draw_samples_per_run':3672,'parse_budget_seconds':20,'engine_budget_seconds':120,'engine_run_by_author':False,'artifact_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in out.glob('*.gd')}}
+(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+print(json.dumps({'files':sorted(f.name for f in out.iterdir()),'expected_pairs_per_run':1836,'author_engine_run':False},indent=2))
