@@ -11058,6 +11058,70 @@
       "timeout_seconds": 30,
       "success_pattern": "^OK$",
       "weight_seconds": 0.5
+    },
+    "runtime-map-v2-host": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^RUNTIME MAP V2 HOST: [1-9][0-9]* assertions, 0 failures$",
+      "serial": true,
+      "weight_seconds": 10,
+      "cacheable": true,
+      "inputs": [
+        "game",
+        "game/world/levels",
+        "scripts",
+        "experiments/audio",
+        "experiments/generation",
+        "experiments/motion",
+        "experiments/platform",
+        "experiments/terrain/art",
+        "game/application",
+        "game/bosses",
+        "game/combat",
+        "game/economy/shops",
+        "game/enemies",
+        "game/loadout",
+        "game/platform",
+        "game/player",
+        "game/presentation",
+        "game/progression",
+        "game/rewards",
+        "game/world",
+        "scenes",
+        "experiments/audio/entries",
+        "experiments/generation/entries",
+        "experiments/motion/entries",
+        "experiments/terrain/entries",
+        "resources",
+        "game/application/resources",
+        "game/rewards/grants/resources",
+        "config",
+        "assets",
+        "shaders",
+        "tools/godot.sh",
+        "project.godot",
+        "export_presets.cfg",
+        "tests/runtime_map_v2_runner.gd",
+        "tests/audio_teardown.gd",
+        "experiments/terrain/art_foundation",
+        "experiments/terrain/style_exploration",
+        "tools/godot_identity.py",
+        "tools/engine/patches",
+        "tests/runtime_map_v2_runner.gd.uid"
+      ],
+      "artifact_paths": [
+        "build/mapgen_host_v2_01"
+      ]
     }
   },
   "profiles": {
@@ -11296,7 +11360,8 @@
       "forest-v11-definition",
       "foundry-lab",
       "foundry-touch",
-      "foundry-feedback"
+      "foundry-feedback",
+      "runtime-map-v2-host"
     ],
     "art": [
       "docs",
@@ -11620,7 +11685,8 @@
       "forest-v11-definition",
       "foundry-lab",
       "foundry-touch",
-      "foundry-feedback"
+      "foundry-feedback",
+      "runtime-map-v2-host"
     ],
     "creative-feedback": [
       "docs",

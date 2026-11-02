@@ -1,0 +1,40 @@
+{
+  "task": "MAPGEN-HOST-V2-01",
+  "reviewer_role": "non_author_source_review",
+  "base_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+  "decision": "static_accept_bounded_slice_pending_native",
+  "source_sha256": {
+    "game/world/levels/providers/runtime_map_v2_provider.gd": "d91c66478d2cd20f0036eb0cebf0fa0590f5d2c29dbc4a0aa80c8c9664359609",
+    "game/world/levels/content/runtime_map_ellipse_definition.gd": "1d657c1fe5399d3e39494e82f12c2462ea250e44e3335d07c6a3283f3e312f46",
+    "experiments/generation/runtime_map_frozen_source.gd": "608054220469890f849cda3fb431a9306456f64e0a88a1435be1f86d9e71b26f",
+    "experiments/generation/runtime_map_slice_stage.gd": "34594e068d2072d4939f4d2c5a35b5b7fe3330b74fee25f9d8471a04c994bbf0",
+    "experiments/generation/runtime_map_slice.gd": "2068c8a311c7722093360f0716474b6c523aca90c1341778be72c0a88fc57a0f",
+    "experiments/generation/entries/runtime_map_v2_slice.tscn": "63d0fc4928ca86b47f4f7e8c235faa9e2ce3faf7a3b638aa4f9cbf2d4a3d6db9",
+    "tests/runtime_map_v2_runner.gd": "42f62513037d40b1e93d8d5c0a88f03626c02ebb23a3d9b6370a1252b591e132"
+  },
+  "open_findings": [],
+  "resolved_findings": [
+    "ESC echo/parallel close bypass repaired in source",
+    "face negative case changed from no-op LEFT to original-invalid RIGHT; rejection assertion retained"
+  ],
+  "withdrawn_findings": [
+    "missing-port indentation claim was reviewer text-display misread; source tabs correct"
+  ],
+  "source_checks": {
+    "full_official_map_bytes_exact": true,
+    "three_materialized_content_bytes_exact": true,
+    "three_instance_records_complete_equal": true,
+    "selection_original_bytes_exact": true,
+    "lock_six_files_sha_exact": true,
+    "original_core_files_unchanged": true,
+    "duplicate_geometry_sets_added": false,
+    "ellipse_original_phase_and_Vector2_boundary_retained": true
+  },
+  "trust_scope": "co-versioned fixed six-file local lock; caller verifies bytes; Provider SHA argument is attestation, not cryptographic map/content re-verification",
+  "engine_run": false,
+  "browser_run": false,
+  "tests_run_by_reviewer": false,
+  "production_writes": 0,
+  "native_result": "pending root fresh run; old seed failure retained",
+  "review_sha256": "d0cfcf171c943078c24772c23b0370464a0843a29e5a959ad7d15b598ef2fcc9"
+}

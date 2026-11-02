@@ -1,5 +1,7 @@
 # 后续功能怎样接入
 
+2026-11-02：新增[map-gen v2第一轮宿主接入](worklines/mapgen_host_v2_01/integration.md)与[上游约束/R2清单](worklines/mapgen_host_v2_01/upstream_requirements.md)。真实三模块受控入口已复用本架构；完整地图、正式App源记录/恢复、运行时算法和Web仍未接通。下文正式运行路径保持。
+
 当前基础可以继续扩展，但尚未达到“四类功能都只加配置即可完成”。永久升级的事务与保存最接近可直接复用；map-gen正式接入的缺口最大。下表及[逐项源码审计](worklines/future_feature_architecture_01/assessment.md)以游戏 `8dfaf7f3`、map-gen `c2ac2c36` 为来源。它们描述可行性，不代表新功能已经实现。
 
 | 需求 | 已有实际基础 | 仍需完成 |

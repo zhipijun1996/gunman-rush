@@ -231,6 +231,11 @@ class ProductionPlanTests(unittest.TestCase):
         # CI. Reconstruct and hash-pin C59's exact vectors before replaying the
         # existing historical144..185 assertions below; those are not current
         # default coverage claims. No check/command/budget is reconstructed.
+        appended_manifest = self.manifest
+        self.manifest = copy.deepcopy(appended_manifest)
+        for profile in ("gameplay", "full"):
+            self.assertEqual(self.manifest["profiles"][profile][-1], "runtime-map-v2-host")
+            self.manifest["profiles"][profile].pop()
         current_manifest = self.manifest
         retired_positions = {
             'docs': [],
@@ -431,7 +436,41 @@ class ProductionPlanTests(unittest.TestCase):
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
         with_extra = make_plan(["project.godot"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
-        self.manifest = current_manifest
+        self.manifest = appended_manifest
+
+    def test_runtime_map_v2_host_appends_real_consumer_and_exact_resource_routing(self):
+        name = "runtime-map-v2-host"
+        check = self.manifest["checks"][name]
+        self.assertEqual(check["argv"], ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/runtime_map_v2_runner.gd"])
+        self.assertEqual(check["timeout_seconds"], 180)
+        self.assertIs(check["serial"], True)
+        self.assertEqual(check["success_pattern"], "^RUNTIME MAP V2 HOST: [1-9][0-9]* assertions, 0 failures$")
+        self.assertEqual(check["artifact_paths"], ["build/mapgen_host_v2_01"])
+        self.assertEqual({p for p, checks in self.manifest["profiles"].items() if name in checks}, {"gameplay", "full"})
+        canonical = lambda value: hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        for profile, original_sha in {'gameplay': 'a40e54cd19b40c1ef53e6bb14c5bd07ac87c80033f8c570cf6ce7bbf32c4e78a', 'full': '132799f9503067b875c8ddbf88255d1e096a092afec9c15f8621442de2e20d49'}.items():
+            self.assertEqual(self.manifest["profiles"][profile][-1], name)
+            self.assertEqual(canonical(self.manifest["profiles"][profile][:-1]), original_sha)
+        full = self.plan(["project.godot"], "integration")
+        self.assertEqual((len(full["checks"]), len(full["ci_lane_checks"]["parallel"]), len(full["ci_lane_checks"]["serial"])), (172, 92, 80))
+        rule = next(r for r in self.policy["rules"] if r["id"] == name)
+        self.assertEqual(rule["paths"], ['game/world/levels/providers/runtime_map_v2_provider.gd', 'game/world/levels/providers/runtime_map_v2_provider.gd.uid', 'game/world/levels/content/runtime_map_ellipse_definition.gd', 'game/world/levels/content/runtime_map_ellipse_definition.gd.uid', 'experiments/generation/runtime_map_frozen_source.gd', 'experiments/generation/runtime_map_frozen_source.gd.uid', 'experiments/generation/runtime_map_slice.gd', 'experiments/generation/runtime_map_slice.gd.uid', 'experiments/generation/runtime_map_slice_stage.gd', 'experiments/generation/runtime_map_slice_stage.gd.uid', 'tests/runtime_map_v2_runner.gd', 'tests/runtime_map_v2_runner.gd.uid', 'experiments/generation/entries/runtime_map_v2_slice.tscn', 'resources/levels/mapgen_host_v2_01/bindings.json', 'resources/levels/mapgen_host_v2_01/content/M16.json', 'resources/levels/mapgen_host_v2_01/content/M18.json', 'resources/levels/mapgen_host_v2_01/content/M21.json', 'resources/levels/mapgen_host_v2_01/input-lock.json', 'resources/levels/mapgen_host_v2_01/map.json', 'resources/levels/mapgen_host_v2_01/selection.json'])
+        import harness
+        for path in rule["paths"]:
+            self.assertNotEqual(harness.input_digest(check, [path], {}, snapshot={path: "before"}), harness.input_digest(check, [path], {}, snapshot={path: "after"}))
+            with self.subTest(path=path):
+                plan = self.plan([path], "integration")
+                self.assertEqual(plan["selection"], "affected_checks")
+                self.assertIn(name, plan["checks"])
+                self.assertIn("level-plan", plan["checks"])
+                self.assertNotIn("web-build", plan["checks"])
+        for path in ("resources/levels/mapgen_host_v2_01/unknown.json", "experiments/generation/runtime_map_unknown.gd", "tests/runtime_map_unknown_runner.gd", "game/world/state/demo_lifetime.gd", "config/production_impact.json", "tools/harness/profiles.json"):
+            with self.subTest(unknown_or_shared=path):
+                self.assertEqual(self.plan([path], "integration")["selection"], "full")
+        altered = copy.deepcopy(self.policy)
+        next(r for r in altered["rules"] if r["id"] == name)["paths"].append("resources/levels/mapgen_host_v2_01/unknown.json")
+        self.assertEqual(self.plan(["resources/levels/mapgen_host_v2_01/unknown.json"], "integration", altered)["selection"], "full")
+        self.assertEqual(self.plan(["docs/handoff.md"], "integration")["checks"], self.policy["baseline_checks"])
 
     def test_real_refactor_runners_keep_direct_strict_native_contracts(self):
         rows = [

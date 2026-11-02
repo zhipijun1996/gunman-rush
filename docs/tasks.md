@@ -1,3 +1,9 @@
+## 2026-11-02 三仓第一轮宿主接入
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MAPGEN-HOST-V2-01 | runtime-map/v2真实模块受控装载与宿主反馈 | MAIN-REFACTOR-MERGE-01 | review | [结果](worklines/mapgen_host_v2_01/results.md) · [宿主映射](worklines/mapgen_host_v2_01/integration.md) · [上游/R2](worklines/mapgen_host_v2_01/upstream_requirements.md) · [质量](quality/records/MAPGEN-HOST-V2-01.json)；仅技术切片，不替换正式地图，不发布 |
+
 ## 2026-11-02 首次使用与敌战卡顿调查
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |

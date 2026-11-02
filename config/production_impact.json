@@ -107,8 +107,8 @@
       "depends_on": ["runtime_contracts"]
     },
     "world": {
-      "development": ["level-plan", "generated-consumers", "region", "forest-current-registry", "region-bible-contract"],
-      "integration": ["level-plan", "generated-consumers", "region", "forest-current-registry", "underworld-world-objects", "underworld-mechanisms", "terrain-production", "wood-platforms", "forest-campaign", "forest-traversal", "forest-progression", "forest-hazard-records", "forest-practice-bell-restore", "region-bible-contract", "forest-bible-integration-tests", "forest-bible-app-discoveries", "forest-bible-ambience"],
+      "development": ["level-plan", "generated-consumers", "region", "forest-current-registry", "region-bible-contract", "runtime-map-v2-host"],
+      "integration": ["level-plan", "generated-consumers", "region", "forest-current-registry", "underworld-world-objects", "underworld-mechanisms", "terrain-production", "wood-platforms", "forest-campaign", "forest-traversal", "forest-progression", "forest-hazard-records", "forest-practice-bell-restore", "region-bible-contract", "forest-bible-integration-tests", "forest-bible-app-discoveries", "forest-bible-ambience", "runtime-map-v2-host"],
       "depends_on": ["runtime_contracts"]
     },
     "presentation": {
@@ -138,6 +138,33 @@
     }
   },
   "rules": [
+    {
+      "id": "runtime-map-v2-host",
+      "paths": [
+        "game/world/levels/providers/runtime_map_v2_provider.gd",
+        "game/world/levels/providers/runtime_map_v2_provider.gd.uid",
+        "game/world/levels/content/runtime_map_ellipse_definition.gd",
+        "game/world/levels/content/runtime_map_ellipse_definition.gd.uid",
+        "experiments/generation/runtime_map_frozen_source.gd",
+        "experiments/generation/runtime_map_frozen_source.gd.uid",
+        "experiments/generation/runtime_map_slice.gd",
+        "experiments/generation/runtime_map_slice.gd.uid",
+        "experiments/generation/runtime_map_slice_stage.gd",
+        "experiments/generation/runtime_map_slice_stage.gd.uid",
+        "tests/runtime_map_v2_runner.gd",
+        "tests/runtime_map_v2_runner.gd.uid",
+        "experiments/generation/entries/runtime_map_v2_slice.tscn",
+        "resources/levels/mapgen_host_v2_01/bindings.json",
+        "resources/levels/mapgen_host_v2_01/content/M16.json",
+        "resources/levels/mapgen_host_v2_01/content/M18.json",
+        "resources/levels/mapgen_host_v2_01/content/M21.json",
+        "resources/levels/mapgen_host_v2_01/input-lock.json",
+        "resources/levels/mapgen_host_v2_01/map.json",
+        "resources/levels/mapgen_host_v2_01/selection.json"
+      ],
+      "domain": "world",
+      "reason": "Exact v2 loading-slice Provider, content fixture and real native consumer; shared world contracts remain selected and unknown experiment/resource neighbours stay full."
+    },
     {
       "id": "planner",
       "paths": ["tools/production_plan.py", "config/production_impact.json", "tests/test_production_plan.py"],

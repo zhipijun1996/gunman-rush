@@ -14,10 +14,17 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/production_impact.json"
-# Audited isolated experiment configuration, never read by formal generators.
+# Audited isolated experiment inputs, never read by formal generators.
 # These exact path/rule/domain triples are the only additions permitted ahead
-# of config/* routing. A broad policy glob or metadata flag cannot opt out.
+# of shared config/resource routing. A broad policy glob cannot opt out.
 EXACT_EXPERIMENT_CONFIG = {
+    'resources/levels/mapgen_host_v2_01/bindings.json': ("runtime-map-v2-host", "world"),
+    'resources/levels/mapgen_host_v2_01/content/M16.json': ("runtime-map-v2-host", "world"),
+    'resources/levels/mapgen_host_v2_01/content/M18.json': ("runtime-map-v2-host", "world"),
+    'resources/levels/mapgen_host_v2_01/content/M21.json': ("runtime-map-v2-host", "world"),
+    'resources/levels/mapgen_host_v2_01/input-lock.json': ("runtime-map-v2-host", "world"),
+    'resources/levels/mapgen_host_v2_01/map.json': ("runtime-map-v2-host", "world"),
+    'resources/levels/mapgen_host_v2_01/selection.json': ("runtime-map-v2-host", "world"),
     "config/level_pilot_candidates.json": ("ai-level-pilot", "ai_level_pilot"),
 }
 

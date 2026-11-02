@@ -1,3 +1,11 @@
+## 2026-11-02 MAPGEN-HOST-V2-01 第一轮真实装载切片
+
+从最新main `30e36c9abe223f26e666ceaf796e3fe9cb58e10f` 建立 `feature/mapgen-host-v2-01`；此前重构已由PR126合入，本轮为新独立接入，**不自动合main或发布**。锁定map-gen178c4016与原module-pack1.1.0，官方930001/stable-v2首轮生成46实例/55连接；本轮完整保留M16/M18/M21，经新数据Provider/Stage消费原LevelPlan/LevelRuntime/玩家/一套服务，没有恢复PR123。
+
+真实Godot150/0覆盖C027/C030连续跨接缝、原椭圆物理骑乘、唯一20static+1carrier/玩家/伤害policy、原时钟恢复/旧token拒绝/干净退出。原LevelPlan146/0、RunSession61/0、architecture13/0、planner49/0通过；原失败和源码指纹保存。新增Harness专项尾加原171为172，原检查/预算保留；不是远端完整172绿或Web/手机证据。
+
+完整地图/敌人/奖励/Boss及出生、正式App旧Manifest消费者、全输入replay绑定、实际能力快照与运行时算法调度仍待下一轮。当前入口仅原生受控切片，Web raw JSON尚未准入导出；不称整图可玩。见[实际映射和入口](worklines/mapgen_host_v2_01/integration.md)、[结果/回退](worklines/mapgen_host_v2_01/results.md)、[给map-gen/map-edit要求与第二轮清单](worklines/mapgen_host_v2_01/upstream_requirements.md)、[证据](evidence/mapgen_host_v2_01/README.md)。质量review、技术stage限G0/G1；恢复先核该分支/源SHA/实际PR，不用下方旧阶段授权合此PR。
+
 ## 2026-11-02 用户已授权当前重构分支合入main
 
 授权覆盖此前阶段“不自动合main”。当前待合入源码35881a6e，目标main2ce4ffa6；原Integration要求full171，创建PR后由精确head的prepare／parallel／serial／affected全部通过才普通merge。实际PR／head／合并结果以GitHub和main ancestry为准，恢复先查，已merged不要重复执行。合入后main自动完整构建／Pages另核实际结果；旧试玩与旧完整CI不冒充本轮新head通过。执行合同见[合入范围](worklines/main_refactor_merge_01/scope.md)。
