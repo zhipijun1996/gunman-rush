@@ -1,3 +1,11 @@
+## 2026-11-02 DEATH-RUNTIME-01 运行优化已验证，正在准备试玩
+
+基点5d3303b7；保留当前死亡动画、图声及玩法。Ground复用冻结活体顶点前缀，Hopper／Sentry／Fan每draw准备死亡几何，原StageVisual共享无uniform掉落材质。原Oracle7899／442442顶点逐字节一致，实际App603、支撑145／尸体保存156／snapshot129及core5686均通过、严格退出clean；实际draw A/A与A/B各1836对上传完全等价，Ground死亡持续CPU路径约降50–61%，不是手机FPS。
+
+style34／creative37只重绑206中五GD，201条及86非GD保持；current46／history52／creative31与两binder通过，保原方法／断言／预算与缺旧fixture失败。源码与技术绑定成组回退5d3303b7；旧公开仍9dd3a9a2ecd8／prepared2f0b3089。本批额外掉落预热因Web观测超时未采用，原失败保留。见[结果](worklines/death_runtime_01/results.md)。
+
+下一步冻结源码，以原Foundry36开发样本实际重建过期basis，再走原Web导出／闭包／完整PCK及公开基本GUI验证；不跑新full171／Windows，不合main。手机Chrome死亡帧时和用户认可仍未验，勿拿旧包展示新优化。恢复先核Git及构建日志，已有oracle／core通过不因无关文档重跑。
+
 ## 2026-11-02 FIRST-USE-STUTTER-01 技术已部署，设备仍待复测
 
 运行源 `b5c7bf65cf7a551cb0783f44f6fa594804bf94ee`；build `9dd3a9a2ecd8`，prepared `2f0b308952145b4f8f522b10925782e4ae21f3ac`，Pages41423846094成功。两个实际表现宿主共用离屏Canvas准备；真实Home首jump/pulse被接受且全program新增编译／链接0，原生GPU50和同版相关10项fresh通过。style33／creative36只技术重绑一GD，图声与玩法规则保持，不自动合main。

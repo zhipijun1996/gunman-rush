@@ -4,6 +4,122 @@ extends RefCounted
 ## The host owns every clock, accepted hit and contact. This leaf only bends
 ## the same neutral skin; it never draws an intent marker or moves an Actor.
 
+# One draw-local prepared pose owns this lazy death geometry. Only size/pose
+# expressions live here; UV/weight selection and point operations stay below.
+class Geometry extends RefCounted:
+	var size: Vector2
+	var kind: StringName
+	var death: float
+	var death_clock: float
+	var center: Vector2
+	var parent_angle: float
+	var body_target: Vector2
+	var sac_scale: Vector2
+	var nozzle_hinge: Vector2
+	var nozzle_angle: float
+	var leaf_hinge: Vector2
+	var upper_leaf_hinge: Vector2
+	var rear_leaf_hinge: Vector2
+	var leaf_angle: float
+	var upper_leaf_angle: float
+	var rear_leaf_angle: float
+	var front_hip: Vector2
+	var rear_hip: Vector2
+	var moved_front_hip: Vector2
+	var moved_rear_hip: Vector2
+	var front_leg_angle: float
+	var rear_leg_angle: float
+	var left_root: Vector2
+	var right_root: Vector2
+	var body_root: Vector2
+	var feet_root: Vector2
+	var left_angle: float
+	var right_angle: float
+	var body_angle: float
+	var feet_angle: float
+	var body_y: float
+	var body_x: float
+	var sprawl_x: float
+	var sprawl_y: float
+	var falling_left_angle: float
+	var falling_right_angle: float
+	var falling_body_angle: float
+	var falling_feet_angle: float
+	var falling_body_y: float
+	var falling_body_x: float
+	var contact_blend: float
+
+static func _death_geometry(size: Vector2, pose: PlainsRevisionPose, kind: StringName) -> Geometry:
+	var geometry := pose.flora_death_geometry as Geometry
+	# Only the unfinished fan reads the corpse clock; neither leaf reads air.
+	var death_clock := pose.death_clock if kind == &"fan_sentry" and not (pose.death >= 1.0) else 0.0
+	if geometry != null and geometry.size == size and geometry.kind == kind and geometry.death == pose.death and geometry.death_clock == death_clock:
+		return geometry
+	geometry = Geometry.new()
+	geometry.size = size
+	geometry.kind = kind
+	geometry.death = pose.death
+	geometry.death_clock = death_clock
+	var d := pose.death
+	if kind == &"sentry":
+		var deflate := _window(0.00, 0.32, d)
+		var topple := _window(0.28, 0.78, d)
+		var leaf_drop := _window(0.65, 1.00, d)
+		var center := _pivot(Vector2(0.30, 0.53), size)
+		var parent_angle := 0.70 * topple
+		var body_target := center + Vector2(size.x * 0.06, size.y * 0.28) * topple
+		geometry.center = center
+		geometry.parent_angle = parent_angle
+		geometry.body_target = body_target
+		geometry.sac_scale = Vector2(1.0 - 0.12 * deflate, 1.0 - 0.36 * deflate)
+		geometry.nozzle_hinge = body_target + (_pivot(Vector2(0.70, 0.34),size)-center).rotated(parent_angle)
+		geometry.nozzle_angle = -0.76 * _window(0.13,0.78,d)
+		geometry.leaf_hinge = body_target + (_pivot(Vector2(0.47,0.31),size)-center).rotated(parent_angle)
+		geometry.upper_leaf_hinge = body_target + (_pivot(Vector2(0.43,0.23),size)-center).rotated(parent_angle)
+		geometry.rear_leaf_hinge = body_target + (_pivot(Vector2(0.42,0.32),size)-center).rotated(parent_angle)
+		geometry.leaf_angle = -1.48*leaf_drop
+		geometry.upper_leaf_angle = -1.58*leaf_drop
+		geometry.rear_leaf_angle = -1.22*leaf_drop
+		geometry.front_hip = _pivot(Vector2(0.61,0.74),size)
+		geometry.rear_hip = _pivot(Vector2(0.34,0.75),size)
+		geometry.moved_front_hip = body_target+(geometry.front_hip-center).rotated(parent_angle)
+		geometry.moved_rear_hip = body_target+(geometry.rear_hip-center).rotated(parent_angle)
+		geometry.front_leg_angle = -1.12*_window(0.25,0.68,d)
+		geometry.rear_leg_angle = 1.18*_window(0.34,0.76,d)
+	else:
+		var left_drop := maxf(_window(0.00, 0.37, d), 0.82 * _window(0.00, 0.18, d))
+		var right_drop := maxf(_window(0.21, 0.69, d), 0.58 * _window(0.01, 0.22, d))
+		var roll := maxf(_window(0.31, 0.80, d), 0.55 * _window(0.00, 0.16, d))
+		var sprawl := _window(0.66, 1.00, d)
+		var failed_beat := sin(_window(0.20, 0.58, d) * TAU) * 0.21 * (1.0 - _window(0.55, 0.72, d))
+		geometry.left_root = _pivot(Vector2(0.45, 0.43), size)
+		geometry.right_root = _pivot(Vector2(0.59, 0.43), size)
+		geometry.body_root = _pivot(Vector2(0.44, 0.77), size)
+		geometry.feet_root = _pivot(Vector2(0.56, 0.79), size)
+		geometry.left_angle = -0.94 * left_drop
+		geometry.right_angle = 0.70 * right_drop + failed_beat
+		geometry.body_angle = 0.56 * roll
+		geometry.feet_angle = -0.75 * roll
+		geometry.body_y = size.y * 0.17 * roll
+		geometry.body_x = size.x * 0.10 * roll
+		geometry.sprawl_x = size.x * 0.07 * sprawl
+		geometry.sprawl_y = size.y * 0.075 * sprawl
+		if not (d >= 1.0):
+			var death_age := maxf(0.0, pose.death_clock)
+			var air_loss := _window(0.00, 0.19, death_age)
+			var late_wing := _window(0.07, 0.31, death_age)
+			var air_roll := _window(0.06, 0.38, death_age)
+			var weak_beat := sin(death_age * TAU * 7.0) * exp(-death_age * 4.5) * _window(0.02, 0.07, death_age) * 0.20
+			geometry.falling_left_angle = -0.80 * air_loss
+			geometry.falling_right_angle = 0.50 * late_wing + weak_beat
+			geometry.falling_body_angle = 0.31 * air_roll
+			geometry.falling_feet_angle = -0.40 * air_roll
+			geometry.falling_body_y = size.y * 0.055 * air_roll
+			geometry.falling_body_x = size.x * 0.035 * air_roll
+			geometry.contact_blend = _window(0.00, 0.20, d)
+	pose.flora_death_geometry = geometry
+	return geometry
+
 static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary, kind: StringName) -> Vector2:
 	return deform_prepared(point, uv, size, PlainsRevisionPose.prepare(pose), kind, PlainsRevisionWeights.new(uv, kind))
 
@@ -51,40 +167,34 @@ static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevi
 	var front := weights.front
 	var p := point
 	if pose.dead:
-		var d := pose.death
-		var deflate := _window(0.00, 0.32, d)
-		var topple := _window(0.28, 0.78, d)
-		var leaf_drop := _window(0.65, 1.00, d)
-		var center := _pivot(Vector2(0.30, 0.53), size)
-		var parent_angle := 0.70 * topple
+		var geometry := _death_geometry(size, pose, &"sentry")
+		var center := geometry.center
+		var parent_angle := geometry.parent_angle
+		var body_target := geometry.body_target
 		# The sac carries its nozzle and leaves. Their hinges are transformed
 		# with this parent, rather than rotating about abandoned upright pivots.
-		var body_target := center + Vector2(size.x * 0.06, size.y * 0.28) * topple
-		var emptied := _scale_part(point, Vector2(0.30, 0.53), size, Vector2(1.0 - 0.12 * deflate, 1.0 - 0.36 * deflate), sac)
+		var emptied := point.lerp(center + (point - center) * geometry.sac_scale, clampf(sac, 0.0, 1.0))
 		var carried := body_target + (emptied - center).rotated(parent_angle)
-		var nozzle_hinge := body_target + (_pivot(Vector2(0.70, 0.34),size)-center).rotated(parent_angle)
-		var nozzle := nozzle_hinge + (carried-nozzle_hinge).rotated(-0.76 * _window(0.13,0.78,d))
+		var nozzle_hinge := geometry.nozzle_hinge
+		var nozzle := nozzle_hinge + (carried-nozzle_hinge).rotated(geometry.nozzle_angle)
 		carried = carried.lerp(nozzle,muzzle)
 		# Upper, rear and front leaves have separate attachments. Late droop
 		# lays their tips beside the emptied chamber instead of making a pole.
-		var leaf_hinge_uv := Vector2(0.47,0.31)
-		var leaf_angle := -1.48
+		var leaf_hinge := geometry.leaf_hinge
+		var leaf_angle := geometry.leaf_angle
 		if uv.y < 0.23:
-			leaf_hinge_uv = Vector2(0.43,0.23)
-			leaf_angle = -1.58
+			leaf_hinge = geometry.upper_leaf_hinge
+			leaf_angle = geometry.upper_leaf_angle
 		elif uv.x < 0.39:
-			leaf_hinge_uv = Vector2(0.42,0.32)
-			leaf_angle = -1.22
-		var leaf_hinge := body_target + (_pivot(leaf_hinge_uv,size)-center).rotated(parent_angle)
-		carried = carried.lerp(leaf_hinge+(carried-leaf_hinge).rotated(leaf_angle*leaf_drop),leaves)
+			leaf_hinge = geometry.rear_leaf_hinge
+			leaf_angle = geometry.rear_leaf_angle
+		carried = carried.lerp(leaf_hinge+(carried-leaf_hinge).rotated(leaf_angle),leaves)
 		# Folding legs stop supporting the parent mass. Their hips travel with
 		# the chamber; feet release outward instead of remaining planted props.
-		var hip_uv := Vector2(0.61,0.74) if front>0.5 else Vector2(0.34,0.75)
-		var hip := _pivot(hip_uv,size)
-		var moved_hip := body_target+(hip-center).rotated(parent_angle)
-		var fold := _window(0.25 if front>0.5 else 0.34,0.68 if front>0.5 else 0.76,d)
-		var leg_angle := -1.12 if front>0.5 else 1.18
-		var folded_leg := moved_hip+(point-hip).rotated(leg_angle*fold)
+		var hip := geometry.front_hip if front>0.5 else geometry.rear_hip
+		var moved_hip := geometry.moved_front_hip if front>0.5 else geometry.moved_rear_hip
+		var leg_angle := geometry.front_leg_angle if front>0.5 else geometry.rear_leg_angle
+		var folded_leg := moved_hip+(point-hip).rotated(leg_angle)
 		return carried.lerp(folded_leg,legs)
 
 	var load := pose.load
@@ -127,53 +237,45 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisio
 	var p := point
 	if pose.dead:
 		var d := pose.death
-		var left_drop := maxf(_window(0.00, 0.37, d), 0.82 * _window(0.00, 0.18, d))
-		var right_drop := maxf(_window(0.21, 0.69, d), 0.58 * _window(0.01, 0.22, d))
-		var roll := maxf(_window(0.31, 0.80, d), 0.55 * _window(0.00, 0.16, d))
-		var sprawl := _window(0.66, 1.00, d)
+		var geometry := _death_geometry(size, pose, &"fan_sentry")
 		# The second wing has one bounded failed correction. It cannot keep
 		# flapping after the body has settled, even if the world clock advances.
-		var failed_beat := sin(_window(0.20, 0.58, d) * TAU) * 0.21 * (1.0 - _window(0.55, 0.72, d))
 		if left_wing != 0.0:
-			p = _joint(p, Vector2(0.45, 0.43), size, -0.94 * left_drop, left_wing)
+			p = _joint_at(p, geometry.left_root, geometry.left_angle, left_wing)
 		if right_wing != 0.0:
-			p = _joint(p, Vector2(0.59, 0.43), size, 0.70 * right_drop + failed_beat, right_wing)
+			p = _joint_at(p, geometry.right_root, geometry.right_angle, right_wing)
 		if body != 0.0:
-			p = _joint(p, Vector2(0.44, 0.77), size, 0.56 * roll, body)
-		p.y += size.y * 0.17 * roll * body
-		p.x += size.x * 0.10 * roll * body
+			p = _joint_at(p, geometry.body_root, geometry.body_angle, body)
+		p.y += geometry.body_y * body
+		p.x += geometry.body_x * body
 		if feet != 0.0:
-			p = _joint(p, Vector2(0.56, 0.79), size, -0.75 * roll, feet)
+			p = _joint_at(p, geometry.feet_root, geometry.feet_angle, feet)
 		# Final loose wing spread is wider than the side-lying abdomen. The
 		# two fans retain their own hinges instead of collapsing as one slab.
-		p.x += size.x * 0.07 * sprawl * (right_wing - left_wing)
-		p.y += size.y * 0.075 * sprawl * maxf(left_wing, right_wing)
+		p.x += geometry.sprawl_x * (right_wing - left_wing)
+		p.y += geometry.sprawl_y * maxf(left_wing, right_wing)
 		# Once grounded collapse is complete, return before reading a running
 		# clock: the settled fan is exactly static on every following draw.
 		if d >= 1.0: return p
-		var death_age := maxf(0.0, pose.death_clock)
 		var captured := pose.live
 		var live := _fan(point, uv, size, captured, weights)
 		# The lethal handoff starts at the exact captured load/hurt/wing pose.
 		# Airborne loss uses the corpse owner's advancing age, never the frozen
 		# live locomotion clock, and remains present through first contact.
-		var air_loss := _window(0.00, 0.19, death_age)
-		var late_wing := _window(0.07, 0.31, death_age)
-		var air_roll := _window(0.06, 0.38, death_age)
-		var weak_beat := sin(death_age * TAU * 7.0) * exp(-death_age * 4.5) * _window(0.02, 0.07, death_age) * 0.20
-		var falling := _joint(live, Vector2(0.45, 0.43), size, -0.80 * air_loss, left_wing)
+		var falling := _joint_at(live, geometry.left_root, geometry.falling_left_angle, left_wing)
 		if right_wing != 0.0:
-			falling = _joint(falling, Vector2(0.59, 0.43), size, 0.50 * late_wing + weak_beat, right_wing)
+			falling = _joint_at(falling, geometry.right_root, geometry.falling_right_angle, right_wing)
 		if body != 0.0:
-			falling = _joint(falling, Vector2(0.44, 0.77), size, 0.31 * air_roll, body)
-		falling.y += size.y * 0.055 * air_roll * body
-		falling.x += size.x * 0.035 * air_roll * body
+			falling = _joint_at(falling, geometry.body_root, geometry.falling_body_angle, body)
+		falling.y += geometry.falling_body_y * body
+		falling.x += geometry.falling_body_x * body
 		if feet != 0.0:
-			falling = _joint(falling, Vector2(0.56, 0.79), size, -0.40 * air_roll, feet)
+			falling = _joint_at(falling, geometry.feet_root, geometry.falling_feet_angle, feet)
 		# death is contact-relative, so the same airborne pose is used at d=0
 		# on either side of landing. A short contact blend then carries it into
 		# the folded ground pose without resetting to the captured live fan.
-		return falling.lerp(p, _window(0.00, 0.20, d))
+		return falling.lerp(p, geometry.contact_blend)
+
 	var load := pose.load
 	var strike := pose.strike
 	var recovery := pose.recovery

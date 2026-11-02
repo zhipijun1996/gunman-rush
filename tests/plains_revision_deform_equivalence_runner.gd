@@ -13,11 +13,13 @@ class ObservedSkin:
 	extends PlainsRevisionSkin
 	var observed := PackedVector2Array()
 	var contexts: Dictionary = {}
+	var supplied_live_points := 0
 	func _init(behavior: StringName) -> void:
 		super(behavior)
-	func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights, live_point: Variant = null) -> Vector2:
 		contexts[pose.get_instance_id()] = true
-		var result := super.deform_prepared(point, uv, pose, weights)
+		if pose.dead and live_point is Vector2: supplied_live_points += 1
+		var result := super.deform_prepared(point, uv, pose, weights, live_point)
 		observed.append(result)
 		return result
 
@@ -131,6 +133,7 @@ func _standalone_cases() -> void:
 func _draw_case(canvas: DrawCanvas, pose: Dictionary, expected_count: int, label: String) -> void:
 	canvas.rig.observed.clear()
 	canvas.rig.contexts.clear()
+	canvas.rig.supplied_live_points = 0
 	canvas.pose = pose
 	var before := canvas.draws
 	canvas.queue_redraw()
@@ -245,11 +248,91 @@ func _root_geometry_cases() -> void:
 			compared_vertices += 1
 			_check(PackedVector2Array([actual]).to_byte_array()==PackedVector2Array([expected]).to_byte_array(), "Root Bell warm prepared invalid-size/restore contract")
 
+func _death_geometry_invalidation_cases() -> void:
+	# One captured live pose; only death scalars mutate. Reuse both caches across
+	# ground/flora species, returning sizes and completed-to-unfinished death.
+	# Root retains its separate existing size-only cache contract above.
+	var values := _base_pose()
+	values.merge({"dead":true, "death":.001}, true)
+	var prepared := PlainsRevisionPose.prepare(values)
+	var rig := PlainsRevisionSkin.new(&"patrol")
+	var oracle := Oracle.new()
+	var uvs := _arbitrary_uvs()
+	uvs.append_array(PackedVector2Array([Vector2(.389999,.229999), Vector2(.39,.23), Vector2(.390001,.230001), Vector2(.5,.229999), Vector2(.5,.230001), Vector2(.389999,.5), Vector2(.390001,.5), Vector2(.499999,.5), Vector2(.5,.5), Vector2(.500001,.5), Vector2(.594999,.8), Vector2(.595,.8), Vector2(.595001,.8)]))
+	for _pass: int in 2:
+		for kind: StringName in [&"patrol", &"sentry", &"hopper", &"fan_sentry", &"charger"]:
+			rig.kind = kind
+			oracle.kind = kind
+			for size: Vector2 in [Vector2(41.4,39.33), Vector2(13.125,77.375), Vector2(41.4,39.33)]:
+				rig.bounds = Rect2(Vector2(-size.x*.5,-size.y),size)
+				oracle.bounds = rig.bounds
+				for progress: float in [.001, .14, .16, .999, 1.0, .1]:
+					values.death = progress
+					prepared.death = progress
+					prepared.raw_death = progress
+					var death_clocks: Array[float] = [.11]
+					if kind == &"fan_sentry": death_clocks = [-.2, 0.0, .4]
+					for death_clock: float in death_clocks:
+						values.death_clock = death_clock
+						prepared.death_clock = death_clock
+						var actual := PackedVector2Array()
+						var expected := PackedVector2Array()
+						for uv: Vector2 in uvs:
+							for offset: Vector2 in [Vector2.ZERO, Vector2(.127,-.219)]:
+								var point := rig.bounds.position+uv*size+offset
+								actual.append(rig.deform_prepared(point,uv,prepared,PlainsRevisionWeights.new(uv,kind)))
+								expected.append(oracle.deform(point,uv,values))
+						compared_vertices += expected.size()
+						_check(actual.to_byte_array()==expected.to_byte_array(), String(kind)+" reused death context pass="+str(_pass)+" size="+str(size)+" death="+str(progress)+" clock="+str(death_clock)+" exact frozen oracle")
+
+func _ground_live_prefix_draw_cases() -> void:
+	for kind: StringName in [&"patrol", &"charger", &"hopper"]:
+		var canvas := DrawCanvas.new()
+		canvas.position = Vector2(64,96)
+		canvas.rig = ObservedSkin.new(kind)
+		var live := _base_pose()
+		canvas.pose = live
+		root.add_child(canvas)
+		await _draw_case(canvas, live, 625, String(kind)+" live-prefix captured live")
+		var dead := live.duplicate(true)
+		dead.dead = true
+		for airborne: bool in [false, true, false]:
+			dead.air = airborne
+			for progress: float in [0.0, .001, .14, .16, .5, .999, 1.0, .1]:
+				dead.death = progress
+				dead.death_clock = progress + .2
+				dead.landing = .23 if progress == .16 else 0.0
+				await _draw_case(canvas, dead, 625, String(kind)+" live-prefix death="+str(progress)+" air="+str(airborne))
+				_check(canvas.rig.supplied_live_points == 625, String(kind)+" actual Ground death draw supplies the live prefix for every vertex")
+		# All source bindings are mutable; independent copied sources must detect
+		# in-place point/UV edits instead of observing the same alias as the cache.
+		for change: String in ["clock", "bounds", "texture", "kind", "points", "weights"]:
+			match change:
+				"clock": dead.clock += .37
+				"bounds": canvas.rig.bounds = Rect2(canvas.rig.bounds.position+Vector2(.25,.5),canvas.rig.bounds.size+Vector2(.5,.25))
+				"texture": canvas.rig.texture = PlainsRevisionSkin.TEXTURES[&"patrol" if kind != &"patrol" else &"charger"]
+				"kind": canvas.rig.kind = &"charger" if kind != &"charger" else &"patrol"
+				"points":
+					var points: PackedVector2Array = canvas.rig.get("_points")
+					points[0] += Vector2(.127,-.219)
+					canvas.rig.set("_points",points)
+				"weights":
+					var weights: Array[PlainsRevisionWeights] = canvas.rig.get("_weights")
+					weights = weights.duplicate()
+					weights.make_read_only()
+					canvas.rig.set("_weights",weights)
+			await _draw_case(canvas, dead, 625, String(kind)+" live-prefix invalidates "+change)
+			_check(canvas.rig.supplied_live_points == 625, String(kind)+" invalidated Ground draw supplies recomputed live points")
+		canvas.rig = null
+		canvas.free()
+
 func _run() -> void:
 	_standalone_cases()
 	_oscillation_cases()
 	_root_geometry_cases()
+	_death_geometry_invalidation_cases()
 	await _draw_cases()
+	await _ground_live_prefix_draw_cases()
 	print("PLAINS DEFORM EQUIVALENCE VERTICES: %d" % compared_vertices)
 	print("PLAINS DEFORM EQUIVALENCE: %d assertions, %d failures" % [assertions, failures])
 	quit(1 if failures else 0)

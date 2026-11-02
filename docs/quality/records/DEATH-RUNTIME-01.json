@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "task_id": "DEATH-RUNTIME-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "5d3303b78d4db374300d4a0266bde8eb1a6de5b2",
+  "reviewed_commit": "5d3303b78d4db374300d4a0266bde8eb1a6de5b2",
+  "content_version": "candidate-v1",
+  "owner": "implementer",
+  "purpose": "保留当前怪物死亡动画，优化死亡过程实际计算与绘制运行成本。",
+  "player_experience": "用户反馈9dd明显改善，但大部分死亡仍卡，死亡瞬间与动画播放期间均存在。",
+  "constraints": [
+    "死亡画面、时长、关节轨迹、落地、暂停/慢时、终态与保存保持。",
+    "保原physics/collision/damage/reward/RNG/audio/art与旧测试预算。",
+    "以原frozen2ce4ffa6顶点字节oracle及实际消费者验证，不以局部CPU核速度冒称手机FPS。",
+    "按证据只提升同draw重复参数，不新增平行机制、不重复既有静尸/拓扑/权重缓存。"
+  ],
+  "affected_paths": [
+    "game/enemies/presentation/plains_revision_pose.gd",
+    "game/enemies/presentation/plains_revision_ground.gd",
+    "game/enemies/presentation/plains_revision_flora.gd",
+    "game/enemies/presentation/plains_revision_skin.gd",
+    "game/presentation/world/art/plains_stage_visual.gd",
+    "tests/plains_revision_deform_equivalence_runner.gd",
+    "tests/plains_motion_loot_02_motion.gd",
+    "tests/plains_motion_loot_02_app.gd"
+  ],
+  "deliverables": [
+    "精确现行死亡链热点与证据",
+    "等价计算候选、原回归及独立审查",
+    "同源Web试玩及未验证边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

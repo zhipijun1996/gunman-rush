@@ -286,9 +286,9 @@ class CacheSkin:
 	var observed := PackedVector2Array()
 	func _init(behavior: StringName = &"patrol") -> void:
 		super(behavior)
-	func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+	func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights, live_point: Variant = null) -> Vector2:
 		calls += 1
-		var result := super.deform_prepared(point, uv, pose, weights)
+		var result := super.deform_prepared(point, uv, pose, weights, live_point)
 		observed.append(result)
 		return result
 

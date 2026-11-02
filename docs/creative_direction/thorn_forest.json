@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v36",
+  "version": "creative-v37",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
-    "supplemental_authority_sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+    "supplemental_authority_sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "d42a793d2ddd1d36c3ba89d9a854d77b6eba2b505a2fd36400d660e85122d643",
+    "registry_sha256": "2dd917ccfbbe4a59c3eb63a3b047b86731325c5c07071cbab91f1899fc07eaa6",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -261,6 +261,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
       "sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+      "sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14"
     }
   ],
   "historical_direction": {
@@ -269,27 +273,47 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "FIRST-USE-STUTTER-01",
-    "source_commit": "23ba7a79bbfca7f0f1662088f611911dbfd0725b",
-    "source_identity": "Baseline23ba7 plus exact external uncommitted candidate_source; candidate not present in baseline Git. Design-only binding, no accepted shader-warmup outcome.",
+    "task_id": "DEATH-RUNTIME-01",
+    "source_commit": "5d3303b78d4db374300d4a0266bde8eb1a6de5b2",
+    "source_identity": "Baseline5d3303 plus exact external uncommitted candidate_source; candidate not present in baseline Git. Root accepted the exact five-source freeze after controlled A/A+AB draw measurements; this metadata does not inherit runtime, browser or device acceptance.",
     "candidate_source": [
       {
-        "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
-        "sha256": "a979bf3b3e927c21c0717a91f46f0bf325ca6c97a1e4ab395de4fd56e883a59d"
+        "path": "game/presentation/world/art/plains_stage_visual.gd",
+        "sha256": "b6b85b4d27973109b69fe0a9be4bb86d6c944a8c3f13be2373d74cf5e1f78855"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_flora.gd",
+        "sha256": "a408e24800fb0e491b573e8e1b635f98d9224f9d4dbf0a5d5ce8b552714a56a9"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_ground.gd",
+        "sha256": "d871a81f16371fb9cf9666074c027d3e86380218907e1b8fb8e9020bf9e8a4d2"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_pose.gd",
+        "sha256": "bdcbda3ebbad9f8a5a04798a798ba5aeb0d30fdf6e0a686f19a767c28a54d2d8"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_skin.gd",
+        "sha256": "360228b65702ef218cad9a22d0decf25cef6b835670025446deca288536e2805"
       }
     ],
-    "scope": "Technical binding of existing world_presentation leaf only. Candidate readiness/first-use performance and cleanup still require actual validation.",
+    "scope": "Technical binding of five existing GD leaves only: Pose/Ground/Flora/Skin and StageVisual shared loot material; optional loot warming excluded.",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/canvas-preparation-before-style33/manifest.json",
-      "sha256": "85b95f4a824b21f20fad8db60145df6e7784cff884133642bb92463a398aa53a"
+      "path": "docs/creative_direction/archive/death-runtime-before-style34/manifest.json",
+      "sha256": "0f2e6ae2da8bf141a46b1ca5beb0621cce26d1c3f18138a76b0adc2a85291d8b"
     },
-    "validation": "External technical candidate only; no native/browser/CI/art/user/device acceptance.",
-    "previous_direction": "docs/creative_direction/archive/canvas-preparation-before-style33/docs/creative_direction/thorn_forest.json",
-    "previous_sha256": "4ce536208c4f6b570807f5384935aa8f8e521ec3c0cfcf3476c19b70894af771",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
-    "shared_style_sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55",
+    "validation": "Root reported frozen oracle7899/0 with442442vertices, motion603/support145/save156/snapshot129 passed; Skin/Ground independent review and existing nonauthor Flora review. These are external exact-source evidence to be linked by root, not checks executed here; Root subsequently reported accepted A/A+AB draw timing with bit-identical uploads; browser, device, full CI and user outcomes are not certified by this binding.",
+    "previous_direction": "docs/creative_direction/archive/death-runtime-before-style34/docs/creative_direction/thorn_forest.json",
+    "previous_sha256": "765a2ee94496661ae99fa37e307ea931f963a638d763c9eec24189c9a8034c93",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json",
+    "shared_style_sha256": "2c7d5060c2b0682c6c0d24155ada361ba470f10b068a44af8511cccd5f575e14",
     "affected_consumers": [
-      "game/presentation/world/underworld_plains/underworld_presentation.gd"
+      "game/presentation/world/art/plains_stage_visual.gd",
+      "game/enemies/presentation/plains_revision_flora.gd",
+      "game/enemies/presentation/plains_revision_ground.gd",
+      "game/enemies/presentation/plains_revision_pose.gd",
+      "game/enemies/presentation/plains_revision_skin.gd"
     ]
   }
 }

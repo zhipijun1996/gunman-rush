@@ -84,6 +84,10 @@ var root_swing: float
 var root_bell_angle: float
 var root_leaf_angle: float
 
+# Geometry is owned by one prepared draw; neither cache retains the pose.
+var ground_death_geometry: RefCounted
+var flora_death_geometry: RefCounted
+
 static func prepare(values: Dictionary) -> PlainsRevisionPose:
 	var result := PlainsRevisionPose.new()
 	result.clock = float(values.get("clock", 0.0))

@@ -33,6 +33,15 @@ static func run(tree:SceneTree,app:Node)->Dictionary:
  for pickup:Dictionary in stage.pickups:
   if str(pickup.get("source",""))==identity:units.append(pickup)
  _check(r,not units.is_empty(),"actual App death creates stable denomination units")
+ # Inspect the real first death's sprites after the visual owner synchronizes.
+ stage.visual_layer._sync_pickups()
+ var first_drop_material:ShaderMaterial=null
+ var first_drop_shares:=not units.is_empty()
+ for unit:Dictionary in units:
+  var sprite:Sprite2D=stage.visual_layer._pickup_by_id[unit.id]
+  if first_drop_material==null:first_drop_material=sprite.material as ShaderMaterial
+  first_drop_shares=first_drop_shares and sprite.material==first_drop_material
+ _check(r,first_drop_shares and first_drop_material!=null and first_drop_material.shader==PlainsStageVisual.LOOT_SHADER,"actual first App death reuses one loot material for all denominations and bonus kinds")
  var total:=0
  for unit:Dictionary in units:
   if unit.kind=="coin":total+=int(unit.amount)
@@ -135,6 +144,19 @@ static func run(tree:SceneTree,app:Node)->Dictionary:
   for pickup:Dictionary in stage.pickups:
    if str(pickup.get("source",""))==automatic_id and pickup.kind=="coin":automatic_units.append(pickup);automatic_total+=int(pickup.amount)
   _check(r,not automatic_units.is_empty(),"automatic counterpart produces actual independently receipted coins")
+  stage.visual_layer._sync_pickups()
+  var second_drop_shares:=not automatic_units.is_empty() and first_drop_material!=null
+  for unit:Dictionary in automatic_units:
+   second_drop_shares=second_drop_shares and stage.visual_layer._pickup_by_id[unit.id].material==first_drop_material
+  _check(r,second_drop_shares,"two actual App deaths reuse the same stage-owned loot material")
+  if not units.is_empty() and not automatic_units.is_empty():
+   var first_sprite:Sprite2D=stage.visual_layer._pickup_by_id[units[0].id]
+   var second_sprite:Sprite2D=stage.visual_layer._pickup_by_id[automatic_units[0].id]
+   var first_color:Color=first_sprite.modulate
+   var second_color:Color=second_sprite.modulate
+   first_sprite.modulate=Color(.51,.73,.89,.41)
+   _check(r,first_sprite.material==second_sprite.material and first_sprite.modulate==Color(.51,.73,.89,.41) and second_sprite.modulate==second_color,"shared loot material keeps each real pickup tint and alpha independent")
+   first_sprite.modulate=first_color
   if not automatic_units.is_empty():
    var automatic_before:float=app.wallet.balance
    app.player.reset_at(stage.to_global(automatic_units[0].position)+Vector2(0,-12))
@@ -179,8 +201,11 @@ static func run(tree:SceneTree,app:Node)->Dictionary:
  tree.paused=true;stage.capture_state()
  var snapshot:Dictionary=app.region_state.snapshot()
  var balances:float=app.wallet.balance
+ var departing_loot_material:WeakRef=weakref(first_drop_material) if first_drop_material!=null else null
+ first_drop_material=null
  app._load_stage();await tree.process_frame;await tree.process_frame
  stage=app.stage as GeneratedDemoStage;_isolate(app)
+ _check(r,departing_loot_material!=null and departing_loot_material.get_ref()==null,"actual stage reload releases the departed stage's shared loot material")
  var loaded_count:=0
  for pickup:Dictionary in stage.pickups:
   if str(pickup.get("source",""))==identity:

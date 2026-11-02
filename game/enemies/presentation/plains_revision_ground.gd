@@ -3,16 +3,79 @@ extends RefCounted
 ## Presentation-only, right-facing anatomy. Feet are the common (0, 0) anchor.
 ## State values and locomotion distance are sampled by the owning presentation.
 
+class HopperDeathGeometry extends RefCounted:
+	var size: Vector2
+	var death: float
+	var head_drop: float
+	var neck: Vector2
+	var release: float
+	var belly_drop: float
+	var stop: float
+	var twitch: float
+	var body_shift: Vector2
+	var old_hip: Vector2
+	var old_knee: Vector2
+	var old_foot: Vector2
+	var hip: Vector2
+	var thigh_length: float
+	var shin_length: float
+	var foot: Vector2
+	var knee: Vector2
+	var thigh_angle: float
+	var shin_angle: float
+	var old_front_hip: Vector2
+	var old_front_foot: Vector2
+	var front_hip: Vector2
+	var front_length: float
+	var front_y: float
+	var front_dy: float
+	var spread_front: Vector2
+	var front_foot: Vector2
+	var front_angle: float
+
+	func _init(body_size: Vector2, progress: float) -> void:
+		size = body_size
+		death = progress
+		release = smoothstep(0.01, 0.60, death)
+		belly_drop = smoothstep(0.17, 0.63, death)
+		head_drop = smoothstep(0.48, 0.81, death)
+		stop = smoothstep(0.78, 0.94, death)
+		twitch = sin(clampf((death - 0.66) / 0.25, 0.0, 1.0) * PI) * (1.0 - stop)
+		body_shift = Vector2(0.0, size.y * (0.19 * belly_drop - 0.012 * twitch))
+		old_hip = PlainsRevisionGround._at(Vector2(0.49, 0.60), size)
+		old_knee = PlainsRevisionGround._at(Vector2(0.20, 0.09), size)
+		old_foot = PlainsRevisionGround._at(Vector2(0.05, 0.98), size)
+		hip = old_hip + body_shift
+		thigh_length = old_hip.distance_to(old_knee)
+		shin_length = old_knee.distance_to(old_foot)
+		foot = (old_foot + body_shift).lerp(Vector2(hip.x - (thigh_length + shin_length) * 0.97, -size.y * 0.06), release)
+		knee = PlainsRevisionGround._hopper_knee(hip, foot, thigh_length, shin_length)
+		thigh_angle = (old_knee - old_hip).angle_to(knee - hip)
+		shin_angle = (old_foot - old_knee).angle_to(foot - knee)
+		old_front_hip = PlainsRevisionGround._at(Vector2(0.76, 0.68), size)
+		old_front_foot = PlainsRevisionGround._at(Vector2(0.95, 0.98), size)
+		front_hip = old_front_hip + body_shift
+		front_length = old_front_hip.distance_to(old_front_foot)
+		front_y = -size.y * 0.04
+		front_dy = clampf(front_y - front_hip.y, -front_length * 0.96, front_length * 0.96)
+		spread_front = front_hip + Vector2(sqrt(maxf(0.0, front_length * front_length - front_dy * front_dy)), front_dy)
+		front_foot = (old_front_foot + body_shift).lerp(spread_front, release)
+		front_angle = (old_front_foot - old_front_hip).angle_to(front_foot - front_hip)
+		neck = PlainsRevisionGround._at(Vector2(0.79, 0.52), size) + body_shift
+
 static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary, kind: StringName) -> Vector2:
 	return deform_prepared(point, uv, size, PlainsRevisionPose.prepare(pose), kind, PlainsRevisionWeights.new(uv, kind))
 
-static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, kind: StringName, weights: PlainsRevisionWeights) -> Vector2:
+static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: PlainsRevisionPose, kind: StringName, weights: PlainsRevisionWeights, live_point: Variant = null) -> Vector2:
 	var p := point
-	match kind:
-		&"patrol": p = _patrol_live(p, uv, size, pose, weights)
-		&"charger": p = _charger_live(p, uv, size, pose, weights)
-		&"hopper": p = _hopper_live(p, uv, size, pose, weights)
-	p = _vitality(p,uv,size,pose,kind, weights)
+	if pose.dead and live_point is Vector2:
+		p = live_point
+	else:
+		match kind:
+			&"patrol": p = _patrol_live(p, uv, size, pose, weights)
+			&"charger": p = _charger_live(p, uv, size, pose, weights)
+			&"hopper": p = _hopper_live(p, uv, size, pose, weights)
+		p = _vitality(p,uv,size,pose,kind, weights)
 	if not pose.dead: return p
 	var death := pose.death
 	if death<=0.0: return p
@@ -22,7 +85,12 @@ static func deform_prepared(point: Vector2, uv: Vector2, size: Vector2, pose: Pl
 	match kind:
 		&"patrol": target = _patrol_dead(point, uv, size, death, weights)
 		&"charger": target = _charger_dead(point, uv, size, death, weights)
-		&"hopper": target = _hopper_dead(point, uv, size, death, weights)
+		&"hopper":
+			var geometry := pose.ground_death_geometry as HopperDeathGeometry
+			if geometry == null or geometry.size != size or geometry.death != death:
+				geometry = HopperDeathGeometry.new(size, death)
+				pose.ground_death_geometry = geometry
+			target = _hopper_dead(point, uv, size, death, weights, geometry)
 	p = p.lerp(target, smoothstep(0.0, 0.14, death))
 	p.y = minf(p.y, 0.0)
 	return p
@@ -243,31 +311,25 @@ static func _charger_dead(point: Vector2, uv: Vector2, size: Vector2, death: flo
 	p.y -= size.y * 0.035 * knock * shell
 	return p
 
-static func _hopper_dead(point: Vector2, uv: Vector2, size: Vector2, death: float, weights: PlainsRevisionWeights) -> Vector2:
+static func _hopper_dead(point: Vector2, uv: Vector2, size: Vector2, death: float, weights: PlainsRevisionWeights, geometry: HopperDeathGeometry = null) -> Vector2:
+	if geometry == null: geometry = HopperDeathGeometry.new(size, death)
 	var hind := weights.hopper_hind
 	var fore := weights.front_leg
-	var release := smoothstep(0.01, 0.60, death)
-	var belly_drop := smoothstep(0.17, 0.63, death)
-	var head_drop := smoothstep(0.48, 0.81, death)
-	var stop := smoothstep(0.78, 0.94, death)
-	var twitch := sin(clampf((death - 0.66) / 0.25, 0.0, 1.0) * PI) * (1.0 - stop)
+	var head_drop := geometry.head_drop
 	# The round abdomen's lower rim is y=.81 in the master. Translate that
 	# mass to contact instead of squeezing its height and leaving a standing hip.
-	var body_shift := Vector2(0.0, size.y * (0.19 * belly_drop - 0.012 * twitch))
+	var body_shift := geometry.body_shift
 	var p := point + body_shift
-	var old_hip := _at(Vector2(0.49, 0.60), size)
-	var old_knee := _at(Vector2(0.20, 0.09), size)
-	var old_foot := _at(Vector2(0.05, 0.98), size)
-	var hip := old_hip + body_shift
-	var thigh_length := old_hip.distance_to(old_knee)
-	var shin_length := old_knee.distance_to(old_foot)
+	var old_hip := geometry.old_hip
+	var old_knee := geometry.old_knee
+	var old_foot := geometry.old_foot
+	var hip := geometry.hip
 	# Commit the final foot beside the animal first. The near-straight chain is
 	# outside the abdomen, and its toe has enough height for its actual thickness
 	# rather than relying on the outer floor clamp to cut away a hanging shin.
-	var foot := (old_foot + body_shift).lerp(Vector2(hip.x - (thigh_length + shin_length) * 0.97, -size.y * 0.06), release)
-	var knee := _hopper_knee(hip, foot, thigh_length, shin_length)
-	var thigh_point := _hopper_segment_map(point, old_hip, old_knee, hip, knee)
-	var shin_point := _hopper_segment_map(point, old_knee, old_foot, knee, foot)
+	var knee := geometry.knee
+	var thigh_point := hip + (point - old_hip).rotated(geometry.thigh_angle)
+	var shin_point := knee + (point - old_knee).rotated(geometry.shin_angle)
 	var thigh_distance := point.distance_to(Geometry2D.get_closest_point_to_segment(point, old_hip, old_knee))
 	var shin_distance := point.distance_to(Geometry2D.get_closest_point_to_segment(point, old_knee, old_foot))
 	# Both transforms meet at the knee; only the small joint neighbourhood blends.
@@ -276,17 +338,11 @@ static func _hopper_dead(point: Vector2, uv: Vector2, size: Vector2, death: floa
 	p = p.lerp(hind_point, hind)
 	# The short front limbs similarly roll outward to the right of the belly.
 	# Their hip follows the translated mass; their foot retains its bone length.
-	var old_front_hip := _at(Vector2(0.76, 0.68), size)
-	var old_front_foot := _at(Vector2(0.95, 0.98), size)
-	var front_hip := old_front_hip + body_shift
-	var front_length := old_front_hip.distance_to(old_front_foot)
-	var front_y := -size.y * 0.04
-	var front_dy := clampf(front_y - front_hip.y, -front_length * 0.96, front_length * 0.96)
-	var spread_front := front_hip + Vector2(sqrt(maxf(0.0, front_length * front_length - front_dy * front_dy)), front_dy)
-	var front_foot := (old_front_foot + body_shift).lerp(spread_front, release)
-	p = p.lerp(_hopper_segment_map(point, old_front_hip, old_front_foot, front_hip, front_foot), fore)
+	var old_front_hip := geometry.old_front_hip
+	var front_hip := geometry.front_hip
+	p = p.lerp(front_hip + (point - old_front_hip).rotated(geometry.front_angle), fore)
 	# Head descent is a child of the lowered abdomen, and happens after contact.
-	var neck := _at(Vector2(0.79, 0.52), size) + body_shift
+	var neck := geometry.neck
 	p = _joint_at(p, neck, 0.56 * head_drop, weights.hopper_head)
 	p.x += size.x * 0.025 * head_drop * weights.hopper_head
 	p.y += size.y * 0.085 * head_drop * weights.hopper_head

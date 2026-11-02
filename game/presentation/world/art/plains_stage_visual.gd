@@ -11,10 +11,14 @@ var _boss_door: Sprite2D
 var _claimed_times:Dictionary={}
 var _coin_parts:Dictionary={}
 const LOOT_SHADER := preload("res://shaders/plains_loot_02.gdshader")
+var _loot_material := ShaderMaterial.new()
 const LIFE_ORB := preload("res://assets/plains_loot_02/life_orb.png")
 var _boss_loot:Sprite2D
 var _boss_origin:=Vector2.ZERO
 var _boss_born:=-1.0
+func _init() -> void:
+	# No per-pickup uniforms: texture and tint remain CanvasItem inputs.
+	_loot_material.shader = LOOT_SHADER
 func configure(source: Node2D) -> void:
 	stage = source
 func _ready() -> void:
@@ -47,9 +51,7 @@ func _sync_pickups() -> void:
 				sprite.texture=atlas
 			else: sprite.texture = _texture(StringName(pickup.kind))
 			if pickup.get("loot_motion",false):
-				var shader_material:=ShaderMaterial.new()
-				shader_material.shader=LOOT_SHADER
-				sprite.material=shader_material
+				sprite.material=_loot_material
 				sprite.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 			sprite.scale = _pickup_size(pickup.kind) / sprite.texture.get_size()
 			sprite.set_meta("initially_claimed",bool(pickup.claimed))

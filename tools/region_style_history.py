@@ -129,4 +129,14 @@ STYLE32_MANIFEST_SHA = '85b95f4a824b21f20fad8db60145df6e7784cff884133642bb92463a
 def style32_source(root, path):
     """One prior32 leaf only; never used by current binding validators."""
     raw = archived_source(root, STYLE32_ARCHIVE, path, STYLE32_MANIFEST_SHA)
+    return style33_source(root, path) if raw is None else raw
+
+
+STYLE33_ARCHIVE = 'docs/creative_direction/archive/death-runtime-before-style34'
+STYLE33_MANIFEST_SHA = '0f2e6ae2da8bf141a46b1ca5beb0621cce26d1c3f18138a76b0adc2a85291d8b'
+
+
+def style33_source(root, path):
+    """Five prior33 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE33_ARCHIVE, path, STYLE33_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw

@@ -35,6 +35,16 @@ var _rest_kind: StringName
 var _rest_bounds := Rect2()
 var _rest_texture: Texture2D
 var _rest_pose: Dictionary = {}
+# Ground's captured live prefix is independent of death progress and corpse age.
+# Sources are copied; canonical anatomy is read-only. No host is retained.
+var _live_prefix_vertices := PackedVector2Array()
+var _live_prefix_pose: Dictionary = {}
+var _live_prefix_kind: StringName
+var _live_prefix_bounds := Rect2()
+var _live_prefix_texture: Texture2D
+var _live_prefix_sources := PackedVector2Array()
+var _live_prefix_units := PackedVector2Array()
+var _live_prefix_weights: Array[PlainsRevisionWeights] = []
 
 static func supports(definition: EnemyDefinition) -> bool:
 	return definition != null and definition.stable_id in [&"patrol_drone",&"graybox_patrol_drone",&"plains_charger",&"plains_hopper",&"plains_sentry",&"plains_fan_sentry",&"plains_root_bell"]
@@ -82,7 +92,7 @@ static func _anatomy_weights(behavior: StringName) -> Array[PlainsRevisionWeight
 func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
 	return deform_prepared(point, uv, PlainsRevisionPose.prepare(pose), PlainsRevisionWeights.new(uv, kind))
 
-func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights) -> Vector2:
+func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weights: PlainsRevisionWeights, live_point: Variant = null) -> Vector2:
 	var master := point
 	if kind==&"fan_sentry":
 		# The new broad fan source devotes more area to wings. Fit its copper
@@ -91,11 +101,24 @@ func deform_prepared(point: Vector2, uv: Vector2, pose: PlainsRevisionPose, weig
 		var body := weights.fan_body_fit
 		var center := Vector2((.42-.5)*bounds.size.x,(.70-1.0)*bounds.size.y)
 		master = point.lerp(center+(point-center)*1.55,body)
-	var p := PlainsRevisionGround.deform_prepared(master,uv,bounds.size,pose,kind,weights) if kind in [&"patrol",&"charger",&"hopper"] else PlainsRevisionFlora.deform_prepared(master,uv,bounds.size,pose,kind,weights)
+	var p := PlainsRevisionGround.deform_prepared(master,uv,bounds.size,pose,kind,weights,live_point) if kind in [&"patrol",&"charger",&"hopper"] else PlainsRevisionFlora.deform_prepared(master,uv,bounds.size,pose,kind,weights)
 	# Contact impulse moves the mass, while the supporting feet retain the floor.
 	if pose.dead:
 		p.y -= pose.landing*bounds.size.y*.025*weights.landing
 	return p
+
+func _live_prefix_matches(key: Dictionary) -> bool:
+	return _live_prefix_vertices.size() == _points.size() and _live_prefix_kind == kind and _live_prefix_bounds == bounds and _live_prefix_texture == texture and _live_prefix_pose == key and _live_prefix_sources == _points and _live_prefix_units == _units and _weights.is_read_only() and is_same(_live_prefix_weights, _weights)
+
+func _store_live_prefix(vertices: PackedVector2Array, key: Dictionary) -> void:
+	_live_prefix_vertices = vertices
+	_live_prefix_pose = key
+	_live_prefix_kind = kind
+	_live_prefix_bounds = bounds
+	_live_prefix_texture = texture
+	if _live_prefix_sources != _points: _live_prefix_sources = _points.duplicate()
+	if _live_prefix_units != _units: _live_prefix_units = _units.duplicate()
+	_live_prefix_weights = _weights
 
 func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> void:
 	if texture == null: return
@@ -112,7 +135,21 @@ func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> v
 			_weights = _anatomy_weights(kind)
 			_weights_kind = kind
 		var prepared := PlainsRevisionPose.prepare(pose)
-		for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
+		if kind in [&"patrol",&"charger",&"hopper"] and _weights.is_read_only():
+			var live_key := pose.duplicate(true)
+			for key: String in ["dead", "death", "death_clock", "landing"]: live_key.erase(key)
+			if prepared.dead:
+				if not _live_prefix_matches(live_key):
+					var live_vertices := PackedVector2Array()
+					live_vertices.resize(_points.size())
+					for i: int in _points.size(): live_vertices[i] = PlainsRevisionGround.deform_prepared(_points[i],_units[i],bounds.size,prepared.live,kind,_weights[i])
+					_store_live_prefix(live_vertices, live_key)
+				for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i],_live_prefix_vertices[i])
+			else:
+				for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
+				_store_live_prefix(vertices, live_key)
+		else:
+			for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])
 		_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
 		_rest_cached = at_rest
 		_rest_pose = rest_pose
