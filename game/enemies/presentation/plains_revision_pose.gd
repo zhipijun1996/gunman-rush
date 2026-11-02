@@ -63,6 +63,27 @@ var root_leaf_sin: float
 var ground_quiet: float
 var flora_quiet: float
 
+# Root geometry is local to this prepared snapshot, never shared across poses.
+# Flora fills it lazily and recomputes for a different valid body size. Vector2
+# fields preserve the existing single-precision intermediate coordinates.
+var root_geometry_ready := false
+var root_geometry_size := Vector2.ZERO
+var root_base: Vector2
+var root_elbow: Vector2
+var root_crown: Vector2
+var root_destination: Vector2
+var root_bent: Vector2
+var root_hanger: Vector2
+var root_moved_hanger: Vector2
+var root_moved_leaf: Vector2
+var root_lower_angle: float
+var root_upper_angle: float
+var root_crown_angle: float
+var root_droop: float
+var root_swing: float
+var root_bell_angle: float
+var root_leaf_angle: float
+
 static func prepare(values: Dictionary) -> PlainsRevisionPose:
 	var result := PlainsRevisionPose.new()
 	result.clock = float(values.get("clock", 0.0))

@@ -85,7 +85,7 @@ def style_asset_consumers(root):
 
 # Exact reviewed loader; registry contents may grow without admitting siblings.
 ITEM_ART_LOADER = 'game/loadout/effects/item_art_library.gd'
-ITEM_ART_LOADER_SHA256 = '14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d'
+ITEM_ART_LOADER_SHA256 = '98e2454f2781c028d1a6c512bd7976845a4396ef4d546e08dea2b4f4ece6a333'
 ITEM_ART_ROOT = 'assets/items/v5/'
 
 

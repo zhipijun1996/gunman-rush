@@ -109,4 +109,14 @@ STYLE30_MANIFEST_SHA = '00af41bd539a814de7b2c4c01e239f45b91299d64c16e7fc30e57df4
 def style30_source(root, path):
     """Three prior30 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE30_ARCHIVE, path, STYLE30_MANIFEST_SHA)
+    return style31_source(root, path) if raw is None else raw
+
+
+STYLE31_ARCHIVE = 'docs/creative_direction/archive/combat-perf-before-style32'
+STYLE31_MANIFEST_SHA = 'ada060d5ca9b1728b9772c28ae1f1ec90c01d87535c4df4deecdc5031ec14058'
+
+
+def style31_source(root, path):
+    """Six prior31 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE31_ARCHIVE, path, STYLE31_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw

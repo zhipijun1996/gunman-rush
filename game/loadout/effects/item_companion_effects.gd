@@ -242,6 +242,9 @@ func _target(point: Vector2) -> Dictionary:
 		var receiver := value.receiver as Damageable
 		if not is_instance_valid(receiver) or not receiver.can_receive_effects(): continue
 		if not bool(host.call("clear_line", point, (value.node as Node2D).global_position)): continue
+		# targets already has the original deterministic distance order. Without
+		# pursuit priority, later candidates cannot replace this legal target.
+		if not prioritise: return value
 		if ordinary.is_empty(): ordinary = value
 		if prioritise and bool(host.call("is_marked", value.receiver)): return value
 	return ordinary

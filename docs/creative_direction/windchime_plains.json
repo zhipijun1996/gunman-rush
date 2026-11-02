@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v34",
+  "version": "creative-v35",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
-    "supplemental_authority_sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
+    "supplemental_authority_sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "df548e59fe8c4d68703d76e7e7ac8cc8c57b9c0b2f6d17465f23a0085a06a859",
+    "registry_sha256": "ebcf6a6e3d435e63b4a2b3c9e3acad3b9a105ed7aec39404cf712a386ab8bdd3",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -258,6 +258,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
       "sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
+      "sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c"
     }
   ],
   "historical_direction": {
@@ -266,38 +270,53 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "MOBILE-COMBAT-MESH-02",
-    "source_commit": "ca505102f2bcd429a8a4c62eabd4f3a73a040ee8",
-    "source_identity": "Three current runtime leaves are exact committed ca505102 bytes, retained in metadata baseline119f4a7e; no uncommitted runtime candidate is attributed to the baseline.",
+    "task_id": "COMBAT-PERF-DEPLOY-01",
+    "source_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+    "source_identity": "Baseline e42b277f plus frozen working-tree candidate_source SHA; these six candidate bytes are not part of the baseline commit. Final commit ownership is separate from this technical source identity.",
     "candidate_source": [
       {
-        "path": "game/enemies/presentation/plains_revision_flora.gd",
-        "sha256": "1bfcaa098d9c00464a308fdd1c2972f518837ee1ccb91e64eae4b48724812cb3"
+        "path": "game/loadout/effects/item_art_library.gd",
+        "sha256": "98e2454f2781c028d1a6c512bd7976845a4396ef4d546e08dea2b4f4ece6a333"
       },
       {
-        "path": "game/enemies/presentation/plains_revision_ground.gd",
-        "sha256": "90d0de8bbe5fecf5db6ab844239c5422a43cdcc6190b5b45fbd4017a69ee7c54"
+        "path": "game/enemies/presentation/plains_revision_flora.gd",
+        "sha256": "8ecb41f063aba37cc398a0b41d954c9f09c4b1056718619cd14f5d40719fdb47"
       },
       {
         "path": "game/enemies/presentation/plains_revision_pose.gd",
-        "sha256": "41ce2a2192376551ec9eb21b0134437c23036361d79d7640758cc0329e5ac972"
+        "sha256": "7d896cb27f9722a279904164c9217a148325f4648744285a9d47a358910b558d"
+      },
+      {
+        "path": "game/enemies/presentation/plains_revision_skin.gd",
+        "sha256": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50"
+      },
+      {
+        "path": "game/loadout/effects/item_companion_effects.gd",
+        "sha256": "76bd7bd07c1c85d79296cea390c863e9a4ddc11b7738cb363a0834d9e7d5fea7"
+      },
+      {
+        "path": "game/loadout/effects/item_runtime.gd",
+        "sha256": "1a1b0ea5dd067c7022e6b763c636eec18fb95142c390a457295c17493dbf5e6c"
       }
     ],
-    "scope": "Technical source binding for exactly equivalent prepared pose/ground/flora mesh arithmetic. Preserve selected art/audio, geometry, vertex results, gameplay, resource and RNG rules. No new artwork/audio and no inherited user/device acceptance.",
-    "previous_direction": "docs/creative_direction/archive/mobile-combat-mesh-before-style31/docs/creative_direction/windchime_plains.json",
-    "previous_sha256": "0bb3fda471060681aa4b1792ad25b89224ea5369d7d8c27a3642be1586f4e116",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261101-v31-mobile-combat-mesh.json",
-    "shared_style_sha256": "95b3770bf9bf1f53aa1d8a2577527f3809dd97eae0723d9d2dcd0462fb22d448",
+    "scope": "Technical source binding for exported validated item-art cache, equivalent companion target selection/order and prepared mesh arithmetic. Preserve all selected media, geometry and resource rules. No new art/audio or inherited gameplay/art/user/device acceptance.",
+    "previous_direction": "docs/creative_direction/archive/combat-perf-before-style32/docs/creative_direction/windchime_plains.json",
+    "previous_sha256": "446f7d0be398b455b96e37b214d3cd2f0f135c644c646451c4873fd4d29ad920",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
+    "shared_style_sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/mobile-combat-mesh-before-style31/manifest.json",
-      "sha256": "00af41bd539a814de7b2c4c01e239f45b91299d64c16e7fc30e57df45ef22b3b"
+      "path": "docs/creative_direction/archive/combat-perf-before-style32/manifest.json",
+      "sha256": "ada060d5ca9b1728b9772c28ae1f1ec90c01d87535c4df4deecdc5031ec14058"
     },
     "affected_consumers": [
+      "game/loadout/effects/item_art_library.gd",
       "game/enemies/presentation/plains_revision_flora.gd",
-      "game/enemies/presentation/plains_revision_ground.gd",
-      "game/enemies/presentation/plains_revision_pose.gd"
+      "game/enemies/presentation/plains_revision_pose.gd",
+      "game/enemies/presentation/plains_revision_skin.gd",
+      "game/loadout/effects/item_companion_effects.gd",
+      "game/loadout/effects/item_runtime.gd"
     ],
-    "validation": "MOBILE-COMBAT-MESH-02 has separate root native7101/0 and371801 byte-exact vertices evidence and independent review; this binding does not replace those receipts or imply full-CI, export, visual/listening/user/device acceptance.",
+    "validation": "Technical provenance only. Native, fixed-workload performance, full Integration, exports and public GUI have separate actual receipts; this binding itself does not sign any of them or visual/listening/user/device acceptance.",
     "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
   }
 }

@@ -581,6 +581,7 @@ func cleanup() -> void:
 
 func run() -> void:
 	verify_retained_frame_resources()
+	verify_contact_bottom_cache()
 	for path: String in SHARED_SOURCE_PATHS:
 		shared_source_hashes[path] = FileAccess.get_sha256(path)
 	for path: String in SOURCES:
@@ -595,3 +596,96 @@ func run() -> void:
 	file.close()
 	print("ENEMY_FEEDBACK_01 checks=%d failures=%d" % [checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+class ContactPixels extends Texture2D:
+	# Real CPU pixel source: headless Dummy's ImageTexture.update is a no-op.
+	var pixels: Image
+	func _get_image() -> Image: return pixels
+	func _get_width() -> int: return pixels.get_width()
+	func _get_height() -> int: return pixels.get_height()
+
+func original_contact_bottom(source: Texture2D, bounds: Rect2) -> float:
+	# Frozen pre-optimization Remains pixel scan, independent expected-value oracle.
+	var image := source.get_image()
+	var bottom := 0.0
+	for y: int in range(image.get_height() - 1, -1, -1):
+		var found := false
+		for x: int in image.get_width():
+			if image.get_pixel(x, y).a >= .5:
+				bottom = bounds.position.y + float(y + 1) / float(image.get_height()) * bounds.size.y
+				found = true
+				break
+		if found: break
+	return bottom
+
+func contact_texture_weak_refs(path: String) -> Array[WeakRef]:
+	var backing := CompressedTexture2D.new()
+	check(backing.load(path) == OK,"contact cache lifetime fixture loads a real imported source")
+	var atlas := AtlasTexture.new()
+	atlas.atlas = backing
+	atlas.region = Rect2(0,0,8,8)
+	EnemyFeedback01Frames.contact_bottom(atlas,Rect2(0,0,8,8))
+	return [weakref(backing),weakref(atlas)]
+
+func verify_contact_bottom_cache() -> void:
+	EnemyFeedback01Frames.clear_contact_bottom_cache()
+	for style: StringName in [&"legacy",&"underworld"]:
+		for species: StringName in [&"plains_charger",&"plains_diver"]:
+			var frames := EnemyFeedback01Frames.new(style,species,Vector2(36,32))
+			var peer_frames := EnemyFeedback01Frames.new(style,species,Vector2(72,48))
+			var corpse := EnemyFeedback01Remains.new()
+			var peer_corpse := EnemyFeedback01Remains.new()
+			corpse.set("_frames",frames)
+			peer_corpse.set("_frames",peer_frames)
+			for index: int in 8:
+				var source := frames.texture(index)
+				var bounds := frames.bounds(index)
+				check(EnemyFeedback01Frames.contact_bottom(source,bounds) == original_contact_bottom(source,bounds),"cached authored bottom equals original scan %s/%s/%d" % [style,species,index])
+				var peer_source := peer_frames.texture(index)
+				var peer_bounds := peer_frames.bounds(index)
+				check(EnemyFeedback01Frames.contact_bottom(peer_source,peer_bounds) == original_contact_bottom(peer_source,peer_bounds),"same authored frame across corpse libraries keeps independent bounds %s/%s/%d" % [style,species,index])
+				if index >= 4:
+					corpse.call("_set_frame",index)
+					peer_corpse.call("_set_frame",index)
+					check(corpse.get("_frame_foot") == original_contact_bottom(source,bounds) and peer_corpse.get("_frame_foot") == original_contact_bottom(peer_source,peer_bounds),"actual two corpse consumers preserve independent contact and instance caches")
+				var shifted := Rect2(-3,17,23,55)
+				check(EnemyFeedback01Frames.contact_bottom(source,shifted) == original_contact_bottom(source,shifted),"cached bottom is normalized before original bounds arithmetic %s/%s/%d" % [style,species,index])
+			corpse.free()
+			peer_corpse.free()
+			var atlas := frames.texture(4) as AtlasTexture
+			atlas.region = (frames.texture(7) as AtlasTexture).region
+			check(EnemyFeedback01Frames.contact_bottom(atlas,frames.bounds(4)) == original_contact_bottom(atlas,frames.bounds(4)),"changed atlas region cannot reuse previous death frame contact")
+			atlas.margin = Rect2(2,3,5,7)
+			check(EnemyFeedback01Frames.contact_bottom(atlas,frames.bounds(4)) == original_contact_bottom(atlas,frames.bounds(4)),"changed atlas margin and size remain part of contact identity")
+	# RGBAF keeps exact0.5 and its neighboring samples instead of8bit rounding.
+	var image := Image.create(4,4,false,Image.FORMAT_RGBAF)
+	image.fill(Color(1,1,1,0))
+	var texture := ImageTexture.create_from_image(image)
+	var mutable := ContactPixels.new()
+	mutable.pixels = image
+	var observed_updates: Array[Dictionary] = []
+	var bounds := Rect2(-2,-13,20,28)
+	check(EnemyFeedback01Frames.contact_bottom(texture,bounds) == 0.0,"fully transparent source keeps zero even with nonzero bounds origin")
+	check(EnemyFeedback01Frames.contact_bottom(mutable,bounds) == 0.0,"custom mutable texture starts with actual transparent pixels")
+	for alpha: float in [0.499,0.5,0.501,0.0]:
+		image.set_pixel(2,3,Color(1,1,1,alpha))
+		texture.update(image)
+		check(EnemyFeedback01Frames.contact_bottom(texture,bounds) == original_contact_bottom(texture,bounds),"ImageTexture.update matches the original scan of actual renderer readback "+str(alpha))
+		var seen_alpha := mutable.get_image().get_pixel(2,3).a
+		check(is_equal_approx(seen_alpha,alpha),"custom mutable texture really exposes the changed RGBAF alpha "+str(alpha))
+		observed_updates.append({"input_alpha":alpha,"renderer_readback_alpha":texture.get_image().get_pixel(2,3).a,"cpu_readback_alpha":seen_alpha})
+		check(EnemyFeedback01Frames.contact_bottom(mutable,bounds) == (15.0 if alpha >= 0.5 else 0.0),"last-row threshold and transparent result retain exact original semantics "+str(alpha))
+	var mutable_atlas := AtlasTexture.new()
+	mutable_atlas.atlas = mutable
+	mutable_atlas.region = Rect2(0,0,4,4)
+	check(EnemyFeedback01Frames.contact_bottom(mutable_atlas,bounds) == 0.0,"Atlas over mutable CPU texture also starts transparent")
+	image.set_pixel(1,1,Color.WHITE)
+	texture.update(image)
+	check(EnemyFeedback01Frames.contact_bottom(mutable_atlas,bounds) == 1.0 and EnemyFeedback01Frames.contact_bottom(mutable_atlas,bounds) == original_contact_bottom(mutable_atlas,bounds),"Atlas over updated CPU texture observes new row without stale shared entry")
+	print("CONTACT_BOTTOM_MUTABLE_READBACK "+JSON.stringify(observed_updates))
+	var imported := EnemyFeedback01Frames.TEXTURES["legacy_diver.png"] as CompressedTexture2D
+	var references := contact_texture_weak_refs(imported.get_load_path())
+	check(references[0].get_ref() == null and references[1].get_ref() == null,"shared keys and invalidation signal retain neither transient imported source nor atlas")
+	EnemyFeedback01Frames.clear_contact_bottom_cache()
+	check(EnemyFeedback01Frames.contact_bottom(imported,bounds) == original_contact_bottom(imported,bounds),"explicit contact cache invalidation rebuilds unchanged source semantics")
+	EnemyFeedback01Frames.clear_contact_bottom_cache()

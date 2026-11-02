@@ -177,17 +177,7 @@ func _set_frame(index: int) -> void:
 	flash_material.set_shader_parameter("frame_uv_rect", uv_rect)
 	flash_material.set_shader_parameter("authored_palette", 1.0)
 	if not _feet.has(index):
-		var image := source.get_image()
-		var bottom := 0.0
-		for y: int in range(image.get_height() - 1, -1, -1):
-			var found := false
-			for x: int in image.get_width():
-				if image.get_pixel(x, y).a >= .5:
-					bottom = bounds.position.y + float(y + 1) / float(image.get_height()) * bounds.size.y
-					found = true
-					break
-			if found: break
-		_feet[index] = bottom
+		_feet[index] = EnemyFeedback01Frames.contact_bottom(source,bounds)
 	_frame_foot = float(_feet[index])
 
 func _find_support(reach: float = FLOOR_REACH, previous_foot_y: float = INF) -> Dictionary:

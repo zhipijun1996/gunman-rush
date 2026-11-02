@@ -17,6 +17,50 @@ var _bounds: Array[Rect2] = []
 var key: String
 var horizontal_offset := 0.0
 static var _visible_rects: Dictionary = {}
+# Scalar-only shared contact rows, independent of each corpse's world bounds.
+const MAX_CONTACT_BOTTOMS := 128
+static var _contact_bottoms: Dictionary = {}
+
+static func clear_contact_bottom_cache() -> void:
+	_contact_bottoms.clear()
+
+static func _contact_bottom_key(source: Texture2D) -> Array:
+	# Mutable/custom images retain immediate pixel reads. Atlas metadata is part
+	# of the exact key; an imported backing resource changing clears all rows.
+	if source.get_script() != null: return []
+	var backing := source
+	var region := Rect2()
+	var margin := Rect2()
+	if source is AtlasTexture:
+		var atlas := source as AtlasTexture
+		backing = atlas.atlas
+		region = atlas.region
+		margin = atlas.margin
+	if not backing is CompressedTexture2D or backing.get_script() != null: return []
+	if not backing.changed.is_connected(clear_contact_bottom_cache):
+		backing.changed.connect(clear_contact_bottom_cache)
+	return [backing.get_instance_id(),backing.get_rid(),backing.get_size(),source.get_rid(),source.get_size(),region,margin]
+
+static func contact_bottom(source: Texture2D, bounds: Rect2) -> float:
+	var cache_key := _contact_bottom_key(source)
+	var normalized: float
+	if not cache_key.is_empty() and _contact_bottoms.has(cache_key):
+		normalized = float(_contact_bottoms[cache_key])
+	else:
+		normalized = _scan_contact_bottom(source)
+		if not cache_key.is_empty():
+			if _contact_bottoms.size() >= MAX_CONTACT_BOTTOMS: _contact_bottoms.clear()
+			_contact_bottoms[cache_key] = normalized
+	# Fully transparent frames historically return 0, not bounds.position.y.
+	return 0.0 if normalized < 0.0 else bounds.position.y + normalized * bounds.size.y
+
+static func _scan_contact_bottom(source: Texture2D) -> float:
+	var image := source.get_image()
+	for y: int in range(image.get_height() - 1, -1, -1):
+		for x: int in image.get_width():
+			if image.get_pixel(x, y).a >= .5:
+				return float(y + 1) / float(image.get_height())
+	return -1.0
 
 static func visible_bounds(texture: Texture2D, destination: Rect2) -> Rect2:
 	var cache_key := str(texture.get_rid())

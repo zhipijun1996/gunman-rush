@@ -236,6 +236,10 @@ static func validate_payload(value: Variant) -> String:
 	return ""
 
 static func _load() -> void:
+	# Exported res:// resources are immutable for this library lifetime. Reuse
+	# only a validated registry; reload_registry/clear_cache reset its signature.
+	# Editor binaries retain per-read fingerprints for source-editing tools.
+	if not OS.has_feature("editor") and not _signature.is_empty() and not _data.is_empty(): return
 	if not FileAccess.file_exists(CONFIG_PATH):
 		_signature = ""
 		_data.clear()

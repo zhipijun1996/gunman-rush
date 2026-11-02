@@ -207,9 +207,48 @@ func _oscillation_cases() -> void:
 					compared_vertices += 1
 					_check(PackedVector2Array([actual]).to_byte_array() == PackedVector2Array([expected]).to_byte_array(), String(kind)+" zero-mask consumer retains exact coordinate bits")
 
+func _root_geometry_cases() -> void:
+	# Reuse one prepared pose across UVs, points and changing body dimensions.
+	# Compare the real public/prepared consumers to the immutable old algorithm,
+	# not to the new cached fields. Returning to size A must rebuild after size B.
+	var poses: Array[Dictionary] = [{}, _base_pose()]
+	for progress: float in [0.0, .13, .16, .72, 1.0]:
+		var value := _base_pose()
+		value.merge({"dead":true, "death":progress}, true)
+		poses.append(value)
+	var uvs := _arbitrary_uvs()
+	uvs.append_array(PackedVector2Array([Vector2.ZERO, Vector2.ONE, Vector2(.43,.17), Vector2(.46,.47), Vector2(.5,.55), Vector2(.62,.34)]))
+	for values: Dictionary in poses:
+		var prepared := PlainsRevisionPose.prepare(values)
+		for size: Vector2 in [Vector2(49.5,60), Vector2(37.125,83.5), Vector2(101,19.25), Vector2(49.5,60)]:
+			var actual := PackedVector2Array()
+			var direct := PackedVector2Array()
+			var expected := PackedVector2Array()
+			for uv: Vector2 in uvs:
+				for offset: Vector2 in [Vector2.ZERO, Vector2(.127,-.219)]:
+					var point := Vector2(-size.x*.5,-size.y)+uv*size+offset
+					var weights := PlainsRevisionWeights.new(uv, &"root_bell")
+					actual.append(PlainsRevisionFlora.deform_prepared(point,uv,size,prepared,&"root_bell",weights))
+					direct.append(PlainsRevisionFlora.deform(point,uv,size,values,&"root_bell"))
+					expected.append(FloraOracle.deform(point,uv,size,values,&"root_bell"))
+			compared_vertices += expected.size()
+			_check(actual.to_byte_array()==expected.to_byte_array(), "Root Bell reused prepared pose/different size exact oracle")
+			_check(direct.to_byte_array()==expected.to_byte_array(), "Root Bell public standalone/different size exact oracle")
+		# Invalid dimensions still return before preparing geometry; a later valid
+		# call on this same object must remain identical to the original result.
+		var point := Vector2(1.25,-2.5)
+		var uv := Vector2(.43,.17)
+		var weights := PlainsRevisionWeights.new(uv, &"root_bell")
+		for size: Vector2 in [Vector2.ZERO, Vector2(-1,60), Vector2(INF,60), Vector2(49.5,60)]:
+			var actual := PlainsRevisionFlora.deform_prepared(point,uv,size,prepared,&"root_bell",weights)
+			var expected := FloraOracle.deform(point,uv,size,values,&"root_bell")
+			compared_vertices += 1
+			_check(PackedVector2Array([actual]).to_byte_array()==PackedVector2Array([expected]).to_byte_array(), "Root Bell warm prepared invalid-size/restore contract")
+
 func _run() -> void:
 	_standalone_cases()
 	_oscillation_cases()
+	_root_geometry_cases()
 	await _draw_cases()
 	print("PLAINS DEFORM EQUIVALENCE VERTICES: %d" % compared_vertices)
 	print("PLAINS DEFORM EQUIVALENCE: %d assertions, %d failures" % [assertions, failures])

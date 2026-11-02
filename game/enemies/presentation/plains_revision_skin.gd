@@ -1,3 +1,4 @@
+@static_unload
 class_name PlainsRevisionSkin
 extends RefCounted
 ## One authored body and continuous joints through live, hurt and death.
@@ -21,6 +22,12 @@ var _points := PackedVector2Array()
 var _units := PackedVector2Array()
 var _weights: Array[PlainsRevisionWeights] = []
 var _weights_kind: StringName
+# Topology and UV-only anatomy are identical across instances. Each body keeps
+# its own mutable points, GPU mesh and pose; shared weights are read-only inputs.
+static var _unit_template := PackedVector2Array()
+static var _index_template := PackedInt32Array()
+static var _point_templates: Dictionary = {}
+static var _weight_templates: Dictionary = {}
 # A settled body's local vertices are independent of its continuing corpse age.
 # Keep every draw/shader/tint and world-support transform with its existing host.
 var _rest_cached := false
@@ -37,24 +44,40 @@ func _init(behavior: StringName = &"patrol") -> void:
 	texture = TEXTURES.get(kind)
 	var size: Vector2 = SIZES.get(kind,Vector2(36,36))
 	bounds = Rect2(Vector2(-size.x*.5,-size.y),size)
-	var uvs := PackedVector2Array()
-	var indices := PackedInt32Array()
-	for y: int in GRID+1:
-		for x: int in GRID+1:
-			var uv := Vector2(float(x)/GRID,float(y)/GRID)
-			_units.append(uv)
-			_points.append(bounds.position+uv*size)
-			uvs.append(uv)
-	for y: int in GRID:
-		for x: int in GRID:
-			var i := y*(GRID+1)+x
-			indices.append_array(PackedInt32Array([i,i+1,i+GRID+2,i,i+GRID+2,i+GRID+1]))
+	_prepare_topology()
+	_units = _unit_template.duplicate()
+	if not _point_templates.has(bounds):
+		var points := PackedVector2Array()
+		for uv: Vector2 in _unit_template: points.append(bounds.position+uv*size)
+		_point_templates[bounds] = points
+	var neutral_points: PackedVector2Array = _point_templates[bounds]
+	_points = neutral_points.duplicate()
 	var arrays: Array = []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = _points
-	arrays[Mesh.ARRAY_TEX_UV] = uvs
-	arrays[Mesh.ARRAY_INDEX] = indices
+	arrays[Mesh.ARRAY_TEX_UV] = _units
+	arrays[Mesh.ARRAY_INDEX] = _index_template.duplicate()
 	_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES|Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
+
+static func _prepare_topology() -> void:
+	if not _unit_template.is_empty(): return
+	for y: int in GRID+1:
+		for x: int in GRID+1:
+			var uv := Vector2(float(x)/GRID,float(y)/GRID)
+			_unit_template.append(uv)
+	for y: int in GRID:
+		for x: int in GRID:
+			var i := y*(GRID+1)+x
+			_index_template.append_array(PackedInt32Array([i,i+1,i+GRID+2,i,i+GRID+2,i+GRID+1]))
+
+static func _anatomy_weights(behavior: StringName) -> Array[PlainsRevisionWeights]:
+	if not _weight_templates.has(behavior):
+		_prepare_topology()
+		var weights: Array[PlainsRevisionWeights] = []
+		for uv: Vector2 in _unit_template: weights.append(PlainsRevisionWeights.new(uv,behavior))
+		weights.make_read_only()
+		_weight_templates[behavior] = weights
+	return _weight_templates[behavior]
 
 func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
 	return deform_prepared(point, uv, PlainsRevisionPose.prepare(pose), PlainsRevisionWeights.new(uv, kind))
@@ -86,8 +109,7 @@ func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> v
 		# Only UV and kind determine these masks. Bounds and texture remain live
 		# inputs to the unchanged kernel and existing settled-mesh invalidation.
 		if _weights.size() != _units.size() or _weights_kind != kind:
-			_weights.clear()
-			for uv: Vector2 in _units: _weights.append(PlainsRevisionWeights.new(uv, kind))
+			_weights = _anatomy_weights(kind)
 			_weights_kind = kind
 		var prepared := PlainsRevisionPose.prepare(pose)
 		for i: int in _points.size(): vertices[i] = deform_prepared(_points[i],_units[i],prepared,_weights[i])

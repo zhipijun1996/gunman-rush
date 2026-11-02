@@ -310,7 +310,7 @@ func barrier_count() -> int:
 func targets(point: Vector2, radius: float) -> Array[Dictionary]:
 	if not is_live() or radius <= 0 or not is_finite(radius): return []
 	var result := actor().shoot_ability.behavior().receivers(point, radius)
-	result.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+	var precedes: Callable = func(a: Dictionary, b: Dictionary) -> bool:
 		var da := point.distance_squared_to((a.node as Node2D).global_position)
 		var db := point.distance_squared_to((b.node as Node2D).global_position)
 		if da != db: return da < db
@@ -320,7 +320,14 @@ func targets(point: Vector2, radius: float) -> Array[Dictionary]:
 		var right_id := b_receiver.actor_id if b_receiver.actor_id != 0 else b_receiver.get_instance_id()
 		var left := str((a.node as Node).get_meta("item_v5_enemy_id", "%020d" % left_id))
 		var right := str((b.node as Node).get_meta("item_v5_enemy_id", "%020d" % right_id))
-		return left < right)
+		return left < right
+	# receivers already sorts by distance. A strictly ordered result has one
+	# unique final order, so it needs no second sort. Equal complete keys still
+	# take the original sort: Godot does not promise stable ordering for ties.
+	for index: int in range(1, result.size()):
+		if not precedes.call(result[index-1], result[index]):
+			result.sort_custom(precedes)
+			break
 	return result
 
 func clear_line(a: Vector2, b: Vector2) -> bool:

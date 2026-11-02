@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "task_id": "COMBAT-PERF-DEPLOY-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+  "reviewed_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+  "content_version": "combat-perf-deploy-v1",
+  "owner": "/root",
+  "purpose": "收敛实际战斗热点，保持原行为并以最终同源完整验证后部署试玩。",
+  "player_experience": "目标降低战斗停顿；当前未证明手机FPS改善，用户授权优化后部署不等于效果认可。",
+  "constraints": [
+    "保物理/碰撞/伤害/资源/奖励/RNG/存档/图声",
+    "保原注册219/full171/预算与失败证据，不以局部拼成full",
+    "最终源冻结前不填写完成或部署PASS；基点reviewed_commit仅为当前未验记录占位，必须以最终F及真实证据更新"
+  ],
+  "affected_paths": [
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "game/enemies/presentation/enemy_feedback_01_frames.gd",
+    "game/enemies/presentation/enemy_feedback_01_remains.gd",
+    "game/enemies/presentation/plains_revision_flora.gd",
+    "game/enemies/presentation/plains_revision_pose.gd",
+    "game/enemies/presentation/plains_revision_skin.gd",
+    "game/loadout/effects/item_art_library.gd",
+    "game/loadout/effects/item_companion_effects.gd",
+    "game/loadout/effects/item_runtime.gd",
+    "tests/enemy_feedback_01_tests.gd",
+    "tests/item_v5_actives_runner.gd",
+    "tests/item_v5_art_runner.gd",
+    "tests/item_v5_formal_runner.gd",
+    "tests/plains_motion_loot_02_motion.gd",
+    "tests/plains_revision_deform_equivalence_runner.gd",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/check_quality_diff.py",
+    "tools/harness/profiles.json",
+    "tools/region_style_history.py"
+  ],
+  "deliverables": [
+    "有限热点补丁与原正反例/非作者独审",
+    "准确区分editor/release和整帧/核测量的性能证据",
+    "最终F完整171与原同runWeb/API/浏览器/PCK链",
+    "prepared实际发布与公开完整SHA/GUI收据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户优化后部署授权、写集、原行为及失败保留边界已明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "当前候选尚未完成本轮最终同源验证。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "有限性能目标及原行为约束已记录，不新增玩法或美术方向。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "editor与release实际分支分别测量；尚无本轮手机帧率/P95/P99通过。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "本轮最终同源证据待收口；不继承旧版本PASS。",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "实体手机未测；云端/浏览器代理不代签。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "用户授权优化后部署，尚未认可本候选效果。",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/combat_perf_deploy_01/scope.md",
+      "sha256": "716b602dd293248564a6085ee8a03f431d5f422c8866da3dbacf69b3f96f66cd",
+      "kind": "spec",
+      "producer": "/root/ci_audit",
+      "source_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "按用户授权、现行AGENTS和既有消费者/交付接口记录有限范围；基点是e42，后继WIP未伪称已提交。",
+      "observed": "优化后部署已授权；最终源码/全量CI/新包/手机性能仍未验。"
+    },
+    {
+      "id": "local-scoped",
+      "path": "docs/evidence/combat_perf_deploy_01/summary.json",
+      "sha256": "d9bdc6b00bfa12fcc8784e6ba115ceddb44cddf403a242fe4dac6a854ef2b8d0",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原10项实际消费者分组执行（5+4+修正后native1），原命令/预算/严格错误退出；分别保留e42+WIP叶向量和失败原件，不拼为full。",
+      "observed": "全部选定回归通过；原失败618/3保留，修正夹具后623/0。部署及最终同源完整CI待验。",
+      "command": "python3 tools/harness.py --check <original selected IDs recorded in reports> --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Managed cloud; locked Godot4.7.2 gunman_sd1; bounded synthetic measurements not phoneFPS."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终干净F完整171及Windows/Web未执行",
+    "同run新Web三浏览器/PCK探针/公开部署未执行",
+    "手机FPS/P95/P99与用户试玩认可未验",
+    "当前局部结果为e42+精确WIP叶向量；最终reviewed_commit待收口绑定"
+  ]
+}

@@ -1,3 +1,11 @@
+## 2026-11-02 COMBAT-PERF-DEPLOY-01 接续
+
+分支 `refactor/game-architecture-02`，实施基点e42b277f；当前生产候选尚待最终冻结，保存提交以Git为准。用户已授权优化后部署，未授权用旧包/旧通过代替新源；本轮未部署、手机FPS/用户认可未验，不自动合main。
+
+已完成：现行CI与prepared具体接口只读核验、批准Linux非editor模板字节核验、授权重复展开文件可逆回收；任务/质量/范围已建立。未完成：候选独审和最终绑定、干净F原完整171与Windows/Web、新API ZIP原3浏览器/PCK、prepared及公网完整SHA/基本GUI。局部native或核测量由root按实际原件单列，不在本交接预签。
+
+下一步先读[scope](worklines/combat_perf_deploy_01/scope.md)，root收口补丁及既有技术绑定后停止全部源写入，再按[原命令](worklines/combat_perf_deploy_01/delivery.md)触发一次完整CI；保存run/head/attempt，不盲重跑。质量卡production_snapshot/reviewed_commit由最终F真实绑定，当前仅记录e42未验基点。外部空间恢复清单在 `/workspace/refactor-evidence/combat-perf-deploy-01/reversible-reclamation-01/receipt.json`；旧ab263展开PCK已退役，413chunks仍在，需恢复时用原reconstruct-pack，不把缺pack目录当ready。以下历史条目不改签。
+
 ## 2026-11-01 MOBILE-COMBAT-MESH-02／FUTURE-FEATURE-ARCHITECTURE-01
 
 分支 `refactor/game-architecture-02`。运行源码ca505102、任务表修正119f4a7e、绑定／实际局部验证提交 `4ed961113a65068e3d488c0370cb573154a2bd14`；之后仅本轮记录／证据。主内容仍含PR122／124、排除已关闭PR123；不自动合main。
