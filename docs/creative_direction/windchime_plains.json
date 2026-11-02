@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v35",
+  "version": "creative-v36",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
-    "supplemental_authority_sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
+    "supplemental_authority_sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "ebcf6a6e3d435e63b4a2b3c9e3acad3b9a105ed7aec39404cf712a386ab8bdd3",
+    "registry_sha256": "d42a793d2ddd1d36c3ba89d9a854d77b6eba2b505a2fd36400d660e85122d643",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -262,6 +262,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
       "sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
+      "sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55"
     }
   ],
   "historical_direction": {
@@ -270,53 +274,27 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "COMBAT-PERF-DEPLOY-01",
-    "source_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
-    "source_identity": "Baseline e42b277f plus frozen working-tree candidate_source SHA; these six candidate bytes are not part of the baseline commit. Final commit ownership is separate from this technical source identity.",
+    "task_id": "FIRST-USE-STUTTER-01",
+    "source_commit": "23ba7a79bbfca7f0f1662088f611911dbfd0725b",
+    "source_identity": "Baseline23ba7 plus exact external uncommitted candidate_source; candidate not present in baseline Git. Design-only binding, no accepted shader-warmup outcome.",
     "candidate_source": [
       {
-        "path": "game/loadout/effects/item_art_library.gd",
-        "sha256": "98e2454f2781c028d1a6c512bd7976845a4396ef4d546e08dea2b4f4ece6a333"
-      },
-      {
-        "path": "game/enemies/presentation/plains_revision_flora.gd",
-        "sha256": "8ecb41f063aba37cc398a0b41d954c9f09c4b1056718619cd14f5d40719fdb47"
-      },
-      {
-        "path": "game/enemies/presentation/plains_revision_pose.gd",
-        "sha256": "7d896cb27f9722a279904164c9217a148325f4648744285a9d47a358910b558d"
-      },
-      {
-        "path": "game/enemies/presentation/plains_revision_skin.gd",
-        "sha256": "9f37996c3663fc22c7fe71edea51acdbc847480170e0c9d601c5b4b6c64f2a50"
-      },
-      {
-        "path": "game/loadout/effects/item_companion_effects.gd",
-        "sha256": "76bd7bd07c1c85d79296cea390c863e9a4ddc11b7738cb363a0834d9e7d5fea7"
-      },
-      {
-        "path": "game/loadout/effects/item_runtime.gd",
-        "sha256": "1a1b0ea5dd067c7022e6b763c636eec18fb95142c390a457295c17493dbf5e6c"
+        "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
+        "sha256": "a979bf3b3e927c21c0717a91f46f0bf325ca6c97a1e4ab395de4fd56e883a59d"
       }
     ],
-    "scope": "Technical source binding for exported validated item-art cache, equivalent companion target selection/order and prepared mesh arithmetic. Preserve all selected media, geometry and resource rules. No new art/audio or inherited gameplay/art/user/device acceptance.",
-    "previous_direction": "docs/creative_direction/archive/combat-perf-before-style32/docs/creative_direction/windchime_plains.json",
-    "previous_sha256": "446f7d0be398b455b96e37b214d3cd2f0f135c644c646451c4873fd4d29ad920",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261102-v32-combat-perf.json",
-    "shared_style_sha256": "ab6ff3dadf37ce44f72bcc10f457c9b23fbd0187446f68df4beb0e86ff67f70c",
+    "scope": "Technical binding of existing world_presentation leaf only. Candidate readiness/first-use performance and cleanup still require actual validation.",
     "previous_binding_manifest": {
-      "path": "docs/creative_direction/archive/combat-perf-before-style32/manifest.json",
-      "sha256": "ada060d5ca9b1728b9772c28ae1f1ec90c01d87535c4df4deecdc5031ec14058"
+      "path": "docs/creative_direction/archive/canvas-preparation-before-style33/manifest.json",
+      "sha256": "85b95f4a824b21f20fad8db60145df6e7784cff884133642bb92463a398aa53a"
     },
+    "validation": "External technical candidate only; no native/browser/CI/art/user/device acceptance.",
+    "previous_direction": "docs/creative_direction/archive/canvas-preparation-before-style33/docs/creative_direction/windchime_plains.json",
+    "previous_sha256": "42f3a879b089ae2933f0d87efaf5ade3e2d0cef0cd0b938557a4ba0374dd4cd1",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json",
+    "shared_style_sha256": "ed7088cd28ad66a0e5da12905abb971a682319782ed49e5e4a6325ffeeb45d55",
     "affected_consumers": [
-      "game/loadout/effects/item_art_library.gd",
-      "game/enemies/presentation/plains_revision_flora.gd",
-      "game/enemies/presentation/plains_revision_pose.gd",
-      "game/enemies/presentation/plains_revision_skin.gd",
-      "game/loadout/effects/item_companion_effects.gd",
-      "game/loadout/effects/item_runtime.gd"
-    ],
-    "validation": "Technical provenance only. Native, fixed-workload performance, full Integration, exports and public GUI have separate actual receipts; this binding itself does not sign any of them or visual/listening/user/device acceptance.",
-    "historical_failure": "Style26 original formal191 behavior assertions passed but57 ObjectDB/25resources strict exit failed; immutable historical record remains. Later engine evidence is separate and never rewrites that result."
+      "game/presentation/world/underworld_plains/underworld_presentation.gd"
+    ]
   }
 }

@@ -119,4 +119,14 @@ STYLE31_MANIFEST_SHA = 'ada060d5ca9b1728b9772c28ae1f1ec90c01d87535c4df4deecdc503
 def style31_source(root, path):
     """Six prior31 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE31_ARCHIVE, path, STYLE31_MANIFEST_SHA)
+    return style32_source(root, path) if raw is None else raw
+
+
+STYLE32_ARCHIVE = 'docs/creative_direction/archive/canvas-preparation-before-style33'
+STYLE32_MANIFEST_SHA = '85b95f4a824b21f20fad8db60145df6e7784cff884133642bb92463a398aa53a'
+
+
+def style32_source(root, path):
+    """One prior32 leaf only; never used by current binding validators."""
+    raw = archived_source(root, STYLE32_ARCHIVE, path, STYLE32_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw

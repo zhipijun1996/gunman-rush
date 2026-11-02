@@ -1,5 +1,6 @@
 class_name UnderworldPresentation
 extends Node2D
+const CANVAS_PREPARATION := preload("res://game/presentation/rendering/canvas_shader_preparation.gd")
 ## Selected production fine-pixel and warm-light presentation. No gameplay writes.
 const SPRITE_SHADER := preload("res://shaders/underworld_fine_sprite.gdshader")
 const SURFACE_SHADER := preload("res://shaders/formal_fine_lit.gdshader")
@@ -40,6 +41,8 @@ func _ready() -> void:
 	var script:=load("res://game/presentation/world/underworld_plains/underworld_foreground.gd") as Script
 	if script!=null: foreground=script.attach(get_parent(),world,actor)
 	refresh()
+	if DisplayServer.get_name() != "headless":
+		CANVAS_PREPARATION.prepare_combat(self, lamp_texture())
 
 func _node_added(node: Node) -> void:
 	if not is_instance_valid(world) or node==self or is_ancestor_of(node): return

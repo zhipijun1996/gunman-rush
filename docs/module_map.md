@@ -17,6 +17,7 @@
 | `game/progression/` | 永久成长、家园、出发携带与发现 | MetaProgression 和原保存事务；局内金币与永久音符分开 |
 | `game/world/` | 地图内容协议、原生成器、世界组件和地图状态 | LevelRequest/Plan/Runtime、实际 Provider、原模块目录与版本校验 |
 | `game/presentation/` | 跨实体的世界画面、UI、音频、效果 | 既有表现组件、局部音频宿主及 WorldAudioLifecycle；表现不裁决玩法结果 |
+| `game/presentation/rendering/` | 纯绘制准备和临时渲染资源 | FocusVignette 与 UnderworldPresentation 共用 Canvas 准备；由实际表现宿主创建并释放离屏节点，不预演射击或写玩法状态 |
 | `game/platform/` | 输入适配与存储适配 | 原输入协议和保存格式；不混入玩法或购买政策 |
 | `experiments/` | 动作、音频、地形、生成及平台实验 | 各自明确的入口/历史版本/练习政策，复用正式能力；正式核心不反向依赖实验 |
 | `config/` | 当前调参、authoring、选择与目录配置 | 更新真实权威字段，不再复制默认值到新表 |

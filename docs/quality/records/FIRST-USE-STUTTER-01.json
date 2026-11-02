@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "task_id": "FIRST-USE-STUTTER-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "23ba7a79bbfca7f0f1662088f611911dbfd0725b",
+  "reviewed_commit": "23ba7a79bbfca7f0f1662088f611911dbfd0725b",
+  "content_version": "first-use-stutter-v1",
+  "owner": "/root",
+  "purpose": "依据实际冷暖与敌战观测定位 Chrome 首次使用卡顿，证据成立后在原所有者内最小修复。",
+  "player_experience": "用户报告第二次空中射击不再卡、敌战部分卡；尚无根因或优化效果通过声明。",
+  "constraints": [
+    "第一批采用已通过真实冷启动GL验证的Focus V3，保留V2拒绝；最终技术回归仍待实际执行。",
+    "保持物理/碰撞/伤害/资源/奖励/RNG/存档/正式图声与原预算",
+    "区分冷暖、CPU/GPU、原生/浏览器/真机；不沿用COMBAT通过代签本轮",
+    "最小测试沿既有grapple-focus-hud消费者，保留原全部断言与预算，不新增平行runner。"
+  ],
+  "affected_paths": [
+    "game/presentation/ui/focus_vignette.gd",
+    "game/presentation/world/underworld_plains/underworld_presentation.gd",
+    "game/presentation/rendering/canvas_shader_preparation.gd",
+    "tests/grapple_focus_hud_runner.gd"
+  ],
+  "deliverables": [
+    "精确源与实际冷暖/敌战观察",
+    "有限根因与最小修复建议或补丁",
+    "实际消费者回归及未验证边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Focus V2 实际浏览器A/B未达到首次air零compile/link门槛，已REJECT；尚无被接受的性能修复。敌战单次CPU观察不能解释所有帧间隔。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Focus V2 REJECT_FIRST_AIR_ZERO_COMPILE_GATE；首次真实air仍2compile/1link，未应用",
+    "敌战插桩单样本4pulse/3hit/1kill；无GPU计时或无插桩配对，不是手机FPS",
+    "新增最小回归尚未实现/执行；全部适用技术与设备门槛待验",
+    "reviewed_commit暂为23ba7基点，不是已审核新实现；production_snapshot待原工具对最终实际源绑定，不预签"
+  ]
+}

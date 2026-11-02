@@ -1,5 +1,6 @@
 class_name FocusVignette
 extends CanvasLayer
+const CANVAS_PREPARATION := preload("res://game/presentation/rendering/canvas_shader_preparation.gd")
 
 @export var ability: AirFocusAbility
 @export var enabled := true
@@ -19,6 +20,8 @@ func _ready() -> void:
 	layer = 0
 	_rect = ColorRect.new()
 	_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Focus is unshaded; exclude world point lights from this screen overlay.
+	_rect.light_mask = 0
 	_shader_material = ShaderMaterial.new()
 	_shader_material.shader = preload("res://shaders/focus_vignette.gdshader")
 	_rect.material = _shader_material
@@ -28,6 +31,7 @@ func _ready() -> void:
 	if is_instance_valid(ability):
 		ability.active_changed.connect(_on_active_changed)
 		_on_active_changed(ability.active)
+	_warm_shader()
 
 func _on_active_changed(value: bool) -> void:
 	_target = 1.0 if value else 0.0
@@ -43,3 +47,6 @@ func _process(delta: float) -> void:
 		_shader_material.set_shader_parameter("tint", tint)
 		_shader_material.set_shader_parameter("opacity", clampf(opacity, 0.0, 1.0))
 		_shader_material.set_shader_parameter("edge_width", clampf(edge_width, 0.01, 0.49))
+
+func _warm_shader() -> void:
+	CANVAS_PREPARATION.prepare_focus(self, _shader_material, tint, opacity, edge_width)

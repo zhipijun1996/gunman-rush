@@ -1,0 +1,6915 @@
+{
+  "status": "LIMITED_ACCEPT_FOCUS_FIRST_AIM_COMPILE_REMOVED",
+  "review_role": "Candidate non-author actual execution; observer/driver author, not independent review of own tool.",
+  "source_F": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "candidate_identity": {
+    "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+    "build_id": "f5430fd8a58c",
+    "pack": "index.f5430fd8a58c.pck",
+    "pack_sha256": "f5430fd8a58c38be4aa56cdace9ce622f3a154ea382bb4c9f6792e5f58fb3387",
+    "pack_bytes": 216753316
+  },
+  "candidate_source_sha256": "2435b3207d4c885475606176f5c824c2693733f1013f941a1121b8c2e1a5e59d",
+  "engine_id": "c410089b390c",
+  "source_root_guard_scope": "External diagnostic allows exact authorized docs/tasks.md WIP and records it; original clean gate was not run or modified. Actual production/helper blobs remain exact F.",
+  "repo_status_before": " M docs/tasks.md\n",
+  "repo_status_after": " M docs/tasks.md\n",
+  "source_helper_candidate_stable": true,
+  "browser_closed": true,
+  "phases": [
+    {
+      "stage": "startup",
+      "all_shaderSource": 48,
+      "all_compileShader": 48,
+      "all_linkProgram": 24,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {},
+      "focus_actual_draw_calls": {},
+      "all_actual_draw_calls_by_program": {
+        "21": 60,
+        "22": 150,
+        "23": 450,
+        "24": 180,
+        "3": 30
+      },
+      "all_detailed_events": [
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.665,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 1,
+            "tags": [],
+            "length": 124,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.765,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 1,
+            "tags": [],
+            "length": 124,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.79,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 2,
+            "tags": [],
+            "length": 103,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.795,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 2,
+            "tags": [],
+            "length": 103,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.83,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 1,
+            "shaders": [
+              {
+                "id": 1,
+                "tags": [],
+                "length": 124,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.88,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 1,
+            "shaders": [
+              {
+                "id": 1,
+                "tags": [],
+                "length": 124,
+                "sample": null
+              },
+              {
+                "id": 2,
+                "tags": [],
+                "length": 103,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275137.905,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 1,
+            "shaders": [
+              {
+                "id": 1,
+                "tags": [],
+                "length": 124,
+                "sample": null
+              },
+              {
+                "id": 2,
+                "tags": [],
+                "length": 103,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275188.315,
+          "duration_ms": 0.034912109375,
+          "pname": null,
+          "shader": {
+            "id": 3,
+            "tags": [],
+            "length": 1268,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275188.425,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 3,
+            "tags": [],
+            "length": 1268,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275189.605,
+          "duration_ms": 0.034912109375,
+          "pname": null,
+          "shader": {
+            "id": 4,
+            "tags": [],
+            "length": 6092,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275189.65,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 4,
+            "tags": [],
+            "length": 6092,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275190.3599,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 2,
+            "shaders": [
+              {
+                "id": 4,
+                "tags": [],
+                "length": 6092,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275190.375,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 2,
+            "shaders": [
+              {
+                "id": 4,
+                "tags": [],
+                "length": 6092,
+                "sample": null
+              },
+              {
+                "id": 3,
+                "tags": [],
+                "length": 1268,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275190.395,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 2,
+            "shaders": [
+              {
+                "id": 4,
+                "tags": [],
+                "length": 6092,
+                "sample": null
+              },
+              {
+                "id": 3,
+                "tags": [],
+                "length": 1268,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275191.41,
+          "duration_ms": 0.01513671875,
+          "pname": null,
+          "shader": {
+            "id": 5,
+            "tags": [],
+            "length": 1294,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275191.43,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 5,
+            "tags": [],
+            "length": 1294,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275192.33,
+          "duration_ms": 0.02978515625,
+          "pname": null,
+          "shader": {
+            "id": 6,
+            "tags": [],
+            "length": 6118,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275192.365,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 6,
+            "tags": [],
+            "length": 6118,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275193.08,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 3,
+            "shaders": [
+              {
+                "id": 6,
+                "tags": [],
+                "length": 6118,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275193.085,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 3,
+            "shaders": [
+              {
+                "id": 6,
+                "tags": [],
+                "length": 6118,
+                "sample": null
+              },
+              {
+                "id": 5,
+                "tags": [],
+                "length": 1294,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275193.0898,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 3,
+            "shaders": [
+              {
+                "id": 6,
+                "tags": [],
+                "length": 6118,
+                "sample": null
+              },
+              {
+                "id": 5,
+                "tags": [],
+                "length": 1294,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275193.71,
+          "duration_ms": 0.014892578125,
+          "pname": null,
+          "shader": {
+            "id": 7,
+            "tags": [],
+            "length": 1318,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275193.7249,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 7,
+            "tags": [],
+            "length": 1318,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275194.54,
+          "duration_ms": 0.030029296875,
+          "pname": null,
+          "shader": {
+            "id": 8,
+            "tags": [],
+            "length": 6142,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275194.57,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 8,
+            "tags": [],
+            "length": 6142,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275195.295,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 4,
+            "shaders": [
+              {
+                "id": 8,
+                "tags": [],
+                "length": 6142,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275195.3,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 4,
+            "shaders": [
+              {
+                "id": 8,
+                "tags": [],
+                "length": 6142,
+                "sample": null
+              },
+              {
+                "id": 7,
+                "tags": [],
+                "length": 1318,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275195.305,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 4,
+            "shaders": [
+              {
+                "id": 8,
+                "tags": [],
+                "length": 6142,
+                "sample": null
+              },
+              {
+                "id": 7,
+                "tags": [],
+                "length": 1318,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275195.66,
+          "duration_ms": 0.01513671875,
+          "pname": null,
+          "shader": {
+            "id": 9,
+            "tags": [],
+            "length": 1318,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275195.675,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 9,
+            "tags": [],
+            "length": 1318,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275196.96,
+          "duration_ms": 0.06005859375,
+          "pname": null,
+          "shader": {
+            "id": 10,
+            "tags": [],
+            "length": 6142,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275197.02,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 10,
+            "tags": [],
+            "length": 6142,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275197.74,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 5,
+            "shaders": [
+              {
+                "id": 10,
+                "tags": [],
+                "length": 6142,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275197.75,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 5,
+            "shaders": [
+              {
+                "id": 10,
+                "tags": [],
+                "length": 6142,
+                "sample": null
+              },
+              {
+                "id": 9,
+                "tags": [],
+                "length": 1318,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275197.755,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 5,
+            "shaders": [
+              {
+                "id": 10,
+                "tags": [],
+                "length": 6142,
+                "sample": null
+              },
+              {
+                "id": 9,
+                "tags": [],
+                "length": 1318,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275198.2,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": {
+            "id": 11,
+            "tags": [],
+            "length": 1324,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275198.22,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 11,
+            "tags": [],
+            "length": 1324,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275199.085,
+          "duration_ms": 0.06005859375,
+          "pname": null,
+          "shader": {
+            "id": 12,
+            "tags": [],
+            "length": 6148,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275199.15,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 12,
+            "tags": [],
+            "length": 6148,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275199.89,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 6,
+            "shaders": [
+              {
+                "id": 12,
+                "tags": [],
+                "length": 6148,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275199.9,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 6,
+            "shaders": [
+              {
+                "id": 12,
+                "tags": [],
+                "length": 6148,
+                "sample": null
+              },
+              {
+                "id": 11,
+                "tags": [],
+                "length": 1324,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275199.9,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 6,
+            "shaders": [
+              {
+                "id": 12,
+                "tags": [],
+                "length": 6148,
+                "sample": null
+              },
+              {
+                "id": 11,
+                "tags": [],
+                "length": 1324,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275200.315,
+          "duration_ms": 0.01513671875,
+          "pname": null,
+          "shader": {
+            "id": 13,
+            "tags": [],
+            "length": 1355,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275200.335,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 13,
+            "tags": [],
+            "length": 1355,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275201.135,
+          "duration_ms": 0.099853515625,
+          "pname": null,
+          "shader": {
+            "id": 14,
+            "tags": [],
+            "length": 6179,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275201.2449,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 14,
+            "tags": [],
+            "length": 6179,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275202.105,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 7,
+            "shaders": [
+              {
+                "id": 14,
+                "tags": [],
+                "length": 6179,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275202.1099,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 7,
+            "shaders": [
+              {
+                "id": 14,
+                "tags": [],
+                "length": 6179,
+                "sample": null
+              },
+              {
+                "id": 13,
+                "tags": [],
+                "length": 1355,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275202.115,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 7,
+            "shaders": [
+              {
+                "id": 14,
+                "tags": [],
+                "length": 6179,
+                "sample": null
+              },
+              {
+                "id": 13,
+                "tags": [],
+                "length": 1355,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275202.655,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 15,
+            "tags": [],
+            "length": 1291,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275202.665,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 15,
+            "tags": [],
+            "length": 1291,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275203.315,
+          "duration_ms": 0.0849609375,
+          "pname": null,
+          "shader": {
+            "id": 16,
+            "tags": [],
+            "length": 6115,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275203.405,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 16,
+            "tags": [],
+            "length": 6115,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275204.05,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 8,
+            "shaders": [
+              {
+                "id": 16,
+                "tags": [],
+                "length": 6115,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275204.06,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 8,
+            "shaders": [
+              {
+                "id": 16,
+                "tags": [],
+                "length": 6115,
+                "sample": null
+              },
+              {
+                "id": 15,
+                "tags": [],
+                "length": 1291,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275204.06,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 8,
+            "shaders": [
+              {
+                "id": 16,
+                "tags": [],
+                "length": 6115,
+                "sample": null
+              },
+              {
+                "id": 15,
+                "tags": [],
+                "length": 1291,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275204.49,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": {
+            "id": 17,
+            "tags": [],
+            "length": 1270,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275204.51,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 17,
+            "tags": [],
+            "length": 1270,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275205.38,
+          "duration_ms": 0.05517578125,
+          "pname": null,
+          "shader": {
+            "id": 18,
+            "tags": [],
+            "length": 6094,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275205.44,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 18,
+            "tags": [],
+            "length": 6094,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275206.48,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 9,
+            "shaders": [
+              {
+                "id": 18,
+                "tags": [],
+                "length": 6094,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275206.4849,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 9,
+            "shaders": [
+              {
+                "id": 18,
+                "tags": [],
+                "length": 6094,
+                "sample": null
+              },
+              {
+                "id": 17,
+                "tags": [],
+                "length": 1270,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275206.49,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 9,
+            "shaders": [
+              {
+                "id": 18,
+                "tags": [],
+                "length": 6094,
+                "sample": null
+              },
+              {
+                "id": 17,
+                "tags": [],
+                "length": 1270,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275207.08,
+          "duration_ms": 0.014892578125,
+          "pname": null,
+          "shader": {
+            "id": 19,
+            "tags": [],
+            "length": 1263,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275207.0999,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 19,
+            "tags": [],
+            "length": 1263,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275211.005,
+          "duration_ms": 0.090087890625,
+          "pname": null,
+          "shader": {
+            "id": 20,
+            "tags": [],
+            "length": 6087,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275211.0999,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 20,
+            "tags": [],
+            "length": 6087,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275211.5898,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 10,
+            "shaders": [
+              {
+                "id": 20,
+                "tags": [],
+                "length": 6087,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275211.5999,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 10,
+            "shaders": [
+              {
+                "id": 20,
+                "tags": [],
+                "length": 6087,
+                "sample": null
+              },
+              {
+                "id": 19,
+                "tags": [],
+                "length": 1263,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275211.6099,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 10,
+            "shaders": [
+              {
+                "id": 20,
+                "tags": [],
+                "length": 6087,
+                "sample": null
+              },
+              {
+                "id": 19,
+                "tags": [],
+                "length": 1263,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275212.03,
+          "duration_ms": 0.014892578125,
+          "pname": null,
+          "shader": {
+            "id": 21,
+            "tags": [],
+            "length": 1295,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275212.045,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 21,
+            "tags": [],
+            "length": 1295,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275212.805,
+          "duration_ms": 0.06005859375,
+          "pname": null,
+          "shader": {
+            "id": 22,
+            "tags": [],
+            "length": 6119,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275212.8699,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 22,
+            "tags": [],
+            "length": 6119,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275213.4749,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 11,
+            "shaders": [
+              {
+                "id": 22,
+                "tags": [],
+                "length": 6119,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275213.4849,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 11,
+            "shaders": [
+              {
+                "id": 22,
+                "tags": [],
+                "length": 6119,
+                "sample": null
+              },
+              {
+                "id": 21,
+                "tags": [],
+                "length": 1295,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275213.49,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 11,
+            "shaders": [
+              {
+                "id": 22,
+                "tags": [],
+                "length": 6119,
+                "sample": null
+              },
+              {
+                "id": 21,
+                "tags": [],
+                "length": 1295,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275213.8699,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 23,
+            "tags": [],
+            "length": 1296,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275213.88,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 23,
+            "tags": [],
+            "length": 1296,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275214.5898,
+          "duration_ms": 0.05517578125,
+          "pname": null,
+          "shader": {
+            "id": 24,
+            "tags": [],
+            "length": 6120,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275214.65,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 24,
+            "tags": [],
+            "length": 6120,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275215.3699,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 12,
+            "shaders": [
+              {
+                "id": 24,
+                "tags": [],
+                "length": 6120,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275215.375,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 12,
+            "shaders": [
+              {
+                "id": 24,
+                "tags": [],
+                "length": 6120,
+                "sample": null
+              },
+              {
+                "id": 23,
+                "tags": [],
+                "length": 1296,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275215.38,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 12,
+            "shaders": [
+              {
+                "id": 24,
+                "tags": [],
+                "length": 6120,
+                "sample": null
+              },
+              {
+                "id": 23,
+                "tags": [],
+                "length": 1296,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275215.7449,
+          "duration_ms": 0.01513671875,
+          "pname": null,
+          "shader": {
+            "id": 25,
+            "tags": [],
+            "length": 1268,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275215.76,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 25,
+            "tags": [],
+            "length": 1268,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275216.51,
+          "duration_ms": 0.070068359375,
+          "pname": null,
+          "shader": {
+            "id": 26,
+            "tags": [],
+            "length": 6092,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275216.5898,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 26,
+            "tags": [],
+            "length": 6092,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275217.365,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 13,
+            "shaders": [
+              {
+                "id": 26,
+                "tags": [],
+                "length": 6092,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275217.3699,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 13,
+            "shaders": [
+              {
+                "id": 26,
+                "tags": [],
+                "length": 6092,
+                "sample": null
+              },
+              {
+                "id": 25,
+                "tags": [],
+                "length": 1268,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275217.375,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 13,
+            "shaders": [
+              {
+                "id": 26,
+                "tags": [],
+                "length": 6092,
+                "sample": null
+              },
+              {
+                "id": 25,
+                "tags": [],
+                "length": 1268,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275217.755,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 27,
+            "tags": [],
+            "length": 1330,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275217.765,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 27,
+            "tags": [],
+            "length": 1330,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275218.435,
+          "duration_ms": 0.054931640625,
+          "pname": null,
+          "shader": {
+            "id": 28,
+            "tags": [],
+            "length": 6154,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275218.4949,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 28,
+            "tags": [],
+            "length": 6154,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275219.2449,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 14,
+            "shaders": [
+              {
+                "id": 28,
+                "tags": [],
+                "length": 6154,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275219.255,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 14,
+            "shaders": [
+              {
+                "id": 28,
+                "tags": [],
+                "length": 6154,
+                "sample": null
+              },
+              {
+                "id": 27,
+                "tags": [],
+                "length": 1330,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275219.255,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 14,
+            "shaders": [
+              {
+                "id": 28,
+                "tags": [],
+                "length": 6154,
+                "sample": null
+              },
+              {
+                "id": 27,
+                "tags": [],
+                "length": 1330,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275224.755,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 29,
+            "tags": [],
+            "length": 734,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275224.77,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 29,
+            "tags": [],
+            "length": 734,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275225.72,
+          "duration_ms": 0.135009765625,
+          "pname": null,
+          "shader": {
+            "id": 30,
+            "tags": [],
+            "length": 20727,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275225.8599,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 30,
+            "tags": [],
+            "length": 20727,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275227.64,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 15,
+            "shaders": [
+              {
+                "id": 30,
+                "tags": [],
+                "length": 20727,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275227.645,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 15,
+            "shaders": [
+              {
+                "id": 30,
+                "tags": [],
+                "length": 20727,
+                "sample": null
+              },
+              {
+                "id": 29,
+                "tags": [],
+                "length": 734,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275227.65,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 15,
+            "shaders": [
+              {
+                "id": 30,
+                "tags": [],
+                "length": 20727,
+                "sample": null
+              },
+              {
+                "id": 29,
+                "tags": [],
+                "length": 734,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275229.805,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 31,
+            "tags": [],
+            "length": 713,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275229.82,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 31,
+            "tags": [],
+            "length": 713,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275230.505,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 32,
+            "tags": [],
+            "length": 801,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275230.515,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 32,
+            "tags": [],
+            "length": 801,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275230.9849,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 16,
+            "shaders": [
+              {
+                "id": 32,
+                "tags": [],
+                "length": 801,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275230.9949,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 16,
+            "shaders": [
+              {
+                "id": 32,
+                "tags": [],
+                "length": 801,
+                "sample": null
+              },
+              {
+                "id": 31,
+                "tags": [],
+                "length": 713,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275231,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 16,
+            "shaders": [
+              {
+                "id": 32,
+                "tags": [],
+                "length": 801,
+                "sample": null
+              },
+              {
+                "id": 31,
+                "tags": [],
+                "length": 713,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275242.115,
+          "duration_ms": 0.344970703125,
+          "pname": null,
+          "shader": {
+            "id": 33,
+            "tags": [],
+            "length": 33570,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275242.4749,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 33,
+            "tags": [],
+            "length": 33570,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275248.8,
+          "duration_ms": 0.9599609375,
+          "pname": null,
+          "shader": {
+            "id": 34,
+            "tags": [],
+            "length": 89139,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275249.77,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 34,
+            "tags": [],
+            "length": 89139,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275261.165,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 17,
+            "shaders": [
+              {
+                "id": 34,
+                "tags": [],
+                "length": 89139,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275261.18,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 17,
+            "shaders": [
+              {
+                "id": 34,
+                "tags": [],
+                "length": 89139,
+                "sample": null
+              },
+              {
+                "id": 33,
+                "tags": [],
+                "length": 33570,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275261.185,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 17,
+            "shaders": [
+              {
+                "id": 34,
+                "tags": [],
+                "length": 89139,
+                "sample": null
+              },
+              {
+                "id": 33,
+                "tags": [],
+                "length": 33570,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606275261.2,
+          "duration_ms": 4.945068359375,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 17,
+            "shaders": [
+              {
+                "id": 34,
+                "tags": [],
+                "length": 89139,
+                "sample": null
+              },
+              {
+                "id": 33,
+                "tags": [],
+                "length": 33570,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275269.945,
+          "duration_ms": 0.329833984375,
+          "pname": null,
+          "shader": {
+            "id": 35,
+            "tags": [],
+            "length": 33593,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275270.285,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 35,
+            "tags": [],
+            "length": 33593,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275274.585,
+          "duration_ms": 1.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 36,
+            "tags": [],
+            "length": 89162,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275275.595,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 36,
+            "tags": [],
+            "length": 89162,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275287.99,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 18,
+            "shaders": [
+              {
+                "id": 36,
+                "tags": [],
+                "length": 89162,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275288.01,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 18,
+            "shaders": [
+              {
+                "id": 36,
+                "tags": [],
+                "length": 89162,
+                "sample": null
+              },
+              {
+                "id": 35,
+                "tags": [],
+                "length": 33593,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275288.01,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 18,
+            "shaders": [
+              {
+                "id": 36,
+                "tags": [],
+                "length": 89162,
+                "sample": null
+              },
+              {
+                "id": 35,
+                "tags": [],
+                "length": 33593,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606275288.035,
+          "duration_ms": 8.429931640625,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 18,
+            "shaders": [
+              {
+                "id": 36,
+                "tags": [],
+                "length": 89162,
+                "sample": null
+              },
+              {
+                "id": 35,
+                "tags": [],
+                "length": 33593,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275298.99,
+          "duration_ms": 0.324951171875,
+          "pname": null,
+          "shader": {
+            "id": 37,
+            "tags": [],
+            "length": 33595,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275299.325,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 37,
+            "tags": [],
+            "length": 33595,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275307.44,
+          "duration_ms": 0.544921875,
+          "pname": null,
+          "shader": {
+            "id": 38,
+            "tags": [],
+            "length": 89164,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275307.9949,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 38,
+            "tags": [],
+            "length": 89164,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275313.525,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 19,
+            "shaders": [
+              {
+                "id": 38,
+                "tags": [],
+                "length": 89164,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275313.54,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 19,
+            "shaders": [
+              {
+                "id": 38,
+                "tags": [],
+                "length": 89164,
+                "sample": null
+              },
+              {
+                "id": 37,
+                "tags": [],
+                "length": 33595,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275313.545,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 19,
+            "shaders": [
+              {
+                "id": 38,
+                "tags": [],
+                "length": 89164,
+                "sample": null
+              },
+              {
+                "id": 37,
+                "tags": [],
+                "length": 33595,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606275313.55,
+          "duration_ms": 3.554931640625,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 19,
+            "shaders": [
+              {
+                "id": 38,
+                "tags": [],
+                "length": 89164,
+                "sample": null
+              },
+              {
+                "id": 37,
+                "tags": [],
+                "length": 33595,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275318.355,
+          "duration_ms": 0.175048828125,
+          "pname": null,
+          "shader": {
+            "id": 39,
+            "tags": [],
+            "length": 33619,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275318.54,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 39,
+            "tags": [],
+            "length": 33619,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606275323.835,
+          "duration_ms": 0.429931640625,
+          "pname": null,
+          "shader": {
+            "id": 40,
+            "tags": [],
+            "length": 89188,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275324.27,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 40,
+            "tags": [],
+            "length": 89188,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275328.795,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 20,
+            "shaders": [
+              {
+                "id": 40,
+                "tags": [],
+                "length": 89188,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606275328.805,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 20,
+            "shaders": [
+              {
+                "id": 40,
+                "tags": [],
+                "length": 89188,
+                "sample": null
+              },
+              {
+                "id": 39,
+                "tags": [],
+                "length": 33619,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606275328.81,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 20,
+            "shaders": [
+              {
+                "id": 40,
+                "tags": [],
+                "length": 89188,
+                "sample": null
+              },
+              {
+                "id": 39,
+                "tags": [],
+                "length": 33619,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606276469.81,
+          "duration_ms": 2.35986328125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606276594.39,
+          "duration_ms": 2.880126953125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606276802.51,
+          "duration_ms": 2.83984375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606276850.545,
+          "duration_ms": 7.695068359375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606277009.38,
+          "duration_ms": 3.81005859375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606277099.815,
+          "duration_ms": 5.659912109375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606277210.65,
+          "duration_ms": 7.1201171875,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606277296.605,
+          "duration_ms": 7.139892578125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606278025.425,
+          "duration_ms": 4.02490234375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606278442.56,
+          "duration_ms": 6.909912109375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606278940.2,
+          "duration_ms": 6.409912109375,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606278997.835,
+          "duration_ms": 6.580078125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606279868.25,
+          "duration_ms": 6.514892578125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606280016.645,
+          "duration_ms": 10.5048828125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606280478.145,
+          "duration_ms": 6.43994140625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606280843.055,
+          "duration_ms": 9.090087890625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606280987.21,
+          "duration_ms": 6.27001953125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606281005.78,
+          "duration_ms": 8.635009765625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606281184.655,
+          "duration_ms": 8.184814453125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606281200.165,
+          "duration_ms": 2.054931640625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606281209.675,
+          "duration_ms": 11.419921875,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606281775.325,
+          "duration_ms": 9.135009765625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606282710.9949,
+          "duration_ms": 8.545166015625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606283096.41,
+          "duration_ms": 9.045166015625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283425.13,
+          "duration_ms": 0.0849609375,
+          "pname": null,
+          "shader": {
+            "id": 41,
+            "tags": [],
+            "length": 14561,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283425.22,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 41,
+            "tags": [],
+            "length": 14561,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283428.18,
+          "duration_ms": 0.135009765625,
+          "pname": null,
+          "shader": {
+            "id": 42,
+            "tags": [],
+            "length": 26508,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283428.32,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 42,
+            "tags": [],
+            "length": 26508,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283431.5999,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 21,
+            "shaders": [
+              {
+                "id": 42,
+                "tags": [],
+                "length": 26508,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283431.6099,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 21,
+            "shaders": [
+              {
+                "id": 42,
+                "tags": [],
+                "length": 26508,
+                "sample": null
+              },
+              {
+                "id": 41,
+                "tags": [],
+                "length": 14561,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606283431.615,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 21,
+            "shaders": [
+              {
+                "id": 42,
+                "tags": [],
+                "length": 26508,
+                "sample": null
+              },
+              {
+                "id": 41,
+                "tags": [],
+                "length": 14561,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283433.1199,
+          "duration_ms": 0.085205078125,
+          "pname": null,
+          "shader": {
+            "id": 43,
+            "tags": [],
+            "length": 14581,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283433.21,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 43,
+            "tags": [],
+            "length": 14581,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283447.575,
+          "duration_ms": 0.235107421875,
+          "pname": null,
+          "shader": {
+            "id": 44,
+            "tags": [],
+            "length": 26455,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283447.82,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 44,
+            "tags": [],
+            "length": 26455,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283451.445,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 22,
+            "shaders": [
+              {
+                "id": 44,
+                "tags": [],
+                "length": 26455,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283451.455,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 22,
+            "shaders": [
+              {
+                "id": 44,
+                "tags": [],
+                "length": 26455,
+                "sample": null
+              },
+              {
+                "id": 43,
+                "tags": [],
+                "length": 14581,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606283451.46,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 22,
+            "shaders": [
+              {
+                "id": 44,
+                "tags": [],
+                "length": 26455,
+                "sample": null
+              },
+              {
+                "id": 43,
+                "tags": [],
+                "length": 14581,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283453.58,
+          "duration_ms": 0.579833984375,
+          "pname": null,
+          "shader": {
+            "id": 45,
+            "tags": [],
+            "length": 14304,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283454.17,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 45,
+            "tags": [],
+            "length": 14304,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283474.26,
+          "duration_ms": 0.195068359375,
+          "pname": null,
+          "shader": {
+            "id": 46,
+            "tags": [],
+            "length": 25235,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283474.4648,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 46,
+            "tags": [],
+            "length": 25235,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283477.53,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 23,
+            "shaders": [
+              {
+                "id": 46,
+                "tags": [],
+                "length": 25235,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283477.55,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 23,
+            "shaders": [
+              {
+                "id": 46,
+                "tags": [],
+                "length": 25235,
+                "sample": null
+              },
+              {
+                "id": 45,
+                "tags": [],
+                "length": 14304,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606283477.55,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 23,
+            "shaders": [
+              {
+                "id": 46,
+                "tags": [],
+                "length": 25235,
+                "sample": null
+              },
+              {
+                "id": 45,
+                "tags": [],
+                "length": 14304,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283479.3499,
+          "duration_ms": 0.090087890625,
+          "pname": null,
+          "shader": {
+            "id": 47,
+            "tags": [],
+            "length": 14327,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283479.445,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 47,
+            "tags": [],
+            "length": 14327,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606283499.085,
+          "duration_ms": 0.215087890625,
+          "pname": null,
+          "shader": {
+            "id": 48,
+            "tags": [],
+            "length": 25258,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283499.305,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 48,
+            "tags": [],
+            "length": 25258,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283502.4648,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 24,
+            "shaders": [
+              {
+                "id": 48,
+                "tags": [],
+                "length": 25258,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606283502.4749,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 24,
+            "shaders": [
+              {
+                "id": 48,
+                "tags": [],
+                "length": 25258,
+                "sample": null
+              },
+              {
+                "id": 47,
+                "tags": [],
+                "length": 14327,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "startup",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606283502.48,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 24,
+            "shaders": [
+              {
+                "id": 48,
+                "tags": [],
+                "length": 25258,
+                "sample": null
+              },
+              {
+                "id": 47,
+                "tags": [],
+                "length": 14327,
+                "sample": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "stage": "home-transition",
+      "all_shaderSource": 32,
+      "all_compileShader": 32,
+      "all_linkProgram": 16,
+      "focus_shaderSource": 2,
+      "focus_compileShader": 2,
+      "focus_linkProgram": 1,
+      "focus_useProgram": {
+        "{\"id\":25,\"tags\":[\"edge_width\"]}": 2
+      },
+      "focus_actual_draw_calls": {
+        "25": 1
+      },
+      "all_actual_draw_calls_by_program": {
+        "21": 52,
+        "22": 205,
+        "23": 1215,
+        "24": 1168,
+        "25": 1,
+        "29": 150,
+        "30": 250,
+        "31": 150,
+        "32": 100,
+        "33": 100,
+        "34": 300,
+        "35": 300,
+        "38": 300,
+        "40": 96,
+        "3": 53,
+        "27": 3600,
+        "36": 50,
+        "39": 362
+      },
+      "all_detailed_events": [
+        {
+          "stage": "home-transition",
+          "name": "texImage2D",
+          "context_id": 1,
+          "epoch_ms": 1793606286370.9648,
+          "duration_ms": 6.5751953125,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "readPixels",
+          "context_id": 1,
+          "epoch_ms": 1793606286606.22,
+          "duration_ms": 33.804931640625,
+          "pname": null,
+          "shader": null,
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286749.755,
+          "duration_ms": 0.18017578125,
+          "pname": null,
+          "shader": {
+            "id": 49,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14495,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286749.96,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 49,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 14495,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286753.555,
+          "duration_ms": 0.27001953125,
+          "pname": null,
+          "shader": {
+            "id": 50,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25625,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286753.83,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 50,
+            "tags": [
+              "edge_width"
+            ],
+            "length": 25625,
+            "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286757.625,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286757.645,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 49,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286757.67,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 49,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606286757.73,
+          "duration_ms": 5.375,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 25,
+            "shaders": [
+              {
+                "id": 50,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 25625,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n/* clang-format on */\n\n\nfloat vec4_to_float(vec4 p_vec) {\n\treturn dot(p_vec, vec4(1.0 / (255."
+              },
+              {
+                "id": 49,
+                "tags": [
+                  "edge_width"
+                ],
+                "length": 14495,
+                "sample": ":4\n\nhighp vec4 m_tint;\nhighp float m_opacity;\nhighp float m_edge_width;\nhighp float m_strength;\n\n};\n#endif\n\nuniform mediump uint batch_flags;\n\n/* clang-format on */\n#define MAX_LIGHTS_PER_ITEM uint(16"
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286769.585,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": {
+            "id": 51,
+            "tags": [],
+            "length": 983,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286769.5999,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 51,
+            "tags": [],
+            "length": 983,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286773.905,
+          "duration_ms": 0.014892578125,
+          "pname": null,
+          "shader": {
+            "id": 52,
+            "tags": [],
+            "length": 1243,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286773.93,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 52,
+            "tags": [],
+            "length": 1243,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286774.57,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 26,
+            "shaders": [
+              {
+                "id": 52,
+                "tags": [],
+                "length": 1243,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286774.575,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 26,
+            "shaders": [
+              {
+                "id": 52,
+                "tags": [],
+                "length": 1243,
+                "sample": null
+              },
+              {
+                "id": 51,
+                "tags": [],
+                "length": 983,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286774.585,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 26,
+            "shaders": [
+              {
+                "id": 52,
+                "tags": [],
+                "length": 1243,
+                "sample": null
+              },
+              {
+                "id": 51,
+                "tags": [],
+                "length": 983,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286775.1199,
+          "duration_ms": 0.03515625,
+          "pname": null,
+          "shader": {
+            "id": 53,
+            "tags": [],
+            "length": 1002,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286775.155,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 53,
+            "tags": [],
+            "length": 1002,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286776.91,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": {
+            "id": 54,
+            "tags": [],
+            "length": 1262,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286776.93,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 54,
+            "tags": [],
+            "length": 1262,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286777.455,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 27,
+            "shaders": [
+              {
+                "id": 54,
+                "tags": [],
+                "length": 1262,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286777.46,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 27,
+            "shaders": [
+              {
+                "id": 54,
+                "tags": [],
+                "length": 1262,
+                "sample": null
+              },
+              {
+                "id": 53,
+                "tags": [],
+                "length": 1002,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286777.4648,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 27,
+            "shaders": [
+              {
+                "id": 54,
+                "tags": [],
+                "length": 1262,
+                "sample": null
+              },
+              {
+                "id": 53,
+                "tags": [],
+                "length": 1002,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286777.825,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 55,
+            "tags": [],
+            "length": 1028,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286777.835,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 55,
+            "tags": [],
+            "length": 1028,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286778.83,
+          "duration_ms": 0.009765625,
+          "pname": null,
+          "shader": {
+            "id": 56,
+            "tags": [],
+            "length": 1288,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286778.845,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 56,
+            "tags": [],
+            "length": 1288,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286780.595,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 28,
+            "shaders": [
+              {
+                "id": 56,
+                "tags": [],
+                "length": 1288,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286780.605,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 28,
+            "shaders": [
+              {
+                "id": 56,
+                "tags": [],
+                "length": 1288,
+                "sample": null
+              },
+              {
+                "id": 55,
+                "tags": [],
+                "length": 1028,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286780.605,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 28,
+            "shaders": [
+              {
+                "id": 56,
+                "tags": [],
+                "length": 1288,
+                "sample": null
+              },
+              {
+                "id": 55,
+                "tags": [],
+                "length": 1028,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606286780.6099,
+          "duration_ms": 2.335205078125,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 28,
+            "shaders": [
+              {
+                "id": 56,
+                "tags": [],
+                "length": 1288,
+                "sample": null
+              },
+              {
+                "id": 55,
+                "tags": [],
+                "length": 1028,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286784.64,
+          "duration_ms": 0.155029296875,
+          "pname": null,
+          "shader": {
+            "id": 57,
+            "tags": [],
+            "length": 14755,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286784.8,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 57,
+            "tags": [],
+            "length": 14755,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286789.545,
+          "duration_ms": 0.155029296875,
+          "pname": null,
+          "shader": {
+            "id": 58,
+            "tags": [],
+            "length": 25998,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286789.7,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 58,
+            "tags": [],
+            "length": 25998,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286792.935,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 29,
+            "shaders": [
+              {
+                "id": 58,
+                "tags": [],
+                "length": 25998,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286792.94,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 29,
+            "shaders": [
+              {
+                "id": 58,
+                "tags": [],
+                "length": 25998,
+                "sample": null
+              },
+              {
+                "id": 57,
+                "tags": [],
+                "length": 14755,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286792.945,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 29,
+            "shaders": [
+              {
+                "id": 58,
+                "tags": [],
+                "length": 25998,
+                "sample": null
+              },
+              {
+                "id": 57,
+                "tags": [],
+                "length": 14755,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606286792.95,
+          "duration_ms": 2.864990234375,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 29,
+            "shaders": [
+              {
+                "id": 58,
+                "tags": [],
+                "length": 25998,
+                "sample": null
+              },
+              {
+                "id": 57,
+                "tags": [],
+                "length": 14755,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286796.3,
+          "duration_ms": 0.079833984375,
+          "pname": null,
+          "shader": {
+            "id": 59,
+            "tags": [],
+            "length": 14730,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286796.38,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 59,
+            "tags": [],
+            "length": 14730,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286799.74,
+          "duration_ms": 0.1298828125,
+          "pname": null,
+          "shader": {
+            "id": 60,
+            "tags": [],
+            "length": 25973,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286799.875,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 60,
+            "tags": [],
+            "length": 25973,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286809.6199,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 30,
+            "shaders": [
+              {
+                "id": 60,
+                "tags": [],
+                "length": 25973,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286809.64,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 30,
+            "shaders": [
+              {
+                "id": 60,
+                "tags": [],
+                "length": 25973,
+                "sample": null
+              },
+              {
+                "id": 59,
+                "tags": [],
+                "length": 14730,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286809.64,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 30,
+            "shaders": [
+              {
+                "id": 60,
+                "tags": [],
+                "length": 25973,
+                "sample": null
+              },
+              {
+                "id": 59,
+                "tags": [],
+                "length": 14730,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606286809.68,
+          "duration_ms": 20.18994140625,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 30,
+            "shaders": [
+              {
+                "id": 60,
+                "tags": [],
+                "length": 25973,
+                "sample": null
+              },
+              {
+                "id": 59,
+                "tags": [],
+                "length": 14730,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286835.57,
+          "duration_ms": 0.114990234375,
+          "pname": null,
+          "shader": {
+            "id": 61,
+            "tags": [],
+            "length": 14633,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286835.69,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 61,
+            "tags": [],
+            "length": 14633,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286873.88,
+          "duration_ms": 0.155029296875,
+          "pname": null,
+          "shader": {
+            "id": 62,
+            "tags": [],
+            "length": 26372,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286874.04,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": {
+            "id": 62,
+            "tags": [],
+            "length": 26372,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286877.71,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 31,
+            "shaders": [
+              {
+                "id": 62,
+                "tags": [],
+                "length": 26372,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286877.72,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 31,
+            "shaders": [
+              {
+                "id": 62,
+                "tags": [],
+                "length": 26372,
+                "sample": null
+              },
+              {
+                "id": 61,
+                "tags": [],
+                "length": 14633,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286877.7249,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 31,
+            "shaders": [
+              {
+                "id": 62,
+                "tags": [],
+                "length": 26372,
+                "sample": null
+              },
+              {
+                "id": 61,
+                "tags": [],
+                "length": 14633,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286878.955,
+          "duration_ms": 0.099853515625,
+          "pname": null,
+          "shader": {
+            "id": 63,
+            "tags": [],
+            "length": 14608,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286879.06,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 63,
+            "tags": [],
+            "length": 14608,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286891.76,
+          "duration_ms": 0.14990234375,
+          "pname": null,
+          "shader": {
+            "id": 64,
+            "tags": [],
+            "length": 26347,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286891.92,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 64,
+            "tags": [],
+            "length": 26347,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286899.335,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 32,
+            "shaders": [
+              {
+                "id": 64,
+                "tags": [],
+                "length": 26347,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286899.345,
+          "duration_ms": 0.02001953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 32,
+            "shaders": [
+              {
+                "id": 64,
+                "tags": [],
+                "length": 26347,
+                "sample": null
+              },
+              {
+                "id": 63,
+                "tags": [],
+                "length": 14608,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286899.3699,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 32,
+            "shaders": [
+              {
+                "id": 64,
+                "tags": [],
+                "length": 26347,
+                "sample": null
+              },
+              {
+                "id": 63,
+                "tags": [],
+                "length": 14608,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606286899.375,
+          "duration_ms": 16.10986328125,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 32,
+            "shaders": [
+              {
+                "id": 64,
+                "tags": [],
+                "length": 26347,
+                "sample": null
+              },
+              {
+                "id": 63,
+                "tags": [],
+                "length": 14608,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286918.21,
+          "duration_ms": 0.27490234375,
+          "pname": null,
+          "shader": {
+            "id": 65,
+            "tags": [],
+            "length": 14729,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286918.4949,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 65,
+            "tags": [],
+            "length": 14729,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286950.105,
+          "duration_ms": 0.159912109375,
+          "pname": null,
+          "shader": {
+            "id": 66,
+            "tags": [],
+            "length": 29439,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286950.27,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 66,
+            "tags": [],
+            "length": 29439,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286954.42,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 33,
+            "shaders": [
+              {
+                "id": 66,
+                "tags": [],
+                "length": 29439,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286954.43,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 33,
+            "shaders": [
+              {
+                "id": 66,
+                "tags": [],
+                "length": 29439,
+                "sample": null
+              },
+              {
+                "id": 65,
+                "tags": [],
+                "length": 14729,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286954.44,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 33,
+            "shaders": [
+              {
+                "id": 66,
+                "tags": [],
+                "length": 29439,
+                "sample": null
+              },
+              {
+                "id": 65,
+                "tags": [],
+                "length": 14729,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286956.275,
+          "duration_ms": 0.10498046875,
+          "pname": null,
+          "shader": {
+            "id": 67,
+            "tags": [],
+            "length": 14704,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286956.38,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 67,
+            "tags": [],
+            "length": 14704,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286958.645,
+          "duration_ms": 0.19482421875,
+          "pname": null,
+          "shader": {
+            "id": 68,
+            "tags": [],
+            "length": 29414,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286958.845,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 68,
+            "tags": [],
+            "length": 29414,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286966.855,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 34,
+            "shaders": [
+              {
+                "id": 68,
+                "tags": [],
+                "length": 29414,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286966.8699,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 34,
+            "shaders": [
+              {
+                "id": 68,
+                "tags": [],
+                "length": 29414,
+                "sample": null
+              },
+              {
+                "id": 67,
+                "tags": [],
+                "length": 14704,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606286966.8699,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 34,
+            "shaders": [
+              {
+                "id": 68,
+                "tags": [],
+                "length": 29414,
+                "sample": null
+              },
+              {
+                "id": 67,
+                "tags": [],
+                "length": 14704,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606286966.875,
+          "duration_ms": 16.6298828125,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 34,
+            "shaders": [
+              {
+                "id": 68,
+                "tags": [],
+                "length": 29414,
+                "sample": null
+              },
+              {
+                "id": 67,
+                "tags": [],
+                "length": 14704,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606286986.2449,
+          "duration_ms": 0.110107421875,
+          "pname": null,
+          "shader": {
+            "id": 69,
+            "tags": [],
+            "length": 14279,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606286986.3599,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 69,
+            "tags": [],
+            "length": 14279,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287045.55,
+          "duration_ms": 0.23486328125,
+          "pname": null,
+          "shader": {
+            "id": 70,
+            "tags": [],
+            "length": 25210,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287045.795,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 70,
+            "tags": [],
+            "length": 25210,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287051.46,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 35,
+            "shaders": [
+              {
+                "id": 70,
+                "tags": [],
+                "length": 25210,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287051.47,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 35,
+            "shaders": [
+              {
+                "id": 70,
+                "tags": [],
+                "length": 25210,
+                "sample": null
+              },
+              {
+                "id": 69,
+                "tags": [],
+                "length": 14279,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606287051.4749,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 35,
+            "shaders": [
+              {
+                "id": 70,
+                "tags": [],
+                "length": 25210,
+                "sample": null
+              },
+              {
+                "id": 69,
+                "tags": [],
+                "length": 14279,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606287051.48,
+          "duration_ms": 16.8349609375,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 35,
+            "shaders": [
+              {
+                "id": 70,
+                "tags": [],
+                "length": 25210,
+                "sample": null
+              },
+              {
+                "id": 69,
+                "tags": [],
+                "length": 14279,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287073.375,
+          "duration_ms": 0.139892578125,
+          "pname": null,
+          "shader": {
+            "id": 71,
+            "tags": [],
+            "length": 14752,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287073.52,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": {
+            "id": 71,
+            "tags": [],
+            "length": 14752,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287112.435,
+          "duration_ms": 0.139892578125,
+          "pname": null,
+          "shader": {
+            "id": 72,
+            "tags": [],
+            "length": 25995,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287112.585,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 72,
+            "tags": [],
+            "length": 25995,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287119.52,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 36,
+            "shaders": [
+              {
+                "id": 72,
+                "tags": [],
+                "length": 25995,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287119.54,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 36,
+            "shaders": [
+              {
+                "id": 72,
+                "tags": [],
+                "length": 25995,
+                "sample": null
+              },
+              {
+                "id": 71,
+                "tags": [],
+                "length": 14752,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606287119.54,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 36,
+            "shaders": [
+              {
+                "id": 72,
+                "tags": [],
+                "length": 25995,
+                "sample": null
+              },
+              {
+                "id": 71,
+                "tags": [],
+                "length": 14752,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606287119.55,
+          "duration_ms": 15.304931640625,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 36,
+            "shaders": [
+              {
+                "id": 72,
+                "tags": [],
+                "length": 25995,
+                "sample": null
+              },
+              {
+                "id": 71,
+                "tags": [],
+                "length": 14752,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287137.805,
+          "duration_ms": 0.080078125,
+          "pname": null,
+          "shader": {
+            "id": 73,
+            "tags": [],
+            "length": 14326,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287137.89,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 73,
+            "tags": [],
+            "length": 14326,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287172.615,
+          "duration_ms": 0.175048828125,
+          "pname": null,
+          "shader": {
+            "id": 74,
+            "tags": [],
+            "length": 25257,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287172.795,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": {
+            "id": 74,
+            "tags": [],
+            "length": 25257,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287176.075,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 37,
+            "shaders": [
+              {
+                "id": 74,
+                "tags": [],
+                "length": 25257,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287176.085,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 37,
+            "shaders": [
+              {
+                "id": 74,
+                "tags": [],
+                "length": 25257,
+                "sample": null
+              },
+              {
+                "id": 73,
+                "tags": [],
+                "length": 14326,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606287176.085,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 37,
+            "shaders": [
+              {
+                "id": 74,
+                "tags": [],
+                "length": 25257,
+                "sample": null
+              },
+              {
+                "id": 73,
+                "tags": [],
+                "length": 14326,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287177.65,
+          "duration_ms": 0.18994140625,
+          "pname": null,
+          "shader": {
+            "id": 75,
+            "tags": [],
+            "length": 14301,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287177.845,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 75,
+            "tags": [],
+            "length": 14301,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287181.15,
+          "duration_ms": 0.2900390625,
+          "pname": null,
+          "shader": {
+            "id": 76,
+            "tags": [],
+            "length": 25232,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287181.45,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 76,
+            "tags": [],
+            "length": 25232,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287186.72,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 38,
+            "shaders": [
+              {
+                "id": 76,
+                "tags": [],
+                "length": 25232,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287186.73,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 38,
+            "shaders": [
+              {
+                "id": 76,
+                "tags": [],
+                "length": 25232,
+                "sample": null
+              },
+              {
+                "id": 75,
+                "tags": [],
+                "length": 14301,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606287186.7349,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 38,
+            "shaders": [
+              {
+                "id": 76,
+                "tags": [],
+                "length": 25232,
+                "sample": null
+              },
+              {
+                "id": 75,
+                "tags": [],
+                "length": 14301,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "getProgramParameter",
+          "context_id": 1,
+          "epoch_ms": 1793606287186.7449,
+          "duration_ms": 16.590087890625,
+          "pname": 35714,
+          "shader": null,
+          "program": {
+            "id": 38,
+            "shaders": [
+              {
+                "id": 76,
+                "tags": [],
+                "length": 25232,
+                "sample": null
+              },
+              {
+                "id": 75,
+                "tags": [],
+                "length": 14301,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287210.21,
+          "duration_ms": 0.139892578125,
+          "pname": null,
+          "shader": {
+            "id": 77,
+            "tags": [],
+            "length": 14326,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287210.3599,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 77,
+            "tags": [],
+            "length": 14326,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287215.405,
+          "duration_ms": 0.14990234375,
+          "pname": null,
+          "shader": {
+            "id": 78,
+            "tags": [],
+            "length": 25257,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287215.565,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 78,
+            "tags": [],
+            "length": 25257,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287218.035,
+          "duration_ms": 0.005126953125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 39,
+            "shaders": [
+              {
+                "id": 78,
+                "tags": [],
+                "length": 25257,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287218.05,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 39,
+            "shaders": [
+              {
+                "id": 78,
+                "tags": [],
+                "length": 25257,
+                "sample": null
+              },
+              {
+                "id": 77,
+                "tags": [],
+                "length": 14326,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606287218.05,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 39,
+            "shaders": [
+              {
+                "id": 78,
+                "tags": [],
+                "length": 25257,
+                "sample": null
+              },
+              {
+                "id": 77,
+                "tags": [],
+                "length": 14326,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287830.44,
+          "duration_ms": 0.14990234375,
+          "pname": null,
+          "shader": {
+            "id": 79,
+            "tags": [],
+            "length": 15429,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287830.5999,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 79,
+            "tags": [],
+            "length": 15429,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "shaderSource",
+          "context_id": 1,
+          "epoch_ms": 1793606287956.765,
+          "duration_ms": 0.170166015625,
+          "pname": null,
+          "shader": {
+            "id": 80,
+            "tags": [],
+            "length": 26990,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "compileShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287956.945,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": {
+            "id": 80,
+            "tags": [],
+            "length": 26990,
+            "sample": null
+          },
+          "program": null
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287961.355,
+          "duration_ms": 0.0048828125,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 40,
+            "shaders": [
+              {
+                "id": 80,
+                "tags": [],
+                "length": 26990,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "attachShader",
+          "context_id": 1,
+          "epoch_ms": 1793606287961.365,
+          "duration_ms": 0,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 40,
+            "shaders": [
+              {
+                "id": 80,
+                "tags": [],
+                "length": 26990,
+                "sample": null
+              },
+              {
+                "id": 79,
+                "tags": [],
+                "length": 15429,
+                "sample": null
+              }
+            ]
+          }
+        },
+        {
+          "stage": "home-transition",
+          "name": "linkProgram",
+          "context_id": 1,
+          "epoch_ms": 1793606287961.365,
+          "duration_ms": 0.010009765625,
+          "pname": null,
+          "shader": null,
+          "program": {
+            "id": 40,
+            "shaders": [
+              {
+                "id": 80,
+                "tags": [],
+                "length": 26990,
+                "sample": null
+              },
+              {
+                "id": 79,
+                "tags": [],
+                "length": 15429,
+                "sample": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "stage": "jump-only",
+      "all_shaderSource": 0,
+      "all_compileShader": 0,
+      "all_linkProgram": 0,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {},
+      "focus_actual_draw_calls": {},
+      "all_actual_draw_calls_by_program": {
+        "27": 1008,
+        "21": 14,
+        "22": 56,
+        "23": 336,
+        "24": 336,
+        "29": 42,
+        "30": 73,
+        "31": 42,
+        "32": 28,
+        "33": 28,
+        "34": 84,
+        "35": 84,
+        "38": 84,
+        "40": 28,
+        "36": 14,
+        "39": 112,
+        "3": 14
+      },
+      "all_detailed_events": []
+    },
+    {
+      "stage": "first-air",
+      "all_shaderSource": 0,
+      "all_compileShader": 0,
+      "all_linkProgram": 0,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {
+        "{\"id\":25,\"tags\":[\"edge_width\"]}": 6
+      },
+      "focus_actual_draw_calls": {
+        "25": 6
+      },
+      "all_actual_draw_calls_by_program": {
+        "27": 1080,
+        "21": 15,
+        "22": 60,
+        "23": 360,
+        "24": 378,
+        "25": 6,
+        "29": 45,
+        "30": 79,
+        "31": 45,
+        "32": 30,
+        "33": 30,
+        "34": 90,
+        "35": 90,
+        "38": 90,
+        "40": 30,
+        "36": 15,
+        "39": 125,
+        "3": 15
+      },
+      "all_detailed_events": []
+    },
+    {
+      "stage": "repeat-air-2",
+      "all_shaderSource": 0,
+      "all_compileShader": 0,
+      "all_linkProgram": 0,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {
+        "{\"id\":25,\"tags\":[\"edge_width\"]}": 7
+      },
+      "focus_actual_draw_calls": {
+        "25": 7
+      },
+      "all_actual_draw_calls_by_program": {
+        "27": 1152,
+        "21": 16,
+        "22": 64,
+        "23": 384,
+        "24": 405,
+        "25": 7,
+        "29": 48,
+        "30": 84,
+        "31": 48,
+        "32": 32,
+        "33": 32,
+        "34": 96,
+        "35": 96,
+        "38": 96,
+        "40": 32,
+        "36": 16,
+        "39": 133,
+        "3": 16
+      },
+      "all_detailed_events": []
+    },
+    {
+      "stage": "repeat-air-3",
+      "all_shaderSource": 0,
+      "all_compileShader": 0,
+      "all_linkProgram": 0,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {
+        "{\"id\":25,\"tags\":[\"edge_width\"]}": 6
+      },
+      "focus_actual_draw_calls": {
+        "25": 6
+      },
+      "all_actual_draw_calls_by_program": {
+        "27": 1008,
+        "21": 14,
+        "22": 56,
+        "23": 336,
+        "24": 354,
+        "25": 6,
+        "29": 42,
+        "30": 74,
+        "31": 42,
+        "32": 28,
+        "33": 28,
+        "34": 84,
+        "35": 84,
+        "38": 84,
+        "40": 28,
+        "36": 14,
+        "39": 117,
+        "3": 14
+      },
+      "all_detailed_events": []
+    },
+    {
+      "stage": "outside-window",
+      "all_shaderSource": 0,
+      "all_compileShader": 0,
+      "all_linkProgram": 0,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {},
+      "focus_actual_draw_calls": {},
+      "all_actual_draw_calls_by_program": {
+        "27": 12456,
+        "21": 173,
+        "22": 692,
+        "23": 4152,
+        "24": 4152,
+        "29": 519,
+        "30": 865,
+        "31": 519,
+        "32": 346,
+        "33": 346,
+        "34": 1038,
+        "35": 1038,
+        "38": 1038,
+        "40": 346,
+        "36": 173,
+        "39": 1384,
+        "3": 173
+      },
+      "all_detailed_events": []
+    },
+    {
+      "stage": "outside-window-visual-corroboration",
+      "all_shaderSource": 0,
+      "all_compileShader": 0,
+      "all_linkProgram": 0,
+      "focus_shaderSource": 0,
+      "focus_compileShader": 0,
+      "focus_linkProgram": 0,
+      "focus_useProgram": {
+        "{\"id\":25,\"tags\":[\"edge_width\"]}": 12
+      },
+      "focus_actual_draw_calls": {
+        "25": 12
+      },
+      "all_actual_draw_calls_by_program": {
+        "27": 2736,
+        "21": 38,
+        "22": 152,
+        "23": 912,
+        "24": 948,
+        "25": 12,
+        "29": 114,
+        "30": 193,
+        "31": 114,
+        "32": 76,
+        "33": 76,
+        "34": 228,
+        "35": 228,
+        "38": 228,
+        "40": 76,
+        "36": 38,
+        "39": 310,
+        "3": 38
+      },
+      "all_detailed_events": []
+    }
+  ],
+  "focus_shader_sources": {
+    "49": {
+      "sha256": "51ee9055bd7b911d1e3af0f8a7f4384a12a41e0f10975e1785a1bbec4298ad9d",
+      "bytes": 14495,
+      "defines": [
+        "#define DISABLE_LIGHTING",
+        "#define MATERIAL_UNIFORMS_USED",
+        "#define FRAGMENT_CODE_USED",
+        "#define MAX_GLOBAL_SHADER_UNIFORMS 256",
+        "#define MAX_LIGHTS 256",
+        "#define MODE_UNSHADED",
+        "#define COLOR_USED",
+        "#define samplerExternalOES sampler2D",
+        "#define ViewIndex gl_ViewID_OVR",
+        "#define MAX_VIEWS 2",
+        "#define ViewIndex uint(0)",
+        "#define MAX_VIEWS 1",
+        "#define packHalf2x16 godot_packHalf2x16",
+        "#define unpackHalf2x16 godot_unpackHalf2x16",
+        "#define packUnorm2x16 godot_packUnorm2x16",
+        "#define unpackUnorm2x16 godot_unpackUnorm2x16",
+        "#define packSnorm2x16 godot_packSnorm2x16",
+        "#define unpackSnorm2x16 godot_unpackSnorm2x16",
+        "#define packUnorm4x8 godot_packUnorm4x8",
+        "#define unpackUnorm4x8 godot_unpackUnorm4x8",
+        "#define packSnorm4x8 godot_packSnorm4x8",
+        "#define unpackSnorm4x8 godot_unpackSnorm4x8",
+        "#define read_draw_data_world_x attrib_A.xy",
+        "#define read_draw_data_world_y attrib_A.zw",
+        "#define read_draw_data_world_ofs attrib_B.xy",
+        "#define read_draw_data_color_texture_pixel_size attrib_B.zw",
+        "#define read_draw_data_point_a attrib_C.xy",
+        "#define read_draw_data_point_b attrib_C.zw",
+        "#define read_draw_data_point_c attrib_D.xy",
+        "#define read_draw_data_uv_a attrib_D.zw",
+        "#define read_draw_data_uv_b attrib_E.xy",
+        "#define read_draw_data_uv_c attrib_E.zw",
+        "#define read_draw_data_color_a_rg attrib_F.x",
+        "#define read_draw_data_color_a_ba attrib_F.y",
+        "#define read_draw_data_color_b_rg attrib_F.z",
+        "#define read_draw_data_color_b_ba attrib_F.w",
+        "#define read_draw_data_color_c_rg attrib_G.x",
+        "#define read_draw_data_color_c_ba attrib_G.y",
+        "#define read_draw_data_modulation attrib_C",
+        "#define read_draw_data_ninepatch_margins attrib_D",
+        "#define read_draw_data_dst_rect attrib_E",
+        "#define read_draw_data_src_rect attrib_F",
+        "#define read_draw_data_flags attrib_G.z",
+        "#define read_draw_data_instance_offset attrib_G.w",
+        "#define read_draw_data_lights attrib_H",
+        "#define MAX_LIGHTS_PER_ITEM uint(16)",
+        "#define M_PI 3.14159265359",
+        "#define SDF_MAX_LENGTH 16384.0",
+        "#define INSTANCE_FLAGS_LIGHT_COUNT_SHIFT 0 // 4 bits.",
+        "#define INSTANCE_FLAGS_CLIP_RECT_UV uint(1 << 4)",
+        "#define INSTANCE_FLAGS_TRANSPOSE_RECT uint(1 << 5)",
+        "#define INSTANCE_FLAGS_USE_MSDF uint(1 << 6)",
+        "#define INSTANCE_FLAGS_USE_LCD uint(1 << 7)",
+        "#define INSTANCE_FLAGS_NINEPATCH_DRAW_CENTER uint(1 << 8)",
+        "#define INSTANCE_FLAGS_NINEPATCH_H_MODE_SHIFT 9",
+        "#define INSTANCE_FLAGS_NINEPATCH_V_MODE_SHIFT 11",
+        "#define INSTANCE_FLAGS_SHADOW_MASKED_SHIFT 13u // 16 bits.",
+        "#define INSTANCE_FLAGS_SHADOW_MASKED uint(1 << INSTANCE_FLAGS_SHADOW_MASKED_SHIFT)",
+        "#define BATCH_FLAGS_INSTANCING_MASK uint(0x7F)",
+        "#define BATCH_FLAGS_INSTANCING_HAS_COLORS_SHIFT 7",
+        "#define BATCH_FLAGS_INSTANCING_HAS_COLORS uint(1 << BATCH_FLAGS_INSTANCING_HAS_COLORS_SHIFT)",
+        "#define BATCH_FLAGS_INSTANCING_HAS_CUSTOM_DATA_SHIFT 8",
+        "#define BATCH_FLAGS_INSTANCING_HAS_CUSTOM_DATA uint(1 << BATCH_FLAGS_INSTANCING_HAS_CUSTOM_DATA_SHIFT)",
+        "#define BATCH_FLAGS_DEFAULT_NORMAL_MAP_USED uint(1 << 9)",
+        "#define BATCH_FLAGS_DEFAULT_SPECULAR_MAP_USED uint(1 << 10)",
+        "#define LIGHT_FLAGS_BLEND_MASK uint(3 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_ADD uint(0 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_SUB uint(1 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_MIX uint(2 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_MASK uint(3 << 16)",
+        "#define LIGHT_FLAGS_HAS_SHADOW uint(1 << 20)",
+        "#define LIGHT_FLAGS_FILTER_SHIFT 22",
+        "#define LIGHT_FLAGS_FILTER_MASK uint(3 << 22)",
+        "#define LIGHT_FLAGS_SHADOW_NEAREST uint(0 << 22)",
+        "#define LIGHT_FLAGS_SHADOW_PCF5 uint(1 << 22)",
+        "#define LIGHT_FLAGS_SHADOW_PCF13 uint(2 << 22)"
+      ],
+      "is_focus": true
+    },
+    "50": {
+      "sha256": "e2a34efa45a0fe8ed0b6bec72d10d3105cf99d6eca0ab3bb85c771915a86632a",
+      "bytes": 25625,
+      "defines": [
+        "#define DISABLE_LIGHTING",
+        "#define MATERIAL_UNIFORMS_USED",
+        "#define FRAGMENT_CODE_USED",
+        "#define MAX_GLOBAL_SHADER_UNIFORMS 256",
+        "#define MAX_LIGHTS 256",
+        "#define MODE_UNSHADED",
+        "#define COLOR_USED",
+        "#define samplerExternalOES sampler2D",
+        "#define ViewIndex gl_ViewID_OVR",
+        "#define MAX_VIEWS 2",
+        "#define ViewIndex uint(0)",
+        "#define MAX_VIEWS 1",
+        "#define MAX_LIGHTS_PER_ITEM uint(16)",
+        "#define M_PI 3.14159265359",
+        "#define SDF_MAX_LENGTH 16384.0",
+        "#define INSTANCE_FLAGS_LIGHT_COUNT_SHIFT 0 // 4 bits.",
+        "#define INSTANCE_FLAGS_CLIP_RECT_UV uint(1 << 4)",
+        "#define INSTANCE_FLAGS_TRANSPOSE_RECT uint(1 << 5)",
+        "#define INSTANCE_FLAGS_USE_MSDF uint(1 << 6)",
+        "#define INSTANCE_FLAGS_USE_LCD uint(1 << 7)",
+        "#define INSTANCE_FLAGS_NINEPATCH_DRAW_CENTER uint(1 << 8)",
+        "#define INSTANCE_FLAGS_NINEPATCH_H_MODE_SHIFT 9",
+        "#define INSTANCE_FLAGS_NINEPATCH_V_MODE_SHIFT 11",
+        "#define INSTANCE_FLAGS_SHADOW_MASKED_SHIFT 13u // 16 bits.",
+        "#define INSTANCE_FLAGS_SHADOW_MASKED uint(1 << INSTANCE_FLAGS_SHADOW_MASKED_SHIFT)",
+        "#define BATCH_FLAGS_INSTANCING_MASK uint(0x7F)",
+        "#define BATCH_FLAGS_INSTANCING_HAS_COLORS_SHIFT 7",
+        "#define BATCH_FLAGS_INSTANCING_HAS_COLORS uint(1 << BATCH_FLAGS_INSTANCING_HAS_COLORS_SHIFT)",
+        "#define BATCH_FLAGS_INSTANCING_HAS_CUSTOM_DATA_SHIFT 8",
+        "#define BATCH_FLAGS_INSTANCING_HAS_CUSTOM_DATA uint(1 << BATCH_FLAGS_INSTANCING_HAS_CUSTOM_DATA_SHIFT)",
+        "#define BATCH_FLAGS_DEFAULT_NORMAL_MAP_USED uint(1 << 9)",
+        "#define BATCH_FLAGS_DEFAULT_SPECULAR_MAP_USED uint(1 << 10)",
+        "#define LIGHT_FLAGS_BLEND_MASK uint(3 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_ADD uint(0 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_SUB uint(1 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_MIX uint(2 << 16)",
+        "#define LIGHT_FLAGS_BLEND_MODE_MASK uint(3 << 16)",
+        "#define LIGHT_FLAGS_HAS_SHADOW uint(1 << 20)",
+        "#define LIGHT_FLAGS_FILTER_SHIFT 22",
+        "#define LIGHT_FLAGS_FILTER_MASK uint(3 << 22)",
+        "#define LIGHT_FLAGS_SHADOW_NEAREST uint(0 << 22)",
+        "#define LIGHT_FLAGS_SHADOW_PCF5 uint(1 << 22)",
+        "#define LIGHT_FLAGS_SHADOW_PCF13 uint(2 << 22)",
+        "#define packHalf2x16 godot_packHalf2x16",
+        "#define unpackHalf2x16 godot_unpackHalf2x16",
+        "#define packUnorm2x16 godot_packUnorm2x16",
+        "#define unpackUnorm2x16 godot_unpackUnorm2x16",
+        "#define packSnorm2x16 godot_packSnorm2x16",
+        "#define unpackSnorm2x16 godot_unpackSnorm2x16",
+        "#define packUnorm4x8 godot_packUnorm4x8",
+        "#define unpackUnorm4x8 godot_unpackUnorm4x8",
+        "#define packSnorm4x8 godot_packSnorm4x8",
+        "#define unpackSnorm4x8 godot_unpackSnorm4x8",
+        "#define read_draw_data_world_x varying_A.xy",
+        "#define read_draw_data_world_y varying_A.zw",
+        "#define read_draw_data_color_texture_pixel_size varying_B",
+        "#define read_draw_data_ninepatch_margins varying_C",
+        "#define read_draw_data_dst_rect_z varying_D.x",
+        "#define read_draw_data_dst_rect_w varying_D.y",
+        "#define read_draw_data_src_rect varying_E",
+        "#define read_draw_data_flags varying_F.x",
+        "#define read_draw_data_instance_offset varying_F.y",
+        "#define read_draw_data_lights varying_G",
+        "#define SHADOW_DEPTH(m_uv) (dot(textureLod(shadow_atlas_texture, (m_uv), 0.0), vec4(1.0 / (255.0 * 255.0 * 255.0), 1.0 / (255.0 * 255.0), 1.0 / 255.0, 1.0)) * 2.0 - 1.0)",
+        "#define SHADOW_DEPTH(m_uv) (textureLod(shadow_atlas_texture, (m_uv), 0.0).r)",
+        "#define SHADOW_TEST(m_uv) { highp float sd = SHADOW_DEPTH(m_uv); shadow += step(sd, shadow_uv.z / shadow_uv.w); }"
+      ],
+      "is_focus": true
+    }
+  },
+  "full_GLSL_location": "actual01/report.json(.gz) → runs[0].main_gl.sources; shader-source-index.json contains every source SHA and defines",
+  "timing": [
+    {
+      "name": "jump-only",
+      "summary": {
+        "intervals": 11,
+        "sampled_interval_ms": 1333.280000000006,
+        "wall_capture_ms": 1451.344999998808,
+        "raf_callbacks": 12,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 8.268192607553583,
+        "completed_interval_fps": 8.25033001320049,
+        "interval_span_within_window_ms": 1333.280000000006,
+        "interval_coverage_fraction": 0.9186513199832578,
+        "first_raf_minus_begin_ms": 108.61499999105581,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 108.61499999105581,
+        "final_uncovered_ms": 9.450000007745984,
+        "total_uncovered_ms": 118.0649999988018,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 124.44500000298285,
+        "closure_after_request_ms": 133.89500001072884,
+        "p50_ms": 116.66500000000087,
+        "p95_ms": 149.98999999999796,
+        "max_ms": 149.98999999999796,
+        "long_task_count": 12,
+        "long_task_total_ms": 1433,
+        "long_task_max_ms": 151,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshots_intersect_timing": false
+    },
+    {
+      "name": "first-air",
+      "summary": {
+        "intervals": 12,
+        "sampled_interval_ms": 1533.2750000000015,
+        "wall_capture_ms": 1676.5100000053644,
+        "raf_callbacks": 13,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 7.754203673081821,
+        "completed_interval_fps": 7.826384699417905,
+        "interval_span_within_window_ms": 1533.2750000000015,
+        "interval_coverage_fraction": 0.91456358744958,
+        "first_raf_minus_begin_ms": 127.45000000357686,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 127.45000000357686,
+        "final_uncovered_ms": 15.785000001786102,
+        "total_uncovered_ms": 143.23500000536296,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 121.46000000298227,
+        "closure_after_request_ms": 137.24500000476837,
+        "p50_ms": 133.3249999999971,
+        "p95_ms": 149.99499999999534,
+        "max_ms": 149.99500000000262,
+        "long_task_count": 13,
+        "long_task_total_ms": 1638,
+        "long_task_max_ms": 153,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshots_intersect_timing": false
+    },
+    {
+      "name": "repeat-air-2",
+      "summary": {
+        "intervals": 13,
+        "sampled_interval_ms": 1599.9400000000023,
+        "wall_capture_ms": 1712.905000001192,
+        "raf_callbacks": 14,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 8.173249538059762,
+        "completed_interval_fps": 8.125304698926199,
+        "interval_span_within_window_ms": 1599.9400000000023,
+        "interval_coverage_fraction": 0.9340506332802396,
+        "first_raf_minus_begin_ms": 102.03500000476924,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 102.03500000476924,
+        "final_uncovered_ms": 10.92999999642052,
+        "total_uncovered_ms": 112.96500000118976,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 145.83999999940715,
+        "closure_after_request_ms": 156.76999999582767,
+        "p50_ms": 116.66500000000087,
+        "p95_ms": 149.98999999999796,
+        "max_ms": 166.6600000000035,
+        "long_task_count": 14,
+        "long_task_total_ms": 1695,
+        "long_task_max_ms": 152,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshots_intersect_timing": false
+    },
+    {
+      "name": "repeat-air-3",
+      "summary": {
+        "intervals": 11,
+        "sampled_interval_ms": 1566.604999999996,
+        "wall_capture_ms": 1744.969999998808,
+        "raf_callbacks": 12,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 6.876909058613156,
+        "completed_interval_fps": 7.021552976021415,
+        "interval_span_within_window_ms": 1566.604999999996,
+        "interval_coverage_fraction": 0.8977833429807195,
+        "first_raf_minus_begin_ms": 159.88000000000466,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 159.88000000000466,
+        "final_uncovered_ms": 18.484999998807325,
+        "total_uncovered_ms": 178.36499999881198,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 141.25000000059663,
+        "closure_after_request_ms": 159.73499999940395,
+        "p50_ms": 149.99000000000524,
+        "p95_ms": 150,
+        "max_ms": 150,
+        "long_task_count": 12,
+        "long_task_total_ms": 1712,
+        "long_task_max_ms": 165,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "screenshots_intersect_timing": false
+    }
+  ],
+  "acceptance": "Home preparation compiles2Focus shaders/links1program25, actualdraw1. First genuine airborneaim uses thatsameprogram for6actualdraws, with zero shaderSource/compile/link across ALL programs in the measuredphase. Repeats are also all-zero, Focusdraw7/6. This establishes thissingleHomecandidate warm-path effectiveness rather than inferring from post_draw.",
+  "visual_review": {
+    "images_viewed": [
+      "candidate-cold-air-home-early.png",
+      "candidate-cold-air-home-before.png",
+      "candidate-cold-air-first-air-after.png",
+      "candidate-cold-air-actual-air-aim.png",
+      "candidate-cold-air-actual-air-release.png"
+    ],
+    "observed": "SampledHome images normal(no yellowedge flash); actual airborneaim has airborneplayer/focusring/warmedges; release image returnsnormal.",
+    "limits": "No fullframe video, so no proof of absence of an intersample transientflash or exactfade curve/timing."
+  },
+  "shot_acceptance_limit": "Real trustedmousepress/release kept, but thiscandidatepack has no original native shotcounter and no unambiguous projectile screenshot was captured. Accept actualairaim plus all-program compile observation; do NOT claim actualpulse emission established or allfirstshot stutter fixed. Separate CPUprofile actual4shot/3hit/kill evidence belongs to another diagnosticpack/window.",
+  "comparison_limits": [
+    "Originalbaseline firstair4compile/2link; failedV2firstair2/1; V3firstair0/0 with reusedactualdrawprogram. Exact raw records retained separately.",
+    "V3firstair maxRAF149.995ms vs oldbaseline199.990ms and V2199.995ms is onecloudsoftwareGPU observation, not controlleddeviceFPS improvement. Thisobserver additionally retainsfullGLSL and countsper-programdraws; those bookkeeping differences preclude cleanperformance-effect estimation.",
+    "No nativeGPUtimer, no addedGLget/finish/readback; ordinarydraw/buffer timing remains unmeasured; countcoverage is not timingcoverage.",
+    "No claim about enemy-hit220ms hitch, death, P14drones, naturalfullroute, otherentryconstructors, userhardware or audioquality.",
+    "Idleworkers omitted on500ms snapshotdeadline; mainWebGL2hasactualcalls. Missingworkerlogs cannot be treated as nocompile.",
+    "Context/browserclosed and page/script error observation only; no ObjectDB/free receipt, thus cleanup/leak-free not signed. Originalsource/rootdocsWIP recorded; originalcleanSourceRootgate was not run/modified."
+  ],
+  "coverage": {
+    "main_contexts": [
+      {
+        "id": 1,
+        "first_observed_epoch_ms": 1793606275137.44,
+        "constructor": "WebGL2RenderingContext"
+      }
+    ],
+    "main_installed_epoch_ms": 1793606248524.005,
+    "overflow": false,
+    "worker_snapshots": [
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256653.0652,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": null,
+        "contexts": []
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256637.875,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": null,
+        "contexts": []
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256659.24,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": "TimeoutError()",
+        "contexts": null
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256653.5452,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": "TimeoutError()",
+        "contexts": null
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256637.42,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": "TimeoutError()",
+        "contexts": null
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256639.5598,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": "TimeoutError()",
+        "contexts": null
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256605.915,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": "TimeoutError()",
+        "contexts": null
+      },
+      {
+        "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+        "installation": {
+          "realm": "worker",
+          "installed_epoch_ms": 1793606256664.2952,
+          "prototypes": [
+            {
+              "type": "WebGLRenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            },
+            {
+              "type": "WebGL2RenderingContext",
+              "available": true,
+              "wrapped": [
+                "shaderSource",
+                "compileShader",
+                "attachShader",
+                "linkProgram",
+                "getProgramParameter",
+                "texImage2D",
+                "texSubImage2D",
+                "readPixels",
+                "drawArrays",
+                "drawElements",
+                "drawArraysInstanced",
+                "drawElementsInstanced",
+                "bufferData",
+                "bufferSubData",
+                "useProgram"
+              ]
+            }
+          ]
+        },
+        "snapshot_error": "TimeoutError()",
+        "contexts": null
+      }
+    ]
+  },
+  "page_errors": [],
+  "script_error_matches": [],
+  "retained_console_errors": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "epoch_ms": 1793606248638.1848
+    },
+    {
+      "type": "error",
+      "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+      "epoch_ms": 1793606286699.5298
+    }
+  ],
+  "proof_sha256": {
+    "run.py": "d9a81d96dbc77f2dd28bda6e81aa687bd4ef6ee82189b5ead1d917093a6feae7",
+    "gl-observer.js": "2880418e248fccdb19944763e3ded63d91ddb791a29fd1eb0d28d11dba5cc867",
+    "expected-identity.json": "dfb3f7b15c9c0ee18f7237f9400c1bf444c19c1c12d1dd1e517d765b71b2a178",
+    "actual01/report.json": "641691b9bf5ac87c5243bde5c86acd6cd2ff842648d1f3d4de449844ad7fa5eb",
+    "driver.log": "6f485f55034938e1fb251f37f0c6087793d695e1afd182c6e1c24c27481f40e5",
+    "shader-source-index.json": "e7809e48bdce0d3ac12c2c7cf34a5760a6d551e486e10e90f0816b68d80f5734"
+  }
+}

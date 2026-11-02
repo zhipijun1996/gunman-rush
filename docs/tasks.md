@@ -1,3 +1,9 @@
+## 2026-11-02 首次使用与敌战卡顿调查
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| FIRST-USE-STUTTER-01 | 定位Chrome首次air与敌战卡顿，证据驱动最小修复 | COMBAT-PERF-DEPLOY-01 | in_progress | [范围](worklines/first_use_stutter_01/scope.md) · [质量记录](quality/records/FIRST-USE-STUTTER-01.json)；V2拒绝保留；V3冷air零编译、GPU50/0；共享首枪准备待浏览器验证，首hit剩余耗时和设备性能未签 |
+
 ## 2026-11-02 战斗性能优化后部署
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
