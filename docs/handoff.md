@@ -1,10 +1,10 @@
-## 2026-11-02 DEATH-RUNTIME-01 运行优化已验证，正在准备试玩
+## 2026-11-02 DEATH-RUNTIME-01 已部署，手机仍待复测
 
-基点5d3303b7；保留当前死亡动画、图声及玩法。Ground复用冻结活体顶点前缀，Hopper／Sentry／Fan每draw准备死亡几何，原StageVisual共享无uniform掉落材质。原Oracle7899／442442顶点逐字节一致，实际App603、支撑145／尸体保存156／snapshot129及core5686均通过、严格退出clean；实际draw A/A与A/B各1836对上传完全等价，Ground死亡持续CPU路径约降50–61%，不是手机FPS。
+运行源 `10dcd39abd8dd8be57cf838167989dd0ca93502b`，生产修改d8c9686c；build `58ef14b41f57`，prepared `29a4edd5f7851b689effdf481d9006e238f3e585`，Pages41453285376成功。保留死亡动画／图声／所有玩法，Ground复用冻结活体顶点，Hopper／Sentry／Fan每draw准备死亡几何，StageVisual共享无uniform掉落材质。原Oracle7899／442442顶点完全一致，真实App603、支撑145／保存156／snapshot129、core5686均通过且严格clean。实际draw A/A+AB各1836对相等，Ground死亡持续CPU路径约降50–61%；不是手机整帧FPS。
 
-style34／creative37只重绑206中五GD，201条及86非GD保持；current46／history52／creative31与两binder通过，保原方法／断言／预算与缺旧fixture失败。源码与技术绑定成组回退5d3303b7；旧公开仍9dd3a9a2ecd8／prepared2f0b3089。本批额外掉落预热因Web观测超时未采用，原失败保留。见[结果](worklines/death_runtime_01/results.md)。
+style34／creative37仅206中五GD变化，201条及86非GD保持；current46／history52／creative31、两binder及相关docs／structure／quality／architecture通过，原失败和预算保留。实际原Foundry36＋18及stamp、Web闭包／重建／PCK13通过；精确clean F后明确56个派生输入，其他源不变。完整公网64位SHA和真实Title→Home→门→BEGIN→Plains→D200ms通过（204.287秒／300，13图、无注入、最后仍在初始地面）。非full171／Windows／CI API artifact，不合main。
 
-下一步冻结源码，以原Foundry36开发样本实际重建过期basis，再走原Web导出／闭包／完整PCK及公开基本GUI验证；不跑新full171／Windows，不合main。手机Chrome死亡帧时和用户认可仍未验，勿拿旧包展示新优化。恢复先核Git及构建日志，已有oracle／core通过不因无关文档重跑。
+下一步只收手机Chrome首次死亡／连续击杀复测或实际帧时，先证实剩余CPU／GPU／首次LOOT编译，勿重复既有缓存。额外LOOT预热未采用，Web候选观测超时保留；手机、玩家、完整正式性能采样与consumer inventory仍未签，任务review。详见[本批结果与回退](worklines/death_runtime_01/results.md)。源码和绑定成组回到5d3303b7，公开回退prepared2f0b3089／build9dd。以下保留原阶段状态，不追签旧证据。
 
 ## 2026-11-02 FIRST-USE-STUTTER-01 技术已部署，设备仍待复测
 

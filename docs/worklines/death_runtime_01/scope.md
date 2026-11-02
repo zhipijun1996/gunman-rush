@@ -8,4 +8,4 @@
 
 PlainsStageVisual仅共享本stage的同一无uniform掉落材质，各Sprite纹理/颜色独立；不采尚未完成Web A/B的额外预热。真实App掉落/重载与两个Skin测试override一起迁移。扩充原冻结Oracle的实际draw和缓存失效覆盖，保原所有断言、fixture与预算。候选先放外部，原frozen oracle与实际draw基准成立后再应用；后继技术绑定随实际源版本化，不放旧断言/预算。
 
-死亡瞬间与播放期间用户均报告卡顿。原生固定时刻掉落像素/独立颜色/释放检查通过，原Web baseline首掉落确有LOOT lit/unlit编译绘制；candidate采集因worker观测超时未运行，失败保留，不将此当手机或自然死亡根因。Task保持in_progress；本批尚无设备或发布通过声明。
+死亡瞬间与播放期间用户均报告卡顿。原生固定时刻掉落像素/独立颜色/释放检查通过，原Web baseline首掉落确有LOOT lit/unlit编译绘制；candidate采集因worker观测超时未运行，失败保留，不将此当手机或自然死亡根因。Task保持review；当前技术／发布结果见results，设备与用户仍未验。
