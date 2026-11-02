@@ -1,3 +1,9 @@
+## 2026-11-02 用户已授权当前重构分支合入main
+
+授权覆盖此前阶段“不自动合main”。当前待合入源码35881a6e，目标main2ce4ffa6；原Integration要求full171，创建PR后由精确head的prepare／parallel／serial／affected全部通过才普通merge。实际PR／head／合并结果以GitHub和main ancestry为准，恢复先查，已merged不要重复执行。合入后main自动完整构建／Pages另核实际结果；旧试玩与旧完整CI不冒充本轮新head通过。执行合同见[合入范围](worklines/main_refactor_merge_01/scope.md)。
+
+本轮无新的生产行为或图声修改。手机Chrome死亡性能和用户认可仍未验；源码合入不将历史review任务自动标done。以下保留原阶段事实及失败，旧“不合main”已经被本条用户授权覆盖。
+
 ## 2026-11-02 DEATH-RUNTIME-01 已部署，手机仍待复测
 
 运行源 `10dcd39abd8dd8be57cf838167989dd0ca93502b`，生产修改d8c9686c；build `58ef14b41f57`，prepared `29a4edd5f7851b689effdf481d9006e238f3e585`，Pages41453285376成功。保留死亡动画／图声／所有玩法，Ground复用冻结活体顶点，Hopper／Sentry／Fan每draw准备死亡几何，StageVisual共享无uniform掉落材质。原Oracle7899／442442顶点完全一致，真实App603、支撑145／保存156／snapshot129、core5686均通过且严格clean。实际draw A/A+AB各1836对相等，Ground死亡持续CPU路径约降50–61%；不是手机整帧FPS。

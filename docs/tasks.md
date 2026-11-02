@@ -2,6 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
+| MAIN-REFACTOR-MERGE-01 | 验证并合入累积重构到main | DEATH-RUNTIME-01 | in_progress | [范围](worklines/main_refactor_merge_01/scope.md) · [质量](quality/records/MAIN-REFACTOR-MERGE-01.json)；按精确PR head原171双通道及affected合流后普通merge |
 | DEATH-RUNTIME-01 | 保持死亡动画，优化死亡运行成本 | FIRST-USE-STUTTER-01 | review | [范围](worklines/death_runtime_01/scope.md) · [质量](quality/records/DEATH-RUNTIME-01.json)；7899/0逐字节、core5686/0及公开58ef14b41f57通过；死亡绘制CPU降50–61%，手机待验 |
 | FIRST-USE-STUTTER-01 | 定位Chrome首次air与敌战卡顿，证据驱动最小修复 | COMBAT-PERF-DEPLOY-01 | review | [范围](worklines/first_use_stutter_01/scope.md) · [质量记录](quality/records/FIRST-USE-STUTTER-01.json)；V2拒绝保留；V3冷air零编译、GPU50/0；共用准备已在Home消费，fresh10通过；[结果／回退](worklines/first_use_stutter_01/results.md)，正式首hit剩余耗时和设备性能未签 |
 

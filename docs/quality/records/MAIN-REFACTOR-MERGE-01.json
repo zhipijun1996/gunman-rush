@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "task_id": "MAIN-REFACTOR-MERGE-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "35881a6e9d223a33981f7dd9ca51bffbbfe50543",
+  "reviewed_commit": "35881a6e9d223a33981f7dd9ca51bffbbfe50543",
+  "content_version": "main-refactor-merge-v1",
+  "owner": "/root",
+  "purpose": "按用户明确授权，验证并普通合入累积架构与性能分支到main。",
+  "player_experience": "保持当前已部署58ef14b41f57行为；合并不代签手机性能或全部内容完成。",
+  "constraints": [
+    "精确PR head原full171两通道及affected成功再merge，不绕过门禁。",
+    "保留全部源码/图声/玩法/历史失败与原预算；PR123和纯prepared分支不合入。",
+    "原局部/旧CI不代签最终head，设备和玩家未验保持。"
+  ],
+  "affected_paths": [
+    "docs/tasks.md",
+    "docs/handoff.md",
+    "docs/current_state.md",
+    "docs/worklines/main_refactor_merge_01",
+    "docs/quality/records/MAIN-REFACTOR-MERGE-01.json",
+    "docs/evidence/main_refactor_merge_01"
+  ],
+  "deliverables": [
+    "精确基线、PR与验证记录",
+    "原CI完整成功与正常merge",
+    "可恢复状态和实际自动构建状态"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}
