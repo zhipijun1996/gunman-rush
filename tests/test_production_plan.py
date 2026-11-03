@@ -20,9 +20,10 @@ from production_plan import make_plan, run_commands, validate_policy
 
 GENERATION_ADDITIONS = ["runtime-map-generated-identity", "runtime-map-generation-job",
                         "runtime-map-generated-slice", "mapgen-candidate-installation"]
+M35_ADDITIONS = ["runtime-map-m35-provider", "runtime-map-m35-runtime"]
 
 
-def prior_frozen_host_profiles(method):
+def prior_profile_tail(method, additions, remove_checks=False):
     """Replay existing historical assertions after removing only the new tail."""
     @wraps(method)
     def replay(self):
@@ -30,12 +31,24 @@ def prior_frozen_host_profiles(method):
         self.manifest = copy.deepcopy(current)
         try:
             for profile in ("gameplay", "full"):
-                self.assertEqual(self.manifest["profiles"][profile][-4:], GENERATION_ADDITIONS)
-                del self.manifest["profiles"][profile][-4:]
+                self.assertEqual(self.manifest["profiles"][profile][-len(additions):], additions)
+                del self.manifest["profiles"][profile][-len(additions):]
+            if remove_checks:
+                for name in additions:
+                    self.assertIn(name, self.manifest["checks"])
+                    del self.manifest["checks"][name]
             return method(self)
         finally:
             self.manifest = current
     return replay
+
+
+def prior_frozen_host_profiles(method):
+    return prior_profile_tail(method, GENERATION_ADDITIONS)
+
+
+def prior_generated_map_profiles(method):
+    return prior_profile_tail(method, M35_ADDITIONS, remove_checks=True)
 
 
 class ProductionPlanTests(unittest.TestCase):
@@ -247,6 +260,7 @@ class ProductionPlanTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "early Python"):
             self.plan(["docs/handoff.md"], policy=policy)
 
+    @prior_generated_map_profiles
     @prior_frozen_host_profiles
     def test_physical_lanes_require_the_exact_original_full_set(self):
         # User-authorized retirement of these old map-content checks from default
@@ -460,6 +474,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(with_extra["ci_route"],"selected_commands")
         self.manifest = appended_manifest
 
+    @prior_generated_map_profiles
     @prior_frozen_host_profiles
     def test_runtime_map_v2_host_appends_real_consumer_and_exact_resource_routing(self):
         name = "runtime-map-v2-host"
@@ -495,6 +510,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(self.plan(["resources/levels/mapgen_host_v2_01/unknown.json"], "integration", altered)["selection"], "full")
         self.assertEqual(self.plan(["docs/handoff.md"], "integration")["checks"], self.policy["baseline_checks"])
 
+    @prior_generated_map_profiles
     def test_generated_map_checks_append_without_replacing_frozen_host_coverage(self):
         import harness
         import re
@@ -544,6 +560,67 @@ class ProductionPlanTests(unittest.TestCase):
         for path in ("addons/mapgen/protocol.gd", "config/mapgen_candidate.json", "resources/mapgen/conformance_request.json",
                      "tests/runtime_map_unknown_runner.gd"):
             self.assertEqual(self.plan([path], "integration")["selection"], "full")
+
+    def test_m35_append_preserves_176_and_registers_all_six_current_mapgen_checks(self):
+        import harness
+        import install_mapgen_candidate
+        import re
+        canonical = lambda value: hashlib.sha256(json.dumps(value, separators=(",", ":")).encode()).hexdigest()
+        for profile, digest in (("full", "daa226febc2aa7bd7d5c388506e5d6976d281cd4e1b80dc8ee9380b5a6fe6b89"),
+                                ("gameplay", "f8f1b952a6801538636232dbe064a1e71e74c4e4c8674fac3a8b7f40d1d6fde6")):
+            self.assertEqual(self.manifest["profiles"][profile][-6:], GENERATION_ADDITIONS + M35_ADDITIONS)
+            self.assertEqual(canonical(self.manifest["profiles"][profile][:-2]), digest)
+        plan = self.plan(["project.godot"], "integration")
+        self.assertEqual((len(plan["checks"]), len(plan["ci_lane_checks"]["parallel"]), len(plan["ci_lane_checks"]["serial"])), (178, 93, 85))
+        self.assertEqual(len(self.manifest["checks"]), 226)
+        for name in GENERATION_ADDITIONS + M35_ADDITIONS:
+            self.assertEqual(plan["checks"].count(name), 1)
+            self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names}, {"gameplay", "full"})
+            self.assertIn(name, plan["ci_lane_checks"]["parallel" if name == "mapgen-candidate-installation" else "serial"])
+        for name, cap in zip(M35_ADDITIONS, (180, 240)):
+            check = self.manifest["checks"][name]
+            stem = name.replace("-", "_")
+            runner = "tests/" + stem + "_runner.gd"
+            marker = stem.upper()
+            self.assertEqual(check["argv"], ["python3", "tools/check_" + stem + ".py"])
+            self.assertEqual(check["timeout_seconds"], cap)
+            self.assertIs(check["serial"], True)
+            self.assertEqual(check["success_pattern"], "^" + marker + " checks=[1-9][0-9]* failures=0$")
+            self.assertIsNotNone(re.fullmatch(check["success_pattern"], marker + " checks=1 failures=0"))
+            for bad in (" checks=0 failures=0", " checks=1 failures=1", " checks=1 failures=0 partial"):
+                self.assertIsNone(re.fullmatch(check["success_pattern"], marker + bad))
+            self.assertIn(marker + " checks=%", (ROOT / runner).read_text())
+            paths = [runner, runner + ".uid", "tools/check_" + stem + ".py", "tools/check_runtime_map_generated_identity.py",
+                     "tools/run_tests.py", "experiments/generation/runtime_map_m35_slice.gd",
+                     "experiments/generation/runtime_map_m35_slice.tscn", "resources/levels/mapgen_host_v3_m35",
+                     "game/world/levels/providers/runtime_map_v2_provider.gd", "addons/runtime_raw_export",
+                     *install_mapgen_candidate.installed_hashes()]
+            for path in paths:
+                self.assertTrue((ROOT / path).exists(), path)
+                self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "before"}),
+                                    harness.input_digest(check, [path], {}, {path: "after"}))
+            for path in check["inputs"]:
+                self.assertTrue((ROOT / path).exists(), path)
+            self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03"] if name.endswith("runtime") else [])
+
+    def test_m35_wrappers_reuse_strict_native_guard_without_engine_execution(self):
+        import check_runtime_map_generated_identity as shared
+        import check_runtime_map_m35_provider as provider
+        import check_runtime_map_m35_runtime as runtime
+        for module, stem, cap in ((provider, "runtime_map_m35_provider", 180), (runtime, "runtime_map_m35_runtime", 240)):
+            self.assertIs(module.run_native, shared.run_native)
+            good = stem.upper() + " checks=1 failures=0\n"
+            with patch.object(shared, "run_engine", side_effect=["imported", good]) as engine:
+                module.main()
+                self.assertEqual(engine.call_args_list[0].args, (["--headless", "--audio-driver", "Dummy", "--path", ".", "--editor", "--quit"], 90))
+                self.assertEqual(engine.call_args_list[1].args, (["--headless", "--audio-driver", "Dummy", "--fixed-fps", "60", "--path", ".", "--script", "tests/" + stem + "_runner.gd"], cap))
+            for output in ("", good.replace("checks=1", "checks=0"), good.replace("failures=0", "failures=1"),
+                           good + "ERROR: Resumed function test class instance is gone\n"):
+                with patch.object(shared, "run_engine", side_effect=["imported", output]), self.assertRaises(RuntimeError):
+                    module.main()
+            for results in ((RuntimeError("original engine refusal"),), ("imported", RuntimeError("original engine refusal"))):
+                with patch.object(shared, "run_engine", side_effect=results), self.assertRaisesRegex(RuntimeError, "original engine refusal"):
+                    module.main()
 
     def test_generated_map_native_adapters_keep_original_engine_and_strict_markers(self):
         import check_runtime_map_generated_identity as shared

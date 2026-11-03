@@ -1,0 +1,28 @@
+{
+  "source_commit": "5b0b58accf56259928870d2428e8f343dbf211af",
+  "source_report_sha256": "0e6a17a59b04059d3136815454b6fcbc14e48e0972fe35990238909511f8fe70",
+  "actual_loaded": {
+    "epoch_ms": 1793682143026.1538,
+    "value": {
+      "carrier": [
+        96.0,
+        1024.0
+      ],
+      "event": "loaded",
+      "grounded": false,
+      "host_load_identity": "7a54b2f5aa9c7567c7049cae2e8b11344ebbbc9eed3af84c4c6966b9bbc0e536",
+      "player": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "expected_binding_spawn": [
+    -448,
+    846
+  ],
+  "cause": "Generation disables the controller. PlayerController.return_to_segment rejects inactive controllers; host ignored false. Prior native/Web checks did not assert actual initial position.",
+  "fix_commit": "231049be49fdc6d574de7acbfc4891c980f185de",
+  "status": "fix committed; new actual native/Web validation pending",
+  "prior_records": "Original 8-check and Web PASS receipts retained for their assertions; they do not certify correct initial spawn."
+}

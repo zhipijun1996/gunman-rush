@@ -235,6 +235,70 @@ class BundleTests(unittest.TestCase):
             self.assertEqual(included.count(name), 1)
         self.assertFalse(any('*' in name for name in included if name.startswith('resources/mapgen/')))
 
+    def m35_map(self):
+        # Use the actual host consumer and its independent binding bytes. The
+        # upstream candidate config/module pins remain completely unchanged.
+        self.local(bundle.MAPGEN_M35_SOURCE, (bundle.REPO / bundle.MAPGEN_M35_SOURCE).read_bytes())
+        data = (bundle.REPO / bundle.MAPGEN_M35_BINDINGS).read_bytes()
+        self.local(bundle.MAPGEN_M35_BINDINGS, data)
+        self.entries[bundle.MAPGEN_M35_BINDINGS] = data
+
+    def test_m35_binding_sha_belongs_to_the_actual_consumer_and_pack_bytes(self):
+        self.m35_map()
+        self.assertIn(bundle.MAPGEN_M35_BINDINGS, self.check()['json'])
+        changed = self.entries.copy()
+        changed.pop(bundle.MAPGEN_M35_BINDINGS)
+        with self.assertRaisesRegex(ValueError, 'missing runtime resource'):
+            self.check(changed)
+        changed = self.entries.copy()
+        changed[bundle.MAPGEN_M35_BINDINGS] += b'\n'
+        with self.assertRaisesRegex(ValueError, 'PCK JSON differs'):
+            self.check(changed)
+        path = self.repo / bundle.MAPGEN_M35_BINDINGS
+        path.write_bytes(path.read_bytes() + b'\n')
+        with self.assertRaisesRegex(ValueError, 'actual consumer SHA'):
+            self.check()
+
+    def test_m35_consumer_requires_one_exact_path_and_lowercase_sha(self):
+        self.m35_map()
+        path = self.repo / bundle.MAPGEN_M35_SOURCE
+        original = path.read_text()
+        self.assertIn('const BINDINGS_PATH := "res://' + bundle.MAPGEN_M35_BINDINGS + '"', original)
+        for source in (original.replace(bundle.MAPGEN_M35_BINDINGS, 'resources/levels/other/bindings.json'),
+                       original.replace('res://' + bundle.MAPGEN_M35_BINDINGS, bundle.MAPGEN_M35_BINDINGS),
+                       original.replace('BINDINGS_SHA256 := "', 'BINDINGS_SHA256 := "not-a-sha'),
+                       original.replace('const BINDINGS_PATH', 'const OTHER_BINDINGS_PATH'),
+                       original + '\nconst BINDINGS_PATH := "res://' + bundle.MAPGEN_M35_BINDINGS + '"\n'):
+            path.write_text(source)
+            with self.subTest(source=source), self.assertRaises(ValueError):
+                self.check()
+
+    def test_m35_data_without_its_actual_consumer_is_not_claimed_integrated(self):
+        self.local(bundle.MAPGEN_M35_BINDINGS, b'{"not_a_consumer":true}')
+        self.assertNotIn(bundle.MAPGEN_M35_BINDINGS, self.check()['json'])
+
+    def test_m35_addition_preserves_old_frozen_and_generated_contracts_together(self):
+        self.generated_map()
+        self.frozen_map()
+        self.m35_map()
+        result = self.check()
+        self.assertIn(bundle.MAPGEN_M35_BINDINGS, result['json'])
+        self.assertIn(bundle.MAPGEN_CANDIDATE_CONFIG, result['json'])
+        for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):
+            self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, result['json'])
+        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 15)
+        self.entries['resources/levels/mapgen_host_v3_m35/test.zip'] = b'not allowed'
+        with self.assertRaisesRegex(ValueError, 'unadmitted ZIP'):
+            self.check()
+
+    def test_web_preset_adds_one_exact_m35_binding_json(self):
+        presets = configparser.ConfigParser(interpolation=None)
+        presets.read(bundle.REPO / 'export_presets.cfg')
+        section = next(presets[s] for s in presets.sections() if presets[s].get('name') == '"Web Playtest"')
+        included = section['include_filter'].strip('"').split(',')
+        self.assertEqual(included.count(bundle.MAPGEN_M35_BINDINGS), 1)
+        self.assertFalse(any('*' in name for name in included if name.startswith('resources/levels/mapgen_host_v3_m35/')))
+
     def test_frozen_map_raw_json_is_finite_locked_and_read_from_actual_pack(self):
         self.frozen_map()
         result = self.check()

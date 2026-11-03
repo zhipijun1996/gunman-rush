@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "task_id": "MAPGEN-INITIAL-SPAWN-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "5b0b58accf56259928870d2428e8f343dbf211af",
+  "reviewed_commit": "231049be49fdc6d574de7acbfc4891c980f185de",
+  "content_version": "initial-spawn-r1",
+  "owner": "/root",
+  "purpose": "生成暂停期间仍通过原控制器完成一次真实初始定位并核成功；补先前漏验",
+  "player_experience": "按宿主binding真实出生，不从原点坠落；物理/资源规则不改",
+  "constraints": [
+    "仅同步初始定位，无physics tick/await",
+    "保留原controller/Motor及资源规则",
+    "generated host版本升2拒旧错误记录，不改Frozen或永久schema",
+    "旧5b0零点与原报告保留，最终实际重验"
+  ],
+  "affected_paths": [
+    "experiments/generation/runtime_map_slice.gd",
+    "tests/runtime_map_generated_slice_runner.gd",
+    "docs/worklines/mapgen_godot_03/initial_spawn.md",
+    "game/world/levels/providers/runtime_map_v2_provider.gd",
+    "tests/runtime_map_generated_identity_runner.gd"
+  ],
+  "deliverables": [
+    "独立修复231049be",
+    "实际segment_returned位置/新源浏览器loaded位置证据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "M35最终原生/完整CI与修正出生点后的实际Web待执行",
+    "旧5b0 Web与8检查未覆盖真实出生点；缺陷与原记录并存",
+    "完整地图/M24封死奖励/未支持敌人奖励Boss/任意seed与controller地图binding未解决",
+    "硬16ms预算/手机实机/完整路线及用户认可未验"
+  ],
+  "test_change_justification": "只追加唯一真实初始定位事件与实际身体坐标检查，不删旧55项；修复明确单列，旧5b0 raw loaded[0,0]保留。"
+}

@@ -57,6 +57,9 @@ func _approve_install() -> bool:
 	return true
 
 func _install_plan(built: LevelBuildResult) -> bool:
+	return _assemble_plan(built) and _commit_plan(built.plan)
+
+func _assemble_plan(built: LevelBuildResult) -> bool:
 	if not built.accepted():
 		error = built.error
 		return false
@@ -100,9 +103,12 @@ func _install_plan(built: LevelBuildResult) -> bool:
 	add_child(layer)
 	_label = Label.new()
 	_label.position = Vector2(12,12)
-	_label.text = "MAPGEN V2 / LOADING SLICE ONLY\nM16 + M18 + M21 / arrows or A,D / ESC exit\nNo full-map, enemy, reward or Boss certification"
+	_label.text = "MAPGEN V2 / LOADING SLICE ONLY\n%s / arrows or A,D / ESC exit\nNo full-map, enemy, reward or Boss certification" % " + ".join(_plan_ids(built.plan))
 	layer.add_child(_label)
-	var record := {"schema":"mapgen/runtime-map/v2","map_hash":built.plan.map_hash,"identity":built.plan.get_meta("runtime_map_v2_identity").duplicate(true),"seed":built.plan.seed,"instances":RuntimeMapFrozenSource.IDS.duplicate(),"spawn_binding":spawn_binding,"scope":"loading_slice"}
+	return true
+
+func _commit_plan(plan: LevelPlan) -> bool:
+	var record := {"schema":"mapgen/runtime-map/v2","map_hash":plan.map_hash,"identity":plan.get_meta("runtime_map_v2_identity").duplicate(true),"seed":plan.seed,"instances":_plan_ids(plan),"spawn_binding":spawn_binding,"scope":"loading_slice"}
 	if not session.flow.manifest.record_output(1,&"mapgen_v2_loading_slice",record):
 		error = "Existing run record refused slice identity"
 		return false
@@ -111,6 +117,11 @@ func _install_plan(built: LevelBuildResult) -> bool:
 	ready_ok = true
 	_observe("loaded")
 	return true
+
+func _plan_ids(plan: LevelPlan) -> Array[String]:
+	var ids: Array[String] = []
+	for placement: LevelModulePlacement in plan.modules: ids.append(placement.instance_id)
+	return ids
 
 func _physics_process(_delta: float) -> void:
 	if ready_ok and not closed:
@@ -132,10 +143,26 @@ func request_exit() -> void:
 
 func _observe(event: String) -> void:
 	if not diagnostics_enabled or not ready_ok or not is_instance_valid(stage): return
-	var ferry: ModuleMovingPlatform = stage.assembler.modules[0].moving_platforms[0]
 	var point := session.player.global_position
-	var carrier := ferry.global_position
-	print("MAPGEN_HOST_V2 ",JSON.stringify({"event":event,"host_load_identity":stage.plan.map_hash,"player":[point.x,point.y],"carrier":[carrier.x,carrier.y],"grounded":session.player.is_on_floor()}))
+	var snapshot: Dictionary = {"event":event,"host_load_identity":stage.plan.map_hash,"player":[point.x,point.y],"grounded":session.player.is_on_floor(),"mechanisms":[]}
+	for index: int in stage.assembler.modules.size():
+		var module: PlatformingModule = stage.assembler.modules[index]
+		var row := {"instance_id":stage.plan.modules[index].instance_id,"clock":module.clock,"ferries":[],"saws":[]}
+		for ferry: ModuleMovingPlatform in module.moving_platforms:
+			var at := ferry.global_position
+			row.ferries.append({"id":str(ferry.definition.platform_id),"position":[at.x,at.y]})
+			if not snapshot.has("carrier"): snapshot.carrier = [at.x,at.y]
+		for saw: ModuleSawHazard in module.hazards:
+			var at := saw.global_position
+			row.saws.append({"id":str(saw.definition.source_id),"position":[at.x,at.y]})
+		snapshot.mechanisms.append(row)
+	snapshot["static_contacts"] = []
+	for child: Node in stage.get_children():
+		if child is DemoContactEmitter:
+			var contact := child as DemoContactEmitter
+			var rect := Rect2(contact.global_position-contact.half_size,contact.half_size*2.0)
+			snapshot.static_contacts.append({"id":str(contact.source_id),"rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"fall_plane":contact.fall_plane,"enabled":contact.enabled,"shared_policy":contact.policy==policy})
+	print("MAPGEN_HOST_V2 ",JSON.stringify(snapshot))
 
 func close_preview() -> bool:
 	return await close_slice()

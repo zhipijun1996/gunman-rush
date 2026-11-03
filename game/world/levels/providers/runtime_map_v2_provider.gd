@@ -7,9 +7,11 @@ const CONTENT_SCHEMA := "pcg/compiled-module-content/v1"
 const PORT_PERMISSIONS: Array[String] = ["INPUT", "OUTPUT", "INOUT"]
 const IDENTITY_SCHEMA := "gunman-rush/runtime-map-load/v1"
 const ADAPTER_VERSION := "runtime-map-v2-slice/2"
-const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","hazards","thorns","saws","hooks","latches","enemies","reward_sites"]
+const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","thorns","hooks","latches","enemies","reward_sites"]
 const CONTENT_FIELDS: Array[String] = ["platforms","one_way_platform_indices","wall_platform_indices","hazards","thorns","saws","moving_platforms","hooks","latches","enemies","reward_sites","approved_hq_cells","schema","source_sha256","stable_id","world_bounds","entry_port","exit_port","coordinate_frame","source_affine"]
 const ELLIPSE_FIELDS: Array[String] = ["platform_id","trajectory_kind","start","finish","size","travel_duration","dwell_duration","initial_phase","ellipse_center","ellipse_radii","ellipse_period","ellipse_x_sign"]
+const SAW_FIELDS: Array[String] = ["source_id","origin","travel","radius","period","initial_phase","damage","contact_interval"]
+const LINEAR_FIELDS: Array[String] = ["platform_id","start","finish","size","travel_duration","dwell_duration","initial_phase"]
 
 static func load_level(request: LevelRequest, map: Dictionary, content_store: Dictionary, selected_ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String = "seam") -> LevelBuildResult:
 	return _build_level(request,map,content_store,selected_ids,spawn,source_sha256,bindings,source_record,binding_id)
@@ -297,12 +299,43 @@ static func _content_error(content: Dictionary, instance: Dictionary) -> String:
 		if not _pair(content.get(field)) or not bounds.has_point(_point(content[field])): return field+": invalid authored player body center"
 	for seal: Dictionary in instance.seals:
 		if not bounds.encloses(_rect(seal.rect_pixels)): return "seals."+str(seal.port_id)+": original seal outside bounds"
-	if not content.get("moving_platforms") is Array: return "moving_platforms: expected array"
+	if not content.get("hazards") is Array: return "hazards: expected array"
+	for index: int in content.hazards.size():
+		if not _rectangle(content.hazards[index]) or not bounds.encloses(_rect(content.hazards[index])): return "hazards["+str(index)+"]: invalid/outside rectangle"
+	if not content.get("saws") is Array: return "saws: expected array"
 	var identities: Dictionary = {}
+	for index: int in content.saws.size():
+		var raw: Variant = content.saws[index]
+		var prefix := "saws["+str(index)+"]."
+		if not raw is Dictionary: return prefix+"expected Dictionary"
+		var extra := _unexpected(raw,SAW_FIELDS)
+		if not extra.is_empty(): return prefix+extra+": unsupported field"
+		if not _identity(raw.get("source_id")) or identities.has(raw.source_id): return prefix+"source_id: invalid/duplicate identity"
+		identities[raw.source_id] = true
+		for field: String in ["origin","travel"]:
+			if not _pair(raw.get(field)): return prefix+field+": invalid pair"
+		for field: String in ["radius","period","initial_phase","damage","contact_interval"]:
+			if not _number(raw.get(field)): return prefix+field+": expected finite number"
+		var saw := _saw(raw)
+		if not saw.is_valid() or not bounds.encloses(saw.envelope()): return prefix+"saw: native validity/envelope rejected"
+	if not content.get("moving_platforms") is Array: return "moving_platforms: expected array"
 	for index: int in content.moving_platforms.size():
 		var raw: Variant = content.moving_platforms[index]
 		var prefix := "moving_platforms["+str(index)+"]."
 		if not raw is Dictionary: return prefix+"expected Dictionary"
+		# Absence of trajectory_kind is the original seven-field native linear contract.
+		if not raw.has("trajectory_kind"):
+			var extra := _unexpected(raw,LINEAR_FIELDS)
+			if not extra.is_empty(): return prefix+extra+": unsupported linear field"
+			if not _identity(raw.get("platform_id")) or identities.has(raw.platform_id): return prefix+"platform_id: invalid/duplicate identity"
+			identities[raw.platform_id] = true
+			for field: String in ["start","finish","size"]:
+				if not _pair(raw.get(field),field=="size"): return prefix+field+": invalid pair"
+			for field: String in ["travel_duration","dwell_duration","initial_phase"]:
+				if not _number(raw.get(field)): return prefix+field+": expected finite number"
+			var linear := _linear(raw)
+			if not linear.is_valid() or not bounds.encloses(linear.envelope()): return prefix+"linear: native validity/envelope rejected"
+			continue
 		for field: Variant in raw:
 			if not field is String or field not in ELLIPSE_FIELDS: return prefix+str(field)+": unsupported field"
 		if raw.get("trajectory_kind") != "clockwise_ellipse/v1": return prefix+"trajectory_kind: unsupported trajectory"
@@ -326,7 +359,9 @@ static func _definition(content: Dictionary, instance: Dictionary) -> Platformin
 	for index: Variant in content.one_way_platform_indices: definition.one_way_platform_indices.append(int(index))
 	# Original seal rectangles each enter exactly once, after original indices.
 	for seal: Dictionary in instance.seals: definition.platforms.append(_rect(seal.rect_pixels))
-	for raw: Dictionary in content.moving_platforms: definition.ferries.append(_ellipse(raw))
+	for rectangle: Array in content.hazards: definition.danger_bounds.append(_rect(rectangle))
+	for raw: Dictionary in content.saws: definition.saws.append(_saw(raw))
+	for raw: Dictionary in content.moving_platforms: definition.ferries.append(_ellipse(raw) if raw.has("trajectory_kind") else _linear(raw))
 	var entry := PlatformingModulePort.new()
 	entry.port_id = &"authored_body_entry"
 	entry.position = _point(content.entry_port)
@@ -343,6 +378,29 @@ static func _definition(content: Dictionary, instance: Dictionary) -> Platformin
 	definition.set_meta("runtime_map_v2_content",content.duplicate(true))
 	definition.set_meta("helper_port_semantics","authored_player_body_center_not_v2_geometric_port")
 	return definition
+
+static func _saw(raw: Dictionary) -> ModuleSawDefinition:
+	var result := ModuleSawDefinition.new()
+	result.source_id = StringName(raw.source_id)
+	result.origin = _point(raw.origin)
+	result.travel = _point(raw.travel)
+	result.radius = float(raw.radius)
+	result.period = float(raw.period)
+	result.initial_phase = float(raw.initial_phase)
+	result.damage = float(raw.damage)
+	result.contact_interval = float(raw.contact_interval)
+	return result
+
+static func _linear(raw: Dictionary) -> ModuleMovingPlatformDefinition:
+	var result := ModuleMovingPlatformDefinition.new()
+	result.platform_id = StringName(raw.platform_id)
+	result.start = _point(raw.start)
+	result.finish = _point(raw.finish)
+	result.size = _point(raw.size)
+	result.travel_duration = float(raw.travel_duration)
+	result.dwell_duration = float(raw.dwell_duration)
+	result.initial_phase = float(raw.initial_phase)
+	return result
 
 static func _ellipse(raw: Dictionary) -> RuntimeMapEllipseDefinition:
 	var result := RuntimeMapEllipseDefinition.new()

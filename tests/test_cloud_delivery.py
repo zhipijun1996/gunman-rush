@@ -526,5 +526,20 @@ class MapgenGeneratedEntryTests(unittest.TestCase):
         self.assertNotIn('init_script', page)
 
 
+class MapgenM35EntryTests(MapgenGeneratedEntryTests):
+    """The same real-PCK and exact-path checks apply to the one M35 exception."""
+    scene = 'res://experiments/generation/runtime_map_m35_slice.tscn'
+
+    def test_all_three_original_and_m35_entries_remain_exact(self):
+        for scene in ('res://experiments/generation/entries/runtime_map_v2_slice.tscn',
+                      'res://experiments/generation/runtime_map_generated_slice.tscn', self.scene):
+            with self.subTest(scene=scene):
+                self.assertEqual(delivery.validate_scene(scene), scene.removeprefix('res://'))
+        for scene in (self.scene.replace('m35', 'm36'), self.scene.upper(),
+                      self.scene.replace('/generation/', '/generation/./')):
+            with self.subTest(scene=scene), self.assertRaises(ValueError):
+                delivery.validate_scene(scene)
+
+
 if __name__ == '__main__':
     unittest.main()

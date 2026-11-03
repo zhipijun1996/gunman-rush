@@ -1,0 +1,344 @@
+{
+  "status": "LIMITED_ACCEPT_EIGHT_FRESH_REGISTERED_CHECKS",
+  "review_scope": "Read-only independent receipt/log/contract verification; no engine, tests, Harness, CI or Web execution by reviewer.",
+  "reviewed_source_commit": "5b0b58accf56259928870d2428e8f343dbf211af",
+  "original_report": {
+    "path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/report.json",
+    "sha256": "b41c7fc89c68e7a14abe663dffec840c018d7ea5960f6e2390b65f0d547fb672",
+    "fields_present": [
+      "schema_version",
+      "started_at",
+      "profiles",
+      "changed_paths",
+      "checks",
+      "status",
+      "targeted_checks",
+      "device_acceptance",
+      "fun_acceptance",
+      "manifest_sha256",
+      "working_files",
+      "commit",
+      "git_status",
+      "diff",
+      "untracked",
+      "python_version",
+      "wall_seconds",
+      "jobs",
+      "release"
+    ],
+    "wall_seconds": 109.82,
+    "release": true,
+    "jobs": 1,
+    "targeted_checks": true
+  },
+  "source_identity": {
+    "recorded_commit": "5b0b58accf56259928870d2428e8f343dbf211af",
+    "recorded_git_status": "",
+    "recorded_diff": "",
+    "recorded_untracked": "",
+    "recorded_working_files": {},
+    "current_head_before_and_after": "5b0b58accf56259928870d2428e8f343dbf211af",
+    "current_git_clean_before_and_after": true,
+    "manifest_sha256": "f00cc1c9ed9fd1af0076adb4bd31c7558ef9ef80b229b78913422151df65b971",
+    "manifest_matches_commit_and_actual_file": true
+  },
+  "source_guard": {
+    "harness_git_blob_sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+    "before_each_check_enforced": true,
+    "after_each_check_enforced": true,
+    "final_complete_digest_recomputed_without_stat_cache": true,
+    "guard_outcome": "All original guard branches completed without source-change refusal, inferred from exact Harness code and actual passed report.",
+    "serialized_before_after_inventories_present": false,
+    "independently_recomputed_historical_inventory_equality": null,
+    "limitation": "Targeted mode does not serialize the two full inventories. This is not an independent comparison of stored snapshots; later Web snapshots cannot retroactively supply them."
+  },
+  "checks": [
+    {
+      "id": "runtime-map-generated-identity",
+      "count": 44,
+      "count_kind": "native assertions/checks",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 21.751,
+      "timeout_seconds": 180,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generated_identity.py"
+      ],
+      "input_digest": "b93a069a3b0eaad44efd22773863ce28d6b433cb02f51acc700b3ea316d51971",
+      "check_token": "89df9248f1804f3489ea441f58ec2d2e",
+      "log_sha256": "635d65d6902040b645601eb53744dd3c3421ab609a42789c48bbb3305f00739b",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-generation-job",
+      "count": 883,
+      "count_kind": "native assertions/checks",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 35.59,
+      "timeout_seconds": 240,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generation_job.py"
+      ],
+      "input_digest": "5b626a17c6a6b5068cf2defb83c37300e954e1bd3c70797985fddaccfcbb366c",
+      "check_token": "10c214304147457fb8bc38e12b9a8e90",
+      "log_sha256": "e00800009af0246e2967ce990b69189d37a1c98b0b5b1c593067fb934fc3adee",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-generated-slice",
+      "count": 55,
+      "count_kind": "native assertions/checks",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 28.922,
+      "timeout_seconds": 240,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generated_slice.py"
+      ],
+      "input_digest": "b6c573ce90dbc781d6109ebb0288bcf43f6c01c421cbb84bdc8d36f5d81391cf",
+      "check_token": "1eef1e10e8be4ccdbd03cfd2b922e33d",
+      "log_sha256": "f0fc2efc8615ad309e4bce2c49e1889712046c4e65e10b0e2f415ed48bc10bf0",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-v2-host",
+      "count": 199,
+      "count_kind": "native assertions/checks",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 4.885,
+      "timeout_seconds": 180,
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "input_digest": "1a24a7143b07a1a021402f6f2b797006ab16c20821edbd1fb9fb74eceb141d9f",
+      "check_token": "32725238fb7f4ddb81cb4064bb5a4b33",
+      "log_sha256": "36b7344d64673d5772d91c3f44381100532b6eb3c3fe6049278f85bceb3fa4d9",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "count": 45,
+      "count_kind": "native assertions/checks",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 6.844,
+      "timeout_seconds": 120,
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "input_digest": "20b3db276b0d2aed53f4af9152f3e4e54871a8cf52af197ec2abc46366ddd5f3",
+      "check_token": "c58fc1210281489d9688cc44900ab930",
+      "log_sha256": "c6f95cd4a1d21d3081b76c08c78c0965d90e647ec4839ddbbe4850fdd7bb40f3",
+      "nested_native_receipt": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/cloud_preview_runner.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 6.792320428001403,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      },
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "count": 66,
+      "count_kind": "tests",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 1.18,
+      "timeout_seconds": 60,
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "input_digest": "ab7aa867dc2da1511e84c28e5fb55d8a32783193d26b479ee6554731091916f3",
+      "check_token": "48415cb49a7b4d5d953e2b7db8d28395",
+      "log_sha256": "5e3ed1b798f2f7800d71acc042298bed9dadbc9f1fea7083eb1e5faa81064301",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "mapgen-candidate-installation",
+      "count": 14,
+      "count_kind": "tests",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 1.176,
+      "timeout_seconds": 60,
+      "argv": [
+        "python3",
+        "tools/check_mapgen_candidate_installation.py"
+      ],
+      "input_digest": "1b4bed49cf47995338bc74ae63bc943fbbf02e35626b12484baddad4561542e0",
+      "check_token": "6c9843d50c1b4a809aafb14b79be7be0",
+      "log_sha256": "31d92820ed484e7fde2f4a441a5519f89da95b470c21e627e973095e4254597f",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "count": 52,
+      "count_kind": "tests",
+      "failures": 0,
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "duration_seconds": 0.323,
+      "timeout_seconds": 60,
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "input_digest": "e4dcf6d423030b6848369b30087b04c91e32466170ad93a29c3eab5e851a43c4",
+      "check_token": "1f193b1afc9e41bb8ecdb6bf47ef557c",
+      "log_sha256": "9a42caf93a6b2a71c3305370f5253dc9fb9c630229df06e12f07a8653e2f8e78",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    }
+  ],
+  "totals": {
+    "requested": 8,
+    "passed": 8,
+    "failed": 0,
+    "fresh": 8,
+    "reused": 0
+  },
+  "original_contracts_unchanged": [
+    "runtime-map-v2-host",
+    "cloud-preview-runtime",
+    "web-resource-contract-tests",
+    "cloud-production-planner-tests"
+  ],
+  "native_new_caps": [
+    180,
+    240,
+    240
+  ],
+  "warnings_preserved": [
+    "The three editor imports print Unable to open Android 'build-tools' directory.; no Android build validation is claimed."
+  ],
+  "artifacts": {
+    "report.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/report.json",
+      "sha256": "b41c7fc89c68e7a14abe663dffec840c018d7ea5960f6e2390b65f0d547fb672",
+      "bytes": 8546
+    },
+    "runtime-map-generated-identity.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/runtime-map-generated-identity.log",
+      "sha256": "635d65d6902040b645601eb53744dd3c3421ab609a42789c48bbb3305f00739b",
+      "bytes": 1220
+    },
+    "runtime-map-generation-job.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/runtime-map-generation-job.log",
+      "sha256": "e00800009af0246e2967ce990b69189d37a1c98b0b5b1c593067fb934fc3adee",
+      "bytes": 1495
+    },
+    "runtime-map-generated-slice.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/runtime-map-generated-slice.log",
+      "sha256": "f0fc2efc8615ad309e4bce2c49e1889712046c4e65e10b0e2f415ed48bc10bf0",
+      "bytes": 14206
+    },
+    "runtime-map-v2-host.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/runtime-map-v2-host.log",
+      "sha256": "36b7344d64673d5772d91c3f44381100532b6eb3c3fe6049278f85bceb3fa4d9",
+      "bytes": 580
+    },
+    "cloud-preview-runtime.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/cloud-preview-runtime.log",
+      "sha256": "c6f95cd4a1d21d3081b76c08c78c0965d90e647ec4839ddbbe4850fdd7bb40f3",
+      "bytes": 318
+    },
+    "cloud-preview/native.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/artifacts/cloud-preview-runtime/build/cloud_preview/c58fc1210281489d9688cc44900ab930/native.log",
+      "sha256": "89000ab2ef7ee43bcb139e35d82856fef066d07842566479c1548b5f5cd1e385",
+      "bytes": 422460
+    },
+    "cloud-preview/report.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/artifacts/cloud-preview-runtime/build/cloud_preview/c58fc1210281489d9688cc44900ab930/report.json",
+      "sha256": "6d97db149134880eb1eb8fdc88d4a85d26dc08f7ba8882073eb0b037fd5e1334",
+      "bytes": 376
+    },
+    "web-resource-contract-tests.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/web-resource-contract-tests.log",
+      "sha256": "5e3ed1b798f2f7800d71acc042298bed9dadbc9f1fea7083eb1e5faa81064301",
+      "bytes": 165
+    },
+    "mapgen-candidate-installation.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/mapgen-candidate-installation.log",
+      "sha256": "31d92820ed484e7fde2f4a441a5519f89da95b470c21e627e973095e4254597f",
+      "bytes": 5174
+    },
+    "cloud-production-planner-tests.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/cloud-production-planner-tests.log",
+      "sha256": "9a42caf93a6b2a71c3305370f5253dc9fb9c630229df06e12f07a8653e2f8e78",
+      "bytes": 8817
+    },
+    "runtime-map-v2-host/native.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/artifacts/runtime-map-v2-host/build/mapgen_host_v2_01/native.json",
+      "sha256": "357af4bb4ac70c1783fe6eed93308cb22c57089f79ff65a6dad05cb0f686fd08",
+      "bytes": 16977
+    },
+    "runtime-map-generated-slice/native.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T045632.472836Z/artifacts/runtime-map-generated-slice/build/mapgen_godot_03/generated_slice.json",
+      "sha256": "d7b385fab403eacd6e9b9c2d1853008c7fdb445b490e5321a3dcb35c86a7dcf1",
+      "bytes": 19086
+    }
+  },
+  "explicit_non_claims": [
+    "Not full176 CI",
+    "Not Web export/PCK acceptance",
+    "Not browser, device, frame-time, 16ms budget, gameplay completeness or production readiness acceptance",
+    "No repeated tests executed during review"
+  ]
+}

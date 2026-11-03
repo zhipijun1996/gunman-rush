@@ -29,8 +29,11 @@ static func read_bindings() -> Dictionary:
 	var lock: Variant = JSON.parse_string(FileAccess.get_file_as_string(ROOT+"input-lock.json"))
 	if not lock is Dictionary or lock.get("schema") != "gunman-rush/mapgen-frozen-input/v1" or not lock.get("files") is Dictionary:
 		return {"ok":false,"error":"Invalid host binding lock"}
-	var path := ROOT+"bindings.json"
-	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path) != lock.files.get("bindings.json",""):
+	return read_binding_file(ROOT+"bindings.json",str(lock.files.get("bindings.json","")))
+
+static func read_binding_file(path: String, expected_sha256: String) -> Dictionary:
+	# Host-selected binding bytes; no map/content source or algorithm fallback.
+	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path) != expected_sha256:
 		return {"ok":false,"error":"Host binding SHA mismatch"}
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not data is Dictionary:

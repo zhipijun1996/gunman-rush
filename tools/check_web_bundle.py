@@ -29,6 +29,8 @@ MAPGEN_CANDIDATE_CONFIG = 'config/mapgen_candidate.json'
 MAPGEN_MODULE_ZIP = 'resources/mapgen/module-pack-1.1.0.zip'
 MAPGEN_REQUEST = 'resources/mapgen/conformance_request.json'
 MAPGEN_GENERATOR_CONFIG = 'resources/mapgen/generator_config.json'
+MAPGEN_M35_SOURCE = 'experiments/generation/runtime_map_m35_slice.gd'
+MAPGEN_M35_BINDINGS = 'resources/levels/mapgen_host_v3_m35/bindings.json'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
                                                         SPACES + 'supported_overhang_limestone_bank_v1/',
@@ -259,6 +261,26 @@ def runtime_contract(repo):
         manifest(generated['config'])
         manifest(MAPGEN_REQUEST)
         manifest(MAPGEN_GENERATOR_CONFIG)
+
+    m35_source = repo / MAPGEN_M35_SOURCE
+    if m35_source.is_file():
+        # This host binding is independent of the unchanged upstream config
+        # lock. Its actual consumer owns the SHA; no second hash registry.
+        source = m35_source.read_text()
+        declarations = {}
+        for key in ('BINDINGS_PATH', 'BINDINGS_SHA256'):
+            values = re.findall(r'^const ' + key + r'\s*(?::\s*String)?\s*:?=\s*"([^"\n]+)"\s*$',
+                                source, re.MULTILINE)
+            if len(values) != 1:
+                raise ValueError('M35 consumer needs one finite ' + key + ' declaration')
+            declarations[key] = values[0]
+        name = resource_path(declarations['BINDINGS_PATH'])
+        if declarations['BINDINGS_PATH'] != 'res://' + MAPGEN_M35_BINDINGS:
+            raise ValueError('M35 consumer bindings path changed; review finite export adapter')
+        expected = declarations['BINDINGS_SHA256']
+        if not re.fullmatch(r'[0-9a-f]{64}', expected) or hashlib.sha256(local(name)).hexdigest() != expected:
+            raise ValueError('M35 bindings differ from their actual consumer SHA')
+        manifest(name)
 
     frozen_source = repo / MAPGEN_FROZEN_SOURCE
     if frozen_source.is_file():
