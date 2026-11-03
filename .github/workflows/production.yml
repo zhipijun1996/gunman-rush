@@ -23,6 +23,11 @@ on:
 permissions:
   contents: read
 
+env:
+  # Phase reports bind the full Python identity. A minor-only selector can pick
+  # different preinstalled patches on different hosted runner images.
+  PRODUCTION_PYTHON_VERSION: '3.12.16'
+
 concurrency:
   group: production-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
@@ -50,7 +55,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PRODUCTION_PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: tools/requirements_art.txt
       - uses: actions/setup-node@v4
@@ -258,7 +263,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PRODUCTION_PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: tools/requirements_art.txt
       - uses: actions/setup-node@v4
@@ -451,7 +456,7 @@ jobs:
         if: needs.prepare.outputs.ci_route == 'full_lanes'
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PRODUCTION_PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: tools/requirements_art.txt
         if: needs.prepare.outputs.ci_route == 'full_lanes'

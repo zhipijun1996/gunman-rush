@@ -1,3 +1,9 @@
+## MAPGEN-CI-PYTHON-PIN-01：阶段A最终CI的环境修复
+
+原PR130/0167的run41659241932两通道178项实际全过，但Python3.12.16/3.12.15跨lane不一致，affected已实际以Phase toolchain identities differ拒绝，原run为FAILURE。仅将production workflow三处Python统一为精确3.12.16；保留原失败，最终修复head重新原完整CI。原宿主/SDK0.4.0/module1.1.0/Web运行源不变，默认双fresh不重跑，不B/合并/部署。
+
+[具体修复、原phase证明与验证](evidence/mapgen_host_04_acceptance/ci-python-pin/README.md)。本段覆盖下方“最终CI待收”的旧等待状态，不改写原历史接受或raw丢失边界。
+
 ## MAPGEN-HOST-04-ACCEPTANCE-01：阶段A收口
 
 锁定0.4.0/module1.1.0。d37原宿主源码及本地两提交已由远端bundle保全；remote c941完整tree等d37，commit元数据不同。私有只读库按SDK/模块身份共享，每job独立RNG/输入/结果/取消；窄摘要和分项计时复用原Provider/装配。

@@ -1,0 +1,85 @@
+{
+  "schema": "gunman-rush/independent-ci-python-pin-review/v1",
+  "created_utc": "2026-11-03T16:33:38.376053+00:00",
+  "reviewer": "/root/stage_a_final_review",
+  "task_id": "MAPGEN-CI-PYTHON-PIN-01",
+  "verdict": "ACCEPT_MINIMAL_CI_FIX_WITH_EXACT_HEAD_CI_PENDING",
+  "blocking_findings": [],
+  "baseline_commit": "0167ef34990e9c19a9ad57898f1e07f479ab2a5d",
+  "reviewed_source": "Actual working-tree workflow ff9479039b324bf6e7ff3bee41c73eb8eda21c9ea8063c87053d765d6bcab182 based on0167; new fix commit not yet created",
+  "scope": "Independent read-only source/evidence review. No repo/Git mutations, test reruns, Godot or browser; only external review output written.",
+  "checks": {
+    "inverse_version_only_edit_matches_original_workflow_bytes": true,
+    "workflow_yaml_parses": true,
+    "top_level_exact_patch": true,
+    "all_three_setup_python_consumers_share_pin": true,
+    "only_non_document_change_from_original_d37_is_production_workflow": true,
+    "all_18_sdk_scripts_match_original_lock": true,
+    "module_1_1_0_zip_matches_original_lock": true,
+    "all_five_current_card_evidence_bindings_match": true
+  },
+  "unchanged_original_guard_and_check_sources": {
+    "tools/harness.py": true,
+    "tools/harness/profiles.json": true,
+    "tests/test_harness.py": true,
+    "tests/test_production_plan.py": true,
+    "tools/production_plan.py": true,
+    "config/mapgen_candidate.json": true
+  },
+  "setup_python_consumers": {
+    "prepare": [
+      "${{ env.PRODUCTION_PYTHON_VERSION }}"
+    ],
+    "full_checks": [
+      "${{ env.PRODUCTION_PYTHON_VERSION }}"
+    ],
+    "affected": [
+      "${{ env.PRODUCTION_PYTHON_VERSION }}"
+    ]
+  },
+  "original_phase_readback": [
+    {
+      "lane": "parallel",
+      "zip_sha256": "53f6859d8eb0c555e59198ede9fbe41deb14f224df9076daa7fb8eb69cfd19f0",
+      "report_sha256": "1adb5a89db3fa82db5c7312817dd2b736fac7c43a082961a227ab78ed36904c5",
+      "commit": "0167ef34990e9c19a9ad57898f1e07f479ab2a5d",
+      "checks": 93,
+      "all_passed": true,
+      "reused": 0,
+      "python": "3.12.16 (main, Oct 26 2026, 02:48:44) [GCC 15.2.0]",
+      "toolchain_before_after_equal": true
+    },
+    {
+      "lane": "serial",
+      "zip_sha256": "d305acc6e77bfa4b25d2cf7178bac97391e6ebd909ab98dd09ce99b518b4b295",
+      "report_sha256": "f2a870fd817ae058e825347980c8d3e1e0d19f5a5b222a1b845b0f8eba2725da",
+      "commit": "0167ef34990e9c19a9ad57898f1e07f479ab2a5d",
+      "checks": 85,
+      "all_passed": true,
+      "reused": 0,
+      "python": "3.12.15 (main, Oct  1 2026, 02:36:28) [GCC 15.2.0]",
+      "toolchain_before_after_equal": true
+    }
+  ],
+  "validation_assessment": "Existing selector54/0 and HarnessLaneTests16/0 logs are appropriate bounded local validation. Actual YAML parse, inverse-byte equality and baseline comparisons were independently repeated read-only. Original success/negative guard diagnostics remain; no test guard, timeout, full profile, lane, command, source/producer/output identity or runtime/vendor relaxation is present.",
+  "accepted_reasoning": "The original 3.12 selector allows different installed patch releases. A single exact3.12.16 selector shared by prepare/full_checks/affected addresses the observed patch mismatch without weakening complete toolchain equality.3.12.16 was actually available in the original parallel lane.",
+  "metadata_assessment": "Baseline0167 and dirty workflow SHA are explicit; task is process/review with formal_impact=false. Original178 individual successes are not mislabeled as merged CI approval. Historical default raw-loss and original gears acceptance remain separate; no fresh Web claim or new PCK substitution. Pending independent-review/snapshot fields are root closeout work.",
+  "remaining_gates": [
+    "Collect original affected actual final rejection/logs before any push that could auto-cancel it; current evidence truthfully says pending.",
+    "Bind independent review and actual production_snapshot, perform final local quality checks, commit new exact head.",
+    "Obtain original complete178(93+85)+affected CI with original full toolchain/source/output guard; current review does not certify actual cross-runner equality or new-head CI success.",
+    "No stage B,0.4.1, merge, deploy or repeated historical default/gears Web execution authorized by this review."
+  ],
+  "reviewed_sha256": {
+    ".github/workflows/production.yml": "ff9479039b324bf6e7ff3bee41c73eb8eda21c9ea8063c87053d765d6bcab182",
+    "docs/quality/records/MAPGEN-CI-PYTHON-PIN-01.json": "fe9df7197426338b7d8674bac1194ec8005317b9abc26e3ca8cb76284c624efb",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/README.md": "2bbcf263f593c3d8721d3633826b6212fcd8de82600f435f24fab88e50720e08",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/workflow-check.json": "24fe5970a8b14fd125cc1bc5e2572a0aefec103ead9c6508e71927117c88c5e9",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/selector.log": "655c67c320c77130a0ae8d3cf11b1b70eb030d69430accd8092bf605410a834e",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/lane-guards.log": "c60307da9766ef5be2e98ad313b17b87d3845f243d985090b4110f644454a9e0",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/toolchain-mismatch-receipt.json": "aef91f4033d2172e48236a1d23a70d4032479e125ecbd0ead76cf5747eccded5",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/parallel.zip": "53f6859d8eb0c555e59198ede9fbe41deb14f224df9076daa7fb8eb69cfd19f0",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/serial.zip": "d305acc6e77bfa4b25d2cf7178bac97391e6ebd909ab98dd09ce99b518b4b295",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/phase-audit.json": "dbeba7ed84e21c1d0f94d5969693f9ec49a6c83dc68af0bfa4e1eb263a8c402a"
+  }
+}

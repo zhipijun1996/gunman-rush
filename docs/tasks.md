@@ -2,6 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
+| MAPGEN-CI-PYTHON-PIN-01 | 固定双通道Python补丁身份，保原合流守门 | MAPGEN-GODOT-04 | review | [范围与失败](evidence/mapgen_host_04_acceptance/ci-python-pin/README.md) · [质量](quality/records/MAPGEN-CI-PYTHON-PIN-01.json)；仅CI工程；原178pass跨lane身份拒绝，修复head完整CI另收 |
 | MAPGEN-HOST-04-ACCEPTANCE-01 | 性能归因/库复用/Web及精确head完整CI | MAPGEN-GODOT-04 | review | [范围](worklines/mapgen_host_04_acceptance/scope.md) · [质量](quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json)；仅阶段A；default历史PASS原件丢失明确承接，最终CI实收；本轮不B/0.4.1/合并发布 |
 
 ## 2026-11-03 map-gen明确版本升级

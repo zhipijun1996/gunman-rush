@@ -1,0 +1,93 @@
+{
+  "record_type": "independent_original_phase_observation_before_affected_final",
+  "observed_at": "2026-11-03T16:27:54.202068+00:00",
+  "run_id": 41659241932,
+  "attempt": 1,
+  "head": "0167ef34990e9c19a9ad57898f1e07f479ab2a5d",
+  "tree": "7ebd0471d2f0067339a232d70b439d18a5f5b08f",
+  "base": "46eb3960a592374b5fb99d7df588962a3680f86b",
+  "passed": 178,
+  "failed_checks": 0,
+  "reused": 0,
+  "phase_contract_findings": [
+    "Cross-lane mismatch toolchain"
+  ],
+  "cross_lane_source_and_git_metadata_equal": true,
+  "cross_lane_godot_and_node_equal": true,
+  "cross_lane_python_equal": false,
+  "original_guard": {
+    "source": "tools/harness.py verify_lane_reports",
+    "literal_error": "Phase toolchain identities differ",
+    "contract": "if identity is not None and toolchain != identity: raise ValueError(...)"
+  },
+  "phases": [
+    {
+      "lane": "parallel",
+      "artifact_id": 13248648287,
+      "artifact_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41659241932/artifacts/13248648287",
+      "file": "parallel.zip",
+      "bytes": 1667405,
+      "zip_sha256": "53f6859d8eb0c555e59198ede9fbe41deb14f224df9076daa7fb8eb69cfd19f0",
+      "report_sha256": "1adb5a89db3fa82db5c7312817dd2b736fac7c43a082961a227ab78ed36904c5",
+      "status": "passed",
+      "count": 93,
+      "reused": 0,
+      "toolchain": {
+        "python": "3.12.16 (main, Oct 26 2026, 02:48:44) [GCC 15.2.0]",
+        "platform": "linux",
+        "godot": {
+          "exit_code": 0,
+          "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+          "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+          "bytes": 171575448,
+          "build_id": "godot-4.7.2-gunman-sd1",
+          "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+          "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+          "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+          "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+        },
+        "node": {
+          "exit_code": 0,
+          "version": "v22.23.4"
+        }
+      },
+      "source_inventory_entries": 35941,
+      "wall_seconds": 2596.872
+    },
+    {
+      "lane": "serial",
+      "artifact_id": 13248762581,
+      "artifact_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41659241932/artifacts/13248762581",
+      "file": "serial.zip",
+      "bytes": 1791040,
+      "zip_sha256": "d305acc6e77bfa4b25d2cf7178bac97391e6ebd909ab98dd09ce99b518b4b295",
+      "report_sha256": "f2a870fd817ae058e825347980c8d3e1e0d19f5a5b222a1b845b0f8eba2725da",
+      "status": "passed",
+      "count": 85,
+      "reused": 0,
+      "toolchain": {
+        "python": "3.12.15 (main, Oct  1 2026, 02:36:28) [GCC 15.2.0]",
+        "platform": "linux",
+        "godot": {
+          "exit_code": 0,
+          "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+          "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+          "bytes": 171575448,
+          "build_id": "godot-4.7.2-gunman-sd1",
+          "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+          "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+          "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+          "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+        },
+        "node": {
+          "exit_code": 0,
+          "version": "v22.23.4"
+        }
+      },
+      "source_inventory_entries": 35941,
+      "wall_seconds": 2481.361
+    }
+  ],
+  "affected_at_observation": "in_progress restoring selected prepared inputs; actual outcome not yet available",
+  "claim_limit": "All178 individual original checks passed, but cross-lane identity fails the original full-profile merge contract. This is not complete same-toolchain technical approval."
+}
