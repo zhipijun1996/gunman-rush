@@ -112,6 +112,129 @@ class BundleTests(unittest.TestCase):
         self.manifest(bundle.MAPGEN_FROZEN_ROOT + 'input-lock.json',
                       {'schema': 'gunman-rush/mapgen-frozen-input/v1', 'files': files})
 
+    def generated_map(self):
+        # Copy the original installed bytes; the installer remains the single
+        # revision registry. These are structural fixtures, never engine runs.
+        import install_mapgen_candidate
+        for name in install_mapgen_candidate.installed_hashes():
+            data = (bundle.REPO / name).read_bytes()
+            self.local(name, data)
+            self.entries[name] = data
+        return json.loads(self.entries[bundle.MAPGEN_CANDIDATE_CONFIG])
+
+    def test_generated_map_actual_pack_reads_all_locked_dependencies(self):
+        config = self.generated_map()
+        result = self.check()
+        generated = result['mapgen_generated_dependencies']
+        self.assertEqual(set(generated['addon_scripts']), set(config['addon_files']))
+        self.assertEqual(len(generated['addon_scripts']), 15)
+        self.assertEqual(set(generated['data_sha256']),
+                         {bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_MODULE_ZIP})
+        self.assertTrue({bundle.MAPGEN_CANDIDATE_CONFIG, bundle.MAPGEN_REQUEST,
+                         bundle.MAPGEN_GENERATOR_CONFIG} <= set(result['json']))
+        for name in [bundle.MAPGEN_CANDIDATE_CONFIG, *config['addon_files'],
+                     *generated['data_sha256']]:
+            changed = self.entries.copy()
+            changed.pop(name)
+            with self.subTest(missing=name), self.assertRaises(ValueError):
+                self.check(changed)
+
+    def test_generated_map_valid_pack_md5_does_not_approve_changed_bytes(self):
+        config = self.generated_map()
+        for name in [bundle.MAPGEN_CANDIDATE_CONFIG, *config['addon_files'],
+                     bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_MODULE_ZIP]:
+            changed = self.entries.copy()
+            changed[name] += b'\n'
+            with self.subTest(changed=name), self.assertRaises(ValueError):
+                self.check(changed)
+
+    def test_generated_map_source_cannot_self_approve_new_bytes(self):
+        config = self.generated_map()
+        name = next(iter(config['addon_files']))
+        changed = self.entries[name] + b'\n# coherent source and advertised SHA edit\n'
+        self.local(name, changed)
+        self.entries[name] = changed
+        config['addon_files'][name] = hashlib.sha256(changed).hexdigest()
+        self.manifest(bundle.MAPGEN_CANDIDATE_CONFIG, config)
+        with self.assertRaisesRegex(ValueError, 'installed file differs'):
+            self.check()
+
+    def test_generated_map_requires_original_config_bytes_and_complete_local_source(self):
+        self.generated_map()
+        path = self.repo / bundle.MAPGEN_CANDIDATE_CONFIG
+        path.write_bytes(path.read_bytes() + b'\n')
+        with self.assertRaisesRegex(ValueError, 'installed file differs'):
+            self.check()
+        self.generated_map()
+        self.local('addons/mapgen/unapproved.gd', b'extends Node')
+        with self.assertRaisesRegex(ValueError, 'unexpected addon file'):
+            self.check()
+
+    def test_generated_consumer_cannot_silently_omit_the_config_adapter(self):
+        self.local('experiments/generation/runtime_map_generated_slice.gd', b'extends Node')
+        with self.assertRaisesRegex(ValueError, 'lacks its installed config lock'):
+            self.check()
+
+    def test_generated_map_normal_export_remaps_require_real_targets(self):
+        config = self.generated_map()
+        for i, name in enumerate(config['addon_files']):
+            self.entries.pop(name)
+            target = name[:-3] + '.gdc' if i % 2 else '.godot/exported/mapgen/' + str(i) + '.gdc'
+            self.entries[name + '.remap'] = ('[remap]\npath="res://' + target + '"\n').encode()
+            self.entries[target] = b'GDC structural fixture; not executable proof'
+        self.assertEqual(len(self.check()['mapgen_generated_dependencies']['addon_scripts']), 15)
+        name = next(iter(config['addon_files']))
+        mapping = self.entries[name + '.remap']
+        target = mapping.decode().split('res://')[1].split('"')[0]
+        for payload in (None, b''):
+            changed = self.entries.copy()
+            if payload is None:
+                changed.pop(target)
+            else:
+                changed[target] = payload
+            with self.subTest(target_payload=payload), self.assertRaises(ValueError):
+                self.check(changed)
+        for remap in (b'[remap]\npath="res://addons/mapgen/../escape.gdc"\n',
+                      mapping + mapping, b'[remap]\npath="user://escape.gdc"\n'):
+            changed = self.entries.copy()
+            changed[name + '.remap'] = remap
+            with self.subTest(remap=remap), self.assertRaises(ValueError):
+                self.check(changed)
+
+    def test_generated_map_raw_script_does_not_hide_a_broken_remap(self):
+        config = self.generated_map()
+        name = next(iter(config['addon_files']))
+        self.entries[name + '.remap'] = b'[remap]\npath="res://missing.gdc"\n'
+        with self.assertRaisesRegex(ValueError, 'missing runtime resource'):
+            self.check()
+
+    def test_generated_map_rejects_sibling_zip_code_and_evidence_payloads(self):
+        self.generated_map()
+        for name in ('resources/mapgen/candidate.zip', 'resources/reference.zip',
+                     'resources/tests.zip', 'resources/mapgen/module-pack-1.1.0.ZIP',
+                     'addons/mapgen/unapproved.gd', 'resources/mapgen/unknown.json',
+                     'addons/mapgen/script.py', 'other/CODE.PYC', 'docs/info.json',
+                     'tests/fixture.gd', 'tools/script.gd', 'other/evidence/report.json'):
+            changed = self.entries.copy()
+            changed[name] = b'not admitted'
+            with self.subTest(extra=name), self.assertRaises(ValueError):
+                self.check(changed)
+
+    def test_unlocked_pack_cannot_import_a_zip(self):
+        self.entries[bundle.MAPGEN_MODULE_ZIP] = b'unlocked ZIP'
+        with self.assertRaisesRegex(ValueError, 'unadmitted ZIP'):
+            self.check()
+
+    def test_web_preset_has_only_explicit_generated_data_dependencies(self):
+        presets = configparser.ConfigParser(interpolation=None)
+        presets.read(bundle.REPO / 'export_presets.cfg')
+        section = next(presets[s] for s in presets.sections() if presets[s].get('name') == '"Web Playtest"')
+        included = section['include_filter'].strip('"').split(',')
+        for name in (bundle.MAPGEN_CANDIDATE_CONFIG, bundle.MAPGEN_REQUEST,
+                     bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_MODULE_ZIP):
+            self.assertEqual(included.count(name), 1)
+        self.assertFalse(any('*' in name for name in included if name.startswith('resources/mapgen/')))
+
     def test_frozen_map_raw_json_is_finite_locked_and_read_from_actual_pack(self):
         self.frozen_map()
         result = self.check()

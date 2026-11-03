@@ -1,0 +1,341 @@
+extends SceneTree
+## Real locked addon once to PASS; lifecycle probes use the public opaque API.
+## No replacement solver, invented generated map, SceneTree assembly or timing SLA.
+const SOURCE := preload("res://experiments/generation/runtime_map_generation_job.gd")
+const DATA := preload("res://addons/mapgen/data_json.gd")
+const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
+const IDS: Array[String] = ["M16","M18","M21"]
+const MAX_ADVANCE_CALLS := 1024 # Actual locked conformance cohort uses713 at128.
+var checks := 0
+var failures := 0
+var request_data: Dictionary = {}
+var config: Dictionary = {}
+var bindings: Dictionary = {}
+var lock: Dictionary = {}
+
+func _initialize() -> void:
+	run.call_deferred()
+
+func check(value: bool, label: String) -> void:
+	checks += 1
+	if not value:
+		failures += 1
+		push_error("GENERATION JOB: "+label)
+
+func host_request() -> LevelRequest:
+	var request := LevelRequest.new()
+	request.root_seed = str(request_data.seed)
+	request.tuning = PlayerTuning.load_default()
+	request.capabilities = {"profile":"explicit_upstream_conformance_not_a_player_grant"}
+	return request
+
+func start(source: SOURCE, owner: Object, lifetime: DemoLifetime, budget: int = 128) -> RefCounted:
+	return source.begin(owner,lifetime,host_request(),request_data,config,bindings,IDS,"seam",budget)
+
+func rejected(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime, label: String) -> void:
+	check(not source.is_current(ticket,lifetime),label+": not current")
+	check(not source.tick(ticket,lifetime),label+": cannot tick")
+	check(source.take_plan(ticket,lifetime)==null,label+": cannot take plan")
+	check(not source.commit(ticket,lifetime),label+": cannot commit")
+	check(source.actual_result(ticket,lifetime).is_empty() and source.provenance(ticket,lifetime).is_empty(),label+": no result/provenance escape")
+
+func preload_source(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) -> bool:
+	var accepted := source.tick(ticket,lifetime)
+	check(accepted and source.phase(ticket)=="generate","one preload tick opens actual archive and creates original job: "+source.error(ticket))
+	if not accepted: return false
+	check(int(source.progress(ticket).get("operations",-1))==0 and int(source.metrics(ticket).advance_calls)==0,"preload does not consume generation operations")
+	return true
+
+func suspended(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) -> bool:
+	if not preload_source(source,ticket,lifetime): return false
+	var accepted := source.tick(ticket,lifetime)
+	var progress: Dictionary = source.progress(ticket)
+	check(accepted and source.phase(ticket)=="generate" and not progress.get("done",true) and int(progress.get("operations",0))>0,"actual job has a suspended positive-operation continuation")
+	return accepted and source.phase(ticket)=="generate" and not progress.get("done",true)
+
+func run() -> void:
+	var value: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://config/mapgen_candidate.json"))
+	check(value is Dictionary,"actual candidate installation lock exists")
+	if not value is Dictionary:
+		finish()
+		return
+	lock = value
+	var input_bytes_ok := true
+	for input: Dictionary in [lock.conformance.request,lock.conformance.config]:
+		input_bytes_ok = input_bytes_ok and FileAccess.get_sha256(input.path)==input.sha256
+	check(input_bytes_ok,"actual conformance request/config bytes retain installation lock")
+	if not input_bytes_ok:
+		finish()
+		return
+	var decoded_request: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.request.path))
+	var decoded_config: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.config.path))
+	var frozen := RuntimeMapFrozenSource.read_bindings()
+	check(decoded_request.ok and decoded_config.ok and frozen.ok,"original typed DataJSON inputs and verified host bindings only; no frozen map/content read")
+	if not decoded_request.ok or not decoded_config.ok or not frozen.ok:
+		finish()
+		return
+	request_data = decoded_request.value
+	config = decoded_config.value
+	bindings = frozen.bindings
+	check(request_data.seed is int and request_data.seed==930001,"fixture declares original upstream conformance; no float seed coercion or player grant")
+	var nodes_before := get_node_count()
+	value_snapshot_contract()
+	context_rejections()
+	await queued_owner_rejection()
+	cancellation_checkpoints()
+	disposal_contract()
+	await replacement_then_success()
+	check(get_node_count()==nodes_before,"source/Provider lifecycle did not create any scene nodes")
+	finish()
+
+func tuning_values(tuning: PlayerTuning) -> Dictionary:
+	var result: Dictionary = {}
+	for property: Dictionary in tuning.get_property_list():
+		if (int(property.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0: continue
+		var key := str(property.name)
+		var value: Variant = tuning.get(key)
+		result[key] = value.duplicate(true) if value is Array or value is Dictionary else value
+	return result
+
+func value_snapshot_contract() -> void:
+	var source := SOURCE.new()
+	var request := host_request()
+	# Deliberate effective tuning changes prove this is not reconstruction from
+	# PlayerTuning.load_default or Resource's exported-property duplication.
+	request.tuning.ground_speed += 13.0
+	request.tuning.gravity += 17.0
+	request.tuning.jump_speeds[0] += 23.0
+	request.capabilities["nested"] = {"samples":[1,2]}
+	var expected := tuning_values(request.tuning)
+	# Isolated pure value-copy unit only; never inspect or mutate ticket state.
+	var copied: LevelRequest = source._copy_request(request)
+	check(copied!=request and copied.tuning!=request.tuning,"request and actual PlayerTuning snapshot have detached object identities")
+	check(not expected.is_empty(),"snapshot counterexample includes actual script-variable values")
+	for field: String in expected:
+		check(copied.tuning.get(field)==expected[field],"all actual non-export tuning fields copied exactly: "+field)
+	request.tuning.ground_speed += 29.0
+	request.tuning.gravity += 31.0
+	request.tuning.jump_speeds[0] += 37.0
+	request.capabilities.nested.samples[0] = 99
+	request.root_seed = "changed after snapshot"
+	check(tuning_values(copied.tuning)==expected,"caller later scalar/array tuning mutations cannot change exact captured snapshot")
+	check(copied.capabilities.nested.samples==[1,2] and copied.root_seed==str(request_data.seed),"caller later nested capability/request mutation cannot change captured values")
+	copied.tuning.jump_speeds[0] += 41.0
+	check(copied.tuning.jump_speeds!=request.tuning.jump_speeds,"snapshot tuning array mutations cannot change caller tuning")
+	source.close()
+
+func context_rejections() -> void:
+	var owner := RefCounted.new()
+	var source := SOURCE.new()
+	var lifetime := DemoLifetime.new()
+	var ticket := start(source,owner,lifetime)
+	check(ticket != null and ticket.get_script()==null,"public ticket is a plain RefCounted handle, not internal scripted state")
+	var names: Array[String] = []
+	for property: Dictionary in ticket.get_property_list(): names.append(str(property.name))
+	for field: String in ["actual","provenance","phase","token","lifetime","request","taken","committed"]:
+		check(field not in names,"opaque handle exposes no internal field: "+field)
+	ticket.set_meta("phase","ready")
+	ticket.set_meta("actual",{"status":"PASS"})
+	check(source.phase(ticket)=="preload" and source.actual_result(ticket,lifetime).is_empty(),"caller handle metadata cannot forge phase or actual result")
+	check(source.take_plan(ticket,lifetime)==null and not source.commit(ticket,lifetime) and not source.fail_assembly(ticket,"not assembling"),"preload cannot be consumed, committed or marked as assembly")
+	var impostor := RefCounted.new()
+	rejected(source,impostor,lifetime,"unissued handle")
+	check(source.is_current(ticket,lifetime) and source.phase(ticket)=="preload","foreign handle rejection leaves current ticket usable")
+	var equal_epoch := DemoLifetime.new()
+	check(lifetime.token().key()==equal_epoch.token().key() and lifetime!=equal_epoch,"distinct real DemoLifetime objects share numeric epochs in counterexample")
+	rejected(source,ticket,equal_epoch,"same-epoch different actual lifetime")
+	check(source.phase(ticket)=="cancelled","wrong actual lifetime cancels only its current old job")
+	var fresh := start(source,owner,equal_epoch)
+	check(source.is_current(fresh,equal_epoch),"same source accepts new ticket with replacement actual lifetime")
+	check(not source.abort(ticket,"late old abort") and source.phase(fresh)=="preload","old handle cannot cancel replacement")
+	equal_epoch.invalidate_actor()
+	rejected(source,fresh,equal_epoch,"actual actor invalidation")
+	source.close()
+
+	var ended_source := SOURCE.new()
+	var ended_lifetime := DemoLifetime.new()
+	var ended := start(ended_source,owner,ended_lifetime)
+	ended_lifetime.end()
+	rejected(ended_source,ended,ended_lifetime,"actual run end")
+	ended_source.close()
+
+	var flow := DemoRunDirector.new()
+	check(flow.start("generation-job-stage-boundary",RunProfile.development()).accepted(),"real run director starts stage invalidation counterexample")
+	var stage_source := SOURCE.new()
+	var stage_ticket := start(stage_source,owner,flow.lifetime)
+	var stage_token := flow.lifetime.token()
+	check(flow.complete_stage(stage_token) and not flow.offers.is_empty(),"real run owner supplies stage transition offer")
+	if not flow.offers.is_empty():
+		check(flow.select_exit(stage_token,flow.offers[0].exit_id,&"generation-job-next-stage").accepted(),"original run owner advances stage/actor epochs")
+		rejected(stage_source,stage_ticket,flow.lifetime,"actual stage transition")
+	stage_source.close()
+	flow.end_failure(&"generation-job-test-cleanup")
+
+	var weak_owner: RefCounted = RefCounted.new()
+	var owner_reference: WeakRef = weakref(weak_owner)
+	var freed_source := SOURCE.new()
+	var freed_lifetime := DemoLifetime.new()
+	var freed_ticket := start(freed_source,weak_owner,freed_lifetime)
+	weak_owner = null
+	check(owner_reference.get_ref()==null,"source retains only WeakRef to the actual owner")
+	rejected(freed_source,freed_ticket,freed_lifetime,"freed owner")
+	freed_source.close()
+
+func queued_owner_rejection() -> void:
+	var owner := Node.new()
+	root.add_child(owner)
+	var source := SOURCE.new()
+	var lifetime := DemoLifetime.new()
+	var ticket := start(source,owner,lifetime)
+	owner.queue_free()
+	check(is_instance_valid(owner) and owner.is_queued_for_deletion(),"owner counterexample is queued before actual free")
+	rejected(source,ticket,lifetime,"owner queued for deletion")
+	source.close()
+	await process_frame
+
+func cancellation_checkpoints() -> void:
+	var owner := RefCounted.new()
+	var lifetime := DemoLifetime.new()
+	var token_before := lifetime.token().key()
+	var early := SOURCE.new()
+	var early_ticket := start(early,owner,lifetime)
+	early.close()
+	early.close()
+	rejected(early,early_ticket,lifetime,"close during preload")
+	check(early.begin(owner,lifetime,host_request(),request_data,config,bindings,IDS)==null,"closed source rejects begin")
+
+	var created := SOURCE.new()
+	var created_ticket := start(created,owner,lifetime)
+	if preload_source(created,created_ticket,lifetime):
+		check(created.abort(created_ticket,"cancel before first advance"),"cancel actual created addon job before first advance")
+		check(created.phase(created_ticket)=="cancelled" and created.progress(created_ticket).get("done",false) and int(created.metrics(created_ticket).operations)==0,"upstream cancellation completes created job with zero operations")
+		rejected(created,created_ticket,lifetime,"cancelled before advance")
+	created.close()
+
+	var suspended_source := SOURCE.new()
+	var suspended_ticket := start(suspended_source,owner,lifetime,1)
+	if suspended(suspended_source,suspended_ticket,lifetime):
+		check(int(suspended_source.progress(suspended_ticket).operations)==1,"one operation, not one millisecond, reaches actual suspended checkpoint")
+		suspended_source.close()
+		check(suspended_source.phase(suspended_ticket)=="cancelled" and suspended_source.progress(suspended_ticket).get("done",false),"close unwinds actual suspended addon continuation")
+		rejected(suspended_source,suspended_ticket,lifetime,"exit during suspended generation")
+	suspended_source.close()
+	check(lifetime.active and lifetime.token().key()==token_before,"source cancellation never ends or advances caller's lifetime")
+
+func disposal_contract() -> void:
+	var owner := RefCounted.new()
+	var lifetime := DemoLifetime.new()
+	var token_before := lifetime.token().key()
+	var explicit_source: SOURCE = SOURCE.new()
+	var explicit_ticket := start(explicit_source,owner,lifetime)
+	var explicit_reference: WeakRef = weakref(explicit_source)
+	explicit_source.close()
+	explicit_source = null
+	check(explicit_reference.get_ref()==null and explicit_ticket.get_script()==null,"explicitly closed source releases without PREDELETE self dispatch while opaque handle survives")
+	var unclosed_source: SOURCE = SOURCE.new()
+	var unclosed_ticket := start(unclosed_source,owner,lifetime,1)
+	var unclosed_reference: WeakRef = weakref(unclosed_source)
+	if suspended(unclosed_source,unclosed_ticket,lifetime):
+		# The fallback must unwind the real suspended continuation directly.
+		# The original wrapper's strict engine-error/leak gate observes disposal.
+		unclosed_source = null
+		check(unclosed_reference.get_ref()==null and unclosed_ticket.get_script()==null,"PREDELETE fallback releases an unclosed source with actual suspended addon work")
+	else:
+		unclosed_source.close()
+		unclosed_source = null
+	check(lifetime.active and lifetime.token().key()==token_before,"either disposal path leaves caller lifetime authority unchanged")
+
+func replacement_then_success() -> void:
+	var owner := RefCounted.new()
+	var lifetime := DemoLifetime.new()
+	var source := SOURCE.new()
+	var old_ticket := start(source,owner,lifetime)
+	var old_serial := source.request_serial(old_ticket)
+	if not suspended(source,old_ticket,lifetime):
+		source.close()
+		return
+	var caller_request: Dictionary = request_data.duplicate(true)
+	var caller_config: Dictionary = config.duplicate(true)
+	var caller_bindings: Dictionary = bindings.duplicate(true)
+	var selected: Array[String] = IDS.duplicate()
+	var request := host_request()
+	var expected: String = PROTOCOL.fingerprint(caller_request,caller_config,lock.module_package.sha256)
+	var ticket := source.begin(owner,lifetime,request,caller_request,caller_config,caller_bindings,selected)
+	check(source.request_serial(ticket)==old_serial+1,"replacement allocates a strictly newer serial after cancelling old real job")
+	rejected(source,old_ticket,lifetime,"superseded suspended request")
+	check(not source.abort(old_ticket,"late cancellation") and not source.fail_assembly(old_ticket,"late assembly failure") and source.phase(ticket)=="preload","stale cancel/failure cannot modify newest ticket")
+	# Mutate caller-owned values after begin. The real generation must retain its
+	# captured original integer request, config, host bindings and LevelRequest.
+	caller_request.seed = 7
+	caller_config.goals.growth_target = 1
+	caller_bindings.spawns.seam[0] += 1000
+	selected.clear()
+	request.root_seed = "caller-mutated"
+	request.expected_hash = "a".repeat(64)
+	request.capabilities.profile = "caller-mutated"
+	request.tuning.ground_speed = 0.0
+	request.tuning.max_jumps = 0
+	request.tuning.jump_speeds.clear()
+	if not preload_source(source,ticket,lifetime):
+		source.close()
+		return
+	var calls := 0
+	var previous_operations := 0
+	while source.phase(ticket)=="generate" and calls<MAX_ADVANCE_CALLS:
+		var advanced := source.tick(ticket,lifetime)
+		calls += 1
+		var operations := int(source.progress(ticket).get("operations",0))
+		check(advanced and operations>previous_operations and operations-previous_operations<=128,"real advance performs at most128 operations per tick")
+		previous_operations = operations
+		if not advanced: break
+		await process_frame
+	check(source.phase(ticket)=="validate","completed original addon result awaits a separate validate tick: "+source.error(ticket))
+	if source.phase(ticket)!="validate":
+		source.close()
+		return
+	check(source.take_plan(ticket,lifetime)==null and not source.commit(ticket,lifetime),"completed generation cannot skip Provider validation")
+	check(source.tick(ticket,lifetime) and source.phase(ticket)=="ready","real generated result passes original Provider: "+source.error(ticket))
+	if source.phase(ticket)!="ready":
+		source.close()
+		return
+	var actual: Dictionary = source.actual_result(ticket,lifetime)
+	var origin: Dictionary = source.provenance(ticket,lifetime)
+	check(actual.status=="PASS" and actual.request_fingerprint==expected and actual.map.generator.request_fingerprint==expected,"wrapper preserves original result/map fingerprint of captured inputs")
+	check(actual.map.map_id=="map-"+expected.substr(0,24),"original generated map_id remains unchanged")
+	check(origin.kind=="generated_memory" and origin.request.seed==930001 and origin.config.goals.growth_target==32,"provenance binds actual captured algorithm values")
+	check(origin.algorithm_package.zip_sha256==lock.archive.sha256 and origin.algorithm_package.release_head==lock.release_head and origin.algorithm_package.source_commit==lock.source_commit and origin.module_archive.sha256==lock.module_package.sha256,"provenance uses actual installed release and opened module archive")
+	check(not origin.has("files") and not origin.has("bindings_file") and not origin.has("map_bytes_sha256"),"memory job makes no fabricated file byte attestations")
+	actual.map.generator.request_fingerprint = "tampered"
+	actual.map.map_id = "tampered"
+	origin.kind = "frozen_files"
+	origin.request.seed = 8
+	check(source.actual_result(ticket,lifetime).map.generator.request_fingerprint==expected and source.provenance(ticket,lifetime).request.seed==930001,"actual_result/provenance nested copies cannot mutate internal job state")
+	var receipt: Dictionary = source.metrics(ticket)
+	var history: Array[Dictionary] = source.progress_history(ticket)
+	check(int(receipt.operations)==91142 and int(receipt.advance_calls)==713 and calls==713,"locked real91142 operations use713 budget128 advances")
+	check(history.size()==calls+1 and history[0].operations==0 and history.back().done,"all original initial/advance progress checkpoints are retained")
+	check(receipt.preload_ms>0.0 and receipt.validate_ms>=0.0 and receipt.advance_ms.size()==calls and receipt.advance_max_ms>=0.0,"preload, each actual advance/max and Provider validation have separate receipts without16ms claim")
+	history[0].operations = -1
+	receipt.advance_ms.clear()
+	var progress_copy: Dictionary = source.progress(ticket)
+	progress_copy.operations = -1
+	check(source.progress_history(ticket)[0].operations==0 and source.metrics(ticket).advance_ms.size()==calls and source.progress(ticket).operations==91142,"progress/history/timing getters deep-copy nested mutable data")
+	var built := source.take_plan(ticket,lifetime)
+	check(built != null and built.accepted() and source.phase(ticket)=="assemble","ready plan is offered once for caller-owned assembly")
+	if built == null or not built.accepted():
+		source.close()
+		return
+	check(built.plan.seed=="930001" and built.plan.spawn==Vector2(-448,846) and built.plan.modules.size()==3 and built.legacy_generated.is_empty(),"captured host request/bindings produce original three-module loading slice without legacy compatibility")
+	check(built.plan.get_meta("runtime_map_v2_identity").host_load.capabilities.profile=="explicit_upstream_conformance_not_a_player_grant","caller capability mutation cannot relabel admitted plan")
+	check(source.take_plan(ticket,lifetime)==null,"duplicate plan consumption is refused")
+	check(source.commit(ticket,lifetime) and source.phase(ticket)=="committed","newest real validated plan commits exactly once")
+	check(not source.commit(ticket,lifetime) and not source.fail_assembly(ticket,"late failure") and not source.abort(ticket,"late abort"),"duplicate commit/late failure/abort cannot alter committed state")
+	var timings: Dictionary = source.metrics(ticket)
+	print("RUNTIME_MAP_GENERATION_JOB_METRICS ",JSON.stringify({"operations":timings.operations,"advance_calls":timings.advance_calls,"preload_ms":timings.preload_ms,"advance_max_ms":timings.advance_max_ms,"validate_ms":timings.validate_ms,"request_fingerprint":expected,"scope":"source_envelope_and_pure_plan_only"}))
+	source.close()
+	rejected(source,ticket,lifetime,"closed committed source")
+	check(lifetime.active,"closing committed source does not end RunSession authority")
+
+func finish() -> void:
+	print("RUNTIME_MAP_GENERATION_JOB checks=%d failures=%d" % [checks,failures])
+	quit(0 if failures==0 else 1)

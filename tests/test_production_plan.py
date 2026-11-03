@@ -10,11 +10,32 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from functools import wraps
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import production_plan
 from production_plan import make_plan, run_commands, validate_policy
+
+
+GENERATION_ADDITIONS = ["runtime-map-generated-identity", "runtime-map-generation-job",
+                        "runtime-map-generated-slice", "mapgen-candidate-installation"]
+
+
+def prior_frozen_host_profiles(method):
+    """Replay existing historical assertions after removing only the new tail."""
+    @wraps(method)
+    def replay(self):
+        current = self.manifest
+        self.manifest = copy.deepcopy(current)
+        try:
+            for profile in ("gameplay", "full"):
+                self.assertEqual(self.manifest["profiles"][profile][-4:], GENERATION_ADDITIONS)
+                del self.manifest["profiles"][profile][-4:]
+            return method(self)
+        finally:
+            self.manifest = current
+    return replay
 
 
 class ProductionPlanTests(unittest.TestCase):
@@ -226,6 +247,7 @@ class ProductionPlanTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "early Python"):
             self.plan(["docs/handoff.md"], policy=policy)
 
+    @prior_frozen_host_profiles
     def test_physical_lanes_require_the_exact_original_full_set(self):
         # User-authorized retirement of these old map-content checks from default
         # CI. Reconstruct and hash-pin C59's exact vectors before replaying the
@@ -438,6 +460,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(with_extra["ci_route"],"selected_commands")
         self.manifest = appended_manifest
 
+    @prior_frozen_host_profiles
     def test_runtime_map_v2_host_appends_real_consumer_and_exact_resource_routing(self):
         name = "runtime-map-v2-host"
         check = self.manifest["checks"][name]
@@ -471,6 +494,102 @@ class ProductionPlanTests(unittest.TestCase):
         next(r for r in altered["rules"] if r["id"] == name)["paths"].append("resources/levels/mapgen_host_v2_01/unknown.json")
         self.assertEqual(self.plan(["resources/levels/mapgen_host_v2_01/unknown.json"], "integration", altered)["selection"], "full")
         self.assertEqual(self.plan(["docs/handoff.md"], "integration")["checks"], self.policy["baseline_checks"])
+
+    def test_generated_map_checks_append_without_replacing_frozen_host_coverage(self):
+        import harness
+        import re
+        canonical = lambda value: hashlib.sha256(json.dumps(value, separators=(",", ":")).encode()).hexdigest()
+        for profile, digest in (("full", "bd4f7765e680a67a40521294c5e3cf151504640a10579bbb7992da11bfd32d26"),
+                                ("gameplay", "81c9f4a91602b8a9ab91b74d35aa95aa1ccd7775e8f921041acb29ed77c1b1dc")):
+            self.assertEqual(self.manifest["profiles"][profile][-4:], GENERATION_ADDITIONS)
+            self.assertEqual(canonical(self.manifest["profiles"][profile][:-4]), digest)
+        plan = self.plan(["project.godot"], "integration")
+        self.assertEqual((len(plan["checks"]), len(plan["ci_lane_checks"]["parallel"]), len(plan["ci_lane_checks"]["serial"])), (176, 93, 83))
+        self.assertEqual(len(self.manifest["checks"]), 224)
+        for name, cap in zip(GENERATION_ADDITIONS[:3], (180, 240, 240)):
+            check = self.manifest["checks"][name]
+            stem = name.replace("-", "_")
+            marker = stem.upper()
+            self.assertEqual(check["argv"], ["python3", "tools/check_" + stem + ".py"])
+            self.assertEqual(check["timeout_seconds"], cap)
+            self.assertIs(check["serial"], True)
+            self.assertEqual(check["success_pattern"], "^" + marker + " checks=[1-9][0-9]* failures=0$")
+            self.assertIsNotNone(re.fullmatch(check["success_pattern"], marker + " checks=1 failures=0"))
+            for bad in (" checks=0 failures=0", " checks=1 failures=1", " checks=1 failures=0 partial"):
+                self.assertIsNone(re.fullmatch(check["success_pattern"], marker + bad))
+            runner = "tests/" + stem + "_runner.gd"
+            self.assertIn(marker + " checks=%", (ROOT / runner).read_text())
+            for path in (runner, "addons/mapgen/generation_job.gd", "config/mapgen_candidate.json",
+                         "resources/mapgen/module-pack-1.1.0.zip", "experiments/generation/runtime_map_generation_job.gd",
+                         "game/world/levels/providers/runtime_map_v2_provider.gd", "tools/run_tests.py",
+                         "tools/check_runtime_map_generated_identity.py"):
+                self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "before"}),
+                                    harness.input_digest(check, [path], {}, {path: "after"}))
+            self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03"] if name.endswith("slice") else [])
+        pure = self.manifest["checks"][GENERATION_ADDITIONS[-1]]
+        self.assertEqual(pure["timeout_seconds"], 60)
+        self.assertFalse(pure.get("serial", False))
+        self.assertEqual(pure["success_pattern"], "^MAPGEN CANDIDATE INSTALL: [1-9][0-9]* tests, 0 failures$")
+        self.assertIsNotNone(re.fullmatch(pure["success_pattern"], "MAPGEN CANDIDATE INSTALL: 14 tests, 0 failures"))
+        for bad in ("MAPGEN CANDIDATE INSTALL: 0 tests, 0 failures", "MAPGEN CANDIDATE INSTALL: 14 tests, 1 failures", ""):
+            self.assertIsNone(re.fullmatch(pure["success_pattern"], bad))
+        for path in ("tools/install_mapgen_candidate.py", "tools/verify_mapgen_reference.py", "tests/test_install_mapgen_candidate.py",
+                     "config/mapgen_candidate.json", "addons/mapgen/protocol.gd", "resources/mapgen/conformance_request.json"):
+            self.assertNotEqual(harness.input_digest(pure, [path], {}, {path: "before"}),
+                                harness.input_digest(pure, [path], {}, {path: "after"}))
+        for name in GENERATION_ADDITIONS:
+            self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names}, {"gameplay", "full"})
+            for path in self.manifest["checks"][name]["inputs"]:
+                self.assertTrue((ROOT / path).exists(), path)
+        for path in ("addons/mapgen/protocol.gd", "config/mapgen_candidate.json", "resources/mapgen/conformance_request.json",
+                     "tests/runtime_map_unknown_runner.gd"):
+            self.assertEqual(self.plan([path], "integration")["selection"], "full")
+
+    def test_generated_map_native_adapters_keep_original_engine_and_strict_markers(self):
+        import check_runtime_map_generated_identity as shared
+        import check_runtime_map_generation_job as job
+        import check_runtime_map_generated_slice as slice_check
+        import run_tests
+        self.assertIs(shared.run_engine, run_tests.run_engine)
+        self.assertIs(job.run_native, shared.run_native)
+        self.assertIs(slice_check.run_native, shared.run_native)
+        for module, stem, cap in ((shared, "runtime_map_generated_identity", 180),
+                                  (job, "runtime_map_generation_job", 240),
+                                  (slice_check, "runtime_map_generated_slice", 240)):
+            good = stem.upper() + " checks=1 failures=0\n"
+            with patch.object(shared, "run_engine", side_effect=["imported", good]) as engine:
+                module.main()
+                self.assertEqual(engine.call_args_list[0].args, (["--headless", "--audio-driver", "Dummy", "--path", ".", "--editor", "--quit"], 90))
+                self.assertEqual(engine.call_args_list[1].args, (["--headless", "--audio-driver", "Dummy", "--fixed-fps", "60", "--path", ".", "--script", "tests/" + stem + "_runner.gd"], cap))
+            for output in ("", good.replace("checks=1", "checks=0"), good.replace("failures=0", "failures=1"),
+                           good + "ERROR: Resumed function test class instance is gone\n"):
+                with patch.object(shared, "run_engine", side_effect=["imported", output]), self.assertRaises(RuntimeError):
+                    module.main()
+            for results in ((RuntimeError("original engine refusal"),), ("imported", RuntimeError("original engine refusal"))):
+                with patch.object(shared, "run_engine", side_effect=results), self.assertRaisesRegex(RuntimeError, "original engine refusal"):
+                    module.main()
+
+    def test_installed_mapgen_adapter_runs_both_real_commands_and_fails_closed(self):
+        import check_mapgen_candidate_installation as adapter
+        import subprocess
+        output = io.StringIO()
+        with patch.object(adapter.subprocess, "run") as run, contextlib.redirect_stdout(output):
+            adapter.main()
+        self.assertEqual([c.args[0] for c in run.call_args_list], [
+            [sys.executable, "-B", "tools/install_mapgen_candidate.py", "verify-installed"],
+            [sys.executable, "-B", "tests/test_install_mapgen_candidate.py"]])
+        for call in run.call_args_list:
+            self.assertEqual(call.kwargs, {"cwd": ROOT, "check": True, "timeout": 30})
+        # The wrapper must not synthesize success: Harness requires the real
+        # default unittest entry's own nonzero-count, zero-failure marker.
+        self.assertEqual(output.getvalue(), "")
+        for results, count in (([subprocess.CalledProcessError(7, "verify-installed")], 1),
+                               ([None, subprocess.CalledProcessError(9, "default-tests")], 2)):
+            output = io.StringIO()
+            with patch.object(adapter.subprocess, "run", side_effect=results) as run, contextlib.redirect_stdout(output), self.assertRaises(subprocess.CalledProcessError):
+                adapter.main()
+            self.assertEqual(run.call_count, count)
+            self.assertEqual(output.getvalue(), "")
 
     def test_real_refactor_runners_keep_direct_strict_native_contracts(self):
         rows = [

@@ -101,8 +101,9 @@ def no_links(root):
 
 
 def validate_scene(scene):
-    exact_slice = 'res://experiments/generation/entries/runtime_map_v2_slice.tscn'
-    if (not isinstance(scene, str) or not (scene.startswith('res://scenes/') or scene == exact_slice)
+    exact_slices = ('res://experiments/generation/entries/runtime_map_v2_slice.tscn',
+                    'res://experiments/generation/runtime_map_generated_slice.tscn')
+    if (not isinstance(scene, str) or not (scene.startswith('res://scenes/') or scene in exact_slices)
             or not scene.endswith('.tscn') or '..' in scene or '\\' in scene
             or any(ord(c) < 32 for c in scene)):
         raise ValueError('Scene must be a safe res://scenes/*.tscn path without traversal or backslashes')

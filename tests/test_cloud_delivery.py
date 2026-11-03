@@ -447,5 +447,84 @@ class DeliveryTests(unittest.TestCase):
         self.assertFalse((self.host / 'site/deliveries').exists())
 
 
+class MapgenGeneratedEntryTests(unittest.TestCase):
+    """Pure Python admission/actual-PCK fixtures, without the media subprocesses."""
+    scene = 'res://experiments/generation/runtime_map_generated_slice.tscn'
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.bundle = self.root / 'build/web'
+        self.bundle.mkdir(parents=True)
+        self.head = 'a' * 40
+
+    def bundle_fixture(self, include_scene=True):
+        entries = [(self.scene.removeprefix('res://'), b'[gd_scene format=3]')] if include_scene else []
+        pack = minimal_pack(delivery.BOOTSTRAP, b'[gd_scene format=3]', entries)
+        checksum = hashlib.sha256(pack).hexdigest()
+        name = 'index.' + checksum[:12] + '.pck'
+        (self.bundle / name).write_bytes(pack)
+        (self.bundle / 'chunks').mkdir(exist_ok=True)
+        compressed = gzip.compress(pack, mtime=0)
+        (self.bundle / 'chunks' / (checksum + '.gz')).write_bytes(compressed)
+        resources = {name: {'sha256': checksum, 'bytes': len(pack), 'chunks': [
+            {'sha256': checksum, 'bytes': len(pack), 'gzip_bytes': len(compressed),
+             'url': 'chunks/' + checksum + '.gz'}]}}
+        (self.bundle / 'index.cache-sw.js').write_text('const RESOURCE_MAP = ' + json.dumps(resources) + ';\n')
+        (self.bundle / 'index.html').write_text('<body><script>engine.startGame({});</script></body>')
+        (self.bundle / 'build-info.json').write_text(json.dumps({
+            'source_commit': self.head, 'build_id': checksum[:12], 'pack': name, 'pack_bytes': len(pack)}))
+        artifacts = [{'path': p.relative_to(self.root).as_posix(), 'bytes': p.stat().st_size,
+                      'sha256': delivery.sha(p)} for p in self.bundle.rglob('*')
+                     if p.is_file() and p.name != 'build_report.json']
+        (self.bundle / 'build_report.json').write_text(json.dumps({
+            'platform': 'web', 'export_exit_code': 0, 'artifacts': artifacts}))
+
+    def validate(self):
+        # Only the Git environment is replaced. Bundle/chunk/MD5/resource and
+        # original report reads all use the real production implementations.
+        with patch.object(delivery, 'clean_runtime') as clean, patch.object(delivery, 'git', return_value=self.head) as git:
+            result = delivery.validate_bundle(self.bundle, self.root, self.scene)
+            clean.assert_called_once_with(self.root)
+            git.assert_called_once_with(self.root, 'rev-parse', 'HEAD')
+            return result
+
+    def test_only_exact_new_and_existing_slice_admission_is_added(self):
+        for scene in (self.scene, 'res://experiments/generation/entries/runtime_map_v2_slice.tscn',
+                      'res://scenes/dev/existing.tscn'):
+            with self.subTest(scene=scene):
+                self.assertEqual(delivery.validate_scene(scene), scene.removeprefix('res://'))
+        for scene in (self.scene.replace('slice.tscn', 'other.tscn'),
+                      self.scene.replace('/generation/', '/generation/entries/'),
+                      self.scene.replace('/generation/', '/generation/../generation/'),
+                      self.scene.replace('/generation/', '/generation//'),
+                      self.scene.replace('.tscn', '.gd'),
+                      'res://' + delivery.BOOTSTRAP, 'res://experiments/other.tscn', None):
+            with self.subTest(scene=scene), self.assertRaises(ValueError):
+                delivery.validate_scene(scene)
+
+    def test_new_scene_requires_actual_pack_member_and_original_report(self):
+        self.bundle_fixture()
+        info, _ = self.validate()
+        self.assertEqual(info['source_commit'], self.head)
+        (self.bundle / 'index.html').write_text('changed after original export')
+        with self.assertRaisesRegex(ValueError, 'Original export artifact bytes changed'):
+            self.validate()
+
+    def test_new_scene_path_permission_does_not_substitute_for_pack_presence(self):
+        self.bundle_fixture(include_scene=False)
+        with self.assertRaisesRegex(ValueError, 'PCK missing runtime resource'):
+            self.validate()
+
+    def test_generated_entry_uses_original_flag_injection_path(self):
+        page = delivery.inject_entry('<body><script>engine.startGame({});</script></body>',
+                                     'MAPGEN', '930001', 'scene', self.scene)
+        flags = json.loads(page.split('/* cloud-preview-entry */ args: ', 1)[1].split('],', 1)[0] + ']')
+        self.assertEqual(flags, ['--', '--cloud-preview', '--task=MAPGEN', '--seed=930001',
+                                 '--entry=scene', '--scene=' + self.scene])
+        self.assertNotIn('init_script', page)
+
+
 if __name__ == '__main__':
     unittest.main()

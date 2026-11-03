@@ -31,8 +31,8 @@ func _ready() -> void:
 	session.receipt_prefix = "mapgen-host-v2-slice"
 	session.create_run_services(&"plains",false)
 	session.create_item_services(false)
-	# Existing flow owns epochs and its original run-route choices. No map
-	# generator is called; the Provider/Runtime consume frozen values only.
+	# Existing flow owns epochs and its original run-route choices. Source
+	# selection starts only after the same player and services are assembled.
 	if not session.flow.start("930001",RunProfile.development()).accepted():
 		error = "Run lifecycle start failed"
 		return
@@ -42,10 +42,24 @@ func _ready() -> void:
 	request.region_id = &"plains"
 	request.tuning = session.player.tuning
 	request.capabilities = {"grapple":session.controller.traversal.hook_enabled,"weapon_id":str(session.controller.shoot_ability.weapon.id),"collision_half_extents":[12,18]}
-	var built := RuntimeMapFrozenSource.load_level(request,spawn_binding)
+	_start_source()
+
+func _start_source() -> void:
+	_install_plan(_load_source())
+
+func _load_source() -> LevelBuildResult:
+	return RuntimeMapFrozenSource.load_level(request,spawn_binding)
+
+func _close_source() -> void:
+	pass
+
+func _approve_install() -> bool:
+	return true
+
+func _install_plan(built: LevelBuildResult) -> bool:
 	if not built.accepted():
 		error = built.error
-		return
+		return false
 	session.select_map_state(1)
 	stage = RuntimeMapSliceStage.new()
 	stage.name = "RuntimeMapSliceStage"
@@ -54,7 +68,7 @@ func _ready() -> void:
 	add_child(stage)
 	if not stage.assembly_ok:
 		error = stage.error
-		return
+		return false
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = session.lifetime
 	add_child(policy)
@@ -84,9 +98,12 @@ func _ready() -> void:
 	var record := {"schema":"mapgen/runtime-map/v2","map_hash":built.plan.map_hash,"identity":built.plan.get_meta("runtime_map_v2_identity").duplicate(true),"seed":built.plan.seed,"instances":RuntimeMapFrozenSource.IDS.duplicate(),"spawn_binding":spawn_binding,"scope":"loading_slice"}
 	if not session.flow.manifest.record_output(1,&"mapgen_v2_loading_slice",record):
 		error = "Existing run record refused slice identity"
-		return
+		return false
+	if not _approve_install():
+		return false
 	ready_ok = true
 	_observe("loaded")
+	return true
 
 func _physics_process(_delta: float) -> void:
 	if ready_ok and not closed:
@@ -97,11 +114,14 @@ func _physics_process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not closed and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
-		if not get_signal_connection_list("preview_exit_requested").is_empty():
-			preview_exit_requested.emit()
-		else:
-			await close_slice()
-			get_tree().quit()
+		request_exit()
+
+func request_exit() -> void:
+	if not get_signal_connection_list("preview_exit_requested").is_empty():
+		preview_exit_requested.emit()
+	else:
+		await close_slice()
+		get_tree().quit()
 
 func _observe(event: String) -> void:
 	if not diagnostics_enabled or not ready_ok or not is_instance_valid(stage): return
@@ -119,7 +139,7 @@ func accepts_result(token: DemoToken) -> bool:
 func reload_slice() -> bool:
 	if not ready_ok or closed: return false
 	var saved := stage.capture_state()
-	var built := RuntimeMapFrozenSource.load_level(request,spawn_binding)
+	var built := _load_source()
 	if not built.accepted():
 		error = built.error
 		return false
@@ -156,6 +176,7 @@ func close_slice() -> bool:
 		while not close_finished: await get_tree().process_frame
 		return close_result
 	closed = true
+	_close_source()
 	ready_ok = false
 	if is_instance_valid(stage): stage.capture_state()
 	if is_instance_valid(session.controller):
@@ -175,4 +196,5 @@ func close_slice() -> bool:
 
 func _exit_tree() -> void:
 	# Also invalidate a request if the scene is removed without the exit button.
+	_close_source()
 	session.lifetime.end()

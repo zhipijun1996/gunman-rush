@@ -12,9 +12,23 @@ const CONTENT_FIELDS: Array[String] = ["platforms","one_way_platform_indices","w
 const ELLIPSE_FIELDS: Array[String] = ["platform_id","trajectory_kind","start","finish","size","travel_duration","dwell_duration","initial_phase","ellipse_center","ellipse_radii","ellipse_period","ellipse_x_sign"]
 
 static func load_level(request: LevelRequest, map: Dictionary, content_store: Dictionary, selected_ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String = "seam") -> LevelBuildResult:
+	return _build_level(request,map,content_store,selected_ids,spawn,source_sha256,bindings,source_record,binding_id)
+
+static func load_generated_level(request: LevelRequest, result: Dictionary, selected_ids: Array[String], spawn: Vector2, bindings: Dictionary, provenance: Dictionary, binding_id: String = "seam") -> LevelBuildResult:
+	var error := _generated_source_error(result,provenance)
+	if not error.is_empty(): return _reject(error)
+	# Upstream dot-assigned StringName keys are equivalent text, but the shared
+	# frozen converter intentionally accepts String keys only. Copy keys here;
+	# keep exact scalar values and the original result for receipt identity.
+	var map: Dictionary = _copy_memory_keys(result.map)
+	var content_store: Dictionary = _copy_memory_keys(result.content_store)
+	return _build_level(request,map,content_store,selected_ids,spawn,"",bindings,provenance,binding_id,result)
+
+static func _build_level(request: LevelRequest, map: Dictionary, content_store: Dictionary, selected_ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String, generated_result: Dictionary = {}) -> LevelBuildResult:
 	if request == null or request.tuning == null or request.region_id.is_empty(): return _reject("request: missing tuning or region_id")
 	if not spawn.is_finite(): return _reject("spawn: nonfinite player body center")
-	if not _hash(source_sha256): return _reject("source_sha256: expected frozen SHA256")
+	var generated := not generated_result.is_empty()
+	if not generated and not _hash(source_sha256): return _reject("source_sha256: expected frozen SHA256")
 	if map.get("schema") != SCHEMA: return _reject("map.schema: unsupported protocol")
 	# Host seeds must be exact JSON integers (IEEE-754 safe range).
 	if not _number(map.get("seed")) or absf(float(map.seed)) > 9007199254740991.0 or float(map.seed) != floorf(float(map.seed)): return _reject("map.seed: expected exact integer within JSON safe range")
@@ -25,10 +39,11 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 	if not _identity(generator.get("implementation")) or not _identity(generator.get("algorithm")): return _reject("map.generator: invalid implementation/algorithm")
 	if not _hash(generator.get("request_fingerprint")): return _reject("map.generator.request_fingerprint: invalid upstream input fingerprint")
 	if not map.get("module_package") is Dictionary or not _hash(map.module_package.get("sha256")) or not _identity(map.module_package.get("version")): return _reject("map.module_package: invalid library identity")
-	if not source_record.get("files") is Dictionary or source_record.files.get("map.json") != source_sha256 or source_record.get("library_sha256") != map.module_package.sha256: return _reject("source_record: missing/mismatched verified map or library bytes")
-	if source_record.get("protocol") != SCHEMA or not _identity(source_record.get("mapgen_commit")): return _reject("source_record: missing protocol/implementation source")
-	for name: String in ["bindings.json","selection.json"]:
-		if not _hash(source_record.files.get(name)): return _reject("source_record.files: missing verified SHA256 for "+name)
+	if not generated:
+		if not source_record.get("files") is Dictionary or source_record.files.get("map.json") != source_sha256 or source_record.get("library_sha256") != map.module_package.sha256: return _reject("source_record: missing/mismatched verified map or library bytes")
+		if source_record.get("protocol") != SCHEMA or not _identity(source_record.get("mapgen_commit")): return _reject("source_record: missing protocol/implementation source")
+		for name: String in ["bindings.json","selection.json"]:
+			if not _hash(source_record.files.get(name)): return _reject("source_record.files: missing verified SHA256 for "+name)
 	if bindings.get("schema") != "gunman-rush/runtime-map-bindings/v1" or not _identity(bindings.get("version")): return _reject("bindings: missing schema/version")
 	if not bindings.get("spawns") is Dictionary or not _pair(bindings.spawns.get(binding_id)) or _point(bindings.spawns[binding_id]) != spawn: return _reject("bindings.spawns: active binding differs from actual spawn")
 	if not map.get("coordinates") is Dictionary: return _reject("map.coordinates: missing materialized frame")
@@ -68,7 +83,7 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 		var problem := _instance_error(instance)
 		if not problem.is_empty(): return _reject("instances."+id+"."+problem)
 		var ref: String = instance.content_ref
-		if not _hash(source_record.files.get(ref)): return _reject("source_record.files: missing verified SHA256 for "+ref)
+		if not generated and not _hash(source_record.files.get(ref)): return _reject("source_record.files: missing verified SHA256 for "+ref)
 		if not content_store.get(ref) is Dictionary: return _reject("instances."+id+".content_ref: missing Dictionary "+ref)
 		var content: Dictionary = content_store[ref]
 		problem = _content_error(content,instance)
@@ -100,7 +115,7 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 		plan.connections.append(edge)
 	var disconnected := _disconnected_instance(ids,plan.connections)
 	if not disconnected.is_empty(): return _reject("instances."+disconnected+".connections: selected internal edge graph is disconnected")
-	var identity := _load_identity(request,map,content_store,instances,ids,spawn,source_sha256,bindings,source_record,binding_id)
+	var identity := _generated_identity(request,generated_result,ids,spawn,bindings,source_record,binding_id) if generated else _load_identity(request,map,content_store,instances,ids,spawn,source_sha256,bindings,source_record,binding_id)
 	plan.map_hash = identity.host_load_identity
 	plan.set_meta("runtime_map_v2_identity",identity)
 	if not request.expected_hash.is_empty() and request.expected_hash != plan.map_hash: return _reject("request.expected_hash: selected frozen v2 map mismatch")
@@ -112,6 +127,76 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 	# instance/content metadata lives on each definition for source inspection.
 	result.resolved_capabilities = request.capabilities.duplicate(true)
 	return result
+
+static func _generated_source_error(result: Dictionary, source: Dictionary) -> String:
+	if not _data_only(result) or not _data_only(source): return "generated_memory: expected finite JSON data only"
+	var extra := _unexpected(source,["kind","expected_request_fingerprint","implementation","algorithm","algorithm_package","module_archive","request","config","bindings_file"])
+	if not extra.is_empty(): return "provenance."+extra+": unsupported memory provenance field"
+	if source.get("kind") != "generated_memory": return "provenance.kind: expected generated_memory"
+	if result.get("schema") != "mapgen/generation-result/v1" or result.get("status") != "PASS": return "result: expected completed PASS generation-result/v1"
+	if not result.get("map") is Dictionary or not result.get("content_store") is Dictionary: return "result.map/content_store: missing generated data"
+	var map: Dictionary = result.map
+	if not map.get("generator") is Dictionary or not map.get("module_package") is Dictionary or not map.get("inputs") is Dictionary: return "result.map: missing generator/module/inputs"
+	if not _hash(source.get("expected_request_fingerprint")) or result.get("request_fingerprint") != source.expected_request_fingerprint or map.generator.get("request_fingerprint") != source.expected_request_fingerprint: return "result.request_fingerprint: differs from captured addon fingerprint"
+	if source.get("implementation") != "mapgen/gdscript-candidate-0.3.0" or source.get("algorithm") != "stable-v2" or map.generator.get("implementation") != source.implementation or map.generator.get("algorithm") != source.algorithm: return "result.generator: unsupported/mismatched implementation or algorithm"
+	if not source.get("request") is Dictionary or not source.get("config") is Dictionary or not map.inputs.get("request") is Dictionary or not map.inputs.get("config") is Dictionary: return "provenance.request/config: missing captured algorithm inputs"
+	if _digest(map.inputs.request) != _digest(source.request) or _digest(map.inputs.config) != _digest(source.config): return "result.inputs: differs from captured algorithm inputs"
+	if not source.request.get("seed") is int or map.get("seed") != source.request.seed: return "result.seed: differs from actual integer algorithm request"
+	if not source.get("algorithm_package") is Dictionary or not source.get("module_archive") is Dictionary: return "provenance: missing algorithm package/module archive"
+	var package: Dictionary = source.algorithm_package
+	extra = _unexpected(package,["version","zip_sha256","release_head","source_commit"])
+	if not extra.is_empty(): return "provenance.algorithm_package."+extra+": unsupported field"
+	if package.get("version") != "0.3.0" or not _hash(package.get("zip_sha256")) or not _commit_hash(package.get("release_head")) or not _commit_hash(package.get("source_commit")): return "provenance.algorithm_package: invalid release identity"
+	var archive: Dictionary = source.module_archive
+	extra = _unexpected(archive,["path","sha256","version"])
+	if not extra.is_empty(): return "provenance.module_archive."+extra+": unsupported field"
+	if not _identity(archive.get("path")) or not _hash(archive.get("sha256")) or archive.get("version") != "1.1.0" or map.module_package.get("sha256") != archive.sha256 or map.module_package.get("version") != archive.version: return "provenance.module_archive: invalid/mismatched library identity"
+	if source.has("bindings_file"):
+		if not source.bindings_file is Dictionary: return "provenance.bindings_file: expected original file receipt"
+		extra = _unexpected(source.bindings_file,["path","sha256"])
+		if not extra.is_empty() or not _identity(source.bindings_file.get("path")) or not _hash(source.bindings_file.get("sha256")): return "provenance.bindings_file: invalid original file receipt"
+	return ""
+
+static func _generated_identity(request: LevelRequest, result: Dictionary, ids: Array[String], spawn: Vector2, bindings: Dictionary, source: Dictionary, binding_id: String) -> Dictionary:
+	# Host data digests are NOT upstream canonical fingerprints or file bytes.
+	# Receipt timing remains observable, but cannot change restore identity.
+	var payload := {"map":result.map,"content_store":result.content_store}
+	var map_content := {"schema":SCHEMA,"source_kind":"generated_memory","encoding":"godot-json-sorted-full-precision/v1","implementation":source.implementation,"algorithm":source.algorithm,"algorithm_package":source.algorithm_package.duplicate(true),"module_archive":{"sha256":source.module_archive.sha256,"version":source.module_archive.version},"generation_input_fingerprint":source.expected_request_fingerprint,"request_data_sha256":_digest(source.request),"config_data_sha256":_digest(source.config),"payload_data_sha256":_digest(payload),"map_data_sha256":_digest(result.map),"content_store_data_sha256":_digest(result.content_store),"content_scope":"complete_generated_store"}
+	var map_content_identity := _digest(map_content)
+	var host_load := {"schema":IDENTITY_SCHEMA,"adapter_version":"runtime-map-generated/1","source_kind":"generated_memory","map_content_identity":map_content_identity,"selected_instances":ids.duplicate(),"bindings_schema":bindings.schema,"bindings_version":bindings.version,"bindings_data_sha256":_digest(bindings),"active_binding":binding_id,"spawn":[spawn.x,spawn.y],"region_id":str(request.region_id),"map_index":request.map_index,"capabilities":request.capabilities.duplicate(true)}
+	return {"schema":IDENTITY_SCHEMA,"source_kind":"generated_memory","generation_input_fingerprint":result.map.generator.request_fingerprint,"map_content_identity":map_content_identity,"host_load_identity":_digest(host_load),"map_content":map_content,"host_load":host_load,"result_receipt_digest":_digest(result),"source_receipt":source.duplicate(true)}
+
+static func _commit_hash(value: Variant) -> bool:
+	return value is String and value.length() == 40 and value == value.to_lower() and value.is_valid_hex_number(false)
+
+static func _data_only(value: Variant) -> bool:
+	if value == null or value is bool or value is String or value is int: return true
+	if value is float: return is_finite(value)
+	if value is Array:
+		for item: Variant in value:
+			if not _data_only(item): return false
+		return true
+	if value is Dictionary:
+		var seen: Dictionary = {}
+		for key: Variant in value:
+			if not (key is String or key is StringName) or not _data_only(value[key]): return false
+			var text := str(key)
+			if seen.has(text): return false
+			seen[text] = true
+		return true
+	return false
+
+static func _copy_memory_keys(value: Variant) -> Variant:
+	# Called only after _data_only rejects objects/nonfinite/ambiguous text keys.
+	if value is Dictionary:
+		var copy: Dictionary = {}
+		for key: Variant in value: copy[str(key)] = _copy_memory_keys(value[key])
+		return copy
+	if value is Array:
+		var copy: Array = []
+		for item: Variant in value: copy.append(_copy_memory_keys(item))
+		return copy
+	return value
 
 static func _load_identity(request: LevelRequest, map: Dictionary, content_store: Dictionary, instances: Dictionary, ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String) -> Dictionary:
 	var content_rows: Array[Dictionary] = []

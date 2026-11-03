@@ -20,6 +20,7 @@ CATALOG_SHA256 = "307b3c02c08d6f9abd58ef10bfe0716709bc8260db49a2a2c21d36980330be
 REQUEST_SHA256 = "3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a"
 CONFIG_SHA256 = "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a"
 IMPLEMENTATION = "mapgen/gdscript-candidate-0.3.0"
+LOCK_SHA256 = "d8271d473686fd1e7b0bcfab280aa2940777eb1eaa02478b80909cb8eecae92f"
 ADDON_SHA256 = {
     "candidate_cursor.gd": "1a8ce925ab0d0e35232950618a83af334e9e780e6b61a49600277f6d38280fca",
     "content_transform.gd": "80ab9f4e58ceedb754c6062996e0e4a4f36a9542e7c54206639d7760ce92e2f2",
@@ -98,17 +99,26 @@ def read_payload(archive):
         return payload
 
 
-def apply(command, archive, target):
-    target = target.resolve()
-    payload = read_payload(archive.resolve())
-    # Preflight every destination before writing anything. Existing differences
-    # never get silently overwritten, even by a repeat installation.
-    for name,data in payload.items():
+def installed_hashes():
+    # Pin the complete approved config bytes as well as its actual dependencies;
+    # editing the config's own advertised hashes cannot approve altered code.
+    return {**{"addons/mapgen/" + name:sha for name,sha in ADDON_SHA256.items()},
+            "resources/mapgen/module-pack-1.1.0.zip":MODULE_SHA256,
+            "resources/mapgen/conformance_request.json":REQUEST_SHA256,
+            "resources/mapgen/generator_config.json":CONFIG_SHA256,
+            "config/mapgen_candidate.json":LOCK_SHA256}
+
+
+def preflight(target, hashes, require_all):
+    # Shared by archive install/verify and offline installed-byte verification.
+    # Inspect every destination before an install writes its first missing file.
+    for name,expected in hashes.items():
         path = target / name
         require(not path.is_symlink() and path.resolve().is_relative_to(target), "unsafe install destination:" + name)
         if path.exists():
-            require(path.is_file() and path.read_bytes() == data, "installed file differs; refusing overwrite:" + name)
-        elif command == "verify":
+            require(path.is_file() and digest(path.read_bytes()) == expected,
+                    "installed file differs; refusing overwrite:" + name)
+        elif require_all:
             raise ValueError("installed file missing:" + name)
     addon = target / "addons/mapgen"
     if addon.exists():
@@ -117,8 +127,23 @@ def apply(command, archive, target):
             if path.is_dir():
                 continue
             name = path.relative_to(target).as_posix()
-            generated_uid = name.endswith(".gd.uid") and name[:-4] in payload
-            require(not path.is_symlink() and (name in payload or generated_uid), "unexpected addon file:" + name)
+            generated_uid = name.endswith(".gd.uid") and name[:-4] in hashes
+            require(name in hashes or generated_uid, "unexpected addon file:" + name)
+
+
+def report(command, target, installed, unchanged, hashes, archive_checked):
+    return {"command":command,"target":str(target),"installed":installed,"unchanged":unchanged,
+            "files":hashes,"candidate_archive_sha256":ARCHIVE_SHA256,
+            "candidate_archive_checked":archive_checked,"release_head":RELEASE_HEAD,
+            "source_commit":SOURCE_COMMIT,"godot_run":False}
+
+
+def apply(command, archive, target):
+    target = target.resolve()
+    payload = read_payload(archive.resolve())
+    hashes = {name:digest(data) for name,data in payload.items()}
+    require(hashes == installed_hashes(), "approved installed payload pin mismatch")
+    preflight(target, hashes, command == "verify")
     installed, unchanged = [], []
     for name,data in payload.items():
         path = target / name
@@ -130,20 +155,31 @@ def apply(command, archive, target):
                 stream.write(data)
             installed.append(name)
         require(path.read_bytes() == data, "installed bytes mismatch:" + name)
-    return {"command":command,"target":str(target),"installed":installed,"unchanged":unchanged,
-            "files":{name:digest(data) for name,data in payload.items()},
-            "candidate_archive_sha256":ARCHIVE_SHA256,"release_head":RELEASE_HEAD,
-            "source_commit":SOURCE_COMMIT,"godot_run":False}
+    return report(command, target, installed, unchanged, hashes, True)
+
+
+def verify_installed(target):
+    target = target.resolve()
+    hashes = installed_hashes()
+    preflight(target, hashes, True)
+    # This verifies the installed files, not a nonexistent CI archive. The
+    # archive digest in the receipt remains an explicitly unchecked source pin.
+    return report("verify-installed", target, [], list(hashes), hashes, False)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command",choices=("install","verify"))
-    parser.add_argument("--archive",type=Path,required=True,help="explicit locked original upstream ZIP")
+    parser.add_argument("command",choices=("install","verify","verify-installed"))
+    parser.add_argument("--archive",type=Path,help="required only for install/verify of the original upstream ZIP")
     parser.add_argument("--target",type=Path,default=ROOT,help="project root (defaults to this tool's checkout)")
     args = parser.parse_args()
+    if args.command == "verify-installed" and args.archive is not None:
+        parser.error("verify-installed does not use --archive")
+    if args.command != "verify-installed" and args.archive is None:
+        parser.error("install/verify require --archive")
     try:
-        print(json.dumps(apply(args.command,args.archive,args.target),ensure_ascii=False,indent=2))
+        result = verify_installed(args.target) if args.command == "verify-installed" else apply(args.command,args.archive,args.target)
+        print(json.dumps(result,ensure_ascii=False,indent=2))
         return 0
     except (OSError,ValueError,KeyError) as exc:
         print(str(exc),file=sys.stderr)

@@ -24,6 +24,19 @@ static func read_inputs() -> Dictionary:
 	for id: String in IDS: contents["content/"+id+".json"] = values["content/"+id+".json"]
 	return {"ok":true,"map":values["map.json"],"content":contents,"bindings":values["bindings.json"],"lock":lock}
 
+static func read_bindings() -> Dictionary:
+	# Shared host data only. Runtime generation never opens map/content fixtures.
+	var lock: Variant = JSON.parse_string(FileAccess.get_file_as_string(ROOT+"input-lock.json"))
+	if not lock is Dictionary or lock.get("schema") != "gunman-rush/mapgen-frozen-input/v1" or not lock.get("files") is Dictionary:
+		return {"ok":false,"error":"Invalid host binding lock"}
+	var path := ROOT+"bindings.json"
+	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path) != lock.files.get("bindings.json",""):
+		return {"ok":false,"error":"Host binding SHA mismatch"}
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not data is Dictionary:
+		return {"ok":false,"error":"Invalid host bindings"}
+	return {"ok":true,"bindings":data}
+
 static func load_level(request: LevelRequest, binding: String = "seam") -> LevelBuildResult:
 	var source := read_inputs()
 	if not source.ok:
