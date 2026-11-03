@@ -5,3 +5,5 @@
 修复单独提交231049be，只在同步初始定位调用期间临时激活controller，核原方法bool后恢复原active；期间不yield、没有Motor step，不改PlayerController/Motor或资源规则。生成仍待当前ticket提交才启用持续输入。补真实segment_returned唯一事件与身体位置==Plan.spawn断言，后续浏览器也须核loaded点[-448,846]。最终新源验证待收口，不以旧截图代签。
 
 恢复边界独立提交8033aa15：generated adapter从/1升/2，旧错误装载实现的run-local记录拒绝恢复；上游fingerprint、map content身份与Frozen身份不变，不改永久schema。原身份runner新增4个独立oldv1构造/恢复检查，实际48/0；修正三模块入口实际56/0。最终同源集中回归和浏览器位置重验仍待收口。
+
+最终同源7f65已验证：原Harness三模块56/0、身份48/0、M35运行67/0；实际Web首次loaded真实身体分别[-448,846]与[1626,1742]，原生/包/14图已独审。源码修复技术范围通过，完整游戏/手机等不代签；0.4另行版本升级，不沿用0.3实例绑定。见[最终技术记录](results.md)和[实际Web](../../evidence/mapgen_godot_03/final-web/README.md)。

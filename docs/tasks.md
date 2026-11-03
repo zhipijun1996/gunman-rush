@@ -2,8 +2,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-GODOT-03 | 0.3原生生成来源/生命周期/Web链路及独立M35 | MAPGEN-HOST-V2-02 | in_progress | [范围](worklines/mapgen_godot_03/scope.md)；独立frome7d，不合并不发布 |
-| MAPGEN-INITIAL-SPAWN-01 | 生成暂停期初始定位拒绝的独立修复 | MAPGEN-GODOT-03 | in_progress | [质量记录](quality/records/MAPGEN-INITIAL-SPAWN-01.json)；231049be，旧5b0原始零点证据保留，新源验证待收口 |
+| MAPGEN-GODOT-03 | 0.3原生生成来源/生命周期/Web链路及独立M35 | MAPGEN-HOST-V2-02 | review | [范围](worklines/mapgen_godot_03/scope.md)；独立frome7d，不合并不发布 |
+| MAPGEN-INITIAL-SPAWN-01 | 生成暂停期初始定位拒绝的独立修复 | MAPGEN-GODOT-03 | review | [质量记录](quality/records/MAPGEN-INITIAL-SPAWN-01.json)；231049be，旧5b0原始零点证据保留，新源验证待收口 |
 | MAPGEN-HOST-V2-02 | PR127权限/参考包/身份与实际Web接入修订 | MAPGEN-HOST-V2-01 | review | [结果](worklines/mapgen_host_v2_02/results.md) · [参考包](worklines/mapgen_host_v2_02/reference_package.md) · [证据](evidence/mapgen_host_v2_02/README.md)；不合并不发布，保三模块scope |
 | MAPGEN-HOST-V2-01 | runtime-map/v2真实模块受控装载与宿主反馈 | MAIN-REFACTOR-MERGE-01 | review | [结果](worklines/mapgen_host_v2_01/results.md) · [宿主映射](worklines/mapgen_host_v2_01/integration.md) · [上游/R2](worklines/mapgen_host_v2_01/upstream_requirements.md) · [质量](quality/records/MAPGEN-HOST-V2-01.json)；仅技术切片，不替换正式地图，不发布 |
 

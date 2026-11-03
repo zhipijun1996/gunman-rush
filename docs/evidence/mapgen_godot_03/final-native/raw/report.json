@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "started_at": "20261103T055542.261927Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "runtime-map-generated-identity",
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generated_identity.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "60ee0911181d105755954fb516fe7730ec9c00d26ba02c51ad041304055b7d47",
+      "log": "runtime-map-generated-identity.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685354.2465873,
+      "ended_at_unix": 1793685378.359591,
+      "duration_seconds": 24.113,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_runtime_map_generated_identity.py"
+      ],
+      "check_token": "310e0fac13b5401ab4a310b9fcec53c9",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-generated-identity",
+      "reused": false
+    },
+    {
+      "id": "runtime-map-generation-job",
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generation_job.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "de1a4f7c9a25edbf164d3fb8b8df788217ac099e36224ef496066f277643fbbf",
+      "log": "runtime-map-generation-job.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685379.5498035,
+      "ended_at_unix": 1793685416.3577297,
+      "duration_seconds": 36.808,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_runtime_map_generation_job.py"
+      ],
+      "check_token": "b2d55084cce24f7a8d12201510c8f534",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-generation-job",
+      "reused": false
+    },
+    {
+      "id": "runtime-map-generated-slice",
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generated_slice.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "3e0630b214219986e38155611bee8694fe83b02b66ea66503f5460c63f22f9ca",
+      "log": "runtime-map-generated-slice.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685417.3643348,
+      "ended_at_unix": 1793685446.637898,
+      "duration_seconds": 29.274,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_runtime_map_generated_slice.py"
+      ],
+      "check_token": "0d739b3a905d4e0bb3efb481aae6d4b6",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-generated-slice",
+      "reused": false
+    },
+    {
+      "id": "runtime-map-v2-host",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "24aaca37f8db2ccd8d10774d5247a0a00229dbb8ed70f7b71018b0d1195de2b4",
+      "log": "runtime-map-v2-host.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685447.6312582,
+      "ended_at_unix": 1793685452.7751462,
+      "duration_seconds": 5.144,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "check_token": "fa83d568551148a284c38cd2d84ad49f",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-v2-host",
+      "reused": false
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "653a11b4d145dc2f49614e9b35511285dfbfe99f4789bb337a553ba23a374c4c",
+      "log": "cloud-preview-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685453.57257,
+      "ended_at_unix": 1793685460.5213144,
+      "duration_seconds": 6.949,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/63675eca7ed6468180d8b73db3f92f17"
+      ],
+      "check_token": "63675eca7ed6468180d8b73db3f92f17",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/cloud-preview-runtime",
+      "reused": false
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9d4d6a64307142966d8c1dbdac4e78c60cd00dc27b3c5e2327aff9a70dda37ba",
+      "log": "web-resource-contract-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685344.0709035,
+      "ended_at_unix": 1793685345.2989314,
+      "duration_seconds": 1.228,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_web_bundle.py"
+      ],
+      "check_token": "d0e3a7a916c644d9997220f96550f9d3",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/web-resource-contract-tests",
+      "reused": false
+    },
+    {
+      "id": "mapgen-candidate-installation",
+      "argv": [
+        "python3",
+        "tools/check_mapgen_candidate_installation.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1b4bed49cf47995338bc74ae63bc943fbbf02e35626b12484baddad4561542e0",
+      "log": "mapgen-candidate-installation.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685346.1255481,
+      "ended_at_unix": 1793685347.406662,
+      "duration_seconds": 1.281,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_mapgen_candidate_installation.py"
+      ],
+      "check_token": "c0d6602100574486bdb381bd9544f194",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/mapgen-candidate-installation",
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d31f39373b0a78ccc1fd32563f57ae82ef0d435c88066626008ef63b6aab2493",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685348.3057554,
+      "ended_at_unix": 1793685348.6797607,
+      "duration_seconds": 0.374,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "f22aa89273734924858b884471dc5a8f",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/cloud-production-planner-tests",
+      "reused": false
+    },
+    {
+      "id": "runtime-map-m35-provider",
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_m35_provider.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "eaba496e5ef1b30cd716a52e8cbc745e348f4701c2070948f9ef5f579b9edfd5",
+      "log": "runtime-map-m35-provider.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685461.4390273,
+      "ended_at_unix": 1793685488.4541779,
+      "duration_seconds": 27.015,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_runtime_map_m35_provider.py"
+      ],
+      "check_token": "4e86720ec49c48d18b216bf34e4c08c9",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-m35-provider",
+      "reused": false
+    },
+    {
+      "id": "runtime-map-m35-runtime",
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_m35_runtime.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "17beb53bb19e9f5ab1cfadf1fe200a053649a63fe69031884df1f74ccb406fc7",
+      "log": "runtime-map-m35-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685489.397113,
+      "ended_at_unix": 1793685542.096345,
+      "duration_seconds": 52.699,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_runtime_map_m35_runtime.py"
+      ],
+      "check_token": "ab27e9f88c964496b8324e6220f1235e",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-m35-runtime",
+      "reused": false
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "52b2187cb076a98a8b5f3af132ea2fb5cef66625edfe5e9b1492b3ca61810d64",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685349.4639318,
+      "ended_at_unix": 1793685352.3088415,
+      "duration_seconds": 2.845,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "e5c3ec917fd34b11ae3a97d2bfebf218",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/cloud-delivery-tests",
+      "reused": false
+    },
+    {
+      "id": "architecture-tests",
+      "argv": [
+        "python3",
+        "tests/test_project_dependencies.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d7e5d130519e3fce76926024e81e84cf6339e8387dc45e6a08ba1510b263b6b1",
+      "log": "architecture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793685353.115051,
+      "ended_at_unix": 1793685353.2426589,
+      "duration_seconds": 0.128,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_project_dependencies.py"
+      ],
+      "check_token": "fd5f1ce79d7648f3bfa045cdce1f0ac2",
+      "artifact_directory": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/architecture-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "a314ace433b05559254f71dc7454332e46aee57d8dfc1e84274e2dcc44c3211c",
+  "working_files": {},
+  "commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 201.203,
+  "jobs": 1,
+  "release": true
+}

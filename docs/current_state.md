@@ -1,3 +1,13 @@
+## MAPGEN-GODOT-03：0.3技术基线固定，下一步明确升级0.4
+
+运行源7f65ab03949bf7a9665033ae58a74847f72e5fbc，后续本分支仅文档/质量元数据收口。PR127 e7d不动，原run41569062806全部172fresh成功。原15脚本0.3包按SHA锁，主游戏Godot4.7.2真实调用→同Provider/Plan/Stage/Runtime；原三模块和独立完整M35保留真实内容，不换普通出发地图，不合并不发布。
+
+12项release fresh实际48/883/56/199/45/71/14/54/76/67/42/13全过；新/2身份拒旧错误进场记录。最终Web同源PCK995280…218887548B，两轮各原300s内PASS，正确出生、真实输入/机关运动、退出及generate取消，14图实看。旧5b0零点缺陷与所有真实失败/console诊断保留。完整178远端CI以本分支最终PR head checks为准，不把本地12说成full。
+
+[完整记录](worklines/mapgen_godot_03/results.md) · [上游约束](worklines/mapgen_godot_03/upstream_contract.md) · [实际证据](evidence/mapgen_godot_03/final-web/README.md)。质量为review：只完成受控技术阶段，未签整图/手机/硬帧预算/完整M35路线或美术认可。
+
+用户最新要求0.4：精确候选map-gen PR5 head6bf07ab5a655ea056461b935ae4354e15ef83482，ZIP7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778，仍1.1.0/v2。保本0.3分支/输入锁/回归原件后，从收口head另建feature/mapgen-godot-runtime-04；复用同一架构，不套旧实例/出生/恢复身份。先4.7.2原包验证与真实生成，再按模块版本/角色/连接重选绑定；map-edit旧表绑定0.3，须由原producer新profile重新提取，不能刷新旧表SHA冒充0.4。0.4只读核包/覆盖审计在/tmp/mapgen-v4-audit、/tmp/mapgen-v4-coverage-audit.*，尚未安装进游戏。
+
 ## 2026-11-03 PR127 A–E：三模块宿主修订与实际Web
 
 继续feature/mapgen-host-v2-01，不恢复PR123。A原字节恢复旧architecture证据，不刷新旧卡；B只认INPUT/OUTPUT/INOUT、单向接缝合法但未支持；C核0.2.0 ZIP25f05861及4/4原map/content；D分离上游fingerprint/map_content/host_load，内容或bindings变更先拒绝旧恢复，永久schema不改；E沿原有限7JSON/准入/bootstrap完成实际PCK与浏览器，两次移动/平台/菜单及ESC退出。

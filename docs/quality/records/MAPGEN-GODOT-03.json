@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "MAPGEN-GODOT-03",
   "task_type": "mechanic",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "e7d703f47c97f09bd5c5d48e24f0a400c958ad40",
-  "reviewed_commit": "e7d703f47c97f09bd5c5d48e24f0a400c958ad40",
+  "reviewed_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
   "content_version": "godot-runtime-r1",
   "owner": "/root",
   "purpose": "主游戏锁定Godot内真实0.3算法→同Plan/Runtime受控切片→Web取消/退出，随后独立M35适配",
@@ -47,6 +47,9 @@
     "addons/mapgen/solver.gd",
     "addons/mapgen/solver.gd.uid",
     "config/mapgen_candidate.json",
+    "docs/current_state.md",
+    "docs/evidence/mapgen_godot_03/actual-sdk-result-930001.json",
+    "docs/evidence/mapgen_godot_03/actual-sdk-result-930001.provenance.json",
     "docs/evidence/mapgen_godot_03/candidate-basics.json",
     "docs/evidence/mapgen_godot_03/failures/foundry-stamp-before.log",
     "docs/evidence/mapgen_godot_03/failures/generated-identity-01.log",
@@ -66,6 +69,56 @@
     "docs/evidence/mapgen_godot_03/failures/m35-provider-01.log",
     "docs/evidence/mapgen_godot_03/failures/m35-runtime-01.json",
     "docs/evidence/mapgen_godot_03/failures/m35-runtime-01.log",
+    "docs/evidence/mapgen_godot_03/final-native/independent-proof.json",
+    "docs/evidence/mapgen_godot_03/final-native/independent-proof.md",
+    "docs/evidence/mapgen_godot_03/final-native/raw/architecture-tests.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/cloud-delivery-tests.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/cloud-preview-runtime.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/cloud-preview/native.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/cloud-preview/report.json",
+    "docs/evidence/mapgen_godot_03/final-native/raw/cloud-production-planner-tests.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/mapgen-candidate-installation.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/report.json",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-generated-identity.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-generated-slice.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-generated-slice/native.json",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-generation-job.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-m35-provider.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-m35-runtime.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-m35-runtime/native.json",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-v2-host.log",
+    "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-v2-host/native.json",
+    "docs/evidence/mapgen_godot_03/final-native/raw/web-resource-contract-tests.log",
+    "docs/evidence/mapgen_godot_03/final-web-export.json",
+    "docs/evidence/mapgen_godot_03/final-web/README.md",
+    "docs/evidence/mapgen_godot_03/final-web/archive-custody-proof.json",
+    "docs/evidence/mapgen_godot_03/final-web/default/actual-01-raw-evidence.tar.gz",
+    "docs/evidence/mapgen_godot_03/final-web/default/actual-01-report.json",
+    "docs/evidence/mapgen_godot_03/final-web/default/cancel-generate-01-after-cancel-key.png",
+    "docs/evidence/mapgen_godot_03/final-web/default/cancel-generate-returned-title.png",
+    "docs/evidence/mapgen_godot_03/final-web/default/driver.log",
+    "docs/evidence/mapgen_godot_03/final-web/default/generated-escape-01-committed.png",
+    "docs/evidence/mapgen_godot_03/final-web/default/generated-escape-02-after-d.png",
+    "docs/evidence/mapgen_godot_03/final-web/default/generated-escape-03-after-a.png",
+    "docs/evidence/mapgen_godot_03/final-web/default/generated-escape-returned-title.png",
+    "docs/evidence/mapgen_godot_03/final-web/default/run.py",
+    "docs/evidence/mapgen_godot_03/final-web/default/site-receipt.json",
+    "docs/evidence/mapgen_godot_03/final-web/default/summary.json",
+    "docs/evidence/mapgen_godot_03/final-web/m35/actual-01-raw-evidence.tar.gz",
+    "docs/evidence/mapgen_godot_03/final-web/m35/actual-01-report.json",
+    "docs/evidence/mapgen_godot_03/final-web/m35/driver.log",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-01-committed.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-before-escape.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-motion-10p0-clock-seconds.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-motion-2p5-clock-seconds.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-motion-5p0-clock-seconds.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-motion-7p5-clock-seconds.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-optional-second-ferry-edge-at-clock-38p633.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/m35-escape-returned-title.png",
+    "docs/evidence/mapgen_godot_03/final-web/m35/run.py",
+    "docs/evidence/mapgen_godot_03/final-web/m35/site-receipt.json",
+    "docs/evidence/mapgen_godot_03/final-web/m35/summary.json",
+    "docs/evidence/mapgen_godot_03/final-web/summary.json",
     "docs/evidence/mapgen_godot_03/foundry-refresh-proof.json",
     "docs/evidence/mapgen_godot_03/m35-foundry-refresh-proof.json",
     "docs/evidence/mapgen_godot_03/main-project-01.log",
@@ -87,16 +140,21 @@
     "docs/evidence/mapgen_godot_03/native-5b0/raw/runtime-map-v2-host/native.json",
     "docs/evidence/mapgen_godot_03/native-5b0/raw/web-resource-contract-tests.log",
     "docs/evidence/mapgen_godot_03/pr127-ci-final.json",
+    "docs/evidence/mapgen_godot_03/review/final-acceptance.json",
+    "docs/evidence/mapgen_godot_03/review/final-acceptance.md",
     "docs/evidence/mapgen_godot_03/review/initial-static.md",
     "docs/evidence/mapgen_godot_03/review/job-copy-disposal.md",
     "docs/evidence/mapgen_godot_03/review/m35-provider.md",
     "docs/evidence/mapgen_godot_03/review/m35-stage.md",
+    "docs/evidence/mapgen_godot_03/review/restore-identity.md",
     "docs/evidence/mapgen_godot_03/review/tools-tests.md",
     "docs/evidence/mapgen_godot_03/review/ui-text-keys.md",
+    "docs/evidence/mapgen_godot_03/runtime-equivalence.json",
     "docs/evidence/mapgen_godot_03/web-5b0/actual-01-raw-evidence.tar.gz",
     "docs/evidence/mapgen_godot_03/web-5b0/actual-01-report.json",
     "docs/evidence/mapgen_godot_03/web-5b0/actual-01-summary.json",
     "docs/evidence/mapgen_godot_03/web-5b0/actual-01-summary.md",
+    "docs/handoff.md",
     "docs/quality/records/MAPGEN-GODOT-03.json",
     "docs/quality/records/MAPGEN-INITIAL-SPAWN-01.json",
     "docs/tasks.md",
@@ -214,14 +272,19 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Scope/source/acceptance/rejection/version boundary explicit",
+      "evidence": [
+        "scope"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual real actor, same services, Plan/Runtime, spawn and lifecycle only",
+      "evidence": [
+        "trace",
+        "mechanism"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -246,14 +309,18 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Explicit controlled loading scope, source locks, retained behavior, failures and next version boundary documented",
+      "evidence": [
+        "scope"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual12 fresh original checks and final native/Web correct spawn and lifecycle, limited technical scope",
+      "evidence": [
+        "native"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -286,9 +353,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Non-author source/native/PCK/14actualPNG/archive review; limited technical scope",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -301,14 +370,130 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "scope-01",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Controlled source and no fullmap claim",
+      "scenario": "Original package and explicit loading scope",
+      "method": "Locked inputs and actual consumers",
+      "expected": "Preserve original geometry/rules; refuse unsupported/stale",
+      "failure": "Hidden fallback/fake file provenance/unversioned adoption",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "runtime-01",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual fresh source verified",
+      "scenario": "Generate930001 and load selected contents, correct actual initial body",
+      "method": "Original native wrappers and real Web GUI/input/cancel/exit",
+      "expected": "Same actor/services and current-only commit",
+      "failure": "wrong spawn/extra authority/late commit/omitted hazard/leaks",
+      "evidence": [
+        "native",
+        "trace",
+        "mechanism",
+        "web"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mapgen_godot_03/results.md",
+      "sha256": "b3a6dd9ff44e25cf8a3602c9944421b52ad0388c40113fee591fe9370dc24417",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+      "content_version": "godot-runtime-r1",
+      "method": "Actual same-code native/Web custody or independent read-only source/evidence review",
+      "observed": "Controlled technical loading/spawn/identity/cancellation/mechanism scope only; no full-map/device/performance acceptance"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/mapgen_godot_03/final-native/raw/report.json",
+      "sha256": "2bdbf441d6ad86f232978a2cac6e5f5f24916daae06f278ec1cf74a97ee2599e",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+      "content_version": "godot-runtime-r1",
+      "method": "Actual same-code native/Web custody or independent read-only source/evidence review",
+      "observed": "Controlled technical loading/spawn/identity/cancellation/mechanism scope only; no full-map/device/performance acceptance",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/harness.py --check runtime-map-generated-identity --check runtime-map-generation-job --check runtime-map-generated-slice --check runtime-map-v2-host --check cloud-preview-runtime --check web-resource-contract-tests --check mapgen-candidate-installation --check cloud-production-planner-tests --check runtime-map-m35-provider --check runtime-map-m35-runtime --check cloud-delivery-tests --check architecture-tests --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Linux; main locked Godot4.7.2 gunman_sd1; original budgets; clean7f65"
+    },
+    {
+      "id": "trace",
+      "path": "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-generated-slice/native.json",
+      "sha256": "1c3a4bd0498928e0ae8c16cd95d628f1f4d99d940bfb8750e306f6dba0d464f0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+      "content_version": "godot-runtime-r1",
+      "method": "Actual same-code native/Web custody or independent read-only source/evidence review",
+      "observed": "Controlled technical loading/spawn/identity/cancellation/mechanism scope only; no full-map/device/performance acceptance"
+    },
+    {
+      "id": "mechanism",
+      "path": "docs/evidence/mapgen_godot_03/final-native/raw/runtime-map-m35-runtime/native.json",
+      "sha256": "c799d6309a033eb987c573aa471d69b668e5dada8dfd12dede41d7f351be88d9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+      "content_version": "godot-runtime-r1",
+      "method": "Actual same-code native/Web custody or independent read-only source/evidence review",
+      "observed": "Controlled technical loading/spawn/identity/cancellation/mechanism scope only; no full-map/device/performance acceptance"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/mapgen_godot_03/final-web/summary.json",
+      "sha256": "55779d8ffcfd7ea77bb1d030e9f1ac8e587f2c674180dbec550131fe3a871698",
+      "kind": "gui",
+      "producer": "/root/browser_verify",
+      "source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+      "content_version": "godot-runtime-r1",
+      "method": "Actual same-code native/Web custody or independent read-only source/evidence review",
+      "observed": "Controlled technical loading/spawn/identity/cancellation/mechanism scope only; no full-map/device/performance acceptance"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/mapgen_godot_03/review/final-acceptance.md",
+      "sha256": "64ad1947a0a45c8353a4ad07c69c74e886c243866301609e9c8e6da5ae3600c0",
+      "kind": "review",
+      "producer": "/root/death_event_audit",
+      "source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+      "content_version": "godot-runtime-r1",
+      "method": "Actual same-code native/Web custody or independent read-only source/evidence review",
+      "observed": "Controlled technical loading/spawn/identity/cancellation/mechanism scope only; no full-map/device/performance acceptance",
+      "reviewer": "/root/death_event_audit",
+      "implementers": [
+        "/root",
+        "/root/items_refactor",
+        "/root/binding_closeout",
+        "/root/asset_audit",
+        "/root/browser_verify",
+        "/root/ci_audit",
+        "/root/death_render_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Non-author of production, SDK install, driver and verification tools; reviewed actual source,14originalPNGs, archives, PCK and12logs",
+      "verdict": "ACCEPT"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "M35最终原生/完整CI与修正出生点后的实际Web待执行",
-    "旧5b0 Web与8检查未覆盖真实出生点；缺陷与原记录并存",
-    "完整地图/M24封死奖励/未支持敌人奖励Boss/任意seed与controller地图binding未解决",
-    "硬16ms预算/手机实机/完整路线及用户认可未验"
+    "Full-map playability/enemies/rewards/Boss/neighbor routes and unresolved0.3 M24 case",
+    "Hard frame budget/phone/player/art/completeM35 route and pause/reload/ride phases",
+    "0.4 is a separate next upgrade; no old IDs/bindings/coverage transfer",
+    "Full178 remote CI pending exact delivery head;12 local fresh checks are not full CI"
   ],
-  "test_change_justification": "保留原full172有序前缀和所有旧命令/预算，追加6真实检查至178；planner历史计数以显式原前缀投影保全部旧方法正文，当前6检查另有实际守门。原Web/delivery断言保留只追加新资源/准入反例；2不可缓存Web检查显式完整运行资源闭包。真实失败与缺失出生断言单列，初始定位独立231049be修复，新增真实定位事件检查。最终独立审查和实际新源验证尚待收口，不以旧PASS代签。"
+  "test_change_justification": "Original full172/176 ordered prefixes and all original command/budgets preserved; six real checks appended. Historical planner method bodies retained under explicit added-tail projections, current registration checked separately;Web tests only append finite dependency/admission negatives. Initial spawn bug and wrong test assumptions explicitly preserved and corrected, no HP/geometry/rules changes. Non-author review in review evidence verifies the sensitive changes.",
+  "production_snapshot": "b68952a2bbb8222d7ea82de7564ac7c8ee536657bc2c0983412f2d50a83717b9"
 }
