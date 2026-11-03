@@ -1,7 +1,5 @@
 # 当前运行架构
 
-2026-11-02：新增[map-gen v2第一轮宿主接入](worklines/mapgen_host_v2_01/integration.md)与[上游约束/R2清单](worklines/mapgen_host_v2_01/upstream_requirements.md)。真实三模块受控入口已复用本架构；完整地图、正式App源记录/恢复、运行时算法和Web仍未接通。下文正式运行路径保持。
-
 游戏采用按功能组织的模块化单体，继续使用 Godot Node、Scene、Resource。应用层装配服务，功能模块拥有规则和状态；实验复用这些模块，并保留自己明确的输入、重生和版本政策。当前重构的验证状态见[执行记录](worklines/game_architecture_01/execution.md)，目标和批次见[目标架构](worklines/game_architecture_01/target_architecture.md)。目录归属见[模块导航](module_map.md)。本文描述已接入的调用，不把规划中的类当成实现。
 
 最新调用、共用规则、地图替换边界与验收范围见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。App 通过 Stage 的伤害／Boss／取消命令和路线／HUD 值查询接入地图，地图内部模块解释留在 Stage；完整新地图来源仍需迁移旧来源记录与恢复适配。
