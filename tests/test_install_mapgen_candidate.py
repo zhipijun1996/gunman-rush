@@ -46,7 +46,7 @@ class InstallMapgenCandidateTests(unittest.TestCase):
         self.assertEqual(result.returncode,2,result.stdout+result.stderr)
         self.assertIn(message,result.stderr)
 
-    def archive_boundary_fixture_cli(self, command, target=None, legacy_hashes=None, additional_source=None):
+    def archive_boundary_fixture_cli(self, command, target=None, legacy_hashes=None, additional_source=None, previous_hashes=None):
         # Exercise the real default CLI/main and shared destination preflight.
         # Only the archive-reading boundary is supplied already-authenticated
         # installed fixture bytes: CI neither downloads nor needs the full ZIP.
@@ -64,11 +64,14 @@ installer.read_payload=payload_fixture
 if sys.argv[6] != "null":
     legacy=json.loads(sys.argv[6])
     installer.legacy_hashes=lambda:legacy
+if sys.argv[8] != "null":
+    previous=json.loads(sys.argv[8])
+    installer.previous_hashes=lambda:previous
 sys.argv=[str(source/'tools/install_mapgen_candidate.py'),command,'--archive','unused-test-fixture.zip','--target',target]
 raise SystemExit(installer.main())
 '''
         return subprocess.run([sys.executable,"-B","-c",code,str(ROOT/"tools"),str(ROOT),
-            json.dumps(self.members),str(target or self.target),command,json.dumps(legacy_hashes),json.dumps(str(additional_source) if additional_source else None)],cwd=self.temporary.name,
+            json.dumps(self.members),str(target or self.target),command,json.dumps(legacy_hashes),json.dumps(str(additional_source) if additional_source else None),json.dumps(previous_hashes)],cwd=self.temporary.name,
             capture_output=True,text=True,timeout=30,env={**os.environ,"PYTHONDONTWRITEBYTECODE":"1"})
 
     def test_default_cli_verifies_actual_checkout_without_archive(self):
@@ -78,7 +81,7 @@ raise SystemExit(installer.main())
         self.assertEqual(receipt["target"],str(ROOT))
         self.assertEqual(receipt["command"],"verify-installed")
         self.assertEqual(receipt["installed"],[])
-        self.assertEqual(len(receipt["files"]),23)
+        self.assertEqual(len(receipt["files"]),24)
         self.assertFalse(receipt["candidate_archive_checked"])
         self.assertFalse(receipt["godot_run"])
 
@@ -88,11 +91,11 @@ raise SystemExit(installer.main())
         before = {name:(self.target/name).stat().st_mtime_ns for name in self.members}
         result = self.installed()
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
-        self.assertEqual(len(json.loads(result.stdout)["unchanged"]),23)
+        self.assertEqual(len(json.loads(result.stdout)["unchanged"]),24)
         self.assertEqual(before,{name:(self.target/name).stat().st_mtime_ns for name in self.members})
 
     def test_missing_required_files_reject(self):
-        for name in ["addons/mapgen/solver.gd","resources/mapgen/module-pack-1.1.0.zip",
+        for name in ["addons/mapgen/solver.gd","addons/mapgen/derived_library.gd","resources/mapgen/module-pack-1.1.0.zip",
                      "resources/mapgen/conformance_request.json","resources/mapgen/generator_config.json","resources/mapgen/gears_request_930007.json",LOCK]:
             with self.subTest(name=name):
                 path = self.target/name
@@ -172,14 +175,14 @@ raise SystemExit(installer.main())
         empty = Path(self.temporary.name)/"new-install"
         first = self.archive_boundary_fixture_cli("install",empty)
         self.assertEqual(first.returncode,0,first.stdout+first.stderr)
-        self.assertEqual(len(json.loads(first.stdout)["installed"]),23)
+        self.assertEqual(len(json.loads(first.stdout)["installed"]),24)
         before = {name:(empty/name).stat().st_mtime_ns for name in self.members}
         for command in ["install","verify"]:
             result = self.archive_boundary_fixture_cli(command,empty)
             self.assertEqual(result.returncode,0,result.stdout+result.stderr)
             receipt = json.loads(result.stdout)
             self.assertEqual(receipt["installed"],[])
-            self.assertEqual(len(receipt["unchanged"]),23)
+            self.assertEqual(len(receipt["unchanged"]),24)
             self.assertTrue(receipt["candidate_archive_checked"])
         self.assertEqual(before,{name:(empty/name).stat().st_mtime_ns for name in self.members})
 
@@ -197,9 +200,9 @@ raise SystemExit(installer.main())
         # No archived solver is copied into CI. Supply authenticated fixture
         # bytes only at the old-installation hash boundary; upgrade/preflight,
         # path inventory, CLI and all actual writes remain the real functions.
-        # Real exact 0.3 bytes + original 0.4 ZIP are checked in external evidence.
+        # Real exact 0.4 bytes + original 0.4.1 ZIP are checked in external evidence.
         new_names = {"preload_job.gd", "work_gate.gd", "reward_clearance.gd",
-                     "gears_request_930007.json"}
+                     "gears_request_930007.json", "derived_library.gd"}
         for name in self.members:
             path = self.target/name
             if path.name in new_names:
@@ -247,8 +250,8 @@ print(json.dumps(i.legacy_hashes()))
         receipt = json.loads(result.stdout)
         self.assertEqual(receipt["command"],"upgrade")
         self.assertEqual(receipt["upgraded_from"]["version"],"0.3.0")
-        self.assertEqual(len(receipt["installed"]),4)
-        self.assertEqual(len(receipt["files"]),23)
+        self.assertEqual(len(receipt["installed"]),5)
+        self.assertEqual(len(receipt["files"]),24)
         self.assertIn(LOCK,receipt["replaced"])
         self.assertEqual(uid.read_text(),"uid://preserved-upgrade-companion\n")
         self.assertEqual({n:(self.target/n).read_bytes() for n in self.members},self.payload)
@@ -323,6 +326,102 @@ print(json.dumps(i.legacy_hashes()))
         hashes = self.legacy_fixture()
         (self.target/LOCK).write_text(json.dumps({"version":"0.3.1"}))
         self.rejected_upgrade(hashes,"installed file differs; refusing overwrite:"+LOCK)
+
+    def previous_fixture(self):
+        # This is an authenticated old-byte fixture, not a relabelled current
+        # solver. The exact 0.4.0 installation is independently exercised against
+        # the real archive by the development upgrade receipt.
+        (self.target/"addons/mapgen/derived_library.gd").unlink()
+        for name in self.members:
+            if name == "addons/mapgen/derived_library.gd":
+                continue
+            if name.startswith("addons/mapgen/") or name == LOCK:
+                (self.target/name).write_bytes(b"authenticated 0.4.0 fixture:"+name.encode())
+        return {name:hashlib.sha256((self.target/name).read_bytes()).hexdigest()
+                for name in self.members if (self.target/name).exists()}
+
+    def test_immediate_predecessor_pin_is_fixed_and_complete(self):
+        code = """import sys,json
+sys.path.insert(0,sys.argv[1])
+import install_mapgen_candidate as i
+print(json.dumps(i.previous_hashes()))
+"""
+        result = subprocess.run([sys.executable,"-B","-c",code,str(ROOT/"tools")],
+            capture_output=True,text=True,timeout=30)
+        self.assertEqual(result.returncode,0,result.stderr)
+        hashes = json.loads(result.stdout)
+        self.assertEqual(len(hashes),23)
+        self.assertEqual(hashes[LOCK],"09c2c213e1d0311a0d8417595201c262d3ab32dca23616b779e30d2ca5dffb62")
+        self.assertEqual(hashes["addons/mapgen/solver.gd"],
+                         "96e1ea947ed7864843ac0b72765d2957b75357f6677472513667fe9e142b401f")
+        self.assertEqual(hashes["resources/mapgen/gears_request_930007.json"],
+                         "1594181d4d48a419bb26e920a609a559e10e06dbe7bf6d485a1fc26aca745021")
+        self.assertNotIn("addons/mapgen/derived_library.gd",hashes)
+
+    def test_explicit_upgrade_authenticates_040_and_adds_only_derived_script(self):
+        hashes = self.previous_fixture()
+        uid = self.target/"addons/mapgen/geometry.gd.uid"
+        uid.write_text("uid://preserved-040-companion\n")
+        result = self.archive_boundary_fixture_cli("upgrade",previous_hashes=hashes)
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+        receipt = json.loads(result.stdout)
+        self.assertEqual(receipt["upgraded_from"],{"version":"0.4.0","config_sha256":hashes[LOCK]})
+        self.assertEqual(receipt["installed"],["addons/mapgen/derived_library.gd"])
+        self.assertEqual(len(receipt["files"]),24)
+        self.assertEqual({n:(self.target/n).read_bytes() for n in self.members},self.payload)
+        self.assertEqual(uid.read_text(),"uid://preserved-040-companion\n")
+        self.assertEqual(self.installed().returncode,0)
+
+    def test_040_modified_or_missing_old_leaf_rejects_before_new_file_write(self):
+        for name,missing in [("addons/mapgen/solver.gd",False),
+                             ("resources/mapgen/gears_request_930007.json",True)]:
+            with self.subTest(name=name,missing=missing):
+                hashes = self.previous_fixture()
+                path = self.target/name
+                if missing:
+                    path.unlink()
+                else:
+                    path.write_bytes(path.read_bytes()+b" changed")
+                before = self.snapshot()
+                result = self.archive_boundary_fixture_cli("upgrade",previous_hashes=hashes)
+                self.rejected(result,"installed file "+("missing:" if missing else "differs; refusing overwrite:")+name)
+                self.assertEqual(before,self.snapshot())
+                self.assertFalse((self.target/"addons/mapgen/derived_library.gd").exists())
+                for leaf,data in self.payload.items():
+                    target = self.target/leaf
+                    target.parent.mkdir(parents=True,exist_ok=True)
+                    target.write_bytes(data)
+
+    def test_040_new_script_collision_and_old_symlink_reject_without_writes(self):
+        for collision in [True,False]:
+            with self.subTest(collision=collision):
+                hashes = self.previous_fixture()
+                if collision:
+                    (self.target/"addons/mapgen/derived_library.gd").write_bytes(b"keep caller file")
+                    expected = "unexpected addon file:addons/mapgen/derived_library.gd"
+                else:
+                    leaf = self.target/"addons/mapgen/solver.gd"
+                    leaf.unlink()
+                    leaf.symlink_to(ROOT/"addons/mapgen/solver.gd")
+                    expected = "unsafe install destination:addons/mapgen/solver.gd"
+                before = self.snapshot()
+                result = self.archive_boundary_fixture_cli("upgrade",previous_hashes=hashes)
+                self.rejected(result,expected)
+                self.assertEqual(before,self.snapshot())
+                if not collision:
+                    leaf.unlink()
+                for name,data in self.payload.items():
+                    (self.target/name).write_bytes(data)
+
+    def test_default_install_refuses_040_and_target_metadata_cannot_self_approve(self):
+        hashes = self.previous_fixture()
+        before = self.snapshot()
+        self.rejected(self.archive_boundary_fixture_cli("install"),"installed file differs; refusing overwrite:")
+        self.assertEqual(before,self.snapshot())
+        (self.target/LOCK).write_text(json.dumps({"version":"0.4.1","addon_files":hashes}))
+        before = self.snapshot()
+        self.rejected(self.archive_boundary_fixture_cli("upgrade",previous_hashes=hashes),"installed file differs; refusing overwrite:")
+        self.assertEqual(before,self.snapshot())
 
     def internal_directory_alias(self, root, name):
         original = root/name

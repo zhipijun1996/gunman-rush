@@ -413,7 +413,7 @@ func _validate(ticket: Ticket) -> void:
 	ticket.phase = "ready"
 
 func _lock_error(lock: Dictionary) -> String:
-	if lock.get("version") != "0.4.0" or lock.get("implementation") != PROTOCOL.IMPLEMENTATION or lock.get("algorithm") != PROTOCOL.ALGORITHM:
+	if lock.get("version") != "0.4.1" or lock.get("implementation") != PROTOCOL.IMPLEMENTATION or lock.get("algorithm") != PROTOCOL.ALGORITHM:
 		return "installed candidate implementation/algorithm/version mismatch"
 	if not lock.get("archive") is Dictionary or not _hex(lock.archive.get("sha256"),64) or not _hex(lock.get("release_head"),40) or not _hex(lock.get("source_commit"),40):
 		return "invalid installed algorithm release identity"

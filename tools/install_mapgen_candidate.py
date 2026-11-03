@@ -10,20 +10,43 @@ import tempfile
 from verify_mapgen_reference import extract_original_protocol
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE_HEAD = '6bf07ab5a655ea056461b935ae4354e15ef83482'
-SOURCE_COMMIT = 'b21c889077ec97eb11a210d0ceab4fbddd862e48'
-ARCHIVE_SHA256 = '7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778'
-ARCHIVE_URL = 'https://raw.githubusercontent.com/zhipijun1996/map-gen/6bf07ab5a655ea056461b935ae4354e15ef83482/runtime_packages/releases/0.4.0/mapgen-godot-candidate-0.4.0.zip'
+RELEASE_HEAD = 'c35871446cc0a3939e1a38171435f42cdc64a359'
+SOURCE_COMMIT = '8eefdbd140ce10defe1570ab8eefb6729382f8b3'
+ARCHIVE_SHA256 = 'f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e'
+ARCHIVE_URL = 'https://raw.githubusercontent.com/zhipijun1996/map-gen/c35871446cc0a3939e1a38171435f42cdc64a359/runtime_packages/releases/0.4.1/mapgen-godot-candidate-0.4.1.zip'
 MODULE_SHA256 = '5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723'
 CATALOG_SHA256 = '307b3c02c08d6f9abd58ef10bfe0716709bc8260db49a2a2c21d36980330be7a'
 REQUEST_SHA256 = '3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a'
 CONFIG_SHA256 = '65998d9fede6df44f832cde7bb1e368f09eb092aa3f31c9a5fbb9f7c34ea8062'
-IMPLEMENTATION = 'mapgen/gdscript-candidate-0.4.0'
-LOCK_SHA256 = '09c2c213e1d0311a0d8417595201c262d3ab32dca23616b779e30d2ca5dffb62'
+IMPLEMENTATION = 'mapgen/gdscript-candidate-0.4.1'
+LOCK_SHA256 = 'b4c93a5043c1dbe2535f81a5c814bcc1f437e1cf2023d7c37c59c4874fa8a971'
 GEARS_REQUEST_SHA256 = '1594181d4d48a419bb26e920a609a559e10e06dbe7bf6d485a1fc26aca745021'
 GEARS_REQUEST_PATH = 'resources/mapgen/gears_request_930007.json'
-GEARS_CONFORMANCE = {'purpose': 'original upstream 930007 mechanism input; not a host ability grant', 'request': {'path': 'res://resources/mapgen/gears_request_930007.json', 'sha256': '1594181d4d48a419bb26e920a609a559e10e06dbe7bf6d485a1fc26aca745021'}, 'config': {'path': 'res://resources/mapgen/generator_config.json', 'sha256': '65998d9fede6df44f832cde7bb1e368f09eb092aa3f31c9a5fbb9f7c34ea8062'}, 'source': {'included_in_candidate_archive': False, 'release_head': '6bf07ab5a655ea056461b935ae4354e15ef83482', 'repository_path': 'validation/runtime-reward-B/replay/inputs/validation-930007/request.json', 'url': 'https://raw.githubusercontent.com/zhipijun1996/map-gen/6bf07ab5a655ea056461b935ae4354e15ef83482/validation/runtime-reward-B/replay/inputs/validation-930007/request.json', 'git_blob_sha': '4a0c53500bd941bc40f3654c43eebfe7196e911c'}}
+GEARS_CONFORMANCE = {'purpose': 'original upstream 930007 mechanism input; not a host ability grant', 'request': {'path': 'res://resources/mapgen/gears_request_930007.json', 'sha256': '1594181d4d48a419bb26e920a609a559e10e06dbe7bf6d485a1fc26aca745021'}, 'config': {'path': 'res://resources/mapgen/generator_config.json', 'sha256': '65998d9fede6df44f832cde7bb1e368f09eb092aa3f31c9a5fbb9f7c34ea8062'}, 'source': {'included_in_candidate_archive': True, 'archive_member': 'samples/gears-930007/request.json', 'release_head': 'c35871446cc0a3939e1a38171435f42cdc64a359', 'source_commit': '8eefdbd140ce10defe1570ab8eefb6729382f8b3', 'repository_path': 'validation/runtime-reward-B/replay/inputs/validation-930007/request.json', 'url': 'https://raw.githubusercontent.com/zhipijun1996/map-gen/c35871446cc0a3939e1a38171435f42cdc64a359/validation/runtime-reward-B/replay/inputs/validation-930007/request.json', 'git_blob_sha': '4a0c53500bd941bc40f3654c43eebfe7196e911c'}}
 ADDON_SHA256 = {
+    "candidate_cursor.gd": "b692da22a4b42be6c2c65b44ea04fca88d5c9cd50bf4aaa3bf29bf526cb50d08",
+    "content_transform.gd": "80ab9f4e58ceedb754c6062996e0e4a4f36a9542e7c54206639d7760ce92e2f2",
+    "data_json.gd": "cef6a962ae33d5d03aa29b57ca35fcef104a07f7a2de636122e3b32cb8d0ea9c",
+    "decimal64.gd": "a1c39dc62d62f8191a6d306942b2f549e674e09212970f8bd4a44153ed8e8109",
+    "derived_library.gd": "7517199725d96c39bad82c134d2acb3719fa98bfae170ecb74516890696e43d8",
+    "final_pipeline.gd": "c44fe36078a4cea5b20541f38c564e143ba4eaafbf6eb6edcf5bbb67d2ceb587",
+    "generation_job.gd": "effe3467aced7b978dbc9e2ccfc1492da5e7f8fd0087df066b30264cf12e3e8e",
+    "geometry.gd": "a86179cffc4820d774b398362098a4cc4158edaaffc55eda6992817672850a9e",
+    "module_archive.gd": "44c075d69db506ced4a2241e8205775a226861234786d43272633c1e7ba46742",
+    "numeric.gd": "af1d58403d38687de902e4ded6770aa9972e91a9ea75e2ab5e92f98d41f90f7e",
+    "preload_job.gd": "3ea6be476d84262c83c536c943c170a80dd0884bfc441e60bb5fe43b6fc34e68",
+    "prepared_library.gd": "f572fe0f4811b1b116140e108a7a9dbc4d6e3b509df220feea66b8af2146cbaa",
+    "protocol.gd": "5bf7d2db7914ab3396dc8b18be6ac48e379bab2dfefacfc45b48d522b94b40a4",
+    "python_rng.gd": "6b70397a8f8f7dbfd2ba9f2c49101c9e5174e22fc4b761e1e97c07c6a61964d4",
+    "reward_clearance.gd": "f1946c2e0bb5fc7c3b6d6229030cd548bc5540a3160a652a5121bd35baf24a02",
+    "runtime_export.gd": "5be6d8fd72389acb60efb5651a945e9200a0bc7a15a4a1bff152ab2647311a5c",
+    "schema_data.gd": "5afce308ab7a030f120973cd7ba948580b5f8a29e6ef7ff8f012e98360a19f62",
+    "solver.gd": "377ce3893488acd51e67df22b9277904e0fe8dbc8267ec1767b4a0732794d562",
+    "work_gate.gd": "fec67bc46e091be2d7919003aa0e525c0112772beab12ac82e6da1fcf41e4079"
+}
+# Immediate predecessor pin: metadata in the target cannot authorize these bytes.
+PREVIOUS_LOCK_SHA256 = '09c2c213e1d0311a0d8417595201c262d3ab32dca23616b779e30d2ca5dffb62'
+PREVIOUS_ADDON_SHA256 = {
     "candidate_cursor.gd": "1a8ce925ab0d0e35232950618a83af334e9e780e6b61a49600277f6d38280fca",
     "content_transform.gd": "80ab9f4e58ceedb754c6062996e0e4a4f36a9542e7c54206639d7760ce92e2f2",
     "data_json.gd": "cef6a962ae33d5d03aa29b57ca35fcef104a07f7a2de636122e3b32cb8d0ea9c",
@@ -43,7 +66,8 @@ ADDON_SHA256 = {
     "solver.gd": "96e1ea947ed7864843ac0b72765d2957b75357f6677472513667fe9e142b401f",
     "work_gate.gd": "fec67bc46e091be2d7919003aa0e525c0112772beab12ac82e6da1fcf41e4079"
 }
-# Only this exact complete prior installation is eligible for explicit upgrade.
+
+# Keep the original authenticated 0.3.0 upgrade path and its exact pin.
 LEGACY_LOCK_SHA256 = 'd8271d473686fd1e7b0bcfab280aa2940777eb1eaa02478b80909cb8eecae92f'
 LEGACY_CONFIG_SHA256 = 'aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a'
 LEGACY_ADDON_SHA256 = {
@@ -85,7 +109,8 @@ def managed_path(root, name, message):
 
 
 def additional_payload():
-    # This exact original PR5 input is NOT a candidate ZIP member.
+    # Preserve the exact original host input; the new ZIP also carries this
+    # identical request, checked independently in read_payload below.
     path = managed_path(ROOT, GEARS_REQUEST_PATH, "unsafe additional input:")
     data = path.read_bytes()
     require(digest(data) == GEARS_REQUEST_SHA256, "additional upstream input SHA mismatch:" + GEARS_REQUEST_PATH)
@@ -100,7 +125,7 @@ def read_payload(archive):
         package, _ = extract_original_protocol(archive, Path(temporary))
         manifest = json.loads((package / "manifest.json").read_text(encoding="utf-8"))
         require(manifest["source"]["commit"] == SOURCE_COMMIT, "manifest actual source mismatch")
-        require(manifest["package"] == {"version":"0.4.0", "algorithm":"stable-v3-reward-space",
+        require(manifest["package"] == {"version":"0.4.1", "algorithm":"stable-v3-reward-space",
                 "implementation":IMPLEMENTATION}, "candidate identity mismatch")
         require(manifest["runtime_target"] == "godot-standard-gdscript" and
                 manifest["readiness"]["production_ready"] is False, "candidate readiness mismatch")
@@ -111,7 +136,8 @@ def read_payload(archive):
         addon_files = {"addons/mapgen/" + name:sha for name,sha in ADDON_SHA256.items()}
         require({n:h for n,h in manifest["files"].items() if n.startswith("addons/mapgen/")} == addon_files,
                 "candidate addon member inventory mismatch")
-        require(manifest["module_package"] == {"version":"1.1.0", "sha256":MODULE_SHA256},
+        require(manifest["module_package"] == {"version":"1.1.0", "sha256":MODULE_SHA256,
+                "compatibility":"exact SHA; source ZIP required even with derived data"},
                 "module lock mismatch")
         payload = {name:(package / name).read_bytes() for name in addon_files}
         data_sources = {
@@ -123,13 +149,16 @@ def read_payload(archive):
             data = (package / source).read_bytes()
             require(digest(data) == expected, "locked data SHA mismatch:" + source)
             payload[target] = data
-        payload.update(additional_payload())
+        original_gears = additional_payload()
+        require((package / "samples/gears-930007/request.json").read_bytes() == original_gears[GEARS_REQUEST_PATH],
+                "candidate gears input differs from original host request")
+        payload.update(original_gears)
         # This exact release contains no LICENSE/COPYING/NOTICE leaf. Refuse a
         # changed assumption rather than omit new attribution in a future pin.
         notices = [n for n in manifest["files"] if Path(n).name.upper().startswith(("LICENSE", "COPYING", "NOTICE"))]
         require(not notices, "upstream attribution leaf requires explicit installation mapping")
         config = {
-            "version":"0.4.0", "algorithm":"stable-v3-reward-space", "implementation":IMPLEMENTATION,
+            "version":"0.4.1", "algorithm":"stable-v3-reward-space", "implementation":IMPLEMENTATION,
             "release_head":RELEASE_HEAD, "source_commit":SOURCE_COMMIT,
             "archive":{"url":ARCHIVE_URL,"sha256":ARCHIVE_SHA256},
             "module_package":{"version":"1.1.0","path":"res://resources/mapgen/module-pack-1.1.0.zip",
@@ -137,7 +166,8 @@ def read_payload(archive):
             "conformance":{"purpose":"upstream 930001 consistency inputs; not a host ability grant",
                 "request":{"path":"res://resources/mapgen/conformance_request.json","sha256":REQUEST_SHA256},
                 "config":{"path":"res://resources/mapgen/generator_config.json","sha256":CONFIG_SHA256}},
-            "addon_files":addon_files, "readiness":manifest["readiness"], "license_files":notices,
+            "addon_files":addon_files, "derived_cache":manifest["derived_cache"],
+            "readiness":manifest["readiness"], "license_files":notices,
             "gears_conformance":GEARS_CONFORMANCE,
         }
         payload["config/mapgen_candidate.json"] = (json.dumps(config,ensure_ascii=False,indent=2) + "\n").encode("utf-8")
@@ -163,8 +193,18 @@ def legacy_hashes():
             "config/mapgen_candidate.json":LEGACY_LOCK_SHA256}
 
 
+def previous_hashes():
+    """Complete fixed 0.4.0 installation, including the original gears input."""
+    return {**{"addons/mapgen/" + name:sha for name,sha in PREVIOUS_ADDON_SHA256.items()},
+            "resources/mapgen/module-pack-1.1.0.zip":MODULE_SHA256,
+            "resources/mapgen/conformance_request.json":REQUEST_SHA256,
+            "resources/mapgen/generator_config.json":CONFIG_SHA256,
+            "config/mapgen_candidate.json":PREVIOUS_LOCK_SHA256,
+            GEARS_REQUEST_PATH:GEARS_REQUEST_SHA256}
+
+
 def upgrade(archive, target):
-    """Explicit 0.3.0 -> 0.4.0 only; check every old/new path before writes."""
+    """Explicit authenticated predecessor -> 0.4.1; check all paths before writes."""
     target = target.resolve()
     payload = read_payload(archive.resolve())
     hashes = {name:digest(data) for name,data in payload.items()}
@@ -175,8 +215,13 @@ def upgrade(archive, target):
         receipt = report("upgrade",target,[],list(hashes),hashes,True)
         receipt.update({"already_current":True,"replaced":[],"upgraded_from":None})
         return receipt
-    previous = legacy_hashes()
-    # Includes the exact old lock, all 15 original scripts and original inputs.
+    previous = previous_hashes()
+    from_version = "0.4.0"
+    # Select a fixed complete pin by raw lock bytes, never by advertised version.
+    # The older supported 0.3 path retains its original full-byte validation.
+    if not current_lock.is_file() or digest(current_lock.read_bytes()) != previous["config/mapgen_candidate.json"]:
+        previous = legacy_hashes()
+        from_version = "0.3.0"
     # A missing/tampered/mixed version cannot qualify via edited metadata.
     preflight(target, previous, True)
     for name in hashes.keys() - previous.keys():
@@ -203,7 +248,7 @@ def upgrade(archive, target):
         (replaced if existed else installed).append(name)
     preflight(target, hashes, True)
     receipt = report("upgrade",target,installed,unchanged,hashes,True)
-    receipt.update({"upgraded_from":{"version":"0.3.0","config_sha256":LEGACY_LOCK_SHA256},
+    receipt.update({"upgraded_from":{"version":from_version,"config_sha256":previous["config/mapgen_candidate.json"]},
                     "replaced":replaced,"already_current":False})
     return receipt
 
