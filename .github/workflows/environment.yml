@@ -38,7 +38,7 @@ jobs:
           PY_CACHE
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - name: Check committed quality evidence before toolchain work
         run: python3 tools/check_release_evidence.py --commit "$(git rev-parse HEAD)"
       - uses: actions/cache/restore@v4
@@ -112,7 +112,7 @@ jobs:
           PY_CACHE
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - uses: actions/cache/restore@v4
         id: installed-toolchain-cache
         with:
@@ -296,7 +296,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
@@ -354,7 +354,7 @@ jobs:
           PY_CACHE
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - uses: actions/cache/restore@v4
         id: installed-toolchain-cache
         with:
@@ -414,7 +414,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
@@ -483,14 +483,14 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-pages-artifact@v3
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[skip-playtest]')) || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
         with:
           path: build/web/
   deploy_web:
     outputs:
       page_url: ${{ steps.deployment.outputs.page_url }}
     needs: [core, windows, web]
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[skip-playtest]')) || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -519,7 +519,7 @@ jobs:
         run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
@@ -541,13 +541,15 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           # The public verifier uses only the standard library; skip game/evidence blobs.
-          sparse-checkout: /tools/verify_published_build.py
+          sparse-checkout: |
+            /tools/verify_published_build.py
+            /config/ci_python_version.txt
           sparse-checkout-cone-mode: false
       - name: Select absolute external toolchain path
         run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
       - name: Verify public metadata and pack against the tested export
         run: python3 tools/verify_published_build.py --url "$PUBLIC_URL" --build-id "$EXPECTED_BUILD" --commit "$EXPECTED_COMMIT"
         env:

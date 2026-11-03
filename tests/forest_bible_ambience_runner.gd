@@ -76,6 +76,49 @@ func voice_for(id: StringName) -> AudioStreamPlayer:
 		if voice.get_meta("cue_id", &"") == id: return voice
 	return null
 
+func pool_loop_state(stream: AudioStream) -> Dictionary:
+	if stream is AudioStreamWAV:
+		var wav := stream as AudioStreamWAV
+		return {"mode":wav.loop_mode,"begin":wav.loop_begin,"end":wav.loop_end}
+	if stream is AudioStreamOggVorbis:
+		var ogg := stream as AudioStreamOggVorbis
+		return {"loop":ogg.loop,"offset":ogg.loop_offset}
+	return {}
+
+func held_pool_stream(source: AudioStream) -> AudioStream:
+	# This fixture holds actual imported payloads, not synthetic replacement
+	# sounds. Only the local copies loop; production assets and cached originals
+	# keep their one-shot/loop policies. In particular click lasts only ~10 ms.
+	if source == null: return null
+	var held := source.duplicate() as AudioStream
+	if held is AudioStreamWAV:
+		var wav := held as AudioStreamWAV
+		wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		wav.loop_begin = 0
+		wav.loop_end = int(round(wav.get_length()*float(wav.mix_rate)))
+		return wav if wav.loop_end > 0 else null
+	if held is AudioStreamOggVorbis:
+		var ogg := held as AudioStreamOggVorbis
+		ogg.loop = true
+		ogg.loop_offset = 0.0
+		return ogg
+	return null
+
+func pool_payload_matches(source: AudioStream, held: AudioStream) -> bool:
+	if source is AudioStreamWAV and held is AudioStreamWAV:
+		var original := source as AudioStreamWAV
+		var copy := held as AudioStreamWAV
+		return copy.data == original.data and copy.format == original.format and copy.mix_rate == original.mix_rate and copy.stereo == original.stereo
+	if source is AudioStreamOggVorbis and held is AudioStreamOggVorbis:
+		return (held as AudioStreamOggVorbis).packet_sequence == (source as AudioStreamOggVorbis).packet_sequence
+	return false
+
+func pool_occupancy() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for voice: AudioStreamPlayer in audio._voices:
+		result.append({"voice_id":voice.get_instance_id(),"cue_id":str(voice.get_meta("cue_id", &"")),"playing":voice.playing,"stream_paused":voice.stream_paused,"has_playback":voice.has_stream_playback(),"playback_id":voice.get_stream_playback().get_instance_id() if voice.has_stream_playback() else 0})
+	return result
+
 func pool_case() -> void:
 	await fixture()
 	check(audio._voices.size() == 12 and audio.get_child_count() == 12, "actual service creates exactly twelve voice nodes")
@@ -84,16 +127,56 @@ func pool_case() -> void:
 		var stream: AudioStream = audio._streams.get(id)
 		check(stream != null and stream.resource_path == GameAudio.REGIONAL_CUE_PATHS[id], "actual regional stream loaded " + str(id))
 	var ids: Array[StringName] = [&"forest_wind",&"forest_fruit",&"forest_web",&"focus_start",&"focus_end",&"enemy_defeat",&"door",&"warning",&"boss_impact",&"click",&"confirm",&"coin"]
+	var original_streams: Dictionary = {}
+	var original_loop_states: Dictionary = {}
+	var held_sources: Array[Dictionary] = []
+	# A sequence of play() calls does not imply simultaneous occupancy: the
+	# AudioServer can finish a short cue while this script is descheduled.
+	# Establish an explicit, test-local held-playback precondition instead.
+	for id: StringName in ids:
+		var original: AudioStream = audio._streams.get(id)
+		var original_loop := pool_loop_state(original)
+		var held := held_pool_stream(original)
+		check(held != null and held != original and pool_payload_matches(original,held), "held pool fixture duplicates the actual codec payload " + str(id))
+		if held == null: return
+		original_streams[id] = original
+		original_loop_states[id] = original_loop
+		audio._streams[id] = held
+		held_sources.append({"cue_id":str(id),"original_path":original.resource_path,"original_stream_id":original.get_instance_id(),"held_stream_id":held.get_instance_id(),"codec":original.get_class(),"source_length_seconds":original.get_length(),"original_loop":original_loop_states[id].duplicate(),"held_loop":pool_loop_state(held)})
 	for id: StringName in ids:
 		check(audio.play(id) and count_cue(id) == 1, "actual pool accepts and counts " + str(id))
 		var voice := voice_for(id)
 		check(voice != null and voice.playing and voice.has_stream_playback() and voice.stream == audio._streams[id], "actual live voice retains matching cue_id and playback " + str(id))
+	var before_hold := pool_occupancy()
+	check(audio._voices.all(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.has_stream_playback()), "saturation precondition has twelve actual simultaneous playbacks")
+	var hold_started := Time.get_ticks_usec()
+	await create_timer(0.05).timeout
+	var hold_ms := float(Time.get_ticks_usec()-hold_started)/1000.0
+	var after_hold := pool_occupancy()
+	check(audio._voices.all(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.has_stream_playback()), "test-local loops retain all twelve real playbacks across the bounded hold")
+	var originals_unchanged := true
+	for id: StringName in ids:
+		originals_unchanged = originals_unchanged and pool_loop_state(original_streams[id]) == original_loop_states[id] and pool_payload_matches(original_streams[id],audio._streams[id])
+	check(originals_unchanged, "held fixture leaves original resource loop settings and codec payloads unchanged")
 	check(not audio.play(&"note") and count_cue(&"note") == 0, "thirteenth simultaneous cue is dropped without count")
 	check(audio._voices.size() == 12 and audio.get_child_count() == 12, "pool saturation does not allocate a thirteenth voice")
 	var tags: Array[String] = []
 	for voice: AudioStreamPlayer in audio._voices: tags.append(str(voice.get_meta("cue_id", &"")))
 	check(not tags.has("") and tags.size() == 12, "every occupied voice has an actual cue_id tag")
+	var unique_tags: Dictionary = {}
+	for tag: String in tags: unique_tags[tag] = true
+	check(unique_tags.size() == ids.size() and ids.all(func(id: StringName) -> bool: return unique_tags.has(str(id))), "all twelve held cue identities remain occupied without replacement")
 	cases.append({"id":"pool","voices":audio._voices.size(),"loaded_regional":GameAudio.REGIONAL_CUE_PATHS.size(),"tags":tags,"played":audio.played.duplicate()})
+	var released := voice_for(&"click")
+	check(released != null, "held click voice exists before releasing exactly one slot")
+	if released == null: return
+	var released_id := released.get_instance_id()
+	released.stop()
+	check(audio._voices.filter(func(voice: AudioStreamPlayer) -> bool: return voice.playing).size() == 11, "releasing one held voice leaves exactly eleven occupied slots")
+	check(audio.play(&"note") and count_cue(&"note") == 1, "original note is accepted and counted after one slot becomes free")
+	check(audio._voices.size() == 12 and audio.get_child_count() == 12 and voice_for(&"note") == released, "released voice is reused without allocation or preempting another held cue")
+	cases.back()["saturation_fixture"] = {"kind":"test_local_duplicate_actual_stream_loops","sources":held_sources,"hold_wall_ms":hold_ms,"before_hold":before_hold,"after_hold":after_hold,"originals_unchanged":originals_unchanged,"scope":"pool occupancy only, not production clip duration or listening"}
+	cases.back()["released_slot"] = {"voice_id":released_id,"new_cue":"note","note_count":count_cue(&"note"),"voices":audio._voices.size(),"after_reuse":pool_occupancy()}
 
 func pause_case() -> void:
 	await fixture()
