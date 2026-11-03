@@ -99,6 +99,19 @@ func run() -> void:
 		check(difference.is_empty(),"key copying preserves exact typed/scalar data: "+placement.instance_id)
 
 	var identity: Dictionary = built.plan.get_meta("runtime_map_v2_identity")
+	# Reconstruct the exact original v1 host fields, not the current host hash.
+	# Same actual generated payload/bindings; only the host adapter version differs.
+	var old_ids: Array[String] = ids.duplicate()
+	old_ids.sort()
+	var old_host := {"schema":"gunman-rush/runtime-map-load/v1","adapter_version":"runtime-map-generated/1","source_kind":"generated_memory","map_content_identity":identity.map_content_identity,"selected_instances":old_ids,"bindings_schema":bindings.schema,"bindings_version":bindings.version,"bindings_data_sha256":JSON.stringify(bindings,"",true,true).sha256_text(),"active_binding":"seam","spawn":[spawn.x,spawn.y],"region_id":str(request.region_id),"map_index":request.map_index,"capabilities":request.capabilities.duplicate(true)}
+	var old_host_hash := JSON.stringify(old_host,"",true,true).sha256_text()
+	check(identity.host_load.adapter_version=="runtime-map-generated/2" and old_host_hash!=built.plan.map_hash,"corrected host adapter has a new identity for the same payload/bindings")
+	var old_state := PlainsRegionState.new()
+	check(old_state.bind_map(old_host_hash),"real run-local state binds independently reconstructed v1 host identity")
+	var old_saved := old_state.snapshot()
+	check(PlainsRegionState.new().restore(old_saved,old_host_hash),"original v1 identity still describes its own unchanged save schema")
+	check(not PlainsRegionState.new().restore(old_saved,built.plan.map_hash),"corrected v2 host refuses old v1 run-local state for identical payload/bindings")
+
 	check(identity.source_kind=="generated_memory" and identity.generation_input_fingerprint==result.request_fingerprint,"distinct memory source preserves actual upstream fingerprint")
 	check(identity.map_content.map_data_sha256==JSON.stringify(result.map,"",true,true).sha256_text() and identity.map_content.content_store_data_sha256==JSON.stringify(result.content_store,"",true,true).sha256_text(),"identity still digests original actual result dictionaries")
 	check(not identity.map_content.has("map_bytes_sha256") and not identity.map_content.has("verified_bytes_sha256") and not identity.source_receipt.has("files"),"no generated data masquerades as file bytes")
