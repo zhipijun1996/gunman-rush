@@ -1,0 +1,23 @@
+{
+  "schema": "mapgen-gears-late-review-disclosure/v1",
+  "reviewer": "/root/death_event_audit",
+  "actual_run_status": "FAILED",
+  "original_budget_seconds": 300,
+  "actual_elapsed_seconds": 300.4891746679996,
+  "original_report_sha256": "324b08570e20141d303db03455db82fcb1c7ac04eb5d65869eda9aeb858345f3",
+  "actual_original_view_image_calls": 7,
+  "consumed_live_ACK_sequences": [
+    1,
+    2
+  ],
+  "ACK3": {
+    "file": "/workspace/refactor-evidence/mapgen-host-04-acceptance-rescue/review/gears-live-01/ack-03.json",
+    "sha256": "f56d444c5a2be66f2b16474fa638d72ddb33e2ef62d221c53c53ef32a86b8b97",
+    "epoch_seconds": 1793713020.5155332,
+    "classification": "LATE_NOT_CONSUMED_BY_ENDED_DRIVER; NOT_A_THIRD_IN_BUDGET_ACCEPTANCE",
+    "explanation": "Reviewer actually viewed Title, read stale waiting3 and wrote command before learning driver had timed out. Raw report contains only ACK1/2. Preserve mistake and failed result; no raw report changed."
+  },
+  "after_guards": "NOT_RUN_WITHIN_ORIGINAL_BUDGET",
+  "offline_Title_scope": "Original Title actually viewed, but cannot repair original aggregate timeout",
+  "new_attempt_or_budget_extension": false
+}

@@ -2,7 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-HOST-04-ACCEPTANCE-01 | 性能归因/库复用/原双fresh Web及精确head完整CI | MAPGEN-GODOT-04 | in_progress | [范围](worklines/mapgen_host_04_acceptance/scope.md) · [质量](quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json)；A通过后再单独推进多端口钟门，不合并发布 |
+| MAPGEN-HOST-04-ACCEPTANCE-01 | 性能归因/库复用/Web及精确head完整CI | MAPGEN-GODOT-04 | review | [范围](worklines/mapgen_host_04_acceptance/scope.md) · [质量](quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json)；仅阶段A；default历史PASS原件丢失明确承接，最终CI实收；本轮不B/0.4.1/合并发布 |
 
 ## 2026-11-03 map-gen明确版本升级
 

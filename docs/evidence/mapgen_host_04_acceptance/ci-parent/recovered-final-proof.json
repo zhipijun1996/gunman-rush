@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "record_type": "new_second_recovery_reverification",
+  "reverified_at": "2026-11-03T13:26:17.709206+00:00",
+  "lost_original_summary_sha256_not_recreated": "a692eea12d37efafea669ab21310161d605f67dc8c9e8acb46e28d5b5f455b8d",
+  "lost_first_recovery_summary_sha256_not_recreated": "cf506075ffd14a6051aed07739b51084eaf83c9b0edb4ae8df8bd2c4fb080417",
+  "run_id": 41614301960,
+  "attempt": 1,
+  "head": "46eb3960a592374b5fb99d7df588962a3680f86b",
+  "base": "3790ee9f0809fd65e08a39e4ff9b9401f2ce94aa",
+  "conclusion": "failure",
+  "expected_full": 178,
+  "executed": 86,
+  "passed": 85,
+  "failed": 1,
+  "not_executed": 92,
+  "reused": 0,
+  "jobs": [
+    {
+      "id": 125843763835,
+      "name": "prepare",
+      "conclusion": "success",
+      "started_at": "2026-11-03T09:50:41Z",
+      "completed_at": "2026-11-03T10:07:30Z"
+    },
+    {
+      "id": 125851515027,
+      "name": "full_checks (parallel)",
+      "conclusion": "failure",
+      "started_at": "2026-11-03T10:07:33Z",
+      "completed_at": "2026-11-03T10:23:36Z"
+    },
+    {
+      "id": 125851515064,
+      "name": "full_checks (serial)",
+      "conclusion": "success",
+      "started_at": "2026-11-03T10:07:34Z",
+      "completed_at": "2026-11-03T11:04:56Z"
+    },
+    {
+      "id": 125878503230,
+      "name": "affected",
+      "conclusion": "failure",
+      "started_at": "2026-11-03T11:04:59Z",
+      "completed_at": "2026-11-03T11:05:02Z"
+    }
+  ],
+  "phase_receipts": [
+    {
+      "artifact_id": 13221694943,
+      "file": "parallel.zip",
+      "api_sha256": "aa51780ab801d84b3d5d53ada58c7a29a082c0bb3aa346193cb9c6d53fc79509",
+      "bytes": 1559289,
+      "report_sha256": "49c755c5b290b6efb64cb2e346c7d3d2295fec63e00ef72565410e247f36c9ca",
+      "status": "failed",
+      "executed": 1,
+      "wall_seconds": 18.064,
+      "mapgen_markers": []
+    },
+    {
+      "artifact_id": 13223914594,
+      "file": "serial.zip",
+      "api_sha256": "11bba307263875e0f4f33733d5de3a8af33b74a7f4e0ad0cbfc7718068acd532",
+      "bytes": 1792471,
+      "report_sha256": "f3a0b60bc4199317de39ff3ceeb7ecd946c847d95e97683add11268d2b4a03e5",
+      "status": "passed",
+      "executed": 85,
+      "wall_seconds": 2511.165,
+      "mapgen_markers": [
+        {
+          "id": "runtime-map-v2-host",
+          "marker": "RUNTIME MAP V2 HOST: 199 assertions, 0 failures"
+        },
+        {
+          "id": "runtime-map-generated-identity",
+          "marker": "RUNTIME_MAP_GENERATED_IDENTITY checks=80 failures=0"
+        },
+        {
+          "id": "runtime-map-generation-job",
+          "marker": "RUNTIME_MAP_GENERATION_JOB checks=1696 failures=0"
+        },
+        {
+          "id": "runtime-map-generated-slice",
+          "marker": "RUNTIME_MAP_GENERATED_SLICE checks=58 failures=0"
+        },
+        {
+          "id": "runtime-map-m35-provider",
+          "marker": "RUNTIME_MAP_M35_PROVIDER checks=80 failures=0"
+        },
+        {
+          "id": "runtime-map-m35-runtime",
+          "marker": "RUNTIME_MAP_M35_RUNTIME checks=69 failures=0"
+        }
+      ]
+    }
+  ],
+  "all_original_argv_budgets_log_sha_verified": true,
+  "serial_all_markers_exit0_verified": true,
+  "source_inventory_entries": 35792,
+  "source_before_after_and_cross_lane_equal": true,
+  "toolchain_before_after_and_cross_lane_equal": true,
+  "reported_git_status": {
+    "parallel": "",
+    "serial": ""
+  },
+  "failure": "docs rejects two machine-local /tmp links in mapgen-v4-gears-selection-plan.md; affected rejects failed lane prerequisite; no aggregate artifact exists.",
+  "original_log_sha256": {
+    "parallel-job.log": "130a3ec516ab54f2668da5133c359a480e42830a7b6589c51dfd3189a57171b4",
+    "affected-job.log": "7f3d57f91a52ba4f0a982713f7544d510a1607c48a33bbffca1a116a5d215d4a",
+    "docs-failed.log": "379b1a8569ebe5ad01fd6c39a9da8c7d53ad4d3dd9ecb15826a48f69b7344221"
+  },
+  "backup": {
+    "remote_commit": "a4023362941905401e6d51ae4e94f053950ed32a",
+    "parent": "46eb3960a592374b5fb99d7df588962a3680f86b",
+    "remote_tree": "4a88c015b52e070ec41123683a4c61da3acf8974",
+    "only_added_path": "docs/evidence/mapgen_host_04_acceptance/recovery/d37-original.bundle",
+    "blob_sha": "0fe404a40fccccc84822619faa90a87572549004",
+    "actual_remote_bundle_sha256": "dd2eeefefa2a8563bcf872ed5b5d727b332f9c833021c1d20a2867aee0e233b0",
+    "bytes": 183982,
+    "equal_persistent_original_bundle": true,
+    "git_bundle_verify_exit": 0,
+    "bundle_head": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+    "local_d37_tree": "fecc23d4860a08ad5c3d49df7de503f13578c68c",
+    "meaning": "Backup-only commit, not upload of production implementation or CI approval."
+  },
+  "limits": [
+    "New recovery report is not recreation of either lost summary.",
+    "Original phase ZIPs re-downloaded and verified against unchanged API digests.",
+    "Only phase A, SDK0.4.0/module1.1; no B/0.4.1/merge/deploy.",
+    "New acceptance implementation/metadata tree requires a distinct exact-head CI.",
+    "No source/ref changes or engine/browser execution."
+  ]
+}

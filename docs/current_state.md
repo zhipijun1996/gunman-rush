@@ -1,3 +1,11 @@
+## MAPGEN-HOST-04-ACCEPTANCE-01：阶段A收口
+
+锁定0.4.0/module1.1.0。d37原宿主源码及本地两提交已由远端bundle保全；remote c941完整tree等d37，commit元数据不同。私有只读库按SDK/模块身份共享，每job独立RNG/输入/结果/取消；窄摘要和分项计时复用原Provider/装配。
+
+恢复后原69严格通过，新f547 Web导出/读回通过；历史默认双fresh209/300和六图独审按用户要求同源承接，原raw随环境丢失不补造/不重跑。新gears原manual300.489失败保留，自动审图分离后的157.963秒正常guards完成，七图严格独审见本批收据。最终精确head CI在提交后实收，不提前写PASS。
+
+[本批结果](worklines/mapgen_host_04_acceptance/results.md) · [上游反馈](worklines/mapgen_host_04_acceptance/upstream_contract.md) · [证据与原件缺失边界](evidence/mapgen_host_04_acceptance/README.md)。本轮只A，不B/0.4.1/合并/部署。
+
 ## MAPGEN-GODOT-04：真实0.4链路已接入，默认Web整段预算仍阻塞
 
 运行源f6b61ee7026bc4c696d15fa26b09de5ff03be903，分支feature/mapgen-godot-runtime-04；0.3保留PR128/3790，原run41595461174完整178fresh成功。原18GD/模块1.1锁、两真实请求930001/930007进入同Provider→Plan→Stage→Runtime，按新模板版本/role/连接和实际身体重新选实例/出生，普通出发和玩法不变。

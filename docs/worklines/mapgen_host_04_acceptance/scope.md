@@ -11,3 +11,5 @@
 责任：root持有文档/质量/提交及单Godot和浏览器租约、装配入口计时；binding_closeout仅job/缓存helper/相应测试；browser_verify仅开发验证工具；ci_audit只读CI；death_event_audit只读独审。独立审查者不修改被审生产实现。
 
 验证顺序：受影响原check和新真实反例→主工具链导出/PCK读回→两冷会话300秒自动动作与完整guards→保存截图离线实看/独审→冻结精确head完整CI。CPU执行计时使用同线程函数elapsed，属于执行墙钟（含调度抖动），不冒称OS线程CPU采样；阶段wall与host执行之差记录为让帧/调度间隙，不全归算法。
+
+最新恢复指令覆盖旧阶段安排：本轮仅完成A；即使A通过也不启动B，不混0.4.1。默认双fresh按同源历史已通过结论承接、不重做；原始临时证据丢失必须写明。

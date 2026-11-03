@@ -1,0 +1,22 @@
+{
+  "original_sha256": "112c62449312246ac3a600a1dd3b690ce8a1cf32ef5517ce0be014b8c8b036f0",
+  "new_sha256": "eeab037bb93b67caa453206aeadbcd1da69876a2c2acda8f04499cfa5b65f82e",
+  "original_assertions": 78,
+  "old_manual_ack_assertions": 1,
+  "old_review_batch_assertions": 1,
+  "other_76_assertions_preserved": true,
+  "new_assertions": 79,
+  "inverse_entire_source_exact": true,
+  "inverse_entire_AST_exact": true,
+  "original_actions_and_guards": "Entire source restores exact under this finite checkpoint/status/key inverse; all key/screenshot/observation/browser/source/PCK/producer/HTTP actions outside checkpoint unchanged",
+  "manual_change_scope": [
+    "assert value['action']==action and value.get('passed') is True -> declared seq/action and capture count assertions; no operator ACK",
+    "assert set(row['operator_visual_review'][-1]['reviewed_files'])==set(screenshots) -> assert set(row['deferred_visual_checkpoints'][-1]['capture_files'])==set(screenshots); strict offline full7-image review is mandatory"
+  ],
+  "budget_seconds": 300,
+  "fresh_contexts": 1,
+  "required_PNGs": 7,
+  "automatic_complete_status": "AUTOMATED_COMPLETE_VISUAL_PENDING",
+  "guard_status_predicate": "report['status']=='AUTOMATED_COMPLETE_VISUAL_PENDING'",
+  "final_visual_acceptance": "Separate independent offline_review.py strict join only"
+}
