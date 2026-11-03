@@ -102,6 +102,7 @@ func run() -> void:
 	await queued_owner_rejection()
 	await cancellation_checkpoints()
 	await disposal_contract()
+	await budget_failure_contract()
 	await replacement_then_success()
 	check(get_node_count()==nodes_before,"source/Provider lifecycle did not create any scene nodes")
 	finish()
@@ -269,6 +270,60 @@ func disposal_contract() -> void:
 		unclosed_source.close()
 		unclosed_source = null
 	check(lifetime.active and lifetime.token().key()==token_before,"either disposal path leaves caller lifetime authority unchanged")
+
+func budget_failure_contract() -> void:
+	# Explicit guard counterexample only. Keep the actual normal profile/seed,
+	# locked resource bytes and existing positive contract completely unchanged.
+	var normal_config := DATA.canonical(config)
+	var normal_request := DATA.canonical(request_data)
+	var normal_bindings := DATA.canonical(bindings)
+	var constrained: Dictionary = config.duplicate(true)
+	constrained.search.candidate_expansion_budget = 1
+	var owner := RefCounted.new()
+	var lifetime := DemoLifetime.new()
+	var token_before := lifetime.token().key()
+	var source := SOURCE.new()
+	var ticket := source.begin(owner,lifetime,host_request(),request_data,constrained,bindings,IDS)
+	check(ticket!=null and source.phase(ticket)=="preload","real budget guard begins with accepted typed SDK inputs and a private config copy")
+	if ticket==null:
+		source.close()
+		return
+	if not await preload_source(source,ticket,lifetime):
+		source.close()
+		return
+	var calls := 0
+	while source.phase(ticket)=="generate" and calls<MAX_ADVANCE_CALLS:
+		var advanced := source.tick(ticket,lifetime)
+		calls += 1
+		if not advanced: break
+		await process_frame
+	check(source.phase(ticket)=="validate","original SDK budget exhaustion reaches the separate validate phase")
+	if source.phase(ticket)!="validate":
+		source.close()
+		return
+	# Read the original result while it is still an unconsumed validation
+	# candidate, before the failed host envelope deliberately closes result access.
+	var actual: Dictionary = source.actual_result(ticket,lifetime)
+	check(actual.get("status")=="BUDGET_EXHAUSTED" and actual.get("schema")=="mapgen/generation-result/v1","actual original SDK reports its budget status and result schema")
+	var diagnostics: Dictionary = actual.get("diagnostics",{})
+	var sdk_error: Dictionary = diagnostics.get("error",{})
+	check(sdk_error.get("message")=="candidate_expansion_budget" and not str(sdk_error.get("phase","")).is_empty(),"actual SDK error identifies candidate_expansion_budget and its genuine phase")
+	check(not source.tick(ticket,lifetime) and source.phase(ticket)=="failed","validate rejects actual non-PASS SDK result without offering a plan")
+	var message := source.error(ticket)
+	check("BUDGET_EXHAUSTED" in message and "mapgen/generation-result/v1" in message and "candidate_expansion_budget" in message,"host failure exposes original SDK status/schema/message instead of generic not-PASS")
+	var decoded := JSON.new()
+	var code := decoded.parse(message.trim_prefix("generation result rejected: "))
+	var forwarded: Variant = decoded.data
+	check(code==OK and forwarded is Dictionary and forwarded.get("status")==actual.get("status") and forwarded.get("schema")==actual.get("schema") and forwarded.get("error")==sdk_error,"forwarded structured diagnostics preserve exact real SDK error fields")
+	var receipt: Dictionary = source.metrics(ticket)
+	check(receipt.get("generation_status")==actual.get("status") and int(receipt.advance_calls)>0 and receipt.get("generation_profile") is Dictionary,"real failure metrics retain actual SDK status and performed generation work/profile")
+	check(float(receipt.soft_tick_ms)==SOURCE.SOFT_TICK_MS,"soft timing receipt comes from the single production constant, not a duplicated4ms value")
+	rejected(source,ticket,lifetime,"real SDK candidate-budget exhaustion")
+	check(source.resolved_bindings(ticket,lifetime).is_empty(),"failed budget result exposes no resolved binding or Provider admission")
+	check(DATA.canonical(config)==normal_config and DATA.canonical(request_data)==normal_request and DATA.canonical(bindings)==normal_bindings,"budget guard leaves normal algorithm config, seed and actual host recipe untouched")
+	check(lifetime.active and lifetime.token().key()==token_before,"budget failure does not become a second run/lifetime authority")
+	print("RUNTIME_MAP_GENERATION_JOB_BUDGET_FAILURE ",JSON.stringify({"status":actual.get("status"),"schema":actual.get("schema"),"sdk_error":sdk_error,"forwarded_error":message,"generation_status":receipt.get("generation_status"),"soft_tick_ms":receipt.soft_tick_ms,"candidate_expansion_budget":constrained.search.candidate_expansion_budget,"seed":request_data.seed,"scope":"real SDK guard counterexample only; normal profile unchanged"}))
+	source.close()
 
 func replacement_then_success() -> void:
 	var owner := RefCounted.new()

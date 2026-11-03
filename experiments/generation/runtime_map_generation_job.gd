@@ -6,7 +6,10 @@ const JOB := preload("res://addons/mapgen/generation_job.gd")
 const PRELOAD_JOB := preload("res://addons/mapgen/preload_job.gd")
 const WORK_GATE := preload("res://addons/mapgen/work_gate.gd")
 const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
-const SOFT_TICK_MS := 4.0
+# Original SDK Web host uses an 8ms yielding target. The first actual main-game
+# Web run with 4ms rejected the result after ~92.5s of generation; its package,
+# input/config and 90s search limit stay unchanged. This is no hard frame limit.
+const SOFT_TICK_MS := 8.0
 const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
 const LOCK_PATH := "res://config/mapgen_candidate.json"
 
@@ -36,7 +39,7 @@ class Ticket extends RefCounted:
 	var provenance: Dictionary = {}
 	var progress: Dictionary = {}
 	var progress_history: Array[Dictionary] = []
-	var metrics: Dictionary = {"tick_ms":[],"tick_phases":[],"tick_max_ms":0.0,"preload_ms":0.0,"preload_tick_ms":[],"preload_advance_total_ms":0.0,"preload_advance_max_ms":0.0,"preload_calls":0,"preload_progress":[],"preload_unit_overruns":[],"advance_unit_total_ms":0.0,"advance_tick_ms":[],"advance_max_ms":0.0,"advance_tick_max_ms":0.0,"advance_calls":0,"advance_ticks":0,"advance_unit_overruns":[],"validate_ms":0.0,"operations":0,"microsteps":0,"quantum_checkpoints":16,"soft_tick_ms":4.0,"budget_kind":"work-unit cap per host tick; original advance1 is16 checkpoints; soft time target only","sampling":"initial + each host tick + terminal/cancel; exact unit count/max/total and SDK phase profiles retained"}
+	var metrics: Dictionary = {"tick_ms":[],"tick_phases":[],"tick_max_ms":0.0,"preload_ms":0.0,"preload_tick_ms":[],"preload_advance_total_ms":0.0,"preload_advance_max_ms":0.0,"preload_calls":0,"preload_progress":[],"preload_unit_overruns":[],"advance_unit_total_ms":0.0,"advance_tick_ms":[],"advance_max_ms":0.0,"advance_tick_max_ms":0.0,"advance_calls":0,"advance_ticks":0,"advance_unit_overruns":[],"validate_ms":0.0,"operations":0,"microsteps":0,"quantum_checkpoints":16,"budget_kind":"work-unit cap per host tick; original advance1 is16 checkpoints; soft time target only","sampling":"initial + each host tick + terminal/cancel; exact unit count/max/total and SDK phase profiles retained"}
 	var built: LevelBuildResult
 	var taken := false
 	var committed := false
@@ -63,6 +66,7 @@ func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, r
 	ticket.binding_id = binding_id
 	ticket.operation_budget = operation_budget
 	ticket.metrics["operation_budget"] = operation_budget
+	ticket.metrics["soft_tick_ms"] = SOFT_TICK_MS
 	ticket.metrics["configured_work_unit_cap"] = operation_budget
 	_current = ticket
 	if not _accepts(ticket,lifetime):
@@ -295,9 +299,13 @@ func _validate(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
 	var expected: String = PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(ticket.library.sha256))
 	var actual: Dictionary = ticket.actual
+	ticket.metrics["generation_status"] = actual.get("status","MISSING")
 	if actual.get("status") != "PASS" or actual.get("schema") != "mapgen/generation-result/v1":
 		ticket.metrics.validate_ms = _elapsed_ms(started)
-		_fail(ticket,"generation did not produce a completed PASS result")
+		var failure := {"status":actual.get("status","MISSING"),"schema":actual.get("schema","MISSING")}
+		if actual.get("diagnostics") is Dictionary and actual.diagnostics.get("error") is Dictionary:
+			failure["error"] = actual.diagnostics.error.duplicate(true)
+		_fail(ticket,"generation result rejected: "+JSON.stringify(failure))
 		return
 	if expected != ticket.provenance.get("expected_request_fingerprint") or actual.get("request_fingerprint") != expected:
 		ticket.metrics.validate_ms = _elapsed_ms(started)
