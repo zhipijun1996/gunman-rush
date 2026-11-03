@@ -3,7 +3,10 @@ extends RefCounted
 ## Source-owned cooperative envelope. The entrance owns SceneTree and RunSession.
 ## Every accepting operation receives the entrance's actual current lifetime.
 const JOB := preload("res://addons/mapgen/generation_job.gd")
-const ARCHIVE := preload("res://addons/mapgen/module_archive.gd")
+const PRELOAD_JOB := preload("res://addons/mapgen/preload_job.gd")
+const WORK_GATE := preload("res://addons/mapgen/work_gate.gd")
+const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const SOFT_TICK_MS := 4.0
 const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
 const LOCK_PATH := "res://config/mapgen_candidate.json"
 
@@ -23,13 +26,17 @@ class Ticket extends RefCounted:
 	var ids: Array[String] = []
 	var binding_id := "seam"
 	var operation_budget := 128
+	var lock: Dictionary = {}
+	var preloader: Variant
+	var preload_started_usec := 0
+	var resolved: Dictionary = {}
 	var library: Variant
 	var job: Variant
 	var actual: Dictionary = {}
 	var provenance: Dictionary = {}
 	var progress: Dictionary = {}
 	var progress_history: Array[Dictionary] = []
-	var metrics: Dictionary = {"preload_ms":0.0,"advance_ms":[],"advance_max_ms":0.0,"advance_calls":0,"validate_ms":0.0,"operations":0}
+	var metrics: Dictionary = {"tick_ms":[],"tick_phases":[],"tick_max_ms":0.0,"preload_ms":0.0,"preload_tick_ms":[],"preload_advance_total_ms":0.0,"preload_advance_max_ms":0.0,"preload_calls":0,"preload_progress":[],"preload_unit_overruns":[],"advance_unit_total_ms":0.0,"advance_tick_ms":[],"advance_max_ms":0.0,"advance_tick_max_ms":0.0,"advance_calls":0,"advance_ticks":0,"advance_unit_overruns":[],"validate_ms":0.0,"operations":0,"microsteps":0,"quantum_checkpoints":16,"soft_tick_ms":4.0,"budget_kind":"work-unit cap per host tick; original advance1 is16 checkpoints; soft time target only","sampling":"initial + each host tick + terminal/cancel; exact unit count/max/total and SDK phase profiles retained"}
 	var built: LevelBuildResult
 	var taken := false
 	var committed := false
@@ -56,11 +63,16 @@ func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, r
 	ticket.binding_id = binding_id
 	ticket.operation_budget = operation_budget
 	ticket.metrics["operation_budget"] = operation_budget
+	ticket.metrics["configured_work_unit_cap"] = operation_budget
 	_current = ticket
 	if not _accepts(ticket,lifetime):
 		_fail(ticket,"generation owner/lifetime is not active")
 	elif ticket.request == null or ticket.request.tuning == null:
 		_fail(ticket,"request: missing LevelRequest/tuning")
+	elif not ids.is_empty():
+		_fail(ticket,"04 selection must resolve actual output; do not pass pinned instance IDs")
+	elif not bindings.get("selection_recipe") is Dictionary:
+		_fail(ticket,"04 generation requires a versioned selection recipe")
 	elif operation_budget < 1 or operation_budget > 4096:
 		_fail(ticket,"advance operation budget must be 1..4096")
 	else:
@@ -74,10 +86,24 @@ func tick(value: RefCounted, current_lifetime: DemoLifetime) -> bool:
 	if not _guard(ticket,current_lifetime): return false
 	if ticket.phase not in ["preload","generate","validate"]: return false
 	_ticking = true
+	var phase_before := ticket.phase
+	var tick_started := Time.get_ticks_usec()
 	match ticket.phase:
 		"preload": _preload(ticket)
 		"generate": _advance(ticket)
 		"validate": _validate(ticket)
+	var duration := _elapsed_ms(tick_started)
+	ticket.metrics.tick_ms.append(duration)
+	ticket.metrics.tick_phases.append(phase_before)
+	ticket.metrics.tick_max_ms = maxf(float(ticket.metrics.tick_max_ms),duration)
+	if phase_before=="preload":
+		ticket.metrics.preload_ms = float(ticket.metrics.preload_ms)+duration
+		ticket.metrics.preload_tick_ms.append(duration)
+		if ticket.phase=="generate": ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
+	elif phase_before=="generate":
+		ticket.metrics.advance_tick_ms.append(duration)
+		ticket.metrics.advance_ticks = int(ticket.metrics.advance_ticks)+1
+		ticket.metrics.advance_tick_max_ms = maxf(float(ticket.metrics.advance_tick_max_ms),duration)
 	_ticking = false
 	return _guard(ticket,current_lifetime) and ticket.phase not in ["failed","cancelled"]
 
@@ -165,6 +191,12 @@ func provenance(value: RefCounted, current_lifetime: DemoLifetime) -> Dictionary
 	if ticket == null or not _accepts(ticket,current_lifetime) or ticket.phase == "cancelled": return {}
 	return ticket.provenance.duplicate(true)
 
+func resolved_bindings(value: RefCounted, current_lifetime: DemoLifetime) -> Dictionary:
+	var ticket := _ticket(value)
+	if not _accepts(ticket,current_lifetime) or ticket.resolved.is_empty(): return {}
+	return ticket.bindings.duplicate(true)
+
+
 func request_serial(value: RefCounted) -> int:
 	var ticket := _ticket(value)
 	return ticket.serial if ticket != null else 0
@@ -181,49 +213,81 @@ func _guard(ticket: Ticket, current_lifetime: DemoLifetime) -> bool:
 
 func _preload(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
-	var lock_value: Variant = JSON.parse_string(FileAccess.get_file_as_string(LOCK_PATH))
-	if not lock_value is Dictionary:
-		ticket.metrics.preload_ms = _elapsed_ms(started)
-		_fail(ticket,"missing/invalid installed mapgen candidate lock")
-		return
-	var lock: Dictionary = lock_value
-	var problem := _lock_error(lock)
-	if not problem.is_empty():
-		ticket.metrics.preload_ms = _elapsed_ms(started)
-		_fail(ticket,problem)
-		return
-	var modules: Dictionary = lock.module_package
-	var opened: Dictionary = ARCHIVE.open_zip(str(modules.path),str(modules.sha256))
-	ticket.metrics.preload_ms = _elapsed_ms(started)
-	if not opened.get("ok",false):
-		_fail(ticket,str(opened.get("error","module archive preload failed")))
+	if ticket.preloader == null:
+		ticket.preload_started_usec = started
+		var value: Variant = JSON.parse_string(FileAccess.get_file_as_string(LOCK_PATH))
+		if not value is Dictionary:
+			_fail(ticket,"missing/invalid installed mapgen candidate lock")
+			return
+		ticket.lock = value
+		var problem := _lock_error(ticket.lock)
+		if not problem.is_empty():
+			_fail(ticket,problem)
+			return
+		ticket.preloader = PRELOAD_JOB.create(str(ticket.lock.module_package.path),str(ticket.lock.module_package.sha256))
+	var calls := 0
+	while calls<ticket.operation_budget and not ticket.preloader.is_done():
+		if not _accepts(ticket,ticket.lifetime):
+			_cancel(ticket,"preload context invalidated")
+			return
+		var step_started := Time.get_ticks_usec()
+		var advanced: Dictionary = ticket.preloader.advance(1)
+		var duration := _elapsed_ms(step_started)
+		ticket.metrics.preload_advance_total_ms = float(ticket.metrics.preload_advance_total_ms)+duration
+		if duration>SOFT_TICK_MS: ticket.metrics.preload_unit_overruns.append({"ms":duration,"phase_after":ticket.preloader.phase_name()})
+		ticket.metrics.preload_advance_max_ms = maxf(float(ticket.metrics.preload_advance_max_ms),duration)
+		ticket.metrics.preload_calls = int(ticket.metrics.preload_calls)+1
+		calls += 1
+		if not advanced.get("ok",false):
+			_fail(ticket,str(advanced.get("error","cooperative preload failed")))
+			return
+		if _elapsed_ms(started)>=SOFT_TICK_MS: break
+	ticket.progress = ticket.preloader.progress().duplicate(true)
+	ticket.metrics.preload_progress.append(ticket.progress.duplicate(true))
+	if not ticket.preloader.is_done(): return
+	var opened: Dictionary = ticket.preloader.result()
+	if opened.get("status")!="PASS":
+		_fail(ticket,str(opened.get("error","module preload did not PASS")))
 		return
 	ticket.library = opened.library
-	if ticket.library.sha256 != modules.sha256 or ticket.library.version != modules.version:
+	if ticket.library.sha256!=ticket.lock.module_package.sha256 or ticket.library.version!=ticket.lock.module_package.version:
 		_fail(ticket,"module archive identity differs from installed lock")
 		return
-	ticket.provenance = {"kind":"generated_memory","expected_request_fingerprint":PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(ticket.library.sha256)),"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":modules.path,"sha256":ticket.library.sha256,"version":ticket.library.version},"request":ticket.request_data.duplicate(true),"config":ticket.config.duplicate(true)}
-	# No bindings_file byte attestation: this API receives values, not a read file.
+	ticket.metrics["preload_profile"] = ticket.preloader.profile()
+	ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
+	var lock: Dictionary = ticket.lock
+	ticket.provenance = {"kind":"generated_memory","expected_request_fingerprint":PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(ticket.library.sha256)),"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":lock.module_package.path,"sha256":ticket.library.sha256,"version":ticket.library.version},"request":ticket.request_data.duplicate(true),"config":ticket.config.duplicate(true)}
+	ticket.preloader = null
 	ticket.job = JOB.create(ticket.request_data,ticket.library,ticket.config)
 	ticket.progress = ticket.job.progress().duplicate(true)
 	ticket.progress_history.append(ticket.progress.duplicate(true))
-	ticket.metrics.preload_ms = _elapsed_ms(started)
 	ticket.phase = "generate"
 
 func _advance(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
-	var advanced: Dictionary = ticket.job.advance(ticket.operation_budget)
-	var duration := _elapsed_ms(started)
-	ticket.metrics.advance_ms.append(duration)
-	ticket.metrics.advance_calls = int(ticket.metrics.advance_calls)+1
-	ticket.metrics.advance_max_ms = maxf(float(ticket.metrics.advance_max_ms),duration)
+	var calls := 0
+	while calls<ticket.operation_budget and not ticket.job.is_done():
+		if not _accepts(ticket,ticket.lifetime):
+			_cancel(ticket,"generation context invalidated")
+			return
+		var step_started := Time.get_ticks_usec()
+		var advanced: Dictionary = ticket.job.advance(1)
+		var duration := _elapsed_ms(step_started)
+		ticket.metrics.advance_unit_total_ms = float(ticket.metrics.advance_unit_total_ms)+duration
+		if duration>SOFT_TICK_MS: ticket.metrics.advance_unit_overruns.append({"ms":duration,"phase_after":ticket.job.phase_name()})
+		ticket.metrics.advance_calls = int(ticket.metrics.advance_calls)+1
+		ticket.metrics.advance_max_ms = maxf(float(ticket.metrics.advance_max_ms),duration)
+		calls += 1
+		if not advanced.get("ok",false):
+			_fail(ticket,str(advanced.get("error","generation advance failed")))
+			return
+		if _elapsed_ms(started)>=SOFT_TICK_MS: break
 	ticket.progress = ticket.job.progress().duplicate(true)
 	ticket.progress_history.append(ticket.progress.duplicate(true))
 	ticket.metrics.operations = int(ticket.progress.get("operations",0))
-	if not advanced.get("ok",false):
-		_fail(ticket,str(advanced.get("error","generation advance failed")))
-		return
+	ticket.metrics.microsteps = int(ticket.progress.get("microsteps",0))
 	if ticket.job.is_done():
+		ticket.metrics["generation_profile"] = ticket.job.profile()
 		ticket.actual = ticket.job.result().duplicate(true)
 		ticket.phase = "validate"
 
@@ -243,13 +307,19 @@ func _validate(ticket: Ticket) -> void:
 		ticket.metrics.validate_ms = _elapsed_ms(started)
 		_fail(ticket,"generation map differs from original Protocol request fingerprint")
 		return
-	var spawns: Variant = ticket.bindings.get("spawns")
-	var point: Variant = spawns.get(ticket.binding_id) if spawns is Dictionary else null
-	if not LevelContentValidation.point(point):
+	var half: Variant = ticket.request.capabilities.get("collision_half_extents")
+	if not LevelContentValidation.point(half):
 		ticket.metrics.validate_ms = _elapsed_ms(started)
-		_fail(ticket,"unknown/invalid generated slice spawn binding: "+ticket.binding_id)
+		_fail(ticket,"missing actual host collision_half_extents snapshot")
 		return
-	var spawn := Vector2(float(point[0]),float(point[1]))
+	ticket.resolved = SELECTION.resolve(actual,ticket.bindings,Vector2(float(half[0]),float(half[1])),ticket.binding_id)
+	if not ticket.resolved.ok:
+		ticket.metrics.validate_ms = _elapsed_ms(started)
+		_fail(ticket,str(ticket.resolved.error))
+		return
+	ticket.ids.assign(ticket.resolved.ids)
+	ticket.bindings = ticket.resolved.bindings.duplicate(true)
+	var spawn: Vector2 = ticket.resolved.spawn
 	# Provider owns the one shared content converter. Preserve the original result.
 	ticket.built = RuntimeMapV2Provider.load_generated_level(ticket.request,actual.duplicate(true),ticket.ids,spawn,ticket.bindings.duplicate(true),ticket.provenance.duplicate(true),ticket.binding_id)
 	ticket.metrics.validate_ms = _elapsed_ms(started)
@@ -259,7 +329,7 @@ func _validate(ticket: Ticket) -> void:
 	ticket.phase = "ready"
 
 func _lock_error(lock: Dictionary) -> String:
-	if lock.get("version") != "0.3.0" or lock.get("implementation") != PROTOCOL.IMPLEMENTATION or lock.get("algorithm") != PROTOCOL.ALGORITHM:
+	if lock.get("version") != "0.4.0" or lock.get("implementation") != PROTOCOL.IMPLEMENTATION or lock.get("algorithm") != PROTOCOL.ALGORITHM:
 		return "installed candidate implementation/algorithm/version mismatch"
 	if not lock.get("archive") is Dictionary or not _hex(lock.archive.get("sha256"),64) or not _hex(lock.get("release_head"),40) or not _hex(lock.get("source_commit"),40):
 		return "invalid installed algorithm release identity"
@@ -294,30 +364,55 @@ func _copy_request(source: LevelRequest) -> LevelRequest:
 func _elapsed_ms(started: int) -> float:
 	return float(Time.get_ticks_usec()-started)/1000.0
 
+func _capture_missing_profiles(ticket: Ticket) -> void:
+	var started := Time.get_ticks_usec()
+	if ticket.preloader != null and not ticket.metrics.has("preload_profile"):
+		ticket.metrics["preload_profile"] = ticket.preloader.profile()
+		ticket.metrics["preload_terminal_status"] = str(ticket.preloader.result().get("status","PENDING"))
+	if ticket.job != null and not ticket.metrics.has("generation_profile"):
+		ticket.metrics["generation_profile"] = ticket.job.profile()
+		ticket.metrics["generation_terminal_status"] = str(ticket.job.result().get("status","PENDING"))
+	ticket.metrics["cancel_profile_ms"] = float(ticket.metrics.get("cancel_profile_ms",0.0))+_elapsed_ms(started)
+
 func _cancel(ticket: Ticket, reason: String) -> void:
+	var started := Time.get_ticks_usec()
+	if ticket.preloader != null:
+		ticket.preloader.cancel()
+		ticket.progress = ticket.preloader.progress().duplicate(true)
+		ticket.metrics.preload_progress.append(ticket.progress.duplicate(true))
 	if ticket.job != null:
 		ticket.job.cancel()
 		ticket.progress = ticket.job.progress().duplicate(true)
 		ticket.progress_history.append(ticket.progress.duplicate(true))
 		ticket.metrics.operations = int(ticket.progress.get("operations",0))
+	_capture_missing_profiles(ticket)
+	ticket.preloader = null
 	if ticket.phase not in ["failed","committed"]:
 		ticket.error = reason
 		ticket.phase = "cancelled"
 	ticket.built = null
 	ticket.job = null
 	ticket.library = null
+	ticket.metrics["cancel_ms"] = float(ticket.metrics.get("cancel_ms",0.0))+_elapsed_ms(started)
 
 func _fail(ticket: Ticket, message: String) -> void:
+	var started := Time.get_ticks_usec()
+	if ticket.preloader != null:
+		ticket.preloader.cancel()
+		ticket.progress = ticket.preloader.progress().duplicate(true)
 	if ticket.job != null:
 		ticket.job.cancel()
 		ticket.progress = ticket.job.progress().duplicate(true)
 		ticket.progress_history.append(ticket.progress.duplicate(true))
 		ticket.metrics.operations = int(ticket.progress.get("operations",0))
+	_capture_missing_profiles(ticket)
+	ticket.preloader = null
 	ticket.error = message
 	ticket.phase = "failed"
 	ticket.built = null
 	ticket.job = null
 	ticket.library = null
+	ticket.metrics["cancel_ms"] = float(ticket.metrics.get("cancel_ms",0.0))+_elapsed_ms(started)
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_PREDELETE: return
@@ -325,6 +420,8 @@ func _notification(what: int) -> void:
 	# self method dispatch is no longer valid: only unwind the owned pure job.
 	_closed = true
 	if _current != null:
+		if _current.preloader != null: _current.preloader.cancel()
+		_current.preloader = null
 		if _current.job != null: _current.job.cancel()
 		_current.job = null
 		_current.library = null

@@ -140,7 +140,7 @@ static func _generated_source_error(result: Dictionary, source: Dictionary) -> S
 	var map: Dictionary = result.map
 	if not map.get("generator") is Dictionary or not map.get("module_package") is Dictionary or not map.get("inputs") is Dictionary: return "result.map: missing generator/module/inputs"
 	if not _hash(source.get("expected_request_fingerprint")) or result.get("request_fingerprint") != source.expected_request_fingerprint or map.generator.get("request_fingerprint") != source.expected_request_fingerprint: return "result.request_fingerprint: differs from captured addon fingerprint"
-	if source.get("implementation") != "mapgen/gdscript-candidate-0.3.0" or source.get("algorithm") != "stable-v2" or map.generator.get("implementation") != source.implementation or map.generator.get("algorithm") != source.algorithm: return "result.generator: unsupported/mismatched implementation or algorithm"
+	if source.get("implementation") != "mapgen/gdscript-candidate-0.4.0" or source.get("algorithm") != "stable-v3-reward-space" or map.generator.get("implementation") != source.implementation or map.generator.get("algorithm") != source.algorithm: return "result.generator: unsupported/mismatched implementation or algorithm"
 	if not source.get("request") is Dictionary or not source.get("config") is Dictionary or not map.inputs.get("request") is Dictionary or not map.inputs.get("config") is Dictionary: return "provenance.request/config: missing captured algorithm inputs"
 	if _digest(map.inputs.request) != _digest(source.request) or _digest(map.inputs.config) != _digest(source.config): return "result.inputs: differs from captured algorithm inputs"
 	if not source.request.get("seed") is int or map.get("seed") != source.request.seed: return "result.seed: differs from actual integer algorithm request"
@@ -148,7 +148,7 @@ static func _generated_source_error(result: Dictionary, source: Dictionary) -> S
 	var package: Dictionary = source.algorithm_package
 	extra = _unexpected(package,["version","zip_sha256","release_head","source_commit"])
 	if not extra.is_empty(): return "provenance.algorithm_package."+extra+": unsupported field"
-	if package.get("version") != "0.3.0" or not _hash(package.get("zip_sha256")) or not _commit_hash(package.get("release_head")) or not _commit_hash(package.get("source_commit")): return "provenance.algorithm_package: invalid release identity"
+	if package.get("version") != "0.4.0" or not _hash(package.get("zip_sha256")) or not _commit_hash(package.get("release_head")) or not _commit_hash(package.get("source_commit")): return "provenance.algorithm_package: invalid release identity"
 	var archive: Dictionary = source.module_archive
 	extra = _unexpected(archive,["path","sha256","version"])
 	if not extra.is_empty(): return "provenance.module_archive."+extra+": unsupported field"

@@ -2,6 +2,7 @@ extends SceneTree
 ## Actual generation/Stage/physics, independent M35 only. The one saw contact
 ## relocation occurs inside this running scene; it is not initial entry or a route.
 const SCENE := preload("res://experiments/generation/runtime_map_m35_slice.tscn")
+const GENERATED_TESTS := preload("res://tests/runtime_map_generated_slice_runner.gd")
 const M35 := preload("res://experiments/generation/runtime_map_m35_slice.gd")
 const INPUT_ID: StringName = &"m35_runtime_test"
 var checks := 0
@@ -12,13 +13,10 @@ var returns: Array[Dictionary] = []
 
 class UnsafeSpawn extends RuntimeMapM35Slice:
 	var admission_calls := 0
-	func _read_host_bindings() -> Dictionary:
-		var host := super()
-		if host.ok:
-			host.bindings = host.bindings.duplicate(true)
-			# In-memory host input negative only: inside the original fall plane.
-			host.bindings.spawns.seam = [1626,1828]
-		return host
+	func _assemble_plan(built: LevelBuildResult) -> bool:
+		# Test-only unsafe Plan injection, never presented as source output/binding.
+		built.plan.spawn = Vector2.ZERO
+		return super(built)
 	func _physics_admission() -> String:
 		admission_calls += 1
 		return super()
@@ -78,7 +76,7 @@ func negative_admission(stale: bool) -> void:
 		check(altered.admission_calls==1 and altered.safe_before_invalidation,"actual first-physics safe admission precedes deliberate original actor invalidation")
 	else:
 		var unsafe := world as UnsafeSpawn
-		check(unsafe.admission_calls==1 and "unsafe" in unsafe.error,"in-memory unsafe spawn reaches actual SegmentRespawn physics safety rejection")
+		check(unsafe.admission_calls==1 and "unsafe" in unsafe.error,"test-injected unsafe Plan reaches actual SegmentRespawn physics safety rejection")
 	check(world.generation.take_plan(world.ticket,world.session.lifetime)==null and not world.generation.commit(world.ticket,world.session.lifetime),"no late take/commit after discarded provisional Stage")
 	check(await world.close_preview(),"negative entrance drains through original close_preview")
 	world.free()
@@ -89,12 +87,12 @@ func static_damage_contract(world: RuntimeMapM35Slice, actual: Dictionary) -> vo
 	var placement := world.stage.plan.modules[0]
 	var instance: Dictionary = {}
 	for row: Dictionary in actual.map.instances:
-		if row.id=="M35": instance = row
+		if row.id==placement.instance_id: instance = row
 	check(not instance.is_empty(),"M35 resolves through this actual completed generation")
 	if instance.is_empty(): return
 	var content: Dictionary = actual.content_store[instance.content_ref]
 	observations.append({"case":"actual_module_scope","instance_id":instance.id,"actual_module_id":instance.module_id,"plan_template_id":str(placement.template_id),"definition_module_id":str(module.definition.module_id),"content_stable_id":content.stable_id})
-	check(world.stage.plan.modules.size()==1 and placement.instance_id=="M35" and world.stage.plan.connections.is_empty(),"only original generated M35 installed; no neighboring geometry or seam connection fabricated")
+	check(world.stage.plan.modules.size()==1 and placement.template_id==&"game-plains-ferry-gears" and world.stage.plan.connections.is_empty(),"only original generated M35 installed; no neighboring geometry or seam connection fabricated")
 	check(module.definition.platforms.size()==content.platforms.size() and world.stage.plan.ground_supports.is_empty(),"no additional floor/support or authored platform deletion")
 	for index: int in content.platforms.size():
 		var rect: Array = content.platforms[index]
@@ -179,7 +177,7 @@ func damage_contract(world: RuntimeMapM35Slice) -> void:
 	check(world.session.player.global_position.distance_to(world.stage.plan.spawn)<0.1 and world.session.lifetime.actor_epoch==epoch+1,"original SegmentRespawn returns to same admitted entry and invalidates old actor epoch")
 	check(module.clock>=clock_before and world.session.region_state==state and service_ids(world)==services and world.session.wallet.balance==wallet,"environment return preserves module clock, region state and existing service/wallet identities")
 	var captured := world.stage.capture_state()
-	check(float(captured.clocks.M35)>=clock_before,"capture records continuing M35 clock instead of rebuilding it at zero")
+	check(float(captured.clocks[world.stage.plan.modules[0].instance_id])>=clock_before,"capture records continuing M35 clock instead of rebuilding it at zero")
 	var stale := DamageRequest.new()
 	stale.token = old_token
 	stale.actor_epoch = epoch
@@ -252,7 +250,9 @@ func run() -> void:
 	check(world.ready_ok and world.entry_admitted and world.error.is_empty(),"real generation M35 becomes ready only after actual safe physics admission: "+world.error)
 	if world.ready_ok:
 		check(world.generation.phase(world.ticket)=="committed" and world.session.controller.active,"same current generated ticket commits before activating player")
-		check(world.session.player.global_position.distance_to(Vector2(1626,1742))<0.1,"actual initial player body is at original safe spawn, not merely a target coordinate")
+		check(world.session.player.global_position.distance_to(world.stage.plan.spawn)<0.1,"actual initial player body is at newly resolved actual-platform spawn, not merely a target coordinate")
+		check(world.session.flow.seed==world.request.root_seed and world.request.root_seed==str(world.profile_inputs.request.seed) and world.profile_inputs.request.seed==930007,"dedicated original930007 profile starts the same actual RunSession/LevelRequest seed")
+		check(GENERATED_TESTS.write_actual_artifacts(world,"res://build/mapgen_godot_04/gears"),"write same-run actual gears result/provenance/original canonical payload/resolved binding before actor returns")
 		check(initial_positions.size()==1 and initial_positions[0]==world.stage.plan.spawn,"exactly one actual initial controller return event occurs at plan.spawn before activation")
 		check(count_kind(world,"player")==1 and count_kind(world,"controller")==1 and count_kind(world,"policy")==1,"one original player/controller/policy composition")
 		check(not world.session.controller.traversal.hook_enabled,"controlled M35 source never grants grapple")

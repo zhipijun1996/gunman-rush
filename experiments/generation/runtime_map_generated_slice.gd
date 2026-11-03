@@ -2,12 +2,19 @@ class_name RuntimeMapGeneratedSlice
 extends RuntimeMapSlice
 ## Explicit candidate entrance. The official conformance profile grants nothing.
 const DATA := preload("res://addons/mapgen/data_json.gd")
+const PROFILE := preload("res://experiments/generation/runtime_map_generation_profile.gd")
+const DEFAULT_INPUT_PROFILE := "conformance"
+const DEFAULT_BINDINGS_PATH := "res://resources/levels/mapgen_host_v4/bindings.json"
+const DEFAULT_BINDINGS_SHA256 := "182b4b50da807ace3b38b327645d156f02f73286d976b4de6dbace4590bc2809"
 const REQUEST_BUILDER := preload("res://experiments/generation/runtime_map_generation_request.gd")
-@export_enum("conformance930001", "controller") var generation_profile := "conformance930001"
+@export_enum("conformance", "controller") var generation_profile := "conformance"
 @export_range(1,4096) var operation_budget := 128
 var generation := RuntimeMapGenerationJob.new()
 var ticket: RefCounted
 var capability_snapshot: Dictionary = {}
+var profile_inputs: Dictionary = {}
+var segment: SegmentRespawn
+var entry_admitted := false
 var generation_receipt: Dictionary = {}
 var _loading_layer: CanvasLayer
 var _loading_label: Label
@@ -28,26 +35,19 @@ func _start_source() -> void:
 	cancel.text = "CANCEL / EXIT"
 	cancel.pressed.connect(request_exit)
 	_loading_layer.add_child(cancel)
-	var lock: Variant = JSON.parse_string(FileAccess.get_file_as_string(RuntimeMapGenerationJob.LOCK_PATH))
-	if not lock is Dictionary or not lock.get("conformance") is Dictionary or not lock.conformance.get("request") is Dictionary or not lock.conformance.get("config") is Dictionary:
-		_generation_failure("Invalid candidate lock")
+	if not profile_inputs.get("ok",false):
+		_generation_failure(str(profile_inputs.get("error","Profile was not captured before session start")))
 		return
-	for item: Dictionary in [lock.conformance.request,lock.conformance.config]:
-		if not item.get("path") is String or not item.get("sha256") is String or not FileAccess.file_exists(item.path) or FileAccess.get_sha256(item.path) != item.sha256:
-			_generation_failure("Algorithm input bytes differ from candidate lock")
-			return
-	var input: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.request.path))
-	var config: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.config.path))
 	var host := _read_host_bindings()
-	if not input.ok or not config.ok or not host.ok:
-		_generation_failure("Algorithm inputs or host bindings could not be decoded")
+	if not host.get("ok",false):
+		_generation_failure(str(host.get("error","Host selection recipe unreadable")))
 		return
-	var actual := REQUEST_BUILDER.from_controller(session.controller,session.player,930001,input.value)
+	var actual := REQUEST_BUILDER.from_controller(session.controller,session.player,int(profile_inputs.request.seed),profile_inputs.request)
 	if not actual.ok:
 		_generation_failure(actual.error)
 		return
 	capability_snapshot = actual.snapshot
-	var algorithm_request: Dictionary = input.value if generation_profile == "conformance930001" else actual.request
+	var algorithm_request: Dictionary = profile_inputs.request if generation_profile=="conformance" else actual.request
 	request.capabilities = {"profile":generation_profile,"grapple":session.controller.traversal.hook_enabled,"weapon_id":str(session.controller.shoot_ability.weapon.id),"collision_half_extents":actual.snapshot.collision.half_extents_pixels.duplicate(),"abilities":actual.request.player.abilities.duplicate()}
 	var ids: Array[String] = []
 	if not host.bindings.get("selected_instances") is Array:
@@ -58,22 +58,43 @@ func _start_source() -> void:
 			_generation_failure("Host binding selection must contain string identities")
 			return
 		ids.append(id)
-	ticket = generation.begin(self,session.lifetime,request,algorithm_request,config.value,host.bindings,ids,spawn_binding,operation_budget)
+	ticket = generation.begin(self,session.lifetime,request,algorithm_request,profile_inputs.config,host.bindings,ids,spawn_binding,operation_budget)
 	if ticket == null:
 		_generation_failure("Generation source refused new job")
 		return
 	_source_observe("started")
 
+func _profile_key() -> String:
+	return DEFAULT_INPUT_PROFILE
+
+func _source_seed() -> String:
+	profile_inputs = PROFILE.read_profile(_profile_key())
+	if not profile_inputs.get("ok",false):
+		error = str(profile_inputs.get("error","Invalid locked generation profile"))
+		return ""
+	return str(profile_inputs.seed)
+
 func _read_host_bindings() -> Dictionary:
-	return RuntimeMapFrozenSource.read_bindings()
+	return RuntimeMapFrozenSource.read_binding_file(DEFAULT_BINDINGS_PATH,DEFAULT_BINDINGS_SHA256)
 
 func _slice_description() -> String:
-	return "M16 + M18 + M21"
+	return "actual ellipse-junction recipe / "+str(profile_inputs.get("seed",""))
 
 func _needs_physics_admission() -> bool:
-	return false
+	return true
 
 func _physics_admission() -> String:
+	if not is_instance_valid(stage) or not stage.assembly_ok or not is_instance_valid(policy) or policy.lifetime!=session.lifetime:
+		return "Generated physics admission has no current Stage/damage owner"
+	if segment == null:
+		segment = SegmentRespawn.new()
+		segment.configure(session.controller,session.lifetime)
+		segment.danger_bounds = stage.assembler.world_dangers()
+		if not segment.add_anchor(&"generated_entry",stage.plan.spawn): return "Generated entry anchor could not be registered"
+	if not segment.activate_anchor(&"generated_entry"):
+		return "Generated entry is unsafe in actual physics; no body/three-foot support"
+	policy.protect_player()
+	entry_admitted = true
 	return ""
 
 func _process(_delta: float) -> void:
@@ -89,7 +110,7 @@ func _process(_delta: float) -> void:
 	if phase != _previous_phase:
 		_previous_phase = phase
 		_source_observe(phase)
-	_loading_label.text = "REAL MAPGEN 0.3.0 / %s\nProfile: %s (slice only)\n%s; no full-map playability claim\nESC or CANCEL to exit" % [phase,generation_profile,_slice_description()]
+	_loading_label.text = "REAL MAPGEN 0.4.0 / %s\nProfile: %s (slice only)\n%s; no full-map playability claim\nESC or CANCEL to exit" % [phase,generation_profile,_slice_description()]
 	if phase in ["failed","cancelled","stale"]:
 		_generation_failure(generation.error(ticket))
 		return

@@ -127,11 +127,11 @@ class BundleTests(unittest.TestCase):
         result = self.check()
         generated = result['mapgen_generated_dependencies']
         self.assertEqual(set(generated['addon_scripts']), set(config['addon_files']))
-        self.assertEqual(len(generated['addon_scripts']), 15)
+        self.assertEqual(len(generated['addon_scripts']), 18)
         self.assertEqual(set(generated['data_sha256']),
-                         {bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_MODULE_ZIP})
+                         {bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_GEARS_REQUEST, bundle.MAPGEN_MODULE_ZIP})
         self.assertTrue({bundle.MAPGEN_CANDIDATE_CONFIG, bundle.MAPGEN_REQUEST,
-                         bundle.MAPGEN_GENERATOR_CONFIG} <= set(result['json']))
+                         bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_GEARS_REQUEST} <= set(result['json']))
         for name in [bundle.MAPGEN_CANDIDATE_CONFIG, *config['addon_files'],
                      *generated['data_sha256']]:
             changed = self.entries.copy()
@@ -142,7 +142,7 @@ class BundleTests(unittest.TestCase):
     def test_generated_map_valid_pack_md5_does_not_approve_changed_bytes(self):
         config = self.generated_map()
         for name in [bundle.MAPGEN_CANDIDATE_CONFIG, *config['addon_files'],
-                     bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_MODULE_ZIP]:
+                     bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_GEARS_REQUEST, bundle.MAPGEN_MODULE_ZIP]:
             changed = self.entries.copy()
             changed[name] += b'\n'
             with self.subTest(changed=name), self.assertRaises(ValueError):
@@ -182,7 +182,7 @@ class BundleTests(unittest.TestCase):
             target = name[:-3] + '.gdc' if i % 2 else '.godot/exported/mapgen/' + str(i) + '.gdc'
             self.entries[name + '.remap'] = ('[remap]\npath="res://' + target + '"\n').encode()
             self.entries[target] = b'GDC structural fixture; not executable proof'
-        self.assertEqual(len(self.check()['mapgen_generated_dependencies']['addon_scripts']), 15)
+        self.assertEqual(len(self.check()['mapgen_generated_dependencies']['addon_scripts']), 18)
         name = next(iter(config['addon_files']))
         mapping = self.entries[name + '.remap']
         target = mapping.decode().split('res://')[1].split('"')[0]
@@ -231,7 +231,7 @@ class BundleTests(unittest.TestCase):
         section = next(presets[s] for s in presets.sections() if presets[s].get('name') == '"Web Playtest"')
         included = section['include_filter'].strip('"').split(',')
         for name in (bundle.MAPGEN_CANDIDATE_CONFIG, bundle.MAPGEN_REQUEST,
-                     bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_MODULE_ZIP):
+                     bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_GEARS_REQUEST, bundle.MAPGEN_MODULE_ZIP):
             self.assertEqual(included.count(name), 1)
         self.assertFalse(any('*' in name for name in included if name.startswith('resources/mapgen/')))
 
@@ -242,6 +242,70 @@ class BundleTests(unittest.TestCase):
         data = (bundle.REPO / bundle.MAPGEN_M35_BINDINGS).read_bytes()
         self.local(bundle.MAPGEN_M35_BINDINGS, data)
         self.entries[bundle.MAPGEN_M35_BINDINGS] = data
+
+    def default_map(self):
+        self.generated_map()
+        self.local(bundle.MAPGEN_GENERATED_SOURCE,
+                   (bundle.REPO / bundle.MAPGEN_GENERATED_SOURCE).read_bytes())
+        data = (bundle.REPO / bundle.MAPGEN_DEFAULT_BINDINGS).read_bytes()
+        self.local(bundle.MAPGEN_DEFAULT_BINDINGS, data)
+        self.entries[bundle.MAPGEN_DEFAULT_BINDINGS] = data
+
+    def test_04_default_bindings_use_the_current_consumer_sha_and_exact_pck_bytes(self):
+        self.default_map()
+        self.assertIn(bundle.MAPGEN_DEFAULT_BINDINGS, self.check()['json'])
+        for payload in (None, self.entries[bundle.MAPGEN_DEFAULT_BINDINGS] + b'\n'):
+            changed = self.entries.copy()
+            if payload is None:
+                changed.pop(bundle.MAPGEN_DEFAULT_BINDINGS)
+            else:
+                changed[bundle.MAPGEN_DEFAULT_BINDINGS] = payload
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                self.check(changed)
+        path = self.repo / bundle.MAPGEN_DEFAULT_BINDINGS
+        path.write_bytes(path.read_bytes() + b'\n')
+        with self.assertRaisesRegex(ValueError, 'actual consumer SHA'):
+            self.check()
+
+    def test_04_default_consumer_cannot_change_paths_or_omit_its_own_sha(self):
+        self.default_map()
+        path = self.repo / bundle.MAPGEN_GENERATED_SOURCE
+        source = path.read_text()
+        for changed in (source.replace(bundle.MAPGEN_DEFAULT_BINDINGS, bundle.MAPGEN_M35_BINDINGS),
+                        source.replace('DEFAULT_BINDINGS_SHA256 := "', 'DEFAULT_BINDINGS_SHA256 := "not-hex'),
+                        source.replace('const DEFAULT_BINDINGS_PATH', 'const OTHER_DEFAULT_BINDINGS_PATH'),
+                        source + '\nconst DEFAULT_BINDINGS_PATH := "res://' + bundle.MAPGEN_DEFAULT_BINDINGS + '"\n'):
+            path.write_text(changed)
+            with self.subTest(source=changed), self.assertRaises(ValueError):
+                self.check()
+
+    def test_04_both_host_binding_consumers_and_original_frozen_contract_coexist(self):
+        self.default_map()
+        self.m35_map()
+        self.frozen_map()
+        result = self.check()
+        for name in (bundle.MAPGEN_DEFAULT_BINDINGS, bundle.MAPGEN_M35_BINDINGS,
+                     bundle.MAPGEN_GEARS_REQUEST):
+            self.assertIn(name, result['json'])
+        for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):
+            self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, result['json'])
+        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 18)
+        # An installed exact ZIP cannot be copied to an additional reference path.
+        changed = self.entries.copy()
+        changed['resources/mapgen/reference.zip'] = changed[bundle.MAPGEN_MODULE_ZIP]
+        with self.assertRaisesRegex(ValueError, 'unadmitted ZIP'):
+            self.check(changed)
+
+    def test_04_gears_request_cannot_be_relabelled_or_omitted(self):
+        self.generated_map()
+        changed = self.entries.copy()
+        changed['resources/mapgen/other_request.json'] = changed.pop(bundle.MAPGEN_GEARS_REQUEST)
+        with self.assertRaisesRegex(ValueError, 'missing runtime resource'):
+            self.check(changed)
+        changed = self.entries.copy()
+        changed[bundle.MAPGEN_GEARS_REQUEST] = changed[bundle.MAPGEN_REQUEST]
+        with self.assertRaisesRegex(ValueError, 'installed SHA'):
+            self.check(changed)
 
     def test_m35_binding_sha_belongs_to_the_actual_consumer_and_pack_bytes(self):
         self.m35_map()
@@ -286,7 +350,7 @@ class BundleTests(unittest.TestCase):
         self.assertIn(bundle.MAPGEN_CANDIDATE_CONFIG, result['json'])
         for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):
             self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, result['json'])
-        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 15)
+        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 18)
         self.entries['resources/levels/mapgen_host_v3_m35/test.zip'] = b'not allowed'
         with self.assertRaisesRegex(ValueError, 'unadmitted ZIP'):
             self.check()
@@ -298,6 +362,10 @@ class BundleTests(unittest.TestCase):
         included = section['include_filter'].strip('"').split(',')
         self.assertEqual(included.count(bundle.MAPGEN_M35_BINDINGS), 1)
         self.assertFalse(any('*' in name for name in included if name.startswith('resources/levels/mapgen_host_v3_m35/')))
+        self.assertEqual(included.count(bundle.MAPGEN_DEFAULT_BINDINGS), 1)
+        self.assertNotIn('resources/levels/mapgen_host_v3_m35/bindings.json', included)
+        for root in ('resources/levels/mapgen_host_v4/', 'resources/levels/mapgen_host_v4_gears/'):
+            self.assertFalse(any('*' in name for name in included if name.startswith(root)))
 
     def test_frozen_map_raw_json_is_finite_locked_and_read_from_actual_pack(self):
         self.frozen_map()

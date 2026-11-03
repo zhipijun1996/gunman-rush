@@ -29,8 +29,11 @@ MAPGEN_CANDIDATE_CONFIG = 'config/mapgen_candidate.json'
 MAPGEN_MODULE_ZIP = 'resources/mapgen/module-pack-1.1.0.zip'
 MAPGEN_REQUEST = 'resources/mapgen/conformance_request.json'
 MAPGEN_GENERATOR_CONFIG = 'resources/mapgen/generator_config.json'
+MAPGEN_GEARS_REQUEST = 'resources/mapgen/gears_request_930007.json'
+MAPGEN_GENERATED_SOURCE = 'experiments/generation/runtime_map_generated_slice.gd'
+MAPGEN_DEFAULT_BINDINGS = 'resources/levels/mapgen_host_v4/bindings.json'
 MAPGEN_M35_SOURCE = 'experiments/generation/runtime_map_m35_slice.gd'
-MAPGEN_M35_BINDINGS = 'resources/levels/mapgen_host_v3_m35/bindings.json'
+MAPGEN_M35_BINDINGS = 'resources/levels/mapgen_host_v4_gears/bindings.json'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
                                                         SPACES + 'supported_overhang_limestone_bank_v1/',
@@ -169,8 +172,9 @@ def mapgen_candidate_contract(repo):
     mapgen_install.preflight(repo, hashes, True)
     config = json.loads(config_path.read_text())
     addons = config['addon_files']
-    paths = [config['module_package']['path'], config['conformance']['request']['path'],
-             config['conformance']['config']['path']]
+    paths = [config['module_package']['path']]
+    for profile in ('conformance', 'gears_conformance'):
+        paths += [config[profile]['request']['path'], config[profile]['config']['path']]
     data = {resource_path(path): hashes[resource_path(path)] for path in paths}
     return {'config': MAPGEN_CANDIDATE_CONFIG, 'addons': addons, 'data': data}
 
@@ -218,7 +222,7 @@ def check_mapgen_payload(pack, repo):
     allowed_addons |= {name + suffix for name in contract['addons'] for suffix in ('.remap', '.uid')}
     allowed_addons |= converted_targets
     allowed_data = set(contract['data'])
-    allowed_data |= {name + suffix for name in (MAPGEN_REQUEST, MAPGEN_GENERATOR_CONFIG)
+    allowed_data |= {name + suffix for name in contract['data'] if name.endswith('.json')
                      for suffix in ('.import', '.remap')}
     for name in pack.entries:
         if name.startswith('addons/mapgen/') and name not in allowed_addons:
@@ -259,27 +263,31 @@ def runtime_contract(repo):
     generated = mapgen_candidate_contract(repo)
     if generated is not None:
         manifest(generated['config'])
-        manifest(MAPGEN_REQUEST)
-        manifest(MAPGEN_GENERATOR_CONFIG)
+        for name in generated['data']:
+            if name.endswith('.json'):
+                manifest(name)
 
-    m35_source = repo / MAPGEN_M35_SOURCE
-    if m35_source.is_file():
-        # This host binding is independent of the unchanged upstream config
-        # lock. Its actual consumer owns the SHA; no second hash registry.
-        source = m35_source.read_text()
+    for consumer, prefix, binding in (
+            (MAPGEN_GENERATED_SOURCE, 'DEFAULT_BINDINGS', MAPGEN_DEFAULT_BINDINGS),
+            (MAPGEN_M35_SOURCE, 'BINDINGS', MAPGEN_M35_BINDINGS)):
+        if not (repo / consumer).is_file():
+            continue
+        # Host bindings are independent of the upstream config lock. Each
+        # actual consumer owns its SHA; no second hash registry is introduced.
+        source = (repo / consumer).read_text()
         declarations = {}
-        for key in ('BINDINGS_PATH', 'BINDINGS_SHA256'):
+        for key in (prefix + '_PATH', prefix + '_SHA256'):
             values = re.findall(r'^const ' + key + r'\s*(?::\s*String)?\s*:?=\s*"([^"\n]+)"\s*$',
                                 source, re.MULTILINE)
             if len(values) != 1:
-                raise ValueError('M35 consumer needs one finite ' + key + ' declaration')
+                raise ValueError('Mapgen host consumer needs one finite ' + key + ' declaration: ' + consumer)
             declarations[key] = values[0]
-        name = resource_path(declarations['BINDINGS_PATH'])
-        if declarations['BINDINGS_PATH'] != 'res://' + MAPGEN_M35_BINDINGS:
-            raise ValueError('M35 consumer bindings path changed; review finite export adapter')
-        expected = declarations['BINDINGS_SHA256']
+        name = resource_path(declarations[prefix + '_PATH'])
+        if declarations[prefix + '_PATH'] != 'res://' + binding:
+            raise ValueError('Mapgen host consumer bindings path changed; review finite export adapter: ' + consumer)
+        expected = declarations[prefix + '_SHA256']
         if not re.fullmatch(r'[0-9a-f]{64}', expected) or hashlib.sha256(local(name)).hexdigest() != expected:
-            raise ValueError('M35 bindings differ from their actual consumer SHA')
+            raise ValueError('Mapgen host bindings differ from their actual consumer SHA: ' + name)
         manifest(name)
 
     frozen_source = repo / MAPGEN_FROZEN_SOURCE

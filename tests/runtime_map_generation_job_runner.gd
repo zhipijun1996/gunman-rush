@@ -4,8 +4,11 @@ extends SceneTree
 const SOURCE := preload("res://experiments/generation/runtime_map_generation_job.gd")
 const DATA := preload("res://addons/mapgen/data_json.gd")
 const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
-const IDS: Array[String] = ["M16","M18","M21"]
-const MAX_ADVANCE_CALLS := 1024 # Actual locked conformance cohort uses713 at128.
+const PROFILE := preload("res://experiments/generation/runtime_map_generation_profile.gd")
+const HOST := preload("res://experiments/generation/runtime_map_generated_slice.gd")
+const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const IDS: Array[String] = []
+const MAX_ADVANCE_CALLS := 10000 # Same bounded frame cohort as the existing entrance test;04 work units differ.
 var checks := 0
 var failures := 0
 var request_data: Dictionary = {}
@@ -26,7 +29,7 @@ func host_request() -> LevelRequest:
 	var request := LevelRequest.new()
 	request.root_seed = str(request_data.seed)
 	request.tuning = PlayerTuning.load_default()
-	request.capabilities = {"profile":"explicit_upstream_conformance_not_a_player_grant"}
+	request.capabilities = {"profile":"explicit_upstream_conformance_not_a_player_grant","collision_half_extents":request_data.player.clearance_half_extents_pixels.duplicate()}
 	return request
 
 func start(source: SOURCE, owner: Object, lifetime: DemoLifetime, budget: int = 128) -> RefCounted:
@@ -40,14 +43,30 @@ func rejected(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime, label:
 	check(source.actual_result(ticket,lifetime).is_empty() and source.provenance(ticket,lifetime).is_empty(),label+": no result/provenance escape")
 
 func preload_source(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) -> bool:
-	var accepted := source.tick(ticket,lifetime)
-	check(accepted and source.phase(ticket)=="generate","one preload tick opens actual archive and creates original job: "+source.error(ticket))
-	if not accepted: return false
-	check(int(source.progress(ticket).get("operations",-1))==0 and int(source.metrics(ticket).advance_calls)==0,"preload does not consume generation operations")
+	var started := Time.get_ticks_msec()
+	var ticks := 0
+	var accepted := true
+	var frames_waited := 0
+	var batch := 128 if int(source.metrics(ticket).operation_budget)==1 else 1
+	while source.phase(ticket)=="preload" and frames_waited<10000 and Time.get_ticks_msec()-started<60000:
+		# Pure-data setup only: batch tiny preload ticks for the one-unit
+		# continuation probe; live entrance runners retain one tick per frame.
+		for step: int in batch:
+			if source.phase(ticket)!="preload": break
+			accepted = source.tick(ticket,lifetime)
+			ticks += 1
+			if not accepted: break
+		if not accepted: break
+		await process_frame
+		frames_waited += 1
+	check(accepted and source.phase(ticket)=="generate","cooperative preload verifies actual archive before original generation: "+source.error(ticket))
+	if not accepted or source.phase(ticket)!="generate": return false
+	check(int(source.progress(ticket).get("operations",-1))==0 and int(source.metrics(ticket).advance_calls)==0,"cooperative preload does not consume generation work units")
+	check(int(source.metrics(ticket).preload_calls)>0 and source.metrics(ticket).preload_tick_ms.size()==ticks,"each preload host tick has measured receipt with exact original unit count")
 	return true
 
 func suspended(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) -> bool:
-	if not preload_source(source,ticket,lifetime): return false
+	if not await preload_source(source,ticket,lifetime): return false
 	var accepted := source.tick(ticket,lifetime)
 	var progress: Dictionary = source.progress(ticket)
 	check(accepted and source.phase(ticket)=="generate" and not progress.get("done",true) and int(progress.get("operations",0))>0,"actual job has a suspended positive-operation continuation")
@@ -67,23 +86,22 @@ func run() -> void:
 	if not input_bytes_ok:
 		finish()
 		return
-	var decoded_request: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.request.path))
-	var decoded_config: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.config.path))
-	var frozen := RuntimeMapFrozenSource.read_bindings()
-	check(decoded_request.ok and decoded_config.ok and frozen.ok,"original typed DataJSON inputs and verified host bindings only; no frozen map/content read")
-	if not decoded_request.ok or not decoded_config.ok or not frozen.ok:
+	var inputs := PROFILE.read_profile(HOST.DEFAULT_INPUT_PROFILE)
+	var host := RuntimeMapFrozenSource.read_binding_file(HOST.DEFAULT_BINDINGS_PATH,HOST.DEFAULT_BINDINGS_SHA256)
+	check(inputs.ok and host.ok,"original typed profile inputs and exact new host recipe only; no frozen map/content read")
+	if not inputs.ok or not host.ok:
 		finish()
 		return
-	request_data = decoded_request.value
-	config = decoded_config.value
-	bindings = frozen.bindings
+	request_data = inputs.request
+	config = inputs.config
+	bindings = host.bindings
 	check(request_data.seed is int and request_data.seed==930001,"fixture declares original upstream conformance; no float seed coercion or player grant")
 	var nodes_before := get_node_count()
 	value_snapshot_contract()
 	context_rejections()
 	await queued_owner_rejection()
-	cancellation_checkpoints()
-	disposal_contract()
+	await cancellation_checkpoints()
+	await disposal_contract()
 	await replacement_then_success()
 	check(get_node_count()==nodes_before,"source/Provider lifecycle did not create any scene nodes")
 	finish()
@@ -206,7 +224,7 @@ func cancellation_checkpoints() -> void:
 
 	var created := SOURCE.new()
 	var created_ticket := start(created,owner,lifetime)
-	if preload_source(created,created_ticket,lifetime):
+	if await preload_source(created,created_ticket,lifetime):
 		check(created.abort(created_ticket,"cancel before first advance"),"cancel actual created addon job before first advance")
 		check(created.phase(created_ticket)=="cancelled" and created.progress(created_ticket).get("done",false) and int(created.metrics(created_ticket).operations)==0,"upstream cancellation completes created job with zero operations")
 		rejected(created,created_ticket,lifetime,"cancelled before advance")
@@ -214,8 +232,8 @@ func cancellation_checkpoints() -> void:
 
 	var suspended_source := SOURCE.new()
 	var suspended_ticket := start(suspended_source,owner,lifetime,1)
-	if suspended(suspended_source,suspended_ticket,lifetime):
-		check(int(suspended_source.progress(suspended_ticket).operations)==1,"one operation, not one millisecond, reaches actual suspended checkpoint")
+	if await suspended(suspended_source,suspended_ticket,lifetime):
+		check(int(suspended_source.progress(suspended_ticket).operations)==1,"one original work unit16checkpoints, not one millisecond, reaches actual suspended checkpoint")
 		suspended_source.close()
 		check(suspended_source.phase(suspended_ticket)=="cancelled" and suspended_source.progress(suspended_ticket).get("done",false),"close unwinds actual suspended addon continuation")
 		rejected(suspended_source,suspended_ticket,lifetime,"exit during suspended generation")
@@ -235,11 +253,18 @@ func disposal_contract() -> void:
 	var unclosed_source: SOURCE = SOURCE.new()
 	var unclosed_ticket := start(unclosed_source,owner,lifetime,1)
 	var unclosed_reference: WeakRef = weakref(unclosed_source)
-	if suspended(unclosed_source,unclosed_ticket,lifetime):
+	if await suspended(unclosed_source,unclosed_ticket,lifetime):
 		# The fallback must unwind the real suspended continuation directly.
 		# The original wrapper's strict engine-error/leak gate observes disposal.
+		var references_before_release := unclosed_source.get_reference_count()
 		unclosed_source = null
-		check(unclosed_reference.get_ref()==null and unclosed_ticket.get_script()==null,"PREDELETE fallback releases an unclosed source with actual suspended addon work")
+		var released_before_frame := unclosed_reference.get_ref()==null
+		#04 preload/suspended helpers await frames; allow their completed coroutine
+		#call-stack temporaries to clear before checking actual ownership release.
+		await process_frame
+		var released_after_frame := unclosed_reference.get_ref()==null
+		print("RUNTIME_MAP_GENERATION_JOB_DISPOSAL ",JSON.stringify({"references_before_release":references_before_release,"released_before_frame":released_before_frame,"released_after_frame":released_after_frame,"scope":"one frame for completed async helper stack temporaries; no production destructor change"}))
+		check(released_after_frame and unclosed_ticket.get_script()==null,"PREDELETE fallback releases unclosed suspended work after completed async helper stack cleanup")
 	else:
 		unclosed_source.close()
 		unclosed_source = null
@@ -251,7 +276,7 @@ func replacement_then_success() -> void:
 	var source := SOURCE.new()
 	var old_ticket := start(source,owner,lifetime)
 	var old_serial := source.request_serial(old_ticket)
-	if not suspended(source,old_ticket,lifetime):
+	if not await suspended(source,old_ticket,lifetime):
 		source.close()
 		return
 	var caller_request: Dictionary = request_data.duplicate(true)
@@ -268,7 +293,7 @@ func replacement_then_success() -> void:
 	# captured original integer request, config, host bindings and LevelRequest.
 	caller_request.seed = 7
 	caller_config.goals.growth_target = 1
-	caller_bindings.spawns.seam[0] += 1000
+	caller_bindings.spawn_rule.platform_index = 99
 	selected.clear()
 	request.root_seed = "caller-mutated"
 	request.expected_hash = "a".repeat(64)
@@ -276,16 +301,17 @@ func replacement_then_success() -> void:
 	request.tuning.ground_speed = 0.0
 	request.tuning.max_jumps = 0
 	request.tuning.jump_speeds.clear()
-	if not preload_source(source,ticket,lifetime):
+	if not await preload_source(source,ticket,lifetime):
 		source.close()
 		return
 	var calls := 0
+	var configured_cap := int(source.metrics(ticket).configured_work_unit_cap)
 	var previous_operations := 0
 	while source.phase(ticket)=="generate" and calls<MAX_ADVANCE_CALLS:
 		var advanced := source.tick(ticket,lifetime)
 		calls += 1
 		var operations := int(source.progress(ticket).get("operations",0))
-		check(advanced and operations>previous_operations and operations-previous_operations<=128,"real advance performs at most128 operations per tick")
+		check(advanced and operations>previous_operations and operations-previous_operations<=configured_cap,"real host tick respects its configured original work-unit cap, each16checkpoints")
 		previous_operations = operations
 		if not advanced: break
 		await process_frame
@@ -312,20 +338,21 @@ func replacement_then_success() -> void:
 	check(source.actual_result(ticket,lifetime).map.generator.request_fingerprint==expected and source.provenance(ticket,lifetime).request.seed==930001,"actual_result/provenance nested copies cannot mutate internal job state")
 	var receipt: Dictionary = source.metrics(ticket)
 	var history: Array[Dictionary] = source.progress_history(ticket)
-	check(int(receipt.operations)==91142 and int(receipt.advance_calls)==713 and calls==713,"locked real91142 operations use713 budget128 advances")
-	check(history.size()==calls+1 and history[0].operations==0 and history.back().done,"all original initial/advance progress checkpoints are retained")
-	check(receipt.preload_ms>0.0 and receipt.validate_ms>=0.0 and receipt.advance_ms.size()==calls and receipt.advance_max_ms>=0.0,"preload, each actual advance/max and Provider validation have separate receipts without16ms claim")
+	check(int(receipt.operations)==int(ceil(float(receipt.microsteps)/16.0)) and int(receipt.advance_calls)==int(receipt.operations) and int(receipt.advance_ticks)==calls,"actual04 checkpoint count maps exactly to original16-checkpoint units and measured host ticks")
+	check(history.size()==calls+1 and history[0].operations==0 and history.back().done,"initial plus each host-tick progress sample is retained; exact SDK phase profile covers internal unit transitions")
+	check(receipt.preload_ms>0.0 and receipt.validate_ms>=0.0 and receipt.advance_tick_ms.size()==calls and receipt.advance_max_ms>=0.0,"preload, each actual advance/max and Provider validation have separate receipts without16ms claim")
 	history[0].operations = -1
-	receipt.advance_ms.clear()
+	receipt.advance_tick_ms.clear()
 	var progress_copy: Dictionary = source.progress(ticket)
 	progress_copy.operations = -1
-	check(source.progress_history(ticket)[0].operations==0 and source.metrics(ticket).advance_ms.size()==calls and source.progress(ticket).operations==91142,"progress/history/timing getters deep-copy nested mutable data")
+	check(source.progress_history(ticket)[0].operations==0 and source.metrics(ticket).advance_tick_ms.size()==calls and int(source.progress(ticket).microsteps)==int(receipt.microsteps),"progress/history/timing getters deep-copy nested mutable data")
 	var built := source.take_plan(ticket,lifetime)
 	check(built != null and built.accepted() and source.phase(ticket)=="assemble","ready plan is offered once for caller-owned assembly")
 	if built == null or not built.accepted():
 		source.close()
 		return
-	check(built.plan.seed=="930001" and built.plan.spawn==Vector2(-448,846) and built.plan.modules.size()==3 and built.legacy_generated.is_empty(),"captured host request/bindings produce original three-module loading slice without legacy compatibility")
+	var resolved := SELECTION.resolve(source.actual_result(ticket,lifetime),bindings,Vector2(request_data.player.clearance_half_extents_pixels[0],request_data.player.clearance_half_extents_pixels[1]))
+	check(resolved.ok and built.plan.seed==str(request_data.seed) and built.plan.spawn==resolved.spawn and built.plan.modules.size()==resolved.ids.size() and built.legacy_generated.is_empty(),"captured actual recipe resolves template/version/topology and original-platform spawn without pinned IDs or legacy compatibility")
 	check(built.plan.get_meta("runtime_map_v2_identity").host_load.capabilities.profile=="explicit_upstream_conformance_not_a_player_grant","caller capability mutation cannot relabel admitted plan")
 	check(source.take_plan(ticket,lifetime)==null,"duplicate plan consumption is refused")
 	check(source.commit(ticket,lifetime) and source.phase(ticket)=="committed","newest real validated plan commits exactly once")

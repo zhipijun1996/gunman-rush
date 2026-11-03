@@ -1,6 +1,9 @@
 extends SceneTree
 ## Actual addon output admission; no fabricated layout or solver substitute.
-const ARCHIVE = preload("res://addons/mapgen/module_archive.gd")
+const PRELOAD_JOB = preload("res://addons/mapgen/preload_job.gd")
+const PROFILE = preload("res://experiments/generation/runtime_map_generation_profile.gd")
+const SELECTION = preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const HOST = preload("res://experiments/generation/runtime_map_generated_slice.gd")
 const DATA = preload("res://addons/mapgen/data_json.gd")
 const JOB = preload("res://addons/mapgen/generation_job.gd")
 const PROTOCOL = preload("res://addons/mapgen/protocol.gd")
@@ -10,8 +13,9 @@ var result: Dictionary
 var provenance: Dictionary
 var bindings: Dictionary
 var request: LevelRequest
-var ids: Array[String] = ["M16","M18","M21"]
-var spawn := Vector2(-448,846)
+var ids: Array[String] = []
+var spawn: Vector2
+var ellipse_ref := ""
 
 func _initialize() -> void: run.call_deferred()
 
@@ -25,11 +29,12 @@ func admit(data: Dictionary, source: Dictionary, host_bindings: Dictionary) -> L
 	return RuntimeMapV2Provider.load_generated_level(request,data,ids,spawn,host_bindings,source)
 
 func run() -> void:
-	var lock: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://config/mapgen_candidate.json"))
-	check(lock is Dictionary,"actual installation lock decoded")
-	if not lock is Dictionary:
+	var profile: Dictionary = PROFILE.read_profile(HOST.DEFAULT_INPUT_PROFILE)
+	check(profile.ok,"actual installation lock and shared default input profile decoded")
+	if not profile.ok:
 		finish()
 		return
+	var lock: Dictionary = profile.lock
 	var locked := true
 	for path: String in lock.addon_files:
 		locked = locked and FileAccess.get_sha256("res://"+path)==lock.addon_files[path]
@@ -39,18 +44,24 @@ func run() -> void:
 	if not locked:
 		finish()
 		return
-	var loaded: Dictionary = ARCHIVE.open_zip(lock.module_package.path,lock.module_package.sha256)
-	check(loaded.ok,"original addon verifies actual locked archive and member bytes")
-	if not loaded.ok:
+	var loader = PRELOAD_JOB.create(lock.module_package.path,lock.module_package.sha256)
+	while not loader.is_done():
+		var loading: Dictionary = loader.advance(128)
+		if not loading.ok:
+			check(false,"actual cooperative preload advance accepted")
+			loader.cancel()
+			finish()
+			return
+		await process_frame
+	var loaded: Dictionary = loader.result()
+	check(loaded.get("status")=="PASS","original cooperative preloader verifies actual locked archive and member bytes")
+	if loaded.get("status")!="PASS":
 		finish()
 		return
-	var algorithm_request: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.request.path))
-	var config: Dictionary = DATA.parse(FileAccess.get_file_as_string(lock.conformance.config.path))
-	check(algorithm_request.ok and config.ok,"original DataJSON preserves actual algorithm input types")
-	if not algorithm_request.ok or not config.ok:
-		finish()
-		return
-	var job = JOB.create(algorithm_request.value,loaded.library,config.value)
+	var algorithm_request: Dictionary = profile.request
+	var config: Dictionary = profile.config
+	check(algorithm_request.seed is int and algorithm_request.seed==930001,"shared profile preserves original integer 930001 input")
+	var job = JOB.create(algorithm_request,loaded.library,config)
 	while not job.is_done():
 		var advanced: Dictionary = job.advance(128)
 		if not advanced.ok:
@@ -64,16 +75,31 @@ func run() -> void:
 	if result.get("status")!="PASS":
 		finish()
 		return
-	provenance = {"kind":"generated_memory","expected_request_fingerprint":PROTOCOL.fingerprint(algorithm_request.value,config.value,loaded.library.sha256),"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":lock.module_package.path,"sha256":loaded.library.sha256,"version":loaded.library.version},"request":algorithm_request.value,"config":config.value}
-	var frozen := RuntimeMapFrozenSource.read_inputs()
-	check(frozen.ok,"existing host bindings retain actual frozen-byte check")
-	if not frozen.ok:
+	provenance = {"kind":"generated_memory","expected_request_fingerprint":PROTOCOL.fingerprint(algorithm_request,config,loaded.library.sha256),"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":lock.module_package.path,"sha256":loaded.library.sha256,"version":loaded.library.version},"request":algorithm_request,"config":config}
+	var host := RuntimeMapFrozenSource.read_binding_file(HOST.DEFAULT_BINDINGS_PATH,HOST.DEFAULT_BINDINGS_SHA256)
+	check(host.ok,"current host selection recipe retains actual byte check")
+	if not host.ok:
 		finish()
 		return
-	bindings = frozen.bindings.duplicate(true)
+	var half_extents: Array = algorithm_request.player.clearance_half_extents_pixels
+	var selection: Dictionary = SELECTION.resolve(result,host.bindings,Vector2(float(half_extents[0]),float(half_extents[1])))
+	check(selection.ok,"shared host resolver selects unique actual templates/versions/roles and connections: "+str(selection.get("error","")))
+	if not selection.ok:
+		finish()
+		return
+	ids.assign(selection.ids)
+	bindings = selection.bindings
+	spawn = selection.spawn
+	for instance: Dictionary in result.map.instances:
+		if instance.id in ids and instance.module_id=="idea-spec02-s11-001": ellipse_ref = instance.content_ref
+	check(not ellipse_ref.is_empty(),"resolved actual ellipse content ref, not a historical M-number")
+	if ellipse_ref.is_empty():
+		finish()
+		return
 	request = LevelRequest.new()
-	request.root_seed = str(algorithm_request.value.seed)
+	request.root_seed = str(algorithm_request.seed)
 	request.tuning = PlayerTuning.load_default()
+	selection_guards(host.bindings,Vector2(float(half_extents[0]),float(half_extents[1])),selection)
 	var before := DATA.canonical(result)
 	var built := admit(result,provenance,bindings)
 	check(built.accepted(),"actual generated selected content admitted: "+built.error)
@@ -99,6 +125,19 @@ func run() -> void:
 		check(difference.is_empty(),"key copying preserves exact typed/scalar data: "+placement.instance_id)
 
 	var identity: Dictionary = built.plan.get_meta("runtime_map_v2_identity")
+	check(result.map.generator.implementation=="mapgen/gdscript-candidate-0.4.0" and result.map.generator.algorithm=="stable-v3-reward-space" and provenance.algorithm_package.version=="0.4.0","actual installed04 job identity, not a relabelled03 result")
+	var historical: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mapgen_godot_04/host03_identity.json"))
+	check(historical is Dictionary and historical.get("kind")=="captured_0.3_host_identity_not_historical_save_bytes","actual archived03 identity receipt is available with explicit scope")
+	if historical is Dictionary and historical.get("identity") is Dictionary:
+		var prior: Dictionary = historical.identity
+		check(prior.map_content.implementation=="mapgen/gdscript-candidate-0.3.0" and prior.map_content.algorithm=="stable-v2" and prior.source_receipt.algorithm_package.version=="0.3.0","archived identity retains original03 implementation/algorithm/package")
+		check(prior.generation_input_fingerprint!=identity.generation_input_fingerprint and prior.host_load_identity!=built.plan.map_hash,"actual04 input/load identities differ from captured03 record")
+		var historical_state := PlainsRegionState.new()
+		check(historical_state.bind_map(str(prior.host_load_identity)),"test state uses the actual archived03 host identity")
+		var historical_saved := historical_state.snapshot()
+		check(PlainsRegionState.new().restore(historical_saved,str(prior.host_load_identity)),"old03 identity still restores its own unchanged run-local schema")
+		check(not PlainsRegionState.new().restore(historical_saved,built.plan.map_hash),"current04 rejects actual03 identity without changing save schema")
+
 	# Reconstruct the exact original v1 host fields, not the current host hash.
 	# Same actual generated payload/bindings; only the host adapter version differs.
 	var old_ids: Array[String] = ids.duplicate()
@@ -124,14 +163,15 @@ func run() -> void:
 	var state := PlainsRegionState.new()
 	state.bind_map(built.plan.map_hash)
 	var saved := state.snapshot()
+	check(PlainsRegionState.new().restore(saved,built.plan.map_hash),"same actual04 identity restores current run-local state")
 	var altered_bindings: Dictionary = bindings.duplicate(true)
 	altered_bindings.version += "/next"
 	var rebound := admit(result,provenance,altered_bindings)
 	check(rebound.accepted() and rebound.plan.map_hash!=built.plan.map_hash,"host binding version changes memory load identity")
 	if rebound.accepted(): check(not PlainsRegionState.new().restore(saved,rebound.plan.map_hash),"previous state rejects changed memory host identity")
 	var changed: Dictionary = result.duplicate(true)
-	changed.content_store["content/M16.json"].moving_platforms[0].ellipse_period = 10.0
-	changed.content_store["content/M16.json"].moving_platforms[0].travel_duration = 10.0
+	changed.content_store[ellipse_ref].moving_platforms[0].ellipse_period = 10.0
+	changed.content_store[ellipse_ref].moving_platforms[0].travel_duration = 10.0
 	var new_content := admit(changed,provenance,bindings)
 	check(new_content.accepted() and new_content.plan.map_hash!=built.plan.map_hash,"valid actual payload change cannot retain restore identity")
 	for mode: String in ["kind","fake_files","missing_map","failed","fingerprint","implementation","algorithm","module","request","missing_content","unsupported_content","nontext_key","object_value","nonfinite_value","stringname_value"]:
@@ -147,8 +187,8 @@ func run() -> void:
 			"algorithm": source.algorithm = "other"
 			"module": source.module_archive.sha256 = "a".repeat(64)
 			"request": source.request.seed += 1
-			"missing_content": bad.content_store.erase("content/M16.json")
-			"unsupported_content": bad.content_store["content/M16.json"].enemies.append({"unsupported":true})
+			"missing_content": bad.content_store.erase(ellipse_ref)
+			"unsupported_content": bad.content_store[ellipse_ref].enemies.append({"unsupported":true})
 			"nontext_key": bad.map.validation[123] = "not a text key"
 			"object_value": bad.map.validation["invalid_value"] = RefCounted.new()
 			"nonfinite_value": bad.map.validation["invalid_value"] = NAN
@@ -165,9 +205,58 @@ func run() -> void:
 		var ambiguous: Dictionary = result.duplicate(true)
 		ambiguous.map.validation = same_text
 		check(not admit(ambiguous,provenance,bindings).accepted(),"distinct same-text keys are explicitly rejected before copy")
+	request.expected_hash = built.plan.map_hash
+	check(not admit(changed,provenance,bindings).accepted(),"expected04 identity refuses altered content")
+	check(not admit(result,provenance,altered_bindings).accepted(),"expected04 identity refuses altered bindings")
+	var altered_source: Dictionary = provenance.duplicate(true)
+	altered_source.algorithm_package.source_commit = "a".repeat(40)
+	check(not admit(result,altered_source,bindings).accepted(),"expected04 identity refuses changed algorithm source provenance")
+	request.expected_hash = ""
+	for wrong_version: String in ["0.3.0","0.3.1","0.4.1"]:
+		altered_source = provenance.duplicate(true)
+		altered_source.algorithm_package.version = wrong_version
+		var version_rejected := admit(result,altered_source,bindings)
+		check(not version_rejected.accepted() and version_rejected.error=="provenance.algorithm_package: invalid release identity","wrong package version cannot label actual04 result: "+wrong_version)
 	request.expected_hash = "a".repeat(64)
 	check(not admit(result,provenance,bindings).accepted(),"expected hash remains enforced for memory source")
 	finish()
+
+func selection_guards(recipe: Dictionary, body_half: Vector2, selected: Dictionary) -> void:
+	# Deliberately corrupted copies are guard probes, never generated-output receipts.
+	var original := DATA.canonical(result)
+	var root_id: String = selected.bindings.selection_resolution.root_instance_id
+	var edge: Dictionary = selected.bindings.selection_resolution.internal_connections[0]
+	for mode: String in ["root_role","root_version","missing_connection","duplicate_connection","unmaterialized","recipe_kind","negative_index","fractional_index","nonfinite_index","string_index","missing_platform"]:
+		var bad: Dictionary = result.duplicate(true)
+		var bad_recipe: Dictionary = recipe.duplicate(true)
+		match mode:
+			"root_role", "root_version", "unmaterialized":
+				for instance: Dictionary in bad.map.instances:
+					if instance.id!=root_id: continue
+					if mode=="root_role": instance.role = "not_the_authored_role"
+					elif mode=="root_version": instance.content_version = "sha256:"+"a".repeat(64)
+					else: instance.transform.content_is_materialized = false
+			"missing_connection": bad.map.connections.erase(edge)
+			"duplicate_connection": bad.map.connections.append(edge.duplicate(true))
+			"recipe_kind": bad_recipe.selection_recipe.kind = "unsupported_kind"
+			"negative_index": bad_recipe.spawn_rule.platform_index = -1
+			"fractional_index": bad_recipe.spawn_rule.platform_index = 0.5
+			"nonfinite_index": bad_recipe.spawn_rule.platform_index = INF
+			"string_index": bad_recipe.spawn_rule.platform_index = "0"
+			"missing_platform": bad_recipe.spawn_rule.platform_index = 10000
+		var denied: Dictionary = SELECTION.resolve(bad,bad_recipe,body_half)
+		check(not denied.ok and not str(denied.get("error","")).is_empty() and not denied.has("bindings"),"actual selection guard rejects independent tamper: "+mode)
+	for invalid_half: Vector2 in [Vector2.ZERO,Vector2(-1,body_half.y),Vector2(body_half.x,INF)]:
+		var denied: Dictionary = SELECTION.resolve(result,recipe,invalid_half)
+		check(not denied.ok and not str(denied.get("error","")).is_empty(),"actual selection rejects invalid body clearance: "+str(invalid_half))
+	check(DATA.canonical(result)==original,"selection guard probes leave actual generated result untouched")
+	var rejected_source := RuntimeMapGenerationJob.new()
+	var rejected_lifetime := DemoLifetime.new()
+	var old_pinned: Array[String] = ["M16","M18","M21"]
+	var denied_ticket := rejected_source.begin(root,rejected_lifetime,request,provenance.request,provenance.config,recipe,old_pinned)
+	check(denied_ticket!=null and rejected_source.phase(denied_ticket)=="failed" and rejected_source.error(denied_ticket)=="04 selection must resolve actual output; do not pass pinned instance IDs" and rejected_source.take_plan(denied_ticket,rejected_lifetime)==null,"historical pinned IDs cannot bypass actual04 host selection")
+	rejected_source.close()
+	rejected_lifetime.end()
 
 func finish() -> void:
 	print("RUNTIME_MAP_GENERATED_IDENTITY checks=%d failures=%d" % [checks,failures])

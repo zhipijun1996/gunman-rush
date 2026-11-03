@@ -33,16 +33,23 @@ func _ready() -> void:
 	session.create_item_services(false)
 	# Existing flow owns epochs and its original run-route choices. Source
 	# selection starts only after the same player and services are assembled.
-	if not session.flow.start("930001",RunProfile.development()).accepted():
+	var source_seed := _source_seed()
+	if source_seed.is_empty():
+		if error.is_empty(): error = "Source supplied no valid seed"
+		return
+	if not session.flow.start(source_seed,RunProfile.development()).accepted():
 		error = "Run lifecycle start failed"
 		return
 	load_token = session.lifetime.token()
 	request = LevelRequest.new()
-	request.root_seed = "930001"
+	request.root_seed = source_seed
 	request.region_id = &"plains"
 	request.tuning = session.player.tuning
 	request.capabilities = {"grapple":session.controller.traversal.hook_enabled,"weapon_id":str(session.controller.shoot_ability.weapon.id),"collision_half_extents":[12,18]}
 	_start_source()
+
+func _source_seed() -> String:
+	return "930001"
 
 func _start_source() -> void:
 	_install_plan(_load_source())

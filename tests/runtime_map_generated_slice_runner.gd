@@ -7,6 +7,21 @@ var checks := 0
 var failures := 0
 var observations: Array[Dictionary] = []
 
+static func write_actual_artifacts(world: RuntimeMapGeneratedSlice, directory: String) -> bool:
+	var actual: Dictionary = world.generation.actual_result(world.ticket,world.session.lifetime)
+	var provenance: Dictionary = world.generation.provenance(world.ticket,world.session.lifetime)
+	var bindings: Dictionary = world.generation.resolved_bindings(world.ticket,world.session.lifetime)
+	if actual.get("status")!="PASS" or provenance.is_empty() or bindings.is_empty(): return false
+	if DirAccess.make_dir_recursive_absolute(directory)!=OK: return false
+	var payload: String = DATA.canonical({"request":provenance.request,"config":provenance.config,"library_sha256":provenance.module_archive.sha256,"implementation":provenance.implementation})
+	var files := {"result.json":JSON.stringify(actual,"",true,true),"provenance.json":JSON.stringify(provenance,"",true,true),"host_bindings.json":JSON.stringify(bindings,"",true,true),"protocol_payload.json":payload}
+	for name: String in files:
+		var output := FileAccess.open(directory+"/"+name,FileAccess.WRITE)
+		if output==null: return false
+		output.store_string(files[name]) # Original canonical payload has no newline.
+		output.close()
+	return true
+
 func _initialize() -> void:
 	run.call_deferred()
 
@@ -37,10 +52,10 @@ func count_kind(node: Node, kind: String) -> int:
 func builder_contract(world: RuntimeMapGeneratedSlice) -> void:
 	var controller := world.session.controller
 	var motor := world.session.player
-	var decoded: Dictionary = DATA.parse(FileAccess.get_file_as_string("res://resources/mapgen/conformance_request.json"))
-	check(decoded.ok,"locked request is decoded by original typed DataJSON")
-	if not decoded.ok: return
-	var template: Dictionary = decoded.value
+	var inputs := RuntimeMapGenerationProfile.read_profile(world.DEFAULT_INPUT_PROFILE)
+	check(inputs.ok,"locked request is decoded by original typed DataJSON")
+	if not inputs.ok: return
+	var template: Dictionary = inputs.request
 	var original: String = DATA.canonical(template)
 	var built: Dictionary = BUILDER.from_controller(controller,motor,930001,template)
 	check(built.ok,"builder consumes actual configured controller: "+str(built.error))
@@ -178,7 +193,9 @@ func run() -> void:
 		var stage := world.stage
 		check(initial_positions.size()==1 and initial_positions[0].is_equal_approx(stage.plan.spawn),"exactly one accepted initial positioning event places the real actor at the host-bound spawn")
 		observations.append({"accepted_initial_positions":initial_positions.map(func(value: Vector2) -> Array: return [value.x,value.y]),"requested_spawn":[stage.plan.spawn.x,stage.plan.spawn.y]})
-		check(world.generation.phase(world.ticket)=="committed" and stage.assembly_ok,"real generated plan committed through Stage assembly")
+		check(world.generation.phase(world.ticket)=="committed" and stage.assembly_ok and world.entry_admitted,"real generated plan commits only after Stage assembly and body/foot physics admission")
+		check(world.session.flow.seed==world.request.root_seed and world.request.root_seed==str(world.profile_inputs.request.seed),"actual RunSession seed and LevelRequest seed match the one captured typed profile")
+		check(write_actual_artifacts(world,"res://build/mapgen_godot_04/default"),"write same-run actual result/provenance/original canonical payload/resolved bindings for coverage")
 		check(stage.plan.modules.size()==3 and stage.plan.connections.size()==3,"selected actual output installs three modules and three connections")
 		ferry_contract(world)
 		check(count_kind(world,"player")==1 and count_kind(world,"controller")==1 and count_kind(world,"policy")==1,"one real PlayerMotor/Controller and one FrameDamagePolicy")
