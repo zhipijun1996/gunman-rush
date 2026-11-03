@@ -17,14 +17,23 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 	return _build_level(request,map,content_store,selected_ids,spawn,source_sha256,bindings,source_record,binding_id)
 
 static func load_generated_level(request: LevelRequest, result: Dictionary, selected_ids: Array[String], spawn: Vector2, bindings: Dictionary, provenance: Dictionary, binding_id: String = "seam") -> LevelBuildResult:
+	var started := Time.get_ticks_usec()
 	var error := _generated_source_error(result,provenance)
 	if not error.is_empty(): return _reject(error)
 	# Upstream dot-assigned StringName keys are equivalent text, but the shared
 	# frozen converter intentionally accepts String keys only. Copy keys here;
 	# keep exact scalar values and the original result for receipt identity.
+	var source_validation_ms := float(Time.get_ticks_usec()-started)/1000.0
+	var copy_started := Time.get_ticks_usec()
 	var map: Dictionary = _copy_memory_keys(result.map)
 	var content_store: Dictionary = _copy_memory_keys(result.content_store)
-	return _build_level(request,map,content_store,selected_ids,spawn,"",bindings,provenance,binding_id,result)
+	var key_copy_ms := float(Time.get_ticks_usec()-copy_started)/1000.0
+	var built := _build_level(request,map,content_store,selected_ids,spawn,"",bindings,provenance,binding_id,result)
+	if built.accepted():
+		var profile: Dictionary = built.plan.get_meta("runtime_map_v2_profile",{})
+		profile.merge({"source_validation_execution_ms":source_validation_ms,"memory_key_copy_execution_ms":key_copy_ms,"provider_execution_ms":float(Time.get_ticks_usec()-started)/1000.0})
+		built.plan.set_meta("runtime_map_v2_profile",profile)
+	return built
 
 static func _build_level(request: LevelRequest, map: Dictionary, content_store: Dictionary, selected_ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String, generated_result: Dictionary = {}) -> LevelBuildResult:
 	if request == null or request.tuning == null or request.region_id.is_empty(): return _reject("request: missing tuning or region_id")
@@ -117,7 +126,10 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 		plan.connections.append(edge)
 	var disconnected := _disconnected_instance(ids,plan.connections)
 	if not disconnected.is_empty(): return _reject("instances."+disconnected+".connections: selected internal edge graph is disconnected")
+	var identity_started := Time.get_ticks_usec()
 	var identity := _generated_identity(request,generated_result,ids,spawn,bindings,source_record,binding_id) if generated else _load_identity(request,map,content_store,instances,ids,spawn,source_sha256,bindings,source_record,binding_id)
+	# Diagnostics are deliberately outside content and restore identities.
+	plan.set_meta("runtime_map_v2_profile",{"identity_digest_execution_ms":float(Time.get_ticks_usec()-identity_started)/1000.0})
 	plan.map_hash = identity.host_load_identity
 	plan.set_meta("runtime_map_v2_identity",identity)
 	if not request.expected_hash.is_empty() and request.expected_hash != plan.map_hash: return _reject("request.expected_hash: selected frozen v2 map mismatch")

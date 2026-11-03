@@ -22,6 +22,9 @@ var _previous_phase := ""
 var _pending_build: LevelBuildResult
 var _assembly_started := 0
 var _physics_admitted := false
+# Same-thread elapsed execution, not OS thread CPU sampling. Wall includes
+# the existing physics-frame hand-off; diagnostics never enter load identity.
+var _installation_profile: Dictionary = {}
 
 func _start_source() -> void:
 	session.controller.active = false
@@ -110,7 +113,7 @@ func _process(_delta: float) -> void:
 	if phase != _previous_phase:
 		_previous_phase = phase
 		_source_observe(phase)
-	_loading_label.text = "REAL MAPGEN 0.4.0 / %s\nProfile: %s (slice only)\n%s; no full-map playability claim\nESC or CANCEL to exit" % [phase,generation_profile,_slice_description()]
+		_loading_label.text = "REAL MAPGEN 0.4.0 / %s\nProfile: %s (slice only)\n%s; no full-map playability claim\nESC or CANCEL to exit" % [phase,generation_profile,_slice_description()]
 	if phase in ["failed","cancelled","stale"]:
 		_generation_failure(generation.error(ticket))
 		return
@@ -123,6 +126,7 @@ func _process(_delta: float) -> void:
 	if not generation.is_current(ticket,session.lifetime) or not _assemble_plan(built):
 		_assembly_failure(error if not error.is_empty() else "Stale generated assembly")
 		return
+	_installation_profile["assembly_execution_ms"] = float(Time.get_ticks_usec()-_assembly_started)/1000.0
 	_pending_build = built
 	_physics_admitted = not _needs_physics_admission()
 	if _physics_admitted: _finish_install()
@@ -132,7 +136,9 @@ func _physics_process(delta: float) -> void:
 		if not generation.is_current(ticket,session.lifetime):
 			_assembly_failure("Generation invalidated before physics admission")
 			return
+		var admission_started := Time.get_ticks_usec()
 		var problem := _physics_admission()
+		_installation_profile["physics_admission_execution_ms"] = float(Time.get_ticks_usec()-admission_started)/1000.0
 		if not problem.is_empty():
 			_assembly_failure(problem)
 			return
@@ -141,12 +147,19 @@ func _physics_process(delta: float) -> void:
 
 func _finish_install() -> void:
 	var built := _pending_build
+	var commit_started := Time.get_ticks_usec()
 	if not generation.is_current(ticket,session.lifetime) or not _commit_plan(built.plan):
 		_assembly_failure(error if not error.is_empty() else "Stale generation before commit")
 		return
-	generation_receipt = {"profile":generation_profile,"source_kind":"generated_memory","identity":built.plan.get_meta("runtime_map_v2_identity").duplicate(true),"metrics":generation.metrics(ticket),"assembly_ms":float(Time.get_ticks_usec()-_assembly_started)/1000.0,"actual_hook_enabled":session.controller.traversal.hook_enabled,"request_abilities":generation.provenance(ticket,session.lifetime).request.player.abilities.duplicate()}
-	var actual_output := generation.actual_result(ticket,session.lifetime)
-	generation_receipt["output"] = {"status":actual_output.status,"seed":actual_output.map.seed,"request_fingerprint":actual_output.request_fingerprint,"instances":actual_output.map.instances.size(),"connections":actual_output.map.connections.size(),"content_entries":actual_output.content_store.size()}
+	_installation_profile["commit_execution_ms"] = float(Time.get_ticks_usec()-commit_started)/1000.0
+	_installation_profile["assembly_wall_ms"] = float(Time.get_ticks_usec()-_assembly_started)/1000.0
+	var receipt_started := Time.get_ticks_usec()
+	var output := generation.output_summary(ticket,session.lifetime)
+	var abilities := generation.request_abilities(ticket,session.lifetime)
+	generation_receipt = {"profile":generation_profile,"source_kind":"generated_memory","identity":built.plan.get_meta("runtime_map_v2_identity").duplicate(true),"metrics":generation.metrics(ticket),"assembly_ms":_installation_profile.assembly_wall_ms,"actual_hook_enabled":session.controller.traversal.hook_enabled,"request_abilities":abilities}
+	generation_receipt["output"] = output
+	_installation_profile["receipt_copy_execution_ms"] = float(Time.get_ticks_usec()-receipt_started)/1000.0
+	generation_receipt["installation_profile"] = _installation_profile.duplicate(true)
 	_label.text = "REAL GENERATED MAP / %s\n%s loading slice / A,D or arrows / ESC exit\nNo full-map, enemy, reward or Boss certification" % [generation_profile,_slice_description()]
 	session.controller.active = true
 	_loading_layer.queue_free()

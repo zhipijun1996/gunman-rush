@@ -6,6 +6,8 @@ const DATA := preload("res://addons/mapgen/data_json.gd")
 const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
 const PROFILE := preload("res://experiments/generation/runtime_map_generation_profile.gd")
 const HOST := preload("res://experiments/generation/runtime_map_generated_slice.gd")
+const GEARS_HOST := preload("res://experiments/generation/runtime_map_m35_slice.gd")
+const VERIFIED_LIBRARY := preload("res://experiments/generation/runtime_map_verified_library_cache.gd")
 const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
 const IDS: Array[String] = []
 const MAX_ADVANCE_CALLS := 10000 # Same bounded frame cohort as the existing entrance test;04 work units differ.
@@ -15,6 +17,8 @@ var request_data: Dictionary = {}
 var config: Dictionary = {}
 var bindings: Dictionary = {}
 var lock: Dictionary = {}
+var cold_preloads := 0
+var warm_preloads := 0
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -41,6 +45,7 @@ func rejected(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime, label:
 	check(source.take_plan(ticket,lifetime)==null,label+": cannot take plan")
 	check(not source.commit(ticket,lifetime),label+": cannot commit")
 	check(source.actual_result(ticket,lifetime).is_empty() and source.provenance(ticket,lifetime).is_empty(),label+": no result/provenance escape")
+	check(source.output_summary(ticket,lifetime).is_empty() and source.request_abilities(ticket,lifetime).is_empty(),label+": no narrow result/input escape")
 
 func preload_source(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) -> bool:
 	var started := Time.get_ticks_msec()
@@ -62,7 +67,16 @@ func preload_source(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) 
 	check(accepted and source.phase(ticket)=="generate","cooperative preload verifies actual archive before original generation: "+source.error(ticket))
 	if not accepted or source.phase(ticket)!="generate": return false
 	check(int(source.progress(ticket).get("operations",-1))==0 and int(source.metrics(ticket).advance_calls)==0,"cooperative preload does not consume generation work units")
-	check(int(source.metrics(ticket).preload_calls)>0 and source.metrics(ticket).preload_tick_ms.size()==ticks,"each preload host tick has measured receipt with exact original unit count")
+	var preload_receipt := source.metrics(ticket)
+	var hit: bool = preload_receipt.get("preload_cache_hit",false)
+	if hit: warm_preloads += 1
+	else: cold_preloads += 1
+	# Cold verification retains its original exact-unit receipt assertion. Warm
+	# jobs consume no ZIP work and must cite the already verified immutable DATA.
+	check((int(preload_receipt.preload_calls)>0 if not hit else int(preload_receipt.preload_calls)==0) and preload_receipt.preload_tick_ms.size()==ticks,"each preload host tick has measured receipt with exact original units; verified cache hit performs zero ZIP units")
+	var verified: Dictionary = preload_receipt.get("verified_library_receipt",{})
+	check(verified.get("module_sha256")==lock.module_package.sha256 and verified.get("sdk_version")==lock.version and verified.get("checked_files",0)>0 and verified.get("source_json_read_only",false) and verified.get("source_files_read_only",false),"cold or warm admission cites fully verified immutable archive under exact SDK identity")
+	check(not preload_receipt.has("preload_profile") if hit else preload_receipt.has("preload_profile"),"cache hit does not fabricate a new original SDK preload profile")
 	return true
 
 func suspended(source: SOURCE, ticket: RefCounted, lifetime: DemoLifetime) -> bool:
@@ -100,10 +114,13 @@ func run() -> void:
 	value_snapshot_contract()
 	context_rejections()
 	await queued_owner_rejection()
+	cache_key_and_partial_preload_contract()
 	await cancellation_checkpoints()
+	await warm_cache_isolation_contract()
 	await disposal_contract()
 	await budget_failure_contract()
 	await replacement_then_success()
+	check(cold_preloads==1 and warm_preloads>1,"one actual library verification serves distinct source instances; close/failure/replacement retain verified DATA")
 	check(get_node_count()==nodes_before,"source/Provider lifecycle did not create any scene nodes")
 	finish()
 
@@ -212,6 +229,48 @@ func queued_owner_rejection() -> void:
 	source.close()
 	await process_frame
 
+func cache_key_and_partial_preload_contract() -> void:
+	# This standalone runner starts with no published cache; never inject a fake
+	# archive or clear a ready global library to make a test pass.
+	check(not VERIFIED_LIBRARY.has_verified(lock),"fresh process starts without an unverified ready library")
+	var key := VERIFIED_LIBRARY.cache_key(lock)
+	for field: String in ["version","implementation","algorithm","release_head","source_commit"]:
+		var changed := lock.duplicate(true)
+		changed[field] = "different-"+str(changed[field])
+		check(VERIFIED_LIBRARY.cache_key(changed)!=key and not VERIFIED_LIBRARY.has_verified(changed),"verified library isolates actual SDK identity field "+field)
+	for section: String in ["module_package","archive"]:
+		var changed := lock.duplicate(true)
+		changed[section].sha256 = "0".repeat(64)
+		check(VERIFIED_LIBRARY.cache_key(changed)!=key and not VERIFIED_LIBRARY.has_verified(changed),"verified library isolates actual archive SHA "+section)
+	var owner := RefCounted.new()
+	var lifetime := DemoLifetime.new()
+	var source := SOURCE.new()
+	var ticket := start(source,owner,lifetime,1)
+	check(source.tick(ticket,lifetime) and source.phase(ticket)=="preload" and int(source.metrics(ticket).preload_calls)==1,"partial real cooperative preload executes exactly one original unit")
+	source.close()
+	check(not VERIFIED_LIBRARY.has_verified(lock) and VERIFIED_LIBRARY.receipt(lock).is_empty(),"cancelled partial verification never publishes ready library data")
+	rejected(source,ticket,lifetime,"closed partial library preload")
+
+func warm_cache_isolation_contract() -> void:
+	var owner := RefCounted.new()
+	var life_a := DemoLifetime.new()
+	var life_b := DemoLifetime.new()
+	var first := SOURCE.new()
+	var second := SOURCE.new()
+	var a := start(first,owner,life_a,1)
+	var b := start(second,owner,life_b,1)
+	if await preload_source(first,a,life_a) and await preload_source(second,b,life_b):
+		check(first.metrics(a).preload_cache_hit and second.metrics(b).preload_cache_hit,"separate source objects share only verified library admission")
+		var metadata := VERIFIED_LIBRARY.receipt(lock)
+		metadata.module_sha256 = "caller mutation"
+		check(VERIFIED_LIBRARY.receipt(lock).module_sha256==lock.module_package.sha256 and not metadata.has("library"),"cache metadata is a copy and exposes no mutable SDK archive")
+		check(first.tick(a,life_a) and int(first.progress(a).operations)==1 and int(second.progress(b).operations)==0,"advancing one cached job leaves the other original SDK continuation untouched")
+		first.close()
+		check(second.tick(b,life_b) and int(second.progress(b).operations)==1,"cancelling one cached job does not cancel another preparation continuation")
+		check(VERIFIED_LIBRARY.has_verified(lock),"source exit retains the global verified library")
+	first.close()
+	second.close()
+
 func cancellation_checkpoints() -> void:
 	var owner := RefCounted.new()
 	var lifetime := DemoLifetime.new()
@@ -305,6 +364,7 @@ func budget_failure_contract() -> void:
 	# candidate, before the failed host envelope deliberately closes result access.
 	var actual: Dictionary = source.actual_result(ticket,lifetime)
 	check(actual.get("status")=="BUDGET_EXHAUSTED" and actual.get("schema")=="mapgen/generation-result/v1","actual original SDK reports its budget status and result schema")
+	check(source.output_summary(ticket,lifetime).is_empty(),"real SDK budget failure with null map/store has no output summary before host validation")
 	var diagnostics: Dictionary = actual.get("diagnostics",{})
 	var sdk_error: Dictionary = diagnostics.get("error",{})
 	check(sdk_error.get("message")=="candidate_expansion_budget" and not str(sdk_error.get("phase","")).is_empty(),"actual SDK error identifies candidate_expansion_budget and its genuine phase")
@@ -383,6 +443,12 @@ func replacement_then_success() -> void:
 	var origin: Dictionary = source.provenance(ticket,lifetime)
 	check(actual.status=="PASS" and actual.request_fingerprint==expected and actual.map.generator.request_fingerprint==expected,"wrapper preserves original result/map fingerprint of captured inputs")
 	check(actual.map.map_id=="map-"+expected.substr(0,24),"original generated map_id remains unchanged")
+	var summary := source.output_summary(ticket,lifetime)
+	check(summary=={"status":actual.status,"seed":actual.map.seed,"request_fingerprint":actual.request_fingerprint,"instances":actual.map.instances.size(),"connections":actual.map.connections.size(),"content_entries":actual.content_store.size()},"narrow output summary exactly matches original result without copying full map/store")
+	summary.status = "caller mutation"
+	var abilities := source.request_abilities(ticket,lifetime)
+	abilities.clear()
+	check(source.output_summary(ticket,lifetime).status=="PASS" and source.request_abilities(ticket,lifetime)==request_data.player.abilities,"narrow summary and abilities never expose mutable source data")
 	check(origin.kind=="generated_memory" and origin.request.seed==930001 and origin.config.goals.growth_target==32,"provenance binds actual captured algorithm values")
 	check(origin.algorithm_package.zip_sha256==lock.archive.sha256 and origin.algorithm_package.release_head==lock.release_head and origin.algorithm_package.source_commit==lock.source_commit and origin.module_archive.sha256==lock.module_package.sha256,"provenance uses actual installed release and opened module archive")
 	check(not origin.has("files") and not origin.has("bindings_file") and not origin.has("map_bytes_sha256"),"memory job makes no fabricated file byte attestations")
@@ -396,6 +462,9 @@ func replacement_then_success() -> void:
 	check(int(receipt.operations)==int(ceil(float(receipt.microsteps)/16.0)) and int(receipt.advance_calls)==int(receipt.operations) and int(receipt.advance_ticks)==calls,"actual04 checkpoint count maps exactly to original16-checkpoint units and measured host ticks")
 	check(history.size()==calls+1 and history[0].operations==0 and history.back().done,"initial plus each host-tick progress sample is retained; exact SDK phase profile covers internal unit transitions")
 	check(receipt.preload_ms>0.0 and receipt.validate_ms>=0.0 and receipt.advance_tick_ms.size()==calls and receipt.advance_max_ms>=0.0,"preload, each actual advance/max and Provider validation have separate receipts without16ms claim")
+	check(receipt.generation_execution_ms>=receipt.advance_unit_total_ms and receipt.generation_wall_ms>=receipt.generation_execution_ms and receipt.between_tick_gap_ms>0.0,"execution intervals and between-tick caller/frame gaps are separated from generation wall time")
+	check(receipt.sdk_result_snapshot_execution_ms>=0.0 and receipt.fingerprint_execution_ms>=0.0 and receipt.selection_execution_ms>=0.0 and receipt.provider_execution_ms>=0.0 and receipt.sdk_profile_capture_execution_ms>=0.0 and receipt.generation_progress_sample_execution_ms>=0.0,"actual host snapshot/fingerprint/selection/Provider/profile/progress costs have separate receipts")
+	check(receipt.preload_cache_hit and int(receipt.preload_calls)==0 and receipt.provider_profile is Dictionary,"successful real generation uses warm verified source and retains original Provider diagnostic profile")
 	history[0].operations = -1
 	receipt.advance_tick_ms.clear()
 	var progress_copy: Dictionary = source.progress(ticket)
@@ -412,11 +481,84 @@ func replacement_then_success() -> void:
 	check(source.take_plan(ticket,lifetime)==null,"duplicate plan consumption is refused")
 	check(source.commit(ticket,lifetime) and source.phase(ticket)=="committed","newest real validated plan commits exactly once")
 	check(not source.commit(ticket,lifetime) and not source.fail_assembly(ticket,"late failure") and not source.abort(ticket,"late abort"),"duplicate commit/late failure/abort cannot alter committed state")
+	await cross_profile_warm_success(source,ticket,lifetime,built)
 	var timings: Dictionary = source.metrics(ticket)
 	print("RUNTIME_MAP_GENERATION_JOB_METRICS ",JSON.stringify({"operations":timings.operations,"advance_calls":timings.advance_calls,"preload_ms":timings.preload_ms,"advance_max_ms":timings.advance_max_ms,"validate_ms":timings.validate_ms,"request_fingerprint":expected,"scope":"source_envelope_and_pure_plan_only"}))
 	source.close()
 	rejected(source,ticket,lifetime,"closed committed source")
 	check(lifetime.active,"closing committed source does not end RunSession authority")
+
+func cross_profile_warm_success(previous: SOURCE, previous_ticket: RefCounted, previous_lifetime: DemoLifetime, previous_built: LevelBuildResult) -> void:
+	# Same-process regression against the accepted original 930007 full-content
+	# identity from native-dev-03 / main-project-generation-01. This golden is a
+	# test oracle, never a runtime selection/config/geometry authority. Host-load
+	# identity is intentionally not the real controller's 6f1...: this pure data
+	# runner declares the existing Provider fixture's explicit capability profile.
+	const GOLDEN_GEARS_MAP_CONTENT := "c652943fe8e5e50c2b21242cc09530228a12d1a7fbfb08975977da5a4e835d97"
+	var previous_result := DATA.canonical(previous.actual_result(previous_ticket,previous_lifetime))
+	var previous_provenance := DATA.canonical(previous.provenance(previous_ticket,previous_lifetime))
+	var previous_identity: Dictionary = previous_built.plan.get_meta("runtime_map_v2_identity").duplicate(true)
+	var inputs := PROFILE.read_profile(GEARS_HOST.INPUT_PROFILE)
+	var host := RuntimeMapFrozenSource.read_binding_file(GEARS_HOST.BINDINGS_PATH,GEARS_HOST.BINDINGS_SHA256)
+	check(inputs.ok and host.ok,"warm cross-profile test reads original locked gears profile and exact recipe, no frozen map/store")
+	if not inputs.ok or not host.ok: return
+	var algorithm: Dictionary = inputs.request
+	check(algorithm.seed is int and algorithm.seed==930007,"warm cross-profile generation uses independent original integer930007 request")
+	var request := LevelRequest.new()
+	request.root_seed = str(algorithm.seed)
+	request.tuning = PlayerTuning.load_default()
+	request.capabilities = {"profile":"explicit_upstream_mechanism_not_a_player_grant","collision_half_extents":algorithm.player.clearance_half_extents_pixels.duplicate()}
+	var owner := RefCounted.new()
+	var lifetime := DemoLifetime.new()
+	var source := SOURCE.new()
+	var ticket := source.begin(owner,lifetime,request,algorithm,inputs.config,host.bindings,IDS)
+	if not await preload_source(source,ticket,lifetime):
+		source.close()
+		return
+	check(source.metrics(ticket).preload_cache_hit and int(source.metrics(ticket).preload_calls)==0,"independent actual930007 source reuses default930001 verified library with zero ZIP work")
+	var calls := 0
+	while source.phase(ticket)=="generate" and calls<MAX_ADVANCE_CALLS:
+		var accepted := source.tick(ticket,lifetime)
+		calls += 1
+		if not accepted: break
+		await process_frame
+	check(source.phase(ticket)=="validate","warm actual930007 completes original SDK generation before host validation: "+source.error(ticket))
+	if source.phase(ticket)!="validate":
+		source.close()
+		return
+	check(source.tick(ticket,lifetime) and source.phase(ticket)=="ready","warm actual930007 passes original resolver and Provider: "+source.error(ticket))
+	if source.phase(ticket)!="ready":
+		source.close()
+		return
+	var actual := source.actual_result(ticket,lifetime)
+	var origin := source.provenance(ticket,lifetime)
+	var expected: String = PROTOCOL.fingerprint(algorithm,inputs.config,inputs.lock.module_package.sha256)
+	check(actual.status=="PASS" and actual.request_fingerprint==expected and actual.map.generator.request_fingerprint==expected and actual.map.seed==930007,"warm930007 actual PASS preserves its own original request/map fingerprint and seed")
+	check(origin.request==algorithm and origin.config==inputs.config and origin.request.seed!=request_data.seed,"warm cache shares no previous request/config or RNG state")
+	var resolved := source.resolved_bindings(ticket,lifetime)
+	var selected: Array[String] = []
+	for id: Variant in resolved.selected_instances: selected.append(str(id))
+	var spawn_data: Array = resolved.spawns.seam
+	var spawn := Vector2(float(spawn_data[0]),float(spawn_data[1]))
+	var built := source.take_plan(ticket,lifetime)
+	check(built!=null and built.accepted() and built.plan.seed==request.root_seed and built.plan.modules.size()==1,"warm930007 offers its own selected native Plan and consistent LevelRequest seed")
+	if built==null or not built.accepted() or built.plan.modules.size()!=1:
+		source.close()
+		return
+	var identity: Dictionary = built.plan.get_meta("runtime_map_v2_identity")
+	check(identity.map_content_identity==GOLDEN_GEARS_MAP_CONTENT,"warm cached930007 complete map/store identity equals original accepted real generation golden")
+	check(identity.host_load.selected_instances==selected and identity.host_load.spawn==[spawn.x,spawn.y] and identity.host_load.capabilities==request.capabilities and identity.host_load_identity!=previous_identity.host_load_identity,"actual warm host-load identity binds this request's resolved scope/spawn/capabilities independently")
+	var definition: PlatformingModuleDefinition = built.plan.modules[0].definition
+	var instance: Dictionary = definition.get_meta("runtime_map_v2_instance")
+	var content: Dictionary = actual.content_store[instance.content_ref]
+	check(instance.module_id=="game-plains-ferry-gears" and instance.role=="traversal" and definition.get_meta("runtime_map_v2_content")==content and definition.danger_bounds.size()==content.hazards.size() and definition.saws.size()==1 and definition.ferries.size()==2,"warm resolver/Provider preserves complete actual gears content, hazards, saw and both ferries")
+	var repeated := RuntimeMapV2Provider.load_generated_level(request,actual,selected,spawn,resolved,origin)
+	check(repeated.accepted() and repeated.plan.get_meta("runtime_map_v2_identity")==identity,"same actual warm inputs reproduce exact content and host identities through the original Provider")
+	check(source.commit(ticket,lifetime) and not source.commit(ticket,lifetime),"independent warm930007 Plan commits exactly once")
+	source.close()
+	check(previous.is_current(previous_ticket,previous_lifetime) and previous.phase(previous_ticket)=="committed","creating, generating, committing and closing warm930007 never cancels prior live930001 job")
+	check(DATA.canonical(previous.actual_result(previous_ticket,previous_lifetime))==previous_result and DATA.canonical(previous.provenance(previous_ticket,previous_lifetime))==previous_provenance and previous_built.plan.get_meta("runtime_map_v2_identity")==previous_identity,"full cross-profile cached generation leaves prior live930001 result/provenance/Plan identities unchanged")
+	print("RUNTIME_MAP_GENERATION_JOB_WARM_GEARS ",JSON.stringify({"seed":algorithm.seed,"status":actual.status,"request_fingerprint":expected,"map_content_identity":identity.map_content_identity,"host_load_identity":identity.host_load_identity,"preload_calls":source.metrics(ticket).preload_calls,"preload_cache_hit":source.metrics(ticket).preload_cache_hit,"scope":"real930001 then930007 same-process shared immutable library; independent original SDK jobs"}))
 
 func finish() -> void:
 	print("RUNTIME_MAP_GENERATION_JOB checks=%d failures=%d" % [checks,failures])

@@ -1,3 +1,9 @@
+## 2026-11-03 0.4宿主工程验收后续
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MAPGEN-HOST-04-ACCEPTANCE-01 | 性能归因/库复用/原双fresh Web及精确head完整CI | MAPGEN-GODOT-04 | in_progress | [范围](worklines/mapgen_host_04_acceptance/scope.md) · [质量](quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json)；A通过后再单独推进多端口钟门，不合并发布 |
+
 ## 2026-11-03 map-gen明确版本升级
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |

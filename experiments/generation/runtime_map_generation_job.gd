@@ -4,6 +4,7 @@ extends RefCounted
 ## Every accepting operation receives the entrance's actual current lifetime.
 const JOB := preload("res://addons/mapgen/generation_job.gd")
 const PRELOAD_JOB := preload("res://addons/mapgen/preload_job.gd")
+const VERIFIED_LIBRARY := preload("res://experiments/generation/runtime_map_verified_library_cache.gd")
 const WORK_GATE := preload("res://addons/mapgen/work_gate.gd")
 const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
 # Original SDK Web host uses an 8ms yielding target. The first actual main-game
@@ -33,7 +34,9 @@ class Ticket extends RefCounted:
 	var preloader: Variant
 	var preload_started_usec := 0
 	var resolved: Dictionary = {}
-	var library: Variant
+	var generation_started_usec := 0
+	var last_tick_finished_usec := 0
+	var last_tick_phase := ""
 	var job: Variant
 	var actual: Dictionary = {}
 	var provenance: Dictionary = {}
@@ -68,6 +71,8 @@ func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, r
 	ticket.metrics["operation_budget"] = operation_budget
 	ticket.metrics["soft_tick_ms"] = SOFT_TICK_MS
 	ticket.metrics["configured_work_unit_cap"] = operation_budget
+	ticket.metrics["timing_basis"] = "main-thread monotonic execution elapsed; gaps include yielding and caller work; not OS CPU or a hard frame guarantee"
+	ticket.metrics["preload_cache_hit"] = false
 	_current = ticket
 	if not _accepts(ticket,lifetime):
 		_fail(ticket,"generation owner/lifetime is not active")
@@ -92,11 +97,19 @@ func tick(value: RefCounted, current_lifetime: DemoLifetime) -> bool:
 	_ticking = true
 	var phase_before := ticket.phase
 	var tick_started := Time.get_ticks_usec()
+	if ticket.last_tick_finished_usec>0:
+		var gap := float(tick_started-ticket.last_tick_finished_usec)/1000.0
+		_add_ms(ticket,"between_tick_gap_ms",gap)
+		_add_ms(ticket,ticket.last_tick_phase+"_gap_ms",gap)
+		ticket.metrics["between_tick_intervals"] = int(ticket.metrics.get("between_tick_intervals",0))+1
 	match ticket.phase:
 		"preload": _preload(ticket)
 		"generate": _advance(ticket)
 		"validate": _validate(ticket)
 	var duration := _elapsed_ms(tick_started)
+	_add_ms(ticket,"host_tick_execution_ms",duration)
+	ticket.last_tick_finished_usec = Time.get_ticks_usec()
+	ticket.last_tick_phase = phase_before
 	ticket.metrics.tick_ms.append(duration)
 	ticket.metrics.tick_phases.append(phase_before)
 	ticket.metrics.tick_max_ms = maxf(float(ticket.metrics.tick_max_ms),duration)
@@ -105,6 +118,7 @@ func tick(value: RefCounted, current_lifetime: DemoLifetime) -> bool:
 		ticket.metrics.preload_tick_ms.append(duration)
 		if ticket.phase=="generate": ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
 	elif phase_before=="generate":
+		_add_ms(ticket,"generation_execution_ms",duration)
 		ticket.metrics.advance_tick_ms.append(duration)
 		ticket.metrics.advance_ticks = int(ticket.metrics.advance_ticks)+1
 		ticket.metrics.advance_tick_max_ms = maxf(float(ticket.metrics.advance_tick_max_ms),duration)
@@ -188,7 +202,28 @@ func progress_history(value: RefCounted) -> Array[Dictionary]:
 func actual_result(value: RefCounted, current_lifetime: DemoLifetime) -> Dictionary:
 	var ticket := _ticket(value)
 	if ticket == null or not _accepts(ticket,current_lifetime) or ticket.phase == "cancelled": return {}
-	return ticket.actual.duplicate(true)
+	var started := Time.get_ticks_usec()
+	var result := ticket.actual.duplicate(true)
+	_add_ms(ticket,"actual_result_copy_execution_ms",_elapsed_ms(started))
+	ticket.metrics["actual_result_copy_calls"] = int(ticket.metrics.get("actual_result_copy_calls",0))+1
+	return result
+
+func output_summary(value: RefCounted, current_lifetime: DemoLifetime) -> Dictionary:
+	var ticket := _ticket(value)
+	if not _accepts(ticket,current_lifetime) or ticket.actual.is_empty(): return {}
+	# A genuine SDK failure has map/content_store=null before host validation.
+	if not ticket.actual.get("map") is Dictionary or not ticket.actual.get("content_store") is Dictionary: return {}
+	var started := Time.get_ticks_usec()
+	var actual := ticket.actual
+	var map: Dictionary = actual.get("map",{})
+	var result := {"status":actual.get("status","MISSING"),"seed":map.get("seed"),"request_fingerprint":actual.get("request_fingerprint"),"instances":map.get("instances",[]).size(),"connections":map.get("connections",[]).size(),"content_entries":actual.get("content_store",{}).size()}
+	_add_ms(ticket,"output_summary_execution_ms",_elapsed_ms(started))
+	return result
+
+func request_abilities(value: RefCounted, current_lifetime: DemoLifetime) -> Array:
+	var ticket := _ticket(value)
+	if not _accepts(ticket,current_lifetime): return []
+	return ticket.request_data.get("player",{}).get("abilities",[]).duplicate(true)
 
 func provenance(value: RefCounted, current_lifetime: DemoLifetime) -> Dictionary:
 	var ticket := _ticket(value)
@@ -228,6 +263,13 @@ func _preload(ticket: Ticket) -> void:
 		if not problem.is_empty():
 			_fail(ticket,problem)
 			return
+		var lookup_started := Time.get_ticks_usec()
+		var hit := VERIFIED_LIBRARY.has_verified(ticket.lock)
+		ticket.metrics["cache_lookup_execution_ms"] = _elapsed_ms(lookup_started)
+		ticket.metrics["preload_cache_hit"] = hit
+		if hit:
+			_start_generation(ticket)
+			return
 		ticket.preloader = PRELOAD_JOB.create(str(ticket.lock.module_package.path),str(ticket.lock.module_package.sha256))
 	var calls := 0
 	while calls<ticket.operation_budget and not ticket.preloader.is_done():
@@ -246,25 +288,43 @@ func _preload(ticket: Ticket) -> void:
 			_fail(ticket,str(advanced.get("error","cooperative preload failed")))
 			return
 		if _elapsed_ms(started)>=SOFT_TICK_MS: break
-	ticket.progress = ticket.preloader.progress().duplicate(true)
-	ticket.metrics.preload_progress.append(ticket.progress.duplicate(true))
+	var sample_started := Time.get_ticks_usec()
+	ticket.progress = ticket.preloader.progress()
+	ticket.metrics.preload_progress.append(ticket.progress)
+	_add_ms(ticket,"preload_progress_sample_execution_ms",_elapsed_ms(sample_started))
 	if not ticket.preloader.is_done(): return
 	var opened: Dictionary = ticket.preloader.result()
 	if opened.get("status")!="PASS":
 		_fail(ticket,str(opened.get("error","module preload did not PASS")))
 		return
-	ticket.library = opened.library
-	if ticket.library.sha256!=ticket.lock.module_package.sha256 or ticket.library.version!=ticket.lock.module_package.version:
-		_fail(ticket,"module archive identity differs from installed lock")
-		return
+	var profile_started := Time.get_ticks_usec()
 	ticket.metrics["preload_profile"] = ticket.preloader.profile()
+	_add_ms(ticket,"sdk_profile_capture_execution_ms",_elapsed_ms(profile_started))
+	var publish_started := Time.get_ticks_usec()
+	if not VERIFIED_LIBRARY.publish(ticket.lock,ticket.preloader):
+		_fail(ticket,"module preload did not PASS with installed archive identity")
+		return
+	ticket.metrics["verified_library_publish_execution_ms"] = _elapsed_ms(publish_started)
+	_start_generation(ticket)
+
+func _start_generation(ticket: Ticket) -> void:
+	ticket.metrics["verified_library_receipt"] = VERIFIED_LIBRARY.receipt(ticket.lock)
 	ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
 	var lock: Dictionary = ticket.lock
-	ticket.provenance = {"kind":"generated_memory","expected_request_fingerprint":PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(ticket.library.sha256)),"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":lock.module_package.path,"sha256":ticket.library.sha256,"version":ticket.library.version},"request":ticket.request_data.duplicate(true),"config":ticket.config.duplicate(true)}
+	var fingerprint_started := Time.get_ticks_usec()
+	var expected: String = PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(lock.module_package.sha256))
+	_add_ms(ticket,"fingerprint_execution_ms",_elapsed_ms(fingerprint_started))
+	ticket.provenance = {"kind":"generated_memory","expected_request_fingerprint":expected,"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":lock.module_package.path,"sha256":lock.module_package.sha256,"version":lock.module_package.version},"request":ticket.request_data.duplicate(true),"config":ticket.config.duplicate(true)}
 	ticket.preloader = null
-	ticket.job = JOB.create(ticket.request_data,ticket.library,ticket.config)
-	ticket.progress = ticket.job.progress().duplicate(true)
-	ticket.progress_history.append(ticket.progress.duplicate(true))
+	ticket.generation_started_usec = Time.get_ticks_usec()
+	var create_started := Time.get_ticks_usec()
+	ticket.job = VERIFIED_LIBRARY.create_job(lock,ticket.request_data,ticket.config)
+	ticket.metrics["sdk_job_create_execution_ms"] = _elapsed_ms(create_started)
+	if ticket.job == null:
+		_fail(ticket,"verified module library unavailable")
+		return
+	ticket.progress = ticket.job.progress()
+	ticket.progress_history.append(ticket.progress)
 	ticket.phase = "generate"
 
 func _advance(ticket: Ticket) -> void:
@@ -286,18 +346,27 @@ func _advance(ticket: Ticket) -> void:
 			_fail(ticket,str(advanced.get("error","generation advance failed")))
 			return
 		if _elapsed_ms(started)>=SOFT_TICK_MS: break
-	ticket.progress = ticket.job.progress().duplicate(true)
-	ticket.progress_history.append(ticket.progress.duplicate(true))
+	var sample_started := Time.get_ticks_usec()
+	ticket.progress = ticket.job.progress()
+	ticket.progress_history.append(ticket.progress)
+	_add_ms(ticket,"generation_progress_sample_execution_ms",_elapsed_ms(sample_started))
 	ticket.metrics.operations = int(ticket.progress.get("operations",0))
 	ticket.metrics.microsteps = int(ticket.progress.get("microsteps",0))
 	if ticket.job.is_done():
+		var profile_started := Time.get_ticks_usec()
 		ticket.metrics["generation_profile"] = ticket.job.profile()
-		ticket.actual = ticket.job.result().duplicate(true)
+		_add_ms(ticket,"sdk_profile_capture_execution_ms",_elapsed_ms(profile_started))
+		var snapshot_started := Time.get_ticks_usec()
+		ticket.actual = ticket.job.result() # Original SDK already returns a deep snapshot.
+		ticket.metrics["sdk_result_snapshot_execution_ms"] = _elapsed_ms(snapshot_started)
+		ticket.metrics["generation_wall_ms"] = _elapsed_ms(ticket.generation_started_usec)
 		ticket.phase = "validate"
 
 func _validate(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
-	var expected: String = PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(ticket.library.sha256))
+	var fingerprint_started := Time.get_ticks_usec()
+	var expected: String = PROTOCOL.fingerprint(ticket.request_data,ticket.config,str(ticket.lock.module_package.sha256))
+	_add_ms(ticket,"fingerprint_execution_ms",_elapsed_ms(fingerprint_started))
 	var actual: Dictionary = ticket.actual
 	ticket.metrics["generation_status"] = actual.get("status","MISSING")
 	if actual.get("status") != "PASS" or actual.get("schema") != "mapgen/generation-result/v1":
@@ -320,16 +389,23 @@ func _validate(ticket: Ticket) -> void:
 		ticket.metrics.validate_ms = _elapsed_ms(started)
 		_fail(ticket,"missing actual host collision_half_extents snapshot")
 		return
+	var selection_started := Time.get_ticks_usec()
 	ticket.resolved = SELECTION.resolve(actual,ticket.bindings,Vector2(float(half[0]),float(half[1])),ticket.binding_id)
+	ticket.metrics["selection_execution_ms"] = _elapsed_ms(selection_started)
 	if not ticket.resolved.ok:
 		ticket.metrics.validate_ms = _elapsed_ms(started)
 		_fail(ticket,str(ticket.resolved.error))
 		return
 	ticket.ids.assign(ticket.resolved.ids)
-	ticket.bindings = ticket.resolved.bindings.duplicate(true)
+	ticket.bindings = ticket.resolved.bindings
 	var spawn: Vector2 = ticket.resolved.spawn
-	# Provider owns the one shared content converter. Preserve the original result.
-	ticket.built = RuntimeMapV2Provider.load_generated_level(ticket.request,actual.duplicate(true),ticket.ids,spawn,ticket.bindings.duplicate(true),ticket.provenance.duplicate(true),ticket.binding_id)
+	# Audited Provider copies map/store and output metadata before writing. No
+	# redundant full snapshot here; public diagnostic getters still deep-copy.
+	var provider_started := Time.get_ticks_usec()
+	ticket.built = RuntimeMapV2Provider.load_generated_level(ticket.request,actual,ticket.ids,spawn,ticket.bindings,ticket.provenance,ticket.binding_id)
+	ticket.metrics["provider_execution_ms"] = _elapsed_ms(provider_started)
+	if ticket.built != null and ticket.built.accepted():
+		ticket.metrics["provider_profile"] = ticket.built.plan.get_meta("runtime_map_v2_profile",{}).duplicate(true)
 	ticket.metrics.validate_ms = _elapsed_ms(started)
 	if ticket.built == null or not ticket.built.accepted():
 		_fail(ticket,ticket.built.error if ticket.built != null else "generated provider returned no LevelBuildResult")
@@ -369,8 +445,17 @@ func _copy_request(source: LevelRequest) -> LevelRequest:
 	result.capabilities = source.capabilities.duplicate(true)
 	return result
 
+func _add_ms(ticket: Ticket, name: String, duration: float) -> void:
+	ticket.metrics[name] = float(ticket.metrics.get(name,0.0))+duration
+
 func _elapsed_ms(started: int) -> float:
 	return float(Time.get_ticks_usec()-started)/1000.0
+
+func _capture_terminal_wall(ticket: Ticket) -> void:
+	if ticket.preload_started_usec>0 and not ticket.metrics.has("preload_wall_ms"):
+		ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
+	if ticket.generation_started_usec>0 and not ticket.metrics.has("generation_wall_ms"):
+		ticket.metrics["generation_wall_ms"] = _elapsed_ms(ticket.generation_started_usec)
 
 func _capture_missing_profiles(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
@@ -394,13 +479,13 @@ func _cancel(ticket: Ticket, reason: String) -> void:
 		ticket.progress_history.append(ticket.progress.duplicate(true))
 		ticket.metrics.operations = int(ticket.progress.get("operations",0))
 	_capture_missing_profiles(ticket)
+	_capture_terminal_wall(ticket)
 	ticket.preloader = null
 	if ticket.phase not in ["failed","committed"]:
 		ticket.error = reason
 		ticket.phase = "cancelled"
 	ticket.built = null
 	ticket.job = null
-	ticket.library = null
 	ticket.metrics["cancel_ms"] = float(ticket.metrics.get("cancel_ms",0.0))+_elapsed_ms(started)
 
 func _fail(ticket: Ticket, message: String) -> void:
@@ -414,12 +499,12 @@ func _fail(ticket: Ticket, message: String) -> void:
 		ticket.progress_history.append(ticket.progress.duplicate(true))
 		ticket.metrics.operations = int(ticket.progress.get("operations",0))
 	_capture_missing_profiles(ticket)
+	_capture_terminal_wall(ticket)
 	ticket.preloader = null
 	ticket.error = message
 	ticket.phase = "failed"
 	ticket.built = null
 	ticket.job = null
-	ticket.library = null
 	ticket.metrics["cancel_ms"] = float(ticket.metrics.get("cancel_ms",0.0))+_elapsed_ms(started)
 
 func _notification(what: int) -> void:
@@ -432,6 +517,5 @@ func _notification(what: int) -> void:
 		_current.preloader = null
 		if _current.job != null: _current.job.cancel()
 		_current.job = null
-		_current.library = null
 		_current.built = null
 		_current = null
