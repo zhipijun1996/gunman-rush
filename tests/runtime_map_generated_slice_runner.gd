@@ -160,6 +160,10 @@ func cancel_contract(after_preload: bool) -> void:
 func run() -> void:
 	root.size = Vector2i(1280,720)
 	var world := enter()
+	var initial_positions: Array[Vector2] = []
+	if is_instance_valid(world.session.controller):
+		var actual_player := world.session.player
+		world.session.controller.segment_returned.connect(func() -> void: initial_positions.append(actual_player.global_position))
 	check(world.error.is_empty() and world.ticket!=null,"actual generated scene composes player and source: "+world.error)
 	if world.ticket!=null and world.error.is_empty():
 		builder_contract(world)
@@ -172,6 +176,8 @@ func run() -> void:
 		observations.append({"generation_frames":waited,"elapsed_ms":Time.get_ticks_msec()-started,"receipt":world.generation_receipt.duplicate(true),"snapshot":world.capability_snapshot.duplicate(true)})
 	if world.ready_ok:
 		var stage := world.stage
+		check(initial_positions.size()==1 and initial_positions[0].is_equal_approx(stage.plan.spawn),"exactly one accepted initial positioning event places the real actor at the host-bound spawn")
+		observations.append({"accepted_initial_positions":initial_positions.map(func(value: Vector2) -> Array: return [value.x,value.y]),"requested_spawn":[stage.plan.spawn.x,stage.plan.spawn.y]})
 		check(world.generation.phase(world.ticket)=="committed" and stage.assembly_ok,"real generated plan committed through Stage assembly")
 		check(stage.plan.modules.size()==3 and stage.plan.connections.size()==3,"selected actual output installs three modules and three connections")
 		ferry_contract(world)

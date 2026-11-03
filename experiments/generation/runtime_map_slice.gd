@@ -76,7 +76,14 @@ func _install_plan(built: LevelBuildResult) -> bool:
 	policy.register_player_controller(session.controller)
 	stage.bind_damage(session.controller,policy,session.lifetime)
 	# This is the initial host-bound spawn, never a seam transition/teleport.
-	session.controller.return_to_segment(built.plan.spawn)
+	var actor_was_active := session.controller.active
+	# Initial positioning is synchronous; no Motor step runs in this interval.
+	session.controller.active = true
+	var positioned := session.controller.return_to_segment(built.plan.spawn)
+	session.controller.active = actor_was_active
+	if not positioned:
+		error = "Initial host-bound player positioning was refused"
+		return false
 	var body := PlayerPresentationRuntime.make_body(session.player,session.controller,"PixelPlainsActor")
 	session.player.add_child(body)
 	session.player.get_node("CourierVisual").hide()
