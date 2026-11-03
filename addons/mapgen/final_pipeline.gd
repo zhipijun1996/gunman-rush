@@ -1,4 +1,5 @@
 extends RefCounted
+const REWARD = preload("reward_clearance.gd")
 const GEO = preload("geometry.gd")
 const TRANSFORM = preload("content_transform.gd")
 const NUM = preload("numeric.gd")
@@ -7,8 +8,8 @@ static func assembly_gate(solver) -> bool:
 	# Preserve the original assembly mutations and its separate reward graph gate.
 	var used: Dictionary = {}
 	var edges: Array = []
-	var groups := NUM.stable_sort(GEO.connection_groups(solver.items), func(a,b):
-		return a[0][2].world2[0] < b[0][2].world2[0] if a[0][2].world2[0] != b[0][2].world2[0] else a[0][2].world2[1] < b[0][2].world2[1])
+	var groups: Array = (await solver.sort_rows(GEO.connection_groups(solver.items), func(a,b):
+		return a[0][2].world2[0] < b[0][2].world2[0] if a[0][2].world2[0] != b[0][2].world2[0] else a[0][2].world2[1] < b[0][2].world2[1]))
 	var n := 0
 	for group in groups:
 		n += 1
@@ -16,6 +17,8 @@ static func assembly_gate(solver) -> bool:
 			used[row[0].id+"."+row[1]] = true
 			row[2].connection = "C%02d" % n
 	for item in solver.items:
+		if not await solver.checkpoint():
+			return false
 		item.actual_routes = []
 		item.inactive_routes = []
 		item.closures = []
@@ -48,21 +51,25 @@ static func assembly_gate(solver) -> bool:
 			edges.append([b[0].id+"."+b[1]+":depart", a[0].id+"."+a[1]+":arrive"])
 	edges.append(["START", "M01.R:depart"])
 	for item in solver.items:
+		if not await solver.checkpoint():
+			return false
 		if item.module_id == "BOSS":
 			edges.append([item.id+".L:arrive", "BOSS"])
 	var g: Dictionary = {}
 	for pair in edges:
 		solver.edge(g, pair[0], pair[1])
-	var seen: Dictionary = solver.reachable(g, "START")
+	var seen: Dictionary = (await solver.reachable(g, "START"))
 	if not seen.has("BOSS"):
 		return false
 	for item in solver.items:
+		if not await solver.checkpoint():
+			return false
 		if item.reward:
 			var found := false
 			for node in seen:
 				if node.begins_with(item.id+":reward:"):
 					found = true
-					if not solver.reachable(g, node).has("BOSS"):
+					if not (await solver.reachable(g, node)).has("BOSS"):
 						return false
 			if not found:
 				return false
@@ -105,6 +112,8 @@ static func decorate(items: Array, solver) -> Array:
 				closed[pid] = true
 		var effective: Array = []
 		for original in template.all_routes:
+			if not await solver.checkpoint():
+				return []
 			var route: Dictionary = original.duplicate(true)
 			if item.mirror_x:
 				route.displacement[0] *= -1
@@ -203,6 +212,11 @@ static func audit(items: Array, solver) -> Dictionary:
 				invariants.append("Port vertical boundary")
 			if port.surface == "ROCK" and not face in ["LEFT", "RIGHT"] or port.surface == "AIR" and face == "BOTTOM" and GEO.permitted(port, "in"):
 				invariants.append("Port surface/permission")
+		for site in item.reward_sites:
+			var proof: Dictionary = await REWARD.check(site.get("region",[]),item.sealed_ports,solver.request.player.clearance_half_extents_pixels,solver)
+			if solver.aborted():return {}
+			if proof.verdict == "PROVEN_EXCLUDED_BY_SEALS":
+				blockers.append({"reason":"reward_claim_region_excluded_by_seals","instance":item.id,"module_id":item.source_module_id,"reward_id":site.id,"proof":proof})
 		var closed: Dictionary = {}
 		for seal in item.sealed_ports:
 			closed[seal.port_id] = true
@@ -252,7 +266,7 @@ static func audit(items: Array, solver) -> Dictionary:
 		if item.module_id == "BOSS":
 			boss = item
 			solver.edge(g, item.id+".L:arrive", "BOSS")
-	var seen: Dictionary = solver.reachable(g, "START")
+	var seen: Dictionary = (await solver.reachable(g, "START"))
 	if boss.is_empty():
 		blockers.append({"reason": "boss_not_placed"})
 	elif not "L" in boss.connected_port_ids:
@@ -276,7 +290,7 @@ static func audit(items: Array, solver) -> Dictionary:
 		if nodes.is_empty():
 			blockers.append({"reason": "target_reward_unreachable", "instance": item.id, "module_id": item.source_module_id})
 		for node in nodes:
-			if not solver.reachable(g, node.node).has("BOSS"):
+			if not (await solver.reachable(g, node.node)).has("BOSS"):
 				var row: Dictionary = node.duplicate()
 				row.reason = "target_reward_cannot_continue_to_boss"
 				blockers.append(row)
@@ -286,7 +300,7 @@ static func audit(items: Array, solver) -> Dictionary:
 		blockers.append({"reason": "unreachable_instances", "instances": missing})
 	for node in reward_nodes:
 		node.reachable = seen.has(node.node)
-		node.can_continue_to_boss = solver.reachable(g, node.node).has("BOSS")
+		node.can_continue_to_boss = (await solver.reachable(g, node.node)).has("BOSS")
 	for invariant in invariants:
 		blockers.append({"reason": "geometry_invariant", "detail": invariant})
 	return {"geometry": "PASS" if invariants.is_empty() else "FAIL", "gear_seal_coverage": "PASS" if invariants.is_empty() else "FAIL", "boss_reachable": seen.has("BOSS"), "target_reward_instances": reward_count, "all_reward_sites": site_count, "route_reward_nodes": reward_nodes, "unreachable_instances": missing, "blockers": blockers, "edges": solver.graph_edges(g)}

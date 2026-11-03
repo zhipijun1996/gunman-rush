@@ -3,6 +3,8 @@ const GEO = preload("geometry.gd")
 const NUM = preload("numeric.gd")
 const RNG = preload("python_rng.gd")
 const CURSOR = preload("candidate_cursor.gd")
+const REWARD = preload("reward_clearance.gd")
+const TRANSFORM = preload("content_transform.gd")
 const PIPELINE = preload("final_pipeline.gd")
 var owner: WeakRef
 var library
@@ -28,6 +30,10 @@ var index: Dictionary = {}
 var routes: Dictionary = {}
 var transit: Dictionary = {}
 var config_cache: Dictionary = {}
+var reward_sites_cache: Dictionary = {}
+var reward_seal_conflicts: Array = []
+var graph_cache: Dictionary = {}
+var reach_cache: Dictionary = {}
 var return_rooms: Dictionary = {}
 var tids: Dictionary = {}
 var qids: Dictionary = {}
@@ -47,7 +53,11 @@ func _init(job, req: Dictionary, prepared, cfg: Dictionary):
 	templates = prepared.templates
 	rng.seed_integer(req.seed)
 	started_usec = Time.get_ticks_usec()
+
+func initialize() -> bool:
 	for mid in templates:
+		if not await checkpoint():
+			return false
 		var template: Dictionary = templates[mid]
 		if mid.begins_with("T"):
 			tids[mid] = true
@@ -75,6 +85,8 @@ func _init(job, req: Dictionary, prepared, cfg: Dictionary):
 			for pid in ports:
 				transit[port_key(mid, mirror, pid)] = rs.filter(func(r): return r.from_port == pid and not r.validation.get("testNeighborFixtures", []))
 
+	return not aborted()
+
 static func local_key(mid: String, mirror: bool) -> String:
 	return mid + ("|1" if mirror else "|0")
 
@@ -100,6 +112,30 @@ func checkpoint() -> bool:
 		error_message = "cancelled"
 		return false
 	return true
+
+func sort_rows(rows: Array, less: Callable) -> Array:
+	# Bottom-up stable merge, same equal-key order; no RNG calls.
+	var result := rows.duplicate()
+	var width := 1
+	while width < result.size():
+		var merged: Array = []
+		for start in range(0,result.size(),width*2):
+			var i := start
+			var j := mini(start+width,result.size())
+			var end := mini(start+2*width,result.size())
+			var left_end := j
+			while i < left_end or j < end:
+				if not await checkpoint():
+					return []
+				if i >= left_end or j < end and less.call(result[j],result[i]):
+					merged.append(result[j])
+					j += 1
+				else:
+					merged.append(result[i])
+					i += 1
+		result = merged
+		width *= 2
+	return result
 
 func tick() -> bool:
 	if not await checkpoint():
@@ -132,12 +168,27 @@ func configuration_ok(item: Dictionary, connected: Dictionary) -> bool:
 	var key := local_key(item.module_id, item.mirror_x) + JSON.stringify(ids)
 	if config_cache.has(key):
 		return config_cache[key]
+	if not await checkpoint():
+		return false
 	var template: Dictionary = templates[item.module_id]
 	var full := GEO.placed_ports(template, 0, 0, item.mirror_x, true)
 	var seals: Array = []
 	for pid in full:
 		if not connected.has(pid):
 			seals.append(library.gear_seal(full[pid], template.size_blocks))
+	var site_key := local_key(item.module_id,item.mirror_x)
+	if not reward_sites_cache.has(site_key):
+		reward_sites_cache[site_key] = TRANSFORM.visit(template.compiled_content.get("reward_sites",[]),template.size_blocks[0]*library.block_pixels,[template.source_bounds.x,template.source_bounds.y],item.mirror_x,"reward_sites")
+	for site in reward_sites_cache[site_key]:
+		var proof: Dictionary = await REWARD.check(site.get("region",[]),seals,request.player.clearance_half_extents_pixels,self)
+		if aborted():return false
+		if proof.verdict == "PROVEN_EXCLUDED_BY_SEALS":
+			var seal_ids: Array=[]
+			for seal in seals:seal_ids.append(seal.port_id)
+			reward_seal_conflicts.append({"reason":"reward_claim_region_excluded_by_seals","module_id":template.source_module_id,"content_version":template.content_version,"template_id":item.module_id,"reward_id":site.id,"target_reward":item.reward,"mirror_x":item.mirror_x,"connected_port_ids":ids,"sealed_port_ids":seal_ids,"claim_semantics":"grounded and actor center in region","proof":proof})
+			reject("reward_claim_region_excluded_by_seals")
+			config_cache[key]=false
+			return false
 	for route in template.all_routes:
 		if not connected.has(route.from_port) or not connected.has(route.to_port) or not has_abilities(route.required_abilities):
 			continue
@@ -164,12 +215,21 @@ static func edge(graph: Dictionary, a: String, b: String) -> void:
 	graph[a].append(b)
 
 func graph(occupied: Array, potential := false) -> Array:
+	var state: Array = ["potential" if potential else "actual"]
+	for item in occupied:
+		state.append([item.id,item.module_id,item.mirror_x,item.origin])
+	var cache_key := JSON.stringify(state)
+	if graph_cache.has(cache_key):
+		await checkpoint()
+		return graph_cache[cache_key]
 	var g: Dictionary = {}
 	var connected: Dictionary = {}
 	var rewards: Array = []
 	for item in occupied:
 		connected[item.id] = {}
 	for group in GEO.connection_groups(occupied):
+		if not await checkpoint():
+			return [{},[],connected]
 		var a: Array = group[0]
 		var b: Array = group[1]
 		connected[a[0].id][a[1]] = true
@@ -179,6 +239,8 @@ func graph(occupied: Array, potential := false) -> Array:
 		if GEO.permitted(b[2], "out") and GEO.permitted(a[2], "in"):
 			edge(g, b[0].id+"."+b[1]+":depart", a[0].id+"."+a[1]+":arrive")
 	for item in occupied:
+		if not await checkpoint():
+			return [{},[],connected]
 		for route in routes[local_key(item.module_id, item.mirror_x)]:
 			var a: String = route.from_port
 			var b: String = route.to_port
@@ -188,7 +250,7 @@ func graph(occupied: Array, potential := false) -> Array:
 			var trial := selected.duplicate()
 			trial[a] = true
 			trial[b] = true
-			if potential and not configuration_ok(item, trial):
+			if potential and not (await configuration_ok(item, trial)):
 				continue
 			var chain: Array = [item.id+"."+a+":arrive"]
 			if item.reward and not route.reward_ids.is_empty():
@@ -221,29 +283,44 @@ func graph(occupied: Array, potential := false) -> Array:
 		if item.module_id == "BOSS":
 			edge(g, item.id+".L:arrive", "BOSS")
 			break
-	return [g, rewards, connected]
+	var value: Array = [g,rewards,connected]
+	if graph_cache.size() >= 64:
+		graph_cache.erase(graph_cache.keys()[0])
+	graph_cache[cache_key] = value
+	return value
 
-static func reachable(g: Dictionary, start: String) -> Dictionary:
+func reachable(g: Dictionary, start: String) -> Dictionary:
+	var key := hash(g)
+	if reach_cache.has(key) and reach_cache[key].graph == g and reach_cache[key].starts.has(start):
+		await checkpoint()
+		return reach_cache[key].starts[start]
 	var seen: Dictionary = {start: true}
 	var queue: Array = [start]
 	var head := 0
 	while head < queue.size():
+		if not await checkpoint():
+			return {}
 		var at: String = queue[head]
 		head += 1
 		for node in g.get(at, []):
 			if not seen.has(node):
 				seen[node] = true
 				queue.append(node)
+	if not reach_cache.has(key) or reach_cache[key].graph != g:
+		if reach_cache.size() >= 64:
+			reach_cache.erase(reach_cache.keys()[0])
+		reach_cache[key] = {"graph":g,"starts":{}}
+	reach_cache[key].starts[start] = seen
 	return seen
 
 func reachable_frontier(occupied: Array) -> Array:
-	var seen := reachable(graph(occupied, true)[0], "START")
+	var seen := (await reachable((await graph(occupied, true))[0], "START"))
 	return GEO.frontier(occupied).filter(func(s): return seen.has(s[0].id+"."+s[1]+":depart") and GEO.permitted(s[2], "out"))
 
 func safe_state(occupied: Array) -> bool:
-	var connected: Dictionary = graph(occupied)[2]
+	var connected: Dictionary = (await graph(occupied))[2]
 	for item in occupied:
-		if not configuration_ok(item, connected[item.id]):
+		if not (await configuration_ok(item, connected[item.id])):
 			return false
 	return true
 
@@ -312,7 +389,7 @@ func exit_features(item: Dictionary, pin: String, occupied: Array, lookup: Dicti
 		var selected := connected.duplicate()
 		selected[pin] = true
 		selected[pid] = true
-		if connected.has(pid) or not configuration_ok(item, selected):
+		if connected.has(pid) or not (await configuration_ok(item, selected)):
 			continue
 		var source: Array = [item, pid, item.ports[pid]]
 		var trial: Array = occupied+[item]
@@ -336,10 +413,10 @@ func exit_features(item: Dictionary, pin: String, occupied: Array, lookup: Dicti
 func reservation(occupied: Array, limit: int, require_boss := false) -> Array:
 	if limit <= 0:
 		return []
-	var data := graph(occupied, true)
+	var data := (await graph(occupied, true))
 	var g: Dictionary = data[0]
 	var connected: Dictionary = data[2]
-	var seen := reachable(g, "START")
+	var seen := (await reachable(g, "START"))
 	var proposed: Array = []
 	var extra: Dictionary = {}
 	var counts: Dictionary = {}
@@ -348,7 +425,7 @@ func reservation(occupied: Array, limit: int, require_boss := false) -> Array:
 		var pid: String = source[1]
 		if item.reward or item.module_id in ["START", "BOSS"] or not seen.has(item.id+"."+pid+":depart") or not GEO.permitted(source[2], "in"):
 			continue
-		var onward := reachable(g, item.id+"."+pid+":arrive")
+		var onward := (await reachable(g, item.id+"."+pid+":arrive"))
 		if require_boss and not onward.has("BOSS"):
 			continue
 		if not require_boss:
@@ -361,7 +438,7 @@ func reservation(occupied: Array, limit: int, require_boss := false) -> Array:
 		var selected: Dictionary = connected[item.id].duplicate()
 		selected.merge(extra.get(item.id, {}))
 		selected[pid] = true
-		if not configuration_ok(item, selected):
+		if not (await configuration_ok(item, selected)):
 			continue
 		var options: Array = []
 		var cursor = candidates(source, return_rooms, occupied+proposed)
@@ -371,13 +448,13 @@ func reservation(occupied: Array, limit: int, require_boss := false) -> Array:
 			row = await cursor.next()
 		if aborted():
 			return []
-		options = NUM.stable_sort(options, func(a, b):
+		options = (await sort_rows(options, func(a, b):
 			var aa = config.scoring.reservation_repeat*counts.get(a[0].module_id, 0)+config.scoring.reservation_area*(a[0].size_blocks[0]*a[0].size_blocks[1])
 			var bb = config.scoring.reservation_repeat*counts.get(b[0].module_id, 0)+config.scoring.reservation_area*(b[0].size_blocks[0]*b[0].size_blocks[1])
 			if aa != bb: return aa < bb
 			if a[0].module_id != b[0].module_id: return a[0].module_id < b[0].module_id
 			if a[0].mirror_x != b[0].mirror_x: return not a[0].mirror_x
-			return a[0].origin[0] < b[0].origin[0] if a[0].origin[0] != b[0].origin[0] else a[0].origin[1] < b[0].origin[1])
+			return a[0].origin[0] < b[0].origin[0] if a[0].origin[0] != b[0].origin[0] else a[0].origin[1] < b[0].origin[1]))
 		if options.is_empty():
 			continue
 		var candidate: Dictionary = options[0][0].duplicate(true)
@@ -392,7 +469,7 @@ func reservation(occupied: Array, limit: int, require_boss := false) -> Array:
 	return proposed
 
 func growth_options() -> Array:
-	var fronts := reachable_frontier(items)
+	var fronts := (await reachable_frontier(items))
 	rng.shuffle(fronts)
 	fronts = fronts.slice(0, config.search.growth_frontier_limit)
 	var old := GEO.bounds(items)
@@ -441,12 +518,12 @@ func growth_options() -> Array:
 			row = await cursor.next()
 		if aborted():
 			return []
-	options = NUM.stable_sort(options, func(a, b): return a[0] > b[0])
+	options = (await sort_rows(options, func(a, b): return a[0] > b[0]))
 	var ranked: Array = []
 	for row in options.slice(0, config.search.growth_shortlist):
 		var item: Dictionary = row[2].duplicate(true)
 		item.id = "M%02d" % (items.size()+1)
-		if not safe_state(items+[item]):
+		if not (await safe_state(items+[item])):
 			reject("seal_or_route_configuration")
 			continue
 		var features: Array = await exit_features(item, row[3], items, lookup)
@@ -457,7 +534,7 @@ func growth_options() -> Array:
 			ranking += score.dead_end
 		ranking += score.vertical_exit*features[3]+score.distinct_direction*features[4]
 		ranked.append([ranking, item])
-	ranked = NUM.stable_sort(ranked, func(a, b): return a[0] > b[0])
+	ranked = (await sort_rows(ranked, func(a, b): return a[0] > b[0]))
 	var unique: Array = []
 	var physical: Dictionary = {}
 	for row in ranked:
@@ -474,7 +551,7 @@ func growth_options() -> Array:
 			scored.append([row[0]+score.reward_reserve*(capacity-old_capacity), row[1]])
 			if aborted():
 				return []
-		unique = NUM.stable_sort(scored, func(a, b): return a[0] > b[0])
+		unique = (await sort_rows(scored, func(a, b): return a[0] > b[0]))
 	var choices: Array = []
 	for row in unique:
 		choices.append(row[1])
@@ -485,10 +562,10 @@ func growth_options() -> Array:
 
 func close_one(max_depth: int) -> bool:
 	phase = "closure_search"
-	var fronts := reachable_frontier(items)
+	var fronts := (await reachable_frontier(items))
 	rng.shuffle(fronts)
 	var viable: Array = fronts.filter(func(s): return not s[0].reward and s[0].module_id != "START")
-	var g: Dictionary = graph(items, true)[0]
+	var g: Dictionary = (await graph(items, true))[0]
 	for source in viable.slice(0, config.search.closure_source_limit):
 		var targets: Array = []
 		for target in GEO.frontier(items):
@@ -496,7 +573,7 @@ func close_one(max_depth: int) -> bool:
 				continue
 			if distance2(target[2], source[2]) >= config.search.closure_target_distance2:
 				continue
-			if reachable(g, target[0].id+"."+target[1]+":arrive").has(source[0].id+"."+source[1]+":depart"):
+			if (await reachable(g, target[0].id+"."+target[1]+":arrive")).has(source[0].id+"."+source[1]+":depart"):
 				targets.append(target)
 		if targets.is_empty():
 			continue
@@ -519,7 +596,7 @@ func close_one(max_depth: int) -> bool:
 					ids.sort()
 					for pid in ids:
 						var port: Dictionary = item.ports[pid]
-						if not configuration_ok(item, {pin: true, pid: true}):
+						if not (await configuration_ok(item, {pin: true, pid: true})):
 							continue
 						var closes := false
 						for target in targets:
@@ -532,7 +609,7 @@ func close_one(max_depth: int) -> bool:
 								var copy: Dictionary = original.duplicate(true)
 								copy.id = "M%02d" % (trial.size()+1)
 								trial.append(copy)
-							if safe_state(trial):
+							if (await safe_state(trial)):
 								items = trial
 								return true
 						var dist := 9223372036854775807
@@ -543,7 +620,7 @@ func close_one(max_depth: int) -> bool:
 					row = await cursor.next()
 				if aborted():
 					return false
-			states = NUM.stable_sort(states, func(a, b): return a[0] < b[0])
+			states = (await sort_rows(states, func(a, b): return a[0] < b[0]))
 			beam = []
 			for state in states.slice(0, config.search.closure_beam_width):
 				beam.append([state[1], state[2]])
@@ -600,10 +677,10 @@ func add_air_loop() -> bool:
 	return false
 
 func valid_reward_state(occupied: Array) -> bool:
-	if not safe_state(occupied):
+	if not (await safe_state(occupied)):
 		return false
-	var data := graph(occupied)
-	var seen := reachable(data[0], "START")
+	var data := (await graph(occupied))
+	var seen := (await reachable(data[0], "START"))
 	if not seen.has("BOSS"):
 		return false
 	for item in occupied:
@@ -613,7 +690,7 @@ func valid_reward_state(occupied: Array) -> bool:
 		if nodes.is_empty():
 			return false
 		for node in nodes:
-			if not reachable(data[0], node[1]).has("BOSS"):
+			if not (await reachable(data[0], node[1])).has("BOSS"):
 				return false
 	return true
 
@@ -626,7 +703,7 @@ static func graph_edges(g: Dictionary) -> Array:
 			result.append([key, node])
 	return result
 
-static func actual_paths(edges: Array, count: int) -> Array:
+func actual_paths(edges: Array, count: int) -> Array:
 	var g: Dictionary = {}
 	for pair in edges:
 		edge(g, pair[0], pair[1])
@@ -634,11 +711,15 @@ static func actual_paths(edges: Array, count: int) -> Array:
 	var sequences: Dictionary = {}
 	var skips: Array = [{}]
 	while not skips.is_empty() and paths.size() < count:
+		if not await checkpoint():
+			return []
 		var skip: Dictionary = skips.pop_front()
 		var previous: Dictionary = {"START": null}
 		var queue: Array = ["START"]
 		var head := 0
 		while head < queue.size():
+			if not await checkpoint():
+				return []
 			var at: String = queue[head]
 			head += 1
 			for node in g.get(at, []):
@@ -682,7 +763,7 @@ func reward_options() -> Array:
 	var remaining: int = config.goals.reward_target-placed-1
 	var seen: Dictionary = {}
 	var options: Array = []
-	for source in reachable_frontier(items):
+	for source in (await reachable_frontier(items)):
 		if source[0].reward or source[0].module_id in ["START", "BOSS"]:
 			continue
 		var cursor = candidates(source, qids, items)
@@ -694,7 +775,7 @@ func reward_options() -> Array:
 				seen[key] = true
 				item.id = "M%02d" % (items.size()+1)
 				var trial: Array = items+[item]
-				if valid_reward_state(trial):
+				if (await valid_reward_state(trial)):
 					if (await reservation(trial, remaining, true)).size() < remaining:
 						reject("insufficient_remaining_reward_reservation")
 					else:
@@ -706,7 +787,7 @@ func reward_options() -> Array:
 			row = await cursor.next()
 		if aborted():
 			return []
-	options = NUM.stable_sort(options, func(a, b): return a[0] > b[0])
+	options = (await sort_rows(options, func(a, b): return a[0] > b[0]))
 	var result: Array = []
 	for row in options.slice(0, config.search.reward_choice_count):
 		result.append(row[1])
@@ -762,7 +843,7 @@ func finish() -> bool:
 	layout_terminal_start = terminal_states
 	terminal_slice_failed = false
 	var options: Array = []
-	for source in reachable_frontier(items):
+	for source in (await reachable_frontier(items)):
 		if source[0].module_id == "START":
 			continue
 		var cursor = candidates(source, {"BOSS": true}, items)
@@ -771,8 +852,8 @@ func finish() -> bool:
 			var item: Dictionary = row[0]
 			item.id = "M%02d" % (items.size()+1)
 			var trial: Array = items+[item]
-			if valid_reward_state(trial) and aspect(trial) <= config.shape.max_aspect:
-				if actual_paths(graph_edges(graph(trial)[0]), config.goals.main_paths_required).size() < config.goals.main_paths_required:
+			if (await valid_reward_state(trial)) and aspect(trial) <= config.shape.max_aspect:
+				if (await actual_paths(graph_edges((await graph(trial))[0]), config.goals.main_paths_required)).size() < config.goals.main_paths_required:
 					reject("boss_main_path_diversity")
 				elif (await reservation(trial, config.goals.reward_target, true)).size() < config.goals.reward_target:
 					reject("boss_reward_space_reservation")
@@ -781,7 +862,7 @@ func finish() -> bool:
 			row = await cursor.next()
 		if aborted():
 			return false
-	options = NUM.stable_sort(options, func(a, b): return a[0] > b[0])
+	options = (await sort_rows(options, func(a, b): return a[0] > b[0]))
 	if options.is_empty():
 		record_failure("no_goal_and_reservation_compatible_boss")
 		last_search_failure = "no_goal_and_reservation_compatible_boss"
@@ -802,23 +883,27 @@ func finish() -> bool:
 func final_accept() -> bool:
 	if not await checkpoint():
 		return false
-	if not PIPELINE.assembly_gate(self):
+	owner.get_ref().work_phase = "final_gate"
+	if not await PIPELINE.assembly_gate(self):
 		record_failure("original_assembly_rejected")
 		return false
 	var decorated := items.duplicate(true)
+	owner.get_ref().work_phase = "final_decorate"
 	var feedback: Array = await PIPELINE.decorate(decorated, self)
 	if aborted():
 		return false
+	owner.get_ref().work_phase = "final_audit"
 	var checked: Dictionary = await PIPELINE.audit(decorated, self)
 	if aborted():
 		return false
-	var paths := actual_paths(checked.edges, config.goals.main_paths_required)
+	var paths := (await actual_paths(checked.edges, config.goals.main_paths_required))
 	if not feedback[1].is_empty() or not checked.blockers.is_empty() or paths.size() < config.goals.main_paths_required:
 		record_failure("final_independent_goal_check")
 		return false
 	var quality_value: Dictionary = PIPELINE.quality(decorated, paths, true, self)
 	if not quality_value.effect_pass:
 		return false
+	owner.get_ref().work_phase = ""
 	final_source = {"instances": decorated, "independent_audit": checked, "main_paths": paths, "quality": quality_value, "physical_notes": feedback[0], "blockers": feedback[1]}
 	return true
 
@@ -854,4 +939,4 @@ func metrics() -> Dictionary:
 	return {"expansions": expanded, "backtracks": backtracks, "layout_repairs": repairs, "terminal_states": terminal_states, "recorded_failures": failures.size(), "closed_loops_across_search": closed_loops, "pruning": rejections.duplicate(true), "generation_seconds": float(Time.get_ticks_usec()-started_usec)/1000000.0}
 
 func diagnostics() -> Dictionary:
-	return {"solver_state": {"seed": request.seed, "phase": phase, "instances": items.duplicate(true)}, "decisions": decisions.duplicate(true), "failures": failures.duplicate(true), "rng_state": rng.getstate()}
+	return {"solver_state": {"seed": request.seed, "phase": phase, "instances": items}, "decisions": decisions, "failures": failures, "rng_state": rng.getstate(), "reward_seal_conflicts":reward_seal_conflicts, "reward_check_scope":"full strict seal-AABB union exclusion only; other claim/grounding/path physics UNKNOWN"}

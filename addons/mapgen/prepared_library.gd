@@ -23,7 +23,7 @@ func begin(archive, req: Dictionary, cfg: Dictionary) -> bool:
 	source = archive
 	request = req.duplicate(true)
 	config = cfg.duplicate(true)
-	var parsed: Dictionary = source.read_json("catalog.json")
+	var parsed: Dictionary = source._view_json("catalog.json")
 	if not parsed.ok or parsed.value.get("schema") != "map-edit/delivery-catalog/v1":
 		error = "library: unsupported catalog"
 		return false
@@ -136,8 +136,8 @@ func advance_one() -> void:
 	ready = true
 
 func adapt(key: String, entry: Dictionary, aliases: Dictionary) -> Dictionary:
-	var compiled: Dictionary = source.read_json(entry.compiled)
-	var note: Dictionary = source.read_json(entry.scene.replace("module.tscn", "module.mapnote.json"))
+	var compiled: Dictionary = source._view_json(entry.compiled)
+	var note: Dictionary = source._view_json(entry.scene.replace("module.tscn", "module.mapnote.json"))
 	if not compiled.ok or not note.ok or entry.reward_sites != compiled.value.get("reward_sites", []):
 		error = "library: compiled/reward/mapnote mismatch:" + entry.id
 		return {}

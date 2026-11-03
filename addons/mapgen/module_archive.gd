@@ -63,3 +63,7 @@ func read_json(path: String) -> Dictionary:
 	if not _files.has(path):
 		return {"ok": false, "error": "library: missing JSON:" + path}
 	return DATA.parse(_files[path].get_string_from_utf8())
+
+func _view_json(path: String) -> Dictionary:
+	# Internal immutable view. PreparedLibrary never mutates source JSON.
+	return {"ok":true,"value":_json[path],"error":""} if _json.has(path) else read_json(path)

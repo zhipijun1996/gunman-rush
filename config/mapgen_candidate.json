@@ -1,12 +1,12 @@
 {
-  "version": "0.3.0",
-  "algorithm": "stable-v2",
-  "implementation": "mapgen/gdscript-candidate-0.3.0",
-  "release_head": "93c5221a9708d079c2864f3c14b415e81bb5de07",
-  "source_commit": "508b558e8a9925862e8a26c20fea008b9a772007",
+  "version": "0.4.0",
+  "algorithm": "stable-v3-reward-space",
+  "implementation": "mapgen/gdscript-candidate-0.4.0",
+  "release_head": "6bf07ab5a655ea056461b935ae4354e15ef83482",
+  "source_commit": "b21c889077ec97eb11a210d0ceab4fbddd862e48",
   "archive": {
-    "url": "https://raw.githubusercontent.com/zhipijun1996/map-gen/93c5221a9708d079c2864f3c14b415e81bb5de07/godot_candidate/releases/0.3.0/mapgen-godot-candidate-0.3.0.zip",
-    "sha256": "9ea87854c96cf7c2189b4c6ad25a8056454a3150721bead79c335aca8678acd0"
+    "url": "https://raw.githubusercontent.com/zhipijun1996/map-gen/6bf07ab5a655ea056461b935ae4354e15ef83482/runtime_packages/releases/0.4.0/mapgen-godot-candidate-0.4.0.zip",
+    "sha256": "7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778"
   },
   "module_package": {
     "version": "1.1.0",
@@ -22,32 +22,52 @@
     },
     "config": {
       "path": "res://resources/mapgen/generator_config.json",
-      "sha256": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a"
+      "sha256": "65998d9fede6df44f832cde7bb1e368f09eb092aa3f31c9a5fbb9f7c34ea8062"
     }
   },
   "addon_files": {
     "addons/mapgen/candidate_cursor.gd": "1a8ce925ab0d0e35232950618a83af334e9e780e6b61a49600277f6d38280fca",
     "addons/mapgen/content_transform.gd": "80ab9f4e58ceedb754c6062996e0e4a4f36a9542e7c54206639d7760ce92e2f2",
-    "addons/mapgen/data_json.gd": "b4746054f87f8f8207c63b24f2fd42c0d0e6f7b8859dc925d0ba1928089699a6",
+    "addons/mapgen/data_json.gd": "cef6a962ae33d5d03aa29b57ca35fcef104a07f7a2de636122e3b32cb8d0ea9c",
     "addons/mapgen/decimal64.gd": "a1c39dc62d62f8191a6d306942b2f549e674e09212970f8bd4a44153ed8e8109",
-    "addons/mapgen/final_pipeline.gd": "7613f27656b6be9dd6bec771a0ee40cb67aa7c0f1d8de7ab630ede39471d448b",
-    "addons/mapgen/generation_job.gd": "7ccb6cd915f02081f391c95cea40fed06789df21d7519ea943533f668c044f46",
+    "addons/mapgen/final_pipeline.gd": "c44fe36078a4cea5b20541f38c564e143ba4eaafbf6eb6edcf5bbb67d2ceb587",
+    "addons/mapgen/generation_job.gd": "522d9cfa4a56ca08d3e721a1ba58b40974be2e27e983f2381f63ec3e3250d5ac",
     "addons/mapgen/geometry.gd": "a86179cffc4820d774b398362098a4cc4158edaaffc55eda6992817672850a9e",
-    "addons/mapgen/module_archive.gd": "c4b74177688308e6f8ccddd6d54b42bf22763e846843651faa1e99880c0aafae",
+    "addons/mapgen/module_archive.gd": "44c075d69db506ced4a2241e8205775a226861234786d43272633c1e7ba46742",
     "addons/mapgen/numeric.gd": "af1d58403d38687de902e4ded6770aa9972e91a9ea75e2ab5e92f98d41f90f7e",
-    "addons/mapgen/prepared_library.gd": "7640c2a43b61db7ec4d10b22f861fbf2299088cb560585c2c3225c2039192ce3",
-    "addons/mapgen/protocol.gd": "24921a0bfe641fb5741a23696d04db5d31e71d2468914c539cffcc06ce0a6f23",
+    "addons/mapgen/preload_job.gd": "64c129d7bca5c894db3d76e5f73141bd2406f6df7812290d71c6d1535d37ca1f",
+    "addons/mapgen/prepared_library.gd": "f572fe0f4811b1b116140e108a7a9dbc4d6e3b509df220feea66b8af2146cbaa",
+    "addons/mapgen/protocol.gd": "87629cf89bd5d34fc1bea8a4d43de1d2a19348b6104d29f0ae01d36c937c6ad4",
     "addons/mapgen/python_rng.gd": "6b70397a8f8f7dbfd2ba9f2c49101c9e5174e22fc4b761e1e97c07c6a61964d4",
+    "addons/mapgen/reward_clearance.gd": "f1946c2e0bb5fc7c3b6d6229030cd548bc5540a3160a652a5121bd35baf24a02",
     "addons/mapgen/runtime_export.gd": "5be6d8fd72389acb60efb5651a945e9200a0bc7a15a4a1bff152ab2647311a5c",
-    "addons/mapgen/schema_data.gd": "9fa7335c10c83fe48b07aa29f9d016f0a894441bc199232e4e3a2f3fd086f943",
-    "addons/mapgen/solver.gd": "dc9ab9eb10761cdd251e6267ac7330f831ace168df467c873511e6e8d096131a"
+    "addons/mapgen/schema_data.gd": "5afce308ab7a030f120973cd7ba948580b5f8a29e6ef7ff8f012e98360a19f62",
+    "addons/mapgen/solver.gd": "96e1ea947ed7864843ac0b72765d2957b75357f6677472513667fe9e142b401f",
+    "addons/mapgen/work_gate.gd": "fec67bc46e091be2d7919003aa0e525c0112772beab12ac82e6da1fcf41e4079"
   },
   "readiness": {
-    "status": "candidate",
+    "hard_frame_budget": "NOT_GUARANTEED",
     "production_ready": false,
-    "whole_map_physics": "NOT_RUN",
-    "playable_in_host": "NOT_RUN",
-    "mobile_device": "NOT_RUN"
+    "status": "candidate",
+    "whole_map_physics": "NOT_RUN"
   },
-  "license_files": []
+  "license_files": [],
+  "gears_conformance": {
+    "purpose": "original upstream 930007 mechanism input; not a host ability grant",
+    "request": {
+      "path": "res://resources/mapgen/gears_request_930007.json",
+      "sha256": "1594181d4d48a419bb26e920a609a559e10e06dbe7bf6d485a1fc26aca745021"
+    },
+    "config": {
+      "path": "res://resources/mapgen/generator_config.json",
+      "sha256": "65998d9fede6df44f832cde7bb1e368f09eb092aa3f31c9a5fbb9f7c34ea8062"
+    },
+    "source": {
+      "included_in_candidate_archive": false,
+      "release_head": "6bf07ab5a655ea056461b935ae4354e15ef83482",
+      "repository_path": "validation/runtime-reward-B/replay/inputs/validation-930007/request.json",
+      "url": "https://raw.githubusercontent.com/zhipijun1996/map-gen/6bf07ab5a655ea056461b935ae4354e15ef83482/validation/runtime-reward-B/replay/inputs/validation-930007/request.json",
+      "git_blob_sha": "4a0c53500bd941bc40f3654c43eebfe7196e911c"
+    }
+  }
 }

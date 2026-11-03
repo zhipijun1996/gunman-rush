@@ -1,24 +1,17 @@
-extends RefCounted
+extends "work_gate.gd"
 ## Cooperative data-only job; no SceneTree, worker, Node, callback/service bag.
 const PROTOCOL = preload("protocol.gd")
 const PREPARED = preload("prepared_library.gd")
 const SOLVER = preload("solver.gd")
 const EXPORT = preload("runtime_export.gd")
 const ARCHIVE = preload("module_archive.gd")
-signal _resume
 var _request: Dictionary
 var _config: Dictionary
 var _library
 var _solver
 var _prepared
 var _fingerprint = null
-var _result: Dictionary = {}
-var _credits := 0
-var _operations := 0
-var _started := false
-var _cancelled := false
-var _running := false
-var _phase := "created"
+var work_phase := ""
 
 static func create(request, library, config):
 	var job = load("res://addons/mapgen/generation_job.gd").new()
@@ -32,51 +25,16 @@ static func create(request, library, config):
 	job._fingerprint = PROTOCOL.fingerprint(job._request, job._config, library.sha256)
 	return job
 
-func advance(operation_budget: int = 128) -> Dictionary:
-	if operation_budget < 1 or operation_budget > 4096:
-		return {"ok": false, "error": "advance budget must be 1..4096", "progress": progress()}
-	if _running:
-		return {"ok": false, "error": "job is not reentrant", "progress": progress()}
-	if not is_done():
-		_credits = operation_budget
-		_running = true
-		if not _started:
-			_started = true
-			_run()
-		else:
-			_resume.emit()
-		_running = false
-	return {"ok": true, "progress": progress()}
+func phase_name() -> String:
+	return work_phase if not work_phase.is_empty() else _phase if _phase == "export" else _solver.phase if _solver != null else _phase
 
 func progress() -> Dictionary:
-	return {"done": is_done(), "phase": _phase if _phase == "export" else _solver.phase if _solver != null else _phase, "operations": _operations, "expanded": _solver.expanded if _solver != null else 0, "instances": _solver.items.size() if _solver != null else 0, "request_fingerprint": _fingerprint, "implementation": PROTOCOL.IMPLEMENTATION}
+	var data: Dictionary = super.progress()
+	data.merge({"expanded":_solver.expanded if _solver != null else 0,"instances":_solver.items.size() if _solver != null else 0,"request_fingerprint":_fingerprint,"implementation":PROTOCOL.IMPLEMENTATION})
+	return data
 
-func is_done() -> bool:
-	return not _result.is_empty()
-
-func result() -> Dictionary:
-	return _result.duplicate(true)
-
-func cancel() -> void:
-	if is_done():
-		return
-	_cancelled = true
-	if not _started:
-		_phase = "cancelled"
-		_result = PROTOCOL.failure("CANCELLED", _fingerprint, "cancelled", _phase)
-	elif not _running:
-		_running = true
-		_resume.emit() # Unwind pending pure-data continuation; no scene callback.
-		_running = false
-
-func consume() -> bool:
-	while _credits == 0 and not _cancelled:
-		await _resume
-	if _cancelled:
-		return false
-	_credits -= 1
-	_operations += 1
-	return true
+func _cancel_created() -> void:
+	_result = PROTOCOL.failure("CANCELLED",_fingerprint,"cancelled","created")
 
 func _run() -> void:
 	_phase = "prepare"
@@ -96,7 +54,9 @@ func _run() -> void:
 		_result = PROTOCOL.failure("INVALID_INPUT", _fingerprint, _prepared.error, _phase)
 		return
 	_solver = SOLVER.new(self, _request, _prepared, _config)
-	var accepted: bool = await _solver.build()
+	var accepted := false
+	if await _solver.initialize():
+		accepted = await _solver.build()
 	_phase = _solver.phase
 	var exported: Array = []
 	if accepted:
