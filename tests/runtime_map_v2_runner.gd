@@ -38,6 +38,7 @@ func admission() -> void:
 	r.expected_hash = "unknown"
 	check(not RuntimeMapFrozenSource.load_level(r).accepted(),"wrong map record refuses instead of substituting source")
 	r.expected_hash = ""
+	permission_contract(inputs,r)
 	for mode: String in ["schema","seed_precision","mirror","offset","unknown","enemy","service","face","permission","missing_port","disconnected"]:
 		var map: Dictionary = inputs.map.duplicate(true)
 		var contents: Dictionary = inputs.content.duplicate(true)
@@ -61,7 +62,7 @@ func admission() -> void:
 						check(port.face!=old_face,"face negative actually mutates the mirrored original")
 			"permission":
 				for port: Dictionary in target.ports:
-					if port.id=="R": port.permission = "OUT"
+					if port.id=="R": port.permission = "OUTPUT"
 			"missing_port":
 				for edge: Dictionary in map.connections:
 					if edge.id=="C027": edge.a.port_id = "does_not_exist"
@@ -70,6 +71,22 @@ func admission() -> void:
 		var refused := RuntimeMapV2Provider.load_level(r,map,contents,ids,Vector2(-448,846),inputs.lock.files["map.json"])
 		check(not refused.accepted() and refused.plan==null and not refused.error.is_empty(),"strict refusal with diagnostic: "+mode)
 		trace.append({"case":mode,"error":refused.error})
+
+func permission_contract(inputs: Dictionary, r: LevelRequest) -> void:
+	for value: Variant in ["INOUT","INPUT","OUTPUT","IN","OUT","input","",12]:
+		var map: Dictionary = inputs.map.duplicate(true)
+		for instance: Dictionary in map.instances:
+			if instance.id != "M16": continue
+			for port: Dictionary in instance.ports:
+				if port.id == "R": port.permission = value
+		var result := RuntimeMapV2Provider.load_level(r,map,inputs.content,RuntimeMapFrozenSource.IDS,Vector2(-448,846),inputs.lock.files["map.json"])
+		if value is String and value == "INOUT":
+			check(result.accepted(),"valid bidirectional protocol remains supported")
+		elif value is String and value in ["INPUT","OUTPUT"]:
+			check(not result.accepted() and "host capability unsupported for legal "+str(value) in result.error,"legal unidirectional seam explicitly unsupported: "+str(value))
+		else:
+			check(not result.accepted() and "permission: invalid protocol value" in result.error,"protocol-external permission explicitly invalid: "+str(value))
+		trace.append({"case":"permission_contract","value":value,"error":result.error})
 
 func enter(binding: String) -> RuntimeMapSlice:
 	var world := RuntimeMapSlice.new()

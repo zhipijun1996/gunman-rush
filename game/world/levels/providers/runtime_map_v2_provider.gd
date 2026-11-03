@@ -4,6 +4,7 @@ extends RefCounted
 ## The caller verifies frozen file bytes; LevelRuntime owns all actual nodes.
 const SCHEMA := "mapgen/runtime-map/v2"
 const CONTENT_SCHEMA := "pcg/compiled-module-content/v1"
+const PORT_PERMISSIONS: Array[String] = ["INPUT", "OUTPUT", "INOUT"]
 const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","hazards","thorns","saws","hooks","latches","enemies","reward_sites"]
 const CONTENT_FIELDS: Array[String] = ["platforms","one_way_platform_indices","wall_platform_indices","hazards","thorns","saws","moving_platforms","hooks","latches","enemies","reward_sites","approved_hq_cells","schema","source_sha256","stable_id","world_bounds","entry_port","exit_port","coordinate_frame","source_affine"]
 const ELLIPSE_FIELDS: Array[String] = ["platform_id","trajectory_kind","start","finish","size","travel_duration","dwell_duration","initial_phase","ellipse_center","ellipse_radii","ellipse_period","ellipse_x_sign"]
@@ -116,7 +117,8 @@ static func _instance_error(row: Dictionary) -> String:
 		if not raw is Dictionary or not _identity(raw.get("id")) or ports.has(raw.id) or not _pair(raw.get("local_position_pixels")): return "ports: invalid/duplicate id or position"
 		extra = _unexpected(raw,["id","face","surface","permission","local_position_pixels"])
 		if not extra.is_empty(): return "ports."+str(raw.id)+"."+extra+": unsupported geometric port field"
-		if raw.get("face") not in ["LEFT","RIGHT","TOP","BOTTOM"] or raw.get("surface") not in ["ROCK","ONE_WAY_PLATFORM"] or raw.get("permission") not in ["IN","OUT","INOUT"]: return "ports."+str(raw.id)+": unsupported face/surface/permission"
+		if not raw.get("permission") is String or raw.permission not in PORT_PERMISSIONS: return "ports."+str(raw.id)+".permission: invalid protocol value; expected INPUT, OUTPUT or INOUT"
+		if raw.get("face") not in ["LEFT","RIGHT","TOP","BOTTOM"] or raw.get("surface") not in ["ROCK","ONE_WAY_PLATFORM"]: return "ports."+str(raw.id)+": unsupported face/surface"
 		var at := _point(raw.local_position_pixels)
 		var size := _point(row.size_blocks)*128.0
 		if at.x < 0 or at.y < 0 or at.x > size.x or at.y > size.y: return "ports."+str(raw.id)+": outside owned boundary"
@@ -249,7 +251,7 @@ static func _connection_error(edge: Dictionary, instances: Dictionary) -> String
 		var matched := false
 		for port: Dictionary in row.ports:
 			if port.id != endpoint.get("port_id"): continue
-			if port.permission != "INOUT": return str(row.id)+".ports."+str(port.id)+".permission: open selected seam requires INOUT"
+			if port.permission != "INOUT": return str(row.id)+".ports."+str(port.id)+".permission: host capability unsupported for legal "+str(port.permission)+"; selected seams require INOUT"
 			faces.append(str(port.face))
 			if port.id not in row.connected_port_ids: return str(row.id)+".connected_port_ids: seam port is not connected"
 			if port.surface != edge.surface or _point(row.origin_blocks)*128.0+_point(port.local_position_pixels) != _point(edge.position_pixels): return str(row.id)+".ports."+str(port.id)+": seam surface/position mismatch"
