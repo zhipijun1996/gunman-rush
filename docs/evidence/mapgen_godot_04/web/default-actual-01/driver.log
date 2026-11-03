@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/tmp/mapgen-v4-web/default/run.py", line 309, in <module>
+    try: asyncio.run(asyncio.wait_for(run(args,result),BUDGET))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/tmp/mapgen-v4-web/default/run.py", line 200, in run
+    await wait_for(lambda:bool(events('runtime_observations','committed')))
+  File "/tmp/mapgen-v4-web/default/run.py", line 185, in wait_for
+    if failures: raise RuntimeError('Actual source reported failure: '+json.dumps(failures[-1]))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Actual source reported failure: {"epoch_ms": 1793692863808.532, "value": {"actual_hook_enabled": false, "closed": false, "error": "generation did not produce a completed PASS result", "event": "failed", "phase": "failed", "profile": "conformance", "ready": false, "source_kind": "generated_memory"}}

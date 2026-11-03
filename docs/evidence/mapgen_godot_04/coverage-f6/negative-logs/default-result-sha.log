@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/map-edit-runtime-audit-v04/tools/runtime_audit/check_930001.py", line 595, in <module>
+    run_actual_profile(actual.parse_args())
+  File "/tmp/map-edit-runtime-audit-v04/tools/runtime_audit/check_930001.py", line 533, in run_actual_profile
+    assert sha(raw) == row["sha256"], (role, "ACTUAL_INPUT_SHA_MISMATCH")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('result', 'ACTUAL_INPUT_SHA_MISMATCH')

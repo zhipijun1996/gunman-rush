@@ -1,0 +1,158 @@
+{
+  "reviewer": "death_event_audit; nonauthor of browser driver",
+  "decision": "REJECT_ACTUAL02_FULL300S_ROUND_PARTIAL_FIRST_CONTEXT_ONLY",
+  "overall_Web_acceptance_blocked": true,
+  "method": "Read-only original report/summary/archive/hash/custody review and actual viewing of all4 original PNGs. No engine/browser rerun,source edit or original report rewrite.",
+  "source": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+  "pack_SHA256": "bd23bbc7cf1fc36d471689c80f7108213e8978372f35c2790333f843a468c21b",
+  "pack_bytes": 218920072,
+  "raw_report": {
+    "path": "/workspace/refactor-evidence/mapgen-host-v2-04/web-browser/default-actual-02/report.json",
+    "SHA256": "b3b7a3874fa83f874c46f96f66544d3d83747a08c77c36808fad7fe46f9b7135",
+    "status": "FAILED",
+    "exception": "TimeoutError()",
+    "elapsed_seconds": 300.2571162930035,
+    "original_budget_seconds": 300,
+    "unchanged_in_original_archive": true
+  },
+  "archive": {
+    "path": "/workspace/refactor-evidence/mapgen-host-v2-04/web-browser/default-actual-02/raw-evidence.tar.gz",
+    "SHA256": "bdd0ef3d37c7ddb9b4133a9d0f1daf03172913e480d25976631bfefc7be9421e",
+    "bytes": 5591468,
+    "all6_original_raw_members_independently_verified": true,
+    "all4_loose_PNGs_and_report_byte_equal_archived_originals": true
+  },
+  "first_context_observations": {
+    "status": "PASSED_ACTUAL_GENERATED_ESCAPE",
+    "actual_output": {
+      "connections": 58,
+      "content_entries": 46,
+      "instances": 46,
+      "request_fingerprint": "13f7f7f480168da132e64f478919450ca8bbe179e6614b9f30b5d0ac31c65772",
+      "seed": 930001,
+      "status": "PASS"
+    },
+    "actual_first_loaded_player": [
+      200,
+      1102
+    ],
+    "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+    "map_content_identity": "b58d4545c2dc7941e2e5160c099bcf8a4ab72db7977817c9b12c807792e75e93",
+    "passive_generate_to_committed_ms": 72442.697265625,
+    "real_inputs": [
+      {
+        "action": "d180",
+        "begin_epoch_ms": 1793694182782.505,
+        "end_epoch_ms": 1793694183007.1333
+      },
+      {
+        "action": "a180",
+        "begin_epoch_ms": 1793694222768.379,
+        "end_epoch_ms": 1793694222993.5955
+      },
+      {
+        "action": "actual-Escape-after-committed",
+        "begin_epoch_ms": 1793694242882.6755,
+        "end_epoch_ms": 1793694243460.9255
+      }
+    ],
+    "directional_x_deltas": [
+      56.333251953125,
+      -47.66661071777301
+    ],
+    "closed_event": {
+      "epoch_ms": 1793694243163.7375,
+      "value": {
+        "audio_released": true,
+        "event": "closed",
+        "lifetime_active": false,
+        "stage_detached": true
+      }
+    },
+    "cleanup_precedes_return": true,
+    "actual_Title_image_viewed": true,
+    "full_round_guards_not_completed": true
+  },
+  "second_context": {
+    "status": "FAILED",
+    "phase_trace": [
+      [
+        "started",
+        "preload"
+      ],
+      [
+        "preload",
+        "preload"
+      ]
+    ],
+    "real_inputs": [],
+    "generate_or_cancel_not_reached": true,
+    "context_closed": true
+  },
+  "screenshots": [
+    {
+      "file": "generated-escape-01-committed.png",
+      "sha256": "faea768d5cadcb2ad0f7dbd352103a94240912af775a8f1ef63eba9a662e5728",
+      "epoch_ms": 1793694155138.613
+    },
+    {
+      "file": "generated-escape-02-after-d.png",
+      "sha256": "e82457c3fb544e3c0e7ff957e90710f85944ee01ce1babcc04efd70f05920e79",
+      "epoch_ms": 1793694184119.472
+    },
+    {
+      "file": "generated-escape-03-after-a.png",
+      "sha256": "ee345ad2eac76b9f4ef5a083f60d684fb93f6f0a537051dfdc3c8d75e66d34d0",
+      "epoch_ms": 1793694224125.3853
+    },
+    {
+      "file": "generated-escape-returned-title.png",
+      "sha256": "05e8059dc93598135ac90e90e8f0223077f68b4e00a2376dcbefc23cad555f6c",
+      "epoch_ms": 1793694244882.786
+    }
+  ],
+  "all4_originals_viewed": true,
+  "observed_image_scope": "Original1280x720 starting-platform slice,player facing/movement and changing ferry/camera crop; realTitle on exit,buildbd23bbc7. No fullmap/route/phone claim.",
+  "operator_interaction_intervals": {
+    "screenshot_to_screenshot_seconds": [
+      28.98085888671875,
+      40.00591333007812,
+      20.757400634765624
+    ],
+    "total_seconds": 89.7441728515625,
+    "no_pure_game_CPU_attribution": true
+  },
+  "missing_original_in_budget_guards": {
+    "source_error": "TimeoutError('Original total300s budget exhausted')",
+    "producer_error": "TimeoutError('Original total300s budget exhausted')",
+    "served_after": "NOT_RUN"
+  },
+  "offline_custody_only": {
+    "path": "/workspace/refactor-evidence/mapgen-host-v2-04/web-browser/default-actual-02/after-timeout-offline-custody-02.json",
+    "SHA256": "95661d7b7e653841c8b73219321caaa07aee496198b3c53635ad099c9592957a",
+    "seconds_after_timeout": 2.256447494997701,
+    "actual_before_after_decompressed_bytes_equal": true,
+    "raw_source_SHA256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+    "source_files": 35466,
+    "producer_before_after_maps_equal": true,
+    "first_tooling_tuple_list_comparison_error_retained": "/workspace/refactor-evidence/mapgen-host-v2-04/web-browser/default-actual-02/after-timeout-offline-custody-02-attempt01.json",
+    "not_original_budget_PASS": true,
+    "original_raw_report_unchanged": true
+  },
+  "future_acceptance_gate_from_parent": {
+    "exact_one_authorized_actual03_default_revalidation": true,
+    "same_original_driver_bytes_budget300_all_assertions_two_fresh_contexts": true,
+    "every_WAIT_requires_actual_original_image_view_then_ACK_no_unseen_auto_ACK": true,
+    "must_complete_source_producer_served_after_guards_within_original_budget": true,
+    "no_total_PASS_from_partial_or_offline_attachment": true,
+    "if_actual03_fails_remain_blocked_no_extra_retry_or_budget_source_change": true,
+    "gears_original300_only_after_actual03_default_pass": true,
+    "current_actual03_or_gears_not_signed_here": true,
+    "original_driver_SHA256": "5b8330a8bf5781cf7110a714ee5942588016e4237d7b7a1f43b0fec91937278e"
+  },
+  "limits": [
+    "Partial functional first context only; no complete two-context cancellation protocol acceptance.",
+    "No browser gears run,mobile,FPS,fullmap,seam,visual quality oruser approval inferred.",
+    "Actual01 original generic rejection remains separate; actual02 timeout is not SDK failure and its secondcontext never reached generation."
+  ]
+}

@@ -1,3 +1,13 @@
+## MAPGEN-GODOT-04：真实0.4链路已接入，默认Web整段预算仍阻塞
+
+运行源f6b61ee7026bc4c696d15fa26b09de5ff03be903，分支feature/mapgen-godot-runtime-04；0.3保留PR128/3790，原run41595461174完整178fresh成功。原18GD/模块1.1锁、两真实请求930001/930007进入同Provider→Plan→Stage→Runtime，按新模板版本/role/连接和实际身体重新选实例/出生，普通出发和玩法不变。
+
+f6相关12fresh全部通过；真实Web首次正确生成/装载/移动/退出；独立原gears230.323秒及targeted取消121.170秒通过。原默认两fresh合计300秒actual02/03在第二次预载超时，完整afterguards未在预算内完成，整体FAILED/BLOCK；分项不改签整段，不放宽预算。4ms旧非PASS原件也保留、状态未知。新覆盖用原map-edit producer从同次真实7输入重新提取，两全图inventory13/14机制组、38拒绝、旧43输入重放逐字不变；全部新行仍UNVERIFIED_CURRENT_HOST。
+
+[当前报告](worklines/mapgen_godot_04/results.md) · [上游/下一轮约束](worklines/mapgen_godot_04/upstream_contract.md) · [实际证据](evidence/mapgen_godot_04/README.md)。质量review：保留Web整体budget失败，不签整图、全部内容、手机/硬帧预算/用户认可。不合并或发布。
+
+下一批先处理原整段Web验证的300秒阻塞（包含冷启动/实际审图/工具往返，不能直接归因纯算法），不扩大现scope来遮盖；内容适配优选完整game-plains-windchime-lesson单钟门，复用正式ShotLatch。不得把旧M编号/出生/恢复hash或0.3覆盖表直接套新图，不将实验Root的RunSession嵌套进正式App。
+
 ## MAPGEN-GODOT-03：0.3技术基线固定，下一步明确升级0.4
 
 运行源7f65ab03949bf7a9665033ae58a74847f72e5fbc，后续本分支仅文档/质量元数据收口。PR127 e7d不动，原run41569062806全部172fresh成功。原15脚本0.3包按SHA锁，主游戏Godot4.7.2真实调用→同Provider/Plan/Stage/Runtime；原三模块和独立完整M35保留真实内容，不换普通出发地图，不合并不发布。

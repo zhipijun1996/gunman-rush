@@ -2,7 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-GODOT-04 | 0.4真实生成/重新绑定/机制/Web与覆盖重提 | MAPGEN-GODOT-03 | in_progress | [范围](worklines/mapgen_godot_04/scope.md) · [质量](quality/records/MAPGEN-GODOT-04.json)；0.3独立保留，不合并发布 |
+| MAPGEN-GODOT-04 | 0.4真实生成/重新绑定/机制/Web与覆盖重提 | MAPGEN-GODOT-03 | review | [范围](worklines/mapgen_godot_04/scope.md) · [质量](quality/records/MAPGEN-GODOT-04.json)；0.3独立保留；原Web双fresh300保持BLOCK，独立分项通过，不合并发布 |
 
 ## 2026-11-02 三仓第一轮宿主接入
 

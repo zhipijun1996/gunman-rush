@@ -1,0 +1,555 @@
+{
+  "status": "REJECT_ORIGINAL_TOTAL300S_TIMEOUT_AFTER_FIRST_CONTEXT_PASS",
+  "source": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+  "pack_sha256": "bd23bbc7cf1fc36d471689c80f7108213e8978372f35c2790333f843a468c21b",
+  "pack_bytes": 218920072,
+  "exit_code": 1,
+  "raw_driver_status": "FAILED",
+  "elapsed_including_close_seconds": 300.2571162930035,
+  "original_budget_seconds": 300,
+  "budget_not_expanded": true,
+  "exception": "TimeoutError()",
+  "first_context": {
+    "status": "PASSED_ACTUAL_GENERATED_ESCAPE",
+    "actual_generated_output": {
+      "connections": 58,
+      "content_entries": 46,
+      "instances": 46,
+      "request_fingerprint": "13f7f7f480168da132e64f478919450ca8bbe179e6614b9f30b5d0ac31c65772",
+      "seed": 930001,
+      "status": "PASS"
+    },
+    "initial_loaded": {
+      "epoch_ms": 1793694153705.6697,
+      "value": {
+        "carrier": [
+          95.3287963867188,
+          1010.82373046875
+        ],
+        "event": "loaded",
+        "grounded": false,
+        "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+        "mechanisms": [
+          {
+            "clock": 0.133333333333333,
+            "ferries": [
+              {
+                "id": "P",
+                "position": [
+                  95.3287963867188,
+                  1010.82373046875
+                ]
+              }
+            ],
+            "instance_id": "M16",
+            "saws": []
+          },
+          {
+            "clock": 0.133333333333333,
+            "ferries": [],
+            "instance_id": "M18",
+            "saws": []
+          },
+          {
+            "clock": 0.133333333333333,
+            "ferries": [],
+            "instance_id": "M21",
+            "saws": []
+          }
+        ],
+        "player": [
+          200.0,
+          1102.0
+        ],
+        "static_contacts": []
+      }
+    },
+    "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+    "map_content_identity": "b58d4545c2dc7941e2e5160c099bcf8a4ab72db7977817c9b12c807792e75e93",
+    "phase_trace": [
+      {
+        "event": "started",
+        "phase": "preload",
+        "epoch_ms": 1793694054165.0537
+      },
+      {
+        "event": "preload",
+        "phase": "preload",
+        "epoch_ms": 1793694054250.1802
+      },
+      {
+        "event": "generate",
+        "phase": "generate",
+        "epoch_ms": 1793694081310.1418
+      },
+      {
+        "event": "validate",
+        "phase": "validate",
+        "epoch_ms": 1793694153174.0562
+      },
+      {
+        "event": "ready",
+        "phase": "ready",
+        "epoch_ms": 1793694153315.8289
+      },
+      {
+        "event": "committed",
+        "phase": "committed",
+        "epoch_ms": 1793694153752.839
+      },
+      {
+        "event": "source_closed",
+        "phase": "committed",
+        "epoch_ms": 1793694243080.288
+      },
+      {
+        "event": "source_closed",
+        "phase": "committed",
+        "epoch_ms": 1793694243195.9934
+      }
+    ],
+    "passive_event_wall_ms": {
+      "started_to_generate": 27145.088134765625,
+      "generate_to_committed": 72442.697265625
+    },
+    "movement": [
+      {
+        "key": "d",
+        "baseline": {
+          "carrier": [
+            -205.598022460938,
+            1091.04846191406
+          ],
+          "event": "physics",
+          "grounded": true,
+          "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+          "mechanisms": [
+            {
+              "clock": 28.633333333333,
+              "ferries": [
+                {
+                  "id": "P",
+                  "position": [
+                    -205.598022460938,
+                    1091.04846191406
+                  ]
+                }
+              ],
+              "instance_id": "M16",
+              "saws": []
+            },
+            {
+              "clock": 28.633333333333,
+              "ferries": [],
+              "instance_id": "M18",
+              "saws": []
+            },
+            {
+              "clock": 28.633333333333,
+              "ferries": [],
+              "instance_id": "M21",
+              "saws": []
+            }
+          ],
+          "player": [
+            200.0,
+            1102.0
+          ],
+          "static_contacts": []
+        },
+        "after": {
+          "carrier": [
+            -49.3597412109375,
+            1167.39587402344
+          ],
+          "event": "physics",
+          "grounded": true,
+          "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+          "mechanisms": [
+            {
+              "clock": 30.1333333333329,
+              "ferries": [
+                {
+                  "id": "P",
+                  "position": [
+                    -49.3597412109375,
+                    1167.39587402344
+                  ]
+                }
+              ],
+              "instance_id": "M16",
+              "saws": []
+            },
+            {
+              "clock": 30.1333333333329,
+              "ferries": [],
+              "instance_id": "M18",
+              "saws": []
+            },
+            {
+              "clock": 30.1333333333329,
+              "ferries": [],
+              "instance_id": "M21",
+              "saws": []
+            }
+          ],
+          "player": [
+            256.333251953125,
+            1101.92529296875
+          ],
+          "static_contacts": []
+        },
+        "directional_x_delta": 56.333251953125
+      },
+      {
+        "key": "a",
+        "baseline": {
+          "carrier": [
+            -205.598022460938,
+            1091.04846191406
+          ],
+          "event": "physics",
+          "grounded": true,
+          "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+          "mechanisms": [
+            {
+              "clock": 68.6333333333307,
+              "ferries": [
+                {
+                  "id": "P",
+                  "position": [
+                    -205.598022460938,
+                    1091.04846191406
+                  ]
+                }
+              ],
+              "instance_id": "M16",
+              "saws": []
+            },
+            {
+              "clock": 68.6333333333307,
+              "ferries": [],
+              "instance_id": "M18",
+              "saws": []
+            },
+            {
+              "clock": 68.6333333333307,
+              "ferries": [],
+              "instance_id": "M21",
+              "saws": []
+            }
+          ],
+          "player": [
+            256.333251953125,
+            1101.92529296875
+          ],
+          "static_contacts": []
+        },
+        "after": {
+          "carrier": [
+            -49.3597412109375,
+            1167.39587402344
+          ],
+          "event": "physics",
+          "grounded": true,
+          "host_load_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+          "mechanisms": [
+            {
+              "clock": 70.1333333333306,
+              "ferries": [
+                {
+                  "id": "P",
+                  "position": [
+                    -49.3597412109375,
+                    1167.39587402344
+                  ]
+                }
+              ],
+              "instance_id": "M16",
+              "saws": []
+            },
+            {
+              "clock": 70.1333333333306,
+              "ferries": [],
+              "instance_id": "M18",
+              "saws": []
+            },
+            {
+              "clock": 70.1333333333306,
+              "ferries": [],
+              "instance_id": "M21",
+              "saws": []
+            }
+          ],
+          "player": [
+            208.666641235352,
+            1101.92529296875
+          ],
+          "static_contacts": []
+        },
+        "directional_x_delta": -47.66661071777301
+      }
+    ],
+    "carrier_max_displacement": 313.34004665787313,
+    "close": {
+      "epoch_ms": 1793694243163.7375,
+      "value": {
+        "audio_released": true,
+        "event": "closed",
+        "lifetime_active": false,
+        "stage_detached": true
+      }
+    },
+    "cleanup_precedes_menu": true,
+    "images_actually_viewed": [
+      "generated-escape-01-committed.png",
+      "generated-escape-02-after-d.png",
+      "generated-escape-03-after-a.png",
+      "generated-escape-returned-title.png"
+    ],
+    "operator_visual_review": [
+      {
+        "seq": 1,
+        "action": "move-d",
+        "passed": true,
+        "review": "Viewed original-detail04 entry PNG: actual ellipse-junction recipe930001 text, player stands on isolated stone entry at new camera position, moving brass ferry and neighboring geometry visible. Raw firstloaded[200,1102]/host0e6… and output46/58/46 match new native. Proceed real D180."
+      },
+      {
+        "seq": 2,
+        "action": "move-a",
+        "passed": true,
+        "review": "Viewed afterD PNG: player moved to right edge of entry stone pillar, actual x delta+56.3333; ferry visibly at different point below/left. New04labels remain. Proceed real A180; no seam completion claimed."
+      },
+      {
+        "seq": 3,
+        "action": "escape",
+        "passed": true,
+        "review": "Viewed afterA PNG: player faces left and remains on initial stone support, A180 actual x−47.6666; ferry moved again independently. Proceed real ESC."
+      },
+      {
+        "seq": 4,
+        "action": "confirm-title",
+        "passed": true,
+        "review": "Viewed actual returned Title at original detail: Disorder Clock and Chinese main menu/buildbd23bbc7 footer visible after real ESC. Audio released/lifetime inactive/stage detached source cleanup observed before return."
+      }
+    ]
+  },
+  "second_context": {
+    "status": "FAILED",
+    "phase_trace": [
+      {
+        "epoch_ms": 1793694311372.524,
+        "value": {
+          "actual_hook_enabled": false,
+          "closed": false,
+          "error": "",
+          "event": "started",
+          "phase": "preload",
+          "profile": "conformance",
+          "ready": false,
+          "source_kind": "generated_memory"
+        }
+      },
+      {
+        "epoch_ms": 1793694311470.1294,
+        "value": {
+          "actual_hook_enabled": false,
+          "closed": false,
+          "error": "",
+          "event": "preload",
+          "phase": "preload",
+          "profile": "conformance",
+          "ready": false,
+          "source_kind": "generated_memory"
+        }
+      }
+    ],
+    "cancel_input": "NOT_RUN",
+    "committed": "NOT_REACHED",
+    "loaded": "NOT_REACHED",
+    "scene_cleanup_and_title": "NOT_RUN",
+    "screenshots": [],
+    "failure_screenshot_error": "TimeoutError('Original total300s budget exhausted')",
+    "exception": "CancelledError()"
+  },
+  "gears_scene": "NOT_RUN_STOPPED_AFTER_DEFAULT_TIMEOUT",
+  "diagnostics": [
+    {
+      "label": "generated-escape",
+      "page_errors": [],
+      "request_failures": [],
+      "http_errors": [],
+      "parse_errors": [],
+      "console_errors_and_warnings": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "location": {
+            "url": "http://127.0.0.1:8819/favicon.ico",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          },
+          "epoch_ms": 1793694016272.0232
+        },
+        {
+          "type": "error",
+          "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+          "location": {
+            "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+            "line": 466,
+            "column": 17,
+            "lineNumber": 466,
+            "columnNumber": 17
+          },
+          "epoch_ms": 1793694153703.6638
+        },
+        {
+          "type": "warning",
+          "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+          "location": {
+            "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          },
+          "epoch_ms": 1793694153959.9243
+        }
+      ]
+    },
+    {
+      "label": "cancel-generate",
+      "page_errors": [],
+      "request_failures": [],
+      "http_errors": [],
+      "parse_errors": [],
+      "console_errors_and_warnings": []
+    }
+  ],
+  "browser_closed": true,
+  "contexts_closed": [
+    true,
+    true
+  ],
+  "original_in_budget_after_guards": {
+    "source_error": "TimeoutError('Original total300s budget exhausted')",
+    "producer_error": "TimeoutError('Original total300s budget exhausted')",
+    "served_after": "NOT_RUN"
+  },
+  "separate_offline_custody": {
+    "scope": "Offline read-only custody after original300s timeout; not an in-budget driver pass. Original raw report unchanged.",
+    "source": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+    "elapsed_offline_seconds": 2.256447494997701,
+    "source_before_vs_offline_after_equal": true,
+    "source_files": 35466,
+    "offline_snapshot_file": "/tmp/mapgen-v4-web/default/after-timeout-source-offline-02.json.gz",
+    "offline_snapshot_uncompressed_sha256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+    "producer_before_vs_offline_after_equal": true,
+    "producer_after": {
+      "/tmp/mapgen-v4-web/default/run.py": "5b8330a8bf5781cf7110a714ee5942588016e4237d7b7a1f43b0fec91937278e",
+      "/tmp/gunman-rush-mapgen-04/tools/verify_four_line_browser.py": "ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f",
+      "/tmp/gunman-rush-mapgen-04/tools/verify_forest_browser.py": "3d75e424e528dd41da56d58b077fb2e3be598206bd415349b92ce9942d09a1a3",
+      "/tmp/gunman-rush-mapgen-04/tools/studio_gui_pointer.py": "d0d57caf25fa14f19925540f2ffdb3d8f99bb42b027f99aae178cf8808c1e223",
+      "/tmp/gunman-rush-mapgen-04/tools/verify_ci_artifact_browser.py": "88867709bf908c0d8fc853aa3636405cc899d65dab6de0ae66170965fff38b3d",
+      "/tmp/gunman-rush-mapgen-04/tools/check_web_bundle.py": "23ee80d352cdda99780d4c80ab4a9698291b5de77ea114f3caa7268d7567ee33",
+      "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py": "dedc4c743da0d6748c4ff639102845f9a3d1806cf72a7293560eaacad7271969",
+      "/tmp/gunman-rush-mapgen-04/tools/verify_mapgen_reference.py": "1532c3ead2b3c661a97b6e09fa7d8a572df8b3981faa8bdb37e1f7b0d89a9722",
+      "/tmp/gunman-rush-mapgen-04/experiments/platform/cloud_preview.gd": "f2f4aac1c1cedea7822096d628fc90760377b1decd1afecd45b89d141cd8c65b",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_slice.gd": "5b7d6157c1c1979717aa99adf0be6e637075d396126a2efdf9c01da08aaf53ec",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_generated_slice.tscn": "5abd26828f1ba704d11ecd757a9eba247abe4417e380e01037fb942f4a48ab37",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_generated_slice.gd": "2005cf5fdd5f3ae07007a79334e598f493590c2829e178690411ed4d51520130",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_generation_job.gd": "f50aa0cb77a44726f7db7087044e482639d4b80e6dd484b9cb06a67adc47b109",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_generation_request.gd": "fcf5bc7f47582e1f381f48e3329b30bcade4863286000f1b7fa769569297b653",
+      "/tmp/gunman-rush-mapgen-04/game/world/levels/providers/runtime_map_v2_provider.gd": "3b6ac67afa3ad7f2e9b99bec6090c563c79b0ce7b55f47dc70016795d9cef485",
+      "/tmp/gunman-rush-mapgen-04/build/web/index.bd23bbc7cf1f.pck": "bd23bbc7cf1fc36d471689c80f7108213e8978372f35c2790333f843a468c21b",
+      "/tmp/gunman-rush-mapgen-04/config/mapgen_candidate.json": "09c2c213e1d0311a0d8417595201c262d3ab32dca23616b779e30d2ca5dffb62",
+      "/tmp/gunman-rush-mapgen-04/resources/mapgen/module-pack-1.1.0.zip": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+      "/tmp/gunman-rush-mapgen-04/resources/mapgen/conformance_request.json": "3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a",
+      "/tmp/gunman-rush-mapgen-04/resources/mapgen/generator_config.json": "65998d9fede6df44f832cde7bb1e368f09eb092aa3f31c9a5fbb9f7c34ea8062",
+      "/tmp/gunman-rush-mapgen-04/resources/mapgen/gears_request_930007.json": "1594181d4d48a419bb26e920a609a559e10e06dbe7bf6d485a1fc26aca745021",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/candidate_cursor.gd": "1a8ce925ab0d0e35232950618a83af334e9e780e6b61a49600277f6d38280fca",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/content_transform.gd": "80ab9f4e58ceedb754c6062996e0e4a4f36a9542e7c54206639d7760ce92e2f2",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/data_json.gd": "cef6a962ae33d5d03aa29b57ca35fcef104a07f7a2de636122e3b32cb8d0ea9c",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/decimal64.gd": "a1c39dc62d62f8191a6d306942b2f549e674e09212970f8bd4a44153ed8e8109",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/final_pipeline.gd": "c44fe36078a4cea5b20541f38c564e143ba4eaafbf6eb6edcf5bbb67d2ceb587",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/generation_job.gd": "522d9cfa4a56ca08d3e721a1ba58b40974be2e27e983f2381f63ec3e3250d5ac",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/geometry.gd": "a86179cffc4820d774b398362098a4cc4158edaaffc55eda6992817672850a9e",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/module_archive.gd": "44c075d69db506ced4a2241e8205775a226861234786d43272633c1e7ba46742",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/numeric.gd": "af1d58403d38687de902e4ded6770aa9972e91a9ea75e2ab5e92f98d41f90f7e",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/preload_job.gd": "64c129d7bca5c894db3d76e5f73141bd2406f6df7812290d71c6d1535d37ca1f",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/prepared_library.gd": "f572fe0f4811b1b116140e108a7a9dbc4d6e3b509df220feea66b8af2146cbaa",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/protocol.gd": "87629cf89bd5d34fc1bea8a4d43de1d2a19348b6104d29f0ae01d36c937c6ad4",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/python_rng.gd": "6b70397a8f8f7dbfd2ba9f2c49101c9e5174e22fc4b761e1e97c07c6a61964d4",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/reward_clearance.gd": "f1946c2e0bb5fc7c3b6d6229030cd548bc5540a3160a652a5121bd35baf24a02",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/runtime_export.gd": "5be6d8fd72389acb60efb5651a945e9200a0bc7a15a4a1bff152ab2647311a5c",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/schema_data.gd": "5afce308ab7a030f120973cd7ba948580b5f8a29e6ef7ff8f012e98360a19f62",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/solver.gd": "96e1ea947ed7864843ac0b72765d2957b75357f6677472513667fe9e142b401f",
+      "/tmp/gunman-rush-mapgen-04/addons/mapgen/work_gate.gd": "fec67bc46e091be2d7919003aa0e525c0112772beab12ac82e6da1fcf41e4079",
+      "/tmp/gunman-rush-mapgen-04/resources/levels/mapgen_host_v4/bindings.json": "182b4b50da807ace3b38b327645d156f02f73286d976b4de6dbace4590bc2809",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_m35_slice.gd": "0bab010547cd951caa7d78b9cfca8aa49f49743636825099dc71d61876a14315",
+      "/tmp/gunman-rush-mapgen-04/resources/levels/mapgen_host_v4_gears/bindings.json": "ef7fab5184d503c11d3ce0990f802acc620ec68ff070dacdbc242adec474ca4c",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_generation_profile.gd": "65040947b8d9467c36ca1052491d8e4abec785026a84f08eca765e7074037127",
+      "/tmp/gunman-rush-mapgen-04/experiments/generation/runtime_map_generated_selection.gd": "6515df69e0665b509c55ada2828fab5fb1fa7e5c9879910e8cd2c23f2820d7a8",
+      "/tmp/mapgen-v4-audit/browser-expected-8ms/default.json": "7659b4e0ad082c6fb34a57abf617e5006aa206e88bd7625e0c9aa15a2115184b",
+      "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-generated-slice.log": "c0de2dc35313929d162ce1e9a22c2a735b4e33ac9956a19122db5256dbba976c",
+      "/tmp/gunman-rush-mapgen-04/build/web/index.html": "b057ffcde7429964d9cad410a93f37314ad594a8dc395fec864953bcb24ba20b",
+      "/tmp/gunman-rush-mapgen-04/build/web/build-info.json": "a71a48789d40bf1acfc86aa550d98f97a5001be500cfc54e7c3e7b62d51acb18",
+      "/tmp/gunman-rush-mapgen-04/build/web/index.cache-sw.js": "c697114a6aadefc79d70ac521ab8fda155d63215e698740a55131106eced5956",
+      "/tmp/gunman-rush-mapgen-04/build/web/build_report.json": "aaed3a56554e1630b4596ba7029f32027ffa1835b1f61de5216eaad7dce09eff",
+      "/tmp/mapgen-v4-web/default-site-receipt-02.json": "93371daaceb3b38979ffd2a4e4a24a81b982620d11f71186eb372b03015a6ac5",
+      "/tmp/mapgen-v4-web/sites-02/default/index.html": "5f32a136abd11d9c8d7675515ae585b04ee1aadc176fc4322f3671bb8e1c464f",
+      "/tmp/mapgen-v4-web/stage-local-02.py": "022e518c5f37a57a8a010fbd81f3f1b3970ee970a6b3139c9bf7372782276324",
+      "/tmp/gunman-rush-mapgen-04/tools/build.py": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+      "/tmp/gunman-rush-mapgen-04/tools/cloud_delivery.py": "e0816b2fbc3eb41284b1ba829e67f6f9e91ed14d1a54815a878b7374e9ce137a",
+      "/tmp/gunman-rush-mapgen-04/tools/mobile_web_perf/serve_coi.py": "d8206a1d4d82aea61388b9d447c2875a7803d8c399e85d1b09d1a16e81b2cc45"
+    },
+    "original_driver_afterguard_error": "TimeoutError('Original total300s budget exhausted')",
+    "original_driver_producer_afterguard_error": "TimeoutError('Original total300s budget exhausted')",
+    "browser_closed": true,
+    "contexts_closed": [
+      true,
+      true
+    ],
+    "uncompressed_raw_bytes_equal": true,
+    "before_uncompressed_sha256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+    "after_uncompressed_sha256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+    "differences": [],
+    "comparison_method": "Both snapshots serialized through the original json separators, then decoded/compared; original bytes also compared. First offline tooling attempt mistakenly compared JSON-decoded tuple/list types directly, retained as attempt01; it was not a source difference.",
+    "first_tooling_attempt_retained": "/tmp/mapgen-v4-web/default/after-timeout-offline-custody-02-attempt01.json"
+  },
+  "old_actual01_untouched": true,
+  "raw_file_manifest": {
+    "generated-escape-returned-title.png": {
+      "bytes": 1447767,
+      "sha256": "05e8059dc93598135ac90e90e8f0223077f68b4e00a2376dcbefc23cad555f6c"
+    },
+    "generated-escape-03-after-a.png": {
+      "bytes": 226230,
+      "sha256": "ee345ad2eac76b9f4ef5a083f60d684fb93f6f0a537051dfdc3c8d75e66d34d0"
+    },
+    "generated-escape-02-after-d.png": {
+      "bytes": 213674,
+      "sha256": "e82457c3fb544e3c0e7ff957e90710f85944ee01ce1babcc04efd70f05920e79"
+    },
+    "generated-escape-01-committed.png": {
+      "bytes": 228033,
+      "sha256": "faea768d5cadcb2ad0f7dbd352103a94240912af775a8f1ef63eba9a662e5728"
+    },
+    "source-before.json.gz": {
+      "bytes": 1669689,
+      "sha256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0"
+    },
+    "report.json": {
+      "bytes": 1767135,
+      "sha256": "b3b7a3874fa83f874c46f96f66544d3d83747a08c77c36808fad7fe46f9b7135"
+    }
+  },
+  "archive_sha256": "bdd0ef3d37c7ddb9b4133a9d0f1daf03172913e480d25976631bfefc7be9421e",
+  "archive_bytes": 5591468,
+  "every_original_raw_member_verified": true,
+  "source_writes": false,
+  "retries": 0,
+  "scope": "First actual04 default generation/load/input/ESC is established. The authorized two-context300s round FAILED at second preload; no cancel/gears success, no SDK error in this round, no hard frame budget/performance/phone/full-map/seam claim. The timed-out raw report was not amended with offline custody success."
+}

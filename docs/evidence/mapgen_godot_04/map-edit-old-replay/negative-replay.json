@@ -1,0 +1,94 @@
+{
+  "status": "ORIGINAL_AND_PATCHED_REJECT_IDENTICAL_MISSING_AND_TAMPERED_INPUTS",
+  "cases": [
+    {
+      "producer": "original",
+      "case": "missing",
+      "argv": [
+        "python3",
+        "-B",
+        "tools/runtime_audit/check_930001.py",
+        "--inputs",
+        "/tmp/mapgen-v4-old-replay/missing-inputs",
+        "--zip110",
+        "/tmp/mapgen-v4-old-replay/1.1.0.zip",
+        "--zip111",
+        "/tmp/mapgen-v4-old-replay/1.1.1.zip",
+        "--out",
+        "/tmp/mapgen-v4-old-replay/original-missing-output"
+      ],
+      "exit_code": 1,
+      "expected_error_observed": true,
+      "no_output": true,
+      "log_sha256": "00c266f6e99c146b8b9a10e04942967ad14811c956227de74fb764c55eb3655a"
+    },
+    {
+      "producer": "original",
+      "case": "tampered",
+      "argv": [
+        "python3",
+        "-B",
+        "tools/runtime_audit/check_930001.py",
+        "--inputs",
+        "/tmp/mapgen-v4-old-replay/tampered-inputs",
+        "--zip110",
+        "/tmp/mapgen-v4-old-replay/1.1.0.zip",
+        "--zip111",
+        "/tmp/mapgen-v4-old-replay/1.1.1.zip",
+        "--out",
+        "/tmp/mapgen-v4-old-replay/original-tampered-output"
+      ],
+      "exit_code": 1,
+      "expected_error_observed": true,
+      "no_output": true,
+      "log_sha256": "30d673ec571b6c20e71c65fe6a6dbfdf6a67fc626603528928359b30d5b2f623"
+    },
+    {
+      "producer": "patched",
+      "case": "missing",
+      "argv": [
+        "python3",
+        "-B",
+        "tools/runtime_audit/check_930001.py",
+        "--inputs",
+        "/tmp/mapgen-v4-old-replay/missing-inputs",
+        "--zip110",
+        "/tmp/mapgen-v4-old-replay/1.1.0.zip",
+        "--zip111",
+        "/tmp/mapgen-v4-old-replay/1.1.1.zip",
+        "--out",
+        "/tmp/mapgen-v4-old-replay/patched-missing-output"
+      ],
+      "exit_code": 1,
+      "expected_error_observed": true,
+      "no_output": true,
+      "log_sha256": "bd13bdcef8c467cade13a82a556f40195bfb7705560f63e7eb33efa5dd5799b6"
+    },
+    {
+      "producer": "patched",
+      "case": "tampered",
+      "argv": [
+        "python3",
+        "-B",
+        "tools/runtime_audit/check_930001.py",
+        "--inputs",
+        "/tmp/mapgen-v4-old-replay/tampered-inputs",
+        "--zip110",
+        "/tmp/mapgen-v4-old-replay/1.1.0.zip",
+        "--zip111",
+        "/tmp/mapgen-v4-old-replay/1.1.1.zip",
+        "--out",
+        "/tmp/mapgen-v4-old-replay/patched-tampered-output"
+      ],
+      "exit_code": 1,
+      "expected_error_observed": true,
+      "no_output": true,
+      "log_sha256": "50e2eb4e5e0581938be8455e4e92b8f67d566a156abc102e881bd977fa976ce3"
+    }
+  ],
+  "mutated_copy_only": "/tmp/mapgen-v4-old-replay/tampered-inputs/mapgen/reference_package/fixtures/success/content/M35.json",
+  "original_sha256": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c",
+  "tampered_sha256": "247039b4757347114d0ef2d528010e96ce8c8c79e512a42ac812a4504030d8de",
+  "unchanged_verified_inputs": true,
+  "engine_run": false
+}

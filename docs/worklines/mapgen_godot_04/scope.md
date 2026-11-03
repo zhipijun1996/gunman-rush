@@ -13,3 +13,6 @@
 map-edit旧覆盖表和原提取消费者绑定0.3，不改签；审查其显式actual-profile开发补丁，再以本次实际结果和宿主证据运行同一提取器输出新目录。未覆盖机制和整图物理可达明确未验证。
 
 采用project-integration、game-quality-gate及level-module-creator；质量状态review，用户/实体设备/整图可玩性不代签。
+
+
+最终范围事实：原default两fresh300秒consumer的actual-02/03均FAILED，第二次冷启动未到generate取消，原预算内完整after-guards未完成；该准入标准没有删除或改签。独立原gears case和NEW targeted取消缺口诊断已通过，只接受各自分项，默认aggregate保持BLOCK。任务交付可审查PR与准确阻塞，不签全Web/内容done。

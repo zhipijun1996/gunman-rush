@@ -1,0 +1,304 @@
+{
+  "reviewer": "death_event_audit; nonauthor of source and runtime producers",
+  "decision": "ACCEPT_F6_TARGETED_NATIVE_TECHNICAL_SCOPE_NOT_WEB",
+  "blockers": [],
+  "method": "Read-only independent raw source/receipt/log/artifact/hash review; no engine,browser,test or producer execution by reviewer,no repository writes.",
+  "source_commit": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+  "source_current_leaves_SHA256": {
+    "experiments/generation/runtime_map_slice.gd": "5b7d6157c1c1979717aa99adf0be6e637075d396126a2efdf9c01da08aaf53ec",
+    "experiments/generation/runtime_map_generation_job.gd": "f50aa0cb77a44726f7db7087044e482639d4b80e6dd484b9cb06a67adc47b109",
+    "experiments/generation/runtime_map_generation_profile.gd": "65040947b8d9467c36ca1052491d8e4abec785026a84f08eca765e7074037127",
+    "experiments/generation/runtime_map_generated_selection.gd": "6515df69e0665b509c55ada2828fab5fb1fa7e5c9879910e8cd2c23f2820d7a8",
+    "experiments/generation/runtime_map_generated_slice.gd": "2005cf5fdd5f3ae07007a79334e598f493590c2829e178690411ed4d51520130",
+    "experiments/generation/runtime_map_m35_slice.gd": "0bab010547cd951caa7d78b9cfca8aa49f49743636825099dc71d61876a14315",
+    "tests/runtime_map_generation_job_runner.gd": "e8f495d694b0b33e9fa707ce642f2362b8f29d92de737faab54a2bafd8901d08",
+    "tests/runtime_map_generated_slice_runner.gd": "32faf6671e9147a08f086369ba08e86400f483c3afc153c8d98fc9792be66e74",
+    "tests/runtime_map_m35_runtime_runner.gd": "953652f63d414d1471c47dbd79a29a98db7bf843fe69e6a1627406c1e8051e00",
+    "tools/harness/profiles.json": "76a576bf3f501e345e5a3284e1e0ebe56e8efc130cf15d179ea08de1b47a963b"
+  },
+  "actual_Harness": {
+    "report": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/report.json",
+    "report_SHA256": "8068e9375c8949501dc5f23d665a4063f48bd0dc8ab1155b39842543415b3f44",
+    "source_commit": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+    "git_status": "",
+    "status": "passed",
+    "targeted_checks": true,
+    "fresh_checks": 12,
+    "check_definitions_full_profile_not_run": 178,
+    "receipt": "/tmp/mapgen-v4-audit/final-native-03/receipt.json",
+    "receipt_SHA256": "b8cc238854dd79c37f89f3ff5bafa53f4ff22139c36b325ed0704545cebe0bc9",
+    "actual_outer_exit_code": 0,
+    "actual_outer_seconds": 222.42887160300597,
+    "Harness_wall_seconds": 220.026,
+    "source_before_after_files": 35466,
+    "source_vectors_actual_raw_bytes_equal": true,
+    "source_vector_SHA256": "1ae891952ca1691fe1712be052b8c80f8d52fa7b7a908f660dc69235e1de5175",
+    "checks": [
+      {
+        "id": "runtime-map-generated-identity",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 180,
+        "assertions_or_tests": 80,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-generated-identity.log",
+        "log_SHA256": "6d2f32d8612588e6e963debaf4e6ebd07c551bf82e52385e47529b070deb8384",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-generated-identity",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "runtime-map-generation-job",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 240,
+        "assertions_or_tests": 1633,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-generation-job.log",
+        "log_SHA256": "bccb0bfbe1ac47f8995b4a5738f6a048e39c64cc8fbcb1607efeaaa7cc185442",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-generation-job",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "runtime-map-generated-slice",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 240,
+        "assertions_or_tests": 58,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-generated-slice.log",
+        "log_SHA256": "c0de2dc35313929d162ce1e9a22c2a735b4e33ac9956a19122db5256dbba976c",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-generated-slice",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "runtime-map-v2-host",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 180,
+        "assertions_or_tests": 199,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-v2-host.log",
+        "log_SHA256": "abf3a40d05adbaab6523ac5300d25481b7a05138ed0998e775d231007b1a4c1a",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-v2-host",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "cloud-preview-runtime",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 120,
+        "assertions_or_tests": 45,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/cloud-preview-runtime.log",
+        "log_SHA256": "b48b0082827464790d25a0de24249cc31b4777d9eddeadba002ed648e32706f2",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/cloud-preview-runtime",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "web-resource-contract-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 60,
+        "assertions_or_tests": 75,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/web-resource-contract-tests.log",
+        "log_SHA256": "b85944ec28e68e4abbb2a54da855edce049bba9b22f182a19cfc6f1226a4b58b",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/web-resource-contract-tests",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "mapgen-candidate-installation",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 60,
+        "assertions_or_tests": 31,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/mapgen-candidate-installation.log",
+        "log_SHA256": "c8826e9fdddfbb824b33f4e04f360b7acce9568e2d4c0cd1e2a6712ee61570a5",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/mapgen-candidate-installation",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "cloud-production-planner-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 60,
+        "assertions_or_tests": 54,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/cloud-production-planner-tests.log",
+        "log_SHA256": "b235af04273536ac8df163486f8fd99e2ce9d4ed13d543c8d60d6ed424e4ae68",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/cloud-production-planner-tests",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "runtime-map-m35-provider",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 180,
+        "assertions_or_tests": 80,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-m35-provider.log",
+        "log_SHA256": "38b115b836688419a8d2f77371f260156dca484943bdafc8d15bfd007eba916a",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-m35-provider",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "runtime-map-m35-runtime",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 240,
+        "assertions_or_tests": 69,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/runtime-map-m35-runtime.log",
+        "log_SHA256": "96e64de0e65bd12e370e253a89a7a28a31abfd832e987970e139b02e6dfdcc42",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-m35-runtime",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "cloud-delivery-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 60,
+        "assertions_or_tests": 42,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/cloud-delivery-tests.log",
+        "log_SHA256": "2a9c5148437e7731bfe3dc0230f0d87dc31ecafe602dec02c927bd2c5d127256",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/cloud-delivery-tests",
+        "strict_diagnostics_found": []
+      },
+      {
+        "id": "architecture-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "timeout_seconds": 60,
+        "assertions_or_tests": 13,
+        "log": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/architecture-tests.log",
+        "log_SHA256": "1b54e7bd3e4f0557cdf06d1076b6ef63ce21d6c17ecec62d2881ac93eafe1fed",
+        "artifact_directory": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/architecture-tests",
+        "strict_diagnostics_found": []
+      }
+    ]
+  },
+  "actual_archived_four_file_sets": {
+    "default": {
+      "result.json": {
+        "bytes": 818441,
+        "SHA256": "a90babfce2c374291a00bda8bf52d609e9defee90971a8395b98a9c2dae4c572"
+      },
+      "provenance.json": {
+        "bytes": 2337,
+        "SHA256": "28f4be900f47dece2e4bfeab964d3a7eec19913e969d4879ab22622deb517655"
+      },
+      "protocol_payload.json": {
+        "bytes": 1856,
+        "SHA256": "13f7f7f480168da132e64f478919450ca8bbe179e6614b9f30b5d0ac31c65772"
+      },
+      "host_bindings.json": {
+        "bytes": 2745,
+        "SHA256": "8fc2f0a2eafa17e51c26875188c31009da6da319dbe03ed7880372726166f087"
+      }
+    },
+    "gears": {
+      "result.json": {
+        "bytes": 774417,
+        "SHA256": "e98a8ddff4df9cb2ab20bee2eb31677ceb047c4278db59eee460bcc5b639aa65"
+      },
+      "provenance.json": {
+        "bytes": 2337,
+        "SHA256": "9f657d26072cfbc1617576c22838ea5e08ca34eaa8c49d946c623337d0b85ab6"
+      },
+      "protocol_payload.json": {
+        "bytes": 1856,
+        "SHA256": "deee1d69cc42840dfc5fae6648e8fc72f016dc2a450da53c94b787d30018f485"
+      },
+      "host_bindings.json": {
+        "bytes": 1434,
+        "SHA256": "aea8b8004b3b92f33fc913e6c4959101c7ec3a5b0bdc8f9b3b143a293146b3f0"
+      }
+    }
+  },
+  "archive_files_byte_equal_new8ms_coverage_input_sets": true,
+  "gears_runtime": {
+    "actual_archived_receipt": "/tmp/gunman-rush-mapgen-04/build/verification/harness/20261103T081248.473219Z/artifacts/runtime-map-m35-runtime/build/mapgen_godot_03/m35_runtime.json",
+    "SHA256": "ff1d0dd72203ce818c0302494e67d22df53bfb7a34109150ad556beaac830111",
+    "checks": 69,
+    "failures": 0,
+    "module": "game-plains-ferry-gears",
+    "actual_instance_label": "M35 only in this result,not stable selection key",
+    "actual_spawn": [
+      474,
+      974
+    ],
+    "negative_tests": [
+      "test-only unsafe Plan spawn0 reaches actual body/threefoot safety and no Stage/commit",
+      "safe first-physics admission followed by deliberate original actor invalidation causes no commit/no service or HP replacement"
+    ],
+    "complete_original_inventory": "4platforms,2native linear ferries,1saw,original fall-plane hazard,no added support or neighboring module",
+    "shared_clock_frames": 210,
+    "shared_clock_before_after": [
+      0.0333333333333333,
+      3.51666666666666
+    ],
+    "actual_hit_HP_chain": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "actual_damage_hits": 5,
+    "actual_HP_lost_per_hit": 1,
+    "nonfatal_original_anchor_returns": 4,
+    "anchor": "generated_entry",
+    "same_HP_wallet_policy_lifetime_clock_authority_retained": true,
+    "fatal_original_policy_controller_die_flow_end_failure": true,
+    "late_hit_and_generation_rejected_and_audio_drained": true,
+    "scope_limits": [
+      "One saw contact uses an explicit original-controller in-scene relocation; not initial entry,continuous route or physical ride.",
+      "0.7s checked as next pulse scheduling,not two-hit contact spacing.",
+      "Natural fall hits use actual Router axis+Motor steps and bounded remaining actualHP,without health writes.",
+      "Ferry/saw motion observations do not establish physical ferry rides,adjacency or whole-map reachability."
+    ]
+  },
+  "PCK_byte_custody_only": {
+    "path": "/tmp/gunman-rush-mapgen-04/build/web/index.bd23bbc7cf1f.pck",
+    "source_metadata_commit": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+    "SHA256": "bd23bbc7cf1fc36d471689c80f7108213e8978372f35c2790333f843a468c21b",
+    "bytes": 218920072,
+    "entries": 3655,
+    "independently_full_file_hashed": true,
+    "actual14mapgen_data_members_read_equal_source": "13JSON inclfrozen7,SDKconfig/request/config,2recipes plus solemoduleZIP",
+    "build_bundle_receipt": "/tmp/mapgen-v4-audit/web-build-02/receipt.json",
+    "build_bundle_reported_exit_codes": [
+      0,
+      0
+    ],
+    "build_bundle_seconds": [
+      30.91814383500605,
+      1.9708074160007527
+    ],
+    "not_browser_runtime_acceptance": true
+  },
+  "failure_history_retained": [
+    {
+      "case": "dev02 premature same-frame disposal assertion",
+      "result": "2514checks/1failure,exit1 retained; one-frame test-only followup resolved temporary reference timing with production unchanged"
+    },
+    {
+      "case": "final-native-01 cheap planner",
+      "result": "54tests/2failures,overall exit1 retained; exact2expected-artifact lists migrated,subsequent54 passes"
+    },
+    {
+      "case": "d4e4ms actualWeb default-actual-01",
+      "result": "185.365s generic nonPASS/schema rejection; unknown SDK status; originalPCK26956/archive retained; not inferred BUDGET"
+    }
+  ],
+  "limits": [
+    "12 targeted native/tool checks,not full178 Harness.",
+    "Soft8ms target/default128 request cap are not hard8/16ms or physical-device/FPS guarantees.",
+    "Current browser actual-02 was ongoing at this review; no Web outcome,real browser movement/cancel/spawn or visual approval signed.",
+    "New coverage remains allUNVERIFIED inventory,not host compatibility coverage.",
+    "No whole-map,fullgears route,enemy/reward/Boss completion,mobile,user acceptance or zero-resource certification."
+  ]
+}

@@ -1,0 +1,17 @@
+# actual02 Web timeout — independent failure/custody review
+
+**The complete default round remains rejected:FAILED,300.257116s against original300s.** First-context functional observations are valid partial evidence; they do not replace the required two-context protocol. I read originals and actually viewed all4 original PNGs,without running an engine/browser or editing source/report.
+
+Raw report SHA `b3b7a3874fa83f874c46f96f66544d3d83747a08c77c36808fad7fe46f9b7135` remains unchanged. Archive SHA `bdd0ef3d37c7ddb9b4133a9d0f1daf03172913e480d25976631bfefc7be9421e`,5,591,468B: I independently checked all6 original raw members,size/SHA and equality with loose report/PNGs. Source isf6,PCKbd23…218,920,072B. No timeout outcome was amended into PASS.
+
+Firstcontext records actual completed generation46instances/58connections/46contents,original fingerprint13f7…,actual[200,1102],host identity0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b,map identityb58d4545c2dc7941e2e5160c099bcf8a4ab72db7977817c9b12c807792e75e93. Passive generate→committed interval72.443s is wall observation,not an isolated algorithm CPU measurement. Actual D/A inputs move+56.3333/-47.6666px,and actual Escape has the original audio/lifetime/stage-detachment event before return log. Four original1280×720 images show the starting slice/player and movement/ferry/camera changes,then realTitle; visible build badgebd23bbc7 is not full source SHA.
+
+Secondfresh context has only started/preload; no real input,generate or cancel was reached. Geared scene was not run. In-budget source/producer after guards each explicitly failed with Original total300s budget exhausted,and served-after isNOT_RUN. Browser/contexts closing is cleanup,not completion of missing assertions.
+
+The original screenshot timestamps span28.981s committed→afterD,40.006s afterD→afterA,20.757s afterA→Title:89.744s total between these captures. These include operator/interaction/report work and cannot be assigned to pure game CPU. They justify improving review turnaround,not altering game/source/driver,budgets or acceptance criteria.
+
+## Separate post-timeout custody stays separate
+
+The offline attachment explicitly ran after timeout,2.256s. I decompressed and compared its snapshot with the original archived before snapshot:exact raw bytes equal,SHA025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199,35,466 sources. Producer-before/after maps match. First offline tuple/list comparison mistake remains in attempt01; it was tooling representation,not evidence of changed source. This is useful custody,**not an in-budget guard pass**. Served-after was not retroactively checked in the original report,and no offline result cures its timeout.
+
+Original driver SHA is `5b8330a8bf5781cf7110a714ee5942588016e4237d7b7a1f43b0fec91937278e`,matching the recorded before-producer leaf. Parent authorizes exactly one actual03 revalidation with byte-identical original driver,original300s,all assertions,two fresh contexts and actual viewing of everyWAIT image before ACK. No unseen auto-ACK,no SDK/game/budget changes and no extra retry if it still fails. Final acceptance must wait for actual03's complete functional sequence **and** original source/producer/served-after guards inside its budget. Only if default passes may original300s gears run begin. This review signs neither ongoing run. Partialcontext PASS or offlinecustody cannot be called whole-round PASS; if actual03 fails,Web acceptance remains blocked.
