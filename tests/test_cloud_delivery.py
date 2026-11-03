@@ -215,6 +215,30 @@ class DeliveryTests(unittest.TestCase):
             self.stage(entry='scene', scene='res://scenes/dev/missing_test.tscn')
         self.assertFalse((self.host / 'site').exists())
 
+    def test_runtime_map_scene_has_only_an_exact_admission_exception(self):
+        scene = 'res://experiments/generation/entries/runtime_map_v2_slice.tscn'
+        self.assertEqual(delivery.validate_scene(scene), scene.removeprefix('res://'))
+        for other in (scene.replace('slice.tscn', 'other.tscn'),
+                      'res://experiments/other.tscn',
+                      scene.replace('/entries/', '/entries/../entries/')):
+            with self.subTest(scene=other), self.assertRaises(ValueError):
+                delivery.validate_scene(other)
+        with self.assertRaisesRegex(ValueError, 'PCK missing runtime resource'):
+            self.stage(entry='scene', scene=scene)
+
+    def test_existing_resource_dirty_guard_protects_frozen_input_json(self):
+        path = self.root / 'resources/levels/mapgen_host_v2_01/content/M16.json'
+        path.parent.mkdir(parents=True)
+        path.write_text('{}')
+        with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):
+            delivery.clean_runtime(self.root)
+        run(self.root, 'add', str(path.relative_to(self.root)))
+        run(self.root, '-c', 'user.name=Delivery Test', '-c', 'user.email=delivery@example.invalid', 'commit', '-qm', 'resource fixture')
+        delivery.clean_runtime(self.root)
+        path.write_text('{"changed":true}')
+        with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):
+            delivery.clean_runtime(self.root)
+
     def test_never_stage_into_main_repository(self):
         run(self.host, 'remote', 'set-url', 'origin', 'https://github.com/zhipijun1996/gunman-rush.git')
         with self.assertRaisesRegex(ValueError, 'main hosting is forbidden'):

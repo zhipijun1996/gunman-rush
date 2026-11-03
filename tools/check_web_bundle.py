@@ -17,6 +17,10 @@ TERRAIN = 'game/presentation/world/art/plains_terrain_family_sampler.gd'
 BACKGROUND = 'game/presentation/world/art/plains_background.gd'
 CONNECTED = 'game/presentation/world/art/plains_connected_landscape.gd'
 CONNECTED_ROOT = 'assets/production_repair/'
+MAPGEN_FROZEN_SOURCE = 'experiments/generation/runtime_map_frozen_source.gd'
+MAPGEN_FROZEN_ROOT = 'resources/levels/mapgen_host_v2_01/'
+MAPGEN_FROZEN_MEMBERS = ('map.json', 'bindings.json', 'selection.json',
+                         'content/M16.json', 'content/M18.json', 'content/M21.json')
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
                                                         SPACES + 'supported_overhang_limestone_bank_v1/',
@@ -166,6 +170,20 @@ def runtime_contract(repo):
             raise ValueError('Runtime JSON must be an object: ' + name)
         manifests[name] = data
         return data
+
+    frozen_source = repo / MAPGEN_FROZEN_SOURCE
+    if frozen_source.is_file():
+        root = re.search(r'const ROOT\s*:?=\s*"res://([^"\n]+)"', frozen_source.read_text())
+        if not root or root.group(1) != MAPGEN_FROZEN_ROOT:
+            raise ValueError('Frozen v2 consumer root changed; review finite export adapter')
+        lock = manifest(MAPGEN_FROZEN_ROOT + 'input-lock.json')
+        if lock.get('schema') != 'gunman-rush/mapgen-frozen-input/v1' or set(lock.get('files', {})) != set(MAPGEN_FROZEN_MEMBERS):
+            raise ValueError('Frozen v2 input lock differs from its finite runtime members')
+        for name in MAPGEN_FROZEN_MEMBERS:
+            expected = lock['files'][name]
+            if not re.fullmatch(r'[0-9a-f]{64}', str(expected)) or hashlib.sha256(local(MAPGEN_FROZEN_ROOT + name)).hexdigest() != expected:
+                raise ValueError('Frozen v2 JSON differs from its runtime SHA: ' + name)
+            manifest(MAPGEN_FROZEN_ROOT + name)
 
     landscape = repo / LANDSCAPE
     if landscape.is_file():

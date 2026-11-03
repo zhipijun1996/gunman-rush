@@ -2,6 +2,9 @@ class_name RuntimeMapSlice
 extends Node2D
 ## Explicit development entrance. Ordinary App/Provider selection is unchanged.
 @export_enum("seam", "adjacent", "carrier") var spawn_binding := "seam"
+@export var diagnostics_enabled := false
+signal preview_exit_requested
+var _observation_ticks := 0
 var session := RunSession.new()
 var stage: RuntimeMapSliceStage
 var policy: FrameDamagePolicy
@@ -83,16 +86,32 @@ func _ready() -> void:
 		error = "Existing run record refused slice identity"
 		return
 	ready_ok = true
+	_observe("loaded")
 
 func _physics_process(_delta: float) -> void:
 	if ready_ok and not closed:
 		stage.observe_player(session.player.global_position)
 		camera.position = session.player.global_position
+		_observation_ticks += 1
+		if _observation_ticks % 30 == 0: _observe("physics")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not closed and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
-		await close_slice()
-		get_tree().quit()
+		if not get_signal_connection_list("preview_exit_requested").is_empty():
+			preview_exit_requested.emit()
+		else:
+			await close_slice()
+			get_tree().quit()
+
+func _observe(event: String) -> void:
+	if not diagnostics_enabled or not ready_ok or not is_instance_valid(stage): return
+	var ferry: ModuleMovingPlatform = stage.assembler.modules[0].moving_platforms[0]
+	var point := session.player.global_position
+	var carrier := ferry.global_position
+	print("MAPGEN_HOST_V2 ",JSON.stringify({"event":event,"host_load_identity":stage.plan.map_hash,"player":[point.x,point.y],"carrier":[carrier.x,carrier.y],"grounded":session.player.is_on_floor()}))
+
+func close_preview() -> bool:
+	return await close_slice()
 
 func accepts_result(token: DemoToken) -> bool:
 	return not closed and session.lifetime.accepts(token)
@@ -151,6 +170,7 @@ func close_slice() -> bool:
 	if session.build != null: session.clear_run_services()
 	close_result = await WorldAudioLifecycle.drain_world(self)
 	close_finished = true
+	if diagnostics_enabled: print("MAPGEN_HOST_V2 ",JSON.stringify({"event":"closed","audio_released":close_result,"lifetime_active":session.lifetime.active,"stage_detached":stage==null}))
 	return close_result
 
 func _exit_tree() -> void:

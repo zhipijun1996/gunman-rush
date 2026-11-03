@@ -103,6 +103,54 @@ class BundleTests(unittest.TestCase):
         self.texture(folder+'raw.png', raw=True)
         return folder
 
+    def frozen_map(self):
+        self.local(bundle.MAPGEN_FROZEN_SOURCE, ('const ROOT := "res://' + bundle.MAPGEN_FROZEN_ROOT + '"').encode())
+        for name in bundle.MAPGEN_FROZEN_MEMBERS:
+            self.manifest(bundle.MAPGEN_FROZEN_ROOT + name, {'fixture': name})
+        files = {name: hashlib.sha256(self.entries[bundle.MAPGEN_FROZEN_ROOT + name]).hexdigest()
+                 for name in bundle.MAPGEN_FROZEN_MEMBERS}
+        self.manifest(bundle.MAPGEN_FROZEN_ROOT + 'input-lock.json',
+                      {'schema': 'gunman-rush/mapgen-frozen-input/v1', 'files': files})
+
+    def test_frozen_map_raw_json_is_finite_locked_and_read_from_actual_pack(self):
+        self.frozen_map()
+        result = self.check()
+        required = {bundle.MAPGEN_FROZEN_ROOT + name for name in
+                    ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS)}
+        self.assertTrue(required <= set(result['json']))
+        for name in required:
+            changed = dict(self.entries)
+            changed.pop(name)
+            with self.subTest(missing=name), self.assertRaises(ValueError):
+                self.check(changed)
+        changed = dict(self.entries)
+        changed[bundle.MAPGEN_FROZEN_ROOT + 'bindings.json'] = b'{"other":true}'
+        with self.assertRaisesRegex(ValueError, 'PCK JSON differs'):
+            self.check(changed)
+
+    def test_frozen_map_source_changes_cannot_bypass_its_lock_or_add_siblings(self):
+        self.frozen_map()
+        name = bundle.MAPGEN_FROZEN_ROOT + 'content/M16.json'
+        self.local(name, b'{"changed":true}')
+        with self.assertRaisesRegex(ValueError, 'Frozen v2 JSON differs'):
+            self.check()
+        self.frozen_map()
+        name = bundle.MAPGEN_FROZEN_ROOT + 'input-lock.json'
+        lock = json.loads(self.entries[name])
+        lock['files']['content/unknown.json'] = 'f' * 64
+        self.manifest(name, lock)
+        with self.assertRaisesRegex(ValueError, 'finite runtime members'):
+            self.check()
+
+    def test_web_preset_explicitly_contains_all_seven_frozen_json_files(self):
+        presets = configparser.ConfigParser(interpolation=None)
+        presets.read(bundle.REPO / 'export_presets.cfg')
+        section = next(presets[s] for s in presets.sections() if presets[s].get('name') == '"Web Playtest"')
+        included = section['include_filter'].strip('"').split(',')
+        for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):
+            self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, included)
+        self.assertNotIn(bundle.MAPGEN_FROZEN_ROOT + '*', included)
+
     def test_connected_actual_consumer_requires_json_raw_and_normal_import(self):
         folder = self.connected()
         result = self.check()
