@@ -541,7 +541,7 @@ class ProductionPlanTests(unittest.TestCase):
                          "tools/check_runtime_map_generated_identity.py"):
                 self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "before"}),
                                     harness.input_digest(check, [path], {}, {path: "after"}))
-            self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03"] if name.endswith("slice") else [])
+            self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03", "build/mapgen_godot_04/default"] if name.endswith("slice") else [])
         pure = self.manifest["checks"][GENERATION_ADDITIONS[-1]]
         self.assertEqual(pure["timeout_seconds"], 60)
         self.assertFalse(pure.get("serial", False))
@@ -601,7 +601,7 @@ class ProductionPlanTests(unittest.TestCase):
                                     harness.input_digest(check, [path], {}, {path: "after"}))
             for path in check["inputs"]:
                 self.assertTrue((ROOT / path).exists(), path)
-            self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03"] if name.endswith("runtime") else [])
+            self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03", "build/mapgen_godot_04/gears"] if name.endswith("runtime") else [])
 
     def test_m35_wrappers_reuse_strict_native_guard_without_engine_execution(self):
         import check_runtime_map_generated_identity as shared
