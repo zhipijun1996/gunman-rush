@@ -35,4 +35,4 @@ static func load_level(request: LevelRequest, binding: String = "seam") -> Level
 		var refused := LevelBuildResult.new()
 		refused.error = "Unknown slice spawn binding: "+binding
 		return refused
-	return RuntimeMapV2Provider.load_level(request, source.map, source.content, IDS, Vector2(point[0],point[1]), source.lock.files["map.json"])
+	return RuntimeMapV2Provider.load_level(request, source.map, source.content, IDS, Vector2(point[0],point[1]), source.lock.files["map.json"], source.bindings, source.lock, binding)

@@ -78,7 +78,7 @@ func _ready() -> void:
 	_label.position = Vector2(12,12)
 	_label.text = "MAPGEN V2 / LOADING SLICE ONLY\nM16 + M18 + M21 / arrows or A,D / ESC exit\nNo full-map, enemy, reward or Boss certification"
 	layer.add_child(_label)
-	var record := {"schema":"mapgen/runtime-map/v2","map_hash":built.plan.map_hash,"seed":built.plan.seed,"instances":RuntimeMapFrozenSource.IDS.duplicate(),"spawn_binding":spawn_binding,"scope":"loading_slice"}
+	var record := {"schema":"mapgen/runtime-map/v2","map_hash":built.plan.map_hash,"identity":built.plan.get_meta("runtime_map_v2_identity").duplicate(true),"seed":built.plan.seed,"instances":RuntimeMapFrozenSource.IDS.duplicate(),"spawn_binding":spawn_binding,"scope":"loading_slice"}
 	if not session.flow.manifest.record_output(1,&"mapgen_v2_loading_slice",record):
 		error = "Existing run record refused slice identity"
 		return
@@ -100,10 +100,16 @@ func accepts_result(token: DemoToken) -> bool:
 func reload_slice() -> bool:
 	if not ready_ok or closed: return false
 	var saved := stage.capture_state()
-	var restored := PlainsRegionState.new()
-	if not restored.restore(saved,stage.plan.map_hash): return false
 	var built := RuntimeMapFrozenSource.load_level(request,spawn_binding)
-	if not built.accepted(): return false
+	if not built.accepted():
+		error = built.error
+		return false
+	var restored := PlainsRegionState.new()
+	# Compare the saved identity with the newly admitted content BEFORE
+	# invalidating the old world or replacing any current services/nodes.
+	if not restored.restore(saved,built.plan.map_hash):
+		error = "Saved host load identity differs from current content/bindings"
+		return false
 	# Same-map reload follows the existing App's actor invalidation/cancel
 	# boundary. It never resets the player, resources, wallet or run services.
 	session.controller.router.clear("mapgen_slice_reload")

@@ -39,6 +39,7 @@ func admission() -> void:
 	check(not RuntimeMapFrozenSource.load_level(r).accepted(),"wrong map record refuses instead of substituting source")
 	r.expected_hash = ""
 	permission_contract(inputs,r)
+	identity_contract(inputs,r,built.plan)
 	for mode: String in ["schema","seed_precision","mirror","offset","unknown","enemy","service","face","permission","missing_port","disconnected"]:
 		var map: Dictionary = inputs.map.duplicate(true)
 		var contents: Dictionary = inputs.content.duplicate(true)
@@ -68,7 +69,7 @@ func admission() -> void:
 					if edge.id=="C027": edge.a.port_id = "does_not_exist"
 			"disconnected":
 				map.connections = map.connections.filter(func(edge: Dictionary) -> bool: return edge.id != "C027")
-		var refused := RuntimeMapV2Provider.load_level(r,map,contents,ids,Vector2(-448,846),inputs.lock.files["map.json"])
+		var refused := RuntimeMapV2Provider.load_level(r,map,contents,ids,Vector2(-448,846),inputs.lock.files["map.json"],inputs.bindings,inputs.lock)
 		check(not refused.accepted() and refused.plan==null and not refused.error.is_empty(),"strict refusal with diagnostic: "+mode)
 		trace.append({"case":mode,"error":refused.error})
 
@@ -79,7 +80,7 @@ func permission_contract(inputs: Dictionary, r: LevelRequest) -> void:
 			if instance.id != "M16": continue
 			for port: Dictionary in instance.ports:
 				if port.id == "R": port.permission = value
-		var result := RuntimeMapV2Provider.load_level(r,map,inputs.content,RuntimeMapFrozenSource.IDS,Vector2(-448,846),inputs.lock.files["map.json"])
+		var result := RuntimeMapV2Provider.load_level(r,map,inputs.content,RuntimeMapFrozenSource.IDS,Vector2(-448,846),inputs.lock.files["map.json"],inputs.bindings,inputs.lock)
 		if value is String and value == "INOUT":
 			check(result.accepted(),"valid bidirectional protocol remains supported")
 		elif value is String and value in ["INPUT","OUTPUT"]:
@@ -87,6 +88,72 @@ func permission_contract(inputs: Dictionary, r: LevelRequest) -> void:
 		else:
 			check(not result.accepted() and "permission: invalid protocol value" in result.error,"protocol-external permission explicitly invalid: "+str(value))
 		trace.append({"case":"permission_contract","value":value,"error":result.error})
+
+func identity_contract(inputs: Dictionary, r: LevelRequest, original: LevelPlan) -> void:
+	var identity: Dictionary = original.get_meta("runtime_map_v2_identity")
+	check(identity.generation_input_fingerprint==inputs.map.generator.request_fingerprint,"upstream generation input fingerprint preserved verbatim")
+	check(identity.host_load_identity==original.map_hash and identity.map_content_identity!=original.map_hash and identity.generation_input_fingerprint!=original.map_hash,"generation input, loaded map content and host load are distinct identities")
+	check(identity.host_load.bindings_version==inputs.bindings.version and identity.map_content.content.size()==3,"identity names binding version and actual loaded content scope")
+	var state := PlainsRegionState.new()
+	state.bind_map(original.map_hash)
+	state.visited["M18"] = true
+	state.clocks["M16"] = 1.25
+	var saved := state.snapshot()
+	check(PlainsRegionState.new().restore(saved,original.map_hash),"same host load restores existing run-local schema")
+	for mode: String in ["content","content_precision","bindings_content","bindings_version","selection","implementation","library","generator_source"]:
+		var map: Dictionary = inputs.map.duplicate(true)
+		var contents: Dictionary = inputs.content.duplicate(true)
+		var bindings: Dictionary = inputs.bindings.duplicate(true)
+		var source: Dictionary = inputs.lock.duplicate(true)
+		var ids: Array[String] = RuntimeMapFrozenSource.IDS.duplicate()
+		match mode:
+			"content":
+				contents["content/M16.json"].moving_platforms[0].ellipse_period = 10.0
+				contents["content/M16.json"].moving_platforms[0].travel_duration = 10.0
+			"content_precision":
+				contents["content/M16.json"].moving_platforms[0].ellipse_period = 8.000000000001
+				contents["content/M16.json"].moving_platforms[0].travel_duration = 8.000000000001
+			"bindings_content": bindings.spawns.carrier[0] += 1
+			"bindings_version": bindings.version = "loading-slice-next"
+			"selection":
+				ids.assign(["M18","M21"])
+				bindings.selected_instances = ["M18","M21"]
+			"implementation": map.generator.implementation += "/next"
+			"library":
+				map.module_package.sha256 = "f".repeat(64)
+				source.library_sha256 = map.module_package.sha256
+			"generator_source": source.mapgen_commit = "f".repeat(40)
+		var changed := RuntimeMapV2Provider.load_level(r,map,contents,ids,Vector2(-448,846),source.files["map.json"],bindings,source)
+		check(changed.accepted(),"changed valid data can be admitted as a NEW load: "+mode+" "+changed.error)
+		if not changed.accepted(): continue
+		var next_identity: Dictionary = changed.plan.get_meta("runtime_map_v2_identity")
+		check(next_identity.generation_input_fingerprint==identity.generation_input_fingerprint and map.generator.request_fingerprint==inputs.map.generator.request_fingerprint,"host changes never overwrite upstream fingerprint: "+mode)
+		check(changed.plan.map_hash!=original.map_hash and not PlainsRegionState.new().restore(saved,changed.plan.map_hash),"old restore record explicitly refuses changed load: "+mode)
+		if mode.begins_with("bindings"):
+			check(next_identity.map_content_identity==identity.map_content_identity,"host-only binding change preserves map content identity")
+		var stage := RuntimeMapSliceStage.new()
+		stage.plan = changed.plan
+		stage.state = state
+		root.add_child(stage)
+		check(not stage.assembly_ok and stage.error=="Missing plan/state or map identity changed" and stage.get_child_count()==0,"real Stage refuses old state BEFORE creating geometry: "+mode)
+		stage.free()
+		trace.append({"case":"identity_change","field":mode,"generation_input_fingerprint":next_identity.generation_input_fingerprint,"map_content_identity":next_identity.map_content_identity,"host_load_identity":changed.plan.map_hash,"old_record_refused":true})
+	var reversed_ids: Array[String] = RuntimeMapFrozenSource.IDS.duplicate()
+	reversed_ids.reverse()
+	var reordered := RuntimeMapV2Provider.load_level(r,inputs.map,inputs.content,reversed_ids,Vector2(-448,846),inputs.lock.files["map.json"],inputs.bindings,inputs.lock)
+	check(reordered.accepted() and reordered.plan.map_hash==original.map_hash,"set-equivalent selection order does not change load identity")
+	var reordered_content: Dictionary = inputs.content.duplicate(true)
+	var keys: Array = reordered_content["content/M16.json"].keys()
+	keys.reverse()
+	var same_content: Dictionary = {}
+	for key: String in keys: same_content[key] = reordered_content["content/M16.json"][key]
+	reordered_content["content/M16.json"] = same_content
+	var same := RuntimeMapV2Provider.load_level(r,inputs.map,reordered_content,RuntimeMapFrozenSource.IDS,Vector2(-448,846),inputs.lock.files["map.json"],inputs.bindings,inputs.lock)
+	check(same.accepted() and same.plan.map_hash==original.map_hash,"content dictionary key insertion order does not change identity")
+	var old_identity := JSON.stringify([inputs.lock.files["map.json"],RuntimeMapFrozenSource.IDS]).sha256_text()
+	var weak_record := saved.duplicate(true)
+	weak_record.manifest_hash = old_identity
+	check(not PlainsRegionState.new().restore(weak_record,original.map_hash),"prior weak map-plus-IDs record explicitly rejected without save schema migration")
 
 func enter(binding: String) -> RuntimeMapSlice:
 	var world := RuntimeMapSlice.new()

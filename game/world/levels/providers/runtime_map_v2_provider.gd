@@ -5,11 +5,13 @@ extends RefCounted
 const SCHEMA := "mapgen/runtime-map/v2"
 const CONTENT_SCHEMA := "pcg/compiled-module-content/v1"
 const PORT_PERMISSIONS: Array[String] = ["INPUT", "OUTPUT", "INOUT"]
+const IDENTITY_SCHEMA := "gunman-rush/runtime-map-load/v1"
+const ADAPTER_VERSION := "runtime-map-v2-slice/2"
 const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","hazards","thorns","saws","hooks","latches","enemies","reward_sites"]
 const CONTENT_FIELDS: Array[String] = ["platforms","one_way_platform_indices","wall_platform_indices","hazards","thorns","saws","moving_platforms","hooks","latches","enemies","reward_sites","approved_hq_cells","schema","source_sha256","stable_id","world_bounds","entry_port","exit_port","coordinate_frame","source_affine"]
 const ELLIPSE_FIELDS: Array[String] = ["platform_id","trajectory_kind","start","finish","size","travel_duration","dwell_duration","initial_phase","ellipse_center","ellipse_radii","ellipse_period","ellipse_x_sign"]
 
-static func load_level(request: LevelRequest, map: Dictionary, content_store: Dictionary, selected_ids: Array[String], spawn: Vector2, source_sha256: String) -> LevelBuildResult:
+static func load_level(request: LevelRequest, map: Dictionary, content_store: Dictionary, selected_ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String = "seam") -> LevelBuildResult:
 	if request == null or request.tuning == null or request.region_id.is_empty(): return _reject("request: missing tuning or region_id")
 	if not spawn.is_finite(): return _reject("spawn: nonfinite player body center")
 	if not _hash(source_sha256): return _reject("source_sha256: expected frozen SHA256")
@@ -21,6 +23,14 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 	if not map.get("generator") is Dictionary: return _reject("map.generator: missing implementation")
 	var generator: Dictionary = map.generator
 	if not _identity(generator.get("implementation")) or not _identity(generator.get("algorithm")): return _reject("map.generator: invalid implementation/algorithm")
+	if not _hash(generator.get("request_fingerprint")): return _reject("map.generator.request_fingerprint: invalid upstream input fingerprint")
+	if not map.get("module_package") is Dictionary or not _hash(map.module_package.get("sha256")) or not _identity(map.module_package.get("version")): return _reject("map.module_package: invalid library identity")
+	if not source_record.get("files") is Dictionary or source_record.files.get("map.json") != source_sha256 or source_record.get("library_sha256") != map.module_package.sha256: return _reject("source_record: missing/mismatched verified map or library bytes")
+	if source_record.get("protocol") != SCHEMA or not _identity(source_record.get("mapgen_commit")): return _reject("source_record: missing protocol/implementation source")
+	for name: String in ["bindings.json","selection.json"]:
+		if not _hash(source_record.files.get(name)): return _reject("source_record.files: missing verified SHA256 for "+name)
+	if bindings.get("schema") != "gunman-rush/runtime-map-bindings/v1" or not _identity(bindings.get("version")): return _reject("bindings: missing schema/version")
+	if not bindings.get("spawns") is Dictionary or not _pair(bindings.spawns.get(binding_id)) or _point(bindings.spawns[binding_id]) != spawn: return _reject("bindings.spawns: active binding differs from actual spawn")
 	if not map.get("coordinates") is Dictionary: return _reject("map.coordinates: missing materialized frame")
 	var coordinates: Dictionary = map.coordinates
 	if coordinates.get("block_size_pixels") != 128 or coordinates.get("axes") != "x_right_y_down" or coordinates.get("local_frame") != "owned_rectangle_pixels" or coordinates.get("content_transform_applied") != true or coordinates.get("placement_rule") != "world_pixel = origin_blocks * block_size_pixels + local_pixel":
@@ -38,13 +48,19 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 		instances[raw.id] = raw
 	var ids: Array[String] = selected_ids.duplicate()
 	ids.sort()
+	if not bindings.get("selected_instances") is Array or bindings.selected_instances.size() != ids.size(): return _reject("bindings.selected_instances: selected scope differs")
+	var binding_ids: Array[String] = []
+	for value: Variant in bindings.selected_instances:
+		if not value is String: return _reject("bindings.selected_instances: invalid identity")
+		binding_ids.append(value)
+	binding_ids.sort()
+	if binding_ids != ids: return _reject("bindings.selected_instances: selected scope differs")
 	var plan := LevelPlan.new()
 	plan.region_id = request.region_id
 	plan.map_index = request.map_index
 	plan.source_id = &"mapgen_runtime_v2"
 	plan.source_version = SCHEMA+"/"+str(generator.implementation)+"/"+str(generator.algorithm)
 	plan.seed = seed
-	plan.map_hash = JSON.stringify([source_sha256,ids]).sha256_text()
 	plan.spawn = spawn
 	for id: String in ids:
 		if not instances.has(id): return _reject("instances."+id+": selected instance missing")
@@ -52,6 +68,7 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 		var problem := _instance_error(instance)
 		if not problem.is_empty(): return _reject("instances."+id+"."+problem)
 		var ref: String = instance.content_ref
+		if not _hash(source_record.files.get(ref)): return _reject("source_record.files: missing verified SHA256 for "+ref)
 		if not content_store.get(ref) is Dictionary: return _reject("instances."+id+".content_ref: missing Dictionary "+ref)
 		var content: Dictionary = content_store[ref]
 		problem = _content_error(content,instance)
@@ -83,6 +100,9 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 		plan.connections.append(edge)
 	var disconnected := _disconnected_instance(ids,plan.connections)
 	if not disconnected.is_empty(): return _reject("instances."+disconnected+".connections: selected internal edge graph is disconnected")
+	var identity := _load_identity(request,map,content_store,instances,ids,spawn,source_sha256,bindings,source_record,binding_id)
+	plan.map_hash = identity.host_load_identity
+	plan.set_meta("runtime_map_v2_identity",identity)
 	if not request.expected_hash.is_empty() and request.expected_hash != plan.map_hash: return _reject("request.expected_hash: selected frozen v2 map mismatch")
 	var error := plan.validation_error()
 	if not error.is_empty(): return _reject("plan: "+error)
@@ -92,6 +112,22 @@ static func load_level(request: LevelRequest, map: Dictionary, content_store: Di
 	# instance/content metadata lives on each definition for source inspection.
 	result.resolved_capabilities = request.capabilities.duplicate(true)
 	return result
+
+static func _load_identity(request: LevelRequest, map: Dictionary, content_store: Dictionary, instances: Dictionary, ids: Array[String], spawn: Vector2, source_sha256: String, bindings: Dictionary, source_record: Dictionary, binding_id: String) -> Dictionary:
+	var content_rows: Array[Dictionary] = []
+	for id: String in ids:
+		var ref: String = instances[id].content_ref
+		content_rows.append({"instance_id":id,"content_ref":ref,"content_version":instances[id].content_version,"verified_bytes_sha256":source_record.files.get(ref,""),"actual_data_sha256":_digest(content_store[ref])})
+	# Byte attestations are supplied by the I/O boundary. Hash actual parsed
+	# values too, so a changed Dictionary cannot keep an old restore identity.
+	var map_content := {"schema":SCHEMA,"generator":map.generator.duplicate(true),"generator_source_commit":source_record.get("mapgen_commit",""),"module_package":map.module_package.duplicate(true),"map_bytes_sha256":source_sha256,"map_data_sha256":_digest(map),"content_scope":"loaded_instance_refs_only","content":content_rows}
+	var map_content_identity := _digest(map_content)
+	var host_load := {"schema":IDENTITY_SCHEMA,"adapter_version":ADAPTER_VERSION,"map_content_identity":map_content_identity,"selected_instances":ids.duplicate(),"selection_bytes_sha256":source_record.files.get("selection.json",""),"bindings_schema":bindings.schema,"bindings_version":bindings.version,"bindings_bytes_sha256":source_record.files.get("bindings.json",""),"bindings_data_sha256":_digest(bindings),"active_binding":binding_id,"spawn":[spawn.x,spawn.y],"region_id":str(request.region_id),"map_index":request.map_index,"capabilities":request.capabilities.duplicate(true)}
+	return {"schema":IDENTITY_SCHEMA,"generation_input_fingerprint":map.generator.request_fingerprint,"map_content_identity":map_content_identity,"host_load_identity":_digest(host_load),"map_content":map_content,"host_load":host_load}
+
+static func _digest(value: Variant) -> String:
+	# Existing Godot sorted-key JSON convention, with full numeric precision.
+	return JSON.stringify(value,"",true,true).sha256_text()
 
 static func _instance_error(row: Dictionary) -> String:
 	var extra := _unexpected(row,["id","module_id","content_version","role","origin_blocks","size_blocks","transform","content_ref","ports","connected_port_ids","seals","routes","required_services","source_scene_ref","source_compiled_ref"])
