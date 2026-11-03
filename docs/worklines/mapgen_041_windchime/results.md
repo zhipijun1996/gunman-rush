@@ -69,3 +69,13 @@ run41714871138/attempt1的prepare导出输入工件在0.269秒拒绝：Bundle re
 run41720175578/attempt1保持FAILED。prepare实际恢复5092输入4,434,892,477B/921.945s，大工件导出40.851s（合同/清单25.093s、tar写入约15.76s），tar4,439,521,280B/SHA d5e6c196c4668d9eb8f6f89515d5f565f8bbb82e1478b4f7b5df6473dc614ce1，GitHub工件4,450,653,483B/id13273404222/API digest afc6e7e4b92b18dc5939eac85ce01128aaddb9cac3b6285a2467524996efc019。实际155GB卷导出前余81.49GB/后77.04GB。serial下载253s/严格恢复45.227s，parallel下载47s/恢复50.458s，均5092/完整来源与全部SHA/mode通过；原Foundry56JSON与当前源码0字节差异。它们不是完整CI通过：两个lane在原Harness初始化git diff --name-only -z HEAD的原30秒限制超时，正式179未执行、无phase报告，affected正确拒绝。原件另存ci-final-4224488-failed。
 
 两个独立真实file:// blob-less/promisor隔离实验复现：只还原正确文件字节仍缺Git blob，原gitdiff会懒取远端对象；远端离线时明确失败。只把已验相同SHA字节入Git对象缓存后，原命令离线空差异成功，内容/权限/删除仍可检测。本次最小恢复修复在全档/成员/tail及path/mode/Gitblob/SHA完整验证后、发布前，用一次批量no-lazy/no-filter hash-object仅补缺失唯一对象并逐OID校验。缓存自身HEAD/index原字节/ref/flags不动，无assume-unchanged隐藏；原post-stage快照/原50测试/30秒Git守门/179预算均保留。实际56测试及独立56测试/审查通过；小样本不代签下一精确head真实4GB缓存与完整179，游戏GD/SDK/模块/绑定/PCK继续不变，无同源原生或Web重跑。
+
+## 精确4df候选：Git对象恢复修复生效，历史锁绑定失败
+
+run41728429398的prepare和两个实际大工件恢复成功。parallel严格恢复164.318秒，包含4824个已核Git对象/4,387,487,368字节缓存114.263秒，network_fetch:false；原Git守门通过，源码前后36220项一致。正式parallel实际7PASS、第8项quality FAIL、85项未开始，0reuse。serial仍按原run继续，未取消；后续结果保原来源，不代签新head。
+
+唯一已见失败是两张历史0.4.0质量卡的lock证据仍指可变当前config/mapgen_candidate.json（期望09c2c...，实际已合法升级0.4.1）。[版本化存储迁移](../../evidence/mapgen_041_windchime/historical-lock-040/README.md)保全原Git旧锁和两卡原字节，只迁evidence[id=lock].path到固定历史原件；原SHA、source_commit、content_version、reviewed_commit、production_snapshot、全部门槛和原失败不变，不重签旧认可。原质量检查修复后通过，独审与新精确head完整179+affected仍是独立门禁。
+
+[失败原件](../../evidence/mapgen_041_windchime/ci-final-4df3c6a-failed/README.md)包含原ZIP/phase/日志/来源和完整性收据；所有游戏GD、SDK19叶、模块、请求和bindings均不变，实际原生与22图Web保持其已验来源复用。普通出发不改、不部署。
+
+历史锁迁移独立审阅实际34项及6个负例/原quality通过，限定ACCEPT。为避免同分支concurrency取消仍在运行的serial，修复从4df建立独立后继集成分支；PR131/run保原head。新修复不改游戏或供应商文件，后继完整CI单独受验。

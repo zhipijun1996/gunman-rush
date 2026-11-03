@@ -1,3 +1,7 @@
+## 2026-11-03 0.4.1最终CI：历史锁证据路径收口
+
+PR131精确4df/run41728429398已证同run大工件和Git对象缓存恢复成功；parallel正式7PASS后quality拒两张历史0.4.0卡的lock路径漂移，serial仍继续原run。旧锁/原卡字节保全，只迁历史证据path、SHA/来源/结论不变；原质量检查已通过，独审及后继精确head179+affected仍待实际验收。全部游戏/SDK/module/request/bindings和已验原生/Web/22图不变。未合main，普通出发不改、不部署。详见[本批结果](worklines/mapgen_041_windchime/results.md)与[迁移原件](evidence/mapgen_041_windchime/historical-lock-040/README.md)。
+
 ## 2026-11-03 CI输入恢复的Git对象缓存修复（最新）
 
 PR131的4224488/run41720175578保留FAILED：大输入工件导出/上传与两个lane严格恢复已真实成功（5092/4.4349GB；恢复45.227/50.458秒），但原Harness启动gitdiff30秒因promisor懒取缺失Git对象而超时，正式179尚未执行。不是4GB完整验收或测试断言失败。

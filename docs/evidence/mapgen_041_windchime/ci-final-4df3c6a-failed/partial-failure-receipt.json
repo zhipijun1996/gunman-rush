@@ -1,0 +1,88 @@
+{
+  "status": "parallel_failed_serial_in_progress",
+  "run": 41728429398,
+  "head": "4df3c6a6e3b42cf7aec39a8783b0ca27042c0b60",
+  "full_ci_accepted": false,
+  "parallel": {
+    "passed": 7,
+    "failed": 1,
+    "not_started": 85,
+    "wall_seconds": 47.871,
+    "original_failure": "MAPGEN-GODOT-04.json: Evidence hash mismatch: lock\nMAPGEN-HOST-04-ACCEPTANCE-01.json: Evidence hash mismatch: lock\n",
+    "checks": {
+      "source_head": true,
+      "original_git_guard_passed": true,
+      "source_stable": true,
+      "toolchain_stable": true,
+      "exact_original_checks": true,
+      "fresh": true,
+      "restore_matches_prepare": true,
+      "no_restore_fetch": true,
+      "failure_preserved": true
+    },
+    "restore": {
+      "files": 5094,
+      "bytes": 4434898321,
+      "archive_sha256": "95414ab1fc6a0c0e020844ac90cd1b8bad0cfb2a145382147181f123453bc7b0",
+      "manifest_sha256": "5e235567b259a61256188bec427b7cca712204f42db2a0b56bdc69f622160246",
+      "timings": {
+        "identity_manifest_existing_seconds": 1.852,
+        "archive_verify_seconds": 5.792,
+        "content_stage_seconds": 8.983,
+        "git_object_cache_seconds": 114.264,
+        "publish_recheck_preflight_seconds": 33.428,
+        "wall_seconds": 164.318
+      },
+      "git_object_cache": {
+        "objects": 4824,
+        "raw_bytes": 4387487368,
+        "network_fetch": false,
+        "cache_kind": "verified Git blob object cache; no source/index/ref changes",
+        "seconds": 114.263,
+        "storage": {
+          "before": {
+            "volume_path": "/home/runner/work/gunman-rush/gunman-rush/.git/objects",
+            "total_bytes": 154993672192,
+            "used_bytes": 72172863488,
+            "free_bytes": 82804031488,
+            "required_additional_bytes": 0,
+            "allocation_lower_bound": true,
+            "missing_blob_raw_bytes": 4387487368,
+            "allocation_note": "Additional zlib-compressed Git objects; actual volume usage sampled before/after, not assumed equal to raw bytes",
+            "wall_seconds": 0.299
+          },
+          "after": {
+            "volume_path": "/home/runner/work/gunman-rush/gunman-rush/.git/objects",
+            "total_bytes": 154993672192,
+            "used_bytes": 76246208512,
+            "free_bytes": 78730686464,
+            "required_additional_bytes": 0,
+            "allocation_lower_bound": true,
+            "missing_blob_raw_bytes": 4387487368,
+            "wall_seconds": 114.263
+          }
+        }
+      }
+    },
+    "toolchain": {
+      "python": "3.12.16 (main, Oct 26 2026, 02:48:44) [GCC 15.2.0]",
+      "platform": "linux",
+      "godot": {
+        "exit_code": 0,
+        "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+        "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+        "bytes": 171575448,
+        "build_id": "godot-4.7.2-gunman-sd1",
+        "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+        "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+      },
+      "node": {
+        "exit_code": 0,
+        "version": "v22.23.4"
+      }
+    }
+  },
+  "note": "No rerun or cancellation; serial continues. Historical0.4.0 lock evidence mismatches active0.4.1 config, not a cache/algorithm failure."
+}
