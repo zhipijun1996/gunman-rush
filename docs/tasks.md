@@ -2,6 +2,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |
 | --- | --- | --- | --- | --- |
+| MAPGEN-HOST-WINDCHIME-041 | 0.4.1真实生成/多端口准入/完整起点钟门与最终集成 | MAPGEN-GODOT-04 | in_progress | [范围](worklines/mapgen_041_windchime/scope.md) · [质量](quality/records/MAPGEN-HOST-WINDCHIME-041.json)；最终验收后合main，不替普通出发/不部署 |
+| CI-SELECTED-INPUTS-01 | prepare精确同run输入工件复用与可见进度 | MAPGEN-GODOT-04 | in_progress | [范围](worklines/mapgen_041_windchime/scope.md) · [质量](quality/records/CI-SELECTED-INPUTS-01.json)；保原178/预算/身份与完整性守门 |
 | MAPGEN-CI-PYTHON-PIN-01 | 固定双通道Python补丁身份，保原合流守门 | MAPGEN-GODOT-04 | review | [范围与失败](evidence/mapgen_host_04_acceptance/ci-python-pin/README.md) · [质量](quality/records/MAPGEN-CI-PYTHON-PIN-01.json)；仅CI工程；原178pass跨lane身份拒绝，修复head完整CI另收 |
 | MAPGEN-HOST-04-ACCEPTANCE-01 | 性能归因/库复用/Web及精确head完整CI | MAPGEN-GODOT-04 | review | [范围](worklines/mapgen_host_04_acceptance/scope.md) · [质量](quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json)；仅阶段A；default历史PASS原件丢失明确承接，最终CI实收；本轮不B/0.4.1/合并发布 |
 

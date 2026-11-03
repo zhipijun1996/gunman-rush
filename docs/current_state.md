@@ -1,3 +1,9 @@
+## 0.4.1起点钟门与CI输入工件：最新授权实施中
+
+从PR130/9ba7独立后续分支feature/mapgen-041-windchime-integration接续；用户已允许不等旧A完整CI先继续B，固定0.4.1/模块1.1.0/v2，必要验收/独审/最终精确head CI通过后普通合main。普通出发不变、不部署。旧head/run结果保原身份，不由后继通过改签。
+
+[范围/写集/验收及授权](worklines/mapgen_041_windchime/scope.md) · [实施证据](evidence/mapgen_041_windchime/README.md)。原run41679005631两lane已开始测试，按原90min真实实收，不盲目重启。当前0.4.1/CI输入复用/风铃各writer并行，单Godot和browser由root控制；先读持久RECOVERY，不从main重做、不恢复PR123。
+
 ## MAPGEN-CI-PYTHON-PIN-01：阶段A最终CI的环境修复
 
 原PR130/0167的run41659241932两通道178项实际全过，但Python3.12.16/3.12.15跨lane不一致，affected已实际以Phase toolchain identities differ拒绝，原run为FAILURE。仅将production workflow三处Python统一为精确3.12.16；保留原失败，最终修复head重新原完整CI。原宿主/SDK0.4.0/module1.1.0/Web运行源不变，默认双fresh不重跑，不B/合并/部署。
