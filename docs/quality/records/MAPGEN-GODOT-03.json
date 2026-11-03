@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "task_id": "MAPGEN-GODOT-03",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "e7d703f47c97f09bd5c5d48e24f0a400c958ad40",
+  "reviewed_commit": "e7d703f47c97f09bd5c5d48e24f0a400c958ad40",
+  "content_version": "godot-runtime-r1",
+  "owner": "/root",
+  "purpose": "主游戏锁定Godot内真实0.3算法→同Plan/Runtime受控切片→Web取消/退出，随后独立M35适配",
+  "player_experience": "开发入口；普通地图/能力/经济不改，M24已知缺陷不冒称整图可玩",
+  "constraints": [
+    "保PR127 head原样且新分支隔离",
+    "不复制业务solver，FrozenIO与memory严格区分",
+    "示例grapple只请求不授予，场景创建主线程",
+    "M35在完整链路后单独提交，不删危险内容"
+  ],
+  "affected_paths": [
+    "addons/mapgen",
+    "config/mapgen_candidate.json",
+    "tools/install_mapgen_candidate.py",
+    "resources/mapgen",
+    "docs/worklines/mapgen_godot_03/scope.md"
+  ],
+  "deliverables": [
+    "真实算法/来源锁/内存身份/宿主job证据",
+    "当前Godot及Web生成/取消/退出",
+    "完整M35独立提交与剩余清单"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "engine": {
+    "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+    "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "bytes": 171575448,
+    "build_id": "godot-4.7.2-gunman-sd1",
+    "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+    "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+  },
+  "checks": [
+    {
+      "name": "parse",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0",
+        "--script",
+        "res://tests/verify_bundle.gd",
+        "--check-only"
+      ],
+      "cap_seconds": 20,
+      "exit_code": 0,
+      "seconds": 0.4716350139970018
+    },
+    {
+      "name": "foundation",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0",
+        "--script",
+        "res://tests/foundation.gd",
+        "--",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0/tests/dependencies/modules.zip"
+      ],
+      "cap_seconds": 120,
+      "exit_code": 0,
+      "seconds": 3.948915949000366
+    },
+    {
+      "name": "bundle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0",
+        "--script",
+        "res://tests/verify_bundle.gd",
+        "--",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0/tests/dependencies/modules.zip"
+      ],
+      "cap_seconds": 180,
+      "exit_code": 0,
+      "seconds": 14.848013716000423
+    },
+    {
+      "name": "jobs",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0",
+        "--script",
+        "res://tests/jobs.gd",
+        "--",
+        "/tmp/mapgen-v3-audit/extracted/mapgen-godot-candidate-0.3.0/tests/dependencies/modules.zip",
+        "/tmp/mapgen-v3-audit/host-4.7.2-01/jobs.json"
+      ],
+      "cap_seconds": 180,
+      "exit_code": 0,
+      "seconds": 53.887011366998195
+    }
+  ]
+}
