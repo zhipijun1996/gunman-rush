@@ -1,0 +1,628 @@
+{
+  "archive_url": "https://raw.githubusercontent.com/zhipijun1996/map-gen/0d338c2309d4e17bd8e9b128f745eb93938e99b2/reference_package/releases/0.2.0/mapgen-python-reference-0.2.0.zip",
+  "upstream_head": "0d338c2309d4e17bd8e9b128f745eb93938e99b2",
+  "archive_sha256": "25f05861b68a99eee1e9d588eb2cab761e30c85b7cc109b0536292fcc98867f6",
+  "host_data": "/workspace/gunman-rush-refactor/resources/levels/mapgen_host_v2_01",
+  "commands": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "-I",
+        "-S",
+        "/tmp/mapgen-v202-installed-reference-01/extracted/mapgen-python-reference-0.2.0/reference.py",
+        "verify",
+        "--case",
+        "all",
+        "--module-zip",
+        "/tmp/mapgen-v202-installed-reference-01/extracted/mapgen-python-reference-0.2.0/dependencies/map-edit-modules-1.1.0.zip"
+      ],
+      "cwd": "/tmp/mapgen-v202-installed-reference-01/unrelated-working-directory",
+      "exit_code": 0,
+      "elapsed_seconds": 0.3263585780005087,
+      "upstream_receipt": {
+        "status": "PASS",
+        "runtime_target": "python-reference",
+        "readiness": {
+          "stage": "reference-only",
+          "godot_runtime": "NOT_IMPLEMENTED",
+          "web_runtime": "NOT_IMPLEMENTED",
+          "desktop_game_runtime": "NOT_IMPLEMENTED",
+          "host_integration": "NOT_VALIDATED",
+          "whole_map_physics": "NOT_RUN"
+        },
+        "command": "verify",
+        "samples": [
+          {
+            "case": "success",
+            "status": "PASS",
+            "generation_status": "PASS",
+            "usable_map": true,
+            "instances": 46,
+            "content_refs": 46,
+            "whole_map_physics": "NOT_RUN",
+            "deterministic_result_sha256": "b879cef87bae22354d6f11c2db73cf729ff2d3d52c05a6a8a362bbd170219ac0",
+            "map_content_sha256": "682c82d8cd53c3803175641b50de9acf2729d5febf6ba9f59a040f2c143756b4"
+          },
+          {
+            "case": "failure",
+            "status": "PASS",
+            "generation_status": "SEARCH_EXHAUSTED",
+            "usable_map": false
+          }
+        ],
+        "vectors_sha256": "a8d75e956f6864877fbaf1e0d4785d6858fc5d5e7cdbbd8cda0029ab0a302de4"
+      }
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "-I",
+        "-S",
+        "/tmp/mapgen-v202-installed-reference-01/extracted/mapgen-python-reference-0.2.0/reference.py",
+        "replay",
+        "--case",
+        "all",
+        "--module-zip",
+        "/tmp/mapgen-v202-installed-reference-01/extracted/mapgen-python-reference-0.2.0/dependencies/map-edit-modules-1.1.0.zip"
+      ],
+      "cwd": "/tmp/mapgen-v202-installed-reference-01/unrelated-working-directory",
+      "exit_code": 0,
+      "elapsed_seconds": 4.330510449999565,
+      "upstream_receipt": {
+        "status": "PASS",
+        "runtime_target": "python-reference",
+        "readiness": {
+          "stage": "reference-only",
+          "godot_runtime": "NOT_IMPLEMENTED",
+          "web_runtime": "NOT_IMPLEMENTED",
+          "desktop_game_runtime": "NOT_IMPLEMENTED",
+          "host_integration": "NOT_VALIDATED",
+          "whole_map_physics": "NOT_RUN"
+        },
+        "command": "replay",
+        "samples": [
+          {
+            "case": "success",
+            "status": "PASS",
+            "generation_status": "PASS",
+            "deterministic_result_sha256": "b879cef87bae22354d6f11c2db73cf729ff2d3d52c05a6a8a362bbd170219ac0",
+            "map_content_sha256": "682c82d8cd53c3803175641b50de9acf2729d5febf6ba9f59a040f2c143756b4"
+          },
+          {
+            "case": "failure",
+            "status": "PASS",
+            "generation_status": "SEARCH_EXHAUSTED",
+            "deterministic_result_sha256": "5a8e67914ee8be129598aea73c42acac551d4ff784a9250671828e00de3aa3ca",
+            "map_content_sha256": "9168c5fba4c01aacb821abd387d2f47fc4f7d03f6116e663d60f267cba664b08"
+          }
+        ],
+        "vectors_sha256": "a8d75e956f6864877fbaf1e0d4785d6858fc5d5e7cdbbd8cda0029ab0a302de4"
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "path": "map.json",
+      "reference_sha256": "2c47b81e754e3500df1c5e9723b19b1bc99fcd20751d8ae05fd2af55a3ebc6c0",
+      "host_sha256": "2c47b81e754e3500df1c5e9723b19b1bc99fcd20751d8ae05fd2af55a3ebc6c0",
+      "reference_bytes": 547741,
+      "host_bytes": 547741,
+      "byte_equal": true
+    },
+    {
+      "path": "content/M16.json",
+      "reference_sha256": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496",
+      "host_sha256": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496",
+      "reference_bytes": 1425,
+      "host_bytes": 1425,
+      "byte_equal": true
+    },
+    {
+      "path": "content/M18.json",
+      "reference_sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+      "host_sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+      "reference_bytes": 1040,
+      "host_bytes": 1040,
+      "byte_equal": true
+    },
+    {
+      "path": "content/M21.json",
+      "reference_sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+      "host_sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+      "reference_bytes": 1040,
+      "host_bytes": 1040,
+      "byte_equal": true
+    }
+  ],
+  "package_source": {
+    "repository": "https://github.com/zhipijun1996/map-gen",
+    "commit": "1b20031c60ee0269d03c1e89eb52f0a0f0fc70bf",
+    "base_commit": "178c40164c2f7371ce1c8a56cde658e84a4f42c2",
+    "builder": {
+      "repository_path": "reference_package/build.py",
+      "sha256": "88cddd87e287c22690583c113261a075bdbf69b5f82318995be095d5853bb487"
+    },
+    "sample_index": {
+      "repository_path": "reference_package/fixtures/samples.json",
+      "sha256": "0f75bca3e72764396c3429ea52a1a2b0f0f1836fa192139b1ea8ff7978dc72a3"
+    },
+    "files": {
+      "mapgen/__init__.py": {
+        "repository_path": "mapgen/__init__.py",
+        "sha256": "b415c445f758a77d3fc2b07cdb3ef270f0b1f57c4d62e3725be4911476bd5cf0"
+      },
+      "mapgen/__main__.py": {
+        "repository_path": "mapgen/__main__.py",
+        "sha256": "e7ed41fae86d24676a291bdd1129af234a29335dfb4e169e9daeea8b2d43ae32"
+      },
+      "mapgen/api.py": {
+        "repository_path": "mapgen/api.py",
+        "sha256": "306ab17683b3c8d264cdd063c11504dcfed46b318fd40aea63c6911b13655dd1"
+      },
+      "mapgen/artifacts.py": {
+        "repository_path": "mapgen/artifacts.py",
+        "sha256": "8fd1240c68464af3cdc20f5c185f83b2d9e5fa73b0307664b953a141bce3b787"
+      },
+      "mapgen/assembly.py": {
+        "repository_path": "mapgen/assembly.py",
+        "sha256": "aec6546ebd7c387bf064195e775e51839a3a8ed2a3d59c46bcb1d5e95718fb67"
+      },
+      "mapgen/audit.py": {
+        "repository_path": "mapgen/audit.py",
+        "sha256": "dfeb297eb8448b5bf96638fe3d0090e440a8164d45b9b0f916242d1319129e07"
+      },
+      "mapgen/contracts.py": {
+        "repository_path": "mapgen/contracts.py",
+        "sha256": "5367a250b667a5222413d1289353c169712578bffad10040d74729a084e5e2e4"
+      },
+      "mapgen/export.py": {
+        "repository_path": "mapgen/export.py",
+        "sha256": "f6b62966705191c05e4b4b3418fa973469b00719c248364e158c53d399790c14"
+      },
+      "mapgen/geometry.py": {
+        "repository_path": "mapgen/geometry.py",
+        "sha256": "acf61a31fd9bf633509f408235ab6f8257fb8438fc10496b9563d04e05d999ba"
+      },
+      "mapgen/library.py": {
+        "repository_path": "mapgen/library.py",
+        "sha256": "6efc7ed713f60d8737800695a419a39d38c268ebefe6e714ac94b9828df4cb54"
+      },
+      "mapgen/metrics.py": {
+        "repository_path": "mapgen/metrics.py",
+        "sha256": "a8a27f0ff973c7f7a38ea9b4bc2e6ab9432fd5d8df646a5c70e27d1fb1e4d0a5"
+      },
+      "mapgen/package_info.py": {
+        "repository_path": "mapgen/package_info.py",
+        "sha256": "9792077cfc8e6535fa45328f63969f8bef09fa8af75688196aaace737959a806"
+      },
+      "mapgen/reference_vectors.py": {
+        "repository_path": "mapgen/reference_vectors.py",
+        "sha256": "6faefec2e4e923016d0fd1f2e0915ad00da2add4917cfd833ebb83e7e205d045"
+      },
+      "mapgen/solver.py": {
+        "repository_path": "mapgen/solver.py",
+        "sha256": "9e0fcbb3011cf317a6b471e14593a7e7252f6b5ab80592c3302d4051cb379ce2"
+      },
+      "mapgen/transform.py": {
+        "repository_path": "mapgen/transform.py",
+        "sha256": "68b5d93987e7b5e0a46d669a2cd982498e7547bdebe0db9a0b1200e54cd3ff29"
+      },
+      "schemas/config.schema.json": {
+        "repository_path": "schemas/config.schema.json",
+        "sha256": "43521cbe65dc4b43e80551d235fa83577e1ced402f033c8258f973aefa76c1eb"
+      },
+      "schemas/request.schema.json": {
+        "repository_path": "schemas/request.schema.json",
+        "sha256": "8b2d10070df44dfbaa0b91d776b0844442ac0e12bca681febb37b37eea684e6d"
+      },
+      "schemas/result.schema.json": {
+        "repository_path": "schemas/result.schema.json",
+        "sha256": "9920824363b8a369d3518b9daea7baeb7b8f7fb6b2ed987d0c6b3840b9bc0780"
+      },
+      "schemas/runtime-map.schema.json": {
+        "repository_path": "schemas/runtime-map.schema.json",
+        "sha256": "adf853cc9b63fd4f732891ebd5e57f7fdae08aa598d46d3b24a63b63e1236b9d"
+      },
+      "profiles/stable-v2.json": {
+        "repository_path": "profiles/stable-v2.json",
+        "sha256": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a"
+      },
+      "pyproject.toml": {
+        "repository_path": "pyproject.toml",
+        "sha256": "2397e40dbf9267e951201f7872428d7c003b52cc6731e78c3b61d6c546ab21c4"
+      },
+      "reference.py": {
+        "repository_path": "reference_package/entry.py",
+        "sha256": "46b45e883dfed01395a7132196192f2eada929efe86bfaa58c1d2891456d2abf"
+      },
+      "README.md": {
+        "repository_path": "reference_package/docs/README.md",
+        "sha256": "868ecab4133307cf4dcb127c825a4a928f0b4e27d5742600879c0b27251552ef"
+      },
+      "docs/GODOT_RUNTIME.md": {
+        "repository_path": "reference_package/docs/GODOT_RUNTIME.md",
+        "sha256": "bcc6325ae12733acf1dc0cb6ef03d18e04cdcee36545d57286569e185a8cb39a"
+      },
+      "docs/HOST_HANDOFF.md": {
+        "repository_path": "reference_package/docs/HOST_HANDOFF.md",
+        "sha256": "c102adea1972f26b0b9a5b2865435a67adc2fc1aaa563845d91e9b2252cc730a"
+      },
+      "docs/PROTOCOL.md": {
+        "repository_path": "reference_package/docs/PROTOCOL.md",
+        "sha256": "5fca3f54b9cb03665064700cd50a45217b1fc9cc8b4e02fade508529f2c5d2ae"
+      },
+      "docs/host-review.json": {
+        "repository_path": "reference_package/host-review.json",
+        "sha256": "286561ad2f1e31a90a16dc7822bd513fd59d9ef078584b4e9a4077c2e3a2c1f3"
+      },
+      "call_example.py": {
+        "repository_path": "reference_package/call_example.py",
+        "sha256": "067399f019f88ea43c72dc92b38c9ccbf8f559aa0ee18a1b448cf4e20e5b6370"
+      },
+      "samples/success/config.json": {
+        "repository_path": "reference_package/fixtures/success/config.json",
+        "sha256": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a"
+      },
+      "samples/success/content/M01.json": {
+        "repository_path": "reference_package/fixtures/success/content/M01.json",
+        "sha256": "b1dd1d6a46a609d56a1673a969b361fb17a095986093e948b22dc35a8936d18e"
+      },
+      "samples/success/content/M02.json": {
+        "repository_path": "reference_package/fixtures/success/content/M02.json",
+        "sha256": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc"
+      },
+      "samples/success/content/M03.json": {
+        "repository_path": "reference_package/fixtures/success/content/M03.json",
+        "sha256": "768c83f6e76e6e22327a9bd0e7eb8a968cd05c9089bb98bca4ebf4e24f887fe4"
+      },
+      "samples/success/content/M04.json": {
+        "repository_path": "reference_package/fixtures/success/content/M04.json",
+        "sha256": "70120600d9e7b20ace68b4ff4ae066073bef55bca9973227a49a56ae1a53c06b"
+      },
+      "samples/success/content/M05.json": {
+        "repository_path": "reference_package/fixtures/success/content/M05.json",
+        "sha256": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59"
+      },
+      "samples/success/content/M06.json": {
+        "repository_path": "reference_package/fixtures/success/content/M06.json",
+        "sha256": "cdaf694cf57a36eabff84aa7089dbfd8f3f634fd2c95b169dbd813be10ce4fe5"
+      },
+      "samples/success/content/M07.json": {
+        "repository_path": "reference_package/fixtures/success/content/M07.json",
+        "sha256": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59"
+      },
+      "samples/success/content/M08.json": {
+        "repository_path": "reference_package/fixtures/success/content/M08.json",
+        "sha256": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59"
+      },
+      "samples/success/content/M09.json": {
+        "repository_path": "reference_package/fixtures/success/content/M09.json",
+        "sha256": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc"
+      },
+      "samples/success/content/M10.json": {
+        "repository_path": "reference_package/fixtures/success/content/M10.json",
+        "sha256": "4c12391604a927445d7e4040273156c980d2c2535b2101b4bb0e8169a0007c43"
+      },
+      "samples/success/content/M11.json": {
+        "repository_path": "reference_package/fixtures/success/content/M11.json",
+        "sha256": "cdaf694cf57a36eabff84aa7089dbfd8f3f634fd2c95b169dbd813be10ce4fe5"
+      },
+      "samples/success/content/M12.json": {
+        "repository_path": "reference_package/fixtures/success/content/M12.json",
+        "sha256": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59"
+      },
+      "samples/success/content/M13.json": {
+        "repository_path": "reference_package/fixtures/success/content/M13.json",
+        "sha256": "f87e5ea0ec9be921be5799400deb930b78e5397e6cbbb247bb54ec6ad2b2fd15"
+      },
+      "samples/success/content/M14.json": {
+        "repository_path": "reference_package/fixtures/success/content/M14.json",
+        "sha256": "db0ba12984d19e8e26990772735861d9dec0afd1e100c0880c92ef76216d4384"
+      },
+      "samples/success/content/M15.json": {
+        "repository_path": "reference_package/fixtures/success/content/M15.json",
+        "sha256": "70120600d9e7b20ace68b4ff4ae066073bef55bca9973227a49a56ae1a53c06b"
+      },
+      "samples/success/content/M16.json": {
+        "repository_path": "reference_package/fixtures/success/content/M16.json",
+        "sha256": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496"
+      },
+      "samples/success/content/M17.json": {
+        "repository_path": "reference_package/fixtures/success/content/M17.json",
+        "sha256": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59"
+      },
+      "samples/success/content/M18.json": {
+        "repository_path": "reference_package/fixtures/success/content/M18.json",
+        "sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512"
+      },
+      "samples/success/content/M19.json": {
+        "repository_path": "reference_package/fixtures/success/content/M19.json",
+        "sha256": "cdaf694cf57a36eabff84aa7089dbfd8f3f634fd2c95b169dbd813be10ce4fe5"
+      },
+      "samples/success/content/M20.json": {
+        "repository_path": "reference_package/fixtures/success/content/M20.json",
+        "sha256": "7015515002e949f342c46c6919bd7283df3998ca6f56d6c594397ac501aa4209"
+      },
+      "samples/success/content/M21.json": {
+        "repository_path": "reference_package/fixtures/success/content/M21.json",
+        "sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512"
+      },
+      "samples/success/content/M22.json": {
+        "repository_path": "reference_package/fixtures/success/content/M22.json",
+        "sha256": "4dbcf57fd5032311da3ce1b19d8df8ec832d3e04b7d5a93c41834dc175a7c4a8"
+      },
+      "samples/success/content/M23.json": {
+        "repository_path": "reference_package/fixtures/success/content/M23.json",
+        "sha256": "71013d89a74b0c5999183318010cc9240b40892b0967229446366c30bcefecc0"
+      },
+      "samples/success/content/M24.json": {
+        "repository_path": "reference_package/fixtures/success/content/M24.json",
+        "sha256": "bea31ff18c1d7d23db751fe5c5ba3e3ab5f97d06bdca69ca3883016e6144e661"
+      },
+      "samples/success/content/M25.json": {
+        "repository_path": "reference_package/fixtures/success/content/M25.json",
+        "sha256": "5f72eddae19e35c0a8f6c627678eacbece5a19bb200b36c7ed17ebcb98868d3d"
+      },
+      "samples/success/content/M26.json": {
+        "repository_path": "reference_package/fixtures/success/content/M26.json",
+        "sha256": "1f260d689958e4ec4ae433343c4164b8730b7c378b4c2407cc0f381e9e500694"
+      },
+      "samples/success/content/M27.json": {
+        "repository_path": "reference_package/fixtures/success/content/M27.json",
+        "sha256": "768c83f6e76e6e22327a9bd0e7eb8a968cd05c9089bb98bca4ebf4e24f887fe4"
+      },
+      "samples/success/content/M28.json": {
+        "repository_path": "reference_package/fixtures/success/content/M28.json",
+        "sha256": "b97a8f28350b4786050e76a70ded12a18eba99f2ccc9e008a81569fef91e2f3a"
+      },
+      "samples/success/content/M29.json": {
+        "repository_path": "reference_package/fixtures/success/content/M29.json",
+        "sha256": "5e7c4efe38a0e3fb57d853bb3656bdb015579f79a191181e89980e61ad0203ff"
+      },
+      "samples/success/content/M30.json": {
+        "repository_path": "reference_package/fixtures/success/content/M30.json",
+        "sha256": "768c83f6e76e6e22327a9bd0e7eb8a968cd05c9089bb98bca4ebf4e24f887fe4"
+      },
+      "samples/success/content/M31.json": {
+        "repository_path": "reference_package/fixtures/success/content/M31.json",
+        "sha256": "d72e61e028d0a64273f1fe5581cbd6d410d7df1e7e2a3e7334470eec3029441a"
+      },
+      "samples/success/content/M32.json": {
+        "repository_path": "reference_package/fixtures/success/content/M32.json",
+        "sha256": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc"
+      },
+      "samples/success/content/M33.json": {
+        "repository_path": "reference_package/fixtures/success/content/M33.json",
+        "sha256": "dce2ae3b3bee0d9210f78ee1e66765ea9bce6dbbb222e16266c6fe98a7425599"
+      },
+      "samples/success/content/M34.json": {
+        "repository_path": "reference_package/fixtures/success/content/M34.json",
+        "sha256": "75422a68aaae7499812ab200e96f0ce0a9fe8dbdfd654548f5e17448c7fc3556"
+      },
+      "samples/success/content/M35.json": {
+        "repository_path": "reference_package/fixtures/success/content/M35.json",
+        "sha256": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c"
+      },
+      "samples/success/content/M36.json": {
+        "repository_path": "reference_package/fixtures/success/content/M36.json",
+        "sha256": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc"
+      },
+      "samples/success/content/M37.json": {
+        "repository_path": "reference_package/fixtures/success/content/M37.json",
+        "sha256": "d72e61e028d0a64273f1fe5581cbd6d410d7df1e7e2a3e7334470eec3029441a"
+      },
+      "samples/success/content/M38.json": {
+        "repository_path": "reference_package/fixtures/success/content/M38.json",
+        "sha256": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496"
+      },
+      "samples/success/content/M39.json": {
+        "repository_path": "reference_package/fixtures/success/content/M39.json",
+        "sha256": "d72e61e028d0a64273f1fe5581cbd6d410d7df1e7e2a3e7334470eec3029441a"
+      },
+      "samples/success/content/M40.json": {
+        "repository_path": "reference_package/fixtures/success/content/M40.json",
+        "sha256": "cd04fc992f114b1428dbf3635399b43d2f511df02893e9f132988cc86e3d54d3"
+      },
+      "samples/success/content/M41.json": {
+        "repository_path": "reference_package/fixtures/success/content/M41.json",
+        "sha256": "1b8da3b72c73431e836b815d44d8ed4bb9780437bc0f621c32b9b789c817ad4c"
+      },
+      "samples/success/content/M42.json": {
+        "repository_path": "reference_package/fixtures/success/content/M42.json",
+        "sha256": "f28972885ba17f0078538d3254dc01893bce17c48200e2f9693a92b4bd4933bf"
+      },
+      "samples/success/content/M43.json": {
+        "repository_path": "reference_package/fixtures/success/content/M43.json",
+        "sha256": "239a36c7bcab072e202da4edab9badb5925d115ee6b8362fff38f04cdd174510"
+      },
+      "samples/success/content/M44.json": {
+        "repository_path": "reference_package/fixtures/success/content/M44.json",
+        "sha256": "239a36c7bcab072e202da4edab9badb5925d115ee6b8362fff38f04cdd174510"
+      },
+      "samples/success/content/M45.json": {
+        "repository_path": "reference_package/fixtures/success/content/M45.json",
+        "sha256": "1b8da3b72c73431e836b815d44d8ed4bb9780437bc0f621c32b9b789c817ad4c"
+      },
+      "samples/success/content/M46.json": {
+        "repository_path": "reference_package/fixtures/success/content/M46.json",
+        "sha256": "33f284e8c0d02f38243a652350547a7e529cbacd080ae7a253a826436dbfd2c8"
+      },
+      "samples/success/content_store.json": {
+        "repository_path": "reference_package/fixtures/success/content_store.json",
+        "sha256": "f0f203f9a7388e915e190d08e65e08319ef113f8bbcdca2d86637d1121658554"
+      },
+      "samples/success/map.json": {
+        "repository_path": "reference_package/fixtures/success/map.json",
+        "sha256": "2c47b81e754e3500df1c5e9723b19b1bc99fcd20751d8ae05fd2af55a3ebc6c0"
+      },
+      "samples/success/module-lock.json": {
+        "repository_path": "reference_package/fixtures/success/module-lock.json",
+        "sha256": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69"
+      },
+      "samples/success/provenance.json": {
+        "repository_path": "reference_package/fixtures/success/provenance.json",
+        "sha256": "3c27359393b98b1230ddd11057ea99e7fc0855d1d6a7cd8d4612fb01f336e1d8"
+      },
+      "samples/success/request.json": {
+        "repository_path": "reference_package/fixtures/success/request.json",
+        "sha256": "3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a"
+      },
+      "samples/success/result.json": {
+        "repository_path": "reference_package/fixtures/success/result.json",
+        "sha256": "4139bebac368d9da1a3527be9d63063476c4ca0ce7ffbd611cacaab5bd3e33d0"
+      },
+      "samples/failure/config.json": {
+        "repository_path": "reference_package/fixtures/failure/config.json",
+        "sha256": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a"
+      },
+      "samples/failure/module-lock.json": {
+        "repository_path": "reference_package/fixtures/failure/module-lock.json",
+        "sha256": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69"
+      },
+      "samples/failure/provenance.json": {
+        "repository_path": "reference_package/fixtures/failure/provenance.json",
+        "sha256": "7deca3fba0880526d9d2937fc4bdddeb195aaab0eda9e79b53872b9a0722ca9f"
+      },
+      "samples/failure/request.json": {
+        "repository_path": "reference_package/fixtures/failure/request.json",
+        "sha256": "7254323c314e9caaf3064d3a3986193755420bc4b6a7eb00e78af67e817517d2"
+      },
+      "samples/failure/result.json": {
+        "repository_path": "reference_package/fixtures/failure/result.json",
+        "sha256": "db2d9e987c775616740a20c5ed53f0e4cf0cfb994563209bb3cc06c2465c8a57"
+      },
+      "determinism/vectors.json": {
+        "repository_path": "reference_package/fixtures/vectors.json",
+        "sha256": "be4201c0179a6cce1e1d7376fd69a0f10255aa0011e58c5bd4e84c4f06041fba"
+      },
+      "dependencies/python-lock.json": {
+        "repository_path": "reference_package/fixtures/python-lock.json",
+        "sha256": "7fba3cfeab236b673de6f3c2b530c05bb3d0fba25eb061bde453bded79390759"
+      },
+      "dependencies/module-lock.json": {
+        "repository_path": "examples/library-lock.json",
+        "sha256": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69"
+      }
+    }
+  },
+  "runtime_target": "python-reference",
+  "readiness": {
+    "stage": "reference-only",
+    "godot_runtime": "NOT_IMPLEMENTED",
+    "web_runtime": "NOT_IMPLEMENTED",
+    "desktop_game_runtime": "NOT_IMPLEMENTED",
+    "host_integration": "NOT_VALIDATED",
+    "whole_map_physics": "NOT_RUN"
+  },
+  "package": {
+    "name": "mapgen-python-reference-0.2.0",
+    "version": "0.2.0",
+    "algorithm": "stable-v2",
+    "implementation": "mapgen/interface-v1"
+  },
+  "request_config_lock_sha256": {
+    "request.json": "3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a",
+    "config.json": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a",
+    "module-lock.json": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69",
+    "provenance.json": "3c27359393b98b1230ddd11057ea99e7fc0855d1d6a7cd8d4612fb01f336e1d8"
+  },
+  "verified_file_hashes": {
+    "README.md": "868ecab4133307cf4dcb127c825a4a928f0b4e27d5742600879c0b27251552ef",
+    "call_example.py": "067399f019f88ea43c72dc92b38c9ccbf8f559aa0ee18a1b448cf4e20e5b6370",
+    "dependencies/map-edit-modules-1.1.0.zip": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+    "dependencies/module-lock.json": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69",
+    "dependencies/python-lock.json": "7fba3cfeab236b673de6f3c2b530c05bb3d0fba25eb061bde453bded79390759",
+    "determinism/vectors.json": "be4201c0179a6cce1e1d7376fd69a0f10255aa0011e58c5bd4e84c4f06041fba",
+    "docs/GODOT_RUNTIME.md": "bcc6325ae12733acf1dc0cb6ef03d18e04cdcee36545d57286569e185a8cb39a",
+    "docs/HOST_HANDOFF.md": "c102adea1972f26b0b9a5b2865435a67adc2fc1aaa563845d91e9b2252cc730a",
+    "docs/PROTOCOL.md": "5fca3f54b9cb03665064700cd50a45217b1fc9cc8b4e02fade508529f2c5d2ae",
+    "docs/host-review.json": "286561ad2f1e31a90a16dc7822bd513fd59d9ef078584b4e9a4077c2e3a2c1f3",
+    "mapgen/__init__.py": "b415c445f758a77d3fc2b07cdb3ef270f0b1f57c4d62e3725be4911476bd5cf0",
+    "mapgen/__main__.py": "e7ed41fae86d24676a291bdd1129af234a29335dfb4e169e9daeea8b2d43ae32",
+    "mapgen/api.py": "306ab17683b3c8d264cdd063c11504dcfed46b318fd40aea63c6911b13655dd1",
+    "mapgen/artifacts.py": "8fd1240c68464af3cdc20f5c185f83b2d9e5fa73b0307664b953a141bce3b787",
+    "mapgen/assembly.py": "aec6546ebd7c387bf064195e775e51839a3a8ed2a3d59c46bcb1d5e95718fb67",
+    "mapgen/audit.py": "dfeb297eb8448b5bf96638fe3d0090e440a8164d45b9b0f916242d1319129e07",
+    "mapgen/contracts.py": "5367a250b667a5222413d1289353c169712578bffad10040d74729a084e5e2e4",
+    "mapgen/export.py": "f6b62966705191c05e4b4b3418fa973469b00719c248364e158c53d399790c14",
+    "mapgen/geometry.py": "acf61a31fd9bf633509f408235ab6f8257fb8438fc10496b9563d04e05d999ba",
+    "mapgen/library.py": "6efc7ed713f60d8737800695a419a39d38c268ebefe6e714ac94b9828df4cb54",
+    "mapgen/metrics.py": "a8a27f0ff973c7f7a38ea9b4bc2e6ab9432fd5d8df646a5c70e27d1fb1e4d0a5",
+    "mapgen/package_info.py": "9792077cfc8e6535fa45328f63969f8bef09fa8af75688196aaace737959a806",
+    "mapgen/reference_vectors.py": "6faefec2e4e923016d0fd1f2e0915ad00da2add4917cfd833ebb83e7e205d045",
+    "mapgen/solver.py": "9e0fcbb3011cf317a6b471e14593a7e7252f6b5ab80592c3302d4051cb379ce2",
+    "mapgen/transform.py": "68b5d93987e7b5e0a46d669a2cd982498e7547bdebe0db9a0b1200e54cd3ff29",
+    "profiles/stable-v2.json": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a",
+    "pyproject.toml": "2397e40dbf9267e951201f7872428d7c003b52cc6731e78c3b61d6c546ab21c4",
+    "reference.py": "46b45e883dfed01395a7132196192f2eada929efe86bfaa58c1d2891456d2abf",
+    "samples/failure/config.json": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a",
+    "samples/failure/module-lock.json": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69",
+    "samples/failure/provenance.json": "7deca3fba0880526d9d2937fc4bdddeb195aaab0eda9e79b53872b9a0722ca9f",
+    "samples/failure/request.json": "7254323c314e9caaf3064d3a3986193755420bc4b6a7eb00e78af67e817517d2",
+    "samples/failure/result.json": "db2d9e987c775616740a20c5ed53f0e4cf0cfb994563209bb3cc06c2465c8a57",
+    "samples/success/config.json": "aafd76336c23ff144b94368f3290114cd3ae7be812dedbcd8a50ca610102f89a",
+    "samples/success/content/M01.json": "b1dd1d6a46a609d56a1673a969b361fb17a095986093e948b22dc35a8936d18e",
+    "samples/success/content/M02.json": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc",
+    "samples/success/content/M03.json": "768c83f6e76e6e22327a9bd0e7eb8a968cd05c9089bb98bca4ebf4e24f887fe4",
+    "samples/success/content/M04.json": "70120600d9e7b20ace68b4ff4ae066073bef55bca9973227a49a56ae1a53c06b",
+    "samples/success/content/M05.json": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59",
+    "samples/success/content/M06.json": "cdaf694cf57a36eabff84aa7089dbfd8f3f634fd2c95b169dbd813be10ce4fe5",
+    "samples/success/content/M07.json": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59",
+    "samples/success/content/M08.json": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59",
+    "samples/success/content/M09.json": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc",
+    "samples/success/content/M10.json": "4c12391604a927445d7e4040273156c980d2c2535b2101b4bb0e8169a0007c43",
+    "samples/success/content/M11.json": "cdaf694cf57a36eabff84aa7089dbfd8f3f634fd2c95b169dbd813be10ce4fe5",
+    "samples/success/content/M12.json": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59",
+    "samples/success/content/M13.json": "f87e5ea0ec9be921be5799400deb930b78e5397e6cbbb247bb54ec6ad2b2fd15",
+    "samples/success/content/M14.json": "db0ba12984d19e8e26990772735861d9dec0afd1e100c0880c92ef76216d4384",
+    "samples/success/content/M15.json": "70120600d9e7b20ace68b4ff4ae066073bef55bca9973227a49a56ae1a53c06b",
+    "samples/success/content/M16.json": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496",
+    "samples/success/content/M17.json": "f5cec959358a2c38d509af1ab67ffa7bd908386fcaad7226d554afaa274ace59",
+    "samples/success/content/M18.json": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+    "samples/success/content/M19.json": "cdaf694cf57a36eabff84aa7089dbfd8f3f634fd2c95b169dbd813be10ce4fe5",
+    "samples/success/content/M20.json": "7015515002e949f342c46c6919bd7283df3998ca6f56d6c594397ac501aa4209",
+    "samples/success/content/M21.json": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+    "samples/success/content/M22.json": "4dbcf57fd5032311da3ce1b19d8df8ec832d3e04b7d5a93c41834dc175a7c4a8",
+    "samples/success/content/M23.json": "71013d89a74b0c5999183318010cc9240b40892b0967229446366c30bcefecc0",
+    "samples/success/content/M24.json": "bea31ff18c1d7d23db751fe5c5ba3e3ab5f97d06bdca69ca3883016e6144e661",
+    "samples/success/content/M25.json": "5f72eddae19e35c0a8f6c627678eacbece5a19bb200b36c7ed17ebcb98868d3d",
+    "samples/success/content/M26.json": "1f260d689958e4ec4ae433343c4164b8730b7c378b4c2407cc0f381e9e500694",
+    "samples/success/content/M27.json": "768c83f6e76e6e22327a9bd0e7eb8a968cd05c9089bb98bca4ebf4e24f887fe4",
+    "samples/success/content/M28.json": "b97a8f28350b4786050e76a70ded12a18eba99f2ccc9e008a81569fef91e2f3a",
+    "samples/success/content/M29.json": "5e7c4efe38a0e3fb57d853bb3656bdb015579f79a191181e89980e61ad0203ff",
+    "samples/success/content/M30.json": "768c83f6e76e6e22327a9bd0e7eb8a968cd05c9089bb98bca4ebf4e24f887fe4",
+    "samples/success/content/M31.json": "d72e61e028d0a64273f1fe5581cbd6d410d7df1e7e2a3e7334470eec3029441a",
+    "samples/success/content/M32.json": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc",
+    "samples/success/content/M33.json": "dce2ae3b3bee0d9210f78ee1e66765ea9bce6dbbb222e16266c6fe98a7425599",
+    "samples/success/content/M34.json": "75422a68aaae7499812ab200e96f0ce0a9fe8dbdfd654548f5e17448c7fc3556",
+    "samples/success/content/M35.json": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c",
+    "samples/success/content/M36.json": "f2d98994e895cf834bb81334777ed74ae217943406d3535b4f5ac9db4d679adc",
+    "samples/success/content/M37.json": "d72e61e028d0a64273f1fe5581cbd6d410d7df1e7e2a3e7334470eec3029441a",
+    "samples/success/content/M38.json": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496",
+    "samples/success/content/M39.json": "d72e61e028d0a64273f1fe5581cbd6d410d7df1e7e2a3e7334470eec3029441a",
+    "samples/success/content/M40.json": "cd04fc992f114b1428dbf3635399b43d2f511df02893e9f132988cc86e3d54d3",
+    "samples/success/content/M41.json": "1b8da3b72c73431e836b815d44d8ed4bb9780437bc0f621c32b9b789c817ad4c",
+    "samples/success/content/M42.json": "f28972885ba17f0078538d3254dc01893bce17c48200e2f9693a92b4bd4933bf",
+    "samples/success/content/M43.json": "239a36c7bcab072e202da4edab9badb5925d115ee6b8362fff38f04cdd174510",
+    "samples/success/content/M44.json": "239a36c7bcab072e202da4edab9badb5925d115ee6b8362fff38f04cdd174510",
+    "samples/success/content/M45.json": "1b8da3b72c73431e836b815d44d8ed4bb9780437bc0f621c32b9b789c817ad4c",
+    "samples/success/content/M46.json": "33f284e8c0d02f38243a652350547a7e529cbacd080ae7a253a826436dbfd2c8",
+    "samples/success/content_store.json": "f0f203f9a7388e915e190d08e65e08319ef113f8bbcdca2d86637d1121658554",
+    "samples/success/map.json": "2c47b81e754e3500df1c5e9723b19b1bc99fcd20751d8ae05fd2af55a3ebc6c0",
+    "samples/success/module-lock.json": "45e740708891fa2ebb2f63be82a073bc21c12d83ef9fcd6005c9dbc0d72dbd69",
+    "samples/success/provenance.json": "3c27359393b98b1230ddd11057ea99e7fc0855d1d6a7cd8d4612fb01f336e1d8",
+    "samples/success/request.json": "3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a",
+    "samples/success/result.json": "4139bebac368d9da1a3527be9d63063476c4ca0ce7ffbd611cacaab5bd3e33d0",
+    "schemas/config.schema.json": "43521cbe65dc4b43e80551d235fa83577e1ced402f033c8258f973aefa76c1eb",
+    "schemas/request.schema.json": "8b2d10070df44dfbaa0b91d776b0844442ac0e12bca681febb37b37eea684e6d",
+    "schemas/result.schema.json": "9920824363b8a369d3518b9daea7baeb7b8f7fb6b2ed987d0c6b3840b9bc0780",
+    "schemas/runtime-map.schema.json": "adf853cc9b63fd4f732891ebd5e57f7fdae08aa598d46d3b24a63b63e1236b9d"
+  },
+  "zip_members": 91,
+  "host_resources_unchanged": true,
+  "godot_run": false,
+  "game_python_or_zip_copied": false,
+  "development_check_passed": true
+}

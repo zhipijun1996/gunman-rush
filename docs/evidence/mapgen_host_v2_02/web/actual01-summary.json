@@ -1,0 +1,397 @@
+{
+  "status": "LIMITED_FUNCTIONAL_PASS_WITH_RETAINED_CONSOLE_DIAGNOSTICS",
+  "driver_status_unchanged": "PASSED_TWO_ACTUAL_WEB_PREVIEW_EXITS",
+  "elapsed_seconds": 249.2182346979971,
+  "original_total_budget_seconds": 300,
+  "planned_contexts": 2,
+  "completed_contexts": 2,
+  "all_six_PNGs_individually_viewed": true,
+  "served_before": {
+    "identity": {
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "build_id": "ca7b47b3f398",
+      "pack": "index.ca7b47b3f398.pck",
+      "pack_sha256": "ca7b47b3f3980630f46eb4c318319f93f628ce5918acf54a8ef775fa35efafa1",
+      "pack_bytes": 216993944
+    },
+    "html_sha256": "170b40239c937d6854c64cce030d6618834c1e1ba2a296381f56dc719ef31956",
+    "launch_flags": [
+      "--",
+      "--cloud-preview",
+      "--task=MAPGEN-HOST-V2-02",
+      "--seed=930001",
+      "--entry=scene",
+      "--scene=res://experiments/generation/entries/runtime_map_v2_slice.tscn"
+    ]
+  },
+  "served_after": {
+    "identity": {
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "build_id": "ca7b47b3f398",
+      "pack": "index.ca7b47b3f398.pck",
+      "pack_sha256": "ca7b47b3f3980630f46eb4c318319f93f628ce5918acf54a8ef775fa35efafa1",
+      "pack_bytes": 216993944
+    },
+    "html_sha256": "170b40239c937d6854c64cce030d6618834c1e1ba2a296381f56dc719ef31956",
+    "launch_flags": [
+      "--",
+      "--cloud-preview",
+      "--task=MAPGEN-HOST-V2-02",
+      "--seed=930001",
+      "--entry=scene",
+      "--scene=res://experiments/generation/entries/runtime_map_v2_slice.tscn"
+    ]
+  },
+  "raw_JSON_readback": [
+    {
+      "path": "resources/levels/mapgen_host_v2_01/input-lock.json",
+      "bytes": 930,
+      "sha256": "ffd558cbf10404566715d22cab8ce9c019e8b6274cbe11c3b40eb3be95437b14"
+    },
+    {
+      "path": "resources/levels/mapgen_host_v2_01/map.json",
+      "bytes": 547741,
+      "sha256": "2c47b81e754e3500df1c5e9723b19b1bc99fcd20751d8ae05fd2af55a3ebc6c0"
+    },
+    {
+      "path": "resources/levels/mapgen_host_v2_01/bindings.json",
+      "bytes": 771,
+      "sha256": "e007a329ec66c9d715f111b4f6044130384b246de0aa0689fdfe6bfcc61f0c00"
+    },
+    {
+      "path": "resources/levels/mapgen_host_v2_01/selection.json",
+      "bytes": 6211,
+      "sha256": "e3ceb41f8fd3753ea768179c4e44f8eb27a802d0fad97e76a6b540cb88cb11fb"
+    },
+    {
+      "path": "resources/levels/mapgen_host_v2_01/content/M16.json",
+      "bytes": 1425,
+      "sha256": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496"
+    },
+    {
+      "path": "resources/levels/mapgen_host_v2_01/content/M18.json",
+      "bytes": 1040,
+      "sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512"
+    },
+    {
+      "path": "resources/levels/mapgen_host_v2_01/content/M21.json",
+      "bytes": 1040,
+      "sha256": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512"
+    }
+  ],
+  "expected_host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+  "sessions": [
+    {
+      "label": "menu-click",
+      "status": "PASSED_ACTUAL_PREVIEW_EXIT",
+      "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+      "expected_host_load_identity_matches": true,
+      "loaded": {
+        "carrier": [
+          96.0,
+          1024.0
+        ],
+        "event": "loaded",
+        "grounded": false,
+        "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+        "player": [
+          -448.0,
+          846.0
+        ]
+      },
+      "physics_observation_count": 147,
+      "input_baseline": {
+        "carrier": [
+          -178.608306884766,
+          1124.48181152344
+        ],
+        "event": "physics",
+        "grounded": true,
+        "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+        "player": [
+          -448.0,
+          846.0
+        ]
+      },
+      "input_after": {
+        "carrier": [
+          -4.7108154296875,
+          1157.74853515625
+        ],
+        "event": "physics",
+        "grounded": true,
+        "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+        "player": [
+          -391.666564941406,
+          845.924011230469
+        ]
+      },
+      "directional_x_delta_wu": 56.33343505859398,
+      "carrier_max_observed_displacement_wu": 315.79809396642037,
+      "grounded_observed": true,
+      "inputs": [
+        {
+          "action": "d180",
+          "begin_epoch_ms": 1793673087271.9463,
+          "end_epoch_ms": 1793673087509.613
+        },
+        {
+          "action": "actual-FULL-GAME-MENU-click",
+          "point": [
+            497.5,
+            238.5
+          ]
+        }
+      ],
+      "exit_point": [
+        497.5,
+        238.5
+      ],
+      "closed_observation": {
+        "epoch_ms": 1793673139798.3481,
+        "value": {
+          "audio_released": true,
+          "event": "closed",
+          "lifetime_active": false,
+          "stage_detached": true
+        }
+      },
+      "cleanup_precedes_return_log": true,
+      "actual_title_start_pixel_point": [
+        231.5,
+        189.0
+      ],
+      "screenshots": [
+        {
+          "file": "menu-click-01-loaded.png",
+          "sha256": "1297ac6f8987ad7718a98b5e8fb2fae789ee30b8541896e955793c69ad061c59",
+          "epoch_ms": 1793673067303.9336
+        },
+        {
+          "file": "menu-click-02-after-input.png",
+          "sha256": "8b91b0c665c6f9bb3fe99ebaf275e85f22d4c60777037e02363760854fff5a27",
+          "epoch_ms": 1793673088710.8992
+        },
+        {
+          "file": "menu-click-03-returned-title.png",
+          "sha256": "eb5151acceb3ec26686b76d1fb4f409deed018cf5da728413e7328fbd16fc6e4",
+          "epoch_ms": 1793673141242.085
+        }
+      ],
+      "operator_visual_review": "Viewed all three menu-click images. New MAPGEN loading-slice label, M16/M18/M21 terrain, real player and moving carrier are visible; after D the world/camera and carrier positions change. OCR-selected FULL GAME/MENU returned to the real title with Chinese Start/Continue/Settings/Tutorial/Development entries and matching build badge. No blank/error screen. This confirms limited load/input/exit, not Web seam traversal, full-map quality, cleanup leak-freedom or performance.",
+      "page_errors": [],
+      "script_errors": [],
+      "request_failures": [],
+      "http_response_error_callback_records": [],
+      "console_error_records_preserved": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "location": {
+            "url": "http://127.0.0.1:8815/favicon.ico",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          },
+          "epoch_ms": 1793673032085.2407
+        },
+        {
+          "type": "error",
+          "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+          "location": {
+            "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+            "line": 466,
+            "column": 17,
+            "lineNumber": 466,
+            "columnNumber": 17
+          },
+          "epoch_ms": 1793673065974.4402
+        }
+      ],
+      "context_closed": true
+    },
+    {
+      "label": "escape",
+      "status": "PASSED_ACTUAL_PREVIEW_EXIT",
+      "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+      "expected_host_load_identity_matches": true,
+      "loaded": {
+        "carrier": [
+          96.0,
+          1024.0
+        ],
+        "event": "loaded",
+        "grounded": false,
+        "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+        "player": [
+          -448.0,
+          846.0
+        ]
+      },
+      "physics_observation_count": 73,
+      "input_baseline": {
+        "carrier": [
+          -0.840972900390625,
+          891.694091796875
+        ],
+        "event": "physics",
+        "grounded": true,
+        "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+        "player": [
+          -448.0,
+          846.0
+        ]
+      },
+      "input_after": {
+        "carrier": [
+          -123.289184570312,
+          890.251403808594
+        ],
+        "event": "physics",
+        "grounded": true,
+        "host_load_identity": "6b7a05c197663e1396e1177f2fe76a7b0dc5eeff1a898259ac5a3b8a13044b9c",
+        "player": [
+          -504.333435058594,
+          845.925231933594
+        ]
+      },
+      "directional_x_delta_wu": -56.33343505859398,
+      "carrier_max_observed_displacement_wu": 315.79809396642037,
+      "grounded_observed": true,
+      "inputs": [
+        {
+          "action": "a180",
+          "begin_epoch_ms": 1793673215241.1387,
+          "end_epoch_ms": 1793673215480.9482
+        },
+        {
+          "action": "actual-Escape-key"
+        }
+      ],
+      "exit_point": null,
+      "closed_observation": {
+        "epoch_ms": 1793673234369.3801,
+        "value": {
+          "audio_released": true,
+          "event": "closed",
+          "lifetime_active": false,
+          "stage_detached": true
+        }
+      },
+      "cleanup_precedes_return_log": true,
+      "actual_title_start_pixel_point": [
+        231.5,
+        189.0
+      ],
+      "screenshots": [
+        {
+          "file": "escape-01-loaded.png",
+          "sha256": "adf1ecc27964e98327928dc47aac793704bc211785f3f79504e342eccf40a5c8",
+          "epoch_ms": 1793673199047.2124
+        },
+        {
+          "file": "escape-02-after-input.png",
+          "sha256": "c76aadadc540dfc5bf123b54b67c1ced4ee8cb86295eec61ebf0a10d7bdcf358",
+          "epoch_ms": 1793673216461.453
+        },
+        {
+          "file": "escape-03-returned-title.png",
+          "sha256": "7f8b4a1aa59378e562f6ec56982bd9dbdc9822d13541bfac67ca4ac2084407cd",
+          "epoch_ms": 1793673236082.0051
+        }
+      ],
+      "operator_visual_review": "Viewed all three escape-context images. Fresh scene shows the loading-slice label, real player/terrain and carrier. Real A input changes world/camera position; carrier visibly moves independently. Actual Escape key returned to the real Chinese title and menu, with the development banner and current ca7b47b3 badge. No blank/error screen. This supports only observed load/input/moving-carrier and ESC-to-title cleanup, not Web seam traversal, whole-map gameplay, performance/device or leak-free acceptance.",
+      "page_errors": [],
+      "script_errors": [],
+      "request_failures": [],
+      "http_response_error_callback_records": [],
+      "console_error_records_preserved": [
+        {
+          "type": "error",
+          "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+          "location": {
+            "url": "http://127.0.0.1:8815/index.c410089b390c.engine.js",
+            "line": 466,
+            "column": 17,
+            "lineNumber": 466,
+            "columnNumber": 17
+          },
+          "epoch_ms": 1793673197763.312
+        }
+      ],
+      "context_closed": true
+    }
+  ],
+  "source_root_original_guard": {
+    "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+    "source_entries": 35183,
+    "before_raw_snapshot_sha256": "e30db0177c385b22ffec68b168966e5d6132d5fdc5eef4d5829f301f146e9e32",
+    "after_raw_snapshot_sha256": "e30db0177c385b22ffec68b168966e5d6132d5fdc5eef4d5829f301f146e9e32",
+    "snapshots_equal": true
+  },
+  "producer_helpers_source_before": {
+    "/workspace/refactor-evidence/mapgen-host-v2-02/web-browser/run.py": "f7d9a8bfd1ad9b3a76f9f7f9e9ee44b0df80b3cb80c332dcea13d61b7695e181",
+    "/workspace/gunman-rush-refactor/tools/verify_four_line_browser.py": "ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f",
+    "/workspace/gunman-rush-refactor/tools/verify_forest_browser.py": "3d75e424e528dd41da56d58b077fb2e3be598206bd415349b92ce9942d09a1a3",
+    "/workspace/gunman-rush-refactor/tools/studio_gui_pointer.py": "d0d57caf25fa14f19925540f2ffdb3d8f99bb42b027f99aae178cf8808c1e223",
+    "/workspace/gunman-rush-refactor/tools/verify_ci_artifact_browser.py": "88867709bf908c0d8fc853aa3636405cc899d65dab6de0ae66170965fff38b3d",
+    "/workspace/gunman-rush-refactor/tools/check_web_bundle.py": "2797de9997c4d1a486d1b66c157c870d6692f419ef37d20e19c2a5793c83d155",
+    "/workspace/gunman-rush-refactor/experiments/platform/cloud_preview.gd": "f2f4aac1c1cedea7822096d628fc90760377b1decd1afecd45b89d141cd8c65b",
+    "/workspace/gunman-rush-refactor/experiments/generation/runtime_map_slice.gd": "2c635f03717fd3b4bbc0b3716a8a093f31ee222468e1297bba3a0ae758da8ee0",
+    "/workspace/gunman-rush-refactor/experiments/generation/entries/runtime_map_v2_slice.tscn": "12f5de0dd4dd98fd636ac375779f27ead2afd3a96943c64132a6015e71ce7228",
+    "/workspace/gunman-rush-refactor/build/web/index.ca7b47b3f398.pck": "ca7b47b3f3980630f46eb4c318319f93f628ce5918acf54a8ef775fa35efafa1",
+    "/workspace/gunman-rush-refactor/build/web/index.html": "78cb73b7692ac26031cf72b58ad0ec12b84baa9b925feeef84bdf702ae97d5d8",
+    "/workspace/gunman-rush-refactor/build/web/build-info.json": "03e0ecc16a404528f4d9cd18dfa7b6413eddb01cd66bccd20bf5f11c00c4b235",
+    "/workspace/gunman-rush-refactor/build/web/index.cache-sw.js": "7438a1c7d42a6d1276c74e9ecc57ab4351a48318e04f4d7b149e787464f8e024",
+    "/workspace/gunman-rush-refactor/build/web/build_report.json": "5c7331b1dc07ba92a974c2aa25a8951613ef63ff981f616994dd6179bef4395d",
+    "/tmp/mapgen-v202-check-pack.py": "e5b28df809fdbc71d853c6160cdb9b516f8432ba679793179c4eec99d564664d",
+    "/tmp/mapgen-v202-local-preview.json": "2e25c8f8ebc24041a9d0441c1f85cb8d3c437719cb934ec2e679f79591b763e1",
+    "/tmp/mapgen-v202-local-web-03/index.html": "170b40239c937d6854c64cce030d6618834c1e1ba2a296381f56dc719ef31956",
+    "/tmp/mapgen-v202-pack-readback.json": "fb51782253b6b670d1f6f980e5f8c799a296ec529b7b251e9dc8eca9b6d969bd"
+  },
+  "producer_helpers_source_after": {
+    "/workspace/refactor-evidence/mapgen-host-v2-02/web-browser/run.py": "f7d9a8bfd1ad9b3a76f9f7f9e9ee44b0df80b3cb80c332dcea13d61b7695e181",
+    "/workspace/gunman-rush-refactor/tools/verify_four_line_browser.py": "ea641b56e1d2e6020211273157c3f6a6f51a3c0724d3e44241ad80c46cc2f29f",
+    "/workspace/gunman-rush-refactor/tools/verify_forest_browser.py": "3d75e424e528dd41da56d58b077fb2e3be598206bd415349b92ce9942d09a1a3",
+    "/workspace/gunman-rush-refactor/tools/studio_gui_pointer.py": "d0d57caf25fa14f19925540f2ffdb3d8f99bb42b027f99aae178cf8808c1e223",
+    "/workspace/gunman-rush-refactor/tools/verify_ci_artifact_browser.py": "88867709bf908c0d8fc853aa3636405cc899d65dab6de0ae66170965fff38b3d",
+    "/workspace/gunman-rush-refactor/tools/check_web_bundle.py": "2797de9997c4d1a486d1b66c157c870d6692f419ef37d20e19c2a5793c83d155",
+    "/workspace/gunman-rush-refactor/experiments/platform/cloud_preview.gd": "f2f4aac1c1cedea7822096d628fc90760377b1decd1afecd45b89d141cd8c65b",
+    "/workspace/gunman-rush-refactor/experiments/generation/runtime_map_slice.gd": "2c635f03717fd3b4bbc0b3716a8a093f31ee222468e1297bba3a0ae758da8ee0",
+    "/workspace/gunman-rush-refactor/experiments/generation/entries/runtime_map_v2_slice.tscn": "12f5de0dd4dd98fd636ac375779f27ead2afd3a96943c64132a6015e71ce7228",
+    "/workspace/gunman-rush-refactor/build/web/index.ca7b47b3f398.pck": "ca7b47b3f3980630f46eb4c318319f93f628ce5918acf54a8ef775fa35efafa1",
+    "/workspace/gunman-rush-refactor/build/web/index.html": "78cb73b7692ac26031cf72b58ad0ec12b84baa9b925feeef84bdf702ae97d5d8",
+    "/workspace/gunman-rush-refactor/build/web/build-info.json": "03e0ecc16a404528f4d9cd18dfa7b6413eddb01cd66bccd20bf5f11c00c4b235",
+    "/workspace/gunman-rush-refactor/build/web/index.cache-sw.js": "7438a1c7d42a6d1276c74e9ecc57ab4351a48318e04f4d7b149e787464f8e024",
+    "/workspace/gunman-rush-refactor/build/web/build_report.json": "5c7331b1dc07ba92a974c2aa25a8951613ef63ff981f616994dd6179bef4395d",
+    "/tmp/mapgen-v202-check-pack.py": "e5b28df809fdbc71d853c6160cdb9b516f8432ba679793179c4eec99d564664d",
+    "/tmp/mapgen-v202-local-preview.json": "2e25c8f8ebc24041a9d0441c1f85cb8d3c437719cb934ec2e679f79591b763e1",
+    "/tmp/mapgen-v202-local-web-03/index.html": "170b40239c937d6854c64cce030d6618834c1e1ba2a296381f56dc719ef31956",
+    "/tmp/mapgen-v202-pack-readback.json": "fb51782253b6b670d1f6f980e5f8c799a296ec529b7b251e9dc8eca9b6d969bd"
+  },
+  "producer_helpers_source_stable": true,
+  "console_diagnostic_boundary": "Do not call this no Web errors. First context retains favicon.ico HTTP404 and Emscripten Blocking on the main thread, both console type:error. Second context retains the same Emscripten type:error. Page-error/request-failed/HTTP-response-error callback arrays are separately empty; they do not erase console diagnostics.",
+  "all_Web_errors_zero": false,
+  "Web_seam_C027_C030_traversal": "NOT_CERTIFIED_BY_THIS_RUN",
+  "performance_mobile_full_map_or_leak_free": "NOT_CERTIFIED",
+  "no_init_scripts_FPS04_GL_RAF_observers_or_game_state_writes": true,
+  "browser_closed": true,
+  "lease_released": true,
+  "server": "Original root-owned8815 COI server was not started/stopped by this verifier.",
+  "scope": "Local exact current PCK + original cloud-preview bootstrap; real D/A, actual OCR mouse FULL GAME/MENU and real Escape. Loaded/physics/closed source JSON is passive diagnostics. Initial fixed seed/spawn is the declared slice fixture, not a natural full-map playthrough.",
+  "raw_files_unchanged_SHA256": {
+    "escape-01-loaded.png": "adf1ecc27964e98327928dc47aac793704bc211785f3f79504e342eccf40a5c8",
+    "escape-02-after-input.png": "c76aadadc540dfc5bf123b54b67c1ced4ee8cb86295eec61ebf0a10d7bdcf358",
+    "escape-03-returned-title.png": "7f8b4a1aa59378e562f6ec56982bd9dbdc9822d13541bfac67ca4ac2084407cd",
+    "menu-click-01-loaded.png": "1297ac6f8987ad7718a98b5e8fb2fae789ee30b8541896e955793c69ad061c59",
+    "menu-click-02-after-input.png": "8b91b0c665c6f9bb3fe99ebaf275e85f22d4c60777037e02363760854fff5a27",
+    "menu-click-02-after-input.psm6.tsv": "43731f51dff621eb1f42304f067c59eb42f99999d2deafd7264423f6c9389d12",
+    "menu-click-03-returned-title.png": "eb5151acceb3ec26686b76d1fb4f409deed018cf5da728413e7328fbd16fc6e4",
+    "report.json": "44514ff2fc120e81c65d77e79d20c79a037a5c941f6edb7eca662af1084ecb05",
+    "source-after.json.gz": "817ba58651cd0083147f6abff9117e1430b7b2c992a49a1df2361283beb34213",
+    "source-before.json.gz": "817ba58651cd0083147f6abff9117e1430b7b2c992a49a1df2361283beb34213"
+  },
+  "driver_SHA256": "f7d9a8bfd1ad9b3a76f9f7f9e9ee44b0df80b3cb80c332dcea13d61b7695e181",
+  "original_driver_log_SHA256": "6d4a6a17dd2231fda94442a33af2b125bda7af63a1419e36b8eadcfbc56db4af"
+}

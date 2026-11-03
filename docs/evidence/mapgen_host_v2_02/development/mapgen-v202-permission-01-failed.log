@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+ERROR: Attempted to find a variable of type 'int' into a TypedArray of type 'String'.
+   at: _internal_validate (./core/variant/container_type_validate.h:73)
+   GDScript backtrace (most recent call first):
+       [0] _instance_error (res://game/world/levels/providers/runtime_map_v2_provider.gd:120)
+       [1] load_level (res://game/world/levels/providers/runtime_map_v2_provider.gd:52)
+       [2] permission_contract (res://tests/runtime_map_v2_runner.gd:82)
+       [3] admission (res://tests/runtime_map_v2_runner.gd:41)
+       [4] run (res://tests/runtime_map_v2_runner.gd:187)
+ERROR: Condition "!_p->typed.validate(value, "find")" is true. Returning: -1
+   at: find (core/variant/array.cpp:374)
+   GDScript backtrace (most recent call first):
+       [0] _instance_error (res://game/world/levels/providers/runtime_map_v2_provider.gd:120)
+       [1] load_level (res://game/world/levels/providers/runtime_map_v2_provider.gd:52)
+       [2] permission_contract (res://tests/runtime_map_v2_runner.gd:82)
+       [3] admission (res://tests/runtime_map_v2_runner.gd:41)
+       [4] run (res://tests/runtime_map_v2_runner.gd:187)
+SCRIPT ERROR: Invalid operands 'int' and 'String' in operator '=='.
+          at: permission_contract (res://tests/runtime_map_v2_runner.gd:83)
+          GDScript backtrace (most recent call first):
+              [0] permission_contract (res://tests/runtime_map_v2_runner.gd:83)
+              [1] admission (res://tests/runtime_map_v2_runner.gd:41)
+              [2] run (res://tests/runtime_map_v2_runner.gd:187)
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/workspace/gunman-rush-refactor/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

@@ -1,3 +1,11 @@
+## 2026-11-03 PR127 A–E：三模块宿主修订与实际Web
+
+继续feature/mapgen-host-v2-01，不恢复PR123。A原字节恢复旧architecture证据，不刷新旧卡；B只认INPUT/OUTPUT/INOUT、单向接缝合法但未支持；C核0.2.0 ZIP25f05861及4/4原map/content；D分离上游fingerprint/map_content/host_load，内容或bindings变更先拒绝旧恢复，永久schema不改；E沿原有限7JSON/准入/bootstrap完成实际PCK与浏览器，两次移动/平台/菜单及ESC退出。
+
+冻结运行源67da2f3596880cbdad22496a649dd68f7af7d5a6，build ca7b47b3f398，PCK216993944B/SHA ca7b47b3f3980630f46eb4c318319f93f628ce5918acf54a8ef775fa35efafa1。局部8项及最终F原生199/45通过，实际浏览器249.218/300秒、六图和源稳定；保留favicon404与两条Emscripten Blocking，不签FPS/手机/整图/Web跨缝/零泄漏。原CI41510336068为87pass/1fail/84未执行，失败与修复保留；最终精确head完整172结果看PR127 Actions，不把局部证明代签完整CI。
+
+[本批结果/身份/边界](worklines/mapgen_host_v2_02/results.md) · [参考包开发命令](worklines/mapgen_host_v2_02/reference_package.md) · [原始证据与独审](evidence/mapgen_host_v2_02/README.md)。下批建议M35完整hazard+saw+2linear ferry，真实邻接与其余消费者另批，不扩当前scope。未合并、未部署，普通出发地图/物理经济/图声不变。下方保留旧阶段记录。
+
 ## 2026-11-02 MAPGEN-HOST-V2-01 第一轮真实装载切片
 
 从最新main `30e36c9abe223f26e666ceaf796e3fe9cb58e10f` 建立 `feature/mapgen-host-v2-01`；此前重构已由PR126合入，本轮为新独立接入，**不自动合main或发布**。锁定map-gen178c4016与原module-pack1.1.0，官方930001/stable-v2首轮生成46实例/55连接；本轮完整保留M16/M18/M21，经新数据Provider/Stage消费原LevelPlan/LevelRuntime/玩家/一套服务，没有恢复PR123。
