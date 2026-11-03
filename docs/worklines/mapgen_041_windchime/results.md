@@ -63,3 +63,9 @@ run41714871138/attempt1的prepare导出输入工件在0.269秒拒绝：Bundle re
 根因是新工件校验误把输入计划顺序强制等同full profile顺序；真实production.make_plan把便携/docs检查前置，两者均为完整179项，首差index8，source/head/fullroute及计划与CLI的逐序绑定原本正确。仅修改工件授权为完整唯一集合及数量；保留实际计划与CLI逐序精确相等、原计划原字节SHA、全部原HEAD/index/path/mode/Gitblob/SHA/安全tar和原lane/profile实际执行顺序。原45测试保留新增5例，实际50/0；原CI真实原计划字节本地metadata合同复现通过，另小稀疏Git实际导出/恢复及缺漏/额外/重复/CLI顺序/原计划字节变更负例通过。它们不代签实际4.43GB循环或完整179。
 
 本次修复只改CI输入工具及测试；所有游戏GD、SDK19pin、模块、请求/绑定和实际PCK均不变，已通过的原生与三组Web/22图依原来源身份复用，不重做。新代码与必要证据冻结后在修复head验证CI，不盲目重跑已知必败的旧d5。
+
+## 精确422候选：大工件通过与原Git守门失败
+
+run41720175578/attempt1保持FAILED。prepare实际恢复5092输入4,434,892,477B/921.945s，大工件导出40.851s（合同/清单25.093s、tar写入约15.76s），tar4,439,521,280B/SHA d5e6c196c4668d9eb8f6f89515d5f565f8bbb82e1478b4f7b5df6473dc614ce1，GitHub工件4,450,653,483B/id13273404222/API digest afc6e7e4b92b18dc5939eac85ce01128aaddb9cac3b6285a2467524996efc019。实际155GB卷导出前余81.49GB/后77.04GB。serial下载253s/严格恢复45.227s，parallel下载47s/恢复50.458s，均5092/完整来源与全部SHA/mode通过；原Foundry56JSON与当前源码0字节差异。它们不是完整CI通过：两个lane在原Harness初始化git diff --name-only -z HEAD的原30秒限制超时，正式179未执行、无phase报告，affected正确拒绝。原件另存ci-final-4224488-failed。
+
+两个独立真实file:// blob-less/promisor隔离实验复现：只还原正确文件字节仍缺Git blob，原gitdiff会懒取远端对象；远端离线时明确失败。只把已验相同SHA字节入Git对象缓存后，原命令离线空差异成功，内容/权限/删除仍可检测。本次最小恢复修复在全档/成员/tail及path/mode/Gitblob/SHA完整验证后、发布前，用一次批量no-lazy/no-filter hash-object仅补缺失唯一对象并逐OID校验。缓存自身HEAD/index原字节/ref/flags不动，无assume-unchanged隐藏；原post-stage快照/原50测试/30秒Git守门/179预算均保留。实际56测试及独立56测试/审查通过；小样本不代签下一精确head真实4GB缓存与完整179，游戏GD/SDK/模块/绑定/PCK继续不变，无同源原生或Web重跑。

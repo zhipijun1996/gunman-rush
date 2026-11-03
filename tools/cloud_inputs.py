@@ -571,6 +571,65 @@ def export_bundle(root, checks, profiles, commit, execution_plan, run_id, receip
             'storage': {'before': disk_before, 'after': disk_after}}
 
 
+
+def cache_verified_git_blobs(root, stage, rows, *, progress=None):
+    """Supply missing immutable Git objects from the fully verified staging data.
+
+    A blob-less checkout also needs these objects for its original `git diff
+    HEAD` guard. Publishing only worktree bytes would make that read lazily fetch
+    the same evidence again. This writes object-cache entries only: no index,
+    ref, sparse flag, filter, or remote operation is used.
+    """
+    started = time.monotonic()
+    unique = {}
+    for number, row in enumerate(rows):
+        unique.setdefault(row['blob'], (number, row))
+    sizes = blob_sizes(root, unique)
+    missing = []
+    for oid, (number, row) in unique.items():
+        if sizes[oid] is None:
+            missing.append((oid, number, row))
+        elif sizes[oid] != row['size']:
+            raise InputError('Existing Git blob cache size differs from verified input: ' + row['path'])
+    raw_bytes = sum(row['size'] for _, _, row in missing)
+    report = {'objects': len(missing), 'raw_bytes': raw_bytes, 'network_fetch': False,
+              'cache_kind': 'verified Git blob object cache; no source/index/ref changes'}
+    if not missing:
+        return {**report, 'seconds': round(time.monotonic() - started, 3)}
+    objects = Path(git(root, 'rev-parse', '--git-path', 'objects').decode().strip())
+    objects = objects if objects.is_absolute() else root / objects
+    disk_before = bundle_disk_snapshot(objects, 'bundle_git_cache_disk_before', 0,
+                                      progress=progress, started=started,
+                                      missing_blob_raw_bytes=raw_bytes,
+                                      allocation_note='Additional zlib-compressed Git objects; actual volume usage sampled before/after, not assumed equal to raw bytes')
+    # Staging leaves are generated decimal names under build/, never untrusted
+    # archive paths. Relative paths avoid quoting/root-name issues in Git's
+    # newline-delimited stdin-paths protocol; controls are independently denied.
+    paths = [(stage / str(number)).relative_to(root).as_posix() for _, number, _ in missing]
+    for path in paths:
+        safe_path(root, path)
+    emit_progress(progress, 'bundle_git_cache_started', objects=len(missing), raw_bytes=raw_bytes)
+    try:
+        result = subprocess.run(['git', '--no-lazy-fetch', '-C', str(root), 'hash-object',
+                                 '--no-filters', '-w', '--stdin-paths'],
+                                input=('\n'.join(paths) + '\n').encode(), capture_output=True, timeout=300)
+    except subprocess.TimeoutExpired as error:
+        raise InputError('Verified Git blob cache import exceeded its bounded operation', report) from error
+    if result.returncode:
+        raise InputError('Verified Git blob cache import failed: ' + result.stderr.decode(errors='replace')[-1500:], report)
+    if result.stdout.decode(errors='replace').splitlines() != [oid for oid, _, _ in missing]:
+        raise InputError('Written Git blob cache SHA differs from verified staging inputs', report)
+    if blob_sizes(root, [oid for oid, _, _ in missing]) != {oid: row['size'] for oid, _, row in missing}:
+        raise InputError('Verified Git blob cache is not readable after import', report)
+    disk_after = bundle_disk_snapshot(objects, 'bundle_git_cache_disk_after', 0,
+                                     progress=progress, started=started,
+                                     missing_blob_raw_bytes=raw_bytes)
+    report.update(seconds=round(time.monotonic() - started, 3),
+                  storage={'before': disk_before, 'after': disk_after})
+    emit_progress(progress, 'bundle_git_cache_complete', objects=len(missing), raw_bytes=raw_bytes,
+                  seconds=report['seconds'])
+    return report
+
 def restore_bundle(root, checks, profiles, commit, execution_plan, run_id, bundle, *, progress=None):
     """Validate same-run data against current Git, then restore without fetching blobs."""
     root = Path(root).resolve()
@@ -640,7 +699,8 @@ def restore_bundle(root, checks, profiles, commit, execution_plan, run_id, bundl
     disk_before = bundle_disk_snapshot(root / 'build', 'bundle_restore_disk_before',
                                        sum(row['size'] for row in rows), progress=progress, started=started,
                                        archive_bytes=archive_path.stat().st_size,
-                                       stage_required_bytes=sum(row['size'] for row in rows))
+                                       stage_required_bytes=sum(row['size'] for row in rows),
+                                       git_cache_note='Verified missing Git objects are cached before publication; compressed allocation is separately observed')
     emit_progress(progress, 'bundle_archive_verify_started', files=len(rows), bytes=manifest.get('archive_size'))
     archive_verify_started = time.monotonic()
     archive_size, _, archive_sha = file_hashes(archive_path, progress=progress)
@@ -679,8 +739,10 @@ def restore_bundle(root, checks, profiles, commit, execution_plan, run_id, bundl
                     raise InputError('Unexpected extra bundle member or global metadata')
             verify_archive_end(archive_path, end_offset, archive_size)
             staged = time.monotonic()
+            git_cache = cache_verified_git_blobs(root, stage, rows, progress=progress)
+            cached = time.monotonic()
             current = repository_state(root, head)
-            if current[:3] != (head, tree, index):
+            if current[:3] != (head, tree, index) or current[3] != flags:
                 raise InputError('HEAD/index changed while validating input bundle')
             for number, row in enumerate(rows):
                 path = safe_path(root, row['path'])
@@ -728,9 +790,11 @@ def restore_bundle(root, checks, profiles, commit, execution_plan, run_id, bundl
                 'identity_manifest_existing_seconds': round(archive_verify_started - started, 3),
                 'archive_verify_seconds': round(archive_verified - archive_verify_started, 3),
                 'content_stage_seconds': round(staged - archive_verified, 3),
-                'publish_recheck_preflight_seconds': round(finished - staged, 3),
+                'git_object_cache_seconds': round(cached - staged, 3),
+                'publish_recheck_preflight_seconds': round(finished - cached, 3),
                 'wall_seconds': round(finished - started, 3)},
             'storage': {'before': disk_before, 'after': disk_after},
+            'git_object_cache': git_cache,
             'limits': 'Input availability and exact source verification only; no selected test executed or accepted.'}
 
 

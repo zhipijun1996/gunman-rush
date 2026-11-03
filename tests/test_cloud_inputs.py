@@ -969,6 +969,157 @@ class CloudInputBundleTests(unittest.TestCase):
         self.assertFalse((root / self.proof).exists())
         self.assertFalse((root / self.executable).exists())
 
+    def promisor_consumer(self, name='promisor-consumer'):
+        """Actual filtered transport, not a full clone with hidden local blobs."""
+        self.git(self.source, 'config', 'uploadpack.allowFilter', 'true')
+        self.git(self.source, 'config', 'uploadpack.allowAnySHA1InWant', 'true')
+        root = self.base / name
+        subprocess.run(['git', 'clone', '-q', '--no-local', '--filter=blob:none', '--no-checkout',
+                        self.source.as_uri(), str(root)], check=True)
+        self.git(root, 'sparse-checkout', 'init', '--no-cone')
+        subprocess.run(['git', '-C', str(root), 'sparse-checkout', 'set', '--no-cone', '--stdin'],
+                       input='/*\n!/docs/evidence/**\n', text=True, check=True, capture_output=True)
+        self.git(root, 'checkout', '-q', 'HEAD')
+        (root / 'build').mkdir()
+        (root / 'build/plan.json').write_bytes(self.plan_path.read_bytes())
+        wanted = [self.git(root, 'rev-parse', 'HEAD:' + path) for path in (self.proof, self.executable)]
+        self.assertEqual(inputs.blob_sizes(root, wanted), dict.fromkeys(wanted))
+        # Any lazy network fallback now fails rather than hiding a cache gap.
+        self.git(root, 'remote', 'set-url', 'origin', (self.base / 'unavailable-remote').as_uri())
+        return root, wanted
+
+    def cache_git_state(self, root):
+        index = Path(self.git(root, 'rev-parse', '--git-path', 'index'))
+        index = index if index.is_absolute() else root / index
+        return (inputs.repository_state(root, 'HEAD'), index.read_bytes(), self.git(root, 'show-ref'))
+
+    def guarded_git_diff(self, root, name):
+        trace = self.base / name
+        result = subprocess.run(['git', '-C', str(root), 'diff', '--name-only', '-z', 'HEAD'],
+                                capture_output=True, timeout=30,
+                                env=os.environ | {'GIT_TRACE': str(trace)})
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertNotIn(' fetch ', trace.read_text())
+        self.assertNotIn('upload-pack', trace.read_text())
+        return result.stdout
+
+    def test_promisor_restore_populates_verified_blobs_without_index_or_remote_changes(self):
+        self.package()
+        root, wanted = self.promisor_consumer()
+        before = self.cache_git_state(root)
+        events, cache_states = [], []
+        original_cache = inputs.cache_verified_git_blobs
+        def checked_cache(*args, **kwargs):
+            start = self.cache_git_state(root)
+            result = original_cache(*args, **kwargs)
+            cache_states.append((start, self.cache_git_state(root)))
+            return result
+        with patch.object(inputs, 'cache_verified_git_blobs', side_effect=checked_cache):
+            report = inputs.restore_bundle(root, [], ['full'], 'HEAD', root / 'build/plan.json',
+                                           self.run_id, self.bundle, progress=events.append)
+        self.assertEqual(report['status'], 'ready')
+        self.assertEqual(report['git_object_cache']['objects'], 2)
+        self.assertFalse(report['git_object_cache']['network_fetch'])
+        self.assertEqual(len(cache_states), 1)
+        self.assertEqual(cache_states[0][0], cache_states[0][1], 'Cache writes cannot change raw index, refs or sparse flags')
+        after = self.cache_git_state(root)
+        self.assertEqual(after[0][:3], before[0][:3])
+        self.assertEqual(after[2], before[2])
+        self.assertEqual(inputs.blob_sizes(root, wanted),
+                         {oid: (root / path).stat().st_size for oid, path in zip(wanted, (self.proof, self.executable))})
+        self.assertEqual(self.guarded_git_diff(root, 'promisor-clean.trace'), b'')
+        unrelated = self.git(root, 'rev-parse', 'HEAD:' + self.unrelated)
+        self.assertIsNone(inputs.blob_sizes(root, [unrelated])[unrelated])
+        self.assertFalse((root / self.unrelated).exists())
+        self.assertEqual([e['phase'] for e in events].count('bundle_git_cache_started'), 1)
+        self.assertEqual([e['phase'] for e in events].count('bundle_git_cache_complete'), 1)
+        self.assertGreaterEqual(report['timings']['git_object_cache_seconds'], 0)
+        self.assertIn('storage', report['git_object_cache'])
+
+    def test_restored_promisor_content_edits_are_visible_to_the_original_git_guard(self):
+        self.package()
+        root, _ = self.promisor_consumer()
+        inputs.restore_bundle(root, [], ['full'], 'HEAD', root / 'build/plan.json', self.run_id, self.bundle)
+        # Edit before the first git diff: do not depend on a previous guard
+        # clearing a skip-worktree bit or warming index stat information.
+        (root / self.proof).write_text('actual local edit must remain visible\n')
+        self.assertEqual(self.guarded_git_diff(root, 'promisor-dirty.trace'), (self.proof + '\0').encode())
+        self.assertEqual(self.git(root, 'rev-parse', 'HEAD'), self.head)
+
+    def test_git_cache_failure_does_not_publish_missing_inputs_or_replace_existing(self):
+        self.package()
+        root, _ = self.promisor_consumer()
+        existing = root / self.proof
+        existing.parent.mkdir(parents=True)
+        existing.write_bytes((self.source / self.proof).read_bytes())
+        before = self.cache_git_state(root)
+        original = subprocess.run
+        calls = []
+        def fail_cache(command, *args, **kwargs):
+            if 'hash-object' in command:
+                calls.append(command)
+                return subprocess.CompletedProcess(command, 1, b'', b'actual cache-write failure fixture')
+            return original(command, *args, **kwargs)
+        with patch.object(inputs.subprocess, 'run', side_effect=fail_cache), \
+                self.assertRaisesRegex(inputs.InputError, 'Git blob cache import failed'):
+            inputs.restore_bundle(root, [], ['full'], 'HEAD', root / 'build/plan.json', self.run_id, self.bundle)
+        self.assertEqual(len(calls), 1)
+        self.assertIn('--no-lazy-fetch', calls[0])
+        self.assertIn('--no-filters', calls[0])
+        self.assertEqual(existing.read_bytes(), (self.source / self.proof).read_bytes())
+        self.assertFalse((root / self.executable).exists())
+        self.assertEqual(self.cache_git_state(root), before)
+        self.assertFalse(list((root / 'build').glob('selected-input-stage-*')))
+
+    def test_git_cache_returned_sha_mismatch_is_rejected_before_publication(self):
+        self.package()
+        root, _ = self.promisor_consumer()
+        before = self.cache_git_state(root)
+        original = subprocess.run
+        def wrong_cache_sha(command, *args, **kwargs):
+            result = original(command, *args, **kwargs)
+            if 'hash-object' in command:
+                return subprocess.CompletedProcess(command, 0, b'0' * 40 + b'\n', result.stderr)
+            return result
+        with patch.object(inputs.subprocess, 'run', side_effect=wrong_cache_sha), \
+                self.assertRaisesRegex(inputs.InputError, 'cache SHA differs'):
+            inputs.restore_bundle(root, [], ['full'], 'HEAD', root / 'build/plan.json', self.run_id, self.bundle)
+        self.assertFalse((root / self.proof).exists())
+        self.assertFalse((root / self.executable).exists())
+        self.assertEqual(self.cache_git_state(root), before)
+
+    def test_cache_import_only_follows_complete_member_and_archive_verification(self):
+        self.package()
+        root, wanted = self.promisor_consumer()
+        archive = self.bundle / 'inputs.tar'
+        archive.write_bytes(archive.read_bytes() + b'not-zero archive tail')
+        manifest = self.bundle_manifest()
+        manifest['archive_size'] = archive.stat().st_size
+        manifest['archive_sha256'] = hashlib.sha256(archive.read_bytes()).hexdigest()
+        (self.bundle / 'manifest.json').write_text(json.dumps(manifest))
+        with patch.object(inputs, 'cache_verified_git_blobs') as cache, self.assertRaises(inputs.InputError):
+            inputs.restore_bundle(root, [], ['full'], 'HEAD', root / 'build/plan.json', self.run_id, self.bundle)
+        cache.assert_not_called()
+        self.assertEqual(inputs.blob_sizes(root, wanted), dict.fromkeys(wanted))
+        self.assertFalse((root / self.proof).exists())
+
+    def test_already_available_git_objects_do_not_invoke_blob_writer(self):
+        self.package()
+        root = self.consumer()
+        before = self.cache_git_state(root)
+        original = subprocess.run
+        writers = []
+        def track(command, *args, **kwargs):
+            if 'hash-object' in command: writers.append(command)
+            return original(command, *args, **kwargs)
+        with patch.object(inputs.subprocess, 'run', side_effect=track):
+            report = inputs.restore_bundle(root, [], ['full'], 'HEAD', root / 'build/plan.json', self.run_id, self.bundle)
+        self.assertEqual(writers, [])
+        self.assertEqual(report['git_object_cache']['objects'], 0)
+        after = self.cache_git_state(root)
+        self.assertEqual(after[0][:3], before[0][:3])
+        self.assertEqual(after[2], before[2])
+
     def test_export_cli_and_provenance_bind_the_current_full_plan(self):
         self.package()
         with contextlib.redirect_stdout(io.StringIO()) as output, contextlib.redirect_stderr(io.StringIO()) as progress:
