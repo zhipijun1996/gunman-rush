@@ -4,7 +4,7 @@
   "task_type": "small_fix",
   "workflow": "review",
   "baseline_commit": "9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8",
-  "reviewed_commit": "a135e8347e014a531a00cdfd9a2d93a6349aebed",
+  "reviewed_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
   "content_version": "host-sdk-041-windchime-r1",
   "owner": "root",
   "purpose": "0.4.1真实生成与完整起点safe_lesson装载",
@@ -314,9 +314,15 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Finite engineering behavior/source/PCK gate only, actual affected checks and independent scoped review complete; final exact-head full179+affected/large-input cycle remains mandatory external merge gate.",
+      "evidence": [
+        "local-affected-technical",
+        "host-independent-review",
+        "web-default",
+        "web-gears",
+        "web-windchime"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -333,14 +339,25 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded affected implementation/export/PCK and actual native/browser behavior validated; source custody/reviews explicit. This is not the pending final exact-headCI/4.43GB transport result.",
+      "evidence": [
+        "local-affected-technical"
+      ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Only four enumerated real developer-entry behaviors, with original native captures and unchanged relevant source identity; all three generated Web routes strict-joined after actual22image review. Ordinary/fullmap/neighbor scope excluded.",
+      "evidence": [
+        "consumer-inventory",
+        "native-frozen-three",
+        "native-generated-three",
+        "native-gears",
+        "native-windchime-controller",
+        "web-default",
+        "web-gears",
+        "web-windchime"
+      ]
     },
     "visual": {
       "status": "unverified",
@@ -368,9 +385,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Runtime source/authority/native boundary independently accepted by a non-author; browser screenshots separately independently viewed under strict joins.",
+      "evidence": [
+        "host-independent-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -397,6 +416,68 @@
       "evidence": [
         "scope"
       ]
+    },
+    {
+      "id": "local-technical-slice-validation",
+      "scenario": "Actual pinned0.4.1 host sources and complete owned start plus retained entrances under locked main toolchain",
+      "method": "Existing actual native proof/source-equivalence, current-source export and PCK byte-readback,three real browser guard/strict joins",
+      "expected": "19 original SDK pins,module1.1.0,one existing actor/service authority,all finite actions/cancel/cleanup agree",
+      "failure": "Any source/PCK mismatch,missing native completion,failed action,stale/duplicate accepted result or unsupported content omitted",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Affected local evidence complete and version-bound; no final CI claim.",
+      "evidence": [
+        "local-affected-technical"
+      ]
+    },
+    {
+      "id": "actual-four-development-consumers",
+      "scenario": "Frozen3,actualgenerated3,gears and complete owned-start windchime consumers",
+      "method": "Trace-derived four-entry inventory and one behavior observation perentry; actualWeb for three generated entries and independent full screenshot joins",
+      "expected": "Every declared actual entry observed; original content/authorities retained,restore native and Web scope distinct",
+      "failure": "A helper substituted for entry,missing consumer,wrong content/actor identity,hidden frozen fallback,or unimplemented neighbor claimed",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "Four native real entry captures cover declared behaviors; three generated actualWeb joins pass. Frozen3 no new art/visual obligation.",
+      "evidence": [
+        "consumer-inventory",
+        "native-frozen-three",
+        "native-generated-three",
+        "native-gears",
+        "native-windchime-controller",
+        "web-default",
+        "web-gears",
+        "web-windchime"
+      ]
+    },
+    {
+      "id": "independent-engineering-g4",
+      "scenario": "Frozen runtime host and original source resources",
+      "method": "59non-author source/ZIP/native-evidencechecks plus separate actual22image independent reviews and strict joins",
+      "expected": "OriginalSDK/physics/authorities/full owned module/restore identity preserved and finite actions observed",
+      "failure": "Selfreview,unseen screenshots,missing content,changed vendor/physics,or arbitrary full-map acceptance",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Scoped independent reviews accepted; device/user/whole-map quality unverified.",
+      "evidence": [
+        "host-independent-review",
+        "local-affected-technical"
+      ]
+    },
+    {
+      "id": "external-final-exact-head-ci",
+      "scenario": "All final source and selected evidence frozen before ordinarymerge",
+      "method": "One final precise candidate completefull179+affected with actual4.43GB same-run input-artifact validation",
+      "expected": "All original178+one new aggregate,originalbudgets/guards/source/toolchain/phaseproofs succeed and finalhead unchanged",
+      "failure": "Any failed/missing result,digest drift,weak transport check,oldhead substitution or protected-merge bypass",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "External final CI is NOT_RUN here; remains mandatory before merge. No engineering local PASS substitutes for this requirement.",
+      "evidence": []
     }
   ],
   "evidence": [
@@ -410,16 +491,217 @@
       "content_version": "host-sdk-041-windchime-r1",
       "method": "Existing committed task scope and current explicit user authorization; no historical scope bytes or evidence hashes changed",
       "observed": "Pinned algorithm0.4.1/module1.1.0/runtime-map-v2; complete owned start module only, ordinary departure unchanged, final exact-head acceptance and ordinary merge authorized, no deployment"
+    },
+    {
+      "id": "consumer-inventory",
+      "path": "docs/evidence/mapgen_041_windchime/coverage/consumer-inventory.json",
+      "sha256": "06cc1d9ed252fd30197750208e20bf3a6c2cb85e48a9000832b7afba95f7addb",
+      "kind": "runtime_trace",
+      "producer": "/root/final_evidence_stage",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-frozen-three",
+        "mapgen-generated-three",
+        "mapgen-gears",
+        "mapgen-windchime-controller"
+      ],
+      "method": "Inventory discovered from the concrete four actual native entry traces and actual job result/binding identities; copies and source compatibility preserved.",
+      "observed": "Four unique real consumer IDs, each with one native behavior observation. No helper fixture substituted for an entry."
+    },
+    {
+      "id": "native-frozen-three",
+      "path": "docs/evidence/mapgen_041_windchime/coverage/consumer-traces/frozen-three.json",
+      "sha256": "de0ec7adf98186b6ca80e367dab09c94e70ddad149c3cebae83997a409408709",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-frozen-three"
+      ],
+      "method": "Reused original actual native entry/capture plus independently verified unchanged mapgen runtime/code/input bytes at reviewed source; not a fresh execution under this commit.",
+      "observed": "199 assertions/checks,0 failures; source fields and actual scope retained byte for byte. Native controller/Stage/lifecycle observations only."
+    },
+    {
+      "id": "native-generated-three",
+      "path": "docs/evidence/mapgen_041_windchime/coverage/consumer-traces/generated-three.json",
+      "sha256": "1ace4265d6cf8cb209b8a090a9c56c1cce6db2b7a4f3d729f7b710a56dc5f2dd",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-generated-three"
+      ],
+      "method": "Reused original actual native entry/capture plus independently verified unchanged mapgen runtime/code/input bytes at reviewed source; not a fresh execution under this commit.",
+      "observed": "58 assertions/checks,0 failures; source fields and actual scope retained byte for byte. Native controller/Stage/lifecycle observations only."
+    },
+    {
+      "id": "native-gears",
+      "path": "docs/evidence/mapgen_041_windchime/coverage/consumer-traces/gears.json",
+      "sha256": "069c6ae174bdbff2b23357d395b9959604bb1edc1f8f7ec3e1bba3ad4d7f9fea",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-gears"
+      ],
+      "method": "Reused original actual native entry/capture plus independently verified unchanged mapgen runtime/code/input bytes at reviewed source; not a fresh execution under this commit.",
+      "observed": "73 assertions/checks,0 failures; source fields and actual scope retained byte for byte. Native controller/Stage/lifecycle observations only."
+    },
+    {
+      "id": "native-windchime-controller",
+      "path": "docs/evidence/mapgen_041_windchime/coverage/consumer-traces/windchime-controller.json",
+      "sha256": "04227f02d1fec6634772498edc569ba24bd54bbdff0898ef2bd23686dac46ae2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-windchime-controller"
+      ],
+      "method": "Reused original actual native entry/capture plus independently verified unchanged mapgen runtime/code/input bytes at reviewed source; not a fresh execution under this commit.",
+      "observed": "60 assertions/checks,0 failures; source fields and actual scope retained byte for byte. Native controller/Stage/lifecycle observations only."
+    },
+    {
+      "id": "web-default",
+      "path": "docs/evidence/mapgen_041_windchime/web/default/acceptance.json",
+      "sha256": "1e0e0ed2fd177d971f2b6b86b213acfed57ea125be334bb34b04992bb2f90343",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-generated-three"
+      ],
+      "method": "Actual browser run with source/PCK/producer/HTTP guards,original actions and total300 seconds; all original screenshots actually independently opened and strict joined afterward.",
+      "observed": "Automatic 150.17773713000133s; separate offline 77.63857202148438s. ACCEPT_declared_default_two_fresh_visual_scope. Limits retained in raw review."
+    },
+    {
+      "id": "web-gears",
+      "path": "docs/evidence/mapgen_041_windchime/web/gears/acceptance.json",
+      "sha256": "3250ff22b7dcff9a10119c9faadf00f9b5420cad56afbac7e32303148c314b5e",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-gears"
+      ],
+      "method": "Actual browser run with source/PCK/producer/HTTP guards,original actions and total300 seconds; all original screenshots actually independently opened and strict joined afterward.",
+      "observed": "Automatic 108.98617842699969s; separate offline 93.501017578125s. ACCEPT_declared_gears_sampled_motion_and_menu_scope. Limits retained in raw review."
+    },
+    {
+      "id": "web-windchime",
+      "path": "docs/evidence/mapgen_041_windchime/web/windchime-attempt02/acceptance.json",
+      "sha256": "901f61660cdfcc76698853d2cba890038602f8c2f5603cc23b8f63dc4e15e890",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "consumers": [
+        "mapgen-windchime-controller"
+      ],
+      "method": "Actual v2 two-fresh browser,real mouse miss/hit/repeat and normal Motor to owned exit bank,ESC/cancel; source/PCK/producer/HTTP guards,then all9original images actually independently opened and strict joined.",
+      "observed": "Automatic149.9856039860024/300 seconds; separate offline152.83556103515625 seconds. PASS finite owned module; native restoration remains separate. Low DEV banner overlaps prompt only."
+    },
+    {
+      "id": "local-affected-technical",
+      "path": "docs/evidence/mapgen_041_windchime/technical/local-affected-validation.json",
+      "sha256": "e0b775f4210961fa69a1cbfc1aeb2e8a06cc3e9235a4c260d302e61e7f5c306a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/build.py web; python3 tools/check_web_bundle.py build/web",
+      "exit_code": 0,
+      "environment": "Main lockedGodot4.7.2gunman_sd1.ed1daf0bf/Linux; source/PCK a0a9006/e498; actual stdout files kept.",
+      "method": "Collect exact actual current-source export/PCK-readback outputs and already run affected native/test proofs with original identity plus unchanged-source custody. No new command execution claimed by collector.",
+      "observed": "Actual export_exit_code0 and bundle.failed0/19pins; actual native consumers and three independently accepted complete browser runs. Final full179+affected/large-input transport is a separate pending merge gate."
+    },
+    {
+      "id": "host-independent-review",
+      "path": "docs/evidence/mapgen_041_windchime/review-host-final/review.md",
+      "sha256": "d97cc790e26b7ac28979aa25b2cb22d71cc523bb03c49ecb00623fbaf0fe1ed3",
+      "kind": "review",
+      "producer": "/root/frozen_host_review",
+      "reviewer": "/root/frozen_host_review",
+      "implementers": [
+        "/root",
+        "/root/sdk_041_upgrade",
+        "/root/v2_port_admission",
+        "/root/windchime_runtime"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer authored none of the reviewed runtime code; read-only59source/ZIP/identity/arithmetic/native-evidence checks, no source mutation or Godot/browser execution.",
+      "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+      "content_version": "host-sdk-041-windchime-r1",
+      "method": "Independent final actual host/source/native evidence review; browser outcomes remain separately attributed to actual strict joins.",
+      "observed": "ScopedACCEPT,59/0; original authorities/vendor bytes/geometry/restore envelopes verified. No broad whole-map or final CI signature."
     }
   ],
-  "consumer_coverage": null,
+  "consumer_coverage": {
+    "inventory_evidence": "consumer-inventory",
+    "scope": "Finite four actual development-entry behavior consumers only; generated3/gears/complete owned start additionally have actual Web and independent screenshot strict joins. Frozen3 native regression only; no visual asset change,ordinary departure,neighbor/fullmap,phone/user claim.",
+    "observations": [
+      {
+        "consumer": "mapgen-frozen-three",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "Actual complete entry behavior capture is available; compatibility to reviewed source is separately bound by runtime source custody. This is not a visual/phone/whole-map claim.",
+        "evidence": [
+          "native-frozen-three"
+        ]
+      },
+      {
+        "consumer": "mapgen-generated-three",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "Actual complete entry behavior capture is available; compatibility to reviewed source is separately bound by runtime source custody. This is not a visual/phone/whole-map claim.",
+        "evidence": [
+          "native-generated-three",
+          "web-default"
+        ]
+      },
+      {
+        "consumer": "mapgen-gears",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "Actual complete entry behavior capture is available; compatibility to reviewed source is separately bound by runtime source custody. This is not a visual/phone/whole-map claim.",
+        "evidence": [
+          "native-gears",
+          "web-gears"
+        ]
+      },
+      {
+        "consumer": "mapgen-windchime-controller",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "Actual complete entry behavior capture is available; compatibility to reviewed source is separately bound by runtime source custody. This is not a visual/phone/whole-map claim.",
+        "evidence": [
+          "native-windchime-controller",
+          "web-windchime"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
-    "Review covers the exact implementation only after the remaining source commits and final independent review; reviewed_commit currently names the real Git parent while WIP runtime paths remain explicitly in progress.",
-    "Actual native subcases have preliminary raw receipts; they do not alone certify the final frozen source, Web, whole generated map or phone.",
-    "Final 0.4.1 Web two-fresh default, gears and windchime actions plus all screenshot review must finish before scoped engineering acceptance.",
-    "Final exact-head complete CI and affected merge must pass; original failed runs retain their identities.",
-    "Formal consumer inventory for this finite development-entry scope must be independently derived from actual frozen generated/runtime outputs before formal_integration can pass.",
-    "Ordinary departure, all-map content consumers, physical-device/user/playability acceptance are outside this finite integration acceptance."
+    "MANDATORY EXTERNAL MERGE GATE: final frozen precise-head full179+affected and actual4.43GB input-artifact cycle stillpending. Do notmerge before actual acceptance.",
+    "Workflow remainsreview; no ordinary departure replacement,whole-map/neighbor/all-consumer/Boss/device/FPS/user/G5 acceptance.",
+    "Browser restore was not executed; applicable repeated restore and oldidentity/lateactor rejection belong to actual native60/100/73 traces.",
+    "DEV-BANNER-BELL-PROMPT-01: existing DEV banner partly covers small bell prompt,body/door/actor/shot/path remainvisible and actualroutepasses; polished tutorialUX remainsunverified.",
+    "Original toolv1 Mouse.click TypeError FAILED90.378572 and all oldCI/native failures retain their original statuses; v2 only API fix does not reclassify them."
   ],
-  "test_change_justification": "Preserve every original full178 check, argv, success/failure guard and per-check budget. Add one finite windchime aggregate and the new real0.4.0 restore-fixture dependency only; explicitly version SDK-specific19-file counts/identity expectations. Forest audio saturation uses test-local held original streams to remove accidental10ms wall-clock expiry, retaining all original pool checks and production bytes. CI tests add same-run identity/tar/disk corruption negatives. See actual per-file independent review before final freeze; no current whole-head PASS is asserted."
+  "test_change_justification": "Preserve every original full178 check, argv, success/failure guard and per-check budget. Add one finite windchime aggregate and the new real0.4.0 restore-fixture dependency only; explicitly version SDK-specific19-file counts/identity expectations. Forest audio saturation uses test-local held original streams to remove accidental10ms wall-clock expiry, retaining all original pool checks and production bytes. CI tests add same-run identity/tar/disk corruption negatives. See actual per-file independent review before final freeze; no current whole-head PASS is asserted.",
+  "external_acceptance": {
+    "status": "pending",
+    "required_before_merge": true,
+    "scope": "Exact final candidate full179+affected andactual4.43GB preparationartifact cycle/sourceproofs. No final CIresult written by this collector.",
+    "main_merge": "not yet recorded",
+    "website_deployment": "not authorized"
+  },
+  "production_snapshot": "22adbe748f451180997a9326a9cd950c9a314a159e70577c44c4424332d89091"
 }

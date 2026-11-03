@@ -1,23 +1,23 @@
-# 0.4.1起点钟门开发证据
+# 0.4.1受控宿主证据与未完成边界
 
-当前为实施中的阶段原件，不是最终精确head验收。已推送SDK升级提交 `a0089f1cf061bb8397bbae151dfbca6026576525`；实际适配测试来自各自WIP/sourceSHA，原0.4与旧CI失败仍保原身份。未在此签生成风铃完整入口、0.4.1 Web、最终完整CI、main合入或发布。
+受验实际运行源 `a0a90061816516bb4ac15ea56b3d644b5c8b477d`。SDK0.4.1/module1.1.0/runtime-map/v2，PCK `e49853f58481a79a4fe50b696a257209a26b86742038b9857756d4da3d098ec9`。普通出发不变，不部署网站。
 
-[范围及授权](../../worklines/mapgen_041_windchime/scope.md) · [阶段结果](../../worklines/mapgen_041_windchime/results.md) · [上游要求与剩余消费者](../../worklines/mapgen_041_windchime/upstream_requirements.md)。
+当前已实测原生完整起点/三模块/gears及对应生命周期；默认双freshWeb与gears实际自动流程和全部6/7截图独立审阅严格通过。风铃第一次Web因浏览器工具Mouse.click参数错误失败，原件保留；修正后风铃Web已实际自动149.985604/300（两fresh、九图、真实mouse射击/岸/退出/取消与所有guards），独立逐图审阅152.835561秒后严格合流PASS；最终精确head179+affected仍待实测，不能预签main合入。
 
-| 原件 | 可复核内容 |
-| --- | --- |
-| [custody.json](custody.json) | 精选76件原始/派生证据的路径、字节数、SHA256、原件位置；日志以mtime0无损gzip保原字节，其他原件逐字节复制，不改原source字段 |
-| [原PR130最终失败](original-ci-41679005631/final-run-receipt.json) | head9ba7/run41679005631，126PASS/1FAIL/1在途/50未执行；同目录四job日志和serial原生失败capture |
-| [原SDK主工具链验证](native-preliminary/sdk-verify-bundle-01.log.gz) | Godot4.7.2实际执行0.4.1原verify_bundle，success/gears/failure完整结果核对PASS |
-| [显式旧版核验](sdk-upgrade/old-040-verify.json)与[升级收据](sdk-upgrade/upgrade-040-to-041.json) | 原0.4.0 23叶/18GD先验；新0.4.1 24叶/19GD受锁安装；旧sdk-upgrade/summary保持当时ENGINE_PENDING原状态，不代替后续真实日志 |
-| [Provider35原日志](native-preliminary/provider-native-02.log.gz)与[capture](native-preliminary/windchime_provider.json) | 完整起点语义选择、usedPort准入与负例；首次body-path失败和import错误另存原件 |
-| [完整模块夹具100原日志](native-preliminary/windchime-mechanism-native-01.log.gz)与[capture](native-preliminary/windchime_mechanisms.json) | 真实源内容、双向物化、Router/弹丸/门/岸/恢复/取消；仅fixture，不签生成入口或邻居 |
-| [gears69身份](native-gears/initial-69/receipt.json)与[后续73原日志](native-gears/restore-73/native.log.gz) | 同次0.4.1/930007真实生成、完整危险/锯齿/双渡台，旧0.4恢复身份拒绝；各自capture分开保留 |
-| [音频93原报告](native-preliminary/ambience-report.json) | 原wrapper、source_stable/退出清理；[测试修复说明](ambience-ci-audit/fixture-change.md)保留写成时native-pending，不改签为作者执行 |
-| [CI工件41实现收据](ci-inputs/finish-summary.json)、[磁盘诊断后45](ci-disk/summary.json)、[独审41/4/54](review-ci/review.json) | 各自sourceSHA与原日志；实际4.43GB工件循环尚未签，不扩大独审SHA覆盖 |
-| [边界只读独审](review-windchime/review.json) | 静态/原件检查，未独立运行Godot/Web；恢复加固及完整入口待验明确列出 |
-| [实际0.4.1/930007库存](coverage/actual-041-930007-inventory.json) | 从本目录同次真实result按module/version/role/连接提取，不是运行注册表或40图/整图支持声明 |
+- [真实四入口库存](coverage/consumer-inventory.json)、[每入口原始native captures](coverage/consumer-traces/frozen-three.json)及[源码兼容收据](coverage/native-source-custody.json)：只覆盖四真实开发入口行为，不把helper fixture或全图未装模块算消费者，不把旧native改称新head fresh。
+- [默认实际严格合流](web/default/acceptance.json)/[独审摘要](web/default/summary.json)：自动150.177737/300，离线六图77.638572。图片在同目录，三次菜单捕获有两个字节相同但独立实际时间，不冒称不同画面。
+- [gears实际严格合流](web/gears/acceptance.json)/[独审摘要](web/gears/summary.json)：自动108.986178/300，离线七图93.501018。第二渡台被裁切，危险带未单独可视辨识；原生负责完整机制与伤害，不签Web双渡台全景或危险接触。
+- [原wind尝试01失败工件收据](web/windchime-attempt01-failed/artifact-receipt.json)：actual90.378572秒FAILED，source/PCK/producers守门通过；真实生成出生/门阻挡后工具API TypeError，未当作开火/完整路线成功。
+- [本次controller真实peer](coverage/actual-controller-start-peer.json)以及[默认46](coverage/actual-041-generated-three-inventory.json)/[gears43](coverage/actual-041-gears-inventory.json)/[controller45](coverage/actual-041-windchime-controller-inventory.json)完整离线库存：按实际结果/请求/版本提取，非新运行注册表或40图认证。
 
-所有必要原件先保全于 `/workspace/refactor-evidence/mapgen-041-integration`，上述精选小原件进入源码Git；大PCK、SDKZIP、moduleZIP与recovery tar不放本目录。原0.4 PCK另以SHA可核工件保全，不冒称0.4.1新包。未生成美术或音效，普通出发不变，不部署网站。
+上一个CI失败与所有初始失败仍按各自source/status保留。`.json.gz`/`.log.gz`为原字节无损存储；内部source/路径/哈希不因编码改签。实际PCK外部工件保留，不放源码Git；源包ZIP/Python/开发证据不进游戏。其他原阶段证据沿旧目录保留。
 
-日志现以 `.log.gz` 无损保存，可用 `gzip -dc <path.log.gz>` 或Python `gzip.decompress` 读取。custody中的 `bytes/sha256` 核存储字节，`raw_bytes/raw_sha256` 核解压后的完整原字节；原收据内的旧 `.log` 路径和SHA保持原记录，不据编码改写历史。新增native-current日志与两份JSON也已逐件绑定实际build源路径和SHA。
+[范围](../../worklines/mapgen_041_windchime/scope.md) · [当前结果](../../worklines/mapgen_041_windchime/results.md) · [上游要求/整图缺口](../../worklines/mapgen_041_windchime/upstream_requirements.md)。
+
+## 本批工程收口与已知限制
+
+三实际Web自动/独审严格合流均通过，共22次真实截图审阅；风铃[实际最终合流](web/windchime-attempt02/acceptance.json)保自动149.985604/300与独审152.835561秒。完整起点只是自身模块到本侧岸，未装邻模块；恢复由原生真实消费者独立证明，未宣称Web测试reload。
+
+DEV-BANNER-BELL-PROMPT-01：现有开发横幅轻微遮部分风铃小提示；风铃实体、门、角色和真实射击目标/通路未遮，实际操作通过。这是开发提示UX限制，另批处理，当前不改冻结源/几何/物理、不签精制教程或玩家认可。v1工具失败90.378572秒保原FAILED；v2只修Mouse API兼容，保动作/断言/原300预算及所有guards。
+
+质量G4/technical/formal_integration只指明确四开发消费者工程范围；workflow仍review、G5/普通出发/邻居/整图/设备保持未验。最终冻结候选179+affected及4.43GB工件真实CI是独立必过的合入门禁，尚无结果，不借上述局部PASS代签。

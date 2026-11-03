@@ -1,49 +1,57 @@
-# 0.4.1接入的阶段结果
+# 0.4.1宿主接入验收进度
 
-本页记录可复核的阶段事实，不是最终候选的验收签字。精确SDK升级远端提交为 `a0089f1cf061bb8397bbae151dfbca6026576525`，tree `f30e9dc23ff8f762f1d831c7c5172ee01de9bdae`；其父提交为本轮范围提交 `5440f36b31063fa5f38b679579b75c2702b46f2f`。SDK升级的本地提交 `a800649390644e84ab70656f1445fb221931763b` 与该远端提交 tree 相同，Git Data API提交元数据不同。下列原生、适配和CI工具验证发生在共享WIP，必须按各自记录中的source/SHA判断覆盖，不能代签后续完整head。
+当前受验运行源 `a0a90061816516bb4ac15ea56b3d644b5c8b477d`，PCK SHA256 `e49853f58481a79a4fe50b696a257209a26b86742038b9857756d4da3d098ec9`（220414276字节）。原生结果按[源码兼容收据](../../evidence/mapgen_041_windchime/coverage/native-source-custody.json)复用原执行，不改成新head fresh；实际新Web在该精确head/PCK中运行。
 
-## 固定输入与真实调用
+本轮完整风铃Web已实际自动与九图独审严格通过；最终完整CI及main合入仍待执行。普通出发未替换，不部署网站。
 
-采用SDK交付 `c35871446cc0a3939e1a38171435f42cdc64a359` 的原版0.4.1包，archive SHA256为 `f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e`。manifest实际算法源码为 `8eefdbd140ce10defe1570ab8eefb6729382f8b3`，不把交付提交混称源码提交。模块仍为1.1.0/SHA `5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723`，公共协议仍为runtime-map/v2。
+## 来源与真实路径
 
-先显式核验原0.4.0安装的23叶/18GD，再核升级后24叶/19GD。新 `derived_library.gd` 和其余18个运行GD均为锁定SDK原件；主仓没有修改供应商求解器。原moduleZIP、两个请求和config保持字节相同。安装纯测试保留31项并新增5项，36/0。[原升级收据](../../evidence/mapgen_041_windchime/sdk-upgrade/upgrade-040-to-041.json)与[安装测试](../../evidence/mapgen_041_windchime/sdk-upgrade/installer-tests-attempt01.log.gz)保留原件。
+SDK交付 `c35871446cc0a3939e1a38171435f42cdc64a359` 的0.4.1原包 SHA256 `f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e`；manifest实际算法源码 `8eefdbd140ce10defe1570ab8eefb6729382f8b3`。模块1.1.0/SHA `5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723`，runtime-map/v2不变。先实核0.4.0再升级24叶/19GD；原版SDK源码不改，Python不进游戏。
 
-主游戏锁定引擎 `4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf`、binary SHA `eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638` 实际执行原包 `tests/verify_bundle.gd`，使用原锁定moduleZIP，success、gears-930007和failure的完整结果对照均true，整体PASS。[原日志](../../evidence/mapgen_041_windchime/native-preliminary/sdk-verify-bundle-01.log.gz)。该验证在原包project执行，不冒称主游戏Stage或浏览器验收。
+主游戏锁定Godot4.7.2实际原SDK验证，开发入口调用实际算法内存结果，经同Provider→Plan→Stage→Runtime装配。SDK已物化镜像/偏移，宿主仅加placement。已有唯一Player/Controller、钱包/伤害/奖励及lifetime继续复用；公共装配不抽地图随机数。
 
-## 已有实际宿主验证
+## 实际原生结果
 
-| 消费者 | 实际结果 | 覆盖与边界 |
+| 消费者/检查 | 结果 | 限定覆盖 |
 | --- | --- | --- |
-| v2风铃Provider | 35/0 | 真实930001生成、按语义选完整起点；封闭未用helper可以合法入场；实际usedPort/body/bank/connection负例仍拒绝。不是真实射击路线 |
-| 完整风铃Stage夹具 | 100/0 | 从真实1.1.0ZIP读取完整模块，原SDK物化正向/镜像；真实Router弹丸、门阻挡、开门幂等、Motor走到本模块岸、永久状态恢复、取消/actor失效拒迟到弹丸、退出音频清理。明确是fixture，不是生成入口或跨邻模块 |
-| gears生成入口 | 初次69/0，恢复负例后73/0 | 真实0.4.1/930007生成并经同Provider→Plan→Stage装配，保危险带、锯齿和两台线性渡台；伤害、运动、共享时钟、生命周期；新增真实旧0.4身份恢复拒绝。单模块范围 |
-| 森林音频原wrapper | 93/0、source_stable=true、released=true | 只修测试局部饱和夹具；原生产GameAudio、音频文件、池上限及原90s/210s预算不变 |
-| CI选定输入工件 | 初版41/0；磁盘诊断后45/0 | 有限真实Git/Python夹具，非实际4.43GB工件传输。独审41/4/54通过的SHA范围见原报告；后续4项磁盘测试不冒称已独审 |
+| SDK原包verify_bundle | PASS | 主游戏锁定工具链执行原成功/gears/失败完整结果对照；不是Stage |
+| 生成身份/Job | 81/0、1005/0 | 内存来源、三种身份、旧恢复拒绝、真实算法/缓存、取消/重复/退出 |
+| 冻结三模块/实际生成三模块 | 199/0、58/0 | 各自真实入口与既有玩家/服务，保完整所选内容；不是整图 |
+| gears Provider/Runtime | 80/0、73/0 | 原危险带/saw/两linear、伤害/共享时钟/生命周期、旧0.4恢复拒绝 |
+| 风铃Provider/真实内容夹具 | 35/0、100/0 | usedPort准入/反例；全原内容正反镜像、实际弹丸/开门/恢复。fixture不充当入口 |
+| 风铃实际生成完整起点入口 | 60/0 | controller请求、站稳、Router真实射击/幂等、Motor到本侧岸、两恢复、ESC真实菜单、取消拒迟到 |
+| 音频原wrapper | 94/0 | 原生产音频不改；真实50.005ms饱和保持、原41表达式/6case保留 |
+| CI输入/计划/工作流 | 45/0、57/0、4/0 | 纯Git/工具反例；非实际4.43GB工件或完整179验收 |
 
-原日志和capture均见[证据索引](../../evidence/mapgen_041_windchime/README.md)。首次import的font错误、首次Provider body-path错误保留，随后分别修正/复验；不把失败记录改成通过。实际generated风铃入口、0.4.1 Web两fresh与最终完整CI另行记录，当前表不预签。
+## 实际Web与独立审图
 
-0.4.1 gears930007生成的 `content_store`、`instances`、`connections` 与保留的同请求0.4.0原件逐值相等；实现指纹与装载身份确实变化。新输入指纹 `84d94b05e86a00a507ef0de8cac9f407a6dbd9dd7662a505ac182402c8ead918`，地图内容身份 `273410cebf375c38f52783ea8edc281003ed6b2dfb19b40bd85d1a9542bd5eee`，宿主装载身份 `4ccac1be1cf8a29a04427209cd639bca3bd3067d0c842d4df761d4d9d3318bfb`。[逐项身份收据](../../evidence/mapgen_041_windchime/native-gears/initial-69/receipt.json)。该结论限同一请求；不把单例对照说成40张宿主地图物理可玩。
+| 用例 | 自动执行（原300秒） | 离线真实审图 | 当前结论 |
+| --- | --- | --- | --- |
+| 默认双fresh | 150.177737秒 | 六图逐张，77.638572秒 | 严格合流PASS；生成/有限移动/取消/菜单返回 |
+| gears | 108.986178秒 | 七图逐张，93.501018秒 | 严格合流PASS；运动与退出。第二渡台最多裁切细条，不签双渡台全可视覆盖；原生负责完整危险伤害 |
+| 风铃第一次 | FAILED，90.378572秒 | 三失败图保留 | 实际生成/出生/关门阻挡后，测试工具用了不存在的Mouse.click(timeout)参数，开火前TypeError；不是算法超时/游戏成功 |
+| 风铃v2完整双fresh | 149.985604秒 | 九图逐张，152.835561秒 | 严格合流PASS；真实mouse miss/hit/repeat、正常Motor到本侧岸、ESC与取消；Web未测reload，原生恢复独立 |
 
-## 原PR130 CI必须保持失败身份
+实际源、producer、HTTP/PCK前后守门和browser闭合见各自原report/acceptance。原favicon404、Emscripten主线程阻塞告警保留，脚本/页面错误按实际报告；不把软件SwiftShader称手机FPS、硬帧预算、音频听感或整图验收。
 
-原精确head `9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8` 的 [run41679005631](https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631) 已实际结束FAILURE。原178项中观察到126PASS、1FAIL、1在途无最终结果、50未开始。
+## 边界与下一批
 
-serial实际37PASS/1FAIL/47未开始；`forest-bible-ambience` 在9.781秒/210秒内断言失败，原生73项/1失败，清理released=true，不能称输入超时。parallel原日志89项PASS，90th `bellstrider-rework-01` 在途；job在90分27秒边界被cancelled，没有最终phase-proof和source-after，不能把在途check称timeout/PASS。输入恢复分别45分16秒和49分42秒，这是CI准备耗时，不是算法生成耗时。[原收据](../../evidence/mapgen_041_windchime/original-ci-41679005631/final-run-receipt.json)与原日志保持未改。
+实际controller生成45个实例；其起点按module/version/start角色选择，连接C001至 `idea-spec02-s12-001`，不是早期conformance的 `idea-interface-s12-001`。[真实邻居原字段](../../evidence/mapgen_041_windchime/coverage/actual-controller-start-peer.json)包含完整4platform/2oneway、P/Q两linear的designState:FROZEN_EXAMPLE，以及group_motion bell/access/targets资格数据；当前宿主未支持，未装邻居，不宣称跨缝。
 
-最小CI修复让prepare产同run/精确HEAD/完整plan与原收据绑定的输入工件，后续lane/affected校验复用；完整保留path/mode/Gitblob/SHA/source及no-overwrite、原preflight。原178检查顺序、参数、预算及Harness原件保持；最终可增加本轮真实新消费者检查。磁盘记录按真实volume/free/所需额外字节给出下界，确定不足就明确失败，不宣称标准runner已足够。实际4.43GB上传/下载/恢复及最终精确head两通道合流仍必须以最终真实CI结果为准。
+新三份离线覆盖库存分别绑定默认conformance46、gears43、controller起点45个实际实例及各自result SHA/请求/配置/连接。它们不是运行注册表或40图验证，不沿用0.3覆盖表/M编号。
 
-## 当前完成声明限制
+## 保留的失败与CI要求
 
-普通出发未切换，模块未升1.1.1，玩家物理/经济/资源/奖励/RNG和永久保存schema未改。当前不声称完整地图、邻模块跨缝、全部敌人奖励Boss、真机或用户认可。最终main合入须在本轮全部代码/证据冻结、实际完整Web与精确head完整CI/独审通过后普通merge；merge message使用 `[skip-playtest]` 保检查而跳本轮Pages部署，不使用skip ci。
+PR130/head9ba7的run41679005631实际126PASS/1FAIL/1在途未证/50未开始，保原身份。serial音频断言失败与parallel输入45:16/serial49:42占用job时限分开记录，不能称全部测试通过或算法慢。
 
-## 后续实际原生消费者（本轮WIP源，非最终CI）
+CI现prepare同run精确HEAD/plan/原receipt绑定工件，后续lane/affected核path/mode/Gitblob/SHA/来源与安全恢复后复用；45纯测试、独审接受不等于4.43GB真实跑通。原178顺序/argv/marker/单项预算保留，m35仅追加实际旧恢复fixture输入，新增1个总240秒风铃聚合，full179=parallel93+serial86。旧54计划断言在显式历史tail适配后保留并加3项，57/0；原失败保留。
 
-原始日志与capture见新证据native-current：生成身份81/0、任务1005/0、三模块58/0；完整起点真实controller请求生成、Router射击、走岸、连续两次restore/旧job拒绝、ESC真实菜单与两种取消60/0。新聚合保独立ports35/0及原完整机制fixture100/0，均实际执行。第一次generated runner类型推断失败、第二次固定帧先于真实audio drain导致菜单等待失败原件保留；第三次按既有drain真实墙钟5秒上限等结果通过，未改生产退出或音频。
+全部代码与必要证据冻结后才启动最终精确head完整CI/合流。通过后普通受保护merge保历史，合并消息含 `[skip-playtest]`，只跳网站部署，不skip CI、不绕保护。
 
-本任务导航所指原日志已改用mtime0无损gzip存储；解压后字节数及SHA与原日志一致。原历史收据中内嵌路径/哈希保持原身份，存储与解压身份映射见证据custody，未trim任何原日志尾随空白。
+## 本批工程收口与已知限制
 
-## 最终CI前的独审纠正
+三实际Web自动/独审严格合流均通过，共22次真实截图审阅；风铃[实际最终合流](../../evidence/mapgen_041_windchime/web/windchime-attempt02/acceptance.json)保自动149.985604/300与独审152.835561秒。完整起点只是自身模块到本侧岸，未装邻模块；恢复由原生真实消费者独立证明，未宣称Web测试reload。
 
-独审确认原音频runner静态check调用是41个（早期作者39计数有误），原41表达式及6个case完整保留。首次93/0里的create_timer(0.05)是50ms模拟时间，实测hold_wall_ms=0.111；不把它签为50ms墙钟。现测试局部改用单调墙钟至少50000微秒，新增计时断言，原wrapper实测94/0、50.005ms、9.2688秒/source_stable=true/退出干净；生产GameAudio与资产不改。
+DEV-BANNER-BELL-PROMPT-01：现有开发横幅轻微遮部分风铃小提示；风铃实体、门、角色和真实射击目标/通路未遮，实际操作通过。这是开发提示UX限制，另批处理，当前不改冻结源/几何/物理、不签精制教程或玩家认可。v1工具失败90.378572秒保原FAILED；v2只修Mouse API兼容，保动作/断言/原300预算及所有guards。
 
-原selector54里4处历史“gears在末尾”假设因新增windchime失败，失败原件保留。仅按既有prior_profile_tail机制显式隔离新tail后重放原54方法；追加当前179完整注册、旧226检查与profiles完整性、聚合240秒失败传播3项，共57/0。原178的所有argv/预算/marker不变，m35runtime仅追加实际旧恢复fixture输入，新windchime聚合保持原35/100/60真实消费者；完整精确head CI仍待后续实际运行。
+质量G4/technical/formal_integration只指明确四开发消费者工程范围；workflow仍review、G5/普通出发/邻居/整图/设备保持未验。最终冻结候选179+affected及4.43GB工件真实CI是独立必过的合入门禁，尚无结果，不借上述局部PASS代签。

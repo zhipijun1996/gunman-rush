@@ -1,0 +1,67 @@
+{
+  "verdict": "ACCEPT_declared_default_two_fresh_visual_scope",
+  "source": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+  "automatic_report_sha256": "849c53111d57218d375fb5eb9e2dde17800bb17d4e3189be4eb414de4ca86217",
+  "acceptance_sha256": "1e0e0ed2fd177d971f2b6b86b213acfed57ea125be334bb34b04992bb2f90343",
+  "automatic_elapsed_seconds": 150.17773713000133,
+  "offline_review_elapsed_seconds": 77.63857202148438,
+  "source_stable": true,
+  "producer_stable": true,
+  "viewed_images": [
+    "generated-escape-01-committed.png",
+    "generated-escape-02-after-d.png",
+    "generated-escape-03-after-a.png",
+    "generated-escape-returned-title.png",
+    "cancel-generate-01-after-cancel-key.png",
+    "cancel-generate-returned-title.png"
+  ],
+  "limits": [
+    "Six screenshots actually opened independently via tools.view_image; no video or audio listening performed.",
+    "Automated source/producer/HTTP/PCK guards are validated by original strict join; image inspection alone cannot establish lifecycle.",
+    "No phone/FPS/user/full-map/seam certification.",
+    "Two title captures share identical image bytes and separate actual capture timestamps; this is preserved, not treated as unique visual content."
+  ],
+  "console_preservation": [
+    {
+      "label": "generated-escape",
+      "script_errors": [],
+      "console_errors_retained": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "location": {
+            "url": "http://127.0.0.1:8834/favicon.ico",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          },
+          "epoch_ms": 1793736364295.1006
+        },
+        {
+          "type": "error",
+          "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+          "location": {
+            "url": "http://127.0.0.1:8834/index.c410089b390c.engine.js",
+            "line": 466,
+            "column": 17,
+            "lineNumber": 466,
+            "columnNumber": 17
+          },
+          "epoch_ms": 1793736445202.488
+        }
+      ],
+      "page_errors": [],
+      "request_failures": [],
+      "http_errors": []
+    },
+    {
+      "label": "cancel-generate",
+      "script_errors": [],
+      "console_errors_retained": [],
+      "page_errors": [],
+      "request_failures": [],
+      "http_errors": []
+    }
+  ]
+}

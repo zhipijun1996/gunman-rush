@@ -1,0 +1,59 @@
+{
+  "verdict": "ACCEPT_declared_gears_sampled_motion_and_menu_scope",
+  "source": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+  "acceptance_sha256": "3250ff22b7dcff9a10119c9faadf00f9b5420cad56afbac7e32303148c314b5e",
+  "automatic_report_sha256": "ba3659f20426cfb6ee291aa738cbeb84179552a97b9548f22650ac02fc3d0a20",
+  "automatic_elapsed_seconds": 108.98617842699969,
+  "offline_review_elapsed_seconds": 93.501017578125,
+  "source_stable": true,
+  "producer_stable": true,
+  "viewed_images": [
+    "gears-escape-01-committed.png",
+    "gears-escape-motion-2p5-clock-seconds.png",
+    "gears-escape-motion-5p0-clock-seconds.png",
+    "gears-escape-motion-7p5-clock-seconds.png",
+    "gears-escape-motion-10p0-clock-seconds.png",
+    "gears-escape-before-escape.png",
+    "gears-escape-returned-title.png"
+  ],
+  "limits": [
+    "Actually opened all seven original PNGs. No video playback/audio listening/phone/FPS/full-map or physical hazard-contact proof.",
+    "Only one ferry is fully visible; the other is at most a cropped brass sliver in upper-right frames. Native/node inventory owns complete two-ferry coverage.",
+    "Correction to provisional image notes: lower hazard strip was called outside camera without projection verification. The actual console retains fall_plane=true rect[428,1042,912,40], which can project partly into the viewport under player-follow camera. It is not separately identifiable as a drawn strip in these images; DEEP DROP and void are visible. Do not claim that strip visual coverage or offscreen localization. Prior notes/acceptance remain preserved; this explicit correction narrows them."
+  ],
+  "console_preservation": [
+    {
+      "label": "gears-escape",
+      "script_errors": [],
+      "console_errors_retained": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "location": {
+            "url": "http://127.0.0.1:8835/favicon.ico",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          },
+          "epoch_ms": 1793736590549.4688
+        },
+        {
+          "type": "error",
+          "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+          "location": {
+            "url": "http://127.0.0.1:8835/index.c410089b390c.engine.js",
+            "line": 466,
+            "column": 17,
+            "lineNumber": 466,
+            "columnNumber": 17
+          },
+          "epoch_ms": 1793736668337.541
+        }
+      ],
+      "page_errors": [],
+      "request_failures": [],
+      "http_errors": []
+    }
+  ]
+}

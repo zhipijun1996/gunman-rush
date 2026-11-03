@@ -1,3 +1,13 @@
+## 2026-11-03 0.4.1宿主接入：冻结前实际验收完成
+
+feature/mapgen-041-windchime-integration沿PR130/9ba接续，运行实测源a0a90061816516bb4ac15ea56b3d644b5c8b477d。原版算法0.4.1、模块1.1.0、runtime-map/v2；正式普通出发、美术音效、物理/经济/RNG及永久保存格式不变，不部署。真实SDK→Provider→Plan→Stage→Runtime已在原生和实际PCK/Web通过。
+
+完整起点风铃单模块：真实出生、Router弹丸开门/重复幂等、正常Motor至出口接岸、原生连续两次恢复、旧job/actor/取消/退出拒绝；实际Web双fresh149.986/300秒、9图真审152.836秒。默认三模块双fresh150.178/300与6图、gears108.986/300与7图分别严格合流通过，全部自动/离线审图分开计时。冻结三模块199/0、生成三模块58/0、gears73/0、起点35+100+60/0；原SDK19文件pin、身份81/0、job1005/0及严格退出完成。
+
+CI修复保原178项和预算，新增一项风铃聚合=179(93parallel/86serial)，准备输入同run/精确HEAD工件复用；57selector、45输入、93Harness等实际通过。旧PR130失败、旧SDK/旧PCK和风铃工具API失败保留原身份；测试工具修订不改游戏。当前[证据与限制](evidence/mapgen_041_windchime/README.md)及[上游/完整地图缺口](worklines/mapgen_041_windchime/upstream_requirements.md)为准。
+
+Git文档记录冻结前实测，不预填未来CI。最终候选完整179+affected及4.43GB真实工件循环、合入结果以此分支最终PR/Actions收据为准；用户已授权它们通过且审阅接受后普通合main，保历史。最终merge消息必须含[skip-playtest]以禁止本次main推送Pages，不跳CI、不绕保护。实际controller起点邻居idea-spec02-s12-001未装，不套用早conformance的idea-interface-s12-001；P/Q的designState/group_motion、敌人/奖励/Boss/正式整图消费者留后续，不扩本批。
+
 ## 2026-11-03 mapgen0.4.1 集成进行中
 
 用户已授权本轮原生/Web/最终精确head CI及独审通过后普通合main，普通出发不变，不部署网站。沿PR130/9ba7d4接续feature/mapgen-041-windchime-integration；SDK已单独升级并远端保全，模块1.1.0/runtime-map/v2。真实完整起点风铃原生60/0（实际生成/Router射击/走岸/连续两次恢复/ESC返回/取消）；相关实际生成job1005/0、生成三模块58/0、身份81/0、真实机制fixture100/0、ports35/0、gears73/0。分源原件与初始失败见[本轮结果](worklines/mapgen_041_windchime/results.md)。这些不是最终完整CI或Web签字。
