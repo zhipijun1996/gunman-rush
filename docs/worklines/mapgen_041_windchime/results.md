@@ -41,3 +41,9 @@ serial实际37PASS/1FAIL/47未开始；`forest-bible-ambience` 在9.781秒/210�
 原始日志与capture见新证据native-current：生成身份81/0、任务1005/0、三模块58/0；完整起点真实controller请求生成、Router射击、走岸、连续两次restore/旧job拒绝、ESC真实菜单与两种取消60/0。新聚合保独立ports35/0及原完整机制fixture100/0，均实际执行。第一次generated runner类型推断失败、第二次固定帧先于真实audio drain导致菜单等待失败原件保留；第三次按既有drain真实墙钟5秒上限等结果通过，未改生产退出或音频。
 
 本任务导航所指原日志已改用mtime0无损gzip存储；解压后字节数及SHA与原日志一致。原历史收据中内嵌路径/哈希保持原身份，存储与解压身份映射见证据custody，未trim任何原日志尾随空白。
+
+## 最终CI前的独审纠正
+
+独审确认原音频runner静态check调用是41个（早期作者39计数有误），原41表达式及6个case完整保留。首次93/0里的create_timer(0.05)是50ms模拟时间，实测hold_wall_ms=0.111；不把它签为50ms墙钟。现测试局部改用单调墙钟至少50000微秒，新增计时断言，原wrapper实测94/0、50.005ms、9.2688秒/source_stable=true/退出干净；生产GameAudio与资产不改。
+
+原selector54里4处历史“gears在末尾”假设因新增windchime失败，失败原件保留。仅按既有prior_profile_tail机制显式隔离新tail后重放原54方法；追加当前179完整注册、旧226检查与profiles完整性、聚合240秒失败传播3项，共57/0。原178的所有argv/预算/marker不变，m35runtime仅追加实际旧恢复fixture输入，新windchime聚合保持原35/100/60真实消费者；完整精确head CI仍待后续实际运行。

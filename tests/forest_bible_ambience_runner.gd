@@ -150,8 +150,11 @@ func pool_case() -> void:
 	var before_hold := pool_occupancy()
 	check(audio._voices.all(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.has_stream_playback()), "saturation precondition has twelve actual simultaneous playbacks")
 	var hold_started := Time.get_ticks_usec()
-	await create_timer(0.05).timeout
+	# Fixed-fps simulation can advance faster than AudioServer real time.
+	while Time.get_ticks_usec()-hold_started<50000:
+		await process_frame
 	var hold_ms := float(Time.get_ticks_usec()-hold_started)/1000.0
+	check(hold_ms>=50.0,"pool occupancy hold spans at least fifty real wall-clock milliseconds")
 	var after_hold := pool_occupancy()
 	check(audio._voices.all(func(voice: AudioStreamPlayer) -> bool: return voice.playing and voice.has_stream_playback()), "test-local loops retain all twelve real playbacks across the bounded hold")
 	var originals_unchanged := true

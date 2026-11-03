@@ -21,6 +21,7 @@ from production_plan import make_plan, run_commands, validate_policy
 GENERATION_ADDITIONS = ["runtime-map-generated-identity", "runtime-map-generation-job",
                         "runtime-map-generated-slice", "mapgen-candidate-installation"]
 M35_ADDITIONS = ["runtime-map-m35-provider", "runtime-map-m35-runtime"]
+WINDCHIME_ADDITIONS = ["runtime-map-windchime"]
 
 
 def prior_profile_tail(method, additions, remove_checks=False):
@@ -49,6 +50,10 @@ def prior_frozen_host_profiles(method):
 
 def prior_generated_map_profiles(method):
     return prior_profile_tail(method, M35_ADDITIONS, remove_checks=True)
+
+
+def prior_windchime_profiles(method):
+    return prior_profile_tail(method, WINDCHIME_ADDITIONS, remove_checks=True)
 
 
 class ProductionPlanTests(unittest.TestCase):
@@ -260,6 +265,7 @@ class ProductionPlanTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "early Python"):
             self.plan(["docs/handoff.md"], policy=policy)
 
+    @prior_windchime_profiles
     @prior_generated_map_profiles
     @prior_frozen_host_profiles
     def test_physical_lanes_require_the_exact_original_full_set(self):
@@ -474,6 +480,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(with_extra["ci_route"],"selected_commands")
         self.manifest = appended_manifest
 
+    @prior_windchime_profiles
     @prior_generated_map_profiles
     @prior_frozen_host_profiles
     def test_runtime_map_v2_host_appends_real_consumer_and_exact_resource_routing(self):
@@ -510,6 +517,7 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(self.plan(["resources/levels/mapgen_host_v2_01/unknown.json"], "integration", altered)["selection"], "full")
         self.assertEqual(self.plan(["docs/handoff.md"], "integration")["checks"], self.policy["baseline_checks"])
 
+    @prior_windchime_profiles
     @prior_generated_map_profiles
     def test_generated_map_checks_append_without_replacing_frozen_host_coverage(self):
         import harness
@@ -561,6 +569,7 @@ class ProductionPlanTests(unittest.TestCase):
                      "tests/runtime_map_unknown_runner.gd"):
             self.assertEqual(self.plan([path], "integration")["selection"], "full")
 
+    @prior_windchime_profiles
     def test_m35_append_preserves_176_and_registers_all_six_current_mapgen_checks(self):
         import harness
         import install_mapgen_candidate
@@ -602,6 +611,108 @@ class ProductionPlanTests(unittest.TestCase):
             for path in check["inputs"]:
                 self.assertTrue((ROOT / path).exists(), path)
             self.assertEqual(check.get("artifact_paths", []), ["build/mapgen_godot_03", "build/mapgen_godot_04/gears"] if name.endswith("runtime") else [])
+
+    def test_windchime_preserves_original_178_definitions_and_profile_vectors(self):
+        # Exact canonical snapshots from PR130 9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8.
+        # No Git/network access is needed to replay these immutable boundaries.
+        canonical = lambda value: hashlib.sha256(json.dumps(
+            value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        historical = copy.deepcopy(self.manifest)
+        for profile in ("full", "gameplay"):
+            self.assertEqual(historical["profiles"][profile][-1:], WINDCHIME_ADDITIONS)
+            historical["profiles"][profile].pop()
+        self.assertEqual(len(historical["profiles"]["full"]), 178)
+        self.assertEqual(canonical(historical["profiles"]),
+                         "18c728ce8ad6adebae9610c26438e80451389ddbdc29e50d61999a16e318c1ef")
+        del historical["checks"][WINDCHIME_ADDITIONS[0]]
+        fixture = "tests/fixtures/mapgen/host_040_restore.json"
+        m35_inputs = historical["checks"]["runtime-map-m35-runtime"]["inputs"]
+        self.assertEqual(m35_inputs.count(fixture), 1)
+        self.assertEqual(m35_inputs[-1], fixture)
+        m35_inputs.pop()
+        self.assertEqual(len(historical["checks"]), 226)
+        # Includes every old argv, budget, success marker, input and artifact field.
+        self.assertEqual(canonical(historical["checks"]),
+                         "67330f734a9dd9e3eb6809611cc8e3a143337321d816ceb2f11d2111115ee988")
+        self.assertTrue((ROOT / fixture).is_file())
+
+    def test_windchime_real_registration_and_complete_consumer_input_closure(self):
+        import harness
+        import re
+        name = WINDCHIME_ADDITIONS[0]
+        check = self.manifest["checks"][name]
+        self.assertEqual(check["argv"], ["python3", "tools/check_runtime_map_windchime.py"])
+        self.assertEqual(check["timeout_seconds"], 240)
+        self.assertIs(check["serial"], True)
+        self.assertIs(check["cacheable"], True)
+        self.assertEqual(check["success_pattern"],
+                         "^RUNTIME_MAP_WINDCHIME_GENERATED checks=[1-9][0-9]* failures=0$")
+        self.assertEqual(check["artifact_paths"], ["build/mapgen041"])
+        self.assertEqual({p for p, names in self.manifest["profiles"].items() if name in names},
+                         {"gameplay", "full"})
+        plan = self.plan(["project.godot"], "integration")
+        self.assertEqual((len(plan["checks"]), len(plan["ci_lane_checks"]["parallel"]),
+                          len(plan["ci_lane_checks"]["serial"])), (179, 93, 86))
+        self.assertEqual(len(self.manifest["checks"]), 227)
+        self.assertEqual(plan["checks"].count(name), 1)
+        self.assertIn(name, plan["ci_lane_checks"]["serial"])
+        for path in ("tools/check_runtime_map_windchime.py", "tests/runtime_map_windchime_provider_runner.gd",
+                     "tests/runtime_map_windchime_runtime_runner.gd", "tests/runtime_map_windchime_generated_runner.gd"):
+            self.assertIn(path, check["inputs"])
+        for path in ("experiments/generation/runtime_map_windchime_slice.gd",
+                     "experiments/generation/runtime_map_windchime_slice.tscn",
+                     "game/world/levels/content/runtime_map_port_admission.gd",
+                     "game/world/levels/content/runtime_map_shot_latch_adapter.gd",
+                     "game/world/components/runtime_map_shot_latch_encounter.gd",
+                     "resources/levels/mapgen_host_041_windchime/bindings.json",
+                     "addons/mapgen/derived_library.gd", "resources/mapgen/module-pack-1.1.0.zip"):
+            self.assertTrue((ROOT / path).is_file(), path)
+            self.assertNotEqual(harness.input_digest(check, [path], {}, {path: "before"}),
+                                harness.input_digest(check, [path], {}, {path: "after"}))
+        for path in check["inputs"]:
+            self.assertTrue((ROOT / path).exists(), path)
+        good = "RUNTIME_MAP_WINDCHIME_GENERATED checks=1 failures=0"
+        self.assertIsNotNone(re.fullmatch(check["success_pattern"], good))
+        for bad in ("", good.replace("checks=1", "checks=0"), good.replace("failures=0", "failures=1"),
+                    good + " partial"):
+            self.assertIsNone(re.fullmatch(check["success_pattern"], bad))
+
+    def test_windchime_wrapper_uses_one_total_deadline_and_all_three_real_runners(self):
+        import check_runtime_map_windchime as wrapper
+        import run_tests
+        self.assertIs(wrapper.run_engine, run_tests.run_engine)
+        outputs = ["imported", "RUNTIME_MAP_WINDCHIME_PROVIDER checks=35 failures=0\n",
+                   "RUNTIME MAP WINDCHIME MECHANISMS: 100 assertions, 0 failures\n",
+                   "RUNTIME_MAP_WINDCHIME_GENERATED checks=60 failures=0\n"]
+        with patch.object(wrapper.time, "monotonic", side_effect=[0, 0, 10, 30, 90]), \
+                patch.object(wrapper, "run_engine", side_effect=outputs) as engine:
+            wrapper.main()
+        self.assertEqual([call.args[1] for call in engine.call_args_list], [90, 230, 210, 150])
+        self.assertEqual(engine.call_args_list[0].args[0],
+                         ["--headless", "--audio-driver", "Dummy", "--path", ".", "--editor", "--quit"])
+        for call, stem in zip(engine.call_args_list[1:], ("provider", "runtime", "generated")):
+            self.assertEqual(call.args[0], ["--headless", "--audio-driver", "Dummy", "--fixed-fps", "60",
+                                           "--path", ".", "--script", "tests/runtime_map_windchime_" + stem + "_runner.gd"])
+        for index in (1, 2, 3):
+            bad_failure = outputs[index].replace("0 failures", "1 failures") if index == 2 else outputs[index].replace("failures=0", "failures=1")
+            bad_count = outputs[index].replace("100 assertions", "0 assertions") if index == 2 else outputs[index].replace("checks=35", "checks=0").replace("checks=60", "checks=0")
+            for bad in ("", bad_failure, bad_count,
+                        outputs[index] + "ERROR: Resumed function fixture class instance is gone\n"):
+                changed = list(outputs)
+                changed[index] = bad
+                with patch.object(wrapper.time, "monotonic", return_value=0), \
+                        patch.object(wrapper, "run_engine", side_effect=changed), self.assertRaises(RuntimeError):
+                    wrapper.main()
+        import subprocess
+        for failure in (RuntimeError("original strict engine failure"), subprocess.TimeoutExpired("Godot", 240)):
+            with patch.object(wrapper.time, "monotonic", return_value=0), \
+                    patch.object(wrapper, "run_engine", side_effect=["imported", failure]), self.assertRaises(type(failure)):
+                wrapper.main()
+        with patch.object(wrapper.time, "monotonic", side_effect=[0, 0, 241]), \
+                patch.object(wrapper, "run_engine", return_value="imported") as engine, \
+                self.assertRaisesRegex(RuntimeError, "aggregate 240s deadline exhausted"):
+            wrapper.main()
+        self.assertEqual(engine.call_count, 1, "Exhausted aggregate time must not start another native consumer")
 
     def test_m35_wrappers_reuse_strict_native_guard_without_engine_execution(self):
         import check_runtime_map_generated_identity as shared
