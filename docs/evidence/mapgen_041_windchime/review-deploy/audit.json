@@ -1,0 +1,106 @@
+{
+  "schema": "gunman-rush/no-deploy-merge-constraint-audit/v1",
+  "created_utc": "2026-11-03T18:37:57.764193+00:00",
+  "reviewer": "/root/stage_a_final_review",
+  "verdict": "RECOMMEND_MINIMAL_TWO_CONDITION_MARKER_OPT_OUT",
+  "implementation_status": "proposal only; deployment workflow not edited or tested by reviewer",
+  "current_scope": "Latest delegated user authorization permits independent0.4.1+complete start-clock-gate+minimal CI input artifact reuse, required validation/exact-head CI/independent review then merge main; ordinary departure unchanged and website deployment explicitly excluded. Earlier no0.4.1/noB/noMerge boundaries do not apply to this new authorized follow-up.",
+  "worktree": "/tmp/gunman-rush-mapgen-041",
+  "branch": "feature/mapgen-041-windchime-integration",
+  "branch_base": "9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8",
+  "origin_main": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+  "observed_conflict": "environment.yml main push currently executes upload-pages-artifact and deploy_web after original validation/build; merge without an explicit opt-out would publish despite this round no-deploy instruction.",
+  "exact_existing_condition": "(github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))",
+  "recommended_condition_at_both_existing_locations": "(github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[skip-playtest]')) || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))",
+  "locations": [
+    "web steps actions/upload-pages-artifact@v3 if",
+    "jobs.deploy_web if"
+  ],
+  "preserve": [
+    "main push workflow trigger and all CI/full-profile verification/build/check ownership",
+    "web normal gunman-rush-web-playtest artifact upload and checked output transfer",
+    "workflow_dispatch inputs.deploy_playtest behavior",
+    "existing feature/complete-actor-actions publish-playtest expression",
+    "deploy-prepared-playtest.yml manual-only behavior",
+    "all dependencies/permissions/timeouts/concurrency/source and output guards"
+  ],
+  "why_only_two": "Skip both Pages artifact staging and deploy entry. verify_public needs deploy_web and is naturally skipped by GitHub when that dependency is skipped; adding an unrelated verify_public gate is unnecessary.",
+  "existing_tests": "tests/test_harness.py CIWorkflowCoverageTests has2 methods covering original single full execution and original Web output custody/metadata/dependencies, but no test of Pages publication condition truth tables. Preserve both methods and assertions.",
+  "required_bounded_validation": [
+    "Parse actual YAML after edit; ensure exactly two intended identical Pages condition expressions and no trigger/job dependency changes.",
+    "Compare baseline environment.yml after reversing only the two marker additions: must recover exact original bytes.",
+    "Append a focused publication guard test to existing CIWorkflowCoverageTests using the actual two extracted conditions and representative event/ref/message/deploy inputs; no engine/browser/deployment. Preserve existing tests.",
+    "Run original CIWorkflowCoverageTests, appropriate pure selector tests and final quality/diff checks; collect final exact-head CI as already required by authorized integration task.",
+    "At ordinary merge explicitly place [skip-playtest] in the actual merge commit subject/body. Verify final main commit message and resulting environment.yml, then verify main push CI/build proceeds while Pages upload step/deploy_web/verify_public are skipped. Do not dispatch a deployment or claim a new public URL."
+  ],
+  "condition_behavior_cases": [
+    {
+      "event": "push",
+      "ref": "refs/heads/main",
+      "message": "Merge integration [skip-playtest]",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": false
+    },
+    {
+      "event": "push",
+      "ref": "refs/heads/main",
+      "message": "Merge integration",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": true
+    },
+    {
+      "event": "push",
+      "ref": "refs/heads/main",
+      "message": "[skip-playtest] [publish-playtest]",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": false
+    },
+    {
+      "event": "workflow_dispatch",
+      "ref": "refs/heads/main",
+      "message": "[skip-playtest]",
+      "deploy_input": true,
+      "expected_pages_upload_and_deploy": true
+    },
+    {
+      "event": "workflow_dispatch",
+      "ref": "refs/heads/main",
+      "message": "",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": false
+    },
+    {
+      "event": "push",
+      "ref": "refs/heads/feature/complete-actor-actions",
+      "message": "[publish-playtest] [skip-playtest]",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": true
+    },
+    {
+      "event": "push",
+      "ref": "refs/heads/feature/complete-actor-actions",
+      "message": "regular",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": false
+    },
+    {
+      "event": "pull_request",
+      "ref": "refs/pull/999/merge",
+      "message": "",
+      "deploy_input": false,
+      "expected_pages_upload_and_deploy": false
+    }
+  ],
+  "scope_boundary": "Opt-out applies per main commit message only. Do not disable the whole workflow, use skip-ci tokens, change default future auto-publish policy, or suppress manual deployment. A later ordinary main commit without marker retains existing publish behavior.",
+  "separate_preexisting_observation": "environment.yml still selects floatingPython3.12 in all setup steps while original verify_lane_reports compares complete toolchains. This can reproduce original cross-patch mismatch independently of deployment suppression. Surface to root for separately scoped CI handling; not a reason to widen this two-condition deployment patch.",
+  "source_sha256": {
+    "AGENTS.md": "351853c9691aa521033f6791d4dcace8595e1d3c83043769b644a9aa6351611b",
+    ".github/workflows/environment.yml": "a7b228a51e7ff1a32a399075a8d09f8a3c3c09e82b891b7d695fbfce0f254cf1",
+    ".github/workflows/deploy-prepared-playtest.yml": "45ff3335703edea59c83923394cbcf20fe37ed9cbd44fce259c20a5c4515ea85",
+    ".github/workflows/production.yml": "ff9479039b324bf6e7ff3bee41c73eb8eda21c9ea8063c87053d765d6bcab182",
+    "tests/test_harness.py": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+    "tests/test_production_plan.py": "9e8a8f8fa6634436db8aa8f8a9e251f4b2cdfb6c84561c5ced192c4e8a2e7e20",
+    "tools/harness.py": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2"
+  },
+  "actions_performed": "Read-only repo/Git inspection and external audit file writes only; no repo mutation, tests, engine, browser, deployment or currentPR130 CI action."
+}

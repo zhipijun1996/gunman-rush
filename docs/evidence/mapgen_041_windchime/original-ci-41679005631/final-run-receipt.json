@@ -1,0 +1,392 @@
+{
+  "record_type": "completed_original_python_pin_run_failure_receipt",
+  "audit_at": "2026-11-03T18:57:10.106465+00:00",
+  "run_id": 41679005631,
+  "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631",
+  "attempt": 1,
+  "head": "9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8",
+  "tree": "f36125b8f5c394cd5b3ae4ce5c8aca92a1d86852",
+  "base": "46eb3960a592374b5fb99d7df588962a3680f86b",
+  "event": "pull_request",
+  "run_status": "completed",
+  "run_conclusion": "failure",
+  "created_at": "2026-11-03T16:54:54Z",
+  "updated_at": "2026-11-03T18:46:37Z",
+  "jobs": [
+    {
+      "id": 126067292181,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-03T16:54:58Z",
+      "completed_at": "2026-11-03T17:15:54Z",
+      "wall_seconds": 1256.0,
+      "steps": []
+    },
+    {
+      "id": 126079621371,
+      "name": "full_checks (serial)",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-11-03T17:15:59Z",
+      "completed_at": "2026-11-03T18:38:58Z",
+      "wall_seconds": 4979.0,
+      "steps": [
+        {
+          "number": 8,
+          "name": "Restore the exact selected prepared input closure",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:21:35Z",
+          "completed_at": "2026-11-03T18:11:17Z",
+          "wall_seconds": 2982.0
+        },
+        {
+          "number": 12,
+          "name": "Execute one original fresh full-profile lane",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-11-03T18:12:02Z",
+          "completed_at": "2026-11-03T18:38:48Z",
+          "wall_seconds": 1606.0
+        }
+      ]
+    },
+    {
+      "id": 126079621577,
+      "name": "full_checks (parallel)",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "started_at": "2026-11-03T17:16:00Z",
+      "completed_at": "2026-11-03T18:46:27Z",
+      "wall_seconds": 5427.0,
+      "steps": [
+        {
+          "number": 8,
+          "name": "Restore the exact selected prepared input closure",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:21:11Z",
+          "completed_at": "2026-11-03T18:06:27Z",
+          "wall_seconds": 2716.0
+        },
+        {
+          "number": 12,
+          "name": "Execute one original fresh full-profile lane",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-03T18:06:57Z",
+          "completed_at": "2026-11-03T18:46:21Z",
+          "wall_seconds": 2364.0
+        }
+      ]
+    },
+    {
+      "id": 126130007305,
+      "name": "affected",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-11-03T18:46:31Z",
+      "completed_at": "2026-11-03T18:46:36Z",
+      "wall_seconds": 5.0,
+      "steps": [
+        {
+          "number": 7,
+          "name": "Restore the exact selected prepared input closure",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-11-03T18:46:33Z",
+          "completed_at": "2026-11-03T18:46:33Z",
+          "wall_seconds": 0.0
+        }
+      ]
+    }
+  ],
+  "expected_original_full_checks": 178,
+  "started_checks": 128,
+  "completed_checks": 127,
+  "observed_passed": 126,
+  "completed_failed": 1,
+  "inflight_without_final_individual_result": 1,
+  "not_started": 50,
+  "serial": {
+    "expected": 85,
+    "original_phase_report_status": "failed",
+    "completed": 38,
+    "passed": 37,
+    "failed": 1,
+    "not_started": 47,
+    "reused": 0,
+    "all_original_completed_check_argv_budget_inputdigest_logsha_fresh_token_verified": true,
+    "failed_check": {
+      "id": "forest-bible-ambience",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_ambience.py",
+        "--output-dir",
+        "build/region_bible_v2/ambience/harness/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "304383db8ffa6e32c8638145bca9ee2c95db03e0904a3929e48fef7549b4067f",
+      "log": "forest-bible-ambience.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1793731107.2254462,
+      "ended_at_unix": 1793731117.0063245,
+      "duration_seconds": 9.781,
+      "expanded_argv": [
+        "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python3",
+        "tools/run_forest_bible_ambience.py",
+        "--output-dir",
+        "build/region_bible_v2/ambience/harness/4c2a498cf25f4aaf979266330269bc8f"
+      ],
+      "check_token": "4c2a498cf25f4aaf979266330269bc8f",
+      "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261103T181202.924038Z/artifacts/forest-bible-ambience",
+      "reused": false,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "log_sha256": "6e721b82a4f966ee4856a89ee94f9fa97452b3b0002860f71f32c4e9698fe819"
+    },
+    "native_assertion": "FAIL: thirteenth simultaneous cue is dropped without count",
+    "native_summary": "FOREST BIBLE AMBIENCE: 73 assertions, 1 failures",
+    "native_cleanup": "FOREST BIBLE AMBIENCE CLEANUP: released=true",
+    "toolchain": {
+      "python": "3.12.16 (main, Oct 26 2026, 02:48:44) [GCC 15.2.0]",
+      "platform": "linux",
+      "godot": {
+        "exit_code": 0,
+        "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+        "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+        "bytes": 171575448,
+        "build_id": "godot-4.7.2-gunman-sd1",
+        "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+        "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+      },
+      "node": {
+        "exit_code": 0,
+        "version": "v22.23.4"
+      }
+    },
+    "source_inventory_entries": 35971,
+    "source_before_after_equal": true,
+    "toolchain_before_after_equal": true,
+    "phase_report_sha256": "e653e4325548f7577ff20c749a74876b229e7b8f249835f90dac5ea47713cdcb",
+    "wall_seconds": 1584.879,
+    "not_started_ids": [
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-versions",
+      "cloud-preview-runtime",
+      "gear-inventory",
+      "gear-ui",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-v5-art",
+      "home-codex",
+      "enemy-structure-native",
+      "audio-feedback",
+      "windkeeper-pressure-01",
+      "ai-level-pilot",
+      "run-session",
+      "level-plan",
+      "enemy-region-state",
+      "game-architecture-effects",
+      "plains-revision-deform-equivalence",
+      "entry-audio-lifecycle",
+      "entry-audio-lifecycle-comparison",
+      "entry-audio-owners",
+      "forest-v11-definition",
+      "foundry-lab",
+      "foundry-touch",
+      "foundry-feedback",
+      "runtime-map-v2-host",
+      "runtime-map-generated-identity",
+      "runtime-map-generation-job",
+      "runtime-map-generated-slice",
+      "runtime-map-m35-provider",
+      "runtime-map-m35-runtime"
+    ]
+  },
+  "parallel": {
+    "expected": 93,
+    "stdout_fresh_started": 90,
+    "stdout_passed_with_original_check_log_markers_verified": 89,
+    "inflight_at_job_cancellation": "bellstrider-rework-01",
+    "not_started_ids": [
+      "ai-level-content",
+      "architecture-tests",
+      "mapgen-candidate-installation"
+    ],
+    "job_api_conclusion": "cancelled",
+    "operation_cancelled_at": "2026-11-03T18:46:21.6834287Z",
+    "job_budget_minutes": 90,
+    "job_wall_seconds": 5427,
+    "cancellation_cause_evidence": "Cancellation at original90min job boundary; original log says operation canceled. API conclusion remains cancelled, not individual check timeout; annotation endpoint disallowed by connector.",
+    "original_phase_report_present": false,
+    "phase_proof_artifact_present": false,
+    "limits": "89 PASS observations have original stdout+original marker logs, but no final phase digest/source-after/fresh-result report survived. Bellstrider is not signed failed or timed_out."
+  },
+  "original_merged_report_present": false,
+  "complete_technical_approval": false,
+  "mapgen_checks_started_in_this_run": [],
+  "all_not_started_ids": [
+    "forest-bible-app-discoveries",
+    "forest-practice-bell-restore",
+    "forest-bible-versions",
+    "cloud-preview-runtime",
+    "gear-inventory",
+    "gear-ui",
+    "item-v5-catalog",
+    "item-v5-pool",
+    "item-v5-inventory",
+    "item-v5-combat",
+    "item-v5-actives",
+    "item-v5-economy",
+    "item-v5-defense",
+    "item-v5-ui",
+    "item-v5-formal",
+    "item-v5-review",
+    "item-v5-boss-time",
+    "item-v5-core-effects",
+    "item-v5-synergy-economy",
+    "item-v5-pause-escape",
+    "item-v5-random-context",
+    "item-v5-manifest",
+    "item-v5-authoring",
+    "item-v5-art",
+    "home-codex",
+    "enemy-structure-native",
+    "audio-feedback",
+    "windkeeper-pressure-01",
+    "ai-level-content",
+    "ai-level-pilot",
+    "run-session",
+    "architecture-tests",
+    "level-plan",
+    "enemy-region-state",
+    "game-architecture-effects",
+    "plains-revision-deform-equivalence",
+    "entry-audio-lifecycle",
+    "entry-audio-lifecycle-comparison",
+    "entry-audio-owners",
+    "forest-v11-definition",
+    "foundry-lab",
+    "foundry-touch",
+    "foundry-feedback",
+    "runtime-map-v2-host",
+    "runtime-map-generated-identity",
+    "runtime-map-generation-job",
+    "runtime-map-generated-slice",
+    "mapgen-candidate-installation",
+    "runtime-map-m35-provider",
+    "runtime-map-m35-runtime"
+  ],
+  "artifacts": [
+    {
+      "file": "context.zip",
+      "artifact_id": 13253176327,
+      "bytes": 9558,
+      "sha256": "ad61beea1741a86162cd6f274c4c4efa53af60780945ca31d0c758e2d0de7267",
+      "created_at": "2026-11-03T17:15:46Z",
+      "expires_at": "2026-11-17T17:15:45Z",
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631/artifacts/13253176327"
+    },
+    {
+      "file": "impact.zip",
+      "artifact_id": 13253176341,
+      "bytes": 1864872,
+      "sha256": "722fc99cb8acd4b49075538f436a9c039a81494ad19c391df457cc31d8701c7b",
+      "created_at": "2026-11-03T17:15:50Z",
+      "expires_at": "2026-11-17T17:15:48Z",
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631/artifacts/13253176341"
+    },
+    {
+      "file": "serial.zip",
+      "artifact_id": 13261805484,
+      "bytes": 1721353,
+      "sha256": "7082ad71d9f775b0c37dc131f122a4346656727ff346e284acb471fe5fb150cf",
+      "created_at": "2026-11-03T18:38:50Z",
+      "expires_at": "2026-11-17T18:38:49Z",
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631/artifacts/13261805484"
+    },
+    {
+      "file": "serial-lane.zip",
+      "artifact_id": 13262180374,
+      "bytes": 29630977,
+      "sha256": "c3c47e8cfd32b0fd18a7e6d7fe7cbe9a05ffe3aa302c6a96d7040d346780fce6",
+      "created_at": "2026-11-03T18:38:54Z",
+      "expires_at": "2026-11-17T18:38:51Z",
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631/artifacts/13262180374"
+    },
+    {
+      "file": "parallel-lane.zip",
+      "artifact_id": 13260569138,
+      "bytes": 10991060,
+      "sha256": "a515c78172595fb9680f5b1c64e1be5a1e75fa44c4f09d2c7cd140e6b3051023",
+      "created_at": "2026-11-03T18:46:24Z",
+      "expires_at": "2026-11-17T18:46:22Z",
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41679005631/artifacts/13260569138"
+    }
+  ],
+  "original_log_receipts": [
+    {
+      "file": "prepare-job.log",
+      "bytes": 521179,
+      "sha256": "1cc683dd3ce128838b2000469674f881b0fdcb11a39446529a94ea71fcf2af5b"
+    },
+    {
+      "file": "serial-job.log",
+      "bytes": 157692,
+      "sha256": "fc325ad19ff2d9108d7ec812e093946e6721146eac011e03788befc42eaa6a19"
+    },
+    {
+      "file": "parallel-job.log",
+      "bytes": 155549,
+      "sha256": "d1732efc5f834c49654f5288d09a25c5dc4feac7937c2d64c9565fb4782a0f20"
+    },
+    {
+      "file": "affected-job.log",
+      "bytes": 5045,
+      "sha256": "cf46e248fd04484b41154ae9d2cdb393abf06db55cb769264e4269d4e14ef8af"
+    },
+    {
+      "file": "serial-native-failure/native.log",
+      "bytes": 39221,
+      "sha256": "94779e681064ddf5470fd58b2ced02be189a3aed47eee15a1de49564a9bfe772"
+    },
+    {
+      "file": "serial-native-failure/capture.json",
+      "bytes": 59966,
+      "sha256": "c91b779b321dcd79bda3bc970e1ea2d952d0a2ac1c403672595b710f7ab1d6a1"
+    },
+    {
+      "file": "serial-native-failure/report.json",
+      "bytes": 4849,
+      "sha256": "e5102b0de770867e92c9ecb721c6e55b38d50de04d2082dbfe429db03b2235f2"
+    }
+  ],
+  "limits": [
+    "This exact-head run failed and cannot approve either Stage A or the later0.4.1 candidate.",
+    "Serial failure is a real assertion/nonzero exit inside9.781s/210s, not input restoration timeout.",
+    "Parallel input restoration consumed45m16s and serial49m42s; these are CI infrastructure durations, not map generation algorithm time.",
+    "No old-head rerun, cancellation, source/ref mutation, engine/browser execution, merge or deployment was performed by this audit.",
+    "Later implementation and CI fixes require distinct final-head acceptance."
+  ]
+}

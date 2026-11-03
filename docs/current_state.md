@@ -1,3 +1,9 @@
+## 2026-11-03 mapgen0.4.1 集成进行中
+
+用户已授权本轮原生/Web/最终精确head CI及独审通过后普通合main，普通出发不变，不部署网站。沿PR130/9ba7d4接续feature/mapgen-041-windchime-integration；SDK已单独升级并远端保全，模块1.1.0/runtime-map/v2。真实完整起点风铃原生60/0（实际生成/Router射击/走岸/连续两次恢复/ESC返回/取消）；相关实际生成job1005/0、生成三模块58/0、身份81/0、真实机制fixture100/0、ports35/0、gears73/0。分源原件与初始失败见[本轮结果](worklines/mapgen_041_windchime/results.md)。这些不是最终完整CI或Web签字。
+
+旧PR130/run41679005631实际FAIL保留：126PASS、1音频夹具FAIL、1时限中断未证、50未执行；不重启旧run。CI同run精确HEAD准备输入工件复用与真实短音效并发测试夹具已修，生产音频不变，原178保留追加1风铃聚合=179。最终合并消息必须含[skip-playtest]，仅跳网站上传/部署，不跳CI；不恢复PR123、不扩完整地图或邻居。接续先收真实新Web与截图审阅、质量收口，再最终候选一次完整CI、普通受保护合入。
+
 ## 0.4.1起点钟门与CI输入工件：最新授权实施中
 
 从PR130/9ba7独立后续分支feature/mapgen-041-windchime-integration接续；用户已允许不等旧A完整CI先继续B，固定0.4.1/模块1.1.0/v2，必要验收/独审/最终精确head CI通过后普通合main。普通出发不变、不部署。旧head/run结果保原身份，不由后继通过改签。

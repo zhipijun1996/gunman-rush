@@ -1,0 +1,91 @@
+{
+  "status": "ACCEPT_IMPLEMENTATION_WITH_REAL_CI_RESOURCE_VALIDATION_OUTSTANDING",
+  "reviewed_at_utc": "2026-11-03T19:30:32.249059+00:00",
+  "head": "5440f36b31063fa5f38b679579b75c2702b46f2f",
+  "scope": "Read-only independent review of uncommitted CI input bundle transport, shared Python pin, and no-deploy marker. This is not final CI or game acceptance.",
+  "files": {
+    ".github/workflows/production.yml": {
+      "bytes": 29867,
+      "sha256": "e6269e1b85cd26e1dbe6ed90e45f5ff88e029b381b76d38f7bd48033935f05e2"
+    },
+    "tools/cloud_inputs.py": {
+      "bytes": 41623,
+      "sha256": "2779b6d116d0cba27f1dd6bd806a32509579bd1c05bf9348f57ed432f1513f35"
+    },
+    "tests/test_cloud_inputs.py": {
+      "bytes": 49893,
+      "sha256": "b85d747480b7ecde40f0812a20e4d6429caaa027f5624f5160dde0f8baf422a7"
+    },
+    ".github/workflows/environment.yml": {
+      "bytes": 26509,
+      "sha256": "79f574c2ef315ec2ac7b50967424d61439b06689a6cbdd7f2ef350b60dba4fd2"
+    },
+    "config/ci_python_version.txt": {
+      "bytes": 8,
+      "sha256": "a05e0074505ce29f25abf3aebe4f7218d28e98411822f199e3272740be4e363c"
+    }
+  },
+  "blocking_code_findings": [],
+  "tests": [
+    {
+      "command": "python3 tests/test_cloud_inputs.py",
+      "tests": 41,
+      "seconds": 8.114,
+      "result": "PASS",
+      "log": "test-cloud-inputs.log"
+    },
+    {
+      "command": "python3 tests/test_harness.py CIWorkflowCoverageTests",
+      "tests": 4,
+      "seconds": 0.008,
+      "result": "PASS",
+      "log": "test-workflow.log"
+    },
+    {
+      "command": "python3 tests/test_production_plan.py",
+      "tests": 54,
+      "seconds": 0.25,
+      "result": "PASS",
+      "log": "test-selector.log"
+    }
+  ],
+  "baseline_verified": {
+    "full_original_checks": 178,
+    "original_order_and_all_check_definitions_unchanged": true,
+    "harness_original_bytes_unchanged": true,
+    "original_input_fixture_AST_preserved": 24,
+    "new_input_tests": 17,
+    "production_python_file_uses": 3,
+    "environment_python_file_uses": 7,
+    "python_version": "3.12.16",
+    "verify_public_sparse_includes_pin": true,
+    "deployment_only_optout_conditions": 2,
+    "final_merge_message_required_marker": "[skip-playtest]"
+  },
+  "resource_model": {
+    "old_materialized_files": 5061,
+    "old_payload_bytes": 4434365875,
+    "old_tar_minimum_bytes_without_pax": 4438273536,
+    "prepare_additional_tar_bytes_approximately": 4438273536,
+    "prepare_peak_components": "existing base checkout + Git objects + restored payload 4434365875 + tar approx4438273536 + proof/toolchain overhead",
+    "consumer_peak_components": "base checkout/Git/toolchain + tar approx4438273536 + staging payload4434365875; publishing uses hardlinks, not another full payload copy. Tar removed after success before tests.",
+    "consumer_tar_plus_stage_minimum_bytes": 8872639411,
+    "already_compressed_evidence_bytes_mp4_zip_gz_png": 4018299499,
+    "per_consumer_payload_read_lower_bound_bytes": 13310912947,
+    "network": "prepare uploads approx4.44GB; two physical lanes and affected each download approx4.44GB, approx13.31GB total downloads. Git historical object fetches replaced, not all bytes eliminated.",
+    "unmeasured": [
+      "actual Git compressed/delta pack bytes on GitHub runner",
+      "actual base checkout/toolchain/runner free disk",
+      "full bundle upload/download time and service throughput",
+      "actual full-scale hash CPU/wall time and peak disk"
+    ],
+    "recommendation": "Before final run, minimally log disk_usage/df at prepare export and consumer restore plus required payload/tar bytes and observed phase wall timings; fail clearly if space insufficient. Do not drop inputs, shrink 178 checks, or assume a standard runner has enough space. Actual final CI is mandatory."
+  },
+  "limitations": [
+    "No local full4.43GB archive constructed due local free-space constraint.",
+    "No Godot or full CI run triggered or cancelled by reviewer.",
+    "Review catches deterministic symlink and no-overwrite races; does not claim to harden all filesystem parent TOCTOU attacks against a hostile concurrently mutating local process.",
+    "Raw original old CI failure remains unchanged; successor results cannot sign it passed."
+  ],
+  "reviewer_actions_note": "One read-only git ls-tree -l command unintentionally requested promisor object metadata and started Git lazy fetch; reviewer detected and terminated the isolated metadata subprocess chain. No source/index/ref changed. All later Git inspections used --no-lazy-fetch."
+}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "yaml_parsed": true,
+  "full_lane_timeout_minutes": 90,
+  "prepare_timeout_minutes": 120,
+  "python_pin_file": "config/ci_python_version.txt",
+  "same_run_artifact_name": "production-selected-inputs-${{ github.run_id }}",
+  "attempt_suffix": false,
+  "artifact_compression_level": 0,
+  "download_consumers": [
+    "full_checks",
+    "affected"
+  ],
+  "original_guard_harness_file_changed": false,
+  "limits": [
+    "Static workflow structure audit only; real4.43GB export/download/restore and same-source final complete CI remain to execute."
+  ]
+}
