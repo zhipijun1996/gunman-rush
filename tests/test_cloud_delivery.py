@@ -541,5 +541,17 @@ class MapgenM35EntryTests(MapgenGeneratedEntryTests):
                 delivery.validate_scene(scene)
 
 
+class MapgenWindchimeEntryTests(MapgenGeneratedEntryTests):
+    """The complete start module uses the same PCK/flag/bootstrap guards."""
+    scene = 'res://experiments/generation/runtime_map_windchime_slice.tscn'
+
+    def test_only_the_exact_new_windchime_entry_is_admitted(self):
+        self.assertEqual(delivery.validate_scene(self.scene), self.scene.removeprefix('res://'))
+        for scene in (self.scene.replace('windchime', 'windchime_other'), self.scene.upper(),
+                      self.scene.replace('/generation/', '/generation/../generation/')):
+            with self.subTest(scene=scene), self.assertRaises(ValueError):
+                delivery.validate_scene(scene)
+
+
 if __name__ == '__main__':
     unittest.main()

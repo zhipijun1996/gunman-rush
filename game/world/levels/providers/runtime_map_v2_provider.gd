@@ -6,8 +6,10 @@ const SCHEMA := "mapgen/runtime-map/v2"
 const CONTENT_SCHEMA := "pcg/compiled-module-content/v1"
 const PORT_PERMISSIONS: Array[String] = ["INPUT", "OUTPUT", "INOUT"]
 const IDENTITY_SCHEMA := "gunman-rush/runtime-map-load/v1"
-const ADAPTER_VERSION := "runtime-map-v2-slice/2"
-const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","thorns","hooks","latches","enemies","reward_sites"]
+const ADAPTER_VERSION := "runtime-map-v2-slice/3"
+const PORT_ADMISSION = preload("res://game/world/levels/content/runtime_map_port_admission.gd")
+const SHOT_LATCH_ADAPTER = preload("res://game/world/levels/content/runtime_map_shot_latch_adapter.gd")
+const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","thorns","hooks","enemies","reward_sites"]
 const CONTENT_FIELDS: Array[String] = ["platforms","one_way_platform_indices","wall_platform_indices","hazards","thorns","saws","moving_platforms","hooks","latches","enemies","reward_sites","approved_hq_cells","schema","source_sha256","stable_id","world_bounds","entry_port","exit_port","coordinate_frame","source_affine"]
 const ELLIPSE_FIELDS: Array[String] = ["platform_id","trajectory_kind","start","finish","size","travel_duration","dwell_duration","initial_phase","ellipse_center","ellipse_radii","ellipse_period","ellipse_x_sign"]
 const SAW_FIELDS: Array[String] = ["source_id","origin","travel","radius","period","initial_phase","damage","contact_interval"]
@@ -100,6 +102,8 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 		problem = _content_error(content,instance)
 		if not problem.is_empty(): return _reject("instances."+id+".content."+problem)
 		var definition := _definition(content,instance)
+		var admission := PORT_ADMISSION.resolve(definition,content,instance,instances,map.connections,request,spawn)
+		if not admission.ok: return _reject("instances."+id+".port_admission: "+str(admission.error))
 		if not definition.is_valid(): return _reject("instances."+id+".definition: original PlatformingModuleDefinition.is_valid rejected unchanged geometry/body ports/seals")
 		if not definition.supports(request.tuning): return _reject("instances."+id+".definition: original capability screening rejected request.tuning")
 		var placement := LevelModulePlacement.new()
@@ -152,7 +156,7 @@ static func _generated_source_error(result: Dictionary, source: Dictionary) -> S
 	var map: Dictionary = result.map
 	if not map.get("generator") is Dictionary or not map.get("module_package") is Dictionary or not map.get("inputs") is Dictionary: return "result.map: missing generator/module/inputs"
 	if not _hash(source.get("expected_request_fingerprint")) or result.get("request_fingerprint") != source.expected_request_fingerprint or map.generator.get("request_fingerprint") != source.expected_request_fingerprint: return "result.request_fingerprint: differs from captured addon fingerprint"
-	if source.get("implementation") != "mapgen/gdscript-candidate-0.4.0" or source.get("algorithm") != "stable-v3-reward-space" or map.generator.get("implementation") != source.implementation or map.generator.get("algorithm") != source.algorithm: return "result.generator: unsupported/mismatched implementation or algorithm"
+	if source.get("implementation") != "mapgen/gdscript-candidate-0.4.1" or source.get("algorithm") != "stable-v3-reward-space" or map.generator.get("implementation") != source.implementation or map.generator.get("algorithm") != source.algorithm: return "result.generator: unsupported/mismatched implementation or algorithm"
 	if not source.get("request") is Dictionary or not source.get("config") is Dictionary or not map.inputs.get("request") is Dictionary or not map.inputs.get("config") is Dictionary: return "provenance.request/config: missing captured algorithm inputs"
 	if _digest(map.inputs.request) != _digest(source.request) or _digest(map.inputs.config) != _digest(source.config): return "result.inputs: differs from captured algorithm inputs"
 	if not source.request.get("seed") is int or map.get("seed") != source.request.seed: return "result.seed: differs from actual integer algorithm request"
@@ -160,7 +164,7 @@ static func _generated_source_error(result: Dictionary, source: Dictionary) -> S
 	var package: Dictionary = source.algorithm_package
 	extra = _unexpected(package,["version","zip_sha256","release_head","source_commit"])
 	if not extra.is_empty(): return "provenance.algorithm_package."+extra+": unsupported field"
-	if package.get("version") != "0.4.0" or not _hash(package.get("zip_sha256")) or not _commit_hash(package.get("release_head")) or not _commit_hash(package.get("source_commit")): return "provenance.algorithm_package: invalid release identity"
+	if package.get("version") != "0.4.1" or not _hash(package.get("zip_sha256")) or not _commit_hash(package.get("release_head")) or not _commit_hash(package.get("source_commit")): return "provenance.algorithm_package: invalid release identity"
 	var archive: Dictionary = source.module_archive
 	extra = _unexpected(archive,["path","sha256","version"])
 	if not extra.is_empty(): return "provenance.module_archive."+extra+": unsupported field"
@@ -177,7 +181,7 @@ static func _generated_identity(request: LevelRequest, result: Dictionary, ids: 
 	var payload := {"map":result.map,"content_store":result.content_store}
 	var map_content := {"schema":SCHEMA,"source_kind":"generated_memory","encoding":"godot-json-sorted-full-precision/v1","implementation":source.implementation,"algorithm":source.algorithm,"algorithm_package":source.algorithm_package.duplicate(true),"module_archive":{"sha256":source.module_archive.sha256,"version":source.module_archive.version},"generation_input_fingerprint":source.expected_request_fingerprint,"request_data_sha256":_digest(source.request),"config_data_sha256":_digest(source.config),"payload_data_sha256":_digest(payload),"map_data_sha256":_digest(result.map),"content_store_data_sha256":_digest(result.content_store),"content_scope":"complete_generated_store"}
 	var map_content_identity := _digest(map_content)
-	var host_load := {"schema":IDENTITY_SCHEMA,"adapter_version":"runtime-map-generated/2","source_kind":"generated_memory","map_content_identity":map_content_identity,"selected_instances":ids.duplicate(),"bindings_schema":bindings.schema,"bindings_version":bindings.version,"bindings_data_sha256":_digest(bindings),"active_binding":binding_id,"spawn":[spawn.x,spawn.y],"region_id":str(request.region_id),"map_index":request.map_index,"capabilities":request.capabilities.duplicate(true)}
+	var host_load := {"schema":IDENTITY_SCHEMA,"adapter_version":"runtime-map-generated/3","port_admission_policy":PORT_ADMISSION.POLICY,"source_kind":"generated_memory","map_content_identity":map_content_identity,"selected_instances":ids.duplicate(),"bindings_schema":bindings.schema,"bindings_version":bindings.version,"bindings_data_sha256":_digest(bindings),"active_binding":binding_id,"spawn":[spawn.x,spawn.y],"region_id":str(request.region_id),"map_index":request.map_index,"capabilities":request.capabilities.duplicate(true)}
 	return {"schema":IDENTITY_SCHEMA,"source_kind":"generated_memory","generation_input_fingerprint":result.map.generator.request_fingerprint,"map_content_identity":map_content_identity,"host_load_identity":_digest(host_load),"map_content":map_content,"host_load":host_load,"result_receipt_digest":_digest(result),"source_receipt":source.duplicate(true)}
 
 static func _commit_hash(value: Variant) -> bool:
@@ -298,6 +302,8 @@ static func _content_error(content: Dictionary, instance: Dictionary) -> String:
 		if not _number(value): return "source_affine: nonfinite source value"
 	for field: String in EMPTY_FIELDS:
 		if not content.get(field) is Array or not content[field].is_empty(): return field+": selected content is unsupported unless explicitly empty"
+	var latch_error := SHOT_LATCH_ADAPTER.validation_error(content,instance)
+	if not latch_error.is_empty(): return latch_error
 	if content.has("approved_hq_cells") and (not content.approved_hq_cells is Array or not content.approved_hq_cells.is_empty()): return "approved_hq_cells: unsupported nonempty content"
 	if not content.get("platforms") is Array or content.platforms.is_empty(): return "platforms: expected nonempty array"
 	for index: int in content.platforms.size():
@@ -388,6 +394,7 @@ static func _definition(content: Dictionary, instance: Dictionary) -> Platformin
 	# No main_route: these helper anchors are not a fabricated traversal proof.
 	definition.set_meta("runtime_map_v2_instance",instance.duplicate(true))
 	definition.set_meta("runtime_map_v2_content",content.duplicate(true))
+	definition.set_meta("runtime_map_v2_authored_helpers",{"entry_port":content.entry_port.duplicate(),"exit_port":content.exit_port.duplicate(),"semantics":"retained_source_body_helpers_not_active_v2_ports"})
 	definition.set_meta("helper_port_semantics","authored_player_body_center_not_v2_geometric_port")
 	return definition
 

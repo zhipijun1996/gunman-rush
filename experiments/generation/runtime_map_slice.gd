@@ -85,6 +85,9 @@ func _assemble_plan(built: LevelBuildResult) -> bool:
 	policy.register_target(&"player",session.controller.actor_resources.health,true)
 	policy.register_player_controller(session.controller)
 	stage.bind_damage(session.controller,policy,session.lifetime)
+	if not stage.bind_mechanisms(session.controller,session.lifetime):
+		error = stage.error
+		return false
 	# This is the initial host-bound spawn, never a seam transition/teleport.
 	var actor_was_active := session.controller.active
 	# Initial positioning is synchronous; no Motor step runs in this interval.
@@ -164,6 +167,7 @@ func _observe(event: String) -> void:
 			row.saws.append({"id":str(saw.definition.source_id),"position":[at.x,at.y]})
 		snapshot.mechanisms.append(row)
 	snapshot["static_contacts"] = []
+	snapshot["latches"] = stage.shot_latch_encounter.observations() if is_instance_valid(stage.shot_latch_encounter) else []
 	for child: Node in stage.get_children():
 		if child is DemoContactEmitter:
 			var contact := child as DemoContactEmitter
@@ -208,6 +212,10 @@ func reload_slice() -> bool:
 		error = stage.error
 		return false
 	stage.bind_damage(session.controller,policy,session.lifetime)
+	if not stage.bind_mechanisms(session.controller,session.lifetime):
+		ready_ok = false
+		error = stage.error
+		return false
 	UnderworldPresentation.attach(stage,stage,session.player)
 	load_token = session.lifetime.token()
 	return true

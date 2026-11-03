@@ -125,7 +125,7 @@ func run() -> void:
 		check(difference.is_empty(),"key copying preserves exact typed/scalar data: "+placement.instance_id)
 
 	var identity: Dictionary = built.plan.get_meta("runtime_map_v2_identity")
-	check(result.map.generator.implementation=="mapgen/gdscript-candidate-0.4.0" and result.map.generator.algorithm=="stable-v3-reward-space" and provenance.algorithm_package.version=="0.4.0","actual installed04 job identity, not a relabelled03 result")
+	check(result.map.generator.implementation=="mapgen/gdscript-candidate-0.4.1" and result.map.generator.algorithm=="stable-v3-reward-space" and provenance.algorithm_package.version=="0.4.1","actual installed041 job identity, not a relabelled04 result")
 	var historical: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mapgen_godot_04/host03_identity.json"))
 	check(historical is Dictionary and historical.get("kind")=="captured_0.3_host_identity_not_historical_save_bytes","actual archived03 identity receipt is available with explicit scope")
 	if historical is Dictionary and historical.get("identity") is Dictionary:
@@ -144,7 +144,7 @@ func run() -> void:
 	old_ids.sort()
 	var old_host := {"schema":"gunman-rush/runtime-map-load/v1","adapter_version":"runtime-map-generated/1","source_kind":"generated_memory","map_content_identity":identity.map_content_identity,"selected_instances":old_ids,"bindings_schema":bindings.schema,"bindings_version":bindings.version,"bindings_data_sha256":JSON.stringify(bindings,"",true,true).sha256_text(),"active_binding":"seam","spawn":[spawn.x,spawn.y],"region_id":str(request.region_id),"map_index":request.map_index,"capabilities":request.capabilities.duplicate(true)}
 	var old_host_hash := JSON.stringify(old_host,"",true,true).sha256_text()
-	check(identity.host_load.adapter_version=="runtime-map-generated/2" and old_host_hash!=built.plan.map_hash,"corrected host adapter has a new identity for the same payload/bindings")
+	check(identity.host_load.adapter_version=="runtime-map-generated/3" and identity.host_load.port_admission_policy==RuntimeMapPortAdmission.POLICY and old_host_hash!=built.plan.map_hash,"corrected host adapter has a new identity for the same payload/bindings")
 	var old_state := PlainsRegionState.new()
 	check(old_state.bind_map(old_host_hash),"real run-local state binds independently reconstructed v1 host identity")
 	var old_saved := old_state.snapshot()
@@ -212,7 +212,7 @@ func run() -> void:
 	altered_source.algorithm_package.source_commit = "a".repeat(40)
 	check(not admit(result,altered_source,bindings).accepted(),"expected04 identity refuses changed algorithm source provenance")
 	request.expected_hash = ""
-	for wrong_version: String in ["0.3.0","0.3.1","0.4.1"]:
+	for wrong_version: String in ["0.3.0","0.3.1","0.4.0","0.4.2"]:
 		altered_source = provenance.duplicate(true)
 		altered_source.algorithm_package.version = wrong_version
 		var version_rejected := admit(result,altered_source,bindings)

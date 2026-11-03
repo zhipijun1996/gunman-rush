@@ -1,0 +1,206 @@
+{
+  "schema": "gunman-rush/mapgen-restore-regression/v1",
+  "source_kind": "actual_040_loaded_identity_with_explicit_empty_state_fixture",
+  "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+  "original_native_log_sha256": "8d9a4100641aea49e362696d1173188398e92bb0f3645005473fe90fd11dfc4b",
+  "note": "Empty schema2 state is a declared test fixture, not a fabricated captured gameplay checkpoint. Its host identity/capabilities are from the original actual69 accepted native run.",
+  "identity": {
+    "generation_input_fingerprint": "deee1d69cc42840dfc5fae6648e8fc72f016dc2a450da53c94b787d30018f485",
+    "host_load": {
+      "active_binding": "seam",
+      "adapter_version": "runtime-map-generated/2",
+      "bindings_data_sha256": "aea8b8004b3b92f33fc913e6c4959101c7ec3a5b0bdc8f9b3b143a293146b3f0",
+      "bindings_schema": "gunman-rush/runtime-map-bindings/v1",
+      "bindings_version": "runtime-v4-gears-r1",
+      "capabilities": {
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ],
+        "collision_half_extents": [
+          12.0,
+          18.0
+        ],
+        "grapple": false,
+        "profile": "conformance",
+        "weapon_id": "pulse_gun"
+      },
+      "map_content_identity": "c652943fe8e5e50c2b21242cc09530228a12d1a7fbfb08975977da5a4e835d97",
+      "map_index": 1,
+      "region_id": "plains",
+      "schema": "gunman-rush/runtime-map-load/v1",
+      "selected_instances": [
+        "M35"
+      ],
+      "source_kind": "generated_memory",
+      "spawn": [
+        474.0,
+        974.0
+      ]
+    },
+    "host_load_identity": "6f1a6e262a765aa4025fafcedc683fd3f10161234d747f0d6675b16776f4cf3f",
+    "map_content": {
+      "algorithm": "stable-v3-reward-space",
+      "algorithm_package": {
+        "release_head": "6bf07ab5a655ea056461b935ae4354e15ef83482",
+        "source_commit": "b21c889077ec97eb11a210d0ceab4fbddd862e48",
+        "version": "0.4.0",
+        "zip_sha256": "7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778"
+      },
+      "config_data_sha256": "51fc30231d00cfab3d7a1195ee73c150a336d77b3d7ee5e30c8476a39872708f",
+      "content_scope": "complete_generated_store",
+      "content_store_data_sha256": "e52ee615b97f8e4ab1d6c96a8f057283112c3d1a786dfc120f6e9004d721ebde",
+      "encoding": "godot-json-sorted-full-precision/v1",
+      "generation_input_fingerprint": "deee1d69cc42840dfc5fae6648e8fc72f016dc2a450da53c94b787d30018f485",
+      "implementation": "mapgen/gdscript-candidate-0.4.0",
+      "map_data_sha256": "441ef3aaec9fba2872b5afd8de47c8b3c807eea85377f183f3a576ebef428b41",
+      "module_archive": {
+        "sha256": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+        "version": "1.1.0"
+      },
+      "payload_data_sha256": "844ef39e044490919e0a617299ccd5c0ff51ad83c417cb72c29b3f813e12a9b8",
+      "request_data_sha256": "0d2b71a34ee9010825fe9e916142e9a08481a10eebc0ff2f0faca3e315860dcb",
+      "schema": "mapgen/runtime-map/v2",
+      "source_kind": "generated_memory"
+    },
+    "map_content_identity": "c652943fe8e5e50c2b21242cc09530228a12d1a7fbfb08975977da5a4e835d97",
+    "result_receipt_digest": "ea36585cee6fc12b32ca4ad8561e7b64372a7c570fc347c11673163673a587e2",
+    "schema": "gunman-rush/runtime-map-load/v1",
+    "source_kind": "generated_memory",
+    "source_receipt": {
+      "algorithm": "stable-v3-reward-space",
+      "algorithm_package": {
+        "release_head": "6bf07ab5a655ea056461b935ae4354e15ef83482",
+        "source_commit": "b21c889077ec97eb11a210d0ceab4fbddd862e48",
+        "version": "0.4.0",
+        "zip_sha256": "7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778"
+      },
+      "config": {
+        "algorithm": "stable-v3-reward-space",
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "random": {
+          "algorithm": "python-mt19937-v1",
+          "selection": "uniform_top_k"
+        },
+        "schema": "mapgen/generator-config/v1",
+        "scoring": {
+          "aspect": 60,
+          "auto_connection": 24,
+          "bidirectional_exit": 3,
+          "boss_distance": 1,
+          "closure_noise": 2,
+          "dead_end": -24,
+          "distinct_direction": 4,
+          "growth_noise": 3,
+          "height_bias": 0,
+          "left_bias": 0,
+          "perimeter": 0.35,
+          "repeat_module": 5,
+          "reservation_area": 0.1,
+          "reservation_repeat": 5,
+          "reward_near_penalty": 5,
+          "reward_near_radius": 8,
+          "reward_noise": 4,
+          "reward_reserve": 5,
+          "terminal_slot": 2,
+          "usable_exit": 8,
+          "vertical_exit": 8
+        },
+        "seals": {
+          "thickness_pixels": 32
+        },
+        "search": {
+          "boss_choice_count": 5,
+          "budget_check_interval": 256,
+          "candidate_expansion_budget": 500000,
+          "close_attempts": 3,
+          "close_depth": 3,
+          "closure_beam_width": 18,
+          "closure_distance_limit2": 32,
+          "closure_source_limit": 24,
+          "closure_target_distance2": 40,
+          "growth_choice_count": 5,
+          "growth_frontier_limit": 22,
+          "growth_shortlist": 18,
+          "max_growth_backtracks": 128,
+          "max_layout_repairs": 8,
+          "max_rewind_depth": 3,
+          "max_terminal_states": 128,
+          "per_seed_timeout_seconds": 90,
+          "reserve_from_growth_count": 24,
+          "reward_choice_count": 5
+        },
+        "shape": {
+          "max_aspect": 3.0,
+          "soft_tolerance": 1.35,
+          "target_ratio": 1.5
+        }
+      },
+      "expected_request_fingerprint": "deee1d69cc42840dfc5fae6648e8fc72f016dc2a450da53c94b787d30018f485",
+      "implementation": "mapgen/gdscript-candidate-0.4.0",
+      "kind": "generated_memory",
+      "module_archive": {
+        "path": "res://resources/mapgen/module-pack-1.1.0.zip",
+        "sha256": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+        "version": "1.1.0"
+      },
+      "request": {
+        "air_loop": {
+          "enabled": true,
+          "entry_module_ids": [],
+          "return_module_ids": []
+        },
+        "module_filter": {
+          "exclude_ids": [],
+          "include_ids": [],
+          "regions": []
+        },
+        "player": {
+          "abilities": [
+            "jump",
+            "double_jump",
+            "shot_recoil",
+            "grapple"
+          ],
+          "clearance_half_extents_pixels": [
+            12,
+            18
+          ]
+        },
+        "schema": "mapgen/generation-request/v1",
+        "seed": 930007,
+        "start_origin_blocks": [
+          0,
+          0
+        ],
+        "terminals": {
+          "boss": {
+            "module_id": "game-plains-boss-arena",
+            "port_id": "entry"
+          },
+          "start": {
+            "module_id": "game-plains-windchime-lesson",
+            "port_id": "exit"
+          }
+        }
+      }
+    }
+  },
+  "state": {
+    "claimed": {},
+    "opened": {},
+    "visited": {},
+    "explored": {},
+    "actors": {},
+    "clocks": {},
+    "drops": {},
+    "mechanisms": {},
+    "boss_state": {},
+    "version": 2,
+    "manifest_hash": "6f1a6e262a765aa4025fafcedc683fd3f10161234d747f0d6675b16776f4cf3f"
+  }
+}

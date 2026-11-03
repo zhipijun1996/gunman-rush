@@ -34,6 +34,8 @@ MAPGEN_GENERATED_SOURCE = 'experiments/generation/runtime_map_generated_slice.gd
 MAPGEN_DEFAULT_BINDINGS = 'resources/levels/mapgen_host_v4/bindings.json'
 MAPGEN_M35_SOURCE = 'experiments/generation/runtime_map_m35_slice.gd'
 MAPGEN_M35_BINDINGS = 'resources/levels/mapgen_host_v4_gears/bindings.json'
+MAPGEN_WINDCHIME_SOURCE = 'experiments/generation/runtime_map_windchime_slice.gd'
+MAPGEN_WINDCHIME_BINDINGS = 'resources/levels/mapgen_host_041_windchime/bindings.json'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
                                                         SPACES + 'supported_overhang_limestone_bank_v1/',
@@ -269,7 +271,8 @@ def runtime_contract(repo):
 
     for consumer, prefix, binding in (
             (MAPGEN_GENERATED_SOURCE, 'DEFAULT_BINDINGS', MAPGEN_DEFAULT_BINDINGS),
-            (MAPGEN_M35_SOURCE, 'BINDINGS', MAPGEN_M35_BINDINGS)):
+            (MAPGEN_M35_SOURCE, 'BINDINGS', MAPGEN_M35_BINDINGS),
+            (MAPGEN_WINDCHIME_SOURCE, 'BINDINGS', MAPGEN_WINDCHIME_BINDINGS)):
         if not (repo / consumer).is_file():
             continue
         # Host bindings are independent of the upstream config lock. Each

@@ -10,6 +10,7 @@ var _damage_controller: WeakRef
 var _damage_policy: WeakRef
 var _damage_lifetime: DemoLifetime
 var _static_contacts: Array[DemoContactEmitter] = []
+var shot_latch_encounter: RuntimeMapShotLatchEncounter
 
 func _ready() -> void:
 	set_meta("underworld_formal_style",true)
@@ -17,6 +18,8 @@ func _ready() -> void:
 	if plan == null or state == null or not state.bind_map(plan.map_hash):
 		error = "Missing plan/state or map identity changed"
 		return
+	error = RuntimeMapShotLatchEncounter.validation_error(plan,state)
+	if not error.is_empty(): return
 	for placement: LevelModulePlacement in plan.modules:
 		var clock: Variant = state.clocks.get(placement.instance_id,0.0)
 		if not (clock is int or clock is float) or not is_finite(float(clock)) or float(clock)<0:
@@ -54,13 +57,34 @@ func bind_damage(controller: PlayerController, policy: FrameDamagePolicy, lifeti
 		emitter.set_meta("hazard_authored_id",record.authored_id)
 		_static_contacts.append(emitter)
 
+func bind_mechanisms(controller: PlayerController, lifetime: DemoLifetime) -> bool:
+	if not assembly_ok or not is_instance_valid(controller) or lifetime==null or not lifetime.active: return false
+	if is_instance_valid(shot_latch_encounter): return shot_latch_encounter.matches_binding(controller,lifetime)
+	if not RuntimeMapShotLatchEncounter.has_latches(plan): return true
+	var encounter := RuntimeMapShotLatchEncounter.new()
+	add_child(encounter)
+	if not encounter.setup(plan,assembler,controller,lifetime,state):
+		error = encounter.error
+		remove_child(encounter)
+		encounter.queue_free()
+		return false
+	shot_latch_encounter = encounter
+	return true
+
+func cancel_mechanisms() -> void:
+	if is_instance_valid(shot_latch_encounter): shot_latch_encounter.cancel()
+
 func capture_state() -> Dictionary:
 	if assembly_ok:
 		for index: int in plan.modules.size():
 			state.clocks[plan.modules[index].instance_id] = assembler.modules[index].clock
+		if is_instance_valid(shot_latch_encounter): shot_latch_encounter.capture_state()
 	return state.snapshot() if state != null else {}
 
 func observe_player(point: Vector2) -> void:
 	if not assembly_ok: return
 	var index := assembler.module_index_at(point)
 	if index >= 0: state.visited[plan.modules[index].instance_id] = true
+
+func _exit_tree() -> void:
+	cancel_mechanisms()

@@ -25,8 +25,16 @@ var _physics_admitted := false
 # Same-thread elapsed execution, not OS thread CPU sampling. Wall includes
 # the existing physics-frame hand-off; diagnostics never enter load identity.
 var _installation_profile: Dictionary = {}
+# Materialize a restoration snapshot only on demand, never on normal commit.
+# It belongs to the committed run/stage, while each restored actor gets a new
+# token. This does not revive the generation ticket or authorize late results.
+var _restore_source: Dictionary = {}
+var _committed_scope: DemoToken
+var _committed_lifetime: DemoLifetime
+var _source_lock_sha := ""
 
 func _start_source() -> void:
+	_source_lock_sha = FileAccess.get_sha256(PROFILE.LOCK_PATH)
 	session.controller.active = false
 	_loading_layer = CanvasLayer.new()
 	add_child(_loading_layer)
@@ -113,7 +121,7 @@ func _process(_delta: float) -> void:
 	if phase != _previous_phase:
 		_previous_phase = phase
 		_source_observe(phase)
-		_loading_label.text = "REAL MAPGEN 0.4.0 / %s\nProfile: %s (slice only)\n%s; no full-map playability claim\nESC or CANCEL to exit" % [phase,generation_profile,_slice_description()]
+		_loading_label.text = "REAL MAPGEN %s / %s\nProfile: %s (slice only)\n%s; no full-map playability claim\nESC or CANCEL to exit" % [str(profile_inputs.lock.version),phase,generation_profile,_slice_description()]
 	if phase in ["failed","cancelled","stale"]:
 		_generation_failure(generation.error(ticket))
 		return
@@ -164,6 +172,8 @@ func _finish_install() -> void:
 	session.controller.active = true
 	_loading_layer.queue_free()
 	_pending_build = null
+	_committed_scope = session.lifetime.token()
+	_committed_lifetime = session.lifetime
 	_source_observe("committed")
 
 func _approve_install() -> bool:
@@ -173,10 +183,34 @@ func _approve_install() -> bool:
 
 func _load_source() -> LevelBuildResult:
 	var refused := LevelBuildResult.new()
-	refused.error = "Generated entrance reload is not enabled; exit and start a fresh job"
-	return refused
+	refused.error = "Generated restoration requires the same committed run/stage and locked source"
+	if closed or not ready_ok or _committed_scope == null or session.lifetime != _committed_lifetime or not session.lifetime.active:
+		return refused
+	if session.lifetime.epoch != _committed_scope.run_epoch or session.lifetime.stage_epoch != _committed_scope.stage_epoch:
+		return refused
+	var host := _read_host_bindings()
+	if not host.get("ok",false) or FileAccess.get_sha256(PROFILE.LOCK_PATH) != _source_lock_sha:
+		return refused
+	if FileAccess.get_sha256(profile_inputs.lock.module_package.path) != profile_inputs.lock.module_package.sha256:
+		return refused
+	if _restore_source.is_empty():
+		if not generation.is_current(ticket,session.lifetime) or generation.phase(ticket) != "committed":
+			return refused
+		_restore_source = {"actual":generation.actual_result(ticket,session.lifetime),"provenance":generation.provenance(ticket,session.lifetime),"bindings":generation.resolved_bindings(ticket,session.lifetime)}
+	if _restore_source.actual.is_empty() or _restore_source.provenance.is_empty() or _restore_source.bindings.is_empty():
+		return refused
+	var bindings: Dictionary = _restore_source.bindings
+	var ids: Array[String] = []
+	ids.assign(bindings.selected_instances)
+	var point: Array = bindings.spawns[spawn_binding]
+	# Revalidate the exact in-memory result via the SAME Provider. No solver,
+	# frozen file, random draw, new manifest output or generation commit.
+	return RuntimeMapV2Provider.load_generated_level(request,_restore_source.actual,ids,Vector2(point[0],point[1]),bindings,_restore_source.provenance,spawn_binding)
 
 func _close_source() -> void:
+	_restore_source.clear()
+	_committed_scope = null
+	_committed_lifetime = null
 	_pending_build = null
 	generation.close()
 	_source_observe("source_closed")

@@ -103,7 +103,8 @@ def no_links(root):
 def validate_scene(scene):
     exact_slices = ('res://experiments/generation/entries/runtime_map_v2_slice.tscn',
                     'res://experiments/generation/runtime_map_generated_slice.tscn',
-                    'res://experiments/generation/runtime_map_m35_slice.tscn')
+                    'res://experiments/generation/runtime_map_m35_slice.tscn',
+                    'res://experiments/generation/runtime_map_windchime_slice.tscn')
     if (not isinstance(scene, str) or not (scene.startswith('res://scenes/') or scene in exact_slices)
             or not scene.endswith('.tscn') or '..' in scene or '\\' in scene
             or any(ord(c) < 32 for c in scene)):

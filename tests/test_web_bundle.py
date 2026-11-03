@@ -127,7 +127,7 @@ class BundleTests(unittest.TestCase):
         result = self.check()
         generated = result['mapgen_generated_dependencies']
         self.assertEqual(set(generated['addon_scripts']), set(config['addon_files']))
-        self.assertEqual(len(generated['addon_scripts']), 18)
+        self.assertEqual(len(generated['addon_scripts']), 19)
         self.assertEqual(set(generated['data_sha256']),
                          {bundle.MAPGEN_REQUEST, bundle.MAPGEN_GENERATOR_CONFIG, bundle.MAPGEN_GEARS_REQUEST, bundle.MAPGEN_MODULE_ZIP})
         self.assertTrue({bundle.MAPGEN_CANDIDATE_CONFIG, bundle.MAPGEN_REQUEST,
@@ -182,7 +182,7 @@ class BundleTests(unittest.TestCase):
             target = name[:-3] + '.gdc' if i % 2 else '.godot/exported/mapgen/' + str(i) + '.gdc'
             self.entries[name + '.remap'] = ('[remap]\npath="res://' + target + '"\n').encode()
             self.entries[target] = b'GDC structural fixture; not executable proof'
-        self.assertEqual(len(self.check()['mapgen_generated_dependencies']['addon_scripts']), 18)
+        self.assertEqual(len(self.check()['mapgen_generated_dependencies']['addon_scripts']), 19)
         name = next(iter(config['addon_files']))
         mapping = self.entries[name + '.remap']
         target = mapping.decode().split('res://')[1].split('"')[0]
@@ -251,6 +251,55 @@ class BundleTests(unittest.TestCase):
         self.local(bundle.MAPGEN_DEFAULT_BINDINGS, data)
         self.entries[bundle.MAPGEN_DEFAULT_BINDINGS] = data
 
+    def windchime_map(self):
+        self.generated_map()
+        self.local(bundle.MAPGEN_WINDCHIME_SOURCE,
+                   (bundle.REPO / bundle.MAPGEN_WINDCHIME_SOURCE).read_bytes())
+        data = (bundle.REPO / bundle.MAPGEN_WINDCHIME_BINDINGS).read_bytes()
+        self.local(bundle.MAPGEN_WINDCHIME_BINDINGS, data)
+        self.entries[bundle.MAPGEN_WINDCHIME_BINDINGS] = data
+
+    def test_windchime_binding_and_new_sdk_script_are_read_from_actual_pack(self):
+        self.windchime_map()
+        result = self.check()
+        self.assertIn(bundle.MAPGEN_WINDCHIME_BINDINGS, result['json'])
+        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 19)
+        self.assertIn('addons/mapgen/derived_library.gd',
+                      result['mapgen_generated_dependencies']['addon_scripts'])
+        for payload in (None, self.entries[bundle.MAPGEN_WINDCHIME_BINDINGS] + b'\n'):
+            changed = self.entries.copy()
+            if payload is None:
+                changed.pop(bundle.MAPGEN_WINDCHIME_BINDINGS)
+            else:
+                changed[bundle.MAPGEN_WINDCHIME_BINDINGS] = payload
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                self.check(changed)
+        local = self.repo / bundle.MAPGEN_WINDCHIME_BINDINGS
+        local.write_bytes(local.read_bytes() + b'\n')
+        with self.assertRaisesRegex(ValueError, 'actual consumer SHA'):
+            self.check()
+
+    def test_windchime_consumer_cannot_omit_or_redirect_its_binding_lock(self):
+        self.windchime_map()
+        local = self.repo / bundle.MAPGEN_WINDCHIME_SOURCE
+        original = local.read_text()
+        for source in (original.replace(bundle.MAPGEN_WINDCHIME_BINDINGS, bundle.MAPGEN_M35_BINDINGS),
+                       original.replace('BINDINGS_SHA256 := "', 'BINDINGS_SHA256 := "not-hex'),
+                       original.replace('const BINDINGS_PATH', 'const OTHER_BINDINGS_PATH'),
+                       original + '\nconst BINDINGS_PATH := "res://' + bundle.MAPGEN_WINDCHIME_BINDINGS + '"\n'):
+            local.write_text(source)
+            with self.subTest(source=source), self.assertRaises(ValueError):
+                self.check()
+
+    def test_web_preset_includes_only_the_exact_windchime_binding(self):
+        presets = configparser.ConfigParser(interpolation=None)
+        presets.read(bundle.REPO / 'export_presets.cfg')
+        section = next(presets[s] for s in presets.sections() if presets[s].get('name') == '"Web Playtest"')
+        included = section['include_filter'].strip('"').split(',')
+        self.assertEqual(included.count(bundle.MAPGEN_WINDCHIME_BINDINGS), 1)
+        self.assertFalse(any('*' in name for name in included
+                             if name.startswith('resources/levels/mapgen_host_041_windchime/')))
+
     def test_04_default_bindings_use_the_current_consumer_sha_and_exact_pck_bytes(self):
         self.default_map()
         self.assertIn(bundle.MAPGEN_DEFAULT_BINDINGS, self.check()['json'])
@@ -289,7 +338,7 @@ class BundleTests(unittest.TestCase):
             self.assertIn(name, result['json'])
         for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):
             self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, result['json'])
-        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 18)
+        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 19)
         # An installed exact ZIP cannot be copied to an additional reference path.
         changed = self.entries.copy()
         changed['resources/mapgen/reference.zip'] = changed[bundle.MAPGEN_MODULE_ZIP]
@@ -350,7 +399,7 @@ class BundleTests(unittest.TestCase):
         self.assertIn(bundle.MAPGEN_CANDIDATE_CONFIG, result['json'])
         for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):
             self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, result['json'])
-        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 18)
+        self.assertEqual(len(result['mapgen_generated_dependencies']['addon_scripts']), 19)
         self.entries['resources/levels/mapgen_host_v3_m35/test.zip'] = b'not allowed'
         with self.assertRaisesRegex(ValueError, 'unadmitted ZIP'):
             self.check()

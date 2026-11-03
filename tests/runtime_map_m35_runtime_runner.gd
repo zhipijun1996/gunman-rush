@@ -161,6 +161,19 @@ func walk_to_hazard(world: RuntimeMapM35Slice, label: String) -> void:
 	check(world.session.player.motion_steps>steps and world.session.controller.actor_resources.health.current==hp-1.0,label+": real Router/Motor walkoff causes one actual HP loss")
 	observations.append({"case":label,"input":"axis+1 only; no position write","start":[before.x,before.y],"end":[world.session.player.global_position.x,world.session.player.global_position.y],"physics_frames":waited,"motor_steps":world.session.player.motion_steps-steps,"hp_before":hp,"hp_after":world.session.controller.actor_resources.health.current})
 
+func previous_source_restore_contract(world: RuntimeMapM35Slice) -> void:
+	var value: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mapgen/host_040_restore.json"))
+	check(value is Dictionary and value.get("source_kind")=="actual_040_loaded_identity_with_explicit_empty_state_fixture","old recovery regression uses preserved actual0.4.0 identity and explicitly labeled schema fixture")
+	if not value is Dictionary: return
+	var old: Dictionary = value
+	var current: Dictionary = world.stage.plan.get_meta("runtime_map_v2_identity")
+	check(old.identity.host_load.capabilities==current.host_load.capabilities and old.identity.map_content.algorithm_package.version=="0.4.0" and current.map_content.algorithm_package.version=="0.4.1","old/new restore comparison keeps the same actual controller capabilities and explicit distinct SDK package revisions")
+	check(PlainsRegionState.new().restore(old.state,old.identity.host_load_identity),"old schema2 record is valid under its own original host identity")
+	var existing := world.session.region_state
+	var services := service_ids(world)
+	check(not PlainsRegionState.new().restore(old.state,world.stage.plan.map_hash) and world.session.region_state==existing and service_ids(world)==services,"valid old0.4.0 record is refused by current0.4.1 identity without replacing state or services")
+	observations.append({"case":"explicit_old_040_restore_rejection","old_source_kind":old.source_kind,"old_host_identity":old.identity.host_load_identity,"current_host_identity":world.stage.plan.map_hash,"original_native_log_sha256":old.original_native_log_sha256,"scope":"declared empty schema state bound to actual old loaded identity, not fabricated captured gameplay state"})
+
 func damage_contract(world: RuntimeMapM35Slice) -> void:
 	var module := world.stage.assembler.modules[0]
 	var services := service_ids(world)
@@ -257,6 +270,7 @@ func run() -> void:
 		check(count_kind(world,"player")==1 and count_kind(world,"controller")==1 and count_kind(world,"policy")==1,"one original player/controller/policy composition")
 		check(not world.session.controller.traversal.hook_enabled,"controlled M35 source never grants grapple")
 		var actual: Dictionary = world.generation.actual_result(world.ticket,world.session.lifetime)
+		previous_source_restore_contract(world)
 		static_damage_contract(world,actual)
 		await clock_contract(world)
 		await damage_contract(world)

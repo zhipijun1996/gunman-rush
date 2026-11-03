@@ -489,12 +489,13 @@ func replacement_then_success() -> void:
 	check(lifetime.active,"closing committed source does not end RunSession authority")
 
 func cross_profile_warm_success(previous: SOURCE, previous_ticket: RefCounted, previous_lifetime: DemoLifetime, previous_built: LevelBuildResult) -> void:
-	# Same-process regression against the accepted original 930007 full-content
-	# identity from native-dev-03 / main-project-generation-01. This golden is a
+	# Same-process regression against the measured 0.4.1 original 930007 result.
+	# The original 0.4.0 baseline remains an explicit rejected identity. This is a
 	# test oracle, never a runtime selection/config/geometry authority. Host-load
 	# identity is intentionally not the real controller's 6f1...: this pure data
 	# runner declares the existing Provider fixture's explicit capability profile.
-	const GOLDEN_GEARS_MAP_CONTENT := "c652943fe8e5e50c2b21242cc09530228a12d1a7fbfb08975977da5a4e835d97"
+	const GOLDEN_040_GEARS_MAP_CONTENT := "c652943fe8e5e50c2b21242cc09530228a12d1a7fbfb08975977da5a4e835d97"
+	const GOLDEN_GEARS_MAP_CONTENT := "273410cebf375c38f52783ea8edc281003ed6b2dfb19b40bd85d1a9542bd5eee"
 	var previous_result := DATA.canonical(previous.actual_result(previous_ticket,previous_lifetime))
 	var previous_provenance := DATA.canonical(previous.provenance(previous_ticket,previous_lifetime))
 	var previous_identity: Dictionary = previous_built.plan.get_meta("runtime_map_v2_identity").duplicate(true)
@@ -547,6 +548,7 @@ func cross_profile_warm_success(previous: SOURCE, previous_ticket: RefCounted, p
 		return
 	var identity: Dictionary = built.plan.get_meta("runtime_map_v2_identity")
 	check(identity.map_content_identity==GOLDEN_GEARS_MAP_CONTENT,"warm cached930007 complete map/store identity equals original accepted real generation golden")
+	check(identity.map_content_identity!=GOLDEN_040_GEARS_MAP_CONTENT,"explicit 0.4.1 package upgrade cannot reuse original 0.4.0 map content identity")
 	check(identity.host_load.selected_instances==selected and identity.host_load.spawn==[spawn.x,spawn.y] and identity.host_load.capabilities==request.capabilities and identity.host_load_identity!=previous_identity.host_load_identity,"actual warm host-load identity binds this request's resolved scope/spawn/capabilities independently")
 	var definition: PlatformingModuleDefinition = built.plan.modules[0].definition
 	var instance: Dictionary = definition.get_meta("runtime_map_v2_instance")
