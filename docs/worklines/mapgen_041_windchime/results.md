@@ -6,9 +6,9 @@
 
 采用SDK交付 `c35871446cc0a3939e1a38171435f42cdc64a359` 的原版0.4.1包，archive SHA256为 `f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e`。manifest实际算法源码为 `8eefdbd140ce10defe1570ab8eefb6729382f8b3`，不把交付提交混称源码提交。模块仍为1.1.0/SHA `5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723`，公共协议仍为runtime-map/v2。
 
-先显式核验原0.4.0安装的23叶/18GD，再核升级后24叶/19GD。新 `derived_library.gd` 和其余18个运行GD均为锁定SDK原件；主仓没有修改供应商求解器。原moduleZIP、两个请求和config保持字节相同。安装纯测试保留31项并新增5项，36/0。[原升级收据](../../evidence/mapgen_041_windchime/sdk-upgrade/upgrade-040-to-041.json)与[安装测试](../../evidence/mapgen_041_windchime/sdk-upgrade/installer-tests-attempt01.log)保留原件。
+先显式核验原0.4.0安装的23叶/18GD，再核升级后24叶/19GD。新 `derived_library.gd` 和其余18个运行GD均为锁定SDK原件；主仓没有修改供应商求解器。原moduleZIP、两个请求和config保持字节相同。安装纯测试保留31项并新增5项，36/0。[原升级收据](../../evidence/mapgen_041_windchime/sdk-upgrade/upgrade-040-to-041.json)与[安装测试](../../evidence/mapgen_041_windchime/sdk-upgrade/installer-tests-attempt01.log.gz)保留原件。
 
-主游戏锁定引擎 `4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf`、binary SHA `eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638` 实际执行原包 `tests/verify_bundle.gd`，使用原锁定moduleZIP，success、gears-930007和failure的完整结果对照均true，整体PASS。[原日志](../../evidence/mapgen_041_windchime/native-preliminary/sdk-verify-bundle-01.log)。该验证在原包project执行，不冒称主游戏Stage或浏览器验收。
+主游戏锁定引擎 `4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf`、binary SHA `eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638` 实际执行原包 `tests/verify_bundle.gd`，使用原锁定moduleZIP，success、gears-930007和failure的完整结果对照均true，整体PASS。[原日志](../../evidence/mapgen_041_windchime/native-preliminary/sdk-verify-bundle-01.log.gz)。该验证在原包project执行，不冒称主游戏Stage或浏览器验收。
 
 ## 已有实际宿主验证
 
@@ -39,3 +39,5 @@ serial实际37PASS/1FAIL/47未开始；`forest-bible-ambience` 在9.781秒/210�
 ## 后续实际原生消费者（本轮WIP源，非最终CI）
 
 原始日志与capture见新证据native-current：生成身份81/0、任务1005/0、三模块58/0；完整起点真实controller请求生成、Router射击、走岸、连续两次restore/旧job拒绝、ESC真实菜单与两种取消60/0。新聚合保独立ports35/0及原完整机制fixture100/0，均实际执行。第一次generated runner类型推断失败、第二次固定帧先于真实audio drain导致菜单等待失败原件保留；第三次按既有drain真实墙钟5秒上限等结果通过，未改生产退出或音频。
+
+本任务导航所指原日志已改用mtime0无损gzip存储；解压后字节数及SHA与原日志一致。原历史收据中内嵌路径/哈希保持原身份，存储与解压身份映射见证据custody，未trim任何原日志尾随空白。
