@@ -860,6 +860,115 @@ class CloudInputBundleTests(unittest.TestCase):
             with self.assertRaisesRegex(inputs.InputError, 'never overwritten'): self.restore(other)
         self.assertEqual((other / first).read_text(), 'concurrent inplace edit')
 
+    def portable_full_plan(self):
+        """Use the real planner with finite inputs and a docs-first full route."""
+        from production_plan import make_plan
+        self.manifest['profiles']['docs'] = ['quality']
+        self.manifest['profiles']['full'] = ['historical', 'quality']
+        # A registered check outside full distinguishes an extra from unknown ID.
+        self.manifest['checks']['unselected'] = copy.deepcopy(self.manifest['checks']['quality'])
+        self.update_source('real planner full profile with portable input priority')
+        policy = {'schema_version': 1, 'domains': {}, 'rules': [],
+                  'always_full': ['shared/*'], 'manual_checks': []}
+        plan = make_plan(['shared/current.gd'], 'integration', policy, self.manifest)
+        plan['source_commit'] = self.head  # Same Git binding added by planner CLI.
+        self.assertEqual(plan['ci_route'], 'full_lanes')
+        self.assertEqual(plan['checks'], ['quality', 'historical'])
+        self.assertNotEqual(plan['checks'], self.manifest['profiles']['full'])
+        self.assertEqual(plan['ci_lane_checks']['parallel'], self.manifest['profiles']['full'])
+        self.plan_path.parent.mkdir(parents=True, exist_ok=True)
+        self.plan_path.write_text(json.dumps(plan))
+        return plan
+
+    def test_real_production_planner_current_full_contract_preserves_portable_order(self):
+        from production_plan import make_plan
+        manifest = json.loads((ROOT / 'tools/harness/profiles.json').read_text())
+        policy = json.loads((ROOT / 'config/production_impact.json').read_text())
+        plan = make_plan(['addons/mapgen/protocol.gd'], 'integration', policy, manifest, jobs=2)
+        original_profile = manifest['profiles']['full'][:]
+        self.assertEqual(plan['ci_route'], 'full_lanes')
+        self.assertEqual(len(plan['checks']), len(original_profile))
+        self.assertEqual(set(plan['checks']), set(original_profile))
+        self.assertNotEqual(plan['checks'], original_profile)
+        self.manifest = manifest
+        self.update_source('actual repository manifest in finite contract fixture')
+        plan['source_commit'] = self.head
+        self.plan_path.parent.mkdir(parents=True, exist_ok=True)
+        raw = json.dumps(plan, indent=2).encode()
+        self.plan_path.write_bytes(raw)
+        result = inputs.bundle_contract(self.target, plan['checks'], [], 'HEAD', self.plan_path, self.run_id)
+        self.assertEqual(result[0], self.head)
+        self.assertEqual(result[4], plan['checks'])
+        self.assertEqual(result[5], hashlib.sha256(raw).hexdigest())
+        self.assertEqual(manifest['profiles']['full'], original_profile)
+        for lane, serial in [('parallel', False), ('serial', True)]:
+            self.assertEqual(plan['ci_lane_checks'][lane],
+                             [name for name in original_profile
+                              if bool(manifest['checks'][name].get('serial', False)) == serial])
+
+    def test_real_planner_portable_order_roundtrips_complete_sparse_input_bundle(self):
+        plan = self.portable_full_plan()
+        original_manifest = copy.deepcopy(self.manifest)
+        materialized = inputs.materialize(self.target, checks=plan['checks'])
+        self.receipt.write_text(json.dumps(materialized))
+        exported = inputs.export_bundle(self.target, plan['checks'], [], 'HEAD', self.plan_path,
+                                        self.run_id, [self.receipt], self.bundle)
+        self.assertEqual(exported['checks'], plan['checks'])
+        packed = self.bundle_manifest()
+        self.assertEqual(packed['checks'], plan['checks'])
+        self.assertEqual(packed['execution_plan_sha256'], hashlib.sha256(self.plan_path.read_bytes()).hexdigest())
+        root = self.consumer()
+        restored = inputs.restore_bundle(root, plan['checks'], [], 'HEAD', root / 'build/plan.json',
+                                         self.run_id, self.bundle)
+        self.assertEqual(restored['status'], 'ready')
+        self.assertEqual(restored['checks'], plan['checks'])
+        self.assertEqual((root / self.proof).read_bytes(), (self.source / self.proof).read_bytes())
+        self.assertEqual((root / self.executable).stat().st_mode & 0o777, 0o755)
+        self.assertEqual(self.manifest, original_manifest)
+        actual = subprocess.run([sys.executable, 'tools/historical.py'], cwd=root, capture_output=True, text=True)
+        self.assertEqual(actual.returncode, 0, actual.stderr)
+        self.assertEqual(actual.stdout, 'HISTORICAL FIXTURE: passed\n')
+
+    def test_full_coverage_still_refuses_missing_extra_or_duplicate_planned_checks(self):
+        plan = self.portable_full_plan()
+        for label, checks in [('missing', ['quality']),
+                              ('extra', plan['checks'] + ['unselected']),
+                              ('duplicate', plan['checks'] + ['quality'])]:
+            with self.subTest(label=label):
+                changed = {**plan, 'checks': checks}
+                self.plan_path.write_text(json.dumps(changed))
+                with self.assertRaisesRegex(inputs.InputError, 'exact full execution plan'):
+                    inputs.bundle_contract(self.target, checks, [], 'HEAD', self.plan_path, self.run_id)
+        self.assertFalse(self.bundle.exists())
+
+    def test_complete_plan_order_must_still_match_supplied_cli_selection_exactly(self):
+        plan = self.portable_full_plan()
+        # Same complete set, but CLI supplies profile order instead of the
+        # exact portable-first sequence recorded by the execution plan.
+        with self.assertRaisesRegex(inputs.InputError, 'exact full execution plan'):
+            inputs.bundle_contract(self.target, [], ['full'], 'HEAD', self.plan_path, self.run_id)
+        result = inputs.bundle_contract(self.target, plan['checks'], [], 'HEAD', self.plan_path, self.run_id)
+        self.assertEqual(result[4], plan['checks'])
+        self.assertFalse(self.bundle.exists())
+
+    def test_portable_order_restore_refuses_reencoded_original_plan_bytes(self):
+        plan = self.portable_full_plan()
+        materialized = inputs.materialize(self.target, checks=plan['checks'])
+        self.receipt.write_text(json.dumps(materialized))
+        inputs.export_bundle(self.target, plan['checks'], [], 'HEAD', self.plan_path,
+                             self.run_id, [self.receipt], self.bundle)
+        root = self.consumer()
+        original = (root / 'build/plan.json').read_bytes()
+        altered = json.dumps(json.loads(original), indent=4).encode()
+        self.assertNotEqual(original, altered)
+        self.assertEqual(json.loads(original), json.loads(altered))
+        (root / 'build/plan.json').write_bytes(altered)
+        with self.assertRaisesRegex(inputs.InputError, 'source/run/plan'):
+            inputs.restore_bundle(root, plan['checks'], [], 'HEAD', root / 'build/plan.json',
+                                  self.run_id, self.bundle)
+        self.assertFalse((root / self.proof).exists())
+        self.assertFalse((root / self.executable).exists())
+
     def test_export_cli_and_provenance_bind_the_current_full_plan(self):
         self.package()
         with contextlib.redirect_stdout(io.StringIO()) as output, contextlib.redirect_stderr(io.StringIO()) as progress:

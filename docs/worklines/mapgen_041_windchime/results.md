@@ -55,3 +55,11 @@ CI现prepare同run精确HEAD/plan/原receipt绑定工件，后续lane/affected�
 DEV-BANNER-BELL-PROMPT-01：现有开发横幅轻微遮部分风铃小提示；风铃实体、门、角色和真实射击目标/通路未遮，实际操作通过。这是开发提示UX限制，另批处理，当前不改冻结源/几何/物理、不签精制教程或玩家认可。v1工具失败90.378572秒保原FAILED；v2只修Mouse API兼容，保动作/断言/原300预算及所有guards。
 
 质量G4/technical/formal_integration只指明确四开发消费者工程范围；workflow仍review、G5/普通出发/邻居/整图/设备保持未验。最终冻结候选179+affected及4.43GB工件真实CI是独立必过的合入门禁，尚无结果，不借上述局部PASS代签。
+
+## 精确d5候选的真实CI失败与最小修复
+
+run41714871138/attempt1的prepare导出输入工件在0.269秒拒绝：Bundle requires the same-source exact full execution plan。首次实际恢复5091文件4,434,890,532B/935.477秒；第二预检24.706秒/0新增；前置24项、质量差异、固定工具链及真实Foundry通过。两个179正式lane尚未执行，affected因prepare失败正确拒绝，未发生测试失败或90分钟超时，也没有创建/上传大输入工件。旧run原日志/ZIP/错误/原计划保留在ci-final-d5cbdb9-failed，不追改为通过。
+
+根因是新工件校验误把输入计划顺序强制等同full profile顺序；真实production.make_plan把便携/docs检查前置，两者均为完整179项，首差index8，source/head/fullroute及计划与CLI的逐序绑定原本正确。仅修改工件授权为完整唯一集合及数量；保留实际计划与CLI逐序精确相等、原计划原字节SHA、全部原HEAD/index/path/mode/Gitblob/SHA/安全tar和原lane/profile实际执行顺序。原45测试保留新增5例，实际50/0；原CI真实原计划字节本地metadata合同复现通过，另小稀疏Git实际导出/恢复及缺漏/额外/重复/CLI顺序/原计划字节变更负例通过。它们不代签实际4.43GB循环或完整179。
+
+本次修复只改CI输入工具及测试；所有游戏GD、SDK19pin、模块、请求/绑定和实际PCK均不变，已通过的原生与三组Web/22图依原来源身份复用，不重做。新代码与必要证据冻结后在修复head验证CI，不盲目重跑已知必败的旧d5。

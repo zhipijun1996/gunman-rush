@@ -372,8 +372,13 @@ def bundle_contract(root, checks, profiles, commit, execution_plan, run_id):
     with preflight_root(root):
         manifest = production.check_manifest_metadata()
         selected = selected_checks(manifest, checks, profiles)
+    # The existing planner puts portable/docs checks first. Input coverage must
+    # equal the complete profile, while the actual plan/CLI order stays bound
+    # exactly below and by the original plan bytes' SHA; lane execution is owned
+    # by the unchanged Harness profile, not by this input transport.
+    full = manifest['profiles']['full']
     if (not isinstance(plan, dict) or plan.get('source_commit') != head or plan.get('ci_route') != 'full_lanes'
-            or plan.get('checks') != selected or selected != manifest['profiles'].get('full')):
+            or plan.get('checks') != selected or len(selected) != len(full) or set(selected) != set(full)):
         raise InputError('Bundle requires the same-source exact full execution plan')
     return head, tree, index, flags, selected, hashlib.sha256(plan_bytes).hexdigest()
 
