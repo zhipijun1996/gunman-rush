@@ -18,10 +18,11 @@ def task_index_lines(root):
             yield from path.read_text().splitlines()
 
 
-def task_record_paths(root):
-    """Current task cards and archived evidence retain one ID namespace."""
-    yield from sorted((root / 'docs/evidence/quality/records').glob('*.json'))
-    yield from sorted((root / 'docs/project/worklines').glob('*/quality/record.json'))
+def task_record_paths(root, *, include_archive=False):
+    """Current content cards by default; archived evidence only when requested."""
+    if include_archive:
+        yield from sorted((root / 'docs/evidence/quality/records').glob('*.json'))
+    yield from sorted((root / 'docs/project/worklines').glob('*/quality/*.json'))
 
 
 def unique_object(pairs):
@@ -59,12 +60,12 @@ def initialize(task_id, kind, commit):
     state = lambda: {"status": "unverified", "reason": "Awaiting actual evidence", "evidence": []}
     return {
         "schema_version": p["schema_version"], "task_id": task_id, "task_type": kind,
-        "workflow": "planned", "baseline_commit": commit, "reviewed_commit": commit,
+        "baseline_commit": commit, "reviewed_commit": commit,
         "content_version": "candidate-v1", "owner": "implementer", "purpose": "Pending specification",
         "player_experience": "Pending specification", "constraints": ["Preserve existing gameplay contracts"],
         "affected_paths": [], "deliverables": [], "creative_decisions": [], "formal_impact": False,
-        "gates": {g: state() for g in p["gates"]},
-        "dimensions": {d: state() for d in p["dimensions"]},
+        "gates": {g: state() for g in p["task_types"][kind]["gates"]},
+        "dimensions": {d: state() for d in p["task_types"][kind]["dimensions"]},
         "criteria": [], "evidence": [], "consumer_coverage": None,
         "unverified_items": ["Design and all relevant acceptance remain unverified"],
     }
@@ -75,10 +76,15 @@ def validate_record(data, root=ROOT):
     errors, blockers = [], []
     if not isinstance(data, dict):
         return {"errors": ["Record must be an object"], "blockers": [], "task_complete": False, "verdict": "REJECT"}
-    for name in ("task_id", "task_type", "workflow", "baseline_commit", "reviewed_commit", "content_version", "owner", "purpose", "player_experience"):
+    legacy = data.get("schema_version") == 1
+    if legacy:
+        p["states"] = [*p["states"], "not_applicable"]
+        p["gates"]["G1"] = ["technical"]
+        p["gate_evidence"]["G1"] = ["runtime_trace"]
+    for name in ("task_id", "task_type", "baseline_commit", "reviewed_commit", "content_version", "owner", "purpose", "player_experience"):
         if not populated(data.get(name)):
             errors.append(f"Missing text field: {name}")
-    if data.get("schema_version") != p["schema_version"]:
+    if data.get("schema_version") not in {1, p["schema_version"]}:
         errors.append("Quality schema version mismatch")
     for name in ("baseline_commit", "reviewed_commit"):
         if not re.fullmatch(r"[0-9a-f]{40}", str(data.get(name, ""))):
@@ -91,33 +97,38 @@ def validate_record(data, root=ROOT):
     kind = data.get("task_type")
     if kind not in p["task_types"]:
         errors.append(f"Unknown task type: {kind}")
-    if data.get("workflow") not in p["workflows"]:
-        errors.append("Unknown workflow state")
     for group, keys in (("dimensions", p["dimensions"]), ("gates", list(p["gates"]))):
-        if not isinstance(data.get(group), dict) or set(data[group]) != set(keys):
-            errors.append(f"{group} must contain exactly the policy entries")
+        if not isinstance(data.get(group), dict) or not set(data[group]) <= set(keys):
+            errors.append(f"Unknown or invalid {group}")
         elif any(not isinstance(entry, dict) for entry in data[group].values()):
             errors.append(f"{group} entries must be objects")
     if errors:
         return {"errors": errors, "blockers": blockers, "task_complete": False, "verdict": "REJECT"}
 
-    required_gates = p["task_types"][kind]["gates"]
-    required_dims = list(p["task_types"][kind]["dimensions"])
-    if kind == "small_fix" and data["formal_impact"]:
-        required_dims.append("formal_integration")
+    light = kind in {"process", "small_fix"}
+    defaults = p["task_types"][kind]
+    required_gates = list(defaults["gates"])
+    required_dims = list(defaults["dimensions"])
+    extra = data.get("required_dimensions", [])
+    if not isinstance(extra, list) or any(name not in p["dimensions"] for name in extra):
+        errors.append("Invalid explicitly required dimensions")
+    else:
+        required_dims = list(dict.fromkeys([*required_dims, *extra]))
+    if legacy:
+        # Frozen records retain their declarations and evidence, never new policy.
+        required_gates = [name for name, entry in data["gates"].items()
+                          if entry.get("status") != "not_applicable"]
+        required_dims = [name for name, entry in data["dimensions"].items()
+                         if entry.get("status") != "not_applicable"]
+    for group, required in (("gates", required_gates), ("dimensions", required_dims)):
+        for name in required:
+            if name not in data[group]:
+                blockers.append(f"Missing applicable {group}: {name}")
     if kind == "process" and data["formal_impact"]:
         errors.append("Process scope cannot declare runtime integration changes")
     production = ("game/", "experiments/", "scripts/", "scenes/", "resources/", "config/", "assets/", "shaders/")
     if kind == "process" and any(str(path).startswith(production) or path in {"project.godot", "export_presets.cfg"} for path in data["affected_paths"]):
         errors.append("Process scope cannot hide production changes")
-    light = kind in {"process", "small_fix"}
-    if not light:
-        # Optional means explicitly inapplicable, not permission to ignore unfinished work.
-        required_dims.extend(name for name, entry in data["dimensions"].items()
-                             if name not in required_dims and entry.get("status") != "not_applicable")
-    if data["workflow"] == "awaiting-device":
-        if data["dimensions"]["technical"].get("status") != "passed" or data["dimensions"]["device"].get("status") == "passed":
-            errors.append("awaiting-device requires technical pass and outstanding device acceptance")
     evidence = {}
     for item in data["evidence"]:
         if not isinstance(item, dict):
@@ -191,7 +202,7 @@ def validate_record(data, root=ROOT):
 
     dimension_kinds = {"design": {"spec"}, "technical": {"command"}, "formal_integration": {"gui"},
                        "visual": {"screenshot"}, "animation": {"video"}, "audio_vfx": {"video"},
-                       "gameplay": {"user_feedback"}, "performance": {"measurement", "device_measurement"},
+                       "gameplay": {"runtime_trace", "gui", "video", "review", "user_feedback"}, "performance": {"measurement", "device_measurement"},
                        "independent_review": {"review"}, "device": {"device_measurement"}, "player_acceptance": {"user_feedback"}}
     for name, entry in data["dimensions"].items():
         items = refs(entry, name)
@@ -229,15 +240,12 @@ def validate_record(data, root=ROOT):
             if not set(required_kinds) <= {i.get("kind") for i in items}:
                 errors.append(f"Gate evidence incomplete: {gate}")
             for dimension in p["gates"][gate]:
-                if dimension in required_dims and data["dimensions"][dimension].get("status") != "passed":
+                if dimension in required_dims and data["dimensions"].get(dimension, {}).get("status") != "passed":
                     errors.append(f"Gate {gate} contradicts dimension {dimension}")
-            for prior in required_gates:
-                if prior < gate and data["gates"][prior].get("status") != "passed":
-                    errors.append(f"Gate {gate} bypasses {prior}")
 
     # Older records retain their historical scope. New records explicitly carry
     # this field; formal PASS needs output evidence for each discovered consumer.
-    if data["formal_impact"] and "consumer_coverage" in data:
+    if data["formal_impact"] and "consumer_coverage" in data and "formal_integration" in data["dimensions"]:
         coverage = data["consumer_coverage"]
         if coverage is None:
             blockers.append("Formal consumer inventory has not been observed")
@@ -286,12 +294,10 @@ def validate_record(data, root=ROOT):
                 errors.append("User-confirmed creative decision lacks linked original user approval")
     if not data["deliverables"] or not data["affected_paths"]:
         blockers.append("Deliverables and affected paths must be explicit")
-    if data["workflow"] == "done" and blockers:
-        errors.append("False done: applicable quality gates are incomplete")
     failed = any(isinstance(e, dict) and e.get("status") == "failed" for g in ("dimensions", "gates") for e in data[g].values()) or any(c.get("status") == "failed" for c in data["criteria"] if isinstance(c, dict))
     complete = not errors and not blockers
     return {"task_id": data["task_id"], "errors": errors, "blockers": blockers,
-            "task_complete": complete, "content_complete": complete and not light,
+            "task_complete": complete, "record_complete": complete, "content_complete": complete and not light,
             "verdict": "REJECT" if errors or failed else "ACCEPT" if complete else "UNVERIFIED",
             "scope": "record consistency and evidence attribution; not subjective quality or identity authentication"}
 
@@ -319,7 +325,7 @@ def validate_consumer_coverage(coverage, evidence, root=ROOT):
             raise ValueError("Consumer coverage must account for every discovered consumer exactly once")
         for item in observations:
             cid = item["consumer"]
-            if item.get("status") not in policy()["states"] or not populated(item.get("reason")):
+            if item.get("status") not in {*policy()["states"], "not_applicable"} or not populated(item.get("reason")):
                 raise ValueError("Consumer observations require status and reason")
             if item.get("output") not in {"visual", "behavior"}:
                 raise ValueError("Consumer observation output must be visual or behavior")
@@ -351,14 +357,14 @@ def validate_asset(data, root=ROOT):
     if disposition is not None and not (non_runtime or runtime_disposition):
         errors.append("Asset disposition invalid")
     runtime_paths = data.get("runtime_paths")
-    if data.get("schema_version") != policy()["schema_version"] or not isinstance(runtime_paths, list) or (not runtime_paths and not non_runtime):
+    if data.get("schema_version") != 1 or not isinstance(runtime_paths, list) or (not runtime_paths and not non_runtime):
         errors.append("Asset version/runtime consumers missing")
     if non_runtime:
         if runtime_paths != [] or not populated(data.get("non_runtime_reason")):
             errors.append("Non-runtime asset needs empty runtime_paths and explicit non_runtime_reason")
         if data.get("visual_status") == "passed":
             errors.append("Non-runtime asset cannot claim visual passed")
-    if data.get("license_status") not in {"verified", "unknown", "restricted"} or data.get("visual_status") not in policy()["states"]:
+    if data.get("license_status") not in {"verified", "unknown", "restricted"} or data.get("visual_status") not in {*policy()["states"], "not_applicable"}:
         errors.append("Asset license/visual status invalid")
     try:
         source = local_file(root, data.get("source_path"))
@@ -394,8 +400,8 @@ def validate_asset(data, root=ROOT):
         except (ValueError, OSError) as error:
             errors.append(str(error))
     if data.get("visual_status") == "passed":
-        if data.get("license_status") != "verified" or not data.get("user_acceptance_evidence"):
-            errors.append("Final asset needs license and actual user acceptance evidence")
+        if data.get("license_status") != "verified":
+            errors.append("Final asset needs verified license")
         for path in data.get("user_acceptance_evidence", []):
             try:
                 local_file(root, path)
@@ -422,7 +428,7 @@ def main():
             file.write(json.dumps(initialize(args.id, args.type, commit), ensure_ascii=False, indent=2) + "\n")
         print(f"Created unverified record: {args.output}")
         return 0
-    paths = args.records or sorted((ROOT / "docs/evidence/quality/records").glob("*.json"))
+    paths = args.records or list(task_record_paths(ROOT))
     if args.require_complete and not paths:
         print("No quality records to certify", file=sys.stderr)
         return 1

@@ -106,7 +106,8 @@ class BibleTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
-        for name in ['docs/bible/world_regions.json', creative.BIBLE_REGISTRY,
+        for name in ['docs/bible/regions/windchime_plains.md', 'docs/bible/regions/thorn_forest.md',
+                     'docs/bible/world_regions.json', creative.BIBLE_REGISTRY,
                      'docs/evidence/creative_direction/bibles/user-request.json',
                      'docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
                      'docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md']:
@@ -154,13 +155,13 @@ class BibleTests(unittest.TestCase):
                 creative.validate_bible_binding(ref, 'thorn_forest', self.root)
         for version in ('3.0', '2.1'):
             self.registry(lambda data,row:row['current_bible'].update(version=version))
-            with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version/region'):
+            with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version/region|source region'):
                 creative.bind_region_bible('thorn_forest', self.root)
 
     def test_unannounced_original_drift_never_refreshes_binding(self):
         path = self.root / self.ref['path']
         path.write_bytes(path.read_bytes() + b'\nchanged original\n')
-        with self.assertRaisesRegex(ValueError, 'impact analysis'):
+        with self.assertRaisesRegex(ValueError, 'binding|SHA256'):
             creative.validate_bible_binding(self.ref, root=self.root)
 
     def test_registry_drift_invalidates_existing_binding_even_if_bible_unchanged(self):
@@ -199,7 +200,7 @@ class BibleTests(unittest.TestCase):
     def test_hash_refresh_cannot_turn_another_attachment_into_forest(self):
         self.registry(lambda data,row:row['current_bible'].update(
             path='docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'))
-        with self.assertRaisesRegex(ValueError, 'version/region'):
+        with self.assertRaisesRegex(ValueError, 'version/region|source region'):
             creative.bind_region_bible('thorn_forest', self.root)
 
     def test_selected_direction_cannot_forge_raw_quote_or_player_approval(self):
@@ -225,7 +226,7 @@ class BibleTests(unittest.TestCase):
         forest.write_bytes(plains.read_bytes())
         sha = hashlib.sha256(forest.read_bytes()).hexdigest()
         self.registry(lambda data,row:row['current_bible'].update(sha256=sha))
-        with self.assertRaisesRegex(ValueError, 'original/staged attachment identity'):
+        with self.assertRaisesRegex(ValueError, 'region identity|attachment identity'):
             creative.bind_region_bible('thorn_forest', self.root)
 
     def test_original_staged_basename_mismatch_and_duplicate_identity_refused(self):
@@ -256,7 +257,10 @@ class BibleTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256((self.root/row['path']).read_bytes()).hexdigest(),row['sha256'])
         for region, expected in [('windchime_plains','02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35'),('thorn_forest','a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3')]:
             _,ref = creative.bind_region_bible(region,self.root)
-            self.assertEqual(ref['sha256'],expected)
+            self.assertEqual(ref['path'], 'docs/bible/regions/'+region+'.md')
+            self.assertEqual(ref['sha256'], hashlib.sha256((self.root/ref['path']).read_bytes()).hexdigest())
+            row = next(r for r in creative.load_bible_registry(self.root)['regions'] if r['region_id']==region)
+            self.assertEqual(row['current_bible']['source_document']['sha256'], expected)
             self.assertEqual(ref['supplemental_authority_sha256'],style['sha256'])
 
     def test_future_proposed_worker_gets_shared_style_without_visual_gate(self):
@@ -535,14 +539,14 @@ class BibleTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Complete region_bible'):
                 loop.region_bible_input(task)
 
-    def test_worker_prompt_contains_full_original_and_audio_scope(self):
+    def test_worker_prompt_contains_current_canonical_bible_and_audio_scope(self):
         mission = level_design.route_request('制作荆棘森林')
         task = mission['tasks'][0]
         folder = self.root/'prompt'; folder.mkdir()
         prompt, *_ = loop.prepare_call(task, mission, 'implement', folder, '{}', check_contracts={'checks':[]})
         self.assertIn((ROOT/task['region_bible']['path']).read_text(), prompt)
         self.assertIn('BGM deferred_user_supplied', prompt)
-        self.assertIn('actual consumer/source/version', prompt)
+        self.assertIn('current canonical requirements', prompt)
 
     def test_source_drift_during_worker_blocks_after_call(self):
         task = self.task()
@@ -554,7 +558,7 @@ class BibleTests(unittest.TestCase):
             path.write_bytes(path.read_bytes()+b'changed')
             return {'status':'ready_for_review','summary':'fixture','findings':[]}
         with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',return_value={}):
-            with self.assertRaisesRegex(ValueError,'impact analysis'):
+            with self.assertRaisesRegex(ValueError,'binding|SHA256'):
                 loop._call_with_retries(task,mission,'implement',attempt,'{}',state,self.root/'run/state.json',worker)
         self.assertEqual(state['calls'],1)
 
@@ -564,9 +568,9 @@ class BibleTests(unittest.TestCase):
         attempt = self.root/'run/BIBLE/1'; attempt.mkdir(parents=True)
         state = {'calls':0}
         with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')):
-            with self.assertRaisesRegex(ValueError,'impact analysis'):
+            with self.assertRaisesRegex(ValueError,'binding|SHA256'):
                 loop._call_with_retries(task,{'max_calls':2},'implement',attempt,'{}',state,self.root/'run/state.json',lambda *a:self.fail('must not invoke'))
-            with self.assertRaisesRegex(ValueError,'impact analysis'):
+            with self.assertRaisesRegex(ValueError,'binding|SHA256'):
                 loop.validate_restored_completion({'tasks':[task]}, {'tasks':{'BIBLE':{'status':'complete'}}},self.root/'run')
         self.assertEqual(state['calls'],0)
 
@@ -574,7 +578,7 @@ class BibleTests(unittest.TestCase):
         m = visual_director.route('优化风铃平原美术','current-art','docs/evidence/quality/records/current-art.json',['scripts/art/'],phase='golden')
         self.assertNotIn('visual_recipe',m['preparation'])
         self.assertEqual(m['tasks'][0]['allowed_paths'],['scripts/art/'])
-        self.assertEqual(m['tasks'][0]['required_gates'],['G0','G1','G2'])
+        self.assertEqual(m['tasks'][0]['required_gates'],['G0','G2'])
         self.assertEqual(m['tasks'][0]['region_bible']['bible_id'],'windchime_plains_v2')
 
 

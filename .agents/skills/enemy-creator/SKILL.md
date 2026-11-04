@@ -20,4 +20,4 @@ description: 新怪物、实质行为改造或补齐已有物种。
 
 选择 `enemy-structure-native`、`enemy-region-state` 和实际遭遇检查。验证活体／死亡／未激活、中断、回退、切图及奖励幂等；交付逐物种缺口、素材／代码、连续动作和正式遭遇证据。
 
-模板：[现有设计卡](../../../docs/project/templates/enemy_design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/enemy_design.md)。新内容的审查方法见 [开发与审查](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

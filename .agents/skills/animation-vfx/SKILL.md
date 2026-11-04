@@ -19,4 +19,4 @@ description: 人物、敌人、Boss、机关动作、过渡、射击反馈或动
 
 选择受影响的表现／武器／伤害／Boss专项，查看正常速度连续音画。交付动作表、运行素材与消费者、进入退出反例及性能观测。
 
-模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。新内容的审查方法见 [开发与审查](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

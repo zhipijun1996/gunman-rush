@@ -1,23 +1,23 @@
 # 活跃工作视图
 
-本页是可继续工作的入口，不是历史流水账。383 个任务 ID 分为本页 14 个当前议题和 [归档](../evidence/tasks.md) 369 个旧任务。本轮工作处于 PR134 待审；待验收、待决定和待排期没有自动开工。表内状态保留原验收口径，分组和“下一动作”说明现在如何处理。
+本页是可继续工作的入口，不是历史流水账。383 个任务 ID 分为本页 14 个当前议题和 [归档](../evidence/tasks.md) 369 个旧任务。PR134 已合入 main；本轮落实其后经 design-grill 确认的管理简化；待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
 
-接续任务先读本行和下一动作，再读对应工作线／质量卡及直接依赖；归档中的依赖用于追溯，不代表需要重跑旧架构。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
+接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；归档中的依赖用于追溯，不代表需要重跑旧架构。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
 ## 本轮工作
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| CODEX-CONTEXT-01 | PR134 创作兼容、任务视图与四类文档体系 | — | review | [交接](worklines/codex_context_01/scope.md) |
+| CODEX-CONTEXT-01 | 轻量管理、内容审查与现行文档读取链 | — | in_progress | [交接](worklines/codex_context_01/scope.md) |
 
-- `CODEX-CONTEXT-01`：收口 PR134 创作工具、活跃任务与文档权威；本工作线记录验证和交接。
+- `CODEX-CONTEXT-01`：落实已确认管理规则与工具读取；从当前交接恢复。
 
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| DEATH-RUNTIME-01 | 保持死亡动画，优化死亡运行成本 | FIRST-USE-STUTTER-01 | review | [交接](worklines/death_runtime_01/scope.md) |
-| MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [交接](worklines/mobile_web_fps_04/scope.md) |
+| DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | FIRST-USE-STUTTER-01 | blocked | [交接](worklines/death_runtime_01/scope.md) |
+| MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | GAME-ARCH-CI-01 | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
 | WINDKEEPER-PRESSURE-01 | 60HP牧风者六招三阶段主动追压与连续原声审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
 | BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [交接](worklines/bellstrider_rework_01/scope.md) |
@@ -36,9 +36,9 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| ITEM-V5-01 | 实现道具V5的72件、16成长与9有效联动 | RUN-GEAR-01 | review | [交接](worklines/item_v5_01/scope.md) |
-| STORY-DESIGN-03 | 统一最后一天循环、家园逻辑与多通细案 | STORY-DESIGN-02 | review | [交接](worklines/story_design_03/scope.md) |
-| FOREST-VARIETY-04 | 六类探索场所、两图真实网络与每图8–12/15–20分钟初步体验目标 | FOREST-VARIETY-03 | in_progress | [交接](worklines/forest_variety_04/scope.md) |
+| ITEM-V5-01 | 确认P17规则，按选择同步规范与实现 | RUN-GEAR-01 | blocked | [交接](worklines/item_v5_01/scope.md) |
+| STORY-DESIGN-03 | 确认循环下的人物、日程和结局细案 | STORY-DESIGN-02 | blocked | [交接](worklines/story_design_03/scope.md) |
+| FOREST-VARIETY-04 | 确认v18探索场所与时长目标的采用范围 | FOREST-VARIETY-03 | blocked | [交接](worklines/forest_variety_04/scope.md) |
 
 - `ITEM-V5-01`：确认 P17 满速充能与 40/55/70% 阶梯的取舍，再调整正式规则与验证。
 - `STORY-DESIGN-03`：按最后一天循环审阅具体人物、日程和结局提案；不把提案当已接入剧情。

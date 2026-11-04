@@ -237,7 +237,7 @@ def content_plan(request, mode=None, phase="auto"):
             ("boss", ["boss-creator", "encounter-director", "animation-vfx"], ["level-design-contracts"],
              "前置设计地区Boss、竞技场、阶段决策/预警/弱点/恢复/死亡奖励；制作逐阶段及连续战斗隔离样板，原Boss仅作契约回归", False),
             ("assets", ["visual-director", "art-director", "scene-composer"], ["level-design-contracts"],
-             "前置制作地区资产家族与真实比例静态合屏黄金，记录来源/许可/语义尺度/根基/接合；独立实际像素G2准入后才推广同族", False),
+             "前置制作地区资产家族与真实比例静态合屏黄金，记录来源/许可/语义尺度/根基/接合；实际合屏检查后再推广同族", False),
             ("animation", ["animation-vfx", "art-director"], ["level-design-contracts"],
              "前置制作敌人/Boss/机关及环境动作状态表与过渡，真实已接受事件驱动正常速度连续音画；静态图与Hash不能代签动画", False),
         ]
@@ -278,15 +278,15 @@ def content_plan(request, mode=None, phase="auto"):
         if name == "audit":
             tasks[-1]["completion"] = "scope"
         elif name == "review":
-            # Final read-only review cannot bypass the integrated content's G5.
+            # Final read-only review cannot bypass the integrated content's applicable review.
             tasks[-1].update(completion="content", quality_task_id=previous[0],
                              quality_record=workline_path + "/quality/" + previous[0] + ".json")
         else:
             tasks[-1].update(completion="stage", required_gates={
-                "design": ["G0"], "golden": ["G0", "G1"],
-                "ecology": ["G0", "G1"], "boss": ["G0", "G1"],
-                "assets": ["G0", "G1", "G2"], "animation": ["G0", "G1", "G2"],
-                "integration": ["G0", "G1", "G2", "G3"]}[name])
+                "design": ["G0"], "golden": ["G0"],
+                "ecology": ["G0"], "boss": ["G0"],
+                "assets": ["G0", "G2"], "animation": ["G0", "G2"],
+                "integration": ["G0", "G2", "G3"]}[name])
         if name in {"golden", "integration"}:
             tasks[-1]["mechanism_review"] = True
         if mode == "new_region" and name not in {"audit", "design"}:
@@ -322,7 +322,7 @@ def content_plan(request, mode=None, phase="auto"):
             "无现成地区producer时先实现对应真实消费者/runner，不拿平原或Foundry证明本地区。技术灰盒不签正式开放或美术。",
             "skills": ["region-generator", "level-module-creator", "challenge-choreographer"], "checks": checks,
             "depends_on": [], "read_only": False, "allowed_paths": ["docs/", "tests/", "tools/", "scripts/demo/", "game/world/levels/providers/", "game/application/"],
-            "quality_record": workline_path + "/quality/" + identifier + ".json", "completion": "stage", "required_gates": ["G0", "G1"],
+            "quality_record": workline_path + "/quality/" + identifier + ".json", "completion": "stage", "required_gates": ["G0"],
             "region_proof": {"region_id": region_id, "kind": "golden", "scope": "prototype", "capability_gate": gate,
                              **({"allowed_capabilities": ["H"]} if implemented_slice else {})}}]
         if implemented_slice:
@@ -333,7 +333,7 @@ def content_plan(request, mode=None, phase="auto"):
         mission["preparation"]["production_boundary"].update(
             selected_phase="prototype", native_producer="forest-current-slice" if implemented_slice else None,
             production_plan_status="pending_all_nine_packages_not_executed",
-            requirement="按原质量记录执行隔离G0/G1样板；production_plan仅为后续完整门槛，不能提前标通过。")
+            requirement="按原质量记录执行隔离G0样板；production_plan仅为后续完整门槛，不能提前标通过。")
     return mission
 
 
@@ -463,9 +463,8 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
         if plan["phase"] == "production":
             golden = next(task for task in plan["tasks"] if task["id"].endswith("-golden"))
             golden["skills"] = list(dict.fromkeys(golden["skills"] + ["visual-director", "scene-composer", "encounter-director", "animation-vfx"]))
-            golden["required_gates"] = ["G0", "G1", "G2"]
-            golden["requires_visual_admission"] = True
-            golden["goal"] += "；先读取绑定的实际共享母版，在正式平原与目标地区正常比例实际合屏做像素尺度/邻接边界/光照描边材质对照，独立视觉准入前不扩产；hash/metadata不算视觉认可。只制作第一个统一可玩黄金空间，空间/挑战/遭遇/视觉/动画共同设计。G2截图与正常速度视频必须由独立视觉审查ACCEPT；复用质量卡independent_review证据，并以reviewed_evidence引用本卡G2全部媒体ID。未准入不得第二空间、多Seed或扩产。"
+            golden["required_gates"] = ["G0", "G2"]
+            golden["goal"] += "；读取现行地区圣经及共享母版，在正常比例合屏检查像素尺度、边界、材质与连续体验。先做好一个可玩的样板再扩展，记录实际观察与未验；独审、用户与设备要求仅按本次任务约定。"
             integration = next(task for task in plan["tasks"] if task["id"].endswith("-integration"))
             integration["goal"] += "；仅在首黄金G2与独立视觉实机审查均ACCEPT后才允许第二空间和多Seed推广，不扩产失败母版。"
             if spatial_experiment is not None:

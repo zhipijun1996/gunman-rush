@@ -1,5 +1,4 @@
 """Static skill/template/record checks. Does not invoke Codex or judge game quality."""
-from quality import task_index_lines
 from pathlib import Path
 import re
 import sys
@@ -55,19 +54,8 @@ def validate(root=ROOT):
         if data['task_id'] in records:
             errors.append(f'Duplicate task record: {data["task_id"]}')
         records[data['task_id']] = data
-    for path in (root / 'docs/evidence/quality/asset_records').glob('*.json'):
-        errors.extend(f'{path.name}: {e}' for e in validate_asset(read_json(path), root))
-    task_rows = {}
-    for line in task_index_lines(root):
-        cells = [c.strip() for c in line.split('|')[1:-1]]
-        if len(cells) == 5:
-            task_rows[cells[0]] = cells[3]
-    for task, data in records.items():
-        if task_rows.get(task) != data['workflow']:
-            errors.append(f'Task index/record mismatch: {task}')
-    for doc in ('docs/project/development.md', 'docs/project/quality.md'):
-        if f'版本 **{p["schema_version"]}**' not in (root / doc).read_text():
-            errors.append(f'Quality version mismatch: {doc}')
+    if f'版本 **{p["schema_version"]}**' not in (root / 'docs/project/development.md').read_text():
+        errors.append('Quality version mismatch: development.md')
     return errors
 
 
@@ -76,7 +64,7 @@ def main():
     if errors:
         print('\n'.join(errors), file=sys.stderr)
         return 1
-    print(f'PASS: {len(policy()["core_skills"])} core skills, references, {len(policy()["templates"])} templates, quality records and asset metadata; STATIC ONLY.')
+    print(f'PASS: {len(policy()["core_skills"])} core skills, references, {len(policy()["templates"])} templates, current content records; STATIC ONLY.')
     return 0
 
 

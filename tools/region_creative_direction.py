@@ -175,15 +175,28 @@ def bind_region_bible(region_id, root=ROOT):
             or bible.get('operations') != ['create', 'optimize']):
         raise ValueError('Bible must have selected direction status and explicit production/audio scope')
     major = bible['version'].split('.')[0]
+    origin = bible.get('source_document')
+    canonical = bible['path'] == 'docs/bible/regions/' + str(region_id) + '.md'
     if (not re.fullmatch(r'[1-9][0-9]*\.[0-9]+', bible['version'])
-            or bible['version'] != major + '.0'  # Original _vN attachment is version N.0.
-            or bible['bible_id'] != str(region_id) + '_v' + major
-            or not Path(bible['path']).name.endswith(str(region_id) + '_region_bible_v' + major + '.md')):
+            or bible['version'] != major + '.0'
+            or bible['bible_id'] != str(region_id) + '_v' + major):
+        raise ValueError('Bible version/region identity must agree with the registered document')
+    if origin is not None:
+        if (not isinstance(origin, dict) or bible['path'] != 'docs/bible/regions/' + str(region_id) + '.md'
+                or not isinstance(origin.get('path'), str)
+                or not Path(origin['path']).name.endswith(str(region_id) + '_region_bible_v' + major + '.md')):
+            raise ValueError('Canonical Bible path and source region identity must agree')
+    elif not canonical and not Path(bible['path']).name.endswith(str(region_id) + '_region_bible_v' + major + '.md'):
         raise ValueError('Bible version/region identity must agree with the registered original document name')
     raw = files.read(bible['path'])
     if hashlib.sha256(raw).hexdigest() != bible['sha256']:
-        raise ValueError('Bible SHA256 changed; impact analysis, versioned rebind and independent review required')
-    raw.decode('utf-8')  # Never normalize or replace original attachment bytes.
+        raise ValueError('Bible SHA256 changed; update the reviewed canonical binding')
+    title = raw.decode('utf-8').splitlines()[0]
+    if canonical:
+        catalog = files.json('docs/bible/world_regions.json')
+        expected_name = next(row['working_name'] for row in catalog['regions'] if row['id'] == region_id)
+        if expected_name not in title:
+            raise ValueError('Canonical Bible title/region identity differs from its registered region')
     evidence = bible.get('selection_evidence', {})
     if not isinstance(evidence, dict) or not isinstance(evidence.get('path'), str):
         raise ValueError('Bible selection requires original user instruction evidence')
@@ -192,22 +205,25 @@ def bind_region_bible(region_id, root=ROOT):
     request = files.json(evidence['path'])
     if any(not isinstance(request.get(k), str) or not request[k].strip() for k in ('source', 'quote', 'authorization_scope')):
         raise ValueError('Bible selection requires original user source/quote/scope')
-    attachments = request.get('attachments', [])
-    canonical_name = Path(bible['path']).name
-    if not isinstance(attachments, list):
-        raise ValueError('Bible original attachment identity list is invalid')
-    originals = [a for a in attachments if isinstance(a, dict)
-                 and isinstance(a.get('original_attachment_path'), str)
-                 and Path(a['original_attachment_path']).name == canonical_name]
-    if len(originals) != 1:
-        raise ValueError('Bible region/document identity requires one matching original attachment basename')
-    original = originals[0]
-    staged = original.get('staged_path')
-    if (not isinstance(staged, str) or Path(staged).is_absolute() or '..' in Path(staged).parts
-            or Path(staged).name != canonical_name
-            or original.get('sha256') != bible['sha256']
-            or original.get('bytes') != len(raw) or original.get('copied_verbatim') is not True):
-        raise ValueError('Bible canonical region/document must match its original/staged attachment identity and exact bytes')
+    if origin is not None or not canonical:
+        attachments = request.get('attachments', [])
+        canonical_name = Path(origin['path'] if origin else bible['path']).name
+        if not isinstance(attachments, list):
+            raise ValueError('Bible original attachment identity list is invalid')
+        originals = [a for a in attachments if isinstance(a, dict)
+                     and isinstance(a.get('original_attachment_path'), str)
+                     and Path(a['original_attachment_path']).name == canonical_name]
+        if len(originals) != 1:
+            raise ValueError('Bible region/document identity requires one matching original attachment basename')
+        original = originals[0]
+        staged = original.get('staged_path')
+        expected_sha = origin.get('sha256') if origin else bible['sha256']
+        expected_bytes = origin.get('bytes') if origin else len(raw)
+        if (not isinstance(staged, str) or Path(staged).is_absolute() or '..' in Path(staged).parts
+                or Path(staged).name != canonical_name
+                or original.get('sha256') != expected_sha or original.get('bytes') != expected_bytes
+                or original.get('copied_verbatim') is not True):
+            raise ValueError('Bible source must match its original/staged attachment identity and exact bytes')
     supplement = _supplemental_authority(files, data)
     ref = {k:bible[k] for k in ('path', 'sha256', 'bible_id', 'version', 'status')}
     if supplement:

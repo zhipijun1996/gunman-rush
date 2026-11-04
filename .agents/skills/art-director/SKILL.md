@@ -17,6 +17,6 @@ description: 资产生产、整体画风、区域材质或资产用途审查。
 
 ## 验证与交付
 
-选相关资产、terrain及正式合屏检查。交付源图／许可、资产族、切片／锚点、实际截图与独审；按 [质量记录](../../../docs/project/quality.md) 区分技术和视觉接受。
+选相关资产、terrain及正式合屏检查。交付源图／许可、资产族、切片／锚点、实际截图与独审；按 [质量记录](../../../docs/project/development.md) 区分技术和视觉接受。
 
-模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。新内容的审查方法见 [开发与审查](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

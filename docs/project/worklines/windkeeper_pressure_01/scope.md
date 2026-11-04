@@ -1,15 +1,15 @@
-# WINDKEEPER-PRESSURE-01
+# WINDKEEPER-PRESSURE-01 当前交接
 
 目标：60HP牧风者六招三阶段主动追压与连续原声审核。
-状态：review；分组与排期见 [活跃任务](../../tasks.md)。
-直接依赖：—。
 
-## 当前交接
-
+- 进度与直接依赖见 [任务表](../../tasks.md)，本文件不复制状态。
+- 接续：从当前 main 建本议题分支并认领写集；本轮管理整理未执行本议题的内容修改。
+- 实现／检查来源：`ff5172439f6510300775ba27901f62ba3d7951fd`；原结果只证明该来源，不能代签当前源码。
+- 代码与写集入口：[实际消费者](../../../../resources/bosses/windkeeper.tres)；相关规范和专项由 [模块导航](../../module_map.md) 定位，按本次目标限制修改范围。
 - 下一动作：按当前 60HP 规范审核主动追压、六招三阶段与连续原声实战。
-- 接续基线：核对最新 main、工作区及真实消费者，按 [模块导航](../../module_map.md) 定位设计与验证。
-- [质量记录](quality/record.json) 保留原验证来源与证据，只证明其具体范围。
+- 可运行的相关入口：`python3 tools/run_windkeeper_pressure_01_tests.py`。是否执行及是否需要设备，按上面的下一动作决定；本交接未把它记为新成绩。
+- 本次内容审查见 [质量卡](quality/record.json)。 原始记录按需见 [来源](../../../evidence/quality/records/WINDKEEPER-PRESSURE-01.json)。
 
-## 未验范围
+## 当前缺口
 
 主动追压、六招三阶段与连续原声实战待审；平衡、设备和用户认可未验。

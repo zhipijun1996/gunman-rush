@@ -1,6 +1,6 @@
 # 当前实现
 
-源码基线：`main@68a87f38a753442bbdacaa81317dd4aaa05eba3b`，PR132／PR133 已合入。线上构建以试玩站 `build-info.json` 为准，源码合入与网站发布分别核实。
+源码基线：`main@5ce7db6b2af2e66efe9782ab581f026296aa593a`。线上构建以试玩站 `build-info.json` 为准，源码合入与网站发布分别核实。
 
 | 范围 | 当前行为与入口 |
 | --- | --- |

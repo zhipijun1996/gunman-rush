@@ -1214,7 +1214,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
         if not readonly and region_id == 'windchime_plains':
             entry['checks'] = ['visual-director-terrain' if c == 'visual-director-space' else c for c in entry['checks']]
         if readonly: entry['completion']='scope'
-        else: entry.update(completion='stage',required_gates=['G0','G1'],quality_task_id=entry['id'])
+        else: entry.update(completion='stage',required_gates=['G0'],quality_task_id=entry['id'])
         tasks.append(entry);previous=[entry['id']]
     m={'schema_version':1,'objective':request,'workflow':'visual_golden','scope':'offline_production_plan_not_executed',
        'max_calls':max_calls,'max_rounds':max_rounds,'call_timeout_seconds':call_timeout,'tasks':tasks,
@@ -1400,7 +1400,7 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
             task.pop('required_gates', None)
         else:
             task['completion'] = 'stage'
-            task['required_gates'] = ['G0', 'G1', 'G2']
+            task['required_gates'] = ['G0', 'G2']
         previous = [task['id']]
     mission.update(tasks=tasks, workflow='visual_golden', max_calls=max_calls,
                    max_rounds=max_rounds, call_timeout_seconds=call_timeout)

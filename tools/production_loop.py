@@ -80,6 +80,8 @@ def validate(m):
             raise ValueError("Tasks must be topologically ordered; unknown/cyclic dependency")
         if not t.get("read_only", False) and not t.get("quality_record"):
             raise ValueError("Production task must name its quality record")
+        if "independent_review" in t and type(t["independent_review"]) is not bool:
+            raise ValueError("independent_review must be an explicit boolean")
         if "mechanism_review" in t and type(t["mechanism_review"]) is not bool:
             raise ValueError("mechanism_review must be an explicit boolean")
         completion = t.get("completion", "scope" if t.get("read_only") else "content")
@@ -93,14 +95,17 @@ def validate(m):
             raise ValueError("Quality record must bind this task or a direct completed dependency")
         if t.get("creative_direction") and t["id"].endswith("-golden") and m.get("phase") != "prototype":
             joint = {"level-module-creator", "challenge-choreographer", "art-director", "visual-director", "scene-composer", "encounter-director", "animation-vfx"}
-            if (t.get("requires_visual_admission") is not True or "G2" not in t.get("required_gates", [])
-                    or not joint <= set(t["skills"])):
-                raise ValueError("Creative production golden requires joint specialties and independent G2 visual admission")
+            if "G2" not in t.get("required_gates", []) or not joint <= set(t["skills"]):
+                raise ValueError("Creative production sample requires joint specialties and applicable G2 review")
         if "creative_stagnation_guard" in t and type(t["creative_stagnation_guard"]) is not bool:
             raise ValueError("creative_stagnation_guard must be boolean")
         if t.get("feedback_context", "full") not in ("full", "compact"):
             raise ValueError("feedback_context must be full or compact")
         done.add(t["id"])
+
+
+def needs_independent_review(task):
+    return task.get("independent_review") is True or task.get("requires_visual_admission") is True
 
 
 def shared_style_input(task):
@@ -114,6 +119,25 @@ def shared_style_input(task):
     if expected != {"path":authority["path"],"sha256":authority["sha256"]}:
         raise ValueError("Shared style authority binding changed or missing; impact analysis/rebind and cross-region golden revalidation required")
     return authority
+
+
+def related_design_documents(task, binding):
+    """Read only object pages linked by this region and used by its specialists."""
+    text = (ROOT / binding["path"]).read_text()
+    skills = set(task.get("skills", []))
+    groups = ({"enemies"} if "enemy-creator" in skills else set()) | ({"bosses"} if "boss-creator" in skills else set())
+    documents = []
+    from region_creative_direction import repository_file
+    for relative in re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", text):
+        path = (ROOT / binding["path"]).parent.joinpath(relative).resolve()
+        if not path.is_relative_to(ROOT.resolve()):
+            raise ValueError("Object design link escapes repository")
+        name = path.relative_to(ROOT.resolve()).as_posix()
+        if not any(name.startswith("docs/data/" + group + "/") for group in groups):
+            continue
+        raw = repository_file(name, ROOT).read_bytes()
+        documents.append({"path": name, "sha256": hashlib.sha256(raw).hexdigest(), "content": raw.decode("utf-8")})
+    return documents
 
 
 def region_bible_input(task):
@@ -139,7 +163,7 @@ def region_bible_input(task):
         return None
     from level_region_context import region_write_scope, resolve_region_id
     scope = region_write_scope(task.get("allowed_paths", []), root=ROOT)
-    if (ROOT / "docs/bible/world_regions.json").is_file():
+    if not declared and (ROOT / "docs/bible/world_regions.json").is_file():
         named = resolve_region_id(task.get("goal", ""), root=ROOT)
         if named:
             declared.add(named)
@@ -154,8 +178,9 @@ def region_bible_input(task):
         return None  # Unrelated process/small-fix work retains its existing contract.
     bible, binding = validate_bible_binding(ref, region, root=ROOT)
     return {"binding": binding, "content": (ROOT / binding["path"]).read_bytes().decode("utf-8"),
+            "object_documents": related_design_documents(task, binding),
             "music_status": bible["music_status"], "supplemental_authority": supplemental_authority(bible, binding["region_id"], ROOT),
-            "applicable_sections": "Full original Bible; each requirement must map section -> actual consumer/source/version -> evidence IDs -> technical/visual/audio/device status separately"}
+            "applicable_sections": "Read current canonical requirements for this task; inspect applicable objects and actual consumers. Record only relevant observations and evidence."}
 
 
 def creative_direction_input(task):
@@ -234,6 +259,8 @@ def bound_source_inputs(task):
         result.extend([{"path": ref["registry_path"], "sha256": ref["registry_sha256"]},
                        {"path": ref["path"], "sha256": ref["sha256"]},
                        {"path": ref["selection_evidence_path"], "sha256": ref["selection_evidence_sha256"]}])
+    if bible:
+        result.extend({key: document[key] for key in ("path", "sha256")} for document in bible.get("object_documents", []))
     supplement = bible.get("supplemental_authority") if bible else shared_style_input(task)
     if supplement:
         result.append({"path":supplement["path"],"sha256":supplement["sha256"]})
@@ -583,9 +610,12 @@ def prepare_call(task, mission, role, folder, feedback, *, check_contracts=None)
     direction_text = ("\nVersioned selected creative authority (all specialties must explain contribution, collaboration, conflicts and live validation): "
                       + json.dumps(direction, ensure_ascii=False) + "\n") if direction else ""
     if bible:
-        direction_text += ("\nFull original selected region Bible (read in full, preserve section requirements):\n"
+        direction_text += ("\nCurrent canonical region Bible (read applicable requirements):\n"
                            + bible["content"] + "\n" + bible["applicable_sections"]
                            + "\nBGM deferred_user_supplied: do not generate or replace BGM. SFX and event-bound ambient animation/VFX are authorized.\n")
+    if bible:
+        for document in bible.get("object_documents", []):
+            direction_text += "\nCurrent object specification: " + document["path"] + "\n" + document["content"] + "\n"
     style = bible.get("supplemental_authority") if bible else shared_style_input(task)
     if style:
         direction_text += ("\nLatest user style-continuity authority and actual shared Plains runtime reference files (full SHA; read the listed consumers and view the source PNG/atlas at native scale):\n"
@@ -1130,7 +1160,7 @@ def check_task_quality(task, *, reviewer_identity=None):
         acceptance["errors"].extend(problems)
         if problems:
             acceptance["task_complete"] = False
-    content_hash = digest({p: h for p, h in snapshot().items() if not p.startswith("docs/evidence/quality/records/")})
+    content_hash = digest({p: h for p, h in snapshot().items() if not (p.startswith("docs/evidence/quality/records/") or (p.startswith("docs/project/worklines/") and "/quality/" in p))})
     expected_id = task.get("quality_task_id", task["id"])
     if record["task_id"] != expected_id or record.get("production_snapshot") != content_hash:
         acceptance["errors"].append("Quality record lacks current production_snapshot/task binding")
@@ -1699,8 +1729,9 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
                     phase = checkpoint["phase"]
                     attempt = folder / task["id"] / str(entry["rounds"])
                 else:
-                    if (state["calls"] + 2 > m["max_calls"]
-                            or task_calls(task, folder) + 2 > task.get("max_calls", m["max_calls"])):
+                    call_budget = 2 if needs_independent_review(task) else 1
+                    if (state["calls"] + call_budget > m["max_calls"]
+                            or task_calls(task, folder) + call_budget > task.get("max_calls", m["max_calls"])):
                         entry["status"] = "budget_exhausted"
                         break
                     entry["rounds"] += 1
@@ -1764,11 +1795,14 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
                         result = {"status": "reject", "summary": "Harness failure; repair required",
                                   "findings": ["Failed check: " + c["id"] for c in checks if c["status"] != "passed"]}
                         phase = "quality"
-                    else:
+                    elif needs_independent_review(task):
                         phase = "review"
+                    else:
+                        result = {"status": "accept", "summary": result["summary"], "findings": result.get("findings", [])}
+                        phase = "quality"
                     round_record["result"] = result
                     _checkpoint(entry, round_record, before, phase, state, state_path, attempt)
-                    if stop_after_phase == "checks" and phase == "review":
+                    if stop_after_phase == "checks" and phase in {"review", "quality"}:
                         state["status"] = "paused"
                         return state
                 if phase == "review":

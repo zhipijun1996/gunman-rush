@@ -20,4 +20,4 @@ description: 新Boss，或Boss机制、阶段与核心招式重构。
 
 覆盖连续两次恢复、阶段边界、玩家与Boss同帧死亡、取消和奖励重复领取。相关Boss专项显式选择；交付招式时序、完整遭遇录像、状态与奖励收据。
 
-模板：[现有设计卡](../../../docs/project/templates/boss_design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/boss_design.md)。新内容的审查方法见 [开发与审查](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

@@ -85,7 +85,7 @@ class QualityTests(unittest.TestCase):
         self.assertEqual(result['verdict'], 'REJECT', result)
 
     def test_light_process_can_complete_without_future_game_approval(self):
-        self.record['dimensions']['independent_review'].update(status='unverified', reason='No independent reviewer')
+        self.assertNotIn('independent_review', self.record['dimensions'])
         result = validate_record(self.record, self.root)
         self.assertEqual(result['errors'], [])
         self.assertTrue(result['task_complete'], result)
@@ -104,7 +104,9 @@ class QualityTests(unittest.TestCase):
     def test_done_cannot_be_claimed_from_initial_record(self):
         data = initialize('ENEMY-TEST-01', 'enemy', SHA)
         data['workflow'] = 'done'
-        self.rejected(data)
+        result = validate_record(data, self.root)
+        self.assertEqual(result['errors'], [])
+        self.assertFalse(result['record_complete'])
 
     def test_missing_contract_fields(self):
         for field in ('baseline_commit', 'reviewed_commit', 'purpose', 'constraints', 'criteria', 'formal_impact'):
@@ -133,33 +135,44 @@ class QualityTests(unittest.TestCase):
                 self.rejected(data)
 
     def test_failed_optional_dimension_prevents_done(self):
-        self.record['dimensions']['visual'].update(status='failed', reason='Failure cannot be hidden as optional')
+        self.record['dimensions']['visual'] = {'status':'failed','reason':'Observed failure','evidence':[]}
         self.rejected(self.record)
 
     def test_optional_content_work_needs_pass_or_explicit_inapplicability(self):
         data = self.complete_record('region')
-        data['dimensions']['animation'].update(status='unverified', reason='New animation remains incomplete')
-        self.rejected(data)
+        data['dimensions']['animation'] = {'status':'unverified','reason':'Required animation remains incomplete','evidence':[]}
+        data['required_dimensions'] = ['animation']
+        result = validate_record(data, self.root)
+        self.assertFalse(result['record_complete'])
+        self.assertIn('animation: unverified', result['blockers'])
 
     def test_awaiting_device_cannot_hide_technical_failure(self):
         data = initialize('DEVICE-TEST-01', 'enemy', SHA)
         data['workflow'] = 'awaiting-device'
-        self.rejected(data)
+        result = validate_record(data, self.root)
+        self.assertFalse(result['record_complete'])
+        self.assertTrue(result['blockers'])
 
     def test_empty_criteria_prevents_done(self):
         self.record['criteria'] = []
-        self.rejected(self.record)
+        result = validate_record(self.record, self.root)
+        self.assertFalse(result['record_complete'])
+        self.assertTrue(result['blockers'])
 
     def test_failed_criterion_prevents_done(self):
         self.record['criteria'][0]['status'] = 'failed'
         self.rejected(self.record)
 
-    def test_content_cannot_skip_formal_player_or_device(self):
-        for dim in ('formal_integration', 'independent_review', 'visual', 'device', 'player_acceptance'):
+    def test_new_content_requires_visual_and_gameplay_but_not_unrequested_approvals(self):
+        for dim in ('visual', 'gameplay'):
             with self.subTest(dim=dim):
                 data = self.complete_record('enemy')
                 data['dimensions'][dim].update(status='unverified', evidence=[])
-                self.rejected(data)
+                self.assertFalse(validate_record(data, self.root)['record_complete'])
+        data = self.complete_record('enemy')
+        for dim in ('formal_integration', 'independent_review', 'device', 'player_acceptance'):
+            self.assertNotIn(dim, data['dimensions'])
+        self.assertTrue(validate_record(data, self.root)['record_complete'])
 
     def test_self_review_ai_approval_and_virtual_device_rejected(self):
         for kind, patch in [('review', {'reviewer': 'implementer'}), ('review', {'independent': False}),
@@ -168,6 +181,8 @@ class QualityTests(unittest.TestCase):
                             ('device_measurement', {'physical': False})]:
             with self.subTest(kind=kind, patch=patch):
                 data = self.complete_record('enemy')
+                for dimension, evidence_kind in [('independent_review','review'),('device','device_measurement'),('player_acceptance','user_feedback')]:
+                    data['dimensions'][dimension] = {'status':'passed','reason':'Explicit claim under test','evidence':[evidence_kind]}
                 next(e for e in data['evidence'] if e['kind'] == kind).update(patch)
                 self.rejected(data)
 
@@ -231,18 +246,18 @@ class QualityTests(unittest.TestCase):
         (self.root / 'scripts/new.gd').write_text('extends Node\n')
         (self.root / 'docs/project/tasks.md').write_text('| TEST-01 | process | — | done | done |\n')
         errors, _ = validate_diff(base, self.root)
-        self.assertTrue(any('Production change' in e for e in errors), errors)
-        self.assertTrue(any('New done task' in e for e in errors), errors)
+        self.assertFalse(any('Production change' in e for e in errors), errors)
+        self.assertFalse(any('New done task' in e for e in errors), errors)
         (self.root / 'docs/evidence').mkdir()
         (self.root / 'docs/evidence/tasks.md').write_text('| TEST-01 | process | — | done | archived |\n')
         (self.root / 'docs/project/tasks.md').write_text('Current work\n')
         errors, _ = validate_diff(base, self.root)
-        self.assertTrue(any('New done task' in e for e in errors), errors)
+        self.assertFalse(any('New done task' in e for e in errors), errors)
 
     def test_diff_guard_rejects_reusing_old_completed_evidence(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs/evidence/quality/records').mkdir(parents=True)
+        (self.root / 'docs/project/worklines/test/quality').mkdir(parents=True)
         (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | process | — | review | candidate |\n')
         (self.root / 'tools').mkdir()
         (self.root / 'tools/helper.py').write_text('VALUE = 1\n')
@@ -254,16 +269,16 @@ class QualityTests(unittest.TestCase):
         data.update(reviewed_commit=base, baseline_commit=base, affected_paths=['tools/helper.py'])
         for evidence in data['evidence']:
             evidence['source_commit'] = base
-        (self.root / 'docs/evidence/quality/records/test.json').write_text(json.dumps(data))
+        (self.root / 'docs/project/worklines/test/quality/record.json').write_text(json.dumps(data))
         (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | process | — | done | tested |\n')
         self.assertEqual(validate_diff(base, self.root)[0], [])
         (self.root / 'tools/helper.py').write_text('VALUE = 99\n')
         self.assertTrue(any('stale' in e for e in validate_diff(base, self.root)[0]))
 
-    def test_routed_lowercase_done_requires_complete_quality_record(self):
+    def test_task_completion_is_separate_from_content_card(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs/evidence/quality/records').mkdir(parents=True)
+        (self.root / 'docs/project/worklines/test/quality').mkdir(parents=True)
         task = 'level-optimize-design'
         (self.root / 'docs/project/tasks.md').write_text(f'| {task} | process | — | review | candidate |\n')
         run('init', '-q')
@@ -272,16 +287,16 @@ class QualityTests(unittest.TestCase):
         base = run('rev-parse', 'HEAD').strip()
         self.assertEqual(validate_diff(base, self.root)[0], [])
         (self.root / 'docs/project/tasks.md').write_text(f'| {task} | process | — | done | claimed |\n')
-        self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
+        self.assertFalse(any('New done task' in e for e in validate_diff(base, self.root)[0]))
         record = copy.deepcopy(self.record)
         record.update(task_id=task, reviewed_commit=base, baseline_commit=base)
         for evidence in record['evidence']:
             evidence['source_commit'] = base
-        (self.root / 'docs/evidence/quality/records/routed.json').write_text(json.dumps(record))
+        (self.root / 'docs/project/worklines/test/quality/record.json').write_text(json.dumps(record))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         record['gates']['G4']['status'] = 'unverified'
-        (self.root / 'docs/evidence/quality/records/routed.json').write_text(json.dumps(record))
-        self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
+        (self.root / 'docs/project/worklines/test/quality/record.json').write_text(json.dumps(record))
+        self.assertFalse(any('New done task' in e for e in validate_diff(base, self.root)[0]))
 
 
     def asset_record(self):
@@ -291,7 +306,7 @@ class QualityTests(unittest.TestCase):
         consumer = self.root / 'scripts/consumer.gd'
         consumer.parent.mkdir(parents=True, exist_ok=True)
         consumer.write_text('extends Node\n')
-        return {'schema_version': policy()['schema_version'], 'asset_id': 'synthetic-asset',
+        return {'schema_version': 1, 'asset_id': 'synthetic-asset',
                 'content_version': 'test-v1', 'source_path': 'assets/source.png',
                 'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
                 'tool': 'unit fixture', 'model': 'none', 'prompt_or_reference': 'synthetic source',
@@ -392,8 +407,8 @@ class QualityTests(unittest.TestCase):
     def asset_diff_fixture(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs/evidence/quality/records').mkdir(parents=True)
-        (self.root / 'docs/evidence/quality/asset_records').mkdir()
+        (self.root / 'docs/project/worklines/test/quality').mkdir(parents=True)
+        (self.root / 'docs/evidence/quality/asset_records').mkdir(parents=True)
         (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | art | — | review | candidate |\n')
         run('init', '-q')
         run('add', '.')
@@ -404,7 +419,7 @@ class QualityTests(unittest.TestCase):
         record = initialize('QUALITY-TEST-01', 'art', base)
         record.update(formal_impact=True, affected_paths=['assets/source.png', 'scripts/consumer.gd',
                                                        'assets/production/prompt.txt'])
-        (self.root / 'docs/evidence/quality/records/test.json').write_text(json.dumps(record))
+        (self.root / 'docs/project/worklines/test/quality/record.json').write_text(json.dumps(record))
         return base, asset
 
     def test_diff_asset_associated_exact_paths_only_after_full_validation(self):
@@ -418,7 +433,7 @@ class QualityTests(unittest.TestCase):
         self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
         self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
 
-    def test_game_production_change_requires_non_process_record(self):
+    def test_ordinary_game_fix_does_not_require_content_card(self):
         base, asset = self.asset_diff_fixture()
         (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
@@ -428,15 +443,15 @@ class QualityTests(unittest.TestCase):
         consumer.write_text('extends Node\n')
         errors, changed = validate_diff(base, self.root)
         self.assertIn(name, changed)
-        self.assertIn('Production change lacks non-process task record: ' + name, errors)
-        record_path = self.root / 'docs/evidence/quality/records/test.json'
+        self.assertFalse(any('Production change lacks' in error for error in errors), errors)
+        record_path = self.root / 'docs/project/worklines/test/quality/record.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(name)
         record_path.write_text(json.dumps(record))
         self.assertEqual(validate_diff(base, self.root)[0], [])
 
 
-    def test_experiment_production_change_requires_non_process_record(self):
+    def test_ordinary_experiment_fix_does_not_require_content_card(self):
         base, asset = self.asset_diff_fixture()
         (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
@@ -446,8 +461,8 @@ class QualityTests(unittest.TestCase):
         consumer.write_text('extends Node\n')
         errors, changed = validate_diff(base, self.root)
         self.assertIn(name, changed)
-        self.assertIn('Production change lacks non-process task record: ' + name, errors)
-        record_path = self.root / 'docs/evidence/quality/records/test.json'
+        self.assertFalse(any('Production change lacks' in error for error in errors), errors)
+        record_path = self.root / 'docs/project/worklines/test/quality/record.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(name)
         record_path.write_text(json.dumps(record))
@@ -491,7 +506,7 @@ class QualityTests(unittest.TestCase):
         omitted.write_text('not listed in associated files')
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('provenance metadata: assets/production/omitted.txt' in e for e in errors), errors)
-        self.assertTrue(any('Production change lacks non-process task record: assets/production/omitted.txt' in e for e in errors), errors)
+        self.assertIn('Changed asset lacks provenance metadata: assets/production/omitted.txt', errors)
 
     def test_diff_asset_unknown_associated_role_invalidates_all_coverage(self):
         base, asset = self.asset_diff_fixture()
@@ -515,7 +530,7 @@ class QualityTests(unittest.TestCase):
         entry = self.associated_file('assets/live.png', 'documentation')
         asset['associated_files'].append(entry)
         (self.root / 'scripts/consumer.gd').write_text('extends Node\nconst LIVE = preload("res://assets/live.png")\n')
-        record_path = self.root / 'docs/evidence/quality/records/test.json'
+        record_path = self.root / 'docs/project/worklines/test/quality/record.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append('assets/live.png')
         record_path.write_text(json.dumps(record))
@@ -552,7 +567,7 @@ class QualityTests(unittest.TestCase):
         base, asset = self.asset_diff_fixture()
         guide = self.associated_file('assets/production/layout_guide.png', 'reference')
         asset['associated_files'].append(guide)
-        record_path = self.root / 'docs/evidence/quality/records/test.json'
+        record_path = self.root / 'docs/project/worklines/test/quality/record.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(guide['path'])
         record_path.write_text(json.dumps(record))
