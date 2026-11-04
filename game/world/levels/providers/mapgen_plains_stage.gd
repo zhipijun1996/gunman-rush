@@ -32,5 +32,14 @@ func cancel_shot_latch_requests(permanent: bool = false) -> void:
 	if permanent: runtime_latches.cancel()
 	else: runtime_latches.cancel_pending()
 
+func _capture_tick_state() -> void:
+	if assembly_ok:_update_navigation()
+
+func _process(_delta: float) -> void:
+	# The live world remains authoritative at 60Hz. Capture its completed
+	# physics steps once per displayed frame; explicit save/unload still calls
+	# capture_state() synchronously and never relies on this sampling cadence.
+	if assembly_ok:_capture_live_ledger()
+
 func _capture_latch_state() -> void:
 	if is_instance_valid(runtime_latches):runtime_latches.capture_state()

@@ -22,7 +22,7 @@ func _ready() -> void:
 	if not expanded: size=Vector2(160,32) if region_chip else Vector2(240,156)
 func _process(_delta: float) -> void:
 	if not is_visible_in_tree() or not is_instance_valid(stage):return
-	var signature:Array=[stage.global_player_position().floor(),stage.region_state.explored.size(),stage.region_state.visited.size(),stage.geometry_revision,size,expanded,region_chip,zoom,pan,has_focus(),Rect2(Vector2.ZERO,size).has_point(get_local_mouse_position())]
+	var signature:Array=[stage.global_player_position().round(),stage.region_state.explored.size(),stage.region_state.visited.size(),stage.geometry_revision,size,expanded,region_chip,zoom,pan,has_focus(),Rect2(Vector2.ZERO,size).has_point(get_local_mouse_position())]
 	if signature!=_view_signature:_view_signature=signature;queue_redraw()
 func frame() -> Rect2:
 	return Rect2(16,16,maxf(1,size.x-32),maxf(1,size.y-32)) if expanded else Rect2(8,30,224,100)

@@ -311,7 +311,7 @@ func region_layout_controls() -> Array[Control]:
 		if card.is_visible_in_tree():controls.append(card)
 	return controls
 
-func present_navigation(map_button: Control, pause_button: Button, touch_menu_rect: Rect2 = Rect2()) -> void:
+func present_navigation(map_button: Control, pause_button: Button, touch_menu_rect: Rect2 = Rect2(), place_defaults: bool = true) -> void:
 	# Retain the original map/pause consumers and callbacks; adapt their hit areas.
 	pause_button.theme = _chrome_theme
 	pause_button.theme_type_variation = &"CompactButton"
@@ -323,19 +323,18 @@ func present_navigation(map_button: Control, pause_button: Button, touch_menu_re
 	if touch_menu_rect.has_area(): top = maxf(top, touch_menu_rect.end.y + 10.0 / pixel_scale)
 	if is_instance_valid(map_button):
 		var map_factor := maxf(factor, 14.0 / (12.0 * pixel_scale))
-		map_button.scale = Vector2.ONE * map_factor
 		if map_button is PlainsRegionMap and not map_button.region_chip:
 			map_factor=factor
-			map_button.scale=Vector2.ONE*map_factor
 			map_button.size=Vector2(240,156)
 		else:
 			map_button.size = Vector2(160, maxf(32, 48.0 / pixel_scale / map_factor))
-		map_button.position = Vector2(viewport.x - right - map_button.size.x * map_factor, top)
+		map_button.scale=Vector2.ONE*map_factor
+		if place_defaults:map_button.position = Vector2(viewport.x - right - map_button.size.x * map_factor, top)
 		top += map_button.size.y * map_factor + 10.0 / pixel_scale
 	pause_button.scale = Vector2.ONE * factor
 	pause_button.custom_minimum_size = Vector2(108, maxf(48, 48.0 / pixel_scale / factor))
 	pause_button.size = pause_button.custom_minimum_size
-	pause_button.position = Vector2(viewport.x - right - pause_button.size.x * factor, top)
+	if place_defaults:pause_button.position = Vector2(viewport.x - right - pause_button.size.x * factor, top)
 
 func _number(value: float) -> String:
 	return ("%.2f" % value).trim_suffix("0").trim_suffix("0").trim_suffix(".")

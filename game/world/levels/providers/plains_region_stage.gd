@@ -263,7 +263,7 @@ func get_joint_recoil_snapshot() -> Dictionary:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	capture_state()
+	_capture_tick_state()
 	_update_context_signs()
 
 func _record_claim(id: Variant) -> void:
@@ -319,13 +319,22 @@ func composition_focus() -> Vector2:
 		if absf(actor.y-point.y)<250 and absf(actor.x-point.x)<650:return point
 	return Vector2.INF
 
-func capture_state() -> void:
-	if not assembly_ok: return
+func _capture_tick_state() -> void:
+	capture_state()
+
+func _update_navigation() -> void:
 	PlainsMapExploration.reveal(region_state,global_player_position())
 	for a: Dictionary in generated.manifest.areas:
 		if Vector2(a.position[0],a.position[1]).distance_to(global_player_position()) < 180:
 			region_state.visited[a.id] = true
 			visited_area = "TUTORIAL" if a.role=="tutorial" else area_label(a)
+
+func capture_state() -> void:
+	if not assembly_ok:return
+	_update_navigation()
+	_capture_live_ledger()
+
+func _capture_live_ledger() -> void:
 	for c: Dictionary in chests:
 		if c.has("sprite"):
 			UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))

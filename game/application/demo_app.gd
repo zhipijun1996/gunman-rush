@@ -18,7 +18,6 @@ var run_session := RunSession.new()
 var meta_persistence_enabled := true
 var generated_plains := false
 var home_scene: HomeScene
-var _map_library_warmup: RuntimeMapLibraryWarmup
 var _home_map_source: PlainsMapGeneration
 var _departing_map_source: PlainsMapGeneration
 var _home_map_key := ""
@@ -144,8 +143,7 @@ func _ready() -> void:
 		set_process_input(false)
 		get_tree().call_deferred("change_scene_to_file", "res://experiments/platform/entries/cloud_preview.tscn")
 		return
-	_map_library_warmup=RuntimeMapLibraryWarmup.new()
-	add_child(_map_library_warmup)
+	add_child(RuntimeMapLibraryWarmup.new())
 	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
 	plains_places_candidate_requested = plains_places_candidate_requested or "--plains-places-candidate" in OS.get_cmdline_user_args()
 	plains_joint_recoil_candidate_requested = plains_joint_recoil_candidate_requested or "--plains-joint-recoil-candidate" in OS.get_cmdline_user_args()
@@ -1631,7 +1629,6 @@ func _stop_reward_audio() -> void:
 		if child is GameAudio: (child as GameAudio).stop_director_cues()
 
 func _process(_delta: float) -> void:
-	if is_instance_valid(_map_library_warmup):_map_library_warmup.budget_usec=8000 if _stage_pending or menu.visible_panel==&"title" else 2000
 	_prepare_home_map()
 	_sync_music()
 	var at_title := is_instance_valid(menu) and menu.visible_panel == &"title"
@@ -1666,12 +1663,14 @@ func _process(_delta: float) -> void:
 			elif shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
 				_run_camera.route_focus = shown_boss.reward_stands[mini(shown_boss.chase_segment+1,2)]
 			else: _run_camera.route_focus = shown_boss.motor.global_position+shown_boss.core_offset()
-	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
+	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE and (debug_hud or "FAILED" in _status) else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
-	_title.text = "%s / CONNECTED REGION %s/2 / " % [_region_name(),director.region_map_index] + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
+	if debug_hud:
+		_title.text = "%s / CONNECTED REGION %s/2 / " % [_region_name(),director.region_map_index] + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
 	(player.get_node("PlayerFeedback") as PlayerFeedback).effects_enabled = not _reduced_effects
-	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
+	if debug_hud:
+		_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
 	if is_instance_valid(stage.boss):
 		var boss_encounter = stage.boss.get_node("Encounter")
 		if not boss_encounter is WindkeeperEncounter and boss_encounter.active and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
@@ -1682,17 +1681,14 @@ func _process(_delta: float) -> void:
 				elif stage.boss_seal.armed:seal_status=" / GATES CLOSING"
 			_boss_status.text = "%s  /  %.0f / %.0f%s\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity,seal_status,boss_encounter.call("objective")]
 			_boss_status.show()
-	_hint.text = _device_hint()
-	if generated_plains:
+	if debug_hud:_hint.text = _device_hint()
+	if generated_plains and debug_hud:
 		var random_stage := stage as GeneratedDemoStage
 		var route := random_stage.route_debug_summary(player.global_position)
 		_status_label.text += "\nROUTE %s / %s | WORLD X %.0f | CAMERA X %.0f | FLOW %s" % [route.index, route.count, player.global_position.x, _run_camera.global_position.x, route.flow]
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
 	if connected_region and not debug_hud:
-		_title.text = "%s  %s/2" % [_region_name(),director.region_map_index]
-		_hud.show()
-		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
 		_hud.position = Vector2(22,29)
 		_hud_frame.size = Vector2(320, 140)
 		_debug_button.position=Vector2(250,8)
@@ -1716,7 +1712,7 @@ func _process(_delta: float) -> void:
 	_demo_hud.visible = not debug_hud
 	_demo_hud.present_context("%s · %s/2 · %s" % [_region_name(), director.region_map_index, (stage as PlainsRegionStage).visited_area] if connected_region else "试玩 · 房间 %s/%s" % [director.stage_index, director.profile.stages_per_biome], wallet.balance, int(meta.snapshot().get("notes", 0)), _reduced_effects)
 	if not debug_hud: _demo_hud.present_touch_menu(overlay)
-	if not debug_hud: _demo_hud.present_navigation((stage as PlainsRegionStage).map_view if connected_region else null, _pause_button, overlay._pause_rect if overlay.enabled else Rect2())
+	if not debug_hud: _demo_hud.present_navigation((stage as PlainsRegionStage).map_view if connected_region else null, _pause_button, overlay._pause_rect if overlay.enabled else Rect2(),not connected_region)
 	if connected_region and not debug_hud: _layout_region_hud()
 	_hud_frame.visible = debug_hud
 	_resources_hud.visible = debug_hud
@@ -1777,7 +1773,8 @@ func _layout_region_hud() -> void:
 	_hud_frame.position=best
 	var shift:=best-Vector2(12,8)
 	_title.position=Vector2(22,8 if _explicit_plains_candidate() else 14)+shift
-	_title.add_theme_font_size_override("font_size",14 if _explicit_plains_candidate() else 16)
+	var title_font:=14 if _explicit_plains_candidate() else 16
+	if _title.get_theme_font_size("font_size")!=title_font:_title.add_theme_font_size_override("font_size",title_font)
 	_hud.position=Vector2(22,30 if plains_environment_candidate_requested else 29)+shift
 	_resources_hud.position=shift+Vector2(0,8 if plains_environment_candidate_requested else 0)
 	if stage is PlainsRegionStage:
