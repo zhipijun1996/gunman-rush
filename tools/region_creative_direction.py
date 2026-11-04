@@ -241,7 +241,7 @@ def validate_bible_binding(ref, region_id=None, root=ROOT):
         raise ValueError('Bible binding belongs to another region')
     bible, current = bind_region_bible(ref.get('region_id'), root)
     if current != ref:
-        raise ValueError('Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes')
+        raise ValueError('Bible binding changed; reload current canonical sources and update the planned mission')
     return bible, current
 
 

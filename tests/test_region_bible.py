@@ -167,7 +167,7 @@ class BibleTests(unittest.TestCase):
     def test_registry_drift_invalidates_existing_binding_even_if_bible_unchanged(self):
         path = self.root / creative.BIBLE_REGISTRY
         path.write_bytes(path.read_bytes() + b'\n')
-        with self.assertRaisesRegex(ValueError, 'independent review/rebind'):
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(self.ref, root=self.root)
 
     def test_duplicate_json_and_duplicate_regions_rejected(self):

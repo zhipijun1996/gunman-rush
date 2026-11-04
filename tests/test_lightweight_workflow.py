@@ -67,6 +67,30 @@ class LightweightWorkflowTests(unittest.TestCase):
         self.assertEqual(roles,['implement'])
         self.assertTrue(loop.needs_independent_review({**task,'independent_review':True}))
 
+    def test_ordinary_rule_fix_can_execute_without_a_content_card(self):
+        task={'id':'FIX','goal':'SIMULATED existing rule fix','skills':['project-integration'],
+              'checks':['docs'],'read_only':False,'allowed_paths':['tools/fix.py'],'max_calls':1}
+        mission={'schema_version':1,'objective':'ordinary scoped delivery','max_calls':1,
+                 'max_rounds':1,'call_timeout_seconds':10,'tasks':[task]}
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            skill=root/'.agents/skills/project-integration/SKILL.md'
+            skill.parent.mkdir(parents=True)
+            skill.write_text('SIMULATED skill fixture')
+            target=root/'tools/fix.py'
+            def worker(*args):
+                target.parent.mkdir(parents=True,exist_ok=True)
+                target.write_text('VALUE = 2\n')
+                return {'status':'ready_for_review','summary':'SIMULATED fix','findings':[]}
+            def snapshot():
+                return {'tools/fix.py':loop.hashlib.sha256(target.read_bytes()).hexdigest()} if target.exists() else {}
+            with patch.object(loop,'ROOT',root), patch.object(loop,'snapshot',side_effect=snapshot), patch.object(loop,'required_input_preflight',return_value={'status':'passed'}), patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+                result=loop.run(mission,root/'evidence',worker)
+            self.assertEqual(target.read_text(),'VALUE = 2\n')
+            self.assertEqual(result['status'],'complete')
+            self.assertFalse(result['content_complete'])
+            self.assertEqual(result['calls'],1)
+
     def test_authored_canonical_bible_does_not_require_an_uploaded_attachment(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)

@@ -66,7 +66,7 @@ def validate(m):
     for t in m["tasks"]:
         if not t.get("goal") or not t.get("skills") or not t.get("checks"):
             raise ValueError("Each task needs goal, skills and checks")
-        if "max_calls" in t and (type(t["max_calls"]) is not int or not 2 <= t["max_calls"] <= m["max_calls"]):
+        if "max_calls" in t and (type(t["max_calls"]) is not int or not (2 if needs_independent_review(t) else 1) <= t["max_calls"] <= m["max_calls"]):
             raise ValueError("Task max_calls must reserve implementation/review within mission max_calls")
         for path in t.get("allowed_paths", []) + ([t["quality_record"]] if t.get("quality_record") else []):
             if Path(path).is_absolute() or ".." in Path(path).parts or path in {".", ""}:
@@ -78,15 +78,13 @@ def validate(m):
                 raise ValueError(f"Unknown harness check: {c}")
         if not set(t.get("depends_on", [])).issubset(done):
             raise ValueError("Tasks must be topologically ordered; unknown/cyclic dependency")
-        if not t.get("read_only", False) and not t.get("quality_record"):
-            raise ValueError("Production task must name its quality record")
         if "independent_review" in t and type(t["independent_review"]) is not bool:
             raise ValueError("independent_review must be an explicit boolean")
         if "mechanism_review" in t and type(t["mechanism_review"]) is not bool:
             raise ValueError("mechanism_review must be an explicit boolean")
-        completion = t.get("completion", "scope" if t.get("read_only") else "content")
-        if completion not in {"scope", "stage", "content"} or (completion == "scope" and not t.get("read_only")):
-            raise ValueError("Scope completion is read-only; production requires stage or content")
+        completion = t.get("completion", "scope" if t.get("read_only") or not t.get("quality_record") else "content")
+        if completion not in {"scope", "stage", "content"}:
+            raise ValueError("Completion must be scope, stage or content")
         if completion in {"stage", "content"} and not t.get("quality_record"):
             raise ValueError("Stage/content completion requires an existing quality record contract")
         if completion == "stage" and (not t.get("required_gates") or any(g not in quality.policy()["gates"] for g in t["required_gates"])):
@@ -1109,7 +1107,7 @@ def actual_reviewer_identity(directory):
 
 
 def check_task_quality(task, *, reviewer_identity=None):
-    completion = task.get("completion", "scope" if task.get("read_only") else "content")
+    completion = task.get("completion", "scope" if task.get("read_only") or not task.get("quality_record") else "content")
     if completion == "scope":
         return {"scope_complete": True, "content_complete": False, "completion": completion}
     record = quality.read_json(quality.local_file(ROOT, task["quality_record"]))
