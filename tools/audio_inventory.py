@@ -117,11 +117,11 @@ def main() -> None:
             tree[path] = {"git_oid": oid, "bytes": None}
     runtime_paths = resolve_source_paths(tree)
     code_paths = [p for p in tree if Path(p).suffix in SOURCE
-                  and not p.startswith(("docs/evidence/", "docs/archive/"))]
+                  and not p.startswith(("docs/evidence/", "docs/evidence/archive/"))]
     texts = {p: b.decode("utf-8", errors="replace") for p, b in blobs(ref, code_paths).items()}
     metadata_paths = [p for p in tree if p.endswith(".json") and
                       ("provenance" in p or p.endswith(("/sources.json", "/upstream.json")))
-                      and not p.startswith(("docs/evidence/", "docs/archive/"))]
+                      and not p.startswith(("docs/evidence/", "docs/evidence/archive/"))]
     metadata = {p: json.loads(b) for p, b in blobs(ref, metadata_paths).items()}
     audio_paths = [p for p in tree if Path(p).suffix.lower() in AUDIO]
     imports = {p: b.decode("utf-8",errors="replace") for p,b in blobs(ref,[p+".import" for p in audio_paths if p+".import" in tree]).items()}
@@ -169,7 +169,7 @@ def main() -> None:
             row["source_sha256_matches"] = row["sha256"] == source["sha256"]
         elif "/feel_audio_v1/" in path or "/weapon_audio_v1/" in path:
             motion = "/feel_audio_v1/" in path
-            prov = "docs/worklines/PLAYER-PRESENTATION-01/" + ("feel-audio-provenance.json" if motion else "weapon-audio-provenance.json")
+            prov = "docs/evidence/worklines/PLAYER-PRESENTATION-01/" + ("feel-audio-provenance.json" if motion else "weapon-audio-provenance.json")
             row.update(source_url="derived_from_existing_Kenney_CC0_samples", author="Kenney; project processing", original_file="see recipe and sources in manifest",
                        license="CC0-1.0 source derivatives", commercial_use="allowed", attribution="not_required",
                        source_manifest=prov, classification="formal_motion" if motion else "dormant_parent_default_and_dev_bank",
@@ -189,7 +189,7 @@ def main() -> None:
             row.update(source_url="https://github.com/freedoom/freedoom/tree/3ac019628d70b812ffb722f7f2365771b76a9d29/sounds",
                        author="Freedoom contributors; per-sample attribution retained in CREDITS", original_file="see per-family recipe/upstream archive",
                        license="BSD-3-Clause", commercial_use="allowed_with_license_and_copyright_retention_no_endorsement",
-                       attribution="retain_COPYING_and_CREDITS_in_distribution", source_manifest="docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
+                       attribution="retain_COPYING_and_CREDITS_in_distribution", source_manifest="docs/evidence/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
                        classification="loaded_but_replaced_by_timer_v3" if "/mine_beep_" in path else "formal_weapon", family="weapon_v2")
             cue = Path(path).stem.rsplit("_", 1)[0]
             inputs = [layer[0] for layer in metadata[row["source_manifest"]]["recipes"][cue][2]]
@@ -217,7 +217,7 @@ def main() -> None:
                        license="CC0-1.0 source derivatives + original project synthesis", commercial_use="allowed_source_license",
                        attribution="not_required_for_CC0_sources", source_manifest="assets/audio/enemy_feedback_01/provenance.json",
                        classification="dormant_legacy_death_helper_not_default", family="enemy_death")
-            row["usage_evidence"] = "docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json: usage_scope/disposition; no configure consumer found in scripts/scenes/resources"
+            row["usage_evidence"] = "docs/evidence/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json: usage_scope/disposition; no configure consumer found in scripts/scenes/resources"
             row["source_sha256_matches"] = row["sha256"] == metadata[row["source_manifest"]]["asset_sha256"]
         elif path in {"assets/audio/windchime_open.wav", "assets/audio/plains_shot.wav", "assets/audio/plains_armour.wav", "assets/audio/plains_core.wav", "assets/audio/windkeeper_roar.wav"}:
             generator = "tools/generate_windchime_audio.py" if "windchime_open" in path else "tools/generate_plains_combat_audio.py"

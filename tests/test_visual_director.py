@@ -441,9 +441,26 @@ class VisualDirectorTests(unittest.TestCase):
         vd.write(other,changed)
         with self.assertRaisesRegex(ValueError,'generated route input'):vd.compare_captures(self.receipt,other)
 
-    def test_route_is_real_original_production_loop_input_not_worker_success(self):
+    def test_current_route_is_valid_bible_bound_manual_mission(self):
+        import production_loop
+        for phase in ('audit', 'golden', 'review', 'full'):
+            mission = vd.route('优化风铃平原画面', 'CURRENT-VISUAL',
+                               'docs/evidence/quality/records/CURRENT-VISUAL.json',
+                               ['game/presentation/world/'], phase=phase)
+            production_loop.validate(mission)
+            self.assertFalse(mission.get('historical_metadata_only'))
+            for task in mission['tasks']:
+                self.assertTrue(task.get('region_bible'))
+                for name in task['checks']:
+                    self.assertEqual(production_loop.check_manifest_metadata()['checks'][name]['mode'], 'manual')
+
+    def test_historical_recipe_is_metadata_and_cannot_execute(self):
         # Registration and policy are real; this test does not dispatch workers.
-        mission=vd.historical_recipe_plan('优化风铃平原钟庭美术','unit-visual','docs/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
+        mission=vd.historical_recipe_plan('优化风铃平原钟庭美术','unit-visual','docs/evidence/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
+        self.assertTrue(mission['historical_metadata_only'])
+        import production_loop
+        with self.assertRaisesRegex(ValueError, 'Historical recipes'):
+            production_loop.validate(mission)
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
         self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
@@ -458,7 +475,7 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertFalse(any('b1_master' in source['path'] or '/failed/' in source['path'] or '/revisions/' in source['path'] for source in recipe['sources']))
         self.assertEqual(recipe['profile'],'game/presentation/world/art/plains_place_composer.gd')
         self.assertIn('STOP the PR82',recipe['method'])
-        self.assertEqual(recipe['quality_record'],'docs/quality/records/PLAINS-PLACES-01.json')
+        self.assertEqual(recipe['quality_record'],'docs/evidence/quality/records/PLAINS-PLACES-01.json')
         self.assertIn('grants no new collision edits',recipe['geometry_authority'])
         for source in recipe['sources']:
             self.assertEqual(source['sha256'],vd.file_hash(vd.ROOT/source['path']))
@@ -467,10 +484,10 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertIn('plains-places-capture-tests',mission['tasks'][1]['checks'])
         self.assertNotIn('finite arc-length',mission['tasks'][1]['goal'])
         self.assertTrue(any('actual collision geometry/route' in item for item in mission['constraints']))
-        forest=vd.historical_recipe_plan('制作荆棘森林黄金场景美术','forest-visual','docs/quality/records/forest-visual.json',['scripts/art/'],phase='golden')
+        forest=vd.historical_recipe_plan('制作荆棘森林黄金场景美术','forest-visual','docs/evidence/quality/records/forest-visual.json',['scripts/art/'],phase='golden')
         self.assertNotIn('visual-director-space',forest['tasks'][0]['checks'])
         self.assertNotIn('visual_recipe',forest['preparation'])
-        focused=vd.historical_recipe_plan('优化风铃平原黄金场景','existing-task-id','docs/quality/records/existing-task-id.json',['scripts/art/'],phase='golden')
+        focused=vd.historical_recipe_plan('优化风铃平原黄金场景','existing-task-id','docs/evidence/quality/records/existing-task-id.json',['scripts/art/'],phase='golden')
         self.assertEqual(len(focused['tasks']),1);self.assertEqual(focused['tasks'][0]['id'],'existing-task-id')
         with self.assertRaises(ValueError):vd.historical_recipe_plan('request','../bad','record.json',['assets/'])
 

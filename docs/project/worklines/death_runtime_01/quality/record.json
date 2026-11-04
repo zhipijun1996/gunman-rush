@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "task_id": "DEATH-RUNTIME-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "5d3303b78d4db374300d4a0266bde8eb1a6de5b2",
+  "reviewed_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+  "content_version": "death-runtime-v1",
+  "owner": "/root",
+  "purpose": "保留当前怪物死亡动画，优化死亡过程实际计算与绘制运行成本。",
+  "player_experience": "本批保留死亡动画，原逐字节回归与实际包/公开入口通过；Ground死亡绘制CPU路径约降50–61%，手机Chrome死亡帧时与用户认可仍待复测。",
+  "constraints": [
+    "死亡画面、时长、关节轨迹、落地、暂停/慢时、终态与保存保持。",
+    "保原physics/collision/damage/reward/RNG/audio/art与旧测试预算。",
+    "以原frozen2ce4ffa6顶点字节oracle及实际消费者验证，不以局部CPU核速度冒称手机FPS。",
+    "复用原rig/prepared生命周期和原StageVisual，不新增平行机制；保留原静尸/拓扑/权重/Root缓存。"
+  ],
+  "affected_paths": [
+    "game/enemies/presentation/plains_revision_pose.gd",
+    "game/enemies/presentation/plains_revision_ground.gd",
+    "game/enemies/presentation/plains_revision_flora.gd",
+    "game/enemies/presentation/plains_revision_skin.gd",
+    "game/presentation/world/art/plains_stage_visual.gd",
+    "tests/plains_revision_deform_equivalence_runner.gd",
+    "tests/plains_motion_loot_02_motion.gd",
+    "tests/plains_motion_loot_02_app.gd",
+    "docs/creative_direction",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/region_style_history.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "精确现行死亡链热点与证据",
+    "等价计算候选、原回归及独立审查",
+    "同源Web试玩及未验证边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "死亡链、范围及行为不变约束明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量技术验收，无新玩法/美术/动画设计内容；用户与设备仍单列未验。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量技术验收，无新玩法/美术/动画设计内容；用户与设备仍单列未验。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量技术验收，无新玩法/美术/动画设计内容；用户与设备仍单列未验。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "等价Oracle/实际消费者/core、局部CPU对照/独审、实际导出与公开身份/入口通过；不是full171或手机FPS。",
+      "evidence": [
+        "oracle",
+        "motion",
+        "core",
+        "skin-review",
+        "flora-review",
+        "loot-review",
+        "binding-review",
+        "build",
+        "pack",
+        "published",
+        "public-gui"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量技术验收，无新玩法/美术/动画设计内容；用户与设备仍单列未验。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "范围与保留行为明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "原专项/冻结Oracle/实际导出通过；不是full171。",
+      "evidence": [
+        "source-proof",
+        "oracle",
+        "motion",
+        "core"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": [
+        "cpu"
+      ]
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "四份非作者分区审查覆盖运行/测试/技术绑定。",
+      "evidence": [
+        "skin-review",
+        "flora-review",
+        "loot-review",
+        "binding-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "仅签本批等价技术与局部CPU证据；未签完整内容、手机Chrome帧时或用户认可。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "死亡瞬间及动画持续卡顿",
+      "method": "实际运行链审计/冻结范围",
+      "expected": "保留原画面/时长/轨迹/图声和全部玩法规则",
+      "failure": "行为或资源漂移",
+      "status": "passed",
+      "reason": "范围与分区独审明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "equivalent-runtime",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "live→death/空中落地/掉落/保存/重入与公开普通包",
+      "method": "冻结顶点Oracle/原实际消费者与core/实际包及公网真实UI",
+      "expected": "原行为与逐字节顶点保持，严格退出和实际新包入口通过",
+      "failure": "顶点不等/旧断言失败/退出ERROR或泄漏/公开身份错误",
+      "status": "passed",
+      "reason": "全部列出的限定技术检查通过；完整内容和手机体验仍未验",
+      "evidence": [
+        "oracle",
+        "motion",
+        "core",
+        "pack",
+        "published",
+        "public-gui"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/worklines/death_runtime_01/scope.md",
+      "sha256": "e2556f5e77a30f5d6a2438af5b22a398ccdbfa4ece3dbd7d9f43e60d67c912f2",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "按实际死亡链冻结范围与原行为约束",
+      "observed": "不改动画时长/轨迹/图声/物理/奖励/RNG/存档"
+    },
+    {
+      "id": "source-proof",
+      "path": "docs/evidence/death_runtime_01/development/F-source-proof.json",
+      "sha256": "8d51233e200da439e2db2320bb7a97d7359c759463e840f0ccd20c14ca41c790",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "候选八个生产/测试输入逐SHA对精确F Git blob",
+      "observed": "实际测试字节与F匹配，不冒称clean CI"
+    },
+    {
+      "id": "oracle",
+      "path": "docs/evidence/death_runtime_01/development/native/oracle-live-prefix.log",
+      "sha256": "aadffef31aa99024b8f5eeb9355d9c6e3095ee973160aa6bfa1c441590c3cc63",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "原180秒runner/原frozen oracle与实际draw扩充",
+      "observed": "7899/0、442442顶点byte一致，退出0且无ERROR/leaks",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains bash tools/godot.sh --headless --audio-driver Dummy --fixed-fps 60 --path /tmp/gunman-first-use-web-source --script tests/plains_revision_deform_equivalence_runner.gd",
+      "exit_code": 0,
+      "environment": "Managed cloud, approved Godot4.7.2 gunman_sd1; candidate in temp (oracle/motion) or root(core); original budgets/strict error and leak rejection; eight GD hashes match F."
+    },
+    {
+      "id": "motion",
+      "path": "docs/evidence/death_runtime_01/development/native/motion-loot-candidate.log",
+      "sha256": "83f8e84f9052174b832d969c193443a7f859c6a3332ef122be7f13ad39177c7f",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "原360秒真实App wrapper含共享材质四项新断言",
+      "observed": "603/0，实际两次死亡/逐枚掉落/重载释放，严格clean",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/run_integration_four_tests.py --case plains-motion-loot-02",
+      "exit_code": 0,
+      "environment": "Managed cloud, approved Godot4.7.2 gunman_sd1; candidate in temp (oracle/motion) or root(core); original budgets/strict error and leak rejection; eight GD hashes match F."
+    },
+    {
+      "id": "core",
+      "path": "docs/evidence/death_runtime_01/development/native/core.log",
+      "sha256": "da6d653bd4b2e6c9eb6fdecde23b5efc634f11552a79e27304b14713967f12ad",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "原共享core脚本/原预算",
+      "observed": "5686/0，严格clean，不等于full171",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/run_tests.py",
+      "exit_code": 0,
+      "environment": "Managed cloud, approved Godot4.7.2 gunman_sd1; candidate in temp (oracle/motion) or root(core); original budgets/strict error and leak rejection; eight GD hashes match F."
+    },
+    {
+      "id": "cpu",
+      "path": "docs/evidence/death_runtime_01/development/draw-bench/summary.json",
+      "sha256": "b3c25f4ceefc6caeae8f541236d9dbc34150aab1eff133ffbb3821aff9e8cd15",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "对称实际draw A/A+AB三轮逐样本/字节/上传数合同",
+      "observed": "各1836对/3672draw；Ground死亡持续CPU路径约降50–61%，排除GPU/AI/手机"
+    },
+    {
+      "id": "loot-gpu",
+      "path": "docs/evidence/death_runtime_01/development/loot-gpu/analysis.json",
+      "sha256": "49bdd925cc2df1ebbfd67047f977c27ecd0ff31af307b0b072449e17d31f58b5",
+      "kind": "runtime_trace",
+      "producer": "/root/loot_gpu_check",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "原生固定time图像/独立RGBA/释放对照",
+      "observed": "三组图像逐字相同，3→1/8→1材质；Web candidate未运行/额外预热未采用"
+    },
+    {
+      "id": "skin-review",
+      "path": "docs/evidence/death_runtime_01/development/live-prefix-review/review.json",
+      "sha256": "29bed254453a1d58206346e8d734aa0669e5b4fe88a78310562a2de0c6323d30",
+      "kind": "review",
+      "producer": "/root/death_event_audit",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "非作者限定静审：Skin/Ground/Pose及实际override/冻结oracle",
+      "observed": "ACCEPT仅限列出的源/测试范围，不签整体设备或用户认可",
+      "reviewer": "/root/death_event_audit",
+      "implementers": [
+        "/root",
+        "/root/death_render_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author or edit the specifically reviewed source/tests; excludes its own authored leaves and all phone/player claims."
+    },
+    {
+      "id": "flora-review",
+      "path": "docs/evidence/death_runtime_01/development/flora-independent-source-review-a408e248.json",
+      "sha256": "a639080df349631387f664518bf231601072a360a935897236e028d1b36160cf",
+      "kind": "review",
+      "producer": "/root/death_render_audit",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "非作者限定静审：Flora a408死亡几何准备",
+      "observed": "ACCEPT仅限列出的源/测试范围，不签整体设备或用户认可",
+      "reviewer": "/root/death_render_audit",
+      "implementers": [
+        "/root/death_event_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author or edit the specifically reviewed source/tests; excludes its own authored leaves and all phone/player claims."
+    },
+    {
+      "id": "loot-review",
+      "path": "docs/evidence/death_runtime_01/development/loot-shared-review.json",
+      "sha256": "998e7ce1a0c3cd5af6a8dce82d11c8479708f52cce70930f1c421a5b544efad8",
+      "kind": "review",
+      "producer": "/root/asset_audit",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "非作者限定静审：共享掉落材质与真实App四项新断言",
+      "observed": "ACCEPT仅限列出的源/测试范围，不签整体设备或用户认可",
+      "reviewer": "/root/asset_audit",
+      "implementers": [
+        "/root/death_event_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author or edit the specifically reviewed source/tests; excludes its own authored leaves and all phone/player claims."
+    },
+    {
+      "id": "binding-review",
+      "path": "docs/evidence/death_runtime_01/development/binding-review/review.json",
+      "sha256": "8d7f2c034fdfe60fdb8f03cdf903fcfc782c7c99758323b0899cf5b77ebdae8b",
+      "kind": "review",
+      "producer": "/root/death_event_audit",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "非作者限定静审：style34/creative37技术绑定和旧方法/断言/输入/预算保持",
+      "observed": "ACCEPT仅限列出的源/测试范围，不签整体设备或用户认可",
+      "reviewer": "/root/death_event_audit",
+      "implementers": [
+        "/root/binding_closeout"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author or edit the specifically reviewed source/tests; excludes its own authored leaves and all phone/player claims."
+    },
+    {
+      "id": "published",
+      "path": "docs/evidence/death_runtime_01/build/public-full-sha.json",
+      "sha256": "cb0791a21779110b1ebfd5aad3b0ddbe2ed0b293308ba5ca5f425294ba8b658d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "原公开验证器＋独立完整64SHA流式下载，metadata前后核验",
+      "observed": "公开58ef14b41f57与精确F及216399188字节一致"
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/death_runtime_01/gui/public01/summary.json",
+      "sha256": "1d853e18ab5c070ab6fb4bbd515d2f6cd440a2d647c87580eaad019fc9b7c982",
+      "kind": "runtime_trace",
+      "producer": "/root/browser_verify",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "一次fresh普通公开包真实UI/截图闭环，无状态注入或观察器",
+      "observed": "Title→Home→BEGIN→Plains→D200ms通过，204.287/300秒；13图，browser关闭；非死亡性能/手机验收"
+    },
+    {
+      "id": "pack",
+      "path": "docs/evidence/death_runtime_01/build/pack-probe-receipt.json",
+      "sha256": "08034b006d8dc3d6e2510408c7f9960b280246dd88f52986c223535f7e10e586",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "空目录用原recorded enemy probe加载实际Web PCK",
+      "observed": "13/0、严格clean且PCK SHA前后不变；非CI API artifact"
+    },
+    {
+      "id": "build",
+      "path": "docs/evidence/death_runtime_01/build/build-after.json.gz",
+      "sha256": "d1560084f2bb37fb1315e34282f0f2a16587d397d01027cd4ceac0f8539907df",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "10dcd39abd8dd8be57cf838167989dd0ca93502b",
+      "content_version": "death-runtime-v1",
+      "method": "精确F clean SourceRoot＋原Foundry build/promote与export stamp/Web/闭包/重建",
+      "observed": "36短句＋18itineraries、56明确派生文件对实际PCK SHA，其他源字节保持"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "手机Chrome/荣耀设备死亡P95/P99与用户反馈；局部CPU收益不等于整帧FPS。",
+    "额外LOOT预热未采用，Web candidate观测未运行；原baseline首掉落编译仍可能存在。",
+    "本轮未跑full171/Windows/正式新30秒交战性能采样，main未合并。"
+  ],
+  "production_snapshot": "f7437684928a376849bf4ac45fc3b43e27c8b269f74508a30f7d676af1624546"
+}

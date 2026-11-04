@@ -168,7 +168,7 @@ class ContentContractTests(unittest.TestCase):
             self.assertTrue(contract.validate_bundle(value, root))
 
     def test_published_json_schema_is_same_machine_vocabulary(self):
-        self.assertEqual(contract.SCHEMA, json.loads((ROOT / "docs/ai_level_design_v1/content.schema.json").read_text()))
+        self.assertEqual(contract.SCHEMA, json.loads((ROOT / "docs/evidence/sources/ai_level_design_v1/content.schema.json").read_text()))
 
     def test_native_receipt_identity_input_and_terminal_counterexamples(self):
         # Synthetic unit data exercises only the receipt reader. It is never a

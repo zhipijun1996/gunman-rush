@@ -1804,6 +1804,15 @@
       ],
       "timeout_seconds": 240,
       "success_pattern": "^RUNTIME_MAP_WINDCHIME_GENERATED checks=[1-9][0-9]* failures=0$"
+    },
+    "docs": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: current documentation, navigation, task dependencies and tuning\\. Game runtime not tested\\.$"
     }
   },
   "profiles": {}

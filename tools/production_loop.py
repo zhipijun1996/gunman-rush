@@ -42,6 +42,8 @@ def digest(value):
 
 
 def validate(m):
+    if m.get("historical_metadata_only"):
+        raise ValueError("Historical recipes are reference metadata; use the current route")
     if m.get("schema_version") != 1 or not m.get("objective") or not m.get("tasks"):
         raise ValueError("Mission needs schema_version=1, objective and tasks")
     if type(m.get("max_calls")) is not int or type(m.get("max_rounds")) is not int or not 1 <= m["max_calls"] <= 100 or not 1 <= m["max_rounds"] <= 10:
@@ -137,7 +139,7 @@ def region_bible_input(task):
         return None
     from level_region_context import region_write_scope, resolve_region_id
     scope = region_write_scope(task.get("allowed_paths", []), root=ROOT)
-    if (ROOT / "docs/world_regions.json").is_file():
+    if (ROOT / "docs/bible/world_regions.json").is_file():
         named = resolve_region_id(task.get("goal", ""), root=ROOT)
         if named:
             declared.add(named)
@@ -202,18 +204,22 @@ def spatial_experiment_input(task):
     data, bound = load_spatial_experiment(ref["path"], ref["region_id"], root=ROOT)
     if bound != ref:
         raise ValueError("Spatial experiment design/hash/write set changed; replan before execution")
-    expected_records = {f"docs/quality/records/{task['id']}.json"}
+    record_ids = {task['id']}
     if task.get("quality_task_id") in [task["id"], *task.get("depends_on", [])]:
-        expected_records.add(f"docs/quality/records/{task['quality_task_id']}.json")
-    if task.get("quality_record") not in expected_records:
-        raise ValueError("Spatial quality record must be the exact task-bound docs/quality/records JSON")
+        record_ids.add(task['quality_task_id'])
+    record = task.get("quality_record", "")
+    expected_records = {f"docs/evidence/quality/records/{identifier}.json" for identifier in record_ids}
+    scoped_record = any(re.fullmatch(r"docs/project/worklines/[A-Za-z0-9_-]+/quality/" + re.escape(identifier) + r"\.json", record)
+                        for identifier in record_ids)
+    if record not in expected_records and not scoped_record:
+        raise ValueError("Spatial quality record must be an exact task-bound JSON in records or the topic workline")
     record_path = ROOT / task["quality_record"]
     if any(path.is_symlink() for path in [record_path, *record_path.parents] if path == ROOT or path.is_relative_to(ROOT)):
         raise ValueError("Spatial quality record cannot be a symlink alias")
     if (data["design"].get("direction_path") != direction.get("path")
             or data["design"].get("direction_sha256") != direction.get("sha256")):
         raise ValueError("Spatial design belongs to a different creative direction path/hash; rethink before lease")
-    permitted = set(ref["allowed_paths"]) | {task.get("quality_record"), "docs/tasks.md"}
+    permitted = set(ref["allowed_paths"]) | {task.get("quality_record"), "docs/project/tasks.md"}
     if set(task.get("allowed_paths", [])) != permitted:
         raise ValueError("Spatial experiment task must use the exact authorized file write set")
     return {"path": ref["path"], "sha256": ref["sha256"], "content": data}
@@ -274,7 +280,7 @@ def save(path, data):
 
 
 def check_manifest_metadata():
-    """Validate profile metadata; preflight owns missing entry-file diagnostics.
+    """Validate selected manual-check metadata; preflight owns missing entry-file diagnostics.
 
     Harness still checks its normal file/command contract when checks execute.
     Keeping file existence separate lets sparse inputs stop with calls0 evidence.
@@ -284,12 +290,9 @@ def check_manifest_metadata():
         raise ValueError("Unsupported harness schema")
     checks = data["checks"]
     for name, check in checks.items():
-        if not check["argv"] or check["timeout_seconds"] <= 0:
+        if not check["argv"] or check["timeout_seconds"] <= 0 or check.get("mode") != "manual":
             raise ValueError(f"Invalid check: {name}")
         re.compile(check["success_pattern"])
-    for name, ids in data["profiles"].items():
-        if not ids or len(set(ids)) != len(ids) or any(i not in checks for i in ids):
-            raise ValueError(f"Invalid profile: {name}")
     return data
 
 
@@ -299,7 +302,7 @@ def resolved_check_contracts(task):
     return {"manifest": "tools/harness/profiles.json",
             "manifest_sha256": hashlib.sha256(harness.MANIFEST.read_bytes()).hexdigest(),
             "cwd": str(ROOT), "checks": [{"id": name, **{key: manifest["checks"][name][key]
-                for key in ("argv", "timeout_seconds", "success_pattern", "inputs", "artifact_paths")
+                for key in ("mode", "argv", "timeout_seconds", "success_pattern", "inputs", "artifact_paths")
                 if key in manifest["checks"][name]}} for name in task["checks"]]}
 
 
@@ -415,7 +418,7 @@ def required_input_preflight(task):
                 uncertain.append({"path": name, "reason": "index_dependencies_unknown", "error": str(error)})
             return {}
 
-    def markdown_links(name):
+    def markdown_links(name, *, existence_only=False):
         require(name, "selected Markdown consumer")
         if file_state(name) == "readable":
             try:
@@ -426,7 +429,13 @@ def required_input_preflight(task):
                 return
             for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", content):
                 if not link.startswith(("https:", "http:", "#", "mailto:")):
-                    require(str(Path(name).parent / link.split("#")[0]), name, directory_exists_only=True)
+                    target = str(Path(name).parent / link.split("#")[0])
+                    relative = os.path.relpath(os.path.abspath(ROOT / target), ROOT)
+                    # Navigation accepts explicit sparse index targets without reading bytes.
+                    if existence_only and (tracked.get(relative, "").upper() == "S" or
+                            (relative not in tracked and any(key.startswith(relative.rstrip("/") + "/") and state.upper() == "S" for key, state in tracked.items()))):
+                        continue
+                    require(target, name, directory_exists_only=True)
 
     commands = {item["argv"][1] for item in contracts["checks"] if len(item["argv"]) > 1}
     # The existing Harness loader checks every registered runner before running
@@ -452,15 +461,15 @@ def required_input_preflight(task):
                 if not members and declared.rstrip("/") not in tracked:
                     warnings.append({"index": declared, "warning": "declared_input_has_no_tracked_match"})
     if "tools/check_quality.py" in commands:
-        policy = json_index("docs/quality/policy.json")
+        policy = json_index("docs/project/policy.json")
         for path in policy.get("templates", []):
-            require(path, "docs/quality/policy.json templates")
-        for path in ("docs/tasks.md", "docs/development_quality.md", "docs/quality/README.md"):
+            require(path, "docs/project/policy.json templates")
+        for path in ("docs/project/tasks.md", "docs/project/development.md", "docs/project/quality.md"):
             require(path, "global quality index")
         for name in files:
             if name.startswith(".agents/skills/") and name.endswith("/SKILL.md"):
                 markdown_links(name)
-            if name.startswith(("docs/quality/records/", "docs/quality/asset_records/")) and name.endswith(".json"):
+            if name.startswith(("docs/evidence/quality/records/", "docs/evidence/quality/asset_records/")) and name.endswith(".json"):
                 data = json_index(name)
                 if not isinstance(data, dict):
                     continue
@@ -481,17 +490,17 @@ def required_input_preflight(task):
                     if isinstance(ref, dict): require(ref.get("path"), name)
     if "tools/check_docs.py" in commands:
         for name in files:
-            if name.endswith(".md"):
-                markdown_links(name)
+            if name.endswith(".md") and not name.startswith(("docs/evidence/", "docs/evidence/archive/", "docs/evidence/creative_direction/archive/")) and file_state(name) != "missing":
+                markdown_links(name, existence_only=True)
     # These real registered consumers call route_request/load_lessons. Sparse
     # knowledge must stop before a worker, not during its downstream test.
     lesson_consumers = {"tests/test_visual_director.py", "tests/test_production_loop.py",
                         "tests/test_level_design_routing.py"}
     if commands & lesson_consumers:
-        ledger = json_index("docs/quality/level_lessons.json")
+        ledger = json_index("docs/evidence/quality/level_lessons.json")
         for lesson in ledger.get("lessons", []):
             for ref in lesson.get("evidence", []):
-                require(ref.get("path"), "docs/quality/level_lessons.json")
+                require(ref.get("path"), "docs/evidence/quality/level_lessons.json")
     # Direction regression deliberately loads these preserved revision snapshots
     # to reject them against current authority. Their dynamically assembled paths
     # are real selected inputs even when docs/evidence stays sparse.
@@ -1121,7 +1130,7 @@ def check_task_quality(task, *, reviewer_identity=None):
         acceptance["errors"].extend(problems)
         if problems:
             acceptance["task_complete"] = False
-    content_hash = digest({p: h for p, h in snapshot().items() if not p.startswith("docs/quality/records/")})
+    content_hash = digest({p: h for p, h in snapshot().items() if not p.startswith("docs/evidence/quality/records/")})
     expected_id = task.get("quality_task_id", task["id"])
     if record["task_id"] != expected_id or record.get("production_snapshot") != content_hash:
         acceptance["errors"].append("Quality record lacks current production_snapshot/task binding")
@@ -1565,7 +1574,7 @@ def mission_bible_preflight(m):
     from region_creative_direction import validate_bible_binding
     region = m.get("preparation", {}).get("region_context", {}).get("region_id")
     intent_error = None
-    if region is None and (ROOT / "docs/world_regions.json").is_file():
+    if region is None and (ROOT / "docs/bible/world_regions.json").is_file():
         from level_region_context import resolve_region_id
         try:
             region = resolve_region_id(m.get("objective", ""), root=ROOT)

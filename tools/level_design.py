@@ -208,11 +208,12 @@ def content_plan(request, mode=None, phase="auto"):
                       {"region_id": None, "status": "unregistered", "request": request,
                        "implementation": {"runtime_available": None, "validation_status": "unverified"},
                        "required_next_step": "Identify or register the requested region and its authoritative design sources; do not inherit plains defaults."})
+    workline_path = "docs/project/worklines/" + (region_id or "unregistered") + "_" + mode
     preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
                    "task_registration": {"source": "AGENTS.md",
-                                         "paths": ["docs/tasks.md", "docs/quality/records/"],
-                                         "phase": "design", "before_quality_profile": True,
-                                         "requirement": "Register every new task ID in docs/tasks.md and create its quality record before running quality profiles."}}
+                                         "paths": ["docs/project/tasks.md", workline_path],
+                                         "phase": "design", "before_manual_checks": True,
+                                         "requirement": "Select one parent topic in docs/project/tasks.md; keep internal stage IDs and quality records in its workline before running the selected manual checks."}}
     steps = (["读取正式实现与玩家反馈", "采集实际Manifest和多策略路线", "定位最严重问题", "设计有证据的改进", "制作少量黄金改进样板",
               "验证动作探索美术体验", "在准入后批量推广", "回归原消费者", "独立审查", "提供同条件前后对照"]
              if mode == "optimize" else
@@ -221,7 +222,7 @@ def content_plan(request, mode=None, phase="auto"):
               "制作并组合美术", "验正式完整体验", "修复最差Seed与反馈", "正式消费者集成与独立质量审查"])
     groups = [
         ("audit", ["region-generator"], ["level-design-contracts"], "读取权威实现、反馈与证据，完成现状/能力审计", True),
-        ("design", ["region-generator", "challenge-choreographer", "encounter-director", "scene-composer"], ["level-design-contracts"], "先在docs/tasks.md注册所有新任务ID并建立质量记录，再执行quality profile；建立六层设计合同与可证伪验收，校验所有合法基础构筑", False),
+        ("design", ["region-generator", "challenge-choreographer", "encounter-director", "scene-composer"], ["level-design-contracts"], "先在docs/project/tasks.md定位一个父议题，阶段ID和质量记录只放其工作线，再执行选定的手动检查；建立六层设计合同与可证伪验收，校验所有合法基础构筑", False),
         ("golden", ["level-module-creator", "challenge-choreographer", "art-director"], ["level-design-runtime"], "先比较不同玩法假设；用真实Motor与构图黄金切片对照目的打法、最便宜退化打法和关键动作/对象消融，由独立审查作继续/修改/淘汰；注明技术/视觉/设备边界", False),
         ("integration", ["region-generator", "encounter-director", "scene-composer"], ["level-design-analysis", "region"], "仅推广通过黄金机制对照与独立继续判定的具体切片，保留淘汰/未验项；验证随机拓扑、能力锁、奖励和回程", False),
         ("review", ["gameplay-reviewer"], ["level-design-contracts", "level-design-analysis", "region"], "独立审查实际路线、失败反例与前后对照；未验维度不代签", True),
@@ -273,13 +274,13 @@ def content_plan(request, mode=None, phase="auto"):
         tasks.append({"id": task_id, "goal": f"{request}：{goal}", "skills": skills, "checks": checks,
                       "depends_on": dependencies, "read_only": readonly,
                       "allowed_paths": allowed,
-                      "quality_record": "docs/quality/records/" + task_id + ".json"})
+                      "quality_record": workline_path + "/quality/" + task_id + ".json"})
         if name == "audit":
             tasks[-1]["completion"] = "scope"
         elif name == "review":
             # Final read-only review cannot bypass the integrated content's G5.
             tasks[-1].update(completion="content", quality_task_id=previous[0],
-                             quality_record="docs/quality/records/" + previous[0] + ".json")
+                             quality_record=workline_path + "/quality/" + previous[0] + ".json")
         else:
             tasks[-1].update(completion="stage", required_gates={
                 "design": ["G0"], "golden": ["G0", "G1"],
@@ -299,7 +300,7 @@ def content_plan(request, mode=None, phase="auto"):
             "max_calls": 30, "max_rounds": 3, "call_timeout_seconds": 1800, "tasks": tasks,
             "scope": "offline_production_plan_not_executed", "human_acceptance": "unverified",
             "constraints": ["No PlayerMotor/resource/RNG/save changes to fit content", "No future ability on required route",
-                            "Existing quality policy and all applicable profiles remain authoritative",
+                            "Use the task quality contract and explicitly selected manual checks",
                             "Golden technical success is not visual, fun, device or production admission"]}
     selected = ("prototype" if mode == "new_region" and region_id is not None
                 and region_context["implementation"]["formal_region"] == "no_formal_consumer_observed"
@@ -321,7 +322,7 @@ def content_plan(request, mode=None, phase="auto"):
             "无现成地区producer时先实现对应真实消费者/runner，不拿平原或Foundry证明本地区。技术灰盒不签正式开放或美术。",
             "skills": ["region-generator", "level-module-creator", "challenge-choreographer"], "checks": checks,
             "depends_on": [], "read_only": False, "allowed_paths": ["docs/", "tests/", "tools/", "scripts/demo/", "game/world/levels/providers/", "game/application/"],
-            "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0", "G1"],
+            "quality_record": workline_path + "/quality/" + identifier + ".json", "completion": "stage", "required_gates": ["G0", "G1"],
             "region_proof": {"region_id": region_id, "kind": "golden", "scope": "prototype", "capability_gate": gate,
                              **({"allowed_capabilities": ["H"]} if implemented_slice else {})}}]
         if implemented_slice:
@@ -476,7 +477,7 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
                 for task in plan["tasks"]:
                     if task["id"].endswith(("-design", "-golden")):
                         task["spatial_experiment"] = experiment.copy()
-                        task["allowed_paths"] = list(dict.fromkeys(experiment["allowed_paths"] + [task["quality_record"], "docs/tasks.md"]))
+                        task["allowed_paths"] = list(dict.fromkeys(experiment["allowed_paths"] + [task["quality_record"], "docs/project/tasks.md"]))
                         task["goal"] += "；按已冻结spatial_experiment真实消费设计并产出golden_manifest，仅改精确写集中的几何/镜头/表现；保留PlayerMotor/武器能力/资源/RNG/保存。"
         plan.update(creative_direction=binding, creative_phase="production", context_mode="compact")
         plan["region_bible"] = bible_binding.copy()
@@ -488,12 +489,12 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
     style = supplemental_authority({}, region_id)
     style_ref = {"path":style["path"],"sha256":style["sha256"]}
     identifier = "creative-" + (region_id or "unregistered")
-    target = "docs/creative_direction/bibles/" + (region_id or "unregistered") + "_proposed.md"
+    target = "docs/data/creative_direction/bibles/" + (region_id or "unregistered") + "_proposed.md"
     task = {"id": identifier, "region_id": region_id, "preproduction_only": True, "shared_style_authority": style_ref,
             "goal": request + "：仅编写该地区proposed区域圣经并注册任务/质量记录；读取世界、能力和实际消费者，明确体验/空间/生态/Boss/视觉/动作音效与排除项；无须先问用户。已有用户选择不得重新提方向。提案经独立G0审查与版本注册后才能绑定production；本任务不制作地图、几何、敌人、Boss、资产或运行代码。目标：" + target,
             "skills": ["region-creative-director"], "checks": ["level-design-contracts"],
-            "depends_on": [], "read_only": False, "allowed_paths": ["docs/creative_direction/bibles/", "docs/tasks.md", "docs/quality/records/"],
-            "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0"], "max_calls": 4}
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/data/creative_direction/bibles/", "docs/project/tasks.md", "docs/project/worklines/" + identifier + "/"],
+            "quality_record": "docs/project/worklines/" + identifier + "/quality.json", "completion": "stage", "required_gates": ["G0"], "max_calls": 4}
     plan["preparation"]["shared_style_authority"] = style_ref
     plan.update(phase="preproduction", creative_phase="proposed_bible_only", tasks=[task],
                 max_calls=4, max_rounds=2, context_mode="compact", production_plan=plan["tasks"],

@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "task_id": "FIRST-USE-STUTTER-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "23ba7a79bbfca7f0f1662088f611911dbfd0725b",
+  "reviewed_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+  "content_version": "first-use-stutter-v1",
+  "owner": "/root",
+  "purpose": "依据实际冷暖与敌战观测定位 Chrome 首次使用卡顿，证据成立后在原所有者内最小修复。",
+  "player_experience": "真实Home首次jump/pulse已接受且新增编译/链接0；原生GPU50和相关fresh10通过。正式首hit剩余耗时、手机FPS与玩家认可未验。",
+  "constraints": [
+    "采用冻结3GD共用离屏准备；原V2拒绝和全部实际失败保留，未调整任何玩法或资源版本。",
+    "保持物理/碰撞/伤害/资源/奖励/RNG/存档/正式图声与原预算",
+    "区分冷暖、CPU/GPU、原生/浏览器/真机；不沿用COMBAT通过代签本轮",
+    "最小测试沿既有grapple-focus-hud消费者，保留原全部断言与预算，不新增平行runner。"
+  ],
+  "affected_paths": [
+    "game/presentation/ui/focus_vignette.gd",
+    "game/presentation/world/underworld_plains/underworld_presentation.gd",
+    "game/presentation/rendering/canvas_shader_preparation.gd",
+    "tests/grapple_focus_hud_runner.gd",
+    "game/presentation/rendering/canvas_shader_preparation.gd.uid",
+    "docs/creative_direction",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/harness/profiles.json",
+    "tools/region_style_history.py"
+  ],
+  "deliverables": [
+    "精确源与实际冷暖/敌战观察",
+    "有限根因与最小修复建议或补丁",
+    "实际消费者回归及未验证边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限首用编译修复与不变行为已明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量流程，无新玩法/图声内容门槛；正式消费者和设备边界另列。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量流程，无新玩法/图声内容门槛；正式消费者和设备边界另列。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量流程，无新玩法/图声内容门槛；正式消费者和设备边界另列。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "同版fresh10、GPU50、实际包/GUI与独立静审已留证；不是full171/设备验收。",
+      "evidence": [
+        "fresh10",
+        "gpu50",
+        "code-review",
+        "local-gui",
+        "public-gui",
+        "published"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "small_fix轻量流程，无新玩法/图声内容门槛；正式消费者和设备边界另列。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "范围及原行为约束明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "精确F的原相关回归、GPU像素/生命周期及实际导出/GUI通过。",
+      "evidence": [
+        "fresh10",
+        "gpu50"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "最终普通包基本正式入口GUI通过；完整consumer inventory与正式新4pulse/3hit/kill性能采样未完成。",
+      "evidence": [
+        "local-gui",
+        "public-gui"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "本轮未签该完整维度；保留当前图声/规则，设备和玩家认可不由局部技术验证代签。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "本轮未签该完整维度；保留当前图声/规则，设备和玩家认可不由局部技术验证代签。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本轮未签该完整维度；保留当前图声/规则，设备和玩家认可不由局部技术验证代签。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "本轮未签该完整维度；保留当前图声/规则，设备和玩家认可不由局部技术验证代签。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Home首用程序零新增编译及目标程序准备已证；正式首hit220ms剩余耗时、手机FPS仍未验。",
+      "evidence": [
+        "home-cold"
+      ]
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "非生产作者完成限定代码/测试独审，未代签用户/设备/全内容。",
+      "evidence": [
+        "code-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "本轮未签该完整维度；保留当前图声/规则，设备和玩家认可不由局部技术验证代签。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "本轮未签该完整维度；保留当前图声/规则，设备和玩家认可不由局部技术验证代签。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "首用编译",
+      "method": "限定原表现所有者及共享准备",
+      "expected": "保玩法/图声规则",
+      "failure": "行为或资源漂移",
+      "status": "passed",
+      "reason": "独立源逆还原与原回归保持。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "regression",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原UI/瞄准及真实GPU",
+      "method": "原10项+原GPU runner",
+      "expected": "原预算全部零失败，像素/清理等价",
+      "failure": "错误、泄漏、断言或像素不同",
+      "status": "passed",
+      "reason": "10fresh/0reuse/0fail及50GPU实际通过。",
+      "evidence": [
+        "fresh10",
+        "gpu50"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/worklines/first_use_stutter_01/scope.md",
+      "sha256": "87db6a40600b58cfc33ad2f417bfa604903639bf0cf4e2a5073d4956257e6434",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "method": "用户Chrome首次air／部分敌战反馈与原行为约束",
+      "observed": "任务范围、两个真实表现消费者及不变规则明确。"
+    },
+    {
+      "id": "fresh10",
+      "path": "docs/evidence/first_use_stutter_01/focused/F-proof.json",
+      "sha256": "6c9043fcc8d104d68270df97b005f90b9100f3c2d7b4c237cf297475fd3b40bb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "command": "python3 tools/harness.py --check docs --check structure --check quality --check grapple-feel --check underworld-ui --check region-bible-tests --check region-bible-history-tests --check creative-direction-tests --check region-bible-contract --check creative-direction",
+      "exit_code": 0,
+      "environment": "Managed cloud; locked Godot4.7.2 gunman_sd1; original budgets, fresh targeted commands before commit, working-file SHA256 matches F.",
+      "method": "原10条Harness命令／预算执行，随后逐working-file SHA对冻结F树核验",
+      "observed": "10项fresh／0复用／0失败；保原实际dirty来源，不冒称clean CI。"
+    },
+    {
+      "id": "gpu50",
+      "path": "docs/evidence/first_use_stutter_01/native-gpu-03.log",
+      "sha256": "11c4c8df5181db89c9201d740249118e48c27c0f7e885a84113ee61650975dc2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "command": "PATH=/workspace/toolchains/xvfb/usr/bin:$PATH xvfb-run -a python3 - <<'PY'\nimport re,sys\nsys.path.insert(0,'tools')\nfrom run_tests import run_engine\ns=run_engine(['--path','.','--audio-driver','Dummy','--rendering-method','gl_compatibility','--script','tests/grapple_focus_hud_runner.gd'],90)\nassert 'GRAPPLE FOCUS HUD: 50 checks / 0 failures' in s\nassert not re.search(r'SCRIPT ERROR:|SHADER ERROR:|ERROR:|ObjectDB.*leaked|resources? still in use at exit',s)\nprint('PASS: 50 GPU checks, original fade pixels under real point light, no native errors/leaks')\nPY",
+      "exit_code": 0,
+      "environment": "Xvfb / Mesa llvmpipe; actual GPU output readback equivalence, no native ERROR/leaks; not a phone FPS run.",
+      "method": "实际GPU点灯／像素读回与正常／提前销毁；原runner全部旧正文保留",
+      "observed": "50检查／0失败，Dummy音频时无ERROR／对象或资源泄漏。"
+    },
+    {
+      "id": "code-review",
+      "path": "docs/evidence/first_use_stutter_01/style33-closeout/independent-production-review.json",
+      "sha256": "05d5eeb40b137832bf1fd3fda7d6f104208c94dd6874d10c1cd6fe2410468170",
+      "kind": "review",
+      "producer": "/root/binding_closeout",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "reviewer": "/root/binding_closeout",
+      "implementers": [
+        "/root/asset_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "method": "非生产作者对冻结3GD及WeakRef声明静审，精确候选向量等于F",
+      "observed": "限定职责／无玩法写入／生命周期源检查接受；不代签设备或全内容。",
+      "independent": true,
+      "independence_basis": "Reviewer did not author or edit the three production GDScripts or the GPU runner/WeakRef correction; reviewed exact candidate vectors and inverse preservation. Its own Bible-binding changes are not covered by this production-source review."
+    },
+    {
+      "id": "home-cold",
+      "path": "docs/evidence/first_use_stutter_01/browser/summary.json",
+      "sha256": "d94ef47f72483c390409fc9efa2f97b386df917ed5c2415dc97d9b3c113ffb5a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "method": "冻结诊断PCK与被动WebGL记录；实际Home输入及完整shaderSource SHA",
+      "observed": "jump/pulse各+1，首air全部program新增编译／链接0；目标lit两program准备与后续消费；正式首shot NOT_RUN。"
+    },
+    {
+      "id": "local-gui",
+      "path": "docs/evidence/first_use_stutter_01/gui/local-summary.json",
+      "sha256": "b02b8471b9a5463519565800d954b5dc81493c20df8ddf95b23761991bf22357",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "method": "最终普通Web实际Title/Home/gate/BEGIN/Plains/move，13图逐张核验",
+      "observed": "173.106秒／300，无init script／FPS04／观察器／状态注入；非战斗性能。"
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/first_use_stutter_01/gui/public-summary.json",
+      "sha256": "c1d994d26a55e61e8eb167df15030f2a5a47474c8ff69adae3ec3a12c03c26ab",
+      "kind": "gui",
+      "producer": "/root/browser_verify",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "method": "实际公网普通Web验证，非CI API artifact或正式战斗性能验收。",
+      "observed": "真实公开入口通过179.016秒／300；最后下落仅签输入响应，不签安全／生存／正式首枪。"
+    },
+    {
+      "id": "published",
+      "path": "docs/evidence/first_use_stutter_01/delivery/public-full-sha.json",
+      "sha256": "b211be9454332480072ac9f4388fab8b072d6b34548754d637ff002a35db8543",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "b5c7bf65cf7a551cb0783f44f6fa594804bf94ee",
+      "content_version": "first-use-stutter-v1",
+      "method": "实际公网普通Web验证，非CI API artifact或正式战斗性能验收。",
+      "observed": "公开source/build/完整PCK64位SHA和长度一致，metadata前后稳定。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "正式首shot/30秒4pulse3hit1kill新性能采样NOT_RUN；三次工具/门口路线失败保留。",
+    "原首次命中220.431ms仍有未归因开销；draw/buffer未单调用计时。",
+    "实体荣耀手机Chrome FPS/首次敌战/用户认可未验。",
+    "完整consumer inventory及formal integration未签；未重跑新full171/Windows。",
+    "原V2拒绝、typed-warning/ALSA/旧输出link/绑定失败保持原来源和结果。"
+  ],
+  "production_snapshot": "028886987690cdba8adb526071cc1f7d1d4a0351b78305be1b469ad1d45d55f1"
+}

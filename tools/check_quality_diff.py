@@ -8,7 +8,7 @@ import subprocess
 import sys
 import struct
 import zlib
-from quality import ROOT, read_json, validate_record, validate_asset
+from quality import task_record_paths, ROOT, read_json, validate_record, validate_asset
 from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT, LANDSCAPE
 
 PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/', 'game/', 'experiments/')
@@ -482,15 +482,18 @@ def validate(base, root=ROOT):
     changed = set(git(root, 'diff', '--name-only', sha, '--').splitlines())
     changed.update(git(root, 'ls-files', '--others', '--exclude-standard').splitlines())
     errors = []
-    records = [read_json(p) for p in (root / 'docs/quality/records').glob('*.json')]
+    records = [read_json(p) for p in task_record_paths(root)]
     for path in sorted(changed):
-        if path.startswith('docs/quality/records/') and path.endswith('.json') and (root / path).is_file():
+        if path.startswith('docs/evidence/quality/records/') and path.endswith('.json') and (root / path).is_file():
+            original_path = path.replace('docs/evidence/quality/records/', 'docs/quality/records/', 1)
             prior = subprocess.run(['git', 'cat-file', '-e', f'{sha}:{path}'], cwd=root, capture_output=True)
+            if prior.returncode != 0:
+                prior = subprocess.run(['git', 'cat-file', '-e', f'{sha}:{original_path}'], cwd=root, capture_output=True)
             record = read_json(root / path)
             if prior.returncode != 0 and record.get('formal_impact') and 'consumer_coverage' not in record:
                 errors.append(f'New formal record must declare consumer_coverage (null until observed): {path}')
     valid_records = [r for r in records if not validate_record(r, root)['errors']]
-    assets = [read_json(p) for p in (root / 'docs/quality/asset_records').glob('*.json')]
+    assets = [read_json(p) for p in (root / 'docs/evidence/quality/asset_records').glob('*.json')]
     # Coverage is granted only after the entire record validates, including all
     # explicitly named offline production files and their actual byte hashes.
     valid_assets = [a for a in assets if not validate_asset(a, root)]
@@ -513,7 +516,7 @@ def validate(base, root=ROOT):
             errors.append(f'Runtime small_fix must declare formal_impact: {name}')
         # Freeze executable/skill/policy claims to their actual reviewed Git contents.
         # Handoff/task/evidence wrappers may be added after that implementation commit.
-        implementation = runtime or name.startswith(('tools/', 'tests/', '.agents/', '.github/')) or name == 'docs/quality/policy.json'
+        implementation = runtime or name.startswith(('tools/', 'tests/', '.agents/', '.github/')) or name == 'docs/project/policy.json'
         if implementation and covering and all(r['workflow'] == 'done' for r in covering):
             current = (root / name).read_bytes() if (root / name).is_file() else None
             fresh = False
@@ -540,8 +543,14 @@ def validate(base, root=ROOT):
                 reviewed = any(r['dimensions']['independent_review']['status'] == 'passed' and r.get('test_change_justification') for r in covering)
                 if not reviewed:
                     errors.append(f'Test/check deletion or changed guard needs independent review and test_change_justification: {name}; removed guards={weakened + removed}')
-    old_tasks = task_states(git(root, 'show', f'{sha}:docs/tasks.md'))
-    new_tasks = task_states((root / 'docs/tasks.md').read_text())
+    old_texts = []
+    for name in ('docs/project/tasks.md', 'docs/evidence/tasks.md', 'docs/tasks.md', 'docs/archive/tasks.md'):
+        prior = subprocess.run(['git', 'show', f'{sha}:{name}'], cwd=root, capture_output=True, text=True)
+        if prior.returncode == 0:
+            old_texts.append(prior.stdout)
+    old_tasks = task_states('\n'.join(old_texts))
+    from quality import task_index_lines
+    new_tasks = task_states('\n'.join(task_index_lines(root)))
     for task, state in new_tasks.items():
         if state == 'done' and old_tasks.get(task) != 'done':
             if not any(r['task_id'] == task and r['workflow'] == 'done' and validate_record(r, root)['task_complete'] for r in valid_records):

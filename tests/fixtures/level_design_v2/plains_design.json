@@ -8,8 +8,8 @@
     "scripts/combat/weapon_definition.gd",
     "resources/weapons/pulse_gun.tres",
     "scripts/player/player_motor.gd",
-    "docs/current_state.md",
-    "docs/quality/action_budget_spec.md",
+    "docs/project/current_state.md",
+    "docs/evidence/quality/action_budget_spec.md",
     "config/platforming_foundry.json"
   ],
   "biome": {
@@ -81,7 +81,7 @@
       {
         "id": "hook",
         "implemented": true,
-        "source": "docs/quality/all_weapons_spec.md (practice runtime implemented; formal plains grant absent)"
+        "source": "docs/data/weapons.md (practice runtime implemented; formal plains grant absent)"
       },
       {
         "id": "thorn_resonance",
@@ -113,12 +113,12 @@
           "jump",
           "shot_recoil"
         ],
-        "equipment_capacity_ref": "docs/rewards_and_builds.md",
+        "equipment_capacity_ref": "docs/bible/rewards_and_builds.md",
         "modifiers": [],
         "resources_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
         "cooldowns_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
         "air_limits_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
-        "recovery_ref": "docs/combat_and_recharge.md"
+        "recovery_ref": "docs/bible/combat_and_recharge.md"
       }
     ]
   },
@@ -202,7 +202,7 @@
       "capability": "shot_recoil",
       "implementation_ref": "scripts/player/player_motor.gd",
       "requires_grounded": false,
-      "resource_effect_ref": "docs/quality/action_budget_spec.md",
+      "resource_effect_ref": "docs/evidence/quality/action_budget_spec.md",
       "input_intent": "aim down/back and commit shot through PlayerController",
       "dual_use": [
         "攻击或触发合法机关",
@@ -214,7 +214,7 @@
       "capability": "move",
       "implementation_ref": "scripts/player/player_motor.gd",
       "requires_grounded": false,
-      "resource_effect_ref": "docs/combat_and_recharge.md",
+      "resource_effect_ref": "docs/bible/combat_and_recharge.md",
       "input_intent": "air directional correction until actual on-floor contact",
       "dual_use": [
         "恢复合法动作余量",
@@ -235,13 +235,13 @@
           "from": "jump",
           "to": "recoil",
           "condition": "离地后、具有合法射击余量与精力、瞄准方向可读",
-          "resource_rule_ref": "docs/quality/action_budget_spec.md"
+          "resource_rule_ref": "docs/evidence/quality/action_budget_spec.md"
         },
         {
           "from": "recoil",
           "to": "land",
           "condition": "保持空中修正，实际触地才允许按现行规则恢复",
-          "resource_rule_ref": "docs/combat_and_recharge.md"
+          "resource_rule_ref": "docs/bible/combat_and_recharge.md"
         }
       ]
     }
@@ -450,7 +450,7 @@
       "atmosphere": "风铃环境音与轻尘，高潮结束恢复安静。",
       "camera": {
         "resolution_ref": "project.godot",
-        "character_scale_ref": "docs/visual_bible.md",
+        "character_scale_ref": "docs/bible/visual_bible.md",
         "preview": "实际镜头须覆盖起跳点与目标；缩略图不能替代正式合屏。"
       },
       "assets": [

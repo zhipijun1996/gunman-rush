@@ -1,14 +1,27 @@
 """Static skill/template/record checks. Does not invoke Codex or judge game quality."""
+from quality import task_index_lines
 from pathlib import Path
 import re
 import sys
-from quality import ROOT, policy, read_json, validate_record, validate_asset
+from quality import task_record_paths, ROOT, policy, read_json, validate_record, validate_asset
+
+
+def skill_workflow_errors(content):
+    errors = []
+    for heading in ('适用任务', '操作', '验证与交付'):
+        matches = list(re.finditer(r'^## ' + heading + r'\s*$', content, re.MULTILINE))
+        if len(matches) != 1:
+            errors.append(f'Expected one skill section: {heading}')
+            continue
+        section = content[matches[0].end():].split('\n## ', 1)[0].strip()
+        if not section:
+            errors.append(f'Empty skill section: {heading}')
+    return errors
 
 
 def validate(root=ROOT):
     errors = []
     p = policy()
-    required_headings = ('触发与边界', '输入与依赖', '阶段流程与交付物', '设计要求', '自动验收', '人工审查', '准入退出与返工', '完成与证据')
     names = set()
     paths = list((root / '.agents/skills').glob('*/SKILL.md'))
     for path in paths:
@@ -19,11 +32,7 @@ def validate(root=ROOT):
             continue
         names.add(meta[1])
         if meta[1] in p['core_skills']:
-            for heading in required_headings:
-                if '## ' + heading not in content:
-                    errors.append(f'{meta[1]} missing {heading}')
-            if len(content) < 1500:
-                errors.append(f'{meta[1]} lacks actionable workflow')
+            errors.extend(f'{meta[1]}: {error}' for error in skill_workflow_errors(content))
         for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)', content):
             if not target.startswith(('http:', 'https:', '#')) and not (path.parent / target.split('#')[0]).is_file():
                 errors.append(f'Broken skill reference: {path}: {target}')
@@ -39,24 +48,24 @@ def validate(root=ROOT):
             if field not in text:
                 errors.append(f'Template missing {field}: {name}')
     records = {}
-    for path in sorted((root / 'docs/quality/records').glob('*.json')):
+    for path in task_record_paths(root):
         data = read_json(path)
         result = validate_record(data, root)
         errors.extend(f'{path.name}: {e}' for e in result['errors'])
         if data['task_id'] in records:
             errors.append(f'Duplicate task record: {data["task_id"]}')
         records[data['task_id']] = data
-    for path in (root / 'docs/quality/asset_records').glob('*.json'):
+    for path in (root / 'docs/evidence/quality/asset_records').glob('*.json'):
         errors.extend(f'{path.name}: {e}' for e in validate_asset(read_json(path), root))
     task_rows = {}
-    for line in (root / 'docs/tasks.md').read_text().splitlines():
+    for line in task_index_lines(root):
         cells = [c.strip() for c in line.split('|')[1:-1]]
         if len(cells) == 5:
             task_rows[cells[0]] = cells[3]
     for task, data in records.items():
         if task_rows.get(task) != data['workflow']:
             errors.append(f'Task index/record mismatch: {task}')
-    for doc in ('docs/development_quality.md', 'docs/quality/README.md'):
+    for doc in ('docs/project/development.md', 'docs/project/quality.md'):
         if f'版本 **{p["schema_version"]}**' not in (root / doc).read_text():
             errors.append(f'Quality version mismatch: {doc}')
     return errors

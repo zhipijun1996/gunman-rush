@@ -162,7 +162,7 @@ class DesignContractTests(unittest.TestCase):
         folder=ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive'
         original=json.loads((folder/'capture.json').read_text())
         receipt=json.loads((folder/'capture.invocation.json').read_text())
-        record_path=ROOT/'docs/quality/records/V3-FOREST-STARTUP-01.json'
+        record_path=ROOT/'docs/evidence/quality/records/V3-FOREST-STARTUP-01.json'
         # A frozen pre-verdict metadata fixture selects the semantic unit input.
         # Live V3-FOREST-STARTUP-01 is permanently blocked/REJECT after two rounds;
         # unit acceptance must never alter or infer acceptance of that live task.
@@ -201,7 +201,7 @@ class DesignContractTests(unittest.TestCase):
                     invocation['command']=[arg if not arg.startswith('--output=') else '--output=res://'+str(capture.relative_to(ROOT)) for arg in invocation['command']]
                     capture.with_suffix('.invocation.json').write_text(json.dumps(invocation))
                     selected=copy.deepcopy(actual_record)
-                    selected['production_snapshot']=loop.digest({p:h for p,h in loop.snapshot().items() if not p.startswith('docs/quality/records/')})
+                    selected['production_snapshot']=loop.digest({p:h for p,h in loop.snapshot().items() if not p.startswith('docs/evidence/quality/records/')})
                     selected['region_proofs']=[{'path':str(capture.relative_to(ROOT)),'sha256':checksum}]
                     with patch.object(loop.quality,'read_json',side_effect=lambda path:selected if Path(path)==record_path else original_read(path)):
                         result=loop.check_task_quality(contract)
@@ -416,7 +416,7 @@ class DesignContractTests(unittest.TestCase):
 
     def test_state_search_does_not_union_unconnected_branch_grants(self):
         catalog = self.design["capabilities"]["catalog"]
-        catalog.append({"id": "wall_jump", "implemented": True, "source": "docs/quality/actor_actions_spec.md"})
+        catalog.append({"id": "wall_jump", "implemented": True, "source": "docs/evidence/quality/actor_actions_spec.md"})
         self.design["capabilities"]["optional"].append("wall_jump")
         for branch, ability in (("left", "hook"), ("right", "wall_jump")):
             node = copy.deepcopy(self.design["topology"]["nodes"][1])

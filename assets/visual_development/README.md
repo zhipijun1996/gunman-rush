@@ -1,6 +1,6 @@
 # 视觉开发唯一入口
 
-> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../docs/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt)。
+> 路径维护说明：本页仅修复迁移后的导航链接，不重验或继承旧艺术、玩法及声音结论。原字节和原证据身份保留于[冻结原件](../../docs/evidence/worklines/game_architecture_01/archive/navigation-before-p8-links/sources/assets/visual_development/README.md.txt)。
 
 当前用户选择为 **B「雨釉与偏心」**。这是风格方向选择；全局母版仍是候选；04首空间另有静态/运动抽帧整体艺术限定接受，不代表完整G2、玩家认可或正式发布。这里是实验来源库，不能自动加入正式资产池。
 

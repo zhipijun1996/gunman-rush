@@ -41,7 +41,7 @@ def main():
                 w.setnchannels(1);w.setsampwidth(2);w.setframerate(48000);w.writeframes(pcm.tobytes())
             entries.append(dict(path=str(path.relative_to(ROOT)),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),cue=cue,variant=variant,source_rate=rate,duration_seconds=duration,peak_linear=max(abs(v) for v in pcm)/32767,frames=len(pcm)))
     record=dict(task='PLAYER-PRESENTATION-01',content_version='feel-audio-v1',tool='ffmpeg decode + Python stdlib deterministic interpolation/mix/envelopes',sources=provenance,recipes=recipes,processing='48k mono16;leading threshold-45dB;2ms attack,45ms tail;three offline +/-1.5% pitch variants,no runtime RNG,no original edits',license='Existing Kenney source CC0-1.0, retained source manifest/licenses;derivatives',user_listening='unverified',files=entries)
-    (ROOT/'docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json').write_text(json.dumps(record,indent=2)+'\n')
+    (ROOT/'docs/evidence/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json').write_text(json.dumps(record,indent=2)+'\n')
     print('FEEL AUDIO:',len(entries),'bounded variants generated; originals unchanged')
 
 if __name__ == '__main__': main()

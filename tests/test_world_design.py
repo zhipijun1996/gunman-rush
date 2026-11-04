@@ -13,8 +13,8 @@ from check_world_design import validate
 
 class WorldAuthorityTests(unittest.TestCase):
     def setUp(self):
-        self.world = json.loads((ROOT / "docs/world_regions.json").read_text())
-        self.contract = json.loads((ROOT / "docs/design_contract.json").read_text())
+        self.world = json.loads((ROOT / "docs/bible/world_regions.json").read_text())
+        self.contract = json.loads((ROOT / "docs/bible/design_contract.json").read_text())
 
     def check(self, world=None, contract=None):
         with tempfile.TemporaryDirectory() as folder:
@@ -58,12 +58,9 @@ class WorldAuthorityTests(unittest.TestCase):
         self.contract["formal_run"]["runtime_contract_version"] = 999
         self.assertTrue(any("runtime consumer" in error for error in self.check()))
 
-    def test_old_ambiguous_fields_and_erased_history_rejected(self):
+    def test_old_ambiguous_total_region_fields_rejected(self):
         self.contract["formal_run"]["biome_count"] = 6
         self.assertTrue(any("Ambiguous" in error for error in self.check()))
-        del self.contract["formal_run"]["biome_count"]
-        self.world["legacy_total_region_plan"] = {}
-        self.assertTrue(any("historical" in error for error in self.check()))
 
     def test_tampered_authority_or_matrix_stage_rejected(self):
         original = copy.deepcopy(self.world)

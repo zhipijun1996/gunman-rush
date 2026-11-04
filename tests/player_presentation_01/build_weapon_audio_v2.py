@@ -175,7 +175,7 @@ def main() -> None:
         preloads.append('\t&"' + cue + '": [' + ",".join(paths) + "],")
     resource = ROOT / "game/combat/weapons/presentation/resources/weapon_sound_data_v2.gd"
     resource.write_text("extends RefCounted\n## BSD-3-Clause Freedoom PCM edits;loop metadata is in the WAV smpl chunk.\nconst CLIPS := {\n" + "\n".join(preloads) + "\n}\n")
-    provenance_path = ROOT / "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json"
+    provenance_path = ROOT / "docs/evidence/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json"
     provenance = {"task": "PLAYER-PRESENTATION-01", "version": "weapon-audio-v2",
                   "source_project": "Freedoom", "source_commit": upstream["commit"],
                   "source_manifest": str((SOURCES / "upstream.json").relative_to(ROOT)),
@@ -204,7 +204,7 @@ def main() -> None:
                   "user_acceptance_evidence": [], "visual_status": "unverified", "disposition": "limited_preview",
                   "associated_files": [{"path": str(provenance_path.relative_to(ROOT)), "sha256": provenance_sha, "role": "processing_record"},
                                        {"path": str((SOURCES / "freedoom-originals.zip").relative_to(ROOT)), "sha256": sha(raw_archive), "role": "reference"}]}
-        (ROOT / "docs/quality/asset_records" / (asset_id + ".json")).write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
+        (ROOT / "docs/evidence/quality/asset_records" / (asset_id + ".json")).write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"variants": len(files), "runtime_bytes": sum(v["bytes"] for v in files),
                       "loop_modes_require_import_check": ["ion_loop", "blackhole_loop"],
                       "source_commit": upstream["commit"], "provenance_sha256": provenance_sha}))

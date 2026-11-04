@@ -35,7 +35,7 @@ def check(commit):
         if item:
             meta, name = item.split(b'\t', 1)
             tree[name.decode()] = meta.decode().split()
-    cards = sorted(p for p in tree if PurePosixPath(p).parent == PurePosixPath('docs/quality/records')
+    cards = sorted(p for p in tree if PurePosixPath(p).parent == PurePosixPath('docs/evidence/quality/records')
                    and p.endswith('.json'))
     if not cards:
         raise ValueError('No quality cards in specified commit')

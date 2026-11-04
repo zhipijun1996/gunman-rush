@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "task_id": "MAPGEN-HOST-V2-01",
+  "task_type": "mechanic",
+  "workflow": "review",
+  "baseline_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+  "reviewed_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+  "content_version": "host-v2-slice-r2",
+  "owner": "/root",
+  "purpose": "三仓第一轮：锁定真实上游API/模块，验证三个相连模块完整装载与原生交互；不是完整地图上线。",
+  "player_experience": "独立受控装载切片，沿正式玩家与服务装配；不替换普通出发地图，不声称完整地图可玩。",
+  "constraints": [
+    "不恢复PR123旧App包装器；不复制算法或建立平行RunSession/钱包/伤害/奖励。",
+    "Python仅开发时生成冻结输入，游戏只消费确定数据，不抽地图随机数。",
+    "所选至少两个实际相连模块内容完整，不造占位，不二次镜像或应用源偏移。",
+    "不改普通地图、物理、经济、保存schema、图声，不自动发布或合并。"
+  ],
+  "affected_paths": [
+    "config/production_impact.json",
+    "docs/architecture.md",
+    "docs/architecture_extensions.md",
+    "docs/current_state.md",
+    "docs/evidence/mapgen_host_v2_01",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/worklines/mapgen_host_v2_01",
+    "experiments/generation",
+    "experiments/generation/entries/runtime_map_v2_slice.tscn",
+    "experiments/generation/runtime_map_frozen_source.gd",
+    "experiments/generation/runtime_map_frozen_source.gd.uid",
+    "experiments/generation/runtime_map_slice.gd",
+    "experiments/generation/runtime_map_slice.gd.uid",
+    "experiments/generation/runtime_map_slice_stage.gd",
+    "experiments/generation/runtime_map_slice_stage.gd.uid",
+    "game/world/levels/content/runtime_map_ellipse_definition.gd",
+    "game/world/levels/content/runtime_map_ellipse_definition.gd.uid",
+    "game/world/levels/providers/runtime_map_v2_provider.gd",
+    "game/world/levels/providers/runtime_map_v2_provider.gd.uid",
+    "resources/levels/mapgen_host_v2_01",
+    "resources/levels/mapgen_host_v2_01/bindings.json",
+    "resources/levels/mapgen_host_v2_01/content/M16.json",
+    "resources/levels/mapgen_host_v2_01/content/M18.json",
+    "resources/levels/mapgen_host_v2_01/content/M21.json",
+    "resources/levels/mapgen_host_v2_01/input-lock.json",
+    "resources/levels/mapgen_host_v2_01/map.json",
+    "resources/levels/mapgen_host_v2_01/selection.json",
+    "tests/runtime_map_v2_runner.gd",
+    "tests/runtime_map_v2_runner.gd.uid",
+    "tests/test_production_plan.py",
+    "tools/harness/profiles.json",
+    "tools/production_plan.py"
+  ],
+  "deliverables": [
+    "docs/worklines/mapgen_host_v2_01/integration.md",
+    "docs/worklines/mapgen_host_v2_01/upstream_requirements.md",
+    "docs/worklines/mapgen_host_v2_01/results.md",
+    "experiments/generation/entries/runtime_map_v2_slice.tscn",
+    "resources/levels/mapgen_host_v2_01/input-lock.json",
+    "docs/evidence/mapgen_host_v2_01/evidence-receipt.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限真实装载目标、源锁/映射/拒绝边界已明确",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "仅受控装载的真实Motor接缝/原平台骑乘/恢复与退出，不代表完整地图",
+      "evidence": [
+        "native",
+        "checks",
+        "final-checks"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "完整视听/正式整图/Web/性能/用户和设备门未完成；局部专项与静态独审另有真实证据",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "完整视听/正式整图/Web/性能/用户和设备门未完成；局部专项与静态独审另有真实证据",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "完整视听/正式整图/Web/性能/用户和设备门未完成；局部专项与静态独审另有真实证据",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "完整视听/正式整图/Web/性能/用户和设备门未完成；局部专项与静态独审另有真实证据",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "本轮技术合同及上游映射已固定，不签新地图设计品质",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "受控真实装载及七种原Harness通过，工作树源向量已绑定",
+      "evidence": [
+        "checks",
+        "final-checks"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "非作者静审仅覆盖此有限适配/CI；不代签完整内容",
+      "evidence": [
+        "review",
+        "ci-review",
+        "artifact-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "此轮原生受控切片不能代签正式整图、视听品质、Web/手机性能或用户认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "host-source-contract",
+      "gate": "G0",
+      "status": "passed",
+      "scenario": "锁定官方v2完整图和实际三模块内容",
+      "method": "来源/请求/config/SHA和逐项映射",
+      "expected": "不换seed/删内容或复制算法/旧App",
+      "failure": "源不明或静默丢字段",
+      "evidence": [
+        "spec"
+      ],
+      "dimension": "design",
+      "reason": "本轮有限技术场景有实际源锁/运行证据，不提升为完整内容验收"
+    },
+    {
+      "id": "native-host-slice",
+      "gate": "G1",
+      "status": "passed",
+      "scenario": "真实Motor走过两原接缝并骑乘原椭圆，reload/退出",
+      "method": "原Harness专项150断言及逐帧trace",
+      "expected": "单玩家/服务/碰撞、状态恢复和旧token拒绝",
+      "failure": "重复镜像/偏移/碰撞/权威或退出泄漏",
+      "evidence": [
+        "native",
+        "checks"
+      ],
+      "dimension": "technical",
+      "reason": "本轮有限技术场景有实际源锁/运行证据，不提升为完整内容验收"
+    },
+    {
+      "id": "independent-slice-review",
+      "gate": "G1",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "不同作者有限静审",
+      "scenario": "当前Provider/ellipse/入口/Stage及CI",
+      "method": "原SHA绑定和反例复查",
+      "expected": "无剩余局部阻断",
+      "failure": "自审/源漂移/未解决实际阻断",
+      "evidence": [
+        "review",
+        "ci-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/evidence/worklines/mapgen_host_v2_01/integration.md",
+      "sha256": "3c322161326e75e5e45ddb1c79269039e5579e3cb525a0ecc59dc7ead073d0fd",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "审计main真实Request/Provider/Plan/Stage/Runtime与锁定上游v2逐项映射",
+      "observed": "完整三模块/连接/机制/身份和不支持边界；未替换正常地图"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/mapgen_host_v2_01/native.json",
+      "sha256": "02ccb785c5fb8f6db73dd3b5e3e658657408abfb2b0e6868b121be0eb69b0dc9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "原Harness专项真实60Hz PlayerMotor/MovingPlatform与状态/退出观察",
+      "observed": "150 assertions/0 failures；两个实际接缝、椭圆骑乘、20static+1carrier、same services/reload/cleanup"
+    },
+    {
+      "id": "checks",
+      "path": "docs/evidence/mapgen_host_v2_01/integration-harness/report.json",
+      "sha256": "6e16a9aea85b2b8c351642ab252d7e571078774a6c347f424d26d623dfe770f5",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "现有Harness fresh串行执行五项；报告dirty/untracked SHA绑定实际候选",
+      "observed": "5 fresh/0 reused/0 failed；native150、level-plan146、run-session61、architecture13、planner49；base是工作树祖先，完整候选24份非doc源另核相同",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/harness.py --check runtime-map-v2-host --check level-plan --check run-session --check architecture-tests --check cloud-production-planner-tests --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Linux / approved Godot4.7.2 gunman_sd1 / headless fixed60 / Dummy audio"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/mapgen_host_v2_01/review/review.json",
+      "sha256": "e476dfc5a98af69a1f5b49d315b8f50291abe5f811a57f689001043a944e9921",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "不同实际agent只读审查并构造源/退出/反例，独立复核冻结输入",
+      "observed": "有限静态实现无剩余阻断；退出重入、face负例已修，missing-port误报已撤回；不代签native/full-map/Web/device",
+      "reviewer": "/root/death_event_audit",
+      "independent": true,
+      "independence_basis": "仅只读审查Provider/ellipse与root入口/Stage/runner，未修改被审运行实现",
+      "implementers": [
+        "/root",
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "ci-review",
+      "path": "docs/evidence/mapgen_host_v2_01/review/ci-review.json",
+      "sha256": "124be80087d9991a02ab73e14a5b05b51c8d70d786397c528036b01b591f5f20",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "独立逐值核219旧check/171有序前缀、四候选SHA与旧测试AST还原",
+      "observed": "有限7路径routing/原断言预算保留；作者49/0及root150/0分别留证，无全172已跑声明",
+      "reviewer": "/root/death_event_audit",
+      "independent": true,
+      "independence_basis": "只读窄审，非CI四文件候选作者",
+      "implementers": [
+        "/root/ci_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "final-checks",
+      "path": "docs/evidence/mapgen_host_v2_01/final-harness/report.json",
+      "sha256": "00d3f35125e970e86c615e5887921a61f9b7112da4b5fe667010a58b7a137eb2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "原Harness源码冻结后fresh补验，修复新专项产物目录",
+      "observed": "native150/planner49/Harness91/Web资源53；四项fresh零失败，native artifact逐字核验，不签完整172/Web导出",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/harness.py --check runtime-map-v2-host --check cloud-production-planner-tests --check harness-tests --check web-resource-contract-tests --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Linux / approved Godot4.7.2 gunman_sd1 / headless fixed60 / Dummy audio"
+    },
+    {
+      "id": "artifact-review",
+      "path": "docs/evidence/mapgen_host_v2_01/review/ci-review-artifact-fix.json",
+      "sha256": "166b4ea20a8b21ded67038862c1ecd7f52af7549a0b07ec6ff8a013737ca3b56",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+      "content_version": "host-v2-slice-r2",
+      "method": "非作者只读核两个精确目录字符串替换及原Harness collector/cache语义",
+      "observed": "有限修复静态接受，旧漏审明确更正，不代签实际归档",
+      "reviewer": "/root/death_event_audit",
+      "independent": true,
+      "independence_basis": "独立只读审查，非两处修改作者",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整46实例及物理路线/C031连续路线",
+    "非空敌人/奖励/Boss/危险/其他机制与跨实例事务恢复",
+    "正式App/Stage旧Manifest记录及完整输入replay绑定",
+    "真实能力snapshot/整图spawn及Boss完成",
+    "运行时算法包及有界调度/取消",
+    "GUI/GPU/Web raw JSON导出/PCK/浏览器/手机",
+    "完整远端172 CI及用户/设备/G5；未发布未合并"
+  ],
+  "production_snapshot": "3a5a6b54496a7dbae617b63c6c7cbc87ffe658e95d63e8c52a3895068f6792c6"
+}

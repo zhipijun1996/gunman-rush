@@ -26,7 +26,7 @@ BASE_SOURCES = (
     "game/presentation/audio/game_audio.gd",
     "tools/generate_forest_bible_sfx.py",
     "assets/forest_bible_v2/audio/provenance.json",
-    "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
     "tools/run_tests.py",
     "tools/godot.sh",
 )

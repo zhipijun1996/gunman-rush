@@ -23,6 +23,7 @@ class QualityTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
+        (self.root / "docs/project").mkdir(parents=True)
         self.record = self.complete_record('process')
 
     def evidence(self, kind):
@@ -219,8 +220,8 @@ class QualityTests(unittest.TestCase):
     def test_diff_guard_checks_actual_git_scope_and_new_done(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs').mkdir()
-        (self.root / 'docs/tasks.md').write_text('| TEST-01 | process | — | review | awaiting |\n')
+        (self.root / 'docs').mkdir(exist_ok=True)
+        (self.root / 'docs/project/tasks.md').write_text('| TEST-01 | process | — | review | awaiting |\n')
         run('init', '-q')
         run('add', '.')
         run('-c', 'user.name=Unit', '-c', 'user.email=unit@example.invalid', 'commit', '-qm', 'base')
@@ -228,16 +229,21 @@ class QualityTests(unittest.TestCase):
         self.assertEqual(validate_diff(base, self.root)[0], [])
         (self.root / 'scripts').mkdir()
         (self.root / 'scripts/new.gd').write_text('extends Node\n')
-        (self.root / 'docs/tasks.md').write_text('| TEST-01 | process | — | done | done |\n')
+        (self.root / 'docs/project/tasks.md').write_text('| TEST-01 | process | — | done | done |\n')
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Production change' in e for e in errors), errors)
+        self.assertTrue(any('New done task' in e for e in errors), errors)
+        (self.root / 'docs/evidence').mkdir()
+        (self.root / 'docs/evidence/tasks.md').write_text('| TEST-01 | process | — | done | archived |\n')
+        (self.root / 'docs/project/tasks.md').write_text('Current work\n')
+        errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('New done task' in e for e in errors), errors)
 
     def test_diff_guard_rejects_reusing_old_completed_evidence(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs/quality/records').mkdir(parents=True)
-        (self.root / 'docs/tasks.md').write_text('| QUALITY-TEST-01 | process | — | review | candidate |\n')
+        (self.root / 'docs/evidence/quality/records').mkdir(parents=True)
+        (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | process | — | review | candidate |\n')
         (self.root / 'tools').mkdir()
         (self.root / 'tools/helper.py').write_text('VALUE = 1\n')
         run('init', '-q')
@@ -248,8 +254,8 @@ class QualityTests(unittest.TestCase):
         data.update(reviewed_commit=base, baseline_commit=base, affected_paths=['tools/helper.py'])
         for evidence in data['evidence']:
             evidence['source_commit'] = base
-        (self.root / 'docs/quality/records/test.json').write_text(json.dumps(data))
-        (self.root / 'docs/tasks.md').write_text('| QUALITY-TEST-01 | process | — | done | tested |\n')
+        (self.root / 'docs/evidence/quality/records/test.json').write_text(json.dumps(data))
+        (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | process | — | done | tested |\n')
         self.assertEqual(validate_diff(base, self.root)[0], [])
         (self.root / 'tools/helper.py').write_text('VALUE = 99\n')
         self.assertTrue(any('stale' in e for e in validate_diff(base, self.root)[0]))
@@ -257,24 +263,24 @@ class QualityTests(unittest.TestCase):
     def test_routed_lowercase_done_requires_complete_quality_record(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs/quality/records').mkdir(parents=True)
+        (self.root / 'docs/evidence/quality/records').mkdir(parents=True)
         task = 'level-optimize-design'
-        (self.root / 'docs/tasks.md').write_text(f'| {task} | process | — | review | candidate |\n')
+        (self.root / 'docs/project/tasks.md').write_text(f'| {task} | process | — | review | candidate |\n')
         run('init', '-q')
         run('add', '.')
         run('-c', 'user.name=Unit', '-c', 'user.email=unit@example.invalid', 'commit', '-qm', 'base')
         base = run('rev-parse', 'HEAD').strip()
         self.assertEqual(validate_diff(base, self.root)[0], [])
-        (self.root / 'docs/tasks.md').write_text(f'| {task} | process | — | done | claimed |\n')
+        (self.root / 'docs/project/tasks.md').write_text(f'| {task} | process | — | done | claimed |\n')
         self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
         record = copy.deepcopy(self.record)
         record.update(task_id=task, reviewed_commit=base, baseline_commit=base)
         for evidence in record['evidence']:
             evidence['source_commit'] = base
-        (self.root / 'docs/quality/records/routed.json').write_text(json.dumps(record))
+        (self.root / 'docs/evidence/quality/records/routed.json').write_text(json.dumps(record))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         record['gates']['G4']['status'] = 'unverified'
-        (self.root / 'docs/quality/records/routed.json').write_text(json.dumps(record))
+        (self.root / 'docs/evidence/quality/records/routed.json').write_text(json.dumps(record))
         self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
 
 
@@ -386,9 +392,9 @@ class QualityTests(unittest.TestCase):
     def asset_diff_fixture(self):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
-        (self.root / 'docs/quality/records').mkdir(parents=True)
-        (self.root / 'docs/quality/asset_records').mkdir()
-        (self.root / 'docs/tasks.md').write_text('| QUALITY-TEST-01 | art | — | review | candidate |\n')
+        (self.root / 'docs/evidence/quality/records').mkdir(parents=True)
+        (self.root / 'docs/evidence/quality/asset_records').mkdir()
+        (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | art | — | review | candidate |\n')
         run('init', '-q')
         run('add', '.')
         run('-c', 'user.name=Unit', '-c', 'user.email=unit@example.invalid', 'commit', '-qm', 'base')
@@ -398,12 +404,12 @@ class QualityTests(unittest.TestCase):
         record = initialize('QUALITY-TEST-01', 'art', base)
         record.update(formal_impact=True, affected_paths=['assets/source.png', 'scripts/consumer.gd',
                                                        'assets/production/prompt.txt'])
-        (self.root / 'docs/quality/records/test.json').write_text(json.dumps(record))
+        (self.root / 'docs/evidence/quality/records/test.json').write_text(json.dumps(record))
         return base, asset
 
     def test_diff_asset_associated_exact_paths_only_after_full_validation(self):
         base, asset = self.asset_diff_fixture()
-        record_path = self.root / 'docs/quality/asset_records/test.json'
+        record_path = self.root / 'docs/evidence/quality/asset_records/test.json'
         record_path.write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         asset['associated_files'][0]['sha256'] = '0' * 64
@@ -414,7 +420,7 @@ class QualityTests(unittest.TestCase):
 
     def test_game_production_change_requires_non_process_record(self):
         base, asset = self.asset_diff_fixture()
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         name = 'game/combat/actor.gd'
         consumer = self.root / name
@@ -423,7 +429,7 @@ class QualityTests(unittest.TestCase):
         errors, changed = validate_diff(base, self.root)
         self.assertIn(name, changed)
         self.assertIn('Production change lacks non-process task record: ' + name, errors)
-        record_path = self.root / 'docs/quality/records/test.json'
+        record_path = self.root / 'docs/evidence/quality/records/test.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(name)
         record_path.write_text(json.dumps(record))
@@ -432,7 +438,7 @@ class QualityTests(unittest.TestCase):
 
     def test_experiment_production_change_requires_non_process_record(self):
         base, asset = self.asset_diff_fixture()
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         name = 'experiments/combat/actor.gd'
         consumer = self.root / name
@@ -441,7 +447,7 @@ class QualityTests(unittest.TestCase):
         errors, changed = validate_diff(base, self.root)
         self.assertIn(name, changed)
         self.assertIn('Production change lacks non-process task record: ' + name, errors)
-        record_path = self.root / 'docs/quality/records/test.json'
+        record_path = self.root / 'docs/evidence/quality/records/test.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(name)
         record_path.write_text(json.dumps(record))
@@ -480,7 +486,7 @@ class QualityTests(unittest.TestCase):
 
     def test_diff_asset_omitted_file_never_inherits_directory_coverage(self):
         base, asset = self.asset_diff_fixture()
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         omitted = self.root / 'assets/production/omitted.txt'
         omitted.write_text('not listed in associated files')
         errors, _ = validate_diff(base, self.root)
@@ -490,7 +496,7 @@ class QualityTests(unittest.TestCase):
     def test_diff_asset_unknown_associated_role_invalidates_all_coverage(self):
         base, asset = self.asset_diff_fixture()
         asset['associated_files'][0]['role'] = 'anything'
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
         self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
@@ -500,7 +506,7 @@ class QualityTests(unittest.TestCase):
         base, asset = self.asset_diff_fixture()
         (self.root / 'scripts/consumer.gd').write_text('extends Node\nconst LIVE = preload("res://assets/source.png")\n')
         asset.update(disposition='rejected_evidence_only', runtime_paths=[], non_runtime_reason='False declaration under test')
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and 'assets/source.png' in e for e in errors), errors)
 
@@ -509,15 +515,15 @@ class QualityTests(unittest.TestCase):
         entry = self.associated_file('assets/live.png', 'documentation')
         asset['associated_files'].append(entry)
         (self.root / 'scripts/consumer.gd').write_text('extends Node\nconst LIVE = preload("res://assets/live.png")\n')
-        record_path = self.root / 'docs/quality/records/test.json'
+        record_path = self.root / 'docs/evidence/quality/records/test.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append('assets/live.png')
         record_path.write_text(json.dumps(record))
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and 'assets/live.png' in e for e in errors), errors)
         asset['runtime_paths'].append('assets/live.png')
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
 
     def test_diff_dynamic_semantic_family_cannot_claim_offline_source(self):
@@ -534,7 +540,7 @@ class QualityTests(unittest.TestCase):
         asset.update(source_path=source, source_sha256=hashlib.sha256((family / 'source.png').read_bytes()).hexdigest(),
                      disposition='production_record_only', runtime_paths=[], non_runtime_reason='False dynamic-consumer claim')
         asset['associated_files'].append({'path': family_json, 'sha256': hashlib.sha256((family / 'family.json').read_bytes()).hexdigest(), 'role': 'source_contract'})
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and source in e for e in errors), errors)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and family_json in e for e in errors), errors)
@@ -546,11 +552,11 @@ class QualityTests(unittest.TestCase):
         base, asset = self.asset_diff_fixture()
         guide = self.associated_file('assets/production/layout_guide.png', 'reference')
         asset['associated_files'].append(guide)
-        record_path = self.root / 'docs/quality/records/test.json'
+        record_path = self.root / 'docs/evidence/quality/records/test.json'
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(guide['path'])
         record_path.write_text(json.dumps(record))
-        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         (self.root / 'scripts/consumer.gd').write_text('extends Node\nconst LIVE = preload("res://assets/missing.png")\n')
         errors, _ = validate_diff(base, self.root)
@@ -592,7 +598,7 @@ class QualityTests(unittest.TestCase):
         asset.update(source_path=source_name, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
                      disposition='production_record_only', runtime_paths=[], non_runtime_reason='False connected-consumer claim')
         asset['associated_files'].append({'path':manifest_name,'sha256':hashlib.sha256(manifest.read_bytes()).hexdigest(),'role':'source_contract'})
-        (self.root/'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root/'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         for name in [source_name, manifest_name]:
             self.assertTrue(any('Known runtime asset lacks runtime provenance' in error and name in error for error in errors), errors)

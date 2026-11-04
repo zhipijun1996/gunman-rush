@@ -75,15 +75,41 @@ class RegionContextTests(unittest.TestCase):
         self.assertEqual(hook["formal_grant"], "not_inferred")
         self.assertEqual(context["capability_ids"]["values"]["H"], "grapple")
 
-    def test_latest_overrides_and_candidate_status_are_preserved(self):
+    def test_current_contracts_and_candidate_status_are_preserved(self):
         context = build_region_context("thorn_forest")
         override_text = "\n".join(item["text"] for item in context["overrides"])
         self.assertIn("360°", override_text)
         self.assertIn("同一时刻", override_text)
-        self.assertTrue(any("action_budget_spec.md" in s["path"] for s in context["sources"]))
+        self.assertTrue(any("weapons.md" in s["path"] for s in context["sources"]))
         self.assertTrue(context["design"]["gate"]["status"].startswith("PROPOSED"))
         self.assertEqual(context["locked_principles"][0]["status"], "LOCKED")
         self.assertTrue(all(item["status"] == "PROPOSED" for item in context["design"]["learning"]))
+
+    def test_missing_current_contract_section_rejects(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for name in (REGIONS, WORLD, "docs/evidence/sources/design/player_actions/weapons_v0.8.md", "docs/data/player_actions.md"):
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / name, target)
+            entry = root / "docs/data/player_actions.md"
+            entry.write_text(entry.read_text().replace("## 动作合同", "## 过期任务"))
+            with self.assertRaisesRegex(ContextError, "authority section"):
+                build_region_context("thorn_forest", root)
+
+    def test_current_direction_document_drift_is_still_rejected(self):
+        from unittest.mock import patch
+        import region_creative_direction as creative
+        original = creative.repository_file
+        for name in ("docs/data/player_actions.md", "docs/bible/controls_contract.md"):
+            with self.subTest(path=name), tempfile.TemporaryDirectory() as folder:
+                changed = Path(folder) / "changed.md"
+                changed.write_bytes((ROOT / name).read_bytes() + b"\nchanged contract\n")
+                def resolve(path, root=creative.ROOT):
+                    return changed if path == name else original(path, root)
+                with patch.object(creative, "repository_file", side_effect=resolve):
+                    with self.assertRaisesRegex(ValueError, "Authority changed"):
+                        creative.load_direction("docs/data/creative_direction/thorn_forest.json", "thorn_forest")
 
     def test_real_single_weapon_inventory_and_lv3_candidates(self):
         context = build_region_context("firefly_marsh")
@@ -93,6 +119,10 @@ class RegionContextTests(unittest.TestCase):
         self.assertIn("one_current_weapon", context["weapon_context"]["selection"])
         self.assertEqual(context["weapon_context"]["rules"][2]["status"], "OPEN")
         self.assertIn("尚未定稿", context["weapon_context"]["rules"][1]["text"])
+        self.assertEqual(context['authority_order']['current_actions'], 'docs/data/player_actions.md')
+        self.assertTrue(all(rule['status'] == 'SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY'
+                            for rule in context['weapon_context']['rules'][:2]))
+        self.assertIn('射击不耗时间能量', '\n'.join(rule['text'] for rule in context['overrides']))
 
     def test_old_world_runtime_flag_does_not_disable_formal_plains(self):
         context = build_region_context("windchime_plains")
@@ -117,7 +147,7 @@ class RegionContextTests(unittest.TestCase):
             target = root / source["path"]
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / source["path"], target)
-        style_path = json.loads((ROOT/'docs/creative_direction/bibles/registry.json').read_bytes())['shared_style_authority']['path']
+        style_path = json.loads((ROOT/'docs/data/creative_direction/bibles/registry.json').read_bytes())['shared_style_authority']['path']
         supplement = json.loads((ROOT/style_path).read_bytes())
         for name in [style_path, *[row['path'] for row in supplement['runtime_reference']['references']]]:
             target = root/name; target.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(ROOT/name,target)

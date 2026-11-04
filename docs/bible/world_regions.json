@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "kind": "design_catalog_not_runtime_configuration",
+  "world_plan_status": "tentative",
+  "working_title": "失序之钟",
+  "title_status": "working_name",
+  "proposed_layer_count": 6,
+  "proposed_region_pool_count": 16,
+  "formal_stages_per_region": 2,
+  "formal_boss_stage": 2,
+  "first_region_id": "windchime_plains",
+  "terminal_region_id": "world_clockheart",
+  "source": {
+    "path": "docs/evidence/sources/references/recoil_roguelike_handoff_v02.md",
+    "version": "v0.2",
+    "sha256": "bd0c0d16b8368e4cf9951603b7557ff29211b2d1f131ac71a06b77d3b981897b"
+  },
+  "regions": [
+    {
+      "id": "windchime_plains",
+      "working_name": "风铃平原",
+      "layer": 1,
+      "next_region_ids": [
+        "thorn_forest",
+        "firefly_marsh",
+        "windswept_canyon"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "thorn_forest",
+      "working_name": "荆棘森林",
+      "layer": 2,
+      "next_region_ids": [
+        "mushroom_caverns",
+        "moon_crown_castle"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "firefly_marsh",
+      "working_name": "萤雾沼泽",
+      "layer": 2,
+      "next_region_ids": [
+        "sunken_ruins",
+        "moon_crown_castle"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "windswept_canyon",
+      "working_name": "风蚀峡谷",
+      "layer": 2,
+      "next_region_ids": [
+        "sunken_ruins",
+        "gear_city"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "mushroom_caverns",
+      "working_name": "蕈灯地穴",
+      "layer": 3,
+      "next_region_ids": [
+        "moonshadow_cemetery",
+        "ember_depths"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "sunken_ruins",
+      "working_name": "沉水遗迹",
+      "layer": 3,
+      "next_region_ids": [
+        "moonshadow_cemetery",
+        "frostmirror_glacier"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "gear_city",
+      "working_name": "齿轮工城",
+      "layer": 3,
+      "next_region_ids": [
+        "ember_depths",
+        "shattered_isles"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "moon_crown_castle",
+      "working_name": "月冠古堡",
+      "layer": 3,
+      "next_region_ids": [
+        "moonshadow_cemetery",
+        "frostmirror_glacier",
+        "shattered_isles"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "moonshadow_cemetery",
+      "working_name": "月影墓园",
+      "layer": 4,
+      "next_region_ids": [
+        "root_sanctuary",
+        "reverse_clocktower"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "frostmirror_glacier",
+      "working_name": "霜镜冰川",
+      "layer": 4,
+      "next_region_ids": [
+        "reverse_clocktower",
+        "starbridge_gate"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "ember_depths",
+      "working_name": "熔火腹地",
+      "layer": 4,
+      "next_region_ids": [
+        "root_sanctuary",
+        "reverse_clocktower"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "shattered_isles",
+      "working_name": "破碎浮岛",
+      "layer": 4,
+      "next_region_ids": [
+        "reverse_clocktower",
+        "starbridge_gate"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "root_sanctuary",
+      "working_name": "根脉圣殿",
+      "layer": 5,
+      "next_region_ids": [
+        "world_clockheart"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "reverse_clocktower",
+      "working_name": "逆时钟塔",
+      "layer": 5,
+      "next_region_ids": [
+        "world_clockheart"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "starbridge_gate",
+      "working_name": "星桥天门",
+      "layer": 5,
+      "next_region_ids": [
+        "world_clockheart"
+      ],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    },
+    {
+      "id": "world_clockheart",
+      "working_name": "世界钟心",
+      "layer": 6,
+      "next_region_ids": [],
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
+      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "proposal_awaiting_visual_sample"
+    }
+  ],
+  "example_routes": [
+    [
+      "windchime_plains",
+      "thorn_forest",
+      "mushroom_caverns",
+      "moonshadow_cemetery",
+      "root_sanctuary",
+      "world_clockheart"
+    ],
+    [
+      "windchime_plains",
+      "windswept_canyon",
+      "gear_city",
+      "ember_depths",
+      "reverse_clocktower",
+      "world_clockheart"
+    ],
+    [
+      "windchime_plains",
+      "firefly_marsh",
+      "sunken_ruins",
+      "frostmirror_glacier",
+      "starbridge_gate",
+      "world_clockheart"
+    ],
+    [
+      "windchime_plains",
+      "thorn_forest",
+      "moon_crown_castle",
+      "frostmirror_glacier",
+      "reverse_clocktower",
+      "world_clockheart"
+    ]
+  ],
+  "art_quality_status": "current_demo_skin_not_visually_approved",
+  "art_direction_version": "world_painterly_refinement_v1",
+  "formal_map_structure": "connected_region",
+  "formal_maps_per_region": 2,
+  "region_pool_count": 16,
+  "regions_per_run": 6,
+  "framework_status": "confirmed",
+  "framework_authority": {
+    "path": "docs/bible/regions.md",
+    "sha256": "e391930a782081d6473fa4c3d69e9e28f2f9853ab482b18d186faeef136a270e",
+    "scope": "six_stage_sixteen_region_framework_not_runtime_opening"
+  }
+}

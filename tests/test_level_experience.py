@@ -133,10 +133,10 @@ class ExperienceTests(unittest.TestCase):
 
     def test_scoped_knowledge_integrity(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);(root/"docs/quality").mkdir(parents=True);evidence=root/"proof.txt";evidence.write_text("actual scope description")
+            root=Path(tmp);(root/"docs/evidence/quality").mkdir(parents=True);evidence=root/"proof.txt";evidence.write_text("actual scope description")
             lesson=dict(id="one",source_kind="design_review",source_commit="a"*40,region_ids=["windchime_plains"],capability_scope="base pulse only",
                         claim="candidate observation",limits=["not player approval"],evidence=[{"path":"proof.txt","sha256":experience.sha(evidence)}])
-            path=root/"docs/quality/level_lessons.json";path.write_text(json.dumps({"schema_version":1,"lessons":[lesson]}))
+            path=root/"docs/evidence/quality/level_lessons.json";path.write_text(json.dumps({"schema_version":1,"lessons":[lesson]}))
             self.assertEqual(experience.load_lessons("thorn_forest",root),[])
             self.assertEqual(len(experience.load_lessons("windchime_plains",root)),1)
             evidence.write_text("changed")

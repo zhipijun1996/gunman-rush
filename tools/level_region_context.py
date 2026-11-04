@@ -8,10 +8,10 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REGIONS = "docs/design/player_actions/regions_v0.3.md"
-WEAPONS = "docs/design/player_actions/weapons_v0.8.md"
-ENTRY = "docs/design/player_actions/README.md"
-WORLD = "docs/world_regions.json"
+REGIONS = "docs/evidence/sources/design/player_actions/regions_v0.3.md"
+WEAPONS = "docs/evidence/sources/design/player_actions/weapons_v0.8.md"
+ENTRY = "docs/data/player_actions.md"
+WORLD = "docs/bible/world_regions.json"
 
 
 class ContextError(ValueError):
@@ -365,9 +365,8 @@ def build_region_context(region_id, root=ROOT):
     if any(target not in ids for target in outgoing):
         raise ContextError("Catalog edge references unknown region")
     overrides = []
-    for line in entry.lines:
-        if line.startswith("## 最新"):
-            overrides.append(_facts(entry.section(line), "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS"))
+    for heading in ("## 动作合同", "## 武器与能力"):
+        overrides.append(_facts(entry.section(heading), "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS"))
     # Include linked revised contracts as references, not copied tuning values.
     for override in overrides:
         override["linked_sources"] = []
@@ -383,7 +382,7 @@ def build_region_context(region_id, root=ROOT):
     studio = Source(root, "experiments/motion/action_studio.gd")
     app = Source(root, "game/application/demo_app.gd")
     profile = Source(root, "game/world/state/run_profile.gd")
-    current = Source(root, "docs/current_state.md")
+    current = Source(root, "docs/project/current_state.md")
     sources.extend(s.ref() for s in (traversal, studio, app, profile, current))
     ability_observations = {}
     for symbol, ability_id in capability_ids.items():
@@ -429,18 +428,21 @@ def build_region_context(region_id, root=ROOT):
                                "additional_candidate_edges": [list(edge) for edge in candidate_edges if region_id in edge],
                                "status": "PROPOSED_TOPOLOGY_NOT_REACHABILITY", "sources": [world.ref(), region_doc.section("### 2.4 ")["source"]]},
             "art": {"status": "PROPOSED", "source": item_ref, **{key: item[key] for key in (
-                "visual_anchor", "story_anchor", "scene_introduction", "scene_mood", "material_and_light", "module_art_notes", "art_brief_status")}},
+                "visual_anchor", "story_anchor", "material_and_light", "art_brief_status")}},
         },
         "locked_principles": [_facts(region_doc.section("### 0.1 "), "LOCKED"),
                               _facts(region_doc.section("### 2.1 "), "LOCKED_DIRECTION"),
                               _facts(region_doc.section("### 5.1 "), "REQUIRED_VALIDATION_NOT_PROOF")],
         "capability_ids": {"values": capability_ids, "status": "PROPOSED_PERSISTENCE_IDS_RUNTIME_CHECK_REQUIRED", "source": region_doc.section("## 1. ")["source"]},
         "overrides": overrides,
+        "authority_order": {"current_actions": ENTRY,
+                            "source_direction": [REGIONS, WEAPONS],
+                            "rule": "Current action contracts and their linked sources govern input, ammo, AirFocus and restoration; imported source directions are not current runtime rules."},
         "weapon_context": {"source_inventory": inventory,
             "selection": "one_current_weapon_no_combined_branch_capabilities",
             "evolution_tree": _facts(weapon_doc.section("## 1. "), "LOCKED_EVOLUTION_DIRECTION_LV3_DETAILS_PROPOSED"),
-            "rules": [_facts(weapon_doc.section("### 0.1 "), "LOCKED_DIRECTION"),
-                      _facts(weapon_doc.section("### 0.2 "), "LOCKED_DIRECTION"),
+            "rules": [_facts(weapon_doc.section("### 0.1 "), "SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY"),
+                      _facts(weapon_doc.section("### 0.2 "), "SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY"),
                       _facts(weapon_doc.section("### 0.3 "), "OPEN"),
                       _facts(weapon_doc.section("## 5. "), "PROPOSED_ENCOUNTERS_REQUIRE_PHYSICS_PROOF")]},
         "implementation": {"formal_region": "consumer_present_in_source" if formal_observed else "no_formal_consumer_observed",
