@@ -1,0 +1,102 @@
+{
+  "source_sha": "4e96da4d5aaff07ee473ffc9e750e1a1906291b0",
+  "main_base": "48cddb6a70983b0a0206304d18c98d274a9a7549",
+  "engine": {
+    "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+    "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "bytes": 171575448,
+    "binary": "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+    "build_id": "godot-4.7.2-gunman-sd1",
+    "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+    "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+  },
+  "sdk": {
+    "version": "0.4.1",
+    "source_commit": "8eefdbd140ce10defe1570ab8eefb6729382f8b3",
+    "release_head": "c35871446cc0a3939e1a38171435f42cdc64a359"
+  },
+  "module_package": {
+    "version": "1.1.0",
+    "path": "res://resources/mapgen/module-pack-1.1.0.zip",
+    "sha256": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+    "catalog_sha256": "307b3c02c08d6f9abd58ef10bfe0716709bc8260db49a2a2c21d36980330be7a"
+  },
+  "host_profile": {
+    "path": "config/plains_mapgen.json",
+    "sha256": "acdaf5987b2c12d28d4ce083ce78540fc25ae6bca59f0e8948dd9e4ed23f3f82",
+    "supported_modules": 44,
+    "excluded_modules": 62
+  },
+  "results": {
+    "ci": "4 checks passed; smoke 10, contracts 239, meta save 39 assertions",
+    "formal_campaign": {
+      "checks": 67,
+      "failures": 0,
+      "command": "python3 tools/check_mapgen_formal_plains.py"
+    },
+    "input_only_route": {
+      "seed": "ci-smoke",
+      "physics_frames": 1497,
+      "accepted_boss_damage": 1.0,
+      "failures": 0,
+      "live_boss_reinstall": {
+        "same_source": true,
+        "health": 39,
+        "safe_entry": true
+      },
+      "command": "bash tools/godot.sh --headless --audio-driver Dummy --fixed-fps 60 --path . --script tests/mapgen_formal_route_runner.gd"
+    },
+    "home_weapons": {
+      "checks": 62,
+      "failures": 0
+    },
+    "forest_campaign": {
+      "checks": 76,
+      "failures": 0
+    },
+    "compatibility": {
+      "generation_job": 1004,
+      "generated_identity": 81,
+      "generated_slice": 58,
+      "windchime_provider": 35,
+      "windchime_mechanisms": 100,
+      "windchime_generated": 60,
+      "failures": 0
+    },
+    "exported_pck": {
+      "preset": "Web Playtest",
+      "bytes": 220425584,
+      "sha256": "eb1221f74da559eaa8bd45504718df3d23adf5885095092325b72f7fb5a1c0f0",
+      "isolated_native_main_entry": true,
+      "modules": 34,
+      "scope": "PCK resource export and native engine load from an empty directory; not a browser or device run"
+    }
+  },
+  "visual_review": {
+    "renderer": "Xorg dummy :94 / OpenGL Compatibility / Mesa llvmpipe",
+    "entry.png": "Formal main -> title -> Home -> Plains, untouched terrain/HUD/merchant/bell art",
+    "cache.png": "Disclosed position fixture; native two-choice reward modal",
+    "boss.png": "Continuous input-only fixed-seed route and accepted Bellstrider weakpoint hit; no position/HP/capability writes"
+  },
+  "scope_limits": [
+    "Boss-death campaign settlement uses explicit damage fixtures; enemy and cache transaction tests use disclosed position fixtures.",
+    "Input-only movement reaches and damages the first Boss; it does not prove a natural two-Boss clear or all seeds/weapons.",
+    "SDK ability tags do not certify exact weapon travel distances/timing or whole-map physical reachability.",
+    "Web browser, Android device, mobile performance and deployment were not tested or performed."
+  ],
+  "artifact_sha256": {
+    "boss.png": "3063115b0a7d3845c3c88bedf4ca673ad2aa634d7637ef17c6083d5645398e19",
+    "cache.png": "d86afc1e710ed088cef825310beed7234419cf855ac6be7e5e9b3e21cb6d1b12",
+    "ci_final.log": "832754bf93220196bbb84c5d59f1b15c9f5e748a89142e0ed23c8072a2cba56b",
+    "compatibility_final.log": "4328c6e1fc69e898d79b37f62f16972b7d1f74dcd404303cf112fecaae21dbc7",
+    "entry.png": "f86561605b763ac624e7edc855672610befd2e7f53d02e02942b7e88b5d929e5",
+    "final_campaign.log": "82361df510a0d27e6b966df97ab1bad038f14ae3e721c738ebfdfe42fdf24f9a",
+    "formal_checks.json": "01291c67d298f57028e8121d0c20bed168e77a86504d37d9311305712e70b0c9",
+    "home_forest_final.log": "0564586f1a716a236922c315aee5fd138f2f5c38570e60a379593b1ec140a732",
+    "pack_entry.log": "5ae03b7dbce44ee2cb52b904ef8feb3ac850455fc0576bea93ae28205a1e5f77",
+    "route_final.log": "22b3e3552df261dbca5e9912a7da1d4f7db8ed213808a6b3c5dc70703595db14",
+    "route_trace.json.gz": "cdfc3d3bf58fe53abe5e6af45a5c0a13f3ce99b889aa8bf997cd1d91443a4d8c"
+  }
+}

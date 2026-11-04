@@ -1,0 +1,52 @@
+RUN tests/home_weapon_selection_runner.gd
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+MAPGEN SEARCH attempt=0 seed=684409672303105 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=0 seed=684409672303105 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=1 seed=41474205131131 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=1 seed=41474205131131 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=2 seed=4237860195799913 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+PLAINS REGION: family=mapgen areas=34 fallback=
+TERRAIN STUDY: solids=151 pieces=262 setup_ms=105
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"1356893ba99aff75f9b87ec4ecdd952161b37d97022be5a50c7af3ce7caf75b9","map_index":1,"region":"plains","seed":"home-weapon-shadow_shuriken"}
+PLAINS REGION: family=mapgen areas=33 fallback=
+TERRAIN STUDY: solids=162 pieces=239 setup_ms=110
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"21548b62a2ff9c6c5fb7e8784f489c21165d1f7692c0356cfc588054ca4f837e","map_index":1,"region":"plains","seed":"home-weapon-recoil_bomb"}
+MAPGEN SEARCH attempt=0 seed=2382234107920970 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=0 seed=2382234107920970 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+PLAINS REGION: family=mapgen areas=33 fallback=
+TERRAIN STUDY: solids=154 pieces=246 setup_ms=108
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"d16e6032acc17f2908d9ac0283feba560799cfa9328b8b2e6d188de64fb6070f","map_index":1,"region":"plains","seed":"home-weapon-pulse_gun"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"home-weapon-forest"}
+PLAINS REGION: family=hollow_inner_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"9b50bf689ccce4a38e015667ef04dc3058bbce07eff12a069d0ea65acd44934a","map_index":1,"region":"thorn_forest","seed":"home-weapon-forest/thorn_forest/map_1"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"boss_impact":2,"death":4,"director_click":3,"director_enemy_hit":1,"hurt":1,"motion_jump":1,"motion_land":4,"step":12,"warning":1,"weapon_blast":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"forest":1,"home":5,"plains":2,"plains_boss":1},"track":"home"}],"released":true,"seconds":0.171}
+HOME WEAPONS: 62 assertions, 0 failures
+RUN tests/forest_campaign_runner.gd
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+FOREST_CAMPAIGN_WINDOW {"physical":[0,0],"physical_before":[0,0],"screen_scale":[1.0,1.0],"viewport":[1280,720]}
+PLAINS REGION: family=mapgen areas=33 fallback=
+TERRAIN STUDY: solids=150 pieces=239 setup_ms=95
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"e5866d61583b4444b821b52c1ec6cebbacc35b90bab0c310bffd97c3aff70eb1","map_index":1,"region":"plains","seed":"campaign-integration"}
+MAPGEN SEARCH attempt=0 seed=1382897296461016 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=0 seed=1382897296461016 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=1 seed=1683018228724173 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=1 seed=1683018228724173 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=2 seed=1747930564513958 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=2 seed=1747930564513958 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=3 seed=2563131771285993 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=3 seed=2563131771285993 reserve_from=1 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+MAPGEN SEARCH attempt=4 seed=4004149059221981 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+PLAINS REGION: family=mapgen areas=31 fallback=
+TERRAIN STUDY: solids=131 pieces=180 setup_ms=72
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/windkeeper_storm.tres","boss_scene":"res://scenes/bosses/windkeeper_pressure.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"9d3891977b0689f5fdcba98e1227001b601e1be98675f2db407f2eb0c2145912","map_index":2,"region":"plains","seed":"campaign-integration/plains/map_2"}
+FOREST_UI_EVENT {"ability":"grapple","event":"ability_selected","source_region":"plains","token":"3/4/5"}
+FOREST_UI_EVENT {"event":"region_selected","region":"thorn_forest","token":"3/4/5"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":false,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"7649e352be6e4539420a4eb2f740813b08bd0ec795d705f0c565c0b32f0cb664","map_index":1,"region":"thorn_forest","seed":"campaign-integration/thorn_forest/map_1"}
+PLAINS REGION: family=clearing_shared_node areas=40 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/thorn_queen_canopy.tres","boss_scene":"res://scenes/bosses/thorn_queen_canopy.tscn","content_version":"thorn-forest-region-v2","debug_entry":false,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"f11026f2f1a2254021725170572416181c6c32417a92142590d136bb63f4d2bd","map_index":2,"region":"thorn_forest","seed":"campaign-integration/thorn_forest/map_2"}
+FOREST_UI_EVENT {"ability":"double_jump","event":"ability_selected","source_region":"thorn_forest","token":"3/6/9"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2/@Node@3","played":{"bellstrider_death":1,"bellstrider_death_impact":1,"bellstrider_death_jam":1,"boss_impact":1,"death":1,"door":3,"motion_heavy":1,"motion_land":3,"note":2,"victory":1,"warning":6},"service":"GameAudio"},{"node":"/root/@Node2D@2/@Node@16","service":"GameMusic","starts":{"forest":2,"forest_boss":2,"home":2,"plains":1,"plains_boss":2},"track":"home"}],"released":true,"seconds":0.134}
+FOREST CAMPAIGN: 76 assertions / 0 failures

@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-HOST-WINDCHIME-041 | map-gen完整平原接入家园出发、战斗奖励与后续流程 | MAPGEN-GODOT-04 | in_progress | [交接](worklines/mapgen_host_windchime_041/scope.md) |
+| MAPGEN-HOST-WINDCHIME-041 | map-gen完整平原接入家园出发、战斗奖励与后续流程 | MAPGEN-GODOT-04 | review | [交接](worklines/mapgen_host_windchime_041/scope.md) |
 
 ## 待验收
 

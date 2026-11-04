@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=mapgen areas=34 fallback=
+TERRAIN STUDY: solids=149 pieces=252 setup_ms=93
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f79d89b9404dceb36fec6db8ea960f4f1f39d34abf904134e320a2e64f84b045","map_index":1,"region":"plains","seed":"ci-smoke"}
+PLAINS REGION: family=mapgen areas=34 fallback=
+TERRAIN STUDY: solids=149 pieces=252 setup_ms=97
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f79d89b9404dceb36fec6db8ea960f4f1f39d34abf904134e320a2e64f84b045","map_index":1,"region":"plains","seed":"ci-smoke"}
+MAPGEN SEARCH attempt=0 seed=3269173295194702 reserve_from=8 error=generation result rejected: {"error":{"message":"no_goal_and_reservation_compatible_boss","phase":"goal_aware_terminals","type":"GDScriptCandidate"},"schema":"mapgen/generation-result/v1","status":"SEARCH_EXHAUSTED"}
+PLAINS REGION: family=mapgen areas=36 fallback=
+TERRAIN STUDY: solids=154 pieces=294 setup_ms=119
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/windkeeper_storm.tres","boss_scene":"res://scenes/bosses/windkeeper_pressure.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"6e73f4af4fc387d583fd3f644e83c830e255bfb0457d7a81fd9ca7752bada15d","map_index":2,"region":"plains","seed":"ci-smoke/plains/map_2"}
+FOREST_UI_EVENT {"ability":"grapple","event":"ability_selected","source_region":"plains","token":"5/6/14"}
+FOREST_UI_EVENT {"event":"region_selected","region":"thorn_forest","token":"5/6/14"}
+PLAINS REGION: family=hollow_inner_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":false,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"3e4c05ba9eded2925dd73a054423ade43280132a43f57accc3690e8ab5946dad","map_index":1,"region":"thorn_forest","seed":"ci-smoke/thorn_forest/map_1"}
+PLAINS REGION: family=mapgen areas=34 fallback=
+TERRAIN STUDY: solids=149 pieces=252 setup_ms=104
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f79d89b9404dceb36fec6db8ea960f4f1f39d34abf904134e320a2e64f84b045","map_index":1,"region":"plains","seed":"ci-smoke"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@270","played":{"bellstrider_death":1,"bellstrider_death_impact":1,"bellstrider_death_jam":1,"death":4,"director_chest_open":1,"director_click":3,"director_denied":2,"director_enemy_hit":3,"director_item_get":2,"director_shot_pulse":4,"door":2,"enemy_defeat":1,"hurt":3,"land":1,"mechanism_bell":1,"motion_land":3,"step":4,"warning":2},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@283","service":"GameMusic","starts":{"forest":1,"home":3,"plains":1,"plains_boss":2},"track":"home"}],"released":true,"seconds":0.152}
+MAPGEN FORMAL PLAINS: 67 assertions, 0 failures
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=mapgen areas=34 fallback=
+TERRAIN STUDY: solids=149 pieces=252 setup_ms=102
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f79d89b9404dceb36fec6db8ea960f4f1f39d34abf904134e320a2e64f84b045","map_index":1,"region":"plains","seed":"ci-smoke"}
+PATH ["M01/exit -> M02/entry_right", "M02/entry_right -> M02/entry_left", "M02/entry_left -> M03/exit_upper_right", "M03/exit_upper_right -> M03/entry_left", "M03/entry_left -> M04/exit_upper_right", "M04/exit_upper_right -> M04/exit_upper_left", "M04/exit_upper_left -> M05/A", "M05/A -> M05/C", "M05/C -> M26/entry", "M26/entry -> M26/exit", "M26/exit -> M25/B", "M25/B -> M25/C", "M25/C -> M30/entry"]
+ROOM game-route-junction entry_right -> entry_left POINTS [[0, 192], [198, 206], [318, 136], [438, 136], [563, 136], [578, 206], [768, 192]]
+ROOM game-route-junction exit_upper_right -> entry_left POINTS [[0, 64], [198, 78], [268, 78], [438, 136], [563, 136], [578, 206], [768, 192]]
+ROOM game-route-junction exit_upper_right -> exit_upper_left POINTS [[0, 64], [198, 78], [268, 78], [438, 136], [508, 78], [588, 78], [768, 64]]
+ROOM junction-j06-0 A -> C POINTS [[0, 64], [245, 78], [290, 78], [315, 148], [335, 388], [335, 520], [420, 520], [420, 450], [500, 450], [570, 450], [570, 380], [650, 380], [720, 380], [720, 334], [790, 334], [896, 320]]
+ROOM game-plains-high-perches entry -> exit POINTS [[0, 320], [65, 334], [210, 224], [385, 114], [560, 78], [640, 64]]
+ROOM junction-j06-0 B -> C POINTS [[0, 576], [250, 590], [340, 520], [420, 520], [500, 450], [570, 450], [650, 380], [720, 380], [790, 334], [896, 320]]
+ROUTE RESULT true active=true ticks=1252
+MAPGEN FORMAL ROUTE: ticks=1497 accepted_boss_damage=1.0 failures=0
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"boss_impact":2,"death":1,"director_denied":1,"director_enemy_hit":1,"director_hurt":1,"director_shot_pulse":25,"hurt":1,"mechanism_bell":3,"motion_heavy":3,"motion_jump":14,"motion_land":13,"step":57,"warning":7,"weapon_wall":19},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":2,"plains":1,"plains_boss":1},"track":"home"}],"released":true,"seconds":0.161}

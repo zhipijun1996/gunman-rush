@@ -1,0 +1,46 @@
+PASS: project entry, runtime dependencies and configuration
+PASS: project (0.72s)
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (3 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | PlainsMapGeneration[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+PASS: import (7.35s)
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=mapgen areas=34 fallback=
+TERRAIN STUDY: solids=149 pieces=252 setup_ms=99
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-mapgen-v1","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f79d89b9404dceb36fec6db8ea960f4f1f39d34abf904134e320a2e64f84b045","map_index":1,"region":"plains","seed":"ci-smoke"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"death":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":2,"plains":1},"track":"home"}],"released":true,"seconds":0.161}
+CI SMOKE: 10 assertions, 0 failures
+PASS: smoke (7.97s)
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+VARIABLE JUMP PEAKS: tap=62.321 medium=82.932 long=116.643 overhold=150.366
+HUD LAYOUT min=(220.0, 9.0) size=(220.0, 9.0) font=1 outline=0
+PASS GROUP: modular health/stamina, typed receipts, independent state and real action chain
+PASS GROUP: frame damage ordering, selective safe segment return and lifetime
+CI CONTRACTS: 239 assertions, 0 failures
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+META NOTES SAVE: 39 assertions, 0 failures
+PASS: contracts (1.55s)
+CI: 4 checks passed in 17.58s
