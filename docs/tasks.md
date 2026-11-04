@@ -6,6 +6,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| CI-SLIMDOWN-01 | 四项日常CI与显式手动专项，PR133已合入 | — | review | [工作线](worklines/ci_slimdown_01/results.md) |
 | CODEX-CONTEXT-01 | 精简当前文档、Skill与交接 | — | in_progress | [工作线](worklines/codex_context_01/scope.md) |
 | MAPGEN-HOST-WINDCHIME-041 | 0.4.1真实生成/多端口准入/完整起点钟门与最终集成 | MAPGEN-GODOT-04 | review | [结果](worklines/mapgen_041_windchime/results.md) |
 | CI-SELECTED-INPUTS-01 | prepare精确同run输入工件复用与可见进度 | MAPGEN-GODOT-04 | review | [结果](worklines/mapgen_041_windchime/results.md) |

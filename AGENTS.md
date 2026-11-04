@@ -20,7 +20,7 @@ Godot 4.7.2 Standard、类型化 GDScript 动作肉鸽。正式入口：`project
 
 ## 验证与交接
 
-先用 `python3 tools/production_plan.py --stage development --base <任务基线>` 选择检查；执行加 `--execute`。具体命令、输入预检和集成要求见 [Harness](docs/harness.md)。计划与执行结果分别记录。
+日常验证运行 `python3 tools/ci.py`（project／import／smoke／contracts 四项）。开发按修改选择相关专项：`python3 tools/harness.py --list` 查看命令，`--check <ID>` 执行；纯文档可直接运行 `python3 tools/check_docs.py`。具体方法见 [Harness](docs/harness.md)，只声明实际执行范围。
 
 交接更新任务自己的工作线文件：分支／SHA、写集与负责人、完成项、已执行检查及证据、阻塞、下一动作。任务表仅更新一行；产品行为改变时更新当前状态及对应设计正文。
 

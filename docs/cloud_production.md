@@ -22,9 +22,9 @@
 
 ## 验证
 
-开发先执行相关短专项，集成补足受影响系统。使用 [Harness](harness.md) 和现有 `production_plan.py`，保存真实基线、选定输入及执行收据。证据复用要求依赖身份一致。源码冻结后执行集成检查，完整CI核精确提交及 `affected` 合流结果。
+日常运行`python3 tools/ci.py`四项检查。开发从 [模块导航](module_map.md) 和 [Harness](harness.md) 选择相关专项，保持脚本原断言、预算和退出判定。记录具体命令、版本与实际覆盖。
 
-质量类型、G0–G5与十一维只在 [开发质量](development_quality.md)／[policy](quality/policy.json) 维护。任务交付明确技术、GUI、独审、用户及设备分别验证了什么。
+质量卡和专业G0–G5方法仅在需要管理重要内容验收时使用，规范见 [开发质量](development_quality.md)。纯工程／文档不自动扩成完整游戏、用户或设备验收。
 
 ## 交付
 

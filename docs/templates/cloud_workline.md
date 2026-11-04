@@ -9,7 +9,7 @@
 - 负责人／允许修改路径：
 - 共享接口／依赖任务与SHA：
 - 相关设计／Skill／运行入口：
-- 验证计划：`python3 tools/production_plan.py --stage development --base <SHA>`
+- 验证计划：四项CI／与本次修改相关的显式专项及其入口
 
 ## 当前交接
 

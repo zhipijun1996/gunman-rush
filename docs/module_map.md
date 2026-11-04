@@ -1,8 +1,8 @@
 # 功能、代码、设计与验证
 
-先选任务所在行，再在该行代码目录检索。检查ID对应 `tools/harness/profiles.json`，执行方式见 [Harness](harness.md)。只加载相关设计与Skill。
+先选任务所在行，再在该行代码目录检索。手动检查ID对应 `tools/harness/profiles.json`，日常CI使用 `tools/ci.py` 四项，执行方式见 [Harness](harness.md)。只加载相关设计与Skill。
 
-| 修改主题 | 真实代码入口／关键符号 | 设计 | Harness检查ID |
+| 修改主题 | 真实代码入口／关键符号 | 设计 | 检查入口 |
 | --- | --- | --- | --- |
 | 正式入口与一局装配 | [DemoApp](../game/application/demo_app.gd)、[RunComposition](../game/application/run_composition.gd)、[RunSession](../game/application/run_session.gd) | [架构](architecture.md)、[流程](run_and_routes.md) | `core` |
 | 能力与地区推进 | [RunCampaignProgression](../game/application/run_campaign_progression.gd)、`DemoApp._select_next_region` | [流程](run_and_routes.md)、[地区门槛](design/player_actions/regions_v0.3.md) | `core`、`level-region-context` |
@@ -21,8 +21,8 @@
 | mapgen风铃／端口／机制 | [RuntimeMapV2Provider](../game/world/levels/providers/runtime_map_v2_provider.gd)、[风铃开发入口](../experiments/generation/runtime_map_windchime_slice.gd)、`game/world/levels/content/` | [生成](procedural_generation.md)、[工作线](worklines/mapgen_041_windchime/scope.md) | `runtime-map-windchime`；runner入口为 [聚合检查](../tools/check_runtime_map_windchime.py) |
 | 普通怪／Boss | [EnemyFactory](../game/enemies/enemy_factory.gd)、[BossFactory](../game/bosses/encounter/boss_factory.gd)、`game/enemies/`、`game/bosses/` | [敌人与Boss](enemies_and_bosses.md)、目标物种设计 | `enemy-structure-native`、对应Boss专项 |
 | 世界画面／动作／音频 | `game/presentation/`、`game/player/presentation/`、[GameAudio](../game/presentation/audio/game_audio.gd) | [Visual Bible](visual_bible.md)、[动画](animation_vfx_standards.md)、[创作入口](creative_direction/README.md) | 对应 `underworld-*`／音频检查 |
-| Web与发布 | `tools/build.py`、`tools/web/`、`.github/workflows/` | [Harness](harness.md)、[交付](cloud_production.md) | `web` profile及影响计划 |
-| 文档／上下文／Skill | `AGENTS.md`、本导航、`.agents/skills/`、`tools/check_docs.py`、`tools/check_project.py` | [协作](cloud_production.md)、[开发质量](development_quality.md) | `docs`、`structure`、`quality`、`level-region-context` |
+| Web与发布 | `tools/build.py`、`tools/web/`、`.github/workflows/` | [Harness](harness.md)、[交付](cloud_production.md) | 手动 `web-cache`／`web-build`／`web-bundle` |
+| 文档／上下文／Skill | `AGENTS.md`、本导航、`.agents/skills/`、`tools/check_docs.py`、`tools/check_project.py` | [协作](cloud_production.md)、[开发质量](development_quality.md) | `python3 tools/check_docs.py`、`python3 tests/test_context_navigation.py`；按需 `level-region-context` |
 
 ## 目录职责与保留路径
 

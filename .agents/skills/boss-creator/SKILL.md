@@ -17,6 +17,6 @@ description: 新Boss，或Boss机制、阶段与核心招式重构。
 
 ## 验证与交付
 
-覆盖连续两次恢复、阶段边界、玩家与Boss同帧死亡、取消和奖励重复领取。相关Boss专项由Harness计划选择；交付招式时序、完整遭遇录像、状态与奖励收据。
+覆盖连续两次恢复、阶段边界、玩家与Boss同帧死亡、取消和奖励重复领取。相关Boss专项显式选择；交付招式时序、完整遭遇录像、状态与奖励收据。
 
 任务使用 [现有设计卡](../../../docs/templates/boss_design.md)。质量阶段、独立审查、证据与未验声明共用 [开发质量](../../../docs/development_quality.md)；验证选择见 [Harness](../../../docs/harness.md)，代码落点见 [模块导航](../../../docs/module_map.md)。

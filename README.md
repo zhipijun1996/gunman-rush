@@ -13,12 +13,12 @@ Godot 4.7.2 Standard 动作肉鸽原型，以射击反冲、平台动作和随�
 Codex 从 [AGENTS.md](AGENTS.md) 开始；按 [任务索引](docs/tasks.md) 和模块导航加载所需上下文。
 
 ```sh
-bash tools/cloud_setup.sh --godot-only
+python3 tools/setup_environment.py --engine-only
 bash tools/godot.sh --path .
-python3 tools/production_plan.py --stage development --base origin/main
+python3 tools/ci.py
 ```
 
-实际执行计划加 `--execute`；直接选择专项及输入物化见 [Harness](docs/harness.md)。素材工具依赖按需安装：`python3 -m pip install -r tools/requirements_art.txt`。导出使用 `tools/build.py`，生成物进入 `build/`。
+开发专项通过 `tools/harness.py --check <ID>` 显式选择，见 [Harness](docs/harness.md)。素材工具依赖按需安装：`python3 -m pip install -r tools/requirements_art.txt`。导出使用 `tools/build.py`，生成物进入 `build/`。
 
 | 需要了解 | 入口 |
 | --- | --- |

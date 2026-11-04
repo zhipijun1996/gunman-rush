@@ -17,6 +17,6 @@ description: 主角整体设计、成套动作或操作表现改造。
 
 ## 验证与交付
 
-覆盖左右朝向、瞄准角、跳跃／反冲衔接、暂停／死亡及真实UI。相关 `core`、`weapon-feel` 和人物表现专项由影响计划选择；交付状态表、合屏和正常速度录像。
+覆盖左右朝向、瞄准角、跳跃／反冲衔接、暂停／死亡及真实UI。相关 `core`、`weapon-feel` 和人物表现专项按实际修改选择；交付状态表、合屏和正常速度录像。
 
 任务使用 [现有设计卡](../../../docs/templates/player_design.md)。质量阶段、独立审查、证据与未验声明共用 [开发质量](../../../docs/development_quality.md)；验证选择见 [Harness](../../../docs/harness.md)，代码落点见 [模块导航](../../../docs/module_map.md)。
