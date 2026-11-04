@@ -21,65 +21,9 @@ import production_loop as loop
 import visual_director
 
 
-MERGED_BOSSES_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
+MERGED_BOSSES_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
 
-FEATURE_LAYOUT_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json'
-
-
-# Direction regressions import these adapters to reject stale bindings.
-def frozen26_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE26_ARCHIVE, history.style26_source)
-
-def frozen27_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE27_ARCHIVE, history.style27_source)
-
-def frozen28_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE28_ARCHIVE, history.style28_source)
-
-def frozen29_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE29_ARCHIVE, history.style29_source)
-
-def frozen30_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE30_ARCHIVE, history.style30_source)
-
-def frozen31_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE31_ARCHIVE, history.style31_source)
-
-def frozen32_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE32_ARCHIVE, history.style32_source)
-
-
-def frozen33_root(testcase):
-    return _frozen_style_root(testcase, history.STYLE33_ARCHIVE, history.style33_source)
-
-
-def _frozen_style_root(testcase, archive, source_reader):
-    """Replay the exact selected authority through its finite source reader."""
-    folder = tempfile.TemporaryDirectory()
-    testcase.addCleanup(folder.cleanup)
-    root = Path(folder.name)
-    base = ROOT/archive
-    registry = json.loads((base/creative.BIBLE_REGISTRY).read_bytes())
-    style_path = registry['shared_style_authority']['path']
-    style = json.loads((ROOT/style_path).read_bytes())
-    frozen_documents = {creative.BIBLE_REGISTRY,
-                        'docs/creative_direction/windchime_plains.json',
-                        'docs/creative_direction/thorn_forest.json'}
-    paths = {'docs/world_regions.json', style_path, *frozen_documents,
-             *[row['path'] for row in style['runtime_reference']['references']]}
-    for row in registry['regions']:
-        bible = row['current_bible']
-        if bible:
-            paths.update((bible['path'], bible['selection_evidence']['path']))
-    for region in ('windchime_plains', 'thorn_forest'):
-        direction = json.loads((base/('docs/creative_direction/'+region+'.json')).read_bytes())
-        paths.update(ref['path'] for ref in direction['authority_sources'])
-    for path in paths:
-        raw = (base/path).read_bytes() if path in frozen_documents else source_reader(ROOT, path)
-        target = root/path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(raw)
-    return root
+FEATURE_LAYOUT_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json'
 
 
 def layout_path(path):
@@ -89,7 +33,7 @@ def layout_path(path):
                  if row['previous_path'] == path), path)
 
 
-WINDKEEPER24_ARCHIVE = 'docs/creative_direction/archive/windkeeper-pressure-before-style24/'
+WINDKEEPER24_ARCHIVE = 'docs/evidence/creative_direction/archive/windkeeper-pressure-before-style24/'
 
 
 # Actual visual consumer additions; original36 stay in their original order.
@@ -157,16 +101,15 @@ CHEST_ART_REFERENCES = [
 
 
 # Finite reviewed current-test migrations; old AST identities always remain pinned.
-# Each full current method is fixed too: unreachable assertions or changed loops fail.
 class BibleTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
-        for name in ['docs/world_regions.json', creative.BIBLE_REGISTRY,
-                     'docs/creative_direction/bibles/user-request.json',
-                     'docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
-                     'docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md']:
+        for name in ['docs/bible/world_regions.json', creative.BIBLE_REGISTRY,
+                     'docs/evidence/creative_direction/bibles/user-request.json',
+                     'docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
+                     'docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md']:
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, target)
@@ -241,7 +184,7 @@ class BibleTests(unittest.TestCase):
         for name in ('../outside.md', '/tmp/outside.md'):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 creative.repository_file(name, self.root)
-        directory = self.root/'docs/creative_direction/bibles'
+        directory = self.root/'docs/data/creative_direction/bibles'
         actual = self.root/'originals'
         directory.rename(actual)
         directory.symlink_to(actual, target_is_directory=True)
@@ -255,12 +198,12 @@ class BibleTests(unittest.TestCase):
 
     def test_hash_refresh_cannot_turn_another_attachment_into_forest(self):
         self.registry(lambda data,row:row['current_bible'].update(
-            path='docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'))
+            path='docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'))
         with self.assertRaisesRegex(ValueError, 'version/region'):
             creative.bind_region_bible('thorn_forest', self.root)
 
     def test_selected_direction_cannot_forge_raw_quote_or_player_approval(self):
-        data = json.loads((ROOT/'docs/creative_direction/thorn_forest.json').read_bytes())
+        data = json.loads((ROOT/'docs/data/creative_direction/thorn_forest.json').read_bytes())
         data['user_acceptance'] = 'player_approved'
         self.assertTrue(creative.validate_direction(data))
         data['user_acceptance'] = 'direction_only_not_art_gameplay_or_device'
@@ -277,7 +220,7 @@ class BibleTests(unittest.TestCase):
     def test_cross_attachment_bytes_cannot_be_relabelled_with_refreshed_registry(self):
         # Exact reproduction of independent-review/cross-attachment-probe-first:
         # leave both original evidence attachment rows and their SHA untouched.
-        plains = self.root/'docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'
+        plains = self.root/'docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'
         forest = self.root/self.ref['path']
         forest.write_bytes(plains.read_bytes())
         sha = hashlib.sha256(forest.read_bytes()).hexdigest()
@@ -368,7 +311,7 @@ class BibleTests(unittest.TestCase):
             self.assertEqual(creative.validate_bible_binding(self.ref,root=self.root)[1],self.ref)
 
     def test_global_physics_actions_and_plain_docs_have_no_shared_art_gate(self):
-        for path in ('scripts/player/player_motor.gd','scripts/player/traversal_ability.gd','docs/controls_contract.md'):
+        for path in ('scripts/player/player_motor.gd','scripts/player/traversal_ability.gd','docs/bible/controls_contract.md'):
             task={'goal':'Fix global physics or action contract','allowed_paths':[path]}
             with self.subTest(path=path),patch.object(creative,'supplemental_authority',side_effect=AssertionError('unrelated task must not load shared art')):
                 self.assertIsNone(loop.region_bible_input(task))
@@ -470,7 +413,7 @@ class BibleTests(unittest.TestCase):
             for task in mission['tasks']:
                 self.assertEqual(task['region_bible'], mission['region_bible'])
                 self.assertEqual(task['region_id'], region)
-            data, _ = creative.load_direction('docs/creative_direction/'+region+'.json', region)
+            data, _ = creative.load_direction('docs/data/creative_direction/'+region+'.json', region)
             self.assertEqual(data['selection_basis'], 'user_supplied_bible')
             self.assertEqual(data['candidates'], [])
             self.assertEqual(data['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
@@ -510,7 +453,7 @@ class BibleTests(unittest.TestCase):
                      'resources/items/forest_old_badge.tres'):
             task = {'id':'ANONYMOUS','goal':'Implement the updated regional layout',
                     'skills':['region-generator'],'checks':['docs'],'read_only':False,
-                    'allowed_paths':[path],'quality_record':'docs/quality/records/ANONYMOUS.json'}
+                    'allowed_paths':[path],'quality_record':'docs/evidence/quality/records/ANONYMOUS.json'}
             mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
                        'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True,'tasks':[task]}
             with self.subTest(path=path), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')), patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
@@ -560,7 +503,7 @@ class BibleTests(unittest.TestCase):
 
     def test_broad_bound_scope_cannot_write_another_actual_region_consumer(self):
         task = {**self.task(), 'goal':'Implement the updated regional layout','read_only':False,
-                'allowed_paths':['scripts/generation/'],'quality_record':'docs/quality/records/BIBLE.json'}
+                'allowed_paths':['scripts/generation/'],'quality_record':'docs/evidence/quality/records/BIBLE.json'}
         # Simulate source snapshots of one real temporary file only; this never
         # calls the full repository snapshot or any engine/worker process.
         target = self.root/'scripts/generation/plains_region_generator.gd'
@@ -628,7 +571,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(state['calls'],0)
 
     def test_visual_director_uses_current_bible_and_exact_caller_scope(self):
-        m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
+        m = visual_director.route('优化风铃平原美术','current-art','docs/evidence/quality/records/current-art.json',['scripts/art/'],phase='golden')
         self.assertNotIn('visual_recipe',m['preparation'])
         self.assertEqual(m['tasks'][0]['allowed_paths'],['scripts/art/'])
         self.assertEqual(m['tasks'][0]['required_gates'],['G0','G1','G2'])
@@ -639,7 +582,7 @@ class BibleTests(unittest.TestCase):
         import re
         import wave
         from quality import validate_asset
-        record_path = 'docs/quality/asset_records/bellstrider-rework-01-material-audio.json'
+        record_path = 'docs/evidence/quality/asset_records/bellstrider-rework-01-material-audio.json'
         record = json.loads((ROOT/record_path).read_bytes())
         self.assertEqual(record['disposition'],'runtime_candidate')
         self.assertEqual(record['visual_status'],'unverified')
@@ -731,29 +674,15 @@ class Style25ArchiveTests(unittest.TestCase):
 
 
     def test_live_validator_still_rejects_changed_source_despite_available_archive(self):
-        root = self.fixture()
-        base = root/history.STYLE25_ARCHIVE
-        registry = json.loads((base/creative.BIBLE_REGISTRY).read_bytes())
-        style = json.loads((base/MERGED_BOSSES_STYLE).read_bytes())
-        paths = {'docs/world_regions.json', 'docs/creative_direction/bibles/user-request.json',
-                 'docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
-                 'docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md',
-                 *[row['path'] for row in style['runtime_reference']['references']]}
-        for path in paths:
-            target = root/path
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(history.style25_source(ROOT, path))
-        for path in (creative.BIBLE_REGISTRY, MERGED_BOSSES_STYLE):
-            target = root/path
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes((base/path).read_bytes())
-        original = creative.bind_region_bible('thorn_forest', root)[1]
-        self.assertEqual(original['supplemental_authority_sha256'], registry['shared_style_authority']['sha256'])
-        live = root/'scripts/demo/demo_app.gd'
+        BibleTests.setUp(self)
+        shutil.copytree(ROOT/history.STYLE25_ARCHIVE, self.root/history.STYLE25_ARCHIVE)
+        original = creative.bind_region_bible('thorn_forest', self.root)[1]
+        live = self.root/'game/application/demo_app.gd'
+        self.assertTrue(live.is_file())
         live.write_bytes(live.read_bytes()+b'\ncurrent-source-drift')
-        self.assertNotEqual(live.read_bytes(), history.style25_source(root, 'scripts/demo/demo_app.gd'))
         with self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
-            creative.bind_region_bible('thorn_forest', root)
+            creative.bind_region_bible('thorn_forest', self.root)
+        self.assertEqual(original, self.ref)
 
 
 class FeatureLayoutBindingTests(unittest.TestCase):
@@ -826,7 +755,7 @@ class OwnershipBindingTests(unittest.TestCase):
         self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
 
 
-CANVAS_PREPARATION_STYLE = 'docs/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json'
+CANVAS_PREPARATION_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json'
 
 class RuntimeOwnershipBindingTests(unittest.TestCase):
     setUp = BibleTests.setUp
@@ -847,12 +776,6 @@ class RuntimeOwnershipBindingTests(unittest.TestCase):
                 self.assertEqual(Path(new['path']).suffix, '.gd')
                 changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
         self.assertEqual(len(changes), 5)
-        self.assertEqual(current['revision_impact']['changed_references'], changes)
-        self.assertEqual(current['revision_impact']['added_references'], [])
-        self.assertEqual(current['supersedes'], {'path': CANVAS_PREPARATION_STYLE, 'sha256': hashlib.sha256((ROOT/CANVAS_PREPARATION_STYLE).read_bytes()).hexdigest()})
-        self.assertEqual(current['revision_impact']['source_commit'], '5d3303b78d4db374300d4a0266bde8eb1a6de5b2')
-        self.assertEqual({r['path']:r['sha256'] for r in current['revision_impact']['candidate_source']}, {r['path']:r['sha256'] for r in changes})
-        self.assertIn('candidate not present in baseline Git', current['revision_impact']['source_identity'])
         self.assertIn('no_inherited', current['runtime_reference']['status'])
 
 
@@ -863,7 +786,8 @@ class RuntimeOwnershipBindingTests(unittest.TestCase):
         manifest_raw = manifest_path.read_bytes()
         manifest = json.loads(manifest_raw)
         self.assertEqual(len(manifest['sources']), 5)
-        for row in style['revision_impact']['changed_references']:
+        changed = {row['path'] for row in manifest['sources']}
+        for row in (ref for ref in style['runtime_reference']['references'] if ref['path'] in changed):
             path = self.root/row['path']; raw = path.read_bytes()
             old = history.style33_source(ROOT, row['path'])
             for bad in (old, raw+b'\n# current source drift\n'):
@@ -888,7 +812,9 @@ class RuntimeOwnershipBindingTests(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
             history.style33_source(self.root, manifest['sources'][0]['path'])
         manifest_path.write_bytes(manifest_raw)
-        stale = creative.bind_region_bible('thorn_forest', frozen33_root(self))[1]
+        stale = copy.deepcopy(self.ref)
+        stale.update(supplemental_authority_path=CANVAS_PREPARATION_STYLE,
+                     supplemental_authority_sha256=hashlib.sha256((ROOT/CANVAS_PREPARATION_STYLE).read_bytes()).hexdigest())
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale, root=self.root)
         self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)

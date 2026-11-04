@@ -139,7 +139,7 @@ def region_bible_input(task):
         return None
     from level_region_context import region_write_scope, resolve_region_id
     scope = region_write_scope(task.get("allowed_paths", []), root=ROOT)
-    if (ROOT / "docs/world_regions.json").is_file():
+    if (ROOT / "docs/bible/world_regions.json").is_file():
         named = resolve_region_id(task.get("goal", ""), root=ROOT)
         if named:
             declared.add(named)
@@ -208,8 +208,8 @@ def spatial_experiment_input(task):
     if task.get("quality_task_id") in [task["id"], *task.get("depends_on", [])]:
         record_ids.add(task['quality_task_id'])
     record = task.get("quality_record", "")
-    expected_records = {f"docs/quality/records/{identifier}.json" for identifier in record_ids}
-    scoped_record = any(re.fullmatch(r"docs/worklines/[A-Za-z0-9_-]+/quality/" + re.escape(identifier) + r"\.json", record)
+    expected_records = {f"docs/evidence/quality/records/{identifier}.json" for identifier in record_ids}
+    scoped_record = any(re.fullmatch(r"docs/project/worklines/[A-Za-z0-9_-]+/quality/" + re.escape(identifier) + r"\.json", record)
                         for identifier in record_ids)
     if record not in expected_records and not scoped_record:
         raise ValueError("Spatial quality record must be an exact task-bound JSON in records or the topic workline")
@@ -219,7 +219,7 @@ def spatial_experiment_input(task):
     if (data["design"].get("direction_path") != direction.get("path")
             or data["design"].get("direction_sha256") != direction.get("sha256")):
         raise ValueError("Spatial design belongs to a different creative direction path/hash; rethink before lease")
-    permitted = set(ref["allowed_paths"]) | {task.get("quality_record"), "docs/tasks.md"}
+    permitted = set(ref["allowed_paths"]) | {task.get("quality_record"), "docs/project/tasks.md"}
     if set(task.get("allowed_paths", [])) != permitted:
         raise ValueError("Spatial experiment task must use the exact authorized file write set")
     return {"path": ref["path"], "sha256": ref["sha256"], "content": data}
@@ -461,15 +461,15 @@ def required_input_preflight(task):
                 if not members and declared.rstrip("/") not in tracked:
                     warnings.append({"index": declared, "warning": "declared_input_has_no_tracked_match"})
     if "tools/check_quality.py" in commands:
-        policy = json_index("docs/quality/policy.json")
+        policy = json_index("docs/project/policy.json")
         for path in policy.get("templates", []):
-            require(path, "docs/quality/policy.json templates")
-        for path in ("docs/tasks.md", "docs/development_quality.md", "docs/quality/README.md"):
+            require(path, "docs/project/policy.json templates")
+        for path in ("docs/project/tasks.md", "docs/project/development.md", "docs/project/quality.md"):
             require(path, "global quality index")
         for name in files:
             if name.startswith(".agents/skills/") and name.endswith("/SKILL.md"):
                 markdown_links(name)
-            if name.startswith(("docs/quality/records/", "docs/quality/asset_records/")) and name.endswith(".json"):
+            if name.startswith(("docs/evidence/quality/records/", "docs/evidence/quality/asset_records/")) and name.endswith(".json"):
                 data = json_index(name)
                 if not isinstance(data, dict):
                     continue
@@ -490,17 +490,17 @@ def required_input_preflight(task):
                     if isinstance(ref, dict): require(ref.get("path"), name)
     if "tools/check_docs.py" in commands:
         for name in files:
-            if name.endswith(".md") and not name.startswith(("docs/evidence/", "docs/archive/", "docs/creative_direction/archive/")) and file_state(name) != "missing":
+            if name.endswith(".md") and not name.startswith(("docs/evidence/", "docs/evidence/archive/", "docs/evidence/creative_direction/archive/")) and file_state(name) != "missing":
                 markdown_links(name, existence_only=True)
     # These real registered consumers call route_request/load_lessons. Sparse
     # knowledge must stop before a worker, not during its downstream test.
     lesson_consumers = {"tests/test_visual_director.py", "tests/test_production_loop.py",
                         "tests/test_level_design_routing.py"}
     if commands & lesson_consumers:
-        ledger = json_index("docs/quality/level_lessons.json")
+        ledger = json_index("docs/evidence/quality/level_lessons.json")
         for lesson in ledger.get("lessons", []):
             for ref in lesson.get("evidence", []):
-                require(ref.get("path"), "docs/quality/level_lessons.json")
+                require(ref.get("path"), "docs/evidence/quality/level_lessons.json")
     # Direction regression deliberately loads these preserved revision snapshots
     # to reject them against current authority. Their dynamically assembled paths
     # are real selected inputs even when docs/evidence stays sparse.
@@ -1130,7 +1130,7 @@ def check_task_quality(task, *, reviewer_identity=None):
         acceptance["errors"].extend(problems)
         if problems:
             acceptance["task_complete"] = False
-    content_hash = digest({p: h for p, h in snapshot().items() if not p.startswith("docs/quality/records/")})
+    content_hash = digest({p: h for p, h in snapshot().items() if not p.startswith("docs/evidence/quality/records/")})
     expected_id = task.get("quality_task_id", task["id"])
     if record["task_id"] != expected_id or record.get("production_snapshot") != content_hash:
         acceptance["errors"].append("Quality record lacks current production_snapshot/task binding")
@@ -1574,7 +1574,7 @@ def mission_bible_preflight(m):
     from region_creative_direction import validate_bible_binding
     region = m.get("preparation", {}).get("region_context", {}).get("region_id")
     intent_error = None
-    if region is None and (ROOT / "docs/world_regions.json").is_file():
+    if region is None and (ROOT / "docs/bible/world_regions.json").is_file():
         from level_region_context import resolve_region_id
         try:
             region = resolve_region_id(m.get("objective", ""), root=ROOT)

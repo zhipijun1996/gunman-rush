@@ -19,7 +19,7 @@ def review(sample):
 
 def main():
     count = 0
-    for path in sorted((ROOT / 'docs/quality/drills').glob('*.json')):
+    for path in sorted((ROOT / 'docs/evidence/quality/drills').glob('*.json')):
         sample = read_json(path)
         result = review(sample)
         print(json.dumps(result, ensure_ascii=False))

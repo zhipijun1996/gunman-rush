@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "task_id": "COMBAT-PERF-DEPLOY-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+  "reviewed_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+  "content_version": "combat-perf-deploy-v1",
+  "owner": "/root",
+  "purpose": "收敛实际战斗热点，保持原行为并以最终同源完整验证后部署试玩。",
+  "player_experience": "已部署本轮热点优化试玩；没有手机FPS或玩家体感认可声明。",
+  "constraints": [
+    "保物理/碰撞/伤害/资源/奖励/RNG/存档/图声",
+    "保原注册219/full171/预算与失败证据，不以局部拼成full",
+    "最终F及实际交付证据已绑定；局部CPU/云端通过不代签手机、玩家、完整正式覆盖或G5。"
+  ],
+  "affected_paths": [
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "game/enemies/presentation/enemy_feedback_01_frames.gd",
+    "game/enemies/presentation/enemy_feedback_01_remains.gd",
+    "game/enemies/presentation/plains_revision_flora.gd",
+    "game/enemies/presentation/plains_revision_pose.gd",
+    "game/enemies/presentation/plains_revision_skin.gd",
+    "game/loadout/effects/item_art_library.gd",
+    "game/loadout/effects/item_companion_effects.gd",
+    "game/loadout/effects/item_runtime.gd",
+    "tests/enemy_feedback_01_tests.gd",
+    "tests/item_v5_actives_runner.gd",
+    "tests/item_v5_art_runner.gd",
+    "tests/item_v5_formal_runner.gd",
+    "tests/plains_motion_loot_02_motion.gd",
+    "tests/plains_revision_deform_equivalence_runner.gd",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/check_quality_diff.py",
+    "tools/harness/profiles.json",
+    "tools/region_style_history.py"
+  ],
+  "deliverables": [
+    "有限热点补丁与原正反例/非作者独审",
+    "准确区分editor/release和整帧/核测量的性能证据",
+    "最终F完整171与原同runWeb/API/浏览器/PCK链",
+    "prepared实际发布与公开完整SHA/GUI收据"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户优化后部署授权、写集、原行为及失败保留边界已明确。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "最终F原完整171与实际同run包、原浏览器/PCK/影片及公开完整SHA技术链通过；不代签G5。",
+      "evidence": [
+        "final-ci",
+        "api-browser",
+        "pack13",
+        "movie2300",
+        "pages",
+        "public-sha"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本任务为保持行为的small_fix，门槛采用现有G0/G4；正式消费者及设备边界仍在十一维单列。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "有限性能目标及原行为约束已记录，不新增玩法或美术方向。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "精确F实际技术交付链通过，预算/失败原件保留。",
+      "evidence": [
+        "final-ci",
+        "api-browser",
+        "pack13",
+        "movie2300",
+        "pages",
+        "public-sha"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "实际选定正式入口GUI通过，但consumer_coverage仍null，不能签全消费者正式覆盖。",
+      "evidence": [
+        "public-gui"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "本轮没有新视觉采用；公开有限入口截图不是用户审美认可。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "同源练习影片已录，不替代全战斗动作/玩家验收。",
+      "evidence": [
+        "movie2300"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "48k stereo影片保留原声，未作用户听感与整场视听认可。",
+      "evidence": [
+        "movie2300"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "原回归通过不等于玩法趣味性或玩家体感认可。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Release暖查询和Root三态局部CPU改善已测；首构造冷代价保留，未验手机/整帧P95/P99。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "已有非作者代码/数学/技术绑定有限独审原件保留；未将旧候选审查改签为最终F全质量验收。",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "实体手机未测，云端/SwiftShader不代签。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "用户授权优化后部署，不等于玩家已认可当前效果。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope-behavior",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "有限性能优化",
+      "method": "原scope限定所有者及不变行为",
+      "expected": "目标与原玩法/图声边界明确",
+      "failure": "范围不明或改变规则",
+      "status": "passed",
+      "reason": "原scope字节不变，按授权推进。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "final-source-delivery",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "最终F同源实际交付",
+      "method": "原171+同runZIP+三浏览器+PCK+影片+prepared+公开SHA",
+      "expected": "原门禁/预算全部通过且源包身份一致",
+      "failure": "任一失败/超时/身份漂移",
+      "status": "passed",
+      "reason": "实际原收据完整保留，未用局部拼full。",
+      "evidence": [
+        "final-ci",
+        "api-browser",
+        "pack13",
+        "movie2300",
+        "pages",
+        "public-sha"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/worklines/combat_perf_deploy_01/scope.md",
+      "sha256": "716b602dd293248564a6085ee8a03f431d5f422c8866da3dbacf69b3f96f66cd",
+      "kind": "spec",
+      "producer": "/root/ci_audit",
+      "source_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "按用户授权、现行AGENTS和既有消费者/交付接口记录有限范围；基点是e42，后继WIP未伪称已提交。",
+      "observed": "优化后部署已授权；最终源码/全量CI/新包/手机性能仍未验。"
+    },
+    {
+      "id": "local-scoped",
+      "path": "docs/evidence/combat_perf_deploy_01/summary.json",
+      "sha256": "d9bdc6b00bfa12fcc8784e6ba115ceddb44cddf403a242fe4dac6a854ef2b8d0",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e42b277f37425458a2920815258d1cfc817acfc3",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原10项实际消费者分组执行（5+4+修正后native1），原命令/预算/严格错误退出；分别保留e42+WIP叶向量和失败原件，不拼为full。",
+      "observed": "全部选定回归通过；原失败618/3保留，修正夹具后623/0。部署及最终同源完整CI待验。",
+      "command": "python3 tools/harness.py --check <original selected IDs recorded in reports> --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Managed cloud; locked Godot4.7.2 gunman_sd1; bounded synthetic measurements not phoneFPS."
+    },
+    {
+      "id": "final-ci",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/ci-summary.json",
+      "sha256": "5d6883b5d673bfdbe96e68e21bb0ad525982cc5cdfbc7ef53ae6f8a141473de3",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "171 fresh/0reuse/0fail, Windows/Web/GPU/audio; same-prepare56generateddirty retained.",
+      "command": "environment.yml run41382432305 attempt1; original full parallel92 + serial79, merged171",
+      "exit_code": 0,
+      "environment": "Locked Godot4.7.2 gunman_sd1; original cloud/native/browser budgets; not physical-device approval."
+    },
+    {
+      "id": "api-browser",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/browser-receipt.json.gz",
+      "sha256": "ab8123c370bad8d0e24b93e734a04cb1de692aec981df2c1f7445495b292f719",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "Original three consumers73 passed,155.401/226.419/133.197s; original300s each; source/ZIP/served stable.",
+      "command": "python3 tools/verify_ci_artifact_browser.py --commit 60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50 --run-id 41382432305 --attempt 1 --run-api <recorded run-api> --artifact-api <recorded artifact-api> --artifact-zip <original verified ZIP> --output build/combat-perf-deploy-ci-browser",
+      "exit_code": 0,
+      "environment": "Locked Godot4.7.2 gunman_sd1; original cloud/native/browser budgets; not physical-device approval."
+    },
+    {
+      "id": "pack13",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/pack-probe-receipt.json",
+      "sha256": "e826029bf104a3d21b1346de628f63b11322e05684b1ee995d11852920897603",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "Original13/0 in emptycwd, actualCI PCK and source unchanged.",
+      "command": "bash tools/godot.sh --headless --audio-driver Dummy --main-pack <actual verified PCK> --script <absolute tools/check_recorded_enemy_pack.gd>",
+      "exit_code": 0,
+      "environment": "Locked Godot4.7.2 gunman_sd1; original cloud/native/browser budgets; not physical-device approval."
+    },
+    {
+      "id": "movie2300",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/native-movie-receipt.json",
+      "sha256": "744be7ea94ec6e439862dc7e27afdddd2fe25bc6dedd8ef54aef9c6fca48a71e",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "Fresh second movie2300frames/38.366667s; full sourceprepostequal; practice scope only.",
+      "command": "python3 tools/capture_actions.py",
+      "exit_code": 0,
+      "environment": "Locked Godot4.7.2 gunman_sd1; original cloud/native/browser budgets; not physical-device approval."
+    },
+    {
+      "id": "pages",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/pages-review.json",
+      "sha256": "e62ba3df6bcdff6c484785b6b079fd90fe54ba803d54845ed1915ac126454874",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "Actual preparedP checkout/rebuild/Pages success.",
+      "command": "deploy-prepared-playtest.yml run41390679708 prepared_ref=f55e3cfc7d7867c672d76f5887fc3694c62502c8",
+      "exit_code": 0,
+      "environment": "Locked Godot4.7.2 gunman_sd1; original cloud/native/browser budgets; not physical-device approval."
+    },
+    {
+      "id": "public-sha",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/public-full-sha.json",
+      "sha256": "351fbe0bc8c903cefa6ed31085efd1fe58ef39bc210e7a49bc47455d31d48746",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "216391560 bytes complete SHA506a4e40..., original verifier plus independent64hex streaming equality.",
+      "command": "python3 tools/verify_published_build.py --url https://zhipijun1996.github.io/gunman-rush/ --build-id 506a4e40a1ee --commit 60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50; original independent fullSHA stream probe",
+      "exit_code": 0,
+      "environment": "Locked Godot4.7.2 gunman_sd1; original cloud/native/browser budgets; not physical-device approval."
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/combat_perf_deploy_01/delivery/public-gui-review.json",
+      "sha256": "ddc490bcb3f82429fb06b621fabaffa68721bbafb8d43eaa1cea862f697101fa",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "60f44fc1f0c41a3fab2fa6f6f641af3c63f20e50",
+      "content_version": "combat-perf-deploy-v1",
+      "method": "原实际同源收据；限定范围，不更新旧报告的来源或结论。",
+      "observed": "Title/Home/gateW/BEGIN/formalPlains/move only,100.163s; ten images viewed; browserclosed; retainedfavicon404/Emscriptenwarning."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "实体手机FPS/P95/P99与持续战斗体感未验",
+    "玩家、审美、听感及G5未获认可",
+    "consumer_coverage:null，formal_integration不记PASS",
+    "独审原件只覆盖代码/数学/绑定有限范围，不改签为最终整体体验认可"
+  ]
+}

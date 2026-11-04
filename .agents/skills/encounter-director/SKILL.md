@@ -19,4 +19,4 @@ description: 敌人、地形、机关、奖励和返回路线的联合节奏。
 
 用目标遭遇与地区Motor专项验证完整出返程。交付联合空间／节奏卡、危险与恢复范围、真实轨迹和观察窗口。
 
-模板：[现有设计卡](../../../docs/templates/iteration.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

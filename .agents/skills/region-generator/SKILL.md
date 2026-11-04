@@ -19,4 +19,4 @@ description: 随机地区拓扑、模块池、内容分布及探索节奏的新�
 
 使用 `level_design.py` 的validate／analyze／compare与相关 `region`／森林Motor／mapgen专项。交付版本、Seed矩阵、Manifest、真实出返程和空间差异；结构诊断与实际可达分别记录。
 
-模板：[现有设计卡](../../../docs/templates/region_generation_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

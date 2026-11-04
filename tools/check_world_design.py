@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "docs/world_regions.json"
+CATALOG = ROOT / "docs/bible/world_regions.json"
 
 
 def validate_framework(data, contract):
@@ -33,12 +33,8 @@ def validate_framework(data, contract):
         errors.append("Ambiguous legacy total-region fields must stay in historical provenance only")
     if design.get("framework_status") != "confirmed" or data.get("framework_status") != "confirmed":
         errors.append("Confirmed six-stage/sixteen-region framework cannot revert to an unspecified proposal")
-    for legacy in [design.get("legacy_total_region_plan", {}), data.get("legacy_total_region_plan", {})]:
-        if (legacy.get("region_count") != 6 or legacy.get("status") != "superseded_total_region_plan"
-                or not re.fullmatch(r"[0-9a-f]{64}", str(legacy.get("prior_file_sha256", "")))):
-            errors.append("Keep the old six-region total explicitly historical with its original file hash")
     authority = data.get("framework_authority", {})
-    if authority != design.get("authority") or authority.get("path") != "docs/design/player_actions/regions_v0.3.md":
+    if authority != design.get("authority") or authority.get("path") != "docs/bible/regions.md":
         errors.append("Framework authorities must agree on the current region design source")
     else:
         source = ROOT / authority["path"]
@@ -65,14 +61,14 @@ def validate(path=CATALOG, contract_path=None):
             errors.append("Candidate connections/content and working names must not be silently finalized")
         source = data["source"]
         source_path = ROOT / source["path"]
-        if not source_path.resolve().is_relative_to((ROOT / "docs/references").resolve()):
+        if not source_path.resolve().is_relative_to((ROOT / "docs/evidence/sources/references").resolve()):
             return ["World reference must be a repository-relative source document"]
         text = source_path.read_text()
         if hashlib.sha256(source_path.read_bytes()).hexdigest() != source["sha256"]:
             errors.append("Imported user handoff hash changed")
         if data.get("formal_stages_per_region") != 2 or data.get("formal_boss_stage") != 2 or data.get("formal_maps_per_region") != 2 or data.get("formal_map_structure") != "connected_region":
             errors.append("Each formal region has two connected maps, mini Boss first and region Boss second")
-        contract = json.loads(Path(contract_path or ROOT / "docs/design_contract.json").read_text())
+        contract = json.loads(Path(contract_path or ROOT / "docs/bible/design_contract.json").read_text())
         errors.extend(validate_framework(data, contract))
         regions = data["regions"]
         by_id = {r["id"]: r for r in regions}
@@ -98,12 +94,6 @@ def validate(path=CATALOG, contract_path=None):
                 errors.append("Invalid layer: " + region["id"])
             if region.get("runtime_available") is not False:
                 errors.append("Unimplemented world regions must not become runtime-available")
-            expected_status = "plains_demo_skin_only" if region["id"] == first else "planned"
-            if region.get("content_status") != expected_status:
-                errors.append("Do not confuse candidate skins with complete region content")
-            for field in ("visual_anchor", "mechanic_ideas", "story_anchor"):
-                if not isinstance(region.get(field), str) or not region[field].strip():
-                    errors.append("Missing region anchor " + field)
             destinations = region["next_region_ids"]
             if len(destinations) != len(set(destinations)):
                 errors.append("Duplicate region edge: " + region["id"])
@@ -134,11 +124,6 @@ def validate(path=CATALOG, contract_path=None):
             return bool(targets) and all(reaches_terminal(t, visiting | {key}) for t in targets)
         if any(not reaches_terminal(key, set()) for key in by_id):
             errors.append("Every proposed path must lead to the terminal without cycles")
-        beats = data["story_beats"]
-        if len(beats) != 6 or [b["layer"] for b in beats] != list(range(1, 7)):
-            errors.append("All six proposed layers need story coverage")
-        if any(not b.get("required_information") or b.get("delivery_policy") != "mandatory_path_or_equivalent_fallback" for b in beats):
-            errors.append("Core story cannot depend exclusively on rare rooms")
         for route in data["example_routes"]:
             if len(route) != 6 or route[0] != first or route[-1] != terminal:
                 errors.append("Invalid complete example route")

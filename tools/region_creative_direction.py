@@ -13,7 +13,7 @@ COVERAGE = ('intent', 'emotion', 'player_behavior', 'space', 'ecology', 'boss',
 HANDOFF = ('contribution', 'collaboration', 'experience_delta', 'theme_conflicts', 'runtime_validation')
 
 
-BIBLE_REGISTRY = 'docs/creative_direction/bibles/registry.json'
+BIBLE_REGISTRY = 'docs/data/creative_direction/bibles/registry.json'
 BIBLE_FIELDS = {'registry_path', 'registry_sha256', 'path', 'sha256', 'bible_id',
                 'version', 'region_id', 'status', 'selection_evidence_path', 'selection_evidence_sha256'}
 
@@ -96,7 +96,7 @@ def _load_bible_registry(files):
             or data['schema_version'] != 1 or data.get('kind') != 'region_bible_registry_direction_only'
             or not isinstance(data.get('regions'), list)):
         raise ValueError('Invalid Bible registry schema')
-    catalog = files.json('docs/world_regions.json')
+    catalog = files.json('docs/bible/world_regions.json')
     expected = {row['id'] for row in catalog['regions']}
     ids = [row.get('region_id') for row in data['regions'] if isinstance(row, dict)]
     if len(ids) != len(data['regions']) or len(ids) != len(set(ids)) or set(ids) != expected:

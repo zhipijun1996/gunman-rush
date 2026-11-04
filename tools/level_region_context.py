@@ -8,10 +8,10 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REGIONS = "docs/design/player_actions/regions_v0.3.md"
-WEAPONS = "docs/design/player_actions/weapons_v0.8.md"
-ENTRY = "docs/design/player_actions/README.md"
-WORLD = "docs/world_regions.json"
+REGIONS = "docs/evidence/sources/design/player_actions/regions_v0.3.md"
+WEAPONS = "docs/evidence/sources/design/player_actions/weapons_v0.8.md"
+ENTRY = "docs/data/player_actions.md"
+WORLD = "docs/bible/world_regions.json"
 
 
 class ContextError(ValueError):
@@ -382,7 +382,7 @@ def build_region_context(region_id, root=ROOT):
     studio = Source(root, "experiments/motion/action_studio.gd")
     app = Source(root, "game/application/demo_app.gd")
     profile = Source(root, "game/world/state/run_profile.gd")
-    current = Source(root, "docs/current_state.md")
+    current = Source(root, "docs/project/current_state.md")
     sources.extend(s.ref() for s in (traversal, studio, app, profile, current))
     ability_observations = {}
     for symbol, ability_id in capability_ids.items():
@@ -428,7 +428,7 @@ def build_region_context(region_id, root=ROOT):
                                "additional_candidate_edges": [list(edge) for edge in candidate_edges if region_id in edge],
                                "status": "PROPOSED_TOPOLOGY_NOT_REACHABILITY", "sources": [world.ref(), region_doc.section("### 2.4 ")["source"]]},
             "art": {"status": "PROPOSED", "source": item_ref, **{key: item[key] for key in (
-                "visual_anchor", "story_anchor", "scene_introduction", "scene_mood", "material_and_light", "module_art_notes", "art_brief_status")}},
+                "visual_anchor", "story_anchor", "material_and_light", "art_brief_status")}},
         },
         "locked_principles": [_facts(region_doc.section("### 0.1 "), "LOCKED"),
                               _facts(region_doc.section("### 2.1 "), "LOCKED_DIRECTION"),

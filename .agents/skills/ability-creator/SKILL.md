@@ -19,4 +19,4 @@ description: 新增或实质修改H/W/D等移动／战斗能力、授予与能�
 
 用 `all-weapons`、`weapon-feel` 或目标地区Motor专项中的相关检查，覆盖成功、失败和中断。交付能力状态表、授予代码、真实轨迹及教学／能力锁验证。
 
-模板：[现有设计卡](../../../docs/templates/ability_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

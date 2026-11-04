@@ -34,7 +34,7 @@ def load_lessons(region_id, root=ROOT):
     if region_id is None:
         return []
     root = Path(root)
-    path = root / "docs/quality/level_lessons.json"
+    path = root / "docs/evidence/quality/level_lessons.json"
     if not path.exists():
         return []
     data = read(path)

@@ -40,7 +40,7 @@ class RoutingTests(unittest.TestCase):
     def test_source_painting_rebuild_is_explicit_limited_real_consumer_route(self):
         import visual_director as vd
         request = '从源画重建风铃平原连续地貌与美术'
-        historical = vd.historical_recipe_plan(request, 'historical-paint', 'docs/quality/records/historical-paint.json', ['scripts/art/'])
+        historical = vd.historical_recipe_plan(request, 'historical-paint', 'docs/evidence/quality/records/historical-paint.json', ['scripts/art/'])
         recipe = historical['preparation']['visual_recipe']
         self.assertEqual(recipe['generation_profile'], 'plains-world-rebuild-v3')
         self.assertEqual(recipe['preview_script'], 'tools/plains_world_rebuild_preview.gd')
@@ -60,7 +60,7 @@ class RoutingTests(unittest.TestCase):
         import visual_director as vd
         for request in ('优化风铃平原关卡美术语言', '改进风铃平原生成器美术参数', '设计风铃平原模块尺寸规格'):
             with self.subTest(request=request):
-                historical = vd.historical_recipe_plan(request, 'historical-language', 'docs/quality/records/historical-language.json', ['scripts/art/'])
+                historical = vd.historical_recipe_plan(request, 'historical-language', 'docs/evidence/quality/records/historical-language.json', ['scripts/art/'])
                 recipe = historical['preparation']['visual_recipe']
                 self.assertEqual(recipe['generation_profile'], 'bounded_plains_v1')
                 self.assertEqual(recipe['preview_script'], 'tools/plains_art_language_preview.gd')
@@ -94,7 +94,7 @@ class RoutingTests(unittest.TestCase):
         import visual_director as vd
         for request in ('联合设计风铃平原关卡与美术，包括碰撞', '改善风铃平原地貌', '设计风铃平原模块语言', '重做风铃平原环境构造'):
             with self.subTest(request=request):
-                historical = vd.historical_recipe_plan(request, 'historical-landform', 'docs/quality/records/historical-landform.json', ['scripts/art/'])
+                historical = vd.historical_recipe_plan(request, 'historical-landform', 'docs/evidence/quality/records/historical-landform.json', ['scripts/art/'])
                 recipe = historical['preparation']['visual_recipe']
                 self.assertEqual(recipe['profile'], 'game/presentation/world/art/plains_joint_recoil_composer.gd')
                 self.assertEqual(recipe['recipe'], 'docs/evidence/plains_landform/recipe.md')
@@ -116,7 +116,7 @@ class RoutingTests(unittest.TestCase):
                 self.assertEqual(mission['creative_phase'], 'production')
                 self.assertNotIn('visual_recipe', mission['preparation'])
                 self.assertTrue(any('Motor' in item for item in mission['constraints']))
-        focused = vd.route('改善风铃平原调色，保持碰撞不变', 'current-surface', 'docs/quality/records/current-surface.json', ['scripts/art/'], phase='golden')
+        focused = vd.route('改善风铃平原调色，保持碰撞不变', 'current-surface', 'docs/evidence/quality/records/current-surface.json', ['scripts/art/'], phase='golden')
         self.assertEqual(focused['tasks'][0]['allowed_paths'], ['scripts/art/'])
         self.assertEqual(focused['tasks'][0]['region_bible']['bible_id'], 'windchime_plains_v2')
 
@@ -150,7 +150,7 @@ class RoutingTests(unittest.TestCase):
         legacy = level_design.content_plan('优化风铃平原', phase='production')
         self.assertEqual(legacy['tasks'][2]['required_gates'], ['G0', 'G1'])
         for request, region in (('优化风铃平原', 'windchime_plains'), ('制作荆棘森林', 'thorn_forest')):
-            mission = level_design.route_request(request, direction='docs/creative_direction/'+region+'.json')
+            mission = level_design.route_request(request, direction='docs/data/creative_direction/'+region+'.json')
             production_loop.validate(mission)
             golden = next(t for t in mission['tasks'] if t['id'].endswith('-golden'))
             integration = next(t for t in mission['tasks'] if t['id'].endswith('-integration'))
@@ -206,20 +206,20 @@ class RoutingTests(unittest.TestCase):
                        'game/presentation/world/art/plains_spatial_golden_art.gd', 'assets/spatial_golden/foreground.png']
             level_design.write(path, {'schema_version': 1, 'region_id': 'windchime_plains',
                 'authorization_basis': 'SIMULATED explicit experiment', 'design': {'one_space': True,
-                    'direction_path': 'docs/creative_direction/windchime_plains.json',
-                    'direction_sha256': level_design.file_hash(level_design.ROOT/'docs/creative_direction/windchime_plains.json')},
+                    'direction_path': 'docs/data/creative_direction/windchime_plains.json',
+                    'direction_sha256': level_design.file_hash(level_design.ROOT/'docs/data/creative_direction/windchime_plains.json')},
                 'validation': ['Real gameplay, complete screen and normal speed video'], 'allowed_paths': allowed})
             relative = path.relative_to(level_design.ROOT).as_posix()
             self.assertEqual(level_design.main(['route', '--request', '优化风铃平原', '--direction',
-                'docs/creative_direction/windchime_plains.json', '--spatial-experiment', relative, '--output', str(output)]), 0)
+                'docs/data/creative_direction/windchime_plains.json', '--spatial-experiment', relative, '--output', str(output)]), 0)
             mission = level_design.read(output)
             for task in mission['tasks']:
                 if task['id'].endswith(('-design', '-golden')):
-                    self.assertEqual(set(task['allowed_paths']), set(allowed + [task['quality_record'], 'docs/tasks.md']))
+                    self.assertEqual(set(task['allowed_paths']), set(allowed + [task['quality_record'], 'docs/project/tasks.md']))
                     self.assertFalse(any(p.endswith('/') for p in task['allowed_paths']))
                     production_loop.spatial_experiment_input(task)
-                    for bad_record in ('docs/worklines/topic/quality/OTHER.json',
-                                       'docs/worklines/topic/quality/../' + task['id'] + '.json',
+                    for bad_record in ('docs/evidence/worklines/topic/quality/OTHER.json',
+                                       'docs/evidence/worklines/topic/quality/../' + task['id'] + '.json',
                                        'game/player/player_motor.gd'):
                         with self.assertRaisesRegex(ValueError, 'exact task-bound'):
                             production_loop.spatial_experiment_input({**task, 'quality_record': bad_record})
@@ -324,9 +324,9 @@ class RoutingTests(unittest.TestCase):
             mission=level_design.content_plan(request,phase="production")
             prerequisite=mission["preparation"]["task_registration"]
             self.assertEqual(prerequisite["source"],"AGENTS.md")
-            self.assertEqual(prerequisite["paths"][0], "docs/tasks.md")
+            self.assertEqual(prerequisite["paths"][0], "docs/project/tasks.md")
             workline = prerequisite["paths"][1]
-            self.assertTrue(workline.startswith("docs/worklines/"))
+            self.assertTrue(workline.startswith("docs/project/worklines/"))
             self.assertEqual(prerequisite["phase"],"design")
             self.assertTrue(prerequisite["before_manual_checks"])
             self.assertIn("one parent topic",prerequisite["requirement"])
@@ -335,7 +335,7 @@ class RoutingTests(unittest.TestCase):
             design=mission["tasks"][1]
             self.assertFalse(design["read_only"])
             self.assertIn("docs/",design["allowed_paths"])
-            self.assertIn("docs/tasks.md",design["goal"])
+            self.assertIn("docs/project/tasks.md",design["goal"])
             self.assertIn("再执行选定的手动检查",design["goal"])
 
     def test_existing_region_uses_shared_skills_and_checks(self):

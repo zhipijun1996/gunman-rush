@@ -19,4 +19,4 @@ description: 连续动作、入口／出口状态、资源衔接和恢复路线�
 
 选择目标模块／地区Motor专项，保存连续轨迹与失败位置。交付动作序列、入口出口状态、合法替代解及正常速度演示。
 
-模板：[现有设计卡](../../../docs/templates/challenge_sequence.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

@@ -9,7 +9,7 @@ import json
 
 from region_creative_direction import repository_file, unique_object
 
-STYLE25_ARCHIVE = 'docs/creative_direction/archive/feature-layout-before-style26'
+STYLE25_ARCHIVE = 'docs/evidence/creative_direction/archive/feature-layout-before-style26'
 STYLE25_MANIFEST_SHA = 'e7d7c7b016dea2f8a42f30736a40ecc89a625ec90715d0258a04ca42d1cb3ca9'
 STYLE25_SCENE_ARCHIVE = STYLE25_ARCHIVE + '/scene-reference-supplement'
 STYLE25_SCENE_MANIFEST_SHA = '0a893d58b17e1ddf96bb142cb52af9ac1f7325cb6b1ae07afb14596bd4859e8c'
@@ -41,7 +41,7 @@ def style25_source(root, path):
     return style26_source(root, path) if raw is None else raw
 
 
-STYLE26_ARCHIVE = 'docs/creative_direction/archive/ownership-closeout-before-style27'
+STYLE26_ARCHIVE = 'docs/evidence/creative_direction/archive/ownership-closeout-before-style27'
 STYLE26_MANIFEST_SHA = '28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229'
 
 
@@ -51,7 +51,7 @@ def style26_source(root, path):
     return style27_source(root, path) if raw is None else raw
 
 
-STYLE27_ARCHIVE = 'docs/creative_direction/archive/runtime-ownership-before-style28'
+STYLE27_ARCHIVE = 'docs/evidence/creative_direction/archive/runtime-ownership-before-style28'
 STYLE27_MANIFEST_SHA = '358a3b010b4b1e95772a13a2c5d3f219eb6da4eb8962004dfc73e59c08056e4a'
 
 
@@ -61,7 +61,7 @@ def style27_source(root, path):
     return style28_source(root, path) if raw is None else raw
 
 
-GIT_HISTORY_ARCHIVE = 'docs/creative_direction/archive/style-source-git-history'
+GIT_HISTORY_ARCHIVE = 'docs/evidence/creative_direction/archive/style-source-git-history'
 GIT_HISTORY_MANIFEST_SHA = 'dcec926ec878a797ee8119769019c8edf9a04543d8837ca2f255729bc1fecfdc'
 
 
@@ -82,7 +82,7 @@ def git_history_source(root, commit, path):
     return raw
 
 
-STYLE28_ARCHIVE = 'docs/creative_direction/archive/composition-closeout-before-style29'
+STYLE28_ARCHIVE = 'docs/evidence/creative_direction/archive/composition-closeout-before-style29'
 STYLE28_MANIFEST_SHA = '9d2d76226ba552cbcfe71ab063c18ba809921f66b359f4576c42a678aed79f3b'
 
 
@@ -92,7 +92,7 @@ def style28_source(root, path):
     return style29_source(root, path) if raw is None else raw
 
 
-STYLE29_ARCHIVE = 'docs/creative_direction/archive/map-query-boundary-before-style30'
+STYLE29_ARCHIVE = 'docs/evidence/creative_direction/archive/map-query-boundary-before-style30'
 STYLE29_MANIFEST_SHA = '9a863035c38c8cf153c659a1761b3419eb782fb2f538cddda66b9102b4325c83'
 
 
@@ -102,7 +102,7 @@ def style29_source(root, path):
     return style30_source(root, path) if raw is None else raw
 
 
-STYLE30_ARCHIVE = 'docs/creative_direction/archive/mobile-combat-mesh-before-style31'
+STYLE30_ARCHIVE = 'docs/evidence/creative_direction/archive/mobile-combat-mesh-before-style31'
 STYLE30_MANIFEST_SHA = '00af41bd539a814de7b2c4c01e239f45b91299d64c16e7fc30e57df45ef22b3b'
 
 
@@ -112,7 +112,7 @@ def style30_source(root, path):
     return style31_source(root, path) if raw is None else raw
 
 
-STYLE31_ARCHIVE = 'docs/creative_direction/archive/combat-perf-before-style32'
+STYLE31_ARCHIVE = 'docs/evidence/creative_direction/archive/combat-perf-before-style32'
 STYLE31_MANIFEST_SHA = 'ada060d5ca9b1728b9772c28ae1f1ec90c01d87535c4df4deecdc5031ec14058'
 
 
@@ -122,7 +122,7 @@ def style31_source(root, path):
     return style32_source(root, path) if raw is None else raw
 
 
-STYLE32_ARCHIVE = 'docs/creative_direction/archive/canvas-preparation-before-style33'
+STYLE32_ARCHIVE = 'docs/evidence/creative_direction/archive/canvas-preparation-before-style33'
 STYLE32_MANIFEST_SHA = '85b95f4a824b21f20fad8db60145df6e7784cff884133642bb92463a398aa53a'
 
 
@@ -132,14 +132,14 @@ def style32_source(root, path):
     return style33_source(root, path) if raw is None else raw
 
 
-STYLE33_ARCHIVE = 'docs/creative_direction/archive/death-runtime-before-style34'
+STYLE33_ARCHIVE = 'docs/evidence/creative_direction/archive/death-runtime-before-style34'
 STYLE33_MANIFEST_SHA = '0f2e6ae2da8bf141a46b1ca5beb0621cce26d1c3f18138a76b0adc2a85291d8b'
 
 FROZEN_CONTEXT_INPUTS = {
-    'docs/design/player_actions/README.md': (
+    'docs/data/player_actions.md': (
         'docs/evidence/codex_context_01/frozen_inputs/player_actions_readme.md.txt',
         '19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475'),
-    'docs/controls_contract.md': (
+    'docs/bible/controls_contract.md': (
         'docs/evidence/codex_context_01/frozen_inputs/controls_contract.md.txt',
         '8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a'),
 }

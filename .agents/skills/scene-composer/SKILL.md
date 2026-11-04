@@ -19,4 +19,4 @@ description: 空间构图、围合、层深、地标、支撑装饰及镜头覆�
 
 选目标场景GPU／合屏检查和实际路线；交付构图卡、资产映射、镜头序列、遮挡与接缝反例。画面审查以实际像素和运动为依据。
 
-模板：[现有设计卡](../../../docs/templates/scene_composition.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

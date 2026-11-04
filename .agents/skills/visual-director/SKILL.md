@@ -19,4 +19,4 @@ description: 正式场景画面、空间深度、整体可读性或视觉生产�
 
 使用 `tools/visual_director.py` 的capture／inspect／compare及相关Harness专项。交付同条件实景、正常速度片段、定位到像素／时间的独审发现和返工结果。
 
-模板：[现有设计卡](../../../docs/templates/iteration.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

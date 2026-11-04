@@ -19,4 +19,4 @@ description: 音效、事件声音、环境声及正式听感迭代。
 
 用相关音频Harness专项和正式入口连续试听，验证取消／暂停／退出及资源清理。交付音频文件、许可、事件映射、听感候选与用户选择状态。
 
-模板：[现有设计卡](../../../docs/templates/iteration.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

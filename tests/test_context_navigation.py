@@ -45,7 +45,7 @@ class NavigationTests(unittest.TestCase):
             self.assertFalse(document_target_exists(root, source, "../../external.json", sparse))
 
     def test_fresh_reader_can_locate_resource_forest_and_mapgen_checks(self):
-        navigation = (ROOT / "docs/module_map.md").read_text()
+        navigation = (ROOT / "docs/project/module_map.md").read_text()
         scenarios = {
             "时间能量／弹药／共鸣": ("time_energy_v2.tres", "combat_and_recharge.md", "core"),
             "森林默认／版本／状态": ("thorn_forest_region_v2_v15.gd", "procedural_generation.md", "forest-bible-world-contract"),
@@ -60,8 +60,8 @@ class NavigationTests(unittest.TestCase):
         entry = (ROOT / "AGENTS.md").read_text()
         self.assertLessEqual(len(entry.encode()), 4096)
         self.assertIn("最终交付件", entry)
-        self.assertIn("docs/module_map.md", entry)
-        self.assertIn("docs/worklines/", entry)
+        self.assertIn("docs/project/module_map.md", entry)
+        self.assertIn("docs/project/worklines/", entry)
         self.assertNotIn("docs/handoff.md", entry)
 
     def test_retained_history_uses_exact_inputs_and_rejects_corruption_or_loss(self):

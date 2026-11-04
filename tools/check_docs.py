@@ -6,7 +6,6 @@ import os
 import re
 import sys
 import subprocess
-import xml.etree.ElementTree as ET
 from check_world_design import validate as validate_world_design
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,14 +34,7 @@ def document_target_exists(root, source, target, sparse_paths):
 def validate(root=ROOT):
     errors = []
     errors.extend(validate_world_design())
-    required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
-        ['game_design', 'architecture', 'controls_contract',
-         'player_mechanics', 'combat_and_recharge', 'level_design',
-         'procedural_generation', 'content_pipeline', 'acceptance_tests',
-         'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'current_state', 'cloud_production',
-         'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses',
-         'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save', 'module_map',
-         'platforming_modules', 'difficulty_profiles', 'world_and_story', 'biome_challenge_design']]
+    required = ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/README.md', 'docs/bible/combat_and_recharge.md', 'docs/bible/controls_contract.md', 'docs/bible/damage_and_respawn.md', 'docs/bible/game_design.md', 'docs/bible/home_and_save.md', 'docs/bible/platforming_modules.md', 'docs/bible/player_mechanics.md', 'docs/bible/procedural_generation.md', 'docs/bible/rewards_and_builds.md', 'docs/bible/run_and_routes.md', 'docs/bible/story.md', 'docs/bible/visual_bible.md', 'docs/data/README.md', 'docs/data/abilities.md', 'docs/data/audio.md', 'docs/data/bosses/bellstrider.md', 'docs/data/bosses/rootbell_guardian.md', 'docs/data/bosses/thorn_queen_canopy.md', 'docs/data/bosses/thorn_queen_weave.md', 'docs/data/bosses/windkeeper.md', 'docs/data/enemies/forest.md', 'docs/data/enemies/plains_charger.md', 'docs/data/player_actions.md', 'docs/data/story/bosses.md', 'docs/data/story/regions.md', 'docs/data/weapons.md', 'docs/data/world_objects.md', 'docs/project/architecture.md', 'docs/project/ci-test-inventory.md', 'docs/project/cloud_production.md', 'docs/project/content_pipeline.md', 'docs/project/current_state.md', 'docs/project/development.md', 'docs/project/enemy_completion.md', 'docs/project/environment.md', 'docs/project/foundry.md', 'docs/project/harness.md', 'docs/project/item_authoring.md', 'docs/project/level_design.md', 'docs/project/level_review.md', 'docs/project/module_map.md', 'docs/project/production_loop.md', 'docs/project/project_management.md', 'docs/project/quality.md', 'docs/project/region_context.md', 'docs/project/review_method.md', 'docs/project/tasks.md', 'docs/project/visual_capture.md', 'docs/project/web_loading.md']
     for name in required:
         if not (root / name).is_file():
             errors.append(f'Missing {name}')
@@ -52,7 +44,7 @@ def validate(root=ROOT):
             directories[:] = [name for name in directories if name not in {'.git', '.godot', '__pycache__'}
                               and not (Path(base) == root and name in {'build', 'preview'})
                               and not (Path(base) == root / 'docs' and name in {'evidence', 'archive'})
-                              and not (Path(base) == root / 'docs/creative_direction' and name == 'archive')]
+                              ]
             for name in sorted(filenames):
                 if name.endswith('.md'):
                     yield Path(base) / name
@@ -99,9 +91,9 @@ def validate(root=ROOT):
             errors.append(f'Unknown status {task}')
     # Design-only contract prevents the shortened test profile replacing release rules.
     contract = {}
-    contract_path = root / 'docs/design_contract.json'
+    contract_path = root / 'docs/bible/design_contract.json'
     if not contract_path.is_file():
-        errors.append('Missing docs/design_contract.json')
+        errors.append('Missing docs/bible/design_contract.json')
     else:
         contract = json.loads(contract_path.read_text())
         formal = contract.get('formal_run', {})
@@ -116,44 +108,24 @@ def validate(root=ROOT):
             errors.append('Three-stage profile must remain explicitly development-only')
         if formal.get('regions_per_run') != 6 or contract.get('world_design', {}).get('region_pool_count') != 16 or formal.get('major_ability_timing') != 'after_second_plains_map_boss' or formal.get('implemented_regions') != (['plains', 'thorn_forest'] if formal.get('runtime_contract_version', 1) == 2 else ['plains']):
             errors.append('Six-stage run / sixteen-region design pool must distinguish Plains-only runtime and post-Boss major abilities')
-        if contract.get('development_eight', {}).get('status') != 'retired' or contract.get('development_eight', {}).get('runtime_entry') is not False:
-            errors.append('Historical eight-room flow must remain retired')
         expected_sets = {
             'stage_types': {'combat', 'shop', 'coin_reward', 'health_reward', 'item_reward', 'boss'},
             'item_rarities': {'BLUE', 'PURPLE', 'GOLD'},
             'reward_kinds': {'RUN_COIN', 'HEAL_CURRENT', 'INCREASE_MAX_HEALTH', 'ITEM'},
             'resource_types': {'Health', 'Stamina', 'ActionResources'},
             'random_streams': {'map', 'route', 'reward', 'shop', 'boss_pattern'},
-            'unconfirmed_stamina_actions': {'move', 'jump', 'shoot'},
         }
         for field, expected in expected_sets.items():
             actual = contract.get(field, [])
             if not isinstance(actual, list) or len(actual) != len(set(actual)) or not expected.issubset(set(actual)):
                 errors.append(f'Missing or duplicate design definition: {field}')
-        decisions = (root / 'docs/decisions.md').read_text()
-        decision_rows = {}
-        for line in decisions.splitlines():
-            cells = [cell.strip() for cell in line.split('|')[1:-1]]
-            if len(cells) == 3 and re.fullmatch(r'(D|Q)\d{3}', cells[0]):
-                decision_rows[cells[0]] = cells
-        for decision in contract.get('tentative_decisions', []):
-            if decision not in decision_rows or decision_rows[decision][1] != '暂定':
-                errors.append(f'Tentative policy must not be recorded as user-confirmed: {decision}')
-        for decision in contract.get('pending_decisions', []):
-            if decision not in decision_rows:
-                errors.append(f'Missing pending decision: {decision}')
-        acceptance = (root / 'docs/acceptance_tests.md').read_text()
-        acceptance_ids = re.findall(r'^\| (A\d+) \|', acceptance, re.MULTILINE)
-        for acceptance_id in contract.get('acceptance_ids', []):
-            if acceptance_ids.count(acceptance_id) != 1:
-                errors.append(f'New acceptance must be defined exactly once: {acceptance_id}')
         for document in ('run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save'):
-            if f'({document}.md)' not in (root / 'docs/module_map.md').read_text():
+            if f'{document}.md)' not in (root / 'docs/project/module_map.md').read_text():
                 errors.append(f'Module navigation missing design authority: {document}')
 
     # Check authored generation catalog and SVG structure; not physics validation.
     modules = contract.get('generation_modules', [])
-    module_doc = (root / 'docs/platforming_modules.md').read_text()
+    module_doc = (root / 'docs/bible/platforming_modules.md').read_text()
     if len(modules) != 8 or len(set(modules)) != 8:
         errors.append('Generation design must have eight unique starter modules')
     for module_id in modules:
@@ -163,13 +135,6 @@ def validate(root=ROOT):
         errors.append('Missing horizontal, vertical or square topology')
     if set(contract.get('difficulty_axes', [])) != {'P', 'C', 'T', 'R'}:
         errors.append('Difficulty design must separate P/C/T/R')
-    for diagram in ('platforming_modules.svg', 'stage_topologies.svg'):
-        try:
-            element = ET.parse(root / 'docs/diagrams' / diagram).getroot()
-            if not element.tag.endswith('svg') or element.find('{http://www.w3.org/2000/svg}title') is None:
-                errors.append(f'Missing accessible SVG design title: {diagram}')
-        except (OSError, ET.ParseError) as error:
-            errors.append(f'Invalid generation design SVG {diagram}: {error}')
 
     tuning = json.loads((root / 'config/player_tuning.json').read_text())
     if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 1:

@@ -91,9 +91,9 @@ def freeze(repo=ROOT, basis=BASIS, commit=BASELINE):
     for row in rows:
         name = row['path']
         selected = (name.split('/')[0] in SOURCE_DIRS or
-                    name in ('project.godot', 'export_presets.cfg', '.gitignore', 'docs/world_regions.json', 'docs/current_state.md',
-                             'docs/quality/action_budget_spec.md', 'docs/quality/weapon_feel_spec.md',
-                             'docs/quality/all_weapons_spec.md') or
+                    name in ('project.godot', 'export_presets.cfg', '.gitignore', 'docs/bible/world_regions.json', 'docs/project/current_state.md',
+                             'docs/evidence/quality/action_budget_spec.md', 'docs/evidence/document_sources/quality/weapon_feel_spec.md',
+                             'docs/data/weapons.md') or
                     name.startswith('docs/design/player_actions/'))
         if not selected and not name.startswith('assets/'):
             continue

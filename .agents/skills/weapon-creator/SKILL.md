@@ -19,4 +19,4 @@ description: 新增武器、升级分支或整套攻击行为。
 
 用相关 `all-weapons`、`weapon-feel`、`studio-input` 检查及真实消费者验证连续动作。交付分支设计、运行定义、资源／反冲轨迹和正常速度音画。
 
-模板：[现有设计卡](../../../docs/templates/weapon_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

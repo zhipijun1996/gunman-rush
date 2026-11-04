@@ -158,7 +158,7 @@ class LoopTests(unittest.TestCase):
             self.assertEqual(len(feedback),4)
 
     def test_failed_check_repair_carries_feedback_and_skips_review(self):
-        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/quality/records/DRILL.json')
+        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/evidence/quality/records/DRILL.json')
         source={};calls=[]
         def worker(task,mission,role,folder,feedback):
             calls.append(role)
@@ -197,7 +197,7 @@ class LoopTests(unittest.TestCase):
 
     def test_task_budget_caps_rework_without_refunding_failed_calls(self):
         # SIMULATION proves budget enforcement, not AI production success.
-        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/quality/records/DRILL.json',max_calls=2)
+        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/evidence/quality/records/DRILL.json',max_calls=2)
         source={};roles=[]
         def worker(task,mission,role,*unused):
             roles.append(role)
@@ -219,7 +219,7 @@ class LoopTests(unittest.TestCase):
                 loop.run(MISSION,Path(tmp),lambda *a:{'status':'ready_for_review','summary':'SIMULATED','findings':[]})
 
     def test_independent_reject_is_reworked_with_original_findings(self):
-        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/quality/records/DRILL.json')
+        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/evidence/quality/records/DRILL.json')
         source={};roles=[]
         def worker(task,mission,role,folder,feedback):
             roles.append(role)
@@ -428,7 +428,7 @@ class LoopTests(unittest.TestCase):
         for identity_kind in ('agent','thread'):
             for last_reviewer in ('author-one','independent-two'):
                 with self.subTest(identity=identity_kind,reviewer=last_reviewer):
-                    mission=copy.deepcopy(MISSION);mission['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/quality/records/DRILL.json')
+                    mission=copy.deepcopy(MISSION);mission['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/evidence/quality/records/DRILL.json')
                     source={};calls=[]
                     def worker(task,m,role,folder,feedback):
                         calls.append(role)
@@ -1165,16 +1165,16 @@ class SelectedInputPreflightTests(unittest.TestCase):
         self.proof = 'docs/evidence/required/proof.txt'
         for name, text in {
             self.proof: 'actual tracked fixture input\n',
-            'docs/quality/policy.json': json.dumps({'templates': []}),
-            'docs/quality/records/OLD.json': json.dumps({'evidence': [{'path': self.proof}]}),
-            'docs/tasks.md': 'SIMULATED fixture index\n',
-            'docs/development_quality.md': 'SIMULATED fixture quality version\n',
-            'docs/quality/README.md': 'SIMULATED fixture README\n',
+            'docs/project/policy.json': json.dumps({'templates': []}),
+            'docs/evidence/quality/records/OLD.json': json.dumps({'evidence': [{'path': self.proof}]}),
+            'docs/project/tasks.md': 'SIMULATED fixture index\n',
+            'docs/project/development.md': 'SIMULATED fixture quality version\n',
+            'docs/project/quality.md': 'SIMULATED fixture README\n',
             'tools/check_quality.py': 'print("QUALITY fixture")\n',
             'tools/check_docs.py': 'print("DOCS fixture")\n',
             'tests/test_quality.py': 'print("OK")\n',
             'tests/test_visual_director.py': 'print("OK")\n',
-            'docs/quality/level_lessons.json': json.dumps({'schema_version': 1, 'lessons': [
+            'docs/evidence/quality/level_lessons.json': json.dumps({'schema_version': 1, 'lessons': [
                 {'evidence': [{'path': self.proof}]}]}),
         }.items():
             path=self.main/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
@@ -1191,7 +1191,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',sha])
         subprocess.check_call(['git','-C',str(self.target),'sparse-checkout','init','--no-cone'])
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
-                       input='/*\n!/docs/evidence/**\n',text=True,check=True)
+                       input='/*\n!/docs/evidence/**\n/docs/evidence/quality/**\n',text=True,check=True)
         subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
         self.mission=copy.deepcopy(MISSION)
         self.mission.update(max_calls=2,max_rounds=1)
@@ -1268,7 +1268,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],
                        input='/'+self.proof+'\n',text=True,check=True)
         subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
-        own=self.target/'docs/quality/records/PLANNED.json'
+        own=self.target/'docs/evidence/quality/records/PLANNED.json'
         loop.save(own,{'evidence':[{'path':'docs/evidence/future/output.json'}]})
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
@@ -1282,7 +1282,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         # Exact allowed output cannot waive a real sparse missing input.
         subprocess.check_call(['git','-C',str(self.target),'checkout','--',self.proof])
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
-                       input='/*\n!/docs/evidence/**\n',text=True,check=True)
+                       input='/*\n!/docs/evidence/**\n/docs/evidence/quality/**\n',text=True,check=True)
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             self.assertEqual(loop.required_input_preflight(repair)['status'],'blocked')
 
@@ -1293,10 +1293,10 @@ class SelectedInputPreflightTests(unittest.TestCase):
             lesson=loop.required_input_preflight({**task,'checks':['visual-director-tests']})
             self.assertEqual([x['path'] for x in lesson['missing_tracked_inputs']],[self.proof])
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
-                       input='/*\n!/docs/evidence/**\n!/docs/quality/records/OLD.json\n',text=True,check=True)
+                       input='/*\n!/docs/evidence/**\n!/docs/evidence/quality/records/OLD.json\n',text=True,check=True)
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             result=loop.required_input_preflight(task)
-            self.assertIn('docs/quality/records/OLD.json',[x['path'] for x in result['missing_tracked_inputs']])
+            self.assertIn('docs/evidence/quality/records/OLD.json',[x['path'] for x in result['missing_tracked_inputs']])
 
     def test_missing_global_inputs_block_only_their_package(self):
         task=self.configure();m=copy.deepcopy(self.mission);m['max_calls']=4
@@ -1351,7 +1351,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
             'timeout_seconds':17,'success_pattern':'^OK$','inputs':['project.godot','assets/**']}
         loop.save(self.target/'tools/harness/profiles.json',manifest)
         subprocess.check_call(['git','-C',str(self.target),'add','--sparse','assets','project.godot','tools/harness/profiles.json'])
-        return {**task,'read_only':False,'checks':['native-fixture'],'quality_record':'docs/quality/records/NEW.json',
+        return {**task,'read_only':False,'checks':['native-fixture'],'quality_record':'docs/evidence/quality/records/NEW.json',
                 'completion':'content','allowed_paths':['assets/own/']}
 
     def test_actual_native_input_contract_blocks_unscoped_import_before_worker(self):
@@ -1386,10 +1386,10 @@ class SelectedInputPreflightTests(unittest.TestCase):
     def test_docs_sparse_unread_markdown_is_not_a_byte_input(self):
         task=self.configure()
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
-            input='/*\n!/docs/development_quality.md\n',text=True,check=True)
+            input='/*\n!/docs/project/development.md\n',text=True,check=True)
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             result=loop.required_input_preflight({**task,'checks':['docs']})
-        self.assertNotIn('docs/development_quality.md',[x['path'] for x in result['missing_tracked_inputs']])
+        self.assertNotIn('docs/project/development.md',[x['path'] for x in result['missing_tracked_inputs']])
 
     def _commit_sparse_inputs(self, files):
         for name, content in files.items():
@@ -1415,8 +1415,8 @@ class SelectedInputPreflightTests(unittest.TestCase):
                   'associated_files': [{'path': generation, 'sha256': loop.hashlib.sha256(b'{"fixture":true}\n').hexdigest(), 'role': 'generation_record'},
                                        {'path': prompt, 'sha256': loop.hashlib.sha256(b'original fixture prompt\n').hexdigest(), 'role': 'source_contract'}]}
         self._commit_sparse_inputs({generation: '{"fixture":true}\n', prompt: 'original fixture prompt\n',
-                                    'docs/quality/asset_records/SOURCE.json': json.dumps(record),
-                                    'docs/quality/policy.json': json.dumps({'templates': [], 'schema_version': 1, 'states': ['unverified', 'passed']})})
+                                    'docs/evidence/quality/asset_records/SOURCE.json': json.dumps(record),
+                                    'docs/project/policy.json': json.dumps({'templates': [], 'schema_version': 1, 'states': ['unverified', 'passed']})})
         with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
             before = loop.required_input_preflight(task)
             self.assertEqual({x['path'] for x in before['missing_tracked_inputs']}, {self.proof, generation, prompt})
@@ -1434,7 +1434,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
             deleted = loop.required_input_preflight(task)
             self.assertEqual(deleted['status'], 'blocked')
             self.assertEqual(next(item for item in deleted['missing_tracked_inputs'] if item['path'] == prompt)['reason'], 'tracked_missing')
-            index = self.target / 'docs/quality/asset_records/SOURCE.json'
+            index = self.target / 'docs/evidence/quality/asset_records/SOURCE.json'
             index.write_text('{ damaged metadata')
             self.assertTrue(any(item['reason'] == 'index_dependencies_unknown' for item in loop.required_input_preflight(task)['uncertain_inputs']))
 
@@ -1470,7 +1470,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
 
     def test_required_tracked_identity_rejects_broken_external_and_internal_symlinks(self):
         task=self.configure();self.materialize_proof();proof=self.target/self.proof
-        for target in ('missing_target','/etc/hostname',str(self.target/'docs/tasks.md')):
+        for target in ('missing_target','/etc/hostname',str(self.target/'docs/project/tasks.md')):
             with self.subTest(target=target):
                 proof.unlink();proof.symlink_to(target)
                 with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
@@ -1491,7 +1491,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
 
     def test_real_unreadable_index_evidence_directory_and_binary_index_block_unknown(self):
         task=self.configure();self.materialize_proof();proof=self.target/self.proof
-        index=self.target/'docs/quality/records/OLD.json';original=index.read_bytes()
+        index=self.target/'docs/evidence/quality/records/OLD.json';original=index.read_bytes()
         for name,path in (('index',index),('proof',proof),('directory',index.parent)):
             with self.subTest(name=name):
                 path.chmod(0)
@@ -1510,7 +1510,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         self.assertEqual(result['status'],'blocked')
         self.assertEqual(result['uncertain_inputs'][0]['reason'],'index_dependencies_unknown')
         index.write_bytes(original)
-        planned=self.target/'docs/quality/records/PLANNED.json';planned.write_bytes(b'{ incomplete new output')
+        planned=self.target/'docs/evidence/quality/records/PLANNED.json';planned.write_bytes(b'{ incomplete new output')
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
 
@@ -1526,7 +1526,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
 
     def test_real_unreadable_source_snapshot_is_calls0_blocked_not_unknown_baseline(self):
         if loop.os.geteuid()==0:self.skipTest('Actual non-root permission proof requires uid1000')
-        task=self.configure();self.materialize_proof();index=self.target/'docs/quality/records/OLD.json'
+        task=self.configure();self.materialize_proof();index=self.target/'docs/evidence/quality/records/OLD.json'
         index.parent.chmod(0)
         try:
             with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
@@ -1632,9 +1632,9 @@ class SpatialLeaseBoundaryTests(unittest.TestCase):
                 (root/'experiment.json').write_text(json.dumps(experiment))
                 _, binding=level_design.load_spatial_experiment('experiment.json',direction['region_id'],root)
                 task={**copy.deepcopy(MISSION['tasks'][0]), 'read_only':False, 'completion':'stage', 'required_gates':['G0'],
-                    'creative_direction':direction, 'region_bible':fixture_bible(direction, root), 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
+                    'creative_direction':direction, 'region_bible':fixture_bible(direction, root), 'spatial_experiment':binding, 'quality_record':'docs/evidence/quality/records/DRILL.json'}
                 if case=='core_quality_record':task['quality_record']='game/player/player_motor.gd'
-                task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/tasks.md']
+                task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/project/tasks.md']
                 if case=='valid':
                     self.assertEqual(loop.spatial_experiment_input(task)['content'],experiment)
                     continue
@@ -1872,13 +1872,15 @@ class CreativeLoopTests(unittest.TestCase):
                                for candidate in ("chosen", "alternative")],
                 "authority_sources": [{"path": authority.name, "sha256": loop.hashlib.sha256(authority.read_bytes()).hexdigest()}],
                 **{key: {"theme": "A unified playable theme, not user approval"} for key in creative.COVERAGE}}
-        bible_path = root / "docs/creative_direction/bibles/test_region_region_bible_v1.md"
+        bible_path = root / "docs/data/creative_direction/bibles/test_region_region_bible_v1.md"
         bible_path.parent.mkdir(parents=True, exist_ok=True)
         bible_path.write_text("# SIMULATED region Bible\nFull fixture original, not creative acceptance\n")
         bible_sha = loop.hashlib.sha256(bible_path.read_bytes()).hexdigest()
-        evidence_path = root / "docs/creative_direction/bibles/user-request.json"
+        evidence_path = root / "docs/evidence/creative_direction/bibles/user-request.json"
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        (root / "docs/bible").mkdir(parents=True, exist_ok=True)
         evidence_path.write_text(json.dumps({"source":"SIMULATED unit fixture", "quote":"Use this fixture Bible", "authorization_scope":"fixture only", "attachments":[{"original_attachment_path":"/tmp/fixture/"+bible_path.name,"staged_path":"build/fixture/"+bible_path.name,"sha256":bible_sha,"bytes":bible_path.stat().st_size,"copied_verbatim":True}]}))
-        (root / "docs/world_regions.json").write_text(json.dumps({"regions":[{"id":"test_region", "working_name":"Fixture", "layer":1}]}))
+        (root / "docs/bible/world_regions.json").write_text(json.dumps({"regions":[{"id":"test_region", "working_name":"Fixture", "layer":1}]}))
         (root / creative.BIBLE_REGISTRY).write_text(json.dumps({"schema_version":1,"kind":"region_bible_registry_direction_only","regions":[{"region_id":"test_region","current_bible":{"path":bible_path.relative_to(root).as_posix(), "sha256":bible_sha,"bible_id":"test_region_v1","version":"1.0","status":"user_selected_direction_only","direction_path":"direction.json","operations":["create","optimize"],"music_status":"deferred_user_supplied","selection_evidence":{"path":evidence_path.relative_to(root).as_posix(),"sha256":loop.hashlib.sha256(evidence_path.read_bytes()).hexdigest()}}}]}))
         real_root = Path(__file__).resolve().parents[1]
         real_registry = json.loads((real_root/creative.BIBLE_REGISTRY).read_bytes())

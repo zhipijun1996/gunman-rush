@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "task_id": "CODEX-CONTEXT-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "68a87f38a753442bbdacaa81317dd4aaa05eba3b",
+  "reviewed_commit": "62d8f7088b7488da1fa37357762528e6258979ce",
+  "content_version": "document-system-v1",
+  "owner": "/root",
+  "purpose": "整理四类文档与按需读取、先文档后实现、当前对象规范和局部交接",
+  "player_experience": "开发会话能从唯一设计与对象数据找到实际参数、实现和验证；不签游戏内容品质",
+  "constraints": [
+    "复用现有入口，不新增框架、质量门禁或CI流程",
+    "运行代码、图声和参数不改；原始验收证据不改签",
+    "长期规范直接维护正文，任务状态和验收结果留在工作线"
+  ],
+  "affected_paths": [
+    ".agents/skills/ability-creator/SKILL.md",
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/audio-director/SKILL.md",
+    ".agents/skills/boss-creator/SKILL.md",
+    ".agents/skills/challenge-choreographer/SKILL.md",
+    ".agents/skills/design-grill/SKILL.md",
+    ".agents/skills/design-grill/references/LICENSE",
+    ".agents/skills/design-grill/references/README.md",
+    ".agents/skills/design-grill/references/grilling.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/enemy-creator/references/development_workflow.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/player-creator/SKILL.md",
+    ".agents/skills/project-integration/SKILL.md",
+    ".agents/skills/region-creative-director/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/story-writer/SKILL.md",
+    ".agents/skills/visual-director/SKILL.md",
+    ".agents/skills/weapon-creator/SKILL.md",
+    "AGENTS.md",
+    "README.md",
+    "docs/README.md",
+    "docs/bible/procedural_generation.md",
+    "docs/bible/regions.md",
+    "docs/data/README.md",
+    "docs/data/enemies/plains_charger.md",
+    "docs/project/project_management.md",
+    "docs/project/tasks.md",
+    "docs/project/worklines/codex_context_01/results.md",
+    "docs/project/worklines/codex_context_01/scope.md",
+    "tests/fixtures/level_design_v2/golden_challenges.json",
+    "tests/fixtures/level_design_v2/plains_design.json",
+    "tests/fixtures/level_design_v2/thorn_forest_design.json",
+    "tests/player_presentation_01/build_feel_audio.py",
+    "tests/player_presentation_01/build_weapon_audio.py",
+    "tests/player_presentation_01/build_weapon_audio_v2.py",
+    "tests/test_context_navigation.py",
+    "tests/test_harness.py",
+    "tests/test_level_content_contract.py",
+    "tests/test_level_design_contracts.py",
+    "tests/test_level_design_routing.py",
+    "tests/test_level_experience.py",
+    "tests/test_level_region_context.py",
+    "tests/test_production_loop.py",
+    "tests/test_quality.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/test_visual_director.py",
+    "tests/test_world_design.py",
+    "tools/audio_director.py",
+    "tools/audio_inventory.py",
+    "tools/audio_reels_lab.py",
+    "tools/check_docs.py",
+    "tools/check_quality.py",
+    "tools/check_quality_diff.py",
+    "tools/check_release_evidence.py",
+    "tools/check_world_design.py",
+    "tools/forest_legacy_fixture.py",
+    "tools/foundry_agent_workflow.md",
+    "tools/generate_forest_bible_sfx.py",
+    "tools/harness/profiles.json",
+    "tools/level_content_export.py",
+    "tools/level_design.py",
+    "tools/level_experience.py",
+    "tools/level_region_context.py",
+    "tools/production_loop.py",
+    "tools/quality.py",
+    "tools/quality_drills.py",
+    "tools/region_creative_direction.py",
+    "tools/region_style_history.py",
+    "tools/run_forest_bible_ambience.py",
+    "tools/visual_director.py"
+  ],
+  "deliverables": [
+    "AGENTS.md",
+    "docs/README.md",
+    "docs/project/tasks.md",
+    "docs/bible/regions.md",
+    "docs/data/README.md",
+    "docs/data/enemies/plains_charger.md",
+    ".agents/skills/design-grill/SKILL.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户给定四类职责、维护顺序及已有对象样例，范围写入当前工作线",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "工具检查已执行，PR独立语义审阅仍待进行",
+      "evidence": [
+        "docs",
+        "quality-static"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "四类索引、唯一来源、按需读取和规范先行的流程已形成可审阅正文",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "当前文档导航与既有静态质量检查通过",
+      "evidence": [
+        "docs",
+        "quality-static"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "本会话未代签独立审查，等待PR审阅",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "本工作包为文档与开发方法；不签对应游戏运行内容或设备品质",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/evidence/worklines/codex_context_01/scope.md",
+      "sha256": "9b9e8c15938488220ad5e62483518967cb2bc3533848e1499170572127e54c4d",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "62d8f7088b7488da1fa37357762528e6258979ce",
+      "content_version": "document-system-v1",
+      "method": "用户授权范围整理为本工作线当前交付合同",
+      "observed": "四类文档、按需加载、规范先行和具体对象样例"
+    },
+    {
+      "id": "docs",
+      "path": "docs/evidence/codex_context_01/docs.log",
+      "sha256": "f533366605c856f2cad6f54d8febb74531f5b87ca91cb383592128685e0c9939",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "62d8f7088b7488da1fa37357762528e6258979ce",
+      "content_version": "document-system-v1",
+      "method": "python3 tools/check_docs.py",
+      "observed": "当前导航、任务依赖和设计合同检查通过",
+      "command": "python3 tools/check_docs.py",
+      "exit_code": 0,
+      "environment": "Linux/Python 3.12; manual static process check, no game acceptance"
+    },
+    {
+      "id": "quality-static",
+      "path": "docs/evidence/codex_context_01/quality-static.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "62d8f7088b7488da1fa37357762528e6258979ce",
+      "content_version": "document-system-v1",
+      "method": "python3 tools/check_quality.py",
+      "observed": "现有Skill、模板、质量记录和资产元数据检查通过",
+      "command": "python3 tools/check_quality.py",
+      "exit_code": 0,
+      "environment": "Linux/Python 3.12; manual static process check, no game acceptance"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "PR语义审阅：测试退休、当前工作视图和文档权威",
+    "对象实际画面、声音、趣味、独立内容认可与实体设备不属于本流程交付"
+  ],
+  "test_change_justification": "退休已取消的自动 CI／缓存架构及逐版本追加迁移断言；本次另退休20项旧创作版本累积断言，以当前权威、来源变更拒绝和旧绑定拒绝回归覆盖。41项Bible当前来源／隔离／伪造保护保留，修正目录迁移后的路径和夹具。世界规范不再强制保留已取消方案的历史字段。完整语义审阅仍待PR审查，未代签独立认可。"
+}

@@ -19,4 +19,4 @@ description: 平台挑战模块的新增、端口／几何／机制修改及模�
 
 用模块对应Motor检查；runtime-map内容使用 `runtime-map-windchime` 或M35相关专项。交付模块卡、准入拒绝原因、真实输入轨迹、连接／恢复与合屏结果。
 
-模板：[现有设计卡](../../../docs/templates/level_module_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

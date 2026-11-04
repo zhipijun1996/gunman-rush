@@ -3,7 +3,7 @@ from quality import task_index_lines
 from pathlib import Path
 import re
 import sys
-from quality import ROOT, policy, read_json, validate_record, validate_asset
+from quality import task_record_paths, ROOT, policy, read_json, validate_record, validate_asset
 
 
 def skill_workflow_errors(content):
@@ -48,14 +48,14 @@ def validate(root=ROOT):
             if field not in text:
                 errors.append(f'Template missing {field}: {name}')
     records = {}
-    for path in sorted((root / 'docs/quality/records').glob('*.json')):
+    for path in task_record_paths(root):
         data = read_json(path)
         result = validate_record(data, root)
         errors.extend(f'{path.name}: {e}' for e in result['errors'])
         if data['task_id'] in records:
             errors.append(f'Duplicate task record: {data["task_id"]}')
         records[data['task_id']] = data
-    for path in (root / 'docs/quality/asset_records').glob('*.json'):
+    for path in (root / 'docs/evidence/quality/asset_records').glob('*.json'):
         errors.extend(f'{path.name}: {e}' for e in validate_asset(read_json(path), root))
     task_rows = {}
     for line in task_index_lines(root):
@@ -65,7 +65,7 @@ def validate(root=ROOT):
     for task, data in records.items():
         if task_rows.get(task) != data['workflow']:
             errors.append(f'Task index/record mismatch: {task}')
-    for doc in ('docs/development_quality.md', 'docs/quality/README.md'):
+    for doc in ('docs/project/development.md', 'docs/project/quality.md'):
         if f'版本 **{p["schema_version"]}**' not in (root / doc).read_text():
             errors.append(f'Quality version mismatch: {doc}')
     return errors

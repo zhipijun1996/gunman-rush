@@ -12,10 +12,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def task_index_lines(root):
     """Current work and historical evidence share one task-ID namespace."""
-    for relative in ('docs/tasks.md', 'docs/archive/tasks.md'):
+    for relative in ('docs/project/tasks.md', 'docs/evidence/tasks.md'):
         path = root / relative
         if path.is_file():
             yield from path.read_text().splitlines()
+
+
+def task_record_paths(root):
+    """Current task cards and archived evidence retain one ID namespace."""
+    yield from sorted((root / 'docs/evidence/quality/records').glob('*.json'))
+    yield from sorted((root / 'docs/project/worklines').glob('*/quality/record.json'))
 
 
 def unique_object(pairs):
@@ -32,7 +38,7 @@ def read_json(path):
 
 
 def policy():
-    return read_json(ROOT / "docs/quality/policy.json")
+    return read_json(ROOT / "docs/project/policy.json")
 
 
 def local_file(root, name):
@@ -416,7 +422,7 @@ def main():
             file.write(json.dumps(initialize(args.id, args.type, commit), ensure_ascii=False, indent=2) + "\n")
         print(f"Created unverified record: {args.output}")
         return 0
-    paths = args.records or sorted((ROOT / "docs/quality/records").glob("*.json"))
+    paths = args.records or sorted((ROOT / "docs/evidence/quality/records").glob("*.json"))
     if args.require_complete and not paths:
         print("No quality records to certify", file=sys.stderr)
         return 1

@@ -19,4 +19,4 @@ description: 主角整体设计、成套动作或操作表现改造。
 
 覆盖左右朝向、瞄准角、跳跃／反冲衔接、暂停／死亡及真实UI。相关 `core`、`weapon-feel` 和人物表现专项按实际修改选择；交付状态表、合屏和正常速度录像。
 
-模板：[现有设计卡](../../../docs/templates/player_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

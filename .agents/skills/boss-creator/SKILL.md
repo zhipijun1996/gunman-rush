@@ -11,7 +11,7 @@ description: 新Boss，或Boss机制、阶段与核心招式重构。
 
 ## 操作
 
-1. 从 [对象索引](../../../docs/enemies_and_bosses.md) 读取目标地区圣经和唯一 Boss／版本规范，核对当前方向选择。
+1. 从 [对象索引](../../../docs/data/README.md) 读取目标地区圣经和唯一 Boss／版本规范，核对当前方向选择。
 2. 先整理每招的预告、威胁范围、反制、收势、弱点和阶段差异，写清玩家如何逐步掌握；表现描述身体动作、声音与场地变化，数值引用配置。
 3. 在 `game/bosses/` 的实际场景与定义实现一组完整攻防，再扩阶段。接入封场、失败恢复、死亡演出和奖励，保持实例状态独立。
 4. 比较预期打法、最便宜打法及移除关键机制的结果，检查连续恢复、阶段切换、同帧死亡与重复领奖。
@@ -20,4 +20,4 @@ description: 新Boss，或Boss机制、阶段与核心招式重构。
 
 覆盖连续两次恢复、阶段边界、玩家与Boss同帧死亡、取消和奖励重复领取。相关Boss专项显式选择；交付招式时序、完整遭遇录像、状态与奖励收据。
 
-模板：[现有设计卡](../../../docs/templates/boss_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/boss_design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

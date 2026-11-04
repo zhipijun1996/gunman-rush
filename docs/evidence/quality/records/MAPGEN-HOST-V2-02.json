@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "task_id": "MAPGEN-HOST-V2-02",
+  "task_type": "mechanic",
+  "workflow": "review",
+  "baseline_commit": "9e97b553b7b51cbc64922ed94281061202e3e58b",
+  "reviewed_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+  "content_version": "host-v2-revision-r1",
+  "owner": "/root",
+  "purpose": "PR127 A-E：修CI证据、公共权限、参考包、装载身份及实际Web，保持三模块范围",
+  "player_experience": "独立技术装载切片，现有玩家/服务/机制不扩展",
+  "constraints": [
+    "不恢复PR123，不从main重做，不改物理/经济/永久存档schema/图声",
+    "不改旧受证卡SHA，只恢复历史受证原字节",
+    "Python/参考ZIP/开发证据不进游戏，不自动合并/部署"
+  ],
+  "affected_paths": [
+    "docs/architecture.md",
+    "docs/architecture_extensions.md",
+    "docs/current_state.md",
+    "docs/evidence/mapgen_host_v2_02/README.md",
+    "docs/evidence/mapgen_host_v2_02/ci-baseline/ci-advice.md",
+    "docs/evidence/mapgen_host_v2_02/ci-baseline/ci-facts.json",
+    "docs/evidence/mapgen_host_v2_02/ci-original-failure.zip",
+    "docs/evidence/mapgen_host_v2_02/development/check-pack-producer.py.txt",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-affected-01.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-cloud-tests-01.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-export-basis-01.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-export-basis-02.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-foundry-rebuild.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-identity-01.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-identity-02.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-import.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-local-server.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-pack-check-01-failed.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-pack-check-02.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-pack-check-03.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-pack-check.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-permission-01-failed.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-permission-02.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-permission.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-preview-01.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-preview-02.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-reference-installed.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-web-build-01.log",
+    "docs/evidence/mapgen_host_v2_02/development/mapgen-v202-web-tests-01.log",
+    "docs/evidence/mapgen_host_v2_02/evidence-receipt.json",
+    "docs/evidence/mapgen_host_v2_02/final-native/artifacts/cloud-preview-runtime/build/cloud_preview/90875cfcf6a347698a77d3713b00c9c2/native.log",
+    "docs/evidence/mapgen_host_v2_02/final-native/artifacts/cloud-preview-runtime/build/cloud_preview/90875cfcf6a347698a77d3713b00c9c2/report.json",
+    "docs/evidence/mapgen_host_v2_02/final-native/artifacts/cloud-preview-runtime/check.log",
+    "docs/evidence/mapgen_host_v2_02/final-native/artifacts/runtime-map-v2-host/build/mapgen_host_v2_01/native.json",
+    "docs/evidence/mapgen_host_v2_02/final-native/artifacts/runtime-map-v2-host/check.log",
+    "docs/evidence/mapgen_host_v2_02/final-native/cloud-preview-runtime.log",
+    "docs/evidence/mapgen_host_v2_02/final-native/report.json",
+    "docs/evidence/mapgen_host_v2_02/final-native/runtime-map-v2-host.log",
+    "docs/evidence/mapgen_host_v2_02/foundry-before.zip",
+    "docs/evidence/mapgen_host_v2_02/foundry-diff.json",
+    "docs/evidence/mapgen_host_v2_02/harness/architecture-tests.log",
+    "docs/evidence/mapgen_host_v2_02/harness/cloud-delivery-tests.log",
+    "docs/evidence/mapgen_host_v2_02/harness/cloud-preview-runtime.log",
+    "docs/evidence/mapgen_host_v2_02/harness/cloud-production-planner-tests.log",
+    "docs/evidence/mapgen_host_v2_02/harness/level-plan.log",
+    "docs/evidence/mapgen_host_v2_02/harness/report.json",
+    "docs/evidence/mapgen_host_v2_02/harness/run-session.log",
+    "docs/evidence/mapgen_host_v2_02/harness/runtime-map-v2-host.log",
+    "docs/evidence/mapgen_host_v2_02/harness/web-resource-contract-tests.log",
+    "docs/evidence/mapgen_host_v2_02/independent-reviews.zip",
+    "docs/evidence/mapgen_host_v2_02/local-preview.json",
+    "docs/evidence/mapgen_host_v2_02/native.json",
+    "docs/evidence/mapgen_host_v2_02/pack-readback.json",
+    "docs/evidence/mapgen_host_v2_02/reference-negative-originals.zip",
+    "docs/evidence/mapgen_host_v2_02/reference/README.md",
+    "docs/evidence/mapgen_host_v2_02/reference/fetch-receipt.json",
+    "docs/evidence/mapgen_host_v2_02/reference/installed-tool-receipt.json",
+    "docs/evidence/mapgen_host_v2_02/reference/negative-checks.json",
+    "docs/evidence/mapgen_host_v2_02/reference/negative-producer.py.txt",
+    "docs/evidence/mapgen_host_v2_02/reference/next-mechanisms.json",
+    "docs/evidence/mapgen_host_v2_02/reference/replay.stderr.log",
+    "docs/evidence/mapgen_host_v2_02/reference/replay.stdout.log",
+    "docs/evidence/mapgen_host_v2_02/reference/verify.stderr.log",
+    "docs/evidence/mapgen_host_v2_02/reference/verify.stdout.log",
+    "docs/evidence/mapgen_host_v2_02/reference/zip-member-inventory.json",
+    "docs/evidence/mapgen_host_v2_02/restored-documents.json",
+    "docs/evidence/mapgen_host_v2_02/review/bd-review.json",
+    "docs/evidence/mapgen_host_v2_02/review/bd-review.md",
+    "docs/evidence/mapgen_host_v2_02/review/final-static.json",
+    "docs/evidence/mapgen_host_v2_02/review/final-static.md",
+    "docs/evidence/mapgen_host_v2_02/review/web-review.json",
+    "docs/evidence/mapgen_host_v2_02/review/web-review.md",
+    "docs/evidence/mapgen_host_v2_02/web-preflight-and-corrections.zip",
+    "docs/evidence/mapgen_host_v2_02/web/actual01-freeze.json",
+    "docs/evidence/mapgen_host_v2_02/web/actual01-summary.json",
+    "docs/evidence/mapgen_host_v2_02/web/actual01-summary.md",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/escape-01-loaded.png",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/escape-02-after-input.png",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/escape-03-returned-title.png",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/menu-click-01-loaded.png",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/menu-click-02-after-input.png",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/menu-click-02-after-input.psm6.tsv",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/menu-click-02-after-input.psm6.tsv.gz",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/menu-click-03-returned-title.png",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/report.json",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/source-after.json.gz",
+    "docs/evidence/mapgen_host_v2_02/web/actual01/source-before.json.gz",
+    "docs/evidence/mapgen_host_v2_02/web/browser-driver.log",
+    "docs/evidence/mapgen_host_v2_02/web/browser-producer.py.txt",
+    "docs/evidence/mapgen_host_v2_02/web/browser-report.json",
+    "docs/evidence/mapgen_host_v2_02/web/build-info.json",
+    "docs/evidence/mapgen_host_v2_02/web/build_report.json",
+    "docs/handoff.md",
+    "docs/quality/records/MAPGEN-HOST-V2-02.json",
+    "docs/tasks.md",
+    "docs/worklines/mapgen_host_v2_02/reference_package.md",
+    "docs/worklines/mapgen_host_v2_02/results.md",
+    "docs/worklines/mapgen_host_v2_02/scope.md",
+    "docs/worklines/mapgen_host_v2_02/stage-contract.json",
+    "experiments/generation/entries/runtime_map_v2_slice.tscn",
+    "experiments/generation/runtime_map_frozen_source.gd",
+    "experiments/generation/runtime_map_slice.gd",
+    "experiments/platform/cloud_preview.gd",
+    "export_presets.cfg",
+    "game/world/levels/providers/runtime_map_v2_provider.gd",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/levels/mapgen_host_v2_01/bindings.json",
+    "resources/levels/mapgen_host_v2_01/input-lock.json",
+    "tests/cloud_preview_runner.gd",
+    "tests/runtime_map_v2_runner.gd",
+    "tests/test_cloud_delivery.py",
+    "tests/test_web_bundle.py",
+    "tools/check_web_bundle.py",
+    "tools/cloud_delivery.py",
+    "tools/verify_mapgen_reference.py"
+  ],
+  "deliverables": [
+    "docs/worklines/mapgen_host_v2_02/results.md",
+    "docs/worklines/mapgen_host_v2_02/reference_package.md",
+    "docs/evidence/mapgen_host_v2_02/README.md",
+    "tools/verify_mapgen_reference.py",
+    "resources/levels/mapgen_host_v2_01/input-lock.json",
+    "experiments/generation/entries/runtime_map_v2_slice.tscn"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户A-E边界/版本来源/拒绝与回退已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "F实际199/45及Web限定功能，非完整内容",
+      "evidence": [
+        "native",
+        "checks"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "完整内容/正式地图/性能/设备门不由此技术切片代签",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "完整内容/正式地图/性能/设备门不由此技术切片代签",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "完整内容/正式地图/性能/设备门不由此技术切片代签",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "完整内容/正式地图/性能/设备门不由此技术切片代签",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "限本批工程合同",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "F实际原Harness两个消费者及Web/PCK实测，CI另看精确head",
+      "evidence": [
+        "checks"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同实际作者源码/PCK/六图核验，限定scope",
+      "evidence": [
+        "review",
+        "web-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "此轮不签整图、视听/趣味/性能/手机/用户认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "ae-contract",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "有限合同有据",
+      "scenario": "PR127原有成果上的A-E",
+      "method": "原字节恢复/版本锁/映射与限制",
+      "expected": "保三模块，不恢复PR123/旧卡不追签",
+      "failure": "越界/混版本/伪造覆盖",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "actual-native",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "F原预算实际运行",
+      "scenario": "权限/内容身份/旧恢复拒绝/真实连接骑乘与bootstrap退出",
+      "method": "原Harness199+45严格退出",
+      "expected": "唯一装配/服务、旧state拒绝",
+      "failure": "非法协议接受/weak hash/退出泄漏",
+      "evidence": [
+        "native",
+        "checks"
+      ]
+    },
+    {
+      "id": "independent-limited-review",
+      "gate": "G1",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "只读非作者审查原数据",
+      "scenario": "F程序/PCK/真实Web图像和退出",
+      "method": "独立读字节、反例、六图",
+      "expected": "有限功能可接受且诊断保留",
+      "failure": "自审或超出实际覆盖签署",
+      "evidence": [
+        "review",
+        "web-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/worklines/mapgen_host_v2_02/results.md",
+      "sha256": "5b92d392be7816415a9538d196fe0f27cf682aa8d835fa5bdab7a3e2c7e990cc",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "content_version": "host-v2-revision-r1",
+      "method": "按用户A-E顺序明确实现/真实验证/限制/回退",
+      "observed": "恢复旧受证字节不改旧卡；协议、参考包、装载身份及Web限定scope"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/mapgen_host_v2_02/native.json",
+      "sha256": "357af4bb4ac70c1783fe6eed93308cb22c57089f79ff65a6dad05cb0f686fd08",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "content_version": "host-v2-revision-r1",
+      "method": "真实Motor接缝/椭圆及权限、身份与旧state拒绝",
+      "observed": "F实际199断言零失败；永久schema未改"
+    },
+    {
+      "id": "checks",
+      "path": "docs/evidence/mapgen_host_v2_02/final-native/report.json",
+      "sha256": "18d89c320fee269f3156203b3472015c1d9f771010a197b828c0c23d14d672a1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "content_version": "host-v2-revision-r1",
+      "method": "原Harness/预算/source guard fresh执行F两个实际消费者",
+      "observed": "runtime-map199与cloud-preview45通过，strict exit；源GitF且仅未提交本任务证据/元数据",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/harness.py --check runtime-map-v2-host --check cloud-preview-runtime --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Linux / fixed Godot4.7.2 gunman_sd1 / headless60 / original budgets"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/mapgen_host_v2_02/web/browser-report.json",
+      "sha256": "44514ff2fc120e81c65d77e79d20c79a037a5c941f6edb7eca662af1084ecb05",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "content_version": "host-v2-revision-r1",
+      "method": "实际Chromium两fresh contexts，真实键鼠/OCR/六图/原SourceRoot及PCK字节前后核",
+      "observed": "249.218/300s；移动/平台/菜单与ESC退出、hostid一致；保favicon404与2Blocking，非全零Web错误/手机/FPS"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/mapgen_host_v2_02/review/final-static.json",
+      "sha256": "e545a44358fc8fa62d768c8b67d3a4471d09c58aa68499f6e91461a250fdaabd",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "content_version": "host-v2-revision-r1",
+      "method": "非作者静态反例、独立实际PCK读回及派生逐叶比较",
+      "observed": "F源有限A-E无阻断；七JSON等字节、56Foundry仅identity字段变化",
+      "reviewer": "/root/death_event_audit",
+      "independent": true,
+      "independence_basis": "只读审查非实现者，未改被审source；PCK自行读回",
+      "implementers": [
+        "/root",
+        "/root/items_refactor"
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "web-review",
+      "path": "docs/evidence/mapgen_host_v2_02/review/web-review.json",
+      "sha256": "fce01cf00d9f0e187758c8cfcf2f78f1f99dc8aac8ea82a125bf3ce32e05ab93",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "67da2f3596880cbdad22496a649dd68f7af7d5a6",
+      "content_version": "host-v2-revision-r1",
+      "method": "非作者实际view六图并逐个核SHA/rawreport/cleanup顺序",
+      "observed": "仅接受实际local Web slice功能；原三console诊断不抹掉",
+      "reviewer": "/root/death_event_audit",
+      "independent": true,
+      "independence_basis": "浏览器driver及生产代码均非本审作者；另读原数据与图片",
+      "implementers": [
+        "/root",
+        "/root/browser_verify"
+      ],
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "精确最终PR head完整172 CI结果在PR/最终交接单列；旧run41510336068失败不追签",
+    "完整46实例、其余机制/敌人/奖励/Boss/正式App消费者与全能力快照",
+    "运行时算法Godot/Web交付仍NOT_IMPLEMENTED；本批Python仅开发工具",
+    "Web跨缝/骑乘、FPS/手机/用户/整图、资源零泄漏不签；console诊断保留",
+    "本地全局docs/quality/structure稀疏未物化旧证据，未放宽守门",
+    "不合并不部署"
+  ],
+  "production_snapshot": "18ec71a6cc933bf652f0e5d6a57c499045d6aa38c8137b635b4000b20f312d73"
+}

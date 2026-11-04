@@ -13,7 +13,7 @@ from level_content import sha, write, verified_result
 from level_content_contract import make_content, validate_bundle, PILOT_SCOPE
 
 ROOT = Path(__file__).resolve().parents[1]
-REVIEWS = 'docs/ai_level_design_v1/library_reviews.json'
+REVIEWS = 'docs/evidence/sources/ai_level_design_v1/library_reviews.json'
 PRODUCER = 'tools/level_pilot_validate.gd'
 PILOTS = ('plains_overlook_choice', 'plains_backlook_cache',
           'forest_crown_root_choice', 'forest_basin_homecoming')
