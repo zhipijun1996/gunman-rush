@@ -8,12 +8,12 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-HOST-WINDCHIME-041 | 修复纵向Port、地形小地图、二维重复度及生成等待并更新试玩 | MAPGEN-GODOT-04 | in_progress | [交接](worklines/mapgen_host_windchime_041/scope.md) |
 
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| MAPGEN-HOST-WINDCHIME-041 | 修复纵向Port、地形小地图、二维重复度及生成等待并更新试玩 | MAPGEN-GODOT-04 | review | [交接](worklines/mapgen_host_windchime_041/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | FIRST-USE-STUTTER-01 | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | GAME-ARCH-CI-01 | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
@@ -22,6 +22,7 @@
 | ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | ENEMY-WORKFLOW-01 | review | [交接](worklines/enemy_all_02/scope.md) |
 | PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [交接](worklines/player_presentation_01/scope.md) |
 
+- `MAPGEN-HOST-WINDCHIME-041`：试玩版本 `f78b51be4131` 已发布；复核三主路／六奖励、纵向跨缝、地形地图和实际等待，算法搜索反例交 map-gen #7。
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。
 - `AUDIO-LAB-MATERIAL-01`：按实际 Lab 入口复核 enemy_hurt ABC 与七怪材质路由，先确认当前缺陷是否仍可复现。
