@@ -5,80 +5,14 @@ description: 项目归整、冗余清理、分支合并和 Web 交付验证。
 
 # project-integration
 
-所有命令从仓库根目录运行。现行规则见 [AGENTS](../../../AGENTS.md) 与 [当前状态](../../../docs/current_state.md)；数值和玩法不在 skill 中重复定义。
+从仓库根目录执行。先看 AGENTS、docs/current_state.md 最新相关段落、Git 状态与用户授权，再从最新 main 创建独立分支。用户最新指令覆盖历史流程；默认交付 PR，不自动合并。
 
-1. 检查 Git 状态、分支 ancestry、当前交接、CI 和用户授权。最新分支按实际提交时间与累积内容判断，不能只按 PR 编号。确认 main 是否已包含，防止重复整合。
-2. 分别识别现行规范、历史说明、运行资源、回归消费者和可重建产物；按 docs/project_structure.md 归整。删除候选必须查代码/场景/Resource/config、动态加载、manifest、工具、文档和许可。无静态引用不是可删结论。
-3. 优先收敛当前入口、归档历史段落与修链接，保持稳定 res:// 路径/UID。不要因旧命名删除仍有消费者的 Lab、回归测试、母版或失败证据。不批量删除远端分支/关闭 PR。
-4. harness --plan 明确检查；文档整理 docs，工具/运行/构建按影响选 profile，未知 full。改 runner 必须验证非零退出、缺成功标记与超时，不能假通过。
-5. 合并前核对目标 SHA 与验证来源，保留冲突解决和未知项。已授权合并则使用普通 merge/受保护 PR 流程，不强推或绕过保护；未授权则交付可审查 PR。
-6. Web 使用现有 build/check_bundle，缓存和弱网测试保留实际条件；检查提交与线上构建指纹、许可证、存档和冷暖缓存。合并 main 会触发现有 Pages 工作流，报告实际状态，不把排队当发布成功。
-7. 更新当前状态、任务、交接和证据，说明实际清理了什么、保留什么及原因。
+1. 区分运行代码/资源、当前测试、手动测试、废弃实现。删除前查静态引用、动态加载、manifest、导出、工具和实际消费者；旧命名或不参与 CI 不代表可删。保持游戏资源/UID、许可和用户改动。
+2. 开发只运行修改相关专项：`python3 tools/harness.py --list`、`--check ID --plan`、`--check ID`，或直接运行具体 runner。没有隐式 full、影响升级、缓存证明或双 lane。修改 runner 要实际验证非零退出、缺成功标记、脚本错误和超时拒绝。
+3. 日常 CI 固定四项，见 [Harness](../../../docs/harness.md)。不要因历史技能/质量卡要求补回全量检查、证据哈希、录像审查或十一维流程卡。不能把未跑的专项写成通过。
+4. 正式导出使用 `tools/deliver.py web|windows|android|all`，先安装发布工具链；手动 Release and playtest 工作流提供相同入口。发布与日常 CI 分开，main push 不自动发布。
+5. 试玩已有同源 Web 包时复用，通过 `deploy-prepared-playtest.yml` 部署；无包或运行源变化才重建。核对实际 source commit/build id、公开 metadata、完整 PCK 和基本入口，不能用旧站冒充新候选。技术、用户、真机认可分别说明。
+6. 合并必须有用户授权，使用普通 merge/受保护 PR，不强推、不绕过红灯。源码分支与纯部署产物分支分开，不批量删远端分支或关闭 PR。
+7. 在 tasks/current_state/handoff 更新本次范围、实际验证、删除/保留依据和未完成事项。测试日志留 build/；不为普通工程改动新增证据框架或质量卡。
 
-交付物：可审查结构变更、删除/保留依据、合并/构建结果与继续命令。
-
-质量状态统一使用 [game-quality-gate](../game-quality-gate/SKILL.md) 与 [总流程](../../../docs/development_quality.md)。纯整理用 process 类型，不能用它隐藏运行文件修改；Git 交付不代表内容/设备验收。
-
-## 快速试玩发布默认路径（2026-10-21 用户最新要求）
-
-用户只要求“部署试玩网页”时，先找目标运行源已验证的Web包；存在就复用包，不重新跑完整CI、Windows、全路线和长录像。使用现有`deploy-prepared-playtest.yml`，prepared分支仅承载该原导出；超100MiB PCK由原内容寻址chunks重建并核对完整SHA/长度。缺包或运行源改变时仅Web重建及影响范围验证，不为部署先跑整套项目交付。完整回归与正式交付继续独立执行，复用证据不冒称本轮fresh。
-
-发布后核对公开`build-info.json`、完整PCK和目标source/build，再做标题→目标区域的基本GUI冒烟；回报可点击试玩链接、构建标识和实际未完成边界。无需每次重新生成计划/提案或征求已授权发布的确认。源码与包的身份必须准确，不把部署成功称整区艺术/真机认可；不默认合main。
-
-用户通过试玩站体验时，已验证的开发原型也按该路径发布并给可点击URL和准确菜单入口；分支已推送或本地ZIP不能代替网页交付。保留旧入口，新候选与最终质量分开标注；公开元数据与实际点击验证后才报上线，未做的真机／时长／整区品质保留未验。[实际纠正与原话](../../../docs/evidence/forest_variety_04/public_v18_01/README.md)。
-
-Web导出遇到 `Foundry source changed after validation`，先检查现有开发池basis。当前旧工坊保守绑定整个generation目录，新区域脚本也会令其失配；用原 `python3 tools/foundry.py build --count 24 --promote` 实际验证并重建开发池／回放，再走原export stamp。保留旧池和失败，不手改basis或跳过guard；这不要求重跑整套CI，也不把工坊通过签成森林品质。
-
-## 实际指针与弹出菜单的交付检查
-
-新增菜单不可以键盘选项通过代替鼠标/触屏菜单项点击。画面存在、按钮能打开弹出层、键盘能选中，都不证明触屏能提交选项；必须逐项检查已接受ID、回调次数、菜单关闭和关闭后首个真实操作。对嵌入Window按当前引擎提交核查事件通路，不能把子Viewport push_input或window_input信号视为原生菜单调用链。取消/点击外部不得泄漏为角色攻击；Web真实DOM touchcancel与原生canceled字段要分开验证，监听退出时移除。默认静止训练目标必须明确标注，不应作为所有敌人运动/战斗验收；保留移动默认与静止样板消费者。
-
-## 提效执行顺序（2026-10-14）
-
-先交付一个真实消费者的完整动作样板，提前验证移动中附件衔接、墙边碰撞、触屏多指、伸缩/过渡动画及正常速度连续音画，再批量扩展。开发使用harness --check定位；sparse工作区的并行按下节保护，隔离修复经本轮实测后再启用。--reuse仅复用完全相同依赖的证明。最终使用tools/deliver.py与--release的新鲜完整检查；也可由同一冻结SHA的正式CI完成全部fresh core/art、GPU/audio、Windows/Web，再以tools/verify_ci_artifact_browser.py对该CI唯一API digest绑定的实际ZIP/PCK执行三个原浏览器消费者，并单列同源原生连续动作影片。两种方式都必须核对公开PCK完整SHA，不把失败的本地deliver追认为通过；任何缓存不能代替独立/设备/玩家认可。规则、命令与删除边界见[交付提效](../../../docs/delivery_efficiency.md)。
-
-发布前运行 `python3 tools/check_release_evidence.py --commit HEAD`：证据路径必须存在于该精确Git提交的普通文件树，不能因本机build尚存而放行。原quality schema/SHA检查继续执行；必要时在无旧build的干净checkout实际复核。实际A3缺9件的失败及无损迁移用于此守门正反例，不改签旧来源或以最终trace覆盖失败原件。
-
-提交PR前还须按该PR实际base完整执行`python3 tools/check_quality_diff.py --base <base-sha>`，不能只用上一笔本地HEAD。family manifest不自动提供`docs/quality/asset_records`的机器登记；真实runtime资产必须有runtime来源，不以offline关联文件覆盖。测试预期随真实消费者变化时，专项独审只签该守门变化，不为通过检查把整区独审维度改成passed。PR默认临时merge提交与分支head不同；选择精确head检出并保持run API、Git、build-info/PCK一致，手动publish的并发租约与自动push/PR分开。
-
-## 共同创作契约
-
-[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
-
-历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
-
-## 从统一 main 并行开发
-
-用户2026-10-22选择先合并全部现状，再从最新origin/main分主题开发。每任务独立分支／worktree并将PR直接指向main；避免把旧实验分支作为新功能基底。收口须盘点实际祖先而非PR状态，已吸收/替代的旧分支可经逐文件独审、准确blob恢复记录和工作树不变证明保留合并历史，不能借此丢失独有修复或重启旧画风。纯部署产物分支排除；不批量删分支。实例见[收口原件](../../../docs/evidence/main_closeout_20261022/README.md)。
-
-## 商业 Demo 多 Cloud 生产与独立交付
-
-按[生产入口](../../../docs/cloud_production.md)和[工作线模板](../../../docs/templates/cloud_workline.md)建立独立任务；不重复原质量框架。四模式可切换，按实际验证需求选择短片、独立Web、两者或工程报告。观察型局部变化可只交真实Godot短片；用户需操作时交独立Preview。短片需真实下载地址、来源SHA、复现条件及before缺失／差异说明，不能静图伪造。
-
-独立Preview托管仓库与正式Pages分开，任务／PR／SHA／Seed／build绑定，目标场景可直达并有完整游戏入口。旧`deploy-prepared-playtest.yml`仍是整站替换工具，不用它冒充工作线隔离；未完成部署不能复用旧站签新成果。公开后核真实metadata／完整PCK和实际入口，媒体artifact说明登录与有效期。本轮Release资产上传已实际返回HTTP 401，不能假定有上传权限；当前稳定MP4下载使用已验证的独立Pages文件地址，未来其他渠道同样须核验真实下载。
-
-开发／集成计划用`tools/production_plan.py --stage development|integration --base <真实基线>`，执行加`--execute`，保持原Harness检查与预算。Release继续原完整正式门槛。每任务明确共享资源所有者，生产线不默认合main；总控合入检查Git、资源／UID／导入、接口／信号、参数／Definition、保存／Manifest和真实消费者，不能只看无冲突。检查点／人工反馈复用原生产协议，不假定Cloud会话实时互通或自动唤醒。
-
-## 按需上下文与稀疏工作区提效
-
-先读AGENTS、当前状态、交接及任务相关权威／Skill，再按真实消费者取需要的历史原件；不默认加载全部历史文档、媒体或旧失败全文。历史证据提效边界见[审计](../../../docs/cloud_efficiency_audit.md)。partial／sparse只减少下载，不能把缺文件视为无消费者，或为修链接而直接删除历史证据。
-
-选定输入入口见[Harness](../../../docs/harness.md#稀疏检出与选定输入预检)：`tools/cloud_inputs.py --check ID`／`--profile NAME`默认只计划，`--materialize`显式物化，结果以实际收据为准。执行选定check／profile前先预检所需输入、精确版本、SHA和预计物化量；缺件明确阻塞，显式物化后再验证，不把预检当测试通过。复用原 `required_input_preflight` 语义，不由检查名称猜测动态依赖。sparse工作区当前先用 `--jobs 1`；只有本轮隔离修复及相关消费者真实复验通过后，才在已验证scope启用 `--jobs > 1`，不能沿旧建议先全checkout放大历史下载。
-
-归档先在新目录恢复并核原路径／字节SHA，再跑原消费者与精确commit守门；闭包未证明则保留原件。禁止以远程URL直接替换旧quality依赖，不rewrite历史、不强推；本轮源码历史证据及资源实际删除0项。
-
-## 当前 Demo 的集成成本边界（2026-10-23）
-
-按 [CI 前置检查与完整双通道](../../../docs/harness.md#ci前置检查与完整双通道)执行：已选中的有限便携 Python 子守门先于引擎／Foundry，不能按 `.py` 后缀推断廉价。完整任务复用原 `full` profile 两物理通道与原合流器；局部不升级全量或 Web。合入核最终 `affected` 聚合结果与精确源码，prepare 或单通道成功不足以放行。重跑失败 job 须能取同 run 已成功的准备产物；验收指针可更新，失败原始诊断按 attempt 保留。不重复整轮来定位输入缺件，不用完整本地工作区冒称稀疏闭包已成立。
-
-用户已明确暂不考虑旧存档/旧特性兼容：历史回放按显式 `legacy-compat` 手动执行，延期不记通过；默认检查保护当前真实消费者。不要在内容合并时顺带恢复已不要求的历史行为。共享机制发生变更，生产线先交代当前接口和消费者，避免沿过期fixture修改正式玩法。
-
-wrapper失败先用其原runner单独定位/复验，保原断言、预算与严格退出检查；通过后再执行所属wrapper。完整集成在源码冻结后集中执行，过程中不修改源集。Development用已有`--reuse`仅复用digest完全一致、确有归档的证明；最终CI fresh。检查已通过而依赖未变，不因无关任务再手动从头执行。退出泄漏、实际当前保存、资源/UID/接口与导出问题仍需修复。
-
-收缩必需输入前须贯穿Python入口、Godot runner和实际audit核实范围，并真实运行同一scope；顶层参数不代表底层已停止历史回放。内部启动多个Godot进程的重检查使用独占Harness调度，避免嵌套并发争CPU；保全部场景、原断言和预算。
-
-GUI专项在deferred run入口设置实际Window/viewport尺寸并记录screen scale，避免初始化设置被headless默认64覆盖；DisplayServer的headless零值另列，不能当真机尺寸。HUD遮挡检查取实际可见控件，透明布局根和同一个触控菜单的自交不能冒称遮挡；真实角色／敌人／机关／其他UI重叠继续拒绝。
-
-资源策略变化后，正例与反例都要绑定实际配置；篡改必须实际改变数据，不能用删除本来不存在的扣费回执充当拒绝测试。多个彼此独立的native场景可在原聚合硬时限内并行，但须保全部场景、唯一完整覆盖、原断言、退出／日志／清理检查和可追溯子进程证据，不把每个分片另给全额时限。
-
-APT镜像修复须核实际runner日志的`mirror+file`入口（含`/etc/apt/apt-mirrors.txt`）及实际获取URL；仅安装通过或修改sources文件不能证明已切源。保GPG、套件、参数及原超时，不把临时源文件测试签成Cloud生效。
+复杂画面/玩法工作按真实需要做 GUI、录屏或设备验证；不作为无关 CI 工程修改的固定交付。真实交互不能用数值或 Hash 代签，失败不得伪造为通过。

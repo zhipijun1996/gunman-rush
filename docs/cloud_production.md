@@ -6,7 +6,7 @@
 
 ## 本轮仓库审计要点
 
-现有Harness已支持专项检查、隔离lane、同依赖复用、fresh发布与失败归档；质量系统已有任务、独审、租约和恢复协议。现有动作录屏是真实引擎电影模式，Web构建已有内容指纹、chunks和完整PCK验证，均优先复用。旧prepared试玩发布会替换整个正式Pages站点，因此不具备独立工作线隔离；独立托管解决这项缺口。原主题push与PR重复完整导出的问题由本轮CI分流处理，Release门槛保留。
+当前 Harness 只执行显式选择的手动专项；日常 CI 固定四项，发布单独手动执行。现有动作录屏是真实引擎电影模式，Web构建已有内容指纹、chunks和完整PCK验证，均优先复用。旧prepared试玩发布会替换整个正式Pages站点，因此不具备独立工作线隔离；独立托管解决这项缺口。原主题push与PR重复完整导出的问题由本轮CI分流处理，Release门槛保留。
 
 历史 `docs/evidence` 约8.3GiB；本轮首次完整clone传输约2GB后真实early EOF失败，随后用sparse检出当前运行源及必要文档，保留失败记录。sparse仅减少本地历史下载，不删除仓库内容；引用历史证据时仍须取得并校验原件，不能把未下载当作无关或已经验证。
 
@@ -14,11 +14,11 @@
 
 1. 阅读当前状态，从最新 `origin/main` 创建 `feature/<task-id>-<topic>` 等独立分支／工作树；记录精确基线SHA。
 2. 使用[工作线模板](templates/cloud_workline.md)写清玩家目标、完成条件、允许写集、共享文件所有者、接口依赖、开发模式及交付依据；任务ID沿用 `docs/tasks.md` 和现有质量记录，避免另建任务数据库。
-3. 运行 `python3 tools/production_plan.py --stage development --base origin/main` 查看影响计划；确认额外动态依赖，执行时加 `--execute`。只允许增加检查或升级范围，不能为通过而缩减推导出的范围。
+3. 根据改动选择相关测试，直接运行具体 runner，或用 `python3 tools/harness.py --check ID --plan` 查看命令后显式执行。
 4. 自主实现、做最小相关验证，并按本页选择录像／Preview／工程报告；提交、推送并创建面向main的PR。交付链接只能来自实际文件或真实部署。
 5. 用户直接评价画面、手感或趣味，原工作线针对反馈继续；总控核验接口和正式消费者后集成。生产线默认不合main。
 
-Cloud稀疏工作区先用 `python3 tools/cloud_inputs.py --profile docs` 或所选 `--check` 输出缺件计划，需要时显式 `--materialize`；未知对象大小保留unknown，输入ready不代表测试通过。Harness隔离不再先检出全树，按实际已物化源保留精确index／sparse语义；细节与退出码见[Harness](harness.md#稀疏检出与选定输入预检)。历史证据先证明可恢复和真实消费者，再提出清理，不直接删旧媒体。
+Cloud 工作区可稀疏检出并排除历史 docs/evidence；需要手动历史重放时按实际消费者取件。旧 cloud_inputs 工件恢复机制已撤销。
 
 新工作线无需把简单反馈扩成冗长设计文档；影响方向、接口或生产阶段时才补足决策依据。已授权可逆工作继续执行，不为普通技术选择反复请求确认。
 
@@ -63,30 +63,13 @@ Web大PCK沿已有内容寻址chunks传输，并在托管端恢复、核对完�
 
 ## 三层验证与CI
 
-`tools/production_plan.py`负责解释影响与选择，原 `tools/harness.py`负责执行、超时、错误检测、日志和证据。命令、断言、预算和完整发布守门继续由原Harness权威维护。检查选择映射不是依赖证明，动态加载／共享参数／未知范围必须保守升级。
-
-| 阶段 | 执行依据 | 可声明范围 |
-| --- | --- | --- |
-| Development | docs每轮一次＋确定受影响的专项、必要导入／解析／构建检查 | 本轮开发专项；不能称完整回归或发布通过 |
-| Integration | 受影响系统的完整专项＋共享接口／信号／资源＋正式消费者；未知范围完整检查 | 明确列出的集成范围 |
-| Release | 保留原完整CI、GPU／音频、Windows／Web导出、浏览器与公开部署验证 | 只按实际完成门槛声明；用户／设备认可仍分开 |
-
-```sh
-python3 tools/production_plan.py --stage development --base origin/main
-python3 tools/production_plan.py --stage development --base origin/main --execute
-python3 tools/production_plan.py --stage integration --base origin/main --execute
-python3 tools/production_plan.py --stage release --base origin/main
-```
-
-Release在该规划器中仅计划，`--stage release --execute`明确拒绝；实际执行原 `tools/deliver.py`／精确SHA正式CI。不得把局部 `--check` 或仅完整profile改称所有发布条件已满足。`--plan`不是执行；未执行、失败和超时保留原状态。缓存只复用同依赖证明并标原来源，fresh发布继续 `--release`。
-
-CI分流采用本地Development、PR自动Integration、手动Development／Integration；主题分支push和已测draft转ready不重复触发昂贵完整CI。PR以sparse检出、原preflight按需补件和两隔离lane执行，Foundry准备后重plan并补齐可能升级的输入，serial仍按原顺序执行。main及手动原Godot core保留完整Release；实际运行状态以workflow和本轮证据为准。避免同一SHA由多个生产会话重复发起完整CI；总控记录已冻结源的唯一正式运行。不能因为一个大资产任务改文件多就全量，也不能因为一个小共享参数改动文件少就局部。
+开发只运行与本次改动相关的专项，PR/main 自动执行固定四项 CI。没有影响规划、自动 full、隔离 lane、证据工件恢复或缓存证明。正式导出/部署通过手动 environment.yml 或 tools/deliver.py 执行；已有包的快速部署继续使用 deploy-prepared-playtest.yml。具体命令和检查边界以 [Harness](harness.md) 为准。
 
 ## 并行所有权与合入
 
 每任务写集包含脚本、运行场景、Definition、纹理／atlas、UID、导入设置、公共配置和生成产物。两个生产会话不可无协调修改同一资源；共享文件由一个明确所有者负责，其他线提交接口需求。跨线前置接口必要时单独PR，消费者基于已合入SHA继续。场景按现有架构自然拆为逻辑、表现和独立组件，不为并行强行重构。
 
-独立工作树隔离 `.godot`、导入、输出与user数据；原Harness隔离lane继续复用。共享工作树的引擎／导入／导出仍由单一租约持有。冻结录像／构建期间禁止修改其源，漂移则失败，不能用旧绿换签新源码。
+独立工作树隔离 `.godot`、导入、输出与user数据。共享工作树的引擎／导入／导出仍由单一租约持有。冻结录像／构建期间禁止修改其源，漂移则失败，不能用旧绿换签新源码。
 
 总控合入前检查的不只有Git冲突：场景／资源引用、UID与导入、接口／信号、参数和Definition唯一来源、玩法／存档兼容、Seed／Manifest，以及真实正式消费者回归。按main更新后重新评估影响，记录冲突解决；无文本冲突不等于可安全集成。使用普通PR和既有守门，不强推、不回写历史证据、不让生产线自行合main。
 

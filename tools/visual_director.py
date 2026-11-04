@@ -1451,7 +1451,7 @@ def main(argv=None):
         elif args.command=='compare': result=compare_captures(args.before,args.after)
         elif args.command=='route': result=route(args.request,args.task_id,args.quality_record,args.allowed_path,args.max_calls,args.max_rounds,args.call_timeout,args.phase)
         else:
-            command=[sys.executable,str(ROOT/'tools/harness.py'),'--mission',args.mission,'--evidence-dir',args.evidence_dir,'--worker-mode',args.worker_mode]
+            command=[sys.executable,str(ROOT/'tools/production_loop.py'),'--mission',args.mission,'--evidence-dir',args.evidence_dir,'--worker-mode',args.worker_mode]
             if args.execute: command.append('--execute')
             return subprocess.call(command,cwd=ROOT)
         output=Path(args.output).resolve()

@@ -1,3 +1,7 @@
+## 2026-11-04 CI-SLIMDOWN-01
+
+分支 codex/ci-slimdown，基线 main f11c750。已用固定四项 CI 替换旧影响规划/双通道/证据搬运；保留 172 手动专项和全部游戏 GD 测试。游戏/正式资源零 diff，未合并/未部署。当前命令：`python3 tools/ci.py`；开发专项用 `python3 tools/harness.py --check ID`。本地实际四项 20.76 秒通过，三项真实故障注入拒绝；远端验收随后查看该分支 PR/Actions，不复活旧 full。[结果与边界](worklines/ci_slimdown_01/results.md)。
+
 ## 2026-11-03 0.4.1最终CI：历史锁证据路径收口
 
 PR131精确4df/run41728429398已证同run大工件和Git对象缓存恢复成功；parallel正式7PASS后quality拒两张历史0.4.0卡的lock路径漂移，serial仍继续原run。旧锁/原卡字节保全，只迁历史证据path、SHA/来源/结论不变；原质量检查已通过，独审及后继精确head179+affected仍待实际验收。全部游戏/SDK/module/request/bindings和已验原生/Web/22图不变。未合main，普通出发不改、不部署。详见[本批结果](worklines/mapgen_041_windchime/results.md)与[迁移原件](evidence/mapgen_041_windchime/historical-lock-040/README.md)。

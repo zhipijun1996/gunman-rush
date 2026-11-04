@@ -1,3 +1,11 @@
+# 2026-11-04 CI-SLIMDOWN-01：当前验证规则（覆盖下方全部历史 CI 条款）
+
+用户明确授权替换旧 CI/Harness 架构、删除冗余验证。日常自动 CI 仅 tools/ci.py 的 project/import/smoke/contracts 四项；唯一 required context 为 affected。main 不自动导出/部署。发布使用手动 environment.yml；已有包继续用 deploy-prepared-playtest.yml。
+
+Codex 开发只执行与本次修改相关的专项，直接运行 runner 或 harness --check ID；不带参数只列举。禁止因下方历史记录、其他技能或质量卡自动补跑 full、docs、两 lane、影响规划、证据恢复/哈希、完整录像审查。旧 production_plan/production_impact/cloud_inputs/production_timing 已删除，不再调用；不恢复旧 profile/reuse/release/mission Harness 接口。普通工程工作用任务说明和实际验证结果即可，不新增质量卡或证据流程。游戏测试源码和当前玩法契约保留；日志、退出码、成功标记和超时仍须诚实校验。
+
+当前入口：[Harness](docs/harness.md) · [测试取舍](docs/ci-test-inventory.md)。下方是历史交接，涉及旧 CI 架构的数字和指令只作溯源，不约束当前开发/合入。无关游戏玩法、正式资源及用户验收边界继续适用。
+
 ## 2026-10-30 牧风者60HP候选：完整原声影片已录，待用户审片
 
 正式map2接入六招、三阶段加权冻结招组、主动追近、真实平台支撑/跨台及共同姿态判定；致死立即停伤害/风，落位后1.9秒失效，原账本喷出并逐枚领取20金币。运行源7f919a22及140运行引用此后字节不变。分支feature/windkeeper-pressure-01，[PR124](https://github.com/zhipijun1996/gunman-rush/pull/124)为草稿，不自动合main；PR122巡游机保持独立。
