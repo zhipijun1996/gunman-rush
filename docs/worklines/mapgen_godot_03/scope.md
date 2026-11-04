@@ -1,0 +1,9 @@
+# MAPGEN-GODOT-03
+
+从PR127受验head e7d703f47c97f09bd5c5d48e24f0a400c958ad40 建立隔离分支feature/mapgen-godot-runtime-03；原工作树/PR127 head不动。旧run41569062806精确e7d的prepare/serial/parallel/affected均SUCCESS；172fresh/0reuse/0failure，最终两lane与合流原件已独立核验。旧工作树仍原e7d，不新增提交。
+
+顺序：1核候选ZIP并只装原15addons/mapgen GD+版本锁，主游戏Godot4.7.2跑包内基本验证；2新生成来源与FrozenIO最终共用唯一Plan转换，按现bindings/source_record边界适配；3内存来源只有真实数据摘要与算法/模块/host身份，不伪造files.map.json，不重写原指纹；4明确conformance930001实际生成→本次结果M16/M18/M21切片，冻结图仅对照不回退，普通能力request来自真实controller/tuning不自动grant grapple；5宿主job/run-stage-actor信封负责preload/generate/validate/assemble/commit/fail/cancel，旧/重复/退出结果拒绝，solver纯数据，承认长帧；6有限Web依赖允许锁定模块ZIP一个精确路径，排除Python/参考测试包/开发证据，实际PCK与真实生成/取消/退出；7链路完成后M35完整hazard/saw/linear ferry单独提交验证。
+
+发行head93c5221a9708d079c2864f3c14b415e81bb5de07；candidate0.3.0 ZIP9ea87854c96cf7c2189b4c6ad25a8056454a3150721bead79c335aca8678acd0；module1.1.0 ZIP5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723。包内实际source508b558e8a9925862e8a26c20fea008b9a772007另记，不混发行提交。
+
+不复制/重写solver到业务代码，不扩全图、不换普通出发地图、不改物理/经济/永久schema/图声，不合并不发布。M24封死奖励已知未修，不能用受控切片或生成语义PASS签整图可玩。root拥有原玩法装配/源job/集成与单引擎租约；专业写集按实际任务单独分配。沿project-integration/game-quality-gate，过程/阶段/完整内容分开。

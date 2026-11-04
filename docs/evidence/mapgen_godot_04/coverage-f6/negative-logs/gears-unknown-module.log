@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/tmp/map-edit-runtime-audit-v04/tools/runtime_audit/check_930001.py", line 595, in <module>
+    run_actual_profile(actual.parse_args())
+  File "/tmp/map-edit-runtime-audit-v04/tools/runtime_audit/check_930001.py", line 567, in run_actual_profile
+    validate_actual_store(reference, store, catalog, package)
+  File "/tmp/map-edit-runtime-audit-v04/tools/runtime_audit/check_930001.py", line 484, in validate_actual_store
+    entry = catalog[instance["module_id"]]
+            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'missing-module'

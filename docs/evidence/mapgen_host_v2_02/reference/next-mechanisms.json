@@ -1,0 +1,39 @@
+{
+  "locked_module_zip_sha256": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+  "verified_reference_zip_sha256": "25f05861b68a99eee1e9d588eb2cab761e30c85b7cc109b0536292fcc98867f6",
+  "recommendations": [
+    {
+      "priority": 1,
+      "instance_id": "M35",
+      "module_id": "game-plains-ferry-gears",
+      "content_version": "sha256:18e0578b0631239884f0ff9bb598b04867396bcbe3988c036b512ebe32e092b3",
+      "materialized_content_ref": "samples/success/content/M35.json",
+      "content_file_sha256": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c",
+      "nonempty_mechanism_counts": {
+        "platforms": 4,
+        "hazards": 1,
+        "saws": 1,
+        "moving_platforms": 2
+      },
+      "rationale": "Next focused native hazard/oscillating saw/linear ferry module; no enemies, rewards, latch or HQ records to broaden this batch.",
+      "not_implemented_this_batch": true,
+      "qualification": "Original source scope only; new host mechanics, seams, mirror and interactions need their own real tests."
+    },
+    {
+      "priority": 2,
+      "instance_id": "M01",
+      "module_id": "game-plains-windchime-lesson",
+      "content_version": "sha256:b2ee44df5422a7b4dd9be1358a075c46cefb00992de802607389f6f94ecfa433",
+      "materialized_content_ref": "samples/success/content/M01.json",
+      "content_file_sha256": "b1dd1d6a46a609d56a1673a969b361fb17a095986093e948b22dc35a8936d18e",
+      "nonempty_mechanism_counts": {
+        "platforms": 2,
+        "latches": 1
+      },
+      "rationale": "Next independent projectile-to-bell/gate interaction; retain complete original safe_lesson latch and its source identity.",
+      "not_implemented_this_batch": true,
+      "qualification": "Original source scope only; new host mechanics, seams, mirror and interactions need their own real tests."
+    }
+  ],
+  "boundaries": "Recommendations only; this batch remains verification/comparison tooling, no actor/reward/Boss or new mechanism runtime code."
+}

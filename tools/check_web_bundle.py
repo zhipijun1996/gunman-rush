@@ -9,6 +9,10 @@ import re
 import struct
 import sys
 
+# Reuse the installer's locked upstream inventory; do not maintain a second
+# addon/hash registry in the export checker.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 REPO = Path(__file__).resolve().parents[1]
 SPACES = 'assets/region_production_v3/spaces/'
 LANDSCAPE = 'game/presentation/world/art/plains_semantic_landscape.gd'
@@ -17,6 +21,21 @@ TERRAIN = 'game/presentation/world/art/plains_terrain_family_sampler.gd'
 BACKGROUND = 'game/presentation/world/art/plains_background.gd'
 CONNECTED = 'game/presentation/world/art/plains_connected_landscape.gd'
 CONNECTED_ROOT = 'assets/production_repair/'
+MAPGEN_FROZEN_SOURCE = 'experiments/generation/runtime_map_frozen_source.gd'
+MAPGEN_FROZEN_ROOT = 'resources/levels/mapgen_host_v2_01/'
+MAPGEN_FROZEN_MEMBERS = ('map.json', 'bindings.json', 'selection.json',
+                         'content/M16.json', 'content/M18.json', 'content/M21.json')
+MAPGEN_CANDIDATE_CONFIG = 'config/mapgen_candidate.json'
+MAPGEN_MODULE_ZIP = 'resources/mapgen/module-pack-1.1.0.zip'
+MAPGEN_REQUEST = 'resources/mapgen/conformance_request.json'
+MAPGEN_GENERATOR_CONFIG = 'resources/mapgen/generator_config.json'
+MAPGEN_GEARS_REQUEST = 'resources/mapgen/gears_request_930007.json'
+MAPGEN_GENERATED_SOURCE = 'experiments/generation/runtime_map_generated_slice.gd'
+MAPGEN_DEFAULT_BINDINGS = 'resources/levels/mapgen_host_v4/bindings.json'
+MAPGEN_M35_SOURCE = 'experiments/generation/runtime_map_m35_slice.gd'
+MAPGEN_M35_BINDINGS = 'resources/levels/mapgen_host_v4_gears/bindings.json'
+MAPGEN_WINDCHIME_SOURCE = 'experiments/generation/runtime_map_windchime_slice.gd'
+MAPGEN_WINDCHIME_BINDINGS = 'resources/levels/mapgen_host_041_windchime/bindings.json'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
                                                         SPACES + 'supported_overhang_limestone_bank_v1/',
@@ -140,6 +159,82 @@ class Pack:
         return data
 
 
+def mapgen_candidate_contract(repo):
+    """The installed config owns paths; original installer pins own revisions."""
+    repo = Path(repo).resolve()
+    config_path = repo / MAPGEN_CANDIDATE_CONFIG
+    if not config_path.is_file():
+        if (repo / 'experiments/generation/runtime_map_generated_slice.gd').is_file():
+            raise ValueError('Generated mapgen consumer lacks its installed config lock')
+        return None
+    import install_mapgen_candidate as mapgen_install
+    # The original installer owns every approved byte, including the complete
+    # config lock. Config edits cannot bless a new addon or ZIP revision.
+    hashes = mapgen_install.installed_hashes()
+    mapgen_install.preflight(repo, hashes, True)
+    config = json.loads(config_path.read_text())
+    addons = config['addon_files']
+    paths = [config['module_package']['path']]
+    for profile in ('conformance', 'gears_conformance'):
+        paths += [config[profile]['request']['path'], config[profile]['config']['path']]
+    data = {resource_path(path): hashes[resource_path(path)] for path in paths}
+    return {'config': MAPGEN_CANDIDATE_CONFIG, 'addons': addons, 'data': data}
+
+
+def check_mapgen_payload(pack, repo):
+    contract = mapgen_candidate_contract(repo)
+    # Normal resource conversion remains permitted; raw ZIP admission is exact.
+    for name in pack.entries:
+        lower = name.lower()
+        if (lower.endswith(('.py', '.pyc', '.pyo'))
+                or lower.split('/')[0] in ('docs', 'tests', 'tools')
+                or 'evidence' in lower.split('/')):
+            raise ValueError('PCK contains a development-only payload: ' + name)
+        if lower.endswith('.zip') and (contract is None or name != MAPGEN_MODULE_ZIP):
+            raise ValueError('PCK contains an unadmitted ZIP: ' + name)
+    if contract is None:
+        return None
+    for name, digest in contract['data'].items():
+        if hashlib.sha256(pack.read(name)).hexdigest() != digest:
+            raise ValueError('PCK mapgen data differs from its installed SHA: ' + name)
+    converted_targets = set()
+    for name, digest in contract['addons'].items():
+        present = False
+        if name in pack.entries:
+            if hashlib.sha256(pack.read(name)).hexdigest() != digest:
+                raise ValueError('PCK raw mapgen addon differs from its original SHA: ' + name)
+            present = True
+        if name + '.remap' in pack.entries:
+            mapping = pack.read(name + '.remap').decode('utf-8')
+            matches = re.findall(r'^path="(res://[^"\n]+)"$', mapping, re.MULTILINE)
+            if len(matches) != 1:
+                raise ValueError('Mapgen addon needs one normal export remap: ' + name)
+            target = resource_path(matches[0])
+            if not target.endswith(('.gdc', '.gd')) or not pack.read(target):
+                raise ValueError('Mapgen addon lacks its converted script: ' + name)
+            if target.endswith('.gd') and hashlib.sha256(pack.read(target)).hexdigest() != digest:
+                raise ValueError('PCK remapped mapgen source differs from its original SHA: ' + name)
+            if target.startswith('addons/mapgen/') and target not in (name, name[:-3] + '.gdc'):
+                raise ValueError('Mapgen addon remap targets an unadmitted addon member: ' + name)
+            converted_targets.add(target)
+            present = True
+        if not present:
+            raise ValueError('PCK lacks installed mapgen addon: ' + name)
+    allowed_addons = set(contract['addons'])
+    allowed_addons |= {name + suffix for name in contract['addons'] for suffix in ('.remap', '.uid')}
+    allowed_addons |= converted_targets
+    allowed_data = set(contract['data'])
+    allowed_data |= {name + suffix for name in contract['data'] if name.endswith('.json')
+                     for suffix in ('.import', '.remap')}
+    for name in pack.entries:
+        if name.startswith('addons/mapgen/') and name not in allowed_addons:
+            raise ValueError('PCK contains an unadmitted mapgen addon member: ' + name)
+        if name.startswith('resources/mapgen/') and name not in allowed_data:
+            raise ValueError('PCK contains an unadmitted mapgen data member: ' + name)
+    return {'addon_scripts': sorted(contract['addons']), 'data_sha256': contract['data'],
+            'scope': 'Exact installed dependencies and actual PCK bytes; no runtime generation/rendering claim'}
+
+
 def runtime_contract(repo):
     """Finite adapters for integrated consumers; absent child consumers stay pending."""
     repo = Path(repo).resolve()
@@ -166,6 +261,51 @@ def runtime_contract(repo):
             raise ValueError('Runtime JSON must be an object: ' + name)
         manifests[name] = data
         return data
+
+    generated = mapgen_candidate_contract(repo)
+    if generated is not None:
+        manifest(generated['config'])
+        for name in generated['data']:
+            if name.endswith('.json'):
+                manifest(name)
+
+    for consumer, prefix, binding in (
+            (MAPGEN_GENERATED_SOURCE, 'DEFAULT_BINDINGS', MAPGEN_DEFAULT_BINDINGS),
+            (MAPGEN_M35_SOURCE, 'BINDINGS', MAPGEN_M35_BINDINGS),
+            (MAPGEN_WINDCHIME_SOURCE, 'BINDINGS', MAPGEN_WINDCHIME_BINDINGS)):
+        if not (repo / consumer).is_file():
+            continue
+        # Host bindings are independent of the upstream config lock. Each
+        # actual consumer owns its SHA; no second hash registry is introduced.
+        source = (repo / consumer).read_text()
+        declarations = {}
+        for key in (prefix + '_PATH', prefix + '_SHA256'):
+            values = re.findall(r'^const ' + key + r'\s*(?::\s*String)?\s*:?=\s*"([^"\n]+)"\s*$',
+                                source, re.MULTILINE)
+            if len(values) != 1:
+                raise ValueError('Mapgen host consumer needs one finite ' + key + ' declaration: ' + consumer)
+            declarations[key] = values[0]
+        name = resource_path(declarations[prefix + '_PATH'])
+        if declarations[prefix + '_PATH'] != 'res://' + binding:
+            raise ValueError('Mapgen host consumer bindings path changed; review finite export adapter: ' + consumer)
+        expected = declarations[prefix + '_SHA256']
+        if not re.fullmatch(r'[0-9a-f]{64}', expected) or hashlib.sha256(local(name)).hexdigest() != expected:
+            raise ValueError('Mapgen host bindings differ from their actual consumer SHA: ' + name)
+        manifest(name)
+
+    frozen_source = repo / MAPGEN_FROZEN_SOURCE
+    if frozen_source.is_file():
+        root = re.search(r'const ROOT\s*:?=\s*"res://([^"\n]+)"', frozen_source.read_text())
+        if not root or root.group(1) != MAPGEN_FROZEN_ROOT:
+            raise ValueError('Frozen v2 consumer root changed; review finite export adapter')
+        lock = manifest(MAPGEN_FROZEN_ROOT + 'input-lock.json')
+        if lock.get('schema') != 'gunman-rush/mapgen-frozen-input/v1' or set(lock.get('files', {})) != set(MAPGEN_FROZEN_MEMBERS):
+            raise ValueError('Frozen v2 input lock differs from its finite runtime members')
+        for name in MAPGEN_FROZEN_MEMBERS:
+            expected = lock['files'][name]
+            if not re.fullmatch(r'[0-9a-f]{64}', str(expected)) or hashlib.sha256(local(MAPGEN_FROZEN_ROOT + name)).hexdigest() != expected:
+                raise ValueError('Frozen v2 JSON differs from its runtime SHA: ' + name)
+            manifest(MAPGEN_FROZEN_ROOT + name)
 
     landscape = repo / LANDSCAPE
     if landscape.is_file():
@@ -383,6 +523,7 @@ def check_recorded_enemy_resources(pack, repo):
 def check_runtime_closure(path, repo=REPO):
     excluded = check_excluded_consumers(repo)
     pack = Pack(path)
+    generated = check_mapgen_payload(pack, repo)
     for family in excluded:
         if any(name.startswith(family) for name in pack.entries):
             raise ValueError('PCK contains excluded evidence-only family: ' + family)
@@ -424,6 +565,7 @@ def check_runtime_closure(path, repo=REPO):
     return {'json': sorted(manifests), 'raw_png': sorted(n for n, t in textures.items() if t['raw']),
             'textures': sorted(textures), 'pending_consumers': pending,
             'recorded_enemy_definitions': recorded_definitions,
+            'mapgen_generated_dependencies': generated,
             'excluded_evidence_families': list(excluded),
             'scope': 'Actual PCK closure for integrated consumers only; no rendering/device/content acceptance'}
 

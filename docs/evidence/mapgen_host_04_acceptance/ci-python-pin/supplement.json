@@ -1,0 +1,44 @@
+{
+  "schema": "gunman-rush/independent-ci-python-pin-review-supplement/v1",
+  "reviewer": "/root/stage_a_final_review",
+  "created_utc": "2026-11-03T16:51:07.157206+00:00",
+  "verdict": "ACCEPT_METADATA_CORRECTIONS_NO_BLOCKING_FINDINGS",
+  "blocking_findings": [],
+  "baseline_commit": "0167ef34990e9c19a9ad57898f1e07f479ab2a5d",
+  "checks": {
+    "workflow_same_reviewed_sha": true,
+    "old_results_restored_exact0167": true,
+    "old_stage_A_card_unchanged": true,
+    "old_merged_zip_matches_final_receipt": true,
+    "old_affected_log_uncompressed_matches_final_receipt": true,
+    "all_seven_current_process_card_evidence_bindings_match": true,
+    "task_dependency_MAPGEN_GODOT_04_present": true
+  },
+  "assessment": [
+    "Restoring old stage A results/card exact bytes preserves existing evidence scope bindings; new CI-only description remains in its own README/navigation.",
+    "Existing MAPGEN-GODOT-04 task is a valid parseable dependency for the CI follow-up; no docs parser weakening is introduced.",
+    "Selector/lane logs are correctly command evidence with actual commands,exit0 and local Python3.12.14 separate from CI3.12.16; workflow inverse-check summary is honestly spec evidence.",
+    "Original affected failure is now demonstrated, replacing the old pending observation: actual log says Phase toolchain identities differ then exit1; raw merged ZIP contains interrupted report with empty checks at0167. ZIP and decompressed original log hashes match final receipt.",
+    "Seven process-card evidence bindings match; G4 describes only minimal patch review, while full178+affected acceptance of new exact head remains unverified.",
+    "Retained missing-input/metadata-attempt failures remain failed historical attempts; no claim they constitute final checks."
+  ],
+  "limits": [
+    "No Godot/browser/test reruns or repo/Git writes; external supplement only.",
+    "Root must complete final restored-input docs/quality/diff checks and snapshot bindings, then collect exact new-head full178+affected result.",
+    "No new runtime/Web/default acceptance,stage B,0.4.1,merge or deploy."
+  ],
+  "reviewed_sha256": {
+    ".github/workflows/production.yml": "ff9479039b324bf6e7ff3bee41c73eb8eda21c9ea8063c87053d765d6bcab182",
+    "docs/tasks.md": "24a8627a2d0c26db55495462cdecebd329d7bb02c5c950754143f226d68e9271",
+    "docs/current_state.md": "768f275ff9823a7b212bfaf80fb99a6aa5ee2d440f5814ccc49b41cd12836c3b",
+    "docs/handoff.md": "415e2cf90fc2166af6294b36f0933ba4a567137b105b35041e0b75cc67c159a5",
+    "docs/worklines/mapgen_host_04_acceptance/results.md": "6985f46d582a91f3e29ca81ea943b2df3fb2a50a15ee80db89d041188c5abaa5",
+    "docs/quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json": "17ec3f2e44cd170c3508a672560045940e5263ce8f047b48235582b4fd91404f",
+    "docs/quality/records/MAPGEN-CI-PYTHON-PIN-01.json": "c069515f902c9a3f368fdcfd9847990d87277ff3cafac1e4a99c08d9f8daf5c9",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/README.md": "549d426ef2447495904c998a20d0a9001c43bd2b25e14fdcfcfc8131b6981a1c",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/old-run-final-receipt.json": "01f4678e3f897bb665edfff36511d007e89e185170d4e939f4027c1d6645a94f",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/merged.zip": "aa67740ab5830584df584ed9800910166e13e053757a44abcf26bb9ba22f53ee",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/merged-original-report.json": "0ccb226aefbe99ec897cce53702618a64f2b3a6e91cc983561140b86b38f4fa2",
+    "docs/evidence/mapgen_host_04_acceptance/ci-python-pin/affected-job.log.gz": "7a232d5cb12371b1141d9e906cf2c4310a5b783d675a07501cbbe76f58ec32d5"
+  }
+}

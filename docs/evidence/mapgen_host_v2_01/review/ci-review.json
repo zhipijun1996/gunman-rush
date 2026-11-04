@@ -1,0 +1,56 @@
+{
+  "decision": "static_accept_ci_registration",
+  "blocking_findings": [],
+  "candidate_patch_sha256": "cdce329cb27939e553e220782aa6772138bfb150e88cd70b285c8cd37873b5b2",
+  "reviewed_files": [
+    {
+      "path": "tools/harness/profiles.json",
+      "before_sha256": "a8884dfd811aa3ae10cc50e25cc354ea7f3c486e79a339dce003b8ae56767085",
+      "sha256": "452955ca2f9fc76eae0c4541569c036287766db148b8cec33e1650c07f236f5b"
+    },
+    {
+      "path": "config/production_impact.json",
+      "before_sha256": "bea5176ed22e7d62cb3c8e570b9ddf9bebe5033c67e7ffbdf815b1971c5c9cac",
+      "sha256": "776820c14978149984bb759648924e00ba6ad4bde7a08647e6dd636f8ed493b9"
+    },
+    {
+      "path": "tools/production_plan.py",
+      "before_sha256": "995c5a67410d44434a8a3249cd30e94374c1d61a41ace5fe59854ba19aa9bd9e",
+      "sha256": "0e98f5dfe8ed00bc413407e9559df5e5aa5a3dfa91178294618c3ba4ed07b6bf"
+    },
+    {
+      "path": "tests/test_production_plan.py",
+      "before_sha256": "b508bc9d5936aaee235b266e20cb2dab52b33c7f50a77f5ec56bdf3ba84bb9fe",
+      "sha256": "da527582a33053d5747d64fc52e6803b684a2c13eb7e46171a43012089884234"
+    }
+  ],
+  "all_old219_check_definitions_exact": true,
+  "ordered_prefixes": {
+    "full": 171,
+    "gameplay": 156
+  },
+  "new_counts": {
+    "checks": 220,
+    "full": 172,
+    "gameplay": 157,
+    "parallel": 92,
+    "serial": 80
+  },
+  "other_profiles_exact": true,
+  "old_policy_rules_order_and_always_full_exact": true,
+  "new_resource_exceptions": 7,
+  "new_rule_paths": 20,
+  "planner_functions_AST_unchanged": true,
+  "old_test_methods": 48,
+  "unchanged_old_test_AST": 47,
+  "historical_method_inverse_AST_exact": true,
+  "new_test_methods": 1,
+  "unknown_and_shared_full_routing_retained": true,
+  "read_pure_evidence": "planner-tests-03 49/0; previous01/02 failures retained",
+  "read_native_evidence": "root native04 log/artifact150/0; not reviewer execution or registered/full CI",
+  "engine_run": false,
+  "browser_run": false,
+  "reviewer_tests_run": false,
+  "production_writes": 0,
+  "review_sha256": "053508dbdab521dbea9523877e15185bd545c5fd96390b5ad465fc438c3130f3"
+}

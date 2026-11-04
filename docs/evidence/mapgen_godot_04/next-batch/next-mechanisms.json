@@ -1,0 +1,4675 @@
+{
+  "purpose": "Derived planning view of original producer tables, not a replacement inventory or new coverage authority",
+  "host_commit": "d4e17def6848dc75b9c6037436dee86ecc874cbc",
+  "source_tables": {
+    "default": "cf4bae494b26d0b2ae305f289cf33f8ed88948913f10e847320578a0bc34978a",
+    "gears": "54eed26234329d14c324e6ed7bdbe52f27a4bab435a0d8e054cc4ffda0314f75"
+  },
+  "candidate_order": [
+    "game-plains-windchime-lesson",
+    "idea-plains-hq01-001",
+    "idea-interface-s11-001"
+  ],
+  "instances": [
+    {
+      "profile": "default",
+      "seed": 930001,
+      "result_sha256": "9ddebdf93b3ff340a6739fca4a6f743f09aefc1343e0d21b743ba98b2d47846f",
+      "priority": 1,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "exit"
+        ],
+        "content_ref": "content/M01.json",
+        "content_version": "sha256:b2ee44df5422a7b4dd9be1358a075c46cefb00992de802607389f6f94ecfa433",
+        "id": "M01",
+        "module_id": "game-plains-windchime-lesson",
+        "origin_blocks": [
+          0,
+          0
+        ],
+        "ports": [
+          {
+            "face": "LEFT",
+            "id": "entry",
+            "local_position_pixels": [
+              0.0,
+              192.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "RIGHT",
+            "id": "exit",
+            "local_position_pixels": [
+              512.0,
+              192.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "start",
+        "routes": [],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "LEFT",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "entry",
+            "rect_pixels": [
+              0,
+              128.0,
+              32,
+              128
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          4,
+          3
+        ],
+        "source_compiled_ref": "module_pack/modules/game-plains-windchime-lesson/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/game-plains-windchime-lesson/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": false
+        }
+      },
+      "complete_materialized_content": {
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          24.0,
+          206.0
+        ],
+        "exit_port": [
+          496.0,
+          206.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [
+          {
+            "bell": [
+              170.0,
+              159.0
+            ],
+            "gate": [
+              320,
+              4,
+              24,
+              220
+            ],
+            "id": "windchime_plains_windchime_lesson",
+            "kind": "safe_lesson",
+            "link_color": "e8bd65",
+            "open_seconds": 0,
+            "prompt": "SHOOT BELL"
+          }
+        ],
+        "moving_platforms": [],
+        "one_way_platform_indices": [],
+        "platforms": [
+          [
+            0,
+            224,
+            480,
+            40
+          ],
+          [
+            480,
+            224,
+            32,
+            24
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          -76
+        ],
+        "source_sha256": "0846f23881d9106d68032323b6278e4f79550e33f1cb73cf4e920323039da942",
+        "stable_id": "game-plains-windchime-lesson",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          512,
+          384
+        ]
+      },
+      "array_counts": {
+        "platforms": 2,
+        "one_way_platform_indices": 0,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 1,
+        "moving_platforms": 0
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M01",
+              "port_id": "exit"
+            },
+            "b": {
+              "instance_id": "M02",
+              "port_id": "R"
+            },
+            "id": "C001",
+            "position_pixels": [
+              512.0,
+              192.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M02",
+            "module_id": "idea-interface-s12-001",
+            "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+            "role": "traversal",
+            "content_ref": "content/M02.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 2,
+            "enemies": 1,
+            "approved_hq_cells": 1,
+            "moving_platforms": 2
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "default",
+      "seed": 930001,
+      "result_sha256": "9ddebdf93b3ff340a6739fca4a6f743f09aefc1343e0d21b743ba98b2d47846f",
+      "priority": 2,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "L",
+          "R"
+        ],
+        "content_ref": "content/M14.json",
+        "content_version": "sha256:8c7d18090e298ee20bcdccfcb1c360b05f7460a5897ffbb8fb4c13c2ffcd6e95",
+        "id": "M14",
+        "module_id": "idea-plains-hq01-001",
+        "origin_blocks": [
+          23,
+          5
+        ],
+        "ports": [
+          {
+            "face": "LEFT",
+            "id": "L",
+            "local_position_pixels": [
+              0.0,
+              320.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "RIGHT",
+            "id": "R",
+            "local_position_pixels": [
+              640.0,
+              64.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "TOP",
+            "id": "T",
+            "local_position_pixels": [
+              192.0,
+              0.0
+            ],
+            "permission": "INOUT",
+            "surface": "ONE_WAY_PLATFORM"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "traversal",
+        "routes": [
+          {
+            "author_path_pixels": [
+              [
+                0,
+                320
+              ],
+              [
+                80,
+                320
+              ],
+              [
+                192,
+                278
+              ],
+              [
+                256,
+                278
+              ],
+              [
+                368,
+                166
+              ],
+              [
+                460,
+                124
+              ],
+              [
+                592,
+                64
+              ],
+              [
+                640,
+                64
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "L",
+            "id": "L-to-R",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "39d4b1c4acee9fef477cd909ed4a8b907c9d37a7433b3aa67cef35f2e9317f1e",
+              "physicalSignature": "23f0a4d53dde01b896649a026e3b6eef60ca1ab3a0c49c7f0ae99af323e0bdff",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "R"
+          },
+          {
+            "author_path_pixels": [
+              [
+                640,
+                64
+              ],
+              [
+                592,
+                64
+              ],
+              [
+                460,
+                124
+              ],
+              [
+                368,
+                166
+              ],
+              [
+                256,
+                278
+              ],
+              [
+                192,
+                278
+              ],
+              [
+                80,
+                320
+              ],
+              [
+                0,
+                320
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "R",
+            "id": "R-to-L",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "39d4b1c4acee9fef477cd909ed4a8b907c9d37a7433b3aa67cef35f2e9317f1e",
+              "physicalSignature": "23f0a4d53dde01b896649a026e3b6eef60ca1ab3a0c49c7f0ae99af323e0bdff",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "L"
+          }
+        ],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "TOP",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "T",
+            "rect_pixels": [
+              128.0,
+              0,
+              128,
+              32
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          5,
+          4
+        ],
+        "source_compiled_ref": "module_pack/modules/idea-plains-hq01-001/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/idea-plains-hq01-001/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": false
+        }
+      },
+      "complete_materialized_content": {
+        "approved_hq_cells": [
+          {
+            "access": [
+              [
+                584.0,
+                48.0
+              ],
+              [
+                192.0,
+                72.0
+              ]
+            ],
+            "bell": [
+              136.0,
+              368.0
+            ],
+            "id": "group-bell",
+            "kind": "group_motion",
+            "targets": [
+              "P",
+              "Q"
+            ]
+          }
+        ],
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          24.0,
+          334.0
+        ],
+        "exit_port": [
+          616.0,
+          78.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [],
+        "moving_platforms": [
+          {
+            "designState": "FROZEN_EXAMPLE",
+            "dwell_duration": 0.4,
+            "finish": [
+              464,
+              312
+            ],
+            "initial_phase": 0.17901234567901236,
+            "platform_id": "P",
+            "size": [
+              96,
+              16
+            ],
+            "start": [
+              176,
+              312
+            ],
+            "travel_duration": 3.2
+          },
+          {
+            "designState": "FROZEN_EXAMPLE",
+            "dwell_duration": 0.4,
+            "finish": [
+              368,
+              128
+            ],
+            "initial_phase": 0.2647058823529412,
+            "platform_id": "Q",
+            "size": [
+              96,
+              16
+            ],
+            "start": [
+              368,
+              264
+            ],
+            "travel_duration": 3.2
+          }
+        ],
+        "one_way_platform_indices": [
+          3
+        ],
+        "platforms": [
+          [
+            0,
+            352,
+            112,
+            160
+          ],
+          [
+            544,
+            96,
+            96,
+            416
+          ],
+          [
+            0,
+            240,
+            176,
+            12
+          ],
+          [
+            128,
+            32,
+            128,
+            12
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "source_sha256": "3c3b4cf730d2d06ddffc95ca6f5ff186821618a15c0c061e8799e1883345e772",
+        "stable_id": "idea-plains-hq01-001",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          640,
+          512
+        ]
+      },
+      "array_counts": {
+        "platforms": 4,
+        "one_way_platform_indices": 1,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 0,
+        "approved_hq_cells": 1,
+        "moving_platforms": 2
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M07",
+              "port_id": "L"
+            },
+            "b": {
+              "instance_id": "M14",
+              "port_id": "L"
+            },
+            "id": "C012",
+            "position_pixels": [
+              2944.0,
+              960.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M07",
+            "module_id": "idea-spec02-s12-001",
+            "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+            "role": "traversal",
+            "content_ref": "content/M07.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 2,
+            "approved_hq_cells": 2,
+            "moving_platforms": 2
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        },
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M14",
+              "port_id": "R"
+            },
+            "b": {
+              "instance_id": "M15",
+              "port_id": "L"
+            },
+            "id": "C022",
+            "position_pixels": [
+              3584.0,
+              704.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M15",
+            "module_id": "idea-interface-s12-001",
+            "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+            "role": "traversal",
+            "content_ref": "content/M15.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 2,
+            "enemies": 1,
+            "approved_hq_cells": 1,
+            "moving_platforms": 2
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "default",
+      "seed": 930001,
+      "result_sha256": "9ddebdf93b3ff340a6739fca4a6f743f09aefc1343e0d21b743ba98b2d47846f",
+      "priority": 3,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "L",
+          "R"
+        ],
+        "content_ref": "content/M24.json",
+        "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+        "id": "M24",
+        "module_id": "idea-interface-s11-001",
+        "origin_blocks": [
+          -4,
+          -19
+        ],
+        "ports": [
+          {
+            "face": "RIGHT",
+            "id": "L",
+            "local_position_pixels": [
+              640.0,
+              320.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "LEFT",
+            "id": "R",
+            "local_position_pixels": [
+              0.0,
+              64.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "BOTTOM",
+            "id": "B",
+            "local_position_pixels": [
+              192.0,
+              512.0
+            ],
+            "permission": "INOUT",
+            "surface": "ONE_WAY_PLATFORM"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "traversal",
+        "routes": [
+          {
+            "author_path_pixels": [
+              [
+                640,
+                320
+              ],
+              [
+                560,
+                320
+              ],
+              [
+                380,
+                284
+              ],
+              [
+                240,
+                220
+              ],
+              [
+                56,
+                64
+              ],
+              [
+                0,
+                64
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "L",
+            "id": "L-to-R",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "R"
+          },
+          {
+            "author_path_pixels": [
+              [
+                0,
+                64
+              ],
+              [
+                56,
+                64
+              ],
+              [
+                240,
+                220
+              ],
+              [
+                380,
+                284
+              ],
+              [
+                560,
+                320
+              ],
+              [
+                640,
+                320
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "R",
+            "id": "R-to-L",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "L"
+          }
+        ],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "BOTTOM",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "B",
+            "rect_pixels": [
+              128.0,
+              480,
+              128,
+              32
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          5,
+          4
+        ],
+        "source_compiled_ref": "module_pack/modules/idea-interface-s11-001/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/idea-interface-s11-001/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": true
+        }
+      },
+      "complete_materialized_content": {
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          616.0,
+          334.0
+        ],
+        "exit_port": [
+          24.0,
+          78.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [
+          {
+            "additional_pair_access": [
+              192.0,
+              448.0
+            ],
+            "bell": [
+              304.0,
+              280.0
+            ],
+            "gate": [
+              124,
+              0,
+              20,
+              256
+            ],
+            "id": "common-bell",
+            "initial_open": "B",
+            "open_seconds": 0,
+            "paired_gate": [
+              128,
+              416,
+              128,
+              16
+            ],
+            "return_access": [
+              56.0,
+              48.0
+            ]
+          }
+        ],
+        "moving_platforms": [],
+        "one_way_platform_indices": [
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            528,
+            352,
+            112,
+            160
+          ],
+          [
+            0,
+            96,
+            96,
+            416
+          ],
+          [
+            320,
+            320,
+            112,
+            12
+          ],
+          [
+            128,
+            480,
+            128,
+            12
+          ],
+          [
+            256,
+            416,
+            32,
+            96
+          ],
+          [
+            96,
+            416,
+            32,
+            96
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          -1,
+          0,
+          0,
+          1,
+          640,
+          0
+        ],
+        "source_sha256": "fd3c531360d74b995a91544f1e6172bc27f934c635b08b48b6a44d8e372e7693",
+        "stable_id": "idea-interface-s11-001",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          640,
+          512
+        ]
+      },
+      "array_counts": {
+        "platforms": 6,
+        "one_way_platform_indices": 2,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 1,
+        "moving_platforms": 0
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M22",
+              "port_id": "B"
+            },
+            "b": {
+              "instance_id": "M24",
+              "port_id": "R"
+            },
+            "id": "C037",
+            "position_pixels": [
+              -512.0,
+              -2368.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M22",
+            "module_id": "b31-n06-fourport-two-low-ingress",
+            "content_version": "sha256:5aebe7b7a122a26eabb4f25a4a4324244b336552d1d450b41c1659a01b6c8c0f",
+            "role": "traversal",
+            "content_ref": "content/M22.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 8,
+            "enemies": 1,
+            "latches": 1
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "A-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "A-to-C",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "D-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "D-to-C",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "A-to-D",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-C",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-D",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "C-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "C-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "C-to-D",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "D-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        },
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M24",
+              "port_id": "L"
+            },
+            "b": {
+              "instance_id": "M28",
+              "port_id": "entry"
+            },
+            "id": "C042",
+            "position_pixels": [
+              128.0,
+              -2112.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M28",
+            "module_id": "game-plains-fork-paths",
+            "content_version": "sha256:3b796ef52899c779c10d1f1eee55e3a3c18aedc4aa3ebc8c52ac381bbe6b9783",
+            "role": "traversal",
+            "content_ref": "content/M28.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 7,
+            "one_way_platform_indices": 5
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "entry-to-fork_right",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "fork_right-to-entry",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "entry-to-fork_up",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "fork_up-to-entry",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "fork_right-to-fork_up",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "fork_up-to-fork_right",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "default",
+      "seed": 930001,
+      "result_sha256": "9ddebdf93b3ff340a6739fca4a6f743f09aefc1343e0d21b743ba98b2d47846f",
+      "priority": 3,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "R",
+          "B"
+        ],
+        "content_ref": "content/M38.json",
+        "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+        "id": "M38",
+        "module_id": "idea-interface-s11-001",
+        "origin_blocks": [
+          8,
+          -7
+        ],
+        "ports": [
+          {
+            "face": "RIGHT",
+            "id": "L",
+            "local_position_pixels": [
+              640.0,
+              320.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "LEFT",
+            "id": "R",
+            "local_position_pixels": [
+              0.0,
+              64.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "BOTTOM",
+            "id": "B",
+            "local_position_pixels": [
+              192.0,
+              512.0
+            ],
+            "permission": "INOUT",
+            "surface": "ONE_WAY_PLATFORM"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "traversal",
+        "routes": [
+          {
+            "author_path_pixels": [
+              [
+                0,
+                64
+              ],
+              [
+                56,
+                64
+              ],
+              [
+                240,
+                220
+              ],
+              [
+                380,
+                284
+              ],
+              [
+                208,
+                388
+              ],
+              [
+                192,
+                448
+              ],
+              [
+                192,
+                512
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "R",
+            "id": "R-to-B",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "B"
+          },
+          {
+            "author_path_pixels": [
+              [
+                192,
+                512
+              ],
+              [
+                192,
+                448
+              ],
+              [
+                208,
+                388
+              ],
+              [
+                380,
+                284
+              ],
+              [
+                240,
+                220
+              ],
+              [
+                56,
+                64
+              ],
+              [
+                0,
+                64
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "B",
+            "id": "B-to-R",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "R"
+          }
+        ],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "RIGHT",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "L",
+            "rect_pixels": [
+              608,
+              256.0,
+              32,
+              128
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          5,
+          4
+        ],
+        "source_compiled_ref": "module_pack/modules/idea-interface-s11-001/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/idea-interface-s11-001/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": true
+        }
+      },
+      "complete_materialized_content": {
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          616.0,
+          334.0
+        ],
+        "exit_port": [
+          24.0,
+          78.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [
+          {
+            "additional_pair_access": [
+              192.0,
+              448.0
+            ],
+            "bell": [
+              304.0,
+              280.0
+            ],
+            "gate": [
+              124,
+              0,
+              20,
+              256
+            ],
+            "id": "common-bell",
+            "initial_open": "B",
+            "open_seconds": 0,
+            "paired_gate": [
+              128,
+              416,
+              128,
+              16
+            ],
+            "return_access": [
+              56.0,
+              48.0
+            ]
+          }
+        ],
+        "moving_platforms": [],
+        "one_way_platform_indices": [
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            528,
+            352,
+            112,
+            160
+          ],
+          [
+            0,
+            96,
+            96,
+            416
+          ],
+          [
+            320,
+            320,
+            112,
+            12
+          ],
+          [
+            128,
+            480,
+            128,
+            12
+          ],
+          [
+            256,
+            416,
+            32,
+            96
+          ],
+          [
+            96,
+            416,
+            32,
+            96
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          -1,
+          0,
+          0,
+          1,
+          640,
+          0
+        ],
+        "source_sha256": "fd3c531360d74b995a91544f1e6172bc27f934c635b08b48b6a44d8e372e7693",
+        "stable_id": "idea-interface-s11-001",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          640,
+          512
+        ]
+      },
+      "array_counts": {
+        "platforms": 6,
+        "one_way_platform_indices": 2,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 1,
+        "moving_platforms": 0
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M05",
+              "port_id": "T"
+            },
+            "b": {
+              "instance_id": "M38",
+              "port_id": "B"
+            },
+            "id": "C010",
+            "position_pixels": [
+              1216.0,
+              -384.0
+            ],
+            "surface": "ONE_WAY_PLATFORM"
+          },
+          "neighbor_identity": {
+            "id": "M05",
+            "module_id": "idea-spec02-s12-001",
+            "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+            "role": "traversal",
+            "content_ref": "content/M05.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 2,
+            "approved_hq_cells": 2,
+            "moving_platforms": 2
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        },
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M38",
+              "port_id": "R"
+            },
+            "b": {
+              "instance_id": "M39",
+              "port_id": "L"
+            },
+            "id": "C058",
+            "position_pixels": [
+              1024.0,
+              -832.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M39",
+            "module_id": "idea-interface-s11-001",
+            "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+            "role": "traversal",
+            "content_ref": "content/M39.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 6,
+            "one_way_platform_indices": 2,
+            "latches": 1
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "default",
+      "seed": 930001,
+      "result_sha256": "9ddebdf93b3ff340a6739fca4a6f743f09aefc1343e0d21b743ba98b2d47846f",
+      "priority": 3,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "L",
+          "B"
+        ],
+        "content_ref": "content/M39.json",
+        "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+        "id": "M39",
+        "module_id": "idea-interface-s11-001",
+        "origin_blocks": [
+          3,
+          -9
+        ],
+        "ports": [
+          {
+            "face": "RIGHT",
+            "id": "L",
+            "local_position_pixels": [
+              640.0,
+              320.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "LEFT",
+            "id": "R",
+            "local_position_pixels": [
+              0.0,
+              64.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "BOTTOM",
+            "id": "B",
+            "local_position_pixels": [
+              192.0,
+              512.0
+            ],
+            "permission": "INOUT",
+            "surface": "ONE_WAY_PLATFORM"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "traversal",
+        "routes": [
+          {
+            "author_path_pixels": [
+              [
+                640,
+                320
+              ],
+              [
+                560,
+                320
+              ],
+              [
+                380,
+                284
+              ],
+              [
+                208,
+                388
+              ],
+              [
+                192,
+                448
+              ],
+              [
+                192,
+                512
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "L",
+            "id": "L-to-B",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "B"
+          },
+          {
+            "author_path_pixels": [
+              [
+                192,
+                512
+              ],
+              [
+                192,
+                448
+              ],
+              [
+                208,
+                388
+              ],
+              [
+                380,
+                284
+              ],
+              [
+                560,
+                320
+              ],
+              [
+                640,
+                320
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "B",
+            "id": "B-to-L",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "L"
+          }
+        ],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "LEFT",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "R",
+            "rect_pixels": [
+              0,
+              0.0,
+              32,
+              128
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          5,
+          4
+        ],
+        "source_compiled_ref": "module_pack/modules/idea-interface-s11-001/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/idea-interface-s11-001/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": true
+        }
+      },
+      "complete_materialized_content": {
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          616.0,
+          334.0
+        ],
+        "exit_port": [
+          24.0,
+          78.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [
+          {
+            "additional_pair_access": [
+              192.0,
+              448.0
+            ],
+            "bell": [
+              304.0,
+              280.0
+            ],
+            "gate": [
+              124,
+              0,
+              20,
+              256
+            ],
+            "id": "common-bell",
+            "initial_open": "B",
+            "open_seconds": 0,
+            "paired_gate": [
+              128,
+              416,
+              128,
+              16
+            ],
+            "return_access": [
+              56.0,
+              48.0
+            ]
+          }
+        ],
+        "moving_platforms": [],
+        "one_way_platform_indices": [
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            528,
+            352,
+            112,
+            160
+          ],
+          [
+            0,
+            96,
+            96,
+            416
+          ],
+          [
+            320,
+            320,
+            112,
+            12
+          ],
+          [
+            128,
+            480,
+            128,
+            12
+          ],
+          [
+            256,
+            416,
+            32,
+            96
+          ],
+          [
+            96,
+            416,
+            32,
+            96
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          -1,
+          0,
+          0,
+          1,
+          640,
+          0
+        ],
+        "source_sha256": "fd3c531360d74b995a91544f1e6172bc27f934c635b08b48b6a44d8e372e7693",
+        "stable_id": "idea-interface-s11-001",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          640,
+          512
+        ]
+      },
+      "array_counts": {
+        "platforms": 6,
+        "one_way_platform_indices": 2,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 1,
+        "moving_platforms": 0
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M08",
+              "port_id": "T"
+            },
+            "b": {
+              "instance_id": "M39",
+              "port_id": "B"
+            },
+            "id": "C014",
+            "position_pixels": [
+              576.0,
+              -640.0
+            ],
+            "surface": "ONE_WAY_PLATFORM"
+          },
+          "neighbor_identity": {
+            "id": "M08",
+            "module_id": "idea-spec02-s12-001",
+            "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+            "role": "traversal",
+            "content_ref": "content/M08.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 2,
+            "approved_hq_cells": 2,
+            "moving_platforms": 2
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        },
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M38",
+              "port_id": "R"
+            },
+            "b": {
+              "instance_id": "M39",
+              "port_id": "L"
+            },
+            "id": "C058",
+            "position_pixels": [
+              1024.0,
+              -832.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M38",
+            "module_id": "idea-interface-s11-001",
+            "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+            "role": "traversal",
+            "content_ref": "content/M38.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 6,
+            "one_way_platform_indices": 2,
+            "latches": 1
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "R-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "gears",
+      "seed": 930007,
+      "result_sha256": "87e9ebc3594da4c9064b5bdab242da6f111288f686d0e055ac27c0e8ed11996f",
+      "priority": 1,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "exit"
+        ],
+        "content_ref": "content/M01.json",
+        "content_version": "sha256:b2ee44df5422a7b4dd9be1358a075c46cefb00992de802607389f6f94ecfa433",
+        "id": "M01",
+        "module_id": "game-plains-windchime-lesson",
+        "origin_blocks": [
+          0,
+          0
+        ],
+        "ports": [
+          {
+            "face": "LEFT",
+            "id": "entry",
+            "local_position_pixels": [
+              0.0,
+              192.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "RIGHT",
+            "id": "exit",
+            "local_position_pixels": [
+              512.0,
+              192.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "start",
+        "routes": [],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "LEFT",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "entry",
+            "rect_pixels": [
+              0,
+              128.0,
+              32,
+              128
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          4,
+          3
+        ],
+        "source_compiled_ref": "module_pack/modules/game-plains-windchime-lesson/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/game-plains-windchime-lesson/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": false
+        }
+      },
+      "complete_materialized_content": {
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          24.0,
+          206.0
+        ],
+        "exit_port": [
+          496.0,
+          206.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [
+          {
+            "bell": [
+              170.0,
+              159.0
+            ],
+            "gate": [
+              320,
+              4,
+              24,
+              220
+            ],
+            "id": "windchime_plains_windchime_lesson",
+            "kind": "safe_lesson",
+            "link_color": "e8bd65",
+            "open_seconds": 0,
+            "prompt": "SHOOT BELL"
+          }
+        ],
+        "moving_platforms": [],
+        "one_way_platform_indices": [],
+        "platforms": [
+          [
+            0,
+            224,
+            480,
+            40
+          ],
+          [
+            480,
+            224,
+            32,
+            24
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          -76
+        ],
+        "source_sha256": "0846f23881d9106d68032323b6278e4f79550e33f1cb73cf4e920323039da942",
+        "stable_id": "game-plains-windchime-lesson",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          512,
+          384
+        ]
+      },
+      "array_counts": {
+        "platforms": 2,
+        "one_way_platform_indices": 0,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 1,
+        "moving_platforms": 0
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M01",
+              "port_id": "exit"
+            },
+            "b": {
+              "instance_id": "M02",
+              "port_id": "L"
+            },
+            "id": "C001",
+            "position_pixels": [
+              512.0,
+              192.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M02",
+            "module_id": "idea-spec02-s12-001",
+            "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+            "role": "traversal",
+            "content_ref": "content/M02.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 2,
+            "approved_hq_cells": 2,
+            "moving_platforms": 2
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "L-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "L-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "R-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "T-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-L",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-R",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-T",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "gears",
+      "seed": 930007,
+      "result_sha256": "87e9ebc3594da4c9064b5bdab242da6f111288f686d0e055ac27c0e8ed11996f",
+      "priority": 2,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "L",
+          "R"
+        ],
+        "content_ref": "content/M24.json",
+        "content_version": "sha256:8c7d18090e298ee20bcdccfcb1c360b05f7460a5897ffbb8fb4c13c2ffcd6e95",
+        "id": "M24",
+        "module_id": "idea-plains-hq01-001",
+        "origin_blocks": [
+          22,
+          -18
+        ],
+        "ports": [
+          {
+            "face": "LEFT",
+            "id": "L",
+            "local_position_pixels": [
+              0.0,
+              320.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "RIGHT",
+            "id": "R",
+            "local_position_pixels": [
+              640.0,
+              64.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "TOP",
+            "id": "T",
+            "local_position_pixels": [
+              192.0,
+              0.0
+            ],
+            "permission": "INOUT",
+            "surface": "ONE_WAY_PLATFORM"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "traversal",
+        "routes": [
+          {
+            "author_path_pixels": [
+              [
+                0,
+                320
+              ],
+              [
+                80,
+                320
+              ],
+              [
+                192,
+                278
+              ],
+              [
+                256,
+                278
+              ],
+              [
+                368,
+                166
+              ],
+              [
+                460,
+                124
+              ],
+              [
+                592,
+                64
+              ],
+              [
+                640,
+                64
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "L",
+            "id": "L-to-R",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "39d4b1c4acee9fef477cd909ed4a8b907c9d37a7433b3aa67cef35f2e9317f1e",
+              "physicalSignature": "23f0a4d53dde01b896649a026e3b6eef60ca1ab3a0c49c7f0ae99af323e0bdff",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "R"
+          },
+          {
+            "author_path_pixels": [
+              [
+                640,
+                64
+              ],
+              [
+                592,
+                64
+              ],
+              [
+                460,
+                124
+              ],
+              [
+                368,
+                166
+              ],
+              [
+                256,
+                278
+              ],
+              [
+                192,
+                278
+              ],
+              [
+                80,
+                320
+              ],
+              [
+                0,
+                320
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "R",
+            "id": "R-to-L",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "39d4b1c4acee9fef477cd909ed4a8b907c9d37a7433b3aa67cef35f2e9317f1e",
+              "physicalSignature": "23f0a4d53dde01b896649a026e3b6eef60ca1ab3a0c49c7f0ae99af323e0bdff",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "L"
+          }
+        ],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "TOP",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "T",
+            "rect_pixels": [
+              128.0,
+              0,
+              128,
+              32
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          5,
+          4
+        ],
+        "source_compiled_ref": "module_pack/modules/idea-plains-hq01-001/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/idea-plains-hq01-001/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": false
+        }
+      },
+      "complete_materialized_content": {
+        "approved_hq_cells": [
+          {
+            "access": [
+              [
+                584.0,
+                48.0
+              ],
+              [
+                192.0,
+                72.0
+              ]
+            ],
+            "bell": [
+              136.0,
+              368.0
+            ],
+            "id": "group-bell",
+            "kind": "group_motion",
+            "targets": [
+              "P",
+              "Q"
+            ]
+          }
+        ],
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          24.0,
+          334.0
+        ],
+        "exit_port": [
+          616.0,
+          78.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [],
+        "moving_platforms": [
+          {
+            "designState": "FROZEN_EXAMPLE",
+            "dwell_duration": 0.4,
+            "finish": [
+              464,
+              312
+            ],
+            "initial_phase": 0.17901234567901236,
+            "platform_id": "P",
+            "size": [
+              96,
+              16
+            ],
+            "start": [
+              176,
+              312
+            ],
+            "travel_duration": 3.2
+          },
+          {
+            "designState": "FROZEN_EXAMPLE",
+            "dwell_duration": 0.4,
+            "finish": [
+              368,
+              128
+            ],
+            "initial_phase": 0.2647058823529412,
+            "platform_id": "Q",
+            "size": [
+              96,
+              16
+            ],
+            "start": [
+              368,
+              264
+            ],
+            "travel_duration": 3.2
+          }
+        ],
+        "one_way_platform_indices": [
+          3
+        ],
+        "platforms": [
+          [
+            0,
+            352,
+            112,
+            160
+          ],
+          [
+            544,
+            96,
+            96,
+            416
+          ],
+          [
+            0,
+            240,
+            176,
+            12
+          ],
+          [
+            128,
+            32,
+            128,
+            12
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "source_sha256": "3c3b4cf730d2d06ddffc95ca6f5ff186821618a15c0c061e8799e1883345e772",
+        "stable_id": "idea-plains-hq01-001",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          640,
+          512
+        ]
+      },
+      "array_counts": {
+        "platforms": 4,
+        "one_way_platform_indices": 1,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 0,
+        "approved_hq_cells": 1,
+        "moving_platforms": 2
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M14",
+              "port_id": "B"
+            },
+            "b": {
+              "instance_id": "M24",
+              "port_id": "L"
+            },
+            "id": "C028",
+            "position_pixels": [
+              2816.0,
+              -1984.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M14",
+            "module_id": "batch30-block-n04-0-2",
+            "content_version": "sha256:e1f079fad67ab89b1920da3a016b90a99c8ab553b330ce8944ae2e5fb3b207a2",
+            "role": "traversal",
+            "content_ref": "content/M14.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 7,
+            "reward_sites": 2,
+            "latches": 1
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "A-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [
+                "high-B"
+              ],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "A-to-C",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [
+                "high-C"
+              ],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "D-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [
+                "high-B"
+              ],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "D-to-C",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [
+                "high-C"
+              ],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "C-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-D",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "C-to-D",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "A-to-D",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "D-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-C",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [
+                "high-C"
+              ],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "C-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [
+                "high-B"
+              ],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        },
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M24",
+              "port_id": "R"
+            },
+            "b": {
+              "instance_id": "M33",
+              "port_id": "entry_left"
+            },
+            "id": "C040",
+            "position_pixels": [
+              3456.0,
+              -2240.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M33",
+            "module_id": "game-route-junction",
+            "content_version": "sha256:fbb52222ffe928c803c5cfd3107028e3ca86e8d2e44ae3aba1ea0ba987e12d40",
+            "role": "traversal",
+            "content_ref": "content/M33.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 7
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "entry_left-to-exit_upper_left",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "entry_left-to-exit_upper_right",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "exit_upper_left-to-entry_left",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "exit_upper_left-to-exit_upper_right",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "exit_upper_right-to-entry_left",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "exit_upper_right-to-exit_upper_left",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "profile": "gears",
+      "seed": 930007,
+      "result_sha256": "87e9ebc3594da4c9064b5bdab242da6f111288f686d0e055ac27c0e8ed11996f",
+      "priority": 3,
+      "status": "PLANNING_ONLY_UNVERIFIED_CURRENT_HOST",
+      "instance": {
+        "connected_port_ids": [
+          "L",
+          "R"
+        ],
+        "content_ref": "content/M29.json",
+        "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+        "id": "M29",
+        "module_id": "idea-interface-s11-001",
+        "origin_blocks": [
+          -20,
+          -4
+        ],
+        "ports": [
+          {
+            "face": "LEFT",
+            "id": "L",
+            "local_position_pixels": [
+              0.0,
+              320.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "RIGHT",
+            "id": "R",
+            "local_position_pixels": [
+              640.0,
+              64.0
+            ],
+            "permission": "INOUT",
+            "surface": "ROCK"
+          },
+          {
+            "face": "BOTTOM",
+            "id": "B",
+            "local_position_pixels": [
+              448.0,
+              512.0
+            ],
+            "permission": "INOUT",
+            "surface": "ONE_WAY_PLATFORM"
+          }
+        ],
+        "required_services": [
+          "policy",
+          "lifetime",
+          "wallet"
+        ],
+        "role": "traversal",
+        "routes": [
+          {
+            "author_path_pixels": [
+              [
+                0,
+                320
+              ],
+              [
+                80,
+                320
+              ],
+              [
+                260,
+                284
+              ],
+              [
+                400,
+                220
+              ],
+              [
+                584,
+                64
+              ],
+              [
+                640,
+                64
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "L",
+            "id": "L-to-R",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "R"
+          },
+          {
+            "author_path_pixels": [
+              [
+                640,
+                64
+              ],
+              [
+                584,
+                64
+              ],
+              [
+                400,
+                220
+              ],
+              [
+                260,
+                284
+              ],
+              [
+                80,
+                320
+              ],
+              [
+                0,
+                320
+              ]
+            ],
+            "capability_requirements": {
+              "allOf": [
+                "jump",
+                "shot_recoil"
+              ],
+              "anyOfGroups": [],
+              "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+              "status": "partial",
+              "version": 1
+            },
+            "from_port": "R",
+            "id": "R-to-L",
+            "required_abilities": [
+              "jump",
+              "shot_recoil"
+            ],
+            "required_reward_ids": [],
+            "source_validation": {
+              "availableAbilities": [
+                "move",
+                "jump",
+                "shot_recoil"
+              ],
+              "kind": "original_native_route_qualification",
+              "originalReportSha256": "36ae97362d17a5d4673c3e7c20f9889ea81a8d478e20159f35db70ad7bd04a6d",
+              "physicalSignature": "336a7e47520f46cb53ff494a50084c9b66cc258dd8f84de48f5e866d8b46c451",
+              "scope": "Independently initialized local route; arbitrary seams, alternate configurations, minimal capabilities and chaining remain UNKNOWN.",
+              "status": "passed_scoped",
+              "testNeighborFixtures": []
+            },
+            "to_port": "L"
+          }
+        ],
+        "seals": [
+          {
+            "certified": false,
+            "component": "gear-seal/1",
+            "face": "BOTTOM",
+            "opening_pixels": 128,
+            "physical_validation": "NOT_RUN",
+            "port_id": "B",
+            "rect_pixels": [
+              384.0,
+              480,
+              128,
+              32
+            ],
+            "thickness_pixels": 32
+          }
+        ],
+        "size_blocks": [
+          5,
+          4
+        ],
+        "source_compiled_ref": "module_pack/modules/idea-interface-s11-001/compiled-content.json",
+        "source_scene_ref": "module_pack/modules/idea-interface-s11-001/module.tscn",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": false
+        }
+      },
+      "complete_materialized_content": {
+        "coordinate_frame": "owned_rectangle_pixels",
+        "enemies": [],
+        "entry_port": [
+          24.0,
+          334.0
+        ],
+        "exit_port": [
+          616.0,
+          78.0
+        ],
+        "hazards": [],
+        "hooks": [],
+        "latches": [
+          {
+            "additional_pair_access": [
+              448.0,
+              448.0
+            ],
+            "bell": [
+              336.0,
+              280.0
+            ],
+            "gate": [
+              496,
+              0,
+              20,
+              256
+            ],
+            "id": "common-bell",
+            "initial_open": "B",
+            "open_seconds": 0,
+            "paired_gate": [
+              384,
+              416,
+              128,
+              16
+            ],
+            "return_access": [
+              584.0,
+              48.0
+            ]
+          }
+        ],
+        "moving_platforms": [],
+        "one_way_platform_indices": [
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            0,
+            352,
+            112,
+            160
+          ],
+          [
+            544,
+            96,
+            96,
+            416
+          ],
+          [
+            208,
+            320,
+            112,
+            12
+          ],
+          [
+            384,
+            480,
+            128,
+            12
+          ],
+          [
+            352,
+            416,
+            32,
+            96
+          ],
+          [
+            512,
+            416,
+            32,
+            96
+          ]
+        ],
+        "reward_sites": [],
+        "saws": [],
+        "schema": "pcg/compiled-module-content/v1",
+        "source_affine": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "source_sha256": "fd3c531360d74b995a91544f1e6172bc27f934c635b08b48b6a44d8e372e7693",
+        "stable_id": "idea-interface-s11-001",
+        "thorns": [],
+        "wall_platform_indices": [],
+        "world_bounds": [
+          0,
+          0,
+          640,
+          512
+        ]
+      },
+      "array_counts": {
+        "platforms": 6,
+        "one_way_platform_indices": 2,
+        "wall_platform_indices": 0,
+        "enemies": 0,
+        "reward_sites": 0,
+        "hooks": 0,
+        "hazards": 0,
+        "saws": 0,
+        "thorns": 0,
+        "latches": 1,
+        "moving_platforms": 0
+      },
+      "connections_and_neighbors": [
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M22",
+              "port_id": "A"
+            },
+            "b": {
+              "instance_id": "M29",
+              "port_id": "R"
+            },
+            "id": "C037",
+            "position_pixels": [
+              -1920.0,
+              -448.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M22",
+            "module_id": "workshop-one-shot-two-routes-1",
+            "content_version": "sha256:4fd014e93e44920aacff3e4990882245ce400c4f747145acad1058c80b504874",
+            "role": "traversal",
+            "content_ref": "content/M22.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 4,
+            "one_way_platform_indices": 1,
+            "enemies": 1
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "A-to-B",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "B-to-A",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        },
+        {
+          "connection": {
+            "a": {
+              "instance_id": "M29",
+              "port_id": "L"
+            },
+            "b": {
+              "instance_id": "M31",
+              "port_id": "fork_up"
+            },
+            "id": "C048",
+            "position_pixels": [
+              -2560.0,
+              -192.0
+            ],
+            "surface": "ROCK"
+          },
+          "neighbor_identity": {
+            "id": "M31",
+            "module_id": "game-plains-fork-paths",
+            "content_version": "sha256:3b796ef52899c779c10d1f1eee55e3a3c18aedc4aa3ebc8c52ac381bbe6b9783",
+            "role": "traversal",
+            "content_ref": "content/M31.json"
+          },
+          "neighbor_nonempty_arrays": {
+            "platforms": 7,
+            "one_way_platform_indices": 5
+          },
+          "neighbor_route_requirements": [
+            {
+              "id": "fork_right-to-fork_up",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            },
+            {
+              "id": "fork_up-to-fork_right",
+              "required_abilities": [
+                "jump",
+                "shot_recoil"
+              ],
+              "required_reward_ids": [],
+              "capability_requirements": {
+                "allOf": [
+                  "jump",
+                  "shot_recoil"
+                ],
+                "anyOfGroups": [],
+                "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。",
+                "status": "partial",
+                "version": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "readonly_host_sources": {
+    "game/world/components/shot_latch.gd": "741ab54b15e452f80b8c19fef74113fa06d391da50a973fe9e9991f6ff7a04d7",
+    "game/world/components/generated_shot_latch_encounter.gd": "3c76f4e7342232b31cde750701260ebdd6c4edceceb88c0207d67194480e7023",
+    "game/world/levels/providers/runtime_map_v2_provider.gd": "3b6ac67afa3ad7f2e9b99bec6090c563c79b0ce7b55f47dc70016795d9cef485"
+  },
+  "limitations": [
+    "All mechanism rows remain UNVERIFIED_CURRENT_HOST.",
+    "No new seed, reroll, source mutation or engine execution.",
+    "Choosing a complete module does not authorize deleting its mechanisms or loading mixed neighbors.",
+    "Source route qualification is scoped and capability minimum remains partial.",
+    "No public request or player capability is modified."
+  ]
+}

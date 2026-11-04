@@ -1,0 +1,356 @@
+{
+  "scope": "Independent tiny real file:// promisor clone with remote made unavailable; exact original git diff argv, no game/Godot/full-CI execution or budget change.",
+  "fixture": "/tmp/gunman-promisor-independent-0p_5q22v",
+  "git_version": "git version 2.52.0",
+  "blob": "c83fd13f04e9d24e26ff1b4e0522d8f3472a6583",
+  "payload_bytes": 2097152,
+  "blob_missing_before_restore": true,
+  "git_diff_before_hydrate": {
+    "exit_code": 128,
+    "stdout": "",
+    "stderr": "fatal: '/tmp/gunman-promisor-independent-0p_5q22v/remote.git' does not appear to be a git repository\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\nfatal: could not fetch c83fd13f04e9d24e26ff1b4e0522d8f3472a6583 from promisor remote\n"
+  },
+  "hash_object_cache_oid": "c83fd13f04e9d24e26ff1b4e0522d8f3472a6583",
+  "git_diff_after_hydrate": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "real_tamper_detected": true,
+  "real_mode_change_detected": true,
+  "real_delete_detected": true,
+  "HEAD_unchanged": true,
+  "index_mode_blob_stage_unchanged": true,
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "init",
+        "-b",
+        "main"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+      "exit_code": 0,
+      "seconds": 0.0027084130051662214,
+      "stdout": "Initialized empty Git repository in /tmp/gunman-promisor-independent-0p_5q22v/seed/.git/\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "user.name",
+        "isolated-ci-fixture"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+      "exit_code": 0,
+      "seconds": 0.0014598100024159066,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "user.email",
+        "fixture@example.invalid"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+      "exit_code": 0,
+      "seconds": 0.0013963649980723858,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "add",
+        "."
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+      "exit_code": 0,
+      "seconds": 0.01299827299953904,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "fixture"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+      "exit_code": 0,
+      "seconds": 0.00965790799818933,
+      "stdout": "[main (root-commit) 9de7d42] fixture\n 2 files changed, 1 insertion(+)\n create mode 100644 README.md\n create mode 100644 docs/evidence/held/data.bin\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD:docs/evidence/held/data.bin"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+      "exit_code": 0,
+      "seconds": 0.0017464830016251653,
+      "stdout": "c83fd13f04e9d24e26ff1b4e0522d8f3472a6583\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "clone",
+        "--bare",
+        "/tmp/gunman-promisor-independent-0p_5q22v/seed",
+        "/tmp/gunman-promisor-independent-0p_5q22v/remote.git"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "seconds": 0.007777743994665798,
+      "stdout": "",
+      "stderr": "Cloning into bare repository '/tmp/gunman-promisor-independent-0p_5q22v/remote.git'...\ndone.\n"
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "uploadpack.allowFilter",
+        "true"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/remote.git",
+      "exit_code": 0,
+      "seconds": 0.0013551430020015687,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "uploadpack.allowAnySHA1InWant",
+        "true"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/remote.git",
+      "exit_code": 0,
+      "seconds": 0.0013931299981777556,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--no-local",
+        "--no-checkout",
+        "file:///tmp/gunman-promisor-independent-0p_5q22v/remote.git",
+        "/tmp/gunman-promisor-independent-0p_5q22v/clone"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "seconds": 0.009203012996295001,
+      "stdout": "",
+      "stderr": "Cloning into '/tmp/gunman-promisor-independent-0p_5q22v/clone'...\n"
+    },
+    {
+      "argv": [
+        "git",
+        "sparse-checkout",
+        "set",
+        "--no-cone",
+        "/*",
+        "!/docs/evidence/"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0018317409994779155,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "checkout",
+        "main"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.01443292100157123,
+      "stdout": "Your branch is up to date with 'origin/main'.\n",
+      "stderr": "Already on 'main'\n"
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0016435369980172254,
+      "stdout": "9de7d42e842cc9adb1d96f5de70c2ce62e66db9c\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "ls-files",
+        "--stage"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.002456403002724983,
+      "stdout": "100644 b65f5c6994fd909b2dbb5f6fd7bc7b8405c8b32f 0\tREADME.md\n100644 c83fd13f04e9d24e26ff1b4e0522d8f3472a6583 0\tdocs/evidence/held/data.bin\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-lazy-fetch",
+        "cat-file",
+        "-e",
+        "c83fd13f04e9d24e26ff1b4e0522d8f3472a6583"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 1,
+      "seconds": 0.0015658299962524325,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "-z",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 128,
+      "seconds": 0.006232564999663737,
+      "stdout": "",
+      "stderr": "fatal: '/tmp/gunman-promisor-independent-0p_5q22v/remote.git' does not appear to be a git repository\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\nfatal: could not fetch c83fd13f04e9d24e26ff1b4e0522d8f3472a6583 from promisor remote\n"
+    },
+    {
+      "argv": [
+        "git",
+        "hash-object",
+        "-w",
+        "--no-filters",
+        "docs/evidence/held/data.bin"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0202031340013491,
+      "stdout": "c83fd13f04e9d24e26ff1b4e0522d8f3472a6583\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-lazy-fetch",
+        "cat-file",
+        "-e",
+        "c83fd13f04e9d24e26ff1b4e0522d8f3472a6583"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0020959899993613362,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "-z",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.008169515000190586,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "-z",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.009256118006305769,
+      "stdout": "docs/evidence/held/data.bin\u0000",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "-z",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0019254220023867674,
+      "stdout": "docs/evidence/held/data.bin\u0000",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "-z",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0015282180029316805,
+      "stdout": "docs/evidence/held/data.bin\u0000",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--version"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "seconds": 0.0011271389957983047,
+      "stdout": "git version 2.52.0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0015498360007768497,
+      "stdout": "9de7d42e842cc9adb1d96f5de70c2ce62e66db9c\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "ls-files",
+        "--stage"
+      ],
+      "cwd": "/tmp/gunman-promisor-independent-0p_5q22v/clone",
+      "exit_code": 0,
+      "seconds": 0.0014526189988828264,
+      "stdout": "100644 b65f5c6994fd909b2dbb5f6fd7bc7b8405c8b32f 0\tREADME.md\n100644 c83fd13f04e9d24e26ff1b4e0522d8f3472a6583 0\tdocs/evidence/held/data.bin\n",
+      "stderr": ""
+    }
+  ]
+}

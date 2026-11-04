@@ -1,0 +1,42 @@
+{
+  "schema": "gunman-rush/runtime-map-bindings/v1",
+  "selected_instances": [],
+  "spawns": {},
+  "spawn_status": "DERIVED_FROM_ACTUAL_RESULT_REQUIRES_PHYSICS_ADMISSION",
+  "uncovered": [
+    "whole_map_playability",
+    "route_completion",
+    "physical_device"
+  ],
+  "version": "runtime-v4-ellipse-junction-r1",
+  "scope": "controlled_ellipse_junction_loading_slice_only",
+  "selection_recipe": {
+    "schema": "gunman-rush/runtime-map-selection/v1",
+    "kind": "ellipse_junction_chain",
+    "root": {
+      "module_id": "idea-spec02-s11-001",
+      "content_version": "sha256:afa52a8edc28fa26655f38815c277a21e68c56224c74c2bf125cfa580bd727ae",
+      "role": "traversal"
+    },
+    "junction": {
+      "module_id": "game-route-junction",
+      "content_version": "sha256:fbb52222ffe928c803c5cfd3107028e3ca86e8d2e44ae3aba1ea0ba987e12d40",
+      "role": "traversal"
+    },
+    "root_port": "R",
+    "first_entry": "entry_left",
+    "first_exit": "entry_right",
+    "second_entry": "entry_left",
+    "upper_first": "exit_upper_right",
+    "upper_second": "exit_upper_left",
+    "surface": "ROCK",
+    "expected_internal_edges": 3
+  },
+  "spawn_rule": {
+    "kind": "original_platform_top_center",
+    "platform_index": 0,
+    "instance": "root",
+    "body_source": "actual_host_clearance",
+    "physics_admission": "required"
+  }
+}

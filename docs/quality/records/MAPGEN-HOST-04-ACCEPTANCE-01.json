@@ -1,0 +1,702 @@
+{
+  "schema_version": 1,
+  "task_id": "MAPGEN-HOST-04-ACCEPTANCE-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "46eb3960a592374b5fb99d7df588962a3680f86b",
+  "reviewed_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+  "content_version": "host-stage-a-r1",
+  "owner": "root",
+  "purpose": "0.4宿主生命周期与真实Web工程验收；保留父失败及所有原门禁",
+  "player_experience": "保留受控三模块与机制切片行为，降低重复预载和宿主复制成本",
+  "constraints": [
+    "SDK原0.4.0/模块1.1.0及原18GD/算法/物理/经济/RNG/存档不变",
+    "仅A，不0.4.1/阶段B/合并/部署",
+    "默认同源历史PASS承接，不重跑；原raw丢失不补造",
+    "原manual300失败保留；auto原300/非review断言/动作/正常guards保留，真实离线全7图另计",
+    "最终精确head原178及affected由提交后Actions实核，不能借旧绿"
+  ],
+  "affected_paths": [
+    "docs/current_state.md",
+    "docs/evidence/mapgen_godot_04/mapgen-v4-gears-selection-plan.md",
+    "docs/evidence/mapgen_godot_04/mapgen-v4-gears-selection-plan.md.txt",
+    "docs/evidence/mapgen_host_04_acceptance/README.md",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/README.md",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/automated_driver.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/build-audit.log",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/build_driver.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/equivalence-audit.json",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/freeze.json",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/offline_review.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/original_driver.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/prepare_run.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/pure-attempt01.log",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/pure-final.log",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools-v2/test_tools.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/README.md",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/gears-01-preflight.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/gears_run.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/manifest.json",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/ocr-data/configs/tsv",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/preparation-proof.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/prepare_gears.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/previous_stage_original.py",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/pure-tests.log",
+    "docs/evidence/mapgen_host_04_acceptance/browser-tools/test_prepare_gears.py",
+    "docs/evidence/mapgen_host_04_acceptance/cache-space-recovery.json",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/affected-job.log.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/artifacts.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/backup-compare.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/bundle-verify.log.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/commit.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/compressed-custody.json",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/context.zip",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/docs-failed.log.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/jobs.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/parallel-job.log.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/parallel.zip",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/recovered-final-proof.json",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/ref.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/reverify.py",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/run.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/ci-parent/serial.zip",
+    "docs/evidence/mapgen_host_04_acceptance/current-consumer-inventory.json",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/README.md",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check-02.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check-03.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check-04.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check-05.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check-06.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check-07.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/card-check.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/quality-diff-01.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/quality-diff-02.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/quality-diff-03.log",
+    "docs/evidence/mapgen_host_04_acceptance/failures/metadata-prechecks/quality-diff-04.log",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01-archive-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01-members.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01-process-close.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01-summary.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01-visual-pending.tar.gz",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/driver.log",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/expected-native.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-01-committed.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-before-escape.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-motion-10p0-clock-seconds.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-motion-2p5-clock-seconds.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-motion-5p0-clock-seconds.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-motion-7p5-clock-seconds.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/gears-escape-returned-title.png",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/run-argv.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/run.sh",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/serve.sh",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/server-close.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-auto-01/stage-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-final-execution-custody.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-live-01-archive-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-live-01-failed-original300.tar.gz",
+    "docs/evidence/mapgen_host_04_acceptance/gears-live-01-members.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-live-01-summary.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/gears-native-actual-runtime-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/gears-rescue-native-01.tar.gz",
+    "docs/evidence/mapgen_host_04_acceptance/gears-rescue-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/harness-report-01.json",
+    "docs/evidence/mapgen_host_04_acceptance/historical-default-custody.json",
+    "docs/evidence/mapgen_host_04_acceptance/historical-navigation.json",
+    "docs/evidence/mapgen_host_04_acceptance/host-report-recovered.json",
+    "docs/evidence/mapgen_host_04_acceptance/host-report-recovered.md",
+    "docs/evidence/mapgen_host_04_acceptance/import-prep-01-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/import-prep-01.log.gz",
+    "docs/evidence/mapgen_host_04_acceptance/native-m35-runtime-01.json",
+    "docs/evidence/mapgen_host_04_acceptance/pr129-recovery-handoff.json",
+    "docs/evidence/mapgen_host_04_acceptance/restore-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/final-metadata-review.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/final-metadata-review.md",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01-independent-review.tar.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/final-acceptance.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/final-independent-review-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/final-independent-review.md",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/independent-PCK-readback.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/independent-guard-archive-readback.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/independent-seven-review.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/view-window-start.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/ack-01.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/ack-02.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/ack-03.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/failed-case-independent-review.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/failed-case-independent-review.md",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-01-committed.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-before-escape.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-motion-10p0-clock-seconds.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-motion-2p5-clock-seconds.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-motion-5p0-clock-seconds.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-motion-7p5-clock-seconds.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/gears-escape-returned-title.png.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/independent-archive-members.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/late-ack-03-disclosure.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-live-01/report-failed-original.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-v2-static-review-01-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-v2-static-review-01.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/gears-v2-static-review-01.md",
+    "docs/evidence/mapgen_host_04_acceptance/review/source-history-review-01-receipt.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/source-history-review-01.json",
+    "docs/evidence/mapgen_host_04_acceptance/review/source-history-review-01.md",
+    "docs/evidence/mapgen_host_04_acceptance/review/transport-identity-review-01.json",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/api-custody.json",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/commit.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/compare.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/local-diff.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/local-parent-trees.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/parent573.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/ref.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/root_tree.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/transport-proof.json",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-1956681d95a364c492dc2807c20596ea0eea404b.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-281e189648b671f7564efa8c572f33ab3fcee6f3.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-2bcd3b8f320681d5965f8854f3e0dab16f6d8887.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-2ed7cd13dcd08494e14e527a41022875646a149b.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-3bdabe1f6ca6e89b31f8369005d562b63220fb50.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-9041b01773a9ea17d152dc7a15d32e59fbb74bfb.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-97ffc1805476c4335bd4a048ab676327adc0fa43.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-b688ef194b4cf82123035fc2116d65b55a4af288.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-d984eb02fffbb61948d5264cee0739095edfa234.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/transport-c941/tree-df470caa3491c21af0a20a63b9f4608ddcc49c30.json.gz",
+    "docs/evidence/mapgen_host_04_acceptance/web-rebuild-receipt.json",
+    "docs/handoff.md",
+    "docs/quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json",
+    "docs/tasks.md",
+    "docs/worklines/mapgen_host_04_acceptance/results.md",
+    "docs/worklines/mapgen_host_04_acceptance/scope.md",
+    "docs/worklines/mapgen_host_04_acceptance/upstream_contract.md",
+    "experiments/generation/runtime_map_generated_slice.gd",
+    "experiments/generation/runtime_map_generation_job.gd",
+    "experiments/generation/runtime_map_verified_library_cache.gd",
+    "experiments/generation/runtime_map_verified_library_cache.gd.uid",
+    "game/world/levels/providers/runtime_map_v2_provider.gd",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "tests/runtime_map_generation_job_runner.gd"
+  ],
+  "deliverables": [
+    "docs/worklines/mapgen_host_04_acceptance/results.md",
+    "docs/worklines/mapgen_host_04_acceptance/upstream_contract.md",
+    "docs/evidence/mapgen_host_04_acceptance/README.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit finite source/version/behavior scope; actual native/current gears, retained failures, source transport and non-author checks. Final exact-head CI remains separate post-commit gate.",
+      "evidence": [
+        "scope",
+        "lock",
+        "native",
+        "web",
+        "history",
+        "transport",
+        "review-0",
+        "review-1"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Small host engineering fix only; no new content/art/device acceptance",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Small host engineering fix only; no new content/art/device acceptance",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Formal/main consumer rollout not part of this limited engineering stage; actual controlled consumer trace explicit",
+      "evidence": [
+        "gui",
+        "native",
+        "history"
+      ]
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Explicit finite source/version/behavior scope; actual native/current gears, retained failures, source transport and non-author checks. Final exact-head CI remains separate post-commit gate.",
+      "evidence": [
+        "scope",
+        "lock",
+        "native",
+        "web",
+        "history",
+        "transport",
+        "review-0",
+        "review-1",
+        "review-web-final",
+        "review-final-metadata"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Small host engineering fix only; no new content/art/device acceptance",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Limited stage A host engineering evidence; history carries original default acceptance with raw-loss limitation; no whole-map, hard-frame or device claim",
+      "evidence": [
+        "scope",
+        "native",
+        "web",
+        "history",
+        "transport",
+        "review-0",
+        "review-1"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Limited stage A host engineering evidence; history carries original default acceptance with raw-loss limitation; no whole-map, hard-frame or device claim",
+      "evidence": [
+        "scope",
+        "native",
+        "web",
+        "history",
+        "transport",
+        "review-0",
+        "review-1"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Runtime impact declared. Current controlled gears GUI passed; no claim of exhaustive formal/default/main consumer inventory or ordinary-departure migration. Historical default raw lost, retained acceptance separate.",
+      "evidence": [
+        "gui",
+        "native",
+        "history",
+        "review-web-final"
+      ]
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "No change or new acceptance claim in this dimension; host engineering scope only",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "No change or new acceptance claim in this dimension; host engineering scope only",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No change or new acceptance claim in this dimension; host engineering scope only",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "No change or new acceptance claim in this dimension; host engineering scope only",
+      "evidence": []
+    },
+    "performance": {
+      "status": "passed",
+      "reason": "Limited stage A host engineering evidence; history carries original default acceptance with raw-loss limitation; no whole-map, hard-frame or device claim",
+      "evidence": [
+        "metrics"
+      ]
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Limited stage A host engineering evidence; history carries original default acceptance with raw-loss limitation; no whole-map, hard-frame or device claim",
+      "evidence": [
+        "scope",
+        "native",
+        "web",
+        "history",
+        "transport",
+        "review-0",
+        "review-1",
+        "review-web-final",
+        "review-final-metadata"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "No change or new acceptance claim in this dimension; host engineering scope only",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "No change or new acceptance claim in this dimension; host engineering scope only",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "versions",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "0.4.0/1.1.0 original bytes",
+      "scenario": "Pinned original SDK/module",
+      "method": "Current raw/source audit or explicit historical custody and independent review",
+      "expected": "0.4.0/1.1.0 original bytes",
+      "failure": "Mixed identity, missing normal guards, fake replacement raw, stale commit or lost failure",
+      "evidence": [
+        "lock",
+        "transport"
+      ]
+    },
+    {
+      "id": "lifecycle",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Same ownership/no stale commit; original tests retained",
+      "scenario": "Per-job snapshots/RNG/cancel with immutable library reuse",
+      "method": "Current raw/source audit or explicit historical custody and independent review",
+      "expected": "Same ownership/no stale commit; original tests retained",
+      "failure": "Mixed identity, missing normal guards, fake replacement raw, stale commit or lost failure",
+      "evidence": [
+        "scope",
+        "native",
+        "review-0",
+        "review-1"
+      ]
+    },
+    {
+      "id": "current-web",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Current seven images truly reviewed, normal exit, strict join",
+      "scenario": "Actual new gears source/PCK with full original automatic actions and guards",
+      "method": "Current raw/source audit or explicit historical custody and independent review",
+      "expected": "Current seven images truly reviewed, normal exit, strict join",
+      "failure": "Mixed identity, missing normal guards, fake replacement raw, stale commit or lost failure",
+      "evidence": [
+        "native",
+        "web",
+        "review-0",
+        "review-1"
+      ]
+    },
+    {
+      "id": "historical-default",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Historical default PASS and non-author actual-six-image witness preserved separately from lost raw",
+      "scenario": "User-authorized matching-source reuse",
+      "method": "Current raw/source audit or explicit historical custody and independent review",
+      "expected": "Historical default PASS and non-author actual-six-image witness preserved separately from lost raw",
+      "failure": "Mixed identity, missing normal guards, fake replacement raw, stale commit or lost failure",
+      "evidence": [
+        "history",
+        "review-0",
+        "review-1"
+      ]
+    },
+    {
+      "id": "retain-failure",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "No retroactive lateACK/afterguard or budget increase",
+      "scenario": "Manual300 timeout remains failed",
+      "method": "Current raw/source audit or explicit historical custody and independent review",
+      "expected": "No retroactive lateACK/afterguard or budget increase",
+      "failure": "Mixed identity, missing normal guards, fake replacement raw, stale commit or lost failure",
+      "evidence": [
+        "failed-web",
+        "review-0",
+        "review-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mapgen_host_04_acceptance/results.md",
+      "sha256": "6985f46d582a91f3e29ca81ea943b2df3fb2a50a15ee80db89d041188c5abaa5",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Stage A only; preserved failures, version locks, source tree transport and historical raw-loss limits"
+    },
+    {
+      "id": "lock",
+      "path": "docs/evidence/mapgen_041_windchime/historical-lock-040/mapgen_candidate-0.4.0.json",
+      "sha256": "09c2c213e1d0311a0d8417595201c262d3ab32dca23616b779e30d2ca5dffb62",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Original0.4.0 SDK / module1.1.0; no0.4.1 or vendor rewrite"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/mapgen_host_04_acceptance/gears-rescue-receipt.json",
+      "sha256": "3a56aea72cf8b4dbbdfa2e0bde3275c49301d4f6774cd8c10c1757a179a38ad8",
+      "kind": "command",
+      "producer": "/root/binding_closeout",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Original native69/0, strict clean, current raw/log/source custody preserved",
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/harness.py --check runtime-map-m35-runtime --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux / locked main Godot4.7.2 gunman_sd1 / clean original d37"
+    },
+    {
+      "id": "history",
+      "path": "docs/evidence/mapgen_host_04_acceptance/historical-default-custody.json",
+      "sha256": "8554914f1ffeffdadb6c0f7eec67f4df7906b2f610162d6adfae00b486ec9dfa",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Historical default209.255767/300 plus independent six-view/join accepted at time; original raw now LOST, no rerun or replacement raw"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/final-acceptance.json",
+      "sha256": "f8a69197cd4a9e79bdaea3f8414807a26001c68af57b24120fa1067df18a0175",
+      "kind": "runtime_trace",
+      "producer": "/root/death_event_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Current f547 actual gears auto157.962516/300, seven real independent images, strict offline join; normal complete guards and exit",
+      "consumers": [
+        "current-gears-controlled"
+      ]
+    },
+    {
+      "id": "failed-web",
+      "path": "docs/evidence/mapgen_host_04_acceptance/gears-live-01-archive-receipt.json",
+      "sha256": "51447b1ca4cf5465d755fb7750fee803973e2c66be42ed714151fc4dbede24ff",
+      "kind": "spec",
+      "producer": "/root/browser_verify",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Original manualFAILED300.489 retained complete; late third ACK not consumed; offline custody not retroactive normal-afterguard PASS"
+    },
+    {
+      "id": "transport",
+      "path": "docs/evidence/mapgen_host_04_acceptance/transport-c941/transport-proof.json",
+      "sha256": "9ca9af17c011b5d094336c66c26da017a0df7bba661ac3ac753942e5bc37f740",
+      "kind": "spec",
+      "producer": "/root/ci_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Remote c941 complete tree exactly original d37; different commit metadata; original Git history bundle in ancestor a402"
+    },
+    {
+      "id": "review-0",
+      "path": "docs/evidence/mapgen_host_04_acceptance/review/gears-v2-static-review-01.md",
+      "sha256": "383bc2f7e94c68179f5b88a2fd14613a4053c80c7481598c4559c8e10bb0378b",
+      "kind": "review",
+      "producer": "/root/death_event_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Non-author current review with limited historical-witness/raw-loss and actual gears/tool scope",
+      "reviewer": "/root/death_event_audit",
+      "implementers": [
+        "/root",
+        "/root/binding_closeout",
+        "/root/browser_verify"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not modify reviewed production/vendor/verification source; actual old/new image viewing and witness/recovery boundaries explicit",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "review-1",
+      "path": "docs/evidence/mapgen_host_04_acceptance/review/source-history-review-01.md",
+      "sha256": "bb2ed8af68a31e80d8da5bb5f5950f11401ab6d6046e2a7fb29fb2263ca672a2",
+      "kind": "review",
+      "producer": "/root/death_event_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Non-author current review with limited historical-witness/raw-loss and actual gears/tool scope",
+      "reviewer": "/root/death_event_audit",
+      "implementers": [
+        "/root",
+        "/root/binding_closeout",
+        "/root/browser_verify"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not modify reviewed production/vendor/verification source; actual old/new image viewing and witness/recovery boundaries explicit",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "metrics",
+      "path": "docs/evidence/mapgen_host_04_acceptance/host-report-recovered.json",
+      "sha256": "b5d8261cebefcf13d612c2fc727b8a30ba29a414b3bbbd6e2b86889576946cdb",
+      "kind": "measurement",
+      "producer": "/root",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Current native69 elapsed/wall and warm zero-ZIP measurement; historical default numbers separately labeled with raw-loss boundary, not OSCPU/FPS",
+      "device": "Managed Linux host, native headless Godot; historical Chromium SwiftShader observations explicitly separate, not a phone",
+      "environment": "Repository locked Godot4.7.2 gunman_sd1 and originalSDK0.4.0/module1.1.0",
+      "scenario": "Original controlled generated-gear native69; warm verified-library job and one shared Stage",
+      "budget_source": "Unmodified original native wrapper240s, SDK90s, soft8ms/cap128; elapsed/wall observations only, no hard frame or FPS claim"
+    },
+    {
+      "id": "review-web-final",
+      "path": "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/final-independent-review.md",
+      "sha256": "39bf77d8615a36c56657fd77d74e4f1f0d4989b31ff8f2f681a906a0f8e8ffff",
+      "kind": "review",
+      "producer": "/root/death_event_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Actual current seven images viewed and strictjoin accepted, normal current guards exact; oldmanual failure and raw default-loss boundaries explicitly retained",
+      "reviewer": "/root/death_event_audit",
+      "implementers": [
+        "/root",
+        "/root/binding_closeout",
+        "/root/browser_verify"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not modify reviewed production/vendor/verification source; actual old/new image viewing and witness/recovery boundaries explicit",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "gui",
+      "path": "docs/evidence/mapgen_host_04_acceptance/review/gears-auto-01/final-acceptance.json",
+      "sha256": "f8a69197cd4a9e79bdaea3f8414807a26001c68af57b24120fa1067df18a0175",
+      "kind": "gui",
+      "producer": "/root/death_event_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Actual controlled new-gear entry uses existing player/controller/services, motion, real ESC/Title and cleanup in Godot/Web. Runtime helper impact declared; ordinary departure unchanged, no full-map claim.",
+      "consumers": [
+        "current-gears-controlled"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/mapgen_host_04_acceptance/current-consumer-inventory.json",
+      "sha256": "a070008830b0d7badf4eec60930d4aee6370c03f80d4f392cdd69646c4244a8a",
+      "kind": "runtime_trace",
+      "producer": "/root/death_event_audit",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Fresh actual gears loaded/run trace inventory only, not fabricated whole-project inventory",
+      "consumers": [
+        "current-gears-controlled"
+      ]
+    },
+    {
+      "id": "review-final-metadata",
+      "path": "docs/evidence/mapgen_host_04_acceptance/review/final-metadata-review.md",
+      "sha256": "a8db2c6e4c5ab44c4e52a8c1e01c1815b4e913e30fa454ba21c0b17fa28befb4",
+      "kind": "review",
+      "producer": "/root/stage_a_final_review",
+      "source_commit": "d37b37075144c7a7550ad0fe9d3bd7118d6dae1d",
+      "content_version": "host-stage-a-r1",
+      "method": "Actual current same-source raw artifacts or explicitly classified historical custody; no substitute original screenshots/reports",
+      "observed": "Independent limited metadata review before adding own reference/production_snapshot: all bound evidence and18SDK/module hashes exact; G3/formal unverified/raw-loss/manual-failure/CI pending boundaries accurate",
+      "reviewer": "/root/stage_a_final_review",
+      "implementers": [
+        "/root",
+        "/root/binding_closeout",
+        "/root/browser_verify"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not modify reviewed production/vendor/verification source; actual old/new image viewing and witness/recovery boundaries explicit",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Only current recovery gears browser run discovered from actual loaded trace and scene receipt. Not an exhaustive formal/main/default inventory.",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "current-gears-controlled",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "New current PCK native-bound run, real motion/exit and independent seven-image join, full normalguards",
+        "evidence": [
+          "gui",
+          "web"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Original default raw report/screenshots/PCK512c/source vectors were lost on environment replacement; only prior actual witness/durable handoff and exact source identity can now be rechecked.",
+    "Final exact-head full178+affected CI is generated after this frozen metadata commit and reported in the PR; not pre-signed here.",
+    "Precise PCK/WASM boot/download/decode/compile exclusive CPU, hard frame budget, mobile performance, complete map/traversal and subjective player acceptance not tested.",
+    "Current screenshots crop second ferry and do not certify full hazard-band visualization; no new mechanic support or stage B."
+  ],
+  "test_change_justification": "Original job runner retains all 17 prior methods and prior guards/budgets; one cold-preload assertion expands only to real verified warm-cache zero-ZIP semantics, with exact tick equality retained. Genuine budget1/null-result and two complete cross-profile successes appended. Original manual gears112c 78 asserts/300 kept as failed raw. New external driver preserves76 non-review AST assertions, seven captures, movement/clock and all guards/failures; two review gates migrate to route capture and mandatory independent offline seven-image join. Inverse AST and positive/negative tooling are independently reviewed. No original SDK/full178/profile/timeout/quality guard reductions.",
+  "production_snapshot": "54fa987ced66b47d08918c0f5d2a3beddff31a317b34ddc23fb423aafb9a88ee"
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "Read-only artifact declaration correction; no native or suite execution by ci_audit",
+  "cause": "verification_outputs iterates base.rglob(\"*\") only. A regular file base is not its own descendant; a native.json declaration therefore produces no native output entry. collect_artifacts only receives outputs discovered in that scan.",
+  "original_author": "ci_audit",
+  "original_candidate_patch_sha256": "cdce329cb27939e553e220782aa6772138bfb150e88cd70b285c8cd37873b5b2",
+  "original_artifact_paths": [
+    "build/mapgen_host_v2_01/native.json"
+  ],
+  "observed_main_artifact_paths": [
+    "build/mapgen_host_v2_01"
+  ],
+  "fix": {
+    "tools/harness/profiles.json": "Only runtime-map-v2-host.artifact_paths becomes [\"build/mapgen_host_v2_01\"]",
+    "tests/test_production_plan.py": "Only new runtime-map-v2 test expectation becomes the same directory; retain original checks/methods/argv/180/serial/marker/inputs/profile prefixes"
+  },
+  "references": [
+    {
+      "path": "tools/harness.py",
+      "lines": [
+        449,
+        461,
+        672,
+        686
+      ]
+    },
+    {
+      "path": "tests/test_harness.py",
+      "lines": [
+        213,
+        243,
+        327
+      ]
+    }
+  ],
+  "harness_sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+  "prior_native_artifact_archived": false,
+  "prior_native_file": "Separately preserved by root; do not represent it as prior Harness archive membership.",
+  "old_candidate_validation_limitation": "49 passing planner tests checked the exact declared string and routing; they did not prove artifact collection. The incorrect expectation mirrored the new declaration.",
+  "required_actual_followup": [
+    "Root runs original runtime-map-v2-host fresh under unchanged 180 second cap.",
+    "Root runs original planner and Harness suites.",
+    "Inspect the new check artifact index/tree or its compressed archive member for build/mapgen_host_v2_01/native.json; verify actual SHA/bytes against the generated file.",
+    "Keep previous passing test results and missing-artifact evidence with their original identities; do not retrospectively claim archive coverage."
+  ],
+  "not_changed": [
+    "production source",
+    "Harness collector semantics",
+    "any old check definition",
+    "budgets",
+    "CI workflows"
+  ],
+  "status": "LIMITED_STATIC_CONFIRMATION; final corrected source/native artifact verification belongs to root"
+}

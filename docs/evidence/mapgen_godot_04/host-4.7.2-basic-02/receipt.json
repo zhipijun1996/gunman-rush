@@ -1,0 +1,56 @@
+[
+  {
+    "name": "preload",
+    "command": [
+      "bash",
+      "/tmp/gunman-rush-mapgen-03/tools/godot.sh",
+      "--headless",
+      "--path",
+      "/tmp/mapgen-v4-audit/extracted/mapgen-godot-candidate-0.4.0",
+      "--script",
+      "res://tests/preload.gd",
+      "--",
+      "/tmp/mapgen-v4-audit/extracted/mapgen-godot-candidate-0.4.0/tests/dependencies/modules.zip",
+      "/tmp/mapgen-v4-audit/host-4.7.2-basic-02/preload.json"
+    ],
+    "exit_code": 0,
+    "seconds": 3.7289665569987847,
+    "log_sha256": "3236d35450f0411845ff3057179c2272182f8e684bfa161860466f76ebf0b0e7"
+  },
+  {
+    "name": "reward_geometry",
+    "command": [
+      "bash",
+      "/tmp/gunman-rush-mapgen-03/tools/godot.sh",
+      "--headless",
+      "--path",
+      "/tmp/mapgen-v4-audit/extracted/mapgen-godot-candidate-0.4.0",
+      "--script",
+      "res://tests/reward_geometry.gd",
+      "--",
+      "/tmp/mapgen-v4-audit/extracted/mapgen-godot-candidate-0.4.0/tests/dependencies/modules.zip",
+      "/tmp/mapgen-v4-audit/host-4.7.2-basic-02/reward_geometry.json"
+    ],
+    "exit_code": 0,
+    "seconds": 4.177987053000834,
+    "log_sha256": "fdd96c0cc6ddba0c13f947af116b91490aad649887ef28c83f5427ae07bd22b4"
+  },
+  {
+    "name": "budget",
+    "command": [
+      "bash",
+      "/tmp/gunman-rush-mapgen-03/tools/godot.sh",
+      "--headless",
+      "--path",
+      "/tmp/mapgen-v4-audit/extracted/mapgen-godot-candidate-0.4.0",
+      "--script",
+      "res://tests/budget.gd",
+      "--",
+      "/tmp/mapgen-v4-audit/extracted/mapgen-godot-candidate-0.4.0/tests/dependencies/modules.zip",
+      "/tmp/mapgen-v4-audit/host-4.7.2-basic-02/budget.json"
+    ],
+    "exit_code": 0,
+    "seconds": 4.077722686000925,
+    "log_sha256": "8c1a41657e3574907be2c893b0a9b90e8bfbf8cf7ebc427f267aba4a51787d05"
+  }
+]

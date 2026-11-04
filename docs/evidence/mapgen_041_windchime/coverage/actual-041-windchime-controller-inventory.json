@@ -1,0 +1,4560 @@
+{
+  "schema": "gunman-rush/offline-actual-map-inventory/v1",
+  "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+  "content_version": "host-sdk-041-windchime-r1",
+  "profile": "windchime-controller",
+  "algorithm_package": {
+    "release_head": "c35871446cc0a3939e1a38171435f42cdc64a359",
+    "source_commit": "8eefdbd140ce10defe1570ab8eefb6729382f8b3",
+    "version": "0.4.1",
+    "zip_sha256": "f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e"
+  },
+  "module_archive": {
+    "path": "res://resources/mapgen/module-pack-1.1.0.zip",
+    "sha256": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+    "version": "1.1.0"
+  },
+  "original_request_fingerprint": "214cdc2359984f665e7b4a2609f3f055df155e10c13cd46b57dd983e13b23b74",
+  "raw_result_sha256": "9cd06a80f571bab65a38f76059c45c20247982a25032802b2765c862067a79e5",
+  "raw_result_bytes": 694378,
+  "raw_result_source_path": "/tmp/gunman-rush-mapgen-041/build/mapgen041/windchime_generated/result.json",
+  "actual_request": {
+    "air_loop": {
+      "enabled": true,
+      "entry_module_ids": [],
+      "return_module_ids": []
+    },
+    "module_filter": {
+      "exclude_ids": [],
+      "include_ids": [],
+      "regions": []
+    },
+    "player": {
+      "abilities": [
+        "jump",
+        "shot_recoil"
+      ],
+      "clearance_half_extents_pixels": [
+        12.0,
+        18.0
+      ]
+    },
+    "schema": "mapgen/generation-request/v1",
+    "seed": 930001,
+    "start_origin_blocks": [
+      0,
+      0
+    ],
+    "terminals": {
+      "boss": {
+        "module_id": "game-plains-boss-arena",
+        "port_id": "entry"
+      },
+      "start": {
+        "module_id": "game-plains-windchime-lesson",
+        "port_id": "exit"
+      }
+    }
+  },
+  "actual_config": {
+    "algorithm": "stable-v3-reward-space",
+    "goals": {
+      "growth_target": 32,
+      "main_paths_required": 3,
+      "reward_target": 6
+    },
+    "random": {
+      "algorithm": "python-mt19937-v1",
+      "selection": "uniform_top_k"
+    },
+    "schema": "mapgen/generator-config/v1",
+    "scoring": {
+      "aspect": 60,
+      "auto_connection": 24,
+      "bidirectional_exit": 3,
+      "boss_distance": 1,
+      "closure_noise": 2,
+      "dead_end": -24,
+      "distinct_direction": 4,
+      "growth_noise": 3,
+      "height_bias": 0,
+      "left_bias": 0,
+      "perimeter": 0.35,
+      "repeat_module": 5,
+      "reservation_area": 0.1,
+      "reservation_repeat": 5,
+      "reward_near_penalty": 5,
+      "reward_near_radius": 8,
+      "reward_noise": 4,
+      "reward_reserve": 5,
+      "terminal_slot": 2,
+      "usable_exit": 8,
+      "vertical_exit": 8
+    },
+    "seals": {
+      "thickness_pixels": 32
+    },
+    "search": {
+      "boss_choice_count": 5,
+      "budget_check_interval": 256,
+      "candidate_expansion_budget": 500000,
+      "close_attempts": 3,
+      "close_depth": 3,
+      "closure_beam_width": 18,
+      "closure_distance_limit2": 32,
+      "closure_source_limit": 24,
+      "closure_target_distance2": 40,
+      "growth_choice_count": 5,
+      "growth_frontier_limit": 22,
+      "growth_shortlist": 18,
+      "max_growth_backtracks": 128,
+      "max_layout_repairs": 8,
+      "max_rewind_depth": 3,
+      "max_terminal_states": 128,
+      "per_seed_timeout_seconds": 90,
+      "reserve_from_growth_count": 24,
+      "reward_choice_count": 5
+    },
+    "shape": {
+      "max_aspect": 3.0,
+      "soft_tolerance": 1.35,
+      "target_ratio": 1.5
+    }
+  },
+  "selected_instances": [
+    "M01"
+  ],
+  "selection_resolution": {
+    "generation_input_fingerprint": "214cdc2359984f665e7b4a2609f3f055df155e10c13cd46b57dd983e13b23b74",
+    "instances": [
+      {
+        "content_version": "sha256:b2ee44df5422a7b4dd9be1358a075c46cefb00992de802607389f6f94ecfa433",
+        "instance_id": "M01",
+        "module_id": "game-plains-windchime-lesson",
+        "origin_blocks": [
+          0,
+          0
+        ],
+        "role": "start",
+        "transform": {
+          "content_is_materialized": true,
+          "mirror_x": false
+        }
+      }
+    ],
+    "internal_connections": [],
+    "root_instance_id": "M01",
+    "schema": "gunman-rush/runtime-map-selection/v1",
+    "spawn_body_half": [
+      12.0,
+      18.0
+    ],
+    "spawn_local": [
+      240.0,
+      206.0
+    ],
+    "spawn_platform_index": 0,
+    "spawn_world": [
+      240.0,
+      206.0
+    ]
+  },
+  "instance_count": 45,
+  "connection_count": 53,
+  "populated_content_totals": {
+    "latches": 9,
+    "approved_hq_cells": 19,
+    "moving_platforms": 24,
+    "enemies": 20,
+    "reward_sites": 10,
+    "thorns": 20,
+    "saws": 7,
+    "hazards": 1
+  },
+  "instances": [
+    {
+      "id": "M01",
+      "module_id": "game-plains-windchime-lesson",
+      "content_version": "sha256:b2ee44df5422a7b4dd9be1358a075c46cefb00992de802607389f6f94ecfa433",
+      "role": "start",
+      "content_ref": "content/M01.json",
+      "origin_blocks": [
+        0,
+        0
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "exit"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "LEFT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "entry",
+          "rect_pixels": [
+            0,
+            128.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "latches": 1
+      },
+      "platforms": 2,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M01",
+            "port_id": "exit"
+          },
+          "b": {
+            "instance_id": "M02",
+            "port_id": "R"
+          },
+          "id": "C001",
+          "position_pixels": [
+            512.0,
+            192.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M02",
+      "module_id": "idea-spec02-s12-001",
+      "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+      "role": "traversal",
+      "content_ref": "content/M02.json",
+      "origin_blocks": [
+        4,
+        1
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R",
+        "T"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            128.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 2,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M01",
+            "port_id": "exit"
+          },
+          "b": {
+            "instance_id": "M02",
+            "port_id": "R"
+          },
+          "id": "C001",
+          "position_pixels": [
+            512.0,
+            192.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M02",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M04",
+            "port_id": "fork_up"
+          },
+          "id": "C002",
+          "position_pixels": [
+            1152.0,
+            448.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M02",
+            "port_id": "T"
+          },
+          "b": {
+            "instance_id": "M03",
+            "port_id": "B"
+          },
+          "id": "C003",
+          "position_pixels": [
+            960.0,
+            128.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        }
+      ]
+    },
+    {
+      "id": "M03",
+      "module_id": "idea-interface-s12-001",
+      "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+      "role": "traversal",
+      "content_ref": "content/M03.json",
+      "origin_blocks": [
+        6,
+        -3
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            384.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "enemies": 1,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M02",
+            "port_id": "T"
+          },
+          "b": {
+            "instance_id": "M03",
+            "port_id": "B"
+          },
+          "id": "C003",
+          "position_pixels": [
+            960.0,
+            128.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        },
+        {
+          "a": {
+            "instance_id": "M03",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M06",
+            "port_id": "L"
+          },
+          "id": "C004",
+          "position_pixels": [
+            1408.0,
+            -64.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M03",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M08",
+            "port_id": "L"
+          },
+          "id": "C005",
+          "position_pixels": [
+            768.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M04",
+      "module_id": "game-plains-fork-paths",
+      "content_version": "sha256:3b796ef52899c779c10d1f1eee55e3a3c18aedc4aa3ebc8c52ac381bbe6b9783",
+      "role": "traversal",
+      "content_ref": "content/M04.json",
+      "origin_blocks": [
+        9,
+        3
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "entry",
+        "fork_right",
+        "fork_up"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "C",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 5,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M02",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M04",
+            "port_id": "fork_up"
+          },
+          "id": "C002",
+          "position_pixels": [
+            1152.0,
+            448.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M04",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M05",
+            "port_id": "R"
+          },
+          "id": "C006",
+          "position_pixels": [
+            1664.0,
+            960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M04",
+            "port_id": "fork_right"
+          },
+          "b": {
+            "instance_id": "M07",
+            "port_id": "C"
+          },
+          "id": "C007",
+          "position_pixels": [
+            1152.0,
+            960.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M05",
+      "module_id": "idea-interface-s12-001",
+      "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+      "role": "traversal",
+      "content_ref": "content/M05.json",
+      "origin_blocks": [
+        13,
+        7
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            384.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            128.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "enemies": 1,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M04",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M05",
+            "port_id": "R"
+          },
+          "id": "C006",
+          "position_pixels": [
+            1664.0,
+            960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M05",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M09",
+            "port_id": "fork_right"
+          },
+          "id": "C008",
+          "position_pixels": [
+            2304.0,
+            1216.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M06",
+      "module_id": "idea-spec02-s12-001",
+      "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+      "role": "traversal",
+      "content_ref": "content/M06.json",
+      "origin_blocks": [
+        11,
+        -3
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            384.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 2,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M03",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M06",
+            "port_id": "L"
+          },
+          "id": "C004",
+          "position_pixels": [
+            1408.0,
+            -64.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M06",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M13",
+            "port_id": "B"
+          },
+          "id": "C009",
+          "position_pixels": [
+            2048.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M07",
+      "module_id": "workshop-macro-gate-brake-return-0",
+      "content_version": "sha256:f2c78c40ffb898db69ff256ef31358ad0cc25d90a1530dfc861d394be08a3b13",
+      "role": "traversal",
+      "content_ref": "content/M07.json",
+      "origin_blocks": [
+        3,
+        6
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "A",
+        "C",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "D",
+          "rect_pixels": [
+            256.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "enemies": 2
+      },
+      "platforms": 7,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M04",
+            "port_id": "fork_right"
+          },
+          "b": {
+            "instance_id": "M07",
+            "port_id": "C"
+          },
+          "id": "C007",
+          "position_pixels": [
+            1152.0,
+            960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M07",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M10",
+            "port_id": "L"
+          },
+          "id": "C010",
+          "position_pixels": [
+            384.0,
+            960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M07",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M45",
+            "port_id": "L"
+          },
+          "id": "C011",
+          "position_pixels": [
+            1152.0,
+            1216.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M08",
+      "module_id": "idea-spec02-s12-001",
+      "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+      "role": "traversal",
+      "content_ref": "content/M08.json",
+      "origin_blocks": [
+        1,
+        -5
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R",
+        "T"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            128.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 2,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M03",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M08",
+            "port_id": "L"
+          },
+          "id": "C005",
+          "position_pixels": [
+            768.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M08",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M11",
+            "port_id": "B"
+          },
+          "id": "C012",
+          "position_pixels": [
+            128.0,
+            -576.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M08",
+            "port_id": "T"
+          },
+          "b": {
+            "instance_id": "M14",
+            "port_id": "B"
+          },
+          "id": "C013",
+          "position_pixels": [
+            576.0,
+            -640.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        }
+      ]
+    },
+    {
+      "id": "M09",
+      "module_id": "game-plains-fork-paths",
+      "content_version": "sha256:3b796ef52899c779c10d1f1eee55e3a3c18aedc4aa3ebc8c52ac381bbe6b9783",
+      "role": "traversal",
+      "content_ref": "content/M09.json",
+      "origin_blocks": [
+        18,
+        5
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "entry",
+        "fork_right",
+        "fork_up"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "C",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 5,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M05",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M09",
+            "port_id": "fork_right"
+          },
+          "id": "C008",
+          "position_pixels": [
+            2304.0,
+            1216.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M09",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M16",
+            "port_id": "R"
+          },
+          "id": "C014",
+          "position_pixels": [
+            2816.0,
+            1216.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M09",
+            "port_id": "fork_up"
+          },
+          "b": {
+            "instance_id": "M38",
+            "port_id": "exit"
+          },
+          "id": "C015",
+          "position_pixels": [
+            2304.0,
+            704.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M10",
+      "module_id": "idea-interface-s12-001",
+      "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+      "role": "traversal",
+      "content_ref": "content/M10.json",
+      "origin_blocks": [
+        -2,
+        5
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            384.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "enemies": 1,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M07",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M10",
+            "port_id": "L"
+          },
+          "id": "C010",
+          "position_pixels": [
+            384.0,
+            960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M10",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M12",
+            "port_id": "R"
+          },
+          "id": "C016",
+          "position_pixels": [
+            -256.0,
+            704.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M10",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M36",
+            "port_id": "T"
+          },
+          "id": "C017",
+          "position_pixels": [
+            -64.0,
+            1152.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        }
+      ]
+    },
+    {
+      "id": "M11",
+      "module_id": "workshop-macro-gate-brake-return-0",
+      "content_version": "sha256:f2c78c40ffb898db69ff256ef31358ad0cc25d90a1530dfc861d394be08a3b13",
+      "role": "traversal",
+      "content_ref": "content/M11.json",
+      "origin_blocks": [
+        -5,
+        -8
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "A",
+        "C",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "D",
+          "rect_pixels": [
+            256.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "enemies": 2
+      },
+      "platforms": 7,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M08",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M11",
+            "port_id": "B"
+          },
+          "id": "C012",
+          "position_pixels": [
+            128.0,
+            -576.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M11",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M40",
+            "port_id": "L"
+          },
+          "id": "C018",
+          "position_pixels": [
+            -640.0,
+            -832.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M11",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M14",
+            "port_id": "L"
+          },
+          "id": "C019",
+          "position_pixels": [
+            128.0,
+            -832.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M12",
+      "module_id": "idea-spec02-s12-001",
+      "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+      "role": "traversal",
+      "content_ref": "content/M12.json",
+      "origin_blocks": [
+        -7,
+        5
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "R",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "LEFT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "L",
+          "rect_pixels": [
+            0,
+            256.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 2,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M10",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M12",
+            "port_id": "R"
+          },
+          "id": "C016",
+          "position_pixels": [
+            -256.0,
+            704.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M12",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M35",
+            "port_id": "C"
+          },
+          "id": "C020",
+          "position_pixels": [
+            -448.0,
+            1152.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        }
+      ]
+    },
+    {
+      "id": "M13",
+      "module_id": "b31-n06-fourport-two-low-ingress",
+      "content_version": "sha256:5aebe7b7a122a26eabb4f25a4a4324244b336552d1d450b41c1659a01b6c8c0f",
+      "role": "traversal",
+      "content_ref": "content/M13.json",
+      "origin_blocks": [
+        16,
+        -3
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "seals": [],
+      "content_fields": {
+        "enemies": 1,
+        "latches": 1
+      },
+      "platforms": 8,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M06",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M13",
+            "port_id": "B"
+          },
+          "id": "C009",
+          "position_pixels": [
+            2048.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M13",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M37",
+            "port_id": "exit"
+          },
+          "id": "C021",
+          "position_pixels": [
+            2048.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M13",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M17",
+            "port_id": "C"
+          },
+          "id": "C022",
+          "position_pixels": [
+            3328.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M13",
+            "port_id": "D"
+          },
+          "b": {
+            "instance_id": "M17",
+            "port_id": "D"
+          },
+          "id": "C023",
+          "position_pixels": [
+            3328.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M14",
+      "module_id": "idea-spec02-s12-001",
+      "content_version": "sha256:86fbe2242a6250453f2be3fe14276bcb698d88b88226a34999506d720816df2d",
+      "role": "traversal",
+      "content_ref": "content/M14.json",
+      "origin_blocks": [
+        1,
+        -9
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L",
+        "R",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 2,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M08",
+            "port_id": "T"
+          },
+          "b": {
+            "instance_id": "M14",
+            "port_id": "B"
+          },
+          "id": "C013",
+          "position_pixels": [
+            576.0,
+            -640.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        },
+        {
+          "a": {
+            "instance_id": "M11",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M14",
+            "port_id": "L"
+          },
+          "id": "C019",
+          "position_pixels": [
+            128.0,
+            -832.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M14",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M15",
+            "port_id": "entry_left"
+          },
+          "id": "C024",
+          "position_pixels": [
+            768.0,
+            -1088.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M15",
+      "module_id": "game-route-junction",
+      "content_version": "sha256:fbb52222ffe928c803c5cfd3107028e3ca86e8d2e44ae3aba1ea0ba987e12d40",
+      "role": "traversal",
+      "content_ref": "content/M15.json",
+      "origin_blocks": [
+        6,
+        -10
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "entry_left",
+        "entry_right",
+        "exit_upper_right"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "LEFT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "exit_upper_left",
+          "rect_pixels": [
+            0,
+            0.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M14",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M15",
+            "port_id": "entry_left"
+          },
+          "id": "C024",
+          "position_pixels": [
+            768.0,
+            -1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M15",
+            "port_id": "entry_right"
+          },
+          "b": {
+            "instance_id": "M19",
+            "port_id": "entry_right"
+          },
+          "id": "C025",
+          "position_pixels": [
+            1536.0,
+            -1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M15",
+            "port_id": "exit_upper_right"
+          },
+          "b": {
+            "instance_id": "M19",
+            "port_id": "exit_upper_right"
+          },
+          "id": "C026",
+          "position_pixels": [
+            1536.0,
+            -1216.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M16",
+      "module_id": "idea-interface-s12-001",
+      "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+      "role": "traversal",
+      "content_ref": "content/M16.json",
+      "origin_blocks": [
+        22,
+        9
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            384.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            128.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "enemies": 1,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M09",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M16",
+            "port_id": "R"
+          },
+          "id": "C014",
+          "position_pixels": [
+            2816.0,
+            1216.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M16",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M18",
+            "port_id": "A"
+          },
+          "id": "C027",
+          "position_pixels": [
+            3456.0,
+            1472.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M17",
+      "module_id": "b31-n06-fourport-two-low-ingress",
+      "content_version": "sha256:5aebe7b7a122a26eabb4f25a4a4324244b336552d1d450b41c1659a01b6c8c0f",
+      "role": "traversal",
+      "content_ref": "content/M17.json",
+      "origin_blocks": [
+        26,
+        -3
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "seals": [],
+      "content_fields": {
+        "enemies": 1,
+        "latches": 1
+      },
+      "platforms": 8,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M13",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M17",
+            "port_id": "C"
+          },
+          "id": "C022",
+          "position_pixels": [
+            3328.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M13",
+            "port_id": "D"
+          },
+          "b": {
+            "instance_id": "M17",
+            "port_id": "D"
+          },
+          "id": "C023",
+          "position_pixels": [
+            3328.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M17",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M26",
+            "port_id": "D"
+          },
+          "id": "C028",
+          "position_pixels": [
+            4608.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M17",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M26",
+            "port_id": "C"
+          },
+          "id": "C029",
+          "position_pixels": [
+            4608.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M18",
+      "module_id": "batch30-block-n04-0-2",
+      "content_version": "sha256:e1f079fad67ab89b1920da3a016b90a99c8ab553b330ce8944ae2e5fb3b207a2",
+      "role": "traversal",
+      "content_ref": "content/M18.json",
+      "origin_blocks": [
+        27,
+        8
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "A",
+        "C",
+        "D"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "LEFT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            0,
+            0.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "E",
+          "rect_pixels": [
+            640.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "latches": 1,
+        "reward_sites": 2
+      },
+      "platforms": 7,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M16",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M18",
+            "port_id": "A"
+          },
+          "id": "C027",
+          "position_pixels": [
+            3456.0,
+            1472.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M18",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M25",
+            "port_id": "B"
+          },
+          "id": "C030",
+          "position_pixels": [
+            4736.0,
+            1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M18",
+            "port_id": "D"
+          },
+          "b": {
+            "instance_id": "M24",
+            "port_id": "L"
+          },
+          "id": "C031",
+          "position_pixels": [
+            4736.0,
+            1472.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M19",
+      "module_id": "game-route-junction",
+      "content_version": "sha256:fbb52222ffe928c803c5cfd3107028e3ca86e8d2e44ae3aba1ea0ba987e12d40",
+      "role": "traversal",
+      "content_ref": "content/M19.json",
+      "origin_blocks": [
+        12,
+        -10
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "entry_left",
+        "entry_right",
+        "exit_upper_left",
+        "exit_upper_right"
+      ],
+      "seals": [],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M15",
+            "port_id": "entry_right"
+          },
+          "b": {
+            "instance_id": "M19",
+            "port_id": "entry_right"
+          },
+          "id": "C025",
+          "position_pixels": [
+            1536.0,
+            -1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M15",
+            "port_id": "exit_upper_right"
+          },
+          "b": {
+            "instance_id": "M19",
+            "port_id": "exit_upper_right"
+          },
+          "id": "C026",
+          "position_pixels": [
+            1536.0,
+            -1216.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M19",
+            "port_id": "entry_left"
+          },
+          "b": {
+            "instance_id": "M20",
+            "port_id": "entry_right"
+          },
+          "id": "C032",
+          "position_pixels": [
+            2304.0,
+            -1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M19",
+            "port_id": "exit_upper_left"
+          },
+          "b": {
+            "instance_id": "M20",
+            "port_id": "exit_upper_right"
+          },
+          "id": "C033",
+          "position_pixels": [
+            2304.0,
+            -1216.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M20",
+      "module_id": "game-route-junction",
+      "content_version": "sha256:fbb52222ffe928c803c5cfd3107028e3ca86e8d2e44ae3aba1ea0ba987e12d40",
+      "role": "traversal",
+      "content_ref": "content/M20.json",
+      "origin_blocks": [
+        18,
+        -10
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "entry_right",
+        "exit_upper_left",
+        "exit_upper_right"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "RIGHT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "entry_left",
+          "rect_pixels": [
+            736,
+            128.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M19",
+            "port_id": "entry_left"
+          },
+          "b": {
+            "instance_id": "M20",
+            "port_id": "entry_right"
+          },
+          "id": "C032",
+          "position_pixels": [
+            2304.0,
+            -1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M19",
+            "port_id": "exit_upper_left"
+          },
+          "b": {
+            "instance_id": "M20",
+            "port_id": "exit_upper_right"
+          },
+          "id": "C033",
+          "position_pixels": [
+            2304.0,
+            -1216.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M20",
+            "port_id": "exit_upper_left"
+          },
+          "b": {
+            "instance_id": "M21",
+            "port_id": "R"
+          },
+          "id": "C034",
+          "position_pixels": [
+            3072.0,
+            -1216.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M21",
+      "module_id": "idea-plains-hq01-001",
+      "content_version": "sha256:8c7d18090e298ee20bcdccfcb1c360b05f7460a5897ffbb8fb4c13c2ffcd6e95",
+      "role": "traversal",
+      "content_ref": "content/M21.json",
+      "origin_blocks": [
+        24,
+        -10
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            384.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M20",
+            "port_id": "exit_upper_left"
+          },
+          "b": {
+            "instance_id": "M21",
+            "port_id": "R"
+          },
+          "id": "C034",
+          "position_pixels": [
+            3072.0,
+            -1216.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M21",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M22",
+            "port_id": "entry"
+          },
+          "id": "C035",
+          "position_pixels": [
+            3712.0,
+            -960.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M22",
+      "module_id": "game-plains-fork-paths",
+      "content_version": "sha256:3b796ef52899c779c10d1f1eee55e3a3c18aedc4aa3ebc8c52ac381bbe6b9783",
+      "role": "traversal",
+      "content_ref": "content/M22.json",
+      "origin_blocks": [
+        29,
+        -12
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "entry",
+        "fork_right",
+        "fork_up"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "C",
+          "rect_pixels": [
+            256.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 5,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M21",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M22",
+            "port_id": "entry"
+          },
+          "id": "C035",
+          "position_pixels": [
+            3712.0,
+            -960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M22",
+            "port_id": "fork_right"
+          },
+          "b": {
+            "instance_id": "M28",
+            "port_id": "R"
+          },
+          "id": "C036",
+          "position_pixels": [
+            4224.0,
+            -960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M22",
+            "port_id": "fork_up"
+          },
+          "b": {
+            "instance_id": "M23",
+            "port_id": "L"
+          },
+          "id": "C037",
+          "position_pixels": [
+            4224.0,
+            -1472.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M23",
+      "module_id": "idea-plains-hq03-001",
+      "content_version": "sha256:2ef8ba7aa09337a48422ac17fae4096b6c517c618ea910979b57d6e75c27c7cb",
+      "role": "traversal",
+      "content_ref": "content/M23.json",
+      "origin_blocks": [
+        33,
+        -13
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            256.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "enemies": 1,
+        "thorns": 6
+      },
+      "platforms": 11,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M22",
+            "port_id": "fork_up"
+          },
+          "b": {
+            "instance_id": "M23",
+            "port_id": "L"
+          },
+          "id": "C037",
+          "position_pixels": [
+            4224.0,
+            -1472.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M23",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M27",
+            "port_id": "R"
+          },
+          "id": "C038",
+          "position_pixels": [
+            4736.0,
+            -1472.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M24",
+      "module_id": "idea-interface-s11-001",
+      "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+      "role": "traversal",
+      "content_ref": "content/M24.json",
+      "origin_blocks": [
+        37,
+        9
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "RIGHT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "R",
+          "rect_pixels": [
+            608,
+            0.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            384.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "latches": 1
+      },
+      "platforms": 6,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M18",
+            "port_id": "D"
+          },
+          "b": {
+            "instance_id": "M24",
+            "port_id": "L"
+          },
+          "id": "C031",
+          "position_pixels": [
+            4736.0,
+            1472.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M25",
+      "module_id": "workshop-macro-gate-brake-return-0",
+      "content_version": "sha256:f2c78c40ffb898db69ff256ef31358ad0cc25d90a1530dfc861d394be08a3b13",
+      "role": "traversal",
+      "content_ref": "content/M25.json",
+      "origin_blocks": [
+        37,
+        5
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "C",
+        "B"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "RIGHT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "A",
+          "rect_pixels": [
+            736,
+            128.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "D",
+          "rect_pixels": [
+            384.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "enemies": 2
+      },
+      "platforms": 7,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M18",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M25",
+            "port_id": "B"
+          },
+          "id": "C030",
+          "position_pixels": [
+            4736.0,
+            1088.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M25",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M42",
+            "port_id": "L"
+          },
+          "id": "C039",
+          "position_pixels": [
+            4736.0,
+            832.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M26",
+      "module_id": "b31-n06-fourport-two-low-ingress",
+      "content_version": "sha256:5aebe7b7a122a26eabb4f25a4a4324244b336552d1d450b41c1659a01b6c8c0f",
+      "role": "traversal",
+      "content_ref": "content/M26.json",
+      "origin_blocks": [
+        36,
+        -3
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "seals": [],
+      "content_fields": {
+        "enemies": 1,
+        "latches": 1
+      },
+      "platforms": 8,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M17",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M26",
+            "port_id": "D"
+          },
+          "id": "C028",
+          "position_pixels": [
+            4608.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M17",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M26",
+            "port_id": "C"
+          },
+          "id": "C029",
+          "position_pixels": [
+            4608.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M26",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M41",
+            "port_id": "L"
+          },
+          "id": "C040",
+          "position_pixels": [
+            5888.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M26",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M31",
+            "port_id": "R"
+          },
+          "id": "C041",
+          "position_pixels": [
+            5888.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M27",
+      "module_id": "idea-interface-s12-001",
+      "content_version": "sha256:9d2244662c5fe81484ba67440de1400469b828c390f96ce38ec87e41f4174447",
+      "role": "traversal",
+      "content_ref": "content/M27.json",
+      "origin_blocks": [
+        37,
+        -12
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "R",
+        "T"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "RIGHT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "L",
+          "rect_pixels": [
+            608,
+            256.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        },
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            128.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "enemies": 1,
+        "moving_platforms": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M23",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M27",
+            "port_id": "R"
+          },
+          "id": "C038",
+          "position_pixels": [
+            4736.0,
+            -1472.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M27",
+            "port_id": "T"
+          },
+          "b": {
+            "instance_id": "M33",
+            "port_id": "B"
+          },
+          "id": "C042",
+          "position_pixels": [
+            5184.0,
+            -1536.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        }
+      ]
+    },
+    {
+      "id": "M28",
+      "module_id": "idea-spec02-s11-001",
+      "content_version": "sha256:afa52a8edc28fa26655f38815c277a21e68c56224c74c2bf125cfa580bd727ae",
+      "role": "traversal",
+      "content_ref": "content/M28.json",
+      "origin_blocks": [
+        33,
+        -8
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            128.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "moving_platforms": 1
+      },
+      "platforms": 4,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M22",
+            "port_id": "fork_right"
+          },
+          "b": {
+            "instance_id": "M28",
+            "port_id": "R"
+          },
+          "id": "C036",
+          "position_pixels": [
+            4224.0,
+            -960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M28",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M29",
+            "port_id": "L"
+          },
+          "id": "C043",
+          "position_pixels": [
+            4864.0,
+            -704.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M29",
+      "module_id": "idea-interface-s11-001",
+      "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+      "role": "traversal",
+      "content_ref": "content/M29.json",
+      "origin_blocks": [
+        38,
+        -8
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "BOTTOM",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "B",
+          "rect_pixels": [
+            384.0,
+            480,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "latches": 1
+      },
+      "platforms": 6,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M28",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M29",
+            "port_id": "L"
+          },
+          "id": "C043",
+          "position_pixels": [
+            4864.0,
+            -704.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M29",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M30",
+            "port_id": "A"
+          },
+          "id": "C044",
+          "position_pixels": [
+            5504.0,
+            -960.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M30",
+      "module_id": "workshop-one-shot-two-routes-1",
+      "content_version": "sha256:4fd014e93e44920aacff3e4990882245ce400c4f747145acad1058c80b504874",
+      "role": "traversal",
+      "content_ref": "content/M30.json",
+      "origin_blocks": [
+        43,
+        -10
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "A",
+        "B",
+        "C"
+      ],
+      "seals": [],
+      "content_fields": {
+        "enemies": 1
+      },
+      "platforms": 4,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M29",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M30",
+            "port_id": "A"
+          },
+          "id": "C044",
+          "position_pixels": [
+            5504.0,
+            -960.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M30",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M32",
+            "port_id": "fork_up"
+          },
+          "id": "C045",
+          "position_pixels": [
+            6400.0,
+            -832.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M30",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M34",
+            "port_id": "B"
+          },
+          "id": "C046",
+          "position_pixels": [
+            5952.0,
+            -1280.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        }
+      ]
+    },
+    {
+      "id": "M31",
+      "module_id": "idea-plains-hq03-001",
+      "content_version": "sha256:2ef8ba7aa09337a48422ac17fae4096b6c517c618ea910979b57d6e75c27c7cb",
+      "role": "traversal",
+      "content_ref": "content/M31.json",
+      "origin_blocks": [
+        46,
+        -4
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "T",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {
+        "enemies": 1,
+        "thorns": 6
+      },
+      "platforms": 11,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M26",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M31",
+            "port_id": "R"
+          },
+          "id": "C041",
+          "position_pixels": [
+            5888.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M31",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M32",
+            "port_id": "fork_right"
+          },
+          "id": "C047",
+          "position_pixels": [
+            6400.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M32",
+      "module_id": "game-plains-fork-paths",
+      "content_version": "sha256:3b796ef52899c779c10d1f1eee55e3a3c18aedc4aa3ebc8c52ac381bbe6b9783",
+      "role": "traversal",
+      "content_ref": "content/M32.json",
+      "origin_blocks": [
+        50,
+        -7
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "entry",
+        "fork_right",
+        "fork_up"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "TOP",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "C",
+          "rect_pixels": [
+            128.0,
+            0,
+            128,
+            32
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 7,
+      "one_way_platforms": 5,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M30",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M32",
+            "port_id": "fork_up"
+          },
+          "id": "C045",
+          "position_pixels": [
+            6400.0,
+            -832.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M31",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M32",
+            "port_id": "fork_right"
+          },
+          "id": "C047",
+          "position_pixels": [
+            6400.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M32",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M39",
+            "port_id": "entry"
+          },
+          "id": "C048",
+          "position_pixels": [
+            6912.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M33",
+      "module_id": "idea-interface-s11-001",
+      "content_version": "sha256:69e521575c88d5bce822eb037773288e3ad10efa4365192945185a0aa76f1dc7",
+      "role": "traversal",
+      "content_ref": "content/M33.json",
+      "origin_blocks": [
+        39,
+        -16
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L",
+        "R",
+        "B"
+      ],
+      "seals": [],
+      "content_fields": {
+        "latches": 1
+      },
+      "platforms": 6,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M27",
+            "port_id": "T"
+          },
+          "b": {
+            "instance_id": "M33",
+            "port_id": "B"
+          },
+          "id": "C042",
+          "position_pixels": [
+            5184.0,
+            -1536.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        },
+        {
+          "a": {
+            "instance_id": "M33",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M34",
+            "port_id": "L"
+          },
+          "id": "C049",
+          "position_pixels": [
+            5632.0,
+            -1728.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M33",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M44",
+            "port_id": "L"
+          },
+          "id": "C050",
+          "position_pixels": [
+            4992.0,
+            -1984.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M34",
+      "module_id": "idea-interface-s09-001",
+      "content_version": "sha256:c3d4ad5ba2898b4f730be3ba3310db937f10c123c05eab163e2d00179464892a",
+      "role": "traversal",
+      "content_ref": "content/M34.json",
+      "origin_blocks": [
+        44,
+        -14
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L",
+        "B"
+      ],
+      "seals": [],
+      "content_fields": {
+        "saws": 1
+      },
+      "platforms": 4,
+      "one_way_platforms": 3,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M30",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M34",
+            "port_id": "B"
+          },
+          "id": "C046",
+          "position_pixels": [
+            5952.0,
+            -1280.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        },
+        {
+          "a": {
+            "instance_id": "M33",
+            "port_id": "L"
+          },
+          "b": {
+            "instance_id": "M34",
+            "port_id": "L"
+          },
+          "id": "C049",
+          "position_pixels": [
+            5632.0,
+            -1728.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M35",
+      "module_id": "idea-orbit-choice-001",
+      "content_version": "sha256:ee5cdeb5d7672eb1c9fbe9c502273114039a346817b8bf5ea7a7dd65045a1317",
+      "role": "traversal",
+      "content_ref": "content/M35.json",
+      "origin_blocks": [
+        -6,
+        9
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "A",
+        "B",
+        "C"
+      ],
+      "seals": [],
+      "content_fields": {
+        "hazards": 1,
+        "latches": 1,
+        "moving_platforms": 1,
+        "reward_sites": 1
+      },
+      "platforms": 3,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M12",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M35",
+            "port_id": "C"
+          },
+          "id": "C020",
+          "position_pixels": [
+            -448.0,
+            1152.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        },
+        {
+          "a": {
+            "instance_id": "M35",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M43",
+            "port_id": "L"
+          },
+          "id": "C051",
+          "position_pixels": [
+            -768.0,
+            1472.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M35",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M36",
+            "port_id": "R"
+          },
+          "id": "C052",
+          "position_pixels": [
+            -128.0,
+            1344.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M36",
+      "module_id": "idea-spec02-s08-001",
+      "content_version": "sha256:61e50f8cb2f8891111268d811e9a18d52ebea8feb72a5e1fb575b500d34adb57",
+      "role": "traversal",
+      "content_ref": "content/M36.json",
+      "origin_blocks": [
+        -1,
+        9
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "R",
+        "T"
+      ],
+      "seals": [],
+      "content_fields": {
+        "thorns": 2
+      },
+      "platforms": 4,
+      "one_way_platforms": 2,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M10",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M36",
+            "port_id": "T"
+          },
+          "id": "C017",
+          "position_pixels": [
+            -64.0,
+            1152.0
+          ],
+          "surface": "ONE_WAY_PLATFORM"
+        },
+        {
+          "a": {
+            "instance_id": "M35",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M36",
+            "port_id": "R"
+          },
+          "id": "C052",
+          "position_pixels": [
+            -128.0,
+            1344.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M37",
+      "module_id": "generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba",
+      "content_version": "sha256:43fd888a501cbbca23ae11b8a41932bfe6572782517d761962265febf32db832",
+      "role": "traversal",
+      "content_ref": "content/M37.json",
+      "origin_blocks": [
+        13,
+        1
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "entry",
+        "exit"
+      ],
+      "seals": [],
+      "content_fields": {
+        "enemies": 1,
+        "reward_sites": 1
+      },
+      "platforms": 3,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M13",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M37",
+            "port_id": "exit"
+          },
+          "id": "C021",
+          "position_pixels": [
+            2048.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M37",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M38",
+            "port_id": "entry"
+          },
+          "id": "C053",
+          "position_pixels": [
+            2048.0,
+            704.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M38",
+      "module_id": "generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b",
+      "content_version": "sha256:c01133af98647af1ea3d2b09bc24bc4132f70f51574bf98f37648203e904a32b",
+      "role": "traversal",
+      "content_ref": "content/M38.json",
+      "origin_blocks": [
+        16,
+        4
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "entry",
+        "exit"
+      ],
+      "seals": [],
+      "content_fields": {
+        "enemies": 2
+      },
+      "platforms": 2,
+      "one_way_platforms": 0,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M09",
+            "port_id": "fork_up"
+          },
+          "b": {
+            "instance_id": "M38",
+            "port_id": "exit"
+          },
+          "id": "C015",
+          "position_pixels": [
+            2304.0,
+            704.0
+          ],
+          "surface": "ROCK"
+        },
+        {
+          "a": {
+            "instance_id": "M37",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M38",
+            "port_id": "entry"
+          },
+          "id": "C053",
+          "position_pixels": [
+            2048.0,
+            704.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M39",
+      "module_id": "game-plains-boss-arena",
+      "content_version": "sha256:b11d7715850df541281f897be00d547b34fce0ef09262ec24ffb505f1064a083",
+      "role": "boss",
+      "content_ref": "content/M39.json",
+      "origin_blocks": [
+        54,
+        -6
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "entry"
+      ],
+      "seals": [
+        {
+          "certified": false,
+          "component": "gear-seal/1",
+          "face": "RIGHT",
+          "opening_pixels": 128,
+          "physical_validation": "NOT_RUN",
+          "port_id": "exit",
+          "rect_pixels": [
+            1120,
+            384.0,
+            32,
+            128
+          ],
+          "thickness_pixels": 32
+        }
+      ],
+      "content_fields": {},
+      "platforms": 5,
+      "one_way_platforms": 3,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M32",
+            "port_id": "entry"
+          },
+          "b": {
+            "instance_id": "M39",
+            "port_id": "entry"
+          },
+          "id": "C048",
+          "position_pixels": [
+            6912.0,
+            -320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M40",
+      "module_id": "idea-spec02-s13-001",
+      "content_version": "sha256:e99c333410c8de43d1bb9b23ce2dc6190b6c66fb77bc15d486586e43c5da0246",
+      "role": "target_reward",
+      "content_ref": "content/M40.json",
+      "origin_blocks": [
+        -8,
+        -8
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [],
+      "content_fields": {
+        "reward_sites": 1,
+        "saws": 1,
+        "thorns": 2
+      },
+      "platforms": 3,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M11",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M40",
+            "port_id": "L"
+          },
+          "id": "C018",
+          "position_pixels": [
+            -640.0,
+            -832.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M41",
+      "module_id": "idea-plains-hq04-001",
+      "content_version": "sha256:163b7af98b953336d1d6dde95e62283c91f90517a057f5397b4ab7438c74edf5",
+      "role": "target_reward",
+      "content_ref": "content/M41.json",
+      "origin_blocks": [
+        46,
+        0
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "reward_sites": 1,
+        "saws": 1
+      },
+      "platforms": 5,
+      "one_way_platforms": 4,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M26",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M41",
+            "port_id": "L"
+          },
+          "id": "C040",
+          "position_pixels": [
+            5888.0,
+            320.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M42",
+      "module_id": "idea-plains-hq04-001",
+      "content_version": "sha256:163b7af98b953336d1d6dde95e62283c91f90517a057f5397b4ab7438c74edf5",
+      "role": "target_reward",
+      "content_ref": "content/M42.json",
+      "origin_blocks": [
+        32,
+        4
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "reward_sites": 1,
+        "saws": 1
+      },
+      "platforms": 5,
+      "one_way_platforms": 4,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M25",
+            "port_id": "C"
+          },
+          "b": {
+            "instance_id": "M42",
+            "port_id": "L"
+          },
+          "id": "C039",
+          "position_pixels": [
+            4736.0,
+            832.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M43",
+      "module_id": "idea-spec02-s13-001",
+      "content_version": "sha256:e99c333410c8de43d1bb9b23ce2dc6190b6c66fb77bc15d486586e43c5da0246",
+      "role": "target_reward",
+      "content_ref": "content/M43.json",
+      "origin_blocks": [
+        -9,
+        10
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [],
+      "content_fields": {
+        "reward_sites": 1,
+        "saws": 1,
+        "thorns": 2
+      },
+      "platforms": 3,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M35",
+            "port_id": "A"
+          },
+          "b": {
+            "instance_id": "M43",
+            "port_id": "L"
+          },
+          "id": "C051",
+          "position_pixels": [
+            -768.0,
+            1472.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M44",
+      "module_id": "idea-plains-hq04-001",
+      "content_version": "sha256:163b7af98b953336d1d6dde95e62283c91f90517a057f5397b4ab7438c74edf5",
+      "role": "target_reward",
+      "content_ref": "content/M44.json",
+      "origin_blocks": [
+        34,
+        -18
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": true
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [],
+      "content_fields": {
+        "approved_hq_cells": 1,
+        "reward_sites": 1,
+        "saws": 1
+      },
+      "platforms": 5,
+      "one_way_platforms": 4,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M33",
+            "port_id": "R"
+          },
+          "b": {
+            "instance_id": "M44",
+            "port_id": "L"
+          },
+          "id": "C050",
+          "position_pixels": [
+            4992.0,
+            -1984.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    },
+    {
+      "id": "M45",
+      "module_id": "idea-spec02-s13-001",
+      "content_version": "sha256:e99c333410c8de43d1bb9b23ce2dc6190b6c66fb77bc15d486586e43c5da0246",
+      "role": "target_reward",
+      "content_ref": "content/M45.json",
+      "origin_blocks": [
+        9,
+        8
+      ],
+      "transform": {
+        "content_is_materialized": true,
+        "mirror_x": false
+      },
+      "connected_port_ids": [
+        "L"
+      ],
+      "seals": [],
+      "content_fields": {
+        "reward_sites": 1,
+        "saws": 1,
+        "thorns": 2
+      },
+      "platforms": 3,
+      "one_way_platforms": 1,
+      "connections": [
+        {
+          "a": {
+            "instance_id": "M07",
+            "port_id": "B"
+          },
+          "b": {
+            "instance_id": "M45",
+            "port_id": "L"
+          },
+          "id": "C011",
+          "position_pixels": [
+            1152.0,
+            1216.0
+          ],
+          "surface": "ROCK"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "a": {
+        "instance_id": "M01",
+        "port_id": "exit"
+      },
+      "b": {
+        "instance_id": "M02",
+        "port_id": "R"
+      },
+      "id": "C001",
+      "position_pixels": [
+        512.0,
+        192.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M02",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M04",
+        "port_id": "fork_up"
+      },
+      "id": "C002",
+      "position_pixels": [
+        1152.0,
+        448.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M02",
+        "port_id": "T"
+      },
+      "b": {
+        "instance_id": "M03",
+        "port_id": "B"
+      },
+      "id": "C003",
+      "position_pixels": [
+        960.0,
+        128.0
+      ],
+      "surface": "ONE_WAY_PLATFORM"
+    },
+    {
+      "a": {
+        "instance_id": "M03",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M06",
+        "port_id": "L"
+      },
+      "id": "C004",
+      "position_pixels": [
+        1408.0,
+        -64.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M03",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M08",
+        "port_id": "L"
+      },
+      "id": "C005",
+      "position_pixels": [
+        768.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M04",
+        "port_id": "entry"
+      },
+      "b": {
+        "instance_id": "M05",
+        "port_id": "R"
+      },
+      "id": "C006",
+      "position_pixels": [
+        1664.0,
+        960.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M04",
+        "port_id": "fork_right"
+      },
+      "b": {
+        "instance_id": "M07",
+        "port_id": "C"
+      },
+      "id": "C007",
+      "position_pixels": [
+        1152.0,
+        960.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M05",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M09",
+        "port_id": "fork_right"
+      },
+      "id": "C008",
+      "position_pixels": [
+        2304.0,
+        1216.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M06",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M13",
+        "port_id": "B"
+      },
+      "id": "C009",
+      "position_pixels": [
+        2048.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M07",
+        "port_id": "A"
+      },
+      "b": {
+        "instance_id": "M10",
+        "port_id": "L"
+      },
+      "id": "C010",
+      "position_pixels": [
+        384.0,
+        960.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M07",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M45",
+        "port_id": "L"
+      },
+      "id": "C011",
+      "position_pixels": [
+        1152.0,
+        1216.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M08",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M11",
+        "port_id": "B"
+      },
+      "id": "C012",
+      "position_pixels": [
+        128.0,
+        -576.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M08",
+        "port_id": "T"
+      },
+      "b": {
+        "instance_id": "M14",
+        "port_id": "B"
+      },
+      "id": "C013",
+      "position_pixels": [
+        576.0,
+        -640.0
+      ],
+      "surface": "ONE_WAY_PLATFORM"
+    },
+    {
+      "a": {
+        "instance_id": "M09",
+        "port_id": "entry"
+      },
+      "b": {
+        "instance_id": "M16",
+        "port_id": "R"
+      },
+      "id": "C014",
+      "position_pixels": [
+        2816.0,
+        1216.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M09",
+        "port_id": "fork_up"
+      },
+      "b": {
+        "instance_id": "M38",
+        "port_id": "exit"
+      },
+      "id": "C015",
+      "position_pixels": [
+        2304.0,
+        704.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M10",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M12",
+        "port_id": "R"
+      },
+      "id": "C016",
+      "position_pixels": [
+        -256.0,
+        704.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M10",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M36",
+        "port_id": "T"
+      },
+      "id": "C017",
+      "position_pixels": [
+        -64.0,
+        1152.0
+      ],
+      "surface": "ONE_WAY_PLATFORM"
+    },
+    {
+      "a": {
+        "instance_id": "M11",
+        "port_id": "A"
+      },
+      "b": {
+        "instance_id": "M40",
+        "port_id": "L"
+      },
+      "id": "C018",
+      "position_pixels": [
+        -640.0,
+        -832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M11",
+        "port_id": "C"
+      },
+      "b": {
+        "instance_id": "M14",
+        "port_id": "L"
+      },
+      "id": "C019",
+      "position_pixels": [
+        128.0,
+        -832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M12",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M35",
+        "port_id": "C"
+      },
+      "id": "C020",
+      "position_pixels": [
+        -448.0,
+        1152.0
+      ],
+      "surface": "ONE_WAY_PLATFORM"
+    },
+    {
+      "a": {
+        "instance_id": "M13",
+        "port_id": "A"
+      },
+      "b": {
+        "instance_id": "M37",
+        "port_id": "exit"
+      },
+      "id": "C021",
+      "position_pixels": [
+        2048.0,
+        320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M13",
+        "port_id": "C"
+      },
+      "b": {
+        "instance_id": "M17",
+        "port_id": "C"
+      },
+      "id": "C022",
+      "position_pixels": [
+        3328.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M13",
+        "port_id": "D"
+      },
+      "b": {
+        "instance_id": "M17",
+        "port_id": "D"
+      },
+      "id": "C023",
+      "position_pixels": [
+        3328.0,
+        320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M14",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M15",
+        "port_id": "entry_left"
+      },
+      "id": "C024",
+      "position_pixels": [
+        768.0,
+        -1088.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M15",
+        "port_id": "entry_right"
+      },
+      "b": {
+        "instance_id": "M19",
+        "port_id": "entry_right"
+      },
+      "id": "C025",
+      "position_pixels": [
+        1536.0,
+        -1088.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M15",
+        "port_id": "exit_upper_right"
+      },
+      "b": {
+        "instance_id": "M19",
+        "port_id": "exit_upper_right"
+      },
+      "id": "C026",
+      "position_pixels": [
+        1536.0,
+        -1216.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M16",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M18",
+        "port_id": "A"
+      },
+      "id": "C027",
+      "position_pixels": [
+        3456.0,
+        1472.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M17",
+        "port_id": "A"
+      },
+      "b": {
+        "instance_id": "M26",
+        "port_id": "D"
+      },
+      "id": "C028",
+      "position_pixels": [
+        4608.0,
+        320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M17",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M26",
+        "port_id": "C"
+      },
+      "id": "C029",
+      "position_pixels": [
+        4608.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M18",
+        "port_id": "C"
+      },
+      "b": {
+        "instance_id": "M25",
+        "port_id": "B"
+      },
+      "id": "C030",
+      "position_pixels": [
+        4736.0,
+        1088.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M18",
+        "port_id": "D"
+      },
+      "b": {
+        "instance_id": "M24",
+        "port_id": "L"
+      },
+      "id": "C031",
+      "position_pixels": [
+        4736.0,
+        1472.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M19",
+        "port_id": "entry_left"
+      },
+      "b": {
+        "instance_id": "M20",
+        "port_id": "entry_right"
+      },
+      "id": "C032",
+      "position_pixels": [
+        2304.0,
+        -1088.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M19",
+        "port_id": "exit_upper_left"
+      },
+      "b": {
+        "instance_id": "M20",
+        "port_id": "exit_upper_right"
+      },
+      "id": "C033",
+      "position_pixels": [
+        2304.0,
+        -1216.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M20",
+        "port_id": "exit_upper_left"
+      },
+      "b": {
+        "instance_id": "M21",
+        "port_id": "R"
+      },
+      "id": "C034",
+      "position_pixels": [
+        3072.0,
+        -1216.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M21",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M22",
+        "port_id": "entry"
+      },
+      "id": "C035",
+      "position_pixels": [
+        3712.0,
+        -960.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M22",
+        "port_id": "fork_right"
+      },
+      "b": {
+        "instance_id": "M28",
+        "port_id": "R"
+      },
+      "id": "C036",
+      "position_pixels": [
+        4224.0,
+        -960.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M22",
+        "port_id": "fork_up"
+      },
+      "b": {
+        "instance_id": "M23",
+        "port_id": "L"
+      },
+      "id": "C037",
+      "position_pixels": [
+        4224.0,
+        -1472.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M23",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M27",
+        "port_id": "R"
+      },
+      "id": "C038",
+      "position_pixels": [
+        4736.0,
+        -1472.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M25",
+        "port_id": "C"
+      },
+      "b": {
+        "instance_id": "M42",
+        "port_id": "L"
+      },
+      "id": "C039",
+      "position_pixels": [
+        4736.0,
+        832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M26",
+        "port_id": "A"
+      },
+      "b": {
+        "instance_id": "M41",
+        "port_id": "L"
+      },
+      "id": "C040",
+      "position_pixels": [
+        5888.0,
+        320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M26",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M31",
+        "port_id": "R"
+      },
+      "id": "C041",
+      "position_pixels": [
+        5888.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M27",
+        "port_id": "T"
+      },
+      "b": {
+        "instance_id": "M33",
+        "port_id": "B"
+      },
+      "id": "C042",
+      "position_pixels": [
+        5184.0,
+        -1536.0
+      ],
+      "surface": "ONE_WAY_PLATFORM"
+    },
+    {
+      "a": {
+        "instance_id": "M28",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M29",
+        "port_id": "L"
+      },
+      "id": "C043",
+      "position_pixels": [
+        4864.0,
+        -704.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M29",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M30",
+        "port_id": "A"
+      },
+      "id": "C044",
+      "position_pixels": [
+        5504.0,
+        -960.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M30",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M32",
+        "port_id": "fork_up"
+      },
+      "id": "C045",
+      "position_pixels": [
+        6400.0,
+        -832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M30",
+        "port_id": "C"
+      },
+      "b": {
+        "instance_id": "M34",
+        "port_id": "B"
+      },
+      "id": "C046",
+      "position_pixels": [
+        5952.0,
+        -1280.0
+      ],
+      "surface": "ONE_WAY_PLATFORM"
+    },
+    {
+      "a": {
+        "instance_id": "M31",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M32",
+        "port_id": "fork_right"
+      },
+      "id": "C047",
+      "position_pixels": [
+        6400.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M32",
+        "port_id": "entry"
+      },
+      "b": {
+        "instance_id": "M39",
+        "port_id": "entry"
+      },
+      "id": "C048",
+      "position_pixels": [
+        6912.0,
+        -320.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M33",
+        "port_id": "L"
+      },
+      "b": {
+        "instance_id": "M34",
+        "port_id": "L"
+      },
+      "id": "C049",
+      "position_pixels": [
+        5632.0,
+        -1728.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M33",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M44",
+        "port_id": "L"
+      },
+      "id": "C050",
+      "position_pixels": [
+        4992.0,
+        -1984.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M35",
+        "port_id": "A"
+      },
+      "b": {
+        "instance_id": "M43",
+        "port_id": "L"
+      },
+      "id": "C051",
+      "position_pixels": [
+        -768.0,
+        1472.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M35",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M36",
+        "port_id": "R"
+      },
+      "id": "C052",
+      "position_pixels": [
+        -128.0,
+        1344.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "a": {
+        "instance_id": "M37",
+        "port_id": "entry"
+      },
+      "b": {
+        "instance_id": "M38",
+        "port_id": "entry"
+      },
+      "id": "C053",
+      "position_pixels": [
+        2048.0,
+        704.0
+      ],
+      "surface": "ROCK"
+    }
+  ],
+  "scope": "Offline extraction from THIS actual generated result. Not runtime registry, host support certification,40-map replay or whole-map playability.",
+  "actual_role_counts": {
+    "start": 1,
+    "traversal": 37,
+    "boss": 1,
+    "target_reward": 6
+  },
+  "populated_instance_counts": {
+    "latches": 9,
+    "approved_hq_cells": 14,
+    "moving_platforms": 13,
+    "enemies": 16,
+    "reward_sites": 9,
+    "thorns": 6,
+    "saws": 7,
+    "hazards": 1
+  }
+}

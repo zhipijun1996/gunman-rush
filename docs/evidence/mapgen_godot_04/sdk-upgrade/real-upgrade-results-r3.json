@@ -1,0 +1,79 @@
+[
+  {
+    "case": "01-install-refuses-old",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "installed file differs; refusing overwrite:addons/mapgen/data_json.gd"
+  },
+  {
+    "case": "02-old-code-tamper",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "installed file differs; refusing overwrite:addons/mapgen/solver.gd"
+  },
+  {
+    "case": "03-old-lock-tamper",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "installed file differs; refusing overwrite:config/mapgen_candidate.json"
+  },
+  {
+    "case": "04-old-input-missing",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "installed file missing:resources/mapgen/generator_config.json"
+  },
+  {
+    "case": "05-extra-gd",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "unexpected addon file:addons/mapgen/new_unapproved.gd"
+  },
+  {
+    "case": "06-archive-tamper",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "candidate ZIP SHA mismatch"
+  },
+  {
+    "case": "06b-unsupported-version",
+    "exit_code": 2,
+    "expected_rejection": true,
+    "target_unchanged_on_rejection": true,
+    "error": "installed file differs; refusing overwrite:config/mapgen_candidate.json"
+  },
+  {
+    "case": "07-real-old-to-new",
+    "exit_code": 0,
+    "expected_rejection": false,
+    "target_unchanged_on_rejection": null,
+    "error": ""
+  },
+  {
+    "case": "08-repeated-upgrade-nochange",
+    "exit_code": 0,
+    "expected_rejection": false,
+    "target_unchanged_on_rejection": null,
+    "error": ""
+  },
+  {
+    "case": "09-repeat-install",
+    "exit_code": 0,
+    "expected_rejection": false,
+    "target_unchanged_on_rejection": null,
+    "error": ""
+  },
+  {
+    "case": "10-verify-archive",
+    "exit_code": 0,
+    "expected_rejection": false,
+    "target_unchanged_on_rejection": null,
+    "error": ""
+  }
+]

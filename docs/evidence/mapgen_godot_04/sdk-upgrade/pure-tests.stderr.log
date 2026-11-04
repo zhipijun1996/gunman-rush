@@ -1,0 +1,156 @@
+test_archive_commands_still_require_explicit_archive (__main__.InstallMapgenCandidateTests.test_archive_commands_still_require_explicit_archive) ... ok
+test_changed_code_and_each_runtime_data_kind_reject (__main__.InstallMapgenCandidateTests.test_changed_code_and_each_runtime_data_kind_reject) ... ok
+test_changed_lock_cannot_approve_resigned_code (__main__.InstallMapgenCandidateTests.test_changed_lock_cannot_approve_resigned_code) ... ok
+test_default_cli_verifies_actual_checkout_without_archive (__main__.InstallMapgenCandidateTests.test_default_cli_verifies_actual_checkout_without_archive) ... ok
+test_default_install_still_refuses_old_version_before_writing (__main__.InstallMapgenCandidateTests.test_default_install_still_refuses_old_version_before_writing) ... ok
+test_editor_plugin_rejects (__main__.InstallMapgenCandidateTests.test_editor_plugin_rejects) ... ok
+test_explicit_upgrade_replaces_only_authenticated_previous_bytes (__main__.InstallMapgenCandidateTests.test_explicit_upgrade_replaces_only_authenticated_previous_bytes) ... FAIL
+test_extra_solver_rejects (__main__.InstallMapgenCandidateTests.test_extra_solver_rejects) ... ok
+test_install_conflict_checks_all_targets_before_writing (__main__.InstallMapgenCandidateTests.test_install_conflict_checks_all_targets_before_writing) ... ok
+test_missing_required_files_reject (__main__.InstallMapgenCandidateTests.test_missing_required_files_reject) ... ok
+test_offline_command_does_not_accept_archive (__main__.InstallMapgenCandidateTests.test_offline_command_does_not_accept_archive) ... ok
+test_original_install_repeat_and_archive_verify_share_the_checks (__main__.InstallMapgenCandidateTests.test_original_install_repeat_and_archive_verify_share_the_checks) ... ok
+test_orphan_uid_rejects (__main__.InstallMapgenCandidateTests.test_orphan_uid_rejects) ... ok
+test_source_identity_metadata_change_rejects (__main__.InstallMapgenCandidateTests.test_source_identity_metadata_change_rejects) ... ok
+test_symlink_source_rejects (__main__.InstallMapgenCandidateTests.test_symlink_source_rejects) ... ok
+test_upgrade_current_version_cannot_claim_old_version (__main__.InstallMapgenCandidateTests.test_upgrade_current_version_cannot_claim_old_version) ... ok
+test_upgrade_exact_previous_pin_is_fixed_not_in_target_metadata (__main__.InstallMapgenCandidateTests.test_upgrade_exact_previous_pin_is_fixed_not_in_target_metadata) ... ok
+test_upgrade_late_old_lock_conflict_precedes_all_writes (__main__.InstallMapgenCandidateTests.test_upgrade_late_old_lock_conflict_precedes_all_writes) ... FAIL
+test_upgrade_missing_old_file_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_missing_old_file_rejects) ... FAIL
+test_upgrade_modified_old_code_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_modified_old_code_rejects) ... FAIL
+test_upgrade_new_script_collision_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_new_script_collision_rejects) ... FAIL
+test_upgrade_symlink_old_file_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_symlink_old_file_rejects) ... FAIL
+test_valid_copy_and_known_engine_uid_are_read_only (__main__.InstallMapgenCandidateTests.test_valid_copy_and_known_engine_uid_are_read_only) ... ok
+
+======================================================================
+FAIL: test_explicit_upgrade_replaces_only_authenticated_previous_bytes (__main__.InstallMapgenCandidateTests.test_explicit_upgrade_replaces_only_authenticated_previous_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 237, in test_explicit_upgrade_replaces_only_authenticated_previous_bytes
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 254, in main
+    result = upgrade(args.archive,args.target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 147, in upgrade
+    previous = legacy_hashes()
+               ^^^^^^^^^^^^^^^
+  File "<string>", line 8, in <lambda>
+IndexError: list index out of range
+
+
+======================================================================
+FAIL: test_upgrade_late_old_lock_conflict_precedes_all_writes (__main__.InstallMapgenCandidateTests.test_upgrade_late_old_lock_conflict_precedes_all_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 269, in test_upgrade_late_old_lock_conflict_precedes_all_writes
+    self.rejected_upgrade(hashes,"installed file differs; refusing overwrite:"+LOCK)
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 211, in rejected_upgrade
+    self.rejected(result,message)
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 45, in rejected
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 254, in main
+    result = upgrade(args.archive,args.target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 147, in upgrade
+    previous = legacy_hashes()
+               ^^^^^^^^^^^^^^^
+  File "<string>", line 8, in <lambda>
+IndexError: list index out of range
+
+
+======================================================================
+FAIL: test_upgrade_missing_old_file_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_missing_old_file_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 258, in test_upgrade_missing_old_file_rejects
+    self.rejected_upgrade(hashes,"installed file missing:resources/mapgen/conformance_request.json")
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 211, in rejected_upgrade
+    self.rejected(result,message)
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 45, in rejected
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 254, in main
+    result = upgrade(args.archive,args.target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 147, in upgrade
+    previous = legacy_hashes()
+               ^^^^^^^^^^^^^^^
+  File "<string>", line 8, in <lambda>
+IndexError: list index out of range
+
+
+======================================================================
+FAIL: test_upgrade_modified_old_code_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_modified_old_code_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 264, in test_upgrade_modified_old_code_rejects
+    self.rejected_upgrade(hashes,"installed file differs; refusing overwrite:addons/mapgen/solver.gd")
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 211, in rejected_upgrade
+    self.rejected(result,message)
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 45, in rejected
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 254, in main
+    result = upgrade(args.archive,args.target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 147, in upgrade
+    previous = legacy_hashes()
+               ^^^^^^^^^^^^^^^
+  File "<string>", line 8, in <lambda>
+IndexError: list index out of range
+
+
+======================================================================
+FAIL: test_upgrade_new_script_collision_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_new_script_collision_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 276, in test_upgrade_new_script_collision_rejects
+    self.rejected_upgrade(hashes,"unexpected addon file:addons/mapgen/preload_job.gd")
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 211, in rejected_upgrade
+    self.rejected(result,message)
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 45, in rejected
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 254, in main
+    result = upgrade(args.archive,args.target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 147, in upgrade
+    previous = legacy_hashes()
+               ^^^^^^^^^^^^^^^
+  File "<string>", line 8, in <lambda>
+IndexError: list index out of range
+
+
+======================================================================
+FAIL: test_upgrade_symlink_old_file_rejects (__main__.InstallMapgenCandidateTests.test_upgrade_symlink_old_file_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 283, in test_upgrade_symlink_old_file_rejects
+    self.rejected_upgrade(hashes,"unsafe install destination:addons/mapgen/solver.gd")
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 211, in rejected_upgrade
+    self.rejected(result,message)
+  File "/tmp/gunman-rush-mapgen-04/tests/test_install_mapgen_candidate.py", line 45, in rejected
+    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+AssertionError: 1 != 2 : Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 254, in main
+    result = upgrade(args.archive,args.target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gunman-rush-mapgen-04/tools/install_mapgen_candidate.py", line 147, in upgrade
+    previous = legacy_hashes()
+               ^^^^^^^^^^^^^^^
+  File "<string>", line 8, in <lambda>
+IndexError: list index out of range
+
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.573s
+
+FAILED (failures=6)

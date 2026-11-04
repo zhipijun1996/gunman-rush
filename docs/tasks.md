@@ -1,3 +1,27 @@
+## 2026-11-03 0.4宿主工程验收后续
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MAPGEN-HOST-WINDCHIME-041 | 0.4.1真实生成/多端口准入/完整起点钟门与最终集成 | MAPGEN-GODOT-04 | review | [范围](worklines/mapgen_041_windchime/scope.md) · [质量](quality/records/MAPGEN-HOST-WINDCHIME-041.json)；最终验收后合main，不替普通出发/不部署 |
+| CI-SELECTED-INPUTS-01 | prepare精确同run输入工件复用与可见进度 | MAPGEN-GODOT-04 | review | [范围](worklines/mapgen_041_windchime/scope.md) · [质量](quality/records/CI-SELECTED-INPUTS-01.json)；保原178/预算/身份与完整性守门 |
+| MAPGEN-CI-PYTHON-PIN-01 | 固定双通道Python补丁身份，保原合流守门 | MAPGEN-GODOT-04 | review | [范围与失败](evidence/mapgen_host_04_acceptance/ci-python-pin/README.md) · [质量](quality/records/MAPGEN-CI-PYTHON-PIN-01.json)；仅CI工程；原178pass跨lane身份拒绝，修复head完整CI另收 |
+| MAPGEN-HOST-04-ACCEPTANCE-01 | 性能归因/库复用/Web及精确head完整CI | MAPGEN-GODOT-04 | review | [范围](worklines/mapgen_host_04_acceptance/scope.md) · [质量](quality/records/MAPGEN-HOST-04-ACCEPTANCE-01.json)；仅阶段A；default历史PASS原件丢失明确承接，最终CI实收；本轮不B/0.4.1/合并发布 |
+
+## 2026-11-03 map-gen明确版本升级
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MAPGEN-GODOT-04 | 0.4真实生成/重新绑定/机制/Web与覆盖重提 | MAPGEN-GODOT-03 | review | [范围](worklines/mapgen_godot_04/scope.md) · [质量](quality/records/MAPGEN-GODOT-04.json)；0.3独立保留；原Web双fresh300保持BLOCK，独立分项通过，不合并发布 |
+
+## 2026-11-02 三仓第一轮宿主接入
+
+| 任务 | 目标 | 依赖 | 状态 | 记录 |
+| --- | --- | --- | --- | --- |
+| MAPGEN-GODOT-03 | 0.3原生生成来源/生命周期/Web链路及独立M35 | MAPGEN-HOST-V2-02 | review | [范围](worklines/mapgen_godot_03/scope.md)；独立frome7d，不合并不发布 |
+| MAPGEN-INITIAL-SPAWN-01 | 生成暂停期初始定位拒绝的独立修复 | MAPGEN-GODOT-03 | review | [质量记录](quality/records/MAPGEN-INITIAL-SPAWN-01.json)；231049be，旧5b0原始零点证据保留，新源验证待收口 |
+| MAPGEN-HOST-V2-02 | PR127权限/参考包/身份与实际Web接入修订 | MAPGEN-HOST-V2-01 | review | [结果](worklines/mapgen_host_v2_02/results.md) · [参考包](worklines/mapgen_host_v2_02/reference_package.md) · [证据](evidence/mapgen_host_v2_02/README.md)；不合并不发布，保三模块scope |
+| MAPGEN-HOST-V2-01 | runtime-map/v2真实模块受控装载与宿主反馈 | MAIN-REFACTOR-MERGE-01 | review | [结果](worklines/mapgen_host_v2_01/results.md) · [宿主映射](worklines/mapgen_host_v2_01/integration.md) · [上游/R2](worklines/mapgen_host_v2_01/upstream_requirements.md) · [质量](quality/records/MAPGEN-HOST-V2-01.json)；仅技术切片，不替换正式地图，不发布 |
+
 ## 2026-11-02 首次使用与敌战卡顿调查
 
 | 任务 | 目标 | 依赖 | 状态 | 记录 |

@@ -1,0 +1,489 @@
+{
+  "status": "LIMITED_ACCEPT_TWELVE_FRESH_REGISTERED_CHECKS",
+  "reviewed_source_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+  "version_scope": "Frozen 0.3 candidate only; future 0.4 is a separate version and evidence chain.",
+  "review_scope": "Read-only report/log/Git/contracts review. Reviewer executed no tests, Godot, Harness, CI or Web.",
+  "original_report": {
+    "path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/report.json",
+    "sha256": "2bdbf441d6ad86f232978a2cac6e5f5f24916daae06f278ec1cf74a97ee2599e",
+    "fields_present": [
+      "schema_version",
+      "started_at",
+      "profiles",
+      "changed_paths",
+      "checks",
+      "status",
+      "targeted_checks",
+      "device_acceptance",
+      "fun_acceptance",
+      "manifest_sha256",
+      "working_files",
+      "commit",
+      "git_status",
+      "diff",
+      "untracked",
+      "python_version",
+      "wall_seconds",
+      "jobs",
+      "release"
+    ],
+    "wall_seconds": 201.203,
+    "release": true,
+    "jobs": 1,
+    "targeted_checks": true
+  },
+  "source_identity": {
+    "recorded_commit": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+    "recorded_git_status": "",
+    "recorded_diff": "",
+    "recorded_untracked": "",
+    "recorded_working_files": {},
+    "current_head_before_and_after": "7f65ab03949bf7a9665033ae58a74847f72e5fbc",
+    "current_git_clean_before_and_after": true,
+    "manifest_sha256": "a314ace433b05559254f71dc7454332e46aee57d8dfc1e84274e2dcc44c3211c",
+    "manifest_matches_commit_and_actual_file": true
+  },
+  "source_guard": {
+    "harness_git_blob_sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+    "before_each_check_enforced": true,
+    "after_each_check_enforced": true,
+    "final_complete_digest_recomputed_without_stat_cache": true,
+    "outcome": "Original digest guards completed without refusal, established by exact Harness code and actual all-passed report.",
+    "serialized_before_after_inventories_present": false,
+    "independently_recomputed_historical_inventory_equality": null,
+    "limitation": "Targeted mode does not serialize full before/after inventories. Later Web source guards do not retroactively fill that gap."
+  },
+  "checks": [
+    {
+      "id": "runtime-map-generated-identity",
+      "actual_count": 48,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 180,
+      "duration_seconds": 24.113,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generated_identity.py"
+      ],
+      "input_digest": "60ee0911181d105755954fb516fe7730ec9c00d26ba02c51ad041304055b7d47",
+      "check_token": "310e0fac13b5401ab4a310b9fcec53c9",
+      "log_sha256": "6f7ac6e15de16dc7020aa726b0bf74714066d2d6d9e981ec0b5e8175b66e1499",
+      "actual_completion_pattern": "^RUNTIME_MAP_GENERATED_IDENTITY checks=(\\d+) failures=0$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-generation-job",
+      "actual_count": 883,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 240,
+      "duration_seconds": 36.808,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generation_job.py"
+      ],
+      "input_digest": "de1a4f7c9a25edbf164d3fb8b8df788217ac099e36224ef496066f277643fbbf",
+      "check_token": "b2d55084cce24f7a8d12201510c8f534",
+      "log_sha256": "0a6c780833557cb7201be00b3fb4093d66cdc9c3e498b4c6ceeae2efc786c0af",
+      "actual_completion_pattern": "^RUNTIME_MAP_GENERATION_JOB checks=(\\d+) failures=0$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-generated-slice",
+      "actual_count": 56,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 240,
+      "duration_seconds": 29.274,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_generated_slice.py"
+      ],
+      "input_digest": "3e0630b214219986e38155611bee8694fe83b02b66ea66503f5460c63f22f9ca",
+      "check_token": "0d739b3a905d4e0bb3efb481aae6d4b6",
+      "log_sha256": "71a2fa3ea5c7d172cfd6a4cc2a1a276d4e66cd76ee182c3ab7f3efb35675653e",
+      "actual_completion_pattern": "^RUNTIME_MAP_GENERATED_SLICE checks=(\\d+) failures=0$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-v2-host",
+      "actual_count": 199,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 180,
+      "duration_seconds": 5.144,
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "input_digest": "24aaca37f8db2ccd8d10774d5247a0a00229dbb8ed70f7b71018b0d1195de2b4",
+      "check_token": "fa83d568551148a284c38cd2d84ad49f",
+      "log_sha256": "b5a49f92ca208580471cf9a1115f52e34f89483a478e9e55f5045bae74d78199",
+      "actual_completion_pattern": "^RUNTIME MAP V2 HOST: (\\d+) assertions, 0 failures$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "actual_count": 45,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 120,
+      "duration_seconds": 6.949,
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "input_digest": "653a11b4d145dc2f49614e9b35511285dfbfe99f4789bb337a553ba23a374c4c",
+      "check_token": "63675eca7ed6468180d8b73db3f92f17",
+      "log_sha256": "0a0efecbb7dce51c3fea3ce8f6bee6b86537c8c625ae182b7862bfc2f03dbf83",
+      "actual_completion_pattern": "^CLOUD PREVIEW TESTS: (\\d+) assertions, 0 failures$",
+      "nested_native_receipt": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/cloud_preview_runner.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 6.895428044997971,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      },
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "actual_count": 71,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 60,
+      "duration_seconds": 1.228,
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "input_digest": "9d4d6a64307142966d8c1dbdac4e78c60cd00dc27b3c5e2327aff9a70dda37ba",
+      "check_token": "d0e3a7a916c644d9997220f96550f9d3",
+      "log_sha256": "01937e2a7b36d9bb20dc2f371bcd466d4e928f16fa16eac109bb2ae95ea87056",
+      "actual_completion_pattern": "^Ran (\\d+) tests in ",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "mapgen-candidate-installation",
+      "actual_count": 14,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 60,
+      "duration_seconds": 1.281,
+      "argv": [
+        "python3",
+        "tools/check_mapgen_candidate_installation.py"
+      ],
+      "input_digest": "1b4bed49cf47995338bc74ae63bc943fbbf02e35626b12484baddad4561542e0",
+      "check_token": "c0d6602100574486bdb381bd9544f194",
+      "log_sha256": "ff945cc7c5ae72f8956ae81c71f0c82831c34d40b0bcd2b3d4327c34101a6341",
+      "actual_completion_pattern": "^MAPGEN CANDIDATE INSTALL: (\\d+) tests, 0 failures$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "actual_count": 54,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 60,
+      "duration_seconds": 0.374,
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "input_digest": "d31f39373b0a78ccc1fd32563f57ae82ef0d435c88066626008ef63b6aab2493",
+      "check_token": "f22aa89273734924858b884471dc5a8f",
+      "log_sha256": "2b95dc3bd3b8d5fb9b9f75e7ff9ce211b058956d8f90ba80a7a8725bfdacb0a0",
+      "actual_completion_pattern": "^Ran (\\d+) tests in ",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-m35-provider",
+      "actual_count": 76,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 180,
+      "duration_seconds": 27.015,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_m35_provider.py"
+      ],
+      "input_digest": "eaba496e5ef1b30cd716a52e8cbc745e348f4701c2070948f9ef5f579b9edfd5",
+      "check_token": "4e86720ec49c48d18b216bf34e4c08c9",
+      "log_sha256": "de40415fdf8bd6ef0a29f3b1f40b883b1dbe069e8974c50166345ada29352785",
+      "actual_completion_pattern": "^RUNTIME_MAP_M35_PROVIDER checks=(\\d+) failures=0$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "runtime-map-m35-runtime",
+      "actual_count": 67,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 240,
+      "duration_seconds": 52.699,
+      "argv": [
+        "python3",
+        "tools/check_runtime_map_m35_runtime.py"
+      ],
+      "input_digest": "17beb53bb19e9f5ab1cfadf1fe200a053649a63fe69031884df1f74ccb406fc7",
+      "check_token": "ab27e9f88c964496b8324e6220f1235e",
+      "log_sha256": "69bd5aec9118793956e8caf261efa0a745d7407a3d829666521067cbb815a7cb",
+      "actual_completion_pattern": "^RUNTIME_MAP_M35_RUNTIME checks=(\\d+) failures=0$",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "actual_count": 42,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 60,
+      "duration_seconds": 2.845,
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "input_digest": "52b2187cb076a98a8b5f3af132ea2fb5cef66625edfe5e9b1492b3ca61810d64",
+      "check_token": "e5c3ec917fd34b11ae3a97d2bfebf218",
+      "log_sha256": "4abf999d2068d1066148d7f0bce9f94678bece266eed265926335865d3528a5d",
+      "actual_completion_pattern": "^Ran (\\d+) tests in ",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    },
+    {
+      "id": "architecture-tests",
+      "actual_count": 13,
+      "failures": 0,
+      "status": "passed",
+      "fresh": true,
+      "reused": false,
+      "exit_code": 0,
+      "failure_reason": null,
+      "timeout_seconds": 60,
+      "duration_seconds": 0.128,
+      "argv": [
+        "python3",
+        "tests/test_project_dependencies.py"
+      ],
+      "input_digest": "d7e5d130519e3fce76926024e81e84cf6339e8387dc45e6a08ba1510b263b6b1",
+      "check_token": "fd5f1ce79d7648f3bfa045cdce1f0ac2",
+      "log_sha256": "1b54e7bd3e4f0557cdf06d1076b6ef63ce21d6c17ecec62d2881ac93eafe1fed",
+      "actual_completion_pattern": "^Ran (\\d+) tests in ",
+      "nested_native_receipt": null,
+      "error_or_leak_matches": []
+    }
+  ],
+  "totals": {
+    "requested": 12,
+    "passed": 12,
+    "failed": 0,
+    "fresh": 12,
+    "reused": 0
+  },
+  "native_json_artifacts": [
+    {
+      "check": "runtime-map-v2-host",
+      "actual_count": 199,
+      "failures": 0,
+      "scope": "controlled_loading_slice_not_whole_map",
+      "archive_relative_path": "build/mapgen_host_v2_01/native.json"
+    },
+    {
+      "check": "runtime-map-generated-slice",
+      "actual_count": 56,
+      "failures": 0,
+      "scope": "actual generated loading slice and builder only; not whole-map playability/Web/device",
+      "archive_relative_path": "build/mapgen_godot_03/generated_slice.json"
+    },
+    {
+      "check": "runtime-map-m35-runtime",
+      "actual_count": 67,
+      "failures": 0,
+      "scope": "actual generated independent M35 hazards/saw/linear physics and lifecycle only; not adjacency/fullmap/Web/device",
+      "archive_relative_path": "build/mapgen_godot_03/m35_runtime.json"
+    }
+  ],
+  "raw_evidence": {
+    "report.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/report.json",
+      "bytes": 12090,
+      "sha256": "2bdbf441d6ad86f232978a2cac6e5f5f24916daae06f278ec1cf74a97ee2599e"
+    },
+    "runtime-map-generated-identity.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/runtime-map-generated-identity.log",
+      "bytes": 1220,
+      "sha256": "6f7ac6e15de16dc7020aa726b0bf74714066d2d6d9e981ec0b5e8175b66e1499"
+    },
+    "runtime-map-generation-job.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/runtime-map-generation-job.log",
+      "bytes": 1495,
+      "sha256": "0a6c780833557cb7201be00b3fb4093d66cdc9c3e498b4c6ceeae2efc786c0af"
+    },
+    "runtime-map-generated-slice.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/runtime-map-generated-slice.log",
+      "bytes": 14425,
+      "sha256": "71a2fa3ea5c7d172cfd6a4cc2a1a276d4e66cd76ee182c3ab7f3efb35675653e"
+    },
+    "runtime-map-v2-host.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/runtime-map-v2-host.log",
+      "bytes": 581,
+      "sha256": "b5a49f92ca208580471cf9a1115f52e34f89483a478e9e55f5045bae74d78199"
+    },
+    "cloud-preview-runtime.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/cloud-preview-runtime.log",
+      "bytes": 318,
+      "sha256": "0a0efecbb7dce51c3fea3ce8f6bee6b86537c8c625ae182b7862bfc2f03dbf83"
+    },
+    "cloud-preview/native.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/cloud-preview-runtime/build/cloud_preview/63675eca7ed6468180d8b73db3f92f17/native.log",
+      "bytes": 422942,
+      "sha256": "ae9edf77934c1225e18a74eb7d6d48f6e38524a1eb2edb72f43007e6162e6b3a"
+    },
+    "cloud-preview/report.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/cloud-preview-runtime/build/cloud_preview/63675eca7ed6468180d8b73db3f92f17/report.json",
+      "bytes": 376,
+      "sha256": "fac2b485e5eb38c89744ccccedaaf22fbb15c14c00b0d8e00064e8ad403435be"
+    },
+    "web-resource-contract-tests.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/web-resource-contract-tests.log",
+      "bytes": 170,
+      "sha256": "01937e2a7b36d9bb20dc2f371bcd466d4e928f16fa16eac109bb2ae95ea87056"
+    },
+    "mapgen-candidate-installation.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/mapgen-candidate-installation.log",
+      "bytes": 5174,
+      "sha256": "ff945cc7c5ae72f8956ae81c71f0c82831c34d40b0bcd2b3d4327c34101a6341"
+    },
+    "cloud-production-planner-tests.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/cloud-production-planner-tests.log",
+      "bytes": 9179,
+      "sha256": "2b95dc3bd3b8d5fb9b9f75e7ff9ce211b058956d8f90ba80a7a8725bfdacb0a0"
+    },
+    "runtime-map-m35-provider.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/runtime-map-m35-provider.log",
+      "bytes": 1214,
+      "sha256": "de40415fdf8bd6ef0a29f3b1f40b883b1dbe069e8974c50166345ada29352785"
+    },
+    "runtime-map-m35-runtime.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/runtime-map-m35-runtime.log",
+      "bytes": 22801,
+      "sha256": "69bd5aec9118793956e8caf261efa0a745d7407a3d829666521067cbb815a7cb"
+    },
+    "cloud-delivery-tests.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/cloud-delivery-tests.log",
+      "bytes": 141,
+      "sha256": "4abf999d2068d1066148d7f0bce9f94678bece266eed265926335865d3528a5d"
+    },
+    "architecture-tests.log": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/architecture-tests.log",
+      "bytes": 112,
+      "sha256": "1b54e7bd3e4f0557cdf06d1076b6ef63ce21d6c17ecec62d2881ac93eafe1fed"
+    },
+    "runtime-map-v2-host/native.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-v2-host/build/mapgen_host_v2_01/native.json",
+      "bytes": 16977,
+      "sha256": "357af4bb4ac70c1783fe6eed93308cb22c57089f79ff65a6dad05cb0f686fd08"
+    },
+    "runtime-map-generated-slice/native.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-generated-slice/build/mapgen_godot_03/generated_slice.json",
+      "bytes": 19241,
+      "sha256": "1c3a4bd0498928e0ae8c16cd95d628f1f4d99d940bfb8750e306f6dba0d464f0"
+    },
+    "runtime-map-m35-runtime/native.json": {
+      "original_path": "/tmp/gunman-rush-mapgen-03/build/verification/harness/20261103T055542.261927Z/artifacts/runtime-map-m35-runtime/build/mapgen_godot_03/m35_runtime.json",
+      "bytes": 10277,
+      "sha256": "c799d6309a033eb987c573aa471d69b668e5dada8dfd12dede41d7f351be88d9"
+    }
+  },
+  "budgets": "Every reported argv/cap matches exact committed manifest; all earlier registered consumers preserve their prior argv/cap/markers. New M35180/240 remain original assigned budgets.",
+  "warnings_preserved": [
+    "Editor imports print Unable to open Android 'build-tools' directory.; not an Android validation.",
+    "Actual generation-job advance_max_ms=244.215; no16ms/frame/device claim."
+  ],
+  "explicit_non_claims": [
+    "Not full178 CI",
+    "Not PR or merge approval",
+    "Not Web/PCK/browser acceptance by this review",
+    "Not device/FPS/complete game acceptance",
+    "Original5b0 initial-position omission and prior failures remain historical; not relabelled as correct spawning."
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "status": "IMPLEMENTED_AND_LOCAL_FIXTURE_VERIFIED",
+  "at": "2026-11-03T19:22:18.534132+00:00",
+  "scope": "Only prepare selected-input artifact transport in existing cloud_inputs and production workflow; no Godot/vendor/game changes by this agent",
+  "baseline_commit": "9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8",
+  "working_tree_head": "5440f36b31063fa5f38b679579b75c2702b46f2f",
+  "committed_or_staged_by_agent": false,
+  "source_files": [
+    {
+      "path": ".github/workflows/production.yml",
+      "bytes": 29867,
+      "sha256": "e6269e1b85cd26e1dbe6ed90e45f5ff88e029b381b76d38f7bd48033935f05e2"
+    },
+    {
+      "path": "tools/cloud_inputs.py",
+      "bytes": 41623,
+      "sha256": "2779b6d116d0cba27f1dd6bd806a32509579bd1c05bf9348f57ed432f1513f35"
+    },
+    {
+      "path": "tests/test_cloud_inputs.py",
+      "bytes": 49893,
+      "sha256": "b85d747480b7ecde40f0812a20e4d6429caaa027f5624f5160dde0f8baf422a7"
+    }
+  ],
+  "tests": [
+    {
+      "command": "python3 tests/test_cloud_inputs.py",
+      "log": "finish-suite-final.log",
+      "exit_code": 0,
+      "tests": 41,
+      "original_methods_retained": 24,
+      "new_methods": 17,
+      "seconds": 7.778
+    },
+    {
+      "command": "python3 tests/test_harness.py CIWorkflowCoverageTests",
+      "log": "workflow-coverage-final.log",
+      "exit_code": 0,
+      "tests": 4
+    },
+    {
+      "command": "python3 tests/test_production_plan.py",
+      "log": "selector-final.log",
+      "exit_code": 0,
+      "tests": 54
+    },
+    {
+      "command": "python3 -m py_compile tools/cloud_inputs.py tests/test_cloud_inputs.py",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check -- .github/workflows/production.yml tools/cloud_inputs.py tests/test_cloud_inputs.py",
+      "exit_code": 0
+    }
+  ],
+  "preservation": {
+    "original_cloud_input_test_class_ast_identical": true,
+    "original_full_profile_count": 178,
+    "original_order_and_all_178_argv_budget_success_markers_unchanged": true,
+    "tools_harness_guard_byte_unchanged_from_head": true,
+    "no_4GB_local_package_created": true,
+    "no_original_CI_cancel_or_rerun": true
+  },
+  "implemented": [
+    "prepare exports exact same-run/HEAD/full-plan SHA/actual materialization receipt bytes plus path/mode/Gitblob/SHA256 manifest and streaming tar",
+    "same-run artifact name without attempt suffix, immutable successful prepare may feed failed-job reruns",
+    "lane and affected restore verify raw original receipts and all row identities against current Git, validate archive and per-file bytes before atomic no-overwrite publication",
+    "full original preflight and bulk HEAD/index checks run after restoration; only owned new links rolled back on failure, preserving concurrent edits",
+    "batch Git snapshots replace per-file subprocess groups; no solver, scheduler or second dependency scanner",
+    "stderr phase/file/batch/byte timing progress; no gameplay or CPU-performance claim",
+    "three production Python consumers use root-owned shared config/ci_python_version.txt"
+  ],
+  "remaining": [
+    "Final frozen candidate CI must actually export/upload/download/restore the full about4.43GB closure and prove identical source/toolchain, all original178 plus new applicable checks and affected merge.",
+    "No local full4GB tar or actual GitHub artifact roundtrip was run; limited real Git fixtures only.",
+    "Parent must obtain independent review of this implementation before final merge.",
+    "Parent owns environment.yml exact pin/deployment opt-out, and was notified verify_public sparse checkout needs config/ci_python_version.txt."
+  ],
+  "recovery": {
+    "archive": "/workspace/refactor-evidence/mapgen-041-integration/ci-inputs/finish-recovery.tar.gz",
+    "sha256": "9fe7582475063f7f6add2325fc2a5355f8ef7e708fea97ac8e30cc0d011732a7",
+    "bytes": 25216,
+    "roundtrip_verified": true
+  }
+}

@@ -50,7 +50,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
           cache: pip
           cache-dependency-path: tools/requirements_art.txt
       - uses: actions/setup-node@v4
@@ -98,12 +98,12 @@ jobs:
           import sys
           from pathlib import Path
           plan = json.loads(Path('build/verification/production-ci/plan.json').read_text())
-          command = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--output',
+          command = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--progress', '--output',
                      'build/verification/production-ci/inputs.json']
           for check in plan['checks']:
               command.extend(['--check', check])
           with Path('build/verification/production-ci/inputs.log').open('w') as log:
-              result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+              result = subprocess.run(command, stdout=log)
           if result.returncode:
               print(Path('build/verification/production-ci/inputs.log').read_text())
           raise SystemExit(result.returncode)
@@ -170,12 +170,12 @@ jobs:
           import sys
           from pathlib import Path
           plan = json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
-          command = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--output',
+          command = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--progress', '--output',
                      'build/verification/production-ci/pre-execution-inputs.json']
           for check in plan['checks']:
               command.extend(['--check', check])
           with Path('build/verification/production-ci/pre-execution-inputs.log').open('w') as log:
-              result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+              result = subprocess.run(command, stdout=log)
           if result.returncode:
               print(Path('build/verification/production-ci/pre-execution-inputs.log').read_text())
           raise SystemExit(result.returncode)
@@ -194,6 +194,33 @@ jobs:
               output.write('ci_route='+plan['ci_route']+'\n')
           print('Selected route:',plan['ci_route'],'checks:',len(plan['checks']))
           PYCODE
+      - name: Package the verified selected input bytes for this exact run and HEAD
+        if: steps.route.outputs.ci_route == 'full_lanes'
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, sys
+          from pathlib import Path
+          plan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
+          command=[sys.executable,'tools/cloud_inputs.py','--export-bundle','build/ci-selected-input-bundle',
+                   '--execution-plan','build/verification/production-ci/pre-execution-plan.json',
+                   '--run-id',os.environ['GITHUB_RUN_ID'],'--progress',
+                   '--receipt','build/verification/production-ci/inputs.json',
+                   '--receipt','build/verification/production-ci/pre-execution-inputs.json',
+                   '--output','build/verification/production-ci/input-bundle-export.json']
+          for check in plan['checks']: command.extend(['--check',check])
+          subprocess.run(command,check=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: steps.route.outputs.ci_route == 'full_lanes'
+        with:
+          # Keep the same run name across attempts: a failed lane can consume
+          # this successful prepare without rebuilding or changing its inputs.
+          name: production-selected-inputs-${{ github.run_id }}
+          overwrite: true
+          compression-level: 0
+          path: build/ci-selected-input-bundle/
+          if-no-files-found: error
+          retention-days: 14
       - name: Execute affected checks without upgrading them to full or Web
         if: steps.route.outputs.ci_route != 'full_lanes'
         run: python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 2 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
@@ -258,7 +285,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
           cache: pip
           cache-dependency-path: tools/requirements_art.txt
       - uses: actions/setup-node@v4
@@ -283,21 +310,32 @@ jobs:
         with:
           name: production-validated-foundry
           path: resources/foundry/
+      - uses: actions/download-artifact@v4
+        with:
+          name: production-selected-inputs-${{ github.run_id }}
+          path: build/ci-selected-input-bundle/
       - name: Restore the exact selected prepared input closure
         run: |
           python3 - <<'PYCODE'
-          import json, subprocess, sys
+          import json, os, subprocess, sys
           from pathlib import Path
           plan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
           manifest=json.loads(Path('tools/harness/profiles.json').read_text())
           if (plan['ci_route']!='full_lanes' or set(plan['checks'])!=set(manifest['profiles']['full'])
                   or plan['source_commit']!=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()):
               raise SystemExit('Not the same-source exact full plan')
-          command=[sys.executable,'tools/cloud_inputs.py','--materialize','--output','build/verification/production-ci/lane-inputs.json']
+          command=[sys.executable,'tools/cloud_inputs.py','--restore-bundle','build/ci-selected-input-bundle',
+                   '--execution-plan','build/verification/production-ci/pre-execution-plan.json',
+                   '--run-id',os.environ['GITHUB_RUN_ID'],'--progress',
+                   '--output','build/verification/production-ci/lane-inputs.json']
           for check in plan['checks']: command.extend(['--check',check])
           with Path('build/verification/production-ci/lane-inputs.log').open('w') as log:
-              result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
+              result=subprocess.run(command,stdout=log)
           if result.returncode: print(Path('build/verification/production-ci/lane-inputs.log').read_text())
+          if result.returncode == 0:
+              # The immutable same-run artifact retains these bytes remotely;
+              # do not duplicate its 4GB tar in every later proof artifact.
+              Path('build/ci-selected-input-bundle/inputs.tar').unlink()
           raise SystemExit(result.returncode)
           PYCODE
       - name: Install media dependencies required by existing docs and readers
@@ -451,7 +489,7 @@ jobs:
         if: needs.prepare.outputs.ci_route == 'full_lanes'
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: config/ci_python_version.txt
           cache: pip
           cache-dependency-path: tools/requirements_art.txt
         if: needs.prepare.outputs.ci_route == 'full_lanes'
@@ -465,21 +503,33 @@ jobs:
           name: production-validated-foundry
           path: resources/foundry/
         if: needs.prepare.outputs.ci_route == 'full_lanes'
+      - uses: actions/download-artifact@v4
+        with:
+          name: production-selected-inputs-${{ github.run_id }}
+          path: build/ci-selected-input-bundle/
+        if: needs.prepare.outputs.ci_route == 'full_lanes'
       - name: Restore the exact selected prepared input closure
         run: |
           python3 - <<'PYCODE'
-          import json, subprocess, sys
+          import json, os, subprocess, sys
           from pathlib import Path
           plan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
           manifest=json.loads(Path('tools/harness/profiles.json').read_text())
           if (plan['ci_route']!='full_lanes' or set(plan['checks'])!=set(manifest['profiles']['full'])
                   or plan['source_commit']!=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()):
               raise SystemExit('Not the same-source exact full plan')
-          command=[sys.executable,'tools/cloud_inputs.py','--materialize','--output','build/verification/production-ci/lane-inputs.json']
+          command=[sys.executable,'tools/cloud_inputs.py','--restore-bundle','build/ci-selected-input-bundle',
+                   '--execution-plan','build/verification/production-ci/pre-execution-plan.json',
+                   '--run-id',os.environ['GITHUB_RUN_ID'],'--progress',
+                   '--output','build/verification/production-ci/lane-inputs.json']
           for check in plan['checks']: command.extend(['--check',check])
           with Path('build/verification/production-ci/lane-inputs.log').open('w') as log:
-              result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
+              result=subprocess.run(command,stdout=log)
           if result.returncode: print(Path('build/verification/production-ci/lane-inputs.log').read_text())
+          if result.returncode == 0:
+              # The immutable same-run artifact retains these bytes remotely;
+              # do not duplicate its 4GB tar in every later proof artifact.
+              Path('build/ci-selected-input-bundle/inputs.tar').unlink()
           raise SystemExit(result.returncode)
           PYCODE
         if: needs.prepare.outputs.ci_route == 'full_lanes'

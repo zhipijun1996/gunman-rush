@@ -1,0 +1,104 @@
+{
+  "reviewer": "death_event_audit; nonauthor of source budget/error forwarding or test change",
+  "decision": "ACCEPT_NARROW_SOFT_TARGET_AND_REAL_DIAGNOSTIC_CHANGE_PENDING_NEW_WEB",
+  "blockers": [],
+  "commit": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+  "production_source": {
+    "path": "experiments/generation/runtime_map_generation_job.gd",
+    "SHA256": "f50aa0cb77a44726f7db7087044e482639d4b80e6dd484b9cb06a67adc47b109",
+    "prior_SHA256": "e7127ec6b9e87d2a49d5c2b09a8a7acdffb74ae90bbf9d5296d85a362fabc454",
+    "whole_file_inverse_after_only_soft_constant_metric_and_failure_forwarding_changes_is_exact": true,
+    "diff": "Commit changes only job14diff lines and runner55 inserted lines; total66insertions/3deletions,with no other files.",
+    "changes": [
+      "SOFT_TICK_MS4.0→8.0,still post-call yielding target",
+      "metrics.soft_tick_ms filled from unique constant at begin,instead of duplicated4.0 literal",
+      "Retain original SDK status/schema/error as structured rejection JSON; missing fields explicitly diagnosed MISSING,actual result never rewritten"
+    ]
+  },
+  "unchanged": {
+    "all18_SDK_scripts_exact_pins": true,
+    "SDK_original_Web_host_target_usec": 8000,
+    "original_search_timeout_seconds": 90,
+    "normal_candidate_expansion_budget_request_config_RNG_schema_source_pins_unchanged": true,
+    "normal_operation_cap_default": 128,
+    "compatible_API_range": [
+      1,
+      4096
+    ],
+    "original_advance_budget": 1,
+    "original_unit_checkpoints": 16,
+    "lifecycle_validation_Provider_commit_physics_gate_unchanged": true
+  },
+  "old_actual_failure": {
+    "source": "d4e17def6848dc75b9c6037436dee86ecc874cbc",
+    "summary": "/workspace/refactor-evidence/mapgen-host-v2-04/web-browser/default-actual-01/summary.json",
+    "summary_SHA256": "276f90ae6c177ffd4500e9c772918a2f76961e3a42cb77ac465a65994cc3b656",
+    "report_SHA256": "3362723f77b5d3bd5c8f281855cad15fccbff1fc9aeb49f2e88ab9ca4abe385a",
+    "driver_exit": 1,
+    "elapsed_seconds": 185.364907701005,
+    "budget_seconds": 300,
+    "not_driver_timeout": true,
+    "preload_ms": 48685.093505859375,
+    "generate_to_failed_ms": 92521.2548828125,
+    "observed_error": "generation did not produce a completed PASS result",
+    "actual_SDK_status_not_captured": true,
+    "cannot_infer_budget_failure": true,
+    "could_be_nonPASS_or_result_schema_rejection": true,
+    "no_world_commit_motion_exit_cancel_or_gears_result": true,
+    "archive_SHA256": "6dcf4098d7ab3114a1bda24f1b6448d657c2f23d4a72ff70e03c678a3413d373",
+    "archive4_raw_members_independently_checked": true,
+    "actual_failure_PNG_viewed_original": true,
+    "preserved_pack": {
+      "path": "/tmp/mapgen-v4-audit/web-failed-4ms-preserved/index.26956c9830ce.pck",
+      "SHA256": "26956c9830ce12e544eb9cc54ca732fa58b8187f1d347940cc2c479c4420c84d",
+      "bytes": 218919752,
+      "independently_hashed_and_metadata_d4e_checked": true
+    }
+  },
+  "test_static_review": {
+    "path": "tests/runtime_map_generation_job_runner.gd",
+    "SHA256": "e8f495d694b0b33e9fa707ce642f2362b8f29d92de737faab54a2bafd8901d08",
+    "only55_additions_one_await_and_budget_failure_contract": true,
+    "whole_file_inverse_exact_prior_SHA256": "184215c830f3fd350152375357d2a8f7b14b5115f4a33600e08d9fd1ec3b2b26",
+    "all_original_assertions_and_test_methods_unchanged": true,
+    "wrapper_original240s_guard_unchanged": true,
+    "uses_original_SDK_private_config_copy_budget1": true,
+    "does_not_stub_or_invent_result_status": true,
+    "normal_config_request_bindings_canonical_unchanged_asserted": true,
+    "no_plan_commit_provenance_or_binding_escape_after_failure_asserted": true
+  },
+  "reviewed_actual_native_run": {
+    "log": "/tmp/mapgen-v4-audit/job-8ms-dev-01.log",
+    "SHA256": "76d60c4e683bcce30f95aad4c88edb8ba796704d57111c03e6afca24b6fa293a",
+    "checks": 1639,
+    "failures": 0,
+    "parent_reported_strict_wrapper_exit_code": 0,
+    "bad_diagnostics_found": [],
+    "failure_event": {
+      "candidate_expansion_budget": 1,
+      "forwarded_error": "generation result rejected: {\"error\":{\"message\":\"candidate_expansion_budget\",\"phase\":\"growth\",\"type\":\"GDScriptCandidate\"},\"schema\":\"mapgen/generation-result/v1\",\"status\":\"BUDGET_EXHAUSTED\"}",
+      "generation_status": "BUDGET_EXHAUSTED",
+      "schema": "mapgen/generation-result/v1",
+      "scope": "real SDK guard counterexample only; normal profile unchanged",
+      "sdk_error": {
+        "message": "candidate_expansion_budget",
+        "phase": "growth",
+        "type": "GDScriptCandidate"
+      },
+      "seed": 930001,
+      "soft_tick_ms": 8.0,
+      "status": "BUDGET_EXHAUSTED"
+    },
+    "forwarded_three_fields_independently_equal": true,
+    "normal_actual_advance_calls_and_operations": 94678,
+    "observed_normal_max_advance_unit_ms": 17.609,
+    "original_normal_fingerprint": "13f7f7f480168da132e64f478919450ca8bbe179e6614b9f30b5d0ac31c65772",
+    "not_reviewer_executed": true
+  },
+  "limits": [
+    "8ms is soft,not a hard8ms/16ms frame ceiling; actual native unit17.609ms already demonstrates this boundary.",
+    "The budget1native counterexample proves forwarding its own known candidate budget error,not the status or cause of old4ms Web rejection.",
+    "New same-head final12/PCK/Web not yet signed; old successful4ms native evidence and old d4e coverage cannot be relabeled8ms.",
+    "Reviewer performed reads/hash/inverse checks/image view only,no engine/browser/producer rerun or source edits."
+  ]
+}

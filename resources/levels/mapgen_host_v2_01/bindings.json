@@ -1,0 +1,38 @@
+{
+  "schema": "gunman-rush/runtime-map-bindings/v1",
+  "version": "loading-slice-r1",
+  "scope": "controlled_loading_slice_only",
+  "selected_instances": [
+    "M16",
+    "M18",
+    "M21"
+  ],
+  "spawns": {
+    "seam": [
+      -448,
+      846
+    ],
+    "adjacent": [
+      -1216,
+      846
+    ],
+    "carrier": [
+      96,
+      998
+    ]
+  },
+  "spawn_status": "HOST_BOUND_FOR_SLICE_ONLY",
+  "spawn_basis": {
+    "seam": "64px west of C027 on actual M18 floor",
+    "adjacent": "64px west of C030 on actual M21 floor",
+    "carrier": "M16 materialized ellipse at_time(0), minus carrier half-height8 and player half-height18"
+  },
+  "uncovered": [
+    "enemies",
+    "rewards",
+    "boss",
+    "shot_latches",
+    "whole_map_playability",
+    "runtime_algorithm"
+  ]
+}

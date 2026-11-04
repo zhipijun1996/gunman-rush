@@ -1,0 +1,250 @@
+--- a/tools/runtime_audit/check_930001.py
++++ b/tools/runtime_audit/check_930001.py
+@@ -132,50 +132,7 @@
+     return cases
+ 
+ 
+-def run(a):
+-    receipts = json.loads(LOCK.read_text())
+-    for r in receipts:
+-        folder = "game" if r["repository"] == "gunman-rush" else "mapgen"
+-        data = (a.inputs / folder / r["path"]).read_bytes()
+-        assert sha(data) == r["sha256"], r["path"]
+-        assert (
+-            hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+-            == r["gitBlob"]
+-        ), r["path"]
+-    p = a.inputs / "mapgen/reference_package/fixtures/success"
+-    reference = json.loads((p / "map.json").read_text())
+-    store = json.loads((p / "content_store.json").read_text())
+-    candidate = json.loads(
+-        gzip.decompress(
+-            (
+-                a.inputs
+-                / "mapgen/validation/godot-candidate-0.3.0/replay-precision/validation-930001/actual.json.gz"
+-            ).read_bytes()
+-        )
+-    )["result"]
+-    assert candidate["status"] == "PASS" and candidate["content_store"] == store
+-    assert {k: v for k, v in reference.items() if k not in ["map_id", "generator"]} == {
+-        k: v for k, v in candidate["map"].items() if k not in ["map_id", "generator"]
+-    }
+-    assert (
+-        a.inputs / "game/resources/levels/mapgen_host_v2_01/map.json"
+-    ).read_bytes() == (p / "map.json").read_bytes()
+-    assert (
+-        reference["seed"] == 930001
+-        and len(reference["instances"]) == 46
+-        and len(reference["connections"]) == 55
+-    )
+-    assert reference["module_package"]["sha256"] == ZIP110
+-    z = pinned_zip(a.zip110, ZIP110)
+-    new = pinned_zip(a.zip111, ZIP111)
+-    oldcat = {e["id"]: e for e in json.loads(z.read("catalog.json"))["modules"]}
+-    newcat = {e["id"]: e for e in json.loads(new.read("catalog.json"))["modules"]}
+-    provider = (
+-        a.inputs / "game/game/world/levels/providers/runtime_map_v2_provider.gd"
+-    ).read_text()
+-    assert "const EMPTY_FIELDS:" in provider and '!= "clockwise_ellipse/v1"' in provider
+-    empty = re.search(r"const EMPTY_FIELDS:.*?= \[(.*?)\]", provider).group(1)
+-    blocked_fields = re.findall(r'"([^"]+)"', empty)
++def extract_inventory(reference, store, oldcat, *, current_host=False):
+     index = {}
+     groups = defaultdict(list)
+     instances = {i["id"]: i for i in reference["instances"]}
+@@ -226,6 +183,8 @@
+                 status = "UNSUPPORTED_BY_PROVIDER"
+                 if kind == "clockwise_ellipse/v1":
+                     status = "SCHEMA_SUPPORTED; ONLY_M16_IN_EXECUTED_SLICE"
++                if current_host:
++                    status = "UNVERIFIED_CURRENT_HOST"
+                 semantics, services = SEMANTICS[kind]
+                 ids = (
+                     {
+@@ -276,6 +235,59 @@
+                         ),
+                     )
+                 )
++    if current_host:
++        for rows in groups.values():
++            for row in rows:
++                row["role"] = instances[row["instance"]]["role"]
++                row["evidence"]["scope"] = "Original module qualification only; current host execution/physics not certified by extraction."
++    return index, groups, instances
++
++
++def run(a):
++    receipts = json.loads(LOCK.read_text())
++    for r in receipts:
++        folder = "game" if r["repository"] == "gunman-rush" else "mapgen"
++        data = (a.inputs / folder / r["path"]).read_bytes()
++        assert sha(data) == r["sha256"], r["path"]
++        assert (
++            hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
++            == r["gitBlob"]
++        ), r["path"]
++    p = a.inputs / "mapgen/reference_package/fixtures/success"
++    reference = json.loads((p / "map.json").read_text())
++    store = json.loads((p / "content_store.json").read_text())
++    candidate = json.loads(
++        gzip.decompress(
++            (
++                a.inputs
++                / "mapgen/validation/godot-candidate-0.3.0/replay-precision/validation-930001/actual.json.gz"
++            ).read_bytes()
++        )
++    )["result"]
++    assert candidate["status"] == "PASS" and candidate["content_store"] == store
++    assert {k: v for k, v in reference.items() if k not in ["map_id", "generator"]} == {
++        k: v for k, v in candidate["map"].items() if k not in ["map_id", "generator"]
++    }
++    assert (
++        a.inputs / "game/resources/levels/mapgen_host_v2_01/map.json"
++    ).read_bytes() == (p / "map.json").read_bytes()
++    assert (
++        reference["seed"] == 930001
++        and len(reference["instances"]) == 46
++        and len(reference["connections"]) == 55
++    )
++    assert reference["module_package"]["sha256"] == ZIP110
++    z = pinned_zip(a.zip110, ZIP110)
++    new = pinned_zip(a.zip111, ZIP111)
++    oldcat = {e["id"]: e for e in json.loads(z.read("catalog.json"))["modules"]}
++    newcat = {e["id"]: e for e in json.loads(new.read("catalog.json"))["modules"]}
++    provider = (
++        a.inputs / "game/game/world/levels/providers/runtime_map_v2_provider.gd"
++    ).read_text()
++    assert "const EMPTY_FIELDS:" in provider and '!= "clockwise_ellipse/v1"' in provider
++    empty = re.search(r"const EMPTY_FIELDS:.*?= \[(.*?)\]", provider).group(1)
++    blocked_fields = re.findall(r'"([^"]+)"', empty)
++    index, groups, instances = extract_inventory(reference, store, oldcat)
+     for instance in ["M01", "M24", "M35"]:
+         i = instances[instance]
+         c = store[i["content_ref"]]
+@@ -464,6 +476,126 @@
+     )
+ 
+ 
++def validate_actual_store(reference, store, catalog, package):
++    """Check complete inventory structure, not a second geometry transform."""
++    refs = {instance["content_ref"] for instance in reference["instances"]}
++    assert set(store) == refs, "ACTUAL_STORE_REFS_MISMATCH"
++    for instance in reference["instances"]:
++        entry = catalog[instance["module_id"]]
++        compiled = json.loads(package.read(entry["compiled"]))
++        content = store[instance["content_ref"]]
++        assert isinstance(content, dict), "ACTUAL_CONTENT_NOT_OBJECT"
++        fields = set(compiled) - {"ports", "routes"}
++        assert set(content) == fields | {"coordinate_frame", "source_affine"}, "ACTUAL_CONTENT_FIELDS_MISMATCH"
++        assert content["coordinate_frame"] == "owned_rectangle_pixels"
++        assert isinstance(content["source_affine"], list) and len(content["source_affine"]) == 6
++        assert "platforms" in fields and isinstance(compiled["platforms"], list)
++        for field in fields:
++            before, after = compiled[field], content[field]
++            if isinstance(before, list):
++                assert isinstance(after, list) and len(after) == len(before), (instance["id"], field, "ACTUAL_ARRAY_LENGTH_MISMATCH")
++                # Export changes coordinates, not the array item/container type.
++                for old_item, new_item in zip(before, after):
++                    assert isinstance(new_item, type(old_item)) or (isinstance(old_item, (int, float)) and not isinstance(old_item, bool) and isinstance(new_item, (int, float)) and not isinstance(new_item, bool)), (instance["id"], field, "ACTUAL_ARRAY_ITEM_TYPE_MISMATCH")
++                    if isinstance(old_item, list):
++                        assert len(new_item) == len(old_item), "ACTUAL_ARRAY_ITEM_LENGTH_MISMATCH"
++                    if isinstance(old_item, dict):
++                        old_keys, new_keys = set(old_item), set(new_item)
++                        if old_item.get("trajectory_kind") == "clockwise_ellipse/v1":
++                            # Original materialize may add/remove this sign on reflection.
++                            old_keys.discard("ellipse_x_sign")
++                            new_keys.discard("ellipse_x_sign")
++                        assert new_keys == old_keys, "ACTUAL_OBJECT_FIELDS_MISMATCH"
++            else:
++                assert isinstance(after, type(before)) or (isinstance(before, (int, float)) and not isinstance(before, bool) and isinstance(after, (int, float)) and not isinstance(after, bool)), (instance["id"], field, "ACTUAL_FIELD_TYPE_MISMATCH")
++
++
++def run_actual_profile(a):
++    """Explicit locked host-result inventory; not a new compatibility verdict."""
++    profile = json.loads(a.actual_profile.read_text())
++    assert profile["profile"] == "actual-0.4.0", "UNKNOWN_ACTUAL_PROFILE"
++    assert re.fullmatch(r"[0-9a-f]{40}", profile["host_commit"])
++    assert re.fullmatch(r"[0-9a-f]{40}", profile["mapgen_commit"])
++    assert profile["generation_package_sha256"] == "7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778"
++    required = {"result", "provenance", "host_bindings", "protocol_payload", "host_provider", "host_source_snapshot", "validation_evidence"}
++    assert set(profile["files"]) == required, "ACTUAL_INPUT_ROLES_MISMATCH"
++    output = a.out.resolve()
++    frozen = (ROOT / "evidence/runtime-integration-930001").resolve()
++    assert output != frozen and frozen not in output.parents, "REFUSE_FROZEN_OUTPUT"
++    assert not a.out.exists(), "ACTUAL_OUTPUT_MUST_BE_NEW"
++    data = {}
++    for role, row in profile["files"].items():
++        relative = Path(row["path"])
++        assert not relative.is_absolute() and ".." not in relative.parts
++        path = (a.inputs / relative).resolve()
++        assert path.is_relative_to(a.inputs.resolve()), "ACTUAL_INPUT_OUTSIDE_ROOT"
++        raw = path.read_bytes()
++        assert sha(raw) == row["sha256"], (role, "ACTUAL_INPUT_SHA_MISMATCH")
++        data[role] = raw
++    result = json.loads(data["result"])
++    provenance = json.loads(data["provenance"])
++    assert result["status"] == "PASS" and result["schema"] == "mapgen/generation-result/v1"
++    assert provenance["kind"] == "generated_memory", "NOT_ACTUAL_HOST_MEMORY_SOURCE"
++    implementation = "mapgen/gdscript-candidate-0.4.0"
++    algorithm = "stable-v3-reward-space"
++    assert provenance["implementation"] == implementation and provenance["algorithm"] == algorithm
++    assert provenance["module_archive"]["sha256"] == ZIP110 and provenance["module_archive"]["version"] == "1.1.0"
++    assert provenance["algorithm_package"]["zip_sha256"] == profile["generation_package_sha256"]
++    assert provenance["algorithm_package"]["source_commit"] == "b21c889077ec97eb11a210d0ceab4fbddd862e48"
++    assert provenance["algorithm_package"]["release_head"] == profile["mapgen_commit"]
++    # Exact bytes emitted by the ORIGINAL GDScript DATA.canonical call. Never
++    # reimplement its numeric/canonical rules in this Python audit producer.
++    fingerprint = sha(data["protocol_payload"])
++    assert fingerprint == provenance["expected_request_fingerprint"] == result["request_fingerprint"]
++    assert json.loads(data["protocol_payload"]) == {"request": provenance["request"], "config": provenance["config"], "library_sha256": ZIP110, "implementation": implementation}
++    reference, store = result["map"], result["content_store"]
++    assert reference["schema"] == "mapgen/runtime-map/v2"
++    assert reference["seed"] == provenance["request"]["seed"]
++    assert reference["generator"]["implementation"] == implementation
++    assert reference["generator"]["algorithm"] == algorithm
++    assert reference["generator"]["request_fingerprint"] == fingerprint
++    assert reference["module_package"]["sha256"] == ZIP110 and reference["module_package"]["version"] == "1.1.0"
++    instances = {i["id"]: i for i in reference["instances"]}
++    assert len(instances) == len(reference["instances"]), "DUPLICATE_ACTUAL_INSTANCE_ID"
++    assert len({c["id"] for c in reference["connections"]}) == len(reference["connections"])
++    for edge in reference["connections"]:
++        for end in (edge["a"], edge["b"]):
++            instance = instances[end["instance_id"]]
++            assert end["port_id"] in {p["id"] for p in instance["ports"]}
++    with pinned_zip(a.zip110, ZIP110) as package:
++        catalog = {e["id"]: e for e in json.loads(package.read("catalog.json"))["modules"]}
++        validate_actual_store(reference, store, catalog, package)
++        index, groups, instances = extract_inventory(reference, store, catalog, current_host=True)
++    # Preserve complete local instance/port/connection context. Across versions
++    # consumers must match module_id+content_version+role+topology, not M IDs.
++    coverage = dict(
++        hostCommit=profile["host_commit"], mapGenCommit=profile["mapgen_commit"],
++        modulePackageVersion="1.1.0", moduleIndex=index, groups=groups,
++        interfaceCoverage=dict(anchors=reference["anchors"], instances=reference["instances"], connections=reference["connections"]),
++        hostBindings=json.loads(data["host_bindings"]),
++        source="actual locked host result; extraction only; all current host statuses UNVERIFIED",
++        inputProfile=profile, inputProfileSha256=sha(a.actual_profile.read_bytes()),
++        resultReceiptSha256=sha(data["result"]), generationInputFingerprint=fingerprint,
++        validationEvidence=dict(source=profile["files"]["validation_evidence"], status="UNVERIFIED_NOT_INTERPRETED"),
++        hostSourceSnapshot=dict(source=profile["files"]["host_source_snapshot"], status="LOCKED_BYTES_NOT_COMMIT_ATTESTATION"),
++    )
++    write(a.out / "mechanism-coverage.json", coverage)
++    print(json.dumps(dict(instances=len(instances), uniqueModules=len(index), connections=len(reference["connections"]), groups={k:len(v) for k,v in groups.items()}, scope="inventory_only_not_host_certification")))
++
++
++# The old CLI, guards, output paths and default behavior below are unchanged.
++if __name__ == "__main__":
++    import sys
++    if any(arg == "--actual-profile" or arg.startswith("--actual-profile=") for arg in sys.argv[1:]):
++        actual = argparse.ArgumentParser(description="Explicit 0.4 host-result inventory; no generation or certification")
++        actual.add_argument("--actual-profile", required=True, type=Path)
++        actual.add_argument("--inputs", required=True, type=Path)
++        actual.add_argument("--zip110", required=True, type=Path)
++        actual.add_argument("--out", required=True, type=Path)
++        run_actual_profile(actual.parse_args())
++        raise SystemExit(0)
++
++
+ if __name__ == "__main__":
+     p = argparse.ArgumentParser(description=__doc__)
+     p.add_argument("--inputs", required=True, type=Path)

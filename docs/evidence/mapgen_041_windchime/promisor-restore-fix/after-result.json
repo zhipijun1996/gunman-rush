@@ -1,0 +1,245 @@
+{
+  "kind": "tiny actual file:// filtered/promisor Git fixture, no 4GB validation claim",
+  "git_version": "git version 2.52.0",
+  "missing_before": {
+    "018b7574750eeaf4fdb7ae249de70f3b33856a13": null,
+    "60147c3ca3e1294e3cde0debd57c85bc74574f7e": null
+  },
+  "available_after": {
+    "018b7574750eeaf4fdb7ae249de70f3b33856a13": 52,
+    "60147c3ca3e1294e3cde0debd57c85bc74574f7e": 47
+  },
+  "restore": {
+    "status": "ready",
+    "approval_scope": "input_availability_only",
+    "tests_executed": false,
+    "commit": "21c763faa2e9889f5d46b0e37aee69890df9b788",
+    "checks": [
+      "historical"
+    ],
+    "inputs": [],
+    "known_bytes": 0,
+    "unknown_size_objects": [],
+    "blockers": [],
+    "preflight": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [],
+      "import_metadata_risks": [],
+      "uncertain_inputs": [],
+      "directory_presence_inputs": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "91bfad3fee449d74092f6c0f4e9d81bbcf875434a9cf15c6823452cef98b97c1",
+        "cwd": "/tmp/tmpf5c3jteq/promisor-consumer",
+        "checks": [
+          {
+            "id": "historical",
+            "argv": [
+              "python3",
+              "tools/historical.py"
+            ],
+            "timeout_seconds": 10,
+            "success_pattern": "^HISTORICAL FIXTURE: passed$",
+            "inputs": [
+              "docs/evidence/historical/fixture.json",
+              "docs/evidence/historical/consumer.sh"
+            ]
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    },
+    "limits": "Input availability and exact source verification only; no selected test executed or accepted.",
+    "source_run_id": "123456",
+    "transport": "same-run-selected-input-bundle",
+    "bundle_manifest_sha256": "b57802d76b4e8a467b1a5c94c99be704f6c374953af395c32a1f50edb906b1d1",
+    "archive_sha256": "b0ad2eeccbe1f5e2d4daf17bfc5de0855b714bdbad3c1ad18bfdba78fedb5da8",
+    "restored_files": 2,
+    "already_identical_files": 0,
+    "files": 2,
+    "bytes": 99,
+    "timings": {
+      "identity_manifest_existing_seconds": 0.012,
+      "archive_verify_seconds": 0.0,
+      "content_stage_seconds": 0.001,
+      "git_object_cache_seconds": 0.029,
+      "publish_recheck_preflight_seconds": 0.039,
+      "wall_seconds": 0.081
+    },
+    "storage": {
+      "before": {
+        "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/build",
+        "total_bytes": 9441329152,
+        "used_bytes": 7951491072,
+        "free_bytes": 1489838080,
+        "required_additional_bytes": 99,
+        "allocation_lower_bound": true,
+        "archive_bytes": 10240,
+        "stage_required_bytes": 99,
+        "git_cache_note": "Verified missing Git objects are cached before publication; compressed allocation is separately observed",
+        "wall_seconds": 0.012
+      },
+      "after": {
+        "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/build",
+        "total_bytes": 9441329152,
+        "used_bytes": 7951507456,
+        "free_bytes": 1489821696,
+        "required_additional_bytes": 0,
+        "allocation_lower_bound": true,
+        "archive_bytes": 10240,
+        "wall_seconds": 0.081
+      }
+    },
+    "git_object_cache": {
+      "objects": 2,
+      "raw_bytes": 99,
+      "network_fetch": false,
+      "cache_kind": "verified Git blob object cache; no source/index/ref changes",
+      "seconds": 0.006,
+      "storage": {
+        "before": {
+          "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/.git/objects",
+          "total_bytes": 9441329152,
+          "used_bytes": 7951499264,
+          "free_bytes": 1489829888,
+          "required_additional_bytes": 0,
+          "allocation_lower_bound": true,
+          "missing_blob_raw_bytes": 99,
+          "allocation_note": "Additional zlib-compressed Git objects; actual volume usage sampled before/after, not assumed equal to raw bytes",
+          "wall_seconds": 0.003
+        },
+        "after": {
+          "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/.git/objects",
+          "total_bytes": 9441329152,
+          "used_bytes": 7951507456,
+          "free_bytes": 1489821696,
+          "required_additional_bytes": 0,
+          "allocation_lower_bound": true,
+          "missing_blob_raw_bytes": 99,
+          "wall_seconds": 0.006
+        }
+      }
+    }
+  },
+  "progress": [
+    {
+      "phase": "bundle_restore_disk_before",
+      "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/build",
+      "total_bytes": 9441329152,
+      "used_bytes": 7951491072,
+      "free_bytes": 1489838080,
+      "required_additional_bytes": 99,
+      "allocation_lower_bound": true,
+      "archive_bytes": 10240,
+      "stage_required_bytes": 99,
+      "git_cache_note": "Verified missing Git objects are cached before publication; compressed allocation is separately observed",
+      "wall_seconds": 0.012
+    },
+    {
+      "phase": "bundle_archive_verify_started",
+      "files": 2,
+      "bytes": 10240
+    },
+    {
+      "phase": "bundle_archive_verify_complete",
+      "bytes": 10240,
+      "seconds": 0.0
+    },
+    {
+      "phase": "bundle_content_verify_progress",
+      "files": 2,
+      "total": 2,
+      "wall_seconds": 0.013
+    },
+    {
+      "phase": "bundle_git_cache_disk_before",
+      "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/.git/objects",
+      "total_bytes": 9441329152,
+      "used_bytes": 7951499264,
+      "free_bytes": 1489829888,
+      "required_additional_bytes": 0,
+      "allocation_lower_bound": true,
+      "missing_blob_raw_bytes": 99,
+      "allocation_note": "Additional zlib-compressed Git objects; actual volume usage sampled before/after, not assumed equal to raw bytes",
+      "wall_seconds": 0.003
+    },
+    {
+      "phase": "bundle_git_cache_started",
+      "objects": 2,
+      "raw_bytes": 99
+    },
+    {
+      "phase": "bundle_git_cache_disk_after",
+      "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/.git/objects",
+      "total_bytes": 9441329152,
+      "used_bytes": 7951507456,
+      "free_bytes": 1489821696,
+      "required_additional_bytes": 0,
+      "allocation_lower_bound": true,
+      "missing_blob_raw_bytes": 99,
+      "wall_seconds": 0.006
+    },
+    {
+      "phase": "bundle_git_cache_complete",
+      "objects": 2,
+      "raw_bytes": 99,
+      "seconds": 0.006
+    },
+    {
+      "phase": "bundle_restore_disk_after",
+      "volume_path": "/tmp/tmpf5c3jteq/promisor-consumer/build",
+      "total_bytes": 9441329152,
+      "used_bytes": 7951507456,
+      "free_bytes": 1489821696,
+      "required_additional_bytes": 0,
+      "allocation_lower_bound": true,
+      "archive_bytes": 10240,
+      "wall_seconds": 0.081
+    },
+    {
+      "phase": "bundle_restore_complete",
+      "files": 2,
+      "bytes": 99,
+      "wall_seconds": 0.081
+    }
+  ],
+  "cache_operation_raw_index_refs_flags_unchanged": true,
+  "head_tree_index_entries_unchanged": true,
+  "refs_unchanged": true,
+  "diff_guard_timeout_seconds": 30,
+  "checks": {
+    "clean": {
+      "returncode": 0,
+      "paths": [],
+      "stderr": "",
+      "trace": "22:03:18.010397 git.c:502               trace: built-in: git diff --name-only -z HEAD\n"
+    },
+    "content_edit": {
+      "returncode": 0,
+      "paths": [
+        "docs/evidence/historical/fixture.json"
+      ],
+      "stderr": "",
+      "trace": "22:03:18.012468 git.c:502               trace: built-in: git diff --name-only -z HEAD\n"
+    },
+    "mode_edit": {
+      "returncode": 0,
+      "paths": [
+        "docs/evidence/historical/consumer.sh"
+      ],
+      "stderr": "",
+      "trace": "22:03:18.014184 git.c:502               trace: built-in: git diff --name-only -z HEAD\n"
+    },
+    "delete": {
+      "returncode": 0,
+      "paths": [
+        "docs/evidence/historical/fixture.json"
+      ],
+      "stderr": "",
+      "trace": "22:03:18.016304 git.c:502               trace: built-in: git diff --name-only -z HEAD\n"
+    }
+  }
+}

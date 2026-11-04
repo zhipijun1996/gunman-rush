@@ -1,0 +1,81 @@
+# 0.4.1宿主接入验收进度
+
+当前受验运行源 `a0a90061816516bb4ac15ea56b3d644b5c8b477d`，PCK SHA256 `e49853f58481a79a4fe50b696a257209a26b86742038b9857756d4da3d098ec9`（220414276字节）。原生结果按[源码兼容收据](../../evidence/mapgen_041_windchime/coverage/native-source-custody.json)复用原执行，不改成新head fresh；实际新Web在该精确head/PCK中运行。
+
+本轮完整风铃Web已实际自动与九图独审严格通过；最终完整CI及main合入仍待执行。普通出发未替换，不部署网站。
+
+## 来源与真实路径
+
+SDK交付 `c35871446cc0a3939e1a38171435f42cdc64a359` 的0.4.1原包 SHA256 `f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e`；manifest实际算法源码 `8eefdbd140ce10defe1570ab8eefb6729382f8b3`。模块1.1.0/SHA `5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723`，runtime-map/v2不变。先实核0.4.0再升级24叶/19GD；原版SDK源码不改，Python不进游戏。
+
+主游戏锁定Godot4.7.2实际原SDK验证，开发入口调用实际算法内存结果，经同Provider→Plan→Stage→Runtime装配。SDK已物化镜像/偏移，宿主仅加placement。已有唯一Player/Controller、钱包/伤害/奖励及lifetime继续复用；公共装配不抽地图随机数。
+
+## 实际原生结果
+
+| 消费者/检查 | 结果 | 限定覆盖 |
+| --- | --- | --- |
+| SDK原包verify_bundle | PASS | 主游戏锁定工具链执行原成功/gears/失败完整结果对照；不是Stage |
+| 生成身份/Job | 81/0、1005/0 | 内存来源、三种身份、旧恢复拒绝、真实算法/缓存、取消/重复/退出 |
+| 冻结三模块/实际生成三模块 | 199/0、58/0 | 各自真实入口与既有玩家/服务，保完整所选内容；不是整图 |
+| gears Provider/Runtime | 80/0、73/0 | 原危险带/saw/两linear、伤害/共享时钟/生命周期、旧0.4恢复拒绝 |
+| 风铃Provider/真实内容夹具 | 35/0、100/0 | usedPort准入/反例；全原内容正反镜像、实际弹丸/开门/恢复。fixture不充当入口 |
+| 风铃实际生成完整起点入口 | 60/0 | controller请求、站稳、Router真实射击/幂等、Motor到本侧岸、两恢复、ESC真实菜单、取消拒迟到 |
+| 音频原wrapper | 94/0 | 原生产音频不改；真实50.005ms饱和保持、原41表达式/6case保留 |
+| CI输入/计划/工作流 | 45/0、57/0、4/0 | 纯Git/工具反例；非实际4.43GB工件或完整179验收 |
+
+## 实际Web与独立审图
+
+| 用例 | 自动执行（原300秒） | 离线真实审图 | 当前结论 |
+| --- | --- | --- | --- |
+| 默认双fresh | 150.177737秒 | 六图逐张，77.638572秒 | 严格合流PASS；生成/有限移动/取消/菜单返回 |
+| gears | 108.986178秒 | 七图逐张，93.501018秒 | 严格合流PASS；运动与退出。第二渡台最多裁切细条，不签双渡台全可视覆盖；原生负责完整危险伤害 |
+| 风铃第一次 | FAILED，90.378572秒 | 三失败图保留 | 实际生成/出生/关门阻挡后，测试工具用了不存在的Mouse.click(timeout)参数，开火前TypeError；不是算法超时/游戏成功 |
+| 风铃v2完整双fresh | 149.985604秒 | 九图逐张，152.835561秒 | 严格合流PASS；真实mouse miss/hit/repeat、正常Motor到本侧岸、ESC与取消；Web未测reload，原生恢复独立 |
+
+实际源、producer、HTTP/PCK前后守门和browser闭合见各自原report/acceptance。原favicon404、Emscripten主线程阻塞告警保留，脚本/页面错误按实际报告；不把软件SwiftShader称手机FPS、硬帧预算、音频听感或整图验收。
+
+## 边界与下一批
+
+实际controller生成45个实例；其起点按module/version/start角色选择，连接C001至 `idea-spec02-s12-001`，不是早期conformance的 `idea-interface-s12-001`。[真实邻居原字段](../../evidence/mapgen_041_windchime/coverage/actual-controller-start-peer.json)包含完整4platform/2oneway、P/Q两linear的designState:FROZEN_EXAMPLE，以及group_motion bell/access/targets资格数据；当前宿主未支持，未装邻居，不宣称跨缝。
+
+新三份离线覆盖库存分别绑定默认conformance46、gears43、controller起点45个实际实例及各自result SHA/请求/配置/连接。它们不是运行注册表或40图验证，不沿用0.3覆盖表/M编号。
+
+## 保留的失败与CI要求
+
+PR130/head9ba7的run41679005631实际126PASS/1FAIL/1在途未证/50未开始，保原身份。serial音频断言失败与parallel输入45:16/serial49:42占用job时限分开记录，不能称全部测试通过或算法慢。
+
+CI现prepare同run精确HEAD/plan/原receipt绑定工件，后续lane/affected核path/mode/Gitblob/SHA/来源与安全恢复后复用；45纯测试、独审接受不等于4.43GB真实跑通。原178顺序/argv/marker/单项预算保留，m35仅追加实际旧恢复fixture输入，新增1个总240秒风铃聚合，full179=parallel93+serial86。旧54计划断言在显式历史tail适配后保留并加3项，57/0；原失败保留。
+
+全部代码与必要证据冻结后才启动最终精确head完整CI/合流。通过后普通受保护merge保历史，合并消息含 `[skip-playtest]`，只跳网站部署，不skip CI、不绕保护。
+
+## 本批工程收口与已知限制
+
+三实际Web自动/独审严格合流均通过，共22次真实截图审阅；风铃[实际最终合流](../../evidence/mapgen_041_windchime/web/windchime-attempt02/acceptance.json)保自动149.985604/300与独审152.835561秒。完整起点只是自身模块到本侧岸，未装邻模块；恢复由原生真实消费者独立证明，未宣称Web测试reload。
+
+DEV-BANNER-BELL-PROMPT-01：现有开发横幅轻微遮部分风铃小提示；风铃实体、门、角色和真实射击目标/通路未遮，实际操作通过。这是开发提示UX限制，另批处理，当前不改冻结源/几何/物理、不签精制教程或玩家认可。v1工具失败90.378572秒保原FAILED；v2只修Mouse API兼容，保动作/断言/原300预算及所有guards。
+
+质量G4/technical/formal_integration只指明确四开发消费者工程范围；workflow仍review、G5/普通出发/邻居/整图/设备保持未验。最终冻结候选179+affected及4.43GB工件真实CI是独立必过的合入门禁，尚无结果，不借上述局部PASS代签。
+
+## 精确d5候选的真实CI失败与最小修复
+
+run41714871138/attempt1的prepare导出输入工件在0.269秒拒绝：Bundle requires the same-source exact full execution plan。首次实际恢复5091文件4,434,890,532B/935.477秒；第二预检24.706秒/0新增；前置24项、质量差异、固定工具链及真实Foundry通过。两个179正式lane尚未执行，affected因prepare失败正确拒绝，未发生测试失败或90分钟超时，也没有创建/上传大输入工件。旧run原日志/ZIP/错误/原计划保留在ci-final-d5cbdb9-failed，不追改为通过。
+
+根因是新工件校验误把输入计划顺序强制等同full profile顺序；真实production.make_plan把便携/docs检查前置，两者均为完整179项，首差index8，source/head/fullroute及计划与CLI的逐序绑定原本正确。仅修改工件授权为完整唯一集合及数量；保留实际计划与CLI逐序精确相等、原计划原字节SHA、全部原HEAD/index/path/mode/Gitblob/SHA/安全tar和原lane/profile实际执行顺序。原45测试保留新增5例，实际50/0；原CI真实原计划字节本地metadata合同复现通过，另小稀疏Git实际导出/恢复及缺漏/额外/重复/CLI顺序/原计划字节变更负例通过。它们不代签实际4.43GB循环或完整179。
+
+本次修复只改CI输入工具及测试；所有游戏GD、SDK19pin、模块、请求/绑定和实际PCK均不变，已通过的原生与三组Web/22图依原来源身份复用，不重做。新代码与必要证据冻结后在修复head验证CI，不盲目重跑已知必败的旧d5。
+
+## 精确422候选：大工件通过与原Git守门失败
+
+run41720175578/attempt1保持FAILED。prepare实际恢复5092输入4,434,892,477B/921.945s，大工件导出40.851s（合同/清单25.093s、tar写入约15.76s），tar4,439,521,280B/SHA d5e6c196c4668d9eb8f6f89515d5f565f8bbb82e1478b4f7b5df6473dc614ce1，GitHub工件4,450,653,483B/id13273404222/API digest afc6e7e4b92b18dc5939eac85ce01128aaddb9cac3b6285a2467524996efc019。实际155GB卷导出前余81.49GB/后77.04GB。serial下载253s/严格恢复45.227s，parallel下载47s/恢复50.458s，均5092/完整来源与全部SHA/mode通过；原Foundry56JSON与当前源码0字节差异。它们不是完整CI通过：两个lane在原Harness初始化git diff --name-only -z HEAD的原30秒限制超时，正式179未执行、无phase报告，affected正确拒绝。原件另存ci-final-4224488-failed。
+
+两个独立真实file:// blob-less/promisor隔离实验复现：只还原正确文件字节仍缺Git blob，原gitdiff会懒取远端对象；远端离线时明确失败。只把已验相同SHA字节入Git对象缓存后，原命令离线空差异成功，内容/权限/删除仍可检测。本次最小恢复修复在全档/成员/tail及path/mode/Gitblob/SHA完整验证后、发布前，用一次批量no-lazy/no-filter hash-object仅补缺失唯一对象并逐OID校验。缓存自身HEAD/index原字节/ref/flags不动，无assume-unchanged隐藏；原post-stage快照/原50测试/30秒Git守门/179预算均保留。实际56测试及独立56测试/审查通过；小样本不代签下一精确head真实4GB缓存与完整179，游戏GD/SDK/模块/绑定/PCK继续不变，无同源原生或Web重跑。
+
+## 精确4df候选：Git对象恢复修复生效，历史锁绑定失败
+
+run41728429398的prepare和两个实际大工件恢复成功。parallel严格恢复164.318秒，包含4824个已核Git对象/4,387,487,368字节缓存114.263秒，network_fetch:false；原Git守门通过，源码前后36220项一致。正式parallel实际7PASS、第8项quality FAIL、85项未开始，0reuse。serial仍按原run继续，未取消；后续结果保原来源，不代签新head。
+
+唯一已见失败是两张历史0.4.0质量卡的lock证据仍指可变当前config/mapgen_candidate.json（期望09c2c...，实际已合法升级0.4.1）。[版本化存储迁移](../../evidence/mapgen_041_windchime/historical-lock-040/README.md)保全原Git旧锁和两卡原字节，只迁evidence[id=lock].path到固定历史原件；原SHA、source_commit、content_version、reviewed_commit、production_snapshot、全部门槛和原失败不变，不重签旧认可。原质量检查修复后通过，独审与新精确head完整179+affected仍是独立门禁。
+
+[失败原件](../../evidence/mapgen_041_windchime/ci-final-4df3c6a-failed/README.md)包含原ZIP/phase/日志/来源和完整性收据；所有游戏GD、SDK19叶、模块、请求和bindings均不变，实际原生与22图Web保持其已验来源复用。普通出发不改、不部署。
+
+历史锁迁移独立审阅实际34项及6个负例/原quality通过，限定ACCEPT。为避免同分支concurrency取消仍在运行的serial，修复从4df建立独立后继集成分支；PR131/run保原head。新修复不改游戏或供应商文件，后继完整CI单独受验。

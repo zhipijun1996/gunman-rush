@@ -1,0 +1,110 @@
+{
+  "schema": "gunman-rush/gears-independent-visual-review/v2",
+  "report": "/tmp/mapgen041-web-gears-01/actual/report.json",
+  "report_sha256": "ba3659f20426cfb6ee291aa738cbeb84179552a97b9548f22650ac02fc3d0a20",
+  "captures": [
+    {
+      "file": "gears-escape-01-committed.png",
+      "sha256": "c91abdc548d8c4673cb1f4fc3ed8509181cb27a7f9afb40aa4cb3a930913d126",
+      "epoch_ms": 1793736669696.42
+    },
+    {
+      "file": "gears-escape-motion-2p5-clock-seconds.png",
+      "sha256": "7e9db0ca5138ed13d71cbafcf667423b6f83d33bb6b78eee3bf564cd38a21b3f",
+      "epoch_ms": 1793736672129.9392
+    },
+    {
+      "file": "gears-escape-motion-5p0-clock-seconds.png",
+      "sha256": "37dd6c324ae86cc71f9bde0700f880a72d1722c37106d76dd8c40935cdad08b0",
+      "epoch_ms": 1793736675160.8992
+    },
+    {
+      "file": "gears-escape-motion-7p5-clock-seconds.png",
+      "sha256": "5ce9735af3efd2e7f3d63d145a37171ff3a0686df59c24688ec5349998a6dfe5",
+      "epoch_ms": 1793736677158.158
+    },
+    {
+      "file": "gears-escape-motion-10p0-clock-seconds.png",
+      "sha256": "692d36b78c3fa91fd878910d16cbde993956d6f26ad9fa9d8c2f8b230fcc15a0",
+      "epoch_ms": 1793736679740.5186
+    },
+    {
+      "file": "gears-escape-before-escape.png",
+      "sha256": "35bca6a87589a5fbdb53a27b4dc3959b5e5c74cb7359412a9f09ed60de46ecf9",
+      "epoch_ms": 1793736680086.1714
+    },
+    {
+      "file": "gears-escape-returned-title.png",
+      "sha256": "e5f7fce28e4ced6aadc84e75a4a828255e947abb1d0d068fbe8ef328d0032899",
+      "epoch_ms": 1793736681801.4644
+    }
+  ],
+  "began_epoch_ms": 1793736733820.3738,
+  "reviewer_kind": "independent_actual_image_reviewer",
+  "reviewer_identity": "/root/web_default_image_review",
+  "records": [
+    {
+      "file": "gears-escape-01-committed.png",
+      "capture_sha256": "c91abdc548d8c4673cb1f4fc3ed8509181cb27a7f9afb40aa4cb3a930913d126",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed full 1280x720 committed gears frame. Orange courier stands clearly on the moss-covered DEEP DROP entry bank. One brass linear ferry is visible just right of the bank; a circular gear/saw is visible farther right and a high destination ledge is partly cropped at the upper-right edge. The screen labels real930007 ferry-gears loading slice and denies whole-map certification. This camera does not show every hazard or both ferries simultaneously; no full-content visual coverage or damage is inferred.",
+      "started_epoch_ms": 1793736733841.509,
+      "finished_epoch_ms": 1793736747962.5376
+    },
+    {
+      "file": "gears-escape-motion-2p5-clock-seconds.png",
+      "capture_sha256": "7e9db0ca5138ed13d71cbafcf667423b6f83d33bb6b78eee3bf564cd38a21b3f",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed 2.5 source-clock sample. Courier remains on the same entry bank while the visible brass ferry has moved substantially upward and right along the cyan dotted route, relative to the unchanged bank and saw reference. The saw remains visible at right. Motion is visibly distinguishable from committed frame; the second ferry and lower hazard strip are outside this camera, so their operation is not visually certified here.",
+      "started_epoch_ms": 1793736748174.3142,
+      "finished_epoch_ms": 1793736762016.0518
+    },
+    {
+      "file": "gears-escape-motion-5p0-clock-seconds.png",
+      "capture_sha256": "37dd6c324ae86cc71f9bde0700f880a72d1722c37106d76dd8c40935cdad08b0",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed 5.0-clock frame. Courier and entry bank remain unchanged. Ferry is near the upper-right part of its visible route, close to the preceding sample position; the circular saw is now markedly higher, immediately below the ferry, rather than its earlier lower-right position. Thus there is visible mechanism phase change without actor relocation. This static sample cannot prove frame smoothness, collision damage, or the offscreen second ferry/hazard strip.",
+      "started_epoch_ms": 1793736762230.99,
+      "finished_epoch_ms": 1793736775810.8057
+    },
+    {
+      "file": "gears-escape-motion-7p5-clock-seconds.png",
+      "capture_sha256": "5ce9735af3efd2e7f3d63d145a37171ff3a0686df59c24688ec5349998a6dfe5",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed 7.5-clock frame. Visible ferry has returned down and left toward the entry bank, clearly displaced from its upper-right 5.0 sample while player stays on the same bank. No visible loading/error or missing landing. The saw is not visible in this sampled camera, and second ferry/lower hazard strip remain outside view; this frame supports the declared finite motion sample only, not all-hazard visual coverage.",
+      "started_epoch_ms": 1793736776022.1155,
+      "finished_epoch_ms": 1793736790511.5469
+    },
+    {
+      "file": "gears-escape-motion-10p0-clock-seconds.png",
+      "capture_sha256": "692d36b78c3fa91fd878910d16cbde993956d6f26ad9fa9d8c2f8b230fcc15a0",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed 10.0-clock sample. Main visible ferry is midway above-right of the entry bank and the saw is again clearly visible farther right at a new vertical position; courier remains standing. A thin brass platform sliver is cropped at the extreme upper-right screen edge, partly in the top HUD area; it is not full visual proof of a second ferry. This confirms sampled mechanism phase changes over the saved sequence while retaining explicit camera-crop limits. No damage or frame-rate claim.",
+      "started_epoch_ms": 1793736790712.3208,
+      "finished_epoch_ms": 1793736803225.0632
+    },
+    {
+      "file": "gears-escape-before-escape.png",
+      "capture_sha256": "35bca6a87589a5fbdb53a27b4dc3959b5e5c74cb7359412a9f09ed60de46ecf9",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed final pre-Escape gameplay frame. Courier still occupies the original entry bank; visible ferry is farther upward/right and saw has risen relative to the 10.0-clock image. Extreme top-right brass platform is clipped by the viewport/HUD edge, so full two-ferry presentation remains unverified. No loading or error screen appears. This shows continued finite mechanism operation immediately before exit, without asserting gameplay traversal or actual hazard contact.",
+      "started_epoch_ms": 1793736803576.2566,
+      "finished_epoch_ms": 1793736816507.743
+    },
+    {
+      "file": "gears-escape-returned-title.png",
+      "capture_sha256": "e5f7fce28e4ced6aadc84e75a4a828255e947abb1d0d068fbe8ef328d0032899",
+      "decision": "pass",
+      "method": "functions.exec/tools.view_image",
+      "notes": "Actually viewed returned-title frame after Escape. Real Chinese title menu, highlighted Start Game and latest Disorder Clock illustration are visible; preview banner correctly retains seed930007. Gears world, courier and moving mechanisms are no longer shown. This corroborates the real menu return; actual audio/lifetime cleanup and rejection of late requests remain separate guarded runtime/native evidence. No phone, listening, full-route or performance acceptance.",
+      "started_epoch_ms": 1793736816804.1172,
+      "finished_epoch_ms": 1793736827321.3914
+    }
+  ]
+}

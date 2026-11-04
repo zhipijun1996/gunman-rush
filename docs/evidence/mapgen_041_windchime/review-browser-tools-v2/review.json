@@ -1,0 +1,19 @@
+{
+  "verdict": "ACCEPT_frozen_tool_v2_for_real_windchime_rerun",
+  "reviewer": "/root/web_default_image_review",
+  "tool_author": "/root/windchime_browser_api_fix",
+  "freeze_sha256": "a6a473e93338b2b5b5243c5536e414f2056a86daed613a19ae7c665cd7d2d2a3",
+  "v1_freeze_sha256": "369e866cfb8799ed0b5f19604be4724b4a0588b09e34f11b7565b34635339e4e",
+  "independent_source_api_checks": 47,
+  "failures": 0,
+  "independent_pure": {
+    "tests": 27,
+    "failures": 0,
+    "elapsed_seconds": 16.602,
+    "log": "independent-pure.log"
+  },
+  "pure_fixture_limits": "Fake browser/source/PCK; no actual v2 Web or screenshots were run/viewed in this tool review.",
+  "all_freeze_members_unchanged_after_tests": true,
+  "scope": "Only real Mouse move+click API compatibility and bounded dispatch. Original assertions, two fresh contexts, 300s total, moves/shots and all original source/PCK/producer/HTTP guards unchanged. Default/gears v1 bytes and accepted results untouched.",
+  "fail_closed": "No action receipt is emitted until both mouse operations complete. One remaining<=15s asyncio deadline covers both; timeout/API error reaches original FAILED path with context/browser cleanup, and strict join refuses it. Original total300s wait_for remains."
+}

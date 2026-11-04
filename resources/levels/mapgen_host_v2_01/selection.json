@@ -1,0 +1,214 @@
+{
+  "schema": "mapgen-host-v2/selection/v1",
+  "revision": "r2-real-moving-platform-interaction",
+  "source_map_id": "map-ffc781684ea67dc383a84203",
+  "request_fingerprint": "ffc781684ea67dc383a842034f95e5aa07118a8d89c65ac6821ab8099df55410",
+  "seed": 930001,
+  "source_full_map": "attempt-01-official-930001/map.json",
+  "selection_rule": "Root explicitly selected original M16/M18/M21 from the unchanged official map for real ellipse-platform riding and actual C027/C030/C031 seams; complete records only, no enemy/reward/Boss/shot-latch scope. This supersedes r1 required-danger rule only; r1 zero-eligible scan and C001 rejection remain immutable evidence.",
+  "instance_ids": [
+    "M16",
+    "M18",
+    "M21"
+  ],
+  "source_instance_records": [
+    "selection-r2/instances/M16.json",
+    "selection-r2/instances/M18.json",
+    "selection-r2/instances/M21.json"
+  ],
+  "content_refs": [
+    "selection-r2/content/M16.json",
+    "selection-r2/content/M18.json",
+    "selection-r2/content/M21.json"
+  ],
+  "content_sha256": {
+    "content/M16.json": "9cfa577517940be7e715942d32b0afebe39226faf6a0d8c51aa40885eb87d496",
+    "content/M18.json": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512",
+    "content/M21.json": "e1e0a2f82917adad1c69a723d2276a44e112feab6719d8ea4c3b96b86e5e7512"
+  },
+  "internal_connections": [
+    {
+      "id": "C027",
+      "a": {
+        "instance_id": "M16",
+        "port_id": "R"
+      },
+      "b": {
+        "instance_id": "M18",
+        "port_id": "entry_left"
+      },
+      "position_pixels": [
+        -384.0,
+        832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "id": "C030",
+      "a": {
+        "instance_id": "M18",
+        "port_id": "entry_right"
+      },
+      "b": {
+        "instance_id": "M21",
+        "port_id": "entry_left"
+      },
+      "position_pixels": [
+        -1152.0,
+        832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "id": "C031",
+      "a": {
+        "instance_id": "M18",
+        "port_id": "exit_upper_right"
+      },
+      "b": {
+        "instance_id": "M21",
+        "port_id": "exit_upper_left"
+      },
+      "position_pixels": [
+        -1152.0,
+        704.0
+      ],
+      "surface": "ROCK"
+    }
+  ],
+  "cut_edges": [
+    {
+      "id": "C022",
+      "a": {
+        "instance_id": "M13",
+        "port_id": "B"
+      },
+      "b": {
+        "instance_id": "M16",
+        "port_id": "L"
+      },
+      "position_pixels": [
+        256.0,
+        1088.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "id": "C036",
+      "a": {
+        "instance_id": "M21",
+        "port_id": "entry_right"
+      },
+      "b": {
+        "instance_id": "M26",
+        "port_id": "entry_right"
+      },
+      "position_pixels": [
+        -1920.0,
+        832.0
+      ],
+      "surface": "ROCK"
+    },
+    {
+      "id": "C037",
+      "a": {
+        "instance_id": "M21",
+        "port_id": "exit_upper_right"
+      },
+      "b": {
+        "instance_id": "M26",
+        "port_id": "exit_upper_right"
+      },
+      "position_pixels": [
+        -1920.0,
+        704.0
+      ],
+      "surface": "ROCK"
+    }
+  ],
+  "original_seals": {
+    "M16": [
+      {
+        "port_id": "B",
+        "component": "gear-seal/1",
+        "face": "BOTTOM",
+        "rect_pixels": [
+          128.0,
+          480,
+          128,
+          32
+        ],
+        "opening_pixels": 128,
+        "thickness_pixels": 32,
+        "certified": false,
+        "physical_validation": "NOT_RUN"
+      }
+    ],
+    "M18": [
+      {
+        "port_id": "exit_upper_left",
+        "component": "gear-seal/1",
+        "face": "RIGHT",
+        "rect_pixels": [
+          736,
+          0.0,
+          32,
+          128
+        ],
+        "opening_pixels": 128,
+        "thickness_pixels": 32,
+        "certified": false,
+        "physical_validation": "NOT_RUN"
+      }
+    ],
+    "M21": []
+  },
+  "source_records_include_all_ports_routes_connected_port_ids": true,
+  "seals_unchanged": true,
+  "synthetic_cut_edge_seals_added": false,
+  "cut_edges_policy": "Retain original full-map connection records; outside endpoint is absent in this slice, not reclassified as original unused Port and not silently sealed. Host test must bound/record its slice endpoint scope.",
+  "coordinates": {
+    "block_size_pixels": 128,
+    "axes": "x_right_y_down",
+    "local_frame": "owned_rectangle_pixels",
+    "content_transform_applied": true,
+    "placement_rule": "world_pixel = origin_blocks * block_size_pixels + local_pixel"
+  },
+  "content_rebased_or_remirrored": false,
+  "ellipse_source_leaves": [
+    {
+      "package_path": "runtime/module_runtime/revision061_ellipse_definition_v1-fff23a5cee8f.gd",
+      "local_path": "/workspace/refactor-evidence/mapgen-host-v2-01/upstream/selection-r2/ellipse-source/runtime/module_runtime/revision061_ellipse_definition_v1-fff23a5cee8f.gd",
+      "bytes": 689,
+      "sha256": "ca112f114470b372b5322e10e6da8d3f59dd5752e0fda0e129fbe282b26e46fd",
+      "manifest_checksum_verified": true
+    },
+    {
+      "package_path": "runtime/module_runtime/revision061_ellipse_install_v1-7416999b951a.gd",
+      "local_path": "/workspace/refactor-evidence/mapgen-host-v2-01/upstream/selection-r2/ellipse-source/runtime/module_runtime/revision061_ellipse_install_v1-7416999b951a.gd",
+      "bytes": 849,
+      "sha256": "bf6618e3f3fa563334c39903baf348396482e6225894e2cd7eb1c13feb10be8f",
+      "manifest_checksum_verified": true
+    },
+    {
+      "package_path": "runtime/module_runtime/module_loader_revision061_v2-daa7e5eceb9f.gd",
+      "local_path": "/workspace/refactor-evidence/mapgen-host-v2-01/upstream/selection-r2/ellipse-source/runtime/module_runtime/module_loader_revision061_v2-daa7e5eceb9f.gd",
+      "bytes": 4930,
+      "sha256": "b7bf21f75141f2ae0d2a3be33526a1fb3a740c19179b93a62da2036d2c752791",
+      "manifest_checksum_verified": true
+    }
+  ],
+  "static_selected_port_alignment": "PASS exact original world coordinates",
+  "runtime_physics_and_player_riding": "NOT_RUN",
+  "excludes": [
+    "enemy",
+    "reward",
+    "Boss",
+    "projectile-to-latch opening"
+  ],
+  "r1_history": [
+    "connection-selection-audit.json",
+    "pair-candidate-scan.json",
+    "c001-not-adopted/selection.json"
+  ]
+}

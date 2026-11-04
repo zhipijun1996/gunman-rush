@@ -1,0 +1,32 @@
+{
+  "decision": "static_accept_exact_two_literal_artifact_path_fix",
+  "blocking_findings": [],
+  "files": {
+    "tools/harness/profiles.json": {
+      "previous_candidate_sha256": "452955ca2f9fc76eae0c4541569c036287766db148b8cec33e1650c07f236f5b",
+      "reviewed_sha256": "443fca00944ceb166e2c9c14e4fa17255448658c7e1d8d22b0d85f8f12cf8496",
+      "only_literal_replacement": true
+    },
+    "tests/test_production_plan.py": {
+      "previous_candidate_sha256": "da527582a33053d5747d64fc52e6803b684a2c13eb7e46171a43012089884234",
+      "reviewed_sha256": "0d23d0d0b873db72bf91349ca6a97973c87eff5fbb851258a8a4168226c3d2ee",
+      "only_literal_replacement": true
+    }
+  },
+  "replacement": {
+    "before": "build/mapgen_host_v2_01/native.json",
+    "after": "build/mapgen_host_v2_01"
+  },
+  "other_two_ci_files_unchanged_from_prior_candidate": true,
+  "harness_source_unchanged": true,
+  "prior219_and_budget_and_prefix_assertions_preserved": true,
+  "artifact_collection_semantics_reviewed": "directory rglob includes native.json; unchanged existing before/after+collector path",
+  "cache_key_includes_entire_check": true,
+  "prior_review_preserved": true,
+  "prior_review_omission_acknowledged": "single-file artifact path is not enumerated by existing directory collector",
+  "reviewer_tests_run": false,
+  "engine_run": false,
+  "production_writes": 0,
+  "actual_harness_native_json_archive": "pending root fresh execution and artifact SHA check",
+  "review_sha256": "92cd38d1a31e8da92fbd68f16ac1a8191a39933a2ca1ec90a5f2589f68f6fb98"
+}

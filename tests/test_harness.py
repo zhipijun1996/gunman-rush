@@ -853,6 +853,63 @@ class CIWorkflowCoverageTests(unittest.TestCase):
         self.assertIn("plains-encounter-policy", [check["parent_check"] for check in policy["early_python_checks"]])
 
 
+    def test_main_playtest_opt_out_keeps_explicit_deployment_and_checks(self):
+        import re
+        from types import SimpleNamespace
+        root = Path(__file__).resolve().parents[1]
+        source = (root / ".github/workflows/environment.yml").read_text()
+        upload = source.split("- uses: actions/upload-pages-artifact@v3", 1)[1]
+        upload_if = re.search(r"(?m)^        if: (.+)$", upload).group(1)
+        deploy = source.split("  deploy_web:\n", 1)[1]
+        deploy_if = re.search(r"(?m)^    if: (.+)$", deploy).group(1)
+        self.assertEqual(upload_if, deploy_if)
+        self.assertNotIn("[skip ci]", source.lower())
+        cases = [
+            ("push", "refs/heads/main", "ordinary merge", False, True),
+            ("push", "refs/heads/main", "merge [skip-playtest]", False, False),
+            ("push", "refs/heads/main", "merge [SKIP-PLAYTEST]", False, False),
+            ("push", "refs/heads/feature/other", "ordinary merge", False, False),
+            ("push", "refs/heads/feature/complete-actor-actions", "[publish-playtest]", False, True),
+            ("workflow_dispatch", "refs/heads/main", "[skip-playtest]", True, True),
+            ("workflow_dispatch", "refs/heads/main", "ordinary", False, False),
+            ("pull_request", "refs/heads/main", "ordinary", True, False),
+        ]
+        expression = upload_if.replace("&&", " and ").replace("||", " or ")
+        expression = re.sub(r"!(?!=)", "not ", expression)
+        for event, ref, message, requested, expected in cases:
+            with self.subTest(event=event, ref=ref, message=message, requested=requested):
+                github = SimpleNamespace(event_name=event, ref=ref,
+                                         event=SimpleNamespace(head_commit=SimpleNamespace(message=message)))
+                context = {"github": github, "inputs": SimpleNamespace(deploy_playtest=requested),
+                           "contains": lambda text, needle: needle.casefold() in text.casefold()}
+                self.assertEqual(eval(expression, {"__builtins__": {}}, context), expected)
+        # The marker is a deployment decision, never a build/verification skip.
+        self.assertEqual(source.count("[skip-playtest]"), 2)
+        executions = [command for command in re.findall(r"python3 tools/harness\.py ([^\n]+)", source)
+                      if "--verify-lanes" not in command]
+        self.assertEqual(len(executions), 1)
+        self.assertIn("--profile full", executions[0])
+        self.assertIn("--release", executions[0])
+
+    def test_production_and_release_share_one_exact_python_patch_source(self):
+        import re
+        root = Path(__file__).resolve().parents[1]
+        version_file = "config/ci_python_version.txt"
+        self.assertRegex((root / version_file).read_text().strip(), r"^\d+\.\d+\.\d+$")
+        for name in ("production.yml", "environment.yml"):
+            with self.subTest(workflow=name):
+                source = (root / ".github/workflows" / name).read_text()
+                actions = re.findall(r"uses: actions/setup-python@[^\n]+", source)
+                references = re.findall(r"python-version-file: ([^\n]+)", source)
+                self.assertTrue(actions)
+                self.assertEqual(references, [version_file] * len(actions))
+                self.assertNotRegex(source, r"(?m)^\s+python-version:")
+                if name == "environment.yml":
+                    public = source.split("  verify_public:\n", 1)[1]
+                    self.assertIn("/tools/verify_published_build.py", public)
+                    self.assertIn("/" + version_file, public)
+
+
 class HarnessLaneTests(unittest.TestCase):
     """Real tiny Python checks and Git sources; no native/profile approval."""
     def setUp(self):

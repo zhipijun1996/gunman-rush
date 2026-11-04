@@ -1,0 +1,121 @@
+{
+  "status": "OLD_DEFAULT_COMPLETE_REPLAY_PASS_BYTE_IDENTICAL",
+  "base_commit": "812e89050e062c866a5dd7e8c258e47d3897bc4d",
+  "old_inputs_verified": 43,
+  "restoration_receipt_sha256": "3adff288cbde22d1d7abe6e8dd60c6617cfc493eab47e5baa3ee037d08a3a156",
+  "runs": [
+    {
+      "label": "original",
+      "cwd": "/tmp/mapgen-v4-old-replay/original-producer",
+      "argv": [
+        "python3",
+        "-B",
+        "tools/runtime_audit/check_930001.py",
+        "--inputs",
+        "/tmp/mapgen-v4-old-replay/inputs",
+        "--zip110",
+        "/tmp/mapgen-v4-old-replay/1.1.0.zip",
+        "--zip111",
+        "/tmp/mapgen-v4-old-replay/1.1.1.zip",
+        "--out",
+        "/tmp/mapgen-v4-old-replay/run-output"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.23166173999925377,
+      "timeout_seconds": 30,
+      "log_sha256": "821314b36b8e4e143e6eaa8563979583137dd43ed4e5930787ff3c515680cdfc",
+      "producer_sha256": "746a20ccc7f82644d2a17d41c09425f321e85d4b8b44b7e404fd9063aba58b83"
+    },
+    {
+      "label": "patched",
+      "cwd": "/tmp/map-edit-runtime-audit-v04",
+      "argv": [
+        "python3",
+        "-B",
+        "tools/runtime_audit/check_930001.py",
+        "--inputs",
+        "/tmp/mapgen-v4-old-replay/inputs",
+        "--zip110",
+        "/tmp/mapgen-v4-old-replay/1.1.0.zip",
+        "--zip111",
+        "/tmp/mapgen-v4-old-replay/1.1.1.zip",
+        "--out",
+        "/tmp/mapgen-v4-old-replay/run-output"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.23440472599759232,
+      "timeout_seconds": 30,
+      "log_sha256": "821314b36b8e4e143e6eaa8563979583137dd43ed4e5930787ff3c515680cdfc",
+      "producer_sha256": "52e36a13386fb67c99ecd535ab529d8aee463d778f9498419b0b08047b49e2ea"
+    }
+  ],
+  "argv_identical": true,
+  "original_and_patched_outputs_all_bytes_equal": true,
+  "output_files": {
+    "frozen-checks.json": "e925c83d9011a2b366f786148bbed195f3e4b0a75ecd68e47df409dd9d516b79",
+    "m24-rule-cases.json": "e23f28d3a65eb7e5c2f49a0888a8378a8bce6c139bd283228369b03db8f698eb",
+    "mechanism-coverage.json": "463c78adc291a95116c27551a58429fa54ce89aff15bc2d0aeef9820c8ab8342",
+    "migration-110-111.json": "0cd2878fce48997ef1ebed3909670c450f3744d1d79f5fa374745280e267d6dd",
+    "focus/M35.content.json": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c",
+    "focus/M35.instance.json": "a9f3bf9763f9d8a76ff4363fe783cf7b4a4c562eb43560544bfc60e0d70e12d8",
+    "focus/M24.content.json": "bea31ff18c1d7d23db751fe5c5ba3e3ab5f97d06bdca69ca3883016e6144e661",
+    "focus/M24.instance.json": "317bfd48cbd4fdece14c0f913e8cc17e708a8f514b77995e58af8702150a9161",
+    "focus/M01.content.json": "b1dd1d6a46a609d56a1673a969b361fb17a095986093e948b22dc35a8936d18e",
+    "focus/M01.instance.json": "64a5c98a64f01318c3c4864c53d0e64a14fb2dbcacb5a2d72bd2e5bd25d37071"
+  },
+  "compared_committed_original_outputs": {
+    "frozen-checks.json": {
+      "actual_sha256": "e925c83d9011a2b366f786148bbed195f3e4b0a75ecd68e47df409dd9d516b79",
+      "git_frozen_sha256": "e925c83d9011a2b366f786148bbed195f3e4b0a75ecd68e47df409dd9d516b79",
+      "same": true
+    },
+    "m24-rule-cases.json": {
+      "actual_sha256": "e23f28d3a65eb7e5c2f49a0888a8378a8bce6c139bd283228369b03db8f698eb",
+      "git_frozen_sha256": "e23f28d3a65eb7e5c2f49a0888a8378a8bce6c139bd283228369b03db8f698eb",
+      "same": true
+    },
+    "mechanism-coverage.json": {
+      "actual_sha256": "463c78adc291a95116c27551a58429fa54ce89aff15bc2d0aeef9820c8ab8342",
+      "git_frozen_sha256": "463c78adc291a95116c27551a58429fa54ce89aff15bc2d0aeef9820c8ab8342",
+      "same": true
+    },
+    "migration-110-111.json": {
+      "actual_sha256": "0cd2878fce48997ef1ebed3909670c450f3744d1d79f5fa374745280e267d6dd",
+      "git_frozen_sha256": "0cd2878fce48997ef1ebed3909670c450f3744d1d79f5fa374745280e267d6dd",
+      "same": true
+    },
+    "focus/M35.content.json": {
+      "actual_sha256": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c",
+      "git_frozen_sha256": "99de30fea7541920ba0d024372927dcee387c7da453916d9e3b05a7093214d1c",
+      "same": true
+    },
+    "focus/M35.instance.json": {
+      "actual_sha256": "a9f3bf9763f9d8a76ff4363fe783cf7b4a4c562eb43560544bfc60e0d70e12d8",
+      "git_frozen_sha256": "a9f3bf9763f9d8a76ff4363fe783cf7b4a4c562eb43560544bfc60e0d70e12d8",
+      "same": true
+    },
+    "focus/M24.content.json": {
+      "actual_sha256": "bea31ff18c1d7d23db751fe5c5ba3e3ab5f97d06bdca69ca3883016e6144e661",
+      "git_frozen_sha256": "bea31ff18c1d7d23db751fe5c5ba3e3ab5f97d06bdca69ca3883016e6144e661",
+      "same": true
+    },
+    "focus/M24.instance.json": {
+      "actual_sha256": "317bfd48cbd4fdece14c0f913e8cc17e708a8f514b77995e58af8702150a9161",
+      "git_frozen_sha256": "317bfd48cbd4fdece14c0f913e8cc17e708a8f514b77995e58af8702150a9161",
+      "same": true
+    },
+    "focus/M01.content.json": {
+      "actual_sha256": "b1dd1d6a46a609d56a1673a969b361fb17a095986093e948b22dc35a8936d18e",
+      "git_frozen_sha256": "b1dd1d6a46a609d56a1673a969b361fb17a095986093e948b22dc35a8936d18e",
+      "same": true
+    },
+    "focus/M01.instance.json": {
+      "actual_sha256": "64a5c98a64f01318c3c4864c53d0e64a14fb2dbcacb5a2d72bd2e5bd25d37071",
+      "git_frozen_sha256": "64a5c98a64f01318c3c4864c53d0e64a14fb2dbcacb5a2d72bd2e5bd25d37071",
+      "same": true
+    }
+  },
+  "actual_04_profile_executed": false,
+  "new_04_coverage_generated": false,
+  "godot_run": false
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "Actual original Harness output capture, not declared paths only",
+  "command": [
+    "python3",
+    "tools/harness.py",
+    "--check",
+    "runtime-map-v2-host",
+    "--check",
+    "cloud-production-planner-tests",
+    "--check",
+    "harness-tests",
+    "--check",
+    "web-resource-contract-tests",
+    "--jobs",
+    "1",
+    "--release"
+  ],
+  "exit_code": 0,
+  "artifact_native_path": "docs/evidence/mapgen_host_v2_01/final-harness/artifacts/runtime-map-v2-host/build/mapgen_host_v2_01/native.json",
+  "native_sha256": "02ccb785c5fb8f6db73dd3b5e3e658657408abfb2b0e6868b121be0eb69b0dc9",
+  "live_and_archive_and_prior_native_bytes_equal": true,
+  "final_source_files_match_current": true,
+  "checks": [
+    {
+      "id": "runtime-map-v2-host",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 5.86,
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.514,
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 18.635,
+      "reused": false
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.507,
+      "reused": false
+    }
+  ]
+}

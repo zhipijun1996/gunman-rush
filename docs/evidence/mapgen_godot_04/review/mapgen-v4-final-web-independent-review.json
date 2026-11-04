@@ -1,0 +1,881 @@
+{
+  "reviewer": "death_event_audit; nonauthor of implementation,drivers and browser execution",
+  "decision": "NARROW_INDEPENDENT_CASES_ACCEPTED_ORIGINAL_DEFAULT_AGGREGATE_BLOCKED",
+  "source_commit": "f6b61ee7026bc4c696d15fa26b09de5ff03be903",
+  "overall_original_Web_technical_budget": "FAILED_BLOCK",
+  "G4": "FAILED_ORIGINAL_DEFAULT_TWO_FRESH300_PROTOCOL",
+  "bounded_native_G0_G1": "Accepted only controlled source/native-chain scope per prior independent reviews",
+  "method": "Read-only original reports,summaries,archives,source trees,PCK bytes and direct original image views. No engine/browser/test/producer execution,no repository or original evidence edits. Only /tmp review artifacts written.",
+  "cases": {
+    "default-actual-03": {
+      "decision": "BLOCK_FULL_TWO_FRESH_PROTOCOL",
+      "original_status": "FAILED",
+      "elapsed_seconds": 300.31198821999715,
+      "budget_seconds": 300,
+      "driver_SHA256": "5b8330a8bf5781cf7110a714ee5942588016e4237d7b7a1f43b0fec91937278e",
+      "report_SHA256": "59b0a941a448197586fc9dcfd503ff30f215afb08a1af60868bc0a11415d5f12",
+      "summary_SHA256": "e77f17ecf066461e3d48c22f47e4923081a9f225b28bd8932a357f1b499aff41",
+      "archive_SHA256": "3ba3b7ac0f0e20088dc5e8e6fbc2dd7dd88adcd97eb6824a4f4032180254d68b",
+      "archive_bytes": 5592272,
+      "raw_members_verified": 6,
+      "all_regular_members_independently_hashed": 14,
+      "source_snapshot_raw_SHA256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+      "sessions": [
+        {
+          "label": "generated-escape",
+          "status": "PASSED_ACTUAL_GENERATED_ESCAPE",
+          "phase_trace": [
+            [
+              "started",
+              "preload"
+            ],
+            [
+              "preload",
+              "preload"
+            ],
+            [
+              "generate",
+              "generate"
+            ],
+            [
+              "validate",
+              "validate"
+            ],
+            [
+              "ready",
+              "ready"
+            ],
+            [
+              "committed",
+              "committed"
+            ],
+            [
+              "source_closed",
+              "committed"
+            ],
+            [
+              "source_closed",
+              "committed"
+            ]
+          ],
+          "inputs": [
+            {
+              "action": "d180",
+              "begin_epoch_ms": 1793694996076.2314,
+              "end_epoch_ms": 1793694996314.1223
+            },
+            {
+              "action": "a180",
+              "begin_epoch_ms": 1793695020665.5896,
+              "end_epoch_ms": 1793695020902.6023
+            },
+            {
+              "action": "actual-Escape-after-committed",
+              "begin_epoch_ms": 1793695044888.2993,
+              "end_epoch_ms": 1793695045484.8733
+            }
+          ],
+          "classified_error_counts": {
+            "page_errors": 0,
+            "request_failures": 0,
+            "http_errors": 0,
+            "parse_errors": 0,
+            "script_errors": 0
+          },
+          "retained_console_diagnostics": [
+            {
+              "type": "error",
+              "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+            },
+            {
+              "type": "error",
+              "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread"
+            },
+            {
+              "type": "warning",
+              "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+            }
+          ],
+          "close": {
+            "epoch_ms": 1793695045196.1895,
+            "value": {
+              "audio_released": true,
+              "event": "closed",
+              "lifetime_active": false,
+              "stage_detached": true
+            }
+          },
+          "cleanup_before_menu": true,
+          "context_closed": true
+        },
+        {
+          "label": "cancel-generate",
+          "status": "FAILED",
+          "phase_trace": [
+            [
+              "started",
+              "preload"
+            ],
+            [
+              "preload",
+              "preload"
+            ]
+          ],
+          "inputs": [],
+          "classified_error_counts": {
+            "page_errors": 0,
+            "request_failures": 0,
+            "http_errors": 0,
+            "parse_errors": 0,
+            "script_errors": 0
+          },
+          "retained_console_diagnostics": [],
+          "close": null,
+          "cleanup_before_menu": null,
+          "context_closed": true
+        }
+      ]
+    },
+    "gears-actual-01": {
+      "decision": "ACCEPT_NARROW_INDEPENDENT_CASE",
+      "original_status": "PASSED_04_GEARS_INITIAL_SPAWN_MECHANISM_MOTION_AND_ESCAPE",
+      "elapsed_seconds": 230.32292542100186,
+      "budget_seconds": 300,
+      "driver_SHA256": "112c62449312246ac3a600a1dd3b690ce8a1cf32ef5517ce0be014b8c8b036f0",
+      "report_SHA256": "cbd66085dc524fbed94ac528260e331c4f93b8ea15a70452ac4fda757ffc0c9d",
+      "summary_SHA256": "44fc5932ef6a1bf03c67ef1364b77701270e3db8c09cfdb4dfde3cdf792705c6",
+      "archive_SHA256": "76036f633ba370eee423a16dee2ea0901400f7744fea631c0c2e337f43d3e135",
+      "archive_bytes": 5491936,
+      "raw_members_verified": 10,
+      "all_regular_members_independently_hashed": 20,
+      "source_snapshot_raw_SHA256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+      "sessions": [
+        {
+          "label": "gears-escape",
+          "status": "PASSED_ACTUAL_04_GEARS_INITIAL_SPAWN_MECHANISM_MOTION_AND_ESCAPE",
+          "phase_trace": [
+            [
+              "started",
+              "preload"
+            ],
+            [
+              "preload",
+              "preload"
+            ],
+            [
+              "generate",
+              "generate"
+            ],
+            [
+              "validate",
+              "validate"
+            ],
+            [
+              "ready",
+              "ready"
+            ],
+            [
+              "committed",
+              "committed"
+            ],
+            [
+              "source_closed",
+              "committed"
+            ],
+            [
+              "source_closed",
+              "committed"
+            ]
+          ],
+          "inputs": [
+            {
+              "action": "actual-Escape-after04-gears-observation",
+              "begin_epoch_ms": 1793695714440.0977,
+              "end_epoch_ms": 1793695714688.9707
+            }
+          ],
+          "classified_error_counts": {
+            "page_errors": 0,
+            "request_failures": 0,
+            "http_errors": 0,
+            "parse_errors": 0,
+            "script_errors": 0
+          },
+          "retained_console_diagnostics": [
+            {
+              "type": "error",
+              "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+            },
+            {
+              "type": "error",
+              "text": "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread"
+            },
+            {
+              "type": "warning",
+              "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+            }
+          ],
+          "close": {
+            "epoch_ms": 1793695714723.352,
+            "value": {
+              "audio_released": true,
+              "event": "closed",
+              "lifetime_active": false,
+              "stage_detached": true
+            }
+          },
+          "cleanup_before_menu": true,
+          "context_closed": true
+        }
+      ]
+    },
+    "targeted-cancel-diagnostic-01": {
+      "decision": "ACCEPT_NARROW_INDEPENDENT_CASE",
+      "original_status": "PASSED_TARGETED_MISSING_GENERATE_CANCELLATION_DIAGNOSTIC_ONLY",
+      "elapsed_seconds": 121.17010732900235,
+      "budget_seconds": 300,
+      "driver_SHA256": "f567894d013cdb6f798ea7c30b4ec9151e249cf3050b249002b935653d70630f",
+      "report_SHA256": "3a22371ddcd29f4f307c98eb269b94bfc83fb1522ee13c44625738dea386067b",
+      "summary_SHA256": "8e465b9d567bdcde949ed5dc97e28728085405e2df4840540bb97207ffe09906",
+      "archive_SHA256": "cb77b0ab5d0214fa91ab040bfa3ee4d28335faadd1db39d0df220009ad905bd0",
+      "archive_bytes": 6333792,
+      "raw_members_verified": 5,
+      "all_regular_members_independently_hashed": 18,
+      "source_snapshot_raw_SHA256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+      "sessions": [
+        {
+          "label": "cancel-generate",
+          "status": "PASSED_ACTUAL_GENERATE_CANCELLATION",
+          "phase_trace": [
+            [
+              "started",
+              "preload"
+            ],
+            [
+              "preload",
+              "preload"
+            ],
+            [
+              "generate",
+              "generate"
+            ],
+            [
+              "source_closed",
+              "cancelled"
+            ],
+            [
+              "source_closed",
+              "cancelled"
+            ]
+          ],
+          "inputs": [
+            {
+              "action": "actual-Escape-during-observed-generate",
+              "begin_epoch_ms": 1793695875689.451,
+              "end_epoch_ms": 1793695876193.45
+            }
+          ],
+          "classified_error_counts": {
+            "page_errors": 0,
+            "request_failures": 0,
+            "http_errors": 0,
+            "parse_errors": 0,
+            "script_errors": 0
+          },
+          "retained_console_diagnostics": [
+            {
+              "type": "error",
+              "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+            },
+            {
+              "type": "warning",
+              "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+            },
+            {
+              "type": "warning",
+              "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+            }
+          ],
+          "close": {
+            "epoch_ms": 1793695875820.1477,
+            "value": {
+              "audio_released": true,
+              "event": "closed",
+              "lifetime_active": false,
+              "stage_detached": true
+            }
+          },
+          "cleanup_before_menu": true,
+          "context_closed": true
+        }
+      ]
+    }
+  },
+  "cross_case_summary": {
+    "path": "/workspace/refactor-evidence/mapgen-host-v2-04/web-browser/independent-cases-summary.json",
+    "SHA256": "5684669f0ea49c168de93e1cd7f31de3b6aefdf561fbd555843277f6355d62e1",
+    "matches_original_case_status_and_budget_results": true,
+    "not_aggregate_green": true
+  },
+  "source_and_pack_custody": {
+    "all_archived_Git_entry_maps_independently_equal_exact_f6_tree": true,
+    "strict_source_files": 35466,
+    "all_source_before_raw_SHA256": "025b886288c27fe188ffe7f20aea5bb5008b9d91aec65f097bb4c9f6d62f3199",
+    "independent_gears_targeted_original_after_source_raw_bytes_equal": true,
+    "independent_case_producer_helper_sets_equal_before_after_and_current56leaves_each": true,
+    "PCK_SHA256": "bd23bbc7cf1fc36d471689c80f7108213e8978372f35c2790333f843a468c21b",
+    "PCK_bytes": 218920072,
+    "PCK_entries": 3655,
+    "full_actual_PCK_independently_hashed": true,
+    "normal18SDK_GD_source_pins_and_unique_nonemptyGDC_export_remaps_checked": true,
+    "actual14data_members_checked_each_independent_case": "5lockedinclconfig/moduleZIP/request930001/config/request930007 +2hostrecipes +7frozen02JSON",
+    "raw_data_SHA_and_bytes_equal_case_readback_and_local_source": true,
+    "sole_ZIP": "resources/mapgen/module-pack-1.1.0.zip",
+    "module_ZIP_SHA256": "5ad5a7871941b2c1ffa759b18f7b1e80f2fe7e571b72f95d1e0ef26031f08723",
+    "no_extra_ZIP_Python_docs_tests_tools_payload": true,
+    "gears_and_targeted_served_before_after_equal_with_expected_f6_pack": true,
+    "native_import_cache_regeneration_not_needed_or_executed": true
+  },
+  "archive_custody": {
+    "all3_archive_full_SHA_size_verified": true,
+    "all21_original_raw_members_match_manifests": true,
+    "all52_regular_members_SHA256_independently_recorded": true,
+    "all38_existing_loose_copies_match_archived_bytes": true,
+    "archive_member_hashes": {
+      "default-actual-03": [
+        {
+          "member": "actual-03/generated-escape-01-committed.png",
+          "bytes": 227998,
+          "SHA256": "51ea986a41a682fe2d2eced5e0e44fe23e964e7a410496d71f028e7f85a0fc2e",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-03/generated-escape-02-after-d.png",
+          "bytes": 213586,
+          "SHA256": "74f5a93f5b4530281a09a75085c4291263a87eb2d192387239a74b9d6b24a567",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-03/generated-escape-03-after-a.png",
+          "bytes": 227246,
+          "SHA256": "63dda336e48a7a77df68dcf63239201ca457daf001b8da09ccc013d6015d7cab",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-03/generated-escape-returned-title.png",
+          "bytes": 1447767,
+          "SHA256": "05e8059dc93598135ac90e90e8f0223077f68b4e00a2376dcbefc23cad555f6c",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-03/report.json",
+          "bytes": 1766166,
+          "SHA256": "59b0a941a448197586fc9dcfd503ff30f215afb08a1af60868bc0a11415d5f12",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-03/source-before.json.gz",
+          "bytes": 1669689,
+          "SHA256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "driver.log",
+          "bytes": 2233,
+          "SHA256": "38af82f5be29b12705ca0c437a584abfe01ae3faa9c527cbeef9c89126d005c2",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "served-index.html",
+          "bytes": 11679,
+          "SHA256": "5f32a136abd11d9c8d7675515ae585b04ee1aadc176fc4322f3671bb8e1c464f",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "producers-and-custody/run.py",
+          "bytes": 26357,
+          "SHA256": "5b8330a8bf5781cf7110a714ee5942588016e4237d7b7a1f43b0fec91937278e",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-custody/stage-local-03.py",
+          "bytes": 2096,
+          "SHA256": "27a15f8ad3211b3f97aa6a81981d9e7b4fa7d62cb338fa97303638df4068b105",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-custody/default-site-receipt-03.json",
+          "bytes": 1143,
+          "SHA256": "5d8c39fd2779fde485bfcaaf1fed3c68862fb602522c5baf25f263c9a96058bf",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-custody/after-timeout-offline-custody-03.json",
+          "bytes": 8330,
+          "SHA256": "480b3255f94ebfc04d2b36d50d6dfa70ea3dbab2a5662cbf9427a60b4f4fc0c9",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-custody/after-timeout-source-offline-03.json.gz",
+          "bytes": 1669689,
+          "SHA256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-custody/server-close-03.json",
+          "bytes": 341,
+          "SHA256": "be02a1575dec575d0405cfe05fdaabc496c21dcc8cd308d74d878b8ead544652",
+          "loose_copy_equal": true
+        }
+      ],
+      "gears-actual-01": [
+        {
+          "member": "actual-01/gears-escape-01-committed.png",
+          "bytes": 85739,
+          "SHA256": "931a328004b7ea1aa9d9f643531e3a73306d73f270b652855401430d5b295095",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/gears-escape-before-escape.png",
+          "bytes": 85401,
+          "SHA256": "f5e1d267a0de0daef562b784315b61bba38fa0e8f3ad028821128e40ab1fca12",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/gears-escape-motion-10p0-clock-seconds.png",
+          "bytes": 86497,
+          "SHA256": "80280655b1563677d3f3de0c4b271f7f4394ac1163df85821ae916ce6661e4eb",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/gears-escape-motion-2p5-clock-seconds.png",
+          "bytes": 85516,
+          "SHA256": "1b4129a6f7ae0c8d53a0c152e11b3a4603c043d5ee954143f63353ecb001cd53",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/gears-escape-motion-5p0-clock-seconds.png",
+          "bytes": 85367,
+          "SHA256": "a3c185af8ec0c951a03a025a33c97dd55a9f568b807359ff20ac6c0ca75c09d5",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/gears-escape-motion-7p5-clock-seconds.png",
+          "bytes": 85682,
+          "SHA256": "b391e5106db2b70f1efbd80199a2f3719b694c9bbd9a69f32ad1d9a8a831defa",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/gears-escape-returned-title.png",
+          "bytes": 1447757,
+          "SHA256": "d635c7039ca6991fc7d87b69c2595509e7ef711d844b3d9edeeabeb88569c830",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/report.json",
+          "bytes": 1715683,
+          "SHA256": "cbd66085dc524fbed94ac528260e331c4f93b8ea15a70452ac4fda757ffc0c9d",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/source-after.json.gz",
+          "bytes": 1669689,
+          "SHA256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "actual-01/source-before.json.gz",
+          "bytes": 1669689,
+          "SHA256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "driver.log",
+          "bytes": 224,
+          "SHA256": "aadbb23152339e4960b9c756d25dc848909f4b34e1f1bce147c0a42f0f8a992e",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "site-identity/index.html",
+          "bytes": 11673,
+          "SHA256": "4e173304b9d036360f726731fff20791dd3c61bd819942816762287773598c5e",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "site-identity/build-info.json",
+          "bytes": 986,
+          "SHA256": "a71a48789d40bf1acfc86aa550d98f97a5001be500cfc54e7c3e7b62d51acb18",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "site-identity/build_report.json",
+          "bytes": 118861,
+          "SHA256": "aaed3a56554e1630b4596ba7029f32027ffa1835b1f61de5216eaad7dce09eff",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "site-identity/index.cache-sw.js",
+          "bytes": 111458,
+          "SHA256": "c697114a6aadefc79d70ac521ab8fda155d63215e698740a55131106eced5956",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "producers-and-expectations/run.py",
+          "bytes": 29411,
+          "SHA256": "112c62449312246ac3a600a1dd3b690ce8a1cf32ef5517ce0be014b8c8b036f0",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/gears-original-site-receipt-01.json",
+          "bytes": 1141,
+          "SHA256": "887b27afdd4d6c6ccf50d24fddefa05c20d08af704003d8fed0664843d0b882a",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/stage-gears-original-01.py",
+          "bytes": 2094,
+          "SHA256": "093fc5df8d25ae519b13757ee1027c25ebdbb8c29faa5962776800cd81303d9d",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/gears.json",
+          "bytes": 1267,
+          "SHA256": "5f1f8a852192b4af0d8f7122566b66ceebe9d3532d2a45239541a4e0657a314f",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/independent-cases-server-close.json",
+          "bytes": 365,
+          "SHA256": "a59f5db35823d7bc2c305cdd91ec8c9ef8969e330bbd882464d10c4c0315603d",
+          "loose_copy_equal": true
+        }
+      ],
+      "targeted-cancel-diagnostic-01": [
+        {
+          "member": "actual-01/cancel-generate-01-after-cancel-key.png",
+          "bytes": 1447767,
+          "SHA256": "05e8059dc93598135ac90e90e8f0223077f68b4e00a2376dcbefc23cad555f6c",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/cancel-generate-returned-title.png",
+          "bytes": 1447275,
+          "SHA256": "6ebf15f2fd7b4e832b07dd7e8820cbcb9e05ecfb9ad12feb36fbb74867ee980e",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/report.json",
+          "bytes": 35083,
+          "SHA256": "3a22371ddcd29f4f307c98eb269b94bfc83fb1522ee13c44625738dea386067b",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "actual-01/source-after.json.gz",
+          "bytes": 1669689,
+          "SHA256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "actual-01/source-before.json.gz",
+          "bytes": 1669689,
+          "SHA256": "b5e377cdd10acaa0f8908e1da71f1e1bc8b3aba79325a3c99ae5bbce900908e0",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "driver.log",
+          "bytes": 67,
+          "SHA256": "bc687df692c8adebb0ebdb498459ab6b538409605d1a812c7f451a3c70c8e098",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "site-identity/index.html",
+          "bytes": 11679,
+          "SHA256": "5f32a136abd11d9c8d7675515ae585b04ee1aadc176fc4322f3671bb8e1c464f",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "site-identity/build-info.json",
+          "bytes": 986,
+          "SHA256": "a71a48789d40bf1acfc86aa550d98f97a5001be500cfc54e7c3e7b62d51acb18",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "site-identity/build_report.json",
+          "bytes": 118861,
+          "SHA256": "aaed3a56554e1630b4596ba7029f32027ffa1835b1f61de5216eaad7dce09eff",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "site-identity/index.cache-sw.js",
+          "bytes": 111458,
+          "SHA256": "c697114a6aadefc79d70ac521ab8fda155d63215e698740a55131106eced5956",
+          "loose_copy_equal": null
+        },
+        {
+          "member": "producers-and-expectations/cancel_only_diagnostic.py",
+          "bytes": 26545,
+          "SHA256": "f567894d013cdb6f798ea7c30b4ec9151e249cf3050b249002b935653d70630f",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/default-cancel-diagnostic-site-receipt-01.json",
+          "bytes": 1161,
+          "SHA256": "b47c77bc10ec9fa91d7cee81113e093bbec520aa0df9c1422d96f8566034a01b",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/stage-cancel-diagnostic-01.py",
+          "bytes": 2117,
+          "SHA256": "14c4b88cd6634ec2eefbb7d1aa8197160941072363f12690767e4ad06c6e1550",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/default.json",
+          "bytes": 1081,
+          "SHA256": "7659b4e0ad082c6fb34a57abf617e5006aa206e88bd7625e0c9aa15a2115184b",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/independent-cases-server-close.json",
+          "bytes": 365,
+          "SHA256": "a59f5db35823d7bc2c305cdd91ec8c9ef8969e330bbd882464d10c4c0315603d",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/cancel-only-exact.diff",
+          "bytes": 3522,
+          "SHA256": "d8dfd7447aa81b79a0c12fa6d45185f8614d235c89db50fff846ddc4b81adbf3",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/cancel-only-review.json",
+          "bytes": 4139,
+          "SHA256": "245607ed9af5527ec43afba85774b3d4b634a187de32ac9243b29f4d3e6dec05",
+          "loose_copy_equal": true
+        },
+        {
+          "member": "producers-and-expectations/cancel-only-cli.txt",
+          "bytes": 736,
+          "SHA256": "0cb433155b328fdad0b763ac792301e9285b0b4c796ded568b74bc863f8d1f9b",
+          "loose_copy_equal": true
+        }
+      ]
+    }
+  },
+  "images": [
+    {
+      "case": "default-actual-03",
+      "file": "generated-escape-returned-title.png",
+      "bytes": 1447767,
+      "SHA256": "05e8059dc93598135ac90e90e8f0223077f68b4e00a2376dcbefc23cad555f6c",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "default-actual-03",
+      "file": "generated-escape-03-after-a.png",
+      "bytes": 227246,
+      "SHA256": "63dda336e48a7a77df68dcf63239201ca457daf001b8da09ccc013d6015d7cab",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "default-actual-03",
+      "file": "generated-escape-02-after-d.png",
+      "bytes": 213586,
+      "SHA256": "74f5a93f5b4530281a09a75085c4291263a87eb2d192387239a74b9d6b24a567",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "default-actual-03",
+      "file": "generated-escape-01-committed.png",
+      "bytes": 227998,
+      "SHA256": "51ea986a41a682fe2d2eced5e0e44fe23e964e7a410496d71f028e7f85a0fc2e",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-returned-title.png",
+      "bytes": 1447757,
+      "SHA256": "d635c7039ca6991fc7d87b69c2595509e7ef711d844b3d9edeeabeb88569c830",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-before-escape.png",
+      "bytes": 85401,
+      "SHA256": "f5e1d267a0de0daef562b784315b61bba38fa0e8f3ad028821128e40ab1fca12",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-motion-10p0-clock-seconds.png",
+      "bytes": 86497,
+      "SHA256": "80280655b1563677d3f3de0c4b271f7f4394ac1163df85821ae916ce6661e4eb",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-motion-7p5-clock-seconds.png",
+      "bytes": 85682,
+      "SHA256": "b391e5106db2b70f1efbd80199a2f3719b694c9bbd9a69f32ad1d9a8a831defa",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-motion-5p0-clock-seconds.png",
+      "bytes": 85367,
+      "SHA256": "a3c185af8ec0c951a03a025a33c97dd55a9f568b807359ff20ac6c0ca75c09d5",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-motion-2p5-clock-seconds.png",
+      "bytes": 85516,
+      "SHA256": "1b4129a6f7ae0c8d53a0c152e11b3a4603c043d5ee954143f63353ecb001cd53",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "gears-actual-01",
+      "file": "gears-escape-01-committed.png",
+      "bytes": 85739,
+      "SHA256": "931a328004b7ea1aa9d9f643531e3a73306d73f270b652855401430d5b295095",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "targeted-cancel-diagnostic-01",
+      "file": "cancel-generate-returned-title.png",
+      "bytes": 1447275,
+      "SHA256": "6ebf15f2fd7b4e832b07dd7e8820cbcb9e05ecfb9ad12feb36fbb74867ee980e",
+      "actually_viewed_original": true
+    },
+    {
+      "case": "targeted-cancel-diagnostic-01",
+      "file": "cancel-generate-01-after-cancel-key.png",
+      "bytes": 1447767,
+      "SHA256": "05e8059dc93598135ac90e90e8f0223077f68b4e00a2376dcbefc23cad555f6c",
+      "actually_viewed_original": true
+    }
+  ],
+  "default03_partial_only": {
+    "status_remains_FAILED": true,
+    "second_context_only_started_preload": true,
+    "second_context_no_inputs_or_host_observations": true,
+    "original_source_producer_afterguards_timed_out": true,
+    "original_served_after_not_run": true,
+    "offline_custody_separate_not_budgetPASS": true,
+    "no_more_default_retry_in_this_authorization": true,
+    "first_context_actual_output": {
+      "connections": 58,
+      "content_entries": 46,
+      "instances": 46,
+      "request_fingerprint": "13f7f7f480168da132e64f478919450ca8bbe179e6614b9f30b5d0ac31c65772",
+      "seed": 930001,
+      "status": "PASS"
+    },
+    "first_context_spawn": [
+      200,
+      1102
+    ],
+    "first_context_host_identity": "0e6dea7c145ea2ab983b48189ffaaeb78f2797a7d6cf93254745500abddf9b1b",
+    "first_context_real_DA_deltas": [
+      56.333251953125,
+      -51.999938964844006
+    ],
+    "first_context_ESC_Title_only_partial_evidence": true
+  },
+  "gears_acceptance_scope": {
+    "actual_output": {
+      "connections": 55,
+      "content_entries": 43,
+      "instances": 43,
+      "request_fingerprint": "deee1d69cc42840dfc5fae6648e8fc72f016dc2a450da53c94b787d30018f485",
+      "seed": 930007,
+      "status": "PASS"
+    },
+    "actual_spawn": [
+      474,
+      974
+    ],
+    "host_load_identity": "6f1a6e262a765aa4025fafcedc683fd3f10161234d747f0d6675b16776f4cf3f",
+    "map_content_identity": "c652943fe8e5e50c2b21242cc09530228a12d1a7fbfb08975977da5a4e835d97",
+    "actual_hook_enabled": false,
+    "mechanism_ids": [
+      "ascent_0",
+      "ascent_1",
+      "relay_gear"
+    ],
+    "shared_clock": true,
+    "source_clock": [
+      37.1333333333325,
+      47.6333333333319
+    ],
+    "source_clock_seconds": 10.499999999999396,
+    "wall_seconds": 10.480328802994336,
+    "samples": 22,
+    "motion_displacements": {
+      "ascent_0": 331.058907144937,
+      "ascent_1": 358.4689665786984,
+      "relay_gear": 478.516357421875
+    },
+    "static_hazard_observed": [
+      {
+        "enabled": true,
+        "fall_plane": true,
+        "id": "runtime_map_static_0",
+        "rect": [
+          428.0,
+          1042.0,
+          912.0,
+          40.0
+        ],
+        "shared_policy": true
+      }
+    ],
+    "real_ESC_cleanup_Title_and_all_normal_guards_within300": true,
+    "crop": "Second ferry appears only as upper/right clipping in some originals; no simultaneous full view of both ferries. DEEP DROP visible; no complete painted full-width hazard band. Rect/flags come from passive actual Stage observations.",
+    "not_physical_ferry_ride_route_or_browser_damage_proof": true
+  },
+  "targeted_acceptance_scope": {
+    "exact_final_status": "PASSED_TARGETED_MISSING_GENERATE_CANCELLATION_DIAGNOSTIC_ONLY",
+    "original_driver5b833_unchanged": true,
+    "diagnostic_driver_f567_four_hunk_source_review_referenced": "/tmp/mapgen-v4-targeted-cancel-driver-independent-review.json",
+    "real_generate_Escape_no_committed_loaded_physics": true,
+    "close_before_Title_and_all_normal_guards_within300": true,
+    "both_actual_PNGs_show_already_returned_Title": true,
+    "no_generation_completion_spawn_or_movement_certification": true,
+    "does_not_extend_split_or_replace_default_aggregate_budget": true
+  },
+  "diagnostics_policy": {
+    "classified_page_script_parse_request_failure_HTTP_error_arrays_empty": true,
+    "retained_console_errors_and_warnings_in_case_sessions": true,
+    "default_first_and_gears": "favicon404 +Emscripten main-thread-blocking console errors +oneAudioContext autoplay warning each",
+    "targeted": "favicon404 console error +twoAudioContext autoplay warnings",
+    "not_global_zero_errors_or_performance_acceptance": true,
+    "all4_selected_contexts_and3browsers_closed": true,
+    "browser_environment": "local Chromium154.0.8037.57 headless SwiftShader/WebGL2 at1280x720,not physical phone"
+  },
+  "PR_recommendation": {
+    "state": "Draft/Review; controlled implementation and evidence are reviewable,do not mark complete/merge-ready on these Web partial results",
+    "suggested_title": "mapgen: integrate SDK0.4 controlled loading slices; preserve Web aggregate block",
+    "description": "Pinned original0.4SDK,actual recipe selection and one existing player/services/physics chain. f6 targeted12native/tool passes and PCKbd23 byte closure. Independent gears230.323s and targetedcancel121.170s pass their own300s guards. Original twofresh default300s failedactual02/03 insecondpreload and remainsG4/overalltechnicalFAILED; offline custody and separate cases do not replace it.",
+    "preserve_03_baseline_and_all_failed_artifacts": true,
+    "no_PASSED_prefix_aggregation": true
+  },
+  "precise_residuals": [
+    "Original full default twofresh300s protocol is still failed; secondcontext generate-cancel and normalafterguards were not completed within that same round. No more default retry here.",
+    "Old4ms generic rejection actual01 still lacks originalSDKstatus; do not inferBUDGET from walltime or later known budget1counterexample.",
+    "All109/110 inventory rows remainUNVERIFIED_CURRENT_HOST; permission semantics/fullmap/reward/Boss/othermechanism support not certified.",
+    "Gears fullroute,physical rides,browser damage and complete visual coverage not certified; native saw uses explicit relocation and0.7onlypulse scheduling.",
+    "12 targeted checks are not full178CI; soft8/default128 are not hard8/16ms,FPS or mobile guarantees.",
+    "G4/overalltechnicalbudget must remain failed; G0/G1 acceptance stays boundednative scope. Phone,userG5/fullvisual/fullmap and zero-resource-leak certification absent.",
+    "External map-edit producer extension remains a development patch without upstream acceptance; no additional production feature granted by next-mechanism plan."
+  ],
+  "old_failure_custody_rechecked": {
+    "actual02_archive_SHA256": "bdd0ef3d37c7ddb9b4133a9d0f1daf03172913e480d25976631bfefc7be9421e",
+    "actual02_raw_report_SHA256": "b3b7a3874fa83f874c46f96f66544d3d83747a08c77c36808fad7fe46f9b7135",
+    "old4ms_pack_path": "/tmp/mapgen-v4-audit/web-failed-4ms-preserved/index.26956c9830ce.pck",
+    "old4ms_pack_SHA256": "26956c9830ce12e544eb9cc54ca732fa58b8187f1d347940cc2c479c4420c84d",
+    "old4ms_pack_bytes": 218919752,
+    "old4ms_metadata_source": "d4e17def6848dc75b9c6037436dee86ecc874cbc",
+    "independently_rehashed_now": true
+  }
+}

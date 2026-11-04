@@ -1,0 +1,38 @@
+{
+  "record_kind": "Collected existing actual command outputs, not a new execution or final CI result",
+  "source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+  "content_version": "host-sdk-041-windchime-r1",
+  "actual_commands": [
+    {
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains python3 tools/build.py web",
+      "exit_code": 0,
+      "original_stdout_file": "/tmp/gunman-rush-mapgen-041/build/mapgen041/web-export-03.log",
+      "original_stdout_sha256": "0080d95e3ec2a5ce764b84b459bc3788fde8dd8f366379a28bc0126499060dbb",
+      "observed": "Actual export_exit_code0 under locked4.7.2; current-source build-info and real PCK."
+    },
+    {
+      "command": "python3 tools/check_web_bundle.py build/web",
+      "exit_code": 0,
+      "original_stdout_file": "/tmp/gunman-rush-mapgen-041/build/mapgen041/web-bundle-03.log",
+      "original_stdout_sha256": "76ab8f03c878fdba10b47417cdc1505673c0e6b0b0f32a9b4dfa8f28b299e48a",
+      "observed": "Actual failed0, 19SDK script pins, exact moduleZIP and required JSON/source bindings read from PCK."
+    }
+  ],
+  "pack_sha256": "e49853f58481a79a4fe50b696a257209a26b86742038b9857756d4da3d098ec9",
+  "pack_bytes": 220414276,
+  "native_results_reused_with_unchanged_relevant_source": [
+    "frozen3 199/0",
+    "generated3 58/0",
+    "gears 73/0 and provider80/0",
+    "complete generated start60/0,provider35/0,real-content fixture100/0",
+    "identity81/0",
+    "generationjob1005/0"
+  ],
+  "source_custody": "coverage/native-source-custody.json",
+  "related_test_fix_review": "review-final-ci-fixture/review-after-fix.md",
+  "limits": [
+    "This is bounded local affected-check/export/PCK acceptance, not final exact-head full179 or4.43GB artifact-cycle acceptance.",
+    "No fresh native relabelling: original captures/source fields retained with independently reviewed source compatibility.",
+    "No ordinary departure,neighbor/full-map,device/FPS/user acceptance."
+  ]
+}

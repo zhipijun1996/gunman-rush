@@ -1,0 +1,316 @@
+{
+  "status": "REJECT_ACTUAL04_GENERATION_FAILURE",
+  "source": "d4e17def6848dc75b9c6037436dee86ecc874cbc",
+  "url": "http://127.0.0.1:8819/",
+  "pack_sha256": "26956c9830ce12e544eb9cc54ca732fa58b8187f1d347940cc2c479c4420c84d",
+  "pack_bytes": 218919752,
+  "driver_exit_code": 1,
+  "driver_status": "FAILED",
+  "elapsed_seconds": 185.364907701005,
+  "original_budget_seconds": 300,
+  "not_driver_total_timeout": true,
+  "source_failure": "generation did not produce a completed PASS result",
+  "phase_trace": [
+    {
+      "epoch_ms": 1793692722602.1836,
+      "value": {
+        "actual_hook_enabled": false,
+        "closed": false,
+        "error": "",
+        "event": "started",
+        "phase": "preload",
+        "profile": "conformance",
+        "ready": false,
+        "source_kind": "generated_memory"
+      }
+    },
+    {
+      "epoch_ms": 1793692722692.3567,
+      "value": {
+        "actual_hook_enabled": false,
+        "closed": false,
+        "error": "",
+        "event": "preload",
+        "phase": "preload",
+        "profile": "conformance",
+        "ready": false,
+        "source_kind": "generated_memory"
+      }
+    },
+    {
+      "epoch_ms": 1793692771287.277,
+      "value": {
+        "actual_hook_enabled": false,
+        "closed": false,
+        "error": "",
+        "event": "generate",
+        "phase": "generate",
+        "profile": "conformance",
+        "ready": false,
+        "source_kind": "generated_memory"
+      }
+    },
+    {
+      "epoch_ms": 1793692863669.1267,
+      "value": {
+        "actual_hook_enabled": false,
+        "closed": false,
+        "error": "",
+        "event": "validate",
+        "phase": "validate",
+        "profile": "conformance",
+        "ready": false,
+        "source_kind": "generated_memory"
+      }
+    },
+    {
+      "epoch_ms": 1793692863806.8074,
+      "value": {
+        "actual_hook_enabled": false,
+        "closed": false,
+        "error": "",
+        "event": "failed",
+        "phase": "failed",
+        "profile": "conformance",
+        "ready": false,
+        "source_kind": "generated_memory"
+      }
+    },
+    {
+      "epoch_ms": 1793692863808.532,
+      "value": {
+        "actual_hook_enabled": false,
+        "closed": false,
+        "error": "generation did not produce a completed PASS result",
+        "event": "failed",
+        "phase": "failed",
+        "profile": "conformance",
+        "ready": false,
+        "source_kind": "generated_memory"
+      }
+    }
+  ],
+  "phase_event_wall_milliseconds": {
+    "started_to_generate": 48685.093505859375,
+    "generate_to_validate": 92381.849609375,
+    "generate_to_failed": 92521.2548828125
+  },
+  "wall_interval_not_root_cause_proof": true,
+  "source_root_tracked_files": 35466,
+  "source_stable": true,
+  "producer_pack_helpers_stable": true,
+  "served_before": {
+    "identity": {
+      "source_commit": "d4e17def6848dc75b9c6037436dee86ecc874cbc",
+      "build_id": "26956c9830ce",
+      "pack": "index.26956c9830ce.pck",
+      "pack_sha256": "26956c9830ce12e544eb9cc54ca732fa58b8187f1d347940cc2c479c4420c84d",
+      "pack_bytes": 218919752
+    },
+    "html_sha256": "c29705cfe5da93c2b5fe804fbc92e76ac960e8c2a78e88046801af8d1951ac7b",
+    "launch_flags": [
+      "--",
+      "--cloud-preview",
+      "--task=MAPGEN-GODOT-04",
+      "--seed=930001",
+      "--entry=scene",
+      "--scene=res://experiments/generation/runtime_map_generated_slice.tscn"
+    ]
+  },
+  "served_after_not_run_due_to_failure": true,
+  "native_document_availability_difference": "Native root reported35586 including untracked documentation; Browser original strict-clean SourceRoot verifies35466 tracked/source-index files. Root moved only untracked docs to /tmp/mapgen-v4-docs-wip, recorded externally; do not claim identical full-source vector counts. Runtime/tools are exact d4e Git source.",
+  "browser_closed": true,
+  "context_closed": true,
+  "local_servers_stopped": [
+    {
+      "pid": 128873,
+      "args": "python3 tools/mobile_web_perf/serve_coi.py --directory /tmp/mapgen-v4-web/gears-site --port 8820",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 128876,
+      "args": "python3 tools/mobile_web_perf/serve_coi.py --directory /tmp/mapgen-v4-web/default-site --port 8819",
+      "signal": "SIGTERM"
+    }
+  ],
+  "committed": "NOT_REACHED",
+  "loaded_position_identity": "NOT_RUN",
+  "real_D_A_input": "NOT_RUN",
+  "scene_ESC_cleanup_and_Title": "NOT_RUN",
+  "second_fresh_context_generate_cancel": "NOT_RUN",
+  "gears_scene": "NOT_RUN_STOPPED_AFTER_DEFAULT_FAILURE",
+  "page_errors": [],
+  "request_failures": [],
+  "http_errors": [],
+  "parse_errors": [],
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "location": {
+        "url": "http://127.0.0.1:8819/favicon.ico",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "epoch_ms": 1793692684282.4521
+    },
+    {
+      "type": "log",
+      "text": "Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692713239.9001
+    },
+    {
+      "type": "log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692713592.5728
+    },
+    {
+      "type": "log",
+      "text": "Build configuration: Emscripten 4.0.20, multi-threaded, no GDExtension support.",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692714074.2524
+    },
+    {
+      "type": "log",
+      "text": "CLOUD PREVIEW: MAPGEN-GODOT-04 entry=scene persistence=false seed=930001",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692721939.8274
+    },
+    {
+      "type": "log",
+      "text": "MAPGEN_RUNTIME {\"actual_hook_enabled\":false,\"closed\":false,\"error\":\"\",\"event\":\"started\",\"phase\":\"preload\",\"profile\":\"conformance\",\"ready\":false,\"source_kind\":\"generated_memory\"}",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692722602.1836
+    },
+    {
+      "type": "log",
+      "text": "CLOUD PREVIEW: standalone scene=res://experiments/generation/runtime_map_generated_slice.tscn",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692722604.1353
+    },
+    {
+      "type": "log",
+      "text": "MAPGEN_RUNTIME {\"actual_hook_enabled\":false,\"closed\":false,\"error\":\"\",\"event\":\"preload\",\"phase\":\"preload\",\"profile\":\"conformance\",\"ready\":false,\"source_kind\":\"generated_memory\"}",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692722692.3567
+    },
+    {
+      "type": "log",
+      "text": "MAPGEN_RUNTIME {\"actual_hook_enabled\":false,\"closed\":false,\"error\":\"\",\"event\":\"generate\",\"phase\":\"generate\",\"profile\":\"conformance\",\"ready\":false,\"source_kind\":\"generated_memory\"}",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692771287.277
+    },
+    {
+      "type": "log",
+      "text": "MAPGEN_RUNTIME {\"actual_hook_enabled\":false,\"closed\":false,\"error\":\"\",\"event\":\"validate\",\"phase\":\"validate\",\"profile\":\"conformance\",\"ready\":false,\"source_kind\":\"generated_memory\"}",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692863669.1267
+    },
+    {
+      "type": "log",
+      "text": "MAPGEN_RUNTIME {\"actual_hook_enabled\":false,\"closed\":false,\"error\":\"\",\"event\":\"failed\",\"phase\":\"failed\",\"profile\":\"conformance\",\"ready\":false,\"source_kind\":\"generated_memory\"}",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692863806.8074
+    },
+    {
+      "type": "log",
+      "text": "MAPGEN_RUNTIME {\"actual_hook_enabled\":false,\"closed\":false,\"error\":\"generation did not produce a completed PASS result\",\"event\":\"failed\",\"phase\":\"failed\",\"profile\":\"conformance\",\"ready\":false,\"source_kind\":\"generated_memory\"}",
+      "location": {
+        "url": "http://127.0.0.1:8819/index.c410089b390c.engine.js",
+        "line": 451,
+        "column": 15,
+        "lineNumber": 451,
+        "columnNumber": 15
+      },
+      "epoch_ms": 1793692863808.532
+    }
+  ],
+  "actual_failure_screenshot_viewed": true,
+  "visual_review": "Actual1280x720 page shows GENERATION FAILED and generation did not produce a completed PASS result, ESC or CANCEL to exit, real CANCEL/EXIT button, preview scene control and build26956c98 footer. No successful world render is claimed.",
+  "raw_file_manifest": {
+    "source-after.json.gz": {
+      "bytes": 1669685,
+      "sha256": "2f9e20e3bf5ecf34217dd9ca8f8f605c7e0fd02c63d97305e973aa8daf28a57e"
+    },
+    "generated-escape-failure-preserved.png": {
+      "bytes": 13448,
+      "sha256": "d65f519fb4b0ef6cfeed8f6b49c613fffd7d6b03fe77cba48595928e80057901"
+    },
+    "source-before.json.gz": {
+      "bytes": 1669685,
+      "sha256": "2f9e20e3bf5ecf34217dd9ca8f8f605c7e0fd02c63d97305e973aa8daf28a57e"
+    },
+    "report.json": {
+      "bytes": 31472,
+      "sha256": "3362723f77b5d3bd5c8f281855cad15fccbff1fc9aeb49f2e88ab9ca4abe385a"
+    }
+  },
+  "archive_sha256": "6dcf4098d7ab3114a1bda24f1b6448d657c2f23d4a72ff70e03c678a3413d373",
+  "archive_bytes": 3369559,
+  "archive_every_raw_member_verified": 4,
+  "scope": "One actual default Web failure, unchanged algorithm/config/host scheduling/300s, no retry/state injection. Browser/native leases released before external archival. No gears/browser-input/cancel/spawn/performance/full-map/user approval signed."
+}

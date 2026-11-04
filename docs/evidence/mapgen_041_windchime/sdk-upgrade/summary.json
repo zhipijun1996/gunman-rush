@@ -1,0 +1,71 @@
+{
+  "status": "PURE_INSTALLATION_VERIFIED_ENGINE_PENDING",
+  "baseline_commit": "9ba7d4b64b939f80168a3d7d1ef08fd32a5b6be8",
+  "delivery_commit": "c35871446cc0a3939e1a38171435f42cdc64a359",
+  "actual_source_commit": "8eefdbd140ce10defe1570ab8eefb6729382f8b3",
+  "archive_sha256": "f5c84e5e51dff01d16429783b957c0d5214056b9d2fea47a830baac12ecedb4e",
+  "archive_bytes": 3608539,
+  "lock_sha256": "b4c93a5043c1dbe2535f81a5c814bcc1f437e1cf2023d7c37c59c4874fa8a971",
+  "old_explicit_verify": {
+    "exit_code": 0,
+    "gd_files": 18,
+    "leaves": 23,
+    "receipt": "old-040-verify.json"
+  },
+  "new_explicit_verify": {
+    "exit_code": 0,
+    "gd_files": 19,
+    "leaves": 24,
+    "receipt": "new-041-verify.json"
+  },
+  "original_archive_upgrade": {
+    "exit_code": 0,
+    "receipt": "upgrade-040-to-041.json",
+    "from": {
+      "version": "0.4.0",
+      "config_sha256": "09c2c213e1d0311a0d8417595201c262d3ab32dca23616b779e30d2ca5dffb62"
+    },
+    "installed": [
+      "addons/mapgen/derived_library.gd"
+    ],
+    "replaced": [
+      "addons/mapgen/candidate_cursor.gd",
+      "addons/mapgen/generation_job.gd",
+      "addons/mapgen/preload_job.gd",
+      "addons/mapgen/protocol.gd",
+      "addons/mapgen/solver.gd",
+      "config/mapgen_candidate.json"
+    ]
+  },
+  "unchanged_original_data": [
+    "resources/mapgen/module-pack-1.1.0.zip",
+    "resources/mapgen/conformance_request.json",
+    "resources/mapgen/generator_config.json",
+    "resources/mapgen/gears_request_930007.json"
+  ],
+  "pure_tests": {
+    "original_methods_retained": 31,
+    "new_methods": 5,
+    "total": 36,
+    "failed": 0,
+    "direct_log": "installer-tests-attempt01.log",
+    "wrapper_log": "check-installation.log",
+    "wrapper_exit_code": 0
+  },
+  "runtime_changes": "Upstream original19GD only; hostJob admission0.4.1; no solver/source modifications",
+  "upstream_expected_not_host_observed": {
+    "930001_fingerprint": "f1d24aa1d5d8f3087202b3e933708d4f42a74cb1465947413e40e5037391caf8",
+    "930007_fingerprint": "84d94b05e86a00a507ef0de8cac9f407a6dbd9dd7662a505ac182402c8ead918",
+    "930001_expanded": 87175,
+    "930007_expanded": 88856
+  },
+  "godot_run_by_this_agent": false,
+  "remaining_host_consumers": [
+    "Provider implementation/version admission (root)",
+    "generated_slice loading text(root)",
+    "runtime_map_generated_identity_runner identity/future-version rejection/root old040 restore fixture",
+    "runtime_map_generation_job_runner GOLDEN_GEARS_MAP_CONTENT needs actual new native digest",
+    "MainGodot native/basic/actual930001/930007 generation and old040 restore rejection",
+    "Actual Web19dependency PCK readback/twofresh/controlledslice/gears/clock and fresh visual review"
+  ]
+}

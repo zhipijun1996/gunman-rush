@@ -1,0 +1,19 @@
+# f6 coverage source refresh — independent incremental review
+
+**Accept the new frozen inventory/source refresh only. All host compatibility rows remain unverified.** I checked bytes,actual native custody and strict typed recursive differences; I did not rerun the producer,generation,engine or browser and wrote no project/frozen-input files.
+
+New freeze `/tmp/mapgen-v4-actual-coverage-8ms/freeze.json` SHA `d185ca6659f50b5a4b9ee2afc7b3432817ffb8f3287cc5e0d13ef3ebc11de42a` names exactf6b61ee7026bc4c696d15fa26b09de5ff03be903. Producer remains52e36…and patche5fbf…unchanged. I independently verified every freeze file and reference SHA,including the old d4e freeze,prior independent review,old43-input replay and next-batch plan.
+
+Both seven-role profiles are complete and individually hashed: default lock3bb5357…and gears0517534…. Actual Provider bytes equal the f6 Git leaf. Snapshot's35,466 before/after entries equal the actual final-native-03 raw source files,SHA1ae891952ca1691fe1712be052b8c80f8d52fa7b7a908f660dc69235e1de5175. Embedded validation exactly matches the raw Harness20261103T081248.473219Z report,SHA8068e9375c8949501dc5f23d665a4063f48bd0dc8ab1155b39842543415b3f44,with f6 clean and12 fresh/exit0. I also compared both sets of actual four native files inside Harness artifacts to these new profile inputs: all bytes equal.
+
+## Exact difference from the preserved d4e freeze
+
+I recomputed the recursive diff independently,requiring scalar type/value and array order. **Each raw result changes only `/metrics/generation_seconds`.** Full maps/content_store are equal. Seven-role bytes change exactly result,source_snapshot and validation; provenance,original protocol_payload,host_bindings and Provider bytes remain identical. Original protocol byte SHA still matches provenance/result/map/output fingerprints:13f7f7…default,deee1d…gears. No canonical serializer was reconstructed.
+
+Each table changes only six top-level source/receipt metadata sections,which expand to9 changed leaf values:hostCommit,inputProfile,inputProfileSha256,resultReceiptSha256,validationEvidence,hostSourceSnapshot. Module index,all groups/values,full interface data,actual host binding,original fingerprint,module package,map-gen commit and extraction scope are equal. Thus all previously independently enumerated **109 default/110 gears mechanism objects** remain complete and unchanged,not a reduced selection. Counts remain46instances/58edges/21module versions/13groups and43/55/20/14. Every row is still **UNVERIFIED_CURRENT_HOST**,including mechanisms in the exercised native loading slice.
+
+Author ran two actual positive extractions,exit0 at0.145/0.139s,and re-ran38 refusal cases. I verified their logs/SHA,nonzero exit and absent output. Normalizing only the two input/output root paths makes the new negative runner byte-identical to the prior reviewed script; no negative was dropped or guard weakened. These are source extraction results,not independent engine evidence from this reviewer or full host compatibility certification.
+
+Old d4e freeze56fede…and every original frozen file still match their original SHAs. The old0.3 table,43 exact input replay,10 output byte comparisons and prior independent findings are referenced unchanged,not regenerated or backdated. The old d4e35,586 documentation-inclusive source vector remains a distinct historical record from clean f635,466.
+
+Old4ms Web185.365s generic rejection remains failed with unknown SDK status. New8ms source/native/PCK and these equal geometry results do not establish a browser outcome or hard time limit; current actual-02 browser is outside this review. Permission semantics,numeric materialization equivalence,whole-map/complete mechanism routes,reward/Boss,phone/FPS,user acceptance and upstream producer-patch acceptance remain unsigned.

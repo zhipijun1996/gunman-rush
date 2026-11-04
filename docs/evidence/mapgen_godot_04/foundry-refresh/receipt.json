@@ -1,0 +1,44 @@
+[
+  {
+    "name": "before",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tools/foundry_export_stamp.gd"
+    ],
+    "exit_code": 1,
+    "seconds": 1.468953210998734
+  },
+  {
+    "name": "refresh",
+    "command": [
+      "python3",
+      "-B",
+      "tools/foundry.py",
+      "build",
+      "--count",
+      "24",
+      "--promote"
+    ],
+    "exit_code": 0,
+    "seconds": 54.6301913999996
+  },
+  {
+    "name": "after",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tools/foundry_export_stamp.gd"
+    ],
+    "exit_code": 0,
+    "seconds": 1.5691906409992953
+  }
+]

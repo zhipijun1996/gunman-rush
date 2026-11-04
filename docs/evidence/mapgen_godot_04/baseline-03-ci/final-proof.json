@@ -1,0 +1,99 @@
+{
+  "reviewed_at": "2026-11-03T08:44:29.627812+00:00",
+  "run_id": 41595461174,
+  "attempt": 1,
+  "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41595461174",
+  "head": "3790ee9f0809fd65e08a39e4ff9b9401f2ce94aa",
+  "base": "e7d703f47c97f09bd5c5d48e24f0a400c958ad40",
+  "run_conclusion": "success",
+  "jobs": [
+    {
+      "name": "prepare",
+      "id": 125781655087,
+      "conclusion": "success",
+      "started_at": "2026-11-03T07:18:40Z",
+      "completed_at": "2026-11-03T07:32:47Z"
+    },
+    {
+      "name": "full_checks (parallel)",
+      "id": 125786660754,
+      "conclusion": "success",
+      "started_at": "2026-11-03T07:32:50Z",
+      "completed_at": "2026-11-03T08:20:23Z"
+    },
+    {
+      "name": "full_checks (serial)",
+      "id": 125786660854,
+      "conclusion": "success",
+      "started_at": "2026-11-03T07:32:50Z",
+      "completed_at": "2026-11-03T08:27:58Z"
+    },
+    {
+      "name": "affected",
+      "id": 125807507793,
+      "conclusion": "success",
+      "started_at": "2026-11-03T08:28:01Z",
+      "completed_at": "2026-11-03T08:42:53Z"
+    }
+  ],
+  "manifest_sha256": "a314ace433b05559254f71dc7454332e46aee57d8dfc1e84274e2dcc44c3211c",
+  "full_checks": 178,
+  "parallel": 93,
+  "serial": 85,
+  "passed": 178,
+  "reused": 0,
+  "failed": 0,
+  "all_original_argv_budgets_markers_exit_and_log_hashes_verified": true,
+  "merged_rows_exactly_equal_original_phase_rows": true,
+  "phase_report_hash_chain_verified": true,
+  "full_order_exact": true,
+  "source_inventory_entries": 35450,
+  "all_phase_and_merged_before_after_source_equal": true,
+  "all_phase_and_merged_toolchain_equal": true,
+  "reported_git_status": "",
+  "partial": false,
+  "approval_scope": "selected_profiles_technical",
+  "report_sha256": "fb0536ce274d9ae370297ce4a526f2d7fa95ef348a11645427b265d1882a5415",
+  "phase_wall_seconds": {
+    "parallel": 2036.02,
+    "serial": 2396.886
+  },
+  "aggregate_verification_wall_seconds": 45.856,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "api_digest_verified_artifacts": [
+    {
+      "artifact_id": 13212118796,
+      "name": "production-context-41595461174",
+      "bytes": 9044,
+      "sha256": "86497ac13a9d3b5b7b363c32dbbadeeb954033db71cf2b7b9e2e8b1b24bf20ad",
+      "file": "production-context.zip"
+    },
+    {
+      "artifact_id": 13215261764,
+      "name": "production-phase-proof-parallel",
+      "bytes": 1652485,
+      "sha256": "e8767d509697490348622209e42fa13d3c8e995da44f489d252765c587d7cd91",
+      "file": "phase-parallel.zip"
+    },
+    {
+      "artifact_id": 13215148431,
+      "name": "production-phase-proof-serial",
+      "bytes": 1760119,
+      "sha256": "22e1ddc53c47c8e45df764097b08dcd925be77aa358573202e04bc3479e57df2",
+      "file": "phase-serial.zip"
+    },
+    {
+      "artifact_id": 13216445894,
+      "name": "production-merged-proof-41595461174-1",
+      "bytes": 3584118,
+      "sha256": "419c0d6b73627369c6a44a4dda90dca8a2284c2dc60e76d580e2b0f4ed21cf04",
+      "file": "merged-proof.zip"
+    }
+  ],
+  "limits": [
+    "Original Production impact full178 technical CI only.",
+    "Not merge, deployment, new Web/browser/device or player acceptance.",
+    "No source changes, reruns, workflow dispatches or large media downloads were performed."
+  ]
+}

@@ -1,0 +1,15 @@
+# 独审复核：两个测试修复已接受
+
+本复核接续 `review.md`，保留原 selector54项/4失败原件，不改签旧结果。
+
+当前 `tests/test_production_plan.py` SHA256为454bb66687b3d2f375c5ae911c3b05d3a41ad801ae7097adc2c5fee15f514ce2。已独立执行全部57项：0失败。原54方法的完整body/参数AST逐项与PR130精确9ba7d4比较一致；仅原4个受新尾影响的方法外加显式prior_windchime_profiles适配。它复用原prior_profile_tail严格核实际tail后剥离新consumer，随后继续原M35/generation旧边界检查；没有改旧断言总数、argv、预算或marker。
+
+新增3项分别验证当前179完整注册/输入闭包/93+86双lane唯一覆盖、原226完整check字段及全部profile向量只含显式新风铃和真实旧恢复fixture迁移，以及原strict run_engine/三个真实runner/单一递减240秒预算的通过、缺marker、0检查、非零失败、失效callback、原engine异常/timeout和超预算拒绝。
+
+两项canonical SHA不是凭作者自报接受：审查者自行以git --no-lazy-fetch show读取原9ba提交的真实tools/harness/profiles.json并独立重算，原checks=67330f734a9dd9e3eb6809611cc8e3a143337321d816ceb2f11d2111115ee988，原profiles=18c728ce8ad6adebae9610c26438e80451389ddbdc29e50d61999a16e318c1ef，均与新守门相符。
+
+音频墙钟修正沿前一复核：当前fixtureSHA51fe10328ce976461796b0bde8cf9fdfce6c9565315d1319263013a59846a095，已看root原wrapper真实94/0、50.005ms实际墙钟、9.2688秒、source_stable=true/清理释放，37项原源码SHA独立匹配；原41静态check及6案例均保留。旧93/0的0.111ms墙钟保持原身份。
+
+结论：接受当前两个test-only修复，已解除本审查发现的selector就绪阻断CI-WINDCHIME-PROFILE-TAIL-01及音频墙钟表述问题。输入磁盘45项、工作流4项仍是此前本审查实际通过的同源结果；原始失败与本次复核分别保留。
+
+这不是最终CI验收：实际4.43GB工件峰值、精确最终head完整179+affected以及真实Web/截图仍须各自实际验证。审查者未运行Godot/浏览器，未改被审源码、未stage/commit；只在持久审查目录保存报告和独立Python日志。

@@ -1,0 +1,38 @@
+{
+  "baseline": "42244887a6cacb82a6b3d59f04a933a6eee71e87",
+  "original_test_count": 50,
+  "new_test_count": 56,
+  "original_test_changes": [],
+  "added_tests": [
+    "test_already_available_git_objects_do_not_invoke_blob_writer",
+    "test_cache_import_only_follows_complete_member_and_archive_verification",
+    "test_git_cache_failure_does_not_publish_missing_inputs_or_replace_existing",
+    "test_git_cache_returned_sha_mismatch_is_rejected_before_publication",
+    "test_promisor_restore_populates_verified_blobs_without_index_or_remote_changes",
+    "test_restored_promisor_content_edits_are_visible_to_the_original_git_guard"
+  ],
+  "original_source_function_changes": [
+    "restore_bundle"
+  ],
+  "added_source_functions": [
+    "cache_verified_git_blobs"
+  ],
+  "files": {
+    "tools/cloud_inputs.py": "9c6fa1a33613aabeb11afa31adb25c8e0dbdfb64fa41fb527b0a318576c1d44d",
+    "tests/test_cloud_inputs.py": "2dad730e07080ecb1c1ca6cf3c7465043f9bbea2598414b0c47ade968fe9378d"
+  },
+  "tracked_changed_paths": [
+    "tests/test_cloud_inputs.py",
+    "tools/cloud_inputs.py"
+  ],
+  "protected_unchanged": {
+    "tools/harness.py": true,
+    "tools/harness/profiles.json": true,
+    ".github/workflows/production.yml": true,
+    ".github/workflows/environment.yml": true,
+    ".github/workflows/engine-backport-build.yml": true,
+    ".github/workflows/docs.yml": true,
+    ".github/workflows/deploy-prepared-playtest.yml": true,
+    "tools/production_loop.py": true
+  }
+}

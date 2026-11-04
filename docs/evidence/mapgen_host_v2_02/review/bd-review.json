@@ -1,0 +1,58 @@
+{
+  "task": "MAPGEN-HOST-V2-02",
+  "reviewer": "death_event_audit",
+  "independence": "Non-author of B/D; read-only production audit",
+  "head": "2e0c497cb45e9889495a59ea54b8c93b30014a0b",
+  "scope": [
+    "B protocol permissions",
+    "D actual-data identity, binding identity, record and reload gate",
+    "old assertion retention"
+  ],
+  "verdict": "ACCEPT_STATIC_ONLY",
+  "blocking_findings": [],
+  "production_writes": 0,
+  "engine_executed_by_reviewer": false,
+  "browser_executed_by_reviewer": false,
+  "ci_executed_by_reviewer": false,
+  "files_sha256": {
+    "game/world/levels/providers/runtime_map_v2_provider.gd": "742df62d428542435e5c592544539613c5ff2b1c8e15f450eb58cf10ca8512ae",
+    "experiments/generation/runtime_map_frozen_source.gd": "3f8746a0cbeab2de13fe2a433f1e0dae10d21ae3d4283fd8dd9cc711802a4f3a",
+    "experiments/generation/runtime_map_slice.gd": "9dc2394b08f9d8e6c929b8cd7bc14208ef12ae21e3570a8c4871350e12ea33d4",
+    "resources/levels/mapgen_host_v2_01/bindings.json": "e007a329ec66c9d715f111b4f6044130384b246de0aa0689fdfe6bfcc61f0c00",
+    "resources/levels/mapgen_host_v2_01/input-lock.json": "ffd558cbf10404566715d22cab8ce9c019e8b6274cbe11c3b40eb3be95437b14",
+    "tests/runtime_map_v2_runner.gd": "6c46d4d2e3a5cdc0cd12505e944f95661fd81b2628e96e80b0059f7f945f0c70"
+  },
+  "reference_schema": {
+    "path": "/tmp/mapgen-v202-installed-reference-01/extracted/mapgen-python-reference-0.2.0/schemas/runtime-map.schema.json",
+    "sha256": "adf853cc9b63fd4f732891ebd5e57f7fdae08aa598d46d3b24a63b63e1236b9d",
+    "permission_enum": [
+      "INPUT",
+      "OUTPUT",
+      "INOUT"
+    ]
+  },
+  "old_assertion_lines": {
+    "base": "9e97b553",
+    "occurrences": 32,
+    "all_preserved_exactly": true,
+    "method": "Counter inclusion of trimmed complete check(...) lines; not execution proof"
+  },
+  "binding_lock_matches_actual_bytes": true,
+  "root_log_observed": {
+    "path": "/tmp/mapgen-v202-identity-01.log",
+    "sha256": "463a9fa80a3971468b357efbfa4e4a479e2f858a987e2440be9ea7189044d67b",
+    "marker": "RUNTIME MAP V2 HOST: 194 assertions, 0 failures",
+    "independent_execution": false,
+    "exit_code_attested_by_reviewer": false
+  },
+  "limits": [
+    "Source byte SHA attestations remain caller-trusted at Provider; FrozenSource verifies its fixed members. This is not signature/authenticity verification.",
+    "Only actual loaded instance content refs enter content rows; entire map Dictionary enters map digest. No whole-map content coverage claimed.",
+    "Source is current WIP over noted HEAD; a final SHA change requires a delta review.",
+    "Runtime/Web/CI outcome not independently signed."
+  ],
+  "nonblocking_suggestions": [
+    "Add one sub-6-decimal legal numeric mutation with unchanged supplied SHA, and one Dictionary key-order-only permutation, to exercise full_precision and sort_keys behavior directly."
+  ],
+  "permanent_save_schema_changed": false
+}

@@ -101,7 +101,11 @@ def no_links(root):
 
 
 def validate_scene(scene):
-    if (not isinstance(scene, str) or not scene.startswith('res://scenes/')
+    exact_slices = ('res://experiments/generation/entries/runtime_map_v2_slice.tscn',
+                    'res://experiments/generation/runtime_map_generated_slice.tscn',
+                    'res://experiments/generation/runtime_map_m35_slice.tscn',
+                    'res://experiments/generation/runtime_map_windchime_slice.tscn')
+    if (not isinstance(scene, str) or not (scene.startswith('res://scenes/') or scene in exact_slices)
             or not scene.endswith('.tscn') or '..' in scene or '\\' in scene
             or any(ord(c) < 32 for c in scene)):
         raise ValueError('Scene must be a safe res://scenes/*.tscn path without traversal or backslashes')
@@ -434,7 +438,7 @@ def main():
     stage.add_argument('--pr', type=int)
     stage.add_argument('--seed', required=True)
     stage.add_argument('--entry', choices=('actions', 'menu', 'scene'), default='actions')
-    stage.add_argument('--scene', help='Self-contained res://scenes/*.tscn test scene; requires --entry scene and actual consumer validation')
+    stage.add_argument('--scene', help='Safe scenes/*.tscn or exact runtime_map_v2_slice.tscn entry; requires --entry scene and actual consumer validation')
     stage_video = commands.add_parser('stage-media')
     stage_video.add_argument('--capture-dir', type=Path, required=True)
     stage_video.add_argument('--host-root', type=Path, required=True)

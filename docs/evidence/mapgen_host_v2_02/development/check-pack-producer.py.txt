@@ -1,0 +1,20 @@
+from pathlib import Path
+import sys,json,hashlib,subprocess
+root=Path('/workspace/gunman-rush-refactor');sys.path.insert(0,str(root/'tools'))
+from check_web_bundle import Pack,check_runtime_closure,MAPGEN_FROZEN_ROOT,MAPGEN_FROZEN_MEMBERS
+from cloud_delivery import validate_bundle,inject_entry
+bundle=root/'build/web';scene='res://experiments/generation/entries/runtime_map_v2_slice.tscn'
+info,receipt=validate_bundle(bundle,root,scene=scene);pack=Pack(bundle/info['pack']);rows=[]
+for n in ('input-lock.json',*MAPGEN_FROZEN_MEMBERS):
+ name=MAPGEN_FROZEN_ROOT+n;actual=pack.read(name);expected=(root/name).read_bytes();assert actual==expected;rows.append({'path':name,'bytes':len(actual),'sha256':hashlib.sha256(actual).hexdigest()})
+forbidden=[n for n in pack.entries if n.startswith(('docs/','tools/verify_mapgen_reference')) or n.endswith(('.py','.zip'))];assert not forbidden
+closure=check_runtime_closure(bundle/info['pack'],root)
+report={'source_commit':info['source_commit'],'current_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'build_id':info['build_id'],'pack':info['pack'],'pack_bytes':(bundle/info['pack']).stat().st_size,'pack_sha256':hashlib.sha256((bundle/info['pack']).read_bytes()).hexdigest(),'json':rows,'forbidden_members':forbidden,'runtime_closure':closure,'original_bundle_validated':True,'source_scene_admitted':scene}
+Path('/tmp/mapgen-v202-pack-readback.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({k:v for k,v in report.items() if k not in ['runtime_closure','json']},ensure_ascii=False))
+# Keep canonical build/report untouched. A local-only preview copy uses the
+# original bootstrap injector, exactly as the existing staging tool does.
+import shutil
+staged=Path('/tmp/mapgen-v202-local-web-03');shutil.copytree(bundle,staged,copy_function=shutil.copy2)
+p=staged/'index.html';html=inject_entry(p.read_text(),'MAPGEN-HOST-V2-02','930001','scene',scene);p.unlink();p.write_text(html)
+Path('/tmp/mapgen-v202-local-preview.json').write_text(json.dumps({'local_only':True,'source_commit':info['source_commit'],'build_id':info['build_id'],'scene':scene,'original_html_sha256':hashlib.sha256((bundle/'index.html').read_bytes()).hexdigest(),'preview_html_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'injection':'original cloud_delivery.inject_entry','no_deployment':True},indent=2)+'\n')

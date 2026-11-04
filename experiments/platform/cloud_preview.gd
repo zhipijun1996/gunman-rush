@@ -9,6 +9,7 @@ var entry := "actions"
 var entry_scene := ""
 var custom_scene: Node
 var custom_audio: GameAudio
+var _returning_to_menu := false
 
 func _ready() -> void:
 	for argument: String in OS.get_cmdline_user_args():
@@ -71,9 +72,12 @@ func open_test_scene() -> void:
 	custom_audio = null
 	# DemoApp and its audition subclasses assemble their own richer service.
 	# Other standalone scenes still borrow the original bootstrap service.
-	if not custom_scene is DemoApp:
+	var audio_owner: Variant = custom_scene.get_meta(&"owns_audio_service",false)
+	if not custom_scene is DemoApp and not (audio_owner is bool and audio_owner):
 		custom_audio = GameAudio.new()
 		add_child(custom_audio)
+	if custom_scene.has_signal("preview_exit_requested"):
+		custom_scene.connect("preview_exit_requested",return_to_menu)
 	if custom_scene is DemoApp:
 		(custom_scene as DemoApp).meta_persistence_enabled = false
 		custom_scene.set_meta("cloud_preview_host", true)
@@ -81,6 +85,16 @@ func open_test_scene() -> void:
 	print("CLOUD PREVIEW: standalone scene=", entry_scene)
 
 func return_to_menu() -> void:
+	if _returning_to_menu: return
+	_returning_to_menu = true
+	# Opt-in scenes own their service teardown. Await it before removing the
+	# source world; old standalone consumers retain their original path.
+	if is_instance_valid(custom_scene) and custom_scene.has_method("close_preview"):
+		var cleaned: Variant = await custom_scene.call("close_preview")
+		if not (cleaned is bool and cleaned):
+			_returning_to_menu = false
+			push_error("Standalone preview cleanup failed")
+			return
 	# Recreate the real title/Home entry with persistence still disabled.
 	if get_tree().paused: get_tree().paused = false
 	if is_instance_valid(custom_scene):
@@ -97,4 +111,5 @@ func return_to_menu() -> void:
 	app.set_meta("cloud_preview_host", true)
 	add_child(app)
 	entry = "menu"
+	_returning_to_menu = false
 	print("CLOUD PREVIEW: returned to full game menu; persistence=false")

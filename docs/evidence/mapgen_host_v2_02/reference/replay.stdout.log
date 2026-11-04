@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "runtime_target": "python-reference",
+  "readiness": {
+    "stage": "reference-only",
+    "godot_runtime": "NOT_IMPLEMENTED",
+    "web_runtime": "NOT_IMPLEMENTED",
+    "desktop_game_runtime": "NOT_IMPLEMENTED",
+    "host_integration": "NOT_VALIDATED",
+    "whole_map_physics": "NOT_RUN"
+  },
+  "command": "replay",
+  "samples": [
+    {
+      "case": "success",
+      "status": "PASS",
+      "generation_status": "PASS",
+      "deterministic_result_sha256": "b879cef87bae22354d6f11c2db73cf729ff2d3d52c05a6a8a362bbd170219ac0",
+      "map_content_sha256": "682c82d8cd53c3803175641b50de9acf2729d5febf6ba9f59a040f2c143756b4"
+    },
+    {
+      "case": "failure",
+      "status": "PASS",
+      "generation_status": "SEARCH_EXHAUSTED",
+      "deterministic_result_sha256": "5a8e67914ee8be129598aea73c42acac551d4ff784a9250671828e00de3aa3ca",
+      "map_content_sha256": "9168c5fba4c01aacb821abd387d2f47fc4f7d03f6116e663d60f267cba664b08"
+    }
+  ],
+  "vectors_sha256": "a8d75e956f6864877fbaf1e0d4785d6858fc5d5e7cdbbd8cda0029ab0a302de4"
+}

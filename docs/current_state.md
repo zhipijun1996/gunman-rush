@@ -1,3 +1,91 @@
+## 2026-11-03 0.4.1最终CI：历史锁证据路径收口
+
+PR131精确4df/run41728429398已证同run大工件和Git对象缓存恢复成功；parallel正式7PASS后quality拒两张历史0.4.0卡的lock路径漂移，serial仍继续原run。旧锁/原卡字节保全，只迁历史证据path、SHA/来源/结论不变；原质量检查已通过，独审及后继精确head179+affected仍待实际验收。全部游戏/SDK/module/request/bindings和已验原生/Web/22图不变。未合main，普通出发不改、不部署。详见[本批结果](worklines/mapgen_041_windchime/results.md)与[迁移原件](evidence/mapgen_041_windchime/historical-lock-040/README.md)。
+
+## 2026-11-03 CI输入恢复的Git对象缓存修复（最新）
+
+PR131的4224488/run41720175578保留FAILED：大输入工件导出/上传与两个lane严格恢复已真实成功（5092/4.4349GB；恢复45.227/50.458秒），但原Harness启动gitdiff30秒因promisor懒取缺失Git对象而超时，正式179尚未执行。不是4GB完整验收或测试断言失败。
+
+真实离线promisor双独立实验已复现；恢复现在仅在全部字节/来源校验后批量补Git对象缓存，原HEAD/index/ref/flags、30秒守门、179预算不变，真实dirty仍检出。原50测试保留新增6，作者及独立56全部通过；新候选仍须真实大数据缓存/179+affected通过后普通merge[skip-playtest]，不部署。游戏GD/原版0.4.1/模块1.1.0/v2与PCK不变，已验原生/三Web/22图依原身份复用，不重复执行。冻结时点文档不预填未来CI结果，最终状态看PR131/Actions实际收据。
+
+## 2026-11-03 PR131精确CI输入合同修复（最新）
+
+PR131的d5cbdb9/run41714871138保留为真实FAILED：5091输入首次935.477秒成功、前置24项/质量/工具链/Foundry通过；工件导出因合法179项输入计划的便携前置排序被错误拒绝，两个正式lane未执行。最小CI-only修复完整集合/数量授权，保原计划与CLI逐序、原字节SHA及全部安全守门，实际50测试与真实原计划复现通过；独审与修复head完整179+affected/大工件实测仍须实际完成。
+
+原生、三组Web和22图既有通过保持原source/PCK身份；游戏GD/原版SDK0.4.1/模块1.1.0/协议v2/物理经济/普通出发不变，避免重复跑已同源验收。保留每个失败/新head身份，不合红灯，不部署；通过后用户已授权普通merge并含[skip-playtest]。冻结后的最终CI/合入状态以PR131及Actions实际收据提供，不在Git文档预填未来结果。
+
+## 2026-11-03 0.4.1宿主接入：冻结前实际验收完成
+
+feature/mapgen-041-windchime-integration沿PR130/9ba接续，运行实测源a0a90061816516bb4ac15ea56b3d644b5c8b477d。原版算法0.4.1、模块1.1.0、runtime-map/v2；正式普通出发、美术音效、物理/经济/RNG及永久保存格式不变，不部署。真实SDK→Provider→Plan→Stage→Runtime已在原生和实际PCK/Web通过。
+
+完整起点风铃单模块：真实出生、Router弹丸开门/重复幂等、正常Motor至出口接岸、原生连续两次恢复、旧job/actor/取消/退出拒绝；实际Web双fresh149.986/300秒、9图真审152.836秒。默认三模块双fresh150.178/300与6图、gears108.986/300与7图分别严格合流通过，全部自动/离线审图分开计时。冻结三模块199/0、生成三模块58/0、gears73/0、起点35+100+60/0；原SDK19文件pin、身份81/0、job1005/0及严格退出完成。
+
+CI修复保原178项和预算，新增一项风铃聚合=179(93parallel/86serial)，准备输入同run/精确HEAD工件复用；57selector、45输入、93Harness等实际通过。旧PR130失败、旧SDK/旧PCK和风铃工具API失败保留原身份；测试工具修订不改游戏。当前[证据与限制](evidence/mapgen_041_windchime/README.md)及[上游/完整地图缺口](worklines/mapgen_041_windchime/upstream_requirements.md)为准。
+
+Git文档记录冻结前实测，不预填未来CI。最终候选完整179+affected及4.43GB真实工件循环、合入结果以此分支最终PR/Actions收据为准；用户已授权它们通过且审阅接受后普通合main，保历史。最终merge消息必须含[skip-playtest]以禁止本次main推送Pages，不跳CI、不绕保护。实际controller起点邻居idea-spec02-s12-001未装，不套用早conformance的idea-interface-s12-001；P/Q的designState/group_motion、敌人/奖励/Boss/正式整图消费者留后续，不扩本批。
+
+## 2026-11-03 mapgen0.4.1 集成进行中
+
+用户已授权本轮原生/Web/最终精确head CI及独审通过后普通合main，普通出发不变，不部署网站。沿PR130/9ba7d4接续feature/mapgen-041-windchime-integration；SDK已单独升级并远端保全，模块1.1.0/runtime-map/v2。真实完整起点风铃原生60/0（实际生成/Router射击/走岸/连续两次恢复/ESC返回/取消）；相关实际生成job1005/0、生成三模块58/0、身份81/0、真实机制fixture100/0、ports35/0、gears73/0。分源原件与初始失败见[本轮结果](worklines/mapgen_041_windchime/results.md)。这些不是最终完整CI或Web签字。
+
+旧PR130/run41679005631实际FAIL保留：126PASS、1音频夹具FAIL、1时限中断未证、50未执行；不重启旧run。CI同run精确HEAD准备输入工件复用与真实短音效并发测试夹具已修，生产音频不变，原178保留追加1风铃聚合=179。最终合并消息必须含[skip-playtest]，仅跳网站上传/部署，不跳CI；不恢复PR123、不扩完整地图或邻居。接续先收真实新Web与截图审阅、质量收口，再最终候选一次完整CI、普通受保护合入。
+
+## 0.4.1起点钟门与CI输入工件：最新授权实施中
+
+从PR130/9ba7独立后续分支feature/mapgen-041-windchime-integration接续；用户已允许不等旧A完整CI先继续B，固定0.4.1/模块1.1.0/v2，必要验收/独审/最终精确head CI通过后普通合main。普通出发不变、不部署。旧head/run结果保原身份，不由后继通过改签。
+
+[范围/写集/验收及授权](worklines/mapgen_041_windchime/scope.md) · [实施证据](evidence/mapgen_041_windchime/README.md)。原run41679005631两lane已开始测试，按原90min真实实收，不盲目重启。当前0.4.1/CI输入复用/风铃各writer并行，单Godot和browser由root控制；先读持久RECOVERY，不从main重做、不恢复PR123。
+
+## MAPGEN-CI-PYTHON-PIN-01：阶段A最终CI的环境修复
+
+原PR130/0167的run41659241932两通道178项实际全过，但Python3.12.16/3.12.15跨lane不一致，affected已实际以Phase toolchain identities differ拒绝，原run为FAILURE。仅将production workflow三处Python统一为精确3.12.16；保留原失败，最终修复head重新原完整CI。原宿主/SDK0.4.0/module1.1.0/Web运行源不变，默认双fresh不重跑，不B/合并/部署。
+
+[具体修复、原phase证明与验证](evidence/mapgen_host_04_acceptance/ci-python-pin/README.md)。本段覆盖下方“最终CI待收”的旧等待状态，不改写原历史接受或raw丢失边界。
+
+## MAPGEN-HOST-04-ACCEPTANCE-01：阶段A收口
+
+锁定0.4.0/module1.1.0。d37原宿主源码及本地两提交已由远端bundle保全；remote c941完整tree等d37，commit元数据不同。私有只读库按SDK/模块身份共享，每job独立RNG/输入/结果/取消；窄摘要和分项计时复用原Provider/装配。
+
+恢复后原69严格通过，新f547 Web导出/读回通过；历史默认双fresh209/300和六图独审按用户要求同源承接，原raw随环境丢失不补造/不重跑。新gears原manual300.489失败保留，自动审图分离后的157.963秒正常guards完成，七图严格独审见本批收据。最终精确head CI在提交后实收，不提前写PASS。
+
+[本批结果](worklines/mapgen_host_04_acceptance/results.md) · [上游反馈](worklines/mapgen_host_04_acceptance/upstream_contract.md) · [证据与原件缺失边界](evidence/mapgen_host_04_acceptance/README.md)。本轮只A，不B/0.4.1/合并/部署。
+
+## MAPGEN-GODOT-04：真实0.4链路已接入，默认Web整段预算仍阻塞
+
+运行源f6b61ee7026bc4c696d15fa26b09de5ff03be903，分支feature/mapgen-godot-runtime-04；0.3保留PR128/3790，原run41595461174完整178fresh成功。原18GD/模块1.1锁、两真实请求930001/930007进入同Provider→Plan→Stage→Runtime，按新模板版本/role/连接和实际身体重新选实例/出生，普通出发和玩法不变。
+
+f6相关12fresh全部通过；真实Web首次正确生成/装载/移动/退出；独立原gears230.323秒及targeted取消121.170秒通过。原默认两fresh合计300秒actual02/03在第二次预载超时，完整afterguards未在预算内完成，整体FAILED/BLOCK；分项不改签整段，不放宽预算。4ms旧非PASS原件也保留、状态未知。新覆盖用原map-edit producer从同次真实7输入重新提取，两全图inventory13/14机制组、38拒绝、旧43输入重放逐字不变；全部新行仍UNVERIFIED_CURRENT_HOST。
+
+[当前报告](worklines/mapgen_godot_04/results.md) · [上游/下一轮约束](worklines/mapgen_godot_04/upstream_contract.md) · [实际证据](evidence/mapgen_godot_04/README.md)。质量review：保留Web整体budget失败，不签整图、全部内容、手机/硬帧预算/用户认可。不合并或发布。
+
+下一批先处理原整段Web验证的300秒阻塞（包含冷启动/实际审图/工具往返，不能直接归因纯算法），不扩大现scope来遮盖；内容适配优选完整game-plains-windchime-lesson单钟门，复用正式ShotLatch。不得把旧M编号/出生/恢复hash或0.3覆盖表直接套新图，不将实验Root的RunSession嵌套进正式App。
+
+## MAPGEN-GODOT-03：0.3技术基线固定，下一步明确升级0.4
+
+运行源7f65ab03949bf7a9665033ae58a74847f72e5fbc，后续本分支仅文档/质量元数据收口。PR127 e7d不动，原run41569062806全部172fresh成功。原15脚本0.3包按SHA锁，主游戏Godot4.7.2真实调用→同Provider/Plan/Stage/Runtime；原三模块和独立完整M35保留真实内容，不换普通出发地图，不合并不发布。
+
+12项release fresh实际48/883/56/199/45/71/14/54/76/67/42/13全过；新/2身份拒旧错误进场记录。最终Web同源PCK995280…218887548B，两轮各原300s内PASS，正确出生、真实输入/机关运动、退出及generate取消，14图实看。旧5b0零点缺陷与所有真实失败/console诊断保留。完整178远端CI以本分支最终PR head checks为准，不把本地12说成full。
+
+[完整记录](worklines/mapgen_godot_03/results.md) · [上游约束](worklines/mapgen_godot_03/upstream_contract.md) · [实际证据](evidence/mapgen_godot_03/final-web/README.md)。质量为review：只完成受控技术阶段，未签整图/手机/硬帧预算/完整M35路线或美术认可。
+
+用户最新要求0.4：精确候选map-gen PR5 head6bf07ab5a655ea056461b935ae4354e15ef83482，ZIP7aa3f0e573675c3bb41e2a2a5b23254c4005bb8eaef9756535e3a6480988d778，仍1.1.0/v2。保本0.3分支/输入锁/回归原件后，从收口head另建feature/mapgen-godot-runtime-04；复用同一架构，不套旧实例/出生/恢复身份。先4.7.2原包验证与真实生成，再按模块版本/角色/连接重选绑定；map-edit旧表绑定0.3，须由原producer新profile重新提取，不能刷新旧表SHA冒充0.4。0.4只读核包/覆盖审计在/tmp/mapgen-v4-audit、/tmp/mapgen-v4-coverage-audit.*，尚未安装进游戏。
+
+## 2026-11-03 PR127 A–E：三模块宿主修订与实际Web
+
+继续feature/mapgen-host-v2-01，不恢复PR123。A原字节恢复旧architecture证据，不刷新旧卡；B只认INPUT/OUTPUT/INOUT、单向接缝合法但未支持；C核0.2.0 ZIP25f05861及4/4原map/content；D分离上游fingerprint/map_content/host_load，内容或bindings变更先拒绝旧恢复，永久schema不改；E沿原有限7JSON/准入/bootstrap完成实际PCK与浏览器，两次移动/平台/菜单及ESC退出。
+
+冻结运行源67da2f3596880cbdad22496a649dd68f7af7d5a6，build ca7b47b3f398，PCK216993944B/SHA ca7b47b3f3980630f46eb4c318319f93f628ce5918acf54a8ef775fa35efafa1。局部8项及最终F原生199/45通过，实际浏览器249.218/300秒、六图和源稳定；保留favicon404与两条Emscripten Blocking，不签FPS/手机/整图/Web跨缝/零泄漏。原CI41510336068为87pass/1fail/84未执行，失败与修复保留；最终精确head完整172结果看PR127 Actions，不把局部证明代签完整CI。
+
+[本批结果/身份/边界](worklines/mapgen_host_v2_02/results.md) · [参考包开发命令](worklines/mapgen_host_v2_02/reference_package.md) · [原始证据与独审](evidence/mapgen_host_v2_02/README.md)。下批建议M35完整hazard+saw+2linear ferry，真实邻接与其余消费者另批，不扩当前scope。未合并、未部署，普通出发地图/物理经济/图声不变。下方保留旧阶段记录。
+
+## 2026-11-02 MAPGEN-HOST-V2-01 第一轮真实装载切片
+
+从最新main `30e36c9abe223f26e666ceaf796e3fe9cb58e10f` 建立 `feature/mapgen-host-v2-01`；此前重构已由PR126合入，本轮为新独立接入，**不自动合main或发布**。锁定map-gen178c4016与原module-pack1.1.0，官方930001/stable-v2首轮生成46实例/55连接；本轮完整保留M16/M18/M21，经新数据Provider/Stage消费原LevelPlan/LevelRuntime/玩家/一套服务，没有恢复PR123。
+
+真实Godot150/0覆盖C027/C030连续跨接缝、原椭圆物理骑乘、唯一20static+1carrier/玩家/伤害policy、原时钟恢复/旧token拒绝/干净退出。原LevelPlan146/0、RunSession61/0、architecture13/0、planner49/0通过；原失败和源码指纹保存。新增Harness专项尾加原171为172，原检查/预算保留；不是远端完整172绿或Web/手机证据。
+
+完整地图/敌人/奖励/Boss及出生、正式App旧Manifest消费者、全输入replay绑定、实际能力快照与运行时算法调度仍待下一轮。当前入口仅原生受控切片，Web raw JSON尚未准入导出；不称整图可玩。见[实际映射和入口](worklines/mapgen_host_v2_01/integration.md)、[结果/回退](worklines/mapgen_host_v2_01/results.md)、[给map-gen/map-edit要求与第二轮清单](worklines/mapgen_host_v2_01/upstream_requirements.md)、[证据](evidence/mapgen_host_v2_01/README.md)。质量review、技术stage限G0/G1；恢复先核该分支/源SHA/实际PR，不用下方旧阶段授权合此PR。
+
 ## 2026-11-02 用户已授权当前重构分支合入main
 
 授权覆盖此前阶段“不自动合main”。当前待合入源码35881a6e，目标main2ce4ffa6；原Integration要求full171，创建PR后由精确head的prepare／parallel／serial／affected全部通过才普通merge。实际PR／head／合并结果以GitHub和main ancestry为准，恢复先查，已merged不要重复执行。合入后main自动完整构建／Pages另核实际结果；旧试玩与旧完整CI不冒充本轮新head通过。执行合同见[合入范围](worklines/main_refactor_merge_01/scope.md)。

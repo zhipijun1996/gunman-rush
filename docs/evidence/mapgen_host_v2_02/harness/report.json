@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "started_at": "20261103T020405.901864Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "runtime-map-v2-host",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "827d3100282b27f260d7035c54d05bf16f5fcc7e29e2c112f6be54afd42966c9",
+      "log": "runtime-map-v2-host.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671462.5377848,
+      "ended_at_unix": 1793671468.0290427,
+      "duration_seconds": 5.491,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_map_v2_runner.gd"
+      ],
+      "check_token": "6938876795034be39f2374fe4384bf35",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/runtime-map-v2-host",
+      "reused": false
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "f2a25f491b86a6a7cd2be56cca1b687b037b91ee528c9ccc1e206db394e9ac88",
+      "log": "cloud-preview-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671470.6199017,
+      "ended_at_unix": 1793671477.765731,
+      "duration_seconds": 7.146,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/361c92fcf42b498685998c818d805fad"
+      ],
+      "check_token": "361c92fcf42b498685998c818d805fad",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/cloud-preview-runtime",
+      "reused": false
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e98320e53a525bbe0d54c4c3dd0bca84e2a1a7ef31521b8a474be566ab5968f8",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671449.9046233,
+      "ended_at_unix": 1793671452.6946323,
+      "duration_seconds": 2.79,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "9bdbc6ac91b945ab8ce72bc34340c312",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/cloud-delivery-tests",
+      "reused": false
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "13159686e2bfa33c11f57de11cae8eb6552f22909c52968b4698d3ae4d37b2a6",
+      "log": "web-resource-contract-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671454.5372708,
+      "ended_at_unix": 1793671454.9608727,
+      "duration_seconds": 0.424,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_web_bundle.py"
+      ],
+      "check_token": "199a361b8f504a0293af75409e264f87",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/web-resource-contract-tests",
+      "reused": false
+    },
+    {
+      "id": "architecture-tests",
+      "argv": [
+        "python3",
+        "tests/test_project_dependencies.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d7e5d130519e3fce76926024e81e84cf6339e8387dc45e6a08ba1510b263b6b1",
+      "log": "architecture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671456.6852853,
+      "ended_at_unix": 1793671456.807593,
+      "duration_seconds": 0.122,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_project_dependencies.py"
+      ],
+      "check_token": "bbd4be0e322642edbc2d96df392fe277",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/architecture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-plan",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/level_plan_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "c84bcd7e742c0032017e9784bda5527ea5fd9c914a190f80f1edda1da8c21328",
+      "log": "level-plan.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671480.6445518,
+      "ended_at_unix": 1793671499.2729433,
+      "duration_seconds": 18.628,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/level_plan_runner.gd"
+      ],
+      "check_token": "f58460bcc29645baa69fa3f25707c17b",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/level-plan",
+      "reused": false
+    },
+    {
+      "id": "run-session",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/run_session_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "b985b6b8a9db1a880c7c537aa198db04e4f501dea9b15975bcc0d567ddecf0ca",
+      "log": "run-session.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671502.0533068,
+      "ended_at_unix": 1793671508.9456086,
+      "duration_seconds": 6.892,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/run_session_runner.gd"
+      ],
+      "check_token": "29a64f89d73b4c8c93d931f105c65589",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/run-session",
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7eb47e0cf6b3c9bcba5f3a46adec2db77d9520381ba73fd0978477982a8e0184",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793671459.5142982,
+      "ended_at_unix": 1793671459.8408105,
+      "duration_seconds": 0.327,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "0f417c5bd42b4641bce543020d2aa1cf",
+      "artifact_directory": "/workspace/gunman-rush-refactor/build/verification/harness/20261103T020405.901864Z/artifacts/cloud-production-planner-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "443fca00944ceb166e2c9c14e4fa17255448658c7e1d8d22b0d85f8f12cf8496",
+  "working_files": {
+    "docs/quality/records/MAPGEN-HOST-V2-02.json": "8e589e0c566e37380cfabf07a2deaa85f3f299a1a151e3176199251a7903a4dc",
+    "experiments/generation/entries/runtime_map_v2_slice.tscn": "12f5de0dd4dd98fd636ac375779f27ead2afd3a96943c64132a6015e71ce7228",
+    "experiments/generation/runtime_map_slice.gd": "2c635f03717fd3b4bbc0b3716a8a093f31ee222468e1297bba3a0ae758da8ee0",
+    "experiments/platform/cloud_preview.gd": "f2f4aac1c1cedea7822096d628fc90760377b1decd1afecd45b89d141cd8c65b",
+    "export_presets.cfg": "1bcfe3bd6572468d3b30cbb647dfa4033f951dc4328973e46b579138976c8317",
+    "tests/cloud_preview_runner.gd": "5f3a16b2cf75c32a735f764ab70dc4bf9fff127da93095ecb92fdeb3bf199da4",
+    "tests/test_cloud_delivery.py": "5ada2c7bab570383862e62d30b8c295a1f6f6028b38a7c56043368cd321ea8b0",
+    "tests/test_web_bundle.py": "e582a7a7c672886cb79ffd9370c38e6b08127e3a3f310427fb2e1b0c91408363",
+    "tools/check_web_bundle.py": "2797de9997c4d1a486d1b66c157c870d6692f419ef37d20e19c2a5793c83d155",
+    "tools/cloud_delivery.py": "8403bbcf2e6d41fcf2e9efce87719dc9b1aaaee0dc517aa379501de0083ce9e2"
+  },
+  "commit": "a408edfcb96dc0c3dbd0b038d0966cbfd586d96d",
+  "git_status": "M docs/quality/records/MAPGEN-HOST-V2-02.json\n M experiments/generation/entries/runtime_map_v2_slice.tscn\n M experiments/generation/runtime_map_slice.gd\n M experiments/platform/cloud_preview.gd\n M export_presets.cfg\n M tests/cloud_preview_runner.gd\n M tests/test_cloud_delivery.py\n M tests/test_web_bundle.py\n M tools/check_web_bundle.py\n M tools/cloud_delivery.py",
+  "diff": "diff --git a/docs/quality/records/MAPGEN-HOST-V2-02.json b/docs/quality/records/MAPGEN-HOST-V2-02.json\nindex ca6407b2..a6615a26 100644\n--- a/docs/quality/records/MAPGEN-HOST-V2-02.json\n+++ b/docs/quality/records/MAPGEN-HOST-V2-02.json\n@@ -18,12 +18,20 @@\n     \"docs/architecture.md\",\n     \"docs/architecture_extensions.md\",\n     \"docs/worklines/mapgen_host_v2_02/scope.md\",\n+    \"experiments/generation/entries/runtime_map_v2_slice.tscn\",\n     \"experiments/generation/runtime_map_frozen_source.gd\",\n     \"experiments/generation/runtime_map_slice.gd\",\n+    \"experiments/platform/cloud_preview.gd\",\n+    \"export_presets.cfg\",\n     \"game/world/levels/providers/runtime_map_v2_provider.gd\",\n     \"resources/levels/mapgen_host_v2_01/bindings.json\",\n     \"resources/levels/mapgen_host_v2_01/input-lock.json\",\n+    \"tests/cloud_preview_runner.gd\",\n     \"tests/runtime_map_v2_runner.gd\",\n+    \"tests/test_cloud_delivery.py\",\n+    \"tests/test_web_bundle.py\",\n+    \"tools/check_web_bundle.py\",\n+    \"tools/cloud_delivery.py\",\n     \"tools/verify_mapgen_reference.py\"\n   ],\n   \"deliverables\": [\ndiff --git a/experiments/generation/entries/runtime_map_v2_slice.tscn b/experiments/generation/entries/runtime_map_v2_slice.tscn\nindex 31ac1558..009ad308 100644\n--- a/experiments/generation/entries/runtime_map_v2_slice.tscn\n+++ b/experiments/generation/entries/runtime_map_v2_slice.tscn\n@@ -4,3 +4,5 @@\n \n [node name=\"RuntimeMapV2LoadingSlice\" type=\"Node2D\"]\n script = ExtResource(\"1\")\n+metadata/owns_audio_service = true\n+diagnostics_enabled = true\ndiff --git a/experiments/generation/runtime_map_slice.gd b/experiments/generation/runtime_map_slice.gd\nindex 75eee69e..d6b2cb49 100644\n--- a/experiments/generation/runtime_map_slice.gd\n+++ b/experiments/generation/runtime_map_slice.gd\n@@ -2,6 +2,9 @@ class_name RuntimeMapSlice\n extends Node2D\n ## Explicit development entrance. Ordinary App/Provider selection is unchanged.\n @export_enum(\"seam\", \"adjacent\", \"carrier\") var spawn_binding := \"seam\"\n+@export var diagnostics_enabled := false\n+signal preview_exit_requested\n+var _observation_ticks := 0\n var session := RunSession.new()\n var stage: RuntimeMapSliceStage\n var policy: FrameDamagePolicy\n@@ -83,16 +86,32 @@ func _ready() -> void:\n \t\terror = \"Existing run record refused slice identity\"\n \t\treturn\n \tready_ok = true\n+\t_observe(\"loaded\")\n \n func _physics_process(_delta: float) -> void:\n \tif ready_ok and not closed:\n \t\tstage.observe_player(session.player.global_position)\n \t\tcamera.position = session.player.global_position\n+\t\t_observation_ticks += 1\n+\t\tif _observation_ticks % 30 == 0: _observe(\"physics\")\n \n func _unhandled_input(event: InputEvent) -> void:\n \tif not closed and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:\n-\t\tawait close_slice()\n-\t\tget_tree().quit()\n+\t\tif not get_signal_connection_list(\"preview_exit_requested\").is_empty():\n+\t\t\tpreview_exit_requested.emit()\n+\t\telse:\n+\t\t\tawait close_slice()\n+\t\t\tget_tree().quit()\n+\n+func _observe(event: String) -> void:\n+\tif not diagnostics_enabled or not ready_ok or not is_instance_valid(stage): return\n+\tvar ferry: ModuleMovingPlatform = stage.assembler.modules[0].moving_platforms[0]\n+\tvar point := session.player.global_position\n+\tvar carrier := ferry.global_position\n+\tprint(\"MAPGEN_HOST_V2 \",JSON.stringify({\"event\":event,\"host_load_identity\":stage.plan.map_hash,\"player\":[point.x,point.y],\"carrier\":[carrier.x,carrier.y],\"grounded\":session.player.is_on_floor()}))\n+\n+func close_preview() -> bool:\n+\treturn await close_slice()\n \n func accepts_result(token: DemoToken) -> bool:\n \treturn not closed and session.lifetime.accepts(token)\n@@ -151,6 +170,7 @@ func close_slice() -> bool:\n \tif session.build != null: session.clear_run_services()\n \tclose_result = await WorldAudioLifecycle.drain_world(self)\n \tclose_finished = true\n+\tif diagnostics_enabled: print(\"MAPGEN_HOST_V2 \",JSON.stringify({\"event\":\"closed\",\"audio_released\":close_result,\"lifetime_active\":session.lifetime.active,\"stage_detached\":stage==null}))\n \treturn close_result\n \n func _exit_tree() -> void:\ndiff --git a/experiments/platform/cloud_preview.gd b/experiments/platform/cloud_preview.gd\nindex 3b55cf5a..2061a5b2 100644\n--- a/experiments/platform/cloud_preview.gd\n+++ b/experiments/platform/cloud_preview.gd\n@@ -9,6 +9,7 @@ var entry := \"actions\"\n var entry_scene := \"\"\n var custom_scene: Node\n var custom_audio: GameAudio\n+var _returning_to_menu := false\n \n func _ready() -> void:\n \tfor argument: String in OS.get_cmdline_user_args():\n@@ -71,9 +72,12 @@ func open_test_scene() -> void:\n \tcustom_audio = null\n \t# DemoApp and its audition subclasses assemble their own richer service.\n \t# Other standalone scenes still borrow the original bootstrap service.\n-\tif not custom_scene is DemoApp:\n+\tvar audio_owner: Variant = custom_scene.get_meta(&\"owns_audio_service\",false)\n+\tif not custom_scene is DemoApp and not (audio_owner is bool and audio_owner):\n \t\tcustom_audio = GameAudio.new()\n \t\tadd_child(custom_audio)\n+\tif custom_scene.has_signal(\"preview_exit_requested\"):\n+\t\tcustom_scene.connect(\"preview_exit_requested\",return_to_menu)\n \tif custom_scene is DemoApp:\n \t\t(custom_scene as DemoApp).meta_persistence_enabled = false\n \t\tcustom_scene.set_meta(\"cloud_preview_host\", true)\n@@ -81,6 +85,16 @@ func open_test_scene() -> void:\n \tprint(\"CLOUD PREVIEW: standalone scene=\", entry_scene)\n \n func return_to_menu() -> void:\n+\tif _returning_to_menu: return\n+\t_returning_to_menu = true\n+\t# Opt-in scenes own their service teardown. Await it before removing the\n+\t# source world; old standalone consumers retain their original path.\n+\tif is_instance_valid(custom_scene) and custom_scene.has_method(\"close_preview\"):\n+\t\tvar cleaned: Variant = await custom_scene.call(\"close_preview\")\n+\t\tif not (cleaned is bool and cleaned):\n+\t\t\t_returning_to_menu = false\n+\t\t\tpush_error(\"Standalone preview cleanup failed\")\n+\t\t\treturn\n \t# Recreate the real title/Home entry with persistence still disabled.\n \tif get_tree().paused: get_tree().paused = false\n \tif is_instance_valid(custom_scene):\n@@ -97,4 +111,5 @@ func return_to_menu() -> void:\n \tapp.set_meta(\"cloud_preview_host\", true)\n \tadd_child(app)\n \tentry = \"menu\"\n+\t_returning_to_menu = false\n \tprint(\"CLOUD PREVIEW: returned to full game menu; persistence=false\")\ndiff --git a/export_presets.cfg b/export_presets.cfg\nindex 6bcde7ce..23b9e10a 100644\n--- a/export_presets.cfg\n+++ b/export_presets.cfg\n@@ -46,7 +46,7 @@ advanced_options=false\n dedicated_server=false\n custom_features=\"\"\n export_filter=\"all_resources\"\n-include_filter=\"assets/audio/director_v2/manifest.json,config/audio_director/v2/runtime.json,assets/audio/director_candidates/manifest.json,config/audio_director/runtime.json,assets/ui/demo_ui_01/r2/fonts/*.txt,assets/ui/demo_ui_01/r2/fonts/LICENSES/*/*.txt,assets/ui/demo_ui_01/r2/fonts/source.json,assets/ui/demo_ui_01/r2/generation_record.json,game/presentation/actors/resources/art/avatars.json,assets/production_repair/rooted_plants_v1/family.json,assets/production_repair/rooted_plants_v1/raw.png,config/platforming_foundry.json,config/foundry_capabilities.json,config/foundry_sources.json,resources/foundry/*.json,resources/foundry/replays/*.json,config/player_tuning.json,config/input_profile.json,config/meta_upgrades.json,config/enemy_drops.json,config/plains_branch_profile.json,config/plains_room_templates.json,config/plains_encounter_profile.json,config/plains_shot_latches.json,assets/plains_v3/*.json,assets/plains_v3/*/*.json,assets/plains_v3/enemies/meadow_actions/manifest.json,assets/plains_v4/*/*.json,assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/family.json,assets/region_production_v3/spaces/bank_shoulder_wide_v1/family.json,assets/region_production_v3/spaces/clock_regulator_court_v1/family.json,assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/family.json,assets/region_production_v3/enemies/root_bell/manifest.json,assets/region_production_v3/enemies/root_bell_burst/manifest.json,assets/region_production_v3/terrain_sampling_v1/contract_v2.json,assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png,assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png,assets/region_production_v3/spaces/clock_regulator_court_v1/source.png,assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png,assets/region_production_v3/spaces/limestone_bank_section_v1/source.png,assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png,assets/region_production_v3/spaces/windmill_highland_v1/family.json,assets/region_production_v3/spaces/windmill_highland_v1/source.png,assets/style_exploration/*.json,assets/style_exploration/**/*.json,assets/style_exploration/*/source/licenses/*.txt,assets/style_exploration/*/source/licenses/*.md,assets/underworld_plains/backgrounds/far.png,assets/underworld_plains/backgrounds/middle.png,assets/underworld_plains/backgrounds/near.png,assets/underworld_plains/decor/chime_props.png,assets/underworld_plains/decor/native_underworld.png,assets/underworld_plains/decor/identity_props.png,assets/underworld_plains/*.json,assets/underworld_plains/**/*.json,assets/underworld_plains/terrain/source.png,assets/enemy_feedback_01/frames_v8/manifest.json,assets/actor_actions/weapon_catalog.json,assets/player_presentation_01/motion_v1/idle_fall.json,assets/audio/ambience_v1/manifest.json,config/audio_director/ambience/user-selected.json,assets/audio/ambience_v1/home/manifest.json,config/audio_director/home/user-selected.json,assets/audio/ambience_v1/plains_a.ogg,assets/audio/ambience_v1/plains_b.ogg,assets/audio/ambience_v1/forest_a.ogg,assets/audio/ambience_v1/forest_b.ogg,assets/audio/ambience_v1/plains_chime_a.wav,assets/audio/ambience_v1/plains_chime_b.wav,assets/audio/ambience_v1/forest_wood.wav,assets/audio/ambience_v1/forest_leaf.wav,assets/audio/ambience_v1/home/home_cloth_1.wav,assets/audio/ambience_v1/home/home_cloth_2.wav,assets/audio/ambience_v1/home/home_wood_1.wav,assets/audio/ambience_v1/home/home_wood_2.wav,assets/audio/ambience_v1/home/home_tools_1.wav,assets/audio/ambience_v1/home/home_tools_2.wav,assets/audio/ambience_v1/home/home_page_1.wav,assets/audio/ambience_v1/home/home_page_2.wav,resources/enemies/legacy/plains_charger_v2.tres\"\n+include_filter=\"assets/audio/director_v2/manifest.json,config/audio_director/v2/runtime.json,assets/audio/director_candidates/manifest.json,config/audio_director/runtime.json,assets/ui/demo_ui_01/r2/fonts/*.txt,assets/ui/demo_ui_01/r2/fonts/LICENSES/*/*.txt,assets/ui/demo_ui_01/r2/fonts/source.json,assets/ui/demo_ui_01/r2/generation_record.json,game/presentation/actors/resources/art/avatars.json,assets/production_repair/rooted_plants_v1/family.json,assets/production_repair/rooted_plants_v1/raw.png,config/platforming_foundry.json,config/foundry_capabilities.json,config/foundry_sources.json,resources/foundry/*.json,resources/foundry/replays/*.json,config/player_tuning.json,config/input_profile.json,config/meta_upgrades.json,config/enemy_drops.json,config/plains_branch_profile.json,config/plains_room_templates.json,config/plains_encounter_profile.json,config/plains_shot_latches.json,assets/plains_v3/*.json,assets/plains_v3/*/*.json,assets/plains_v3/enemies/meadow_actions/manifest.json,assets/plains_v4/*/*.json,assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/family.json,assets/region_production_v3/spaces/bank_shoulder_wide_v1/family.json,assets/region_production_v3/spaces/clock_regulator_court_v1/family.json,assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/family.json,assets/region_production_v3/enemies/root_bell/manifest.json,assets/region_production_v3/enemies/root_bell_burst/manifest.json,assets/region_production_v3/terrain_sampling_v1/contract_v2.json,assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png,assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png,assets/region_production_v3/spaces/clock_regulator_court_v1/source.png,assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png,assets/region_production_v3/spaces/limestone_bank_section_v1/source.png,assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png,assets/region_production_v3/spaces/windmill_highland_v1/family.json,assets/region_production_v3/spaces/windmill_highland_v1/source.png,assets/style_exploration/*.json,assets/style_exploration/**/*.json,assets/style_exploration/*/source/licenses/*.txt,assets/style_exploration/*/source/licenses/*.md,assets/underworld_plains/backgrounds/far.png,assets/underworld_plains/backgrounds/middle.png,assets/underworld_plains/backgrounds/near.png,assets/underworld_plains/decor/chime_props.png,assets/underworld_plains/decor/native_underworld.png,assets/underworld_plains/decor/identity_props.png,assets/underworld_plains/*.json,assets/underworld_plains/**/*.json,assets/underworld_plains/terrain/source.png,assets/enemy_feedback_01/frames_v8/manifest.json,assets/actor_actions/weapon_catalog.json,assets/player_presentation_01/motion_v1/idle_fall.json,assets/audio/ambience_v1/manifest.json,config/audio_director/ambience/user-selected.json,assets/audio/ambience_v1/home/manifest.json,config/audio_director/home/user-selected.json,assets/audio/ambience_v1/plains_a.ogg,assets/audio/ambience_v1/plains_b.ogg,assets/audio/ambience_v1/forest_a.ogg,assets/audio/ambience_v1/forest_b.ogg,assets/audio/ambience_v1/plains_chime_a.wav,assets/audio/ambience_v1/plains_chime_b.wav,assets/audio/ambience_v1/forest_wood.wav,assets/audio/ambience_v1/forest_leaf.wav,assets/audio/ambience_v1/home/home_cloth_1.wav,assets/audio/ambience_v1/home/home_cloth_2.wav,assets/audio/ambience_v1/home/home_wood_1.wav,assets/audio/ambience_v1/home/home_wood_2.wav,assets/audio/ambience_v1/home/home_tools_1.wav,assets/audio/ambience_v1/home/home_tools_2.wav,assets/audio/ambience_v1/home/home_page_1.wav,assets/audio/ambience_v1/home/home_page_2.wav,resources/enemies/legacy/plains_charger_v2.tres,resources/levels/mapgen_host_v2_01/input-lock.json,resources/levels/mapgen_host_v2_01/map.json,resources/levels/mapgen_host_v2_01/bindings.json,resources/levels/mapgen_host_v2_01/selection.json,resources/levels/mapgen_host_v2_01/content/M16.json,resources/levels/mapgen_host_v2_01/content/M18.json,resources/levels/mapgen_host_v2_01/content/M21.json\"\n exclude_filter=\"assets/visual_development/*,game/presentation/world/resources/visual_development/*,assets/creative_direction/*,assets/spatial_golden/*,assets/production_repair/connected_cliff_v2/*,assets/production_repair/connected_cliff_v1/*,addons/runtime_raw_export/*,build/*,tests/*,docs/*,tools/*,.github/*,preview/*,assets/characters/courier/source/*,assets/backgrounds/plains/source/*,assets/terrain/plains/painted_platform.png,assets/objects/painted_saw.png,assets/painterly_v2/*,assets/painterly_v2/character/*,assets/painterly_v2/terrain/rock_fill.png,assets/painterly_v2/painterly_courier_visual.*,assets/painterly_v2/objects/flowers.png,assets/biome_style_review/*,assets/plains_v3/background.png,assets/plains_v3/terrain/limestone_fill.png,assets/plains_v3/terrain/platform_variants.png,assets/plains_v3/ui/rarity_frames.png,assets/region_production_v3/spaces/boss_open_tuning_court_v1/*,assets/region_production_v3/spaces/boss_open_tuning_court_v2/*,assets/region_production_v3/spaces/woodland_two_depth_ridges_v2/*,assets/region_production_v3/spaces/supported_overhang_limestone_bank_v1/*,assets/style_exploration/*/source/*.png,assets/style_exploration/*/generated/*,assets/style_exploration/*/*/generated/*\"\n export_path=\"build/web/index.html\"\n \ndiff --git a/tests/cloud_preview_runner.gd b/tests/cloud_preview_runner.gd\nindex 938229e1..66eaa873 100644\n--- a/tests/cloud_preview_runner.gd\n+++ b/tests/cloud_preview_runner.gd\n@@ -13,10 +13,11 @@ func expect(value: bool, message: String) -> void:\n \t\tpush_error(message)\n \n func run() -> void:\n-\tfor entry_id: String in [\"actions\", \"scene\", \"demo\"]:\n+\tfor entry_id: String in [\"actions\", \"scene\", \"demo\", \"slice\", \"slice_exit_signal\"]:\n \t\tvar preview := preload(\"res://experiments/platform/entries/cloud_preview.tscn\").instantiate() as CloudPreviewBootstrap\n \t\tpreview.entry = \"actions\" if entry_id == \"actions\" else \"scene\"\n \t\tpreview.entry_scene = \"res://game/application/demo.tscn\" if entry_id == \"demo\" else \"res://experiments/motion/entries/action_studio.tscn\"\n+\t\tif entry_id.begins_with(\"slice\"): preview.entry_scene = \"res://experiments/generation/entries/runtime_map_v2_slice.tscn\"\n \t\troot.add_child(preview)\n \t\tawait process_frame\n \t\tawait process_frame\n@@ -27,17 +28,34 @@ func run() -> void:\n \t\telif entry_id == \"scene\":\n \t\t\texpect(preview.app == null, \"Standalone consumer must not leave default App running\")\n \t\t\texpect(preview.custom_scene is ActionStudio, \"Standalone entry must instantiate actual packed consumer\")\n+\t\telif entry_id.begins_with(\"slice\"):\n+\t\t\texpect(preview.custom_scene is RuntimeMapSlice and (preview.custom_scene as RuntimeMapSlice).ready_ok,\"Actual packed v2 slice must load through original bootstrap\")\n+\t\t\texpect(preview.custom_audio==null,\"Self-owned scene audio must not receive a second host service\")\n+\t\t\tvar owners := preview.find_children(\"*\",\"Node\",true,false).filter(func(node: Node) -> bool: return node is GameAudio)\n+\t\t\texpect(owners.size()==1,\"Packed loading slice has exactly one actual GameAudio owner\")\n \t\telse:\n \t\t\texpect(preview.custom_scene is DemoApp, \"Standalone full App must remain the real consumer\")\n \t\t\texpect(preview.custom_scene.has_meta(\"cloud_preview_host\"), \"Standalone full App must not redirect recursively\")\n \t\t\texpect(not (preview.custom_scene as DemoApp).meta_persistence_enabled, \"Standalone full App must not access main save\")\n-\t\tpreview.return_to_menu()\n+\t\tvar old_lifetime: DemoLifetime = (preview.custom_scene as RuntimeMapSlice).session.lifetime if entry_id.begins_with(\"slice\") else null\n+\t\tvar old_scene: WeakRef = weakref(preview.custom_scene) if entry_id.begins_with(\"slice\") else null\n+\t\tif entry_id==\"slice_exit_signal\":\n+\t\t\tvar escape := InputEventKey.new()\n+\t\t\tescape.keycode = KEY_ESCAPE\n+\t\t\tescape.pressed = true\n+\t\t\tInput.parse_input_event(escape)\n+\t\t\tvar deadline := Time.get_ticks_msec()+2000\n+\t\t\twhile not is_instance_valid(preview.app) and Time.get_ticks_msec()<deadline: await process_frame\n+\t\telse:\n+\t\t\tawait preview.return_to_menu()\n \t\tawait process_frame\n \t\tawait process_frame\n \t\texpect(is_instance_valid(preview.app), \"Return must recreate actual full App\")\n \t\texpect(not preview.app.meta_persistence_enabled, \"Returning to full menu must preserve save isolation\")\n \t\texpect(not is_instance_valid(preview.app._action_studio), \"Full menu must not retain test scene\")\n \t\texpect(not paused, \"Return must clear preview pause\")\n+\t\tif entry_id.begins_with(\"slice\"):\n+\t\t\texpect(not old_lifetime.active and old_scene.get_ref()==null,\"Preview exit must drain and release source Stage before returning to menu\")\n \t\texpect(await preload(\"res://tests/audio_teardown.gd\").drain_world(preview), \"Audio must drain before world release\")\n \t\tpreview.free()\n \t\tawait process_frame\ndiff --git a/tests/test_cloud_delivery.py b/tests/test_cloud_delivery.py\nindex 443bd616..4310c504 100644\n--- a/tests/test_cloud_delivery.py\n+++ b/tests/test_cloud_delivery.py\n@@ -215,6 +215,30 @@ class DeliveryTests(unittest.TestCase):\n             self.stage(entry='scene', scene='res://scenes/dev/missing_test.tscn')\n         self.assertFalse((self.host / 'site').exists())\n \n+    def test_runtime_map_scene_has_only_an_exact_admission_exception(self):\n+        scene = 'res://experiments/generation/entries/runtime_map_v2_slice.tscn'\n+        self.assertEqual(delivery.validate_scene(scene), scene.removeprefix('res://'))\n+        for other in (scene.replace('slice.tscn', 'other.tscn'),\n+                      'res://experiments/other.tscn',\n+                      scene.replace('/entries/', '/entries/../entries/')):\n+            with self.subTest(scene=other), self.assertRaises(ValueError):\n+                delivery.validate_scene(other)\n+        with self.assertRaisesRegex(ValueError, 'PCK missing runtime resource'):\n+            self.stage(entry='scene', scene=scene)\n+\n+    def test_existing_resource_dirty_guard_protects_frozen_input_json(self):\n+        path = self.root / 'resources/levels/mapgen_host_v2_01/content/M16.json'\n+        path.parent.mkdir(parents=True)\n+        path.write_text('{}')\n+        with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):\n+            delivery.clean_runtime(self.root)\n+        run(self.root, 'add', str(path.relative_to(self.root)))\n+        run(self.root, '-c', 'user.name=Delivery Test', '-c', 'user.email=delivery@example.invalid', 'commit', '-qm', 'resource fixture')\n+        delivery.clean_runtime(self.root)\n+        path.write_text('{\"changed\":true}')\n+        with self.assertRaisesRegex(ValueError, 'Runtime source is dirty'):\n+            delivery.clean_runtime(self.root)\n+\n     def test_never_stage_into_main_repository(self):\n         run(self.host, 'remote', 'set-url', 'origin', 'https://github.com/zhipijun1996/gunman-rush.git')\n         with self.assertRaisesRegex(ValueError, 'main hosting is forbidden'):\ndiff --git a/tests/test_web_bundle.py b/tests/test_web_bundle.py\nindex 77da3896..c9abb6b5 100644\n--- a/tests/test_web_bundle.py\n+++ b/tests/test_web_bundle.py\n@@ -103,6 +103,54 @@ class BundleTests(unittest.TestCase):\n         self.texture(folder+'raw.png', raw=True)\n         return folder\n \n+    def frozen_map(self):\n+        self.local(bundle.MAPGEN_FROZEN_SOURCE, ('const ROOT := \"res://' + bundle.MAPGEN_FROZEN_ROOT + '\"').encode())\n+        for name in bundle.MAPGEN_FROZEN_MEMBERS:\n+            self.manifest(bundle.MAPGEN_FROZEN_ROOT + name, {'fixture': name})\n+        files = {name: hashlib.sha256(self.entries[bundle.MAPGEN_FROZEN_ROOT + name]).hexdigest()\n+                 for name in bundle.MAPGEN_FROZEN_MEMBERS}\n+        self.manifest(bundle.MAPGEN_FROZEN_ROOT + 'input-lock.json',\n+                      {'schema': 'gunman-rush/mapgen-frozen-input/v1', 'files': files})\n+\n+    def test_frozen_map_raw_json_is_finite_locked_and_read_from_actual_pack(self):\n+        self.frozen_map()\n+        result = self.check()\n+        required = {bundle.MAPGEN_FROZEN_ROOT + name for name in\n+                    ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS)}\n+        self.assertTrue(required <= set(result['json']))\n+        for name in required:\n+            changed = dict(self.entries)\n+            changed.pop(name)\n+            with self.subTest(missing=name), self.assertRaises(ValueError):\n+                self.check(changed)\n+        changed = dict(self.entries)\n+        changed[bundle.MAPGEN_FROZEN_ROOT + 'bindings.json'] = b'{\"other\":true}'\n+        with self.assertRaisesRegex(ValueError, 'PCK JSON differs'):\n+            self.check(changed)\n+\n+    def test_frozen_map_source_changes_cannot_bypass_its_lock_or_add_siblings(self):\n+        self.frozen_map()\n+        name = bundle.MAPGEN_FROZEN_ROOT + 'content/M16.json'\n+        self.local(name, b'{\"changed\":true}')\n+        with self.assertRaisesRegex(ValueError, 'Frozen v2 JSON differs'):\n+            self.check()\n+        self.frozen_map()\n+        name = bundle.MAPGEN_FROZEN_ROOT + 'input-lock.json'\n+        lock = json.loads(self.entries[name])\n+        lock['files']['content/unknown.json'] = 'f' * 64\n+        self.manifest(name, lock)\n+        with self.assertRaisesRegex(ValueError, 'finite runtime members'):\n+            self.check()\n+\n+    def test_web_preset_explicitly_contains_all_seven_frozen_json_files(self):\n+        presets = configparser.ConfigParser(interpolation=None)\n+        presets.read(bundle.REPO / 'export_presets.cfg')\n+        section = next(presets[s] for s in presets.sections() if presets[s].get('name') == '\"Web Playtest\"')\n+        included = section['include_filter'].strip('\"').split(',')\n+        for name in ('input-lock.json', *bundle.MAPGEN_FROZEN_MEMBERS):\n+            self.assertIn(bundle.MAPGEN_FROZEN_ROOT + name, included)\n+        self.assertNotIn(bundle.MAPGEN_FROZEN_ROOT + '*', included)\n+\n     def test_connected_actual_consumer_requires_json_raw_and_normal_import(self):\n         folder = self.connected()\n         result = self.check()\ndiff --git a/tools/check_web_bundle.py b/tools/check_web_bundle.py\nindex 891c962a..0e414728 100644\n--- a/tools/check_web_bundle.py\n+++ b/tools/check_web_bundle.py\n@@ -17,6 +17,10 @@ TERRAIN = 'game/presentation/world/art/plains_terrain_family_sampler.gd'\n BACKGROUND = 'game/presentation/world/art/plains_background.gd'\n CONNECTED = 'game/presentation/world/art/plains_connected_landscape.gd'\n CONNECTED_ROOT = 'assets/production_repair/'\n+MAPGEN_FROZEN_SOURCE = 'experiments/generation/runtime_map_frozen_source.gd'\n+MAPGEN_FROZEN_ROOT = 'resources/levels/mapgen_host_v2_01/'\n+MAPGEN_FROZEN_MEMBERS = ('map.json', 'bindings.json', 'selection.json',\n+                         'content/M16.json', 'content/M18.json', 'content/M21.json')\n EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'\n                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',\n                                                         SPACES + 'supported_overhang_limestone_bank_v1/',\n@@ -167,6 +171,20 @@ def runtime_contract(repo):\n         manifests[name] = data\n         return data\n \n+    frozen_source = repo / MAPGEN_FROZEN_SOURCE\n+    if frozen_source.is_file():\n+        root = re.search(r'const ROOT\\s*:?=\\s*\"res://([^\"\\n]+)\"', frozen_source.read_text())\n+        if not root or root.group(1) != MAPGEN_FROZEN_ROOT:\n+            raise ValueError('Frozen v2 consumer root changed; review finite export adapter')\n+        lock = manifest(MAPGEN_FROZEN_ROOT + 'input-lock.json')\n+        if lock.get('schema') != 'gunman-rush/mapgen-frozen-input/v1' or set(lock.get('files', {})) != set(MAPGEN_FROZEN_MEMBERS):\n+            raise ValueError('Frozen v2 input lock differs from its finite runtime members')\n+        for name in MAPGEN_FROZEN_MEMBERS:\n+            expected = lock['files'][name]\n+            if not re.fullmatch(r'[0-9a-f]{64}', str(expected)) or hashlib.sha256(local(MAPGEN_FROZEN_ROOT + name)).hexdigest() != expected:\n+                raise ValueError('Frozen v2 JSON differs from its runtime SHA: ' + name)\n+            manifest(MAPGEN_FROZEN_ROOT + name)\n+\n     landscape = repo / LANDSCAPE\n     if landscape.is_file():\n         text = landscape.read_text()\ndiff --git a/tools/cloud_delivery.py b/tools/cloud_delivery.py\nindex 3a60ab56..304eb9c0 100644\n--- a/tools/cloud_delivery.py\n+++ b/tools/cloud_delivery.py\n@@ -101,7 +101,8 @@ def no_links(root):\n \n \n def validate_scene(scene):\n-    if (not isinstance(scene, str) or not scene.startswith('res://scenes/')\n+    exact_slice = 'res://experiments/generation/entries/runtime_map_v2_slice.tscn'\n+    if (not isinstance(scene, str) or not (scene.startswith('res://scenes/') or scene == exact_slice)\n             or not scene.endswith('.tscn') or '..' in scene or '\\\\' in scene\n             or any(ord(c) < 32 for c in scene)):\n         raise ValueError('Scene must be a safe res://scenes/*.tscn path without traversal or backslashes')\n@@ -434,7 +435,7 @@ def main():\n     stage.add_argument('--pr', type=int)\n     stage.add_argument('--seed', required=True)\n     stage.add_argument('--entry', choices=('actions', 'menu', 'scene'), default='actions')\n-    stage.add_argument('--scene', help='Self-contained res://scenes/*.tscn test scene; requires --entry scene and actual consumer validation')\n+    stage.add_argument('--scene', help='Safe scenes/*.tscn or exact runtime_map_v2_slice.tscn entry; requires --entry scene and actual consumer validation')\n     stage_video = commands.add_parser('stage-media')\n     stage_video.add_argument('--capture-dir', type=Path, required=True)\n     stage_video.add_argument('--host-root', type=Path, required=True)",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 65.136,
+  "jobs": 1,
+  "release": true
+}

@@ -1,0 +1,181 @@
+{
+  "task": "MAPGEN-HOST-V2-01",
+  "host_commit": "30e36c9abe223f26e666ceaf796e3fe9cb58e10f",
+  "branch": "feature/mapgen-host-v2-01",
+  "mapgen_commit": "178c40164c2f7371ce1c8a56cde658e84a4f42c2",
+  "schema": "mapgen/runtime-map/v2",
+  "v1_delivery_templates_used_as_current": false,
+  "mode": "read_only_source_audit",
+  "engine_run": false,
+  "tests_run": false,
+  "production_writes": 0,
+  "critical_gaps": [
+    "App/Stage legacy_generated mandatory consumer despite optional BuildResult field",
+    "no v2 content_store and native multi-mechanism builder boundary yet",
+    "materialized coordinates must not be reflected/offset again",
+    "source instance/object namespace must drive policies/state/rewards",
+    "spawn and Boss/completion explicitly unresolved",
+    "capability snapshot incomplete for exact native request",
+    "record schema and replay do not currently support v2",
+    "generation cancellation and per-module delayed consumers require shared lifetime wiring"
+  ],
+  "reuse_one_player_services_policy_collision": true,
+  "pr123_wrapper_reused": false,
+  "code_index": [
+    {
+      "area": "request",
+      "path": "game/world/levels/level_request.gd",
+      "line": 1,
+      "sha256": "eb26a26e91f8cbd0893bb27c6de63965edf02709dbed4cc618cdb5eceb206dcd"
+    },
+    {
+      "area": "app_provider",
+      "path": "game/application/demo_app.gd",
+      "line": 456,
+      "sha256": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4"
+    },
+    {
+      "area": "plan",
+      "path": "game/world/levels/level_plan.gd",
+      "line": 1,
+      "sha256": "fc696eaa025d591f4f5b6fb4e3611975695e4ace5a118db5bccd4e26810038f1"
+    },
+    {
+      "area": "runtime",
+      "path": "game/world/levels/level_runtime.gd",
+      "line": 4,
+      "sha256": "10db1418bf4d55cbf30009e1d0b98acc7e2e34d25dc31ae213718eb5fa1fd85c"
+    },
+    {
+      "area": "placement",
+      "path": "game/world/levels/level_module_placement.gd",
+      "line": 1,
+      "sha256": "1ecaaf6dd0e9255894e977df74a700aeaf820c2845ea3382aa53acb0100218f7"
+    },
+    {
+      "area": "assembler",
+      "path": "game/world/generation/plains_region_assembler.gd",
+      "line": 19,
+      "sha256": "8252291391985ab5e1681fb8c9754f3e1dfb1a191756914307919dd46427ab87"
+    },
+    {
+      "area": "module_native",
+      "path": "game/world/components/platforming_module.gd",
+      "line": 16,
+      "sha256": "705af1d3d9354d8bf4ba86ea3b1d1b4eea33ae414019dc122c32e0aed1c08a30"
+    },
+    {
+      "area": "stage_legacy",
+      "path": "game/world/levels/providers/plains_region_stage.gd",
+      "line": 75,
+      "sha256": "5c20f87ff46bc66be9590223ebd2296133fa49bcbdc25ce1479ed51cc1e222bc"
+    },
+    {
+      "area": "actor_legacy",
+      "path": "game/world/levels/providers/generated_demo_stage.gd",
+      "line": 256,
+      "sha256": "69e905c91406da50a66ad62c0cc64e3db7bf7844d0434f240a6cf4b0a56eb5a5"
+    },
+    {
+      "area": "shared_player",
+      "path": "game/application/run_composition.gd",
+      "line": 6,
+      "sha256": "ba962b203caf85cf05d988dc6b55b3e2ca3255f36d1324a52283dffa89b96f79"
+    },
+    {
+      "area": "shared_services",
+      "path": "game/application/run_session.gd",
+      "line": 39,
+      "sha256": "02162d91ff9516794ad13e0014eaafc7a17668608fa91d4e8b6dae2ad0f6f76f"
+    },
+    {
+      "area": "state",
+      "path": "game/world/state/plains_region_state.gd",
+      "line": 16,
+      "sha256": "b0621e7b55d7653f0c9a3a567b229b8282e62672d3474bba99645950d2a1c006"
+    },
+    {
+      "area": "cancel",
+      "path": "game/application/demo_app.gd",
+      "line": 385,
+      "sha256": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4"
+    },
+    {
+      "area": "lifetime",
+      "path": "game/world/state/demo_lifetime.gd",
+      "line": 10,
+      "sha256": "58c504ff5be7f38debd71ec2f45a58853f748f9e4ccb3b4558ac1fbd9da8ecc7"
+    },
+    {
+      "area": "record",
+      "path": "game/application/run_manifest.gd",
+      "line": 46,
+      "sha256": "119273455df4c38d359456edc63dd9fa8a0eb15dc317d3928b2b945d93bbdd8e"
+    },
+    {
+      "area": "capability_snapshot",
+      "path": "game/application/demo_app.gd",
+      "line": 718,
+      "sha256": "feb6ad9402dd3fae8f6df1086f92116a2d65e15e545d4148c37c6b4c8f47c1c4"
+    },
+    {
+      "area": "player_return",
+      "path": "game/player/player_controller.gd",
+      "line": 253,
+      "sha256": "022263cb4c62880e5e936908553d5638ef409fcb479f54903463b6cb7a641eea"
+    },
+    {
+      "area": "collision_shape",
+      "path": "game/player/player.tscn",
+      "line": 18,
+      "sha256": "5b934cc4a8426d6dcbcac1053011939105482d4d13793283a9d5dd66127b9438"
+    },
+    {
+      "area": "contract_boundary",
+      "path": "scripts/generation/platforming_module_definition.gd",
+      "line": 116,
+      "sha256": "7ae4bab73990c01f5cfc1d2e06a54e635dbaa71a2951b912b7d46d2eee1cbb96"
+    },
+    {
+      "area": "contract_boundary",
+      "path": "scripts/generation/platforming_module_port.gd",
+      "line": 5,
+      "sha256": "de6371666089ac43374dbbbe62b0ada56c71524f79ada9d92fb8130664db98c9"
+    },
+    {
+      "area": "contract_boundary",
+      "path": "game/world/components/generated_shot_latch_encounter.gd",
+      "line": 20,
+      "sha256": "3c76f4e7342232b31cde750701260ebdd6c4edceceb88c0207d67194480e7023"
+    },
+    {
+      "area": "contract_boundary",
+      "path": "game/world/generation/module_reflection.gd",
+      "line": 6,
+      "sha256": "6fe8c9fec94015f249832c20508043db2ab421e6ec27702eed5eb412a84fce3b"
+    }
+  ],
+  "upstream_sources": [
+    {
+      "path": "mapgen/README.md",
+      "sha256": "05a7970b5e643d364b9fc7e97bfd716fc41f9f988f52b64e643366972328ddbd"
+    },
+    {
+      "path": "mapgen/api.py",
+      "sha256": "306ab17683b3c8d264cdd063c11504dcfed46b318fd40aea63c6911b13655dd1"
+    },
+    {
+      "path": "mapgen/export.py",
+      "sha256": "f6b62966705191c05e4b4b3418fa973469b00719c248364e158c53d399790c14"
+    },
+    {
+      "path": "schemas/runtime-map.schema.json",
+      "sha256": "adf853cc9b63fd4f732891ebd5e57f7fdae08aa598d46d3b24a63b63e1236b9d"
+    },
+    {
+      "path": "examples/request-930001.json",
+      "sha256": "3c81d878d5f508a141a9e44c1f116a5b76966d7bb8da6c02da69aa7a42192d9a"
+    }
+  ],
+  "report_sha256": "886bc9bb2990f8d93e0abbf299859241560c29340a074bbac2cb911c99ce2bb4"
+}
