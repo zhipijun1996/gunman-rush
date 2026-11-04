@@ -1,0 +1,43 @@
+Actual failed optional run excerpt; full log remains in the task workspace.
+..............EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.EEEEEEE..EEEEEEEEEE...F.............EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.E..E.
+======================================================================
+ERROR: test_shared_reference_or_quote_drift_blocks_calls_and_restore (__main__.BibleTests.test_shared_reference_or_quote_drift_blocks_calls_and_restore) (path='docs/creative_direction/bibles/style-continuity-20261102-v34-death-runtime.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-text-audit/tests/test_region_bible.py", line 656, in test_shared_reference_or_quote_drift_blocks_calls_and_restore
+    state=loop.run(mission,self.root/('style-drift-'+hashlib.sha256(name.encode()).hexdigest()[:12]),lambda *a:self.fail('must not invoke'))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-text-audit/tools/production_loop.py", line 744, in run
+    validate(m)
+  File "/workspace/gunman-rush-text-audit/tools/production_loop.py", line 76, in validate
+    raise ValueError(f"Unknown harness check: {c}")
+ValueError: Unknown harness check: docs
+
+======================================================================
+ERROR: test_shared_reference_or_quote_drift_blocks_calls_and_restore (__main__.BibleTests.test_shared_reference_or_quote_drift_blocks_calls_and_restore) (path='shaders/formal_fine_boundary.gdshader')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-text-audit/tests/test_region_bible.py", line 656, in test_shared_reference_or_quote_drift_blocks_calls_and_restore
+    state=loop.run(mission,self.root/('style-drift-'+hashlib.sha256(name.encode()).hexdigest()[:12]),lambda *a:self.fail('must not invoke'))
+  File "/workspace/gunman-rush-text-audit/tests/test_region_bible.py", line 4112, in test_current34_inputs_cover_all_current_sources_and_preserve_ordered_prefix
+    self.assertEqual({k:v for k,v in checks[name].items() if k!='inputs'}, {k:v for k,v in old[name].items() if k!='inputs'})
+                                     ~~~~~~^^^^^^
+KeyError: 'region-bible-tests'
+
+======================================================================
+FAIL: test_broad_bound_scope_cannot_write_another_actual_region_consumer (__main__.BibleTests.test_broad_bound_scope_cannot_write_another_actual_region_consumer)
+----------------------------------------------------------------------
+ValueError: Unknown harness check: docs
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-text-audit/tests/test_region_bible.py", line 1421, in test_broad_bound_scope_cannot_write_another_actual_region_consumer
+    with self.assertRaisesRegex(ValueError,'cross-region'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "cross-region" does not match "Unknown harness check: docs"
+
+----------------------------------------------------------------------
+Ran 46 tests in 12.820s
+
+FAILED (failures=1, errors=902)

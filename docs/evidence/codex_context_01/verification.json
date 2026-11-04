@@ -1,0 +1,77 @@
+{
+  "source_commit": "354aa93e71eae1c3ffad6fd19e421849cba3f544",
+  "base_commit": "68a87f38a753442bbdacaa81317dd4aaa05eba3b",
+  "scope": "Current context documents, Skills, navigation and manual documentation tools; four-check CI and runtime unchanged from base.",
+  "checks": [
+    {
+      "id": "ci",
+      "command": "python3 tools/ci.py",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": null,
+      "log": "docs/evidence/codex_context_01/ci.log",
+      "sha256": "f62d851df62827138c76302ed0179b4d0dfcdc0c4fa597e17a21c53676e5fe38"
+    },
+    {
+      "id": "runner",
+      "command": "python3 tests/test_harness.py",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": 13,
+      "log": "docs/evidence/codex_context_01/runner.log",
+      "sha256": "7506050fa74e37b3de886994607b9432c269fba6ab2efb1531adafd807082e0c"
+    },
+    {
+      "id": "quality",
+      "command": "python3 tests/test_quality.py",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": 61,
+      "log": "docs/evidence/codex_context_01/quality.log",
+      "sha256": "9993bbad72e8f09fd9d22050fb957670851358d5fa9edf4d848c7e59279a6277"
+    },
+    {
+      "id": "region",
+      "command": "python3 tests/test_level_region_context.py",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": 19,
+      "log": "docs/evidence/codex_context_01/region.log",
+      "sha256": "011c2ee7d2e91028d5ee715d2017592c34893a4bb80a66635bbcab30220e213c"
+    },
+    {
+      "id": "creative",
+      "command": "python3 tests/test_region_creative_direction.py",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": 31,
+      "log": "docs/evidence/codex_context_01/creative.log",
+      "sha256": "0d1179aa79f4e2f356a54e4e71e20df6031abe7499d65e62e4a0cd1f9de198fa"
+    },
+    {
+      "id": "world",
+      "command": "python3 tests/test_world_design.py",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": 10,
+      "log": "docs/evidence/codex_context_01/world.log",
+      "sha256": "fe2a4d391c48bdc7e95df1f7d0137c7a495cf650b3bbe4052b6f0cbe2cbe84fb"
+    }
+  ],
+  "ci_seconds": 15.39,
+  "runtime_assertions": {
+    "smoke": 9,
+    "contracts": 239,
+    "meta_notes_save": 39
+  },
+  "optional_bible_suite": {
+    "command": "python3 tests/test_region_bible.py",
+    "status": "failed",
+    "reason": "Retained suite expects docs/region-bible-tests registry entries and input_digest removed by upstream PR133; it is outside the current CI/manual registry. No assertions or registrations restored to bypass this.",
+    "excerpt": "docs/evidence/codex_context_01/bible-retired-interface.excerpt.log"
+  },
+  "unverified": [
+    "Independent implementation review",
+    "Device, balance, visual/audio and player acceptance; outside this documentation change"
+  ]
+}
