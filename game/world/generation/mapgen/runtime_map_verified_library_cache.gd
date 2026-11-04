@@ -71,3 +71,19 @@ static func _freeze(value: Variant) -> void:
 		if value.is_read_only(): return
 		for child: Variant in value: _freeze(child)
 		value.make_read_only()
+
+static func capacity_filter(lock: Dictionary,ids: Array,maximum_jumps: int,maximum_air_shots: int) -> Dictionary:
+	var library: RefCounted=_libraries.get(cache_key(lock))
+	if library==null:return {"ok":false,"ids":[],"excluded":{}}
+	var catalog: Dictionary=library._view_json("catalog.json").value
+	var included: Array=[];var excluded: Dictionary={}
+	for entry: Dictionary in catalog.modules:
+		if entry.id not in ids:continue
+		var content: Dictionary=library._view_json(str(entry.compiled)).value
+		# Fixture capacity is a conservative qualification floor, not a player
+		# grant or a claim that a lower-capacity route has been disproven.
+		var qualification: Dictionary=content.get("original_tuning_profile",{}).get("effectiveTuning",{})
+		var jumps:=int(qualification.get("max_jumps",0));var shots:=int(qualification.get("max_air_shots",0))
+		if maximum_jumps<jumps or maximum_air_shots<shots:excluded[str(entry.id)]={"qualified_jumps":jumps,"qualified_air_shots":shots}
+		else:included.append(str(entry.id))
+	return {"ok":true,"ids":included,"excluded":excluded}

@@ -5,6 +5,7 @@ extends Node2D
 # Ports and authoring guides remain available in ModuleLab, never in assembled play.
 @export var authoring_debug := true
 var floating_solid_indices: Array[int] = []
+var inactive_platform_indices: Array[int] = []
 var ground_surface_regions: Dictionary = {}
 var exposed_surface_edges:Dictionary={}
 var terrain_candidate_preview := false
@@ -28,6 +29,7 @@ func _ready() -> void:
 		body.name = "Platform%d" % index
 		body.position = rect.get_center()
 		body.collision_layer = 1
+		if index in definition.get_meta("runtime_map_wall_indices",[]):body.add_to_group("wall_climbable")
 		var shape := CollisionShape2D.new()
 		shape.name = "CollisionShape2D"
 		shape.one_way_collision = index in definition.one_way_platform_indices
@@ -137,6 +139,7 @@ func _draw() -> void:
 	if authoring_debug:
 		draw_rect(definition.world_bounds, Color("101c29"))
 	for index: int in definition.platforms.size():
+		if index in inactive_platform_indices:continue
 		# One-way surfaces own their terminal-aware draw, including in Module Lab.
 		# Do not send them through the legacy full-sprite repeating strip below.
 		if index in definition.one_way_platform_indices: continue
@@ -224,3 +227,13 @@ func _draw_pixel_ferry_rail(ferry: ModuleMovingPlatformDefinition) -> void:
 	for point: Vector2 in [ferry.start, ferry.finish]:
 		draw_rect(Rect2(point - Vector2.ONE * 3, Vector2.ONE * 6), Color("a66d45"))
 		draw_rect(Rect2(point - Vector2.ONE, Vector2.ONE * 2), Color("ead39a"))
+
+func release_platform(index: int) -> void:
+	if index in inactive_platform_indices or index<0 or index>=definition.platforms.size():return
+	inactive_platform_indices.append(index)
+	var body:=get_node("Platform%d" % index) as StaticBody2D
+	body.collision_layer=0;body.collision_mask=0
+	(body.get_node("CollisionShape2D") as CollisionShape2D).set_deferred("disabled",true)
+	for child: Node in get_children():
+		if child is CanvasItem and child.get_meta("platform_index",-1)==index:child.visible=false
+	queue_redraw()

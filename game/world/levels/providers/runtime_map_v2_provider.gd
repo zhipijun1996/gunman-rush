@@ -361,6 +361,20 @@ static func _content_error(content: Dictionary, instance: Dictionary) -> String:
 			var linear := _linear(raw)
 			if not linear.is_valid() or not bounds.encloses(linear.envelope()): return prefix+"linear: native validity/envelope rejected"
 			continue
+		if raw.get("trajectory_kind")=="closed_polyline_loop/v1":
+			var loop_fields: Array[String]=[];loop_fields.assign(LINEAR_FIELDS+["trajectory_kind","loop_points","loop_period"])
+			var extra:=_unexpected(raw,loop_fields)
+			if not extra.is_empty() or not raw.get("loop_points") is Array or not _number(raw.get("loop_period")):return prefix+"invalid closed-loop fields"
+			for point: Variant in raw.loop_points:
+				if not _pair(point):return prefix+"invalid closed-loop point"
+			for field: String in ["start","finish","size"]:
+				if not _pair(raw.get(field),field=="size"):return prefix+"invalid loop endpoint/size"
+			for field: String in ["travel_duration","dwell_duration","initial_phase"]:
+				if not _number(raw.get(field)):return prefix+"invalid loop timing"
+			var loop:=_loop(raw)
+			if not _identity(raw.get("platform_id")) or identities.has(raw.platform_id) or not loop.is_valid() or not bounds.encloses(loop.envelope()) or raw.loop_period!=raw.travel_duration or _point(raw.start)!=loop.points[0] or _point(raw.finish)!=loop.points[-1]:return prefix+"native closed-loop contract rejected"
+			identities[raw.platform_id]=true
+			continue
 		for field: Variant in raw:
 			if not field is String or field not in ELLIPSE_FIELDS: return prefix+str(field)+": unsupported field"
 		if raw.get("trajectory_kind") != "clockwise_ellipse/v1": return prefix+"trajectory_kind: unsupported trajectory"
@@ -386,7 +400,7 @@ static func _definition(content: Dictionary, instance: Dictionary) -> Platformin
 	for seal: Dictionary in instance.seals: definition.platforms.append(_rect(seal.rect_pixels))
 	for rectangle: Array in content.hazards: definition.danger_bounds.append(_rect(rectangle))
 	for raw: Dictionary in content.saws: definition.saws.append(_saw(raw))
-	for raw: Dictionary in content.moving_platforms: definition.ferries.append(_ellipse(raw) if raw.has("trajectory_kind") else _linear(raw))
+	for raw: Dictionary in content.moving_platforms: definition.ferries.append(_loop(raw) if raw.get("trajectory_kind")=="closed_polyline_loop/v1" else _ellipse(raw) if raw.has("trajectory_kind") else _linear(raw))
 	var entry := PlatformingModulePort.new()
 	entry.port_id = &"authored_body_entry"
 	entry.position = _point(content.entry_port)
@@ -440,6 +454,13 @@ static func _ellipse(raw: Dictionary) -> RuntimeMapEllipseDefinition:
 	result.travel_duration = float(raw.ellipse_period)
 	result.dwell_duration = 0.0
 	result.initial_phase = float(raw.initial_phase)
+	return result
+
+static func _loop(raw: Dictionary) -> RuntimeMapLoopDefinition:
+	var result:=RuntimeMapLoopDefinition.new()
+	result.platform_id=StringName(raw.platform_id);result.start=_point(raw.start);result.finish=_point(raw.finish);result.size=_point(raw.size)
+	result.travel_duration=float(raw.loop_period);result.dwell_duration=float(raw.dwell_duration);result.initial_phase=float(raw.initial_phase)
+	for point: Array in raw.loop_points:result.points.append(_point(point))
 	return result
 
 static func _connection_error(edge: Dictionary, instances: Dictionary, complete: bool = false) -> String:

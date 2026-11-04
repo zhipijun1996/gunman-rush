@@ -13,6 +13,7 @@ var link_id := "A"
 var sigil_index := 0
 var motion_target: ModuleMovingPlatform
 var motion_mode := false
+var repeatable := false
 var link_color := Color("e8bd65")
 var _clock := 0.0
 var prompt_text := ""
@@ -131,7 +132,7 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	queue_redraw()
 
 func _register_shot(_direction: Vector2, shot_id: int) -> void:
-	if not _cancelled and (not is_open or motion_mode) and lifetime.active and controller.active:
+	if not _cancelled and (not is_open or motion_mode or repeatable) and lifetime.active and controller.active:
 		_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = {"token": lifetime.token(), "actor_position":controller.motor.global_position, "expires": _clock + controller.motor.tuning.projectile_lifetime + 1.0 / 60.0}
 
 func _receive_projectile(context: Dictionary) -> bool:
@@ -139,7 +140,7 @@ func _receive_projectile(context: Dictionary) -> bool:
 	var eligibility: Dictionary = _eligible_shots.get(key, {})
 	var token: DemoToken = eligibility.get("token")
 	var id := str(context.get("event_id", ""))
-	if _cancelled or (is_open and not motion_mode) or not _pending.is_empty() or not lifetime.accepts(token) or id.is_empty() or _seen.has(id):
+	if _cancelled or (is_open and not motion_mode and not repeatable) or not _pending.is_empty() or not lifetime.accepts(token) or id.is_empty() or _seen.has(id):
 		return false
 	if not controller.active or controller.actor_resources.health.terminal or context.get("source_faction", &"") != &"player" or context.get("source_actor_id", -1) != controller.motor.get_instance_id() or context.get("session_id", -1) != controller.session_id:
 		return false
@@ -178,9 +179,12 @@ func _physics_process(delta: float) -> void:
 	_pending = {}
 	_commit_open.call_deferred(request)
 
+func request_is_current(request: Dictionary) -> bool:
+	return not request.is_empty() and request.get("request_epoch",-1)==_request_epoch and not _cancelled and is_inside_tree() and lifetime!=null and lifetime.accepts(request.get("token")) and is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and controller.session_id==request.get("session") and health.epoch==request.get("health_epoch")
+
 func _commit_open(request: Dictionary) -> void:
-	if request.is_empty() or request.get("request_epoch", -1) != _request_epoch or _cancelled or (is_open and not motion_mode) or not is_inside_tree() or not lifetime.accepts(request.token) or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or controller.session_id != request.session or health.epoch != request.health_epoch:
-		return
+	if not request_is_current(request) or (is_open and not motion_mode and not repeatable): return
+
 	if not sequence_offset.is_zero_approx() and sequence_step == 0:
 		sequence_step = 1
 		restore_sequence_gate()
@@ -315,7 +319,7 @@ func _draw() -> void:
 				var step := access_sequence_steps[access_index]
 				UnderworldObjects.sequence_plate(self,access_positions[access_index]+Vector2(20,-36),step,is_open or sequence_step==step-1)
 	if formal_presentation:
-		var target:=motion_target.position if motion_mode and is_instance_valid(motion_target) else gate_rect.position
+		var target:=to_local(motion_target.global_position) if motion_mode and is_instance_valid(motion_target) else gate_rect.position
 		_draw_sigil(bell_position+Vector2(-28,-45),sigil_index,28)
 		_draw_sigil(target+Vector2(12,-38),sigil_index,32)
 		if not region_presentation: _draw_link_label(bell_position+Vector2(18,-35),gold)

@@ -315,6 +315,11 @@ func _preload(ticket: Ticket) -> void:
 	_start_generation(ticket)
 
 func _start_generation(ticket: Ticket) -> void:
+	if ticket.bindings.get("filter_source_capacity",false):
+		var eligible:=VERIFIED_LIBRARY.capacity_filter(ticket.lock,ticket.request_data.module_filter.include_ids,int(ticket.request.capabilities.get("maximum_jumps",0)),int(ticket.request.capabilities.get("maximum_air_shots",0)))
+		if not eligible.ok or eligible.ids.is_empty():_fail(ticket,"No modules qualified for actual action capacity");return
+		ticket.request_data.module_filter.include_ids=eligible.ids
+		ticket.metrics["capacity_exclusions"]=eligible.excluded
 	ticket.metrics["verified_library_receipt"] = VERIFIED_LIBRARY.receipt(ticket.lock)
 	ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
 	var lock: Dictionary = ticket.lock

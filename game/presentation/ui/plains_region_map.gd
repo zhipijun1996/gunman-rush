@@ -122,9 +122,12 @@ func _draw() -> void:
 func _draw_terrain() -> void:
 	if stage.level_plan==null: return
 	var scale_factor:=_fit_scale()*zoom
-	for placement: LevelModulePlacement in stage.level_plan.modules:
+	for placement_index: int in stage.level_plan.modules.size():
+		var placement: LevelModulePlacement=stage.level_plan.modules[placement_index]
+		var live_module: PlatformingModule=stage.assembler.modules[placement_index]
 		var definition:=placement.definition
 		for index: int in definition.platforms.size():
+			if index in live_module.inactive_platform_indices:continue
 			var terrain:=definition.platforms[index]
 			terrain.position+=placement.position
 			# Iterate only cells touched by this rectangle; explored is the sole

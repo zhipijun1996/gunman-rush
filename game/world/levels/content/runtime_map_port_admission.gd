@@ -68,8 +68,8 @@ static func resolve_complete(definition: PlatformingModuleDefinition, content: D
 		if port.get("surface") not in ["ROCK","ONE_WAY_PLATFORM","AIR"]: return _reject("unsupported seam surface")
 		var bank := _bank(definition,content,port,half,true)
 		if not bank.ok: return _reject(str(id)+": "+str(bank.error))
-		banks.append({"port_id":id,"face":port.face,"surface":port.surface,"body_center_pixels":[bank.point.x,bank.point.y],"support_platform_index":bank.platform_index})
-		if bank.platform_index>=0 and bank.point not in anchors: anchors.append(bank.point)
+		banks.append({"port_id":id,"face":port.face,"surface":port.surface,"body_center_pixels":[bank.point.x,bank.point.y],"support_platform_index":bank.platform_index,"recovery_safe":bank.get("recovery_safe",true)})
+		if bank.platform_index>=0 and bank.get("recovery_safe",true) and bank.point not in anchors: anchors.append(bank.point)
 	var local_spawn := world_spawn-Vector2(instance.origin_blocks[0],instance.origin_blocks[1])*128.0
 	if _clear_standing(definition,content,local_spawn,half) and local_spawn not in anchors: anchors.push_front(local_spawn)
 	# A one-port reward room needs safe interior recovery witnesses, not a
@@ -140,12 +140,13 @@ static func _bank(definition: PlatformingModuleDefinition, content: Dictionary, 
 		for candidate: Vector2 in points:
 			if upper and (candidate.x-half.x<aperture.x-64 or candidate.x+half.x>aperture.x+64): continue
 			if horizontal and absf(candidate.x-point.x)>128: continue
-			if not _clear_standing(definition,content,candidate,half): continue
+			if not (definition._standing_point(candidate) if complete else _clear_standing(definition,content,candidate,half)): continue
 			if not _approach_clear(definition,content,candidate,port,half,complete): continue
-			candidates.append({"point":candidate,"platform_index":index,"distance":candidate.distance_squared_to(aperture)})
+			candidates.append({"point":candidate,"platform_index":index,"distance":candidate.distance_squared_to(aperture),"recovery_safe":_gate_clear(Rect2(candidate-half,half*2),content)})
 	if candidates.is_empty(): return _reject("no clear supported body landing at actual used aperture")
 	candidates.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return a.distance<b.distance if a.distance!=b.distance else a.platform_index<b.platform_index)
-	return {"ok":true,"error":"","point":candidates[0].point,"platform_index":candidates[0].platform_index}
+	var selected: Dictionary=candidates[0]
+	return {"ok":true,"error":"","point":selected.point,"platform_index":selected.platform_index,"recovery_safe":selected.get("recovery_safe",true)}
 
 static func _air_aperture(definition: PlatformingModuleDefinition, content: Dictionary, port: Dictionary, half: Vector2) -> Dictionary:
 	var at := Vector2(port.local_position_pixels[0],port.local_position_pixels[1])
@@ -193,12 +194,20 @@ static func _approach_clear(definition: PlatformingModuleDefinition, content: Di
 		if saw.envelope().intersects(sweep.grow(8.0)): return false
 	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
 		if ferry.envelope().intersects(sweep.grow(8.0)): return false
-	return _gate_clear(sweep,content)
+	return true if complete else _gate_clear(sweep,content)
 
 static func _gate_clear(body: Rect2, content: Dictionary) -> bool:
-	for latch: Dictionary in content.latches:
-		var raw: Array = latch.gate
+	for latch: Dictionary in RuntimeMapContentAdapter.mechanisms(content):
+		if latch.has("ferry_id") or latch.get("kind")=="retractable_gears/v1":continue
+		var raw: Array = latch.paired_gate if latch.has("paired_gate") and latch.get("initial_open")=="A" else latch.gate
 		if Rect2(raw[0],raw[1],raw[2],raw[3]).intersects(body): return false
+	for group: Dictionary in content.get("retractable_groups",[]):
+		for band: Dictionary in group.bands:
+			if RuntimeMapShotLatchAdapter.rectangle(band.rect).intersects(body.grow(8)):return false
+	for special: Dictionary in content.get("approved_hq_cells",[]):
+		if special.kind=="retract_thorns":
+			for band: Dictionary in special.hazards:
+				if RuntimeMapShotLatchAdapter.rectangle(band.rect).intersects(body.grow(8)):return false
 	return true
 
 static func _link_error(instance: Dictionary, port: Dictionary, instances: Dictionary, connections: Array, complete: bool = false) -> String:

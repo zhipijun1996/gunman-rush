@@ -20,6 +20,7 @@ var encounter_plan: Dictionary = {}
 var route_signpost: RouteSignpost
 var shot_latch_encounter: GeneratedShotLatchEncounter
 var shot_latches: Array[ShotLatch] = []
+var bound_policy: FrameDamagePolicy
 
 # True only when the existing Boss cancellation method was present and called.
 # App retains ownership of its eligible-shot set and the player's projectiles.
@@ -356,6 +357,7 @@ func _install_branch_bonuses() -> void:
 func bind_damage_context(controller: PlayerController, policy: FrameDamagePolicy,
 		lifetime: DemoLifetime, segment: SegmentRespawn, connected_region: bool,
 		shortcut_opened: Callable, layout_record: Callable) -> bool:
+	bound_policy=policy
 	for index: int in anchors.size():
 		segment.add_anchor(StringName("generated_%s" % index), anchors[index])
 	segment.danger_bounds = assembler.world_dangers()

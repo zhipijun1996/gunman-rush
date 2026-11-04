@@ -33,6 +33,9 @@ func _physics_process(_delta: float) -> void:
 	else: position = definition.at_time(module.clock)
 
 func _draw() -> void:
+	if get_meta("projectile_barrier",false):
+		UnderworldTerrain.draw_mechanism_beam(self,Rect2(-definition.size*.5,definition.size),.65)
+		return
 	if pixel_art_enabled and (not is_instance_valid(painted_art) or not painted_art.visible):
 		if UnderworldActors.enabled(self): UnderworldTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
 		else: PixelFormalTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
@@ -71,7 +74,7 @@ func set_painted_enabled(value: bool) -> void:
 			painted_art.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 			painted_art.set_meta("material_source","res://assets/underworld_plains/mechanisms/carrier.png")
 		add_child(painted_art)
-	if is_instance_valid(painted_art): painted_art.visible = value
+	if is_instance_valid(painted_art): painted_art.visible = value and not get_meta("projectile_barrier",false)
 	queue_redraw()
 
 class UnderworldCarrierPaint extends Node2D:

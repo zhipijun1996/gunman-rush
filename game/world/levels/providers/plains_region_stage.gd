@@ -345,7 +345,7 @@ func capture_state() -> void:
 	for i: int in shot_latches.size():
 		var latch := shot_latches[i]
 		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]=latch.region_snapshot()
-		if shot_latches[i].is_open and shot_latches[i].open_seconds == 0 and not shot_latches[i].motion_mode:
+		if shot_latches[i].is_open and shot_latches[i].open_seconds == 0 and not shot_latches[i].motion_mode and not shot_latches[i].repeatable:
 			region_state.opened[generated.manifest.shot_latch_plan.latches[i].id] = true
 
 func global_player_position() -> Vector2:

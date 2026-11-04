@@ -12,7 +12,7 @@ func collect_solids()->Array[Rect2]:
 	var solids:Array[Rect2]=[]
 	for module:PlatformingModule in stage.assembler.modules:
 		for i:int in module.definition.platforms.size():
-			if i not in module.definition.one_way_platform_indices:
+			if i not in module.definition.one_way_platform_indices and i not in module.inactive_platform_indices:
 				var rect:=module.definition.platforms[i]
 				solids.append(Rect2(module.position+rect.position,rect.size))
 	if is_instance_valid(stage.assembler.ground_supports):solids.append_array(stage.assembler.ground_supports.columns)

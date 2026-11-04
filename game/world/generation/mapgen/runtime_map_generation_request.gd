@@ -45,6 +45,7 @@ static func from_controller(controller: PlayerController, motor: PlayerMotor, se
 	var shot_recoil: bool = shoot.enabled and recoil.enabled and ((recoil_primary and recoil_positive) or reverse_blink) and tuning.max_air_shots > 0 and energy_capacity
 	if shot_recoil:
 		abilities.append("shot_recoil")
+	if controller.traversal.wall_enabled: abilities.append("wall_climb")
 	if controller.traversal.hook_enabled:
 		abilities.append("grapple")
 	var gaps: Array[String] = ["Addon ability tags do not prove physical reachability or model weapon-specific distance/timing.", "Ability tags express nominal enabled capacity, not remaining actions/energy in this flight; current availability is separate in this snapshot.", "Cooldown, active packets, traversal state and current aim are recorded, not simulated."]

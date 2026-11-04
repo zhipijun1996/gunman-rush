@@ -1,7 +1,7 @@
 class_name PlainsMapGeneration
 extends RefCounted
 ## One run's generation source and committed maps. No gameplay services.
-const VERSION := "plains-mapgen-v2"
+const VERSION := "plains-mapgen-v3"
 const CONFIG := "res://config/plains_mapgen.json"
 const REQUEST = preload("res://game/world/generation/mapgen/runtime_map_generation_request.gd")
 var generation := RuntimeMapGenerationJob.new()
@@ -71,6 +71,8 @@ func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, cont
 	_request.capabilities=original.capabilities.duplicate(true)
 	_request.capabilities.collision_half_extents=actual.snapshot.collision.half_extents_pixels.duplicate()
 	_request.capabilities.abilities=_data.player.abilities.duplicate()
+	_request.capabilities.maximum_jumps=actual.snapshot.abilities.maximum_jumps
+	_request.capabilities.maximum_air_shots=actual.snapshot.tuning.max_air_shots
 	_request.capabilities["movement_projection"]="formal_plains_nominal_recoil_or_reverse_blink_v1"
 	_recipe={
 		"schema":"gunman-rush/runtime-map-bindings/v1", "version":VERSION,
@@ -80,7 +82,7 @@ func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, cont
 			"root":{"module_id":"game-plains-windchime-lesson","content_version":"sha256:b2ee44df5422a7b4dd9be1358a075c46cefb00992de802607389f6f94ecfa433","role":"start"}
 		},
 		"spawn_rule":{"kind":"original_platform_top_center","instance":"root","platform_index":0},
-		"spawns":{}, "host_profile_sha256":FileAccess.get_sha256(CONFIG)
+		"spawns":{}, "host_profile_sha256":FileAccess.get_sha256(CONFIG), "filter_source_capacity":true
 	}
 	_start_attempt()
 
@@ -185,7 +187,7 @@ static func _bind_gameplay(built: LevelBuildResult, result: Dictionary, root_see
 			if floor_rect.size.x<800: return "Generated Boss floor cannot support the existing encounter"
 			plan.boss_arena=Rect2(placement.position+Vector2(floor_rect.position.x,0),Vector2(floor_rect.size.x,floor_rect.position.y))
 			plan.boss={"definition_id":&"bellstrider" if plan.map_index==1 else &"windkeeper_storm","position":Vector2(plan.boss_arena.get_center().x,plan.boss_arena.end.y-65)}
-		for raw: Dictionary in content.latches:
+		for raw: Dictionary in RuntimeMapContentAdapter.mechanisms(content):
 			var latch := raw.duplicate(true)
 			latch["id"]=RuntimeMapShotLatchAdapter.state_key(placement.instance_id,str(raw.id))
 			latch["node_index"]=plan.modules.find(placement)

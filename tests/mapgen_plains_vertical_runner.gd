@@ -35,23 +35,27 @@ func fixture(pair: Array,start: Vector2) -> Node2D:
 	return world
 func run() -> void:
 	app=load(ProjectSettings.get_setting("application/run/main_scene")).instantiate();app.meta_persistence_enabled=false;root.add_child(app)
-	await frames(3);app.menu._start_title_adventure();await frames(2);app.start_plains("ci-smoke")
-	if not await READY.ready(app,self):check(false,"formal source ready");await finish();return
-	var plan: LevelPlan=app.stage.level_plan
-	var by: Dictionary={}
-	for placement: LevelModulePlacement in plan.modules:by[placement.instance_id]=placement
+	await frames(3);app.menu._start_title_adventure();await frames(2)
 	var vertical: Dictionary={};var horizontal: Dictionary={}
-	for edge: Dictionary in plan.connections:
-		if edge.surface!="ONE_WAY_PLATFORM":continue
-		var a: LevelModulePlacement=by[str(edge.a.instance_id)];var b: LevelModulePlacement=by[str(edge.b.instance_id)]
-		if not a.definition.saws.is_empty() or not b.definition.saws.is_empty() or not a.definition.ferries.is_empty() or not b.definition.ferries.is_empty():continue
-		var face: String=""
-		for port: Dictionary in a.definition.get_meta("runtime_map_v2_instance").ports:
-			if port.id==edge.a.port_id:face=port.face
-		if face in ["TOP","BOTTOM"] and vertical.is_empty():vertical={"edge":edge,"a":a,"b":b,"face":face}
-		if face in ["LEFT","RIGHT"] and horizontal.is_empty():horizontal={"edge":edge,"a":a,"b":b,"face":face}
-	check(not vertical.is_empty() and not horizontal.is_empty(),"actual generated map contains vertical and horizontal one-way pairs")
-	app.abandon_run();await frames(8)
+	# Fixed full-pool corpus has its static vertical and horizontal examples in
+	# different maps. These remain actual solver outputs, never edited modules.
+	for seed:String in ["plains-review-05","formal-integration-1"]:
+		app.start_plains(seed)
+		if not await READY.ready(app,self):check(false,"formal source ready");await finish();return
+		var plan:LevelPlan=app.stage.level_plan
+		var by:Dictionary={}
+		for placement:LevelModulePlacement in plan.modules:by[placement.instance_id]=placement
+		for edge:Dictionary in plan.connections:
+			if edge.surface!="ONE_WAY_PLATFORM":continue
+			var a:LevelModulePlacement=by[str(edge.a.instance_id)];var b:LevelModulePlacement=by[str(edge.b.instance_id)]
+			if not a.definition.saws.is_empty() or not b.definition.saws.is_empty() or not a.definition.ferries.is_empty() or not b.definition.ferries.is_empty():continue
+			var face:String=""
+			for port:Dictionary in a.definition.get_meta("runtime_map_v2_instance").ports:
+				if port.id==edge.a.port_id:face=port.face
+			if face in ["TOP","BOTTOM"] and vertical.is_empty():vertical={"edge":edge,"a":a,"b":b,"face":face}
+			if face in ["LEFT","RIGHT"] and horizontal.is_empty():horizontal={"edge":edge,"a":a,"b":b,"face":face}
+		app.abandon_run();await frames(8);app.menu.close_panel()
+	check(not vertical.is_empty() and not horizontal.is_empty(),"actual fixed-corpus maps contain vertical and horizontal one-way pairs")
 	if not vertical.is_empty():
 		var lower: LevelModulePlacement=vertical.a if vertical.face=="TOP" else vertical.b
 		var upper: LevelModulePlacement=vertical.b if vertical.face=="TOP" else vertical.a

@@ -31,3 +31,7 @@ func cancel_shot_latch_requests(permanent: bool = false) -> void:
 	if not is_instance_valid(runtime_latches): return
 	if permanent: runtime_latches.cancel()
 	else: runtime_latches.cancel_pending()
+
+func capture_state() -> void:
+	super.capture_state()
+	if is_instance_valid(runtime_latches):runtime_latches.capture_state()

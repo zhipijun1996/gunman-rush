@@ -1,0 +1,26 @@
+{
+  "schema": "mapgen/generation-result/v1",
+  "status": "SEARCH_EXHAUSTED",
+  "request_fingerprint": "1af2861b59fd7827a9801220977fdcc5a220a09d31a8f997ca6be75d74e8f5e3",
+  "metrics": {
+    "backtracks": 9,
+    "closed_loops_across_search": 54,
+    "expansions": 224514,
+    "generation_seconds": 6.000357,
+    "layout_repairs": 8,
+    "pruning": {
+      "entry_has_no_reward_route": 342,
+      "no_onward_route_from_actual_entry": 666,
+      "no_route_from_actual_entry": 23345,
+      "reward_claim_region_excluded_by_seals": 6,
+      "seal_or_route_configuration": 13
+    },
+    "recorded_failures": 10,
+    "terminal_states": 0
+  },
+  "error": {
+    "message": "no_goal_and_reservation_compatible_boss",
+    "phase": "goal_aware_terminals",
+    "type": "GDScriptCandidate"
+  }
+}

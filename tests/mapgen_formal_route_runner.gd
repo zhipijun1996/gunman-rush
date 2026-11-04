@@ -9,6 +9,7 @@ var jump_ticks := 0
 var failures := 0
 var initial_player := 0
 var accepted_boss_damage := 0.0
+var route_seed := "formal-integration-1"
 func _initialize() -> void: run.call_deferred()
 func frames(n: int) -> void:
  for i: int in n:
@@ -146,7 +147,9 @@ func go(point: Vector2, limit: int = 200, allow_above: bool = true) -> bool:
 func run() -> void:
  app=load(ProjectSettings.get_setting("application/run/main_scene")).instantiate();app.meta_persistence_enabled=false;root.add_child(app)
  for i: int in 3:await process_frame
- app.menu._start_title_adventure();await frames(2);app.start_plains("formal-integration-1")
+ for arg:String in OS.get_cmdline_user_args():
+  if arg.begins_with("--seed="):route_seed=arg.trim_prefix("--seed=")
+ app.menu._start_title_adventure();await frames(2);app.start_plains(route_seed)
  if not await READY.ready(app,self):print("NOT READY");await finish();return
  var stage:=app.stage as MapgenPlainsStage
  var source: Dictionary=preload("res://addons/mapgen/data_json.gd").parse(stage.generated.manifest.mapgen.source_json).value
@@ -212,7 +215,7 @@ func run() -> void:
  await finish()
 func finish() -> void:
  DirAccess.make_dir_recursive_absolute("res://build/mapgen_formal")
- var f=FileAccess.open("res://build/mapgen_formal/route_trace.json",FileAccess.WRITE);f.store_string(JSON.stringify({"seed":"formal-integration-1","input_only":true,"accepted_boss_damage":accepted_boss_damage,"failures":failures,"trace":trace}))
+ var f=FileAccess.open("res://build/mapgen_formal/route_trace.json",FileAccess.WRITE);f.store_string(JSON.stringify({"seed":route_seed,"input_only":true,"accepted_boss_damage":accepted_boss_damage,"failures":failures,"trace":trace}))
  if app.lifetime.active:app.abandon_run()
  for i: int in 8:await process_frame
  await preload("res://tests/audio_teardown.gd").drain_world(app);app.queue_free()
