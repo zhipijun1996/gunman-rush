@@ -5,10 +5,22 @@ import sys
 from quality import ROOT, policy, read_json, validate_record, validate_asset
 
 
+def skill_workflow_errors(content):
+    errors = []
+    for heading in ('适用任务', '操作', '验证与交付'):
+        matches = list(re.finditer(r'^## ' + heading + r'\s*$', content, re.MULTILINE))
+        if len(matches) != 1:
+            errors.append(f'Expected one skill section: {heading}')
+            continue
+        section = content[matches[0].end():].split('\n## ', 1)[0].strip()
+        if not section:
+            errors.append(f'Empty skill section: {heading}')
+    return errors
+
+
 def validate(root=ROOT):
     errors = []
     p = policy()
-    required_headings = ('触发与边界', '输入与依赖', '阶段流程与交付物', '设计要求', '自动验收', '人工审查', '准入退出与返工', '完成与证据')
     names = set()
     paths = list((root / '.agents/skills').glob('*/SKILL.md'))
     for path in paths:
@@ -19,11 +31,7 @@ def validate(root=ROOT):
             continue
         names.add(meta[1])
         if meta[1] in p['core_skills']:
-            for heading in required_headings:
-                if '## ' + heading not in content:
-                    errors.append(f'{meta[1]} missing {heading}')
-            if len(content) < 1500:
-                errors.append(f'{meta[1]} lacks actionable workflow')
+            errors.extend(f'{meta[1]}: {error}' for error in skill_workflow_errors(content))
         for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)', content):
             if not target.startswith(('http:', 'https:', '#')) and not (path.parent / target.split('#')[0]).is_file():
                 errors.append(f'Broken skill reference: {path}: {target}')

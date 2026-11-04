@@ -15,6 +15,9 @@ SPEC = importlib.util.spec_from_file_location("harness", Path(__file__).resolve(
 h = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(h)
 
+# Current documentation navigation uses the existing portable Harness suite.
+from test_context_navigation import NavigationTests
+
 
 class HarnessTests(unittest.TestCase):
     def execute(self, source, timeout=5):

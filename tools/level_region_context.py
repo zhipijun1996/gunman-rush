@@ -365,9 +365,8 @@ def build_region_context(region_id, root=ROOT):
     if any(target not in ids for target in outgoing):
         raise ContextError("Catalog edge references unknown region")
     overrides = []
-    for line in entry.lines:
-        if line.startswith("## 最新"):
-            overrides.append(_facts(entry.section(line), "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS"))
+    for heading in ("## 动作合同", "## 武器与能力"):
+        overrides.append(_facts(entry.section(heading), "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS"))
     # Include linked revised contracts as references, not copied tuning values.
     for override in overrides:
         override["linked_sources"] = []

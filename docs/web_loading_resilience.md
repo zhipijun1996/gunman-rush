@@ -22,7 +22,7 @@ GitHub Pages在大陆可能慢或不可达；减小包和恢复只能改善能�
 
 ## 验证
 
-`python3 tools/build.py web`、`python3 tools/check_web_bundle.py`；真实Chromium故障测试 `python3 tools/verify_web_resilience.py --before build/verification/web-loading-d083/before --after build/web`。保存探针是存储保留检查，不冒充实际赚到音符。测试结果、严格审查与公开包以[当前交接](handoff.md)为准。
+`python3 tools/build.py web`、`python3 tools/check_web_bundle.py`；真实Chromium故障测试 `python3 tools/verify_web_resilience.py --before build/verification/web-loading-d083/before --after build/web`。保存探针是存储保留检查，不冒充实际赚到音符。测试结果、严格审查与公开包以[当前交接](cloud_production.md)为准。
 
 本地最终加载器234d72d01676实测：首次响应体43,136,956→34,952,921 B（约19%减少）；暖载368 B，仅manifest。含实际分块故障/缓存损坏/双标签/更新证据见[报告](evidence/web_loading_d083/local_loading.json)。本地无限速可能增加分块/存储初始化成本，不能保证快网墙钟时间也更快；限速结果另记。
 

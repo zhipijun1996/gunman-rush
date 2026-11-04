@@ -1,8 +1,8 @@
 # 当前运行架构
 
-游戏采用按功能组织的模块化单体，继续使用 Godot Node、Scene、Resource。应用层装配服务，功能模块拥有规则和状态；实验复用这些模块，并保留自己明确的输入、重生和版本政策。当前重构的验证状态见[执行记录](worklines/game_architecture_01/execution.md)，目标和批次见[目标架构](worklines/game_architecture_01/target_architecture.md)。目录归属见[模块导航](module_map.md)。本文描述已接入的调用，不把规划中的类当成实现。
+游戏采用按功能组织的模块化单体，继续使用 Godot Node、Scene、Resource。应用层装配服务，功能模块拥有规则和状态；实验复用这些模块，并保留自己明确的输入、重生和版本政策。目录归属见[模块导航](module_map.md)。本文描述已接入的调用，不把规划中的类当成实现。
 
-最新调用、共用规则、地图替换边界与验收范围见[架构收口](worklines/game_architecture_01/architecture_closeout.md)。App 通过 Stage 的伤害／Boss／取消命令和路线／HUD 值查询接入地图，地图内部模块解释留在 Stage；完整新地图来源仍需迁移旧来源记录与恢复适配。
+App通过Stage的伤害／Boss／取消命令及路线／HUD查询接入地图；地图内部解释归Stage。RuntimeMapV2Provider已接入mapgen开发来源，普通出发仍使用Plains／Forest Provider。
 
 ## 正式运行路径
 
@@ -19,6 +19,8 @@ flowchart TD
     Provider --> Legacy[现有生成器与版本校验]
     Legacy --> Adapter[LegacyRegionPlanAdapter]
     Adapter --> Plan[LevelPlan：已解析内容]
+    Request --> RuntimeMap[开发 RuntimeMapV2Provider]
+    RuntimeMap --> Plan
     App --> Stage[Stage：地图节点与运行状态]
     Plan -. App 配置到 Stage .-> Stage
     Stage --> Runtime[LevelRuntime：公共装配与实体创建入口]
@@ -55,7 +57,7 @@ RunSession 复用原流程和 epoch 权威，不新增第二个 RunDirector。�
 
 同类功能不一定具有相同合同。商店分层抽样与物品池归一加权抽样使用不同随机调用序列；拾取和宝箱的收据、满血处理、音效条件不同；Boss 招式、织蛛/跨枝怪恢复、灰盒全场重置各有明确政策。这些差异不能为了减少代码行数合成带大量开关的万能函数。
 
-旧版本回放使用显式版本边界。v11 历史 charger 定义漂移是单独修复：原 SHA/28×32 和当前 28×28 同时由原 Registry 明确选择，未知版本拒绝。正式图声保持用户已采用版本；历史预览的素材不自动升级或删除。
+显式版本消费者按原注册表选择定义与内容；未知版本拒绝。素材和定义的当前选择由实际配置维护。
 
 ## 维护与验证
 

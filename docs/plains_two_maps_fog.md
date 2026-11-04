@@ -40,4 +40,4 @@ Web资源按内容哈希命名，HTML与build-info不进资源缓存。新启动
 
 实际Web另外验证默认第一张、迷雾小地图点击、大地图定位/滚轮/拖动/关闭，以及移动/跳跃/声音；不冒称浏览器真人完整两图通关。Windows/手机/实体手柄与主观探索趣味性待验。后续大能力、森林和其他地区均不实现。
 
-最终运行提交a21fc8a；[线上试玩8d921972c58d](https://zhipijun1996.github.io/gunman-rush/?v=8d921972c58d)已部署且实际GUI0失败。[完整验证清单](evidence/plains_two_maps/verification.json)与[交接](handoff.md)记录命令、范围、来源和设备边界。
+最终运行提交a21fc8a；[线上试玩8d921972c58d](https://zhipijun1996.github.io/gunman-rush/?v=8d921972c58d)已部署且实际GUI0失败。[完整验证清单](evidence/plains_two_maps/verification.json)与[交接](cloud_production.md)记录命令、范围、来源和设备边界。

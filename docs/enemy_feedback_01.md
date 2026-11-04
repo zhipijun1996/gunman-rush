@@ -1,6 +1,6 @@
 # ENEMY-FEEDBACK-01 · System Engineering
 
-2026-10-23会话收口：[全部累计修改、去留与阻塞](enemy_feedback_01_session_summary.md)；[Skills改进提案与后续怪物制作卡](enemy_feedback_01_production_lessons.md)。本次仅整理交付，当前内容仍为下述v8-r2的REJECT／draft，未合main。历史各轮“最新”仅指当时检查点，以本页首当前状态为准。
+2026-10-23会话收口：[全部累计修改、去留与阻塞](enemies_and_bosses.md)；[Skills改进提案与后续怪物制作卡](enemy_feedback_01_production_lessons.md)。本次仅整理交付，当前内容仍为下述v8-r2的REJECT／draft，未合main。历史各轮“最新”仅指当时检查点，以本页首当前状态为准。
 
 ## 2026-10-23 当前返工：专属受伤／死亡帧与留尸体（v8）
 

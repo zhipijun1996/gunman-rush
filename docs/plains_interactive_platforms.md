@@ -1,6 +1,6 @@
 # D081 平台表面危险、远程机关与跳跃 Boss
 
-基于已更新远端 feature/plains-exploration-expansion 的 872aa221db5245b11f6355faf5a429b7ca574949（D080运行5fbbb45、文档提交872aa22），初始工作区干净；main仍ab51fca，PR41–49未合并。当前 feature/plains-interactive-platforms 保留此前修复。最新用户要求以本文件和 [当前交接](handoff.md) 为准。只平原两张独立非线性随机图；第一次小Boss、第二次牧风者；胜利后仍为开发边界，不授未实现能力。
+基于已更新远端 feature/plains-exploration-expansion 的 872aa221db5245b11f6355faf5a429b7ca574949（D080运行5fbbb45、文档提交872aa22），初始工作区干净；main仍ab51fca，PR41–49未合并。当前 feature/plains-interactive-platforms 保留此前修复。最新用户要求以本文件和 [当前交接](cloud_production.md) 为准。只平原两张独立非线性随机图；第一次小Boss、第二次牧风者；胜利后仍为开发边界，不授未实现能力。
 
 ## 操作与空间
 

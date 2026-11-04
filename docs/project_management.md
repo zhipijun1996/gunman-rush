@@ -1,19 +1,9 @@
 # 项目管理
 
-GitHub 是代码、任务和审阅入口。docs/tasks.md 是跨会话执行索引；Issue 保存任务讨论与验收，编号回填索引。
+GitHub 保存代码与审阅， [任务索引](tasks.md) 保存任务ID、依赖、当前状态和工作线入口。Issue／PR链接放对应工作线，任务负责人及写集按 [协作规则](cloud_production.md) 管理。
 
-状态：planned → ready → in_progress → review → done；外部依赖用 blocked，真机项用 awaiting-device。任务需一个负责人、前置依赖、交付物和验收；并发只针对互不依赖工作。
+状态采用 planned → ready → in_progress → review → done；必要依赖阻塞用 blocked，缺实体设备验证用 awaiting-device。代码合入和内容质量分别记录，已合入任务仍可能等待体验验收。
 
-main 保存基线；分支 docs/*、feature/*、fix/*。每个 PR 对应可审阅的行为变化，描述结果、验证、未验证项。禁止 force push 和直接覆盖用户改动。初始化空仓库可直接建立 main；后续默认 PR，不自动合并。
+main保存基线；开发使用feature／fix／docs／chore主题分支和PR。PR说明行为变化、实际验证、未验范围。合并与发布按本次用户授权执行，保护远端新增提交与用户工作区。
 
-当前路线图使用P0–P6，旧报告M0–M5是历史阶段；当前能力允许建 Issue/PR，未配置原生 Projects 看板、branch protection 或自动合并。阶段表是当前管理视图，不声称已设置 GitHub 原生 milestone。后续如工具支持可迁移。
-
-当前CI检查文档/引擎解析/物理与Windows/Web导出，Android debug按需构建。只有指定原型分支push发布Pages，设计PR不发布网页。CI 使用最小 contents:read，固定依赖版本；生成 APK 作为 artifact 不提交 Git。
-
-发版需版本号、commit、工具链、验收报告、APK hash、已知限制；真机与授权检查完整后才提出发布。仓库 public：不放家庭、医疗、个人会话或密钥。
-
-所有代码许可当前待用户决定；不擅自添加开源许可证。依赖与生成素材授权分别追踪。
-
-## 当前连接的同步方法
-
-Git CLI push 若缺少凭据，使用已有 GitHub 连接创建 tree/commit 并按 expected_sha 更新分支；同步后 fetch 并确认远程文件树与本地一致。不得覆盖期间新增的远程提交。没有连接时记录阻塞并保留本地提交。
+工具链来自 `config/toolchain.json`，检查由 [Harness](harness.md) 定义，CI负责调度与同源合流。产物写 `build/`；许可与素材来源随实际资产维护。代码许可尚未由用户指定。

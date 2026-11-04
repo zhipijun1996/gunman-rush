@@ -53,7 +53,7 @@ python3 tools/foundry.py next --feedback /path/to/foundry-feedback.json
 
 技术通过：真实轨迹、资源余量、整段连接与输入回放。参考分析：有限片段的AI采样观察，推论另列，未逐帧还原全部关卡。趣味性/美术/手感：`awaiting-device`，必须实际试玩。视频解释与新增模板的创作由AI代理执行；CLI负责机械流水线和分析/修改任务队列，尚未连接一个持续后台运行的视频大模型。评价只保存在独立文件，不更改永久存档；坏评价数据清洗并限500条。
 
-保留否决和修复见 [首轮独立审查](evidence/foundry/review_round1.md)。完整本轮状态与验证命令见 [交接](handoff.md)。
+保留否决和修复见 [首轮独立审查](evidence/foundry/review_round1.md)。完整本轮状态与验证命令见 [交接](cloud_production.md)。
 
 导出只支持 `python3 tools/build.py web/windows/android` 的校验路径：导出前重新检查实际源码basis，再写入已验证stamp。编译包内不包含测试driver原文，按stamp和原始JSON指纹加载。直接调用Godot export或手动改PCK不能获得这项源码新鲜度保证。
 

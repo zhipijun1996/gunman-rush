@@ -75,7 +75,7 @@ class RegionContextTests(unittest.TestCase):
         self.assertEqual(hook["formal_grant"], "not_inferred")
         self.assertEqual(context["capability_ids"]["values"]["H"], "grapple")
 
-    def test_latest_overrides_and_candidate_status_are_preserved(self):
+    def test_current_contracts_and_candidate_status_are_preserved(self):
         context = build_region_context("thorn_forest")
         override_text = "\n".join(item["text"] for item in context["overrides"])
         self.assertIn("360°", override_text)
@@ -84,6 +84,18 @@ class RegionContextTests(unittest.TestCase):
         self.assertTrue(context["design"]["gate"]["status"].startswith("PROPOSED"))
         self.assertEqual(context["locked_principles"][0]["status"], "LOCKED")
         self.assertTrue(all(item["status"] == "PROPOSED" for item in context["design"]["learning"]))
+
+    def test_missing_current_contract_section_rejects(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for name in (REGIONS, WORLD, "docs/design/player_actions/weapons_v0.8.md", "docs/design/player_actions/README.md"):
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / name, target)
+            entry = root / "docs/design/player_actions/README.md"
+            entry.write_text(entry.read_text().replace("## 动作合同", "## 过期任务"))
+            with self.assertRaisesRegex(ContextError, "authority section"):
+                build_region_context("thorn_forest", root)
 
     def test_real_single_weapon_inventory_and_lv3_candidates(self):
         context = build_region_context("firefly_marsh")

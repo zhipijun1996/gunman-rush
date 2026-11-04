@@ -1,6 +1,6 @@
 # D074 房间内路线语法：十轮迭代
 
-> 历史记录：旧八房功能已按用户授权退休，文中旧生成器和专有测试已删除。以下参数、命令和数字仅解释当时版本，不作为当前执行入口；现行验证使用 `python3 tools/run_generated_consumer_tests.py`，当前两图见[generation_current](generation_current.md)。
+> 历史记录：旧八房功能已按用户授权退休，文中旧生成器和专有测试已删除。以下参数、命令和数字仅解释当时版本，不作为当前执行入口；现行验证使用 `python3 tools/run_generated_consumer_tests.py`，当前两图见[generation_current](procedural_generation.md)。
 
 用户要求在八房间大关内部采用路线骨架＋连接模板＋局部随机，并完成十轮实际迭代。沿用横渡/攀升两种真实骨架，扩充完整动作段落；不旋转重力，不修改一跳、两发、260基础速度，不改变第7整备和第8Boss。
 
@@ -25,7 +25,7 @@
 
 ## 当前状态
 
-验收汇总见[清单](evidence/plains_room_grammar/verification.json)，命令与限制见[交接](handoff.md)。
+验收汇总见[清单](evidence/plains_room_grammar/verification.json)，命令与限制见[交接](cloud_production.md)。
 
 十轮模板新增已完成；两变体各上下路线共40条实际轨迹通过。最终完整43套回归与Core均通过。目录版本1、分岔版本10、正式Stage v12和Map流v9；旧版本不混用。正式8房间、同种子复现和弱能力保底保持。平台/机关原始尺寸不随机拉伸，物理通过只由真实轨迹给出。
 

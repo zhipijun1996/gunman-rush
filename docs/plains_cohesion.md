@@ -34,6 +34,6 @@ Ori 参考用于连续轮廓、草顶/岩层/根部衔接、背景层次和光�
 
 ## 验证边界
 
-独立审查逐轮保留反例：[第一轮](evidence/plains_cohesion/review_round1.md)、[第二轮](evidence/plains_cohesion/review_round2.md)、[第三轮](evidence/plains_cohesion/review_round3.md)、[第四轮](evidence/plains_cohesion/review_round4.md)、[第五轮](evidence/plains_cohesion/review_round5.md)、[第六轮](evidence/plains_cohesion/review_round6.md)。新模块四危险相位、两个方向都用真实 Motor/input/body sweep；正式封门、暂停重载、固定奖励及动画消费使用声明明确的 setup/outcome fixture，不能当真人自然通关。旧 Core、43 套、地区回归继续执行；公开包、实际浏览器与最终结果见 [交接](handoff.md)。
+独立审查逐轮保留反例：[第一轮](evidence/plains_cohesion/review_round1.md)、[第二轮](evidence/plains_cohesion/review_round2.md)、[第三轮](evidence/plains_cohesion/review_round3.md)、[第四轮](evidence/plains_cohesion/review_round4.md)、[第五轮](evidence/plains_cohesion/review_round5.md)、[第六轮](evidence/plains_cohesion/review_round6.md)。新模块四危险相位、两个方向都用真实 Motor/input/body sweep；正式封门、暂停重载、固定奖励及动画消费使用声明明确的 setup/outcome fixture，不能当真人自然通关。旧 Core、43 套、地区回归继续执行；公开包、实际浏览器与最终结果见 [交接](cloud_production.md)。
 
 技术检查、画面检查与主观趣味分开。完整真人两图探索、Boss 通关，手机/实体手柄及 Windows 实机仍待验；不声称达到 Ori 制作质量。

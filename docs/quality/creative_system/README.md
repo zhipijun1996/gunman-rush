@@ -22,7 +22,7 @@ PR66–68的有限接受不代表整区通过；PR67/68真实独审已拒绝画�
 
 ## 2. 可逆瘦身与实际量化
 
-[原Skill逐字归档](../../archive/skill_history/manifest.json)16/16与Git基线SHA一致；[入口和旧循环原文](../../archive/creative_system_baseline/manifest.json)完整保留。现行专业职责、原测试、有效资产、冻结失败候选没有物理删除。
+[原Skill逐字归档](../../project_structure.md)16/16与Git基线SHA一致；[入口和旧循环原文](../../archive/creative_system_baseline/manifest.json)完整保留。现行专业职责、原测试、有效资产、冻结失败候选没有物理删除。
 
 - 原16Skill为186,700 bytes。精简后16份175,749 bytes，加新创作导演3,513后17份179,262；净减7,438 bytes / 3.98%。这是文本字节，不能换算token、实际工时或价格；不得沿用初轮尚未恢复守门标题的6.06%数字。
 - AGENTS/current_state/handoff三个默认入口最终136,456→13,936 bytes，少122,520 bytes / 89.79%。新增共同契约另有字节，未偷偷计成零；这是这三个入口的读取量，不是完整worker总上下文节省。

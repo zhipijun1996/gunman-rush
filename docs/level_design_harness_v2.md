@@ -4,7 +4,7 @@
 
 本体系把关卡设计意图、真实生成结果和体验证据连接到现有 Skills、LEVEL FOUNDRY 与 [Harness](harness.md)。目标是同时支持优化已有地区与制作新地区。本轮生产体系不授权重做正式平原、开放森林、改变 PlayerMotor/武器/资源/随机流或保存规则。
 
-运行事实以 [current_state](current_state.md)、[handoff](handoff.md)、实际消费者及最新用户决策为准；[generation_current](generation_current.md) 提供生成导航，历史八小关不是现行正式设计。技术验证结果须查本任务证据和质量记录，本说明中的命令不是执行通过证据。
+运行事实以 [current_state](current_state.md)、[handoff](cloud_production.md)、实际消费者及最新用户决策为准；[generation_current](procedural_generation.md) 提供生成导航，历史八小关不是现行正式设计。技术验证结果须查本任务证据和质量记录，本说明中的命令不是执行通过证据。
 
 ## 从需求到成品的责任
 

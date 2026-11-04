@@ -8,8 +8,8 @@ from project_dependencies import inspect as inspect_dependencies
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = ["AGENTS.md", "README.md", "docs/current_state.md", "docs/harness.md",
-            "docs/project_structure.md", "docs/templates/iteration.md",
-            "docs/archive/agents_before_harness.md", "docs/archive/readme_before_harness.md"]
+            "docs/project_structure.md", "docs/module_map.md", "docs/tasks.md",
+            "docs/cloud_production.md", "docs/templates/iteration.md"]
 SKILLS = policy()["core_skills"] + ["project-integration"]
 
 
@@ -27,8 +27,11 @@ def main():
         content = path.read_text()
         if not re.match(r"---\nname: " + re.escape(name) + r"\ndescription: .+\n---\n", content):
             errors.append(f"Invalid skill metadata: {name}")
-        if f".agents/skills/{name}/SKILL.md" not in (ROOT / "AGENTS.md").read_text():
-            errors.append(f"Skill not discoverable from AGENTS: {name}")
+    agents = (ROOT / "AGENTS.md").read_text()
+    if ".agents/skills" not in agents or "docs/module_map.md" not in agents:
+        errors.append("AGENTS must route to skills and module navigation")
+    if len(agents.encode("utf-8")) > 4096:
+        errors.append("AGENTS exceeds the 4 KiB project entry budget")
     for directory in ("docs", "preview", "build"):
         if not (ROOT / directory / ".gdignore").is_file():
             errors.append(f"Documentation/preview import isolation missing: {directory}")

@@ -1,6 +1,6 @@
 # 平原分岔挑战验证记录
 
-2026-10-10，分支`feature/plains-branch-challenges`，基于PR35的`feature/plains-eight-room-graph@5da8aba`；已读取最新main `64ec8bb`。本轮规则见[规格](plains_branch_revision.md)。Godot **4.7.2.stable.official.ed1daf0bf Standard**，不提交引擎、SDK或产物。运行源提交与PR在[交接](handoff.md)更新；本文件所属文档提交以Git HEAD为准。
+2026-10-10，分支`feature/plains-branch-challenges`，基于PR35的`feature/plains-eight-room-graph@5da8aba`；已读取最新main `64ec8bb`。本轮规则见[规格](controls_contract.md)。Godot **4.7.2.stable.official.ed1daf0bf Standard**，不提交引擎、SDK或产物。运行源提交与PR在[交接](cloud_production.md)更新；本文件所属文档提交以Git HEAD为准。
 
 ## 已执行证据
 

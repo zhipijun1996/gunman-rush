@@ -62,7 +62,7 @@ Underworld以原实际可见body范围确定feedback_anchor和clip固定比例�
 | E11 性能与来源 | 原资源／来源记录可查，设备预算未在本轮测量 | unverified：审计准入并按实际设备／场景测量 |
 | E12 验收 | 历史独审为限定范围；当前源没有本轮独审、用户或设备认可 | unverified：当前版本独审及适用G5 |
 
-最高连续已验G阶段：已有上述局部fresh技术证据，完整G1范围仍未关闭，G2身体／退出实证失败；不升签整阶段，不签怪物完成。实际charger片段没有attack状态，E04不能因已有预警和受伤帧而标通过。用户、设备、声音试听、独审及正式自然场景仍未验。原保存失败参考[旧会话总结](../../enemy_feedback_01_session_summary.md)，后续修复参考[尸体保存集成](../../evidence/enemy_corpse_save_integration/README.md)，保留各自源身份；历史Legacy飞怪876→877不直接当作当前冲锋怪缺陷。
+最高连续已验G阶段：已有上述局部fresh技术证据，完整G1范围仍未关闭，G2身体／退出实证失败；不升签整阶段，不签怪物完成。实际charger片段没有attack状态，E04不能因已有预警和受伤帧而标通过。用户、设备、声音试听、独审及正式自然场景仍未验。原保存失败参考[旧会话总结](../../enemies_and_bosses.md)，后续修复参考[尸体保存集成](../../evidence/enemy_corpse_save_integration/README.md)，保留各自源身份；历史Legacy飞怪876→877不直接当作当前冲锋怪缺陷。
 
 ## 采证顺序
 
