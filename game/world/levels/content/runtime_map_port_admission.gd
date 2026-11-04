@@ -56,6 +56,41 @@ static func resolve(definition: PlatformingModuleDefinition, content: Dictionary
 	definition.set_meta("runtime_map_v2_port_admission",{"policy":POLICY,"body_half_extents":[half.x,half.y],"used_ports":banks,"neighbor_traversal":"NOT_CERTIFIED_BY_STATIC_ADMISSION"})
 	return {"ok":true,"error":""}
 
+static func resolve_complete(definition: PlatformingModuleDefinition, content: Dictionary, instance: Dictionary, instances: Dictionary, connections: Array, request: LevelRequest, world_spawn: Vector2) -> Dictionary:
+	var half := _formal_body_half()
+	if half==Vector2.ZERO or not LevelContentValidation.point(request.capabilities.get("collision_half_extents")) or Vector2(request.capabilities.collision_half_extents[0],request.capabilities.collision_half_extents[1])!=half: return _reject("actual full-map body differs from formal body")
+	var anchors: Array[Vector2] = []
+	var banks: Array[Dictionary] = []
+	for id: Variant in instance.connected_port_ids:
+		var port := _port(instance,str(id))
+		var problem := _link_error(instance,port,instances,connections)
+		if not problem.is_empty(): return _reject(problem)
+		if port.get("face") not in ["LEFT","RIGHT"] or port.get("surface")!="ROCK": return _reject("formal pool requires supported horizontal ROCK seams")
+		var bank := _bank(definition,content,port,half)
+		if not bank.ok: return _reject(str(id)+": "+str(bank.error))
+		banks.append({"port_id":id,"body_center_pixels":[bank.point.x,bank.point.y],"support_platform_index":bank.platform_index})
+		if bank.point not in anchors: anchors.append(bank.point)
+	var local_spawn := world_spawn-Vector2(instance.origin_blocks[0],instance.origin_blocks[1])*128.0
+	if _clear_standing(definition,content,local_spawn,half) and local_spawn not in anchors: anchors.push_front(local_spawn)
+	# A one-port reward room needs safe interior recovery witnesses, not a
+	# fabricated second v2 aperture. Check candidates against native geometry.
+	if anchors.size()<2:
+		for platform: Rect2 in definition.platforms:
+			for x: float in [platform.get_center().x,platform.position.x+half.x,platform.end.x-half.x]:
+				var point := Vector2(x,platform.position.y-half.y)
+				if point not in anchors and definition.world_bounds.has_point(point) and _clear_standing(definition,content,point,half): anchors.append(point)
+				if anchors.size()>=2: break
+			if anchors.size()>=2: break
+	if anchors.size()<2: return _reject("no distinct safe interior recovery witnesses")
+	var entry := PlatformingModulePort.new()
+	entry.port_id=&"complete_body_entry";entry.position=anchors[0]
+	var finish := PlatformingModulePort.new()
+	finish.port_id=&"complete_body_exit";finish.position=anchors[1]
+	entry.direction=(finish.position-entry.position).normalized();finish.direction=entry.direction
+	definition.entry_port=entry;definition.exit_port=finish;definition.anchors.assign(anchors)
+	definition.set_meta("runtime_map_v2_port_admission",{"policy":POLICY,"used_ports":banks,"scope":"supported banks and recovery witnesses; route playability requires actual Motor"})
+	return {"ok":true,"error":""}
+
 static func _bank(definition: PlatformingModuleDefinition, content: Dictionary, port: Dictionary, half: Vector2) -> Dictionary:
 	var horizontal: bool = port.face in ["LEFT","RIGHT"] and port.surface == "ROCK"
 	var upper: bool = port.face == "TOP" and port.surface == "ONE_WAY_PLATFORM"

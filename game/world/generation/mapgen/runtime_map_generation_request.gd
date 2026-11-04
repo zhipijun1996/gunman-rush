@@ -3,7 +3,7 @@ extends RefCounted
 ## The conformance profile is selected by the caller, not inferred from seed.
 const MAX_EXACT_SEED: int = 9007199254740991
 
-static func from_controller(controller: PlayerController, motor: PlayerMotor, seed: int, template: Dictionary) -> Dictionary:
+static func from_controller(controller: PlayerController, motor: PlayerMotor, seed: int, template: Dictionary, nominal_weapon_motion: bool = false) -> Dictionary:
 	if seed < -MAX_EXACT_SEED or seed > MAX_EXACT_SEED:
 		return _failure("seed must be an integer within +/- (2^53 - 1)")
 	if not is_instance_valid(controller) or not is_instance_valid(motor) or controller.motor != motor:
@@ -41,13 +41,16 @@ static func from_controller(controller: PlayerController, motor: PlayerMotor, se
 	var recoil_positive: bool = (tuning.recoil_mode == "shot_burst" and tuning.shot_burst_speed > 0.0 and tuning.shot_burst_duration > 0.0) or (tuning.recoil_mode == "legacy_impulse" and tuning.recoil_impulse > 0.0)
 	var energy_ready: bool = controller.shot_energy == null or controller.shot_energy.can_fire()
 	var energy_capacity: bool = controller.shot_energy == null or not controller.shot_energy.definition.shooting_consumes_energy or controller.actor_resources.stamina.capacity + 1.0e-9 >= controller.shot_energy.shot_energy_cost
-	var shot_recoil: bool = shoot.enabled and recoil.enabled and recoil_primary and recoil_positive and tuning.max_air_shots > 0 and energy_capacity
+	var reverse_blink := nominal_weapon_motion and weapon.mode==WeaponDefinition.Mode.SHURIKEN and motor.weapon_motion!=null and motor.weapon_motion.base_distance(tuning,false)>0
+	var shot_recoil: bool = shoot.enabled and recoil.enabled and ((recoil_primary and recoil_positive) or reverse_blink) and tuning.max_air_shots > 0 and energy_capacity
 	if shot_recoil:
 		abilities.append("shot_recoil")
 	if controller.traversal.hook_enabled:
 		abilities.append("grapple")
 	var gaps: Array[String] = ["Addon ability tags do not prove physical reachability or model weapon-specific distance/timing.", "Ability tags express nominal enabled capacity, not remaining actions/energy in this flight; current availability is separate in this snapshot.", "Cooldown, active packets, traversal state and current aim are recorded, not simulated."]
-	if not recoil_primary:
+	if reverse_blink:
+		gaps.append("Formal Plains projects the actual finite reverse blink into the SDK nominal recoil tag; geometry and every weapon route still need real movement validation.")
+	elif not recoil_primary:
 		gaps.append("This weapon's blink/beam/hold movement is not mapped to shot_recoil.")
 	var equipment: Dictionary = {}
 	var items: ItemRuntime = controller.item_runtime as ItemRuntime

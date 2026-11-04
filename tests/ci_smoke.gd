@@ -25,10 +25,7 @@ func _run() -> void:
 	await process_frame
 	check(is_instance_valid(app.home_scene), "title start creates the playable home")
 	check(app.start_plains("ci-smoke"), "normal Explore entry starts the real Plains run")
-	for unused: int in 600:
-		await physics_frame
-		if is_instance_valid(app.stage) and is_instance_valid(app.player):
-			break
+	check(await preload("res://tests/formal_region_test_support.gd").ready(app,self), "normal departure finishes its actual generation and physics admission")
 	check(is_instance_valid(app.stage) and is_instance_valid(app.player), "normal run creates a stage and player")
 	if is_instance_valid(app.player):
 		for unused: int in 30:

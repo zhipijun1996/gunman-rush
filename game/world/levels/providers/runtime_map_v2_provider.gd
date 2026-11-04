@@ -9,6 +9,7 @@ const IDENTITY_SCHEMA := "gunman-rush/runtime-map-load/v1"
 const ADAPTER_VERSION := "runtime-map-v2-slice/3"
 const PORT_ADMISSION = preload("res://game/world/levels/content/runtime_map_port_admission.gd")
 const SHOT_LATCH_ADAPTER = preload("res://game/world/levels/content/runtime_map_shot_latch_adapter.gd")
+const FULL_CONTENT = preload("res://game/world/levels/content/runtime_map_content_adapter.gd")
 const EMPTY_FIELDS: Array[String] = ["wall_platform_indices","thorns","hooks","enemies","reward_sites"]
 const CONTENT_FIELDS: Array[String] = ["platforms","one_way_platform_indices","wall_platform_indices","hazards","thorns","saws","moving_platforms","hooks","latches","enemies","reward_sites","approved_hq_cells","schema","source_sha256","stable_id","world_bounds","entry_port","exit_port","coordinate_frame","source_affine"]
 const ELLIPSE_FIELDS: Array[String] = ["platform_id","trajectory_kind","start","finish","size","travel_duration","dwell_duration","initial_phase","ellipse_center","ellipse_radii","ellipse_period","ellipse_x_sign"]
@@ -41,6 +42,7 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 	if request == null or request.tuning == null or request.region_id.is_empty(): return _reject("request: missing tuning or region_id")
 	if not spawn.is_finite(): return _reject("spawn: nonfinite player body center")
 	var generated := not generated_result.is_empty()
+	var complete := str(bindings.get("selection_recipe",{}).get("kind",""))=="whole_map"
 	if not generated and not _hash(source_sha256): return _reject("source_sha256: expected frozen SHA256")
 	if map.get("schema") != SCHEMA: return _reject("map.schema: unsupported protocol")
 	# Host seeds must be exact JSON integers (IEEE-754 safe range).
@@ -90,6 +92,7 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 	plan.source_version = SCHEMA+"/"+str(generator.implementation)+"/"+str(generator.algorithm)
 	plan.seed = seed
 	plan.spawn = spawn
+	plan.set_meta("runtime_map_complete",complete)
 	for id: String in ids:
 		if not instances.has(id): return _reject("instances."+id+": selected instance missing")
 		var instance: Dictionary = instances[id]
@@ -99,10 +102,13 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 		if not generated and not _hash(source_record.files.get(ref)): return _reject("source_record.files: missing verified SHA256 for "+ref)
 		if not content_store.get(ref) is Dictionary: return _reject("instances."+id+".content_ref: missing Dictionary "+ref)
 		var content: Dictionary = content_store[ref]
-		problem = _content_error(content,instance)
+		problem = FULL_CONTENT.validation_error(content) if complete else ""
+		if problem.is_empty(): problem = _content_error(FULL_CONTENT.geometry_view(content) if complete else content,instance)
 		if not problem.is_empty(): return _reject("instances."+id+".content."+problem)
-		var definition := _definition(content,instance)
-		var admission := PORT_ADMISSION.resolve(definition,content,instance,instances,map.connections,request,spawn)
+		var definition := _definition(FULL_CONTENT.geometry_content(content) if complete else content,instance)
+		if complete: definition.set_meta("runtime_map_v2_content",content.duplicate(true))
+		if complete: FULL_CONTENT.configure_definition(definition,content)
+		var admission := PORT_ADMISSION.resolve_complete(definition,content,instance,instances,map.connections,request,spawn) if complete else PORT_ADMISSION.resolve(definition,content,instance,instances,map.connections,request,spawn)
 		if not admission.ok: return _reject("instances."+id+".port_admission: "+str(admission.error))
 		if not definition.is_valid(): return _reject("instances."+id+".definition: original PlatformingModuleDefinition.is_valid rejected unchanged geometry/body ports/seals")
 		if not definition.supports(request.tuning): return _reject("instances."+id+".definition: original capability screening rejected request.tuning")
@@ -112,6 +118,7 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 		placement.definition = definition
 		placement.position = _point(instance.origin_blocks)*128.0
 		plan.modules.append(placement)
+		if complete: FULL_CONTENT.append_objects(plan,content,instance,placement.position)
 		var world := Rect2(placement.position+definition.world_bounds.position,definition.world_bounds.size)
 		plan.bounds = world if plan.modules.size() == 1 else plan.bounds.merge(world)
 		for anchor: Vector2 in definition.anchors: plan.anchors.append(placement.position+anchor)

@@ -20,6 +20,7 @@ var campaign := RunCampaignProgression.new()
 var region_state: PlainsRegionState
 var region_states: Dictionary = {}
 var loaded_map := 0
+var plains_generation := PlainsMapGeneration.new()
 
 func reset_campaign(debug_entry := false, grant_forest_access := false) -> void:
 	campaign = RunCampaignProgression.new()
@@ -27,6 +28,8 @@ func reset_campaign(debug_entry := false, grant_forest_access := false) -> void:
 	if grant_forest_access: campaign.abilities.append(&"grapple")
 
 func reset_maps(connected: bool) -> void:
+	plains_generation.close()
+	plains_generation=PlainsMapGeneration.new()
 	region_state = PlainsRegionState.new() if connected else null
 	region_states.clear()
 	loaded_map = 0
@@ -61,6 +64,7 @@ func end_summary() -> Dictionary:
 	return {"stage": flow.stage_index, "items": build.inventory.item_ids(), "equipped_items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": flow.seed}
 
 func clear_run_services() -> void:
+	plains_generation.close()
 	# Keep the cleared objects observable after Home, as existing App consumers
 	# require. A later departure replaces them with fresh run-owned services.
 	build.clear()

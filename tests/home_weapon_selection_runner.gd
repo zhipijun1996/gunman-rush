@@ -108,7 +108,7 @@ func run() -> void:
 		await frames(2)
 		check(not app.home_scene.input_blocked, "Closing the armorer restores Home input")
 		check(app.start_plains("home-weapon-" + str(id)), "Selected loadout can start a real formal Plains run")
-		await frames(6)
+		check(await preload("res://tests/formal_region_test_support.gd").ready(app,self),"selected Home weapon finishes actual generated departure")
 		check(is_instance_valid(app.stage) and app.controller.shoot_ability.weapon.id == id and app.controller.shoot_ability.weapon.tier == 1, "Formal Plains actually owns the selected Lv1: " + str(id))
 		check(app.director.manifest.snapshot().initial_character.weapon == str(id), "Run Manifest records its actual equipped weapon")
 		check(not app.controller.traversal.hook_enabled and not app.controller.router.weapon_skill_available, "Selecting Lv1 grants neither grapple nor Lv3 skill")
@@ -140,21 +140,28 @@ func run() -> void:
 func formal_bomb_boss() -> void:
 	# Explicit arena initialization, not proof of traversing the map to its Boss.
 	var encounter := app.stage.boss.get_node("Encounter") as WindkeeperEncounter
-	app.player.global_position = app.stage.boss.global_position + Vector2(-105, -10)
-	app.controller.motor.reset_motion()
+	app.controller.return_to_segment(app.stage.boss_arena.get_center()+Vector2(-190,app.stage.boss_arena.size.y/2-18))
+	app.lifetime.invalidate_actor()
 	check(app._in_boss_core(), "Initialized bomb stance is inside the real formal arena")
 	if not app._boss_started: app._start_generated_boss()
 	check(app._boss_started and encounter.active, "Formal App installs and activates its original Boss guard")
-	encounter._enter(&"observe", 4.0)
-	encounter.set_physics_process(false)
-	await frames(2)
+	for index: int in 240:
+		if encounter.mode!=&"intro": break
+		await frames(1)
+	check(encounter.accepts_combat_damage(),"Original Boss intro enables its real combat colliders")
+	# Disclosed airborne fixture targets the actual upper bell. Boss state,
+	# collider activation, health and subsequent attacks remain autonomous.
+	app.controller.return_to_segment(encounter._core.global_position+Vector2(-85,0))
+	app.lifetime.invalidate_actor()
+	await frames(1)
+	var target: Vector2=encounter._core.global_position
 	var feel := app.player.get_node_or_null("WeaponFeel") as PlayerWeaponFeel
 	check(feel != null and feel is PlayerWeaponFeelV2, "Formal consumer retains its real V2 weapon audio observer")
 	var audio_mark := feel.audio.weapon_events.size() if feel != null else 0
 	var sound := get_first_node_in_group(&"game_audio") as GameAudio
 	var generic_shots := int(sound.played.get(&"shot", 0))
 	var before := encounter.health.current
-	app.controller.router.request_action(&"shoot_release", Vector2.RIGHT)
+	app.controller.router.request_action(&"shoot_release", (target-app.player.global_position).normalized())
 	await frames(4)
 	check(encounter.health.current < before, "Real accepted bomb blast passes the original formal Boss eligible-shot and damage-policy sinks")
 	var key := "%s:%s" % [app.controller.session_id, app.controller.shoot_ability.packet_id]

@@ -138,6 +138,8 @@ func configure_region_placement(placement: Dictionary, id: StringName, connected
 		var saved: Dictionary=actor_records[String(id)]
 		if not attack_behavior.restore_region_state(saved):
 			return "Recorded forest actor state rejected"
+	if attack_behavior and placement.has("initial_idle_cooldown") and not actor_records.has(String(id)):
+		attack_behavior.cooldown=float(placement.initial_idle_cooldown)
 	if attack_behavior: attack_behavior.max_concurrent_attacks = attack_limit.call()
 	return ""
 

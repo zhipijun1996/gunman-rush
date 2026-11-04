@@ -2,7 +2,7 @@
 
 游戏采用按功能组织的模块化单体，继续使用 Godot Node、Scene、Resource。应用层装配服务，功能模块拥有规则和状态；实验复用这些模块，并保留自己明确的输入、重生和版本政策。目录归属见[模块导航](module_map.md)。本文描述已接入的调用，不把规划中的类当成实现。
 
-App通过Stage的伤害／Boss／取消命令及路线／HUD查询接入地图；地图内部解释归Stage。RuntimeMapV2Provider已接入mapgen开发来源，普通出发仍使用Plains／Forest Provider。
+App通过Stage的伤害／Boss／取消命令及路线／HUD查询接入地图；地图内部解释归Stage。正式平原由 RunSession 的 PlainsMapGeneration 持有生成作业与本局已生成地图，RuntimeMapV2Provider 转换完整结果，MapgenPlainsStage 复用平原表现与流程；森林沿既有 Provider。
 
 ## 正式运行路径
 
@@ -15,11 +15,13 @@ flowchart TD
     Session --> Build[BuildState / Inventory / Equipment]
     Session --> Economy[RunWallet / RewardService / ShopService]
     App --> Request[LevelRequest]
-    Request --> Provider[平原 / 森林 Provider]
+    Request --> Provider[森林 Provider / 明确旧平原来源]
     Provider --> Legacy[现有生成器与版本校验]
     Legacy --> Adapter[LegacyRegionPlanAdapter]
     Adapter --> Plan[LevelPlan：已解析内容]
-    Request --> RuntimeMap[开发 RuntimeMapV2Provider]
+    Request --> Generation[RunSession.PlainsMapGeneration]
+    Generation --> SDK[SDK 0.4.1 / 模块包 1.1.0]
+    SDK --> RuntimeMap[RuntimeMapV2Provider]
     RuntimeMap --> Plan
     App --> Stage[Stage：地图节点与运行状态]
     Plan -. App 配置到 Stage .-> Stage
@@ -34,7 +36,9 @@ RunSession 复用原流程和 epoch 权威，不新增第二个 RunDirector。�
 
 地图的 Request/Plan 是暂态内容协议，不是新存档格式。Provider 包含旧生成器选择、Manifest 校验和有界回退；公共装配只消费已经解析的内容，不抽随机数。LevelRuntime 当前是装配入口，运行中的节点和恢复状态仍归 Stage、Assembler 与既有地图状态对象，不能把它误写成另一个持有全部服务的世界管理器。
 
-后续新模块库和新地图算法通过新 Provider 生成同一个 Plan。怪物、Boss、宝箱等用既有工厂/组件创建多个实例，但每个实例必须有稳定身份、独立状态与原领取收据；共享定义不等于共享生命值或 claimed 状态。旧地图实现留在旧 Provider 后面，直到真实新消费者完成迁移再删除。
+平原加载界面随场景管理生成 tick 与完成信号，取消、退出与过期作业不安装结果；实际物理入场成功后才提交本局地图缓存。地图恢复使用已提交内容，换装不重新抽图。Manifest 以保留整数和精度的来源 JSON 记录 SDK 输出与宿主绑定，用于内容重建，不恢复完整局内状态。共用生成代码在 `game/world/generation/mapgen/`，开发切片调用同一实现。
+
+后续新模块库和新地图算法通过 Provider 生成同一个 Plan。怪物、Boss、宝箱等用既有工厂/组件创建多个实例，但每个实例必须有稳定身份、独立状态与原领取收据；共享定义不等于共享生命值或 claimed 状态。旧地图实现留在旧 Provider 后面，直到真实新消费者完成迁移再删除。
 
 ## 状态与操作的唯一权威
 

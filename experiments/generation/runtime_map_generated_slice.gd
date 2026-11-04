@@ -2,11 +2,11 @@ class_name RuntimeMapGeneratedSlice
 extends RuntimeMapSlice
 ## Explicit candidate entrance. The official conformance profile grants nothing.
 const DATA := preload("res://addons/mapgen/data_json.gd")
-const PROFILE := preload("res://experiments/generation/runtime_map_generation_profile.gd")
+const PROFILE := preload("res://game/world/generation/mapgen/runtime_map_generation_profile.gd")
 const DEFAULT_INPUT_PROFILE := "conformance"
 const DEFAULT_BINDINGS_PATH := "res://resources/levels/mapgen_host_v4/bindings.json"
 const DEFAULT_BINDINGS_SHA256 := "182b4b50da807ace3b38b327645d156f02f73286d976b4de6dbace4590bc2809"
-const REQUEST_BUILDER := preload("res://experiments/generation/runtime_map_generation_request.gd")
+const REQUEST_BUILDER := preload("res://game/world/generation/mapgen/runtime_map_generation_request.gd")
 @export_enum("conformance", "controller") var generation_profile := "conformance"
 @export_range(1,4096) var operation_budget := 128
 var generation := RuntimeMapGenerationJob.new()

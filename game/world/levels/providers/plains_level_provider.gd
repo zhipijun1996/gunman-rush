@@ -1,5 +1,6 @@
 class_name PlainsLevelProvider
 extends RefCounted
+## Explicit legacy/versioned source. Ordinary departures use PlainsMapGeneration.
 
 static func load_level(request: LevelRequest) -> LevelBuildResult:
 	var generator := PlainsRegionGenerator.new()

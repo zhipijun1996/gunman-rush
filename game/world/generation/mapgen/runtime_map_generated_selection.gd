@@ -31,6 +31,10 @@ static func resolve(result: Dictionary, recipe: Dictionary, body_half: Vector2, 
 	var chosen: Array[Dictionary] = [root]
 	var edges: Array[Dictionary] = []
 	match str(rule.get("kind","")):
+		"whole_map":
+			chosen.clear()
+			for row: Dictionary in instances.values(): chosen.append(row)
+			edges.assign(map.connections)
 		"ellipse_junction_chain":
 			if not rule.get("junction") is Dictionary: return _reject("missing junction selector")
 			var first := _neighbor(map.connections,instances,root,str(rule.get("root_port","")),str(rule.get("first_entry","")),rule.junction,str(rule.get("surface","")))
@@ -68,7 +72,7 @@ static func resolve(result: Dictionary, recipe: Dictionary, body_half: Vector2, 
 		if not edge is Dictionary or not edge.get("a") is Dictionary or not edge.get("b") is Dictionary:
 			return _reject("malformed actual connection")
 		if str(edge.a.get("instance_id","")) in ids and str(edge.b.get("instance_id","")) in ids: actual_internal.append(edge)
-	if actual_internal.size()!=int(rule.get("expected_internal_edges",-1)) or actual_internal.size()!=edges.size():
+	if (str(rule.get("kind",""))!="whole_map" and actual_internal.size()!=int(rule.get("expected_internal_edges",-1))) or actual_internal.size()!=edges.size():
 		return _reject("selected internal topology has additional/missing edges")
 	for edge: Dictionary in edges:
 		if edge not in actual_internal: return _reject("selected internal topology differs from resolved port chain")

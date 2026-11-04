@@ -1,7 +1,7 @@
 extends SceneTree
 ## One actual04 addon generation, full template-resolved gears data; no route/neighbor certification.
-const PROFILE = preload("res://experiments/generation/runtime_map_generation_profile.gd")
-const SELECTION = preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const PROFILE = preload("res://game/world/generation/mapgen/runtime_map_generation_profile.gd")
+const SELECTION = preload("res://game/world/generation/mapgen/runtime_map_generated_selection.gd")
 const DATA = preload("res://addons/mapgen/data_json.gd")
 const M35_HOST = preload("res://experiments/generation/runtime_map_m35_slice.gd")
 var checks := 0

@@ -22,12 +22,12 @@ static func validation_error(plan: LevelPlan, state: PlainsRegionState) -> Strin
 		# Modules without this source metadata have no v2 latch declaration.
 		if instance.is_empty() and content.is_empty(): continue
 		if instance.get("id")!=placement.instance_id: return "Latch source instance differs from placement"
-		var problem := ADAPTER.validation_error(content,instance)
+		var problem := RuntimeMapContentAdapter.latch_error(content) if plan.get_meta("runtime_map_complete",false) else ADAPTER.validation_error(content,instance)
 		if not problem.is_empty(): return placement.instance_id+"."+problem
 		for raw: Dictionary in content.latches:
 			var key := ADAPTER.state_key(placement.instance_id,str(raw.id))
 			if state.mechanisms.has(key):
-				problem = ADAPTER.snapshot_error(state.mechanisms[key])
+				problem = RuntimeMapContentAdapter.snapshot_error(state.mechanisms[key],raw) if plan.get_meta("runtime_map_complete",false) else ADAPTER.snapshot_error(state.mechanisms[key])
 				if not problem.is_empty(): return key+"."+problem
 			if state.opened.has(key) and state.opened[key]!=true: return key+": invalid permanent-open ledger value"
 	return ""
@@ -67,9 +67,10 @@ func setup(plan: LevelPlan, assembler: PlainsRegionAssembler, controller: Player
 			latch.position = module.position
 			latch.link_id = str(raw.id)
 			latch.formal_presentation = true
-			latch.prompt_text = raw.prompt
+			latch.prompt_text = str(raw.get("prompt","SHOOT BELL"))
 			latch.open_seconds = float(raw.open_seconds)
-			latch.link_color = Color(raw.link_color)
+			latch.link_color = Color(str(raw.get("link_color","e8bd65")))
+			if raw.has("sequence_offset"): latch.sequence_offset=ADAPTER.point(raw.sequence_offset)
 			add_child(latch)
 			latch.setup(controller,lifetime,ADAPTER.point(raw.bell),ADAPTER.rectangle(raw.gate))
 			latch.set_region_presentation(true)
@@ -92,7 +93,7 @@ func matches_binding(controller: PlayerController, lifetime: DemoLifetime) -> bo
 func _opened(latch: ShotLatch, key: String) -> void:
 	if _cancelled or _lifetime==null or not _lifetime.active or not is_instance_valid(latch) or not latch.is_open: return
 	_state.mechanisms[key] = latch.region_snapshot()
-	_state.opened[key] = true
+	if latch.open_seconds==0 and not latch.motion_mode: _state.opened[key] = true
 
 func capture_state() -> void:
 	if _state==null: return
@@ -100,7 +101,7 @@ func capture_state() -> void:
 		var latch := latches[index]
 		if not is_instance_valid(latch): continue
 		_state.mechanisms[state_keys[index]] = latch.region_snapshot()
-		if latch.is_open: _state.opened[state_keys[index]] = true
+		if latch.is_open and latch.open_seconds==0 and not latch.motion_mode: _state.opened[state_keys[index]] = true
 
 func observations() -> Array[Dictionary]:
 	# Read-only diagnostics of the original actual colliders and latch state.

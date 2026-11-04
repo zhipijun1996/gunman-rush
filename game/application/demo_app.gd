@@ -393,10 +393,12 @@ func _load_stage() -> void:
 	if is_instance_valid(policy):
 		remove_child(policy)
 		policy.queue_free()
+		policy=null
 	segment = null
 	if is_instance_valid(stage):
 		remove_child(stage)
 		stage.queue_free()
+		stage=null
 	if connected_region and _region_loaded_map != director.stage_index:
 		run_session.select_map_state(director.stage_index)
 		_region_chest=-1
@@ -461,7 +463,27 @@ func _load_stage() -> void:
 		request.expected_hash=region_state.manifest_hash if region_state!=null else ""
 		request.root_bell_mode=_root_bell_run_mode
 		request.capabilities={"grapple":controller.traversal.hook_enabled,"weapon_id":String(controller.shoot_ability.weapon.id),"abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
-		var loaded := ForestLevelProvider.load_level(request) if active_region_id==&"thorn_forest" else PlainsLevelProvider.load_level(request)
+		var loaded: LevelBuildResult
+		if active_region_id==&"thorn_forest":
+			loaded=ForestLevelProvider.load_level(request)
+		elif root_bell_pilot_requested or root_bell_space_pilot_requested:
+			loaded=PlainsLevelProvider.load_level(request)
+		else:
+			controller.active=false
+			player.set_physics_process(false)
+			var loading := PlainsMapLoading.new()
+			loading.source=run_session.plains_generation
+			loading.lifetime=lifetime
+			loading.map_index=request.map_index
+			loading.cancel_requested.connect(abandon_run)
+			run_session.plains_generation.begin_map(self,lifetime,request,controller)
+			add_child(loading)
+			await loading.completed
+			loaded=run_session.plains_generation.result()
+			if is_instance_valid(loading): loading.queue_free()
+			if not lifetime.accepts(loading_token): return
+			player.set_physics_process(true)
+			controller.active=true
 		if not loaded.accepted():
 			_status="GENERATION FAILED / "+loaded.error
 			abandon_run()
@@ -470,7 +492,7 @@ func _load_stage() -> void:
 			forest_content_version=str(loaded.resolved_capabilities.forest_content_version)
 			_forest_layout_version=str(loaded.resolved_capabilities.forest_layout_version)
 			_forest_v9_north_return=bool(loaded.resolved_capabilities.forest_v9_north_return)
-		stage = ThornForestRegionStage.new() if active_region_id == &"thorn_forest" else PlainsRegionStage.new()
+		stage = ThornForestRegionStage.new() if active_region_id == &"thorn_forest" else MapgenPlainsStage.new() if loaded.plan.source_id==&"mapgen_runtime_v2" else PlainsRegionStage.new()
 		if connected_region:
 			(stage as PlainsRegionStage).region_state = region_state
 			(stage as PlainsRegionStage).map_index=director.region_map_index
@@ -587,7 +609,10 @@ func _load_stage() -> void:
 			return
 	else:
 		segment.danger_bounds = [Rect2(780, 530, 80, 110)]
-	await get_tree().physics_frame
+	var admission_tick := preload("res://game/world/levels/physics_frame_barrier.gd").new()
+	add_child(admission_tick)
+	await admission_tick.synchronized
+	admission_tick.queue_free()
 	if not lifetime.accepts(loading_token) or not is_instance_valid(stage):
 		return
 	if not segment.activate_anchor(&"entry"):
@@ -742,6 +767,10 @@ func _load_stage() -> void:
 		return
 	_status = ("Explore forest branches / fixed rings stay after enemies die / gold flags lead to the guardian" if active_region_id == &"thorn_forest" else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement") if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
+	if stage is MapgenPlainsStage and not run_session.plains_generation.commit(lifetime):
+		_status="GENERATION FAILED / stale generated map commit"
+		abandon_run()
+		return
 	_stage_pending = false
 	if _item_runtime != null:
 		var item_map := StringName(_run_receipt_prefix + "/" + _region_prefix())
@@ -1577,7 +1606,7 @@ func _process(_delta: float) -> void:
 	_windkeeper_hud.bind(shown_boss)
 	if is_instance_valid(_run_camera):
 		_run_camera.route_focus = Vector2.INF
-		_run_camera.region_focus = (stage as PlainsRegionStage).composition_focus() if connected_region and stage is PlainsRegionStage else Vector2.INF
+		_run_camera.region_focus = (stage as PlainsRegionStage).composition_focus() if connected_region and is_instance_valid(stage) and stage is PlainsRegionStage else Vector2.INF
 		_run_camera.observation_focus = stage.call("observation_composition_focus") if connected_region and is_instance_valid(stage) and stage.has_method("observation_composition_focus") else Vector2.INF
 		if shown_boss != null and shown_boss.active:
 			if shown_boss is WindkeeperPressureEncounter:

@@ -19,7 +19,7 @@ func enable_development_generation(content_version: String) -> void:
 
 func enable_plains_region(content_version: String = PlainsRegionGenerator.VERSION) -> bool:
 	var campaign := int(_data.schema_version) == 2
-	if content_version not in [PlainsRegionGenerator.VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
+	if content_version not in [PlainsMapGeneration.VERSION,PlainsRegionGenerator.VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
 		return false
 	_data.versions.erase("fixed_layout")
 	_data.versions.generated_layout = content_version
@@ -103,7 +103,7 @@ static func compatible(data: Dictionary) -> bool:
 	region_versions.erase("fixed_layout")
 	var declared_versions: Variant = data.get("versions", {})
 	var region_version := PlainsRegionGenerator.VERSION
-	if declared_versions is Dictionary and declared_versions.get("generated_layout") in [PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
+	if declared_versions is Dictionary and declared_versions.get("generated_layout") in [PlainsMapGeneration.VERSION,PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
 		region_version = str(declared_versions.generated_layout)
 	region_versions.generated_layout = region_version
 	region_versions.pickups = "plains-region-pickups-v1"
@@ -130,7 +130,9 @@ static func compatible(data: Dictionary) -> bool:
 			for key: String in tuning_keys:
 				if not output.stage_tuning.has(key): return false
 				if not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
-			if not PlainsRegionGenerator.new().validate(m,tuning): return false
+			if region_version==PlainsMapGeneration.VERSION:
+				if not PlainsMapGeneration.recorded_level(m,tuning,data.root_seed,index).accepted(): return false
+			elif not PlainsRegionGenerator.new().validate(m,tuning): return false
 			if not _plains_boss_output_compatible(output,index): return false
 		if data.stages.size()==2:
 			var transition: Dictionary=data.stages[0].outputs.get("map_transition",{})
@@ -329,7 +331,10 @@ static func _campaign_compatible(data: Dictionary) -> bool:
 				if not output.get("generated_layout") is Dictionary: return false
 				var m: Dictionary = output.generated_layout
 				var tuning := _region_tuning(output)
-				if tuning == null or not PlainsRegionGenerator.new().validate(m,tuning): return false
+				if tuning==null: return false
+				if m.get("version")==PlainsMapGeneration.VERSION:
+					if not PlainsMapGeneration.recorded_level(m,tuning,data.root_seed,map_index).accepted(): return false
+				elif not PlainsRegionGenerator.new().validate(m,tuning): return false
 				if identity.get("seed") != PlainsRegionCampaign.seed_for(data.root_seed,map_index) or m.get("seed") != identity.get("seed"): return false
 				if m.get("difficulty") != ("intro" if map_index == 1 else "advanced"): return false
 		elif region == "thorn_forest":

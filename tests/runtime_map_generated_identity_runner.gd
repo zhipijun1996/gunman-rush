@@ -1,8 +1,8 @@
 extends SceneTree
 ## Actual addon output admission; no fabricated layout or solver substitute.
 const PRELOAD_JOB = preload("res://addons/mapgen/preload_job.gd")
-const PROFILE = preload("res://experiments/generation/runtime_map_generation_profile.gd")
-const SELECTION = preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const PROFILE = preload("res://game/world/generation/mapgen/runtime_map_generation_profile.gd")
+const SELECTION = preload("res://game/world/generation/mapgen/runtime_map_generated_selection.gd")
 const HOST = preload("res://experiments/generation/runtime_map_generated_slice.gd")
 const DATA = preload("res://addons/mapgen/data_json.gd")
 const JOB = preload("res://addons/mapgen/generation_job.gd")

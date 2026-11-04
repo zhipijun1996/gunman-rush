@@ -1813,6 +1813,15 @@
       ],
       "timeout_seconds": 60,
       "success_pattern": "^PASS: current documentation, navigation, task dependencies and tuning\\. Game runtime not tested\\.$"
+    },
+    "mapgen-formal-plains": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tools/check_mapgen_formal_plains.py"
+      ],
+      "timeout_seconds": 270,
+      "success_pattern": "^MAPGEN FORMAL PLAINS: [1-9]\\d* assertions, 0 failures$"
     }
   },
   "profiles": {}

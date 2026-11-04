@@ -4,6 +4,12 @@
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；归档中的依赖用于追溯，不代表需要重跑旧架构。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
+## 本轮工作
+
+| 任务 | 目标 | 依赖 | 状态 | 入口 |
+| --- | --- | --- | --- | --- |
+| MAPGEN-HOST-WINDCHIME-041 | map-gen完整平原接入家园出发、战斗奖励与后续流程 | MAPGEN-GODOT-04 | in_progress | [交接](worklines/mapgen_host_windchime_041/scope.md) |
+
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
@@ -40,10 +46,9 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-HOST-WINDCHIME-041 | 0.4.1真实生成/多端口准入/完整起点钟门与最终集成 | MAPGEN-GODOT-04 | review | [交接](worklines/mapgen_host_windchime_041/scope.md) |
+
 | FOREST-BIBLE-V2-01 | 按圣经完成荆棘森林空间、完整美术与环境演出 | REGION-BIBLE-WORKFLOW-01 | in_progress | [交接](worklines/forest_bible_v2_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 森林后按圣经优化风铃平原 | FOREST-BIBLE-V2-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
 
-- `MAPGEN-HOST-WINDCHIME-041`：按 upstream_requirements 处理整图、邻模块与真实敌人／奖励消费者；0.4.1 切片已经集成。
 - `FOREST-BIBLE-V2-01`：依据选定圣经与当前 v15，先确认空间／环境演出差距；与候选 v18 分开验收。
 - `PLAINS-BIBLE-V2-01`：森林方向收口后确认平原内容生产范围；不恢复已暂停黄金切片旧任务。

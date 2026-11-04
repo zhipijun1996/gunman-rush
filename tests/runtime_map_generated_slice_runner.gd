@@ -1,7 +1,7 @@
 extends SceneTree
 ## Real generated entrance and its existing services; no result/solver fixture.
 const SCENE := preload("res://experiments/generation/runtime_map_generated_slice.tscn")
-const BUILDER := preload("res://experiments/generation/runtime_map_generation_request.gd")
+const BUILDER := preload("res://game/world/generation/mapgen/runtime_map_generation_request.gd")
 const DATA := preload("res://addons/mapgen/data_json.gd")
 var checks := 0
 var failures := 0

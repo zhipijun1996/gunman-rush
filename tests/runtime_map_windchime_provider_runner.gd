@@ -1,7 +1,7 @@
 extends SceneTree
 ## Actual SDK generation drives admission. No sample map or edited geometry is
 ## substituted for the positive; copies below are explicit rejection probes.
-const PROFILE = preload("res://experiments/generation/runtime_map_generation_profile.gd")
+const PROFILE = preload("res://game/world/generation/mapgen/runtime_map_generation_profile.gd")
 const DATA = preload("res://addons/mapgen/data_json.gd")
 var checks := 0
 var failures := 0

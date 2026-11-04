@@ -4,9 +4,9 @@ extends RefCounted
 ## Every accepting operation receives the entrance's actual current lifetime.
 const JOB := preload("res://addons/mapgen/generation_job.gd")
 const PRELOAD_JOB := preload("res://addons/mapgen/preload_job.gd")
-const VERIFIED_LIBRARY := preload("res://experiments/generation/runtime_map_verified_library_cache.gd")
+const VERIFIED_LIBRARY := preload("res://game/world/generation/mapgen/runtime_map_verified_library_cache.gd")
 const WORK_GATE := preload("res://addons/mapgen/work_gate.gd")
-const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const SELECTION := preload("res://game/world/generation/mapgen/runtime_map_generated_selection.gd")
 # Original SDK Web host uses an 8ms yielding target. The first actual main-game
 # Web run with 4ms rejected the result after ~92.5s of generation; its package,
 # input/config and 90s search limit stay unchanged. This is no hard frame limit.

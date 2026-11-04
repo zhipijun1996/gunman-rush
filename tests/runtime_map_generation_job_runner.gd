@@ -1,14 +1,14 @@
 extends SceneTree
 ## Real locked addon once to PASS; lifecycle probes use the public opaque API.
 ## No replacement solver, invented generated map, SceneTree assembly or timing SLA.
-const SOURCE := preload("res://experiments/generation/runtime_map_generation_job.gd")
+const SOURCE := preload("res://game/world/generation/mapgen/runtime_map_generation_job.gd")
 const DATA := preload("res://addons/mapgen/data_json.gd")
 const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
-const PROFILE := preload("res://experiments/generation/runtime_map_generation_profile.gd")
+const PROFILE := preload("res://game/world/generation/mapgen/runtime_map_generation_profile.gd")
 const HOST := preload("res://experiments/generation/runtime_map_generated_slice.gd")
 const GEARS_HOST := preload("res://experiments/generation/runtime_map_m35_slice.gd")
-const VERIFIED_LIBRARY := preload("res://experiments/generation/runtime_map_verified_library_cache.gd")
-const SELECTION := preload("res://experiments/generation/runtime_map_generated_selection.gd")
+const VERIFIED_LIBRARY := preload("res://game/world/generation/mapgen/runtime_map_verified_library_cache.gd")
+const SELECTION := preload("res://game/world/generation/mapgen/runtime_map_generated_selection.gd")
 const IDS: Array[String] = []
 const MAX_ADVANCE_CALLS := 10000 # Same bounded frame cohort as the existing entrance test;04 work units differ.
 var checks := 0
