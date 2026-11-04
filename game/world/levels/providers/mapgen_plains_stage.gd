@@ -1,6 +1,7 @@
 class_name MapgenPlainsStage
 extends PlainsRegionStage
 ## Formal presentation, encounters, fog and rewards stay in PlainsRegionStage.
+var _snapshot_dirty:=true
 var runtime_latches: RuntimeMapShotLatchEncounter
 
 func _ready() -> void:
@@ -33,13 +34,19 @@ func cancel_shot_latch_requests(permanent: bool = false) -> void:
 	else: runtime_latches.cancel_pending()
 
 func _capture_tick_state() -> void:
-	if assembly_ok:_update_navigation()
+	if assembly_ok:
+		_update_navigation()
+		_snapshot_dirty=true
 
 func _process(_delta: float) -> void:
 	# The live world remains authoritative at 60Hz. Capture its completed
 	# physics steps once per displayed frame; explicit save/unload still calls
 	# capture_state() synchronously and never relies on this sampling cadence.
-	if assembly_ok:_capture_live_ledger()
+	if assembly_ok and _snapshot_dirty:capture_state()
+
+func capture_state() -> void:
+	super.capture_state()
+	_snapshot_dirty=false
 
 func _capture_latch_state() -> void:
 	if is_instance_valid(runtime_latches):runtime_latches.capture_state()
