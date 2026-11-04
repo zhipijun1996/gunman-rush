@@ -1,24 +1,35 @@
-# 具体数据
+# 对象规范
 
-这里从开发者视角描述玩家可感知的对象行为、招式、反制和视听效果。数值只在实际配置维护；代码结构、字段映射和检查见 [模块导航](../project/module_map.md)。进度、验收和恢复留在 [当前任务](../project/tasks.md)。
+从玩家可感知的行为、判断、反制与表现描述对象。长期方向归 [设计圣经](../README.md)，代码与验证归 [模块导航](../project/module_map.md)，运行数值归对象链接的配置／Definition。对象页不是代码结构说明或验收记录。
 
-| 对象 | 唯一设计入口 |
+## 已有正文
+
+| 对象 | 设计入口与覆盖范围 |
 | --- | --- |
-| 平原冲锋怪 | [plains_charger](enemies/plains_charger.md) |
-| 森林敌人 | [生态与行为](enemies/forest.md) |
-| 鸣铃巡游机 | [bellstrider](bosses/bellstrider.md) |
-| 牧风者主动追压版 | [windkeeper](bosses/windkeeper.md) |
-| 根铃守卫 | [rootbell_guardian](bosses/rootbell_guardian.md) |
-| 棘冠女王版本 | [迁巢织场](bosses/thorn_queen_weave.md)、[Canopy](bosses/thorn_queen_canopy.md) |
-| 武器／技能 | [武器](weapons.md)，共享动作入口见 [概览](player_actions.md) |
-| H/W/D | [能力与恢复](abilities.md) |
-| 道具／成长 | [道具](items.md) |
-| 机关／危险／交互 | [世界对象](world_objects.md) |
-| 声音 | [音频](audio.md)；各对象发声时机归对象正文 |
-| 地区与 Boss 叙事 | [地区片段](story/regions.md)、[Boss动机](story/bosses.md)，时间规则唯一见 [剧情圣经](../bible/story.md) |
+| 平原普通敌人 | [平原物种](enemies/plains.md)：巡逻、俯冲、跃击、单发／扇射哨兵、根铃；[冲锋怪](enemies/plains_charger.md)：完整单对象样例 |
+| 森林普通敌人 | [森林物种](enemies/forest.md)：铃囊萤、棘籽哨、甲虫、摆锚、织棘蛛、跨枝移动体、圣经织者 |
+| 平原 Boss | [鸣铃巡游机](bosses/bellstrider.md)、[牧风者主动追压版](bosses/windkeeper.md) |
+| 森林 Boss | [根铃守卫](bosses/rootbell_guardian.md)、[棘冠女王迁巢织场](bosses/thorn_queen_weave.md)、[Canopy](bosses/thorn_queen_canopy.md)；版本采用见模块导航 |
+| 武器 | [武器与技能](weapons.md)：三个基础家族、六个二级分支与六个已实现三级技能；[动作入口](player_actions.md) 仅导航相关合同 |
+| 移动能力 | [H/W/D](abilities.md)：行为与恢复；U1/U2 的授予和分支约束归 [地区框架](../bible/regions.md) |
+| 道具 | [道具与成长](items.md)：参数目录、关键例外、触发和撤销；逐件身份与参数按稳定 ID 查询配置 |
+| 机关与交互 | [世界对象](world_objects.md)：铃锁、门、平台、索点、危险、检查点、补给、宝箱与出口 |
+| 声音 | [音频](audio.md)：共用声音规范；对象发声时机归各对象正文 |
+| 叙事 | [地区事件与终战提案](story/regions.md)：集中保存具体情节供讨论；时间规则归 [剧情圣经](../bible/story.md) |
 
-## 尚需完善
+上述平原／森林页覆盖当前注册的14类普通行为；注册、地图采用与品质认可分别判断。对象关联可沿“地区圣经 → 本页 → 配置”读取；例如平原冲锋任务只需平原圣经、冲锋怪及模块导航中对应实现和检查。
 
-其余平原物种、森林各物种的完整动作／表现、旧 Boss 身份的实际消费者，以及道具／机关逐项细节，按选中的功能任务整合已有资料。不先创建空卡，也不把代码注册数量当作已完成内容。P17、未来技能和候选地图的选择仍按当前任务明确状态。
+## 设计缺口
 
-`creative_direction/` 是当前选择与技术引用的机器元数据，供现有创作工具核来源；它不另维护人类设计正文。原附件、旧版本和验收记录在 evidence，按需读取。
+| 范围 | 尚缺什么 | 补充位置与边界 |
+| --- | --- | --- |
+| 其余14个地区 | 独立空间、视觉生态、敌人、机关与两图 Boss 的可开发设计 | 地区框架先提供能力锁；选中地区后补 `bible/regions/` 与实际对象，不批量创建空页 |
+| 保留 Boss 身份 | clockwork_guardian、基础 windkeeper、thorn_guardian、thorn_queen 的独立行为／表现说明 | 消费者在模块导航；修改这些入口时先补一页合并规范，不套用现行重制版 |
+| 两个候选普通怪 | lure_guard、crosswind_moth 的正式身份、完整反制与采用决定 | 先在敌人工作线选择是否保留；注册候选不等于批准入池 |
+| 道具 | 本页关键例外以外的复杂互动、逐件画面与声音细节 | 已有配置可查基本效果；按真实任务补入 items.md，避免抄72份参数 |
+| 未来机关／Boss | 地区框架和叙事名字对应的真实招式、弱点、危险与解法 | 叙事提案不能代替对象规范，制作前补相关正文 |
+| 剧情交付 | 森林现行 Boss 的叙事动机，以及逐阶段必要事实与可见呈现 | 选择由 STORY-DESIGN-03 交接，未定方案不覆盖对象设计 |
+
+P17 蓄力移动、G19 精英资格、剧情与地图候选的待决定项从 [当前任务](../project/tasks.md) 接续；不在本页复制进度。
+
+`creative_direction/` 是创作工具使用的当前来源与选择元数据，不再定义一套人类规则。原附件、旧版本与验收记录归 evidence，只有溯源或复现时读取。

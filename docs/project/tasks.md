@@ -8,9 +8,9 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| CODEX-CONTEXT-01 | 轻量管理、内容审查与现行文档读取链 | — | review | [交接](worklines/codex_context_01/scope.md) |
+| CODEX-CONTEXT-01 | 轻量管理与设计文档归整 | — | review | [交接](worklines/codex_context_01/scope.md) |
 
-- `CODEX-CONTEXT-01`：落实已确认管理规则与工具读取；从当前交接恢复。
+- `CODEX-CONTEXT-01`：落实已确认管理规则，整理设计权威、对象规范与缺口；从当前交接恢复。
 
 ## 待验收
 
@@ -36,12 +36,12 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| ITEM-V5-01 | 确认P17规则，按选择同步规范与实现 | RUN-GEAR-01 | blocked | [交接](worklines/item_v5_01/scope.md) |
+| ITEM-V5-01 | 确认P17移动与G19精英资格，同步规范与实现 | RUN-GEAR-01 | blocked | [交接](worklines/item_v5_01/scope.md) |
 | STORY-DESIGN-03 | 确认循环下的人物、日程和结局细案 | STORY-DESIGN-02 | blocked | [交接](worklines/story_design_03/scope.md) |
 | FOREST-VARIETY-04 | 确认v18探索场所与时长目标的采用范围 | FOREST-VARIETY-03 | blocked | [交接](worklines/forest_variety_04/scope.md) |
 
-- `ITEM-V5-01`：确认 P17 满速充能与 40/55/70% 阶梯的取舍，再调整正式规则与验证。
-- `STORY-DESIGN-03`：按最后一天循环审阅具体人物、日程和结局提案；不把提案当已接入剧情。
+- `ITEM-V5-01`：确认 P17 蓄力移动与 G19 精英资格，再调整正式规则与验证。
+- `STORY-DESIGN-03`：确认森林现行 Boss 的叙事衔接、具体人物、日程与结局；叙事提案不替换已选战斗设计。
 - `FOREST-VARIETY-04`：确认是否采用显式 v18 体验方案；当前默认仍为 v15，先验实际默认地图。
 
 ## 待排期

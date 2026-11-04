@@ -8,7 +8,7 @@
   "acceptance": "user_confirmed",
   "user_acceptance": "direction_only_not_art_gameplay_or_device",
   "selection_basis": "user_supplied_bible",
-  "selection_rationale": "用户已提供并选择完整区域圣经；按原文制作，先完整森林含美术，再优化平原；不重新选方向。 最新两条用户纠正要求森林和所有后续区域沿用项目共用整体画风，继承当前正式平原tileset家族。",
+  "selection_rationale": "按用户选择的地区方向制作；先完成森林，再优化平原。两区及后续区域沿项目共用像素画风，地区材料与生态表达各自身份；具体规则读取现行圣经与对象正文。",
   "region_bible": {
     "path": "docs/bible/regions/thorn_forest.md",
     "sha256": "654e8dd0f24fe99fbd466d57585e9abf8c7a6189ad050152f42b6d90abb8dd5f",
@@ -19,7 +19,7 @@
     "supplemental_authority_sha256": "a436ed365e7308ec8a57fa7c55e86dc39ef483fe54416366352e34a82eabc5f1",
     "region_id": "thorn_forest",
     "registry_path": "docs/data/creative_direction/bibles/registry.json",
-    "registry_sha256": "874eb5e7d682dc8659bf0ae3a8320ccce71f083b7b327c43c19af442fb94e230",
+    "registry_sha256": "a29d6709fc0d10ed484fb0bdc7fec61f06c870ceefe9c558a24c99a8ca80f6e4",
     "selection_evidence_path": "docs/evidence/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -64,7 +64,7 @@
     "source": "docs/bible/regions/thorn_forest.md",
     "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
     "shared_project_style": "继承已绑定的正式平原实际像素尺度、tileset邻接/边界、光照/描边/材质语言；区域特色不等于另换项目画风。森林以树皮、苔藓、荆棘、有机结构及区域色域变化，其他后续区域同样沿共用母版。",
-    "cross_region_golden": "先阅读实际共享source PNG/atlas、TileSet及消费者，在正式平原/目标地区的正常比例游戏黄金做实际像素对照；独立视觉准入后才扩产，hash/metadata不签画面。",
+    "cross_region_golden": "在正式平原与目标地区的正常比例运行画面中对照实际共享素材、TileSet、角色和动作，确认画风统一后扩产；审查按本次任务执行，hash与元数据只证明来源。",
     "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。",
     "actual_shared_consumer": "ForestBiblePresentation.enabled时ThornForestRegionStage挂载同一UnderworldTerrain，DemoApp复用UnderworldPlayer；区域景层/摆件由ForestBiblePresentation组织。当前实际源码存在，不代同源截图/影片独审或设备验收。",
     "thorn_covered_platforms": {
@@ -146,7 +146,7 @@
     },
     {
       "path": "docs/data/weapons.md",
-      "sha256": "0163c060d48a8ce329aa8ccd82df9040912fabfc025b3fe07a280998c9bdb3eb"
+      "sha256": "8d5ee752393bd3999c0d5a4ee7dd5f551eba28c3a11b4f73a03fc9120a3e58d7"
     },
     {
       "path": "docs/data/abilities.md",
