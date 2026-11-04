@@ -3,7 +3,7 @@
 目标：家园正式出发使用完整 map-gen 平原，接通探索、战斗、奖励、两图 Boss 与既有后续流程，沿用正式美术和界面。进度唯一见 [任务表](../../tasks.md)。
 
 - 分支：`feat/mapgen-formal-plains`；源码：`4e96da4d5aaff07ee473ffc9e750e1a1906291b0`；main 基线：`48cddb6a70983b0a0206304d18c98d274a9a7549`。
-- 授权：实现、验证和可审阅交付；未合并、未发布。公开试玩不代表本分支。
+- 审阅：[草稿PR #136](https://github.com/zhipijun1996/gunman-rush/pull/136)。授权为实现、验证和可审阅交付；未合并、未发布。公开试玩不代表本分支。
 - 依赖：SDK 0.4.1、模块包 1.1.0，原附件和 SDK 源码未改；身份及实际结果见 [验证记录](../../../evidence/mapgen_formal_plains/verification.json)。
 
 ## 实现与收敛
