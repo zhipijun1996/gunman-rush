@@ -166,7 +166,9 @@ func refresh(update_foreground: bool=true) -> void:
 	for material: ShaderMaterial in _terrain_materials: material.set_shader_parameter("wind_clock",_clock)
 	for ref: WeakRef in _latches:
 		var latch:=ref.get_ref() as CanvasItem
-		if latch!=null and (latch as ShotLatch)._animation_visible(): latch.queue_redraw()
+		if latch!=null and (latch as ShotLatch)._animation_visible():
+			(latch as ShotLatch).refresh_visual_animation()
+			latch.queue_redraw()
 	if update_foreground and is_instance_valid(foreground): foreground.call("refresh")
 
 func receipt() -> Dictionary:

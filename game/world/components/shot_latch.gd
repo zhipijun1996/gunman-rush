@@ -166,19 +166,23 @@ func _physics_process(delta: float) -> void:
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
 			_eligible_shots.erase(key)
-	var animation_visible:=_animation_visible()
-	if animation_visible and (motion_mode or _opened_at>=0 and _clock-_opened_at < 0.70):
-		queue_redraw()
-	if animation_visible and UnderworldActors.enabled(self):
-		for child: Node in get_children():
-			if child is Sprite2D and child.get_meta("underworld_access_bell",false):
-				child.rotation = _underworld_bell_swing()
-				child.modulate = Color(1.18,1.12,1) if is_open or _opened_at>=0 and _clock-_opened_at<.16 else Color.WHITE
+	# FineWorldPresentation refreshes visible animation once per rendered frame.
+	# Physics still advances every native tick, including outside the viewport.
+	if not bool(get_meta("fine_space_presentation",false)) and _animation_visible():
+		if motion_mode or _opened_at>=0 and _clock-_opened_at<.70:queue_redraw()
+		refresh_visual_animation()
 	if _pending.is_empty():
 		return
 	var request := _pending
 	_pending = {}
 	_commit_open.call_deferred(request)
+
+func refresh_visual_animation() -> void:
+	if not UnderworldActors.enabled(self):return
+	for child:Node in get_children():
+		if child is Sprite2D and child.get_meta("underworld_access_bell",false):
+			child.rotation=_underworld_bell_swing()
+			child.modulate=Color(1.18,1.12,1) if is_open or _opened_at>=0 and _clock-_opened_at<.16 else Color.WHITE
 
 func _animation_visible() -> bool:
 	var view:=get_viewport_rect().grow(64)
