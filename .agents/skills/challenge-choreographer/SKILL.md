@@ -32,7 +32,7 @@ docs 下任务设计卡（使用挑战模板）；已有 Definition/Foundry 配�
 
 ## 自动验收
 
-按 V2 文档调用 `python3 tools/level_design.py validate` 与 `analyze`（完整参数查 --help）；运行现有 `python3 tools/foundry.py build --profiles base --count 6` 和受影响能力 profile 的真实回放、`python3 tools/harness.py --profile gameplay`，文档至少 docs。不能拿 base 通过证明可选能力 profile 或正式整图通过。新增规则必须有通过例和故意失败例，尤其未授予能力、双武器拼接、连续资源不足和错版本证据；记录结果，不把命令清单当执行证据。
+按 V2 文档调用 `python3 tools/level_design.py validate` 与 `analyze`（完整参数查 --help）；运行现有 `python3 tools/foundry.py build --profiles base --count 6` 和受影响能力 profile 的真实回放、相关 `python3 tools/harness.py --check level-design-runtime` 专项。不能拿 base 通过证明可选能力 profile 或正式整图通过。新增规则必须有通过例和故意失败例，尤其未授予能力、双武器拼接、连续资源不足和错版本证据；记录结果，不把命令清单当执行证据。
 
 ## 人工审查与协作
 

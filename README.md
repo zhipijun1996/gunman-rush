@@ -22,13 +22,13 @@ Godot 4.7.2 Standard 动作肉鸽原型，以反冲位移、平台操作和探�
 ```sh
 bash tools/cloud_setup.sh --godot-only
 python3 -m pip install -r tools/requirements_art.txt
-python3 tools/harness.py --plan
-python3 tools/harness.py --profile docs
-python3 tools/harness.py --profile gameplay
+python3 tools/ci.py
+python3 tools/harness.py --list
+python3 tools/harness.py --check core --plan
 bash tools/godot.sh --path .
 ```
 
-默认 harness 根据相对 origin/main 的改动选择检查，包含未提交和新文件；只打印计划不会验证。完整检查与证据说明见 [harness](docs/harness.md)。Windows/Web/Android 导出使用 tools/build.py，产物进入忽略的 build/。
+日常 CI 固定四项。开发只运行相关专项；Harness 默认只列命令，--check 显式执行。说明见 [harness](docs/harness.md)。发布/试玩改为手动工作流，或使用 tools/deliver.py，产物进入忽略的 build/。
 
 ## 项目导航
 

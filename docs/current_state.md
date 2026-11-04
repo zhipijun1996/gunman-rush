@@ -1,3 +1,7 @@
+## 2026-11-04 CI-SLIMDOWN-01
+
+本轮按用户新要求替换旧 CI：固定四项验证、唯一日常 context affected，发布/试玩导出改手动；撤销 full/双通道/输入证据恢复。开发只跑修改相关专项，旧全量门槛不再适用。游戏玩法/正式资源不改，未合并/未部署。[结果](worklines/ci_slimdown_01/results.md) · [当前命令](harness.md)。远端553b831/run41749090783实际97秒SUCCESS；最后文档提交的精确head以PR133/Actions为准。
+
 ## 2026-11-03 0.4.1最终CI：历史锁证据路径收口
 
 PR131精确4df/run41728429398已证同run大工件和Git对象缓存恢复成功；parallel正式7PASS后quality拒两张历史0.4.0卡的lock路径漂移，serial仍继续原run。旧锁/原卡字节保全，只迁历史证据path、SHA/来源/结论不变；原质量检查已通过，独审及后继精确head179+affected仍待实际验收。全部游戏/SDK/module/request/bindings和已验原生/Web/22图不变。未合main，普通出发不改、不部署。详见[本批结果](worklines/mapgen_041_windchime/results.md)与[迁移原件](evidence/mapgen_041_windchime/historical-lock-040/README.md)。

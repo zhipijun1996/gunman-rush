@@ -40,7 +40,7 @@ description: 主角整体设计、动作与操作表现的新增或成套改造�
 
 ## 自动验收
 
-先填写质量记录。日常Development按 `tools/production_plan.py` 选择相关专项、状态/输入/保存与正式消费者，不每次强制完整gameplay＋art；Integration覆盖受影响完整系统，未知full。最终仍执行原完整适用profile（包括适用时的 `python3 tools/harness.py --profile gameplay --profile art`）及Release门槛，局部结果不能升签整套；新增客观不变量用参数化与正反测试验证，不删除旧断言。记录版本、环境、退出码、场景/能力/Seed、轨迹和性能；运行 `python3 tools/quality.py check`，内容宣称完成再 `--require-complete`。
+当前验证：开发只运行本次修改相关专项（harness --check ID 或具体 runner），不自动升级 full；日常四项 CI 和手动发布见 docs/harness.md。旧三阶段规划器已撤销，不要求质量卡、证据哈希或完整录像作为普通改动门禁。
 
 交付按[生产入口](../../../docs/cloud_production.md#按验证需要选择最轻交付)：只需观察用真实MP4，必须操作用Web，两者都需则两份。
 

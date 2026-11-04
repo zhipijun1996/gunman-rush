@@ -83,9 +83,9 @@
 ```sh
 # 同一原记录；ID与输出路径按任务换成真实值
 python3 tools/quality.py init --id ENEMY-EXAMPLE-02 --type enemy --output build/quality/enemy-example-02.json
-python3 tools/production_plan.py --stage development --base origin/main --plan
-# --plan只规划；确认实际选中范围后使用原--execute执行
-python3 tools/production_plan.py --stage development --base origin/main --execute --jobs 1
+python3 tools/harness.py --check enemy-structure-native --plan
+# --plan只打印；执行显式选中的相关专项
+python3 tools/harness.py --check enemy-structure-native
 
 # 当前两类旧样板的原生入口示例：选本次相关项，不宣称覆盖其他物种
 python3 tools/run_integration_four_tests.py --case enemy-feedback-native

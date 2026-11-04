@@ -190,6 +190,7 @@ def configure_editor():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot-only", action="store_true")
+    parser.add_argument("--engine-only", action="store_true", help="Install the editor only for CI; skip export templates and SDKs")
     parser.add_argument("--accept-android-licenses", action="store_true", help="Accept official Android SDK licenses for this install")
     args = parser.parse_args()
     if platform.system() != "Linux" or platform.machine() not in ("x86_64", "AMD64"):
@@ -223,6 +224,8 @@ def main():
     engine_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(provenance, engine_dir / "build-provenance.json")
     print(godot_identity.verified_engine(CONFIG, REPO)["version"])
+    if args.engine_only:
+        return 0
     try:
         godot_identity.verify_templates(CONFIG, REPO)
     except (OSError, RuntimeError, KeyError, ValueError):

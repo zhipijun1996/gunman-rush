@@ -65,7 +65,7 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 ## PR69后的真实产出与验证成本
 
-用原production_timing记录生成、实施、集成、独审、返工、验证、等待和发布实际区间，未知token/价格写not_exposed；宿主包络不称纯模型compute。廉价接口先于昂贵回归；只复用source/argv/consumer/artifact一致回执。恢复核真实lease/checkpoint/controller，发布绑定repo/ref/SHA/run/attempt及公开PCK指纹；保留原红，不另dispatch掩盖。
+生成、实施、集成和验证按实际需要记录简短计时；不维护额外计时账本或证据系统，未知 token/价格不推测。
 
 ## 共同创作契约
 

@@ -77,7 +77,7 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 ## 自动验收
 
-日常Development按 `tools/production_plan.py` 选择相关专项与正式消费者，不每次强制完整gameplay＋art；Integration覆盖受影响完整系统，未知范围full；最终原完整适用profile与Release门槛不变，局部结果不能升签整套。交付按[生产入口](../../../docs/cloud_production.md#按验证需要选择最轻交付)选择观察MP4／操作Web／两者兼具，不重复完整流程。
+当前验证：开发只运行本次修改相关专项（harness --check ID 或具体 runner），不自动升级 full；日常四项 CI 和手动发布见 docs/harness.md。旧三阶段规划器已撤销，不要求质量卡、证据哈希或完整录像作为普通改动门禁。
 
 大任务按 [生产循环](../../../docs/quality/production_loop.md) 拆依赖包，先黄金样板后扩展；允许有界反复调用专业 Skills 与独立审查，遇创意/玩家验收或无进展必须保留现场。
 
