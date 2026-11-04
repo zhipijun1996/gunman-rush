@@ -9,7 +9,7 @@
 | 时间能量 | AirFocus与ShotEnergyPolicy；枪械／钩索共用，只有实际空中瞄准慢时消费，接地按真实秒渐回 |
 | 共鸣 | CombatEnergyState；合法敌人伤害产能，主动技与道具消费者共用其提交政策 |
 
-射击不消费或返还时间能量；默认资源Definition是`game/player/resources/demo_ui_01/time_energy_v2.tres`。成功命中按会话、攻击包、目标和动作收据去重；空中实际伤害可补弹，并恢复已授予的H／D资格。
+基础射击本身不消费或返还时间能量；[道具](../data/items.md)可以在满足自身条件时返还，不能延长同次腾空的慢时预算。默认资源Definition是`game/player/resources/demo_ui_01/time_energy_v2.tres`。成功命中按会话、攻击包、目标和动作收据去重；空中实际伤害可补弹，并恢复已授予的H／D资格。
 
 ## 发射事务
 

@@ -13,7 +13,20 @@
 | 反冲炸弹 → 磁吸遥爆雷 | 基础炸弹在接受释放时近身即时爆发；地面磁雷可投放、附着和遥爆，空中按近身爆发规则；距离和遮挡影响借爆 |
 | 坍缩奇点 | 在角色当前位置形成有限牵引与固定，轻目标靠近接触停止环，再按选择方向弹射；不能穿墙或无限悬停 |
 
-Lv.3 技能候选分别为弹幕风暴、日晷贯穿炮、千刃绽放、噬月回刃、磁暴猎杀雷与吞星坍缩。独立付费、起手、方向和结束，技能伤害不自充共鸣；具体可用范围与平衡按正式入口及当前任务确认。
+### 三级主动技能
+
+下列技能已有动作实现，可在动作练习中选择；正式演进授予和全分支平衡仍按 [当前状态](../project/current_state.md) 判断。三级普通攻击沿对应二级分支，技能独立消耗共鸣并有冷却，技能伤害不自充共鸣。
+
+| 分支／技能 | 玩家感知的行为 | 数值配置 |
+| --- | --- | --- |
+| 三连机关枪／弹幕风暴 | 蓄力后连续发出多轮扇状弹幕，发射过程伴随反向推进，需规划持续出手后的落点 | [machine_storm](../../resources/weapons/machine_storm.tres) |
+| 恒流激光枪／日晷贯穿炮 | 蓄力后瞬间发出贯穿敌人的炮击并反向爆发位移；实体墙仍截止，区别于持续激光普攻 | [laser_cannon](../../resources/weapons/laser_cannon.tres) |
+| 散华手里剑／千刃绽放 | 向更宽扇面出刃并完成强化反向瞬闪，不追加普通散华的延迟二闪 | [blade_bloom](../../resources/weapons/blade_bloom.tres) |
+| 遥控回旋刃／噬月回刃 | 保留控刃、受阻与真实接刃，主动召回接住时产生强化第二段位移；未接住不凭空位移 | [moon_boomerang](../../resources/weapons/moon_boomerang.tres) |
+| 磁吸遥爆雷／磁暴猎杀雷 | 投出可附着的强化磁雷，可遥爆并在合法邻近目标间连锁；借爆仍受距离和遮挡限制 | [magnetic_storm](../../resources/weapons/magnetic_storm.tres) |
+| 坍缩奇点／吞星坍缩 | 在当前位置保持有限固定与扩大牵引，结束爆发并沿选择方向弹射；不能无限延长固定 | [star_collapse](../../resources/weapons/star_collapse.tres) |
+
+基础与二级数值分别见 [普通枪](../../resources/weapons/pulse_gun.tres)、[影步](../../resources/weapons/shadow_shuriken.tres)、[反冲炸弹](../../resources/weapons/recoil_bomb.tres)、[三连](../../resources/weapons/triple_machine_gun.tres)、[激光](../../resources/weapons/sustained_laser.tres)、[散华](../../resources/weapons/fan_shuriken.tres)、[回旋刃](../../resources/weapons/remote_boomerang.tres)、[磁雷](../../resources/weapons/magnetic_mine.tres)、[奇点](../../resources/weapons/collapse_singularity.tres)。
 
 ## 手感与输入
 

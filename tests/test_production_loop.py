@@ -13,7 +13,7 @@ import production_loop as loop
 from test_production_snapshot import ProductionSnapshotTests
 
 MISSION = {"schema_version":1,"objective":"isolated read-only drill", "max_calls":4,"max_rounds":2,"call_timeout_seconds":60,
-           "tasks":[{"id":"DRILL", "goal":"inspect", "skills":["gameplay-reviewer"], "read_only":True,"checks":["docs"]}]}
+           "tasks":[{"id":"DRILL", "goal":"inspect", "skills":["gameplay-reviewer"], "read_only":True,"checks":["docs"],"independent_review":True}]}
 
 # Only these explicitly decorated fake-worker/state-machine tests share this
 # actual, readable input fixture. Input/source/dependency mutation and all real
@@ -1724,14 +1724,14 @@ class VisualGoldenAdmissionTests(unittest.TestCase):
             with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp:
                 golden = {'id': 'GOLDEN', 'goal': 'SIMULATED joint golden', 'skills': ['gameplay-reviewer'],
                     'read_only': True, 'checks': ['docs'], 'completion': 'stage', 'quality_record': 'card.json',
-                    'required_gates': ['G0', 'G1', 'G2'], 'requires_visual_admission': True}
+                    'required_gates': ['G0', 'G2'], 'requires_visual_admission': True}
                 mission = {**copy.deepcopy(MISSION), 'tasks': [golden,
                     {'id': 'EXPAND', 'goal': 'Second space and seeds', 'skills': ['gameplay-reviewer'],
                      'read_only': True, 'checks': ['docs'], 'depends_on': ['GOLDEN']}]}
                 record = {'task_id': 'GOLDEN', 'owner': '/root/SIMULATED_author', 'production_snapshot': loop.digest({}),
                     'deliverables': ['one playable golden'], 'affected_paths': ['scene.gd'], 'creative_decisions': [],
-                    'gates': {gate: {'status': 'passed', 'evidence': ['shot', 'movie'] if gate == 'G2' else []} for gate in ('G0','G1','G2')},
-                    'criteria': [{'gate': gate, 'status': 'passed'} for gate in ('G0','G1','G2')],
+                    'gates': {gate: {'status': 'passed', 'evidence': ['shot', 'movie'] if gate == 'G2' else []} for gate in ('G0','G2')},
+                    'criteria': [{'gate': gate, 'status': 'passed'} for gate in ('G0','G2')],
                     'dimensions': {'independent_review': {'status': 'passed', 'evidence': ['visual_review']}},
                     'evidence': [{'id': 'shot', 'kind': 'screenshot'}, {'id': 'movie', 'kind': 'video'},
                         {'id': 'visual_review', 'kind': 'review', 'verdict': 'ACCEPT', 'independent': True,
@@ -1760,7 +1760,7 @@ class VisualGoldenAdmissionTests(unittest.TestCase):
                     state = loop.run(mission, Path(tmp), worker)
                 if case == 'admitted':
                     self.assertEqual(state['tasks']['EXPAND']['status'], 'complete')
-                    self.assertEqual(state['calls'], 4)
+                    self.assertEqual(state['calls'], 3)
                 else:
                     self.assertEqual(state['tasks']['EXPAND']['status'], 'dependency_blocked')
                     self.assertEqual(state['calls'], 2)

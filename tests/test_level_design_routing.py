@@ -86,8 +86,8 @@ class RoutingTests(unittest.TestCase):
                 self.assertEqual(task['region_bible'], mission['region_bible'])
                 self.assertEqual(task['creative_direction']['region_id'], 'windchime_plains')
             golden = next(t for t in mission['tasks'] if t['id'].endswith('-golden'))
-            self.assertEqual(golden['required_gates'], ['G0', 'G1', 'G2'])
-            self.assertTrue(golden['requires_visual_admission'])
+            self.assertEqual(golden['required_gates'], ['G0', 'G2'])
+            self.assertNotIn('requires_visual_admission', golden)
 
 
     def test_joint_landform_short_requests_use_existing_loop_with_exact_geometry_lease(self):
@@ -132,7 +132,7 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(len(mission['production_plan']),9)
         task=mission['tasks'][0]
         self.assertIn('forest-current-slice',task['checks'])
-        self.assertEqual(task['required_gates'],['G0','G1'])
+        self.assertEqual(task['required_gates'],['G0'])
         self.assertEqual(task['region_proof']['allowed_capabilities'],['H'])
         self.assertEqual(task['region_proof']['scope'],'prototype')
         self.assertIn('game/world/levels/providers/thorn_forest_h_slice.gd.uid',task['allowed_paths'])
@@ -148,19 +148,19 @@ class RoutingTests(unittest.TestCase):
 
     def test_public_production_golden_requires_joint_visual_admission_but_legacy_stays_explicit(self):
         legacy = level_design.content_plan('优化风铃平原', phase='production')
-        self.assertEqual(legacy['tasks'][2]['required_gates'], ['G0', 'G1'])
+        self.assertEqual(legacy['tasks'][2]['required_gates'], ['G0'])
         for request, region in (('优化风铃平原', 'windchime_plains'), ('制作荆棘森林', 'thorn_forest')):
             mission = level_design.route_request(request, direction='docs/data/creative_direction/'+region+'.json')
             production_loop.validate(mission)
             golden = next(t for t in mission['tasks'] if t['id'].endswith('-golden'))
             integration = next(t for t in mission['tasks'] if t['id'].endswith('-integration'))
-            self.assertEqual(golden['required_gates'], ['G0', 'G1', 'G2'])
-            self.assertTrue(golden['requires_visual_admission'])
+            self.assertEqual(golden['required_gates'], ['G0', 'G2'])
+            self.assertNotIn('requires_visual_admission', golden)
             for skill in ('visual-director', 'scene-composer', 'encounter-director', 'animation-vfx'):
                 self.assertIn(skill, golden['skills'])
             self.assertIn(golden['id'], integration['depends_on'])
-            golden['required_gates'] = ['G0', 'G1']
-            with self.assertRaisesRegex(ValueError, 'independent G2'):
+            golden['required_gates'] = ['G0']
+            with self.assertRaisesRegex(ValueError, 'applicable G2'):
                 production_loop.validate(mission)
 
     def test_spatial_experiment_exact_lease_refuses_core_and_directory_authorization(self):

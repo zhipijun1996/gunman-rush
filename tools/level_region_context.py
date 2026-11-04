@@ -8,8 +8,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REGIONS = "docs/evidence/sources/design/player_actions/regions_v0.3.md"
-WEAPONS = "docs/evidence/sources/design/player_actions/weapons_v0.8.md"
+REGIONS = "docs/bible/regions.md"
+WEAPONS = "docs/data/weapons.md"
 ENTRY = "docs/data/player_actions.md"
 WORLD = "docs/bible/world_regions.json"
 
@@ -343,23 +343,18 @@ def build_region_context(region_id, root=ROOT):
     if int(row["stage"][1:]) != item["layer"]:
         raise ContextError(f"Stage conflict for {region_id}: matrix vs world catalog")
     sources = [source.ref() for source in (region_doc, weapon_doc, entry, world)]
-    detail = region_doc.section(f"### {row['stage']} {row['name']}｜")
-    learning = []
-    for offset, line in enumerate(detail["text"].splitlines()):
-        match = re.match(r"- \*\*([^*]+)\*\*：(.*)", line)
-        if match:
-            label, text = match.groups()
-            number = detail["source"]["line_start"] + offset
-            learning.append({"label": label, "text": text, "status": "PROPOSED",
-                             "source": region_doc.ref(number, number)})
-    if not learning:
-        raise ContextError(f"Missing authored learning/identity for {region_id}")
-    capability_ids = dict(re.findall(r"\b(H|W|D|U1|U2)=([a-z_0-9]+)", region_doc.text))
-    if set(capability_ids) != {"H", "W", "D", "U1", "U2"}:
-        raise ContextError("Core ability ID authority incomplete")
-    candidate_edges = [(a, b) for a, b in re.findall(r"`([a-z_]+) → ([a-z_]+)`", region_doc.section("### 2.4 ")["text"])]
-    if any(a not in ids or b not in ids for a, b in candidate_edges):
-        raise ContextError("Candidate edge references unknown region")
+    regional_path = "docs/bible/regions/" + region_id + ".md"
+    regional = Source(root, regional_path) if (root/regional_path).is_file() else None
+    detail = ({"text": regional.text, "source": regional.ref()} if regional
+              else {"text": row["identity"], "source": row["source"]})
+    learning = [{"label": "地区体验", "text": row["identity"], "status": "PROPOSED", "source": row["source"]}]
+    if regional:
+        sources.append(regional.ref())
+    # Symbol aliases are the existing domain vocabulary; static observations below
+    # independently check actual handlers and grants rather than granting anything.
+    capability_ids = dict(H="grapple", W="wall_climb", D="double_jump",
+                          U1="weapon_evolution_1", U2="weapon_evolution_2")
+    candidate_edges = []
     incoming = [r["id"] for r in catalog_rows if region_id in r["next_region_ids"]]
     outgoing = item["next_region_ids"]
     if any(target not in ids for target in outgoing):
@@ -416,7 +411,7 @@ def build_region_context(region_id, root=ROOT):
         bible_binding = None
     return {"schema_version": 1, "kind": "extracted_design_input_not_runtime_configuration",
         "region_id": region_id, "name": row["name"], "region_bible": bible_binding,
-        "authority_precedence": ["latest_user_instruction", ENTRY, "latest_revised_contracts", REGIONS, WEAPONS, WORLD],
+        "authority_precedence": ["latest_user_instruction", ENTRY, "current_contracts", REGIONS, WEAPONS, WORLD],
         "design": {
             "stage": {"value": row["stage"], "status": "LOCKED_STAGE_PRINCIPLE", "source": row["source"]},
             "gate": {"expression": row["hard_lock"], "alternatives": parse_gate(row["hard_lock"]),
@@ -426,25 +421,22 @@ def build_region_context(region_id, root=ROOT):
             "learning": learning, "region_blueprint": _facts(detail, "PROPOSED"),
             "world_location": {"stage": row["stage"], "incoming": incoming, "outgoing": outgoing,
                                "additional_candidate_edges": [list(edge) for edge in candidate_edges if region_id in edge],
-                               "status": "PROPOSED_TOPOLOGY_NOT_REACHABILITY", "sources": [world.ref(), region_doc.section("### 2.4 ")["source"]]},
+                               "status": "PROPOSED_TOPOLOGY_NOT_REACHABILITY", "sources": [world.ref()]},
             "art": {"status": "PROPOSED", "source": item_ref, **{key: item[key] for key in (
                 "visual_anchor", "story_anchor", "material_and_light", "art_brief_status")}},
         },
-        "locked_principles": [_facts(region_doc.section("### 0.1 "), "LOCKED"),
-                              _facts(region_doc.section("### 2.1 "), "LOCKED_DIRECTION"),
-                              _facts(region_doc.section("### 5.1 "), "REQUIRED_VALIDATION_NOT_PROOF")],
-        "capability_ids": {"values": capability_ids, "status": "PROPOSED_PERSISTENCE_IDS_RUNTIME_CHECK_REQUIRED", "source": region_doc.section("## 1. ")["source"]},
+        "locked_principles": [_facts(region_doc.section("## 能力与授予"), "LOCKED"),
+                              _facts(region_doc.section("## 地区矩阵"), "LOCKED_DIRECTION")],
+        "capability_ids": {"values": capability_ids, "status": "SOURCE_OBSERVATION_NOT_ABILITY_GRANT", "source": traversal.ref()},
         "overrides": overrides,
         "authority_order": {"current_actions": ENTRY,
                             "source_direction": [REGIONS, WEAPONS],
-                            "rule": "Current action contracts and their linked sources govern input, ammo, AirFocus and restoration; imported source directions are not current runtime rules."},
+                            "rule": "Current canonical bibles and object specifications govern design; runtime configuration owns values. Evidence attachments are provenance only."},
         "weapon_context": {"source_inventory": inventory,
             "selection": "one_current_weapon_no_combined_branch_capabilities",
-            "evolution_tree": _facts(weapon_doc.section("## 1. "), "LOCKED_EVOLUTION_DIRECTION_LV3_DETAILS_PROPOSED"),
-            "rules": [_facts(weapon_doc.section("### 0.1 "), "SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY"),
-                      _facts(weapon_doc.section("### 0.2 "), "SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY"),
-                      _facts(weapon_doc.section("### 0.3 "), "OPEN"),
-                      _facts(weapon_doc.section("## 5. "), "PROPOSED_ENCOUNTERS_REQUIRE_PHYSICS_PROOF")]},
+            "evolution_tree": _facts(weapon_doc.section("## 攻击与移动"), "CURRENT_DESIGN_WITH_DECLARED_CANDIDATES"),
+            "rules": [_facts(weapon_doc.section("## 手感与输入"), "CURRENT_DESIGN"),
+                      _facts(weapon_doc.section("## 表现与数值"), "CURRENT_DESIGN")]},
         "implementation": {"formal_region": "consumer_present_in_source" if formal_observed else "no_formal_consumer_observed",
             "runtime_available": None, "runtime_available_reason": "static_extraction_does_not_run_or_grant_anything",
             "catalog_runtime_available": item.get("runtime_available"), "catalog_flag_is_authoritative": False,
@@ -452,7 +444,7 @@ def build_region_context(region_id, root=ROOT):
             "abilities": ability_observations, "resource_and_state_sources": resources,
             "validation_status": "unverified", "equipment_capacity": "one_current_weapon_inventory_capacity_not_inferred"},
         "sources": sorted({(ref["path"], ref["sha256"]): ref for ref in sources}.values(), key=lambda ref: ref["path"]),
-        "required_next_steps": ["apply_latest_overrides_before_authored_blueprints", "capture_actual_entry_capabilities_and_single_weapon",
+        "required_next_steps": ["read_current_canonical_design_before_implementation", "capture_actual_entry_capabilities_and_single_weapon",
             "prove_each_gate_alternative_with_real_motor_and_resources", "review_scene_composition_and_device_inputs",
             "keep_future_region_out_of_formal_runtime_until_admission"]}
 

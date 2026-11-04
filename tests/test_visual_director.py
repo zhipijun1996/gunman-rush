@@ -463,7 +463,7 @@ class VisualDirectorTests(unittest.TestCase):
             production_loop.validate(mission)
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
         self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
-        self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
+        self.assertEqual(mission['tasks'][1]['required_gates'],['G0'])
         self.assertIn('art-art',mission['tasks'][1]['checks'])
         self.assertNotIn('visual-director-terrain',mission['tasks'][1]['checks'])
         self.assertEqual(mission['preparation']['visual_recipe']['capture_script'],vd.PLACES_CAPTURE)

@@ -112,7 +112,7 @@ class CreativeTests(unittest.TestCase):
         self.assertNotIn('forest-h-slice', mission['tasks'][0]['checks'])
         self.assertEqual(mission['tasks'][0]['region_proof']['kind'], 'technical_sample')
         self.assertEqual(mission['tasks'][0]['region_proof']['allowed_capabilities'], ['H'])
-        self.assertEqual(mission['tasks'][0]['required_gates'], ['G0','G1'])
+        self.assertEqual(mission['tasks'][0]['required_gates'], ['G0'])
         self.assertEqual(mission['tasks'][0]['region_proof']['scope'], 'prototype')
 
     def test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes(self):

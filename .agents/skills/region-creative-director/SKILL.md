@@ -17,6 +17,6 @@ description: 地区主题选择、整体方向重构或跨专业主题失配。
 
 ## 验证与交付
 
-对照真实游玩与合屏决定继续、局部返工、重想方向或淘汰。交付完整现行主题稿、切片范围和专业接口；注册版本及来源按现有Bible工具校验。
+对照真实游玩与合屏决定继续、局部返工、重想方向或淘汰。交付完整现行主题稿、切片范围和专业接口；注册版本及来源按现行圣经校验；原附件仅供溯源。
 
-模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+模板：[现有设计卡](../../../docs/project/templates/design.md)。新内容的审查方法见 [开发与审查](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。

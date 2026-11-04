@@ -88,7 +88,7 @@ class RegionContextTests(unittest.TestCase):
     def test_missing_current_contract_section_rejects(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
-            for name in (REGIONS, WORLD, "docs/evidence/sources/design/player_actions/weapons_v0.8.md", "docs/data/player_actions.md"):
+            for name in (REGIONS, WORLD, "docs/data/weapons.md", "docs/data/player_actions.md"):
                 target = root / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(ROOT / name, target)
@@ -117,10 +117,10 @@ class RegionContextTests(unittest.TestCase):
         self.assertEqual([sum(w["tier"] == tier for w in weapons) for tier in [1, 2, 3]], [3, 6, 6])
         self.assertEqual(len({w["branch"] for w in weapons if w["tier"] == 2}), 6)
         self.assertIn("one_current_weapon", context["weapon_context"]["selection"])
-        self.assertEqual(context["weapon_context"]["rules"][2]["status"], "OPEN")
-        self.assertIn("尚未定稿", context["weapon_context"]["rules"][1]["text"])
+        self.assertEqual(context["weapon_context"]["rules"][1]["status"], "CURRENT_DESIGN")
+        self.assertIn("数值", context["weapon_context"]["rules"][1]["text"])
         self.assertEqual(context['authority_order']['current_actions'], 'docs/data/player_actions.md')
-        self.assertTrue(all(rule['status'] == 'SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY'
+        self.assertTrue(all(rule['status'] == 'CURRENT_DESIGN'
                             for rule in context['weapon_context']['rules'][:2]))
         self.assertIn('射击不耗时间能量', '\n'.join(rule['text'] for rule in context['overrides']))
 
@@ -175,7 +175,7 @@ class RegionContextTests(unittest.TestCase):
     def test_unrecognized_gate_does_not_silently_fall_back_to_plains(self):
         root = self.fixture()
         path = root / REGIONS
-        path.write_text(path.read_text().replace("| S2 | 荆棘森林 | **H** |", "| S2 | 荆棘森林 | TELEPORT |"))
+        path.write_text(path.read_text().replace("| S2 | 荆棘森林 | H |", "| S2 | 荆棘森林 | TELEPORT |"))
         with self.assertRaisesRegex(ContextError, "Unsupported"):
             build_region_context("thorn_forest", root)
 
