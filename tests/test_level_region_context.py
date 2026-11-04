@@ -97,6 +97,20 @@ class RegionContextTests(unittest.TestCase):
             with self.assertRaisesRegex(ContextError, "authority section"):
                 build_region_context("thorn_forest", root)
 
+    def test_current_direction_document_drift_is_still_rejected(self):
+        from unittest.mock import patch
+        import region_creative_direction as creative
+        original = creative.repository_file
+        for name in ("docs/design/player_actions/README.md", "docs/controls_contract.md"):
+            with self.subTest(path=name), tempfile.TemporaryDirectory() as folder:
+                changed = Path(folder) / "changed.md"
+                changed.write_bytes((ROOT / name).read_bytes() + b"\nchanged contract\n")
+                def resolve(path, root=creative.ROOT):
+                    return changed if path == name else original(path, root)
+                with patch.object(creative, "repository_file", side_effect=resolve):
+                    with self.assertRaisesRegex(ValueError, "Authority changed"):
+                        creative.load_direction("docs/creative_direction/thorn_forest.json", "thorn_forest")
+
     def test_real_single_weapon_inventory_and_lv3_candidates(self):
         context = build_region_context("firefly_marsh")
         weapons = context["weapon_context"]["source_inventory"]

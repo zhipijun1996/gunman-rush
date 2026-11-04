@@ -64,6 +64,27 @@ class NavigationTests(unittest.TestCase):
         self.assertIn("docs/worklines/", entry)
         self.assertNotIn("docs/handoff.md", entry)
 
+    def test_retained_history_uses_exact_inputs_and_rejects_corruption_or_loss(self):
+        import shutil
+        import region_style_history as history
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            manifest = root / history.STYLE33_ARCHIVE / "manifest.json"
+            manifest.parent.mkdir(parents=True)
+            shutil.copy2(ROOT / history.STYLE33_ARCHIVE / "manifest.json", manifest)
+            for path, (frozen, _) in history.FROZEN_CONTEXT_INPUTS.items():
+                target = root / frozen
+                target.parent.mkdir(parents=True, exist_ok=True)
+                original = (ROOT / frozen).read_bytes()
+                target.write_bytes(original)
+                self.assertEqual(history.style33_source(root, path), original)
+                target.write_bytes(original + b"changed")
+                with self.assertRaisesRegex(AssertionError, "Frozen context input changed"):
+                    history.style33_source(root, path)
+                target.unlink()
+                with self.assertRaises(ValueError):
+                    history.style33_source(root, path)
+
 
 if __name__ == "__main__":
     unittest.main()

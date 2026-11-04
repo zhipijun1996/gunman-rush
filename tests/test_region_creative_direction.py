@@ -1062,6 +1062,11 @@ class RuntimeOwnershipDirectionTests(unittest.TestCase):
                              ('creative-v36', 'creative-v37', 'creative-v37'))
             for key in old.keys()-{'version', 'region_bible', 'authority_sources', 'revision_impact'}:
                 self.assertEqual(current[key], old[key], key)
+            # The direction is unchanged; only the two current document inputs
+            # were rewritten. All other inherited source bindings remain exact.
+            for source in old['authority_sources']:
+                if source['path'] in {'docs/design/player_actions/README.md', 'docs/controls_contract.md'}:
+                    source['sha256'] = hashlib.sha256((creative.ROOT/source['path']).read_bytes()).hexdigest()
             self.assertEqual(current['authority_sources'][:-1], old['authority_sources'])
             self.assertEqual(current['authority_sources'][-1], creative.load_bible_registry()['shared_style_authority'])
             self.assertEqual(current['region_bible'], creative.bind_region_bible(region)[1])

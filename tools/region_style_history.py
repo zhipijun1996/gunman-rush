@@ -135,8 +135,22 @@ def style32_source(root, path):
 STYLE33_ARCHIVE = 'docs/creative_direction/archive/death-runtime-before-style34'
 STYLE33_MANIFEST_SHA = '0f2e6ae2da8bf141a46b1ca5beb0621cce26d1c3f18138a76b0adc2a85291d8b'
 
+FROZEN_CONTEXT_INPUTS = {
+    'docs/design/player_actions/README.md': (
+        'docs/evidence/codex_context_01/frozen_inputs/player_actions_readme.md.txt',
+        '19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475'),
+    'docs/controls_contract.md': (
+        'docs/evidence/codex_context_01/frozen_inputs/controls_contract.md.txt',
+        '8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a'),
+}
+
 
 def style33_source(root, path):
     """Five prior33 leaves only; never used by current binding validators."""
     raw = archived_source(root, STYLE33_ARCHIVE, path, STYLE33_MANIFEST_SHA)
+    if raw is None and path in FROZEN_CONTEXT_INPUTS:
+        frozen, expected = FROZEN_CONTEXT_INPUTS[path]
+        raw = repository_file(frozen, root).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != expected:
+            raise AssertionError('Frozen context input changed: ' + path)
     return repository_file(path, root).read_bytes() if raw is None else raw
