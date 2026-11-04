@@ -1,0 +1,53 @@
+{
+  "task": "MAPGEN-HOST-WINDCHIME-041",
+  "delivery_kind": "reuse_original_verified_web_bundle",
+  "export_source_commit": "a0a90061816516bb4ac15ea56b3d644b5c8b477d",
+  "build_id": "e49853f58481",
+  "pack_sha256": "e49853f58481a79a4fe50b696a257209a26b86742038b9857756d4da3d098ec9",
+  "pack_bytes": 220414276,
+  "runtime_equivalent_merged_main": "f11c750eaad20fe7ae757479f30ed3c560778b24",
+  "main_tree": "4722a17e7247c3c16832f96e114c29aec5a75fc3",
+  "original_build_info_preserved": true,
+  "ci": {
+    "run": 41734093813,
+    "head": "6a22ec4d6c3a7eefc5e3479e9aaa40ffce58affe",
+    "fresh_passed": 179,
+    "reused": 0,
+    "full_and_affected_accepted": true,
+    "acceptance_receipt_sha256": "9afcbb236d9a3385c3bc82e7e9a2d771e0bc57095655dacac01354dd3b80e33c"
+  },
+  "entries": [
+    {
+      "path": "mapgen041-generated.html",
+      "seed": "930001",
+      "entry": "scene",
+      "scene": "res://experiments/generation/runtime_map_generated_slice.tscn",
+      "same_as_actual_gui_tested_html": "/tmp/mapgen041-web-default-01/site/index.html",
+      "sha256": "b83574f8413d2b32f3c78c1f88667f4ef8b7a39d1e83520cd3f69b390fc9292e"
+    },
+    {
+      "path": "mapgen041-gears.html",
+      "seed": "930007",
+      "entry": "scene",
+      "scene": "res://experiments/generation/runtime_map_m35_slice.tscn",
+      "same_as_actual_gui_tested_html": "/tmp/mapgen041-web-gears-01/site/index.html",
+      "sha256": "f1f3de068a7956b3196319ae5b4de1a65eda2e2000b3992443c1bc08292f591c"
+    },
+    {
+      "path": "mapgen041-windchime.html",
+      "seed": "930001",
+      "entry": "scene",
+      "scene": "res://experiments/generation/runtime_map_windchime_slice.tscn",
+      "same_as_actual_gui_tested_html": "/tmp/mapgen041-web-windchime-02/site/index.html",
+      "sha256": "f1cadaaa4fd8d5a45f0b7974bd222c03c8d516f4332c5459d248cfe22473d349"
+    }
+  ],
+  "navigation": "mapgen041.html",
+  "ordinary_entry": "index.html",
+  "limitations": [
+    "Generated full map is not playable.",
+    "Windchime entry loads one complete start module and its own exit bank; external neighbor is not loaded.",
+    "Prior actual browser proofs are reused; public post-deployment browser verification remains pending.",
+    "Device performance, player feel and full-region content acceptance remain unverified."
+  ]
+}

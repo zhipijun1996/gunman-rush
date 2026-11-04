@@ -1,8 +1,0 @@
-{
-  "reason": "Original Harness correctly refuses symlinked verification artifacts, including unrelated old movie alias. Move only alias outside verification; original movie bytes and target untouched.",
-  "previous_path": "/workspace/gunman-rush-refactor/build/verification/actions-movie",
-  "preserved_path": "/workspace/gunman-rush-refactor/build/combat-perf-actions-movie-existing-link",
-  "target": "/tmp/combat-perf-deploy-01-actions-movie-02",
-  "same_symlink_inode": true,
-  "restore": "Move preserved alias back only if previous path absent; original guard would then correctly refuse cacheable checks again."
-}
