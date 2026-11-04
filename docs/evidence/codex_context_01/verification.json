@@ -1,7 +1,7 @@
 {
-  "source_commit": "50c3169a4c991d6f89027d62c6408c9f79b38177",
+  "source_commit": "7ef59c0f6175cdb6e3e29c6c0a890629d0885ffd",
   "base_commit": "68a87f38a753442bbdacaa81317dd4aaa05eba3b",
-  "scope": "Four document classes and document-first workflow, charger object example, creative tool compatibility, current task view and explicit test retirement. No runtime/asset/parameter/CI workflow changes.",
+  "scope": "Current document classes, coherent skill workflows, concise observable enemy design, topic-local handoff and verified creative tooling. No runtime, asset, parameter or CI workflow changes.",
   "checks": [
     {
       "id": "loop",
@@ -76,12 +76,12 @@
     {
       "id": "runner",
       "command": "python3 tests/test_harness.py",
-      "source_commit": "50c3169a4c991d6f89027d62c6408c9f79b38177",
+      "source_commit": "7ef59c0f6175cdb6e3e29c6c0a890629d0885ffd",
       "exit_code": 0,
       "status": "passed",
       "tests": 13,
       "log": "docs/evidence/codex_context_01/runner.log",
-      "sha256": "400adf6b2c529774fd864bc1fd4225cc96e789725ad62a4c9ec23d96aa281f14"
+      "sha256": "3bbf89c21ab6e02f81d43f959c3a96e9ee7b8486725a6300e639b959256339a0"
     },
     {
       "id": "world",
@@ -96,7 +96,7 @@
     {
       "id": "docs",
       "command": "python3 tools/check_docs.py",
-      "source_commit": "50c3169a4c991d6f89027d62c6408c9f79b38177",
+      "source_commit": "7ef59c0f6175cdb6e3e29c6c0a890629d0885ffd",
       "exit_code": 0,
       "status": "passed",
       "tests": null,
@@ -106,7 +106,7 @@
     {
       "id": "quality-static",
       "command": "python3 tools/check_quality.py",
-      "source_commit": "50c3169a4c991d6f89027d62c6408c9f79b38177",
+      "source_commit": "7ef59c0f6175cdb6e3e29c6c0a890629d0885ffd",
       "exit_code": 0,
       "status": "passed",
       "tests": null,
@@ -115,13 +115,13 @@
     },
     {
       "id": "diff",
-      "command": "python3 tools/check_quality_diff.py --base 68a87f38a753442bbdacaa81317dd4aaa05eba3b",
-      "source_commit": "50c3169a4c991d6f89027d62c6408c9f79b38177",
+      "command": "python3 tools/check_quality_diff.py --base 2f82e4b76f03948450c3f20ad79203c689e730b7",
+      "source_commit": "7ef59c0f6175cdb6e3e29c6c0a890629d0885ffd",
       "exit_code": 0,
       "status": "passed",
       "tests": null,
       "log": "docs/evidence/codex_context_01/diff.log",
-      "sha256": "1cdcce05bac137fff87273bf87f81ab17f66487940f3f35c13e420f6c2a0d2af"
+      "sha256": "9a58f5f42b6ba1f0cbafca3456218023943832611cd943e0476576e069a00e03"
     },
     {
       "id": "manual-docs",
@@ -442,7 +442,8 @@
     "definition": "resources/enemies/plains_charger.tres",
     "behavior": "game/enemies/behaviors/charger_attack_strategy.gd",
     "units": "World units and game seconds; values only in actual Resource/Definition/config; legacy code defaults explicitly identified.",
-    "scope": "Source/link/field audit and native object structure, not visual/audio/gameplay/device approval"
+    "scope": "Developer-facing observable behavior, counterplay and audiovisual design with brief configuration links. Code/field mapping and checks belong to module navigation. Native structural evidence keeps its recorded source commit.",
+    "implementation_navigation": "docs/module_map.md"
   },
   "unverified": [
     "Independent PR semantic review including retirement decisions and active topic selection",
