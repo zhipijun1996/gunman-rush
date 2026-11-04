@@ -8,7 +8,7 @@
 
 | 对象／范围 | 当前数据规范 | 资源与缺口 |
 | --- | --- | --- |
-| plains_charger／charger | [冲锋怪完整样例](design/enemies/plains_charger.md) | [当前资源](../resources/enemies/plains_charger.tres)；状态、反制、表现、参数来源和检查均已关联，实际内容认可另验 |
+| plains_charger／charger | [冲锋怪完整样例](design/enemies/plains_charger.md) | [当前资源](../resources/enemies/plains_charger.tres)；描述定位、行为／反制与视听效果，附数值入口；实现和检查见模块导航，实际内容认可另验 |
 | patrol、diver、hopper、sentry、fan_sentry、root_bell | 尚缺各自完整现行规范；目前说明散在 `plains_enemy_behaviors.md`、`plains_interactive_platforms.md` 和任务制作记录 | 对应 patrol_drone／plains_* `.tres`；接续功能时按样例整理已有内容，不先创建空卡 |
 | forest_lantern、forest_seed_sentry、forest_bark_beetle、forest_swing_pod、forest_thread_spider、forest_crossbranch、forest_bible_weaver | [森林对象入口](design/forest_enemy_ecology_v2.md) 提供真实资源和当前行为入口 | 各自 forest_* `.tres`；共享索引尚未代替逐物种完整行为／表现规范 |
 | candidate_lure_guard、candidate_crosswind_moth | 实际候选配方在 EnemyFactory.CANDIDATE_RECIPES，身份在 Registry.CANDIDATES | 开发 Lab／Studio 候选，未选入正式内容；采用时补完整规范 |

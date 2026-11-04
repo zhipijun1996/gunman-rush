@@ -24,6 +24,19 @@
 | Web与发布 | `tools/build.py`、`tools/web/`、`.github/workflows/` | [Harness](harness.md)、[交付](cloud_production.md) | 手动 `web-cache`／`web-build`／`web-bundle` |
 | 文档／上下文／Skill | `AGENTS.md`、本导航、`.agents/skills/`、`tools/check_docs.py`、`tools/check_project.py` | [协作](cloud_production.md)、[开发质量](development_quality.md) | `python3 tools/check_docs.py`、`python3 tests/test_context_navigation.py`；按需 `level-region-context` |
 
+## 平原冲锋怪实现定位
+
+设计正文见 [平原冲锋怪](design/enemies/plains_charger.md)。本表提供实现和验证入口，便于按本次修改选择代码。
+
+| 修改内容 | 入口 |
+| --- | --- |
+| 身份、构建和放置 | [EnemyBehaviorRegistry](../game/enemies/enemy_behavior_registry.gd)、[EnemyFactory](../game/enemies/enemy_factory.gd)、[PlainsRegionStage](../game/world/levels/providers/plains_region_stage.gd)；显式历史 revision 与当前资源分开 |
+| 参数 | [plains_charger.tres](../resources/enemies/plains_charger.tres) 的巡逻／尺寸／时序／冲速；[patrol_health.tres](../resources/enemies/patrol_health.tres) 的生命；未覆写字段取 [EnemyDefinition](../scripts/enemies/enemy_definition.gd)；实例覆写由 Factory 限定 |
+| 攻击、受伤与移动 | [EnemyActor](../game/enemies/enemy_actor.gd)、[EnemyAttackBehavior](../game/enemies/behaviors/enemy_attack_behavior.gd)、[ChargerAttackStrategy](../game/enemies/behaviors/charger_attack_strategy.gd)、[EnemyMotor](../game/enemies/enemy_motor.gd)；通用击退参数为 [feedback.tres](../game/combat/damage/feedback.tres) |
+| 正式身体与声音 | [UnderworldActorInstaller](../game/presentation/actors/underworld_plains/underworld_actor_installer.gd) → [EnemyPresentationBinding](../game/presentation/actors/presentation/enemy_presentation_binding.gd) → [UnderworldEnemy](../game/presentation/actors/underworld_plains/underworld_enemy.gd)；声音见 [PlainsEnemyAudio](../game/presentation/audio/plains_enemy_audio.gd) |
+| 保存与接触 | EnemyActor 的 region_snapshot／restore_instance_health、攻控 restore_region_state 与 Stage 账本；接触由 [DemoApp](../game/application/demo_app.gd) 和 [DemoContactEmitter](../game/combat/damage/demo_contact_emitter.gd) 装配 |
+| 检查 | 手动 `enemy-structure-native`、`enemy-region-state`；涉及尸体时选 `enemy-corpse-save`、`enemy-corpse-snapshot`。正常速度音画与正式遭遇结果留在任务证据 |
+
 ## 目录职责与保留路径
 
 `game/`按application、player、combat、loadout、enemies、bosses、economy、rewards、progression、world、presentation、platform归属功能。`experiments/`拥有可启动开发入口和练习政策，正式核心不依赖实验业务规则。

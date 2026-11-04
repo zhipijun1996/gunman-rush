@@ -11,17 +11,13 @@ description: 新怪物、实质行为改造或补齐已有物种。
 
 ## 操作
 
-从 [对象索引](../../../docs/enemies_and_bosses.md) 选择唯一物种规范，先整理身份、状态、反制与表现，再改 Registry／资源／实现；参数只引用实际字段。
-
-1. 按 [开发手册](references/development_workflow.md) 定位最早缺失工序；用 [完成标准](../../../docs/quality/enemy_completion_standard.md) 逐项核对E01–E12。
-2. 沿 `game/enemies/` 的Registry／Factory／Definition建立战斗职责、AI状态、移动、预警、命中与恢复。新物种明确玩家需要新增的判断。
-3. 依次完成机制灰盒、统一身体母版、动作过渡、命中／死亡／声音和正式遭遇；局部补齐复用未变的既有机制。
-4. 在拟定地形核对攻击距离、视线、落点与安全区，观察普通输入如何绕过、等待、引诱或击杀；奖励和状态恢复接现有服务。
+1. 从 [对象索引](../../../docs/enemies_and_bosses.md) 读取相关地区圣经和物种规范，定位本次缺口；制作范围按 [开发手册](references/development_workflow.md) 与 [完成标准](../../../docs/quality/enemy_completion_standard.md) 选择。
+2. 先整理物种规范：职责、接敌、预告、攻击、收势、受伤、死亡，以及玩家如何识别和应对；描述看得见、听得到的效果。数值引用配置，代码结构和检查放模块导航。
+3. 沿 `game/enemies/` 的现有组件实现一组攻防，再补身体、动作、声音和正式遭遇。局部补齐沿用未变机制，表现消费实际接受的事件。
+4. 在拟定地形检查距离、视线、落点、安全空间及击杀／绕行策略，按本次范围验证中断、返回场地与奖励。
 
 ## 验证与交付
 
 选择 `enemy-structure-native`、`enemy-region-state` 和实际遭遇检查。验证活体／死亡／未激活、中断、回退、切图及奖励幂等；交付逐物种缺口、素材／代码、连续动作和正式遭遇证据。
 
-任务使用 [现有设计卡](../../../docs/templates/enemy_design.md)。质量阶段、独立审查、证据与未验声明共用 [开发质量](../../../docs/development_quality.md)；验证选择见 [Harness](../../../docs/harness.md)，代码落点见 [模块导航](../../../docs/module_map.md)。
-
-文档读取与维护顺序按 [AGENTS](../../../AGENTS.md)；只加载本专业任务涉及的圣经、数据和工作线。
+模板：[现有设计卡](../../../docs/templates/enemy_design.md)。验收方法见 [开发质量](../../../docs/development_quality.md)，实现与检查入口见 [模块导航](../../../docs/module_map.md)。
