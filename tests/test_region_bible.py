@@ -26,6 +26,29 @@ MERGED_BOSSES_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-
 FEATURE_LAYOUT_STYLE = 'docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json'
 
 
+# Direction regressions import these adapters to reject stale bindings.
+def frozen26_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE26_ARCHIVE, history.style26_source)
+
+def frozen27_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE27_ARCHIVE, history.style27_source)
+
+def frozen28_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE28_ARCHIVE, history.style28_source)
+
+def frozen29_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE29_ARCHIVE, history.style29_source)
+
+def frozen30_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE30_ARCHIVE, history.style30_source)
+
+def frozen31_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE31_ARCHIVE, history.style31_source)
+
+def frozen32_root(testcase):
+    return _frozen_style_root(testcase, history.STYLE32_ARCHIVE, history.style32_source)
+
+
 def frozen33_root(testcase):
     return _frozen_style_root(testcase, history.STYLE33_ARCHIVE, history.style33_source)
 
