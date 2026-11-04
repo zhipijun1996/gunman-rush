@@ -204,11 +204,15 @@ def spatial_experiment_input(task):
     data, bound = load_spatial_experiment(ref["path"], ref["region_id"], root=ROOT)
     if bound != ref:
         raise ValueError("Spatial experiment design/hash/write set changed; replan before execution")
-    expected_records = {f"docs/quality/records/{task['id']}.json"}
+    record_ids = {task['id']}
     if task.get("quality_task_id") in [task["id"], *task.get("depends_on", [])]:
-        expected_records.add(f"docs/quality/records/{task['quality_task_id']}.json")
-    if task.get("quality_record") not in expected_records:
-        raise ValueError("Spatial quality record must be the exact task-bound docs/quality/records JSON")
+        record_ids.add(task['quality_task_id'])
+    record = task.get("quality_record", "")
+    expected_records = {f"docs/quality/records/{identifier}.json" for identifier in record_ids}
+    scoped_record = any(re.fullmatch(r"docs/worklines/[A-Za-z0-9_-]+/quality/" + re.escape(identifier) + r"\.json", record)
+                        for identifier in record_ids)
+    if record not in expected_records and not scoped_record:
+        raise ValueError("Spatial quality record must be an exact task-bound JSON in records or the topic workline")
     record_path = ROOT / task["quality_record"]
     if any(path.is_symlink() for path in [record_path, *record_path.parents] if path == ROOT or path.is_relative_to(ROOT)):
         raise ValueError("Spatial quality record cannot be a symlink alias")

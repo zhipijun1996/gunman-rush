@@ -10,7 +10,7 @@ python3 tools/quality.py check docs/quality/records/TASK-ID.json
 python3 tools/check_quality_diff.py --base <任务基线SHA>
 ```
 
-init创建未验证记录。普通check验证格式、来源和一致性，允许任务未完成；最终完成声明使用`--require-complete`。任务索引与质量卡状态一致，实际合入事实和待验体验分别记录。
+init创建未验证记录。普通check验证格式、来源和一致性，允许任务未完成；最终完成声明使用`--require-complete`。全局任务索引与父议题质量卡状态一致，实际合入事实和待验体验分别记录。创作路由的内部阶段记录放 `docs/worklines/<议题>/quality/<阶段ID>.json`，由生产循环显式逐项校验；不为阶段向全局任务表追加行。
 
 证据写明源码、版本、方法、观察、退出码、路径与SHA。执行记录、图像、连续音画、正式GUI、独立审查、用户反馈和真机测量各覆盖其实际范围。素材使用现有asset_records及资产manifest。
 

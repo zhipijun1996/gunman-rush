@@ -218,6 +218,11 @@ class RoutingTests(unittest.TestCase):
                     self.assertEqual(set(task['allowed_paths']), set(allowed + [task['quality_record'], 'docs/tasks.md']))
                     self.assertFalse(any(p.endswith('/') for p in task['allowed_paths']))
                     production_loop.spatial_experiment_input(task)
+                    for bad_record in ('docs/worklines/topic/quality/OTHER.json',
+                                       'docs/worklines/topic/quality/../' + task['id'] + '.json',
+                                       'game/player/player_motor.gd'):
+                        with self.assertRaisesRegex(ValueError, 'exact task-bound'):
+                            production_loop.spatial_experiment_input({**task, 'quality_record': bad_record})
                     task['allowed_paths'].append('scripts/generation/')
                     with self.assertRaisesRegex(ValueError, 'exact authorized'):
                         production_loop.spatial_experiment_input(task)
