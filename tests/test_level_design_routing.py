@@ -314,15 +314,19 @@ class RoutingTests(unittest.TestCase):
             self.assertEqual(contract['scope'],expected)
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
 
-    def test_mutable_design_registers_new_tasks_before_manual_checks(self):
+    def test_mutable_design_keeps_internal_stages_in_one_workline(self):
         for request in ("优化风铃平原", "制作荆棘森林"):
             mission=level_design.content_plan(request,phase="production")
             prerequisite=mission["preparation"]["task_registration"]
             self.assertEqual(prerequisite["source"],"AGENTS.md")
-            self.assertEqual(prerequisite["paths"],["docs/tasks.md","docs/quality/records/"])
+            self.assertEqual(prerequisite["paths"][0], "docs/tasks.md")
+            workline = prerequisite["paths"][1]
+            self.assertTrue(workline.startswith("docs/worklines/"))
             self.assertEqual(prerequisite["phase"],"design")
             self.assertTrue(prerequisite["before_manual_checks"])
-            self.assertIn("every new task ID",prerequisite["requirement"])
+            self.assertIn("one parent topic",prerequisite["requirement"])
+            for task in mission["tasks"]:
+                self.assertTrue(task["quality_record"].startswith(workline + "/quality/"))
             design=mission["tasks"][1]
             self.assertFalse(design["read_only"])
             self.assertIn("docs/",design["allowed_paths"])
