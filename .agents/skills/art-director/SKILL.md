@@ -118,7 +118,7 @@ AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region
 
 ## 空间资产家族与视觉导演协作
 
-V3的整体CLIFF、悬浮PANEL、Boss两版原规格失败不因新用途而改签。确有独立用途时先说明为什么需要它、完整锚点和可见边界，再冻结新消费者而非移动原门槛；[实际采样准入与原孤儿记录](../../../docs/evidence/region_production_v3/terrain_parent_integration/README.md)仅允许限定天然底边/石铜板，不意味着整张母版合格。执行已注册 `python3 tools/harness.py --check terrain-family-tests --check directed-space-tests --release --jobs 1` 复验真实多图与坏节点；这些检查不替代正常游玩画面或审美。两轮无进步的Boss方向停止，不能改名成新家族绕过停止规则。
+V3的整体CLIFF、悬浮PANEL、Boss两版原规格失败不因新用途而改签。确有独立用途时先说明为什么需要它、完整锚点和可见边界，再冻结新消费者而非移动原门槛；[实际采样准入与原孤儿记录](../../../docs/evidence/region_production_v3/terrain_parent_integration/README.md)仅允许限定天然底边/石铜板，不意味着整张母版合格。执行已注册 `python3 tools/harness.py --check terrain-family-tests --check directed-space-tests` 复验真实多图与坏节点；这些检查不替代正常游玩画面或审美。两轮无进步的Boss方向停止，不能改名成新家族绕过停止规则。
 
 场景品质任务由 [visual-director](../visual-director/SKILL.md) 组织真实像素→缺陷→资产/构图/动态→复审；本技能仍拥有风格、资产质量和来源责任。先读本任务正式消费者、像素审计、黄金设计卡及冻结预算，按保留/精修/重绘/新增/淘汰分类，说明原用途为何适合或不适合新用途。旧来源合法、局部曾获认可，不保证适合作大墙、井庭或前景。
 

@@ -22,4 +22,6 @@ Harness 8 项真实子进程测试通过，覆盖非零退出/缺 marker/超时/
 
 2026-11-04 已通过 GitHub branch API 实读 main：`protected=false`，`required_status_checks.contexts=[]`，`checks=[]`，`enforcement_level=off`；rulesets API 返回 `[]`。Administration protection API 的直接读取被 App 权限拒绝，但 branch API 已提供上述明确状态。当前无旧 required context 待移除；以后只设 `affected`，不设置手动 job 为必需。
 
-真实远端 CI 与最终统计以本分支 PR/Actions 和交付回复为准；本文件不提前填写远端通过。此任务不合并 main，不发布新游戏，不把 headless 测试当设备/视觉/完整游戏验收。手动正式多平台导出本轮未执行。
+实际远端冷 CI：提交 `553b831` 的 [Actions #41749090783](https://github.com/zhipijun1996/gunman-rush/actions/runs/41749090783) 已 SUCCESS，00:44:36–00:46:13 UTC，总 97 秒（含排队/准备/收尾），唯一 `affected` job 94 秒。四项验证日志合计 59.06 秒：project 0.72、import 52.52、smoke 4.51、contracts 1.31；远端同样 9＋239＋39 断言零失败。检出约 20 秒、编辑器安装约 4 秒；没有模板、历史证据或 full。另经独立审查修复现行创作路由对已删除注册名的引用；路由校验隔离了历史媒体加载，不代表内容验收。
+
+本分支已创建 [PR #133](https://github.com/zhipijun1996/gunman-rush/pull/133)。本报告及剩余技能旧命令清理的后继提交会自动触发同一四项 CI，最终 head 状态以该 PR/Actions 和交付回复为准。此任务不合并 main，不发布新游戏，不把 headless 测试当设备/视觉/完整游戏验收。手动正式多平台导出本轮未执行。

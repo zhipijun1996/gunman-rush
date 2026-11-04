@@ -1,6 +1,6 @@
 ## 2026-11-04 CI-SLIMDOWN-01
 
-分支 codex/ci-slimdown，基线 main f11c750。已用固定四项 CI 替换旧影响规划/双通道/证据搬运；保留 172 手动专项和全部游戏 GD 测试。游戏/正式资源零 diff，未合并/未部署。当前命令：`python3 tools/ci.py`；开发专项用 `python3 tools/harness.py --check ID`。本地实际四项 20.76 秒通过，三项真实故障注入拒绝；远端验收随后查看该分支 PR/Actions，不复活旧 full。[结果与边界](worklines/ci_slimdown_01/results.md)。
+分支 codex/ci-slimdown，基线 main f11c750。已用固定四项 CI 替换旧影响规划/双通道/证据搬运；保留 172 手动专项和全部游戏 GD 测试。游戏/正式资源零 diff，未合并/未部署。当前命令：`python3 tools/ci.py`；开发专项用 `python3 tools/harness.py --check ID`。本地实际四项 20.76 秒通过，三项真实故障注入拒绝；远端553b831/run41749090783实际97秒SUCCESS，287断言零失败；最后文档提交的精确head以PR133检查为准，不复活旧 full。[结果与边界](worklines/ci_slimdown_01/results.md)。
 
 ## 2026-11-03 0.4.1最终CI：历史锁证据路径收口
 

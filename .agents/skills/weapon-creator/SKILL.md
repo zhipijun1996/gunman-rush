@@ -30,7 +30,7 @@ description: 新增或替换武器、武器升级分支及整套攻击动作/特
 
 ## 自动验收
 
-先填写质量记录，执行 `python3 tools/harness.py --profile gameplay --profile art` 和相关状态/输入/保存专项；新增客观不变量用参数化与正反测试验证，不删除旧断言。记录版本、环境、退出码、场景/能力/Seed、轨迹和性能；运行 `python3 tools/quality.py check`，内容宣称完成再 `--require-complete`。
+仅执行与修改相关的状态/输入/保存和正式消费者专项（`harness --check ID` 或直接 runner）；新增客观不变量用参数化与正反测试验证，不删除旧断言。记录版本、环境、退出码、场景/能力/Seed、轨迹和性能；运行 `python3 tools/quality.py check`，内容宣称完成再 `--require-complete`。
 
 ## 人工审查
 

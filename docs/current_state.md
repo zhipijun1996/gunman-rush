@@ -1,6 +1,6 @@
 ## 2026-11-04 CI-SLIMDOWN-01
 
-本轮按用户新要求替换旧 CI：固定四项验证、唯一日常 context affected，发布/试玩导出改手动；撤销 full/双通道/输入证据恢复。开发只跑修改相关专项，旧全量门槛不再适用。游戏玩法/正式资源不改，未合并/未部署。[结果](worklines/ci_slimdown_01/results.md) · [当前命令](harness.md)。远端实际结果以新分支 PR/Actions 为准。
+本轮按用户新要求替换旧 CI：固定四项验证、唯一日常 context affected，发布/试玩导出改手动；撤销 full/双通道/输入证据恢复。开发只跑修改相关专项，旧全量门槛不再适用。游戏玩法/正式资源不改，未合并/未部署。[结果](worklines/ci_slimdown_01/results.md) · [当前命令](harness.md)。远端553b831/run41749090783实际97秒SUCCESS；最后文档提交的精确head以PR133/Actions为准。
 
 ## 2026-11-03 0.4.1最终CI：历史锁证据路径收口
 
