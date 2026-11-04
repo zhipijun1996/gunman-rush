@@ -6,7 +6,7 @@
 
 用户D054/D055授权最新美术、平原正式10关各自独立随机、类型差异及金币局内/音符永久。本轮按设计→新增模块/算法→类型消费者/十关→永久钱包与存储→实际Web验证分阶段完成。
 
-- 最新手绘来源`feature/painterly-plains-v2@3bacc32`选择性导入13PNG；背景/草木平台/锯轮和安全点共用皮肤，不合并旧工程。角色新稿枪画进身体、不支持独立瞄准，保留正确独立枪角色；未过接缝rock_fill不用，未用原件排除导出。具体见[美术报告](../latest_art_integration.md)。
+- 最新手绘来源`feature/painterly-plains-v2@3bacc32`选择性导入13PNG；背景/草木平台/锯轮和安全点共用皮肤，不合并旧工程。角色新稿枪画进身体、不支持独立瞄准，保留正确独立枪角色；未过接缝rock_fill不用，未用原件排除导出。具体见[美术报告](https://github.com/zhipijun1996/gunman-rush/blob/8cc22681d347a22918b10ba79a8ec5f46b02fc6e/docs/latest_art_integration.md)。
 - 新增45px微台阶、120px草甸缺口、连续双75px梯田、先降回升谷段、1120×700固定Boss核心。复用15种生成模块及现有尖刺、多尺寸锯轮/高级挑战；无绿色连接段/中间ENTRY EXIT。
 - `PlainsStageGenerator`按stage index/type/current capability选择early/mid/late/service/boss；独立map seed，金币房降压力并散落，商店/回血低压无环境机关，道具保持二选一。只支持当前已验证端口链/镜像/高差，任意转折图与方形不冒称已交付。
 - 首页**10 rooms / Windchime Plains**实际运行1–10；每关新地图/镜头/边界/安全锚点，双出口只提交一次且第9必Boss10。Boss随机入口、固定核心；核心进入才启动，缓冲免Boss伤害、退回不重置HP/phase/奖励。金奖一次后biome_complete回家园。旧固定3/10和练习入口保留。

@@ -11,6 +11,8 @@ description: 重要游戏内容的质量阶段、专业路由、验证范围和�
 
 ## 操作
 
+先沿 [文档分类](../../../docs/project_structure.md) 核圣经、对象数据、实际配置与实现的一致性；审阅结论写任务结果，规则修正回对应正文。
+
 1. 明确玩家体验、真实消费者、任务基线、允许写集与完成条件。选一个专业主导技能，其余专业只承担需要的输入或审查。
 2. 路由：人物／武器／能力→对应creator；敌人／Boss→对应creator；模块／连续动作／遭遇／地区→level-module-creator、challenge-choreographer、encounter-director、region-generator；资产／画面／构图／动态／音频→art-director、visual-director、scene-composer、animation-vfx、audio-director；剧情→story-writer；独审→gameplay-reviewer。
 3. 共用一份任务质量记录。G0写规格；G1验证真实操作；G2做视听样板；G3接正式消费者；G4自动检查及独审；G5记录用户与设备。适用门槛由 [policy](../../../docs/quality/policy.json) 定义。
@@ -22,3 +24,5 @@ description: 重要游戏内容的质量阶段、专业路由、验证范围和�
 使用 [Harness](../../../docs/harness.md) 显式选择相关专项，日常CI运行`tools/ci.py`四项检查。`quality.py init`建立记录，`quality.py check`校验；最终完成声明使用`--require-complete`。
 
 交付范围、十一维、G0–G5及证据规范唯一见 [开发质量](../../../docs/development_quality.md)。技术、正式GUI、独审、用户体验与真机分别记录。任务恢复与媒体选择见 [协作交付](../../../docs/cloud_production.md)。
+
+文档读取与维护顺序按 [AGENTS](../../../AGENTS.md)；只加载本专业任务涉及的圣经、数据和工作线。

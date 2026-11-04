@@ -29,4 +29,4 @@ python3 tools/ci.py
 | 跨会话协作与交付 | [生产规则](docs/cloud_production.md) |
 | 游戏与长期设计 | [游戏设计](docs/game_design.md)、[世界与故事](docs/world_and_story.md) |
 
-文档职责与权威边界见 [项目结构与文档分类](docs/project_structure.md)。
+文档分项目管理、设计圣经、具体数据和临时文件，入口见 [四类文档索引](docs/project_structure.md)；对象规范样例见 [平原冲锋怪](docs/design/enemies/plains_charger.md)。

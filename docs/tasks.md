@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| CODEX-CONTEXT-01 | PR134 创作兼容、任务收口与文档权威整理 | — | review | [结果](worklines/codex_context_01/results.md) |
+| CODEX-CONTEXT-01 | PR134 创作兼容、任务视图与四类文档体系 | — | review | [结果](worklines/codex_context_01/results.md) |
 
 - `CODEX-CONTEXT-01`：收口 PR134 创作工具、活跃任务与文档权威；本工作线记录验证和交接。
 
@@ -17,10 +17,10 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | DEATH-RUNTIME-01 | 保持死亡动画，优化死亡运行成本 | FIRST-USE-STUTTER-01 | review | [任务](worklines/death_runtime_01/scope.md) |
-| MOBILE-WEB-FPS-04 | 正式Web帧时间、真实大地图空中攻击A/B/A及前景无损优化；PR12… | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [任务](quality/records/MOBILE-WEB-FPS-04.json) |
-| AUDIO-LAB-MATERIAL-01 | 显式 Lab enemy_hurt ABC 试听与七怪材质路由兼容缺陷… | GAME-ARCH-CI-01 | in_progress | [任务](quality/records/AUDIO-LAB-MATERIAL-01.json) |
+| MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [任务](quality/records/MOBILE-WEB-FPS-04.json) |
+| AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | GAME-ARCH-CI-01 | in_progress | [任务](quality/records/AUDIO-LAB-MATERIAL-01.json) |
 | WINDKEEPER-PRESSURE-01 | 60HP牧风者六招三阶段主动追压与连续原声审核 | — | review | [任务](worklines/windkeeper_pressure_01/spec.md) |
-| BELLSTRIDER-REWORK-01 | 40HP上端唯一弱点、三招与回冲、机械失效/实体奖励、正式原声实战与工… | — | review | [任务](worklines/bellstrider_rework_01/spec.md) |
+| BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [任务](worklines/bellstrider_rework_01/spec.md) |
 | ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | ENEMY-WORKFLOW-01 | review | [任务](worklines/enemy_asset_audit_01/README.md) |
 | PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [任务](quality/records/PLAYER-PRESENTATION-01.json) |
 
