@@ -20,6 +20,7 @@ func frames(n:int):
  for i:int in n:await physics_frame
 func _initialize():run.call_deferred()
 func run():
+ DirAccess.make_dir_recursive_absolute("res://build/mapgen_full_pool")
  var profile=RuntimeMapGenerationProfile.read_profile()
  var job=PRELOAD_JOB.create(profile.lock.module_package.path,profile.lock.module_package.sha256)
  while not job.is_done():job.advance(128);await process_frame

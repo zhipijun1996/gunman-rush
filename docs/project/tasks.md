@@ -4,17 +4,11 @@
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；归档中的依赖用于追溯，不代表需要重跑旧架构。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
-## 本轮工作
-
-| 任务 | 目标 | 依赖 | 状态 | 入口 |
-| --- | --- | --- | --- | --- |
-
-| MAPGEN-HOST-WINDCHIME-041 | 完成剩余37个平原模块的正式适配、能力筛选和试玩验证 | MAPGEN-GODOT-04 | in_progress | [交接](worklines/mapgen_host_windchime_041/scope.md) |
-
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| MAPGEN-HOST-WINDCHIME-041 | 106个平原模块已适配并发布试玩；连续路线与搜索限制见交接 | MAPGEN-GODOT-04 | review | [交接](worklines/mapgen_host_windchime_041/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | FIRST-USE-STUTTER-01 | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | GAME-ARCH-CI-01 | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
