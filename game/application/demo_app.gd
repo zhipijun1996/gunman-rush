@@ -18,6 +18,12 @@ var run_session := RunSession.new()
 var meta_persistence_enabled := true
 var generated_plains := false
 var home_scene: HomeScene
+var _map_library_warmup: RuntimeMapLibraryWarmup
+var _home_map_source: PlainsMapGeneration
+var _departing_map_source: PlainsMapGeneration
+var _home_map_key := ""
+var _home_map_poll_usec := 0
+var _home_map_stable_usec := 0
 var home_weapons := preload("res://game/progression/home/home_weapon_selection.gd").new()
 var debug_hud := false
 var _run_receipt_prefix: String:
@@ -138,7 +144,8 @@ func _ready() -> void:
 		set_process_input(false)
 		get_tree().call_deferred("change_scene_to_file", "res://experiments/platform/entries/cloud_preview.tscn")
 		return
-	add_child(RuntimeMapLibraryWarmup.new())
+	_map_library_warmup=RuntimeMapLibraryWarmup.new()
+	add_child(_map_library_warmup)
 	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
 	plains_places_candidate_requested = plains_places_candidate_requested or "--plains-places-candidate" in OS.get_cmdline_user_args()
 	plains_joint_recoil_candidate_requested = plains_joint_recoil_candidate_requested or "--plains-joint-recoil-candidate" in OS.get_cmdline_user_args()
@@ -309,6 +316,11 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 		region_map = true
 		# A candidate property set after home startup must also isolate its Meta service.
 		meta = MetaProgression.new()
+	_cancel_departing_map()
+	if region_map and _debug_region!=&"thorn_forest" and not _explicit_plains_candidate() and not root_bell_pilot_requested and not root_bell_space_pilot_requested:
+		_departing_map_source=_home_map_source;_home_map_source=null;_home_map_key=""
+	else:_cancel_home_map()
+	menu.retire_plains_seed()
 	_remove_home_scene()
 	active_region_id = _debug_region if region_map and not _debug_region.is_empty() else &"plains"
 	forest_content_version = _requested_forest_version if not _requested_forest_version.is_empty() else ThornForestRegionGenerator.VERSION
@@ -329,10 +341,12 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	director.biome_id = active_region_id if generated_plains else &"demo_ruins"
 	get_tree().paused = false
 	if not RunComposition.create_player(self, run_session, home_weapons):
+		_cancel_departing_map()
 		_show_home()
 		return false
 	controller.shoot_ability.shot_fired.connect(_pixel_projectiles)
-	if not RunComposition.configure_capabilities(controller, connected_region, active_region_id == &"thorn_forest"): return false
+	if not RunComposition.configure_capabilities(controller, connected_region, active_region_id == &"thorn_forest"):
+		_cancel_departing_map();return false
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.shoot_ability.packet_changed.connect(_record_bellstrider_packet)
@@ -366,6 +380,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	var started := director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
 	if started and connected_region:
 		_grant_home_carry()
+	if not started:_cancel_departing_map()
 	return started
 
 func _stage_entered(_result: DemoRunResult) -> void:
@@ -477,7 +492,9 @@ func _load_stage() -> void:
 			loading.lifetime=lifetime
 			loading.map_index=request.map_index
 			loading.cancel_requested.connect(abandon_run)
-			run_session.plains_generation.begin_map(self,lifetime,request,controller)
+			var prepared:=_departing_map_source
+			_departing_map_source=null
+			run_session.plains_generation.begin_map(self,lifetime,request,controller,prepared)
 			add_child(loading)
 			await loading.completed
 			loaded=run_session.plains_generation.result()
@@ -1313,6 +1330,7 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	_cancel_departing_map()
 	_close_build_session()
 	_stop_reward_audio()
 	if is_instance_valid(progression_modal): progression_modal.close()
@@ -1414,6 +1432,37 @@ func _show_home() -> void:
 	_refresh_home_meta()
 	home_scene.set_input_blocked(false)
 	queue_redraw()
+
+func _cancel_departing_map() -> void:
+	if _departing_map_source!=null:_departing_map_source.close()
+	_departing_map_source=null
+
+func _cancel_home_map() -> void:
+	if _home_map_source!=null:_home_map_source.close()
+	_home_map_source=null;_home_map_key=""
+
+func _prepare_home_map() -> void:
+	if director.state!=DemoRunDirector.State.HOME or not is_instance_valid(home_scene) or _explicit_plains_candidate() or root_bell_pilot_requested or root_bell_space_pilot_requested or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
+		_cancel_home_map();return
+	if Time.get_ticks_usec()>=_home_map_poll_usec:
+		_home_map_poll_usec=Time.get_ticks_usec()+200000
+		var seed:=menu._plains_seed()
+		var key:=JSON.stringify([seed,String(home_weapons.selected_id),meta.snapshot().get("selected_home_item",""),FileAccess.get_sha256(PlainsMapGeneration.CONFIG)])
+		if key!=_home_map_key:
+			_cancel_home_map();_home_map_key=key;_home_map_stable_usec=Time.get_ticks_usec()+250000
+		elif _home_map_source==null and Time.get_ticks_usec()>=_home_map_stable_usec:
+			var request:=LevelRequest.new();request.root_seed=seed;request.tuning=home_scene.player.tuning
+			_home_map_source=PlainsMapGeneration.new()
+			_home_map_source.begin_map(self,DemoLifetime.new(),request,home_scene.controller)
+	if _home_map_source!=null:
+		var previous:=_home_map_source.phase
+		_home_map_source.advance_map(_home_map_source._lifetime,true)
+		if previous!="prepared" and _home_map_source.phase=="prepared":print("MAPGEN_HOME "+JSON.stringify({"event":"prepared","seed":_home_map_source._original.root_seed,"map_index":1,"backend":_home_map_source.generation.metrics(_home_map_source.ticket).get("backend")}))
+	home_scene.set_departure_status("平原已准备好" if _home_map_source!=null and _home_map_source.phase=="prepared" else "平原准备失败，请更换种子" if _home_map_source!=null and _home_map_source.phase=="failed" else "平原准备中，可随时出发")
+
+func _exit_tree() -> void:
+	_cancel_home_map()
+	_cancel_departing_map()
 
 func _remove_home_scene() -> void:
 	_close_home_codex()
@@ -1582,6 +1631,8 @@ func _stop_reward_audio() -> void:
 		if child is GameAudio: (child as GameAudio).stop_director_cues()
 
 func _process(_delta: float) -> void:
+	if is_instance_valid(_map_library_warmup):_map_library_warmup.budget_usec=8000 if _stage_pending or menu.visible_panel==&"title" else 2000
+	_prepare_home_map()
 	_sync_music()
 	var at_title := is_instance_valid(menu) and menu.visible_panel == &"title"
 	if at_title and not _reward_audio_title_seen: _stop_reward_audio()

@@ -31,6 +31,7 @@ class Ticket extends RefCounted:
 	var operation_budget := 128
 	var background_solve := false
 	var worker: RuntimeMapSolveWorker
+	var prepared_solve: Dictionary = {}
 	var lock: Dictionary = {}
 	var preloader: Variant
 	var preload_started_usec := 0
@@ -53,7 +54,7 @@ var _current: Ticket
 var _closed := false
 var _ticking := false
 
-func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, request_data: Dictionary, config: Dictionary, bindings: Dictionary, ids: Array[String], binding_id: String = "seam", operation_budget: int = 128, background_solve: bool = false) -> RefCounted:
+func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, request_data: Dictionary, config: Dictionary, bindings: Dictionary, ids: Array[String], binding_id: String = "seam", operation_budget: int = 128, background_solve: bool = false, prepared_solve: Dictionary = {}) -> RefCounted:
 	if _closed or _ticking: return null
 	if _current != null: _cancel(_current,"replaced by a newer generation request")
 	_serial += 1
@@ -70,6 +71,7 @@ func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, r
 	ticket.binding_id = binding_id
 	ticket.operation_budget = operation_budget
 	ticket.background_solve = background_solve
+	ticket.prepared_solve = prepared_solve
 	ticket.metrics["backend"] = "cooperative"
 	ticket.metrics["operation_budget"] = operation_budget
 	ticket.metrics["soft_tick_ms"] = SOFT_TICK_MS
@@ -128,6 +130,18 @@ func tick(value: RefCounted, current_lifetime: DemoLifetime) -> bool:
 		ticket.metrics.advance_tick_max_ms = maxf(float(ticket.metrics.advance_tick_max_ms),duration)
 	_ticking = false
 	return _guard(ticket,current_lifetime) and ticket.phase not in ["failed","cancelled"]
+
+func has_solution(value: RefCounted, current_lifetime: DemoLifetime) -> bool:
+	var ticket:=_ticket(value)
+	return ticket!=null and _guard(ticket,current_lifetime) and ticket.phase=="validate" and ticket.actual.get("status")=="PASS"
+
+func detach_solve(value: RefCounted, current_lifetime: DemoLifetime) -> Dictionary:
+	var ticket:=_ticket(value)
+	if ticket==null or not _guard(ticket,current_lifetime) or ticket.phase not in ["generate","validate"]:return {}
+	# Move only pure SDK work/data. The old handle cannot validate or commit.
+	var packet:Dictionary={"fingerprint":ticket.provenance.expected_request_fingerprint,"worker":ticket.worker if ticket.phase=="generate" else null,"job":ticket.job if ticket.phase=="generate" else null,"actual":ticket.actual,"metrics":ticket.metrics.duplicate(true),"started_usec":ticket.generation_started_usec,"progress":ticket.progress}
+	ticket.worker=null;ticket.job=null;ticket.actual={};ticket.built=null;ticket.phase="cancelled";ticket.error="pure solve moved to a new input-validated request"
+	return packet
 
 func take_plan(value: RefCounted, current_lifetime: DemoLifetime) -> LevelBuildResult:
 	var ticket := _ticket(value)
@@ -329,6 +343,15 @@ func _start_generation(ticket: Ticket) -> void:
 	ticket.provenance = {"kind":"generated_memory","expected_request_fingerprint":expected,"implementation":PROTOCOL.IMPLEMENTATION,"algorithm":PROTOCOL.ALGORITHM,"algorithm_package":{"version":lock.version,"zip_sha256":lock.archive.sha256,"release_head":lock.release_head,"source_commit":lock.source_commit},"module_archive":{"path":lock.module_package.path,"sha256":lock.module_package.sha256,"version":lock.module_package.version},"request":ticket.request_data.duplicate(true),"config":ticket.config.duplicate(true)}
 	ticket.preloader = null
 	ticket.generation_started_usec = Time.get_ticks_usec()
+	if not ticket.prepared_solve.is_empty():
+		var packet:=ticket.prepared_solve
+		if packet.get("fingerprint")==expected:
+			ticket.worker=packet.get("worker");ticket.job=packet.get("job");ticket.actual=packet.get("actual",{})
+			ticket.metrics=packet.metrics;ticket.metrics["home_solve_reused"]=true
+			ticket.generation_started_usec=int(packet.started_usec);ticket.progress=packet.progress
+			ticket.phase="generate" if ticket.actual.is_empty() else "validate"
+			packet.clear();return
+		_release_prepared(ticket)
 	var create_started := Time.get_ticks_usec()
 	ticket.job = VERIFIED_LIBRARY.create_job(lock,ticket.request_data,ticket.config)
 	ticket.metrics["sdk_job_create_execution_ms"] = _elapsed_ms(create_started)
@@ -511,7 +534,15 @@ func _capture_missing_profiles(ticket: Ticket) -> void:
 		ticket.metrics["generation_terminal_status"] = str(ticket.job.result().get("status","PENDING"))
 	ticket.metrics["cancel_profile_ms"] = float(ticket.metrics.get("cancel_profile_ms",0.0))+_elapsed_ms(started)
 
+func _release_prepared(ticket: Ticket) -> void:
+	var worker:RuntimeMapSolveWorker=ticket.prepared_solve.get("worker")
+	if worker!=null:worker.close()
+	var job:RefCounted=ticket.prepared_solve.get("job")
+	if job!=null:job.cancel()
+	ticket.prepared_solve.clear()
+
 func _cancel(ticket: Ticket, reason: String) -> void:
+	_release_prepared(ticket)
 	var started := Time.get_ticks_usec()
 	if ticket.worker!=null:ticket.worker.close()
 	if ticket.preloader != null:
@@ -534,6 +565,7 @@ func _cancel(ticket: Ticket, reason: String) -> void:
 	ticket.metrics["cancel_ms"] = float(ticket.metrics.get("cancel_ms",0.0))+_elapsed_ms(started)
 
 func _fail(ticket: Ticket, message: String) -> void:
+	_release_prepared(ticket)
 	var started := Time.get_ticks_usec()
 	if ticket.worker!=null:ticket.worker.close()
 	if ticket.preloader != null:
@@ -559,6 +591,9 @@ func _notification(what: int) -> void:
 	# self method dispatch is no longer valid: only unwind the owned pure job.
 	_closed = true
 	if _current != null:
+		var prepared_worker:RuntimeMapSolveWorker=_current.prepared_solve.get("worker")
+		if prepared_worker!=null:prepared_worker.close()
+		_current.prepared_solve.clear()
 		if _current.worker != null: _current.worker.close()
 		if _current.preloader != null: _current.preloader.cancel()
 		_current.preloader = null

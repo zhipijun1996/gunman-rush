@@ -10,6 +10,9 @@ var pan := Vector2.ZERO
 var dragging := false
 var _touches: Dictionary = {}
 var _pinch_distance := 0.0
+var _terrain_cells:Dictionary={}
+var _geometry_revision:=-1
+var _view_signature:Array=[]
 
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
@@ -17,7 +20,10 @@ func _ready() -> void:
 	clip_contents=true
 	focus_mode=Control.FOCUS_ALL
 	if not expanded: size=Vector2(160,32) if region_chip else Vector2(240,156)
-func _process(_delta: float) -> void: queue_redraw()
+func _process(_delta: float) -> void:
+	if not is_visible_in_tree() or not is_instance_valid(stage):return
+	var signature:Array=[stage.global_player_position().floor(),stage.region_state.explored.size(),stage.region_state.visited.size(),stage.geometry_revision,size,expanded,region_chip,zoom,pan,has_focus(),Rect2(Vector2.ZERO,size).has_point(get_local_mouse_position())]
+	if signature!=_view_signature:_view_signature=signature;queue_redraw()
 func frame() -> Rect2:
 	return Rect2(16,16,maxf(1,size.x-32),maxf(1,size.y-32)) if expanded else Rect2(8,30,224,100)
 func _world_rect() -> Rect2:
@@ -119,32 +125,34 @@ func _draw() -> void:
 		draw_string(font,p+Vector2(7,-4),"B" if a.role=="boss" else "C" if a.role=="merchant" else "*",HORIZONTAL_ALIGNMENT_LEFT,-1,14 if expanded else 10,color)
 	var player:=stage.global_player_position()
 	if player.is_finite(): draw_circle(project_point(player),5 if expanded else 3,Color("fff5ca"))
-func _draw_terrain() -> void:
-	if stage.level_plan==null: return
-	var scale_factor:=_fit_scale()*zoom
-	for placement_index: int in stage.level_plan.modules.size():
-		var placement: LevelModulePlacement=stage.level_plan.modules[placement_index]
-		var live_module: PlatformingModule=stage.assembler.modules[placement_index]
-		var definition:=placement.definition
-		for index: int in definition.platforms.size():
-			if index in live_module.inactive_platform_indices:continue
-			var terrain:=definition.platforms[index]
-			terrain.position+=placement.position
-			# Iterate only cells touched by this rectangle; explored is the sole
-			# fog authority shared by HUD and expanded map.
-			for y: int in range(floori(terrain.position.y/PlainsMapExploration.CELL),ceili(terrain.end.y/PlainsMapExploration.CELL)):
-				for x: int in range(floori(terrain.position.x/PlainsMapExploration.CELL),ceili(terrain.end.x/PlainsMapExploration.CELL)):
-					if not stage.region_state.explored.has("%s:%s" % [x,y]): continue
+func _cache_terrain() -> void:
+	if _geometry_revision==stage.geometry_revision:return
+	_terrain_cells.clear();_geometry_revision=stage.geometry_revision
+	for live:PlatformingModule in stage.assembler.modules:
+		var definition:=live.definition
+		for index:int in definition.platforms.size():
+			if index in live.inactive_platform_indices:continue
+			var terrain:Rect2=definition.platforms[index];terrain.position+=live.position
+			for y:int in range(floori(terrain.position.y/PlainsMapExploration.CELL),ceili(terrain.end.y/PlainsMapExploration.CELL)):
+				for x:int in range(floori(terrain.position.x/PlainsMapExploration.CELL),ceili(terrain.end.x/PlainsMapExploration.CELL)):
 					var cell:=Rect2(Vector2(x,y)*PlainsMapExploration.CELL,Vector2.ONE*PlainsMapExploration.CELL)
-					var part:=terrain.intersection(cell)
-					if not part.has_area(): continue
-					var screen:=Rect2(project_point(part.position),part.size*scale_factor).intersection(frame())
-					if not screen.has_area(): continue
-					if index in definition.one_way_platform_indices:
-						draw_line(screen.position,Vector2(screen.end.x,screen.position.y),Color("c9be86"),2 if expanded else 1)
-					else:
-						screen.size.y=maxf(screen.size.y,1)
-						draw_rect(screen,Color("91a68d"))
+					var key:="%s:%s" % [x,y]
+					if not _terrain_cells.has(key):_terrain_cells[key]=[]
+					_terrain_cells[key].append({"rect":terrain.intersection(cell),"one_way":index in definition.one_way_platform_indices})
+
+func _draw_terrain() -> void:
+	if stage.level_plan==null:return
+	_cache_terrain()
+	var scale_factor:=_fit_scale()*zoom
+	var center:=_world_rect().get_center() if expanded else stage.global_player_position()
+	var origin:=frame().get_center()+pan-center*scale_factor
+	for key:String in stage.region_state.explored:
+		for piece:Dictionary in _terrain_cells.get(key,[]):
+			var terrain:Rect2=piece.rect
+			var screen:=Rect2(origin+terrain.position*scale_factor,terrain.size*scale_factor).intersection(frame())
+			if not screen.has_area():continue
+			if piece.one_way:draw_line(screen.position,Vector2(screen.end.x,screen.position.y),Color("c9be86"),2 if expanded else 1)
+			else:screen.size.y=maxf(screen.size.y,1);draw_rect(screen,Color("91a68d"))
 
 func panel() -> StyleBoxFlat:
 	var material := preload("res://game/presentation/ui/demo_ui_01/clockwork_theme.gd")

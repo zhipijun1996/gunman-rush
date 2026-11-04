@@ -1,5 +1,6 @@
 class_name PlatformingModule
 extends Node2D
+signal geometry_changed
 
 @export var definition: PlatformingModuleDefinition
 # Ports and authoring guides remain available in ModuleLab, never in assembled play.
@@ -237,3 +238,4 @@ func release_platform(index: int) -> void:
 	for child: Node in get_children():
 		if child is CanvasItem and child.get_meta("platform_index",-1)==index:child.visible=false
 	queue_redraw()
+	geometry_changed.emit()

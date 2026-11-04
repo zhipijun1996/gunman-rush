@@ -26,6 +26,7 @@ var _prompt_backing: ColorRect
 var _interaction: Button
 var _layout_signature: Array = []
 var _notes := 0
+var _departure_status := ""
 
 func _ready() -> void:
 	world=UnderworldHomeWorld.new()
@@ -148,7 +149,15 @@ func set_meta_state(snapshot: Dictionary) -> void:
 	_notes = int(snapshot.get("notes", 0))
 	if _resource_hud != null: _resource_hud.present_context("风铃聚落", 0, _notes)
 	if _status != null:
-		_status.text = "风铃聚落 / WINDCHIME HOME    ·    NOTES %s" % snapshot.get("notes", 0)
+		_refresh_status()
+
+func set_departure_status(value: String) -> void:
+	if value==_departure_status:return
+	_departure_status=value
+	_refresh_status()
+
+func _refresh_status() -> void:
+	if is_instance_valid(_status):_status.text="风铃聚落 / WINDCHIME HOME    ·    NOTES %s" % _notes+("    ·    "+_departure_status if not _departure_status.is_empty() else "")
 
 func nearest_candidate(point: Vector2) -> StringName:
 	var candidates: Array[Dictionary] = []

@@ -78,6 +78,7 @@ var _detail_scroll: ScrollContainer
 var _inventory_tiles: Array[Button] = []
 const PAUSE_PAGES: Array[StringName] = [&"build", &"pause", &"settings", &"help"]
 var _seed := ""
+var _reserved_plains_seed := ""
 var _values: Dictionary = {}
 var _defaults: Dictionary = {}
 var _sliders: Dictionary = {}
@@ -1033,11 +1034,16 @@ func _back() -> void:
 	else:
 		show_title()
 
+func retire_plains_seed() -> void:
+	_reserved_plains_seed=""
+
 func _plains_seed() -> String:
 	var chosen := _seed.strip_edges()
 	# Entropy is used only to choose a NEW run seed; all generation uses its
 	# existing independent deterministic streams and recorded RunManifest.
-	return chosen if not chosen.is_empty() else "plains-" + Crypto.new().generate_random_bytes(16).hex_encode()
+	if not chosen.is_empty(): return chosen
+	if _reserved_plains_seed.is_empty(): _reserved_plains_seed="plains-"+Crypto.new().generate_random_bytes(16).hex_encode()
+	return _reserved_plains_seed
 
 func _start_quick_demo() -> void:
 	var seed := _seed.strip_edges()

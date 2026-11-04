@@ -46,7 +46,9 @@ func run(tree: SceneTree, check: Callable) -> void:
 	for unused: int in 32:
 		var fresh := menu._plains_seed()
 		check.call(fresh.begins_with("plains-") and fresh.length() == 39 and not seeds.has(fresh), "blank plains seed creates a fresh run rather than fixed rush-demo")
+		check.call(menu._plains_seed()==fresh,"Home keeps the reserved blank seed until departure")
 		seeds[fresh] = true
+		menu.retire_plains_seed()
 	menu._seed = "  repeat-me  "
 	check.call(menu._plains_seed() == "repeat-me" and menu._plains_seed() == "repeat-me", "explicit plains seed remains repeatable and trimmed")
 	menu.show_settings(true)

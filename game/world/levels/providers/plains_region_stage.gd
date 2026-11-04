@@ -1,5 +1,6 @@
 class_name PlainsRegionStage
 extends GeneratedDemoStage
+var geometry_revision:=0
 var region_state: PlainsRegionState
 var chests: Array[Dictionary] = []
 var merchant_position := Vector2.ZERO
@@ -342,6 +343,9 @@ func capture_state() -> void:
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 	region_state.boss_state = encounter.region_snapshot()
 	region_state.boss_state.seal_closed=is_instance_valid(boss_seal) and boss_seal.closed
+	_capture_latch_state()
+
+func _capture_latch_state() -> void:
 	for i: int in shot_latches.size():
 		var latch := shot_latches[i]
 		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]=latch.region_snapshot()

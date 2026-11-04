@@ -10,6 +10,7 @@ var _owns := false
 var _started := 0
 var _execution_ms := 0.0
 var _backend := "cooperative_preload"
+var budget_usec:=2000
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	var value: Variant=JSON.parse_string(FileAccess.get_file_as_string(RuntimeMapGenerationJob.LOCK_PATH))
@@ -32,7 +33,7 @@ func _process(_delta: float) -> void:
 	var before:=Time.get_ticks_usec()
 	while not _job.is_done():
 		_job.advance(1)
-		if Time.get_ticks_usec()-before>=8000: break
+		if Time.get_ticks_usec()-before>=budget_usec: break
 	_execution_ms+=float(Time.get_ticks_usec()-before)/1000.0
 	if not _job.is_done(): return
 	if CACHE.publish(_lock,_job):

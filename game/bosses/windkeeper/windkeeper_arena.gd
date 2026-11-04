@@ -80,6 +80,7 @@ func _break_ground() -> void:
 	else:
 		module.ground_surface_regions.erase(0)
 		module.exposed_surface_edges.clear()
+	module.geometry_changed.emit()
 	module.queue_redraw()
 	_fall.enabled = true
 	# Pick a genuinely safe bridge start near the player's current segment.

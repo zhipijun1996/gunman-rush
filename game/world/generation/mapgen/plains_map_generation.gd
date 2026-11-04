@@ -13,6 +13,10 @@ var _pending_index := 0
 var _started_usec := 0
 var _ready_usec := 0
 var _attempt_metrics: Array[Dictionary]=[]
+var _prepared_solve: Dictionary={}
+var _home_lead_ms:=0.0
+var _home_solve_reused:=false
+var _weapon_id:StringName
 
 # Keep the seed namespace stable across host profiles for comparable samples.
 static func seed_for(root_seed: String, map_index: int) -> int:
@@ -33,9 +37,10 @@ var _attempt := 0
 var _early_reservation := false
 var _failures: Array[String]=[]
 
-func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, controller: PlayerController) -> void:
-	_result=null;error="";phase="loading";_attempt=0;_failures.clear()
+func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, controller: PlayerController, prepared: PlainsMapGeneration = null) -> void:
+	_result=null;error="";phase="loading";_attempt=0;_failures.clear();_home_lead_ms=0.0;_home_solve_reused=false
 	_started_usec=Time.get_ticks_usec();_ready_usec=0;_attempt_metrics.clear()
+	_weapon_id=controller.shoot_ability.weapon.id
 	_original=original;_owner=weakref(owner);_lifetime=lifetime;_early_reservation=false
 	if _maps.has(original.map_index):
 		var cached: LevelBuildResult=_maps[original.map_index]
@@ -84,7 +89,23 @@ func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, cont
 		"spawn_rule":{"kind":"original_platform_top_center","instance":"root","platform_index":0},
 		"spawns":{}, "host_profile_sha256":FileAccess.get_sha256(CONFIG), "filter_source_capacity":true
 	}
+	if prepared!=null:
+		if _same_inputs(prepared):
+			if prepared.phase=="failed":_fail(prepared.error);prepared.close();return
+			_prepared_solve=prepared.generation.detach_solve(prepared.ticket,prepared._lifetime)
+			if not _prepared_solve.is_empty():
+				_home_solve_reused=true
+				_attempt=prepared._attempt;_early_reservation=prepared._early_reservation
+				_attempt_metrics=prepared._attempt_metrics.duplicate(true)
+				_home_lead_ms=float(Time.get_ticks_usec()-prepared._started_usec)/1000.0
+		prepared.close()
 	_start_attempt()
+
+func _same_inputs(other: PlainsMapGeneration) -> bool:
+	if _weapon_id!=other._weapon_id or other._original==null or _original.root_seed!=other._original.root_seed or _original.map_index!=other._original.map_index:return false
+	var before:=other._data.duplicate(true);var after:=_data.duplicate(true)
+	before.seed=0;after.seed=0
+	return before==after and _recipe.host_profile_sha256==other._recipe.host_profile_sha256 and _request.capabilities.maximum_jumps==other._request.capabilities.maximum_jumps and _request.capabilities.maximum_air_shots==other._request.capabilities.maximum_air_shots
 
 func _start_attempt() -> void:
 	if _owner==null or not is_instance_valid(_owner.get_ref()) or not _lifetime.active:
@@ -92,12 +113,15 @@ func _start_attempt() -> void:
 	var seed := seed_for(_original.root_seed if _attempt==0 else _original.root_seed+"/attempt_%s" % _attempt,_original.map_index)
 	_data.seed=seed;_request.root_seed=str(seed)
 	_config.search.reserve_from_growth_count=int(_rules.retry_reserve_from_growth_count if _early_reservation else _rules.reserve_from_growth_count)
-	ticket=generation.begin(_owner.get_ref(),_lifetime,_request,_data,_config,_recipe,[],"formal",int(_rules.operation_budget),bool(_rules.background_solve))
+	ticket=generation.begin(_owner.get_ref(),_lifetime,_request,_data,_config,_recipe,[],"formal",int(_rules.operation_budget),bool(_rules.background_solve),_prepared_solve)
+	_prepared_solve={}
 	if ticket==null: _fail("Map generation request refused")
 
-func advance_map(lifetime: DemoLifetime) -> void:
+func advance_map(lifetime: DemoLifetime, preparation: bool = false) -> void:
 	if phase!="loading": return
 	generation.tick(ticket,lifetime)
+	if preparation and generation.has_solution(ticket,lifetime):
+		phase="prepared";progress="ready";return
 	progress=generation.phase(ticket)
 	if progress=="ready":
 		var built := generation.take_plan(ticket,lifetime)
@@ -148,6 +172,8 @@ func timing_summary() -> Dictionary:
 		summary.validate_ms+=float(metrics.get("validate_ms",0))
 		if metrics.get("generation_status")!="PASS":summary.failed_solve_ms+=float(metrics.get("generation_wall_ms",0))
 	var current: Dictionary=attempts[-1]
+	summary["home_lead_ms"]=_home_lead_ms
+	summary["home_solve_reused"]=_home_solve_reused
 	summary["backend"]=current.get("backend","cooperative")
 	summary["library_warmup_ms"]=current.get("verified_library_receipt",{}).get("warmup",{}).get("wall_ms",0)
 	return summary

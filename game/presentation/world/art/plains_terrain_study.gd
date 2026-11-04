@@ -31,11 +31,17 @@ func refresh_geometry()->void:
 	art.z_index=-1;add_child(art)
 	set_candidate(was_enabled)
 	geometry_changed.emit()
-func _process(_delta:float)->void:
-	# Observer catches committed geometry, including deferred
-	# arena breakage and restored snapshots; no new gameplay event dependency.
+var _refresh_pending:=false
+func _invalidate_geometry()->void:
+	stage.geometry_revision+=1
+	if _refresh_pending:return
+	_refresh_pending=true
+	_refresh_committed_geometry.call_deferred()
+func _refresh_committed_geometry()->void:
+	_refresh_pending=false
 	refresh_geometry()
 func _ready()->void:
+	for module:PlatformingModule in stage.assembler.modules:module.geometry_changed.connect(_invalidate_geometry)
 	refresh_geometry()
 	set_candidate(true)
 

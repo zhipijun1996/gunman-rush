@@ -166,9 +166,10 @@ func _physics_process(delta: float) -> void:
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
 			_eligible_shots.erase(key)
-	if motion_mode or _opened_at>=0 and _clock-_opened_at < 0.70:
+	var animation_visible:=_animation_visible()
+	if animation_visible and (motion_mode or _opened_at>=0 and _clock-_opened_at < 0.70):
 		queue_redraw()
-	if UnderworldActors.enabled(self):
+	if animation_visible and UnderworldActors.enabled(self):
 		for child: Node in get_children():
 			if child is Sprite2D and child.get_meta("underworld_access_bell",false):
 				child.rotation = _underworld_bell_swing()
@@ -178,6 +179,16 @@ func _physics_process(delta: float) -> void:
 	var request := _pending
 	_pending = {}
 	_commit_open.call_deferred(request)
+
+func _animation_visible() -> bool:
+	var view:=get_viewport_rect().grow(64)
+	var transform:=get_global_transform_with_canvas()
+	if view.intersects(transform*Rect2(bell_position-Vector2(90,180),Vector2(180,280))):return true
+	if not motion_mode and view.intersects(transform*gate_rect.grow(48)):return true
+	if motion_mode and is_instance_valid(motion_target) and view.has_point(motion_target.get_global_transform_with_canvas().origin):return true
+	for access:Vector2 in access_positions:
+		if view.has_point(transform*access):return true
+	return false
 
 func request_is_current(request: Dictionary) -> bool:
 	return not request.is_empty() and request.get("request_epoch",-1)==_request_epoch and not _cancelled and is_inside_tree() and lifetime!=null and lifetime.accepts(request.get("token")) and is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and controller.session_id==request.get("session") and health.epoch==request.get("health_epoch")
